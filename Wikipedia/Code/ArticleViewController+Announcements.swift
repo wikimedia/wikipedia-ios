@@ -154,38 +154,6 @@ extension ArticleViewController {
         }
     }
 
-    func needsReadingChallengeAnnouncement() async -> Bool {
-        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        return await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn)
-    }
-
-    public func presentReadingChallengeAnnouncement(dataStore: MWKDataStore) {
-        guard let nav = navigationController else { return }
-        readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(
-            navigationController: nav,
-            dataStore: dataStore,
-            theme: theme
-        )
-        readingChallengeCoordinator?.onEnroll = { [weak self] in
-            self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
-        }
-        readingChallengeCoordinator?.onDismiss = { [weak self] in
-            self?.readingChallengeCoordinator = nil
-            self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
-        }
-        readingChallengeCoordinator?.start()
-    }
-
-    private func presentReadingChallengeWidgetAnnouncementIfNeeded() {
-        guard presentedViewController == nil else { return }
-        Task { @MainActor in
-            guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeWidgetAnnouncement() else { return }
-            await WMFActivityTabDataController.shared.setHasSeenWidgetReadingChallengeAnnouncement()
-            readingChallengeWidgetCoordinator = ReadingChallengeWidgetAnnouncementCoordinator(presentingViewController: self)
-            readingChallengeWidgetCoordinator?.start()
-        }
-    }
-
     func needsYearInReviewAnnouncement() -> Bool {
 
         if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {

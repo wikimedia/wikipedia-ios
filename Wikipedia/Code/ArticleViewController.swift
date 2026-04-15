@@ -51,7 +51,6 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     private let cacheController: ArticleCacheController
     public var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
-    public var readingChallengeWidgetCoordinator: ReadingChallengeWidgetAnnouncementCoordinator?
 
     internal var willDisplayCampaignModal: Bool? {
         didSet {
@@ -502,23 +501,52 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     private func presentModalsIfNeeded() {
-        Task { @MainActor in
-            if await needsReadingChallengeAnnouncement() {
-                presentReadingChallengeAnnouncement(dataStore: dataStore)
-                
-            } else {
-                listenForTooltips()
-                
-                if needsYearInReviewAnnouncement() {
-                    willDisplayYearInReviewModal = true
-                    updateProfileButton()
-                    presentYearInReviewAnnouncement()
+        
+        // Prioritize reading challenge, then fall back to Activity onboarding or survey view if that doesn't present
+        guard let navigationController else {
+            presentYearInReviewAnnouncementOrFundraisingIfNeeded()
+            return
+        }
+        
+        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, fromWidgetJoinChallengeButton: false, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
 
-                } else {
-                    willDisplayYearInReviewModal = false
-                    showFundraisingCampaignAnnouncementIfNeeded()
-                }
+        readingChallengeCoordinator.onComplete = { [weak self] didPresentSomething in
+            
+            self?.readingChallengeCoordinator = nil
+            
+            // Do not present followup modals if they just saw a reading challenge announcement.
+            guard !didPresentSomething else {
+                return
             }
+            
+            self?.presentYearInReviewAnnouncementOrFundraisingIfNeeded()
+        }
+        
+        self.readingChallengeCoordinator = readingChallengeCoordinator
+        
+        readingChallengeCoordinator.start()
+    }
+    
+    private func presentYearInReviewAnnouncementOrFundraisingIfNeeded() {
+        listenForTooltips()
+        
+        if needsYearInReviewAnnouncement() {
+            willDisplayYearInReviewModal = true
+            updateProfileButton()
+            presentYearInReviewAnnouncement()
+
+        } else {
+            willDisplayYearInReviewModal = false
+            showFundraisingCampaignAnnouncementIfNeeded()
+        }
+    }
+    
+    private func presentYearInReviewAnnouncementOrTooltipsIfNeeded() {
+        if needsYearInReviewAnnouncement() {
+            updateProfileButton()
+            presentYearInReviewAnnouncement()
+        } else {
+            perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
         }
     }
 

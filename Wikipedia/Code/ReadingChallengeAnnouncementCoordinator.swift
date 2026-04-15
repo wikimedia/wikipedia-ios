@@ -8,19 +8,61 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
     var navigationController: UINavigationController
     private let dataStore: MWKDataStore
     private let theme: Theme
+    
+    // If announcement is displaying from the user tapping the widget join button, set to true.
+    // This will internally ignore the hasAlreadySeen user default, and prevent the followup widget announcement from displaying after joining.
+    private let fromWidgetJoinChallengeButton: Bool
+    
+    private let isLoggedIn: Bool
 
-    var onDismiss: (() -> Void)?
-    var onEnroll: (() -> Void)?
-
-    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme) {
+    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fromWidgetJoinChallengeButton: Bool, isLoggedIn: Bool) {
         self.navigationController = navigationController
         self.dataStore = dataStore
         self.theme = theme
+        self.fromWidgetJoinChallengeButton = fromWidgetJoinChallengeButton
+        self.isLoggedIn = isLoggedIn
     }
 
+    // This action will be called when this coordinator has finished evaluating, whether it presents something or not. It gives callers a chance to run followup code such as presenting less-important modals.
+    // The boolean flag indicates if the coordinator did present something or not:
+        // If it determines the announcement should not present (either because of date or has already seen the announcement), this completion will run with the FALSE boolean.
+        // If announcement did present, it is called after all modals (both reading challenge announcement and widget announcement) have been dismissed. In this case it will run with the TRUE boolean.
+    
+    var onComplete: ((Bool) -> Void)?
+    
     @discardableResult
     func start() -> Bool {
+        
+        Task { [weak self] in
+            
+            guard let self else { return }
+            
+            if fromWidgetJoinChallengeButton { // go straight to announcement, don't gate on any other logic
+                presentFullPageAnnouncement()
+            } else {
+                
+                // Check that announcement has not already been seen and dates are valid.
+                guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement() else {
+                    self.onComplete?(false)
+                    return
+                }
+                
+                presentFullPageAnnouncement()
+            }
+            
+            // todo: login prompt here
+            // if isLoggedIn {
+            //
+            // } else {
+            
+        }
 
+        return true
+    }
+    
+    // MARK: - Full page announcement
+    
+    private func presentFullPageAnnouncement() {
         let firstItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(
             icon: WMFSFSymbolIcon.for(symbol: .bookPagesFill),
             title: WMFLocalizedString(
@@ -95,8 +137,8 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
         let onboardingController = WMFOnboardingViewController(viewModel: onboardingViewModel)
         onboardingController.delegate = self
         onboardingController.closeButtonAction = { [weak self] in
-            self?.navigationController.presentedViewController?.dismiss(animated: true) {
-                self?.onDismiss?()
+            self?.navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
+                self?.onComplete?((true))
             }
         }
 
@@ -109,8 +151,6 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
         navigationController.present(navController, animated: true) {
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
         }
-
-        return true
     }
 
     private func markSeen() {
@@ -121,10 +161,8 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
 
     private func enroll() {
         Task {
-            await WMFActivityTabDataController.shared.enrollInReadingChallenge()
-            await MainActor.run {
-                WidgetController.shared.reloadReadingChallengeWidget()
-            }
+            await WMFActivityTabDataController.shared.setEnrolledInReadingChallenge(true)
+            WidgetController.shared.reloadReadingChallengeWidget()
         }
     }
 
@@ -133,6 +171,65 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
             return nil
         }
         return WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "Team", "25th Birthday Reading Challenge"], section: nil, language: appLanguage)
+    }
+    
+    // MARK: - Widget Announcement
+    
+    private func presentWidgetAnnouncement() {
+        
+        let viewModel = makeWidgetAnnouncementViewModel()
+
+        // Wrap actions to dismiss the controller
+        viewModel.primaryButtonAction = { [weak self] in
+            self?.navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
+                self?.onComplete?(true)
+            }
+        }
+        viewModel.closeButtonAction = { [weak self] in
+            self?.navigationController.dismiss(animated: true) {
+                self?.onComplete?(true)
+            }
+        }
+
+        let controller = WMFFeatureAnnouncementViewController(viewModel: viewModel)
+
+        if let sheet = controller.sheetPresentationController {
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                sheet.detents = [.large()]
+                // controller.preferredContentSize = CGSize(width: 640, height: 720)
+            } else {
+                sheet.detents = [.medium(), .large()]
+            }
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 16
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+        }
+
+        controller.modalPresentationStyle = .pageSheet
+        
+        navigationController.present(controller, animated: true)
+        
+    }
+    
+    private func makeWidgetAnnouncementViewModel() -> WMFFeatureAnnouncementViewModel {
+        WMFFeatureAnnouncementViewModel(
+            title: WMFLocalizedString(
+                "reading-challenge-widget-announcement-title",
+                value: "25-day reading challenge widget available",
+                comment: "Title for the reading challenge widget announcement sheet."
+            ),
+            body: WMFLocalizedString(
+                "reading-challenge-widget-announcement-body",
+                value: "Baby Globe is cheering you on. Add the Reading Challenge widget to track your progress from your homescreen.",
+                comment: "Body text for the reading challenge widget announcement sheet."
+            ),
+            primaryButtonTitle: CommonStrings.gotItButtonTitle,
+            image: UIImage(named: "readingChallengeWidget"),
+            backgroundImage: UIImage(named: "readingChallengeBackground"),
+            backgroundImageHeight: 220,
+            primaryButtonAction: {},
+            closeButtonAction: nil
+        )
     }
 }
 
@@ -144,8 +241,17 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
     func onboardingViewDidClickPrimaryButton() {
         enroll()
         navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
-            self?.onEnroll?()
+            guard let self else { return }
+            if !fromWidgetJoinChallengeButton {
+                self.presentWidgetAnnouncement()
+            } else {
+                self.onComplete?(true)
+            }
         }
+    }
+    
+    func onboardingDidSwipeToDismiss() {
+        self.onComplete?(true)
     }
 
     func onboardingViewDidClickSecondaryButton() {

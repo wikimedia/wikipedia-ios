@@ -46,7 +46,6 @@ public enum WMFUserDefaultsKey: String {
     // Reading challenge widget defaults
     case hasEnrolledInReadingChallenge2026 = "has-enrolled-in-reading-challenge-2026"
     case hasSeenFullPageReadingChallengeAnnouncement2026 = "has-seen-full-page-reading-challenge-announcement-2026"
-    case hasSeenWidgetReadingChallengeAnnouncement2026 = "has-seen-widget-reading-challenge-announcement-2026"
     case devReadingChallengeOverrideCurrentDate = "dev-reading-challenge-override-current-date"
     case devReadingChallengeCurrentDate = "dev-reading-challenge-current-date"
     case readingChallengeUserCompleted = "reading-challenge-user-completed"

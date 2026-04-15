@@ -113,7 +113,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue)
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue)
-        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.hasSeenWidgetReadingChallengeAnnouncement2026.rawValue)
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeUserCompleted.rawValue)
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakReadRandomIndex.rawValue)
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakReadRandomIndexDate.rawValue)
@@ -121,6 +120,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakNotReadRandomIndexDate.rawValue)
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeEnrolledNotStartedRandomIndex.rawValue)
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeEnrolledNotStartedRandomIndexDate.rawValue)
+        sharedDefaults?.synchronize()
         
         Task {
             let dataController = try? WMFPageViewsDataController()

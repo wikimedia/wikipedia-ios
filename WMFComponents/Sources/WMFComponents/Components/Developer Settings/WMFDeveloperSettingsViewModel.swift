@@ -138,6 +138,8 @@ import WMFData
     }
 
     public func clearAllReadingChallengePersistence() {
+        readingChallengeOverrideCurrentDate = false
+        readingChallengeCurrentDate = Date()
         WMFDeveloperSettingsDataController.shared.devClearAllReadingChallengePersistence()
     }
 }
