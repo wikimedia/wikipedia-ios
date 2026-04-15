@@ -45,6 +45,7 @@ fileprivate final class WMFDeveloperSettingsHostingController: WMFComponentHosti
     }
     
     @objc private func tappedClose() {
+        viewModel.tappedClose()
         dismiss(animated: true)
     }
 }

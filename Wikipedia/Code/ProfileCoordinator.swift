@@ -219,7 +219,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         )
         let viewModel = WMFDeveloperSettingsViewModel(localizedStrings: localizedStrings)
         let vc = WMFDeveloperSettingsViewController(viewModel: viewModel)
-        let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .pageSheet)
+        let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .overFullScreen)
 
         navigationController.present(navVC, animated: true)
     }

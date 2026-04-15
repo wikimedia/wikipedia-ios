@@ -109,7 +109,9 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     public func devClearAllReadingChallengePersistence() {
         let sharedDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
         
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.devReadingChallengeOverrideCurrentDate.rawValue)
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.devReadingChallengeCurrentDate.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.devReadingChallengeState.rawValue)
         
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue)
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue)
@@ -125,8 +127,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         Task {
             let dataController = try? WMFPageViewsDataController()
             try? await dataController?.deleteAllPageViewsAndCategories()
-            
-            NotificationCenter.default.post(name: WMFNSNotification.readingChallengeWidgetReload, object: nil)
         }
     }
     
@@ -138,7 +138,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         saveSharedStore(.devReadingChallengeOverrideCurrentDate, value)
     }
     
-    public func reloadWidget() {
+    public func reloadReadingChallengeWidget() {
         NotificationCenter.default.post(name: WMFNSNotification.readingChallengeWidgetReload, object: nil)
     }
 

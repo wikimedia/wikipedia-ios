@@ -48,8 +48,6 @@ import WMFData
             } else {
                 WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(nil)
             }
-
-            WMFDeveloperSettingsDataController.shared.reloadWidget()
         }
     }
     
@@ -98,8 +96,6 @@ import WMFData
             } else {
                 WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(nil)
             }
-            
-            WMFDeveloperSettingsDataController.shared.reloadWidget()
         }
     }
 
@@ -175,6 +171,10 @@ import WMFData
             control: enableYiRVLoginExperimentControl,
             b: enableYiRVLoginExperimentB
         )
+    }
+    
+    public func tappedClose() {
+        WMFDeveloperSettingsDataController.shared.reloadReadingChallengeWidget()
     }
 
     public func clearAllReadingChallengePersistence() {
