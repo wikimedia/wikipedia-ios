@@ -237,96 +237,30 @@ public actor WMFActivityTabDataController {
 
     private static let sharedGroupID = "group.org.wikimedia.wikipedia"
 
-    public nonisolated var hasEnrolledInReadingChallenge2026: Bool {
+    private nonisolated var hasEnrolledInReadingChallenge2026: Bool {
         get { UserDefaults(suiteName: Self.sharedGroupID)?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false }
         set { UserDefaults(suiteName: Self.sharedGroupID)?.set(newValue, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) }
     }
-
-    public var hasSeenFullPageReadingChallengeAnnouncement2026: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue, value: newValue) }
-    }
-
-    public var hasSeenWidgetReadingChallengeAnnouncement2026: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenWidgetReadingChallengeAnnouncement2026.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenWidgetReadingChallengeAnnouncement2026.rawValue, value: newValue) }
-    }
-
-    public func enrollInReadingChallenge() {
-        hasEnrolledInReadingChallenge2026 = true
-        hasSeenFullPageReadingChallengeAnnouncement2026 = true
-        // Do NOT mark widget announcement seen here — show it after enrollment
-        
-        UserDefaults(suiteName: Self.sharedGroupID)?.synchronize()
-        
-        // If dev force is enabled, transition forced state from notEnrolled → enrolledNotStarted
-        WMFDeveloperSettingsDataController.shared.transitionToEnrolledStateIfForced()
-    }
-
-    public func setHasSeenFullPageAnnouncement() {
-        hasSeenFullPageReadingChallengeAnnouncement2026 = true
-    }
-
-    /// Resets the "seen" flag so the full-page announcement can be shown again from the widget Join flow.
-    /// The user can keep tapping "Join" from the widget and see the announcement each time until they enroll.
-    public func resetHasSeenFullPageAnnouncementForWidgetFlow() {
-        hasSeenFullPageReadingChallengeAnnouncement2026 = false
-    }
-
-    public func setHasSeenWidgetReadingChallengeAnnouncement(_ value: Bool = true) {
-        hasSeenWidgetReadingChallengeAnnouncement2026 = value
-    }
-
+    
     public func setEnrolledInReadingChallenge(_ value: Bool) {
         hasEnrolledInReadingChallenge2026 = value
+        UserDefaults(suiteName: Self.sharedGroupID)?.synchronize()
+    }
+
+    public var hasSeenFullPageReadingChallengeAnnouncement2026: Bool {
+        get { UserDefaults(suiteName: Self.sharedGroupID)?.bool(forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue) ?? false }
+        set { UserDefaults(suiteName: Self.sharedGroupID)?.set(newValue, forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue) }
+    }
+    
+    public func setHasSeenFullPageAnnouncement() {
+        hasSeenFullPageReadingChallengeAnnouncement2026 = true
+        UserDefaults(suiteName: Self.sharedGroupID)?.synchronize()
     }
     
     public func shouldShowReadingChallengeAnnouncement() -> Bool {
-
-        guard !hasEnrolledInReadingChallenge2026 else { return false }
-
-        // If forcing not enrolled or not live yet state, show announcemen
-        let devController = WMFDeveloperSettingsDataController.shared
-        if devController.devForceReadingChallengeEnabled {
-            let forcedState = devController.forcedReadingChallengeState
-            if forcedState == .notEnrolled || forcedState == .notLiveYet || forcedState == .enrolledNotStarted {
-                return true
-            }
-        }
-
         guard !hasSeenFullPageReadingChallengeAnnouncement2026 else { return false }
-        let now = Date()
+        let now = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
         return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
-    }
-    
-    public func shouldShowReadingChallengeAnnouncement_IgnoreHasSeen() -> Bool {
-
-        // If forcing not enrolled or not live yet state, show announcemen
-        let devController = WMFDeveloperSettingsDataController.shared
-        if devController.devForceReadingChallengeEnabled {
-            let forcedState = devController.forcedReadingChallengeState
-            if forcedState == .notEnrolled || forcedState == .notLiveYet || forcedState == .enrolledNotStarted {
-                return true
-            }
-        }
-
-        let now = Date()
-        return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
-    }
-
-    public func shouldShowReadingChallengeWidgetAnnouncement() -> Bool {
-        guard !hasSeenWidgetReadingChallengeAnnouncement2026 else { return false }
-        // If forcing not enrolled or not live yet state, show announcement regardless of date/seen!!
-        let devController = WMFDeveloperSettingsDataController.shared
-        if devController.devForceReadingChallengeEnabled {
-            let forcedState = devController.forcedReadingChallengeState
-            if forcedState == .notEnrolled || forcedState == .notLiveYet || forcedState == .enrolledNotStarted {
-                return true
-            }
-        }
-        guard hasEnrolledInReadingChallenge2026 else { return false }
-        let now = Date()
-        return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.removeDate
     }
 
     public func getMostRecentReadDateTime() async throws -> Date? {

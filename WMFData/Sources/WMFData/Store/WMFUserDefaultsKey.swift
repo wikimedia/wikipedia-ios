@@ -1,6 +1,7 @@
 public enum WMFUserDefaultsKey: String {
     case watchlistFilterSettings = "watchlist-filter-settings"
     case imageRecommendationsOnboarding = "image-recommendations-onboarding"
+    case developerSettingsEnableDeveloperMode = "dev-enable-developer-mode"
     case developerSettingsDoNotPostImageRecommendationsEdit = "dev-settings-do-not-post-image-rec-edit"
     case developerSettingsSendAnalyticsToWMFLabs = "dev-settings-send-analytics-to-wmflabs"
     case developerSettingsArticleTab = "dev-settings-article-tab"
@@ -41,25 +42,20 @@ public enum WMFUserDefaultsKey: String {
     case isSubscribedToEchoNotifications = "is-subscribed-to-echo-notifications"
     case activityTabSeenHistoryCallout = "activity-tab-seen-history-callout"
     case forceHCaptchaChallenge = "force-hcaptcha-challenge"
+    
+    // Reading challenge widget keys
     case hasEnrolledInReadingChallenge2026 = "has-enrolled-in-reading-challenge-2026"
     case hasSeenFullPageReadingChallengeAnnouncement2026 = "has-seen-full-page-reading-challenge-announcement-2026"
-    case hasSeenWidgetReadingChallengeAnnouncement2026 = "has-seen-widget-reading-challenge-announcement-2026"
-    case devForceReadingChallengeCompletedFullStreak = "dev-force-reading-challenge-completed-full-streak"
-    case devForceReadingChallengeCompletedIncompleteStreak = "dev-force-reading-challenge-completed-incomplete-streak"
-    case devForceReadingChallengeCompletedNoStreak = "dev-force-reading-challenge-completed-no-streak"
-    case devForceReadingChallengeNotLiveYet = "dev-force-reading-challenge-not-live-yet"
-    case devForceReadingChallengeNotEnrolled = "dev-force-reading-challenge-not-enrolled"
-    case devForceReadingChallengeEnrolledNotStarted = "dev-force-reading-challenge-enrolled-not-started"
-    case devForceReadingChallengeStreakOngoingRead = "dev-force-reading-challenge-streak-ongoing-read"
-    case devForceReadingChallengeStreakOngoingNotYetRead = "dev-force-reading-challenge-streak-ongoing-not-yet-read"
-    case devForceReadingChallengeEnabled = "dev-force-reading-challenge-enabled"
-    case devForceReadingChallengeStreakCount = "dev-force-reading-challenge-streak-count"
-    case userCompletedReadingChallenge = "user-completed-reading-challenge"
-    case readingChallengeStreakOngoingReadRandomIndex = "reading-challenge-streak-ongoing-read-random-index"
+    case readingChallengeUserCompleted = "reading-challenge-user-completed"
     case readingChallengeStreakReadRandomIndex = "reading-challenge-read-random-index"
     case readingChallengeStreakReadRandomIndexDate = "reading-challenge-read-random-index-date"
     case readingChallengeStreakNotReadRandomIndex = "reading-challenge-not-read-random-index"
     case readingChallengeStreakNotReadRandomIndexDate = "reading-challenge-not-read-random-index-date"
     case readingChallengeEnrolledNotStartedRandomIndex = "reading-challenge-enrolled-not-started"
     case readingChallengeEnrolledNotStartedRandomIndexDate = "reading-challenge-enrolled-not-started-date"
+    
+    // Reading challenge widget dev settings
+    case devReadingChallengeOverrideCurrentDate = "dev-reading-challenge-override-current-date"
+    case devReadingChallengeCurrentDate = "dev-reading-challenge-current-date"
+    case devReadingChallengeState = "dev-reading-challenge-state"
 }

@@ -49,7 +49,8 @@ struct ReadingChallengeProvider: TimelineProvider {
             UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.synchronize()
             
             let isEnrolled = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false
-            return try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled)
+            let currentDate = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
+            return try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled, now: currentDate)
         } catch {
             return .notEnrolled
         }
@@ -67,7 +68,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             return nil
         }
         
-        let today = Calendar.current.startOfDay(for: Date())
+        let today = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Calendar.current.startOfDay(for: Date())
         
         if userDefaults.object(forKey: indexKey.rawValue) == nil {
             userDefaults.set(0, forKey: indexKey.rawValue)

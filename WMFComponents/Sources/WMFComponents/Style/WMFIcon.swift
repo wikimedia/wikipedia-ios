@@ -161,6 +161,7 @@ public enum WMFSFSymbolIcon {
     case bookPagesFill
     case appGiftFill
     case widgetAdd
+    case testTubeFill
 
     public var name: String? {
         switch self {
@@ -393,6 +394,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "app.gift.fill", withConfiguration: configuration)
         case .widgetAdd:
             image = UIImage(systemName: "widget.small.badge.plus", withConfiguration: configuration)
+        case .testTubeFill:
+            image = UIImage(systemName: "testtube.2", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
