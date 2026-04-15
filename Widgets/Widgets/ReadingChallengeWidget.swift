@@ -68,7 +68,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             return nil
         }
         
-        let today = Calendar.current.startOfDay(for: Date())
+        let today = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Calendar.current.startOfDay(for: Date())
         
         if userDefaults.object(forKey: indexKey.rawValue) == nil {
             userDefaults.set(0, forKey: indexKey.rawValue)
