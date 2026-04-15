@@ -48,6 +48,20 @@ import WMFData
             } else {
                 WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(nil)
             }
+            
+            WMFDeveloperSettingsDataController.shared.reloadReadingChallengeWidget()
+        }
+    }
+    
+    @Published public var readingChallengeCurrentDate: Date = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date() {
+        didSet {
+            if readingChallengeOverrideCurrentDate == true {
+                WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(readingChallengeCurrentDate)
+            } else {
+                WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(nil)
+            }
+            
+            WMFDeveloperSettingsDataController.shared.reloadReadingChallengeWidget()
         }
     }
     
@@ -75,6 +89,8 @@ import WMFData
             default:
                 break
             }
+            
+            WMFDeveloperSettingsDataController.shared.reloadReadingChallengeWidget()
         }
     }
 
@@ -86,16 +102,8 @@ import WMFData
             } else if readingChallengeOverrideCurrentDate {
                 readingChallengeOverrideCurrentDate = false
             }
-        }
-    }
-
-    @Published public var readingChallengeCurrentDate: Date = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date() {
-        didSet {
-            if readingChallengeOverrideCurrentDate == true {
-                WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(readingChallengeCurrentDate)
-            } else {
-                WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(nil)
-            }
+            
+            WMFDeveloperSettingsDataController.shared.reloadReadingChallengeWidget()
         }
     }
 
@@ -171,10 +179,6 @@ import WMFData
             control: enableYiRVLoginExperimentControl,
             b: enableYiRVLoginExperimentB
         )
-    }
-    
-    public func tappedClose() {
-        WMFDeveloperSettingsDataController.shared.reloadReadingChallengeWidget()
     }
 
     public func clearAllReadingChallengePersistence() {

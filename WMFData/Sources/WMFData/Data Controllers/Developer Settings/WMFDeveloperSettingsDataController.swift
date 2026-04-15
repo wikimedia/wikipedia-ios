@@ -104,6 +104,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     private func saveSharedStore(_ key: WMFUserDefaultsKey, _ value: Any?) {
         sharedDefaults?.set(value, forKey: key.rawValue)
+        sharedDefaults?.synchronize()
     }
     
     public func devClearAllReadingChallengePersistence() {
@@ -124,9 +125,11 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeEnrolledNotStartedRandomIndexDate.rawValue)
         sharedDefaults?.synchronize()
         
-        Task {
+        Task { [weak self] in
             let dataController = try? WMFPageViewsDataController()
             try? await dataController?.deleteAllPageViewsAndCategories()
+            
+            self?.reloadReadingChallengeWidget()
         }
     }
     
