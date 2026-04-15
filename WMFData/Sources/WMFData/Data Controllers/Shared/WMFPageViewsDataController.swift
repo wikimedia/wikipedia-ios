@@ -382,13 +382,14 @@ extension WMFPageViewsDataController {
         now: Date = Date()
     ) async throws -> ReadingChallengeState {
 
-        // Developer override — only applies when master toggle is on
-        let devDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
-        func devBool(_ key: WMFUserDefaultsKey) -> Bool {
-            devDefaults?.bool(forKey: key.rawValue) ?? false
+        let sharedDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
+        
+        func sharedDefaultsBool(_ key: WMFUserDefaultsKey) -> Bool {
+            sharedDefaults?.bool(forKey: key.rawValue) ?? false
         }
-        func setDevBool(_ key: WMFUserDefaultsKey, value: Bool) {
-            devDefaults?.set(true, forKey: key.rawValue)
+        
+        func setSharedDefaultsBool(_ key: WMFUserDefaultsKey, value: Bool) {
+            sharedDefaults?.set(true, forKey: key.rawValue)
         }
 
         let config = ReadingChallengeStateConfig.self
@@ -428,12 +429,12 @@ extension WMFPageViewsDataController {
         
         // Note: once a user successfully completes a reading streak, computeStreak starts to evaluate to 0 a few days later.
         // This user defaults boolean gets around that bug
-        if devBool(.readingChallengeUserCompleted) {
+        if sharedDefaultsBool(.readingChallengeUserCompleted) {
             return .challengeCompleted
         }
 
         if cappedStreak >= config.streakGoal {
-            setDevBool(.readingChallengeUserCompleted, value: true)
+            setSharedDefaultsBool(.readingChallengeUserCompleted, value: true)
             return .challengeCompleted
         }
 
