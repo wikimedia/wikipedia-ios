@@ -226,6 +226,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     lazy var webViewConfiguration: WKWebViewConfiguration = {
         let configuration = WKWebViewConfiguration()
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: schemeHandler.scheme)
+        configuration.ignoresViewportScaleLimits = true
         return configuration
     }()
 
