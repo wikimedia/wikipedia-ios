@@ -336,7 +336,6 @@
 "description-help-title" = "Aide à la description de l’article";
 "description-help-wikidata-guide" = "Guide Wikidata pour l'écriture des descriptions";
 "description-published-button-title" = "Fait";
-"description-published-footer" = "Vous pouvez aussi modifier les articles dans cette application. La prochaine fois, essayez de corriger les fautes de frappe et les petites phrases en cliquant sur l’icône du crayon.";
 "description-published-subtitle" = "Vous venez d’améliorer Wikipédia pour chacun";
 "description-published-title" = "Description publiée !";
 "description-welcome-concise-sub-title" = "En une ligne dans l’idéal, entre deux et douze mots";
@@ -448,8 +447,6 @@
 "edit-notices-always-display" = "Toujours afficher les avis de modification";
 "edit-notices-please-read" = "Veuillez lire avant de modifier";
 "edit-preview-simplified-format-message" = "Tout le contenu est présenté en format simplifié.";
-"edit-published" = "Modification publiée";
-"edit-published-subtitle" = "Vous venez tout juste d’améliorer Wikipédia pour tout le monde";
 "edit-sheet-ip-account-notice" = "Avertissement de compte IP";
 "edit-sheet-temp-account-notice" = "Avertissement de compte temporaire";
 "edit-show-web-preview" = "Afficher l'aperçu Web";
@@ -760,7 +757,6 @@
 "image-recs-yes-title" = "Oui";
 "import-shared-reading-list-default-title" = "Ma liste de lecture";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Répondre au sondage";
-"import-shared-reading-list-survey-prompt-footer" = "Consultez notre $1déclaration de confidentialité$2. Enquête réalisée par un tiers. Consultez sa $3politique de confidentialité$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "Le « Partage de listes de lecture » est une fonctionnalité en test et nous avons besoin de vos commentaires pour l’améliorer ou la supprimer.";
 "import-shared-reading-list-survey-prompt-title" = "Pourriez-vous nous aider à améliorer la fonctionnalité « Partager des listes de lecture » ?";
 "import-shared-reading-list-title" = "Importer une liste de lecture partagée";
@@ -866,8 +862,6 @@
 "next-action-title" = "Suivant";
 "no-email-account-alert" = "Veuillez configurer un compte de messagerie sur votre appareil et réessayer.";
 "no-internet-connection" = "Aucune connexion à Internet";
-"no-internet-connection-article-reload" = "Une version plus récente de cet article est peut-être disponible, mais ne peut pas être chargée sans connexion à Internet";
-"no-internet-connection-article-reload-button" = "Retour à la dernière version enregistrée";
 "not-now-title" = "Pas maintenant";
 "notifications-center-agent-description-from-format" = "De $1";
 "notifications-center-alert" = "Alerte";
@@ -886,7 +880,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Modifier $1 pour voir plus de messages";
 "notifications-center-empty-state-no-projects-selected" = "Ajouter des projets pour voir plus de messages";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtre|$1 filtres}}";
-"notifications-center-feed-card-title" = "Notifications de modification maintenant disponibles";
 "notifications-center-feed-news-notification-button-text" = "Activer les notifications poussées";
 "notifications-center-feed-news-notification-text" = "Les notifications de modification pour tous les projets Wikimedia sont maintenant disponibles via l’appli. Acceptez les notifications poussées pour rester à jour de vos messages sur Wikipédia lorsque vous vous allez ailleurs.";
 "notifications-center-filters-accessibility-label" = "Fitrage des notifications";
@@ -1032,7 +1025,6 @@
 "panel-compare-revisions-text" = "Comparer les versions aide à montrer comment un article a changé au cours du temps. La comparaison de deux versions d’un article affichera les différences entre elles en surlignant tout contenu qui a été modifié.";
 "panel-compare-revisions-title" = "Comparaison des versions";
 "panel-not-logged-in-continue-edit-action-title" = "Modifier sans se connecter";
-"panel-not-logged-in-subtitle" = "Votre adresse IP sera publiquement visible si vous effectuez des modifications. Si vous $1vous connectez$2 ou $3créez un compte$4, vos contributions seront attribuées à votre nom d’utilisateur, avec d’autres avantages.";
 "panel-not-logged-in-title" = "Vous n’êtes pas connecté(e)";
 "pictured" = "en image";
 "places-accessibility-clear-saved-searches" = "Effacer les recherches enregistrées";
@@ -1192,15 +1184,6 @@
 "relative-date-seconds-abbreviated" = "$1 s";
 "relative-date-seconds-ago-abbreviated" = "il y a $1 s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=cette année|1=l’année dernière|il y a $1 ans}}";
-"replace-button-accessibility" = "Effectuer $1.";
-"replace-buttons-replace-accessibility" = "Remplacer l’instance unique";
-"replace-buttons-replace-all-accessibility" = "Remplacer toutes les instances";
-"replace-clear-button-accessibility" = "Effacer le remplacement";
-"replace-infolabel-method-replace" = "Remplacer";
-"replace-infolabel-method-replace-all" = "Remplacer tout";
-"replace-method-button-accessibility" = "Méthode de remplacement. Définie à $1. Sélectionner pour modifier.";
-"replace-textfield-accessibility" = "Remplacer";
-"replace-textfield-placeholder" = "Remplacer par...";
 "return-button-title" = "Retour";
 "return-to-article" = "Retour à l’article";
 "reverted-edit-title" = "Contribution annulée";
@@ -1223,7 +1206,6 @@
 "search-button-accessibility-label" = "Rechercher dans Wikipédia";
 "search-clear-title" = "Effacer";
 "search-field-placeholder-text" = "Rechercher dans Wikipédia";
-"search-reading-list-placeholder-text" = "Rechercher les listes de lecture";
 "search-recent-clear-confirmation-heading" = "Supprimer toutes les recherches récentes ?";
 "search-recent-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";
 "search-recent-clear-delete-all" = "Supprimer tout";
@@ -1255,11 +1237,6 @@
 "settings-notifications-echo-failure-title" = "Impossible de vérifier les abonnements aux notifications d’Echo";
 "settings-notifications-echo-failure-try-again" = "Réessayer";
 "settings-notifications-header" = "Soyez informé(e) de toute activité liée à votre compte, comme les messages des autres contributeurs, les alertes et les notifications. Toutes ces informations sont fournies dans le respect de votre vie privée et avec des données mises à jour en temps réel.";
-"settings-notifications-info" = "Être alerté la tendance et les articles les plus lus sur Wikipédia avec nos notifications envoyées. Tout cela est fourni en respectant la confidentialité et la fraîcheur des données.";
-"settings-notifications-learn-more" = "En savoir plus sur les notifications";
-"settings-notifications-push-notifications" = "Notifications envoyées";
-"settings-notifications-system-turn-on" = "Activer les notifications";
-"settings-notifications-trending" = "Tendance des événements actuels";
 "settings-off" = "Désactivé";
 "settings-on" = "Activé";
 "settings-primary-language" = "Principal";
@@ -1528,9 +1505,6 @@
 "welcome-languages-add-or-edit-button" = "Ajouter ou modifier les langues préférées";
 "welcome-languages-description" = "Nous avons trouvé les langues suivantes sur votre appareil :";
 "welcome-languages-search-title" = "Rechercher dans plus de 300 langues";
-"welcome-notifications-tell-me-more-creation" = "Les notifications sont créées et envoyées sur votre appareil par l’application, pas par nos serveurs (ou ceux de tierces parties).";
-"welcome-notifications-tell-me-more-storage" = "Les préférences de notification sont stockées sur l’appareil et ne sont pas basés sur des informations ou l’activité personnelle.";
-"welcome-notifications-tell-me-more-title" = "En savoir plus sur les notifications";
 "welcome-privacy-subtitle" = "Nous pensons que vous ne devriez pas avoir à fournir d'informations personnelles pour participer au mouvement de la connaissance libre. Les données d'utilisation collectées pour cette application sont anonymes.";
 "welcome-privacy-terms-button-text" = "En savoir plus sur notre politique de confidentialité et nos conditions d'utilisation";
 "widget-onthisday-description" = "Explorer ce qui s’est passé à cette date-ci de l’année au cours de l’histoire.";

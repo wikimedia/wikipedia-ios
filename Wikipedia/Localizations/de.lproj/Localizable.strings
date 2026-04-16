@@ -313,7 +313,6 @@
 "description-help-title" = "Hilfe zu Artikelbeschreibungen";
 "description-help-wikidata-guide" = "Wikidata-Anleitung zum Verfassen von Beschreibungen";
 "description-published-button-title" = "Fertig";
-"description-published-footer" = "Du kannst Artikel auch innerhalb dieser App bearbeiten. Versuche, Tippfehler und kleine Sätze zu korrigieren, indem du das nächste Mal auf das Stiftsymbol klickst.";
 "description-published-subtitle" = "Du hast soeben Wikipedia für jeden besser gemacht";
 "description-published-title" = "Beschreibung veröffentlicht!";
 "description-welcome-concise-sub-title" = "Idealerweise eine Zeile, zwischen zwei und zwölf Wörtern";
@@ -425,8 +424,6 @@
 "edit-notices-always-display" = "Bearbeitungshinweise immer anzeigen";
 "edit-notices-please-read" = "Bitte vor der Bearbeitung lesen";
 "edit-preview-simplified-format-message" = "Alle Inhalte werden in vereinfachtem Format angezeigt.";
-"edit-published" = "Bearbeitung veröffentlicht";
-"edit-published-subtitle" = "Du hast soeben Wikipedia für jeden besser gemacht";
 "edit-sheet-ip-account-notice" = "IP-Konto-Hinweis";
 "edit-sheet-temp-account-notice" = "Temporäres Konto-Hinweis";
 "edit-show-web-preview" = "Webvorschau anzeigen";
@@ -625,8 +622,6 @@
 "explore-suggested-edits-footer" = "Hinzufügen";
 "explore-suggested-edits-image-recs-body" = "Füge vorgeschlagene Bilder zu Wikipedia-Artikeln hinzu, um das Verständnis zu verbessern.";
 "explore-suggested-edits-image-recs-title" = "Ein Bild hinzufügen";
-"explore-survey-subtitle" = "Nimm bitte an einer kurzen Umfrage zum Entdecken-Feed teil. Dein Feedback hilft uns, die App zu verbessern.";
-"explore-survey-title" = "Gib uns Feedback, um den Entdecken-Feed zu verbessern.";
 "explore-wikipedia" = "Wikipedia entdecken";
 "export-user-data-confirmation-message" = "Das Teilen deiner App-Bibliothek umfasst Daten über deine Leselisten und -historie, Einstellungen und Entdecken-Feed-Inhalte. Diese Datendatei sollte nur mit einem vertrauenswürdigen Empfänger für technische Diagnosezwecke geteilt werden.";
 "export-user-data-confirmation-title" = "App-Bibliothek teilen?";
@@ -739,7 +734,6 @@
 "image-recs-yes-title" = "Ja";
 "import-shared-reading-list-default-title" = "Meine Leseliste";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Umfrage durchführen";
-"import-shared-reading-list-survey-prompt-footer" = "Sieh dir unsere $1Datenschutzerklärung$2 an. Die Umfrage wird durch Dritte durchgeführt. Sieh dir deren $3Datenschutzerklärungen$4 an.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Leselisten teilen\" ist eine Testfunktion und wir brauchen dein Feedback, um sie zu verbessern oder zu entfernen.";
 "import-shared-reading-list-survey-prompt-title" = "Kannst du uns helfen, \"Leselisten teilen\" zu verbessern?";
 "import-shared-reading-list-title" = "Geteilte Leseliste importieren";
@@ -846,8 +840,6 @@
 "next-action-title" = "Weiter";
 "no-email-account-alert" = "Bitte richte auf deinem Gerät ein E-Mail-Konto ein und versuche es erneut.";
 "no-internet-connection" = "Keine Internetverbindung";
-"no-internet-connection-article-reload" = "Eine neuere Version dieses Artikels könnte verfügbar sein, sie kann jedoch ohne Internetverbindung nicht geladen werden.";
-"no-internet-connection-article-reload-button" = "Zurück zur zuletzt gespeicherten Version";
 "not-now-title" = "Jetzt nicht";
 "notifications-center-agent-description-from-format" = "Von $1";
 "notifications-center-alert" = "Warnung";
@@ -866,7 +858,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Ändere $1, um mehr Nachrichten zu sehen";
 "notifications-center-empty-state-no-projects-selected" = "Projekte hinzufügen, um mehr Nachrichten zu sehen";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 Filter}}";
-"notifications-center-feed-card-title" = "Bearbeitungsbenachrichtigungen jetzt verfügbar";
 "notifications-center-feed-news-notification-button-text" = "Push-Benachrichtigungen anschalten";
 "notifications-center-feed-news-notification-text" = "Bearbeitungsbenachrichtigungen für alle Wikimedia-Projekte sind jetzt über die App verfügbar. Melde dich für Push-Benachrichtigungen an, um auch unterwegs über deine Nachrichten auf Wikipedia auf dem Laufenden zu bleiben.";
 "notifications-center-filters-accessibility-label" = "Benachrichtigungsfilter";
@@ -1012,7 +1003,6 @@
 "panel-compare-revisions-text" = "Der Versionsvergleich hilft dabei zu sehen, wie sich ein Artikel über die Zeit verändert hat. Der Vergleich zweier Versionen zeigt die Unterschiede zwischen den Versionen und hebt hervor was sich geändert hat.";
 "panel-compare-revisions-title" = "Versionen vergleichen";
 "panel-not-logged-in-continue-edit-action-title" = "Ohne Anmeldung bearbeiten";
-"panel-not-logged-in-subtitle" = "Ihre IP-Adresse wird öffentlich sichtbar sein, wenn Sie Bearbeitungen vornehmen. Wenn Sie sich $1anmelden$2 oder ein $3Konto erstellen$4, werden Ihre Bearbeitungen Ihrem Benutzernamen zugeordnet, zusammen mit anderen Vorteilen.";
 "panel-not-logged-in-title" = "Du bist nicht angemeldet";
 "percentile-0.01" = "0,01";
 "pictured" = "Bild";
@@ -1173,15 +1163,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "Vor $1 Sekunden";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dieses Jahr|1=Letztes Jahr|Vor $1 Jahren}}";
-"replace-button-accessibility" = "$1 ausführen.";
-"replace-buttons-replace-accessibility" = "Einzelne Instanz ersetzen";
-"replace-buttons-replace-all-accessibility" = "Alle Instanzen ersetzen";
-"replace-clear-button-accessibility" = "Ersetzen löschen";
-"replace-infolabel-method-replace" = "Ersetzen";
-"replace-infolabel-method-replace-all" = "Alle ersetzen";
-"replace-method-button-accessibility" = "Ersetzungsmethode. Auf $1 festgelegt. Zum Ändern auswählen.";
-"replace-textfield-accessibility" = "Ersetzen";
-"replace-textfield-placeholder" = "Ersetzen durch …";
 "return-button-title" = "Zurück";
 "return-to-article" = "Zum Artikel zurückkehren";
 "reverted-edit-title" = "Zurückgesetzte Bearbeitung";
@@ -1203,7 +1184,6 @@
 "search-button-accessibility-label" = "Wikipedia durchsuchen";
 "search-clear-title" = "Löschen";
 "search-field-placeholder-text" = "Wikipedia durchsuchen";
-"search-reading-list-placeholder-text" = "Leseliste suchen";
 "search-recent-clear-confirmation-heading" = "Alle letzten Suchanfragen löschen?";
 "search-recent-clear-confirmation-sub-heading" = "Diese Aktion kann nicht rückgängig gemacht werden!";
 "search-recent-clear-delete-all" = "Alle löschen";
@@ -1235,11 +1215,6 @@
 "settings-notifications-echo-failure-title" = "Prüfung der Echo-Benachrichtigungsabonnements nicht möglich";
 "settings-notifications-echo-failure-try-again" = "Erneut versuchen";
 "settings-notifications-header" = "Du erhältst Benachrichtigungen zu Aktivitäten in deinem Konto, wie z. B. Nachrichten von anderen Mitwirkenden, Meldungen und Hinweise. Dabei wird deine Privatsphäre gewahrt und du bekommst die Informationen immer aktuell.";
-"settings-notifications-info" = "Erhalte Push-Benachrichtigungen zu beliebten Artikeln auf Wikipedia. Dabei wird deine Privatsphäre gewahrt und du bekommst die Informationen immer aktuell.";
-"settings-notifications-learn-more" = "Mehr über Benachrichtigungen erfahren";
-"settings-notifications-push-notifications" = "Push-Benachrichtigungen";
-"settings-notifications-system-turn-on" = "Benachrichtigungen anschalten";
-"settings-notifications-trending" = "Beliebte aktuelle Ereignisse";
 "settings-off" = "Aus";
 "settings-on" = "Ein";
 "settings-primary-language" = "Primär";
@@ -1506,9 +1481,6 @@
 "welcome-languages-add-or-edit-button" = "Bevorzugte Sprachen hinzufügen oder bearbeiten";
 "welcome-languages-description" = "Wir haben die folgenden Sprachen auf deinem Gerät gefunden:";
 "welcome-languages-search-title" = "Suche in über 300 Sprachen";
-"welcome-notifications-tell-me-more-creation" = "Benachrichtigungen werden auf deinem Gerät von der App erstellt und zur Verfügung gestellt und nicht von unseren oder Drittparteiservern.";
-"welcome-notifications-tell-me-more-storage" = "Benachrichtigungseinstellungen werden auf dem Gerät gespeichert und basieren nicht auf persönlichen Informationen oder Aktivitäten.";
-"welcome-notifications-tell-me-more-title" = "Mehr über Benachrichtigungen";
 "welcome-privacy-subtitle" = "Wir sind der Meinung, dass Du keine persönlichen Daten angeben musst, um an der Bewegung für freies Wissen teilzunehmen. Die für diese App gesammelten Nutzungsdaten sind anonym.";
 "welcome-privacy-terms-button-text" = "Erfahre mehr über unsere Datenschutzrichtlinien und Nutzungsbedingungen";
 "widget-onthisday-description" = "Erforsche, was an diesem Tag in der Geschichte passiert ist.";

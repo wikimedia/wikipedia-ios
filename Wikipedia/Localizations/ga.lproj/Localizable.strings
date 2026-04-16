@@ -171,6 +171,7 @@
 "appearance-settings-adjust-text-sizing" = "Coigeartaigh méid téacs an ailt";
 "appearance-settings-expand-tables" = "Fairsingigh táblaí";
 "appearance-settings-expand-tables-footer" = "Socraigh gach tábla i ngach alt le bheith oscailte de réir réamhshocraithe, lena n-áirítear Fíricí Tapa, Tagairtí, Nótaí agus Naisc Sheachtracha.";
+"appearance-settings-icon-contributor-title" = "Rannpháirtí";
 "appearance-settings-image-dimming-footer" = "Laghdaigh teimhneacht na n-íomhánna ar na téamaí dorcha agus dubha";
 "appearance-settings-reading-themes" = "Téamaí léitheoireachta";
 "appearance-settings-set-automatic-table-opening" = "Socruithe Tábla";
@@ -188,6 +189,7 @@
 "article-languages-yours" = "Do chuid teangacha";
 "article-read-more-title" = "Léigh tuilleadh";
 "article-reference-view-title" = "Tagairt $1";
+"article-return-button-accessibility-title" = "Fill ar ais chuig: $1";
 "article-revision-history" = "Stair athbhreithnithe an ailt";
 "article-save-error-not-enough-space" = "Níl dóthain spáis agat ar do ghléas chun an t-alt seo a shábháil.";
 "article-share" = "Comhroinn";
@@ -231,6 +233,7 @@
 "chinese-variants-alert-title" = "Nuashonruithe ar thacaíocht le malairt na Síne";
 "clear-title-accessibility-label" = "Glan";
 "clearing-cache-complete" = "Glanadh an taisce críochnaithe.";
+"clearing-cache-error" = "Earráid ag glanadh an taisce.";
 "clearing-cache-in-progress" = "Ag glanadh an taisce ar siúl.";
 "close-all-tabs" = "Dún gach cluaisín";
 "close-all-tabs-confirmation" = "Ar mhaith leat na $1 cluaisín go léir a dhúnadh? Ní féidir an gníomh seo a chealú.";
@@ -282,7 +285,6 @@
 "description-help-title" = "Cabhair le cur síos ar an alt";
 "description-help-wikidata-guide" = "Treoirleabhar Wikidata ar sainchuntais a scríobh";
 "description-published-button-title" = "Críochnaithe";
-"description-published-footer" = "Is féidir ailt a chur in eagar laistigh den aip seo, leis. Bain triail as earráidí cló agus abairtí gearra a dheisiú le cliceáil ar an deilbhín peann luaidhe an chéad uair eile";
 "description-published-subtitle" = "Tá tú díreach tar éis Vicipéid a fheabhsú do gach duine";
 "description-published-title" = "Foilsíodh sainchuntas!";
 "description-welcome-concise-sub-title" = "Da bhféadfaí é, líne amháin idir dhá fhocal agus dhá fhocal déag";
@@ -394,8 +396,6 @@
 "edit-notices-always-display" = "Taispeáin fógraí eagarthóireachta i gcónaí";
 "edit-notices-please-read" = "Léigh le do thoil sula n-eagarthófar";
 "edit-preview-simplified-format-message" = "Taispeántar an t-ábhar go léir i bhformáid shimplithe.";
-"edit-published" = "Eagarthóireacht foilsithe";
-"edit-published-subtitle" = "Rinne tú Vicipéid níos fearr do chách anois";
 "edit-sheet-ip-account-notice" = "Fógra Cuntais IP";
 "edit-sheet-temp-account-notice" = "Fógra Cuntais Sealadach";
 "edit-show-web-preview" = "Taispeáin réamhamharc gréasáin";
@@ -594,8 +594,6 @@
 "explore-suggested-edits-footer" = "Cuir leis";
 "explore-suggested-edits-image-recs-body" = "Cuir íomhánna molta le hailt Vicipéid chun tuiscint níos fearr a fháil.";
 "explore-suggested-edits-image-recs-title" = "Cuir íomhá leis";
-"explore-survey-subtitle" = "Glac páirt i suirbhé gearr faoin bhfotha Explore. Cabhróidh d’aiseolas le feabhsuithe atá le teacht ar an aip a mhúnlú.";
-"explore-survey-title" = "Cabhraigh linn feabhas a chur ar Explore";
 "explore-wikipedia" = "Iniúchadh a dhéanamh ar Vicipéid";
 "export-user-data-confirmation-message" = "Áirítear le do leabharlann aipeanna sonraí faoi do liostaí léitheoireachta agus stair, roghanna, agus ábhar an bheatha Explore. Níor cheart an comhad sonraí seo a roinnt ach le faighteoir iontaofa le húsáid chun críocha diagnóiseacha teicniúla.";
 "export-user-data-confirmation-title" = "An bhfuil tú ag iarraidh leabharlann na n-aipeanna a roinnt?";
@@ -708,7 +706,6 @@
 "image-recs-yes-title" = "Tá";
 "import-shared-reading-list-default-title" = "Mo Liosta Léitheoireachta";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Glac páirt sa suirbhé";
-"import-shared-reading-list-survey-prompt-footer" = "Féach ar ár $1ráiteas príobháideachais $2. Suirbhé faoi thiomáint ag tríú páirtí. Féach ar a $3mbeartas príobháideachais$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "Is gné tástála í \"Comhroinn liostaí léitheoireachta\" agus teastaíonn d'aiseolas uainn chun í a fheabhsú nó a bhaint.";
 "import-shared-reading-list-survey-prompt-title" = "An bhféadfá cabhrú linn \"Comhroinn liostaí léitheoireachta\" a fheabhsú?";
 "import-shared-reading-list-title" = "Iompórtáil liosta léitheoireachta comhroinnte";
@@ -813,8 +810,6 @@
 "next-action-title" = "Ar Aghaidh";
 "no-email-account-alert" = "Socraigh cuntas ríomhphoist ar do ghléas agus déan iarracht eile.";
 "no-internet-connection" = "Gan nasc idirlín";
-"no-internet-connection-article-reload" = "B’fhéidir go bhfuil leagan níos nuaí den alt seo ar fáil, ach ní féidir é a luchtú gan nasc leis an idirlíon.";
-"no-internet-connection-article-reload-button" = "Fill ar ais chuig an leagan sábháilte deireanach";
 "not-now-title" = "Ní anois";
 "notifications-center-agent-description-from-format" = "Ó $1";
 "notifications-center-alert" = "Foláireamh";
@@ -833,7 +828,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Athraigh $1 chun níos mó teachtaireachtaí a fheiceáil";
 "notifications-center-empty-state-no-projects-selected" = "Cuir tionscadail leis chun níos mó teachtaireachtaí a fheiceáil";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 scagaire|$1 scagairí}}";
-"notifications-center-feed-card-title" = "Tá fógraí eagarthóireachta ar fáil anois";
 "notifications-center-feed-news-notification-button-text" = "Cas air brúfhógraí";
 "notifications-center-feed-news-notification-text" = "Tá fógraí eagarthóireachta do gach tionscadal Wikimedia ar fáil anois tríd an aip. Roghnaigh fógraí brú chun fanacht suas chun dáta le do theachtaireachtaí ar Vicipéid agus tú ag taisteal.";
 "notifications-center-filters-accessibility-label" = "Scagaire Fógraí";
@@ -979,7 +973,7 @@
 "panel-compare-revisions-text" = "Cuidíonn comparáid idir athbhreithnithe le taispeáint conas atá alt athraithe le himeacht ama. Trí dhá athbhreithniú ar alt a chur i gcomparáid, taispeánfar an difríocht idir na hathbhreithnithe sin trí aird a tharraingt ar aon ábhar a athraíodh.";
 "panel-compare-revisions-title" = "Athbhreithnithe a chur i gcomparáid";
 "panel-not-logged-in-continue-edit-action-title" = "Cuir in eagar gan logáil isteach";
-"panel-not-logged-in-subtitle" = "Beidh do sheoladh IP le feiceáil go poiblí má dhéanann tú aon athruithe. Má $1logálann tú isteach$2 nó má $3chruthaíonn tú cuntas$4, cuirfear do chuid athruithe i leith d’ainm úsáideora, mar aon le buntáistí eile.";
+"panel-not-logged-in-subtitle-plain" = "Beidh do sheoladh IP le feiceáil go poiblí má dhéanann tú aon athruithe. Logáil isteach nó cruthaigh cuntas chun do chuid athruithe a chur i leith d’ainm úsáideora.";
 "panel-not-logged-in-title" = "Níl tú logáilte isteach";
 "percentile-0.01" = "0.01";
 "percentile-1" = "1";
@@ -1057,6 +1051,7 @@
 "reading-list-add-saved-button-title" = "Ba mhaith, cuir ar mo liostaí léitheoireachta iad";
 "reading-list-add-saved-subtitle" = "Tá ailt sábháilte chuig d'aip Vicipéid. Ar mhaith leat iad a choinneáil agus iad a chumasc le liostaí léitheoireachta atá sioncronaithe le do chuntas?";
 "reading-list-add-saved-title" = "Aimsíodh ailt sábháilte";
+"reading-list-alert-see-list" = "Féach ar an liosta léitheoireachta";
 "reading-list-api-error-entry-limit" = "Níl an iontráil seo sioncrónaithe mar go bhfuil an teorainn sroichte agat maidir le líon na n-iontrálacha sa liosta seo.";
 "reading-list-api-error-generic" = "Tharla earráid gan choinne agus do liostaí léitheoireachta á sioncrónú.";
 "reading-list-api-error-list-limit" = "Níl an liosta seo sioncrónaithe mar go bhfuil an teorainn sroichte agat maidir le líon na liostaí sioncrónaithe.";
@@ -1147,15 +1142,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s ó shin";
 "relative-date-years-ago" = "{{PLURAL:$1|0=I mbliana|1=I mbliana|$1 bliana ó shin}}";
-"replace-button-accessibility" = "Déan $1.";
-"replace-buttons-replace-accessibility" = "Athsholáthar sampla aonair";
-"replace-buttons-replace-all-accessibility" = "Cuir gach cás in ionad";
-"replace-clear-button-accessibility" = "Glan an t-ionadú";
-"replace-infolabel-method-replace" = "Athsholáthair";
-"replace-infolabel-method-replace-all" = "Cuir gach rud in ionad";
-"replace-method-button-accessibility" = "Athraigh an modh. Socraigh go $1. Roghnaigh le hathrú.";
-"replace-textfield-accessibility" = "Athsholáthair";
-"replace-textfield-placeholder" = "Cuir in ionad…";
 "return-button-title" = "Filleadh";
 "return-to-article" = "Fill ar ais chuig an alt";
 "reverted-edit-title" = "Eagarthóireacht aisiompaithe";
@@ -1178,7 +1164,6 @@
 "search-button-accessibility-label" = "Cuardaigh Vicipéid";
 "search-clear-title" = "Glan";
 "search-field-placeholder-text" = "Cuardaigh Vicipéid";
-"search-reading-list-placeholder-text" = "Cuardaigh liosta léitheoireachta";
 "search-recent-clear-confirmation-heading" = "Scrios gach cuardach le déanaí?";
 "search-recent-clear-confirmation-sub-heading" = "Ní féidir an gníomh seo a chealú!";
 "search-recent-clear-delete-all" = "Scrios Uile";
@@ -1203,6 +1188,7 @@
 "settings-help-and-feedback" = "Cabhair agus aiseolas";
 "settings-language-bar" = "Taispeáin teangacha ar chuardach";
 "settings-languages-feed-customization" = "Is féidir leat na teangacha a thaispeántar ar do bheatha Explore a bhainistiú trí shocruithe do bheatha Explore a shaincheapadh.";
+"settings-legal-sefaty-title" = "Teagmhálaithe dlí agus sábháilteachta";
 "settings-my-languages" = "Mo chuid teangacha";
 "settings-new-article-tab-header-text" = "Téama Cluaisín Nua";
 "settings-notifications" = "Brúfhógraí";
@@ -1210,11 +1196,6 @@
 "settings-notifications-echo-failure-title" = "Ní féidir seiceáil le haghaidh síntiúis Fógra Macalla";
 "settings-notifications-echo-failure-try-again" = "Déan iarracht arís";
 "settings-notifications-header" = "Faigh foláireamh faoi ghníomhaíocht a bhaineann le do chuntas, amhail teachtaireachtaí ó chomh-chomhpháirtithe, foláirimh agus fógraí. Cuirtear ar fáil iad seo go léir agus príobháideacht á meas agus sonraí cothrom le dáta á gcur ar fáil.";
-"settings-notifications-info" = "Bí ar an eolas faoi ailt atá ag treochtáil agus is mó a léitear ar Vicipéid lenár bhfógraí brú. Cuirtear ar fáil iad seo go léir agus príobháideacht á meas agus sonraí cothrom le dáta á gcur ar fáil.";
-"settings-notifications-learn-more" = "Foghlaim tuilleadh maidir le fógraí";
-"settings-notifications-push-notifications" = "Brúfhógraí";
-"settings-notifications-system-turn-on" = "Cás Fógraí air";
-"settings-notifications-trending" = "Cúrsaí reatha atá ag treochtáil";
 "settings-off" = "As";
 "settings-on" = "Ar";
 "settings-primary-language" = "Príomhtheanga";
@@ -1483,9 +1464,6 @@
 "welcome-languages-add-or-edit-button" = "Cuir teangacha is fearr leat leis nó cuir in eagar iad";
 "welcome-languages-description" = "D'aimsíomar na teangacha seo a leanas ar do ghléas:";
 "welcome-languages-search-title" = "Cuardaigh i níos mó ná 300 teanga";
-"welcome-notifications-tell-me-more-creation" = "Ní chruthaítear agus ní sholáthraítear fógraí ónár gcuid freastálaithe (nó ó thríú páirtí), ach ón aip féin ar do ghléas.";
-"welcome-notifications-tell-me-more-storage" = "Stóráltar sainroghanna fógraí ar an ngléas agus ní bhunaítear ar sonraí pearsanta nó ar gníomhaíocht iad.";
-"welcome-notifications-tell-me-more-title" = "Tuilleadh maidir le fógraí";
 "welcome-privacy-subtitle" = "Creidimid nach ceart go mbeadh ort faisnéis phearsanta a sholáthar le bheith páirteach sa ghluaiseacht eolais shaor. Tá sonraí úsáide a bhailítear don aip seo gan ainm.";
 "welcome-privacy-terms-button-text" = "Faigh tuilleadh eolais faoinár mbeartas príobháideachais agus téarmaí úsáide";
 "widget-onthisday-description" = "Scrúdaigh cad a tharla ar an lá seo sa stair.";
