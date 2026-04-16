@@ -1,4 +1,5 @@
 import Foundation
+import WMFNativeLocalizations
 
 class RemoteNotificationsRefreshCrossWikiGroupOperation: RemoteNotificationsOperation, @unchecked Sendable {
     

@@ -443,11 +443,6 @@
 "settings-my-languages" = "زمانەکانم";
 // Fuzzy
 "settings-notifications" = "ھۆشدارەکان";
-"settings-notifications-info" = "ئاگادار بکرێرەوە لەبارەی وتارەکانی کە زۆرترین خوێندنەوەیان ھەیە لەگەڵ وتارە بەناوبانگەکان بە ھۆشداری باڵنەر.";
-"settings-notifications-learn-more" = "زیاتر فێربە لەبارەی ئاگادارییەکان";
-"settings-notifications-push-notifications" = "ئاگاداری پاڵنەر";
-"settings-notifications-system-turn-on" = "ئاگادارییەکان کار پێ بکە";
-"settings-notifications-trending" = "ڕووداوە بەناوبانگەکانی ئێستا";
 "settings-primary-language" = "سەرەکی";
 "settings-primary-language-details" = "یەکەم زمانی ئەم لیستە وەک زمانی سەرەکی ئەپەکە بەکاردێت.";
 "settings-title" = "ڕێکخستنەکان";
@@ -542,9 +537,6 @@
 "welcome-languages-add-or-edit-button" = "زیادکردن یان دەستکاریکردنی زمانەکان";
 "welcome-languages-description" = "ئەم زمانانەمان لەسەر ئامێرەکەت دۆزییەوە:";
 "welcome-languages-search-title" = "بە زیاتر لە ٣٠٠ زمان بگەڕێ";
-"welcome-notifications-tell-me-more-creation" = "ھۆشدارەکان لەناو خودی ئاپەکەوە دروست دەکرێن و بۆت دەنێردرێن، نەوەک لە لایەنێکی سێیەمەوە.";
-"welcome-notifications-tell-me-more-storage" = "ھۆشدارەکان لەسەر دیڤایسەکە پاشەکەوت دەکرێن و لەسەر زانیاری و چالاکی تایبەتی بنیات نانرێن.";
-"welcome-notifications-tell-me-more-title" = "زیاتر لەسەر ئاگادارکردنەوەکان";
 "widget-onthisday-description" = "بزانە لەمڕۆی مێژوودا چی ڕوویداوە.";
 "wikitext-preview-changes" = "گۆڕانکارییەکانت بیشان دەدرێن...";
 "wikitext-preview-link-external-preview-description" = "ئەم بەستەرە دەچێتە سەر ماڵپەڕێکی دەرەکی: $1";

@@ -1,5 +1,6 @@
 import WMF
 import WMFData
+import WMFNativeLocalizations
 import WMFComponents
 
 protocol WatchlistControllerDelegate: AnyObject {

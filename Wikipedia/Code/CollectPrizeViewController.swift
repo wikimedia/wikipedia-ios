@@ -2,6 +2,7 @@ import WMFComponents
 import WMF
 import Combine
 import SwiftUI
+import WMFNativeLocalizations
 
 final class CollectPrizeViewController: UIViewController, Themeable {
     

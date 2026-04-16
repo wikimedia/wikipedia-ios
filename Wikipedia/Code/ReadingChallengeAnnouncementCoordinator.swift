@@ -2,6 +2,7 @@ import UIKit
 import WMFData
 import WMFComponents
 import WMF
+import WMFNativeLocalizations
 
 @MainActor
 final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {

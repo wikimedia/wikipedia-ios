@@ -1,6 +1,7 @@
 import WMFComponents
 import NotificationCenter
 import WMF
+import WMFNativeLocalizations
 import WMFData
 
 @available(*, deprecated, message: "TODO: Rework into iOS 14 home screen widget")

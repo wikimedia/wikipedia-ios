@@ -323,28 +323,6 @@ func writeStrings(fromDictionary dictionary: NSDictionary, toFile: String) throw
     try output.write(toFile: toFile, atomically: true, encoding: .utf16) // From Apple: Note: It is recommended that you save strings files using the UTF-16 encoding, which is the default encoding for standard strings files. It is possible to create strings files using other property-list formats, including binary property-list formats and XML formats that use the UTF-8 encoding, but doing so is not recommended. For more information about Unicode and its text encodings, go to http://www.unicode.org/ or http://en.wikipedia.org/wiki/Unicode.
 }
 
-// See "Localized Metadata" section here: https://docs.fastlane.tools/actions/deliver/
-func fileURLForFastlaneMetadataFolder(for locale: String) -> URL {
-    return URL(fileURLWithPath:"\(path)/fastlane/metadata/\(locale)")
-}
-
-func fileURLForFastlaneMetadataFile(_ file: String, for locale: String) -> URL {
-    return fileURLForFastlaneMetadataFolder(for: locale).appendingPathComponent(file)
-}
-
-let defaultAppStoreMetadataLocale = "en-us"
-func writeFastlaneMetadata(_ metadata: Any?, to filename: String, for locale: String) throws {
-    let metadataFileURL = fileURLForFastlaneMetadataFile(filename, for: locale)
-    guard let metadata = metadata as? String, metadata.count > 0 else {
-        let defaultDescriptionFileURL = fileURLForFastlaneMetadataFile(filename, for: defaultAppStoreMetadataLocale)
-        let fm = FileManager.default
-        try fm.removeItem(at: metadataFileURL)
-        try fm.copyItem(at: defaultDescriptionFileURL, to: metadataFileURL)
-        return
-    }
-    try metadata.write(to: metadataFileURL, atomically: true, encoding: .utf8)
-}
-
 func writeTWNStrings(fromDictionary dictionary: [String: String], toFile: String, escaped: Bool) throws {
     var output = ""
     let sortedDictionary = dictionary.sorted(by: { (kv1, kv2) -> Bool in
@@ -358,7 +336,7 @@ func writeTWNStrings(fromDictionary dictionary: [String: String], toFile: String
 }
 
 func exportLocalizationsFromSourceCode(_ path: String) {
-    let iOSENPath = "\(path)/Wikipedia/iOS Native Localizations/en.lproj/Localizable.strings"
+    let iOSENPath = "\(path)/WMFLocalizations/Sources/WMFNativeLocalizations/Resources/en.lproj/Localizable.strings"
     let twnQQQPath = "\(path)/Wikipedia/Localizations/qqq.lproj/Localizable.strings"
     let twnENPath = "\(path)/Wikipedia/Localizations/en.lproj/Localizable.strings"
     guard let iOSEN = NSDictionary(contentsOfFile: iOSENPath) else {
@@ -414,7 +392,7 @@ func exportLocalizationsFromSourceCode(_ path: String) {
 
 let locales: Set<String> =  {
     var identifiers = Locale.availableIdentifiers
-    if let filenames = try? FileManager.default.contentsOfDirectory(atPath: "\(path)/Wikipedia/iOS Native Localizations") {
+    if let filenames = try? FileManager.default.contentsOfDirectory(atPath: "\(path)/WMFLocalizations/Sources/WMFNativeLocalizations/Resources") {
         let additional = filenames.compactMap { $0.components(separatedBy: ".").first?.lowercased() }
         identifiers += additional
     }
@@ -433,7 +411,7 @@ func localeIsAvailable(_ locale: String) -> Bool {
 }
 
 func importLocalizationsFromTWN(_ path: String) {
-    let enPath = "\(path)/Wikipedia/iOS Native Localizations/en.lproj/Localizable.strings"
+    let enPath = "\(path)/WMFLocalizations/Sources/WMFNativeLocalizations/Resources/en.lproj/Localizable.strings"
     
     guard let enDictionary = NSDictionary(contentsOfFile: enPath) as? [String: String] else {
         print("Unable to read \(enPath)")
@@ -450,30 +428,6 @@ func importLocalizationsFromTWN(_ path: String) {
     do {
         let keysByLanguage = ["pl": ["one", "few"], "sr": ["one", "few", "many"], "ru": ["one", "few", "many"]]
         let defaultKeys = ["one"]
-        let appStoreMetadataLocales: [String: [String]] = [
-            "da": ["da"],
-            "de": ["de-de"],
-            "el": ["el"],
-            // "en": ["en-au", "en-ca", "en-gb"],
-            "es": ["es-mx", "es-es"],
-            "fi": ["fi"],
-            "fr": ["fr-ca", "fr-fr"],
-            "id": ["id"],
-            "it": ["it"],
-            "ja": ["ja"],
-            "ko": ["ko"],
-            "ms": ["ms"],
-            "nl": ["nl-nl"],
-            "no": ["no"],
-            "pt": ["pt-br", "pt-pt"],
-            "ru": ["ru"],
-            "sv": ["sv"],
-            "th": ["th"],
-            "tr": ["tr"],
-            "vi": ["vi"],
-            "zh-hans": ["zh-hans"],
-            "zh-hant": ["zh-hant"]
-        ]
         
         let contents = try fm.contentsOfDirectory(atPath: "\(path)/Wikipedia/Localizations")
         var pathsForEnglishPlurals: [String] = [] // write english plurals to these paths as placeholders
@@ -483,7 +437,7 @@ func importLocalizationsFromTWN(_ path: String) {
                 continue
             }
             
-            let localeFolder = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj"
+            let localeFolder = "\(path)/WMFLocalizations/Sources/WMFNativeLocalizations/Resources/\(locale).lproj"
 
             guard localeIsAvailable(locale), let twnStrings = NSDictionary(contentsOfFile: "\(path)/Wikipedia/Localizations/\(locale).lproj/Localizable.strings") else {
                 try? fm.removeItem(atPath: localeFolder)
@@ -525,31 +479,6 @@ func importLocalizationsFromTWN(_ path: String) {
                 }
             } else {
                 englishPluralDictionary = stringsDict
-            }
-            
-           
-            if let metadataLocales = appStoreMetadataLocales[locale] {
-                for metadataLocale in metadataLocales {
-                    let folderURL = fileURLForFastlaneMetadataFolder(for: metadataLocale)
-                    try fm.createDirectory(at: folderURL, withIntermediateDirectories: true, attributes: nil)
-                    
-                    let infoPlistPath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/InfoPlist.strings"
-                    let infoPlist = NSDictionary(contentsOfFile: infoPlistPath)
-                    
-                    try? writeFastlaneMetadata(strings["app-store-short-description"], to: "description.txt", for: metadataLocale)
-                    try? writeFastlaneMetadata(strings["app-store-keywords"], to: "keywords.txt", for: metadataLocale)
-                    try? writeFastlaneMetadata(nil, to: "marketing_url.txt", for: metadataLocale) // use nil to copy from en-US. all fields need to be specified.
-                    try? writeFastlaneMetadata(infoPlist?["CFBundleDisplayName"], to: "name.txt", for: metadataLocale)
-                    try? writeFastlaneMetadata(nil, to: "privacy_url.txt", for: metadataLocale) // use nil to copy from en-US. all fields need to be specified.
-                    try? writeFastlaneMetadata(nil, to: "promotional_text.txt", for: metadataLocale) // use nil to copy from en-US. all fields need to be specified.
-                    try? writeFastlaneMetadata(nil, to: "release_notes.txt", for: metadataLocale) // use nil to copy from en-US. all fields need to be specified.
-                    try? writeFastlaneMetadata(strings["app-store-subtitle"], to: "subtitle.txt", for: metadataLocale)
-                    try? writeFastlaneMetadata(nil, to: "support_url.txt", for: metadataLocale) // use nil to copy from en-US. all fields need to be specified.
-                }
-            
-            } else {
-                let folderURL = fileURLForFastlaneMetadataFolder(for: locale)
-                try? fm.removeItem(at: folderURL)
             }
             
             if stringsDict.count > 0 {

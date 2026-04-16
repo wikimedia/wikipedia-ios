@@ -1,6 +1,7 @@
 import WMFComponents
 import WMF
 import MapKit
+import WMFNativeLocalizations
 
 protocol ArticlePlaceViewDelegate: NSObjectProtocol {
     func articlePlaceViewWasTapped(_ articlePlaceView: ArticlePlaceView)

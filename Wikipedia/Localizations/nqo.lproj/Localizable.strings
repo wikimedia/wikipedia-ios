@@ -134,7 +134,6 @@
 "description-help-title" = "ߞߎߡߘߊ ߞߊ߲߬ߛߓߍߟߌ ߘߍ߬ߡߍ߲߬ߠߌ߲";
 "description-help-wikidata-guide" = "ߥߞߌߘߕߊ ߞߊ߲߬ߛߓߍ߬ߟߌ ߟߎ߬ ߛߓߍߟߌ ߟߊߛߌ߲ߟߊ߲";
 "description-published-button-title" = "ߊ߬ ߓߘߊ߫ ߞߍ߫";
-"description-published-footer" = "ߌ ߘߌ߫ ߛߋ߫ ߞߊ߬ ߞߎߡߘߊ ߟߎ߬ ߡߊߦߟߍ߬ߡߊ߲߫ ߟߥߊ߬ߟߌ߬ߟߊ߲ ߣߌ߲߬ ߠߊ߫ ߝߣߊ߫. ߌ ߞߊߘߊ߲߫ ߞߊ߬ ߛߓߍߟߌ ߞߍߢߊ ߣߌ߫ ߛߓߍߟߌ ߞߍߛߋ߲߫ ߘߋߣߍ߲ ߠߎ߬ ߘߐߓߍ߲߬ ߞߟߊ߬ߙߊ߲ ߛߌ߲ߞߐ߲ ߛߐ߲߬ߞߌ߲ ߠߊ߫ ߛߋ߲߬ߧߊ߫ ߣߊ߬ߕߐ";
 "description-published-subtitle" = "ߌ ߓߘߊ߫ ߥߞߌߔߋߘߌߦߊ߫ ߛߌ߲ߘߌ ߟߊߢߊ߬ ߡߐ߱ ߓߍ߯ ߢߍ߫.";
 "description-published-title" = "ߞߊ߲߬ߛߓߍߟߌ ߓߘߊ߫ ߟߊߥߊ߲߬ߞߊ߫߹";
 "description-welcome-concise-title" = "ߊ߬ ߕߏ߫ ߛߎ߬ߘߎ߲߬ߧߊ ߘߐ߫";
@@ -184,8 +183,6 @@
 "edit-notices" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߟߎ߫";
 "edit-notices-always-display" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߟߎ߬ ߝߣߊ߫ ߟߊߓߊ߯ߙߊ߫";
 "edit-notices-please-read" = "ߊ߬ ߘߐߞߊ߬ߙߊ߲߫ ߖߊ߰ߣߌ߲߫߸ ߦߊ߬ߣߴߊ߬ ߡߊߦߟߍ߬ߡߊ߲߬ ߕߐ߫";
-"edit-published" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߓߘߊ߫ ߟߊߥߊ߲߬ߞߊ߫";
-"edit-published-subtitle" = "ߌ ߓߘߊ߫ ߥߞߌߔߋߘߌߦߊ߫ ߟߊߢߊ߬ ߡߐ߱ ߓߍ߯ ߢߍ߫";
 "edit-summary-add-summary-text" = "ߟߊ߬ߘߛߏ߬ߟߌ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߘߏ߫ ߝߙߊ߬";
 "edit-summary-choice-fixed-grammar" = "ߞߊ߲ߜߍ ߘߐߓߍ߲߬";
 "edit-summary-choice-fixed-typos" = "ߛߓߍߟߌ ߞߍߢߊ ߛߊߞߍߟߌ";
@@ -372,7 +369,6 @@
 "new-password-instructions" = "ߌ ߓߘߴߌ ߜߊ߲߬ߞߎ߲߬ ߥߊ߯ߕߌ߫ ߟߊߕߊߡߌ߲߫ ߕߊߡߌ߲ߞߊ߲ ߠߊ߫.ߖߐ߲߬ߛߊ߫ ߌ ߘߴߌ ߟߊ߫ ߜߊ߲߬ߞߎ߲߬ߠߌ߲ ߠߊߞߎߙߊ߲߫߸ ߌ ߟߊ߫ ߕߊ߬ߡߌ߲߬ߞߊ߲߬ ߞߎߘߊ ߟߊߘߏ߲߬ ߦߊ߲߬ ߖߊ߰ߣߌ߲߬.";
 "new-password-title" = "ߌ ߟߊ߫ ߕߊ߬ߡߌ߲߬ߞߊ߲ ߠߊߘߏ߲߬";
 "no-internet-connection" = "ߓߟߐߟߐ ߜߊ߲߬ߞߎ߲߬ߠߌ߲߬ ߕߴߦߋ߲߬";
-"no-internet-connection-article-reload-button" = "ߌ ߞߐߛߊ߬ߦߌ߬ ߞߐߟߊ߫ ߦߌߟߡߊ߫ ߟߊߞߎ߲߬ߘߎ߬ߣߍ߲ ߡߊ߬";
 "not-now-title" = "ߌߞߘߐߣߌ߲߬ ߕߴߏ ߘߌ߫";
 "notifications-center-agent-description-from-format" = "ߞߊ߬ ߝߘߊ߫ $1";
 "notifications-center-alert" = "ߟߊ߬ߛߏ߬ߓߌ߬ߟߌ";
@@ -387,7 +383,6 @@
 "notifications-center-empty-state-filters-subtitle" = "$1 ߡߊߦߟߍ߬ߡߊ߲߫ ߞߊ߬ ߗߋߛߓߍ߫ ߜߘߍ߫ ߟߎ߫ ߦߋ߫";
 "notifications-center-empty-state-no-projects-selected" = "ߖߊ߬ߕߋ߬ߘߐ߬ߛߌ߮ ߘߏ߫ ߝߙߊ߬ ߞߊ߬ ߗߋߛߓߍ߫ ߜߘߍ߫ ߟߎ߫ ߦߋ߫";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|ߛߍ߲ߛߍ߲ߟߊ߲ $1|ߛߍ߲ߛߍ߲ߟߊ߲ $1 ߠߎ߬}}";
-"notifications-center-feed-card-title" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߘߌ߫ ߛߋ߫ ߡߊߛߐ߬ߙߐ߲߬ ߠߊ߫ ߕߊ߲߬";
 "notifications-center-feed-news-notification-button-text" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߕߎ߲߬ߕߎ߲߬ߠߌ߲ ߓߌ߬ߟߴߊ߬ ߟߊ߫";
 "notifications-center-filters-accessibility-label" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߛߍ߲ߛߍ߲ߟߊ߲";
 "notifications-center-filters-read-status-item-title-all" = "ߊ߬ ߓߍ߯";
@@ -518,7 +513,6 @@
 "page-similar-titles" = "ߞߐߜߍ߫ ߡߎߣߎ߲ߣߍ߲ ߠߎ߬";
 "panel-compare-revisions-title" = "ߟߢߊ߬ߟߌ ߟߎ߬ ߟߊ߫ ߢߐ߲߯ߡߊ߬";
 "panel-not-logged-in-continue-edit-action-title" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߞߍ߫ ߞߵߌ ߜߊ߲߬ߞߎ߲߬ߓߊߟߌ ߕߏ߫";
-"panel-not-logged-in-subtitle" = "ߌ ߟߊ߫ IP ߛߊ߲߬ߓߊ߬ߕߐ߮ ߘߌ߫ ߞߍ߫ ߜߍߘߐ߫ ߦߋߕߊ ߘߌ߫ ߣߴߌ ߞߊ߬ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲߫ ߛߌ߫ ߞߍ߫. ߣߴߌ ߞߵߌ $1ߜߊ߲߬ߞߎ߲߫ $2 ߥߟߊ߫ ߞߊ߬ ߖߊ߬ߕߋ߬ߘߊ ߘߏ߫ $3ߛߌ߲ߘߌ߫ $4߸ ߌ ߟߊ߫ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߠߎ߬ ߘߌ߫ ߟߊߘߏ߲߬ ߌ ߟߊ߫ ߟߊ߬ߓߊ߰ߙߊ߬ߟߌ߫ ߕߐ߮ ߟߊ߫߸ ߊ߬ ߣߌ߫ ߕߣߐ߬ ߘߐ߬ߞߏ߫ ߜߘߍ߫ ߟߎ߫.";
 "panel-not-logged-in-title" = "ߌ ߜߊ߲߬ߞߎ߲߬ߣߍ߲߫ ߕߍ߫";
 "pictured" = "ߖߌ߬ߦߊ߬ߓߍ߬ߡߊ";
 "places-accessibility-clear-saved-searches" = "ߢߌߣߌ߲ߠߌ߲߫ ߠߊߞߎ߲߬ߘߎ߬ߣߍ߲ ߠߎ߬ ߖߏ߰ߛߌ߬";
@@ -606,9 +600,6 @@
 "reading-lists-article-save-to-disk-failed" = "ߕߊ߬ߡߌ߲߬ ߓߘߊ߫ ߞߍ߫ ߞߍߟߊ߲ ߘߊ߲߭ ߠߊ߫ ߸ ߞߎߡߘߊ ߕߍ߫ ߛߐ߲߬ ߕߎ߬ߡߊ߬ߢߐ߲߰ߦߊ߫ ߟߊ߫";
 "reading-lists-articles-not-synced-limit-exceeded" = "ߞߎߡߘߊ ߘߏ߫ ߟߎ߫ ߡߊ߫ ߓߌ߬ߟߊ߬ ߢߐ߲߯ ߡߊ߬ ߸ ߊ߬ ߓߘߊ߫ ߕߊ߬ߡߴߊ߬ ߘߊ߲߭ ߠߊ߫";
 "reading-lists-list-not-synced-limit-exceeded" = "ߛߙߍߘߍ ߡߊ߫ ߓߌ߬ߟߊ߬ ߢߐ߲߯ ߡߊ߬ ߸ߊ߬ ߓߘߊ߫ ߕߊ߬ߡߌ߲߬ ߊ߬ ߘߊ߲߭ ߠߊ߫";
-"replace-clear-button-accessibility" = "ߣߘߐ߬ߓߌߟߊ ߖߏ߰ߛߌ߫";
-"replace-infolabel-method-replace" = "ߊ߬ ߣߐ߬ߘߐߓߌ߬ߟߊ߬";
-"replace-infolabel-method-replace-all" = "ߊ߬ ߓߍ߯ ߣߐ߬ߘߐߓߌ߬ߟߊ߬";
 "saved-reading-lists-title" = "ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߬ ߛߙߍߘߍ";
 "saved-search-default-text" = "ߞߎߡߘߊ߫ ߟߊߞߎ߲߬ߘߎ߬ߣߍ߲ ߠߎ߬ ߢߌߣߌ߲߫";
 "saved-title" = "ߟߊ߬ߞߎ߲߬ߘߎ߬ߣߍ߲";
@@ -616,7 +607,6 @@
 "search-button-accessibility-label" = "ߢߌߣߌ߲ߠߌ߲ ߞߍ߫ ߥߞߌߔߋߘߌߦߊ ߞߣߐ߫";
 "search-clear-title" = "ߊ߬ ߟߊߛߊ߬";
 "search-field-placeholder-text" = "ߢߌߣߌ߲ߠߌ߲ ߞߍ߫ ߥߞߌߔߋߘߌߦߊ ߞߣߐ߫";
-"search-reading-list-placeholder-text" = "ߢߌߣߌ߲ߠߌ߲ ߞߍ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߫ ߛߙߍߘߍ ߘߐ߫";
 "search-recent-clear-confirmation-heading" = "ߞߊ߬ ߞߐ߯ߟߊ߫ ߡߊߦߟߍߡߊ߲ߠߌ߲ ߠߎ߬ ߓߍ߯ ߖߏ߰ߛߌ߫؟";
 "search-recent-clear-confirmation-sub-heading" = "ߋ߫ ߗߍ߬߸ ߏ߬ ߕߍ߫ ߛߐ߲߬ ߘߐߛߊ߬ ߟߊ߫ ߘߋ߬߳߹";
 "search-recent-clear-delete-all" = "ߊ߬ ߓߍ߯ ߖߏ߰ߛߌ߬";

@@ -3,6 +3,7 @@ import WMF
 import CocoaLumberjackSwift
 import WMFData
 import WMFComponents
+import WMFNativeLocalizations
 
 struct StubRevisionModel {
     let revisionId: Int

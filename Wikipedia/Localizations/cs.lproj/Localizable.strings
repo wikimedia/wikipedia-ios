@@ -188,7 +188,6 @@
 "description-help-title" = "Nápověda pro popisy článků";
 "description-help-wikidata-guide" = "Průvodce pro psaní popisů na Wikidatech";
 "description-published-button-title" = "Hotovo";
-"description-published-footer" = "V této aplikaci také můžete editovat články. Zkuste opravit překlepy a krátké věty klepnutím na ikonu tužky";
 "description-published-subtitle" = "Právě jste pro všechny vylepšili Wikipedii";
 "description-published-title" = "Popis byl zveřejněn!";
 "description-welcome-concise-sub-title" = "V ideálním případě jeden řádek, mezi dvěma až dvanácti slovy";
@@ -238,8 +237,6 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Vybraný text nelze nalézt";
 "edit-minor-learn-more-text" = "Informace o malých editacích";
 "edit-minor-text" = "Malá editace";
-"edit-published" = "Editace zveřejněna";
-"edit-published-subtitle" = "Právě jste pro všechny vylepšili Wikipedii";
 "edit-summary-add-summary-text" = "Přidat shrnutí editace";
 "edit-summary-choice-added-image" = "Přidán obrázek";
 "edit-summary-choice-fixed-grammar" = "Oprava pravopisu";
@@ -492,8 +489,6 @@
 "new-password-title" = "Zadejte své heslo";
 "no-email-account-alert" = "Prosím, přidejte do svého zařízení e-mailový účet a zkuste to znovu.";
 "no-internet-connection" = "Nejste připojeni k internetu.";
-"no-internet-connection-article-reload" = "Novější verze tohoto článku může být k dispozici, ale nelze ji načíst bez připojení k internetu.";
-"no-internet-connection-article-reload-button" = "Vrátit se k předchozí uložené verzi";
 "notifications-center-alert" = "Upozornění";
 "notifications-center-change-password" = "Změnit heslo";
 "notifications-center-checking-for-notifications" = "Kontrola oznámení...";
@@ -699,15 +694,6 @@
 "relative-date-seconds-abbreviated" = "$1 s";
 "relative-date-seconds-ago-abbreviated" = "před $1 s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tento rok|1=Loni|2=Předloni|Před $1 lety}}";
-"replace-button-accessibility" = "Provést $1.";
-"replace-buttons-replace-accessibility" = "Nahradit v jednom případě";
-"replace-buttons-replace-all-accessibility" = "Nahradit všude";
-"replace-clear-button-accessibility" = "Vymazat nahradit";
-"replace-infolabel-method-replace" = "Nahradit";
-"replace-infolabel-method-replace-all" = "Nahradit vše";
-"replace-method-button-accessibility" = "Způsob nahrazení. Nastavit na $1.";
-"replace-textfield-accessibility" = "Nahradit";
-"replace-textfield-placeholder" = "Nahradit za...";
 "reverted-edit-title" = "Revertovaná editace";
 "saved-all-articles-title" = "Všechny články";
 "saved-default-reading-list-tag" = "Tento seznam nemůže být odstraněn";
@@ -721,7 +707,6 @@
 "search-button-accessibility-label" = "Hledat na Wikipedii";
 "search-clear-title" = "Odebrat";
 "search-field-placeholder-text" = "Hledat ve Wikipedii";
-"search-reading-list-placeholder-text" = "Hledat v seznamech k přečtení";
 "search-recent-clear-confirmation-heading" = "Smazat všechna poslední hledání?";
 "search-recent-clear-confirmation-sub-heading" = "Tato operace nemůže být vrácena zpět!";
 "search-recent-clear-delete-all" = "Smazat vše";
@@ -742,11 +727,6 @@
 "settings-languages-feed-customization" = "Přizpůsobením kanálu Objevit můžete nastavit, ve kterých jazycích se zobrazí články, z témat které vyberete.";
 "settings-my-languages" = "Moje jazyky";
 "settings-notifications" = "Push oznámení";
-"settings-notifications-info" = "Upozornění na trendy a nejčastěji čtené články na Wikipedii. Vše je poskytováno s ohledem na vaše soukromí.";
-"settings-notifications-learn-more" = "Informace o upozorněních";
-"settings-notifications-push-notifications" = "Push oznámení";
-"settings-notifications-system-turn-on" = "Zapnout upozornění";
-"settings-notifications-trending" = "Trendy aktuální události";
 "settings-primary-language" = "Primární";
 "settings-primary-language-details" = "První jazyk v seznamu bude použit jako primární jazyk pro aplikaci.";
 "settings-search-footer-text" = "Otevírat aplikaci v kartě Hledání (místo kanálu Objevit)";
@@ -831,9 +811,6 @@
 "welcome-languages-add-or-edit-button" = "Přidat nebo upravit preferované jazyky";
 "welcome-languages-description" = "Na vašem zařízení jsme našli následující jazyky:";
 "welcome-languages-search-title" = "Vyhledávejte a čtěte ve více než 300 jazycích";
-"welcome-notifications-tell-me-more-creation" = "Upozornění jsou vytvářeny a doručovány aplikací ve vašem zařízení, nikoliv od našich serverů nebo od serverů třetích stran.";
-"welcome-notifications-tell-me-more-storage" = "Předvolby upozornění jsou uloženy v zařízení a nejsou založeny na osobních informacích nebo aktivitách.";
-"welcome-notifications-tell-me-more-title" = "Více informací o upozornění";
 "wikitext-preview-changes" = "Načítání náhledu vašich změn…";
 "wikitext-preview-link-external-preview-description" = "Tento odkaz vede na externí webovou stránku: $1";
 "wikitext-preview-link-external-preview-title" = "Externí odkaz";

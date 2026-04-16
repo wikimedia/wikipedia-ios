@@ -1,5 +1,6 @@
 import Foundation
 import WMF
+import WMFNativeLocalizations
 
 extension FeaturedArticleWidget {
 

@@ -1,6 +1,7 @@
 import Foundation
 import WMF
 import WMFData
+import WMFNativeLocalizations
 
 enum ShortDescriptionControllerError: Error {
     case failureConstructingRegexExpression

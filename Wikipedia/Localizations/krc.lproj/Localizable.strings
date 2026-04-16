@@ -163,7 +163,6 @@
 "description-help-title" = "Статья ачыкълау болушлукъ";
 "description-help-wikidata-guide" = "Викибилгилеге танытыу джазар ючюн юретиу";
 "description-published-button-title" = "Тындырылды";
-"description-published-footer" = "Бу къошакъда текстни тюзетирге да боллукъсуз. Эндиги джол къалам сураты болгъан белгичикге басыб, джазыу халатланы эмда къысха айтымланы тюзетиб кёрюгюз";
 "description-published-subtitle" = "Википедияны хар ким ючюн да энтда маджаллашдырдынг";
 "description-published-title" = "Ачыкълау басмаланды!";
 "description-welcome-concise-sub-title" = "Идеалда экиден онеки сёзге дери бир тизгин";
@@ -266,8 +265,6 @@
 "edit-notices-always-display" = "Тюзетиу хапарландырыуланы хаманда кёргюз";
 "edit-notices-please-read" = "Тилейбиз, тюзетиуню аллы бла окъугъуз";
 "edit-preview-simplified-format-message" = "Бютеу контент къысхартылгъан форматда кёргюзюлгенди.";
-"edit-published" = "Тюзетиу басмаланды";
-"edit-published-subtitle" = "Википедияны хар ким ючюн да энтда маджаллашдырдынг";
 "edit-show-web-preview" = "Веб ал къарауну кёргюз";
 "edit-summary-add-summary-text" = "Тюзетиуню къысха хапарлауун къош";
 "edit-summary-choice-added-image" = "Сурат къошулду";
@@ -564,7 +561,6 @@
 "image-recs-yes-title" = "Хоу";
 "import-shared-reading-list-default-title" = "Окъуу Тизмем";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Соруулаугъа къошул";
-"import-shared-reading-list-survey-prompt-footer" = "$1privacy Ташалыкъны юсюнден билдириу бла танышыгъыз$2. Соруулауну ючюнчю джаны къурагъанды. Аланы $3 ташалыкъ политикаларына къара$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Окъургъа тизмелени джайыу\"  — тест функцияды, аны маджаллашдырырча неда кетерирча, бизге сизни багъаларыгъыз керекди.";
 "import-shared-reading-list-survey-prompt-title" = "\"Окъургъа тизмелени ортагъа салыу\" функцияны маджаллашдырыргъа болушаллыкъмысыз?";
 "import-shared-reading-list-title" = "Ортагъа салыннган окъургъа тизмени импорту";
@@ -647,8 +643,6 @@
 "next-action-title" = "Эндиги";
 "no-email-account-alert" = "Тилейбиз, девайсыгъызда электрон почта хыйсабны джарашдырыб, джангыдан сынагъыз.";
 "no-internet-connection" = "Интернет байлам джокъду";
-"no-internet-connection-article-reload" = "Бу статьяны андан да джангы версиясы болургъа болур, алай а интернет байлам болмаса джюкленалмаз.";
-"no-internet-connection-article-reload-button" = "Эм арт сакъланнган версиягъа къайт";
 "not-now-title" = "Бусагъатда тюл";
 "notifications-center-agent-description-from-format" = "Джиберген $1";
 "notifications-center-alert" = "Эсгертриу";
@@ -667,7 +661,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Аслам билдириу кёрюр ючюн $1 тюзетигиз";
 "notifications-center-empty-state-no-projects-selected" = "Аслам билдириу кёрюр ючюн прокет къошугъуз";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 фильтр}}";
-"notifications-center-feed-card-title" = "Хапарландыруланы тюзетиу энди ачыкъды";
 "notifications-center-feed-news-notification-button-text" = "Push-хапарландырыуланы джандыр";
 "notifications-center-feed-news-notification-text" = "Бютеу Викимедиа проектле ючюн тюзетиу хапарландырыула энди къошакъны болушлугъу бла хайырланырчады. Гузаба заманыгъызда Википедиядагъы билдириулеригизден хапарлы болур ючюн пуш-хапарландырыуланы сайлагъыз.";
 "notifications-center-filters-accessibility-label" = "Хапарландырыу Фильтр";
@@ -811,7 +804,6 @@
 "panel-compare-revisions-text" = "Версияланы тенглешдириу, статьяны заман ичинде къалай тюрленнгенин кёргюзюрге болушады. Статьяны эки версиясын тенглешдириу, тюрлендирилген, къаллай да болсун, контентни айырыб, бу версияланы арасында башхалыкъны кёргюзюрюкдю.";
 "panel-compare-revisions-title" = "Версияланы тенглешдириу";
 "panel-not-logged-in-continue-edit-action-title" = "Олтуруу ачхмагъанлай тюзет";
-"panel-not-logged-in-subtitle" = "Къаллай болса да тюзетиу этсегиз IP-адресигигзни хар ким да кёрюрге боллукъду. $1log Кирсегиз $2 неда $3 хыйсаб къурасагъыз $4 тюзетиулеригиз башха онглулукъла бла бирге хайырланыучу атыгъыз бла байланныкъды.";
 "panel-not-logged-in-title" = "Системагъа кирмегенсиз";
 "pictured" = "суратлан этилгенди";
 "places-accessibility-clear-saved-searches" = "Сакъланнган излеулени тазала";
@@ -959,15 +951,6 @@
 "relative-date-seconds-abbreviated" = "$1 сек.";
 "relative-date-seconds-ago-abbreviated" = "$1 сек. алгъа";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Быйыл|1=Былтыр|$1 джыл алгъа}}";
-"replace-button-accessibility" = "$1 тындырыгъыз.";
-"replace-buttons-replace-accessibility" = "Джангыз юлгюню алмашдыр";
-"replace-buttons-replace-all-accessibility" = "Бютеу юлгюлени алмашдыр";
-"replace-clear-button-accessibility" = "Алмашдырыуну тазала";
-"replace-infolabel-method-replace" = "Алмашдыр";
-"replace-infolabel-method-replace-all" = "Барын да алмашдыр";
-"replace-method-button-accessibility" = "Мадарны алмашдыр. $1 бу режимди. Тюрлендирир ючюн сайла.";
-"replace-textfield-accessibility" = "Алмашдыр";
-"replace-textfield-placeholder" = "Буну бла алмашдыр...";
 "return-button-title" = "Кери къайт";
 "return-to-article" = "Статьягъа кери къайт";
 "reverted-edit-title" = "Кери алыннган тюзетиу";
@@ -986,7 +969,6 @@
 "search-button-accessibility-label" = "Википедияда излеу";
 "search-clear-title" = "Тазала";
 "search-field-placeholder-text" = "Википедияда излеу";
-"search-reading-list-placeholder-text" = "Окъуу тизмеде изле";
 "search-recent-clear-confirmation-heading" = "Ахыр излеулени бютеую кетерилсинми?";
 "search-recent-clear-confirmation-sub-heading" = "Бу этиу кери аллыналмаз!";
 "search-recent-clear-delete-all" = "Барысын да кетер";
@@ -1014,11 +996,6 @@
 "settings-notifications-echo-failure-title" = "Эхо Хапарландырыугъа джаздырылыу тинтилирча тюлдю";
 "settings-notifications-echo-failure-try-again" = "Энтда сынаб кёр";
 "settings-notifications-header" = "Башха къошум этгенледен келген билдириуле, эсгертиуле эмда хапарландырыула кибик хыйсабыгъыз бла байламлы этиуледен хапарлы болугъуз. Барысы да ташалыкъгъа эмда эм джангы информациягъа кёре берилгенди.";
-"settings-notifications-info" = "Push-хапарландырыуларгъыз бла, трендде болгъан эмда эм бек окъулгъан Википедия статьяладан хапарлы болугъуз.  Барысы да ташалыкъгъа эмда эм джангы информациягъа кёре берилгенди.";
-"settings-notifications-learn-more" = "Хапарландырыуланы юсюнден аслам бил";
-"settings-notifications-push-notifications" = "Push-хапарландырыула";
-"settings-notifications-system-turn-on" = "Хапарландырыуланы джандыр";
-"settings-notifications-trending" = "Баргъан болууланы трендинде";
 "settings-primary-language" = "Биринчи";
 "settings-primary-language-details" = "Бу тизмедеги биринчи тил, къошакъны баш тили болуб хайырланады.";
 "settings-search-footer-text" = "Къошакъны, Аулау салгъычны орнуна Излау салгъыч ачылырча джарашдыр.";
@@ -1252,9 +1229,6 @@
 "welcome-languages-add-or-edit-button" = "Тил сайлауну къош неда тюзет";
 "welcome-languages-description" = "Девайсыгъызда бу тиллени табдыкъ:";
 "welcome-languages-search-title" = "300-ден аслам тилде изле";
-"welcome-notifications-tell-me-more-creation" = "Хапарландырыула, бизни (неда ючюнчю табаны) серверлерини (серверлерибизни) къолу бла тюл, сизни девайсыгъызны юсюндеги къошакъны джанындан болдурулур эмда джетдирилир.";
-"welcome-notifications-tell-me-more-storage" = "Хапарландырыу джарашдырыула девайсда сакъланыр эмда энчи информация неда этиуге тамалланмагъанды.";
-"welcome-notifications-tell-me-more-title" = "Хапарландырыуланы юсюнден энтда";
 "welcome-privacy-subtitle" = "Тёлеусюз информация къозгъалыугъа къошулур ючюн, энчи информациягъызны берирге керек болмагъанына ийнанабыз. Бу къошум ючюн джыйылгъан хайырланыу билгиле анонимдиле.";
 "welcome-privacy-terms-button-text" = "Ташалыкъ политикабызны эмда хайырланыу шартларыбызны юсюнден алсам билигиз";
 "widget-onthisday-description" = "Тарихде бу кюнде не болгъанын аула";

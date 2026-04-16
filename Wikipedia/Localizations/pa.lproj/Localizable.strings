@@ -291,8 +291,6 @@
 "edit-notices" = "ਸੁਨੇਹੇ ਸੋਧੋ";
 "edit-notices-please-read" = "ਕਿਰਪਾ ਕਰਕੇ ਸੋਧ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਪਡ਼੍ਹੋ";
 "edit-preview-simplified-format-message" = "ਸਾਰੀ ਸਮੱਗਰੀ ਨੂੰ ਸੌਖੀ ਤਰਤੀਬ ਵਿੱਚ ਵਿਖਾਇਆ ਗਿਆ ਹੈ।";
-"edit-published" = "ਸੋਧ ਛਾਪ ਦਿੱਤੀ ਗਈ!";
-"edit-published-subtitle" = "ਤੁਸੀਂ ਹੁਣੇ ਹੀ ਵਿਕੀਪੀਡੀਆ ਨੂੰ ਸਾਰਿਆਂ ਲਈ ਬਿਹਤਰ ਬਣਾਇਆ ਹੈ";
 "edit-sheet-temp-account-notice" = "ਆਰਜ਼ੀ ਖਾਤਾ ਸੁਨੇਹਾ";
 "edit-show-web-preview" = "ਵੈੱਬ ਝਲਕ ਦਿਖਾਓ";
 "edit-summary-add-summary-text" = "ਸੋਧ ਸੰਖੇਪ ਸ਼ਾਮਲ ਕਰੋ";
@@ -749,12 +747,6 @@
 "relative-date-seconds-abbreviated" = "$1 ਸਕਿੰਟ";
 "relative-date-seconds-ago-abbreviated" = "$1 ਸਕਿੰਟ ਪਹਿਲਾਂ";
 "relative-date-years-ago" = "{{PLURAL:$1| 0=ਇਸ ਸਾਲ|1=ਪਿਛਲੇ ਸਾਲ| $1 ਸਾਲ ਪਹਿਲਾਂ}}";
-"replace-button-accessibility" = "$1 ਕਰੋ।";
-"replace-clear-button-accessibility" = "ਤਬਦੀਲੀ ਸਾਫ਼ ਕਰੋ";
-"replace-infolabel-method-replace" = "ਬਦਲੋ";
-"replace-infolabel-method-replace-all" = "ਸਾਰੇ ਬਦਲੋ";
-"replace-textfield-accessibility" = "ਬਦਲੋ";
-"replace-textfield-placeholder" = "ਇਸ ਨਾਲ ਬਦਲੋ...";
 "return-button-title" = "ਵਾਪਸੀ";
 "return-to-article" = "ਲੇਖ 'ਤੇ ਵਾਪਸ ਜਾਓ";
 "reverted-edit-title" = "ਸੋਧਾਂ ਵਾਪਸ ਕੀਤਿਆਂ";
@@ -769,7 +761,6 @@
 "search-button-accessibility-label" = "ਵਿਕੀਪੀਡੀਆ ’ਤੇ ਖੋਜੋ";
 "search-clear-title" = "ਸਾਫ਼ ਕਰੋ";
 "search-field-placeholder-text" = "ਵਿਕੀਪੀਡੀਆ ’ਤੇ ਭਾਲ਼ੋ";
-"search-reading-list-placeholder-text" = "ਪਡ਼੍ਹਨ ਦੀ ਸੂਚੀ ਵਿੱਚ ਲੱਭੋ";
 "search-recent-clear-confirmation-heading" = "ਸਾਰੀਆਂ ਹਾਲੀਆ ਖੋਜਾਂ ਮਿਟਾਓ?";
 "search-recent-clear-confirmation-sub-heading" = "ਇਸ ਕਾਰਜ ਨੂੰ ਰੱਦ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ!";
 "search-recent-clear-delete-all" = "ਸਾਰੇ ਮਿਟਾਓ";
@@ -789,9 +780,6 @@
 "settings-my-languages" = "ਮੇਰੀਆੰ ਭਾਸ਼ਾਵਾੰ";
 "settings-notifications" = "ਪੁਸ਼ ਸੂਚਨਾਵਾਂ";
 "settings-notifications-echo-failure-try-again" = "ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ";
-"settings-notifications-learn-more" = "ਸੂਚਨਾਵਾਂ ਬਾਰੇ ਹੋਰ ਪਡ਼੍ਹੋ";
-"settings-notifications-system-turn-on" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
-"settings-notifications-trending" = "ਮੌਜੂਦਾ ਘਟਨਾਵਾਂ ਦਾ ਰੁਝਾਨ";
 "settings-off" = "ਬੰਦ ਹੈ";
 "settings-on" = "ਚਾਲੂ ਏ";
 "settings-primary-language" = "ਮੁੱਢਲੀ";
@@ -984,7 +972,6 @@
 "welcome-languages-add-or-edit-button" = "ਤਰਜੀਹੀ ਭਾਸ਼ਾਵਾਂ ਜੋੜੋ ਜਾਂ ਸੋਧੋ";
 "welcome-languages-description" = "ਸਾਨੂੰ ਤੁਹਾਡੀ ਜੰਤਰ 'ਤੇ ਹੇਠ ਲਿਖੀਆਂ ਭਾਸ਼ਾਵਾਂ ਮਿਲੀਆਂ ਹਨ:";
 "welcome-languages-search-title" = "300 ਤੋਂ ਵੱਧ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ ਖੋਜ ਕਰੋ";
-"welcome-notifications-tell-me-more-title" = "ਸੂਚਨਾਵਾਂ ਬਾਰੇ ਹੋਰ ਪਡ਼੍ਹੋ";
 "welcome-privacy-terms-button-text" = "ਸਾਡੀ ਨਿਜੱਤਾ ਨੀਤੀ ਅਤੇ ਵਰਤੋਂ ਦੀਆਂ ਸ਼ਰਤਾਂ ਬਾਰੇ ਹੋਰ ਜਾਣੋ";
 "widget-onthisday-description" = "ਪੜਚੋਲ ਕਰੋ ਕਿ ਇਤਿਹਾਸ ਵਿੱਚ ਇਸ ਦਿਨ ਕੀ ਹੋਇਆ।";
 "widget-onthisday-placeholder-event-snippet" = "ਵਿਕੀਪੀਡੀਆ, ਇੱਕ ਮੁਫਤ ਵਿਕੀ ਸਮੱਗਰੀ ਵਿਸ਼ਵਕੋਸ਼, ਔਨਲਾਈਨ ਹੁੰਦਾ ਹੈ।";

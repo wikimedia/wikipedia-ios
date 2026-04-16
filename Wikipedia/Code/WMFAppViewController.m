@@ -256,6 +256,16 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                              selector:@selector(showErrorBanner:)
                                                  name:NSNotification.showErrorBanner
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(autoLoginNeedsEmailToken:)
+                                                 name:WMFAuthenticationManager.autoLoginNeedsEmailToken
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(autoLoginNeedsOathToken:)
+                                                 name:WMFAuthenticationManager.autoLoginNeedsOathToken
+                                               object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(articleViewControllerDidDisappear:)
@@ -586,6 +596,33 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if ([notification.userInfo[NSNotification.showErrorBannerNSErrorKey] isKindOfClass:[NSError class]]) {
         NSError *error = notification.userInfo[NSNotification.showErrorBannerNSErrorKey];
         [[WMFToastManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousToasts:YES tapCallBack:nil];
+    }
+}
+
+
+- (void)autoLoginNeedsEmailToken:(NSNotification *)notification {
+    WMFTwoFactorPasswordViewController *vc = [self createTwoFactorViewControllerFromAutoLoginNotificationWithUserInfo:notification.userInfo needsEmailToken:YES];
+    
+    if (vc) {
+        WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:vc modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
+        [self.currentTabNavigationController presentViewController:navVC animated:true completion:nil];
+    } else {
+        [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorApp completion:^{
+            // no-op
+        }];
+    }
+}
+
+- (void)autoLoginNeedsOathToken:(NSNotification *)notification {
+    WMFTwoFactorPasswordViewController *vc = [self createTwoFactorViewControllerFromAutoLoginNotificationWithUserInfo:notification.userInfo needsEmailToken:NO];
+    
+    if (vc) {
+        WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:vc modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
+        [self.currentTabNavigationController presentViewController:navVC animated:true completion:nil];
+    } else {
+        [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorApp completion:^{
+            // no-op
+        }];
     }
 }
 
@@ -1473,7 +1510,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _exploreViewController.dataStore = self.dataStore;
         _exploreViewController.notificationsCenterPresentationDelegate = self;
         _exploreViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
-        _exploreViewController.title = [WMFCommonStrings exploreTabTitle];
+        _exploreViewController.title = [WMFCommonStringsWrapper exploreTabTitle];
         [_exploreViewController applyTheme:self.theme];
     }
     return _exploreViewController;
@@ -1503,7 +1540,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _searchTabViewController.tabBarItem =
             [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemSearch
                                                        tag:WMFAppTabTypeSearch];
-        _searchTabViewController.title = [WMFCommonStrings searchTitle];
+        _searchTabViewController.title = [WMFCommonStringsWrapper searchTitle];
     }
     return _searchTabViewController;
 }
@@ -1515,7 +1552,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _savedViewController.dataStore = self.dataStore;
         _savedViewController.tabBarDelegate = self;
         _savedViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-save"];
-        _savedViewController.title = [WMFCommonStrings savedTabTitle];
+        _savedViewController.title = [WMFCommonStringsWrapper savedTabTitle];
     }
     return _savedViewController;
 }
@@ -1524,7 +1561,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (!_activityTabViewController) {
         _activityTabViewController = [self generateActivityTab];
         _activityTabViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-recent"];
-        _activityTabViewController.title = [WMFCommonStrings activityTitle];
+        _activityTabViewController.title = [WMFCommonStringsWrapper activityTitle];
     }
     return _activityTabViewController;
 }
@@ -1534,7 +1571,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _placesViewController = [[UIStoryboard storyboardWithName:@"Places" bundle:nil] instantiateInitialViewController];
         [_placesViewController applyTheme:self.theme];
         _placesViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-nearby"];
-        _placesViewController.title = [WMFCommonStrings placesTabTitle];
+        _placesViewController.title = [WMFCommonStringsWrapper placesTabTitle];
     }
     return _placesViewController;
 }
@@ -2065,7 +2102,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         SettingsTabViewController *settingsVC = [self generateSettingsTab];
         [settingsVC applyTheme:self.theme];
         _settingsViewController = settingsVC;
-        _settingsViewController.title = [WMFCommonStrings settingsTitle];
+        _settingsViewController.title = [WMFCommonStringsWrapper settingsTitle];
         _settingsViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
     }
     return _settingsViewController;
@@ -2269,7 +2306,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSString *title = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-enabled-panel-title", nil, nil, @"Sync is enabled on this account", @"Title for panel informing user that sync was enabled on their Wikipedia account on another device");
     NSString *message = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-enabled-panel-message", nil, nil, @"Reading list syncing is enabled for this account. To stop syncing, you can turn sync off for this account by updating your settings.", @"Message for panel informing user that sync is enabled for their account.");
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:WMFCommonStrings.gotItButtonTitle style:UIAlertActionStyleDefault handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:[WMFCommonStringsWrapper gotItButtonTitle] style:UIAlertActionStyleDefault handler:nil]];
     [presenter presentViewController:alert
                             animated:YES
                           completion:^{
@@ -2284,7 +2321,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSString *title = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-disabled-panel-title", nil, nil, @"Sync disabled", @"Title for panel informing user that sync was disabled on their Wikipedia account on another device");
     NSString *message = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-disabled-panel-message", nil, nil, @"Reading list syncing has been disabled for your Wikipedia account on another device. You can turn sync back on by updating your settings.", @"Message for panel informing user that sync was disabled on their Wikipedia account on another device.");
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:WMFCommonStrings.gotItButtonTitle style:UIAlertActionStyleDefault handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:[WMFCommonStringsWrapper gotItButtonTitle] style:UIAlertActionStyleDefault handler:nil]];
     UIViewController *presenter = self.presentedViewController ?: self;
     [presenter presentViewController:alert
                             animated:YES

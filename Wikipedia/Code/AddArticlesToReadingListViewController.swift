@@ -1,6 +1,7 @@
 import UIKit
 import CocoaLumberjackSwift
 import WMFComponents
+import WMFNativeLocalizations
 import SwiftUI
 
 protocol AddArticlesToReadingListDelegate: NSObjectProtocol {

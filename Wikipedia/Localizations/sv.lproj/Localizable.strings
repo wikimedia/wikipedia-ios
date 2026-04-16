@@ -17,6 +17,7 @@
 // Author: Macofe
 // Author: McDutchie
 // Author: Mhurd
+// Author: Michael FOSS
 // Author: Mjälten
 // Author: Nemo bis
 // Author: Platinawolf
@@ -102,6 +103,7 @@
 "activity-tab-add-images-subtitle" = "Lägg till föreslagna bilder till Wikipediaartiklar för att öka förståelsen.";
 "activity-tab-add-images-title" = "Lägg till bilder";
 "activity-tab-additional-thoughts" = "Några ytterligare kommentarer?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 visning|$1 visningar}}";
 "activity-tab-articles-read" = "Artiklar som har lästs denna månad";
 "activity-tab-articles-read-graph-label" = "Artiklar";
 "activity-tab-customize-all-time-impact" = "Genom tidernas inverkan";
@@ -122,13 +124,29 @@
 "activity-tab-empty-subtitle" = "Börja läsa och redigera för att bygga din historia";
 "activity-tab-empty-title" = "Inget att visa";
 "activity-tab-generic-no-edits" = "Du har inte redigerat den här veckan. Börja nu för att spåra dina bidrag.";
+"activity-tab-history-callout-body" = "Bläddra eller rensa din läshistorik i **sökfliken**.";
+"activity-tab-history-callout-body-loggedout" = "Hitta och rensa din läshistorik i **sökfliken**. Inget konto behövs.";
+"activity-tab-hitory-callout-close" = "Stäng meddelandekort om historik";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "PÅ WIKIPEDIA iOS";
+"activity-tab-impact-all-time-title" = "Genom tiderna";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|$1 dag|$1 dagar}}";
+"activity-tab-impact-best-streak-label" = "bästa svit";
+"activity-tab-impact-edits-label" = "redigeringar";
+"activity-tab-impact-last-edited-label" = "senast redigerad";
+"activity-tab-impact-recent-activity-title" = "Din senaste aktivitet (senaste 30 dagarna)";
+"activity-tab-impact-recent-startend-accessibility" = "Från $1 till $2";
+"activity-tab-impact-thanks-label" = "tack";
+"activity-tab-impact-total-edits-label" = "totalt antal redigeringar";
+"activity-tab-impact-views-day" = "Dag";
+"activity-tab-impact-views-title" = "Visningar på artiklar du har redigerat";
+"activity-tab-impact-views-views" = "Visningar";
 "activity-tab-log-in-or-create-account" = "Logga in eller skapa ett konto för att se mer redigerings- och läsaktivitet.";
 "activity-tab-logged-out-subtitle" = "Logga in eller skapa ett konto för att se din aktivitet i Wikipedia-appen";
 "activity-tab-logged-out-title" = "Se fler läs- och redigeringsinsikter";
 "activity-tab-logged-out-track-what-youve-read" = "Spåra vad du har läst och se dina bidrag över tid på ett nytt sätt";
 "activity-tab-menu-clear-history" = "Rensa läshistorik";
+"activity-tab-most-viewed" = "Mest lästa sedan din redigering";
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "Du har inte redigerat den här veckan. Lägg till bilder för att göra artiklar lättare att förstå.";
 "activity-tab-no-username-reading-title" = "Din läsning";
@@ -140,6 +158,8 @@
 "activity-tab-onboarding-second-button-title" = "Läs mer om aktivitet";
 "activity-tab-onboarding-second-item-subtitle" = "Få insikter om dina bidrag och omfattningen av kunskapen du har delat.";
 "activity-tab-onboarding-second-item-title" = "Höjdpunkter";
+"activity-tab-onboarding-third-item-subtitle-updated" = "Aktiviteten innehåller en omfattande tidslinje över artiklar som lästs, sparats och redigerats. Din läshistorik finns nu på Sök-fliken.";
+"activity-tab-onboarding-third-item-title-updated" = "Läshistoriken finns nu i Sök";
 "activity-tab-read-title" = "Visa redigeringshistorik";
 "activity-tab-satisfied" = "Nöjd";
 "activity-tab-saved" = "Artiklar som har sparats denna månad";
@@ -175,6 +195,7 @@
 "appearance-settings-adjust-text-sizing" = "Justera artikelns textstorlek";
 "appearance-settings-expand-tables" = "Expandera tabeller";
 "appearance-settings-expand-tables-footer" = "Låt alla tabeller på alla artiklar vara öppna som standard, inklusive snabbfakta, referenser, anteckningar och externa länkar.";
+"appearance-settings-icon-contributor-title" = "Bidragsgivare";
 "appearance-settings-image-dimming-footer" = "Minska opaciteten för bilder i det mörka och svarta temat";
 "appearance-settings-reading-themes" = "Lästeman";
 "appearance-settings-set-automatic-table-opening" = "Tabellinställningar";
@@ -192,6 +213,7 @@
 "article-languages-yours" = "Dina språk";
 "article-read-more-title" = "Läs mer";
 "article-reference-view-title" = "Referens $1";
+"article-return-button-accessibility-title" = "Tillbaka till: $1";
 "article-revision-history" = "Artikelns versionshistorik";
 "article-save-error-not-enough-space" = "Du har inte tillräckligt mycket utrymme på din enhet för att spara denna artikel";
 "article-share" = "Dela";
@@ -235,6 +257,7 @@
 "chinese-variants-alert-title" = "Uppdaterades till stöd för kinesiska varianter";
 "clear-title-accessibility-label" = "Rensa";
 "clearing-cache-complete" = "Cacheminnet rensades.";
+"clearing-cache-error" = "Fel när cacheminnet skulle rensas.";
 "clearing-cache-in-progress" = "Cacheminnet rensas.";
 "close-all-tabs" = "Stäng alla flikar";
 "close-all-tabs-confirmation" = "Vill du stänga alla $1 flikar? Den här åtgärden kan inte ångras.";
@@ -286,7 +309,6 @@
 "description-help-title" = "Hjälp om artikelbeskrivningar";
 "description-help-wikidata-guide" = "Guide på Wikidata om att skriva beskrivningar";
 "description-published-button-title" = "Klar";
-"description-published-footer" = "Du kan även redigera artiklar i denna app. Försök att åtgärda stavfel och mindre meningar genom att klicka på pennikonen nästa gång.";
 "description-published-subtitle" = "Du gjorde precis Wikipedia bättre för alla";
 "description-published-title" = "Beskrivningen publicerades!";
 "description-welcome-concise-sub-title" = "Helst en rad, mellan två till tolv ord";
@@ -398,8 +420,6 @@
 "edit-notices-always-display" = "Visa alltid redigeringsnotiser";
 "edit-notices-please-read" = "Var god läs detta innan du redigerar";
 "edit-preview-simplified-format-message" = "Allt innehåll visas i ett förenklat format.";
-"edit-published" = "Redigeringen publicerades";
-"edit-published-subtitle" = "Du gjorde precis Wikipedia bättre för alla";
 "edit-sheet-ip-account-notice" = "Meddelande om IP-konto";
 "edit-sheet-temp-account-notice" = "Tillfälligt kontomeddelande";
 "edit-show-web-preview" = "Visa webbförhandsgranskning";
@@ -598,6 +618,7 @@
 "explore-suggested-edits-footer" = "Lägg till";
 "explore-suggested-edits-image-recs-body" = "Lägg till föreslagna bilder till Wikipediaartiklar för att öka förståelsen.";
 "explore-suggested-edits-image-recs-title" = "Lägg till en bild";
+"explore-wikipedia" = "Utforska Wikipedia";
 "export-user-data-confirmation-message" = "Att dela ditt appbibliotek inkluderar data om dina läslistor och historik, inställningar och innehållet i utforskarflödet. Denna datafil bör endast delas med en betrodd mottagare för att användas i tekniska diagnostiska ändamål.";
 "export-user-data-confirmation-title" = "Dela appbibliotek?";
 "export-user-data-generic-error" = "Det uppstod ett fel när din data skulle exporteras. Var god försök igen senare.";
@@ -709,7 +730,6 @@
 "image-recs-yes-title" = "Ja";
 "import-shared-reading-list-default-title" = "Min läslista";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Delta i undersökning";
-"import-shared-reading-list-survey-prompt-footer" = "Se vår $1sekretesspolicy$2. Enkäten drivs av tredje part. Se deras $3sekretesspolicy$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Dela läslistor\" är en testfunktion och vi behöver din återkoppling för att förbättra eller ta bort den.";
 "import-shared-reading-list-survey-prompt-title" = "Kan du hjälpa oss att förbättra \"Dela läslistor\"?";
 "import-shared-reading-list-title" = "Importera delad läslista";
@@ -761,6 +781,7 @@
 "languages-settings-title" = "Språk";
 "languages-title" = "Ändra språk";
 "languages-wikipedia" = "Wikipediaspråk";
+"learn-about-editing" = "Läs mer om redigering";
 "learn-more-title" = "Läs mer";
 "lockscreen-search-widget-description" = "Snabb åtkomst till att söka på Wikipedia från din låsskärm.";
 "logged-out-continue-without-logging-in-button-title" = "Fortsätt utan att logga in";
@@ -771,6 +792,8 @@
 "login-join-wikipedia" = "Registrera på Wikipedia.";
 "login-no-account" = "Har du inget konto? $1";
 "login-title" = "Logga in på ditt konto";
+"looking-for-something-new" = "Letar du efter något nytt att läsa?";
+"looks-like-you-havent-made-an-edit" = "Du verkar inte ha gjort någon redigering denna månad. Utöka den fria kunskapen genom att redigera ämnen som är viktigast för dig.";
 "main-menu-about" = "Om appen";
 "main-menu-account-login" = "Logga in";
 "main-menu-account-logout" = "Logga ut";
@@ -801,11 +824,9 @@
 "more-menu" = "Mer";
 "move-articles-to-reading-list" = "Flytta {{PLURAL:$1|$1 artikel|$1 artiklar}} till läslista";
 "navbar-title-mode-edit-wikitext-preview" = "Förhandsgranska";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 fot";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 fot}}";
 "nearby-distance-label-km" = "$1 km";
-// Fuzzy
-"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-meters" = "{{PLURAL:$1|$1 meter}}";
 "nearby-distance-label-miles" = "$1 engelska mil";
 "new-password-instructions" = "Du loggade in med ett temporärt lösenord. För att slutföra inloggningen måste du ange ett nytt lösenord här:";
 "new-password-title" = "Ändra ditt lösenord";
@@ -813,8 +834,6 @@
 "next-action-title" = "Nästa";
 "no-email-account-alert" = "Lägg in ett e-postkonto på din enhet och försök igen.";
 "no-internet-connection" = "Ingen Internetanslutning";
-"no-internet-connection-article-reload" = "En nyare version av denna artikel kanske finns tillgänglig, men kan inte läsas in utan en Internetanslutning";
-"no-internet-connection-article-reload-button" = "Gå tillbaka till senast sparade version";
 "not-now-title" = "Inte nu";
 "notifications-center-agent-description-from-format" = "Från $1";
 "notifications-center-alert" = "Varning";
@@ -833,7 +852,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Ändra $1 för att se fler meddelanden";
 "notifications-center-empty-state-no-projects-selected" = "Lägg till projekt för att se fler meddelanden";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter}}";
-"notifications-center-feed-card-title" = "Redigeringsnotiser är nu tillgängliga";
 "notifications-center-feed-news-notification-button-text" = "Aktivera push-notiser";
 "notifications-center-feed-news-notification-text" = "Redigeringsnotiser för alla Wikimediaprojekten är nu tillgängliga via appen. Välj push-notiser för att hålla dig uppdaterad om meddelanden på Wikipedia till dig när du är på språng.";
 "notifications-center-filters-accessibility-label" = "Aviseringsfilter";
@@ -979,7 +997,7 @@
 "panel-compare-revisions-text" = "Jämför sidversioner för att se hur en artikel har ändrats med tiden. När två sidversioner av en artikel jämförs kommer skillnaden mellan dessa sidversioner visas genom att färgmarkera innehållet som ändrades.";
 "panel-compare-revisions-title" = "Jämför sidversioner";
 "panel-not-logged-in-continue-edit-action-title" = "Redigera utan att logga in";
-"panel-not-logged-in-subtitle" = "Din nuvarande IP-adress kommer att offentliggöras om du redigerar. Om du $1loggar$2 in eller $3skapar ett konto$4 kommer dina redigeringar tillskrivas till ditt användarnamn, tillsammans med andra fördelar.";
+"panel-not-logged-in-subtitle-plain" = "Din IP-adress kommer att visas offentligt om du gör några ändringar. Logga in eller skapa ett konto för att få dina ändringar tillskrivna ditt användarnamn.";
 "panel-not-logged-in-title" = "Du är inte inloggad";
 "pictured" = "i bild";
 "places-accessibility-clear-saved-searches" = "Rensa sparade sökningar";
@@ -1049,6 +1067,7 @@
 "reading-list-add-saved-button-title" = "Ja, lägg till dem i mina läslistor";
 "reading-list-add-saved-subtitle" = "Det finns sparade artiklar i din Wikipedia-app. Vill du behålla och sammanfoga dem med läslistorna som är synkroniserade till ditt konto?";
 "reading-list-add-saved-title" = "Sparade artiklar hittades";
+"reading-list-alert-see-list" = "Se läslista";
 "reading-list-api-error-entry-limit" = "Detta element är inte synkroniserat eftersom du har nått gränsen för antalet element i denna lista.";
 "reading-list-api-error-generic" = "Ett oväntat fel uppstod när dina läslistor synkroniserades.";
 "reading-list-api-error-list-limit" = "Denna lista är inte synkroniserad eftersom du har nått gränsen för antalet synkroniserade listor.";
@@ -1139,15 +1158,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s sedan";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Detta år|1=Senaste året|$1 år sedan}}";
-"replace-button-accessibility" = "Utför $1.";
-"replace-buttons-replace-accessibility" = "Ersätt en instans";
-"replace-buttons-replace-all-accessibility" = "Ersätt alla instanser";
-"replace-clear-button-accessibility" = "Rensa ersätt";
-"replace-infolabel-method-replace" = "Ersätt";
-"replace-infolabel-method-replace-all" = "Ersätt alla";
-"replace-method-button-accessibility" = "Ersättningsmetod. Är just nu $1. Välj för att ändra.";
-"replace-textfield-accessibility" = "Ersätt";
-"replace-textfield-placeholder" = "Ersätt med…";
 "return-button-title" = "Återgå";
 "return-to-article" = "Återgå till artikeln";
 "reverted-edit-title" = "Återställd redigering";
@@ -1166,10 +1176,10 @@
 "saved-title" = "Sparade";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "När {{PLURAL:$1|denna artikel tas bort plockas den|dessa artiklar tas bort plockas de}} bort från alla associerade läslistor";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ta bort {{PLURAL:$1|artikeln|artiklarna}}?";
+"search-button-accessibility-hint" = "Navigerar till sökvyn.";
 "search-button-accessibility-label" = "Sök på Wikipedia";
 "search-clear-title" = "Rensa";
 "search-field-placeholder-text" = "Sök på Wikipedia";
-"search-reading-list-placeholder-text" = "Sök i läslista";
 "search-recent-clear-confirmation-heading" = "Radera alla senaste sökningar?";
 "search-recent-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
 "search-recent-clear-delete-all" = "Radera alla";
@@ -1194,6 +1204,7 @@
 "settings-help-and-feedback" = "Hjälp och återkoppling";
 "settings-language-bar" = "Visa språk vid sökfältet";
 "settings-languages-feed-customization" = "Du kan hantera vilka språk som visas i ditt utforskarflöde genom att anpassa inställningarna för utforskarflödet.";
+"settings-legal-sefaty-title" = "Kontaktuppgifter för juridik och säkerhet";
 "settings-my-languages" = "Mina språk";
 "settings-new-article-tab-header-text" = "Nytt fliktema";
 "settings-notifications" = "Push-notiser";
@@ -1201,11 +1212,6 @@
 "settings-notifications-echo-failure-title" = "Kunde inte kontrollera prenumerationer på Echo-aviseringar";
 "settings-notifications-echo-failure-try-again" = "Försök igen";
 "settings-notifications-header" = "Meddelas om aktiviteter som rör ditt konto, till exempel meddelanden från andra bidragsgivare, varningar och meddelanden. Allt tillhandahålls med hänsyn till integritet och aktuell och uppdaterad data.";
-"settings-notifications-info" = "Bli meddelad om populära och mest lästa artiklar på Wikipedia med våra push-notiser. Allting tillhandahålls med respekt för integritet och uppdaterad data.";
-"settings-notifications-learn-more" = "Läs mer om notiser";
-"settings-notifications-push-notifications" = "Push-notiser";
-"settings-notifications-system-turn-on" = "Aktivera notiser";
-"settings-notifications-trending" = "Populära aktuella händelser";
 "settings-off" = "Av";
 "settings-on" = "På";
 "settings-primary-language" = "Primärt";
@@ -1363,6 +1369,8 @@
 "theme-default-explanation" = "Matchar systemtemat";
 "theme-light-display-name" = "Ljust";
 "theme-sepia-display-name" = "Sepia";
+"tip-history-in-search-subtitle" = "Hitta din läshistorik i sökfliken.";
+"tip-history-in-search-title" = "Historik har flyttats till Sök";
 "today-title" = "I dag";
 "top-read-widget-description" = "Ta reda på vad världen läser i dag på Wikipedia.";
 "top-read-widget-readers-count" = "$1 läsare";
@@ -1472,9 +1480,6 @@
 "welcome-languages-add-or-edit-button" = "Lägg till eller redigera föredragna språk";
 "welcome-languages-description" = "Vi har hittat följande språk på din enhet:";
 "welcome-languages-search-title" = "Sök på över 300 språk";
-"welcome-notifications-tell-me-more-creation" = "Notiser skapas och levereras på din enhet genom appen, inte från vår (eller tredje partens) servrar.";
-"welcome-notifications-tell-me-more-storage" = "Notisinställningarna lagras på enheten och bygger inte på personliga uppgifter eller aktiviteter.";
-"welcome-notifications-tell-me-more-title" = "Mer om notiser";
 "welcome-privacy-subtitle" = "Vi anser att du inte ska behöva lämna personlig information för att delta i rörelsen för fri kunskap. Användningsdata som samlas in för den här appen är anonym.";
 "welcome-privacy-terms-button-text" = "Läs mer om vår integritetspolicy och användarvillkor";
 "widget-onthisday-description" = "Utforska vad som hände på denna dag i historien.";
@@ -1603,3 +1608,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Wikipedias w-logotyp";
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Foundations logotyp";
 "yesterday-title" = "I går";
+"zero-edits-to-articles" = "0 artikelredigeringar på sistone";

@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 final class DiffListUneditedViewModel: DiffListGroupViewModel {
     private(set) var height: CGFloat = 0
