@@ -140,7 +140,6 @@
 "description-help-title" = "వ్యాస వివరణ సహాయం";
 "description-help-wikidata-guide" = "వివరణలు రాసేందుకు వికీడేటా మార్గదర్శిని";
 "description-published-button-title" = "పూర్తయ్యింది";
-"description-published-footer" = "ఈ యాప్‌లో కూడా మీరు వ్యాసాలను సవరించవచ్చు. ఈసారి, పెన్సిల్ బొమ్మను నొక్కి చిన్నచిన్న భాషా దోషాలను, చిన్న వాక్యాలనూ సరిదిద్దండి.";
 "description-published-subtitle" = "ఇప్పుడే మీరు వికీపీడియాను మెరుగుపరచారు";
 "description-published-title" = "వివరణను ప్రచురించాం!";
 "description-welcome-concise-sub-title" = "పదీ పన్నెండు పదాలతో, ఒకే వరుసలో ఉంటే బాగుంటుంది.";
@@ -192,8 +191,6 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "మీరు ఎంచుకున్న పాఠ్యం ఎక్కడుందో కనుక్కోలేక పోయాం";
 "edit-minor-learn-more-text" = "చిన్న మార్పుల గురించి మరింత తెలుసుకోండి";
 "edit-minor-text" = "ఇదొక చిన్న దిద్దుబాటు";
-"edit-published" = "దిద్దుబాటును ప్రచురించాం";
-"edit-published-subtitle" = "ఇప్పుడే మీరు వికీపీడియాను మెరుగుపరచారు";
 "edit-summary-add-summary-text" = "దిద్దుబాటు సారాంశం రాయండి";
 "edit-summary-choice-fixed-grammar" = "వ్యాకరణం సరిచేసాను";
 "edit-summary-choice-fixed-typos" = "అచ్చుతప్పులు సరిచేసాను";
@@ -426,7 +423,6 @@
 "new-password-instructions" = "మీరు తాత్కాలిక సంకేతపదంతో లాగినయ్యారు. ఈ లాగిన్ను పూర్తి చేసేందుకు, కొత్త సంకేతపదాన్ని పెట్టుకోండి.";
 "new-password-title" = "సంకేతపదం పెట్టుకోండి";
 "no-internet-connection" = "ఇంటర్నెట్ కనెక్షను లేదు";
-"no-internet-connection-article-reload-button" = "చివరిగా భద్రపరచిన కూర్పుకు తిరిగివెళ్ళు";
 "notifications-center-agent-description-from-format" = "$1 నుండి";
 "notifications-center-applied-filters-accessibility-label" = "గమనింపుల వడపోత - వడపోతలను వర్తింపజేసాం";
 "notifications-center-applied-project-filters-accessibility-label" = "ప్రాజెక్టుల వడపోత - వడపోతలను వర్తింపజేసాం";
@@ -440,7 +436,6 @@
 "notifications-center-empty-state-filters-subtitle" = "మరిన్ని సందేశాలు చూసేందుకు $1 ను మార్చండి";
 "notifications-center-empty-state-no-projects-selected" = "మరిన్ని సందేశాలు చూసేందుకు ప్రాజెక్టులను చేర్చండి";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 వడపోత|$1 వడపోతలు}}";
-"notifications-center-feed-card-title" = "ఇప్పుడు దిద్దుబాటు గమనింపులు అందుబాటులో ఉన్నాయి";
 "notifications-center-feed-news-notification-button-text" = "పుష్ గమనింపులను ఆన్ చెయ్యి";
 "notifications-center-filters-accessibility-label" = "గమనింపుల వడపోత";
 "notifications-center-filters-read-status-item-title-all" = "అన్నీ";
@@ -660,9 +655,6 @@
 "relative-date-seconds-abbreviated" = "$1సె";
 "relative-date-seconds-ago-abbreviated" = "$1సె క్రితం";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ఈ సంవత్సరం|1=నిరుడు|$1 సంవత్సరాల క్రితం}}";
-"replace-button-accessibility" = "$1 చెయ్యి.";
-"replace-buttons-replace-accessibility" = "ఒక్క చోటనే మార్చడం";
-"replace-buttons-replace-all-accessibility" = "అన్ని చోట్లా మార్చడం";
 "reverted-edit-title" = "తిప్పికొట్టిన దిద్దుబాటు";
 "saved-all-articles-title" = "వ్యాసాలన్నీ";
 "saved-default-reading-list-tag" = "ఈ జాబితాను తొలగించలేరు";
@@ -676,7 +668,6 @@
 "search-button-accessibility-label" = "వికీపీడియాలో వెతుకు";
 "search-clear-title" = "తీసివేయి";
 "search-field-placeholder-text" = "వికీపీడియాలో వెతకండి";
-"search-reading-list-placeholder-text" = "భద్రపరచిన వ్యాసాలను తీసెయ్యాలా?";
 "search-recent-clear-confirmation-heading" = "ఇటీవలి వెతుకులాట లన్నిటినీ తొలగించాలా?";
 "search-recent-clear-confirmation-sub-heading" = "ఈ చర్యను వెనక్కి తీసుకోలేరు!";
 "search-recent-clear-delete-all" = "అన్నిటినీ తొలగించు";
@@ -692,9 +683,6 @@
 "settings-my-languages" = "నా భాషలు";
 "settings-notifications" = "పంపించే గమనింపులు";
 "settings-notifications-echo-failure-try-again" = "మళ్ళీ ప్రయత్నించండి";
-"settings-notifications-learn-more" = "గమనింపుల గురించి మరింత తెలుసుకోండి";
-"settings-notifications-push-notifications" = "పంపించే గమనింపులు";
-"settings-notifications-system-turn-on" = "గమనింపులను ఆన్ చెయ్యి";
 "settings-primary-language" = "ప్రాథమిక";
 "settings-primary-language-details" = "ఈ జాబితా లోని మొదటి భాషను ఈ యాప్‌కు ప్రాథమిక భాషగా వాడతాం.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "భద్రపరచిన వ్యాసాలన్నిటినీ తుడిచివెయ్యాలా?";
@@ -775,9 +763,6 @@
 "welcome-languages-add-or-edit-button" = "అభీష్టమైన భాషలను చేర్చండి, సవరించండి";
 "welcome-languages-description" = "మీ డివైసులో మాకు కింది భాషలు కనబడ్డాయి:";
 "welcome-languages-search-title" = "300 పైచిలుకు భాషల్లో వెతకండి";
-"welcome-notifications-tell-me-more-creation" = "గమనింపులను సృష్టించి, మీ డివైసుకు పంపించేది ఈ యాపే, మా సర్వర్లు గానీ థర్డ్ పార్టీ సర్వర్లు గానీ కాదు.";
-"welcome-notifications-tell-me-more-storage" = "గమనింపు అభిరుచులను మీ డివైసులో భద్రపరుస్తాం. అవి మీ వ్యక్తిగత సమాచారం పైనో, మీ కార్యకలాపాలపైనో ఆధారపడినవి కావు.";
-"welcome-notifications-tell-me-more-title" = "గమనింపుల గురించి మరింత తెలుసుకోండి";
 "widget-onthisday-description" = "చరిత్రలో ఈ రోజున ఏం జరిగిందో శోధించండి.";
 "widget-onthisday-placeholder-article-snippet" = "ఎవరైనా దిద్దుబాటు చెయ్యగలిగే స్వేచ్ఛా ఆన్‌లైను విజ్ఞానసర్వస్వం";
 "widget-onthisday-placeholder-event-snippet" = "వికీపీడియా అనే స్వేచ్ఛా విజ్ఞానసర్వస్వం ఆన్‌లైను లోకి వచ్చింది.";

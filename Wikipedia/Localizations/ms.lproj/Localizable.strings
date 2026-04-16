@@ -156,7 +156,6 @@
 "description-help-title" = "Bantuan keterangan rencana";
 "description-help-wikidata-guide" = "Panduan Wikidata untuk menulis penerangan";
 "description-published-button-title" = "Siap";
-"description-published-footer" = "Anda juga boleh menyunting rencana dalam aplikasi ini. Cuba tentukan kesalahan taip dan kalimat kecil dengan mengklik ikon pensel lain kali";
 "description-published-subtitle" = "Anda hanya membuat Wikipedia lebih baik untuk semua orang";
 "description-published-title" = "Huraian diterbitkan!";
 "description-welcome-concise-sub-title" = "Idealnya satu baris, antara dua hingga dua belas kata";
@@ -202,8 +201,6 @@
 "edit-menu-item" = "Sunting";
 "edit-minor-learn-more-text" = "Ketahui lebih lanjut mengenai suntingan kecil";
 "edit-minor-text" = "Ini ialah suntingan kecil";
-"edit-published" = "Suntingan diterbitkan";
-"edit-published-subtitle" = "Anda hanya membuat Wikipedia lebih baik untuk semua orang";
 "edit-summary-add-summary-text" = "Tambah ringkasan suntingan";
 "edit-summary-choice-fixed-grammar" = "Memperbaik tatabahasa";
 "edit-summary-choice-fixed-typos" = "Membetulkan kesilapan ejaan";
@@ -436,8 +433,6 @@
 "new-password-title" = "Tetapkan kata laluan anda";
 "no-email-account-alert" = "Sila setup akaun e-mel pada peranti anda dan cuba lagi.";
 "no-internet-connection" = "Tiada sambungan internet";
-"no-internet-connection-article-reload" = "Versi baru rencana ini mungkin tersedia, tetapi tidak boleh dimuatkan tanpa sambungan ke internet";
-"no-internet-connection-article-reload-button" = "Kembali ke versi terakhir yang disimpan";
 "notifications-center-agent-description-from-format" = "Daripada $1";
 "notifications-center-cell-notification-type-accessibility-label-format" = "Pemberitahuan $1";
 "notifications-center-change-password" = "Tukar katalaluan";
@@ -652,11 +647,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s yang lalu";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tahun ini|1=Tahun lepas|$1 tahun lepas}}";
-"replace-button-accessibility" = "Lakukan $1.";
-"replace-infolabel-method-replace" = "Ganti";
-"replace-infolabel-method-replace-all" = "Ganti semua";
-"replace-textfield-accessibility" = "Ganti";
-"replace-textfield-placeholder" = "Ganti dengan...";
 "reverted-edit-title" = "Suntingan semula";
 "saved-all-articles-title" = "Semua rencana";
 "saved-default-reading-list-tag" = "Senarai ini tidak dapat dipadamkan";
@@ -670,7 +660,6 @@
 "search-button-accessibility-label" = "Cari dalam Wikipedia";
 "search-clear-title" = "Padamkan";
 "search-field-placeholder-text" = "Cari dalam Wikipedia";
-"search-reading-list-placeholder-text" = "Cari senarai bacaan";
 "search-recent-clear-confirmation-heading" = "Hapuskan semua carian terkini?";
 "search-recent-clear-confirmation-sub-heading" = "Tindakan ini tidak boleh dipulihkan!";
 "search-recent-clear-delete-all" = "Hapuskan Semua";
@@ -694,11 +683,6 @@
 // Fuzzy
 "settings-notifications" = "Pemberitahuan";
 "settings-notifications-echo-failure-try-again" = "Cuba lagi";
-"settings-notifications-info" = "Dimaklumkan kepada arah aliran dan membaca bahagian rencana mengenai Wikipedia dengan pemberitahuan pacuan kami. Semua yang diperuntukkan berkenaan dengan privasi dan sehingga data minit.";
-"settings-notifications-learn-more" = "Ketahui lebih lanjut mengenai pemberitahuan";
-"settings-notifications-push-notifications" = "Pemberitahuan pacuan";
-"settings-notifications-system-turn-on" = "Aktifkan Notis";
-"settings-notifications-trending" = "Peristiwa semasa";
 "settings-primary-language" = "Utama";
 "settings-primary-language-details" = "Bahasa pertama dalam senarai ini digunakan sebagai bahasa utama untuk aplikasi.";
 "settings-search-footer-text" = "Tetapkan apl untuk dibuka ke tab Carian dan bukannya tab Jelajah";
@@ -781,9 +765,6 @@
 "welcome-languages-add-or-edit-button" = "Tambah atau sunting bahasa pilihan";
 "welcome-languages-description" = "Kami telah menemui bahasa berikut pada peranti anda:";
 "welcome-languages-search-title" = "Cari dalam lebih 300 bahasa";
-"welcome-notifications-tell-me-more-creation" = "Pemberitahuan dicipta dan dihantar pada peranti anda dengan aplikasi, bukan dari pelayan kami (atau pihak ketiga).";
-"welcome-notifications-tell-me-more-storage" = "Pilihan pemberitahuan disimpan pada peranti dan tidak berdasarkan kepada maklumat peribadi atau aktiviti.";
-"welcome-notifications-tell-me-more-title" = "Lebih lanjut mengenai pemberitahuan";
 "wikitext-preview-changes" = "Mengoleh pralihat suntingan anda...";
 "wikitext-preview-link-external-preview-title" = "Pautan luar";
 "wikitext-preview-link-not-found-preview-description" = "Wikipedia tidak mempunyai rencana dengan nama yang tepat";

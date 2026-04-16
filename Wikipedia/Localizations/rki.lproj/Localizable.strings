@@ -199,7 +199,6 @@
 "description-help-title" = "ဆောင်းပါးဖော်ပြချက် အကူညီ";
 "description-help-wikidata-guide" = "ခေါင်းစိုင်ဖော်ပြချက်ရီးသားခြင်းအတွက် ဝီကီးဒေတာအကူအညီ";
 "description-published-button-title" = "ပြီးယာ";
-"description-published-footer" = "သင်စွာ ဒေအက်ပ်အတွင်း ဆောင်းပါးတိကို တီးဖြတ်နိုင်ရေ။  နောက်တစ်ကြိမ်တွင် ခဲတံအိုင်ကွန်ကို နှိပ်ခြင်းဖြင့် စာလုံးပေါင်းနန့် စာကြောင်းချေတိကို ပြုပြင်ကြေ့ပါ";
 "description-published-subtitle" = "သင်စွာ လူတိုင်းအတွက် ဝီကီးပီးဒီးယားကို ပိုကောင်းမွန်အောင် လုပ်ဆောင်ခရေ";
 "description-published-title" = "ဖော်ပြချက် လွှင့်တင်ပြီး!";
 "description-welcome-concise-sub-title" = "စာလုံးရေ နှစ်လုံးကနီ ဆယ့်နှစ်လုံးကြား တစ်ကြောင်းတည်းရွီးနိုင်ကေ အကောင်းဆုံးဖြစ်တေ";
@@ -311,8 +310,6 @@
 "edit-notices-always-display" = "တီးဖြတ်ခြင်းသတိပီးချက်တိကို အမြဲပြသပါ";
 "edit-notices-please-read" = "မတီးဖြတ်ခင် ကျေးဇူးပြုပနာ ဖတ်ပီးပါ";
 "edit-preview-simplified-format-message" = "အကြောင်းအရာအားနုန်းကို ရိုးရှင်ရေပုံစံနန့် ပြထားရေ။";
-"edit-published" = "တီးဖြတ်မှု လွှင့်တင်ပြီး";
-"edit-published-subtitle" = "သင်စွာ လူတိုင်းအတွက် ဝီကီးပီးဒီးယားကို ပိုကောင်းမွန်အောင် လုပ်ဆောင်ခရေ";
 "edit-sheet-ip-account-notice" = "IP အကောင့်သတိပီးချက်";
 "edit-sheet-temp-account-notice" = "ယာယီအကောင့်သတိပီးချက်";
 "edit-show-web-preview" = "ဝဘ်အစမ်းကြေ့ရှုမှုကို ပြပါ။";
@@ -618,7 +615,6 @@
 "image-recs-yes-title" = "ဟုတ်ပါရေ";
 "import-shared-reading-list-default-title" = "အကျွန့်ဧ့စာဖတ်ခြင်းစာရင်း";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "စစ်တမ်းယူပါ";
-"import-shared-reading-list-survey-prompt-footer" = "အကျွန်ရို့ဧ့ $1 ကိုယ်ရီးကိုယ်တာထုတ်ပြန်ချက် $2 ကိုကြေ့ပါ။  ပြင်ပအဖွိ့စည်းက လုပ်ဆောင်ရေ စစ်တမ်း။  ယင်းတိဧ့ $3 ကိုယ်ရီးကိုယ်တာ မူဝါဒ $4 ကို ‌‌ကြေ့ပါ။";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"စာဖတ်ခြင်းစရင်းတိကို မျှဝီပါ\" စွာ စမ်းသပ်မှုအင်္ဂါရပ်တခုဖြစ်ပြီး ယင်းကို မြှင့်တင်ဖို့ ယင်းသို့မဟုတ် ဖယ်ရှားဖို့ သင့်အကြံပြုချက် လိုအပ်ပါရေ။";
 "import-shared-reading-list-survey-prompt-title" = "\"စာဖတ်ခြင်းစာရင်းတိကို မျှဝီ\" ကို တိုးတက်အောင် ကူညီပီးနိုင်ဖို့လား?";
 "import-shared-reading-list-title" = "မျှဝီထားရေ စာဖတ်စာရင်းကို တင်သွင်းပါ";
@@ -727,8 +723,6 @@
 "next-action-title" = "နောက်တဆင့်";
 "no-email-account-alert" = "သင်ဧ့ စက်ပစ္စည်းမှာ အီးမေးလ်လိပ်စာတစ်ခု ထည့်သွင်းပနာ ပြန်ကြိုးစားပါ။";
 "no-internet-connection" = "အင်တာနက် ကွန်နက်ရှင် မဟိမ့်ပါ";
-"no-internet-connection-article-reload" = "ဒေဆောင်းပါးဧ့ ပိုအသစ်ဖြိုက်တေမူကို ရဟိနိုင်ကောင်းပါရေ၊ ယကေလေ့ အင်တာနက်ကွန်နက်ရှင်မဟိဘဲ မဆွဲတင်နိုင်ပါ";
-"no-internet-connection-article-reload-button" = "နောက်ဆုံးသိမ်းဆည်းထားရေ ဗားရှင်းပသို့ ပြန်လားပါ";
 "not-now-title" = "အဂု မဟုတ်ပါ";
 "notifications-center-agent-description-from-format" = "$1 က";
 "notifications-center-alert" = "သတိပီးချက်";
@@ -747,7 +741,6 @@
 "notifications-center-empty-state-filters-subtitle" = "နောက်ထပ် မက်ဆေ့ဂျ်တိ ‌‌‌‌‌‌‌ကြေ့ဖို့ $1 ကို ပြုပြင်ပါ";
 "notifications-center-empty-state-no-projects-selected" = "နောက်ထပ် မက်ဆေ့ဂျ်တိကို ကြည့်ဖို့ ပရောဂျက်တိကို ထည့်ပါ";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 စစ်ထုတ်|$1 စစ်ထုတ်မှုတိ}}";
-"notifications-center-feed-card-title" = "အကြောင်းကြားချက်တိကို တီးဖြတ်နိုင်ပါယာ";
 "notifications-center-feed-news-notification-button-text" = "တွန်းအားပီး အသိပေးချက်တိကို ဖွင့်ပါ";
 "notifications-center-feed-news-notification-text" = "Wikimedia ပရောဂျက်အားနုန်းအတွက် အကြောင်းကြားချက်တိကို တီးဖြတ်ခြင်းကို အက်ပ်ကတဆင့် အဂုရဟနိုင်ပါယာ။  လားနီစိုင်မှာ Wikipedia က သင့်မက်ဆေ့ချ်တိနန့် နောက်ဆုံးရသတင်းတိကို ဆက်ပြီးသိဟိနိုင်ဖို့ တွန်းအားပီးအကြောင်းကြားချက်တိကို ဝင်ရောက်ပါ။";
 "notifications-center-filters-accessibility-label" = "အကြောင်းကြားချက်တိ စစ်ထုတ်ခြင်း";
@@ -892,7 +885,6 @@
 "panel-compare-revisions-text" = "ပြန်လည်ပြင်ဆင်မှုတိကို နှိုင်းယှဉ်ခြင်းနန့် ဆောင်းပါးတစ်ပုဒ်စွာ အချိန်နန့်အမျှ ပြောင်းလဲလာပုံကို ပြသဖို့ ကူညီပီးပါရေ။  ဆောင်းပါးတစ်ပုဒ်ဧ့ တည်းဖြတ်မှုနှစ်ခုကို နှိုင်းယှဉ်ခြင်းနန့် ပြောင်းလဲခရေ အကြောင်းအရာကို မီးမောင်းထိုးပြခြင်းဖြင့် ယင်း တီးဖြတ်မှုတိကြား ကွာခြားချက်ကို ပြသပါဖို့။";
 "panel-compare-revisions-title" = "ပြန်ပနာပြင်ဆင်မှုတိကို နှိုင်းယှဉ်ပါ";
 "panel-not-logged-in-continue-edit-action-title" = "လော့ဂ်အင်မပါဘဲ တီးဖြတ်ပါ";
-"panel-not-logged-in-subtitle" = "တည်းဖြတ်မှုတိ ပြုလုပ်ပါက သင်ဧ့ IP လိပ်စာကို လူသိရှင်ကြား မြင်နိုင်ဖို့ဖြစ်တေ။  တကေလို့ သင်စွာ $1 လော့ဂ်အင် $2 ယင်းသို့မဟုတ် $3 အကောင့် $4 ကိုဖန်တီးပါက၊ သင်ဧ့တီးဖြတ်မှုတိကို အခြားအကျိုးခံစားခွင့်တိနန့်အတူ သင်ဧ့အသုံးပြုသူနာမည်နန့် သတ်မှတ်ပီးဖို့ဖြစ်တေ။";
 "panel-not-logged-in-title" = "သင်စွာ လော့ဂ်အင်မဝင်ပါ";
 "pictured" = "ပုံပြထားရေ";
 "places-accessibility-clear-saved-searches" = "သိမ်းဆည်းခရေ ယှာဖွီမှုတိကို ရှင်းဖို့";
@@ -1053,15 +1045,6 @@
 "relative-date-seconds-abbreviated" = "$1စက္ကန့်";
 "relative-date-seconds-ago-abbreviated" = "$1မိနစ် အကြာက";
 "relative-date-years-ago" = "{{PLURAL:$1|0=‌ေဒေနှစ်|1=အယင်နှစ်|$1 နှစ်အကြာက}}";
-"replace-button-accessibility" = "$1 ဆောင်ရွက်ပါ။";
-"replace-buttons-replace-accessibility" = "တခါတည်းအဂု အစားထိုးပါ";
-"replace-buttons-replace-all-accessibility" = "အားနုန်းအဂု အစားထိုးပါ";
-"replace-clear-button-accessibility" = "အစားထိုးရှင်းလင်းပါ";
-"replace-infolabel-method-replace" = "အစားထိုးပါ";
-"replace-infolabel-method-replace-all" = "အားနုန်း အစားထိုးပါ";
-"replace-method-button-accessibility" = "နည်းလမ်းကို အစားထိုးပါ။  $1 လို့ သတ်မှတ်ရေ။  ပြောင်းလဲဖို့ ရွီးချယ်ပါ";
-"replace-textfield-accessibility" = "အစားထိုးပါ";
-"replace-textfield-placeholder" = "... နန့် အစားထိုးပါ";
 "return-button-title" = "ပြန်လာပါ";
 "return-to-article" = "ဆောင်းပါးသို့ ပြန်လားဖို့";
 "reverted-edit-title" = "နောက်ပြန်ပြင်ရေ တီးဖြတ်မှု";
@@ -1083,7 +1066,6 @@
 "search-button-accessibility-label" = "ဝီကီးပီးဒီးယားထဲတွင် ယှာဖွီပါ";
 "search-clear-title" = "ရှင်းလင်းပါ";
 "search-field-placeholder-text" = "ဝီကီးပီးဒီးယားထဲတွင် ယှာဖွီပါ";
-"search-reading-list-placeholder-text" = "စာဖတ်ခြင်းစာရင်းကို ယှာပါ";
 "search-recent-clear-confirmation-heading" = "မကြာသိမ့်ခင်က ယှာဖွီမှုတိအားနုန်း ဖျက်ဖို့လား?";
 "search-recent-clear-confirmation-sub-heading" = "ဒေဆောင်ရွက်ချက်စွာ နောက်ပြန်လို့ မရပါ!";
 "search-recent-clear-delete-all" = "အားနုန်းဖျက်";
@@ -1111,11 +1093,6 @@
 "settings-notifications-echo-failure-title" = "Echo Notification စာရင်းသွင်းမှုတိကို စစ်ဆေးလို့မရပါ";
 "settings-notifications-echo-failure-try-again" = "ပြန်ပနာ ကြိုးစားပါ";
 "settings-notifications-header" = "ပံ့ပိုးကူညီသူတိပါးက မက်ဆေ့ချ်တိ၊ သတိပီးချက်တိ နန့် သတိပီးချက်တိ ယင်းပိုင်ယှောင် သင့်အကောင့်နန့် သက်ဆိုင်ရေ လုပ်ဆောင်ချက်ကို သတိပီးပါ။  ကိုယ်ရီးကိုယ်တာနန့် မိနစ်ဒေတာတထိ အားနုန်းကို ပံ့ပိုးပီးထားရေ။";
-"settings-notifications-info" = "ကျနော်ရို့ဧ့တွန်းအားပီးသတိပီးချက်တိနန့် Wikipedia မာ ခေတ်စားနိန်ရေ နန့် ထိပ်တန်းဖတ်ရှုသည့် ဆောင်းပါးတိကို သတိပီးပါ။  ကိုယ်ရီးကိုယ်တာနန့် မိနစ်ဒေတာတထိ အားနုန်းကို ပံ့ပိုးပီးထားရေ။";
-"settings-notifications-learn-more" = "အသိပီးချက်တိအကြောင်း ပိုလိ့လာဖို့";
-"settings-notifications-push-notifications" = "အကြောင်းကြားချက်တိကို တွန်းပါ";
-"settings-notifications-system-turn-on" = "အသိပေးချက်တိ ဖွင့်ဖို့";
-"settings-notifications-trending" = "ခေတ်စားနီရေ လက်ဟိဖြစ်ရပ်တိ";
 "settings-off" = "ပိတ်";
 "settings-on" = "ဖွင့်";
 "settings-primary-language" = "ပင်မ";
@@ -1373,9 +1350,6 @@
 "welcome-languages-add-or-edit-button" = "ပိုမိုနှစ်သက်တေ ဘာသာစကားတိကို ထည့်ပေါင်း (သို့) ပြင်ဆင်ပါ";
 "welcome-languages-description" = "သင်ဧ့စက်ပစ္စည်းထက်တွင် အောက်ပါဘာသာစကားတိကို တွိ့ဟိပါရေ-";
 "welcome-languages-search-title" = "ဘာသာစကား ၃၀၀ ကျော်တိနန့် ယှာဖွီပါ";
-"welcome-notifications-tell-me-more-creation" = "အကြောင်းကြားချက်တိကို ကျနော်ရို့ (သို့မဟုတ် ပြင်ပအဖွဲ့အစည်း) ဆာဗာတိကမဟုတ်ဘဲ အက်ပ်က ဖန်တီးပြီး သင့်စက်ဝန်ထက်မာ ပီးပို့ပါရေ။";
-"welcome-notifications-tell-me-more-storage" = "အကြောင်းကြားချက် ရွီးချယ်မှုတိကို စက်မာ သိမ်းဆည်းထားပြီးပနာ ကိုယ်ရီးကိုယ်တာ အချက်အလက် ယင်းသို့မဟုတ် လုပ်ဆောင်ချက်အပေါ် အခြီခံထားခြင်း မဟိပါ။";
-"welcome-notifications-tell-me-more-title" = "အကြောင်းကြားချက်တိအကြောင်း နောက်ထပ်";
 "welcome-privacy-subtitle" = "အခမဲ့အသိပညာလှုပ်ယှားမှုမာ ပါဝင်ဖို့ သင်စွာ ကိုယ်ရီးကိုယ်တာအချက်အလက်တိကို ပီးဆောင်ဖို့ မလိုအပ်လို့ ကျနော်ရို့ယုံကြေပါရေ။  ဒေအက်ပ်အတွက် စုဆောင်းအသုံးပြုမှုဒေတာကို နာမည်မသိပါ။";
 "welcome-privacy-terms-button-text" = "အကျွန်ရို့ဧ့ ကိုယ်ရီးကိုယ်တာမူဝါဒနန့် အသုံးပြုမှုစည်းမျိုင်းတိအကြောင်း ပိုလိ့လာပါ။";
 "widget-onthisday-description" = "ဒေနိန့်တွင် ဖြစ်ပျက်ခရေ သမိုင်းကြောင်းကို လိ့လာကြေ့ပါ။";

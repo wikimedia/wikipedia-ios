@@ -127,7 +127,6 @@
 "donate-history-delete" = "স্থানীয় অনুদানের ইতিহাস মুছুন";
 "donate-later-title" = "আমরা আপনাকে আবার আগামীকাল মনে করিয়ে দেব।";
 "edit-link-title" = "সংযোগ সম্পাদনা";
-"edit-published" = "সম্পাদনা প্রকাশিত হয়েছে";
 "edit-summary-choice-added-image" = "চিত্র যোগ করা হয়েছে";
 "edit-summary-choice-added-image-and-caption" = "চিত্র ও ক্যাপশন যোগ করা হয়েছে";
 "edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
@@ -220,7 +219,6 @@
 "image-gallery-unknown-owner" = "লেখক অজানা।";
 "image-rec-view-article" = "নিবন্ধ দেখুন";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "জরিপে অংশ নিন";
-"import-shared-reading-list-survey-prompt-footer" = "আমাদের $1গোপনীয়তা বিবৃতি$2 দেখুন। সমীক্ষাটি তৃতীয় পক্ষ দ্বারা চালিত। তাদের $3গোপনীয়তা নীতি$4 দেখুন।";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"পড়ার তালিকা শেয়ার\" একটি পরীক্ষামূলক ফিচার এবং এটি উন্নত বা অপসারণ করতে আমাদের আপনার প্রতিক্রিয়া প্রয়োজন।";
 "import-shared-reading-list-survey-prompt-title" = "আপনি কি আমাদের \"পড়ার তালিকা শেয়ার\" উন্নত করতে সহায়তা করতে পারবেন?";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 উইকিপিডিয়া থেকে";
@@ -388,9 +386,6 @@
 "settings-my-languages" = "আমার ভাষাসমূহ";
 "settings-notifications" = "পাঠানো বিজ্ঞপ্তি";
 "settings-notifications-echo-failure-try-again" = "আবার চেষ্টা করুন";
-"settings-notifications-learn-more" = "বিজ্ঞপ্তি সম্পর্কে আরো জানুন";
-"settings-notifications-push-notifications" = "পাঠানো বিজ্ঞপ্তি";
-"settings-notifications-system-turn-on" = "বিজ্ঞপ্তি বন্ধ করুন";
 "settings-primary-language" = "প্রাথমিক";
 "settings-primary-language-details" = "এই তালিকার প্রথম ভাষাটি অ্যাপের প্রাথমিক ভাষা হিসেবে ব্যবহৃত হয়।";
 "settings-title" = "সেটিংস";
@@ -439,7 +434,6 @@
 "welcome-intro-free-encyclopedia-title" = "একটি মুক্ত বিশ্বকোষ";
 "welcome-languages-add-button" = "আরেকটি ভাষা যোগ করুন";
 "welcome-languages-search-title" = "৩০০টি অধিক ভাষায় অন্বেষণ করুন";
-"welcome-notifications-tell-me-more-title" = "বিজ্ঞপ্তি সম্পর্কে আরো";
 "wikitext-preview-changes" = "আপনার পরিবর্তনগুলির প্রাকদর্শন উদ্ধার হচ্ছে...";
 "wikitext-preview-link-preview-title" = "লিঙ্ক প্রাকদর্শন";
 "wikitext-preview-save-changes-title" = "পরিবর্তন সংরক্ষণ";

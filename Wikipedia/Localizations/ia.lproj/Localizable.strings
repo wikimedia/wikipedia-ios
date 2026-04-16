@@ -275,7 +275,6 @@
 "description-help-title" = "Adjuta al description de articulos";
 "description-help-wikidata-guide" = "Guida de Wikidata pro scriber descriptiones";
 "description-published-button-title" = "Facite";
-"description-published-footer" = "Tu pote etiam modificar articulos in iste application. Essaya corriger errores de orthographia e curte phrases cliccante sur le icone de stilo le proxime vice.";
 "description-published-subtitle" = "Tu ha justo ora rendite Wikipedia melior pro omnes";
 "description-published-title" = "Description publicate!";
 "description-welcome-concise-sub-title" = "Idealmente un linea, inter duo e dece-duo parolas";
@@ -387,8 +386,6 @@
 "edit-notices-always-display" = "Sempre monstrar avisos de modification";
 "edit-notices-please-read" = "Per favor lege ante de modificar";
 "edit-preview-simplified-format-message" = "Tote le contento se monstra in formato simplificate.";
-"edit-published" = "Modification publicate";
-"edit-published-subtitle" = "Tu ha justo ora rendite Wikipedia melior pro omnes";
 "edit-sheet-ip-account-notice" = "Aviso de conto IP";
 "edit-sheet-temp-account-notice" = "Aviso de conto temporari";
 "edit-show-web-preview" = "Monstrar previsualisation web";
@@ -699,7 +696,6 @@
 "image-recs-yes-title" = "Si";
 "import-shared-reading-list-default-title" = "Mi lista de lectura";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Responder al sondage";
-"import-shared-reading-list-survey-prompt-footer" = "Consulta nostre $1declaration de confidentialitate$2. Sondage realisate per un tertie parte. Vide su $3politica de confidentialitate$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "“Condivider listas de lectura” es un function in test e nos ha besonio de tu evalutation pro meliorar o remover lo.";
 "import-shared-reading-list-survey-prompt-title" = "Poterea tu adjutar nos a meliorar \"Condivider listas de lectura\"?";
 "import-shared-reading-list-title" = "Importar lista de lectura condividite";
@@ -806,8 +802,6 @@
 "next-action-title" = "Sequente";
 "no-email-account-alert" = "Per favor configura un conto de e-mail sur tu apparato e tenta lo de novo.";
 "no-internet-connection" = "Necun connexion a internet";
-"no-internet-connection-article-reload" = "Un version plus nove de iste articulo pote esser disponibile, ma non pote esser cargate sin connexion a internet";
-"no-internet-connection-article-reload-button" = "Retornar al ultime version salveguardate";
 "not-now-title" = "Non ora";
 "notifications-center-agent-description-from-format" = "De $1";
 "notifications-center-alert" = "Alerta";
@@ -826,7 +820,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Modifica $1 pro vider plus messages";
 "notifications-center-empty-state-no-projects-selected" = "Adde projectos pro vider plus messages";
 "notifications-center-empty-state-num-filters" = "$1 filtro{{PLURAL:$1||s}}";
-"notifications-center-feed-card-title" = "Notificationes de modification ora disponibile";
 "notifications-center-feed-news-notification-button-text" = "Activar notificationes push";
 "notifications-center-feed-news-notification-text" = "Notificationes de modificationes pro tote le projectos de Wikimedia es ora disponibile via le application. Opta pro reciper notificationes push pro mantener te al currente con tu message sur Wikipedia durante que tu viagia.";
 "notifications-center-filters-accessibility-label" = "Filtro de notificationes";
@@ -972,7 +965,6 @@
 "panel-compare-revisions-text" = "Le comparation de versiones demonstra como un articulo ha cambiate in le curso del tempore. Quando tu compara duo versiones de un articulo, le differentias inter illos se visualisa, colorante le contento que ha cambiate.";
 "panel-compare-revisions-title" = "Comparar versiones";
 "panel-not-logged-in-continue-edit-action-title" = "Modificar sin aperir session";
-"panel-not-logged-in-subtitle" = "Tu adresse IP essera visibile publicamente si tu face alcun modification. Si tu $1aperi session$2 o $3crea un conto$4, tu modificationes essera attribuite a tu nomine de usator, inter altere avantages.";
 "panel-not-logged-in-title" = "Tu non ha aperite session";
 "percentile-0.01" = "0,01";
 "percentile-1" = "1";
@@ -1140,15 +1132,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s retro";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Iste anno|1=Ultime anno|$1 annos retro}}";
-"replace-button-accessibility" = "Exequer $1.";
-"replace-buttons-replace-accessibility" = "Reimplaciar un sol instantia";
-"replace-buttons-replace-all-accessibility" = "Reimplaciar tote le instantias";
-"replace-clear-button-accessibility" = "Rader reimplaciamento";
-"replace-infolabel-method-replace" = "Reimplaciar";
-"replace-infolabel-method-replace-all" = "Reimplaciar toto";
-"replace-method-button-accessibility" = "Methodo de reimplaciamento, actualmente $1. Selige pro cambiar.";
-"replace-textfield-accessibility" = "Reimplaciar";
-"replace-textfield-placeholder" = "Reimplaciar per…";
 "return-button-title" = "Retornar";
 "return-to-article" = "Retornar al articulo";
 "reverted-edit-title" = "Modification revertite";
@@ -1170,7 +1153,6 @@
 "search-button-accessibility-label" = "Cercar in Wikipedia";
 "search-clear-title" = "Vacuar";
 "search-field-placeholder-text" = "Cercar in Wikipedia";
-"search-reading-list-placeholder-text" = "Cercar in lista de lectura";
 "search-recent-clear-confirmation-heading" = "Deler tote le recercas recente?";
 "search-recent-clear-confirmation-sub-heading" = "Iste action non pote esser disfacite!";
 "search-recent-clear-delete-all" = "Deler toto";
@@ -1202,11 +1184,6 @@
 "settings-notifications-echo-failure-title" = "Non pote controlar abonamentos de notification Echo";
 "settings-notifications-echo-failure-try-again" = "Reprobar";
 "settings-notifications-header" = "Recipe alertas de activitate concernente tu conto, como messages de altere contributores, alertas, e avisos. Tote isto es fornite con respecto pro tu vita private e con le datos le plus actual.";
-"settings-notifications-info" = "Con nostre notificationes push, tu resta al currente con articulos actual e popular sur Wikipedia. Tote isto es fornite con respecto pro tu vita private e con le datos le plus actual.";
-"settings-notifications-learn-more" = "Leger plus sur notificationes";
-"settings-notifications-push-notifications" = "Notificationes push";
-"settings-notifications-system-turn-on" = "Activar notificationes";
-"settings-notifications-trending" = "Actualitates in tendentia";
 "settings-off" = "Non active";
 "settings-on" = "Active";
 "settings-primary-language" = "Principal";
@@ -1473,9 +1450,6 @@
 "welcome-languages-add-or-edit-button" = "Adder o modificar linguas preferite";
 "welcome-languages-description" = "Nos ha trovate le sequente linguas sur tu apparato:";
 "welcome-languages-search-title" = "Cercar in plus de 300 linguas";
-"welcome-notifications-tell-me-more-creation" = "Le notificationes es create e livrate sur tu apparato per le application, non per nostre servitores (o illos de tertios).";
-"welcome-notifications-tell-me-more-storage" = "Le preferentias de notification se immagazina sur le apparato e non se basa sur information o activitate personal.";
-"welcome-notifications-tell-me-more-title" = "Plus sur notificationes";
 "welcome-privacy-subtitle" = "Nos crede que non debe esser obligatori fornir informationes personal pro participar al movimento de cognoscentia libere. Le datos de uso colligite pro iste application es anonyme.";
 "welcome-privacy-terms-button-text" = "Leger plus sur nostre politica de confidentialitate e conditiones de uso";
 "widget-onthisday-description" = "Explorar lo que ha evenite in iste die in le historia.";

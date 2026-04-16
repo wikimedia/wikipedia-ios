@@ -236,7 +236,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=அண்மையில்|$1 மணிக்கு முன்பு|$1 மணி நேரத்திற்கு முன்பு}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=இப்பொழுது|$1 நிமிடத்திற்கு முன்பு|$1 நிமிடங்களுக்கு முன்பு}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=இந்த வருடம்|1=சென்ற வருடம்|$1 வருடங்களுக்கு முன்பு}}";
-"replace-textfield-accessibility" = "மாற்றுக";
 "saved-title" = "சேமிக்கப்பட்டது";
 "search-button-accessibility-label" = "விக்கிப்பீடியாவில் தேடவும்";
 "search-field-placeholder-text" = "விக்கிப்பீடியாவில் தேடவும்";
