@@ -1,5 +1,6 @@
 import UIKit
 import CocoaLumberjackSwift
+import WMFNativeLocalizations
 import WMFData
 
 enum ArticleFetcherError: LocalizedError {

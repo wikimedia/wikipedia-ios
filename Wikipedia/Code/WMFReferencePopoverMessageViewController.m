@@ -48,7 +48,7 @@ NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNot
     [self.widthConstraint setConstant:self.width];
 
     [self applyTheme:self.theme];
-    
+
     [self setupCloseButton];
 }
 
@@ -61,7 +61,7 @@ NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNot
     WMFLargeCloseButtonConfig *config = [[WMFLargeCloseButtonConfig alloc] initWithImageType:WMFLargeCloseButtonImageTypePlainX target:self action:@selector(dismiss) alignment:AlignmentTrailing];
     self.closeButton = [UIButton closeNavigationButtonWithConfig:config];
     
-    self.closeButton.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
+    self.closeButton.accessibilityLabel = [WMFCommonStringsWrapper closeButtonAccessibilityLabel];
     
     self.closeButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self.closeButton setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];

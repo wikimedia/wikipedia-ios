@@ -1,4 +1,5 @@
 import CocoaLumberjackSwift
+import WMFNativeLocalizations
 import WMFTestKitchen
 
 // MARK: WMFAuthenticationManagerDelegate

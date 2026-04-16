@@ -1,5 +1,6 @@
 import Foundation
 import MapKit
+import WMFNativeLocalizations
 
 class WMFMapsActivity : UIActivity {
     

@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 protocol PageViewControllerViewLifecycleDelegate: AnyObject {
     func pageViewControllerDidAppear(_ pageViewController: UIPageViewController)

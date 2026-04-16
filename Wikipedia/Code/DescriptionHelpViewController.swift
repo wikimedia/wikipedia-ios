@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 class DescriptionHelpViewController: ThemeableViewController, WMFNavigationBarConfiguring {
 

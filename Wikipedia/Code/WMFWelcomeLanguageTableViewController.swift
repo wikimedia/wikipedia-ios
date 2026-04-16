@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 import WMFData
 
 // https://stackoverflow.com/a/34902501/135557

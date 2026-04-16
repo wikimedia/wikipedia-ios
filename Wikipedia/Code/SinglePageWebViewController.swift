@@ -3,6 +3,7 @@ import CocoaLumberjackSwift
 import WMF
 import WMFComponents
 import WMFData
+import WMFNativeLocalizations
 
 class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     

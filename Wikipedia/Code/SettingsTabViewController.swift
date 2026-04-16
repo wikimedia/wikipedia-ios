@@ -3,6 +3,7 @@ import CocoaLumberjackSwift
 import WMFComponents
 import WMF
 import Combine
+import WMFNativeLocalizations
 
 public final class WMFSettingsHostingController: WMFComponentHostingController<WMFSettingsView> {}
 

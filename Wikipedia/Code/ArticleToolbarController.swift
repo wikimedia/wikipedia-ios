@@ -2,6 +2,7 @@ import UIKit
 import WMF
 import WMFComponents
 import WMFData
+import WMFNativeLocalizations
 
 protocol ArticleToolbarHandling: AnyObject {
     func toggleSave(from controller: ArticleToolbarController)

@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 enum ReadingListDetailDisplayType {
     case modal, pushed

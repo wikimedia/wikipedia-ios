@@ -1,4 +1,5 @@
 import UIKit
+import WMFNativeLocalizations
 import WMFData
 
 @objc(WMFArticleCollectionViewController)

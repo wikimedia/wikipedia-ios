@@ -4,6 +4,7 @@ import WMFComponents
 import WMF
 import Combine
 import SwiftUI
+import WMFNativeLocalizations
 import WMFTestKitchen
 
 final class WMFActivityTabHostingController: WMFComponentHostingController<WMFActivityTabView> {}

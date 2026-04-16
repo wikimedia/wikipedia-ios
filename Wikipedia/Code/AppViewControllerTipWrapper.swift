@@ -1,6 +1,7 @@
 import TipKit
 import SwiftUI
 import WMFComponents
+import WMFNativeLocalizations
 
 /// Wrapper class to call TipKit APIs from Objective-C
 @objc class WMFAppViewControllerTipWrapper: NSObject {
