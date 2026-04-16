@@ -153,7 +153,6 @@
 "description-help-title" = "مضمون جي تشريح لاءِ مدد";
 "description-help-wikidata-guide" = "تشريحون لکڻ لاءِ وڪيڊيٽا رھنما";
 "description-published-button-title" = "ٿي ويو";
-"description-published-footer" = "اوهان هن ايپ ذريعي مضمون سنواري سگهو ٿا. جملن ۽ گرامر جون غلطيون ڪڍڻ لاءِ ٻي دفعي پينسل واري نشان کي ڪلڪ ڪريو";
 "description-published-subtitle" = "اوهان هاڻ ئي ھر ڪنھن لاءِ وڪيپيڊيا کي بھتر بڻايو";
 "description-published-title" = "تشريح ڇپجي وئي!";
 "description-welcome-concise-sub-title" = "مثالي طور هڪ سٽ، 2 کان 12 لفظن ائين";
@@ -237,8 +236,6 @@
 "edit-notices-always-display" = "سدائن سنوار جا اطلاع ڏيکاريو";
 "edit-notices-please-read" = "مھرباني ڪري سنوارڻ کان اڳ پڙھو";
 "edit-preview-simplified-format-message" = "سمورو مواد آسان فارميٽ ۾ ڏيکاريل آهي.";
-"edit-published" = "سنوار ڇپي وئي";
-"edit-published-subtitle" = "توھان ھرڪنھن لاءِ وڪيپيڊيا کي بھتر بڻايو";
 "edit-show-web-preview" = "ويب پيش-نگاھ ڏيکاريو";
 "edit-summary-add-summary-text" = "پنھنجي سنوار جو تَتُ ڏيو";
 "edit-summary-choice-added-image" = "عڪس شامل ڪيو";
@@ -571,8 +568,6 @@
 "next-action-title" = "اڳيون";
 "no-email-account-alert" = "مھرباني ڪري پنھنجي ڊوائس تي ڪو ايميل کاتو سيٽ اپ ڪريو ۽ ٻيھر ڪوشش ڪريو.";
 "no-internet-connection" = "انٽرنيٽ ڳانڍاپو ناھي";
-"no-internet-connection-article-reload" = "ھن مضمون جو ڪو اڃا نئون ورجاءُ موجود ٿي سگهي ٿو، پر انٽرنيٽ ڏانھن ڪنھن ڳانڍاپي سواءِ لاھي نٿو سگهجي";
-"no-internet-connection-article-reload-button" = "آخري سانڍيل ورجاءَ ڏانھن ورو";
 "not-now-title" = "ھاڻي نہ";
 "notifications-center-agent-description-from-format" = "$1 کان";
 "notifications-center-alert" = "چتاءُ";
@@ -589,7 +584,6 @@
 "notifications-center-empty-state-filters-subtitle" = "وڌيڪ پيغام ڏسڻ لاءِ $1 کي بدلايو";
 "notifications-center-empty-state-no-projects-selected" = "وڌيڪ نياپا ڏسڻ لاءِ رٿائون شامل ڪريو";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 ڇاڻي|$1 ڇاڻيون}}";
-"notifications-center-feed-card-title" = "سنوارڻ جا اطلاع ھاڻي موجود آھن";
 "notifications-center-feed-news-notification-button-text" = "ڌڪيل اطلاع آن ڪريو";
 "notifications-center-filters-accessibility-label" = "اطلاعن جي ڇاڻي";
 "notifications-center-filters-read-status-item-title-all" = "سڀ";
@@ -832,12 +826,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s اڳ";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ھن سال|1=گذريل سال|$1 سالَ اڳ}}";
-"replace-button-accessibility" = "$1 تي عمل ڪريو.";
-"replace-clear-button-accessibility" = "مٽايل صاف ڪريو";
-"replace-infolabel-method-replace" = "مٽايو";
-"replace-infolabel-method-replace-all" = "سڀ مٽايو";
-"replace-textfield-accessibility" = "مٽايو";
-"replace-textfield-placeholder" = "سان مٽايو…";
 "return-button-title" = "واپس ورو";
 "return-to-article" = "مضمون ڏانهن واپس ورو";
 "reverted-edit-title" = "موٽايل سنوار";
@@ -853,7 +841,6 @@
 "search-button-accessibility-label" = "وڪيپيڊيا ۾ ڳوليو";
 "search-clear-title" = "ختم ڪريو";
 "search-field-placeholder-text" = "وڪيپيڊيا ۾ ڳوليو";
-"search-reading-list-placeholder-text" = "پڙھڻ جي فھرست ڳوليو";
 "search-recent-clear-confirmation-heading" = "سموريون تازيون ڳولائون ختم ڪريون؟";
 "search-recent-clear-confirmation-sub-heading" = "هي عمل واپس نٿو ڪري سگهجي!";
 "search-recent-clear-delete-all" = "سڀ ختم ڪريو";
@@ -875,11 +862,6 @@
 "settings-my-languages" = "منھنجون ٻوليون";
 "settings-notifications" = "ڌڪيل اطلاع";
 "settings-notifications-echo-failure-try-again" = "ٻيھر ڪوشش ڪريو";
-"settings-notifications-info" = "اسان جي ڌڪيل اطلاعن سان وڪيپيڊيا تي لاڙو رکندڙ ۽ گهڻو پڙھيو ويندڙ مضمون بابت مطلع ٿيو. سڀ نويڪلائي ۽ منٽ ڊيٽا جي خيال سان مھيا ڪيا وڃن ٿا.";
-"settings-notifications-learn-more" = "اطلاعن بابت وڌيڪ ڄاڻيو";
-"settings-notifications-push-notifications" = "ڌڪيل اطلاع";
-"settings-notifications-system-turn-on" = "اطلاع آن ڪريو";
-"settings-notifications-trending" = "لاڙو رکندڙ تازا واقعا";
 "settings-primary-language" = "شروعاتي";
 "settings-primary-language-details" = "ھن فھرست جي پھرين ٻولي ايپ جي شروعاتي ٻولي طور استعمال ڪئي وڃي ٿي.";
 "settings-search-footer-text" = "کوجنا ٽيب بجاءِ ڳولا ٽيب کولڻ لاءِ ايپ کي مرتب ڪريو";
@@ -1090,9 +1072,6 @@
 "welcome-languages-add-or-edit-button" = "ترجيحي ٻوليون شامل يا مرتب ڪريو";
 "welcome-languages-description" = "اسان توھان جي اوزار تي ھي ٻوليو لڌيون آھن:";
 "welcome-languages-search-title" = "300 کان مٿي ٻولين ۾ ڳوليو";
-"welcome-notifications-tell-me-more-creation" = "اطلاع اسان (يا ٽين ڌر) جي سرورن پاران نہ پر ايپ پاران توھان جي ڊوائيس تي سرجيا ۽ فراھم ڪيا ويا آھن.";
-"welcome-notifications-tell-me-more-storage" = "اطلاعن جو ترجيحون توھان جي ڊوائيس تي سانڍيل آھن ۽ اھي ذاتي معلومات يا سرگرمي تي ٻڌل نہ آھن.";
-"welcome-notifications-tell-me-more-title" = "اطلاعن بابت وڌيڪ";
 "welcome-privacy-terms-button-text" = "اسان جي نويڪلائي نِيَمَن ۽ استعمال جي شرطن بابت وڌيڪ ڄاڻيو";
 "widget-onthisday-description" = "تاريخ ۾ اڄوڪي ڏينھن تي ڇا ٿيو اھو کوجيو.";
 "widget-onthisday-placeholder-article-snippet" = "کليل آنلائين انسائيڪلوپيڊيا جنھن کي ھر ڪوئي سنواري سگهي ٿو";

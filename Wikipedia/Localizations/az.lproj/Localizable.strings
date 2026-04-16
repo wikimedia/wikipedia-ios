@@ -284,7 +284,6 @@
 "description-help-title" = "Məqalə təsviri yardımı";
 "description-help-wikidata-guide" = "Təsvirlərin yazılması barədə Vikidata bələdçisi";
 "description-published-button-title" = "Oldu";
-"description-published-footer" = "Siz həmçinin bu proqram daxilində məqalələri redaktə edə bilərsiniz. Növbəti dəfə qələm işarəsinə klikləməklə yazı səhvlərini və kiçik cümlələri düzəltməyə çalışın";
 "description-published-subtitle" = "Siz Vikipediyanı hamı üçün daha yaxşı hala gətirdiniz";
 "description-published-title" = "Təsvir dərc edildi!";
 "description-welcome-concise-sub-title" = "İdeal olaraq bir sətir, iki ilə on iki söz arasında olmalıdır";
@@ -396,8 +395,6 @@
 "edit-notices-always-display" = "Redaktə bildirişlərini həmişə göstər";
 "edit-notices-please-read" = "Zəhmət olmasa redaktə etməzdən əvvəl oxuyun";
 "edit-preview-simplified-format-message" = "Bütün məzmun sadələşdirilmiş formatda göstərilir.";
-"edit-published" = "Dəyişiklik yayımlandı";
-"edit-published-subtitle" = "Siz Vikipediyanı hamı üçün daha yaxşı hala gətirdiniz";
 "edit-sheet-ip-account-notice" = "IP Hesabı Bildirişi";
 "edit-sheet-temp-account-notice" = "Müvəqqəti Hesab Bildirişi";
 "edit-show-web-preview" = "Veb önizləməni göstər";
@@ -708,7 +705,6 @@
 "image-recs-yes-title" = "Bəli";
 "import-shared-reading-list-default-title" = "Mənim oxuma siyahım";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Sorğuda iştirak et";
-"import-shared-reading-list-survey-prompt-footer" = "$1məxfilik bəyanatımıza$2 baxın. Sorğu üçüncü tərəf istifadə edilərək yaradılıb. Onların $3məxfilik siyasətinə$4 baxın.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Oxuma siyahılarını paylaş\" test funksiyasıdır və onu təkmilləşdirmək və ya silmək üçün rəyinizə ehtiyacımız var.";
 "import-shared-reading-list-survey-prompt-title" = "\"Oxuma siyahılarını paylaş\"ı təkmilləşdirməkdə bizə kömək edə bilərsinizmi?";
 "import-shared-reading-list-title" = "Paylaşılan oxuma siyahısını idxal et";
@@ -810,8 +806,6 @@
 "next-action-title" = "Növbəti";
 "no-email-account-alert" = "Zəhmət olmasa, cihazınızda e-poçt hesabı quraşdırın və yenidən cəhd edin.";
 "no-internet-connection" = "İnternet bağlantısı yoxdur";
-"no-internet-connection-article-reload" = "Bu məqalənin daha yeni versiyası mövcud ola bilər, lakin internet bağlantısı olmadan yükləmək mümkün deyil";
-"no-internet-connection-article-reload-button" = "Son saxlanmış versiyaya qayıt";
 "not-now-title" = "İndi yox";
 "notifications-center-agent-description-from-format" = "$1";
 "notifications-center-alert" = "Xəbərdarlıq";
@@ -830,7 +824,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Daha çox mesaj görmək üçün $1 dəyişdirin";
 "notifications-center-empty-state-no-projects-selected" = "Daha çox mesaj görmək üçün layihələr əlavə edin";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtr}}";
-"notifications-center-feed-card-title" = "Redaktə bildirişləri indi əlçatandır";
 "notifications-center-feed-news-notification-button-text" = "Push bildirişlərini yandırın";
 "notifications-center-feed-news-notification-text" = "Bütün Vikimedia layihələri üçün redaktə bildirişləri artıq proqram vasitəsilə əlçatandır. Yolda olarkən Vikipediyadakı mesajlarınızdan xəbərdar olmaq üçün bildirişləri təkmilləşdirməyə qoşulun.";
 "notifications-center-filters-accessibility-label" = "Bildirişlər Filtri";
@@ -975,7 +968,6 @@
 "panel-compare-revisions-text" = "Versiyaların müqayisəsi məqalənin zamanla necə dəyişdiyini göstərməyə kömək edir. Məqalənin iki versiyasını müqayisə etmək, dəyişdirilmiş hər hansı məzmunu vurğulamaqla bu düzəlişlər arasındakı fərqi göstərəcəkdir.";
 "panel-compare-revisions-title" = "Versiyaların müqayisəsi";
 "panel-not-logged-in-continue-edit-action-title" = "Daxil olmadan redaktə et";
-"panel-not-logged-in-subtitle" = "Hər hansı düzəliş etsəniz, IP ünvanınız hamıya görünəcək. $1daxil olsanız$2 və ya $3hesab yaratsanız$4 redaktələriniz digər üstünlüklərlə birlikdə istifadəçi adınıza aid ediləcək.";
 "panel-not-logged-in-title" = "Siz daxil olmamısınız";
 "pictured" = "şəkildə";
 "places-accessibility-clear-saved-searches" = "Saxlanmış axtarışları sil";
@@ -1135,15 +1127,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s əvvəl";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Bu il|1=Keçən il|$1 il əvvəl}}";
-"replace-button-accessibility" = "$1";
-"replace-buttons-replace-accessibility" = "Tək nümunəni dəyiş";
-"replace-buttons-replace-all-accessibility" = "Bütün nümunələri dəyiş";
-"replace-clear-button-accessibility" = "Dəyişdirməni təmizlə";
-"replace-infolabel-method-replace" = "Əvəzlə";
-"replace-infolabel-method-replace-all" = "Hamısını dəyiş";
-"replace-method-button-accessibility" = "Dəyişdirmə metodu. $1 olaraq təyin edilib. Dəyişdirmək üçün seçin.";
-"replace-textfield-accessibility" = "Əvəzlə";
-"replace-textfield-placeholder" = "Bununla dəyiş:";
 "return-button-title" = "Geri qayıt";
 "return-to-article" = "Məqaləyə qayıt";
 "reverted-edit-title" = "Geri qaytarılmış redaktə";
@@ -1166,7 +1149,6 @@
 "search-button-accessibility-label" = "Vikipediyada axtar";
 "search-clear-title" = "Təmizlə";
 "search-field-placeholder-text" = "Vikipediyada axtar";
-"search-reading-list-placeholder-text" = "Oxuma siyahısında axtar";
 "search-recent-clear-confirmation-heading" = "Son axtarışlar silinsin?";
 "search-recent-clear-confirmation-sub-heading" = "Bu əməliyyat geri qaytarıla bilməz!";
 "search-recent-clear-delete-all" = "Hamısını sil";
@@ -1198,11 +1180,6 @@
 "settings-notifications-echo-failure-title" = "Echo Bildiriş abunəliklərini yoxlamaq mümkün deyil";
 "settings-notifications-echo-failure-try-again" = "Yenidən cəhd et";
 "settings-notifications-header" = "Digərlərindən gələn mesajlar, xəbərdarlıqlar və bildirişlər kimi hesabınızla bağlı fəaliyyətdən xəbərdar olun. Hamısı məxfilik və ən dəqiq məlumatlarla təmin edilir.";
-"settings-notifications-info" = "Canlı bildirişlərimizlə Vikipediyada trend olan və ən çox oxunan məqalələrdən xəbərdar olun. Hamısı məxfilik və ən dəqiq məlumatlarla təmin edilir.";
-"settings-notifications-learn-more" = "Bildirişlər haqqında ətraflı məlumat əldə edin";
-"settings-notifications-push-notifications" = "Canlı bildirişlər";
-"settings-notifications-system-turn-on" = "Bildirişləri aktivləşdir";
-"settings-notifications-trending" = "Trend olan cari hadisələr";
 "settings-off" = "Deaktiv";
 "settings-on" = "Aktiv";
 "settings-primary-language" = "Əsas";
@@ -1471,9 +1448,6 @@
 "welcome-languages-add-or-edit-button" = "Üstünlük verilən dilləri əlavə edin və ya redaktə edin";
 "welcome-languages-description" = "Cihazınızda aşağıdakı dilləri tapdıq:";
 "welcome-languages-search-title" = "300-dən çox dildə axtar";
-"welcome-notifications-tell-me-more-creation" = "Bildirişlər bizim (və ya üçüncü tərəfin) serverlərində deyil, proqram tərəfindən cihazınızda yaradılır və çatdırılır.";
-"welcome-notifications-tell-me-more-storage" = "Bildiriş seçimləri cihazda saxlanılır və şəxsi məlumat və ya fəaliyyətə əsaslanmır.";
-"welcome-notifications-tell-me-more-title" = "Bildirişlər haqqında ətraflı";
 "welcome-privacy-subtitle" = "Biz inanırıq ki, azad bilik hərəkatında iştirak etmək üçün şəxsi məlumatlarınızı təqdim etməməlisiniz. Bu proqram üçün toplanmış istifadə məlumatları anonimdir.";
 "welcome-privacy-terms-button-text" = "Məxfilik siyasətimiz və istifadə şərtlərimiz haqqında ətraflı məlumat əldə edin";
 "widget-onthisday-description" = "Tarixdə bu gündə nə baş verdiyinə baxın.";

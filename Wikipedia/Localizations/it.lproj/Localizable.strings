@@ -365,8 +365,6 @@
 "edit-menu-item" = "Modifica";
 "edit-minor-learn-more-text" = "Ulteriori informazioni sulle modifiche minori";
 "edit-minor-text" = "Questa è una modifica minore";
-"edit-published" = "Modifica pubblicata";
-"edit-published-subtitle" = "Hai appena reso Wikipedia migliore per tutti";
 "edit-sheet-ip-account-notice" = "Avviso sull'account IP";
 "edit-summary-choice-added-image" = "Immagine aggiunta";
 "edit-summary-choice-added-image-and-caption" = "Immagine e didascalia aggiunti";
@@ -634,8 +632,6 @@
 "next-action-title" = "Successivo";
 "no-email-account-alert" = "Configura un account di posta elettronica sul tuo dispositivo e riprova.";
 "no-internet-connection" = "Nessuna connessione internet";
-"no-internet-connection-article-reload" = "Potrebbe essere disponibile una versione più recente di questa voce, ma non può essere caricata senza una connessione a internet";
-"no-internet-connection-article-reload-button" = "Torna all'ultima versione salvata";
 "not-now-title" = "Non ora";
 "notifications-center-agent-description-from-format" = "Da $1";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 notifica";
@@ -847,11 +843,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s fa";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Quest'anno|1=L'anno scorso|$1 anni fa}}";
-"replace-button-accessibility" = "Esegui $1.";
-"replace-infolabel-method-replace" = "Sostituisci";
-"replace-infolabel-method-replace-all" = "Sostituisci tutto";
-"replace-textfield-accessibility" = "Sostituisci";
-"replace-textfield-placeholder" = "Sostituisci con…";
 "return-button-title" = "Ritorna";
 "return-to-article" = "Ritorna alla voce";
 "reverted-edit-title" = "Modifica annullata";
@@ -887,9 +878,6 @@
 "settings-my-languages" = "Le mie lingue";
 "settings-notifications" = "Notifiche push";
 "settings-notifications-echo-failure-try-again" = "Riprova";
-"settings-notifications-learn-more" = "Ulteriori informazioni sulle notifiche";
-"settings-notifications-push-notifications" = "Notifiche push";
-"settings-notifications-system-turn-on" = "Attiva le notifiche";
 "settings-off" = "Off";
 "settings-on" = "On";
 "settings-primary-language" = "Primaria";
@@ -1076,9 +1064,6 @@
 "welcome-languages-add-or-edit-button" = "Aggiungi o modifica lingue preferite";
 "welcome-languages-description" = "Abbiamo trovato le seguenti lingue sul tuo dispositivo:";
 "welcome-languages-search-title" = "Cerca in più di 300 lingue";
-"welcome-notifications-tell-me-more-creation" = "Le notifiche vengono create e recapitate sul dispositivo dall'applicazione, non dai nostri server (o da quelli di terze parti).";
-"welcome-notifications-tell-me-more-storage" = "Le preferenze di notifica sono memorizzate sul dispositivo e non si basano su informazioni o attività personali.";
-"welcome-notifications-tell-me-more-title" = "Ulteriori informazioni sulle notifiche";
 "widget-onthisday-description" = "Scopri cosa è successo in questo giorno nella storia.";
 "widget-onthisday-placeholder-article-snippet" = "Enciclopedia online gratuita che chiunque può modificare";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, un'enciclopedia gratuita di contenuti wiki, va online.";

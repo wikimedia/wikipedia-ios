@@ -123,6 +123,7 @@
 "activity-tab-add-images-subtitle" = "أضف الصور المقترحة إلى مقالات ويكيبيديا لتحسين الفهم.";
 "activity-tab-add-images-title" = "إضافة الصور";
 "activity-tab-additional-thoughts" = "أي أفكار إضافية؟";
+"activity-tab-amount-article-views" = "{{PLURAL:$1| $1 مشاهدة}}";
 "activity-tab-articles-read" = "المقالات المقروءة هذا الشهر";
 "activity-tab-articles-read-graph-label" = "المقالات";
 "activity-tab-customize-all-time-impact" = "تأثير على مر العصور";
@@ -149,6 +150,7 @@
 "activity-tab-hours-minutes-read" = "$1 ساعة $2 دقيقة";
 "activity-tab-hours-on-wikipedia-ios" = "على ويكيبيديا iOS";
 "activity-tab-impact-all-time-title" = "الأثر الإجمالي في كلّ الأوقات";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1| $1 يوم}}";
 "activity-tab-impact-best-streak-label" = "أفضل سلسلة متتالية";
 "activity-tab-impact-edits-label" = "التعديلات";
 "activity-tab-impact-last-edited-label" = "آخر تعديل";
@@ -214,6 +216,7 @@
 "appearance-settings-adjust-text-sizing" = "تعديل حجم نص المقالة";
 "appearance-settings-expand-tables" = "تمديد الجداول";
 "appearance-settings-expand-tables-footer" = "عيِّن جميع الجداول في جميع المقالات لتكون مفتوحة بشكل افتراضي، بما في ذلك الحقائق السريعة والمراجع والملاحظات والروابط الخارجية.";
+"appearance-settings-icon-contributor-title" = "مساهم";
 "appearance-settings-image-dimming-footer" = "تقليل تعتيم الصور على المظاهر السوداء والداكنة";
 "appearance-settings-reading-themes" = "موضوعات القراءة";
 "appearance-settings-set-automatic-table-opening" = "إعدادات الجداول";
@@ -231,6 +234,7 @@
 "article-languages-yours" = "لغاتك";
 "article-read-more-title" = "إقرأ أيضا";
 "article-reference-view-title" = "المرجع $1";
+"article-return-button-accessibility-title" = "المبلغ المستحق: $1";
 "article-revision-history" = "تاريخ تعديل المقالة";
 "article-save-error-not-enough-space" = "ليس لديك مساحة كافية على جهازك لحفظ هذه المقالة";
 "article-share" = "مشاركة";
@@ -274,6 +278,7 @@
 "chinese-variants-alert-title" = "تحديثات لدعم النسخة الصينية";
 "clear-title-accessibility-label" = "امسح";
 "clearing-cache-complete" = "تم مسح ذاكرة التخزين المؤقت بالكامل.";
+"clearing-cache-error" = "حدث خطأ أثناء مسح ذاكرة التخزين المؤقت.";
 "clearing-cache-in-progress" = "جاري مسح ذاكرة التخزين المؤقت.";
 "close-all-tabs" = "إغلاق جميع علامات التبويب";
 "close-all-tabs-confirmation" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟ لا يمكن التراجع عن هذا الإجراء.";
@@ -325,7 +330,6 @@
 "description-help-title" = "مساعدة وصف المقالة";
 "description-help-wikidata-guide" = "دليل ويكي بيانات لكتابة الوصوفات";
 "description-published-button-title" = "تم";
-"description-published-footer" = "يمكنك أيضا تعديل المقالات من خلال هذا التطبيق. جرب إصلاح الأخطاء الإملائية والعبارات الصغيرة عن طريق الضغط على أيقونة القلم في المرة القادمة";
 "description-published-subtitle" = "أنت جعلت ويكيبيديا أفضل للجميع";
 "description-published-title" = "الوصف نشر!";
 "description-welcome-concise-sub-title" = "مثاليا سطر واحد، ما بين كلمتين إلى 12 كلمة";
@@ -437,8 +441,6 @@
 "edit-notices-always-display" = "اعرض دائما إشعارات التحرير";
 "edit-notices-please-read" = "يرجى القراءة قبل التحرير";
 "edit-preview-simplified-format-message" = "يتم عرض كافة المحتويات بتنسيق مبسط.";
-"edit-published" = "تم نشر التعديل";
-"edit-published-subtitle" = "أنت فقط جعلت ويكيبيديا أفضل للجميع";
 "edit-sheet-ip-account-notice" = "إشعار حساب IP";
 "edit-sheet-temp-account-notice" = "إشعار الحساب المؤقت";
 "edit-show-web-preview" = "اعرض المعاينة";
@@ -749,7 +751,6 @@
 "image-recs-yes-title" = "نعم";
 "import-shared-reading-list-default-title" = "قائمة القراءة الخاصة بي";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "المشاركة في الاستطلاع";
-"import-shared-reading-list-survey-prompt-footer" = "اطلع على $1بيان الخصوصية$2 الخاص بنا. الاستطلاع مدعوم من قِبل جهة خارجية. اطلع على $3سياسة الخصوصية$4 الخاصة بهم.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"مشاركة قوائم القراءة\" هي ميزة اختبار ونحن بحاجة إلى ملاحظاتك لتحسينها أو إزالتها.";
 "import-shared-reading-list-survey-prompt-title" = "هل يمكنك مساعدتنا في تحسين \"مشاركة قوائم القراءة\"؟";
 "import-shared-reading-list-title" = "استيراد قائمة القراءة المشتركة";
@@ -846,8 +847,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "معاينة";
 "nearby-distance-label-feet" = "{{PLURAL:$1|قدم|$1 قدم}}";
 "nearby-distance-label-km" = "$1 كيلومتر";
-// Fuzzy
-"nearby-distance-label-meters" = " $1 م";
+"nearby-distance-label-meters" = "{{PLURAL:$1| $1 متر}}";
 "nearby-distance-label-miles" = "$1 ميل";
 "new-password-instructions" = "أنت الآن مسجل الدخول بكلمة سر مؤقتة. لإكمال تسجيل الدخول أعد تعيين كلمة سر جديدة هنا.";
 "new-password-title" = "قم بتعيين كلمة المرور الخاصة بك";
@@ -855,8 +855,6 @@
 "next-action-title" = "التالي";
 "no-email-account-alert" = "يرجى إعداد حساب بريد إلكتروني على جهازك وحاول مرة أخرى.";
 "no-internet-connection" = "لا يوجد اتصال بالإنترنت";
-"no-internet-connection-article-reload" = "قد يتوفر إصدار أحدث من هذه المقالة، ولكن لا يمكن تحميله دون الاتصال بالإنترنت";
-"no-internet-connection-article-reload-button" = "العودة إلى النسخة الأخيرة المحفوظة";
 "not-now-title" = "ليس الآن";
 "notifications-center-agent-description-from-format" = "من $1";
 "notifications-center-alert" = "انذار";
@@ -875,7 +873,6 @@
 "notifications-center-empty-state-filters-subtitle" = "قم بتعديل $1 لرؤية المزيد من الرسائل";
 "notifications-center-empty-state-no-projects-selected" = "اضف المشاريع لرؤية المزيد من الرسائل";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1| مرشح $1 | مرشحات $1 }}";
-"notifications-center-feed-card-title" = "تحرير الإخطارات متاح الآن";
 "notifications-center-feed-news-notification-button-text" = "أظهر الإشعارات";
 "notifications-center-feed-news-notification-text" = "إخطارات التحرير لجميع مشاريع ويكيميديا متاحة الآن من خلال التطبيق. اشترك في إخطارات الدفع  لمواكبة رسائلك على ويكيبيديا أثناء التنقل.";
 "notifications-center-filters-accessibility-label" = "مُرشّح الإشعارات";
@@ -1021,7 +1018,7 @@
 "panel-compare-revisions-text" = "تساعد مقارنة المراجعات في إظهار كيف تم تغيير مقالة بمرور الوقت، ستوضح المقارنة بين مراجعتين لمقالة ما الفرق بين تلك المراجعات من خلال إبراز أي محتوى تم تغييره.";
 "panel-compare-revisions-title" = "مقارنة المراجعات";
 "panel-not-logged-in-continue-edit-action-title" = "تحرير دون تسجيل الدخول";
-"panel-not-logged-in-subtitle" = "سيكون عنوان IP الخاص بك مرئيًا بشكل عام إذا أجريت أي تعديلات. إذا قمت بتسجيل الدخول $1 $2 أو $3 لإنشاء حساب $4 ، فسوف تُنسب تعديلاتك إلى اسم المستخدم الخاص بك ، إلى جانب المزايا الأخرى.";
+"panel-not-logged-in-subtitle-plain" = "سيظهر عنوان IP الخاص بك للعامة إذا قمت بإجراء أي تعديلات. سجّل الدخول أو أنشئ حسابًا لربط تعديلاتك باسم المستخدم الخاص بك.";
 "panel-not-logged-in-title" = "لم تسجل الدخول.";
 "percentile-0.01" = "0.01";
 "percentile-1" = "1";
@@ -1099,6 +1096,7 @@
 "reading-list-add-saved-button-title" = "نعم ، أضفهم إلى قوائم قراءتي";
 "reading-list-add-saved-subtitle" = "هناك مقالات محفوظة في تطبيق ويكيبيديا الخاص بك، هل ترغب في الاحتفاظ بها ودمجها مع قوائم القراءة التي تمت مزامنتها مع حسابك؟";
 "reading-list-add-saved-title" = "تم العثور على المقالات المحفوظة";
+"reading-list-alert-see-list" = "اطلع على قائمة القراءة";
 "reading-list-api-error-entry-limit" = "لا تتم مزامنة هذا الإدخال لأنك وصلت إلى الحد الأقصى لعدد الإدخالات في هذه القائمة.";
 "reading-list-api-error-generic" = "حدث خطأ غير متوقع أثناء مزامنة قوائم قراءتك.";
 "reading-list-api-error-list-limit" = "لا تتم مزامنة هذه القائمة لأنك وصلت إلى الحد المسموح به لعدد القوائم المتزامنة.";
@@ -1189,15 +1187,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "قبل $1s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=هذا العام|1=العام الماضي|منذ $1 سنوات}}";
-"replace-button-accessibility" = "أداء $1.";
-"replace-buttons-replace-accessibility" = "استبدال مثيل واحد";
-"replace-buttons-replace-all-accessibility" = "استبدال جميع الحالات";
-"replace-clear-button-accessibility" = "إفراغ استبدل";
-"replace-infolabel-method-replace" = "استبدال";
-"replace-infolabel-method-replace-all" = "استبدل الكل";
-"replace-method-button-accessibility" = "استبدال الطريقة، تعيين إلى $1، حدد للتغيير.";
-"replace-textfield-accessibility" = "استبدال";
-"replace-textfield-placeholder" = "استبدل بـ…";
 "return-button-title" = "يعود";
 "return-to-article" = "العودة إلى المقال";
 "reverted-edit-title" = "تم إرجاع التعديل";
@@ -1220,7 +1209,6 @@
 "search-button-accessibility-label" = "البحث في ويكيبيديا";
 "search-clear-title" = "مسح";
 "search-field-placeholder-text" = "البحث في ويكيبيديا";
-"search-reading-list-placeholder-text" = "البحث في قائمة القراءة";
 "search-recent-clear-confirmation-heading" = "إزالة كل عمليات البحث الأخيرة؟";
 "search-recent-clear-confirmation-sub-heading" = "لا يمكن التراجع عن هذا الفعل!";
 "search-recent-clear-delete-all" = "حذف الكل";
@@ -1245,6 +1233,7 @@
 "settings-help-and-feedback" = "المساعدة والآراء والملاحظات";
 "settings-language-bar" = "إظهار اللغات في البحث";
 "settings-languages-feed-customization" = "أنت يمكنك التحكم في أي اللغات تكون معروضة على تلقيم استكشف الخاص بك عن طريق تعديل إعدادات تلقيم استكشف الخاص بك";
+"settings-legal-sefaty-title" = "جهات الاتصال القانونية والأمنية";
 "settings-my-languages" = "لغاتي";
 "settings-new-article-tab-header-text" = "موضوع علامة التبويب الجديدة";
 "settings-notifications" = "الإشعارات";
@@ -1252,11 +1241,6 @@
 "settings-notifications-echo-failure-title" = "تعذر التحقق من اشتراكات Echo Notification";
 "settings-notifications-echo-failure-try-again" = "حاول مجددًا";
 "settings-notifications-header" = "يتم تنبيهك بالنشاط المرتبط بحسابك ، مثل الرسائل الواردة من زملائك المساهمين ، والتنبيهات ، والإشعارات. كل شيء مقدم فيما يتعلق بالخصوصية وحتى البيانات الدقيقة.";
-"settings-notifications-info" = "يتم تنبيهك إلى المقالات الشائعة والأعلى قراءة في ويكيبيديا بإخطارات الدفع لدينا، الجميع المقدمة فيما يتعلق بالخصوصية وحتى البيانات الدقيقة.";
-"settings-notifications-learn-more" = "إعرف المزيد عن الإشعارات";
-"settings-notifications-push-notifications" = "الإشعارات";
-"settings-notifications-system-turn-on" = "تشغيل الإشعارات";
-"settings-notifications-trending" = "الأحداث الجارية";
 "settings-off" = "إيقاف";
 "settings-on" = "تشغيل";
 "settings-primary-language" = "أساسي";
@@ -1525,9 +1509,6 @@
 "welcome-languages-add-or-edit-button" = "إضافة أو تحرير اللغات المفضلة";
 "welcome-languages-description" = "لقد وجدنا اللغات التالية على جهازك:";
 "welcome-languages-search-title" = "ابحث في ما يقارب 300 لغة";
-"welcome-notifications-tell-me-more-creation" = "يتم إنشاء الإشعارات وتسليمها على جهازك من خلال التطبيق، وليس من خوادمنا (أو جهات خارجية).";
-"welcome-notifications-tell-me-more-storage" = "يتم تخزين تفضيلات الإشعارات على الجهاز ولا تعتمد على المعلومات أو النشاط الشخصي.";
-"welcome-notifications-tell-me-more-title" = "معلومات أكثر عن الاشعارات";
 "welcome-privacy-subtitle" = "نعتقد أنه لا ينبغي عليك تقديم معلومات شخصية للمشاركة في حركة المعرفة الحرة. بيانات الاستخدام التي يتم جمعها لهذا التطبيق مجهولة.";
 "welcome-privacy-terms-button-text" = "تعرف على المزيد حول سياسة الخصوصية وشروط الاستخدام الخاصة بنا";
 "widget-onthisday-description" = "اكتشف ما الذي حصل في مثل هذا اليوم.";

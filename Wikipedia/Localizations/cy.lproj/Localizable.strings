@@ -207,7 +207,6 @@
 "edit-minor-text" = "Golygiad bychan yw hwn";
 "edit-notices" = "Hysbysiadau golygu";
 "edit-notices-please-read" = "Darllenwch hwn cyn golygu";
-"edit-published" = "Wedi cyhoeddi'r golygiad";
 "edit-summary-add-summary-text" = "Rhoi crynodeb golygu";
 "edit-summary-choice-added-image" = "Ychwanegwyd delwedd";
 "edit-summary-choice-fixed-grammar" = "Trwsiwyd y ramadeg";
@@ -613,14 +612,6 @@
 "relative-date-seconds-abbreviated" = "$1 eiliad";
 "relative-date-seconds-ago-abbreviated" = "$1s yn ôl";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Eleni|1=Llynedd|$1 mlynedd yn ôl}}";
-"replace-button-accessibility" = "Perfformio $1.";
-"replace-buttons-replace-accessibility" = "Disodli un achos";
-"replace-buttons-replace-all-accessibility" = "Disodli pob achos";
-"replace-clear-button-accessibility" = "Clirio'r disodli";
-"replace-infolabel-method-replace" = "Disodli";
-"replace-infolabel-method-replace-all" = "Disodli'r cyfan";
-"replace-textfield-accessibility" = "Disodli";
-"replace-textfield-placeholder" = "Disodli gyda:";
 "return-button-title" = "Nôl";
 "return-to-article" = "Nôl i erthygl";
 "saved-all-articles-title" = "Pob erthygl";
@@ -629,7 +620,6 @@
 "search-button-accessibility-label" = "Chwilio Wicipedia";
 "search-clear-title" = "Clirio";
 "search-field-placeholder-text" = "Chwilio ar Wicipedia";
-"search-reading-list-placeholder-text" = "Chwilio rhestr ddarllen";
 "search-recent-clear-confirmation-heading" = "Dileu'r holl chwiliadau?";
 "search-recent-clear-confirmation-sub-heading" = "Ni ellir dadwneud y weithred hon!";
 "search-recent-clear-delete-all" = "Dileu'r cyfan";
@@ -650,9 +640,6 @@
 "settings-my-languages" = "Fy ieithoedd";
 "settings-notifications" = "Hysbysiadau byw";
 "settings-notifications-echo-failure-try-again" = "Ceisiwch eto";
-"settings-notifications-push-notifications" = "Hysbysiadau byw";
-"settings-notifications-system-turn-on" = "Galluogi Hysbysiadau";
-"settings-notifications-trending" = "Pynciau llosg";
 "settings-primary-language" = "Cynradd";
 "settings-title" = "Gosodiadau";
 "share-article-name-on-wikipedia" = "\"$1\" ar Wicipedia:";
@@ -793,7 +780,6 @@
 "welcome-languages-add-or-edit-button" = "Ychwanegu neu olygu hoff ieithoedd";
 "welcome-languages-description" = "Rydyn ni wedi canfod yr ieithoedd canlynol ar eich ddyfais:";
 "welcome-languages-search-title" = "Chwilio mewn dros 300 iaith";
-"welcome-notifications-tell-me-more-title" = "Mwy am hysbysiadau";
 "widget-onthisday-placeholder-article-snippet" = "Gwyddoniadur rhydd ar-lein y gall unrhyw un olygu";
 "widget-onthisday-placeholder-event-snippet" = "Mae Wicipedia, y gwyddoniadur rhydd, yn mynd ar-lein.";
 "wikitext-preview-link-external-preview-title" = "Dolen allanol";

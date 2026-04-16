@@ -246,7 +246,6 @@
 "description-help-title" = "עזרה עם תיאור ערך";
 "description-help-wikidata-guide" = "מדריך ויקינתונים לכתיבת תיאורים";
 "description-published-button-title" = "סיום";
-"description-published-footer" = "אפשר גם לערוך ערכים בתוך ביישום הזה. נסו לתקן שגיאות כתיב ומשפטים קצרים באמצעות לחיצה על סמל העיפרון בפעם הבאה";
 "description-published-subtitle" = "שיפרת עכשיו את ויקיפדיה בשביל כולם";
 "description-published-title" = "התיאור פורסם!";
 "description-welcome-concise-sub-title" = "הכי טוב שורה אחת, בין שתיים לשתים־עשרה מילים";
@@ -357,8 +356,6 @@
 "edit-notices-always-display" = "תמיד להציג את ההודעות לעורכים";
 "edit-notices-please-read" = "נא לקרוא לפני עריכה";
 "edit-preview-simplified-format-message" = "כל התוכן מוצג בעיצוב פשוט.";
-"edit-published" = "העריכה פורסמה";
-"edit-published-subtitle" = "שיפרת עכשיו את ויקיפדיה בשביל כולם";
 "edit-show-web-preview" = "תצוגה מקדימה בדפדפן";
 "edit-summary-add-summary-text" = "הוספת תקציר עריכה";
 "edit-summary-choice-added-image" = "נוספה תמונה";
@@ -664,7 +661,6 @@
 "image-recs-yes-title" = "כן";
 "import-shared-reading-list-default-title" = "רשימת הקריאה שלי";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "מילוי סקר";
-"import-shared-reading-list-survey-prompt-footer" = "צפייה בהצהרת הפרטיות של $1שלנו$2. הסקר מופעל על־ידי צד שלישי. צפייה במדיניות הפרטיות $3שלהם$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"שיתוף רשימות קריאה\" היא תכונה בבדיקה ואנחנו זקוקים למשוב שלך כדי לשפר או להסיר אותה.";
 "import-shared-reading-list-survey-prompt-title" = "אפשר לבקש ממך לעזור לנו לשפר את התכונה \"שיתוף רשימות קריאה\"?";
 "import-shared-reading-list-title" = "יבוא רשימת קריאה משותפת";
@@ -775,8 +771,6 @@
 "next-action-title" = "הבא";
 "no-email-account-alert" = "נא להגדיר חשבון דואר אלקטרוני במכשיר שלך ולנסות שוב.";
 "no-internet-connection" = "אין חיבור אינטרנט";
-"no-internet-connection-article-reload" = "ייתכן שזמינה גרסה חדשה של הערך הזה, אבל אי־אפשר לטעון אותה ללא חיבור לאינטרנט";
-"no-internet-connection-article-reload-button" = "חזרה לגרסה השמורה האחרונה";
 "not-now-title" = "לא עכשיו";
 "notifications-center-agent-description-from-format" = "מאת $1";
 "notifications-center-alert" = "התראה";
@@ -795,7 +789,6 @@
 "notifications-center-empty-state-filters-subtitle" = "יש לשנות $1 כדי לראות עוד הודעות";
 "notifications-center-empty-state-no-projects-selected" = "יש להוסיף מיזמים כדי לראות עוד הודעות";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|מסנן אחד|$1 מסננים}}";
-"notifications-center-feed-card-title" = "התראות עריכה זמינות עכשיו";
 "notifications-center-feed-news-notification-button-text" = "הפעלת עדכוני דחיפה";
 "notifications-center-feed-news-notification-text" = "התראות עריכה זמינות עכשיו לכל מיזמי ויקימדיה זמינות עכשיו בכל היישום. אפשר להפעיל את עדכוני הדחיפה כדי להיות מעודכנים עם ההודעות בוויקיפדיה בתנועה.";
 "notifications-center-filters-accessibility-label" = "מסנן עדכונים";
@@ -939,7 +932,6 @@
 "panel-compare-revisions-text" = "השוואת גרסאות עוזרת להראות איך ערך השתנה לאורך זמן. השוואת שתי גרסאות של ערך תציג את ההבדל בין שתי הגרסאות האלה באמצעות הדגשת התוכן שהשתנה.";
 "panel-compare-revisions-title" = "גרסאות מושוות";
 "panel-not-logged-in-continue-edit-action-title" = "עריכה ללא כניסה למערכת";
-"panel-not-logged-in-subtitle" = "כתובת ה־IP שלך תהיה גלויה לציבור במקרה של ביצוע עריכות. עם $1כניסה$2 או $3יצירת חשבון$4 העריכות שלך ישויכו לשם המשתמש שלך, לצד שאר ההטבות.";
 "panel-not-logged-in-title" = "לא נכנסת למערכת";
 "pictured" = "בתמונה";
 "places-accessibility-clear-saved-searches" = "ניקוי חיפושים שמורים";
@@ -1100,15 +1092,6 @@
 "relative-date-seconds-abbreviated" = "$1 שנ׳";
 "relative-date-seconds-ago-abbreviated" = "לפני $1s שנ׳";
 "relative-date-years-ago" = "{{PLURAL:$1|0=השנה|1=בשנה שעברה|2=לפני שנתיים|לפני $1 שנה|לפני $1 שנים}}";
-"replace-button-accessibility" = "ביצוע $1.";
-"replace-buttons-replace-accessibility" = "החלפת מופע בודד";
-"replace-buttons-replace-all-accessibility" = "להחליף את כל המופעים";
-"replace-clear-button-accessibility" = "איפוס ההחלפה";
-"replace-infolabel-method-replace" = "החלפה";
-"replace-infolabel-method-replace-all" = "להחליף הכול";
-"replace-method-button-accessibility" = "שיטת החלפה. הגדרה לכדי $1. יש לבחור כדי להחליף.";
-"replace-textfield-accessibility" = "החלפה";
-"replace-textfield-placeholder" = "החלפה ב…";
 "return-button-title" = "חזרה";
 "return-to-article" = "חזרה לערך";
 "reverted-edit-title" = "עריכה ששוחזרה";
@@ -1128,7 +1111,6 @@
 "search-button-accessibility-label" = "חיפוש בוויקיפדיה";
 "search-clear-title" = "ניקוי";
 "search-field-placeholder-text" = "חיפוש בוויקיפדיה";
-"search-reading-list-placeholder-text" = "חיפוש ברשימת קריאה";
 "search-recent-clear-confirmation-heading" = "למחוק את כל החיפושים האחרונים?";
 "search-recent-clear-confirmation-sub-heading" = "לא ניתן לבטל את הפעולה הזאת!";
 "search-recent-clear-delete-all" = "למחוק הכול";
@@ -1157,11 +1139,6 @@
 "settings-notifications-echo-failure-title" = "לא ניתן לבדוק מינויים להתראות Echo";
 "settings-notifications-echo-failure-try-again" = "לנסות שוב";
 "settings-notifications-header" = "באפשרותך לקבל התראות על פעולות שקשורות לחשבון שלך, כגון הודעות מתורמים עמיתים, עדכונים, ומידע אחר. הכול מסופק תוך כדי כיבוד פרטיות ונתונים עדכניים ביותר.";
-"settings-notifications-info" = "קבלו התראות על ערכים חמים ומבוקשים בוויקיפדיה עם העדכונים שלנו. כל המידע מסופק תוך כדי כיבוד פרטיות המשתמש ונתונים עדכניים.";
-"settings-notifications-learn-more" = "מידע נוסף על עדכונים";
-"settings-notifications-push-notifications" = "עדכונים";
-"settings-notifications-system-turn-on" = "הפעלת עדכונים";
-"settings-notifications-trending" = "נושאים אקטואליים מובילים";
 "settings-off" = "כבוי";
 "settings-on" = "מופעל";
 "settings-primary-language" = "ראשית";
@@ -1418,9 +1395,6 @@
 "welcome-languages-add-or-edit-button" = "הוספה או שינוי של שפות מועדפות";
 "welcome-languages-description" = "מצאנו את השפות הבאות במכשיר שלך:";
 "welcome-languages-search-title" = "חיפוש בלמעלה מ־300 שפות";
-"welcome-notifications-tell-me-more-creation" = "העדכונים מיוצרים ונמסרים במכשיר שלך על־ידי היישום ולא מִשרתים שלנו (או של צד שלישי).";
-"welcome-notifications-tell-me-more-storage" = "העדפות העדכונים מאוחסנות במכשיר ולא מבוססות על מידע אישי או פעילות אישית.";
-"welcome-notifications-tell-me-more-title" = "מידע נוסף על עדכונים";
 "welcome-privacy-subtitle" = "אנו מאמינים בכך שלא צריך לחייב אותך לספק מידע אישי כדי להשתתף בתנועת הידע החופשי. נתוני השימוש שנאספו עבור היישום הזה הם אלמוניים.";
 "welcome-privacy-terms-button-text" = "מידע נוסף על מדיניות הפרטיות ותנאי השימוש שלנו";
 "widget-onthisday-description" = "גלו מה קרה ביום הזה בהיסטוריה.";

@@ -355,7 +355,6 @@
 "description-help-title" = "条目描述帮助";
 "description-help-wikidata-guide" = "维基数据编写描述指南";
 "description-published-button-title" = "完成";
-"description-published-footer" = "您也可以使用本应用编辑条目。下次试试点击铅笔图标来修正笔误以及短句";
 "description-published-subtitle" = "您刚刚完善了维基百科，人人都会受益";
 "description-published-title" = "描述已发布！";
 "description-welcome-concise-sub-title" = "理想情况下，一行介于2到12个字之间";
@@ -467,8 +466,6 @@
 "edit-notices-always-display" = "始终显示编辑提示";
 "edit-notices-please-read" = "编辑前请先阅读";
 "edit-preview-simplified-format-message" = "所有内容均以简化格式显示。";
-"edit-published" = "已发布编辑";
-"edit-published-subtitle" = "您刚刚完善了维基百科，人人都会受益";
 "edit-sheet-ip-account-notice" = "IP账号通知";
 "edit-sheet-temp-account-notice" = "临时账号通知";
 "edit-show-web-preview" = "显示网页预览";
@@ -779,7 +776,6 @@
 "image-recs-yes-title" = "是";
 "import-shared-reading-list-default-title" = "我的阅读列表";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "参加调查";
-"import-shared-reading-list-survey-prompt-footer" = "请查看我们的$1隐私声明$2。调查由第三方驱动。请查看他们的$3隐私政策$4。";
 "import-shared-reading-list-survey-prompt-subtitle" = "“分享阅读列表”是测试功能，我们需要您的反馈来改进或移除此功能。";
 "import-shared-reading-list-survey-prompt-title" = "您愿意帮助我们改进“分享阅读列表”吗？";
 "import-shared-reading-list-title" = "导入共享阅读列表";
@@ -885,8 +881,6 @@
 "next-action-title" = "下一个";
 "no-email-account-alert" = "请在您的设备上设置电子邮件地址并重试。";
 "no-internet-connection" = "无互联网连接";
-"no-internet-connection-article-reload" = "此条目有新版本，但由于无互联网连接而无法加载";
-"no-internet-connection-article-reload-button" = "返回最后保存的版本";
 "not-now-title" = "现在不要";
 "notifications-center-agent-description-from-format" = "来自$1";
 "notifications-center-alert" = "提醒";
@@ -905,7 +899,6 @@
 "notifications-center-empty-state-filters-subtitle" = "修改$1来查看更多消息";
 "notifications-center-empty-state-no-projects-selected" = "添加项目以查看更多消息";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 种筛选}}";
-"notifications-center-feed-card-title" = "编辑通知现已可用";
 "notifications-center-feed-news-notification-button-text" = "打开推送通知";
 "notifications-center-feed-news-notification-text" = "现在在本应用内可以收到所有维基媒体项目的编辑通知。启用推送通知以便在繁忙时也能及时收到您在维基百科上的消息。";
 "notifications-center-filters-accessibility-label" = "通知过滤器";
@@ -1051,7 +1044,6 @@
 "panel-compare-revisions-text" = "比较修订版本有助于显示一个条目随着时间的推移发生了哪些变化。比较一篇条目的两个修订版本，可以通过高亮显示任何被修改的内容来显示这些修订版本之间的差异。";
 "panel-compare-revisions-title" = "比较不同修订版本";
 "panel-not-logged-in-continue-edit-action-title" = "不登录编辑";
-"panel-not-logged-in-subtitle" = "若您作出任何编辑，您的IP地址将会公开可见。如果您$1登录$2或$3创建账号$4，您的编辑将会以您的用户名署名，同时还可享受其他好处。";
 "panel-not-logged-in-title" = "您尚未登录";
 "pictured" = "如图";
 "places-accessibility-clear-saved-searches" = "清除保存的搜索";
@@ -1211,15 +1203,6 @@
 "relative-date-seconds-abbreviated" = "$1秒";
 "relative-date-seconds-ago-abbreviated" = "$1秒前";
 "relative-date-years-ago" = "{{PLURAL:$1|0=今年|去年|$1年前}}";
-"replace-button-accessibility" = "执行$1。";
-"replace-buttons-replace-accessibility" = "替换单例";
-"replace-buttons-replace-all-accessibility" = "替换所有实例";
-"replace-clear-button-accessibility" = "清空替换";
-"replace-infolabel-method-replace" = "替换";
-"replace-infolabel-method-replace-all" = "替换所有";
-"replace-method-button-accessibility" = "替换方法。设为$1，选择更换。";
-"replace-textfield-accessibility" = "替换";
-"replace-textfield-placeholder" = "替换为…";
 "return-button-title" = "返回";
 "return-to-article" = "返回至条目";
 "reverted-edit-title" = "编辑被退回";
@@ -1241,7 +1224,6 @@
 "search-button-accessibility-label" = "搜索维基百科";
 "search-clear-title" = "清空";
 "search-field-placeholder-text" = "搜索维基百科";
-"search-reading-list-placeholder-text" = "搜索阅读列表";
 "search-recent-clear-confirmation-heading" = "是否删除全部近期搜索记录？";
 "search-recent-clear-confirmation-sub-heading" = "此操作不能撤销！";
 "search-recent-clear-delete-all" = "删除全部";
@@ -1273,11 +1255,6 @@
 "settings-notifications-echo-failure-title" = "无法检查Echo通知订阅";
 "settings-notifications-echo-failure-try-again" = "重试";
 "settings-notifications-header" = "请留意与您账号相关的活动，例如来自其他贡献者的信息、警告还有通知。所有内容都会即时更新，且以保护隐私的方式提供。";
-"settings-notifications-info" = "通过我们推送的通知，提醒维基百科上的趋势和最多阅读条目。所有通知都已考虑到隐私和最新数据。";
-"settings-notifications-learn-more" = "了解更多有关通知";
-"settings-notifications-push-notifications" = "推送通知";
-"settings-notifications-system-turn-on" = "打开通知";
-"settings-notifications-trending" = "时事趋势";
 "settings-off" = "关";
 "settings-on" = "开";
 "settings-primary-language" = "首选";
@@ -1544,9 +1521,6 @@
 "welcome-languages-add-or-edit-button" = "添加或编辑首选语言";
 "welcome-languages-description" = "我们在您的设备上找到以下语言：";
 "welcome-languages-search-title" = "在超过300种语言中搜索";
-"welcome-notifications-tell-me-more-creation" = "通知是由应用（而不是从我们或第三方服务器）创建，并递送到您的设备上的。";
-"welcome-notifications-tell-me-more-storage" = "通知设置存储在设备上，且不基于个人信息或活动。";
-"welcome-notifications-tell-me-more-title" = "更多有关通知";
 "welcome-privacy-subtitle" = "我们相信参与自由知识运动不需要您提供个人信息。本应用收集的使用数据皆为匿名数据。";
 "welcome-privacy-terms-button-text" = "了解我们的隐私政策和使用条款的更多信息";
 "widget-onthisday-description" = "探索在历史上的今天发生的事件。";

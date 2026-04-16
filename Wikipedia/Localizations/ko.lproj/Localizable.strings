@@ -249,7 +249,6 @@
 "description-help-title" = "문서 설명 도움말";
 "description-help-wikidata-guide" = "설명 쓰기에 관한 위키데이터 안내";
 "description-published-button-title" = "완료";
-"description-published-footer" = "이 앱 안에서 문서를 편집할 수도 있습니다. 다음에 연필 아이콘을 클릭하여 오자와 일부 문장을 고쳐보십시오";
 "description-published-subtitle" = "방금 우리 모두를 위해 위키백과의 발전에 기여하셨습니다";
 "description-published-title" = "설명을 게시했습니다!";
 "description-welcome-concise-sub-title" = "한 줄에, 두 단어에서 열 두 단어가 이상적입니다";
@@ -351,8 +350,6 @@
 "edit-notices-always-display" = "항상 편집 알림 표시";
 "edit-notices-please-read" = "편집하기 전에 읽어 주십시오";
 "edit-preview-simplified-format-message" = "모든 내용은 단순화된 형식으로 표시됩니다.";
-"edit-published" = "편집이 게시됐습니다";
-"edit-published-subtitle" = "방금 우리 모두를 위해 위키백과의 발전에 기여하셨습니다";
 "edit-sheet-ip-account-notice" = "IP 계정 공지";
 "edit-sheet-temp-account-notice" = "임시 계정 공지";
 "edit-show-web-preview" = "웹 미리보기 표시";
@@ -654,7 +651,6 @@
 "image-recs-yes-title" = "예";
 "import-shared-reading-list-default-title" = "내 읽기 목록";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "설문 조사에 참가하기";
-"import-shared-reading-list-survey-prompt-footer" = "저희의 $1개인정보 정책$2을 확인하세요. 설문조사는 제3자가 제공합니다. 제3자의 $3개인정보 정책$4을 확인하세요.";
 "import-shared-reading-list-survey-prompt-title" = "\"읽기 목록 공유\" 개선에 도움을 주시겠습니까?";
 "import-shared-reading-list-title" = "공유된 읽기 목록 가져오기";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 위키백과에서";
@@ -750,8 +746,6 @@
 "next-action-title" = "다음";
 "no-email-account-alert" = "장치에 이메일 계정을 설정한 뒤 다시 시도하세요.";
 "no-internet-connection" = "인터넷 연결 없음";
-"no-internet-connection-article-reload" = "이 문서의 더 새로운 판을 볼 수 있으나 인터넷에 연결되지 않으면 불러올 수 없습니다";
-"no-internet-connection-article-reload-button" = "마지막으로 저장한 판으로 돌아가기";
 "not-now-title" = "지금은 괜찮습니다";
 "notifications-center-agent-description-from-format" = "$1에서";
 "notifications-center-alert" = "중요 알림";
@@ -770,7 +764,6 @@
 "notifications-center-empty-state-filters-subtitle" = "메시지를 더 보려면 $1 수정";
 "notifications-center-empty-state-no-projects-selected" = "메시지를 더 보려면 프로젝트 추가";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1개 필터}}";
-"notifications-center-feed-card-title" = "지금 편집 알림을 사용할 수 있습니다";
 "notifications-center-feed-news-notification-button-text" = "푸시 알림 켜기";
 "notifications-center-feed-news-notification-text" = "모든 위키미디어 프로젝트의 편집 알림을 이제 앱을 통해 사용할 수 있습니다. 위키백과에서 계속 들어오는 메시지와 최신화를 유지하려면 푸시 알림을 활성화하십시오.";
 "notifications-center-filters-accessibility-label" = "알림 필터";
@@ -914,7 +907,6 @@
 "panel-compare-revisions-text" = "판 비교는 시간이 지남에 따라 문서가 어떻게 바뀌었는지 보여줍니다. 문서의 두 판을 비교하는 경우 변경된 내용을 강조함으로써 해당 판들 사이의 차이를 보여줍니다.";
 "panel-compare-revisions-title" = "판 비교";
 "panel-not-logged-in-continue-edit-action-title" = "로그인 없이 편집";
-"panel-not-logged-in-subtitle" = "지금 편집을 하면 IP 주소가 공개됩니다. $1로그인$2하거나 $3계정을 만들면$4 편집 시 사용자 이름이 대신 표시되는 등의 장점이 있습니다.";
 "panel-not-logged-in-title" = "로그인하고 있지 않습니다";
 "pictured" = "사진";
 "places-accessibility-clear-saved-searches" = "저장한 검색 지우기";
@@ -1067,15 +1059,6 @@
 "relative-date-seconds-abbreviated" = "$1초";
 "relative-date-seconds-ago-abbreviated" = "$1초 전";
 "relative-date-years-ago" = "{{PLURAL:$1|0=올해|1=지난해|$1년 전}}";
-"replace-button-accessibility" = "$1을(를) 수행합니다.";
-"replace-buttons-replace-accessibility" = "하나 바꾸기";
-"replace-buttons-replace-all-accessibility" = "모든 인스턴스 바꾸기";
-"replace-clear-button-accessibility" = "치환 지우기";
-"replace-infolabel-method-replace" = "바꾸기";
-"replace-infolabel-method-replace-all" = "모두 바꾸기";
-"replace-method-button-accessibility" = "치환 방식입니다. $1(으)로 설정되어 있습니다. 변경하려면 선택하십시오.";
-"replace-textfield-accessibility" = "바꾸기";
-"replace-textfield-placeholder" = "다음으로 바꾸기...";
 "return-button-title" = "돌아가기";
 "return-to-article" = "문서로 돌아가기";
 "reverted-edit-title" = "되돌려진 편집";
@@ -1097,7 +1080,6 @@
 "search-button-accessibility-label" = "위키백과 검색";
 "search-clear-title" = "지우기";
 "search-field-placeholder-text" = "위키백과 검색";
-"search-reading-list-placeholder-text" = "읽기 목록 검색";
 "search-recent-clear-confirmation-heading" = "최근의 검색 항목을 모두 삭제하겠습니까?";
 "search-recent-clear-confirmation-sub-heading" = "이 동작은 취소할 수 없습니다!";
 "search-recent-clear-delete-all" = "모두 삭제";
@@ -1125,11 +1107,6 @@
 "settings-notifications" = "푸시 알림";
 "settings-notifications-echo-failure-message" = "계정과 관련된 알림 구독을 확인하는 동안 오류가 발생했습니다.";
 "settings-notifications-echo-failure-try-again" = "다시 시도";
-"settings-notifications-info" = "가장 많이 읽은 최신 유행의 위키백과 문서를 푸시 알림으로 알려줍니다. 개인정보와 시간 데이터까지 모두 제공됩니다.";
-"settings-notifications-learn-more" = "알림에 대해 더 알아보기";
-"settings-notifications-push-notifications" = "푸시 알림";
-"settings-notifications-system-turn-on" = "알림 켜기";
-"settings-notifications-trending" = "새로 들어온 소식";
 "settings-off" = "끄기";
 "settings-on" = "켜기";
 "settings-primary-language" = "주 언어";
@@ -1380,9 +1357,6 @@
 "welcome-languages-add-or-edit-button" = "선호 언어 추가 또는 편집";
 "welcome-languages-description" = "장치에서 다음의 언어를 발견했습니다:";
 "welcome-languages-search-title" = "300개 이상의 언어에서 검색";
-"welcome-notifications-tell-me-more-creation" = "알림은 저희의 (타사) 서버가 아닌, 앱을 통해 장치에서 생성, 전달됩니다.";
-"welcome-notifications-tell-me-more-storage" = "알림 환경 설정은 장치에 저장되며 개인정보나 활동에 기반을 두지 않습니다.";
-"welcome-notifications-tell-me-more-title" = "알림에 대한 더 많은 정보";
 "welcome-privacy-terms-button-text" = "개인정보 보호정책 및 이용약관에 대해 더 알아보기";
 "widget-onthisday-description" = "역사 속에서 오늘 무슨 일이 있었는지 살펴보세요.";
 "widget-onthisday-placeholder-article-snippet" = "누구나 편집할 수 있는 자유로운 온라인 백과사전";

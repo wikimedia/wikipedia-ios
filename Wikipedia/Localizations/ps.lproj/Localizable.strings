@@ -242,7 +242,6 @@
 "description-help-title" = "د ليکنې څرگنداوي لارښود";
 "description-help-wikidata-guide" = "د ويکي‌اومتوک د څرگنداوي ليکنې لارښود";
 "description-published-button-title" = "وشو";
-"description-published-footer" = "تاسو کولی شئ په دې کاريال کې ليکنې سمې کړئ. بل ځل د پېنسل نښې کېکاږلو سره املايي او کوچنيو جملو سمون وکړئ";
 "description-published-subtitle" = "تاسو ويکي‌پېډيا د ټولو لپاره ښه کړه";
 "description-published-title" = "څرگنداوی خپورشو!";
 "description-welcome-concise-sub-title" = "د بېلگې په توگه يوه کرښه، د دوو څخه تر دولسو ويوکو پورې";
@@ -285,8 +284,6 @@
 "edit-minor-text" = "دا يو کوچنی سمون دی";
 "edit-notices" = "يادښتونه سمول";
 "edit-notices-please-read" = "مهرباني وکړئ د سمون دمخه یې ولولئ";
-"edit-published" = "سمون خپور شو";
-"edit-published-subtitle" = "تاسو ويکي‌پېډيا د ټولو لپاره ښه کړه";
 "edit-sheet-temp-account-notice" = "د لنډمهاله گڼون خبرتيا";
 "edit-summary-choice-linked-words" = "ورگډې شوې تړنې";
 "editor-edit-published" = "ستاسو سمون خپور شو.";
