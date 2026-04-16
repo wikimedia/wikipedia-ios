@@ -6,6 +6,7 @@ import WMFData
 import CocoaLumberjackSwift
 import UserNotifications
 import WMFTestKitchen
+import WMFNativeLocalizations
 
 
 @MainActor

@@ -27,7 +27,7 @@
             WMFAuthenticationManager *authManager = [MWKDataStore shared].authenticationManager;
             NSString *userName = authManager.authStatePermanentUsername;
 
-            NSString *loginString = (userName) ? WMFCommonStrings.account : WMFCommonStrings.logIn;
+            NSString *loginString = (userName) ? WMFCommonStringsWrapper.account : WMFCommonStringsWrapper.logIn;
 
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
@@ -40,7 +40,7 @@
         }
         case WMFSettingsMenuItemType_Support: {
             return [[WMFSettingsMenuItem alloc] initWithType:type
-                                                       title:[WMFCommonStrings donateTitle]
+                                                       title:[WMFCommonStringsWrapper donateTitle]
                                              iconName:@"settings-support"
                                             iconColor:[UIColor wmf_red_600]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_None
@@ -50,7 +50,7 @@
         case WMFSettingsMenuItemType_SearchLanguage: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:[WMFCommonStrings myLanguages]
+                                                    title:[WMFCommonStringsWrapper myLanguages]
                                                  iconName:@"settings-language"
                                                 iconColor:[UIColor wmf_blue_300]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
@@ -60,7 +60,7 @@
         case WMFSettingsMenuItemType_Search: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:[WMFCommonStrings searchTitle]
+                                                    title:[WMFCommonStringsWrapper searchTitle]
                                                  iconName:@"settings-search"
                                                 iconColor:[UIColor wmf_green_600]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
@@ -70,17 +70,17 @@
         case WMFSettingsMenuItemType_ExploreFeed: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:[WMFCommonStrings exploreFeedTitle]
+                                                    title:[WMFCommonStringsWrapper exploreFeedTitle]
                                                  iconName:@"settings-explore"
                                                 iconColor:[UIColor wmf_blue_300]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
-                                           disclosureText:[NSUserDefaults standardUserDefaults].defaultTabType != WMFAppDefaultTabTypeExplore ? WMFCommonStrings.offGenericTitle : WMFCommonStrings.onGenericTitle
+                                           disclosureText:[NSUserDefaults standardUserDefaults].defaultTabType != WMFAppDefaultTabTypeExplore ? WMFCommonStringsWrapper.offGenericTitle : WMFCommonStringsWrapper.onGenericTitle
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Notifications: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:[WMFCommonStrings pushNotifications]
+                                                    title:[WMFCommonStringsWrapper pushNotifications]
                                                  iconName:@"settings-notifications"
                                                 iconColor:[UIColor wmf_red_600]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
@@ -89,10 +89,10 @@
         }
         case WMFSettingsMenuItemType_YearInReview: {
             WMFYearInReviewDataController *dataController = [WMFYearInReviewDataController dataControllerForObjectiveC];
-            NSString *disclosureText = [dataController yearInReviewSettingsIsEnabled] ? WMFCommonStrings.onGenericTitle : WMFCommonStrings.offGenericTitle;
+            NSString *disclosureText = [dataController yearInReviewSettingsIsEnabled] ? WMFCommonStringsWrapper.onGenericTitle : WMFCommonStringsWrapper.offGenericTitle;
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:[WMFCommonStrings yirTitle]
+                                                    title:[WMFCommonStringsWrapper yirTitle]
                                                  iconName:@"settings-calendar"
                                                 iconColor:[UIColor wmf_blue_600]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
@@ -102,7 +102,7 @@
         case WMFSettingsMenuItemType_Appearance: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFCommonStrings.readingPreferences
+                                                    title:WMFCommonStringsWrapper.readingPreferences
                                                  iconName:@"settings-appearance"
                                                 iconColor:[UIColor blackColor]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
@@ -112,7 +112,7 @@
         case WMFSettingsMenuItemType_StorageAndSyncing: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:[WMFCommonStrings settingsStorageAndSyncing]
+                                                    title:[WMFCommonStringsWrapper settingsStorageAndSyncing]
                                                  iconName:@"settings-saved-articles"
                                                 iconColor:[UIColor wmf_blue_300]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
@@ -162,7 +162,7 @@
         case WMFSettingsMenuItemType_RateApp: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title: [WMFCommonStrings rateTheAppTitle]
+                                                    title: [WMFCommonStringsWrapper rateTheAppTitle]
                                                  iconName:@"settings-rate"
                                                 iconColor:[UIColor wmf_orange]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
@@ -172,7 +172,7 @@
         case WMFSettingsMenuItemType_SendFeedback: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title: [WMFCommonStrings helpAndfeedbackTitle]
+                                                    title: [WMFCommonStringsWrapper helpAndfeedbackTitle]
                                                  iconName:@"settings-help-and-feedback"
                                                 iconColor:[UIColor wmf_red_600]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
@@ -192,7 +192,7 @@
         case WMFSettingsMenuItemType_ClearCache: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title: WMFCommonStrings.clearCachedDataSettings
+                                                    title: [WMFCommonStringsWrapper clearCachedDataSettings]
                                                  iconName:@"settings-clear-cache"
                                                 iconColor:[UIColor wmf_yellow_600]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_None
@@ -201,7 +201,7 @@
         }
         case WMFSettingsMenuItemType_DonateHistory: {
             return [[WMFSettingsMenuItem alloc] initWithType:type
-                                                       title: WMFCommonStrings.deleteDonationHistory
+                                                       title: WMFCommonStringsWrapper.deleteDonationHistory
                                                     iconName:@"settings-support"
                                                    iconColor:[UIColor wmf_gray_400]
                                               disclosureType:WMFSettingsMenuItemDisclosureType_None
@@ -210,7 +210,7 @@
         }
         case WMFSettingsMenuItemType_TemporaryAccount: {
             WMFAuthenticationManager *authManager = [MWKDataStore shared].authenticationManager;
-            NSString *temporaryUsername = authManager.authStateTemporaryUsername ?: WMFCommonStrings.tempAccount;
+            NSString *temporaryUsername = authManager.authStateTemporaryUsername ?: WMFCommonStringsWrapper.tempAccount;
 
             return [[WMFSettingsMenuItem alloc] initWithType:type
                                                        title:temporaryUsername

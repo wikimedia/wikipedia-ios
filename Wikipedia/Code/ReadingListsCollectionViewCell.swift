@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 import WMFData
 
 class ReadingListsCollectionViewCell: ArticleCollectionViewCell {

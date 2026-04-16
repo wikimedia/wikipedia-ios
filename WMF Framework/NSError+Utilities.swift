@@ -1,4 +1,5 @@
 import Foundation
+import WMFNativeLocalizations
 
 public extension NSError {
     func alertMessage() -> String {

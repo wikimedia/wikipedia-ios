@@ -1,3 +1,5 @@
+import UIKit
+import WMFNativeLocalizations
 import WMFComponents
 
 class SavedProgressViewController: UIViewController, Themeable {

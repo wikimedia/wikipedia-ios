@@ -134,7 +134,6 @@
 "description-help-title" = "ជំនួយសម្រាប់ចំណារពន្យល់អំពីអត្ថបទ";
 "description-help-wikidata-guide" = "សេចក្ដីណែនាំWikidataសម្រាប់ការសរសេរចំណារពន្យល់";
 "description-published-button-title" = "រួចរាល់";
-"description-published-footer" = "អ្នកក៏អាចកែប្រែអត្ថបទនៅក្នុងកម្មវិធីនេះដែរ។ លើកក្រោយសូមសាកល្បងកែតម្រូវកំហុសអក្ខរាវិរុទ្ធនិងប្រយោគខ្លីៗដោយចុចលើសញ្ញាខ្មៅដៃ";
 "description-published-subtitle" = "អ្នកទើបតែធ្វើឱ្យវិគីភីឌាកាន់តែប្រសើរឡើងសម្រាប់អ្នករាល់គ្នា";
 "description-published-title" = "បានចេញផ្សាយការពិពណ៌នាបានសម្រេចហើយ!";
 "description-welcome-concise-sub-title" = "ឃ្លាខ្លីល្អបំផុតពីមានតែមួយជួរនិងមានពាក្យពី២ទៅ១២ពាក្យ";
@@ -185,8 +184,6 @@
 "edit-minor-learn-more-text" = "ស្វែងយល់បន្ថែមអំពីកំណែប្រែតិចតួច";
 "edit-minor-text" = "នេះជា​កំណែប្រែតិចតួចប៉ុណ្ណោះ";
 "edit-notices-please-read" = "សូមអានមុនពេលធ្វើការកែប្រែ";
-"edit-published" = "បានបោះផ្សាយកំណែប្រែបានសម្រេច";
-"edit-published-subtitle" = "អ្នកទើបតែធ្វើឱ្យវិគីភីឌាកាន់តែប្រសើរឡើងសម្រាប់អ្នករាល់គ្នា";
 "edit-summary-add-summary-text" = "បន្ថែមចំណារពន្យល់";
 "edit-summary-choice-fixed-grammar" = "បានកែតម្រូវវេយ្យាករណ៍";
 "edit-summary-choice-fixed-typos" = "បានកែតម្រូវកំហុសអក្ខរាវិរុទ្ធ";
@@ -621,10 +618,6 @@
 "relative-date-seconds-abbreviated" = "$1វិនាទី";
 "relative-date-seconds-ago-abbreviated" = "$1វិនាទីមុន";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ឆ្នាំនេះ|1=ឆ្នាំមុន|$1ឆ្នាំមុន}}";
-"replace-infolabel-method-replace" = "ជំនួស";
-"replace-infolabel-method-replace-all" = "ជំនួសទាំងអស់";
-"replace-textfield-accessibility" = "ជំនួស";
-"replace-textfield-placeholder" = "ជំនួយ​ដោយ…";
 "saved-all-articles-title" = "អត្ថបទទាំងអស់";
 "saved-default-reading-list-tag" = "បញ្ជីនេះមិនអាចលុបចោលបានទេ";
 "saved-pages-image-download-error" = "ទាញយករូបភាពរបស់ទំព័រដែលបានរក្សាទុកនេះមិនបានសម្រេចទេ។";
@@ -637,7 +630,6 @@
 "search-button-accessibility-label" = "ស្វែងរកក្នុងវិគីភីឌា";
 "search-clear-title" = "ជម្រះ";
 "search-field-placeholder-text" = "ស្វែងរកក្នុងវិគីភីឌា";
-"search-reading-list-placeholder-text" = "ស្វែងរកបញ្ជីអត្ថបទចង់អាន";
 "search-recent-clear-confirmation-heading" = "លុបចោលការស្វែងរកថ្មីៗនេះទាំងអស់ឬ?";
 "search-recent-clear-confirmation-sub-heading" = "សកម្មភាពនេះមិនអាចឈប់ធ្វើវិញបានទេ!";
 "search-recent-clear-delete-all" = "លុបចោលទាំងអស់";
@@ -654,11 +646,6 @@
 "settings-my-languages" = "ភាសារបស់ខ្ញុំ";
 "settings-notifications" = "សារជូនដំណឹង";
 "settings-notifications-echo-failure-try-again" = "ព្យាយាមម្ដងទៀត";
-"settings-notifications-info" = "ទទួលដំណឹងភ្លាមៗអំពីអត្ថបទដែលកំពុងពេញនិយមនិងមានអ្នកអានច្រើនជាងគេនៅលើវិគីភីឌា ដោយប្រើមុខងារសារលោតជូនដំណឹង។ សេវាទាំងអស់នេះផ្ដល់ជូនដោយអនុលោមតាមគោលការណ៍ភាពឯកជននិងទិន្នន័យពេលវេលា។";
-"settings-notifications-learn-more" = "ស្វែងយល់បន្ថែមអំពីសារជូនដំណឹង";
-"settings-notifications-push-notifications" = "សារលោតជូនដំណឹង";
-"settings-notifications-system-turn-on" = "បើកប្រើសារជូនដំណឹង";
-"settings-notifications-trending" = "ព្រឹត្តិកាណ៍ដែលកំពុងពេញនិយម";
 "settings-primary-language" = "ភាសាចម្បង";
 "settings-primary-language-details" = "ភាសាលើគេនៅក្នុងបញ្ជីនេះនឹងត្រូវបានប្រើជាភាសាចម្បងសម្រាប់កម្មវិធីនេះ។";
 "settings-search-footer-text" = "កំណត់អោយកម្មវិធីបើកឡើងក្នុងផ្ទាំងស្វែងរក មិនមែនក្នុងផ្ទាំងរុករក";
@@ -737,9 +724,6 @@
 "welcome-languages-add-or-edit-button" = "បន្ថែមឬកែប្រែភាសាចូលចិត្ត";
 "welcome-languages-description" = "រកឃើញភាសាខាងក្រោមនេះនៅក្នុងឧបករណ៍របស់អ្នក៖";
 "welcome-languages-search-title" = "ស្វែងរកជាភាសាជាង៣០០ភាសា";
-"welcome-notifications-tell-me-more-creation" = "សារជូនដំណឹងត្រូវបានបង្កើតនិងផ្ញើជូនដោយកម្មវិធីលើឧបករណ៍របស់អ្នក មិនមែនពីម៉ាស៊ីនបម្រើការរបស់យើងឬរបស់អ្នកទីបីឡើយ។";
-"welcome-notifications-tell-me-more-storage" = "ចំណង់ចំណូលចិត្តសម្រាប់សារជូនដំណឹងត្រូវបានរក្សាទុកនៅលើឧបករណ៍ និងមិនមែនអាស្រ័យលើព័ត៌មានឬសកម្មភាពផ្ទាល់ខ្លួនទេ។";
-"welcome-notifications-tell-me-more-title" = "ស្វែងយល់បន្ថែមអំពីមុខងារសារជូនដំណឹង";
 "widget-onthisday-description" = "ស្វែងយល់ពីអ្វីដែលបានកើតឡើងនៅថ្ងៃនេះក្នុងប្រវត្តិសាស្ត្រ។";
 "widget-onthisday-placeholder-article-snippet" = "សព្វវចនាធិប្បាយអនឡាញឥតគិតថ្លៃដែលមនុស្សគ្រប់គ្នាអាចកែប្រែបាន។";
 "widget-onthisday-placeholder-event-snippet" = "វិគីភីឌាជាសព្វវចនាធិប្បាយឥតគិតថ្លៃ ដំណើរការលើអ៊ីនធើណិត។";

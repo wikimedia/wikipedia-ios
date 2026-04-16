@@ -40,7 +40,7 @@
     self.label.adjustsFontSizeToFitWidth = YES;
     self.label.minimumScaleFactor = 0.1;
     self.label.textAlignment = NSTextAlignmentCenter;
-    self.label.text = [WMFCommonStrings randomizerTitle];
+    self.label.text = [WMFCommonStringsWrapper randomizerTitle];
     [self addSubview:self.label];
 
     [self.widthAnchor constraintEqualToConstant:self.frame.size.width].active = YES;

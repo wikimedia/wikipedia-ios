@@ -1,4 +1,6 @@
 import UIKit
+import WMF
+import WMFNativeLocalizations
 import WMFComponents
 import WMFData
 import CocoaLumberjackSwift

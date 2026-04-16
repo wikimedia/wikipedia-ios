@@ -168,8 +168,6 @@
 "edit-menu-item" = "ပြင်ဆင်";
 "edit-minor-learn-more-text" = "အသေးစား တည်းဖြတ်မှုများအကြောင်း ပိုမိုလေ့လာရန်";
 "edit-minor-text" = "အရေးမကြီးသော ​ပြင်​ဆင်​မှု ​ဖြစ်​သည်​";
-"edit-published" = "တည်းဖြတ်မှု လွှင့်တင်ပြီး";
-"edit-published-subtitle" = "သင်သည် လူတိုင်းအတွက် ဝီကီပီးဒီးယားကို ပိုမိုကောင်းမွန်အောင် လုပ်ဆောင်ခဲ့သည်";
 "edit-summary-add-summary-text" = "တည်းဖြတ်မှု အကျဉ်းချုပ်တစ်ခု ထည့်ပေါင်းရန်";
 "edit-summary-choice-fixed-grammar" = "သဒ္ဒါပြင်ခဲ့သည်";
 "edit-summary-choice-fixed-typos" = "စာလုံးပေါင်း ပြင်ခဲ့သည်";
@@ -361,7 +359,6 @@
 "new-password-title" = "သင်၏ စကားဝှက်ကို ရိုက်ထည့်ပါ";
 "no-email-account-alert" = "သင်၏ စက်ပစ္စည်းတွင် အီးမေးလ်လိပ်စာတစ်ခု ထည့်သွင်း၍ ထပ်မံကြိုးစားပါ။";
 "no-internet-connection" = "အင်တာနက် ကွန်နက်ရှင် မရှိပါ";
-"no-internet-connection-article-reload" = "ဤဆောင်းပါး၏ ပိုမိုသစ်လွင်သောမူကို ရရှိနိုင်ကောင်းပါသည်၊ သို့သော် အင်တာနက်ကွန်နက်ရှင်မရှိဘဲ မဆွဲတင်နိုင်ပါ။";
 "not-now-title" = "အခု မဟုတ်ပါ";
 "notifications-center-agent-description-from-format" = "$1 မှ";
 "notifications-center-alert" = "သတိပေးချက်";
@@ -561,13 +558,6 @@
 "relative-date-seconds-abbreviated" = "$1စက္ကန့်";
 "relative-date-seconds-ago-abbreviated" = "$1စက္ကန့် အကြာက";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ဒီနှစ်|1=ယခင်နှစ်|$1 နှစ်အကြာက}}";
-"replace-button-accessibility" = "$ ဆောင်ရွက်ပါ";
-"replace-buttons-replace-accessibility" = "တစ်ခါတည်းချက်ချင်း အစားထိုးပါ";
-"replace-buttons-replace-all-accessibility" = "အကုန်လုံးချက်ချင်း အစားထိုးပါ";
-"replace-infolabel-method-replace" = "အစားထိုးရန်";
-"replace-infolabel-method-replace-all" = "အကုန်လုံး အစားထိုးရန်";
-"replace-textfield-accessibility" = "အစားထိုးရန်";
-"replace-textfield-placeholder" = "...ဖြင့် အစားထိုးရန်";
 "reverted-edit-title" = "နောက်ပြန်ပြင်သော တည်းဖြတ်မှု";
 "saved-all-articles-title" = "ဆောင်းပါးများ အားလုံး";
 "saved-default-reading-list-tag" = "ဤစာရင်းကို မဖျက်ပစ်နိုင်ပါ";
@@ -580,7 +570,6 @@
 "search-button-accessibility-label" = "ဝီကီပီးဒီးယားထဲတွင် ရှာဖွေပါ";
 "search-clear-title" = "ရှင်းလင်း";
 "search-field-placeholder-text" = "ဝီကီပီးဒီးယားထဲတွင် ရှာဖွေရန်";
-"search-reading-list-placeholder-text" = "ဖတ်ရှုစာရင်းအား ရှာဖွေပါ";
 "search-recent-clear-confirmation-heading" = "လတ်တလော ရှာဖွေမှုများအားလုံး ဖျက်မည်လား?";
 "search-recent-clear-confirmation-sub-heading" = "ဤဆောင်ရွက်ချက်သည် နောက်ပြန်၍ မရပါ!";
 "search-recent-clear-delete-all" = "အားလုံးဖျက်";
@@ -598,9 +587,6 @@
 // Fuzzy
 "settings-notifications" = "အသိပေးချက်များ";
 "settings-notifications-echo-failure-try-again" = "နောက်တစ်ဖန် ကြိုးစားပါ";
-"settings-notifications-learn-more" = "အသိပေးချက်များအကြောင်း ပိုမိုလေ့လာရန်";
-"settings-notifications-push-notifications" = "အသိပေးချက်များ";
-"settings-notifications-system-turn-on" = "အသိပေးချက်များ ဖွင့်ရန်";
 "settings-primary-language" = "ပင်မ";
 "settings-primary-language-details" = "ဤစာရင်းရှိ ပထမဆုံးဘာသာစကားသည် app အတွက် ပင်မဘာသာစကားအဖြစ် အသုံးပြုထားပါသည်။";
 "settings-storage-and-syncing-enable-sync-title" = "သိမ်းထားသော ဆောင်းပါးများနှင့်စာရင်းများကို sync လုပ်ရန်";
@@ -678,7 +664,6 @@
 "welcome-languages-description" = "သင်၏စက်ပစ္စည်းပေါ်တွင် အောက်ပါဘာသာစကားများကို တွေ့ရှိပါသည်။";
 // Fuzzy
 "welcome-languages-search-title" = "ဘာသာစကားပေါင်း ၃၀၀ နီးပါးခန့်တွင် ရှာဖွေရန်";
-"welcome-notifications-tell-me-more-title" = "အသိပေးချက်များအကြောင်း ပို၍";
 "widget-onthisday-placeholder-article-snippet" = "မည်သူမဆိုတည်းဖြတ်နိုင်သော အခမဲ့အွန်လိုင်းစွယ်စုံကျမ်း";
 "wikitext-preview-changes" = "သင့်ပြောင်းလဲမှုများ၏ နမူနာကို ရယူနေသည်...";
 "wikitext-preview-link-external-preview-title" = "ပြင်ပ လင့်ခ်";

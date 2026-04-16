@@ -151,7 +151,6 @@
 "description-help-title" = "Straipsnio aprašymo pagalba";
 "description-help-wikidata-guide" = "Vikiduomenų gidas aprašymų rašymui";
 "description-published-button-title" = "Atlikta";
-"description-published-footer" = "Taip pat galite redaguoti straipsnius šioje programėlėje. Pabandykite taisyti rašybos klaidas ir trumpus sakinius kitąkart paspaudžiant pieštuko ikoną";
 "description-published-subtitle" = "Jūs ką tik padarėte Vikipediją geresne visiems";
 "description-published-title" = "Aprašymas paskelbtas!";
 "description-welcome-concise-sub-title" = "Idealiai, viena eilutė, tarp dviejų ir dvylikos žodžių";
@@ -207,8 +206,6 @@
 "edit-notices" = "Redagavimo pranešimai";
 "edit-notices-always-display" = "Visada rodyti redagavimo pranešimus";
 "edit-notices-please-read" = "Prašome perskaityti prieš redaguodami";
-"edit-published" = "Redaguoti paskelbtą";
-"edit-published-subtitle" = "Jūs ką tik padarėte Vikipediją geresne visiems";
 "edit-summary-add-summary-text" = "Pridėti keitimo santrauką";
 "edit-summary-choice-fixed-grammar" = "Pataisyta gramatika";
 "edit-summary-choice-fixed-typos" = "Pataisyta rašyba";
@@ -396,7 +393,6 @@
 "image-gallery-unknown-owner" = "Autorius nežinomas.";
 "import-shared-reading-list-default-title" = "Mano skaitymo sąrašas";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Atlikti apklausą";
-"import-shared-reading-list-survey-prompt-footer" = "Žiūrėkite mūsų $1privatumo deklaraciją$2. Apklausa per trečios šalies sistemą. Žiūrėkite jų $3privatumo politiką$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "Skaitymo sąrašų dalijimasis yra bandoma funkcija ir mums reikia jūsų grįžtamojo ryšio, kad galėtume patobulinti ar pašalinti šią funkciją.";
 "import-shared-reading-list-survey-prompt-title" = "Ar galite mums padėti patobulinti skaitymo sąrašų dalijimąsi?";
 "import-shared-reading-list-title" = "Importuoti pasidalintą skaitymo sąrašą";
@@ -472,8 +468,6 @@
 "new-password-title" = "Nustatykite savo slaptažodį";
 "no-email-account-alert" = "Prašome nustatyti el. pašto paskyrą savo įrenginyje ir bandyti dar kartą.";
 "no-internet-connection" = "Nėra interneto ryšio";
-"no-internet-connection-article-reload" = "Gali būti prieinama naujesnė šio straipsnio versija, tačiau jos negalima įkelti be interneto ryšio";
-"no-internet-connection-article-reload-button" = "Grįžti į paskutinę išsaugotą versiją";
 "not-now-title" = "Ne dabar";
 "notifications-center-agent-description-from-format" = "Iš $1";
 "notifications-center-alert" = "Įspėjimas";
@@ -491,7 +485,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Pakeiskite $1, kad matytumėte daugiau žinučių";
 "notifications-center-empty-state-no-projects-selected" = "Pridėkite projektų, kad matytumėte daugiau žinučių";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtras|$1 filtrai}}";
-"notifications-center-feed-card-title" = "Pranešimų redagavimas dabar prieinamas";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Įjungti pranešimus";
 "notifications-center-filters-accessibility-label" = "Pranešimų filtras";
@@ -629,7 +622,6 @@
 "panel-compare-revisions-text" = "Versijų palyginimas parodo kaip straipsnis pasikeitė per laiką. Dviejų straipsnio versijų palyginimas parodys šių versijų skirtumus, paryškinant turinį, kuris pakito.";
 "panel-compare-revisions-title" = "Versijų palyginimas";
 "panel-not-logged-in-continue-edit-action-title" = "Redaguoti neprisijungus";
-"panel-not-logged-in-subtitle" = "Jūsų IP adresas bus matomas viešai, jei atliksite pakeitimų. Jei $1prisijungsite$2 ar $3sukursite paskyrą$4, jūsų keitimai bus priskirti jūsų naudotojo vardui, kartu su kitais privalumais.";
 "panel-not-logged-in-title" = "Esate neprisijungę";
 "pictured" = "vaizduojama";
 "places-accessibility-clear-saved-searches" = "Išvalyti išsaugotas paieškas";
@@ -770,15 +762,6 @@
 "relative-date-months-ago" = "{{PLURAL:$1|0=Šį mėnesį|1=Praeitą mėnesį|prieš $1 mėnesius}}";
 "relative-date-seconds-ago-abbreviated" = "prieš $1s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Šiais metais|1=Praeitais metais|Prieš $1 metus|Prieš $1 metų}}";
-"replace-button-accessibility" = "Vykdyti $1.";
-"replace-buttons-replace-accessibility" = "Vienos atitikties pakeitimą";
-"replace-buttons-replace-all-accessibility" = "Visų atitikčių pakeitimą";
-"replace-clear-button-accessibility" = "Valyti pakeitimą";
-"replace-infolabel-method-replace" = "Pakeisti";
-"replace-infolabel-method-replace-all" = "Pakeisti visus";
-"replace-method-button-accessibility" = "Pakeitimo metodas. Nustatyta į $1. Pasirinkite, kad pakeistumėte.";
-"replace-textfield-accessibility" = "Pakeisti";
-"replace-textfield-placeholder" = "Pakeisti su…";
 "reverted-edit-title" = "Atmesti keitimai";
 "saved-all-articles-title" = "Visi straipsniai";
 "saved-default-reading-list-tag" = "Šis sąrašas negali būti ištrintas";
@@ -790,7 +773,6 @@
 "search-button-accessibility-label" = "Paieška Vikipedijoje";
 "search-clear-title" = "Išvalyti";
 "search-field-placeholder-text" = "Paieška Vikipedijoje";
-"search-reading-list-placeholder-text" = "Ieškoti skaitymo sąraše";
 "search-recent-clear-confirmation-heading" = "Naikinti visas naujausias paieškas?";
 "search-recent-clear-confirmation-sub-heading" = "Šio veiksmo anuliuoti negalima!";
 "search-recent-clear-delete-all" = "Naikinti viską";
@@ -813,10 +795,6 @@
 "settings-notifications-echo-failure-message" = "Įvyko klaida tikrinant pranešimų prenumeratas, susijusias su jūsų paskyra.";
 "settings-notifications-echo-failure-try-again" = "Bandykite dar kartą";
 "settings-notifications-header" = "Sužinokite apie veiklą, susijusią su jūsų paskyra, kaip žinutės iš kitų naudotojų, įspėjimai ir pranešimai. Visi pateikiami gerbiant privatumą ir minutės tikslumu.";
-"settings-notifications-learn-more" = "Sužinokite daugiau apie pranešimus";
-"settings-notifications-push-notifications" = "Push pranešimai";
-"settings-notifications-system-turn-on" = "Įjungti pranešimus";
-"settings-notifications-trending" = "Populiarūs dabartiniai įvykiai";
 "settings-primary-language" = "Pagrindinis";
 "settings-primary-language-details" = "Pirmoji šio sąrašo kalba naudojama kaip programėlės numatytoji.";
 "settings-search-footer-text" = "Nustatyti, kad programėlė atsidarytu paieškos skirtuke, o ne Tyrinėjimo skirtuke.";
@@ -979,9 +957,6 @@
 "welcome-languages-add-or-edit-button" = "Pridėti ar pakeisti norimą kalbą";
 "welcome-languages-description" = "Radome šias kalbas jūsų prietaise:";
 "welcome-languages-search-title" = "Ieškokite daugiau nei 300 kalbų";
-"welcome-notifications-tell-me-more-creation" = "Pranešimus sukuria ir pristato programėlė jūsų įrenginyje, o ne mūsų (ar trečiųjų šalių) serveriai.";
-"welcome-notifications-tell-me-more-storage" = "Pranešimų nustatymai laikomi įrenginyje ir nėra paremti asmenine informacija ar veikla.";
-"welcome-notifications-tell-me-more-title" = "Daugiau apie pranešimus";
 "widget-onthisday-description" = "Tyrinėkite kas įvyko šią dieną istorijoje.";
 "widget-onthisday-placeholder-article-snippet" = "Laisvoji skaitmeninė enciklopedija, kurią gali redaguoti visi";
 "widget-onthisday-placeholder-event-snippet" = "Paleista Vikipedija, laisvo viki turinio enciklopedija.";

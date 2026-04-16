@@ -64,6 +64,7 @@
 "announcements-dismiss" = "مکاؤ";
 "app-store-subtitle" = "مفت انسائیکلوپیڈیا";
 "appearance-settings-expand-tables" = "ٹیبل ودھاؤ";
+"appearance-settings-icon-contributor-title" = "ونگارو";
 "appearance-settings-set-automatic-table-opening" = "ٹیبل ترتیباں";
 "appearance-settings-theme-options" = "تھیم دے اختیارات";
 "article-about-title" = "ایں مضمون بارے";
@@ -383,9 +384,6 @@
 "relative-date-minutes-ago-abbreviated" = "$1m پہلے";
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s پہلے";
-"replace-infolabel-method-replace" = "بدل گھنو";
-"replace-infolabel-method-replace-all" = "سارے بدل گھنو";
-"replace-textfield-accessibility" = "بدل گھنو";
 "saved-all-articles-title" = "سارے مضمون";
 "saved-search-default-text" = "محفوظ تھئے مضمون ڳولو";
 "saved-title" = "محفوظ";
@@ -407,7 +405,6 @@
 // Fuzzy
 "settings-notifications" = "اطلاع نامے";
 "settings-notifications-echo-failure-try-again" = "ولدا کوشش کرو";
-"settings-notifications-system-turn-on" = "اطلاع نامے چالو کرو";
 "settings-off" = "بند";
 "settings-on" = "آن";
 "settings-primary-language" = "ابتدائی";

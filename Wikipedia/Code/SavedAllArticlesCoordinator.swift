@@ -2,6 +2,7 @@ import UIKit
 import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
+import WMFNativeLocalizations
 
 final class SavedAllArticlesCoordinator: NSObject, Coordinator {
 

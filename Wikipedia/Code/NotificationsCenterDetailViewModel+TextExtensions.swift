@@ -1,4 +1,5 @@
 import Foundation
+import WMFNativeLocalizations
 
 extension NotificationsCenterDetailViewModel {
     var headerTitle: String {

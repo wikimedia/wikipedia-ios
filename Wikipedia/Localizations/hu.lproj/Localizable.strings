@@ -210,7 +210,6 @@
 "description-help-title" = "Cikkleírás súgó";
 "description-help-wikidata-guide" = "Wikidata-útmutató leírások készítéséről";
 "description-published-button-title" = "Kész";
-"description-published-footer" = "Az alkalmazás segítségével szócikkeket is szerkeszthetsz. Legközelebb a ceruza ikonra kattintva bátran javíts elírásokat és tipográfia hibákat.";
 "description-published-subtitle" = "Épp jobbá tetted a Wikipédiát mindenkinek";
 "description-published-title" = "Leírás közzétéve!";
 "description-welcome-concise-sub-title" = "Ideális, ha egy sor, kettő és tizenkettő szó között";
@@ -281,8 +280,6 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "A kijelölt szöveg nem található";
 "edit-minor-learn-more-text" = "Tudj meg többet az apró szerkesztésekről";
 "edit-minor-text" = "Ez egy apró szerkesztés";
-"edit-published" = "Szerkesztés közzétéve";
-"edit-published-subtitle" = "Épp jobbá tetted a Wikipédiát mindenkinek";
 "edit-summary-add-summary-text" = "Szerkesztési összefoglaló hozzáadása";
 "edit-summary-choice-fixed-grammar" = "Nyelvtani javítás";
 "edit-summary-choice-fixed-typos" = "Elírás javítása";
@@ -553,8 +550,6 @@
 "next-action-title" = "Következő";
 "no-email-account-alert" = "Állíts be egy e-mail-fiókot az eszközödön és próbáld újra.";
 "no-internet-connection" = "Nincs internetkapcsolat";
-"no-internet-connection-article-reload" = "Ennek a cikknek lehet egy újabb változata is, de az internetkapcsolat nélkül nem tölthető be.";
-"no-internet-connection-article-reload-button" = "Visszatérés az utolsó mentett változathoz";
 "not-now-title" = "Ne most";
 "notifications-center-change-password" = "Jelszó módosítása";
 "notifications-center-checking-for-notifications" = "Értesítések keresése...";
@@ -760,10 +755,6 @@
 "relative-date-seconds-abbreviated" = "$1 másodperc";
 "relative-date-seconds-ago-abbreviated" = "$1 másodperccel ezelőtt";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Idén|1=Tavaly|$1 évvel ezelőtt}}";
-"replace-infolabel-method-replace" = "Csere";
-"replace-infolabel-method-replace-all" = "Összes cseréje";
-"replace-textfield-accessibility" = "Csere";
-"replace-textfield-placeholder" = "Csere a következőre...";
 "return-button-title" = "Visszatérés";
 "return-to-article" = "Vissza a szócikkhez";
 "reverted-edit-title" = "Visszavont szerkesztés";
@@ -777,7 +768,6 @@
 "search-button-accessibility-label" = "Keresés a Wikipédiában";
 "search-clear-title" = "Törlés";
 "search-field-placeholder-text" = "Keresés a Wikipédiában";
-"search-reading-list-placeholder-text" = "Keresés az olvasólistában";
 "search-recent-clear-confirmation-heading" = "Törlöd az összes friss keresést?";
 "search-recent-clear-confirmation-sub-heading" = "Ezt a műveletet nem lehet visszavonni!";
 "search-recent-clear-delete-all" = "Összes törlése";
@@ -800,10 +790,6 @@
 "settings-new-article-tab-header-text" = "Új lap téma";
 "settings-notifications" = "Értesítések";
 "settings-notifications-echo-failure-try-again" = "Próbáld újra";
-"settings-notifications-learn-more" = "További információ az értesítésekről";
-"settings-notifications-push-notifications" = "Push értesítések";
-"settings-notifications-system-turn-on" = "Értesítések bekapcsolása";
-"settings-notifications-trending" = "Jelenlegi események";
 "settings-off" = "Ki";
 "settings-on" = "Be";
 "settings-primary-language" = "Elsődleges";
@@ -929,9 +915,6 @@
 "welcome-languages-add-or-edit-button" = "Előnyben részesített nyelvek hozzáadása vagy szerkesztése";
 "welcome-languages-description" = "A következő nyelveket találtuk a készülékeden:";
 "welcome-languages-search-title" = "Keresés majdnem 300 nyelven";
-"welcome-notifications-tell-me-more-creation" = "Az értesítéseket az alkalmazás készíti és továbbítja a készülékedre, nem a mi (vagy harmadik felek) szerverei.";
-"welcome-notifications-tell-me-more-storage" = "Az értesítések beállításai az eszközön tárolódnak és nem használnak személyes információkat vagy tevékenységadatokat.";
-"welcome-notifications-tell-me-more-title" = "További információk az értesítésekről";
 "widget-onthisday-description" = "Mi történt a történelemben ezen a napon?";
 "widget-onthisday-placeholder-article-snippet" = "Ingyenes online enciklopédia, amelyet bárki szerkeszthet";
 "widget-onthisday-placeholder-event-snippet" = "A Wikipédia, egy ingyenes wiki tartalomlexikon, elérhető az interneten.";
