@@ -4,22 +4,31 @@ import os
 public func WMFLocalizedString(_ key: String, languageCode wikipediaLanguageCode: String? = nil, bundle: Bundle? = nil, value: String, comment: String) -> String {
 
     let baseBundle = bundle ?? Bundle.module
-    
-    let languageCode = wikipediaLanguageCode ?? Locale.current.language.languageCode?.identifier ?? "en"
-    
+
     var translation: String?
     
-    let languageBundle = baseBundle.wmf_languageBundle(forWikipediaLanguageCode: languageCode)
-    translation = languageBundle?.localizedString(forKey: key, value: nil, table: nil)
-    
+    if let languageCode = wikipediaLanguageCode {
+        let languageBundle = baseBundle.wmf_languageBundle(forWikipediaLanguageCode: languageCode)
+        translation = languageBundle?.localizedString(forKey: key, value: nil, table: nil)
+    }
+
     if translation == nil || translation == key || translation?.isEmpty == true {
         translation = baseBundle.localizedString(forKey: key, value: nil, table: nil)
+    }
+    
+    if translation == nil || translation == key || translation?.isEmpty == true {
+        translation = baseBundle.wmf_fallbackLanguageBundle?.localizedString(forKey: key, value: value, table: nil)
     }
     
     return translation ?? ""
 }
 
 public extension Bundle {
+    
+    fileprivate var wmf_fallbackLanguageBundle: Bundle? {
+        return self.path(forResource: "en", ofType: "lproj")
+            .flatMap { Bundle(path: $0) }
+    }
     
     /// A mapping of language variant content codes to available native `NSLocale` bundle identifiers.
     /// The values map to existing `.lproj` folders.
