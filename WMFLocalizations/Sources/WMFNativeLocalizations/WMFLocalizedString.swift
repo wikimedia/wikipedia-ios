@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 public func WMFLocalizedString(_ key: String, languageCode wikipediaLanguageCode: String? = nil, bundle: Bundle? = nil, value: String, comment: String) -> String {
 
@@ -48,10 +49,9 @@ public extension Bundle {
         return Bundle.module
     }
     
-    /// Cache of language bundles (protected by a lock).
-    nonisolated(unsafe) private static var _wmf_languageBundles: [String: Bundle] = [:]
-    private static let _wmf_languageBundlesLock = NSLock()
-    
+    /// Cache of language bundles, protected by an OSAllocatedUnfairLock for Swift 6 concurrency safety.
+    private static let _wmf_languageBundlesCache = OSAllocatedUnfairLock<[String: Bundle]>(initialState: [:])
+
     /// Name of the localization bundle to use for a given Wikipedia language code.
     private func wmf_languageBundleName(forWikipediaLanguageCode languageCode: String) -> String {
         if let mapped = Bundle.variantContentCodeToLocalizationBundleMapping[languageCode] {
@@ -75,42 +75,31 @@ public extension Bundle {
             return languageCode
         }
     }
-    
+
     /// Returns a bundle for a given Wikipedia language code, caching the result.
     fileprivate func wmf_languageBundle(forWikipediaLanguageCode languageCode: String) -> Bundle? {
-        Bundle._wmf_languageBundlesLock.lock()
-        if let cached = Bundle._wmf_languageBundles[languageCode] {
-            Bundle._wmf_languageBundlesLock.unlock()
+        // Fast path: check cache before doing any work
+        if let cached = Bundle._wmf_languageBundlesCache.withLock({ $0[languageCode] }) {
             return cached
         }
-        Bundle._wmf_languageBundlesLock.unlock()
-        
+
+        // Resolve the bundle outside the lock to avoid holding it during file I/O.
         let languageBundleName = wmf_languageBundleName(forWikipediaLanguageCode: languageCode)
         let paths = self.paths(forResourcesOfType: "lproj", inDirectory: nil)
         let filename = languageBundleName.lowercased() + ".lproj"
-        
+
         guard let path = paths.first(where: { $0.lowercased().hasSuffix(filename) }),
-              let bundle = Bundle(path: path) else {
+              let resolved = Bundle(path: path) else {
             return nil
         }
-        
-        Bundle._wmf_languageBundlesLock.lock()
-        Bundle._wmf_languageBundles[languageCode] = bundle
-        Bundle._wmf_languageBundlesLock.unlock()
-        
-        return bundle
-    }
-    
-    /// English fallback bundle.
-    private var wmf_fallbackLanguageBundle: Bundle? {
-        struct Static {
-            static let fallback: Bundle? = {
-                if let path = Bundle.module.path(forResource: "en", ofType: "lproj") {
-                    return Bundle(path: path)
-                }
-                return nil
-            }()
+
+        // Insert into cache if absent, then return whatever is stored (handles concurrent first-load).
+        return Bundle._wmf_languageBundlesCache.withLock { cache in
+            if let existing = cache[languageCode] {
+                return existing
+            }
+            cache[languageCode] = resolved
+            return resolved
         }
-        return Static.fallback
     }
 }
