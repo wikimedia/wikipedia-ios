@@ -78,6 +78,11 @@ public extension Bundle {
 
     /// Returns a bundle for a given Wikipedia language code, caching the result.
     fileprivate func wmf_languageBundle(forWikipediaLanguageCode languageCode: String) -> Bundle? {
+        // Fast path: check cache before doing any work
+        if let cached = Bundle._wmf_languageBundlesCache.withLock({ $0[languageCode] }) {
+            return cached
+        }
+
         // Resolve the bundle outside the lock to avoid holding it during file I/O.
         let languageBundleName = wmf_languageBundleName(forWikipediaLanguageCode: languageCode)
         let paths = self.paths(forResourcesOfType: "lproj", inDirectory: nil)
