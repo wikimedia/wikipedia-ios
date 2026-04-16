@@ -53,6 +53,7 @@ public enum WMFUserDefaultsKey: String {
     case readingChallengeStreakNotReadRandomIndexDate = "reading-challenge-not-read-random-index-date"
     case readingChallengeEnrolledNotStartedRandomIndex = "reading-challenge-enrolled-not-started"
     case readingChallengeEnrolledNotStartedRandomIndexDate = "reading-challenge-enrolled-not-started-date"
+    case readingChallengeBadgeEnabled = "reading-challenge-badge-enabled"
     
     // Reading challenge widget dev settings
     case devReadingChallengeOverrideCurrentDate = "dev-reading-challenge-override-current-date"

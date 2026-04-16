@@ -164,7 +164,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             let prizeVC = CollectPrizeViewController(theme: self.theme)
             prizeVC.modalPresentationStyle = .pageSheet
             if let sheet = prizeVC.sheetPresentationController {
-                sheet.detents = [.medium()]
+                sheet.detents = [.medium(), .large()]
                 sheet.prefersGrabberVisible = true
             }
             self.present(prizeVC, animated: true)

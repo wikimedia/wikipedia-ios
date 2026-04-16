@@ -236,6 +236,9 @@
 "close-tab-confirmation" = "Confirmation prompt to close a single tab.";
 "close-tabs" = "Action to confirm closing multiple tabs.";
 "closed-all-tabs-confirmation-with-value" = "Confirmation title of deleting all tabs. $1 is the number of tabs deleted.";
+"collect-prize-badge-headline" = "Headline for badge section of collect prize modal";
+"collect-prize-badge-subtitle" = "Subtitle for badge section of collect prize modal";
+"collect-prize-badge-toggle" = "Toggle label for 25-day challenge badge on collect prize modal";
 "collect-prize-button-title" = "Button title for collect prize modal. Please leave %% unchanged for proper formatting.";
 "collect-prize-headline" = "Headline for collect prize modal";
 "collect-prize-subtitle" = "Subtitle for collect prize modal. Please leave %% unchanged for proper formatting.";

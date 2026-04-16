@@ -84,6 +84,14 @@ public actor WMFActivityTabDataController {
     public func updateIsTimelineOfBehaviorOn(_ value: Bool) {
         isTimelineOfBehaviorOn = value
     }
+    
+    public nonisolated var readingChallengeBadgeEnabled: Bool {
+        get { UserDefaults(suiteName: Self.sharedGroupID)?.bool(forKey: WMFUserDefaultsKey.readingChallengeBadgeEnabled.rawValue) ?? true }
+        set {
+            UserDefaults(suiteName: Self.sharedGroupID)?.set(newValue, forKey: WMFUserDefaultsKey.readingChallengeBadgeEnabled.rawValue)
+            UserDefaults(suiteName: Self.sharedGroupID)?.synchronize()
+        }
+    }
 
     public func getTimeReadPast7Days() async throws -> (Int, Int)? {
         let calendar = Calendar.current

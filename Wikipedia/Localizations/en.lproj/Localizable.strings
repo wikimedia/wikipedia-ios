@@ -236,6 +236,9 @@
 "close-tab-confirmation" = "Close tab?";
 "close-tabs" = "Close tabs";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 tab|$1 tabs}} closed.";
+"collect-prize-badge-headline" = "One adorable badge, earned";
+"collect-prize-badge-subtitle" = "You completed the challenge and Baby Globe couldn't be prouder. Bask in your achievement with a digital badge for your activity tab.";
+"collect-prize-badge-toggle" = "25-day challenge badge";
 "collect-prize-button-title" = "Get 15%% off at the store";
 "collect-prize-headline" = "Curiosity looks good on you! 🛍️";
 "collect-prize-subtitle" = "Celebrate completing the challenge with 15%% off at the Wikipedia Store.";
