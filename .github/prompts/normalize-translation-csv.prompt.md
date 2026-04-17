@@ -17,7 +17,7 @@ English,Translation,Key,File
 - **English**: The original English string (copied from the input)
 - **Translation**: The translated string (copied from the input)
 - **Key**: The `Localizable.strings` key — looked up by matching English against `Wikipedia/Localizations/en.lproj/Localizable.strings`
-- **File**: The `.lproj` directory name, derived from the input filename (e.g. `de.csv` or `reading challenge translations_de.csv` → `de.lproj`)
+- **File**: The `.lproj` directory name — derived from the input filename for single-language files, or from the translation column header for multi-language files (see Step 1)
 
 ## Step 0: Resolve the input
 
@@ -30,9 +30,17 @@ Build the list of files to process. All output CSVs go into `scripts/manual tran
 
 Read `Wikipedia/Localizations/en.lproj/Localizable.strings` **once** before processing any files — reuse the same lookup table for all files.
 
-## Step 1: Identify the language
+For each file, inspect its header row to determine whether it is a **single-language file** or a **multi-language file**:
+- **Single-language**: has one translation column (a column whose header contains "translation", "translated", "target", or similar)
+- **Multi-language**: has multiple translation columns — one per language (e.g. columns named "German", "French", "de", "fr", etc.)
 
-Extract the language/region code from the filename (e.g. `de`, `es-la`, `pt-br`) and find the matching `.lproj` directory under `Wikipedia/Localizations/`. List the available `.lproj` directories and pick the best match — the code in the filename may not be an exact match to the directory name, so use your best judgement (e.g. a file tagged `es-la` might correspond to `es.lproj`). If no reasonable match exists, print a warning and skip the file.
+Process each shape differently as described in Steps 1 and 3.
+
+## Step 1: Identify the language(s)
+
+**Single-language file**: Extract the language/region code from the filename (e.g. `de`, `es-la`, `pt-br`) and find the matching `.lproj` directory under `Wikipedia/Localizations/`. List the available `.lproj` directories and pick the best match — the code in the filename may not be an exact match to the directory name, so use your best judgement (e.g. a file tagged `es-la` might correspond to `es.lproj`). If no reasonable match exists, print a warning and skip the file.
+
+**Multi-language file**: Ignore the filename for language detection. Instead, each translation column header names a language (e.g. "German", "de", "French (France)"). For each translation column, extract the language/region code from the header and find the matching `.lproj` directory under `Wikipedia/Localizations/` using the same best-match approach. Each translation column will produce one output CSV.
 
 ## Step 2: Build the English → Key lookup table
 
@@ -51,7 +59,9 @@ The input CSV may be messy in unpredictable ways. Apply all of the following:
 - **Ignore blank rows** (rows where every cell is empty or whitespace)
 - **Ignore the header row** and any decoration/metadata rows at the top (rows with no recognizable English copy)
 - **Find the English column**: Look for a column whose non-empty values appear in the English-to-key map, OR whose header contains words like "English", "copy", "source", "original" (case-insensitive). This is the English column.
-- **Find the Translation column**: Look for a column whose header contains words like "translation", "translated", "target" (case-insensitive), or which is the only other substantial text column that isn't English.
+- **Find the translation column(s)**:
+  - *Single-language file*: find the one column whose header contains words like "translation", "translated", "target" (case-insensitive), or which is the only other substantial text column that isn't English.
+  - *Multi-language file*: every column that isn't the English column, a notes/image/comment column, or blank is a translation column. Match each to a language as described in Step 1.
 - **Ignore extra columns**: Reference images, notes, comments, empty columns — skip all of these.
 - **Strip leading/trailing whitespace** from all cell values.
 
@@ -80,7 +90,7 @@ Save the result as a CSV file in `scripts/manual translations/normalized/`, name
 
 Rows with a blank Key are still included in the output (the import script skips them gracefully).
 
-Repeat Steps 1–6 for every file in the input list.
+Repeat Steps 1–6 for every file in the input list. For multi-language files, produce one output CSV per translation column.
 
 After all files are processed, print a combined summary followed by categorized action items.
 

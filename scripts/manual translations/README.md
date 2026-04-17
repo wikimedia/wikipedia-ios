@@ -23,7 +23,7 @@ After normalization, each CSV in `normalized/` will have exactly these four colu
 | `Key`         | The `Localizable.strings` key (e.g. `about-title`) |
 | `File`        | The target `.lproj` directory name (e.g. `de.lproj`) |
 
-Rows with a blank `Key` are intentional — they correspond to motivational/placeholder strings that have no app key and are skipped by the import script.
+Rows with a blank `Key` are intentional — they correspond to strings that have no corresponding app key and are skipped by the import script.
 
 ### Plurals
 
@@ -40,14 +40,14 @@ The raw CSV files from the translations team are messy in unpredictable ways. Us
    ```
    /normalize-translation-csv
    ```
-   Or pass a specific file to process just one language:
+   Or pass a specific file or directory:
    ```
-   /normalize-translation-csv raw/reading challenge translations_de.csv
+   /normalize-translation-csv raw/my-translations.csv
    ```
 
-Copilot will read `en.lproj/Localizable.strings`, match each English string to its key, handle plural rows and date placeholders, and write a clean `{lang-code}.csv` into `normalized/`.
+The prompt handles both single-language files (one CSV per language) and multi-language files (one CSV with a column per language). Copilot will read `en.lproj/Localizable.strings`, match each English string to its key, handle plural rows and date placeholders, and write a clean `{lang-code}.csv` per language into `normalized/`.
 
-Review the summary it prints — rows with a blank key are intentional (motivational copy variants with no corresponding app key) or worth a quick check.
+Review the summary it prints — it will flag any strings it couldn't match so you can fix them manually.
 
 ### Step 2: Run the import script
 
