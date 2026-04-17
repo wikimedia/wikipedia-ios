@@ -412,6 +412,12 @@ let localesWhereMediaWikiPluralRulesDoNotMatchiOSPluralRulesForOne = {
 // Apple locale (standard Belarusian), but the full TWN-specific orthography variant is not recognized by App Store Connect.
 let localesUnsupportedByAppStoreConnect: Set<String> = ["be-tarask"]
 
+// Maps TWN-specific locale codes to their standard BCP 47 equivalents accepted by App Store Connect.
+// TWN uses legacy script codes (e.g. "sr-el" for Serbian Latin) that differ from BCP 47 (e.g. "sr-Latn").
+let twnLocaleToAppStoreConnectLocale: [String: String] = [
+    "sr-el": "sr-Latn"
+]
+
 func localeIsAvailable(_ locale: String) -> Bool {
     guard !localesUnsupportedByAppStoreConnect.contains(locale) else {
         return false
@@ -447,7 +453,8 @@ func importLocalizationsFromTWN(_ path: String) {
                 continue
             }
             
-            let localeFolder = "\(path)/WMFLocalizations/Sources/WMFNativeLocalizations/Resources/\(locale).lproj"
+            let mappedLocale = twnLocaleToAppStoreConnectLocale[locale] ?? locale
+            let localeFolder = "\(path)/WMFLocalizations/Sources/WMFNativeLocalizations/Resources/\(mappedLocale).lproj"
 
             guard localeIsAvailable(locale), let twnStrings = NSDictionary(contentsOfFile: "\(path)/Wikipedia/Localizations/\(locale).lproj/Localizable.strings") else {
                 try? fm.removeItem(atPath: localeFolder)
