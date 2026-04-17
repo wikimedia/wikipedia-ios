@@ -219,23 +219,20 @@ public struct WMFReadingChallengeWidgetView: View {
 
                 case .challengeConcludedIncomplete:
                     if let subtitle = viewModel.displaySet.subtitle {
-                        Spacer()
-                        HStack(spacing: 3) {
-                            if let icon = viewModel.displaySet.smallerIcon1 {
+                        HStack(spacing: 0) {
+                            if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .semiboldCaption1, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
                                 Image(uiImage: icon)
-                                    .font(Font(WMFFont.for(.subheadline)))
-                                    .foregroundStyle(viewModel.displaySet.color2)
+                                    .foregroundColor(viewModel.displaySet.color2)
                             }
                             Text(subtitle)
-                                .font(Font(WMFFont.for(.subheadline)))
+                                .font(Font(WMFFont.for(.semiboldCaption1)))
                                 .foregroundColor(viewModel.displaySet.color2)
                         }
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 4)
+                        .padding(.horizontal, 14).padding(.vertical, 8)
+                        .frame(maxWidth: .infinity)
                         .background(viewModel.displaySet.color3 ?? viewModel.displaySet.color2)
                         .clipShape(Capsule())
                     }
-
                 default:
                     HStack {
                         if let icon = viewModel.displaySet.icon {
@@ -306,6 +303,17 @@ public struct WMFReadingChallengeWidgetView: View {
     }
 
     // MARK: - Medium View (generic: streak completed, incomplete, etc.)
+    
+    private var mediumTitleFont: Font {
+        switch viewModel.state {
+        case .challengeConcludedIncomplete:
+            return Font(WMFFont.for(.boldTitle1))
+        default:
+            return viewModel.displaySet.subtitle == nil
+                ? Font(WMFFont.for(.boldTitle3))
+                : Font(WMFFont.for(.boldFootnote))
+        }
+    }
 
     private var mediumView: some View {
         GeometryReader { geo in
@@ -320,15 +328,34 @@ public struct WMFReadingChallengeWidgetView: View {
                                 Image(uiImage: icon)
                             }
                             Text(viewModel.displaySet.title)
-                                .font(viewModel.displaySet.subtitle == nil ? Font(WMFFont.for(.boldTitle3)) : Font(WMFFont.for(.boldFootnote)))
+                                .font(mediumTitleFont)
                                 .foregroundColor(viewModel.displaySet.color2)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
-                        if let subtitle = viewModel.displaySet.subtitle {
-                            Text(subtitle)
-                                .font(Font(WMFFont.for(.caption1)))
-                                .foregroundColor(viewModel.displaySet.color2)
-                                .fixedSize(horizontal: false, vertical: true)
+                        switch viewModel.state {
+                        case .challengeConcludedIncomplete:
+                            if let subtitle = viewModel.displaySet.subtitle {
+                                HStack(spacing: 0) {
+                                    if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .semiboldCaption1, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                                        Image(uiImage: icon)
+                                            .foregroundColor(viewModel.displaySet.color2)
+                                    }
+                                    Text(subtitle)
+                                        .font(Font(WMFFont.for(.semiboldCaption1)))
+                                        .foregroundColor(viewModel.displaySet.color2)
+                                }
+                                .padding(.horizontal, 14).padding(.vertical, 8)
+                                .frame(maxWidth: .infinity)
+                                .background(viewModel.displaySet.color3 ?? viewModel.displaySet.color2)
+                                .clipShape(Capsule())
+                            }
+                        default:
+                            if let subtitle = viewModel.displaySet.subtitle {
+                                Text(subtitle)
+                                    .font(Font(WMFFont.for(.caption1)))
+                                    .foregroundColor(viewModel.displaySet.color2)
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
                         }
                         Spacer()
                         HStack(spacing: 8) {
