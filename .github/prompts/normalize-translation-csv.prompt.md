@@ -17,7 +17,7 @@ English,Translation,Key,File
 - **English**: The original English string (copied from the input)
 - **Translation**: The translated string (copied from the input)
 - **Key**: The `Localizable.strings` key — looked up by matching English against `Wikipedia/Localizations/en.lproj/Localizable.strings`
-- **File**: The `.lproj` directory name — derived from the input filename for single-language files, or from the translation column header for multi-language files (see Step 1)
+- **File**: The full `.lproj` directory name **including the `.lproj` suffix** (e.g. `de.lproj`, `es.lproj`, `pt-br.lproj`) — derived from the input filename for single-language files, or from the translation column header for multi-language files (see Step 1). The import script uses this value as a literal directory name under `Wikipedia/Localizations/`, so omitting `.lproj` will cause a "Directory not found" error.
 
 ## Step 0: Resolve the input
 
