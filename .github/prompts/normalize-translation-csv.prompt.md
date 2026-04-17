@@ -61,7 +61,10 @@ For each row with a non-empty English value and non-empty Translation:
 
 1. **Exact match**: Look up the English value in the map from Step 2. If found, use that key.
 2. **Normalized match**: If no exact match, try with trailing punctuation stripped (`.`, `!`, `?`), and/or with minor whitespace normalization.
-3. **No match**: Leave the Key cell **blank**. Do NOT guess or invent a key. The import script will skip blank-key rows with a warning — that is the correct behavior. These are rows that don't correspond to any app string (e.g. motivational copy variants, UI descriptions for designers).
+3. **No match**: Leave the Key cell **blank** and tag the row as one of:
+   - **"likely has app key"** — the string looks like real UI copy that would appear in `Localizable.strings` (e.g. button labels, titles, short descriptive text). These go into the ⚠️ action list.
+   - **"no app key (expected)"** — the string is clearly content that wouldn't be a localizable app string (e.g. marketing copy, reward descriptions, designer annotations). These go into the ℹ️ skipped list.
+   Do NOT guess or invent a key. The import script will skip blank-key rows with a warning — that is the correct behavior.
 
 **Special case — plural strings**: The English string `"{{PLURAL:$1|$1 day|$1 days}}"` appears in `en.lproj` as the value for `reading-challenge-streak-days`. The CSV will likely have human-readable variants like `"1 day"`, `"2 days"`, `"X days"`. These rows have a single corresponding key (`reading-challenge-streak-days`) whose value is a `{{PLURAL:...}}` template. The Translation for this key should be written in `{{PLURAL:$1|...|...}}` format — use the singular and plural forms from the CSV rows. For languages with no grammatical plural distinction (Japanese, Malay), use a single form: `{{PLURAL:$1|<translation>}}`.
 
@@ -79,7 +82,33 @@ Rows with a blank Key are still included in the output (the import script skips 
 
 Repeat Steps 1–6 for every file in the input list.
 
-After all files are processed, print a combined summary:
-- How many rows were matched to a key
-- How many rows were left with a blank key (and list the English strings for review)
-- How many rows were skipped entirely (blank/header/decoration)
+After all files are processed, print a combined summary followed by categorized action items.
+
+**Summary counts (one line per language):**
+```
+de.csv:  ✅ 47 matched  ⚠️ 6 needs review  ℹ️ 14 skipped (no app key)  🔇 243 blank rows
+```
+
+**Action items (things that need human review):**
+
+Print each of the following sections only if there are entries to show.
+
+### ⚠️ Unmatched — likely has an app key but matching failed
+Strings that look like real UI copy but couldn't be matched to a key. These are the most important to review — either the string is worded slightly differently in `en.lproj`, or it needs a manual key assignment.
+Format: `[lang] "English string"` — one per line.
+
+### 🔁 Duplicate keys dropped
+Rows where multiple CSV entries resolved to the same key — only the first was kept.
+Format: `[lang] key: "kept translation" (dropped: "other translation")` — one per line.
+
+### 🔢 Incomplete plurals
+Plural groups where only one form (singular or plural) was found in the CSV — the `{{PLURAL:...}}` template could not be fully built.
+Format: `[lang] key: got singular only / got plural only` — one per line.
+
+### ❌ Missing translation
+Rows where the English matched a key but the translation cell was empty.
+Format: `[lang] key: "English string"` — one per line.
+
+### ℹ️ Skipped — no app key (expected)
+Strings that have no corresponding app key and were expected to be skipped. These do not need action — listed here just for transparency.
+Format: `[lang] "English string"` — one per line. If there are more than 10, show the first 10 and a count of the rest.
