@@ -1,10 +1,10 @@
 ---
-description: "Normalize a messy translation CSV from the translations team into the clean English/Translation/Key/File format required by the import script. Use when you have a raw CSV file from the translations team and want to prepare it for import."
+description: "Normalize messy translation CSVs from the translations team into the clean English/Translation/Key/File format required by the import script. Pass a directory to process all CSVs in it, or a single file path. Defaults to scripts/manual translations/raw/ if no argument is given."
 agent: "agent"
-argument-hint: "Path to the raw translation CSV file"
+argument-hint: "Path to a raw CSV file or directory of raw CSVs (default: scripts/manual translations/raw/)"
 ---
 
-You are normalizing a raw translation CSV file from the Wikipedia iOS translations team into a clean format that can be consumed by the import script at `scripts/manual translations/import-normalized-translations.swift`.
+You are normalizing raw translation CSV files from the Wikipedia iOS translations team into a clean format that can be consumed by the import script at `scripts/manual translations/import-normalized-translations.swift`.
 
 ## Target format
 
@@ -18,6 +18,17 @@ English,Translation,Key,File
 - **Translation**: The translated string (copied from the input)
 - **Key**: The `Localizable.strings` key — looked up by matching English against `Wikipedia/Localizations/en.lproj/Localizable.strings`
 - **File**: The `.lproj` directory name, derived from the input filename (e.g. `de.csv` or `reading challenge translations_de.csv` → `de.lproj`)
+
+## Step 0: Resolve the input
+
+The argument may be:
+- **Omitted**: process all `.csv` files in `scripts/manual translations/raw/`
+- **A directory path**: process all `.csv` files in that directory
+- **A single file path**: process only that file
+
+Build the list of files to process. All output CSVs go into `scripts/manual translations/normalized/` (create it if it doesn't exist).
+
+Read `Wikipedia/Localizations/en.lproj/Localizable.strings` **once** before processing any files — reuse the same lookup table for all files.
 
 ## Step 1: Identify the language
 
@@ -73,11 +84,13 @@ If multiple rows produce the same Key, keep only the first occurrence and skip t
 
 ## Step 6: Write the output
 
-Save the result as a CSV file in the same directory as the input, named after the language code only (e.g. `de.csv`, `es-la.csv`). Use UTF-8 encoding, comma-separated, with a header row.
+Save the result as a CSV file in `scripts/manual translations/normalized/`, named after the language code only (e.g. `de.csv`, `es-la.csv`). Use UTF-8 encoding, comma-separated, with a header row.
 
 Rows with a blank Key are still included in the output (the import script skips them gracefully).
 
-After writing, print a summary:
+Repeat Steps 1–6 for every file in the input list.
+
+After all files are processed, print a combined summary:
 - How many rows were matched to a key
 - How many rows were left with a blank key (and list the English strings for review)
 - How many rows were skipped entirely (blank/header/decoration)

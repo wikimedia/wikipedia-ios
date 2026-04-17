@@ -47,8 +47,15 @@ Plural strings use `{{PLURAL:$1|singular|plural}}` syntax. For languages with no
 
 The raw CSV files from the translations team are messy in unpredictable ways. Use the Copilot prompt to normalize each one:
 
-1. Open Copilot chat in VS Code
-2. Run `/normalize-translation-csv` and pass the path to a raw CSV (e.g. `raw/reading challenge translations_de.csv`)
+1. Open Copilot Chat in VS Code (`⌃⌘I`)
+2. Run the prompt — no argument needed, it will process all files in `raw/` by default:
+   ```
+   /normalize-translation-csv
+   ```
+   Or pass a specific file to process just one language:
+   ```
+   /normalize-translation-csv raw/reading challenge translations_de.csv
+   ```
 
 Copilot will read `en.lproj/Localizable.strings`, match each English string to its key, handle plural rows and date placeholders, and write a clean `{lang-code}.csv` into `normalized/`.
 
