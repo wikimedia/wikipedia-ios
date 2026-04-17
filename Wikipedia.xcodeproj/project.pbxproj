@@ -3196,6 +3196,7 @@
 		6747118725072D1500287951 /* IconTitleBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTitleBadge.swift; sourceTree = "<group>"; };
 		674C176B2AAA86B5007DC6CC /* Wikipedia.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Wikipedia.xctestplan; sourceTree = "<group>"; };
 		674E8AB82382DEFF0053D206 /* DiffTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffTransformer.swift; sourceTree = "<group>"; };
+		6750A0502F9277BA00C6E0BE /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisappearingCallbackNavigationController.swift; sourceTree = "<group>"; };
 		67540CA824D221E3008B2894 /* LocationManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerFactory.swift; sourceTree = "<group>"; };
 		67563DA12EFAF69400042C53 /* WMFLocalizations */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WMFLocalizations; sourceTree = "<group>"; };
@@ -8818,6 +8819,7 @@
 				lmo,
 				se,
 				az,
+				be,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
@@ -11635,6 +11637,7 @@
 			children = (
 				D890C85C1D772ED3007132C9 /* Base */,
 				D890C85E1D772EE7007132C9 /* en */,
+				6750A0502F9277BA00C6E0BE /* be */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
