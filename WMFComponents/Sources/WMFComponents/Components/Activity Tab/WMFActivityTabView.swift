@@ -41,6 +41,60 @@ public struct WMFActivityTabView: View {
         }
     }
 
+    private func completedChallengesModule() -> some View {
+        WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .checkmarkSeal),
+            title: viewModel.localizedStrings.completedChallengesTitle,
+            dateText: nil,
+            onTapModule: nil,
+            content: {
+                VStack(alignment: .leading, spacing: 0) {
+                    ForEach(viewModel.completedChallenges.indices, id: \.self) { index in
+                        let challenge = viewModel.completedChallenges[index]
+                        HStack(spacing: 12) {
+                            AsyncImage(url: challenge.imageURL) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFit()
+                            } placeholder: {
+                                Color(uiColor: theme.softEditorBlue)
+                            }
+                            .frame(width: 64, height: 64)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(challenge.dateText)
+                                    .font(Font(WMFFont.for(.caption1)))
+                                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                                Text(challenge.title)
+                                    .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                    .foregroundStyle(Color(uiColor: theme.text))
+                                Text(challenge.subtitle)
+                                    .font(Font(WMFFont.for(.callout)))
+                                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                                    .lineLimit(2)
+                            }
+
+                            Spacer()
+                        }
+                        .padding(.vertical, 8)
+
+                        if index < viewModel.completedChallenges.count - 1 {
+                            Divider()
+                                .overlay(
+                                    Rectangle()
+                                        .fill(Color(uiColor: theme.baseBackground))
+                                        .frame(height: 1)
+                                )
+                        }
+                    }
+                }
+            }
+        )
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(viewModel.localizedStrings.completedChallengesTitle)
+    }
+    
     private func loggedInList(proxy: ScrollViewProxy) -> some View {
         List {
             if viewModel.customizeViewModel.isTimeSpentReadingOn || viewModel.customizeViewModel.isReadingInsightsOn {

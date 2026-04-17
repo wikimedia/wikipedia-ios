@@ -20,6 +20,25 @@ public final class WMFActivityTabViewModel: ObservableObject {
         }
     }
     public var onTapArticle: ((URL) -> Void)?
+    
+    public struct CompletedChallenge: Identifiable {
+        public let id: UUID
+        public let title: String
+        public let subtitle: String
+        public let dateText: String
+        public let imageURL: URL?
+
+        public init(id: UUID = UUID(), title: String, subtitle: String, dateText: String, imageURL: URL?) {
+            self.id = id
+            self.title = title
+            self.subtitle = subtitle
+            self.dateText = dateText
+            self.imageURL = imageURL
+        }
+    }
+
+    // Inside WMFActivityTabViewModel, add:
+    @Published public var completedChallenges: [CompletedChallenge] = []
 
     // MARK: - Localization
 

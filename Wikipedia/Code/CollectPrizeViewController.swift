@@ -206,8 +206,8 @@ final class CollectPrizeViewController: UIViewController, Themeable {
             badgeImageView.topAnchor.constraint(equalTo: badgeImageContainer.topAnchor),
             badgeImageView.bottomAnchor.constraint(equalTo: badgeImageContainer.bottomAnchor),
             badgeImageView.centerXAnchor.constraint(equalTo: badgeImageContainer.centerXAnchor),
-            badgeImageView.heightAnchor.constraint(equalToConstant: 180),
-            badgeImageView.widthAnchor.constraint(equalToConstant: 180)
+            badgeImageView.heightAnchor.constraint(equalToConstant: 130),
+            badgeImageView.widthAnchor.constraint(equalToConstant: 110)
         ])
 
         // Badge text container with padding
@@ -255,8 +255,7 @@ final class CollectPrizeViewController: UIViewController, Themeable {
             primaryButton.bottomAnchor.constraint(equalTo: storeContainer.bottomAnchor, constant: -32)
         ])
 
-        // Add arranged subviews to stack
-        let spacerAfterImage = spacerView(height: 20)
+        let spacerAfterImage = spacerView(height: 8)
         let spacerAfterText = spacerView(height: 24)
 
         contentStackView.addArrangedSubview(badgeImageContainer)
@@ -319,14 +318,14 @@ final class CollectPrizeViewController: UIViewController, Themeable {
         
         view.backgroundColor = theme.colors.paperBackground
         
-        titleLabel.font = WMFFont.for(.body)
+        titleLabel.font = WMFFont.for(.semiboldSubheadline)
         titleLabel.textColor = theme.colors.primaryText
 
         badgeHeadlineLabel.font = WMFFont.for(.boldBody)
         badgeHeadlineLabel.textColor = theme.colors.primaryText
 
         badgeSubtitleLabel.font = WMFFont.for(.subheadline)
-        badgeSubtitleLabel.textColor = theme.colors.secondaryText
+        badgeSubtitleLabel.textColor = theme.colors.primaryText
 
         badgeToggleSeparator?.backgroundColor = theme.colors.border
         badgeToggleLabel?.font = WMFFont.for(.body)
