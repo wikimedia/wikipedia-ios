@@ -126,7 +126,7 @@ struct PictureOfTheDayProvider: TimelineProvider {
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<PictureOfTheDayEntry>) -> Void) {
         let maxWidth = context.potdMaxImageWidth
-        let renderSize = context.displaySize
+        let renderSize = context.potdRenderSize
         PictureOfTheDayData.fetchPictureOfTheDayEntryData(maxWidth: maxWidth) { entry in
             let currentDate = Date()
             let nextUpdate: Date
@@ -145,7 +145,7 @@ struct PictureOfTheDayProvider: TimelineProvider {
 
     func getSnapshot(in context: Context, completion: @escaping (PictureOfTheDayEntry) -> Void) {
         let maxWidth = context.potdMaxImageWidth
-        let renderSize = context.displaySize
+        let renderSize = context.potdRenderSize
         PictureOfTheDayData.fetchPictureOfTheDayEntryData(usingCache: context.isPreview, maxWidth: maxWidth) { entry in
             completion(entry.scalingImageTo(targetSize: renderSize))
         }
@@ -277,9 +277,14 @@ extension TimelineProviderContext {
         case .systemSmall:
             return WidgetController.potdSmallImageWidth
         case .systemMedium:
-            return WidgetController.potdMediumImageWidth
+            return WidgetController.potdLargeImageWidth
         default:
             return WidgetController.potdLargeImageWidth
         }
+    }
+
+    var potdRenderSize: CGSize {
+        let scale = environmentVariants.displayScale?.max() ?? 2
+        return CGSize(width: displaySize.width * scale, height: displaySize.height * scale)
     }
 }
