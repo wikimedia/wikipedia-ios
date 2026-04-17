@@ -6,20 +6,27 @@ This directory contains manually provided translations and the script to import 
 
 ```
 manual translations/
-    README.md                         ← this file
-    import-manual-translations.swift  ← import script
-    translations/
-        de.csv      ← German
-        es-la.csv   ← Spanish (Latin America)
-        fr.csv      ← French
-        ja.csv      ← Japanese
-        ms.csv      ← Malay
-        pt-br.csv   ← Portuguese (Brazil)
+    README.md                               ← this file
+    import-normalized-translations.swift    ← step 2: import into .strings files
+    raw/
+        reading challenge translations_de.csv     ← raw German (from translations team)
+        reading challenge translations_es-la.csv  ← raw Spanish (Latin America)
+        reading challenge translations_fr.csv     ← raw French
+        reading challenge translations_ja.csv     ← raw Japanese
+        reading challenge translations_ms.csv     ← raw Malay
+        reading challenge translations_pt-br.csv  ← raw Portuguese (Brazil)
+    normalized/
+        de.csv      ← clean German
+        es-la.csv   ← clean Spanish (Latin America)
+        fr.csv      ← clean French
+        ja.csv      ← clean Japanese
+        ms.csv      ← clean Malay
+        pt-br.csv   ← clean Portuguese (Brazil)
 ```
 
 ## Clean CSV Format
 
-After normalization, each CSV in `translations/` will have exactly these four columns:
+After normalization, each CSV in `normalized/` will have exactly these four columns:
 
 | Column        | Description |
 |---------------|-------------|
@@ -38,23 +45,21 @@ Plural strings use `{{PLURAL:$1|singular|plural}}` syntax. For languages with no
 
 ### Step 1: Normalize the raw CSVs
 
-The raw CSV files from the translations team are messy — inconsistent columns, blank rows, extra metadata, etc. Use the Copilot prompt to clean them up automatically.
+The raw CSV files from the translations team are messy in unpredictable ways. Use the Copilot prompt to normalize each one:
 
-In VS Code, type `/normalize-translation-csv` in the Copilot chat and provide the path to the raw file. The prompt will:
-- Auto-detect the English and Translation columns regardless of column order or naming
-- Look up each English string in `en.lproj/Localizable.strings` to derive the correct `Key`
-- Derive the `File` (`.lproj` name) from the filename
-- Handle plural strings and date placeholders
-- Save a clean `{lang-code}.csv` into `translations/`
+1. Open Copilot chat in VS Code
+2. Run `/normalize-translation-csv` and pass the path to a raw CSV (e.g. `raw/reading challenge translations_de.csv`)
 
-Run this once per language file. Review the printed summary — any rows left with a blank key are either intentional (motivational copy with no corresponding app key) or worth a quick check.
+Copilot will read `en.lproj/Localizable.strings`, match each English string to its key, handle plural rows and date placeholders, and write a clean `{lang-code}.csv` into `normalized/`.
+
+Review the summary it prints — rows with a blank key are intentional (motivational copy variants with no corresponding app key) or worth a quick check.
 
 ### Step 2: Run the import script
 
 From the project root (`wikipedia-ios/`):
 
 ```bash
-swift "scripts/manual translations/import-manual-translations.swift" "scripts/manual translations/translations/"
+swift "scripts/manual translations/import-normalized-translations.swift" "scripts/manual translations/normalized/"
 ```
 
 The script will:
@@ -72,15 +77,15 @@ See the section below.
 
 ## Adding a New Language for Next Time
 
-1. Get the raw translated CSV from the translation team.
-2. Run `/normalize-translation-csv` on it to produce a clean `{lang-code}.csv` in `translations/`.
-3. Verify the `.lproj` directory exists in `Wikipedia/Localizations/` — if not, add the language to the project first (see `docs/localization.md`).
+1. Get the raw translated CSV from the translation team and drop it into `raw/`.
+2. Run `/normalize-translation-csv` in Copilot chat to produce a clean `{lang-code}.csv` in `normalized/`.
+3. Verify the `.lproj` directory exists in `Wikipedia/Localizations/` — if not, add the language to the project first.
 4. Run the import script.
 
 ## Adding New Strings for Next Time
 
-1. Get the updated translated CSVs from the translation team (with new rows added).
-2. Run `/normalize-translation-csv` on each file.
+1. Get the updated translated CSVs from the translation team and drop them into `raw/`.
+2. Run `/normalize-translation-csv` in Copilot chat on each file.
 3. Run the import script — it will only insert keys that don't already exist.
 
 > **Note:** The script is safe to re-run. It will skip any keys that are already present in the strings files and only insert genuinely new entries.

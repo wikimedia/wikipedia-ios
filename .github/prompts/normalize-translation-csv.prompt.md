@@ -4,7 +4,7 @@ agent: "agent"
 argument-hint: "Path to the raw translation CSV file"
 ---
 
-You are normalizing a raw translation CSV file from the Wikipedia iOS translations team into a clean format that can be consumed by the import script at `scripts/manual translations/import-manual-translations.swift`.
+You are normalizing a raw translation CSV file from the Wikipedia iOS translations team into a clean format that can be consumed by the import script at `scripts/manual translations/import-normalized-translations.swift`.
 
 ## Target format
 
