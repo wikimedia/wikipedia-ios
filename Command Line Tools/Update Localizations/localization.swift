@@ -405,7 +405,17 @@ let localesWhereMediaWikiPluralRulesDoNotMatchiOSPluralRulesForOne = {
     return Set<String>(["be", "bs", "br", "ceb", "tzm", "hr", "fil", "is", "lv", "lt", "dsb", "mk", "gv", "prg", "ru", "gd", "sr", "sl", "uk", "hsb"]).intersection(locales)
 }()
 
+// Locales that pass localeIsAvailable() but are not valid App Store Connect locale IDs.
+// Note: localeIsAvailable() already rejects most App Store Connect-unsupported locales (e.g. blk, dga, mhr, rki)
+// because their language codes don't appear in Apple's Locale.availableIdentifiers.
+// This blocklist catches edge cases like "be-tarask", where the language prefix "be" IS a valid
+// Apple locale (standard Belarusian), but the full TWN-specific orthography variant is not recognized by App Store Connect.
+let localesUnsupportedByAppStoreConnect: Set<String> = ["be-tarask"]
+
 func localeIsAvailable(_ locale: String) -> Bool {
+    guard !localesUnsupportedByAppStoreConnect.contains(locale) else {
+        return false
+    }
     let prefix = locale.components(separatedBy: "-").first ?? locale
     return locales.contains(prefix)
 }
