@@ -1,9 +1,9 @@
 #!/usr/bin/env swift
 //
-// import-manual-translations.swift
+// import-normalized-translations.swift
 //
-// Reads CSV files from a given directory and inserts translations into the
-// appropriate Wikipedia/Localizations/{lproj}/Localizable.strings file.
+// Reads normalized CSV files from a given directory and inserts translations
+// into the appropriate Wikipedia/Localizations/{lproj}/Localizable.strings file.
 //
 // CSV format — required columns (order doesn't matter):
 //   English       The original English string (informational, not used for insertion)
@@ -12,10 +12,10 @@
 //   File          The target .lproj directory name (e.g. "es.lproj")
 //
 // Usage:
-//   swift scripts/import-manual-translations.swift <path-to-csv-directory>
+//   swift "scripts/manual translations/import-normalized-translations.swift" <path-to-csv-directory>
 //
 // Example:
-//   swift scripts/import-manual-translations.swift ~/Desktop/translations/
+//   swift "scripts/manual translations/import-normalized-translations.swift" "scripts/manual translations/normalized/"
 //
 
 import Foundation
@@ -184,8 +184,8 @@ func escapeForStrings(_ value: String) -> String {
 
 let args = CommandLine.arguments
 guard args.count >= 2 else {
-    fputs("Usage: swift import-manual-translations.swift <csv-directory>\n", stderr)
-    fputs("Example: swift scripts/import-manual-translations.swift ~/Desktop/translations/\n", stderr)
+    fputs("Usage: swift \"scripts/manual translations/import-normalized-translations.swift\" <csv-directory>\n", stderr)
+    fputs("Example: swift \"scripts/manual translations/import-normalized-translations.swift\" \"scripts/manual translations/normalized/\"\n", stderr)
     exit(1)
 }
 
