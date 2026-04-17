@@ -408,9 +408,10 @@ let localesWhereMediaWikiPluralRulesDoNotMatchiOSPluralRulesForOne = {
 // Locales that pass localeIsAvailable() but are not valid App Store Connect locale IDs.
 // Note: localeIsAvailable() already rejects most App Store Connect-unsupported locales (e.g. blk, dga, mhr, rki)
 // because their language codes don't appear in Apple's Locale.availableIdentifiers.
-// This blocklist catches edge cases like "be-tarask", where the language prefix "be" IS a valid
-// Apple locale (standard Belarusian), but the full TWN-specific orthography variant is not recognized by App Store Connect.
-let localesUnsupportedByAppStoreConnect: Set<String> = ["be-tarask"]
+// This blocklist catches edge cases like:
+//   - "be-tarask": prefix "be" is a valid Apple locale, but the TWN orthography variant is not recognized by App Store Connect.
+//   - "qqq": a TranslateWiki pseudo-language used to store translator documentation/comments, not actual translations.
+let localesUnsupportedByAppStoreConnect: Set<String> = ["be-tarask", "qqq"]
 
 // Maps TWN-specific locale codes to their standard BCP 47 equivalents accepted by App Store Connect.
 // TWN uses legacy script codes (e.g. "sr-el" for Serbian Latin) that differ from BCP 47 (e.g. "sr-Latn").
