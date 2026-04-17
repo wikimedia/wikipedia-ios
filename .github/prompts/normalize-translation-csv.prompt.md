@@ -32,18 +32,7 @@ Read `Wikipedia/Localizations/en.lproj/Localizable.strings` **once** before proc
 
 ## Step 1: Identify the language
 
-Look at the input filename to determine the language code and target `.lproj` directory. Use this mapping for known edge cases:
-
-| Filename fragment | File value  |
-|-------------------|-------------|
-| `_de`             | `de.lproj`  |
-| `_es-la`          | `es.lproj`  |
-| `_fr`             | `fr.lproj`  |
-| `_ja`             | `ja.lproj`  |
-| `_ms`             | `ms.lproj`  |
-| `_pt-br`          | `pt-br.lproj` |
-
-For any other language, use the language code from the filename directly (e.g. `_zh-hans` → `zh-hans.lproj`). Verify the directory exists in `Wikipedia/Localizations/` before proceeding.
+Extract the language/region code from the filename (e.g. `de`, `es-la`, `pt-br`) and find the matching `.lproj` directory under `Wikipedia/Localizations/`. List the available `.lproj` directories and pick the best match — the code in the filename may not be an exact match to the directory name, so use your best judgement (e.g. a file tagged `es-la` might correspond to `es.lproj`). If no reasonable match exists, print a warning and skip the file.
 
 ## Step 2: Build the English → Key lookup table
 

@@ -8,20 +8,8 @@ This directory contains manually provided translations and the script to import 
 manual translations/
     README.md                               ← this file
     import-normalized-translations.swift    ← step 2: import into .strings files
-    raw/
-        reading challenge translations_de.csv     ← raw German (from translations team)
-        reading challenge translations_es-la.csv  ← raw Spanish (Latin America)
-        reading challenge translations_fr.csv     ← raw French
-        reading challenge translations_ja.csv     ← raw Japanese
-        reading challenge translations_ms.csv     ← raw Malay
-        reading challenge translations_pt-br.csv  ← raw Portuguese (Brazil)
-    normalized/
-        de.csv      ← clean German
-        es-la.csv   ← clean Spanish (Latin America)
-        fr.csv      ← clean French
-        ja.csv      ← clean Japanese
-        ms.csv      ← clean Malay
-        pt-br.csv   ← clean Portuguese (Brazil)
+    raw/        ← drop raw CSVs from the translations team here
+    normalized/ ← clean CSVs written here by the Copilot prompt
 ```
 
 ## Clean CSV Format
@@ -32,14 +20,14 @@ After normalization, each CSV in `normalized/` will have exactly these four colu
 |---------------|-------------|
 | `English`     | The original English string (informational only, not written to the file) |
 | `Translation` | The translated string to import |
-| `Key`         | The `Localizable.strings` key (e.g. `reading-challenge-announcement-title`) |
+| `Key`         | The `Localizable.strings` key (e.g. `about-title`) |
 | `File`        | The target `.lproj` directory name (e.g. `de.lproj`) |
 
 Rows with a blank `Key` are intentional — they correspond to motivational/placeholder strings that have no app key and are skipped by the import script.
 
 ### Plurals
 
-Plural strings use `{{PLURAL:$1|singular|plural}}` syntax. For languages with no plural distinction (Japanese, Malay), a single form is used: `{{PLURAL:$1|$1日}}`.
+Plural strings use `{{PLURAL:$1|singular|plural}}` syntax. For languages with no plural distinction, a single form is used: `{{PLURAL:$1|form}}`.
 
 ---
 
