@@ -1043,7 +1043,7 @@
 "project-name-wikivoyage" = "Project name for Wikivoyage.";
 "project-name-wiktionary" = "Project name for Wiktionary.";
 "reading-challenge-announcement-cta" = "Primary button title";
-"reading-challenge-announcement-item1-subtitle" = "Subtitle for reading challenge onboarding first item.";
+"reading-challenge-announcement-item1-subtitle" = "Subtitle for reading challenge onboarding first item. $1 is a localized start day and month name, $2 is a localized end date and month name.";
 "reading-challenge-announcement-item1-title" = "Title for reading challenge onboarding first item.";
 "reading-challenge-announcement-item2-subtitle" = "Subtitle for reading challenge onboarding second item.";
 "reading-challenge-announcement-item2-title" = "Title for reading challenge onboarding second item.";

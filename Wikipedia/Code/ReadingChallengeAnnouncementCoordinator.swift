@@ -59,6 +59,11 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
     // MARK: - Full page announcement
     
     private func presentFullPageAnnouncement() {
+        
+        let formatter = DateFormatter.wmfMonthDayDateFormatter
+        let startText = formatter.string(from: ReadingChallengeStateConfig.startDate)
+        let endText = formatter.string(from: ReadingChallengeStateConfig.endDate)
+        
         let firstItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(
             icon: WMFSFSymbolIcon.for(symbol: .bookPagesFill),
             title: WMFLocalizedString(
@@ -66,11 +71,11 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
                 value: "Read 1 article a day for 25 days",
                 comment: "Title for reading challenge onboarding first item."
             ),
-            subtitle: WMFLocalizedString(
+            subtitle: String.localizedStringWithFormat(WMFLocalizedString(
                 "reading-challenge-announcement-item1-subtitle",
-                value: "Join the challenge anytime between 1 May and 31 May, complete your 25 days on your own timeline.",
-                comment: "Subtitle for reading challenge onboarding first item."
-            ),
+                value: "Join the challenge anytime between %1$@ and %2$@, complete your 25 days on your own timeline.",
+                comment: "Subtitle for reading challenge onboarding first item. %1$@ is a localized start day and month name, %2$@ is a localized end date and month name."
+            ), startText, endText),
             fillIconBackground: false
         )
 
