@@ -40,15 +40,19 @@ public struct WMFReadingChallengeWidgetView: View {
             case .systemMedium:
                 switch viewModel.state {
                 case .streakOngoingRead:
-                    mediumStreakView
+                    mediumStreakOngoingReadView
                 case .streakOngoingNotYetRead:
-                    mediumTwoButtonView(showFlame: true)
+                    mediumStreakNotYetReadView
                 case .enrolledNotStarted:
-                    mediumTwoButtonView(showFlame: false)
+                    mediumEnrolledNotStartedView
                 case .notEnrolled, .notLiveYet, .challengeRemoved:
-                    notEnrolledMediumView
-                default:
-                    mediumView
+                    mediumNotEnrolledView
+                case .challengeCompleted:
+                    mediumCompletedSuccessfullyView
+                case .challengeConcludedIncomplete:
+                    mediumConcludedIncompleteView
+                case .challengeConcludedNoStreak:
+                    mediumConcludedNoStreakView
                 }
             default:
                 smallView
@@ -641,7 +645,10 @@ public struct WMFReadingChallengeWidgetView: View {
                     }
                 }
 
-                wIconOverlay
+                Image("W")
+                    .foregroundColor(buttonForeground)
+                    .shadow(color: Color(uiColor: theme.text).opacity(0.25), radius: 4, x: 0, y: 0)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
             }
             .padding(16)
             .frame(width: mediumCanvasWidth, height: mediumCanvasHeight)
@@ -668,6 +675,109 @@ public struct WMFReadingChallengeWidgetView: View {
         }
         .frame(width: 20, height: 20)
     }
+
+    // MARK: - Named Medium State Views
+
+    private var mediumStreakOngoingReadView: some View { mediumStreakView }
+    private var mediumStreakNotYetReadView: some View { mediumTwoButtonView(showFlame: true) }
+    private var mediumEnrolledNotStartedView: some View { mediumTwoButtonView(showFlame: false) }
+    private var mediumNotEnrolledView: some View { notEnrolledMediumView }
+    private var mediumCompletedSuccessfullyView: some View { mediumView }
+
+    private var mediumConcludedIncompleteView: some View {
+        GeometryReader { geo in
+            let scale = min(geo.size.width / mediumCanvasWidth, geo.size.height / mediumCanvasHeight)
+            ZStack {
+                HStack(spacing: 0) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            if let icon = viewModel.displaySet.icon {
+                                Image(uiImage: icon)
+                            }
+                            Text(viewModel.displaySet.title)
+                                .font(mediumTitleFont)
+                                .foregroundColor(viewModel.displaySet.color2)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        Spacer()
+                        if let subtitle = viewModel.displaySet.subtitle {
+                            HStack(spacing: 4) {
+                                if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .semiboldCaption1, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                                    Image(uiImage: icon)
+                                        .foregroundColor(viewModel.displaySet.color2)
+                                }
+                                Text(subtitle)
+                                    .font(Font(WMFFont.for(.semiboldCaption1)))
+                                    .foregroundColor(viewModel.displaySet.color2)
+                            }
+                            .padding(.horizontal, 14).padding(.vertical, 8)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .background(viewModel.displaySet.color3 ?? viewModel.displaySet.color2)
+                            .clipShape(Capsule())
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 110)
+                            .padding(.trailing, 8)
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding(.horizontal, 20).padding(.vertical, 16)
+                wIconOverlay
+            }
+            .frame(width: mediumCanvasWidth, height: mediumCanvasHeight)
+            .scaleEffect(scale, anchor: .center)
+            .position(x: geo.size.width / 2, y: geo.size.height / 2)
+        }
+    }
+    
+    private var mediumConcludedNoStreakView: some View {
+        GeometryReader { geo in
+            let scale = min(
+                geo.size.width / mediumCanvasWidth,
+                geo.size.height / mediumCanvasHeight
+            )
+
+            ZStack {
+                VStack(alignment: .center, spacing: 8) {
+                    HStack {
+                        Text(viewModel.displaySet.title)
+                            .font(mediumTitleFont)
+                            .foregroundColor(viewModel.displaySet.color2)
+                            .fixedSize(horizontal: false, vertical: true)
+                        
+                        Spacer()
+                        
+                        if let uiImage = UIImage(
+                            named: viewModel.displaySet.image,
+                            in: .module,
+                            with: nil
+                        ) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 110)
+                                .padding(.trailing, 8)
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 16)
+
+                wIconOverlay
+            }
+            .frame(width: mediumCanvasWidth, height: mediumCanvasHeight)
+            .scaleEffect(scale)
+            .position(x: geo.size.width / 2, y: geo.size.height / 2)
+        }
+    }
+
+    // MARK: - Streak Progress Bar
 
     private func streakProgressBar(streak: Int) -> some View {
         let progress = max(0, min(CGFloat(streak - 1) / CGFloat(24), 1))
