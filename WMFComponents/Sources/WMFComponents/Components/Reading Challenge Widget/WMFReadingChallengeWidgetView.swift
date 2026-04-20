@@ -318,11 +318,9 @@ public struct WMFReadingChallengeWidgetView: View {
     private var mediumView: some View {
         GeometryReader { geo in
             let scale = min(geo.size.width / mediumCanvasWidth, geo.size.height / mediumCanvasHeight)
-
             ZStack {
                 HStack(spacing: 0) {
                     VStack(alignment: .leading, spacing: 8) {
-                        Spacer()
                         HStack {
                             if let icon = viewModel.displaySet.icon {
                                 Image(uiImage: icon)
@@ -427,8 +425,7 @@ public struct WMFReadingChallengeWidgetView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(.horizontal, 20)
-                .padding(.vertical, 16)
+                .padding(.horizontal, 20).padding(.vertical, 16)
                 wIconOverlay
             }
             .frame(width: mediumCanvasWidth, height: mediumCanvasHeight)
@@ -644,10 +641,7 @@ public struct WMFReadingChallengeWidgetView: View {
                     }
                 }
 
-                Image("W")
-                    .foregroundColor(buttonForeground)
-                    .shadow(color: Color(uiColor: theme.text).opacity(0.25), radius: 4, x: 0, y: 0)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                wIconOverlay
             }
             .padding(16)
             .frame(width: mediumCanvasWidth, height: mediumCanvasHeight)
