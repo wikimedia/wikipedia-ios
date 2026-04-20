@@ -296,9 +296,9 @@
 "close-tab-confirmation" = "Fermer l'onglet ?";
 "close-tabs" = "Fermer les onglets";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 onglet fermé|$1 onglets fermés}}.";
-"collect-prize-button-title" = "Bénéficiez de 15 % de réduction à la boutique";
+"collect-prize-button-title" = "Bénéficiez de 15%% de réduction à la boutique";
 "collect-prize-headline" = "La curiosité vous va à merveille !";
-"collect-prize-subtitle" = "Fêtez la réussite de ce défi en bénéficiant de 15 % de réduction à la boutique Wikipédia";
+"collect-prize-subtitle" = "Fêtez la réussite de ce défi en bénéficiant de 15%% de réduction à la boutique Wikipédia";
 "collect-prize-title" = "Venez récupérer votre prix!";
 "compass-direction" = "à $1 heures";
 "confirm-donation-history-deletion-subtitle" = "Ceci ne s’appliquera qu’aux dons effectués à partir de cet appareil.";

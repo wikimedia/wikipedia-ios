@@ -284,9 +284,9 @@
 "close-tab-confirmation" = "Fechar guia?";
 "close-tabs" = "Fechar guias";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 guia fechada|$1 guias fechadas}}.";
-"collect-prize-button-title" = "Receba 15% de desconto na loja";
+"collect-prize-button-title" = "Receba 15%% de desconto na loja";
 "collect-prize-headline" = "A curiosidade combina com você!";
-"collect-prize-subtitle" = "Comemore a conclusão do desafio com 15% de desconto na Loja da Wikipédia";
+"collect-prize-subtitle" = "Comemore a conclusão do desafio com 15%% de desconto na Loja da Wikipédia";
 "collect-prize-title" = "Resgate seu prêmio!";
 "compass-direction" = "às $1 horas";
 "confirm-donation-history-deletion-subtitle" = "Isso só se aplicará a doações feitas a partir deste dispositivo.";

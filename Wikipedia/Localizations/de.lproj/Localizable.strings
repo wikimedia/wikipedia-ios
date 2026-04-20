@@ -273,9 +273,9 @@
 "close-tab-confirmation" = "Tab schließen?";
 "close-tabs" = "Tabs schließen";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 Tab|$1 Tabs}} geschlossen.";
-"collect-prize-button-title" = "Sichere dir 15 % Rabatt im Shop!";
+"collect-prize-button-title" = "Sichere dir 15%% Rabatt im Shop!";
 "collect-prize-headline" = "Neugier steht dir gut!";
-"collect-prize-subtitle" = "Feiere den Abschluss der Herausforderung mit 15 % Rabatt im Wikipedia-Shop!";
+"collect-prize-subtitle" = "Feiere den Abschluss der Herausforderung mit 15%% Rabatt im Wikipedia-Shop!";
 "collect-prize-title" = "Sammle deinen Preis ein!";
 "compass-direction" = "auf $1 Uhr";
 "confirm-donation-history-deletion-subtitle" = "Dies gilt nur für Spenden von diesem Gerät.";
