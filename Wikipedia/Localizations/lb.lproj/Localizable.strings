@@ -352,6 +352,7 @@
 "empty-no-saved-pages-message" = "Säite späichere fir se spéider offline ze kucken";
 "empty-no-saved-pages-title" = "Nach keng gespäichert Säiten";
 "empty-no-search-results-message" = "Näischt fonnt";
+"end-session" = "Sessioun ofschléissen";
 "error-generic-recovery-suggestion" = "Probéiert wgl. méi spéit nach eng Kéier";
 "error-unknown" = "En onbekannte Feeler ass geschitt";
 "explore-another-random" = "En aneren zoufällegen Artikel";
@@ -874,6 +875,8 @@
 "settings-storage-and-syncing-server-sync-title" = "Synchroniséiert Lieslëschten aktualiséieren";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Gespäichert Lieslëscht weisen";
 "settings-storage-and-syncing-title" = "Artikelspäicher a Synchronisatioun";
+"settings-temp-account-end-session-confirm" = "Ausloggen";
+"settings-temp-accounts-talk-page-footer" = "Den temporäre Kont leeft an 90 Deeg of";
 "settings-title" = "Astellungen";
 "share-a-fact-made-with" = "Mat der Wikipedia-App gemaach";
 "share-article-name-on-wikipedia" = "\"$1\" op Wikipedia:";
