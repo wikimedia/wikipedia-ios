@@ -1054,6 +1054,7 @@
 "reading-challenge-announcement-title" = "Title for the reading challenge onboarding view.";
 "reading-challenge-collect-prize-button-small" = "Short button title on small reading challenge widget when challenge is complete.";
 "reading-challenge-completed-subtitle" = "Subtitle shown on the reading challenge widget when the user has completed the challenge.";
+"reading-challenge-completed-subtitle-small" = "Subtitle shown on the reading challenge widget when the user has completed the challenge.";
 "reading-challenge-completed-title" = "Title shown on the reading challenge widget when the user has completed the challenge.";
 "reading-challenge-concluded-title" = "Title shown on the reading challenge widget when the challenge has ended.";
 "reading-challenge-enrolled-not-started-subtitle-article" = "Subtitle shown on the reading challenge widget when enrolled but not yet started.";

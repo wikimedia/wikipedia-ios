@@ -201,7 +201,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             color3: WMFTheme.ReadingChallengeColorSet.blueBlack.tertiary,
             image: "globeParty",
             title: WMFLocalizedString("reading-challenge-completed-title", value: "You did it!", comment: "Title shown on the reading challenge widget when the user has completed the challenge."),
-            subtitle: WMFLocalizedString("reading-challenge-completed-subtitle", value: "25 of 25 days", comment: "Subtitle shown on the reading challenge widget when the user has completed the challenge."),
+            subtitle: family == .systemSmall ? WMFLocalizedString("reading-challenge-completed-subtitle-small", value: "25 of 25", comment: "Subtitle shown on the reading challenge widget when the user has completed the challenge.") : WMFLocalizedString("reading-challenge-completed-subtitle", value: "25 of 25 days", comment: "Subtitle shown on the reading challenge widget when the user has completed the challenge."),
             button1Title: family == .systemSmall
                 ? WMFLocalizedString("reading-challenge-collect-prize-button-small", value: "Collect prize", comment: "Short button title on small reading challenge widget when challenge is complete.")
                 : CommonStrings.collectPrizeTitle,
