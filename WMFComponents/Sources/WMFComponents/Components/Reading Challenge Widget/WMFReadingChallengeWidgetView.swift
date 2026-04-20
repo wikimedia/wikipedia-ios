@@ -319,7 +319,7 @@ public struct WMFReadingChallengeWidgetView: View {
         GeometryReader { geo in
             let scale = min(geo.size.width / mediumCanvasWidth, geo.size.height / mediumCanvasHeight)
 
-            ZStack(alignment: .topTrailing) {
+            ZStack {
                 HStack(spacing: 0) {
                     VStack(alignment: .leading, spacing: 8) {
                         Spacer()
@@ -427,7 +427,8 @@ public struct WMFReadingChallengeWidgetView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(.horizontal, 20).padding(.vertical, 16)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 16)
                 wIconOverlay
             }
             .frame(width: mediumCanvasWidth, height: mediumCanvasHeight)
