@@ -36,7 +36,22 @@ public struct WMFReadingChallengeWidgetView: View {
                 .ignoresSafeArea()
             switch widgetFamily {
             case .systemSmall:
-                smallView
+                switch viewModel.state {
+                case .notEnrolled, .notLiveYet, .challengeRemoved:
+                    smallNotEnrolledView
+                case .enrolledNotStarted:
+                    smallEnrolledNotStartedView
+                case .streakOngoingRead:
+                    smallStreakOngoingReadView
+                case .streakOngoingNotYetRead:
+                    smallStreakNotYetReadView
+                case .challengeCompleted:
+                    smallCompletedView
+                case .challengeConcludedIncomplete:
+                    smallConcludedIncompleteView
+                case .challengeConcludedNoStreak:
+                    smallConcludedNoStreakView
+                }
             case .systemMedium:
                 switch viewModel.state {
                 case .streakOngoingRead:
@@ -78,7 +93,17 @@ public struct WMFReadingChallengeWidgetView: View {
         }
     }
 
-    // MARK: - Small View
+    // MARK: - Named Small State Views
+
+    private var smallNotEnrolledView: some View { notEnrolledSmallView }
+    private var smallEnrolledNotStartedView: some View { notEnrolledSmallView }
+    private var smallStreakOngoingReadView: some View { streakOngoingReadSmallView }
+    private var smallStreakNotYetReadView: some View { streakOngoingNotReadSmallView }
+    private var smallCompletedView: some View { completedSmallView }
+    private var smallConcludedIncompleteView: some View { incompleteSmallView }
+    private var smallConcludedNoStreakView: some View { noStreakSmallView }
+
+    // MARK: - Small View (legacy fallback)
 
     private var smallView: some View {
         switch viewModel.state {
@@ -181,11 +206,100 @@ public struct WMFReadingChallengeWidgetView: View {
             wIconOverlay
         }
     }
+    
+    private var incompleteSmallView: some View {
+        ZStack {
+            VStack(alignment: .center) {
+                if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxHeight: 100)
+                }
+                Spacer()
+                if let subtitle = viewModel.displaySet.subtitle {
+                    HStack(spacing: 0) {
+                        if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .semiboldCaption1, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                            Image(uiImage: icon)
+                                .foregroundColor(viewModel.displaySet.color2)
+                        }
+                        Text(subtitle)
+                            .font(Font(WMFFont.for(.semiboldCaption1)))
+                            .foregroundColor(viewModel.displaySet.color2)
+                    }
+                    .padding(.horizontal, 14).padding(.vertical, 8)
+                    .frame(maxWidth: .infinity)
+                    .background(viewModel.displaySet.color3 ?? viewModel.displaySet.color2)
+                    .clipShape(Capsule())
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
+            wIconOverlay
+        }
+    }
+    
+    private var streakOngoingNotReadSmallView: some View {
+        ZStack {
+            VStack(alignment: .center) {
+                if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxHeight: 80)
+                }
+                HStack {
+                    if let uiImage = UIImage(named: "flameWarning", in: .module, with: nil) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .foregroundStyle(viewModel.displaySet.color2)
+                            .scaledToFit()
+                            .frame(width: 24)
+                    }
+                    Text(viewModel.displaySet.title)
+                        .font(Font(WMFFont.for(.boldTitle3)))
+                        .foregroundColor(viewModel.displaySet.color2)
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
+            wIconOverlay
+        }
+    }
+    
+    private var streakOngoingReadSmallView: some View {
+        ZStack {
+            VStack(alignment: .center) {
+                if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxHeight: 80)
+                }
+                HStack {
+                    if let icon = viewModel.displaySet.icon {
+                        Image(uiImage: icon)
+                            .font(Font(WMFFont.for(.boldTitle3)))
+                            .foregroundStyle(viewModel.displaySet.color2)
+                    }
+                    Text(viewModel.displaySet.title)
+                        .font(Font(WMFFont.for(.boldTitle3)))
+                        .foregroundColor(viewModel.displaySet.color2)
+                        .multilineTextAlignment(.center)
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
+            wIconOverlay
+        }
+    }
 
     private var noButtonsSmallView: some View {
         ZStack {
             VStack(alignment: .center, spacing: 0) {
-                Spacer()
                 if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
                     Image(uiImage: uiImage)
                         .resizable()
