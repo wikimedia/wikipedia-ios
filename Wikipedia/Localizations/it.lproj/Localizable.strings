@@ -427,6 +427,7 @@
 "empty-no-saved-pages-title" = "Nessuna pagina salvata ancora";
 "empty-no-search-results-message" = "Nessun risultato trovato";
 "empty-talk-page-title" = "Nessun messaggio è stato ancora pubblicato per quest'utente";
+"end-session" = "Termina sessione";
 "error-generic-recovery-suggestion" = "Per favore, riprova più tardi";
 "error-unknown" = "Si è verificato un errore sconosciuto";
 "explore-another-random" = "Un'altra voce a caso";
@@ -889,6 +890,10 @@
 "settings-storage-and-syncing-erase-saved-articles-title" = "Cancella le voci salvate";
 "settings-storage-and-syncing-server-sync-footer-text" = "Richiedi un aggiornamento alle tue voci sincronizzate e degli elenchi di lettura.";
 "settings-storage-and-syncing-server-sync-title" = "Aggiorna elenchi di lettura sincronizzati";
+"settings-temp-account-end-session-confirm" = "Esci";
+"settings-temp-account-end-session-message" = "Sei sicuro di voler uscire da questa sessione? Non è possibile accedere nuovamente a questa utenza temporanea.";
+"settings-temp-account-end-session-title" = "Esci dalla sessione";
+"settings-temp-accounts-talk-page-footer" = "L'utenza temporanea scadrà tra 90 giorni.";
 "settings-title" = "Impostazioni";
 "settings-year-in-review-header" = "Disattivare l'Anno in Rassegna eliminerà tutte le informazioni utili personalizzate archiviate e nasconderà l'Anno in Rassegna.";
 "share-article-name-on-wikipedia" = "\"$1\" su Wikipedia:";

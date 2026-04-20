@@ -33,6 +33,7 @@
 // Author: Valtlai
 // Author: Valtlait
 // Author: Veikk0.ma
+// Author: Wikipeedikko
 // Author: Yupik
 
 "about-content-license" = "Sisältölisenssi";
@@ -135,6 +136,7 @@
 "appearance-settings-adjust-text-sizing" = "Säädä artikkelien tekstin kokoa";
 "appearance-settings-expand-tables" = "Laajenna taulukot";
 "appearance-settings-expand-tables-footer" = "Aseta kaikki taulukot (Pikafaktoja, Viitteet, Ilmoitukset ja Ulkoiset linkit) näytettävän oletuksena laajennettuna.";
+"appearance-settings-icon-contributor-title" = "Muokkaaja";
 "appearance-settings-image-dimming-footer" = "Pienennä kuvien sameutta tummassa ja mustassa teemassa";
 "appearance-settings-reading-themes" = "Lukuteema";
 "appearance-settings-set-automatic-table-opening" = "Luetteloasetukset";
@@ -151,6 +153,7 @@
 "article-languages-yours" = "Omat kielet";
 "article-read-more-title" = "Samankaltaisia artikkeleita";
 "article-reference-view-title" = "Lähde $1";
+"article-return-button-accessibility-title" = "Palaa artikkeliin $1";
 "article-revision-history" = "Artikkelin versiohistoria";
 "article-save-error-not-enough-space" = "Sinulla ei ole tarpeeksi tilaa laitteessasi artikkelin tallentamiseen";
 "article-share" = "Jaa";
@@ -178,6 +181,7 @@
 "chinese-variants-alert-title" = "Päivityksiä kiinan kielen kieliversiotukeen";
 "clear-title-accessibility-label" = "Tyhjennä";
 "clearing-cache-complete" = "Välimuistin tyhjennys on valmis.";
+"clearing-cache-error" = "Virhe välimuistia tyhjennettäessä.";
 "clearing-cache-in-progress" = "Väliuistin tyhjennys on käynnissä.";
 "close-button-accessibility-label" = "Sulje";
 "close-other-tabs" = "Sulje muut välilehdet";
@@ -388,6 +392,7 @@
 "empty-no-saved-pages-title" = "Ei tallennettuja sivua vielä";
 "empty-no-search-results-message" = "Tuloksia ei löytynyt";
 "empty-talk-page-title" = "Käyttäjälle ei ole lähetetty viestejä";
+"end-session" = "Lopeta istunto";
 "error-generic-recovery-suggestion" = "Yritä myöhemmin uudelleen";
 "error-unknown" = "Tapahtui tuntematon virhe";
 "explore-another-random" = "Toinen satunnainen sivu";
@@ -888,6 +893,7 @@
 "reading-list-add-saved-button-title" = "Kyllä, lisää ne lukulistoihini";
 "reading-list-add-saved-subtitle" = "Nämä ovat Wikipedia-sovellukseesi tallennettuja artikkeleita. Säilytetäänkö ne tunnukselle tallennettujen artikkelien rinnalla?";
 "reading-list-add-saved-title" = "Löydetyt tallennetut artikkelit";
+"reading-list-alert-see-list" = "Näytä lukulista";
 "reading-list-api-error-entry-limit" = "Tätä merkintää ei ole synkronoitu koska olet saavuttanut merkintöjen lukumäärän rajan tässä listassa.";
 "reading-list-api-error-generic" = "Odottamaton virhe tapahtui lukulistaasi synkronoidessa.";
 "reading-list-api-error-list-limit" = "Tätä luetteloa ei synkronoida, koska olet saavuttanut synkronoitujen listojen lukumäärän rajan.";
@@ -1037,6 +1043,10 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Näytä Tallennettu-lukulista erillisenä listana lukulistanäkymässä. Tämä lista näkyy Android-laitteilla.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Näytä tallennetut lukulistat";
 "settings-storage-and-syncing-title" = "Artikkelien tallennus ja synkronointi";
+"settings-temp-account-end-session-confirm" = "Kirjaudu ulos";
+"settings-temp-account-end-session-message" = "Haluatko varmasti poistua tästä istunnosta ja kirjautua ulos? Tälle tilapäiselle tunnukselle ei voi enää kirjautua uudelleen.";
+"settings-temp-account-end-session-title" = "Poistu istunnosta";
+"settings-temp-accounts-talk-page-footer" = "Tilapäinen tunnus vanhentuu 90 vuorokaudessa";
 "settings-title" = "Asetukset";
 "settings-year-in-review-header" = "Vuosikatsauksen poistaminen käytöstä tyhjentää kaikki tallennetut henkilökohtaiset tiedot ja piilottaa vuosikatsauksen.";
 "share-a-fact-made-with" = "Tehty Wikipedia-sovelluksen avulla";

@@ -548,6 +548,7 @@
 "empty-no-saved-pages-title" = "لا صفحات محفوظة بعد";
 "empty-no-search-results-message" = "لا توجد نتائج";
 "empty-talk-page-title" = "لم يتم نشر رسائل لهذا المستخدم بعد";
+"end-session" = "إنهاء الجلسة";
 "error-generic-recovery-suggestion" = "من فضلك حاول مرة أخرى لاحقا";
 "error-unknown" = "حدث خطأ غير معروف";
 "explore-another-random" = "مقالة عشوائية أخرى";
@@ -1260,6 +1261,10 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "إظهار قائمة القراءة المحفوظة (على سبيل المثال افتراضيا) كقائمة منفصلة في عرض قوائم قراءتك، تظهر هذه القائمة على أجهزة أندرويد.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "إظهار قائمة القراءة المحفوظة";
 "settings-storage-and-syncing-title" = "تخزين ومزامنة المقالة";
+"settings-temp-account-end-session-confirm" = "تسجيل الخروج";
+"settings-temp-account-end-session-message" = "هل أنت متأكد من رغبتك في إنهاء هذه الجلسة وتسجيل الخروج؟ لا توجد طريقة لتسجيل الدخول مرة أخرى إلى هذا الحساب المؤقت.";
+"settings-temp-account-end-session-title" = "إنهاء الجلسة";
+"settings-temp-accounts-talk-page-footer" = "سينتهي صلاحية الحساب المؤقت خلال 90 يومًا";
 "settings-title" = "إعدادات";
 "settings-year-in-review-header" = "سيؤدي إيقاف تشغيل \"مراجعة العام\" إلى مسح جميع الرؤى الشخصية المخزنة وإخفاء \"مراجعة العام\".";
 "share-a-fact-made-with" = "صُنعت بتطبيق ويكيبيديا";
