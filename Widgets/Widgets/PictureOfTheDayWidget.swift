@@ -276,8 +276,7 @@ extension TimelineProviderContext {
         switch family {
         case .systemSmall:
             return WidgetController.potdSmallImageWidth
-        case .systemMedium:
-            return WidgetController.potdLargeImageWidth
+        // Large and medium need the same width
         default:
             return WidgetController.potdLargeImageWidth
         }
