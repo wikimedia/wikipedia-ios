@@ -774,6 +774,22 @@
 			<string>%1$d dias</string>
 		</dict>
 	</dict>
+	<key>reading-challenge-streak-of-days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d de 25 dias</string>
+			<key>other</key>
+			<string>%1$d de 25 dias</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
