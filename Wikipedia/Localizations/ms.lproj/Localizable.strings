@@ -575,6 +575,7 @@
 "reading-challenge-announcement-title" = "Raikan hari jadi ke-25 Wikipedia dengan menyertai cabaran membaca selama 25 hari!";
 "reading-challenge-collect-prize-button-small" = "Tuntut hadiah";
 "reading-challenge-completed-subtitle" = "25 daripada 25 hari";
+"reading-challenge-completed-subtitle-small" = "25 daripada 25";
 "reading-challenge-completed-title" = "Anda berjaya!";
 "reading-challenge-concluded-title" = "Cabaran Tamat";
 "reading-challenge-enrolled-not-started-subtitle-article" = "Baca satu artikel untuk bermula.";
@@ -603,6 +604,7 @@
 "reading-challenge-streak-days" = "{{PLURAL:$1|$1 hari}}";
 "reading-challenge-subtitle" = "Cabaran membaca 25 hari";
 "reading-challenge-widget-announcement-body" = "Baby Globe menyokong anda. Tambahkan widget Cabaran Membaca untuk menjejaki kemajuan terus dari skrin utama.";
+"reading-challenge-widget-announcement-title" = "Pasang widget Cabaran Membaca 25 Hari";
 "reading-list-add-generic-hint-title" = "Tambahkan rencana ini ke dalam senarai bacaan?";
 "reading-list-add-hint-title" = "Tambahkan “$1” ke senarai bacaan?";
 "reading-list-add-saved-button-title" = "Ya, tambahkan ke senarai bacaan saya";

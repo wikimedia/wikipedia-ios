@@ -819,6 +819,7 @@
 "reading-challenge-announcement-title" = "ウィキペディア誕生25周年を記念して、25日間閲覧チャレンジに参加しよう！";
 "reading-challenge-collect-prize-button-small" = "賞品をゲット";
 "reading-challenge-completed-subtitle" = "25 / 25日";
+"reading-challenge-completed-subtitle-small" = "25 / 25";
 "reading-challenge-completed-title" = "目標達成！";
 "reading-challenge-concluded-title" = "チャレンジ達成しました";
 "reading-challenge-enrolled-not-started-subtitle-article" = "記事をひとつ読むだけで開始できます。";
@@ -847,6 +848,7 @@
 "reading-challenge-streak-days" = "{{PLURAL:$1|$1日目}}";
 "reading-challenge-subtitle" = "25日間閲覧チャレンジ";
 "reading-challenge-widget-announcement-body" = "ベビー・グローブがあなたにエールを送ります。 ホーム画面から進捗状況を管理できるよう、閲覧チャレンジ用ウィジェットを追加しましょう。";
+"reading-challenge-widget-announcement-title" = "25日間閲覧チャレンジ用ウィジェットのインストール";
 "reading-list-add-generic-hint-title" = "この記事をあとで読むリストに追加しますか?";
 "reading-list-add-hint-title" = "「$1」をあとで読むリストに保存しますか?";
 "reading-list-add-saved-button-title" = "はい、記事をあとで読むリストに追加します";

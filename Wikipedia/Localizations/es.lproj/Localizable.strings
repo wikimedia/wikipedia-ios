@@ -1068,6 +1068,7 @@
 "reading-challenge-announcement-title" = "¡Celebra el 25.º aniversario de Wikipedia uniéndote al reto de lectura de 25 días!";
 "reading-challenge-collect-prize-button-small" = "Reclama tu premio";
 "reading-challenge-completed-subtitle" = "25 de 25 días";
+"reading-challenge-completed-subtitle-small" = "25 de 25";
 "reading-challenge-completed-title" = "¡Lo lograste!";
 "reading-challenge-concluded-title" = "Reto completado";
 "reading-challenge-enrolled-not-started-subtitle-article" = "Lee un artículo para empezar.";
@@ -1096,6 +1097,7 @@
 "reading-challenge-streak-days" = "{{PLURAL:$1|$1 día|$1 días}}";
 "reading-challenge-subtitle" = "Reto de lectura de 25 días";
 "reading-challenge-widget-announcement-body" = "Baby Globe te está animando. Añade el widget del reto de lectura para llevar un registro tu progreso desde la pantalla de inicio.";
+"reading-challenge-widget-announcement-title" = "Instala el widget del reto de lectura de 25 días";
 "reading-list-add-generic-hint-title" = "¿Añadir este artículo a la lista de lectura?";
 "reading-list-add-hint-title" = "¿Quieres añadir «$1» a una lista de lectura?";
 "reading-list-add-saved-button-title" = "Sí, añadirlos a mis listas de lectura";
