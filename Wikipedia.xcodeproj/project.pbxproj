@@ -365,6 +365,9 @@
 		0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EF8634D1C19E02700006D2D /* WMFEmptyView.xib */; };
 		0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
 		19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */; };
+		2FEBCFCC2F5F04090098C0FF /* ClientErrorFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEBCFCB2F5F03FE0098C0FF /* ClientErrorFunnel.swift */; };
+		2FEBCFCD2F5F04090098C0FF /* ClientErrorFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEBCFCB2F5F03FE0098C0FF /* ClientErrorFunnel.swift */; };
+		2FEBCFCE2F5F04090098C0FF /* ClientErrorFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEBCFCB2F5F03FE0098C0FF /* ClientErrorFunnel.swift */; };
 		370107AA2D5EEBFE00E17486 /* TempAccountSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */; };
 		370107AB2D5EEBFE00E17486 /* TempAccountSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */; };
 		370107AC2D5EEBFE00E17486 /* TempAccountSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */; };
@@ -3135,6 +3138,7 @@
 		0EF8634F1C19E4F100006D2D /* WMFEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFEmptyView.h; path = Wikipedia/Code/WMFEmptyView.h; sourceTree = SOURCE_ROOT; };
 		0EF863501C19E4F100006D2D /* WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFEmptyView.m; path = Wikipedia/Code/WMFEmptyView.m; sourceTree = SOURCE_ROOT; };
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
+		2FEBCFCB2F5F03FE0098C0FF /* ClientErrorFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientErrorFunnel.swift; sourceTree = "<group>"; };
 		370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountSheetCoordinator.swift; sourceTree = "<group>"; };
 		370C97F92EA17F7C00642A08 /* ActivityTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTabViewController.swift; sourceTree = "<group>"; };
 		3712FD692EDF76850096DF71 /* ActivityTabFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTabFunnel.swift; sourceTree = "<group>"; };
@@ -5505,6 +5509,7 @@
 		0E7AAEEA1C21F4160046B5B6 /* Wikimedia Event Logging */ = {
 			isa = PBXGroup;
 			children = (
+				2FEBCFCB2F5F03FE0098C0FF /* ClientErrorFunnel.swift */,
 				3712FD692EDF76850096DF71 /* ActivityTabFunnel.swift */,
 				83D861422DE7580C003313CD /* ArticleTabsFunnel.swift */,
 				67B278EE2D47CEEC00E2DF8A /* ArticleLinkInteractionFunnel.swift */,
@@ -9673,6 +9678,7 @@
 				0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				3717C38E2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */,
 				6741245027E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift in Sources */,
+				2FEBCFCE2F5F04090098C0FF /* ClientErrorFunnel.swift in Sources */,
 				00E2EA8926E28A9700B1A741 /* NotificationsCenterCellStyle.swift in Sources */,
 				830795202C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */,
 				B0C6BE571E4526A40033BD6E /* WMFChangePasswordViewController.swift in Sources */,
@@ -10987,6 +10993,7 @@
 				D8CE26151E698E2400DAE2E0 /* WMFLoginViewController.swift in Sources */,
 				67C6F79E27E8C51500B9C864 /* NotificationsCenterCommonViewModel+LinkExtensions.swift in Sources */,
 				8330532A23EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
+				2FEBCFCD2F5F04090098C0FF /* ClientErrorFunnel.swift in Sources */,
 				8334EC4D286A443B00929DF2 /* TalkPageFetcher.swift in Sources */,
 				7A0161E11FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */,
 				67033E162A61B24800896852 /* WatchlistController.swift in Sources */,
@@ -11527,6 +11534,7 @@
 				D8EC3F141E9BDA35006712EB /* WMFLoginViewController.swift in Sources */,
 				67C6F79D27E8C51500B9C864 /* NotificationsCenterCommonViewModel+LinkExtensions.swift in Sources */,
 				8330532B23EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
+				2FEBCFCC2F5F04090098C0FF /* ClientErrorFunnel.swift in Sources */,
 				8334EC4C286A443B00929DF2 /* TalkPageFetcher.swift in Sources */,
 				D837CC39231FE9CC00BA6130 /* ThemeableViewController.swift in Sources */,
 				67033E152A61B24800896852 /* WatchlistController.swift in Sources */,
