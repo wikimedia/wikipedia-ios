@@ -104,7 +104,7 @@ struct PictureOfTheDayEntry: TimelineEntry {
 
     func scalingImageTo(targetSize: CGSize) -> PictureOfTheDayEntry {
         var entry = self
-        entry.image = entry.image?.scaleImageToFit(targetSize: targetSize)
+        entry.image = entry.image?.scaleImageToFill(targetSize: targetSize)
         return entry
     }
 

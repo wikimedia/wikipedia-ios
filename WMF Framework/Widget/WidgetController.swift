@@ -209,7 +209,7 @@ public extension WidgetController {
         return widgetCache.settings.siteURL
     }
 
-    static var potdSmallImageWidth: Int { ImageUtils.ImageWidth.w500.rawValue }
+    static var potdSmallImageWidth: Int { ImageUtils.ImageWidth.w960.rawValue }
     static var potdMediumImageWidth: Int { ImageUtils.ImageWidth.w960.rawValue }
     static var potdLargeImageWidth: Int { ImageUtils.ImageWidth.w1280.rawValue }
 
