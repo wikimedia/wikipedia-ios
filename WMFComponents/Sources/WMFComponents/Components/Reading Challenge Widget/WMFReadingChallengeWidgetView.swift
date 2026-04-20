@@ -634,6 +634,88 @@ public struct WMFReadingChallengeWidgetView: View {
             .position(x: geo.size.width / 2, y: geo.size.height / 2)
         }
     }
+    
+    private var mediumEnrolledNotStarted: some View {
+        GeometryReader { geo in
+            let scale = min(geo.size.width / mediumCanvasWidth, geo.size.height / mediumCanvasHeight)
+
+            ZStack {
+                VStack(alignment: .leading, spacing: 0) {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack(spacing: 4) {
+                                Text(viewModel.displaySet.title)
+                                    .font(Font(WMFFont.for(.boldTitle3)))
+                                    .foregroundColor(viewModel.displaySet.color2)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .multilineTextAlignment(.leading)
+                            }
+                            if let subtitle = viewModel.displaySet.subtitle {
+                                Text(subtitle)
+                                    .font(Font(WMFFont.for(.caption1)))
+                                    .foregroundColor(viewModel.displaySet.color2)
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                        if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 90)
+                                .padding(.trailing, 8)
+                        }
+                    }
+
+                    Spacer()
+
+                    HStack(spacing: 8) {
+                        if let button1Title = viewModel.displaySet.button1Title,
+                           let button1URL = viewModel.displaySet.button1URL,
+                           let button1Icon = viewModel.displaySet.button1Icon {
+                            Link(destination: button1URL) {
+                                HStack(spacing: 4) {
+                                    Image(uiImage: button1Icon)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .foregroundStyle(buttonForeground)
+                                        .frame(width: 14, height: 14)
+                                    Text(button1Title)
+                                        .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                        .foregroundColor(buttonForeground)
+                                }
+                                .padding(.horizontal, 14).padding(.vertical, 8).frame(maxWidth: .infinity).background(buttonBackground).clipShape(Capsule())
+                            }
+                        }
+                        if let button2Title = viewModel.displaySet.button2Title,
+                           let button2URL = viewModel.displaySet.button2URL,
+                           let button2Icon = viewModel.displaySet.button2Icon {
+                            Link(destination: button2URL) {
+                                HStack(spacing: 4) {
+                                    Image(uiImage: button2Icon)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .foregroundStyle(buttonForeground)
+                                        .frame(width: 14, height: 14)
+                                    Text(button2Title)
+                                        .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                        .foregroundColor(buttonForeground)
+                                }
+                                .padding(.horizontal, 14).padding(.vertical, 8).frame(maxWidth: .infinity).background(buttonBackground).clipShape(Capsule())
+                            }
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding(.horizontal, 20).padding(.vertical, 16)
+                wIconOverlay
+            }
+            .frame(width: mediumCanvasWidth, height: mediumCanvasHeight)
+            .scaleEffect(scale, anchor: .center)
+            .position(x: geo.size.width / 2, y: geo.size.height / 2)
+        }
+    }
 
     // MARK: - Medium Streak View
 
@@ -730,7 +812,7 @@ public struct WMFReadingChallengeWidgetView: View {
 
     private var mediumStreakOngoingReadView: some View { mediumStreakView }
     private var mediumStreakNotYetReadView: some View { mediumTwoButtonView(showFlame: true) }
-    private var mediumEnrolledNotStartedView: some View { mediumTwoButtonView(showFlame: false) }
+    private var mediumEnrolledNotStartedView: some View { mediumEnrolledNotStarted }
     private var mediumNotEnrolledView: some View { notEnrolledMediumView }
     private var mediumCompletedSuccessfullyView: some View { mediumSuccessfullyCompletedView }
 
