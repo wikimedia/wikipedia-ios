@@ -216,7 +216,7 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
         WMFFeatureAnnouncementViewModel(
             title: WMFLocalizedString(
                 "reading-challenge-widget-announcement-title",
-                value: "25-day reading challenge widget available",
+                value: "Install the 25-day reading challenge widget",
                 comment: "Title for the reading challenge widget announcement sheet."
             ),
             body: WMFLocalizedString(
