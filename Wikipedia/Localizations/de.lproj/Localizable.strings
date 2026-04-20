@@ -1111,6 +1111,7 @@
 "reading-challenge-not-yet-read-subtitle-snooze" = "Bevor der Tag zu Ende geht …\nist noch Zeit, etwas zu lernen.";
 "reading-challenge-random-button" = "Zufällig";
 "reading-challenge-streak-days" = "{{PLURAL:$1|$1 Tag|$1 Tage}}";
+"reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 von 25 Tagen|$1 von 25 Tagen}}";
 "reading-challenge-subtitle" = "25-Tage-Lese-Challenge";
 "reading-challenge-widget-announcement-body" = "Baby Globe feuert dich an. Füge das Lese-Challenge-Widget hinzu, um deinen Fortschritt direkt auf deinem Startbildschirm zu verfolgen.";
 "reading-challenge-widget-announcement-title" = "Installiere das Widget für die 25-Tage-Lese-Challenge";

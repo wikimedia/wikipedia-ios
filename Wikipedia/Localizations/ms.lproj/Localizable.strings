@@ -602,6 +602,7 @@
 "reading-challenge-not-yet-read-subtitle-snooze" = "Masih ada masa untuk belajar sesuatu…\nsebelum hari berakhir.";
 "reading-challenge-random-button" = "Rawak";
 "reading-challenge-streak-days" = "{{PLURAL:$1|$1 hari}}";
+"reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 daripada 25 hari |$1 daripada 25 hari}}";
 "reading-challenge-subtitle" = "Cabaran membaca 25 hari";
 "reading-challenge-widget-announcement-body" = "Baby Globe menyokong anda. Tambahkan widget Cabaran Membaca untuk menjejaki kemajuan terus dari skrin utama.";
 "reading-challenge-widget-announcement-title" = "Pasang widget Cabaran Membaca 25 Hari";

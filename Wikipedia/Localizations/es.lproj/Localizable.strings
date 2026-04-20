@@ -1095,6 +1095,7 @@
 "reading-challenge-not-yet-read-subtitle-snooze" = "Antes de que el día se acabe…\naún hay tiempo para aprender algo.";
 "reading-challenge-random-button" = "Aleatorio";
 "reading-challenge-streak-days" = "{{PLURAL:$1|$1 día|$1 días}}";
+"reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 de 25 días|$1 de 25 días}}";
 "reading-challenge-subtitle" = "Reto de lectura de 25 días";
 "reading-challenge-widget-announcement-body" = "Baby Globe te está animando. Añade el widget del reto de lectura para llevar un registro tu progreso desde la pantalla de inicio.";
 "reading-challenge-widget-announcement-title" = "Instala el widget del reto de lectura de 25 días";
