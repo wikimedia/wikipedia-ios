@@ -209,9 +209,9 @@ public extension WidgetController {
         return widgetCache.settings.siteURL
     }
 
-    var potdTargetImageSize: CGSize {
-        CGSize(width: ImageUtils.ImageWidth.w960.rawValue, height: ImageUtils.ImageWidth.w960.rawValue)
-    }
+    static var potdSmallImageWidth: Int { ImageUtils.ImageWidth.w960.rawValue }
+    static var potdMediumImageWidth: Int { ImageUtils.ImageWidth.w960.rawValue }
+    static var potdLargeImageWidth: Int { ImageUtils.ImageWidth.w1280.rawValue }
 
     // MARK: - Utility
 
@@ -395,7 +395,7 @@ public extension WidgetController {
 
     // MARK: - Fetch Picture of the Day Widget Content
 
-    func fetchPictureOfTheDayContent(isSnapshot: Bool = false, completion: @escaping (WidgetContentFetcher.PictureOfTheDayResult) -> Void) {
+    func fetchPictureOfTheDayContent(isSnapshot: Bool = false, maxWidth: Int = ImageUtils.ImageWidth.w960.rawValue, completion: @escaping (WidgetContentFetcher.PictureOfTheDayResult) -> Void) {
         func performCompletion(result: WidgetContentFetcher.PictureOfTheDayResult) {
             DispatchQueue.main.async {
                 completion(result)
@@ -418,15 +418,17 @@ public extension WidgetController {
         fetchFeaturedContent { result in
             switch result {
             case .success(var featuredContent):
-                if featuredContent.pictureOfTheDay?.originalImageSource?.data != nil,
+                let standardWidth = ImageUtils.standardizeWidthToMediaWiki(maxWidth)
+                if let cachedSource = featuredContent.pictureOfTheDay?.originalImageSource,
+                   cachedSource.data != nil,
+                   WMFChangeImageSourceURLSizePrefix(cachedSource.source, standardWidth) == cachedSource.source,
                    let pictureOfTheDay = featuredContent.pictureOfTheDay {
                     performCompletion(result: .success(pictureOfTheDay))
                     return
                 }
 
                 if var imageSource = featuredContent.pictureOfTheDay?.thumbnailImageSource ?? featuredContent.pictureOfTheDay?.originalImageSource {
-                    let maxWidth = Int(self.potdTargetImageSize.width)
-                    imageSource.source = WMFChangeImageSourceURLSizePrefix(imageSource.source, maxWidth)
+                    imageSource.source = WMFChangeImageSourceURLSizePrefix(imageSource.source, standardWidth)
                     fetcher.fetchImageDataFrom(imageSource: imageSource) { imageResult in
                         if let imageData = try? imageResult.get() {
                             imageSource.data = imageData

@@ -19,4 +19,26 @@ extension UIImage {
         return resizedImage
     }
 
+    func scaleImageToFill(targetSize: CGSize) -> UIImage? {
+        guard size.width > 0, size.height > 0,
+              targetSize.width > 0, targetSize.height > 0 else { return nil }
+
+        let widthScale = targetSize.width / size.width
+        let heightScale = targetSize.height / size.height
+        let fillScale = min(max(widthScale, heightScale), 1.0)
+        let scaledSize = CGSize(width: size.width * fillScale, height: size.height * fillScale)
+        let drawOrigin = CGPoint(
+            x: (targetSize.width - scaledSize.width) / 2,
+            y: (targetSize.height - scaledSize.height) / 2
+        )
+
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        format.opaque = true
+        let renderer = UIGraphicsImageRenderer(size: targetSize, format: format)
+        return renderer.image { _ in
+            draw(in: CGRect(origin: drawOrigin, size: scaledSize))
+        }
+    }
+
 }
