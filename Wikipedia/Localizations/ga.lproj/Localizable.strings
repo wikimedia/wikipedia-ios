@@ -503,6 +503,7 @@
 "empty-no-saved-pages-title" = "Níor sábháladh aon leathanach fós";
 "empty-no-search-results-message" = "Níor aimsíodh torthaí";
 "empty-talk-page-title" = "Níl aon teachtaireachtaí postáilte don úsáideoir seo go fóill";
+"end-session" = "Deireadh seisiún";
 "error-generic-recovery-suggestion" = "Triail arís níos déanaí";
 "error-unknown" = "Tharla earráid anaithnid";
 "explore-another-random" = "Alt randamach eile";
@@ -1215,6 +1216,10 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Taispeáin an liosta léitheoireachta Sábháilte (.i. an ceann réamhshocraithe) mar liosta ar leith ar amharc na liostaí léitheoireachta. Is ar ghléasanna Android a thagann an liosta seo aníos.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Taispeáin liosta léitheoireachta Sábháilte";
 "settings-storage-and-syncing-title" = "Stóráil agus sioncrónú alt";
+"settings-temp-account-end-session-confirm" = "Logáil amach";
+"settings-temp-account-end-session-message" = "An bhfuil tú cinnte gur mian leat an seisiún seo a fhágáil agus logáil amach? Níl aon bhealach ann chun logáil isteach sa chuntas sealadach seo arís.";
+"settings-temp-account-end-session-title" = "Scoir an seisiún";
+"settings-temp-accounts-talk-page-footer" = "Rachaidh an cuntas sealadach in éag i gceann 90 lá";
 "settings-title" = "Socruithe";
 "settings-year-in-review-header" = "Má mhúchtar an Bhliain faoi Athbhreithniú, glanfar na léargais phearsantaithe go léir atá stóráilte agus cuirfear an Bhliain faoi Athbhreithniú i bhfolach.";
 "share-a-fact-made-with" = "Arna dhéanamh leis an aip Vicipéide";

@@ -151,6 +151,7 @@
 "appearance-settings-adjust-text-sizing" = "문서 텍스트 크기 조정";
 "appearance-settings-expand-tables" = "테이블 펼치기";
 "appearance-settings-expand-tables-footer" = "빠른 사실, 출처, 각주, 외부 링크 등을 포함해 문서 안에 있는 모든 표를 기본적으로 열려있도록 설정하세요.";
+"appearance-settings-icon-contributor-title" = "기여자";
 "appearance-settings-image-dimming-footer" = "어둡고 검은 테마에서 그림의 투명도를 줄입니다";
 "appearance-settings-reading-themes" = "읽기 테마";
 "appearance-settings-set-automatic-table-opening" = "테이블 설정";
@@ -201,6 +202,7 @@
 "chinese-variants-alert-title" = "중국어 변이형 지원 업데이트";
 "clear-title-accessibility-label" = "지우기";
 "clearing-cache-complete" = "캐시 지우기가 완료되었습니다.";
+"clearing-cache-error" = "캐시를 지우는 동안 오류가 발생했습니다.";
 "clearing-cache-in-progress" = "캐시를 지우는 중입니다.";
 "close-all-tabs" = "모든 탭 닫기";
 "close-all-tabs-confirmation-number" = "$1개 탭을 모두 닫으시겠습니까?";
@@ -449,6 +451,7 @@
 "empty-no-saved-pages-title" = "아직 저장된 문서가 없습니다.";
 "empty-no-search-results-message" = "결과가 없습니다.";
 "empty-talk-page-title" = "이 사용자에 대해 게시된 메시지가 아직 없습니다";
+"end-session" = "세션 나가기";
 "error-generic-recovery-suggestion" = "나중에 다시 시도해 주십시오";
 "error-unknown" = "알 수 없는 오류가 발생했습니다";
 "explore-another-random" = "다른 임의의 문서";
@@ -969,6 +972,7 @@
 "reading-list-add-saved-button-title" = "예, 내 읽기 목록에 추가합니다";
 "reading-list-add-saved-subtitle" = "위키백과 앱에 저장된 문서가 있습니다. 이 문서들을 보관하고 계정에 동기화된 읽기 목록으로 병합하시겠습니까?";
 "reading-list-add-saved-title" = "저장된 문서를 찾았습니다";
+"reading-list-alert-see-list" = "읽기 목록 보기";
 "reading-list-api-error-entry-limit" = "이 목록의 항목 수 제한에 도달했기 때문에 이 항목은 동기화되지 않습니다.";
 "reading-list-api-error-generic" = "읽기 목록을 동기화하는 동안 예측하지 못한 오류가 발생했습니다.";
 "reading-list-api-error-list-limit" = "동기화된 목록 수 제한에 도달했기 때문에 이 목록은 동기화되지 않습니다.";
@@ -1126,6 +1130,9 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "저장된(예: 기본값) 읽기 목록을 읽기 목록 뷰에 별도의 목록으로 표시합니다. 이 목록은 안드로이드 장치에 표시됩니다.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "저장된 읽기 목록 표시";
 "settings-storage-and-syncing-title" = "문서의 저장 및 동기화";
+"settings-temp-account-end-session-confirm" = "로그아웃";
+"settings-temp-account-end-session-title" = "세션 나가기";
+"settings-temp-accounts-talk-page-footer" = "임시 계정은 90일 후에 만료됩니다";
 "settings-title" = "설정";
 "share-a-fact-made-with" = "위키백과 앱으로 작성함";
 "share-article-name-on-wikipedia" = "위키백과의 \"$1\":";
