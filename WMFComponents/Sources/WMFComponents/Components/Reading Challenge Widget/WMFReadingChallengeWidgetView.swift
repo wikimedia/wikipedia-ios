@@ -319,39 +319,19 @@ public struct WMFReadingChallengeWidgetView: View {
         }
     }
 
-    private var mediumView: some View {
+    private var mediumSuccessfullyCompletedView: some View {
         GeometryReader { geo in
             let scale = min(geo.size.width / mediumCanvasWidth, geo.size.height / mediumCanvasHeight)
             ZStack {
                 HStack(spacing: 0) {
                     VStack(alignment: .leading, spacing: 8) {
+                        Text(viewModel.displaySet.title)
+                            .font(Font(WMFFont.for(.boldTitle3)))
+                            .foregroundColor(viewModel.displaySet.color2)
                         HStack {
                             if let icon = viewModel.displaySet.icon {
                                 Image(uiImage: icon)
                             }
-                            Text(viewModel.displaySet.title)
-                                .font(mediumTitleFont)
-                                .foregroundColor(viewModel.displaySet.color2)
-                                .fixedSize(horizontal: false, vertical: true)
-                        }
-                        switch viewModel.state {
-                        case .challengeConcludedIncomplete:
-                            if let subtitle = viewModel.displaySet.subtitle {
-                                HStack(spacing: 0) {
-                                    if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .semiboldCaption1, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
-                                        Image(uiImage: icon)
-                                            .foregroundColor(viewModel.displaySet.color2)
-                                    }
-                                    Text(subtitle)
-                                        .font(Font(WMFFont.for(.semiboldCaption1)))
-                                        .foregroundColor(viewModel.displaySet.color2)
-                                }
-                                .padding(.horizontal, 14).padding(.vertical, 8)
-                                .frame(maxWidth: .infinity)
-                                .background(viewModel.displaySet.color3 ?? viewModel.displaySet.color2)
-                                .clipShape(Capsule())
-                            }
-                        default:
                             if let subtitle = viewModel.displaySet.subtitle {
                                 Text(subtitle)
                                     .font(Font(WMFFont.for(.caption1)))
@@ -362,55 +342,11 @@ public struct WMFReadingChallengeWidgetView: View {
                         Spacer()
                         HStack(spacing: 8) {
                             if let button1Title = viewModel.displaySet.button1Title,
-                               let button1URL = viewModel.displaySet.button1URL,
-                               let button1Icon = viewModel.displaySet.button1Icon {
+                               let button1URL = viewModel.displaySet.button1URL {
                                 Link(destination: button1URL) {
-                                    HStack(spacing: 4) {
-                                        Image(uiImage: button1Icon)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .foregroundStyle(buttonForeground)
-                                            .frame(width: 14, height: 14)
                                         Text(button1Title)
                                             .font(Font(WMFFont.for(.footnote)))
                                             .foregroundColor(buttonForeground)
-                                    }
-                                    .padding(.horizontal, 14).padding(.vertical, 8)
-                                    .frame(maxWidth: .infinity)
-                                    .background(buttonBackground)
-                                    .clipShape(Capsule())
-                                }
-                            } else {
-                                if let button1Title = viewModel.displaySet.button1Title,
-                                   let button1URL = viewModel.displaySet.button1URL {
-                                    Link(destination: button1URL) {
-                                        HStack(spacing: 4) {
-                                            Text(button1Title)
-                                                .font(Font(WMFFont.for(.footnote)))
-                                                .foregroundColor(buttonForeground)
-                                        }
-                                        .padding(.horizontal, 14)
-                                        .padding(.vertical, 8)
-                                        .frame(maxWidth: .infinity)
-                                        .background(buttonBackground)
-                                        .clipShape(Capsule())
-                                    }
-                                }
-                            }
-                            if let button2Title = viewModel.displaySet.button2Title,
-                               let button2URL = viewModel.displaySet.button2URL,
-                               let button2Icon = viewModel.displaySet.button2Icon {
-                                Link(destination: button2URL) {
-                                    HStack(spacing: 4) {
-                                        Image(uiImage: button2Icon)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .foregroundStyle(buttonForeground)
-                                            .frame(width: 14, height: 14)
-                                        Text(button2Title)
-                                            .font(Font(WMFFont.for(.footnote)))
-                                            .foregroundColor(buttonForeground)
-                                    }
                                     .padding(.horizontal, 14).padding(.vertical, 8)
                                     .frame(maxWidth: .infinity)
                                     .background(buttonBackground)
@@ -682,7 +618,7 @@ public struct WMFReadingChallengeWidgetView: View {
     private var mediumStreakNotYetReadView: some View { mediumTwoButtonView(showFlame: true) }
     private var mediumEnrolledNotStartedView: some View { mediumTwoButtonView(showFlame: false) }
     private var mediumNotEnrolledView: some View { notEnrolledMediumView }
-    private var mediumCompletedSuccessfullyView: some View { mediumView }
+    private var mediumCompletedSuccessfullyView: some View { mediumSuccessfullyCompletedView }
 
     private var mediumConcludedIncompleteView: some View {
         GeometryReader { geo in
