@@ -189,12 +189,6 @@ final class CollectPrizeViewController: UIViewController, Themeable {
         // Header (close button + title) stays fixed outside scroll
         view.addSubview(closeButtonHostingController.view)
         view.addSubview(titleLabel)
-        view.addSubview(prizeImageView)
-        view.addSubview(headlineLabel)
-        view.addSubview(subtitleLabel)
-        view.addSubview(primaryButton)
-
-        prizeImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 
         view.addSubview(scrollView)
         scrollView.addSubview(contentStackView)
@@ -275,24 +269,6 @@ final class CollectPrizeViewController: UIViewController, Themeable {
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: closeButtonHostingController.view.trailingAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -56),
-
-            prizeImageView.topAnchor.constraint(equalTo: closeButtonHostingController.view.bottomAnchor, constant: 16),
-            prizeImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            prizeImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            prizeImageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100),
-
-            headlineLabel.topAnchor.constraint(equalTo: prizeImageView.bottomAnchor, constant: 20),
-            headlineLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            headlineLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-
-            subtitleLabel.topAnchor.constraint(equalTo: headlineLabel.bottomAnchor, constant: 8),
-            subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
-            subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
-
-            primaryButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 24),
-            primaryButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            primaryButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            primaryButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
 
             scrollView.topAnchor.constraint(equalTo: closeButtonHostingController.view.bottomAnchor, constant: 16),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
