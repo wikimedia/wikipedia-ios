@@ -43,8 +43,9 @@ public struct WMFActivityTabView: View {
 
     private func completedChallengesModule() -> some View {
         WMFActivityTabInfoCardView(
-            icon: WMFSFSymbolIcon.for(symbol: .checkmarkSeal),
-            title: viewModel.localizedStrings.completedChallengesTitle,
+            // todo update
+            icon: WMFSFSymbolIcon.for(symbol: .add),
+            title: viewModel.localizedStrings.articlesSavedTitle,
             dateText: nil,
             onTapModule: nil,
             content: {
@@ -92,7 +93,7 @@ public struct WMFActivityTabView: View {
             }
         )
         .accessibilityElement(children: .contain)
-        .accessibilityLabel(viewModel.localizedStrings.completedChallengesTitle)
+        // .accessibilityLabel(viewModel.localizedStrings.completedChallengesTitle)
     }
     
     private func loggedInList(proxy: ScrollViewProxy) -> some View {
