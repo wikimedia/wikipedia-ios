@@ -21,15 +21,10 @@ final class CollectPrizeViewController: UIViewController, Themeable {
     
     // MARK: - UI
     
-    private lazy var closeButtonHostingController: UIHostingController<WMFSmallButton> = {
-        let button = WMFSmallButton(
-            configuration: .init(style: .quiet),
-            title: CommonStrings.closeButtonAccessibilityLabel,
-            image: WMFSFSymbolIcon.for(symbol: .xMark),
-            action: { [weak self] in
-                self?.closeTapped()
-            }
-        )
+    private lazy var closeButtonHostingController: UIHostingController<WMFLargeCloseButton> = {
+        guard let button = WMFLargeCloseButton(imageType: .plainX, action: { [weak self] in self?.closeTapped() }) else {
+            fatalError("Failed to create WMFLargeCloseButton")
+        }
         let hostingController = UIHostingController(rootView: button)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         hostingController.view.backgroundColor = .clear
@@ -101,32 +96,35 @@ final class CollectPrizeViewController: UIViewController, Themeable {
         view.addSubview(headlineLabel)
         view.addSubview(subtitleLabel)
         view.addSubview(primaryButton)
-        
+
+        prizeImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+
         NSLayoutConstraint.activate([
             closeButtonHostingController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             closeButtonHostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            
+
             titleLabel.centerYAnchor.constraint(equalTo: closeButtonHostingController.view.centerYAnchor),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: closeButtonHostingController.view.trailingAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -56),
-            
+
             prizeImageView.topAnchor.constraint(equalTo: closeButtonHostingController.view.bottomAnchor, constant: 16),
             prizeImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             prizeImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            prizeImageView.heightAnchor.constraint(equalToConstant: 220),
-            
+            prizeImageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100),
+
             headlineLabel.topAnchor.constraint(equalTo: prizeImageView.bottomAnchor, constant: 20),
             headlineLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             headlineLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            
+
             subtitleLabel.topAnchor.constraint(equalTo: headlineLabel.bottomAnchor, constant: 8),
             subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
             subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
-            
+
             primaryButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 24),
             primaryButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            primaryButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            primaryButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            primaryButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
     }
     
@@ -150,14 +148,14 @@ final class CollectPrizeViewController: UIViewController, Themeable {
         
         view.backgroundColor = theme.colors.paperBackground
         
-        titleLabel.font = WMFFont.for(.body)
+        titleLabel.font = WMFFont.for(.semiboldHeadline)
         titleLabel.textColor = theme.colors.primaryText
         
         headlineLabel.font = WMFFont.for(.boldBody)
         headlineLabel.textColor = theme.colors.primaryText
         
         subtitleLabel.font = WMFFont.for(.subheadline)
-        subtitleLabel.textColor = theme.colors.secondaryText
+        subtitleLabel.textColor = theme.colors.primaryText
         
         closeButtonHostingController.view.backgroundColor = theme.colors.paperBackground
         
