@@ -218,17 +218,16 @@ public struct WMFReadingChallengeWidgetView: View {
                 }
                 Spacer()
                 if let subtitle = viewModel.displaySet.subtitle {
-                    HStack(spacing: 0) {
-                        if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .semiboldCaption1, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                    HStack(spacing: 4) {
+                        if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .mediumSubheadline, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
                             Image(uiImage: icon)
                                 .foregroundColor(viewModel.displaySet.color2)
                         }
                         Text(subtitle)
-                            .font(Font(WMFFont.for(.semiboldCaption1)))
+                            .font(Font(WMFFont.for(.mediumSubheadline)))
                             .foregroundColor(viewModel.displaySet.color2)
                     }
                     .padding(.horizontal, 14).padding(.vertical, 8)
-                    .frame(maxWidth: .infinity)
                     .background(viewModel.displaySet.color3 ?? viewModel.displaySet.color2)
                     .clipShape(Capsule())
                 }
@@ -830,27 +829,28 @@ public struct WMFReadingChallengeWidgetView: View {
                             }
                             Text(viewModel.displaySet.title)
                                 .font(mediumTitleFont)
+                                .fixedSize(horizontal: false, vertical: true)
                                 .foregroundColor(viewModel.displaySet.color2)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         Spacer()
                         if let subtitle = viewModel.displaySet.subtitle {
                             HStack(spacing: 4) {
-                                if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .semiboldCaption1, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                                if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .mediumSubheadline, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
                                     Image(uiImage: icon)
                                         .foregroundColor(viewModel.displaySet.color2)
                                 }
                                 Text(subtitle)
-                                    .font(Font(WMFFont.for(.semiboldCaption1)))
+                                    .font(Font(WMFFont.for(.mediumSubheadline)))
                                     .foregroundColor(viewModel.displaySet.color2)
                             }
                             .padding(.horizontal, 14).padding(.vertical, 8)
-                            .frame(maxWidth: .infinity, alignment: .center)
                             .background(viewModel.displaySet.color3 ?? viewModel.displaySet.color2)
                             .clipShape(Capsule())
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    
                     if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
                         Image(uiImage: uiImage)
                             .resizable()
