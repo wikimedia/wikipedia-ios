@@ -1057,11 +1057,16 @@ extension WMFAppViewController {
 extension WMFAppViewController {
     @objc func setupForUITests() {
 #if UITEST
-        UserDefaults.standard.removeObject(forKey: "DidShowOnboarding5.3")
-        //todo:
-        // set wmfdata to mock env.
-        // log out or in?
-        // set app languages?
+        
+        if ProcessInfo.processInfo.arguments.count > 1 {
+            let arguments = ProcessInfo.processInfo.arguments
+            
+            if arguments.contains("UITestSkipAppOnboarding") {
+                UserDefaults.standard.set(true, forKey: "DidShowOnboarding5.3")
+            } else {
+                UserDefaults.standard.removeObject(forKey: "DidShowOnboarding5.3")
+            }
+        }
         
 #endif
     }
