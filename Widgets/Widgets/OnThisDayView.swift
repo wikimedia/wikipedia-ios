@@ -71,7 +71,7 @@ struct OnThisDayView: View {
         .overlay(errorBox)
         .environment(\.layoutDirection, entry.isRTLLanguage ? .rightToLeft : .leftToRight)
         .clearWidgetContainerBackground()
-        .widgetURL(wmf_urlWithWidgetSource(entry.contentURL))
+        .widgetURL(wmf_urlWithWidgetSource(entry.contentURL, name: "on_this_day"))
     }
 
     var errorBox: some View {

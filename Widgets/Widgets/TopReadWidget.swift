@@ -163,15 +163,15 @@ struct TopReadView: View {
             switch family {
             case .systemMedium:
                 rowBasedWidget(.systemMedium)
-                    .widgetURL(wmf_urlWithWidgetSource(entry?.groupURL))
+                    .widgetURL(wmf_urlWithWidgetSource(entry?.groupURL, name: "top_read"))
             case .systemLarge:
                 rowBasedWidget(.systemLarge)
-                    .widgetURL(wmf_urlWithWidgetSource(entry?.groupURL))
+                    .widgetURL(wmf_urlWithWidgetSource(entry?.groupURL, name: "top_read"))
             default:
                 smallWidget
                     .frame(width: proxy.size.width, height: proxy.size.height, alignment: .center)
                     .overlay(TopReadOverlayView(rankedElement: entry?.rankedElements.first))
-                    .widgetURL(wmf_urlWithWidgetSource(entry?.rankedElements.first?.articleURL))
+                    .widgetURL(wmf_urlWithWidgetSource(entry?.rankedElements.first?.articleURL, name: "top_read"))
             }
         }
         .clearWidgetContainerBackground()

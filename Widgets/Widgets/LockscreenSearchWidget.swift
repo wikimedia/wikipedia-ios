@@ -30,7 +30,7 @@ struct LockscreenSearchEntry: TimelineEntry {
         self.date = date
         self.configuration = configuration
         // Include source query parameter so the app knows this came from a widget
-        self.url = URL(string: "wikipedia://search?source=widget")
+        self.url = URL(string: "wikipedia://search?source=widget_lockscreen_search")
     }
 }
 

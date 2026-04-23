@@ -278,7 +278,7 @@ struct FeaturedArticleView: View {
     var body: some View {
         widgetBody
              .clearWidgetContainerBackground()
-             .widgetURL(wmf_urlWithWidgetSource(entry.contentURL))
+             .widgetURL(wmf_urlWithWidgetSource(entry.contentURL, name: "featured_article"))
              .environment(\.layoutDirection, entry.layoutDirection)
              .flipsForRightToLeftLayoutDirection(true)
      }

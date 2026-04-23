@@ -177,7 +177,7 @@ struct PictureOfTheDayView: View {
             }
         }
         .clearWidgetContainerBackground()
-        .widgetURL(wmf_urlWithWidgetSource(entry.contentURL))
+        .widgetURL(wmf_urlWithWidgetSource(entry.contentURL, name: "picture_of_the_day"))
     }
 
     // MARK: View Components
