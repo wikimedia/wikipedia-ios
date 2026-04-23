@@ -405,7 +405,24 @@ let localesWhereMediaWikiPluralRulesDoNotMatchiOSPluralRulesForOne = {
     return Set<String>(["be", "bs", "br", "ceb", "tzm", "hr", "fil", "is", "lv", "lt", "dsb", "mk", "gv", "prg", "ru", "gd", "sr", "sl", "uk", "hsb"]).intersection(locales)
 }()
 
+// Locales that pass localeIsAvailable() but are not valid App Store Connect locale IDs.
+// Note: localeIsAvailable() already rejects most App Store Connect-unsupported locales (e.g. blk, dga, mhr, rki)
+// because their language codes don't appear in Apple's Locale.availableIdentifiers.
+// This blocklist catches edge cases like:
+//   - "be-tarask": prefix "be" is a valid Apple locale, but the TWN orthography variant is not recognized by App Store Connect.
+//   - "qqq": a TranslateWiki pseudo-language used to store translator documentation/comments, not actual translations.
+let localesUnsupportedByAppStoreConnect: Set<String> = ["be-tarask", "qqq"]
+
+// Maps TWN-specific locale codes to their standard BCP 47 equivalents accepted by App Store Connect.
+// TWN uses legacy script codes (e.g. "sr-el" for Serbian Latin) that differ from BCP 47 (e.g. "sr-Latn").
+let twnLocaleToAppStoreConnectLocale: [String: String] = [
+    "sr-el": "sr-Latn"
+]
+
 func localeIsAvailable(_ locale: String) -> Bool {
+    guard !localesUnsupportedByAppStoreConnect.contains(locale) else {
+        return false
+    }
     let prefix = locale.components(separatedBy: "-").first ?? locale
     return locales.contains(prefix)
 }
@@ -437,7 +454,8 @@ func importLocalizationsFromTWN(_ path: String) {
                 continue
             }
             
-            let localeFolder = "\(path)/WMFLocalizations/Sources/WMFNativeLocalizations/Resources/\(locale).lproj"
+            let mappedLocale = twnLocaleToAppStoreConnectLocale[locale] ?? locale
+            let localeFolder = "\(path)/WMFLocalizations/Sources/WMFNativeLocalizations/Resources/\(mappedLocale).lproj"
 
             guard localeIsAvailable(locale), let twnStrings = NSDictionary(contentsOfFile: "\(path)/Wikipedia/Localizations/\(locale).lproj/Localizable.strings") else {
                 try? fm.removeItem(atPath: localeFolder)

@@ -67,6 +67,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = "Explore View"
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
 
         isRefreshControlEnabled = true
@@ -117,9 +118,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         detailTransitionSourceRect = nil
         logFeedImpressionAfterDelay()
         dataStore.remoteNotificationsController.loadNotifications(force: false)
-#if UITEST
-        presentUITestHelperController()
-#endif
+        
         presentModalsIfNeeded()
 
         if tabBarSnapshotImage == nil {
@@ -170,11 +169,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     open override func refresh() {
         updateFeedSources(with: nil, userInitiated: true) {
         }
-    }
-
-    private func presentUITestHelperController() {
-        let viewController = UITestHelperViewController(theme: theme)
-        present(viewController, animated: false)
     }
 
     @objc private func databaseHousekeeperDidComplete() {

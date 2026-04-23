@@ -1,0 +1,5 @@
+import XCTest
+
+extension XCTestCase {
+
+}
