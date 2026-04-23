@@ -21,6 +21,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     private var appNeedsResume = true
+    // Tracks the most recent source used to open the app (deep link, widget, shortcut, push, etc.)
+    // This is consumed when the scene becomes active to submit the apps-open instrument.
+    private var lastOpenSource: String? = nil
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
@@ -55,6 +58,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidBecomeActive(_ scene: UIScene) {
 
+        // Submit app_open instrument with the most recent source (if any), then resume the app.
+        submitAppOpenIfNeeded()
         resumeAppIfNecessary()
     }
 
@@ -79,6 +84,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func processShortcutItem(_ shortcutItem: UIApplicationShortcutItem, completionHandler: ((Bool) -> Void)? = nil) {
+        // Record that the app was opened via a home screen shortcut
+        self.lastOpenSource = "shortcut"
         appViewController?.processShortcutItem(shortcutItem) { handled in
             completionHandler?(handled)
         }
@@ -96,6 +103,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appViewController.showSplashView()
         var userInfo = userActivity.userInfo
         userInfo?[WMFRoutingUserInfoKeys.source] = WMFRoutingUserInfoSourceValue.deepLinkRawValue
+        // Only set deepLink source if not already set (e.g. by openURLContexts which may have extracted "widget" from the URL)
+        if lastOpenSource == nil {
+            self.lastOpenSource = WMFRoutingUserInfoSourceValue.deepLinkRawValue
+        }
         userActivity.userInfo = userInfo
         
         _ = appViewController.processUserActivity(userActivity, animated: false) { [weak self] in
@@ -133,24 +144,51 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
-        guard let activity = NSUserActivity.wmf_activity(forWikipediaScheme: firstURL) ?? NSUserActivity.wmf_activity(for: firstURL) else {
-            resumeAppIfNecessary()
-            return
+        // Extract source from URL query parameters before any activity processing, so widget taps
+        // (which include source=widget) are not overwritten by processUserActivity setting "deepLink".
+        if let components = URLComponents(url: firstURL, resolvingAgainstBaseURL: false),
+           let sourceValue = components.queryItems?.first(where: { $0.name == "source" })?.value {
+            self.lastOpenSource = sourceValue
+        } else {
+            self.lastOpenSource = WMFRoutingUserInfoSourceValue.deepLinkRawValue
         }
         
-        appViewController.showSplashView()
-        _ = appViewController.processUserActivity(activity, animated: false) { [weak self] in
-            
-            guard let self else {
-                return
+        // Try to derive an NSUserActivity for the URL and route accordingly.
+        if let activity = NSUserActivity.wmf_activity(forWikipediaScheme: firstURL) ?? NSUserActivity.wmf_activity(for: firstURL) {
+            appViewController.showSplashView()
+            _ = appViewController.processUserActivity(activity, animated: false) { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                if appNeedsResume {
+                    resumeAppIfNecessary()
+                } else {
+                    appViewController.hideSplashView()
+                }
             }
-            
-            if appNeedsResume {
-                resumeAppIfNecessary()
-            } else {
-                appViewController.hideSplashView()
-            }
+        } else {
+            resumeAppIfNecessary()
         }
+    }
+    
+    // Submit the TestKitchen "apps-open" instrument for app opens. This reads and consumes `lastOpenSource`.
+    private func submitAppOpenIfNeeded() {
+        // Use a default source for foreground returns if none was recorded
+        let source = lastOpenSource ?? "foreground"
+        // Reset to avoid duplicate submissions
+        lastOpenSource = nil
+
+        let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-open")
+            .startFunnel(name: "apps_open")
+        instrument.submitInteraction(action: "app_open", actionSource: source)
+    }
+    
+    // Exposed to Objective-C so other app-side ObjC code (e.g. WMFAppViewController) can mark the last open source
+    // when a notification or other entry point is handled prior to scene activation.
+    @objc func setLastOpenSource(_ source: NSString?) {
+        self.lastOpenSource = source as String?
     }
 
     // MARK: Private

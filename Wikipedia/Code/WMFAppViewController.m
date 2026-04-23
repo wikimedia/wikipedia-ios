@@ -1795,6 +1795,18 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     NSDictionary *info = response.notification.request.content.userInfo;
 
+    // Mark the app open source as "push" so SceneDelegate will submit the apps-open instrument with actionSource = "push".
+    for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {
+        if ([scene isKindOfClass:[UIWindowScene class]]) {
+            id delegate = ((UIWindowScene *)scene).delegate;
+            if ([delegate respondsToSelector:@selector(setLastOpenSource:)]) {
+                // Pass an NSString to the Swift @objc method
+                [(id)delegate setLastOpenSource:@"push"];
+                break;
+            }
+        }
+    }
+
     if ([response.notification.request.content.threadIdentifier isEqualToString:EchoModelVersion.current]) {
         [self showNotificationCenterForNotificationInfo:info];
     }

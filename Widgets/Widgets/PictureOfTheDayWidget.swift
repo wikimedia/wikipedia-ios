@@ -37,9 +37,9 @@ final class PictureOfTheDayData {
 
     // MARK: Public
 
-    static func fetchPictureOfTheDayEntryData(usingCache: Bool = false, maxWidth: Int = 960, completion: @escaping (PictureOfTheDayEntry) -> Void) {
+    static func fetchPictureOfTheDayEntryData(usingCache: Bool = false, completion: @escaping (PictureOfTheDayEntry) -> Void) {
         let widgetController = WidgetController.shared
-        widgetController.fetchPictureOfTheDayContent(isSnapshot: usingCache, maxWidth: maxWidth) { result in
+        widgetController.fetchPictureOfTheDayContent(isSnapshot: usingCache) { result in
             let midnightUTCDate: Date = (Date() as NSDate).wmf_midnightUTCDateFromLocal ?? Date()
             let groupURL = WMFContentGroup.pictureOfTheDayContentGroupURL(forSiteURL: widgetController.featuredContentSiteURL, midnightUTCDate: midnightUTCDate)
 
@@ -104,7 +104,7 @@ struct PictureOfTheDayEntry: TimelineEntry {
 
     func scalingImageTo(targetSize: CGSize) -> PictureOfTheDayEntry {
         var entry = self
-        entry.image = entry.image?.scaleImageToFill(targetSize: targetSize)
+        entry.image = entry.image?.scaleImageToFit(targetSize: targetSize)
         return entry
     }
 
@@ -125,9 +125,8 @@ struct PictureOfTheDayProvider: TimelineProvider {
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<PictureOfTheDayEntry>) -> Void) {
-        let maxWidth = context.potdMaxImageWidth
-        let renderSize = context.potdRenderSize
-        PictureOfTheDayData.fetchPictureOfTheDayEntryData(maxWidth: maxWidth) { entry in
+        let renderSize = context.imageSize
+        PictureOfTheDayData.fetchPictureOfTheDayEntryData { entry in
             let currentDate = Date()
             let nextUpdate: Date
 
@@ -144,9 +143,8 @@ struct PictureOfTheDayProvider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping (PictureOfTheDayEntry) -> Void) {
-        let maxWidth = context.potdMaxImageWidth
-        let renderSize = context.potdRenderSize
-        PictureOfTheDayData.fetchPictureOfTheDayEntryData(usingCache: context.isPreview, maxWidth: maxWidth) { entry in
+        let renderSize = context.imageSize
+        PictureOfTheDayData.fetchPictureOfTheDayEntryData(usingCache: context.isPreview) { entry in
             completion(entry.scalingImageTo(targetSize: renderSize))
         }
     }
@@ -179,7 +177,7 @@ struct PictureOfTheDayView: View {
             }
         }
         .clearWidgetContainerBackground()
-        .widgetURL(entry.contentURL)
+        .widgetURL(wmf_urlWithWidgetSource(entry.contentURL))
     }
 
     // MARK: View Components
@@ -272,18 +270,8 @@ struct PictureOfTheDayWidget_Previews: PreviewProvider {
 }
 
 extension TimelineProviderContext {
-    var potdMaxImageWidth: Int {
-        switch family {
-        case .systemSmall:
-            return WidgetController.potdSmallImageWidth
-        // Large and medium need the same width
-        default:
-            return WidgetController.potdLargeImageWidth
-        }
-    }
-
-    var potdRenderSize: CGSize {
-        let scale = environmentVariants.displayScale?.max() ?? 2
-        return CGSize(width: displaySize.width * scale, height: displaySize.height * scale)
+    var imageSize: CGSize {
+        let maxDisplayScale = environmentVariants.displayScale?.max() ?? 2
+        return CGSize(width: displaySize.width * maxDisplayScale, height: displaySize.height * maxDisplayScale)
     }
 }
