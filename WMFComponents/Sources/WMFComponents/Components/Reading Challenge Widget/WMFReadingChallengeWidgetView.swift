@@ -133,9 +133,17 @@ public struct WMFReadingChallengeWidgetView: View {
                         .layoutPriority(1)
                 }
                 if let subtitle = viewModel.displaySet.subtitle {
-                    Text(subtitle)
-                        .font(Font(WMFFont.for(.mediumSubheadline)))
-                        .foregroundColor(viewModel.displaySet.color2)
+                    
+                    HStack(spacing: 4) {
+                        if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .mediumSubheadline, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                            Image(uiImage: icon)
+                                .foregroundColor(viewModel.displaySet.color2)
+                        }
+                        Text(subtitle)
+                            .font(Font(WMFFont.for(.mediumSubheadline)))
+                            .foregroundColor(viewModel.displaySet.color2)
+                    }
+                    
                 }
                 if let button1Title = viewModel.displaySet.button1Title,
                    let button1URL = viewModel.displaySet.button1URL {
