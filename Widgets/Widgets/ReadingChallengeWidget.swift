@@ -50,7 +50,8 @@ struct ReadingChallengeProvider: TimelineProvider {
             UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.synchronize()
             
             let isEnrolled = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false
-            return try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled)
+            let currentDate = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
+            return try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled, now: currentDate)
         } catch {
             return .notEnrolled
         }
@@ -68,7 +69,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             return nil
         }
         
-        let today = Calendar.current.startOfDay(for: Date())
+        let today = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Calendar.current.startOfDay(for: Date())
         
         if userDefaults.object(forKey: indexKey.rawValue) == nil {
             userDefaults.set(0, forKey: indexKey.rawValue)
@@ -80,7 +81,12 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
        
         let lastDate = userDefaults.object(forKey: dateKey.rawValue) as? Date ?? .distantPast
 
-        guard today > lastDate else { return index } // same day, return old index without incrementing
+        guard today > lastDate ||
+               WMFDeveloperSettingsDataController.shared.devReadingChallengeState != nil else {
+            // on same day, return old index without incrementing
+            // but allow increment on same day if forcing a particular state
+            return index
+        }
         
         let nextIndex = (index + 1) % optionsCount
         userDefaults.set(nextIndex, forKey: indexKey.rawValue)
@@ -145,7 +151,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
     static func streakNotYetReadSet(streak: Int, showButtons: Bool, colorSet: WMFTheme.ReadingChallengeColorSet = .orange) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         
 
-        let defaultSubtitleAndGlobe: (String, String) = (WMFLocalizedString("reading-challenge-not-yet-read-subtitle-drift", value: "Don't let today drift by, save your streak.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today."), "sleepyglobe")
+        let defaultSubtitleAndGlobe: (String, String) = (WMFLocalizedString("reading-challenge-not-yet-read-subtitle-drift", value: "Don't let today drift by, your reading streak is waiting.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today."), "sleepyglobe")
         
         let sharedSubtitle = WMFLocalizedString("reading-challenge-not-yet-read-subtitle-article", value: "Your streak is just one article away.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today.")
         
@@ -195,7 +201,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             color3: WMFTheme.ReadingChallengeColorSet.blueBlack.tertiary,
             image: "globeParty",
             title: WMFLocalizedString("reading-challenge-completed-title", value: "You did it!", comment: "Title shown on the reading challenge widget when the user has completed the challenge."),
-            subtitle: WMFLocalizedString("reading-challenge-completed-subtitle", value: "25 of 25 days", comment: "Subtitle shown on the reading challenge widget when the user has completed the challenge."),
+            subtitle: family == .systemSmall ? WMFLocalizedString("reading-challenge-completed-subtitle-small", value: "25 of 25", comment: "Subtitle shown on the reading challenge widget when the user has completed the challenge.") : WMFLocalizedString("reading-challenge-completed-subtitle", value: "25 of 25 days", comment: "Subtitle shown on the reading challenge widget when the user has completed the challenge."),
             button1Title: family == .systemSmall
                 ? WMFLocalizedString("reading-challenge-collect-prize-button-small", value: "Collect prize", comment: "Short button title on small reading challenge widget when challenge is complete.")
                 : CommonStrings.collectPrizeTitle,
