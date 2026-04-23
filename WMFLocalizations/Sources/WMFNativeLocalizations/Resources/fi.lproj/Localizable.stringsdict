@@ -2,6 +2,38 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>activity-tab-amount-article-views</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d katselukerta</string>
+			<key>other</key>
+			<string>%1$d katselukertaa</string>
+		</dict>
+	</dict>
+	<key>activity-tab-impact-best-streak-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d päivä</string>
+			<key>other</key>
+			<string>%1$d päivää</string>
+		</dict>
+	</dict>
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -16,6 +48,38 @@
 			<string>%1$d kerran</string>
 			<key>other</key>
 			<string>%1$d kertaa</string>
+		</dict>
+	</dict>
+	<key>activity-tab-you-read</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Olet lukenut %#@v1@ tällä viikolla.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d artikkelin</string>
+			<key>other</key>
+			<string>%1$d artikkelia</string>
+		</dict>
+	</dict>
+	<key>activity-tab-you-saved</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Olet tallentanut %#@v1@ tällä viikolla.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d artikkelin</string>
+			<key>other</key>
+			<string>%1$d artikkelia</string>
 		</dict>
 	</dict>
 	<key>add-articles-to-reading-list</key>
@@ -48,6 +112,38 @@
 			<string>artikkeli</string>
 			<key>other</key>
 			<string>artikkelia</string>
+		</dict>
+	</dict>
+	<key>close-all-tabs-confirmation-subtitle-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Haluatko sulkea %#@v1@? Tätä toimintoa ei voi perua.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d välilehden</string>
+			<key>other</key>
+			<string>%1$d välilehteä</string>
+		</dict>
+	</dict>
+	<key>close-all-tabs-confirmation-title-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Suljetaanko %#@v1@?</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d välilehti</string>
+			<key>other</key>
+			<string>%1$d välilehteä</string>
 		</dict>
 	</dict>
 	<key>closed-all-tabs-confirmation-with-value</key>
@@ -280,6 +376,22 @@
 			<string>%1$d artikkeli</string>
 			<key>other</key>
 			<string>%1$d artikkelia</string>
+		</dict>
+	</dict>
+	<key>nearby-distance-label-feet</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d jalka</string>
+			<key>other</key>
+			<string>%1$d jalkaa</string>
 		</dict>
 	</dict>
 	<key>notifications-center-empty-state-num-filters</key>
