@@ -1,6 +1,7 @@
 public enum WMFUserDefaultsKey: String {
     case watchlistFilterSettings = "watchlist-filter-settings"
     case imageRecommendationsOnboarding = "image-recommendations-onboarding"
+    case developerSettingsEnableDeveloperMode = "dev-enable-developer-mode"
     case developerSettingsDoNotPostImageRecommendationsEdit = "dev-settings-do-not-post-image-rec-edit"
     case developerSettingsSendAnalyticsToWMFLabs = "dev-settings-send-analytics-to-wmflabs"
     case developerSettingsArticleTab = "dev-settings-article-tab"
@@ -41,4 +42,20 @@ public enum WMFUserDefaultsKey: String {
     case isSubscribedToEchoNotifications = "is-subscribed-to-echo-notifications"
     case activityTabSeenHistoryCallout = "activity-tab-seen-history-callout"
     case forceHCaptchaChallenge = "force-hcaptcha-challenge"
+    
+    // Reading challenge widget keys
+    case hasEnrolledInReadingChallenge2026 = "has-enrolled-in-reading-challenge-2026"
+    case hasSeenFullPageReadingChallengeAnnouncement2026 = "has-seen-full-page-reading-challenge-announcement-2026"
+    case readingChallengeUserCompleted = "reading-challenge-user-completed"
+    case readingChallengeStreakReadRandomIndex = "reading-challenge-read-random-index"
+    case readingChallengeStreakReadRandomIndexDate = "reading-challenge-read-random-index-date"
+    case readingChallengeStreakNotReadRandomIndex = "reading-challenge-not-read-random-index"
+    case readingChallengeStreakNotReadRandomIndexDate = "reading-challenge-not-read-random-index-date"
+    case readingChallengeEnrolledNotStartedRandomIndex = "reading-challenge-enrolled-not-started"
+    case readingChallengeEnrolledNotStartedRandomIndexDate = "reading-challenge-enrolled-not-started-date"
+    
+    // Reading challenge widget dev settings
+    case devReadingChallengeOverrideCurrentDate = "dev-reading-challenge-override-current-date"
+    case devReadingChallengeCurrentDate = "dev-reading-challenge-current-date"
+    case devReadingChallengeState = "dev-reading-challenge-state"
 }

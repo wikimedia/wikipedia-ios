@@ -1,5 +1,6 @@
 import Foundation
 import CoreData
+import WidgetKit
 
 public final class WMFPage: Hashable, Equatable {
    public let namespaceID: Int
@@ -24,8 +25,7 @@ public final class WMFPage: Hashable, Equatable {
             lhs.projectID == rhs.projectID &&
             lhs.title == rhs.title
     }
-
- }
+}
 
 public final class WMFPageViewCount: Identifiable {
 
@@ -40,7 +40,7 @@ public final class WMFPageViewCount: Identifiable {
        self.page = page
        self.count = count
    }
- }
+}
 
 public final class WMFPageViewDates: Codable {
     public let days: [WMFPageViewDay]
@@ -103,7 +103,6 @@ public final class WMFLegacyPageView: Codable, @unchecked Sendable {
         self.latitude = latitude
         self.longitude = longitude
     }
-
 }
 
 public final class WMFPageViewsDataController: @unchecked Sendable {
@@ -111,25 +110,20 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
     private let coreDataStore: WMFCoreDataStore
 
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore) throws {
-
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
-
         self.coreDataStore = coreDataStore
     }
 
     public func addPageView(title: String, namespaceID: Int16, project: WMFProject, previousPageViewObjectID: NSManagedObjectID?, timestamp: Date? = nil) async throws -> NSManagedObjectID? {
 
         let coreDataTitle = title.normalizedForCoreData
-
         let backgroundContext = try coreDataStore.newBackgroundContext
         backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
         let managedObjectID: NSManagedObjectID? = try await backgroundContext.perform { [weak self] () -> NSManagedObjectID? in
-
             guard let self else { return nil }
-
             let timestamp = timestamp ?? Date()
             let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.id, namespaceID, coreDataTitle])
             let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: backgroundContext)
@@ -148,7 +142,6 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
             }
 
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
-
             return viewedPage.objectID
         }
 
@@ -156,50 +149,29 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
     }
 
     public func addPageViewSeconds(pageViewManagedObjectID: NSManagedObjectID, numberOfSeconds: Double) async throws {
-
         let backgroundContext = try coreDataStore.newBackgroundContext
         backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
         try await backgroundContext.perform { [weak self] in
-
             guard let self else { return }
-
-            guard let pageView = backgroundContext.object(with: pageViewManagedObjectID) as? CDPageView else {
-                return
-            }
-
+            guard let pageView = backgroundContext.object(with: pageViewManagedObjectID) as? CDPageView else { return }
             pageView.numberOfSeconds += Int64(numberOfSeconds)
-
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }
 
     public func deletePageView(title: String, namespaceID: Int16, project: WMFProject) async throws {
-
         let coreDataTitle = title.normalizedForCoreData
-
         let backgroundContext = try coreDataStore.newBackgroundContext
         backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
         try await backgroundContext.perform { [weak self] in
-
             guard let self else { return }
-
             let pagePredicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.id, namespaceID, coreDataTitle])
-            guard let page = try self.coreDataStore.fetch(entityType: CDPage.self, predicate: pagePredicate, fetchLimit: 1, in: backgroundContext)?.first else {
-                return
-            }
-
+            guard let page = try self.coreDataStore.fetch(entityType: CDPage.self, predicate: pagePredicate, fetchLimit: 1, in: backgroundContext)?.first else { return }
             let pageViewsPredicate = NSPredicate(format: "page == %@", argumentArray: [page])
-
-            guard let pageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, predicate: pageViewsPredicate, fetchLimit: nil, in: backgroundContext) else {
-                return
-            }
-
-            for pageView in pageViews {
-                backgroundContext.delete(pageView)
-            }
-
+            guard let pageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, predicate: pageViewsPredicate, fetchLimit: nil, in: backgroundContext) else { return }
+            for pageView in pageViews { backgroundContext.delete(pageView) }
             try coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
 
@@ -212,15 +184,12 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
         try await backgroundContext.perform {
-
             let categoryFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDCategory")
-
             let batchCategoryDeleteRequest = NSBatchDeleteRequest(fetchRequest: categoryFetchRequest)
             batchCategoryDeleteRequest.resultType = .resultTypeObjectIDs
             _ = try backgroundContext.execute(batchCategoryDeleteRequest) as? NSBatchDeleteResult
 
             let pageViewFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageView")
-
             let batchPageViewDeleteRequest = NSBatchDeleteRequest(fetchRequest: pageViewFetchRequest)
             batchPageViewDeleteRequest.resultType = .resultTypeObjectIDs
             _ = try backgroundContext.execute(batchPageViewDeleteRequest) as? NSBatchDeleteResult
@@ -230,16 +199,13 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
     }
 
     public func importPageViews(requests: [WMFLegacyPageView]) async throws {
-
         let backgroundContext = try coreDataStore.newBackgroundContext
         backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
         try await backgroundContext.perform {
             for request in requests {
-
                 let coreDataTitle = request.title.normalizedForCoreData
                 let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [request.project.id, 0, coreDataTitle])
-
                 let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: backgroundContext)
                 page?.title = coreDataTitle
                 page?.namespaceID = 0
@@ -250,13 +216,11 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
                 viewedPage.page = page
                 viewedPage.timestamp = request.viewedDate
             }
-
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }
 
     public func fetchPageViewCounts(startDate: Date, endDate: Date) async throws -> [WMFPageViewCount] {
-
         let backgroundContext = try coreDataStore.newBackgroundContext
 
         let results: [WMFPageViewCount] = try await backgroundContext.perform {
@@ -264,19 +228,11 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
             let pageViewsDict = try self.coreDataStore.fetchGrouped(entityType: CDPageView.self, predicate: predicate, propertyToCount: "page", propertiesToGroupBy: ["page"], propertiesToFetch: ["page"], in: backgroundContext)
             var pageViewCounts: [WMFPageViewCount] = []
             for dict in pageViewsDict {
-
                 guard let objectID = dict["page"] as? NSManagedObjectID,
-                      let count = dict["count"] as? Int else {
-                    continue
-                }
-
+                      let count = dict["count"] as? Int else { continue }
                 guard let page = backgroundContext.object(with: objectID) as? CDPage,
-                      let projectID = page.projectID, let title = page.title else {
-                    continue
-                }
-
+                      let projectID = page.projectID, let title = page.title else { continue }
                 let namespaceID = page.namespaceID
-
                 pageViewCounts.append(WMFPageViewCount(page: WMFPage(namespaceID: Int(namespaceID), projectID: projectID, title: title), count: count))
             }
             return pageViewCounts
@@ -290,18 +246,13 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
 
         let result: Int64 = try await backgroundContext.perform {
             let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
-
             let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
             request.predicate = predicate
 
             let sumExpression = NSExpressionDescription()
             sumExpression.name = "totalSeconds"
-            sumExpression.expression = NSExpression(
-                forFunction: "sum:",
-                arguments: [NSExpression(forKeyPath: "numberOfSeconds")]
-            )
+            sumExpression.expression = NSExpression(forFunction: "sum:", arguments: [NSExpression(forKeyPath: "numberOfSeconds")])
             sumExpression.expressionResultType = .integer64AttributeType
-
             request.resultType = .dictionaryResultType
             request.propertiesToFetch = [sumExpression]
 
@@ -309,7 +260,6 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
                let totalSeconds = result["totalSeconds"] as? Int64 {
                 return totalSeconds / Int64(60)
             }
-
             return 0
         }
 
@@ -322,10 +272,7 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         let results: WMFPageViewDates? = try await backgroundContext.perform { () -> WMFPageViewDates? in
             let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
             let cdPageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, predicate: predicate, fetchLimit: nil, in: backgroundContext)
-
-            guard let cdPageViews = cdPageViews else {
-                return nil
-            }
+            guard let cdPageViews = cdPageViews else { return nil }
 
             var countsDictionaryDay: [Int: Int] = [:]
             var countsDictionaryTime: [Int: Int] = [:]
@@ -337,25 +284,15 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
                     let dayOfWeek = calendar.component(.weekday, from: timestamp)
                     let hourOfDay = calendar.component(.hour, from: timestamp)
                     let month = calendar.component(.month, from: timestamp)
-
                     countsDictionaryDay[dayOfWeek, default: 0] += 1
                     countsDictionaryTime[hourOfDay, default: 0] += 1
                     countsDictionaryMonth[month, default: 0] += 1
                 }
             }
 
-            let days = countsDictionaryDay.sorted(by: { $0.key < $1.key }).map { dayOfWeek, count in
-                WMFPageViewDay(day: dayOfWeek, viewCount: count)
-            }
-
-            let times: [WMFPageViewTime] = countsDictionaryTime.sorted(by: { $0.key < $1.key }).map { hour, count in
-                return WMFPageViewTime(hour: hour, viewCount: count)
-            }
-
-            let months = countsDictionaryMonth.sorted(by: { $0.key < $1.key }).map { month, count in
-                WMFPageViewMonth(month: month, viewCount: count)
-            }
-
+            let days = countsDictionaryDay.sorted(by: { $0.key < $1.key }).map { WMFPageViewDay(day: $0.key, viewCount: $0.value) }
+            let times = countsDictionaryTime.sorted(by: { $0.key < $1.key }).map { WMFPageViewTime(hour: $0.key, viewCount: $0.value) }
+            let months = countsDictionaryMonth.sorted(by: { $0.key < $1.key }).map { WMFPageViewMonth(month: $0.key, viewCount: $0.value) }
             return WMFPageViewDates(days: days, times: times, months: months)
         }
 
@@ -368,32 +305,21 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         let result: [[CDPageView]] = try await context.perform {
             let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
             let allPageViews = try context.fetch(fetchRequest)
-
-            // Find roots: page views with no previousPageView
             let roots = allPageViews.filter { $0.previousPageView == nil }
-
             var result: [[CDPageView]] = []
 
-            // Walk all possible branches
             func walk(current: CDPageView, path: [CDPageView]) {
                 let newPath = path + [current]
-
                 let nextViews = (current.nextPageViews as? Set<CDPageView>) ?? []
                 if nextViews.isEmpty {
-                    // Leaf node — end of a navigation path
                     let sortedPath = newPath.sorted(by: { $0.timestamp ?? .distantPast < $1.timestamp ?? .distantPast })
                     result.append(sortedPath)
                 } else {
-                    for next in nextViews {
-                        walk(current: next, path: newPath)
-                    }
+                    for next in nextViews { walk(current: next, path: newPath) }
                 }
             }
 
-            for root in roots {
-                walk(current: root, path: [])
-            }
-
+            for root in roots { walk(current: root, path: []) }
             return result
         }
 
@@ -407,9 +333,8 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageView")
             fetchRequest.fetchLimit = 1
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
-
             if let pageView = try backgroundContext.fetch(fetchRequest).first as? CDPageView {
-               return pageView.timestamp
+                return pageView.timestamp
             }
             return nil
         }
@@ -437,12 +362,7 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
                     let timestamp = pageView.timestamp
                 else { continue }
 
-                let wmfPage = WMFPage(
-                    namespaceID: Int(page.namespaceID),
-                    projectID: projectID,
-                    title: title
-                )
-
+                let wmfPage = WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title)
                 result.append(WMFPageWithTimestamp(page: wmfPage, timestamp: timestamp))
             }
 
@@ -450,5 +370,218 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         }
 
         return results
+    }
+}
+
+// MARK: - Reading Challenge
+
+extension WMFPageViewsDataController {
+
+    public func fetchReadingChallengeState(
+        isEnrolled: Bool,
+        now: Date = Date()
+    ) async throws -> ReadingChallengeState {
+        
+        if let devStateOverride = WMFDeveloperSettingsDataController.shared.devReadingChallengeState {
+            return devStateOverride
+        }
+
+        let sharedDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
+        
+        func sharedDefaultsBool(_ key: WMFUserDefaultsKey) -> Bool {
+            sharedDefaults?.bool(forKey: key.rawValue) ?? false
+        }
+        
+        func setSharedDefaultsBool(_ key: WMFUserDefaultsKey, value: Bool) {
+            sharedDefaults?.set(true, forKey: key.rawValue)
+        }
+
+        let config = ReadingChallengeStateConfig.self
+        let calendar = Calendar.current
+
+        let todayStart = calendar.startOfDay(for: now)
+        let removeDateStart = calendar.startOfDay(for: config.removeDate)
+        let startDateStart = calendar.startOfDay(for: config.startDate)
+        let endDateStart = calendar.startOfDay(for: config.endDate)
+        let oneDayInSeconds = 60 * 60  * 24
+        let maxDateToCompleteStreak = calendar.startOfDay(for:endDateStart.addingTimeInterval(TimeInterval((config.streakGoal * oneDayInSeconds))))
+
+        if todayStart > removeDateStart {
+            return .challengeRemoved
+        }
+
+        if todayStart < startDateStart {
+            return .notLiveYet
+        }
+
+        guard isEnrolled else {
+            if todayStart > endDateStart {
+                return .challengeConcludedNoStreak
+            }
+            return .notEnrolled
+        }
+
+        let (streak, hasReadToday, streakStartedAfterEnrollmentCutoff) = try await computeStreak(
+            calendar: calendar,
+            now: now,
+            startDate: config.startDate,
+            endDate: config.endDate
+        )
+
+        // Cap at goal — completion is terminal, no need to count beyond it
+        let cappedStreak = min(streak, config.streakGoal)
+        
+        // Note: once a user successfully completes a reading streak, computeStreak starts to evaluate to 0 a few days later.
+        // This user defaults boolean gets around that bug
+        if sharedDefaultsBool(.readingChallengeUserCompleted) {
+            return .challengeCompleted
+        }
+
+        if cappedStreak >= config.streakGoal {
+            setSharedDefaultsBool(.readingChallengeUserCompleted, value: true)
+            return .challengeCompleted
+        }
+
+        if todayStart > endDateStart {
+            if streakStartedAfterEnrollmentCutoff {
+                return .challengeConcludedNoStreak
+            }
+            
+            if cappedStreak == 0 {
+                
+                // Show user's highest streak achieved up until that point
+                let highestStreak = try await computeLongestStreak(calendar: calendar, now: now, startDate: config.startDate)
+                
+                if highestStreak > 1 {
+                    return .challengeConcludedIncomplete(streak: highestStreak)
+                } else {
+                    return .challengeConcludedNoStreak
+                }
+            }
+        }
+        
+        if todayStart > maxDateToCompleteStreak {
+            return cappedStreak > 1
+                ? .challengeConcludedIncomplete(streak: cappedStreak)
+                : .challengeConcludedNoStreak
+        }
+
+        if cappedStreak == 0 {
+            return .enrolledNotStarted
+        }
+
+        return hasReadToday
+            ? .streakOngoingRead(streak: cappedStreak)
+            : .streakOngoingNotYetRead(streak: cappedStreak)
+    }
+
+    private func computeStreak(
+        calendar: Calendar,
+        now: Date,
+        startDate: Date,
+        endDate: Date
+    ) async throws -> (streak: Int, hasReadToday: Bool, streakStartedAfterEnrollmentCutoff: Bool) {
+
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform {
+            let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
+            fetchRequest.propertiesToFetch = ["timestamp"]
+            let allViews = try backgroundContext.fetch(fetchRequest)
+
+            let startOfChallengeStart = calendar.startOfDay(for: startDate)
+
+            var daysWithRead = Set<DateComponents>()
+            for view in allViews {
+                guard let ts = view.timestamp else { continue }
+                guard calendar.startOfDay(for: ts) >= startOfChallengeStart else { continue }
+                let comps = calendar.dateComponents([.year, .month, .day], from: ts)
+                daysWithRead.insert(comps)
+            }
+
+            let todayStart = calendar.startOfDay(for: now)
+            let todayComps = calendar.dateComponents([.year, .month, .day], from: todayStart)
+            let hasReadToday = daysWithRead.contains(todayComps)
+
+            var streak = 0
+            var cursor = todayStart
+            var streakStartDate: Date = todayStart
+
+            while true {
+                let cursorComps = calendar.dateComponents([.year, .month, .day], from: cursor)
+
+                if cursor == todayStart {
+                    guard let yesterday = calendar.date(byAdding: .day, value: -1, to: cursor) else { break }
+                    cursor = yesterday
+                    continue
+                }
+
+                if daysWithRead.contains(cursorComps) {
+                    streak += 1
+                    streakStartDate = cursor
+                    guard let prev = calendar.date(byAdding: .day, value: -1, to: cursor) else { break }
+                    cursor = prev
+                } else {
+                    break
+                }
+            }
+
+            if hasReadToday {
+                streak += 1
+                if streak == 1 { streakStartDate = todayStart }
+            }
+
+            let endDateStart = calendar.startOfDay(for: endDate)
+            let streakStartedAfterEnrollmentCutoff = streak > 0 && streakStartDate > endDateStart
+
+            return (streak, hasReadToday, streakStartedAfterEnrollmentCutoff)
+        }
+    }
+    
+    private func computeLongestStreak(
+        calendar: Calendar,
+        now: Date,
+        startDate: Date
+    ) async throws -> Int {
+
+        let startOfChallengeStart = calendar.startOfDay(for: startDate)
+        let todayStart = calendar.startOfDay(for: now)
+
+        // Early exit if now is before startDate
+        guard todayStart >= startOfChallengeStart else { return 0 }
+
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform {
+            let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
+            fetchRequest.propertiesToFetch = ["timestamp"]
+            let allViews = try backgroundContext.fetch(fetchRequest)
+
+            var daysWithRead = Set<DateComponents>()
+            for view in allViews {
+                guard let ts = view.timestamp else { continue }
+                guard calendar.startOfDay(for: ts) >= startOfChallengeStart else { continue }
+                let comps = calendar.dateComponents([.year, .month, .day], from: ts)
+                daysWithRead.insert(comps)
+            }
+
+            var longestStreak = 0
+            var currentStreak = 0
+            var cursor = startOfChallengeStart
+
+            while cursor <= todayStart {
+                let comps = calendar.dateComponents([.year, .month, .day], from: cursor)
+                if daysWithRead.contains(comps) {
+                    currentStreak += 1
+                    longestStreak = max(longestStreak, currentStreak)
+                } else {
+                    currentStreak = 0
+                }
+                guard let next = calendar.date(byAdding: .day, value: 1, to: cursor) else { break }
+                cursor = next
+            }
+
+            return longestStreak
+        }
     }
 }

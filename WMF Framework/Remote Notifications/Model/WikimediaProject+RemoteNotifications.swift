@@ -119,7 +119,7 @@ extension WikimediaProject {
     
     /// Returns formatted descriptive project name
     /// - Parameters:
-    ///   - shouldReturnCodedFormat: Boolean for if you want description in coded format for langauge projects ("EN-Wikipedia" vs  "English Wikipedia"). This is ignored for commons and wikidata projects.
+    ///   - shouldReturnCodedFormat: Boolean for if you want description in coded format for language projects ("EN-Wikipedia" vs  "English Wikipedia"). This is ignored for commons and wikidata projects.
     /// - Returns: Formatted descriptive project name
     public func projectName(shouldReturnCodedFormat: Bool) -> String {
         

@@ -508,6 +508,7 @@
 "empty-no-saved-pages-title" = "Засега нема зачувани страници";
 "empty-no-search-results-message" = "Не пронајдов ништо";
 "empty-talk-page-title" = "Корисников засега нема пораки.";
+"end-session" = "Заврши седница";
 "error-generic-recovery-suggestion" = "Обидете се подоцна";
 "error-unknown" = "Се појави непозната грешка";
 "explore-another-random" = "Друга случајна статија";
@@ -1220,6 +1221,10 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Прикажи зачувани (на пр. по основно) списоци за читање како посебен список во прегледот на вашите списоци за читање.\nОвој список се јавува на андроидни уреди.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Прикажи зачувани списоци за читање";
 "settings-storage-and-syncing-title" = "Складирање и усогласување на статии";
+"settings-temp-account-end-session-confirm" = "Одјава";
+"settings-temp-account-end-session-message" = "Дали сугурно сакате да излезете од оваа седница и да се одјавите? Не постои начин повторно да се најавите со оваа привремена сметка.";
+"settings-temp-account-end-session-title" = "Излези од седница";
+"settings-temp-accounts-talk-page-footer" = "Привремената сметка ќе истече за 90 дена";
 "settings-title" = "Нагодувања";
 "settings-year-in-review-header" = "Ако го исклучите Прегледот на годината, тоа ќе ги исчисти сите складирани персонализирани увиди и ќе го скрие Прегледот на годината";
 "share-a-fact-made-with" = "Направено до прилогот на Википедија";

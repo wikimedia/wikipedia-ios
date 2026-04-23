@@ -887,6 +887,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 #pragma mark - Launch
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
+    
+    [self setupForUITests];
+    
     self.waitingToResumeApp = waitToResumeApp;
 
     [window setRootViewController:self];
@@ -910,7 +913,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 #if UITEST
 
     if (NSProcessInfo.processInfo.arguments.count > 1) {
-        self.theme = [WMFTheme dark]; // remove
         NSArray<NSString *> *arguments = NSProcessInfo.processInfo.arguments;
 
         if ([arguments containsObject:@"UITestThemeLight"]) {
@@ -1254,6 +1256,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         case WMFUserActivityTypeSettings:
         case WMFUserActivityTypeAppearanceSettings:
         case WMFUserActivityTypeContent:
+        case WMFUserActivityTypeActivity:
+        case WMFUserActivityTypeRandom:
             return YES;
         case WMFUserActivityTypeSearchResults:
             return [activity wmf_searchTerm] != nil;
@@ -1305,6 +1309,30 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                 [[self placesViewController] showArticleURL:articleURL];
             }
         } break;
+        case WMFUserActivityTypeRandom:
+            [self dismissPresentedViewControllers];
+            [self showRandomArticleFromShortcutWithSiteURL:[self siteURL] animated:animated];
+            break;
+        case WMFUserActivityTypeActivity: {
+            [self dismissPresentedViewControllers];
+            [self setSelectedIndex:WMFAppTabTypeRecent];
+            [self.currentTabNavigationController popToRootViewControllerAnimated:animated];
+            BOOL shouldCollectPrize = [activity.userInfo[@"collectPrize"] boolValue];
+            BOOL tappedJoin = [activity.userInfo[@"join"] boolValue];
+
+            if (shouldCollectPrize) {
+                WMFActivityTabViewController *activityVC = self.activityTabViewController;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [activityVC presentCollectPrize];
+                });
+            } else if (tappedJoin) {
+                WMFActivityTabViewController *activityVC = self.activityTabViewController;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [activityVC presentReadingChallengeAnnouncementFromWidget];
+                });
+            }
+            break;
+        }
         case WMFUserActivityTypeContent: {
             [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeMain];
@@ -1555,9 +1583,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (BOOL)shouldShowOnboarding {
-#if UITEST
-    return NO;
-#else
     if (self.unprocessedUserActivity.shouldSkipOnboarding) {
         [self setDidShowOnboarding];
         return NO;
@@ -1565,7 +1590,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     NSNumber *didShow = [[NSUserDefaults standardUserDefaults] objectForKey:WMFDidShowOnboarding];
     return !didShow.boolValue;
-#endif
 }
 
 - (void)setDidShowOnboarding {

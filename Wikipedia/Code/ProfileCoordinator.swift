@@ -134,6 +134,10 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             dismissProfile {
                 self.showSettings()
             }
+        case .showDevSettings:
+            dismissProfile {
+                self.showDevSettings()
+            }
         case .showDonate:
             // Purposefully not dismissing profile here. We need DonateCoordinator to fetch and present an action sheet first before dismissing profile.
             self.showDonate()
@@ -191,6 +195,34 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         let settingsCoordinator = SettingsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         self.settingsCoordinator = settingsCoordinator
         settingsCoordinator.start()
+    }
+    
+    private func showDevSettings() {
+        
+        // todo: share localizations
+        let developerSettings = "Developer Settings"
+        let doNotPostImageRecommendations = "Do not post image recommendations edit."
+        let sendAnalyticsToWMFLabs = "Send analytics to wmflabs."
+        let enableYearInReview = "Enable Year in Review"
+        let bypassDonation = "Bypass Donation"
+        let forceEmailAuth = "Force email auth"
+        let enableMoreDynamicTabsV2GroupC = "Enable tabs V2 with group C"
+
+        let localizedStrings = WMFDeveloperSettingsLocalizedStrings(
+            developerSettings: developerSettings,
+            doNotPostImageRecommendations: doNotPostImageRecommendations,
+            sendAnalyticsToWMFLabs: sendAnalyticsToWMFLabs,
+            enableMoreDynamicTabsV2GroupC: enableMoreDynamicTabsV2GroupC,
+            enableYearinReview: enableYearInReview,
+            bypassDonation: bypassDonation,
+            forceEmailAuth: forceEmailAuth,
+            done: CommonStrings.doneTitle
+        )
+        let viewModel = WMFDeveloperSettingsViewModel(localizedStrings: localizedStrings)
+        let vc = WMFDeveloperSettingsViewController(viewModel: viewModel)
+        let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .pageSheet)
+
+        navigationController.present(navVC, animated: true)
     }
 
     private func showYearInReview() {

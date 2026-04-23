@@ -18,6 +18,10 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private let hostingController: WMFActivityTabHostingController
     public let viewModel: WMFActivityTabViewModel
     private let dataController: WMFActivityTabDataController
+    
+    private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
+    
+    private var disableModalsOnAppearance: Bool = false
 
     public init(dataStore: MWKDataStore?, theme: Theme, viewModel: WMFActivityTabViewModel, dataController: WMFActivityTabDataController) {
         self.dataStore = dataStore
@@ -84,12 +88,21 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 duration: nil,
                 buttonTitle: CommonStrings.logIn,
                 buttonAction: { [weak self] in
-                    self?.presentFullLoginFlow(fromCustomizeToast: true)
+                    Task { @MainActor [weak self] in
+                        self?.presentFullLoginFlow(fromCustomizeToast: true)
+                    }
                 }
             )
 
             WMFToastPresenter.shared.show(config)
+        }
+        
+        viewModel.didTapPrimaryLoggedOutCTA = { [weak self] in
+            self?.presentFullLoginFlow()
+        }
 
+        viewModel.didTapSearchTab = { [weak self] in
+            self?.navigateToSearch()
         }
 
         Task {
@@ -130,6 +143,50 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         let url = WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "iOS FAQ"], section: "Editing", language: appLanguage)
         return url?.absoluteString ?? ""
     }
+    
+    @objc public func presentCollectPrize() {
+        guard let dataStore else { return }
+        if dataStore.authenticationManager.authStateIsPermanent {
+            showCollectPrizeModal()
+        } else {
+            presentFullLoginFlow(loginSuccessCompletion: { [weak self] in
+                guard let self else {
+                    return
+                }
+                self.showCollectPrizeModal()
+            })
+        }
+    }
+
+    private func showCollectPrizeModal() {
+        let show = { [weak self] in
+            guard let self else { return }
+            let prizeVC = CollectPrizeViewController(theme: self.theme)
+            prizeVC.modalPresentationStyle = .pageSheet
+            if let sheet = prizeVC.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersGrabberVisible = true
+            }
+            self.present(prizeVC, animated: true)
+        }
+
+        if let presented = presentedViewController {
+            presented.dismiss(animated: true, completion: show)
+        } else {
+            show()
+        }
+    }
+    
+    @objc public func presentFeature() {
+        guard let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn else { return }
+        let prizeVC = CollectPrizeViewController(theme: theme)
+        prizeVC.modalPresentationStyle = .pageSheet
+        if let sheet = prizeVC.sheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.prefersGrabberVisible = true
+        }
+        present(prizeVC, animated: true)
+    }
 
     public func makeAnEdit() {
         ActivityTabFunnel.shared.logMakeEditClick()
@@ -158,7 +215,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             showOfflineAlertIfNeeded()
         }
 
-        presentModalsIfNeeded()
+        if !disableModalsOnAppearance {
+            presentModalsIfNeeded()
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -202,7 +261,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         setupLoginState(needsRefetch: true)
     }
 
-    private func presentFullLoginFlow(fromCustomizeToast: Bool = false) {
+    private func presentFullLoginFlow(fromCustomizeToast: Bool = false, loginSuccessCompletion: (() -> Void)? = nil) {
         if fromCustomizeToast {
             // TODO: Will probably need some special logging here.
         } else {
@@ -220,12 +279,17 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         loginCoordinator.loginSuccessCompletion = {
             WMFToastPresenter.shared.dismissCurrentToast()
+            loginSuccessCompletion?()
         }
 
         loginCoordinator.createAccountSuccessCustomDismissBlock = {
             WMFToastPresenter.shared.dismissCurrentToast()
             if let createVC = nav.presentedViewController {
-                createVC.dismiss(animated: true)
+                createVC.dismiss(animated: true) {
+                     loginSuccessCompletion?()
+                }
+            } else {
+                loginSuccessCompletion?()
             }
         }
 
@@ -302,25 +366,69 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     @MainActor
     private func presentModalsIfNeeded() {
-        Task {
+        
+        // Prioritize reading challenge, then fall back to Activity onboarding or survey view if that doesn't present
+        guard let navigationController, let dataStore else {
+            presentActivityOnboardingOrSurveyIfNeeded()
+            return
+        }
+        
+        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, fromWidgetJoinChallengeButton: false, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
+        
+        readingChallengeCoordinator.onComplete = { [weak self] didPresentSomething in
+            
+            self?.readingChallengeCoordinator = nil
+            
+            // Do not present activity onboarding or survey if they just saw a reading challenge announcement.
+            guard !didPresentSomething else {
+                return
+            }
+            
+            self?.presentActivityOnboardingOrSurveyIfNeeded()
+        }
+        
+        self.readingChallengeCoordinator = readingChallengeCoordinator
+        
+        readingChallengeCoordinator.start()
+    }
+
+    private func presentActivityOnboardingOrSurveyIfNeeded() {
+        Task { [weak self] in
+            guard let self else { return }
+            
             let hasSeenActivityTab = await dataController.getHasSeenActivityTab()
             if !hasSeenActivityTab {
                 presentOnboarding()
                 ActivityTabFunnel.shared.logOnboardingDidAppear()
                 await dataController.setHasSeenActivityTab(true)
-            } else {
+            } else if await dataController.shouldShowSurvey() {
                 presentSurveyIfNeeded()
             }
-            presentSurveyIfNeeded()
         }
+    }
+    
+    // Explicit method to fire the announcement, meant to be called ONLY when tapping Join on the widget. It differs from presentModalsIfNeeded in these ways:
+    // 1. We do not try to present any activity onboarding/survey whatsoever
+    // 2. We purposfully set a temp "disableModals" flag, just in case viewDidAppear (which calls presentModalsIfNeeded) fires at the same time. "disableModals" disables all modal attempts in presentModalsIfNeeded.
+    // 3. We tell the announcement coordinator that it is from the widget, which bypasses hasSeen flag logic
+    @objc func presentReadingChallengeAnnouncementFromWidget() {
+        guard let navigationController, let dataStore else {
+            return
+        }
+        
+        disableModalsOnAppearance = true
+        
+        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, fromWidgetJoinChallengeButton: true, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
 
-        viewModel.didTapPrimaryLoggedOutCTA = { [weak self] in
-            self?.presentFullLoginFlow()
+        readingChallengeCoordinator.onComplete = { [weak self] didPresentSomething in
+            
+            self?.readingChallengeCoordinator = nil
+            self?.disableModalsOnAppearance = false
         }
-
-        viewModel.didTapSearchTab = { [weak self] in
-            self?.navigateToSearch()
-        }
+        
+        self.readingChallengeCoordinator = readingChallengeCoordinator
+        
+        readingChallengeCoordinator.start()
     }
 
     private func presentOnboarding() {
@@ -876,3 +984,5 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
         dismiss(animated: true)
     }
 }
+
+extension WMFActivityTabViewController: WMFFeatureAnnouncing {}
