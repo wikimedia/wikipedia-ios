@@ -3,6 +3,7 @@ import WMFData
 import WMFComponents
 import WMF
 import WMFNativeLocalizations
+import WMFTestKitchen
 
 @MainActor
 final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
@@ -16,6 +17,12 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
     private let fromWidgetJoinChallengeButton: Bool
     
     private let isLoggedIn: Bool
+    
+    private lazy var authInstrument: InstrumentImpl = {
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-widgetchallenge")
+            .setDefaultActionSource("widget_challenge_announce")
+            .startFunnel(name: "widget_challenge")
+    }()
 
     init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fromWidgetJoinChallengeButton: Bool, isLoggedIn: Bool) {
         self.navigationController = navigationController
@@ -146,6 +153,8 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
 
         navigationController.present(navController, animated: true) {
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
+            // Instrument: impression on announcement view
+            self.authInstrument.submitInteraction(action: "impression", actionSource: "widget_challenge_announce")
         }
     }
 
@@ -177,11 +186,15 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
 
         // Wrap actions to dismiss the controller
         viewModel.primaryButtonAction = { [weak self] in
+            // Instrument: "Got it" / primary CTA tap on widget install prompt
+            self?.authInstrument.submitInteraction(action: "click", actionSource: "widget_challenge_install", elementId: "install_accept")
             self?.navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
                 self?.onComplete?(true)
             }
         }
         viewModel.closeButtonAction = { [weak self] in
+            // Instrument: close (X) button tap on widget install prompt
+            self?.authInstrument.submitInteraction(action: "click", actionSource: "widget_challenge_install", elementId: "install_close")
             self?.navigationController.dismiss(animated: true) {
                 self?.onComplete?(true)
             }
@@ -192,7 +205,6 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
         if let sheet = controller.sheetPresentationController {
             if UIDevice.current.userInterfaceIdiom == .pad {
                 sheet.detents = [.large()]
-                // controller.preferredContentSize = CGSize(width: 640, height: 720)
             } else {
                 sheet.detents = [.medium(), .large()]
             }
@@ -203,7 +215,10 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
 
         controller.modalPresentationStyle = .pageSheet
         
-        navigationController.present(controller, animated: true)
+        navigationController.present(controller, animated: true) { [weak self] in
+            // Instrument: impression on widget install prompt
+            self?.authInstrument.submitInteraction(action: "impression", actionSource: "widget_challenge_install")
+        }
         
     }
     
@@ -235,6 +250,9 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
 extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
 
     func onboardingViewDidClickPrimaryButton() {
+        // Instrument: "Join the challenge" tap on announcement screen
+        authInstrument.submitInteraction(action: "click", actionSource: "widget_challenge_announce", elementId: "join_challenge")
+
         if dataStore.authenticationManager.authStateIsPermanent {
             enroll()
             navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
@@ -253,19 +271,17 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
             )
             alert.addAction(UIAlertAction(title: CommonStrings.joinLoginTitle, style: .default) { [weak self] _ in
                 guard let self else { return }
+                // Instrument: "Log in / Join Wikipedia" tap on login alert
+                self.authInstrument.submitInteraction(action: "click", actionSource: "widget_challenge_login", elementId: "login_join")
                 self.navigationController.presentedViewController?.dismiss(animated: true) {
                     let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme, loggingCategory: .login)
                     
                     loginCoordinator.loginSuccessCompletion = { [weak self] in
-                        
                         guard let self else { return }
-                        
                         if let loginVC = self.navigationController.presentedViewController {
                             loginVC.dismiss(animated: true) { [weak self] in
                                 guard let self else { return }
-                                
                                 enroll()
-                                
                                 if !fromWidgetJoinChallengeButton {
                                     presentWidgetAnnouncement()
                                 } else {
@@ -273,19 +289,24 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
                                 }
                             }
                         }
-                        
-                        
                     }
                     
                     loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
                         guard let self else { return }
-                        
+                        // Instrument: successful account creation invoked from widget_challenge context
+                        // This fires in app_base funnel as: action=success, action_source=create_account_form,
+                        // action_context={invoke_source: widget_challenge}, funnel_name=create_account
+                        TestKitchenAdapter.shared.client
+                            .getInstrument(name: "app_base")
+                            .submitInteraction(
+                                action: "success",
+                                actionSource: "create_account_form",
+                                actionContext: ["invoke_source": "widget_challenge"]
+                            )
                         if let createAccountVC = self.navigationController.presentedViewController {
                             createAccountVC.dismiss(animated: true) { [weak self] in
                                 guard let self else { return }
-                                
                                 enroll()
-                                
                                 if !fromWidgetJoinChallengeButton {
                                     presentWidgetAnnouncement()
                                 } else {
@@ -298,7 +319,10 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
                     loginCoordinator.start()
                 }
             })
-            alert.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
+            alert.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { [weak self] _ in
+                // Instrument: "No thanks" tap on login alert
+                self?.authInstrument.submitInteraction(action: "click", actionSource: "widget_challenge_login", elementId: "no_thanks")
+            })
             navigationController.presentedViewController?.present(alert, animated: true)
         }
     }
@@ -308,6 +332,9 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
     }
 
     func onboardingViewDidClickSecondaryButton() {
+        // Instrument: "Learn more" tap on announcement screen
+        authInstrument.submitInteraction(action: "click", actionSource: "widget_challenge_announce", elementId: "learn_more")
+
         guard let url = learnMoreURL else { return }
 
         let config = SinglePageWebViewController.StandardConfig(
