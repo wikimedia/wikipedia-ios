@@ -23,6 +23,7 @@ class WMFWelcomeIntroductionViewController: ThemeableViewController {
         
         updateFonts()
         view.wmf_configureSubviewsForDynamicType()
+        view.accessibilityIdentifier = "App Onboarding Introduction View"
         
         registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
             guard let self else { return }

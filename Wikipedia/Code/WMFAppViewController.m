@@ -887,6 +887,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 #pragma mark - Launch
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
+    
+    [self setupForUITests];
+    
     self.waitingToResumeApp = waitToResumeApp;
 
     [window setRootViewController:self];
@@ -910,7 +913,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 #if UITEST
 
     if (NSProcessInfo.processInfo.arguments.count > 1) {
-        self.theme = [WMFTheme dark]; // remove
         NSArray<NSString *> *arguments = NSProcessInfo.processInfo.arguments;
 
         if ([arguments containsObject:@"UITestThemeLight"]) {
@@ -1555,9 +1557,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (BOOL)shouldShowOnboarding {
-#if UITEST
-    return NO;
-#else
     if (self.unprocessedUserActivity.shouldSkipOnboarding) {
         [self setDidShowOnboarding];
         return NO;
@@ -1565,7 +1564,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     NSNumber *didShow = [[NSUserDefaults standardUserDefaults] objectForKey:WMFDidShowOnboarding];
     return !didShow.boolValue;
-#endif
 }
 
 - (void)setDidShowOnboarding {
