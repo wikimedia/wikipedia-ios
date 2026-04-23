@@ -175,6 +175,7 @@
 "appearance-settings-adjust-text-sizing" = "Məqalənin mətn ölçüsünü tənzimlə";
 "appearance-settings-expand-tables" = "Cədvəlləri genişləndir";
 "appearance-settings-expand-tables-footer" = "Cəld faktlar, İstinadlar, Qeydlər və Xarici keçidlər daxil olmaqla, bütün məqalələrdəki bütün cədvəlləri defolt olaraq açıq olaraq təyin edin.";
+"appearance-settings-icon-contributor-title" = "Töhfəçi";
 "appearance-settings-image-dimming-footer" = "Tünd və qara temalarda şəkillərin qeyri-şəffaflığını azalt";
 "appearance-settings-reading-themes" = "Oxuma temaları";
 "appearance-settings-set-automatic-table-opening" = "Cədvəl Parametrləri";
@@ -192,6 +193,7 @@
 "article-languages-yours" = "Sizin dilləriniz";
 "article-read-more-title" = "Daha çox oxu";
 "article-reference-view-title" = "$1 istinadı";
+"article-return-button-accessibility-title" = "$1 səhifəsinə qayıt.";
 "article-revision-history" = "Məqalənin redaktə tarixçəsi";
 "article-save-error-not-enough-space" = "Bu məqaləni saxlamaq üçün cihazınızda kifayət qədər yer yoxdur";
 "article-share" = "Paylaş";
@@ -234,6 +236,7 @@
 "chinese-variants-alert-title" = "Çin variantı dəstəyi üçün yeniləmələr";
 "clear-title-accessibility-label" = "Təmizlə";
 "clearing-cache-complete" = "Keşin təmizlənməsi tamamlandı.";
+"clearing-cache-error" = "Keşi təmizləmə xətası.";
 "clearing-cache-in-progress" = "Keş təmizlənir.";
 "close-all-tabs" = "Bütün vərəqələri bağla";
 "close-all-tabs-confirmation" = "$1 vərəqənin hamısını bağlamaq istəyirsiniz? Bu əməliyyat geri qaytarıla bilməz.";
@@ -502,6 +505,7 @@
 "empty-no-saved-pages-title" = "Hələ yadda saxlanmış səhifə yoxdur";
 "empty-no-search-results-message" = "Nəticələr tapılmadı";
 "empty-talk-page-title" = "Bu istifadəçi üçün hələ heç bir mesaj göndərilməyib";
+"end-session" = "Sessiyanı bitir";
 "error-generic-recovery-suggestion" = "Daha sonra yenidən cəhd edin";
 "error-unknown" = "Naməlum xəta baş verdi";
 "explore-another-random" = "Başqa bir təsadüfi məqalə";
@@ -968,6 +972,7 @@
 "panel-compare-revisions-text" = "Versiyaların müqayisəsi məqalənin zamanla necə dəyişdiyini göstərməyə kömək edir. Məqalənin iki versiyasını müqayisə etmək, dəyişdirilmiş hər hansı məzmunu vurğulamaqla bu düzəlişlər arasındakı fərqi göstərəcəkdir.";
 "panel-compare-revisions-title" = "Versiyaların müqayisəsi";
 "panel-not-logged-in-continue-edit-action-title" = "Daxil olmadan redaktə et";
+"panel-not-logged-in-subtitle-plain" = "Hər hansı bir düzəliş etsəniz, IP ünvanınız ictimai şəkildə görünəcək. Redaktələrinizin istifadəçi adınıza aid edilməsi üçün daxil olun və ya hesab yaradın.";
 "panel-not-logged-in-title" = "Siz daxil olmamısınız";
 "pictured" = "şəkildə";
 "places-accessibility-clear-saved-searches" = "Saxlanmış axtarışları sil";
@@ -1037,6 +1042,7 @@
 "reading-list-add-saved-button-title" = "Bəli, onları oxuma siyahılarıma əlavə et";
 "reading-list-add-saved-subtitle" = "Vikipediya tətbiqinizdə saxlanılan məqalələr var. Onları saxlamaq və hesabınızla sinxronlaşdırılmış oxuma siyahıları ilə birləşmək istəyirsiniz?";
 "reading-list-add-saved-title" = "Saxlanmış məqalələr tapıldı";
+"reading-list-alert-see-list" = "Oxuma siyahısına bax";
 "reading-list-api-error-entry-limit" = "Siz bu siyahıdakı elementlərin maksimum limitinə çatdığınız üçün bu element sinxronlaşdırılmayıb.";
 "reading-list-api-error-generic" = "Oxuma siyahılarınızı sinxronlaşdırarkən gözlənilməz xəta baş verdi.";
 "reading-list-api-error-list-limit" = "Sinxronlaşdırılmış siyahıların sayı limitinə çatdığınız üçün bu siyahı sinxronlaşdırılmayıb.";
@@ -1173,6 +1179,7 @@
 "settings-help-and-feedback" = "Kömək və rəy";
 "settings-language-bar" = "Axtarışda dilləri göstər";
 "settings-languages-feed-customization" = "Kəşf lenti parametrlərinizi fərdiləşdirməklə, Kəşf lentinizdə hansı dillərin göstərildiyini idarə edə bilərsiniz.";
+"settings-legal-sefaty-title" = "Hüquqi və təhlükəsizlik əlaqələri";
 "settings-my-languages" = "Dillərim";
 "settings-new-article-tab-header-text" = "Yeni vərəqə teması";
 "settings-notifications" = "Canlı bildirişlər";
@@ -1199,6 +1206,10 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Oxuma siyahıları görünüşündə Saxlanmış (məsələn, defolt) oxuma siyahısını ayrıca siyahı kimi göstər. Bu siyahı Android cihazlarında görünür.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Saxlanmış oxuma siyahısını göstər";
 "settings-storage-and-syncing-title" = "Məqalənin saxlanması və sinxronizasiyası";
+"settings-temp-account-end-session-confirm" = "Çıxış";
+"settings-temp-account-end-session-message" = "Bu sessiyadan çıxış etmək istədiyinizə əminsiniz? Bu müvəqqəti hesaba təkrar daxil olmağın yolu yoxdur.";
+"settings-temp-account-end-session-title" = "Sessiyadan çıx";
+"settings-temp-accounts-talk-page-footer" = "Müvəqqəti hesab 90 gün sonra bitəcək";
 "settings-title" = "Parametrlər";
 "settings-year-in-review-header" = "İlin İcmalının söndürülməsi bütün saxlanılan fərdiləşdirilmiş məlumatları siləcək və İlin İcmalını gizlədəcək.";
 "share-a-fact-made-with" = "Vikipediya tətbiqi ilə hazırlanmışdır";
@@ -1348,10 +1359,10 @@
 "two-factor-email-login-continue" = "Daxil olmağa davam et";
 "two-factor-email-login-instructions" = "Zəhmət olmasa, e-poçt doğrulama kodunu daxil edin";
 "two-factor-login-continue" = "Daxil olmağa davam et";
-"two-factor-login-instructions" = "Zəhmət olmasa, iki faktorlu doğrulama kodunu daxil edin";
+"two-factor-login-instructions" = "Zəhmət olmasa, ikifaktorlu təsdiqləmə kodunu daxil edin";
 "two-factor-login-title" = "Hesabınıza daxil olun";
 "two-factor-login-with-backup-code" = "Ehtiyyat kodlarınızdan birini istifadə edin";
-"two-factor-login-with-regular-code" = "Doğrulama kodundan istifadə edin";
+"two-factor-login-with-regular-code" = "Təsdiqləmə kodundan istifadə edin";
 "unable-to-load-talk-page-title" = "Müzakirə səhifəsini yükləmək mümkün olmadı";
 "unknown-generic-text" = "Naməlum";
 "unwatch" = "İzləmədən çıxar";
@@ -1461,7 +1472,7 @@
 "wikitext-preview-link-preview-description" = "Bu keçid '$1' səhifəsinə aparır";
 "wikitext-preview-link-preview-title" = "Link önizləməsi";
 "wikitext-preview-save-changes-title" = "Dəyişiklikləri yadda saxla";
-"wikitext-upload-captcha-error" = "CAPTCHA doğrulama xətası.";
+"wikitext-upload-captcha-error" = "CAPTCHA təsdiqləmə xətası.";
 "wikitext-upload-captcha-needed" = "CAPTCHA doğrulaması lazımdır.";
 "wikitext-upload-result-unknown" = "Vikimətn yükləmə nəticəsini müəyyən etmək mümkün deyil.";
 "wikitext-upload-save" = "Yayımlanır...";

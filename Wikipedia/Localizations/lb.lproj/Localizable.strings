@@ -596,7 +596,7 @@
 "notifications-center-change-password" = "Passwuert änneren";
 "notifications-center-destination-app" = "An der App";
 "notifications-center-empty-no-messages" = "Dir hutt keng Messagen";
-"notifications-center-empty-not-subscribed" = "Dir hutt de Moment keng Wikipedia-Notifikatiounen abonnéiert";
+"notifications-center-empty-not-subscribed" = "Dir sidd de Moment op keng Wikipedia-Notifikatiounen abonéiert";
 "notifications-center-empty-state-filters-subtitle" = "Ännert $1 fir méi Messagen ze gesinn";
 "notifications-center-empty-state-no-projects-selected" = "Setzt Projeten derbäi fir méi Messagen ze gesinn";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 Filter|$1 Filteren}}";
@@ -1051,7 +1051,7 @@
 "welcome-intro-free-encyclopedia-more-about" = "Iwwer Wikipedia";
 "welcome-intro-free-encyclopedia-title" = "Déi fräi Enzyklopedie";
 "welcome-languages-add-button" = "Eng aner Sprooch derbäisetzen";
-"welcome-languages-add-or-edit-button" = "Lieblingssproochen derbäisetzen oder änneren";
+"welcome-languages-add-or-edit-button" = "Preferéiert Sproochen derbäisetzen oder änneren";
 "welcome-languages-description" = "Op Ärem Apparat hu mir dës Sprooche fonnt:";
 "welcome-languages-search-title" = "A méi wéi 300 Sprooche sichen";
 "widget-onthisday-placeholder-article-snippet" = "Fräi Online-Enzyklopedie, déi jiddereen ännere kann";
