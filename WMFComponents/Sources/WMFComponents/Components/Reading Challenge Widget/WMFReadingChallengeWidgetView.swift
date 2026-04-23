@@ -253,9 +253,9 @@ public struct WMFReadingChallengeWidgetView: View {
                     if let uiImage = UIImage(named: "flameWarning", in: .module, with: nil) {
                         Image(uiImage: uiImage)
                             .resizable()
-                            .foregroundStyle(viewModel.displaySet.color2)
                             .scaledToFit()
-                            .frame(width: 24)
+                            .frame(maxHeight: 20)
+                            .foregroundStyle(viewModel.displaySet.color2)
                     }
                     Text(viewModel.displaySet.title)
                         .font(Font(WMFFont.for(.boldTitle3)))
@@ -281,7 +281,9 @@ public struct WMFReadingChallengeWidgetView: View {
                 HStack {
                     if let icon = viewModel.displaySet.icon {
                         Image(uiImage: icon)
-                            .font(Font(WMFFont.for(.boldTitle3)))
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxHeight: 20)
                             .foregroundStyle(viewModel.displaySet.color2)
                     }
                     Text(viewModel.displaySet.title)
