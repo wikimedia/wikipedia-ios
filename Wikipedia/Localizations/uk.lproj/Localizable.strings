@@ -119,6 +119,9 @@
 "activity-tab-empty-subtitle" = "Почніть читати та редагувати, щоб створити свою історію";
 "activity-tab-empty-title" = "Нічого показати";
 "activity-tab-generic-no-edits" = "Ви ще не редагували цього тижня. Почніть зараз, щоб відстежувати свій внесок.";
+"activity-tab-history-callout-body" = "Перегляньте або очистіть історію читання на вкладці **Пошук**.";
+"activity-tab-history-callout-body-loggedout" = "Знайдіть та очистіть історію читання на вкладці **Пошук**. Обліковий запис не потрібен.";
+"activity-tab-hitory-callout-close" = "Закрити картку з повідомленнями про історію";
 "activity-tab-hours-minutes-read" = "$1 год $2 хв";
 "activity-tab-hours-on-wikipedia-ios" = "У ВІКІПЕДІЇ iOS";
 "activity-tab-impact-all-time-title" = "Вплив за весь час";
@@ -187,6 +190,7 @@
 "appearance-settings-adjust-text-sizing" = "Налаштувати розмір тексту статті";
 "appearance-settings-expand-tables" = "Розгорнути таблиці";
 "appearance-settings-expand-tables-footer" = "Завжди розкривати таблиці в усіх розділах, включаючи «Цікаві факти», «Примітки», «Коментарі», «Посилання».";
+"appearance-settings-icon-contributor-title" = "Учасник";
 "appearance-settings-image-dimming-footer" = "Зменшує непрозорість зображень у темній і чорній темах";
 "appearance-settings-reading-themes" = "Теми для читання";
 "appearance-settings-set-automatic-table-opening" = "Параметри таблиць";
@@ -204,6 +208,7 @@
 "article-languages-yours" = "Ваші мови";
 "article-read-more-title" = "Пов'язані сторінки";
 "article-reference-view-title" = "Посилання $1";
+"article-return-button-accessibility-title" = "Повернутися до: $1";
 "article-revision-history" = "Історія редагування статті";
 "article-save-error-not-enough-space" = "Не вистачає місця на вашому приладі, щоб зберегти цю статтю.";
 "article-share" = "Поділитися";
@@ -247,6 +252,7 @@
 "chinese-variants-alert-title" = "Оновлення щодо підтримки варіантів китайської";
 "clear-title-accessibility-label" = "Очистити";
 "clearing-cache-complete" = "Очищення кешу завершено.";
+"clearing-cache-error" = "Помилка очищення кешу.";
 "clearing-cache-in-progress" = "Виконується очищення кешу.";
 "close-all-tabs" = "Закрити всі вкладки";
 "close-all-tabs-confirmation" = "Хочете закрити всі вкладки ($1)? Цю дію не можна скасувати.";
@@ -516,6 +522,7 @@
 "empty-no-saved-pages-title" = "Ще немає збережених сторінок";
 "empty-no-search-results-message" = "Нічого не знайдено";
 "empty-talk-page-title" = "На сторінці обговорення користувача поки немає дописів";
+"end-session" = "Завершити сесію";
 "error-generic-recovery-suggestion" = "Будь ласка, спробуйте пізніше";
 "error-unknown" = "Сталася невідома помилка.";
 "explore-another-random" = "Інша випадкова стаття";
@@ -987,6 +994,7 @@
 "panel-compare-revisions-text" = "Порівняння версій допомагає показати, як стаття змінювалася з часом. Порівняння двох версій статті показує різницю між версіями завдяки підсвічуванню того вмісту, який змінився.";
 "panel-compare-revisions-title" = "Порівняння версій";
 "panel-not-logged-in-continue-edit-action-title" = "Редагувати без входу в систему";
+"panel-not-logged-in-subtitle-plain" = "Ваша IP-адреса буде видимою для всіх, якщо ви внесете будь-які зміни. Увійдіть або створіть обліковий запис, щоб ваші зміни зберігались під вашим іменем користувача.";
 "panel-not-logged-in-title" = "Ви не ввійшли в систему";
 "percentile-0.01" = "0,01";
 "percentile-1" = "1";
@@ -1064,6 +1072,7 @@
 "reading-list-add-saved-button-title" = "Так, додайте їх до моїх читальних списків";
 "reading-list-add-saved-subtitle" = "У вашому додатку Вікіпедії є збережені статті. Хочете зберегти їх та поєднати з читальними списками, синхронізованими на вашому обліковому запису?";
 "reading-list-add-saved-title" = "Знайдені збережені статті";
+"reading-list-alert-see-list" = "Переглянути список читання";
 "reading-list-api-error-entry-limit" = "Цей запис не синхронізовано, оскільки ви сягнули ліміту кількості записів у цьому списку.";
 "reading-list-api-error-generic" = "Під час синхронізації ваших читальних списків сталася непередбачена помилка.";
 "reading-list-api-error-list-limit" = "Цей список не синхронізировано, оскільки ви сягнули ліміту кількості синхронізованих списків.";
@@ -1172,6 +1181,7 @@
 "saved-title" = "Збережене";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Незбереження {{PLURAL:$1|цієї статті вилучить її|цих статей вилучить їх}} з усіх пов'язаних читальних списків";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Не зберігати {{PLURAL:$1|стаття|статті|статей}}?";
+"search-button-accessibility-hint" = "Переходить до перегляду пошуку.";
 "search-button-accessibility-label" = "Пошук по Вікіпедії";
 "search-clear-title" = "Очистити";
 "search-field-placeholder-text" = "Пошук по Вікіпедії";
@@ -1199,6 +1209,7 @@
 "settings-help-and-feedback" = "Допомога та зворотний зв'язок";
 "settings-language-bar" = "Показувати мови при пошуку";
 "settings-languages-feed-customization" = "Ви можете зазначити в налаштуваннях, які мови показуватимуться у вашій стрічці.";
+"settings-legal-sefaty-title" = "Контакти з юридичних питань та безпеки";
 "settings-my-languages" = "Мої мови";
 "settings-new-article-tab-header-text" = "Тема нової вкладки";
 "settings-notifications" = "Push-сповіщення";
@@ -1225,6 +1236,10 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Показувати «Збережене» окремо від читальних списків. Цей список буде показано на пристроях Android.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Показувати «Збережене»";
 "settings-storage-and-syncing-title" = "Збереження та синхронізація статей";
+"settings-temp-account-end-session-confirm" = "Вийти";
+"settings-temp-account-end-session-message" = "Ви впевнені, що хочете завершити цей сеанс і вийти? Ви не зможете знову ввійти у цей тимчасовий обліковий запис.";
+"settings-temp-account-end-session-title" = "Вийти з сесії";
+"settings-temp-accounts-talk-page-footer" = "Тимчасовий обліковий запис діятиме 90 днів";
 "settings-title" = "Налаштування";
 "settings-year-in-review-header" = "Вимкнення «Огляду року» призведе до вилучення всіх збережених персоналізованих статистичних даних і приховування «Огляду року».";
 "share-a-fact-made-with" = "Створено за допомоги додатку Вікіпедія";
@@ -1363,6 +1378,7 @@
 "theme-default-explanation" = "Підлаштована під вигляд системи";
 "theme-light-display-name" = "Світла";
 "theme-sepia-display-name" = "Сепія";
+"tip-history-in-search-subtitle" = "Знайдіть свою історію читання на вкладці «Пошук».";
 "tip-history-in-search-title" = "Історія переїхала до Пошуку";
 "today-title" = "Сьогодні";
 "top-read-widget-description" = "Дізнайтеся, що світ читає у Вікіпедії сьогодні.";

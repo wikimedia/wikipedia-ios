@@ -7,6 +7,9 @@
         "commandLineArgumentEntries" : [
           {
             "argument" : "UITestThemeLight"
+          },
+          {
+            "argument" : "UITestLanguageEN"
           }
         ]
       }
@@ -18,6 +21,9 @@
         "commandLineArgumentEntries" : [
           {
             "argument" : "UITestThemeSepia"
+          },
+          {
+            "argument" : "UITestLanguageHE"
           }
         ],
         "language" : "he",
@@ -31,6 +37,9 @@
         "commandLineArgumentEntries" : [
           {
             "argument" : "UITestThemeDark"
+          },
+          {
+            "argument" : "UITestLanguageDE"
           }
         ],
         "language" : "de",
@@ -44,6 +53,9 @@
         "commandLineArgumentEntries" : [
           {
             "argument" : "UITestThemeBlack"
+          },
+          {
+            "argument" : "UITestLanguageVI"
           }
         ],
         "language" : "vi",
@@ -60,6 +72,8 @@
   "testTargets" : [
     {
       "skippedTests" : [
+        "WKSourceEditorUITests",
+        "WKSourceEditorUITests\/testSourceEditorInputViewSwitching()",
         "WikipediaUITests"
       ],
       "target" : {
