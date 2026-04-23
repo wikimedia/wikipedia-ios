@@ -3,6 +3,8 @@
 #import "Wikipedia-Swift.h"
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "WMFImageGalleryDetailOverlayView.h"
+#import "NYTPhotoViewController.h"
+#import "NYTScalingImageView.h"
 @import CoreServices;
 @import UniformTypeIdentifiers;
 @import WMFComponents;
@@ -26,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NYTPhotosViewController (WMFExposure)
 
 - (NYTPhotoViewController *)newPhotoViewControllerForPhoto:(id<NYTPhoto>)photo;
+- (NYTPhotoViewController *)currentPhotoViewController;
 
 @end
 
@@ -127,9 +130,11 @@ NS_ASSUME_NONNULL_BEGIN
         share.tintColor = [UIColor whiteColor];
         self.overlayView.rightBarButtonItem = share;
 
-        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithTitle:WMFCommonStrings.doneTitle style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton)];
-        close.tintColor = self.theme.colors.link;
-        close.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
+        WMFLargeCloseButtonConfig *config = [[WMFLargeCloseButtonConfig alloc] initWithImageType:WMFLargeCloseButtonImageTypePlainX target:self action:@selector(didTapCloseButton) alignment:AlignmentTrailing];
+        UIBarButtonItem *close = [UIBarButtonItem closeNavigationBarButtonItemWithConfig:config];
+        close.tintColor = [UIColor whiteColor]; // Need to override this since gallery is always dark
+        close.accessibilityLabel = [WMFCommonStringsWrapper closeButtonAccessibilityLabel];
+
         self.overlayView.leftBarButtonItem = close;
     }
 }
@@ -179,6 +184,20 @@ NS_ASSUME_NONNULL_BEGIN
     return vc;
 }
 
+- (CGFloat)captionMaxHeightWithFallback:(CGFloat)fallbackHeight {
+    return fallbackHeight * 0.35f;
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    UIView *captionView = self.overlayView.captionView;
+    if (![captionView isKindOfClass:[WMFImageGalleryDetailOverlayView class]]) {
+        return;
+    }
+    WMFImageGalleryDetailOverlayView *detailOverlayView = (WMFImageGalleryDetailOverlayView *)captionView;
+    detailOverlayView.maximumDescriptionHeight = [self captionMaxHeightWithFallback:self.view.bounds.size.height];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.accessibilityIgnoresInvertColors = YES;
@@ -206,7 +225,7 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     [[[MWKDataStore shared] cacheController] fetchImageWithURL:url
         failure:^(NSError *_Nonnull error) {
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+            [[WMFToastManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousToasts:NO tapCallBack:NULL];
         }
         success:^(WMFImageDownload *_Nonnull download) {
             @strongify(self);
@@ -279,19 +298,10 @@ NS_ASSUME_NONNULL_BEGIN
             }];
         }
     };
-    @weakify(caption);
-    caption.descriptionTapCallback = ^{
-        [UIView animateWithDuration:0.3
-                         animations:^{
-                             @strongify(self);
-                             @strongify(caption);
-                             [caption toggleDescriptionOpenState];
-                             [self.view layoutIfNeeded];
-                         }
-                         completion:NULL];
-    };
-
-    caption.maximumDescriptionHeight = self.view.frame.size.height;
+    // Use the screen bounds height as a reliable fallback since self.view may not
+    // have been laid out yet when this delegate method is called.
+    CGFloat fallback = self.view.window ? self.view.frame.size.height : UIScreen.mainScreen.bounds.size.height;
+    caption.maximumDescriptionHeight = [self captionMaxHeightWithFallback:fallback];
 
     return caption;
 }
@@ -310,7 +320,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     WMFImageGalleryDetailOverlayView *detailOverlayView = (WMFImageGalleryDetailOverlayView *)maybeDetailOverlayView;
-    detailOverlayView.maximumDescriptionHeight = size.height;
+    detailOverlayView.maximumDescriptionHeight = [self captionMaxHeightWithFallback:size.height];
 }
 
 - (void)photosViewControllerDidDismiss:(NYTPhotosViewController *)photosViewController {

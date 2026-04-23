@@ -227,7 +227,6 @@
 "description-help-title" = "記事の説明に関するヘルプ";
 "description-help-wikidata-guide" = "説明を記述するためのウィキデータガイド";
 "description-published-button-title" = "完了";
-"description-published-footer" = "アプリ内で記事も編集できます。次回は鉛筆アイコンをクリックして、誤字を直したり、文を編集したりを試してみましょう。";
 "description-published-subtitle" = "みんなのためにウィキペディアを改善しました。";
 "description-published-title" = "説明が公開されました!";
 "description-welcome-concise-sub-title" = "説明は1行のみで、30文字程度で書いてください";
@@ -305,8 +304,6 @@
 "edit-notices" = "お知らせを編集する";
 "edit-notices-always-display" = "編集通知を常に表示する";
 "edit-notices-please-read" = "編集する前にお読みください";
-"edit-published" = "公開しました!";
-"edit-published-subtitle" = "みんなのためにウィキペディアを改善しました。";
 "edit-show-web-preview" = "プレビューを表示";
 "edit-summary-add-summary-text" = "編集の要約を追加";
 "edit-summary-choice-added-image" = "新しく画像を追加";
@@ -598,8 +595,10 @@
 "more-menu" = "もっと見る";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 件の記事}}をあとで読むリストに移動";
 "navbar-title-mode-edit-wikitext-preview" = "プレビュー";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 フィート";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 マイル";
 "new-password-instructions" = "一時的なパスワードでログインしています。ログインを完了するには、新しいパスワードをここで設定してください:";
@@ -608,8 +607,6 @@
 "next-action-title" = "次へ";
 "no-email-account-alert" = "アカウントのメールアドレスを設定してから、もう一度お試しください。";
 "no-internet-connection" = "インターネットに接続されていません";
-"no-internet-connection-article-reload" = "この記事の新しい版があるかもしれませんが、インターネットに接続するまで読みこめません。";
-"no-internet-connection-article-reload-button" = "最後に保存した版に戻る";
 "not-now-title" = "今はしない";
 "notifications-center-agent-description-from-format" = "$1 より";
 "notifications-center-alert" = "アラート";
@@ -627,7 +624,6 @@
 "notifications-center-empty-not-subscribed" = "現在、ウィキペディアの通知を登録していません";
 "notifications-center-empty-state-no-projects-selected" = "メッセージをさらに見るには、プロジェクトを追加してください";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1件のフィルター}}";
-"notifications-center-feed-card-title" = "編集の通知が利用可能になりました";
 "notifications-center-feed-news-notification-button-text" = "プッシュ通知をオンにする";
 "notifications-center-filters-accessibility-label" = "通知フィルター";
 "notifications-center-filters-read-status-item-title-all" = "すべて";
@@ -729,7 +725,6 @@
 "on-this-day-no-internet-error" = "利用できるデータがありません";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2版ウィキペディアより$1の記事";
 "on-this-day-title" = "今日は何の日";
-"open-in-tab-tooltip-body" = "記事タイトルか青色のリンクを長押しすると、新しいタブで開きます。";
 "original-tab-button-popover-description" = "「W」をタップすると、Exploreフィードに戻ります。";
 "page-history-bot-edits" = "ボット";
 "page-history-compare-accessibility-hint" = "比較する2つの版をタップして選択してください";
@@ -753,7 +748,6 @@
 "panel-compare-revisions-text" = "版を比較すると、記事が時間の経過とともにどのように変更されたかを示すのに役立ちます。記事の2つの版を比較すると、変更されたコンテンツが強調表示されることで、これらの版の違いが示されます。";
 "panel-compare-revisions-title" = "版を比較";
 "panel-not-logged-in-continue-edit-action-title" = "ログインせずに編集";
-"panel-not-logged-in-subtitle" = "編集を行うと、あなたのIP アドレスが公開されます。 $1ログイン$2または$3アカウントを作成$4すれば、あなたの編集は利用者名とともに表示されるほか、その他の利点もあります。";
 "panel-not-logged-in-title" = "ログインしていません";
 "pictured" = "描かれた";
 "places-accessibility-clear-saved-searches" = "保存した検索結果を消去する";
@@ -901,15 +895,6 @@
 "relative-date-seconds-abbreviated" = "$1秒";
 "relative-date-seconds-ago-abbreviated" = "$1秒前";
 "relative-date-years-ago" = "{{PLURAL:$1|0=今年|1=昨年|$1年前}}";
-"replace-button-accessibility" = "$1を実行する。";
-"replace-buttons-replace-accessibility" = "1つだけ置換";
-"replace-buttons-replace-all-accessibility" = "すべて置換";
-"replace-clear-button-accessibility" = "置換をクリア";
-"replace-infolabel-method-replace" = "置換";
-"replace-infolabel-method-replace-all" = "すべて置換";
-"replace-method-button-accessibility" = "置換方法。現在$1に設定されています。選択して変更。";
-"replace-textfield-accessibility" = "置換";
-"replace-textfield-placeholder" = "置換後の文字列";
 "return-button-title" = "戻る";
 "return-to-article" = "記事に戻る";
 "reverted-edit-title" = "差し戻された編集";
@@ -928,7 +913,6 @@
 "search-button-accessibility-label" = "ウィキペディア内を検索";
 "search-clear-title" = "消去";
 "search-field-placeholder-text" = "ウィキペディア内を検索";
-"search-reading-list-placeholder-text" = "あとで読むリストを検索";
 "search-recent-clear-confirmation-heading" = "最近の検索をすべて削除しますか?";
 "search-recent-clear-confirmation-sub-heading" = "この操作は取り消せません!";
 "search-recent-clear-delete-all" = "すべて削除";
@@ -953,11 +937,6 @@
 "settings-notifications-echo-failure-title" = "通知を確認できません";
 "settings-notifications-echo-failure-try-again" = "もう一度お試しください";
 "settings-notifications-header" = "仲間の寄稿者からのメッセージ、アラート、通知など、アカウントに関連するアクティビティについて警告を受けます。プライバシーと最新のデータに関するすべてが提供されます。";
-"settings-notifications-info" = "ウィキペディア上で話題の記事、最も読まれている記事をプッシュ通知で受け取りましょう。通知はすべてプライバシーに配慮して行われ、毎分ごとのデータに基づいています。";
-"settings-notifications-learn-more" = "通知についてさらに詳しく";
-"settings-notifications-push-notifications" = "プッシュ通知";
-"settings-notifications-system-turn-on" = "通知をオンにする";
-"settings-notifications-trending" = "現在進行中のできごと";
 "settings-primary-language" = "メインの言語";
 "settings-primary-language-details" = "このリストの先頭の言語が、このアプリのメインの言語として使用されます。";
 "settings-search-footer-text" = "アプリ起動の際に、探索タブの代わりに検索タブを開きます";
@@ -1002,8 +981,6 @@
 "tabs-main-page-description" = "Wikipediaのメインページで、注目記事、最新ニュース、興味深い事実、主要な統計情報などをご覧ください。";
 "tabs-main-page-subtitle" = "Wikipediaのデイリーハイライト";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 タブ}}";
-"tabs-overview-tooltip-body" = "タブの概要で、開いている記事を切り替えます。";
-"tabs-overview-tooltip-title" = "タブの概要";
 "tabs-survey-title" = "タブの改善にご協力ください。この機能に満足していますか？";
 "talk-page-add-topic-button" = "トピックを追加";
 "talk-page-archives" = "アーカイブ";
@@ -1178,9 +1155,6 @@
 "welcome-languages-add-or-edit-button" = "優先言語の追加または編集";
 "welcome-languages-description" = "お使いの端末で次の言語が見つかりました:";
 "welcome-languages-search-title" = "300を超える言語の中を検索";
-"welcome-notifications-tell-me-more-creation" = "通知はアプリケーションによってデバイス上で作成され、配信されるもので、当財団（または第三者）のサーバーから届くものではありません。";
-"welcome-notifications-tell-me-more-storage" = "通知設定はデバイスに保存されます。個人情報や活動に基づくものではありません。";
-"welcome-notifications-tell-me-more-title" = "通知についての詳細";
 "widget-onthisday-description" = "今日、歴史上では何が起こったのかを探索します。";
 "widget-onthisday-placeholder-article-snippet" = "誰もが編集できる無料のオンライン百科事典";
 "widget-onthisday-placeholder-event-snippet" = "ウィキペディアは、オンライン上の無料で利用できる百科事典です。";

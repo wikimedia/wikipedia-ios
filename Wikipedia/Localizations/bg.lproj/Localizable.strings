@@ -168,8 +168,6 @@
 "edit-minor-learn-more-text" = "Научете повече за малките промени";
 "edit-minor-text" = "Това е малка промяна";
 "edit-notices" = "Известия за редактиране";
-"edit-published" = "Редакцията е публикувана";
-"edit-published-subtitle" = "Току-що направихте Уикипедия по-добра за всички";
 "edit-summary-add-summary-text" = "Добавяне описание на редакцията";
 "edit-summary-choice-fixed-grammar" = "Поправена граматична грешка";
 "edit-summary-choice-fixed-typos" = "Поправена правописна грешка";
@@ -326,11 +324,10 @@
 "more-languages-tooltip-title" = "Добавяне на езици";
 "navbar-title-mode-edit-wikitext-preview" = "Предварителен преглед";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "new-password-title" = "Въведете паролата си";
 "no-internet-connection" = "Не сте свързани с интернет";
-"no-internet-connection-article-reload" = "Може да съществува по-нова версия на статията, но не може да бъде заредена без интернет връзка";
-"no-internet-connection-article-reload-button" = "Връщане към последната съхранена версия";
 "not-now-title" = "Не сега";
 "notifications-center-agent-description-from-format" = "От $1";
 "notifications-center-alert" = "Известие";
@@ -345,7 +342,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Променете $1, за да видите повече съобщения";
 "notifications-center-empty-state-no-projects-selected" = "Добавете проекти, за да видите повече съобщения";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 филтър|$1 филтъра}}";
-"notifications-center-feed-card-title" = "Известията за редактиране вече са налични";
 "notifications-center-feed-news-notification-button-text" = "Включване на насочени известия";
 "notifications-center-feed-news-notification-text" = "Известията за редактиране, за всички проекти на Уикимедия вече са достъпни чрез приложението. Включете се за насочени известия, за да сте в течение със съобщенията си в Уикипедия, докато сте в движение.";
 "notifications-center-filters-accessibility-label" = "Филтър за известия";
@@ -466,10 +462,6 @@
 "reference-title" = "Източник $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Днес|1=Вчера|преди $1 дни}}";
 "relative-date-hours-ago-abbreviated" = "преди $1 час";
-"replace-infolabel-method-replace" = "Замяна";
-"replace-infolabel-method-replace-all" = "Замяна на всички";
-"replace-textfield-accessibility" = "Замяна";
-"replace-textfield-placeholder" = "Замяна с...";
 "reverted-edit-title" = "Върната редакция";
 "save-view-temp-account-warning" = "Не сте влезли в системата. След като направите редакция, ще Ви бъде създадена временна сметка, за да се защити поверителността Ви.";
 "saved-all-articles-title" = "Всички статии";
@@ -482,7 +474,6 @@
 "search-button-accessibility-label" = "Търсене в Уикипедия";
 "search-clear-title" = "Изчистване";
 "search-field-placeholder-text" = "Търсене в Уикипедия";
-"search-reading-list-placeholder-text" = "Търсене в списъка за четене";
 "search-recent-clear-confirmation-heading" = "Изтриване на всички скорошни търсения?";
 "search-recent-clear-confirmation-sub-heading" = "Това действие не може да бъде отменено!";
 "search-recent-clear-delete-all" = "Изтриване на всички";
@@ -504,9 +495,6 @@
 "settings-my-languages" = "Моите езици";
 "settings-notifications" = "Насочени известия";
 "settings-notifications-echo-failure-try-again" = "Опитайте отново";
-"settings-notifications-learn-more" = "Научете повече за известията";
-"settings-notifications-push-notifications" = "Насочени известия";
-"settings-notifications-system-turn-on" = "Включване на известията";
 "settings-primary-language" = "Основен";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Изтриване";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Изтриване на съхранени статии";
@@ -590,7 +578,6 @@
 "welcome-languages-add-or-edit-button" = "Добавяне или редактиране на предпочитани езици";
 "welcome-languages-description" = "Намерихме следните езици на Вашето устройство:";
 "welcome-languages-search-title" = "Търсете на над 300 езика";
-"welcome-notifications-tell-me-more-title" = "Повече за известията";
 "widget-onthisday-description" = "Прегледайте какво се е случило на този ден в историята.";
 "widget-onthisday-placeholder-article-snippet" = "Безплатна онлайн енциклопедия, която всеки може да редактира";
 "widget-onthisday-placeholder-event-snippet" = "Уикипедия, безплатната енциклопедия с уики съдържание, става онлайн.";

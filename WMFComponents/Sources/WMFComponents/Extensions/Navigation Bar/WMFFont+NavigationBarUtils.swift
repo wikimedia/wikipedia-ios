@@ -1,8 +1,9 @@
 import UIKit
 
 public extension WMFFont {
-    static var navigationBarDoneButtonFont: UIFont {
-        return WMFFont.for(.semiboldHeadline)
+    
+    static var navigationBarCloseButtonFont: WMFFont {
+        return .mediumSubheadline
     }
     
     static var navigationBarLeadingCompactTitleFont: UIFont {
@@ -11,5 +12,10 @@ public extension WMFFont {
     
     static var navigationBarLeadingLargeTitleFont: UIFont {
         return WMFFont.for(.boldTitle1)
+    }
+    
+    static var navigationBarCustomLeadingLargeTitleFont: UIFont {
+        let largeTraitCollection = UITraitCollection(preferredContentSizeCategory: .large)
+        return WMFFont.for(.boldTitle1, compatibleWith: largeTraitCollection)
     }
 }

@@ -2,7 +2,7 @@ import WMFComponents
 
 extension ArticleViewController {
     func shareArticle() {
-        themesPresenter.dismissReadingThemesPopoverIfActive(from: self)
+        themesPresenter?.dismissReadingThemesPopoverIfActive(from: self)
         webView.wmf_getSelectedText({ [weak self] selectedText in
             guard let self = self else {
                 return
@@ -26,7 +26,8 @@ extension ArticleViewController {
             activities.append(shareAFactActivity)
         }
 
-        guard let vc = sharingActivityViewController(with: selectedText, button: toolbarController.shareButton, customActivities: activities) else {
+        guard let shareButton = toolbarController?.shareButton,
+              let vc = sharingActivityViewController(with: selectedText, button: shareButton, customActivities: activities) else {
             return
         }
         present(vc, animated: true)

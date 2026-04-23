@@ -104,6 +104,9 @@
 "activity-tab-empty-subtitle" = "Почнете да читате и уредувате за да ја изградите вашата историја";
 "activity-tab-empty-title" = "Нема што да се прикаже";
 "activity-tab-generic-no-edits" = "Немате уредувано неделава. Почнете сега за да ги следите вашите придонеси.";
+"activity-tab-history-callout-body" = "Прелистувајте или исчистете ја вашата историја на читање во **Јазичето за пребарување**.";
+"activity-tab-history-callout-body-loggedout" = "Прелистувајте или исчистете ја вашата историја на читање во **Јазичето за пребарување**. Не ви треба сметка.";
+"activity-tab-hitory-callout-close" = "Затвори картичка со известување за историја";
 "activity-tab-hours-minutes-read" = "$1 ч. $2 м.";
 "activity-tab-hours-on-wikipedia-ios" = "НА ВИКИПЕДИЈА iOS";
 "activity-tab-impact-all-time-title" = "Севкупно влијание";
@@ -173,6 +176,7 @@
 "appearance-settings-adjust-text-sizing" = "Прилагоди големина на текстот";
 "appearance-settings-expand-tables" = "Расклопувај табели";
 "appearance-settings-expand-tables-footer" = "Задај сите табели во сите статии да бидат отворени по освновно. Тука се вклучени брзите факти, наводите, белешките и надворешните врски.";
+"appearance-settings-icon-contributor-title" = "Учесник";
 "appearance-settings-image-dimming-footer" = "Намали ја непроѕирноста на сликите во темниот и црниот изглед";
 "appearance-settings-reading-themes" = "Читачки изгледи";
 "appearance-settings-set-automatic-table-opening" = "Поставки за табели";
@@ -190,6 +194,7 @@
 "article-languages-yours" = "Ваши јазици";
 "article-read-more-title" = "Прочитајте повеќе";
 "article-reference-view-title" = "Навод $1";
+"article-return-button-accessibility-title" = "Назад на: $1";
 "article-revision-history" = "Историја на преработки на страницата";
 "article-save-error-not-enough-space" = "Немате доволно простор на уредот за да ја зачувате статијава";
 "article-share" = "Сподели";
@@ -233,6 +238,7 @@
 "chinese-variants-alert-title" = "Новост за поддршка на кинески варијанти";
 "clear-title-accessibility-label" = "Исчисти";
 "clearing-cache-complete" = "Чистењето на меѓускладот е завршено.";
+"clearing-cache-error" = "Грешка при бришењето на меѓускладот.";
 "clearing-cache-in-progress" = "Чистењето на меѓускладот е во тек.";
 "close-all-tabs" = "Затвори ги сите јазичиња";
 "close-all-tabs-confirmation" = "Дали сакате да ги затворите сите $1 јазичиња? Ова дејство е неповратно.";
@@ -284,7 +290,6 @@
 "description-help-title" = "Помош со опис на статиите";
 "description-help-wikidata-guide" = "Прирачник за пишување описи на Википодатоците";
 "description-published-button-title" = "Готово";
-"description-published-footer" = "Со прилогов можете и да уредувате статии. Следниот пат стиснете на моливчето за да исправите правописни грешки и куси реченици";
 "description-published-subtitle" = "Штотуку ја подобривте Википедија за сите читатели";
 "description-published-title" = "Описот е објавен!";
 "description-welcome-concise-sub-title" = "По можност еден ред, од два до дванаесет збора";
@@ -396,8 +401,6 @@
 "edit-notices-always-display" = "Секогаш прикажувај известувања за уредување";
 "edit-notices-please-read" = "Прочитајте пред да уредувате";
 "edit-preview-simplified-format-message" = "Целата содржина е прикажана во упростен формат.";
-"edit-published" = "Уредувањето е објавено";
-"edit-published-subtitle" = "Штотуку ја подобривте Википедија за сите читатели";
 "edit-sheet-ip-account-notice" = "Напомена за IP-сметка";
 "edit-sheet-temp-account-notice" = "Напомена за привремена сметка";
 "edit-show-web-preview" = "Прикажи преглед обично";
@@ -405,7 +408,7 @@
 "edit-summary-choice-added-image" = "Додадена слика";
 "edit-summary-choice-added-image-and-caption" = "Додадени слика и опис";
 "edit-summary-choice-fixed-grammar" = "Исправена граматиката";
-"edit-summary-choice-fixed-typos" = "Исправена грешка при пишување";
+"edit-summary-choice-fixed-typos" = "Исправена печатна грешка";
 "edit-summary-choice-linked-words" = "Додадени врски";
 "edit-summary-placeholder-text" = "На кој начин ја подобривте статијата?";
 "edit-summary-short-description-added" = "Додаден краток опис";
@@ -596,8 +599,6 @@
 "explore-suggested-edits-footer" = "Додај";
 "explore-suggested-edits-image-recs-body" = "Додавајте предложени слики во википедиски статии за да ја подобрите претставата за содржината.";
 "explore-suggested-edits-image-recs-title" = "Додај слика";
-"explore-survey-subtitle" = "Пополнете кратка анкета за тековникот „Истражи“. Вашите мислења ќе ни помогнат да го подобриме во иднина.";
-"explore-survey-title" = "Помогнете ни да го подобриме „Истражи“";
 "explore-wikipedia" = "Истражете ја Википедија";
 "export-user-data-confirmation-message" = "Споделувањето на вашата библиотека на прилози вклучува податоци за вашите Списоци на читање и историја, вашите нагодувања, и содржината на тековникот Истражи. Оваа податочна податотека треба да се споделува само со доверлив примач и да се користи за техничка дијагностика.";
 "export-user-data-confirmation-title" = "Да се сподели библиотеката на прилози?";
@@ -710,7 +711,6 @@
 "image-recs-yes-title" = "Да";
 "import-shared-reading-list-default-title" = "Мој список за читање";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Пополнете ја анкетата";
-"import-shared-reading-list-survey-prompt-footer" = "ПОгледајте ја нашата $1изјава за личните податоци$2. Анкетата ја овозможува трето лице. Погледајте ги нивните $3правила за личните податоци$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "„Сподели списоци за читање“ е пробна функција и ни требаат ваши мислења за да ја подобриме или отстраниме.";
 "import-shared-reading-list-survey-prompt-title" = "Можете ли да ни помогнете да ја подобриме „Сподели списоци за читање“?";
 "import-shared-reading-list-title" = "Увези споделен список за читање";
@@ -805,9 +805,9 @@
 "more-menu" = "Повеќе";
 "move-articles-to-reading-list" = "Преместување на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
-"nearby-distance-label-feet" = "$1 стапки";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 стапка|$1 стапки}}";
 "nearby-distance-label-km" = "$1 км";
-"nearby-distance-label-meters" = "$1 м";
+"nearby-distance-label-meters" = "{{PLURAL:$1|$1 метар|$1 метри}}";
 "nearby-distance-label-miles" = "$1 милји";
 "new-password-instructions" = "Се најавивте со привремена лозинка. За да ја довршите најавата, ќе мора тука да зададете нова лозинка.";
 "new-password-title" = "Ставете лозинка";
@@ -815,8 +815,6 @@
 "next-action-title" = "Следно";
 "no-email-account-alert" = "Зададете е-пошта на вашиот уред и обидете се повторно.";
 "no-internet-connection" = "Не сте поврзани со семрежјето";
-"no-internet-connection-article-reload" = "Може да постои понова верзија на статијава, но не може да се вчита без врска со семрежјето";
-"no-internet-connection-article-reload-button" = "Врати на последната зачувана верзија";
 "not-now-title" = "Не сега";
 "notifications-center-agent-description-from-format" = "Од $1";
 "notifications-center-alert" = "Напомена";
@@ -835,7 +833,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Изменете $1 за да видите повеќе пораки";
 "notifications-center-empty-state-no-projects-selected" = "Додајте проекти за да видите повеќе пораки";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 филтер|$1 филтри}}";
-"notifications-center-feed-card-title" = "Сега се достапни Известувањата за уредувања";
 "notifications-center-feed-news-notification-button-text" = "Вклучи доставни известувања";
 "notifications-center-feed-news-notification-text" = "Известувањата за уредувања за сите Викимедиини проекти сега се достапни преку прилогот. Вклучете ги доставните известувања за да бидете во тект со вашите пораки на Википедија додека работите.";
 "notifications-center-filters-accessibility-label" = "Филтер на известувања";
@@ -956,8 +953,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 од Википедија на $2";
 "on-this-day-title" = "На денешен ден";
 "open-article" = "Отвори статија";
-"open-in-tab-tooltip-body" = "Подржете на насловот на статија или сина врска за да отворите во ново јазиче.";
-"open-in-tab-tooltip-title" = "Отвори во ново јазиче";
 "original-tab-button-popover-description" = "Допрете на „W“ за да се вратите на почетното јазиче";
 "page-history-bot-edits" = "ботовски";
 "page-history-compare-accessibility-hint" = "Допрете за да изберете две преработки за споредба";
@@ -983,7 +978,7 @@
 "panel-compare-revisions-text" = "Споредувањето на преработките дава слика за тоа како една статија се менувала со текот на времето. Споредувањето на две преработки на една статија ги прикажува разликите помеѓу нив со истакнување на променетата содржина.";
 "panel-compare-revisions-title" = "Споредба на преработки";
 "panel-not-logged-in-continue-edit-action-title" = "Уреди без најава";
-"panel-not-logged-in-subtitle" = "Ако уредувате, вашата IP-адреса ќе биде јавно видлива. Ако $1се најавите$2 или $3направите сметка$4, уредувањата ќе се водат под вашето корисничко име, меѓу останатите погодности.";
+"panel-not-logged-in-subtitle-plain" = "Вашата IP-адреса ќе биде јавно видлива ако правите уредувања. Најавете се или направете сметка ако сакате уредувањата да се припишуваат на ваше име.";
 "panel-not-logged-in-title" = "Не сте најавени";
 "percentile-0.01" = "0,01";
 "percentile-1" = "1";
@@ -1061,6 +1056,7 @@
 "reading-list-add-saved-button-title" = "Да, додај ги во списоците за читање";
 "reading-list-add-saved-subtitle" = "Има статии зачувани на вашиот Википедиин прилог. Дали сакате да ги задржите и да ги споите со списоците за читање усогласени на вашата сметка?";
 "reading-list-add-saved-title" = "Пронајдени зачувани статии";
+"reading-list-alert-see-list" = "Погл. список за читање";
 "reading-list-api-error-entry-limit" = "Оваа ставка не е усогласена бидејќи ја достигнавте границата на дозволени ставки во овој список.";
 "reading-list-api-error-generic" = "Се појави неочекувана грешка при услгоасувањето на вашите списоци за читање.";
 "reading-list-api-error-list-limit" = "Овој список не е усогласен бидејќи ја достигнавте дозволената граница на усогласени списоци.";
@@ -1151,15 +1147,6 @@
 "relative-date-seconds-abbreviated" = "$1 сек";
 "relative-date-seconds-ago-abbreviated" = "пред $1 сек.";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Годинава|1=Лани|Пред $1 години}}";
-"replace-button-accessibility" = "Изврши $1.";
-"replace-buttons-replace-accessibility" = "Замена на еден примерок";
-"replace-buttons-replace-all-accessibility" = "Замена на сите примероци";
-"replace-clear-button-accessibility" = "Исчисти заменето";
-"replace-infolabel-method-replace" = "Замени";
-"replace-infolabel-method-replace-all" = "Замени сè";
-"replace-method-button-accessibility" = "Начин на замена. Задајте $1. Изберете за да смените.";
-"replace-textfield-accessibility" = "Замени";
-"replace-textfield-placeholder" = "Замени со...";
 "return-button-title" = "Назад";
 "return-to-article" = "Назад на статијата";
 "reverted-edit-title" = "Отповикано уредување";
@@ -1178,10 +1165,10 @@
 "saved-title" = "Зачувано";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Со одзачувувањето, {{PLURAL:$1|статијава ќе биде отстранета|статииве ќе бидат отстранети}} од сите поврзани списоци за читање";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Да {{PLURAL:$1|ја одзачувам статијата|ги одзачувам статиите}}?";
+"search-button-accessibility-hint" = "Преоѓа на погледот за пребарување.";
 "search-button-accessibility-label" = "Пребарај ја Википедија";
 "search-clear-title" = "Исчисти";
 "search-field-placeholder-text" = "Пребарај ја Википедија";
-"search-reading-list-placeholder-text" = "Пребарување по список за читање";
 "search-recent-clear-confirmation-heading" = "Да ги избришам сите скорешни пребарувања?";
 "search-recent-clear-confirmation-sub-heading" = "Ова дејство е неповратно!";
 "search-recent-clear-delete-all" = "Избриши ги сите";
@@ -1206,6 +1193,7 @@
 "settings-help-and-feedback" = "Помош и мислења";
 "settings-language-bar" = "Прикажувај јазици при пребарувањето";
 "settings-languages-feed-customization" = "Можете да изберете кои јазици да се прикажуваат во поставките за тековникот „Истражи“.";
+"settings-legal-sefaty-title" = "Контакти за правни и безбедносни прашања";
 "settings-my-languages" = "Мои јазици";
 "settings-new-article-tab-header-text" = "Изглед на ново јазиче";
 "settings-notifications" = "Доставни известувања";
@@ -1213,11 +1201,6 @@
 "settings-notifications-echo-failure-title" = "Не можам да ја ги проверам следените известувања со „Ехо“";
 "settings-notifications-echo-failure-try-again" = "Обиди се пак";
 "settings-notifications-header" = "Добивајте известувања за дејства поврзани со вашата сметка како пораки од колегите, напомени и соопштенија. Сите тие се даваат водејќи се по правилата за приватност и со најнови податоци.";
-"settings-notifications-info" = "Бидете во тек со тековните и најчитаните статии на Википедија со нашите доставни известувања. Сите се нудат со најтековни податоци, притоа почитувајќи ја вашата приватност.";
-"settings-notifications-learn-more" = "Дознајте повеќе за известувањата";
-"settings-notifications-push-notifications" = "Доставни известувања";
-"settings-notifications-system-turn-on" = "Вклучи известувања";
-"settings-notifications-trending" = "Тековни настани";
 "settings-off" = "Искл.";
 "settings-on" = "Вкл.";
 "settings-primary-language" = "Главен";
@@ -1272,8 +1255,6 @@
 "tabs-main-page-subtitle" = "Дневни истакнувања на Википедија";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 јазиче|$1 јазичиња}}";
 "tabs-open-tab" = "Отвори јазиче";
-"tabs-overview-tooltip-body" = "Префрлање помеѓу отворени статии во прегледот на јазичињата.";
-"tabs-overview-tooltip-title" = "Преглед на јазичиња";
 "tabs-show-suggested-articles" = "Прикажи предложени статии";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Предлозите сега се скриени";
 "tabs-survey-title" = "Помогнете ни да ги подобриме јазичињата. Дали сте задоволни од оваа функција?";
@@ -1377,6 +1358,8 @@
 "theme-default-explanation" = "Одговара на системскиот изглед";
 "theme-light-display-name" = "Светол";
 "theme-sepia-display-name" = "Сипа";
+"tip-history-in-search-subtitle" = "Најдете ја вашата историја на читање во јазичето „Пребарај“";
+"tip-history-in-search-title" = "Историјата е преместена во Пребарај";
 "today-title" = "Денес";
 "top-read-widget-description" = "Дознајте што чита светот денес на Википедија.";
 "top-read-widget-readers-count" = "$1 читатели";
@@ -1486,9 +1469,6 @@
 "welcome-languages-add-or-edit-button" = "Додај или измени претпочитани јазици";
 "welcome-languages-description" = "Ги пронајдов следниве јазици на вашиот уред:";
 "welcome-languages-search-title" = "Пребарајте на преку 300 јазици";
-"welcome-notifications-tell-me-more-creation" = "Известувањата се создаваат и доставуваат на вашиот уред од прилогот, а не од наши опслужувачи или од трети лица.";
-"welcome-notifications-tell-me-more-storage" = "Поставките за известувања се складираат на уредот, и не се водат според вашите лични податоци или активности.";
-"welcome-notifications-tell-me-more-title" = "Повеќе за известувањата";
 "welcome-privacy-subtitle" = "Сметаме дека не треба да давате лични информации за да учествувате во движењето за слободно знаење. Податоците за употреба на овој прилог што ги собираме се анонимни.";
 "welcome-privacy-terms-button-text" = "Дознајте повеќе за нашите правила за лични податоци и условите на употреба";
 "widget-onthisday-description" = "Истражете што се случило на денешниот ден во историјата.";

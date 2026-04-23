@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 public protocol AnnouncementCollectionViewCellDelegate: NSObjectProtocol {
     func announcementCellDidTapDismiss(_ cell: AnnouncementCollectionViewCell)
@@ -84,8 +85,8 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     
     open override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        actionButton.titleLabel?.font = WMFFont.for(.boldSubheadline, compatibleWith: traitCollection)
-        dismissButton.titleLabel?.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
+        actionButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
+        dismissButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
         updateCaptionTextViewWithAttributedCaption()
     }
     

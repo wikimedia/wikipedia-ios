@@ -37,6 +37,34 @@ open class WMFComponentNavigationController: UINavigationController {
         setBarAppearance(customLargeTitleFont: self.customLargeTitleFont)
     }
     
+    override open func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        triggerNavigationBarRender()
+    }
+    
+    // HACK: Forces liquid glass bar button items to re-render with correct appearance.
+    // Without this, buttons render incorrectly until a layout event occurs (e.g. keyboard appearing).
+    public func triggerNavigationBarRender() {
+        if #available(iOS 26.0, *) {
+            if UIAccessibility.isReduceTransparencyEnabled {
+                if tabBarController != nil {
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                        let frame = self.navigationBar.frame
+                        self.navigationBar.frame = frame.insetBy(dx: 0, dy: 0.1)
+                        self.navigationBar.frame = frame
+                    }
+                    
+                } else {
+                    let frame = navigationBar.frame
+                    navigationBar.frame = frame.insetBy(dx: 0, dy: 0.1)
+                    navigationBar.frame = frame
+                }
+
+            }
+        }
+    }
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -72,11 +100,58 @@ open class WMFComponentNavigationController: UINavigationController {
         setNeedsStatusBarAppearanceUpdate()
 
         setBarAppearance(customLargeTitleFont: customLargeTitleFont)
+        
+        // loop through bar button items, update tint colors
+        if let topVC = self.topViewController {
+            let leftItems = topVC.navigationItem.leftBarButtonItems ?? []
+            let rightItems = topVC.navigationItem.rightBarButtonItems ?? []
+            
+            for item in leftItems + rightItems {
+                if item.tag == WMFLargeCloseButtonImageType.prominentCheck.tag {
+                    item.tintColor = theme.link
+                }
+            }
+        }
     }
     
     private var customLargeTitleFont: UIFont?
-    public func setBarAppearance(customLargeTitleFont: UIFont? = nil) {
-        
+
+    func setBarAppearance(customLargeTitleFont: UIFont?) {
+        if #available(iOS 26.0, *) {
+            applySystemGlassAppearance(customLargeTitleFont: customLargeTitleFont)
+        } else {
+            applyLegacyAppearance(customLargeTitleFont: customLargeTitleFont)
+        }
+    }
+
+    private func applySystemGlassAppearance(customLargeTitleFont: UIFont?) {
+        let appearance = UINavigationBarAppearance()
+
+        appearance.configureWithDefaultBackground()
+        appearance.shadowColor = nil
+
+        let largeTitleFont = self.customLargeTitleFont ?? WMFFont.navigationBarLeadingLargeTitleFont
+        let titleColor = theme.text
+
+        if let customLargeTitleFont {
+            appearance.largeTitleTextAttributes = [.font: customLargeTitleFont, .foregroundColor: titleColor]
+        } else {
+            appearance.largeTitleTextAttributes = [.font: largeTitleFont, .foregroundColor: titleColor]
+        }
+
+        appearance.titleTextAttributes = [.foregroundColor: titleColor]
+
+        navigationBar.tintColor = theme.navigationBarTintColor
+        navigationBar.standardAppearance = appearance
+        navigationBar.scrollEdgeAppearance = appearance
+        navigationBar.compactAppearance = appearance
+
+        if #available(iOS 18.0, *) {
+            navigationBar.compactScrollEdgeAppearance = appearance
+        }
+    }
+    
+    private func applyLegacyAppearance(customLargeTitleFont: UIFont?) {
         if let customLargeTitleFont {
             self.customLargeTitleFont = customLargeTitleFont
         } else {
@@ -111,7 +186,7 @@ open class WMFComponentNavigationController: UINavigationController {
         navigationBar.scrollEdgeAppearance = barAppearance
         navigationBar.compactAppearance = barAppearance
     }
-    
+
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return theme.preferredStatusBarStyle
     }

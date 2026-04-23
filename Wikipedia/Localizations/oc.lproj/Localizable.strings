@@ -119,8 +119,10 @@
 "main-menu-zero-faq" = "FAQ de Wikipèdia Zèro";
 "move-articles-to-reading-list" = "Trasladar {{PLURAL:$1|$1 article|$1 articles}} a la lista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Apercebut";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pès";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 millas";
 "new-password-title" = "Definir vòstre senhal";
@@ -161,9 +163,6 @@
 "settings-my-languages" = "Mas lengas";
 // Fuzzy
 "settings-notifications" = "Notificacions";
-"settings-notifications-push-notifications" = "Notificacions mandadas";
-"settings-notifications-system-turn-on" = "Activar las notificacions";
-"settings-notifications-trending" = "Tendéncias dels eveniments actuals";
 "settings-primary-language" = "Principal";
 "settings-storage-and-syncing-server-sync-title" = "Actualizar listas de lectura sincronizadas";
 "settings-title" = "Paramètres";
@@ -183,6 +182,5 @@
 "welcome-explore-continue-button" = "Començar";
 "welcome-explore-tell-me-more-done-button" = "L’obténer";
 "welcome-languages-add-button" = "Apondre una autra lenga";
-"welcome-notifications-tell-me-more-title" = "Ne saber mai sus las notificacions";
 "wikitext-upload-save" = "Publicacion en cors…";
 "wikitext-upload-save-terms-name" = "Condicions d'utilizacion";

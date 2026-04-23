@@ -71,8 +71,6 @@
 "edit-link-title" = "Labot saiti";
 "edit-menu-item" = "Labot";
 "edit-minor-text" = "Šis ir maznozīmīgs labojums";
-"edit-published" = "Labojums publicēts";
-"edit-published-subtitle" = "Tu tikko padarīji Vikipēdiju labāku visiem";
 "edit-summary-choice-fixed-grammar" = "Labota gramatika";
 "edit-summary-choice-fixed-typos" = "Labota pareizrakstības kļūda";
 "edit-summary-choice-linked-words" = "Pievienotas saites";
@@ -134,8 +132,10 @@
 "more-languages-tooltip-description" = "Meklē Vikipēdijā gandrīz 300 valodās";
 "more-languages-tooltip-title" = "Pievienot valodas";
 "navbar-title-mode-edit-wikitext-preview" = "Priekšskatījums";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pēdas";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 jūdzes";
 // Fuzzy
@@ -173,10 +173,6 @@
 "reading-themes-controls-syntax-highlighting" = "Sintakses izcelšana";
 "reference-title" = "Atsauce $1";
 "relative-date-seconds-abbreviated" = "$1s";
-"replace-infolabel-method-replace" = "Aizvietot";
-"replace-infolabel-method-replace-all" = "Aizvietot visus";
-"replace-textfield-accessibility" = "Aizvietot";
-"replace-textfield-placeholder" = "Aizvietot ar...";
 "reverted-edit-title" = "Atcelts labojums";
 "saved-all-articles-title" = "Visi raksti";
 // Fuzzy
@@ -194,8 +190,6 @@
 "settings-my-languages" = "Manas valodas";
 // Fuzzy
 "settings-notifications" = "Paziņojumi";
-"settings-notifications-learn-more" = "Uzziniet vairāk par paziņojumiem";
-"settings-notifications-system-turn-on" = "Ieslēgt paziņojumus";
 "settings-primary-language" = "Galvenā";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Dzēst";
 // Fuzzy
@@ -220,7 +214,6 @@
 "welcome-intro-free-encyclopedia-more-about" = "Par Vikipēdiju";
 "welcome-intro-free-encyclopedia-title" = "Brīvā enciklopēdija";
 "welcome-languages-add-button" = "Pievienot citu valodu";
-"welcome-notifications-tell-me-more-title" = "Vairāk par paziņojumiem";
 "wikitext-preview-link-preview-title" = "Saites pirmskats";
 // Fuzzy
 "wikitext-preview-save-changes-title" = "Saglabāt veiktās izmaiņas";

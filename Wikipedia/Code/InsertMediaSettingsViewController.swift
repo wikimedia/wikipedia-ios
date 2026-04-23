@@ -2,6 +2,7 @@ import UIKit
 import WMFData
 import WMF
 import WMFComponents
+import WMFNativeLocalizations
 
 typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings
 
@@ -373,12 +374,12 @@ final class InsertMediaSettingsViewController: ThemeableViewController, WMFNavig
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
+            WMFToastManager.sharedInstance.showToast(title, sticky: false, dismissPreviousToasts: true)
         }
     }
 
     private func hideOfflineAlertIfNeeded() {
-        WMFAlertManager.sharedInstance.dismissAllAlerts()
+        WMFToastManager.sharedInstance.dismissCurrentToast()
     }
     
     typealias Wikitext = String

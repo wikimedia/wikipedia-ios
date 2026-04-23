@@ -11,7 +11,7 @@ WMFData is a local Swift package designed to house all of the logic pertaining t
 
 Services are classes that are capable of making API calls via URLSession. We have two services in our app: WMFBasicService, which is capable of making unauthenticated API calls, as well as our mediaWikiService, which is capable of making authenticated API calls. Both service classes can be accessed via the WMFDataEnvironment.current singleton (located in Sources > WMFData > Environment directory), through the mediaWikiService and basicService properties.
 
-Eventually, we want to combine these into one simple service class, but all of our legacy authentication logic still lives outside of WMFData. So for now we have split them up - any authenticated calls still use the WMFDataEnvironment.current.mediaWikiService interface, but under-the-hood it calls back to the legacy area of the app to lean on it's authentication + url session calls.
+Eventually, we want to combine these into one simple service class, but all of our legacy authentication logic still lives outside of WMFData. So for now we have split them up - any authenticated calls still use the WMFDataEnvironment.current.mediaWikiService interface, but under-the-hood it calls back to the legacy area of the app to lean on its authentication + url session calls.
 
 ### Stores
 `Sources > WMFData > Store`
@@ -21,7 +21,7 @@ Stores are classes that are capable of persisting data to the app. They can also
 1. userDefaultsStore - capable of saving and loading to user defaults
 2. sharedCacheStore - capable of saving and loading to the file system (note this calls back to the legacy area of the app, eventually we want to move this wholly into WMFData).
 
-(Note that both userDefaultsStore and sharedCachedStore are accessed via a generalized protocol WMFKeyValueStore)
+(Note that both userDefaultsStore and sharedCacheStore are accessed via a generalized protocol WMFKeyValueStore)
 
 3. coreDataStore - capable of saving and loading to WMFData's own Core Data xcdatamodel.
 
@@ -312,7 +312,7 @@ When does logic belong in a data controller vs a view model? This is sometimes a
 1. If logic requires importing UIKit or SwiftUI to work, then it belongs in the view model. We do not want WMFData to import any UI frameworks.
 2. If logic feels feature-specific, it should NOT be added to a shared data controller. Shared data controllers should be feature-agnostic. It CAN be added to a feature-specific data controller.
 
-The main goal of a data controller is to serve as a persistance vs. network abstraction layer, so that view models do not inherit Core Data baggage. It is acceptable if the data controller only fetches its needed data, then spits out the raw structure (only converted to simple structs / classes), and the view model does all manipulation beyond that.
+The main goal of a data controller is to serve as a persistence vs. network abstraction layer, so that view models do not inherit Core Data baggage. It is acceptable if the data controller only fetches its needed data, then spits out the raw structure (only converted to simple structs / classes), and the view model does all manipulation beyond that.
 
 All specific navigation calls (navigationController.push, viewController.present, etc.) are done via UIKit, and are handled outside of WMFComponents in Coordinator classes.
 
@@ -429,3 +429,96 @@ xcodebuild \
 ```
 
 To run unit tests, use the same commands but add "test" after xcodebuild, e.g. `xcodebuild test \` Each scheme should run to fully confirm unit tests work (WMFData, WMFComponents, App-side).
+
+
+
+## Swift 6 Strict Concurrency
+
+All new code must comply with Swift 6 strict concurrency. The following rules apply across WMFData, WMFComponents, and app-side code.
+
+### General Rules
+
+- Do not suppress concurrency warnings with `@preconcurrency` or `nonisolated(unsafe)` unless absolutely necessary and documented with a comment explaining why if possible.
+- Prefer `async`/`await` over completion handlers for all new asynchronous code.
+- All mutable state shared across concurrency domains must be protected. Use actors, `@MainActor`, or value types (`struct`, `enum`) to prevent data races.
+- Avoid `DispatchQueue` for new code. Use Swift concurrency primitives (`Task`, `async let`, `TaskGroup`, `actor`) instead.
+
+### Actors and Isolation
+
+- Use `actor` types for classes that manage shared mutable state accessed from multiple concurrency contexts (e.g., caches, stores).
+- Use `@MainActor` on classes or methods that interact with UIKit or SwiftUI (view models, hosting controllers, UI-related helpers, coordinators). All `ObservableObject` view models should be annotated `@MainActor`.
+- Data controllers in WMFData must **not** import UIKit or SwiftUI, so they cannot be `@MainActor`. Keep them actor-isolated only when they manage shared mutable state; otherwise prefer `Sendable` value-type models as return types.
+- Methods that call `@MainActor`-isolated code from a non-isolated context must use `await MainActor.run { }` or be called from a `Task { @MainActor in ... }`.
+
+### Sendable Conformance
+
+- All models (structs, enums, classes) passed across concurrency boundaries must conform to `Sendable`. Prefer `struct` and `enum` for models — they are `Sendable` by default when their stored properties are `Sendable`.
+- Closures passed across concurrency boundaries (e.g., stored as properties, used in `Task`) must be marked `@Sendable`.
+- `final class` types that are immutable after initialization may conform to `Sendable` explicitly.
+
+### Tasks and Structured Concurrency
+
+- Prefer structured concurrency (`async let`, `TaskGroup`) over unstructured `Task { }` where possible.
+- Store `Task` references when cancellation is needed (e.g., on `deinit` or `onDisappear`). Call `task.cancel()` to clean up.
+- Do not capture `self` strongly in `Task { }` inside view models without a `[weak self]` guard to avoid retain cycles.
+
+    ```swift
+    // Preferred pattern in a @MainActor view model
+    @MainActor
+    final class ExampleViewModel: ObservableObject {
+        @Published var items: [Item] = []
+        private var loadTask: Task<Void, Never>?
+
+        func load() {
+            loadTask?.cancel()
+            loadTask = Task {
+                do {
+                    let result = try await SomeDataController.shared.fetchItems()
+                    self.items = result
+                } catch {
+                    // handle error
+                }
+            }
+        }
+
+        deinit {
+            loadTask?.cancel()
+        }
+    }
+    ```
+
+### Data Controllers (WMFData)
+
+- Public data controller methods should use `async throws` signatures so callers can use `await` and structured error handling.
+- Data controllers that hold in-memory caches must protect that state with an `actor` or synchronize access using `AsyncStream` / `AsyncSequence` patterns. Do not use bare mutable properties on a non-isolated class.
+- Singleton data controllers (e.g., `WMFImageDataController.shared`, `WMFArticleSummaryDataController.shared`) should be declared as `actor`
+
+### View Models (WMFComponents)
+
+- All `ObservableObject` view models must be annotated `@MainActor` at the class level.
+- `@Published` properties are only safe to mutate on the main actor; the `@MainActor` annotation on the class enforces this automatically.
+- When calling `async` data controller methods from inside a `@MainActor` view model, launch a `Task` directly — you are already on the main actor, so the `await` will hop correctly.
+
+    ```swift
+    @MainActor
+    final class ExampleViewModel: ObservableObject {
+        @Published var title: String = ""
+
+        func refresh() {
+            Task {
+                let value = try await SomeDataController.shared.fetchTitle()
+                self.title = value
+            }
+        }
+    }
+    ```
+
+### Callbacks and Closures
+
+- Closures used as callbacks from view models to coordinators (e.g., `didTapButton: () -> Void`) should be typed `@MainActor @Sendable () -> Void` when they will be called on the main actor and captured across concurrency boundaries.
+- Logging delegate protocols should mark their methods `@MainActor` since logging callbacks are triggered from UI interactions.
+
+### Nonconcurrency-Safe Legacy Code
+
+- When interfacing with legacy Objective-C or non-`Sendable` types, isolate the interaction inside `@MainActor` blocks or within an actor boundary.
+- Do not widen the surface area of `@preconcurrency` imports. Confine them to the specific file or extension where the legacy type is used.

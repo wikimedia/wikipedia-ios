@@ -90,6 +90,9 @@
 "activity-tab-empty-subtitle" = "Start reading and editing to build your history";
 "activity-tab-empty-title" = "Nothing to show";
 "activity-tab-generic-no-edits" = "You haven't edited this week. Start now to track your contributions.";
+"activity-tab-history-callout-body" = "Browse or clear your reading history in the **Search tab**.";
+"activity-tab-history-callout-body-loggedout" = "Find and clear your reading history in the **Search tab**. No account needed.";
+"activity-tab-hitory-callout-close" = "Close history notice card";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "ON WIKIPEDIA iOS";
 "activity-tab-impact-all-time-title" = "All time impact";
@@ -159,6 +162,7 @@
 "appearance-settings-adjust-text-sizing" = "Adjust article text sizing";
 "appearance-settings-expand-tables" = "Expand tables";
 "appearance-settings-expand-tables-footer" = "Set all tables in all articles to be open by default, including Quick facts, References, Notes and External links.";
+"appearance-settings-icon-contributor-title" = "Contributor";
 "appearance-settings-image-dimming-footer" = "Decrease the opacity of images on the dark and black themes";
 "appearance-settings-reading-themes" = "Reading themes";
 "appearance-settings-set-automatic-table-opening" = "Table Settings";
@@ -176,6 +180,7 @@
 "article-languages-yours" = "Your languages";
 "article-read-more-title" = "Read more";
 "article-reference-view-title" = "Reference $1";
+"article-return-button-accessibility-title" = "Return to: $1";
 "article-revision-history" = "Article revision history";
 "article-save-error-not-enough-space" = "You do not have enough space on your device to save this article";
 "article-share" = "Share";
@@ -219,6 +224,7 @@
 "chinese-variants-alert-title" = "Updates to Chinese variant support";
 "clear-title-accessibility-label" = "Clear";
 "clearing-cache-complete" = "Clearing cache complete.";
+"clearing-cache-error" = "Error clearing cache.";
 "clearing-cache-in-progress" = "Clearing cache in progress.";
 "close-all-tabs" = "Close all tabs";
 "close-all-tabs-confirmation" = "Do you want to close all $1 tabs? This action can’t be undone.";
@@ -270,7 +276,6 @@
 "description-help-title" = "Article description help";
 "description-help-wikidata-guide" = "Wikidata guide for writing descriptions";
 "description-published-button-title" = "Done";
-"description-published-footer" = "You can also edit articles within this app. Try fixing typos and small sentences by clicking on the pencil icon next time";
 "description-published-subtitle" = "You just made Wikipedia better for everyone";
 "description-published-title" = "Description published!";
 "description-welcome-concise-sub-title" = "Ideally one line, between two to twelve words";
@@ -331,7 +336,7 @@
 "diff-thanks-send-subtitle" = "'Thanks' are an easy way to show appreciation for an editor's work on Wikipedia. 'Thanks' cannot be undone and are publicly viewable.";
 "diff-thanks-send-title" = "Publicly send 'Thanks'";
 "diff-thanks-sent" = "Your 'Thanks' was sent to $1";
-"diff-thanks-sent-already" = "You’ve already sent a ‘Thanks’ for this edit";
+"diff-thanks-sent-already" = "You've already sent a 'Thanks' for this edit";
 "diff-thanks-sent-cannot-unsend" = "Thanks cannot be unsent";
 "diff-unchanged-contextual-line" = "Contextual line, unchanged: $1";
 "diff-undo-message" = "This will undo the changes made by the revisions(s) of the article shown here. To continue, please provide a reason for undoing this edit.";
@@ -382,8 +387,6 @@
 "edit-notices-always-display" = "Always display edit notices";
 "edit-notices-please-read" = "Please read before editing";
 "edit-preview-simplified-format-message" = "All content is shown in simplified format.";
-"edit-published" = "Edit published";
-"edit-published-subtitle" = "You just made Wikipedia better for everyone";
 "edit-sheet-ip-account-notice" = "IP Account Notice";
 "edit-sheet-temp-account-notice" = "Temporary Account Notice";
 "edit-show-web-preview" = "Show web preview";
@@ -491,6 +494,7 @@
 "empty-no-saved-pages-title" = "No saved pages yet";
 "empty-no-search-results-message" = "No results found";
 "empty-talk-page-title" = "No messages have been posted for this user yet";
+"end-session" = "End session";
 "error-generic-recovery-suggestion" = "Please try again later";
 "error-unknown" = "An unknown error occurred";
 "explore-another-random" = "Another random article";
@@ -582,8 +586,6 @@
 "explore-suggested-edits-footer" = "Add";
 "explore-suggested-edits-image-recs-body" = "Add suggested images to Wikipedia articles to enhance understanding.";
 "explore-suggested-edits-image-recs-title" = "Add an image";
-"explore-survey-subtitle" = "Please take a short survey about the Explore feed. Your feedback will help shape upcoming app improvements.";
-"explore-survey-title" = "Help us improve Explore";
 "explore-wikipedia" = "Explore Wikipedia";
 "export-user-data-confirmation-message" = "Sharing your app library includes data about your Reading lists and history, preferences, and Explore feed content. This data file should only be shared with a trusted recipient to use for technical diagnostic purposes.";
 "export-user-data-confirmation-title" = "Share app library?";
@@ -696,7 +698,6 @@
 "image-recs-yes-title" = "Yes";
 "import-shared-reading-list-default-title" = "My Reading List";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Take survey";
-"import-shared-reading-list-survey-prompt-footer" = "View our $1privacy statement$2. Survey powered by a third-party. View their $3privacy policy$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Share reading lists\" is a test feature and we need your feedback to improve or remove it.";
 "import-shared-reading-list-survey-prompt-title" = "Could you help us improve \"Share reading lists\"?";
 "import-shared-reading-list-title" = "Import shared reading list";
@@ -791,9 +792,9 @@
 "more-menu" = "More";
 "move-articles-to-reading-list" = "Move {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "navbar-title-mode-edit-wikitext-preview" = "Preview";
-"nearby-distance-label-feet" = "$1 feet";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 foot|$1 feet}}";
 "nearby-distance-label-km" = "$1 km";
-"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-meters" = "{{PLURAL:$1|$1 meter|$1 meters}}";
 "nearby-distance-label-miles" = "$1 miles";
 "new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
 "new-password-title" = "Set your password";
@@ -801,8 +802,6 @@
 "next-action-title" = "Next";
 "no-email-account-alert" = "Please setup an email account on your device and try again.";
 "no-internet-connection" = "No internet connection";
-"no-internet-connection-article-reload" = "A newer version of this article might be available, but cannot be loaded without a connection to the internet";
-"no-internet-connection-article-reload-button" = "Return to last saved version";
 "not-now-title" = "Not now";
 "notifications-center-agent-description-from-format" = "From $1";
 "notifications-center-alert" = "Alert";
@@ -821,7 +820,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Modify $1 to see more messages";
 "notifications-center-empty-state-no-projects-selected" = "Add projects to see more messages";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filters}}";
-"notifications-center-feed-card-title" = "Editing notifications now available";
 "notifications-center-feed-news-notification-button-text" = "Turn on push notifications";
 "notifications-center-feed-news-notification-text" = "Editing notifications for all Wikimedia projects are now available through the app. Opt in to push notifications to keep up to date with your messages on Wikipedia while on the go.";
 "notifications-center-filters-accessibility-label" = "Notifications Filter";
@@ -942,8 +940,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 from $2 Wikipedia";
 "on-this-day-title" = "On this day";
 "open-article" = "Open article";
-"open-in-tab-tooltip-body" = "Long-press an article title or blue link to open it in a new tab.";
-"open-in-tab-tooltip-title" = "Open in new tab";
 "original-tab-button-popover-description" = "Tap on the 'W' to return to the tab you started from";
 "page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Tap to select two revisions to compare";
@@ -969,7 +965,7 @@
 "panel-compare-revisions-text" = "Comparing revisions helps to show how an article has changed over time. Comparing two revisions of an article will show the difference between those revisions by highlighting any content that was changed.";
 "panel-compare-revisions-title" = "Comparing revisions";
 "panel-not-logged-in-continue-edit-action-title" = "Edit without logging in";
-"panel-not-logged-in-subtitle" = "Your IP address will be publicly visible if you make any edits. If you $1log in$2 or $3create an account$4, your edits will be attributed to your username, along with other benefits.";
+"panel-not-logged-in-subtitle-plain" = "Your IP address will be publicly visible if you make any edits. Log in or create an account to have your edits attributed to your username.";
 "panel-not-logged-in-title" = "You are not logged in";
 "percentile-0.01" = "0.01";
 "percentile-1" = "1";
@@ -1043,10 +1039,11 @@
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wiktionary";
 "reading-list-add-generic-hint-title" = "Add this article to a reading list?";
-"reading-list-add-hint-title" = "Add “$1” to a reading list?";
+"reading-list-add-hint-title" = "Add \"$1\" to a reading list?";
 "reading-list-add-saved-button-title" = "Yes, add them to my reading lists";
 "reading-list-add-saved-subtitle" = "There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?";
 "reading-list-add-saved-title" = "Saved articles found";
+"reading-list-alert-see-list" = "See reading list";
 "reading-list-api-error-entry-limit" = "This entry is not synced because you have reached the limit for the number of entries in this list.";
 "reading-list-api-error-generic" = "An unexpected error occurred while syncing your reading lists.";
 "reading-list-api-error-list-limit" = "This list is not synced because you have reached the limit for the number of synced lists.";
@@ -1094,7 +1091,7 @@
 "reading-list-unable-to-remove-entry" = "An unexpected error occurred while removing an entry from your reading list. Please try again later.";
 "reading-list-unable-to-update" = "An unexpected error occurred while updating your reading list. Please try again later.";
 "reading-list-with-provided-name-not-found" = "A reading list with the name “$1” was not found. Please make sure you have the correct name.";
-"reading-lists-article-added-confirmation" = "Article added to “$1”";
+"reading-lists-article-added-confirmation" = "Article added to \"$1\"";
 "reading-lists-article-api-failure" = "Unable to sync article";
 "reading-lists-article-not-synced" = "Not synced";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Article limit exceeded, unable to sync article";
@@ -1137,15 +1134,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s ago";
 "relative-date-years-ago" = "{{PLURAL:$1|0=This year|1=Last year|$1 years ago}}";
-"replace-button-accessibility" = "Perform $1.";
-"replace-buttons-replace-accessibility" = "Replace single instance";
-"replace-buttons-replace-all-accessibility" = "Replace all instances";
-"replace-clear-button-accessibility" = "Clear replace";
-"replace-infolabel-method-replace" = "Replace";
-"replace-infolabel-method-replace-all" = "Replace all";
-"replace-method-button-accessibility" = "Replace method. Set to $1. Select to change.";
-"replace-textfield-accessibility" = "Replace";
-"replace-textfield-placeholder" = "Replace with…";
 "return-button-title" = "Return";
 "return-to-article" = "Return to article";
 "reverted-edit-title" = "Reverted edit";
@@ -1164,10 +1152,10 @@
 "saved-title" = "Saved";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Unsaving {{PLURAL:$1|this article will remove it|these articles will remove them}} from all associated reading lists";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Unsave {{PLURAL:$1|article|articles}}?";
+"search-button-accessibility-hint" = "Navigates to the search view.";
 "search-button-accessibility-label" = "Search Wikipedia";
 "search-clear-title" = "Clear";
 "search-field-placeholder-text" = "Search Wikipedia";
-"search-reading-list-placeholder-text" = "Search reading list";
 "search-recent-clear-confirmation-heading" = "Delete all recent searches?";
 "search-recent-clear-confirmation-sub-heading" = "This action cannot be undone!";
 "search-recent-clear-delete-all" = "Delete All";
@@ -1192,6 +1180,7 @@
 "settings-help-and-feedback" = "Help and feedback";
 "settings-language-bar" = "Show languages on search";
 "settings-languages-feed-customization" = "You can manage which languages are shown on your Explore feed by customizing your Explore feed settings.";
+"settings-legal-sefaty-title" = "Legal & safety contacts";
 "settings-my-languages" = "My languages";
 "settings-new-article-tab-header-text" = "New Tab Theme";
 "settings-notifications" = "Push notifications";
@@ -1199,11 +1188,6 @@
 "settings-notifications-echo-failure-title" = "Unable to Check for Echo Notification subscriptions";
 "settings-notifications-echo-failure-try-again" = "Try again";
 "settings-notifications-header" = "Be alerted to activity related to your account, such as messages from fellow contributors, alerts, and notices. All provided with respect to privacy and up to the minute data.";
-"settings-notifications-info" = "Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.";
-"settings-notifications-learn-more" = "Learn more about notifications";
-"settings-notifications-push-notifications" = "Push notifications";
-"settings-notifications-system-turn-on" = "Turn on Notifications";
-"settings-notifications-trending" = "Trending current events";
 "settings-off" = "Off";
 "settings-on" = "On";
 "settings-primary-language" = "Primary";
@@ -1223,6 +1207,10 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Show the Saved (eg. default) reading list as a separate list in your reading lists view. This list appears on Android devices.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Show Saved reading list";
 "settings-storage-and-syncing-title" = "Article storage and syncing";
+"settings-temp-account-end-session-confirm" = "Log out";
+"settings-temp-account-end-session-message" = "Are you sure you want to exit this session and log out? There is no way to log back into this temporary account.";
+"settings-temp-account-end-session-title" = "Exit session";
+"settings-temp-accounts-talk-page-footer" = "Temporary account will expire in 90 days";
 "settings-title" = "Settings";
 "settings-year-in-review-header" = "Turning off Year in Review will clear all stored personalized insights and hide the Year in Review.";
 "share-a-fact-made-with" = "Made with the Wikipedia app";
@@ -1258,8 +1246,6 @@
 "tabs-main-page-subtitle" = "Wikipedia’s daily highlights";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 tab|$1 tabs}}";
 "tabs-open-tab" = "Open tab";
-"tabs-overview-tooltip-body" = "Switch between open articles in the tabs overview.";
-"tabs-overview-tooltip-title" = "Tabs overview";
 "tabs-show-suggested-articles" = "Show article suggestions";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Suggestions are now hidden";
 "tabs-survey-title" = "Help improve tabs. Are you satisfied with this feature?";
@@ -1363,6 +1349,8 @@
 "theme-default-explanation" = "Matches system theme";
 "theme-light-display-name" = "Light";
 "theme-sepia-display-name" = "Sepia";
+"tip-history-in-search-subtitle" = "Find your reading history in the Search tab.";
+"tip-history-in-search-title" = "History moved to Search";
 "today-title" = "Today";
 "top-read-widget-description" = "Learn what the world is reading today on Wikipedia.";
 "top-read-widget-readers-count" = "$1 readers";
@@ -1472,9 +1460,6 @@
 "welcome-languages-add-or-edit-button" = "Add or edit preferred languages";
 "welcome-languages-description" = "We've found the following languages on your device:";
 "welcome-languages-search-title" = "Search in over 300 languages";
-"welcome-notifications-tell-me-more-creation" = "Notifications are created and delivered on your device by the app, not from our (or third party) servers.";
-"welcome-notifications-tell-me-more-storage" = "Notification preferences are stored on device and not based on personal information or activity.";
-"welcome-notifications-tell-me-more-title" = "More about notifications";
 "welcome-privacy-subtitle" = "We believe that you should not have to provide personal information to participate in the free knowledge movement. Usage data collected for this app is anonymous.";
 "welcome-privacy-terms-button-text" = "Learn more about our privacy policy and terms of use";
 "widget-onthisday-description" = "Explore what happened on this day in history.";

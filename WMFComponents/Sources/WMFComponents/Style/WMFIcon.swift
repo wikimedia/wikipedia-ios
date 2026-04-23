@@ -19,7 +19,7 @@ public enum WMFIcon {
     static let replace = UIImage(named: "replace", in: .module, with: nil)
     static let thank = UIImage(named: "thank", in: .module, with: nil)
     static let thankFill = UIImage(named: "thank-fill", in: .module, with: nil)
-    static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
+    static let userContributions = UIImage(named: "user-contribution", in: .module, with: nil)
     public static let externalLink = UIImage(named: "external-link", in: .module, with: nil)
     static let bot = UIImage(named: "bot", in: .module, with: nil)
     public static let temp = UIImage(named: "temp", in: .module, with: nil)
@@ -27,6 +27,14 @@ public enum WMFIcon {
     public static let addPhoto = UIImage(named: "photo-badge-plus", in: .module, with: nil) // Use SFSymbol once target is iOS17+
     public static let error = UIImage(named: "error", in: .module, with: nil)
     public static let personCircleX = UIImage(named: "person-circle-x", in: .module, with: nil) // Use SFSymbol once target is iOS17+
+
+    // Settings icons
+    public static let settingsLanguage = UIImage(named: "settings-language", in: .module, with: nil)
+    public static let settingsExplore = UIImage(named: "settings-explore", in: .module, with: nil)
+    public static let settingsPreferences = UIImage(named: "settings-preferences", in: .module, with: nil)
+    public static let settingsClearCache = UIImage(named: "settings-clear-cache", in: .module, with: nil)
+    public static let settingsPrivacy = UIImage(named: "settings-privacy.pdf", in: .module, with: nil)
+
     public static let anonymous = UIImage(named: "user-anonymous", in: .module, with: nil)
     public static let closeTabs = UIImage(named: "close-tabs", in: .module, with: nil)
     public static let contributionsIcon = (UIImage(named: "user_contributions", in: .module, with: nil))
@@ -36,9 +44,10 @@ public enum WMFIcon {
     // Project icons
     public static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
     static let wikidata = UIImage(named: "project-icons/wikidata", in: .module, with: nil)
+    static let wikipediaW = UIImage(named: "W", in: .module, with: nil)
+
 
     // License
-
     static let ccLicense = UIImage(named: "project-icons/license-cc", in: .module, with: nil)
 
 }
@@ -46,12 +55,15 @@ public enum WMFIcon {
 public enum WMFSFSymbolIcon {
     
     case checkmark
+    case checkmarkCircleFill
     case checkmarkSquareFill
     case square
     case star
+    case starFill
     case starCircleFill
     case person
 	case personFilled
+    case personFilledbadgeMinus
     case starLeadingHalfFilled
     case heart
     case heartFilled
@@ -87,6 +99,7 @@ public enum WMFSFSymbolIcon {
     case closeCircleFill
     case ellipsis
     case pencil
+    case plusCircle
     case plusCircleFill
     case undo
     case redo
@@ -114,6 +127,7 @@ public enum WMFSFSymbolIcon {
     case squareAndArrowUp
     case circleFill
     case bellFill
+    case bellSlashFill
     case chatBubbleFilled
     case textBadgeStar
     case textPage
@@ -129,6 +143,10 @@ public enum WMFSFSymbolIcon {
     case tabsIconBackground
     case add
     case closeButtonFill
+    case appBadge
+    case handRaisedFill
+    case textJustify
+    case lifePreserver
     case questionMarkBubble
     case lock
     case rectangle3
@@ -136,11 +154,14 @@ public enum WMFSFSymbolIcon {
     case bubbleRightFill
     case globeAmericas
     case lineDiagonalArrow
+    case filterLineHorizontalDecrease
 
     public var name: String? {
         switch self {
         case .closeCircleFill:
             "xmark.circle.fill"
+        case .magnifyingGlass:
+            "magnifyingglass"
         default:
             nil
         }
@@ -154,18 +175,24 @@ public enum WMFSFSymbolIcon {
         switch symbol {
         case .checkmark:
             image = UIImage(systemName: "checkmark", withConfiguration: configuration)
+        case .checkmarkCircleFill:
+            image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: configuration)
         case .checkmarkSquareFill:
             image = UIImage(systemName: "checkmark.square.fill", withConfiguration: configuration)
         case .square:
             image = UIImage(systemName: "square", withConfiguration: configuration)
         case .star:
             image = UIImage(systemName: "star", withConfiguration: configuration)
+        case .starFill:
+            image = UIImage(systemName: "star.fill", withConfiguration: configuration)
         case .starCircleFill:
             image = UIImage(systemName: "star.circle.fill", withConfiguration: configuration)
         case .person:
             image = UIImage(systemName: "person", withConfiguration: configuration)
         case .personFilled:
             image = UIImage(systemName: "person.fill", withConfiguration: configuration)
+        case .personFilledbadgeMinus:
+            image = UIImage(systemName: "person.fill.badge.minus", withConfiguration: configuration)
         case .starLeadingHalfFilled:
             image = UIImage(systemName: "star.leadinghalf.filled", withConfiguration: configuration)
         case .heart:
@@ -185,7 +212,7 @@ public enum WMFSFSymbolIcon {
         case .docTextMagnifyingGlass:
             image = UIImage(systemName: "doc.text.magnifyingglass", withConfiguration: configuration)
         case .magnifyingGlass:
-            image = UIImage(systemName: "magnifyingglass", withConfiguration: configuration)
+            image = UIImage(systemName: symbol.name ?? "magnifyingglass", withConfiguration: configuration)
         case .listBullet:
             image = UIImage(systemName: "list.bullet", withConfiguration: configuration)
         case .listNumber:
@@ -234,6 +261,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "ellipsis", withConfiguration: configuration)
         case .pencil:
             image = UIImage(systemName: "pencil", withConfiguration: configuration)
+        case .plusCircle:
+            image = UIImage(systemName: "plus.circle", withConfiguration: configuration)
         case .plusCircleFill:
             image = UIImage(systemName: "plus.circle.fill", withConfiguration: configuration)
         case .undo:
@@ -288,6 +317,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "circle.fill", withConfiguration: configuration)
         case .bellFill:
             image = UIImage(systemName: "bell.fill", withConfiguration: configuration)
+        case .bellSlashFill:
+            image = UIImage(systemName: "bell.slash.fill", withConfiguration: configuration)
         case .chatBubbleFilled:
             image = UIImage(systemName: "bubble.fill", withConfiguration: configuration)
         case .textBadgeStar:
@@ -308,7 +339,6 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "info.circle.fill", withConfiguration: configuration)
         case .trash:
             image = UIImage(systemName: "trash", withConfiguration: configuration)
-
         case .temporaryAccountIcon:
             image = UIImage(systemName: "person.crop.circle.badge.xmark", withConfiguration: configuration)
         case .tabsIcon:
@@ -319,6 +349,14 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "plus", withConfiguration: configuration)
         case .closeButtonFill:
             image = UIImage(systemName: "x.circle.fill", withConfiguration: configuration)
+        case .appBadge:
+            image = UIImage(systemName: "app.badge", withConfiguration: configuration)
+        case .handRaisedFill:
+            image = UIImage(systemName: "hand.raised.fill", withConfiguration: configuration)
+        case .textJustify:
+            image = UIImage(systemName: "text.justify", withConfiguration: configuration)
+        case .lifePreserver:
+            image = UIImage(systemName: "lifepreserver", withConfiguration: configuration)
         case .questionMarkBubble:
             image = UIImage(systemName: "questionmark.bubble", withConfiguration: configuration)
         case .lock:
@@ -335,6 +373,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "globe.americas.fill", withConfiguration: configuration)
         case .lineDiagonalArrow:
             image = UIImage(systemName: "line.diagonal.arrow", withConfiguration: configuration)
+        case .filterLineHorizontalDecrease:
+            image = UIImage(systemName: "line.3.horizontal.decrease", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

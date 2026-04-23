@@ -1,6 +1,8 @@
 import WMFComponents
 import CocoaLumberjackSwift
 import WMFData
+import WMFNativeLocalizations
+import WMFTestKitchen
 
 protocol SavedViewControllerDelegate: NSObjectProtocol {
     func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIBarButtonItem)
@@ -259,6 +261,19 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         }
         
         allArticlesSortType = getDefaultReadingListSortType() ?? .byRecentlyAdded
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+
+
+            if #available(iOS 18, *) {
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    if previousTraitCollection.horizontalSizeClass != self.traitCollection.horizontalSizeClass {
+                        self.configureNavigationBar()
+                    }
+                }
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -269,23 +284,24 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         }
 
         configureNavigationBar()
+
+        if navigationItem.searchController?.isActive == true {
+            hideCustomLeadingLargeTitleLabel()
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if !isMovingFromParent {
+            navigationItem.searchController?.isActive = false
+            hideCustomLeadingLargeTitleLabel()
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         ArticleTabsFunnel.shared.logIconImpression(interface: .saved, project: nil)
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
-                    configureNavigationBar()
-                }
-            }
-        }
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
@@ -296,21 +312,16 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         }
     }
 
+    private lazy var searchBarIPadCustomizer = SearchBarIPadCustomizer(theme: theme)
+
     private func configureNavigationBar() {
 
-        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.savedTabTitle, customView: nil, alignment: .leadingCompact)
-        extendedLayoutIncludesOpaqueBars = false
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.savedTabTitle, customView: nil, alignment: .leadingLarge)
-                extendedLayoutIncludesOpaqueBars = true
-            }
-        }
+        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.savedTabTitle, customView: nil, alignment: .customLeadingLarge)
 
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
         let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
         if let dataStore {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
             tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: moreBarButtonItem)
         } else {
             profileButtonConfig = nil
@@ -320,7 +331,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         let allArticlesButtonTitle = WMFLocalizedString("saved-all-articles-title", value: "All articles", comment: "Title of the all articles button on Saved screen")
         let readingListsButtonTitle = WMFLocalizedString("saved-reading-lists-title", value: "Reading lists", comment: "Title of the reading lists button on Saved screen")
 
-        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: nil, searchBarDelegate: self, searchBarPlaceholder: allArticlesSearchBarPlaceholder, showsScopeBar: true, scopeButtonTitles: [allArticlesButtonTitle, readingListsButtonTitle])
+        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: searchBarIPadCustomizer, searchResultsUpdater: nil, searchBarDelegate: self, searchBarPlaceholder: allArticlesSearchBarPlaceholder, showsScopeBar: true, scopeButtonTitles: [allArticlesButtonTitle, readingListsButtonTitle])
 
         var hidesNavigationBarOnScroll = true
         switch self.currentView {
@@ -335,6 +346,18 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         }
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: hidesNavigationBarOnScroll)
+        
+        searchBarIPadCustomizer.onClearTapped = { [weak self] searchController in
+            guard let self,
+            let searchBar = searchController?.searchBar else { return }
+            self.searchBar(searchBar, textDidChange: "")
+        }
+        
+        searchBarIPadCustomizer.onBackTapped = { [weak self] searchController in
+            guard let self,
+                  let searchBar = searchController?.searchBar else { return }
+            self.searchBar(searchBar, textDidChange: "")
+        }
     }
 
     @objc func userDidTapTabs() {
@@ -388,7 +411,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
             return
         }
 
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
@@ -404,6 +427,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        searchBarIPadCustomizer.theme = theme
         guard viewIfLoaded != nil else {
             return
         }
@@ -412,14 +436,15 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         readingListsViewController?.apply(theme: theme)
         savedProgressViewController?.apply(theme: theme)
 
-        addReadingListBarButtonItem.tintColor = theme.colors.link
+        addReadingListBarButtonItem.tintColor = theme.colors.warning
 
         themeNavigationBarLeadingTitleView()
+        themeNavigationBarCustomLeadingLargeTitle()
         themeTopSafeAreaOverlay()
 
         if let rightBarButtonItems = navigationItem.rightBarButtonItems {
             for barButtonItem in rightBarButtonItems {
-                barButtonItem.tintColor = theme.colors.link
+                barButtonItem.tintColor = theme.colors.primaryText
             }
         }
 
@@ -429,8 +454,11 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     }
 
     private lazy var moreBarButtonItem: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), primaryAction: nil, menu: overflowMenu)
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsis), primaryAction: nil, menu: overflowMenu)
         button.accessibilityLabel = CommonStrings.moreButton
+        if #available(iOS 26.0, *) {
+            button.sharesBackground = false
+        }
         return button
     }()
 
@@ -449,8 +477,10 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
                 self.allArticlesCoordinator?.contentViewController.viewModel.toggleEditing()
                 if self.allArticlesCoordinator?.contentViewController.viewModel.isEditing == true {
                     let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.userDidTapCancelEditingAllArticles))
-                    cancelButton.tintColor = theme.colors.link
+                    cancelButton.tintColor = theme.colors.primaryText
+
                     self.navigationItem.rightBarButtonItems = [cancelButton]
+                    ReadingListsFunnel.shared.logTappedEditButton()
                 } else {
                     self.configureNavigationBar()
                 }
@@ -460,7 +490,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         })
 
 
-        let mainMenu = UIMenu(title: String(), children: [sortAction, editAction])
+        let mainMenu = UIMenu(title: String(), options: .displayInline, children: [sortAction, editAction])
 
         return mainMenu
     }
@@ -562,8 +592,8 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
             configureNavigationBar() // Switches back to More and Profile
         }
 
-        moreBarButtonItem.tintColor = theme.colors.link
-        editButton.tintColor = theme.colors.link
+        moreBarButtonItem.tintColor = theme.colors.primaryText
+        editButton.tintColor = theme.colors.primaryText
 
         let editingStates: [EditingState] = [.swiping, .open, .editing]
         let isEditing = editingStates.contains(newEditingState)
@@ -610,6 +640,9 @@ extension SavedViewController: UISearchBarDelegate {
         case .readingLists:
             savedDelegate?.saved(self, searchBar: searchBar, textDidChange: searchText)
         }
+        if let sc = navigationItem.searchController {
+            searchBarIPadCustomizer.updateClearButtonVisibility(text: searchText, for: sc)
+        }
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -618,16 +651,20 @@ extension SavedViewController: UISearchBarDelegate {
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         savedDelegate?.saved(self, searchBarTextDidBeginEditing: searchBar)
+        hideCustomLeadingLargeTitleLabel()
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         savedDelegate?.saved(self, searchBarTextDidEndEditing: searchBar)
+        showCustomLeadingLargeTitleLabel()
         if currentView == .savedArticles {
+            allArticlesCoordinator?.contentViewController.viewModel.searchText = ""
             allArticlesCoordinator?.contentViewController.viewModel.loadArticles()
         }
     }
 
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        navigationItem.searchController?.isActive = false
         if selectedScope == 0 {
             currentView = .savedArticles
         } else {
@@ -665,14 +702,14 @@ extension SavedViewController: YearInReviewBadgeDelegate {
 // LogoutCoordinatorDelegate
 
 extension SavedViewController: LogoutCoordinatorDelegate {
-    func didTapLogout() {
+    func didTapLogout(authInstrument: InstrumentImpl) {
 
         guard let dataStore else {
             return
         }
 
-        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
-            dataStore.authenticationManager.logout(initiatedBy: .user)
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: authInstrument) {
+            dataStore.authenticationManager.logout(initiatedBy: .user, authInstrument: authInstrument)
         }
     }
 }

@@ -3,6 +3,7 @@ import CocoaLumberjackSwift
 import WMF
 import WMFComponents
 import WMFData
+import WMFNativeLocalizations
 
 class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     
@@ -134,10 +135,10 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         switch configType {
         case .donate(let config):
             button.setTitle(config.completeButtonTitle, for: .normal)
-            button.titleLabel?.font = WMFFont.for(.headline, compatibleWith: traitCollection)
+            button.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
         case .yirLearnMore(let config):
             button.setTitle(config.donateButtonTitle, for: .normal)
-            button.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+            button.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
         case .standard(let config):
             break
         }
@@ -166,8 +167,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         self.configType = configType
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
-        
-        hidesBottomBarWhenPushed = true
+        configureHidesBottomBarWhenPushed()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -192,18 +192,13 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
     
     private func configureNavigationBar() {
         
-        var closeConfig: WMFNavigationBarCloseButtonConfig? = nil
+        var closeConfig: WMFLargeCloseButtonConfig? = nil
         
         if useSimpleNavigationBar {
             let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)
             
             if navigationController?.viewControllers.first === self {
-                switch configType {
-                case .donate:
-                    closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
-                default:
-                    closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
-                }
+                closeConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
 
             }
             configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
@@ -215,14 +210,14 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
             
             let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: wButton, alignment: .hidden)
             
-            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: true)
+            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
             
             let safariItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(tappedAction(_:)))
             navigationItem.setRightBarButtonItems([searchBarButtonItem, safariItem], animated: false)
             
             if let rightBarButtonItems = navigationItem.rightBarButtonItems {
                 for item in rightBarButtonItems {
-                    item.tintColor = theme.colors.link
+                    item.tintColor = theme.colors.primaryText
                 }
             }
         }
@@ -292,12 +287,10 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
     // MARK: - Actions
     
     @objc func userDidTapSearchButton() {
-        let searchVC = SearchViewController(source: .unknown)
-        searchVC.shouldBecomeFirstResponder = true
-        searchVC.apply(theme: theme)
-        searchVC.dataStore = dataStore
-        searchVC.needsCenteredTitle = true
         
+        let searchVC = SearchViewController(source: .unknown)
+        searchVC.dataStore = dataStore
+        searchVC.theme = theme
         navigationController?.pushViewController(searchVC, animated: true)
     }
     
@@ -527,7 +520,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         
         if let rightBarButtonItems = navigationItem.rightBarButtonItems {
             for item in rightBarButtonItems {
-                item.tintColor = theme.colors.link
+                item.tintColor = theme.colors.primaryText
             }
         }
     }
@@ -554,7 +547,7 @@ extension SinglePageWebViewController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         DDLogWarn("Error loading single page - did fail provisional navigation: \(error)")
-        WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: true)
+        WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousToasts: true)
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
@@ -565,7 +558,7 @@ extension SinglePageWebViewController: WKNavigationDelegate {
             return
         }
 
-        WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: false)
+        WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousToasts: false)
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

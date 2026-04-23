@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 class OnThisDayViewControllerHeader: UICollectionReusableView {
     @IBOutlet weak var eventsLabel: UILabel!
@@ -10,11 +11,10 @@ class OnThisDayViewControllerHeader: UICollectionReusableView {
         updateFonts()
         apply(theme: Theme.standard)
         wmf_configureSubviewsForDynamicType()
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            updateFonts()
+        }
     }
 
     private func updateFonts() {

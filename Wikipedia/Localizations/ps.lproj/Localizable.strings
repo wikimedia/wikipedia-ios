@@ -84,12 +84,14 @@
 "activity-tab-articles-read-graph-label" = "ليکنې";
 "activity-tab-customize-all-time-impact" = "ټول مهاله اغېز";
 "activity-tab-customize-editing-insights" = "اندلورو سمون";
+"activity-tab-customize-footer" = "لوست پوه‌ليدونه ستاسو د کاريال ژبو پربنسټ په اوڼنو کې ده، او د سمون پوه‌ليدونه ستاسو د لومړني کاريال ژبې پورې محدودې دي. پوه‌ليدونه د سيمه‌ييزو اومتوکو څخه گټه پورته کوي، پرته له هغه سمونونو څخه چې ټولگړې دي.";
 "activity-tab-customize-last-in-app-donation" = "کاريال کې وروستۍ بسپنه";
 "activity-tab-customize-logout-warning" = "د دې پوه‌ليد لپاره تاسو بايد ننوتلي ياست.";
 "activity-tab-customize-reading-insights" = "اندلورو لوستل";
 "activity-tab-customize-time-spent-reading" = "په لوستلو تېرشوی وخت";
 "activity-tab-customize-timeline-of-behavior" = "د چلند مهالوېش";
 "activity-tab-email-fifth-line" = "[سکرین‌شاټونه یا تړوني]";
+"activity-tab-email-first-line" = "زه د چارو ريښکې ځانگړنې سره ستونزې سره مخ شوی يم:";
 "activity-tab-email-fourth-line" = "[غوښتل شوی چلند تشریح کړئ]";
 "activity-tab-email-second-line" = "- [ځانګړې ستونزه تشریح کړئ]";
 "activity-tab-email-third-line" = "هغه چلند چې زه يې ليدل غواړم:";
@@ -105,6 +107,7 @@
 "activity-tab-impact-edits-label" = "سمونونه";
 "activity-tab-impact-last-edited-label" = "وروستی ځل سم‌شوی";
 "activity-tab-impact-recent-activity-title" = "ستاسو وروستۍ چارې (وروستۍ ۳۰ ورځې)";
+"activity-tab-impact-recent-startend-accessibility" = "له $1 څخه $2";
 "activity-tab-impact-thanks-label" = "مننه";
 "activity-tab-impact-total-edits-label" = "ټولټال سمونونه";
 "activity-tab-impact-views-day" = "ورځ";
@@ -125,6 +128,7 @@
 "activity-tab-onboarding-second-button-title" = "د چارو اړوند نور زده کړئ.";
 "activity-tab-onboarding-second-item-subtitle" = "د خپلو ونډو او هغه پوهې د لاسرسي په اړه پوه‌ليدونه ومومئ چې تاسو شريک کړې دي.";
 "activity-tab-onboarding-second-item-title" = "اغېزمن مهم‌ټکي";
+"activity-tab-onboarding-third-item-title-updated" = "لوست پېښليک اوس په لټون کې دی";
 "activity-tab-read-title" = "د لوست پېښليک کتل";
 "activity-tab-satisfied" = "ډاډمن";
 "activity-tab-saved" = "دې مياشت کې خوندي‌شوې ليکنې";
@@ -146,6 +150,7 @@
 "activity-tab-you-read" = "تاسو دې اوونۍ کې {{PLURAL:$1|$1 ليکنه ولوسته|$1ليکنې ولوستې}}.";
 "activity-tab-you-saved" = "تاسو دې اوونۍ کې {{PLURAL:$1|$1 ليکنه خوندي کړې ده|$1ليکنې خوندي کړې دي}}.";
 "activity-tab-your-impact" = "ستاسو اغېز";
+"add-articles-to-reading-list" = "{{PLURAL:$1|$1ليکنه|$1 ليکنې}} لوستلړ ته ورگډول";
 "advanced-settings-title" = "پرمختللې اوڼنې";
 "alert-temporary-account" = "تاسو یو لنډمهاله گڼون کاروئ. گڼون به په ۹۰ ورځو کې پای ته ورسېږي.";
 "alert-temporary-account-learn-more" = "نور زده کړئ";
@@ -185,6 +190,8 @@
 "article-tabs-open-background-tab" = "په شاليد ريښکه کې پرانېستل";
 "article-tabs-open-new-tab" = "په نوې ريښکه کې پرانيستل";
 "article-talk-page" = "د ليکنې د خبرو اترو مخ";
+"article-toolbar-reading-themes-controls-toolbar-item" = "د لوست شاليدنو واگې";
+"article-view-controller-editing-temp-account-created-title" = "لنډمهاله گڼون جوړ شو:";
 "back-button-accessibility-label" = "پر شا کېدل";
 "back-button-popover-title" = "پرشاتگ لپاره وټوکئ";
 "button-go-back" = "پر شا تلل";
@@ -204,6 +211,7 @@
 "clearing-cache-complete" = "نيونگه سپاکول بشپړ شول.";
 "clearing-cache-in-progress" = "نيونگه سپاکول دوام لري.";
 "close-all-tabs" = "ټولې کړکۍ وتړئ";
+"close-all-tabs-confirmation-number" = "ټولې  $1 ريښکې وتړي؟";
 "close-button-accessibility-label" = "تړل";
 "close-other-tabs" = "نورې ريښکې تړل";
 "close-tab-confirmation" = "کړکۍ وتړي؟";
@@ -214,13 +222,18 @@
 "confirmed-donation-history-deletion" = "سيمه‌ييز پېښليک ړنگ‌شو";
 "continue-button-title" = "پرله‌پورې";
 "continue-reading-empty-title" = "په دې وروستيو کې هېڅ ليکنې نه دي لوستل شوي";
+"contributions-this-month" = "د دې مياشتې ونډې";
+"crimean-tatar-variants-alert-title" = "د کريميايي تاتاري بلبڼې ملاتړ هم‌مهالول";
+"customize-action-title" = "دوديزول";
 "data-migration-status" = "هم‌مهالول";
 "description-add-title" = "څرگنداوی ورگډول";
+"description-edit-for-article" = "$1 لپاره د ليکنې څرگنداوی";
 "description-edit-pencil-introduction" = "پېژندون سمول";
 "description-edit-pencil-title" = "ليکنې څرگنداوی سمول";
 "description-edit-placeholder-title" = "لنډ څرگنداوي غوره دي";
 "description-edit-publish" = "څرگنداوی خپرول";
 "description-edit-title" = "څرگنداوی سمول";
+"description-edit-warning" = "هڅه وکړئ سپيناوی مو لنډ وي؛ ترڅو کارنان سملاسي د ليکنې په سکالو پوه شي";
 "description-help-about-title" = "په اړه";
 "description-help-about-wikidata" = "ويکي‌اومتوک په اړه";
 "description-help-more-info-title" = "نور مالومات";
@@ -229,12 +242,17 @@
 "description-help-title" = "د ليکنې څرگنداوي لارښود";
 "description-help-wikidata-guide" = "د ويکي‌اومتوک د څرگنداوي ليکنې لارښود";
 "description-published-button-title" = "وشو";
+"description-published-subtitle" = "تاسو ويکي‌پېډيا د ټولو لپاره ښه کړه";
 "description-published-title" = "څرگنداوی خپورشو!";
+"description-welcome-concise-sub-title" = "د بېلگې په توگه يوه کرښه، د دوو څخه تر دولسو ويوکو پورې";
 "description-welcome-concise-title" = "لنډ یې وساتئ";
+"description-welcome-descriptions-sub-title" = "د لوستونکو پوهاوي لپاره د يوې ليکنې لنډيز وړاندې کوي";
 "description-welcome-descriptions-title" = "ليکنې څرگنداوی";
+"description-welcome-promise-title" = "په پیل کې، زه ژمنه کوم چې له دې ځانگړنې نه ناوړه گټه نه اخلم";
 "description-welcome-start-editing-button" = "سمون پيلول";
 "developer-force-email-auth" = "اجباري برېښليک تاييد";
 "developer-settings" = "پراختياگر اوڼنې";
+"developer-settings-bypass-donation" = "بسپنې څه تېرېدل";
 "developer-settings-enable-year-in-review" = "کال بياکتنه چارنول";
 "diff-article-revision-history" = "مخ بياکتنې پېښليک";
 "diff-change-added" = "زياتي، $1، زياتي پای.";
@@ -254,6 +272,9 @@
 "diff-rollback-alert-message" = "ايا تاسو ډاډه ياست چې د سمونونو شاگرځ وکړئ؟";
 "diff-rollback-alert-title" = "سمونونو شاگرځ";
 "diff-single-intro-title" = "سریزه";
+"donate-success-title" = "مننه!";
+"donate-title" = "د پيسو ټاکل";
+"donate-transaction-fee-opt-in-text" = "زه به په سخاوتمندانه ډول د راکړې ورکړې فيسونو د پوره کولو لپاره $1 ورکړم؛ ترڅو تاسو زما د بسپنې ۱۰۰%% وساتئ.";
 "duplicate-tab" = "دوه‌گونې ريښکه";
 "edit-link-display-text-title" = "ليک ښکارېدنه";
 "edit-link-link-target-title" = "تړوني موخه";
@@ -261,6 +282,9 @@
 "edit-link-title" = "تړونی سمول";
 "edit-menu-item" = "سمول";
 "edit-minor-text" = "دا يو کوچنی سمون دی";
+"edit-notices" = "يادښتونه سمول";
+"edit-notices-please-read" = "مهرباني وکړئ د سمون دمخه یې ولولئ";
+"edit-sheet-temp-account-notice" = "د لنډمهاله گڼون خبرتيا";
 "edit-summary-choice-linked-words" = "ورگډې شوې تړنې";
 "editor-edit-published" = "ستاسو سمون خپور شو.";
 "editor-edit-source" = "سرچينه سمول";
@@ -352,11 +376,12 @@
 "main-menu-title" = "نور";
 "main-page" = "لومړی مخ";
 "navbar-title-mode-edit-wikitext-preview" = "مخليدنه";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 گام";
 "nearby-distance-label-km" = "$1 کیلومتر";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 متر";
 "nearby-distance-label-miles" = "$1 ميله";
-"open-in-tab-tooltip-title" = "په نوې ريښکه کې پرانيستل";
 "page-history-bot-edits" = "روباټ";
 "page-protected-can-not-edit-title" = "دا مخ ژغورل شوی";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 ليکنې|$1 ليکنې}}";

@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 class WMFWelcomeExplorationViewController: ThemeableViewController {
 
@@ -14,7 +15,7 @@ class WMFWelcomeExplorationViewController: ThemeableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.clear
-        
+
         exploreTitleLabel.text = CommonStrings.exploreFeedTitle
         exploreDescriptionLabel.text = WMFLocalizedString("welcome-exploration-explore-feed-description", value:"Recommended reading and daily articles from our community", comment:"Description for Explore feed")
 
@@ -25,11 +26,10 @@ class WMFWelcomeExplorationViewController: ThemeableViewController {
         onThisDayDescriptionLabel.text = WMFLocalizedString("welcome-exploration-on-this-day-description", value:"Travel back in time to learn what happened today in history", comment:"Description for On this day")
         updateFonts()
         view.wmf_configureSubviewsForDynamicType()
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            updateFonts()
+        }
     }
 
     private func updateFonts() {

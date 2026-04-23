@@ -2,17 +2,6 @@ import Foundation
 import UIKit
 import WMFComponentsObjC
 
-/// This class facilitates communication between WMFSourceEditorViewController and the underlying TextKit (1 and 2) frameworks, so that WMFSourceEditorViewController is unaware of which framework is used.
-/// When we need to drop TextKit 1, the goal is for all the adjustments to be in this one class
-
-// fileprivate var needsTextKit2: Bool {
-//    if #available(iOS 17, *) {
-//        return true
-//    } else {
-//        return false
-//    }
-// }
-
 class WMFSourceEditorTextView: UITextView {
     override func accessibilityActivate() -> Bool {
 

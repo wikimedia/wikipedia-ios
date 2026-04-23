@@ -317,7 +317,6 @@
 "description-help-title" = "條目描述說明";
 "description-help-wikidata-guide" = "關於編寫描述的維基數據指引";
 "description-published-button-title" = "完成";
-"description-published-footer" = "您也可以使用本應用編輯條目。下次試試點擊鉛筆圖示來修正筆誤以及短句";
 "description-published-subtitle" = "您剛剛完善了維基百科，人人都會受益";
 "description-published-title" = "已發布描述！";
 "description-welcome-concise-sub-title" = "原則上為一行，介於 2 至 12 個字之間";
@@ -429,8 +428,6 @@
 "edit-notices-always-display" = "永遠顯示編輯提示";
 "edit-notices-please-read" = "編輯前請先閱讀";
 "edit-preview-simplified-format-message" = "所有內容均以簡化格式顯示。";
-"edit-published" = "已發布編輯";
-"edit-published-subtitle" = "您剛剛完善了維基百科，人人都會受益";
 "edit-sheet-ip-account-notice" = "IP 帳號通知";
 "edit-sheet-temp-account-notice" = "臨時帳號通知";
 "edit-show-web-preview" = "顯示網頁預覽";
@@ -629,8 +626,6 @@
 "explore-suggested-edits-footer" = "新增";
 "explore-suggested-edits-image-recs-body" = "將建議的圖片加到維基百科條目來加強理解。";
 "explore-suggested-edits-image-recs-title" = "新增圖片";
-"explore-survey-subtitle" = "請填寫一份關於探索摘要的簡短問卷。您的回饋將有助於我們改善往後的應用程式。";
-"explore-survey-title" = "協助我們改進探索功能";
 "explore-wikipedia" = "探索維基百科";
 "export-user-data-confirmation-message" = "分享您的應用程式庫，包括有關您的閱讀清單、歷史紀錄、偏好設定，以及探索提要內容的資料。此資料檔案應僅與受信任的接收者分享，以用於技術診斷目的。";
 "export-user-data-confirmation-title" = "分享應用程式庫？";
@@ -743,7 +738,6 @@
 "image-recs-yes-title" = "是";
 "import-shared-reading-list-default-title" = "我的閱讀清單";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "參加調查";
-"import-shared-reading-list-survey-prompt-footer" = "查看我們的$1隱私聲明$2。由第三方提供的調查。查看他們的$3隱私政策$4。";
 "import-shared-reading-list-survey-prompt-subtitle" = "「分享閱讀清單」是一項測試功能，我們需要您的意見回饋來改善、或是移除這項功能。";
 "import-shared-reading-list-survey-prompt-title" = "您願意幫助我們改善「分享閱讀清單」嗎？";
 "import-shared-reading-list-title" = "匯入分享閱讀清單";
@@ -838,8 +832,10 @@
 "more-menu" = "更多";
 "move-articles-to-reading-list" = "移動 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
 "navbar-title-mode-edit-wikitext-preview" = "預覽";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 英尺";
 "nearby-distance-label-km" = "$1 公里";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 公尺";
 "nearby-distance-label-miles" = "$1 英里";
 "new-password-instructions" = "您以臨時密碼登入。要完成登入，請在此設定新密碼。";
@@ -848,8 +844,6 @@
 "next-action-title" = "下一步";
 "no-email-account-alert" = "請在您的裝置上設定一個電子郵件地址後，再試一次。";
 "no-internet-connection" = "無網路連線";
-"no-internet-connection-article-reload" = "此條目有新版本，但沒有連上網路無法載入";
-"no-internet-connection-article-reload-button" = "返回上一次儲存的版本";
 "not-now-title" = "現在不要";
 "notifications-center-agent-description-from-format" = "來自$1";
 "notifications-center-alert" = "警告";
@@ -868,7 +862,6 @@
 "notifications-center-empty-state-filters-subtitle" = "變動$1來查看更多通知";
 "notifications-center-empty-state-no-projects-selected" = "添加計劃來查看更多訊息";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1}} 種篩選";
-"notifications-center-feed-card-title" = "編輯通知現已可用";
 "notifications-center-feed-news-notification-button-text" = "開啟推送通知";
 "notifications-center-feed-news-notification-text" = "所有維基媒體計劃的編輯通知，現在都可以透過該應用程式來取得。選擇使用推送通知，以便即時了解您在維基百科上的訊息。";
 "notifications-center-filters-accessibility-label" = "通知篩選";
@@ -989,8 +982,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "來自於$2維基百科的 $1";
 "on-this-day-title" = "歷史上的今天";
 "open-article" = "開啟條目";
-"open-in-tab-tooltip-body" = "長按條目標題或藍色連結即可在新分頁中開啟。";
-"open-in-tab-tooltip-title" = "在新分頁開啟";
 "original-tab-button-popover-description" = "輕觸「W」來返回至您起始的分頁";
 "page-history-bot-edits" = "機器人";
 "page-history-compare-accessibility-hint" = "輕觸來選擇兩個修訂做比較";
@@ -1016,7 +1007,6 @@
 "panel-compare-revisions-text" = "比較修訂能協助顯示出條目隨著時間的內容變化，比較條目裡的兩個修訂時，會透過凸顯出所更改過的內容，來顯示出這些修訂間的差異。";
 "panel-compare-revisions-title" = "比較修訂";
 "panel-not-logged-in-continue-edit-action-title" = "不登入編輯";
-"panel-not-logged-in-subtitle" = "若您做出任何編輯，您目前的 IP 位址會公開可見。若您有在$2$1log或是$3建立帳號$4，您做出的編輯會歸在您的使用者名稱之下。";
 "panel-not-logged-in-title" = "您尚未登入";
 "percentile-0.01" = "0.01";
 "percentile-1" = "1";
@@ -1184,15 +1174,6 @@
 "relative-date-seconds-abbreviated" = "$1 秒";
 "relative-date-seconds-ago-abbreviated" = "$1 秒前";
 "relative-date-years-ago" = "{{PLURAL:$1|0=今年|1=去年|$1 年前}}";
-"replace-button-accessibility" = "實行$1。";
-"replace-buttons-replace-accessibility" = "取代單一實體";
-"replace-buttons-replace-all-accessibility" = "取代所有實體";
-"replace-clear-button-accessibility" = "清除取代";
-"replace-infolabel-method-replace" = "取代";
-"replace-infolabel-method-replace-all" = "全部取代";
-"replace-method-button-accessibility" = "取代方法。設定成$1。選擇來更改。";
-"replace-textfield-accessibility" = "取代";
-"replace-textfield-placeholder" = "取代為：";
 "return-button-title" = "返回";
 "return-to-article" = "返回到條目";
 "reverted-edit-title" = "已回退的編輯";
@@ -1214,7 +1195,6 @@
 "search-button-accessibility-label" = "搜尋維基百科";
 "search-clear-title" = "清除";
 "search-field-placeholder-text" = "搜尋維基百科";
-"search-reading-list-placeholder-text" = "搜尋閱讀清單";
 "search-recent-clear-confirmation-heading" = "刪除所有近期搜尋嗎？";
 "search-recent-clear-confirmation-sub-heading" = "此操作不能還原！";
 "search-recent-clear-delete-all" = "刪除所有";
@@ -1246,11 +1226,6 @@
 "settings-notifications-echo-failure-title" = "無法檢查 Echo 通知訂閱";
 "settings-notifications-echo-failure-try-again" = "再試一次";
 "settings-notifications-header" = "留意與您帳號相關的行動，例如來自其他貢獻者的訊息、告警和通知。所有提供內容都尊守隱私和包含最新資料。";
-"settings-notifications-info" = "經由我們推送通知提醒注意在維基百科上的被閱讀最多次以及趨勢條目。所有提供內容皆考量到隱私及最新資料。";
-"settings-notifications-learn-more" = "了解更多通知內容";
-"settings-notifications-push-notifications" = "推送通知";
-"settings-notifications-system-turn-on" = "開啟通知";
-"settings-notifications-trending" = "目前最新事件趨勢";
 "settings-off" = "關閉";
 "settings-on" = "開啟";
 "settings-primary-language" = "主要";
@@ -1305,8 +1280,6 @@
 "tabs-main-page-subtitle" = "維基百科每日精彩內容";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 個分頁}}";
 "tabs-open-tab" = "開啟分頁";
-"tabs-overview-tooltip-body" = "在分頁總覽中切換開啟的條目。";
-"tabs-overview-tooltip-title" = "分頁總覽";
 "tabs-show-suggested-articles" = "顯示條目建議";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "建議現已隱藏";
 "tabs-survey-title" = "請協助改善分頁。您對此功能滿意嗎？";
@@ -1519,9 +1492,6 @@
 "welcome-languages-add-or-edit-button" = "新增或編輯首選語言";
 "welcome-languages-description" = "我們在您的裝置上找到以下語言：";
 "welcome-languages-search-title" = "在超過 300 種語言裡搜尋";
-"welcome-notifications-tell-me-more-creation" = "通知是由此應用程式在您裝置上建立及發送，而非由我們或（其它第三方）的服務所為。";
-"welcome-notifications-tell-me-more-storage" = "通知的偏好設定是儲存在裝置上，而不是基於個人資訊或活動。";
-"welcome-notifications-tell-me-more-title" = "更多有關通知";
 "welcome-privacy-subtitle" = "我們堅信，使用者不必提供個人資訊，即可參與自由的知識運動。此應用程式會以匿名方式收集使用資料。";
 "welcome-privacy-terms-button-text" = "詳細了解我們的隱私權政策和使用條款。";
 "widget-onthisday-description" = "探索在歷史上的今天發生的事件。";

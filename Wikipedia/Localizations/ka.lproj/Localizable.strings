@@ -117,8 +117,10 @@
 "main-menu-zero-faq" = "ვიკიპედია ზეროს ხშირი შეკითხვები";
 "more-languages-tooltip-title" = "ენების დამატება";
 "navbar-title-mode-edit-wikitext-preview" = "წინასწარ გადახედვა";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 ფუტი";
 "nearby-distance-label-km" = "$1 კმ";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 მ";
 "nearby-distance-label-miles" = "$1 მილი";
 "new-password-title" = "დააყენეთ პაროლი";
@@ -153,7 +155,6 @@
 "settings-my-languages" = "ჩემი ენები";
 // Fuzzy
 "settings-notifications" = "შეტყობინებები";
-"settings-notifications-system-turn-on" = "შეტყობინებების ჩართვა";
 "settings-primary-language" = "ძირითადი";
 "settings-title" = "კონფიგურაცია";
 // Fuzzy

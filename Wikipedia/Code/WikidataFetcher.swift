@@ -1,4 +1,5 @@
 import WMFData
+import WMFNativeLocalizations
 
 public enum ArticleDescriptionSource: String {
     case none

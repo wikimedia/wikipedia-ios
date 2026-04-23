@@ -32,6 +32,7 @@
 // Author: Marphy 123
 // Author: McDutchie
 // Author: Melimeli
+// Author: Momo50WM
 // Author: Méthodes Bulebe Hangi
 // Author: Nemo bis
 // Author: Nharateh
@@ -153,6 +154,9 @@
 "activity-tab-empty-subtitle" = "Commencez à lire et à éditer pour construire votre historique";
 "activity-tab-empty-title" = "Rien à afficher";
 "activity-tab-generic-no-edits" = "Vous n’avez pas encore édité cette semaine. Commencez maintenant à suivre vos contributions.";
+"activity-tab-history-callout-body" = "Consultez ou effacez votre historique de lecture dans l’**onglet Recherche**.";
+"activity-tab-history-callout-body-loggedout" = "Trouvez et effacez votre historique de lecture dans l'onglet \"Recherche\" Aucun compte n'est nécessaire.";
+"activity-tab-hitory-callout-close" = "Fermeture de lacarte d'information sur l'historique";
 "activity-tab-hours-minutes-read" = "$1 h $2 min";
 "activity-tab-hours-on-wikipedia-ios" = "Sur WIKIPEDIA iOS";
 "activity-tab-impact-all-time-title" = "Impact global";
@@ -332,7 +336,6 @@
 "description-help-title" = "Aide à la description de l’article";
 "description-help-wikidata-guide" = "Guide Wikidata pour l'écriture des descriptions";
 "description-published-button-title" = "Fait";
-"description-published-footer" = "Vous pouvez aussi modifier les articles dans cette application. La prochaine fois, essayez de corriger les fautes de frappe et les petites phrases en cliquant sur l’icône du crayon.";
 "description-published-subtitle" = "Vous venez d’améliorer Wikipédia pour chacun";
 "description-published-title" = "Description publiée !";
 "description-welcome-concise-sub-title" = "En une ligne dans l’idéal, entre deux et douze mots";
@@ -444,8 +447,6 @@
 "edit-notices-always-display" = "Toujours afficher les avis de modification";
 "edit-notices-please-read" = "Veuillez lire avant de modifier";
 "edit-preview-simplified-format-message" = "Tout le contenu est présenté en format simplifié.";
-"edit-published" = "Modification publiée";
-"edit-published-subtitle" = "Vous venez tout juste d’améliorer Wikipédia pour tout le monde";
 "edit-sheet-ip-account-notice" = "Avertissement de compte IP";
 "edit-sheet-temp-account-notice" = "Avertissement de compte temporaire";
 "edit-show-web-preview" = "Afficher l'aperçu Web";
@@ -644,8 +645,6 @@
 "explore-suggested-edits-footer" = "Ajouter";
 "explore-suggested-edits-image-recs-body" = "Ajouter des suggestions d'images aux articles de Wikipédia pour en améliorer la compréhension.";
 "explore-suggested-edits-image-recs-title" = "Ajouter une image";
-"explore-survey-subtitle" = "Veuillez répondre à un court sondage sur le flux Explorer. Vos commentaires nous aideront à améliorer l'application.";
-"explore-survey-title" = "Aidez-nous à améliorer Explorer";
 "explore-wikipedia" = "Explorez Wikipédia";
 "export-user-data-confirmation-message" = "Le partage de votre bibliothèque d'applications inclut des données relatives à vos listes et à votre historique de lecture, à vos préférences et au contenu de votre flux Explorer. Ce fichier de données ne doit être partagé qu'avec un destinataire de confiance et uniquement à des fins de diagnostic technique.";
 "export-user-data-confirmation-title" = "Partager la bibliothèque d’applications ?";
@@ -758,7 +757,6 @@
 "image-recs-yes-title" = "Oui";
 "import-shared-reading-list-default-title" = "Ma liste de lecture";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Répondre au sondage";
-"import-shared-reading-list-survey-prompt-footer" = "Consultez notre $1déclaration de confidentialité$2. Enquête réalisée par un tiers. Consultez sa $3politique de confidentialité$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "Le « Partage de listes de lecture » est une fonctionnalité en test et nous avons besoin de vos commentaires pour l’améliorer ou la supprimer.";
 "import-shared-reading-list-survey-prompt-title" = "Pourriez-vous nous aider à améliorer la fonctionnalité « Partager des listes de lecture » ?";
 "import-shared-reading-list-title" = "Importer une liste de lecture partagée";
@@ -828,7 +826,7 @@
 "main-menu-account-logout" = "Se déconnecter";
 "main-menu-account-logout-are-you-sure" = "Êtes-vous sûr{{GENDER:||e}} de vouloir vous déconnecter ?";
 "main-menu-account-logout-are-you-sure-message" = "La déconnexion supprimera vos données de compte stockées localement (les notifications et messages), mais vos données de compte seront encore disponibles sur le web et seront téléchargées à nouveau lorsque vous vous reconnecterez.";
-"main-menu-account-title-logged-in" = "Connecté{{GENDER:||e}} en tant que $1";
+"main-menu-account-title-logged-in" = "Connecté en tant que $1";
 "main-menu-heading-legal" = "Confidentialité et conditions";
 "main-menu-nearby" = "À proximité";
 "main-menu-privacy-policy" = "Politique de confidentialité";
@@ -851,10 +849,11 @@
 "more-languages-tooltip-description" = "Rechercher sur Wikipédia dans plus de 300 langues";
 "more-languages-tooltip-title" = "Ajouter des langues";
 "more-menu" = "Plus";
-"move-articles-to-reading-list" = "Placer $1 article{{PLURAL:$1||s}} dans la liste de lecture";
+"move-articles-to-reading-list" = "Placer {{PLURAL:$1|$1 article|$1 articles}} dans la liste de lecture";
 "navbar-title-mode-edit-wikitext-preview" = "Aperçu";
-"nearby-distance-label-feet" = "$1 pied(s)";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 pied|$1 pieds}}";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 miles";
 "new-password-instructions" = "Vous vous êtes connecté avec un mot de passe temporaire. Pour achever de vous connecter, saisissez un nouveau mot de passe ici.";
@@ -863,8 +862,6 @@
 "next-action-title" = "Suivant";
 "no-email-account-alert" = "Veuillez configurer un compte de messagerie sur votre appareil et réessayer.";
 "no-internet-connection" = "Aucune connexion à Internet";
-"no-internet-connection-article-reload" = "Une version plus récente de cet article est peut-être disponible, mais ne peut pas être chargée sans connexion à Internet";
-"no-internet-connection-article-reload-button" = "Retour à la dernière version enregistrée";
 "not-now-title" = "Pas maintenant";
 "notifications-center-agent-description-from-format" = "De $1";
 "notifications-center-alert" = "Alerte";
@@ -882,8 +879,7 @@
 "notifications-center-empty-not-subscribed" = "Vous n’êtes actuellement abonné à aucune notification de Wikipédia.";
 "notifications-center-empty-state-filters-subtitle" = "Modifier $1 pour voir plus de messages";
 "notifications-center-empty-state-no-projects-selected" = "Ajouter des projets pour voir plus de messages";
-"notifications-center-empty-state-num-filters" = "$1 filtre{{PLURAL:$1||s}}";
-"notifications-center-feed-card-title" = "Notifications de modification maintenant disponibles";
+"notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtre|$1 filtres}}";
 "notifications-center-feed-news-notification-button-text" = "Activer les notifications poussées";
 "notifications-center-feed-news-notification-text" = "Les notifications de modification pour tous les projets Wikimedia sont maintenant disponibles via l’appli. Acceptez les notifications poussées pour rester à jour de vos messages sur Wikipédia lorsque vous vous allez ailleurs.";
 "notifications-center-filters-accessibility-label" = "Fitrage des notifications";
@@ -910,13 +906,13 @@
 "notifications-center-login-notifications" = "Notifications de connexion";
 "notifications-center-mark" = "Marquer";
 "notifications-center-mark-all-as-read" = "Marquer tout comme lu";
-"notifications-center-mark-all-as-read-confirmation-format" = "Êtes-vous sûr{{GENDER:||e}} de vouloir marquer {{PLURAL:$1|le message|tous les $1 messages}} de vos notifications comme lus ? Vos notifications seront marquées comme lues sur tous vos appareils.";
-"notifications-center-mark-all-as-read-missing-number" = "Êtes-vous sûr{{GENDER:||e}} de vouloir marquer toutes vos notifications comme lues ? Vos notifications seront marquées comme lues sur tous vos appareils.";
+"notifications-center-mark-all-as-read-confirmation-format" = "Êtes-vous sûr de vouloir marquer {{PLURAL:$1|le message|les $1 messages}} de vos notifications comme lus ? Vos notifications seront marquées comme lues sur tous vos appareils.";
+"notifications-center-mark-all-as-read-missing-number" = "Êtes-vous sûr de vouloir marquer toutes vos notifications comme lues ? Vos notifications seront marquées comme lues sur tous vos appareils.";
 "notifications-center-mark-as-read" = "Marquer comme lu";
 "notifications-center-mark-as-unread" = "Marquer comme non lu";
 "notifications-center-more-action-accessibility-label" = "Plus";
 "notifications-center-notifications-settings" = "Paramètres de notification";
-"notifications-center-num-selected-messages-format" = "$1 message{{PLURAL:$1||s}}";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 message|$1 messages}}";
 "notifications-center-onboarding-modal-continue-action" = "Continuer";
 "notifications-center-onboarding-modal-filters-message" = "Filtrer vos notifications par état de lecture et par type afin de réduire facilement votre boîte de réception.";
 "notifications-center-onboarding-modal-filters-title" = "Filtres";
@@ -937,9 +933,9 @@
 "notifications-center-status-all-notifications" = "Toutes les notifications";
 "notifications-center-status-double-concatenation" = "$1 sur $2";
 "notifications-center-status-filtered-by" = "Filtrées par";
-"notifications-center-status-in-projects" = "Dans $1 projet{{PLURAL:$1||s}}";
-"notifications-center-status-in-projects-plain" = "$1 projet{{PLURAL:$1||s}}";
-"notifications-center-status-in-types" = "$1 type{{PLURAL:$1||s}}";
+"notifications-center-status-in-projects" = "{{PLURAL:$1|Dans un projet|Dans $1 projets}}";
+"notifications-center-status-in-projects-plain" = "{{PLURAL:$1|un projet|$1 projets}}";
+"notifications-center-status-in-types" = "{{PLURAL:$1|un type|$1 types}}";
 "notifications-center-status-read" = "Lu";
 "notifications-center-status-triple-concatenation" = "$1 et $2 sur $3";
 "notifications-center-status-unread" = "Non lu";
@@ -990,22 +986,20 @@
 "notifications-center-type-title-user-talk-page-messsage" = "Message d’une page de discussion";
 "notifications-center-type-title-welcome" = "Bienvenue";
 "notifications-push-fallback-body-text" = "Nouvelle activité sur Wikipédia";
-"notifications-push-talk-body-format" = "$1 nouveau{{PLURAL:$1||x}} message{{PLURAL:$1||s}} sur $2";
-"notifications-push-talk-title-format" = "Nouveau{{PLURAL:$1||x}} message{{PLURAL:$1||s}}";
+"notifications-push-talk-body-format" = "{{PLURAL:$1|$1 nouveau message|$1 nouveaux messages}} sur $2";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|Nouveau message|Nouveaux messages}}";
 "number-billions" = "$1 G";
 "number-millions" = "$1 M";
 "number-thousands" = "$1 k";
 "on-this-day-detail-header-date-range" = "de $1 à $2";
-"on-this-day-detail-header-title" = "$1 événement{{PLURAL:$1||s}} historique{{PLURAL:$1||s}}";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 événement historique|$1 événements historiques}}";
 "on-this-day-footer" = "Plus d’événements historiques de ce jour";
-"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 événement historique|$1 événements historiques}} de plus pour ce jour";
+"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 événement historique de plus|$1 événements historiques de plus}} ce jour-ci";
 "on-this-day-language-does-not-support-error" = "L’édition de Wikipédia dans votre langue principale ne prend pas en charge l’éphéméride de « Ce jour ». Vous pouvez mettre à jour votre édition principale de Wikipédia dans le menu Paramètres de l’application.";
 "on-this-day-no-internet-error" = "Aucune donnée disponible";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 sur Wikipédia en $2";
 "on-this-day-title" = "Ce jour-là";
 "open-article" = "Ouvrir l’article";
-"open-in-tab-tooltip-body" = "Appuyez longuement sur le titre d’un article ou sur un lien bleu pour l’ouvrir dans un nouvel onglet.";
-"open-in-tab-tooltip-title" = "Ouvrir dans un nouvel onglet";
 "original-tab-button-popover-description" = "Tapez sur l’icône « W » pour revenir à l’onglet avec lequel vous avez commencé";
 "page-history-bot-edits" = "robot";
 "page-history-compare-accessibility-hint" = "Tapper pour sélectionner deux versions à comparer";
@@ -1031,7 +1025,6 @@
 "panel-compare-revisions-text" = "Comparer les versions aide à montrer comment un article a changé au cours du temps. La comparaison de deux versions d’un article affichera les différences entre elles en surlignant tout contenu qui a été modifié.";
 "panel-compare-revisions-title" = "Comparaison des versions";
 "panel-not-logged-in-continue-edit-action-title" = "Modifier sans se connecter";
-"panel-not-logged-in-subtitle" = "Votre adresse IP sera publiquement visible si vous effectuez des modifications. Si vous $1vous connectez$2 ou $3créez un compte$4, vos contributions seront attribuées à votre nom d’utilisateur, avec d’autres avantages.";
 "panel-not-logged-in-title" = "Vous n’êtes pas connecté(e)";
 "pictured" = "en image";
 "places-accessibility-clear-saved-searches" = "Effacer les recherches enregistrées";
@@ -1113,7 +1106,7 @@
 "reading-list-do-not-keep-button-title" = "Non, supprimer les articles de l’appareil";
 "reading-list-entry-limit-exceeded-message" = "Veuillez réduire le nombre d’articles dans cette liste à $1 pour reprendre la synchronisation de tous les articles de cette liste.";
 "reading-list-entry-limit-exceeded-title" = "Vous avez dépassé la limite de {{PLURAL:$1|$1 article|$1 articles}} par compte.";
-"reading-list-entry-limit-reached" = "Impossible d'ajouter {{PLURAL:$1|l’article|les articles}} à cette liste. Vous avez atteint la limite de $2 articles par liste de lecture pour $3.";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1|Impossible d’ajouter l’article|Impossible d’ajouter les articles}} à cette liste. Vous avez atteint la limite de $2 articles par liste de lecture pour $3.";
 "reading-list-exists-with-same-name" = "Nom de liste de lecture déjà utilisé";
 "reading-list-generic-error" = "Une erreur inattendue s’est produite lors de la mise à jour de vos listes de lecture.";
 "reading-list-keep-button-title" = "Oui, conserver les articles dans l’appareil";
@@ -1191,15 +1184,6 @@
 "relative-date-seconds-abbreviated" = "$1 s";
 "relative-date-seconds-ago-abbreviated" = "il y a $1 s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=cette année|1=l’année dernière|il y a $1 ans}}";
-"replace-button-accessibility" = "Effectuer $1.";
-"replace-buttons-replace-accessibility" = "Remplacer l’instance unique";
-"replace-buttons-replace-all-accessibility" = "Remplacer toutes les instances";
-"replace-clear-button-accessibility" = "Effacer le remplacement";
-"replace-infolabel-method-replace" = "Remplacer";
-"replace-infolabel-method-replace-all" = "Remplacer tout";
-"replace-method-button-accessibility" = "Méthode de remplacement. Définie à $1. Sélectionner pour modifier.";
-"replace-textfield-accessibility" = "Remplacer";
-"replace-textfield-placeholder" = "Remplacer par...";
 "return-button-title" = "Retour";
 "return-to-article" = "Retour à l’article";
 "reverted-edit-title" = "Contribution annulée";
@@ -1216,12 +1200,12 @@
 "saved-reading-lists-title" = "Listes de lecture";
 "saved-search-default-text" = "Rechercher les articles enregistrés";
 "saved-title" = "Enregistré";
-"saved-unsave-article-and-remove-from-reading-lists-message" = "Ne pas sauvegarder {{PLURAL:$1|cet article le supprimera|ces articles les supprimeront}} de toutes les listes de lecture associées";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "Ne plus sauvegarder {{PLURAL:$1|cet article|ces articles}} les supprimera de toutes les listes de lecture associées.";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Retirer {{PLURAL:$1|cet article|ces articles}} ?";
+"search-button-accessibility-hint" = "Naviguer vers la vue de recherche.";
 "search-button-accessibility-label" = "Rechercher dans Wikipédia";
 "search-clear-title" = "Effacer";
 "search-field-placeholder-text" = "Rechercher dans Wikipédia";
-"search-reading-list-placeholder-text" = "Rechercher les listes de lecture";
 "search-recent-clear-confirmation-heading" = "Supprimer toutes les recherches récentes ?";
 "search-recent-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";
 "search-recent-clear-delete-all" = "Supprimer tout";
@@ -1253,11 +1237,6 @@
 "settings-notifications-echo-failure-title" = "Impossible de vérifier les abonnements aux notifications d’Echo";
 "settings-notifications-echo-failure-try-again" = "Réessayer";
 "settings-notifications-header" = "Soyez informé(e) de toute activité liée à votre compte, comme les messages des autres contributeurs, les alertes et les notifications. Toutes ces informations sont fournies dans le respect de votre vie privée et avec des données mises à jour en temps réel.";
-"settings-notifications-info" = "Être alerté la tendance et les articles les plus lus sur Wikipédia avec nos notifications envoyées. Tout cela est fourni en respectant la confidentialité et la fraîcheur des données.";
-"settings-notifications-learn-more" = "En savoir plus sur les notifications";
-"settings-notifications-push-notifications" = "Notifications envoyées";
-"settings-notifications-system-turn-on" = "Activer les notifications";
-"settings-notifications-trending" = "Tendance des événements actuels";
 "settings-off" = "Désactivé";
 "settings-on" = "Activé";
 "settings-primary-language" = "Principal";
@@ -1312,8 +1291,6 @@
 "tabs-main-page-subtitle" = "Aujourd'hui sur Wikipédia";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 onglet|$1 onglets}}";
 "tabs-open-tab" = "Ouvrir l'onglet";
-"tabs-overview-tooltip-body" = "Basculez entre les articles ouverts dans l'aperçu des onglets.";
-"tabs-overview-tooltip-title" = "Aperçu des onglets";
 "tabs-show-suggested-articles" = "Afficher les suggestions d'articles";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Les suggestions sont désormais masquées";
 "tabs-survey-title" = "Aidez-nous à améliorer les onglets. Êtes-vous satisfait de cette fonctionnalité ?";
@@ -1417,6 +1394,8 @@
 "theme-default-explanation" = "Correspond au thème du système";
 "theme-light-display-name" = "Clair";
 "theme-sepia-display-name" = "Sépia";
+"tip-history-in-search-subtitle" = "Trouvez votre historique de lecture dans l'onglet Recherche.";
+"tip-history-in-search-title" = "L'historique a été déplacé vers la recherche.";
 "today-title" = "Aujourd’hui";
 "top-read-widget-description" = "Apprendre ce qui est lu aujourd’hui dans le monde sur Wikipédia.";
 "top-read-widget-readers-count" = "$1 lecteurs";
@@ -1526,9 +1505,6 @@
 "welcome-languages-add-or-edit-button" = "Ajouter ou modifier les langues préférées";
 "welcome-languages-description" = "Nous avons trouvé les langues suivantes sur votre appareil :";
 "welcome-languages-search-title" = "Rechercher dans plus de 300 langues";
-"welcome-notifications-tell-me-more-creation" = "Les notifications sont créées et envoyées sur votre appareil par l’application, pas par nos serveurs (ou ceux de tierces parties).";
-"welcome-notifications-tell-me-more-storage" = "Les préférences de notification sont stockées sur l’appareil et ne sont pas basés sur des informations ou l’activité personnelle.";
-"welcome-notifications-tell-me-more-title" = "En savoir plus sur les notifications";
 "welcome-privacy-subtitle" = "Nous pensons que vous ne devriez pas avoir à fournir d'informations personnelles pour participer au mouvement de la connaissance libre. Les données d'utilisation collectées pour cette application sont anonymes.";
 "welcome-privacy-terms-button-text" = "En savoir plus sur notre politique de confidentialité et nos conditions d'utilisation";
 "widget-onthisday-description" = "Explorer ce qui s’est passé à cette date-ci de l’année au cours de l’histoire.";

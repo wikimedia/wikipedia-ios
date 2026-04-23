@@ -1,6 +1,7 @@
 import WMFComponents
 import SwiftUI
 import WMF
+import WMFNativeLocalizations
 
 struct NotificationsCenterFilterItemView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -101,7 +102,6 @@ extension Binding {
 struct NotificationsCenterFilterView: View {
 
     let viewModel: NotificationsCenterFiltersViewModel
-    let doneAction: () -> Void
     
     var body: some View {
             List {
@@ -133,28 +133,7 @@ struct NotificationsCenterFilterView: View {
                     }
                 }
             }
-            .listStyle(GroupedListStyle())
-            .navigationBarItems(
-                trailing:
-                    Button(action: {
-                        doneAction()
-                    }) {
-                        Text(CommonStrings.doneTitle)
-                            .font(Font(WMFFont.navigationBarDoneButtonFont))
-                            .foregroundColor(Color(WMFAppEnvironment.current.theme.navigationBarTintColor))
-                        }
-            )
+            .listStyle(InsetGroupedListStyle())
             .listBackgroundColor(Color(viewModel.theme.colors.baseBackground))
-            .navigationBarTitle(Text(WMFLocalizedString("notifications-center-filters-title", value: "Filters", comment: "Navigation bar title text for the filters view presented from notifications center. Allows for filtering by read status and notification type.")), displayMode: .inline)
-            .onAppear(perform: {
-                if #unavailable(iOS 16) {
-                    UITableView.appearance().backgroundColor = UIColor.clear
-                }
-            })
-            .onDisappear(perform: {
-                if #unavailable(iOS 16) {
-                    UITableView.appearance().backgroundColor = UIColor.systemGroupedBackground
-                }
-            })
     }
 }

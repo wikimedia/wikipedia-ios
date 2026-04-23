@@ -1,5 +1,6 @@
 import UIKit
 import WMFData
+import SwiftUI
 
 public protocol WMFNavigationBarConfiguring {
     
@@ -9,10 +10,12 @@ public protocol WMFNavigationBarConfiguring {
 public struct WMFNavigationBarTitleConfig {
     
     public enum Alignment {
-        case leadingCompact
         case leadingLarge
         case centerCompact
         case hidden
+        /// Large title pinned to the upper-leading edge of the bar, overlapping the area normally used by back buttons.
+        /// Intended for root tab-bar view controllers and views that have no back button.
+        case customLeadingLarge
     }
     
     let title: String
@@ -36,63 +39,44 @@ public struct WMFNavigationBarBackButtonConfig {
     }
 }
 
-/// Close button config for navigation bar
-public struct WMFNavigationBarCloseButtonConfig {
-    
-    public enum Alignment {
-        case leading
-        case trailing
-    }
-    
-    let text: String
-    let target: Any
-    let action: Selector
-    let alignment: Alignment
-    
-    public init(text: String, target: Any, action: Selector, alignment: Alignment) {
-        self.text = text
-        self.target = target
-        self.action = action
-        self.alignment = alignment
-    }
-}
-
 /// Profile button config for navigation bar
 public struct WMFNavigationBarProfileButtonConfig {
+    public let title: String
     public let accessibilityLabelNoNotifications: String
     public let accessibilityLabelHasNotifications: String
     public let accessibilityHint: String
     public let needsBadge: Bool
     public let target: Any
     public let action: Selector
-    public let leadingBarButtonItem: UIBarButtonItem?
     
-    public init(accessibilityLabelNoNotifications: String, accessibilityLabelHasNotifications: String, accessibilityHint: String, needsBadge: Bool, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?) {
+    public init(title: String, accessibilityLabelNoNotifications: String, accessibilityLabelHasNotifications: String, accessibilityHint: String, needsBadge: Bool, target: Any, action: Selector) {
+        self.title = title
         self.accessibilityLabelNoNotifications = accessibilityLabelNoNotifications
         self.accessibilityLabelHasNotifications = accessibilityLabelHasNotifications
         self.accessibilityHint = accessibilityHint
         self.needsBadge = needsBadge
         self.target = target
         self.action = action
-        self.leadingBarButtonItem = leadingBarButtonItem
     }
 }
 
 public struct WMFNavigationBarTabsButtonConfig {
+    public let title: String
     public let accessibilityLabel: String
     public let accessibilityHint: String
     public let target: Any
     public let action: Selector
     public let leadingBarButtonItem: UIBarButtonItem?
-    public let trailingBarButtonItem: UIBarButtonItem?
+    public let leadingBarButtonItemTitle: String?
     
-    public init(accessibilityLabel: String, accessibilityHint: String, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?, trailingBarButtonItem: UIBarButtonItem?) {
+    public init(title: String, accessibilityLabel: String, accessibilityHint: String, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?, leadingBarButtonItemTitle: String? = nil) {
+        self.title = title
         self.accessibilityLabel = accessibilityLabel
         self.accessibilityHint = accessibilityHint
         self.target = target
         self.action = action
         self.leadingBarButtonItem = leadingBarButtonItem
-        self.trailingBarButtonItem = trailingBarButtonItem
+        self.leadingBarButtonItemTitle = leadingBarButtonItemTitle
     }
 }
 
@@ -117,6 +101,8 @@ public struct WMFNavigationBarSearchConfig {
     }
 }
 
+// MARK: - Navigation Bar Configuring Extension
+
 public extension WMFNavigationBarConfiguring where Self: UIViewController {
     
     private var profileButtonAccessibilityID: String {
@@ -131,7 +117,12 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     ///   - searchBarConfig: Config for search bar
     ///   - hideNavigationBarOnScroll: If true, will hide the navigation bar when the user scrolls
     func configureNavigationBar(titleConfig: WMFNavigationBarTitleConfig,
-                                backButtonConfig: WMFNavigationBarBackButtonConfig? = nil, closeButtonConfig: WMFNavigationBarCloseButtonConfig?, profileButtonConfig: WMFNavigationBarProfileButtonConfig?, tabsButtonConfig: WMFNavigationBarTabsButtonConfig?, searchBarConfig: WMFNavigationBarSearchConfig?, hideNavigationBarOnScroll: Bool) {
+                                backButtonConfig: WMFNavigationBarBackButtonConfig? = nil,
+                                closeButtonConfig: WMFLargeCloseButtonConfig?,
+                                profileButtonConfig: WMFNavigationBarProfileButtonConfig?,
+                                tabsButtonConfig: WMFNavigationBarTabsButtonConfig?,
+                                searchBarConfig: WMFNavigationBarSearchConfig?,
+                                hideNavigationBarOnScroll: Bool) {
         
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.hidesBarsOnSwipe = hideNavigationBarOnScroll
@@ -149,25 +140,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 navigationItem.titleView = customTitleView
                 themeNavigationBarCustomCenteredTitleView()
             }
-        case .leadingCompact:
-            navigationItem.title = titleConfig.title
-            navigationController?.navigationBar.prefersLargeTitles = false
-            navigationItem.largeTitleDisplayMode = .never
-            navigationItem.titleView = UIView()
-            if let customTitleView = titleConfig.customView {
-                let button = UIBarButtonItem(customView: customTitleView)
-                button.accessibilityTraits = .staticText
-                navigationItem.leftBarButtonItem = button
-                themeNavigationBarLeadingTitleView()
-            } else {
-                let leadingTitleLabel = UILabel()
-                leadingTitleLabel.font = WMFFont.navigationBarLeadingCompactTitleFont
-                leadingTitleLabel.text = titleConfig.title
-                
-                navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leadingTitleLabel)
-                
-                themeNavigationBarLeadingTitleView()
-            }
+            removeCustomLeadingLargeTitleLabel()
         case .leadingLarge:
             navigationItem.title = titleConfig.title
             navigationController?.navigationBar.prefersLargeTitles = true
@@ -178,6 +151,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 navigationItem.titleView = nil
             }
             navigationItem.leftBarButtonItem = nil
+            removeCustomLeadingLargeTitleLabel()
             
             if let customLargeTitleFont = titleConfig.customLargeTitleFont {
                 customizeNavBarAppearance(customLargeTitleFont: customLargeTitleFont)
@@ -188,6 +162,15 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.largeTitleDisplayMode = .never
             navigationItem.backButtonTitle = titleConfig.title
             navigationItem.titleView = nil
+            removeCustomLeadingLargeTitleLabel()
+        case .customLeadingLarge:
+            navigationItem.title = nil
+            navigationController?.navigationBar.prefersLargeTitles = false
+            navigationItem.largeTitleDisplayMode = .never
+            navigationItem.titleView = nil
+            navigationItem.leftBarButtonItem = nil
+
+            addOrUpdateUpperLeadingLargeTitleLabel(title: titleConfig.title)
         }
         
         // Better back button naming for article tabs
@@ -201,37 +184,83 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         }
 
         if let profileButtonConfig {
-            
-            var rightBarButtonItems: [UIBarButtonItem] = []
-            
-            let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
-            let profileButton = UIBarButtonItem(image: image, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
-            
-            profileButton.accessibilityLabel = profileButtonAccessibilityStrings(config: profileButtonConfig)
-            profileButton.accessibilityIdentifier = profileButtonAccessibilityID
-            
-            rightBarButtonItems.append(profileButton)
+
+            var trailingBarButtonItems: [UIBarButtonItem] = []
+            var specificMenu: UIMenu? = nil
+            var globalCollapsedActions: [UIAction] = []
             
             if let tabsButtonConfig {
-                
+
                 let image = WMFSFSymbolIcon.for(symbol: .tabsIcon)
                 let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
-                
-                rightBarButtonItems.append(tabsButton)
 
                 if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
-                    rightBarButtonItems.append(leadingBarButtonItem)
+                    trailingBarButtonItems.append(leadingBarButtonItem)
+                    if let menu = leadingBarButtonItem.menu {
+                        specificMenu = menu
+                    } else {
+                        specificMenu = UIMenu(title: "", options: .displayInline, children: [
+                            UIAction(title: leadingBarButtonItem.title ?? tabsButtonConfig.leadingBarButtonItemTitle ?? "", image: leadingBarButtonItem.image) { _ in
+                                
+                                if let target = leadingBarButtonItem.target,
+                                   let action = leadingBarButtonItem.action {
+                                    UIApplication.shared.sendAction(action, to: target, from: nil, for: nil)
+                                }
+                                
+                                
+                            }
+                        ])
+                    }
+                    
                 }
                 
+                trailingBarButtonItems.append(tabsButton)
+                globalCollapsedActions.append(UIAction(title: tabsButtonConfig.title, image: tabsButton.image) { _ in
+                    
+                    let target = tabsButtonConfig.target
+                    let action = tabsButtonConfig.action
+                    
+                    UIApplication.shared.sendAction(action, to: target, from: nil, for: nil)
+                })
+            }
+
+            let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
+            let profileButton = UIBarButtonItem(image: image, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
+
+            profileButton.accessibilityLabel = profileButtonAccessibilityStrings(config: profileButtonConfig)
+            profileButton.accessibilityIdentifier = profileButtonAccessibilityID
+
+            trailingBarButtonItems.append(profileButton)
+            globalCollapsedActions.append(UIAction(title: profileButtonConfig.title, image: image) { _ in
+                
+                let target = profileButtonConfig.target
+                let action = profileButtonConfig.action
+                
+                UIApplication.shared.sendAction(action, to: target, from: nil, for: nil)
+            })
+            
+            var menuChildren: [UIMenu] = [ UIMenu(title: "", options: .displayInline, children: globalCollapsedActions) ]
+            if let specificMenu {
+                menuChildren.insert(specificMenu, at: 0)
             }
             
-            navigationItem.rightBarButtonItems = rightBarButtonItems
+            let collapsedMenu = UIMenu(title: "", children: menuChildren)
+            
+            let representativeItem = UIBarButtonItem(title: nil, image: WMFSFSymbolIcon.for(symbol: .ellipsis), primaryAction: nil, menu: collapsedMenu)
+
+            let group = UIBarButtonItemGroup.optionalGroup(
+                customizationIdentifier: "trailing",
+                representativeItem: representativeItem,
+                items: trailingBarButtonItems
+            )
+
+            navigationItem.trailingItemGroups = [group]
         }
-        
+
         // Setup close button if needed
         if let closeButtonConfig {
-            let closeButton = UIBarButtonItem(title: closeButtonConfig.text, style: .done, target: closeButtonConfig.target, action: closeButtonConfig.action)
-            closeButton.setTitleTextAttributes([.font: WMFFont.navigationBarDoneButtonFont], for: .normal)
+            
+            let closeButton = UIBarButtonItem.closeNavigationBarButtonItem(config: closeButtonConfig)
             
             switch closeButtonConfig.alignment {
             case .leading:
@@ -241,7 +270,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             }
         }
         
-        // Setup search bar if needed
         if let searchBarConfig,
            navigationItem.searchController == nil {
             let searchController = UISearchController(searchResultsController: searchBarConfig.searchResultsController)
@@ -262,25 +290,24 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.preferredSearchBarPlacement = .stacked
             navigationItem.searchController = searchController
         }
+
+
     }
     
     func customizeNavBarAppearance(customLargeTitleFont: UIFont) {
         guard let navVC = navigationController,
-        let componentNavVC = navVC as? WMFComponentNavigationController else {
+              let componentNavVC = navVC as? WMFComponentNavigationController else {
             return
         }
-        
         componentNavVC.setBarAppearance(customLargeTitleFont: customLargeTitleFont)
     }
     
     /// Call on viewWillDisappear(), IF navigation bar large title was set with a custom font.
     func resetNavBarAppearance() {
-        
         guard let navVC = navigationController,
-        let componentNavVC = navVC as? WMFComponentNavigationController else {
+              let componentNavVC = navVC as? WMFComponentNavigationController else {
             return
         }
-        
         componentNavVC.setBarAppearance(customLargeTitleFont: nil)
     }
     
@@ -320,9 +347,9 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         let paletteColors: [UIColor]
         
         if needsBadge {
-            paletteColors = [theme.destructive, theme.navigationBarTintColor]
+            paletteColors = [theme.destructive, theme.text]
         } else {
-            paletteColors = [theme.navigationBarTintColor]
+            paletteColors = [theme.text]
         }
         
         let symbol = WMFSFSymbolIcon.for(symbol: needsBadge ? .personCropCircleBadge : .personCropCircle, paletteColors: paletteColors)
@@ -332,4 +359,70 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     func profileButtonAccessibilityStrings(config: WMFNavigationBarProfileButtonConfig) -> String {
         return config.needsBadge ? config.accessibilityLabelHasNotifications : config.accessibilityLabelNoNotifications
     }
+
+    // MARK: - Upper-leading large title helpers
+
+    private var upperLeadingLargeTitleTag: Int { 0x574D465F_5469746C }  // "WMF_Titl" as a stable tag
+
+    private func addOrUpdateUpperLeadingLargeTitleLabel(title: String) {
+        guard let navigationController,
+              navigationController.viewControllers.last == self else { return }
+        
+        let navBar = navigationController.navigationBar
+        
+        // No need to add custom title if floating tab bar title is displaying nearby.
+        
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad && UITraitCollection.current.horizontalSizeClass == .regular {
+                removeCustomLeadingLargeTitleLabel()
+                return
+            }
+        }
+
+        // Remove any existing label so constraints are rebuilt when pin direction changes.
+        navBar.viewWithTag(upperLeadingLargeTitleTag)?.removeFromSuperview()
+
+        let label = UILabel()
+        label.tag = upperLeadingLargeTitleTag
+        label.font = WMFFont.navigationBarCustomLeadingLargeTitleFont
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontForContentSizeCategory = false
+        navBar.addSubview(label)
+        
+        var leadingPadding = CGFloat(16)
+        if #available(iOS 26, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad && UITraitCollection.current.horizontalSizeClass == .compact {
+                // Add a little more for window close/minimize/expand buttons
+                leadingPadding = CGFloat(80)
+            }
+        }
+
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: navBar.leadingAnchor, constant: leadingPadding),
+            label.topAnchor.constraint(equalTo: navBar.topAnchor, constant: 7)
+        ])
+
+        label.text = title
+        label.textColor = WMFAppEnvironment.current.theme.text
+    }
+
+    private func removeCustomLeadingLargeTitleLabel() {
+        navigationController?.navigationBar.viewWithTag(upperLeadingLargeTitleTag)?.removeFromSuperview()
+    }
+
+    func themeNavigationBarCustomLeadingLargeTitle() {
+        let label = navigationController?.navigationBar.viewWithTag(upperLeadingLargeTitleTag) as? UILabel
+        label?.textColor = WMFAppEnvironment.current.theme.text
+    }
+
+    func hideCustomLeadingLargeTitleLabel() {
+        guard let label = navigationController?.navigationBar.viewWithTag(upperLeadingLargeTitleTag) as? UILabel else { return }
+        UIView.animate(withDuration: 0.2) { label.isHidden = true }
+    }
+
+    func showCustomLeadingLargeTitleLabel() {
+        guard let label = navigationController?.navigationBar.viewWithTag(upperLeadingLargeTitleTag) as? UILabel else { return }
+        UIView.animate(withDuration: 0.2) { label.isHidden = false }
+    }
 }
+

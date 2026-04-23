@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 protocol PageHistoryComparisonSelectionViewControllerDelegate: AnyObject {
     func pageHistoryComparisonSelectionViewController(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController, selectionOrder: SelectionOrder)
@@ -30,7 +31,7 @@ class PageHistoryComparisonSelectionViewController: UIViewController {
         button.backgroundColor = theme.colors.paperBackground
         button.imageView?.tintColor = theme.colors.link
         button.setTitleColor(theme.colors.link, for: .normal)
-        button.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        button.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
         button.horizontalSpacing = 10
         button.contentHorizontalAlignment = .leading
         button.leftPadding = 10
@@ -95,9 +96,9 @@ class PageHistoryComparisonSelectionViewController: UIViewController {
     }
 
     private func updateFonts() {
-        compareButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        firstSelectionButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        secondSelectionButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        compareButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
+        firstSelectionButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
+        secondSelectionButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
     }
 
 }

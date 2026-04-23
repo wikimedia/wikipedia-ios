@@ -1,4 +1,5 @@
 import UIKit
+import WMFNativeLocalizations
 
 private extension WMFContentGroupKind {
     var togglingFeedCardFooterText: String {

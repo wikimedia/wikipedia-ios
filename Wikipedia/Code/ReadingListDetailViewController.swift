@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 enum ReadingListDetailDisplayType {
     case modal, pushed
@@ -7,21 +8,27 @@ enum ReadingListDetailDisplayType {
 class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     let dataStore: MWKDataStore
     let readingList: ReadingList
-    
+
     let readingListEntryCollectionViewController: ReadingListEntryCollectionViewController
     var readingListDetailHeaderView: ReadingListDetailHeaderView? {
         return readingListEntryCollectionViewController.readingListDetailHeaderView
     }
-    
-    private var searchBarExtendedViewController: SearchBarExtendedViewController?
+
     private var displayType: ReadingListDetailDisplayType = .pushed
-    
+    private lazy var searchiPadCustomizer: SearchBarIPadCustomizer = {
+        let customizer = SearchBarIPadCustomizer(theme: theme)
+        customizer.onClearTapped = { [weak self] _ in
+            self?.readingListEntryCollectionViewController.updateSearchString("")
+        }
+        return customizer
+    }()
+
     // Import shared reading list properties
     private let fromImport: Bool
     private var seenSurveyPrompt: Bool = false
     private weak var importSurveyPromptTimer: Timer?
     private let importSurveyPromptDelay = TimeInterval(5)
-    
+
     private typealias LanguageCode = String
     private let importSurveyURLs: [LanguageCode: URL?] = [
         "en": URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSf7W1Hs20HcP-Ho4T_Rlr8hdpT4oKxYQJD3rdE5RCINl5l6RQ/viewform?usp=sf_link"),
@@ -33,12 +40,12 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
         "pt": URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSfbRhbf-cqmZC-vn1S_OTdsJ0zpiVW7vfFpWQgZtzQbU0dZEw/viewform?usp=sf_link"),
         "es": URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSelTK2ZeuEOk2T9P-E5OeKZoE9VvmCXLx9v3lc-A-onWXSsog/viewform?usp=sf_link"),
         "ur": URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSdPcGIn049-8g-JgxJ8lFRa8UGg4xcWdL6Na18GuDCUD8iUXA/viewform?usp=sf_link")]
-    
+
     @objc convenience init(for readingList: ReadingList, with dataStore: MWKDataStore, fromImport: Bool, theme: Theme) {
         self.init(for: readingList, with: dataStore, displayType: .pushed, fromImport: fromImport)
         self.theme = theme
     }
-    
+
     init(for readingList: ReadingList, with dataStore: MWKDataStore, displayType: ReadingListDetailDisplayType = .pushed, fromImport: Bool = false) {
         self.readingList = readingList
         self.dataStore = dataStore
@@ -48,39 +55,36 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
         readingListEntryCollectionViewController.emptyViewType = .noSavedPagesInReadingList
         readingListEntryCollectionViewController.needsDetailHeaderView = true
         super.init(nibName: nil, bundle: nil)
-        searchBarExtendedViewController = SearchBarExtendedViewController()
-        searchBarExtendedViewController?.dataSource = self
-        searchBarExtendedViewController?.delegate = self
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) not supported")
     }
-    
+
     var shouldShowEditButtonsForEmptyState: Bool {
         return !readingList.isDefault
     }
-    
+
     private lazy var savedProgressViewController: SavedProgressViewController? = SavedProgressViewController.wmf_initialViewControllerFromClassStoryboard()
-    
+
     private lazy var progressContainerView: UIView = {
         let containerView = UIView()
         containerView.isUserInteractionEnabled = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(containerView)
-        
+
         // reminder: this height constraint gets deactivated by "wmf_add:andConstrainToEdgesOfContainerView:"
         containerView.addConstraint(containerView.heightAnchor.constraint(equalToConstant: 1))
-        
+
         view.addConstraints([
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
-        
+
         return containerView
     }()
-    
+
     private func setUpArticlesViewController() {
         addChild(readingListEntryCollectionViewController)
         view.addSubview(readingListEntryCollectionViewController.view)
@@ -98,65 +102,65 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
         readingListEntryCollectionViewController.delegate = self
         readingListEntryCollectionViewController.editController.navigationDelegate = self
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setUpArticlesViewController()
         apply(theme: theme)
     }
-    
+
     @objc private func dismissController() {
         dismiss(animated: true)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if !readingList.isDefault {
             readingListEntryCollectionViewController.editController.isTextEditing = false
         }
-        
+
         importSurveyPromptTimer?.invalidate()
         importSurveyPromptTimer = nil
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        configureNavigationBar()
         showImportSharedReadingListSurveyPromptIfNeeded()
     }
-    
+
     private func configureNavigationBar() {
-        
+
         let titleConfig = WMFNavigationBarTitleConfig(title: readingList.name ?? "", customView: nil, alignment: .centerCompact)
-        
-        let closeButtonConfig: WMFNavigationBarCloseButtonConfig? = displayType == .modal ? WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(dismissController), alignment: .leading) : nil
+
+        let closeButtonConfig: WMFLargeCloseButtonConfig? = displayType == .modal ? WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(dismissController), alignment: .leading) : nil
 
         let searchBarPlaceholder = WMFLocalizedString("reading-list-detail-search-placeholder", value: "Search reading list", comment: "Placeholder on search bar for reading list detail view.")
-        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
-        
+        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: searchiPadCustomizer, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
+
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil,tabsButtonConfig: nil,  searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
     }
-    
+
     // MARK: - Theme
-    
+
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        searchiPadCustomizer.theme = theme
         readingListEntryCollectionViewController.apply(theme: theme)
         readingListDetailHeaderView?.apply(theme: theme)
-        searchBarExtendedViewController?.apply(theme: theme)
         savedProgressViewController?.apply(theme: theme)
     }
-    
+
     private lazy var sortBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(title: CommonStrings.sortActionTitle, style: .plain, target: self, action: #selector(didTapSort(_:)))
     }()
-    
+
     @objc func didTapSort(_ sender: UIBarButtonItem) {
         readingListEntryCollectionViewController.presentSortAlert(from: sender)
     }
@@ -168,10 +172,10 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
     var currentTheme: Theme {
         return theme
     }
-    
+
     func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonItem.SystemItem) -> EditingState {
         let newEditingState: EditingState
-        
+
         switch currentEditingState {
         case .open:
             newEditingState = .closed
@@ -186,12 +190,12 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
         default:
             newEditingState = .open
         }
-        
+
         return newEditingState
     }
-    
+
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) {
-        
+
         if let editButton = rightBarButton {
             navigationItem.rightBarButtonItems = [editButton, sortBarButtonItem]
             rightBarButton?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
@@ -230,91 +234,17 @@ extension ReadingListDetailViewController: ReadingListDetailHeaderViewDelegate {
         dataStore.readingListsController.updateReadingList(readingList, with: name, newDescription: description)
         title = name
     }
-    
+
     func readingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView, didBeginEditing textField: UITextField) {
         readingListEntryCollectionViewController.editController.isTextEditing = true
     }
-    
+
     func readingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView, titleTextFieldTextDidChange textField: UITextField) {
         navigationItem.rightBarButtonItems?.first?.isEnabled = textField.text?.wmf_hasNonWhitespaceText ?? false
     }
-    
+
     func readingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView, titleTextFieldWillClear textField: UITextField) {
         navigationItem.rightBarButtonItems?.first?.isEnabled = false
-    }
-}
-
-// MARK: - SearchBarExtendedViewControllerDataSource
-
-extension ReadingListDetailViewController: SearchBarExtendedViewControllerDataSource {
-    func returnKeyType(for searchBar: UISearchBar) -> UIReturnKeyType {
-        return .search
-    }
-    
-    func placeholder(for searchBar: UISearchBar) -> String? {
-        return WMFLocalizedString("search-reading-list-placeholder-text", value: "Search reading list", comment: "Placeholder text for the search bar in reading list detail view.")
-    }
-    
-    func isSeparatorViewHidden(above searchBar: UISearchBar) -> Bool {
-        return true
-    }
-}
-
-// MARK: - SearchBarExtendedViewControllerDelegate
-
-extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        readingListEntryCollectionViewController.updateSearchString(searchText)
-        
-        if searchText.isEmpty {
-            makeSearchBarResignFirstResponder(searchBar)
-        }
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        makeSearchBarResignFirstResponder(searchBar)
-    }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        makeSearchBarResignFirstResponder(searchBar)
-    }
-    
-    private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
-        searchBar.text = ""
-        readingListEntryCollectionViewController.updateSearchString("")
-        searchBar.resignFirstResponder()
-    }
-    
-    func textStyle(for button: UIButton) -> WMFFont {
-        return .caption1
-    }
-    
-    func buttonType(for button: UIButton, currentButtonType: SearchBarExtendedViewButtonType?) -> SearchBarExtendedViewButtonType? {
-        switch currentButtonType {
-        case nil:
-            return .sort
-        case .cancel?:
-            return nil
-        case .sort?:
-            return .cancel
-        }
-    }
-    
-    func buttonWasPressed(_ button: UIButton, buttonType: SearchBarExtendedViewButtonType?, searchBar: UISearchBar) {
-        guard let buttonType = buttonType else {
-            return
-        }
-        switch buttonType {
-        case .sort:
-            break
-            // readingListEntryCollectionViewController.presentSortAlert(from: button)
-        case .cancel:
-            makeSearchBarResignFirstResponder(searchBar)
-        }
     }
 }
 
@@ -326,12 +256,12 @@ extension ReadingListDetailViewController: ReadingListEntryCollectionViewControl
         headerView.delegate = self
         headerView.setup(for: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
     }
-    
+
     func readingListEntryCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView) {
         let sections = IndexSet(integer: 0)
         viewController.collectionView.reloadSections(sections)
     }
-    
+
     func readingListEntryCollectionViewControllerDidChangeEmptyState(_ viewController: ReadingListEntryCollectionViewController) {
         let isReadingListEmpty = readingList.countOfEntries == 0
         let isEmptyStateMatchingReadingListEmptyState = viewController.isEmpty == isReadingListEmpty
@@ -342,15 +272,15 @@ extension ReadingListDetailViewController: ReadingListEntryCollectionViewControl
             title = readingList.name
         }
     }
-    
+
     func readingListEntryCollectionViewControllerDidSelectArticleURL(_ articleURL: URL, viewController: ReadingListEntryCollectionViewController) {
-        
+
         if displayType == .modal,
            let navVC = (presentingViewController as? WMFAppViewController)?.currentTabNavigationController {
             dismiss(animated: true) { [weak self] in
-                
+
                 guard let self else { return }
-                
+
                 let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
                 coordinator.start()
             }
@@ -358,12 +288,12 @@ extension ReadingListDetailViewController: ReadingListEntryCollectionViewControl
             guard let navigationController else {
                 return
             }
-            
+
             let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
             coordinator.start()
         }
     }
-    
+
     func scrollViewDidScroll(scrollView: UIScrollView) {
         // no-op
     }
@@ -377,17 +307,17 @@ private extension ReadingListDetailViewController {
         guard fromImport else {
             return
         }
-        
+
         // If they ever tapped "Take survey", never show the prompt again
         guard !UserDefaults.standard.wmf_tappedToImportSharedReadingListSurvey else {
             return
         }
-        
+
         // Don't show survey prompt if they've already seen it on this particular view controller
         guard !seenSurveyPrompt else {
             return
         }
-        
+
         guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
               let surveyURL = (importSurveyURLs[languageCode] ?? importSurveyURLs["en"]) else {
             return
@@ -401,26 +331,24 @@ private extension ReadingListDetailViewController {
             self.seenSurveyPrompt = true
             ReadingListsFunnel.shared.logPresentedSurveyPrompt()
 
-            self.wmf_showReadingListImportSurveyPanel(primaryButtonTapHandler: { _, _ in
+            let heading = WMFLocalizedString("import-shared-reading-list-survey-prompt-title", languageCode: languageCode, value: "Could you help us improve \"Share reading lists\"?", comment: "Title of prompt to take a survey, displayed after user successfully imports a shared reading list.")
+            let subheading = WMFLocalizedString("import-shared-reading-list-survey-prompt-subtitle", languageCode: languageCode, value: "\"Share reading lists\" is a test feature and we need your feedback to improve or remove it.", comment: "Subtitle of prompt to take a survey, displayed after user successfully imports a shared reading list.")
+            let alert = UIAlertController(title: heading, message: subheading, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: CommonStrings.takeSurveyTitle(languageCode: languageCode), style: .default) { _ in
                 ReadingListsFunnel.shared.logTappedTakeSurvey()
                 UserDefaults.standard.wmf_tappedToImportSharedReadingListSurvey = true
                 self.navigate(to: surveyURL, useSafari: true)
-                // dismiss handler is called
-            }, secondaryButtonTapHandler: { _, _ in
-                // dismiss handler is called
-            }, footerLinkAction: { (url) in
-                 self.navigate(to: url, useSafari: true)
-                // intentionally don't dismiss
-            }, traceableDismissHandler: { lastAction in
-                // Do nothing
-            }, theme: self.theme, languageCode: languageCode)
+            })
+            alert.addAction(UIAlertAction(title: CommonStrings.notNowTitle, style: .cancel))
+            self.present(alert, animated: true)
         })
     }
 }
 
 extension ReadingListDetailViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else { return }
+        let text = searchController.searchBar.text ?? ""
+        searchiPadCustomizer.updateClearButtonVisibility(text: text, for: searchController)
         readingListEntryCollectionViewController.updateSearchString(text)
     }
 }

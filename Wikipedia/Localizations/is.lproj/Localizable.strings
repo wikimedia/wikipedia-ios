@@ -155,7 +155,6 @@
 "description-help-title" = "Hjálp varðandi lýsingu á grein";
 "description-help-wikidata-guide" = "Leiðarvísir Wikidata fyrir hvernig eigi að skrifa lýsingar";
 "description-published-button-title" = "Búið";
-"description-published-footer" = "Þú getur líka breytt greinum innan þessa forrits. Prófaðu að laga stafsetningu og styttri setningar með því að smella næst á blýantstáknmyndina";
 "description-published-subtitle" = "Þú varst að gera Wikipedia betri fyrir alla";
 "description-published-title" = "Lýsing birt!";
 "description-welcome-concise-sub-title" = "Helst ein lína, frá tveimur til tólf orða langt";
@@ -219,8 +218,6 @@
 "edit-notices" = "Tilkynningar vegna breytinga";
 "edit-notices-always-display" = "Alltaf birta tilkynningar vegna breytinga";
 "edit-notices-please-read" = "Lestu þetta áður en þú byrjar að breyta";
-"edit-published" = "Breyta útgefnu";
-"edit-published-subtitle" = "Þú varst að gera Wikipedia betri fyrir alla";
 "edit-show-web-preview" = "Sýna forskoðun á vef";
 "edit-summary-add-summary-text" = "Bættu við breytingayfirliti";
 "edit-summary-choice-fixed-grammar" = "Lagaði málfræði";
@@ -501,16 +498,16 @@
 "more-menu" = "Meira";
 "move-articles-to-reading-list" = "Færa {{PLURAL:$1|$1 grein|$1 greinar}} á leslista";
 "navbar-title-mode-edit-wikitext-preview" = "Forskoðun";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 fet";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mílur";
 "new-password-instructions" = "Þú skráðir þig inn með bráðabirgðalykilorði. Til að klára að skrá þig inn, verður þú að velja nýtt lykilorð hér.";
 "new-password-title" = "Stilltu lykilorðið þitt";
 "no-email-account-alert" = "Settu upp tölvupóstreikning á tækinu þínu og reyndu svo aftur.";
 "no-internet-connection" = "Engin internettenging";
-"no-internet-connection-article-reload" = "Nýrri útgáfa af þessari grein gæti verið tiltæk, en ekki er hægt að ná í hana án internettengingar";
-"no-internet-connection-article-reload-button" = "Fara til baka í síðustu vistuðu útgáfu";
 "not-now-title" = "Ekki núna";
 "notifications-center-agent-description-from-format" = "Frá $1";
 "notifications-center-alert" = "Aðvörun";
@@ -528,7 +525,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Breyttu $1 til að sjá fleiri skilaboð";
 "notifications-center-empty-state-no-projects-selected" = "Bættu við verkefnum til að sjá fleiri skilaboð";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 sía|$1 síur}}";
-"notifications-center-feed-card-title" = "Núna er hægt að fá tilkynningar vegna breytinga";
 "notifications-center-feed-news-notification-button-text" = "Kveikja á ýti-tilkynningum";
 "notifications-center-filters-accessibility-label" = "Tilkynningasía";
 "notifications-center-filters-read-status-item-title-all" = "Allt";
@@ -662,7 +658,6 @@
 "panel-compare-revisions-text" = "Að bera saman útgáfur hjálpar til við að sjá hvernig grein hefur breyst í tímans rás. Þegar tvær útgáfur greinar eru bornar saman, er munurinn á þeim sýndur með áherslulitun á því sem hefur verið breytt.";
 "panel-compare-revisions-title" = "Bera saman útgáfur";
 "panel-not-logged-in-continue-edit-action-title" = "Gera breytingar án þess að skrá inn";
-"panel-not-logged-in-subtitle" = "Vistfang þitt verður sýnt opinberlega ef þú gerir einhverjar breytingar. Ef þú $1 skráir þig inn$2 eða $3stofnar aðgang$4 munu breytingarnar þínar vera tengdar við notandanafn þitt, ásamt öðrum kostum.";
 "panel-not-logged-in-title" = "Þú ert ekki skráð/ur inn.";
 "pictured" = "fjallað um";
 "places-accessibility-clear-saved-searches" = "Hreinsa vistaðar leitir";
@@ -808,15 +803,6 @@
 "relative-date-seconds-abbreviated" = "$1sek";
 "relative-date-seconds-ago-abbreviated" = "$1sek síðan";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Á þessu ári|1=Á síðasta ári|Fyrir $1 ári síðan}}";
-"replace-button-accessibility" = "Framkvæma $1.";
-"replace-buttons-replace-accessibility" = "Skipta út einu tilviki";
-"replace-buttons-replace-all-accessibility" = "Skipta út öllum tilvikum";
-"replace-clear-button-accessibility" = "Hreinsa útskiptingu";
-"replace-infolabel-method-replace" = "Skipta út";
-"replace-infolabel-method-replace-all" = "Skipta öllu út";
-"replace-method-button-accessibility" = "Aðferð við útskiptingu. Stillt á $1. Veldu til að breyta.";
-"replace-textfield-accessibility" = "Skipta út";
-"replace-textfield-placeholder" = "Skipta út með…";
 "return-button-title" = "Til baka";
 "return-to-article" = "Fara aftur í grein";
 "reverted-edit-title" = "Afturkölluð breyting";
@@ -832,7 +818,6 @@
 "search-button-accessibility-label" = "Leita á Wikipedia";
 "search-clear-title" = "Hreinsa";
 "search-field-placeholder-text" = "Leita í Wikipedia";
-"search-reading-list-placeholder-text" = "Leita í leslista";
 "search-recent-clear-confirmation-heading" = "Á að eyða öllum nýlegum leitum?";
 "search-recent-clear-confirmation-sub-heading" = "Þessa aðgerð er ekki hægt að afturkalla!";
 "search-recent-clear-delete-all" = "Eyða öllu";
@@ -856,11 +841,6 @@
 "settings-notifications" = "Ýti-tilkynningar";
 "settings-notifications-echo-failure-message" = "Upp kom villa þegar verið var að athuga með áskriftir að tilkynningum tengdum notandaaðgangnum þínum.";
 "settings-notifications-echo-failure-try-again" = "Reyndu aftur";
-"settings-notifications-info" = "Fáðu ábendingar um mál sem eru efst á baugi og mest lesnu greinarnar á Wikipedia með aðstoð ýti-tilkynninga. Allt þetta miðast við ítrustu persónuvernd og allra nýjustu gögn.";
-"settings-notifications-learn-more" = "Lesa meira um tilkynningar";
-"settings-notifications-push-notifications" = "Ýti-tilkynningar";
-"settings-notifications-system-turn-on" = "Kveikja á tilkynningum";
-"settings-notifications-trending" = "Atburðir núna í umræðunni";
 "settings-primary-language" = "Aðal";
 "settings-primary-language-details" = "Fyrsta tungumálið á þessum lista er notað sem aðaltungumál forritsins.";
 "settings-search-footer-text" = "Stilltu forritið á að opna leitarflipann í staðinn fyrir 'Uppgötva'-flipann";
@@ -1048,9 +1028,6 @@
 "welcome-languages-add-or-edit-button" = "Breyta eða bæta við kjörtungumálum";
 "welcome-languages-description" = "Við fundum eftirtalin tungumál á tækinu þínu:";
 "welcome-languages-search-title" = "Leita á yfir 300 tungumálum";
-"welcome-notifications-tell-me-more-creation" = "Tilkynningar eru útbúnar og afgreiddar á tækinu af forritinu sjálfu, en ekki vefþjónum okkar eða annarra aðila.";
-"welcome-notifications-tell-me-more-storage" = "Kjörstillingar kerfistilkynninga eru geymdar á tækinu og eru ekki byggðar á persónuupplýsingum eða persónugreinanlegri virkni.";
-"welcome-notifications-tell-me-more-title" = "Meira um tilkynningar";
 "widget-onthisday-description" = "Sjáðu hvað gerðist á þessum degi í sögulegu samhengi.";
 "widget-onthisday-placeholder-article-snippet" = "Frjálst alfræðirit sem allir geta tekið þátt í að bæta";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, frjálsa alfræðiritið með wiki-efni, fór á netið.";

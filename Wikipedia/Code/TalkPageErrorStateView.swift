@@ -1,5 +1,6 @@
 import WMFComponents
 import WMF
+import WMFNativeLocalizations
 
 final class TalkPageErrorStateView: SetupView {
 
@@ -8,7 +9,7 @@ final class TalkPageErrorStateView: SetupView {
 
     fileprivate var titleFont = WMFFont.for(.headline)
     fileprivate var subtitleFont = WMFFont.for(.footnote)
-    fileprivate var buttonFont = WMFFont.for(.boldCallout)
+    fileprivate var buttonFont = WMFFont.for(.body)
 
     lazy var imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "talk-page-error-message"))

@@ -62,8 +62,10 @@
 "main-menu-title" = "Më tepër...";
 "main-menu-zero-faq" = "Pyetje dhe përgjigje për Wikipedia Zero";
 "navbar-title-mode-edit-wikitext-preview" = "Parapamje";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 feet (1 feet = 0.3048 m)";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milje (1 milje = 1.60934 km)";
 // Fuzzy

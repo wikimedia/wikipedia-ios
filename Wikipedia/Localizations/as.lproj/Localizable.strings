@@ -185,8 +185,10 @@
 "more-languages-tooltip-description" = "৩০০ৰো অধিক ভাষাৰ ৱিকিপিডিয়াত সন্ধান কৰক";
 "more-languages-tooltip-title" = "ভাষা যোগ কৰক";
 "navbar-title-mode-edit-wikitext-preview" = "প্ৰাকদৰ্শন";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 ফুট";
 "nearby-distance-label-km" = "$1 কি:মি:";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 মিটাৰ";
 "nearby-distance-label-miles" = "$1 মাইল";
 "number-billions" = "$1 বিলিয়ন";
@@ -210,9 +212,6 @@
 "relative-date-minutes-ago-abbreviated" = "$1 মিনিট আগতে";
 "relative-date-seconds-abbreviated" = "$1 চেকেণ্ড";
 "relative-date-seconds-ago-abbreviated" = "$1 চেকেণ্ড আগতে";
-"replace-infolabel-method-replace-all" = "সকলো বদলি কৰক";
-"replace-textfield-accessibility" = "বদলি কৰক";
-"replace-textfield-placeholder" = "…ৰে বদলি কৰক";
 "saved-all-articles-title" = "সকলো প্ৰবন্ধ";
 "saved-default-reading-list-tag" = "এই প্ৰবন্ধ মচিব নোৱাৰি";
 "search-button-accessibility-label" = "ৱিকিপিডিয়াত সন্ধান কৰক";
