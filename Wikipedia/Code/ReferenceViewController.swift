@@ -1,4 +1,5 @@
 import Foundation
+import WMFNativeLocalizations
 import WMFComponents
 
 protocol ReferenceViewControllerDelegate: AnyObject {

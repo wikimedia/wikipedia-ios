@@ -1,6 +1,7 @@
 import WMFData
 import WMFComponents
 import WebKit
+import WMFNativeLocalizations
 import TipKit
 
 /// Article Tooltips

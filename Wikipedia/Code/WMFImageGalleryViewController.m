@@ -133,7 +133,8 @@ NS_ASSUME_NONNULL_BEGIN
         WMFLargeCloseButtonConfig *config = [[WMFLargeCloseButtonConfig alloc] initWithImageType:WMFLargeCloseButtonImageTypePlainX target:self action:@selector(didTapCloseButton) alignment:AlignmentTrailing];
         UIBarButtonItem *close = [UIBarButtonItem closeNavigationBarButtonItemWithConfig:config];
         close.tintColor = [UIColor whiteColor]; // Need to override this since gallery is always dark
-        close.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
+        close.accessibilityLabel = [WMFCommonStringsWrapper closeButtonAccessibilityLabel];
+
         self.overlayView.leftBarButtonItem = close;
     }
 }

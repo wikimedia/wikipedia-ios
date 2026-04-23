@@ -76,7 +76,7 @@
 + (instancetype)noFeedEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"no-internet"];
-    view.titleLabel.text = [WMFCommonStrings noInternetConnection];
+    view.titleLabel.text = [WMFCommonStringsWrapper noInternetConnection];
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-message", nil, nil, @"You can see your recommended articles when you have internet", @"Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored");
     view.actionLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-action-message", nil, nil, @"You can still read saved pages", @"Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline");
     [view.button removeFromSuperview];
@@ -110,8 +110,8 @@
 + (instancetype)noSavedPagesEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"saved-blank"];
-    view.titleLabel.text = [WMFCommonStrings allArticlesEmptySavedTitle];
-    view.messageLabel.text = [WMFCommonStrings allArticlesEmptySavedSubtitle];
+    view.titleLabel.text = [WMFCommonStringsWrapper allArticlesEmptySavedTitle];
+    view.messageLabel.text = [WMFCommonStringsWrapper allArticlesEmptySavedSubtitle];
 
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
@@ -122,7 +122,7 @@
 + (instancetype)noInternetConnectionEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"no-internet-blank"];
-    view.titleLabel.text = [WMFCommonStrings noInternetConnection];
+    view.titleLabel.text = [WMFCommonStringsWrapper noInternetConnection];
 
     [view.messageLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
@@ -212,7 +212,7 @@
 + (instancetype)errorDiffCompareEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"error-diff"];
-    view.titleLabel.text = [WMFCommonStrings diffErrorTitle];
+    view.titleLabel.text = [WMFCommonStringsWrapper diffErrorTitle];
     view.backgroundColorKeyPath = @"colors.midBackground";
 
     [view.messageLabel removeFromSuperview];
@@ -225,7 +225,7 @@
 + (instancetype)errorDiffSingleEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"error-single-diff"];
-    view.titleLabel.text = [WMFCommonStrings diffErrorTitle];
+    view.titleLabel.text = [WMFCommonStringsWrapper diffErrorTitle];
     view.backgroundColorKeyPath = @"colors.midBackground";
 
     [view.messageLabel removeFromSuperview];

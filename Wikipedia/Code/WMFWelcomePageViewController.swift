@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 enum WMFWelcomePageType {
     case intro
@@ -147,6 +148,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         skipButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         skipButton.titleLabel?.numberOfLines = 1
 
+        
         if #available(iOS 26, *) {
             var config: UIButton.Configuration = .glass()
             var titleAttr = AttributedString(CommonStrings.skipTitle)
@@ -158,6 +160,8 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
             skipButton.setTitle(CommonStrings.skipTitle, for: .normal)
             skipButton.setTitleColor(theme.colors.primaryText, for: .normal)
         }
+        
+        skipButton.accessibilityIdentifier = "App Onboarding Skip Button"
 
         view.addSubview(skipButton)
         skipButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true

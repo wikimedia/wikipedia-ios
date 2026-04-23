@@ -51,7 +51,7 @@
 #pragma mark - Language Variant Propagation Testing
 
 // Note, this also implicitly tests the subelement types WMFFeedArticlePreview, WMFFeedTopReadResponse, WMFFeedTopReadArticlePreview, WMFFeedImage, WMFFeedNewsStory
-- (void)testFeedDayResponseLangaugeVariantPropagation {
+- (void)testFeedDayResponseLanguageVariantPropagation {
     NSString *fixtureName = @"FeedDayResponse-en";
     NSDictionary *resultJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureName];
     NSString *languageVariantCode = @"zh-hans";
@@ -83,7 +83,7 @@
 }
 
 // Note, this also implicitly tests the subelement type WMFFeedArticlePreview
-- (void)testFeedOnThisDayEventLangaugeVariantPropagation {
+- (void)testFeedOnThisDayEventLanguageVariantPropagation {
     NSString *fixtureName = @"FeedOnThisDay-en";
     NSDictionary *resultJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureName];
     NSString *languageVariantCode = @"zh-hans";
@@ -110,7 +110,7 @@
 }
 
 // Note, this also implicitly tests the subelement type WMFSearchResult
-- (void)testSearchResultsLangaugeVariantPropagation {
+- (void)testSearchResultsLanguageVariantPropagation {
     NSString *fixtureName = @"BarackSearch";
     NSDictionary *resultJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureName][@"query"];
     NSString *languageVariantCode = @"zh-hans";

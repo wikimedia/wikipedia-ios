@@ -2,6 +2,7 @@ import UIKit
 import WMFData
 import WMFComponents
 import WMFTestKitchen
+import WMFNativeLocalizations
 
 // MARK: - KeepSavedArticlesTrigger
 

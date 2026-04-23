@@ -4,7 +4,9 @@ import SwiftUI
 import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
+import WMFNativeLocalizations
 import TipKit
+import WMFTestKitchen
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
@@ -1161,6 +1163,28 @@ extension WMFAppViewController {
             }
         }
     }
+    
+    @objc func createTwoFactorViewControllerFromAutoLoginNotification(userInfo: [AnyHashable : Any], needsEmailToken: Bool) -> WMFTwoFactorPasswordViewController? {
+        guard let message = userInfo["mediaWikiMessage"] as? String else {
+            return nil
+        }
+        
+        let authInstrument = userInfo["authInstrument"] as? WMFTestKitchen.InstrumentImpl
+        
+        let vc = WMFTwoFactorPasswordViewController.wmf_initialViewControllerFromClassStoryboard()
+        vc?.mediaWikiMessage = message
+        vc?.authInstrument = authInstrument
+        
+        if needsEmailToken {
+            vc?.setDisplayModeToShortAlphanumeric()
+        }
+        
+        vc?.cancelAction = { [weak self] in
+            self?.dataStore.authenticationManager.logout(initiatedBy: .app)
+        }
+        
+        return vc
+    }
 
     // MARK: - Settings
 
@@ -1223,5 +1247,23 @@ extension WMFAppViewController {
         )
 
         return controller
+    }
+}
+
+extension WMFAppViewController {
+    @objc func setupForUITests() {
+#if UITEST
+        
+        if ProcessInfo.processInfo.arguments.count > 1 {
+            let arguments = ProcessInfo.processInfo.arguments
+            
+            if arguments.contains("UITestSkipAppOnboarding") {
+                UserDefaults.standard.set(true, forKey: "DidShowOnboarding5.3")
+            } else {
+                UserDefaults.standard.removeObject(forKey: "DidShowOnboarding5.3")
+            }
+        }
+        
+#endif
     }
 }

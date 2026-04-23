@@ -3,6 +3,7 @@ import SwiftUI
 import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
+import WMFNativeLocalizations
 import TipKit
 import WMFTestKitchen
 

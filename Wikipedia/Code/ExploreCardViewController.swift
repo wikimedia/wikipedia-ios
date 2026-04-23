@@ -1,9 +1,11 @@
 import UIKit
 import CocoaLumberjackSwift
 import WMF
+import WMFNativeLocalizations
 import WMFComponents
 import SwiftUI
 import UserNotifications
+
 protocol ExploreCardViewControllerDelegate: NestedCollectionViewContextMenuDelegate {
     var saveButtonsController: SaveButtonsController { get }
     var layoutCache: ColumnarCollectionViewControllerLayoutCache { get }

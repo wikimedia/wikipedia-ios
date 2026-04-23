@@ -1,5 +1,6 @@
 import UIKit
 import WMFComponents
+import WMFNativeLocalizations
 
 final class ReadingChallengeWidgetAnnouncementCoordinator {
 

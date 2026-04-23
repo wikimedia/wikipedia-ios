@@ -1,6 +1,7 @@
 import WMFComponents
 import CocoaLumberjackSwift
 import WMFData
+import WMFNativeLocalizations
 import WMFTestKitchen
 
 protocol SavedViewControllerDelegate: NSObjectProtocol {

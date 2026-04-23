@@ -1,3 +1,4 @@
+import WMFNativeLocalizations
 import WMFData
 
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"

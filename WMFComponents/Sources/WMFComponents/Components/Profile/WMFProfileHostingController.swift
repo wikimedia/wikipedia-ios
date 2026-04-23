@@ -12,6 +12,11 @@ public class WMFProfileHostingController<HostedView: View>: WMFComponentHostingC
         fatalError("init(coder:) has not been implemented")
     }
     
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        view.accessibilityIdentifier = "Profile View"
+    }
+    
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
