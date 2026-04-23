@@ -31,7 +31,7 @@ import WMFComponents
         case activityTabCustomize = "activity_tab_customize"
         case activityTabOff = "activity_tab_off"
         
-        // areas where the activity tab bar button could be tapped 
+        // areas where the activity tab bar button could be tapped
         case feed = "feed"
         case article = "article"
         case mainPage = "main_page"
