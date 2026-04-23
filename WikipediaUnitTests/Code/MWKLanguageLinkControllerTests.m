@@ -144,7 +144,7 @@
     MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:@"zh" pageTitleText:@"" name:@"Malaysia Simplified" localizedName:@"大马简体" languageVariantCode:chineseLanguageVariantCode altISOCode:nil];
     
     // Add langugage link and reorder to the front, so that regardless of the
-    // system langauge settings, this link is the first found variant for this language
+    // system language settings, this link is the first found variant for this language
     [self.controller appendPreferredLanguage:link];
     [self.controller reorderPreferredLanguage:link toIndex:0];
     
@@ -189,7 +189,7 @@
 
 - (void)testDuplicateLanguageCodeFiltering {
     // This tests that the first item is the one that remains in an ordered set if there are duplicate items.
-    // This ensures that the preferred langauge uniquing code will behave as expected.
+    // This ensures that the preferred language uniquing code will behave as expected.
     NSArray *array = @[@"en", @"no", @"fr", @"no"];
     NSArray *expectedResult = @[@"en", @"no", @"fr"];
     NSArray *uniquedArray = [[NSOrderedSet orderedSetWithArray:array] array];
