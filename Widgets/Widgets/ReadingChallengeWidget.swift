@@ -151,7 +151,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
     static func streakNotYetReadSet(streak: Int, showButtons: Bool, colorSet: WMFTheme.ReadingChallengeColorSet = .orange) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         
 
-        let defaultSubtitleAndGlobe: (String, String) = (WMFLocalizedString("reading-challenge-not-yet-read-subtitle-drift", value: "Don’t let today drift by, your reading streak is waiting.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today."), "sleepyglobe")
+        let defaultSubtitleAndGlobe: (String, String) = (WMFLocalizedString("reading-challenge-not-yet-read-subtitle-drift", value: "Don't let today drift by, your reading streak is waiting.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today."), "sleepyglobe")
         
         let sharedSubtitle = WMFLocalizedString("reading-challenge-not-yet-read-subtitle-article", value: "Your streak is just one article away.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today.")
         
