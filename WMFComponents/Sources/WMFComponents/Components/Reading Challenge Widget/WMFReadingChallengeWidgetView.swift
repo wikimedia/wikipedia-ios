@@ -449,15 +449,15 @@ public struct WMFReadingChallengeWidgetView: View {
                 HStack(spacing: 0) {
                     VStack(alignment: .leading, spacing: 8) {
                         Text(viewModel.displaySet.title)
-                            .font(Font(WMFFont.for(.boldTitle3)))
+                            .font(Font(WMFFont.for(.boldTitle1)))
                             .foregroundColor(viewModel.displaySet.color2)
                         HStack {
-                            if let icon = viewModel.displaySet.icon {
+                            if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .mediumSubheadline, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
                                 Image(uiImage: icon)
                             }
                             if let subtitle = viewModel.displaySet.subtitle {
                                 Text(subtitle)
-                                    .font(Font(WMFFont.for(.caption1)))
+                                    .font(Font(WMFFont.for(.mediumSubheadline)))
                                     .foregroundColor(viewModel.displaySet.color2)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
@@ -468,7 +468,7 @@ public struct WMFReadingChallengeWidgetView: View {
                                let button1URL = viewModel.displaySet.button1URL {
                                 Link(destination: button1URL) {
                                         Text(button1Title)
-                                            .font(Font(WMFFont.for(.footnote)))
+                                            .font(Font(WMFFont.for(.mediumSubheadline)))
                                             .foregroundColor(buttonForeground)
                                     .padding(.horizontal, 14).padding(.vertical, 8)
                                     .frame(maxWidth: .infinity)
