@@ -256,12 +256,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                              selector:@selector(showErrorBanner:)
                                                  name:NSNotification.showErrorBanner
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(autoLoginNeedsEmailToken:)
                                                  name:WMFAuthenticationManager.autoLoginNeedsEmailToken
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(autoLoginNeedsOathToken:)
                                                  name:WMFAuthenticationManager.autoLoginNeedsOathToken
@@ -599,30 +599,31 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     }
 }
 
-
 - (void)autoLoginNeedsEmailToken:(NSNotification *)notification {
     WMFTwoFactorPasswordViewController *vc = [self createTwoFactorViewControllerFromAutoLoginNotificationWithUserInfo:notification.userInfo needsEmailToken:YES];
-    
+
     if (vc) {
         WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:vc modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
         [self.currentTabNavigationController presentViewController:navVC animated:true completion:nil];
     } else {
-        [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorApp completion:^{
-            // no-op
-        }];
+        [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorApp
+                                                     completion:^{
+                                                         // no-op
+                                                     }];
     }
 }
 
 - (void)autoLoginNeedsOathToken:(NSNotification *)notification {
     WMFTwoFactorPasswordViewController *vc = [self createTwoFactorViewControllerFromAutoLoginNotificationWithUserInfo:notification.userInfo needsEmailToken:NO];
-    
+
     if (vc) {
         WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:vc modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
         [self.currentTabNavigationController presentViewController:navVC animated:true completion:nil];
     } else {
-        [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorApp completion:^{
-            // no-op
-        }];
+        [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorApp
+                                                     completion:^{
+                                                         // no-op
+                                                     }];
     }
 }
 
@@ -887,9 +888,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 #pragma mark - Launch
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
-    
+
     [self setupForUITests];
-    
+
     self.waitingToResumeApp = waitToResumeApp;
 
     [window setRootViewController:self];
@@ -1824,8 +1825,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         if ([scene isKindOfClass:[UIWindowScene class]]) {
             id delegate = ((UIWindowScene *)scene).delegate;
             if ([delegate respondsToSelector:@selector(setLastOpenSource:)]) {
-                // Pass an NSString to the Swift @objc method
-                [(id)delegate setLastOpenSource:@"push"];
+                [delegate performSelector:@selector(setLastOpenSource:) withObject:@"push"];
                 break;
             }
         }
