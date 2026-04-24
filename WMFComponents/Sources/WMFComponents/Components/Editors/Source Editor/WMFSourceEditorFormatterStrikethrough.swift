@@ -8,7 +8,7 @@ extension NSAttributedString.Key {
     static let wmfSourceEditorContentStrikethrough = NSAttributedString.Key("WMFSourceEditorCustomKeyContentStrikethrough")
 }
 
-class WMFSourceEditorFormatterStrikethrough: WMFSourceEditorFormatter {
+final class WMFSourceEditorFormatterStrikethrough: WMFSourceEditorFormatter {
 
     private var strikethroughAttributes: [NSAttributedString.Key: Any]
     private let strikethroughContentAttributes: [NSAttributedString.Key: Any]

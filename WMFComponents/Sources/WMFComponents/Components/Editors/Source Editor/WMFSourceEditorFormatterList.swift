@@ -11,7 +11,7 @@ extension NSAttributedString.Key {
     static let wmfSourceEditorContentNumberMultiple = NSAttributedString.Key("WMFSourceEditorCustomKeyContentNumberMultiple")
 }
 
-class WMFSourceEditorFormatterList: WMFSourceEditorFormatter {
+final class WMFSourceEditorFormatterList: WMFSourceEditorFormatter {
 
     private var orangeAttributes: [NSAttributedString.Key: Any]
     private let bulletSingleContentAttributes: [NSAttributedString.Key: Any]

@@ -9,7 +9,7 @@ extension NSAttributedString.Key {
     static let wmfSourceEditorCommentContent = NSAttributedString.Key("WMFSourceEditorCustomKeyCommentContent")
 }
 
-class WMFSourceEditorFormatterComment: WMFSourceEditorFormatter {
+final class WMFSourceEditorFormatterComment: WMFSourceEditorFormatter {
 
     private var commentMarkupAttributes: [NSAttributedString.Key: Any]
     private var commentContentAttributes: [NSAttributedString.Key: Any]

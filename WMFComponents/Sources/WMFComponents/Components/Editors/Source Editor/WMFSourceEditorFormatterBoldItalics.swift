@@ -10,7 +10,7 @@ extension NSAttributedString.Key {
     static let wmfSourceEditorFontItalics = NSAttributedString.Key("WMFSourceEditorKeyFontItalics")
 }
 
-class WMFSourceEditorFormatterBoldItalics: WMFSourceEditorFormatter {
+final class WMFSourceEditorFormatterBoldItalics: WMFSourceEditorFormatter {
 
     private var boldItalicsAttributes: [NSAttributedString.Key: Any]
     private var boldAttributes: [NSAttributedString.Key: Any]

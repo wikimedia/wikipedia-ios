@@ -322,11 +322,8 @@ final class WMFSourceEditorTextFrameworkMediator: NSObject {
 
         return attributedString
     }
-}
-
-// MARK: WMFSourceEditorStorageDelegate
-
-extension WMFSourceEditorTextFrameworkMediator: WMFSourceEditorStorageDelegate {
+    
+    // MARK: Colors and Fonts
 
     var colors: WMFSourceEditorColors {
         let theme = WMFAppEnvironment.current.theme

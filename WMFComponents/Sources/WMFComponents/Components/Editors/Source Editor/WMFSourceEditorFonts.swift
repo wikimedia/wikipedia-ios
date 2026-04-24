@@ -3,13 +3,13 @@
 import UIKit
 
 struct WMFSourceEditorFonts {
-    var baseFont: UIFont
-    var boldFont: UIFont
-    var italicsFont: UIFont
-    var boldItalicsFont: UIFont
-    var headingFont: UIFont
-    var subheading1Font: UIFont
-    var subheading2Font: UIFont
-    var subheading3Font: UIFont
-    var subheading4Font: UIFont
+    let baseFont: UIFont
+    let boldFont: UIFont
+    let italicsFont: UIFont
+    let boldItalicsFont: UIFont
+    let headingFont: UIFont
+    let subheading1Font: UIFont
+    let subheading2Font: UIFont
+    let subheading3Font: UIFont
+    let subheading4Font: UIFont
 }

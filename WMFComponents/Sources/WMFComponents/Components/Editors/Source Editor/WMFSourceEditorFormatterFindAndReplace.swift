@@ -10,7 +10,7 @@ extension NSAttributedString.Key {
     static let wmfSourceEditorReplacedMatch = NSAttributedString.Key("WMFSourceEditorCustomKeyReplacedMatch")
 }
 
-class WMFSourceEditorFormatterFindAndReplace: WMFSourceEditorFormatter {
+final class WMFSourceEditorFormatterFindAndReplace: WMFSourceEditorFormatter {
 
     private(set) var selectedMatchIndex: Int?
 
@@ -151,10 +151,10 @@ class WMFSourceEditorFormatterFindAndReplace: WMFSourceEditorFormatter {
                 }
             }
             if selectedMatchIndex == nil { selectedMatchIndex = 0 }
-        } else if selectedMatchIndex == nil || selectedMatchIndex == matchRanges.count - 1 {
-            selectedMatchIndex = 0
+        } else if let currentIndex = selectedMatchIndex, currentIndex != matchRanges.count - 1 {
+            selectedMatchIndex = currentIndex + 1
         } else {
-            selectedMatchIndex! += 1
+            selectedMatchIndex = 0
         }
 
         updateMatchHighlights(in: fullAttributedString, lastSelectedMatchIndex: lastSelectedMatchIndex)
@@ -166,10 +166,10 @@ class WMFSourceEditorFormatterFindAndReplace: WMFSourceEditorFormatter {
         let lastSelectedMatchIndex = selectedMatchIndex
         
         // Decrement index
-        if selectedMatchIndex == nil || selectedMatchIndex == 0 {
-            selectedMatchIndex = matchRanges.count - 1
+        if let currentIndex = selectedMatchIndex, currentIndex > 0 {
+            selectedMatchIndex = currentIndex - 1
         } else {
-            selectedMatchIndex! -= 1
+            selectedMatchIndex = matchRanges.count - 1
         }
 
         updateMatchHighlights(in: fullAttributedString, lastSelectedMatchIndex: lastSelectedMatchIndex)

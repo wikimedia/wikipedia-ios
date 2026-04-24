@@ -20,7 +20,7 @@ extension NSAttributedString.Key {
     static let wmfSourceEditorContentSubheading4 = NSAttributedString.Key("WMFSourceEditorCustomKeyContentSubheading4")
 }
 
-class WMFSourceEditorFormatterHeading: WMFSourceEditorFormatter {
+final class WMFSourceEditorFormatterHeading: WMFSourceEditorFormatter {
 
     private var headingFontAttributes: [NSAttributedString.Key: Any]
     private var subheading1FontAttributes: [NSAttributedString.Key: Any]

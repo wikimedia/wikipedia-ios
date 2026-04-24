@@ -8,7 +8,7 @@ extension NSAttributedString.Key {
     static let wmfSourceEditorContentSubscript = NSAttributedString.Key("WMFSourceEditorCustomKeyContentSubscript")
 }
 
-class WMFSourceEditorFormatterSubscript: WMFSourceEditorFormatter {
+final class WMFSourceEditorFormatterSubscript: WMFSourceEditorFormatter {
 
     private var subscriptAttributes: [NSAttributedString.Key: Any]
     private let subscriptContentAttributes: [NSAttributedString.Key: Any]

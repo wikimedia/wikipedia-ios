@@ -8,7 +8,7 @@ extension NSAttributedString.Key {
     static let wmfSourceEditorContentReference = NSAttributedString.Key("WMFSourceEditorCustomKeyContentReference")
 }
 
-class WMFSourceEditorFormatterReference: WMFSourceEditorFormatter {
+final class WMFSourceEditorFormatterReference: WMFSourceEditorFormatter {
 
     private var refAttributes: [NSAttributedString.Key: Any]
     private let refContentAttributes: [NSAttributedString.Key: Any]

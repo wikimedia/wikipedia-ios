@@ -10,7 +10,7 @@ extension NSAttributedString.Key {
     static let wmfSourceEditorLinkWithNestedLink = NSAttributedString.Key("WMFSourceEditorCustomKeyLinkWithNestedLink")
 }
 
-class WMFSourceEditorFormatterLink: WMFSourceEditorFormatter {
+final class WMFSourceEditorFormatterLink: WMFSourceEditorFormatter {
 
     private var simpleLinkAttributes: [NSAttributedString.Key: Any]
     private var linkWithNestedLinkAttributes: [NSAttributedString.Key: Any]

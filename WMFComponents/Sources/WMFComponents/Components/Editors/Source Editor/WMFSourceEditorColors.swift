@@ -3,14 +3,14 @@
 import UIKit
 
 struct WMFSourceEditorColors {
-    var baseForegroundColor: UIColor
-    var orangeForegroundColor: UIColor
-    var purpleForegroundColor: UIColor
-    var greenForegroundColor: UIColor
-    var blueForegroundColor: UIColor
-    var grayForegroundColor: UIColor
-    var matchForegroundColor: UIColor
-    var matchBackgroundColor: UIColor
-    var selectedMatchBackgroundColor: UIColor
-    var replacedMatchBackgroundColor: UIColor
+    let baseForegroundColor: UIColor
+    let orangeForegroundColor: UIColor
+    let purpleForegroundColor: UIColor
+    let greenForegroundColor: UIColor
+    let blueForegroundColor: UIColor
+    let grayForegroundColor: UIColor
+    let matchForegroundColor: UIColor
+    let matchBackgroundColor: UIColor
+    let selectedMatchBackgroundColor: UIColor
+    let replacedMatchBackgroundColor: UIColor
 }

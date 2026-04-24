@@ -2,7 +2,7 @@
 
 import UIKit
 
-class WMFSourceEditorFormatterBase: WMFSourceEditorFormatter {
+final class WMFSourceEditorFormatterBase: WMFSourceEditorFormatter {
 
     private var attributes: [NSAttributedString.Key: Any]
 

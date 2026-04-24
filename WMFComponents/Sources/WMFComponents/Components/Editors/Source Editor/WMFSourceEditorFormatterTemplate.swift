@@ -9,7 +9,7 @@ extension NSAttributedString.Key {
     static let wmfSourceEditorVerticalTemplate = NSAttributedString.Key("WMFSourceEditorCustomKeyVerticalTemplate")
 }
 
-class WMFSourceEditorFormatterTemplate: WMFSourceEditorFormatter {
+final class WMFSourceEditorFormatterTemplate: WMFSourceEditorFormatter {
 
     private var horizontalTemplateAttributes: [NSAttributedString.Key: Any]
     private var verticalTemplateAttributes: [NSAttributedString.Key: Any]

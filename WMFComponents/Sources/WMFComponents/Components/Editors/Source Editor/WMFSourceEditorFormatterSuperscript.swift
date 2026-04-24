@@ -8,7 +8,7 @@ extension NSAttributedString.Key {
     static let wmfSourceEditorContentSuperscript = NSAttributedString.Key("WMFSourceEditorCustomKeyContentSuperscript")
 }
 
-class WMFSourceEditorFormatterSuperscript: WMFSourceEditorFormatter {
+final class WMFSourceEditorFormatterSuperscript: WMFSourceEditorFormatter {
 
     private var superscriptAttributes: [NSAttributedString.Key: Any]
     private let superscriptContentAttributes: [NSAttributedString.Key: Any]

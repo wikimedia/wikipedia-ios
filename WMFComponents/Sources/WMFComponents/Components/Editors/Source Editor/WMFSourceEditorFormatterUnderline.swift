@@ -8,7 +8,7 @@ extension NSAttributedString.Key {
     static let wmfSourceEditorContentUnderline = NSAttributedString.Key("WMFSourceEditorCustomKeyContentUnderline")
 }
 
-class WMFSourceEditorFormatterUnderline: WMFSourceEditorFormatter {
+final class WMFSourceEditorFormatterUnderline: WMFSourceEditorFormatter {
 
     private var underlineAttributes: [NSAttributedString.Key: Any]
     private let underlineContentAttributes: [NSAttributedString.Key: Any]
