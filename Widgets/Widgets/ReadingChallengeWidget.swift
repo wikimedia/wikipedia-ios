@@ -357,7 +357,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
         case .notEnrolled:
             return notEnrolledSet(family: family)
         case .challengeRemoved:
-            return notEnrolledSet(family: family)
+            return noStreakSet()
         case .notLiveYet:
             return notLiveYetSet(family: family)
         case .enrolledNotStarted:

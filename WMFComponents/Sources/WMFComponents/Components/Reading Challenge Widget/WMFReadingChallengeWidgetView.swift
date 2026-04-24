@@ -41,7 +41,7 @@ public struct WMFReadingChallengeWidgetView: View {
             switch widgetFamily {
             case .systemSmall:
                 switch viewModel.state {
-                case .notEnrolled, .notLiveYet, .challengeRemoved:
+                case .notEnrolled, .notLiveYet:
                     smallNotEnrolledView
                 case .enrolledNotStarted:
                     smallEnrolledNotStartedView
@@ -53,7 +53,7 @@ public struct WMFReadingChallengeWidgetView: View {
                     smallCompletedView
                 case .challengeConcludedIncomplete:
                     smallConcludedIncompleteView
-                case .challengeConcludedNoStreak:
+                case .challengeConcludedNoStreak, .challengeRemoved:
                     smallConcludedNoStreakView
                 }
             case .systemMedium:
@@ -64,13 +64,13 @@ public struct WMFReadingChallengeWidgetView: View {
                     mediumStreakNotYetReadView
                 case .enrolledNotStarted:
                     mediumEnrolledNotStartedView
-                case .notEnrolled, .notLiveYet, .challengeRemoved:
+                case .notEnrolled, .notLiveYet:
                     mediumNotEnrolledView
                 case .challengeCompleted:
                     mediumCompletedSuccessfullyView
                 case .challengeConcludedIncomplete:
                     mediumConcludedIncompleteView
-                case .challengeConcludedNoStreak:
+                case .challengeConcludedNoStreak, .challengeRemoved:
                     mediumConcludedNoStreakView
                 }
             default:
