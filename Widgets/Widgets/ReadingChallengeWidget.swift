@@ -187,8 +187,8 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             subtitle: subtitle,
             button1Title: showButtons ? CommonStrings.searchTitle : nil,
             button2Title: showButtons ? WMFLocalizedString("reading-challenge-random-button", value: "Random", comment: "Title for the Random article button on the reading challenge widget.") : nil,
-            button1URL: showButtons ? URL(string: "wikipedia://search") : nil,
-            button2URL: showButtons ? URL(string: "wikipedia://random") : nil,
+            button1URL: showButtons ? URL(string: "wikipedia://search?source=widget_reading_challenge") : nil,
+            button2URL: showButtons ? URL(string: "wikipedia://random?source=widget_reading_challenge") : nil,
             button1Icon: showButtons ? WMFSFSymbolIcon.for(symbol: .magnifyingGlass, font: .semiboldSubheadline) : nil,
             button2Icon: showButtons ? WMFSFSymbolIcon.for(symbol: .diceFill, font: .semiboldSubheadline) : nil
         )
@@ -205,7 +205,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             button1Title: family == .systemSmall
                 ? WMFLocalizedString("reading-challenge-collect-prize-button-small", value: "Collect prize", comment: "Short button title on small reading challenge widget when challenge is complete.")
                 : CommonStrings.collectPrizeTitle,
-            button1URL: URL(string: "wikipedia://activity?collectPrize=true"),
+            button1URL: URL(string: "wikipedia://activity?collectPrize=true&source=widget_reading_challenge"),
             icon: WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldFootnote)
         )
     }
@@ -257,7 +257,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
                 ? WMFLocalizedString("reading-challenge-join-button-small", value: "Join challenge", comment: "Button title on small widget.")
                 : WMFLocalizedString("reading-challenge-join-button-medium", value: "Join the challenge", comment: "Button title on medium widget."),
             button2Title: nil,
-            button1URL: URL(string: "wikipedia://activity?join=true"),
+            button1URL: URL(string: "wikipedia://activity?join=true&source=widget_reading_challenge"),
             button2URL: nil,
             button1Icon: nil,
             button2Icon: nil
@@ -302,8 +302,8 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
                 value: "Random",
                 comment: "Title for the Random article button on the reading challenge widget."
             ),
-            button1URL: family == .systemSmall ? URL(string: "wikipedia://explore") : URL(string: "wikipedia://search"),
-            button2URL: family == .systemSmall ? nil : URL(string: "wikipedia://random"),
+            button1URL: family == .systemSmall ? URL(string: "wikipedia://explore?source=widget_reading_challenge") : URL(string: "wikipedia://search?source=widget_reading_challenge"),
+            button2URL: family == .systemSmall ? nil : URL(string: "wikipedia://random?source=widget_reading_challenge"),
             button1Icon: family == .systemSmall ? nil : WMFSFSymbolIcon.for(symbol: .magnifyingGlass, font: .caption1),
             button2Icon: family == .systemSmall ? nil : WMFSFSymbolIcon.for(symbol: .diceFill, font: .caption1)
         )
@@ -332,7 +332,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
                     value: "Explore Wikipedia",
                     comment: "Button title on the reading challenge widget linking to the Explore feed."
                   ),
-            button1URL: URL(string: "wikipedia://explore"),
+            button1URL: URL(string: "wikipedia://explore?source=widget_reading_challenge"),
             button1Icon: nil
         )
     }
@@ -387,7 +387,7 @@ struct ReadingChallengeEntryView: View {
         .containerBackground(for: .widget) {
             Color.clear
         }
-        .widgetURL(URL(string: "wikipedia://explore"))
+        .widgetURL(URL(string: "wikipedia://explore?source=widget_reading_challenge"))
     }
 }
 
