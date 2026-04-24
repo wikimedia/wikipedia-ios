@@ -1,6 +1,7 @@
 import Foundation
 import CoreData
 import WidgetKit
+import WMFTestKitchen
 
 public final class WMFPage: Hashable, Equatable {
    public let namespaceID: Int
@@ -379,21 +380,30 @@ extension WMFPageViewsDataController {
 
     public func fetchReadingChallengeState(
         isEnrolled: Bool,
-        now: Date = Date()
+        now: Date = Date(),
+        instrument: InstrumentImpl? = nil
     ) async throws -> ReadingChallengeState {
-        
+
         if let devStateOverride = WMFDeveloperSettingsDataController.shared.devReadingChallengeState {
             return devStateOverride
         }
 
         let sharedDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
-        
+
         func sharedDefaultsBool(_ key: WMFUserDefaultsKey) -> Bool {
             sharedDefaults?.bool(forKey: key.rawValue) ?? false
         }
-        
+
         func setSharedDefaultsBool(_ key: WMFUserDefaultsKey, value: Bool) {
             sharedDefaults?.set(true, forKey: key.rawValue)
+        }
+
+        func sendHeartbeat(actionContext: [String: Any] = [:]) {
+            instrument?.submitInteraction(
+                action: "heartbeat",
+                actionSource: "widget_challenge",
+                actionContext: actionContext
+            )
         }
 
         let config = ReadingChallengeStateConfig.self
@@ -403,21 +413,25 @@ extension WMFPageViewsDataController {
         let removeDateStart = calendar.startOfDay(for: config.removeDate)
         let startDateStart = calendar.startOfDay(for: config.startDate)
         let endDateStart = calendar.startOfDay(for: config.endDate)
-        let oneDayInSeconds = 60 * 60  * 24
-        let maxDateToCompleteStreak = calendar.startOfDay(for:endDateStart.addingTimeInterval(TimeInterval((config.streakGoal * oneDayInSeconds))))
+        let oneDayInSeconds = 60 * 60 * 24
+        let maxDateToCompleteStreak = calendar.startOfDay(for: endDateStart.addingTimeInterval(TimeInterval((config.streakGoal * oneDayInSeconds))))
 
         if todayStart > removeDateStart {
+            sendHeartbeat(actionContext: ["funnel_name": "widget_challenge"])
             return .challengeRemoved
         }
 
         if todayStart < startDateStart {
+            sendHeartbeat(actionContext: ["funnel_name": "widget_challenge"])
             return .notLiveYet
         }
 
         guard isEnrolled else {
             if todayStart > endDateStart {
+                sendHeartbeat(actionContext: ["funnel_name": "widget_challenge"])
                 return .challengeConcludedNoStreak
             }
+            sendHeartbeat(actionContext: ["funnel_name": "widget_challenge"])
             return .notEnrolled
         }
 
@@ -428,51 +442,98 @@ extension WMFPageViewsDataController {
             endDate: config.endDate
         )
 
-        // Cap at goal — completion is terminal, no need to count beyond it
         let cappedStreak = min(streak, config.streakGoal)
-        
-        // Note: once a user successfully completes a reading streak, computeStreak starts to evaluate to 0 a few days later.
-        // This user defaults boolean gets around that bug
+
         if sharedDefaultsBool(.readingChallengeUserCompleted) {
+            sendHeartbeat(actionContext: [
+                "streak_count": cappedStreak,
+                "streak_complete": true,
+                "funnel_name": "widget_challenge"
+            ])
             return .challengeCompleted
         }
 
         if cappedStreak >= config.streakGoal {
             setSharedDefaultsBool(.readingChallengeUserCompleted, value: true)
+            sendHeartbeat(actionContext: [
+                "streak_count": cappedStreak,
+                "streak_complete": true,
+                "funnel_name": "widget_challenge"
+            ])
             return .challengeCompleted
         }
 
         if todayStart > endDateStart {
             if streakStartedAfterEnrollmentCutoff {
+                sendHeartbeat(actionContext: [
+                    "streak_count": cappedStreak,
+                    "streak_complete": false,
+                    "funnel_name": "widget_challenge"
+                ])
                 return .challengeConcludedNoStreak
             }
-            
+
             if cappedStreak == 0 {
-                
-                // Show user's highest streak achieved up until that point
                 let highestStreak = try await computeLongestStreak(calendar: calendar, now: now, startDate: config.startDate)
-                
                 if highestStreak > 1 {
+                    sendHeartbeat(actionContext: [
+                        "streak_count": highestStreak,
+                        "streak_complete": false,
+                        "funnel_name": "widget_challenge"
+                    ])
                     return .challengeConcludedIncomplete(streak: highestStreak)
                 } else {
+                    sendHeartbeat(actionContext: [
+                        "streak_count": 0,
+                        "streak_complete": false,
+                        "funnel_name": "widget_challenge"
+                    ])
                     return .challengeConcludedNoStreak
                 }
             }
         }
-        
+
         if todayStart > maxDateToCompleteStreak {
-            return cappedStreak > 1
-                ? .challengeConcludedIncomplete(streak: cappedStreak)
-                : .challengeConcludedNoStreak
+            if cappedStreak > 1 {
+                sendHeartbeat(actionContext: [
+                    "streak_count": cappedStreak,
+                    "streak_complete": false,
+                    "funnel_name": "widget_challenge"
+                ])
+                return .challengeConcludedIncomplete(streak: cappedStreak)
+            } else {
+                sendHeartbeat(actionContext: [
+                    "streak_count": cappedStreak,
+                    "streak_complete": false,
+                    "funnel_name": "widget_challenge"
+                ])
+                return .challengeConcludedNoStreak
+            }
         }
 
         if cappedStreak == 0 {
+            sendHeartbeat(actionContext: [
+                "streak_count": 0,
+                "funnel_name": "widget_challenge"
+            ])
             return .enrolledNotStarted
         }
 
-        return hasReadToday
-            ? .streakOngoingRead(streak: cappedStreak)
-            : .streakOngoingNotYetRead(streak: cappedStreak)
+        if hasReadToday {
+            sendHeartbeat(actionContext: [
+                "streak_count": cappedStreak,
+                "streak_complete": false,
+                "funnel_name": "widget_challenge"
+            ])
+            return .streakOngoingRead(streak: cappedStreak)
+        } else {
+            sendHeartbeat(actionContext: [
+                "streak_count": cappedStreak,
+                "streak_complete": false,
+                "funnel_name": "widget_challenge"
+            ])
+            return .streakOngoingNotYetRead(streak: cappedStreak)
+        }
     }
 
     private func computeStreak(
@@ -537,7 +598,7 @@ extension WMFPageViewsDataController {
             return (streak, hasReadToday, streakStartedAfterEnrollmentCutoff)
         }
     }
-    
+
     private func computeLongestStreak(
         calendar: Calendar,
         now: Date,
@@ -547,7 +608,6 @@ extension WMFPageViewsDataController {
         let startOfChallengeStart = calendar.startOfDay(for: startDate)
         let todayStart = calendar.startOfDay(for: now)
 
-        // Early exit if now is before startDate
         guard todayStart >= startOfChallengeStart else { return 0 }
 
         let backgroundContext = try coreDataStore.newBackgroundContext
