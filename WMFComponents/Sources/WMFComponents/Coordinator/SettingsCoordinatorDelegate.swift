@@ -28,4 +28,5 @@ public enum SettingsAction {
     case about
     case deleteDonationHistory
     case legalAndSafety
+    case whichCameFirst
 }

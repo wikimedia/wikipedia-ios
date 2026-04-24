@@ -1462,6 +1462,10 @@
 "welcome-languages-search-title" = "Title for welcome screen describing Wikipedia languages";
 "welcome-privacy-subtitle" = "Sub-title explaining how data usage is anonymous";
 "welcome-privacy-terms-button-text" = "Text for links for learning more about data privacy policy and terms of use";
+"which-came-first-splash-about-button" = "Button title to learn more about the Which Came First game.";
+"which-came-first-splash-play-button" = "Button title to start the Which Came First game.";
+"which-came-first-splash-subtitle" = "Subtitle shown on the Which Came First game splash screen.";
+"which-came-first-splash-title" = "Title shown on the Which Came First game splash screen.";
 "widget-onthisday-description" = "Description for 'On this day' view in iOS widget gallery";
 "widget-onthisday-placeholder-article-snippet" = "Placeholder text for On This Day widget: Article description for an article about Wikipedia";
 "widget-onthisday-placeholder-event-snippet" = "Placeholder text for On This Day widget: Event describing launch of Wikipedia";

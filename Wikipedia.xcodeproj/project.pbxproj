@@ -1346,6 +1346,9 @@
 		836BF56F2869F9C200B98321 /* TalkPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836BF56D2869F9C200B98321 /* TalkPageViewController.swift */; };
 		836BF5702869F9C200B98321 /* TalkPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836BF56D2869F9C200B98321 /* TalkPageViewController.swift */; };
 		836CB7A229DF45F10058A454 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836CB7A129DF45F10058A454 /* UserSession.swift */; };
+		837172E42F9BDF390040F83E /* WhichCameFirstCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837172E32F9BDF2F0040F83E /* WhichCameFirstCoordinator.swift */; };
+		837172E52F9BDF390040F83E /* WhichCameFirstCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837172E32F9BDF2F0040F83E /* WhichCameFirstCoordinator.swift */; };
+		837172E62F9BDF390040F83E /* WhichCameFirstCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837172E32F9BDF2F0040F83E /* WhichCameFirstCoordinator.swift */; };
 		8373EDFA2AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8373EDF92AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift */; };
 		8373EDFB2AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8373EDF92AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift */; };
 		8373EDFC2AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8373EDF92AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift */; };
@@ -3590,6 +3593,7 @@
 		836BF56D2869F9C200B98321 /* TalkPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageViewController.swift; sourceTree = "<group>"; };
 		836CB7A129DF45F10058A454 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		83703A7724DC44C600EE98EA /* RemoteNotifications 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RemoteNotifications 2.xcdatamodel"; sourceTree = "<group>"; };
+		837172E32F9BDF2F0040F83E /* WhichCameFirstCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhichCameFirstCoordinator.swift; sourceTree = "<group>"; };
 		8373EDF92AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundraisingAnnouncementPanel.swift; sourceTree = "<group>"; };
 		83796AEF2C9C6EB300E55C69 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		83796AF02C9C6EB300E55C69 /* NotificationsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCoordinator.swift; sourceTree = "<group>"; };
@@ -6440,6 +6444,8 @@
 		83796B012C9C6F6000E55C69 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				837172E32F9BDF2F0040F83E /* WhichCameFirstCoordinator.swift */,
+				37EE25132F6DB9AB0038504A /* ReadingChallengeAnnouncementCoordinator.swift */,
 				675C97132F297EAC00830CEF /* SavedAllArticlesCoordinator.swift */,
 				37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */,
 				370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */,
@@ -9590,6 +9596,7 @@
 				B0C7A0801F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				00E75B6C27EB92DE00A45B78 /* NotificationsCenterDetailHeaderCell.swift in Sources */,
 				8382F8D320D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
+				837172E52F9BDF390040F83E /* WhichCameFirstCoordinator.swift in Sources */,
 				67A0699E2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */,
 				D88FCADF1E4B74D300505A9F /* WikidataFetcher+Places.swift in Sources */,
 				B0432344210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
@@ -10664,6 +10671,7 @@
 				D8CE256B1E698E2400DAE2E0 /* WMFWelcomeContainerViewController.swift in Sources */,
 				D8CE256C1E698E2400DAE2E0 /* WMFAccountCreator.swift in Sources */,
 				67AA15572DB6F60400D7C08F /* ArticleViewController+Categories.swift in Sources */,
+				837172E42F9BDF390040F83E /* WhichCameFirstCoordinator.swift in Sources */,
 				67033E1B2A61DC3700896852 /* ArticleViewController+Watchlist.swift in Sources */,
 				0072990828AC44F100DCD2E6 /* TalkPageCellTopicView.swift in Sources */,
 				0072991728AC49FA00DCD2E6 /* TalkPageCellCommentSeparator.swift in Sources */,
@@ -11203,6 +11211,7 @@
 				D88C701A1EE595E90022A26A /* MapView.swift in Sources */,
 				67033E1A2A61DC3700896852 /* ArticleViewController+Watchlist.swift in Sources */,
 				67AA15582DB6F60400D7C08F /* ArticleViewController+Categories.swift in Sources */,
+				837172E62F9BDF390040F83E /* WhichCameFirstCoordinator.swift in Sources */,
 				0072990728AC44F100DCD2E6 /* TalkPageCellTopicView.swift in Sources */,
 				0072991628AC49FA00DCD2E6 /* TalkPageCellCommentSeparator.swift in Sources */,
 				D8EC3E5B1E9BDA35006712EB /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,

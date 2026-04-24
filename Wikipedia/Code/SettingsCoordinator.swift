@@ -102,7 +102,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             helpTitle: CommonStrings.helpAndfeedbackTitle,
             aboutTitle: CommonStrings.aboutTitle,
             clearDonationHistoryTitle: CommonStrings.deleteDonationHistory,
-            safetyTitle: CommonStrings.legalAndSafety)
+            safetyTitle: CommonStrings.legalAndSafety,
+            whichCameFirstTitle: "Which Came First (test)")
     }
 
     func asyncStart() async {
@@ -174,6 +175,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             clearDonationHistory()
         case .legalAndSafety:
             tappedExternalLink(with: CommonStrings.legalAndSafetyContactUsURLString)
+        case .whichCameFirst:
+            showWhichCameFirst()
         }
     }
 
@@ -295,6 +298,14 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         DonateFunnel.shared.logYearInReviewSettingsDidTapItem()
         hostingController.title = strings.title
         settingsNav.pushViewController(hostingController, animated: true)
+    }
+
+    // MARK: - Which Came First (temporary test entry point)
+
+    private func showWhichCameFirst() {
+        guard let settingsNav = settingsNavigationController else { return }
+        let coordinator = WhichCameFirstCoordinator(navigationController: settingsNav, theme: theme)
+        coordinator.start()
     }
 
     // MARK: - Database population
