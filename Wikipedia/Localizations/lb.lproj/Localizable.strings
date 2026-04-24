@@ -352,6 +352,7 @@
 "empty-no-saved-pages-message" = "Säite späichere fir se spéider offline ze kucken";
 "empty-no-saved-pages-title" = "Nach keng gespäichert Säiten";
 "empty-no-search-results-message" = "Näischt fonnt";
+"end-session" = "Sessioun ofschléissen";
 "error-generic-recovery-suggestion" = "Probéiert wgl. méi spéit nach eng Kéier";
 "error-unknown" = "En onbekannte Feeler ass geschitt";
 "explore-another-random" = "En aneren zoufällegen Artikel";
@@ -595,7 +596,7 @@
 "notifications-center-change-password" = "Passwuert änneren";
 "notifications-center-destination-app" = "An der App";
 "notifications-center-empty-no-messages" = "Dir hutt keng Messagen";
-"notifications-center-empty-not-subscribed" = "Dir hutt de Moment keng Wikipedia-Notifikatiounen abonnéiert";
+"notifications-center-empty-not-subscribed" = "Dir sidd de Moment op keng Wikipedia-Notifikatiounen abonéiert";
 "notifications-center-empty-state-filters-subtitle" = "Ännert $1 fir méi Messagen ze gesinn";
 "notifications-center-empty-state-no-projects-selected" = "Setzt Projeten derbäi fir méi Messagen ze gesinn";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 Filter|$1 Filteren}}";
@@ -874,6 +875,8 @@
 "settings-storage-and-syncing-server-sync-title" = "Synchroniséiert Lieslëschten aktualiséieren";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Gespäichert Lieslëscht weisen";
 "settings-storage-and-syncing-title" = "Artikelspäicher a Synchronisatioun";
+"settings-temp-account-end-session-confirm" = "Ausloggen";
+"settings-temp-accounts-talk-page-footer" = "Den temporäre Kont leeft an 90 Deeg of";
 "settings-title" = "Astellungen";
 "share-a-fact-made-with" = "Mat der Wikipedia-App gemaach";
 "share-article-name-on-wikipedia" = "\"$1\" op Wikipedia:";
@@ -1048,7 +1051,7 @@
 "welcome-intro-free-encyclopedia-more-about" = "Iwwer Wikipedia";
 "welcome-intro-free-encyclopedia-title" = "Déi fräi Enzyklopedie";
 "welcome-languages-add-button" = "Eng aner Sprooch derbäisetzen";
-"welcome-languages-add-or-edit-button" = "Lieblingssproochen derbäisetzen oder änneren";
+"welcome-languages-add-or-edit-button" = "Preferéiert Sproochen derbäisetzen oder änneren";
 "welcome-languages-description" = "Op Ärem Apparat hu mir dës Sprooche fonnt:";
 "welcome-languages-search-title" = "A méi wéi 300 Sprooche sichen";
 "widget-onthisday-placeholder-article-snippet" = "Fräi Online-Enzyklopedie, déi jiddereen ännere kann";

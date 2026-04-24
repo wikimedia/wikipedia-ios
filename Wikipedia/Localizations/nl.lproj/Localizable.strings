@@ -540,6 +540,7 @@
 "empty-no-saved-pages-title" = "Nog geen opgeslagen pagina's";
 "empty-no-search-results-message" = "Geen resultaten gevonden";
 "empty-talk-page-title" = "Er zijn nog geen berichten geplaatst voor deze gebruiker";
+"end-session" = "Sessie beëindigen";
 "error-generic-recovery-suggestion" = "Probeer later opnieuw";
 "error-unknown" = "Er is een onbekende fout opgetreden";
 "explore-another-random" = "Nog een willekeurige pagina";
@@ -1252,6 +1253,10 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "De leeslijst Opgeslagen (bv. de standaardlijst) weergeven als een afzonderlijke lijst in uw leeslijstenweergave. Deze lijst wordt weergegeven op Android-apparaten.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Opgeslagen leeslijst weergeven";
 "settings-storage-and-syncing-title" = "Paginaopslag en -synchronisatie";
+"settings-temp-account-end-session-confirm" = "Afmelden";
+"settings-temp-account-end-session-message" = "Weet u zeker dat u deze sessie wilt verlaten en wilt afmelden? Het is niet mogelijk om opnieuw aan te melden op dit tijdelijke account.";
+"settings-temp-account-end-session-title" = "Sessie afsluiten";
+"settings-temp-accounts-talk-page-footer" = "Het tijdelijke account verloopt over 90 dagen";
 "settings-title" = "Instellingen";
 "settings-year-in-review-header" = "Als u het jaaroverzicht uitschakelt, worden alle opgeslagen gepersonaliseerde inzichten gewist en wordt het jaaroverzicht verborgen.";
 "share-a-fact-made-with" = "Gemaakt met de Wikipedia-app";

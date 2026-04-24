@@ -128,7 +128,7 @@ More information about MediaWiki plural support can be found [on Translatewiki's
 ### Updating an existing string
 **Small changes:** Do not change the key, just update the `value` field in `WMFLocalizedString`. Via the scripts, Translatewiki will automatically mark the translation string for review by translators. In the meantime, the old translation will continue to be used. (In our files from Translatewiki, `fuzzy` indicates that the translation needs review.)
 
-**Large changes**: Update the key, as well as the value. This will create a new translation. Until it is translated for a given langauge, the English string will be shown.
+**Large changes**: Update the key, as well as the value. This will create a new translation. Until it is translated for a given language, the English string will be shown.
 
 To decide whether it is a small or large change, consider this: Until a translator reviews the string for a given language, what is a better sitaution for the user? Continuing to show the old translation, or showing English? If "old translation", it's a small change  and you shouldn't touch the key. If "showing English", it's a large change and you should use a new key.
 

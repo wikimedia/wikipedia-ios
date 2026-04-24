@@ -170,7 +170,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
     static func streakNotYetReadSet(streak: Int, showButtons: Bool, colorSet: WMFTheme.ReadingChallengeColorSet = .orange) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         
 
-        let defaultSubtitleAndGlobe: (String, String) = (WMFLocalizedString("reading-challenge-not-yet-read-subtitle-drift", value: "Don't let today drift by, save your streak.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today."), "sleepyglobe")
+        let defaultSubtitleAndGlobe: (String, String) = (WMFLocalizedString("reading-challenge-not-yet-read-subtitle-drift", value: "Don't let today drift by, your reading streak is waiting.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today."), "sleepyglobe")
         
         let sharedSubtitle = WMFLocalizedString("reading-challenge-not-yet-read-subtitle-article", value: "Your streak is just one article away.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today.")
         
@@ -220,7 +220,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             color3: WMFTheme.ReadingChallengeColorSet.blueBlack.tertiary,
             image: "globeParty",
             title: WMFLocalizedString("reading-challenge-completed-title", value: "You did it!", comment: "Title shown on the reading challenge widget when the user has completed the challenge."),
-            subtitle: WMFLocalizedString("reading-challenge-completed-subtitle", value: "25 of 25 days", comment: "Subtitle shown on the reading challenge widget when the user has completed the challenge."),
+            subtitle: family == .systemSmall ? WMFLocalizedString("reading-challenge-completed-subtitle-small", value: "25 of 25", comment: "Subtitle shown on the reading challenge widget when the user has completed the challenge.") : WMFLocalizedString("reading-challenge-completed-subtitle", value: "25 of 25 days", comment: "Subtitle shown on the reading challenge widget when the user has completed the challenge."),
             button1Title: family == .systemSmall
                 ? WMFLocalizedString("reading-challenge-collect-prize-button-small", value: "Collect prize", comment: "Short button title on small reading challenge widget when challenge is complete.")
                 : CommonStrings.collectPrizeTitle,
