@@ -140,6 +140,8 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
         let onboardingController = WMFOnboardingViewController(viewModel: onboardingViewModel)
         onboardingController.delegate = self
         onboardingController.closeButtonAction = { [weak self] in
+            // Instrument: close (X) button tap on announcement screen
+            self?.authInstrument.submitInteraction(action: "click", actionSource: "widget_challenge_announce", elementId: "close")
             self?.navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
                 self?.onComplete?((true))
             }
@@ -328,6 +330,8 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
     }
     
     func onboardingDidSwipeToDismiss() {
+        // Instrument: swipe-to-dismiss on announcement screen
+        authInstrument.submitInteraction(action: "click", actionSource: "widget_challenge_announce", elementId: "swipe_dismiss")
         self.onComplete?(true)
     }
 

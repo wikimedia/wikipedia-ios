@@ -3,6 +3,7 @@ import WMF
 import Combine
 import SwiftUI
 import WMFNativeLocalizations
+import WMFTestKitchen
 
 final class CollectPrizeViewController: UIViewController, Themeable {
     
@@ -10,6 +11,19 @@ final class CollectPrizeViewController: UIViewController, Themeable {
     
     private var theme: Theme
     
+    private var instrument: InstrumentImpl {
+        TestKitchenAdapter.shared.client
+            .getInstrument(name: "apps-widgetchallenge")
+            .setDefaultActionSource("challenge_complete")
+            .startFunnel(name: "widget_challenge")
+    }
+
+    /// Reads streak count from shared UserDefaults (written by the widget extension).
+    private var streakCount: Int? {
+        UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
+            .flatMap { $0.object(forKey: "ReadingChallengeWidgetStreakCount") as? Int }
+    }
+
     init(theme: Theme) {
         self.theme = theme
         super.init(nibName: nil, bundle: nil)
@@ -88,6 +102,22 @@ final class CollectPrizeViewController: UIViewController, Themeable {
         setupLayout()
         apply(theme: theme)
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // Instrument: impression on collect prize modal
+        var context: [String: Any] = [:]
+        if let streak = streakCount {
+            context["streak_count"] = streak
+        }
+        instrument.submitInteraction(
+            action: "impression",
+            actionSource: "challenge_complete",
+            elementId: "collect_prize",
+            actionContext: context.isEmpty ? nil : context
+        )
+    }
     
     private func setupLayout() {
         view.addSubview(closeButtonHostingController.view)
@@ -135,6 +165,18 @@ final class CollectPrizeViewController: UIViewController, Themeable {
     }
     
     @objc private func primaryButtonTapped() {
+        // Instrument: store button tap on collect prize modal
+        var context: [String: Any] = [:]
+        if let streak = streakCount {
+            context["streak_count"] = streak
+        }
+        instrument.submitInteraction(
+            action: "click",
+            actionSource: "challenge_complete",
+            elementId: "store_button",
+            actionContext: context.isEmpty ? nil : context
+        )
+
         guard let url = URL(string: "https://store.wikimedia.org/discount/Widget15") else { return }
         UIApplication.shared.open(url)
     }

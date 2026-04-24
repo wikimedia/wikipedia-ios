@@ -28,6 +28,18 @@ struct ReadingChallengeProvider: TimelineProvider {
         Task {
             let state = await resolvedState()
 
+            let userDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
+            switch state {
+            case .streakOngoingRead(let streak),
+                 .streakOngoingNotYetRead(let streak),
+                 .challengeConcludedIncomplete(let streak):
+                userDefaults?.set(streak, forKey: "ReadingChallengeWidgetStreakCount")
+            case .challengeCompleted:
+                userDefaults?.set(ReadingChallengeStateConfig.streakGoal, forKey: "ReadingChallengeWidgetStreakCount")
+            default:
+                userDefaults?.removeObject(forKey: "ReadingChallengeWidgetStreakCount")
+            }
+
             // Refresh at the next midnight so the "not yet read today" reset fires.
             let nextMidnight = Calendar.current.startOfDay(
                 for: Calendar.current.date(byAdding: .day, value: 1, to: Date()) ?? Date()

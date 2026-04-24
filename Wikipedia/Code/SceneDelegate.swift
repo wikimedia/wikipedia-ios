@@ -1,6 +1,7 @@
 import UIKit
 import BackgroundTasks
 import CocoaLumberjackSwift
+import WMFTestKitchen
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -54,7 +55,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-
         resumeAppIfNecessary()
     }
 
@@ -131,6 +131,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let firstURL = URLContexts.first?.url else {
             return
+        }
+        
+        if let components = URLComponents(url: firstURL, resolvingAgainstBaseURL: false),
+           components.queryItems?.contains(where: { $0.name == "source" && $0.value == "reading-challenge-widget" }) == true {
+            TestKitchenAdapter.shared.client
+                .getInstrument(name: "apps-widgetchallenge")
+                .setDefaultActionSource("widget_challenge")
+                .startFunnel(name: "widget_challenge")
+                .submitInteraction(action: "app_open", actionSource: "widget_challenge")
         }
         
         guard let activity = NSUserActivity.wmf_activity(forWikipediaScheme: firstURL) ?? NSUserActivity.wmf_activity(for: firstURL) else {
