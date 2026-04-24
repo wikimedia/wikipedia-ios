@@ -4,6 +4,7 @@ import WMF
 import WMFComponents
 import WMFData
 import WMFNativeLocalizations
+import WMFTestKitchen
 
 // MARK: - Entry
 
@@ -52,6 +53,12 @@ struct ReadingChallengeProvider: TimelineProvider {
     }
 
     private func resolvedState() async -> ReadingChallengeState {
+        let inst: InstrumentImpl = {
+            TestKitchenAdapter.shared.client.getInstrument(name: "apps-widgetchallenge")
+                .setDefaultActionSource("widget")
+                .startFunnel(name: "widget_challenge")
+        }()
+        
         do {
             let appContainerURL = FileManager.default.wmf_containerURL()
             WMFDataEnvironment.current.appContainerURL = appContainerURL
@@ -63,7 +70,7 @@ struct ReadingChallengeProvider: TimelineProvider {
             
             let isEnrolled = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false
             let currentDate = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
-            return try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled, now: currentDate)
+            return try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled, now: currentDate, instrument: inst)
         } catch {
             return .notEnrolled
         }
