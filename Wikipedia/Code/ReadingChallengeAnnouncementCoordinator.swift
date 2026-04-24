@@ -285,6 +285,13 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
                     
                     loginCoordinator.loginSuccessCompletion = { [weak self] in
                         guard let self else { return }
+                        TestKitchenAdapter.shared.client
+                            .getInstrument(name: "app_base")
+                            .submitInteraction(
+                                action: "success",
+                                actionSource: "login-join",
+                                actionContext: ["invoke_source": "widget_challenge"]
+                            )
                         if let loginVC = self.navigationController.presentedViewController {
                             loginVC.dismiss(animated: true) { [weak self] in
                                 guard let self else { return }

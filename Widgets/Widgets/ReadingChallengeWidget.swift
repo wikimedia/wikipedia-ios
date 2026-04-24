@@ -26,6 +26,7 @@ struct ReadingChallengeProvider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<ReadingChallengeEntry>) -> Void) {
+        WMFDataEnvironment.current.testKitchenClient = TestKitchenAdapter.shared.client
         Task {
             let state = await resolvedState()
 
