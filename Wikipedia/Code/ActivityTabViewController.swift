@@ -154,7 +154,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                     return
                 }
                 self.showCollectPrizeModal()
-            })
+            }, fromWidget: true)
         }
     }
 
@@ -261,12 +261,25 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         setupLoginState(needsRefetch: true)
     }
 
-    private func presentFullLoginFlow(fromCustomizeToast: Bool = false, loginSuccessCompletion: (() -> Void)? = nil) {
+    private func presentFullLoginFlow(fromCustomizeToast: Bool = false, loginSuccessCompletion: (() -> Void)? = nil, fromWidget: Bool = false) {
         if fromCustomizeToast {
             // TODO: Will probably need some special logging here.
         } else {
-            ActivityTabFunnel.shared.logLoginClick()
-            LoginFunnel.shared.logLoginStartFromActivityTab()
+            if fromWidget {
+                TestKitchenAdapter.shared.client
+                    .getInstrument(name: "apps-widgetchallenge")
+                    .setDefaultActionSource("create_account_form")
+                    .startFunnel(name: "create_account")
+                    .submitInteraction(
+                        action: "success",
+                        actionSource: "create_account_form",
+                        elementId: nil,
+                        actionContext: ["invoke_source": "widget_challenge"]
+                    )
+            } else {
+                ActivityTabFunnel.shared.logLoginClick()
+                LoginFunnel.shared.logLoginStartFromActivityTab()
+            }
         }
 
         guard let nav = navigationController else { return }
