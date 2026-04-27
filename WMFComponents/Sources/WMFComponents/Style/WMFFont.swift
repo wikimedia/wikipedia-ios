@@ -63,153 +63,124 @@ public enum WMFFont {
         case .boldBody:
             let base = UIFont.preferredFont(forTextStyle: .body, compatibleWith: traitCollection)
             let font = UIFont.systemFont(ofSize: base.pointSize, weight: .bold)
-            return UIFontMetrics(forTextStyle: .body).scaledFont(for: font)
+            return UIFontMetrics(forTextStyle: .body).scaledFont(for: font, compatibleWith: traitCollection)
         case .boldCallout:
             let base = UIFont.preferredFont(forTextStyle: .callout, compatibleWith: traitCollection)
             let font = UIFont.systemFont(ofSize: base.pointSize, weight: .bold)
-            return UIFontMetrics(forTextStyle: .callout).scaledFont(for: font)
-
+            return UIFontMetrics(forTextStyle: .callout).scaledFont(for: font, compatibleWith: traitCollection)
         case .boldCaption1:
             let base = UIFont.preferredFont(forTextStyle: .caption1, compatibleWith: traitCollection)
             let bold = UIFont.systemFont(ofSize: base.pointSize, weight: .bold)
-            return UIFontMetrics(forTextStyle: .caption1).scaledFont(for: bold)
+            return UIFontMetrics(forTextStyle: .caption1).scaledFont(for: bold, compatibleWith: traitCollection)
         case .boldFootnote:
             let base = UIFont.preferredFont(forTextStyle: .footnote, compatibleWith: traitCollection)
             let font = UIFont.systemFont(ofSize: base.pointSize, weight: .bold)
-            return UIFontMetrics(forTextStyle: .footnote).scaledFont(for: font)
-
+            return UIFontMetrics(forTextStyle: .footnote).scaledFont(for: font, compatibleWith: traitCollection)
         case .boldGeorgiaTitle1:
             let baseFont = WMFFont.for(.georgiaTitle1, compatibleWith: traitCollection)
             if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitBold]) {
                 return UIFont(descriptor: descriptor, size: 0)
             }
             return baseFont
-
         case .boldGeorgiaTitle3:
             let baseFont = WMFFont.for(.georgiaTitle3, compatibleWith: traitCollection)
             if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitBold]) {
                 return UIFont(descriptor: descriptor, size: 0)
             }
             return baseFont
-
         case .boldHeadline:
             let base = UIFont.preferredFont(forTextStyle: .headline, compatibleWith: traitCollection)
             let bold = UIFont.systemFont(ofSize: base.pointSize, weight: .bold)
-            return UIFontMetrics(forTextStyle: .headline).scaledFont(for: bold)
-
+            return UIFontMetrics(forTextStyle: .headline).scaledFont(for: bold, compatibleWith: traitCollection)
         case .boldItalicCallout:
             guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .callout, compatibleWith: traitCollection).withSymbolicTraits([.traitBold, .traitItalic]) else {
                 fatalError()
             }
             return UIFont(descriptor: descriptor, size: 0)
-
         case .boldItalicFootnote:
             guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .footnote, compatibleWith: traitCollection).withSymbolicTraits([.traitBold, .traitItalic]) else {
                 fatalError()
             }
             return UIFont(descriptor: descriptor, size: 0)
-
         case .boldItalicGeorgiaTitle1:
             let baseFont = WMFFont.for(.georgiaTitle1, compatibleWith: traitCollection)
             if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitItalic, .traitBold]) {
                 return UIFont(descriptor: descriptor, size: 0)
             }
             return baseFont
-
         case .boldItalicGeorgiaTitle3:
             let baseFont = WMFFont.for(.georgiaTitle3, compatibleWith: traitCollection)
             if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitItalic, .traitBold]) {
                 return UIFont(descriptor: descriptor, size: 0)
             }
             return baseFont
-
         case .boldItalicSubheadline:
             guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .subheadline, compatibleWith: traitCollection).withSymbolicTraits([.traitBold, .traitItalic]) else {
                 fatalError()
             }
             return UIFont(descriptor: descriptor, size: 0)
-
         case .boldSubheadline:
             let base = UIFont.preferredFont(forTextStyle: .subheadline, compatibleWith: traitCollection)
             let font = UIFont.systemFont(ofSize: base.pointSize, weight: .bold)
-            return UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: font)
-
+            return UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: font, compatibleWith: traitCollection)
         case .boldTitle1:
             let base = UIFont.preferredFont(forTextStyle: .title1, compatibleWith: traitCollection)
             let font = UIFont.systemFont(ofSize: base.pointSize, weight: .bold)
-            return UIFontMetrics(forTextStyle: .title1).scaledFont(for: font)
-
+            return UIFontMetrics(forTextStyle: .title1).scaledFont(for: font, compatibleWith: traitCollection)
         case .boldTitle3:
             let base = UIFont.preferredFont(forTextStyle: .title3, compatibleWith: traitCollection)
             let font = UIFont.systemFont(ofSize: base.pointSize, weight: .bold)
-            return UIFontMetrics(forTextStyle: .title3).scaledFont(for: font)
-
+            return UIFontMetrics(forTextStyle: .title3).scaledFont(for: font, compatibleWith: traitCollection)
         case .georgiaCallout:
             return UIFontMetrics(forTextStyle: .callout).scaledFont(for: UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: 16), size: 0), compatibleWith: traitCollection)
-
         case .callout:
             let base = UIFont.preferredFont(forTextStyle: .callout, compatibleWith: traitCollection)
             let font = UIFont.systemFont(ofSize: base.pointSize, weight: .regular)
-            return UIFontMetrics(forTextStyle: .callout).scaledFont(for: font)
-
+            return UIFontMetrics(forTextStyle: .callout).scaledFont(for: font, compatibleWith: traitCollection)
         case .caption1:
             return UIFont.preferredFont(forTextStyle: .caption1, compatibleWith: traitCollection)
-            
         case .caption2:
             return UIFont.preferredFont(forTextStyle: .caption2, compatibleWith: traitCollection)
-            
         case .caption2Semibold:
             let base = UIFont.preferredFont(forTextStyle: .caption2, compatibleWith: traitCollection)
             let font = UIFont.systemFont(ofSize: base.pointSize, weight: .semibold)
-            return UIFontMetrics(forTextStyle: .caption2).scaledFont(for: font)
-
+            return UIFontMetrics(forTextStyle: .caption2).scaledFont(for: font, compatibleWith: traitCollection)
         case .editorHeading:
             return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 28, weight: .semibold), compatibleWith: traitCollection)
-
         case .editorSubheading1:
             return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 26, weight: .semibold), compatibleWith: traitCollection)
-
         case .editorSubheading2:
             return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 24, weight: .semibold), compatibleWith: traitCollection)
-
         case .editorSubheading3:
             return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold), compatibleWith: traitCollection)
-
         case .editorSubheading4:
             return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 20, weight: .semibold), compatibleWith: traitCollection)
-
         case .footnote:
             return UIFont.preferredFont(forTextStyle: .footnote, compatibleWith: traitCollection)
-
         case .georgiaTitle1:
             return UIFontMetrics(forTextStyle: .title1).scaledFont(for: UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: 28), size: 0), compatibleWith: traitCollection)
-
         case .georgiaTitle3:
             return UIFontMetrics(forTextStyle: .title3).scaledFont(for: UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: 20), size: 0), compatibleWith: traitCollection)
-
         case .headline:
             return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .regular), compatibleWith: traitCollection)
-
         case .italicCallout:
             let base = UIFont.preferredFont(forTextStyle: .callout, compatibleWith: traitCollection)
             let font = UIFont.italicSystemFont(ofSize: base.pointSize)
-            return UIFontMetrics(forTextStyle: .callout).scaledFont(for: font)
+            return UIFontMetrics(forTextStyle: .callout).scaledFont(for: font, compatibleWith: traitCollection)
         case .italicCaption1:
             let base = UIFont.preferredFont(forTextStyle: .caption1, compatibleWith: traitCollection)
             let font = UIFont.italicSystemFont(ofSize: base.pointSize)
-            return UIFontMetrics(forTextStyle: .caption1).scaledFont(for: font)
+            return UIFontMetrics(forTextStyle: .caption1).scaledFont(for: font, compatibleWith: traitCollection)
         case .italicFootnote:
             let base = UIFont.preferredFont(forTextStyle: .footnote, compatibleWith: traitCollection)
             let font = UIFont.italicSystemFont(ofSize: base.pointSize)
-            return UIFontMetrics(forTextStyle: .footnote).scaledFont(for: font)
-
+            return UIFontMetrics(forTextStyle: .footnote).scaledFont(for: font, compatibleWith: traitCollection)
         case .italicGeorgiaTitle1:
             let baseFont = WMFFont.for(.georgiaTitle1, compatibleWith: traitCollection)
             if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitItalic]) {
                 return UIFont(descriptor: descriptor, size: 0)
             }
             return baseFont
-
         case .italicGeorgiaTitle3:
             let baseFont = WMFFont.for(.georgiaTitle3, compatibleWith: traitCollection)
             if let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitItalic]) {
@@ -219,61 +190,47 @@ public enum WMFFont {
         case .italicSubheadline:
             let base = UIFont.preferredFont(forTextStyle: .subheadline, compatibleWith: traitCollection)
             let font = UIFont.italicSystemFont(ofSize: base.pointSize)
-            return UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: font)
-
+            return UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: font, compatibleWith: traitCollection)
         case .mediumFootnote:
             let base = UIFont.preferredFont(forTextStyle: .footnote, compatibleWith: traitCollection)
             let font = UIFont.systemFont(ofSize: base.pointSize, weight: .medium)
-            return UIFontMetrics(forTextStyle: .footnote).scaledFont(for: font)
-
+            return UIFontMetrics(forTextStyle: .footnote).scaledFont(for: font, compatibleWith: traitCollection)
         case .mediumSubheadline:
             let base = UIFont.preferredFont(forTextStyle: .subheadline, compatibleWith: traitCollection)
             let font = UIFont.systemFont(ofSize: base.pointSize, weight: .medium)
-            return UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: font)
-
+            return UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: font, compatibleWith: traitCollection)
         case .semiboldHeadline:
             let base = UIFont.preferredFont(forTextStyle: .headline, compatibleWith: traitCollection)
             let font = UIFont.systemFont(ofSize: base.pointSize, weight: .semibold)
-            return UIFontMetrics(forTextStyle: .headline).scaledFont(for: font)
-
+            return UIFontMetrics(forTextStyle: .headline).scaledFont(for: font, compatibleWith: traitCollection)
         case .semiboldSubheadline:
             let base = UIFont.preferredFont(forTextStyle: .subheadline, compatibleWith: traitCollection)
             let font = UIFont.systemFont(ofSize: base.pointSize, weight: .semibold)
-            return UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: font)
-
+            return UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: font, compatibleWith: traitCollection)
         case .semiboldTitle3:
             let base = UIFont.preferredFont(forTextStyle: .title3, compatibleWith: traitCollection)
             let font = UIFont.systemFont(ofSize: base.pointSize, weight: .semibold)
-            return UIFontMetrics(forTextStyle: .title3).scaledFont(for: font)
-            
+            return UIFontMetrics(forTextStyle: .title3).scaledFont(for: font, compatibleWith: traitCollection)
         case .semiboldCaption1:
             let base = UIFont.preferredFont(forTextStyle: .caption1, compatibleWith: traitCollection)
             let bold = UIFont.systemFont(ofSize: base.pointSize, weight: .semibold)
-            return UIFontMetrics(forTextStyle: .caption1).scaledFont(for: bold)
-
+            return UIFontMetrics(forTextStyle: .caption1).scaledFont(for: bold, compatibleWith: traitCollection)
         case .subheadline:
             return UIFont.preferredFont(forTextStyle: .subheadline, compatibleWith: traitCollection)
-
         case .title1:
             return UIFont.preferredFont(forTextStyle: .title1, compatibleWith: traitCollection)
-            
         case .title2:
             return UIFont.preferredFont(forTextStyle: .title2, compatibleWith: traitCollection)
-
         case .title3:
             return UIFont.preferredFont(forTextStyle: .title3, compatibleWith: traitCollection)
-            
         case .xxlTitleBold:
             return UIFontMetrics(forTextStyle: .title3).scaledFont(for: UIFont.systemFont(ofSize: 40, weight: .bold), compatibleWith: traitCollection)
-            
         case .helveticaLargeHeadline:
             return UIFontMetrics(forTextStyle: .headline)
                     .scaledFont(for: UIFont(descriptor: UIFontDescriptor(name: "Helvetica-Bold", size: 17), size: 0), compatibleWith: traitCollection)
-
         case .helveticaBody:
             return UIFontMetrics(forTextStyle: .subheadline)
                     .scaledFont(for: UIFont(descriptor: UIFontDescriptor(name: "Helvetica", size: 14), size: 0), compatibleWith: traitCollection)
-
         case .helveticaBodyBold:
             return UIFontMetrics(forTextStyle: .subheadline)
                    .scaledFont(for: UIFont(descriptor: UIFontDescriptor(name: "Helvetica-Bold", size: 14), size: 0), compatibleWith: traitCollection)

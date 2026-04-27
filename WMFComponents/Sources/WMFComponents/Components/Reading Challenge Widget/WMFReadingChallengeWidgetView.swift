@@ -23,6 +23,10 @@ public struct WMFReadingChallengeWidgetView: View {
 
     private let mediumCanvasWidth: CGFloat = 329
     private let mediumCanvasHeight: CGFloat = 155
+    
+    private var traitCollection: UITraitCollection {
+        return UITraitCollection(preferredContentSizeCategory: .large)
+    }
 
     // MARK: - Init
 
@@ -37,7 +41,7 @@ public struct WMFReadingChallengeWidgetView: View {
             switch widgetFamily {
             case .systemSmall:
                 switch viewModel.state {
-                case .notEnrolled, .notLiveYet, .challengeRemoved:
+                case .notEnrolled, .notLiveYet:
                     smallNotEnrolledView
                 case .enrolledNotStarted:
                     smallEnrolledNotStartedView
@@ -49,7 +53,7 @@ public struct WMFReadingChallengeWidgetView: View {
                     smallCompletedView
                 case .challengeConcludedIncomplete:
                     smallConcludedIncompleteView
-                case .challengeConcludedNoStreak:
+                case .challengeConcludedNoStreak, .challengeRemoved:
                     smallConcludedNoStreakView
                 }
             case .systemMedium:
@@ -60,13 +64,13 @@ public struct WMFReadingChallengeWidgetView: View {
                     mediumStreakNotYetReadView
                 case .enrolledNotStarted:
                     mediumEnrolledNotStartedView
-                case .notEnrolled, .notLiveYet, .challengeRemoved:
+                case .notEnrolled, .notLiveYet:
                     mediumNotEnrolledView
                 case .challengeCompleted:
                     mediumCompletedSuccessfullyView
                 case .challengeConcludedIncomplete:
                     mediumConcludedIncompleteView
-                case .challengeConcludedNoStreak:
+                case .challengeConcludedNoStreak, .challengeRemoved:
                     mediumConcludedNoStreakView
                 }
             default:
@@ -133,16 +137,27 @@ public struct WMFReadingChallengeWidgetView: View {
                         .layoutPriority(1)
                 }
                 if let subtitle = viewModel.displaySet.subtitle {
-                    Text(subtitle)
-                        .font(Font(WMFFont.for(.mediumSubheadline)))
-                        .foregroundColor(viewModel.displaySet.color2)
+                    
+                    HStack(spacing: 4) {
+                        if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .mediumSubheadline, compatibleWith: traitCollection, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                            Image(uiImage: icon)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxHeight: 20)
+                                .foregroundStyle(viewModel.displaySet.color2)
+                        }
+                        Text(subtitle)
+                            .font(Font(WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)))
+                            .foregroundColor(viewModel.displaySet.color2)
+                    }
+                    
                 }
                 if let button1Title = viewModel.displaySet.button1Title,
                    let button1URL = viewModel.displaySet.button1URL {
                     Link(destination: button1URL) {
                         HStack {
                             Text(button1Title)
-                                .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                .font(Font(WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)))
                                 .foregroundColor(buttonForeground)
                         }
                         .frame(maxWidth: .infinity)
@@ -175,7 +190,7 @@ public struct WMFReadingChallengeWidgetView: View {
                    let button1URL = viewModel.displaySet.button1URL {
                     Link(destination: button1URL) {
                         Text(button1Title)
-                            .font(Font(WMFFont.for(.semiboldSubheadline)))
+                            .font(Font(WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)))
                             .foregroundColor(buttonForeground)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 6)
@@ -218,17 +233,19 @@ public struct WMFReadingChallengeWidgetView: View {
                 }
                 Spacer()
                 if let subtitle = viewModel.displaySet.subtitle {
-                    HStack(spacing: 0) {
-                        if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .semiboldCaption1, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                    HStack(spacing: 4) {
+                        if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .mediumSubheadline, compatibleWith: traitCollection, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
                             Image(uiImage: icon)
-                                .foregroundColor(viewModel.displaySet.color2)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxHeight: 20)
+                                .foregroundStyle(viewModel.displaySet.color2)
                         }
                         Text(subtitle)
-                            .font(Font(WMFFont.for(.semiboldCaption1)))
+                            .font(Font(WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)))
                             .foregroundColor(viewModel.displaySet.color2)
                     }
                     .padding(.horizontal, 14).padding(.vertical, 8)
-                    .frame(maxWidth: .infinity)
                     .background(viewModel.displaySet.color3 ?? viewModel.displaySet.color2)
                     .clipShape(Capsule())
                 }
@@ -253,12 +270,12 @@ public struct WMFReadingChallengeWidgetView: View {
                     if let uiImage = UIImage(named: "flameWarning", in: .module, with: nil) {
                         Image(uiImage: uiImage)
                             .resizable()
-                            .foregroundStyle(viewModel.displaySet.color2)
                             .scaledToFit()
-                            .frame(width: 24)
+                            .frame(maxHeight: 20)
+                            .foregroundStyle(viewModel.displaySet.color2)
                     }
                     Text(viewModel.displaySet.title)
-                        .font(Font(WMFFont.for(.boldTitle3)))
+                        .font(Font(WMFFont.for(.boldTitle3, compatibleWith: traitCollection)))
                         .foregroundColor(viewModel.displaySet.color2)
                 }
             }
@@ -281,11 +298,13 @@ public struct WMFReadingChallengeWidgetView: View {
                 HStack {
                     if let icon = viewModel.displaySet.icon {
                         Image(uiImage: icon)
-                            .font(Font(WMFFont.for(.boldTitle3)))
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxHeight: 20)
                             .foregroundStyle(viewModel.displaySet.color2)
                     }
                     Text(viewModel.displaySet.title)
-                        .font(Font(WMFFont.for(.boldTitle3)))
+                        .font(Font(WMFFont.for(.boldTitle3, compatibleWith: traitCollection)))
                         .foregroundColor(viewModel.displaySet.color2)
                         .multilineTextAlignment(.center)
                 }
@@ -312,24 +331,24 @@ public struct WMFReadingChallengeWidgetView: View {
                         if let uiImage = UIImage(named: "flameWarning", in: .module, with: nil) {
                             Image(uiImage: uiImage)
                                 .resizable()
-                                .font(Font(WMFFont.for(.boldTitle1)))
+                                .font(Font(WMFFont.for(.boldTitle1, compatibleWith: traitCollection)))
                                 .foregroundStyle(viewModel.displaySet.color2)
                                 .scaledToFit()
                                 .frame(width: 30)
                         }
                         Text(viewModel.displaySet.title)
-                            .font(Font(WMFFont.for(.boldTitle1)))
+                            .font(Font(WMFFont.for(.boldTitle1, compatibleWith: traitCollection)))
                             .foregroundColor(viewModel.displaySet.color2)
                     }
                 case .streakOngoingRead:
                     HStack(alignment: .center) {
                         if let icon = viewModel.displaySet.icon {
                             Image(uiImage: icon)
-                                .font(Font(WMFFont.for(.boldTitle3)))
+                                .font(Font(WMFFont.for(.boldTitle3, compatibleWith: traitCollection)))
                                 .foregroundStyle(viewModel.displaySet.color2)
                         }
                         Text(viewModel.displaySet.title)
-                            .font(Font(WMFFont.for(.boldTitle3)))
+                            .font(Font(WMFFont.for(.boldTitle3, compatibleWith: traitCollection)))
                             .foregroundColor(viewModel.displaySet.color2)
                             .multilineTextAlignment(.center)
                     }
@@ -338,12 +357,15 @@ public struct WMFReadingChallengeWidgetView: View {
                 case .challengeConcludedIncomplete:
                     if let subtitle = viewModel.displaySet.subtitle {
                         HStack(spacing: 0) {
-                            if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .semiboldCaption1, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                            if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .semiboldCaption1, compatibleWith: traitCollection, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
                                 Image(uiImage: icon)
-                                    .foregroundColor(viewModel.displaySet.color2)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(maxHeight: 20)
+                                    .foregroundStyle(viewModel.displaySet.color2)
                             }
                             Text(subtitle)
-                                .font(Font(WMFFont.for(.semiboldCaption1)))
+                                .font(Font(WMFFont.for(.semiboldCaption1, compatibleWith: traitCollection)))
                                 .foregroundColor(viewModel.displaySet.color2)
                         }
                         .padding(.horizontal, 14).padding(.vertical, 8)
@@ -355,15 +377,15 @@ public struct WMFReadingChallengeWidgetView: View {
                     HStack {
                         if let icon = viewModel.displaySet.icon {
                             Image(uiImage: icon)
-                                .font(Font(WMFFont.for(.boldTitle1)))
+                                .font(Font(WMFFont.for(.boldTitle1, compatibleWith: traitCollection)))
                                 .foregroundStyle(viewModel.displaySet.color2)
                         }
                         Text(viewModel.displaySet.title)
-                            .font(Font(WMFFont.for(.boldTitle1)))
+                            .font(Font(WMFFont.for(.boldTitle1, compatibleWith: traitCollection)))
                             .foregroundColor(viewModel.displaySet.color2)
                     }
                     Text(viewModel.displaySet.title)
-                        .font(Font(WMFFont.for(.boldFootnote)))
+                        .font(Font(WMFFont.for(.boldFootnote, compatibleWith: traitCollection)))
                         .foregroundColor(viewModel.displaySet.color2)
                     Spacer()
                 }
@@ -386,11 +408,11 @@ public struct WMFReadingChallengeWidgetView: View {
                         .layoutPriority(1)
                 }
                 Text(viewModel.displaySet.title)
-                    .font(Font(WMFFont.for(.boldFootnote)))
+                    .font(Font(WMFFont.for(.boldFootnote, compatibleWith: traitCollection)))
                     .foregroundColor(viewModel.displaySet.color2)
                 if let subtitle = viewModel.displaySet.subtitle {
                     Text(subtitle)
-                        .font(Font(WMFFont.for(.caption1)))
+                        .font(Font(WMFFont.for(.caption1, compatibleWith: traitCollection)))
                         .foregroundColor(viewModel.displaySet.color2)
                 }
                 if let button1Title = viewModel.displaySet.button1Title,
@@ -403,7 +425,7 @@ public struct WMFReadingChallengeWidgetView: View {
                                     .foregroundStyle(buttonForeground)
                             }
                             Text(button1Title)
-                                .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                .font(Font(WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)))
                                 .foregroundColor(buttonForeground)
                         }
                         .frame(maxWidth: .infinity)
@@ -425,11 +447,11 @@ public struct WMFReadingChallengeWidgetView: View {
     private var mediumTitleFont: Font {
         switch viewModel.state {
         case .challengeConcludedIncomplete:
-            return Font(WMFFont.for(.boldTitle1))
+            return Font(WMFFont.for(.boldTitle1, compatibleWith: traitCollection))
         default:
             return viewModel.displaySet.subtitle == nil
-                ? Font(WMFFont.for(.boldTitle3))
-                : Font(WMFFont.for(.boldFootnote))
+                ? Font(WMFFont.for(.boldTitle3, compatibleWith: traitCollection))
+                : Font(WMFFont.for(.boldFootnote, compatibleWith: traitCollection))
         }
     }
 
@@ -440,15 +462,19 @@ public struct WMFReadingChallengeWidgetView: View {
                 HStack(spacing: 0) {
                     VStack(alignment: .leading, spacing: 8) {
                         Text(viewModel.displaySet.title)
-                            .font(Font(WMFFont.for(.boldTitle3)))
+                            .font(Font(WMFFont.for(.boldTitle1, compatibleWith: traitCollection)))
                             .foregroundColor(viewModel.displaySet.color2)
                         HStack {
-                            if let icon = viewModel.displaySet.icon {
+                            if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .mediumSubheadline, compatibleWith: traitCollection, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
                                 Image(uiImage: icon)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(maxHeight: 21)
+                                    .foregroundStyle(viewModel.displaySet.color2)
                             }
                             if let subtitle = viewModel.displaySet.subtitle {
                                 Text(subtitle)
-                                    .font(Font(WMFFont.for(.caption1)))
+                                    .font(Font(WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)))
                                     .foregroundColor(viewModel.displaySet.color2)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
@@ -459,7 +485,7 @@ public struct WMFReadingChallengeWidgetView: View {
                                let button1URL = viewModel.displaySet.button1URL {
                                 Link(destination: button1URL) {
                                         Text(button1Title)
-                                            .font(Font(WMFFont.for(.footnote)))
+                                            .font(Font(WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)))
                                             .foregroundColor(buttonForeground)
                                     .padding(.horizontal, 14).padding(.vertical, 8)
                                     .frame(maxWidth: .infinity)
@@ -499,12 +525,12 @@ public struct WMFReadingChallengeWidgetView: View {
                     HStack(alignment: .top, spacing: 10) {
                         VStack(alignment: .leading, spacing: 8) {
                             Text(viewModel.displaySet.title)
-                                .font(Font(WMFFont.for(.boldFootnote)))
+                                .font(Font(WMFFont.for(.boldFootnote, compatibleWith: traitCollection)))
                                 .foregroundColor(viewModel.displaySet.color2)
                                 .fixedSize(horizontal: false, vertical: true)
                             if let subtitle = viewModel.displaySet.subtitle {
                                 Text(subtitle)
-                                    .font(Font(WMFFont.for(.caption1)))
+                                    .font(Font(WMFFont.for(.caption1, compatibleWith: traitCollection)))
                                     .foregroundColor(viewModel.displaySet.color2)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
@@ -525,7 +551,7 @@ public struct WMFReadingChallengeWidgetView: View {
                        let button1URL = viewModel.displaySet.button1URL {
                         Link(destination: button1URL) {
                             Text(button1Title)
-                                .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                .font(Font(WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)))
                                 .foregroundColor(buttonForeground)
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 8)
@@ -563,14 +589,14 @@ public struct WMFReadingChallengeWidgetView: View {
                                         .foregroundStyle(viewModel.displaySet.color2)
                                 }
                                 Text(viewModel.displaySet.title)
-                                    .font(Font(WMFFont.for(.boldTitle3)))
+                                    .font(Font(WMFFont.for(.boldTitle3, compatibleWith: traitCollection)))
                                     .foregroundColor(viewModel.displaySet.color2)
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.leading)
                             }
                             if let subtitle = viewModel.displaySet.subtitle {
                                 Text(subtitle)
-                                    .font(Font(WMFFont.for(.caption1)))
+                                    .font(Font(WMFFont.for(.caption1, compatibleWith: traitCollection)))
                                     .foregroundColor(viewModel.displaySet.color2)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
@@ -600,7 +626,7 @@ public struct WMFReadingChallengeWidgetView: View {
                                         .foregroundStyle(buttonForeground)
                                         .frame(width: 14, height: 14)
                                     Text(button1Title)
-                                        .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                        .font(Font(WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)))
                                         .foregroundColor(buttonForeground)
                                 }
                                 .padding(.horizontal, 14).padding(.vertical, 8).frame(maxWidth: .infinity).background(buttonBackground).clipShape(Capsule())
@@ -617,7 +643,7 @@ public struct WMFReadingChallengeWidgetView: View {
                                         .foregroundStyle(buttonForeground)
                                         .frame(width: 14, height: 14)
                                     Text(button2Title)
-                                        .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                        .font(Font(WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)))
                                         .foregroundColor(buttonForeground)
                                 }
                                 .padding(.horizontal, 14).padding(.vertical, 8).frame(maxWidth: .infinity).background(buttonBackground).clipShape(Capsule())
@@ -645,14 +671,14 @@ public struct WMFReadingChallengeWidgetView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             HStack(spacing: 4) {
                                 Text(viewModel.displaySet.title)
-                                    .font(Font(WMFFont.for(.boldTitle3)))
+                                    .font(Font(WMFFont.for(.boldTitle3, compatibleWith: traitCollection)))
                                     .foregroundColor(viewModel.displaySet.color2)
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.leading)
                             }
                             if let subtitle = viewModel.displaySet.subtitle {
                                 Text(subtitle)
-                                    .font(Font(WMFFont.for(.caption1)))
+                                    .font(Font(WMFFont.for(.caption1, compatibleWith: traitCollection)))
                                     .foregroundColor(viewModel.displaySet.color2)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
@@ -682,7 +708,7 @@ public struct WMFReadingChallengeWidgetView: View {
                                         .foregroundStyle(buttonForeground)
                                         .frame(width: 14, height: 14)
                                     Text(button1Title)
-                                        .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                        .font(Font(WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)))
                                         .foregroundColor(buttonForeground)
                                 }
                                 .padding(.horizontal, 14).padding(.vertical, 8).frame(maxWidth: .infinity).background(buttonBackground).clipShape(Capsule())
@@ -699,7 +725,7 @@ public struct WMFReadingChallengeWidgetView: View {
                                         .foregroundStyle(buttonForeground)
                                         .frame(width: 14, height: 14)
                                     Text(button2Title)
-                                        .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                        .font(Font(WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)))
                                         .foregroundColor(buttonForeground)
                                 }
                                 .padding(.horizontal, 14).padding(.vertical, 8).frame(maxWidth: .infinity).background(buttonBackground).clipShape(Capsule())
@@ -730,14 +756,16 @@ public struct WMFReadingChallengeWidgetView: View {
                     HStack(spacing: 0) {
                         VStack(alignment: .leading, spacing: 0) {
                             HStack(spacing: 3) {
-                                if let icon = WMFSFSymbolIcon.for(symbol: .trophy, font: .boldCaption1, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                                if let icon = WMFSFSymbolIcon.for(symbol: .trophy, font: .boldCaption1, compatibleWith: traitCollection, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
                                     Image(uiImage: icon)
-                                        .font(Font(WMFFont.for(.boldCaption1)))
-                                        .foregroundColor(viewModel.displaySet.color2)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxHeight: 16)
+                                        .foregroundStyle(viewModel.displaySet.color2)
                                 }
                                 if let subtitle = viewModel.displaySet.subtitle {
                                     Text(subtitle)
-                                        .font(Font(WMFFont.for(.boldCaption1)))
+                                        .font(Font(WMFFont.for(.boldCaption1, compatibleWith: traitCollection)))
                                         .foregroundColor(viewModel.displaySet.color2)
                                 }
                             }
@@ -746,12 +774,15 @@ public struct WMFReadingChallengeWidgetView: View {
                             Spacer()
 
                             HStack(spacing: 3) {
-                                if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                                if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1, compatibleWith: traitCollection, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
                                     Image(uiImage: icon)
-                                        .foregroundColor(viewModel.displaySet.color2)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxHeight: 34)
+                                        .foregroundStyle(viewModel.displaySet.color2)
                                 }
                                 Text(viewModel.displaySet.title)
-                                    .font(Font(WMFFont.for(.boldTitle1)))
+                                    .font(Font(WMFFont.for(.boldTitle1, compatibleWith: traitCollection)))
                                     .foregroundColor(viewModel.displaySet.color2)
                                     .multilineTextAlignment(.leading)
                             }
@@ -801,7 +832,7 @@ public struct WMFReadingChallengeWidgetView: View {
                     .foregroundStyle(viewModel.displaySet.color2)
             }
             Text("\(number)")
-                .font(Font(WMFFont.for(.boldCaption1)))
+                .font(Font(WMFFont.for(.boldCaption1, compatibleWith: traitCollection)))
                 .foregroundColor(viewModel.displaySet.color2)
                 .padding(.top, 2)
         }
@@ -828,27 +859,31 @@ public struct WMFReadingChallengeWidgetView: View {
                             }
                             Text(viewModel.displaySet.title)
                                 .font(mediumTitleFont)
+                                .fixedSize(horizontal: false, vertical: true)
                                 .foregroundColor(viewModel.displaySet.color2)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         Spacer()
                         if let subtitle = viewModel.displaySet.subtitle {
                             HStack(spacing: 4) {
-                                if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .semiboldCaption1, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                                if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .mediumSubheadline, compatibleWith: traitCollection, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
                                     Image(uiImage: icon)
-                                        .foregroundColor(viewModel.displaySet.color2)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxHeight: 20)
+                                        .foregroundStyle(viewModel.displaySet.color2)
                                 }
                                 Text(subtitle)
-                                    .font(Font(WMFFont.for(.semiboldCaption1)))
+                                    .font(Font(WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)))
                                     .foregroundColor(viewModel.displaySet.color2)
                             }
                             .padding(.horizontal, 14).padding(.vertical, 8)
-                            .frame(maxWidth: .infinity, alignment: .center)
                             .background(viewModel.displaySet.color3 ?? viewModel.displaySet.color2)
                             .clipShape(Capsule())
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    
                     if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
                         Image(uiImage: uiImage)
                             .resizable()
