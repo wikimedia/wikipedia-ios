@@ -180,7 +180,6 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
         
         let viewModel = makeWidgetAnnouncementViewModel()
 
-        // Wrap actions to dismiss the controller
         viewModel.primaryButtonAction = { [weak self] in
             self?.navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
                 self?.onComplete?(true)
@@ -194,10 +193,11 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
 
         let controller = WMFFeatureAnnouncementViewController(viewModel: viewModel)
 
+        controller.modalPresentationStyle = .pageSheet
+
         if let sheet = controller.sheetPresentationController {
             if UIDevice.current.userInterfaceIdiom == .pad {
                 sheet.detents = [.large()]
-                // controller.preferredContentSize = CGSize(width: 640, height: 720)
             } else {
                 sheet.detents = [.medium(), .large()]
             }
@@ -206,14 +206,14 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
             sheet.prefersScrollingExpandsWhenScrolledToEdge = false
         }
 
-        controller.modalPresentationStyle = .pageSheet
-        
-        navigationController.present(controller, animated: true)
-        
+        navigationController.present(controller, animated: true) { [weak self] in
+            controller.preferredContentSize = .zero
+        }
     }
-    
+
     private func makeWidgetAnnouncementViewModel() -> WMFFeatureAnnouncementViewModel {
-        WMFFeatureAnnouncementViewModel(
+        let isIPad = UIDevice.current.userInterfaceIdiom == .pad
+        return WMFFeatureAnnouncementViewModel(
             title: WMFLocalizedString(
                 "reading-challenge-widget-announcement-title",
                 value: "Install the 25-day reading challenge widget",
@@ -227,7 +227,7 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
             primaryButtonTitle: CommonStrings.gotItButtonTitle,
             image: UIImage(named: "readingChallengeWidget"),
             backgroundImage: UIImage(named: "readingChallengeBackground"),
-            backgroundImageHeight: 220,
+            backgroundImageHeight: isIPad ? 320 : 220,
             primaryButtonAction: {},
             closeButtonAction: nil
         )
