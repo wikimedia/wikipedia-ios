@@ -5,6 +5,9 @@ on:
     branches:
       - 'main'
       - 'liquid-glass'
+  push:
+    branches:
+      - 'main'
   workflow_dispatch:
 
 env:
@@ -41,9 +44,121 @@ jobs:
               -scheme ${{ matrix.scheme }} \
               -project Wikipedia.xcodeproj \
               -destination "platform=iOS Simulator,name=$SIMULATOR,OS=$IOS_VERSION" \
+              -resultBundlePath "${{ matrix.scheme }}_TestResults" \
               | xcpretty
             EXIT_CODE=${PIPESTATUS[0]}
             if [ $EXIT_CODE -ne 0 ]; then
               exit $EXIT_CODE
             fi
           done
+
+      - name: Coverage summary
+        if: success()
+        run: |
+          python3 - <<'PYEOF'
+          import json, subprocess, sys, os
+
+          result = subprocess.run(
+              ["xcrun", "xccov", "view", "--report", "--json", "${{ matrix.scheme }}_TestResults.xcresult"],
+              capture_output=True, text=True
+          )
+          if result.returncode != 0:
+              print("xccov failed:", result.stderr, file=sys.stderr)
+              sys.exit(result.returncode)
+
+          report = json.loads(result.stdout)
+
+          # Load baseline
+          baseline = {}
+          try:
+              with open(".github/coverage_baseline.json") as f:
+                  baseline = json.load(f).get("${{ matrix.scheme }}", {})
+          except (FileNotFoundError, json.JSONDecodeError):
+              pass
+
+          current = {}
+          lines = []
+          lines.append("### ${{ matrix.scheme }} Code Coverage")
+          lines.append("")
+          lines.append("| Target | Coverage | Delta |")
+          lines.append("|--------|----------|-------|")
+          for target in report.get("targets", []):
+              name = target["name"]
+              if name.endswith(".xctest") or name.endswith("Tests"):
+                  continue
+              pct = target.get("lineCoverage", 0) * 100
+              current[name] = round(pct, 2)
+              prev = baseline.get(name)
+              if prev is not None:
+                  delta = pct - prev
+                  sign = "+" if delta >= 0 else ""
+                  delta_str = f"{sign}{delta:.1f}%"
+              else:
+                  delta_str = "—"
+              lines.append(f"| {name} | {pct:.1f}% | {delta_str} |")
+          lines.append("")
+
+          md = "\n".join(lines)
+          print(md)
+
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
+              f.write(md + "\n")
+
+          # Save current coverage for baseline update
+          with open("${{ matrix.scheme }}_coverage.json", "w") as f:
+              json.dump({"${{ matrix.scheme }}": current}, f)
+          PYEOF
+
+      - name: Upload coverage data
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.scheme }}-coverage
+          path: ${{ matrix.scheme }}_coverage.json
+          if-no-files-found: error
+
+  update-baseline:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: run-unit-tests
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download coverage artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*-coverage'
+          merge-multiple: true
+
+      - name: Update baseline
+        run: |
+          python3 - <<'PYEOF'
+          import json, glob
+          import sys
+
+          merged = {}
+          coverage_files = glob.glob("*_coverage.json")
+          if not coverage_files:
+              print("No coverage artifacts found", file=sys.stderr)
+              sys.exit(1)
+
+          for f in coverage_files:
+              with open(f) as fh:
+                  merged.update(json.load(fh))
+
+          with open(".github/coverage_baseline.json", "w") as f:
+              json.dump(merged, f, indent=2, sort_keys=True)
+              f.write("\n")
+          PYEOF
+
+      - name: Commit baseline
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .github/coverage_baseline.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Update code coverage baseline [skip ci]"
+          git push
