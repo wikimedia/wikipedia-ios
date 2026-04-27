@@ -392,6 +392,50 @@ import WMFTestKitchen
     }
 
     /**
+     * Flushes all stored events to the server immediately.
+     *
+     * Call this from app extensions (e.g. widget extensions) before invoking the extension's
+     * completion handler so the process stays alive until the network round-trip finishes.
+     */
+    public func flushStoredEvents(completion: (() -> Void)? = nil) {
+        guard let storageManager = self.storageManager else {
+            completion?()
+            return
+        }
+
+        let events = storageManager.popAll()
+        guard !events.isEmpty else {
+            completion?()
+            return
+        }
+
+        let group = DispatchGroup()
+        let url = EventPlatformClient.eventIntakeURI
+
+        for event in events {
+            group.enter()
+            httpPost(url: url, body: event.data) { [weak storageManager] result in
+                defer { group.leave() }
+                switch result {
+                case .success:
+                    storageManager?.markPurgeable(event: event)
+                case .failure(let error):
+                    switch error {
+                    case .networkingLibraryError:
+                        break // leave in store to retry
+                    default:
+                        storageManager?.markPurgeable(event: event)
+                    }
+                }
+            }
+        }
+
+        group.notify(queue: queue) {
+            completion?()
+        }
+    }
+
+    /**
      * Flush the queue of outgoing requests in a first-in-first-out,
      * fire-and-forget fashion
      */

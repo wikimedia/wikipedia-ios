@@ -49,6 +49,16 @@ struct ReadingChallengeProvider: TimelineProvider {
 
             let entry = ReadingChallengeEntry(date: Date(), state: state)
             let timeline = Timeline(entries: [entry], policy: .after(nextMidnight))
+
+            // Flush events stored by fetchReadingChallengeState to the server before calling
+            // completion — once the completion block returns the widget extension process may
+            // be suspended, killing any in-flight tasks.
+            await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+                EventPlatformClient.shared.flushStoredEvents {
+                    continuation.resume()
+                }
+            }
+
             completion(timeline)
         }
     }
