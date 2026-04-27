@@ -1,5 +1,6 @@
 import UIKit
 import WMFTestKitchen
+import WMFData
 import CocoaLumberjackSwift
 
 @objc public class TestKitchenAdapter: NSObject, ClientDataCallback, EventSender {
@@ -20,7 +21,7 @@ import CocoaLumberjackSwift
     // MARK: - ClientDataCallback
 
     public func getAgentData() -> AgentData? {
-        let appInstallId = UserDefaults.standard.wmf_appInstallId
+        let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
         let versionName = WikipediaAppUtils.versionName()
         let buildNumber = Int(Bundle.main.wmf_bundleVersion() ?? "0")
         let deviceFamily = WikipediaAppUtils.formFactor()
@@ -56,7 +57,7 @@ import CocoaLumberjackSwift
 
         return AgentData(
             appFlavor: appFlavor,
-            appInstallId: appInstallId,
+            appInstallId: appInstallID,
             appTheme: UserDefaults.standard.themeAnalyticsName,
             appVersion: buildNumber,
             appVersionName: versionName,

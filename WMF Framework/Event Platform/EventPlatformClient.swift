@@ -642,9 +642,9 @@ import WMFTestKitchen
             return
         }
 
-        let userDefaults = UserDefaults.standard
+        let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
 
-        guard let appInstallID = userDefaults.wmf_appInstallId else {
+        guard let appInstallID else {
             DDLogError("EPC: App install ID is unset. This shouldn't happen.")
             return
         }
