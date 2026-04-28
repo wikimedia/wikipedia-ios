@@ -189,7 +189,9 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
         
         if UIDevice.current.userInterfaceIdiom == .pad {
             controller.modalPresentationStyle = .formSheet
-            controller.preferredContentSize = CGSize(width: 540, height: 560)
+            
+            controller.preferredContentSize = CGSize(width: 540, height: 0)
+
             navigationController.present(controller, animated: true)
         } else {
             controller.modalPresentationStyle = .pageSheet
@@ -330,36 +332,29 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
 
     // MARK: - UI
 
-    private let closeButton: UIButton = {
-        let symbolConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
-        let image = UIImage(systemName: "xmark", withConfiguration: symbolConfig)
-        var config = UIButton.Configuration.plain()
-        config.image = image
-        let b = UIButton(configuration: config)
-        b.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var closeButtonHostingController: UIHostingController<WMFLargeCloseButton> = {
+        guard let button = WMFLargeCloseButton(
+            imageType: .plainX,
+            action: { [weak self] in
+                self?.dismiss(animated: true) {
+                    self?.closeButtonAction?()
+                }
+            }
+        ) else {
+            fatalError("Failed to create WMFLargeCloseButton")
+        }
 
-        // Liquid glass effect via UIVisualEffectView background
-        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
-        blur.translatesAutoresizingMaskIntoConstraints = false
-        blur.isUserInteractionEnabled = false
-        blur.layer.cornerRadius = 20
-        blur.clipsToBounds = true
-        b.insertSubview(blur, at: 0)
-        NSLayoutConstraint.activate([
-            blur.topAnchor.constraint(equalTo: b.topAnchor),
-            blur.bottomAnchor.constraint(equalTo: b.bottomAnchor),
-            blur.leadingAnchor.constraint(equalTo: b.leadingAnchor),
-            blur.trailingAnchor.constraint(equalTo: b.trailingAnchor)
-        ])
-
-        return b
+        let hostingController = UIHostingController(rootView: button)
+        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        hostingController.view.backgroundColor = .clear
+        return hostingController
     }()
 
     private let titleLabel: UILabel = {
         let l = UILabel()
         l.translatesAutoresizingMaskIntoConstraints = false
         l.numberOfLines = 0
-        l.textAlignment = .left
+        l.textAlignment = .natural
         return l
     }()
 
@@ -367,7 +362,7 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
         let l = UILabel()
         l.translatesAutoresizingMaskIntoConstraints = false
         l.numberOfLines = 0
-        l.textAlignment = .left
+        l.textAlignment = .natural
         return l
     }()
 
@@ -405,6 +400,8 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        addChild(closeButtonHostingController)
+        closeButtonHostingController.didMove(toParent: self)
         setupLayout()
         applyContent()
     }
@@ -412,7 +409,8 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
     // MARK: - Layout
 
     private func setupLayout() {
-        view.addSubview(closeButton)
+
+        view.addSubview(closeButtonHostingController.view)
         view.addSubview(titleLabel)
         view.addSubview(bodyLabel)
         view.addSubview(backgroundImageView)
@@ -420,23 +418,24 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
         view.addSubview(primaryButton)
 
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            closeButton.widthAnchor.constraint(equalToConstant: 40),
-            closeButton.heightAnchor.constraint(equalToConstant: 40),
+            closeButtonHostingController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            closeButtonHostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
 
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
-            titleLabel.leadingAnchor.constraint(equalTo: closeButton.trailingAnchor, constant: 8),
+            titleLabel.topAnchor.constraint(equalTo: closeButtonHostingController.view.bottomAnchor, constant: 12),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
-            bodyLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2),
+            bodyLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
             bodyLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             bodyLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
-            backgroundImageView.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 2),
+            backgroundImageView.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 8),
             backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            backgroundImageView.bottomAnchor.constraint(equalTo: primaryButton.topAnchor, constant: -16),
+            backgroundImageView.heightAnchor.constraint(
+                equalTo: backgroundImageView.widthAnchor,
+                multiplier: 2.0 / 3.0
+            ),
 
             widgetImageView.centerXAnchor.constraint(equalTo: backgroundImageView.centerXAnchor),
             widgetImageView.centerYAnchor.constraint(equalTo: backgroundImageView.centerYAnchor),
@@ -445,10 +444,10 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
 
             primaryButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             primaryButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            primaryButton.topAnchor.constraint(greaterThanOrEqualTo: backgroundImageView.bottomAnchor, constant: 16),
             primaryButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
 
-        closeButton.addTarget(self, action: #selector(handleClose), for: .touchUpInside)
         primaryButton.addTarget(self, action: #selector(handlePrimary), for: .touchUpInside)
     }
 
@@ -462,9 +461,6 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
         bodyLabel.text = bodyText
         bodyLabel.font = WMFFont.for(.subheadline)
         bodyLabel.textColor = theme.colors.secondaryText
-
-        // Close button tint — adapts to theme
-        closeButton.tintColor = theme.colors.secondaryText
 
         backgroundImageView.image = backgroundImage
         widgetImageView.image = image

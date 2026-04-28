@@ -100,8 +100,8 @@ final class CollectPrizeViewController: UIViewController, Themeable {
         prizeImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 
         NSLayoutConstraint.activate([
-            closeButtonHostingController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            closeButtonHostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            closeButtonHostingController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            closeButtonHostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
 
             titleLabel.centerYAnchor.constraint(equalTo: closeButtonHostingController.view.centerYAnchor),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
