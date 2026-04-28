@@ -3,6 +3,7 @@ import WMFData
 import WMFComponents
 import WMF
 import WMFNativeLocalizations
+import SwiftUI
 
 @MainActor
 final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
@@ -11,10 +12,7 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
     private let dataStore: MWKDataStore
     private let theme: Theme
     
-    // If announcement is displaying from the user tapping the widget join button, set to true.
-    // This will internally ignore the hasAlreadySeen user default, and prevent the followup widget announcement from displaying after joining.
     private let fromWidgetJoinChallengeButton: Bool
-    
     private let isLoggedIn: Bool
 
     init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fromWidgetJoinChallengeButton: Bool, isLoggedIn: Bool) {
@@ -25,30 +23,20 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
         self.isLoggedIn = isLoggedIn
     }
 
-    // This action will be called when this coordinator has finished evaluating, whether it presents something or not. It gives callers a chance to run followup code such as presenting less-important modals.
-    // The boolean flag indicates if the coordinator did present something or not:
-        // If it determines the announcement should not present (either because of date or has already seen the announcement), this completion will run with the FALSE boolean.
-        // If announcement did present, it is called after all modals (both reading challenge announcement and widget announcement) have been dismissed. In this case it will run with the TRUE boolean.
-    
     var onComplete: ((Bool) -> Void)?
     
     @discardableResult
     func start() -> Bool {
         
         Task { [weak self] in
-            
             guard let self else { return }
-            
-            if fromWidgetJoinChallengeButton { // go straight to announcement, don't gate on any other logic
+            if fromWidgetJoinChallengeButton {
                 presentFullPageAnnouncement()
             } else {
-                
-                // Check that announcement has not already been seen and dates are valid.
                 guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement() else {
                     self.onComplete?(false)
                     return
                 }
-                
                 presentFullPageAnnouncement()
             }
         }
@@ -145,8 +133,6 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
 
         let navController = WMFComponentNavigationController(rootViewController: onboardingController, modalPresentationStyle: .pageSheet)
 
-        // Mark seen immediately on presentation so it won't show again
-        // even if user backgrounds the app or swipe-dismisses
         markSeen()
 
         navigationController.present(navController, animated: true) {
@@ -177,43 +163,7 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
     // MARK: - Widget Announcement
     
     private func presentWidgetAnnouncement() {
-        
-        let viewModel = makeWidgetAnnouncementViewModel()
-
-        // Wrap actions to dismiss the controller
-        viewModel.primaryButtonAction = { [weak self] in
-            self?.navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
-                self?.onComplete?(true)
-            }
-        }
-        viewModel.closeButtonAction = { [weak self] in
-            self?.navigationController.dismiss(animated: true) {
-                self?.onComplete?(true)
-            }
-        }
-
-        let controller = WMFFeatureAnnouncementViewController(viewModel: viewModel)
-
-        if let sheet = controller.sheetPresentationController {
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                sheet.detents = [.large()]
-                // controller.preferredContentSize = CGSize(width: 640, height: 720)
-            } else {
-                sheet.detents = [.medium(), .large()]
-            }
-            sheet.prefersGrabberVisible = true
-            sheet.preferredCornerRadius = 16
-            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-        }
-
-        controller.modalPresentationStyle = .pageSheet
-        
-        navigationController.present(controller, animated: true)
-        
-    }
-    
-    private func makeWidgetAnnouncementViewModel() -> WMFFeatureAnnouncementViewModel {
-        WMFFeatureAnnouncementViewModel(
+        let controller = ReadingChallengeWidgetAnnouncementViewController(
             title: WMFLocalizedString(
                 "reading-challenge-widget-announcement-title",
                 value: "Install the 25-day reading challenge widget",
@@ -227,10 +177,30 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
             primaryButtonTitle: CommonStrings.gotItButtonTitle,
             image: UIImage(named: "readingChallengeWidget"),
             backgroundImage: UIImage(named: "readingChallengeBackground"),
-            backgroundImageHeight: 220,
-            primaryButtonAction: {},
-            closeButtonAction: nil
+            backgroundImageHeight: 320,
+            theme: theme
         )
+        controller.primaryButtonAction = { [weak self] in
+            self?.onComplete?(true)
+        }
+        controller.closeButtonAction = { [weak self] in
+            self?.onComplete?(true)
+        }
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            controller.modalPresentationStyle = .formSheet
+            controller.preferredContentSize = CGSize(width: 540, height: 560)
+            navigationController.present(controller, animated: true)
+        } else {
+            controller.modalPresentationStyle = .pageSheet
+            if let sheet = controller.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+                sheet.prefersGrabberVisible = true
+                sheet.preferredCornerRadius = 16
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            }
+            navigationController.present(controller, animated: true)
+        }
     }
 }
 
@@ -262,15 +232,11 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
                     let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme, loggingCategory: .login)
                     
                     loginCoordinator.loginSuccessCompletion = { [weak self] in
-                        
                         guard let self else { return }
-                        
                         if let loginVC = self.navigationController.presentedViewController {
                             loginVC.dismiss(animated: true) { [weak self] in
                                 guard let self else { return }
-                                
                                 enroll()
-                                
                                 if !fromWidgetJoinChallengeButton {
                                     presentWidgetAnnouncement()
                                 } else {
@@ -278,19 +244,14 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
                                 }
                             }
                         }
-                        
-                        
                     }
                     
                     loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
                         guard let self else { return }
-                        
                         if let createAccountVC = self.navigationController.presentedViewController {
                             createAccountVC.dismiss(animated: true) { [weak self] in
                                 guard let self else { return }
-                                
                                 enroll()
-                                
                                 if !fromWidgetJoinChallengeButton {
                                     presentWidgetAnnouncement()
                                 } else {
@@ -327,5 +288,214 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
 
         navigationController.presentedViewController?.children.first.flatMap { $0 as? UINavigationController }?.pushViewController(webVC, animated: true)
         ?? (navigationController.presentedViewController as? UINavigationController)?.pushViewController(webVC, animated: true)
+    }
+}
+
+// MARK: - Widget Announcement View Controller
+
+@MainActor
+final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
+
+    var primaryButtonAction: (() -> Void)?
+    var closeButtonAction: (() -> Void)?
+
+    private let titleText: String
+    private let bodyText: String
+    private let primaryButtonTitleText: String
+    private let image: UIImage?
+    private let backgroundImage: UIImage?
+    private let backgroundImageHeight: CGFloat
+    private let theme: Theme
+
+    init(
+        title: String,
+        body: String,
+        primaryButtonTitle: String,
+        image: UIImage?,
+        backgroundImage: UIImage?,
+        backgroundImageHeight: CGFloat,
+        theme: Theme
+    ) {
+        self.titleText = title
+        self.bodyText = body
+        self.primaryButtonTitleText = primaryButtonTitle
+        self.image = image
+        self.backgroundImage = backgroundImage
+        self.backgroundImageHeight = backgroundImageHeight
+        self.theme = theme
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) { fatalError() }
+
+    // MARK: - UI
+
+    private let closeButton: UIButton = {
+        let symbolConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
+        let image = UIImage(systemName: "xmark", withConfiguration: symbolConfig)
+        var config = UIButton.Configuration.plain()
+        config.image = image
+        let b = UIButton(configuration: config)
+        b.translatesAutoresizingMaskIntoConstraints = false
+
+        // Liquid glass effect via UIVisualEffectView background
+        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
+        blur.translatesAutoresizingMaskIntoConstraints = false
+        blur.isUserInteractionEnabled = false
+        blur.layer.cornerRadius = 20
+        blur.clipsToBounds = true
+        b.insertSubview(blur, at: 0)
+        NSLayoutConstraint.activate([
+            blur.topAnchor.constraint(equalTo: b.topAnchor),
+            blur.bottomAnchor.constraint(equalTo: b.bottomAnchor),
+            blur.leadingAnchor.constraint(equalTo: b.leadingAnchor),
+            blur.trailingAnchor.constraint(equalTo: b.trailingAnchor)
+        ])
+
+        return b
+    }()
+
+    private let titleLabel: UILabel = {
+        let l = UILabel()
+        l.translatesAutoresizingMaskIntoConstraints = false
+        l.numberOfLines = 0
+        l.textAlignment = .left
+        return l
+    }()
+
+    private let bodyLabel: UILabel = {
+        let l = UILabel()
+        l.translatesAutoresizingMaskIntoConstraints = false
+        l.numberOfLines = 0
+        l.textAlignment = .left
+        return l
+    }()
+
+    private let backgroundImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        iv.layer.cornerRadius = 14
+        return iv
+    }()
+
+    private let widgetImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.contentMode = .scaleAspectFit
+        iv.layer.shadowColor = UIColor.black.cgColor
+        iv.layer.shadowOpacity = 0.18
+        iv.layer.shadowOffset = CGSize(width: 0, height: 6)
+        iv.layer.shadowRadius = 12
+        iv.clipsToBounds = false
+        return iv
+    }()
+
+    private let primaryButton: UIButton = {
+        var config = UIButton.Configuration.filled()
+        config.cornerStyle = .capsule
+        config.contentInsets = NSDirectionalEdgeInsets(top: 14, leading: 20, bottom: 14, trailing: 20)
+        let b = UIButton(configuration: config)
+        b.translatesAutoresizingMaskIntoConstraints = false
+        return b
+    }()
+
+    // MARK: - Lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupLayout()
+        applyContent()
+    }
+
+    // MARK: - Layout
+
+    private func setupLayout() {
+        view.addSubview(closeButton)
+        view.addSubview(titleLabel)
+        view.addSubview(bodyLabel)
+        view.addSubview(backgroundImageView)
+        backgroundImageView.addSubview(widgetImageView)
+        view.addSubview(primaryButton)
+
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            closeButton.widthAnchor.constraint(equalToConstant: 40),
+            closeButton.heightAnchor.constraint(equalToConstant: 40),
+
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
+            titleLabel.leadingAnchor.constraint(equalTo: closeButton.trailingAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+
+            bodyLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2),
+            bodyLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            bodyLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+
+            backgroundImageView.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 2),
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            backgroundImageView.bottomAnchor.constraint(equalTo: primaryButton.topAnchor, constant: -16),
+
+            widgetImageView.centerXAnchor.constraint(equalTo: backgroundImageView.centerXAnchor),
+            widgetImageView.centerYAnchor.constraint(equalTo: backgroundImageView.centerYAnchor),
+            widgetImageView.widthAnchor.constraint(equalToConstant: 180),
+            widgetImageView.heightAnchor.constraint(equalToConstant: 180),
+
+            primaryButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            primaryButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            primaryButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+        ])
+
+        closeButton.addTarget(self, action: #selector(handleClose), for: .touchUpInside)
+        primaryButton.addTarget(self, action: #selector(handlePrimary), for: .touchUpInside)
+    }
+
+    // MARK: - Content
+
+    private func applyContent() {
+        titleLabel.text = titleText
+        titleLabel.font = WMFFont.for(.boldTitle3)
+        titleLabel.textColor = theme.colors.primaryText
+
+        bodyLabel.text = bodyText
+        bodyLabel.font = WMFFont.for(.subheadline)
+        bodyLabel.textColor = theme.colors.secondaryText
+
+        // Close button tint — adapts to theme
+        closeButton.tintColor = theme.colors.secondaryText
+
+        backgroundImageView.image = backgroundImage
+        widgetImageView.image = image
+
+        view.backgroundColor = theme.colors.paperBackground
+
+        var buttonConfig = primaryButton.configuration ?? UIButton.Configuration.filled()
+        buttonConfig.title = primaryButtonTitleText
+        buttonConfig.cornerStyle = .capsule
+        buttonConfig.contentInsets = NSDirectionalEdgeInsets(top: 14, leading: 20, bottom: 14, trailing: 20)
+        primaryButton.configuration = buttonConfig
+        primaryButton.configurationUpdateHandler = { [weak self] button in
+            guard let self else { return }
+            var config = button.configuration
+            config?.baseBackgroundColor = self.theme.colors.link
+            config?.baseForegroundColor = .white
+            button.configuration = config
+        }
+    }
+
+    // MARK: - Actions
+
+    @objc private func handleClose() {
+        dismiss(animated: true) { [weak self] in
+            self?.closeButtonAction?()
+        }
+    }
+
+    @objc private func handlePrimary() {
+        dismiss(animated: true) { [weak self] in
+            self?.primaryButtonAction?()
+        }
     }
 }
