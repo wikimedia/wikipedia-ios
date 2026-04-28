@@ -225,6 +225,7 @@ public struct WMFReadingChallengeWidgetView: View {
     private var incompleteSmallView: some View {
         ZStack {
             VStack(alignment: .center, spacing: 0) {
+                Spacer()
                 if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
                     Image(uiImage: uiImage)
                         .resizable()
@@ -241,15 +242,15 @@ public struct WMFReadingChallengeWidgetView: View {
                             .font(Font(WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)))
                             .foregroundColor(viewModel.displaySet.color2)
                     }
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 8)
+                    .padding(.vertical, 4)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .background(viewModel.displaySet.color3 ?? viewModel.displaySet.color2)
                     .clipShape(Capsule())
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding(.horizontal, 10)
-            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 14)
             wIconOverlay
         }
     }
@@ -873,10 +874,11 @@ public struct WMFReadingChallengeWidgetView: View {
                                     .font(Font(WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)))
                                     .foregroundColor(viewModel.displaySet.color2)
                             }
-                            .padding(.horizontal, 20)
+                            .padding(.horizontal, 10)
                             .padding(.vertical, 4)
                             .background(viewModel.displaySet.color3 ?? viewModel.displaySet.color2)
                             .clipShape(Capsule())
+                            .multilineTextAlignment(.center)
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -890,7 +892,7 @@ public struct WMFReadingChallengeWidgetView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(.horizontal, 20).padding(.vertical, 16)
+                .padding(16)
                 wIconOverlay
             }
             .frame(width: mediumCanvasWidth, height: mediumCanvasHeight)
