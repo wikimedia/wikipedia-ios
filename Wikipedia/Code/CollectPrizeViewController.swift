@@ -157,7 +157,7 @@ final class CollectPrizeViewController: UIViewController, Themeable {
         subtitleLabel.font = WMFFont.for(.subheadline)
         subtitleLabel.textColor = theme.colors.primaryText
         
-        closeButtonHostingController.view.backgroundColor = theme.colors.paperBackground
+        closeButtonHostingController.view.backgroundColor = .clear
         
         var config = primaryButton.configuration
         config?.baseBackgroundColor = theme.colors.link
