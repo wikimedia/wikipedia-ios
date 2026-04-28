@@ -79,7 +79,7 @@ extension UIViewController {
     }
 
     private func shouldSuppressForReadingChallenge() async -> Bool {
-        return await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement()
+        return await WMFActivityTabDataController.shared.isReadingChallengeActive()
     }
 
     @objc func wmf_showEnableReadingListSyncPanel(theme: Theme, oncePerLogin: Bool = false, didNotPresentPanelCompletion: (() -> Void)? = nil, dismissHandler: (() -> Void)? = nil) {
