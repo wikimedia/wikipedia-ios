@@ -162,12 +162,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         let show = { [weak self] in
             guard let self else { return }
             let prizeVC = CollectPrizeViewController(theme: self.theme)
-            prizeVC.modalPresentationStyle = .pageSheet
-            if let sheet = prizeVC.sheetPresentationController {
+            let navVC = WMFComponentNavigationController(rootViewController: prizeVC, modalPresentationStyle: .pageSheet)
+            if let sheet = navVC.sheetPresentationController {
                 sheet.detents = [.medium()]
                 sheet.prefersGrabberVisible = true
             }
-            self.present(prizeVC, animated: true)
+            self.present(navVC, animated: true)
         }
 
         if let presented = presentedViewController {
@@ -180,12 +180,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     @objc public func presentFeature() {
         guard let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn else { return }
         let prizeVC = CollectPrizeViewController(theme: theme)
-        prizeVC.modalPresentationStyle = .pageSheet
-        if let sheet = prizeVC.sheetPresentationController {
+        let navVC = WMFComponentNavigationController(rootViewController: prizeVC, modalPresentationStyle: .pageSheet)
+        if let sheet = navVC.sheetPresentationController {
             sheet.detents = [.medium()]
             sheet.prefersGrabberVisible = true
         }
-        present(prizeVC, animated: true)
+        present(navVC, animated: true)
     }
 
     public func makeAnEdit() {

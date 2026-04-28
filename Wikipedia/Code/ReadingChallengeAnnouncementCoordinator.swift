@@ -326,7 +326,7 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
 // MARK: - Widget Announcement View Controller
 
 @MainActor
-final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
+final class ReadingChallengeWidgetAnnouncementViewController: UIViewController, WMFNavigationBarConfiguring {
 
     var primaryButtonAction: (() -> Void)?
     var closeButtonAction: (() -> Void)?
@@ -361,18 +361,6 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
     required init?(coder: NSCoder) { fatalError() }
 
     // MARK: - UI
-
-    private lazy var closeButtonHostingController: UIHostingController<WMFLargeCloseButton> = {
-        guard let button = WMFLargeCloseButton(imageType: .plainX, action: { [weak self] in
-            self?.handleClose()
-        }) else {
-            fatalError("Failed to create WMFLargeCloseButton")
-        }
-        let hostingController = UIHostingController(rootView: button)
-        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-        hostingController.view.backgroundColor = .clear
-        return hostingController
-    }()
 
     private let titleLabel: UILabel = {
         let l = UILabel()
@@ -424,10 +412,13 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        addChild(closeButtonHostingController)
-        closeButtonHostingController.didMove(toParent: self)
         setupLayout()
         applyContent()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureNavigationBar()
     }
 
     override func viewDidLayoutSubviews() {
@@ -443,10 +434,33 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
         }
     }
 
+    // MARK: - Navigation Bar
+
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(
+            title: "",
+            customView: nil,
+            alignment: .hidden
+        )
+        let closeConfig = WMFLargeCloseButtonConfig(
+            imageType: .plainX,
+            target: self,
+            action: #selector(handleClose),
+            alignment: .leading
+        )
+        configureNavigationBar(
+            titleConfig: titleConfig,
+            closeButtonConfig: closeConfig,
+            profileButtonConfig: nil,
+            tabsButtonConfig: nil,
+            searchBarConfig: nil,
+            hideNavigationBarOnScroll: false
+        )
+    }
+
     // MARK: - Layout
 
     private func setupLayout() {
-        view.addSubview(closeButtonHostingController.view)
         view.addSubview(titleLabel)
         view.addSubview(bodyLabel)
         view.addSubview(backgroundImageView)
@@ -454,12 +468,7 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
         view.addSubview(primaryButton)
 
         NSLayoutConstraint.activate([
-            closeButtonHostingController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            closeButtonHostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            closeButtonHostingController.view.widthAnchor.constraint(equalToConstant: 44),
-            closeButtonHostingController.view.heightAnchor.constraint(equalToConstant: 44),
-
-            titleLabel.topAnchor.constraint(equalTo: closeButtonHostingController.view.bottomAnchor, constant: 12),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
@@ -521,7 +530,7 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
 
     // MARK: - Actions
 
-    private func handleClose() {
+    @objc func handleClose() {
         dismiss(animated: true) { [weak self] in
             self?.closeButtonAction?()
         }
