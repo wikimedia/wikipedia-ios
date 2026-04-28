@@ -189,9 +189,7 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
         
         if UIDevice.current.userInterfaceIdiom == .pad {
             controller.modalPresentationStyle = .formSheet
-            
             controller.preferredContentSize = CGSize(width: 540, height: 0)
-
             navigationController.present(controller, animated: true)
         } else {
             controller.modalPresentationStyle = .pageSheet
@@ -333,17 +331,11 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
     // MARK: - UI
 
     private lazy var closeButtonHostingController: UIHostingController<WMFLargeCloseButton> = {
-        guard let button = WMFLargeCloseButton(
-            imageType: .plainX,
-            action: { [weak self] in
-                self?.dismiss(animated: true) {
-                    self?.closeButtonAction?()
-                }
-            }
-        ) else {
+        guard let button = WMFLargeCloseButton(imageType: .plainX, action: { [weak self] in
+            self?.handleClose()
+        }) else {
             fatalError("Failed to create WMFLargeCloseButton")
         }
-
         let hostingController = UIHostingController(rootView: button)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         hostingController.view.backgroundColor = .clear
@@ -409,7 +401,6 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
     // MARK: - Layout
 
     private func setupLayout() {
-
         view.addSubview(closeButtonHostingController.view)
         view.addSubview(titleLabel)
         view.addSubview(bodyLabel)
@@ -420,6 +411,8 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
         NSLayoutConstraint.activate([
             closeButtonHostingController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             closeButtonHostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            closeButtonHostingController.view.widthAnchor.constraint(equalToConstant: 44),
+            closeButtonHostingController.view.heightAnchor.constraint(equalToConstant: 44),
 
             titleLabel.topAnchor.constraint(equalTo: closeButtonHostingController.view.bottomAnchor, constant: 12),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -444,7 +437,7 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
 
             primaryButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             primaryButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            primaryButton.topAnchor.constraint(greaterThanOrEqualTo: backgroundImageView.bottomAnchor, constant: 16),
+            primaryButton.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 16),
             primaryButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
 
@@ -483,7 +476,7 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
 
     // MARK: - Actions
 
-    @objc private func handleClose() {
+    private func handleClose() {
         dismiss(animated: true) { [weak self] in
             self?.closeButtonAction?()
         }

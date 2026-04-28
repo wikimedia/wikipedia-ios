@@ -124,7 +124,7 @@ final class CollectPrizeViewController: UIViewController, Themeable {
             primaryButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 24),
             primaryButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             primaryButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            primaryButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+            primaryButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
         ])
     }
     
