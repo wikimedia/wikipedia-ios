@@ -78,47 +78,57 @@ extension UIViewController {
         present(alert, animated: true)
     }
 
+    private func shouldSuppressForReadingChallenge() async -> Bool {
+        return await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement()
+    }
+
     @objc func wmf_showEnableReadingListSyncPanel(theme: Theme, oncePerLogin: Bool = false, didNotPresentPanelCompletion: (() -> Void)? = nil, dismissHandler: (() -> Void)? = nil) {
-        if oncePerLogin {
-            guard !UserDefaults.standard.wmf_didShowEnableReadingListSyncPanel() else {
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            guard await !self.shouldSuppressForReadingChallenge() else {
+                return
+            }
+            if oncePerLogin {
+                guard !UserDefaults.standard.wmf_didShowEnableReadingListSyncPanel() else {
+                    didNotPresentPanelCompletion?()
+                    return
+                }
+            }
+            let dataStore = MWKDataStore.shared()
+            let presenter = self.presentedViewController ?? self
+            guard !self.isAlreadyPresenting(presenter),
+                  dataStore.authenticationManager.authStateIsPermanent,
+                  dataStore.readingListsController.isSyncRemotelyEnabled,
+                  !dataStore.readingListsController.isSyncEnabled else {
                 didNotPresentPanelCompletion?()
                 return
             }
-        }
-        let dataStore = MWKDataStore.shared()
-        let presenter = self.presentedViewController ?? self
-        guard !isAlreadyPresenting(presenter),
-              dataStore.authenticationManager.authStateIsPermanent,
-              dataStore.readingListsController.isSyncRemotelyEnabled,
-              !dataStore.readingListsController.isSyncEnabled else {
-            didNotPresentPanelCompletion?()
-            return
-        }
 
-        let alert = UIAlertController(
-            title: WMFLocalizedString("reading-list-sync-enable-title", value: "Turn on reading list syncing?", comment: "Title describing reading list syncing."),
-            message: WMFLocalizedString("reading-list-sync-enable-subtitle", value: "Your saved articles and reading lists can now be saved to your Wikipedia account and synced across Wikipedia apps.", comment: "Subtitle describing reading list syncing."),
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: WMFLocalizedString("reading-list-sync-enable-button-title", value: "Enable syncing", comment: "Title for button enabling reading list syncing."), style: .default) { [weak self] _ in
-            guard let self else { return }
-            if self.hasSavedArticles() {
-                self.wmf_showAddSavedArticlesToReadingListAlert()
-            } else {
-                dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
-                SettingsFunnel.shared.logEnableSyncPopoverSyncEnabled()
-            }
-            dismissHandler?()
-        })
-        alert.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { _ in
-            dismissHandler?()
-        })
+            let alert = UIAlertController(
+                title: WMFLocalizedString("reading-list-sync-enable-title", value: "Turn on reading list syncing?", comment: "Title describing reading list syncing."),
+                message: WMFLocalizedString("reading-list-sync-enable-subtitle", value: "Your saved articles and reading lists can now be saved to your Wikipedia account and synced across Wikipedia apps.", comment: "Subtitle describing reading list syncing."),
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: WMFLocalizedString("reading-list-sync-enable-button-title", value: "Enable syncing", comment: "Title for button enabling reading list syncing."), style: .default) { [weak self] _ in
+                guard let self else { return }
+                if self.hasSavedArticles() {
+                    self.wmf_showAddSavedArticlesToReadingListAlert()
+                } else {
+                    dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                    SettingsFunnel.shared.logEnableSyncPopoverSyncEnabled()
+                }
+                dismissHandler?()
+            })
+            alert.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { _ in
+                dismissHandler?()
+            })
 
-        presenter.present(alert, animated: true, completion: {
-            UserDefaults.standard.wmf_setDidShowEnableReadingListSyncPanel(true)
-            UserDefaults.standard.wmf_setDidShowSyncDisabledPanel(true)
-            SettingsFunnel.shared.logEnableSyncPopoverImpression()
-        })
+            presenter.present(alert, animated: true, completion: {
+                UserDefaults.standard.wmf_setDidShowEnableReadingListSyncPanel(true)
+                UserDefaults.standard.wmf_setDidShowSyncDisabledPanel(true)
+                SettingsFunnel.shared.logEnableSyncPopoverImpression()
+            })
+        }
     }
 
     private func isAlreadyPresenting(_ presenter: UIViewController) -> Bool {
@@ -130,21 +140,27 @@ extension UIViewController {
     }
 
     fileprivate func wmf_showAddSavedArticlesToReadingListAlert() {
-        let dataStore = MWKDataStore.shared()
-        let alert = UIAlertController(
-            title: WMFLocalizedString("reading-list-add-saved-title", value: "Saved articles found", comment: "Title explaining saved articles were found."),
-            message: WMFLocalizedString("reading-list-add-saved-subtitle", value: "There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?", comment: "Subtitle explaining that saved articles can be added to reading lists."),
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: WMFLocalizedString("reading-list-add-saved-button-title", value: "Yes, add them to my reading lists", comment: "Title for button to add saved articles to reading list."), style: .default) { _ in
-            dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
-            SettingsFunnel.shared.logEnableSyncPopoverSyncEnabled()
-        })
-        alert.addAction(UIAlertAction(title: CommonStrings.readingListDoNotKeepSubtitle, style: .destructive) { _ in
-            dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
-            SettingsFunnel.shared.logEnableSyncPopoverSyncEnabled()
-        })
-        present(alert, animated: true)
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            guard await !self.shouldSuppressForReadingChallenge() else {
+                return
+            }
+            let dataStore = MWKDataStore.shared()
+            let alert = UIAlertController(
+                title: WMFLocalizedString("reading-list-add-saved-title", value: "Saved articles found", comment: "Title explaining saved articles were found."),
+                message: WMFLocalizedString("reading-list-add-saved-subtitle", value: "There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?", comment: "Subtitle explaining that saved articles can be added to reading lists."),
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: WMFLocalizedString("reading-list-add-saved-button-title", value: "Yes, add them to my reading lists", comment: "Title for button to add saved articles to reading list."), style: .default) { _ in
+                dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                SettingsFunnel.shared.logEnableSyncPopoverSyncEnabled()
+            })
+            alert.addAction(UIAlertAction(title: CommonStrings.readingListDoNotKeepSubtitle, style: .destructive) { _ in
+                dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
+                SettingsFunnel.shared.logEnableSyncPopoverSyncEnabled()
+            })
+            self.present(alert, animated: true)
+        }
     }
 
     func wmf_showLoginViewController(category: EventCategoryMEP? = nil, theme: Theme, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
@@ -177,21 +193,27 @@ extension UIViewController {
     }
 
     @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme, dismissHandler: (() -> Void)? = nil, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
-        LoginFunnel.shared.logLoginImpressionInSyncPopover()
-        let alert = UIAlertController(
-            title: WMFLocalizedString("reading-list-login-or-create-account-title", value: "Log in to sync saved articles", comment: "Title for syncing saved articles."),
-            message: CommonStrings.readingListLoginSubtitle,
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: CommonStrings.loginOrCreateAccountTitle, style: .default) { [weak self] _ in
-            self?.wmf_showLoginViewController(category: .loginToSyncPopover, theme: theme, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: loginDismissedCompletion)
-            LoginFunnel.shared.logLoginStartInSyncPopover()
-            dismissHandler?()
-        })
-        alert.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { _ in
-            dismissHandler?()
-        })
-        present(alert, animated: true)
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            guard await !self.shouldSuppressForReadingChallenge() else {
+                return
+            }
+            LoginFunnel.shared.logLoginImpressionInSyncPopover()
+            let alert = UIAlertController(
+                title: WMFLocalizedString("reading-list-login-or-create-account-title", value: "Log in to sync saved articles", comment: "Title for syncing saved articles."),
+                message: CommonStrings.readingListLoginSubtitle,
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: CommonStrings.loginOrCreateAccountTitle, style: .default) { [weak self] _ in
+                self?.wmf_showLoginViewController(category: .loginToSyncPopover, theme: theme, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: loginDismissedCompletion)
+                LoginFunnel.shared.logLoginStartInSyncPopover()
+                dismissHandler?()
+            })
+            alert.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { _ in
+                dismissHandler?()
+            })
+            self.present(alert, animated: true)
+        }
     }
 
 
