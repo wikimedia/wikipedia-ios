@@ -162,45 +162,77 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
     
     // MARK: - Widget Announcement
     
+    let title = WMFLocalizedString(
+        "reading-challenge-widget-announcement-title",
+        value: "Install the 25-day reading challenge widget",
+        comment: "Title for the reading challenge widget announcement sheet."
+    )
+    
+    let body = WMFLocalizedString(
+        "reading-challenge-widget-announcement-body",
+        value: "Baby Globe is cheering you on. Add the Reading Challenge widget to track your progress from your homescreen.",
+        comment: "Body text for the reading challenge widget announcement sheet."
+    )
+    
     private func presentWidgetAnnouncement() {
-        let controller = ReadingChallengeWidgetAnnouncementViewController(
-            title: WMFLocalizedString(
-                "reading-challenge-widget-announcement-title",
-                value: "Install the 25-day reading challenge widget",
-                comment: "Title for the reading challenge widget announcement sheet."
-            ),
-            body: WMFLocalizedString(
-                "reading-challenge-widget-announcement-body",
-                value: "Baby Globe is cheering you on. Add the Reading Challenge widget to track your progress from your homescreen.",
-                comment: "Body text for the reading challenge widget announcement sheet."
-            ),
-            primaryButtonTitle: CommonStrings.gotItButtonTitle,
-            image: UIImage(named: "readingChallengeWidget"),
-            backgroundImage: UIImage(named: "readingChallengeBackground"),
-            backgroundImageHeight: 320,
-            theme: theme
-        )
-        controller.primaryButtonAction = { [weak self] in
-            self?.onComplete?(true)
-        }
-        controller.closeButtonAction = { [weak self] in
-            self?.onComplete?(true)
-        }
-        
         if UIDevice.current.userInterfaceIdiom == .pad {
+            let controller = ReadingChallengeWidgetAnnouncementViewController(
+                title: title,
+                body: body,
+                primaryButtonTitle: CommonStrings.gotItButtonTitle,
+                image: UIImage(named: "readingChallengeWidget"),
+                backgroundImage: UIImage(named: "readingChallengeBackground"),
+                backgroundImageHeight: 320,
+                theme: theme
+            )
+            controller.primaryButtonAction = { [weak self] in
+                self?.onComplete?(true)
+            }
+            controller.closeButtonAction = { [weak self] in
+                self?.onComplete?(true)
+            }
             controller.modalPresentationStyle = .formSheet
             controller.preferredContentSize = CGSize(width: 540, height: 0)
             navigationController.present(controller, animated: true)
         } else {
-            controller.modalPresentationStyle = .pageSheet
+            let viewModel = makeWidgetAnnouncementViewModel()
+            let controller = WMFFeatureAnnouncementViewController(viewModel: viewModel)
             if let sheet = controller.sheetPresentationController {
-                sheet.detents = [.medium(), .large()]
+
+                viewModel.primaryButtonAction = { [weak self] in
+                    self?.navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
+                        self?.onComplete?(true)
+                    }
+                }
+                viewModel.closeButtonAction = { [weak self] in
+                    self?.navigationController.dismiss(animated: true) {
+                        self?.onComplete?(true)
+                    }
+                }
+                
                 sheet.prefersGrabberVisible = true
                 sheet.preferredCornerRadius = 16
                 sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+                
+                controller.modalPresentationStyle = .pageSheet
+                sheet.detents = [.medium()]
+                
+                navigationController.present(controller, animated: true)
             }
-            navigationController.present(controller, animated: true)
         }
+    }
+        
+    private func makeWidgetAnnouncementViewModel() -> WMFFeatureAnnouncementViewModel {
+        WMFFeatureAnnouncementViewModel(
+            title: title,
+            body: body,
+            primaryButtonTitle: CommonStrings.gotItButtonTitle,
+            image: UIImage(named: "readingChallengeWidget"),
+            backgroundImage: UIImage(named: "readingChallengeBackground"),
+            backgroundImageHeight: 220,
+            primaryButtonAction: {},
+            closeButtonAction: nil
+        )
     }
 }
 
