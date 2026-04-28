@@ -30,10 +30,10 @@ struct WMFFeatureAnnouncementView: View {
                     VStack(spacing: spacingForAvailableHeight(geometry.size.height)) {
                         VStack(alignment: .leading, spacing: 8) {
                             HStack {
-                                Spacer()
                                 WMFLargeCloseButton(imageType: .plainX) {
                                     viewModel.closeButtonAction?()
                                 }
+                                Spacer()
                             }
                             Text(viewModel.title)
                                 .font(Font(WMFFont.for(.boldTitle3)))
