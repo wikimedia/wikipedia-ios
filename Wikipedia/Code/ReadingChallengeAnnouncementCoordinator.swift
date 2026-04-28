@@ -398,6 +398,19 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
         applyContent()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let fittingSize = CGSize(width: view.bounds.width, height: UIView.layoutFittingCompressedSize.height)
+        let size = view.systemLayoutSizeFitting(
+            fittingSize,
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel
+        )
+        if preferredContentSize.height != size.height {
+            preferredContentSize = size
+        }
+    }
+
     // MARK: - Layout
 
     private func setupLayout() {
