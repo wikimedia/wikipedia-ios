@@ -216,6 +216,51 @@ extension UIViewController {
         }
     }
 
+    @objc(wmf_showSyncEnabledPanelOncePerLoginIfNeededWasSyncEnabledOnDevice:)
+    func wmf_showSyncEnabledPanelOncePerLoginIfNeeded(wasSyncEnabledOnDevice: Bool) {
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            guard await !self.shouldSuppressForReadingChallenge() else {
+                return
+            }
+            guard !wasSyncEnabledOnDevice, !UserDefaults.standard.wmf_didShowSyncEnabledPanel() else {
+                return
+            }
+            let presenter = self.presentedViewController ?? self
+            let alert = UIAlertController(
+                title: WMFLocalizedString("reading-list-sync-enabled-panel-title", value: "Sync is enabled on this account", comment: "Title for panel informing user that sync was enabled on their Wikipedia account on another device"),
+                message: WMFLocalizedString("reading-list-sync-enabled-panel-message", value: "Reading list syncing is enabled for this account. To stop syncing, you can turn sync off for this account by updating your settings.", comment: "Message for panel informing user that sync is enabled for their account."),
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: CommonStrings.gotItButtonTitle, style: .default, handler: nil))
+            presenter.present(alert, animated: true) {
+                UserDefaults.standard.wmf_setDidShowSyncEnabledPanel(true)
+            }
+        }
+    }
+
+    @objc(wmf_showSyncDisabledPanelIfNeededWasSyncEnabledOnDevice:)
+    func wmf_showSyncDisabledPanelIfNeeded(wasSyncEnabledOnDevice: Bool) {
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            guard await !self.shouldSuppressForReadingChallenge() else {
+                return
+            }
+            guard wasSyncEnabledOnDevice, !UserDefaults.standard.wmf_didShowSyncDisabledPanel() else {
+                return
+            }
+            let presenter = self.presentedViewController ?? self
+            let alert = UIAlertController(
+                title: WMFLocalizedString("reading-list-sync-disabled-panel-title", value: "Sync disabled", comment: "Title for panel informing user that sync was disabled on their Wikipedia account on another device"),
+                message: WMFLocalizedString("reading-list-sync-disabled-panel-message", value: "Reading list syncing has been disabled for your Wikipedia account on another device. You can turn sync back on by updating your settings.", comment: "Message for panel informing user that sync was disabled on their Wikipedia account on another device."),
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: CommonStrings.gotItButtonTitle, style: .default, handler: nil))
+            presenter.present(alert, animated: true) {
+                UserDefaults.standard.wmf_setDidShowSyncDisabledPanel(true)
+            }
+        }
+    }
 
     func wmf_showThankRevisionAuthorEducationPanel(theme: Theme, sendThanksHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
         let alert = UIAlertController(
