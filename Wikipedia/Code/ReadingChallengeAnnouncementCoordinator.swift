@@ -175,7 +175,7 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
     )
     
     private func presentWidgetAnnouncement() {
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad && navigationController.traitCollection.horizontalSizeClass == .regular {
             let controller = ReadingChallengeWidgetAnnouncementViewController(
                 title: title,
                 body: body,
