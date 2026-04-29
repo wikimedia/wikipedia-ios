@@ -1825,7 +1825,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         if ([scene isKindOfClass:[UIWindowScene class]]) {
             id delegate = ((UIWindowScene *)scene).delegate;
             if ([delegate respondsToSelector:@selector(setLastOpenSource:)]) {
-                [delegate performSelector:@selector(setLastOpenSource:) withObject:@"push"];
+                [delegate performSelector:@selector(setLastOpenSource:) withObject:@"notification"];
                 break;
             }
         }

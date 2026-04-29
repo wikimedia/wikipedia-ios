@@ -21,12 +21,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     private var appNeedsResume = true
-    // Tracks the most recent source used to open the app (deep link, widget, shortcut, push, etc.)
+    // Tracks the most recent source used to open the app (external_link, widget, shortcut, notification, etc.)
     // This is consumed when the scene becomes active to submit the apps-open instrument.
     private var lastOpenSource: String? = nil
     // Holds a pending app_open source when the data environment isn't ready yet (e.g. fresh install).
     // Consumed by dataEnvironmentDidSetup() once setup completes.
     private var pendingAppOpenSource: String? = nil
+    // Tracks whether the app was in the background before this activation cycle.
+    // Used to distinguish cold launch (app_icon) from background-to-foreground return (background).
+    private var wasInBackground = false
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
@@ -73,10 +76,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         appDelegate?.cancelPendingBackgroundTasks()
+        wasInBackground = true
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-
         appDelegate?.updateDynamicIconShortcutItems()
         appDelegate?.scheduleBackgroundAppRefreshTask()
         appDelegate?.scheduleDatabaseHousekeeperTask()
@@ -106,9 +109,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appViewController.showSplashView()
         var userInfo = userActivity.userInfo
         userInfo?[WMFRoutingUserInfoKeys.source] = WMFRoutingUserInfoSourceValue.deepLinkRawValue
-        // Only set deepLink source if not already set (e.g. by openURLContexts which may have extracted "widget" from the URL)
+        // Only set external_link source if not already set (e.g. by openURLContexts which may have extracted a widget source from the URL)
         if lastOpenSource == nil {
-            self.lastOpenSource = WMFRoutingUserInfoSourceValue.deepLinkRawValue
+            self.lastOpenSource = "external_link"
         }
         userActivity.userInfo = userInfo
         
@@ -148,12 +151,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         // Extract source from URL query parameters before any activity processing, so widget taps
-        // (which include source=widget) are not overwritten by processUserActivity setting "deepLink".
+        // (which include source=widget_*) are not overwritten by processUserActivity setting "external_link".
         if let components = URLComponents(url: firstURL, resolvingAgainstBaseURL: false),
            let sourceValue = components.queryItems?.first(where: { $0.name == "source" })?.value {
             self.lastOpenSource = sourceValue
         } else {
-            self.lastOpenSource = WMFRoutingUserInfoSourceValue.deepLinkRawValue
+            // URL opened from an external app (e.g. Chrome, Safari) with no source param.
+            self.lastOpenSource = "external_link"
         }
         
         // Try to derive an NSUserActivity for the URL and route accordingly.
@@ -178,10 +182,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     // Submit the TestKitchen "apps-open" instrument for app opens. This reads and consumes `lastOpenSource`.
     private func submitAppOpenIfNeeded() {
-        // Use a default source for foreground returns if none was recorded
-        let source = lastOpenSource ?? "foreground"
-        // Reset to avoid duplicate submissions
+        // If no specific entry point was recorded, determine the source from how the app was activated:
+        // - Cold launch with no external entry point → user tapped the app icon.
+        // - Warm foreground return with no external entry point → app came back from background.
+        let source: String
+        if let explicitSource = lastOpenSource {
+            source = explicitSource
+        } else if !wasInBackground {
+            // sceneWillEnterForeground was not called before this activation, so this is a cold launch.
+            source = "app_icon"
+        } else {
+            source = "background"
+        }
         lastOpenSource = nil
+        wasInBackground = false
 
         // On fresh install, the data environment (languages, mediawiki project) may not be ready yet
         // when sceneDidBecomeActive fires. Defer the submission until dataEnvironmentDidSetup() is called.
