@@ -2,7 +2,8 @@ import Foundation
 
 public actor WMFActivityTabDataController {
     public static let shared = WMFActivityTabDataController()
-    private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
+    private static let sharedGroupID = "group.org.wikimedia.wikipedia"
+    private var userDefaults: UserDefaults? { UserDefaults(suiteName: Self.sharedGroupID) }
     public var historyDataController: WMFHistoryDataController? = nil
 
     public init() {}
@@ -14,59 +15,23 @@ public actor WMFActivityTabDataController {
     // MARK: - Activity Tab Customization Toggles
 
     public var isTimeSpentReadingOn: Bool {
-        get {
-            return (try? userDefaultsStore?.load(
-                key: WMFUserDefaultsKey.activityTabIsTimeSpentReadingOn.rawValue
-            )) ?? true
-        }
-        set {
-            try? userDefaultsStore?.save(
-                key: WMFUserDefaultsKey.activityTabIsTimeSpentReadingOn.rawValue,
-                value: newValue
-            )
-        }
+        get { userDefaults?.object(forKey: WMFUserDefaultsKey.activityTabIsTimeSpentReadingOn.rawValue) as? Bool ?? true }
+        set { userDefaults?.set(newValue, forKey: WMFUserDefaultsKey.activityTabIsTimeSpentReadingOn.rawValue) }
     }
 
     public var isReadingInsightsOn: Bool {
-        get {
-            return (try? userDefaultsStore?.load(
-                key: WMFUserDefaultsKey.activityTabIsReadingInsightsOn.rawValue
-            )) ?? true
-        }
-        set {
-            try? userDefaultsStore?.save(
-                key: WMFUserDefaultsKey.activityTabIsReadingInsightsOn.rawValue,
-                value: newValue
-            )
-        }
+        get { userDefaults?.object(forKey: WMFUserDefaultsKey.activityTabIsReadingInsightsOn.rawValue) as? Bool ?? true }
+        set { userDefaults?.set(newValue, forKey: WMFUserDefaultsKey.activityTabIsReadingInsightsOn.rawValue) }
     }
 
     public var isEditingInsightsOn: Bool {
-        get {
-            return (try? userDefaultsStore?.load(
-                key: WMFUserDefaultsKey.activityTabIsEditingInsightsOn.rawValue
-            )) ?? true
-        }
-        set {
-            try? userDefaultsStore?.save(
-                key: WMFUserDefaultsKey.activityTabIsEditingInsightsOn.rawValue,
-                value: newValue
-            )
-        }
+        get { userDefaults?.object(forKey: WMFUserDefaultsKey.activityTabIsEditingInsightsOn.rawValue) as? Bool ?? true }
+        set { userDefaults?.set(newValue, forKey: WMFUserDefaultsKey.activityTabIsEditingInsightsOn.rawValue) }
     }
 
     public var isTimelineOfBehaviorOn: Bool {
-        get {
-            return (try? userDefaultsStore?.load(
-                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOn.rawValue
-            )) ?? true
-        }
-        set {
-            try? userDefaultsStore?.save(
-                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOn.rawValue,
-                value: newValue
-            )
-        }
+        get { userDefaults?.object(forKey: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOn.rawValue) as? Bool ?? true }
+        set { userDefaults?.set(newValue, forKey: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOn.rawValue) }
     }
 
     public func updateIsTimeSpentReadingOn(_ value: Bool) {
@@ -97,7 +62,6 @@ public actor WMFActivityTabDataController {
 
         let minutesRead = try await dataController.fetchPageViewMinutes(startDate: startDate, endDate: endDate)
 
-        // Turn total minutes into hours/minutes read
         let hours = minutesRead / 60
         let minutes = minutesRead % 60
 
@@ -143,19 +107,13 @@ public actor WMFActivityTabDataController {
     }
 
     public var hasSeenActivityTab: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenActivityTabNewOnboarding.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenActivityTabNewOnboarding.rawValue, value: newValue)
-        }
+        get { userDefaults?.object(forKey: WMFUserDefaultsKey.hasSeenActivityTabNewOnboarding.rawValue) as? Bool ?? false }
+        set { userDefaults?.set(newValue, forKey: WMFUserDefaultsKey.hasSeenActivityTabNewOnboarding.rawValue) }
     }
 
     private var seenHistoryCallout: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabSeenHistoryCallout.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabSeenHistoryCallout.rawValue, value: newValue)
-        }
+        get { userDefaults?.object(forKey: WMFUserDefaultsKey.activityTabSeenHistoryCallout.rawValue) as? Bool ?? false }
+        set { userDefaults?.set(newValue, forKey: WMFUserDefaultsKey.activityTabSeenHistoryCallout.rawValue) }
     }
 
     public func getNeedsHistoryCallout() -> Bool {
@@ -184,34 +142,31 @@ public actor WMFActivityTabDataController {
     public func getHasSeenActivityTab() -> Bool {
         return hasSeenActivityTab
     }
-    
+
     public func setHasSeenSurvey(value: Bool) {
         self.hasSeenSurvey = value
     }
-    
+
     private var hasSeenSurvey: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenActiviyTabSurvey.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenActiviyTabSurvey.rawValue, value: newValue)
-        }
+        get { userDefaults?.object(forKey: WMFUserDefaultsKey.hasSeenActiviyTabSurvey.rawValue) as? Bool ?? false }
+        set { userDefaults?.set(newValue, forKey: WMFUserDefaultsKey.hasSeenActiviyTabSurvey.rawValue) }
     }
-    
+
     public func shouldShowSurvey() -> Bool {
         let visitCount = activityTabVisitCount
         let alreadySeenSurvey = hasSeenSurvey
-        
+
         guard visitCount >= 3 && !alreadySeenSurvey else {
             return false
         }
-        
+
         if let surveyEndDate {
             return surveyEndDate >= Date()
         }
-        
+
         return false
     }
-    
+
     public var surveyEndDate: Date? {
         var dateComponents = DateComponents()
         dateComponents.year = 2026
@@ -219,15 +174,12 @@ public actor WMFActivityTabDataController {
         dateComponents.day = 15
         return Calendar.current.date(from: dateComponents)
     }
-    
+
     private var activityTabVisitCount: Int {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabVisitCount.rawValue)) ?? 0
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabVisitCount.rawValue, value: newValue)
-        }
+        get { userDefaults?.object(forKey: WMFUserDefaultsKey.activityTabVisitCount.rawValue) as? Int ?? 0 }
+        set { userDefaults?.set(newValue, forKey: WMFUserDefaultsKey.activityTabVisitCount.rawValue) }
     }
-    
+
     public func incrementActivityTabVisitCount() {
         let visitCount = self.activityTabVisitCount + 1
         self.activityTabVisitCount = visitCount
@@ -235,13 +187,11 @@ public actor WMFActivityTabDataController {
 
     // MARK: - Reading Challenge 2026
 
-    private static let sharedGroupID = "group.org.wikimedia.wikipedia"
-
     private nonisolated var hasEnrolledInReadingChallenge2026: Bool {
         get { UserDefaults(suiteName: Self.sharedGroupID)?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false }
         set { UserDefaults(suiteName: Self.sharedGroupID)?.set(newValue, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) }
     }
-    
+
     public func setEnrolledInReadingChallenge(_ value: Bool) {
         hasEnrolledInReadingChallenge2026 = value
         UserDefaults(suiteName: Self.sharedGroupID)?.synchronize()
@@ -251,12 +201,12 @@ public actor WMFActivityTabDataController {
         get { UserDefaults(suiteName: Self.sharedGroupID)?.bool(forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue) ?? false }
         set { UserDefaults(suiteName: Self.sharedGroupID)?.set(newValue, forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue) }
     }
-    
+
     public func setHasSeenFullPageAnnouncement() {
         hasSeenFullPageReadingChallengeAnnouncement2026 = true
         UserDefaults(suiteName: Self.sharedGroupID)?.synchronize()
     }
-    
+
     public func shouldShowReadingChallengeAnnouncement() -> Bool {
         guard !hasSeenFullPageReadingChallengeAnnouncement2026 else { return false }
         let now = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
@@ -386,7 +336,7 @@ public actor WMFActivityTabDataController {
             let page = item.page
             let dayBucket = calendar.startOfDay(for: savedDate)
             let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
-            
+
             let identifier = String("saved~\(page.projectID)~\(page.title)~\(item.timestamp.timeIntervalSince1970)")
 
             let timelineItem = TimelineItem(
@@ -399,7 +349,7 @@ public actor WMFActivityTabDataController {
                 namespaceID: page.namespaceID,
                 itemType: .saved
             )
-            
+
             dailyTimeline[dayBucket, default: []].append(timelineItem)
         }
 
@@ -425,7 +375,7 @@ public actor WMFActivityTabDataController {
             let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
 
             let existingItems = dailyTimeline[dayBucket]
-            
+
             let identifier = String("read~\(page.projectID)~\(page.title)~\(record.timestamp.timeIntervalSince1970)")
 
             let newItem = TimelineItem(
@@ -441,8 +391,7 @@ public actor WMFActivityTabDataController {
                 namespaceID: page.namespaceID,
                 itemType: .read
             )
-            
-            // prefer first visit to same article over last
+
             if var existingItems,
                let index = existingItems.firstIndex(where: { item in
                     record.page.title == item.pageTitle
@@ -460,12 +409,12 @@ public actor WMFActivityTabDataController {
 
         return sortedTimeline
     }
-    
+
     public func deletePageView(title: String, namespaceID: Int16, project: WMFProject) async throws {
         let dataController = try WMFPageViewsDataController()
         try? await dataController.deletePageView(title: title, namespaceID: namespaceID, project: project)
     }
-    
+
     public func deletePageView(for item: TimelineItem) async throws {
         guard let project = WMFProject(id: item.projectID) else { return }
         try await deletePageView(
@@ -537,7 +486,6 @@ public struct TimelineItem: Identifiable, Equatable {
     public var snippet: String?
     public let namespaceID: Int
 
-    // Edit-specific properties
     public let revisionID: Int?
     public let parentRevisionID: Int?
 
@@ -577,7 +525,7 @@ public struct TimelineItem: Identifiable, Equatable {
 }
 
 public enum TimelineItemType {
-    case standard // no icon, logged out users, etc.
+    case standard
     case edit
     case read
     case saved
@@ -606,4 +554,3 @@ extension TimelineItem {
         )
     }
 }
-
