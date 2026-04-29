@@ -91,7 +91,7 @@ import SwiftUI
             button.tintColor = theme.text
             if #available(iOS 26.0, *) {
                 var buttonConfig = UIButton.Configuration.glass()
-                buttonConfig.image = WMFSFSymbolIcon.for(symbol: .close, font: WMFFont.regularTitle3)
+                buttonConfig.image = WMFSFSymbolIcon.for(symbol: .close, font: WMFFont.navigationBarCloseButtonFont)
                 button.configuration = buttonConfig
             } else {
                 button.setImage(WMFSFSymbolIcon.for(symbol: .close, font: WMFFont.navigationBarCloseButtonFont), for: .normal)
@@ -101,7 +101,7 @@ import SwiftUI
             button.tintColor = theme.link
             if #available(iOS 26.0, *) {
                 var buttonConfig = UIButton.Configuration.prominentGlass()
-                buttonConfig.image = WMFSFSymbolIcon.for(symbol: .checkmark, font: WMFFont.regularTitle3)
+                buttonConfig.image = WMFSFSymbolIcon.for(symbol: .checkmark, font: WMFFont.navigationBarCloseButtonFont)
                 button.configuration = buttonConfig
             } else {
                 button.setImage(WMFSFSymbolIcon.for(symbol: .checkmark, font: WMFFont.navigationBarCloseButtonFont), for: .normal)
