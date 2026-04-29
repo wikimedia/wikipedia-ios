@@ -332,6 +332,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         }
         
         twoFactorViewController.authInstrument = authInstrument
+        twoFactorViewController.loginSuccessCompletion = loginSuccessCompletion
         
         if isEmailAuth {
             twoFactorViewController.setDisplayModeToShortAlphanumeric()
