@@ -19,6 +19,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     internal var toolbarController: ArticleToolbarController?
+    private let widgetInstrument = WidgetFunnel().widgetInstrument
 
     // Watchlist properies
     internal lazy var watchlistController: WatchlistController = {
@@ -509,7 +510,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             return
         }
         
-        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, fromWidgetJoinChallengeButton: false, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
+        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, fromWidgetJoinChallengeButton: false, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent, instrument: widgetInstrument)
 
         readingChallengeCoordinator.onComplete = { [weak self] didPresentSomething in
             

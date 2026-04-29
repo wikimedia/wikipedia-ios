@@ -22,18 +22,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
 
     private var disableModalsOnAppearance: Bool = false
-
-    // MARK: - Widget Instrument
-
-    /// Single instrument instance shared across the entire widget-challenge funnel —
-    /// announcement, login, and prize collection. Being lazy means it's created once
-    /// on first access and the same object (with its internal funnel state) is reused
-    /// for every subsequent event, letting the underlying engine stitch them together.
-    lazy var widgetInstrument: InstrumentImpl = {
-        TestKitchenAdapter.shared.client
-            .getInstrument(name: "apps-widgetchallenge")
-            .startFunnel(name: "widget_challenge")
-    }()
+    private let widgetInstrument = WidgetFunnel().widgetInstrument
 
     public init(dataStore: MWKDataStore?, theme: Theme, viewModel: WMFActivityTabViewModel, dataController: WMFActivityTabDataController) {
         self.dataStore = dataStore
