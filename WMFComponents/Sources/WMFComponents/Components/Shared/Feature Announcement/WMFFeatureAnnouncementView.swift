@@ -20,6 +20,23 @@ struct WMFFeatureAnnouncementView: View {
     func spacingForAvailableHeight(_ height: CGFloat) -> CGFloat {
         return max(height * 0.04, 8)
     }
+
+    /// Calculate the background image height so all other content fits without scrolling.
+    func backgroundImageHeight(for geometry: GeometryProxy) -> CGFloat {
+        let topPadding: CGFloat = 10
+        let closeButtonHeight: CGFloat = 44
+        let textBlockHeight: CGFloat = 150
+        let buttonHeight: CGFloat = 50
+        let bottomPadding: CGFloat = 0
+        let spacing = spacingForAvailableHeight(geometry.size.height)
+        let spacingsTotal = spacing * 3
+
+        let foregroundImageHeight: CGFloat = 118
+        let minimumBackgroundImageHeight = foregroundImageHeight + 40
+
+        let reserved = topPadding + closeButtonHeight + textBlockHeight + buttonHeight + bottomPadding + spacingsTotal
+        return max(geometry.size.height - reserved, minimumBackgroundImageHeight)
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -28,7 +45,7 @@ struct WMFFeatureAnnouncementView: View {
                     .ignoresSafeArea()
                 ScrollView(.vertical) {
                     VStack(spacing: spacingForAvailableHeight(geometry.size.height)) {
-                        VStack(alignment: .leading, spacing: 8) {
+                        VStack(alignment: .leading, spacing: 6) {
                             HStack {
                                 WMFLargeCloseButton(imageType: .plainX) {
                                     viewModel.closeButtonAction?()
@@ -68,7 +85,7 @@ struct WMFFeatureAnnouncementView: View {
                                     Image(uiImage: backgroundImage)
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
-                                        .frame(height: viewModel.backgroundImageHeight)
+                                        .frame(height: backgroundImageHeight(for: geometry))
                                         .frame(maxWidth: max(geometry.size.width - 64, 100))
                                         .cornerRadius(8)
                                         .clipped()
@@ -89,6 +106,7 @@ struct WMFFeatureAnnouncementView: View {
                     .padding([.leading, .trailing], 10)
                     .padding(.top, 10)
                 }
+                .ignoresSafeArea(.container, edges: .bottom)
             }
         }
     }

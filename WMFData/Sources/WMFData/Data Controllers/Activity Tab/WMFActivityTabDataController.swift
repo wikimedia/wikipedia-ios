@@ -212,6 +212,11 @@ public actor WMFActivityTabDataController {
         let now = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
         return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
     }
+    
+    public func isReadingChallengeActive() -> Bool {
+        let now = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
+        return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
+    }
 
     public func getMostRecentReadDateTime() async throws -> Date? {
         let dataController = try WMFPageViewsDataController()
