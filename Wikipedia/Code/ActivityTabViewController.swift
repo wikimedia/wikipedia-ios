@@ -269,10 +269,10 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 TestKitchenAdapter.shared.client
                     .getInstrument(name: "apps-widgetchallenge")
                     .setDefaultActionSource("create_account_form")
-                    .startFunnel(name: "create_account")
+                    .startFunnel(name: "widget_challenge")
                     .submitInteraction(
                         action: "success",
-                        actionSource: "create_account_form",
+                        actionSource: "widget_challenge_login",
                         elementId: nil,
                         actionContext: ["invoke_source": "widget_challenge"]
                     )

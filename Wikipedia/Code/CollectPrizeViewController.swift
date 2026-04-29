@@ -11,12 +11,12 @@ final class CollectPrizeViewController: UIViewController, Themeable {
     
     private var theme: Theme
     
-    private var instrument: InstrumentImpl {
+    private lazy var instrument: InstrumentImpl = {
         TestKitchenAdapter.shared.client
             .getInstrument(name: "apps-widgetchallenge")
             .setDefaultActionSource("challenge_complete")
             .startFunnel(name: "widget_challenge")
-    }
+    }()
 
     /// Reads streak count from shared UserDefaults (written by the widget extension).
     private var streakCount: Int? {
