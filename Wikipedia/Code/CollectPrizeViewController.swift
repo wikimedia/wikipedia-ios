@@ -19,7 +19,7 @@ final class CollectPrizeViewController: UIViewController, Themeable {
     /// Reads streak count from shared UserDefaults (written by the widget extension).
     private var streakCount: Int? {
         UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
-            .flatMap { $0.object(forKey: "ReadingChallengeWidgetStreakCount") as? Int }
+            .flatMap { $0.object(forKey: WMFUserDefaultsKey.readingChallengeWidgetStreakCount.rawValue) as? Int }
     }
     
     private var theme: Theme

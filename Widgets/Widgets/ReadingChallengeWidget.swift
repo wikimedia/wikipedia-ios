@@ -35,11 +35,11 @@ struct ReadingChallengeProvider: TimelineProvider {
             case .streakOngoingRead(let streak),
                  .streakOngoingNotYetRead(let streak),
                  .challengeConcludedIncomplete(let streak):
-                userDefaults?.set(streak, forKey: "ReadingChallengeWidgetStreakCount")
+                userDefaults?.set(streak, forKey: WMFUserDefaultsKey.readingChallengeWidgetStreakCount.rawValue)
             case .challengeCompleted:
-                userDefaults?.set(ReadingChallengeStateConfig.streakGoal, forKey: "ReadingChallengeWidgetStreakCount")
+                userDefaults?.set(ReadingChallengeStateConfig.streakGoal, forKey: WMFUserDefaultsKey.readingChallengeWidgetStreakCount.rawValue)
             default:
-                userDefaults?.removeObject(forKey: "ReadingChallengeWidgetStreakCount")
+                userDefaults?.removeObject(forKey: WMFUserDefaultsKey.readingChallengeWidgetStreakCount.rawValue)
             }
 
             // Refresh at the next midnight so the "not yet read today" reset fires.
