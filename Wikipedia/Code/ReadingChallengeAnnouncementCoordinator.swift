@@ -191,9 +191,9 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
             controller.closeButtonAction = { [weak self] in
                 self?.onComplete?(true)
             }
-            controller.modalPresentationStyle = .formSheet
-            controller.preferredContentSize = CGSize(width: 540, height: 0)
-            navigationController.present(controller, animated: true)
+            let navController = WMFComponentNavigationController(rootViewController: controller, modalPresentationStyle: .formSheet)
+            navController.preferredContentSize = CGSize(width: 540, height: 0)
+            navigationController.present(navController, animated: true)
         } else {
             let viewModel = makeWidgetAnnouncementViewModel()
             let controller = WMFFeatureAnnouncementViewController(viewModel: viewModel)

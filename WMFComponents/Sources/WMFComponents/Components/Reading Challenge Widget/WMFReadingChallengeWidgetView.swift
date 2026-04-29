@@ -136,7 +136,6 @@ public struct WMFReadingChallengeWidgetView: View {
                         .frame(maxWidth: .infinity)
                         .layoutPriority(1)
                 }
-                Spacer()
                 if let subtitle = viewModel.displaySet.subtitle {
                     HStack(spacing: 4) {
                         if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .mediumSubheadline, compatibleWith: traitCollection, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
