@@ -38,9 +38,11 @@ struct WMFFeatureAnnouncementView: View {
                             Text(viewModel.title)
                                 .font(Font(WMFFont.for(.boldTitle3)))
                                 .foregroundColor(Color(appEnvironment.theme.text))
+                                .padding([.leading, .trailing], 22)
                             Text(viewModel.body)
                                 .font(Font(WMFFont.for(.callout)))
                                 .foregroundColor(Color(appEnvironment.theme.text))
+                                .padding([.leading, .trailing], 22)
                         }
                         
                         if let gifName = viewModel.gifName, let altText = viewModel.altText {
@@ -59,6 +61,7 @@ struct WMFFeatureAnnouncementView: View {
                             }
                             .accessibilityElement(children: .combine)
                             .accessibilityLabel(altText)
+                            .padding([.leading, .trailing], 22)
                         } else if let image = viewModel.image {
                             ZStack(alignment: .center) {
                                 if let backgroundImage = viewModel.backgroundImage {
@@ -77,12 +80,14 @@ struct WMFFeatureAnnouncementView: View {
                                     .foregroundColor(imageColor)
                             }
                             .frame(maxWidth: max(geometry.size.width - 64, 100))
+                            .padding([.leading, .trailing], 22)
                         }
 
                         WMFLargeButton(style: .primary, title: viewModel.primaryButtonTitle, action: viewModel.primaryButtonAction)
+                            .padding([.leading, .trailing], 22)
                     }
-                    .padding([.leading, .trailing], 32)
-                    .padding(.top, 20)
+                    .padding([.leading, .trailing], 10)
+                    .padding(.top, 10)
                 }
             }
         }
