@@ -4,6 +4,7 @@ import Combine
 import SwiftUI
 import WMFNativeLocalizations
 import WMFTestKitchen
+import WMFData
 
 final class CollectPrizeViewController: UIViewController, Themeable {
 
