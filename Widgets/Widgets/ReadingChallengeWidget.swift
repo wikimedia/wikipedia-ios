@@ -104,7 +104,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             color: WMFTheme.ReadingChallengeColorSet.pink.primary,
             color2: WMFTheme.ReadingChallengeColorSet.pink.secondary,
             color3: WMFTheme.ReadingChallengeColorSet.pink.tertiary,
-            image: "globephone",
+            image: "phoneGlobe",
             title: String.localizedStringWithFormat(
                 title,
                 streak
@@ -119,7 +119,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
                 color: WMFTheme.ReadingChallengeColorSet.purple.primary,
                 color2: WMFTheme.ReadingChallengeColorSet.purple.secondary,
                 color3: WMFTheme.ReadingChallengeColorSet.purple.tertiary,
-                image: "musicGlobe",
+                image: Int.random(in: 1...2) == 1 ? "musicGlobe1" : "musicGlobe2",
                 title: String.localizedStringWithFormat(
                     title,
                     streak
@@ -151,15 +151,15 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
     static func streakNotYetReadSet(streak: Int, showButtons: Bool, colorSet: WMFTheme.ReadingChallengeColorSet = .orange) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         
 
-        let defaultSubtitleAndGlobe: (String, String) = (WMFLocalizedString("reading-challenge-not-yet-read-subtitle-drift", value: "Don't let today drift by, your reading streak is waiting.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today."), "sleepyglobe")
+        let defaultSubtitleAndGlobe: (String, String) = (WMFLocalizedString("reading-challenge-not-yet-read-subtitle-drift", value: "Don't let today drift by, your reading streak is waiting.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today."), "sleepyGlobe")
         
         let sharedSubtitle = WMFLocalizedString("reading-challenge-not-yet-read-subtitle-article", value: "Your streak is just one article away.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today.")
         
         let subtitlesAndGlobes: [(String, String)] = [
             defaultSubtitleAndGlobe,
-            (WMFLocalizedString("reading-challenge-not-yet-read-subtitle-snooze", value: "Before the day snoozes away...there’s still time to learn something.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today."), "sleepyglobe"),
-            (WMFLocalizedString("reading-challenge-not-yet-read-subtitle-bit", value: "Even a small bit of reading counts towards your goal.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today."), "sleepyglobe"),
-            (sharedSubtitle, "sleepyglobe"),
+            (WMFLocalizedString("reading-challenge-not-yet-read-subtitle-snooze", value: "Before the day snoozes away...there’s still time to learn something.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today."), "sleepyGlobe"),
+            (WMFLocalizedString("reading-challenge-not-yet-read-subtitle-bit", value: "Even a small bit of reading counts towards your goal.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today."), "sleepyGlobe"),
+            (sharedSubtitle, "sleepyGlobe"),
             (WMFLocalizedString("reading-challenge-not-yet-read-subtitle-jump", value: "Jump in for some reading anytime today.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today."), "readingGlobe"),
             (WMFLocalizedString("reading-challenge-not-yet-read-subtitle-quiet", value: "Quiet reading moment?", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today."), "readingGlobe"),
             (WMFLocalizedString("reading-challenge-not-yet-read-subtitle-curiosity", value: "Keep your curiosity going.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today."), "readingGlobe"),
@@ -199,7 +199,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             color: WMFTheme.ReadingChallengeColorSet.blueBlack.primary,
             color2: WMFTheme.ReadingChallengeColorSet.blueBlack.secondary,
             color3: WMFTheme.ReadingChallengeColorSet.blueBlack.tertiary,
-            image: "globeParty",
+            image: "partyGlobe",
             title: WMFLocalizedString("reading-challenge-completed-title", value: "You did it!", comment: "Title shown on the reading challenge widget when the user has completed the challenge."),
             subtitle: family == .systemSmall ? WMFLocalizedString("reading-challenge-completed-subtitle-small", value: "25 of 25", comment: "Subtitle shown on the reading challenge widget when the user has completed the challenge.") : WMFLocalizedString("reading-challenge-completed-subtitle", value: "25 of 25 days", comment: "Subtitle shown on the reading challenge widget when the user has completed the challenge."),
             button1Title: family == .systemSmall
@@ -266,32 +266,34 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
 
     static func enrolledNotStartedSet(family: WidgetFamily) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         
-        let defaultTitleAndSubtitle: (String, String) = (WMFLocalizedString("reading-challenge-enrolled-not-started-title-ready", value: "Ready, set, read!", comment: "Title shown on the reading challenge widget when enrolled but not yet started."), WMFLocalizedString(
-            "reading-challenge-enrolled-not-started-subtitle-towards", value: "Start working towards a 25-day streak!", comment: "Subtitle shown on the reading challenge widget when enrolled but not yet started."))
+        let defaultTitlesAndImage: (String, String, String) = (WMFLocalizedString("reading-challenge-enrolled-not-started-title-ready", value: "Ready, set, read!", comment: "Title shown on the reading challenge widget when enrolled but not yet started."), WMFLocalizedString(
+            "reading-challenge-enrolled-not-started-subtitle-towards", value: "Start working towards a 25-day streak!", comment: "Subtitle shown on the reading challenge widget when enrolled but not yet started."), "readingGlobe")
         
-        let titlesAndSubtitles: [(String, String)] = [
-            defaultTitleAndSubtitle,
+        let titlesAndImages: [(String, String, String)] = [
+            defaultTitlesAndImage,
             (WMFLocalizedString("reading-challenge-enrolled-not-started-title-start", value: "Start your reading challenge.", comment: "Title shown on the reading challenge widget when enrolled but not yet started."), WMFLocalizedString(
-                "reading-challenge-enrolled-not-started-subtitle-somewhere", value: "Every streak starts somewhere.", comment: "Subtitle shown on the reading challenge widget when enrolled but not yet started.")),
+                "reading-challenge-enrolled-not-started-subtitle-somewhere", value: "Every streak starts somewhere.", comment: "Subtitle shown on the reading challenge widget when enrolled but not yet started."), "standingGlobe"),
             (WMFLocalizedString("reading-challenge-enrolled-not-started-title-spin", value: "Spin up a new streak?", comment: "Title shown on the reading challenge widget when enrolled but not yet started."), WMFLocalizedString(
-                "reading-challenge-enrolled-not-started-subtitle-article", value: "Read one article to get started.", comment: "Subtitle shown on the reading challenge widget when enrolled but not yet started.")),
+                "reading-challenge-enrolled-not-started-subtitle-article", value: "Read one article to get started.", comment: "Subtitle shown on the reading challenge widget when enrolled but not yet started."), "synthGlobe1"),
             (WMFLocalizedString("reading-challenge-enrolled-not-started-title-fresh", value: "A fresh start.", comment: "Title shown on the reading challenge widget when enrolled but not yet started."), WMFLocalizedString(
-                "reading-challenge-enrolled-not-started-subtitle-away", value: "Your streak is just one article away.", comment: "Subtitle shown on the reading challenge widget when enrolled but not yet started."))
+                "reading-challenge-enrolled-not-started-subtitle-away", value: "Your streak is just one article away.", comment: "Subtitle shown on the reading challenge widget when enrolled but not yet started."), "synthGlobe2")
         ]
         
-        var title = defaultTitleAndSubtitle.0
-        var subtitle = defaultTitleAndSubtitle.1
+        var title = defaultTitlesAndImage.0
+        var subtitle = defaultTitlesAndImage.1
+        var image = defaultTitlesAndImage.2
         
-        if let index = randomIndex(indexKey: .readingChallengeEnrolledNotStartedRandomIndex, dateKey: .readingChallengeEnrolledNotStartedRandomIndexDate, optionsCount: titlesAndSubtitles.count) {
-            title = titlesAndSubtitles[index].0
-            subtitle = titlesAndSubtitles[index].1
+        if let index = randomIndex(indexKey: .readingChallengeEnrolledNotStartedRandomIndex, dateKey: .readingChallengeEnrolledNotStartedRandomIndexDate, optionsCount: titlesAndImages.count) {
+            title = titlesAndImages[index].0
+            subtitle = titlesAndImages[index].1
+            image = titlesAndImages[index].2
         }
         
         return WMFReadingChallengeWidgetViewModel.DisplaySet(
             color: WMFTheme.ReadingChallengeColorSet.yellow.primary,
             color2: WMFTheme.ReadingChallengeColorSet.yellow.secondary,
             color3: WMFTheme.ReadingChallengeColorSet.yellow.tertiary,
-            image: "readingGlobe",
+            image: image,
             title: family == .systemSmall ? "" : title,
             subtitle: family == .systemSmall ? nil : subtitle,
             button1Title: family == .systemSmall
@@ -355,7 +357,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
         case .notEnrolled:
             return notEnrolledSet(family: family)
         case .challengeRemoved:
-            return notEnrolledSet(family: family)
+            return noStreakSet()
         case .notLiveYet:
             return notLiveYetSet(family: family)
         case .enrolledNotStarted:

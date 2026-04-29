@@ -406,7 +406,7 @@ extension WMFPageViewsDataController {
         let oneDayInSeconds = 60 * 60  * 24
         let maxDateToCompleteStreak = calendar.startOfDay(for:endDateStart.addingTimeInterval(TimeInterval((config.streakGoal * oneDayInSeconds))))
 
-        if todayStart > removeDateStart {
+        if todayStart >= removeDateStart {
             return .challengeRemoved
         }
 
