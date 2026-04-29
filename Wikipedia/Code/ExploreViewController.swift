@@ -1119,7 +1119,7 @@ extension ExploreViewController {
         let backgroundImage = UIImage(named: "gradient")
 
         let viewModel = WMFFeatureAnnouncementViewModel(title: title,body: body,
-        primaryButtonTitle: primaryButtonTitle, image: foregroundImage, backgroundImage: backgroundImage, backgroundImageHeight: 250,
+        primaryButtonTitle: primaryButtonTitle, image: foregroundImage, backgroundImage: backgroundImage,
             gifName: nil, altText: CommonStrings.searchWidgetAnnouncementBody,
             primaryButtonAction: { [weak self] in
                 self?.dismiss(animated: true)

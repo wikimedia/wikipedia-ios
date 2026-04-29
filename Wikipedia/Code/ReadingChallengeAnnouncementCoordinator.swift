@@ -248,7 +248,6 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
             primaryButtonTitle: CommonStrings.gotItButtonTitle,
             image: UIImage(named: "readingChallengeWidget"),
             backgroundImage: UIImage(named: "readingChallengeBackground"),
-            backgroundImageHeight: 220,
             primaryButtonAction: {},
             closeButtonAction: nil
         )

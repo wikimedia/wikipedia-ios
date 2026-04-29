@@ -28,6 +28,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     
     fileprivate var theme = Theme.standard
     
+    public var loginSuccessCompletion: (() -> Void)?
+    
     public var userName:String?
     public var password:String?
     public var captchaID:String?
@@ -333,6 +335,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             MWKDataStore.shared().authenticationManager.loginWithSavedCredentials(emailToken: token, oathToken: token, backgroundAuthInstrument: authInstrument) { result in
                 switch result {
                 case .success:
+                    self.loginSuccessCompletion?()
                     self.dismiss(animated: true)
                 case .failure(let error):
                     WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
@@ -349,6 +352,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             
             switch loginResult {
             case .success:
+                self.loginSuccessCompletion?()
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
 
                 WMFToastManager.sharedInstance.showToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
