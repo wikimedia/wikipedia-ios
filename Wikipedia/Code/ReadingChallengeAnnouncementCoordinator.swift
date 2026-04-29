@@ -211,7 +211,6 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
                 }
                 
                 sheet.prefersGrabberVisible = true
-                sheet.preferredCornerRadius = 16
                 sheet.prefersScrollingExpandsWhenScrolledToEdge = false
                 
                 controller.modalPresentationStyle = .pageSheet
