@@ -751,6 +751,12 @@ extension WMFAppViewController {
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
 
         WMFDataEnvironment.current.testKitchenClient = TestKitchenAdapter.shared.client
+
+        // Notify the scene delegate that the data environment is ready, so it can submit any
+        // deferred app_open event (e.g. on fresh install where languages weren't set up yet).
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            sceneDelegate.dataEnvironmentDidSetup()
+        }
     }
 
     @objc func updateWMFDataEnvironmentFromLanguagesDidChange() {

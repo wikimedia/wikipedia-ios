@@ -202,7 +202,7 @@ struct TopReadView: View {
                 .fontWeight(.bold)
             ForEach(entry?.rankedElements.indices.prefix(rowCount) ?? 0..<0, id: \.self) { elementIndex in
                 if let articleURL = entry?.rankedElements[elementIndex].articleURL {
-                    Link(destination: articleURL, label: {
+                    Link(destination: wmf_urlWithWidgetSource(articleURL, name: "top_read"), label: {
                         elementRow(elementIndex, rowCount: rowCount, showSparkline: showSparkline)
                     })
                 } else {

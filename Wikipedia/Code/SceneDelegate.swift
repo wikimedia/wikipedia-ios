@@ -24,6 +24,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // Tracks the most recent source used to open the app (deep link, widget, shortcut, push, etc.)
     // This is consumed when the scene becomes active to submit the apps-open instrument.
     private var lastOpenSource: String? = nil
+    // Holds a pending app_open source when the data environment isn't ready yet (e.g. fresh install).
+    // Consumed by dataEnvironmentDidSetup() once setup completes.
+    private var pendingAppOpenSource: String? = nil
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
@@ -180,9 +183,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Reset to avoid duplicate submissions
         lastOpenSource = nil
 
+        // On fresh install, the data environment (languages, mediawiki project) may not be ready yet
+        // when sceneDidBecomeActive fires. Defer the submission until dataEnvironmentDidSetup() is called.
+        guard MWKDataStore.shared().primarySiteURL != nil else {
+            pendingAppOpenSource = source
+            return
+        }
+
+        submitAppOpen(source: source)
+    }
+
+    private func submitAppOpen(source: String) {
         let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-open")
             .startFunnel(name: "apps_open")
         instrument.submitInteraction(action: "app_open", actionSource: source)
+    }
+
+    // Called from setupWMFDataEnvironment once the data store and languages are ready.
+    // Submits any app_open event that was deferred due to the data environment not being set up yet.
+    @objc func dataEnvironmentDidSetup() {
+        guard let source = pendingAppOpenSource else { return }
+        pendingAppOpenSource = nil
+        submitAppOpen(source: source)
     }
     
     // Exposed to Objective-C so other app-side ObjC code (e.g. WMFAppViewController) can mark the last open source
