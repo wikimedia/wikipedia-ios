@@ -137,14 +137,9 @@ public struct WMFReadingChallengeWidgetView: View {
                         .layoutPriority(1)
                 }
                 if let subtitle = viewModel.displaySet.subtitle {
-                    
                     HStack(spacing: 4) {
                         if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .mediumSubheadline, compatibleWith: traitCollection, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
                             Image(uiImage: icon)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(maxHeight: 20)
-                                .foregroundStyle(viewModel.displaySet.color2)
                         }
                         Text(subtitle)
                             .font(Font(WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)))
@@ -157,12 +152,12 @@ public struct WMFReadingChallengeWidgetView: View {
                     Link(destination: button1URL) {
                         HStack {
                             Text(button1Title)
-                                .font(Font(WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)))
+                                .font(Font(WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)))
                                 .foregroundColor(buttonForeground)
                         }
                         .frame(maxWidth: .infinity)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 4)
                         .background(buttonBackground)
                         .clipShape(Capsule())
                     }
@@ -224,35 +219,33 @@ public struct WMFReadingChallengeWidgetView: View {
     
     private var incompleteSmallView: some View {
         ZStack {
-            VStack(alignment: .center) {
+            VStack(alignment: .center, spacing: 0) {
+                Spacer()
                 if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
-                        .frame(maxHeight: 100)
+                        .frame(maxHeight: 90)
                 }
                 Spacer()
                 if let subtitle = viewModel.displaySet.subtitle {
                     HStack(spacing: 4) {
-                        if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .mediumSubheadline, compatibleWith: traitCollection, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                        if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .mediumFootnote, compatibleWith: traitCollection, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
                             Image(uiImage: icon)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(maxHeight: 20)
-                                .foregroundStyle(viewModel.displaySet.color2)
                         }
                         Text(subtitle)
-                            .font(Font(WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)))
+                            .font(Font(WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)))
                             .foregroundColor(viewModel.displaySet.color2)
                     }
-                    .padding(.horizontal, 14).padding(.vertical, 8)
+                    .padding(.vertical, 4)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .background(viewModel.displaySet.color3 ?? viewModel.displaySet.color2)
                     .clipShape(Capsule())
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding(.horizontal, 10)
-            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 14)
             wIconOverlay
         }
     }
@@ -462,15 +455,11 @@ public struct WMFReadingChallengeWidgetView: View {
                 HStack(spacing: 0) {
                     VStack(alignment: .leading, spacing: 8) {
                         Text(viewModel.displaySet.title)
-                            .font(Font(WMFFont.for(.boldTitle1, compatibleWith: traitCollection)))
+                            .font(Font(WMFFont.for(.boldTitle3, compatibleWith: traitCollection)))
                             .foregroundColor(viewModel.displaySet.color2)
                         HStack {
                             if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .mediumSubheadline, compatibleWith: traitCollection, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
                                 Image(uiImage: icon)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(maxHeight: 21)
-                                    .foregroundStyle(viewModel.displaySet.color2)
                             }
                             if let subtitle = viewModel.displaySet.subtitle {
                                 Text(subtitle)
@@ -505,7 +494,7 @@ public struct WMFReadingChallengeWidgetView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(.horizontal, 20).padding(.vertical, 16)
+                .padding(16)
                 wIconOverlay
             }
             .frame(width: mediumCanvasWidth, height: mediumCanvasHeight)
@@ -856,30 +845,31 @@ public struct WMFReadingChallengeWidgetView: View {
                         HStack {
                             if let icon = viewModel.displaySet.icon {
                                 Image(uiImage: icon)
+                                    .font(Font(WMFFont.for(.boldTitle3)))
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .foregroundColor(viewModel.displaySet.color2)
                             }
                             Text(viewModel.displaySet.title)
-                                .font(mediumTitleFont)
+                                .font(Font(WMFFont.for(.boldTitle3)))
                                 .fixedSize(horizontal: false, vertical: true)
                                 .foregroundColor(viewModel.displaySet.color2)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         Spacer()
                         if let subtitle = viewModel.displaySet.subtitle {
-                            HStack(spacing: 4) {
-                                if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .mediumSubheadline, compatibleWith: traitCollection, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                            HStack(alignment: .center, spacing: 3) {
+                                if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .mediumFootnote, compatibleWith: traitCollection, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
                                     Image(uiImage: icon)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(maxHeight: 20)
-                                        .foregroundStyle(viewModel.displaySet.color2)
                                 }
                                 Text(subtitle)
-                                    .font(Font(WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)))
+                                    .font(Font(WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)))
                                     .foregroundColor(viewModel.displaySet.color2)
                             }
-                            .padding(.horizontal, 14).padding(.vertical, 8)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 4)
                             .background(viewModel.displaySet.color3 ?? viewModel.displaySet.color2)
                             .clipShape(Capsule())
+                            .multilineTextAlignment(.center)
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -893,7 +883,7 @@ public struct WMFReadingChallengeWidgetView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(.horizontal, 20).padding(.vertical, 16)
+                .padding(16)
                 wIconOverlay
             }
             .frame(width: mediumCanvasWidth, height: mediumCanvasHeight)

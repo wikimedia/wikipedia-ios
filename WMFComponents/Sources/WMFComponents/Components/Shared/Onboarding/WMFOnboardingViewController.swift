@@ -49,12 +49,10 @@ public class WMFOnboardingViewController: WMFCanvasViewController {
         (navigationController ?? self).presentationController?.delegate = self
 
         if closeButtonAction != nil {
-            let closeButton = UIBarButtonItem(
-                image: WMFSFSymbolIcon.for(symbol: .xMark),
-                style: .plain,
-                target: self,
-                action: #selector(closeTapped)
-            )
+            
+            let config = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeTapped), alignment: .leading)
+            let closeButton = UIBarButtonItem.closeNavigationBarButtonItem(config: config)
+
             navigationItem.leftBarButtonItem = closeButton
         }
     }

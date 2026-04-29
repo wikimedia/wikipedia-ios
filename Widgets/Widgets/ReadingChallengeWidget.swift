@@ -230,14 +230,14 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
         )
     }
 
-    static func incompleteSet(streak: Int) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
+    static func incompleteSet(family: WidgetFamily, streak: Int) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         WMFReadingChallengeWidgetViewModel.DisplaySet(
             color: WMFTheme.ReadingChallengeColorSet.concluded.primary,
             color2: WMFTheme.ReadingChallengeColorSet.concluded.secondary,
             color3: WMFTheme.ReadingChallengeColorSet.concluded.tertiary,
             image: "readingGlobe",
             title: WMFLocalizedString("reading-challenge-concluded-title", value: "Challenge Concluded", comment: "Title shown on the reading challenge widget when the challenge has ended."),
-            subtitle: String.localizedStringWithFormat(
+            subtitle: family == .systemSmall ? String.localizedStringWithFormat(WMFLocalizedString("reading-challenge-streak-no-days", value: "%1$d of 25", comment: "Streak pill shown on the reading challenge widget, %1$d is the number of days completed out of 25."), streak) : String.localizedStringWithFormat(
                 WMFLocalizedString("reading-challenge-streak-of-days", value: "{{PLURAL:%1$d|%1$d of 25 day|%1$d of 25 days}}", comment: "Streak pill label shown on the reading challenge widget. %1$d is the number of days completed out of 25."),
                 streak
             ),
@@ -371,7 +371,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
         case .challengeCompleted:
             return completedSet(family: family)
         case .challengeConcludedIncomplete(let streak):
-            return incompleteSet(streak: streak)
+            return incompleteSet(family: family, streak: streak)
         case .challengeConcludedNoStreak:
             return noStreakSet()
         case .notEnrolled:
