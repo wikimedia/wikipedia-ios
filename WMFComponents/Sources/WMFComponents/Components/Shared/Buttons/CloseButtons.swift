@@ -88,19 +88,23 @@ import SwiftUI
 
         switch config.imageType {
         case .plainX:
-            button.setImage(WMFSFSymbolIcon.for(symbol: .close, font: WMFFont.navigationBarCloseButtonFont), for: .normal)
             button.tintColor = theme.text
-            
             if #available(iOS 26.0, *) {
-                button.configuration = .glass()
+                var buttonConfig = UIButton.Configuration.glass()
+                buttonConfig.image = WMFSFSymbolIcon.for(symbol: .close, font: WMFFont.regularTitle3)
+                button.configuration = buttonConfig
+            } else {
+                button.setImage(WMFSFSymbolIcon.for(symbol: .close, font: WMFFont.navigationBarCloseButtonFont), for: .normal)
             }
 
         case .prominentCheck:
-            button.setImage(WMFSFSymbolIcon.for(symbol: .checkmark, font: WMFFont.navigationBarCloseButtonFont), for: .normal)
             button.tintColor = theme.link
-            
             if #available(iOS 26.0, *) {
-                button.configuration = .prominentGlass()
+                var buttonConfig = UIButton.Configuration.prominentGlass()
+                buttonConfig.image = WMFSFSymbolIcon.for(symbol: .checkmark, font: WMFFont.regularTitle3)
+                button.configuration = buttonConfig
+            } else {
+                button.setImage(WMFSFSymbolIcon.for(symbol: .checkmark, font: WMFFont.navigationBarCloseButtonFont), for: .normal)
             }
         }
 

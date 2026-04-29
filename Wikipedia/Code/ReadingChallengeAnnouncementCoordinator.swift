@@ -191,9 +191,9 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
             controller.closeButtonAction = { [weak self] in
                 self?.onComplete?(true)
             }
-            let navController = WMFComponentNavigationController(rootViewController: controller, modalPresentationStyle: .formSheet)
-            navController.preferredContentSize = CGSize(width: 540, height: 0)
-            navigationController.present(navController, animated: true)
+            controller.modalPresentationStyle = .formSheet
+            controller.preferredContentSize = CGSize(width: 540, height: 0)
+            navigationController.present(controller, animated: true)
         } else {
             let viewModel = makeWidgetAnnouncementViewModel()
             let controller = WMFFeatureAnnouncementViewController(viewModel: viewModel)
@@ -326,7 +326,7 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
 // MARK: - Widget Announcement View Controller
 
 @MainActor
-final class ReadingChallengeWidgetAnnouncementViewController: UIViewController, WMFNavigationBarConfiguring {
+final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
 
     var primaryButtonAction: (() -> Void)?
     var closeButtonAction: (() -> Void)?
@@ -399,6 +399,13 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController, 
         return iv
     }()
 
+    private lazy var closeButton: UIButton = {
+        let config = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(handleClose), alignment: .leading)
+        let b = UIButton.closeNavigationButton(config: config)
+        b.translatesAutoresizingMaskIntoConstraints = false
+        return b
+    }()
+
     private let primaryButton: UIButton = {
         var config = UIButton.Configuration.filled()
         config.cornerStyle = .capsule
@@ -416,51 +423,24 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController, 
         applyContent()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        configureNavigationBar()
-    }
-
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        guard view.bounds.width > 0 else { return }
+
         let fittingSize = CGSize(width: view.bounds.width, height: UIView.layoutFittingCompressedSize.height)
-        let size = view.systemLayoutSizeFitting(
+        let contentSize = view.systemLayoutSizeFitting(
             fittingSize,
             withHorizontalFittingPriority: .required,
             verticalFittingPriority: .fittingSizeLevel
         )
-        if preferredContentSize.height != size.height {
-            preferredContentSize = size
-        }
-    }
-
-    // MARK: - Navigation Bar
-
-    private func configureNavigationBar() {
-        let titleConfig = WMFNavigationBarTitleConfig(
-            title: "",
-            customView: nil,
-            alignment: .hidden
-        )
-        let closeConfig = WMFLargeCloseButtonConfig(
-            imageType: .plainX,
-            target: self,
-            action: #selector(handleClose),
-            alignment: .leading
-        )
-        configureNavigationBar(
-            titleConfig: titleConfig,
-            closeButtonConfig: closeConfig,
-            profileButtonConfig: nil,
-            tabsButtonConfig: nil,
-            searchBarConfig: nil,
-            hideNavigationBarOnScroll: false
-        )
+        guard contentSize.height > 0, contentSize.height != preferredContentSize.height else { return }
+        preferredContentSize = contentSize
     }
 
     // MARK: - Layout
 
     private func setupLayout() {
+        view.addSubview(closeButton)
         view.addSubview(titleLabel)
         view.addSubview(bodyLabel)
         view.addSubview(backgroundImageView)
@@ -468,7 +448,12 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController, 
         view.addSubview(primaryButton)
 
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 8),
+            closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            closeButton.widthAnchor.constraint(equalToConstant: 44),
+            closeButton.heightAnchor.constraint(equalToConstant: 44),
+
+            titleLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 8),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
@@ -492,7 +477,7 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController, 
             primaryButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             primaryButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             primaryButton.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 16),
-            primaryButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+            primaryButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
         ])
 
         primaryButton.addTarget(self, action: #selector(handlePrimary), for: .touchUpInside)

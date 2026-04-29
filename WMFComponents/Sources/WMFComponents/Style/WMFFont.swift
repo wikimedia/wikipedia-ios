@@ -49,6 +49,7 @@ public enum WMFFont {
     case title1
     case title2
     case title3
+    case regularTitle3
     case xxlTitleBold
     case helveticaLargeHeadline
     case helveticaBody
@@ -223,6 +224,10 @@ public enum WMFFont {
             return UIFont.preferredFont(forTextStyle: .title2, compatibleWith: traitCollection)
         case .title3:
             return UIFont.preferredFont(forTextStyle: .title3, compatibleWith: traitCollection)
+        case .regularTitle3:
+            let base = UIFont.preferredFont(forTextStyle: .title3, compatibleWith: traitCollection)
+            let regular = UIFont.systemFont(ofSize: base.pointSize, weight: .regular)
+            return UIFontMetrics(forTextStyle: .title3).scaledFont(for: regular, compatibleWith: traitCollection)
         case .xxlTitleBold:
             return UIFontMetrics(forTextStyle: .title3).scaledFont(for: UIFont.systemFont(ofSize: 40, weight: .bold), compatibleWith: traitCollection)
         case .helveticaLargeHeadline:
