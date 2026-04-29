@@ -17,19 +17,16 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
     private let fromWidgetJoinChallengeButton: Bool
     
     private let isLoggedIn: Bool
-    
-    private lazy var widgetInstrument: InstrumentImpl = {
-        TestKitchenAdapter.shared.client.getInstrument(name: "apps-widgetchallenge")
-            .setDefaultActionSource("widget_challenge_announce")
-            .startFunnel(name: "widget_challenge")
-    }()
 
-    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fromWidgetJoinChallengeButton: Bool, isLoggedIn: Bool) {
+    private let widgetInstrument: InstrumentImpl
+
+    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fromWidgetJoinChallengeButton: Bool, isLoggedIn: Bool, instrument: InstrumentImpl) {
         self.navigationController = navigationController
         self.dataStore = dataStore
         self.theme = theme
         self.fromWidgetJoinChallengeButton = fromWidgetJoinChallengeButton
         self.isLoggedIn = isLoggedIn
+        self.widgetInstrument = instrument
     }
 
     // This action will be called when this coordinator has finished evaluating, whether it presents something or not. It gives callers a chance to run followup code such as presenting less-important modals.
