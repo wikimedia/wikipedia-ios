@@ -773,7 +773,7 @@ public struct WMFReadingChallengeWidgetView: View {
 
                             Spacer()
 
-                            HStack(spacing: 3) {
+                            HStack(spacing: 10) {
                                 if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1, compatibleWith: traitCollection, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
                                     Image(uiImage: icon)
                                         .resizable()
