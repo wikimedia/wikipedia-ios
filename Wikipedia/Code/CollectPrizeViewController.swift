@@ -4,7 +4,7 @@ import Combine
 import SwiftUI
 import WMFNativeLocalizations
 
-final class CollectPrizeViewController: UIViewController, Themeable, WMFNavigationBarConfiguring {
+final class CollectPrizeViewController: UIViewController, Themeable {
 
     // MARK: - Properties
 
@@ -31,6 +31,15 @@ final class CollectPrizeViewController: UIViewController, Themeable, WMFNavigati
         return imageView
     }()
 
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = CommonStrings.collectPrizeTitle
+        label.textAlignment = .center
+        label.numberOfLines = 1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
     private lazy var headlineLabel: UILabel = {
         let label = UILabel()
         label.text = WMFLocalizedString("collect-prize-headline", value: "Curiosity looks good on you! 🛍️", comment: "Headline for collect prize modal")
@@ -47,6 +56,13 @@ final class CollectPrizeViewController: UIViewController, Themeable, WMFNavigati
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+
+    private lazy var closeButton: UIButton = {
+        let config = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeTapped), alignment: .leading)
+        let b = UIButton.closeNavigationButton(config: config)
+        b.translatesAutoresizingMaskIntoConstraints = false
+        return b
     }()
 
     private lazy var primaryButton: UIButton = {
@@ -68,34 +84,9 @@ final class CollectPrizeViewController: UIViewController, Themeable, WMFNavigati
         apply(theme: theme)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        configureNavigationBar()
-    }
-
-    private func configureNavigationBar() {
-        let titleConfig = WMFNavigationBarTitleConfig(
-            title: CommonStrings.collectPrizeTitle,
-            customView: nil,
-            alignment: .hidden
-        )
-        let closeConfig = WMFLargeCloseButtonConfig(
-            imageType: .plainX,
-            target: self,
-            action: #selector(closeTapped),
-            alignment: .leading
-        )
-        configureNavigationBar(
-            titleConfig: titleConfig,
-            closeButtonConfig: closeConfig,
-            profileButtonConfig: nil,
-            tabsButtonConfig: nil,
-            searchBarConfig: nil,
-            hideNavigationBarOnScroll: false
-        )
-    }
-
     private func setupLayout() {
+        view.addSubview(closeButton)
+        view.addSubview(titleLabel)
         view.addSubview(prizeImageView)
         view.addSubview(headlineLabel)
         view.addSubview(subtitleLabel)
@@ -104,7 +95,17 @@ final class CollectPrizeViewController: UIViewController, Themeable, WMFNavigati
         prizeImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 
         NSLayoutConstraint.activate([
-            prizeImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            closeButton.widthAnchor.constraint(equalToConstant: 44),
+            closeButton.heightAnchor.constraint(equalToConstant: 44),
+
+            titleLabel.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: closeButton.trailingAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -60),
+
+            prizeImageView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 16),
             prizeImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             prizeImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             prizeImageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100),
@@ -141,6 +142,8 @@ final class CollectPrizeViewController: UIViewController, Themeable, WMFNavigati
         self.theme = theme
         guard viewIfLoaded != nil else { return }
         view.backgroundColor = theme.colors.paperBackground
+        titleLabel.font = WMFFont.for(.semiboldHeadline)
+        titleLabel.textColor = theme.colors.primaryText
         headlineLabel.font = WMFFont.for(.boldBody)
         headlineLabel.textColor = theme.colors.primaryText
         subtitleLabel.font = WMFFont.for(.subheadline)
