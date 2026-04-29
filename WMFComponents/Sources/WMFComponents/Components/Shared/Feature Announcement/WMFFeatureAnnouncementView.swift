@@ -23,11 +23,11 @@ struct WMFFeatureAnnouncementView: View {
 
     /// Calculate the background image height so all other content fits without scrolling.
     func backgroundImageHeight(for geometry: GeometryProxy) -> CGFloat {
-        let topPadding: CGFloat = 14
+        let topPadding: CGFloat = 10
         let closeButtonHeight: CGFloat = 44
         let textBlockHeight: CGFloat = 150
         let buttonHeight: CGFloat = 50
-        let bottomPadding: CGFloat = 12
+        let bottomPadding: CGFloat = 0
         let spacing = spacingForAvailableHeight(geometry.size.height)
         let spacingsTotal = spacing * 3
 
@@ -103,9 +103,8 @@ struct WMFFeatureAnnouncementView: View {
                         WMFLargeButton(style: .primary, title: viewModel.primaryButtonTitle, action: viewModel.primaryButtonAction)
                             .padding([.leading, .trailing], 22)
                     }
-                    .padding([.leading, .trailing], 32)
-                    .padding(.top, 14)
-                    .padding(.bottom, 12)
+                    .padding([.leading, .trailing], 10)
+                    .padding(.top, 10)
                 }
                 .ignoresSafeArea(.container, edges: .bottom)
             }
