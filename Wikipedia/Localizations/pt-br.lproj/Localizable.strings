@@ -542,6 +542,7 @@
 "empty-no-saved-pages-title" = "Sem páginas salvas ainda.";
 "empty-no-search-results-message" = "Nenhum resultado encontrado";
 "empty-talk-page-title" = "Nenhuma mensagem foi postada para este usuário ainda";
+"end-session" = "Encerrar sessão";
 "error-generic-recovery-suggestion" = "Por favor, tente novamente mais tarde";
 "error-unknown" = "Ocorreu um erro desconhecido";
 "explore-another-random" = "Outro artigo aleatório";
@@ -1083,6 +1084,7 @@
 "reading-list-add-saved-button-title" = "Sim, desejo adicioná-los às minhas listas de leitura";
 "reading-list-add-saved-subtitle" = "Existem artigos salvos em seu aplicativo Wikipedia. Você gostaria de mantê-los e mesclar com listas de leitura sincronizadas com sua conta?";
 "reading-list-add-saved-title" = "Artigos salvos encontrados";
+"reading-list-alert-see-list" = "Ver lista de leitura";
 "reading-list-api-error-entry-limit" = "Esta entrada não é sincronizada porque você atingiu o limite para o número de entradas nesta lista.";
 "reading-list-api-error-generic" = "Ocorreu um erro inesperado ao sincronizar suas listas de leitura.";
 "reading-list-api-error-list-limit" = "Esta lista não é sincronizada porque você atingiu o limite para o número de listas sincronizadas.";
@@ -1245,6 +1247,8 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Mostrar a lista de leitura salvados(por exemplo, a lista padrão) como uma lista separada na vista de listas de leitura. Esta lista aparece nos dispositivos Android.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Mostrar lista de leitura salvada";
 "settings-storage-and-syncing-title" = "Armazenamento e sincronização de artigos";
+"settings-temp-account-end-session-confirm" = "Sair";
+"settings-temp-account-end-session-title" = "Encerrar sessão";
 "settings-title" = "Configurações";
 "settings-year-in-review-header" = "Desativar o resumo do ano apagará todas as informações personalizadas armazenadas e ocultará o Resumo do ano.";
 "share-a-fact-made-with" = "Feito com o aplicativo Wikipedia";

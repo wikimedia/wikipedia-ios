@@ -225,6 +225,7 @@
 "appearance-settings-adjust-text-sizing" = "Ajuster la taille du texte de l’article";
 "appearance-settings-expand-tables" = "Développer les tableaux";
 "appearance-settings-expand-tables-footer" = "Positionner tous les tableaux dans tous les articles comme ouvertes par défaut, y compris les Faits rapides, les Références, les Notes et les Liens externes.";
+"appearance-settings-icon-contributor-title" = "Contributeur";
 "appearance-settings-image-dimming-footer" = "Diminuer l’opacité des images pour les thèmes sombres et noirs";
 "appearance-settings-reading-themes" = "Thèmes de lecture";
 "appearance-settings-set-automatic-table-opening" = "Paramètres de tableau";
@@ -554,6 +555,7 @@
 "empty-no-saved-pages-title" = "Encore aucune page enregistrée";
 "empty-no-search-results-message" = "Aucun résultat trouvé";
 "empty-talk-page-title" = "Aucun message n’a encore été posté pour cet utilisateur";
+"end-session" = "Fermer la session";
 "error-generic-recovery-suggestion" = "Veuillez réessayer ultérieurement";
 "error-unknown" = "Une erreur inconnue est survenue";
 "explore-another-random" = "Un autre article au hasard";
@@ -1256,6 +1258,8 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Affichez la liste de lecture « Enregistrés » (liste par défaut) comme une liste distincte dans votre vue des listes de lecture. Cette liste est disponible sur les appareils Android.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Afficher la liste de lecture « Enregistrés »";
 "settings-storage-and-syncing-title" = "Stockage des articles et synchronisation";
+"settings-temp-account-end-session-title" = "Fermer la session";
+"settings-temp-accounts-talk-page-footer" = "Le compte temporaire expirera dans 90 jours";
 "settings-title" = "Paramètres";
 "settings-year-in-review-header" = "La désactivation du Bilan de l'Année effacera toutes les informations personnalisées stockées et masquera le Bilan de l'Année.";
 "share-a-fact-made-with" = "Fait avec l’application Wikipédia";
