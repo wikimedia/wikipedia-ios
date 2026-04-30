@@ -1,5 +1,6 @@
 import Foundation
 import CocoaLumberjackSwift
+import WMFData
 
 protocol SamplingControllerDelegate: AnyObject {
     var sessionID: String { get }
@@ -63,7 +64,7 @@ class SamplingController: NSObject {
         let sessionIdentifierType = "session"
         let deviceIdentifierType = "device"
         let identifierType = config.sampling?.identifier ?? sessionIdentifierType
-        let appInstallID = UserDefaults.standard.wmf_appInstallId
+        let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
 
         guard identifierType == sessionIdentifierType || identifierType == deviceIdentifierType else {
             DDLogWarn("EPC: Logged to stream which is not configured for sampling based on \(sessionIdentifierType) or \(deviceIdentifierType) identifier")

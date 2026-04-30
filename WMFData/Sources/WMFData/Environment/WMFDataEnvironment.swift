@@ -30,6 +30,13 @@ public final class WMFDataEnvironment: ObservableObject {
     public var acceptLanguageUtility: (() -> String)?
     
     public internal(set) var userDefaultsStore: WMFKeyValueStore? = WMFUserDefaultsStore()
+    
+    public internal(set) var crossProcessUserDefaultsStore: WMFKeyValueStore? = {
+        guard let defaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia") else {
+            return nil
+        }
+        return WMFUserDefaultsStore(defaults: defaults)
+    }()
 
     public var sharedCacheStore: WMFKeyValueStore? {
         didSet {
