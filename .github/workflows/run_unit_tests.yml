@@ -4,8 +4,6 @@ on:
   pull_request:
     branches:
       - 'main'
-      - 'liquid-glass'
-      - 'reading-challenge'
   push:
     branches:
       - 'main'
