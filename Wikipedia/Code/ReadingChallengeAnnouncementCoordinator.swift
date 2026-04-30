@@ -218,11 +218,13 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
 
                 viewModel.primaryButtonAction = { [weak self] in
                     self?.navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
+                        self?.widgetInstrument.submitInteraction(action: "click", actionSource: "widget_challenge_install", elementId: "install_accept")
                         self?.onComplete?(true)
                     }
                 }
                 viewModel.closeButtonAction = { [weak self] in
-                    self?.navigationController.dismiss(animated: true) {
+                    self?.navigationController.dismiss(animated: true) { [weak self] in
+                        self?.widgetInstrument.submitInteraction(action: "click", actionSource: "widget_challenge_install", elementId: "install_close")
                         self?.onComplete?(true)
                     }
                 }
@@ -284,17 +286,10 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
                 // Instrument: "Log in / Join Wikipedia" tap on login alert
                 self.widgetInstrument.submitInteraction(action: "click", actionSource: "widget_challenge_login", elementId: "login_join")
                 self.navigationController.presentedViewController?.dismiss(animated: true) {
-                    let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme, loggingCategory: .login)
+                    let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme, loggingCategory: .widgetChallenge)
                     
                     loginCoordinator.loginSuccessCompletion = { [weak self] in
                         guard let self else { return }
-
-                        widgetInstrument
-                            .submitInteraction(
-                                action: "success",
-                                actionSource: "login-join",
-                                actionContext: ["invoke_source": "widget_challenge"]
-                            )
 
                         if let loginVC = self.navigationController.presentedViewController {
                             loginVC.dismiss(animated: true) { [weak self] in
@@ -311,16 +306,6 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
                     
                     loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
                         guard let self else { return }
-
-                        // Instrument: successful account creation invoked from widget_challenge context
-                        // This fires in app_base funnel as: action=success, action_source=create_account_form,
-                        // action_context={invoke_source: widget_challenge}, funnel_name=create_account
-                        widgetInstrument
-                            .submitInteraction(
-                                action: "success",
-                                actionSource: "create_account_form",
-                                actionContext: ["invoke_source": "widget_challenge"]
-                            )
 
                         if let createAccountVC = self.navigationController.presentedViewController {
                             createAccountVC.dismiss(animated: true) { [weak self] in

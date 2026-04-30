@@ -263,26 +263,21 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             // TODO: Will probably need some special logging here.
         } else {
             if fromWidget {
-                widgetInstrument
-                    .setDefaultActionSource("create_account_form")
-                    .submitInteraction(
-                        action: "success",
-                        actionSource: "widget_challenge_login",
-                        elementId: nil,
-                        actionContext: ["invoke_source": "widget_challenge"]
-                    )
+
             } else {
                 ActivityTabFunnel.shared.logLoginClick()
                 LoginFunnel.shared.logLoginStartFromActivityTab()
             }
         }
+        
+        let loggingCategory = fromWidget ? EventCategoryMEP.widgetChallenge : .activity
 
         guard let nav = navigationController else { return }
 
         let loginCoordinator = LoginCoordinator(
             navigationController: nav,
             theme: theme,
-            loggingCategory: .activity
+            loggingCategory: loggingCategory
         )
 
         loginCoordinator.loginSuccessCompletion = {
