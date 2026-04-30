@@ -163,15 +163,15 @@ struct TopReadView: View {
             switch family {
             case .systemMedium:
                 rowBasedWidget(.systemMedium)
-                    .widgetURL(entry?.groupURL)
+                    .widgetURL(wmf_urlWithWidgetSource(entry?.groupURL, name: "top_read"))
             case .systemLarge:
                 rowBasedWidget(.systemLarge)
-                    .widgetURL(entry?.groupURL)
+                    .widgetURL(wmf_urlWithWidgetSource(entry?.groupURL, name: "top_read"))
             default:
                 smallWidget
                     .frame(width: proxy.size.width, height: proxy.size.height, alignment: .center)
                     .overlay(TopReadOverlayView(rankedElement: entry?.rankedElements.first))
-                    .widgetURL(entry?.rankedElements.first?.articleURL)
+                    .widgetURL(wmf_urlWithWidgetSource(entry?.rankedElements.first?.articleURL, name: "top_read"))
             }
         }
         .clearWidgetContainerBackground()
@@ -202,7 +202,7 @@ struct TopReadView: View {
                 .fontWeight(.bold)
             ForEach(entry?.rankedElements.indices.prefix(rowCount) ?? 0..<0, id: \.self) { elementIndex in
                 if let articleURL = entry?.rankedElements[elementIndex].articleURL {
-                    Link(destination: articleURL, label: {
+                    Link(destination: wmf_urlWithWidgetSource(articleURL, name: "top_read"), label: {
                         elementRow(elementIndex, rowCount: rowCount, showSparkline: showSparkline)
                     })
                 } else {

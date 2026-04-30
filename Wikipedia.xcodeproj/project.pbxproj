@@ -1412,6 +1412,7 @@
 		8387CE8824C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8387CE8724C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift */; };
 		8387CE8F24C99C2600439D93 /* WMFMTLModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 8387CE8D24C99C2600439D93 /* WMFMTLModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8387CE9024C99C2600439D93 /* WMFMTLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8387CE8E24C99C2600439D93 /* WMFMTLModel.m */; };
+		838BE32F2F9A8E0E000F6F62 /* URL+WidgetSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838BE32E2F9A8E0E000F6F62 /* URL+WidgetSource.swift */; };
 		83927D7B1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */; };
 		83927D7C1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */; };
 		83927D7D1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */; };
@@ -3647,6 +3648,7 @@
 		8387CE8724C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFSecureUnarchiveFromDataTransformer.swift; sourceTree = "<group>"; };
 		8387CE8D24C99C2600439D93 /* WMFMTLModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFMTLModel.h; sourceTree = "<group>"; };
 		8387CE8E24C99C2600439D93 /* WMFMTLModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFMTLModel.m; sourceTree = "<group>"; };
+		838BE32E2F9A8E0E000F6F62 /* URL+WidgetSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+WidgetSource.swift"; sourceTree = "<group>"; };
 		83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisambiguationPagesViewController.swift; sourceTree = "<group>"; };
 		83927D801F705B7B00051890 /* SearchResultsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsListViewController.swift; sourceTree = "<group>"; };
 		8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
@@ -4539,6 +4541,7 @@
 				0033D79724F818EB00CAB5B3 /* TopReadWidget+LocalizedStrings.swift */,
 				A7B292122DF1CF9D001C213F /* SearchWidget.swift */,
 				A77070222DF6ECA400D9F09B /* SearchWidget+LocalizedStrings.swift */,
+				838BE32E2F9A8E0E000F6F62 /* URL+WidgetSource.swift */,
 			);
 			path = Widgets;
 			sourceTree = "<group>";
@@ -9411,6 +9414,7 @@
 				006D273524D8BAFB00947551 /* View+Extensions.swift in Sources */,
 				0033D7A124F8199300CAB5B3 /* Sparkline.swift in Sources */,
 				00669505265DA3D300E23AE4 /* FeaturedArticleWidget.swift in Sources */,
+				838BE32F2F9A8E0E000F6F62 /* URL+WidgetSource.swift in Sources */,
 				AA001001AA001001AA001001 /* ReadingChallengeWidget.swift in Sources */,
 				00B16E8E293AACC200EF847F /* UIImage+Extensions.swift in Sources */,
 				00021E0424D4A42A00476F97 /* PictureOfTheDayWidget.swift in Sources */,
