@@ -754,9 +754,11 @@ extension WMFAppViewController {
 
         // Notify the scene delegate that the data environment is ready, so it can submit any
         // deferred app_open event (e.g. on fresh install where languages weren't set up yet).
+        #if !TEST
         if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
             sceneDelegate.dataEnvironmentDidSetup()
         }
+        #endif
     }
 
     @objc func updateWMFDataEnvironmentFromLanguagesDidChange() {
