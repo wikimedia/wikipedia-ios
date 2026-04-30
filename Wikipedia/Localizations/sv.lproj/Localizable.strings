@@ -527,6 +527,7 @@
 "empty-no-saved-pages-title" = "Inga sparade sidor ännu";
 "empty-no-search-results-message" = "Inga resultat hittades";
 "empty-talk-page-title" = "Inga meddelanden har ännu lagts upp för denna användare";
+"end-session" = "Avsluta session";
 "error-generic-recovery-suggestion" = "Försök igen senare";
 "error-unknown" = "Ett okänt fel uppstod";
 "explore-another-random" = "En annan slumpmässig artikel";
@@ -1231,6 +1232,10 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Visa den sparade läslistan (t.ex. standardlistan) som en separat lista i vyn över dina läslistor. Denna lista syns på Android-enheter.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Visa sparad läslista";
 "settings-storage-and-syncing-title" = "Lagring och synkronisering av artiklar";
+"settings-temp-account-end-session-confirm" = "Logga ut";
+"settings-temp-account-end-session-message" = "Är du säker på att du vill lämna sessionen och logga ut? Det finns inget sätt att logga in på det temporära kontot.";
+"settings-temp-account-end-session-title" = "Avsluta session";
+"settings-temp-accounts-talk-page-footer" = "Det tillfälliga kontot löper ut om 90 dagar.";
 "settings-title" = "Inställningar";
 "settings-year-in-review-header" = "Om du inaktiverar årsöversikten kommer alla lagrade personliga insikter att rensas och dölja årsöversikten.";
 "share-a-fact-made-with" = "Skapad med Wikipedia-appen";
