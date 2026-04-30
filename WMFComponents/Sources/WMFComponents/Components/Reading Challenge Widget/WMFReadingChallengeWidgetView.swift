@@ -178,8 +178,8 @@ public struct WMFReadingChallengeWidgetView: View {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
-                        .frame(maxWidth: .infinity)
-                        .layoutPriority(1)
+                        .frame(maxHeight: 100)
+                        .padding(.top, 17)
                 }
                 if let button1Title = viewModel.displaySet.button1Title,
                    let button1URL = viewModel.displaySet.button1URL {
@@ -192,6 +192,7 @@ public struct WMFReadingChallengeWidgetView: View {
                             .background(buttonBackground)
                             .clipShape(Capsule())
                     }
+                    .layoutPriority(1)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -205,10 +206,12 @@ public struct WMFReadingChallengeWidgetView: View {
         ZStack {
             VStack(alignment: .leading, spacing: 0) {
                 if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                    Spacer()
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
                         .frame(maxHeight: 100)
+                    Spacer()
                 }
             }
             .padding(.horizontal, 10)
@@ -222,12 +225,14 @@ public struct WMFReadingChallengeWidgetView: View {
             VStack(alignment: .center, spacing: 0) {
                 Spacer()
                 if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                    Spacer()
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
                         .frame(maxHeight: 90)
+                    Spacer()
                 }
-                Spacer()
+                
                 if let subtitle = viewModel.displaySet.subtitle {
                     HStack(spacing: 4) {
                         if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .mediumFootnote, compatibleWith: traitCollection, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
@@ -254,10 +259,12 @@ public struct WMFReadingChallengeWidgetView: View {
         ZStack {
             VStack(alignment: .center) {
                 if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                    Spacer()
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
-                        .frame(maxHeight: 80)
+                        .frame(maxHeight: 100)
+                    Spacer()
                 }
                 HStack {
                     if let uiImage = UIImage(named: "flameWarning", in: .module, with: nil) {
@@ -274,7 +281,8 @@ public struct WMFReadingChallengeWidgetView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .padding(.horizontal, 10)
-            .padding(.vertical, 8)
+            .padding(.top, 8)
+            .padding(.bottom, 14)
             wIconOverlay
         }
     }
@@ -283,10 +291,12 @@ public struct WMFReadingChallengeWidgetView: View {
         ZStack {
             VStack(alignment: .center) {
                 if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                    Spacer()
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
-                        .frame(maxHeight: 80)
+                        .frame(maxHeight: 100)
+                    Spacer()
                 }
                 HStack {
                     if let icon = viewModel.displaySet.icon {
@@ -304,7 +314,8 @@ public struct WMFReadingChallengeWidgetView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .padding(.horizontal, 10)
-            .padding(.vertical, 8)
+            .padding(.top, 8)
+            .padding(.bottom, 14)
             wIconOverlay
         }
     }
@@ -313,10 +324,12 @@ public struct WMFReadingChallengeWidgetView: View {
         ZStack {
             VStack(alignment: .center, spacing: 0) {
                 if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                    Spacer()
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
                         .frame(maxHeight: 100)
+                    Spacer()
                 }
                 switch viewModel.state {
                 case .streakOngoingNotYetRead:
@@ -394,11 +407,12 @@ public struct WMFReadingChallengeWidgetView: View {
         ZStack {
             VStack(alignment: .leading, spacing: 8) {
                 if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                    Spacer()
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
-                        .frame(maxWidth: .infinity)
-                        .layoutPriority(1)
+                        .frame(maxHeight: 100)
+                    Spacer()
                 }
                 Text(viewModel.displaySet.title)
                     .font(Font(WMFFont.for(.boldFootnote, compatibleWith: traitCollection)))
@@ -762,7 +776,7 @@ public struct WMFReadingChallengeWidgetView: View {
 
                             Spacer()
 
-                            HStack(spacing: 3) {
+                            HStack(spacing: 10) {
                                 if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1, compatibleWith: traitCollection, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
                                     Image(uiImage: icon)
                                         .resizable()
