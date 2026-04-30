@@ -35,23 +35,23 @@ jobs:
 
       - name: Select Xcode
         run: |
-          sudo xcode-select -switch /Applications/Xcode_$XCODE_VERSION.app
+          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
 
       - name: Test ${{ matrix.scheme }} scheme
         run: |
           xcrun simctl list
           SIMULATORS=("iPhone 16")
           for SIMULATOR in "${SIMULATORS[@]}"; do
-            echo "Running scheme: ${{ matrix.scheme }} on $SIMULATOR iOS $IOS_VERSION with Xcode $XCODE_VERSION"
+            echo "Running scheme: ${{ matrix.scheme }} on ${SIMULATOR} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
             xcodebuild test \
-              -scheme ${{ matrix.scheme }} \
+              -scheme "${{ matrix.scheme }}" \
               -project Wikipedia.xcodeproj \
               -destination "platform=iOS Simulator,name=$SIMULATOR,OS=$IOS_VERSION" \
               -resultBundlePath "${{ matrix.scheme }}_TestResults" \
               | xcpretty
             EXIT_CODE=${PIPESTATUS[0]}
-            if [ $EXIT_CODE -ne 0 ]; then
-              exit $EXIT_CODE
+            if [ "$EXIT_CODE" -ne 0 ]; then
+              exit "$EXIT_CODE"
             fi
           done
 
