@@ -1,3 +1,5 @@
+import WMFData
+
 @objc final class SessionsFunnel: NSObject {
     @objc public static let shared = SessionsFunnel()
     
@@ -38,8 +40,7 @@
     }
 
     @objc public func appDidBecomeActive() {
-        let userDefaults = UserDefaults.standard
-        let sessionID = userDefaults.wmf_sessionID
+        let sessionID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.sessionID.rawValue)
 
         if sessionID == nil {
             EventPlatformClient.shared.generateSessionID()
