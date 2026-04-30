@@ -1,6 +1,7 @@
 import UIKit
 import BackgroundTasks
 import CocoaLumberjackSwift
+import WMFTestKitchen
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -66,6 +67,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Submit app_open instrument with the most recent source (if any), then resume the app.
         submitAppOpenIfNeeded()
+
         resumeAppIfNecessary()
     }
 

@@ -1083,6 +1083,7 @@
 "reading-challenge-not-yet-read-subtitle-snooze" = "Before the day snoozes away...there’s still time to learn something.";
 "reading-challenge-random-button" = "Random";
 "reading-challenge-streak-days" = "{{PLURAL:$1|$1 day|$1 days}}";
+"reading-challenge-streak-no-days" = "$1 of 25";
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 of 25 day|$1 of 25 days}}";
 "reading-challenge-subtitle" = "25-day reading challenge";
 "reading-challenge-widget-announcement-body" = "Baby Globe is cheering you on. Add the Reading Challenge widget to track your progress from your homescreen.";

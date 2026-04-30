@@ -19,6 +19,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return try? WMFYearInReviewDataController()
     }
     
+    private let widgetInstrument = WidgetFunnel().widgetInstrument
+    
+    
     private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
 
     private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
@@ -992,7 +995,7 @@ extension ExploreViewController {
             return
         }
         
-        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, fromWidgetJoinChallengeButton: false, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
+        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, fromWidgetJoinChallengeButton: false, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent, instrument: widgetInstrument)
         
         readingChallengeCoordinator.onComplete = { [weak self] didPresentSomething in
             
@@ -1116,7 +1119,7 @@ extension ExploreViewController {
         let backgroundImage = UIImage(named: "gradient")
 
         let viewModel = WMFFeatureAnnouncementViewModel(title: title,body: body,
-        primaryButtonTitle: primaryButtonTitle, image: foregroundImage, backgroundImage: backgroundImage, backgroundImageHeight: 250,
+        primaryButtonTitle: primaryButtonTitle, image: foregroundImage, backgroundImage: backgroundImage,
             gifName: nil, altText: CommonStrings.searchWidgetAnnouncementBody,
             primaryButtonAction: { [weak self] in
                 self?.dismiss(animated: true)
