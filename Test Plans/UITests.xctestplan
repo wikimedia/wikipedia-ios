@@ -72,11 +72,6 @@
   },
   "testTargets" : [
     {
-      "skippedTests" : [
-        "WKSourceEditorUITests",
-        "WKSourceEditorUITests\/testSourceEditorInputViewSwitching()",
-        "WikipediaUITests"
-      ],
       "target" : {
         "containerPath" : "container:Wikipedia.xcodeproj",
         "identifier" : "67623E0B2AFD288A007488C7",
