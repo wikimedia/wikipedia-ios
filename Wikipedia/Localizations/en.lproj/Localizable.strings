@@ -1087,7 +1087,7 @@
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 of 25 day|$1 of 25 days}}";
 "reading-challenge-subtitle" = "25-day reading challenge";
 "reading-challenge-widget-announcement-body" = "Baby Globe is cheering you on. Add the Reading Challenge widget to track your progress from your homescreen.";
-"reading-challenge-widget-announcement-title" = "25-day reading challenge widget available";
+"reading-challenge-widget-announcement-title" = "Install the 25-day reading challenge widget";
 "reading-challenge-widget-description" = "Track your reading challenge progress.";
 "reading-challenge-widget-display-name" = "Reading Challenge";
 "reading-list-add-generic-hint-title" = "Add this article to a reading list?";
