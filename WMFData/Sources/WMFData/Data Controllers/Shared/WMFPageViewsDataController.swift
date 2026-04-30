@@ -417,21 +417,21 @@ extension WMFPageViewsDataController {
         let maxDateToCompleteStreak = calendar.startOfDay(for: endDateStart.addingTimeInterval(TimeInterval((config.streakGoal * oneDayInSeconds))))
 
         if todayStart >= removeDateStart {
-            sendHeartbeat(actionContext: ["funnel_name": "widget_challenge"])
+            sendHeartbeat()
             return .challengeRemoved
         }
 
         if todayStart < startDateStart {
-            sendHeartbeat(actionContext: ["funnel_name": "widget_challenge"])
+            sendHeartbeat()
             return .notLiveYet
         }
 
         guard isEnrolled else {
             if todayStart > endDateStart {
-                sendHeartbeat(actionContext: ["funnel_name": "widget_challenge"])
+                sendHeartbeat()
                 return .challengeConcludedNoStreak
             }
-            sendHeartbeat(actionContext: ["funnel_name": "widget_challenge"])
+            sendHeartbeat()
             return .notEnrolled
         }
 
@@ -448,7 +448,6 @@ extension WMFPageViewsDataController {
             sendHeartbeat(actionContext: [
                 "streak_count": cappedStreak,
                 "streak_complete": true,
-                "funnel_name": "widget_challenge"
             ])
             return .challengeCompleted
         }
@@ -458,7 +457,6 @@ extension WMFPageViewsDataController {
             sendHeartbeat(actionContext: [
                 "streak_count": cappedStreak,
                 "streak_complete": true,
-                "funnel_name": "widget_challenge"
             ])
             return .challengeCompleted
         }
@@ -468,7 +466,6 @@ extension WMFPageViewsDataController {
                 sendHeartbeat(actionContext: [
                     "streak_count": cappedStreak,
                     "streak_complete": false,
-                    "funnel_name": "widget_challenge"
                 ])
                 return .challengeConcludedNoStreak
             }
@@ -479,14 +476,12 @@ extension WMFPageViewsDataController {
                     sendHeartbeat(actionContext: [
                         "streak_count": highestStreak,
                         "streak_complete": false,
-                        "funnel_name": "widget_challenge"
                     ])
                     return .challengeConcludedIncomplete(streak: highestStreak)
                 } else {
                     sendHeartbeat(actionContext: [
                         "streak_count": 0,
                         "streak_complete": false,
-                        "funnel_name": "widget_challenge"
                     ])
                     return .challengeConcludedNoStreak
                 }
@@ -498,14 +493,12 @@ extension WMFPageViewsDataController {
                 sendHeartbeat(actionContext: [
                     "streak_count": cappedStreak,
                     "streak_complete": false,
-                    "funnel_name": "widget_challenge"
                 ])
                 return .challengeConcludedIncomplete(streak: cappedStreak)
             } else {
                 sendHeartbeat(actionContext: [
                     "streak_count": cappedStreak,
                     "streak_complete": false,
-                    "funnel_name": "widget_challenge"
                 ])
                 return .challengeConcludedNoStreak
             }
@@ -514,7 +507,6 @@ extension WMFPageViewsDataController {
         if cappedStreak == 0 {
             sendHeartbeat(actionContext: [
                 "streak_count": 0,
-                "funnel_name": "widget_challenge"
             ])
             return .enrolledNotStarted
         }
@@ -523,14 +515,12 @@ extension WMFPageViewsDataController {
             sendHeartbeat(actionContext: [
                 "streak_count": cappedStreak,
                 "streak_complete": false,
-                "funnel_name": "widget_challenge"
             ])
             return .streakOngoingRead(streak: cappedStreak)
         } else {
             sendHeartbeat(actionContext: [
                 "streak_count": cappedStreak,
                 "streak_complete": false,
-                "funnel_name": "widget_challenge"
             ])
             return .streakOngoingNotYetRead(streak: cappedStreak)
         }
