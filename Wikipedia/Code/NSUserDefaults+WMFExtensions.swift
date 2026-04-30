@@ -26,7 +26,7 @@ let WMFDidShowTitleDescriptionEditingIntro = "WMFDidShowTitleDescriptionEditingI
 let WMFDidShowFirstEditPublishedPanelKey = "WMFDidShowFirstEditPublishedPanelKey"
 let WMFIsSyntaxHighlightingEnabled = "WMFIsSyntaxHighlightingEnabled"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
-let WMFAppInstallId = "WMFAppInstallId"
+public let WMFAppInstallId = "WMFAppInstallId"
 let WMFSendUsageReports = "WMFSendUsageReports"
 let WMFShowNotificationsExploreFeedCard = "WMFShowNotificationsExploreFeedCard"
 let WMFUserHasOnboardedToNotificationsCenter = "WMFUserHasOnboardedToNotificationsCenter"
@@ -92,6 +92,7 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
         }
     }
     
+    // Deprecated. Prefer try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
     @objc var wmf_appInstallId: String? {
         get {
             var appInstallId = string(forKey: WMFAppInstallId)
@@ -512,6 +513,7 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
         }
     }
 
+    // Deprecated. Prefer try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.sessionID.rawValue)
     @objc var wmf_sessionID: String? {
         get {
             return string(forKey: "WMFSessionID")

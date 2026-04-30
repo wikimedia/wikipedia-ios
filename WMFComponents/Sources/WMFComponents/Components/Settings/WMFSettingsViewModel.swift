@@ -315,6 +315,7 @@ final public class WMFSettingsViewModel: ObservableObject {
         if await dataController.shouldShowYiRSettingsItem() {
             section.items.insert(yearInReview, at: 3)
         }
+        
 #if DEBUG
         section.items.insert(dangerZone, at: 7)
 #endif
