@@ -27,7 +27,7 @@ public final class WidgetController: NSObject {
     @objc public static let shared = WidgetController()
     private let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.widgetCache)
     
-    private var widgetCache: WidgetCache {
+    var widgetCache: WidgetCache {
         return sharedCache.loadCache() ?? WidgetCache(settings: .default, featuredContent: nil)
     }
 
@@ -40,8 +40,9 @@ public final class WidgetController: NSObject {
 
         let dataStore = MWKDataStore.shared()
         let appLanguage = dataStore.languageLinkController.appLanguage
+        let preferredLanguageCodes = dataStore.languageLinkController.preferredLanguages.map { $0.languageCode }
         if let siteURL = appLanguage?.siteURL, let languageCode = appLanguage?.languageCode {
-            let updatedWidgetSettings = WidgetSettings(siteURL: siteURL, languageCode: languageCode, languageVariantCode: appLanguage?.languageVariantCode)
+            let updatedWidgetSettings = WidgetSettings(siteURL: siteURL, languageCode: languageCode, languageVariantCode: appLanguage?.languageVariantCode, preferredLanguageCodes: preferredLanguageCodes)
             updateCacheWith(settings: updatedWidgetSettings)
         }
 
@@ -55,8 +56,9 @@ public final class WidgetController: NSObject {
 
         let dataStore = MWKDataStore.shared()
         let appLanguage = dataStore.languageLinkController.appLanguage
+        let preferredLanguageCodes = dataStore.languageLinkController.preferredLanguages.map { $0.languageCode }
         if let siteURL = appLanguage?.siteURL, let languageCode = appLanguage?.languageCode {
-            let updatedWidgetSettings = WidgetSettings(siteURL: siteURL, languageCode: languageCode, languageVariantCode: appLanguage?.languageVariantCode)
+            let updatedWidgetSettings = WidgetSettings(siteURL: siteURL, languageCode: languageCode, languageVariantCode: appLanguage?.languageVariantCode, preferredLanguageCodes: preferredLanguageCodes)
             updateCacheWith(settings: updatedWidgetSettings)
         }
         

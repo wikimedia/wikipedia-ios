@@ -738,7 +738,7 @@ extension WMFAppViewController {
         }
 
         WMFDataEnvironment.current.appInstallIDUtility = {
-            return UserDefaults.standard.wmf_appInstallId
+            return try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
         }
 
         WMFDataEnvironment.current.acceptLanguageUtility = {
@@ -752,6 +752,8 @@ extension WMFAppViewController {
 
         WMFDataEnvironment.current.testKitchenClient = TestKitchenAdapter.shared.client
 
+        evaluateAppInstallAndSessionIDs()
+        
         // Notify the scene delegate that the data environment is ready, so it can submit any
         // deferred app_open event (e.g. on fresh install where languages weren't set up yet).
         #if !TEST
@@ -759,6 +761,35 @@ extension WMFAppViewController {
             sceneDelegate.dataEnvironmentDidSetup()
         }
         #endif
+    }
+    
+    private func evaluateAppInstallAndSessionIDs() {
+        
+        let legacyAppInstallID = UserDefaults.standard.string(forKey: WMFAppInstallId)
+        let legacySessionID = UserDefaults.standard.wmf_sessionID
+        
+        let store = WMFDataEnvironment.current.crossProcessUserDefaultsStore
+        let appInstallID: String? = try? store?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+        let sessionID: String? = try? store?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+        
+        if legacyAppInstallID == nil && appInstallID == nil {
+            // This is likely a fresh install! Generate a new app install ID
+            
+            let newAppInstallId = UUID().uuidString
+            try? store?.save(key: WMFUserDefaultsKey.appInstallID.rawValue, value: newAppInstallId)
+        } else {
+            
+            // Check to see if migrations are needed
+            if legacyAppInstallID != nil && appInstallID == nil {
+                try? store?.save(key: WMFUserDefaultsKey.appInstallID.rawValue, value: legacyAppInstallID)
+                UserDefaults.standard.wmf_appInstallId = nil
+            }
+            
+            if legacySessionID != nil && sessionID == nil {
+                try? store?.save(key: WMFUserDefaultsKey.sessionID.rawValue, value: legacySessionID)
+                UserDefaults.standard.wmf_sessionID = nil
+            }
+        }
     }
 
     @objc func updateWMFDataEnvironmentFromLanguagesDidChange() {

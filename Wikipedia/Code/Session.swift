@@ -78,8 +78,7 @@ public class Session: NSObject {
     
     // event logging uuid, set if enabled, nil if disabled
     private var xWMFUUID: String? {
-        let userDefaults = UserDefaults.standard
-        return userDefaults.wmf_appInstallId
+        return try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
     }
     
     private static let defaultCookieStorage: HTTPCookieStorage = {
