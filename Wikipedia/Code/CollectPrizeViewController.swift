@@ -3,11 +3,26 @@ import WMF
 import Combine
 import SwiftUI
 import WMFNativeLocalizations
+import WMFTestKitchen
+import WMFData
 
 final class CollectPrizeViewController: UIViewController, Themeable {
 
     // MARK: - Properties
+    
+    private lazy var instrument: InstrumentImpl = {
+        TestKitchenAdapter.shared.client
+            .getInstrument(name: "apps-widgetchallenge")
+            .setDefaultActionSource("challenge_complete")
+            .startFunnel(name: "widget_challenge")
+    }()
 
+    /// Reads streak count from shared UserDefaults (written by the widget extension).
+    private var streakCount: Int? {
+        UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
+            .flatMap { $0.object(forKey: WMFUserDefaultsKey.readingChallengeWidgetStreakCount.rawValue) as? Int }
+    }
+    
     private var theme: Theme
 
     init(theme: Theme) {
@@ -84,6 +99,22 @@ final class CollectPrizeViewController: UIViewController, Themeable {
         apply(theme: theme)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // Instrument: impression on collect prize modal
+        var context: [String: Any] = [:]
+        if let streak = streakCount {
+            context["streak_count"] = streak
+        }
+        instrument.submitInteraction(
+            action: "impression",
+            actionSource: "challenge_complete",
+            elementId: "collect_prize",
+            actionContext: context.isEmpty ? nil : context
+        )
+    }
+    
     private func setupLayout() {
         view.addSubview(closeButton)
         view.addSubview(titleLabel)
@@ -132,6 +163,18 @@ final class CollectPrizeViewController: UIViewController, Themeable {
     }
 
     @objc private func primaryButtonTapped() {
+        // Instrument: store button tap on collect prize modal
+        var context: [String: Any] = [:]
+        if let streak = streakCount {
+            context["streak_count"] = streak
+        }
+        instrument.submitInteraction(
+            action: "click",
+            actionSource: "challenge_complete",
+            elementId: "store_button",
+            actionContext: context.isEmpty ? nil : context
+        )
+
         guard let url = URL(string: "https://store.wikimedia.org/discount/Widget15") else { return }
         UIApplication.shared.open(url)
     }

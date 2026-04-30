@@ -1,6 +1,7 @@
 import UIKit
 import BackgroundTasks
 import CocoaLumberjackSwift
+import WMFTestKitchen
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -54,7 +55,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-
         resumeAppIfNecessary()
     }
 

@@ -4,6 +4,7 @@ import WMF
 import WMFComponents
 import WMFData
 import WMFNativeLocalizations
+import WMFTestKitchen
 
 // MARK: - Entry
 
@@ -25,8 +26,21 @@ struct ReadingChallengeProvider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<ReadingChallengeEntry>) -> Void) {
+        WMFDataEnvironment.current.testKitchenClient = TestKitchenAdapter.shared.client
         Task {
             let state = await resolvedState()
+
+            let userDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
+            switch state {
+            case .streakOngoingRead(let streak),
+                 .streakOngoingNotYetRead(let streak),
+                 .challengeConcludedIncomplete(let streak):
+                userDefaults?.set(streak, forKey: WMFUserDefaultsKey.readingChallengeWidgetStreakCount.rawValue)
+            case .challengeCompleted:
+                userDefaults?.set(ReadingChallengeStateConfig.streakGoal, forKey: WMFUserDefaultsKey.readingChallengeWidgetStreakCount.rawValue)
+            default:
+                userDefaults?.removeObject(forKey: WMFUserDefaultsKey.readingChallengeWidgetStreakCount.rawValue)
+            }
 
             // Refresh at the next midnight so the "not yet read today" reset fires.
             let nextMidnight = Calendar.current.startOfDay(
@@ -40,6 +54,12 @@ struct ReadingChallengeProvider: TimelineProvider {
     }
 
     private func resolvedState() async -> ReadingChallengeState {
+        let inst: InstrumentImpl = {
+            TestKitchenAdapter.shared.client.getInstrument(name: "apps-widgetchallenge")
+                .setDefaultActionSource("widget")
+                .startFunnel(name: "widget_challenge")
+        }()
+        
         do {
             let appContainerURL = FileManager.default.wmf_containerURL()
             WMFDataEnvironment.current.appContainerURL = appContainerURL
@@ -51,7 +71,7 @@ struct ReadingChallengeProvider: TimelineProvider {
             
             let isEnrolled = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false
             let currentDate = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
-            return try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled, now: currentDate)
+            return try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled, now: currentDate, instrument: inst)
         } catch {
             return .notEnrolled
         }

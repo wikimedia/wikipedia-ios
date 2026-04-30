@@ -34,6 +34,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     public var password:String?
     public var captchaID:String?
     public var captchaWord:String?
+    
+    var category: EventCategoryMEP?
     public var authInstrument: InstrumentImpl?
     
     @objc public var cancelAction: (() -> Void)?
@@ -356,8 +358,12 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
 
                 WMFToastManager.sharedInstance.showToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
-                authInstrument?
-                    .submitInteraction(action: "success", actionSource: self.loggingCustomActionSource)
+                
+                var actionContext: [String: String]? = nil
+                if let category {
+                    actionContext = ["invoke_source": category.rawValue]
+                }
+                self.authInstrument?.submitInteraction(action: "success", actionSource: self.loggingCustomActionSource, actionContext: actionContext)
 
                 let presenter = self.presentingViewController
                 self.dismiss(animated: true, completion: {
