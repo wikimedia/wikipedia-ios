@@ -398,10 +398,11 @@ extension WMFPageViewsDataController {
             sharedDefaults?.set(true, forKey: key.rawValue)
         }
 
-        func sendHeartbeat(actionContext: [String: Any] = [:]) {
+        func sendHeartbeat(elementId: String, actionContext: [String: Any]? = nil) {
             instrument?.submitInteraction(
                 action: "heartbeat",
                 actionSource: "widget_challenge",
+                elementId: elementId,
                 actionContext: actionContext
             )
         }
@@ -417,21 +418,21 @@ extension WMFPageViewsDataController {
         let maxDateToCompleteStreak = calendar.startOfDay(for: endDateStart.addingTimeInterval(TimeInterval((config.streakGoal * oneDayInSeconds))))
 
         if todayStart >= removeDateStart {
-            sendHeartbeat()
+            sendHeartbeat(elementId: "challenge_no_streak")
             return .challengeRemoved
         }
 
         if todayStart < startDateStart {
-            sendHeartbeat()
+            sendHeartbeat(elementId: "not_yet_live")
             return .notLiveYet
         }
 
         guard isEnrolled else {
             if todayStart > endDateStart {
-                sendHeartbeat()
+                sendHeartbeat(elementId: "challenge_no_streak")
                 return .challengeConcludedNoStreak
             }
-            sendHeartbeat()
+            sendHeartbeat(elementId: "not_enrolled")
             return .notEnrolled
         }
 
@@ -445,27 +446,27 @@ extension WMFPageViewsDataController {
         let cappedStreak = min(streak, config.streakGoal)
 
         if sharedDefaultsBool(.readingChallengeUserCompleted) {
-            sendHeartbeat(actionContext: [
+            sendHeartbeat(elementId: "challenge_completed", actionContext: [
                 "streak_count": cappedStreak,
-                "streak_complete": true,
+                "streak_complete": true
             ])
             return .challengeCompleted
         }
 
         if cappedStreak >= config.streakGoal {
             setSharedDefaultsBool(.readingChallengeUserCompleted, value: true)
-            sendHeartbeat(actionContext: [
+            sendHeartbeat(elementId: "challenge_completed", actionContext: [
                 "streak_count": cappedStreak,
-                "streak_complete": true,
+                "streak_complete": true
             ])
             return .challengeCompleted
         }
 
         if todayStart > endDateStart {
             if streakStartedAfterEnrollmentCutoff {
-                sendHeartbeat(actionContext: [
+                sendHeartbeat(elementId: "challenge_no_streak", actionContext: [
                     "streak_count": cappedStreak,
-                    "streak_complete": false,
+                    "streak_complete": false
                 ])
                 return .challengeConcludedNoStreak
             }
@@ -473,15 +474,15 @@ extension WMFPageViewsDataController {
             if cappedStreak == 0 {
                 let highestStreak = try await computeLongestStreak(calendar: calendar, now: now, startDate: config.startDate)
                 if highestStreak > 1 {
-                    sendHeartbeat(actionContext: [
+                    sendHeartbeat(elementId: "challenge_incomplete", actionContext: [
                         "streak_count": highestStreak,
-                        "streak_complete": false,
+                        "streak_complete": false
                     ])
                     return .challengeConcludedIncomplete(streak: highestStreak)
                 } else {
-                    sendHeartbeat(actionContext: [
+                    sendHeartbeat(elementId: "challenge_no_streak", actionContext: [
                         "streak_count": 0,
-                        "streak_complete": false,
+                        "streak_complete": false
                     ])
                     return .challengeConcludedNoStreak
                 }
@@ -490,37 +491,37 @@ extension WMFPageViewsDataController {
 
         if todayStart > maxDateToCompleteStreak {
             if cappedStreak > 1 {
-                sendHeartbeat(actionContext: [
+                sendHeartbeat(elementId: "challenge_incomplete", actionContext: [
                     "streak_count": cappedStreak,
-                    "streak_complete": false,
+                    "streak_complete": false
                 ])
                 return .challengeConcludedIncomplete(streak: cappedStreak)
             } else {
-                sendHeartbeat(actionContext: [
+                sendHeartbeat(elementId: "challenge_no_streak", actionContext: [
                     "streak_count": cappedStreak,
-                    "streak_complete": false,
+                    "streak_complete": false
                 ])
                 return .challengeConcludedNoStreak
             }
         }
 
         if cappedStreak == 0 {
-            sendHeartbeat(actionContext: [
-                "streak_count": 0,
+            sendHeartbeat(elementId: "enrolled_not_started", actionContext: [
+                "streak_count": 0
             ])
             return .enrolledNotStarted
         }
 
         if hasReadToday {
-            sendHeartbeat(actionContext: [
+            sendHeartbeat(elementId: "streak_ongoing_read", actionContext: [
                 "streak_count": cappedStreak,
-                "streak_complete": false,
+                "streak_complete": false
             ])
             return .streakOngoingRead(streak: cappedStreak)
         } else {
-            sendHeartbeat(actionContext: [
+            sendHeartbeat(elementId: "streak_ongoing", actionContext: [
                 "streak_count": cappedStreak,
-                "streak_complete": false,
+                "streak_complete": false
             ])
             return .streakOngoingNotYetRead(streak: cappedStreak)
         }
