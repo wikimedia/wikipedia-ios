@@ -4,9 +4,13 @@ on:
   pull_request:
     branches:
       - 'main'
+  push:
+    branches:
+      - 'main'
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: read
 
 env:
@@ -112,9 +116,19 @@ jobs:
           fi
 
       - name: Upload UI test result bundle
-        if: success()
+        if: always()
         uses: actions/upload-artifact@v7
         with:
           name: WikipediaUITests-TestResults
           path: WikipediaUITests_TestResults.xcresult
           if-no-files-found: ignore
+
+      - name: Coverage summary
+        if: success()
+        uses: ./.github/actions/coverage-summary
+        with:
+          artifact-name: WikipediaUITests-coverage
+          coverage-json-path: WikipediaUITests_coverage.json
+          result-bundle-path: WikipediaUITests_TestResults.xcresult
+          scheme: WikipediaUITests
+          workflow-file: run_ui_tests.yml
