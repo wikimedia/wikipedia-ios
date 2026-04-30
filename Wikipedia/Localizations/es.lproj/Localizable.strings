@@ -149,6 +149,7 @@
 "activity-tab-add-images-subtitle" = "Agrega imágenes sugeridas a los artículos de Wikipedia para mejorar la comprensión.";
 "activity-tab-add-images-title" = "Agregar imágenes";
 "activity-tab-additional-thoughts" = "¿Algún otro comentario?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 vista|$1 vistas}}";
 "activity-tab-articles-read" = "Artículos leídos este mes";
 "activity-tab-articles-read-graph-label" = "Artículos";
 "activity-tab-customize-all-time-impact" = "Impacto en todo el tiempo";
@@ -160,8 +161,12 @@
 "activity-tab-customize-reading-insights" = "Perspectivas de lectura";
 "activity-tab-customize-time-spent-reading" = "Tiempo dedicado a la lectura";
 "activity-tab-customize-timeline-of-behavior" = "Cronología del comportamiento";
+"activity-tab-email-fifth-line" = "[Capturas de pantallas o Enlaces]";
+"activity-tab-email-second-line" = "- [Describe un problema específico]";
 "activity-tab-generic-no-edits" = "No has editado esta semana. Comienza ahora a hacer un seguimiento de tus contribuciones.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
+"activity-tab-impact-thanks-label" = "agredicimentos";
+"activity-tab-impact-views-day" = "Día";
 "activity-tab-logged-out-subtitle" = "Inicia sesión o crea una cuenta para ver tu actividad en la app de Wikipedia.";
 "activity-tab-logged-out-title" = "Ver más información sobre lectura y edición";
 "activity-tab-menu-clear-history" = "Borrar historial de lectura";
