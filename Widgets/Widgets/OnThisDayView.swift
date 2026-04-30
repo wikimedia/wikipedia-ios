@@ -71,7 +71,7 @@ struct OnThisDayView: View {
         .overlay(errorBox)
         .environment(\.layoutDirection, entry.isRTLLanguage ? .rightToLeft : .leftToRight)
         .clearWidgetContainerBackground()
-        .widgetURL(entry.contentURL)
+        .widgetURL(wmf_urlWithWidgetSource(entry.contentURL, name: "on_this_day"))
     }
 
     var errorBox: some View {
@@ -358,7 +358,7 @@ struct LargeWidgetMiddleSection: View {
                 Text(eventSnippet)
                     .font(Font(WMFFont.for(.caption1)))
                 if let link = link {
-                    Link(destination: link) {
+                    Link(destination: wmf_urlWithWidgetSource(link, name: "on_this_day")) {
                         ArticleRectangleBox(title: title, description: description, image: image)
                     }
                 } else {
