@@ -18,10 +18,11 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private let hostingController: WMFActivityTabHostingController
     public let viewModel: WMFActivityTabViewModel
     private let dataController: WMFActivityTabDataController
-    
+
     private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
-    
+
     private var disableModalsOnAppearance: Bool = false
+    private let widgetInstrument = WidgetFunnel().widgetInstrument
 
     public init(dataStore: MWKDataStore?, theme: Theme, viewModel: WMFActivityTabViewModel, dataController: WMFActivityTabDataController) {
         self.dataStore = dataStore
@@ -69,10 +70,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                         ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "complete")
                     }
                 }
-                
+
                 // First-time fetch: Need to re-render the navigation bar after activity tab leaves the loading state.
                 (navigationController as? WMFComponentNavigationController)?.triggerNavigationBarRender()
-                
             }
         }
 
@@ -96,7 +96,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
             WMFToastPresenter.shared.show(config)
         }
-        
+
         viewModel.didTapPrimaryLoggedOutCTA = { [weak self] in
             self?.presentFullLoginFlow()
         }
@@ -143,16 +143,14 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         let url = WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "iOS FAQ"], section: "Editing", language: appLanguage)
         return url?.absoluteString ?? ""
     }
-    
+
     @objc public func presentCollectPrize() {
         guard let dataStore else { return }
         if dataStore.authenticationManager.authStateIsPermanent {
             showCollectPrizeModal()
         } else {
             presentFullLoginFlow(loginSuccessCompletion: { [weak self] in
-                guard let self else {
-                    return
-                }
+                guard let self else { return }
                 self.showCollectPrizeModal()
             }, fromWidget: true)
         }
@@ -176,7 +174,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             show()
         }
     }
-    
+
     @objc public func presentFeature() {
         guard let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn else { return }
         let prizeVC = CollectPrizeViewController(theme: theme)
@@ -203,7 +201,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
 
     public func pushToContributions() {
-        guard let url =  userContributionsURL else { return }
+        guard let url = userContributionsURL else { return }
         navigate(to: url)
     }
 
@@ -222,7 +220,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
         reachabilityNotifier.stop()
     }
 
@@ -266,28 +263,21 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             // TODO: Will probably need some special logging here.
         } else {
             if fromWidget {
-                TestKitchenAdapter.shared.client
-                    .getInstrument(name: "apps-widgetchallenge")
-                    .setDefaultActionSource("create_account_form")
-                    .startFunnel(name: "create_account")
-                    .submitInteraction(
-                        action: "success",
-                        actionSource: "create_account_form",
-                        elementId: nil,
-                        actionContext: ["invoke_source": "widget_challenge"]
-                    )
+
             } else {
                 ActivityTabFunnel.shared.logLoginClick()
                 LoginFunnel.shared.logLoginStartFromActivityTab()
             }
         }
+        
+        let loggingCategory = fromWidget ? EventCategoryMEP.widgetChallenge : .activity
 
         guard let nav = navigationController else { return }
 
         let loginCoordinator = LoginCoordinator(
             navigationController: nav,
             theme: theme,
-            loggingCategory: .activity
+            loggingCategory: loggingCategory
         )
 
         loginCoordinator.loginSuccessCompletion = {
@@ -299,7 +289,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             WMFToastPresenter.shared.dismissCurrentToast()
             if let createVC = nav.presentedViewController {
                 createVC.dismiss(animated: true) {
-                     loginSuccessCompletion?()
+                    loginSuccessCompletion?()
                 }
             } else {
                 loginSuccessCompletion?()
@@ -373,42 +363,48 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         viewModel.timelineViewModel.onTapEditArticle = onTapEditArticle
         viewModel.onTapGlobalEdits = onTapGlobalEdits
 
-
         configureNavigationBar()
     }
 
     @MainActor
     private func presentModalsIfNeeded() {
-        
+
         // Prioritize reading challenge, then fall back to Activity onboarding or survey view if that doesn't present
         guard let navigationController, let dataStore else {
             presentActivityOnboardingOrSurveyIfNeeded()
             return
         }
-        
-        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, fromWidgetJoinChallengeButton: false, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
-        
+
+        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(
+            navigationController: navigationController,
+            dataStore: dataStore,
+            theme: theme,
+            fromWidgetJoinChallengeButton: false,
+            isLoggedIn: dataStore.authenticationManager.authStateIsPermanent,
+            instrument: widgetInstrument
+        )
+
         readingChallengeCoordinator.onComplete = { [weak self] didPresentSomething in
-            
+
             self?.readingChallengeCoordinator = nil
-            
+
             // Do not present activity onboarding or survey if they just saw a reading challenge announcement.
             guard !didPresentSomething else {
                 return
             }
-            
+
             self?.presentActivityOnboardingOrSurveyIfNeeded()
         }
-        
+
         self.readingChallengeCoordinator = readingChallengeCoordinator
-        
+
         readingChallengeCoordinator.start()
     }
 
     private func presentActivityOnboardingOrSurveyIfNeeded() {
         Task { [weak self] in
             guard let self else { return }
-            
+
             let hasSeenActivityTab = await dataController.getHasSeenActivityTab()
             if !hasSeenActivityTab {
                 presentOnboarding()
@@ -419,7 +415,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             }
         }
     }
-    
+
     // Explicit method to fire the announcement, meant to be called ONLY when tapping Join on the widget. It differs from presentModalsIfNeeded in these ways:
     // 1. We do not try to present any activity onboarding/survey whatsoever
     // 2. We purposfully set a temp "disableModals" flag, just in case viewDidAppear (which calls presentModalsIfNeeded) fires at the same time. "disableModals" disables all modal attempts in presentModalsIfNeeded.
@@ -428,19 +424,25 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         guard let navigationController, let dataStore else {
             return
         }
-        
+
         disableModalsOnAppearance = true
-        
-        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, fromWidgetJoinChallengeButton: true, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
+
+        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(
+            navigationController: navigationController,
+            dataStore: dataStore,
+            theme: theme,
+            fromWidgetJoinChallengeButton: true,
+            isLoggedIn: dataStore.authenticationManager.authStateIsPermanent,
+            instrument: widgetInstrument
+        )
 
         readingChallengeCoordinator.onComplete = { [weak self] didPresentSomething in
-            
             self?.readingChallengeCoordinator = nil
             self?.disableModalsOnAppearance = false
         }
-        
+
         self.readingChallengeCoordinator = readingChallengeCoordinator
-        
+
         readingChallengeCoordinator.start()
     }
 
@@ -496,7 +498,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     // MARK: - Overflow Menu
 
     private lazy var moreBarButtonItem: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsis) , primaryAction: nil, menu: overflowMenu)
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsis), primaryAction: nil, menu: overflowMenu)
         button.accessibilityLabel = CommonStrings.moreButton
         return button
     }()
@@ -572,7 +574,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         guard let dataStore else { return }
         do {
             try dataStore.viewContext.clearReadHistory()
-
         } catch let error {
             showError(error)
         }
@@ -582,7 +583,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 let dataController = try WMFPageViewsDataController()
                 try await dataController.deleteAllPageViewsAndCategories()
                 viewModel.fetchData()
-
             } catch {
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
             }
@@ -593,8 +593,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if let url = learnMoreAboutActivityURL {
             let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
             let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
-            let newNavigationVC =
-            WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
+            let newNavigationVC = WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
             navigationController?.present(newNavigationVC, animated: true)
         }
     }
@@ -621,22 +620,23 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
 
     // MARK: - Navigation Bar
+
     private func configureNavigationBar() {
 
         let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.activityTitle, customView: nil, alignment: .customLeadingLarge)
 
-       let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
-       let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
-       if let dataStore {
-           profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
-           tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: moreBarButtonItem)
-       } else {
-           profileButtonConfig = nil
-           tabsButtonConfig = nil
-       }
+        let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
+        let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
+        if let dataStore {
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
+            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: moreBarButtonItem)
+        } else {
+            profileButtonConfig = nil
+            tabsButtonConfig = nil
+        }
 
-       configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
-   }
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+    }
 
     @objc func userDidTapTabs() {
         tabsCoordinator?.start()
@@ -682,7 +682,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
            let username = dataStore?.authenticationManager.authStatePermanentUsername,
            let siteURL = WMFProject.wikipedia(appLanguage).siteURL {
             return siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)")
-
         }
         return nil
     }
@@ -695,8 +694,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
     }
 
-   private func onTapArticle(item: TimelineItem) {
-       ActivityTabFunnel.shared.logActivityTabArticleTap()
+    private func onTapArticle(item: TimelineItem) {
+        ActivityTabFunnel.shared.logActivityTabArticleTap()
         if let articleURL = item.url, let dataStore, let navVC = navigationController {
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
             articleCoordinator.start()
@@ -803,7 +802,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                             viewedDate: viewedDate,
                             isSaved: article.isSaved,
                             snippet: article.snippet,
-                            variant: article.variant                        )
+                            variant: article.variant
+                        )
                         articles.append(record)
                     }
                 }
@@ -853,7 +853,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
 extension WMFActivityTabViewController: YearInReviewBadgeDelegate {
     public func updateYIRBadgeVisibility() {
-         updateProfileButton()
+        updateProfileButton()
     }
 }
 

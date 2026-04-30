@@ -9,17 +9,15 @@ public class WMFFeatureAnnouncementViewModel {
     let altText: String?
     let image: UIImage?
     let backgroundImage: UIImage?
-    let backgroundImageHeight: CGFloat
     public var primaryButtonAction: (() -> Void)
     public var closeButtonAction: (() -> Void)?
     
-    public init(title: String, body: String, primaryButtonTitle: String, image: UIImage? = nil, backgroundImage: UIImage? = nil, backgroundImageHeight: CGFloat = 140, gifName: String? = nil, altText: String? = nil, primaryButtonAction: @escaping () -> Void, closeButtonAction: (() -> Void)? = nil) {
+    public init(title: String, body: String, primaryButtonTitle: String, image: UIImage? = nil, backgroundImage: UIImage? = nil, gifName: String? = nil, altText: String? = nil, primaryButtonAction: @escaping () -> Void, closeButtonAction: (() -> Void)? = nil) {
         self.title = title
         self.body = body
         self.primaryButtonTitle = primaryButtonTitle
         self.image = image
         self.backgroundImage = backgroundImage
-        self.backgroundImageHeight = backgroundImageHeight
         self.primaryButtonAction = primaryButtonAction
         self.closeButtonAction = closeButtonAction
         self.gifName = gifName
