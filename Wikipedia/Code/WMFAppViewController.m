@@ -256,12 +256,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                              selector:@selector(showErrorBanner:)
                                                  name:NSNotification.showErrorBanner
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(autoLoginNeedsEmailToken:)
                                                  name:WMFAuthenticationManager.autoLoginNeedsEmailToken
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(autoLoginNeedsOathToken:)
                                                  name:WMFAuthenticationManager.autoLoginNeedsOathToken
@@ -535,12 +535,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     BOOL wasSyncEnabledOnDevice = [note.userInfo[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledOnDeviceKey] boolValue];
     BOOL wasSyncDisabledOnDevice = [note.userInfo[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncDisabledOnDeviceKey] boolValue];
     if (wasSyncEnabledForAccount) {
-        [self showSyncEnabledPanelOncePerLoginIfNeededWasSyncEnabledOnDevice:wasSyncEnabledOnDevice];
+        [self wmf_showSyncEnabledPanelOncePerLoginIfNeededWasSyncEnabledOnDevice:wasSyncEnabledOnDevice];
     } else if (!wasSyncDisabledOnDevice) {
         [self wmf_showEnableReadingListSyncPanelWithTheme:self.theme
                                              oncePerLogin:true
                              didNotPresentPanelCompletion:^{
-                                 [self showSyncDisabledPanelIfNeededWasSyncEnabledOnDevice:wasSyncEnabledOnDevice];
+                                 [self wmf_showSyncDisabledPanelIfNeededWasSyncEnabledOnDevice:wasSyncEnabledOnDevice];
                              }
                                            dismissHandler:nil];
     }
@@ -599,30 +599,31 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     }
 }
 
-
 - (void)autoLoginNeedsEmailToken:(NSNotification *)notification {
     WMFTwoFactorPasswordViewController *vc = [self createTwoFactorViewControllerFromAutoLoginNotificationWithUserInfo:notification.userInfo needsEmailToken:YES];
-    
+
     if (vc) {
         WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:vc modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
         [self.currentTabNavigationController presentViewController:navVC animated:true completion:nil];
     } else {
-        [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorApp completion:^{
-            // no-op
-        }];
+        [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorApp
+                                                     completion:^{
+                                                         // no-op
+                                                     }];
     }
 }
 
 - (void)autoLoginNeedsOathToken:(NSNotification *)notification {
     WMFTwoFactorPasswordViewController *vc = [self createTwoFactorViewControllerFromAutoLoginNotificationWithUserInfo:notification.userInfo needsEmailToken:NO];
-    
+
     if (vc) {
         WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:vc modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
         [self.currentTabNavigationController presentViewController:navVC animated:true completion:nil];
     } else {
-        [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorApp completion:^{
-            // no-op
-        }];
+        [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorApp
+                                                     completion:^{
+                                                         // no-op
+                                                     }];
     }
 }
 
@@ -887,9 +888,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 #pragma mark - Launch
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
-    
+
     [self setupForUITests];
-    
+
     self.waitingToResumeApp = waitToResumeApp;
 
     [window setRootViewController:self];
@@ -1256,6 +1257,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         case WMFUserActivityTypeSettings:
         case WMFUserActivityTypeAppearanceSettings:
         case WMFUserActivityTypeContent:
+        case WMFUserActivityTypeActivity:
+        case WMFUserActivityTypeRandom:
             return YES;
         case WMFUserActivityTypeSearchResults:
             return [activity wmf_searchTerm] != nil;
@@ -1307,6 +1310,30 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                 [[self placesViewController] showArticleURL:articleURL];
             }
         } break;
+        case WMFUserActivityTypeRandom:
+            [self dismissPresentedViewControllers];
+            [self showRandomArticleFromShortcutWithSiteURL:[self siteURL] animated:animated];
+            break;
+        case WMFUserActivityTypeActivity: {
+            [self dismissPresentedViewControllers];
+            [self setSelectedIndex:WMFAppTabTypeRecent];
+            [self.currentTabNavigationController popToRootViewControllerAnimated:animated];
+            BOOL shouldCollectPrize = [activity.userInfo[@"collectPrize"] boolValue];
+            BOOL tappedJoin = [activity.userInfo[@"join"] boolValue];
+
+            if (shouldCollectPrize) {
+                WMFActivityTabViewController *activityVC = self.activityTabViewController;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [activityVC presentCollectPrize];
+                });
+            } else if (tappedJoin) {
+                WMFActivityTabViewController *activityVC = self.activityTabViewController;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [activityVC presentReadingChallengeAnnouncementFromWidget];
+                });
+            }
+            break;
+        }
         case WMFUserActivityTypeContent: {
             [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeMain];
@@ -1793,6 +1820,17 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     NSDictionary *info = response.notification.request.content.userInfo;
 
+    // Mark the app open source as "notification" so SceneDelegate will submit the apps-open instrument with actionSource = "notification".
+    for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {
+        if ([scene isKindOfClass:[UIWindowScene class]]) {
+            id delegate = ((UIWindowScene *)scene).delegate;
+            if ([delegate respondsToSelector:@selector(setLastOpenSource:)]) {
+                [delegate performSelector:@selector(setLastOpenSource:) withObject:@"notification"];
+                break;
+            }
+        }
+    }
+
     if ([response.notification.request.content.threadIdentifier isEqualToString:EchoModelVersion.current]) {
         [self showNotificationCenterForNotificationInfo:info];
     }
@@ -2268,38 +2306,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     };
     WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:loginVC modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
     [self presentViewController:navVC animated:YES completion:nil];
-}
-
-- (void)showSyncEnabledPanelOncePerLoginIfNeededWasSyncEnabledOnDevice:(BOOL)wasSyncEnabledOnDevice {
-    UIViewController *presenter = self.presentedViewController ?: self;
-    if (wasSyncEnabledOnDevice || [NSUserDefaults.standardUserDefaults wmf_didShowSyncEnabledPanel]) {
-        return;
-    }
-    NSString *title = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-enabled-panel-title", nil, nil, @"Sync is enabled on this account", @"Title for panel informing user that sync was enabled on their Wikipedia account on another device");
-    NSString *message = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-enabled-panel-message", nil, nil, @"Reading list syncing is enabled for this account. To stop syncing, you can turn sync off for this account by updating your settings.", @"Message for panel informing user that sync is enabled for their account.");
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:[WMFCommonStringsWrapper gotItButtonTitle] style:UIAlertActionStyleDefault handler:nil]];
-    [presenter presentViewController:alert
-                            animated:YES
-                          completion:^{
-                              [NSUserDefaults.standardUserDefaults wmf_setDidShowSyncEnabledPanel:YES];
-                          }];
-}
-
-- (void)showSyncDisabledPanelIfNeededWasSyncEnabledOnDevice:(BOOL)wasSyncEnabledOnDevice {
-    if (!wasSyncEnabledOnDevice || [NSUserDefaults.standardUserDefaults wmf_didShowSyncDisabledPanel]) {
-        return;
-    }
-    NSString *title = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-disabled-panel-title", nil, nil, @"Sync disabled", @"Title for panel informing user that sync was disabled on their Wikipedia account on another device");
-    NSString *message = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-disabled-panel-message", nil, nil, @"Reading list syncing has been disabled for your Wikipedia account on another device. You can turn sync back on by updating your settings.", @"Message for panel informing user that sync was disabled on their Wikipedia account on another device.");
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:[WMFCommonStringsWrapper gotItButtonTitle] style:UIAlertActionStyleDefault handler:nil]];
-    UIViewController *presenter = self.presentedViewController ?: self;
-    [presenter presentViewController:alert
-                            animated:YES
-                          completion:^{
-                              [NSUserDefaults.standardUserDefaults wmf_setDidShowSyncDisabledPanel:YES];
-                          }];
 }
 
 @end

@@ -3,7 +3,7 @@ import UIKit
 public extension WMFFont {
     
     static var navigationBarCloseButtonFont: WMFFont {
-        return .mediumSubheadline
+        return WMFFont.regularTitle3
     }
     
     static var navigationBarLeadingCompactTitleFont: UIFont {

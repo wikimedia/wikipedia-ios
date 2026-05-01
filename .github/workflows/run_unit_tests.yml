@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
       - 'main'
-      - 'liquid-glass'
   push:
     branches:
       - 'main'
@@ -22,6 +21,9 @@ concurrency:
 jobs:
   run-unit-tests:
     runs-on: macos-latest
+    permissions:
+      actions: read
+      contents: read
     strategy:
       matrix:
         scheme: ["Wikipedia", "WMFComponents", "WMFData"]
@@ -52,11 +54,11 @@ jobs:
             fi
           done
 
-      - name: Coverage summary
+      - name: Extract coverage data
         if: success()
         run: |
           python3 - <<'PYEOF'
-          import json, subprocess, sys, os
+          import json, subprocess, sys
 
           result = subprocess.run(
               ["xcrun", "xccov", "view", "--report", "--json", "${{ matrix.scheme }}_TestResults.xcresult"],
@@ -68,26 +70,66 @@ jobs:
 
           report = json.loads(result.stdout)
 
-          # Load baseline
-          baseline = {}
-          try:
-              with open(".github/coverage_baseline.json") as f:
-                  baseline = json.load(f).get("${{ matrix.scheme }}", {})
-          except (FileNotFoundError, json.JSONDecodeError):
-              pass
-
           current = {}
-          lines = []
-          lines.append("### ${{ matrix.scheme }} Code Coverage")
-          lines.append("")
-          lines.append("| Target | Coverage | Delta |")
-          lines.append("|--------|----------|-------|")
           for target in report.get("targets", []):
               name = target["name"]
               if name.endswith(".xctest") or name.endswith("Tests"):
                   continue
               pct = target.get("lineCoverage", 0) * 100
               current[name] = round(pct, 2)
+
+          with open("${{ matrix.scheme }}_coverage.json", "w") as f:
+              json.dump({"${{ matrix.scheme }}": current}, f)
+          PYEOF
+
+      - name: Download main coverage data
+        if: success() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          RUN_ID=$(gh run list \
+            --repo "$GITHUB_REPOSITORY" \
+            --workflow run_unit_tests.yml \
+            --branch main \
+            --event push \
+            --status success \
+            --limit 1 \
+            --json databaseId \
+            --jq '.[0].databaseId // empty')
+
+          if [ -z "$RUN_ID" ]; then
+            echo "No successful main coverage run found."
+            exit 0
+          fi
+
+          mkdir -p main-coverage
+          gh run download "$RUN_ID" \
+            --repo "$GITHUB_REPOSITORY" \
+            --name "${{ matrix.scheme }}-coverage" \
+            --dir main-coverage || echo "No main coverage artifact found for ${{ matrix.scheme }} in run $RUN_ID."
+
+      - name: Coverage summary
+        if: success()
+        run: |
+          python3 - <<'PYEOF'
+          import json, os
+
+          scheme = "${{ matrix.scheme }}"
+          with open(f"{scheme}_coverage.json") as f:
+              current = json.load(f).get(scheme, {})
+
+          baseline = {}
+          baseline_path = f"main-coverage/{scheme}_coverage.json"
+          if os.path.exists(baseline_path):
+              with open(baseline_path) as f:
+                  baseline = json.load(f).get(scheme, {})
+
+          lines = []
+          lines.append("### ${{ matrix.scheme }} Code Coverage")
+          lines.append("")
+          lines.append("| Target | Coverage | Delta |")
+          lines.append("|--------|----------|-------|")
+          for name, pct in current.items():
               prev = baseline.get(name)
               if prev is not None:
                   delta = pct - prev
@@ -103,62 +145,12 @@ jobs:
 
           with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
               f.write(md + "\n")
-
-          # Save current coverage for baseline update
-          with open("${{ matrix.scheme }}_coverage.json", "w") as f:
-              json.dump({"${{ matrix.scheme }}": current}, f)
           PYEOF
 
       - name: Upload coverage data
-        if: success()
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.scheme }}-coverage
           path: ${{ matrix.scheme }}_coverage.json
           if-no-files-found: error
-
-  update-baseline:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: run-unit-tests
-    runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Download coverage artifacts
-        uses: actions/download-artifact@v4
-        with:
-          pattern: '*-coverage'
-          merge-multiple: true
-
-      - name: Update baseline
-        run: |
-          python3 - <<'PYEOF'
-          import json, glob
-          import sys
-
-          merged = {}
-          coverage_files = glob.glob("*_coverage.json")
-          if not coverage_files:
-              print("No coverage artifacts found", file=sys.stderr)
-              sys.exit(1)
-
-          for f in coverage_files:
-              with open(f) as fh:
-                  merged.update(json.load(fh))
-
-          with open(".github/coverage_baseline.json", "w") as f:
-              json.dump(merged, f, indent=2, sort_keys=True)
-              f.write("\n")
-          PYEOF
-
-      - name: Commit baseline
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .github/coverage_baseline.json
-          git diff --cached --quiet && exit 0
-          git commit -m "Update code coverage baseline [skip ci]"
-          git push
