@@ -1,5 +1,6 @@
 import UIKit
 import WMFTestKitchen
+import WMFData
 import CocoaLumberjackSwift
 
 @objc public class TestKitchenAdapter: NSObject, ClientDataCallback, EventSender {
@@ -20,7 +21,7 @@ import CocoaLumberjackSwift
     // MARK: - ClientDataCallback
 
     public func getAgentData() -> AgentData? {
-        let appInstallId = UserDefaults.standard.wmf_appInstallId
+        let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
         let versionName = WikipediaAppUtils.versionName()
         let buildNumber = Int(Bundle.main.wmf_bundleVersion() ?? "0")
         let deviceFamily = WikipediaAppUtils.formFactor()
@@ -56,7 +57,7 @@ import CocoaLumberjackSwift
 
         return AgentData(
             appFlavor: appFlavor,
-            appInstallId: appInstallId,
+            appInstallId: appInstallID,
             appTheme: UserDefaults.standard.themeAnalyticsName,
             appVersion: buildNumber,
             appVersionName: versionName,
@@ -81,14 +82,26 @@ import CocoaLumberjackSwift
     }
 
     public func getPerformerData() -> PerformerData? {
+        
         let dataStore = MWKDataStore.shared()
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         let isTemp = dataStore.authenticationManager.authStateIsTemporary
         let sessionId = EventPlatformClient.shared.sessionID
 
-        let languageCodes = dataStore.languageLinkController.preferredLanguages.compactMap { $0.languageCode }
-        let languageGroups = languageCodes.joined(separator: ",")
-        let languagePrimary = EventPlatformClient.shared.primaryLanguage
+        var languageGroups: String? = nil
+        var languagePrimary: String? = nil
+        
+        // If in widget, don't lean on MMKDataStore for preferred languages
+        if Bundle.main.isAppExtension {
+            let cachedContent = WidgetController.shared.widgetCache
+            languageGroups = cachedContent.settings.preferredLanguageCodes.joined(separator: ",")
+            languagePrimary = cachedContent.settings.languageCode
+        } else {
+            let languageCodes = dataStore.languageLinkController.preferredLanguages.compactMap { $0.languageCode }
+            languageGroups = languageCodes.joined(separator: ",")
+            languagePrimary = EventPlatformClient.shared.primaryLanguage
+        }
+
 
         return PerformerData(
             isLoggedIn: isLoggedIn,
@@ -118,8 +131,8 @@ import CocoaLumberjackSwift
             // Convert to loose dictionary so we can sort keys and print that way.
             if let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 let printablePayload = PrintableEventPayload(payload: dict)
-                DDLogDebug("\n\n🧑‍🍳TestKitchen: Scheduling event to be sent to \(EventPlatformClient.eventIntakeURI):")
-                DDLogDebug("\(printablePayload)")
+                debugPrint("\n\n🧑‍🍳TestKitchen: Scheduling event to be sent to \(EventPlatformClient.eventIntakeURI):")
+                debugPrint("\(printablePayload)")
             }
 #endif
             

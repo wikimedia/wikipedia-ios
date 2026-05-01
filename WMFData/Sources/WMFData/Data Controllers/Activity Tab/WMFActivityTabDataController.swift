@@ -212,7 +212,7 @@ public actor WMFActivityTabDataController {
         return false
     }
     
-    private var surveyEndDate: Date? {
+    public var surveyEndDate: Date? {
         var dateComponents = DateComponents()
         dateComponents.year = 2026
         dateComponents.month = 4
@@ -231,6 +231,41 @@ public actor WMFActivityTabDataController {
     public func incrementActivityTabVisitCount() {
         let visitCount = self.activityTabVisitCount + 1
         self.activityTabVisitCount = visitCount
+    }
+
+    // MARK: - Reading Challenge 2026
+
+    private static let sharedGroupID = "group.org.wikimedia.wikipedia"
+
+    private nonisolated var hasEnrolledInReadingChallenge2026: Bool {
+        get { UserDefaults(suiteName: Self.sharedGroupID)?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false }
+        set { UserDefaults(suiteName: Self.sharedGroupID)?.set(newValue, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) }
+    }
+    
+    public func setEnrolledInReadingChallenge(_ value: Bool) {
+        hasEnrolledInReadingChallenge2026 = value
+        UserDefaults(suiteName: Self.sharedGroupID)?.synchronize()
+    }
+
+    public var hasSeenFullPageReadingChallengeAnnouncement2026: Bool {
+        get { UserDefaults(suiteName: Self.sharedGroupID)?.bool(forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue) ?? false }
+        set { UserDefaults(suiteName: Self.sharedGroupID)?.set(newValue, forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue) }
+    }
+    
+    public func setHasSeenFullPageAnnouncement() {
+        hasSeenFullPageReadingChallengeAnnouncement2026 = true
+        UserDefaults(suiteName: Self.sharedGroupID)?.synchronize()
+    }
+    
+    public func shouldShowReadingChallengeAnnouncement() -> Bool {
+        guard !hasSeenFullPageReadingChallengeAnnouncement2026 else { return false }
+        let now = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
+        return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
+    }
+    
+    public func isReadingChallengeActive() -> Bool {
+        let now = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
+        return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
     }
 
     public func getMostRecentReadDateTime() async throws -> Date? {
@@ -576,3 +611,4 @@ extension TimelineItem {
         )
     }
 }
+
