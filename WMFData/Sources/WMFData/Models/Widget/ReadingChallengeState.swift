@@ -14,8 +14,8 @@ public enum ReadingChallengeState: Equatable, Codable, Hashable {
 
 public enum ReadingChallengeStateConfig {
     public static var startDate: Date {
-        return DateComponents(calendar: .current, year: 2026, month: 5, day: 11).date
-            ?? Date(timeIntervalSince1970: 1778457600)
+        return DateComponents(calendar: .current, year: 2026, month: 5, day: 4).date
+            ?? Date(timeIntervalSince1970: 1777852800)
     }
     public static var endDate: Date {
         return DateComponents(calendar: .current, year: 2026, month: 6, day: 18, hour: 23, minute: 59, second: 59).date
