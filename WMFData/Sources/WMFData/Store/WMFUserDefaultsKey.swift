@@ -60,6 +60,9 @@ public enum WMFUserDefaultsKey: String {
     case devReadingChallengeCurrentDate = "dev-reading-challenge-current-date"
     case devReadingChallengeState = "dev-reading-challenge-state"
     
+    // Trending
+    case trendingSelectedTopic = "trending-selected-topic"
+
     // Logging
     case appInstallID = "wmf-app-install-id"
     case sessionID = "wmf-session-id"

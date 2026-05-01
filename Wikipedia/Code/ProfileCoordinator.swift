@@ -177,6 +177,10 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             dismissProfile {
                 self.showUserTalkPageTempAccount()
             }
+        case .showTrending:
+            dismissProfile {
+                self.showTrending()
+            }
         }
     }
 
@@ -286,6 +290,11 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private func showWatchlist() {
         let watchlistCoordinator = WatchlistCoordinator(navigationController: navigationController, dataStore: dataStore)
         watchlistCoordinator.start()
+    }
+
+    private func showTrending() {
+        let trendingCoordinator = WMFTrendingCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
+        trendingCoordinator.start()
     }
 
     private func dismissProfile() {

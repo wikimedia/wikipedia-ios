@@ -105,6 +105,24 @@ extension URL {
         return components.url
     }
     
+    static func trendingByTopicURL(topic: String) -> URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "trending-explorations.wmcloud.org"
+        components.path = "/public/top_pages_by_topic"
+        components.queryItems = [URLQueryItem(name: "topic", value: topic)]
+        return components.url
+    }
+
+    static func trendingByCountryURL(country: String) -> URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "trending-explorations.wmcloud.org"
+        components.path = "/public/top_pages_by_country"
+        components.queryItems = [URLQueryItem(name: "country", value: country)]
+        return components.url
+    }
+
     static func featureConfigURL(environment: WMFServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment, project: WMFProject) -> URL? {
         
         switch environment {
