@@ -142,13 +142,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [super viewDidLoad];
     self.theme = [[NSUserDefaults standardUserDefaults] themeCompatibleWith:self.traitCollection];
 
-#if UITEST
-    WMFTheme *newTheme = [self themeForUITests];
-    if (newTheme) {
-        self.theme = newTheme;
-    }
-#endif
-
     [self applyTheme:self.theme];
 
     [self updateAppEnvironmentWithTheme:self.theme traitCollection:self.traitCollection];
@@ -888,8 +881,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
     
-    [self setupForUITests];
-    
     self.waitingToResumeApp = waitToResumeApp;
 
     [window setRootViewController:self];
@@ -906,31 +897,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self showSplashView];
 
     [self migrateIfNecessary];
-}
-
-- (WMFTheme *)themeForUITests {
-
-#if UITEST
-
-    if (NSProcessInfo.processInfo.arguments.count > 1) {
-        NSArray<NSString *> *arguments = NSProcessInfo.processInfo.arguments;
-
-        if ([arguments containsObject:@"UITestThemeLight"]) {
-            return [WMFTheme light];
-        } else if ([arguments containsObject:@"UITestThemeSepia"]) {
-            return [WMFTheme sepia];
-        } else if ([arguments containsObject:@"UITestThemeDark"]) {
-            return [WMFTheme dark];
-        } else if ([arguments containsObject:@"UITestThemeBlack"]) {
-            return [WMFTheme black];
-        }
-    }
-
-    return nil;
-
-#else
-    return nil;
-#endif
 }
 
 - (void)migrateIfNecessary {
@@ -1907,13 +1873,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)updateAppThemeIfNecessary {
     UITraitCollection *traitCollection = self.traitCollection;
     WMFTheme *theme = [NSUserDefaults.standardUserDefaults themeCompatibleWith:traitCollection];
-
-#if UITEST
-    WMFTheme *newTheme = [self themeForUITests];
-    if (newTheme) {
-        theme = newTheme;
-    }
-#endif
 
     if (self.theme != theme || [self appEnvironmentTraitCollectionIsDifferentThanTraitCollection:traitCollection]) {
         [self updateAppEnvironmentWithTheme:theme traitCollection:self.traitCollection];
