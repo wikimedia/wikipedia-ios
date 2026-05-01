@@ -15,6 +15,7 @@ final class WMFTrendingCoordinator: NSObject, Coordinator {
     private let theme: Theme
     private weak var trendingNavigationController: UINavigationController?
     private var articleCoordinator: ArticleCoordinator?
+    private var countryViewModel: WMFTrendingCountryViewModel?
 
     // MARK: Lifecycle
 
@@ -31,7 +32,8 @@ final class WMFTrendingCoordinator: NSObject, Coordinator {
         let localizedStrings = WMFTrendingViewModel.LocalizedStrings(
             navigationTitle: WMFLocalizedString("trending-title", value: "Trending", comment: "Title for the Trending articles feature"),
             byTopicSegment: WMFLocalizedString("trending-segment-by-topic", value: "By Topic", comment: "Segment label for trending articles filtered by topic"),
-            byAreaSegment: WMFLocalizedString("trending-segment-by-area", value: "By Area", comment: "Segment label for trending articles filtered by geographic area"),
+            byAreaSegment: WMFLocalizedString("trending-segment-by-area", value: "Your Country", comment: "Segment label for trending articles filtered by geographic area"),
+            mapSegment: WMFLocalizedString("trending-segment-map", value: "Explore the Map", comment: "Segment label for the map view in the Trending feature"),
             topicPickerTitle: WMFLocalizedString("trending-topic-picker-title", value: "Choose a Topic", comment: "Title for the topic picker sheet in the Trending feature"),
             loadingMessage: WMFLocalizedString("trending-loading", value: "Loading trending articles…", comment: "Loading message for the Trending feature"),
             errorMessage: WMFLocalizedString("trending-error", value: "Could not load trending articles. Please try again.", comment: "Error message for the Trending feature"),
@@ -44,6 +46,10 @@ final class WMFTrendingCoordinator: NSObject, Coordinator {
             self?.showArticle(title: title, project: project)
         }
 
+        viewModel.onTapCountry = { [weak self] country in
+            self?.showCountry(country)
+        }
+
         let viewController = WMFTrendingViewController(viewModel: viewModel)
         let navVC = WMFComponentNavigationController(rootViewController: viewController, modalPresentationStyle: .overFullScreen)
         trendingNavigationController = navVC
@@ -52,6 +58,20 @@ final class WMFTrendingCoordinator: NSObject, Coordinator {
     }
 
     // MARK: - Private
+
+    private func showCountry(_ country: WMFTrendingCountryAnnotation) {
+        let localizedStrings = WMFTrendingCountryViewModel.LocalizedStrings(
+            loadingMessage: WMFLocalizedString("trending-loading", value: "Loading trending articles…", comment: "Loading message for the Trending feature"),
+            noArticlesMessage: WMFLocalizedString("trending-empty", value: "No trending articles found.", comment: "Empty state message for the Trending feature")
+        )
+        let viewModel = WMFTrendingCountryViewModel(country: country, localizedStrings: localizedStrings)
+        viewModel.onTapArticle = { [weak self] title, project in
+            self?.showArticle(title: title, project: project)
+        }
+        self.countryViewModel = viewModel
+        let vc = WMFTrendingCountryViewController(viewModel: viewModel)
+        trendingNavigationController?.pushViewController(vc, animated: true)
+    }
 
     private func showArticle(title: String, project: WMFProject) {
         guard let siteURL = project.siteURL,

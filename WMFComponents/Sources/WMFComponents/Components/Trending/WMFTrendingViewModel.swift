@@ -10,6 +10,7 @@ public final class WMFTrendingViewModel: ObservableObject {
     public enum Segment: String, CaseIterable {
         case byTopic
         case byArea
+        case map
     }
 
     public struct ArticleRowViewModel: Identifiable {
@@ -25,15 +26,17 @@ public final class WMFTrendingViewModel: ObservableObject {
         public let navigationTitle: String
         public let byTopicSegment: String
         public let byAreaSegment: String
+        public let mapSegment: String
         public let topicPickerTitle: String
         public let loadingMessage: String
         public let errorMessage: String
         public let noArticlesMessage: String
 
-        public init(navigationTitle: String, byTopicSegment: String, byAreaSegment: String, topicPickerTitle: String, loadingMessage: String, errorMessage: String, noArticlesMessage: String) {
+        public init(navigationTitle: String, byTopicSegment: String, byAreaSegment: String, mapSegment: String, topicPickerTitle: String, loadingMessage: String, errorMessage: String, noArticlesMessage: String) {
             self.navigationTitle = navigationTitle
             self.byTopicSegment = byTopicSegment
             self.byAreaSegment = byAreaSegment
+            self.mapSegment = mapSegment
             self.topicPickerTitle = topicPickerTitle
             self.loadingMessage = loadingMessage
             self.errorMessage = errorMessage
@@ -54,6 +57,7 @@ public final class WMFTrendingViewModel: ObservableObject {
 
     public let localizedStrings: LocalizedStrings
     public var onTapArticle: ((String, WMFProject) -> Void)?
+    public var onTapCountry: ((WMFTrendingCountryAnnotation) -> Void)?
     public var detectedCountry: String { country }
 
     // MARK: - Private Properties
@@ -103,6 +107,11 @@ public final class WMFTrendingViewModel: ObservableObject {
     // MARK: - Private
 
     private func performLoad() async {
+        // Map segment uses static country annotations — no network load needed.
+        guard selectedSegment != .map else {
+            isLoading = false
+            return
+        }
         isLoading = true
         errorMessage = nil
         articleRows = []
@@ -114,6 +123,8 @@ public final class WMFTrendingViewModel: ObservableObject {
                 articles = try await dataController.fetchTrendingByTopic(selectedTopic, languageCode: languageCode)
             case .byArea:
                 articles = try await dataController.fetchTrendingByCountry(country, languageCode: languageCode)
+            case .map:
+                articles = []
             }
             articleRows = articles.map { article in
                 let project = WMFProject.wikipedia(WMFLanguage(languageCode: article.project, languageVariantCode: nil))

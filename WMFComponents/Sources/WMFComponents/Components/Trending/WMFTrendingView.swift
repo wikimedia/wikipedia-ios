@@ -1,4 +1,5 @@
 import SwiftUI
+import MapKit
 import WMFData
 
 public struct WMFTrendingView: View {
@@ -23,23 +24,29 @@ public struct WMFTrendingView: View {
             Divider()
                 .background(Color(uiColor: theme.border))
 
-            // Header rows are always visible regardless of loading/error state
-            switch viewModel.selectedSegment {
-            case .byTopic:
-                topicSelectorRow
-            case .byArea:
-                countryHeaderRow
-            }
-
-            Divider()
-                .background(Color(uiColor: theme.border))
-
-            if viewModel.isLoading {
-                loadingView
-            } else if viewModel.articleRows.isEmpty {
-                emptyView
+            if viewModel.selectedSegment == .map {
+                mapView
             } else {
-                articleList
+                // Header rows are always visible regardless of loading/error state
+                switch viewModel.selectedSegment {
+                case .byTopic:
+                    topicSelectorRow
+                case .byArea:
+                    countryHeaderRow
+                case .map:
+                    EmptyView()
+                }
+
+                Divider()
+                    .background(Color(uiColor: theme.border))
+
+                if viewModel.isLoading {
+                    loadingView
+                } else if viewModel.articleRows.isEmpty {
+                    emptyView
+                } else {
+                    articleList
+                }
             }
         }
         .background(Color(uiColor: theme.paperBackground))
@@ -57,11 +64,22 @@ public struct WMFTrendingView: View {
         Picker("", selection: $viewModel.selectedSegment) {
             Text(viewModel.localizedStrings.byTopicSegment).tag(WMFTrendingViewModel.Segment.byTopic)
             Text(viewModel.localizedStrings.byAreaSegment).tag(WMFTrendingViewModel.Segment.byArea)
+            Text(viewModel.localizedStrings.mapSegment).tag(WMFTrendingViewModel.Segment.map)
         }
         .pickerStyle(.segmented)
         .onChange(of: viewModel.selectedSegment) { _ in
             viewModel.load()
         }
+    }
+
+    private var mapView: some View {
+        WMFTrendingMapView(
+            countries: WMFTrendingCountryAnnotation.all,
+            onTapCountry: { country in
+                viewModel.onTapCountry?(country)
+            }
+        )
+        .ignoresSafeArea(edges: .bottom)
     }
 
     private var topicSelectorRow: some View {

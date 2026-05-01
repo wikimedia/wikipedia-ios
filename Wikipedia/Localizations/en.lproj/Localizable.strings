@@ -1410,8 +1410,9 @@
 "trending-empty" = "No trending articles found.";
 "trending-error" = "Could not load trending articles. Please try again.";
 "trending-loading" = "Loading trending articles…";
-"trending-segment-by-area" = "By Area";
+"trending-segment-by-area" = "Your Country";
 "trending-segment-by-topic" = "By Topic";
+"trending-segment-map" = "Explore the Map";
 "trending-title" = "Trending";
 "trending-topic-picker-title" = "Choose a Topic";
 "try-now-title" = "Try now";
