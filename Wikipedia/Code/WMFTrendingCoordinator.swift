@@ -13,6 +13,8 @@ final class WMFTrendingCoordinator: NSObject, Coordinator {
 
     private let dataStore: MWKDataStore
     private let theme: Theme
+    private weak var trendingNavigationController: UINavigationController?
+    private var articleCoordinator: ArticleCoordinator?
 
     // MARK: Lifecycle
 
@@ -43,7 +45,9 @@ final class WMFTrendingCoordinator: NSObject, Coordinator {
         }
 
         let viewController = WMFTrendingViewController(viewModel: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
+        let navVC = WMFComponentNavigationController(rootViewController: viewController, modalPresentationStyle: .overFullScreen)
+        trendingNavigationController = navVC
+        navigationController.present(navVC, animated: true)
         return true
     }
 
@@ -56,14 +60,16 @@ final class WMFTrendingCoordinator: NSObject, Coordinator {
         }
         articleURL.wmf_languageVariantCode = project.languageVariantCode
 
+        let navController = trendingNavigationController ?? navigationController
         let articleCoordinator = ArticleCoordinator(
-            navigationController: navigationController,
+            navigationController: navController,
             articleURL: articleURL,
             dataStore: dataStore,
             theme: theme,
             source: .undefined,
             tabConfig: .appendArticleAndAssignCurrentTab
         )
+        self.articleCoordinator = articleCoordinator
         articleCoordinator.start()
     }
 }

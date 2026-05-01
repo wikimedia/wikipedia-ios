@@ -37,6 +37,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private let targetRects = WMFProfileViewTargetRects()
     private var donateCoordinator: DonateCoordinator?
     private var settingsCoordinator: SettingsCoordinator?
+    private var trendingCoordinator: WMFTrendingCoordinator?
     private let yirCoordinator: YearInReviewCoordinator
 
     let sourcePage: ProfileCoordinatorSource
@@ -294,6 +295,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
 
     private func showTrending() {
         let trendingCoordinator = WMFTrendingCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
+        self.trendingCoordinator = trendingCoordinator
         trendingCoordinator.start()
     }
 

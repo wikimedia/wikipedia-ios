@@ -25,13 +25,18 @@ public final class WMFTrendingViewController: WMFComponentHostingController<WMFT
             customView: nil,
             alignment: .leadingLarge
         )
+        let closeConfig = WMFLargeCloseButtonConfig(imageType: .prominentCheck, target: self, action: #selector(tappedClose), alignment: .trailing)
         configureNavigationBar(
             titleConfig: titleConfig,
-            closeButtonConfig: nil,
+            closeButtonConfig: closeConfig,
             profileButtonConfig: nil,
             tabsButtonConfig: nil,
             searchBarConfig: nil,
             hideNavigationBarOnScroll: false
         )
+    }
+
+    @objc private func tappedClose() {
+        dismiss(animated: true)
     }
 }
