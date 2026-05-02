@@ -38,28 +38,22 @@ public struct WMFTrendingCountryView: View {
                     Spacer()
                 }
             } else {
-                List {
-                    ForEach(viewModel.articleRows) { row in
-                        WMFPageRow(
-                            needsLimitedFontSize: false,
-                            id: row.id,
-                            titleHtml: row.title,
-                            articleDescription: row.description,
-                            imageURLString: row.thumbnailURLString,
-                            titleLineLimit: 2,
-                            isSaved: false,
-                            showsSwipeActions: false,
-                            loadImageAction: { _ in row.uiImage }
-                        )
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            viewModel.onTapArticle?(row.title, row.project)
+                ScrollView {
+                    LazyVStack(spacing: 12) {
+                        ForEach(Array(viewModel.articleRows.enumerated()), id: \.element.id) { index, row in
+                            WMFTrendingArticleCard(
+                                row: row,
+                                rank: index,
+                                country: viewModel.countryName,
+                                onTap: {
+                                    viewModel.onTapArticle?(row.title, row.project)
+                                }
+                            )
                         }
-                        .listRowBackground(Color(uiColor: theme.paperBackground))
-                        .listRowSeparatorTint(Color(uiColor: theme.border))
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
                 }
-                .listStyle(.plain)
             }
         }
         .background(Color(uiColor: theme.paperBackground))
