@@ -149,7 +149,7 @@ public struct WMFTrendingView: View {
     private var emptyView: some View {
         VStack {
             Spacer()
-            Text(viewModel.localizedStrings.noArticlesMessage)
+            Text(viewModel.emptyMessage)
                 .font(Font(WMFFont.for(.body)))
                 .foregroundColor(Color(uiColor: theme.secondaryText))
                 .multilineTextAlignment(.center)

@@ -1410,6 +1410,7 @@
 "trending-empty" = "Empty state message for the Trending feature";
 "trending-error" = "Error message for the Trending feature";
 "trending-loading" = "Loading message for the Trending feature";
+"trending-no-topics-selected" = "Empty state message for the Trending feature when no topics are selected";
 "trending-segment-by-area" = "Segment label for trending articles filtered by geographic area";
 "trending-segment-by-topic" = "Segment label for trending articles filtered by topic";
 "trending-segment-map" = "Segment label for the map view in the Trending feature";

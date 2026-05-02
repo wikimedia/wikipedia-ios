@@ -38,7 +38,8 @@ final class WMFTrendingCoordinator: NSObject, Coordinator {
             topicPickerDoneButton: WMFLocalizedString("trending-topic-picker-done", value: "Done", comment: "Done button in the topic picker sheet in the Trending feature"),
             loadingMessage: WMFLocalizedString("trending-loading", value: "Loading trending articles…", comment: "Loading message for the Trending feature"),
             errorMessage: WMFLocalizedString("trending-error", value: "Could not load trending articles. Please try again.", comment: "Error message for the Trending feature"),
-            noArticlesMessage: WMFLocalizedString("trending-empty", value: "No trending articles found.", comment: "Empty state message for the Trending feature")
+            noArticlesMessage: WMFLocalizedString("trending-empty", value: "No trending articles for the selected topics.", comment: "Empty state message for the Trending feature when no articles are returned"),
+            noTopicsSelectedMessage: WMFLocalizedString("trending-no-topics-selected", value: "Please select topics.", comment: "Empty state message for the Trending feature when no topics are selected")
         )
 
         let viewModel = WMFTrendingViewModel(localizedStrings: localizedStrings)

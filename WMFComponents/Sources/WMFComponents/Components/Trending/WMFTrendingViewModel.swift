@@ -33,8 +33,9 @@ public final class WMFTrendingViewModel: ObservableObject {
         public let loadingMessage: String
         public let errorMessage: String
         public let noArticlesMessage: String
+        public let noTopicsSelectedMessage: String
 
-        public init(navigationTitle: String, byTopicSegment: String, byAreaSegment: String, mapSegment: String, topicPickerTitle: String, topicPickerDoneButton: String, loadingMessage: String, errorMessage: String, noArticlesMessage: String) {
+        public init(navigationTitle: String, byTopicSegment: String, byAreaSegment: String, mapSegment: String, topicPickerTitle: String, topicPickerDoneButton: String, loadingMessage: String, errorMessage: String, noArticlesMessage: String, noTopicsSelectedMessage: String) {
             self.navigationTitle = navigationTitle
             self.byTopicSegment = byTopicSegment
             self.byAreaSegment = byAreaSegment
@@ -44,6 +45,7 @@ public final class WMFTrendingViewModel: ObservableObject {
             self.loadingMessage = loadingMessage
             self.errorMessage = errorMessage
             self.noArticlesMessage = noArticlesMessage
+            self.noTopicsSelectedMessage = noTopicsSelectedMessage
         }
     }
 
@@ -62,6 +64,13 @@ public final class WMFTrendingViewModel: ObservableObject {
     public var onTapArticle: ((String, WMFProject) -> Void)?
     public var onTapCountry: ((WMFTrendingCountryAnnotation) -> Void)?
     public var detectedCountry: String { country }
+
+    public var emptyMessage: String {
+        if selectedSegment == .byTopic && selectedTopics.isEmpty {
+            return localizedStrings.noTopicsSelectedMessage
+        }
+        return localizedStrings.noArticlesMessage
+    }
 
     // MARK: - Private Properties
 
@@ -84,8 +93,7 @@ public final class WMFTrendingViewModel: ObservableObject {
         self.country = Locale.current.localizedString(forRegionCode: regionID) ?? "United States"
 
         let savedRaw = UserDefaults.standard.stringArray(forKey: WMFUserDefaultsKey.trendingSelectedTopic.rawValue) ?? []
-        let saved = Set(savedRaw.compactMap { WMFTrendingTopic(rawValue: $0) })
-        self.selectedTopics = saved.isEmpty ? [.biographyWomen] : saved
+        self.selectedTopics = Set(savedRaw.compactMap { WMFTrendingTopic(rawValue: $0) })
     }
 
     deinit {
@@ -103,10 +111,7 @@ public final class WMFTrendingViewModel: ObservableObject {
 
     public func selectTopic(_ topic: WMFTrendingTopic) {
         if selectedTopics.contains(topic) {
-            // Keep at least one topic selected
-            if selectedTopics.count > 1 {
-                selectedTopics.remove(topic)
-            }
+            selectedTopics.remove(topic)
         } else {
             selectedTopics.insert(topic)
         }
