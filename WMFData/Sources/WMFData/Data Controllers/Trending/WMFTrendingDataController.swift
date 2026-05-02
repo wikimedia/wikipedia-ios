@@ -218,11 +218,12 @@ public actor WMFTrendingDataController {
         return lowered != "main_page" && lowered != "main page"
     }
 
-    /// Fetches the total user page views for a Wikipedia project for yesterday.
-    /// Returns nil if the data is unavailable rather than throwing, so callers can treat it as optional.
-    public func fetchYesterdayPageViews(languageCode: String) async -> Int? {
+    /// Fetches yesterday's user page views for a single article.
+    /// Returns nil if the data is unavailable rather than throwing.
+    public func fetchYesterdayPageViews(title: String, languageCode: String) async -> Int? {
         let project = "\(languageCode).wikipedia"
-        let cacheKey = "pageviews-\(project)"
+        let normalizedTitle = title.replacingOccurrences(of: " ", with: "_")
+        let cacheKey = "pageviews-\(project)-\(normalizedTitle)"
         if let cached = pageViewsCache[cacheKey] {
             return cached
         }
@@ -236,7 +237,7 @@ public actor WMFTrendingDataController {
         formatter.timeZone = TimeZone(identifier: "UTC")
         let dateString = formatter.string(from: yesterday) + "00"
 
-        guard let url = URL.pageviewsAggregateURL(project: project, start: dateString, end: dateString) else {
+        guard let url = URL.pageviewsPerArticleURL(project: project, article: normalizedTitle, start: dateString, end: dateString) else {
             return nil
         }
 
@@ -247,8 +248,6 @@ public actor WMFTrendingDataController {
                 switch result {
                 case .success(let response):
                     let total = response.items.first?.views
-                    // Cache the result back on the actor. The actor hop is implicit
-                    // since self is an actor; the compiler warning here is a false positive.
                     if let views = total {
                         Task { self.pageViewsCache[cacheKey] = views }
                     }

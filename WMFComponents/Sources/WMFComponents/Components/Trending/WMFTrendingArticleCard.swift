@@ -6,7 +6,6 @@ struct WMFTrendingArticleCard: View {
     let row: WMFTrendingViewModel.ArticleRowViewModel
     let rank: Int
     let country: String
-    let projectPageViews: Int?
     let onTap: () -> Void
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -16,7 +15,7 @@ struct WMFTrendingArticleCard: View {
     }
 
     private var formattedPageViews: String? {
-        guard let views = projectPageViews else { return nil }
+        guard let views = row.pageViews else { return nil }
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 1

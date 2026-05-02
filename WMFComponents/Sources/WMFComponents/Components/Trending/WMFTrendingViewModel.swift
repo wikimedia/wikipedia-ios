@@ -20,6 +20,7 @@ public final class WMFTrendingViewModel: ObservableObject {
         public var description: String?
         public var thumbnailURLString: String?
         public var uiImage: UIImage?
+        public var pageViews: Int?
     }
 
     public struct LocalizedStrings {
@@ -52,7 +53,6 @@ public final class WMFTrendingViewModel: ObservableObject {
     @Published public var isLoading: Bool = false
     @Published public var isShowingTopicPicker: Bool = false
     @Published public var errorMessage: String? = nil
-    @Published public var projectPageViews: Int? = nil
 
     // MARK: - Public Properties
 
@@ -131,10 +131,7 @@ public final class WMFTrendingViewModel: ObservableObject {
                 let project = WMFProject.wikipedia(WMFLanguage(languageCode: article.project, languageVariantCode: nil))
                 return ArticleRowViewModel(id: article.id, title: article.displayTitle, project: project)
             }
-            async let summaries: () = fetchSummariesForRows()
-            async let views: Int? = dataController.fetchYesterdayPageViews(languageCode: languageCode)
-            await summaries
-            projectPageViews = await views
+            await fetchSummariesForRows()
         } catch {
             // Treat failures as empty results — topic API paths are prototype-only
             // and not all topics are guaranteed to return data
@@ -225,6 +222,12 @@ public final class WMFTrendingViewModel: ObservableObject {
                 }
             } catch {
                 // Silently skip missing summaries; row still shows title
+            }
+            if case .wikipedia(let language) = row.project {
+                articleRows[i].pageViews = await dataController.fetchYesterdayPageViews(
+                    title: row.title,
+                    languageCode: language.languageCode
+                )
             }
         }
     }

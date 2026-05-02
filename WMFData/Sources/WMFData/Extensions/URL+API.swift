@@ -78,6 +78,22 @@ extension URL {
         components.path = "\(baseWikimediaRestAPIPathComponents)metrics/pageviews/aggregate/\(project)/all-access/user/daily/\(start)/\(end)"
         return components.url
     }
+
+    /// Wikimedia per-article pageviews API.
+    /// https://wikimedia.org/api/rest_v1/#/Pageviews_data/get_metrics_pageviews_per_article__project___access___agent___article___granularity___start___end_
+    /// - Parameters:
+    ///   - project: e.g. "en.wikipedia"
+    ///   - article: page title with spaces replaced by underscores, URL-encoded
+    ///   - start: YYYYMMDDHH
+    ///   - end:   YYYYMMDDHH
+    static func pageviewsPerArticleURL(project: String, article: String, start: String, end: String) -> URL? {
+        guard let encodedArticle = article.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else { return nil }
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "wikimedia.org"
+        components.path = "\(baseWikimediaRestAPIPathComponents)metrics/pageviews/per-article/\(project)/all-access/user/\(encodedArticle)/daily/\(start)/\(end)"
+        return components.url
+    }
     
     static func donatePaymentSubmissionURL(environment: WMFServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment) -> URL? {
         
