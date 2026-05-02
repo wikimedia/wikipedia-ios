@@ -29,16 +29,18 @@ public final class WMFTrendingViewModel: ObservableObject {
         public let byAreaSegment: String
         public let mapSegment: String
         public let topicPickerTitle: String
+        public let topicPickerDoneButton: String
         public let loadingMessage: String
         public let errorMessage: String
         public let noArticlesMessage: String
 
-        public init(navigationTitle: String, byTopicSegment: String, byAreaSegment: String, mapSegment: String, topicPickerTitle: String, loadingMessage: String, errorMessage: String, noArticlesMessage: String) {
+        public init(navigationTitle: String, byTopicSegment: String, byAreaSegment: String, mapSegment: String, topicPickerTitle: String, topicPickerDoneButton: String, loadingMessage: String, errorMessage: String, noArticlesMessage: String) {
             self.navigationTitle = navigationTitle
             self.byTopicSegment = byTopicSegment
             self.byAreaSegment = byAreaSegment
             self.mapSegment = mapSegment
             self.topicPickerTitle = topicPickerTitle
+            self.topicPickerDoneButton = topicPickerDoneButton
             self.loadingMessage = loadingMessage
             self.errorMessage = errorMessage
             self.noArticlesMessage = noArticlesMessage
@@ -48,7 +50,7 @@ public final class WMFTrendingViewModel: ObservableObject {
     // MARK: - Published Properties
 
     @Published public var selectedSegment: Segment = .byTopic
-    @Published public var selectedTopic: WMFTrendingTopic
+    @Published public var selectedTopics: Set<WMFTrendingTopic> = []
     @Published public var articleRows: [ArticleRowViewModel] = []
     @Published public var isLoading: Bool = false
     @Published public var isShowingTopicPicker: Bool = false
@@ -81,8 +83,9 @@ public final class WMFTrendingViewModel: ObservableObject {
         self.languageCode = WMFTrendingViewModel.languageCode(forRegion: regionID)
         self.country = Locale.current.localizedString(forRegionCode: regionID) ?? "United States"
 
-        let savedTopicRaw = UserDefaults.standard.string(forKey: WMFUserDefaultsKey.trendingSelectedTopic.rawValue)
-        self.selectedTopic = WMFTrendingTopic(rawValue: savedTopicRaw ?? "") ?? .biographyWomen
+        let savedRaw = UserDefaults.standard.stringArray(forKey: WMFUserDefaultsKey.trendingSelectedTopic.rawValue) ?? []
+        let saved = Set(savedRaw.compactMap { WMFTrendingTopic(rawValue: $0) })
+        self.selectedTopics = saved.isEmpty ? [.biographyWomen] : saved
     }
 
     deinit {
@@ -99,8 +102,19 @@ public final class WMFTrendingViewModel: ObservableObject {
     }
 
     public func selectTopic(_ topic: WMFTrendingTopic) {
-        selectedTopic = topic
-        UserDefaults.standard.set(topic.rawValue, forKey: WMFUserDefaultsKey.trendingSelectedTopic.rawValue)
+        if selectedTopics.contains(topic) {
+            // Keep at least one topic selected
+            if selectedTopics.count > 1 {
+                selectedTopics.remove(topic)
+            }
+        } else {
+            selectedTopics.insert(topic)
+        }
+        let rawValues = selectedTopics.map(\.rawValue)
+        UserDefaults.standard.set(rawValues, forKey: WMFUserDefaultsKey.trendingSelectedTopic.rawValue)
+    }
+
+    public func applyTopicSelection() {
         isShowingTopicPicker = false
         load()
     }
@@ -121,7 +135,15 @@ public final class WMFTrendingViewModel: ObservableObject {
             let articles: [WMFTrendingArticle]
             switch selectedSegment {
             case .byTopic:
-                articles = try await dataController.fetchTrendingByTopic(selectedTopic, languageCode: languageCode)
+                var seen = Set<String>()
+                var merged: [WMFTrendingArticle] = []
+                for topic in selectedTopics {
+                    let results = try await dataController.fetchTrendingByTopic(topic, languageCode: languageCode)
+                    for article in results where seen.insert(article.id).inserted {
+                        merged.append(article)
+                    }
+                }
+                articles = merged
             case .byArea:
                 articles = try await dataController.fetchTrendingByCountry(country, languageCode: languageCode)
             case .map:

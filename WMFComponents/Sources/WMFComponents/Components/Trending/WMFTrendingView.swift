@@ -87,7 +87,7 @@ public struct WMFTrendingView: View {
             viewModel.isShowingTopicPicker = true
         } label: {
             HStack {
-                Text(viewModel.selectedTopic.displayName)
+                Text(viewModel.localizedStrings.topicPickerTitle)
                     .font(Font(WMFFont.for(.semiboldHeadline)))
                     .foregroundColor(Color(uiColor: theme.link))
                 Spacer()

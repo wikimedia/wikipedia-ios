@@ -14,14 +14,6 @@ public struct WMFTrendingArticle: Codable, Sendable, Identifiable {
     }
 }
 
-public struct WMFTrendingArticlePin: Sendable, Identifiable {
-    public let article: WMFTrendingArticle
-    public let latitude: Double
-    public let longitude: Double
-
-    public var id: String { article.id }
-}
-
 // MARK: - Topics
 
 public enum WMFTrendingTopic: String, CaseIterable, Sendable {
@@ -133,55 +125,6 @@ public actor WMFTrendingDataController {
         return articles
     }
 
-    public func fetchPinsForArticles(_ articles: [WMFTrendingArticle], languageCode: String = "en") async throws -> [WMFTrendingArticlePin] {
-        guard !articles.isEmpty else { return [] }
-
-        guard let service else {
-            throw WMFDataControllerError.basicServiceUnavailable
-        }
-
-        let titles = articles.map { $0.title }.joined(separator: "|")
-        let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: nil))
-
-        guard let baseURL = URL.mediaWikiAPIURL(project: project) else {
-            throw WMFDataControllerError.failureCreatingRequestURL
-        }
-
-        var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)
-        components?.queryItems = [
-            URLQueryItem(name: "action", value: "query"),
-            URLQueryItem(name: "prop", value: "coordinates"),
-            URLQueryItem(name: "titles", value: titles),
-            URLQueryItem(name: "formatversion", value: "2"),
-            URLQueryItem(name: "format", value: "json")
-        ]
-
-        guard let url = components?.url else {
-            throw WMFDataControllerError.failureCreatingRequestURL
-        }
-
-        let request = WMFBasicServiceRequest(url: url, method: .GET, acceptType: .json)
-
-        return try await withCheckedThrowingContinuation { continuation in
-            service.performDecodableGET(request: request) { (result: Result<CoordinatesResponse, Error>) in
-                switch result {
-                case .success(let response):
-                    var pins: [WMFTrendingArticlePin] = []
-                    for page in response.query.pages {
-                        guard let coords = page.coordinates?.first,
-                              let article = articles.first(where: { $0.title == page.title }) else {
-                            continue
-                        }
-                        pins.append(WMFTrendingArticlePin(article: article, latitude: coords.lat, longitude: coords.lon))
-                    }
-                    continuation.resume(returning: pins)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
-    }
-
     // MARK: - Private
 
     private func fetchArticles(from url: URL, languageCode: String) async throws -> [WMFTrendingArticle] {
@@ -260,24 +203,6 @@ public actor WMFTrendingDataController {
     }
 
     // MARK: - Response Models
-
-    private struct CoordinatesResponse: Decodable {
-        let query: QueryResult
-
-        struct QueryResult: Decodable {
-            let pages: [PageResult]
-        }
-
-        struct PageResult: Decodable {
-            let title: String
-            let coordinates: [Coordinate]?
-        }
-
-        struct Coordinate: Decodable {
-            let lat: Double
-            let lon: Double
-        }
-    }
 
     private struct PageViewsResponse: Decodable {
         let items: [PageViewsItem]

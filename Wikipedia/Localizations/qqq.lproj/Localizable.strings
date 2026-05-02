@@ -1414,6 +1414,7 @@
 "trending-segment-by-topic" = "Segment label for trending articles filtered by topic";
 "trending-segment-map" = "Segment label for the map view in the Trending feature";
 "trending-title" = "Title for the Trending articles feature";
+"trending-topic-picker-done" = "Done button in the topic picker sheet in the Trending feature";
 "trending-topic-picker-title" = "Title for the topic picker sheet in the Trending feature";
 "try-now-title" = "Title of action button. Tapping takes user to a particular feature.";
 "tutorial-title" = "Button title text that triggers a tutorial flow. This can be a series of tooltips informing the user on how a feature works.";

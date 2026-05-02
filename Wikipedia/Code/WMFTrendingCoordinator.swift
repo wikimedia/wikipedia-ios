@@ -34,7 +34,8 @@ final class WMFTrendingCoordinator: NSObject, Coordinator {
             byTopicSegment: WMFLocalizedString("trending-segment-by-topic", value: "By Topic", comment: "Segment label for trending articles filtered by topic"),
             byAreaSegment: WMFLocalizedString("trending-segment-by-area", value: "Your Country", comment: "Segment label for trending articles filtered by geographic area"),
             mapSegment: WMFLocalizedString("trending-segment-map", value: "Explore the Map", comment: "Segment label for the map view in the Trending feature"),
-            topicPickerTitle: WMFLocalizedString("trending-topic-picker-title", value: "Choose a Topic", comment: "Title for the topic picker sheet in the Trending feature"),
+            topicPickerTitle: WMFLocalizedString("trending-topic-picker-title", value: "Select Topics", comment: "Title for the topic picker sheet in the Trending feature"),
+            topicPickerDoneButton: WMFLocalizedString("trending-topic-picker-done", value: "Done", comment: "Done button in the topic picker sheet in the Trending feature"),
             loadingMessage: WMFLocalizedString("trending-loading", value: "Loading trending articles…", comment: "Loading message for the Trending feature"),
             errorMessage: WMFLocalizedString("trending-error", value: "Could not load trending articles. Please try again.", comment: "Error message for the Trending feature"),
             noArticlesMessage: WMFLocalizedString("trending-empty", value: "No trending articles found.", comment: "Empty state message for the Trending feature")

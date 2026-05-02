@@ -1414,7 +1414,8 @@
 "trending-segment-by-topic" = "By Topic";
 "trending-segment-map" = "Explore the Map";
 "trending-title" = "Trending";
-"trending-topic-picker-title" = "Choose a Topic";
+"trending-topic-picker-done" = "Done";
+"trending-topic-picker-title" = "Select Topics";
 "try-now-title" = "Try now";
 "tutorial-title" = "Tutorial";
 "two-factor-email-login-continue" = "Continue log in";
