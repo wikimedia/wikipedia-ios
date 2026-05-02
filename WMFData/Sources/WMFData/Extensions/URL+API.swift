@@ -64,6 +64,20 @@ extension URL {
 
         return components.url
     }
+
+    /// Wikimedia pageviews aggregate API.
+    /// https://wikimedia.org/api/rest_v1/#/Pageviews_data/get_metrics_pageviews_aggregate__project___access___agent___granularity___start___end_
+    /// - Parameters:
+    ///   - project: e.g. "en.wikipedia"
+    ///   - start: YYYYMMDDHH — inclusive start (use 00 for hour)
+    ///   - end:   YYYYMMDDHH — inclusive end
+    static func pageviewsAggregateURL(project: String, start: String, end: String) -> URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "wikimedia.org"
+        components.path = "\(baseWikimediaRestAPIPathComponents)metrics/pageviews/aggregate/\(project)/all-access/user/daily/\(start)/\(end)"
+        return components.url
+    }
     
     static func donatePaymentSubmissionURL(environment: WMFServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment) -> URL? {
         

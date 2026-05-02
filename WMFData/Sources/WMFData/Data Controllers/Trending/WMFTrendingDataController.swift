@@ -97,6 +97,7 @@ public actor WMFTrendingDataController {
     }
 
     private var cache: [String: [WMFTrendingArticle]] = [:]
+    private var pageViewsCache: [String: Int] = [:]
 
     private init() {}
 
@@ -217,6 +218,48 @@ public actor WMFTrendingDataController {
         return lowered != "main_page" && lowered != "main page"
     }
 
+    /// Fetches the total user page views for a Wikipedia project for yesterday.
+    /// Returns nil if the data is unavailable rather than throwing, so callers can treat it as optional.
+    public func fetchYesterdayPageViews(languageCode: String) async -> Int? {
+        let project = "\(languageCode).wikipedia"
+        let cacheKey = "pageviews-\(project)"
+        if let cached = pageViewsCache[cacheKey] {
+            return cached
+        }
+
+        guard let service else { return nil }
+
+        let calendar = Calendar(identifier: .gregorian)
+        let yesterday = calendar.date(byAdding: .day, value: -1, to: Date()) ?? Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMdd"
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        let dateString = formatter.string(from: yesterday) + "00"
+
+        guard let url = URL.pageviewsAggregateURL(project: project, start: dateString, end: dateString) else {
+            return nil
+        }
+
+        let request = WMFBasicServiceRequest(url: url, method: .GET, acceptType: .json)
+
+        return await withCheckedContinuation { continuation in
+            service.performDecodableGET(request: request) { [self] (result: Result<PageViewsResponse, Error>) in
+                switch result {
+                case .success(let response):
+                    let total = response.items.first?.views
+                    // Cache the result back on the actor. The actor hop is implicit
+                    // since self is an actor; the compiler warning here is a false positive.
+                    if let views = total {
+                        Task { self.pageViewsCache[cacheKey] = views }
+                    }
+                    continuation.resume(returning: total)
+                case .failure:
+                    continuation.resume(returning: nil)
+                }
+            }
+        }
+    }
+
     // MARK: - Response Models
 
     private struct CoordinatesResponse: Decodable {
@@ -234,6 +277,14 @@ public actor WMFTrendingDataController {
         struct Coordinate: Decodable {
             let lat: Double
             let lon: Double
+        }
+    }
+
+    private struct PageViewsResponse: Decodable {
+        let items: [PageViewsItem]
+
+        struct PageViewsItem: Decodable {
+            let views: Int
         }
     }
 }

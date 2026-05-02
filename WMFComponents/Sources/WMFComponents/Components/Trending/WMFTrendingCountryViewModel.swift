@@ -17,6 +17,7 @@ public final class WMFTrendingCountryViewModel: ObservableObject {
 
     @Published public var articleRows: [WMFTrendingViewModel.ArticleRowViewModel] = []
     @Published public var isLoading: Bool = false
+    @Published public var projectPageViews: Int? = nil
 
     public let countryName: String
     public let localizedStrings: LocalizedStrings
@@ -59,7 +60,10 @@ public final class WMFTrendingCountryViewModel: ObservableObject {
                 let project = WMFProject.wikipedia(WMFLanguage(languageCode: article.project, languageVariantCode: nil))
                 return WMFTrendingViewModel.ArticleRowViewModel(id: article.id, title: article.displayTitle, project: project)
             }
-            await fetchSummaries()
+            async let summaries: () = fetchSummaries()
+            async let views: Int? = dataController.fetchYesterdayPageViews(languageCode: languageCode)
+            await summaries
+            projectPageViews = await views
         } catch {
             // Show empty state on error
         }

@@ -52,6 +52,7 @@ public final class WMFTrendingViewModel: ObservableObject {
     @Published public var isLoading: Bool = false
     @Published public var isShowingTopicPicker: Bool = false
     @Published public var errorMessage: String? = nil
+    @Published public var projectPageViews: Int? = nil
 
     // MARK: - Public Properties
 
@@ -130,7 +131,10 @@ public final class WMFTrendingViewModel: ObservableObject {
                 let project = WMFProject.wikipedia(WMFLanguage(languageCode: article.project, languageVariantCode: nil))
                 return ArticleRowViewModel(id: article.id, title: article.displayTitle, project: project)
             }
-            await fetchSummariesForRows()
+            async let summaries: () = fetchSummariesForRows()
+            async let views: Int? = dataController.fetchYesterdayPageViews(languageCode: languageCode)
+            await summaries
+            projectPageViews = await views
         } catch {
             // Treat failures as empty results — topic API paths are prototype-only
             // and not all topics are guaranteed to return data

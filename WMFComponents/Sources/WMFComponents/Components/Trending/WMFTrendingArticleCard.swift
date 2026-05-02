@@ -6,6 +6,7 @@ struct WMFTrendingArticleCard: View {
     let row: WMFTrendingViewModel.ArticleRowViewModel
     let rank: Int
     let country: String
+    let projectPageViews: Int?
     let onTap: () -> Void
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -14,15 +15,19 @@ struct WMFTrendingArticleCard: View {
         appEnvironment.theme
     }
 
-    // Hardcoded stats — the trending API does not expose view counts
-    private var pageViews: String {
-        let values = ["1.2M", "2.8M", "4.1M", "6.4M", "890K", "3.3M", "5.7M", "1.9M", "720K", "2.1M"]
-        return values[rank % values.count]
-    }
-
-    private var percentChange: String {
-        let values = ["+12%", "+38%", "+54%", "+7%", "+91%", "+23%", "+16%", "+45%", "+8%", "+62%"]
-        return values[rank % values.count]
+    private var formattedPageViews: String? {
+        guard let views = projectPageViews else { return nil }
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 1
+        if views >= 1_000_000 {
+            formatter.positiveSuffix = "M"
+            return formatter.string(from: NSNumber(value: Double(views) / 1_000_000))
+        } else if views >= 1_000 {
+            formatter.positiveSuffix = "K"
+            return formatter.string(from: NSNumber(value: Double(views) / 1_000))
+        }
+        return formatter.string(from: NSNumber(value: views))
     }
 
     var body: some View {
@@ -135,17 +140,20 @@ struct WMFTrendingArticleCard: View {
             .foregroundColor(Color(uiColor: theme.secondaryText))
     }
 
+    @ViewBuilder
     private var statsColumn: some View {
-        VStack(alignment: .trailing, spacing: 2) {
-            Text(pageViews)
-                .font(Font(WMFFont.for(.semiboldHeadline)))
-                .foregroundColor(Color(uiColor: theme.text))
-            Text("page views")
-                .font(Font(WMFFont.for(.caption2)))
-                .foregroundColor(Color(uiColor: theme.secondaryText))
-            Text(percentChange)
-                .font(Font(WMFFont.for(.caption1)))
-                .foregroundColor(.green)
+        if let formatted = formattedPageViews {
+            VStack(alignment: .trailing, spacing: 2) {
+                Text(formatted)
+                    .font(Font(WMFFont.for(.semiboldHeadline)))
+                    .foregroundColor(Color(uiColor: theme.text))
+                Text("page views")
+                    .font(Font(WMFFont.for(.caption2)))
+                    .foregroundColor(Color(uiColor: theme.secondaryText))
+                Text("yesterday")
+                    .font(Font(WMFFont.for(.caption2)))
+                    .foregroundColor(Color(uiColor: theme.secondaryText))
+            }
         }
     }
 }

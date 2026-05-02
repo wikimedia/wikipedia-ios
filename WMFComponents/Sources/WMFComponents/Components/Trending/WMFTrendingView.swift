@@ -108,6 +108,7 @@ public struct WMFTrendingView: View {
                         row: row,
                         rank: index,
                         country: viewModel.detectedCountry,
+                        projectPageViews: viewModel.projectPageViews,
                         onTap: {
                             viewModel.onTapArticle?(row.title, row.project)
                         }
