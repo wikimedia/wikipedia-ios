@@ -220,7 +220,7 @@ enum ProfileState {
             var settingsItems: [ProfileListItem] = [settingsItem]
             
             if WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
-                
+
                 let devSettingsItem = ProfileListItem(
                     text: "Developer settings",
                     image: WMFSFSymbolIcon.for(symbol: .testTubeFill),
@@ -232,10 +232,22 @@ enum ProfileState {
                         coordinatorDelegate?.handleProfileAction(.showDevSettings)
                     }
                 )
-                
+
                 settingsItems.append(devSettingsItem)
             }
-            
+
+            let trendingItem = ProfileListItem(
+                text: "Trending Articles (Test)",
+                image: WMFSFSymbolIcon.for(symbol: .flameFill),
+                imageColor: UIColor(Color.orange),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showTrending)
+                }
+            )
+
             return [
                 ProfileSection(
                     listItems: [
@@ -258,6 +270,10 @@ enum ProfileState {
                 ),
                 ProfileSection(
                     listItems: settingsItems,
+                    subtext: nil
+                ),
+                ProfileSection(
+                    listItems: [trendingItem],
                     subtext: nil
                 )
             ]
@@ -367,8 +383,20 @@ enum ProfileState {
             )
             let notificationsSection = ProfileSection(listItems: [notificationsItem], subtext: nil)
             let settingsSection = ProfileSection(listItems: settingsItems, subtext: nil)
+            let trendingItem = ProfileListItem(
+                text: "Trending Articles (Test)",
+                image: WMFSFSymbolIcon.for(symbol: .flameFill),
+                imageColor: UIColor(Color.orange),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showTrending)
+                }
+            )
+            let trendingSection = ProfileSection(listItems: [trendingItem], subtext: nil)
 
-            let sections = [notificationsSection, joinSection, donateSection, settingsSection]
+            let sections = [notificationsSection, joinSection, donateSection, settingsSection, trendingSection]
             return sections
         } else {
             let joinWikipediaItem = ProfileListItem(
@@ -469,12 +497,25 @@ enum ProfileState {
                 subtext: nil
             )
 
-            var sections = [joinSection, donateSection, settingsSection]
+            let trendingItem = ProfileListItem(
+                text: "Trending Articles (Test)",
+                image: WMFSFSymbolIcon.for(symbol: .flameFill),
+                imageColor: UIColor(Color.orange),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showTrending)
+                }
+            )
+            let trendingSection = ProfileSection(listItems: [trendingItem], subtext: nil)
+
+            var sections = [joinSection, donateSection, settingsSection, trendingSection]
             if let yearInReviewDependencies,
                yearInReviewDependencies.dataController.shouldShowYearInReviewEntryPoint(countryCode: yearInReviewDependencies.countryCode) {
-                sections = [joinSection, donateSection, yearInReviewSection, settingsSection]
+                sections = [joinSection, donateSection, yearInReviewSection, settingsSection, trendingSection]
             }
-            
+
             return sections
         }
     }

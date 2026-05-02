@@ -37,6 +37,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private let targetRects = WMFProfileViewTargetRects()
     private var donateCoordinator: DonateCoordinator?
     private var settingsCoordinator: SettingsCoordinator?
+    private var trendingCoordinator: WMFTrendingCoordinator?
     private let yirCoordinator: YearInReviewCoordinator
 
     let sourcePage: ProfileCoordinatorSource
@@ -177,6 +178,10 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             dismissProfile {
                 self.showUserTalkPageTempAccount()
             }
+        case .showTrending:
+            dismissProfile {
+                self.showTrending()
+            }
         }
     }
 
@@ -286,6 +291,12 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private func showWatchlist() {
         let watchlistCoordinator = WatchlistCoordinator(navigationController: navigationController, dataStore: dataStore)
         watchlistCoordinator.start()
+    }
+
+    private func showTrending() {
+        let trendingCoordinator = WMFTrendingCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
+        self.trendingCoordinator = trendingCoordinator
+        trendingCoordinator.start()
     }
 
     private func dismissProfile() {

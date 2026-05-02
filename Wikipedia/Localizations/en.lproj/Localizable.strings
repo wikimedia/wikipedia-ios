@@ -1407,6 +1407,16 @@
 "top-read-widget-description" = "Learn what the world is reading today on Wikipedia.";
 "top-read-widget-readers-count" = "$1 readers";
 "top-read-widget-title" = "Top read";
+"trending-empty" = "No trending articles for the selected topics.";
+"trending-error" = "Could not load trending articles. Please try again.";
+"trending-loading" = "Loading trending articles…";
+"trending-no-topics-selected" = "Please select topics.";
+"trending-segment-by-area" = "Your Country";
+"trending-segment-by-topic" = "By Topic";
+"trending-segment-map" = "Explore the Map";
+"trending-title" = "Trending";
+"trending-topic-picker-done" = "Done";
+"trending-topic-picker-title" = "Select Topics";
 "try-now-title" = "Try now";
 "tutorial-title" = "Tutorial";
 "two-factor-email-login-continue" = "Continue log in";

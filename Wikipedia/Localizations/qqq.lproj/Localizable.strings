@@ -1407,6 +1407,16 @@
 "top-read-widget-description" = "Text for description of top read widget displayed when adding to home screen.";
 "top-read-widget-readers-count" = "Text for displaying the number of readers an article has in the top read widget. $1 is replaced with the number of readers.";
 "top-read-widget-title" = "Text for title of Top read widget.";
+"trending-empty" = "Empty state message for the Trending feature";
+"trending-error" = "Error message for the Trending feature";
+"trending-loading" = "Loading message for the Trending feature";
+"trending-no-topics-selected" = "Empty state message for the Trending feature when no topics are selected";
+"trending-segment-by-area" = "Segment label for trending articles filtered by geographic area";
+"trending-segment-by-topic" = "Segment label for trending articles filtered by topic";
+"trending-segment-map" = "Segment label for the map view in the Trending feature";
+"trending-title" = "Title for the Trending articles feature";
+"trending-topic-picker-done" = "Done button in the topic picker sheet in the Trending feature";
+"trending-topic-picker-title" = "Title for the topic picker sheet in the Trending feature";
 "try-now-title" = "Title of action button. Tapping takes user to a particular feature.";
 "tutorial-title" = "Button title text that triggers a tutorial flow. This can be a series of tooltips informing the user on how a feature works.";
 "two-factor-email-login-continue" = "Button text for finishing email two factor login";
