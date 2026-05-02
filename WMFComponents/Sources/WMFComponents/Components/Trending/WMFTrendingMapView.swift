@@ -61,8 +61,10 @@ public struct WMFTrendingMapView: UIViewRepresentable {
             view.glyphTintColor = .white
             view.glyphImage = UIImage(systemName: "flame.fill")
             view.canShowCallout = true
-            let button = UIButton(type: .detailDisclosure)
+            let button = UIButton(type: .custom)
+            button.setImage(UIImage(systemName: "eye.fill"), for: .normal)
             button.tintColor = appEnvironment.theme.link
+            button.frame = CGRect(x: 0, y: 0, width: 28, height: 28)
             view.rightCalloutAccessoryView = button
             return view
         }
