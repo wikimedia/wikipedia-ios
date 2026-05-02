@@ -147,15 +147,16 @@ public struct WMFTrendingView: View {
     }
 
     private var emptyView: some View {
-        VStack {
-            Spacer()
-            Text(viewModel.emptyMessage)
-                .font(Font(WMFFont.for(.body)))
-                .foregroundColor(Color(uiColor: theme.secondaryText))
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 32)
-            Spacer()
-        }
+        let image = WMFSFSymbolIcon.for(symbol: .docTextMagnifyingGlass, font: .title1)
+        let strings = WMFEmptyViewModel.LocalizedStrings(
+            title: viewModel.emptyMessage,
+            subtitle: "",
+            titleFilter: nil,
+            buttonTitle: nil,
+            attributedFilterString: nil
+        )
+        let emptyViewModel = WMFEmptyViewModel(localizedStrings: strings, image: image, imageColor: theme.secondaryText, numberOfFilters: nil)
+        return WMFEmptyView(viewModel: emptyViewModel, type: .noItems, isScrollable: false)
     }
 
 }
