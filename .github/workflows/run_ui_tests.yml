@@ -1,0 +1,134 @@
+name: Run UI Tests
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+env:
+  XCODE_VERSION: "26.2"
+  IOS_VERSION: "26.2"
+  SIMULATOR_NAME: "iPhone 16"
+
+concurrency:
+  group: "ui-tests-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  run-ui-tests:
+    runs-on: macos-latest
+    name: Test WikipediaUITests
+    steps:
+      - name: Verify selected release tag
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SELECTED_REF: ${{ github.ref }}
+          SELECTED_REF_NAME: ${{ github.ref_name }}
+          SELECTED_REF_TYPE: ${{ github.ref_type }}
+        run: |
+          if [ "$SELECTED_REF_TYPE" != "tag" ]; then
+            echo "Manual UI test runs must use a tag from the 'Use workflow from' selector."
+            echo "Selected ref: $SELECTED_REF"
+            exit 1
+          fi
+
+          gh release view "$SELECTED_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null
+          echo "Verified GitHub release tag: $SELECTED_REF_NAME"
+
+      - name: Check out selected ref
+        uses: actions/checkout@v6
+
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
+
+      - name: Resolve simulator
+        id: simulator
+        run: |
+          xcrun simctl list devices available --json > simulators.json
+          SIMULATOR_ID=$(python3 - <<'PY'
+          import json
+          import os
+          import sys
+
+          ios_version = os.environ["IOS_VERSION"]
+          simulator_name = os.environ["SIMULATOR_NAME"]
+          runtime_id = f"com.apple.CoreSimulator.SimRuntime.iOS-{ios_version.replace('.', '-')}"
+
+          with open("simulators.json") as file:
+              simulators = json.load(file)
+
+          matches = [
+              device
+              for device in simulators.get("devices", {}).get(runtime_id, [])
+              if device.get("name") == simulator_name and device.get("isAvailable")
+          ]
+
+          if len(matches) != 1:
+              print(
+                  f"Expected exactly one available {simulator_name} simulator for iOS {ios_version}; found {len(matches)}.",
+                  file=sys.stderr
+              )
+              print("Available iOS simulator devices:", file=sys.stderr)
+              for runtime, devices in sorted(simulators.get("devices", {}).items()):
+                  if not runtime.startswith("com.apple.CoreSimulator.SimRuntime.iOS-"):
+                      continue
+                  version = runtime.removeprefix("com.apple.CoreSimulator.SimRuntime.iOS-").replace("-", ".")
+                  names = sorted({
+                      device.get("name", "<unknown>")
+                      for device in devices
+                      if device.get("isAvailable")
+                  })
+                  if names:
+                      print(f"  iOS {version}: {', '.join(names)}", file=sys.stderr)
+              sys.exit(1)
+
+          print(matches[0]["udid"])
+          PY
+          )
+          echo "simulator_id=${SIMULATOR_ID}" >> "$GITHUB_OUTPUT"
+          echo "Resolved ${SIMULATOR_NAME} iOS ${IOS_VERSION} to ${SIMULATOR_ID}"
+
+      - name: Run WikipediaUITests
+        env:
+          SIMULATOR_ID: ${{ steps.simulator.outputs.simulator_id }}
+        run: |
+          echo "Running WikipediaUITests on ${SIMULATOR_NAME} iOS ${IOS_VERSION} (${SIMULATOR_ID}) with Xcode ${XCODE_VERSION}"
+          xcodebuild test \
+            -scheme WikipediaUITests \
+            -project Wikipedia.xcodeproj \
+            -testPlan UITests \
+            -destination "platform=iOS Simulator,id=${SIMULATOR_ID}" \
+            -resultBundlePath "WikipediaUITests_TestResults" \
+            | xcpretty
+          EXIT_CODE=${PIPESTATUS[0]}
+          if [ "$EXIT_CODE" -ne 0 ]; then
+            exit "$EXIT_CODE"
+          fi
+
+      - name: Upload UI test result bundle
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: WikipediaUITests-TestResults
+          path: WikipediaUITests_TestResults.xcresult
+          if-no-files-found: ignore
+
+      - name: Coverage summary
+        if: success()
+        uses: ./.github/actions/coverage-summary
+        with:
+          artifact-name: WikipediaUITests-coverage
+          coverage-json-path: WikipediaUITests_coverage.json
+          result-bundle-path: WikipediaUITests_TestResults.xcresult
+          scheme: WikipediaUITests
+          workflow-file: run_ui_tests.yml

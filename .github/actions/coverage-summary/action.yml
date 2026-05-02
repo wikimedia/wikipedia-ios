@@ -1,0 +1,145 @@
+name: Coverage summary
+description: Extract xccov coverage, compare against the latest main artifact, and upload main coverage artifacts.
+
+inputs:
+  artifact-name:
+    description: Name of the coverage artifact to download or upload.
+    required: true
+  coverage-json-path:
+    description: Path where filtered coverage JSON should be written.
+    required: true
+  result-bundle-path:
+    description: Path to the xcresult bundle produced by xcodebuild.
+    required: true
+  scheme:
+    description: Scheme name used as the top-level key in the filtered coverage JSON.
+    required: true
+  workflow-file:
+    description: Workflow filename to query for the latest successful main run.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Extract coverage data
+      shell: bash
+      env:
+        COVERAGE_JSON_PATH: ${{ inputs.coverage-json-path }}
+        RESULT_BUNDLE_PATH: ${{ inputs.result-bundle-path }}
+        SCHEME: ${{ inputs.scheme }}
+      run: |
+        python3 - <<'PYEOF'
+        import json
+        import os
+        import subprocess
+        import sys
+
+        coverage_json_path = os.environ["COVERAGE_JSON_PATH"]
+        result_bundle_path = os.environ["RESULT_BUNDLE_PATH"]
+        scheme = os.environ["SCHEME"]
+
+        result = subprocess.run(
+            ["xcrun", "xccov", "view", "--report", "--json", result_bundle_path],
+            capture_output=True,
+            text=True
+        )
+        if result.returncode != 0:
+            print("xccov failed:", result.stderr, file=sys.stderr)
+            sys.exit(result.returncode)
+
+        report = json.loads(result.stdout)
+
+        current = {}
+        for target in report.get("targets", []):
+            name = target["name"]
+            if name.endswith(".xctest") or name.endswith("Tests"):
+                continue
+            pct = target.get("lineCoverage", 0) * 100
+            current[name] = round(pct, 2)
+
+        with open(coverage_json_path, "w") as file:
+            json.dump({scheme: current}, file)
+        PYEOF
+
+    - name: Download main coverage data
+      if: success() && github.event_name == 'pull_request'
+      shell: bash
+      env:
+        ARTIFACT_NAME: ${{ inputs.artifact-name }}
+        GH_TOKEN: ${{ github.token }}
+        WORKFLOW_FILE: ${{ inputs.workflow-file }}
+      run: |
+        RUN_ID=$(gh run list \
+          --repo "$GITHUB_REPOSITORY" \
+          --workflow "$WORKFLOW_FILE" \
+          --branch main \
+          --event push \
+          --status success \
+          --limit 1 \
+          --json databaseId \
+          --jq '.[0].databaseId // empty' || true)
+
+        if [ -z "$RUN_ID" ]; then
+          echo "No successful main coverage run found for $WORKFLOW_FILE."
+          exit 0
+        fi
+
+        mkdir -p main-coverage
+        gh run download "$RUN_ID" \
+          --repo "$GITHUB_REPOSITORY" \
+          --name "$ARTIFACT_NAME" \
+          --dir main-coverage || echo "No main coverage artifact named $ARTIFACT_NAME found in run $RUN_ID."
+
+    - name: Coverage summary
+      if: success()
+      shell: bash
+      env:
+        COVERAGE_JSON_PATH: ${{ inputs.coverage-json-path }}
+        SCHEME: ${{ inputs.scheme }}
+      run: |
+        python3 - <<'PYEOF'
+        import json
+        import os
+
+        coverage_json_path = os.environ["COVERAGE_JSON_PATH"]
+        scheme = os.environ["SCHEME"]
+
+        with open(coverage_json_path) as file:
+            current = json.load(file).get(scheme, {})
+
+        baseline = {}
+        baseline_path = os.path.join("main-coverage", os.path.basename(coverage_json_path))
+        if os.path.exists(baseline_path):
+            with open(baseline_path) as file:
+                baseline = json.load(file).get(scheme, {})
+
+        lines = []
+        lines.append(f"### {scheme} Code Coverage")
+        lines.append("")
+        lines.append("| Target | Coverage | Delta |")
+        lines.append("|--------|----------|-------|")
+        for name, pct in current.items():
+            prev = baseline.get(name)
+            if prev is not None:
+                delta = pct - prev
+                sign = "+" if delta >= 0 else ""
+                delta_str = f"{sign}{delta:.1f}%"
+            else:
+                delta_str = "—"
+            lines.append(f"| {name} | {pct:.1f}% | {delta_str} |")
+        lines.append("")
+
+        md = "\n".join(lines)
+        print(md)
+
+        with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as file:
+            file.write(md + "\n")
+        PYEOF
+
+    - name: Upload coverage data
+      if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+      uses: actions/upload-artifact@v7
+      with:
+        name: ${{ inputs.artifact-name }}
+        path: ${{ inputs.coverage-json-path }}
+        if-no-files-found: error

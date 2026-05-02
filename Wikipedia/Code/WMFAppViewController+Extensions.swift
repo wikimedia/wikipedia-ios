@@ -603,6 +603,9 @@ extension WMFAppViewController: CreateReadingListDelegate {
     @objc func setupTips() {
         do {
             try Tips.configure()
+#if UITEST
+            Tips.hideAllTipsForTesting()
+#endif
         } catch {
             DDLogError("Error initializing TipKit: \(error.localizedDescription)")
         }
