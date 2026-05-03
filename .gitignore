@@ -81,3 +81,4 @@ Cartfile.hash
 fastlane/snapshot_derived_data/
 WikipediaUITests/Snapshots/
 OpenSourceDebug.xcconfig
+.build-benchmark/
