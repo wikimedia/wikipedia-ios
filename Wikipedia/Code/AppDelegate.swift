@@ -98,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        appViewController.setRemoteNotificationRegistrationStatusWithDeviceToken(deviceToken, error: nil)
+        appViewController.setRemoteNotificationRegistrationStatus(deviceToken: deviceToken, error: nil)
     }
 
     // MARK: Private
