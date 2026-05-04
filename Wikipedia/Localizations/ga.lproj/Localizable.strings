@@ -245,9 +245,9 @@
 "close-tab-confirmation" = "Dún an cluaisín?";
 "close-tabs" = "Dún na cluaisíní";
 "closed-all-tabs-confirmation-with-value" = "Dúnadh {{PLURAL:$1|$1 cluaisín|$1 cluaisíní}}.";
-"collect-prize-button-title" = "Faigh 15% de lascaine sa siopa";
+"collect-prize-button-title" = "Faigh 15%% de lascaine sa siopa";
 "collect-prize-headline" = "Tá cuma mhaith ar an bhfiosracht ort! 🛍️";
-"collect-prize-subtitle" = "Ceiliúir an dúshlán a chríochnú le lascaine 15% ag Siopa Vicipéid.";
+"collect-prize-subtitle" = "Ceiliúir an dúshlán a chríochnú le lascaine 15%% ag Siopa Vicipéid.";
 "collect-prize-title" = "Bailigh do dhuais!";
 "compass-direction" = "i dtreo a $1 a chlog";
 "confirm-donation-history-deletion-subtitle" = "Ní bhainfidh sé seo ach le síntiúis a dhéantar ón ngléas seo.";
