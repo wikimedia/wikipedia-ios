@@ -51,26 +51,14 @@ jobs:
         run: |
           sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
 
-      - name: Resolve simulator
-        id: simulator
-        run: |
-          SIMULATOR_ID=$(python3 .github/scripts/resolve_simulator.py \
-            --name "${SIMULATOR_NAME}" \
-            --ios-version "${IOS_VERSION}"
-          )
-          echo "simulator_id=${SIMULATOR_ID}" >> "$GITHUB_OUTPUT"
-          echo "Resolved ${SIMULATOR_NAME} iOS ${IOS_VERSION} to ${SIMULATOR_ID}"
-
       - name: Run WikipediaUITests
-        env:
-          SIMULATOR_ID: ${{ steps.simulator.outputs.simulator_id }}
         run: |
-          echo "Running WikipediaUITests on ${SIMULATOR_NAME} iOS ${IOS_VERSION} (${SIMULATOR_ID}) with Xcode ${XCODE_VERSION}"
+          echo "Running WikipediaUITests on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
           xcodebuild test \
             -scheme WikipediaUITests \
             -project Wikipedia.xcodeproj \
             -testPlan UITests \
-            -destination "platform=iOS Simulator,id=${SIMULATOR_ID}" \
+            -destination "platform=iOS Simulator,name=${SIMULATOR_NAME},OS=${IOS_VERSION}" \
             -resultBundlePath "WikipediaUITests_TestResults" \
             | xcpretty
           EXIT_CODE=${PIPESTATUS[0]}

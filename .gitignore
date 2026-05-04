@@ -4,10 +4,6 @@
 # Vim
 *.sw[op]
 
-# Python
-__pycache__/
-*.py[cod]
-
 .claude/
 
 # Xcode/ObjC ignores, copied from https://github.com/github/gitignore/blob/master/Objective-C.gitignore
