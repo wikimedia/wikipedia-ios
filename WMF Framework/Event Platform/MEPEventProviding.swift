@@ -18,6 +18,7 @@ public enum EventCategoryMEP: String, Codable {
     case diff
     case unknown
     case yir
+    case widgetChallenge = "widget_challenge"
 }
 
 public enum EventLabelMEP: String, Codable {

@@ -18,6 +18,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
+    
+    private let widgetInstrument = WidgetFunnel().widgetInstrument
+    
+    
+    private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
 
     private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
         guard let self, let nav = self.navigationController else { return nil }
@@ -980,22 +985,42 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 // MARK: - Modal Presentation Logic
 
 extension ExploreViewController {
-
+    
     /// Catch-all method for deciding what is the best modal to present on top of Explore at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
-    fileprivate func presentModalsIfNeeded() {
+    private func presentModalsIfNeeded() {
         
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(listenForTooltips), object: nil)
-
+        // Prioritize reading challenge, then fall back to Activity onboarding or survey view if that doesn't present
+        guard let navigationController, let dataStore else {
+            presentYearInReviewAnnouncementOrTooltipsIfNeeded()
+            return
+        }
+        
+        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, fromWidgetJoinChallengeButton: false, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent, instrument: widgetInstrument)
+        
+        readingChallengeCoordinator.onComplete = { [weak self] didPresentSomething in
+            
+            self?.readingChallengeCoordinator = nil
+            
+            // Do not present followup modals if they just saw a reading challenge announcement.
+            guard !didPresentSomething else {
+                return
+            }
+            
+            self?.presentYearInReviewAnnouncementOrTooltipsIfNeeded()
+        }
+        
+        self.readingChallengeCoordinator = readingChallengeCoordinator
+        
+        readingChallengeCoordinator.start()
+    }
+    
+    private func presentYearInReviewAnnouncementOrTooltipsIfNeeded() {
         if needsYearInReviewAnnouncement() {
             updateProfileButton()
             presentYearInReviewAnnouncement()
         } else {
             perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
         }
-
-        #if DEBUG
-        presentSearchWidgetAnnouncement()
-        #endif
     }
     
     @objc func listenForTooltips() {
@@ -1003,7 +1028,7 @@ extension ExploreViewController {
             appViewController.tipWrapper.listenForTooltips(appViewController: appViewController)
         }
     }
-    
+
     private func needsYearInReviewAnnouncement() -> Bool {
 
         if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
@@ -1094,7 +1119,7 @@ extension ExploreViewController {
         let backgroundImage = UIImage(named: "gradient")
 
         let viewModel = WMFFeatureAnnouncementViewModel(title: title,body: body,
-        primaryButtonTitle: primaryButtonTitle, image: foregroundImage, backgroundImage: backgroundImage, backgroundImageHeight: 250,
+        primaryButtonTitle: primaryButtonTitle, image: foregroundImage, backgroundImage: backgroundImage,
             gifName: nil, altText: CommonStrings.searchWidgetAnnouncementBody,
             primaryButtonAction: { [weak self] in
                 self?.dismiss(animated: true)
@@ -1765,7 +1790,6 @@ extension ExploreViewController: LogoutCoordinatorDelegate {
         }
     }
 }
-
 
 extension ExploreViewController: YearInReviewBadgeDelegate {
     func updateYIRBadgeVisibility() {

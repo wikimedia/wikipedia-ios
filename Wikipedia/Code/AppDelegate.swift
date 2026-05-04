@@ -38,6 +38,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         updateDynamicIconShortcutItems()
         registerBackgroundTasks()
+
+        NotificationCenter.default.addObserver(forName: WMFNSNotification.readingChallengeWidgetReload, object: nil, queue: .main) { _ in
+            WidgetController.shared.reloadReadingChallengeWidget()
+        }
+
         return true
     }
     

@@ -179,7 +179,7 @@ struct PictureOfTheDayView: View {
             }
         }
         .clearWidgetContainerBackground()
-        .widgetURL(entry.contentURL)
+        .widgetURL(wmf_urlWithWidgetSource(entry.contentURL, name: "picture_of_the_day"))
     }
 
     // MARK: View Components
@@ -276,12 +276,12 @@ extension TimelineProviderContext {
         switch family {
         case .systemSmall:
             return WidgetController.potdSmallImageWidth
-        // Large and medium need the same width
+            // Large and medium need the same width
         default:
             return WidgetController.potdLargeImageWidth
         }
     }
-
+    
     var potdRenderSize: CGSize {
         let scale = environmentVariants.displayScale?.max() ?? 2
         return CGSize(width: displaySize.width * scale, height: displaySize.height * scale)

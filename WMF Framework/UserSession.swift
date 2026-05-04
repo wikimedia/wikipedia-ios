@@ -1,4 +1,5 @@
 import Foundation
+import WMFData
 
 /// *User Session*  - handles user session ID creation
 /// Session ID format and duration follow the standars agreed upon the Analytics and Apps teams
@@ -19,11 +20,11 @@ public final class UserSession: NSObject {
      * representing a uniformly random 80-bit integer.
      */
     var sessionID: String {
-        var _sessionID = UserDefaults.standard.wmf_sessionID
+        var _sessionID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.sessionID.rawValue)
         guard let sID = _sessionID else {
             let newID = generateID()
             _sessionID = newID
-            UserDefaults.standard.wmf_sessionID = _sessionID
+            try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.save(key: WMFUserDefaultsKey.sessionID.rawValue, value: _sessionID)
             UserDefaults.standard.wmf_sessionStartTimestamp = Date()
             return newID
         }
@@ -42,7 +43,7 @@ public final class UserSession: NSObject {
      * Reset the session ID
      */
     func resetAll() {
-        UserDefaults.standard.wmf_sessionID = nil
+        try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.remove(key: WMFUserDefaultsKey.sessionID.rawValue)
         UserDefaults.standard.wmf_sessionStartTimestamp = nil
         UserDefaults.standard.wmf_sessionBackgroundTimestamp = nil
     }

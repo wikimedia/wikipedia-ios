@@ -125,6 +125,7 @@ public enum WMFSFSymbolIcon {
     case bookPages
     case map
     case squareAndArrowUp
+    case diceFill
     case circleFill
     case bellFill
     case bellSlashFill
@@ -155,6 +156,12 @@ public enum WMFSFSymbolIcon {
     case globeAmericas
     case lineDiagonalArrow
     case filterLineHorizontalDecrease
+    case flameFill
+    case trophy
+    case bookPagesFill
+    case appGiftFill
+    case widgetAdd
+    case testTubeFill
 
     public var name: String? {
         switch self {
@@ -309,6 +316,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "book", withConfiguration: configuration)
         case .bookPages:
             image = UIImage(systemName: "book.pages", withConfiguration: configuration)
+        case .bookPagesFill:
+            image = UIImage(systemName: "book.pages.fill", withConfiguration: configuration)
         case .map:
             image = UIImage(systemName: "map", withConfiguration: configuration)
         case .squareAndArrowUp:
@@ -375,6 +384,18 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "line.diagonal.arrow", withConfiguration: configuration)
         case .filterLineHorizontalDecrease:
             image = UIImage(systemName: "line.3.horizontal.decrease", withConfiguration: configuration)
+        case .flameFill:
+            image = UIImage(systemName: "flame.fill", withConfiguration: configuration)
+        case .trophy:
+            image = UIImage(systemName: "trophy", withConfiguration: configuration)
+        case .diceFill:
+            image = UIImage(systemName: "dice.fill", withConfiguration: configuration)
+        case .appGiftFill:
+            image = UIImage(systemName: "app.gift.fill", withConfiguration: configuration)
+        case .widgetAdd:
+            image = UIImage(systemName: "widget.small.badge.plus", withConfiguration: configuration)
+        case .testTubeFill:
+            image = UIImage(systemName: "testtube.2", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

@@ -4,16 +4,17 @@ import SwiftUI
 @main
 struct WikipediaWidgets: WidgetBundle {
 
-	@WidgetBundleBuilder
-	var body: some Widget {
-		PictureOfTheDayWidget()
-		OnThisDayWidget()
+    @WidgetBundleBuilder
+    var body: some Widget {
+        PictureOfTheDayWidget()
+        ReadingChallengeWidget()
+        OnThisDayWidget()
         TopReadWidget()
         FeaturedArticleWidget()
         #if DEBUG
         SearchWidget()
         LockscreenSearchWidget()
         #endif
-	}
+    }
 
 }

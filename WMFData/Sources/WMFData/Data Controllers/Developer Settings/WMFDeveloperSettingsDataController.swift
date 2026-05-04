@@ -12,178 +12,197 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
 
     @objc public static let shared = WMFDeveloperSettingsDataController()
-    
+
     private let service: WMFService?
     private var sharedCacheStore: WMFKeyValueStore?
-    
     private var featureConfig: WMFFeatureConfigResponse?
-    
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.developerSettings.rawValue
     private let cacheFeatureConfigFileName = "AppsFeatureConfig"
-    
+
     public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
         self.service = service
         self.sharedCacheStore = sharedCacheStore
         super.init()
-        
-        NotificationCenter.default.addObserver(
-            forName: WMFNSNotification.coreDataStoreSetup,
-            object: nil,
-            queue: nil
-        ) { [weak self] _ in
+        NotificationCenter.default.addObserver(forName: WMFNSNotification.coreDataStoreSetup, object: nil, queue: nil) { [weak self] _ in
             guard let self else { return }
             self.handleSharedCacheStoreSetup()
         }
     }
-    
+
     private func handleSharedCacheStoreSetup() {
         if sharedCacheStore == nil {
             self.sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
         }
     }
-    
-    // MARK: - Local Settings from App Settings Menu
 
-    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+    // MARK: - Local Settings
+
+    private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
     
-    public var doNotPostImageRecommendationsEdit: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsDoNotPostImageRecommendationsEdit.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsDoNotPostImageRecommendationsEdit.rawValue, value: newValue)
-        }
+    public var developerSettingsEnableDeveloperMode: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableDeveloperMode.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableDeveloperMode.rawValue, value: newValue) }
     }
-    
+
+    public var doNotPostImageRecommendationsEdit: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsDoNotPostImageRecommendationsEdit.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsDoNotPostImageRecommendationsEdit.rawValue, value: newValue) }
+    }
+
     @objc public var sendAnalyticsToWMFLabs: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsSendAnalyticsToWMFLabs.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsSendAnalyticsToWMFLabs.rawValue, value: newValue)
-        }
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsSendAnalyticsToWMFLabs.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsSendAnalyticsToWMFLabs.rawValue, value: newValue) }
     }
 
     public var bypassDonation: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.bypassDonation.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.bypassDonation.rawValue, value: newValue)
-        }
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.bypassDonation.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.bypassDonation.rawValue, value: newValue) }
     }
 
     public var forceEmailAuth: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceEmailAuth.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceEmailAuth.rawValue, value: newValue)
-        }
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceEmailAuth.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceEmailAuth.rawValue, value: newValue) }
     }
-    
+
     public var forceMaxArticleTabsTo5: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue, value: newValue)
-        }
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue, value: newValue) }
     }
 
     public var enableMoreDynamicTabsV2GroupC: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue, value: newValue)
-        }
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue, value: newValue) }
     }
 
     public var showYiRV3: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue, value: newValue)
-        }
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue, value: newValue) }
     }
-    
+
     public var enableYiRLoginExperimentControl: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue, value: newValue)
-        }
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue, value: newValue) }
     }
-    
+
     public var enableYiRLoginExperimentB: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue, value: newValue)
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue, value: newValue) }
+    }
+
+    public var forceHCaptchaChallenge: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue, value: newValue) }
+    }
+
+    // MARK: - Reading Challenge Forced States
+
+    private var sharedDefaults: UserDefaults? { UserDefaults(suiteName: "group.org.wikimedia.wikipedia") }
+
+    private func loadSharedStore(_ key: WMFUserDefaultsKey) -> Any? {
+        sharedDefaults?.value(forKey: key.rawValue)
+    }
+
+    private func saveSharedStore(_ key: WMFUserDefaultsKey, _ value: Any?) {
+        sharedDefaults?.set(value, forKey: key.rawValue)
+        sharedDefaults?.synchronize()
+    }
+    
+    public func devClearAllReadingChallengePersistence() {
+        let sharedDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
+        
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.devReadingChallengeOverrideCurrentDate.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.devReadingChallengeCurrentDate.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.devReadingChallengeState.rawValue)
+        
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeUserCompleted.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakReadRandomIndex.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakReadRandomIndexDate.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakNotReadRandomIndex.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakNotReadRandomIndexDate.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeEnrolledNotStartedRandomIndex.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeEnrolledNotStartedRandomIndexDate.rawValue)
+        sharedDefaults?.synchronize()
+        
+        Task { [weak self] in
+            let dataController = try? WMFPageViewsDataController()
+            try? await dataController?.deleteAllPageViewsAndCategories()
+            
+            self?.reloadReadingChallengeWidget()
         }
     }
     
-    public var forceHCaptchaChallenge: Bool {
+    public var devReadingChallengeOverrideCurrentDate: Bool? {
+        loadSharedStore(.devReadingChallengeOverrideCurrentDate) as? Bool
+    }
+    
+    public func setDevReadingChallengeOverrideCurrentDate(_ value: Bool?) {
+        saveSharedStore(.devReadingChallengeOverrideCurrentDate, value)
+    }
+    
+    public func reloadReadingChallengeWidget() {
+        NotificationCenter.default.post(name: WMFNSNotification.readingChallengeWidgetReload, object: nil)
+    }
+
+    public var devReadingChallengeCurrentDate: Date? {
+        loadSharedStore(.devReadingChallengeCurrentDate) as? Date
+    }
+    
+    public func setDevReadingChallengeCurrentDate(_ date: Date?) {
+        saveSharedStore(.devReadingChallengeCurrentDate, date)
+    }
+    
+    public var devReadingChallengeState: ReadingChallengeState? {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue, value: newValue)
+            guard let data = sharedDefaults?.data(forKey: WMFUserDefaultsKey.devReadingChallengeState.rawValue) else {
+                return nil
+            }
+            return try? JSONDecoder().decode(ReadingChallengeState.self, from: data)
+        }
+        set {
+            if let newValue, let data = try? JSONEncoder().encode(newValue) {
+                sharedDefaults?.set(data, forKey: WMFUserDefaultsKey.devReadingChallengeState.rawValue)
+            } else {
+                sharedDefaults?.removeObject(forKey: WMFUserDefaultsKey.devReadingChallengeState.rawValue)
+            }
         }
     }
 
-    // MARK: - Remote Settings from https://en.wikipedia.org/api/rest_v1/configuration
-    
+    // MARK: - Remote Settings
+
     public func loadFeatureConfig() -> WMFFeatureConfigResponse? {
-        
-        // First pull from memory
-        guard featureConfig == nil else {
-            return featureConfig
-        }
-        
-        // Fall back to persisted objects if within four hours
+        guard featureConfig == nil else { return featureConfig }
         let featureConfig: WMFFeatureConfigResponse? = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheFeatureConfigFileName)
-        
-        guard let featureConfigCachedDate = featureConfig?.cachedDate else {
-            return nil
-        }
-        
+        guard let featureConfigCachedDate = featureConfig?.cachedDate else { return nil }
         let fourHours = TimeInterval(60 * 60 * 4)
-        guard (-featureConfigCachedDate.timeIntervalSinceNow) < fourHours else {
-            return nil
-        }
-        
+        guard (-featureConfigCachedDate.timeIntervalSinceNow) < fourHours else { return nil }
         self.featureConfig = featureConfig
-        
         return featureConfig
     }
-    
-    @objc public func fetchFeatureConfig(completion: @escaping (Error?) -> Void) {
 
+    @objc public func fetchFeatureConfig(completion: @escaping (Error?) -> Void) {
         guard let service else {
             completion(WMFDataControllerError.basicServiceUnavailable)
             return
         }
-
         guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage,
-            let featureConfigURL = URL.featureConfigURL(project: WMFProject.wikipedia(primaryAppLanguage)) else {
+              let featureConfigURL = URL.featureConfigURL(project: WMFProject.wikipedia(primaryAppLanguage)) else {
             completion(WMFDataControllerError.failureCreatingRequestURL)
             return
         }
-
         let featureConfigRequest = WMFBasicServiceRequest(url: featureConfigURL, method: .GET, acceptType: .json)
         service.performDecodableGET(request: featureConfigRequest) { [weak self] (result: Result<WMFFeatureConfigResponse, Error>) in
-
-            guard let self else {
-                return
-            }
-
+            guard let self else { return }
             switch result {
             case .success(let response):
                 self.featureConfig = response
                 self.featureConfig?.cachedDate = Date()
-
                 do {
                     try self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheFeatureConfigFileName, value: featureConfig)
                 } catch {
                     print(error)
                 }
-
-
                 completion(nil)
             case .failure(let error):
                 completion(error)
