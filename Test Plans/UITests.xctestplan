@@ -6,10 +6,16 @@
       "options" : {
         "commandLineArgumentEntries" : [
           {
-            "argument" : "UITestThemeLight"
+            "argument" : "-WMFAppThemeName"
           },
           {
-            "argument" : "UITestLanguageEN"
+            "argument" : "light"
+          },
+          {
+            "argument" : "-WMFUITestLanguageCode"
+          },
+          {
+            "argument" : "en"
           }
         ]
       }
@@ -20,10 +26,16 @@
       "options" : {
         "commandLineArgumentEntries" : [
           {
-            "argument" : "UITestThemeSepia"
+            "argument" : "-WMFAppThemeName"
           },
           {
-            "argument" : "UITestLanguageHE"
+            "argument" : "sepia"
+          },
+          {
+            "argument" : "-WMFUITestLanguageCode"
+          },
+          {
+            "argument" : "he"
           }
         ],
         "language" : "he",
@@ -36,10 +48,16 @@
       "options" : {
         "commandLineArgumentEntries" : [
           {
-            "argument" : "UITestThemeDark"
+            "argument" : "-WMFAppThemeName"
           },
           {
-            "argument" : "UITestLanguageDE"
+            "argument" : "dark"
+          },
+          {
+            "argument" : "-WMFUITestLanguageCode"
+          },
+          {
+            "argument" : "de"
           }
         ],
         "language" : "de",
@@ -52,10 +70,16 @@
       "options" : {
         "commandLineArgumentEntries" : [
           {
-            "argument" : "UITestThemeBlack"
+            "argument" : "-WMFAppThemeName"
           },
           {
-            "argument" : "UITestLanguageVI"
+            "argument" : "black"
+          },
+          {
+            "argument" : "-WMFUITestLanguageCode"
+          },
+          {
+            "argument" : "vi"
           }
         ],
         "language" : "vi",
