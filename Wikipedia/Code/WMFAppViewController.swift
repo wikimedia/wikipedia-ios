@@ -101,7 +101,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        UserDefaults.standard.removeObserver(self, forKeyPath: "defaultTabType")
+        UserDefaults.standard.removeObserver(self, forKeyPath: UserDefaults.Key.defaultTabType)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
 
@@ -146,7 +146,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         updateAppEnvironment(theme: theme, traitCollection: traitCollection)
 
-        backgroundTasks = [:]
+        backgroundTasks = Dictionary(minimumCapacity: 5)
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(navigateToActivityNotification(_:)),
@@ -199,7 +199,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                                                object: nil)
 
         UserDefaults.standard.addObserver(self,
-                                          forKeyPath: "defaultTabType",
+                                          forKeyPath: UserDefaults.Key.defaultTabType,
                                           options: .new,
                                           context: &kvoNSUserDefaultsDefaultTabType)
 
@@ -277,11 +277,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         setupReadingListsHelpers()
 
         navigationItem.backButtonDisplayMode = .generic
-
-        if #available(iOS 17.0, *) {
-            registerForTraitChanges([UITraitUserInterfaceStyle.self]) { [weak self] (_: WMFAppViewController, _: UITraitCollection) in
-                self?.debounceTraitCollectionThemeUpdate()
-            }
+        
+        registerForTraitChanges([UITraitUserInterfaceStyle.self]) { [weak self] (_: WMFAppViewController, _: UITraitCollection) in
+            self?.debounceTraitCollectionThemeUpdate()
         }
     }
 
@@ -321,7 +319,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         let backgroundFetcherController = BackgroundFetcherController()
         backgroundFetcherController.delegate = self
         backgroundFetcherController.add(dataStore.readingListsController)
-        backgroundFetcherController.add(dataStore.feedContentController as! any BackgroundFetcher)
+        backgroundFetcherController.add(dataStore.feedContentController)
         backgroundFetcherController.add(EventPlatformClientWorker.shared)
         self.backgroundFetcherController = backgroundFetcherController
     }
@@ -341,8 +339,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             settingsViewController.apply(theme: theme)
         }
 
-        let savedTabBarItem = savedViewController.tabBarItem!
-        savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(with: savedTabBarItem)
+        if let savedTabBarItem = savedViewController.tabBarItem {
+            savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(with: savedTabBarItem)
+        }
     }
 
     private func configureTabController() {
@@ -366,10 +365,14 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             // A magic fix for https://phabricator.wikimedia.org/T403896
             var potentialTabs: [UITab] = []
             for nav in [nav1, nav2, nav3, nav4, nav5] {
-                guard let rootVC = nav.viewControllers.first else { continue }
-                let tab = UITab(title: rootVC.title ?? "",
-                                image: rootVC.tabBarItem?.image,
-                                identifier: rootVC.title ?? "") { _ in nav }
+                guard let rootVC = nav.viewControllers.first,
+                      let title = rootVC.title,
+                      let image = rootVC.tabBarItem.image else { continue }
+                
+                let tab = UITab(title: title, image: image, identifier: title) { tab in
+                    return nav
+                }
+                
                 tab.preferredPlacement = .fixed
                 potentialTabs.append(tab)
             }
@@ -469,7 +472,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         do {
             try dataStore.save()
         } catch let error {
-            DDLogError("Error saving dataStore: \(error as Any)")
+            DDLogError("Error saving dataStore: \(error)")
         }
     }
 
@@ -501,8 +504,8 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     @objc private func readingListsWereSplitNotification(_ note: Notification) {
-        let entryLimit = (note.userInfo?[WMFReadingListsController.readingListsWereSplitNotificationEntryLimitKey] as? NSNumber)?.intValue ?? 0
-        let message = String.localizedStringWithFormat(WMFLocalizedStringWithDefaultValue("reading-lists-split-notification", nil, nil, "There is a limit of %1$d articles per reading list. Existing lists with more than this limit have been split into multiple lists.", "Alert message informing user that existing lists exceeding the entry limit have been split into multiple lists. %1$d will be replaced with the maximum number of articles allowed per reading list."), entryLimit)
+        let entryLimit = (note.userInfo?[WMFReadingListsController.readingListsWereSplitNotificationEntryLimitKey] as? Int) ?? 0
+        let message = String.localizedStringWithFormat(WMFLocalizedString("reading-lists-split-notification", value: "There is a limit of %1$d articles per reading list. Existing lists with more than this limit have been split into multiple lists.", comment: "Alert message informing user that existing lists exceeding the entry limit have been split into multiple lists. %1$d will be replaced with the maximum number of articles allowed per reading list."), entryLimit)
         WMFToastManager.sharedInstance.showToast(message, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
     }
 
@@ -534,22 +537,24 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         if let error = error, error.wmf_isNetworkConnectionError() {
             if !hasSyncErrorBeenShownThisSesssion {
                 hasSyncErrorBeenShownThisSesssion = true // only show sync error once for multiple failed syncs
-                WMFToastManager.sharedInstance.showToast(WMFLocalizedStringWithDefaultValue("reading-lists-sync-error-no-internet-connection", nil, nil, "Syncing will resume when internet connection is available", "Alert message informing user that syncing will resume when internet connection is available."), sticky: true, dismissPreviousToasts: false, tapCallBack: nil)
+                WMFToastManager.sharedInstance.showToast(WMFLocalizedString("reading-lists-sync-error-no-internet-connection", value: "Syncing will resume when internet connection is available", comment: "Alert message informing user that syncing will resume when internet connection is available."), sticky: true, dismissPreviousToasts: false, tapCallBack: nil)
             }
         }
 
         if error == nil {
             hasSyncErrorBeenShownThisSesssion = false // reset on successful sync
             if let syncStartDate = syncStartDate, Date().timeIntervalSince(syncStartDate) >= 5 {
-                let syncedReadingListsCount = (note.userInfo?[WMFReadingListsController.syncDidFinishSyncedReadingListsCountKey] as? NSNumber)?.intValue ?? 0
-                let syncedReadingListEntriesCount = (note.userInfo?[WMFReadingListsController.syncDidFinishSyncedReadingListEntriesCountKey] as? NSNumber)?.intValue ?? 0
+                let syncedReadingListsCount = (note.userInfo?[WMFReadingListsController.syncDidFinishSyncedReadingListsCountKey] as? Int) ?? 0
+                let syncedReadingListEntriesCount = (note.userInfo?[WMFReadingListsController.syncDidFinishSyncedReadingListEntriesCountKey] as? Int) ?? 0
                 if syncedReadingListsCount > 0 && syncedReadingListEntriesCount > 0 {
-                    let alertTitle = String.localizedStringWithFormat(WMFLocalizedStringWithDefaultValue("reading-lists-large-sync-completed", nil, nil, "{{PLURAL:%1$d|%1$d article|%1$d articles}} and {{PLURAL:%2$d|%2$d reading list|%2$d reading lists}} synced from your account", "Alert message informing user that large sync was completed. %1$d will be replaced with the number of articles which were synced and %2$d will be replaced with the number of reading lists which were synced"), syncedReadingListEntriesCount, syncedReadingListsCount)
+                    let alertTitle = String.localizedStringWithFormat(WMFLocalizedString("reading-lists-large-sync-completed", value: "{{PLURAL:%1$d|%1$d article|%1$d articles}} and {{PLURAL:%2$d|%2$d reading list|%2$d reading lists}} synced from your account", comment: "Alert message informing user that large sync was completed. %1$d will be replaced with the number of articles which were synced and %2$d will be replaced with the number of reading lists which were synced"), syncedReadingListEntriesCount, syncedReadingListsCount)
                     WMFToastManager.sharedInstance.showToast(alertTitle, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                 }
             }
         }
     }
+    
+    //-----stopped here ------
 
     @objc private func conflictingReadingListNameUpdatedNotification(_ note: Notification) {
         let oldName = note.userInfo?[ReadingList.conflictingReadingListNameUpdatedOldNameKey] as? String ?? ""
