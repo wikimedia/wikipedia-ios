@@ -553,8 +553,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             }
         }
     }
-    
-    // -----stopped here ------
 
     @objc private func conflictingReadingListNameUpdatedNotification(_ note: Notification) {
         guard let oldName = note.userInfo?[ReadingList.conflictingReadingListNameUpdatedOldNameKey] as? String,
@@ -1568,13 +1566,17 @@ extension WMFAppViewController: UITabBarControllerDelegate {
     }
 
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        let current = tabBarController.selectedViewController
+        
+        guard let current = tabBarController.selectedViewController else {
+            return false
+        }
+        
         let selected = viewController
 
         if viewController == tabBarController.selectedViewController {
             switch tabBarController.selectedIndex {
             case WMFAppTabType.main.rawValue:
-                (exploreViewController as ExploreViewController).scrollToTop()
+                exploreViewController.scrollToTop()
             case WMFAppTabType.search.rawValue:
                 searchTabViewController.makeSearchBarBecomeFirstResponder()
             default:
@@ -1582,7 +1584,7 @@ extension WMFAppViewController: UITabBarControllerDelegate {
             }
 
             if (currentTabNavigationController?.viewControllers.count ?? 0) > 1 {
-                logTabBarSelectionsForActivityTab(currentTabSelection: current!, newTabSelection: selected)
+                logTabBarSelectionsForActivityTab(currentTabSelection: current, newTabSelection: selected)
                 return true
             } else {
                 // Must return NO if already visible to prevent unintended effect when tapping the Search tab bar button multiple times.
@@ -1590,7 +1592,7 @@ extension WMFAppViewController: UITabBarControllerDelegate {
             }
         }
 
-        logTabBarSelectionsForActivityTab(currentTabSelection: current!, newTabSelection: selected)
+        logTabBarSelectionsForActivityTab(currentTabSelection: current, newTabSelection: selected)
 
         // When switching to Activity via tab bar button, increment the visit count
         if let navVC = viewController as? UINavigationController,
@@ -1605,9 +1607,9 @@ extension WMFAppViewController: UITabBarControllerDelegate {
     private func updateActiveTitleAccessibilityButton(_ viewController: UIViewController) {
         guard let vc = viewController as? ArticleViewController else { return }
         if selectedIndex == WMFAppTabType.main.rawValue {
-            vc.navigationItem.titleView?.accessibilityLabel = WMFLocalizedStringWithDefaultValue("home-button-explore-accessibility-label", nil, nil, "Wikipedia, return to Explore", "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.")
+            vc.navigationItem.titleView?.accessibilityLabel = WMFLocalizedString("home-button-explore-accessibility-label", value: "Wikipedia, return to Explore", comment: "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.")
         } else if selectedIndex == WMFAppTabType.saved.rawValue {
-            vc.navigationItem.titleView?.accessibilityLabel = WMFLocalizedStringWithDefaultValue("home-button-saved-accessibility-label", nil, nil, "Wikipedia, return to Saved", "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.")
+            vc.navigationItem.titleView?.accessibilityLabel = WMFLocalizedString("home-button-saved-accessibility-label", value: "Wikipedia, return to Saved", comment: "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.")
         }
     }
 }
@@ -1650,6 +1652,7 @@ extension WMFAppViewController: UNUserNotificationCenterDelegate {
             if let windowScene = scene as? UIWindowScene,
                let sceneDelegate = windowScene.delegate as? SceneDelegate {
                 sceneDelegate.lastOpenSource = "notification"
+                break
             }
         }
 
@@ -1724,36 +1727,38 @@ extension WMFAppViewController: Themeable {
     }
 
     func apply(theme: Theme) {
-        guard theme != (nil as Theme?) else { return } // guard against nil bridged from ObjC
         self.theme = theme
 
         view.backgroundColor = theme.colors.baseBackground
         view.tintColor = theme.colors.link
 
         // Ensures theming happens after main UI is loaded
-        if uiIsLoaded {
-            if UserDefaults.standard.defaultTabType == .settings {
-                settingsViewController.apply(theme: theme)
-            }
-            exploreViewController.apply(theme: theme)
-            placesViewController.apply(theme: theme)
-            savedViewController.apply(theme: theme)
-            searchTabViewController.apply(theme: theme)
-
-            applyTheme(theme, toPresentedViewController: presentedViewController)
-
-            WMFToastManager.sharedInstance.apply(theme: theme)
-
-            applyTheme(theme, toNavigationControllers: allNavigationControllers())
-
-            tabBar.apply(theme: theme)
-
-            UISwitch.appearance().onTintColor = theme.colors.accent
-
-            readingListHintPresenter.apply(theme: theme)
-
-            setNeedsStatusBarAppearanceUpdate()
+        
+        guard (viewControllers?.count ?? 0) > 0 else {
+            return
         }
+        
+        if UserDefaults.standard.defaultTabType == .settings {
+            settingsViewController.apply(theme: theme)
+        }
+        exploreViewController.apply(theme: theme)
+        placesViewController.apply(theme: theme)
+        savedViewController.apply(theme: theme)
+        searchTabViewController.apply(theme: theme)
+
+        applyTheme(theme, toPresentedViewController: presentedViewController)
+
+        WMFToastManager.sharedInstance.apply(theme: theme)
+
+        applyTheme(theme, toNavigationControllers: allNavigationControllers())
+
+        tabBar.apply(theme: theme)
+
+        UISwitch.appearance().onTintColor = theme.colors.accent
+
+        readingListHintPresenter.apply(theme: theme)
+
+        setNeedsStatusBarAppearanceUpdate()
     }
 
     @objc private func updateAppThemeIfNecessary() {
@@ -1773,12 +1778,12 @@ extension WMFAppViewController: Themeable {
     }
 
     @objc private func userDidChangeTheme(_ note: Notification) {
-        let themeName = note.userInfo?[ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification] as? String
+        let themeName = note.userInfo?[ReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeNameKey] as? String
         let isImageDimmingEnabledNumber = note.userInfo?[ReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationIsImageDimmingEnabledKey] as? NSNumber
-        if let isImageDimmingEnabled = isImageDimmingEnabledNumber {
-            UserDefaults.standard.wmf_isImageDimmingEnabled = isImageDimmingEnabled.boolValue
+        if let isImageDimmingEnabledNumber {
+            UserDefaults.standard.wmf_isImageDimmingEnabled = isImageDimmingEnabledNumber.boolValue
         }
-        if let themeName = themeName {
+        if let themeName {
             UserDefaults.standard.themeName = themeName
         }
         updateUserInterfaceStyleOfNavigationControllersForCurrentTheme()
@@ -1802,19 +1807,9 @@ extension WMFAppViewController: Themeable {
     }
 
     private func updateUserInterfaceStyleOfNavigationControllersForCurrentTheme() {
-        let themeName = UserDefaults.standard.themeName
-        let style: UIUserInterfaceStyle
-        if Theme.isDefaultThemeName(themeName) {
-            style = .unspecified
-        } else if Theme.isDarkThemeName(themeName) {
-            style = .dark
-        } else {
-            style = .light
-        }
-
         for vc in viewControllers ?? [] {
             if let nav = vc as? UINavigationController {
-                nav.overrideUserInterfaceStyle = style
+                nav.overrideUserInterfaceStyle = overrideUserInterfaceStyle
             }
         }
     }
@@ -1822,10 +1817,6 @@ extension WMFAppViewController: Themeable {
     @objc private func debounceTraitCollectionThemeUpdate() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(updateAppThemeIfNecessary), object: nil)
         perform(#selector(updateAppThemeIfNecessary), with: nil, afterDelay: 0.3)
-    }
-
-    @objc private func updateAppThemeIfNecessarySelector() {
-        updateAppThemeIfNecessary()
     }
 }
 
@@ -1866,7 +1857,7 @@ extension WMFAppViewController {
         if let error = note.userInfo?[SavedArticlesFetcher.saveToDiskDidFailErrorKey] as? NSError,
            error.domain == NSCocoaErrorDomain,
            error.code == NSFileWriteOutOfSpaceError {
-            WMFToastManager.sharedInstance.showToast(WMFLocalizedStringWithDefaultValue("article-save-error-not-enough-space", nil, nil, "You do not have enough space on your device to save this article", "Alert message informing user that article cannot be save due to insufficient storage available"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showToast(WMFLocalizedString("article-save-error-not-enough-space", value: "You do not have enough space on your device to save this article", comment: "Alert message informing user that article cannot be save due to insufficient storage available"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
         }
     }
 }
@@ -1936,28 +1927,36 @@ extension WMFAppViewController {
     }
 
     var settingsViewController: SettingsTabViewController {
-        if _settingsViewController == nil {
+        
+        guard let _settingsViewController else {
             let vc = generateSettingsTab()
             vc.apply(theme: theme)
             vc.title = WMFCommonStringsWrapper.settingsTitle
             vc.tabBarItem.image = UIImage(named: "tabbar-explore")
             _settingsViewController = vc
+            return vc
         }
-        return _settingsViewController!
+        
+        return _settingsViewController
     }
 
     var settingsNavigationController: WMFComponentNavigationController {
-        if _settingsNavigationController == nil {
+        
+        guard let _settingsNavigationController else {
+            
             let navController = WMFComponentNavigationController(rootViewController: settingsViewController, modalPresentationStyle: .overFullScreen, customBarBackgroundColor: nil)
             applyTheme(theme, toNavigationControllers: [navController])
+            navController.delegate = self
             _settingsNavigationController = navController
-            _settingsNavigationController?.delegate = self
+            
+            return navController
         }
-
-        if _settingsNavigationController?.viewControllers.first !== settingsViewController {
-            _settingsNavigationController?.viewControllers = [settingsViewController]
+         
+        if _settingsNavigationController.viewControllers.first !== settingsViewController {
+            _settingsNavigationController.viewControllers = [settingsViewController]
         }
-        return _settingsNavigationController!
+        
+        return _settingsNavigationController
     }
 
     private func showSettings(with subViewController: UIViewController? = nil, animated: Bool) {
@@ -2085,8 +2084,8 @@ extension WMFAppViewController {
     }
 
     private func presentLoggedOutAlert(_ authenticationManager: WMFAuthenticationManager) {
-        let title = WMFLocalizedStringWithDefaultValue("logged-out-title", nil, nil, "You have been logged out", "Title for education panel letting user know they have been logged out.")
-        let message = WMFLocalizedStringWithDefaultValue("logged-out-subtitle", nil, nil, "There was a problem authenticating your account. In order to sync your reading lists and edit under your user name please log back in.", "Subtitle for letting user know there was a problem authenticating their account.")
+        let title = WMFLocalizedString("logged-out-title", value: "You have been logged out", comment: "Title for education panel letting user know they have been logged out.")
+        let message = WMFLocalizedString("logged-out-subtitle", value: "There was a problem authenticating your account. In order to sync your reading lists and edit under your user name please log back in.", comment: "Subtitle for letting user know there was a problem authenticating their account.")
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(logBackInAction(for: authenticationManager))
         alert.addAction(continueWithoutLoggingInAction(for: authenticationManager))
@@ -2094,7 +2093,7 @@ extension WMFAppViewController {
     }
 
     private func logBackInAction(for authenticationManager: WMFAuthenticationManager) -> UIAlertAction {
-        let title = WMFLocalizedStringWithDefaultValue("logged-out-log-back-in-button-title", nil, nil, "Log back in to your account", "Title for button allowing user to log back in to their account")
+        let title = WMFLocalizedString("logged-out-log-back-in-button-title", value: "Log back in to your account", comment: "Title for button allowing user to log back in to their account")
         return UIAlertAction(title: title, style: .default) { [weak self] _ in
             authenticationManager.userDidAcknowledgeUnintentionalLogout()
             self?.presentLoginViewControllerAfterLogout()
@@ -2102,18 +2101,20 @@ extension WMFAppViewController {
     }
 
     private func continueWithoutLoggingInAction(for authenticationManager: WMFAuthenticationManager) -> UIAlertAction {
-        let title = WMFLocalizedStringWithDefaultValue("logged-out-continue-without-logging-in-button-title", nil, nil, "Continue without logging in", "Title for button allowing user to continue without logging back in to their account")
+        let title = WMFLocalizedString("logged-out-continue-without-logging-in-button-title", value: "Continue without logging in", comment: "Title for button allowing user to continue without logging back in to their account")
+        let theme = self.theme
         return UIAlertAction(title: title, style: .cancel) { [weak self] _ in
             authenticationManager.userDidAcknowledgeUnintentionalLogout()
-            self?.wmf_objcShowKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: self?.theme ?? Theme.standard, completion: nil)
+            self?.wmf_objcShowKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, completion: nil)
         }
     }
 
     private func presentLoginViewControllerAfterLogout() {
         guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else { return }
         loginVC.apply(theme: theme)
+        let theme = self.theme
         loginVC.loginDismissedHandler = { [weak self] in
-            self?.wmf_objcShowKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: self?.theme ?? Theme.standard, completion: nil)
+            self?.wmf_objcShowKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, completion: nil)
         }
         let navVC = WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .overFullScreen, customBarBackgroundColor: nil)
         present(navVC, animated: true, completion: nil)
