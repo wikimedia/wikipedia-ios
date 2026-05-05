@@ -554,7 +554,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         }
     }
     
-    //-----stopped here ------
+    // -----stopped here ------
 
     @objc private func conflictingReadingListNameUpdatedNotification(_ note: Notification) {
         guard let oldName = note.userInfo?[ReadingList.conflictingReadingListNameUpdatedOldNameKey] as? String,
@@ -690,7 +690,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         completion(nil)
     }
 
-    // stopped here
     // MARK: - Background Tasks
 
     private func backgroundTaskIdentifier(forKey key: String?) -> UIBackgroundTaskIdentifier {
@@ -900,9 +899,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             let kTemporaryAccountAlertShownKey = "TemporaryAccountAlertShown"
             if self.dataStore.authenticationManager.authStateIsTemporary && !UserDefaults.standard.bool(forKey: kTemporaryAccountAlertShownKey) {
                 WMFToastManager.sharedInstance.showRichToast(
-                    WMFLocalizedStringWithDefaultValue("alert-temporary-account", nil, nil, "You are using a temporary account. Account will expire in 90 days.", "Alert message informing user that they are using a temporary account"),
+                    WMFLocalizedString("alert-temporary-account", value: "You are using a temporary account. Account will expire in 90 days.", comment: "Alert message informing user that they are using a temporary account"),
                     subtitle: nil,
-                    buttonTitle: WMFLocalizedStringWithDefaultValue("alert-temporary-account-learn-more", nil, nil, "Learn more.", "Button on alert for temporary accounts to learn more."),
+                    buttonTitle: WMFLocalizedString("alert-temporary-account-learn-more", value: "Learn more.", comment: "Button on alert for temporary accounts to learn more."),
                     image: UIImage(named: "exclamation-point"),
                     duration: 10,
                     dismissPreviousToasts: true,
@@ -1061,7 +1060,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // MARK: - Shortcut
 
     private func canProcessShortcutItem(_ item: UIApplicationShortcutItem?) -> Bool {
-        guard let item = item else { return false }
+        guard let item else { return false }
         return item.type == WMFIconShortcutTypeSearch || item.type == WMFIconShortcutTypeRandom || item.type == WMFIconShortcutTypeNearby
     }
 
@@ -1096,7 +1095,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // MARK: - NSUserActivity
 
     private func canProcessUserActivity(_ activity: NSUserActivity?) -> Bool {
-        guard let activity = activity else { return false }
+        guard let activity else { return false }
         switch activity.wmf_type() {
         case .explore, .places, .savedPages, .search, .settings, .appearanceSettings, .content, .activity, .random:
             return true
@@ -1171,18 +1170,18 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             let navController = currentTabNavigationController
             navController?.popToRootViewController(animated: animated)
             let url = contentURL(for: activity)
-            if let url = url, let group = dataStore.viewContext.contentGroup(for: url) {
+            if let url, let group = dataStore.viewContext.contentGroup(for: url) {
                 switch group.detailType {
-                case .gallery: // ??
+                case .gallery:
                     if let vc = group.detailViewControllerForPreviewItemAtIndex(0, dataStore: dataStore, theme: theme, source: .undefined) {
                         currentTabNavigationController?.present(vc, animated: false, completion: nil)
                     }
                 default:
-                    if let vc = group.detailViewControllerWithDataStore( dataStore, theme: theme) {
+                    if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
                         navController?.pushViewController(vc, animated: animated)
                     }
                 }
-            } else if let url = url {
+            } else if let url {
                 exploreViewController.updateFeedSources(with: nil, userInitiated: false) {
                     DispatchQueue.main.async {
                         if let group = self.dataStore.viewContext.contentGroup(for: url),
@@ -1279,14 +1278,17 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     var savedArticlesFetcher: SavedArticlesFetcher? {
         guard uiIsLoaded else { return nil }
-        if _savedArticlesFetcher == nil {
+        
+        guard let _savedViewController else {
             let fetcher = SavedArticlesFetcher(dataStore: dataStore)
             fetcher?.addObserver(self,
                                 forKeyPath: #keyPath(SavedArticlesFetcher.progress),
                                 options: [.initial, .new, .old],
                                 context: &kvoSavedArticlesFetcherProgress)
             _savedArticlesFetcher = fetcher
+            return fetcher
         }
+        
         return _savedArticlesFetcher
     }
 
@@ -1310,14 +1312,19 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     var navigationStateController: NavigationStateController {
-        if _navigationStateController == nil {
-            _navigationStateController = NavigationStateController(dataStore: dataStore)
+        
+        guard let _navigationStateController else {
+            let navStateVC = NavigationStateController(dataStore: dataStore)
+            _navigationStateController = navStateVC
+            return navStateVC
         }
-        return _navigationStateController!
+        
+        return _navigationStateController
     }
 
     var exploreViewController: ExploreViewController {
-        if _exploreViewController == nil {
+        
+        guard let _exploreViewController else {
             let vc = ExploreViewController()
             vc.dataStore = dataStore
             vc.notificationsCenterPresentationDelegate = self
@@ -1325,8 +1332,10 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             vc.title = WMFCommonStringsWrapper.exploreTabTitle
             vc.apply(theme: theme)
             _exploreViewController = vc
+            return vc
         }
-        return _exploreViewController!
+        
+        return _exploreViewController
     }
 
     @objc func handleExploreCenterBadgeNeedsUpdateNotification() {
@@ -1346,49 +1355,63 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     var searchTabViewController: SearchViewController {
-        if _searchTabViewController == nil {
+        
+        guard let _searchTabViewController else {
             let vc = SearchViewController(source: .searchTab)
             vc.apply(theme: theme)
             vc.dataStore = dataStore
             vc.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: Int(WMFAppTabType.search.rawValue))
             vc.title = WMFCommonStringsWrapper.searchTitle
             _searchTabViewController = vc
+            return vc
         }
-        return _searchTabViewController!
+        
+        return _searchTabViewController
     }
 
     var savedViewController: SavedViewController {
-        if _savedViewController == nil {
-            let vc = UIStoryboard(name: "Saved", bundle: nil).instantiateInitialViewController() as! SavedViewController
+        
+        guard let _savedViewController else {
+            guard let vc = UIStoryboard(name: "Saved", bundle: nil).instantiateInitialViewController() as? SavedViewController else {
+                fatalError("Unable to instantiate Saved View Controller")
+            }
             vc.apply(theme: theme)
             vc.dataStore = dataStore
             vc.tabBarDelegate = self
             vc.tabBarItem.image = UIImage(named: "tabbar-save")
             vc.title = WMFCommonStringsWrapper.savedTabTitle
             _savedViewController = vc
+            return vc
         }
-        return _savedViewController!
+        
+        return _savedViewController
     }
 
     var activityTabViewController: WMFActivityTabViewController {
-        if _activityTabViewController == nil {
+        
+        guard let _activityTabViewController else {
             let vc = generateActivityTab()
             vc.tabBarItem.image = UIImage(named: "tabbar-recent")
             vc.title = WMFCommonStringsWrapper.activityTitle
             _activityTabViewController = vc
+            return vc
         }
-        return _activityTabViewController!
+        
+        return _activityTabViewController
     }
 
     var placesViewController: PlacesViewController {
-        if _placesViewController == nil {
+        
+        guard let _placesViewController else {
             let vc = UIStoryboard(name: "Places", bundle: nil).instantiateInitialViewController() as! PlacesViewController
             vc.apply(theme: theme)
             vc.tabBarItem.image = UIImage(named: "tabbar-nearby")
             vc.title = WMFCommonStringsWrapper.placesTabTitle
             _placesViewController = vc
+            return vc
         }
-        return _placesViewController!
+        
+        return _placesViewController
     }
 
     // MARK: - Onboarding
@@ -1396,12 +1419,16 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private static let wmfDidShowOnboarding = "DidShowOnboarding5.3"
 
     private func shouldShowOnboarding() -> Bool {
-        if unprocessedUserActivity?.shouldSkipOnboarding == true {
-            setDidShowOnboarding()
-            return false
+        guard let unprocessedUserActivity,
+              unprocessedUserActivity.shouldSkipOnboarding else {
+            
+            let didShow = UserDefaults.standard.object(forKey: Self.wmfDidShowOnboarding) as? NSNumber
+            return !(didShow?.boolValue ?? false)
         }
-        let didShow = UserDefaults.standard.object(forKey: Self.wmfDidShowOnboarding) as? NSNumber
-        return !(didShow?.boolValue ?? false)
+        
+        setDidShowOnboarding()
+        return false
+        
     }
 
     private func setDidShowOnboarding() {
@@ -1410,19 +1437,20 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     private func presentOnboardingIfNeeded(completion: @escaping (Bool) -> Void) {
-        if shouldShowOnboarding() {
-            let vc = WMFWelcomeInitialViewController.wmf_viewControllerFromWelcomeStoryboard()
-            vc.apply(theme: theme)
-            vc.completionBlock = {
-                self.setDidShowOnboarding()
-                completion(true)
-            }
-            hideSplashView()
-            vc.modalPresentationStyle = .overFullScreen
-            present(vc, animated: false, completion: nil)
-        } else {
+        guard shouldShowOnboarding() else {
             completion(false)
+            return
         }
+        
+        let vc = WMFWelcomeInitialViewController.wmf_viewControllerFromWelcomeStoryboard()
+        vc.apply(theme: theme)
+        vc.completionBlock = {
+            self.setDidShowOnboarding()
+            completion(true)
+        }
+        hideSplashView()
+        vc.modalPresentationStyle = .overFullScreen
+        present(vc, animated: false, completion: nil)
     }
 
     // MARK: - Splash
