@@ -27,11 +27,11 @@ public let WMFLanguageVariantAlertsLibraryVersion = "WMFLanguageVariantAlertsLib
 // MARK: - WMFAppViewController
 
 @objcMembers
-class WMFAppViewController: UITabBarController {
+class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     // MARK: - Tab enum
 
-    @objc enum WMFAppTabType: UInt {
+    @objc enum WMFAppTabType: Int {
         case main = 0
         case places = 1
         case saved = 2
@@ -308,16 +308,16 @@ class WMFAppViewController: UITabBarController {
     // MARK: - Setup
 
     private func setupControllers() {
-        periodicWorkerController = PeriodicWorkerController(interval: 30, initialDelay: 1, leeway: 15)
+        periodicWorkerController = PeriodicWorkerController(30, initialDelay: 1, leeway: 15)
         periodicWorkerController.delegate = self
         periodicWorkerController.add(dataStore.readingListsController)
-        periodicWorkerController.add(WMFEventPlatformClientWorker.sharedInstance())
+        periodicWorkerController.add(EventPlatformClientWorker.shared)
 
         backgroundFetcherController = BackgroundFetcherController()
         backgroundFetcherController.delegate = self
         backgroundFetcherController.add(dataStore.readingListsController)
-        backgroundFetcherController.add(dataStore.feedContentController as! any WMFBackgroundFetcher)
-        backgroundFetcherController.add(WMFEventPlatformClientWorker.sharedInstance())
+        backgroundFetcherController.add(dataStore.feedContentController as! any BackgroundFetcher)
+        backgroundFetcherController.add(EventPlatformClientWorker.shared)
     }
 
     private func loadMainUI() {
@@ -336,7 +336,7 @@ class WMFAppViewController: UITabBarController {
         }
 
         let savedTabBarItem = savedViewController.tabBarItem!
-        savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(tabBarItem: savedTabBarItem)
+        savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(with: savedTabBarItem)
     }
 
     private func configureTabController() {
@@ -396,7 +396,7 @@ class WMFAppViewController: UITabBarController {
         readingListHintPresenter = WMFReadingListToastManager(dataStore: dataStore)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(userDidSaveOrUnsaveArticle(_:)),
-                                               name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification(),
+                                               name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification,
                                                object: nil)
     }
 
@@ -459,9 +459,11 @@ class WMFAppViewController: UITabBarController {
         exploreViewController.isGranularUpdatingEnabled = false
 
         navigationStateController.saveNavigationState(for: self, in: dataStore.viewContext)
-        var saveError: NSError?
-        if !dataStore.save(&saveError) {
-            DDLogError("Error saving dataStore: \(saveError as Any)")
+        
+        do {
+            try dataStore.save()
+        } catch let error {
+            DDLogError("Error saving dataStore: \(error as Any)")
         }
     }
 
@@ -484,7 +486,7 @@ class WMFAppViewController: UITabBarController {
         guard !isPresentingOnboarding else { return }
 
         guard let changeTypeValue = note.userInfo?[WMFPreferredLanguagesChangeTypeKey] as? NSNumber else { return }
-        let changeType = WMFPreferredLanguagesChangeType(rawValue: changeTypeValue.uintValue)
+        let changeType = WMFPreferredLanguagesChangeType(rawValue: changeTypeValue.intValue)
         guard changeType != nil, changeType != .reorder else { return }
 
         guard let changedLanguage = note.userInfo?[WMFPreferredLanguagesLastChangedLanguageKey] as? MWKLanguageLink else { return }
@@ -493,22 +495,22 @@ class WMFAppViewController: UITabBarController {
     }
 
     @objc private func readingListsWereSplitNotification(_ note: Notification) {
-        let entryLimit = (note.userInfo?[WMFReadingListsController.readingListsWereSplitNotificationEntryLimitKey()] as? NSNumber)?.intValue ?? 0
+        let entryLimit = (note.userInfo?[WMFReadingListsController.readingListsWereSplitNotificationEntryLimitKey] as? NSNumber)?.intValue ?? 0
         let message = String.localizedStringWithFormat(WMFLocalizedStringWithDefaultValue("reading-lists-split-notification", nil, nil, "There is a limit of %1$d articles per reading list. Existing lists with more than this limit have been split into multiple lists.", "Alert message informing user that existing lists exceeding the entry limit have been split into multiple lists. %1$d will be replaced with the maximum number of articles allowed per reading list."), entryLimit)
         WMFToastManager.sharedInstance.showToast(message, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
     }
 
     @objc private func readingListsServerDidConfirmSyncWasEnabledForAccountWithNotification(_ note: Notification) {
-        let wasSyncEnabledForAccount = (note.userInfo?[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledKey()] as? NSNumber)?.boolValue ?? false
-        let wasSyncEnabledOnDevice = (note.userInfo?[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledOnDeviceKey()] as? NSNumber)?.boolValue ?? false
-        let wasSyncDisabledOnDevice = (note.userInfo?[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncDisabledOnDeviceKey()] as? NSNumber)?.boolValue ?? false
+        let wasSyncEnabledForAccount = (note.userInfo?[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledKey] as? NSNumber)?.boolValue ?? false
+        let wasSyncEnabledOnDevice = (note.userInfo?[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledOnDeviceKey] as? NSNumber)?.boolValue ?? false
+        let wasSyncDisabledOnDevice = (note.userInfo?[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncDisabledOnDeviceKey] as? NSNumber)?.boolValue ?? false
         if wasSyncEnabledForAccount {
-            wmf_showSyncEnabledPanelOncePerLoginIfNeededWasSyncEnabledOnDevice(wasSyncEnabledOnDevice)
+            wmf_showSyncEnabledPanelOncePerLoginIfNeeded(wasSyncEnabledOnDevice: wasSyncEnabledOnDevice)
         } else if !wasSyncDisabledOnDevice {
-            wmf_showEnableReadingListSyncPanel(with: theme,
+            wmf_showEnableReadingListSyncPanel(theme: theme,
                                               oncePerLogin: true,
                                               didNotPresentPanelCompletion: {
-                                                  self.wmf_showSyncDisabledPanelIfNeededWasSyncEnabledOnDevice(wasSyncEnabledOnDevice)
+                self.wmf_showSyncDisabledPanelIfNeeded(wasSyncEnabledOnDevice: wasSyncEnabledOnDevice)
                                               },
                                               dismissHandler: nil)
         }
@@ -519,7 +521,7 @@ class WMFAppViewController: UITabBarController {
     }
 
     @objc private func syncDidFinishNotification(_ note: Notification) {
-        let error = note.userInfo?[WMFReadingListsController.syncDidFinishErrorKey()] as? NSError
+        let error = note.userInfo?[WMFReadingListsController.syncDidFinishErrorKey] as? NSError
 
         // Reminder: kind of class is checked here because `syncDidFinishErrorKey` is sometimes set to a
         // `WMF.ReadingListError` error type which doesn't bridge to Obj-C (causing wmf_isNetworkConnectionError to crash).
@@ -533,8 +535,8 @@ class WMFAppViewController: UITabBarController {
         if error == nil {
             hasSyncErrorBeenShownThisSesssion = false // reset on successful sync
             if let syncStartDate = syncStartDate, Date().timeIntervalSince(syncStartDate) >= 5 {
-                let syncedReadingListsCount = (note.userInfo?[WMFReadingListsController.syncDidFinishSyncedReadingListsCountKey()] as? NSNumber)?.intValue ?? 0
-                let syncedReadingListEntriesCount = (note.userInfo?[WMFReadingListsController.syncDidFinishSyncedReadingListEntriesCountKey()] as? NSNumber)?.intValue ?? 0
+                let syncedReadingListsCount = (note.userInfo?[WMFReadingListsController.syncDidFinishSyncedReadingListsCountKey] as? NSNumber)?.intValue ?? 0
+                let syncedReadingListEntriesCount = (note.userInfo?[WMFReadingListsController.syncDidFinishSyncedReadingListEntriesCountKey] as? NSNumber)?.intValue ?? 0
                 if syncedReadingListsCount > 0 && syncedReadingListEntriesCount > 0 {
                     let alertTitle = String.localizedStringWithFormat(WMFLocalizedStringWithDefaultValue("reading-lists-large-sync-completed", nil, nil, "{{PLURAL:%1$d|%1$d article|%1$d articles}} and {{PLURAL:%2$d|%2$d reading list|%2$d reading lists}} synced from your account", "Alert message informing user that large sync was completed. %1$d will be replaced with the number of articles which were synced and %2$d will be replaced with the number of reading lists which were synced"), syncedReadingListEntriesCount, syncedReadingListsCount)
                     WMFToastManager.sharedInstance.showToast(alertTitle, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
@@ -544,8 +546,8 @@ class WMFAppViewController: UITabBarController {
     }
 
     @objc private func conflictingReadingListNameUpdatedNotification(_ note: Notification) {
-        let oldName = note.userInfo?[ReadingList.conflictingReadingListNameUpdatedOldNameKey()] as? String ?? ""
-        let newName = note.userInfo?[ReadingList.conflictingReadingListNameUpdatedNewNameKey()] as? String ?? ""
+        let oldName = note.userInfo?[ReadingList.conflictingReadingListNameUpdatedOldNameKey] as? String ?? ""
+        let newName = note.userInfo?[ReadingList.conflictingReadingListNameUpdatedNewNameKey] as? String ?? ""
         let alertTitle = String.localizedStringWithFormat(WMFLocalizedStringWithDefaultValue("reading-lists-conflicting-reading-list-name-updated", nil, nil, "Your list '%1$@' has been renamed to '%2$@'", "Alert message informing user that their reading list was renamed. %1$@ will be replaced the previous name of the list. %2$@ will be replaced with the new name of the list."), oldName, newName)
         WMFToastManager.sharedInstance.showToast(alertTitle, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
     }
@@ -613,17 +615,17 @@ class WMFAppViewController: UITabBarController {
 
     private func showReadingListHintForArticle(_ article: WMFArticle) {
         guard let visibleVC = visibleViewController() else { return }
-        readingListHintPresenter.toggle(withPresenter: visibleVC, article: article, theme: theme)
+        readingListHintPresenter.toggle(presenter: visibleVC, article: article, theme: theme)
     }
 
     @objc private func descriptionEditWasPublished(_ note: Notification) {
-        guard UserDefaults.standard.didShowDescriptionPublishedPanel() else { return }
+        guard UserDefaults.standard.didShowDescriptionPublishedPanel else { return }
         WMFToastManager.sharedInstance.showRichToast("Your edit was successfully published", subtitle: nil, buttonTitle: nil, image: UIImage(named: "published-pencil"), duration: nil, dismissPreviousToasts: true, tapCallBack: nil, buttonCallBack: nil, completion: nil)
     }
 
     @objc private func referenceLinkTapped(_ note: Notification) {
         guard let url = note.object as? URL else { return }
-        wmf_navigate(to: url)
+        navigate(to: url)
     }
 
     @objc func visibleViewController() -> UIViewController? {
@@ -650,12 +652,12 @@ class WMFAppViewController: UITabBarController {
 
     func performDatabaseHousekeeping(completion: @escaping (Error?) -> Void) {
         let housekeeper = WMFDatabaseHousekeeper()
-        var housekeepingError: NSError?
-        housekeeper.performHousekeeping(onManagedObjectContext: dataStore.viewContext, navigationStateController: navigationStateController, cleanupLevel: .low, error: &housekeepingError)
-        if let error = housekeepingError {
+
+        do {
+            try housekeeper.performHousekeepingOnManagedObjectContext(dataStore.viewContext, navigationStateController: navigationStateController, cleanupLevel: .low)
+        } catch {
             DDLogError("Error on cleanup: \(error)")
         }
-        housekeepingError = nil
 
         SharedContainerCacheHousekeeping.deleteStaleCachedItems(in: SharedContainerCacheCommonNames.talkPageCache, cleanupLevel: .low)
         SharedContainerCacheHousekeeping.deleteStaleCachedItems(in: SharedContainerCacheCommonNames.didYouKnowCache, cleanupLevel: .low)
@@ -786,7 +788,7 @@ class WMFAppViewController: UITabBarController {
         NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActiveWithNotification(_:)), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackgroundWithNotification(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(feedContentControllerBusyStateDidChange(_:)), name: NSNotification.Name(rawValue: WMFExploreFeedContentControllerBusyStateDidChange), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(preferredLanguagesDidChange(_:)), name: NSNotification.Name(rawValue: WMFPreferredLanguagesDidChangeNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(preferredLanguagesDidChange(_:)), name: NSNotification.Name.WMFPreferredLanguagesDidChange, object: nil)
 
         showSplashView()
         migrateIfNecessary()
@@ -815,9 +817,7 @@ class WMFAppViewController: UITabBarController {
     private func migrateIfNecessary() {
         guard !isMigrationComplete && !isMigrationActive else { return }
 
-        var migrationsAllowed = true
         startMigrationBackgroundTask {
-            migrationsAllowed = false
             self.endMigrationBackgroundTask()
         }
 
@@ -918,10 +918,13 @@ class WMFAppViewController: UITabBarController {
             } else if UserDefaults.standard.shouldRestoreNavigationStackOnResume {
                 self.navigationStateController.restoreLastArticle(for: self, in: self.dataStore.viewContext, with: self.theme) {
                     self.hideSplashView()
-                    var saveError: NSError?
-                    if !self.dataStore.save(&saveError) {
-                        DDLogError("Error saving dataStore: \(saveError as Any)")
+                    
+                    do {
+                        try self.dataStore.save()
+                    } catch {
+                        DDLogError("Error saving dataStore: \(error)")
                     }
+
                     done()
                 }
                 _ = self.dataStore.authenticationManager.authStateIsTemporary
@@ -942,7 +945,7 @@ class WMFAppViewController: UITabBarController {
         dataStore.authenticationManager.attemptLogin {
             self.checkRemoteAppConfigIfNecessary()
             if self.reachabilityNotifier == nil {
-                self.reachabilityNotifier = ReachabilityNotifier(host: Configuration.current().defaultSiteDomain) { [weak self] isReachable, _ in
+                self.reachabilityNotifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { [weak self] isReachable, _ in
                     DispatchQueue.main.async {
                         if isReachable {
                             self?.savedArticlesFetcher?.start()
@@ -965,7 +968,7 @@ class WMFAppViewController: UITabBarController {
         let now = Date()
 
         let locationAuthorized = LocationManagerFactory.coarseLocationManager().isAuthorized
-        if feedRefreshDate == nil || now.timeIntervalSince(feedRefreshDate!) > timeBeforeRefreshingExploreFeed() || Calendar.wmf_gregorian().wmf_days(from: feedRefreshDate!, to: now) > 0 {
+        if feedRefreshDate == nil || now.timeIntervalSince(feedRefreshDate!) > timeBeforeRefreshingExploreFeed() || NSCalendar.wmf_gregorian().wmf_days(from: feedRefreshDate!, to: now) > 0 {
             resumeAndAnnouncementsCompleteGroup.enter()
             exploreViewController.updateFeedSources(with: nil, userInitiated: false) {
                 resumeAndAnnouncementsCompleteGroup.leave()
@@ -1114,7 +1117,7 @@ class WMFAppViewController: UITabBarController {
             currentTabNavigationController?.popToRootViewController(animated: animated)
             if let articleURL = activity.wmf_linkURL() {
                 placesViewController.updateViewModeToMap()
-                placesViewController.showArticle(url: articleURL)
+                placesViewController.showArticleURL(articleURL)
             }
 
         case .random:
@@ -1144,22 +1147,22 @@ class WMFAppViewController: UITabBarController {
             let navController = currentTabNavigationController
             navController?.popToRootViewController(animated: animated)
             let url = contentURL(for: activity)
-            if let url = url, let group = dataStore.viewContext.contentGroup(forURL: url) {
+            if let url = url, let group = dataStore.viewContext.contentGroup(for: url) {
                 switch group.detailType {
-                case .photo:
-                    if let vc = group.detailViewController(forPreviewItemAt: 0, dataStore: dataStore, theme: theme, source: .undefined) {
+                case .gallery: // ??
+                    if let vc = group.detailViewControllerForPreviewItemAtIndex(0, dataStore: dataStore, theme: theme, source: .undefined) {
                         currentTabNavigationController?.present(vc, animated: false, completion: nil)
                     }
                 default:
-                    if let vc = group.detailViewController(dataStore: dataStore, theme: theme) {
+                    if let vc = group.detailViewControllerWithDataStore( dataStore, theme: theme) {
                         navController?.pushViewController(vc, animated: animated)
                     }
                 }
             } else if let url = url {
                 exploreViewController.updateFeedSources(with: nil, userInitiated: false) {
                     DispatchQueue.main.async {
-                        if let group = self.dataStore.viewContext.contentGroup(forURL: url),
-                           let vc = group.detailViewController(dataStore: self.dataStore, theme: self.theme) {
+                        if let group = self.dataStore.viewContext.contentGroup(for: url),
+                           let vc = group.detailViewControllerWithDataStore( self.dataStore, theme: self.theme) {
                             navController?.pushViewController(vc, animated: false)
                         }
                     }
@@ -1177,7 +1180,7 @@ class WMFAppViewController: UITabBarController {
 
         case .searchResults:
             dismissPresentedViewControllers()
-            searchTabViewController.searchAndMakeResultsVisible(forSearchTerm: activity.wmf_searchTerm(), animated: animated)
+            searchTabViewController.searchAndMakeResultsVisibleForSearchTerm( activity.wmf_searchTerm(), animated: animated)
             switchToSearch(animated: animated)
 
         case .settings:
@@ -1190,7 +1193,7 @@ class WMFAppViewController: UITabBarController {
             dismissPresentedViewControllers()
             selectedIndex = WMFAppTabType.main.rawValue
             currentTabNavigationController?.popToRootViewController(animated: false)
-            let appearanceSettingsVC = WMFAppearanceSettingsViewController()
+            let appearanceSettingsVC = AppearanceSettingsViewController()
             appearanceSettingsVC.apply(theme: theme)
             showSettings(with: appearanceSettingsVC, animated: animated)
 
@@ -1202,18 +1205,19 @@ class WMFAppViewController: UITabBarController {
             // Fall back to legacy navigation
             var linkURL = activity.wmf_linkURL()
             if linkURL?.wmf_languageVariantCode == nil {
-                linkURL?.wmf_languageVariantCode = dataStore.languageLinkController.preferredLanguageVariantCode(forLanguageCode: linkURL?.wmf_languageCode)
+                let languageCode = linkURL?.wmf_languageCode
+                linkURL?.wmf_languageVariantCode = dataStore.languageLinkController.preferredLanguageVariantCode(forLanguageCode: languageCode)
             }
             guard let url = linkURL else {
                 done()
                 return false
             }
-            NSUserActivity.wmf_makeActivityActive(activity)
+            NSUserActivity.wmf_makeActive(activity)
             return router.route(url, userInfo: activity.userInfo, completion: done)
         }
 
         done()
-        NSUserActivity.wmf_makeActivityActive(activity)
+        NSUserActivity.wmf_makeActive(activity)
         return true
     }
 
@@ -1221,10 +1225,11 @@ class WMFAppViewController: UITabBarController {
         var contentURL = activity.wmf_contentURL()
 
         // T356255 - Picture Of The Day not opening when the primary language has a language variant code
-        if let path = contentURL?.path, path.contains("picture-of-the-day") {
+        let path = contentURL.path
+        if path.contains("picture-of-the-day") {
             let primaryLanguageVariantCode = dataStore.languageLinkController.appLanguage?.languageVariantCode
-            if let code = primaryLanguageVariantCode, contentURL?.wmf_languageVariantCode == nil {
-                contentURL?.wmf_languageVariantCode = code
+            if let code = primaryLanguageVariantCode, contentURL.wmf_languageVariantCode == nil {
+                contentURL.wmf_languageVariantCode = code
             }
         }
         return contentURL
@@ -1247,7 +1252,7 @@ class WMFAppViewController: UITabBarController {
         guard uiIsLoaded else { return nil }
         if _savedArticlesFetcher == nil {
             let fetcher = SavedArticlesFetcher(dataStore: dataStore)
-            fetcher.addObserver(self,
+            fetcher?.addObserver(self,
                                 forKeyPath: #keyPath(SavedArticlesFetcher.progress),
                                 options: [.initial, .new, .old],
                                 context: &kvoSavedArticlesFetcherProgress)
@@ -1256,6 +1261,7 @@ class WMFAppViewController: UITabBarController {
         return _savedArticlesFetcher
     }
 
+    // swiftlint:disable:next block_based_kvo
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if context == &kvoSavedArticlesFetcherProgress {
             ProgressContainer.shared.articleFetcherProgress = _savedArticlesFetcher?.progress
@@ -1279,7 +1285,7 @@ class WMFAppViewController: UITabBarController {
             vc.dataStore = dataStore
             vc.notificationsCenterPresentationDelegate = self
             vc.tabBarItem.image = UIImage(named: "tabbar-explore")
-            vc.title = WMFCommonStringsWrapper.exploreTabTitle()
+            vc.title = WMFCommonStringsWrapper.exploreTabTitle
             vc.apply(theme: theme)
             _exploreViewController = vc
         }
@@ -1297,7 +1303,7 @@ class WMFAppViewController: UITabBarController {
 
     @objc func handleNotificationsCenterContextDidSave() {
         DispatchQueue.main.async {
-            UIApplication.shared.applicationIconBadgeNumber = (try? self.dataStore.remoteNotificationsController.numberOfUnreadNotifications()) ?? 0
+            try? UNUserNotificationCenter.current().setBadgeCount(self.dataStore.remoteNotificationsController.numberOfUnreadNotifications().intValue)
             try? self.dataStore.remoteNotificationsController.updateCacheWithCurrentUnreadNotificationsCount()
         }
     }
@@ -1308,7 +1314,7 @@ class WMFAppViewController: UITabBarController {
             vc.apply(theme: theme)
             vc.dataStore = dataStore
             vc.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: Int(WMFAppTabType.search.rawValue))
-            vc.title = WMFCommonStringsWrapper.searchTitle()
+            vc.title = WMFCommonStringsWrapper.searchTitle
             _searchTabViewController = vc
         }
         return _searchTabViewController!
@@ -1321,7 +1327,7 @@ class WMFAppViewController: UITabBarController {
             vc.dataStore = dataStore
             vc.tabBarDelegate = self
             vc.tabBarItem.image = UIImage(named: "tabbar-save")
-            vc.title = WMFCommonStringsWrapper.savedTabTitle()
+            vc.title = WMFCommonStringsWrapper.savedTabTitle
             _savedViewController = vc
         }
         return _savedViewController!
@@ -1331,7 +1337,7 @@ class WMFAppViewController: UITabBarController {
         if _activityTabViewController == nil {
             let vc = generateActivityTab()
             vc.tabBarItem.image = UIImage(named: "tabbar-recent")
-            vc.title = WMFCommonStringsWrapper.activityTitle()
+            vc.title = WMFCommonStringsWrapper.activityTitle
             _activityTabViewController = vc
         }
         return _activityTabViewController!
@@ -1342,7 +1348,7 @@ class WMFAppViewController: UITabBarController {
             let vc = UIStoryboard(name: "Places", bundle: nil).instantiateInitialViewController() as! PlacesViewController
             vc.apply(theme: theme)
             vc.tabBarItem.image = UIImage(named: "tabbar-nearby")
-            vc.title = WMFCommonStringsWrapper.placesTabTitle()
+            vc.title = WMFCommonStringsWrapper.placesTabTitle
             _placesViewController = vc
         }
         return _placesViewController!
@@ -1363,15 +1369,12 @@ class WMFAppViewController: UITabBarController {
 
     private func setDidShowOnboarding() {
         UserDefaults.standard.set(NSNumber(value: true), forKey: Self.wmfDidShowOnboarding)
-        UserDefaults.standard.set(MWKDataStore.currentLibraryVersion(), forKey: WMFLanguageVariantAlertsLibraryVersion)
+        UserDefaults.standard.set(MWKDataStore.currentLibraryVersion, forKey: WMFLanguageVariantAlertsLibraryVersion)
     }
 
     private func presentOnboardingIfNeeded(completion: @escaping (Bool) -> Void) {
         if shouldShowOnboarding() {
-            guard let vc = WMFWelcomeInitialViewController.wmf_viewControllerFromWelcomeStoryboard() else {
-                completion(false)
-                return
-            }
+            let vc = WMFWelcomeInitialViewController.wmf_viewControllerFromWelcomeStoryboard()
             vc.apply(theme: theme)
             vc.completionBlock = {
                 self.setDidShowOnboarding()
@@ -1392,7 +1395,7 @@ class WMFAppViewController: UITabBarController {
         let vc = SplashScreenViewController(nibName: nil, bundle: nil)
         vc.beginAppearanceTransition(true, animated: false)
         vc.apply(theme: theme)
-        view.wmf_addSubview(withConstraintsToEdges: vc.view)
+        view.wmf_addSubviewWithConstraintsToEdges(vc.view)
         vc.endAppearanceTransition()
         splashScreenViewController = vc
     }
@@ -1458,7 +1461,7 @@ class WMFAppViewController: UITabBarController {
 
         let lastCheckTime = (dataStore.viewContext.wmf_numberValue(forKey: wmfLastRemoteAppConfigCheckAbsoluteTimeKey))?.doubleValue ?? 0.0
         let now = CFAbsoluteTimeGetCurrent()
-        let shouldCheck = (now - lastCheckTime) >= wmfRemoteAppConfigCheckInterval || dataStore.remoteConfigsThatFailedUpdate != 0
+        let shouldCheck = (now - lastCheckTime) >= wmfRemoteAppConfigCheckInterval || !dataStore.remoteConfigsThatFailedUpdate.isEmpty
         guard shouldCheck else {
             isCheckingRemoteConfig = false
             return
@@ -1482,7 +1485,10 @@ class WMFAppViewController: UITabBarController {
         let lastCheckTime = (dataStore.viewContext.wmf_numberValue(forKey: wmfTempAccountConfigCheckAbsoluteTimeKey))?.doubleValue ?? 0.0
         let now = CFAbsoluteTimeGetCurrent()
         guard (now - lastCheckTime) >= wmfTempAccountConfigCheckInterval else { return }
-        WMFTempAccountDataController.shared.checkWikiTempAccountAvailability(withLanguage: dataStore.languageLinkController.appLanguage?.languageCode, isCheckingPrimaryWiki: true)
+        if let languageCode = dataStore.languageLinkController.appLanguage?.languageCode {
+            WMFTempAccountDataController.shared.checkWikiTempAccountAvailability(language: languageCode, isCheckingPrimaryWiki: true)
+        }
+       
     }
 
 }
@@ -1577,10 +1583,8 @@ extension WMFAppViewController: UNUserNotificationCenterDelegate {
         // Mark the app open source as "notification" so SceneDelegate will submit the apps-open instrument with actionSource = "notification".
         for scene in UIApplication.shared.connectedScenes {
             if let windowScene = scene as? UIWindowScene,
-               let delegate = windowScene.delegate,
-               delegate.responds(to: #selector(setter: SceneDelegate.lastOpenSource)) {
-                (delegate as AnyObject).perform(#selector(setter: SceneDelegate.lastOpenSource), with: "notification")
-                break
+               let sceneDelegate = windowScene.delegate as? SceneDelegate {
+                sceneDelegate.lastOpenSource = "notification"
             }
         }
 
@@ -1677,7 +1681,7 @@ extension WMFAppViewController: Themeable {
 
             applyTheme(theme, toNavigationControllers: allNavigationControllers())
 
-            (tabBar as? WMFThemeable)?.apply(theme: theme)
+            tabBar.apply(theme: theme)
 
             UISwitch.appearance().onTintColor = theme.colors.accent
 
@@ -1687,7 +1691,7 @@ extension WMFAppViewController: Themeable {
         }
     }
 
-    private func updateAppThemeIfNecessary() {
+    @objc private func updateAppThemeIfNecessary() {
         let traitCollection = self.traitCollection
         var newTheme = UserDefaults.standard.theme(compatibleWith: traitCollection)
 
@@ -1704,13 +1708,13 @@ extension WMFAppViewController: Themeable {
     }
 
     @objc private func userDidChangeTheme(_ note: Notification) {
-        let themeName = note.userInfo?[WMFReadingThemesControlsViewController.wmfUserDidSelectThemeNotificationThemeNameKey] as? String
-        let isImageDimmingEnabledNumber = note.userInfo?[WMFReadingThemesControlsViewController.wmfUserDidSelectThemeNotificationIsImageDimmingEnabledKey] as? NSNumber
+        let themeName = note.userInfo?[ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification] as? String
+        let isImageDimmingEnabledNumber = note.userInfo?[ReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationIsImageDimmingEnabledKey] as? NSNumber
         if let isImageDimmingEnabled = isImageDimmingEnabledNumber {
-            UserDefaults.standard.wmf_setIsImageDimmingEnabled(isImageDimmingEnabled.boolValue)
+            UserDefaults.standard.wmf_isImageDimmingEnabled = isImageDimmingEnabled.boolValue
         }
         if let themeName = themeName {
-            UserDefaults.standard.setThemeName(themeName)
+            UserDefaults.standard.themeName = themeName
         }
         updateUserInterfaceStyleOfNavigationControllersForCurrentTheme()
         updateAppThemeIfNecessary()
@@ -1718,7 +1722,7 @@ extension WMFAppViewController: Themeable {
 
     override var overrideUserInterfaceStyle: UIUserInterfaceStyle {
         get {
-            let themeName = UserDefaults.standard.themeName()
+            let themeName = UserDefaults.standard.themeName
             if Theme.isDefaultThemeName(themeName) {
                 return .unspecified
             } else if Theme.isDarkThemeName(themeName) {
@@ -1733,7 +1737,7 @@ extension WMFAppViewController: Themeable {
     }
 
     private func updateUserInterfaceStyleOfNavigationControllersForCurrentTheme() {
-        let themeName = UserDefaults.standard.themeName()
+        let themeName = UserDefaults.standard.themeName
         let style: UIUserInterfaceStyle
         if Theme.isDefaultThemeName(themeName) {
             style = .unspecified
@@ -1776,7 +1780,7 @@ extension WMFAppViewController: WorkerControllerDelegate {
         let name = "\(NSStringFromClass(type(of: workerController)))-\(identifier)"
         let backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(withName: name) { [weak self] in
             DDLogDebug("Ending background task with name: \(name)")
-            workerController.cancelWork(withIdentifier: identifier)
+            workerController.cancelWorkWithIdentifier(identifier)
             self?.endBackgroundTask(workerController: workerController, identifier: identifier)
         }
         setBackgroundTaskIdentifier(backgroundTaskIdentifier, forKey: identifier)
@@ -1794,7 +1798,7 @@ extension WMFAppViewController: WorkerControllerDelegate {
 extension WMFAppViewController {
 
     @objc private func articleSaveToDiskDidFail(_ note: Notification) {
-        if let error = note.userInfo?[SavedArticlesFetcher.saveToDiskDidFailErrorKey()] as? NSError,
+        if let error = note.userInfo?[SavedArticlesFetcher.saveToDiskDidFailErrorKey] as? NSError,
            error.domain == NSCocoaErrorDomain,
            error.code == NSFileWriteOutOfSpaceError {
             WMFToastManager.sharedInstance.showToast(WMFLocalizedStringWithDefaultValue("article-save-error-not-enough-space", nil, nil, "You do not have enough space on your device to save this article", "Alert message informing user that article cannot be save due to insufficient storage available"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
@@ -1807,8 +1811,10 @@ extension WMFAppViewController {
 extension WMFAppViewController {
 
     @objc private func articleFontSizeWasUpdated(_ note: Notification) {
-        let multiplier = note.userInfo?[WMFFontSizeSliderViewController.wmfArticleFontSizeMultiplierKey] as? NSNumber
-        UserDefaults.standard.wmf_setArticleFontSizeMultiplier(multiplier)
+        if let multiplier = note.userInfo?[FontSizeSliderViewController.WMFArticleFontSizeMultiplierKey] as? NSNumber {
+            UserDefaults.standard.wmf_setArticleFontSizeMultiplier(multiplier)
+        }
+        
     }
 }
 
@@ -1821,7 +1827,7 @@ extension WMFAppViewController {
     }
 
     private func dismissReadingThemesPopoverIfActive() {
-        if presentedViewController is WMFReadingThemesControlsViewController {
+        if presentedViewController is ReadingThemesControlsViewController {
             presentedViewController?.dismiss(animated: true, completion: nil)
         }
     }
@@ -1846,7 +1852,6 @@ extension WMFAppViewController {
     }
 
     private func showSearchInCurrentNavigationController(animated: Bool) {
-        assert(dataStore != nil)
         dismissReadingThemesPopoverIfActive()
 
         guard let nc = currentNavigationController else { return }
@@ -1869,7 +1874,7 @@ extension WMFAppViewController {
         if _settingsViewController == nil {
             let vc = generateSettingsTab()
             vc.apply(theme: theme)
-            vc.title = WMFCommonStringsWrapper.settingsTitle()
+            vc.title = WMFCommonStringsWrapper.settingsTitle
             vc.tabBarItem.image = UIImage(named: "tabbar-explore")
             _settingsViewController = vc
         }
@@ -1891,7 +1896,6 @@ extension WMFAppViewController {
     }
 
     private func showSettings(with subViewController: UIViewController? = nil, animated: Bool) {
-        assert(dataStore != nil)
         dismissPresentedViewControllers()
 
         if let sub = subViewController {
@@ -1902,7 +1906,7 @@ extension WMFAppViewController {
         case .settings:
             selectedIndex = WMFAppTabType.main.rawValue
             if let sub = subViewController {
-                wmf_push(sub, animated: animated)
+                push(sub, animated: animated)
             }
         default:
             present(settingsNavigationController, animated: animated, completion: nil)
@@ -1919,8 +1923,8 @@ extension WMFAppViewController {
 extension WMFAppViewController {
 
     @objc private func entriesLimitReachedWithNotification(_ notification: Notification) {
-        guard let readingList = notification.userInfo?[ReadingList.entriesLimitReachedReadingListKey()] as? ReadingList else { return }
-        readingListsAlertController.showLimitHitForDefaultListPanelIfNecessary(withPresenter: self, dataStore: dataStore, readingList: readingList, theme: theme)
+        guard let readingList = notification.userInfo?[ReadingList.entriesLimitReachedReadingListKey] as? ReadingList else { return }
+        readingListsAlertController.showLimitHitForDefaultListPanelIfNecessary(presenter: self, dataStore: dataStore, readingList: readingList, theme: theme)
     }
 }
 
@@ -1929,7 +1933,7 @@ extension WMFAppViewController {
 extension WMFAppViewController {
 
     func setRemoteNotificationRegistrationStatus(deviceToken: Data?, error: Error?) {
-        notificationsController.setRemoteNotificationRegistrationStatus(deviceToken: deviceToken, error: error)
+        notificationsController.setRemoteNotificationRegistrationStatusWithDeviceToken(deviceToken, error: error)
     }
 }
 
@@ -1942,17 +1946,17 @@ extension WMFAppViewController {
               let rootViewController = navVC.viewControllers.first else { return }
 
         if rootViewController is ExploreViewController && UserDefaults.standard.defaultTabType == .explore {
-            WMFNavigationEventsFunnel.shared.logTappedExplore()
+            NavigationEventsFunnel.shared.logTappedExplore()
         } else if rootViewController is SettingsTabViewController && UserDefaults.standard.defaultTabType == .settings {
-            WMFNavigationEventsFunnel.shared.logTappedSettingsFromTabBar()
+            NavigationEventsFunnel.shared.logTappedSettingsFromTabBar()
         } else if rootViewController is PlacesViewController {
-            WMFNavigationEventsFunnel.shared.logTappedPlaces()
+            NavigationEventsFunnel.shared.logTappedPlaces()
         } else if rootViewController is SavedViewController {
-            WMFNavigationEventsFunnel.shared.logTappedSaved()
+            NavigationEventsFunnel.shared.logTappedSaved()
         } else if rootViewController is WMFActivityTabViewController {
-            WMFNavigationEventsFunnel.shared.logTappedActivityTab()
+            NavigationEventsFunnel.shared.logTappedActivityTab()
         } else if rootViewController is SearchViewController {
-            WMFNavigationEventsFunnel.shared.logTappedSearch()
+            NavigationEventsFunnel.shared.logTappedSearch()
         }
     }
 }
