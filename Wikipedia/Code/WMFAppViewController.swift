@@ -1647,6 +1647,7 @@ extension WMFAppViewController: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let info = response.notification.request.content.userInfo
 
+#if !TEST
         // Mark the app open source as "notification" so SceneDelegate will submit the apps-open instrument with actionSource = "notification".
         for scene in UIApplication.shared.connectedScenes {
             if let windowScene = scene as? UIWindowScene,
@@ -1655,6 +1656,7 @@ extension WMFAppViewController: UNUserNotificationCenterDelegate {
                 break
             }
         }
+#endif
 
         if response.notification.request.content.threadIdentifier == EchoModelVersion.current {
             showNotificationCenterForNotificationInfo(info)
