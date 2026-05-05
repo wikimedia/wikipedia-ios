@@ -8,6 +8,16 @@ import CocoaLumberjackSwift
 import SwiftUI
 import WMFNativeLocalizations
 
+// MARK: - Tab enum
+
+@objc enum WMFAppTabType: Int {
+    case main = 0
+    case places = 1
+    case saved = 2
+    case recent = 3 // Activity tab
+    case search = 4
+}
+
 // MARK: - Constants
 
 private let wmfTimeBeforeShowingExploreScreenOnLaunch: TimeInterval = 24 * 60 * 60
@@ -20,41 +30,29 @@ private let wmfTempAccountConfigCheckAbsoluteTimeKey = "WMFTempAccountConfigChec
 private var kvoSavedArticlesFetcherProgress = UInt8(0)
 private var kvoNSUserDefaultsDefaultTabType = UInt8(0)
 
-// MARK: - Public constant (declared extern in .h)
+// MARK: - Public constant
 
 public let WMFLanguageVariantAlertsLibraryVersion = "WMFLanguageVariantAlertsLibraryVersion"
 
 // MARK: - WMFAppViewController
 
-@objcMembers
-class WMFAppViewController: UITabBarController, AppTabBarDelegate {
+final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
-    // MARK: - Tab enum
-
-    @objc enum WMFAppTabType: Int {
-        case main = 0
-        case places = 1
-        case saved = 2
-        case recent = 3 // Activity tab
-        case search = 4
-    }
-
-    // MARK: - Public properties (from .h)
+    // MARK: - Public properties
 
     private(set) var theme: Theme = Theme.standard
     private(set) var dataStore: MWKDataStore = .shared()
-    var tabIdentifiersToDelete: NSMutableArray = NSMutableArray()
-    var tabItemIdentifiersToDelete: NSMutableArray = NSMutableArray()
-    var imageRecommendationsViewModelWrapper: AnyObject?
-    var tipWrapper: WMFAppViewControllerTipWrapper = WMFAppViewControllerTipWrapper()
+    var tabIdentifiersToDelete: [UUID] = []
+    var tabItemIdentifiersToDelete: [UUID] = []
+    let tipWrapper: WMFAppViewControllerTipWrapper
 
     // MARK: - Private stored properties
 
-    private var periodicWorkerController: PeriodicWorkerController!
-    private var backgroundFetcherController: BackgroundFetcherController!
+    private var periodicWorkerController: PeriodicWorkerController?
+    private var backgroundFetcherController: BackgroundFetcherController?
     private var reachabilityNotifier: ReachabilityNotifier?
 
-    private var transitionsController: ViewControllerTransitionsController!
+    private var transitionsController: ViewControllerTransitionsController?
 
     private var _settingsViewController: SettingsTabViewController?
     private var _exploreViewController: ExploreViewController?
@@ -105,12 +103,13 @@ class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        tipWrapper = WMFAppViewControllerTipWrapper()
+        
         super.init(nibName: nil, bundle: nil)
         configuration = Configuration.current
         router = ViewControllerRouter(appViewController: self, router: configuration.router)
-        tabItemIdentifiersToDelete = NSMutableArray()
-        tabIdentifiersToDelete = NSMutableArray()
-        tipWrapper = WMFAppViewControllerTipWrapper()
+        tabItemIdentifiersToDelete = []
+        tabIdentifiersToDelete = []
         isUpdatingDefaultTab = false
     }
 
@@ -139,8 +138,6 @@ class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         apply(theme: theme)
 
         updateAppEnvironment(theme: theme, traitCollection: traitCollection)
-
-        imageRecommendationsViewModelWrapper = nil
 
         backgroundTasks = [:]
 
@@ -308,16 +305,18 @@ class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // MARK: - Setup
 
     private func setupControllers() {
-        periodicWorkerController = PeriodicWorkerController(30, initialDelay: 1, leeway: 15)
+        let periodicWorkerController = PeriodicWorkerController(30, initialDelay: 1, leeway: 15)
         periodicWorkerController.delegate = self
         periodicWorkerController.add(dataStore.readingListsController)
         periodicWorkerController.add(EventPlatformClientWorker.shared)
+        self.periodicWorkerController = periodicWorkerController
 
-        backgroundFetcherController = BackgroundFetcherController()
+        let backgroundFetcherController = BackgroundFetcherController()
         backgroundFetcherController.delegate = self
         backgroundFetcherController.add(dataStore.readingListsController)
         backgroundFetcherController.add(dataStore.feedContentController as! any BackgroundFetcher)
         backgroundFetcherController.add(EventPlatformClientWorker.shared)
+        self.backgroundFetcherController = backgroundFetcherController
     }
 
     private func loadMainUI() {
@@ -425,7 +424,7 @@ class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         SessionsFunnel.shared.appDidBecomeActive()
         checkRemoteAppConfigIfNecessary()
         updatePrimaryWikiHasTempAccountsStatusIfNecessary()
-        periodicWorkerController.start()
+        periodicWorkerController?.start()
         savedArticlesFetcher?.start()
         assignMoreDynamicTabsV2ExperimentIfNeeded()
         AppIconUtility.shared.checkAndRevertIfExpired()
@@ -1016,7 +1015,7 @@ class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         UserDefaults.standard.wmf_setDidShowSyncDisabledPanel(false)
 
         reachabilityNotifier?.stop()
-        periodicWorkerController.stop()
+        periodicWorkerController?.stop()
         savedArticlesFetcher?.stop()
 
         dataStore.feedContentController.stopContentSources()
@@ -1556,11 +1555,11 @@ extension WMFAppViewController: UINavigationControllerDelegate {
     }
 
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return transitionsController.navigationController(navigationController, interactionControllerFor: animationController)
+        return transitionsController?.navigationController(navigationController, interactionControllerFor: animationController)
     }
 
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return transitionsController.navigationController(navigationController, animationControllerFor: operation, from: fromVC, to: toVC)
+        return transitionsController?.navigationController(navigationController, animationControllerFor: operation, from: fromVC, to: toVC)
     }
 }
 
