@@ -47,6 +47,9 @@ jobs:
       - name: Check out selected ref
         uses: actions/checkout@v6
 
+      - name: Ensure UI tests use test-plan appearance and language
+        run: scripts/lint-ui-tests.sh
+
       - name: Select Xcode
         run: |
           sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"

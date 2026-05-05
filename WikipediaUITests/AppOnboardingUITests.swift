@@ -1,32 +1,19 @@
+import Foundation
 import XCTest
 
 final class AppOnboardingUITests: XCTestCase {
 
-    func testOnboardingLightMode() throws {
+    func testFirstLaunchShowsOnboardingSmoke() throws {
         let app = XCUIApplication()
-        XCUIDevice.shared.appearance = .light
+        app.configureForUITestLaunch(configuration: .init(onboardingState: .notCompleted))
         app.launch()
 
-        XCTAssertTrue(app.otherElements["App Onboarding Introduction View"].waitForExistence(timeout: 5))
-        
-        let initialAttachment = XCTAttachment(screenshot: app.screenshot())
-        initialAttachment.name = ScreenshotNames.initial.rawValue
-        initialAttachment.lifetime = .keepAlways
-        add(initialAttachment)
-
-        app.buttons["App Onboarding Skip Button"].tap()
-
-        XCTAssertTrue(app.otherElements["Explore View"].waitForExistence(timeout: 5))
-        
-        let exploreAttachment = XCTAttachment(screenshot: app.screenshot())
-        exploreAttachment.name = ScreenshotNames.explore.rawValue
-        exploreAttachment.lifetime = .keepAlways
-        add(exploreAttachment)
+        XCTAssertTrue(app.otherElements["App Onboarding Introduction View"].waitForExistence(timeout: 10))
     }
 
-    func testOnboardingDarkMode() throws {
+    func testOnboardingScreenshots() throws {
         let app = XCUIApplication()
-        XCUIDevice.shared.appearance = .dark
+        app.configureForUITestLaunch(configuration: .init(onboardingState: .notCompleted))
         app.launch()
 
         XCTAssertTrue(app.otherElements["App Onboarding Introduction View"].waitForExistence(timeout: 5))
@@ -38,7 +25,9 @@ final class AppOnboardingUITests: XCTestCase {
 
         app.buttons["App Onboarding Skip Button"].tap()
 
-        XCTAssertTrue(app.otherElements["Explore View"].waitForExistence(timeout: 5))
+        let exploreView = app.otherElements["Explore View"]
+        XCTAssertTrue(exploreView.waitForExistence(timeout: 5))
+
         let exploreAttachment = XCTAttachment(screenshot: app.screenshot())
         exploreAttachment.name = ScreenshotNames.explore.rawValue
         exploreAttachment.lifetime = .keepAlways
