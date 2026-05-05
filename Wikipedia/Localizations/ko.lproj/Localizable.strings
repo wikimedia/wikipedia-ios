@@ -1005,7 +1005,7 @@
 "reading-list-login-subtitle" = "저장된 문서와 읽기 목록을 장치 간에 동기화하고 사용자 환경 설정에 저장하려면 계정을 만들거나 로그인하십시오.";
 "reading-list-login-title" = "저장된 문서를 동기화할까요?";
 "reading-list-name-user-created-annotation" = "_[사용자가 만듦]";
-"reading-list-new-list-description-placeholder" = "선택적인 간단한 설명";
+"reading-list-new-list-description-placeholder" = "선택적 간단한 설명";
 "reading-list-new-list-name-placeholder" = "읽기 목록 제목";
 "reading-list-sync-disabled-panel-message" = "읽기 목록 동기화는 다른 장치의 위키백과 계정에 대해 비활성화되어 있습니다. 설정을 업데이트하여 동기화를 다시 켤 수 있습니다.";
 "reading-list-sync-disabled-panel-title" = "동기화 끔";
@@ -1330,7 +1330,7 @@
 "watchlist-filter-user-registration-options-registered" = "등록";
 "watchlist-filter-user-registration-options-unregistered" = "미등록";
 "watchlist-filters-add-language" = "언어 추가...";
-"watchlist-number-filters" = "[ {{PLURAL:$1|$1개 필터}}](wikipedia://watchlist/filter)를 수정하여 더 많은 주시문서 항목 보기";
+"watchlist-number-filters" = "[{{PLURAL:$1|$1개 필터}}](wikipedia://watchlist/filter)를 수정하여 더 많은 주시문서 항목 보기";
 "watchlist-onboarding-button-title" = "주시문서 목록에 대해 더 알아보기";
 "watchlist-onboarding-title" = "주시문서 목록 소개";
 "watchlist-removed" = "내 주시문서 목록에서 제거됨";

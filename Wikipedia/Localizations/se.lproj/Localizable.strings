@@ -4,6 +4,7 @@
 // Author: Jon Harald Søby (WMNO)
 // Author: Kimberli Mäkäräinen (WMNO)
 // Author: Lemetsara
+// Author: Tynnoel
 // Author: WMNO sámeprošeakta
 // Author: Yupik
 
@@ -143,7 +144,7 @@
 "button-skip" = "Njuike badjel";
 "cancel" = "Gaskkalduhte";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-body" = "Wikipedia-áppa doarju dál čuovvovaš kiinnálaš-variánttaid váldo- dahje nubbingiellan áppas, juoga mii dahká álkibun lohkat, ohcat, ja rievdadit iežat oidojuvvon variánttaid:\n\n简体 Álkiduvvon kiinnágiella (zh-hans)\n香港繁體 Árbevirolaš Hongkong-kiinnágiella (zh-hk)\n澳門繁體 Árbevirolaš Macao-kiinnágiella (zh-mo)\n大马简体 Álkiduvvon Malaysia-kiinnágiella (zh-my)\n新加坡简体 Álkiduvvon Signapore-kiinnágiella (zh-sg)\n臺灣正體 Árbevirolaš Taiwan-kiinnágiella (zh-tw)";
+"chinese-variants-alert-body" = "Wikipedia-áppa doarju dál čuovvovaš kiinnálaš-variánttaid váldo- dahje nubbingiellan áppas, juoga mii dahká álkibun lohkat, ohcat, ja rievdadit iežat oidojuvvon variánttaid:\n\n简体 Álkiduvvon kiinnágiella (zh-hans)\n香港繁體 Árbevirolaš Hongkong-kiinnágiella (zh-hk)\n澳門繁體 Árbevirolaš Macao-kiinnágiella (zh-mo)\n大马简体 Álkiduvvon Malaysia-kiinnágiella (zh-my)\n新加坡简体 Álkiduvvon Singapore-kiinnágiella (zh-sg)\n臺灣正體 Árbevirolaš Taiwan-kiinnágiella (zh-tw)";
 "chinese-variants-alert-title" = "Ođasmahttimat mat dorjot kiinnálaš-variánttaid";
 "clear-title-accessibility-label" = "Gurre";
 "clearing-cache-complete" = "Gaskavuorká lea gurrejuvvon.";

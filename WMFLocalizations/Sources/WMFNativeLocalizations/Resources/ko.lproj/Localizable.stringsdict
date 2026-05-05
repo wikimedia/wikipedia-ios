@@ -773,7 +773,7 @@
 	<key>watchlist-number-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>[ %#@v1@](wikipedia://watchlist/filter)를 수정하여 더 많은 주시문서 항목 보기</string>
+		<string>[%#@v1@](wikipedia://watchlist/filter)를 수정하여 더 많은 주시문서 항목 보기</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
