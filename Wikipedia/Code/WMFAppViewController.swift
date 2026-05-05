@@ -41,7 +41,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // MARK: - Public properties
 
     private(set) var theme: Theme = Theme.standard
-    private(set) var dataStore: MWKDataStore = .shared()
     var tabIdentifiersToDelete: [UUID] = []
     var tabItemIdentifiersToDelete: [UUID] = []
     let tipWrapper: WMFAppViewControllerTipWrapper
@@ -60,41 +59,43 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var _savedViewController: SavedViewController?
     private var _placesViewController: PlacesViewController?
     private var _activityTabViewController: WMFActivityTabViewController?
-    private var _navigationStateController: NavigationStateController?
 
     private var splashScreenViewController: SplashScreenViewController?
 
     private var _savedArticlesFetcher: SavedArticlesFetcher?
-
-    private var isWaitingToResumeApp: Bool = false
-    private var isMigrationComplete: Bool = false
-    private var isMigrationActive: Bool = false
-    private var isResumeComplete: Bool = false
-    private var isCheckingRemoteConfig: Bool = false
-    private var isUpdatingDefaultTab: Bool = false
-    private var hasSyncErrorBeenShownThisSesssion: Bool = false
-
-    private var notificationUserInfoToShow: [AnyHashable: Any]?
-
+    
     private var unprocessedUserActivity: NSUserActivity?
     private var unprocessedShortcutItem: UIApplicationShortcutItem?
 
     private var backgroundTasks: [String: UIBackgroundTaskIdentifier] = [:]
     private let backgroundTasksLock = NSLock()
+    
+    private var isWaitingToResumeApp: Bool = false
+    private var isMigrationComplete: Bool = false
+    private var isMigrationActive: Bool = false
+    private var isResumeComplete: Bool = false
+    private var isCheckingRemoteConfig: Bool = false
 
-    private var notificationsController: WMFNotificationsController {
-        return dataStore.notificationsController
-    }
+    private var notificationUserInfoToShow: [AnyHashable: Any]?
 
     private var _settingsNavigationController: WMFComponentNavigationController?
 
     var readingListsAlertController: ReadingListsAlertController!
+    
     var syncStartDate: Date?
+    
     var savedTabBarItemProgressBadgeManager: SavedTabBarItemProgressBadgeManager?
+    
+    private var hasSyncErrorBeenShownThisSesssion: Bool = false
+    
     var readingListHintPresenter: WMFReadingListToastManager!
 
-    private var configuration: Configuration!
-    private var router: ViewControllerRouter!
+    private var _navigationStateController: NavigationStateController?
+    
+    private var configuration: Configuration?
+    private var router: ViewControllerRouter?
+    
+    private var isUpdatingDefaultTab: Bool = false
 
     // MARK: - init / deinit
 
@@ -107,7 +108,13 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         
         super.init(nibName: nil, bundle: nil)
         configuration = Configuration.current
-        router = ViewControllerRouter(appViewController: self, router: configuration.router)
+        
+        if let router = configuration?.router {
+            self.router = ViewControllerRouter(appViewController: self, router: router)
+        } else {
+            router = nil
+        }
+        
         tabItemIdentifiersToDelete = []
         tabIdentifiersToDelete = []
         isUpdatingDefaultTab = false
@@ -1212,7 +1219,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                 return false
             }
             NSUserActivity.wmf_makeActive(activity)
-            return router.route(url, userInfo: activity.userInfo, completion: done)
+            if let router = self.router {
+                return router.route(url, userInfo: activity.userInfo, completion: done)
+            } else {
+                done()
+                return false
+            }
         }
 
         done()
@@ -1269,6 +1281,14 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
+    }
+    
+    private var notificationsController: WMFNotificationsController {
+        return self.dataStore.notificationsController
+    }
+    
+    var dataStore: MWKDataStore {
+        return MWKDataStore.shared()
     }
 
     var navigationStateController: NavigationStateController {

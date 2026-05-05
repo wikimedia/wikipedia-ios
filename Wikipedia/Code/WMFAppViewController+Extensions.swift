@@ -362,11 +362,11 @@ extension WMFAppViewController: WMFWatchlistDelegate {
             }
 
             if !UserDefaults.standard.wmf_didShowThankRevisionAuthorEducationPanel() {
-                topMostViewController?.wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: { [weak self] in
+                topMostViewController?.wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: {
                     WatchlistFunnel.shared.logThanksTapSend(project: wikimediaProject)
                     UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
                     performThanks()
-                }, cancelHandler: { [weak self] in
+                }, cancelHandler: {
                     WatchlistFunnel.shared.logThanksTapCancel(project: wikimediaProject)
                 })
             } else {
@@ -876,11 +876,11 @@ extension WMFAppViewController {
 
      func removeArticlesForDeletedTabParts(tabIdentifier: UUID? = nil, tabItemIdentifier: UUID? = nil) {
          if let tabIdentifier {
-             tabIdentifiersToDelete.add(tabIdentifier)
+             tabIdentifiersToDelete.append(tabIdentifier)
          }
 
          if let tabItemIdentifier {
-             tabItemIdentifiersToDelete.add(tabItemIdentifier)
+             tabItemIdentifiersToDelete.append(tabItemIdentifier)
          }
 
          NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debounceRemoveArticlesForDeletedTabParts), object: nil)
@@ -923,8 +923,8 @@ extension WMFAppViewController {
               }
           }
 
-         tabIdentifiersToDelete.removeAllObjects()
-         tabItemIdentifiersToDelete.removeAllObjects()
+         tabIdentifiersToDelete.removeAll()
+         tabItemIdentifiersToDelete.removeAll()
       }
  }
 
