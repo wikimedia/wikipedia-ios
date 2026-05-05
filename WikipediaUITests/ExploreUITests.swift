@@ -4,8 +4,7 @@ final class ExploreUITests: XCTestCase {
 
     func testExplore() throws {
         let app = XCUIApplication()
-        app.launchArguments += ProcessInfo().arguments // Adds forced theme from Test Plan arguments
-        app.launchArguments += ["UITestSkipAppOnboarding"]
+        app.configureForUITestLaunch(configuration: .init(onboardingState: .completed))
         app.launch()
         
         XCTAssertTrue(app.otherElements["Explore View"].waitForExistence(timeout: 5))

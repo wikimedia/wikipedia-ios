@@ -4386,6 +4386,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		67ADAC722EFA240D00852D2F /* InfoPlist Native Localizations */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (67EFD34A2EFA2724006CBD7B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 67EFD34B2EFA2724006CBD7B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 67EFD34C2EFA2724006CBD7B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "InfoPlist Native Localizations"; sourceTree = "<group>"; };
+		ADDFF88F2FA9363C00C93B94 /* Utilities */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utilities; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -5874,6 +5875,7 @@
 		67623E0D2AFD2897007488C7 /* WikipediaUITests */ = {
 			isa = PBXGroup;
 			children = (
+				ADDFF88F2FA9363C00C93B94 /* Utilities */,
 				67E32CAE2F5BE381009AA52D /* AppOnboardingUITests.swift */,
 				674205302F9A556100BBA0CA /* ExploreUITests.swift */,
 			);
@@ -8428,6 +8430,9 @@
 			);
 			dependencies = (
 				67623E132AFD2897007488C7 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				ADDFF88F2FA9363C00C93B94 /* Utilities */,
 			);
 			name = WikipediaUITests;
 			productName = WikipediaUITests;
@@ -12291,7 +12296,6 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"UITEST=1",
 					"DEBUG=1",
 					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
 					"$(inherited)",
@@ -12309,7 +12313,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-DNDEBUG -DUITEST";
+				OTHER_SWIFT_FLAGS = "-DNDEBUG";
 				SDKROOT = iphoneos;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
