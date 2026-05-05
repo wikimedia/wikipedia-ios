@@ -136,12 +136,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         super.viewDidLoad()
         theme = UserDefaults.standard.theme(compatibleWith: traitCollection)
 
-        #if UITEST
-        if let newTheme = themeForUITests() {
-            theme = newTheme
-        }
-        #endif
-
         apply(theme: theme)
 
         updateAppEnvironment(theme: theme, traitCollection: traitCollection)
@@ -813,26 +807,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         showSplashView()
         migrateIfNecessary()
-    }
-
-    private func themeForUITests() -> Theme? {
-        #if UITEST
-        let arguments = ProcessInfo.processInfo.arguments
-        if arguments.count > 1 {
-            if arguments.contains("UITestThemeLight") {
-                return Theme.light
-            } else if arguments.contains("UITestThemeSepia") {
-                return Theme.sepia
-            } else if arguments.contains("UITestThemeDark") {
-                return Theme.dark
-            } else if arguments.contains("UITestThemeBlack") {
-                return Theme.black
-            }
-        }
-        return nil
-        #else
-        return nil
-        #endif
     }
 
     private func migrateIfNecessary() {
@@ -1766,12 +1740,6 @@ extension WMFAppViewController: Themeable {
     @objc private func updateAppThemeIfNecessary() {
         let traitCollection = self.traitCollection
         var newTheme = UserDefaults.standard.theme(compatibleWith: traitCollection)
-
-        #if UITEST
-        if let uitestTheme = themeForUITests() {
-            newTheme = uitestTheme
-        }
-        #endif
 
         if theme != newTheme || appEnvironmentTraitCollectionIsDifferentThanTraitCollection(traitCollection) {
             updateAppEnvironment(theme: newTheme, traitCollection: self.traitCollection)
