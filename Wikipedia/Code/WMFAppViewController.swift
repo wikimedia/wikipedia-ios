@@ -557,9 +557,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     //-----stopped here ------
 
     @objc private func conflictingReadingListNameUpdatedNotification(_ note: Notification) {
-        let oldName = note.userInfo?[ReadingList.conflictingReadingListNameUpdatedOldNameKey] as? String ?? ""
-        let newName = note.userInfo?[ReadingList.conflictingReadingListNameUpdatedNewNameKey] as? String ?? ""
-        let alertTitle = String.localizedStringWithFormat(WMFLocalizedStringWithDefaultValue("reading-lists-conflicting-reading-list-name-updated", nil, nil, "Your list '%1$@' has been renamed to '%2$@'", "Alert message informing user that their reading list was renamed. %1$@ will be replaced the previous name of the list. %2$@ will be replaced with the new name of the list."), oldName, newName)
+        guard let oldName = note.userInfo?[ReadingList.conflictingReadingListNameUpdatedOldNameKey] as? String,
+              let newName = note.userInfo?[ReadingList.conflictingReadingListNameUpdatedNewNameKey] as? String else {
+            return
+        }
+        let alertTitle = String.localizedStringWithFormat(WMFLocalizedString("reading-lists-conflicting-reading-list-name-updated", value: "Your list '%1$@' has been renamed to '%2$@'", comment: "Alert message informing user that their reading list was renamed. %1$@ will be replaced the previous name of the list. %2$@ will be replaced with the new name of the list."), oldName, newName)
         WMFToastManager.sharedInstance.showToast(alertTitle, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
     }
 
@@ -575,7 +577,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     @objc private func autoLoginNeedsEmailToken(_ notification: Notification) {
-        let vc = createTwoFactorViewControllerFromAutoLoginNotification(userInfo: notification.userInfo ?? [:], needsEmailToken: true)
+        
+        guard let userInfo = notification.userInfo else {
+            return
+        }
+        
+        let vc = createTwoFactorViewControllerFromAutoLoginNotification(userInfo: userInfo, needsEmailToken: true)
         if let vc = vc {
             let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .overFullScreen, customBarBackgroundColor: nil)
             currentTabNavigationController?.present(navVC, animated: true, completion: nil)
@@ -585,7 +592,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     @objc private func autoLoginNeedsOathToken(_ notification: Notification) {
-        let vc = createTwoFactorViewControllerFromAutoLoginNotification(userInfo: notification.userInfo ?? [:], needsEmailToken: false)
+        
+        guard let userInfo = notification.userInfo else {
+            return
+        }
+        
+        let vc = createTwoFactorViewControllerFromAutoLoginNotification(userInfo: userInfo, needsEmailToken: false)
         if let vc = vc {
             let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .overFullScreen, customBarBackgroundColor: nil)
             currentTabNavigationController?.present(navVC, animated: true, completion: nil)
@@ -678,6 +690,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         completion(nil)
     }
 
+    // stopped here
     // MARK: - Background Tasks
 
     private func backgroundTaskIdentifier(forKey key: String?) -> UIBackgroundTaskIdentifier {
