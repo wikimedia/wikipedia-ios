@@ -98,6 +98,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var isUpdatingDefaultTab: Bool = false
 
     // MARK: - init / deinit
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        UserDefaults.standard.removeObserver(self, forKeyPath: "defaultTabType")
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+    }
 
     convenience init() {
         self.init(nibName: nil, bundle: nil)
@@ -122,12 +128,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-        UserDefaults.standard.removeObserver(self, forKeyPath: "defaultTabType")
-        NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
 
     // MARK: - viewDidLoad
