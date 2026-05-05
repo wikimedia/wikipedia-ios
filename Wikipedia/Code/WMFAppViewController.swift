@@ -1277,7 +1277,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     var savedArticlesFetcher: SavedArticlesFetcher? {
         guard uiIsLoaded else { return nil }
         
-        guard let _savedViewController else {
+        guard let _savedArticlesFetcher else {
             let fetcher = SavedArticlesFetcher(dataStore: dataStore)
             fetcher?.addObserver(self,
                                 forKeyPath: #keyPath(SavedArticlesFetcher.progress),
