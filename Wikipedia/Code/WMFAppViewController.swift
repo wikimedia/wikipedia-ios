@@ -1738,7 +1738,7 @@ extension WMFAppViewController: Themeable {
 
     @objc private func updateAppThemeIfNecessary() {
         let traitCollection = self.traitCollection
-        var newTheme = UserDefaults.standard.theme(compatibleWith: traitCollection)
+        let newTheme = UserDefaults.standard.theme(compatibleWith: traitCollection)
 
         if theme != newTheme || appEnvironmentTraitCollectionIsDifferentThanTraitCollection(traitCollection) {
             updateAppEnvironment(theme: newTheme, traitCollection: self.traitCollection)
