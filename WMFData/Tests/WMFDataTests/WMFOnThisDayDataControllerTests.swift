@@ -4,9 +4,6 @@ import XCTest
 
 final class WMFOnThisDayDataControllerTests: XCTestCase {
 
-    // MARK: - Helpers
-
-    /// Builds a controller backed by a mock service that returns the given JSON resource.
     private func makeController(mockJSONResource: String) throws -> WMFOnThisDayDataController {
         let mockService = WMFMockBasicService(jsonResourceName: mockJSONResource)
         return WMFOnThisDayDataController(basicService: mockService)
@@ -18,7 +15,7 @@ final class WMFOnThisDayDataControllerTests: XCTestCase {
         let controller = try makeController(mockJSONResource: "onthisday-events-02-21-get")
         let expectation = expectation(description: "fetchOnThisDay completes")
 
-        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en")), month: 2, day: 21) { result in
+        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en", languageVariantCode: nil)), month: 2, day: 21) { result in
             switch result {
             case .success(let response):
                 XCTAssertEqual(response.events.count, 3)
@@ -35,13 +32,10 @@ final class WMFOnThisDayDataControllerTests: XCTestCase {
         let controller = try makeController(mockJSONResource: "onthisday-events-02-21-get")
         let expectation = expectation(description: "fetchOnThisDay completes")
 
-        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en")), month: 2, day: 21) { result in
+        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en", languageVariantCode: nil)), month: 2, day: 21) { result in
             switch result {
             case .success(let response):
-                XCTAssertEqual(
-                    response.events[0].text,
-                    "Wikipedia, a free wiki content encyclopedia, goes online."
-                )
+                XCTAssertEqual(response.events[0].text, "Wikipedia, a free wiki content encyclopedia, goes online.")
             case .failure(let error):
                 XCTFail("Expected success, got error: \(error)")
             }
@@ -55,7 +49,7 @@ final class WMFOnThisDayDataControllerTests: XCTestCase {
         let controller = try makeController(mockJSONResource: "onthisday-events-02-21-get")
         let expectation = expectation(description: "fetchOnThisDay completes")
 
-        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en")), month: 2, day: 21) { result in
+        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en", languageVariantCode: nil)), month: 2, day: 21) { result in
             switch result {
             case .success(let response):
                 XCTAssertEqual(response.events[0].year, 2001)
@@ -72,7 +66,7 @@ final class WMFOnThisDayDataControllerTests: XCTestCase {
         let controller = try makeController(mockJSONResource: "onthisday-events-02-21-get")
         let expectation = expectation(description: "fetchOnThisDay completes")
 
-        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en")), month: 2, day: 21) { result in
+        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en", languageVariantCode: nil)), month: 2, day: 21) { result in
             switch result {
             case .success(let response):
                 XCTAssertEqual(response.events[0].pages.first?.title, "Wikipedia")
@@ -89,13 +83,10 @@ final class WMFOnThisDayDataControllerTests: XCTestCase {
         let controller = try makeController(mockJSONResource: "onthisday-events-02-21-get")
         let expectation = expectation(description: "fetchOnThisDay completes")
 
-        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en")), month: 2, day: 21) { result in
+        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en", languageVariantCode: nil)), month: 2, day: 21) { result in
             switch result {
             case .success(let response):
-                XCTAssertEqual(
-                    response.events[0].pages.first?.description,
-                    "Free online encyclopedia that anyone can edit"
-                )
+                XCTAssertEqual(response.events[0].pages.first?.description, "Free online encyclopedia that anyone can edit")
             case .failure(let error):
                 XCTFail("Expected success, got error: \(error)")
             }
@@ -109,7 +100,7 @@ final class WMFOnThisDayDataControllerTests: XCTestCase {
         let controller = try makeController(mockJSONResource: "onthisday-events-02-21-get")
         let expectation = expectation(description: "fetchOnThisDay completes")
 
-        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en")), month: 2, day: 21) { result in
+        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en", languageVariantCode: nil)), month: 2, day: 21) { result in
             switch result {
             case .success(let response):
                 let expectedURL = URL(string: "https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/320px-Wikipedia-logo-v2.svg.png")
@@ -127,7 +118,7 @@ final class WMFOnThisDayDataControllerTests: XCTestCase {
         let controller = try makeController(mockJSONResource: "onthisday-events-02-21-get")
         let expectation = expectation(description: "fetchOnThisDay completes")
 
-        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en")), month: 2, day: 21) { result in
+        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en", languageVariantCode: nil)), month: 2, day: 21) { result in
             switch result {
             case .success(let response):
                 let thumbnail = response.events[0].pages.first?.thumbnail
@@ -146,7 +137,7 @@ final class WMFOnThisDayDataControllerTests: XCTestCase {
         let controller = try makeController(mockJSONResource: "onthisday-events-02-21-get")
         let expectation = expectation(description: "fetchOnThisDay completes")
 
-        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en")), month: 2, day: 21) { result in
+        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en", languageVariantCode: nil)), month: 2, day: 21) { result in
             switch result {
             case .success(let response):
                 let expectedURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia")
@@ -164,7 +155,7 @@ final class WMFOnThisDayDataControllerTests: XCTestCase {
         let controller = try makeController(mockJSONResource: "onthisday-events-02-21-get")
         let expectation = expectation(description: "fetchOnThisDay completes")
 
-        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en")), month: 2, day: 21) { result in
+        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en", languageVariantCode: nil)), month: 2, day: 21) { result in
             switch result {
             case .success(let response):
                 let expectedURL = URL(string: "https://en.m.wikipedia.org/wiki/Wikipedia")
@@ -178,15 +169,13 @@ final class WMFOnThisDayDataControllerTests: XCTestCase {
         waitForExpectations(timeout: 2)
     }
 
-    /// Verifies that a null `thumbnail` in the JSON is decoded as `nil` (not a crash).
     func testFetchOnThisDayHandlesNullThumbnail() throws {
         let controller = try makeController(mockJSONResource: "onthisday-events-02-21-get")
         let expectation = expectation(description: "fetchOnThisDay completes")
 
-        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en")), month: 2, day: 21) { result in
+        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en", languageVariantCode: nil)), month: 2, day: 21) { result in
             switch result {
             case .success(let response):
-                // The third event (Battle of Verdun) has a null thumbnail in the mock JSON.
                 XCTAssertNil(response.events[2].pages.first?.thumbnail)
             case .failure(let error):
                 XCTFail("Expected success, got error: \(error)")
@@ -201,7 +190,7 @@ final class WMFOnThisDayDataControllerTests: XCTestCase {
         let controller = try makeController(mockJSONResource: "onthisday-events-02-21-get")
         let expectation = expectation(description: "fetchOnThisDay completes")
 
-        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en")), month: 2, day: 21) { result in
+        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "en", languageVariantCode: nil)), month: 2, day: 21) { result in
             switch result {
             case .success(let response):
                 let secondEvent = response.events[1]
@@ -223,8 +212,7 @@ final class WMFOnThisDayDataControllerTests: XCTestCase {
         let controller = try makeController(mockJSONResource: "onthisday-events-02-21-get")
         let expectation = expectation(description: "fetchOnThisDay completes")
 
-        // "xx" is not a real / supported Wikipedia language code.
-        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "xx")), month: 2, day: 21) { result in
+        controller.fetchOnThisDay(project: .wikipedia(.init(languageCode: "xx", languageVariantCode: nil)), month: 2, day: 21) { result in
             switch result {
             case .success:
                 XCTFail("Expected unsupportedProject error, got success")

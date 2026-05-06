@@ -93,11 +93,8 @@ public final class WMFOnThisDayDataController {
     // MARK: Private helpers
 
     private func isSupported(project: WMFProject) -> Bool {
-        guard case .wikipedia(let languageVariantCode) = project else {
-            return false
-        }
-        let code = languageVariantCode.languageCode
-        return Self.supportedLanguageCodes.contains(code)
+        guard case .wikipedia(let language) = project else { return false }
+        return Self.supportedLanguageCodes.contains(language.languageCode)
     }
 
     /// Builds the REST v1 feed URL:
