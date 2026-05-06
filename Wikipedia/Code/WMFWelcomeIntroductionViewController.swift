@@ -7,6 +7,7 @@ class WMFWelcomeIntroductionViewController: ThemeableViewController {
         guard viewIfLoaded != nil else {
             return
         }
+        descriptionLabel.textColor = theme.colors.secondaryText
         learnMoreButton.setTitleColor(theme.colors.link, for: .normal)
     }
 
