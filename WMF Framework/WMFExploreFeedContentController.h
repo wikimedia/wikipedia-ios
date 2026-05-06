@@ -2,6 +2,7 @@
 #import <UIKit/UIKit.h>
 
 @class MWKDataStore;
+@protocol WMFBackgroundFetcher;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -13,7 +14,7 @@ extern NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification;
 
 extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
-@interface WMFExploreFeedContentController : NSObject
+@interface WMFExploreFeedContentController : NSObject <WMFBackgroundFetcher>
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 - (instancetype)init NS_UNAVAILABLE;

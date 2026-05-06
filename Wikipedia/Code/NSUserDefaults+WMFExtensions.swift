@@ -48,7 +48,7 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
 
 @objc public extension UserDefaults {
     @objc(WMFUserDefaultsKey) class Key: NSObject {
-        @objc static let defaultTabType = "WMFDefaultTabTypeKey"
+        @objc public static let defaultTabType = "WMFDefaultTabTypeKey"
         static let isUserUnawareOfLogout = "WMFIsUserUnawareOfLogout"
         static let didShowDescriptionPublishedPanel = "WMFDidShowDescriptionPublishedPanel"
         static let didShowEditingOnboarding = "WMFDidShowEditingOnboarding"
