@@ -4,6 +4,7 @@
 // Author: Abbedabb
 // Author: Ainali
 // Author: Bengtsson96
+// Author: Diktys
 // Author: Freked
 // Author: Gkyziridis
 // Author: Haxpett
@@ -269,6 +270,7 @@
 "close-tab-confirmation" = "Stänga fliken?";
 "close-tabs" = "Stäng flikar";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 flik|$1 flikar}} stängdes.";
+"collect-prize-headline" = "Nyfikenhet klär dig! 🛍️";
 "compass-direction" = "mot klockan $1";
 "confirm-donation-history-deletion-subtitle" = "Detta gäller endast donationer som görs från den här enheten.";
 "confirm-donation-history-deletion-title" = "Bekräfta radering";
@@ -1063,6 +1065,29 @@
 "project-name-wikiversity" = "Wikiversity";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wiktionary";
+"reading-challenge-announcement-item1-title" = "Läs 1 artikel om dagen i 25 dagar";
+"reading-challenge-announcement-item2-title" = "Vinn priser";
+"reading-challenge-announcement-item3-title" = "Installera widgeten";
+"reading-challenge-announcement-secondary-cta" = "Lär dig mer";
+"reading-challenge-announcement-subtitle" = "Din läshistorik skyddas. Läsinsikter beräknas med hjälp av lokalt lagrad data på din enhet.";
+"reading-challenge-announcement-title" = "Fira Wikipedias 25-årsdag genom att delta i 25-dagars läsutmaningen!";
+"reading-challenge-collect-prize-button-small" = "Hämta pris";
+"reading-challenge-completed-subtitle" = "25 av 25 dagar";
+"reading-challenge-completed-title" = "Du gjorde det!";
+"reading-challenge-concluded-title" = "Utmaning avslutad";
+"reading-challenge-enrolled-not-started-subtitle-article" = "Läs en artikel för att komma igång.";
+"reading-challenge-enrolled-not-started-subtitle-away" = "Din svit är bara en artikel ifrån.";
+"reading-challenge-enrolled-not-started-subtitle-somewhere" = "Varje svit börjar någonstans";
+"reading-challenge-enrolled-not-started-subtitle-towards" = "Börja arbeta mot en 25-dagarssvit!";
+"reading-challenge-enrolled-not-started-title-fresh" = "En nystart.";
+"reading-challenge-enrolled-not-started-title-ready" = "Klara, färdiga, läs!";
+"reading-challenge-explore-wikipedia-button" = "Utforska Wikipedia";
+"reading-challenge-join-button-medium" = "Delta i utmaningen";
+"reading-challenge-join-button-small" = "Delta i utmaning";
+"reading-challenge-login-message" = "Logga in eller skapa ett konto för att följa dina framsteg i läsutmaningen.";
+"reading-challenge-login-title" = "Logga in för att delta i utmaningen";
+"reading-challenge-not-enrolled-subtitle" = "Delta i 25-dagarsutmaningen och lås upp specialpriser.";
+"reading-challenge-not-enrolled-title" = "Klara, färdiga, läs!";
 "reading-list-add-generic-hint-title" = "Lägg till denna artikel i en läslista?";
 "reading-list-add-hint-title" = "Lägg till \"$1\" i en läslista?";
 "reading-list-add-saved-button-title" = "Ja, lägg till dem i mina läslistor";

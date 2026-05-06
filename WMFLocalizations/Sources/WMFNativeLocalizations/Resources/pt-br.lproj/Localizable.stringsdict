@@ -785,7 +785,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d de 25 dias</string>
+			<string>%1$d de 25 dia</string>
 			<key>other</key>
 			<string>%1$d de 25 dias</string>
 		</dict>
