@@ -10,6 +10,15 @@ internal enum WMFMockError: Error {
 
 fileprivate extension WMFData.WMFServiceRequest {
     
+    var isOnThisDayEventsGet: Bool {
+        guard let url,
+              url.host?.hasSuffix(".wikipedia.org") == true,
+              url.path.contains("/api/rest_v1/feed/onthisday/events/") else {
+            return false
+        }
+        return method == .GET
+    }
+    
     var isFeatureConfigGet: Bool {
         switch WMFDataEnvironment.current.serviceEnvironment {
         case .production:
@@ -110,8 +119,10 @@ fileprivate extension WMFData.WMFServiceRequest {
 
 public class WMFMockBasicService: WMFService {
     
-    public init() {
-        
+    private let overrideJSONResourceName: String?
+    
+    public init(jsonResourceName: String? = nil) {
+        self.overrideJSONResourceName = jsonResourceName
     }
     
     public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
@@ -173,6 +184,15 @@ public class WMFMockBasicService: WMFService {
     }
     
     private func jsonData(for request: WMFData.WMFServiceRequest) -> Data? {
+        // If a specific resource was injected (e.g. for unit tests), use it directly
+        if let overrideJSONResourceName {
+            guard let url = Bundle.module.url(forResource: overrideJSONResourceName, withExtension: "json"),
+                  let data = try? Data(contentsOf: url) else {
+                return nil
+            }
+            return data
+        }
+        
         if request.isDonateConfigGet {
             let resourceName = "donate-get-config"
              
@@ -201,7 +221,7 @@ public class WMFMockBasicService: WMFService {
             
             return jsonData
         } else if request.isSubmitPaymentPost {
-            let resourceName = "donate-post-submit-payment-success" // "donate-post-submit-payment-error" for error testing
+            let resourceName = "donate-post-submit-payment-success"
             
             guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
                   let jsonData = try? Data(contentsOf: url) else {
@@ -219,7 +239,6 @@ public class WMFMockBasicService: WMFService {
             
             return jsonData
         } else if request.isArticleSummaryGet {
-            
             let resourceName = "article-summary-get"
             
             guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
@@ -227,6 +246,15 @@ public class WMFMockBasicService: WMFService {
                 return nil
             }
             
+            return jsonData
+        } else if request.isOnThisDayEventsGet {
+            let resourceName = "onthisday-events-02-21-get"
+         
+            guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
+                  let jsonData = try? Data(contentsOf: url) else {
+                return nil
+            }
+         
             return jsonData
         }
         
