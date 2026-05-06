@@ -791,7 +791,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // MARK: - Launch
 
     func launchApp(in window: UIWindow, waitToResumeApp: Bool) {
-        setupForUITests()
 
         isWaitingToResumeApp = waitToResumeApp
 
