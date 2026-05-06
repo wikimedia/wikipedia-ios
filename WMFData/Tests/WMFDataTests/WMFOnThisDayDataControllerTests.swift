@@ -35,4 +35,38 @@ final class WMFOnThisDayDataControllerTests: XCTestCase {
         XCTAssertEqual(secondEvent.text, "The Dominican Republic gains independence from Haiti.")
         XCTAssertEqual(secondEvent.pages.first?.title, "Dominican Republic")
     }
+    
+    func testFetchOnThisDayThrowsForWikidata() throws {
+        let controller = try makeController(mockJSONResource: "onthisday-events-02-21-get")
+        let expectation = expectation(description: "fetchOnThisDay completes")
+
+        controller.fetchOnThisDay(project: .wikidata, month: 2, day: 21) { result in
+            switch result {
+            case .success:
+                XCTFail("Expected unsupportedProject error, got success")
+            case .failure(let error):
+                XCTAssertEqual(error as? WMFDataControllerError, .unsupportedProject)
+            }
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 2)
+    }
+
+    func testFetchOnThisDayThrowsForCommons() throws {
+        let controller = try makeController(mockJSONResource: "onthisday-events-02-21-get")
+        let expectation = expectation(description: "fetchOnThisDay completes")
+
+        controller.fetchOnThisDay(project: .commons, month: 2, day: 21) { result in
+            switch result {
+            case .success:
+                XCTFail("Expected unsupportedProject error, got success")
+            case .failure(let error):
+                XCTAssertEqual(error as? WMFDataControllerError, .unsupportedProject)
+            }
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 2)
+    }
 }

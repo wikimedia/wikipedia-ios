@@ -40,7 +40,7 @@ public final class WMFOnThisDayDataController {
         completion: @escaping (Result<WMFOnThisDayResponse, Error>) -> Void
     ) {
         guard isSupported(project: project) else {
-            completion(.failure(WMFDataControllerError.basicServiceUnavailable))
+            completion(.failure(WMFDataControllerError.unsupportedProject))
             return
         }
 
