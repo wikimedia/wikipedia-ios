@@ -44,7 +44,7 @@ extension MWKDataStore {
         // Map all languages with variants being migrated to the user's preferred variant
         // Note that even if the user does not have any preferred languages that match,
         // the user could have chosen to read or save an article in any language.
-        // The variant is therefore determined for all langauges being migrated.
+        // The variant is therefore determined for all languages being migrated.
         let migrationMapping = languageCodes.reduce(into: [String:String]()) { (result, languageCode) in
             guard let languageVariantCode = NSLocale.wmf_bestLanguageVariantCodeForLanguageCode(languageCode) else {
                 assertionFailure("No variant found for language code \(languageCode). Every language migrating to use language variants should return a language variant code")

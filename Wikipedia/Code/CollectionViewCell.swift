@@ -12,7 +12,7 @@ import UIKit
 
 open class CollectionViewCell: UICollectionViewCell {
     // MARK: - Methods for subclassing
-    
+
     // Subclassers should override setup instead of any of the initializers. Subclassers must call super.setup()
     open func setup() {
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -26,12 +26,17 @@ open class CollectionViewCell: UICollectionViewCell {
         selectedBackgroundView = UIView()
         reset()
         setNeedsLayout()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (cell: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.setNeedsLayout()
+        }
     }
-    
+
     open func reset() {
-        
+
     }
-    
+
     public var labelBackgroundColor: UIColor? {
         didSet {
             updateBackgroundColorOfLabels()
@@ -49,11 +54,11 @@ open class CollectionViewCell: UICollectionViewCell {
 
     // Subclassers should call super
     open func updateBackgroundColorOfLabels() {
-        
+
     }
 
     var isSelectedOrHighlighted: Bool = false
-    
+
     public func updateSelectedOrHighlighted() {
         let newIsSelectedOrHighlighted = isSelected || isHighlighted
         guard newIsSelectedOrHighlighted != isSelectedOrHighlighted else {
@@ -85,46 +90,46 @@ open class CollectionViewCell: UICollectionViewCell {
             updateSelectedOrHighlighted()
         }
     }
-    
+
     open override var isSelected: Bool {
         didSet {
             updateSelectedOrHighlighted()
         }
     }
-    
+
     // Subclassers should override sizeThatFits:apply: instead of layoutSubviews to lay out subviews.
-    // In this method, subclassers should calculate the appropriate layout size and if apply is `true`, 
+    // In this method, subclassers should calculate the appropriate layout size and if apply is `true`,
     // apply the layout to the subviews.
     open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         return size
     }
-    
-    // Subclassers should override updateAccessibilityElements to update any accessibility elements 
+
+    // Subclassers should override updateAccessibilityElements to update any accessibility elements
     // that should be updated after layout. Subclassers must call super.updateAccessibilityElements()
     open func updateAccessibilityElements() {
-        
+
     }
-    
+
     // MARK: - Initializers
     // Don't override these initializers, use setup() instead
-    
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
-    
+
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
-    
+
     // MARK: - Cell lifecycle
-    
+
     open override func prepareForReuse() {
         super.prepareForReuse()
         reset()
     }
-    
+
     // MARK: - Layout
 
     open override func layoutMarginsDidChange() {
@@ -150,11 +155,11 @@ open class CollectionViewCell: UICollectionViewCell {
             }
         #endif
     }
-    
+
     final override public func sizeThatFits(_ size: CGSize) -> CGSize {
         return sizeThatFits(size, apply: false)
     }
-    
+
     final override public func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         if let attributesToFit = layoutAttributes as? ColumnarCollectionViewLayoutAttributes {
             layoutMargins = attributesToFit.layoutMargins
@@ -162,7 +167,7 @@ open class CollectionViewCell: UICollectionViewCell {
                 return attributesToFit
             }
         }
-        
+
         var sizeToFit = layoutAttributes.size
         sizeToFit.height = UIView.noIntrinsicMetric
         var fitSize = self.sizeThatFits(sizeToFit)
@@ -179,20 +184,15 @@ open class CollectionViewCell: UICollectionViewCell {
             return layoutAttributes
         }
     }
-    
+
     // MARK: - Dynamic Type
     // Only applies new fonts if the content size category changes
-    
+
     open override func setNeedsLayout() {
         maybeUpdateFonts(with: traitCollection)
         super.setNeedsLayout()
     }
-    
-    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        setNeedsLayout()
-    }
-    
+
     var contentSizeCategory: UIContentSizeCategory?
     fileprivate func maybeUpdateFonts(with traitCollection: UITraitCollection) {
         guard contentSizeCategory == nil || contentSizeCategory != traitCollection.preferredContentSizeCategory else {
@@ -201,14 +201,14 @@ open class CollectionViewCell: UICollectionViewCell {
         contentSizeCategory = traitCollection.preferredContentSizeCategory
         updateFonts(with: traitCollection)
     }
-    
+
     // Override this method and call super
     open func updateFonts(with traitCollection: UITraitCollection) {
-        
+
     }
-    
+
     // MARK: - Layout Margins
-    
+
     public var layoutMarginsAdditions: UIEdgeInsets = .zero
     public var layoutMarginsInteractiveAdditions: UIEdgeInsets = .zero
     public func layoutWidth(for size: CGSize) -> CGFloat { // layoutWidth doesn't take into account interactive additions

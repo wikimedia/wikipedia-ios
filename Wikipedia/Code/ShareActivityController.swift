@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 @objc(WMFCustomShareActivity)
 class CustomShareActivity: UIActivity {

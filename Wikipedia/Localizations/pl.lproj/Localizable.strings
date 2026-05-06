@@ -181,7 +181,6 @@
 "description-help-title" = "Pomoc w opisie artykułu";
 "description-help-wikidata-guide" = "Przewodnik Wikidata do pisania opisów";
 "description-published-button-title" = "Gotowe";
-"description-published-footer" = "Możesz także edytować artykuły w tej aplikacji. Spróbuj poprawić literówki i małe zdania, klikając ikonę ołówka następnym razem";
 "description-published-subtitle" = "Właśnie sprawiłeś, że Wikipedia jest lepsza dla wszystkich";
 "description-published-title" = "Opis opublikowany!";
 "description-welcome-concise-sub-title" = "Lepsza jedna linia, od dwóch do dwunastu słów";
@@ -232,8 +231,6 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Nie można znaleźć wybranego tekstu";
 "edit-minor-learn-more-text" = "Dowiedz się więcej o drobnych zmianach";
 "edit-minor-text" = "To jest drobna zmiana";
-"edit-published" = "Edycja została opublikowana!";
-"edit-published-subtitle" = "Właśnie sprawiłeś, że Wikipedia jest lepsza dla wszystkich";
 "edit-summary-add-summary-text" = "Dodaj podsumowanie edycji";
 "edit-summary-choice-fixed-grammar" = "Poprawiono pisownię";
 "edit-summary-choice-fixed-typos" = "Poprawiono literówkę";
@@ -508,8 +505,6 @@
 "next-action-title" = "Dalej";
 "no-email-account-alert" = "Skonfiguruj konto e-mail w tym urządzeniu i spróbuj jeszcze raz.";
 "no-internet-connection" = "Brak połączenia z internetem";
-"no-internet-connection-article-reload" = "Nowsza wersja tego artykułu może być dostępna, ale nie można jej załadować bez połączenia z Internetem";
-"no-internet-connection-article-reload-button" = "Wróć do ostatnio zapisanej wersji";
 "not-now-title" = "Nie teraz";
 "notifications-center-agent-description-from-format" = "Od $1";
 "notifications-center-alert" = "Uwaga";
@@ -524,7 +519,6 @@
 "notifications-center-empty-no-messages" = "Nie masz żadnych wiadomości";
 "notifications-center-empty-not-subscribed" = "Obecnie nie subskrybujesz żadnych powiadomień Wikipedii";
 "notifications-center-empty-state-no-projects-selected" = "Dodaj projekty, aby zobaczyć więcej wiadomości";
-"notifications-center-feed-card-title" = "Edytowanie powiadomień jest już dostępne";
 "notifications-center-feed-news-notification-button-text" = "Włącz powiadomienia push";
 "notifications-center-filters-accessibility-label" = "Filtr powiadomień";
 "notifications-center-filters-read-status-item-title-all" = "Wszystkie";
@@ -751,12 +745,6 @@
 "relative-date-minutes-ago-abbreviated" = "$1m temu";
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s temu";
-"replace-buttons-replace-accessibility" = "Zamień pojedyncze wystąpienie";
-"replace-buttons-replace-all-accessibility" = "Zastąp wszystkie wystąpienia";
-"replace-infolabel-method-replace" = "Zamień";
-"replace-infolabel-method-replace-all" = "Zamień wszystkie";
-"replace-textfield-accessibility" = "Zamień";
-"replace-textfield-placeholder" = "Zastąp przez";
 "reverted-edit-title" = "Cofnięto edycję";
 "saved-all-articles-title" = "Wszystkie artykuły";
 "saved-default-reading-list-tag" = "Tej listy nie można usunąć";
@@ -768,7 +756,6 @@
 "search-button-accessibility-label" = "Szukaj w Wikipedii";
 "search-clear-title" = "Wyczyść";
 "search-field-placeholder-text" = "Szukaj w Wikipedii";
-"search-reading-list-placeholder-text" = "Przeszukaj listy do przeczytania";
 "search-recent-clear-confirmation-heading" = "Usunąć wszystkie ostatnie wyszukiwania?";
 "search-recent-clear-confirmation-sub-heading" = "Ta akcja nie może zostać cofnięta!";
 "search-recent-clear-delete-all" = "Usuń wszystko";
@@ -793,11 +780,6 @@
 "settings-notifications-echo-failure-message" = "Wystąpił błąd podczas sprawdzania subskrypcji powiadomień związanych z Twoim kontem.";
 "settings-notifications-echo-failure-title" = "Nie można sprawdzić subskrypcji powiadomień Echo";
 "settings-notifications-echo-failure-try-again" = "Spróbuj ponownie";
-"settings-notifications-info" = "Otrzymuj powiadomienia o popularnych i najczęściej czytanych artykułach w Wikipedii dzięki naszym powiadomieniom push. Wszystko pod warunkiem poszanowania prywatności i najświeższych danych.";
-"settings-notifications-learn-more" = "Dowiedz się więcej o powiadomieniach";
-"settings-notifications-push-notifications" = "Powiadomienia push";
-"settings-notifications-system-turn-on" = "Włączenie powiadomień";
-"settings-notifications-trending" = "Najpopularniejsze aktualne wydarzenia";
 "settings-primary-language" = "Główny";
 "settings-primary-language-details" = "Pierwszy język na tej liście jest używany jako podstawowy język aplikacji.";
 "settings-search-footer-text" = "Ustaw aplikację tak, aby otwierała się na karcie Szukaj zamiast na karcie Eksploruj";
@@ -899,9 +881,6 @@
 "welcome-languages-add-or-edit-button" = "Dodaj lub edytuj preferowane języki";
 "welcome-languages-description" = "Na Twoim urządzeniu znaleźliśmy następujące języki:";
 "welcome-languages-search-title" = "Wyszukuj w ponad 300 językach";
-"welcome-notifications-tell-me-more-creation" = "Powiadomienia są tworzone i dostarczane na Twoje urządzenie przez aplikację, a nie z naszych serwerów (lub stron trzecich).";
-"welcome-notifications-tell-me-more-storage" = "Preferencje powiadomień są przechowywane na urządzeniu i nie są oparte na danych osobowych ani działaniach.";
-"welcome-notifications-tell-me-more-title" = "Więcej o powiadomieniach";
 "widget-onthisday-description" = "Dowiedz się, co wydarzyło się tego dnia w historii.";
 "widget-onthisday-placeholder-article-snippet" = "Bezpłatna encyklopedia online, którą każdy może edytować";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, darmowa encyklopedia treści wiki, jest dostępna online.";

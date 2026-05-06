@@ -105,7 +105,6 @@
 "diff-thanks-send-button-title" = "'Tashakkur' bildirish";
 "edit-menu-item" = "Tahrirlash";
 "edit-minor-text" = "Bu kichik tahrir";
-"edit-published" = "Tahrir chop etildi!";
 "edit-summary-choice-fixed-grammar" = "Grammatikani tuzatdim";
 "edit-summary-choice-fixed-typos" = "Xatoni tuzatdim";
 "edit-summary-choice-linked-words" = "Qoʻshilgan havolalar";
@@ -245,8 +244,6 @@
 "relative-date-hours-ago-abbreviated" = "$1h soat avval";
 "relative-date-hrs-ago" = "{{PLURAL:$1|0=Soʻnggi marta|$1 soat avval}}";
 "relative-date-min-ago" = "{{PLURAL:$1|0=Hozir|$1 daqiqa avval}}";
-"replace-textfield-accessibility" = "Almashtirish";
-"replace-textfield-placeholder" = "Quyidagiga almashtirish:";
 "saved-title" = "Saqlandi";
 "search-button-accessibility-label" = "Vikipediyadan izlash";
 "search-clear-title" = "Tozalash";

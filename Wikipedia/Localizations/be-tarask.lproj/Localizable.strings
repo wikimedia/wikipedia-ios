@@ -96,13 +96,15 @@
 "page-protected-can-not-edit" = "Вы ня маеце правоў рэдагаваць гэтую старонку";
 "page-protected-can-not-edit-title" = "Гэтая старонка абароненая";
 "places-location-enabled" = "Лякацыя ўвамкнёная";
+"places-map-title" = "Мапа";
 "potd-description-prefix" = "Выява дня за $1";
 "potd-empty-error-description" = "Выява дня за $1 не была атрыманая";
 "preference-summary-eventlogging-opt-in" = "Дазволіць фундацыі «Вікімэдыя» зьбіраць інфармацыю пра тое, як вы выкарыстоўваеце праграму, каб палепшыць яе";
 "privacy-policy-title" = "Палітыка прыватнасьці";
 "reading-list-login-or-create-account-button-title" = "Увайсьці або стварыць рахунак";
 "reading-list-sync-enabled-panel-title" = "Сынхранізацыя ўключана на гэтым рахунку";
-"saved-pages-image-download-error" = "Памылка загрузкі выявы для гэтай захаванай старонкі.";
+"reading-themes-controls-accessibility-brightness-slider" = "Паўзунок яркасьці";
+"saved-pages-image-download-error" = "Памылка сьцягваньня выявы для гэтай захаванай старонкі.";
 "saved-title" = "Захаваны";
 "search-field-placeholder-text" = "Пошук па Вікіпэдыі";
 "search-recent-clear-confirmation-heading" = "Выдаліць усе апошнія пошукавыя запыты?";
@@ -113,6 +115,7 @@
 "search-title" = "Пошук";
 "settings-account" = "Рахунак";
 "settings-appearance" = "Тэма праграмы";
+"settings-clear-cache-cancel" = "Скасаваць";
 "settings-title" = "Налады";
 "share-article-name-on-wikipedia" = "«$1» у Вікіпэдыі:";
 "table-of-contents-button-label" = "Зьмест";

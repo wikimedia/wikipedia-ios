@@ -18,9 +18,9 @@ protocol WMFEditorToolbarExpandingViewDelegate: AnyObject {
 }
 
 class WMFEditorToolbarExpandingView: WMFEditorToolbarView {
-    
+
     // MARK: - Nested Types
-    
+
     private enum ActionsType: CGFloat {
         case primary
         case secondary
@@ -41,9 +41,9 @@ class WMFEditorToolbarExpandingView: WMFEditorToolbarView {
             }
         }
     }
-    
+
     // MARK: - Properties
-    
+
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var stackView: UIStackView!
     @IBOutlet weak var primaryContainerView: UIView!
@@ -55,7 +55,7 @@ class WMFEditorToolbarExpandingView: WMFEditorToolbarView {
     @IBOutlet private weak var templateButton: WMFEditorToolbarButton!
     @IBOutlet private weak var imageButton: WMFEditorToolbarButton!
     @IBOutlet private weak var findInPageButton: WMFEditorToolbarButton!
-    
+
     @IBOutlet private weak var unorderedListButton: WMFEditorToolbarButton!
     @IBOutlet private weak var orderedListButton: WMFEditorToolbarButton!
     @IBOutlet private weak var decreaseIndentionButton: WMFEditorToolbarButton!
@@ -64,16 +64,16 @@ class WMFEditorToolbarExpandingView: WMFEditorToolbarView {
     @IBOutlet private weak var cursorDownButton: WMFEditorToolbarButton!
     @IBOutlet private weak var cursorLeftButton: WMFEditorToolbarButton!
     @IBOutlet private weak var cursorRightButton: WMFEditorToolbarButton!
-    
+
     @IBOutlet private weak var expandButton: WMFEditorToolbarNavigatorButton!
-    
+
     weak var delegate: WMFEditorToolbarExpandingViewDelegate?
-    
+
     // MARK: - Lifecycle
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
 
@@ -146,39 +146,38 @@ class WMFEditorToolbarExpandingView: WMFEditorToolbarView {
         cursorRightButton.setImage(WMFSFSymbolIcon.for(symbol: .chevronForward))
         cursorRightButton.addTarget(self, action: #selector(tappedCursorRight), for: .touchUpInside)
         cursorRightButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarCursorNextButtonAccessibility
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WMFSourceEditorSelectionState, object: nil)
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateExpandButtonVisibility()
+        }
     }
-    
-    // MARK: - Overrides
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        updateExpandButtonVisibility()
-    }
-    
+
     // MARK: - Notifications
-    
+
     @objc private func updateButtonSelectionState(_ notification: NSNotification) {
         guard let selectionState = notification.userInfo?[Notification.WMFSourceEditorSelectionStateKey] as? WMFSourceEditorSelectionState else {
             return
         }
-        
+
         templateButton.isSelected = selectionState.isHorizontalTemplate
         referenceButton.isSelected = selectionState.isHorizontalReference
         linkButton.isSelected = selectionState.isSimpleLink
         imageButton.isEnabled = !selectionState.isBold && !selectionState.isItalics && !selectionState.isSimpleLink
-        
+
         unorderedListButton.isSelected = selectionState.isBulletSingleList || selectionState.isBulletMultipleList
         unorderedListButton.isEnabled = !selectionState.isNumberSingleList && !selectionState.isNumberMultipleList
-        
+
         orderedListButton.isSelected = selectionState.isNumberSingleList || selectionState.isNumberMultipleList
         orderedListButton.isEnabled = !selectionState.isBulletSingleList && !selectionState.isBulletMultipleList
-        
+
         decreaseIndentionButton.isEnabled = false
         if selectionState.isBulletMultipleList || selectionState.isNumberMultipleList {
             decreaseIndentionButton.isEnabled = true
         }
-        
+
         if selectionState.isBulletSingleList ||
             selectionState.isBulletMultipleList ||
             selectionState.isNumberSingleList ||
@@ -190,17 +189,17 @@ class WMFEditorToolbarExpandingView: WMFEditorToolbarView {
     }
 
     // MARK: - Button Actions
-    
+
     @objc private func tappedExpand() {
         let generator = UIImpactFeedbackGenerator(style: .light)
         generator.impactOccurred()
         let offsetX = scrollView.contentOffset.x
         let actionsType = ActionsType.next(rawValue: offsetX)
-        
+
         let transform = CGAffineTransform.identity
         let buttonTransform: () -> Void
         let newOffsetX: CGFloat
-        
+
         let sender = expandButton
 
         switch actionsType {
@@ -286,12 +285,12 @@ class WMFEditorToolbarExpandingView: WMFEditorToolbarView {
     @objc private func tappedMedia() {
         delegate?.toolbarExpandingViewDidTapImage(toolbarView: self)
     }
-    
+
     // MARK: - Private Helpers
-    
+
     private func updateExpandButtonVisibility() {
         expandButton.isHidden = traitCollection.horizontalSizeClass == .regular
-        
+
         if expandButton.isHidden {
             accessibilityElements = [formatTextButton as Any, referenceButton as Any, linkButton as Any, templateButton as Any, imageButton as Any, findInPageButton as Any, unorderedListButton as Any, orderedListButton as Any, decreaseIndentionButton as Any, increaseIndentionButton as Any, cursorUpButton as Any, cursorDownButton as Any, cursorLeftButton as Any, cursorRightButton as Any]
             UIAccessibility.post(notification: .screenChanged, argument: formatTextButton)

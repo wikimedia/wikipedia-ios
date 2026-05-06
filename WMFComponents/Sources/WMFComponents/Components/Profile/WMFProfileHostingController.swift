@@ -12,6 +12,11 @@ public class WMFProfileHostingController<HostedView: View>: WMFComponentHostingC
         fatalError("init(coder:) has not been implemented")
     }
     
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        view.accessibilityIdentifier = "Profile View"
+    }
+    
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -21,7 +26,7 @@ public class WMFProfileHostingController<HostedView: View>: WMFComponentHostingC
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: viewModel.localizedStrings.pageTitle, customView: nil, alignment: .leadingLarge)
         
-        let closeConfig = WMFNavigationBarCloseButtonConfig(text: viewModel.localizedStrings.doneButtonTitle, target: self, action: #selector(tappedDone), alignment: .leading)
+        let closeConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(tappedDone), alignment: .leading)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }

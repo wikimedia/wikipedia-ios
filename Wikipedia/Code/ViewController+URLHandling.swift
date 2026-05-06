@@ -26,7 +26,7 @@ extension NSUserActivity {
             let activity = try NSUserActivity.wikipediaActivity(with: url, userInfo: userInfo)
             NotificationCenter.default.post(name: .WMFNavigateToActivity, object: activity)
         } catch let error {
-            WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: false)
+            WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousToasts: false)
         }
     }
     

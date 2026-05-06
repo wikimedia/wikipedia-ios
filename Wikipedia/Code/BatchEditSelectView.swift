@@ -1,4 +1,5 @@
 import UIKit
+import WMFNativeLocalizations
 
 public class BatchEditSelectView: SizeThatFitsView, Themeable {
     public var theme = Theme.standard

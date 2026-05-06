@@ -205,7 +205,6 @@
 "description-help-title" = "راهنمای توضیحات مقاله";
 "description-help-wikidata-guide" = "راهنمای ویکی‌داده برای نوشتن توضیحات";
 "description-published-button-title" = "انجام شد";
-"description-published-footer" = "شما با این نرم‌افزار می‌توانید مقالات را هم ویرایش کنید. با لمس کردن آیکون قلم می‌توانید غلط‌های تایپی، املایی و نوشتاری را برطرف کنید.";
 "description-published-subtitle" = "شما ویکی پدیا را برای همه بهتر کردید";
 "description-published-title" = "توضیحات منتشر شد!";
 "description-welcome-concise-sub-title" = "به طور ایده‌آل یک خط، بین دو تا دوازده واژه";
@@ -315,8 +314,6 @@
 "edit-notices-always-display" = "آگهی‌های ویرایش همیشه نمایش داده شوند";
 "edit-notices-please-read" = "لطفاً پیش از ویرایش، مطالعه کنید";
 "edit-preview-simplified-format-message" = "تمام محتوا در قالب ساده‌شده نمایش یافته است.";
-"edit-published" = "ویرایش منتشر شد";
-"edit-published-subtitle" = "شما ویکی پدیا را برای همه بهتر کردید";
 "edit-show-web-preview" = "مشاهدهٔ پیش‌نمایش وب";
 "edit-summary-add-summary-text" = "خلاصهٔ ویرایش را بنویسید";
 "edit-summary-choice-added-image" = "تصویر افزوده شد";
@@ -620,7 +617,6 @@
 "image-recs-yes-title" = "بله";
 "import-shared-reading-list-default-title" = "فهرست مطالعهٔ من";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "شرکت در نظرسنجی";
-"import-shared-reading-list-survey-prompt-footer" = "$1اظهارنامه حریم خصوصی$2 ما را ببینید. نظرسنجی توسط شخص ثالث پشتیبانی شده است. $3اظهارنامه حریم خصوصی$4 آنان را ببینید.";
 "import-shared-reading-list-survey-prompt-subtitle" = "«فهرست‌های مطالعهٔ اشتراکی» یک ویژگی آزمایشی است و ما برای بهبود یا حذف آن به بازخوردهای شما نیاز داریم.";
 "import-shared-reading-list-survey-prompt-title" = "آیا می‌توانید به ما در بهبود «فهرست‌های مطالعهٔ اشتراکی» کمک کنید؟";
 "import-shared-reading-list-title" = "درون‌ریزی فهرست مطالعهٔ مشترک";
@@ -726,8 +722,6 @@
 "next-action-title" = "بعدی";
 "no-email-account-alert" = "لطفاً یک حساب ایمیل را بر روی دستگاهتان تنظیم کنید و دوباره تلاش کنید.";
 "no-internet-connection" = "عدم اتصال به اینترنت";
-"no-internet-connection-article-reload" = "نسخهٔ جدیدتر این مقاله ممکن است موجود باشد، اما بدون اتصال به اینترنت، قابل دست‌یابی نیست";
-"no-internet-connection-article-reload-button" = "برگشت به آخرین نسخهٔ ذخیره‌شده";
 "not-now-title" = "حالا نه";
 "notifications-center-agent-description-from-format" = "از $1";
 "notifications-center-alert" = "هشدار";
@@ -746,7 +740,6 @@
 "notifications-center-empty-state-filters-subtitle" = "برای مشاهدهٔ پیام‌های بیشتر، $1 را تغییر دهید";
 "notifications-center-empty-state-no-projects-selected" = "برای مشاهدهٔ پیام‌های بیشتر، پروژه‌هایی را اضافه کنید";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 پالایه}}";
-"notifications-center-feed-card-title" = "ویرایش اعلان‌ها اکنون در دسترس است";
 "notifications-center-feed-news-notification-button-text" = "روشن کردن اعلان‌های تشویقی";
 "notifications-center-feed-news-notification-text" = "آگاه‌سازی‌های ویرایشی برای تمامی پروژه‌های ویکی‌مدیا اکنون از طریق نرم‌افزار در دستس هستند. برای این که از پیام‌های خود در ویکی‌پدیا در هر کجا و هر زمان آگاه شوید، اعلان‌های فشاری را فعال کنید.";
 "notifications-center-filters-accessibility-label" = "پالایهٔ اعلان‌ها";
@@ -890,7 +883,6 @@
 "panel-compare-revisions-text" = "مقایسهٔ نسخه‌ها به نمایش چگونگی تغییر یک مقاله در طول زمان کمک می‌کند. مقایسهٔ دو نسخه از یک مقاله، به‌واسطهٔ مشخص‌کردن محتوای تغییریافته تفاوت میان آن نسخه‌ها را نمایش می‌دهد.";
 "panel-compare-revisions-title" = "مقایسه‌کردن نسخه‌ها";
 "panel-not-logged-in-continue-edit-action-title" = "ویرایش بدون ورود به حساب";
-"panel-not-logged-in-subtitle" = "در صورت انجام هرگونه ویرایش، نشانی آی‌پی شما به‌طور عمومی قابل مشاهده خواهد بود. اگر $1وارد سامانه شوید$2 یا $3یک حساب بسازید$4، علاوه بر مزایای دیگر، ویرایش‌های شما نیز به نام کاربری شما منتسب می‌شوند.";
 "panel-not-logged-in-title" = "شما وارد سامانه نشده‌اید";
 "pictured" = "در تصویر";
 "places-accessibility-clear-saved-searches" = "پاک‌کردن جستجوهای ذخیره‌شده";
@@ -1051,15 +1043,6 @@
 "relative-date-seconds-abbreviated" = "$1 ثانیه";
 "relative-date-seconds-ago-abbreviated" = "$1 ثانیه پیش";
 "relative-date-years-ago" = "{{PLURAL:$1|0=امسال|1=پارسال|$1 سال پیش}}";
-"replace-button-accessibility" = "انجام $1.";
-"replace-buttons-replace-accessibility" = "جایگزینی یک مورد";
-"replace-buttons-replace-all-accessibility" = "جایگزینی همهٔ موارد";
-"replace-clear-button-accessibility" = "پاک کردن عبارت جایگزینی";
-"replace-infolabel-method-replace" = "جایگزینی";
-"replace-infolabel-method-replace-all" = "جایگزینی همه";
-"replace-method-button-accessibility" = "شیوهٔ جایگزینی. تنظیم‌شده بر روی $1. انتخاب جهت تغییر.";
-"replace-textfield-accessibility" = "جایگزینی";
-"replace-textfield-placeholder" = "جایگزینی با…";
 "return-button-title" = "بازگشت";
 "return-to-article" = "بازگشت به مقاله";
 "reverted-edit-title" = "ویرایش‌های واگردانی‌شده";
@@ -1076,7 +1059,6 @@
 "search-button-accessibility-label" = "جستجوی ویکی‌پدیا";
 "search-clear-title" = "پاک‌کردن";
 "search-field-placeholder-text" = "جستجوی ویکی‌پدیا";
-"search-reading-list-placeholder-text" = "جستجوی فهرست مطالعه";
 "search-recent-clear-confirmation-heading" = "حذف همهٔ جستجوهای اخیر ؟";
 "search-recent-clear-confirmation-sub-heading" = "این عمل نمی‌تواند برگردانده شود!";
 "search-recent-clear-delete-all" = "حذف همه";
@@ -1105,11 +1087,6 @@
 "settings-notifications-echo-failure-title" = "ناتوان در بررسی اشتراک‌های اعلان اکو";
 "settings-notifications-echo-failure-try-again" = "مجدداً سعی کنید";
 "settings-notifications-header" = "از فعالیت‌های مرتبط با حساب خود نظیر پیام‌هایی از مشارکت‌کنندگان همکار، هشدارها و اعلان‌ها آگاه شوید. تمام این اعلان‌ها با احترام به حریم خصوصی شما و با به‌روزرسانی در هر دقیقه ارائه می‌شوند.";
-"settings-notifications-info" = "با آگاه‌سازی‌های سریع ما، از مقاله‌های پرمخاطب و پربازدیدترین مقاله‌ها در ویکی‌پدیا آگاه شوید. تمام این مقاله‌ها با احترام به حریم خصوصی و با داده‌های به‌روزشده در هر دقیقه فراهم می‌شوند.";
-"settings-notifications-learn-more" = "دربارهٔ آگاه‌سازی‌ها بیشتر یاد بگیرید";
-"settings-notifications-push-notifications" = "اعلان‌های تشویقی";
-"settings-notifications-system-turn-on" = "روشن کردن آگاه‌سازی‌ها";
-"settings-notifications-trending" = "رویدادهای کنونی پرمخاطب";
 "settings-off" = "خاموش";
 "settings-on" = "روشن";
 "settings-primary-language" = "ابتدایی";
@@ -1350,9 +1327,6 @@
 "welcome-languages-add-or-edit-button" = "افزودن یا ویرایش زبان‌های ترجیحی";
 "welcome-languages-description" = "این زبان‌ها را روی دستگاه شما یافتیم:";
 "welcome-languages-search-title" = "جستجو در بیش از ۳۰۰ زبان";
-"welcome-notifications-tell-me-more-creation" = "آگاه‌سازی‌ها توسط نرم‌افزار ایجاد شده و به دستگاه شما ارسال می‌شوند. این آگاه‌سازی‌ها از سرورهای ما (یا شخص ثالث) نمی‌آیند.";
-"welcome-notifications-tell-me-more-storage" = "ترجیحات آگاه‌سازی‌ها بر روی دستگاه ذخیره شده است و بر پایهٔ اطلاعات یا فعالیت‌های شخصی نیست.";
-"welcome-notifications-tell-me-more-title" = "اطلاعات بیشتر دربارهٔ آگاه‌سازی‌ها";
 "welcome-privacy-subtitle" = "باور ما این است که شما نباید برای مشارکت در جنبش دانش آزاد مجبور به ارائهٔ اطلاعات شخصی خود باشید. داده‌های کاربردی جمع‌آوری‌شده برای این اپلیکیشن ناشناس است.";
 "welcome-privacy-terms-button-text" = "در مورد سیاست محرمانگی و شرایط استفادهٔ ما بیشتر بدانید";
 "widget-onthisday-description" = "کنکاش در رویدادهای تاریخی در این روز.";

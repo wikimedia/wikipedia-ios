@@ -35,35 +35,27 @@ public extension WMFNavigationBarHiding where Self:UIViewController {
     ///     - from apply(theme:) if legacy
     ///     - from appEnvironmentDidChange() if WMFComponents
     func themeTopSafeAreaOverlay() {
-        topSafeAreaOverlayView?.backgroundColor =   WMFAppEnvironment.current.theme.paperBackground
+        if #available(iOS 26.0, *) {
+            topSafeAreaOverlayView?.backgroundColor = .clear
+            topSafeAreaOverlayView?.alpha = 1.0
+            return
+        }
+
+        topSafeAreaOverlayView?.backgroundColor = WMFAppEnvironment.current.theme.paperBackground
         topSafeAreaOverlayView?.alpha = 0.95
     }
-    
+
     /// Call from UIViewController when the status bar height might change (like upon rotation)
     func calculateTopSafeAreaOverlayHeight() {
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        let statusBarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
         topSafeAreaOverlayHeightConstraint?.constant = statusBarHeight
     }
-    
-    /// Call from a UIViewController's scrollViewDidScroll method to unstick a hidden navigation bar when scrolled to the top.
+
     func calculateNavigationBarHiddenState(scrollView: UIScrollView) {
         let finalOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
         if finalOffset < 5 && (navigationController?.navigationBar.isHidden ?? true) {
             navigationController?.setNavigationBarHidden(false, animated: true)
         }
     }
-}
 
-private extension UIApplication {
-    var keyWindow: UIWindow? {
-        return UIApplication
-            .shared
-            .connectedScenes
-            .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
-            .last { $0.isKeyWindow }
-    }
-    
-    var statusBarFrame: CGRect {
-        keyWindow?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
-    }
 }

@@ -157,7 +157,6 @@
 "description-help-title" = "Pomoč za opis članka";
 "description-help-wikidata-guide" = "Vodnik Wikipodatkov za pisanje opisov";
 "description-published-button-title" = "Končano";
-"description-published-footer" = "V tej aplikaciji lahko članke tudi urejate. Poskusite naslednjič s klikom ikone svinčnika popravljati tipkarske napake in kratke stavke.";
 "description-published-subtitle" = "Wikipedijo ste pravkar izboljšali za vsakogar";
 "description-published-title" = "Opis objavljen!";
 "description-welcome-concise-sub-title" = "Najboljše ena vrstica, od dve do dvanajst besed";
@@ -259,8 +258,6 @@
 "edit-notices-always-display" = "Vedno prikaži obvestila o urejanju";
 "edit-notices-please-read" = "Prosimo, preberite pred urejanjem";
 "edit-preview-simplified-format-message" = "Vsa vsebina je prikazana v poenostavljeni obliki.";
-"edit-published" = "Uredi objavljeno";
-"edit-published-subtitle" = "Wikipedijo ste pravkar izboljšali za vsakogar";
 "edit-show-web-preview" = "Prikaži spletni predogled";
 "edit-summary-add-summary-text" = "Dodaj povzetek urejanja";
 "edit-summary-choice-fixed-grammar" = "Slovnični popravek";
@@ -532,7 +529,6 @@
 "image-rec-view-article" = "Ogled članka";
 "import-shared-reading-list-default-title" = "Moj bralni seznam";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Izpolni anketo";
-"import-shared-reading-list-survey-prompt-footer" = "Oglejte si našo $1izjavo o zasebnosti$2. Anketo poganja tretja oseba. Oglejte si njen  $3pravilnik o zasebnosti$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "»Deli bralne sezname« je preizkusna možnoste, zato vas prosimo za vaše mnenje, da jo izboljšamo ali odstranimo.";
 "import-shared-reading-list-survey-prompt-title" = "Nam lahko pomagate izboljšati možnost »Deli bralne sezname«?";
 "import-shared-reading-list-title" = "Uvoz skupnega bralnega seznama";
@@ -611,8 +607,6 @@
 "new-password-title" = "Nastavite svoje geslo";
 "no-email-account-alert" = "V svoji napravi nastavite e-poštni račun in poskusite znova.";
 "no-internet-connection" = "Ni internetne povezave";
-"no-internet-connection-article-reload" = "Morda je na voljo novejša redakcija tega članka, vendar je ni mogoče naložiti brez povezave z internetom";
-"no-internet-connection-article-reload-button" = "Nazaj na zadnjo shranjeno redakcijo";
 "not-now-title" = "Ne zdaj";
 "notifications-center-agent-description-from-format" = "Iz $1";
 "notifications-center-alert" = "Opomnik";
@@ -631,7 +625,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Spremenite $1, če želite videti več sporočil";
 "notifications-center-empty-state-no-projects-selected" = "Če želite videti več sporočil, dodajte projekte";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtra|$1 filtri|$1 filtrov}}";
-"notifications-center-feed-card-title" = "Zdaj je na voljo urejanje obvestil";
 "notifications-center-feed-news-notification-button-text" = "Vklopi potisna obvestila";
 "notifications-center-feed-news-notification-text" = "V aplikaciji je zdaj na voljo urejanje obvestil za vse projekte Wikimedie. Prijavite se za potisna obvestila, da boste na tekočem s svojimi sporočili v Wikipediji, ko ste na poti.";
 "notifications-center-filters-accessibility-label" = "Filter obvestil";
@@ -775,7 +768,6 @@
 "panel-compare-revisions-text" = "Primerjava redakcij pomaga prikazati, kako se je članek spreminjal skozi čas. Primerjava dveh redakcij članka bo prikazala razliko med tema redakcijama tako, da bo označena katera koli vsebina, ki je bila spremenjena.";
 "panel-compare-revisions-title" = "Primerjava redakcij";
 "panel-not-logged-in-continue-edit-action-title" = "Urejanje brez prijave";
-"panel-not-logged-in-subtitle" = "Trenutno bo vaš IP-naslov javno viden, če boste opravili kakšno urejanje. Če se boste $1prijavili$2 ali če si boste $3ustvarili račun$4, bodo poleg drugih koristi vaši prispevki pripisani vašemu uporabniškemu imenu.";
 "panel-not-logged-in-title" = "Niste prijavljeni";
 "pictured" = "na sliki";
 "places-accessibility-clear-saved-searches" = "Počisti shranjena iskanja";
@@ -925,15 +917,6 @@
 "relative-date-seconds-abbreviated" = "$1 s";
 "relative-date-seconds-ago-abbreviated" = "Pred $1 s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Letos|1=Lani|Pred $1 letoma|Pred $1 leti}}";
-"replace-button-accessibility" = "Izvedi $1.";
-"replace-buttons-replace-accessibility" = "Zamenjaj eno pojavitev";
-"replace-buttons-replace-all-accessibility" = "Zamenjaj vse pojavitve";
-"replace-clear-button-accessibility" = "Počisti zamenjavo";
-"replace-infolabel-method-replace" = "Zamenjaj";
-"replace-infolabel-method-replace-all" = "Zamenjaj vse";
-"replace-method-button-accessibility" = "Metoda zamenjave. Nastavljena na $1. Izberite za spremembo.";
-"replace-textfield-accessibility" = "Zamenjaj";
-"replace-textfield-placeholder" = "Zamenjaj z/s ...";
 "return-button-title" = "Vrnitev";
 "return-to-article" = "Nazaj na članek";
 "reverted-edit-title" = "Vrnjeno urejanje";
@@ -949,7 +932,6 @@
 "search-button-accessibility-label" = "Preišči Wikipedijo";
 "search-clear-title" = "Počisti";
 "search-field-placeholder-text" = "Preiščite Wikipedijo";
-"search-reading-list-placeholder-text" = "Proiščite bralni seznam";
 "search-recent-clear-confirmation-heading" = "Želite izbrisati vsa nedavna iskanja?";
 "search-recent-clear-confirmation-sub-heading" = "Tega dejanja ni mogoče razveljaviti!";
 "search-recent-clear-delete-all" = "izbriši vse";
@@ -977,11 +959,6 @@
 "settings-notifications-echo-failure-title" = "Ni mogoče preveriti naročil na obvestila Echo";
 "settings-notifications-echo-failure-try-again" = "Poskusite znova";
 "settings-notifications-header" = "Bodite opozorjeni na dejavnosti, povezane z vašim računom, kot so sporočila sodelujočih, opomniki in obvestila. Vse se zagotavlja ob upoštevanju zasebnosti in s sprotnimi podatki.";
-"settings-notifications-info" = "Bodite z našimi potisnimi obvestili opozorjeni na priljubljene in najbolj brane članke v Wikipediji. Vse se zagotavlja ob upoštevanju zasebnosti in s sprotnimi podatki.";
-"settings-notifications-learn-more" = "Več o obvestilih";
-"settings-notifications-push-notifications" = "Potisna obvestila";
-"settings-notifications-system-turn-on" = "Vklopi obvestila";
-"settings-notifications-trending" = "Aktualni dogodki v ospredju";
 "settings-primary-language" = "Osnovni";
 "settings-primary-language-details" = "Prvi jezik na tem seznamu se uporablja kot osnovni jezik aplikacije.";
 "settings-search-footer-text" = "Nastavite aplikacijo tako, da se odpre na zavihku Iskanje namesto na zavihku Raziskuj";
@@ -1210,9 +1187,6 @@
 "welcome-languages-add-or-edit-button" = "Dodajte ali uredite želene jezike";
 "welcome-languages-description" = "V vaši napravi smo našli naslednje jezike:";
 "welcome-languages-search-title" = "Iščite v več kot 300 jezikih";
-"welcome-notifications-tell-me-more-creation" = "Obvestila ustvarja in dostavlja v vašo napravo aplikacija, ne pa naši strežniki (ali strežniki tretjih oseb).";
-"welcome-notifications-tell-me-more-storage" = "Nastavitve obvestil so shranjene v napravi in ne temeljijo na osebnih podatkih ali dejavnosti.";
-"welcome-notifications-tell-me-more-title" = "Več o obvestilih";
 "welcome-privacy-subtitle" = "Menimo, da vam za sodelovanje v gibanju prostega znanja ne bi smelo biti potrebno posredovati osebnih podatkov. Podatki o uporabi, zbrani za to aplikacijo, so anonimni.";
 "welcome-privacy-terms-button-text" = "Seznanite se podrobneje z našim pravilnikom o zasebnosti in pogoji uporabe";
 "widget-onthisday-description" = "Raziščite, kaj se je v zgodovini zgodilo na današnji dan.";

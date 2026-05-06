@@ -12,4 +12,12 @@ extension UIView {
         return superview as? T ?? superview.flatMap { $0.wmf_firstSuperviewOfType(type) }
     }
 
+    /// Recursively searches the view hierarchy for the first descendant of the given type.
+    func firstDescendant<T>(ofType type: T.Type) -> T? {
+        for subview in subviews {
+            if let match = subview as? T { return match }
+            if let match = subview.firstDescendant(ofType: type) { return match }
+        }
+        return nil
+    }
 }

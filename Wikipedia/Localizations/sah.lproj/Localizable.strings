@@ -300,11 +300,6 @@
 "settings-my-languages" = "Мин тылларым";
 // Fuzzy
 "settings-notifications" = "Биллэриилэр";
-"settings-notifications-info" = "Бикипиэдьийэҕэ суруллар саҥаны-сонуну биһиги угуйар биллэриилэрбититтэн тута билиҥ. Маны туһанар киһи тус дааннайа толору көмүскэллээх.";
-"settings-notifications-learn-more" = "Биллэрии туһунан сиһилии";
-"settings-notifications-push-notifications" = "Push-биллэриилэр";
-"settings-notifications-system-turn-on" = "Биллэриилэри холбоо";
-"settings-notifications-trending" = "Буола турары билэ сырыт";
 "settings-primary-language" = "Сүрүн";
 // Fuzzy
 "settings-primary-language-details" = "Бу тиһиликкэ бастакыннан ааттаммыт тыл дьибилгэт сүрүн тылын быһыытынан туттуллар. Бу тылы уларыттаххына Эйиэхэ күн аайы көрдөрүллэр уларыйан сөп (холобура Бастыҥ ыстатыйа).";
@@ -326,9 +321,6 @@
 "welcome-explore-new-ways-title" = "Чинчийии саҥа ньымалара";
 "welcome-explore-tell-me-more-done-button" = "Бу өйдөнөр";
 "welcome-languages-add-button" = "Атын тылла эп";
-"welcome-notifications-tell-me-more-creation" = "Биллэриилэр бэйэҥ тэрилгэр оҥоһуллаллар, биһиги (биитэр атын) сиэрбэрбитигэр буолбатах.";
-"welcome-notifications-tell-me-more-storage" = "Биллэриилэр тэрилгэр харалла сылдьыахтара уонна тус бэйэҕиттэн биитэр тугу гынаргыттан тутулуга суох буолуохтара.";
-"welcome-notifications-tell-me-more-title" = "Биллэрии туһунан сиһилии";
 "wikitext-preview-changes" = "Оҥорбут уларытыыны эрдэ көрүүнү ылыы...";
 "wikitext-preview-link-preview-description" = "Бу сигэ $1' тириэрдэр.";
 "wikitext-preview-link-preview-title" = "Сигэни көрүөх иннинэ";

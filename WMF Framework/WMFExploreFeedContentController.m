@@ -415,7 +415,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     static NSSet *customizableContentGroupKindNumbers;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        customizableContentGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindFeaturedArticle), @(WMFContentGroupKindNews), @(WMFContentGroupKindTopRead), @(WMFContentGroupKindOnThisDay), @(WMFContentGroupKindLocation), @(WMFContentGroupKindLocationPlaceholder), @(WMFContentGroupKindRandom), @(WMFContentGroupKindNotification)]];
+        customizableContentGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindFeaturedArticle), @(WMFContentGroupKindNews), @(WMFContentGroupKindTopRead), @(WMFContentGroupKindOnThisDay), @(WMFContentGroupKindLocation), @(WMFContentGroupKindLocationPlaceholder), @(WMFContentGroupKindRandom)]];
     });
     return customizableContentGroupKindNumbers;
 }
@@ -716,11 +716,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
         // Skip collapsed cards, let them be visible
         if (contentGroup.undoType != WMFContentGroupUndoTypeNone) {
-            continue;
-        }
-        
-        // Do not let preferences affect the notifications card
-        if (contentGroup.contentGroupKind == WMFContentGroupKindNotification) {
             continue;
         }
         

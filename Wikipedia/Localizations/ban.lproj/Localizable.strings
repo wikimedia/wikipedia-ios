@@ -192,7 +192,6 @@
 "edit-menu-item" = "Uah";
 "edit-minor-text" = "Puniki uahan alit";
 "edit-notices" = "Panguningan uahan";
-"edit-published" = "Uahan kawedar";
 "edit-show-web-preview" = "Sinahang pracingak wéb";
 "edit-summary-add-summary-text" = "Wewehin ringkesan uahan";
 "edit-summary-choice-added-image" = "Gambar kawewehin";
@@ -430,8 +429,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s sané ungkur";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Warsa mangkin|1=Awarsa ungkur|$1 warsa ungkur}}";
-"replace-buttons-replace-all-accessibility" = "Gentos makasami conto";
-"replace-infolabel-method-replace-all" = "Gentos makasami";
 "saved-all-articles-title" = "Makasami suratan";
 "search-button-accessibility-label" = "Rereh Wikipédia";
 "search-field-placeholder-text" = "Rereh Wikipédia";

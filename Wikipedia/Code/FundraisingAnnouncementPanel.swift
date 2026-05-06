@@ -70,3 +70,24 @@ final class FundraisingAnnouncementPanelViewController: ScrollableEducationPanel
     }
 
 }
+
+extension UIViewController {
+
+    func wmf_showFundraisingAnnouncement(theme: Theme, asset: WMFFundraisingCampaignConfig.WMFAsset, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, showMaybeLater: Bool) {
+
+        let alert = FundraisingAnnouncementPanelViewController(announcement: asset, theme: theme, showOptionalButton: showMaybeLater, primaryButtonTapHandler: { button, viewController in
+            primaryButtonTapHandler?(button, viewController)
+        }, secondaryButtonTapHandler: { button, viewController in
+            secondaryButtonTapHandler?(button, viewController)
+            self.dismiss(animated: true)
+        }, optionalButtonTapHandler: { button, viewController in
+            optionalButtonTapHandler?(button, viewController)
+            self.dismiss(animated: true)
+        }, traceableDismissHandler: { lastAction in
+            traceableDismissHandler?(lastAction)
+        }, footerLinkAction: footerLinkAction)
+
+        present(alert, animated: true)
+    }
+
+}

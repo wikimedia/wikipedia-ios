@@ -192,7 +192,6 @@
 "description-help-title" = "Hjelp for artikkelbeskrivelser";
 "description-help-wikidata-guide" = "Guide på Wikidata om å skrive beskrivelser";
 "description-published-button-title" = "Ferdig";
-"description-published-footer" = "Du også redigere artikler i denne appen. Prøv gjerne å fikse skrivefeil eller andre mindre endringer ved å trykke på blyantikonet neste gang.";
 "description-published-subtitle" = "Du har nettopp gjort Wikipedia bedre for alle";
 "description-published-title" = "Beskrivelse publisert!";
 "description-welcome-concise-sub-title" = "Helst én linje, mellom to og tolv ord";
@@ -295,8 +294,6 @@
 "edit-notices-always-display" = "Vis alltid redigeringsvarsler";
 "edit-notices-please-read" = "Vennligst les før du redigerer";
 "edit-preview-simplified-format-message" = "Alt innhold vises i et forenklet format.";
-"edit-published" = "Redigering publisert";
-"edit-published-subtitle" = "Du gjorde nettopp Wikipedia bedre for alle";
 "edit-show-web-preview" = "Vis webforhåndsvisning";
 "edit-summary-add-summary-text" = "Legg til en redigeringsforklaring";
 "edit-summary-choice-added-image" = "La til bilde";
@@ -595,7 +592,6 @@
 "image-recs-yes-title" = "Ja";
 "import-shared-reading-list-default-title" = "Min leseliste";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Ta undersøkelsen";
-"import-shared-reading-list-survey-prompt-footer" = "Les $1personvernserklæringen vår$2. Undersøkelsen utføres hos en tredjepart. Se $3personvernspolitikken deres$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "«Del leselister» er en testfunksjon, og vi trenger tilbakemelding fra brukerne for å forbedre eller fjerne den.";
 "import-shared-reading-list-survey-prompt-title" = "Kan du hjelpe oss å forbedre «Del leselister»?";
 "import-shared-reading-list-title" = "Importer delt leseliste";
@@ -680,8 +676,6 @@
 "next-action-title" = "Neste";
 "no-email-account-alert" = "Legg til en epostkonto på enheten din og prøv igjen.";
 "no-internet-connection" = "Ingen internettforbindelse";
-"no-internet-connection-article-reload" = "Det kan hende at en nyere versjon av denne artikkelen er tilgjengelig, men en fungerende internettforbindelse trengs for å kunne sjekke";
-"no-internet-connection-article-reload-button" = "Tilbake til sist lagrede versjon";
 "not-now-title" = "Ikke nå";
 "notifications-center-agent-description-from-format" = "Fra $1";
 "notifications-center-alert" = "Varsel";
@@ -700,7 +694,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Endre $1 for å se flere meldinger";
 "notifications-center-empty-state-no-projects-selected" = "Legg til prosjekter for å se flere beskjeder";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtre}}";
-"notifications-center-feed-card-title" = "Redigeringsvarsler er nå tilgjengelige";
 "notifications-center-feed-news-notification-button-text" = "Slå på pushvarsler";
 "notifications-center-feed-news-notification-text" = "Redigeringsvarsler for alle Wikimedia-prosjekter er nå tilgjengelige via appen. Slå på pushvarsler for å holde deg oppdatert mens du er i farta.";
 "notifications-center-filters-accessibility-label" = "Varselfilter";
@@ -843,7 +836,6 @@
 "panel-compare-revisions-text" = "Ved å sammenligne revisjoner kan man se hvordan en artikkel har endret seg over tid. Man vil se forskjellen mellom revisjonene ved at innhold som er forskjellig markeres.";
 "panel-compare-revisions-title" = "Sammenligner revisjoner";
 "panel-not-logged-in-continue-edit-action-title" = "Rediger uten å logge inn";
-"panel-not-logged-in-subtitle" = "IP-adressa di vil være synlig offentlig hvis du gjør redigeringer. Hvis du $1logger inn$2 eller $3oppretter en konto$4 vil redigeringene dine bli tilskrevet brukernavnet ditt, samt at du får andre fordeler i tillegg.";
 "panel-not-logged-in-title" = "Du er ikke logget inn";
 "percentile-0.01" = "0,01";
 "pictured" = "bildet";
@@ -992,15 +984,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "for $1s siden";
 "relative-date-years-ago" = "{{PLURAL:$1|0=I år|1=I fjor|For $1 år siden}}";
-"replace-button-accessibility" = "Utfør $1.";
-"replace-buttons-replace-accessibility" = "Erstatt enkeltforekomst";
-"replace-buttons-replace-all-accessibility" = "Erstatt alle forekomster";
-"replace-clear-button-accessibility" = "Tøm erstatt-feltet";
-"replace-infolabel-method-replace" = "Erstatt";
-"replace-infolabel-method-replace-all" = "Erstatt alle";
-"replace-method-button-accessibility" = "Erstatningsmetode. Satt til $1. Velg for å endre.";
-"replace-textfield-accessibility" = "Erstatt";
-"replace-textfield-placeholder" = "Erstatt med…";
 "return-button-title" = "Tilbake";
 "return-to-article" = "Tilbake til artikkel";
 "reverted-edit-title" = "Tilbakestilt redigering";
@@ -1016,7 +999,6 @@
 "search-button-accessibility-label" = "Søk i Wikipedia";
 "search-clear-title" = "Tøm";
 "search-field-placeholder-text" = "Søk i Wikipedia";
-"search-reading-list-placeholder-text" = "Søk i leseliste";
 "search-recent-clear-confirmation-heading" = "Slette alle nylige søk?";
 "search-recent-clear-confirmation-sub-heading" = "Handlingen kan ikke omgjøres!";
 "search-recent-clear-delete-all" = "Slett alt";
@@ -1043,11 +1025,6 @@
 "settings-notifications-echo-failure-title" = "Kunne ikke sjekke abonnementer for Echo-varsler";
 "settings-notifications-echo-failure-try-again" = "Prøv igjen";
 "settings-notifications-header" = "Bli varslet om aktiviteter som angår kontoen din, som f.eks. meldinger fra andre bidragsytere. Alt gis med hensyn til personvern og oppdaterte data.";
-"settings-notifications-info" = "Bli tipset om populære og mye leste artikler på Wikipedia med push-varsler.";
-"settings-notifications-learn-more" = "Lær mer om varsler";
-"settings-notifications-push-notifications" = "Pushvarslinger";
-"settings-notifications-system-turn-on" = "Slå på varsler";
-"settings-notifications-trending" = "Populære aktuelle hendelser";
 "settings-primary-language" = "Primær";
 "settings-primary-language-details" = "Det første språket i denne lista brukes som primærspråk for appen.";
 "settings-search-footer-text" = "Still inn appen til å starte i søkefanen i stedet for utforskingsfanen";
@@ -1282,9 +1259,6 @@
 "welcome-languages-add-or-edit-button" = "Legg til eller rediger foretrukne språk";
 "welcome-languages-description" = "Språk funnet på enheten din:";
 "welcome-languages-search-title" = "Søk på over 300 språk";
-"welcome-notifications-tell-me-more-creation" = "Varslinger lages på enheten din av appen, de leveres ikke fra våre (eller tredjeparters) servere.";
-"welcome-notifications-tell-me-more-storage" = "Innstillinger for notifikasjoner lagres på enheten og er ikke basert på personlige informasjoner eller aktivitet.";
-"welcome-notifications-tell-me-more-title" = "Mer om varslinger";
 "welcome-privacy-subtitle" = "Vi mener at du ikke skal måtte oppgi personlig informasjon for å delta i bevegelsen for fri kunnskap. Bruksdata som samles inn for denne appen er anonyme.";
 "welcome-privacy-terms-button-text" = "Lær mer om personvernspolitikken vår og bruksvilkårene våre.";
 "widget-onthisday-description" = "Finn ut hva som skjedde på denne datoen i historien.";

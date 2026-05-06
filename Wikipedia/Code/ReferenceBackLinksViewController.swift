@@ -69,11 +69,6 @@ class ReferenceBackLinksViewController: ReferenceViewController {
         }
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        countLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
-    }
-    
     // MARK: View Lifecycle
     
     override func loadView() {
@@ -90,6 +85,11 @@ class ReferenceBackLinksViewController: ReferenceViewController {
         nextButton.isAccessibilityElement = true
         previousButton.isAccessibilityElement = true
         accessibilityElements = [backToReferenceButton as Any, navigationItem.title as Any, closeButton as Any, countLabel as Any, previousButton as Any, nextButton as Any]
+        
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.countLabel.font = WMFFont.for(.footnote, compatibleWith: self.traitCollection)
+        }
     }
     
     // MARK: Actions

@@ -2,6 +2,7 @@ import SwiftUI
 import WMF
 import WMFComponents
 import WMFData
+import WMFNativeLocalizations
 
 struct EditorChanges {
     let newRevisionID: UInt64
@@ -47,7 +48,7 @@ public enum AuthState: Int {
 }
 
 class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDelegate, UIScrollViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate, WMFNavigationBarConfiguring {
-    
+
     struct SaveData {
         let summmaryText: String
         let isMinorEdit: Bool
@@ -62,7 +63,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var dataStore: MWKDataStore?
     var source: EditorViewController.Source?
     var authState: AuthState? = nil
-    
+
     var wikitext = ""
     var theme: Theme = .standard
     var needsWebPreviewButton: Bool = false
@@ -92,7 +93,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     @IBOutlet public var addToWatchlistToggle: UISwitch!
 
     @IBOutlet public var addToWatchlistStackView: UIStackView!
-    
+
     @IBOutlet weak var stackView: UIStackView!
 
     @IBOutlet private var scrollContainer: UIView!
@@ -151,7 +152,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
     private func updateNavigation(for mode: NavigationMode) {
         var forwardButton: UIBarButtonItem?
-        
+
         switch mode {
         case .wikitext:
             forwardButton = buttonNext
@@ -166,13 +167,13 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
         navigationItem.rightBarButtonItem = forwardButton
     }
-    
+
     private func tappedBack() {
         imageRecLoggingDelegate?.logEditSaveViewControllerDidTapBack()
-        
+
         delegate?.editSaveViewControllerWillCancel(SaveData(summmaryText: summaryText, isMinorEdit: minorEditToggle.isOn, shouldAddToWatchList: addToWatchlistToggle.isOn))
     }
-    
+
     @objc private func goForward() {
         switch mode {
         case .abuseFilterWarning:
@@ -183,7 +184,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             save()
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -193,9 +194,9 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         for dividerHeightContraint in dividerHeightConstraits {
             dividerHeightContraint.constant = 1.0 / UIScreen.main.scale
         }
-        
+
         let isPermanent = dataStore?.authenticationManager.authStateIsPermanent ?? false
-        
+
         if !isPermanent {
             addToWatchlistStackView.isHidden = true
         }
@@ -218,24 +219,29 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         if isPermanent {
             licenseLoginTextView.isHidden = true
         }
-        
+
         if let savedData = savedData {
             vc.updateInputText(to: savedData.summmaryText)
             minorEditToggle.isOn = savedData.isMinorEdit
             addToWatchlistToggle.isOn = savedData.shouldAddToWatchList
         }
-        
+
         addToWatchlistToggle.addTarget(self, action: #selector(toggledWatchlist), for: .valueChanged)
         fetchWatchlistStatusAndUpdateToggle()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateTextViews()
+        }
 
         Task {
             wikiHasTempAccounts = await checkWikiStatus()
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         configureNavigationBar()
     }
 
@@ -252,47 +258,69 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 let format = CommonStrings.saveViewTempAccountNotice
                 let username = dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
                 let title = String.localizedStringWithFormat(format, username)
-                let image = UIImage(systemName: "exclamationmark.circle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                let image = WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill)
+                WMFToastManager.sharedInstance.showRichToast(
                     title,
                     subtitle: nil,
-                    image: image,
-                    type: .custom,
-                    customTypeName: "edit-published",
-                    dismissPreviousAlerts: true,
                     buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
+                    image: image,
+                    dismissPreviousToasts: true,
                     buttonCallBack: {
-                        guard let navigationController = self.navigationController else { return }
-                        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, didTapDone: { [weak self] in
-                            self?.dismiss(animated: true)
-                        }, didTapContinue: { [weak self] in
-                            self?.dismiss(animated: true)
-                        }, isTempAccount: true)
+                        Task { @MainActor in
+                            guard let navigationController = self.navigationController else { return }
+                            let tempAccountSheetCoordinator = TempAccountSheetCoordinator(
+                                navigationController: navigationController,
+                                theme: self.theme,
+                                dataStore: dataStore,
+                                didTapDone: { [weak self] in
+                                    Task { @MainActor in
+                                        self?.dismiss(animated: true)
+                                    }
+                                },
+                                didTapContinue: { [weak self] in
+                                    Task { @MainActor in
+                                        self?.dismiss(animated: true)
+                                    }
+                                },
+                                isTempAccount: true
+                            )
 
-                        _ = tempAccountSheetCoordinator.start()
+                            _ = tempAccountSheetCoordinator.start()
+                        }
                     }
                 )
             } else {
                 // Warning
                 let title = CommonStrings.saveViewTempAccountWarning
-                let image = UIImage(systemName: "exclamationmark.triangle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                let image = WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill)
+                WMFToastManager.sharedInstance.showRichToast(
                     title,
                     subtitle: nil,
-                    image: image,
-                    type: .custom,
-                    customTypeName: "edit-published",
-                    dismissPreviousAlerts: true,
                     buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
+                    image: image,
+                    dismissPreviousToasts: true,
                     buttonCallBack: {
-                        guard let navigationController = self.navigationController else { return }
-                        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, didTapDone: { [weak self] in
-                            self?.dismiss(animated: true)
-                        }, didTapContinue: { [weak self] in
-                            self?.dismiss(animated: true)
-                        }, isTempAccount: false)
+                        Task { @MainActor in
+                            guard let navigationController = self.navigationController else { return }
+                            let tempAccountSheetCoordinator = TempAccountSheetCoordinator(
+                                navigationController: navigationController,
+                                theme: self.theme,
+                                dataStore: dataStore,
+                                didTapDone: { [weak self] in
+                                    Task { @MainActor in
+                                        self?.dismiss(animated: true)
+                                    }
+                                },
+                                didTapContinue: { [weak self] in
+                                    Task { @MainActor in
+                                        self?.dismiss(animated: true)
+                                    }
+                                },
+                                isTempAccount: false
+                            )
 
-                        _ = tempAccountSheetCoordinator.start()
+                            _ = tempAccountSheetCoordinator.start()
+                        }
                     }
                 )
             }
@@ -314,7 +342,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         licenseTitleTextView.semanticContentAttribute = semanticContentAttibute
         licenseTitleTextView.textAlignment = semanticContentAttibute == .forceRightToLeft ? .right : .left
     }
-    
+
     @objc private func toggledWatchlist() {
         imageRecLoggingDelegate?.logEditSaveViewControllerDidToggleWatchlist(isOn: addToWatchlistToggle.isOn)
     }
@@ -332,14 +360,14 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
         setupWebPreviewButton()
     }
-    
+
     private func setupWebPreviewButton() {
-        
+
         guard needsWebPreviewButton else {
             showWebPreviewContainerView.isHidden = true
             return
         }
-        
+
         let configuration = WMFSmallButton.Configuration(style: .quiet)
         let rootView = WMFSmallButton(configuration: configuration, title: WMFLocalizedString("edit-show-web-preview", languageCode: languageCode, value: "Show web preview", comment: "Title of button that will show a web preview of the edit.")) { [weak self] in
             self?.delegate?.editSaveViewControllerDidTapShowWebPreview()
@@ -349,17 +377,17 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
          showWebPreviewButtonHostingController.view.translatesAutoresizingMaskIntoConstraints = false
         showWebPreviewButtonHostingController.view.backgroundColor = .clear
          self.showWebPreviewButtonHostingController = showWebPreviewButtonHostingController
-         
+
          addChild(showWebPreviewButtonHostingController)
          showWebPreviewContainerView.addSubview(showWebPreviewButtonHostingController.view)
-         
+
         showWebPreviewContainerView.addConstraints([
             showWebPreviewContainerView.topAnchor.constraint(equalTo: showWebPreviewButtonHostingController.view.topAnchor),
             showWebPreviewContainerView.bottomAnchor.constraint(equalTo: showWebPreviewButtonHostingController.view.topAnchor),
             showWebPreviewContainerView.trailingAnchor.constraint(equalTo: showWebPreviewButtonHostingController.view.trailingAnchor)
         ])
     }
-    
+
     private func fetchWatchlistStatusAndUpdateToggle() {
         guard let siteURL = pageURL?.wmf_site,
            let project = WikimediaProject(siteURL: siteURL)?.wmfProject,
@@ -368,7 +396,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: false) else {
             return
         }
-        
+
         let dataController = WMFArticleDataController()
 
         dataController.fetchArticleInfo(title: title, project: project, request: request) { [weak self] result in
@@ -390,23 +418,18 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateTextViews()
-    }
-    
     private func updateTextViews() {
         licenseTitleTextView.textContainerInset = .zero
         licenseLoginTextView.textContainerInset = .zero
         licenseTitleTextView.textContainer.lineFragmentPadding = 0
         licenseLoginTextView.textContainer.lineFragmentPadding = 0
-        
+
         licenseTitleTextView.attributedText = licenseTitleTextViewAttributedString
         licenseLoginTextView.attributedText = licenseLoginTextViewAttributedString
         applyThemeToTextViews()
         setupSemanticContentAttibute()
     }
-    
+
     @IBAction public func licenseLoginLabelTapped(_ recognizer: UIGestureRecognizer?) {
         if recognizer?.state == .ended {
             guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
@@ -418,15 +441,15 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             present(WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .overFullScreen), animated: true)
         }
     }
-    
+
     private func highlightCaptchaSubmitButton(_ highlight: Bool) {
         buttonSave?.isEnabled = highlight
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        WMFAlertManager.sharedInstance.dismissAlert()
+        WMFToastManager.sharedInstance.dismissCurrentToast()
         super.viewWillDisappear(animated)
-        
+
         if isMovingFromParent {
             tappedBack()
         }
@@ -441,48 +464,48 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 authState = .ipAccount
             }
         }
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-upload-save", value: "Publishing...", comment: "Alert text shown when changes to section wikitext are being published {{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-        
+        WMFToastManager.sharedInstance.showToast(WMFLocalizedString("wikitext-upload-save", value: "Publishing...", comment: "Alert text shown when changes to section wikitext are being published {{Identical|Publishing}}"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+
         guard let editURL = pageURL else {
             assertionFailure("Could not get url of section to be edited")
             return
         }
-        
+
         let isMinor = minorEditToggle.isOn
         let isWatched = addToWatchlistToggle.isOn
-        
+
         if let source,
            let pageURL,
         let project = WikimediaProject(siteURL: pageURL) {
             let summaryAdded = !summaryText.isEmpty
-            
+
             editorLoggingDelegate?.logEditSaveViewControllerDidTapPublish(source: source, summaryAdded: summaryAdded, isMinor: isMinor, isWatched: isWatched, project: project)
-            
+
         }
-        
+
         imageRecLoggingDelegate?.logEditSaveViewControllerDidTapPublish(minorEditEnabled: isMinor, watchlistEnabled: isWatched)
-        
+
         EditAttemptFunnel.shared.logSaveAttempt(pageURL: editURL)
-        
+
         let section: String?
         if let sectionID {
             section = "\(sectionID)"
         } else {
             section = nil
         }
-        
+
         guard !needsSuppressPosting else {
             let result = ["newrevid": UInt64(0)]
             self.handleEditSuccess(with: result)
             return
         }
-        
+
         let editTagStrings = editTags?.map { $0.rawValue }
-        
+
         wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: section, summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.classicInfo?.captchaID, captchaWord: captchaViewController?.solution, editTags: editTagStrings, completion: { (result, error) in
-            
+
             DispatchQueue.main.async {
-                
+
                 if let error = error {
                     self.handleEditFailure(with: error)
                     return
@@ -496,7 +519,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         })
 
     }
-    
+
     private func handleEditSuccess(with result: [AnyHashable: Any]) {
         var needsNewTempAccountToast = false
         guard let dataStore else { return }
@@ -519,49 +542,49 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             }
             return
         }
-        
+
         let completion: (UInt64) -> Void = { [weak self] newRevID in
-            
+
             guard let self else {
                 return
             }
-            
+
             DispatchQueue.main.async {
-                
+
                 if let pageURL = self.pageURL,
                    let project = WikimediaProject(siteURL: pageURL) {
-                    
+
                     if let source = self.source {
                         self.editorLoggingDelegate?.logEditSaveViewControllerPublishSuccess(source: source, revisionID: newRevID, project: project)
                     }
-                    
+
                     EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: Int(newRevID), project: WikimediaProject(siteURL: pageURL))
 
                 }
-                
+
                 self.imageRecLoggingDelegate?.logEditSaveViewControllerPublishSuccess(revisionID: Int(newRevID), summaryAdded: !self.summaryText.isEmpty)
-                
+
                 notifyDelegate(.success(EditorChanges(newRevisionID: newRevID)))
             }
         }
-        
+
         completion(newRevID)
     }
-    
+
     private func handleEditFailure(with error: Error) {
         let nsError = error as NSError
         let errorType = WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) ?? .unknown
 
         var problemSource: EditInteractionFunnel.ProblemSource?
-        
+
         switch errorType {
         case .needsCaptcha:
             guard let captchaUrl = URL(string: nsError.userInfo["captchaUrl"] as? String ?? "") else {
                 return
             }
-            
+
             let captchaId = nsError.userInfo["captchaId"] as? String ?? ""
-            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
             let classicInfo = WMFCaptcha.ClassicInfo(captchaID: captchaId, captchaURL: captchaUrl)
             captchaViewController?.captcha = WMFCaptcha(classicInfo: classicInfo, hCaptchaInfo: nil)
             mode = .captcha
@@ -572,92 +595,92 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             problemSource = .needsCaptcha
         case .abuseFilterDisallowed, .abuseFilterWarning, .abuseFilterOther:
             wmf_hideKeyboard()
-            WMFAlertManager.sharedInstance.dismissAlert() // Hide "Publishing..."
-            
+            WMFToastManager.sharedInstance.dismissCurrentToast() // Hide "Publishing..."
+
             guard let displayError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError,
                   let currentTitle = pageURL?.wmf_title else {
                 return
             }
-            
+
             if errorType == .abuseFilterDisallowed {
                 mode = .abuseFilterDisallow
                 abuseFilterCode = displayError.code
 
                 wmf_showAbuseFilterDisallowPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: false)
-                
+
                 problemSource = .abuseFilterBlocked
             } else {
                 mode = .abuseFilterWarning
                 abuseFilterCode = displayError.code
-                
-                wmf_showAbuseFilterWarningPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: false, publishAnywayTapHandler: { [weak self] _, _ in
-                    
+
+                wmf_showAbuseFilterWarningPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: false, publishAnywayTapHandler: { [weak self] in
+
                     self?.dismiss(animated: true) {
                         self?.save()
                     }
-                    
+
                 })
-                
+
                 problemSource = .abuseFilterWarned
             }
-            
+
         case .server:
-            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             problemSource = .serverError
         case .blocked:
-            
-            WMFAlertManager.sharedInstance.dismissAlert() // Hide "Publishing..."
-            
+
+            WMFToastManager.sharedInstance.dismissCurrentToast() // Hide "Publishing..."
+
             guard let displayError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError,
                   let currentTitle = pageURL?.wmf_title else {
                 return
             }
-            
+
             wmf_showBlockedPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, linkLoggingAction: { [weak self] in
-                
+
                 guard let self else {
                     return
                 }
-                
+
                 if let source,
                    let pageURL,
                 let project = WikimediaProject(siteURL: pageURL) {
-                    
+
                     editorLoggingDelegate?.logEditSaveViewControllerDidTapBlockedMessageLink(source: source, project: project)
-                    
+
                     EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
                 }
             })
-            
+
             problemSource = .blockedMessage
-            
+
         case .protectedPage:
-            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             problemSource = .protectedPage
         case .unknown:
-            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             // leaving problemSource blank
         default:
-            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             if nsError.wmf_isNetworkConnectionError() {
                 problemSource = .connectionError
             }
         }
-        
+
         if let pageURL,
         let project = WikimediaProject(siteURL: pageURL) {
-            
+
             if let source {
                 editorLoggingDelegate?.logEditSaveViewControllerPublishFailed(source: source, problemSource: problemSource, project: project)
             }
-            
-            
+
+
             EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
         }
-        
+
         imageRecLoggingDelegate?.logEditSaveViewControllerLogPublishFailed(abortSource: problemSource?.rawValue)
     }
-    
+
     internal func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let solution = captchaViewController?.solution {
             if !solution.isEmpty {
@@ -666,26 +689,26 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
         return true
     }
-    
+
     func captchaSiteURL() -> URL {
         return pageURL?.wmf_site ?? Configuration.current.defaultSiteURL
     }
 
     func captchaReloadPushed(_ sender: AnyObject) {
     }
-    
+
     func captchaHideSubtitle() -> Bool {
         return true
     }
-    
+
     func captchaKeyboardReturnKeyTapped() {
         save()
     }
-    
+
     func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?) {
         highlightCaptchaSubmitButton(((solutionText?.count ?? 0) == 0) ? false : true)
     }
-    
+
     func apply(theme: Theme) {
         self.theme = theme
         guard viewIfLoaded != nil else {
@@ -702,17 +725,17 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         addToWatchlistButton.tintColor = theme.colors.link
         scrollContainer.backgroundColor = theme.colors.paperBackground
         captchaContainer.backgroundColor = theme.colors.paperBackground
-        
+
         editSummaryViewController?.apply(theme: theme)
         captchaViewController?.apply(theme: theme)
-        
+
         applyThemeToTextViews()
-        
+
         for dividerView in dividerViews {
             dividerView.backgroundColor = theme.colors.tertiaryText
         }
     }
-    
+
     private func applyThemeToTextViews() {
         for textView in textViews {
             textView.backgroundColor = theme.colors.paperBackground
@@ -720,7 +743,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             textView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.link]
         }
     }
-    
+
     func learnMoreButtonTapped(sender: UIButton) {
         navigate(to: URL(string: "https://meta.wikimedia.org/wiki/Help:Edit_summary"))
     }
@@ -739,7 +762,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         summaryText = newSummary
         buttonSave?.tintColor = newSummary.isEmpty ? theme.colors.secondaryText : theme.colors.link
     }
-    
+
     // Keep bottom divider and license/login labels at bottom of screen while remaining scrollable.
     // (Having these bits scrollable is important for landscape, being covered by keyboard, captcha appearance, small screen devices, etc.)
     private func adjustHeightOfSpacerAboveBottomDividerSoContentViewIsAtLeastHeightOfScrollView() {
@@ -756,5 +779,5 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 }
 
 extension EditSaveViewController: EditingFlowViewController {
-    
+
 }

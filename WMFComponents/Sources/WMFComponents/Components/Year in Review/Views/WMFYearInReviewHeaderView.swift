@@ -30,14 +30,10 @@ struct WMFYearInReviewHeaderView: View {
                 .foregroundColor(Color(theme.text))
                 .accessibilityLabel(viewModel.localizedStrings.wIconAccessibilityLabel)
             Spacer()
-            Button(action: {
+            
+            WMFLargeCloseButton(imageType: .plainX, action: {
                 viewModel.tappedDone()
-            }) {
-                Text(viewModel.localizedStrings.doneButtonTitle)
-                    .font(Font(WMFFont.navigationBarDoneButtonFont))
-                    .foregroundColor(Color(theme.navigationBarTintColor))
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-            }
+            })
             .frame(maxWidth: .infinity, alignment: .trailing)
         }
         .padding(.bottom, 5)

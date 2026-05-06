@@ -259,7 +259,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             }
         } break;
         case WMFSettingsMenuItemType_PrivacyPolicy:
-            [self wmf_navigateToURL:[NSURL URLWithString:[WMFCommonStrings privacyPolicyURLString]]];
+            [self wmf_navigateToURL:[NSURL URLWithString:[WMFCommonStringsWrapper privacyPolicyURLString]]];
             break;
         case WMFSettingsMenuItemType_Terms:
             [self wmf_navigateToURL:[NSURL URLWithString:WMFSettingsURLTerms]];
@@ -340,11 +340,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)clearDonationHistory {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:WMFCommonStrings.confirmDeletionTitle
-                                                                             message:WMFCommonStrings.confirmDeletionSubtitle
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:WMFCommonStringsWrapper.confirmDeletionTitle
+                                                                             message:WMFCommonStringsWrapper.confirmDeletionSubtitle
                                                                       preferredStyle:UIAlertControllerStyleAlert];
 
-    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:WMFCommonStrings.deleteActionTitle
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:WMFCommonStringsWrapper.deleteActionTitle
                                                            style:UIAlertActionStyleDestructive
                                                          handler:^(UIAlertAction *_Nonnull action) {
                                                              [self deleteLocalHistory];
@@ -355,7 +355,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                                                              });
                                                          }];
 
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:WMFCommonStrings.cancelActionTitle
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:WMFCommonStringsWrapper.cancelActionTitle
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
 
@@ -369,10 +369,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)showDeletionConfirmation {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:WMFCommonStrings.confirmedDeletion
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:WMFCommonStringsWrapper.confirmedDeletion
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:WMFCommonStrings.okTitle style:UIAlertActionStyleDefault handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:WMFCommonStringsWrapper.okTitle style:UIAlertActionStyleDefault handler:nil];
     [alertController addAction:okAction];
     [self.navigationController presentViewController:alertController animated:YES completion:nil];
 }
@@ -423,7 +423,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showClearCacheInProgressBanner) object:nil];
-            [[WMFAlertManager sharedInstance] showAlert:WMFLocalizedStringWithDefaultValue(@"clearing-cache-complete", nil, nil, @"Clearing cache complete.", @"Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.") sticky:NO dismissPreviousAlerts:YES tapCallBack:nil];
+            [[WMFToastManager sharedInstance] showToast:WMFLocalizedStringWithDefaultValue(@"clearing-cache-complete", nil, nil, @"Clearing cache complete.", @"Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.") sticky:NO dismissPreviousToasts:YES tapCallBack:nil];
         });
     }];
 
@@ -432,7 +432,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)showClearCacheInProgressBanner {
-    [[WMFAlertManager sharedInstance] showAlert:WMFLocalizedStringWithDefaultValue(@"clearing-cache-in-progress", nil, nil, @"Clearing cache in progress.", @"Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.") sticky:NO dismissPreviousAlerts:YES tapCallBack:nil];
+    [[WMFToastManager sharedInstance] showToast:WMFLocalizedStringWithDefaultValue(@"clearing-cache-in-progress", nil, nil, @"Clearing cache in progress.", @"Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.") sticky:NO dismissPreviousToasts:YES tapCallBack:nil];
 }
 
 #pragma mark - Languages

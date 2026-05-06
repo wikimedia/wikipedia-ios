@@ -15,6 +15,7 @@ public protocol WMFArticleTabsLoggingDelegate: AnyObject {
     func logArticleTabsOverviewTappedCloseAllTabsConfirmClose()
 }
 
+@MainActor
 public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     // articleTab should NEVER be empty - take care of logic of inserting main page in datacontroller/viewcontroller
     @Published var articleTabs: [ArticleTab] = [] {
@@ -42,6 +43,11 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     public let localizedStrings: LocalizedStrings
     
+    deinit {
+        prefetchInitialTask?.cancel()
+        prefetchRemainderTask?.cancel()
+    }
+
     public init(dataController: WMFArticleTabsDataController,
                 localizedStrings: LocalizedStrings,
                 loggingDelegate: WMFArticleTabsLoggingDelegate?,
@@ -71,9 +77,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     public func didTapCloseAllTabs() {
         Task {
             try? await dataController.deleteAllTabs()
-            Task { @MainActor in
-                await loadTabs()
-            }
+            await loadTabs()
         }
     }
     
@@ -88,7 +92,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         updateShouldShowSuggestions()
     }
     
-    @MainActor
     private func updateHasMultipleTabs() {
         var count = 0
         if articleTabs.isEmpty {
@@ -143,7 +146,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         }
     }
     
-    @MainActor
     private func loadTabs() async {
         do {
             let tabs = try await dataController.fetchAllArticleTabs()
@@ -173,7 +175,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     // MARK: - Public funcs
     
-    @MainActor
     func refreshCurrentTab() async {
         do {
             let tabUUID = try await dataController.currentTabIdentifier()
@@ -183,7 +184,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         }
     }
     
-    @MainActor
     func shouldLockAspectRatio() -> Bool {
         if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
             return false
@@ -254,23 +254,18 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     }
     
     func closeTab(tab: ArticleTab) {
-        
-        Task {
+        Task { [weak self] in
+            guard let self else { return }
             do {
                 try await dataController.deleteArticleTab(identifier: tab.data.identifier)
-                
-                Task { @MainActor [weak self]  in
-                    guard let self else { return }
-                    loggingDelegate?.logArticleTabsOverviewTappedCloseTab()
-                    articleTabs.removeAll { $0 == tab }
-                    updateHasMultipleTabs()
-                    if dataController.shouldShowMoreDynamicTabsV2 {
-                        shouldShowCloseButton = true
-                    }
-                    await refreshCurrentTab()
-                    updateNavigationBarTitleAction?(articleTabs.count)
+                loggingDelegate?.logArticleTabsOverviewTappedCloseTab()
+                articleTabs.removeAll { $0 == tab }
+                updateHasMultipleTabs()
+                if dataController.shouldShowMoreDynamicTabsV2 {
+                    shouldShowCloseButton = true
                 }
-                
+                await refreshCurrentTab()
+                updateNavigationBarTitleAction?(articleTabs.count)
             } catch {
                 debugPrint("Error closing tab: \(error)")
             }
@@ -283,18 +278,25 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     // MARK: - Populate article summary
 
-    @MainActor private var incomingTabIDs = Set<String>()
-    @MainActor private var prefetchedTabIDs = Set<String>()
+    private var incomingTabIDs = Set<String>()
+    private var prefetchedTabIDs = Set<String>()
 
-    /// Kick off a prefetch immediately for the visible window of 24 tabs, then trickle the rest in the background
+    private var prefetchInitialTask: Task<Void, Never>?
+    private var prefetchRemainderTask: Task<Void, Never>?
+
+    /// Kick off a prefetch immediately for the visible window of 24 tabs, then trickle the rest in the background.
+    /// Stores task handles so any in-progress prefetch can be cancelled (e.g. on deinit).
     func prefetchAllSummariesTrickled(initialWindow: Int = 24,
                                       pageSize: Int = 12,
                                       delayBetweenBatchesNs: UInt64 = 150_000_000) {
+        prefetchInitialTask?.cancel()
+        prefetchRemainderTask?.cancel()
+
         let tabsSnapshot = articleTabs
         let mainSubtitle = localizedStrings.mainPageSubtitle
         let mainDescription = localizedStrings.mainPageDescription
 
-        Task { [weak self] in
+        prefetchInitialTask = Task { [weak self] in
             guard let self else { return }
             await self.prefetchBatch(
                 for: Array(tabsSnapshot.prefix(initialWindow)),
@@ -303,12 +305,13 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             )
         }
 
-        // Background fetch remainder of tabs
-        Task.detached(priority: .background) { [weak self] in
+        // Trickle-fetch the remainder with a short delay between batches.
+        prefetchRemainderTask = Task { [weak self] in
             guard let self else { return }
             var remainder = Array(tabsSnapshot.dropFirst(initialWindow))
 
             while !remainder.isEmpty {
+                guard !Task.isCancelled else { return }
                 let chunk = Array(remainder.prefix(pageSize))
                 await self.prefetchBatch(
                     for: chunk,
@@ -316,7 +319,9 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                     mainDescription: mainDescription
                 )
                 remainder.removeFirst(min(pageSize, remainder.count))
+                // Propagate cancellation: exit the loop instead of swallowing it.
                 try? await Task.sleep(nanoseconds: delayBetweenBatchesNs)
+                if Task.isCancelled { return }
             }
         }
     }
@@ -332,15 +337,11 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             let isMain: Bool
         }
 
-        let inputs: [Input] = await MainActor.run { [weak self] in
-            guard let self else { return [] }
-            return tabs.compactMap { tab -> Input? in
-                // Check prefetched items
-                if self.prefetchedTabIDs.contains(tab.id) || self.incomingTabIDs.contains(tab.id) { return nil }
-                guard let last = tab.data.articles.last else { return nil }
-                self.incomingTabIDs.insert(tab.id)
-                return Input(id: tab.id, project: last.project, title: last.title, url: last.articleURL, isMain: last.isMain)
-            }
+        let inputs: [Input] = tabs.compactMap { tab -> Input? in
+            if prefetchedTabIDs.contains(tab.id) || incomingTabIDs.contains(tab.id) { return nil }
+            guard let last = tab.data.articles.last else { return nil }
+            incomingTabIDs.insert(tab.id)
+            return Input(id: tab.id, project: last.project, title: last.title, url: last.articleURL, isMain: last.isMain)
         }
 
         guard !inputs.isEmpty else { return }
@@ -370,49 +371,61 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             }
 
             for await (id, info) in group {
-                await MainActor.run { [weak self] in
-                    guard let self else { return }
-                    self.incomingTabIDs.remove(id)
-                    self.prefetchedTabIDs.insert(id)
-                    if let idx = self.articleTabs.firstIndex(where: { $0.id == id }),
-                       self.articleTabs[idx].info == nil {
-                        self.articleTabs[idx].info = info
-                    }
+                incomingTabIDs.remove(id)
+                prefetchedTabIDs.insert(id)
+                if let idx = articleTabs.firstIndex(where: { $0.id == id }),
+                   articleTabs[idx].info == nil {
+                    articleTabs[idx].info = info
                 }
             }
         }
     }
 
-    /// One-off fetch (newly visible cells or newly created tabs)
-    @MainActor
+    /// One-off fetch (newly visible cells or newly created tabs).
+    ///
+    /// Fully @MainActor: the network work is awaited but we never capture `tab`
+    /// (a non-Sendable reference type) across an actor boundary.
     func ensureInfo(for tab: ArticleTab) async {
+        let tabID = tab.id
         guard tab.info == nil, let last = tab.data.articles.last else { return }
+        guard !incomingTabIDs.contains(tabID), !prefetchedTabIDs.contains(tabID) else { return }
 
-        if incomingTabIDs.contains(tab.id) || prefetchedTabIDs.contains(tab.id) { return }
+        // Capture only Sendable value types before leaving the main actor.
+        let project    = last.project
+        let title      = last.title
+        let isMain     = last.isMain
+        let articleURL = last.articleURL
+        let mainSubtitle    = localizedStrings.mainPageSubtitle
+        let mainDescription = localizedStrings.mainPageDescription
 
-        incomingTabIDs.insert(tab.id)
-        Task.detached(priority: .utility) { [weak self] in
-            guard let self else { return }
-            defer { Task { @MainActor in self.incomingTabIDs.remove(tab.id) } }
-            do {
-                let dc = WMFArticleSummaryDataController.shared
-                let summary = try await dc.fetchArticleSummary(project: last.project, title: last.title)
-                let subtitle = last.isMain ? self.localizedStrings.mainPageSubtitle : summary.description
-                let snippet = last.isMain ? self.localizedStrings.mainPageDescription : summary.extract
-                let info = ArticleTab.Info(
-                    subtitle: subtitle,
-                    image: summary.thumbnailURL,
-                    description: snippet,
-                    url: last.articleURL,
-                    snippet: snippet
-                )
-                await MainActor.run {
-                    if tab.info == nil { tab.info = info }
-                    self.prefetchedTabIDs.insert(tab.id)
-                }
-            } catch {
-                print( "Unable to fetch article summary: \(error)")
+        incomingTabIDs.insert(tabID)
+
+        do {
+            // `fetchArticleSummary` is actor-isolated — safe to await from the
+            // main actor; Swift hops off and back automatically.
+            let summary = try await WMFArticleSummaryDataController.shared
+                .fetchArticleSummary(project: project, title: title)
+
+            let subtitle = isMain ? mainSubtitle    : summary.description
+            let snippet  = isMain ? mainDescription : summary.extract
+            let info = ArticleTab.Info(
+                subtitle: subtitle,
+                image: summary.thumbnailURL,
+                description: snippet,
+                url: articleURL,
+                snippet: snippet
+            )
+
+            incomingTabIDs.remove(tabID)
+            prefetchedTabIDs.insert(tabID)
+            // Re-look up by ID to avoid writing through a potentially stale reference.
+            if let idx = articleTabs.firstIndex(where: { $0.id == tabID }),
+               articleTabs[idx].info == nil {
+                articleTabs[idx].info = info
             }
+        } catch {
+            incomingTabIDs.remove(tabID)
+            print("Unable to fetch article summary: \(error)")
         }
     }
 

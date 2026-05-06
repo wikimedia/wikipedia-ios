@@ -77,7 +77,7 @@ class CollectionViewHeader: SizeThatFitsReusableView {
         super.updateFonts(with: traitCollection)
         let titleTextStyle: WMFFont
         let subtitleTextStyle: WMFFont = .subheadline
-        let buttonTextStyle: WMFFont = .subheadline
+        let buttonTextStyle: WMFFont = .body
         switch style {
         case .detail:
             fallthrough

@@ -94,7 +94,6 @@
 
 - (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindAnnouncement];
-    [moc removeAllContentGroupsOfKind:WMFContentGroupKindNotification];
 }
 
 - (void)saveAnnouncements:(NSArray<WMFAnnouncement *> *)announcements inManagedObjectContext:(NSManagedObjectContext *)moc completion:(nullable dispatch_block_t)completion {
@@ -137,8 +136,6 @@
         [moc removeAllContentGroupsOfKind:WMFContentGroupKindReadingList];
     }
 
-    [self saveNotificationsGroupInManagedObjectContext:moc date:[NSDate date]];
-
     // Workaround for the great fundraising mystery of 2019: https://phabricator.wikimedia.org/T247554
     // TODO: Further investigate the root cause before adding the 2020 fundraising banner: https://phabricator.wikimedia.org/T247976
     // also deleting IOSSURVEY20 because we want to bypass persistence and only consider in online mode
@@ -148,32 +145,6 @@
             continue;
         }
         [moc deleteObject:announcement];
-    }
-}
-
-- (void)saveNotificationsGroupInManagedObjectContext:(NSManagedObjectContext *)moc date:(NSDate *)date {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-
-    if (userDefaults.wmf_shouldShowNotificationsExploreFeedCard) {
-
-        WMFContentGroup *currentNotificationsCardGroup = [moc newestGroupOfKind:WMFContentGroupKindNotification];
-
-        if (self.isLoggedIn) {
-            if (currentNotificationsCardGroup) {
-                if (!currentNotificationsCardGroup.isVisible && !currentNotificationsCardGroup.wasDismissed) {
-                    currentNotificationsCardGroup.isVisible = YES;
-                }
-            } else {
-                WMFContentGroup *newNotificationsCardGroup = [moc createGroupOfKind:WMFContentGroupKindNotification forDate:date withSiteURL:self.siteURL associatedContent:nil];
-                newNotificationsCardGroup.isVisible = YES;
-            }
-        } else {
-            if (currentNotificationsCardGroup) {
-                if (currentNotificationsCardGroup.isVisible) {
-                    currentNotificationsCardGroup.isVisible = NO;
-                }
-            }
-        }
     }
 }
 

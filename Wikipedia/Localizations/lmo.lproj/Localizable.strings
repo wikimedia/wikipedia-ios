@@ -144,7 +144,6 @@
 "description-help-title" = "Ajut per la descizzion di vos";
 "description-help-wikidata-guide" = "Guida de Wikidata per la scritura di descrizzion";
 "description-published-button-title" = "Fad";
-"description-published-footer" = "Te podet anca modifegà i articol con questa aplicazzion chì. la volta che la vegnarà, proeuva a correger i refus e di picole fras cont el clicà in su l'imagin de la lapis.";
 "description-published-subtitle" = "T'hee apena fad Wikipedia pussee bella per tucc";
 "description-published-title" = "Descrizzion publicadaǃ";
 "description-welcome-concise-sub-title" = "Idealment ona riga, in fra do e dodes parolle";
@@ -196,8 +195,6 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Impossibil trovà el test selezionad";
 "edit-minor-learn-more-text" = "Per savénn pussee sora i modifeghe piscinine";
 "edit-minor-text" = "Questa chì l'è ona modifega piscinina";
-"edit-published" = "Modifega publicada";
-"edit-published-subtitle" = "T'hee apena fad la Wikipedia pussee bella per tucc";
 "edit-summary-add-summary-text" = "Sgionta ona ricapitolazzion di modifeghe";
 "edit-summary-choice-fixed-grammar" = "Giusta la gramatega";
 "edit-summary-choice-fixed-typos" = "Giusta i refus";
@@ -408,8 +405,6 @@
 "new-password-title" = "Imposta la toa parolla ciav";
 "no-email-account-alert" = "Imposta on cunt de posta eletronica in sul to dispositiv e proeva an'mò.";
 "no-internet-connection" = "A gh'è minga de conession a l'internet";
-"no-internet-connection-article-reload" = "Ona version pussee noeuva de quest articol chì la podariss vesser disponibil, ma se po minga caregàlla senza ona conession a l'internet";
-"no-internet-connection-article-reload-button" = "Torna a la darera version salvada";
 "notifications-center-agent-description-from-format" = "Da $1";
 "notifications-center-alert" = "Allarma";
 "notifications-center-badge-button-accessibility-label" = "Notifeghe con distintiv minga lensgiud";
@@ -423,7 +418,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Modifega $1 per vedé pussee de messagg";
 "notifications-center-empty-state-no-projects-selected" = "Sgionta proget per vedé pussee messagg";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter}}";
-"notifications-center-feed-card-title" = "Notifeghe dora i modifeghe mò disponibil";
 "notifications-center-feed-news-notification-button-text" = "Ativa i notifeghe push";
 "notifications-center-filters-read-status-item-title-all" = "Tute";
 "notifications-center-filters-read-status-item-title-read" = "Lensgiude";

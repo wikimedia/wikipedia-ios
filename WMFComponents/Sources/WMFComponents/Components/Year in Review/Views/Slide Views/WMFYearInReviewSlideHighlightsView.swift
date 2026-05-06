@@ -4,17 +4,17 @@ public struct WMFYearInReviewSlideHighlightsView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     var theme: WMFTheme { appEnvironment.theme }
     var viewModel: WMFYearInReviewSlideHighlightsViewModel
-    
+
     var titleAttributedString: AttributedString {
         let html = "<b>" + viewModel.localizedStrings.title + "</b>" + " " + viewModel.localizedStrings.subtitle
         let fallback = viewModel.localizedStrings.title + " " + viewModel.localizedStrings.subtitle
-        
+
         var maxTraitCollection: UITraitCollection
-        
+
         // Only allow growing for iPad
         let hSizeClass = UITraitCollection.current.horizontalSizeClass
         let vSizeClass = UITraitCollection.current.verticalSizeClass
-        
+
         if hSizeClass == .compact {
             maxTraitCollection = UITraitCollection(preferredContentSizeCategory: .large)
         } else if vSizeClass == .compact {
@@ -22,45 +22,45 @@ public struct WMFYearInReviewSlideHighlightsView: View {
         } else {
             maxTraitCollection = WMFAppEnvironment.current.traitCollection
         }
-        
+
         let regularFont = WMFFont.for(.headline, compatibleWith: maxTraitCollection)
         let boldFont = WMFFont.for(.boldHeadline, compatibleWith: maxTraitCollection)
-        
+
         let styles = HtmlUtils.Styles(font: regularFont, boldFont: boldFont, italicsFont: regularFont, boldItalicsFont: regularFont, color: .white, linkColor: theme.link, lineSpacing: 1)
-        
+
         return(try? HtmlUtils.attributedStringFromHtml(html, styles: styles)) ?? AttributedString(fallback)
     }
-    
+
     var scrollViewContents: some View {
         WMFYearInReviewInfoboxView(
             viewModel: viewModel.infoBoxViewModel,
             isSharing: false
         )
     }
-    
+
     func dynamicMaxInfoboxHeight(availableHeight: CGFloat) -> CGFloat {
         if availableHeight < 530 {
-            
+
             // SE size
             let preferredContentSize = UITraitCollection.current.preferredContentSizeCategory
-            
+
             if preferredContentSize.isAccessibilityCategory {
                 return 200
             }
-            
+
             return 300
         }
         return 414
     }
-    
+
     @State var availableHeight: CGFloat?
 
     public var body: some View {
         GeometryReader { geometry in
-            
+
             ZStack {
                 GradientBackgroundView()
-                
+
                 VStack(spacing: 0) {
                     Spacer(minLength: 0)
 
@@ -80,8 +80,8 @@ public struct WMFYearInReviewSlideHighlightsView: View {
                         }
                         .frame(maxWidth: 324)
                         .padding([.leading, .trailing], 35)
-                        
-                        WMFLargeButton(configuration: .primary,
+
+                        WMFLargeButton(style: .primary,
                                        title: viewModel.localizedStrings.buttonTitle,
                                        forceBackgroundColor: WMFColor.blue600) {
                             withAnimation(.easeInOut(duration: 0.75)) {
@@ -90,14 +90,14 @@ public struct WMFYearInReviewSlideHighlightsView: View {
                         }
                         .frame(maxWidth: 345)
                         .padding([.leading, .trailing], 24)
-                        
+
                     }
-                    
+
                     Spacer(minLength: 0)
                 }
             }
         }
-        
+
     }
 }
 

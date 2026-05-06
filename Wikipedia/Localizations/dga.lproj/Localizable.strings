@@ -151,7 +151,6 @@
 "description-help-title" = "Ganlee mannoo sommo";
 "description-help-wikidata-guide" = "Saseԑ yԑlԑ guubu a ko sԑgebo mannoo";
 "description-published-button-title" = "Baarɛɛ";
-"description-published-footer" = "Fo meŋ baŋ baŋ maale la Aatekle a app poɔ, mɔ kyɛ maale yɛlɛ fēē kyɛ neɛ a tombiri na kaŋa a gaa tɔɔri";
 "description-published-subtitle" = "Fo deԑ maale la saseԑ duoro zie vela ko neԑzaa";
 "description-published-title" = "Mannoo de-eŋe!";
 "description-welcome-concise-sub-title" = "Duuli yeni maŋ la, a yi duulo ayi ane pie ne ayi yelbie sogaŋ";
@@ -240,8 +239,6 @@
 "edit-notices" = "Maaloo kyɛloo";
 "edit-notices-always-display" = "Naŋ eŋ a maaloo kyɔloo";
 "edit-notices-please-read" = "Sɔrɔɔ la ma kanne kyɛ baŋ maala";
-"edit-published" = "Maale eŋ";
-"edit-published-subtitle" = "Fo vɛŋ la a Wikipiideɛ pãã e velaa ko neɛ zaa";
 "edit-summary-add-summary-text" = "Eŋ s maaloo yɛlɛ ŋmaa";
 "edit-summary-choice-fixed-grammar" = "Eŋ Kɔkɔre yelbie gɔɔloŋ";
 "edit-summary-choice-fixed-typos" = "Eŋ sɛgebo";
@@ -432,7 +429,6 @@
 "image-gallery-unknown-owner" = "Ba baŋ sɛgerɛ";
 "import-shared-reading-list-default-title" = "N kannoo gama";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "De leɛ kaa";
-"import-shared-reading-list-survey-prompt-footer" = "Kaa te $1yɛlɛ$2.kaa a yel-ennɛ $3yɛlɛ merɛ$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Poɔ kannoo gama\" e la ŋmaaroo kyɛ te boɔrɔ la fo teɛroo bee iri o bare.";
 "import-shared-reading-list-survey-prompt-title" = "Fo naŋ baŋ soŋ te la daa a yineŋ \" poɔ kannoo gama \"?";
 "import-shared-reading-list-title" = "De kpɛ a poɔ kannoo gama";
@@ -520,7 +516,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Leɛ-maale $1 a nyɛ yɛlɛ yaga";
 "notifications-center-empty-state-no-projects-selected" = "Eŋ toma a nyɛ yɛlɛ yaga";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filters}}";
-"notifications-center-feed-card-title" = "Teɛroo fo naŋ maale Bebe la";
 "notifications-center-feed-news-notification-button-text" = "You a nyɛ teɛroo";
 "notifications-center-filters-accessibility-label" = "Teɛroo ma gampɛle";
 "notifications-center-filters-read-status-item-title-all" = "Zaa";
@@ -768,15 +763,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s naŋ pare";
 "relative-date-years-ago" = "{{PLURAL:$1|0=This year|1=Last year|$1 years ago}}";
-"replace-button-accessibility" = "Leɛ maale $1.";
-"replace-buttons-replace-accessibility" = "Leɛre yelyeni pampana";
-"replace-buttons-replace-all-accessibility" = "Leɛre a zaa pampana";
-"replace-clear-button-accessibility" = "Sãã leɛroo";
-"replace-infolabel-method-replace" = "Leɛre";
-"replace-infolabel-method-replace-all" = "Leɛre a zaa";
-"replace-method-button-accessibility" = "Lɛ Leɛre. Maale $1. Iri leɛroo.";
-"replace-textfield-accessibility" = "Leɛre";
-"replace-textfield-placeholder" = "Leɛre neŋ...";
 "return-button-title" = "Leɛ wa";
 "return-to-article" = "Leɛ gaa Aatekel zie";
 "reverted-edit-title" = "Leɛre maaloo";
@@ -792,7 +778,6 @@
 "search-button-accessibility-label" = "Bɔ Wikipiideɛ";
 "search-clear-title" = "Sãã";
 "search-field-placeholder-text" = "Bɔ Wikipiideɛ";
-"search-reading-list-placeholder-text" = "Bɔ kannoo gama";
 "search-recent-clear-confirmation-heading" = "Iri pampana ŋa bɔɔbu?";
 "search-recent-clear-confirmation-sub-heading" = "A Aatekel ŋa koŋ la baŋ leɛ e!";
 "search-recent-clear-delete-all" = "Iri a zaa";
@@ -819,9 +804,6 @@
 "settings-notifications-echo-failure-message" = "Gbɛ ŋmɛ kaŋa bebe a saŋa na fo naŋ boɔrɔ a yɛlɛ a teɛre ma gane zu na kyaare neŋ fo yɛlɛ bezie.";
 "settings-notifications-echo-failure-title" = "Ba tõɔ bɔ a voonoo teɛre sagebu";
 "settings-notifications-echo-failure-try-again" = "Leɛ e nyɛ";
-"settings-notifications-push-notifications" = "Daa teɛroo";
-"settings-notifications-system-turn-on" = "Leɛ teɛroo";
-"settings-notifications-trending" = "Pampana ŋa tigri";
 "settings-primary-language" = "Paramare";
 "settings-primary-language-details" = "A Kɔkɔre dɛŋdɛŋ soba la ka ba de ka o e a paramere Kɔkɔre app poɔ.";
 "settings-search-footer-text" = "Maale a app kyɛ yuo a bɔɔbo zie anaŋ seɛ yineŋ";
@@ -962,8 +944,6 @@
 "welcome-languages-add-or-edit-button" = "Eŋ Ber maslale fo Kɔkɔɛ";
 "welcome-languages-description" = "Te nyɛ la a Kɔkɔɛ ama a fo taŋgaraa zu:";
 "welcome-languages-search-title" = "Bɔ 300 kɔkɔɛ";
-"welcome-notifications-tell-me-more-creation" = "Teɛre ma kuri la kyɛ de yineŋ s app poɔ, kyɛ ba e a te( bee noba bata deme poɔŋ) toŋtona.";
-"welcome-notifications-tell-me-more-title" = "Teɛre ma yaga";
 "widget-onthisday-description" = "Yineŋ yɛlɛ aŋ e a bebiri ŋa yɛlɛ poɔ.";
 "widget-onthisday-placeholder-article-snippet" = "Duoro mɔlɔ bɔ yizie maaloo";
 "widget-onthisday-placeholder-event-snippet" = "Wikipiideɛ, la a duoro mɔlɔ bɔ yizie. Yi la a taŋgaraa zu.";

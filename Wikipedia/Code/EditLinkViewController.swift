@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 protocol EditLinkViewControllerDelegate: AnyObject {
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didTapCloseButton button: UIBarButtonItem)
@@ -29,7 +30,11 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     @IBOutlet private weak var removeLinkButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet private var separatorViews: [UIView] = []
     
-    private lazy var finishEditingButton = UIBarButtonItem(title: CommonStrings.surveySubmitActionTitle, style: .done, target: self, action: #selector(finishEditing(_:)))
+    private lazy var finishEditingButton = {
+        let closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .prominentCheck, target: self, action: #selector(finishEditing(_:)), alignment: .trailing)
+        
+        return UIBarButtonItem.closeNavigationBarButtonItem(config: closeButtonConfig)
+    }()
 
 
     init?(link: Link, siteURL: URL?, dataStore: MWKDataStore, theme: Theme) {
@@ -65,6 +70,11 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
         linkTargetContainerView.addSubview(articleCell)
         updateFonts()
         apply(theme: theme)
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -76,7 +86,7 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     private func configureNavigationBar() {
         
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editLinkTitle, customView: nil, alignment: .centerCompact)
-        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(close(_:)), alignment: .leading)
+        let closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(close(_:)), alignment: .leading)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
         
@@ -116,16 +126,11 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
         linkTargetContainerViewHeightConstraint.constant = articleCell.frame.height
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
-    }
-
     private func updateFonts() {
         displayTextLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         linkTargetLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         displayTextView.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
-        removeLinkButton.titleLabel?.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
+        removeLinkButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
     }
 
     @objc private func close(_ sender: UIBarButtonItem) {
@@ -153,28 +158,22 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     }
 
     @IBAction private func searchArticles(_ sender: UITapGestureRecognizer) {
-        let searchViewController = SearchViewController(source: .unknown)
-        searchViewController.siteURL = siteURL
-        searchViewController.shouldBecomeFirstResponder = true
-        searchViewController.dataStore = MWKDataStore.shared()
         
-        let navigateToSearchResultAction: ((URL) -> Void) = { [weak self] articleURL in
-            guard let self else {
-                return
-            }
-            self.articleURL = articleURL
+        let searchVC = SearchViewController(source: .unknown)
+        searchVC.shouldHideHistory = true
+        searchVC.dataStore = dataStore
+        searchVC.theme = theme
+        searchVC.showLanguageBar = false
+        searchVC.siteURL = siteURL
+        searchVC.prefilledSearchTerm = articleURL.wmf_title
+        searchVC.title = CommonStrings.editLinkTitle
+        searchVC.articleTappedAction = { [weak self] tappedURL in
+            guard let self else { return }
+            self.articleURL = tappedURL
             navigationController?.popViewController(animated: true)
         }
-        
-        searchViewController.navigateToSearchResultAction = navigateToSearchResultAction
-        searchViewController.showLanguageBar = false
-        searchViewController.customTitle = CommonStrings.editLinkTitle
-        searchViewController.needsCenteredTitle = true
-        searchViewController.searchTerm = articleURL.wmf_title
-        searchViewController.search()
-        searchViewController.theme = theme
-        searchViewController.apply(theme: theme)
-        navigationController?.pushViewController(searchViewController, animated: true)
+        searchVC.apply(theme: theme)
+        navigationController?.pushViewController(searchVC, animated: true)
     }
 
     override func apply(theme: Theme) {

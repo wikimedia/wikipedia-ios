@@ -1,6 +1,7 @@
 import Foundation
 import SystemConfiguration
 import WMFComponents
+import WMFNativeLocalizations
 
 public extension UIColor {
     @objc(initWithHexInteger:alpha:)
@@ -797,6 +798,28 @@ public class Colors: NSObject {
             return WMFColor.beige400
         case .dark, .black:
             return WMFColor.gray800
+        default:
+            return .clear
+        }
+    }
+    
+    public var navigationBarTintColor: UIColor {
+        switch identifier {
+        case .light, .sepia:
+            return WMFColor.blue600
+        case .dark, .black:
+            return WMFColor.blue300
+        default:
+            return .clear
+        }
+    }
+    
+    public var logoTintColor: UIColor {
+        switch identifier {
+        case .light, .sepia:
+            return WMFColor.black
+        case .dark, .black:
+            return WMFColor.white
         default:
             return .clear
         }

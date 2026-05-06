@@ -1,6 +1,7 @@
 import WMFComponents
 import WMF
 import CocoaLumberjackSwift
+import WMFNativeLocalizations
 
 final class TalkPageHeaderView: UICollectionReusableView {
     
@@ -160,7 +161,7 @@ final class TalkPageHeaderView: UICollectionReusableView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentHorizontalAlignment = .trailing
-        button.titleLabel?.font = WMFFont.for(.boldCallout, compatibleWith: traitCollection)
+        button.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         return button
     }()

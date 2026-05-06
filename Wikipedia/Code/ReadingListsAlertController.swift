@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 @objc public protocol ReadingListsAlertControllerDelegate: NSObjectProtocol {
     func readingListsAlertController(_ readingListsAlertController: ReadingListsAlertController, didSelectUnsaveForArticle: WMFArticle)
@@ -101,14 +102,22 @@ public class ReadingListsAlertController: NSObject {
         guard readingList.isDefault else {
             return
         }
-        let primaryButtonHandler: ScrollableEducationPanelButtonTapHandler = { _, _ in
-            presenter.presentedViewController?.dismiss(animated: true)
+        let primaryButtonHandler: () -> Void = {
             let readingListDetailViewController = ReadingListDetailViewController(for: readingList, with: dataStore, displayType: .modal)
             readingListDetailViewController.apply(theme: theme)
             let navigationController = WMFComponentNavigationController(rootViewController: readingListDetailViewController, modalPresentationStyle: .overFullScreen)
             presenter.present(navigationController, animated: true)
         }
-        presenter.wmf_showLimitHitForUnsortedArticlesPanelViewController(theme: theme, primaryButtonTapHandler: primaryButtonHandler) {
+        let alert = UIAlertController(
+            title: WMFLocalizedString("reading-list-limit-hit-for-unsorted-articles-title", value: "Limit hit for unsorted articles", comment: "Title for letting the user know that the limit for unsorted articles was reached."),
+            message: WMFLocalizedString("reading-list-limit-hit-for-unsorted-articles-subtitle", value: "There is a limit of 5000 unsorted articles. Please sort your existing articles into lists to continue the syncing of unsorted articles.", comment: "Subtitle letting the user know that there is a limit of 5000 unsorted articles."),
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: WMFLocalizedString("reading-list-limit-hit-for-unsorted-articles-button-title", value: "Sort articles", comment: "Title for button to sort unsorted articles."), style: .default) { _ in
+            primaryButtonHandler()
+        })
+        alert.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
+        presenter.present(alert, animated: true) {
             UserDefaults.standard.wmf_setDidShowLimitHitForUnsortedArticlesPanel(true)
         }
     }

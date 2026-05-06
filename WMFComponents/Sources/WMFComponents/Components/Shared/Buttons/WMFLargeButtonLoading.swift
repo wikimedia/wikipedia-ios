@@ -1,65 +1,56 @@
 import SwiftUI
 
 struct WMFLargeButtonLoading: View {
-    
-    enum Configuration {
-        case primary
-        case secondary
-    }
-    
+
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    
-    let configuration: Configuration
+
+    let style: WMFButtonStyleKind
     let title: String
     let icon: UIImage?
     @Binding var isLoading: Bool
     let action: (() -> Void)?
-    
-    private var foregroundColor: UIColor {
-        switch configuration {
-        case .primary:
+
+    private var progressTintColor: UIColor {
+        switch style {
+        case .primary, .glass:
             return WMFColor.white
-        case .secondary:
+        case .neutral, .quiet:
             return appEnvironment.theme.link
         }
     }
-    
-    private var backgroundColor: UIColor {
-        switch configuration {
-        case .primary:
-            return appEnvironment.theme.link
-        case .secondary:
-            return .clear
-        }
-    }
-    
+
     var body: some View {
-        Button(action: {
+        Button {
             action?()
-        }, label: {
-            if isLoading {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: Color(foregroundColor)))
-                    .scaleEffect(1.2)
-                    .foregroundColor(Color(foregroundColor))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 46)
-                    .background(Color(backgroundColor))
-                    .cornerRadius(8)
-            } else {
-                HStack(alignment: .center, spacing: 6) {
-                    if let icon {
-                        Image(uiImage: icon)
+        } label: {
+            ZStack {
+                if isLoading {
+                    ProgressView()
+                        .progressViewStyle(
+                            CircularProgressViewStyle(
+                                tint: Color(uiColor: progressTintColor)
+                            )
+                        )
+                        .scaleEffect(1.1)
+                } else {
+                    HStack(spacing: 6) {
+                        if let icon {
+                            Image(uiImage: icon)
+                        }
+                        Text(title)
+                            .font(Font(WMFFont.for(.semiboldHeadline)))
                     }
-                    Text(title)
-                        .font(Font(WMFFont.for(.semiboldHeadline)))
                 }
-                .foregroundColor(Color(foregroundColor))
-                .frame(maxWidth: .infinity)
-                .frame(height: 46)
-                .background(Color(backgroundColor))
-                .cornerRadius(8)
             }
-        })
+        }
+        .buttonStyle(
+            CapsuleButtonStyle(
+                kind: style,
+                layout: .fill,
+                theme: appEnvironment.theme,
+                height: 46
+            )
+        )
+        .disabled(isLoading)
     }
 }

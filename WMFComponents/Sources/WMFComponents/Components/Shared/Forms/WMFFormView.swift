@@ -1,7 +1,7 @@
 import SwiftUI
 
 public struct WMFFormView: View {
-    
+
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
     var theme: WMFTheme {
@@ -13,7 +13,7 @@ public struct WMFFormView: View {
     public init(viewModel: WMFFormViewModel) {
         self.viewModel = viewModel
     }
-    
+
     public var body: some View {
         List {
             ForEach(viewModel.sections) { section in
@@ -21,20 +21,9 @@ public struct WMFFormView: View {
                     WMFFormSectionSelectView(viewModel: selectSection)
                         .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
                 }
-                
             }
         }
-        .listStyle(GroupedListStyle())
+        .listStyle(InsetGroupedListStyle())
         .listBackgroundColor(Color(theme.baseBackground))
-        .onAppear(perform: {
-            if #unavailable(iOS 16) {
-                UITableView.appearance().backgroundColor = UIColor.clear
-            }
-        })
-        .onDisappear(perform: {
-            if #unavailable(iOS 16) {
-                UITableView.appearance().backgroundColor = UIColor.systemGroupedBackground
-            }
-        })
     }
 }

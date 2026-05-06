@@ -75,9 +75,9 @@ struct WMFPageRow: View {
                         .lineLimit(1)
                 }
             }
-            
+
             Spacer()
-            
+
             if let uiImage {
                 Image(uiImage: uiImage)
                     .resizable()
@@ -99,7 +99,7 @@ struct WMFPageRow: View {
                     .onAppear {
                         globalFrame = geometry.frame(in: .global)
                     }
-                    .onChange(of: geometry.frame(in: .global)) { newValue in
+                    .onChange(of: geometry.frame(in: .global)) { _, newValue in
                         globalFrame = newValue
                     }
             }
@@ -112,7 +112,7 @@ struct WMFPageRow: View {
             }
         }
     }
-    
+
     @ViewBuilder
     var textViewLimitedFontSize: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -193,3 +193,4 @@ struct WMFPageRow: View {
         }
     }
 }
+

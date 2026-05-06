@@ -107,8 +107,8 @@ public struct WMFSurveyView: View {
                 .listCustomSectionSpacing(16)
                 .listRowSeparator(.hidden)
             }
-            .listBackgroundColor(Color(theme.midBackground))
-            .listStyle(.plain)
+            .listBackgroundColor(Color(theme.baseBackground))
+            .listStyle(.insetGrouped)
             .navigationTitle(viewModel.localizedStrings.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

@@ -30,9 +30,9 @@ class TextBarButtonItem: UIBarButtonItem, Themeable {
     public func apply(theme: Theme) {
         self.theme = theme
         if let customView = customView as? UIButton {
-            customView.tintColor = isEnabled ? theme.colors.link : theme.colors.disabledLink
+            customView.tintColor = isEnabled ? theme.colors.primaryText : theme.colors.secondaryText
         } else {
-            tintColor = isEnabled ? theme.colors.link : theme.colors.disabledLink
+            tintColor = isEnabled ? theme.colors.primaryText : theme.colors.secondaryText
         }
     }
 

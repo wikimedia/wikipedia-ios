@@ -15,6 +15,7 @@ public final class WidgetController: NSObject {
         case topRead = "org.wikimedia.wikipedia.widgets.topRead"
         case search = "org.wikimedia.wikipedia.widgets.search"
         case lockscreenSearch = "org.wikimedia.wikipedia.widgets.lockscreen-search"
+        case readingChallenge = "org.wikimedia.wikipedia.widgets.readingChallenge"
 
         public var identifier: String {
             return self.rawValue
@@ -26,7 +27,7 @@ public final class WidgetController: NSObject {
     @objc public static let shared = WidgetController()
     private let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.widgetCache)
     
-    private var widgetCache: WidgetCache {
+    var widgetCache: WidgetCache {
         return sharedCache.loadCache() ?? WidgetCache(settings: .default, featuredContent: nil)
     }
 
@@ -39,8 +40,9 @@ public final class WidgetController: NSObject {
 
         let dataStore = MWKDataStore.shared()
         let appLanguage = dataStore.languageLinkController.appLanguage
+        let preferredLanguageCodes = dataStore.languageLinkController.preferredLanguages.map { $0.languageCode }
         if let siteURL = appLanguage?.siteURL, let languageCode = appLanguage?.languageCode {
-            let updatedWidgetSettings = WidgetSettings(siteURL: siteURL, languageCode: languageCode, languageVariantCode: appLanguage?.languageVariantCode)
+            let updatedWidgetSettings = WidgetSettings(siteURL: siteURL, languageCode: languageCode, languageVariantCode: appLanguage?.languageVariantCode, preferredLanguageCodes: preferredLanguageCodes)
             updateCacheWith(settings: updatedWidgetSettings)
         }
 
@@ -54,12 +56,18 @@ public final class WidgetController: NSObject {
 
         let dataStore = MWKDataStore.shared()
         let appLanguage = dataStore.languageLinkController.appLanguage
+        let preferredLanguageCodes = dataStore.languageLinkController.preferredLanguages.map { $0.languageCode }
         if let siteURL = appLanguage?.siteURL, let languageCode = appLanguage?.languageCode {
-            let updatedWidgetSettings = WidgetSettings(siteURL: siteURL, languageCode: languageCode, languageVariantCode: appLanguage?.languageVariantCode)
+            let updatedWidgetSettings = WidgetSettings(siteURL: siteURL, languageCode: languageCode, languageVariantCode: appLanguage?.languageVariantCode, preferredLanguageCodes: preferredLanguageCodes)
             updateCacheWith(settings: updatedWidgetSettings)
         }
         
         WidgetCenter.shared.reloadTimelines(ofKind: SupportedWidget.featuredArticle.rawValue)
+    }
+
+    public func reloadReadingChallengeWidget() {
+        guard !Bundle.main.isAppExtension else { return }
+        WidgetCenter.shared.reloadTimelines(ofKind: SupportedWidget.readingChallenge.rawValue)
     }
     
     /// For requesting background time from widgets
@@ -209,9 +217,9 @@ public extension WidgetController {
         return widgetCache.settings.siteURL
     }
 
-    var potdTargetImageSize: CGSize {
-        CGSize(width: ImageUtils.ImageWidth.w960.rawValue, height: ImageUtils.ImageWidth.w960.rawValue)
-    }
+    static var potdSmallImageWidth: Int { ImageUtils.ImageWidth.w960.rawValue }
+    static var potdMediumImageWidth: Int { ImageUtils.ImageWidth.w960.rawValue }
+    static var potdLargeImageWidth: Int { ImageUtils.ImageWidth.w1280.rawValue }
 
     // MARK: - Utility
 
@@ -395,7 +403,7 @@ public extension WidgetController {
 
     // MARK: - Fetch Picture of the Day Widget Content
 
-    func fetchPictureOfTheDayContent(isSnapshot: Bool = false, completion: @escaping (WidgetContentFetcher.PictureOfTheDayResult) -> Void) {
+    func fetchPictureOfTheDayContent(isSnapshot: Bool = false, maxWidth: Int = ImageUtils.ImageWidth.w960.rawValue, completion: @escaping (WidgetContentFetcher.PictureOfTheDayResult) -> Void) {
         func performCompletion(result: WidgetContentFetcher.PictureOfTheDayResult) {
             DispatchQueue.main.async {
                 completion(result)
@@ -418,25 +426,24 @@ public extension WidgetController {
         fetchFeaturedContent { result in
             switch result {
             case .success(var featuredContent):
-                if featuredContent.pictureOfTheDay?.originalImageSource?.data != nil,
+                let standardWidth = ImageUtils.standardizeWidthToMediaWiki(maxWidth)
+                if let cachedSource = featuredContent.pictureOfTheDay?.originalImageSource,
+                   cachedSource.data != nil,
+                   WMFChangeImageSourceURLSizePrefix(cachedSource.source, standardWidth) == cachedSource.source,
                    let pictureOfTheDay = featuredContent.pictureOfTheDay {
                     performCompletion(result: .success(pictureOfTheDay))
                     return
                 }
 
                 if var imageSource = featuredContent.pictureOfTheDay?.thumbnailImageSource ?? featuredContent.pictureOfTheDay?.originalImageSource {
-                    let maxWidth = Int(self.potdTargetImageSize.width)
-                    imageSource.source = WMFChangeImageSourceURLSizePrefix(imageSource.source, maxWidth)
+                    imageSource.source = WMFChangeImageSourceURLSizePrefix(imageSource.source, standardWidth)
                     fetcher.fetchImageDataFrom(imageSource: imageSource) { imageResult in
-                        if let imageData = try? imageResult.get() {
-                            imageSource.data = imageData
-                        }
-                        featuredContent.pictureOfTheDay?.originalImageSource = imageSource
+                        featuredContent.pictureOfTheDay?.originalImageSource?.data = try? imageResult.get()
                         widgetCache.featuredContent = featuredContent
                         self.sharedCache.saveCache(widgetCache)
 
-                        if let pictureOfTheDay = featuredContent.pictureOfTheDay {
-                            performCompletion(result: .success(pictureOfTheDay))
+                        if let pictureOftheDay = featuredContent.pictureOfTheDay {
+                            performCompletion(result: .success(pictureOftheDay))
                         } else {
                             performCompletion(result: .failure(.contentFailure))
                         }

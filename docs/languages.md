@@ -18,7 +18,7 @@ For a language that has not had language variants before, add a new top-level ke
 _Troubleshooting: Variants missing from this file will not appear in the user's choices of langugages._ 
 
 #### Language variant mapping file
-During onboarding, the app uses the user's OS langauge preferences to suggest the preferred languages for Wikipedia content. If the language is one with variants, the variant specified by the user should be used.
+During onboarding, the app uses the user's OS language preferences to suggest the preferred languages for Wikipedia content. If the language is one with variants, the variant specified by the user should be used.
 
 However, the codes used by the OS to represent variants is different than the codes used by Wikipedia sites. The mapping from OS Locale for a given language to the Wikipedia language variant code is defined in the  `MediaWikiAcceptLanguageMapping.json` file.
 
@@ -39,7 +39,7 @@ A locale identifier in the OS can include:
 
 - Language, script, and region identifiers. For example: "zh_Hant_TW" for _Taiwanese, Traditional_; "zh_Hans_HK" for _Hong Kong, Simplified_
 
-In Chinese, the region affects the Wikipedia langauge variant. So, the mapping file specifies regions in the most deeply nested dictionary.
+In Chinese, the region affects the Wikipedia language variant. So, the mapping file specifies regions in the most deeply nested dictionary.
 
 In all other languages with variants so far, the script identifier is enough to identify the variant, and does not change regardless of region.
 For these languages, only the "default" key is present in the region dictionary.

@@ -8,10 +8,12 @@
 @property (nonatomic, strong) IBOutlet UIButton *ownerButton;
 @property (nonatomic, strong) IBOutlet UIButton *infoButton;
 @property (nonatomic, strong) IBOutlet WMFLicenseView *ownerStackView;
-@property (nonatomic, strong) IBOutlet UIImageView *lineImageView;
+@property (nonatomic, strong) IBOutlet UIImageView *lineImageView; // Retained to satisfy XIB outlet; no longer used.
 
 - (IBAction)didTapOwnerButton;
 - (IBAction)didTapInfoButton;
+- (IBAction)didTapDescriptionTextView;
+- (IBAction)didTapBottomGradientView;
 
 @end
 
@@ -40,22 +42,10 @@
     }
 }
 
-- (IBAction)didTapDescriptionTextView {
-    if (self.descriptionTapCallback) {
-        self.descriptionTapCallback();
-    }
-}
+- (IBAction)didTapDescriptionTextView {}
 
-- (IBAction)didTapBottomGradientView {
-    if (self.descriptionTapCallback) {
-        self.descriptionTapCallback();
-    }
-}
+- (IBAction)didTapBottomGradientView {}
 
-- (void)toggleDescriptionOpenState {
-    [self.imageDescriptionTextView toggleOpenState];
-    self.lineImageView.image = (self.imageDescriptionTextView.openStatePercent == GalleryDescriptionOpenStatePercentNormal) ? [UIImage imageNamed:@"gallery-line"] : [UIImage imageNamed:@"gallery-line-bent"];
-}
 
 - (NSString *)imageDescription {
     return self.imageDescriptionTextView.text;
@@ -63,7 +53,6 @@
 
 - (void)setImageDescription:(NSString *)imageDescription {
     self.imageDescriptionTextView.text = imageDescription;
-    self.lineImageView.alpha = imageDescription.length > 0 ? 1.0 : 0.0;
 }
 
 - (void)setImageDescriptionIsRTL:(BOOL)isRTL {

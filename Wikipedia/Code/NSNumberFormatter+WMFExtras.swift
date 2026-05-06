@@ -1,4 +1,5 @@
 import Foundation
+import WMFNativeLocalizations
 
 let thousandsFormatter = { () -> NumberFormatter in
     let formatter = NumberFormatter()

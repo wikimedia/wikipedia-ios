@@ -1,4 +1,5 @@
 import UIKit
+import WMFNativeLocalizations
 
 // Presently it is assumed this view controller will be used only as a
 // child view controller of another view controller.
@@ -172,7 +173,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
                 
         let failure: WMFErrorHandler = {error in }
         
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-captcha-obtaining", value:"Obtaining a new CAPTCHA...", comment: "Alert shown when user wants a new captcha when creating account"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFToastManager.sharedInstance.showToast(WMFLocalizedString("account-creation-captcha-obtaining", value:"Obtaining a new CAPTCHA...", comment: "Alert shown when user wants a new captcha when creating account"), sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
         
         self.captchaResetter.resetCaptcha(siteURL: captchaBaseURL()!, success: { result in
             DispatchQueue.main.async {

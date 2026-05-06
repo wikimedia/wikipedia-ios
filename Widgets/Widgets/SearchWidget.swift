@@ -2,6 +2,7 @@ import SwiftUI
 import WidgetKit
 import WMF
 import WMFComponents
+import WMFNativeLocalizations
 
 // MARK: - Widget
 
@@ -30,7 +31,8 @@ struct SearchEntry: TimelineEntry {
     init(date: Date = Date(), configuration: SearchWidgetConfiguration = SearchWidgetConfiguration()) {
         self.date = date
         self.configuration = configuration
-        self.url = URL(string: "wikipedia://search")
+        // Include source query parameter so the app knows this came from a widget
+        self.url = URL(string: "wikipedia://search?source=widget_search")
     }
 }
 
@@ -125,4 +127,4 @@ struct SearchWidget_Previews: PreviewProvider {
                 .previewDisplayName("Dark Mode")
         }
     }
-} 
+}

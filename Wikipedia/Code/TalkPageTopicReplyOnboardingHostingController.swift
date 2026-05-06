@@ -1,6 +1,6 @@
 import SwiftUI
 
-final class TalkPageTopicReplyOnboardingHostingController: UIHostingController<TalkPageTopicReplyOnboardingView>, UIAdaptivePresentationControllerDelegate, Themeable, RMessageSuppressing {
+final class TalkPageTopicReplyOnboardingHostingController: UIHostingController<TalkPageTopicReplyOnboardingView>, UIAdaptivePresentationControllerDelegate, Themeable {
 
     // MARK: - Properties
     let dismissAction: () -> Void

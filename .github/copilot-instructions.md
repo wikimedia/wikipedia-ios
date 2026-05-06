@@ -429,3 +429,96 @@ xcodebuild \
 ```
 
 To run unit tests, use the same commands but add "test" after xcodebuild, e.g. `xcodebuild test \` Each scheme should run to fully confirm unit tests work (WMFData, WMFComponents, App-side).
+
+
+
+## Swift 6 Strict Concurrency
+
+All new code must comply with Swift 6 strict concurrency. The following rules apply across WMFData, WMFComponents, and app-side code.
+
+### General Rules
+
+- Do not suppress concurrency warnings with `@preconcurrency` or `nonisolated(unsafe)` unless absolutely necessary and documented with a comment explaining why if possible.
+- Prefer `async`/`await` over completion handlers for all new asynchronous code.
+- All mutable state shared across concurrency domains must be protected. Use actors, `@MainActor`, or value types (`struct`, `enum`) to prevent data races.
+- Avoid `DispatchQueue` for new code. Use Swift concurrency primitives (`Task`, `async let`, `TaskGroup`, `actor`) instead.
+
+### Actors and Isolation
+
+- Use `actor` types for classes that manage shared mutable state accessed from multiple concurrency contexts (e.g., caches, stores).
+- Use `@MainActor` on classes or methods that interact with UIKit or SwiftUI (view models, hosting controllers, UI-related helpers, coordinators). All `ObservableObject` view models should be annotated `@MainActor`.
+- Data controllers in WMFData must **not** import UIKit or SwiftUI, so they cannot be `@MainActor`. Keep them actor-isolated only when they manage shared mutable state; otherwise prefer `Sendable` value-type models as return types.
+- Methods that call `@MainActor`-isolated code from a non-isolated context must use `await MainActor.run { }` or be called from a `Task { @MainActor in ... }`.
+
+### Sendable Conformance
+
+- All models (structs, enums, classes) passed across concurrency boundaries must conform to `Sendable`. Prefer `struct` and `enum` for models — they are `Sendable` by default when their stored properties are `Sendable`.
+- Closures passed across concurrency boundaries (e.g., stored as properties, used in `Task`) must be marked `@Sendable`.
+- `final class` types that are immutable after initialization may conform to `Sendable` explicitly.
+
+### Tasks and Structured Concurrency
+
+- Prefer structured concurrency (`async let`, `TaskGroup`) over unstructured `Task { }` where possible.
+- Store `Task` references when cancellation is needed (e.g., on `deinit` or `onDisappear`). Call `task.cancel()` to clean up.
+- Do not capture `self` strongly in `Task { }` inside view models without a `[weak self]` guard to avoid retain cycles.
+
+    ```swift
+    // Preferred pattern in a @MainActor view model
+    @MainActor
+    final class ExampleViewModel: ObservableObject {
+        @Published var items: [Item] = []
+        private var loadTask: Task<Void, Never>?
+
+        func load() {
+            loadTask?.cancel()
+            loadTask = Task {
+                do {
+                    let result = try await SomeDataController.shared.fetchItems()
+                    self.items = result
+                } catch {
+                    // handle error
+                }
+            }
+        }
+
+        deinit {
+            loadTask?.cancel()
+        }
+    }
+    ```
+
+### Data Controllers (WMFData)
+
+- Public data controller methods should use `async throws` signatures so callers can use `await` and structured error handling.
+- Data controllers that hold in-memory caches must protect that state with an `actor` or synchronize access using `AsyncStream` / `AsyncSequence` patterns. Do not use bare mutable properties on a non-isolated class.
+- Singleton data controllers (e.g., `WMFImageDataController.shared`, `WMFArticleSummaryDataController.shared`) should be declared as `actor`
+
+### View Models (WMFComponents)
+
+- All `ObservableObject` view models must be annotated `@MainActor` at the class level.
+- `@Published` properties are only safe to mutate on the main actor; the `@MainActor` annotation on the class enforces this automatically.
+- When calling `async` data controller methods from inside a `@MainActor` view model, launch a `Task` directly — you are already on the main actor, so the `await` will hop correctly.
+
+    ```swift
+    @MainActor
+    final class ExampleViewModel: ObservableObject {
+        @Published var title: String = ""
+
+        func refresh() {
+            Task {
+                let value = try await SomeDataController.shared.fetchTitle()
+                self.title = value
+            }
+        }
+    }
+    ```
+
+### Callbacks and Closures
+
+- Closures used as callbacks from view models to coordinators (e.g., `didTapButton: () -> Void`) should be typed `@MainActor @Sendable () -> Void` when they will be called on the main actor and captured across concurrency boundaries.
+- Logging delegate protocols should mark their methods `@MainActor` since logging callbacks are triggered from UI interactions.
+
+### Nonconcurrency-Safe Legacy Code
+
+- When interfacing with legacy Objective-C or non-`Sendable` types, isolate the interaction inside `@MainActor` blocks or within an actor boundary.
+- Do not widen the surface area of `@preconcurrency` imports. Confine them to the specific file or extension where the legacy type is used.

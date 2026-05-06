@@ -1,6 +1,7 @@
 import UIKit
 import BackgroundTasks
 import CocoaLumberjackSwift
+import WMFTestKitchen
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -21,6 +22,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     private var appNeedsResume = true
+    // Tracks the most recent source used to open the app (external_link, widget, shortcut, notification, etc.)
+    // This is consumed when the scene becomes active to submit the apps-open instrument.
+    private var lastOpenSource: String? = nil
+    // Holds a pending app_open source when the data environment isn't ready yet (e.g. fresh install).
+    // Consumed by dataEnvironmentDidSetup() once setup completes.
+    private var pendingAppOpenSource: String? = nil
+    // Tracks whether the app was in the background before this activation cycle.
+    // Used to distinguish cold launch (app_icon) from background-to-foreground return (background).
+    private var wasInBackground = false
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
@@ -55,6 +65,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidBecomeActive(_ scene: UIScene) {
 
+        // Submit app_open instrument with the most recent source (if any), then resume the app.
+        submitAppOpenIfNeeded()
+
         resumeAppIfNecessary()
     }
 
@@ -65,10 +78,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         appDelegate?.cancelPendingBackgroundTasks()
+        wasInBackground = true
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-
         appDelegate?.updateDynamicIconShortcutItems()
         appDelegate?.scheduleBackgroundAppRefreshTask()
         appDelegate?.scheduleDatabaseHousekeeperTask()
@@ -79,6 +92,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func processShortcutItem(_ shortcutItem: UIApplicationShortcutItem, completionHandler: ((Bool) -> Void)? = nil) {
+        // Record that the app was opened via a home screen shortcut
+        self.lastOpenSource = "shortcut"
         appViewController?.processShortcutItem(shortcutItem) { handled in
             completionHandler?(handled)
         }
@@ -96,6 +111,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appViewController.showSplashView()
         var userInfo = userActivity.userInfo
         userInfo?[WMFRoutingUserInfoKeys.source] = WMFRoutingUserInfoSourceValue.deepLinkRawValue
+        // Only set external_link source if not already set (e.g. by openURLContexts which may have extracted a widget source from the URL)
+        if lastOpenSource == nil {
+            self.lastOpenSource = "external_link"
+        }
         userActivity.userInfo = userInfo
         
         _ = appViewController.processUserActivity(userActivity, animated: false) { [weak self] in
@@ -133,24 +152,81 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
-        guard let activity = NSUserActivity.wmf_activity(forWikipediaScheme: firstURL) ?? NSUserActivity.wmf_activity(for: firstURL) else {
-            resumeAppIfNecessary()
-            return
+        // Extract source from URL query parameters before any activity processing, so widget taps
+        // (which include source=widget_*) are not overwritten by processUserActivity setting "external_link".
+        if let components = URLComponents(url: firstURL, resolvingAgainstBaseURL: false),
+           let sourceValue = components.queryItems?.first(where: { $0.name == "source" })?.value {
+            self.lastOpenSource = sourceValue
+        } else {
+            // URL opened from an external app (e.g. Chrome, Safari) with no source param.
+            self.lastOpenSource = "external_link"
         }
         
-        appViewController.showSplashView()
-        _ = appViewController.processUserActivity(activity, animated: false) { [weak self] in
-            
-            guard let self else {
-                return
+        // Try to derive an NSUserActivity for the URL and route accordingly.
+        if let activity = NSUserActivity.wmf_activity(forWikipediaScheme: firstURL) ?? NSUserActivity.wmf_activity(for: firstURL) {
+            appViewController.showSplashView()
+            _ = appViewController.processUserActivity(activity, animated: false) { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                if appNeedsResume {
+                    resumeAppIfNecessary()
+                } else {
+                    appViewController.hideSplashView()
+                }
             }
-            
-            if appNeedsResume {
-                resumeAppIfNecessary()
-            } else {
-                appViewController.hideSplashView()
-            }
+        } else {
+            resumeAppIfNecessary()
         }
+    }
+    
+    // Submit the TestKitchen "apps-open" instrument for app opens. This reads and consumes `lastOpenSource`.
+    private func submitAppOpenIfNeeded() {
+        // If no specific entry point was recorded, determine the source from how the app was activated:
+        // - Cold launch with no external entry point → user tapped the app icon.
+        // - Warm foreground return with no external entry point → app came back from background.
+        let source: String
+        if let explicitSource = lastOpenSource {
+            source = explicitSource
+        } else if !wasInBackground {
+            // sceneWillEnterForeground was not called before this activation, so this is a cold launch.
+            source = "app_icon"
+        } else {
+            source = "background"
+        }
+        lastOpenSource = nil
+        wasInBackground = false
+
+        // On fresh install, the data environment (languages, mediawiki project) may not be ready yet
+        // when sceneDidBecomeActive fires. Defer the submission until dataEnvironmentDidSetup() is called.
+        guard MWKDataStore.shared().primarySiteURL != nil else {
+            pendingAppOpenSource = source
+            return
+        }
+
+        submitAppOpen(source: source)
+    }
+
+    private func submitAppOpen(source: String) {
+        let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-open")
+            .startFunnel(name: "apps_open")
+        instrument.submitInteraction(action: "app_open", actionSource: source)
+    }
+
+    // Called from setupWMFDataEnvironment once the data store and languages are ready.
+    // Submits any app_open event that was deferred due to the data environment not being set up yet.
+    @objc func dataEnvironmentDidSetup() {
+        guard let source = pendingAppOpenSource else { return }
+        pendingAppOpenSource = nil
+        submitAppOpen(source: source)
+    }
+    
+    // Exposed to Objective-C so other app-side ObjC code (e.g. WMFAppViewController) can mark the last open source
+    // when a notification or other entry point is handled prior to scene activation.
+    @objc func setLastOpenSource(_ source: NSString?) {
+        self.lastOpenSource = source as String?
     }
 
     // MARK: Private

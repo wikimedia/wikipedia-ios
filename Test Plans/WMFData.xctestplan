@@ -9,6 +9,7 @@
     }
   ],
   "defaultOptions" : {
+    "codeCoverage" : true,
     "commandLineArgumentEntries" : [
       {
         "argument" : "-com.apple.CoreData.ConcurrencyDebug 1"
