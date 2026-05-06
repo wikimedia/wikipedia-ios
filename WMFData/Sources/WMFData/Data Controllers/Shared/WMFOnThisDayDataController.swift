@@ -1,14 +1,5 @@
 import Foundation
 
-// MARK: - Error
-
-public enum WMFOnThisDayDataControllerError: Error {
-    case unsupportedProject
-    case failureCreatingRequestURL
-    case serviceUnavailable
-    case unexpectedResponse
-}
-
 // MARK: - Controller
 
 public final class WMFOnThisDayDataController {
@@ -38,8 +29,7 @@ public final class WMFOnThisDayDataController {
     ///
     /// - Parameters:
     ///   - project: The wiki project to fetch events for. Only `.wikipedia` projects whose
-    ///              language code appears in the supported-language list are accepted; all
-    ///              others throw `WMFOnThisDayDataControllerError.unsupportedProject`.
+    ///              language code appears in the supported-language list are accepted
     ///   - month: The calendar month (1–12).
     ///   - day: The calendar day (1–31).
     ///   - completion: Called on an arbitrary queue with the result.
@@ -50,17 +40,17 @@ public final class WMFOnThisDayDataController {
         completion: @escaping (Result<WMFOnThisDayResponse, Error>) -> Void
     ) {
         guard isSupported(project: project) else {
-            completion(.failure(WMFOnThisDayDataControllerError.unsupportedProject))
+            completion(.failure(WMFDataControllerError.basicServiceUnavailable))
             return
         }
 
         guard let basicService else {
-            completion(.failure(WMFOnThisDayDataControllerError.serviceUnavailable))
+            completion(.failure(WMFDataControllerError.basicServiceUnavailable))
             return
         }
 
         guard let url = url(for: project, month: month, day: day) else {
-            completion(.failure(WMFOnThisDayDataControllerError.failureCreatingRequestURL))
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
 
