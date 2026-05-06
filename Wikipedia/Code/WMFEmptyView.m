@@ -30,6 +30,16 @@
     [self updateImageView];
     [self wmf_configureSubviewsForDynamicType];
     [self applyTheme:self.theme];
+
+    __weak __typeof(self) weakSelf = self;
+    [self registerForTraitChanges:@[UITraitPreferredContentSizeCategory.class, UITraitVerticalSizeClass.class]
+                      withHandler:^(__kindof WMFEmptyView *_Nonnull view, UITraitCollection *_Nonnull previousTraitCollection) {
+                          __strong __typeof(weakSelf) strongSelf = weakSelf;
+                          if (strongSelf) {
+                              [strongSelf updateFonts];
+                              [strongSelf updateImageView];
+                          }
+                      }];
 }
 
 - (NSString *)backgroundColorKeyPath {
@@ -66,7 +76,7 @@
 + (instancetype)noFeedEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"no-internet"];
-    view.titleLabel.text = [WMFCommonStrings noInternetConnection];
+    view.titleLabel.text = [WMFCommonStringsWrapper noInternetConnection];
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-message", nil, nil, @"You can see your recommended articles when you have internet", @"Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored");
     view.actionLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-action-message", nil, nil, @"You can still read saved pages", @"Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline");
     [view.button removeFromSuperview];
@@ -100,8 +110,8 @@
 + (instancetype)noSavedPagesEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"saved-blank"];
-    view.titleLabel.text = [WMFCommonStrings allArticlesEmptySavedTitle];
-    view.messageLabel.text = [WMFCommonStrings allArticlesEmptySavedSubtitle];
+    view.titleLabel.text = [WMFCommonStringsWrapper allArticlesEmptySavedTitle];
+    view.messageLabel.text = [WMFCommonStringsWrapper allArticlesEmptySavedSubtitle];
 
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
@@ -112,7 +122,7 @@
 + (instancetype)noInternetConnectionEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"no-internet-blank"];
-    view.titleLabel.text = [WMFCommonStrings noInternetConnection];
+    view.titleLabel.text = [WMFCommonStringsWrapper noInternetConnection];
 
     [view.messageLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
@@ -126,30 +136,6 @@
     view.imageView.image = [UIImage imageNamed:@"saved-blank"];
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-saved-pages-in-reading-list-title", nil, nil, @"No pages saved to this list", @"Title of a blank screen shown when a user has no saved pages in a reading list");
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-saved-pages-in-reading-list-message", nil, nil, @"Save pages to this list to see them appear here", @"Message of a blank screen shown when a user has no saved pages in a reading list");
-
-    [view.actionLabel removeFromSuperview];
-    [view.actionLine removeFromSuperview];
-    [view.button removeFromSuperview];
-    return view;
-}
-
-+ (instancetype)noReadingListsEmptyViewWithTarget:(nullable id)target action:(nullable SEL)action {
-    WMFEmptyView *view = [[self class] emptyView];
-    view.imageView.image = [UIImage imageNamed:@"reading-lists-empty-state"];
-    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-reading-lists-title", nil, nil, @"Organize saved articles with reading lists", @"Title of a blank screen shown when a user has no reading lists");
-    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-reading-lists-message", nil, nil, @"Create lists for places to travel to, favorite topics and much more", @"Message of a blank screen shown when a user has no reading lists");
-
-    [view.actionLabel removeFromSuperview];
-    [view.actionLine removeFromSuperview];
-    [view configureButtonWithTitle:[WMFCommonStrings createNewListTitle] image:[UIImage imageNamed:@"plus"] target:target action:action];
-    return view;
-}
-
-+ (instancetype)noHistoryEmptyView {
-    WMFEmptyView *view = [[self class] emptyView];
-    view.imageView.image = [UIImage imageNamed:@"history-blank"];
-    view.titleLabel.text = WMFCommonStrings.emptyNoHistoryTitle;
-    view.messageLabel.text = WMFCommonStrings.emptyNoHistorySubtitle;
 
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
@@ -200,7 +186,7 @@
 + (instancetype)emptyDiffCompareEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"empty-diff"];
-    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-diff-compare-title", nil, nil, @"No differences between revisions", @"Text for placeholder label visible when diff comparision between revisions is empty.");
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-diff-compare-title", nil, nil, @"No differences between revisions", @"Text for placeholder label visible when diff comparison between revisions is empty.");
     view.backgroundColorKeyPath = @"colors.midBackground";
 
     [view.messageLabel removeFromSuperview];
@@ -226,7 +212,7 @@
 + (instancetype)errorDiffCompareEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"error-diff"];
-    view.titleLabel.text = [WMFCommonStrings diffErrorTitle];
+    view.titleLabel.text = [WMFCommonStringsWrapper diffErrorTitle];
     view.backgroundColorKeyPath = @"colors.midBackground";
 
     [view.messageLabel removeFromSuperview];
@@ -239,7 +225,7 @@
 + (instancetype)errorDiffSingleEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"error-single-diff"];
-    view.titleLabel.text = [WMFCommonStrings diffErrorTitle];
+    view.titleLabel.text = [WMFCommonStringsWrapper diffErrorTitle];
     view.backgroundColorKeyPath = @"colors.midBackground";
 
     [view.messageLabel removeFromSuperview];
@@ -251,12 +237,12 @@
 
 + (instancetype)noOtherArticleLanguagesEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
-    
+
     view.imageView.image = [UIImage imageNamed:@"no-other-article-languages"];
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-other-article-languages-title", nil, nil, @"No other languages available", @"Title text shown in place of languages list when when no alternative article languages exist.");
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-other-article-languages-message", nil, nil, @"This article has not yet been written in any other languages", @"Message text shown in place of languages list when when no alternative article languages exist.");
     view.backgroundColorKeyPath = @"colors.baseBackground";
-    
+
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
     [view.button removeFromSuperview];
@@ -276,14 +262,8 @@
     [self.button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
-    [super traitCollectionDidChange:previousTraitCollection];
-    [self updateFonts];
-    [self updateImageView];
-}
-
 - (void)updateFonts {
-    self.button.titleLabel.font = [WMFFontWrapper fontFor: WMFFontsBoldCallout compatibleWithTraitCollection:self.traitCollection];
+    self.button.titleLabel.font = [WMFFontWrapper fontFor:WMFFontsBoldCallout compatibleWithTraitCollection:self.traitCollection];
 }
 
 - (void)updateImageView {
@@ -298,9 +278,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
     [self.delegate heightChanged:self.bounds.size.height];
-
     if (![self.actionLine superview]) {
         return;
     }

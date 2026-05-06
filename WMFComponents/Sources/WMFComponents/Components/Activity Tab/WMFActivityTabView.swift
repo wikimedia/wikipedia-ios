@@ -47,11 +47,14 @@ public struct WMFActivityTabView: View {
                 Section {
                     VStack(spacing: 16) {
                         if viewModel.customizeViewModel.isTimeSpentReadingOn {
+                            if viewModel.needsHistoryCallout {
+                                historyCalloutView(loggedIn: true)
+                            }
                             headerView
                                 .accessibilityElement()
                                 .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
                                 .accessibilityHint(viewModel.localizedStrings.onWikipediaiOS)
-                            
+
                             VStack(alignment: .center, spacing: 8) {
                                 hoursMinutesRead
                                     .accessibilityLabel(viewModel.hoursMinutesRead)
@@ -64,23 +67,23 @@ public struct WMFActivityTabView: View {
                             .accessibilityElement()
                             .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
                         }
-                        
-                        
+
                         if viewModel.customizeViewModel.isReadingInsightsOn {
                             articlesReadModule(proxy: proxy)
                             savedArticlesModule
-                            
+
                             if viewModel.shouldShowExploreCTA {
                                 exploreCTA
                                     .padding(.vertical, 12)
                             }
-                            
+
                             if !viewModel.articlesReadViewModel.topCategories.isEmpty {
                                 topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
                             }
                         }
                     }
                     .padding(.horizontal, 16)
+                    .padding(.top, 16)
                     .padding(.bottom, 16)
                     .listRowInsets(EdgeInsets())
                     .background(
@@ -96,25 +99,25 @@ public struct WMFActivityTabView: View {
                 }
                 .listRowSeparator(.hidden)
             }
-                        
+
             if viewModel.customizeViewModel.isEditingInsightsOn && viewModel.shouldShowYourImpactHeader {
-                
+
                 Section(header: YourImpactHeaderView(viewModel: viewModel)) {
-                    
+
                     VStack(spacing: 16) {
-                        
+
                         if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
                             TopViewedEditsView(viewModel: viewModel, mostViewedViewModel: mostViewedArticlesViewModel)
                         }
-                        
+
                         if let contributionsViewModel = viewModel.contributionsViewModel {
                             ContributionsView(viewModel: contributionsViewModel)
                         }
-                        
+
                         if viewModel.allTimeImpactViewModel != nil || viewModel.recentActivityViewModel != nil || viewModel.articleViewsViewModel != nil {
                             CombinedImpactView(allTimeImpactViewModel: viewModel.allTimeImpactViewModel, recentActivityViewModel: viewModel.recentActivityViewModel, articleViewsViewModel: viewModel.articleViewsViewModel)
                         }
-                        
+
                         if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
                             totalEditsView(amount: animatedGlobalEditCount)
                                 .onAppear {
@@ -128,7 +131,7 @@ public struct WMFActivityTabView: View {
                                         animatedGlobalEditCount = globalEditCount
                                     }
                                 }
-                                .onChange(of: globalEditCount) { newValue in
+                                .onChange(of: globalEditCount) { _, newValue in
                                     withAnimation(.easeOut(duration: 0.6)) {
                                         animatedGlobalEditCount = newValue
                                     }
@@ -151,7 +154,7 @@ public struct WMFActivityTabView: View {
                 }
                 .listRowSeparator(.hidden)
             }
-            
+
             if viewModel.customizeViewModel.isTimelineOfBehaviorOn {
                 timelineSectionsList()
                     .id("timelineSection")
@@ -162,7 +165,7 @@ public struct WMFActivityTabView: View {
         .listStyle(.grouped)
         .listCustomSectionSpacing(0)
     }
-    
+
     private var exploreCTA: some View {
         VStack(alignment: .center, spacing: 12) {
             Text(viewModel.localizedStrings.lookingForSomethingNew)
@@ -171,11 +174,8 @@ public struct WMFActivityTabView: View {
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
             WMFSmallButton(configuration: .init(style: .primary), title: viewModel.localizedStrings.exploreWikipedia, action: {
-                // This is purposefully left empty because the whole container has an on tap
+                viewModel.exploreWikipedia()
             })
-        }
-        .onTapGesture {
-            viewModel.exploreWikipedia()
         }
         .frame(maxWidth: .infinity, alignment: .center)
     }
@@ -184,13 +184,18 @@ public struct WMFActivityTabView: View {
     private func loggedOutList(proxy: ScrollViewProxy) -> some View {
         if viewModel.sections.count == 0 {
             VStack {
+                if viewModel.needsHistoryCallout {
+                    historyCalloutView(loggedIn: false)
+                        .padding(.top, 16)
+                        .padding([.leading, .trailing], 16)
+                }
                 Section {
                     loggedOutView
                         .accessibilityElement(children: .contain)
                         .listRowInsets(EdgeInsets())
                 }
                 .listRowSeparator(.hidden)
-                
+
                 HStack {
                     Spacer()
                     WMFEmptyView(
@@ -206,6 +211,14 @@ public struct WMFActivityTabView: View {
             .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         } else {
             List {
+                if viewModel.needsHistoryCallout {
+                    Section {
+                        historyCalloutView(loggedIn: false)
+                            .padding(16)
+                            .listRowInsets(EdgeInsets())
+                    }
+                    .listRowSeparator(.hidden)
+                }
                 Section {
                     loggedOutView
                         .accessibilityElement(children: .contain)
@@ -219,7 +232,7 @@ public struct WMFActivityTabView: View {
             .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         }
     }
-    
+
     private func totalEditsView(amount: Int) -> some View {
 
         let cardView = WMFActivityTabInfoCardView(
@@ -237,14 +250,14 @@ public struct WMFActivityTabView: View {
                 }
             }
         )
-        
+
         let formattedAmount = amountAccessibilityLabel(for: amount)
         let accessibilityLabel: String = [viewModel.localizedStrings.totalEditsAcrossProjects, formattedAmount].joined(separator: ",")
-        
+
         return cardView.accessibilityElement(children: .ignore)
             .accessibilityLabel(accessibilityLabel)
             .accessibilityAddTraits(.isButton)
-        
+
     }
 
     private func timelineSectionsList() -> some View {
@@ -285,23 +298,15 @@ public struct WMFActivityTabView: View {
                 .font(Font(WMFFont.for(.callout)))
                 .foregroundColor(Color(uiColor: theme.text))
             HStack(spacing: 12) {
-                Button(action: {
-                    viewModel.didTapPrimaryLoggedOutCTA?()
-                }) {
-                    HStack(spacing: 8) {
-                        if let icon = WMFSFSymbolIcon.for(symbol: .personFilled) {
-                            Image(uiImage: icon)
-                        }
-                        Text(viewModel.localizedStrings.loggedOutPrimaryCTA)
+                WMFSmallButton(
+                    configuration: .init(style: .primary),
+                    title: viewModel.localizedStrings.loggedOutPrimaryCTA,
+                    image: WMFSFSymbolIcon.for(symbol: .personFilled),
+                    action: {
+                        viewModel.didTapPrimaryLoggedOutCTA?()
                     }
-                    .font(Font(WMFFont.for(.subheadline)))
-                    .foregroundColor(Color(uiColor: theme.paperBackground))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(Color(uiColor: theme.link))
-                    .cornerRadius(8)
-                }
-                .buttonStyle(BorderlessButtonStyle())
+                )
+
                 Spacer()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -365,10 +370,10 @@ public struct WMFActivityTabView: View {
                 }
             }
         )
-        
+
         let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesReadViewModel.totalArticlesRead)
         let accessibilityLabel: String = [viewModel.localizedStrings.totalArticlesRead, viewModel.articlesReadViewModel.dateTimeLastRead, formattedAmount].joined(separator: ",")
-        
+
         return cardView
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(accessibilityLabel)
@@ -400,14 +405,65 @@ public struct WMFActivityTabView: View {
                 }
             }
         )
-        
+
         let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesSavedViewModel.articlesSavedAmount)
         let accessibilityLabel: String = [viewModel.localizedStrings.articlesSavedTitle, viewModel.articlesSavedViewModel.dateTimeLastSaved, formattedAmount].joined(separator: ",")
-        
+
         return cardView
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(accessibilityLabel)
             .accessibilityAddTraits(.isButton)
+    }
+
+    private func historyCalloutView(loggedIn: Bool) -> some View {
+       let bodyString = loggedIn
+            ? viewModel.localizedStrings.historyCalloutBodyLoggedIn
+            : viewModel.localizedStrings.historyCalloutBodyLoggedOut
+        let bodyAttributed = (try? AttributedString(markdown: bodyString)) ?? AttributedString(bodyString)
+
+        return VStack(alignment: .leading, spacing: 8) {
+            HStack(alignment: .top, spacing: 8) {
+                Text("🔍")
+                    .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(viewModel.localizedStrings.historyCalloutTitle)
+                        .font(Font(WMFFont.for(.boldSubheadline)))
+                        .foregroundStyle(Color(uiColor: theme.link))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .accessibilityAddTraits(.isHeader)
+                    Text(bodyAttributed)
+                        .font(Font(WMFFont.for(.subheadline)))
+                        .foregroundStyle(Color(uiColor: theme.link))
+                        .onTapGesture {
+                            viewModel.didTapSearchTab?()
+                        }
+                }
+                Button {
+                    viewModel.setClosedHIstoryCallout()
+                } label: {
+                    if let closeIconName = WMFSFSymbolIcon.closeCircleFill.name {
+                        Image(systemName: closeIconName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 22, height: 22)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(
+                                Color(uiColor: theme.secondaryText),
+                                Color(uiColor: theme.secondaryText.withAlphaComponent(0.2))
+                            )
+                    }
+                }
+                .buttonStyle(BorderlessButtonStyle())
+                .accessibilityLabel(viewModel.localizedStrings.calloutCloseButtonAccesibilityHint)
+            }
+        }
+        .padding(16)
+        .background(Color(uiColor: theme.link.withAlphaComponent(0.15)))
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color(uiColor: theme.link.withAlphaComponent(0.3)), lineWidth: 0.5)
+        )
     }
 
     private func showPlus(displayCount: Int, totalSavedCount: Int) -> Bool {
@@ -454,14 +510,14 @@ public struct WMFActivityTabView: View {
         let maxReads = weeklyReads.max() ?? 1
         let chartHeight: CGFloat = 45
         let minBarHeight: CGFloat = 4
-        
+
         return VStack {
             Spacer(minLength: 0)
             HStack(alignment: .bottom, spacing: 6) {
                 ForEach(weeklyReads.indices, id: \.self) { index in
                     let percentage = maxReads > 0 ? CGFloat(weeklyReads[index]) / CGFloat(maxReads) : 0
                     let barHeight = weeklyReads[index] > 0 ? chartHeight * percentage : minBarHeight
-                    
+
                     RoundedRectangle(cornerRadius: 1.5)
                         .fill(weeklyReads[index] > 0
                             ? Color(uiColor: theme.accent)
@@ -478,7 +534,7 @@ public struct WMFActivityTabView: View {
     }
 
     private func topCategoriesModule(categories: [String]) -> some View {
-        
+
         let cardView = WMFActivityTabInfoCardView(
             icon: WMFSFSymbolIcon.for(symbol: .rectangle3, font: WMFFont.boldCaption1),
             title: viewModel.localizedStrings.topCategories,
@@ -508,23 +564,23 @@ public struct WMFActivityTabView: View {
                 }
             }
         )
-        
+
         let accessibilityLabel = viewModel.localizedStrings.topCategories
         let accessibilityValue = viewModel.articlesReadViewModel.topCategories.joined(separator: ", ")
-        
+
         return cardView
             .accessibilityElement()
             .accessibilityLabel(accessibilityLabel)
             .accessibilityValue(accessibilityValue)
     }
-    
+
     private func amountAccessibilityLabel(for amount: Int) -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        
+
         return numberFormatter.string(from: NSNumber(value: amount)) ?? "\(amount)"
     }
-    
+
     private func customizedEmptyState() -> some View {
         WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState)
             .frame(maxWidth: .infinity)

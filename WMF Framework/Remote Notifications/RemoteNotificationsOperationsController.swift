@@ -1,5 +1,6 @@
 import CocoaLumberjackSwift
 import WMFData
+import WMFNativeLocalizations
 
 enum RemoteNotificationsOperationsError: LocalizedError {
     case failurePullingAppLanguage

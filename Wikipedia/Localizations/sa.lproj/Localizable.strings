@@ -57,8 +57,10 @@
 "main-menu-title" = "अधिकम्";
 "main-menu-zero-faq" = "विकिपीडिया-शून्यविषये सामान्यजिज्ञासाः";
 "navbar-title-mode-edit-wikitext-preview" = "प्राग्दृश्यम्";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 फिट्";
 "nearby-distance-label-km" = "$1 कि.मी.";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 मि.";
 "nearby-distance-label-miles" = "$1 माइल्स्";
 "page-protected-can-not-edit" = "एतस्मिन् पृष्ठे सम्पादनं कर्तुं भवतः/भवत्याः पार्श्वे अधिकाराः न सन्ति ।";

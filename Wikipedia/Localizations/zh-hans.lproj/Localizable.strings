@@ -355,7 +355,6 @@
 "description-help-title" = "条目描述帮助";
 "description-help-wikidata-guide" = "维基数据编写描述指南";
 "description-published-button-title" = "完成";
-"description-published-footer" = "您也可以使用本应用编辑条目。下次试试点击铅笔图标来修正笔误以及短句";
 "description-published-subtitle" = "您刚刚完善了维基百科，人人都会受益";
 "description-published-title" = "描述已发布！";
 "description-welcome-concise-sub-title" = "理想情况下，一行介于2到12个字之间";
@@ -467,8 +466,6 @@
 "edit-notices-always-display" = "始终显示编辑提示";
 "edit-notices-please-read" = "编辑前请先阅读";
 "edit-preview-simplified-format-message" = "所有内容均以简化格式显示。";
-"edit-published" = "已发布编辑";
-"edit-published-subtitle" = "您刚刚完善了维基百科，人人都会受益";
 "edit-sheet-ip-account-notice" = "IP账号通知";
 "edit-sheet-temp-account-notice" = "临时账号通知";
 "edit-show-web-preview" = "显示网页预览";
@@ -667,8 +664,6 @@
 "explore-suggested-edits-footer" = "添加";
 "explore-suggested-edits-image-recs-body" = "将建议的图片添加至维基百科条目中，以增强理解。";
 "explore-suggested-edits-image-recs-title" = "添加图片";
-"explore-survey-subtitle" = "请填写一份关于“探索”信息流的简短调查问卷。您的反馈将有助于我们未来的应用改进。";
-"explore-survey-title" = "帮助我们改进探索功能";
 "explore-wikipedia" = "浏览维基百科";
 "export-user-data-confirmation-message" = "共享您的应用程序库包括有关您的阅读列表和历史记录、设置以及探索订阅源内容的数据。此数据文件只与受信任的接收者共享，用于技术诊断目的。";
 "export-user-data-confirmation-title" = "共享应用程序库？";
@@ -781,7 +776,6 @@
 "image-recs-yes-title" = "是";
 "import-shared-reading-list-default-title" = "我的阅读列表";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "参加调查";
-"import-shared-reading-list-survey-prompt-footer" = "请查看我们的$1隐私声明$2。调查由第三方驱动。请查看他们的$3隐私政策$4。";
 "import-shared-reading-list-survey-prompt-subtitle" = "“分享阅读列表”是测试功能，我们需要您的反馈来改进或移除此功能。";
 "import-shared-reading-list-survey-prompt-title" = "您愿意帮助我们改进“分享阅读列表”吗？";
 "import-shared-reading-list-title" = "导入共享阅读列表";
@@ -875,8 +869,10 @@
 "more-menu" = "更多";
 "move-articles-to-reading-list" = "移动{{PLURAL:$1|$1个条目}}至阅读列表";
 "navbar-title-mode-edit-wikitext-preview" = "预览";
+// Fuzzy
 "nearby-distance-label-feet" = "$1英尺";
 "nearby-distance-label-km" = "$1千米";
+// Fuzzy
 "nearby-distance-label-meters" = "$1米";
 "nearby-distance-label-miles" = "$1英里";
 "new-password-instructions" = "您已通过临时密码登录。要完成登录，请在此设置一个新密码。";
@@ -885,8 +881,6 @@
 "next-action-title" = "下一个";
 "no-email-account-alert" = "请在您的设备上设置电子邮件地址并重试。";
 "no-internet-connection" = "无互联网连接";
-"no-internet-connection-article-reload" = "此条目有新版本，但由于无互联网连接而无法加载";
-"no-internet-connection-article-reload-button" = "返回最后保存的版本";
 "not-now-title" = "现在不要";
 "notifications-center-agent-description-from-format" = "来自$1";
 "notifications-center-alert" = "提醒";
@@ -905,7 +899,6 @@
 "notifications-center-empty-state-filters-subtitle" = "修改$1来查看更多消息";
 "notifications-center-empty-state-no-projects-selected" = "添加项目以查看更多消息";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 种筛选}}";
-"notifications-center-feed-card-title" = "编辑通知现已可用";
 "notifications-center-feed-news-notification-button-text" = "打开推送通知";
 "notifications-center-feed-news-notification-text" = "现在在本应用内可以收到所有维基媒体项目的编辑通知。启用推送通知以便在繁忙时也能及时收到您在维基百科上的消息。";
 "notifications-center-filters-accessibility-label" = "通知过滤器";
@@ -1026,8 +1019,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1，来自$2维基百科";
 "on-this-day-title" = "历史上的今天";
 "open-article" = "开启条目";
-"open-in-tab-tooltip-body" = "长按文章标题或蓝色链接，即可在新标签页中打开。";
-"open-in-tab-tooltip-title" = "在新标签页中打开";
 "original-tab-button-popover-description" = "点按“W”以返回您起始的标签页";
 "page-history-bot-edits" = "机器人";
 "page-history-compare-accessibility-hint" = "点击选择两个修订版本进行比较";
@@ -1053,7 +1044,6 @@
 "panel-compare-revisions-text" = "比较修订版本有助于显示一个条目随着时间的推移发生了哪些变化。比较一篇条目的两个修订版本，可以通过高亮显示任何被修改的内容来显示这些修订版本之间的差异。";
 "panel-compare-revisions-title" = "比较不同修订版本";
 "panel-not-logged-in-continue-edit-action-title" = "不登录编辑";
-"panel-not-logged-in-subtitle" = "若您作出任何编辑，您的IP地址将会公开可见。如果您$1登录$2或$3创建账号$4，您的编辑将会以您的用户名署名，同时还可享受其他好处。";
 "panel-not-logged-in-title" = "您尚未登录";
 "pictured" = "如图";
 "places-accessibility-clear-saved-searches" = "清除保存的搜索";
@@ -1213,15 +1203,6 @@
 "relative-date-seconds-abbreviated" = "$1秒";
 "relative-date-seconds-ago-abbreviated" = "$1秒前";
 "relative-date-years-ago" = "{{PLURAL:$1|0=今年|去年|$1年前}}";
-"replace-button-accessibility" = "执行$1。";
-"replace-buttons-replace-accessibility" = "替换单例";
-"replace-buttons-replace-all-accessibility" = "替换所有实例";
-"replace-clear-button-accessibility" = "清空替换";
-"replace-infolabel-method-replace" = "替换";
-"replace-infolabel-method-replace-all" = "替换所有";
-"replace-method-button-accessibility" = "替换方法。设为$1，选择更换。";
-"replace-textfield-accessibility" = "替换";
-"replace-textfield-placeholder" = "替换为…";
 "return-button-title" = "返回";
 "return-to-article" = "返回至条目";
 "reverted-edit-title" = "编辑被退回";
@@ -1243,7 +1224,6 @@
 "search-button-accessibility-label" = "搜索维基百科";
 "search-clear-title" = "清空";
 "search-field-placeholder-text" = "搜索维基百科";
-"search-reading-list-placeholder-text" = "搜索阅读列表";
 "search-recent-clear-confirmation-heading" = "是否删除全部近期搜索记录？";
 "search-recent-clear-confirmation-sub-heading" = "此操作不能撤销！";
 "search-recent-clear-delete-all" = "删除全部";
@@ -1275,11 +1255,6 @@
 "settings-notifications-echo-failure-title" = "无法检查Echo通知订阅";
 "settings-notifications-echo-failure-try-again" = "重试";
 "settings-notifications-header" = "请留意与您账号相关的活动，例如来自其他贡献者的信息、警告还有通知。所有内容都会即时更新，且以保护隐私的方式提供。";
-"settings-notifications-info" = "通过我们推送的通知，提醒维基百科上的趋势和最多阅读条目。所有通知都已考虑到隐私和最新数据。";
-"settings-notifications-learn-more" = "了解更多有关通知";
-"settings-notifications-push-notifications" = "推送通知";
-"settings-notifications-system-turn-on" = "打开通知";
-"settings-notifications-trending" = "时事趋势";
 "settings-off" = "关";
 "settings-on" = "开";
 "settings-primary-language" = "首选";
@@ -1334,8 +1309,6 @@
 "tabs-main-page-subtitle" = "维基百科每日精彩内容";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1}} 个标签页";
 "tabs-open-tab" = "打开标签页";
-"tabs-overview-tooltip-body" = "在标签页概览中切换已打开的条目。";
-"tabs-overview-tooltip-title" = "标签页概览";
 "tabs-show-suggested-articles" = "显示条目建议";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "建议现已隐藏";
 "tabs-survey-title" = "请帮助改善标签页。您对此功能满意吗？";
@@ -1548,9 +1521,6 @@
 "welcome-languages-add-or-edit-button" = "添加或编辑首选语言";
 "welcome-languages-description" = "我们在您的设备上找到以下语言：";
 "welcome-languages-search-title" = "在超过300种语言中搜索";
-"welcome-notifications-tell-me-more-creation" = "通知是由应用（而不是从我们或第三方服务器）创建，并递送到您的设备上的。";
-"welcome-notifications-tell-me-more-storage" = "通知设置存储在设备上，且不基于个人信息或活动。";
-"welcome-notifications-tell-me-more-title" = "更多有关通知";
 "welcome-privacy-subtitle" = "我们相信参与自由知识运动不需要您提供个人信息。本应用收集的使用数据皆为匿名数据。";
 "welcome-privacy-terms-button-text" = "了解我们的隐私政策和使用条款的更多信息";
 "widget-onthisday-description" = "探索在历史上的今天发生的事件。";

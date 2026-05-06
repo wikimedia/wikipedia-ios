@@ -1,35 +1,79 @@
 import WMFData
+import WMFNativeLocalizations
 
 public enum WMFAccountLoginError: LocalizedError {
+    
+    public struct MediaWikiMessage {
+        public let text: String
+        public let code: String
+        
+        init?(text: String?, code: String?) {
+            guard let text, let code else {
+                return nil
+            }
+            
+            self.text = text
+            self.code = code
+        }
+    }
+    
     case cannotExtractLoginStatus
-    case statusNotPass(String?)
-    case temporaryPasswordNeedsChange(String?)
-    case needsOathTokenFor2FA(String?)
-    case needsEmailAuthToken(String?)
-    case wrongPassword(String?)
-    case wrongToken
-    case captchaRequired(String?)
-    case authManagerInfoRequired(String?, [String: Any])
-    case failedToParseAuthManagerInfo
+    case statusNotPass(MediaWikiMessage?)
+    case temporaryPasswordNeedsChange(MediaWikiMessage?)
+    case needsOathTokenFor2FA(MediaWikiMessage?)
+    case needsEmailAuthToken(MediaWikiMessage?)
+    case wrongPassword(MediaWikiMessage?)
+    case wrongToken(MediaWikiMessage?)
+    case captchaRequired(String?, MediaWikiMessage?)
+    case authManagerInfoRequired(MediaWikiMessage?, [String: Any])
+    case failedToParseAuthManagerInfo(MediaWikiMessage?)
     case invalidSiteURL
 
     public var errorDescription: String? {
         switch self {
         case .cannotExtractLoginStatus:
             return "Could not extract login status"
-        case .statusNotPass(let message?),
-             .temporaryPasswordNeedsChange(let message?),
-             .needsOathTokenFor2FA(let message?),
-             .needsEmailAuthToken(let message?),
-             .wrongPassword(let message?),
-             .captchaRequired(let message?),
-             .authManagerInfoRequired(let message?, _):
-            return message
+        case .statusNotPass(let message),
+             .temporaryPasswordNeedsChange(let message),
+             .needsOathTokenFor2FA(let message),
+             .needsEmailAuthToken(let message),
+             .wrongPassword(let message),
+             .authManagerInfoRequired(let message, _):
+            return message?.text
+        case .captchaRequired(_, let message):
+            return message?.text
         case .wrongToken:
             return WMFLocalizedString("field-alert-token-invalid", value:"Invalid code", comment:"Alert shown if token is not correct")
         default:
             return "Unable to login: Reason unknown"
         }
+    }
+    
+    public var mediaWikiMessageCode: String? {
+        switch self {
+        case .statusNotPass(let message),
+             .temporaryPasswordNeedsChange(let message),
+             .needsOathTokenFor2FA(let message),
+             .needsEmailAuthToken(let message),
+             .wrongPassword(let message),
+             .wrongToken(let message),
+             .failedToParseAuthManagerInfo(let message),
+             .authManagerInfoRequired(let message, _):
+            return message?.code
+        case .captchaRequired(_, let message):
+            return message?.code
+        case .cannotExtractLoginStatus:
+            return nil
+        case .invalidSiteURL:
+            return nil
+        }
+    }
+    
+    public var testKitchenValidationError: String {
+        if let code = mediaWikiMessageCode {
+            return "WMFAccountLoginError.\(code)"
+        }
+        return logDescription
     }
 }
 
@@ -91,14 +135,20 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
             }
 
             guard
-                let clientlogin = result?["clientlogin"] as? [String : Any],
-                let status = clientlogin["status"] as? String
+                let clientlogin = result?["clientlogin"] as? [String : Any] else {
+                failure(WMFAccountLoginError.cannotExtractLoginStatus)
+                return
+            }
+            
+            guard let status = clientlogin["status"] as? String
                 else {
-                    failure(WMFAccountLoginError.cannotExtractLoginStatus)
-                    return
+                failure(WMFAccountLoginError.cannotExtractLoginStatus)
+                return
             }
          
-            let message = clientlogin["message"] as? String ?? nil
+            let messageText = clientlogin["message"] as? String ?? nil
+            let messageCode = clientlogin["messagecode"] as? String
+            let message = WMFAccountLoginError.MediaWikiMessage(text: messageText, code: messageCode)
             guard status == "PASS" else {
                 if status == "FAIL" {
                     self.fetchAuthManagerInfo(from: siteURL) { result in
@@ -107,7 +157,7 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
                             failure(error)
                         case .success(let authInfo):
                             guard let requests = authInfo["requests"] as? [[String: Any]] else {
-                                failure(WMFAccountLoginError.failedToParseAuthManagerInfo)
+                                failure(WMFAccountLoginError.failedToParseAuthManagerInfo(message))
                                 return
                             }
 
@@ -115,7 +165,7 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
                                let fields = captchaRequest["fields"] as? [String: Any],
                                let captchaField = fields["captchaId"] as? [String: Any],
                                let captchaId = captchaField["value"] as? String {
-                                failure(WMFAccountLoginError.captchaRequired(captchaId))
+                                failure(WMFAccountLoginError.captchaRequired(captchaId, message))
                                 return
                             }
 
@@ -131,7 +181,7 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
                         failure(WMFAccountLoginError.wrongPassword(message))
                         return
                     case "oathauth-login-failed":
-                        failure(WMFAccountLoginError.wrongToken)
+                        failure(WMFAccountLoginError.wrongToken(message))
                         return
                     default: break
                     }
@@ -229,7 +279,7 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
                 let query = result["query"] as? [String: Any],
                 let authManagerInfo = query["authmanagerinfo"] as? [String: Any]
             else {
-                completion(.failure(WMFAccountLoginError.failedToParseAuthManagerInfo))
+                completion(.failure(WMFAccountLoginError.failedToParseAuthManagerInfo(nil)))
                 return
             }
 

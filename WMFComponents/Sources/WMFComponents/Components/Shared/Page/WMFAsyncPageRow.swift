@@ -17,13 +17,14 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
     let deleteAccessibilityLabel: String?
     
     let bottomButtonTitle: String?
+    let bottomButtonAction: (() -> Void)?
     let footerText: String?
     
     private var summary: WMFArticleSummary?
     @Published var articleDescription: String
     @Published var uiImage: UIImage?
     
-    internal init(id: String, title: String, projectID: String, iconImage: UIImage? = nil, iconAccessibilityLabel: String, tapAction: (() -> Void)? = nil, contextMenuOpenAction: (() -> Void)? = nil, contextMenuOpenText: String? = nil, deleteItemAction: (() -> Void)? = nil, deleteAccessibilityLabel: String? = nil, bottomButtonTitle: String? = nil, footerText: String? = nil) {
+    internal init(id: String, title: String, projectID: String, iconImage: UIImage? = nil, iconAccessibilityLabel: String, tapAction: (() -> Void)? = nil, contextMenuOpenAction: (() -> Void)? = nil, contextMenuOpenText: String? = nil, deleteItemAction: (() -> Void)? = nil, deleteAccessibilityLabel: String? = nil, bottomButtonTitle: String? = nil, bottomButtonAction: (() -> Void)? = nil, footerText: String? = nil) {
         self.id = id
         self.title = title
         self.projectID = projectID
@@ -38,6 +39,7 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
         self.deleteAccessibilityLabel = deleteAccessibilityLabel
         self.summary = nil
         self.bottomButtonTitle = bottomButtonTitle
+        self.bottomButtonAction = bottomButtonAction
         self.footerText = footerText
         
         Task {
@@ -158,10 +160,10 @@ struct WMFAsyncPageRow: View {
                 }
             }
             .background(Color(theme.paperBackground))
-            if let bottomButtonText = viewModel.bottomButtonTitle {
+            if let bottomButtonText = viewModel.bottomButtonTitle, let bottonButtonAction = viewModel.bottomButtonAction {
                 VStack {
                     WMFSmallButton(configuration: .init(style: .neutral), title: bottomButtonText, image: (WMFSFSymbolIcon.for(symbol: .textPage) ?? nil), action: {
-                        // do nothing purposefully
+                        bottonButtonAction()
                     })
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

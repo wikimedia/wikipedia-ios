@@ -32,8 +32,10 @@
 "main-menu-terms-of-use" = "ایشلتمک شرطلری";
 "main-menu-title" = "آرتیق";
 "navbar-title-mode-edit-wikitext-preview" = "اؤن‌گؤستریش";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 آیاق";
 "nearby-distance-label-km" = "$1 کیلومئتیر";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 مئتیر";
 "nearby-distance-label-miles" = "$1 مایل";
 "page-protected-can-not-edit-title" = "بو صحیفه قورونور";

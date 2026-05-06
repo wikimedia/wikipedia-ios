@@ -1,26 +1,85 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 public enum WMFAccountCreatorError: LocalizedError {
+    
+    public struct MediaWikiMessage {
+        public let text: String
+        public let code: String
+        
+        init?(text: String?, code: String?) {
+            guard let text, let code else {
+                return nil
+            }
+            
+            self.text = text
+            self.code = code
+        }
+    }
+    
     case cannotExtractStatus
-    case statusNotPass(String?)
-    case blockedError(String)
-    case wrongCaptcha
-    case usernameUnavailable
+    case statusNotPass(MediaWikiMessage?)
+    case blockedError(MediaWikiMessage?)
+    case wrongCaptcha(MediaWikiMessage?)
+    case usernameUnavailable(MediaWikiMessage?)
+    case badretype(MediaWikiMessage?)
+    case invalidUser(MediaWikiMessage?)
+    case missingPasswords(MediaWikiMessage?)
+    
     public var errorDescription: String? {
         switch self {
         case .cannotExtractStatus:
             return "Could not extract status"
-        case .statusNotPass(let message?):
-            return message.removingHTML
+        case .statusNotPass(let message):
+            return message?.text.removingHTML
         case .blockedError(let message):
-            return message
+            return message?.text
         case .wrongCaptcha:
             return WMFLocalizedString("field-alert-captcha-invalid", value:"Invalid CAPTCHA", comment:"Alert shown if CAPTCHA is not correct")
         case .usernameUnavailable:
             return WMFLocalizedString("field-alert-username-unavailable", value:"Username not available", comment:"Alert shown if new username is not available")
-        default:
-            return "Unable to create account: Reason unknown"
+        case .badretype(let message):
+            return message?.text
+        case .invalidUser(let message):
+            return message?.text
+        case .missingPasswords(let message):
+            return message?.text
         }
+    }
+    
+    public var mediaWikiMessageCode: String? {
+        switch self {
+        case .statusNotPass(let message),
+             .blockedError(let message),
+             .wrongCaptcha(let message),
+             .usernameUnavailable(let message),
+             .badretype(let message),
+             .invalidUser(let message),
+             .missingPasswords(let message):
+            return message?.code
+        case .cannotExtractStatus:
+            return nil
+        }
+    }
+    
+    public var testKitchenValidationError: String {
+        if let code = mediaWikiMessageCode {
+            return "WMFAccountCreatorError.\(code)"
+        } else {
+            switch self {
+            case .usernameUnavailable:
+                return "WMFAccountCreatorError.userexists"
+            case .badretype:
+                return "WMFAccountCreatorError.badretype"
+            case .invalidUser:
+                return "WMFAccountCreatorError.invaliduser"
+            case .missingPasswords:
+                return "WMFAccountCreatorError.authmanager-create-no-primary"
+            default:
+                break
+            }
+        }
+        return logDescription
     }
 }
 
@@ -136,15 +195,28 @@ public class WMFAccountCreator: Fetcher {
                     failure(WMFAccountCreatorError.cannotExtractStatus)
                     return
             }
-            let message = createaccount["message"] as? String ?? ""
+            
+            let messageText = createaccount["message"] as? String ?? nil
+            let messageCode = createaccount["messagecode"] as? String
+            let message = WMFAccountCreatorError.MediaWikiMessage(text: messageText, code: messageCode)
+            
             guard status == "PASS" else {
-                if let messageCode = createaccount["messagecode"] as? String {
+                if let messageCode {
                     switch messageCode {
                     case "captcha-createaccount-fail":
-                        failure(WMFAccountCreatorError.wrongCaptcha)
+                        failure(WMFAccountCreatorError.wrongCaptcha(message))
                         return
                     case "userexists":
-                        failure(WMFAccountCreatorError.usernameUnavailable)
+                        failure(WMFAccountCreatorError.usernameUnavailable(message))
+                        return
+                    case "badretype":
+                        failure(WMFAccountCreatorError.badretype(message))
+                        return
+                    case "invaliduser":
+                        failure(WMFAccountCreatorError.invalidUser(message))
+                        return
+                    case "authmanager-create-no-primary":
+                        failure(WMFAccountCreatorError.missingPasswords(message))
                         return
                     default: break
                     }
@@ -158,7 +230,7 @@ public class WMFAccountCreator: Fetcher {
                 return
             }
             let normalizedUsername = createaccount["username"] as? String ?? username
-            success(WMFAccountCreatorResult.init(status: status, username: normalizedUsername, message: message))
+            success(WMFAccountCreatorResult.init(status: status, username: normalizedUsername, message: message?.text ?? ""))
         }
     }
 }

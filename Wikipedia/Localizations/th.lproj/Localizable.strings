@@ -244,7 +244,6 @@
 "description-help-title" = "วิธีเขียนคำอธิบายบทความ";
 "description-help-wikidata-guide" = "คู่มือวิกิสนเทศเกี่ยวกับการเขียนคำอธิบาย";
 "description-published-button-title" = "เสร็จสิ้น";
-"description-published-footer" = "คุณยังสามารถแก้ไขบทความในแอปนี้ได้ ลองแก้ไขคำที่พิมพ์ผิดและประโยคสั้น ๆ โดยคลิกที่ไอคอนดินสอครั้งถัดไป";
 "description-published-subtitle" = "คุณทำให้วิกิพีเดียดีขึ้นสำหรับทุกคน";
 "description-published-title" = "เผยแพร่คำอธิบายแล้ว!";
 "description-welcome-concise-sub-title" = "ควรเขียนให้พอดีหนึ่งบรรทัด และเขียนตั้งแต่ 2-12 คำ";
@@ -313,8 +312,6 @@
 "edit-notices" = "แก้ไขการแจ้งเตือน";
 "edit-notices-always-display" = "แสดงการแจ้งเตือนการแก้ไขเสมอ";
 "edit-notices-please-read" = "โปรดอ่านก่อนแก้ไข";
-"edit-published" = "เผยแพร่การแก้ไขแล้ว";
-"edit-published-subtitle" = "คุณทำให้วิกิพีเดียดีขึ้นสำหรับทุกคน";
 "edit-summary-add-summary-text" = "เพิ่มความย่อการแก้ไข";
 "edit-summary-choice-added-image" = "เพิ่มรูปภาพ";
 "edit-summary-choice-added-image-and-caption" = "เพิ่มรูปภาพและคำอธิบาย";
@@ -625,8 +622,10 @@
 "more-menu" = "เพิ่มเติม";
 "move-articles-to-reading-list" = "ย้าย {{PLURAL:$1|$1 บทความ}} ลงในรายการอ่าน";
 "navbar-title-mode-edit-wikitext-preview" = "แสดงตัวอย่าง";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 ฟุต";
 "nearby-distance-label-km" = "$1 กม.";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 ม.";
 "nearby-distance-label-miles" = "$1 ไมล์";
 "new-password-instructions" = "คุณเข้าสู่ระบบด้วยรหัสผ่านชั่วคราว คุณต้องตั้งรหัสผ่านใหม่ที่นี่เพื่อให้การเข้าสู่ระบบเสร็จสมบูรณ์";
@@ -634,8 +633,6 @@
 "next-action-title" = "ต่อไป";
 "no-email-account-alert" = "โปรดตั้งค่าบัญชีอีเมลบนอุปกรณ์ของคุณและลองอีกครั้ง";
 "no-internet-connection" = "ไม่มีการเชื่อมต่ออินเทอร์เน็ต";
-"no-internet-connection-article-reload" = "อาจมีรุ่นใหม่ของบทความนี้ แต่ไม่สามารถโหลดได้โดยไม่เชื่อมต่อกับอินเทอร์เน็ต";
-"no-internet-connection-article-reload-button" = "กลับไปยังรุ่นที่บันทึกไว้ล่าสุด";
 "not-now-title" = "ไม่ใช่ตอนนี้";
 "notifications-center-agent-description-from-format" = "จาก $1";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 การแจ้งเตือน";
@@ -649,7 +646,6 @@
 "notifications-center-empty-not-subscribed" = "ขณะนี้คุณไม่ได้สมัครรับการแจ้งเตือนของวิกิพีเดียใด ๆ";
 "notifications-center-empty-state-no-projects-selected" = "เพิ่มโครงการเพื่อดูข้อความเพิ่มเติม";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 ตัวกรอง}}";
-"notifications-center-feed-card-title" = "การแก้ไขการแจ้งเตือนพร้อมใช้งานแล้ว";
 "notifications-center-feed-news-notification-button-text" = "เปิดการแจ้งเตือนแบบพุช";
 "notifications-center-feed-news-notification-text" = "ขณะนี้การแก้ไขการแจ้งเตือนสำหรับโครงการวิกิมีเดียทั้งหมดพร้อมใช้งานผ่านแอปแล้ว เลือกใช้การแจ้งเตือนแบบพุชเพื่อติดตามข้อความของคุณบนวิกิพีเดียขณะเดินทาง";
 "notifications-center-filters-accessibility-label" = "ตัวกรองการแจ้งเตือน";
@@ -776,7 +772,6 @@
 "panel-compare-revisions-text" = "การเปรียบเทียบการแก้ไขจะช่วยแสดงให้เห็นว่าบทความมีการเปลี่ยนแปลงอย่างไรเมื่อเวลาผ่านไป การเปรียบเทียบการแก้ไขทั้งสองครั้งของบทความจะแสดงความแตกต่างระหว่างการแก้ไขเหล่านั้นโดยการเน้นเนื้อหาใด ๆ ที่มีการเปลี่ยนแปลง";
 "panel-compare-revisions-title" = "เปรียบเทียบรุ่นแก้ไข";
 "panel-not-logged-in-continue-edit-action-title" = "แก้ไขโดยไม่เข้าสู่ระบบ";
-"panel-not-logged-in-subtitle" = "เลขที่อยู่ไอพีของคุณจะปรากฏต่อสาธารณะหากคุณทำการแก้ไขใด ๆ หากคุณ $1 เข้าสู่ระบบ $2 หรือ $3 สร้างบัญชี $4 การแก้ไขของคุณจะถือเป็นชื่อผู้ใช้ของคุณ พร้อมด้วยสิทธิประโยชน์อื่น ๆ";
 "panel-not-logged-in-title" = "คุณยังไม่ได้เข้าสู่ระบบ";
 "pictured" = "ในภาพ";
 "places-accessibility-clear-saved-searches" = "ล้างการค้นหาที่บันทึก";
@@ -902,14 +897,6 @@
 "relative-date-seconds-abbreviated" = "$1 วินาที";
 "relative-date-seconds-ago-abbreviated" = "$1 วินาทีที่แล้ว";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ปีนี้|1=ปีที่ผ่านมา|$1 ปีที่ผ่านมา}}";
-"replace-button-accessibility" = "ดำเนินการ$1";
-"replace-buttons-replace-accessibility" = "แทนที่อินสแตนซ์เดียว";
-"replace-buttons-replace-all-accessibility" = "แทนที่อินสแตนซ์ทั้งหมด";
-"replace-clear-button-accessibility" = "ล้างการแทนที่";
-"replace-infolabel-method-replace" = "แทนที่";
-"replace-infolabel-method-replace-all" = "แทนที่ทั้งหมด";
-"replace-textfield-accessibility" = "แทนที่";
-"replace-textfield-placeholder" = "แทนที่ด้วย…";
 "return-button-title" = "ย้อนกลับ";
 "return-to-article" = "ย้อนกลับไปที่บทความ";
 "reverted-edit-title" = "การแก้ไขที่ถูกย้อน";
@@ -925,7 +912,6 @@
 "search-button-accessibility-label" = "ค้นหาวิกิพีเดีย";
 "search-clear-title" = "ล้าง";
 "search-field-placeholder-text" = "ค้นหาวิกิพีเดีย";
-"search-reading-list-placeholder-text" = "ค้นหารายการอ่าน";
 "search-recent-clear-confirmation-heading" = "ลบการค้นหาล่าสุดทั้งหมด?";
 "search-recent-clear-confirmation-sub-heading" = "การกระทำนี้ไม่สามารถยกเลิกได้!";
 "search-recent-clear-delete-all" = "ลบทั้งหมด";
@@ -949,10 +935,6 @@
 "settings-notifications" = "การแจ้งเตือนแบบพุช";
 "settings-notifications-echo-failure-message" = "เกิดข้อผิดพลาดขณะตรวจสอบการสมัครรับการแจ้งเตือนที่เกี่ยวข้องกับบัญชีของคุณ";
 "settings-notifications-echo-failure-try-again" = "ลองอีกครั้ง";
-"settings-notifications-info" = "รับการแจ้งเตือนเกี่ยวกับบทความที่ได้รับความนิยมและมีผู้อ่านมากที่สุดในวิกิพีเดียด้วยการแจ้งเตือนแบบพุชของเรา ทั้งหมดนี้ให้ไว้ด้วยความเคารพต่อความเป็นส่วนตัวและข้อมูลนาทีต่อนาที";
-"settings-notifications-learn-more" = "เรียนรู้เพิ่มเติมเกี่ยวกับการแจ้งเตือน";
-"settings-notifications-push-notifications" = "การแจ้งเตือนแบบพุช";
-"settings-notifications-system-turn-on" = "เปิดการแจ้งเตือน";
 "settings-off" = "ปิดใช้งาน";
 "settings-on" = "เปิด";
 "settings-primary-language" = "หลัก";
@@ -1005,8 +987,6 @@
 "tabs-hide-suggested-articles" = "ซ่อนการแนะนำบทความ";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 แท็บ}}";
 "tabs-open-tab" = "เปิดแท็บ";
-"tabs-overview-tooltip-body" = "สลับระหว่างบทความในมุมองภาพรวมของแท็บ";
-"tabs-overview-tooltip-title" = "รวมแท็บ";
 "tabs-show-suggested-articles" = "แสดงการแนะนำบทความ";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "ซ่อนการแนะนำแล้ว";
 "tabs-survey-title" = "ช่วยเราปรับปรุงแท็บโดยบอกเราหน่อยว่าพอใจกับฟีเจอร์หรือไม่";
@@ -1194,9 +1174,6 @@
 "welcome-languages-add-or-edit-button" = "เพิ่มหรือแก้ไขภาษาตามที่ต้องการ";
 "welcome-languages-description" = "เราได้พบภาษาดังต่อไปนี้บนอุปกรณ์ของคุณ:";
 "welcome-languages-search-title" = "ค้นหาในกว่า 300 ภาษา";
-"welcome-notifications-tell-me-more-creation" = "การแจ้งเตือนถูกสร้างขึ้นและถูกส่งมายังอุปกรณ์ของคุณโดยแอป ไม่ใช่จากเซิร์ฟเวอร์ของเรา (หรือเซิร์ฟเวอร์บุคคลที่สาม)";
-"welcome-notifications-tell-me-more-storage" = "การตั้งค่าการแจ้งเตือนจะถูกเก็บบนอุปกรณ์และไม่ขึันอยู่กับข้อมูลหรือกิจกรรมส่วนบุคคล";
-"welcome-notifications-tell-me-more-title" = "เพิ่มเติมเกี่ยวกับการแจ้งเตือน";
 "welcome-privacy-subtitle" = "เราเชื่อว่าคุณไม่จำเป็นต้องให้ข้อมูลส่วนบุคคลเพื่อที่จะมีส่วนร่วมในการเผยแพร่ความรู้เสรี ข้อมูลการใช้งานแอปนี้จึงไม่มีการระบุตัวตน";
 "welcome-privacy-terms-button-text" = "เรียนรู้เพิ่มเติมเกี่ยวกับนโยบายความเป็นส่วนตัวและเงื่อนไขการใช้งาน";
 "widget-onthisday-description" = "สำรวจสิ่งที่เกิดขึ้นในวันนี้ในประวัติศาสตร์";

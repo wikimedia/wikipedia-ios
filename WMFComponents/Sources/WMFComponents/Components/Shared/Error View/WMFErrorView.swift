@@ -36,9 +36,9 @@ public struct WMFErrorView: View {
                             .foregroundColor(Color(appEnvironment.theme.text))
                             .padding([.bottom], 12)
                             .multilineTextAlignment(.center)
-                        
-                        WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.buttonTitle, action: tryAgainAction)
-                        
+
+                        WMFLargeButton(style: .primary, title: viewModel.localizedStrings.buttonTitle, action: tryAgainAction)
+
                         Spacer()
                     }
                     .frame(minHeight: geometry.size.height)

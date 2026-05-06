@@ -112,7 +112,6 @@
 "description-help-tips-for-example" = "Na primjer:";
 "description-help-wikidata-guide" = "Vodič o pisanju opisa na Wikipodatcima";
 "description-published-button-title" = "Gotovo";
-"description-published-footer" = "Članke možete uređivati i u ovoj aplikaciji. Sljedeći put pokušajte ispraviti zatipke i manje rečenice dodirom na ikonu olovke";
 "description-published-subtitle" = "Upravo ste Wikipediju učinili boljom za sve";
 "description-published-title" = "Opis je objavljen!";
 "description-welcome-concise-title" = "Budite kratki";
@@ -143,7 +142,6 @@
 "edit-link-title" = "Uredi poveznicu";
 "edit-menu-item" = "Uredi";
 "edit-minor-text" = "Ovo je manja izmjena";
-"edit-published" = "Uređivanje je objavljeno";
 "edit-summary-add-summary-text" = "Dodajte sažetak izmjene";
 "edit-summary-choice-fixed-grammar" = "Popravljen pravopis";
 "edit-summary-choice-fixed-typos" = "Popravljen zatipak";

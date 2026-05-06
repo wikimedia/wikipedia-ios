@@ -6,6 +6,7 @@
 @class ReadingList;
 @class WMFComponentNavigationController;
 @class WMFImageRecommendationsViewModelObjcWrapper;
+@class WMFAppViewControllerTipWrapper;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,6 +20,7 @@ extern NSString *const WMFLanguageVariantAlertsLibraryVersion; // NSNumber
 @property (nonatomic, strong) NSMutableArray<NSUUID *> *tabIdentifiersToDelete;
 @property (nonatomic, strong) NSMutableArray<NSUUID *> *tabItemIdentifiersToDelete;
 @property (nonatomic, strong, nullable) WMFImageRecommendationsViewModelObjcWrapper *imageRecommendationsViewModelWrapper;
+@property (nonatomic, strong) WMFAppViewControllerTipWrapper *tipWrapper;
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp;
 

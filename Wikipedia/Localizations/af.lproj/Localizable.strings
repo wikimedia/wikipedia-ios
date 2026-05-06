@@ -150,8 +150,10 @@
 "more-languages-tooltip-description" = "Deursoek Wikipedia in bykans 300 tale";
 "more-languages-tooltip-title" = "Voeg tale by";
 "navbar-title-mode-edit-wikitext-preview" = "Voorskou";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 voet";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 myl";
 "new-password-title" = "Stel u wagwoord";

@@ -40,4 +40,10 @@
     return [self objectForInfoDictionaryKey:@"MerchantID"];
 }
 
+- (BOOL)isTestFlight {
+    NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
+    NSString *receiptName = [receiptURL lastPathComponent];
+    return [receiptName isEqualToString:@"sandboxReceipt"];
+}
+
 @end

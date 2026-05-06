@@ -96,8 +96,10 @@
 "main-menu-title" = "अधिक";
 "main-menu-zero-faq" = "विकिपीडीया झीरो एफएक्यू";
 "navbar-title-mode-edit-wikitext-preview" = "झलक";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 फूट";
 "nearby-distance-label-km" = "$1 कि.मी.";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 मी.";
 "nearby-distance-label-miles" = "$1 मैल";
 "no-email-account-alert" = "कृपया आपल्या उपकरणावर विपत्रपत्ता स्थापित करा व पुन्हा प्रयत्न करा.";

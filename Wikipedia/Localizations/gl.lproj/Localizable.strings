@@ -142,7 +142,6 @@
 "description-help-title" = "Axuda coa descrición do artigo";
 "description-help-wikidata-guide" = "Guía de Wikidata para escribir descricións";
 "description-published-button-title" = "Feito";
-"description-published-footer" = "Tamén pode editar artigos con esta aplicación. A próxima vez, tente amañar erros ortográficos e pequenas frases premendo na icona do lapis.";
 "description-published-subtitle" = "Acaba de facer a Wikipedia mellor para todos";
 "description-published-title" = "Descrición publicada!";
 "description-welcome-concise-sub-title" = "Idealmente unha liña, entre dúas e doce palabras";
@@ -171,8 +170,6 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "O texto que seleccionou non pode ser localizado";
 "edit-minor-learn-more-text" = "Saber máis sobre as edicións menores";
 "edit-minor-text" = "Esta é unha edición menor";
-"edit-published" = "Edición publicada";
-"edit-published-subtitle" = "Acaba de facer a Wikipedia mellor para todos";
 "edit-summary-add-summary-text" = "Engadir un resumo de edición";
 "edit-summary-choice-fixed-grammar" = "Corrección gramatical";
 "edit-summary-choice-fixed-typos" = "Corrección ortográfica";
@@ -397,16 +394,15 @@
 "more-languages-tooltip-title" = "Engadir linguas";
 "move-articles-to-reading-list" = "Trasladar {{PLURAL:$1|$1 artigo|$1 artigos}} á lista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Vista previa";
-"nearby-distance-label-feet" = "$1 pés";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 pé|$1 pés}}";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 millas";
 "new-password-instructions" = "Conectouse cun contrasinal temporal. Para rematar a conexión, escolla un novo contrasinal aquí.";
 "new-password-title" = "Insira o seu contrasinal";
 "no-email-account-alert" = "Por favor, configure a súa conta de correo electrónico no seu dispositivo e inténteo de novo.";
 "no-internet-connection" = "Sen conexión a Internet";
-"no-internet-connection-article-reload" = "Pode haber unha nova versión deste artigo, pero non pode cargarse sen unha conexión a Internet.";
-"no-internet-connection-article-reload-button" = "Volver á última versión gardada";
 "notifications-center-feed-news-notification-button-text" = "Activar as notificacións de tipo push";
 "number-billions" = "$1";
 "number-millions" = "$1M";
@@ -546,15 +542,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Xusto agora|Hai $1 minuto|Hai $1 minutos}}";
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Este ano|1=O último ano|hai $1 anos}}";
-"replace-button-accessibility" = "Executar $1.";
-"replace-buttons-replace-accessibility" = "Substituír unha instancia";
-"replace-buttons-replace-all-accessibility" = "Substituír tódalas instancias";
-"replace-clear-button-accessibility" = "Limpar substituír";
-"replace-infolabel-method-replace" = "Substituír";
-"replace-infolabel-method-replace-all" = "Substituír todos";
-"replace-method-button-accessibility" = "Método de susbtitución. Definido como $1. Seleccione para modificar.";
-"replace-textfield-accessibility" = "Substituír";
-"replace-textfield-placeholder" = "Substituír por...";
 "reverted-edit-title" = "Edición revertida";
 "saved-all-articles-title" = "Todos os artigos";
 "saved-default-reading-list-tag" = "Esta lista non pode ser eliminada";
@@ -568,7 +555,6 @@
 "search-button-accessibility-label" = "Procurar na Wikipedia";
 "search-clear-title" = "Limpar";
 "search-field-placeholder-text" = "Procurar na Wikipedia";
-"search-reading-list-placeholder-text" = "Procurar na lista de lectura";
 "search-recent-clear-confirmation-heading" = "Borrar tódalas procuras recentes?";
 "search-recent-clear-confirmation-sub-heading" = "Esta acción non se pode desfacer.";
 "search-recent-clear-delete-all" = "Borrar todo";
@@ -588,11 +574,6 @@
 "settings-languages-feed-customization" = "Pode xestionar que linguas se amosan na súa canle de exploración personalizando os parámetros da canle.";
 "settings-my-languages" = "As miñas linguas";
 "settings-notifications" = "Notificacións de tipo push";
-"settings-notifications-info" = "Ter alertas co noso sistema de notificacións sobre tendencias e artigos máis lidos na Wikipedia. Todo respectando a súa privacidade e actualizado coa última información dispoñible.";
-"settings-notifications-learn-more" = "Saber máis sobre as notificacións";
-"settings-notifications-push-notifications" = "Notificacións tipo push";
-"settings-notifications-system-turn-on" = "Activar as notificacións";
-"settings-notifications-trending" = "Tendencias dos eventos actuais";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "A primeira lingua nesta lista úsase como lingua principal para a app.";
 "settings-search-footer-text" = "Configurar a aplicación para abrir na pestana Procurar no canto da pestana Explorar";
@@ -668,9 +649,6 @@
 "welcome-languages-add-or-edit-button" = "Engadir ou modificar as linguas preferidas";
 "welcome-languages-description" = "Atopamos as seguintes linguaxes no seu dispositivoː";
 "welcome-languages-search-title" = "Procurar en máis de 300 linguas";
-"welcome-notifications-tell-me-more-creation" = "As notificacións son creadas e enviadas ó seu dispositivo pola aplicación, non polos nosos servidores (nin de terceiros).";
-"welcome-notifications-tell-me-more-storage" = "As preferencias das notificacións gárdanse no dispositivo e non están baseadas na información ou actividade persoal.";
-"welcome-notifications-tell-me-more-title" = "Máis sobre notificacións";
 "wikitext-preview-changes" = "Xenerando previsualización dos teus cambios…";
 "wikitext-preview-link-external-preview-description" = "Esta ligazón leva a un sitio web externoː $1";
 "wikitext-preview-link-external-preview-title" = "Ligazón externa";

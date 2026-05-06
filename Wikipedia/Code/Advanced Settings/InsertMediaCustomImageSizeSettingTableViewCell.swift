@@ -7,6 +7,15 @@ class InsertMediaCustomImageSizeSettingTableViewCell: UITableViewCell {
 
     private var theme = Theme.standard
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (cell: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts()
+        }
+    }
+
     func configure(title: String, textFieldLabelText: String, textFieldText: String, theme: Theme) {
         titleLabel.text = title
         textFieldLabel.text = textFieldLabelText
@@ -15,11 +24,6 @@ class InsertMediaCustomImageSizeSettingTableViewCell: UITableViewCell {
         textField.rightView = nil
         updateFonts()
         apply(theme: theme)
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
     }
 
     private func updateFonts() {

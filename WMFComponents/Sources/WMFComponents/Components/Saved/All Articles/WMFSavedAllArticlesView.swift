@@ -66,18 +66,18 @@ public struct WMFSavedAllArticlesView: View {
                     VStack(spacing: 0) {
                         WMFAsyncPageRowSaved(
                             viewModel: rowModel,
-                            onTap: {
+                            onTap: { fromLongPress in
                                 if viewModel.isEditing {
                                     viewModel.toggleSelection(for: article)
                                 } else {
-                                    viewModel.didTapArticle?(article)
+                                    viewModel.didTapArticle?(article, fromLongPress)
                                 }
                             },
-                            onDelete: {
-                                viewModel.deleteArticles([article])
+                            onDelete: { fromLongPress in
+                                viewModel.deleteArticles([article], fromLongPress: fromLongPress)
                             },
-                            onShare: { cgRect in
-                                viewModel.didTapShare?(article, cgRect)
+                            onShare: { cgRect, fromLongPress in
+                                viewModel.didTapShare?(article, cgRect, fromLongPress)
                             },
                             onOpenInNewTab: {
                                 viewModel.didTapOpenInNewTab?(article)

@@ -4,7 +4,7 @@ Our continuous integration process involves a combination of both Xcode Cloud wo
 
 ## Localizations
 
-We have a Github Action [workflow](../.github/workflows/localization.yml) that automatically runs our localizations script whenever a Translatewiki PR is opened against the `twn` branch. The file changes made from this script are then commited and pushed up to the PR branch. More details on this process can be found in the the [localization document](localization.md).
+We have a Github Action [workflow](../.github/workflows/localization.yml) that automatically runs our localizations script whenever a Translatewiki PR is opened against the `twn` branch. The file changes made from this script are then committed and pushed up to the PR branch. More details on this process can be found in the [localization document](localization.md).
 
 ## PR Tests
 
@@ -12,7 +12,7 @@ Our PR unit tests are run in a GitHub Action workflow named "Run Unit Tests". Th
 
 
 #### Localization Tests - Xcode Cloud workaround 
-*Note: These tweaks were needed to get our localiation tests to run in Xcode Cloud. We have since moved tests to GitHub Actions, so it's possible these workarounds are no longer needed. We are keeping our steps here for posterity.*
+*Note: These tweaks were needed to get our localization tests to run in Xcode Cloud. We have since moved tests to GitHub Actions, so it's possible these workarounds are no longer needed. We are keeping our steps here for posterity.*
 
 In order to get our [localization tests](../WikipediaUnitTests/Code/TWNStringsTests.m) to run properly, some workarounds were needed to make the localization source code (files within `Wikipedia/iOS Native Localizations` and `Wikipedia/Localizations`) available in the Xcode Cloud environment.
 
@@ -55,9 +55,9 @@ Our GitHub organization has a bot account called wmf-apps-ci which has been used
 
 1. When Xcode Cloud completes our nightly build, it tags the commit with `betas/{build number}` and pushes it to our remote repository using the wmf-apps-ci account. It does this with a fine-tuned personal access token set up in the wmf-apps-ci GitHub account settings. This personal access token is then set as an environment variable in Xcode Cloud Settings.
 
-2. When a Translatewiki PR is opened, a GitHub action runs the localizations script, commits and pushes the changes to the remote repository using the wmf-apps-ci account. It does the with the same fine-tuned personal access token as the previous point. This personal access token is set as a GitHub Actions repository secret in iOS repository GitHub Settings.
+2. When a Translatewiki PR is opened, a GitHub action runs the localizations script, commits and pushes the changes to the remote repository using the wmf-apps-ci account. It does this with the same fine-tuned personal access token as the previous point. This personal access token is set as a GitHub Actions repository secret in iOS repository GitHub Settings.
 
-3. We have a manually-triggered GitHub action that posts a PR to increment the app version. This commit is made with the the wmf-apps-ci account. It does the with the same fine-tuned personal access token as the previous point. This personal access token is set as a GitHub Actions repository secret in iOS repository GitHub Settings.
+3. We have a manually-triggered GitHub action that posts a PR to increment the app version. This commit is made with the wmf-apps-ci account. It does this with the same fine-tuned personal access token as the previous point. This personal access token is set as a GitHub Actions repository secret in iOS repository GitHub Settings.
 
 ### What happens when this token expires?
 

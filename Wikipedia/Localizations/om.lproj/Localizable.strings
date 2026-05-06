@@ -30,8 +30,10 @@
 "main-menu-terms-of-use" = "Wayetii fayyadamaa";
 "main-menu-title" = "Dabalata";
 "navbar-title-mode-edit-wikitext-preview" = "Durargii";
+// Fuzzy
 "nearby-distance-label-feet" = "Fiitii $1";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "Maayilii $1";
 "page-protected-can-not-edit" = "Fuula kana jijjiiruuf mirga hin qabdu";

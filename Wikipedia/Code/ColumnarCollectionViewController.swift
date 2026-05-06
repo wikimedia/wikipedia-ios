@@ -1,9 +1,8 @@
 import WMF
 import WMFComponents
 
-class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate, HintPresenting, WMFNavigationBarHiding {
+class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate, WMFNavigationBarHiding {
     var topSafeAreaOverlayView: UIView?
-    
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
     
 
@@ -59,6 +58,13 @@ class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollect
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIWindow.keyboardWillHideNotification, object: nil)
+        
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            if previousTraitCollection.preferredContentSizeCategory != self.traitCollection.preferredContentSizeCategory {
+                self.contentSizeCategoryDidChange(nil)
+            }
+        }
     }
 
     @objc open func contentSizeCategoryDidChange(_ notification: Notification?) {
@@ -103,13 +109,6 @@ class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollect
         // subclassers can override
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
-            contentSizeCategoryDidChange(nil)
-        }
-    }
-    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { (context) in
@@ -143,15 +142,11 @@ class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollect
         keyboardFrame = nil
         updateEmptyViewFrame()
     }
-
-    // MARK: HintPresenting
-
-    var hintController: HintController?
     
     // MARK: - UIScrollViewDelegate
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        hintController?.dismissHintDueToUserInteraction()
+
     }
     
     // MARK: - Refresh Control

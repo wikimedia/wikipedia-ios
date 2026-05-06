@@ -38,8 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param pageTitles       One or more page titles to retrieve images from, and then fetch info for.
  * @param site             A site object for the MW site to target.
- * @param metadataLanguage The langauge to attempt to retrieve image metadata in. Falls back to English if the specified
- *                         langauge isn't available. Defaults to the current locale's language if @c nil.
+ * @param metadataLanguage The language to attempt to retrieve image metadata in. Falls back to English if the specified
+ *                         language isn't available. Defaults to the current locale's language if @c nil.
  *
  * @param failure is passed an error on failure
  * @param success is passed @c MWKImageInfo containing info the images found on the specified pages.

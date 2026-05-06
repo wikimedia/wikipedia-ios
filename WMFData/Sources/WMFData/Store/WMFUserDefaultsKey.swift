@@ -1,6 +1,7 @@
 public enum WMFUserDefaultsKey: String {
     case watchlistFilterSettings = "watchlist-filter-settings"
-	case imageRecommendationsOnboarding = "image-recommendations-onboarding"
+    case imageRecommendationsOnboarding = "image-recommendations-onboarding"
+    case developerSettingsEnableDeveloperMode = "dev-enable-developer-mode"
     case developerSettingsDoNotPostImageRecommendationsEdit = "dev-settings-do-not-post-image-rec-edit"
     case developerSettingsSendAnalyticsToWMFLabs = "dev-settings-send-analytics-to-wmflabs"
     case developerSettingsArticleTab = "dev-settings-article-tab"
@@ -13,7 +14,6 @@ public enum WMFUserDefaultsKey: String {
     case seenYearInReviewIntroSlide = "seen-year-in-review-intro-slide-v3"
     case tappedYIR = "tapped-yir"
     case forceEmailAuth = "force-email-auth"
-    case articleTabsOnboarding = "article-tabs-onboarding"
     case articleTabRestoration = "article-tab-restoration"
     case articleTabsOverviewOpenedCount = "article-tabs-overview-opened-count"
     case articleTabsOverviewOpenedCountBandC = "article-tabs-overview-opened-count-b-and-c"
@@ -30,10 +30,37 @@ public enum WMFUserDefaultsKey: String {
     case hasSeenActivityTab = "has-seen-activity-tab"
     case hasSeenActivityTabNewOnboarding = "has-seen-activity-tab-new-onboarding"
     case hasSeenActiviyTabSurvey = "has-seen-activity-tab-survey"
-    case hasSeenExploreSurvey = "has-seen-explore-survey"
     case activityTabVisitCount = "activity-tab-visit-count"
     case activityTabIsTimeSpentReadingOn = "activity-tab-time-spent-reading"
     case activityTabIsReadingInsightsOn = "activity-tab-reading-insights"
     case activityTabIsEditingInsightsOn = "activity-tab-editing-insights"
     case activityTabIsTimelineOfBehaviorOn = "activity-tab-timeline-of-behavior"
+    case autoSignTalkPageDiscussions = "auto-sign-talk-page-discussions"
+    case didMigrateAutoSignTalkPageDiscussions = "did-migrate-auto-sign-talk-page-discussions"
+    case showSearchLanguageBar = "show-search-language-bar"
+    case openAppOnSearchTab = "open-app-on-search-tab"
+    case isSubscribedToEchoNotifications = "is-subscribed-to-echo-notifications"
+    case activityTabSeenHistoryCallout = "activity-tab-seen-history-callout"
+    case forceHCaptchaChallenge = "force-hcaptcha-challenge"
+    
+    // Reading challenge widget keys
+    case hasEnrolledInReadingChallenge2026 = "has-enrolled-in-reading-challenge-2026"
+    case hasSeenFullPageReadingChallengeAnnouncement2026 = "has-seen-full-page-reading-challenge-announcement-2026"
+    case readingChallengeUserCompleted = "reading-challenge-user-completed"
+    case readingChallengeStreakReadRandomIndex = "reading-challenge-read-random-index"
+    case readingChallengeStreakReadRandomIndexDate = "reading-challenge-read-random-index-date"
+    case readingChallengeStreakNotReadRandomIndex = "reading-challenge-not-read-random-index"
+    case readingChallengeStreakNotReadRandomIndexDate = "reading-challenge-not-read-random-index-date"
+    case readingChallengeEnrolledNotStartedRandomIndex = "reading-challenge-enrolled-not-started"
+    case readingChallengeEnrolledNotStartedRandomIndexDate = "reading-challenge-enrolled-not-started-date"
+    case readingChallengeWidgetStreakCount = "reading-challenge-widget-streak-count"
+    
+    // Reading challenge widget dev settings
+    case devReadingChallengeOverrideCurrentDate = "dev-reading-challenge-override-current-date"
+    case devReadingChallengeCurrentDate = "dev-reading-challenge-current-date"
+    case devReadingChallengeState = "dev-reading-challenge-state"
+    
+    // Logging
+    case appInstallID = "wmf-app-install-id"
+    case sessionID = "wmf-session-id"
 }

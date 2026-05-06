@@ -182,7 +182,6 @@
 "description-help-title" = "Pomoc pre popisy článkov";
 "description-help-wikidata-guide" = "Sprievodca pre písanie popisov na Wikiúdaje";
 "description-published-button-title" = "Hotovo";
-"description-published-footer" = "V tejto aplikácii môžete tiež upravovať články. Skúste opraviť preklepy a krátke vety ťuknutím na ikonu ceruzky";
 "description-published-subtitle" = "Práve ste zlepšili Wikipédiu pre všetkých";
 "description-published-title" = "Popis bol uverejnený!";
 "description-welcome-concise-sub-title" = "V ideálnom prípade jeden riadok s dvoma až dvanástimi slovami";
@@ -255,8 +254,6 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Vybraný text sa nedá nájsť";
 "edit-minor-learn-more-text" = "Informácie o drobných úpravách";
 "edit-minor-text" = "Toto je drobná úprava";
-"edit-published" = "Úprava bola zverejnená!";
-"edit-published-subtitle" = "Práve ste zlepšili Wikipédiu pre všetkých";
 "edit-summary-add-summary-text" = "Pridať zhrnutie úprav";
 "edit-summary-choice-fixed-grammar" = "Oprava pravopisu";
 "edit-summary-choice-fixed-typos" = "Oprava preklepu";
@@ -449,7 +446,6 @@
 "image-recs-no-title" = "Nie";
 "image-recs-yes-title" = "Áno";
 "import-shared-reading-list-default-title" = "Môj zoznam na čítanie";
-"import-shared-reading-list-survey-prompt-footer" = "Pozrite si naše $1vyhlásenie o ochrane osobných údajov$2. Prieskum je od tretej strany. Pozrite si ich $3pravidlá ochrany osobných údajov$4.";
 "in-the-news-sub-title-from-language-wikipedia" = "Z Wikipédie v jazyku $1";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipédie";
 "in-the-news-title" = "Správy";
@@ -520,8 +516,10 @@
 "more-menu" = "Viac";
 "move-articles-to-reading-list" = "Pridať {{PLURAL:$1|$1 článok|$1 články|$1 článkov}} do zoznamu na prečítanie";
 "navbar-title-mode-edit-wikitext-preview" = "Náhľad";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 stopy (stôp)";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 míľ";
 "new-password-instructions" = "Ste prihlásení s dočasným heslom. Ak chcete dokončiť prihlásenie, nastavte si tu nové heslo.";
@@ -530,8 +528,6 @@
 "next-action-title" = "Ďalej";
 "no-email-account-alert" = "Prosím, nastavte si na vašom zariadení e-mailový účet a skúste to znova.";
 "no-internet-connection" = "Žiadne pripojenie na internet";
-"no-internet-connection-article-reload" = "Môže byť dostupná novšia verzia tohto článku, ale nedá sa ju načítať bez pripojenia k internetu.";
-"no-internet-connection-article-reload-button" = "Vrátiť sa k poslednej uloženej verzii";
 "not-now-title" = "Teraz nie";
 "notifications-center-agent-description-from-format" = "Od $1";
 "notifications-center-alert" = "Upozornenie";
@@ -549,7 +545,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Upraviť $1 pre zobrazenie viac správ";
 "notifications-center-empty-state-no-projects-selected" = "Pridať projekty pre zobrazenie viac správ";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtre|$1 filtrov}}";
-"notifications-center-feed-card-title" = "Upravovanie oznámení je teraz dostupné";
 "notifications-center-feed-news-notification-button-text" = "Zapnúť upozornenia";
 "notifications-center-feed-news-notification-text" = "Upravovanie oznámení pre všetky projekty Wikimédia je teraz dostupné v aplikácii. Pre priebežnú aktualizáciu nových správ zapnite push oznámenia.";
 "notifications-center-filters-accessibility-label" = "Filter notifikácií";
@@ -669,7 +664,6 @@
 "on-this-day-no-internet-error" = "Žiadne dostupné údaje";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipédie v jazyku $2";
 "on-this-day-title" = "Dnes";
-"open-in-tab-tooltip-title" = "Otvorí článok na novej karte";
 "original-tab-button-popover-description" = "Ťuknutím na W sa vrátite na kartu, z ktorej ste začali";
 "page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Ťuknite pre vybratie dvoch revízií na porovnanie";
@@ -840,15 +834,6 @@
 "relative-date-seconds-abbreviated" = "$1 s";
 "relative-date-seconds-ago-abbreviated" = "pred $1 s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tento rok|1=Minulý rok|2=Predminulý rok|Pred $1 rokmi}}";
-"replace-button-accessibility" = "Vykonať $1.";
-"replace-buttons-replace-accessibility" = "Nahradiť v jednom prípade";
-"replace-buttons-replace-all-accessibility" = "Nahradiť všade";
-"replace-clear-button-accessibility" = "Vymazať nahradiť";
-"replace-infolabel-method-replace" = "Nahradiť";
-"replace-infolabel-method-replace-all" = "Nahradiť všetko";
-"replace-method-button-accessibility" = "Spôsob nahradenia. Nastaviť na $1. Vyberte pre zmenu.";
-"replace-textfield-accessibility" = "Nahradiť";
-"replace-textfield-placeholder" = "Nahradiť za...";
 "reverted-edit-title" = "Vrátená úprava";
 "saved-all-articles-title" = "Všetky články";
 "saved-default-reading-list-tag" = "Tento zoznam nie je možné odstrániť";
@@ -862,7 +847,6 @@
 "search-button-accessibility-label" = "Hľadať";
 "search-clear-title" = "Vymazať";
 "search-field-placeholder-text" = "Hľadať";
-"search-reading-list-placeholder-text" = "Hľadať v zoznamoch na prečítanie";
 "search-recent-clear-confirmation-heading" = "Vymazať nedávno hľadané výrazy?";
 "search-recent-clear-confirmation-sub-heading" = "Táto akcia sa nedá vrátiť!";
 "search-recent-clear-delete-all" = "Vymazať všetko";
@@ -890,11 +874,6 @@
 "settings-notifications-echo-failure-title" = "Nepodarilo sa skontrolovať echo oznámenie";
 "settings-notifications-echo-failure-try-again" = "Skúsiť znova";
 "settings-notifications-header" = "Dostávajte upozornenia týkajúce sa vášho účtu ako napríklad o správach, upozorneniach alebo oznámeniach od ostatných prispievateľov. Všetko rešpektujúc zásady ochrany súkromia.";
-"settings-notifications-info" = "Buďte informovaní o trendoch a najčastejšie čítaných článkoch na Wikipédii. Všetko je poskytované s ohľadom na vaše súkromie a podľa najnovších dát.";
-"settings-notifications-learn-more" = "Ďalšie informácie o upozorneniach";
-"settings-notifications-push-notifications" = "Push upozornenia";
-"settings-notifications-system-turn-on" = "Zapnúť upozornenia";
-"settings-notifications-trending" = "Trendy aktuálnych udalostí";
 "settings-primary-language" = "Primárny";
 "settings-primary-language-details" = "Prvý jazyk v zozname bude použitý ako primárny jazyk pre aplikáciu.";
 "settings-search-footer-text" = "Otvárať aplikáciu v karte Vyhľadávanie namiesto kanálu Objaviť";
@@ -1006,9 +985,6 @@
 "welcome-languages-add-or-edit-button" = "Pridať alebo upraviť preferované jazyky";
 "welcome-languages-description" = "Na vašom zariadení sme našli tieto jazyky:";
 "welcome-languages-search-title" = "Vyhľadávajte vo viac ako 300 jazykoch";
-"welcome-notifications-tell-me-more-creation" = "Upozornenia sú vytvárané a doručované na vaše zariadenie aplikáciou, nie našimi servermi (alebo servermi tretích strán).";
-"welcome-notifications-tell-me-more-storage" = "Nastavenia upozornení sú uložené na vašom zariadení a nie sú založené na osobných údajoch alebo aktivite.";
-"welcome-notifications-tell-me-more-title" = "Ďalšie informácie o upozorneniach";
 "welcome-privacy-terms-button-text" = "Ďalšie informácie o ochrane súkromia a podmienkach používania";
 "widget-onthisday-description" = "Objavte čo sa v histórii stalo v tento deň.";
 "widget-onthisday-placeholder-article-snippet" = "Voľná online encyklopédia, ktorú môže upravovať každý";

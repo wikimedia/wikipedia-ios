@@ -10,6 +10,7 @@
 // Author: Brion
 // Author: Champ0999
 // Author: Chris96
+// Author: Daimona Eaytoy
 // Author: Dansita
 // Author: Devid Farinelli
 // Author: Dream Indigo
@@ -18,6 +19,7 @@
 // Author: Eduardoaddad
 // Author: Emabarto01
 // Author: F. Cosoleto
+// Author: FL2226
 // Author: Giacomo Checchin
 // Author: Gianfranco
 // Author: Giorgx12
@@ -135,6 +137,9 @@
 "activity-tab-email-fifth-line" = "[Screenshot o Link]";
 "activity-tab-empty-title" = "Niente da mostrare";
 "activity-tab-generic-no-edits" = "Non hai fatto alcuna modifica questa settimana. Inizia subito a monitorare i tuoi contributi.";
+"activity-tab-history-callout-body" = "Visualizza o cancella la tua cronologia di lettura nella **scheda Cerca**.";
+"activity-tab-history-callout-body-loggedout" = "Trova e cancella la cronologia di lettura nella **scheda Cerca**. Non è necessario avere un'utenza.";
+"activity-tab-hitory-callout-close" = "Chiudere la scheda di avviso sulla cronologia";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "SU WIKIPEDIA iOS";
 "activity-tab-impact-all-time-title" = "Impatto dall'inizio";
@@ -360,8 +365,6 @@
 "edit-menu-item" = "Modifica";
 "edit-minor-learn-more-text" = "Ulteriori informazioni sulle modifiche minori";
 "edit-minor-text" = "Questa è una modifica minore";
-"edit-published" = "Modifica pubblicata";
-"edit-published-subtitle" = "Hai appena reso Wikipedia migliore per tutti";
 "edit-sheet-ip-account-notice" = "Avviso sull'account IP";
 "edit-summary-choice-added-image" = "Immagine aggiunta";
 "edit-summary-choice-added-image-and-caption" = "Immagine e didascalia aggiunti";
@@ -424,6 +427,7 @@
 "empty-no-saved-pages-title" = "Nessuna pagina salvata ancora";
 "empty-no-search-results-message" = "Nessun risultato trovato";
 "empty-talk-page-title" = "Nessun messaggio è stato ancora pubblicato per quest'utente";
+"end-session" = "Termina sessione";
 "error-generic-recovery-suggestion" = "Per favore, riprova più tardi";
 "error-unknown" = "Si è verificato un errore sconosciuto";
 "explore-another-random" = "Un'altra voce a caso";
@@ -619,8 +623,9 @@
 "more-menu" = "Altro";
 "move-articles-to-reading-list" = "Sposta $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "navbar-title-mode-edit-wikitext-preview" = "Anteprima";
-"nearby-distance-label-feet" = "$1 piedi";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 piede|$1 piedi}}";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 miglia";
 "new-password-instructions" = "L'accesso è stato effettuato con una password temporanea. Per completare la registrazione, è necessario impostare una nuova password qui.";
@@ -628,8 +633,6 @@
 "next-action-title" = "Successivo";
 "no-email-account-alert" = "Configura un account di posta elettronica sul tuo dispositivo e riprova.";
 "no-internet-connection" = "Nessuna connessione internet";
-"no-internet-connection-article-reload" = "Potrebbe essere disponibile una versione più recente di questa voce, ma non può essere caricata senza una connessione a internet";
-"no-internet-connection-article-reload-button" = "Torna all'ultima versione salvata";
 "not-now-title" = "Non ora";
 "notifications-center-agent-description-from-format" = "Da $1";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 notifica";
@@ -710,7 +713,6 @@
 "on-this-day-no-internet-error" = "Nessun dato disponibile";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipedia in $2";
 "on-this-day-title" = "In questo giorno";
-"open-in-tab-tooltip-title" = "Apri in una nuova scheda";
 "page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Clicca per selezionare due versioni da confrontare";
 "page-history-compare-title" = "Confronta";
@@ -842,11 +844,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s fa";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Quest'anno|1=L'anno scorso|$1 anni fa}}";
-"replace-button-accessibility" = "Esegui $1.";
-"replace-infolabel-method-replace" = "Sostituisci";
-"replace-infolabel-method-replace-all" = "Sostituisci tutto";
-"replace-textfield-accessibility" = "Sostituisci";
-"replace-textfield-placeholder" = "Sostituisci con…";
 "return-button-title" = "Ritorna";
 "return-to-article" = "Ritorna alla voce";
 "reverted-edit-title" = "Modifica annullata";
@@ -857,6 +854,7 @@
 "saved-reading-lists-search-placeholder" = "Cerca elenchi di lettura";
 "saved-reading-lists-title" = "Elenchi di lettura";
 "saved-title" = "Salvato";
+"search-button-accessibility-hint" = "Consente di accedere alla schermata di ricerca.";
 "search-button-accessibility-label" = "Cerca su Wikipedia";
 "search-clear-title" = "Pulisci";
 "search-field-placeholder-text" = "Cerca su Wikipedia";
@@ -881,9 +879,6 @@
 "settings-my-languages" = "Le mie lingue";
 "settings-notifications" = "Notifiche push";
 "settings-notifications-echo-failure-try-again" = "Riprova";
-"settings-notifications-learn-more" = "Ulteriori informazioni sulle notifiche";
-"settings-notifications-push-notifications" = "Notifiche push";
-"settings-notifications-system-turn-on" = "Attiva le notifiche";
 "settings-off" = "Off";
 "settings-on" = "On";
 "settings-primary-language" = "Primaria";
@@ -895,6 +890,10 @@
 "settings-storage-and-syncing-erase-saved-articles-title" = "Cancella le voci salvate";
 "settings-storage-and-syncing-server-sync-footer-text" = "Richiedi un aggiornamento alle tue voci sincronizzate e degli elenchi di lettura.";
 "settings-storage-and-syncing-server-sync-title" = "Aggiorna elenchi di lettura sincronizzati";
+"settings-temp-account-end-session-confirm" = "Esci";
+"settings-temp-account-end-session-message" = "Sei sicuro di voler uscire da questa sessione? Non è possibile accedere nuovamente a questa utenza temporanea.";
+"settings-temp-account-end-session-title" = "Esci dalla sessione";
+"settings-temp-accounts-talk-page-footer" = "L'utenza temporanea scadrà tra 90 giorni.";
 "settings-title" = "Impostazioni";
 "settings-year-in-review-header" = "Disattivare l'Anno in Rassegna eliminerà tutte le informazioni utili personalizzate archiviate e nasconderà l'Anno in Rassegna.";
 "share-article-name-on-wikipedia" = "\"$1\" su Wikipedia:";
@@ -980,6 +979,8 @@
 "theme-default-display-name" = "Predefinito";
 "theme-light-display-name" = "Chiaro";
 "theme-sepia-display-name" = "Seppia";
+"tip-history-in-search-subtitle" = "È possibile trovare la cronologia di lettura nella scheda Cerca.";
+"tip-history-in-search-title" = "La cronologia è stata spostata nella sezione Cerca";
 "today-title" = "Oggi";
 "top-read-widget-description" = "Scopri cosa sta leggendo il mondo oggi su Wikipedia.";
 "top-read-widget-readers-count" = "$1 lettori";
@@ -1068,9 +1069,6 @@
 "welcome-languages-add-or-edit-button" = "Aggiungi o modifica lingue preferite";
 "welcome-languages-description" = "Abbiamo trovato le seguenti lingue sul tuo dispositivo:";
 "welcome-languages-search-title" = "Cerca in più di 300 lingue";
-"welcome-notifications-tell-me-more-creation" = "Le notifiche vengono create e recapitate sul dispositivo dall'applicazione, non dai nostri server (o da quelli di terze parti).";
-"welcome-notifications-tell-me-more-storage" = "Le preferenze di notifica sono memorizzate sul dispositivo e non si basano su informazioni o attività personali.";
-"welcome-notifications-tell-me-more-title" = "Ulteriori informazioni sulle notifiche";
 "widget-onthisday-description" = "Scopri cosa è successo in questo giorno nella storia.";
 "widget-onthisday-placeholder-article-snippet" = "Enciclopedia online gratuita che chiunque può modificare";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, un'enciclopedia gratuita di contenuti wiki, va online.";

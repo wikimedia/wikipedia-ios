@@ -56,7 +56,7 @@ public final class EditAttemptFunnel {
 
         let userId = getUserID(pageURL: pageURL)
         
-        let appInstallID = UserDefaults.standard.wmf_appInstallId
+        let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
 
         let event = Event(action: action, editing_session_id: "", app_install_id: appInstallID, editor_interface: editorInterface, integration: integrationID, is_anon: isAnon, mw_version: "", platform: platform, user_editcount: 0, user_id: userId, user_is_temp: isTemp, version: 1, page_title: pageURL.wmf_title, page_ns: pageURL.namespace?.rawValue, revision_id: revisionId, wiki_id: project?.notificationsApiWikiIdentifier)
 

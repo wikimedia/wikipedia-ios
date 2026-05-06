@@ -1,3 +1,6 @@
+import WMFNativeLocalizations
+import WMFData
+
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
 let WMFShouldRestoreNavigationStackOnResume = "WMFShouldRestoreNavigationStackOnResume"
 let WMFAppSiteKey = "Domain"
@@ -23,7 +26,7 @@ let WMFDidShowTitleDescriptionEditingIntro = "WMFDidShowTitleDescriptionEditingI
 let WMFDidShowFirstEditPublishedPanelKey = "WMFDidShowFirstEditPublishedPanelKey"
 let WMFIsSyntaxHighlightingEnabled = "WMFIsSyntaxHighlightingEnabled"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
-let WMFAppInstallId = "WMFAppInstallId"
+public let WMFAppInstallId = "WMFAppInstallId"
 let WMFSendUsageReports = "WMFSendUsageReports"
 let WMFShowNotificationsExploreFeedCard = "WMFShowNotificationsExploreFeedCard"
 let WMFUserHasOnboardedToNotificationsCenter = "WMFUserHasOnboardedToNotificationsCenter"
@@ -51,7 +54,7 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
         static let didShowEditingOnboarding = "WMFDidShowEditingOnboarding"
         static let didShowInformationEditingMessage = "WMFdDidShowInformationEditingMessage"
         static let isDifferentErrorBannerShown = "WMFIsDifferentErrorBannerShown"
-        static let autoSignTalkPageDiscussions = "WMFAutoSignTalkPageDiscussions"
+        static let legacyAutoSignTalkPageDiscussions = "WMFAutoSignTalkPageDiscussions"
         static let talkPageForceRefreshRevisionIDs = "WMFTalkPageForceRefreshRevisionIDs"
     }
 
@@ -89,6 +92,7 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
         }
     }
     
+    // Deprecated. Prefer try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
     @objc var wmf_appInstallId: String? {
         get {
             var appInstallId = string(forKey: WMFAppInstallId)
@@ -245,27 +249,6 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
     @objc func wmf_exploreDidPromptForLocationAuthorization() -> Bool {
         return self.bool(forKey: WMFExploreDidPromptForLocationAuthorization)
     }
-
-    @objc func wmf_setShowSearchLanguageBar(_ enabled: Bool) {
-        self.set(NSNumber(value: enabled as Bool), forKey: "ShowLanguageBar")
-    }
-    
-    @objc func wmf_showSearchLanguageBar() -> Bool {
-        if let enabled = self.object(forKey: "ShowLanguageBar") as? NSNumber {
-            return enabled.boolValue
-        } else {
-            return false
-        }
-    }
-
-    @objc var wmf_openAppOnSearchTab: Bool {
-        get {
-            return bool(forKey: "WMFOpenAppOnSearchTab")
-        }
-        set {
-            set(newValue, forKey: "WMFOpenAppOnSearchTab")
-        }
-    }
     
     @objc var wmf_showActivityTab: Bool {
         get {
@@ -290,26 +273,6 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
     
     @objc func wmf_setDidShowWIconPopover(_ shown: Bool) {
         self.set(NSNumber(value: shown as Bool), forKey: "ShowWIconPopover")
-    }
-    
-    @objc func wmf_didShowWIconPopover() -> Bool {
-        if let enabled = self.object(forKey: "ShowWIconPopover") as? NSNumber {
-            return enabled.boolValue
-        } else {
-            return false
-        }
-    }
-    
-    @objc func wmf_setDidShowMoreLanguagesTooltip(_ shown: Bool) {
-        self.set(NSNumber(value: shown as Bool), forKey: "ShowMoreLanguagesTooltip")
-    }
-    
-    @objc func wmf_didShowMoreLanguagesTooltip() -> Bool {
-        if let enabled = self.object(forKey: "ShowMoreLanguagesTooltip") as? NSNumber {
-            return enabled.boolValue
-        } else {
-            return false
-        }
     }
 
     @objc func wmf_setTableOfContentsIsVisibleInline(_ visibleInline: Bool) {
@@ -407,7 +370,9 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
         }
         set {
             set(newValue.rawValue, forKey: UserDefaults.Key.defaultTabType)
-            wmf_openAppOnSearchTab = newValue == .settings
+            Task {
+                await WMFSettingsDataController.shared.setOpenAppOnSearchTab(newValue == .settings)
+            }
         }
     }
     
@@ -499,15 +464,6 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
             set(newValue, forKey: UserDefaults.Key.didShowInformationEditingMessage)
         }
     }
-
-    var autoSignTalkPageDiscussions: Bool {
-        get {
-            return bool(forKey: UserDefaults.Key.autoSignTalkPageDiscussions)
-        }
-        set {
-            set(newValue, forKey: UserDefaults.Key.autoSignTalkPageDiscussions)
-        }
-    }
     
     private var systemDarkModeEnabled: Bool {
         get {
@@ -515,15 +471,6 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
         }
         set {
             set(newValue, forKey: "SystemDarkMode")
-        }
-    }
-    
-    @objc var wmf_shouldShowNotificationsExploreFeedCard: Bool {
-        get {
-           return bool(forKey: WMFShowNotificationsExploreFeedCard)
-        }
-        set {
-            set(newValue, forKey: WMFShowNotificationsExploreFeedCard)
         }
     }
     
@@ -566,6 +513,7 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
         }
     }
 
+    // Deprecated. Prefer try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.sessionID.rawValue)
     @objc var wmf_sessionID: String? {
         get {
             return string(forKey: "WMFSessionID")

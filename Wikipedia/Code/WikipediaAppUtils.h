@@ -9,6 +9,7 @@ WMF_TECH_DEBT_DEPRECATED_MSG("This class is deprecated, its methods should be br
 + (NSString *)appVersion;
 + (NSString *)formFactor;
 + (NSString *)versionedUserAgent;
++ (NSString *)versionName;
 
 + (NSString *)assetsPath;
 

@@ -67,8 +67,10 @@
 "main-menu-title" = "Zaidi";
 "main-menu-zero-faq" = "Wikipedia Zero Maswali Yaulizwayo Mara kwa Mara";
 "navbar-title-mode-edit-wikitext-preview" = "Onyesha hakikisho";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 fiti";
 "nearby-distance-label-km" = "$1 kilomita";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 mita";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "Dola 1 kutoka dola 2 Wikipedia";
 "places-location-enabled" = "uonyeshi umewezeshwa";

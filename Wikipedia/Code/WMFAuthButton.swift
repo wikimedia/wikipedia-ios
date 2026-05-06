@@ -1,29 +1,80 @@
 import WMF
+import WMFComponents
 
-/// Button configured with common auth style settings which also updates layer border color on "isEnabled" state change.
+/// Button with capsule style and multiline text support
+@available(*, deprecated, message: "Kept and updated for temporary compatibility, use buttons from WMFComponents instead")
 class WMFAuthButton: AutoLayoutSafeMultiLineButton, Themeable {
     fileprivate var theme: Theme = Theme.standard
-    
-    override open var isEnabled:Bool {
-        didSet {
-            layer.borderColor = borderColor(forIsEnabled: isEnabled)
-        }
-    }
-    fileprivate func borderColor(forIsEnabled enabled:Bool) -> CGColor? {
-        return enabled ? tintColor.cgColor : titleColor(for: .disabled)?.cgColor
-    }
+
     override open func awakeFromNib() {
         super.awakeFromNib()
-        layer.cornerRadius = 5
-        var deprecatedSelf = self as DeprecatedButton
-        deprecatedSelf.deprecatedTitleEdgeInsets = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
-        apply(theme: self.theme)
+        setup()
     }
-    
+
+    override open func setTitle(_ title: String?, for state: UIControl.State) {
+        super.setTitle(title, for: state)
+
+        if state == .normal, var config = configuration, let title {
+            config.title = title
+
+            config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+                var outgoing = incoming
+                outgoing.font = WMFFont.for(.callout)
+                return outgoing
+            }
+            configuration = config
+        }
+    }
+
+    override open func layoutSubviews() {
+        super.layoutSubviews()
+        configureTitleLabel()
+    }
+
+    // MARK: - Private Methods
+
+    private func configureTitleLabel() {
+        titleLabel?.numberOfLines = 0
+        titleLabel?.lineBreakMode = .byWordWrapping
+        titleLabel?.textAlignment = .center
+    }
+
+    override internal func setup() {
+        super.setup()
+
+        configureTitleLabel()
+
+        var config = configuration ?? UIButton.Configuration.plain()
+        config.cornerStyle = .capsule
+        config.background.backgroundColor = theme.colors.link
+        config.baseForegroundColor = theme.colors.paperBackground
+        config.titleLineBreakMode = .byWordWrapping
+        config.titleAlignment = .center
+
+        configuration = config
+        
+        configurationUpdateHandler = { [weak self] button in
+            guard let self, var config = button.configuration else { return }
+
+            if button.state == .disabled {
+                config.background.backgroundColor = self.theme.colors.baseBackground
+                config.baseForegroundColor = self.theme.colors.inputAccessoryButtonTint
+            } else {
+                config.background.backgroundColor = self.theme.colors.link
+                config.baseForegroundColor = self.theme.colors.paperBackground
+            }
+
+            button.configuration = config
+        }
+
+        invalidateIntrinsicContentSize()
+        setNeedsLayout()
+    }
+
+    // MARK: - Themeable
+
     func apply(theme: Theme) {
         self.theme = theme
-        backgroundColor = theme.colors.baseBackground
-        setTitleColor(theme.colors.unselected, for: .disabled)
-        setNeedsDisplay()
+        setup()
     }
 }

@@ -6,7 +6,16 @@
       "options" : {
         "commandLineArgumentEntries" : [
           {
-            "argument" : "UITestThemeLight"
+            "argument" : "-WMFAppThemeName"
+          },
+          {
+            "argument" : "light"
+          },
+          {
+            "argument" : "-WMFUITestLanguageCode"
+          },
+          {
+            "argument" : "en"
           }
         ]
       }
@@ -17,7 +26,16 @@
       "options" : {
         "commandLineArgumentEntries" : [
           {
-            "argument" : "UITestThemeSepia"
+            "argument" : "-WMFAppThemeName"
+          },
+          {
+            "argument" : "sepia"
+          },
+          {
+            "argument" : "-WMFUITestLanguageCode"
+          },
+          {
+            "argument" : "he"
           }
         ],
         "language" : "he",
@@ -30,7 +48,16 @@
       "options" : {
         "commandLineArgumentEntries" : [
           {
-            "argument" : "UITestThemeDark"
+            "argument" : "-WMFAppThemeName"
+          },
+          {
+            "argument" : "dark"
+          },
+          {
+            "argument" : "-WMFUITestLanguageCode"
+          },
+          {
+            "argument" : "de"
           }
         ],
         "language" : "de",
@@ -43,7 +70,16 @@
       "options" : {
         "commandLineArgumentEntries" : [
           {
-            "argument" : "UITestThemeBlack"
+            "argument" : "-WMFAppThemeName"
+          },
+          {
+            "argument" : "black"
+          },
+          {
+            "argument" : "-WMFUITestLanguageCode"
+          },
+          {
+            "argument" : "vi"
           }
         ],
         "language" : "vi",
@@ -52,6 +88,7 @@
     }
   ],
   "defaultOptions" : {
+    "codeCoverage" : true,
     "language" : "en",
     "region" : "US",
     "testTimeoutsEnabled" : true,
@@ -59,9 +96,6 @@
   },
   "testTargets" : [
     {
-      "skippedTests" : [
-        "WikipediaUITests"
-      ],
       "target" : {
         "containerPath" : "container:Wikipedia.xcodeproj",
         "identifier" : "67623E0B2AFD288A007488C7",

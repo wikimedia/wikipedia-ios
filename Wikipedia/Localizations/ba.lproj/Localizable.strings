@@ -164,7 +164,6 @@
 "description-help-title" = "Мәҡәләләрҙең тасуирламаһы буйынса ярҙам";
 "description-help-wikidata-guide" = "Тасуирлама яҙыу өсөн Викимәғлүмәт ҡулланмаһы";
 "description-published-button-title" = "Эшләнде";
-"description-published-footer" = "Ошо ҡушымта менән мәҡәләләрҙе лә мөхәррирләй алаһығыҙ. Хәреф хаталарын һәм ҙур булмаған һөйләмдәрҙе төҙәтеү өсөн ҡәләм һүрәте төшөрөлгән билдәгә баҫығыҙ.";
 "description-published-subtitle" = "Һеҙ Википедияны барыһы өсөн дә яҡшыраҡ итеп эшләнегеҙ";
 "description-published-title" = "Тасуирлама һаҡланды!";
 "description-welcome-concise-sub-title" = "Мөмкин булһа,  икенән ун икегә тиклем һүҙҙән торған бер юл";
@@ -224,8 +223,6 @@
 "edit-notices" = "Белдереүҙәрҙе мөхәррирләү";
 "edit-notices-always-display" = "Һәр ваҡыт үҙгәрештәр тураһында белдереүҙәр күрһәтергә";
 "edit-notices-please-read" = "Зинһар, төҙәтер алдынан уҡығыҙ";
-"edit-published" = "Төҙәтеүҙәр һаҡланды";
-"edit-published-subtitle" = "Һеҙ әле генә Википедияны барыһы өсөн дә яҡшырттығыҙ";
 "edit-summary-add-summary-text" = "Төҙәтеү тасуирламаһын өҫтәргә";
 "edit-summary-choice-fixed-grammar" = "Дөрөҫ яҙыу төҙәтелгән";
 "edit-summary-choice-fixed-typos" = "Баҫма хатаһы төҙәтелгән";
@@ -480,16 +477,16 @@
 "more-menu" = "Күберәк";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 мәҡәләне}} уҡыу исемлегенә күсерергә";
 "navbar-title-mode-edit-wikitext-preview" = "Ҡарап сығырға";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 фут";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 мил.";
 "new-password-instructions" = "Һеҙ системаға ваҡытлыса серһүҙ менән индегеҙ. Системаға инеүҙе тамамлау өсөн яңы серһүҙ яҙығыҙ.";
 "new-password-title" = "Серһүҙ яҙығыҙ";
 "no-email-account-alert" = "Үҙегеҙҙең ҡоролмала электрон почтаның иҫәп яҙмаһын көйләгеҙ һәм тағы бер тапҡыр эшләп ҡарағыҙ.";
 "no-internet-connection" = "Интернет бәйләнеше юҡ";
-"no-internet-connection-article-reload" = "Мәҡәләнең яңы өлгөһө булыуы ихтимал, әммә ул интернетҡа тоташмайынса асылмай.";
-"no-internet-connection-article-reload-button" = "Һуңғы һаҡланған өлгөнө асырға.";
 "not-now-title" = "Хәҙер түгел";
 "notifications-center-agent-description-from-format" = "$1 битенән";
 "notifications-center-alert" = "Хәбәр итеүҙәр";
@@ -507,7 +504,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Күберәк хәбәрҙәрҙе күреү өсөн $1 үҙгәртегеҙ";
 "notifications-center-empty-state-no-projects-selected" = "Күберәк хәбәрҙәрҙе күреү өсөн проекттар өҫтәгеҙ";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 фильтр}}";
-"notifications-center-feed-card-title" = "Хәҙер хәбәрҙәрҙе мөхәррирләү мөмкинлеге бар";
 "notifications-center-feed-news-notification-button-text" = "Push-хәбәр итеүҙе ҡабыҙырға";
 "notifications-center-feed-news-notification-text" = "Викимедианың бөтә проекттары өсөн мөхәррирләү тураһында белдереүҙәр хәҙер ҡушымта аша килә. Википедияла белдереү алыу өсөн push-белдереүҙе ҡабыҙығыҙ.";
 "notifications-center-filters-accessibility-label" = "Белдереүҙәр фильтры";

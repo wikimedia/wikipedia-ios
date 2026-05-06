@@ -207,7 +207,6 @@
 "description-help-title" = "Trợ giúp tóm lược bài viết";
 "description-help-wikidata-guide" = "Hướng dẫn viết miêu tả tại Wikidata";
 "description-published-button-title" = "Xong";
-"description-published-footer" = "Bạn cũng có thể sửa đổi các bài viết dùng ứng dụng này. Hãy bấm nút biểu tượng bút chì vào lần sau để sửa các lỗi chính tả và câu ngắn.";
 "description-published-subtitle" = "Bạn vừa cải thiện Wikipedia cho mọi người";
 "description-published-title" = "Đã đăng lời tóm lược!";
 "description-welcome-concise-sub-title" = "Hãy cố gắng ghi lời tóm lược vừa một dòng và không quá 60 ký tự";
@@ -275,8 +274,6 @@
 "edit-notices" = "Thông báo sửa đổi";
 "edit-notices-always-display" = "Luôn hiển thị thông báo sửa đổi";
 "edit-notices-please-read" = "Vui lòng đọc trước khi sửa đổi";
-"edit-published" = "Đã đăng thay đổi";
-"edit-published-subtitle" = "Bạn vừa cải thiện Wikipedia tốt hơn cho mọi người";
 "edit-summary-add-summary-text" = "Thêm tóm lược sửa đổi";
 "edit-summary-choice-fixed-grammar" = "Sửa ngữ pháp";
 "edit-summary-choice-fixed-typos" = "Sửa chính tả";
@@ -489,7 +486,6 @@
 "image-recs-no-title" = "Không";
 "import-shared-reading-list-default-title" = "Danh sách đọc của tôi";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Thực hiện khảo sát";
-"import-shared-reading-list-survey-prompt-footer" = "Xem $1tuyên bố về quyền riêng tư$2 của chúng tôi. Khảo sát do bên thứ ba cung cấp. Xem $3chính sách bảo mật$4 của họ.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Chia sẻ danh sách đọc\" là một tính năng thử nghiệm và chúng tôi cần phản hồi của bạn để cải thiện hoặc xóa tính năng này.";
 "import-shared-reading-list-survey-prompt-title" = "Bạn có thể giúp chúng tôi cải thiện tính năng \"Chia sẻ danh sách đọc\" không?";
 "import-shared-reading-list-title" = "Nhập danh sách đọc được chia sẻ";
@@ -557,16 +553,16 @@
 "more-menu" = "Thêm";
 "move-articles-to-reading-list" = "Di chuyển {{PLURAL:$1|$1 bài viết|$1 bài viết}} vào danh sách đọc";
 "navbar-title-mode-edit-wikitext-preview" = "Xem trước";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 bộ";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 dặm";
 "new-password-instructions" = "Bạn đã đăng nhập bằng mật khẩu tạm. Để hoàn tất việc đăng nhập, bạn phải tạo lại mật khẩu mới tại đây.";
 "new-password-title" = "Đặt mật khẩu";
 "no-email-account-alert" = "Vui lòng thiết lập một tài khoản thư điện tử trên thiết bị của bạn và thử lại.";
 "no-internet-connection" = "Không có kết nối Internet";
-"no-internet-connection-article-reload" = "Bài viết này có thể có một phiên bản mới hơn nhưng không thể tải nó vì không có kết nối Internet";
-"no-internet-connection-article-reload-button" = "Quay về phiên bản cuối cùng được lưu";
 "not-now-title" = "Để sau";
 "notifications-center-agent-description-from-format" = "Từ $1";
 "notifications-center-alert" = "Nhắc nhở";
@@ -585,7 +581,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Sửa đổi $1 để xem thêm tin nhắn";
 "notifications-center-empty-state-no-projects-selected" = "Thêm dự án để xem thêm tin nhắn";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|Bộ lọc $1}}";
-"notifications-center-feed-card-title" = "Chỉnh sửa thông báo hiện có sẵn";
 "notifications-center-feed-news-notification-button-text" = "Bật thông báo đẩy";
 "notifications-center-feed-news-notification-text" = "Thông báo chỉnh sửa cho tất cả các dự án Wikimedia hiện có sẵn thông qua ứng dụng. Chọn nhận thông báo đẩy để cập nhật tin nhắn của bạn trên Wikipedia khi đang di chuyển.";
 "notifications-center-filters-accessibility-label" = "Bộ lọc thông báo";
@@ -703,7 +698,6 @@
 "panel-compare-revisions-text" = "So sánh các bản sửa đổi giúp cho thấy một bài viết đã thay đổi như thế nào theo thời gian. So sánh hai bản sửa đổi của một bài viết sẽ cho thấy sự khác biệt giữa các bản sửa đổi đó bằng cách đánh dấu bất kỳ nội dung nào đã được thay đổi.";
 "panel-compare-revisions-title" = "Đang so sánh các phiên bản";
 "panel-not-logged-in-continue-edit-action-title" = "Sửa đổi mà không đăng nhập";
-"panel-not-logged-in-subtitle" = "Hiện tại, địa chỉ IP của bạn sẽ được hiển thị công khai khi bạn thực hiện sửa đổi. Nếu bạn $1đăng nhập$2 hoặc $3mở tài khoản$4, sửa đổi của bạn sẽ gắn liền với tên người dùng bạn chọn, cùng với nhiều lợi ích khác.";
 "panel-not-logged-in-title" = "Bạn chưa đăng nhập";
 "pictured" = "hình";
 "places-accessibility-clear-saved-searches" = "Xóa các tìm kiếm đã lưu";
@@ -849,15 +843,6 @@
 "relative-date-seconds-abbreviated" = "$1gi";
 "relative-date-seconds-ago-abbreviated" = "$1gi trước";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Năm nay|1=Năm ngoái|Cách đây $1 năm}}";
-"replace-button-accessibility" = "Thực hiện $1.";
-"replace-buttons-replace-accessibility" = "Thay thế một mục";
-"replace-buttons-replace-all-accessibility" = "Thay thế tất cả các mục";
-"replace-clear-button-accessibility" = "Xóa thay thế";
-"replace-infolabel-method-replace" = "Thay thế";
-"replace-infolabel-method-replace-all" = "Thay tất cả";
-"replace-method-button-accessibility" = "Phương pháp thay thế. Đã đặt là $1. Chọn để thay đổi.";
-"replace-textfield-accessibility" = "Thay thế";
-"replace-textfield-placeholder" = "Thay thế bằng…";
 "reverted-edit-title" = "Sửa đổi đã bị lùi lại";
 "saved-all-articles-title" = "Tất cả các bài";
 "saved-default-reading-list-tag" = "Không thể xóa danh sách này";
@@ -871,7 +856,6 @@
 "search-button-accessibility-label" = "Tìm trong Wikipedia";
 "search-clear-title" = "Xóa sạch";
 "search-field-placeholder-text" = "Tìm trong Wikipedia";
-"search-reading-list-placeholder-text" = "Tìm trong danh sách đọc";
 "search-recent-clear-confirmation-heading" = "Xóa các tìm kiếm gần đây?";
 "search-recent-clear-confirmation-sub-heading" = "Không thể hoàn tác tác vụ này!";
 "search-recent-clear-delete-all" = "Xóa Toàn bộ";
@@ -897,11 +881,6 @@
 "settings-notifications-echo-failure-title" = "Không thể kiểm tra đăng ký thông báo Echo";
 "settings-notifications-echo-failure-try-again" = "Thử lại";
 "settings-notifications-header" = "Được cảnh báo về hoạt động liên quan đến tài khoản của bạn, chẳng hạn như tin nhắn từ những người đóng góp, cảnh báo và thông báo. Tất cả được cung cấp liên quan đến quyền riêng tư và dữ liệu cập nhật từng phút.";
-"settings-notifications-info" = "Nhận các thông báo đẩy về các bài thịnh hành và các bài được đọc nhiều nhất tại Wikipedia. Tất cả các thông báo tôn trọng quyền riêng tư và cung cấp dữ liệu mới mẻ.";
-"settings-notifications-learn-more" = "Tìm hiểu thêm về thông báo";
-"settings-notifications-push-notifications" = "Thông báo đẩy";
-"settings-notifications-system-turn-on" = "Bật Thông báo";
-"settings-notifications-trending" = "Thời sự thịnh hành";
 "settings-off" = "Tắt";
 "settings-on" = "Bật";
 "settings-primary-language" = "Chính";
@@ -1044,9 +1023,6 @@
 "welcome-languages-add-or-edit-button" = "Thêm và sửa các ngôn ngữ ưa thích";
 "welcome-languages-description" = "Đã tìm thấy các ngôn ngữ sau trên thiết bị của bạn:";
 "welcome-languages-search-title" = "Tìm trong gần 300 ngôn ngữ";
-"welcome-notifications-tell-me-more-creation" = "Các thông báo được ứng dụng này tạo và gửi trên thiết bị của bạn, chứ không phải được máy chủ nào gửi.";
-"welcome-notifications-tell-me-more-storage" = "Tùy chọn thông báo được lưu vào thiết bị và không tùy theo thông tin cá nhân hoặc hoạt động của bạn.";
-"welcome-notifications-tell-me-more-title" = "Đọc thêm về thông báo";
 "widget-onthisday-placeholder-article-snippet" = "Bách khoa toàn thư mở trực tuyến cho phép bất cứ người nào góp tay xây dựng";
 "widget-onthisday-placeholder-event-snippet" = "Bách khoa toàn thư nội dung mở Wikipedia mở cửa.";
 "wikitext-preview-changes" = "Đang lấy bản xem trước các thay đổi của bạn…";

@@ -105,7 +105,6 @@
 "diff-thanks-send-button-title" = "'Tashakkur' bildirish";
 "edit-menu-item" = "Tahrirlash";
 "edit-minor-text" = "Bu kichik tahrir";
-"edit-published" = "Tahrir chop etildi!";
 "edit-summary-choice-fixed-grammar" = "Grammatikani tuzatdim";
 "edit-summary-choice-fixed-typos" = "Xatoni tuzatdim";
 "edit-summary-choice-linked-words" = "Qoʻshilgan havolalar";
@@ -186,8 +185,10 @@
 "more-languages-tooltip-description" = "Vikipediyani 300 dan ortiq tillarda qidiring";
 "more-languages-tooltip-title" = "Til qoʻshish";
 "navbar-title-mode-edit-wikitext-preview" = "Ko‘rib chiqish";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 fut";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milya";
 "notifications-center-agent-description-from-format" = "$1 dan";
@@ -243,8 +244,6 @@
 "relative-date-hours-ago-abbreviated" = "$1h soat avval";
 "relative-date-hrs-ago" = "{{PLURAL:$1|0=Soʻnggi marta|$1 soat avval}}";
 "relative-date-min-ago" = "{{PLURAL:$1|0=Hozir|$1 daqiqa avval}}";
-"replace-textfield-accessibility" = "Almashtirish";
-"replace-textfield-placeholder" = "Quyidagiga almashtirish:";
 "saved-title" = "Saqlandi";
 "search-button-accessibility-label" = "Vikipediyadan izlash";
 "search-clear-title" = "Tozalash";

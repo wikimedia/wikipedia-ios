@@ -332,8 +332,10 @@
 "more-languages-tooltip-title" = "Amestar llingües";
 "move-articles-to-reading-list" = "Treslladar {{PLURAL:$1|$1 artículu|$1 artículos}} a la llista de llectura";
 "navbar-title-mode-edit-wikitext-preview" = "Vista previa";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pies";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milles";
 "new-password-instructions" = "Aniciasti sesión con una contraseña temporal. Pa terminar d'aniciar sesión, tienes de configurar una contraseña nueva equí.";
@@ -482,7 +484,6 @@
 "search-button-accessibility-label" = "Guetar na Wikipedia";
 "search-clear-title" = "Llimpiar";
 "search-field-placeholder-text" = "Guetar na Wikipedia";
-"search-reading-list-placeholder-text" = "Guetar na llista de llectura";
 "search-recent-clear-confirmation-heading" = "¿Desaniciar toles guetes de recién?";
 "search-recent-clear-confirmation-sub-heading" = "¡Esta aición nun puede desfacese!";
 "search-recent-clear-delete-all" = "Desaniciar too";
@@ -502,11 +503,6 @@
 "settings-my-languages" = "Les mios llingües";
 // Fuzzy
 "settings-notifications" = "Avisos";
-"settings-notifications-info" = "Recibe alertes d'artículos n'enclín o más lleíos de Wikipedia coles nueses notificaciones. Toes elles proporcionaes con respetu pola privacidá y actualizaes al minutu.";
-"settings-notifications-learn-more" = "Más información tocante a los avisos";
-"settings-notifications-push-notifications" = "Avisos tipu push";
-"settings-notifications-system-turn-on" = "Activar los Avisos";
-"settings-notifications-trending" = "Enclín nes actividaes actuales";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "La primera llingua d'esta llista emplégase como idioma principal de l'aplicación.";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que Wikimedia almacene los tos artículos y llistes de llectura nes preferencies d'usuariu cuando anicies sesión y sincronices.";
@@ -571,9 +567,6 @@
 "welcome-languages-add-or-edit-button" = "Amestar o editar llingües preferíes";
 "welcome-languages-description" = "Alcontramos les llingües siguientes nel to preséu:";
 "welcome-languages-search-title" = "Guetar en más de 300 llingües";
-"welcome-notifications-tell-me-more-creation" = "Los avisos creense y entréguense nel preséu pola app, non polos nuesos sirvidores (nin de terceros).";
-"welcome-notifications-tell-me-more-storage" = "Les preferencies d'avisos guárdense nel preséu y nun se basen n'información o actividá personal.";
-"welcome-notifications-tell-me-more-title" = "Más tocante a los avisos";
 "wikitext-preview-changes" = "Recuperando la vista previa de los cambios...";
 "wikitext-preview-link-preview-description" = "Esti enllaz lleva a '$1'";
 "wikitext-preview-link-preview-title" = "Vista previa del enllaz";

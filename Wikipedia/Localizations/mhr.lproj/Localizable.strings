@@ -148,7 +148,6 @@
 "description-help-title" = "Статьян возен ончыктымашыже дене полыш";
 "description-help-wikidata-guide" = "Викиданныйыште возен ончыктымашым серыме дене виктарыше мут";
 "description-published-button-title" = "Ямде";
-"description-published-footer" = "Тый статья-влакым тыгак ты приложенийыште тӧрлен кертат. Вес гана йоҥылыш да изи предложений-влакым тӧрлашлан, ручка сӱретан иконкым темдал";
 "description-published-subtitle" = "Тый кызыт гына Википедийым чылалан сайрак ыштышыч";
 "description-published-title" = "Возен ончыктымаш савыкталтын!";
 "description-welcome-concise-sub-title" = "Эн сай - ик корно, кокыт гыч латкок мут марте";
@@ -248,8 +247,6 @@
 "edit-notices-always-display" = "Вашталтыш нерген шижтарымашым эре ончыктыза";
 "edit-notices-please-read" = "Порылий, тӧрлатымаш деч ончыч лудын лек";
 "edit-preview-simplified-format-message" = "Чыла контент умылаш куштылго формат дене ончыктымо.";
-"edit-published" = "Тӧрлымашым савыктыме";
-"edit-published-subtitle" = "Тый кызыт гына Википедийым чылалан сайракым ыштышыч";
 "edit-show-web-preview" = "Веб ончылгоч ончыктымашым почаш";
 "edit-summary-add-summary-text" = "Тӧрлымашын возен ончыктымашым ешараш";
 "edit-summary-choice-added-image" = "Сӱретым ешарыме";
@@ -541,8 +538,10 @@
 "more-menu" = "Эше";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 статьям}} лудашлан спискыш кусараш";
 "navbar-title-mode-edit-wikitext-preview" = "Ончылгоч ончымаш";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 фут.";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 мил.";
 "new-password-title" = "Шолыпмутым шынде";

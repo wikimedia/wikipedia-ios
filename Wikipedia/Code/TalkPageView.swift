@@ -75,15 +75,15 @@ final class TalkPageView: SetupView {
         let errorViewTopConstraint = errorView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor)
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: toolbarContainerView.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             emptyViewTopConstraint,
-            emptyView.bottomAnchor.constraint(equalTo: toolbarContainerView.topAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor),
             emptyView.leadingAnchor.constraint(equalTo: leadingAnchor),
             emptyView.trailingAnchor.constraint(equalTo: trailingAnchor),
             errorViewTopConstraint,
-            errorView.bottomAnchor.constraint(equalTo: toolbarContainerView.topAnchor),
+            errorView.bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor),
             errorView.leadingAnchor.constraint(equalTo: leadingAnchor),
             errorView.trailingAnchor.constraint(equalTo: trailingAnchor),
             toolbarContainerView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor),
@@ -131,9 +131,12 @@ extension TalkPageView: Themeable {
         emptyView.apply(theme: theme)
         errorView.apply(theme: theme)
         
-        toolbarContainerView.backgroundColor = theme.colors.paperBackground
-        toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
-        toolbar.isTranslucent = false
+        if #unavailable(iOS 26.0) {
+            toolbarContainerView.backgroundColor = theme.colors.paperBackground
+            toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+            toolbar.isTranslucent = false
+        } else {
+            toolbarContainerView.backgroundColor = .clear
+        }
     }
-
 }

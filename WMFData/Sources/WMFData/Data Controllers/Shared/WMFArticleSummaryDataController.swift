@@ -6,16 +6,18 @@ public protocol WMFArticleSummaryDataControlling {
 }
 
 public actor WMFArticleSummaryDataController: WMFArticleSummaryDataControlling {
-    private var service: WMFService?
-    
+    // Fetched lazily so we always pick up the service even if the environment
+    // is configured after the singleton is first accessed (e.g. at app launch).
+    private var service: WMFService? {
+        WMFDataEnvironment.current.basicService
+    }
+
     public static var shared = WMFArticleSummaryDataController()
     
     private var cache: [WMFPage: WMFArticleSummary] = [:]
     private var inFlightRequests: [WMFPage: [(Result<WMFArticleSummary, Error>) -> Void]] = [:]
     
-    private init() {
-        self.service = WMFDataEnvironment.current.basicService
-    }
+    private init() {}
     
     public func fetchArticleSummary(project: WMFProject, title: String, completion: @escaping (Result<WMFArticleSummary, Error>) -> Void) {
         

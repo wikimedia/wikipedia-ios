@@ -56,7 +56,6 @@ public class WMFProfileViewModel: ObservableObject {
 
     public struct LocalizedStrings {
         let pageTitle: String
-        let doneButtonTitle: String
         let notificationsTitle: String
         let userPageTitle: String
         let talkPageTitle: String
@@ -70,9 +69,8 @@ public class WMFProfileViewModel: ObservableObject {
         let yearInReviewTitle: String
         let yearInReviewLoggedOutSubtext: String
 
-        public init(pageTitle: String, doneButtonTitle: String, notificationsTitle: String, userPageTitle: String, talkPageTitle: String, watchlistTitle: String, logOutTitle: String, donateTitle: String, settingsTitle: String, joinWikipediaTitle: String, joinWikipediaSubtext: String, donateSubtext: String, yearInReviewTitle: String, yearInReviewLoggedOutSubtext: String) {
+        public init(pageTitle: String, notificationsTitle: String, userPageTitle: String, talkPageTitle: String, watchlistTitle: String, logOutTitle: String, donateTitle: String, settingsTitle: String, joinWikipediaTitle: String, joinWikipediaSubtext: String, donateSubtext: String, yearInReviewTitle: String, yearInReviewLoggedOutSubtext: String) {
             self.pageTitle = pageTitle
-            self.doneButtonTitle = doneButtonTitle
             self.notificationsTitle = notificationsTitle
             self.userPageTitle = userPageTitle
             self.talkPageTitle = talkPageTitle
@@ -197,6 +195,7 @@ enum ProfileState {
                     refreshAction()
                     coordinatorDelegate?.handleProfileAction(.showYearInReview)
                     coordinatorDelegate?.handleProfileAction(.logYearInReviewTap)
+
                 }
             )
             
@@ -217,6 +216,26 @@ enum ProfileState {
                     coordinatorDelegate?.handleProfileAction(.showSettings)
                 }
             )
+            
+            var settingsItems: [ProfileListItem] = [settingsItem]
+            
+            if WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
+                
+                let devSettingsItem = ProfileListItem(
+                    text: "Developer settings",
+                    image: WMFSFSymbolIcon.for(symbol: .testTubeFill),
+                    imageColor: UIColor(Color.gray),
+                    hasNotifications: nil,
+                    isDonate: false,
+                    isLoadingDonateConfigs: false,
+                    action: {
+                        coordinatorDelegate?.handleProfileAction(.showDevSettings)
+                    }
+                )
+                
+                settingsItems.append(devSettingsItem)
+            }
+            
             return [
                 ProfileSection(
                     listItems: [
@@ -238,9 +257,7 @@ enum ProfileState {
                     subtext: nil
                 ),
                 ProfileSection(
-                    listItems: [
-                        settingsItem
-                    ],
+                    listItems: settingsItems,
                     subtext: nil
                 )
             ]
@@ -287,8 +304,8 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    coordinatorDelegate?.handleProfileAction(.login)
-                    
+                   coordinatorDelegate?.handleProfileAction(.login)
+
                 }
             )
             let donateItem = ProfileListItem(
@@ -311,10 +328,29 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    coordinatorDelegate?.handleProfileAction(.showSettings)
+                   coordinatorDelegate?.handleProfileAction(.showSettings)
                 }
             )
             
+            var settingsItems: [ProfileListItem] = [settingsItem]
+            
+            if WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
+                
+                let devSettingsItem = ProfileListItem(
+                    text: "Developer settings",
+                    image: WMFSFSymbolIcon.for(symbol: .testTubeFill),
+                    imageColor: UIColor(Color.gray),
+                    hasNotifications: nil,
+                    isDonate: false,
+                    isLoadingDonateConfigs: false,
+                    action: {
+                        coordinatorDelegate?.handleProfileAction(.showDevSettings)
+                    }
+                )
+                
+                settingsItems.append(devSettingsItem)
+            }
+
             let joinSection = ProfileSection(
                 listItems: [
                     userPageItem,
@@ -330,8 +366,8 @@ enum ProfileState {
                 subtext: localizedStrings.donateSubtext
             )
             let notificationsSection = ProfileSection(listItems: [notificationsItem], subtext: nil)
-            let settingsSection = ProfileSection(listItems: [settingsItem], subtext: nil)
-            
+            let settingsSection = ProfileSection(listItems: settingsItems, subtext: nil)
+
             let sections = [notificationsSection, joinSection, donateSection, settingsSection]
             return sections
         } else {
@@ -344,7 +380,7 @@ enum ProfileState {
                 isLoadingDonateConfigs: false,
                 action: {
                     coordinatorDelegate?.handleProfileAction(.login)
-                    
+
                 }
             )
             let donateItem = ProfileListItem(
@@ -391,6 +427,25 @@ enum ProfileState {
                 }
             )
             
+            var settingsItems: [ProfileListItem] = [settingsItem]
+            
+            if WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
+                
+                let devSettingsItem = ProfileListItem(
+                    text: "Developer settings",
+                    image: WMFSFSymbolIcon.for(symbol: .testTubeFill),
+                    imageColor: UIColor(Color.gray),
+                    hasNotifications: nil,
+                    isDonate: false,
+                    isLoadingDonateConfigs: false,
+                    action: {
+                        coordinatorDelegate?.handleProfileAction(.showDevSettings)
+                    }
+                )
+                
+                settingsItems.append(devSettingsItem)
+            }
+            
             let joinSection = ProfileSection(
                 listItems: [
                     joinWikipediaItem
@@ -410,9 +465,7 @@ enum ProfileState {
                 subtext: localizedStrings.yearInReviewLoggedOutSubtext
                 )
             let settingsSection = ProfileSection(
-                listItems: [
-                    settingsItem
-                ],
+                listItems: settingsItems,
                 subtext: nil
             )
 

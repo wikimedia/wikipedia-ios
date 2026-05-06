@@ -41,8 +41,10 @@
 "main-menu-zero-faq" = "FAQ de Wikipedia Zero";
 "move-articles-to-reading-list" = "Moi {{PLURAL:$1|voce|voci}} al'elenco de letura.";
 "navbar-title-mode-edit-wikitext-preview" = "Anteprima";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pié";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 miglia";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipèdia in $2";

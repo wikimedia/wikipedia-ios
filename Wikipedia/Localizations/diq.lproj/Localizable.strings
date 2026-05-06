@@ -58,7 +58,6 @@
 "edit-menu-item" = "Bıvurne";
 "edit-minor-learn-more-text" = "Heqa vurnayışanê qıcan de tayêna bımuse";
 "edit-minor-text" = "No yew vırnayışo werdiyo";
-"edit-published" = "Vurnayış qeyd bi";
 "edit-watch-this-page-text" = "Ena pele seyr ke";
 // Fuzzy
 "empty-insert-media-title" = "Yew dosya weçine";
@@ -100,8 +99,10 @@
 "main-menu-terms-of-use" = "Şertê gurenayışi";
 "main-menu-title" = "Zêde";
 "navbar-title-mode-edit-wikitext-preview" = "Verqayt";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 fit";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 metre";
 "nearby-distance-label-miles" = "$1 mil";
 "no-internet-connection" = "Gıredayışê interneti çıniyo";

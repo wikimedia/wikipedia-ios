@@ -133,15 +133,15 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
 @interface MWKLanguageLinkController (LayoutDirectionAdditions)
 
 /// Returns whether the language represented by the @c contentLanguageCode displays right-to-left.
-/// Returns NO if @c contentLangaugeCode is nil.
+/// Returns NO if @c contentLanguageCode is nil.
 + (BOOL)isLanguageRTLForContentLanguageCode:(nullable NSString *)contentLanguageCode;
 
 /// Returns either "rtl" or "ltr" depending whether the language represented by the @c contentLanguageCode displays right-to-left.
-/// Returns "ltr" if @c contentLangaugeCode is nil.
+/// Returns "ltr" if @c contentLanguageCode is nil.
 + (NSString *)layoutDirectionForContentLanguageCode:(nullable NSString *)contentLanguageCode;
 
 /// Returns the semantic content attribute to force appropriate text direction for the language represented by @c contentLanguageCode.
-/// Returns UISemanticContentAttributeUnspecified if @c contentLangaugeCode is nil.
+/// Returns UISemanticContentAttributeUnspecified if @c contentLanguageCode is nil.
 + (UISemanticContentAttribute)semanticContentAttributeForContentLanguageCode:(nullable NSString *)contentLanguageCode;
 
 @end

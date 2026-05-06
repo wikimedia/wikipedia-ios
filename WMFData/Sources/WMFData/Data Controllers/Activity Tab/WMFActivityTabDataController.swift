@@ -2,11 +2,15 @@ import Foundation
 
 public actor WMFActivityTabDataController {
     public static let shared = WMFActivityTabDataController()
-    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+    private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
     public var historyDataController: WMFHistoryDataController? = nil
 
     public init() {}
-    
+
+    public func setHistoryDataController(_ controller: WMFHistoryDataController) {
+        self.historyDataController = controller
+    }
+
     // MARK: - Activity Tab Customization Toggles
 
     public var isTimeSpentReadingOn: Bool {
@@ -64,19 +68,19 @@ public actor WMFActivityTabDataController {
             )
         }
     }
-    
+
     public func updateIsTimeSpentReadingOn(_ value: Bool) {
         isTimeSpentReadingOn = value
     }
-    
+
     public func updateIsReadingInsightsOn(_ value: Bool) {
         isReadingInsightsOn = value
     }
-    
+
     public func updateIsEditingInsightsOn(_ value: Bool) {
         isEditingInsightsOn = value
     }
-    
+
     public func updateIsTimelineOfBehaviorOn(_ value: Bool) {
         isTimelineOfBehaviorOn = value
     }
@@ -84,13 +88,13 @@ public actor WMFActivityTabDataController {
     public func getTimeReadPast7Days() async throws -> (Int, Int)? {
         let calendar = Calendar.current
         let now = Date()
-        
+
         guard let startOfToday = calendar.startOfDay(for: now) as Date?,
               let startDate = calendar.date(byAdding: .day, value: -7, to: startOfToday),
               let endDate = calendar.date(byAdding: .day, value: 1, to: startOfToday)?.addingTimeInterval(-1) else { return (0, 0) }
 
         let dataController = try WMFPageViewsDataController()
-        
+
         let minutesRead = try await dataController.fetchPageViewMinutes(startDate: startDate, endDate: endDate)
 
         // Turn total minutes into hours/minutes read
@@ -99,28 +103,28 @@ public actor WMFActivityTabDataController {
 
         return (hours, minutes)
     }
-    
+
     public func getArticlesRead() async throws -> Int {
         let calendar = Calendar.current
         let now = Date()
-        
+
         guard let startDate = calendar.date(byAdding: .day, value: -30, to: now) else { return 0 }
-        
+
         let dataController = try WMFPageViewsDataController()
         let pageCounts = try await dataController.fetchPageViewCounts(startDate: startDate, endDate: now)
-        
+
         let totalReads = pageCounts.reduce(0) { $0 + $1.count }
-        
+
         return totalReads
     }
-    
+
     public func getWeeklyReadsThisMonth() async throws -> [Int] {
         let calendar = Calendar.current
         let now = Date()
-        
+
         let dataController = try WMFPageViewsDataController()
         var weeklyCounts: [Int] = []
-        
+
         for week in 0..<4 {
             guard
                 let endDate = calendar.date(byAdding: .day, value: -(7 * week), to: now),
@@ -128,22 +132,49 @@ public actor WMFActivityTabDataController {
             else {
                 continue
             }
-            
+
             let pageCounts = try await dataController.fetchPageViewCounts(startDate: startDate, endDate: endDate)
             let count = pageCounts.reduce(0) { $0 + $1.count }
-            
+
             weeklyCounts.append(count)
         }
-        
+
         return Array(weeklyCounts.reversed())
     }
-    
+
     public var hasSeenActivityTab: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenActivityTabNewOnboarding.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenActivityTabNewOnboarding.rawValue, value: newValue)
         }
+    }
+
+    private var seenHistoryCallout: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabSeenHistoryCallout.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabSeenHistoryCallout.rawValue, value: newValue)
+        }
+    }
+
+    public func getNeedsHistoryCallout() -> Bool {
+        guard let endDate = historyCalloutEndDate, endDate >= Date() else {
+            return false
+        }
+        return !seenHistoryCallout
+    }
+
+    public func setNeedsHistoryCallout(_ value: Bool) {
+        seenHistoryCallout = !value
+    }
+
+    private var historyCalloutEndDate: Date? {
+        var dateComponents = DateComponents()
+        dateComponents.year = 2026
+        dateComponents.month = 4
+        dateComponents.day = 24
+        return Calendar.current.date(from: dateComponents)
     }
 
     public func setHasSeenActivityTab(_ value: Bool) {
@@ -181,7 +212,7 @@ public actor WMFActivityTabDataController {
         return false
     }
     
-    private var surveyEndDate: Date? {
+    public var surveyEndDate: Date? {
         var dateComponents = DateComponents()
         dateComponents.year = 2026
         dateComponents.month = 4
@@ -200,6 +231,41 @@ public actor WMFActivityTabDataController {
     public func incrementActivityTabVisitCount() {
         let visitCount = self.activityTabVisitCount + 1
         self.activityTabVisitCount = visitCount
+    }
+
+    // MARK: - Reading Challenge 2026
+
+    private static let sharedGroupID = "group.org.wikimedia.wikipedia"
+
+    private nonisolated var hasEnrolledInReadingChallenge2026: Bool {
+        get { UserDefaults(suiteName: Self.sharedGroupID)?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false }
+        set { UserDefaults(suiteName: Self.sharedGroupID)?.set(newValue, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) }
+    }
+    
+    public func setEnrolledInReadingChallenge(_ value: Bool) {
+        hasEnrolledInReadingChallenge2026 = value
+        UserDefaults(suiteName: Self.sharedGroupID)?.synchronize()
+    }
+
+    public var hasSeenFullPageReadingChallengeAnnouncement2026: Bool {
+        get { UserDefaults(suiteName: Self.sharedGroupID)?.bool(forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue) ?? false }
+        set { UserDefaults(suiteName: Self.sharedGroupID)?.set(newValue, forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue) }
+    }
+    
+    public func setHasSeenFullPageAnnouncement() {
+        hasSeenFullPageReadingChallengeAnnouncement2026 = true
+        UserDefaults(suiteName: Self.sharedGroupID)?.synchronize()
+    }
+    
+    public func shouldShowReadingChallengeAnnouncement() -> Bool {
+        guard !hasSeenFullPageReadingChallengeAnnouncement2026 else { return false }
+        let now = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
+        return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
+    }
+    
+    public func isReadingChallengeActive() -> Bool {
+        let now = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
+        return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
     }
 
     public func getMostRecentReadDateTime() async throws -> Date? {
@@ -366,8 +432,7 @@ public actor WMFActivityTabDataController {
             let existingItems = dailyTimeline[dayBucket]
             
             let identifier = String("read~\(page.projectID)~\(page.title)~\(record.timestamp.timeIntervalSince1970)")
-            
-           
+
             let newItem = TimelineItem(
                 id: identifier,
                 date: timestamp,
@@ -443,14 +508,14 @@ public actor WMFActivityTabDataController {
     }
 
     public func getUserImpactData(userID: Int) async throws -> WMFUserImpactData {
-        
+
         guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
             throw WMFDataControllerError.failureCreatingRequestURL
         }
         let project = WMFProject.wikipedia(primaryAppLanguage)
-        
+
         let dataController = WMFUserImpactDataController.shared
-        
+
         return try await dataController.fetch(userID: userID, project: project, language: primaryAppLanguage.languageCode)
     }
 
@@ -476,11 +541,11 @@ public struct TimelineItem: Identifiable, Equatable {
     public var imageURLString: String?
     public var snippet: String?
     public let namespaceID: Int
-    
+
     // Edit-specific properties
     public let revisionID: Int?
     public let parentRevisionID: Int?
-    
+
     public let itemType: TimelineItemType
 
     public init(id: String,
@@ -530,7 +595,7 @@ public enum LoginState: Int {
 }
 
 extension TimelineItem {
-    
+
     init(articleEdit: ArticleEdit) {
         self.init(
             id: articleEdit.id,
@@ -546,3 +611,4 @@ extension TimelineItem {
         )
     }
 }
+

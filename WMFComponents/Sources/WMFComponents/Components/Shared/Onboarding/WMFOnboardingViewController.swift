@@ -1,6 +1,7 @@
 import SwiftUI
 
 
+@MainActor
 public protocol WMFOnboardingViewDelegate: AnyObject {
     func onboardingViewDidClickPrimaryButton()
     func onboardingViewDidClickSecondaryButton()
@@ -25,10 +26,12 @@ public class WMFOnboardingViewController: WMFCanvasViewController {
             hostingController.delegate = delegate
         }
     }
-    
-   // MARK: - Properties
 
-     public var hostingController: WMFOnboardingHostingViewController
+    public var closeButtonAction: (() -> Void)?
+
+    // MARK: - Properties
+
+    public var hostingController: WMFOnboardingHostingViewController
 
     public init(viewModel: WMFOnboardingViewModel) {
         self.hostingController = WMFOnboardingHostingViewController(viewModel: viewModel)
@@ -36,13 +39,26 @@ public class WMFOnboardingViewController: WMFCanvasViewController {
     }
 
     required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
+        fatalError("init(coder:) has not been implemented")
+    }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         addComponent(hostingController, pinToEdges: true)
-        presentationController?.delegate = self
+        // Use navigationController's presentationController if embedded, otherwise use own
+        (navigationController ?? self).presentationController?.delegate = self
+
+        if closeButtonAction != nil {
+            
+            let config = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeTapped), alignment: .leading)
+            let closeButton = UIBarButtonItem.closeNavigationBarButtonItem(config: config)
+
+            navigationItem.leftBarButtonItem = closeButton
+        }
+    }
+
+    @objc private func closeTapped() {
+        closeButtonAction?()
     }
 }
 

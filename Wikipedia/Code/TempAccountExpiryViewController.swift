@@ -3,6 +3,7 @@ import CocoaLumberjackSwift
 import WMF
 import WMFComponents
 import WMFData
+import WMFNativeLocalizations
 
 @objc class TempAccountExpiryViewController: ThemeableViewController {
     var category: EventCategoryMEP?
@@ -60,7 +61,7 @@ import WMFData
         let logInButton = UIButton(type: .system)
         logInButton.setTitle(CommonStrings.loginOrCreateAccountTitle, for: .normal)
         logInButton.setTitleColor(theme.colors.paperBackground, for: .normal)
-        logInButton.titleLabel?.font = WMFFont.for(.semiboldHeadline)
+        logInButton.titleLabel?.font = WMFFont.for(.body)
         logInButton.backgroundColor = theme.colors.link
         logInButton.addTarget(self, action: #selector(login), for: .touchUpInside)
         logInButton.translatesAutoresizingMaskIntoConstraints = false

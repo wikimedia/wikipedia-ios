@@ -48,7 +48,7 @@ import Foundation
         return await preferencesBannerOptIns.getValue(forKey: project) ?? true
     }
     
-    /// Set asset as "maybe later" in persistence, so that it can me loaded later only once the maybe later date has passed
+    /// Set asset as "maybe later" in persistence, so that it can be loaded later only once the maybe later date has passed
     /// - Parameters:
     ///   - asset: WMFAsset to mark as maybe later
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.

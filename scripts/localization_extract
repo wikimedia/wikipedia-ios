@@ -1,5 +1,50 @@
-#! /bin/sh
-# Extracts localizations from source code
+#!/bin/bash
+set -euo pipefail
 
-cd "$1"
-xcrun extractLocStrings -s WMFLocalizedString -o Wikipedia/iOS\ Native\ Localizations/en.lproj/ Wikipedia/Code/*.m Wikipedia/Code/*.swift Wikipedia/Code/Advanced\ Settings/*.swift WMF\ Framework/*.m WMF\ Framework/*.swift WMF\ Framework/Remote\ Notifications/*.swift WMF\ Framework/Remote\ Notifications/*/*.swift ContinueReadingWidget/*.swift Widgets/Widgets/*.swift NotificationServiceExtension/*.swift
+VERBOSE=true
+
+# Resolve script directory, then repo root = parent
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+echo "Extracting localizations from source code..."
+echo "Repo root: $REPO_ROOT"
+
+# Directories you want to exclude
+EXCLUDES=(
+  "$REPO_ROOT/Wikipedia/Third Party Code"
+  "$REPO_ROOT/WMF Framework/Third Party"
+  "$REPO_ROOT/WMF Framework/Localization"
+  "$REPO_ROOT/WMFLocalizations/Sources/WMFNativeLocalizations/WMFLocalizedString.swift"
+)
+
+# Build -path … -prune expression for find
+PRUNE_EXPR=()
+for d in "${EXCLUDES[@]}"; do
+  PRUNE_EXPR+=( -path "$d" -prune -o )
+done
+
+# Collect all .m and .swift files into an array
+files=()
+while IFS= read -r -d '' f; do
+  files+=("$f")
+done < <(
+  find "$REPO_ROOT/Wikipedia" "$REPO_ROOT/WMF Framework" \
+       "$REPO_ROOT/ContinueReadingWidget" "$REPO_ROOT/Widgets" \
+       "$REPO_ROOT/NotificationServiceExtension" \
+       "$REPO_ROOT/WMFComponents" "$REPO_ROOT/WMFLocalizations" \
+       \( "${PRUNE_EXPR[@]}" -type f \( -name "*.m" -o -name "*.swift" \) -print0 \)
+)
+
+if $VERBOSE; then
+  echo "Found ${#files[@]} source files:"
+  for f in "${files[@]}"; do
+    echo "  $f"
+  done
+fi
+
+# Run extractLocStrings on them
+xcrun extractLocStrings \
+  -s WMFLocalizedString \
+  -o "$REPO_ROOT/WMFLocalizations/Sources/WMFNativeLocalizations/Resources/en.lproj/" \
+  "${files[@]}"

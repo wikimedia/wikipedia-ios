@@ -129,8 +129,10 @@
 "main-menu-zero-faq" = "Վիքիպեդիա Զրո ՀՏՀ";
 "more-languages-tooltip-title" = "Ավելացնել լեզուներ";
 "navbar-title-mode-edit-wikitext-preview" = "Նախադիտում";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 ֆուտ";
 "nearby-distance-label-km" = "$1 կմ";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 մ";
 "nearby-distance-label-miles" = "$1 մղոն";
 "next-action-title" = "Հաջորդ";
@@ -159,9 +161,6 @@
 "places-search-default-text" = "Որոնել վայրեր";
 "places-search-top-articles-that-match-scope" = "Մոտակայքում";
 "reading-list-create-new-list-description" = "Նկարագրություն";
-"replace-infolabel-method-replace" = "Փոխարինել";
-"replace-infolabel-method-replace-all" = "Փոխարինել բոլորը";
-"replace-textfield-accessibility" = "Փոխարինել";
 "saved-all-articles-title" = "Բոլոր հոդվածներ";
 "search-button-accessibility-label" = "Որոնել Վիքիպեդիայում";
 "search-clear-title" = "Մաքրել";
@@ -175,8 +174,6 @@
 "settings-donate" = "Նվիրաբերել";
 "settings-my-languages" = "Իմ լեզուններ";
 "settings-notifications" = "Push ծանուցումներ";
-"settings-notifications-learn-more" = "Կարդալ ավելին ծանուցումների մասին";
-"settings-notifications-system-turn-on" = "Միացնել ծանուցումներ";
 "settings-primary-language" = "Հիմնական";
 "settings-title" = "Կարգավորումներ";
 "sort-by-title-action" = "Վերնագիր";

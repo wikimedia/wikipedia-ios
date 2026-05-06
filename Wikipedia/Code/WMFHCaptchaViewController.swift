@@ -3,6 +3,7 @@ import HCaptcha
 import WebKit
 import WMF
 import WMFData
+import WMFTestKitchen
 
 class WMFHCaptchaViewController: ThemeableViewController {
     
@@ -28,6 +29,8 @@ class WMFHCaptchaViewController: ThemeableViewController {
         activityIndicator.color = .white
         return activityIndicator
     }()
+    
+    var authInstrument: InstrumentImpl?
 
     // MARK: - HCaptcha
     var hCaptcha: HCaptcha?
@@ -74,6 +77,7 @@ class WMFHCaptchaViewController: ThemeableViewController {
             
             do {
                 let token = try result.dematerialize()
+                authInstrument?.submitInteraction(action: "hcaptcha_success")
                 successAction?(token)
             } catch let error as HCaptchaError {
                 errorAction?(error)
@@ -90,6 +94,7 @@ class WMFHCaptchaViewController: ThemeableViewController {
     private func setupHCaptcha() {
         do {
             guard let config = WMFDeveloperSettingsDataController.shared.loadFeatureConfig()?.ios.hCaptcha else {
+                authInstrument?.submitInteraction(action: "hcaptcha_error", actionContext: ["error": CustomError.hCaptchaMissingConfig.logDescription])
                 errorAction?(CustomError.hCaptchaMissingConfig)
                 return
             }
@@ -100,11 +105,13 @@ class WMFHCaptchaViewController: ThemeableViewController {
                   let reportapi = URL(string: config.reportapi),
                   let assethost = URL(string: config.assethost),
                   let imghost = URL(string: config.imghost) else {
+                    authInstrument?.submitInteraction(action: "hcaptcha_error", actionContext: ["error": CustomError.hCaptchaInvalidURL.logDescription])
                       errorAction?(CustomError.hCaptchaInvalidURL)
                       return
                   }
             
-            hCaptcha = try HCaptcha(apiKey: config.apiKey,
+            let apiKey = WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge ? "45205f58-be1c-40f0-b286-07a4498ea3da" : config.apiKey
+            hCaptcha = try HCaptcha(apiKey: apiKey,
                                      baseURL: baseURL,
                                      jsSrc: jsSrc,
                                      sentry: config.sentry,
@@ -114,24 +121,37 @@ class WMFHCaptchaViewController: ThemeableViewController {
                                      imghost: imghost,
                                      theme: theme.isDark ? "dark" : "light")
         } catch let error {
+            authInstrument?.submitInteraction(action: "hcaptcha_error", actionContext: ["error": error.logDescription])
             errorAction?(error)
             return
         }
         
-
-        hCaptcha?.onEvent { [weak self] event, _ in
+        let logError: (Any?) -> Void = { [weak self] data in
+            if let error = data as? Error {
+                self?.authInstrument?.submitInteraction(action: "hcaptcha_error", actionContext: ["error": error.logDescription])
+            } else {
+                self?.authInstrument?.submitInteraction(action: "hcaptcha_error")
+            }
+        }
+        
+        hCaptcha?.onEvent { [weak self] event, data in
             guard let self = self else { return }
+            
             switch event {
             case .challengeExpired:
+                logError(data)
                 self.errorAction?(CustomError.hCaptchaExpired)
             case .close:
+                logError(data)
                 self.errorAction?(CustomError.hCaptchaClosed)
             case .error:
+                logError(data)
                 self.errorAction?(CustomError.hCaptchaError)
             case .expired:
+                logError(data)
                 self.errorAction?(CustomError.hCaptchaExpired)
             case .open:
-                break
+                authInstrument?.submitInteraction(action: "hcaptcha_open")
             }
         }
 
@@ -144,6 +164,8 @@ class WMFHCaptchaViewController: ThemeableViewController {
             self.captchaContainer.addSubview(webView)
             self.captchaWebView = webView
         }
+        
+        authInstrument?.submitInteraction(action: "hcaptcha_load")
     }
     
     override func viewDidLayoutSubviews() {

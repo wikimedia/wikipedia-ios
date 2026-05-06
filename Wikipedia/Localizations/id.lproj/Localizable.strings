@@ -200,7 +200,6 @@
 "description-help-title" = "Bantuan deskripsi artikel";
 "description-help-wikidata-guide" = "Panduan Wikidata untuk menulis deskripsi";
 "description-published-button-title" = "Selesai";
-"description-published-footer" = "Anda juga dapat menyunting artikel dalam aplikasi ini. Coba perbaiki kesalahan ketik dan kalimat kecil dengan mengklik ikon pensil di lain waktu";
 "description-published-subtitle" = "Anda baru saja membuat Wikipedia lebih baik untuk semua orang";
 "description-published-title" = "Deskripsi diterbitkan!";
 "description-welcome-concise-sub-title" = "Idealnya satu baris, antara dua hingga dua belas kata";
@@ -291,8 +290,6 @@
 "edit-notices-always-display" = "Selalu tampilkan pemberitahuan suntingan";
 "edit-notices-please-read" = "Mohon baca sebelum menyunting";
 "edit-preview-simplified-format-message" = "Semua konten ditampilkan dalam format yang disederhanakan.";
-"edit-published" = "Suntingan telah diterbitkan";
-"edit-published-subtitle" = "Anda baru saja menjadikan Wikipedia lebih baik untuk semua orang";
 "edit-show-web-preview" = "Lihat pratayang web";
 "edit-summary-add-summary-text" = "Tambahkan ringkasan suntingan";
 "edit-summary-choice-fixed-grammar" = "Perbaikan tata bahasa";
@@ -546,7 +543,6 @@
 "image-rec-error-title" = "Tidak dapat memuat halaman";
 "import-shared-reading-list-default-title" = "Daftar Bacaan Saya";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Ikuti survei";
-"import-shared-reading-list-survey-prompt-footer" = "Lihat $1 pernyataan privasi $2 kami. Survei didukung oleh pihak ketiga. Lihat $3kebijakan privasi$4 mereka.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Bagikan daftar bacaan\" adalah fitur pengujian dan kami membutuhkan umpan balik Anda untuk meningkatkan atau menghapusnya.";
 "import-shared-reading-list-survey-prompt-title" = "Bisakah Anda membantu kami meningkatkan \"Bagikan daftar bacaan\"?";
 "import-shared-reading-list-title" = "Impor daftar bacaan bersama";
@@ -617,16 +613,16 @@
 "more-menu" = "Selengkapnya";
 "move-articles-to-reading-list" = "Pindahkan {{PLURAL:$1|$1 artikel|$1 artikel}} ke daftar bacaan";
 "navbar-title-mode-edit-wikitext-preview" = "Pratayang";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 kaki";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mil";
 "new-password-instructions" = "Anda masuk log dengan kata sandi sementara. Untuk menyelesaikan masuk log atur kata sandi baru di sini.";
 "new-password-title" = "Setel kata sandi Anda";
 "no-email-account-alert" = "Silakan menyiapkan sebuah akun surel di perangkat Anda dan coba lagi.";
 "no-internet-connection" = "Tidak ada sambungan internet";
-"no-internet-connection-article-reload" = "Versi yang lebih baru dari artikel ini mungkin tersedia, tetapi tidak dapat dimuat tanpa sambungan ke internet";
-"no-internet-connection-article-reload-button" = "Kembali ke versi terakhir yang disimpan";
 "not-now-title" = "Nanti";
 "notifications-center-agent-description-from-format" = "Dari $1";
 "notifications-center-alert" = "Peringatan";
@@ -645,7 +641,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Ubah $1 untuk melihat lebih banyak pesan";
 "notifications-center-empty-state-no-projects-selected" = "Tambah proyek untuk melihat lebih banyak pesan";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter}}";
-"notifications-center-feed-card-title" = "Pemberitahuan suntingan sekarang tersedia";
 "notifications-center-feed-news-notification-button-text" = "Nyalakan pemberitahuan otomatis";
 "notifications-center-feed-news-notification-text" = "Pemberitahuan suntingan untuk semua proyek Wikimedia sekarang tersedia melalui aplikasi. Nyalakan pemberitahuan agar bisa tetap mendapatkan informasi terbaru mengenai pesan Anda di Wikipedia di sepanjang perjalanan.";
 "notifications-center-filters-accessibility-label" = "Penyaring Pemberitahuan";
@@ -789,7 +784,6 @@
 "panel-compare-revisions-text" = "Membandingkan revisi membantu menunjukkan bagaimana artikel telah berubah dari waktu ke waktu. Membandingkan dua revisi artikel akan menunjukkan perbedaan antara revisi tersebut dengan menyoroti konten apa pun yang diubah.";
 "panel-compare-revisions-title" = "Membandingkan revisi";
 "panel-not-logged-in-continue-edit-action-title" = "Sunting tanpa masuk log";
-"panel-not-logged-in-subtitle" = "Untuk saat ini, alamat IP Anda akan bisa dilihat secara umum ketika Anda membuat suntingan apa pun. Jika Anda $1masuk log$2 atau $3membuat akun$4, suntingan Anda akan diatribusikan kepada sebuah nama pengguna, serta mendapat keuntungan-keuntungan lainnya.";
 "panel-not-logged-in-title" = "Anda belum masuk log";
 "pictured" = "gambar";
 "places-accessibility-clear-saved-searches" = "Hapus penelusuran tersimpan";
@@ -940,15 +934,6 @@
 "relative-date-seconds-abbreviated" = "$1d";
 "relative-date-seconds-ago-abbreviated" = "$1d yang lalu";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tahun ini|1=Tahun lalu|$1 tahun yang lalu}}";
-"replace-button-accessibility" = "Lakukan $1.";
-"replace-buttons-replace-accessibility" = "Ganti satu saja";
-"replace-buttons-replace-all-accessibility" = "Ganti semuanya";
-"replace-clear-button-accessibility" = "Hapus penggantian";
-"replace-infolabel-method-replace" = "Ganti";
-"replace-infolabel-method-replace-all" = "Ganti semua";
-"replace-method-button-accessibility" = "Ganti metode. Atur menjadi $1. Pilih untuk mengubah.";
-"replace-textfield-accessibility" = "Ganti";
-"replace-textfield-placeholder" = "Ganti dengan...";
 "return-button-title" = "Kembali";
 "return-to-article" = "Kembali ke artikel";
 "reverted-edit-title" = "Suntingan dikembalikan";
@@ -964,7 +949,6 @@
 "search-button-accessibility-label" = "Telusuri Wikipedia";
 "search-clear-title" = "Kosongkan";
 "search-field-placeholder-text" = "Telusuri Wikipedia";
-"search-reading-list-placeholder-text" = "Cari daftar bacaan";
 "search-recent-clear-confirmation-heading" = "Hapus semua pencarian terkini?";
 "search-recent-clear-confirmation-sub-heading" = "Tindakan ini tidak bisa dibatalkan!";
 "search-recent-clear-delete-all" = "Hapus Semua";
@@ -994,11 +978,6 @@
 "settings-notifications-echo-failure-title" = "Tidak dapat berlangganan Echo Notification";
 "settings-notifications-echo-failure-try-again" = "Coba lagi";
 "settings-notifications-header" = "Dapatkan kabar mengenai aktivitas yang terkait dengan akun Anda seperti pesan dari sesama kontributor, peringatan, dan pemberitahuan. Semua disediakan dengan menghormati privasi dan mengambil data terkini.";
-"settings-notifications-info" = "Dapatkan pemberitahuan tentang artikel yang sedang tren dan bacaan teratas di Wikipedia dengan pemberitahuan otomatis kami. Semua tersedia sehubungan dengan privasi dan sampai data menit.";
-"settings-notifications-learn-more" = "Pelajari lebih lanjut tentang pemberitahuan";
-"settings-notifications-push-notifications" = "Pemberitahuan otomatis";
-"settings-notifications-system-turn-on" = "Nyalakan Pemberitahuan";
-"settings-notifications-trending" = "Peristiwa terkini";
 "settings-primary-language" = "Utama";
 "settings-primary-language-details" = "Bahasa pertama di daftar ini digunakan sebagai bahasa utama untuk aplikasi.";
 "settings-search-footer-text" = "Setel aplikasi untuk membuka tab Pencarian, bukan tab Jelajahi";
@@ -1219,9 +1198,6 @@
 "welcome-languages-add-or-edit-button" = "Tambahkan atau sunting bahasa pilihan";
 "welcome-languages-description" = "Kami telah menemukan bahasa berikut di perangkat Anda:";
 "welcome-languages-search-title" = "Cari dalam lebih dari 300 bahasa";
-"welcome-notifications-tell-me-more-creation" = "Pemberitahuan dibuat dan disampaikan pada perangkat Anda dengan aplikasi, bukan dari peladen kami (atau pihak ketiga).";
-"welcome-notifications-tell-me-more-storage" = "Preferensi pemberitahuan disimpan di perangkat dan tidak berdasarkan informasi pribadi atau aktivitas.";
-"welcome-notifications-tell-me-more-title" = "Lebih lanjut tentang pemberitahuan";
 "welcome-privacy-terms-button-text" = "Pelajari lebih lanjut tentang kebijakan privasi dan ketentuan penggunaan kami";
 "widget-onthisday-description" = "Jelajahi apa yang terjadi pada hari ini dalam sejarah.";
 "widget-onthisday-placeholder-article-snippet" = "Ensiklopedia online gratis yang bisa disunting oleh siapapun.";

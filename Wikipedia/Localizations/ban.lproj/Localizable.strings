@@ -192,7 +192,6 @@
 "edit-menu-item" = "Uah";
 "edit-minor-text" = "Puniki uahan alit";
 "edit-notices" = "Panguningan uahan";
-"edit-published" = "Uahan kawedar";
 "edit-show-web-preview" = "Sinahang pracingak wéb";
 "edit-summary-add-summary-text" = "Wewehin ringkesan uahan";
 "edit-summary-choice-added-image" = "Gambar kawewehin";
@@ -360,6 +359,7 @@
 "move-articles-to-reading-list" = "Gingsirang {{PLURAL:$1|$1 suratan}} nuju lis wacénan";
 "navbar-title-mode-edit-wikitext-preview" = "Pracingak";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mil";
 "new-password-title" = "Atur kruna sandi Ida";
@@ -429,8 +429,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s sané ungkur";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Warsa mangkin|1=Awarsa ungkur|$1 warsa ungkur}}";
-"replace-buttons-replace-all-accessibility" = "Gentos makasami conto";
-"replace-infolabel-method-replace-all" = "Gentos makasami";
 "saved-all-articles-title" = "Makasami suratan";
 "search-button-accessibility-label" = "Rereh Wikipédia";
 "search-field-placeholder-text" = "Rereh Wikipédia";

@@ -177,7 +177,6 @@
 "description-help-title" = "Ajuda de la descripció d'article";
 "description-help-wikidata-guide" = "Guia de la Wikidata per a escriure descripcions";
 "description-published-button-title" = "Fet";
-"description-published-footer" = "Podeu editar articles des d'aquesta aplicació. Proveu d'arreglar-hi errades i frases curtes fent clic a la icona del llapis la propera vegada";
 "description-published-subtitle" = "Acabeu de fer la Viquipèdia millor per a tothom";
 "description-published-title" = "S'ha publicat la descripció!";
 "description-welcome-concise-sub-title" = "Idealment una línia, entre dos i dotze paraules";
@@ -252,8 +251,6 @@
 "edit-notices" = "Avisos de modificacions";
 "edit-notices-always-display" = "Mostra sempre els avisos de modificacions";
 "edit-notices-please-read" = "Llegiu-ho abans de modificar-ho";
-"edit-published" = "S'ha publicat la modificació";
-"edit-published-subtitle" = "Heu millorat la Viquipèdia per a tothom";
 "edit-summary-add-summary-text" = "Afegeix un resum d'edició";
 "edit-summary-choice-added-image" = "S'ha afegit una imatge";
 "edit-summary-choice-added-image-and-caption" = "S'ha afegit una imatge i la llegenda";
@@ -492,7 +489,6 @@
 "image-recs-yes-title" = "Sí";
 "import-shared-reading-list-default-title" = "La meva llista de lectura";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Feu l'enquesta";
-"import-shared-reading-list-survey-prompt-footer" = "Mostra la $1declaració de privadesa$2. Enquesta creada amb tecnologia de tercers. Vegeu llur $3política de privadesa$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "«Comparteix llistes de lectura» és una funcionalitat en proves i ens calen comentaris per a millorar-la o treure-la.";
 "import-shared-reading-list-survey-prompt-title" = "Ens podeu ajudar a millorar «Comparteix llistes de lectura»?";
 "import-shared-reading-list-title" = "Importa la llista de lectura compartida";
@@ -562,8 +558,10 @@
 "more-menu" = "Més";
 "move-articles-to-reading-list" = "Mou {{PLURAL:$1|$1 article|$1 articles}} a la llista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualitza";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 peus";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milles";
 "new-password-instructions" = "Heu iniciat una sessió amb una contrasenya temporal. Per a finalitzar la sessió definiu una altra contrasenya aquí.";
@@ -571,8 +569,6 @@
 "next-action-title" = "Següent";
 "no-email-account-alert" = "Configureu un compte de correu en el vostre dispositiu i torneu-ho a provar.";
 "no-internet-connection" = "Sense connexió a Internet";
-"no-internet-connection-article-reload" = "Podria haver-hi una nova versió de l'article, però no pot carregar-se perquè no hi ha connexió a Internet.";
-"no-internet-connection-article-reload-button" = "Torna a la darrera versió desada";
 "not-now-title" = "Ara no";
 "notifications-center-agent-description-from-format" = "De $1";
 "notifications-center-alert" = "Alerta";
@@ -591,7 +587,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Modifiqueu $1 per a mostrar més missatges";
 "notifications-center-empty-state-no-projects-selected" = "Afegeix projectes per a veure més missatges";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtre|$1 filtres}}";
-"notifications-center-feed-card-title" = "Les notificacions d'edició ja són disponibles";
 "notifications-center-feed-news-notification-button-text" = "Activa les notificacions emergents";
 "notifications-center-feed-news-notification-text" = "Les notificacions d'edició de tots els projectes Wikimedia ja es troben disponibles des de l'aplicació. Accepteu les notificacions emergents per a estar al dia dels vostres missatges de la Viquipèdia des de qualsevol lloc.";
 "notifications-center-filters-accessibility-label" = "Filtre de notificacions";
@@ -735,7 +730,6 @@
 "panel-compare-revisions-text" = "Comparar revisions ajuda a mostrar com canvia un article al llarg del temps. Comparar dues revisions d'un article mostrarà la diferència entre les revisions ressaltant el contingut que hagi canviat.";
 "panel-compare-revisions-title" = "Comparació de revisions";
 "panel-not-logged-in-continue-edit-action-title" = "Modifica sense iniciar una sessió";
-"panel-not-logged-in-subtitle" = "La vostra adreça IP serà visible públicament si feu cap edició. Si $1inicieu una sessió$2 o $3creeu un compte$4, les vostres edicions s'atribuiran al vostre nom d'usuari, juntament amb altres beneficis.";
 "panel-not-logged-in-title" = "No heu iniciat cap sessió";
 "pictured" = "retratat";
 "places-accessibility-clear-saved-searches" = "Neteja les cerques desades";
@@ -882,15 +876,6 @@
 "relative-date-seconds-abbreviated" = "$1 s";
 "relative-date-seconds-ago-abbreviated" = "fa $1 s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Enguany|1=L'any passat|Fa $1 anys}}";
-"replace-button-accessibility" = "Realitza $1.";
-"replace-buttons-replace-accessibility" = "Reemplaça una única instància";
-"replace-buttons-replace-all-accessibility" = "Reemplaça totes les instàncies";
-"replace-clear-button-accessibility" = "Neteja el reemplaçament";
-"replace-infolabel-method-replace" = "Reemplaça";
-"replace-infolabel-method-replace-all" = "Reemplaça-ho tot";
-"replace-method-button-accessibility" = "Mètode de reemplaçament. Definit a $1. Seccioneu per canviar.";
-"replace-textfield-accessibility" = "Reemplaça";
-"replace-textfield-placeholder" = "Reemplaça per…";
 "return-button-title" = "Torna";
 "return-to-article" = "Torna a l'article";
 "reverted-edit-title" = "Modificació revertida";
@@ -906,7 +891,6 @@
 "search-button-accessibility-label" = "Cerca a la Viquipèdia";
 "search-clear-title" = "Esborra";
 "search-field-placeholder-text" = "Cerca a la Viquipèdia";
-"search-reading-list-placeholder-text" = "Cerca a la llista de lectura";
 "search-recent-clear-confirmation-heading" = "Voleu suprimir totes les cerques recents?";
 "search-recent-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
 "search-recent-clear-delete-all" = "Suprimeix-ho tot";
@@ -934,11 +918,6 @@
 "settings-notifications-echo-failure-title" = "No es poden comprovar les subscripcions de notificació Echo.";
 "settings-notifications-echo-failure-try-again" = "Torna-ho a provar";
 "settings-notifications-header" = "Estigueu a l'aguait de les activitats relacionades amb el vostre compte, com ara els missatges de companys col·laboradors, alertes i avisos. Tot amb respecte per la privadesa i fins al darrer detall.";
-"settings-notifications-info" = "Estigueu avisat de les tendències i articles més llegits a la Viquipèdia amb les nostres notificacions. Tot està proporcionat amb respecte a la privadesa i actualitzades al minut.";
-"settings-notifications-learn-more" = "Més quant a les notificacions";
-"settings-notifications-push-notifications" = "Notificacions enviades";
-"settings-notifications-system-turn-on" = "Activa les notificacions";
-"settings-notifications-trending" = "Tendències actuals";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "La primera llengua de la llista s'utilitza com a llengua primària de l'aplicació.";
 "settings-search-footer-text" = "Configura l'aplicació per a obrir la pestanya de cerca en comptes de la pestanya «Exploreu";
@@ -1169,9 +1148,6 @@
 "welcome-languages-add-or-edit-button" = "Afegeix o modifica les llengües preferides";
 "welcome-languages-description" = "Hem trobat les llengües següents en el vostre dispositiu:";
 "welcome-languages-search-title" = "Cerca en més de 300 llengües";
-"welcome-notifications-tell-me-more-creation" = "Les notificacions es creen i es lliure en el vostre dispositiu per la mateixa aplicació, i no pas pels nostres servidors (o de tercers).";
-"welcome-notifications-tell-me-more-storage" = "Les preferències de notificació s'emmagatzemen al dispositiu i no es basen en informació personal o activitat.";
-"welcome-notifications-tell-me-more-title" = "Quant a les notificacions";
 "welcome-privacy-subtitle" = "Creiem que no hauríeu de proporcionar informació personal per a participar en el moviment de coneixement lliure. Les dades d'ús recopilades per a l'aplicació són anònimes.";
 "welcome-privacy-terms-button-text" = "Més informació sobre la nostra política de privadesa i les condicions d'ús";
 "widget-onthisday-description" = "Exploreu què va passar aquest dia al llarg de la història.";
