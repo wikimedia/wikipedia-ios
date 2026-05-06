@@ -418,7 +418,7 @@ extension WMFPageViewsDataController {
         let maxDateToCompleteStreak = calendar.startOfDay(for: endDateStart.addingTimeInterval(TimeInterval((config.streakGoal * oneDayInSeconds))))
 
         if todayStart >= removeDateStart {
-            sendHeartbeat(elementId: "challenge_no_streak")
+            sendHeartbeat(elementId: "challenge_removed")
             return .challengeRemoved
         }
 
