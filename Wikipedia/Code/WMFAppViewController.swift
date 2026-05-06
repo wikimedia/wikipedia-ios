@@ -86,7 +86,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     
     var savedTabBarItemProgressBadgeManager: SavedTabBarItemProgressBadgeManager?
     
-    private var hasSyncErrorBeenShownThisSesssion: Bool = false
+    private var hasSyncErrorBeenShownThisSession: Bool = false
     
     var readingListHintPresenter: WMFReadingListToastManager!
 
@@ -434,7 +434,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         AppIconUtility.shared.checkAndRevertIfExpired()
     }
 
-    @objc func performTasksThatShouldOccurAfterAnnouncementsUpdated() {
+    func performTasksThatShouldOccurAfterAnnouncementsUpdated() {
         if isResumeComplete {
             UserHistoryFunnel.shared.logSnapshot()
         }
@@ -529,14 +529,14 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         // Reminder: kind of class is checked here because `syncDidFinishErrorKey` is sometimes set to a
         // `WMF.ReadingListError` error type which doesn't bridge to Obj-C (causing wmf_isNetworkConnectionError to crash).
         if let error = error, error.wmf_isNetworkConnectionError() {
-            if !hasSyncErrorBeenShownThisSesssion {
-                hasSyncErrorBeenShownThisSesssion = true // only show sync error once for multiple failed syncs
+            if !hasSyncErrorBeenShownThisSession {
+                hasSyncErrorBeenShownThisSession = true // only show sync error once for multiple failed syncs
                 WMFToastManager.sharedInstance.showToast(WMFLocalizedString("reading-lists-sync-error-no-internet-connection", value: "Syncing will resume when internet connection is available", comment: "Alert message informing user that syncing will resume when internet connection is available."), sticky: true, dismissPreviousToasts: false, tapCallBack: nil)
             }
         }
 
         if error == nil {
-            hasSyncErrorBeenShownThisSesssion = false // reset on successful sync
+            hasSyncErrorBeenShownThisSession = false // reset on successful sync
             if let syncStartDate = syncStartDate, Date().timeIntervalSince(syncStartDate) >= 5 {
                 let syncedReadingListsCount = (note.userInfo?[WMFReadingListsController.syncDidFinishSyncedReadingListsCountKey] as? Int) ?? 0
                 let syncedReadingListEntriesCount = (note.userInfo?[WMFReadingListsController.syncDidFinishSyncedReadingListEntriesCountKey] as? Int) ?? 0
