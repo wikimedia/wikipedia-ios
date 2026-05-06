@@ -6,9 +6,9 @@ import Foundation
 }
 
 @objc(WMFWorkerController) public class WorkerController: NSObject {
-    @objc weak var delegate: WorkerControllerDelegate?
+    @objc public weak var delegate: WorkerControllerDelegate?
     
-    @objc func cancelWorkWithIdentifier(_ identifier: String) {
+    @objc public func cancelWorkWithIdentifier(_ identifier: String) {
         // subclassers should override
     }
 }
