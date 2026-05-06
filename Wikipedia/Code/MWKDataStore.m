@@ -872,7 +872,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 
 #pragma mark - Remote Configuration
 
-- (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError *nullable))completion {
+- (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError * _Nullable))completion {
     void (^combinedCompletion)(NSError *) = ^(NSError *error) {
         if (completion) {
             completion(error);

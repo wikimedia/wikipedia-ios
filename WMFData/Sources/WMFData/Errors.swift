@@ -11,6 +11,7 @@ public enum WMFDataControllerError: LocalizedError {
     case serviceError(Error)
     case mediaWikiResponseError(WMFMediaWikiError)
     case paymentsWikiResponseError(String?)
+    case unsupportedProject
 }
 
 public enum WMFServiceError: Error, Equatable {
@@ -50,4 +51,17 @@ public enum WMFDonateDataControllerError: LocalizedError {
 public enum WMFYearInReviewDataControllerError: Error {
     case missingRemoteConfig
     case missingDonateDataController
+}
+
+extension WMFDataControllerError: Equatable {
+    public static func == (lhs: WMFDataControllerError, rhs: WMFDataControllerError) -> Bool {
+        switch (lhs, rhs) {
+        case (.unsupportedProject, .unsupportedProject),
+             (.basicServiceUnavailable, .basicServiceUnavailable),
+             (.failureCreatingRequestURL, .failureCreatingRequestURL):
+            return true
+        default:
+            return false
+        }
+    }
 }
