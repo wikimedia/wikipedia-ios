@@ -1,6 +1,5 @@
 import XCTest
 @testable import WMFComponents
-@testable import WMFComponentsObjC
 
 final class WMFSourceEditorFormatterTests: XCTestCase {
 
@@ -27,28 +26,30 @@ final class WMFSourceEditorFormatterTests: XCTestCase {
     override func setUpWithError() throws {
         let traitCollection = UITraitCollection(preferredContentSizeCategory: .large)
 
-        self.colors = WMFSourceEditorColors()
-        self.colors.baseForegroundColor = WMFTheme.light.text
-        self.colors.orangeForegroundColor = WMFTheme.light.editorOrange
-        self.colors.purpleForegroundColor = WMFTheme.light.editorPurple
-        self.colors.greenForegroundColor = WMFTheme.light.editorGreen
-        self.colors.blueForegroundColor = WMFTheme.light.editorBlue
-        self.colors.grayForegroundColor = WMFTheme.light.editorGray
-        self.colors.matchForegroundColor = WMFTheme.light.editorMatchForeground
-        self.colors.matchBackgroundColor = WMFTheme.light.editorMatchBackground
-        self.colors.selectedMatchBackgroundColor = WMFTheme.light.editorSelectedMatchBackground
-        self.colors.replacedMatchBackgroundColor = WMFTheme.light.editorReplacedMatchBackground
+        self.colors = WMFSourceEditorColors(
+            baseForegroundColor: WMFTheme.light.text,
+            orangeForegroundColor: WMFTheme.light.editorOrange,
+            purpleForegroundColor: WMFTheme.light.editorPurple,
+            greenForegroundColor: WMFTheme.light.editorGreen,
+            blueForegroundColor: WMFTheme.light.editorBlue,
+            grayForegroundColor: WMFTheme.light.editorGray,
+            matchForegroundColor: WMFTheme.light.editorMatchForeground,
+            matchBackgroundColor: WMFTheme.light.editorMatchBackground,
+            selectedMatchBackgroundColor: WMFTheme.light.editorSelectedMatchBackground,
+            replacedMatchBackgroundColor: WMFTheme.light.editorReplacedMatchBackground
+        )
 
-        self.fonts = WMFSourceEditorFonts()
-        self.fonts.baseFont = WMFFont.for(.callout, compatibleWith: traitCollection)
-        self.fonts.boldFont = WMFFont.for(.boldCallout, compatibleWith: traitCollection)
-        self.fonts.italicsFont = WMFFont.for(.italicCallout, compatibleWith: traitCollection)
-        self.fonts.boldItalicsFont = WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection)
-        self.fonts.headingFont = WMFFont.for(.editorHeading, compatibleWith: traitCollection)
-        self.fonts.subheading1Font = WMFFont.for(.editorSubheading1, compatibleWith: traitCollection)
-        self.fonts.subheading2Font = WMFFont.for(.editorSubheading2, compatibleWith: traitCollection)
-        self.fonts.subheading3Font = WMFFont.for(.editorSubheading3, compatibleWith: traitCollection)
-        self.fonts.subheading4Font = WMFFont.for(.editorSubheading4, compatibleWith: traitCollection)
+        self.fonts = WMFSourceEditorFonts(
+            baseFont: WMFFont.for(.callout, compatibleWith: traitCollection),
+            boldFont: WMFFont.for(.boldCallout, compatibleWith: traitCollection),
+            italicsFont: WMFFont.for(.italicCallout, compatibleWith: traitCollection),
+            boldItalicsFont: WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection),
+            headingFont: WMFFont.for(.editorHeading, compatibleWith: traitCollection),
+            subheading1Font: WMFFont.for(.editorSubheading1, compatibleWith: traitCollection),
+            subheading2Font: WMFFont.for(.editorSubheading2, compatibleWith: traitCollection),
+            subheading3Font: WMFFont.for(.editorSubheading3, compatibleWith: traitCollection),
+            subheading4Font: WMFFont.for(.editorSubheading4, compatibleWith: traitCollection)
+        )
 
         self.baseFormatter = WMFSourceEditorFormatterBase(colors: colors, fonts: fonts, textAlignment: .left)
         self.boldItalicsFormatter = WMFSourceEditorFormatterBoldItalics(colors: colors, fonts: fonts)
@@ -1610,8 +1611,8 @@ final class WMFSourceEditorFormatterTests: XCTestCase {
             formatter.addSyntaxHighlighting(to: mutAttributedString, in: NSRange(location: 0, length: string.count))
         }
 
-        findAndReplaceFormatter.startMatchSession(withFullAttributedString: mutAttributedString, searchText: "word")
-        findAndReplaceFormatter.highlightNextMatch(inFullAttributedString: mutAttributedString, afterRangeValue: nil)
+        findAndReplaceFormatter.startMatchSession(with: mutAttributedString, searchText: "word")
+        findAndReplaceFormatter.highlightNextMatch(in: mutAttributedString, after: nil)
 
         // "Find a "
         var base1Range = NSRange(location: 0, length: 0)
@@ -1686,7 +1687,7 @@ final class WMFSourceEditorFormatterTests: XCTestCase {
         XCTAssertEqual(base3Attributes[.foregroundColor] as! UIColor, colors.baseForegroundColor, "Incorrect base formatting")
         
         // Check that selected background color has now switched to 2nd instance
-        findAndReplaceFormatter.highlightNextMatch(inFullAttributedString: mutAttributedString, afterRangeValue: nil)
+        findAndReplaceFormatter.highlightNextMatch(in: mutAttributedString, after: nil)
         match1Attributes = mutAttributedString.attributes(at: 10, effectiveRange: &match1Range)
         match2Attributes = mutAttributedString.attributes(at: 37, effectiveRange: &match2Range)
 
