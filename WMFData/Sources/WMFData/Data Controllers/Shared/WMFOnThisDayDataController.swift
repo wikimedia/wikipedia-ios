@@ -22,10 +22,8 @@ public final class WMFOnThisDayDataController {
     /// Languages known to support the On This Day feed endpoint.
     /// Sourced from the WMFOnThisDayEventsFetcher supported-language list in the main app.
     private static let supportedLanguageCodes: Set<String> = [
-        "en", "de", "fr", "es", "ru", "ja", "zh", "pt", "ar", "it",
-        "pl", "nl", "uk", "fa", "he", "sv", "ko", "vi", "cs", "fi",
-        "hu", "id", "ro", "no", "da", "tr", "bg", "hr", "sk", "sl",
-        "et", "lt", "lv", "ca", "el", "sr", "th", "ms", "simple"
+        "en", "de", "fr", "sv", "pt", "ru", "es", "ar", "bs", "uk",
+        "it", "tr", "zh", "cs"
     ]
 
     // MARK: Init
