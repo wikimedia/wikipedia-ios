@@ -413,11 +413,16 @@ import WMFTestKitchen
         }
 
         let group = DispatchGroup()
-        let url = EventPlatformClient.eventIntakeURI
 
         for event in events {
             group.enter()
-            httpPost(url: url, body: event.data) { [weak storageManager] result in
+            
+            var uri = EventPlatformClient.analyticsEventIntakeURI
+            if streamConfigurations?[event.stream]?.destination_event_service == "eventgate-logging-external" {
+                uri = EventPlatformClient.loggingEventIntakeURI
+            }
+            
+            httpPost(url: uri, body: event.data) { [weak storageManager] result in
                 defer { group.leave() }
                 switch result {
                 case .success:
@@ -460,9 +465,10 @@ import WMFTestKitchen
             group.enter()
 
             var uri = EventPlatformClient.analyticsEventIntakeURI
-            if (streamConfigurations?[event.stream]?.destination_event_service == "eventgate-logging-external") {
+            if streamConfigurations?[event.stream]?.destination_event_service == "eventgate-logging-external" {
                 uri = EventPlatformClient.loggingEventIntakeURI
             }
+            
             #if !DEBUG
             uri.append(queryItems: [URLQueryItem(name: "hasty", value: "true")])
             #endif
