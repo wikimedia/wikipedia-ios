@@ -66,7 +66,7 @@ public final class WMFOnThisDayDataController {
             return
         }
 
-        let request = WMFBasicServiceRequest(url: url, method: .GET, acceptType: .json)
+        let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, acceptType: .json)
         basicService.performDecodableGET(request: request) { (result: Result<WMFOnThisDayResponse, Error>) in
             completion(result)
         }
@@ -100,11 +100,14 @@ public final class WMFOnThisDayDataController {
     /// Builds the REST v1 feed URL:
     /// `https://{lang}.wikipedia.org/api/rest_v1/feed/onthisday/events/{M}/{D}`
     private func url(for project: WMFProject, month: Int, day: Int) -> URL? {
-        guard case .wikipedia(let languageVariantCode) = project else {
-            return nil
-        }
-        let lang = languageVariantCode.languageCode
-        return URL(string: "https://\(lang).wikipedia.org/api/rest_v1/feed/onthisday/events/\(month)/\(day)")
+        guard case .wikipedia = project else { return nil }
+        return URL.wikimediaRestAPIURL(project: project, additionalPathComponents: [
+            "feed",
+            "onthisday",
+            "events",
+            String(month),
+            String(day)
+        ])
     }
 }
 
