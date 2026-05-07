@@ -1400,8 +1400,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         guard let unprocessedUserActivity,
               unprocessedUserActivity.shouldSkipOnboarding else {
             
-            let didShow = UserDefaults.standard.object(forKey: Self.wmfDidShowOnboarding) as? NSNumber
-            return !(didShow?.boolValue ?? false)
+            return !UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding)
         }
         
         setDidShowOnboarding()
