@@ -25,6 +25,7 @@ private let wmfRemoteAppConfigCheckInterval: CFTimeInterval = 3 * 60 * 60
 private let wmfTempAccountConfigCheckInterval: CFTimeInterval = 3 * 60 * 60
 private let wmfLastRemoteAppConfigCheckAbsoluteTimeKey = "WMFLastRemoteAppConfigCheckAbsoluteTimeKey"
 private let wmfTempAccountConfigCheckAbsoluteTimeKey = "WMFTempAccountConfigCheckAbsoluteTimeKey"
+private let wmfResetPreferredLanguages = "WMFResetPreferredLanguages"
 
 // KVO context pointers
 private var kvoSavedArticlesFetcherProgress = UInt8(0)
@@ -832,6 +833,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                     self.isMigrationComplete = true
                     self.isMigrationActive = false
                     self.endMigrationBackgroundTask()
+                    self.applyUITestLaunchOverridesIfNeeded()
                     self.checkRemoteAppConfigIfNecessary()
                     self.setupControllers()
                     if !self.isWaitingToResumeApp {
@@ -840,6 +842,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                 }
             }
         }
+    }
+
+    private func applyUITestLaunchOverridesIfNeeded() {
+        guard UserDefaults.standard.bool(forKey: wmfResetPreferredLanguages) else { return }
+        dataStore.languageLinkController.resetPreferredLanguages()
     }
 
     // MARK: - Start/Pause/Resume App
