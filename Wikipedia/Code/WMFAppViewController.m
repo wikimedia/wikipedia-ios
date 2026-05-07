@@ -1282,21 +1282,28 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self showRandomArticleFromShortcutWithSiteURL:[self siteURL] animated:animated];
             break;
         case WMFUserActivityTypeActivity: {
+            
+            WMFActivityTabViewController *activityVC = self.activityTabViewController;
+            activityVC.disableModalsOnAppearance = YES;
+            
             [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeRecent];
             [self.currentTabNavigationController popToRootViewControllerAnimated:animated];
             BOOL shouldCollectPrize = [activity.userInfo[@"collectPrize"] boolValue];
             BOOL tappedJoin = [activity.userInfo[@"join"] boolValue];
+            BOOL fromAppStoreEvent = [activity.userInfo[@"appStoreEvent"] boolValue];
 
             if (shouldCollectPrize) {
-                WMFActivityTabViewController *activityVC = self.activityTabViewController;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [activityVC presentCollectPrize];
                 });
             } else if (tappedJoin) {
-                WMFActivityTabViewController *activityVC = self.activityTabViewController;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [activityVC presentReadingChallengeAnnouncementFromWidget];
+                });
+            } else if (fromAppStoreEvent) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [activityVC presentReadingChallengeAnnouncementFromAppStoreEvent];
                 });
             }
             break;

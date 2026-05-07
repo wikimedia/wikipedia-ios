@@ -133,6 +133,7 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
         NSUserActivity *activity = [self wmf_activityTabActivity];
         NSString *collectPrize = [url wmf_valueForQueryKey:@"collectPrize"];
         NSString *join = [url wmf_valueForQueryKey:@"join"];
+        NSString *appStoreEvent = [url wmf_valueForQueryKey:@"appStoreEvent"];
         if ([collectPrize isEqualToString:@"true"]) {
             NSMutableDictionary *userInfo = [activity.userInfo mutableCopy] ?: [NSMutableDictionary dictionary];
             userInfo[@"collectPrize"] = @YES;
@@ -140,6 +141,10 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
         } else if ([join isEqualToString:@"true"]) {
             NSMutableDictionary *userInfo = [activity.userInfo mutableCopy] ?: [NSMutableDictionary dictionary];
             userInfo[@"join"] = @YES;
+            activity.userInfo = userInfo;
+        } else if ([appStoreEvent isEqualToString:@"true"]) {
+            NSMutableDictionary *userInfo = [activity.userInfo mutableCopy] ?: [NSMutableDictionary dictionary];
+            userInfo[@"appStoreEvent"] = @YES;
             activity.userInfo = userInfo;
         }
         return activity;
