@@ -131,7 +131,7 @@ import CocoaLumberjackSwift
             // Convert to loose dictionary so we can sort keys and print that way.
             if let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 let printablePayload = PrintableEventPayload(payload: dict)
-                debugPrint("\n\n🧑‍🍳TestKitchen: Scheduling event to be sent to \(EventPlatformClient.eventIntakeURI):")
+                debugPrint("\n\n🧑‍🍳TestKitchen: Scheduling event to be sent to \(event.schema):")
                 debugPrint("\(printablePayload)")
             }
 #endif
