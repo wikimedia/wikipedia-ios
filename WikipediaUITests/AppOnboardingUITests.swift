@@ -8,6 +8,32 @@ final class AppOnboardingUITests: XCTestCase {
         assertOnboardingPage(.introduction, in: app)
     }
 
+    func testOnboardingScreenshots() throws {
+        enum ScreenshotNames: String {
+            case initial = "App Onboarding Initial"
+            case explore = "App Onboarding Explore"
+        }
+        
+        let app = launchWikipediaApp(onboardingState: .notCompleted)
+
+        assertOnboardingPage(.introduction, in: app)
+
+        let initialAttachment = XCTAttachment(screenshot: app.screenshot())
+        initialAttachment.name = ScreenshotNames.initial.rawValue
+        initialAttachment.lifetime = .keepAlways
+        add(initialAttachment)
+
+        tapButton(withIdentifier: AccessibilityIdentifiers.Onboarding.skipButton, in: app)
+
+        let exploreView = app.otherElements[AccessibilityIdentifiers.Explore.view]
+        XCTAssertTrue(exploreView.waitForExistence(timeout: 5))
+
+        let exploreAttachment = XCTAttachment(screenshot: app.screenshot())
+        exploreAttachment.name = ScreenshotNames.explore.rawValue
+        exploreAttachment.lifetime = .keepAlways
+        add(exploreAttachment)
+    }
+
     func testLearnMoreLinksPresentDestinations() throws {
         let app = launchWikipediaApp(onboardingState: .notCompleted)
 
