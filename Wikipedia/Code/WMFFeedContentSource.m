@@ -68,72 +68,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         success:^(WMFFeedDayResponse *_Nonnull feedDay) {
             NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *pageViews = [NSMutableDictionary dictionary];
 
-            NSDate *startDate = [self startDateForPageViewsForDate:date];
-            NSDate *endDate = [self endDateForPageViewsForDate:date];
-
-            WMFTaskGroup *group = [WMFTaskGroup new];
-
-            NSMutableSet *topReadArticleURLKeys = [NSMutableSet setWithCapacity:feedDay.topRead.articlePreviews.count];
-            [feedDay.topRead.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedTopReadArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                NSURL *articleURL = obj.articleURL;
-                if (!articleURL) {
-                    return;
-                }
-                NSString *databaseKey = articleURL.wmf_databaseKey;
-                if (!databaseKey) {
-                    return;
-                }
-                [topReadArticleURLKeys addObject:databaseKey];
-                [group enter];
-                [self.fetcher fetchPageviewsForURL:articleURL
-                    startDate:startDate
-                    endDate:endDate
-                    failure:^(NSError *_Nonnull error) {
-                        [group leave];
-                    }
-                    success:^(NSDictionary<NSDate *, NSNumber *> *_Nonnull results) {
-                        NSDate *topReadDate = feedDay.topRead.date;
-                        NSNumber *topReadViewCount = obj.numberOfViews;
-                        if (topReadDate && topReadViewCount && !results[topReadDate]) {
-                            NSMutableDictionary *mutableResults = [results mutableCopy];
-                            mutableResults[topReadDate] = topReadViewCount;
-                            results = mutableResults;
-                        }
-                        pageViews[articleURL] = results;
-                        [group leave];
-                    }];
-            }];
-
-            [feedDay.newsStories enumerateObjectsUsingBlock:^(WMFFeedNewsStory *_Nonnull newsStory, NSUInteger idx, BOOL *_Nonnull stop) {
-                [newsStory.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                    NSURL *articleURL = obj.articleURL;
-                    if (!articleURL) {
-                        return;
-                    }
-                    NSString *databaseKey = articleURL.wmf_databaseKey;
-                    if (!databaseKey) {
-                        return;
-                    }
-                    if ([topReadArticleURLKeys containsObject:databaseKey]) {
-                        return;
-                    }
-                    [group enter];
-                    [self.fetcher fetchPageviewsForURL:articleURL
-                        startDate:startDate
-                        endDate:endDate
-                        failure:^(NSError *_Nonnull error) {
-                            [group leave];
-                        }
-                        success:^(NSDictionary<NSDate *, NSNumber *> *_Nonnull results) {
-                            pageViews[articleURL] = results;
-                            [group leave];
-                        }];
-                }];
-            }];
-
-            [group waitInBackgroundWithCompletion:^{
-                completion(feedDay, pageViews);
-            }];
+            completion(feedDay, pageViews);
         }];
 }
 
@@ -229,16 +164,16 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (image == nil || date == nil) {
         return;
     }
-    
+
     NSString *primaryLanguage = self.userDataStore.languageLinkController.appLanguage.contentLanguageCode;
     NSString *feedLanguage = [self.siteURL wmf_contentLanguageCode];
     BOOL isPrimaryLanguageFeed = [feedLanguage wmf_isEqualToStringIgnoringCase:primaryLanguage];
-    
+
     // T356255 - the POTD is the same across all feeds (i.e. same image, different localized description).
     // To prevent the same image from showing on each language feed, we save the POTD for the primary language only
     // (and clean up any secondary / duplicate ones - secondary ones may exist when the user has removed a language
     // or changed the app primary language).
-    
+
     if (isPrimaryLanguageFeed) {
         [self insertOrUpdatePictureOfTheDayForImage:image date:date inManagedObjectContext:moc];
         [self removeDuplicatePicturesOfTheDayForDate:date inManagedObjectContext:moc];
@@ -246,20 +181,20 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (void)insertOrUpdatePictureOfTheDayForImage:(WMFFeedImage *)image date:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
-    WMFContentGroup * group = [self pictureOfTheDayForDate:date inManagedObjectContext:moc];
-    
+    WMFContentGroup *group = [self pictureOfTheDayForDate:date inManagedObjectContext:moc];
+
     if (group == nil) {
         DDLogDebug(@"Creating POTD content group for language code: [%@]", [self.siteURL wmf_contentLanguageCode]);
         group = [moc createGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date withSiteURL:self.siteURL associatedContent:nil];
     } else {
         DDLogDebug(@"Updating POTD content group for language code: [%@]", [self.siteURL wmf_contentLanguageCode]);
     }
-    
+
     group.contentPreview = image;
 }
 
 - (void)removeDuplicatePicturesOfTheDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
-    
+
     NSArray<WMFContentGroup *> *allPicturesOfTheDay = [self allPicturesOfTheDayForDate:date inManagedObjectContext:moc];
     NSString *primaryLanguageCode = self.userDataStore.languageLinkController.appLanguage.contentLanguageCode;
 
@@ -379,23 +314,6 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (nullable WMFContentGroup *)onThisDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
     return (id)[moc groupOfKind:WMFContentGroupKindOnThisDay forDate:date siteURL:self.siteURL];
-}
-
-#pragma mark - Utility
-
-- (NSDate *)startDateForPageViewsForDate:(NSDate *)date {
-    NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
-    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
-    NSDate *dateUTC = [calendar dateFromComponents:dateComponents];
-    NSDate *startDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:0 - WMFFeedInTheNewsNotificationViewCountDays toDate:dateUTC options:NSCalendarMatchStrictly];
-    return startDate;
-}
-
-- (NSDate *)endDateForPageViewsForDate:(NSDate *)date {
-    NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
-    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
-    NSDate *dateUTC = [calendar dateFromComponents:dateComponents];
-    return dateUTC;
 }
 
 @end

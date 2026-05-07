@@ -1,6 +1,5 @@
 import Foundation
 import UIKit
-import WMFComponentsObjC
 
 class WMFSourceEditorTextView: UITextView {
     override func accessibilityActivate() -> Bool {
@@ -11,7 +10,7 @@ class WMFSourceEditorTextView: UITextView {
     }
 }
 
-@objc final class WMFSourceEditorSelectionState: NSObject {
+final class WMFSourceEditorSelectionState {
     let isBold: Bool
     let isItalics: Bool
     let isHorizontalTemplate: Bool
@@ -226,7 +225,7 @@ final class WMFSourceEditorTextFrameworkMediator: NSObject {
         }
 
         textView.textLayoutManager?.textContentManager?.performEditingTransaction {
-            self.findAndReplaceFormatter?.startMatchSession(withFullAttributedString: fullAttributedString, searchText: text)
+            self.findAndReplaceFormatter?.startMatchSession(with: fullAttributedString, searchText: text)
         }
 
         findNext(afterRange: textView.selectedRange)
@@ -239,15 +238,8 @@ final class WMFSourceEditorTextFrameworkMediator: NSObject {
             return
         }
 
-        let afterRangeValue: NSValue?
-        if let afterRange {
-            afterRangeValue = NSValue(range: afterRange)
-        } else {
-            afterRangeValue = nil
-        }
         textView.textLayoutManager?.textContentManager?.performEditingTransaction {
-            self.findAndReplaceFormatter?.highlightNextMatch(inFullAttributedString: fullAttributedString, afterRangeValue: afterRangeValue)
-
+            self.findAndReplaceFormatter?.highlightNextMatch(in: fullAttributedString, after: afterRange)
         }
         self.delegate?.scrollToCurrentMatch()
     }
@@ -257,7 +249,7 @@ final class WMFSourceEditorTextFrameworkMediator: NSObject {
             return
         }
         textView.textLayoutManager?.textContentManager?.performEditingTransaction {
-            self.findAndReplaceFormatter?.highlightPreviousMatch(inFullAttributedString: fullAttributedString)
+            self.findAndReplaceFormatter?.highlightPreviousMatch(in: fullAttributedString)
         }
         self.delegate?.scrollToCurrentMatch()
     }
@@ -267,8 +259,7 @@ final class WMFSourceEditorTextFrameworkMediator: NSObject {
             return
         }
         textView.textLayoutManager?.textContentManager?.performEditingTransaction {
-            self.findAndReplaceFormatter?.replaceSingleMatch(inFullAttributedString: fullAttributedString, withReplaceText: replaceText, textView: textView)
-
+            self.findAndReplaceFormatter?.replaceSingleMatch(in: fullAttributedString, with: replaceText, textView: textView)
         }
         self.delegate?.scrollToCurrentMatch()
     }
@@ -279,8 +270,7 @@ final class WMFSourceEditorTextFrameworkMediator: NSObject {
         }
 
         textView.textLayoutManager?.textContentManager?.performEditingTransaction {
-            self.findAndReplaceFormatter?.replaceAllMatches(inFullAttributedString: fullAttributedString, withReplaceText: replaceText, textView: textView)
-
+            self.findAndReplaceFormatter?.replaceAllMatches(in: fullAttributedString, with: replaceText, textView: textView)
         }
         self.delegate?.scrollToCurrentMatch()
     }
@@ -290,7 +280,7 @@ final class WMFSourceEditorTextFrameworkMediator: NSObject {
             return
         }
         textView.textLayoutManager?.textContentManager?.performEditingTransaction {
-            self.findAndReplaceFormatter?.endMatchSession(withFullAttributedString: fullAttributedString)
+            self.findAndReplaceFormatter?.endMatchSession(with: fullAttributedString)
         }
 
     }
@@ -322,42 +312,40 @@ final class WMFSourceEditorTextFrameworkMediator: NSObject {
 
         return attributedString
     }
-}
-
-// MARK: WMFSourceEditorStorageDelegate
-
-extension WMFSourceEditorTextFrameworkMediator: WMFSourceEditorStorageDelegate {
+    
+    // MARK: Colors and Fonts
 
     var colors: WMFSourceEditorColors {
-        let colors = WMFSourceEditorColors()
-        colors.baseForegroundColor = WMFAppEnvironment.current.theme.text
-        colors.orangeForegroundColor = isSyntaxHighlightingEnabled ? WMFAppEnvironment.current.theme.editorOrange : WMFAppEnvironment.current.theme.text
-        colors.purpleForegroundColor = isSyntaxHighlightingEnabled ?  WMFAppEnvironment.current.theme.editorPurple : WMFAppEnvironment.current.theme.text
-        colors.greenForegroundColor = isSyntaxHighlightingEnabled ?  WMFAppEnvironment.current.theme.editorGreen : WMFAppEnvironment.current.theme.text
-        colors.blueForegroundColor = isSyntaxHighlightingEnabled ? WMFAppEnvironment.current.theme.editorBlue : WMFAppEnvironment.current.theme.text
-        colors.grayForegroundColor = isSyntaxHighlightingEnabled ?  WMFAppEnvironment.current.theme.editorGray : WMFAppEnvironment.current.theme.text
-        colors.matchForegroundColor = WMFAppEnvironment.current.theme.editorMatchForeground
-        colors.matchBackgroundColor = WMFAppEnvironment.current.theme.editorMatchBackground
-        colors.selectedMatchBackgroundColor = WMFAppEnvironment.current.theme.editorSelectedMatchBackground
-        colors.replacedMatchBackgroundColor = WMFAppEnvironment.current.theme.editorReplacedMatchBackground
-        return colors
+        let theme = WMFAppEnvironment.current.theme
+        let textColor = theme.text
+        return WMFSourceEditorColors(
+            baseForegroundColor: textColor,
+            orangeForegroundColor: isSyntaxHighlightingEnabled ? theme.editorOrange : textColor,
+            purpleForegroundColor: isSyntaxHighlightingEnabled ? theme.editorPurple : textColor,
+            greenForegroundColor: isSyntaxHighlightingEnabled ? theme.editorGreen : textColor,
+            blueForegroundColor: isSyntaxHighlightingEnabled ? theme.editorBlue : textColor,
+            grayForegroundColor: isSyntaxHighlightingEnabled ? theme.editorGray : textColor,
+            matchForegroundColor: theme.editorMatchForeground,
+            matchBackgroundColor: theme.editorMatchBackground,
+            selectedMatchBackgroundColor: theme.editorSelectedMatchBackground,
+            replacedMatchBackgroundColor: theme.editorReplacedMatchBackground
+        )
     }
     
     var fonts: WMFSourceEditorFonts {
-        let fonts = WMFSourceEditorFonts()
         let traitCollection = UITraitCollection(preferredContentSizeCategory: WMFAppEnvironment.current.articleAndEditorTextSize)
         let baseFont = WMFFont.for(.callout, compatibleWith: traitCollection)
-        fonts.baseFont = baseFont
-        
-        fonts.boldFont = isSyntaxHighlightingEnabled ? WMFFont.for(.boldCallout, compatibleWith: traitCollection) : baseFont
-        fonts.italicsFont = isSyntaxHighlightingEnabled ? WMFFont.for(.italicCallout, compatibleWith: traitCollection) : baseFont
-        fonts.boldItalicsFont = isSyntaxHighlightingEnabled ? WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection) : baseFont
-        fonts.headingFont = isSyntaxHighlightingEnabled ? WMFFont.for(.editorHeading, compatibleWith: traitCollection) : baseFont
-        fonts.subheading1Font = isSyntaxHighlightingEnabled ? WMFFont.for(.editorSubheading1, compatibleWith: traitCollection) : baseFont
-        fonts.subheading2Font = isSyntaxHighlightingEnabled ? WMFFont.for(.editorSubheading2, compatibleWith: traitCollection) : baseFont
-        fonts.subheading3Font = isSyntaxHighlightingEnabled ? WMFFont.for(.editorSubheading3, compatibleWith: traitCollection) : baseFont
-        fonts.subheading4Font = isSyntaxHighlightingEnabled ? WMFFont.for(.editorSubheading4, compatibleWith: traitCollection) : baseFont
-        return fonts
+        return WMFSourceEditorFonts(
+            baseFont: baseFont,
+            boldFont: isSyntaxHighlightingEnabled ? WMFFont.for(.boldCallout, compatibleWith: traitCollection) : baseFont,
+            italicsFont: isSyntaxHighlightingEnabled ? WMFFont.for(.italicCallout, compatibleWith: traitCollection) : baseFont,
+            boldItalicsFont: isSyntaxHighlightingEnabled ? WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection) : baseFont,
+            headingFont: isSyntaxHighlightingEnabled ? WMFFont.for(.editorHeading, compatibleWith: traitCollection) : baseFont,
+            subheading1Font: isSyntaxHighlightingEnabled ? WMFFont.for(.editorSubheading1, compatibleWith: traitCollection) : baseFont,
+            subheading2Font: isSyntaxHighlightingEnabled ? WMFFont.for(.editorSubheading2, compatibleWith: traitCollection) : baseFont,
+            subheading3Font: isSyntaxHighlightingEnabled ? WMFFont.for(.editorSubheading3, compatibleWith: traitCollection) : baseFont,
+            subheading4Font: isSyntaxHighlightingEnabled ? WMFFont.for(.editorSubheading4, compatibleWith: traitCollection) : baseFont
+        )
     }
 }
 

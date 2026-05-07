@@ -12,6 +12,7 @@
 // Author: Mhurd
 // Author: N100a
 // Author: Nemo bis
+// Author: Neriah
 // Author: Or
 // Author: Steeve815
 // Author: Strayblues
@@ -997,6 +998,7 @@
 "project-name-wikiversity" = "ויקיברסיטה";
 "project-name-wikivoyage" = "ויקימסע";
 "project-name-wiktionary" = "ויקימילון";
+"reading-challenge-completed-subtitle-small" = "25 מתוך 25";
 "reading-list-add-generic-hint-title" = "להוסיף את הערך הזה לרשימת קריאה?";
 "reading-list-add-hint-title" = "האם להוסיף את \"$1\" לרשימת קריאה?";
 "reading-list-add-saved-button-title" = "כן, להוסיף אותם לרשימות הקריאה שלי";

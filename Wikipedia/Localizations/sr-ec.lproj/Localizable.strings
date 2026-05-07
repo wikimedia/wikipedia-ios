@@ -888,6 +888,12 @@
 "project-name-wikiversity" = "Викиверзитет";
 "project-name-wikivoyage" = "Википутовање";
 "project-name-wiktionary" = "Викиречник";
+"reading-challenge-announcement-secondary-cta" = "Сазнајте више";
+"reading-challenge-completed-subtitle-small" = "25 од 25";
+"reading-challenge-completed-title" = "Успели сте!";
+"reading-challenge-enrolled-not-started-title-fresh" = "Нови почетак.";
+"reading-challenge-explore-wikipedia-button" = "Истражи Википедију";
+"reading-challenge-random-button" = "Случајно";
 "reading-list-add-generic-hint-title" = "Додати овај чланак на листу за читање?";
 "reading-list-add-hint-title" = "Додати „$1” на листу за читање?";
 "reading-list-add-saved-button-title" = "Да, додај их на листу за читање";

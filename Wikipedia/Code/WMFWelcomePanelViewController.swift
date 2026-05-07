@@ -8,6 +8,7 @@ class WMFWelcomePanelViewController: ThemeableViewController {
             return
         }
         scrollView.apply(theme: theme)
+        titleLabel.textColor = theme.colors.primaryText
 
         // Apply theme colors to button configuration
         if var config = nextButton.configuration {
