@@ -161,7 +161,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
             skipButton.setTitleColor(theme.colors.primaryText, for: .normal)
         }
         
-        skipButton.accessibilityIdentifier = "App Onboarding Skip Button"
+        skipButton.accessibilityIdentifier = AccessibilityIdentifiers.Onboarding.skipButton
 
         view.addSubview(skipButton)
         skipButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
