@@ -93,6 +93,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         layoutManager.register(ArticleLocationAuthorizationCollectionViewCell.self, forCellWithReuseIdentifier: ArticleLocationAuthorizationCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(SuggestedEditsExploreCell.self, forCellWithReuseIdentifier: SuggestedEditsExploreCell.identifier, addPlaceholder: true)
+        layoutManager.register(WMFDailyGameExploreCell.self, forCellWithReuseIdentifier: WMFDailyGameExploreCell.identifier, addPlaceholder: true)
         collectionView.isOpaque = true
         view.isOpaque = true
     }
@@ -204,6 +205,8 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return AnnouncementCollectionViewCell.identifier
         case .suggestedEdits:
             return SuggestedEditsExploreCell.identifier
+        case .dailyGame:
+            return WMFDailyGameExploreCell.identifier
         default:
             return ArticleFullWidthImageExploreCollectionViewCell.identifier
         }
@@ -378,6 +381,8 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             configureAnnouncementCell(cell, displayType: displayType, layoutOnly: layoutOnly)
         case .suggestedEdits:
             configureSuggestedEditsCell(cell, layoutOnly: layoutOnly)
+        case .dailyGame:
+            configureDailyGameCell(cell, layoutOnly: layoutOnly)
         default:
             configureArticleCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)
         }
@@ -393,6 +398,18 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
 
         cell.title = WMFLocalizedString("explore-suggested-edits-image-recs-title", languageCode: languageCode, value: "Add an image", comment: "Title text shown in the image recommendations explore feed card.")
         cell.body = WMFLocalizedString("explore-suggested-edits-image-recs-body", languageCode: languageCode, value: "Add suggested images to Wikipedia articles to enhance understanding.", comment: "Body text shown in the image recommendations explore feed card.")
+        cell.apply(theme: theme)
+    }
+
+    private func configureDailyGameCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
+        guard let cell = cell as? WMFDailyGameExploreCell else {
+            return
+        }
+        if !layoutOnly {
+            cell.onPlayButtonTapped = { [weak self] in
+                self?.delegate?.exploreCardViewController(self!, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
+            }
+        }
         cell.apply(theme: theme)
     }
 

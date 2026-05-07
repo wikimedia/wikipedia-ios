@@ -21,7 +21,8 @@ typedef NS_ENUM(NSUInteger, WMFFeedDisplayType) {
     WMFFeedDisplayTypeTheme,
     WMFFeedDisplayTypeReadingList,
     WMFFeedDisplayTypeSuggestedEdits,
-    WMFFeedDisplayTypePageWithLocationPlaceholder
+    WMFFeedDisplayTypePageWithLocationPlaceholder,
+    WMFFeedDisplayTypeDailyGame
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {

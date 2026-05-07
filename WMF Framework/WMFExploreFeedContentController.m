@@ -141,6 +141,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         [mutableContentSources addObject:[[WMFRelatedPagesContentSource alloc] init]];
         [mutableContentSources addObject:[[WMFContinueReadingContentSource alloc] initWithUserDataStore:self.dataStore]];
         [mutableContentSources addObject:[[WMFSuggestedEditsContentSource alloc] initWithDataStore:self.dataStore]];
+        [mutableContentSources addObject:[[WMFDailyGameContentSource alloc] initWithDataStore:self.dataStore]];
         
         for (NSURL *siteURL in siteURLs) {
             WMFFeedContentSource *feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL
@@ -424,7 +425,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     static NSSet *globalContentGroupKindNumbers;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        globalContentGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindContinueReading), @(WMFContentGroupKindRelatedPages), @(WMFContentGroupKindSuggestedEdits)]];
+        globalContentGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindContinueReading), @(WMFContentGroupKindRelatedPages), @(WMFContentGroupKindSuggestedEdits), @(WMFContentGroupKindDailyGame)]];
     });
     return globalContentGroupKindNumbers;
 }
@@ -433,7 +434,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     static NSSet *singularGroupKindNumbers;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        singularGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindSuggestedEdits)]];
+        singularGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindSuggestedEdits), @(WMFContentGroupKindDailyGame)]];
     });
     return singularGroupKindNumbers;
 }

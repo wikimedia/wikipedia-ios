@@ -83,6 +83,10 @@
             URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:[(WMFAnnouncement *)self.contentPreview identifier]];
         case WMFContentGroupKindSuggestedEdits:
             URL = [WMFContentGroup suggestedEditsURLForSiteURL:self.siteURL];
+            break;
+        case WMFContentGroupKindDailyGame:
+            URL = [WMFContentGroup dailyGameURLForSiteURL:self.siteURL];
+            break;
         default:
             break;
     }
@@ -120,6 +124,9 @@
         case WMFContentGroupKindSuggestedEdits:
             self.contentType = WMFContentTypeSuggestedEdits;
             break;
+        case WMFContentGroupKindDailyGame:
+            self.contentType = WMFContentTypeDailyGame;
+            break;
         case WMFContentGroupKindContinueReading:
         case WMFContentGroupKindMainPage:
         case WMFContentGroupKindRelatedPages:
@@ -156,6 +163,9 @@
             break;
         case WMFContentGroupKindContinueReading:
             updatedDailySortPriority = 0;
+            break;
+        case WMFContentGroupKindDailyGame:
+            updatedDailySortPriority = 1;
             break;
         case WMFContentGroupKindRelatedPages:
             updatedDailySortPriority = 1;
@@ -516,6 +526,12 @@
 
 + (nullable NSURL *)suggestedEditsURLForSiteURL:(NSURL *)siteURL {
     NSURL *URL = [[self baseURL] URLByAppendingPathComponent:@"suggested-edits"];
+    URL.wmf_languageVariantCode = siteURL.wmf_languageVariantCode;
+    return URL;
+}
+
++ (nullable NSURL *)dailyGameURLForSiteURL:(NSURL *)siteURL {
+    NSURL *URL = [[self baseURL] URLByAppendingPathComponent:@"daily-game"];
     URL.wmf_languageVariantCode = siteURL.wmf_languageVariantCode;
     return URL;
 }

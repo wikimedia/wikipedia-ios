@@ -742,6 +742,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
 
+        // Daily game card — placeholder navigation until game UI is built
+        if contentGroup.contentGroupKind == .dailyGame {
+            let alert = UIAlertController(title: "Which Came First?", message: "Game UI coming soon!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: CommonStrings.okTitle, style: .default))
+            present(alert, animated: true)
+            return
+        }
+
         // If that didn't work (probably not pushing to an article), fall back to legacy logic
         guard let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme, source: .undefined, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
             return
