@@ -393,9 +393,9 @@
 "relative-date-hrs-ago" = "{{PLURAL:$1|0=په دې وروستيو کې|$1 گړۍ مخکې}}";
 "relative-date-min-ago" = "{{PLURAL:$1|0=اوس|$1 دقيقه مخکې|$1 دقيقې مخکې}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=همدا اوس|$1 دقيقه مخکې|$1 دقيقې مخکې}}";
-"relative-date-minutes-ago-abbreviated" = "{{PLURAL:$1|$1 دقيقه مخکې|$1 دقيقې مخکې}}";
+"relative-date-minutes-ago-abbreviated" = "$1 دقيقې مخکې";
 "relative-date-months-ago" = "{{PLURAL:$1|0=دا مياشت|1=تېره مياشت|$1 مياشتې مخکې}}";
-"relative-date-seconds-ago-abbreviated" = "{{PLURAL:$1|$1 ثانيه مخکې|$1 ثانيې مخکې}}";
+"relative-date-seconds-ago-abbreviated" = "$1 ثانيې مخکې";
 "relative-date-years-ago" = "{{PLURAL:$1|0=سږ کال|1=تېر کال|$1 کاله مخکې}}";
 "saved-title" = "خوندي شو";
 "search-field-placeholder-text" = "ويکيپېډيا پلټل";
