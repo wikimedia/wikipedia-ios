@@ -1,0 +1,72 @@
+{
+  "events": [
+    {
+      "text": "Wikipedia, a free wiki content encyclopedia, goes online.",
+      "year": 2001,
+      "pages": [
+        {
+          "title": "Wikipedia",
+          "description": "Free online encyclopedia that anyone can edit",
+          "extract": "Wikipedia is a free-content online encyclopedia written and maintained by a community of volunteers.",
+          "thumbnail": {
+            "source": "https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/320px-Wikipedia-logo-v2.svg.png",
+            "width": 320,
+            "height": 320
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Wikipedia"
+            },
+            "mobile": {
+              "page": "https://en.m.wikipedia.org/wiki/Wikipedia"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "text": "The Dominican Republic gains independence from Haiti.",
+      "year": 1844,
+      "pages": [
+        {
+          "title": "Dominican Republic",
+          "description": "Country in the Caribbean",
+          "extract": "The Dominican Republic is a country located on the island of Hispaniola in the Greater Antilles.",
+          "thumbnail": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Flag_of_the_Dominican_Republic.svg/320px-Flag_of_the_Dominican_Republic.svg.png",
+            "width": 320,
+            "height": 160
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Dominican_Republic"
+            },
+            "mobile": {
+              "page": "https://en.m.wikipedia.org/wiki/Dominican_Republic"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "text": "The Battle of Verdun begins on the Western Front.",
+      "year": 1916,
+      "pages": [
+        {
+          "title": "Battle of Verdun",
+          "description": "World War I battle on the Western Front",
+          "extract": "The Battle of Verdun was fought from 21 February to 18 December 1916.",
+          "thumbnail": null,
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Battle_of_Verdun"
+            },
+            "mobile": {
+              "page": "https://en.m.wikipedia.org/wiki/Battle_of_Verdun"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

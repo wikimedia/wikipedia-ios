@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private var appNeedsResume = true
     // Tracks the most recent source used to open the app (external_link, widget, shortcut, notification, etc.)
     // This is consumed when the scene becomes active to submit the apps-open instrument.
-    private var lastOpenSource: String? = nil
+    var lastOpenSource: String? = nil
     // Holds a pending app_open source when the data environment isn't ready yet (e.g. fresh install).
     // Consumed by dataEnvironmentDidSetup() once setup completes.
     private var pendingAppOpenSource: String? = nil

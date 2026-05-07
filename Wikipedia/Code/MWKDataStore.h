@@ -68,7 +68,7 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 - (void)performTestLibrarySetup;
 #endif
 
-- (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError *nullable))completion;
+- (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError * _Nullable))completion;
 @property (readwrite, nonatomic) BOOL isLocalConfigUpdateAllowed;
 @property (readonly, nonatomic) RemoteConfigOption remoteConfigsThatFailedUpdate;
 
