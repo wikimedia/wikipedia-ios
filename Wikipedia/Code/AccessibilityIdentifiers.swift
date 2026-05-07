@@ -22,6 +22,7 @@ enum AccessibilityIdentifiers {
         static let introductionLearnMoreButton = "App Onboarding Introduction Learn More Button"
         static let introductionView = "App Onboarding Introduction View"
         static let languagesView = "App Onboarding Languages View"
+        static let nextButton = "App Onboarding Next Button"
         static let skipButton = "App Onboarding Skip Button"
 
         static func preferredLanguage(_ contentLanguageCode: String) -> String {

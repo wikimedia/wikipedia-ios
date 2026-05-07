@@ -128,6 +128,8 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
             nextButton.setTitleColor(theme.colors.link, for: .highlighted)
         }
 
+        nextButton.accessibilityIdentifier = AccessibilityIdentifiers.Onboarding.nextButton
+
         view.addSubview(nextButton)
         nextButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
         NSLayoutConstraint.activate([

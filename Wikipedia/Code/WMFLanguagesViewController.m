@@ -114,6 +114,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     // HAX: force these to take effect if they were set before the VC was presented/pushed.
     self.editing = self.editing;
     self.disableSelection = self.disableSelection;
+    self.view.accessibilityIdentifier = [self accessibilityIdentifierForCurrentMode];
 
     [self applyTheme:self.theme];
 }
@@ -227,19 +228,25 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)configurePreferredLanguageCell:(WMFLanguageCell *)cell atRow:(NSUInteger)row {
     cell.isPreferred = YES;
-    [self configureCell:cell forLangLink:self.languageFilter.filteredPreferredLanguages[row]];
+    MWKLanguageLink *language = self.languageFilter.filteredPreferredLanguages[row];
+    cell.accessibilityIdentifier = [WMFAccessibilityIdentifier languageSelectionPreferredLanguage:language.languageCode];
+    [self configureCell:cell forLangLink:language];
 }
 
 - (void)configureAllLanguagesLanguageCell:(WMFLanguageCell *)cell atRow:(NSUInteger)row {
     cell.isPreferred = NO;
-    BOOL isPreferredLanguage = [self isFilteredPreferredLanguage:self.languageFilter.filteredLanguages[row]];
+    MWKLanguageLink *language = self.languageFilter.filteredLanguages[row];
+    BOOL isPreferredLanguage = [self isFilteredPreferredLanguage:language];
     cell.accessoryType = isPreferredLanguage ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-    [self configureCell:cell forLangLink:self.languageFilter.filteredLanguages[row]];
+    cell.accessibilityIdentifier = [WMFAccessibilityIdentifier languageSelectionAllLanguage:language.languageCode];
+    [self configureCell:cell forLangLink:language];
 }
 
 - (void)configureOtherLanguageCell:(WMFLanguageCell *)cell atRow:(NSUInteger)row {
     cell.isPreferred = NO;
-    [self configureCell:cell forLangLink:self.languageFilter.filteredOtherLanguages[row]];
+    MWKLanguageLink *language = self.languageFilter.filteredOtherLanguages[row];
+    cell.accessibilityIdentifier = [WMFAccessibilityIdentifier languageSelectionOtherLanguage:language.languageCode];
+    [self configureCell:cell forLangLink:language];
 }
 
 - (void)configureCell:(WMFLanguageCell *)cell forLangLink:(MWKLanguageLink *)langLink {
@@ -248,6 +255,16 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     cell.articleTitle = langLink.pageTitleText;
     cell.languageID = langLink.languageCode;
     [cell applyTheme:self.theme];
+}
+
+- (NSString *)accessibilityIdentifierForCurrentMode {
+    if (self.showAllLanguages) {
+        return [WMFAccessibilityIdentifier languageSelectionAllLanguagesView];
+    } else if (self.showPreferredLanguages) {
+        return [WMFAccessibilityIdentifier languageSelectionPreferredLanguagesView];
+    } else {
+        return [WMFAccessibilityIdentifier languageSelectionLanguagesView];
+    }
 }
 
 - (void)configureExploreFeedCustomizationCell:(WMFSettingsTableViewCell *)cell {
