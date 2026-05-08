@@ -505,6 +505,7 @@
 "explore-because-you-read" = "Text for 'Because you read' header";
 "explore-because-you-read-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article.";
 "explore-continue-reading-heading" = "Text for 'Continue Reading' header";
+"explore-daily-game-heading" = "Title for the 'Which came first?' daily game Explore feed card";
 "explore-detail-back-button-title" = "Title for button that allows users to exit detail view and return to Explore.";
 "explore-enable-location-title" = "Explains that you can explore articles near your current location. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".";
 "explore-featured-article-heading" = "Text for 'Featured article' header";
