@@ -722,6 +722,10 @@
 		67A0699E2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
 		67A0699F2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
 		67A069A02D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
+		67A18A122FAD100100000001 /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A18A112FAD100100000001 /* AccessibilityIdentifiers.swift */; };
+		67A18A132FAD100100000001 /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A18A112FAD100100000001 /* AccessibilityIdentifiers.swift */; };
+		67A18A142FAD100100000001 /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A18A112FAD100100000001 /* AccessibilityIdentifiers.swift */; };
+		67A18A152FAD100100000001 /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A18A112FAD100100000001 /* AccessibilityIdentifiers.swift */; };
 		67A486872BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */; };
 		67A486A42BEBF3C5001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
 		67A486A52BEBF40F001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
@@ -3327,6 +3331,7 @@
 		679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTests.swift; sourceTree = "<group>"; };
 		679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleManualPerformanceTests.swift; sourceTree = "<group>"; };
 		67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ProfileButton.swift"; sourceTree = "<group>"; };
+		67A18A112FAD100100000001 /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
 		67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFAnnouncementsContentSource+Extensions.swift"; sourceTree = "<group>"; };
 		67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicWord.swift; sourceTree = "<group>"; };
 		67A486A72BEC009F001D3FF9 /* MagicWordUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicWordUtils.swift; sourceTree = "<group>"; };
@@ -7118,6 +7123,7 @@
 				83ACAAA024E6E371003B3035 /* Wikipedia */,
 				B08423DC2384E260005E93A0 /* URLTranslations */,
 				7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */,
+				67A18A112FAD100100000001 /* AccessibilityIdentifiers.swift */,
 				D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */,
 				7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */,
 				67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */,
@@ -9438,6 +9444,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				67E32CAF2F5BE381009AA52D /* AppOnboardingUITests.swift in Sources */,
+				67A18A152FAD100100000001 /* AccessibilityIdentifiers.swift in Sources */,
 				674205312F9A556100BBA0CA /* ExploreUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -9636,6 +9643,7 @@
 				00E75B6C27EB92DE00A45B78 /* NotificationsCenterDetailHeaderCell.swift in Sources */,
 				8382F8D320D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				67A0699E2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */,
+				67A18A122FAD100100000001 /* AccessibilityIdentifiers.swift in Sources */,
 				D88FCADF1E4B74D300505A9F /* WikidataFetcher+Places.swift in Sources */,
 				B0432344210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				FFD7B85924B3CA7A005C2471 /* ReferenceShowing.swift in Sources */,
@@ -10798,6 +10806,7 @@
 				8386BDFC2386D754007EE89D /* SinglePageWebViewController.swift in Sources */,
 				D8CE258F1E698E2400DAE2E0 /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				67A0699F2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */,
+				67A18A132FAD100100000001 /* AccessibilityIdentifiers.swift in Sources */,
 				67D468782FA94600006DD42F /* WMFAppViewController.swift in Sources */,
 				D8CE25901E698E2400DAE2E0 /* TableOfContentsCell.swift in Sources */,
 				D8CE25931E698E2400DAE2E0 /* WMFSettingsMenuItem.m in Sources */,
@@ -11339,6 +11348,7 @@
 				D8EC3E8B1E9BDA35006712EB /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				D8EC3E8C1E9BDA35006712EB /* TableOfContentsCell.swift in Sources */,
 				67A069A02D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */,
+				67A18A142FAD100100000001 /* AccessibilityIdentifiers.swift in Sources */,
 				FFD7B85724B3B39A005C2471 /* ReferenceBackLinksViewControllerDelegate.swift in Sources */,
 				67D4687A2FA94600006DD42F /* WMFAppViewController.swift in Sources */,
 				832289DD1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
