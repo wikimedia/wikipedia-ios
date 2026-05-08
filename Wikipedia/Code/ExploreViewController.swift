@@ -742,11 +742,22 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
 
-        // Daily game card — placeholder navigation until game UI is built
+        // Daily game card — present the Which Came First game
         if contentGroup.contentGroupKind == .dailyGame {
-            let alert = UIAlertController(title: "Which Came First?", message: "Game UI coming soon!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: CommonStrings.okTitle, style: .default))
-            present(alert, animated: true)
+            guard let languageCode = contentGroup.siteURL?.wmf_languageCode else { return }
+            let languageVariantCode = contentGroup.siteURL?.wmf_languageVariantCode
+            let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
+            let today = {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd"
+                formatter.timeZone = TimeZone(identifier: "UTC")
+                formatter.locale = Locale(identifier: "en_US_POSIX")
+                return formatter.string(from: Date())
+            }()
+            let viewModel = WMFWhichCameFirstViewModel(date: today, project: project)
+            let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
+            let navVC = WMFComponentNavigationController(rootViewController: gameVC, modalPresentationStyle: .pageSheet)
+            present(navVC, animated: true)
             return
         }
 

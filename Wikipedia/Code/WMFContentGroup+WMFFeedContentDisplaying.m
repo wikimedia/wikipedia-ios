@@ -93,6 +93,8 @@ NS_ASSUME_NONNULL_BEGIN
             return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFLocalizedStringWithDefaultValue(@"explore-random-article-sub-heading-from-language-wikipedia", nil, nil, @"From %1$@ Wikipedia", @"Subtext beneath the 'Random article' header describing which Wikipedia the random article came from. %1$@ will be replaced with the language - for example, 'From English Wikipedia'") fallingBackOnGenericString:WMFLocalizedStringWithDefaultValue(@"explore-random-article-sub-heading-from-wikipedia", nil, nil, @"From Wikipedia", @"Subtext beneath the 'Random article' header when the specific language wikipedia is unknown.")];
         case WMFContentGroupKindFeaturedArticle:
             return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFCommonStringsWrapper.fromWikipedia fallingBackOnGenericString:WMFCommonStringsWrapper.defaultFromWikipedia];
+        case WMFContentGroupKindDailyGame:
+            return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFCommonStringsWrapper.fromWikipedia fallingBackOnGenericString:WMFCommonStringsWrapper.defaultFromWikipedia];
         case WMFContentGroupKindTopRead: {
             return [WMFCommonStringsWrapper onLangWikipediaWith:self.siteURL.wmf_languageCode];
         }

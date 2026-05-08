@@ -7,9 +7,11 @@ import WMFData
 final class WMFDailyGameContentSource: NSObject, WMFContentSource {
 
     private let dataStore: MWKDataStore
+    private let siteURL: URL
 
-    @objc init(dataStore: MWKDataStore) {
+    @objc init(dataStore: MWKDataStore, siteURL: URL) {
         self.dataStore = dataStore
+        self.siteURL = siteURL
         super.init()
     }
 
@@ -21,8 +23,7 @@ final class WMFDailyGameContentSource: NSObject, WMFContentSource {
             self.removeAllContent(in: moc)
         }
 
-        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-              let languageCode = dataStore.languageLinkController.appLanguage?.languageCode else {
+        guard let languageCode = siteURL.wmf_languageCode else {
             completion?()
             return
         }
@@ -38,11 +39,11 @@ final class WMFDailyGameContentSource: NSObject, WMFContentSource {
                     return
                 }
                 await moc.perform {
-                    guard let url = WMFContentGroup.dailyGameURL(forSiteURL: siteURL) else {
+                    guard let url = WMFContentGroup.dailyGameURL(forSiteURL: self.siteURL) else {
                         completion?()
                         return
                     }
-                    moc.fetchOrCreateGroup(for: url, of: .dailyGame, for: Date(), withSiteURL: siteURL, associatedContent: nil, customizationBlock: nil)
+                    moc.fetchOrCreateGroup(for: url, of: .dailyGame, for: Date(), withSiteURL: self.siteURL, associatedContent: nil, customizationBlock: nil)
                     completion?()
                 }
             } catch {

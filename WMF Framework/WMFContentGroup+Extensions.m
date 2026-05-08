@@ -165,7 +165,7 @@
             updatedDailySortPriority = 0;
             break;
         case WMFContentGroupKindDailyGame:
-            updatedDailySortPriority = 1;
+            updatedDailySortPriority = contentLanguageSortOrder + 5;
             break;
         case WMFContentGroupKindRelatedPages:
             updatedDailySortPriority = 1;
@@ -180,10 +180,10 @@
             updatedDailySortPriority = contentLanguageSortOrder + 4;
             break;
         case WMFContentGroupKindTopRead:
-            updatedDailySortPriority = contentLanguageSortOrder + 5;
+            updatedDailySortPriority = contentLanguageSortOrder + 6;
             break;
         case WMFContentGroupKindNews:
-            updatedDailySortPriority = contentLanguageSortOrder + 6;
+            updatedDailySortPriority = contentLanguageSortOrder + 7;
             break;
         case WMFContentGroupKindPictureOfTheDay:
             updatedDailySortPriority = 8;
@@ -531,7 +531,14 @@
 }
 
 + (nullable NSURL *)dailyGameURLForSiteURL:(NSURL *)siteURL {
+    NSString *language = siteURL.wmf_languageCode;
+    NSString *domain = siteURL.wmf_domain;
+    if (!domain || !language) {
+        return nil;
+    }
     NSURL *URL = [[self baseURL] URLByAppendingPathComponent:@"daily-game"];
+    URL = [URL URLByAppendingPathComponent:domain];
+    URL = [URL URLByAppendingPathComponent:language];
     URL.wmf_languageVariantCode = siteURL.wmf_languageVariantCode;
     return URL;
 }
