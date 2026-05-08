@@ -9,6 +9,7 @@ extension XCTestCase {
 
 struct UITestConfiguration {
     var onboardingState: OnboardingState
+    let resetsPreferredLanguages: Bool
     let themeName: String?
     let languageCode: String
 
@@ -18,9 +19,11 @@ struct UITestConfiguration {
 
     init(
         onboardingState: OnboardingState = .completed,
+        resetsPreferredLanguages: Bool = true,
     ) {
         self.onboardingState = onboardingState
         self.themeName = ProcessInfo.processInfo.value(for: .appThemeName)
+        self.resetsPreferredLanguages = resetsPreferredLanguages
         self.languageCode = ProcessInfo.processInfo.value(for: .uiTestLanguageCode) ?? Self.defaultLanguageCode
     }
 
@@ -29,6 +32,10 @@ struct UITestConfiguration {
 
         if let themeName {
             argumentValues.append(UITestLaunchArgumentValue(.appThemeName, value: themeName))
+        }
+
+        if resetsPreferredLanguages {
+            argumentValues.append(UITestLaunchArgumentValue(.resetPreferredLanguages, value: "YES"))
         }
 
         argumentValues.append(UITestLaunchArgumentValue(.uiTestLanguageCode, value: languageCode))

@@ -37,11 +37,13 @@ class WMFWelcomeLanguageTableViewController: ThemeableViewController, WMFPreferr
         
         languageTableView.alwaysBounceVertical = false
         moreLanguagesButton.setTitle(WMFLocalizedString("welcome-languages-add-or-edit-button", value:"Add or edit preferred languages", comment:"Title for button for managing languages"), for: .normal)
+        moreLanguagesButton.accessibilityIdentifier = AccessibilityIdentifiers.Onboarding.addLanguagesButton
         languageTableView.rowHeight = UITableView.automaticDimension
         languageTableView.estimatedRowHeight = 30
         languageTableView.register(WMFLanguageCell.wmf_classNib(), forCellReuseIdentifier: WMFLanguageCell.wmf_nibName())
         updateFonts()
         view.wmf_configureSubviewsForDynamicType()
+        view.accessibilityIdentifier = AccessibilityIdentifiers.Onboarding.languagesView
 
         registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
             guard let self else { return }
