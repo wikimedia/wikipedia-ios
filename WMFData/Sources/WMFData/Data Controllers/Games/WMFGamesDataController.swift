@@ -349,6 +349,20 @@ extension WMFGamesDataController {
         return try await fetchSessions(gameType: Self.whichCameFirstGameType, project: project)
     }
 
+    public func clearAllSessions() async throws {
+        guard let moc = backgroundContext else {
+            throw CustomError.missingContext
+        }
+        try await moc.perform { [weak self] in
+            guard let self else { throw CustomError.missingSelf }
+            let sessions = try self.coreDataStore?.fetch(entityType: CDGameSession.self, predicate: nil, fetchLimit: nil, in: moc) ?? []
+            for session in sessions {
+                moc.delete(session)
+            }
+            try moc.save()
+        }
+    }
+
     // MARK: - Private Encoding Helpers
 
     private func decodeWhichCameFirstGameState(from data: Data) throws -> WMFWhichCameFirstGameState {

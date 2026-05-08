@@ -19,8 +19,12 @@ final class WMFDailyGameContentSource: NSObject, WMFContentSource {
 
     func loadNewContent(in moc: NSManagedObjectContext, force: Bool, completion: (() -> Void)?) {
 
-        moc.perform {
-            self.removeAllContent(in: moc)
+        guard WMFDeveloperSettingsDataController.shared.showGamesV1 else {
+            moc.perform {
+                self.removeAllContent(in: moc)
+                completion?()
+            }
+            return
         }
 
         guard let languageCode = siteURL.wmf_languageCode else {
@@ -53,7 +57,10 @@ final class WMFDailyGameContentSource: NSObject, WMFContentSource {
     }
 
     func removeAllContent(in moc: NSManagedObjectContext) {
-        moc.removeAllContentGroups(of: .dailyGame)
+        guard let url = WMFContentGroup.dailyGameURL(forSiteURL: siteURL) else { return }
+        if let group = moc.contentGroup(for: url) {
+            moc.remove(group)
+        }
     }
 
     // MARK: - Helpers

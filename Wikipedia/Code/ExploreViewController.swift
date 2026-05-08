@@ -84,6 +84,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(gamesV1SettingDidChange), name: WMFNSNotification.gamesV1SettingDidChange, object: nil)
 
         setupTopSafeAreaOverlay(scrollView: collectionView)
         
@@ -1408,6 +1409,10 @@ extension ExploreViewController {
 
     @objc func coreDataStoreSetup() {
         configureNavigationBar()
+    }
+
+    @objc func gamesV1SettingDidChange() {
+        updateFeedSources(userInitiated: false)
     }
 }
 
