@@ -24,6 +24,8 @@ public final class WMFWhichCameFirstViewModel: ObservableObject {
     @Published var phase: Phase = .loading
     @Published var currentIndex: Int = 0
     @Published var score: Int = 0
+    @Published var cardViewModelA: WMFOnThisDayCardViewModel?
+    @Published var cardViewModelB: WMFOnThisDayCardViewModel?
 
     // MARK: - Private
 
@@ -79,6 +81,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject {
                 if state.answers.count >= state.questions.count {
                     self.phase = .complete
                 } else {
+                    self.rebuildCardViewModels()
                     self.phase = .question
                 }
             } catch {
@@ -89,7 +92,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject {
 
     func submitAnswer(_ picked: String) {
         guard let question = currentQuestion,
-              let state = gameState else { return }
+              gameState != nil else { return }
 
         loadTask?.cancel()
         loadTask = Task {
@@ -108,6 +111,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject {
                 if result.isCorrect {
                     self.score += 1
                 }
+                self.applyFeedback(isCorrect: result.isCorrect, correctAnswer: result.correctAnswer)
                 self.phase = .feedback(isCorrect: result.isCorrect, correctAnswer: result.correctAnswer)
             } catch {
                 self.phase = .error(error.localizedDescription)
@@ -122,11 +126,23 @@ public final class WMFWhichCameFirstViewModel: ObservableObject {
             self.phase = .complete
         } else {
             self.currentIndex = nextIndex
+            self.rebuildCardViewModels()
             self.phase = .question
         }
     }
 
     // MARK: - Private
+
+    private func rebuildCardViewModels() {
+        guard let question = currentQuestion else { return }
+        cardViewModelA = WMFOnThisDayCardViewModel(event: question.optionA.onThisDayEvent)
+        cardViewModelB = WMFOnThisDayCardViewModel(event: question.optionB.onThisDayEvent)
+    }
+
+    private func applyFeedback(isCorrect: Bool, correctAnswer: String) {
+        cardViewModelA?.reveal(correct: correctAnswer == "A")
+        cardViewModelB?.reveal(correct: correctAnswer == "B")
+    }
 
     private func fetchSessionIdentifier() async throws -> UUID? {
         let sessions = try await dataController.fetchWhichCameFirstSessions(project: project)
@@ -234,11 +250,20 @@ public struct WMFWhichCameFirstView: View {
                     .foregroundColor(Color(uiColor: theme.text))
                     .multilineTextAlignment(.center)
 
-                optionCard(event: question.optionA, label: "A") {
-                    viewModel.submitAnswer("A")
+                if let cardA = viewModel.cardViewModelA {
+                    WMFOnThisDayCardView(viewModel: cardA)
+                        .onTapGesture {
+                            cardA.toggleSelection()
+                            viewModel.submitAnswer("A")
+                        }
                 }
-                optionCard(event: question.optionB, label: "B") {
-                    viewModel.submitAnswer("B")
+
+                if let cardB = viewModel.cardViewModelB {
+                    WMFOnThisDayCardView(viewModel: cardB)
+                        .onTapGesture {
+                            cardB.toggleSelection()
+                            viewModel.submitAnswer("B")
+                        }
                 }
 
                 Spacer(minLength: 24)
@@ -258,12 +283,12 @@ public struct WMFWhichCameFirstView: View {
                     .font(Font(WMFFont.for(.semiboldHeadline)))
                     .foregroundColor(isCorrect ? .green : .red)
 
-                feedbackCard(event: question.optionA, label: "A",
-                             isChosen: correctAnswer != "A",  // highlight chosen vs correct
-                             isCorrect: correctAnswer == "A")
-                feedbackCard(event: question.optionB, label: "B",
-                             isChosen: correctAnswer != "B",
-                             isCorrect: correctAnswer == "B")
+                if let cardA = viewModel.cardViewModelA {
+                    WMFOnThisDayCardView(viewModel: cardA)
+                }
+                if let cardB = viewModel.cardViewModelB {
+                    WMFOnThisDayCardView(viewModel: cardB)
+                }
 
                 let isLast = viewModel.currentIndex == viewModel.totalQuestions - 1
                 Button(isLast ? "See Results" : "Next") {
@@ -274,50 +299,6 @@ public struct WMFWhichCameFirstView: View {
                 Spacer(minLength: 24)
             }
             .padding()
-        }
-    }
-
-    private func feedbackCard(event: WMFWhichCameFirstEvent, label: String, isChosen: Bool, isCorrect: Bool) -> some View {
-        let borderColor: Color = isCorrect ? .green : .red
-        let borderWidth: CGFloat = 2
-
-        return HStack(alignment: .top, spacing: 12) {
-            Text(label)
-                .font(Font(WMFFont.for(.semiboldHeadline)))
-                .foregroundColor(Color(uiColor: theme.paperBackground))
-                .frame(width: 32, height: 32)
-                .background(isCorrect ? Color.green : Color.red)
-                .clipShape(Circle())
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text(event.title)
-                    .font(Font(WMFFont.for(.semiboldSubheadline)))
-                    .foregroundColor(Color(uiColor: theme.text))
-                    .multilineTextAlignment(.leading)
-                if let articleTitle = event.articleTitle {
-                    Text(articleTitle)
-                        .font(Font(WMFFont.for(.caption1)))
-                        .foregroundColor(Color(uiColor: theme.secondaryText))
-                }
-            }
-            Spacer()
-        }
-        .padding()
-        .background(Color(uiColor: theme.midBackground))
-        .cornerRadius(12)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(borderColor, lineWidth: borderWidth)
-        )
-        .overlay(alignment: .bottomTrailing) {
-            Text(String(event.year))
-                .font(Font(WMFFont.for(.boldCaption1)))
-                .foregroundColor(.white)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
-                .background(isCorrect ? Color.green : Color.red)
-                .cornerRadius(8)
-                .padding(8)
         }
     }
 
@@ -387,40 +368,6 @@ public struct WMFWhichCameFirstView: View {
                 .foregroundColor(Color(uiColor: theme.secondaryText))
         }
     }
-
-    private func optionCard(event: WMFWhichCameFirstEvent, label: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            HStack(alignment: .top, spacing: 12) {
-                Text(label)
-                    .font(Font(WMFFont.for(.semiboldHeadline)))
-                    .foregroundColor(Color(uiColor: theme.paperBackground))
-                    .frame(width: 32, height: 32)
-                    .background(Color(uiColor: theme.link))
-                    .clipShape(Circle())
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(event.title)
-                        .font(Font(WMFFont.for(.semiboldSubheadline)))
-                        .foregroundColor(Color(uiColor: theme.text))
-                        .multilineTextAlignment(.leading)
-                    if let articleTitle = event.articleTitle {
-                        Text(articleTitle)
-                            .font(Font(WMFFont.for(.caption1)))
-                            .foregroundColor(Color(uiColor: theme.secondaryText))
-                    }
-                }
-                Spacer()
-            }
-            .padding()
-            .background(Color(uiColor: theme.midBackground))
-            .cornerRadius(12)
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color(uiColor: theme.border), lineWidth: 1)
-            )
-        }
-        .buttonStyle(.plain)
-    }
 }
 
 // MARK: - Button Style
@@ -437,5 +384,17 @@ private struct GameButtonStyle: ButtonStyle {
             .background(Color(uiColor: theme.link))
             .cornerRadius(12)
             .opacity(configuration.isPressed ? 0.8 : 1.0)
+    }
+}
+
+// MARK: - WMFWhichCameFirstEvent + onThisDayEvent
+
+private extension WMFWhichCameFirstEvent {
+    var onThisDayEvent: WMFOnThisDayEvent {
+        WMFOnThisDayEvent(
+            text: title,
+            date: String(year),
+            imageURL: thumbnailURL
+        )
     }
 }
