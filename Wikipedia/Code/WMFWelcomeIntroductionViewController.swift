@@ -21,10 +21,11 @@ class WMFWelcomeIntroductionViewController: ThemeableViewController {
         descriptionLabel.text = WMFLocalizedString("welcome-intro-free-encyclopedia-description", value:"Wikipedia is written collaboratively by volunteers and consists of more than 40 million articles in over 300 languages.", comment:"Description for introductory welcome screen")
         
         learnMoreButton.setTitle(WMFLocalizedString("welcome-intro-free-encyclopedia-more", value:"Learn more about Wikipedia", comment:"Text for link for learning more about Wikipedia on introductory welcome screen"), for: .normal)
+        learnMoreButton.accessibilityIdentifier = AccessibilityIdentifiers.Onboarding.introductionLearnMoreButton
         
         updateFonts()
         view.wmf_configureSubviewsForDynamicType()
-        view.accessibilityIdentifier = "App Onboarding Introduction View"
+        view.accessibilityIdentifier = AccessibilityIdentifiers.Onboarding.introductionView
         
         registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
             guard let self else { return }

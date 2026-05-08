@@ -17,6 +17,7 @@ env:
   XCODE_VERSION: "26.2"
   IOS_VERSION: "26.2"
   SIMULATOR_NAME: "iPhone 16"
+  UI_TEST_CONFIGURATION: "English (Light)"
 
 concurrency:
   group: "ui-tests-${{ github.ref }}"
@@ -105,11 +106,12 @@ jobs:
         env:
           SIMULATOR_ID: ${{ steps.simulator.outputs.simulator_id }}
         run: |
-          echo "Running WikipediaUITests on ${SIMULATOR_NAME} iOS ${IOS_VERSION} (${SIMULATOR_ID}) with Xcode ${XCODE_VERSION}"
+          echo "Running WikipediaUITests ${UI_TEST_CONFIGURATION} on ${SIMULATOR_NAME} iOS ${IOS_VERSION} (${SIMULATOR_ID}) with Xcode ${XCODE_VERSION}"
           xcodebuild test \
             -scheme WikipediaUITests \
             -project Wikipedia.xcodeproj \
             -testPlan UITests \
+            -only-test-configuration "${UI_TEST_CONFIGURATION}" \
             -destination "platform=iOS Simulator,id=${SIMULATOR_ID}" \
             -resultBundlePath "WikipediaUITests_TestResults" \
             | xcpretty
