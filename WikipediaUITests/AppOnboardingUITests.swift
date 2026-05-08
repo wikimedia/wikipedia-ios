@@ -4,34 +4,44 @@ final class AppOnboardingUITests: XCTestCase {
 
     func testFirstLaunchShowsOnboardingSmoke() throws {
         let app = launchWikipediaApp(onboardingState: .notCompleted)
-
         assertOnboardingPage(.introduction, in: app)
     }
 
     func testOnboardingScreenshots() throws {
         enum ScreenshotNames: String {
-            case initial = "App Onboarding Initial"
+            case analytics = "App Onboarding Analytics"
+            case exploration = "App Onboarding Exploration"
             case explore = "App Onboarding Explore"
+            case initial = "App Onboarding Initial"
+            case languages = "App Onboarding Languages"
         }
-        
+
         let app = launchWikipediaApp(onboardingState: .notCompleted)
-
+        
         assertOnboardingPage(.introduction, in: app)
+        captureScreenshot(named: ScreenshotNames.initial.rawValue, in: app)
 
-        let initialAttachment = XCTAttachment(screenshot: app.screenshot())
-        initialAttachment.name = ScreenshotNames.initial.rawValue
-        initialAttachment.lifetime = .keepAlways
-        add(initialAttachment)
+        tapOnboardingNext(in: app)
+        assertOnboardingPage(.exploration, in: app)
+        captureScreenshot(named: ScreenshotNames.exploration.rawValue, in: app)
 
-        tapButton(withIdentifier: AccessibilityIdentifiers.Onboarding.skipButton, in: app)
+        tapOnboardingNext(in: app)
+        assertOnboardingPage(.languages, in: app)
+        captureScreenshot(named: ScreenshotNames.languages.rawValue, in: app)
 
-        let exploreView = app.otherElements[AccessibilityIdentifiers.Explore.view]
+        tapOnboardingNext(in: app)
+        assertOnboardingPage(.analytics, in: app)
+        captureScreenshot(named: ScreenshotNames.analytics.rawValue, in: app)
+
+        app.terminate()
+
+        let skipApp = launchWikipediaApp(onboardingState: .notCompleted)
+        assertOnboardingPage(.introduction, in: skipApp)
+        tapButton(withIdentifier: AccessibilityIdentifiers.Onboarding.skipButton, in: skipApp)
+
+        let exploreView = skipApp.otherElements[AccessibilityIdentifiers.Explore.view]
         XCTAssertTrue(exploreView.waitForExistence(timeout: 5))
-
-        let exploreAttachment = XCTAttachment(screenshot: app.screenshot())
-        exploreAttachment.name = ScreenshotNames.explore.rawValue
-        exploreAttachment.lifetime = .keepAlways
-        add(exploreAttachment)
+        captureScreenshot(named: ScreenshotNames.explore.rawValue, in: skipApp)
     }
 
     func testLearnMoreLinksPresentDestinations() throws {
