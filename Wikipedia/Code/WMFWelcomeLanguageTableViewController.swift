@@ -22,6 +22,9 @@ class WMFWelcomeLanguageTableViewController: ThemeableViewController, WMFPreferr
         guard viewIfLoaded != nil else {
             return
         }
+        view.backgroundColor = .clear
+        languageTableView.backgroundColor = .clear
+        languagesDescriptionLabel.textColor = theme.colors.secondaryText
         languageTableView.reloadData()
         moreLanguagesButton.setTitleColor(theme.colors.link, for: .normal)
     }

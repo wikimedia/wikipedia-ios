@@ -134,6 +134,9 @@
 "activity-tab-empty-subtitle" = "Beginne mit dem Lesen und Bearbeiten, um deine Historie zu erstellen";
 "activity-tab-empty-title" = "Nichts anzuzeigen";
 "activity-tab-generic-no-edits" = "Du hast diese Woche nichts bearbeitet. Fang jetzt an, um deine Beiträge zu verfolgen.";
+"activity-tab-history-callout-body" = "Sieh dir deinen Leseverlauf im **Tab „Suche“** an oder lösche ihn dort.";
+"activity-tab-history-callout-body-loggedout" = "Deinen Leseverlauf findest und löschst du im **Tab „Suche“**. Kein Konto erforderlich.";
+"activity-tab-hitory-callout-close" = "Hinweiskarte zum Verlauf schließen";
 "activity-tab-hours-minutes-read" = "$1 Std. $2 Min.";
 "activity-tab-hours-on-wikipedia-ios" = "IN DER WIKIPEDIA iOS-APP";
 "activity-tab-impact-all-time-title" = "Gesamte Wirkung";
@@ -202,6 +205,7 @@
 "appearance-settings-adjust-text-sizing" = "Textgröße anpassen";
 "appearance-settings-expand-tables" = "Tabellen ausklappen";
 "appearance-settings-expand-tables-footer" = "Festlegen, dass alle Tabellen in allen Artikeln standardmäßig geöffnet werden sollen, inklusive Schnelle Fakten, Einzelnachweise, Anmerkungen und Weblinks.";
+"appearance-settings-icon-contributor-title" = "Mitwirkender";
 "appearance-settings-image-dimming-footer" = "Bilder in dunklen Farbschemata transparenter darstellen";
 "appearance-settings-reading-themes" = "Lese-Farbschemen";
 "appearance-settings-set-automatic-table-opening" = "Tabelleneinstellungen";
@@ -219,6 +223,7 @@
 "article-languages-yours" = "Deine Sprachen";
 "article-read-more-title" = "Mehr lesen";
 "article-reference-view-title" = "Einzelnachweis $1";
+"article-return-button-accessibility-title" = "Zurück zu: $1";
 "article-revision-history" = "Versionsgeschichte";
 "article-save-error-not-enough-space" = "Du hast nicht genügend Speicherplatz auf deinem Gerät, um diesen Artikel zu speichern.";
 "article-share" = "Teilen";
@@ -262,6 +267,7 @@
 "chinese-variants-alert-title" = "Updates zur Unterstützung chinesischer Varianten";
 "clear-title-accessibility-label" = "Löschen";
 "clearing-cache-complete" = "Cache geleert.";
+"clearing-cache-error" = "Fehler beim Leeren des Caches.";
 "clearing-cache-in-progress" = "Cache wird geleert.";
 "close-all-tabs" = "Alle Tabs schließen";
 "close-all-tabs-confirmation" = "Möchtest du alle $1 Tabs schließen? Dies kann nicht rückgängig gemacht werden.";
@@ -535,12 +541,14 @@
 "empty-no-saved-pages-title" = "Noch keine gespeicherten Seiten";
 "empty-no-search-results-message" = "Keine Ergebnisse gefunden";
 "empty-talk-page-title" = "Diesem Benutzer wurden noch keine Nachrichten geschickt";
+"end-session" = "Sitzung beenden";
 "error-generic-recovery-suggestion" = "Bitte später erneut versuchen";
 "error-unknown" = "Es ist ein unbekannter Fehler aufgetreten";
 "explore-another-random" = "Ein anderer zufälliger Artikel";
 "explore-because-you-read" = "Weil du gelesen hast";
 "explore-because-you-read-footer" = "Weitere ähnliche Artikel";
 "explore-continue-reading-heading" = "Weiterlesen";
+"explore-daily-game-heading" = "Was kam zuerst?";
 "explore-detail-back-button-title" = "Zurück zum Entdecken-Feed";
 "explore-enable-location-title" = "Entdecke Artikel nahe deines aktuellen Standortes";
 "explore-featured-article-heading" = "Artikel des Tages";
@@ -1007,6 +1015,7 @@
 "panel-compare-revisions-text" = "Der Versionsvergleich hilft dabei zu sehen, wie sich ein Artikel über die Zeit verändert hat. Der Vergleich zweier Versionen zeigt die Unterschiede zwischen den Versionen und hebt hervor was sich geändert hat.";
 "panel-compare-revisions-title" = "Versionen vergleichen";
 "panel-not-logged-in-continue-edit-action-title" = "Ohne Anmeldung bearbeiten";
+"panel-not-logged-in-subtitle-plain" = "Deine IP-Adresse ist öffentlich sichtbar, wenn du Bearbeitungen vornimmst. Melde dich an oder erstelle ein Konto, damit deine Bearbeitungen deinem Benutzernamen zugeordnet werden.";
 "panel-not-logged-in-title" = "Du bist nicht angemeldet";
 "percentile-0.01" = "0,01";
 "pictured" = "Bild";
@@ -1090,6 +1099,7 @@
 "reading-challenge-enrolled-not-started-subtitle-article" = "Lies einen Artikel, um loszulegen.";
 "reading-challenge-enrolled-not-started-subtitle-away" = "Deine Leseserie ist nur noch einen Artikel entfernt.";
 "reading-challenge-enrolled-not-started-subtitle-somewhere" = "Jede Serie beginnt irgendwo";
+"reading-challenge-enrolled-not-started-subtitle-towards" = "Starte deine 25-Tage-Serie!";
 "reading-challenge-enrolled-not-started-title-fresh" = "Ein Neuanfang.";
 "reading-challenge-enrolled-not-started-title-ready" = "Auf die Plätze, fertig, los!";
 "reading-challenge-enrolled-not-started-title-spin" = "Eine neue Serie starten?";
@@ -1112,16 +1122,20 @@
 "reading-challenge-not-yet-read-subtitle-snooze" = "Bevor der Tag zu Ende geht …\nist noch Zeit, etwas zu lernen.";
 "reading-challenge-random-button" = "Zufällig";
 "reading-challenge-streak-days" = "{{PLURAL:$1|$1 Tag|$1 Tage}}";
+"reading-challenge-streak-no-days" = "$1 von 25";
 // Fuzzy
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 von 25 Tagen|$1 von 25 Tagen}}";
 "reading-challenge-subtitle" = "25-Tage-Lese-Challenge";
 "reading-challenge-widget-announcement-body" = "Baby Globe feuert dich an. Füge das Lese-Challenge-Widget hinzu, um deinen Fortschritt direkt auf deinem Startbildschirm zu verfolgen.";
 "reading-challenge-widget-announcement-title" = "Installiere das Widget für die 25-Tage-Lese-Challenge";
+"reading-challenge-widget-description" = "Verfolge deinen Fortschritt bei der Leseherausforderung.";
+"reading-challenge-widget-display-name" = "Leseherausforderung";
 "reading-list-add-generic-hint-title" = "Diesen Artikel zu einer Leseliste hinzufügen?";
 "reading-list-add-hint-title" = "„$1“ zu einer Leseliste hinzufügen?";
 "reading-list-add-saved-button-title" = "Ja, füge sie zu meinen Leselisten hinzu";
 "reading-list-add-saved-subtitle" = "Auf deiner Wikipedia-App sind gespeicherte Artikel vorhanden. Möchtest du sie behalten und sie mit deinem Benutzerkonto synchronisierte Leselisten zusammenführen?";
 "reading-list-add-saved-title" = "Gespeicherte Artikel gefunden";
+"reading-list-alert-see-list" = "Leseliste anzeigen";
 "reading-list-api-error-entry-limit" = "Dieser Eintrag ist nicht synchronisiert, da du die Grenze für die Anzahl an Einträgen in dieser Liste erreicht hast.";
 "reading-list-api-error-generic" = "Beim Synchronisieren deiner Leselisten ist ein unerwarteter Fehler aufgetreten.";
 "reading-list-api-error-list-limit" = "Diese Liste ist nicht synchronisiert, da du die Grenze für die Anzahl an synchronisierten Listen erreicht hast.";
@@ -1230,6 +1244,7 @@
 "saved-title" = "Gespeichert";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Das Löschen {{PLURAL:$1|dieses Artikels entfernt ihn|dieser Artikel entfernt sie}} aus allen verbundenen Leselisten";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Artikel}} löschen?";
+"search-button-accessibility-hint" = "Öffnet die Suchansicht.";
 "search-button-accessibility-label" = "Wikipedia durchsuchen";
 "search-clear-title" = "Löschen";
 "search-field-placeholder-text" = "Wikipedia durchsuchen";
@@ -1257,6 +1272,7 @@
 "settings-help-and-feedback" = "Hilfe und Rückmeldung";
 "settings-language-bar" = "Sprachauswahl unter der Suchleiste anzeigen";
 "settings-languages-feed-customization" = "Du kannst bestimmen, welche Sprachen auf deinem Entdecken-Feed angezeigt werden, indem du die Einstellungen für deinen Entdecken-Feed anpasst.";
+"settings-legal-sefaty-title" = "Kontakte für Rechtliches & Sicherheit";
 "settings-my-languages" = "Meine Sprachen";
 "settings-new-article-tab-header-text" = "Neues Artikel-Tab-Design";
 "settings-notifications" = "Push-Benachrichtigungen";
@@ -1283,6 +1299,10 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Zeigt die gespeicherte Leseliste (z. B. die Standardliste) als separate Liste in deiner Leselistenansicht an. Diese Liste erscheint auf Android-Geräten.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Gespeicherte Leseliste anzeigen";
 "settings-storage-and-syncing-title" = "Speichern und Synchronisieren";
+"settings-temp-account-end-session-confirm" = "Abmelden";
+"settings-temp-account-end-session-message" = "Möchtest du diese Sitzung wirklich beenden und dich abmelden? Eine erneute Anmeldung bei diesem temporären Konto ist nicht möglich.";
+"settings-temp-account-end-session-title" = "Sitzung beenden";
+"settings-temp-accounts-talk-page-footer" = "Das temporäre Konto läuft in 90 Tagen ab.";
 "settings-title" = "Einstellungen";
 "settings-year-in-review-header" = "Wenn du den Jahresrückblick deaktivierst, werden alle gespeicherten personalisierten Einblicke gelöscht und der Jahresrückblick ausgeblendet.";
 "share-a-fact-made-with" = "Erstellt mit der Wikipedia-App";
@@ -1421,6 +1441,8 @@
 "theme-default-explanation" = "Entspricht dem Systemthema";
 "theme-light-display-name" = "Hell";
 "theme-sepia-display-name" = "Sepia";
+"tip-history-in-search-subtitle" = "Deinen Leseverlauf findest du im Tab „Suche“.";
+"tip-history-in-search-title" = "Verlauf wurde in die Suche verschoben";
 "today-title" = "Heute";
 "top-read-widget-description" = "Erfahre auf Wikipedia, was die Welt heute liest.";
 "top-read-widget-readers-count" = "$1 Leser";
