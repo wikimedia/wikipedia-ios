@@ -192,7 +192,7 @@ extension WMFGamesDataController {
     }
 
     static let whichCameFirstGameType = "which-came-first"
-    static let whichCameFirstQuestionCount = 5
+    public static let whichCameFirstQuestionCount = 5
 
     public func isWhichCameFirstDailySessionAvailable(date: String, project: WMFProject, onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared) async throws -> Bool {
 
@@ -341,8 +341,18 @@ extension WMFGamesDataController {
 
             try coreDataStore.saveIfNeeded(moc: moc)
 
-            return WMFWhichCameFirstAnswerResult(isCorrect: isCorrect, correctAnswer: question.correctAnswer)
+            let result = WMFWhichCameFirstAnswerResult(isCorrect: isCorrect, correctAnswer: question.correctAnswer)
+
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: WMFNSNotification.whichCameFirstSessionDidUpdate, object: nil)
+            }
+
+            return result
         }
+    }
+
+    public func fetchWhichCameFirstDailySession(date: String, project: WMFProject) async throws -> WMFGameSession? {
+        return try await fetchSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date)
     }
 
     public func fetchWhichCameFirstSessions(project: WMFProject) async throws -> [WMFGameSession] {

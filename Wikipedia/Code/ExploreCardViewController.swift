@@ -3,6 +3,7 @@ import CocoaLumberjackSwift
 import WMF
 import WMFNativeLocalizations
 import WMFComponents
+import WMFData
 import SwiftUI
 import UserNotifications
 
@@ -96,6 +97,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         layoutManager.register(WMFDailyGameExploreCell.self, forCellWithReuseIdentifier: WMFDailyGameExploreCell.identifier, addPlaceholder: true)
         collectionView.isOpaque = true
         view.isOpaque = true
+        NotificationCenter.default.addObserver(self, selector: #selector(whichCameFirstSessionDidUpdate), name: WMFNSNotification.whichCameFirstSessionDidUpdate, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -409,8 +411,45 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             cell.onPlayButtonTapped = { [weak self] in
                 self?.delegate?.exploreCardViewController(self!, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
             }
+
+            if let siteURL = contentGroup?.siteURL,
+               let languageCode = siteURL.wmf_languageCode {
+                let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: siteURL.wmf_languageVariantCode))
+                let date = Self.todayGameDateString()
+                cell.sessionFetchTask = Task { [weak cell] in
+                    let session = try? await WMFGamesDataController().fetchWhichCameFirstDailySession(date: date, project: project)
+                    guard !Task.isCancelled else { return }
+                    let state: WMFDailyGameExploreCell.SessionState
+                    if let session {
+                        if session.status == .completed {
+                            state = .completed(score: Int(session.score), totalQuestions: WMFGamesDataController.whichCameFirstQuestionCount)
+                        } else {
+                            state = .inProgress(questionsAnswered: Int(session.currentQuestionIndex), score: Int(session.score))
+                        }
+                    } else {
+                        state = .notStarted
+                    }
+                    cell?.configure(state: state)
+                }
+            }
         }
         cell.apply(theme: theme)
+    }
+
+    private static func todayGameDateString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter.string(from: Date())
+    }
+
+    @objc private func whichCameFirstSessionDidUpdate() {
+        guard contentGroup?.contentGroupKind == .dailyGame,
+              let cell = collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? WMFDailyGameExploreCell else {
+            return
+        }
+        configureDailyGameCell(cell, layoutOnly: false)
     }
 
     func updateLocationCells() {

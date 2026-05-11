@@ -5,7 +5,14 @@ import WMFComponents
 /// Intentionally minimal — this is the entry-point stub before full UI is built.
 class WMFDailyGameExploreCell: CollectionViewCell {
 
+    enum SessionState {
+        case notStarted
+        case inProgress(questionsAnswered: Int, score: Int)
+        case completed(score: Int, totalQuestions: Int)
+    }
+
     var onPlayButtonTapped: (() -> Void)?
+    var sessionFetchTask: Task<Void, Never>?
 
     private let descriptionLabel: UILabel = UILabel()
     private let playButton: UIButton = UIButton(type: .system)
@@ -13,14 +20,35 @@ class WMFDailyGameExploreCell: CollectionViewCell {
     override func setup() {
         super.setup()
 
-        descriptionLabel.text = "Today's history matching game"
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = .left
         addSubview(descriptionLabel)
 
-        playButton.setTitle("Play today's game", for: .normal)
         playButton.addTarget(self, action: #selector(didTapPlayButton), for: .touchUpInside)
         addSubview(playButton)
+
+        configure(state: .notStarted)
+    }
+
+    func configure(state: SessionState) {
+        switch state {
+        case .notStarted:
+            descriptionLabel.text = "Today's history matching game"
+            playButton.setTitle("Play today's game", for: .normal)
+        case .inProgress(let answered, _):
+            descriptionLabel.text = "\(answered) of 5 questions answered"
+            playButton.setTitle("Continue today's game", for: .normal)
+        case .completed(let score, let total):
+            descriptionLabel.text = "Final score: \(score)/\(total)"
+            playButton.setTitle("Review results", for: .normal)
+        }
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        sessionFetchTask?.cancel()
+        sessionFetchTask = nil
+        configure(state: .notStarted)
     }
 
     @objc private func didTapPlayButton() {

@@ -9,6 +9,7 @@ public enum WMFNSNotification {
     public static let sharedCacheStoreSetup = Notification.Name(WMFNotificationName.sharedCacheStoreSetup.rawValue)
     public static let readingChallengeWidgetReload = Notification.Name(WMFNotificationName.readingChallengeWidgetReload.rawValue)
     public static let gamesV1SettingDidChange = Notification.Name(WMFNotificationName.gamesV1SettingDidChange.rawValue)
+    public static let whichCameFirstSessionDidUpdate = Notification.Name(WMFNotificationName.whichCameFirstSessionDidUpdate.rawValue)
     
     /// User info keys for notifications
     public enum UserInfoKey {
@@ -25,4 +26,5 @@ private enum WMFNotificationName: String {
     case sharedCacheStoreSetup = "WMFDataSharedCacheStoreSetup"
     case readingChallengeWidgetReload = "WMFDataReadingChallengeWidgetReload"
     case gamesV1SettingDidChange = "WMFDataGamesV1SettingDidChange"
+    case whichCameFirstSessionDidUpdate = "WMFDataWhichCameFirstSessionDidUpdate"
 }
