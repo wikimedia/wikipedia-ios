@@ -58,17 +58,17 @@ class WMFDailyGameExploreCell: CollectionViewCell {
                 descriptionLabel.text = "Today's history matching game"
                 eventRowsHidden = true
             }
-            playButton.setTitle("Play today's game", for: .normal)
+            setPlayButtonTitle("Play today's game")
         case .inProgress(let answered, _):
             descriptionLabel.isHidden = false
             descriptionLabel.text = "\(answered) of 5 questions answered"
             eventRowsHidden = true
-            playButton.setTitle("Continue today's game", for: .normal)
+            setPlayButtonTitle("Continue today's game")
         case .completed(let score, let total):
             descriptionLabel.isHidden = false
             descriptionLabel.text = "Final score: \(score)/\(total)"
             eventRowsHidden = true
-            playButton.setTitle("Review results", for: .normal)
+            setPlayButtonTitle("Review results")
         }
         setNeedsLayout()
     }
@@ -137,6 +137,14 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         )
 
         return CGSize(width: size.width, height: buttonFrame.maxY + layoutMargins.bottom)
+    }
+    
+    /// UIButton defers flushing `setTitle(_:for:)` to `titleLabel.text` until its own
+    /// layout pass, which happens after `sizeThatFits` measures the label. Setting
+    /// `titleLabel?.text` directly ensures the manual layout sizing pass sees the new value.
+    private func setPlayButtonTitle(_ title: String) {
+        playButton.setTitle(title, for: .normal)
+        playButton.titleLabel?.text = title
     }
 }
 

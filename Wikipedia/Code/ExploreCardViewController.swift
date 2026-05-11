@@ -408,6 +408,14 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return
         }
 
+        // Synchronously decode preview events stored by the content source so the
+        // cell has the correct height from the very first layout pass.
+        let events = (contentGroup?.contentPreview as? Data)
+            .flatMap { try? JSONDecoder().decode([WMFWhichCameFirstEvent].self, from: $0) }
+        let optionA = events?.first
+        let optionB = (events?.count ?? 0 > 1) ? events?[1] : nil
+        cell.configure(state: .notStarted(optionA: optionA, optionB: optionB))
+
         if !layoutOnly {
             cell.onPlayButtonTapped = { [weak self] in
                 self?.delegate?.exploreCardViewController(self!, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
@@ -419,20 +427,13 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
                 let date = Self.todayGameDateString()
                 let controller = WMFGamesDataController()
                 cell.sessionFetchTask = Task { [weak cell] in
-                    async let sessionResult = controller.fetchWhichCameFirstDailySession(date: date, project: project)
-                    async let previewResult = controller.fetchWhichCameFirstDailyPreviewEvents(date: date, project: project)
-                    let session = try? await sessionResult
-                    let preview = try? await previewResult
-                    guard !Task.isCancelled else { return }
+                    let session = try? await controller.fetchWhichCameFirstDailySession(date: date, project: project)
+                    guard !Task.isCancelled, let session else { return }
                     let state: WMFDailyGameExploreCell.SessionState
-                    if let session {
-                        if session.status == .completed {
-                            state = .completed(score: Int(session.score), totalQuestions: WMFGamesDataController.whichCameFirstQuestionCount)
-                        } else {
-                            state = .inProgress(questionsAnswered: Int(session.currentQuestionIndex), score: Int(session.score))
-                        }
+                    if session.status == .completed {
+                        state = .completed(score: Int(session.score), totalQuestions: WMFGamesDataController.whichCameFirstQuestionCount)
                     } else {
-                        state = .notStarted(optionA: preview?.optionA, optionB: preview?.optionB)
+                        state = .inProgress(questionsAnswered: Int(session.currentQuestionIndex), score: Int(session.score))
                     }
                     cell?.configure(state: state)
                 }

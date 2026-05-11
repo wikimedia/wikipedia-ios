@@ -35,19 +35,31 @@ final class WMFDailyGameContentSource: NSObject, WMFContentSource {
         let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: nil))
         let today = Self.todayDateString()
 
+        let siteURL = self.siteURL
         Task {
             do {
-                let isAvailable = try await WMFGamesDataController().isWhichCameFirstDailySessionAvailable(date: today, project: project)
+                let gamesController = WMFGamesDataController()
+                let isAvailable = try await gamesController.isWhichCameFirstDailySessionAvailable(date: today, project: project)
                 guard isAvailable else {
                     completion?()
                     return
                 }
+
+                // Encode preview events as JSON Data so the cell can configure its layout
+                // synchronously without any async fetch. The OTD response is already cached
+                // from the isWhichCameFirstDailySessionAvailable check above.
+                var encodedPreview: Data?
+                if let preview = try? await gamesController.fetchWhichCameFirstDailyPreviewEvents(date: today, project: project) {
+                    let events = [preview.optionA, preview.optionB]
+                    encodedPreview = try? JSONEncoder().encode(events)
+                }
+
                 await moc.perform {
-                    guard let url = WMFContentGroup.dailyGameURL(forSiteURL: self.siteURL) else {
+                    guard let url = WMFContentGroup.dailyGameURL(forSiteURL: siteURL) else {
                         completion?()
                         return
                     }
-                    moc.fetchOrCreateGroup(for: url, of: .dailyGame, for: Date(), withSiteURL: self.siteURL, associatedContent: nil, customizationBlock: nil)
+                    moc.fetchOrCreateGroup(for: url, of: .dailyGame, for: Date(), withSiteURL: siteURL, associatedContent: encodedPreview as NSData?, customizationBlock: nil)
                     completion?()
                 }
             } catch {
