@@ -355,6 +355,31 @@ extension WMFGamesDataController {
         return try await fetchSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date)
     }
 
+    /// Returns the first question's two events for the Explore card preview.
+    /// Decodes from existing session content data when a session exists (no network call),
+    /// otherwise fetches one question from the OTD API without persisting anything.
+    public func fetchWhichCameFirstDailyPreviewEvents(
+        date: String,
+        project: WMFProject,
+        onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared
+    ) async throws -> (optionA: WMFWhichCameFirstEvent, optionB: WMFWhichCameFirstEvent)? {
+        if let session = try await fetchSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date) {
+            let gameState = try decodeWhichCameFirstGameState(from: session.contentData)
+            guard let first = gameState.questions.first else { return nil }
+            return (first.optionA, first.optionB)
+        }
+
+        let components = date.split(separator: "-")
+        guard components.count == 3,
+              let month = Int(components[1]),
+              let day = Int(components[2]) else { return nil }
+
+        let response = try await onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
+        let questions = Self.makeWhichCameFirstQuestions(from: response.events, count: 1)
+        guard let first = questions.first else { return nil }
+        return (first.optionA, first.optionB)
+    }
+
     public func fetchWhichCameFirstSessions(project: WMFProject) async throws -> [WMFGameSession] {
         return try await fetchSessions(gameType: Self.whichCameFirstGameType, project: project)
     }
