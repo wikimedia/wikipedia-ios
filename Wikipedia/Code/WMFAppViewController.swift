@@ -1126,12 +1126,17 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             showRandomArticleFromShortcut(siteURL: siteURL, animated: animated)
 
         case .activity:
+            
+            let activityVC = activityTabViewController
+            activityVC.disableModalsOnAppearance = true
+            
             dismissPresentedViewControllers()
             selectedIndex = WMFAppTabType.recent.rawValue
             currentTabNavigationController?.popToRootViewController(animated: animated)
             let shouldCollectPrize = activity.userInfo?["collectPrize"] as? Bool ?? false
             let tappedJoin = activity.userInfo?["join"] as? Bool ?? false
-            let activityVC = activityTabViewController
+            let fromAppStoreEvent = activity.userInfo?["appStoreEvent"] as? Bool ?? false
+            
             if shouldCollectPrize {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     activityVC.presentCollectPrize()
@@ -1139,6 +1144,10 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             } else if tappedJoin {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     activityVC.presentReadingChallengeAnnouncementFromWidget()
+                }
+            } else if fromAppStoreEvent {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    activityVC.presentReadingChallengeAnnouncementFromAppStoreEvent()
                 }
             }
 
