@@ -94,6 +94,15 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue, value: newValue) }
     }
 
+    public var showGamesV1: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowGamesV1.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowGamesV1.rawValue, value: newValue) }
+    }
+
+    public func clearGamesPersistence() async throws {
+        try await WMFGamesDataController().clearAllSessions()
+    }
+
     // MARK: - Reading Challenge Forced States
 
     private var sharedDefaults: UserDefaults? { UserDefaults(suiteName: "group.org.wikimedia.wikipedia") }

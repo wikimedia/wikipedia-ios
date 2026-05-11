@@ -922,6 +922,10 @@
 		67E6532C2BEC1E140024F699 /* InsertMediaSettingsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E6532B2BEC1E140024F699 /* InsertMediaSettingsViewControllerTests.swift */; };
 		67F1375E23C986CD00512B61 /* CacheTaskTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */; };
 		67F2CD742FABE41B00ABF73A /* ClientErrorFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEBCFCB2F5F03FE0098C0FF /* ClientErrorFunnel.swift */; };
+		67F432142FAD459C00827841 /* WMFDailyGameExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F432132FAD459C00827841 /* WMFDailyGameExploreCell.swift */; };
+		67F432152FAD459C00827841 /* WMFDailyGameExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F432132FAD459C00827841 /* WMFDailyGameExploreCell.swift */; };
+		67F432162FAD459C00827841 /* WMFDailyGameExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F432132FAD459C00827841 /* WMFDailyGameExploreCell.swift */; };
+		67F432182FAD45C800827841 /* WMFDailyGameContentSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F432172FAD45C800827841 /* WMFDailyGameContentSource.swift */; };
 		67F73383273C163700D7D713 /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73382273C163700D7D713 /* TimeInterval+Extensions.swift */; };
 		67F73386273C1FBA00D7D713 /* NotificationServiceHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73385273C1FBA00D7D713 /* NotificationServiceHelperTests.swift */; };
 		67F73388273C26A000D7D713 /* NotificationServiceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73387273C26A000D7D713 /* NotificationServiceHelper.swift */; };
@@ -3437,6 +3441,8 @@
 		67E8B0B6226F5E3800537BC9 /* Wikipedia 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 2.xcdatamodel"; sourceTree = "<group>"; };
 		67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTaskTracking.swift; sourceTree = "<group>"; };
 		67F35A6523E875B900C3D6C7 /* WMFLanguagesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLanguagesViewControllerDelegate.h; sourceTree = "<group>"; };
+		67F432132FAD459C00827841 /* WMFDailyGameExploreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFDailyGameExploreCell.swift; sourceTree = "<group>"; };
+		67F432172FAD45C800827841 /* WMFDailyGameContentSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFDailyGameContentSource.swift; sourceTree = "<group>"; };
 		67F73382273C163700D7D713 /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
 		67F73385273C1FBA00D7D713 /* NotificationServiceHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceHelperTests.swift; sourceTree = "<group>"; };
 		67F73387273C26A000D7D713 /* NotificationServiceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceHelper.swift; sourceTree = "<group>"; };
@@ -5456,6 +5462,7 @@
 				B0B4234F1EF32D2700D3DC4C /* WMFOnThisDayContentSource.m */,
 				675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */,
 				675D87592B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m */,
+				67F432172FAD45C800827841 /* WMFDailyGameContentSource.swift */,
 			);
 			name = "Content Sources";
 			path = ../Wikipedia/Code;
@@ -5720,6 +5727,7 @@
 				BCCB81461C110857008BC602 /* POTD */,
 				0E52FD651DA40EA200587426 /* Nearby */,
 				675D875C2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift */,
+				67F432132FAD459C00827841 /* WMFDailyGameExploreCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -9972,6 +9980,7 @@
 				00BCB71826DEE04D002C3F72 /* InsetLabelView.swift in Sources */,
 				6782DB912343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
 				D8E6FF7C2405AAC400686272 /* ArticleViewController+Analytics.swift in Sources */,
+				67F432142FAD459C00827841 /* WMFDailyGameExploreCell.swift in Sources */,
 				7A9524CB22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				83D3140A2F5B420E007F822D /* UIViewController+Extensions.swift in Sources */,
 				675826752D68CEBC002B0EE7 /* ArticleCoordinator.swift in Sources */,
@@ -10390,6 +10399,7 @@
 				67E5DA6B276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift in Sources */,
 				7A3AD05820ADB1A900C92E04 /* WMFAuthenticationManager.swift in Sources */,
 				D87F1D3D1EC0ACC400575CF8 /* AsyncOperation.swift in Sources */,
+				67F432182FAD45C800827841 /* WMFDailyGameContentSource.swift in Sources */,
 				00D9B10729C8E680008A01E0 /* WidgetContentURL.swift in Sources */,
 				D8650B7C20350FEE0044DFFA /* NSString+SHA256.m in Sources */,
 				D8FA18BA1E1BD891009675C3 /* NSDate+WMFRelativeDate.m in Sources */,
@@ -11062,6 +11072,7 @@
 				83F1096F23D0E787003F3E9E /* RandomArticleViewController.swift in Sources */,
 				371783992FA2969400DA2E03 /* WidgetFunnel.swift in Sources */,
 				7ABE17252239BB54006BA309 /* WelcomePanelViewController.swift in Sources */,
+				67F432152FAD459C00827841 /* WMFDailyGameExploreCell.swift in Sources */,
 				678D79F1235E5979006161FF /* DiffListChangeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -11605,6 +11616,7 @@
 				83F1097023D0E787003F3E9E /* RandomArticleViewController.swift in Sources */,
 				3717839A2FA2969400DA2E03 /* WidgetFunnel.swift in Sources */,
 				7ABE17262239BB54006BA309 /* WelcomePanelViewController.swift in Sources */,
+				67F432162FAD459C00827841 /* WMFDailyGameExploreCell.swift in Sources */,
 				678D79F2235E5979006161FF /* DiffListChangeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
