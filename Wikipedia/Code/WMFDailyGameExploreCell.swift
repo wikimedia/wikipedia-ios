@@ -14,23 +14,40 @@ class WMFDailyGameExploreCell: CollectionViewCell {
     var onPlayButtonTapped: (() -> Void)?
     var sessionFetchTask: Task<Void, Never>?
 
+    // Persisted so inProgress can still lay out invisible event rows at the correct size.
+    private var cachedEventA: WMFWhichCameFirstEvent?
+    private var cachedEventB: WMFWhichCameFirstEvent?
+
     // MARK: - Subviews
 
+    private let headerIconView = UIImageView()
+    private let headerTitleLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let playButton = UIButton(type: .system)
 
-    // Event rows — only visible in .notStarted state with events
+    // Event rows — shown (possibly transparent) when event data is available
     private let eventRowA = WMFDailyGameEventRowView()
     private let eventRowB = WMFDailyGameEventRowView()
-    private var eventRowsHidden: Bool = true {
+
+    /// When true the rows still occupy space but are invisible (alpha = 0).
+    private var eventRowsTransparent: Bool = false {
         didSet {
-            eventRowA.isHidden = eventRowsHidden
-            eventRowB.isHidden = eventRowsHidden
+            let a: CGFloat = eventRowsTransparent ? 0 : 1
+            eventRowA.alpha = a
+            eventRowB.alpha = a
         }
     }
 
     override func setup() {
         super.setup()
+
+        headerIconView.image = WMFSFSymbolIcon.for(symbol: .calendar)
+        headerIconView.contentMode = .scaleAspectFit
+        addSubview(headerIconView)
+
+        headerTitleLabel.text = "Which came first?"
+        headerTitleLabel.numberOfLines = 1
+        addSubview(headerTitleLabel)
 
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = .left
@@ -49,25 +66,32 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         switch state {
         case .notStarted(let optionA, let optionB):
             if let optionA, let optionB {
+                cachedEventA = optionA
+                cachedEventB = optionB
                 descriptionLabel.isHidden = true
-                eventRowsHidden = false
+                eventRowsTransparent = false
                 eventRowA.configure(text: optionA.title, thumbnailURL: optionA.thumbnailURL)
                 eventRowB.configure(text: optionB.title, thumbnailURL: optionB.thumbnailURL)
             } else {
-                descriptionLabel.isHidden = false
-                descriptionLabel.text = "Today's history matching game"
-                eventRowsHidden = true
+                eventRowsTransparent = false
             }
             setPlayButtonTitle("Play today's game")
         case .inProgress(let answered, _):
             descriptionLabel.isHidden = false
-            descriptionLabel.text = "\(answered) of 5 questions answered"
-            eventRowsHidden = true
+            descriptionLabel.text = "You're on question \(answered + 1). Continue guessing which event came first on this day in history."
+            // Keep event rows in layout (invisible) so the button stays anchored at the same position.
+            if let a = cachedEventA, let b = cachedEventB {
+                eventRowA.configure(text: a.title, thumbnailURL: a.thumbnailURL)
+                eventRowB.configure(text: b.title, thumbnailURL: b.thumbnailURL)
+                eventRowsTransparent = true
+            } else {
+                eventRowsTransparent = true
+            }
             setPlayButtonTitle("Continue today's game")
         case .completed(let score, let total):
             descriptionLabel.isHidden = false
             descriptionLabel.text = "Final score: \(score)/\(total)"
-            eventRowsHidden = true
+            eventRowsTransparent = false
             setPlayButtonTitle("Review results")
         }
         setNeedsLayout()
@@ -77,6 +101,8 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         super.prepareForReuse()
         sessionFetchTask?.cancel()
         sessionFetchTask = nil
+        cachedEventA = nil
+        cachedEventB = nil
         eventRowA.cancelImageLoad()
         eventRowB.cancelImageLoad()
         configure(state: .notStarted(optionA: nil, optionB: nil))
@@ -88,6 +114,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
 
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
+        headerTitleLabel.font = WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)
         descriptionLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
         playButton.titleLabel?.font = WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)
         eventRowA.updateFonts(with: traitCollection)
@@ -107,25 +134,39 @@ class WMFDailyGameExploreCell: CollectionViewCell {
 
         var y = layoutMargins.top
 
-        if !eventRowsHidden {
-            let rowWidth = availableWidth
-            let aFrame = eventRowA.sizeThatFits(CGSize(width: rowWidth, height: UIView.noIntrinsicMetric))
-            if apply { eventRowA.frame = CGRect(x: layoutMargins.left, y: y, width: rowWidth, height: aFrame.height) }
-            y += aFrame.height + Self.rowSpacing
-
-            let bFrame = eventRowB.sizeThatFits(CGSize(width: rowWidth, height: UIView.noIntrinsicMetric))
-            if apply { eventRowB.frame = CGRect(x: layoutMargins.left, y: y, width: rowWidth, height: bFrame.height) }
-            y += bFrame.height
-        } else {
-            let descFrame = descriptionLabel.wmf_preferredFrame(
+        // Header: calendar icon on its own line, then title below
+        let iconSize: CGFloat = 22
+        if apply {
+            headerIconView.frame = CGRect(x: layoutMargins.left, y: y, width: iconSize, height: iconSize)
+        }
+        y += iconSize + 6
+        let headerTitleFrame = headerTitleLabel.wmf_preferredFrame(
+            at: CGPoint(x: layoutMargins.left, y: y),
+            maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+            minimumSize: NoIntrinsicSize,
+            alignedBy: .forceLeftToRight,
+            apply: apply
+        )
+        y = headerTitleFrame.maxY + 12
+        
+        if !descriptionLabel.isHidden {
+            let _ = descriptionLabel.wmf_preferredFrame(
                 at: CGPoint(x: layoutMargins.left, y: y),
                 maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
                 minimumSize: NoIntrinsicSize,
                 alignedBy: .forceLeftToRight,
                 apply: apply
             )
-            y = descFrame.maxY
         }
+
+        let rowWidth = availableWidth
+        let aFrame = eventRowA.sizeThatFits(CGSize(width: rowWidth, height: UIView.noIntrinsicMetric))
+        if apply { eventRowA.frame = CGRect(x: layoutMargins.left, y: y, width: rowWidth, height: aFrame.height) }
+        y += aFrame.height + Self.rowSpacing
+
+        let bFrame = eventRowB.sizeThatFits(CGSize(width: rowWidth, height: UIView.noIntrinsicMetric))
+        if apply { eventRowB.frame = CGRect(x: layoutMargins.left, y: y, width: rowWidth, height: bFrame.height) }
+        y += bFrame.height
 
         let buttonSpacing: CGFloat = 12
         let buttonFrame = playButton.wmf_preferredFrame(
@@ -150,6 +191,8 @@ class WMFDailyGameExploreCell: CollectionViewCell {
 
 extension WMFDailyGameExploreCell: Themeable {
     func apply(theme: Theme) {
+        headerIconView.tintColor = theme.colors.primaryText
+        headerTitleLabel.textColor = theme.colors.primaryText
         descriptionLabel.textColor = theme.colors.secondaryText
         playButton.tintColor = theme.colors.link
         selectedBackgroundView?.backgroundColor = theme.colors.midBackground
