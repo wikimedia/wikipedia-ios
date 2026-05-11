@@ -1,31 +1,31 @@
-import Foundation
 import XCTest
 
 final class AppOnboardingUITests: XCTestCase {
 
     func testFirstLaunchShowsOnboardingSmoke() throws {
-        let app = XCUIApplication()
-        app.configureForUITestLaunch(configuration: .init(onboardingState: .notCompleted))
-        app.launch()
+        let app = launchWikipediaApp(onboardingState: .notCompleted)
 
-        XCTAssertTrue(app.otherElements["App Onboarding Introduction View"].waitForExistence(timeout: 10))
+        assertOnboardingPage(.introduction, in: app)
     }
 
     func testOnboardingScreenshots() throws {
-        let app = XCUIApplication()
-        app.configureForUITestLaunch(configuration: .init(onboardingState: .notCompleted))
-        app.launch()
-
-        XCTAssertTrue(app.otherElements["App Onboarding Introduction View"].waitForExistence(timeout: 5))
+        enum ScreenshotNames: String {
+            case initial = "App Onboarding Initial"
+            case explore = "App Onboarding Explore"
+        }
         
+        let app = launchWikipediaApp(onboardingState: .notCompleted)
+
+        assertOnboardingPage(.introduction, in: app)
+
         let initialAttachment = XCTAttachment(screenshot: app.screenshot())
         initialAttachment.name = ScreenshotNames.initial.rawValue
         initialAttachment.lifetime = .keepAlways
         add(initialAttachment)
 
-        app.buttons["App Onboarding Skip Button"].tap()
+        tapButton(withIdentifier: AccessibilityIdentifiers.Onboarding.skipButton, in: app)
 
-        let exploreView = app.otherElements["Explore View"]
+        let exploreView = app.otherElements[AccessibilityIdentifiers.Explore.view]
         XCTAssertTrue(exploreView.waitForExistence(timeout: 5))
 
         let exploreAttachment = XCTAttachment(screenshot: app.screenshot())
@@ -33,9 +33,85 @@ final class AppOnboardingUITests: XCTestCase {
         exploreAttachment.lifetime = .keepAlways
         add(exploreAttachment)
     }
-}
 
-private enum ScreenshotNames: String {
-    case initial = "App Onboarding Initial"
-    case explore = "App Onboarding Explore"
+    func testLearnMoreLinksPresentDestinations() throws {
+        let app = launchWikipediaApp(onboardingState: .notCompleted)
+
+        assertOnboardingPage(.introduction, in: app)
+        tapButton(withIdentifier: AccessibilityIdentifiers.Onboarding.introductionLearnMoreButton, in: app)
+
+        let introductionAlert = app.alerts.firstMatch
+        XCTAssertTrue(introductionAlert.waitForExistence(timeout: 5))
+        introductionAlert.buttons.firstMatch.tap()
+        waitForElementToDisappear(introductionAlert)
+
+        advanceOnboarding(to: .analytics, in: app)
+        tapButton(withIdentifier: AccessibilityIdentifiers.Onboarding.analyticsLearnMoreButton, in: app)
+
+        let analyticsLinks = app.sheets.firstMatch
+        XCTAssertTrue(analyticsLinks.waitForExistence(timeout: 5))
+        XCTAssertTrue(analyticsLinks.buttons.element(boundBy: 0).exists)
+        XCTAssertTrue(analyticsLinks.buttons.element(boundBy: 1).exists)
+        XCTAssertTrue(analyticsLinks.buttons.element(boundBy: 2).exists)
+        analyticsLinks.buttons.element(boundBy: 2).tap()
+    }
+
+    func testAdditionalLanguageCanBeAddedDuringOnboarding() throws {
+        let app = launchWikipediaApp(
+            onboardingState: .notCompleted,
+            resetsPreferredLanguages: true
+        )
+
+        advanceOnboarding(to: .languages, in: app)
+        tapButton(withIdentifier: AccessibilityIdentifiers.Onboarding.addLanguagesButton, in: app)
+
+        waitForPreferredLanguagesList(in: app)
+        let targetLanguageCode = try languageCodeAvailableToAdd(in: app)
+        tapPreferredLanguagesAddLanguageButton(in: app)
+
+        XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.LanguageSelection.allLanguagesView].waitForExistence(timeout: 5))
+
+        let searchField = app.searchFields.firstMatch
+        XCTAssertTrue(searchField.waitForExistence(timeout: 5))
+        searchField.tap()
+        searchField.typeText(targetLanguageCode)
+
+        let languageCell = app.cells[AccessibilityIdentifiers.LanguageSelection.allLanguage(targetLanguageCode)]
+        XCTAssertTrue(languageCell.waitForExistence(timeout: 5))
+        languageCell.tap()
+
+        let preferredLanguageCell = app.cells[AccessibilityIdentifiers.LanguageSelection.preferredLanguage(targetLanguageCode)]
+        XCTAssertTrue(preferredLanguageCell.waitForExistence(timeout: 5))
+    }
+
+    func testWelcomeScreensCanBeAdvancedByTappingNext() throws {
+        let app = launchWikipediaApp(onboardingState: .notCompleted)
+
+        assertOnboardingPage(.introduction, in: app)
+        tapOnboardingNext(in: app)
+        assertOnboardingPage(.exploration, in: app)
+        tapOnboardingNext(in: app)
+        assertOnboardingPage(.languages, in: app)
+        tapOnboardingNext(in: app)
+        assertOnboardingPage(.analytics, in: app)
+    }
+
+    func testWelcomeScreensCanBeAdvancedBySwiping() throws {
+        let app = launchWikipediaApp(onboardingState: .notCompleted)
+
+        assertOnboardingPage(.introduction, in: app)
+        swipeToNextOnboardingPage(from: .introduction, to: .exploration, in: app)
+        swipeToNextOnboardingPage(from: .exploration, to: .languages, in: app)
+        swipeToNextOnboardingPage(from: .languages, to: .analytics, in: app)
+    }
+
+    func testOnboardingCanBeSkipped() throws {
+        let app = launchWikipediaApp(onboardingState: .notCompleted)
+
+        assertOnboardingPage(.introduction, in: app)
+        tapButton(withIdentifier: AccessibilityIdentifiers.Onboarding.skipButton, in: app)
+
+        let exploreView = app.otherElements[AccessibilityIdentifiers.Explore.view]
+        XCTAssertTrue(exploreView.waitForExistence(timeout: 5))
+    }
 }

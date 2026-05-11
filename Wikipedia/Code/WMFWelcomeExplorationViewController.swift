@@ -15,6 +15,7 @@ class WMFWelcomeExplorationViewController: ThemeableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.clear
+        view.accessibilityIdentifier = AccessibilityIdentifiers.Onboarding.explorationView
 
         exploreTitleLabel.text = CommonStrings.exploreFeedTitle
         exploreDescriptionLabel.text = WMFLocalizedString("welcome-exploration-explore-feed-description", value:"Recommended reading and daily articles from our community", comment:"Description for Explore feed")

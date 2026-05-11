@@ -35,6 +35,13 @@ import WMFData
             WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode = enableDeveloperMode
         }
     }
+
+    @Published public var showGamesV1: Bool = WMFDeveloperSettingsDataController.shared.showGamesV1 {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.showGamesV1 = showGamesV1
+            NotificationCenter.default.post(name: WMFNSNotification.gamesV1SettingDidChange, object: nil)
+        }
+    }
     
     @Published public var readingChallengeOverrideCurrentDate: Bool = WMFDeveloperSettingsDataController.shared.devReadingChallengeOverrideCurrentDate ?? false {
         didSet {
@@ -187,6 +194,12 @@ import WMFData
         readingChallengeState = nil
         readingChallengeStreakCount = 7
         WMFDeveloperSettingsDataController.shared.devClearAllReadingChallengePersistence()
+    }
+
+    public func clearGamesPersistence() {
+        Task {
+            try? await WMFDeveloperSettingsDataController.shared.clearGamesPersistence()
+        }
     }
 }
 

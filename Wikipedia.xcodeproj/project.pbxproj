@@ -722,6 +722,10 @@
 		67A0699E2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
 		67A0699F2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
 		67A069A02D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
+		67A18A122FAD100100000001 /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A18A112FAD100100000001 /* AccessibilityIdentifiers.swift */; };
+		67A18A132FAD100100000001 /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A18A112FAD100100000001 /* AccessibilityIdentifiers.swift */; };
+		67A18A142FAD100100000001 /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A18A112FAD100100000001 /* AccessibilityIdentifiers.swift */; };
+		67A18A152FAD100100000001 /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A18A112FAD100100000001 /* AccessibilityIdentifiers.swift */; };
 		67A486872BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */; };
 		67A486A42BEBF3C5001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
 		67A486A52BEBF40F001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
@@ -843,6 +847,9 @@
 		67CEF26F2351113000D5CA6C /* DiffController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF26E2351113000D5CA6C /* DiffController.swift */; };
 		67CEF2702351113000D5CA6C /* DiffController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF26E2351113000D5CA6C /* DiffController.swift */; };
 		67CEF2712351113000D5CA6C /* DiffController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEF26E2351113000D5CA6C /* DiffController.swift */; };
+		67D468782FA94600006DD42F /* WMFAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D468772FA94600006DD42F /* WMFAppViewController.swift */; };
+		67D468792FA94600006DD42F /* WMFAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D468772FA94600006DD42F /* WMFAppViewController.swift */; };
+		67D4687A2FA94600006DD42F /* WMFAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D468772FA94600006DD42F /* WMFAppViewController.swift */; };
 		67D6C00A240581ED005709B1 /* CacheItemMigrationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D6C009240581ED005709B1 /* CacheItemMigrationPolicy.swift */; };
 		67D6C00C24058714005709B1 /* CacheItemMappingModel.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 67D6C00B24058714005709B1 /* CacheItemMappingModel.xcmappingmodel */; };
 		67D6C01C2405A4FB005709B1 /* CacheItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D6C01A2405A4FB005709B1 /* CacheItem+CoreDataClass.swift */; };
@@ -914,6 +921,11 @@
 		67E5DA6B276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E5DA6A276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift */; };
 		67E6532C2BEC1E140024F699 /* InsertMediaSettingsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E6532B2BEC1E140024F699 /* InsertMediaSettingsViewControllerTests.swift */; };
 		67F1375E23C986CD00512B61 /* CacheTaskTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */; };
+		67F2CD742FABE41B00ABF73A /* ClientErrorFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEBCFCB2F5F03FE0098C0FF /* ClientErrorFunnel.swift */; };
+		67F432142FAD459C00827841 /* WMFDailyGameExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F432132FAD459C00827841 /* WMFDailyGameExploreCell.swift */; };
+		67F432152FAD459C00827841 /* WMFDailyGameExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F432132FAD459C00827841 /* WMFDailyGameExploreCell.swift */; };
+		67F432162FAD459C00827841 /* WMFDailyGameExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F432132FAD459C00827841 /* WMFDailyGameExploreCell.swift */; };
+		67F432182FAD45C800827841 /* WMFDailyGameContentSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F432172FAD45C800827841 /* WMFDailyGameContentSource.swift */; };
 		67F73383273C163700D7D713 /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73382273C163700D7D713 /* TimeInterval+Extensions.swift */; };
 		67F73386273C1FBA00D7D713 /* NotificationServiceHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73385273C1FBA00D7D713 /* NotificationServiceHelperTests.swift */; };
 		67F73388273C26A000D7D713 /* NotificationServiceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73387273C26A000D7D713 /* NotificationServiceHelper.swift */; };
@@ -1797,7 +1809,6 @@
 		B0DF6F811CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */; };
 		B0E294CD1DB2CF4300861D04 /* UIView+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CC1DB2CF4300861D04 /* UIView+Animations.swift */; };
 		B0E294D31DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294D21DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift */; };
-		B0E802C11C0CD27F0065EBC0 /* WMFAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */; };
 		B0E8031C1C0CD6820065EBC0 /* WMFCompassView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8031B1C0CD6820065EBC0 /* WMFCompassView.m */; };
 		B0E803441C0CD7980065EBC0 /* WMFSearchFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803431C0CD7980065EBC0 /* WMFSearchFetcher.m */; };
 		B0E803481C0CD7AA0065EBC0 /* WMFSearchResults.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803471C0CD7AA0065EBC0 /* WMFSearchResults.m */; };
@@ -2147,6 +2158,7 @@
 		D89D44021D74D3ED00F7862E /* MWKSearchResult.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807CB1C0CF04A0065EBC0 /* MWKSearchResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D89D44031D74D40100F7862E /* MWKSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807CC1C0CF04A0065EBC0 /* MWKSearchResult.m */; };
 		D89DAE1B1D6CC6410089F7E1 /* MWKTitleLanguageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */; };
+		D8A3C8F22FBB000100E6073C /* UserDefaultsThemeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A3C8F12FBB000100E6073C /* UserDefaultsThemeTests.swift */; };
 		D8A47C8523D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A47C8423D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift */; };
 		D8A47C8623D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A47C8423D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift */; };
 		D8A47C8723D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A47C8423D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift */; };
@@ -2248,7 +2260,6 @@
 		D8CE25BC1E698E2400DAE2E0 /* WikiTextSectionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */; };
 		D8CE25C61E698E2400DAE2E0 /* WMFWelcomeAnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08337601DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift */; };
 		D8CE25C71E698E2400DAE2E0 /* WMFRevisionQueryResults.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E41C22429100B5AFDE /* WMFRevisionQueryResults.m */; };
-		D8CE25C81E698E2400DAE2E0 /* WMFAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */; };
 		D8CE25CC1E698E2400DAE2E0 /* UIView+IBExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */; };
 		D8CE25CF1E698E2400DAE2E0 /* UIViewController+WMFWelcomeStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B30D01DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift */; };
 		D8CE25D01E698E2400DAE2E0 /* WMFLanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF224991CC5536200FDF78E /* WMFLanguageCell.m */; };
@@ -2448,7 +2459,6 @@
 		D8EC3EBB1E9BDA35006712EB /* WMFAuthLinkLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B010E1A71E723E3600CFE1CD /* WMFAuthLinkLabel.swift */; };
 		D8EC3EC41E9BDA35006712EB /* WMFWelcomeAnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08337601DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift */; };
 		D8EC3EC51E9BDA35006712EB /* WMFRevisionQueryResults.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E41C22429100B5AFDE /* WMFRevisionQueryResults.m */; };
-		D8EC3EC61E9BDA35006712EB /* WMFAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */; };
 		D8EC3ECA1E9BDA35006712EB /* UIView+IBExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */; };
 		D8EC3ECD1E9BDA35006712EB /* UIViewController+WMFWelcomeStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B30D01DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift */; };
 		D8EC3ECE1E9BDA35006712EB /* WMFLanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF224991CC5536200FDF78E /* WMFLanguageCell.m */; };
@@ -3162,6 +3172,7 @@
 		0EF8634F1C19E4F100006D2D /* WMFEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFEmptyView.h; path = Wikipedia/Code/WMFEmptyView.h; sourceTree = SOURCE_ROOT; };
 		0EF863501C19E4F100006D2D /* WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFEmptyView.m; path = Wikipedia/Code/WMFEmptyView.m; sourceTree = SOURCE_ROOT; };
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
+		2FEBCFCB2F5F03FE0098C0FF /* ClientErrorFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientErrorFunnel.swift; sourceTree = "<group>"; };
 		370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountSheetCoordinator.swift; sourceTree = "<group>"; };
 		370C97F92EA17F7C00642A08 /* ActivityTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTabViewController.swift; sourceTree = "<group>"; };
 		3712FD692EDF76850096DF71 /* ActivityTabFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTabFunnel.swift; sourceTree = "<group>"; };
@@ -3324,6 +3335,7 @@
 		679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTests.swift; sourceTree = "<group>"; };
 		679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleManualPerformanceTests.swift; sourceTree = "<group>"; };
 		67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ProfileButton.swift"; sourceTree = "<group>"; };
+		67A18A112FAD100100000001 /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
 		67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFAnnouncementsContentSource+Extensions.swift"; sourceTree = "<group>"; };
 		67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicWord.swift; sourceTree = "<group>"; };
 		67A486A72BEC009F001D3FF9 /* MagicWordUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicWordUtils.swift; sourceTree = "<group>"; };
@@ -3383,6 +3395,7 @@
 		67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListUneditedCell.xib; sourceTree = "<group>"; };
 		67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffNetworkModels.swift; sourceTree = "<group>"; };
 		67CEF26E2351113000D5CA6C /* DiffController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffController.swift; sourceTree = "<group>"; };
+		67D468772FA94600006DD42F /* WMFAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFAppViewController.swift; sourceTree = "<group>"; };
 		67D6C008240581B2005709B1 /* Cache 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Cache 2.xcdatamodel"; sourceTree = "<group>"; };
 		67D6C009240581ED005709B1 /* CacheItemMigrationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheItemMigrationPolicy.swift; sourceTree = "<group>"; };
 		67D6C00B24058714005709B1 /* CacheItemMappingModel.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = CacheItemMappingModel.xcmappingmodel; sourceTree = "<group>"; };
@@ -3428,6 +3441,8 @@
 		67E8B0B6226F5E3800537BC9 /* Wikipedia 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 2.xcdatamodel"; sourceTree = "<group>"; };
 		67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTaskTracking.swift; sourceTree = "<group>"; };
 		67F35A6523E875B900C3D6C7 /* WMFLanguagesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLanguagesViewControllerDelegate.h; sourceTree = "<group>"; };
+		67F432132FAD459C00827841 /* WMFDailyGameExploreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFDailyGameExploreCell.swift; sourceTree = "<group>"; };
+		67F432172FAD45C800827841 /* WMFDailyGameContentSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFDailyGameContentSource.swift; sourceTree = "<group>"; };
 		67F73382273C163700D7D713 /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
 		67F73385273C1FBA00D7D713 /* NotificationServiceHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceHelperTests.swift; sourceTree = "<group>"; };
 		67F73387273C26A000D7D713 /* NotificationServiceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceHelper.swift; sourceTree = "<group>"; };
@@ -3862,8 +3877,6 @@
 		B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKWebView+WMFWebViewControllerJavascript.m"; path = "Wikipedia/Code/WKWebView+WMFWebViewControllerJavascript.m"; sourceTree = SOURCE_ROOT; };
 		B0E294CC1DB2CF4300861D04 /* UIView+Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Animations.swift"; path = "Wikipedia/Code/UIView+Animations.swift"; sourceTree = SOURCE_ROOT; };
 		B0E294D21DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeIntroductionViewController.swift; path = Wikipedia/Code/WMFWelcomeIntroductionViewController.swift; sourceTree = SOURCE_ROOT; };
-		B0E802BF1C0CD27F0065EBC0 /* WMFAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAppViewController.h; path = Wikipedia/Code/WMFAppViewController.h; sourceTree = SOURCE_ROOT; };
-		B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAppViewController.m; path = Wikipedia/Code/WMFAppViewController.m; sourceTree = SOURCE_ROOT; usesTabs = 0; };
 		B0E802FC1C0CD5000065EBC0 /* WMFLocationSearchFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFLocationSearchFetcher.h; path = Wikipedia/Code/WMFLocationSearchFetcher.h; sourceTree = SOURCE_ROOT; };
 		B0E802FD1C0CD5000065EBC0 /* WMFLocationSearchFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFLocationSearchFetcher.m; path = Wikipedia/Code/WMFLocationSearchFetcher.m; sourceTree = SOURCE_ROOT; };
 		B0E802FE1C0CD5000065EBC0 /* WMFLocationSearchResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFLocationSearchResults.h; path = Wikipedia/Code/WMFLocationSearchResults.h; sourceTree = SOURCE_ROOT; };
@@ -4273,6 +4286,7 @@
 		D8987E011E325C7A00E75DA6 /* WMFKeyValue+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFKeyValue+CoreDataClass.m"; sourceTree = "<group>"; };
 		D8987E021E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFKeyValue+CoreDataProperties.h"; sourceTree = "<group>"; };
 		D8987E031E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFKeyValue+CoreDataProperties.m"; sourceTree = "<group>"; };
+		D8A3C8F12FBB000100E6073C /* UserDefaultsThemeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsThemeTests.swift; sourceTree = "<group>"; };
 		D8A47C8423D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoIntrinsicContentSizeImageView.swift; sourceTree = "<group>"; };
 		D8A47C8923D728A4002AA823 /* ArticleTableOfContentsDisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTableOfContentsDisplayController.swift; sourceTree = "<group>"; };
 		D8A47C8E23D7338C002AA823 /* ArticleViewController+TableOfContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+TableOfContents.swift"; sourceTree = "<group>"; };
@@ -5448,6 +5462,7 @@
 				B0B4234F1EF32D2700D3DC4C /* WMFOnThisDayContentSource.m */,
 				675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */,
 				675D87592B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m */,
+				67F432172FAD45C800827841 /* WMFDailyGameContentSource.swift */,
 			);
 			name = "Content Sources";
 			path = ../Wikipedia/Code;
@@ -5540,6 +5555,7 @@
 		0E7AAEEA1C21F4160046B5B6 /* Wikimedia Event Logging */ = {
 			isa = PBXGroup;
 			children = (
+				2FEBCFCB2F5F03FE0098C0FF /* ClientErrorFunnel.swift */,
 				371783972FA2968D00DA2E03 /* WidgetFunnel.swift */,
 				3712FD692EDF76850096DF71 /* ActivityTabFunnel.swift */,
 				83D861422DE7580C003313CD /* ArticleTabsFunnel.swift */,
@@ -5711,6 +5727,7 @@
 				BCCB81461C110857008BC602 /* POTD */,
 				0E52FD651DA40EA200587426 /* Nearby */,
 				675D875C2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift */,
+				67F432132FAD459C00827841 /* WMFDailyGameExploreCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -6858,9 +6875,8 @@
 		BC45D5461C31E0C0007C72F3 /* App View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				67D468772FA94600006DD42F /* WMFAppViewController.swift */,
 				67CA58832F6066DA006F6EEA /* AppViewControllerTipWrapper.swift */,
-				B0E802BF1C0CD27F0065EBC0 /* WMFAppViewController.h */,
-				B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */,
 				53A575F92602C845009835E6 /* WMFAppViewController+Extensions.swift */,
 				8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */,
 				B0421AA1206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift */,
@@ -7115,6 +7131,7 @@
 				83ACAAA024E6E371003B3035 /* Wikipedia */,
 				B08423DC2384E260005E93A0 /* URLTranslations */,
 				7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */,
+				67A18A112FAD100100000001 /* AccessibilityIdentifiers.swift */,
 				D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */,
 				7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */,
 				67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */,
@@ -7459,6 +7476,7 @@
 				A452F9FA24081A7200D8ED09 /* LocationManagerTests.swift */,
 				00D280FB247F019C006BEE23 /* Date+ExtensionTests.swift */,
 				FFBA8C1827D824D8009E9B65 /* URL+ExtensionTests.swift */,
+				D8A3C8F12FBB000100E6073C /* UserDefaultsThemeTests.swift */,
 				00A8F58526BDD5E700175B8E /* WidgetSampleContentTests.swift */,
 			);
 			name = Tests;
@@ -9434,6 +9452,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				67E32CAF2F5BE381009AA52D /* AppOnboardingUITests.swift in Sources */,
+				67A18A152FAD100100000001 /* AccessibilityIdentifiers.swift in Sources */,
 				674205312F9A556100BBA0CA /* ExploreUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -9481,6 +9500,7 @@
 				679F0AAD24574AD400EF4A6A /* ArticleViewControllerTests.swift in Sources */,
 				67E3992A24786E2100441831 /* ReadingListManualPerformanceTests.swift in Sources */,
 				D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */,
+				D8A3C8F22FBB000100E6073C /* UserDefaultsThemeTests.swift in Sources */,
 				A452F9F824081A5500D8ED09 /* MockCLLocationManager.swift in Sources */,
 				67DAEDEC27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelUserTalkMessageTests.swift in Sources */,
 				B0C06B9F218240CA00E481CC /* Collection+AsyncMapTests.swift in Sources */,
@@ -9631,6 +9651,7 @@
 				00E75B6C27EB92DE00A45B78 /* NotificationsCenterDetailHeaderCell.swift in Sources */,
 				8382F8D320D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				67A0699E2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */,
+				67A18A122FAD100100000001 /* AccessibilityIdentifiers.swift in Sources */,
 				D88FCADF1E4B74D300505A9F /* WikidataFetcher+Places.swift in Sources */,
 				B0432344210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				FFD7B85924B3CA7A005C2471 /* ReferenceShowing.swift in Sources */,
@@ -9759,6 +9780,7 @@
 				7A4B333C2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				D8CB32AD1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
 				00CB6898288B0CD3002EBB0A /* TalkPageHeaderView.swift in Sources */,
+				67D468792FA94600006DD42F /* WMFAppViewController.swift in Sources */,
 				83E52BBF1F682E3E0045E776 /* LicenseView.swift in Sources */,
 				671AC2562226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift in Sources */,
 				FF2090F02500247100849774 /* ThreeLineHeaderView.swift in Sources */,
@@ -9952,13 +9974,13 @@
 				0042813925E6E841004945B3 /* NYTScalingImageView.m in Sources */,
 				B0845E1120618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				3712FD6C2EDF76860096DF71 /* ActivityTabFunnel.swift in Sources */,
-				B0E802C11C0CD27F0065EBC0 /* WMFAppViewController.m in Sources */,
 				7AFEB3F51FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
 				B08624341F72EA1A00B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */,
 				B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */,
 				00BCB71826DEE04D002C3F72 /* InsetLabelView.swift in Sources */,
 				6782DB912343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
 				D8E6FF7C2405AAC400686272 /* ArticleViewController+Analytics.swift in Sources */,
+				67F432142FAD459C00827841 /* WMFDailyGameExploreCell.swift in Sources */,
 				7A9524CB22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				83D3140A2F5B420E007F822D /* UIViewController+Extensions.swift in Sources */,
 				675826752D68CEBC002B0EE7 /* ArticleCoordinator.swift in Sources */,
@@ -10377,6 +10399,7 @@
 				67E5DA6B276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift in Sources */,
 				7A3AD05820ADB1A900C92E04 /* WMFAuthenticationManager.swift in Sources */,
 				D87F1D3D1EC0ACC400575CF8 /* AsyncOperation.swift in Sources */,
+				67F432182FAD45C800827841 /* WMFDailyGameContentSource.swift in Sources */,
 				00D9B10729C8E680008A01E0 /* WidgetContentURL.swift in Sources */,
 				D8650B7C20350FEE0044DFFA /* NSString+SHA256.m in Sources */,
 				D8FA18BA1E1BD891009675C3 /* NSDate+WMFRelativeDate.m in Sources */,
@@ -10413,6 +10436,7 @@
 				0042808A25E6E395004945B3 /* NSDictionary+MTLMappingAdditions.m in Sources */,
 				00D9B10529C8E5E0008A01E0 /* WidgetOnThisDayElement.swift in Sources */,
 				D8726D431EBA052900A107D0 /* WMFLocalizationWrapper.swift in Sources */,
+				67F2CD742FABE41B00ABF73A /* ClientErrorFunnel.swift in Sources */,
 				0E8768401DDE012300B8CACD /* WMFAnnouncement.m in Sources */,
 				70B798142575714100C10BCA /* EventPlatformEvents.xcdatamodeld in Sources */,
 				D8DC16F31D6F6F2C00D6D9FB /* NSUserDefaults+WMFExtensions.swift in Sources */,
@@ -10792,6 +10816,8 @@
 				8386BDFC2386D754007EE89D /* SinglePageWebViewController.swift in Sources */,
 				D8CE258F1E698E2400DAE2E0 /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				67A0699F2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */,
+				67A18A132FAD100100000001 /* AccessibilityIdentifiers.swift in Sources */,
+				67D468782FA94600006DD42F /* WMFAppViewController.swift in Sources */,
 				D8CE25901E698E2400DAE2E0 /* TableOfContentsCell.swift in Sources */,
 				D8CE25931E698E2400DAE2E0 /* WMFSettingsMenuItem.m in Sources */,
 				674E8ABA2382DF020053D206 /* DiffTransformer.swift in Sources */,
@@ -10878,7 +10904,6 @@
 				007CCF0926D5A17200D5EA7C /* NotificationsCenterView.swift in Sources */,
 				B0CD9DE21F70997400051843 /* WMFWelcomeLanguagesAnimationView.swift in Sources */,
 				7A998AC21FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift in Sources */,
-				D8CE25C81E698E2400DAE2E0 /* WMFAppViewController.m in Sources */,
 				67165C622ECFD3EB0078098D /* DatabasePopulationViewModel.swift in Sources */,
 				7A0161B51FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */,
 				B08624311F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */,
@@ -11047,6 +11072,7 @@
 				83F1096F23D0E787003F3E9E /* RandomArticleViewController.swift in Sources */,
 				371783992FA2969400DA2E03 /* WidgetFunnel.swift in Sources */,
 				7ABE17252239BB54006BA309 /* WelcomePanelViewController.swift in Sources */,
+				67F432152FAD459C00827841 /* WMFDailyGameExploreCell.swift in Sources */,
 				678D79F1235E5979006161FF /* DiffListChangeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -11333,7 +11359,9 @@
 				D8EC3E8B1E9BDA35006712EB /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				D8EC3E8C1E9BDA35006712EB /* TableOfContentsCell.swift in Sources */,
 				67A069A02D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */,
+				67A18A142FAD100100000001 /* AccessibilityIdentifiers.swift in Sources */,
 				FFD7B85724B3B39A005C2471 /* ReferenceBackLinksViewControllerDelegate.swift in Sources */,
+				67D4687A2FA94600006DD42F /* WMFAppViewController.swift in Sources */,
 				832289DD1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
 				674E8ABB2382DF030053D206 /* DiffTransformer.swift in Sources */,
 				83AE1C821F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */,
@@ -11422,7 +11450,6 @@
 				D8EC3EC51E9BDA35006712EB /* WMFRevisionQueryResults.m in Sources */,
 				7A0161B61FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */,
 				67165C612ECFD3EB0078098D /* DatabasePopulationViewModel.swift in Sources */,
-				D8EC3EC61E9BDA35006712EB /* WMFAppViewController.m in Sources */,
 				8382F8C920D844C700AE5250 /* ArticleLocationCollectionViewCell.swift in Sources */,
 				6741245127E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift in Sources */,
 				67E5DA5D2761B0AB00CE827D /* NotificationsCenterFilterView.swift in Sources */,
@@ -11589,6 +11616,7 @@
 				83F1097023D0E787003F3E9E /* RandomArticleViewController.swift in Sources */,
 				3717839A2FA2969400DA2E03 /* WidgetFunnel.swift in Sources */,
 				7ABE17262239BB54006BA309 /* WelcomePanelViewController.swift in Sources */,
+				67F432162FAD459C00827841 /* WMFDailyGameExploreCell.swift in Sources */,
 				678D79F2235E5979006161FF /* DiffListChangeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

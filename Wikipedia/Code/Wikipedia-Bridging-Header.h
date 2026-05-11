@@ -1,6 +1,5 @@
 #import <WMF/WMF.h> // without this, compilation fails with Abort trap: 6
 
-#import "WMFAppViewController.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 
 #import "NSString+FormattedAttributedString.h"
