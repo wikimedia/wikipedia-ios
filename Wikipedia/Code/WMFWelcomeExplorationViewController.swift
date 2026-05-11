@@ -32,6 +32,20 @@ class WMFWelcomeExplorationViewController: ThemeableViewController {
             updateFonts()
         }
     }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
+        exploreTitleLabel.textColor = theme.colors.primaryText
+        placesTitleLabel.textColor = theme.colors.primaryText
+        onThisDayTitleLabel.textColor = theme.colors.primaryText
+
+        exploreDescriptionLabel.textColor = theme.colors.secondaryText
+        placesDescriptionLabel.textColor = theme.colors.secondaryText
+        onThisDayDescriptionLabel.textColor = theme.colors.secondaryText
+    }
 
     private func updateFonts() {
         exploreTitleLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
