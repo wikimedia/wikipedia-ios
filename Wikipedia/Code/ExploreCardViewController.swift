@@ -414,7 +414,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             .flatMap { try? JSONDecoder().decode([WMFWhichCameFirstEvent].self, from: $0) }
         let optionA = events?.first
         let optionB = (events?.count ?? 0 > 1) ? events?[1] : nil
-        cell.configure(state: .notStarted(optionA: optionA, optionB: optionB))
+        cell.configure(state: .notStarted(optionA: optionA, optionB: optionB), theme: theme)
 
         if !layoutOnly {
             cell.onPlayButtonTapped = { [weak self] in
@@ -435,7 +435,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
                     } else {
                         state = .inProgress(questionsAnswered: Int(session.currentQuestionIndex), score: Int(session.score))
                     }
-                    cell?.configure(state: state)
+                    cell?.configure(state: state, theme: theme)
                 }
             }
         }

@@ -17,6 +17,8 @@ class WMFDailyGameExploreCell: CollectionViewCell {
     // Persisted so inProgress can still lay out invisible event rows at the correct size.
     private var cachedEventA: WMFWhichCameFirstEvent?
     private var cachedEventB: WMFWhichCameFirstEvent?
+    
+    private var headerStacked: Bool = false
 
     // MARK: - Subviews
 
@@ -37,6 +39,9 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             eventRowB.alpha = a
         }
     }
+    
+    private var lastBottomButtonFrame: CGRect = .zero
+    private var lastState: SessionState?
 
     override func setup() {
         super.setup()
@@ -59,12 +64,13 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         playButton.addTarget(self, action: #selector(didTapPlayButton), for: .touchUpInside)
         addSubview(playButton)
 
-        configure(state: .notStarted(optionA: nil, optionB: nil))
+        configure(state: .notStarted(optionA: nil, optionB: nil), theme: nil)
     }
 
-    func configure(state: SessionState) {
+    func configure(state: SessionState, theme: Theme?) {
         switch state {
         case .notStarted(let optionA, let optionB):
+            headerIconView.image = WMFSFSymbolIcon.for(symbol: .calendar)
             if let optionA, let optionB {
                 cachedEventA = optionA
                 cachedEventB = optionB
@@ -76,7 +82,9 @@ class WMFDailyGameExploreCell: CollectionViewCell {
                 eventRowsTransparent = false
             }
             setPlayButtonTitle("Play today's game")
+            headerStacked = false
         case .inProgress(let answered, _):
+            headerIconView.image = WMFSFSymbolIcon.for(symbol: .calendarExclamation)
             descriptionLabel.isHidden = false
             descriptionLabel.text = "You're on question \(answered + 1). Continue guessing which event came first on this day in history."
             // Keep event rows in layout (invisible) so the button stays anchored at the same position.
@@ -88,11 +96,18 @@ class WMFDailyGameExploreCell: CollectionViewCell {
                 eventRowsTransparent = true
             }
             setPlayButtonTitle("Continue today's game")
+            headerStacked = true
         case .completed(let score, let total):
+            headerIconView.image = WMFSFSymbolIcon.for(symbol: .calendarCheckmark)
             descriptionLabel.isHidden = false
-            descriptionLabel.text = "Final score: \(score)/\(total)"
-            eventRowsTransparent = false
+            descriptionLabel.text = "You scored \(score)/\(total) on today's game. Next game in."
+            eventRowsTransparent = true
             setPlayButtonTitle("Review results")
+            headerStacked = true
+        }
+        self.lastState = state
+        if let theme {
+            apply(theme: theme)
         }
         setNeedsLayout()
     }
@@ -105,7 +120,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         cachedEventB = nil
         eventRowA.cancelImageLoad()
         eventRowB.cancelImageLoad()
-        configure(state: .notStarted(optionA: nil, optionB: nil))
+        configure(state: .notStarted(optionA: nil, optionB: nil), theme: nil)
     }
 
     @objc private func didTapPlayButton() {
@@ -134,23 +149,39 @@ class WMFDailyGameExploreCell: CollectionViewCell {
 
         var y = layoutMargins.top
 
-        // Header: calendar icon on its own line, then title below
-        let iconSize: CGFloat = 22
-        if apply {
-            headerIconView.frame = CGRect(x: layoutMargins.left, y: y, width: iconSize, height: iconSize)
+        if headerStacked {
+            let iconSize: CGFloat = CGFloat(44)
+            if apply {
+                headerIconView.frame = CGRect(x: layoutMargins.left, y: y, width: iconSize, height: iconSize)
+            }
+            y += iconSize + 6
+            let headerTitleFrame = headerTitleLabel.wmf_preferredFrame(
+                at: CGPoint(x: layoutMargins.left, y: y),
+                maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+                minimumSize: NoIntrinsicSize,
+                alignedBy: .forceLeftToRight,
+                apply: apply
+            )
+            y = headerTitleFrame.maxY + 12
+        } else {
+            let iconSize: CGFloat = CGFloat(22)
+            if apply {
+                headerIconView.frame = CGRect(x: layoutMargins.left, y: y, width: iconSize, height: iconSize)
+            }
+            
+            let headerTitleFrame = headerTitleLabel.wmf_preferredFrame(
+                at: CGPoint(x: layoutMargins.left + iconSize, y: y),
+                maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+                minimumSize: NoIntrinsicSize,
+                alignedBy: .forceLeftToRight,
+                apply: apply
+            )
+            
+            y = headerTitleFrame.maxY + 12
         }
-        y += iconSize + 6
-        let headerTitleFrame = headerTitleLabel.wmf_preferredFrame(
-            at: CGPoint(x: layoutMargins.left, y: y),
-            maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
-            minimumSize: NoIntrinsicSize,
-            alignedBy: .forceLeftToRight,
-            apply: apply
-        )
-        y = headerTitleFrame.maxY + 12
         
         if !descriptionLabel.isHidden {
-            let _ = descriptionLabel.wmf_preferredFrame(
+            _ = descriptionLabel.wmf_preferredFrame(
                 at: CGPoint(x: layoutMargins.left, y: y),
                 maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
                 minimumSize: NoIntrinsicSize,
@@ -158,7 +189,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
                 apply: apply
             )
         }
-
+        
         let rowWidth = availableWidth
         let aFrame = eventRowA.sizeThatFits(CGSize(width: rowWidth, height: UIView.noIntrinsicMetric))
         if apply { eventRowA.frame = CGRect(x: layoutMargins.left, y: y, width: rowWidth, height: aFrame.height) }
@@ -168,16 +199,28 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         if apply { eventRowB.frame = CGRect(x: layoutMargins.left, y: y, width: rowWidth, height: bFrame.height) }
         y += bFrame.height
 
-        let buttonSpacing: CGFloat = 12
-        let buttonFrame = playButton.wmf_preferredFrame(
-            at: CGPoint(x: layoutMargins.left, y: y + buttonSpacing),
-            maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
-            minimumSize: NoIntrinsicSize,
-            alignedBy: .forceLeftToRight,
-            apply: apply
-        )
+        if lastBottomButtonFrame == .zero {
+            let buttonSpacing: CGFloat = 12
+            let buttonFrame = playButton.wmf_preferredFrame(
+                at: CGPoint(x: layoutMargins.left, y: y + buttonSpacing),
+                maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+                minimumSize: NoIntrinsicSize,
+                alignedBy: .forceLeftToRight,
+                apply: apply
+            )
+            self.lastBottomButtonFrame = buttonFrame
+        } else {
+            _ = playButton.wmf_preferredFrame(
+                at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
+                maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+                minimumSize: NoIntrinsicSize,
+                alignedBy: .forceLeftToRight,
+                apply: apply
+            )
+        }
+        
 
-        return CGSize(width: size.width, height: buttonFrame.maxY + layoutMargins.bottom)
+        return CGSize(width: size.width, height: lastBottomButtonFrame.maxY + layoutMargins.bottom)
     }
     
     /// UIButton defers flushing `setTitle(_:for:)` to `titleLabel.text` until its own
@@ -191,7 +234,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
 
 extension WMFDailyGameExploreCell: Themeable {
     func apply(theme: Theme) {
-        headerIconView.tintColor = theme.colors.primaryText
+        
         headerTitleLabel.textColor = theme.colors.primaryText
         descriptionLabel.textColor = theme.colors.secondaryText
         playButton.tintColor = theme.colors.link
@@ -199,6 +242,16 @@ extension WMFDailyGameExploreCell: Themeable {
         backgroundView?.backgroundColor = theme.colors.paperBackground
         eventRowA.apply(theme: theme)
         eventRowB.apply(theme: theme)
+        if let lastState {
+            switch lastState {
+            case .notStarted(let optionA, let optionB):
+                headerIconView.tintColor = theme.colors.primaryText
+            case .inProgress(let questionsAnswered, let score):
+                headerIconView.tintColor = theme.colors.link
+            case .completed(let score, let totalQuestions):
+                headerIconView.tintColor = theme.colors.accent
+            }
+        }
     }
 }
 
