@@ -407,32 +407,32 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         guard let cell = cell as? WMFDailyGameExploreCell else {
             return
         }
-        if !layoutOnly {
-            cell.onPlayButtonTapped = { [weak self] in
-                self?.delegate?.exploreCardViewController(self!, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
-            }
+        
+        cell.onPlayButtonTapped = { [weak self] in
+            self?.delegate?.exploreCardViewController(self!, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
+        }
 
-            if let siteURL = contentGroup?.siteURL,
-               let languageCode = siteURL.wmf_languageCode {
-                let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: siteURL.wmf_languageVariantCode))
-                let date = Self.todayGameDateString()
-                cell.sessionFetchTask = Task { [weak cell] in
-                    let session = try? await WMFGamesDataController().fetchWhichCameFirstDailySession(date: date, project: project)
-                    guard !Task.isCancelled else { return }
-                    let state: WMFDailyGameExploreCell.SessionState
-                    if let session {
-                        if session.status == .completed {
-                            state = .completed(score: Int(session.score), totalQuestions: WMFGamesDataController.whichCameFirstQuestionCount)
-                        } else {
-                            state = .inProgress(questionsAnswered: Int(session.currentQuestionIndex), score: Int(session.score))
-                        }
+        if let siteURL = contentGroup?.siteURL,
+           let languageCode = siteURL.wmf_languageCode {
+            let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: siteURL.wmf_languageVariantCode))
+            let date = Self.todayGameDateString()
+            cell.sessionFetchTask = Task { [weak cell] in
+                let session = try? await WMFGamesDataController().fetchWhichCameFirstDailySession(date: date, project: project)
+                guard !Task.isCancelled else { return }
+                let state: WMFDailyGameExploreCell.SessionState
+                if let session {
+                    if session.status == .completed {
+                        state = .completed(score: Int(session.score), totalQuestions: WMFGamesDataController.whichCameFirstQuestionCount)
                     } else {
-                        state = .notStarted
+                        state = .inProgress(questionsAnswered: Int(session.currentQuestionIndex), score: Int(session.score))
                     }
-                    cell?.configure(state: state)
+                } else {
+                    state = .notStarted
                 }
+                cell?.configure(state: state)
             }
         }
+        
         cell.apply(theme: theme)
     }
 

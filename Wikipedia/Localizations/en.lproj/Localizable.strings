@@ -505,7 +505,6 @@
 "explore-because-you-read" = "Because you read";
 "explore-because-you-read-footer" = "Additional related articles";
 "explore-continue-reading-heading" = "Continue reading";
-"explore-daily-game-heading" = "Which came first?";
 "explore-detail-back-button-title" = "Back to Explore feed";
 "explore-enable-location-title" = "Explore articles near your current location";
 "explore-featured-article-heading" = "Featured article";
@@ -526,6 +525,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "On";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "On $1";
 "explore-feed-preferences-feed-cards-hidden-title" = "All $1 cards hidden";
+"explore-feed-preferences-games-title" = "Show Games card";
 "explore-feed-preferences-global-card-footer-text" = "This card is not language specific, turning off this card will remove it from your Explore feed.";
 "explore-feed-preferences-global-cards-description" = "Non-language specific cards";
 "explore-feed-preferences-global-cards-subtitle" = "Not language specific";
@@ -542,6 +542,7 @@
 "explore-feed-preferences-show-continue-reading-title" = "Show Continue reading card";
 "explore-feed-preferences-show-featured-article-footer-text" = "Turning off the Featured article card will turn the card off in all available languages.";
 "explore-feed-preferences-show-featured-article-title" = "Show Featured article card";
+"explore-feed-preferences-show-games-footer-text" = "Turning off the Games card will turn the card off in all available languages.";
 "explore-feed-preferences-show-news-footer-text" = "Turning off the In the news card will turn the card off in all available languages.";
 "explore-feed-preferences-show-news-title" = "Show In the news card";
 "explore-feed-preferences-show-on-this-day-footer-text" = "Turning off the On this day card will turn the card off in all available languages.";
@@ -568,6 +569,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Turn on Explore";
 "explore-feed-preferences-turn-on-explore-tab-message" = "This will replace the Settings tab with the Explore tab, you can access Settings from the top of the Explore tab by tapping on the gear icon";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Turn on the Explore tab?";
+"explore-games-title" = "Games";
 "explore-hide-card-prompt" = "Hide this card";
 "explore-main-page-description" = "Main page of Wikimedia projects";
 "explore-main-page-heading" = "Today on Wikipedia";
@@ -1230,6 +1232,8 @@
 "settings-clear-cache-cancel" = "Cancel";
 "settings-clear-cache-ok" = "Clear cache";
 "settings-donate" = "Donate";
+"settings-explore-games-subtitle" = "Daily trivia games based Wikipedia content.";
+"settings-explore-games-title" = "Wikipedia games";
 "settings-help-and-feedback" = "Help and feedback";
 "settings-language-bar" = "Show languages on search";
 "settings-languages-feed-customization" = "You can manage which languages are shown on your Explore feed by customizing your Explore feed settings.";

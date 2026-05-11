@@ -24,6 +24,7 @@ import WMFNativeLocalizations
     @objc public static let featuredArticleTitle = CommonStrings.featuredArticleTitle
     @objc public static let onThisDayTitle = CommonStrings.onThisDayTitle
     @objc public static let suggestedEditsTitle = CommonStrings.suggestedEditsTitle
+    @objc public static let exploreGamesTitle = CommonStrings.exploreGamesTitle
     @objc public static let fromWikipedia = CommonStrings.fromWikipedia
     @objc public static let defaultFromWikipedia = CommonStrings.defaultFromWikipedia
     @objc public static let nearbyFooterTitle = CommonStrings.nearbyFooterTitle
