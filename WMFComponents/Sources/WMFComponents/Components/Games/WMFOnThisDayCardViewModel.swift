@@ -121,4 +121,10 @@ public final class WMFOnThisDayCardViewModel: ObservableObject, Identifiable {
             }
         }
     }
+    
+    
+    public func setSelected(_ selected: Bool) {
+        guard !isRevealed else { return }
+        isSelected = selected
+    }
 }
