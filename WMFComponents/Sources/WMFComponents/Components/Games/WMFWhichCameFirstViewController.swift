@@ -2,8 +2,6 @@ import UIKit
 import SwiftUI
 import WMFData
 
-// TODO: FINAL UI (T423933)
-
 // MARK: - View Model
 
 @MainActor
@@ -65,10 +63,8 @@ public final class WMFWhichCameFirstViewModel: ObservableObject {
             do {
                 let state = try await dataController.fetchOrStartWhichCameFirstDailySession(date: date, project: project)
                 self.gameState = state
-                self.currentIndex = state.answers.count  // resume where we left off
-                self.score = state.answers.values.filter { _ in true }.count  // will recalc via submit results
+                self.currentIndex = state.answers.count
 
-                // Recalculate score from stored answers
                 var recalcScore = 0
                 for question in state.questions {
                     let key = question.id.uuidString
@@ -97,7 +93,6 @@ public final class WMFWhichCameFirstViewModel: ObservableObject {
         loadTask?.cancel()
         loadTask = Task {
             do {
-                // Need session identifier — fetch the session to get its UUID
                 if sessionIdentifier == nil {
                     sessionIdentifier = try await fetchSessionIdentifier()
                 }
@@ -111,7 +106,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject {
                 if result.isCorrect {
                     self.score += 1
                 }
-                self.applyFeedback(isCorrect: result.isCorrect, correctAnswer: result.correctAnswer)
+                self.applyFeedback(isCorrect: result.isCorrect, correctAnswer: result.correctAnswer, pickedOption: picked)
                 self.phase = .feedback(isCorrect: result.isCorrect, correctAnswer: result.correctAnswer)
             } catch {
                 self.phase = .error(error.localizedDescription)
@@ -139,9 +134,9 @@ public final class WMFWhichCameFirstViewModel: ObservableObject {
         cardViewModelB = WMFOnThisDayCardViewModel(event: question.optionB.onThisDayEvent)
     }
 
-    private func applyFeedback(isCorrect: Bool, correctAnswer: String) {
-        cardViewModelA?.reveal(correct: correctAnswer == "A")
-        cardViewModelB?.reveal(correct: correctAnswer == "B")
+    private func applyFeedback(isCorrect: Bool, correctAnswer: String, pickedOption: String) {
+        cardViewModelA?.reveal(userSelected: pickedOption == "A", isCorrectAnswer: correctAnswer == "A")
+        cardViewModelB?.reveal(userSelected: pickedOption == "B", isCorrectAnswer: correctAnswer == "B")
     }
 
     private func fetchSessionIdentifier() async throws -> UUID? {
@@ -251,19 +246,15 @@ public struct WMFWhichCameFirstView: View {
                     .multilineTextAlignment(.center)
 
                 if let cardA = viewModel.cardViewModelA {
-                    WMFOnThisDayCardView(viewModel: cardA)
-                        .onTapGesture {
-                            cardA.toggleSelection()
-                            viewModel.submitAnswer("A")
-                        }
+                    WMFOnThisDayCardView(viewModel: cardA) {
+                        viewModel.submitAnswer("A")
+                    }
                 }
 
                 if let cardB = viewModel.cardViewModelB {
-                    WMFOnThisDayCardView(viewModel: cardB)
-                        .onTapGesture {
-                            cardB.toggleSelection()
-                            viewModel.submitAnswer("B")
-                        }
+                    WMFOnThisDayCardView(viewModel: cardB) {
+                        viewModel.submitAnswer("B")
+                    }
                 }
 
                 Spacer(minLength: 24)

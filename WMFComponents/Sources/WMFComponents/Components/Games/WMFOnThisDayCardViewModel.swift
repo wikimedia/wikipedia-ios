@@ -1,5 +1,5 @@
 import Foundation
-import WMFData
+import SwiftUI
 
 // MARK: - View Model
 
@@ -9,25 +9,19 @@ public final class WMFOnThisDayCardViewModel: ObservableObject, Identifiable {
     // MARK: Public properties
 
     public let id = UUID()
-
-    /// The event this card represents.
     public let event: WMFOnThisDayEvent
 
-    /// Whether the card is currently selected by the user.
     @Published public var isSelected: Bool
-
-    /// Whether the answer has been revealed.
     @Published public var isRevealed: Bool
-
-    /// Whether the selected answer is correct (only meaningful when `isRevealed` is `true`).
     @Published public var isCorrect: Bool
-
-    /// Thumbnail image data, lazily loaded via `WMFImageDataController`.
+    @Published public var isCorrectAnswer: Bool
     @Published public var thumbnailImageData: Data?
+    @Published public var isVisible: Bool = false
 
     // MARK: Private
 
     private var imageTask: Task<Void, Never>?
+    private let traitCollection = UITraitCollection(preferredContentSizeCategory: .large)
 
     // MARK: Init
 
@@ -35,12 +29,14 @@ public final class WMFOnThisDayCardViewModel: ObservableObject, Identifiable {
         event: WMFOnThisDayEvent,
         isSelected: Bool = false,
         isRevealed: Bool = false,
-        isCorrect: Bool = false
+        isCorrect: Bool = false,
+        isCorrectAnswer: Bool = false
     ) {
         self.event = event
         self.isSelected = isSelected
         self.isRevealed = isRevealed
         self.isCorrect = isCorrect
+        self.isCorrectAnswer = isCorrectAnswer
 
         if event.imageURL != nil {
             loadImage()
@@ -53,23 +49,62 @@ public final class WMFOnThisDayCardViewModel: ObservableObject, Identifiable {
 
     // MARK: Public Actions
 
-    /// Toggle the selected state (no-op if already revealed).
     public func toggleSelection() {
         guard !isRevealed else { return }
         isSelected.toggle()
     }
 
-    /// Reveal the result for this card.
-    public func reveal(correct: Bool) {
-        isCorrect = correct
-        isRevealed = true
+    public func reveal(userSelected: Bool, isCorrectAnswer: Bool) {
+        self.isCorrectAnswer = isCorrectAnswer
+        self.isSelected = userSelected || isCorrectAnswer
+        self.isCorrect = userSelected && isCorrectAnswer
+        self.isRevealed = true
     }
 
-    /// Reset the card back to its initial un-selected, un-revealed state.
     public func reset() {
         isSelected = false
         isRevealed = false
         isCorrect = false
+        isCorrectAnswer = false
+        isVisible = false
+    }
+
+    // MARK: - Derived Presentation State
+
+    func borderColor(theme: WMFTheme) -> Color {
+        if isRevealed {
+            return isCorrectAnswer ? Color(uiColor: theme.accent) : Color(uiColor: theme.destructive)
+        } else if isSelected {
+            return Color(uiColor: theme.link)
+        } else {
+            return Color(uiColor: theme.border)
+        }
+    }
+
+    func borderLineWidth() -> CGFloat {
+        isSelected || isRevealed ? 2 : 1
+    }
+
+    func pillColor(theme: WMFTheme) -> Color {
+        isCorrectAnswer ? Color(uiColor: theme.accent) : Color(uiColor: theme.destructive)
+    }
+
+    func resultIconName() -> String {
+        isCorrectAnswer ? "checkmark" : "xmark"
+    }
+
+    // MARK: - Fonts
+
+    var eventTextFont: Font {
+        Font(WMFFont.for(.subheadline, compatibleWith: traitCollection))
+    }
+
+    var resultIconFont: Font {
+        Font(WMFFont.for(.boldCaption1, compatibleWith: traitCollection))
+    }
+
+    var datePillFont: Font {
+        Font(WMFFont.for(.mediumFootnote, compatibleWith: traitCollection))
     }
 
     // MARK: Private
@@ -79,10 +114,10 @@ public final class WMFOnThisDayCardViewModel: ObservableObject, Identifiable {
         imageTask = Task { [weak self] in
             guard let self, let url = self.event.imageURL else { return }
             do {
-                let data = try await WMFImageDataController.shared.fetchImageData(url: url)
+                let (data, _) = try await URLSession.shared.data(from: url)
                 self.thumbnailImageData = data
             } catch {
-                // Non-fatal: the view falls back to a placeholder thumbnail
+                // Non-fatal: view falls back to placeholder thumbnail
             }
         }
     }
