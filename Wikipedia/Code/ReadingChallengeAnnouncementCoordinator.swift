@@ -14,15 +14,17 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
     private let theme: Theme
     
     private let fromWidgetJoinChallengeButton: Bool
+    private let fromAppStoreEvent: Bool
     private let isLoggedIn: Bool
 
     private let widgetInstrument: InstrumentImpl
 
-    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fromWidgetJoinChallengeButton: Bool, isLoggedIn: Bool, instrument: InstrumentImpl) {
+    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fromWidgetJoinChallengeButton: Bool, fromAppStoreEvent: Bool, isLoggedIn: Bool, instrument: InstrumentImpl) {
         self.navigationController = navigationController
         self.dataStore = dataStore
         self.theme = theme
         self.fromWidgetJoinChallengeButton = fromWidgetJoinChallengeButton
+        self.fromAppStoreEvent = fromAppStoreEvent
         self.isLoggedIn = isLoggedIn
         self.widgetInstrument = instrument
     }
@@ -34,7 +36,7 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
         
         Task { [weak self] in
             guard let self else { return }
-            if fromWidgetJoinChallengeButton {
+            if fromWidgetJoinChallengeButton || fromAppStoreEvent {
                 presentFullPageAnnouncement()
             } else {
                 guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement() else {

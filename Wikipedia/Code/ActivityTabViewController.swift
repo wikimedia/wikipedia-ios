@@ -21,7 +21,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
 
-    private var disableModalsOnAppearance: Bool = false
+    @objc var disableModalsOnAppearance: Bool = false
     private let widgetInstrument = WidgetFunnel().widgetInstrument
 
     public init(dataStore: MWKDataStore?, theme: Theme, viewModel: WMFActivityTabViewModel, dataController: WMFActivityTabDataController) {
@@ -374,12 +374,13 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             presentActivityOnboardingOrSurveyIfNeeded()
             return
         }
-
+        
         let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(
             navigationController: navigationController,
             dataStore: dataStore,
             theme: theme,
             fromWidgetJoinChallengeButton: false,
+            fromAppStoreEvent: false,
             isLoggedIn: dataStore.authenticationManager.authStateIsPermanent,
             instrument: widgetInstrument
         )
@@ -415,23 +416,50 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             }
         }
     }
+    
+    @objc func presentReadingChallengeAnnouncementFromAppStoreEvent() {
+        
+        guard let navigationController, let dataStore else {
+            return
+        }
+        
+        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(
+            navigationController: navigationController,
+            dataStore: dataStore,
+            theme: theme,
+            fromWidgetJoinChallengeButton: false,
+            fromAppStoreEvent: true,
+            isLoggedIn: dataStore.authenticationManager.authStateIsPermanent,
+            instrument: widgetInstrument
+        )
+
+        readingChallengeCoordinator.onComplete = { [weak self] didPresentSomething in
+
+            self?.readingChallengeCoordinator = nil
+            self?.disableModalsOnAppearance = false
+        }
+
+        self.readingChallengeCoordinator = readingChallengeCoordinator
+
+        readingChallengeCoordinator.start()
+    }
 
     // Explicit method to fire the announcement, meant to be called ONLY when tapping Join on the widget. It differs from presentModalsIfNeeded in these ways:
     // 1. We do not try to present any activity onboarding/survey whatsoever
     // 2. We purposfully set a temp "disableModals" flag, just in case viewDidAppear (which calls presentModalsIfNeeded) fires at the same time. "disableModals" disables all modal attempts in presentModalsIfNeeded.
     // 3. We tell the announcement coordinator that it is from the widget, which bypasses hasSeen flag logic
     @objc func presentReadingChallengeAnnouncementFromWidget() {
+        
         guard let navigationController, let dataStore else {
             return
         }
-
-        disableModalsOnAppearance = true
 
         let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(
             navigationController: navigationController,
             dataStore: dataStore,
             theme: theme,
             fromWidgetJoinChallengeButton: true,
+            fromAppStoreEvent: false,
             isLoggedIn: dataStore.authenticationManager.authStateIsPermanent,
             instrument: widgetInstrument
         )
