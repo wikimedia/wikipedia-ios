@@ -1,4 +1,5 @@
 import XCTest
+import WMFComponents
 
 final class AppOnboardingUITests: XCTestCase {
 

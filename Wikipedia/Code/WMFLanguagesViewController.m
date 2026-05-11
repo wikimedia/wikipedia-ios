@@ -1,5 +1,6 @@
 #import "WMFLanguagesViewController.h"
 @import WMF;
+@import WMFComponents;
 @import WMFData;
 #import "MWKTitleLanguageController.h"
 #import "WMFLanguageCell.h"
