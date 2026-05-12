@@ -17,7 +17,12 @@ class WMFDailyGameExploreCell: CollectionViewCell {
     // Persisted so inProgress can still lay out invisible event rows at the correct size.
     private var cachedEventA: WMFWhichCameFirstEvent?
     private var cachedEventB: WMFWhichCameFirstEvent?
-    
+
+    // Countdown timer for the completed state.
+    private var countdownTimer: Timer?
+    private var completedScore: Int = 0
+    private var completedTotal: Int = 0
+
     private var headerStacked: Bool = false
 
     // MARK: - Subviews
@@ -81,6 +86,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             } else {
                 eventRowsTransparent = false
             }
+            stopCountdownTimer()
             setPlayButtonTitle("Play today's game")
             headerStacked = false
         case .inProgress(let answered, _):
@@ -95,15 +101,18 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             } else {
                 eventRowsTransparent = true
             }
+            stopCountdownTimer()
             setPlayButtonTitle("Continue today's game")
             headerStacked = true
         case .completed(let score, let total):
             headerIconView.image = WMFSFSymbolIcon.for(symbol: .calendarCheckmark)
             descriptionLabel.isHidden = false
-            descriptionLabel.text = "You scored \(score)/\(total) on today's game. Next game in."
+            completedScore = score
+            completedTotal = total
             eventRowsTransparent = true
             setPlayButtonTitle("Review results")
             headerStacked = true
+            startCountdownTimer()
         }
         self.lastState = state
         if let theme {
@@ -118,6 +127,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         sessionFetchTask = nil
         cachedEventA = nil
         cachedEventB = nil
+        stopCountdownTimer()
         eventRowA.cancelImageLoad()
         eventRowB.cancelImageLoad()
         configure(state: .notStarted(optionA: nil, optionB: nil), theme: nil)
@@ -125,6 +135,44 @@ class WMFDailyGameExploreCell: CollectionViewCell {
 
     @objc private func didTapPlayButton() {
         onPlayButtonTapped?()
+    }
+
+    // MARK: - Countdown Timer
+
+    private func startCountdownTimer() {
+        countdownTimer?.invalidate()
+        updateCountdownLabel()
+        countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+            self?.updateCountdownLabel()
+        }
+    }
+
+    private func stopCountdownTimer() {
+        countdownTimer?.invalidate()
+        countdownTimer = nil
+    }
+
+    private func updateCountdownLabel() {
+        descriptionLabel.text = "You scored \(completedScore)/\(completedTotal) on today's game. Next game in \(countdownString())"
+    }
+
+    private func countdownString() -> String {
+        var utcCalendar = Calendar(identifier: .gregorian)
+        utcCalendar.timeZone = TimeZone(identifier: "UTC")!
+        let now = Date()
+        guard let tomorrow = utcCalendar.date(byAdding: .day, value: 1, to: utcCalendar.startOfDay(for: now)) else { return "--:--:--" }
+        let seconds = max(0, Int(tomorrow.timeIntervalSince(now)))
+        return String(format: "%02d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, seconds % 60)
+    }
+
+    @objc private func appDidBecomeActive() {
+        if countdownTimer == nil, case .completed = lastState {
+            startCountdownTimer()
+        }
+    }
+
+    @objc private func appWillResignActive() {
+        stopCountdownTimer()
     }
 
     override func updateFonts(with traitCollection: UITraitCollection) {
