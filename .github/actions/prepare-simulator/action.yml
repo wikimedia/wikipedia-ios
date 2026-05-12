@@ -1,0 +1,34 @@
+name: Prepare simulator
+description: Warm CoreSimulator and expose the shared xcodebuild simulator destination.
+
+inputs:
+  ios-version:
+    description: iOS simulator runtime version.
+    required: true
+  simulator-name:
+    description: iOS simulator device name.
+    required: true
+
+outputs:
+  destination:
+    description: xcodebuild destination for the selected simulator.
+    value: ${{ steps.destination.outputs.destination }}
+
+runs:
+  using: composite
+  steps:
+    - name: List available simulators
+      shell: bash
+      run: |
+        xcrun simctl list devices available
+
+    - name: Set xcodebuild destination
+      id: destination
+      shell: bash
+      env:
+        IOS_VERSION: ${{ inputs.ios-version }}
+        SIMULATOR_NAME: ${{ inputs.simulator-name }}
+      run: |
+        DESTINATION="platform=iOS Simulator,name=${SIMULATOR_NAME},OS=${IOS_VERSION}"
+        echo "destination=${DESTINATION}" >> "$GITHUB_OUTPUT"
+        echo "Using simulator destination: ${DESTINATION}"
