@@ -347,7 +347,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         let paletteColors: [UIColor]
         
         if needsBadge {
-            paletteColors = [theme.destructive, theme.text]
+            paletteColors = [theme.destructive, UIColor.label]
         } else {
             paletteColors = [theme.text]
         }

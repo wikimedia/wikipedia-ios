@@ -56,10 +56,19 @@ class IconBarButtonItem: UIBarButtonItem {
 extension IconBarButtonItem: Themeable {
     public func apply(theme: Theme) {
         self.theme = theme
-        if let customView = customView as? UIButton {
-            customView.tintColor = isEnabled ? theme.colors.primaryText : theme.colors.secondaryText
+        if #available(iOS 26.0, *) {
+            if let customView = customView as? UIButton {
+                customView.tintColor = UIColor.label
+            } else {
+                tintColor = UIColor.label
+            }
         } else {
-            tintColor = isEnabled ? theme.colors.primaryText : theme.colors.secondaryText
+            if let customView = customView as? UIButton {
+                customView.tintColor = isEnabled ? theme.colors.primaryText : theme.colors.secondaryText
+            } else {
+                tintColor = isEnabled ? theme.colors.primaryText : theme.colors.secondaryText
+            }
         }
+
     }
 }
