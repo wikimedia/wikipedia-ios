@@ -27,6 +27,17 @@ class WMFDailyGameExploreCell: CollectionViewCell {
     private var completedTotal: Int = 0
 
     private var headerStacked: Bool = false
+    
+    var isContentRTL: Bool = false {
+        didSet {
+            eventRowA.isRTL = isContentRTL
+            eventRowB.isRTL = isContentRTL
+        }
+    }
+    
+    var isChromeRTL: Bool {
+        return UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft
+    }
 
     // MARK: - Subviews
 
@@ -61,11 +72,12 @@ class WMFDailyGameExploreCell: CollectionViewCell {
 
         headerTitleLabel.text = "Which came first?"
         headerTitleLabel.numberOfLines = 1
+        headerTitleLabel.lineBreakMode = .byTruncatingTail
         addSubview(headerTitleLabel)
 
         descriptionLabel.numberOfLines = 3
         descriptionLabel.lineBreakMode = .byTruncatingTail
-        descriptionLabel.textAlignment = .left
+        descriptionLabel.textAlignment = .natural
         addSubview(descriptionLabel)
 
         addSubview(eventRowA)
@@ -235,7 +247,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         if headerStacked {
             let iconSize: CGFloat = CGFloat(37)
             if apply {
-                headerIconView.frame = CGRect(x: layoutMargins.left, y: y, width: iconSize, height: iconSize)
+                headerIconView.frame = CGRect(x: isChromeRTL ? size.width - layoutMargins.right - iconSize : layoutMargins.left, y: y, width: iconSize, height: iconSize)
             }
             y += iconSize + 15
             let headerTitleFrame = headerTitleLabel.wmf_preferredFrame(
@@ -243,8 +255,16 @@ class WMFDailyGameExploreCell: CollectionViewCell {
                 maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
                 minimumSize: NoIntrinsicSize,
                 alignedBy: .forceLeftToRight,
-                apply: apply
+                apply: false
             )
+            
+            if apply {
+                if isChromeRTL {
+                    headerTitleLabel.frame = CGRect(x: size.width - layoutMargins.right - headerTitleFrame.width, y: headerTitleFrame.minY, width: headerTitleFrame.width, height: headerTitleFrame.height)
+                } else {
+                    headerTitleLabel.frame = headerTitleFrame
+                }
+            }
             y = headerTitleFrame.maxY + 5
         } else {
             let iconSize: CGFloat = CGFloat(22)
@@ -256,12 +276,22 @@ class WMFDailyGameExploreCell: CollectionViewCell {
                 maximumSize: CGSize(width: availableWidth - iconSize - headerTitleXOffset, height: UIView.noIntrinsicMetric),
                 minimumSize: NoIntrinsicSize,
                 alignedBy: .forceLeftToRight,
-                apply: apply
+                apply: false
             )
             
+            let centeredOffset = (headerTitleFrame.height - iconSize) / 2
+            
+            let headerIconFrame = CGRect(x: layoutMargins.left + iconXOffset, y: y + centeredOffset, width: iconSize, height: iconSize)
+            
             if apply {
-                let centeredOffset = (headerTitleFrame.height - iconSize) / 2
-                headerIconView.frame = CGRect(x: layoutMargins.left + iconXOffset, y: y + centeredOffset, width: iconSize, height: iconSize)
+                if isChromeRTL {
+                    headerIconView.frame = CGRect(x: (size.width - layoutMargins.right - iconSize) + iconXOffset, y: headerIconFrame.minY, width: headerIconFrame.width, height: headerIconFrame.height)
+                    headerTitleLabel.frame = CGRect(x: headerIconView.frame.minX - headerTitleXOffset - headerTitleFrame.width, y: headerTitleFrame.minY, width: headerTitleFrame.width, height: headerTitleFrame.height)
+                } else {
+                    headerIconView.frame = headerIconFrame
+                    headerTitleLabel.frame = headerTitleFrame
+                }
+                
             }
             
             y = headerTitleFrame.maxY + 12
@@ -397,7 +427,7 @@ extension WMFDailyGameExploreCell: Themeable {
 /// A single event row: truncated text on the left, small thumbnail on the right.
 private final class WMFDailyGameEventRowView: UIView {
 
-    private let textLabel = UILabel()
+    let textLabel = UILabel()
     private let thumbnailView = UIImageView()
     private var imageLoadTask: URLSessionDataTask?
 
@@ -412,6 +442,12 @@ private final class WMFDailyGameEventRowView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
+    }
+    
+    var isRTL: Bool = false {
+        didSet {
+            textLabel.textAlignment = isRTL ? .right : .natural
+        }
     }
 
     private func setup() {
@@ -471,7 +507,8 @@ private final class WMFDailyGameEventRowView: UIView {
         let spacing = WMFDailyGameEventRowView.imageTextSpacing
         let textWidth = bounds.width - imgSize.width - spacing
         let textHeight = textLabel.sizeThatFits(CGSize(width: textWidth, height: .greatestFiniteMagnitude)).height
-        textLabel.frame = CGRect(x: 0, y: max(0, (bounds.height - textHeight) / 2), width: textWidth, height: textHeight)
-        thumbnailView.frame = CGRect(x: bounds.width - imgSize.width, y: max(0, (bounds.height - imgSize.height) / 2), width: imgSize.width, height: imgSize.height)
+        
+        textLabel.frame = CGRect(x: isRTL ? imgSize.width + spacing : 0, y: max(0, (bounds.height - textHeight) / 2), width: textWidth, height: textHeight)
+        thumbnailView.frame = CGRect(x: isRTL ? 0 : bounds.width - imgSize.width, y: max(0, (bounds.height - imgSize.height) / 2), width: imgSize.width, height: imgSize.height)
     }
 }

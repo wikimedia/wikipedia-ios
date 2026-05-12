@@ -415,6 +415,10 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         let optionA = events?.first
         let optionB = (events?.count ?? 0 > 1) ? events?[1] : nil
         cell.configure(state: .notStarted(optionA: optionA, optionB: optionB), theme: theme)
+        if let siteURL = contentGroup?.siteURL {
+            cell.isContentRTL = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: siteURL.wmf_contentLanguageCode) == .forceRightToLeft
+        }
+        
 
         if !layoutOnly {
             cell.tappedPlayTodaysGame = { [weak self] in
