@@ -45,12 +45,13 @@ public struct WMFOnThisDayCardView: View {
             }
         }
         .frame(height: 192)
-        .background(Color(uiColor: theme.baseBackground))
+        .background(Color(uiColor: theme.paperBackground))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .strokeBorder(Color(appEnvironment.theme.text), lineWidth: viewModel.isSelected ? 1 : 0)
+                .strokeBorder(Color(viewModel.isSelected ? theme.text : theme.baseBackground), lineWidth: 1)
         )
+        .shadow(color: viewModel.isSelected ? .clear : Color(uiColor: theme.text).opacity(0.05), radius: 8, x: 0, y: 0)
         .contentShape(Rectangle())
         .onTapGesture {
             guard !viewModel.isRevealed else { return }
@@ -107,4 +108,77 @@ public struct WMFOnThisDayCardView: View {
             .padding(.vertical, 6)
             .background(Capsule().fill(viewModel.pillColor(theme: theme)))
     }
+}
+
+#Preview("Default") {
+    WMFOnThisDayCardView(
+        viewModel: WMFOnThisDayCardViewModel(
+            event: WMFOnThisDayCardEvent(
+                text: "The Apollo 11 mission successfully lands the first humans on the Moon, with Neil Armstrong and Buzz Aldrin walking on the lunar surface.",
+                date: "1969",
+                imageURL: URL(string: "https://commons.wikimedia.org/wiki/File:Apollo_11_Crew.jpg")
+            )
+        )
+    )
+    .padding()
+}
+
+#Preview("Selected") {
+    WMFOnThisDayCardView(
+        viewModel: WMFOnThisDayCardViewModel(
+            event: WMFOnThisDayCardEvent(
+                text: "The Apollo 11 mission successfully lands the first humans on the Moon, with Neil Armstrong and Buzz Aldrin walking on the lunar surface.",
+                date: "1969",
+                imageURL: URL(string: "https://commons.wikimedia.org/wiki/File:Apollo_11_Crew.jpg")
+            ),
+            isSelected: true
+        )
+    )
+    .padding()
+}
+
+#Preview("Revealed Correct") {
+    WMFOnThisDayCardView(
+        viewModel: WMFOnThisDayCardViewModel(
+            event: WMFOnThisDayCardEvent(
+                text: "The Apollo 11 mission successfully lands the first humans on the Moon, with Neil Armstrong and Buzz Aldrin walking on the lunar surface.",
+                date: "1969",
+                imageURL: URL(string: "https://commons.wikimedia.org/wiki/File:Apollo_11_Crew.jpg")
+            ),
+            isSelected: true,
+            isRevealed: true,
+            isCorrect: true,
+            isCorrectAnswer: true
+        )
+    )
+    .padding()
+}
+
+#Preview("Revealed Incorrect") {
+    WMFOnThisDayCardView(
+        viewModel: WMFOnThisDayCardViewModel(
+            event: WMFOnThisDayCardEvent(
+                text: "The World Wide Web is invented by Tim Berners-Lee while working at CERN in Geneva, Switzerland.",
+                date: "1989",
+                imageURL: nil
+            ),
+            isSelected: true,
+            isRevealed: true,
+            isCorrect: false,
+            isCorrectAnswer: false
+        )
+    )
+    .padding()
+}
+
+#Preview("No Image") {
+    WMFOnThisDayCardView(
+        viewModel: WMFOnThisDayCardViewModel(
+            event: WMFOnThisDayCardEvent(
+                text: "The World Wide Web is invented by Tim Berners-Lee while working at CERN in Geneva, Switzerland.",
+                date: "1989"
+            )
+        )
+    )
+    .padding()
 }

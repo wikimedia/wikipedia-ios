@@ -10,9 +10,9 @@ public struct WMFWhichCameFirstView: View {
 
     public var body: some View {
         content
-            .background(Color(uiColor: theme.paperBackground))
+            .background(Color(uiColor: theme.midBackground))
     }
-
+    
     @ViewBuilder
     private var content: some View {
         switch viewModel.phase {
@@ -33,11 +33,6 @@ public struct WMFWhichCameFirstView: View {
         VStack(spacing: 0) {
             ScrollView {
                 VStack(spacing: 18) {
-                    if viewModel.showTitle {
-                        titleView
-                            .transition(.move(edge: .top).combined(with: .opacity))
-                    }
-
                     if viewModel.showCardA, let cardA = viewModel.cardViewModelA {
                         WMFOnThisDayCardView(viewModel: cardA) {
                             viewModel.select("A")
@@ -53,7 +48,15 @@ public struct WMFWhichCameFirstView: View {
                     }
                 }
                 .padding()
+                .background(
+                    VStack(spacing: 0) {
+                        Color(uiColor: theme.link)
+                            .frame(height: 60)
+                        Color.clear
+                    }
+                )
             }
+
             footerArea
         }
     }
@@ -200,5 +203,45 @@ struct WMFGameButtonStyle: ButtonStyle {
             .background(Color(uiColor: theme.link))
             .cornerRadius(12)
             .opacity(configuration.isPressed ? 0.8 : 1.0)
+    }
+}
+
+#Preview {
+    let vm = WMFWhichCameFirstViewModel(date: "2026-01-06", project: .wikipedia(.init(languageCode: "en", languageVariantCode: nil)))
+
+    // Manually push into presenting state with mock cards
+    vm.cardViewModelA = WMFOnThisDayCardViewModel(
+        event: WMFOnThisDayCardEvent(
+            text: "The Apollo 11 mission successfully lands the first humans on the Moon.",
+            date: "1969",
+            imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Aldrin_Apollo_11.jpg/320px-Aldrin_Apollo_11.jpg")
+        )
+    )
+    vm.cardViewModelB = WMFOnThisDayCardViewModel(
+        event: WMFOnThisDayCardEvent(
+            text: "The World Wide Web is invented by Tim Berners-Lee at CERN.",
+            date: "1989"
+        )
+    )
+    vm.showCardA = true
+    vm.showCardB = true
+    vm.phase = .presenting
+    vm.progressResults = [nil, nil, nil, nil, nil]
+
+    return NavigationView {
+        WMFWhichCameFirstView(viewModel: vm)
+            .navigationTitle("January 6")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button { } label: { Image(systemName: "xmark") }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button { } label: { Image(systemName: "ellipsis") }
+                }
+            }
+            .toolbarBackground(Color(uiColor: WMFAppEnvironment.current.theme.link), for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
     }
 }
