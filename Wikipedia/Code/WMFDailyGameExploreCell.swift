@@ -249,19 +249,20 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         } else {
             let iconSize: CGFloat = CGFloat(22)
             let iconXOffset = CGFloat(-2)
-            if apply {
-                headerIconView.frame = CGRect(x: layoutMargins.left + iconXOffset, y: y, width: iconSize, height: iconSize)
-            }
             
-            let headerTitleYOffset = CGFloat(1)
             let headerTitleXOffset = CGFloat(5)
             let headerTitleFrame = headerTitleLabel.wmf_preferredFrame(
-                at: CGPoint(x: layoutMargins.left + iconSize + headerTitleXOffset, y: y + headerTitleYOffset),
+                at: CGPoint(x: layoutMargins.left + iconSize + headerTitleXOffset, y: y),
                 maximumSize: CGSize(width: availableWidth - iconSize - headerTitleXOffset, height: UIView.noIntrinsicMetric),
                 minimumSize: NoIntrinsicSize,
                 alignedBy: .forceLeftToRight,
                 apply: apply
             )
+            
+            if apply {
+                let centeredOffset = (headerTitleFrame.height - iconSize) / 2
+                headerIconView.frame = CGRect(x: layoutMargins.left + iconXOffset, y: y + centeredOffset, width: iconSize, height: iconSize)
+            }
             
             y = headerTitleFrame.maxY + 12
         }
@@ -373,11 +374,9 @@ extension WMFDailyGameExploreCell: Themeable {
     func apply(theme: Theme) {
         
         headerTitleLabel.textColor = theme.colors.primaryText
-        descriptionLabel.textColor = theme.colors.inputAccessoryButtonTint // todo: should be theme.colors.secondaryText?
+        descriptionLabel.textColor = theme.colors.secondaryText
         button1.tintColor = theme.colors.link
         button2.tintColor = theme.colors.link
-        selectedBackgroundView?.backgroundColor = theme.colors.midBackground
-        backgroundView?.backgroundColor = theme.colors.paperBackground
         eventRowA.apply(theme: theme)
         eventRowB.apply(theme: theme)
         if let lastState {
