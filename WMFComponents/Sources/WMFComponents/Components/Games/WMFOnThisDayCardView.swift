@@ -1,22 +1,6 @@
 import SwiftUI
 import UIKit
 
-// MARK: - Data Model
-
-public struct WMFOnThisDayEvent: Identifiable {
-    public let id = UUID()
-    public let text: String
-    public let date: String        // e.g. "January 6, 1994"
-    public let imageURL: URL?
-
-    public init(text: String, date: String, imageURL: URL? = nil) {
-        self.text = text
-        self.date = date
-        self.imageURL = imageURL
-    }
-}
-// MARK: - Card View
-
 public struct WMFOnThisDayCardView: View {
 
     @ObservedObject private var viewModel: WMFOnThisDayCardViewModel
@@ -31,8 +15,6 @@ public struct WMFOnThisDayCardView: View {
 
     private var theme: WMFTheme { appEnvironment.theme }
 
-    // MARK: - Body
-
     public var body: some View {
         ZStack(alignment: .bottom) {
             cardContent
@@ -45,8 +27,6 @@ public struct WMFOnThisDayCardView: View {
         .animation(.easeInOut(duration: 0.25), value: viewModel.isRevealed)
         .animation(.easeInOut(duration: 0.18), value: viewModel.isSelected)
     }
-
-    // MARK: - Card
 
     private var cardContent: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -65,14 +45,11 @@ public struct WMFOnThisDayCardView: View {
             }
         }
         .frame(height: 192)
-        .background(Color(uiColor: theme.paperBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 14))
+        .background(Color(uiColor: theme.baseBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
         .overlay(
-            RoundedRectangle(cornerRadius: 14)
-                .strokeBorder(
-                    viewModel.borderColor(theme: theme),
-                    lineWidth: viewModel.borderLineWidth()
-                )
+            RoundedRectangle(cornerRadius: 10)
+                .strokeBorder(Color(appEnvironment.theme.text), lineWidth: viewModel.isSelected ? 1 : 0)
         )
         .contentShape(Rectangle())
         .onTapGesture {
@@ -81,20 +58,16 @@ public struct WMFOnThisDayCardView: View {
         }
     }
 
-    // MARK: - Text
-
     private var eventText: some View {
         ScrollView(.vertical, showsIndicators: true) {
             Text(viewModel.event.text)
-                .font(viewModel.eventTextFont)
+                .font(Font(WMFFont.for(.footnote)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.trailing, 2)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-
-    // MARK: - Thumbnail
 
     @ViewBuilder
     private var thumbnailView: some View {
@@ -115,24 +88,20 @@ public struct WMFOnThisDayCardView: View {
         }
     }
 
-    // MARK: - Result Icon
-
     private var resultIcon: some View {
         ZStack {
             Circle()
                 .fill(viewModel.pillColor(theme: theme))
                 .frame(width: 30, height: 30)
             Image(systemName: viewModel.resultIconName())
-                .font(viewModel.resultIconFont)
+                .font(Font(WMFFont.for(.subheadline)))
                 .foregroundColor(Color(uiColor: theme.paperBackground))
         }
     }
 
-    // MARK: - Date Pill
-
     private var datePill: some View {
         Text(viewModel.event.date)
-            .font(viewModel.datePillFont)
+            .font(Font(WMFFont.for(.subheadline)))
             .foregroundColor(Color(uiColor: theme.paperBackground))
             .padding(.horizontal, 14)
             .padding(.vertical, 6)

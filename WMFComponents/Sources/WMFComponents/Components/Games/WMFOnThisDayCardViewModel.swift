@@ -1,15 +1,12 @@
 import Foundation
 import SwiftUI
-
-// MARK: - View Model
+import WMFData
 
 @MainActor
 public final class WMFOnThisDayCardViewModel: ObservableObject, Identifiable {
 
-    // MARK: Public properties
-
     public let id = UUID()
-    public let event: WMFOnThisDayEvent
+    public let event: WMFOnThisDayCardEvent
 
     @Published public var isSelected: Bool
     @Published public var isRevealed: Bool
@@ -18,15 +15,11 @@ public final class WMFOnThisDayCardViewModel: ObservableObject, Identifiable {
     @Published public var thumbnailImageData: Data?
     @Published public var isVisible: Bool = false
 
-    // MARK: Private
-
     private var imageTask: Task<Void, Never>?
     private let traitCollection = UITraitCollection(preferredContentSizeCategory: .large)
 
-    // MARK: Init
-
     public init(
-        event: WMFOnThisDayEvent,
+        event: WMFOnThisDayCardEvent,
         isSelected: Bool = false,
         isRevealed: Bool = false,
         isCorrect: Bool = false,
@@ -47,11 +40,14 @@ public final class WMFOnThisDayCardViewModel: ObservableObject, Identifiable {
         imageTask?.cancel()
     }
 
-    // MARK: Public Actions
-
     public func toggleSelection() {
         guard !isRevealed else { return }
         isSelected.toggle()
+    }
+
+    public func setSelected(_ selected: Bool) {
+        guard !isRevealed else { return }
+        isSelected = selected
     }
 
     public func reveal(userSelected: Bool, isCorrectAnswer: Bool) {
@@ -68,8 +64,6 @@ public final class WMFOnThisDayCardViewModel: ObservableObject, Identifiable {
         isCorrectAnswer = false
         isVisible = false
     }
-
-    // MARK: - Derived Presentation State
 
     func borderColor(theme: WMFTheme) -> Color {
         if isRevealed {
@@ -93,8 +87,6 @@ public final class WMFOnThisDayCardViewModel: ObservableObject, Identifiable {
         isCorrectAnswer ? "checkmark" : "xmark"
     }
 
-    // MARK: - Fonts
-
     var eventTextFont: Font {
         Font(WMFFont.for(.subheadline, compatibleWith: traitCollection))
     }
@@ -107,8 +99,6 @@ public final class WMFOnThisDayCardViewModel: ObservableObject, Identifiable {
         Font(WMFFont.for(.mediumFootnote, compatibleWith: traitCollection))
     }
 
-    // MARK: Private
-
     private func loadImage() {
         imageTask?.cancel()
         imageTask = Task { [weak self] in
@@ -116,15 +106,20 @@ public final class WMFOnThisDayCardViewModel: ObservableObject, Identifiable {
             do {
                 let (data, _) = try await URLSession.shared.data(from: url)
                 self.thumbnailImageData = data
-            } catch {
-                // Non-fatal: view falls back to placeholder thumbnail
-            }
+            } catch {}
         }
     }
-    
-    
-    public func setSelected(_ selected: Bool) {
-        guard !isRevealed else { return }
-        isSelected = selected
+}
+
+public struct WMFOnThisDayCardEvent: Identifiable {
+    public let id = UUID()
+    public let text: String
+    public let date: String
+    public let imageURL: URL?
+
+    public init(text: String, date: String, imageURL: URL? = nil) {
+        self.text = text
+        self.date = date
+        self.imageURL = imageURL
     }
 }

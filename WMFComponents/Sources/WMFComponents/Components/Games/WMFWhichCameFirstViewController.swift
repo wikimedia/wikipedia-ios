@@ -49,15 +49,3 @@ public final class WMFWhichCameFirstHostingController: WMFComponentHostingContro
         dismiss(animated: true)
     }
 }
-
-// MARK: - WMFWhichCameFirstEvent + onThisDayEvent
-
-public extension WMFWhichCameFirstEvent {
-    var onThisDayEvent: WMFOnThisDayEvent {
-        WMFOnThisDayEvent(
-            text: title,
-            date: String(year),
-            imageURL: thumbnailURL
-        )
-    }
-}
