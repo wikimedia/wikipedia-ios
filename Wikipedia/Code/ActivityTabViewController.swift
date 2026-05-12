@@ -368,6 +368,11 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     @MainActor
     private func presentModalsIfNeeded() {
+        
+        // Do not replace an in-flight reading challenge coordinator.
+        guard readingChallengeCoordinator == nil else {
+            return
+        }
 
         // Prioritize reading challenge, then fall back to Activity onboarding or survey view if that doesn't present
         guard let navigationController, let dataStore else {
@@ -419,6 +424,11 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     
     @objc func presentReadingChallengeAnnouncementFromAppStoreEvent() {
         
+        // Do not replace an in-flight reading challenge coordinator.
+        guard readingChallengeCoordinator == nil else {
+            return
+        }
+        
         guard let navigationController, let dataStore else {
             return
         }
@@ -449,6 +459,11 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     // 2. We purposfully set a temp "disableModals" flag, just in case viewDidAppear (which calls presentModalsIfNeeded) fires at the same time. "disableModals" disables all modal attempts in presentModalsIfNeeded.
     // 3. We tell the announcement coordinator that it is from the widget, which bypasses hasSeen flag logic
     @objc func presentReadingChallengeAnnouncementFromWidget() {
+        
+        // Do not replace an in-flight reading challenge coordinator.
+        guard readingChallengeCoordinator == nil else {
+            return
+        }
         
         guard let navigationController, let dataStore else {
             return
