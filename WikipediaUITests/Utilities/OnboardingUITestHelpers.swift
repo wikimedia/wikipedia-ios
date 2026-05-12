@@ -1,4 +1,5 @@
 import XCTest
+import WMFComponents
 
 enum OnboardingPage: CaseIterable {
     case introduction
