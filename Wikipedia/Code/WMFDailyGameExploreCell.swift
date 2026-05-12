@@ -63,7 +63,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         headerTitleLabel.numberOfLines = 1
         addSubview(headerTitleLabel)
 
-        descriptionLabel.numberOfLines = 0
+        descriptionLabel.numberOfLines = 3
         descriptionLabel.textAlignment = .left
         addSubview(descriptionLabel)
 
@@ -77,6 +77,17 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         addSubview(button2)
 
         configure(state: .notStarted(optionA: nil, optionB: nil), theme: nil)
+    }
+    
+    private var buttonTraitCollection: UITraitCollection {
+        // maxing this out as there's not enough room for the largest type sizes
+        let current = UITraitCollection.current
+        let preferredSize = current.preferredContentSizeCategory
+        if preferredSize > .extraExtraExtraLarge {
+            return UITraitCollection(preferredContentSizeCategory: .extraExtraExtraLarge)
+        }
+        
+        return current
     }
 
     func configure(state: SessionState, theme: Theme?) {
@@ -202,8 +213,8 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         super.updateFonts(with: traitCollection)
         headerTitleLabel.font = WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)
         descriptionLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
-        button1.titleLabel?.font = WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)
-        button2.titleLabel?.font = WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)
+        button1.titleLabel?.font = WMFFont.for(.semiboldSubheadline, compatibleWith: buttonTraitCollection)
+        button2.titleLabel?.font = WMFFont.for(.semiboldSubheadline, compatibleWith: buttonTraitCollection)
         eventRowA.updateFonts(with: traitCollection)
         eventRowB.updateFonts(with: traitCollection)
     }
@@ -282,25 +293,62 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             )
             self.lastBottomButtonFrame = buttonFrame
         } else {
-            _ = button1.wmf_preferredFrame(
-                at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
-                maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
-                minimumSize: NoIntrinsicSize,
-                alignedBy: .forceLeftToRight,
-                apply: apply
-            )
+            // completed state
+            if !button2.isHidden {
+                
+                let spacing = CGFloat(6)
+                
+                let horizontalFrame1 = button1.wmf_preferredFrame(
+                    at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
+                    maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+                    minimumSize: NoIntrinsicSize,
+                    alignedBy: .forceLeftToRight,
+                    apply: false
+                )
+                
+                let horizontalFrame2 = button2.wmf_preferredFrame(
+                    at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
+                    maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+                    minimumSize: NoIntrinsicSize,
+                    alignedBy: .forceLeftToRight,
+                    apply: false
+                )
+                
+                // if they won't fit, display stacked.
+                if horizontalFrame1.width + horizontalFrame2.width + spacing > availableWidth {
+                    _ = button1.wmf_preferredFrame(
+                        at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY - horizontalFrame1.height - spacing),
+                        maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+                        minimumSize: NoIntrinsicSize,
+                        alignedBy: .forceLeftToRight,
+                        apply: apply
+                    )
+                    
+                    _ = button2.wmf_preferredFrame(
+                        at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
+                        maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+                        minimumSize: NoIntrinsicSize,
+                        alignedBy: .forceLeftToRight,
+                        apply: apply
+                    )
+                } else {
+                    if apply {
+                        button1.frame = horizontalFrame1
+                        button2.frame = CGRect(x: horizontalFrame1.maxX + spacing, y: horizontalFrame1.minY, width: horizontalFrame2.width, height: horizontalFrame2.height)
+                    }
+                }
+            } else {
+                _ = button1.wmf_preferredFrame(
+                    at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
+                    maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+                    minimumSize: NoIntrinsicSize,
+                    alignedBy: .forceLeftToRight,
+                    apply: apply
+                )
+            }
         }
 
-        if !button2.isHidden {
-            _ = button2.wmf_preferredFrame(
-                at: CGPoint(x: lastBottomButtonFrame.maxX + 6, y: lastBottomButtonFrame.minY),
-                maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
-                minimumSize: NoIntrinsicSize,
-                alignedBy: .forceLeftToRight,
-                apply: apply
-            )
-        }
-
+        
         return CGSize(width: size.width, height: lastBottomButtonFrame.maxY + layoutMargins.bottom)
     }
     
