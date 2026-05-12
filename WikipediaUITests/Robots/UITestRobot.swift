@@ -41,6 +41,27 @@ struct UITestRobot {
     }
 
     @discardableResult
+    func assertVisible(
+        _ element: XCUIElement,
+        timeout: TimeInterval = 5,
+        description: String? = nil,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> Self {
+        let predicate = NSPredicate(format: "exists == true && hittable == true")
+        let expectation = testCase.expectation(for: predicate, evaluatedWith: element)
+        let result = XCTWaiter.wait(for: [expectation], timeout: timeout)
+        XCTAssertEqual(
+            result,
+            .completed,
+            "Expected \(description ?? Self.describe(element)) to be visible within \(timeout) seconds.",
+            file: file,
+            line: line
+        )
+        return self
+    }
+
+    @discardableResult
     func tapButton(
         withIdentifier identifier: String,
         file: StaticString = #filePath,

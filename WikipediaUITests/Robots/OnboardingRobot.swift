@@ -34,7 +34,7 @@ struct OnboardingRobot: ScreenshotCapturingRobot {
 
     @discardableResult
     func assertPage(_ page: OnboardingPage, file: StaticString = #filePath, line: UInt = #line) -> Self {
-        base.assertExists(base.app.otherElements[page.accessibilityIdentifier], file: file, line: line)
+        base.assertVisible(base.app.otherElements[page.accessibilityIdentifier], file: file, line: line)
         return self
     }
 
@@ -76,7 +76,7 @@ struct OnboardingRobot: ScreenshotCapturingRobot {
         line: UInt = #line
     ) -> Self {
         let currentElement = base.app.otherElements[currentPage.accessibilityIdentifier]
-        base.assertExists(currentElement, file: file, line: line)
+        base.assertVisible(currentElement, file: file, line: line)
 
         if configuration.isRightToLeft {
             currentElement.swipeRight()
@@ -84,6 +84,7 @@ struct OnboardingRobot: ScreenshotCapturingRobot {
             currentElement.swipeLeft()
         }
 
+        base.waitForElementToDisappear(currentElement, timeout: 10, file: file, line: line)
         assertPage(nextPage, file: file, line: line)
         return self
     }
