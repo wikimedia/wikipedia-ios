@@ -11,7 +11,10 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         case completed(score: Int, totalQuestions: Int)
     }
 
-    var onPlayButtonTapped: (() -> Void)?
+    var tappedPlayTodaysGame: (() -> Void)?
+    var tappedContinueTodaysGame: (() -> Void)?
+    var tappedReviewResults: (() -> Void)?
+    var tappedPlayTheArchive: (() -> Void)?
     var sessionFetchTask: Task<Void, Never>?
 
     // Persisted so inProgress can still lay out invisible event rows at the correct size.
@@ -30,7 +33,8 @@ class WMFDailyGameExploreCell: CollectionViewCell {
     private let headerIconView = UIImageView()
     private let headerTitleLabel = UILabel()
     private let descriptionLabel = UILabel()
-    private let playButton = UIButton(type: .system)
+    private let button1 = UIButton(type: .system)
+    private let button2 = UIButton(type: .system)
 
     // Event rows — shown (possibly transparent) when event data is available
     private let eventRowA = WMFDailyGameEventRowView()
@@ -66,8 +70,11 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         addSubview(eventRowA)
         addSubview(eventRowB)
 
-        playButton.addTarget(self, action: #selector(didTapPlayButton), for: .touchUpInside)
-        addSubview(playButton)
+        button1.addTarget(self, action: #selector(didTapButton1), for: .touchUpInside)
+        addSubview(button1)
+
+        button2.addTarget(self, action: #selector(didTapButton2), for: .touchUpInside)
+        addSubview(button2)
 
         configure(state: .notStarted(optionA: nil, optionB: nil), theme: nil)
     }
@@ -87,7 +94,8 @@ class WMFDailyGameExploreCell: CollectionViewCell {
                 eventRowsTransparent = false
             }
             stopCountdownTimer()
-            setPlayButtonTitle("Play today's game")
+            setButton1Title("Play today's game")
+            button2.isHidden = true
             headerStacked = false
         case .inProgress(let answered, _):
             headerIconView.image = WMFSFSymbolIcon.for(symbol: .calendarExclamation)
@@ -102,7 +110,8 @@ class WMFDailyGameExploreCell: CollectionViewCell {
                 eventRowsTransparent = true
             }
             stopCountdownTimer()
-            setPlayButtonTitle("Continue today's game")
+            setButton1Title("Continue today's game")
+            button2.isHidden = true
             headerStacked = true
         case .completed(let score, let total):
             headerIconView.image = WMFSFSymbolIcon.for(symbol: .calendarCheckmark)
@@ -110,7 +119,9 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             completedScore = score
             completedTotal = total
             eventRowsTransparent = true
-            setPlayButtonTitle("Review results")
+            setButton1Title("Review results")
+            setButton2Title("Play the archive")
+            button2.isHidden = false
             headerStacked = true
             startCountdownTimer()
         }
@@ -133,8 +144,20 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         configure(state: .notStarted(optionA: nil, optionB: nil), theme: nil)
     }
 
-    @objc private func didTapPlayButton() {
-        onPlayButtonTapped?()
+    @objc private func didTapButton1() {
+        guard let lastState else { return }
+        switch lastState {
+        case .notStarted:
+            tappedPlayTodaysGame?()
+        case .inProgress:
+            tappedContinueTodaysGame?()
+        case .completed:
+            tappedReviewResults?()
+        }
+    }
+
+    @objc private func didTapButton2() {
+        tappedPlayTheArchive?()
     }
 
     // MARK: - Countdown Timer
@@ -179,7 +202,8 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         super.updateFonts(with: traitCollection)
         headerTitleLabel.font = WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)
         descriptionLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
-        playButton.titleLabel?.font = WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)
+        button1.titleLabel?.font = WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)
+        button2.titleLabel?.font = WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)
         eventRowA.updateFonts(with: traitCollection)
         eventRowB.updateFonts(with: traitCollection)
     }
@@ -249,7 +273,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
 
         if lastBottomButtonFrame == .zero {
             let buttonSpacing: CGFloat = 12
-            let buttonFrame = playButton.wmf_preferredFrame(
+            let buttonFrame = button1.wmf_preferredFrame(
                 at: CGPoint(x: layoutMargins.left, y: y + buttonSpacing),
                 maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
                 minimumSize: NoIntrinsicSize,
@@ -258,7 +282,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             )
             self.lastBottomButtonFrame = buttonFrame
         } else {
-            _ = playButton.wmf_preferredFrame(
+            _ = button1.wmf_preferredFrame(
                 at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
                 maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
                 minimumSize: NoIntrinsicSize,
@@ -266,7 +290,16 @@ class WMFDailyGameExploreCell: CollectionViewCell {
                 apply: apply
             )
         }
-        
+
+        if !button2.isHidden {
+            _ = button2.wmf_preferredFrame(
+                at: CGPoint(x: lastBottomButtonFrame.maxX + 6, y: lastBottomButtonFrame.minY),
+                maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+                minimumSize: NoIntrinsicSize,
+                alignedBy: .forceLeftToRight,
+                apply: apply
+            )
+        }
 
         return CGSize(width: size.width, height: lastBottomButtonFrame.maxY + layoutMargins.bottom)
     }
@@ -274,9 +307,14 @@ class WMFDailyGameExploreCell: CollectionViewCell {
     /// UIButton defers flushing `setTitle(_:for:)` to `titleLabel.text` until its own
     /// layout pass, which happens after `sizeThatFits` measures the label. Setting
     /// `titleLabel?.text` directly ensures the manual layout sizing pass sees the new value.
-    private func setPlayButtonTitle(_ title: String) {
-        playButton.setTitle(title, for: .normal)
-        playButton.titleLabel?.text = title
+    private func setButton1Title(_ title: String) {
+        button1.setTitle(title, for: .normal)
+        button1.titleLabel?.text = title
+    }
+
+    private func setButton2Title(_ title: String) {
+        button2.setTitle(title, for: .normal)
+        button2.titleLabel?.text = title
     }
 }
 
@@ -285,7 +323,8 @@ extension WMFDailyGameExploreCell: Themeable {
         
         headerTitleLabel.textColor = theme.colors.primaryText
         descriptionLabel.textColor = theme.colors.secondaryText
-        playButton.tintColor = theme.colors.link
+        button1.tintColor = theme.colors.link
+        button2.tintColor = theme.colors.link
         selectedBackgroundView?.backgroundColor = theme.colors.midBackground
         backgroundView?.backgroundColor = theme.colors.paperBackground
         eventRowA.apply(theme: theme)

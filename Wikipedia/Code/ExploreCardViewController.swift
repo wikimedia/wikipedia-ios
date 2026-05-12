@@ -417,8 +417,21 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         cell.configure(state: .notStarted(optionA: optionA, optionB: optionB), theme: theme)
 
         if !layoutOnly {
-            cell.onPlayButtonTapped = { [weak self] in
-                self?.delegate?.exploreCardViewController(self!, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
+            cell.tappedPlayTodaysGame = { [weak self] in
+                guard let self else { return }
+                self.delegate?.exploreCardViewController(self, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
+            }
+            cell.tappedContinueTodaysGame = { [weak self] in
+                guard let self else { return }
+                self.delegate?.exploreCardViewController(self, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
+            }
+            cell.tappedReviewResults = { [weak self] in
+                guard let self else { return }
+                // TODO: push to results view
+            }
+            cell.tappedPlayTheArchive = { [weak self] in
+                guard let self else { return }
+                // TODO: push to archive
             }
 
             if let siteURL = contentGroup?.siteURL,
