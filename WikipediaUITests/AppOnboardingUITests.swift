@@ -4,125 +4,86 @@ import WMFComponents
 final class AppOnboardingUITests: XCTestCase {
 
     func testFirstLaunchShowsOnboardingSmoke() throws {
-        let app = launchWikipediaApp(onboardingState: .notCompleted)
-        assertOnboardingPage(.introduction, in: app)
+        launchWikipediaAppRobot(onboardingState: .notCompleted)
+            .onboarding
+            .assertPage(.introduction)
     }
 
     func testOnboardingScreenshots() throws {
         enum ScreenshotNames: String {
             case analytics = "App Onboarding Analytics"
             case exploration = "App Onboarding Exploration"
-            case explore = "App Onboarding Explore"
             case initial = "App Onboarding Initial"
             case languages = "App Onboarding Languages"
         }
 
-        let app = launchWikipediaApp(onboardingState: .notCompleted)
-        
-        assertOnboardingPage(.introduction, in: app)
-        captureScreenshot(named: ScreenshotNames.initial.rawValue, in: app)
+        let app = launchWikipediaAppRobot(onboardingState: .notCompleted)
 
-        tapOnboardingNext(in: app)
-        assertOnboardingPage(.exploration, in: app)
-        captureScreenshot(named: ScreenshotNames.exploration.rawValue, in: app)
-
-        tapOnboardingNext(in: app)
-        assertOnboardingPage(.languages, in: app)
-        captureScreenshot(named: ScreenshotNames.languages.rawValue, in: app)
-
-        tapOnboardingNext(in: app)
-        assertOnboardingPage(.analytics, in: app)
-        captureScreenshot(named: ScreenshotNames.analytics.rawValue, in: app)
-
-        app.terminate()
-
-        let skipApp = launchWikipediaApp(onboardingState: .notCompleted)
-        assertOnboardingPage(.introduction, in: skipApp)
-        tapButton(withIdentifier: AccessibilityIdentifiers.Onboarding.skipButton, in: skipApp)
-
-        let exploreView = skipApp.otherElements[AccessibilityIdentifiers.Explore.view]
-        XCTAssertTrue(exploreView.waitForExistence(timeout: 5))
-        captureScreenshot(named: ScreenshotNames.explore.rawValue, in: skipApp)
+        app.onboarding
+            .assertPage(.introduction)
+            .captureScreenshot(ScreenshotNames.initial)
+            .tapNext()
+            .assertPage(.exploration)
+            .captureScreenshot(ScreenshotNames.exploration)
+            .tapNext()
+            .assertPage(.languages)
+            .captureScreenshot(ScreenshotNames.languages)
+            .tapNext()
+            .assertPage(.analytics)
+            .captureScreenshot(ScreenshotNames.analytics)
     }
 
     func testLearnMoreLinksPresentDestinations() throws {
-        let app = launchWikipediaApp(onboardingState: .notCompleted)
-
-        assertOnboardingPage(.introduction, in: app)
-        tapButton(withIdentifier: AccessibilityIdentifiers.Onboarding.introductionLearnMoreButton, in: app)
-
-        let introductionAlert = app.alerts.firstMatch
-        XCTAssertTrue(introductionAlert.waitForExistence(timeout: 5))
-        introductionAlert.buttons.firstMatch.tap()
-        waitForElementToDisappear(introductionAlert)
-
-        advanceOnboarding(to: .analytics, in: app)
-        tapButton(withIdentifier: AccessibilityIdentifiers.Onboarding.analyticsLearnMoreButton, in: app)
-
-        let analyticsLinks = app.sheets.firstMatch
-        XCTAssertTrue(analyticsLinks.waitForExistence(timeout: 5))
-        XCTAssertTrue(analyticsLinks.buttons.element(boundBy: 0).exists)
-        XCTAssertTrue(analyticsLinks.buttons.element(boundBy: 1).exists)
-        XCTAssertTrue(analyticsLinks.buttons.element(boundBy: 2).exists)
-        analyticsLinks.buttons.element(boundBy: 2).tap()
+        launchWikipediaAppRobot(onboardingState: .notCompleted)
+            .onboarding
+            .assertPage(.introduction)
+            .verifyIntroductionLearnMoreCanBeDismissed()
+            .advance(to: .analytics)
+            .verifyAnalyticsLearnMoreDestinationsCanBePresented()
     }
 
     func testAdditionalLanguageCanBeAddedDuringOnboarding() throws {
-        let app = launchWikipediaApp(
+        let app = launchWikipediaAppRobot(
             onboardingState: .notCompleted,
             resetsPreferredLanguages: true
         )
 
-        advanceOnboarding(to: .languages, in: app)
-        tapButton(withIdentifier: AccessibilityIdentifiers.Onboarding.addLanguagesButton, in: app)
+        let preferredLanguages = app.onboarding
+            .advance(to: .languages)
+            .openPreferredLanguages()
+        let targetLanguageCode = try preferredLanguages.languageCodeAvailableToAdd()
 
-        waitForPreferredLanguagesList(in: app)
-        let targetLanguageCode = try languageCodeAvailableToAdd(in: app)
-        tapPreferredLanguagesAddLanguageButton(in: app)
-
-        XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.LanguageSelection.allLanguagesView].waitForExistence(timeout: 5))
-
-        let searchField = app.searchFields.firstMatch
-        XCTAssertTrue(searchField.waitForExistence(timeout: 5))
-        searchField.tap()
-        searchField.typeText(targetLanguageCode)
-
-        let languageCell = app.cells[AccessibilityIdentifiers.LanguageSelection.allLanguage(targetLanguageCode)]
-        XCTAssertTrue(languageCell.waitForExistence(timeout: 5))
-        languageCell.tap()
-
-        let preferredLanguageCell = app.cells[AccessibilityIdentifiers.LanguageSelection.preferredLanguage(targetLanguageCode)]
-        XCTAssertTrue(preferredLanguageCell.waitForExistence(timeout: 5))
+        preferredLanguages
+            .tapAddLanguage()
+            .search(for: targetLanguageCode)
+            .selectLanguage(targetLanguageCode)
     }
 
     func testWelcomeScreensCanBeAdvancedByTappingNext() throws {
-        let app = launchWikipediaApp(onboardingState: .notCompleted)
-
-        assertOnboardingPage(.introduction, in: app)
-        tapOnboardingNext(in: app)
-        assertOnboardingPage(.exploration, in: app)
-        tapOnboardingNext(in: app)
-        assertOnboardingPage(.languages, in: app)
-        tapOnboardingNext(in: app)
-        assertOnboardingPage(.analytics, in: app)
+        launchWikipediaAppRobot(onboardingState: .notCompleted)
+            .onboarding
+            .assertPage(.introduction)
+            .tapNext()
+            .assertPage(.exploration)
+            .tapNext()
+            .assertPage(.languages)
+            .tapNext()
+            .assertPage(.analytics)
     }
 
     func testWelcomeScreensCanBeAdvancedBySwiping() throws {
-        let app = launchWikipediaApp(onboardingState: .notCompleted)
-
-        assertOnboardingPage(.introduction, in: app)
-        swipeToNextOnboardingPage(from: .introduction, to: .exploration, in: app)
-        swipeToNextOnboardingPage(from: .exploration, to: .languages, in: app)
-        swipeToNextOnboardingPage(from: .languages, to: .analytics, in: app)
+        launchWikipediaAppRobot(onboardingState: .notCompleted)
+            .onboarding
+            .assertPage(.introduction)
+            .swipeToNextPage(from: .introduction, to: .exploration)
+            .swipeToNextPage(from: .exploration, to: .languages)
+            .swipeToNextPage(from: .languages, to: .analytics)
     }
 
     func testOnboardingCanBeSkipped() throws {
-        let app = launchWikipediaApp(onboardingState: .notCompleted)
-
-        assertOnboardingPage(.introduction, in: app)
-        tapButton(withIdentifier: AccessibilityIdentifiers.Onboarding.skipButton, in: app)
-
-        let exploreView = app.otherElements[AccessibilityIdentifiers.Explore.view]
-        XCTAssertTrue(exploreView.waitForExistence(timeout: 5))
+        launchWikipediaAppRobot(onboardingState: .notCompleted)
+            .onboarding
+            .assertPage(.introduction)
+            .skipToExplore()
     }
 }
