@@ -64,6 +64,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         addSubview(headerTitleLabel)
 
         descriptionLabel.numberOfLines = 3
+        descriptionLabel.lineBreakMode = .byTruncatingTail
         descriptionLabel.textAlignment = .left
         addSubview(descriptionLabel)
 
@@ -211,33 +212,32 @@ class WMFDailyGameExploreCell: CollectionViewCell {
 
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        headerTitleLabel.font = WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)
+        headerTitleLabel.font = WMFFont.for(.boldSubheadline, compatibleWith: traitCollection)
         descriptionLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
-        button1.titleLabel?.font = WMFFont.for(.semiboldSubheadline, compatibleWith: buttonTraitCollection)
-        button2.titleLabel?.font = WMFFont.for(.semiboldSubheadline, compatibleWith: buttonTraitCollection)
+        button1.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: buttonTraitCollection)
+        button2.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: buttonTraitCollection)
         eventRowA.updateFonts(with: traitCollection)
         eventRowB.updateFonts(with: traitCollection)
     }
 
     // MARK: - Layout
 
-    private static let imageSize = CGSize(width: 44, height: 44)
-    private static let rowSpacing: CGFloat = 12
-    private static let imageTextSpacing: CGFloat = 12
+     private static let eventRowSpacing: CGFloat = 16
 
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        layoutMarginsAdditions = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
+        layoutMarginsAdditions = UIEdgeInsets(top: 12, left: 1, bottom: 12, right: 1)
         let layoutMargins = calculatedLayoutMargins
+        print(calculatedLayoutMargins)
         let availableWidth = size.width - layoutMargins.left - layoutMargins.right
 
         var y = layoutMargins.top
 
         if headerStacked {
-            let iconSize: CGFloat = CGFloat(44)
+            let iconSize: CGFloat = CGFloat(37)
             if apply {
                 headerIconView.frame = CGRect(x: layoutMargins.left, y: y, width: iconSize, height: iconSize)
             }
-            y += iconSize + 6
+            y += iconSize + 15
             let headerTitleFrame = headerTitleLabel.wmf_preferredFrame(
                 at: CGPoint(x: layoutMargins.left, y: y),
                 maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
@@ -245,16 +245,19 @@ class WMFDailyGameExploreCell: CollectionViewCell {
                 alignedBy: .forceLeftToRight,
                 apply: apply
             )
-            y = headerTitleFrame.maxY + 12
+            y = headerTitleFrame.maxY + 5
         } else {
             let iconSize: CGFloat = CGFloat(22)
+            let iconXOffset = CGFloat(-2)
             if apply {
-                headerIconView.frame = CGRect(x: layoutMargins.left, y: y, width: iconSize, height: iconSize)
+                headerIconView.frame = CGRect(x: layoutMargins.left + iconXOffset, y: y, width: iconSize, height: iconSize)
             }
             
+            let headerTitleYOffset = CGFloat(1)
+            let headerTitleXOffset = CGFloat(5)
             let headerTitleFrame = headerTitleLabel.wmf_preferredFrame(
-                at: CGPoint(x: layoutMargins.left + iconSize, y: y),
-                maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+                at: CGPoint(x: layoutMargins.left + iconSize + headerTitleXOffset, y: y + headerTitleYOffset),
+                maximumSize: CGSize(width: availableWidth - iconSize - headerTitleXOffset, height: UIView.noIntrinsicMetric),
                 minimumSize: NoIntrinsicSize,
                 alignedBy: .forceLeftToRight,
                 apply: apply
@@ -276,14 +279,14 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         let rowWidth = availableWidth
         let aFrame = eventRowA.sizeThatFits(CGSize(width: rowWidth, height: UIView.noIntrinsicMetric))
         if apply { eventRowA.frame = CGRect(x: layoutMargins.left, y: y, width: rowWidth, height: aFrame.height) }
-        y += aFrame.height + Self.rowSpacing
+        y += aFrame.height + Self.eventRowSpacing
 
         let bFrame = eventRowB.sizeThatFits(CGSize(width: rowWidth, height: UIView.noIntrinsicMetric))
         if apply { eventRowB.frame = CGRect(x: layoutMargins.left, y: y, width: rowWidth, height: bFrame.height) }
         y += bFrame.height
 
         if lastBottomButtonFrame == .zero {
-            let buttonSpacing: CGFloat = 12
+            let buttonSpacing: CGFloat = 20
             let buttonFrame = button1.wmf_preferredFrame(
                 at: CGPoint(x: layoutMargins.left, y: y + buttonSpacing),
                 maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
@@ -296,7 +299,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             // completed state
             if !button2.isHidden {
                 
-                let spacing = CGFloat(6)
+                let spacing = CGFloat(24)
                 
                 let horizontalFrame1 = button1.wmf_preferredFrame(
                     at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
@@ -370,7 +373,7 @@ extension WMFDailyGameExploreCell: Themeable {
     func apply(theme: Theme) {
         
         headerTitleLabel.textColor = theme.colors.primaryText
-        descriptionLabel.textColor = theme.colors.secondaryText
+        descriptionLabel.textColor = theme.colors.inputAccessoryButtonTint // todo: should be theme.colors.secondaryText?
         button1.tintColor = theme.colors.link
         button2.tintColor = theme.colors.link
         selectedBackgroundView?.backgroundColor = theme.colors.midBackground
@@ -384,7 +387,7 @@ extension WMFDailyGameExploreCell: Themeable {
             case .inProgress(let questionsAnswered, let score):
                 headerIconView.tintColor = theme.colors.link
             case .completed(let score, let totalQuestions):
-                headerIconView.tintColor = theme.colors.accent
+                headerIconView.tintColor = theme.colors.accent // todo: this doesn't look right
             }
         }
     }
@@ -399,8 +402,8 @@ private final class WMFDailyGameEventRowView: UIView {
     private let thumbnailView = UIImageView()
     private var imageLoadTask: URLSessionDataTask?
 
-    private static let imageSize = CGSize(width: 44, height: 44)
-    private static let imageTextSpacing: CGFloat = 12
+    private static let imageSize = CGSize(width: 40, height: 40)
+    private static let imageTextSpacing: CGFloat = 16
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -419,7 +422,7 @@ private final class WMFDailyGameEventRowView: UIView {
 
         thumbnailView.contentMode = .scaleAspectFill
         thumbnailView.clipsToBounds = true
-        thumbnailView.layer.cornerRadius = 4
+        thumbnailView.layer.cornerRadius = 2
         thumbnailView.backgroundColor = .clear
         addSubview(thumbnailView)
     }

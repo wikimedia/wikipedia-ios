@@ -262,20 +262,22 @@ extension WMFGamesDataController {
             pool.removeAll { $0.year == event2.year && $0.text == event2.text }
 
             let page1 = event1.pages.first
+            let thumbnail1 = event1.pages.first(where: { $0.thumbnail?.source != nil })?.thumbnail?.source
             let page2 = event2.pages.first
+            let thumbnail2 = event2.pages.first(where: { $0.thumbnail?.source != nil })?.thumbnail?.source
 
             // Earlier event is always "A"; correctAnswer is "A" since event1.year < event2.year
             let optionA = WMFWhichCameFirstEvent(
                 title: event1.text,
                 year: event1.year,
                 articleTitle: page1?.title,
-                thumbnailURL: page1?.thumbnail?.source
+                thumbnailURL: thumbnail1
             )
             let optionB = WMFWhichCameFirstEvent(
                 title: event2.text,
                 year: event2.year,
                 articleTitle: page2?.title,
-                thumbnailURL: page2?.thumbnail?.source
+                thumbnailURL: thumbnail2
             )
 
             // Randomize which option is presented as A/B so the earlier event isn't always on the left
