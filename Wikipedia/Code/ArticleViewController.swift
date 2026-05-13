@@ -504,6 +504,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     private func presentModalsIfNeeded() {
         
+        // Do not replace an in-flight reading challenge coordinator.
+        guard readingChallengeCoordinator == nil else {
+            return
+        }
+        
         // Prioritize reading challenge, then fall back to Activity onboarding or survey view if that doesn't present
         guard let navigationController else {
             presentYearInReviewAnnouncementOrFundraisingIfNeeded()

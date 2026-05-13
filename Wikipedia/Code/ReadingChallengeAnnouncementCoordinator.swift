@@ -141,12 +141,11 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
 
         let navController = WMFComponentNavigationController(rootViewController: onboardingController, modalPresentationStyle: .pageSheet)
 
-        markSeen()
-
-        navigationController.present(navController, animated: true) {
+        navigationController.present(navController, animated: true) { [weak self] in
+            self?.markSeen()
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
             // Instrument: impression on announcement view
-            self.widgetInstrument.submitInteraction(action: "impression", actionSource: "widget_challenge_announce")
+            self?.widgetInstrument.submitInteraction(action: "impression", actionSource: "widget_challenge_announce")
         }
     }
 
