@@ -288,7 +288,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
                 apply: false
             )
             
-            descriptionBottomSpacing = 64
+            // descriptionBottomSpacing = 64
             
             if apply {
                 if isChromeRTL {

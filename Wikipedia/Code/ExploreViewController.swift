@@ -1315,6 +1315,9 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     @objc func whichCameFirstSessionDidUpdate(_ note: Notification) {
         guard let projectID = note.userInfo?["projectID"] as? String,
               let date = note.userInfo?["dailyGameDate"] as? String else { return }
+        
+        wantsDeleteInsertOnNextItemUpdate = true
+        
         dataStore.feedContentController.updateDailyGameContentGroupPreview(forProjectID: projectID, date: date)
         // The MOC save triggers the FRC, which calls collectionViewUpdater(_:updateItemAtIndexPath:),
         // which already invalidates the layout cache and requests a reload — no manual reload needed.
