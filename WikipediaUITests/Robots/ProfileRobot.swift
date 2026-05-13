@@ -7,7 +7,7 @@ struct ProfileRobot: ScreenshotCapturingRobot {
 
     @discardableResult
     func assertVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        base.assertVisible(
+        base.assertExists(
             base.app.otherElements[AccessibilityIdentifiers.Profile.view],
             file: file,
             line: line
