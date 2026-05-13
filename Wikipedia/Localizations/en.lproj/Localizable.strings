@@ -1232,7 +1232,7 @@
 "settings-clear-cache-cancel" = "Cancel";
 "settings-clear-cache-ok" = "Clear cache";
 "settings-donate" = "Donate";
-"settings-explore-games-subtitle" = "Daily trivia games based Wikipedia content.";
+"settings-explore-games-subtitle" = "Daily games based on Wikipedia content";
 "settings-explore-games-title" = "Wikipedia games";
 "settings-help-and-feedback" = "Help and feedback";
 "settings-language-bar" = "Show languages on search";

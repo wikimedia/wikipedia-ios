@@ -61,9 +61,9 @@ private class FeedCard: ExploreFeedSettingsItem {
         case .dailyGame:
             title = CommonStrings.settingsGamesTitle
             singleLanguageDescription = CommonStrings.settingsGamesSubtitle
-            iconName = "random-mini" // TODO: different icon
-            iconColor = WMFColor.red600 // TODO: different color?
-            iconBackgroundColor = WMFColor.red100 // TODO: different color?
+            iconName = "games-mini"
+            iconColor = WMFColor.white
+            iconBackgroundColor = WMFColor.yellow600
         case .pictureOfTheDay:
             title = CommonStrings.pictureOfTheDayTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-potd-description", value: "Daily featured image from Commons", comment: "Description of Picture of the day section of Explore feed")

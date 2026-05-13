@@ -189,10 +189,8 @@ class WMFDailyGameExploreCell: CollectionViewCell {
     }
 
     private func countdownString() -> String {
-        var utcCalendar = Calendar(identifier: .gregorian)
-        utcCalendar.timeZone = TimeZone(identifier: "UTC")!
         let now = Date()
-        guard let tomorrow = utcCalendar.date(byAdding: .day, value: 1, to: utcCalendar.startOfDay(for: now)) else { return "--:--:--" }
+        guard let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Calendar.current.startOfDay(for: now)) else { return "--:--:--" }
         let seconds = max(0, Int(tomorrow.timeIntervalSince(now)))
         return String(format: "%02d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, seconds % 60)
     }
@@ -224,7 +222,6 @@ class WMFDailyGameExploreCell: CollectionViewCell {
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         layoutMarginsAdditions = UIEdgeInsets(top: 12, left: 1, bottom: 12, right: 1)
         let layoutMargins = calculatedLayoutMargins
-        print(calculatedLayoutMargins)
         let availableWidth = size.width - layoutMargins.left - layoutMargins.right
 
         var y = layoutMargins.top
