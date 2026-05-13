@@ -51,11 +51,18 @@ final class WMFDailyGameContentSource: NSObject, WMFContentSource {
                     return
                 }
 
-                // Encode a WMFDailyGameContentPreview (notStarted state + preview events) so
-                // the cell can configure its layout synchronously without any async fetch.
                 var encodedPreview: Data?
                 if let preview = try? await gamesController.fetchWhichCameFirstDailyPreviewEvents(date: today, project: project) {
-                    let contentPreview = WMFDailyGameContentPreview(optionA: preview.optionA, optionB: preview.optionB, state: .notStarted)
+                    let session = try? await gamesController.fetchWhichCameFirstDailySession(date: today, project: project)
+                    let state: WMFDailyGameContentPreview.GameState
+                    if let session {
+                        state = session.status == .completed
+                            ? .completed(score: Int(session.score), totalQuestions: WMFGamesDataController.whichCameFirstQuestionCount)
+                            : .inProgress(questionsAnswered: Int(session.currentQuestionIndex), score: Int(session.score))
+                    } else {
+                        state = .notStarted
+                    }
+                    let contentPreview = WMFDailyGameContentPreview(optionA: preview.optionA, optionB: preview.optionB, state: state)
                     encodedPreview = try? JSONEncoder().encode(contentPreview)
                 }
 
