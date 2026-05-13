@@ -288,7 +288,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
                 apply: false
             )
             
-            descriptionBottomSpacing = 64
+            descriptionBottomSpacing = 54
             
             if apply {
                 if isChromeRTL {
@@ -397,7 +397,7 @@ extension WMFDailyGameExploreCell: Themeable {
             case .inProgress(let questionsAnswered, let score):
                 headerIconView.tintColor = theme.colors.link
             case .completed(let score, let totalQuestions):
-                headerIconView.tintColor = theme.colors.accent // todo: this doesn't look right
+                headerIconView.tintColor = theme.colors.accent2
             }
         }
     }
