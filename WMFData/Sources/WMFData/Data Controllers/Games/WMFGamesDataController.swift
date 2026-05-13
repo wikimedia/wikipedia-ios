@@ -403,6 +403,7 @@ extension WMFGamesDataController {
                 moc.delete(session)
             }
             try moc.save()
+            NotificationCenter.default.post(name: WMFNSNotification.gamesAllSessionsCleared, object: nil)
         }
     }
 

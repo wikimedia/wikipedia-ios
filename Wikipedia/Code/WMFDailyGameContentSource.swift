@@ -4,7 +4,7 @@ import WMFData
 /// Content source for the "Which Came First?" daily game Explore card.
 /// Creates a content group only when the game is available for today's date.
 @objc(WMFDailyGameContentSource)
-final class WMFDailyGameContentSource: NSObject, WMFContentSource {
+public final class WMFDailyGameContentSource: NSObject, WMFContentSource {
 
     private let dataStore: MWKDataStore
     private let siteURL: URL
@@ -23,7 +23,7 @@ final class WMFDailyGameContentSource: NSObject, WMFContentSource {
 
     // MARK: - WMFContentSource
 
-    func loadNewContent(in moc: NSManagedObjectContext, force: Bool, completion: (() -> Void)?) {
+    public func loadNewContent(in moc: NSManagedObjectContext, force: Bool, completion: (() -> Void)?) {
 
         guard WMFDeveloperSettingsDataController.shared.showGamesV1 else {
             moc.perform {
@@ -133,7 +133,7 @@ final class WMFDailyGameContentSource: NSObject, WMFContentSource {
         }
     }
 
-    func removeAllContent(in moc: NSManagedObjectContext) {
+    public func removeAllContent(in moc: NSManagedObjectContext) {
         guard let url = WMFContentGroup.dailyGameURL(forSiteURL: siteURL) else { return }
         if let group = moc.contentGroup(for: url) {
             moc.remove(group)

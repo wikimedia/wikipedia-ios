@@ -122,6 +122,8 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 /// Called when a Which Came First session answer is submitted.
 - (void)updateDailyGameContentGroupPreviewForProjectID:(NSString *)projectID date:(NSString *)date;
 
+- (void)resetDailyGameContentGroups;
+
 #if DEBUG
 - (void)debugChaos;
 #endif

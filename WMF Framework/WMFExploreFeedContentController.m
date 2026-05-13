@@ -370,6 +370,23 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     [self.operationQueue addOperation:op];
 }
 
+- (void)resetDailyGameContentGroups {
+    NSManagedObjectContext *moc = self.dataStore.viewContext;
+    [moc performBlock:^{
+        for (id<WMFContentSource> source in self.contentSources) {
+            if ([source isKindOfClass:[WMFDailyGameContentSource class]]) {
+                WMFDailyGameContentSource *gameSource = (WMFDailyGameContentSource *)source;
+                [gameSource removeAllContentInManagedObjectContext:moc];
+            }
+        }
+        [self save:moc];
+    }];
+    // Give the FRC a moment to process the delete, then reload
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateContentSource:[WMFDailyGameContentSource class] force:YES completion:nil];
+    });
+}
+
 #pragma mark - Preferences
 
 - (void)updateExploreFeedPreferencesFromDidSaveNotification:(NSNotification *)note {
