@@ -401,7 +401,7 @@ extension WMFDailyGameExploreCell: Themeable {
             case .inProgress(let questionsAnswered, let score):
                 headerIconView.tintColor = theme.colors.link
             case .completed(let score, let totalQuestions):
-                headerIconView.tintColor = theme.colors.accent2
+                headerIconView.tintColor = theme.colors.accent
             }
         }
     }

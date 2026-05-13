@@ -349,13 +349,6 @@ public class Colors: NSObject {
             return WMFColor.green600
         }
     }
-    
-    @objc public var accent2: UIColor {
-        switch identifier {
-        default:
-            return WMFColor.green700
-        }
-    }
 
     @objc public var secondaryAction: UIColor {
         return WMFColor.blue700
