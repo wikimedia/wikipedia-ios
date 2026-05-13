@@ -9,6 +9,12 @@ final class WMFDailyGameContentSource: NSObject, WMFContentSource {
     private let dataStore: MWKDataStore
     private let siteURL: URL
 
+    /// The WMFProject.id for the wiki this source serves. Used to match incoming notifications.
+    @objc var projectID: String? {
+        guard let languageCode = siteURL.wmf_languageCode else { return nil }
+        return WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: siteURL.wmf_languageVariantCode)).id
+    }
+
     @objc init(dataStore: MWKDataStore, siteURL: URL) {
         self.dataStore = dataStore
         self.siteURL = siteURL
@@ -45,13 +51,12 @@ final class WMFDailyGameContentSource: NSObject, WMFContentSource {
                     return
                 }
 
-                // Encode preview events as JSON Data so the cell can configure its layout
-                // synchronously without any async fetch. The OTD response is already cached
-                // from the isWhichCameFirstDailySessionAvailable check above.
+                // Encode a WMFDailyGameContentPreview (notStarted state + preview events) so
+                // the cell can configure its layout synchronously without any async fetch.
                 var encodedPreview: Data?
                 if let preview = try? await gamesController.fetchWhichCameFirstDailyPreviewEvents(date: today, project: project) {
-                    let events = [preview.optionA, preview.optionB]
-                    encodedPreview = try? JSONEncoder().encode(events)
+                    let contentPreview = WMFDailyGameContentPreview(optionA: preview.optionA, optionB: preview.optionB, state: .notStarted)
+                    encodedPreview = try? JSONEncoder().encode(contentPreview)
                 }
 
                 await moc.perform {
@@ -65,6 +70,59 @@ final class WMFDailyGameContentSource: NSObject, WMFContentSource {
             } catch {
                 completion?()
             }
+        }
+    }
+
+    /// Fetches the current session for the given date+project and updates `contentPreview`
+    /// on the matching content group so the Explore cell can reconfigure synchronously.
+    @objc func updateContentGroupPreviewWithDate(_ date: String, completionHandler: (() -> Void)?) {
+        guard let languageCode = siteURL.wmf_languageCode else {
+            completionHandler?()
+            return
+        }
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: siteURL.wmf_languageVariantCode))
+        Task {
+            await updateContentGroupPreview(date: date, project: project)
+            completionHandler?()
+        }
+    }
+
+    // @MainActor ensures every continuation after an await resumes on the main thread,
+    // which is required for safe access to dataStore.viewContext.
+    @MainActor
+    private func updateContentGroupPreview(date: String, project: WMFProject) async {
+        guard let url = WMFContentGroup.dailyGameURL(forSiteURL: siteURL) else { return }
+
+        let gamesController = WMFGamesDataController()
+        let session = try? await gamesController.fetchWhichCameFirstDailySession(date: date, project: project)
+
+        // Decode the existing preview events so we can preserve them.
+        let moc = dataStore.viewContext
+        let existingPreview = await moc.perform {
+            (moc.contentGroup(for: url)?.contentPreview as? Data)
+                .flatMap { try? JSONDecoder().decode(WMFDailyGameContentPreview.self, from: $0) }
+        }
+        let optionA = existingPreview?.optionA
+        let optionB = existingPreview?.optionB
+
+        let state: WMFDailyGameContentPreview.GameState
+        if let session {
+            if session.status == .completed {
+                state = .completed(score: Int(session.score), totalQuestions: WMFGamesDataController.whichCameFirstQuestionCount)
+            } else {
+                state = .inProgress(questionsAnswered: Int(session.currentQuestionIndex), score: Int(session.score))
+            }
+        } else {
+            state = .notStarted
+        }
+
+        let newPreview = WMFDailyGameContentPreview(optionA: optionA, optionB: optionB, state: state)
+        guard let encoded = try? JSONEncoder().encode(newPreview) else { return }
+
+        await moc.perform {
+            guard let group = moc.contentGroup(for: url) else { return }
+            group.contentPreview = encoded as NSData
+            try? moc.save()
         }
     }
 

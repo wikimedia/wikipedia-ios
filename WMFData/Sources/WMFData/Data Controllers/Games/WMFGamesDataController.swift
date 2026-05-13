@@ -345,8 +345,14 @@ extension WMFGamesDataController {
 
             let result = WMFWhichCameFirstAnswerResult(isCorrect: isCorrect, correctAnswer: question.correctAnswer)
 
+            let projectID = cdSession.projectID
+            let dailyGameDate = cdSession.dailyGameDate ?? ""
             DispatchQueue.main.async {
-                NotificationCenter.default.post(name: WMFNSNotification.whichCameFirstSessionDidUpdate, object: nil)
+                NotificationCenter.default.post(
+                    name: WMFNSNotification.whichCameFirstSessionDidUpdate,
+                    object: nil,
+                    userInfo: ["projectID": projectID, "dailyGameDate": dailyGameDate]
+                )
             }
 
             return result

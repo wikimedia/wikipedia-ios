@@ -85,7 +85,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(gamesV1SettingDidChange), name: WMFNSNotification.gamesV1SettingDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(whichCameFirstSessionDidUpdate), name: WMFNSNotification.whichCameFirstSessionDidUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(whichCameFirstSessionDidUpdate(_:)), name: WMFNSNotification.whichCameFirstSessionDidUpdate, object: nil)
 
         setupTopSafeAreaOverlay(scrollView: collectionView)
         
@@ -1312,25 +1312,12 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         }
     }
     
-    @objc func whichCameFirstSessionDidUpdate() {
-        
-        let visibleIndexPathsWithChanges = collectionView.indexPathsForVisibleItems.filter { (indexPath) -> Bool in
-            guard let contentGroup = group(at: indexPath) else {
-                return false
-            }
-            return contentGroup.contentGroupKind == .dailyGame
-        }
-        
-        for indexPath in visibleIndexPathsWithChanges {
-            guard let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell,
-                      let cardVC = cell.cardContent as? ExploreCardViewController else { continue }
-                cardVC.resetContentHeight()
-                self.layoutCache.invalidateGroupKey(self.groupKey(at: indexPath))
-        }
-        
-        self.collectionView.collectionViewLayout.invalidateLayout()
-        collectionView.reloadData()
-        
+    @objc func whichCameFirstSessionDidUpdate(_ note: Notification) {
+        guard let projectID = note.userInfo?["projectID"] as? String,
+              let date = note.userInfo?["dailyGameDate"] as? String else { return }
+        dataStore.feedContentController.updateDailyGameContentGroupPreview(forProjectID: projectID, date: date)
+        // The MOC save triggers the FRC, which calls collectionViewUpdater(_:updateItemAtIndexPath:),
+        // which already invalidates the layout cache and requests a reload — no manual reload needed.
     }
 
     @objc func articleDeleted(_ note: Notification) {

@@ -673,6 +673,18 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     [self.operationQueue addOperation:op];
 }
 
+- (void)updateDailyGameContentGroupPreviewForProjectID:(NSString *)projectID date:(NSString *)date {
+    for (id<WMFContentSource> source in self.contentSources) {
+        if ([source isKindOfClass:[WMFDailyGameContentSource class]]) {
+            WMFDailyGameContentSource *gameSource = (WMFDailyGameContentSource *)source;
+            if ([gameSource.projectID isEqualToString:projectID]) {
+                [gameSource updateContentGroupPreviewWithDate:date completionHandler:nil];
+                return;
+            }
+        }
+    }
+}
+
 - (NSInteger)countOfVisibleContentGroupKinds {
     if (self.cachedCountOfVisibleContentGroupKinds) {
         return self.cachedCountOfVisibleContentGroupKinds.integerValue;

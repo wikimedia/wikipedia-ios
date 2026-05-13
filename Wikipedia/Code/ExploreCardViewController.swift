@@ -411,16 +411,15 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return
         }
 
-        // Synchronously decode preview events stored by the content source so the
-        // cell has the correct height from the very first layout pass.
-        let events = (contentGroup?.contentPreview as? Data)
-            .flatMap { try? JSONDecoder().decode([WMFWhichCameFirstEvent].self, from: $0) }
-        let optionA = events?.first
-        let optionB = (events?.count ?? 0 > 1) ? events?[1] : nil
+        // Synchronously decode WMFDailyGameContentPreview stored by the content source so
+        // the cell has the correct state and height from the very first layout pass.
+        let preview = (contentGroup?.contentPreview as? Data)
+            .flatMap { try? JSONDecoder().decode(WMFDailyGameContentPreview.self, from: $0) }
+
         if let siteURL = contentGroup?.siteURL {
             cell.isContentRTL = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: siteURL.wmf_contentLanguageCode) == .forceRightToLeft
         }
-        
+
         cell.tappedPlayTodaysGame = { [weak self] in
             guard let self else { return }
             self.delegate?.exploreCardViewController(self, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
@@ -437,49 +436,20 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             guard let self else { return }
             // TODO: push to archive
         }
-        
-         let random = Int.random(in: 1...3)
-        switch random {
-        case 1:
-            cell.configure(state: .notStarted(optionA: WMFWhichCameFirstEvent(title: "Event 1", year: 2018), optionB: WMFWhichCameFirstEvent(title: "Event 2", year: 3058)), theme: theme)
-        case 2:
-            cell.configure(state: .inProgress(questionsAnswered: 3, score: 2), theme: theme)
-        case 3:
-            cell.configure(state: .completed(score: 3, totalQuestions: 5), theme: theme)
+
+        let optionA = preview?.optionA
+        let optionB = preview?.optionB
+        let cellState: WMFDailyGameExploreCell.SessionState
+        switch preview?.state {
+        case .inProgress(let questionsAnswered, let score):
+            cellState = .inProgress(questionsAnswered: questionsAnswered, score: score)
+        case .completed(let score, let totalQuestions):
+            cellState = .completed(score: score, totalQuestions: totalQuestions)
         default:
-            cell.configure(state: .notStarted(optionA: WMFWhichCameFirstEvent(title: "Event 1", year: 2018), optionB: WMFWhichCameFirstEvent(title: "Event 2", year: 3058)), theme: theme)
+            cellState = .notStarted(optionA: optionA, optionB: optionB)
         }
-
-//            if let siteURL = contentGroup?.siteURL,
-//               let languageCode = siteURL.wmf_languageCode {
-//                let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: siteURL.wmf_languageVariantCode))
-//                let date = Self.todayGameDateString()
-//                let controller = WMFGamesDataController()
-//                cell.sessionFetchTask = Task { [weak cell] in
-//                    let session = try? await controller.fetchWhichCameFirstDailySession(date: date, project: project)
-//                    guard !Task.isCancelled, let session else {
-//                        cell?.configure(state: .notStarted(optionA: optionA, optionB: optionB), theme: theme)
-//                        return
-//                    }
-//                    let state: WMFDailyGameExploreCell.SessionState
-//                    if session.status == .completed {
-//                        state = .completed(score: Int(session.score), totalQuestions: WMFGamesDataController.whichCameFirstQuestionCount)
-//                    } else {
-//                        state = .inProgress(questionsAnswered: Int(session.currentQuestionIndex), score: Int(session.score))
-//                    }
-//                    cell?.configure(state: state, theme: theme)
-//                }
-//            }
-
+        cell.configure(state: cellState, theme: theme)
         cell.apply(theme: theme)
-    }
-
-    private static func todayGameDateString() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        formatter.timeZone = TimeZone(identifier: "UTC")
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        return formatter.string(from: Date())
     }
 
     func updateLocationCells() {
