@@ -71,9 +71,13 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         addSubview(eventRowB)
 
         button1.addTarget(self, action: #selector(didTapButton1), for: .touchUpInside)
+        button1.titleLabel?.numberOfLines = 1
+        button1.titleLabel?.lineBreakMode = .byTruncatingTail
         addSubview(button1)
 
         button2.addTarget(self, action: #selector(didTapButton2), for: .touchUpInside)
+        button2.titleLabel?.numberOfLines = 1
+        button2.titleLabel?.lineBreakMode = .byTruncatingTail
         addSubview(button2)
 
         configure(state: .notStarted(optionA: nil, optionB: nil), theme: nil)
