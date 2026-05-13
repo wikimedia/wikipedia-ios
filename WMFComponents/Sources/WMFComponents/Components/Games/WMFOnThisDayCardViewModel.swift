@@ -80,7 +80,7 @@ public final class WMFOnThisDayCardViewModel: ObservableObject, Identifiable {
     }
 
     func pillColor(theme: WMFTheme) -> Color {
-        isCorrectAnswer ? Color(uiColor: theme.accent) : Color(uiColor: theme.destructive)
+        isCorrectAnswer ? Color(uiColor: theme.successGreen) : Color(uiColor: theme.destructive)
     }
 
     func resultIconName() -> String {
@@ -114,10 +114,10 @@ public final class WMFOnThisDayCardViewModel: ObservableObject, Identifiable {
 public struct WMFOnThisDayCardEvent: Identifiable {
     public let id = UUID()
     public let text: String
-    public let date: String
+    public let date: Date
     public let imageURL: URL?
 
-    public init(text: String, date: String, imageURL: URL? = nil) {
+    public init(text: String, date: Date, imageURL: URL? = nil) {
         self.text = text
         self.date = date
         self.imageURL = imageURL

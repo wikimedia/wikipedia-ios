@@ -183,7 +183,7 @@ public extension WMFOnThisDayEvent {
     var cardEvent: WMFOnThisDayCardEvent {
         WMFOnThisDayCardEvent(
             text: text,
-            date: String(year),
+            date: makeDate,
             imageURL: pages.first?.thumbnail?.source
         )
     }
@@ -191,9 +191,13 @@ public extension WMFOnThisDayEvent {
 
 private extension WMFWhichCameFirstEvent {
     var cardEvent: WMFOnThisDayCardEvent {
-        WMFOnThisDayCardEvent(
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM d, yyyy"   // e.g. "May 13, 1969"
+        formatter.locale = Locale.current
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        return WMFOnThisDayCardEvent(
             text: title,
-            date: String(year),
+            date: date,
             imageURL: thumbnailURL
         )
     }

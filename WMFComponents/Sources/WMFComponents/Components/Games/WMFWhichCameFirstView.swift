@@ -51,7 +51,7 @@ public struct WMFWhichCameFirstView: View {
                 .background(
                     VStack(spacing: 0) {
                         Color(uiColor: theme.link)
-                            .frame(height: 60)
+                            .frame(height: 32)
                         Color.clear
                     }
                 )
@@ -214,7 +214,7 @@ struct WMFGameButtonStyle: ButtonStyle {
         event: WMFOnThisDayCardEvent(
             text: "The Apollo 11 mission successfully lands the first humans on the Moon.",
             date: "1969",
-            imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Aldrin_Apollo_11.jpg/320px-Aldrin_Apollo_11.jpg")
+            imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Apollo_11_Crew.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
         )
     )
     vm.cardViewModelB = WMFOnThisDayCardViewModel(

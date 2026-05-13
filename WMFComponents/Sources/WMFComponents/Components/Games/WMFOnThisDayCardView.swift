@@ -20,17 +20,16 @@ public struct WMFOnThisDayCardView: View {
             cardContent
             if viewModel.isRevealed {
                 datePill
-                    .offset(y: 14)
+                    .offset(y: 10)
             }
         }
-        .padding(.bottom, viewModel.isRevealed ? 14 : 0)
         .animation(.easeInOut(duration: 0.25), value: viewModel.isRevealed)
         .animation(.easeInOut(duration: 0.18), value: viewModel.isSelected)
     }
 
     private var cardContent: some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack(alignment: .top, spacing: 12) {
+            HStack(alignment: .top, spacing: 16) {
                 eventText
                 thumbnailView
             }
@@ -78,12 +77,24 @@ public struct WMFOnThisDayCardView: View {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 80, height: 80)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .frame(width: 100, height: 100)
+                    .clipShape(
+                        UnevenRoundedRectangle(
+                            topLeadingRadius: 0,
+                            bottomLeadingRadius: 0,
+                            bottomTrailingRadius: 0,
+                            topTrailingRadius: 8
+                        )
+                    )
             } else {
-                RoundedRectangle(cornerRadius: 8)
+                UnevenRoundedRectangle(
+                    topLeadingRadius: 0,
+                    bottomLeadingRadius: 0,
+                    bottomTrailingRadius: 0,
+                    topTrailingRadius: 8
+                )
                     .fill(Color(uiColor: theme.midBackground))
-                    .frame(width: 80, height: 80)
+                    .frame(width: 100, height: 100)
                     .overlay(ProgressView().scaleEffect(0.7))
             }
         }
@@ -104,8 +115,8 @@ public struct WMFOnThisDayCardView: View {
         Text(viewModel.event.date)
             .font(Font(WMFFont.for(.subheadline)))
             .foregroundColor(Color(uiColor: theme.paperBackground))
-            .padding(.horizontal, 14)
-            .padding(.vertical, 6)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 0)
             .background(Capsule().fill(viewModel.pillColor(theme: theme)))
     }
 }
@@ -116,7 +127,7 @@ public struct WMFOnThisDayCardView: View {
             event: WMFOnThisDayCardEvent(
                 text: "The Apollo 11 mission successfully lands the first humans on the Moon, with Neil Armstrong and Buzz Aldrin walking on the lunar surface.",
                 date: "1969",
-                imageURL: URL(string: "https://commons.wikimedia.org/wiki/File:Apollo_11_Crew.jpg")
+                imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Apollo_11_Crew.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
             )
         )
     )
@@ -129,7 +140,7 @@ public struct WMFOnThisDayCardView: View {
             event: WMFOnThisDayCardEvent(
                 text: "The Apollo 11 mission successfully lands the first humans on the Moon, with Neil Armstrong and Buzz Aldrin walking on the lunar surface.",
                 date: "1969",
-                imageURL: URL(string: "https://commons.wikimedia.org/wiki/File:Apollo_11_Crew.jpg")
+                imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Apollo_11_Crew.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
             ),
             isSelected: true
         )
@@ -143,7 +154,7 @@ public struct WMFOnThisDayCardView: View {
             event: WMFOnThisDayCardEvent(
                 text: "The Apollo 11 mission successfully lands the first humans on the Moon, with Neil Armstrong and Buzz Aldrin walking on the lunar surface.",
                 date: "1969",
-                imageURL: URL(string: "https://commons.wikimedia.org/wiki/File:Apollo_11_Crew.jpg")
+                imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Apollo_11_Crew.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
             ),
             isSelected: true,
             isRevealed: true,

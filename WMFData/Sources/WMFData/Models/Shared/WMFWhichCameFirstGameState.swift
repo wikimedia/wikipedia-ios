@@ -26,13 +26,13 @@ public struct WMFWhichCameFirstQuestion: Codable, Sendable {
 
 public struct WMFWhichCameFirstEvent: Codable, Sendable {
     public let title: String
-    public let year: Int
+    public let date: Date
     public let articleTitle: String?
     public let thumbnailURL: URL?
 
-    public init(title: String, year: Int, articleTitle: String? = nil, thumbnailURL: URL? = nil) {
+    public init(title: String, date: Date, articleTitle: String? = nil, thumbnailURL: URL? = nil) {
         self.title = title
-        self.year = year
+        self.date = date
         self.articleTitle = articleTitle
         self.thumbnailURL = thumbnailURL
     }
