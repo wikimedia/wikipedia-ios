@@ -380,11 +380,12 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             }
         }
         [self save:moc];
+        
+        // Give the FRC a moment to process the delete, then reload
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [self updateContentSource:[WMFDailyGameContentSource class] force:YES completion:nil];
+        });
     }];
-    // Give the FRC a moment to process the delete, then reload
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateContentSource:[WMFDailyGameContentSource class] force:YES completion:nil];
-    });
 }
 
 #pragma mark - Preferences
