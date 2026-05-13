@@ -68,7 +68,7 @@ struct UITestRobot {
         line: UInt = #line
     ) -> Self {
         let button = app.buttons.matching(identifier: identifier).firstMatch
-        assertExists(
+        assertVisible(
             button,
             description: "button with identifier '\(identifier)'",
             file: file,
