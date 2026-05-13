@@ -137,6 +137,10 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
             self.present(navigationVC, animated: true)
         }
+        
+        viewModel.didTapCloseReadingChallenge = { [weak self] in
+            self?.dataController.turnOffReadingChallenge()
+        }
 
         Task {
             await dataController.setHistoryDataController(historyDataController)

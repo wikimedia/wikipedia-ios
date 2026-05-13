@@ -15,6 +15,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     public var didTapPrimaryLoggedOutCTA: (() -> Void)?
     public var didTapSearchTab: (() -> Void)?
     public var didTapReadingChallengeCTA: (() -> Void)?
+    public var didTapCloseReadingChallenge: (() -> Void)?
     public var presentCustomizeLogInToastAction: (() -> Void)? {
         didSet {
             self.customizeViewModel.presentLoggedInToastAction = self.presentCustomizeLogInToastAction
@@ -192,6 +193,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var isLoading: Bool = false
     public var isEmpty: Bool = false
     @Published public var needsHistoryCallout: Bool = true
+    @Published public var showBabyGlobe: Bool = true
     public var onTapGlobalEdits: (() -> Void)?
     public var fetchDataCompleteAction: ((Bool) -> Void)?
     public var openCustomize: () -> Void = { }

@@ -47,7 +47,9 @@ public struct WMFActivityTabView: View {
                 Text(viewModel.localizedStrings.readingChallengeCardTitle)
                     .font(Font(WMFFont.for(.boldCaption1)))
                     .foregroundStyle(Color(theme.text))
-                
+                WMFSmallCloseButton(action: {
+                    viewModel.didTapCloseReadingChallenge?()
+                })
             }
             HStack(alignment: .center, spacing: 8) {
                 if let image = UIImage(named: "spaceGlobe", in: .module, with: nil) {
@@ -113,7 +115,9 @@ public struct WMFActivityTabView: View {
                             .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
                         }
                         
-                        babyGlobeReadingChallengeView
+                        if viewModel.showBabyGlobe {
+                            babyGlobeReadingChallengeView
+                        }
 
                         if viewModel.customizeViewModel.isReadingInsightsOn {
                             articlesReadModule(proxy: proxy)
@@ -243,7 +247,9 @@ public struct WMFActivityTabView: View {
                 }
                 .listRowSeparator(.hidden)
                 
-                babyGlobeReadingChallengeView
+                if viewModel.showBabyGlobe {
+                    babyGlobeReadingChallengeView
+                }
 
                 HStack {
                     Spacer()
