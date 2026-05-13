@@ -288,6 +288,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = AccessibilityIdentifiers.Search.view
         
         // Apply configuration properties to the container now that it's initialized
         searchResultsVC.showLanguageBar = showLanguageBar
