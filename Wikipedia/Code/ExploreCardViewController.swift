@@ -97,7 +97,6 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         layoutManager.register(WMFDailyGameExploreCell.self, forCellWithReuseIdentifier: WMFDailyGameExploreCell.identifier, addPlaceholder: true)
         collectionView.isOpaque = true
         view.isOpaque = true
-        NotificationCenter.default.addObserver(self, selector: #selector(whichCameFirstSessionDidUpdate), name: WMFNSNotification.whichCameFirstSessionDidUpdate, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -144,6 +143,10 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         didSet {
             reloadData()
         }
+    }
+    
+    func resetContentHeight() {
+        contentHeightByWidth.removeAll()
     }
 
     private func reloadData() {
@@ -414,48 +417,59 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             .flatMap { try? JSONDecoder().decode([WMFWhichCameFirstEvent].self, from: $0) }
         let optionA = events?.first
         let optionB = (events?.count ?? 0 > 1) ? events?[1] : nil
-        cell.configure(state: .notStarted(optionA: optionA, optionB: optionB), theme: theme)
         if let siteURL = contentGroup?.siteURL {
             cell.isContentRTL = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: siteURL.wmf_contentLanguageCode) == .forceRightToLeft
         }
         
-
-        if !layoutOnly {
-            cell.tappedPlayTodaysGame = { [weak self] in
-                guard let self else { return }
-                self.delegate?.exploreCardViewController(self, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
-            }
-            cell.tappedContinueTodaysGame = { [weak self] in
-                guard let self else { return }
-                self.delegate?.exploreCardViewController(self, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
-            }
-            cell.tappedReviewResults = { [weak self] in
-                guard let self else { return }
-                // TODO: push to results view
-            }
-            cell.tappedPlayTheArchive = { [weak self] in
-                guard let self else { return }
-                // TODO: push to archive
-            }
-
-            if let siteURL = contentGroup?.siteURL,
-               let languageCode = siteURL.wmf_languageCode {
-                let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: siteURL.wmf_languageVariantCode))
-                let date = Self.todayGameDateString()
-                let controller = WMFGamesDataController()
-                cell.sessionFetchTask = Task { [weak cell] in
-                    let session = try? await controller.fetchWhichCameFirstDailySession(date: date, project: project)
-                    guard !Task.isCancelled, let session else { return }
-                    let state: WMFDailyGameExploreCell.SessionState
-                    if session.status == .completed {
-                        state = .completed(score: Int(session.score), totalQuestions: WMFGamesDataController.whichCameFirstQuestionCount)
-                    } else {
-                        state = .inProgress(questionsAnswered: Int(session.currentQuestionIndex), score: Int(session.score))
-                    }
-                    cell?.configure(state: state, theme: theme)
-                }
-            }
+        cell.tappedPlayTodaysGame = { [weak self] in
+            guard let self else { return }
+            self.delegate?.exploreCardViewController(self, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
         }
+        cell.tappedContinueTodaysGame = { [weak self] in
+            guard let self else { return }
+            self.delegate?.exploreCardViewController(self, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
+        }
+        cell.tappedReviewResults = { [weak self] in
+            guard let self else { return }
+            // TODO: push to results view
+        }
+        cell.tappedPlayTheArchive = { [weak self] in
+            guard let self else { return }
+            // TODO: push to archive
+        }
+        
+         let random = Int.random(in: 1...3)
+        switch random {
+        case 1:
+            cell.configure(state: .notStarted(optionA: WMFWhichCameFirstEvent(title: "Event 1", year: 2018), optionB: WMFWhichCameFirstEvent(title: "Event 2", year: 3058)), theme: theme)
+        case 2:
+            cell.configure(state: .inProgress(questionsAnswered: 3, score: 2), theme: theme)
+        case 3:
+            cell.configure(state: .completed(score: 3, totalQuestions: 5), theme: theme)
+        default:
+            cell.configure(state: .notStarted(optionA: WMFWhichCameFirstEvent(title: "Event 1", year: 2018), optionB: WMFWhichCameFirstEvent(title: "Event 2", year: 3058)), theme: theme)
+        }
+
+//            if let siteURL = contentGroup?.siteURL,
+//               let languageCode = siteURL.wmf_languageCode {
+//                let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: siteURL.wmf_languageVariantCode))
+//                let date = Self.todayGameDateString()
+//                let controller = WMFGamesDataController()
+//                cell.sessionFetchTask = Task { [weak cell] in
+//                    let session = try? await controller.fetchWhichCameFirstDailySession(date: date, project: project)
+//                    guard !Task.isCancelled, let session else {
+//                        cell?.configure(state: .notStarted(optionA: optionA, optionB: optionB), theme: theme)
+//                        return
+//                    }
+//                    let state: WMFDailyGameExploreCell.SessionState
+//                    if session.status == .completed {
+//                        state = .completed(score: Int(session.score), totalQuestions: WMFGamesDataController.whichCameFirstQuestionCount)
+//                    } else {
+//                        state = .inProgress(questionsAnswered: Int(session.currentQuestionIndex), score: Int(session.score))
+//                    }
+//                    cell?.configure(state: state, theme: theme)
+//                }
+//            }
 
         cell.apply(theme: theme)
     }
@@ -466,14 +480,6 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         formatter.timeZone = TimeZone(identifier: "UTC")
         formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter.string(from: Date())
-    }
-
-    @objc private func whichCameFirstSessionDidUpdate() {
-        guard contentGroup?.contentGroupKind == .dailyGame,
-              let cell = collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? WMFDailyGameExploreCell else {
-            return
-        }
-        configureDailyGameCell(cell, layoutOnly: false)
     }
 
     func updateLocationCells() {

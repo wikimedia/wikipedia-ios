@@ -298,92 +298,113 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         }
         
         if !descriptionLabel.isHidden {
-            _ = descriptionLabel.wmf_preferredFrame(
+            let descriptionFrame = descriptionLabel.wmf_preferredFrame(
                 at: CGPoint(x: layoutMargins.left, y: y),
                 maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
                 minimumSize: NoIntrinsicSize,
                 alignedBy: .forceLeftToRight,
-                apply: apply
+                apply: false
             )
+            
+            if apply {
+                if isChromeRTL {
+                    descriptionLabel.frame = CGRect(x: size.width - layoutMargins.right - descriptionFrame.width, y: descriptionFrame.minY, width: descriptionFrame.width, height: descriptionFrame.height)
+                } else {
+                    descriptionLabel.frame = descriptionFrame
+                }
+            }
+            
+            y += descriptionFrame.height
+        } else {
+            let rowWidth = availableWidth
+            let aFrame = eventRowA.sizeThatFits(CGSize(width: rowWidth, height: UIView.noIntrinsicMetric))
+            if apply { eventRowA.frame = CGRect(x: layoutMargins.left, y: y, width: rowWidth, height: aFrame.height) }
+            y += aFrame.height + Self.eventRowSpacing
+
+            let bFrame = eventRowB.sizeThatFits(CGSize(width: rowWidth, height: UIView.noIntrinsicMetric))
+            if apply { eventRowB.frame = CGRect(x: layoutMargins.left, y: y, width: rowWidth, height: bFrame.height) }
+            y += bFrame.height
         }
-        
-        let rowWidth = availableWidth
-        let aFrame = eventRowA.sizeThatFits(CGSize(width: rowWidth, height: UIView.noIntrinsicMetric))
-        if apply { eventRowA.frame = CGRect(x: layoutMargins.left, y: y, width: rowWidth, height: aFrame.height) }
-        y += aFrame.height + Self.eventRowSpacing
 
-        let bFrame = eventRowB.sizeThatFits(CGSize(width: rowWidth, height: UIView.noIntrinsicMetric))
-        if apply { eventRowB.frame = CGRect(x: layoutMargins.left, y: y, width: rowWidth, height: bFrame.height) }
-        y += bFrame.height
-
-        if lastBottomButtonFrame == .zero {
+        // if lastBottomButtonFrame == .zero {
             let buttonSpacing: CGFloat = 20
             let buttonFrame = button1.wmf_preferredFrame(
                 at: CGPoint(x: layoutMargins.left, y: y + buttonSpacing),
                 maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
                 minimumSize: NoIntrinsicSize,
                 alignedBy: .forceLeftToRight,
-                apply: apply
+                apply: false
             )
-            self.lastBottomButtonFrame = buttonFrame
-        } else {
-            // completed state
-            if !button2.isHidden {
-                
-                let spacing = CGFloat(24)
-                
-                let horizontalFrame1 = button1.wmf_preferredFrame(
-                    at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
-                    maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
-                    minimumSize: NoIntrinsicSize,
-                    alignedBy: .forceLeftToRight,
-                    apply: false
-                )
-                
-                let horizontalFrame2 = button2.wmf_preferredFrame(
-                    at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
-                    maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
-                    minimumSize: NoIntrinsicSize,
-                    alignedBy: .forceLeftToRight,
-                    apply: false
-                )
-                
-                // if they won't fit, display stacked.
-                if horizontalFrame1.width + horizontalFrame2.width + spacing > availableWidth {
-                    _ = button1.wmf_preferredFrame(
-                        at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY - horizontalFrame1.height - spacing),
-                        maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
-                        minimumSize: NoIntrinsicSize,
-                        alignedBy: .forceLeftToRight,
-                        apply: apply
-                    )
-                    
-                    _ = button2.wmf_preferredFrame(
-                        at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
-                        maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
-                        minimumSize: NoIntrinsicSize,
-                        alignedBy: .forceLeftToRight,
-                        apply: apply
-                    )
+            if apply {
+                if isChromeRTL {
+                    let rtlButtonFrame = CGRect(x: size.width - layoutMargins.right - buttonFrame.width, y: buttonFrame.minY, width: buttonFrame.width, height: buttonFrame.height)
+                    print(rtlButtonFrame)
+                    button1.frame = rtlButtonFrame
                 } else {
-                    if apply {
-                        button1.frame = horizontalFrame1
-                        button2.frame = CGRect(x: horizontalFrame1.maxX + spacing, y: horizontalFrame1.minY, width: horizontalFrame2.width, height: horizontalFrame2.height)
-                    }
+                    button1.frame = buttonFrame
                 }
-            } else {
-                _ = button1.wmf_preferredFrame(
-                    at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
-                    maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
-                    minimumSize: NoIntrinsicSize,
-                    alignedBy: .forceLeftToRight,
-                    apply: apply
-                )
             }
-        }
-
         
-        return CGSize(width: size.width, height: lastBottomButtonFrame.maxY + layoutMargins.bottom)
+            y += buttonSpacing + buttonFrame.height
+//        } else {
+//            // completed state
+//            if !button2.isHidden {
+//                
+//                let spacing = CGFloat(24)
+//                
+//                let horizontalFrame1 = button1.wmf_preferredFrame(
+//                    at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
+//                    maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+//                    minimumSize: NoIntrinsicSize,
+//                    alignedBy: .forceLeftToRight,
+//                    apply: false
+//                )
+//                
+//                let horizontalFrame2 = button2.wmf_preferredFrame(
+//                    at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
+//                    maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+//                    minimumSize: NoIntrinsicSize,
+//                    alignedBy: .forceLeftToRight,
+//                    apply: false
+//                )
+//                
+//                // if they won't fit, display stacked.
+//                if horizontalFrame1.width + horizontalFrame2.width + spacing > availableWidth {
+//                    _ = button1.wmf_preferredFrame(
+//                        at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY - horizontalFrame1.height - spacing),
+//                        maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+//                        minimumSize: NoIntrinsicSize,
+//                        alignedBy: .forceLeftToRight,
+//                        apply: apply
+//                    )
+//                    
+//                    _ = button2.wmf_preferredFrame(
+//                        at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
+//                        maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+//                        minimumSize: NoIntrinsicSize,
+//                        alignedBy: .forceLeftToRight,
+//                        apply: apply
+//                    )
+//                } else {
+//                    if apply {
+//                        button1.frame = horizontalFrame1
+//                        button2.frame = CGRect(x: horizontalFrame1.maxX + spacing, y: horizontalFrame1.minY, width: horizontalFrame2.width, height: horizontalFrame2.height)
+//                    }
+//                }
+//            } else {
+//                _ = button1.wmf_preferredFrame(
+//                    at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
+//                    maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+//                    minimumSize: NoIntrinsicSize,
+//                    alignedBy: .forceLeftToRight,
+//                    apply: apply
+//                )
+//            }
+//        }
+
+        let returnSize = CGSize(width: size.width, height: y + layoutMargins.bottom)
+        print("returnSize: \(returnSize)")
+        return returnSize
     }
     
     /// UIButton defers flushing `setTitle(_:for:)` to `titleLabel.text` until its own
@@ -428,6 +449,7 @@ extension WMFDailyGameExploreCell: Themeable {
 private final class WMFDailyGameEventRowView: UIView {
 
     let textLabel = UILabel()
+    // let sizingTextLabel = UILabel()
     private let thumbnailView = UIImageView()
     private var imageLoadTask: URLSessionDataTask?
 
@@ -447,6 +469,7 @@ private final class WMFDailyGameEventRowView: UIView {
     var isRTL: Bool = false {
         didSet {
             textLabel.textAlignment = isRTL ? .right : .natural
+            // sizingTextLabel.textAlignment = isRTL ? .right : .natural
         }
     }
 
@@ -454,6 +477,10 @@ private final class WMFDailyGameEventRowView: UIView {
         textLabel.numberOfLines = 3
         textLabel.lineBreakMode = .byTruncatingTail
         addSubview(textLabel)
+        
+//        sizingTextLabel.numberOfLines = 3
+//        sizingTextLabel.lineBreakMode = .byTruncatingTail
+//        addSubview(sizingTextLabel)
 
         thumbnailView.contentMode = .scaleAspectFill
         thumbnailView.clipsToBounds = true
@@ -464,6 +491,11 @@ private final class WMFDailyGameEventRowView: UIView {
 
     func configure(text: String, thumbnailURL: URL?) {
         textLabel.text = text
+//        sizingTextLabel.text = """
+//        
+//        
+//        
+//        """
         thumbnailView.image = nil
         imageLoadTask?.cancel()
         imageLoadTask = nil
@@ -486,6 +518,7 @@ private final class WMFDailyGameEventRowView: UIView {
 
     func updateFonts(with traitCollection: UITraitCollection) {
         textLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
+        // sizingTextLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
     }
 
     func apply(theme: Theme) {
