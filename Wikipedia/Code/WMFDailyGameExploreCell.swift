@@ -17,10 +17,6 @@ class WMFDailyGameExploreCell: CollectionViewCell {
     var tappedPlayTheArchive: (() -> Void)?
     var sessionFetchTask: Task<Void, Never>?
 
-    // Persisted so inProgress can still lay out invisible event rows at the correct size.
-    private var cachedEventA: WMFWhichCameFirstEvent?
-    private var cachedEventB: WMFWhichCameFirstEvent?
-
     // Countdown timer for the completed state.
     private var countdownTimer: Timer?
     private var completedScore: Int = 0
@@ -50,15 +46,6 @@ class WMFDailyGameExploreCell: CollectionViewCell {
     // Event rows — shown (possibly transparent) when event data is available
     private let eventRowA = WMFDailyGameEventRowView()
     private let eventRowB = WMFDailyGameEventRowView()
-
-    /// When true the rows still occupy space but are invisible (alpha = 0).
-    private var eventRowsTransparent: Bool = false {
-        didSet {
-            let a: CGFloat = eventRowsTransparent ? 0 : 1
-            eventRowA.alpha = a
-            eventRowB.alpha = a
-        }
-    }
     
     private var lastBottomButtonFrame: CGRect = .zero
     private var lastState: SessionState?
@@ -108,14 +95,15 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         case .notStarted(let optionA, let optionB):
             headerIconView.image = WMFSFSymbolIcon.for(symbol: .calendar)
             if let optionA, let optionB {
-                cachedEventA = optionA
-                cachedEventB = optionB
                 descriptionLabel.isHidden = true
-                eventRowsTransparent = false
+                eventRowA.isHidden = false
                 eventRowA.configure(text: optionA.title, thumbnailURL: optionA.thumbnailURL)
+                eventRowB.isHidden = false
                 eventRowB.configure(text: optionB.title, thumbnailURL: optionB.thumbnailURL)
             } else {
-                eventRowsTransparent = false
+                descriptionLabel.isHidden = false
+                eventRowA.isHidden = true
+                eventRowB.isHidden = true
             }
             stopCountdownTimer()
             setButton1Title("Play today's game")
@@ -124,15 +112,9 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         case .inProgress(let answered, _):
             headerIconView.image = WMFSFSymbolIcon.for(symbol: .calendarExclamation)
             descriptionLabel.isHidden = false
+            eventRowA.isHidden = true
+            eventRowB.isHidden = true
             descriptionLabel.text = "You're on question \(answered + 1). Continue guessing which event came first on this day in history."
-            // Keep event rows in layout (invisible) so the button stays anchored at the same position.
-            if let a = cachedEventA, let b = cachedEventB {
-                eventRowA.configure(text: a.title, thumbnailURL: a.thumbnailURL)
-                eventRowB.configure(text: b.title, thumbnailURL: b.thumbnailURL)
-                eventRowsTransparent = true
-            } else {
-                eventRowsTransparent = true
-            }
             stopCountdownTimer()
             setButton1Title("Continue today's game")
             button2.isHidden = true
@@ -140,9 +122,10 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         case .completed(let score, let total):
             headerIconView.image = WMFSFSymbolIcon.for(symbol: .calendarCheckmark)
             descriptionLabel.isHidden = false
+            eventRowA.isHidden = true
+            eventRowB.isHidden = true
             completedScore = score
             completedTotal = total
-            eventRowsTransparent = true
             setButton1Title("Review results")
             setButton2Title("Play the archive")
             button2.isHidden = false
@@ -160,8 +143,6 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         super.prepareForReuse()
         sessionFetchTask?.cancel()
         sessionFetchTask = nil
-        cachedEventA = nil
-        cachedEventB = nil
         stopCountdownTimer()
         eventRowA.cancelImageLoad()
         eventRowB.cancelImageLoad()
@@ -297,6 +278,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             y = headerTitleFrame.maxY + 12
         }
         
+        var descriptionBottomSpacing = CGFloat(0)
         if !descriptionLabel.isHidden {
             let descriptionFrame = descriptionLabel.wmf_preferredFrame(
                 at: CGPoint(x: layoutMargins.left, y: y),
@@ -305,6 +287,8 @@ class WMFDailyGameExploreCell: CollectionViewCell {
                 alignedBy: .forceLeftToRight,
                 apply: false
             )
+            
+            descriptionBottomSpacing = 64
             
             if apply {
                 if isChromeRTL {
@@ -326,85 +310,61 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             y += bFrame.height
         }
 
-        // if lastBottomButtonFrame == .zero {
-            let buttonSpacing: CGFloat = 20
-            let buttonFrame = button1.wmf_preferredFrame(
-                at: CGPoint(x: layoutMargins.left, y: y + buttonSpacing),
+        let button1Spacing: CGFloat = 20 + descriptionBottomSpacing
+        let button1Frame = button1.wmf_preferredFrame(
+            at: CGPoint(x: layoutMargins.left, y: y + button1Spacing),
+            maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
+            minimumSize: NoIntrinsicSize,
+            alignedBy: .forceLeftToRight,
+            apply: false
+        )
+        if apply {
+            if isChromeRTL {
+                button1.frame = CGRect(x: size.width - layoutMargins.right - button1Frame.width, y: button1Frame.minY, width: button1Frame.width, height: button1Frame.height)
+            } else {
+                button1.frame = button1Frame
+            }
+        }
+    
+        y += button1Spacing + button1Frame.height
+
+        if !button2.isHidden {
+            
+            let button2HorizontalSpacing = CGFloat(24)
+            let button2VerticalSpacing = CGFloat(10)
+            
+            let button2Frame = button2.wmf_preferredFrame(
+                at: CGPoint(x: button1Frame.minX, y: button1Frame.minY),
                 maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
                 minimumSize: NoIntrinsicSize,
                 alignedBy: .forceLeftToRight,
                 apply: false
             )
-            if apply {
-                if isChromeRTL {
-                    let rtlButtonFrame = CGRect(x: size.width - layoutMargins.right - buttonFrame.width, y: buttonFrame.minY, width: buttonFrame.width, height: buttonFrame.height)
-                    print(rtlButtonFrame)
-                    button1.frame = rtlButtonFrame
-                } else {
-                    button1.frame = buttonFrame
+            
+            // if they won't fit, display stacked.
+            if button1Frame.width + button2Frame.width + button2HorizontalSpacing > availableWidth {
+                
+                if apply {
+                    if isChromeRTL {
+                        button2.frame = CGRect(x: size.width - layoutMargins.right - button2Frame.width, y: button1Frame.maxY + button2VerticalSpacing, width: button2Frame.width, height: button2Frame.height)
+                    } else {
+                        button2.frame = CGRect(x: layoutMargins.left, y: button1Frame.maxY + button2VerticalSpacing, width: button2Frame.width, height: button2Frame.height)
+                    }
+                }
+                
+                y += button2VerticalSpacing + button2Frame.height
+            } else { // display horizontally
+                if apply {
+                    if isChromeRTL {
+                        button2.frame = CGRect(x: size.width - layoutMargins.right - button1Frame.width - button2HorizontalSpacing - button2Frame.width, y: button1Frame.minY, width: button2Frame.width, height: button2Frame.height)
+                    } else {
+                        button2.frame = CGRect(x: button1Frame.maxX + button2HorizontalSpacing, y: button1Frame.minY, width: button2Frame.width, height: button2Frame.height)
+                    }
                 }
             }
-        
-            y += buttonSpacing + buttonFrame.height
-//        } else {
-//            // completed state
-//            if !button2.isHidden {
-//                
-//                let spacing = CGFloat(24)
-//                
-//                let horizontalFrame1 = button1.wmf_preferredFrame(
-//                    at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
-//                    maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
-//                    minimumSize: NoIntrinsicSize,
-//                    alignedBy: .forceLeftToRight,
-//                    apply: false
-//                )
-//                
-//                let horizontalFrame2 = button2.wmf_preferredFrame(
-//                    at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
-//                    maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
-//                    minimumSize: NoIntrinsicSize,
-//                    alignedBy: .forceLeftToRight,
-//                    apply: false
-//                )
-//                
-//                // if they won't fit, display stacked.
-//                if horizontalFrame1.width + horizontalFrame2.width + spacing > availableWidth {
-//                    _ = button1.wmf_preferredFrame(
-//                        at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY - horizontalFrame1.height - spacing),
-//                        maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
-//                        minimumSize: NoIntrinsicSize,
-//                        alignedBy: .forceLeftToRight,
-//                        apply: apply
-//                    )
-//                    
-//                    _ = button2.wmf_preferredFrame(
-//                        at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
-//                        maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
-//                        minimumSize: NoIntrinsicSize,
-//                        alignedBy: .forceLeftToRight,
-//                        apply: apply
-//                    )
-//                } else {
-//                    if apply {
-//                        button1.frame = horizontalFrame1
-//                        button2.frame = CGRect(x: horizontalFrame1.maxX + spacing, y: horizontalFrame1.minY, width: horizontalFrame2.width, height: horizontalFrame2.height)
-//                    }
-//                }
-//            } else {
-//                _ = button1.wmf_preferredFrame(
-//                    at: CGPoint(x: lastBottomButtonFrame.minX, y: lastBottomButtonFrame.minY),
-//                    maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
-//                    minimumSize: NoIntrinsicSize,
-//                    alignedBy: .forceLeftToRight,
-//                    apply: apply
-//                )
-//            }
-//        }
+        }
 
-        let returnSize = CGSize(width: size.width, height: y + layoutMargins.bottom)
-        print("returnSize: \(returnSize)")
-        return returnSize
+        return CGSize(width: size.width, height: y + layoutMargins.bottom)
     }
     
     /// UIButton defers flushing `setTitle(_:for:)` to `titleLabel.text` until its own
