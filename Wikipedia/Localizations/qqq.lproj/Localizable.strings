@@ -127,6 +127,9 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "Activity tabs third item subtitle";
 "activity-tab-onboarding-third-item-title-updated" = "Title for activity tabs third item";
 "activity-tab-read-title" = "Title for the reading history activity tab";
+"activity-tab-reading-challenge-card-body" = "Body text for the reading challenge card in the activity tab.";
+"activity-tab-reading-challenge-card-cta" = "Button title for the reading challenge card CTA in the activity tab.";
+"activity-tab-reading-challenge-card-title" = "Title for the reading challenge card in the activity tab.";
 "activity-tab-remaining-articles" = "Activity tab saved articles amount, where $1 is replaced with the amount of excess articles saved above 3.";
 "activity-tab-satisfied" = "Satisfaction survey satisfied";
 "activity-tab-saved" = "Title for module about saved articles";

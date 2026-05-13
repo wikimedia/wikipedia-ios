@@ -104,6 +104,39 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         viewModel.didTapSearchTab = { [weak self] in
             self?.navigateToSearch()
         }
+        
+        viewModel.didTapReadingChallengeCTA = { [weak self] in
+            guard let self else { return }
+
+            self.widgetInstrument.submitInteraction(
+                action: "click",
+                actionSource: "widget_challenge_install",
+                elementId: "show_me_how"
+            )
+
+            guard let url = URL(string:
+                "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/25th_Birthday_Reading_Challenge#How_do_I_install_the_Widget?"
+            ) else {
+                return
+            }
+
+            let config = SinglePageWebViewController.StandardConfig(
+                url: url,
+                useSimpleNavigationBar: true
+            )
+
+            let webVC = SinglePageWebViewController(
+                configType: .standard(config),
+                theme: self.theme
+            )
+
+            let navigationVC = WMFComponentNavigationController(
+                rootViewController: webVC,
+                modalPresentationStyle: .formSheet
+            )
+
+            self.present(navigationVC, animated: true)
+        }
 
         Task {
             await dataController.setHistoryDataController(historyDataController)

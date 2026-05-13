@@ -40,6 +40,51 @@ public struct WMFActivityTabView: View {
             viewModel.fetchData(fromAppearance: true)
         }
     }
+    
+    private var babyGlobeReadingChallengeView: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text(viewModel.localizedStrings.readingChallengeCardTitle)
+                    .font(Font(WMFFont.for(.boldCaption1)))
+                    .foregroundStyle(Color(theme.text))
+                
+            }
+            HStack(alignment: .center, spacing: 8) {
+                if let image = UIImage(named: "spaceGlobe", in: .module, with: nil) {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 84, height: 84)
+                        .accessibilityHidden(true)
+                }
+
+                Text(viewModel.localizedStrings.readingChallengeCardBody)
+                    .font(Font(WMFFont.for(.callout)))
+                    .foregroundStyle(Color(theme.text))
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            Button {
+                viewModel.didTapReadingChallengeCTA?()
+            } label: {
+                Text(viewModel.localizedStrings.readingChallengeCardCTA)
+                    .font(Font(WMFFont.for(.semiboldHeadline)))
+                    .foregroundColor(Color(theme.baseBackground))
+                    .frame(maxWidth: .infinity)
+                    .padding(12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color(theme.link))
+                    )
+            }
+            .frame(maxWidth: .infinity)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(16)
+        .background(Color(theme.softEditorBlue))
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("\(viewModel.localizedStrings.readingChallengeCardTitle). \(viewModel.localizedStrings.readingChallengeCardBody)")
+    }
 
     private func loggedInList(proxy: ScrollViewProxy) -> some View {
         List {
@@ -67,6 +112,8 @@ public struct WMFActivityTabView: View {
                             .accessibilityElement()
                             .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
                         }
+                        
+                        babyGlobeReadingChallengeView
 
                         if viewModel.customizeViewModel.isReadingInsightsOn {
                             articlesReadModule(proxy: proxy)
@@ -195,6 +242,8 @@ public struct WMFActivityTabView: View {
                         .listRowInsets(EdgeInsets())
                 }
                 .listRowSeparator(.hidden)
+                
+                babyGlobeReadingChallengeView
 
                 HStack {
                     Spacer()
