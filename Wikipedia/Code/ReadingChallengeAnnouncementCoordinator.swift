@@ -96,8 +96,8 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
                 comment: "Title for reading challenge onboarding third item."
             ),
             subtitle: WMFLocalizedString(
-                "reading-challenge-announcement-item3-subtitle",
-                value: "Get helpful reminders and motivation with our adorable birthday mascot Baby Globe.",
+                "reading-challenge-announcement-item3-subtitle2",
+                value: "To track your streak with Baby Globe, you'll need to add the Reading Challenge widget from your homescreen.",
                 comment: "Subtitle for reading challenge onboarding third item."
             ),
             fillIconBackground: false
@@ -115,7 +115,7 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
                 value: "Celebrate Wikipedia's 25th birthday by joining the 25-day reading challenge!",
                 comment: "Title for the reading challenge onboarding view."
             ),
-            cells: [firstItem, secondItem, thirdItem],
+            cells: [thirdItem, firstItem, secondItem],
             primaryButtonTitle: WMFLocalizedString(
                 "reading-challenge-announcement-cta",
                 value: "Join the challenge",
@@ -172,75 +172,114 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
     // MARK: - Widget Announcement
     
     let title = WMFLocalizedString(
-        "reading-challenge-widget-announcement-title",
-        value: "Install the 25-day reading challenge widget",
+        "reading-challenge-widget-announcement-title2",
+        value: "Head to your homescreen to add the widget",
         comment: "Title for the reading challenge widget announcement sheet."
     )
-    
+
     let body = WMFLocalizedString(
-        "reading-challenge-widget-announcement-body",
-        value: "Baby Globe is cheering you on. Add the Reading Challenge widget to track your progress from your homescreen.",
+        "reading-challenge-widget-announcement-body2",
+        value: "To track your streak with Baby Globe, you'll need to add the Reading Challenge widget from your homescreen.",
         comment: "Body text for the reading challenge widget announcement sheet."
     )
     
     private func presentWidgetAnnouncement() {
-        if UIDevice.current.userInterfaceIdiom == .pad && navigationController.traitCollection.horizontalSizeClass == .regular {
-            let controller = ReadingChallengeWidgetAnnouncementViewController(
-                title: title,
-                body: body,
-                primaryButtonTitle: CommonStrings.gotItButtonTitle,
-                image: UIImage(named: "readingChallengeWidget"),
-                backgroundImage: UIImage(named: "readingChallengeBackground"),
-                backgroundImageHeight: 320,
-                theme: theme
-            )
-            controller.primaryButtonAction = { [weak self] in
-                // Instrument: "Got it" / primary CTA tap on widget install prompt
-                self?.widgetInstrument.submitInteraction(action: "click", actionSource: "widget_challenge_install", elementId: "install_accept")
-                self?.onComplete?(true)
-            }
-            controller.closeButtonAction = { [weak self] in
-                // Instrument: close (X) button tap on widget install prompt
-                self?.widgetInstrument.submitInteraction(action: "click", actionSource: "widget_challenge_install", elementId: "install_close")
-                self?.onComplete?(true)
-            }
-            controller.modalPresentationStyle = .formSheet
-            controller.preferredContentSize = CGSize(width: 540, height: 0)
-            
-            navigationController.present(controller, animated: true) { [weak self] in
-                // Instrument: impression on widget install prompt
-                self?.widgetInstrument.submitInteraction(action: "impression", actionSource: "widget_challenge_install")
-            }
-            
-        } else {
-            let viewModel = makeWidgetAnnouncementViewModel()
-            let controller = WMFFeatureAnnouncementViewController(viewModel: viewModel)
-            if let sheet = controller.sheetPresentationController {
+        let controller = ReadingChallengeWidgetAnnouncementViewController(
+            title: title,
+            body: body,
+            primaryButtonTitle: CommonStrings.gotItButtonTitle,
+            secondaryButtonTitle: WMFLocalizedString(
+                "reading-challenge-widget-announcement-secondary-button",
+                value: "Show me how",
+                comment: "Secondary button title for showing widget installation instructions."
+            ),
+            image: UIImage(named: "readingChallengeWidget"),
+            backgroundImage: UIImage(named: "readingChallengeBackground"),
+            backgroundImageHeight: 320,
+            theme: theme
+        )
 
-                viewModel.primaryButtonAction = { [weak self] in
-                    self?.navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
-                        self?.widgetInstrument.submitInteraction(action: "click", actionSource: "widget_challenge_install", elementId: "install_accept")
-                        self?.onComplete?(true)
-                    }
-                }
-                viewModel.closeButtonAction = { [weak self] in
-                    self?.navigationController.dismiss(animated: true) { [weak self] in
-                        self?.widgetInstrument.submitInteraction(action: "click", actionSource: "widget_challenge_install", elementId: "install_close")
-                        self?.onComplete?(true)
-                    }
-                }
-                
+        controller.primaryButtonAction = { [weak self] in
+            self?.widgetInstrument.submitInteraction(
+                action: "click",
+                actionSource: "widget_challenge_install",
+                elementId: "install_accept"
+            )
+
+            self?.onComplete?(true)
+        }
+
+        controller.secondaryButtonAction = { [weak self] in
+            guard let self else { return }
+
+            self.widgetInstrument.submitInteraction(
+                action: "click",
+                actionSource: "widget_challenge_install",
+                elementId: "show_me_how"
+            )
+
+            guard let url = URL(
+                string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/25th_Birthday_Reading_Challenge#How_do_I_install_the_Widget?"
+            ) else {
+                return
+            }
+
+            guard let presentedViewController = self.navigationController.presentedViewController else {
+                return
+            }
+
+            let config = SinglePageWebViewController.StandardConfig(
+                url: url,
+                useSimpleNavigationBar: true
+            )
+
+            let webVC = SinglePageWebViewController(
+                configType: .standard(config),
+                theme: self.theme
+            )
+
+            let navigationVC = WMFComponentNavigationController(
+                rootViewController: webVC,
+                modalPresentationStyle: .formSheet
+            )
+
+            presentedViewController.present(navigationVC, animated: true)
+        }
+
+        controller.closeButtonAction = { [weak self] in
+            self?.widgetInstrument.submitInteraction(
+                action: "click",
+                actionSource: "widget_challenge_install",
+                elementId: "install_close"
+            )
+
+            self?.onComplete?(true)
+        }
+
+        if UIDevice.current.userInterfaceIdiom == .pad &&
+            navigationController.traitCollection.horizontalSizeClass == .regular {
+
+            controller.modalPresentationStyle = .formSheet
+            // Don't set preferredContentSize here — let viewDidLayoutSubviews measure it
+            controller.preferredContentSize = CGSize(width: 540, height: 540)
+
+        } else {
+
+            controller.modalPresentationStyle = .pageSheet
+
+            if let sheet = controller.sheetPresentationController {
                 sheet.prefersGrabberVisible = true
                 sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-                
-                controller.modalPresentationStyle = .pageSheet
-                sheet.detents = [.medium()]
-                
-                navigationController.present(controller, animated: true) { [weak self] in
-                    // Instrument: impression on widget install prompt
-                    self?.widgetInstrument.submitInteraction(action: "impression", actionSource: "widget_challenge_install")
-                }
+                sheet.detents = [.medium(), .large()]
+                sheet.selectedDetentIdentifier = .medium
             }
+        }
+
+        navigationController.present(controller, animated: true) { [weak self] in
+            self?.widgetInstrument.submitInteraction(
+                action: "impression",
+                actionSource: "widget_challenge_install"
+            )
         }
     }
         
@@ -366,19 +405,26 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
 
     var primaryButtonAction: (() -> Void)?
     var closeButtonAction: (() -> Void)?
+    var secondaryButtonAction: (() -> Void)?
 
     private let titleText: String
     private let bodyText: String
     private let primaryButtonTitleText: String
+    private let secondaryButtonTitleText: String?
     private let image: UIImage?
     private let backgroundImage: UIImage?
     private let backgroundImageHeight: CGFloat
     private let theme: Theme
 
+    // Stored so viewDidLayoutSubviews can measure it on iPad
+    private let scrollContentView = UIView()
+    private let buttonStack = UIStackView()
+
     init(
         title: String,
         body: String,
         primaryButtonTitle: String,
+        secondaryButtonTitle: String,
         image: UIImage?,
         backgroundImage: UIImage?,
         backgroundImageHeight: CGFloat,
@@ -391,12 +437,20 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
         self.backgroundImage = backgroundImage
         self.backgroundImageHeight = backgroundImageHeight
         self.theme = theme
+        self.secondaryButtonTitleText = secondaryButtonTitle
         super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) { fatalError() }
 
     // MARK: - UI
+    
+    private let secondaryButton: UIButton = {
+        var config = UIButton.Configuration.plain()
+        let button = UIButton(configuration: config)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     private let titleLabel: UILabel = {
         let l = UILabel()
@@ -461,27 +515,58 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
         guard view.bounds.width > 0 else { return }
 
-        let fittingSize = CGSize(width: view.bounds.width, height: UIView.layoutFittingCompressedSize.height)
-        let contentSize = view.systemLayoutSizeFitting(
-            fittingSize,
+        let fittingWidth = CGSize(width: view.bounds.width, height: UIView.layoutFittingCompressedSize.height)
+
+        let scrollContentHeight = scrollContentView.systemLayoutSizeFitting(
+            fittingWidth,
             withHorizontalFittingPriority: .required,
             verticalFittingPriority: .fittingSizeLevel
-        )
-        guard contentSize.height > 0, contentSize.height != preferredContentSize.height else { return }
-        preferredContentSize = contentSize
+        ).height
+
+        let buttonStackHeight = buttonStack.systemLayoutSizeFitting(
+            fittingWidth,
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel
+        ).height
+
+        // closeButton(44) + gap(8) + scrollContent + gap(16) + buttonStack + bottomPadding(16)
+        let totalHeight = 44 + 8 + scrollContentHeight + 16 + buttonStackHeight + 16
+        guard totalHeight > 0, totalHeight != preferredContentSize.height else { return }
+        preferredContentSize = CGSize(width: view.bounds.width, height: totalHeight)
     }
 
     // MARK: - Layout
 
     private func setupLayout() {
+
+        let isCompactPhone = UIDevice.current.userInterfaceIdiom == .phone
+        let backgroundHeight: CGFloat = isCompactPhone ? 180 : 240
+        let widgetSize: CGFloat = isCompactPhone ? 140 : 180
+
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.alwaysBounceVertical = false
+
+        scrollContentView.translatesAutoresizingMaskIntoConstraints = false
+
+        buttonStack.translatesAutoresizingMaskIntoConstraints = false
+        buttonStack.axis = .vertical
+        buttonStack.spacing = 8
+        buttonStack.addArrangedSubview(primaryButton)
+        buttonStack.addArrangedSubview(secondaryButton)
+
         view.addSubview(closeButton)
-        view.addSubview(titleLabel)
-        view.addSubview(bodyLabel)
-        view.addSubview(backgroundImageView)
+        view.addSubview(scrollView)
+        view.addSubview(buttonStack)
+
+        scrollView.addSubview(scrollContentView)
+        scrollContentView.addSubview(titleLabel)
+        scrollContentView.addSubview(bodyLabel)
+        scrollContentView.addSubview(backgroundImageView)
         backgroundImageView.addSubview(widgetImageView)
-        view.addSubview(primaryButton)
 
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 8),
@@ -489,46 +574,63 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
             closeButton.widthAnchor.constraint(equalToConstant: 44),
             closeButton.heightAnchor.constraint(equalToConstant: 44),
 
-            titleLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 8),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            scrollView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 8),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: buttonStack.topAnchor, constant: -16),
+
+            scrollContentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            scrollContentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            scrollContentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            scrollContentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            scrollContentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+
+            titleLabel.topAnchor.constraint(equalTo: scrollContentView.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: scrollContentView.leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: scrollContentView.trailingAnchor, constant: -16),
 
             bodyLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            bodyLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            bodyLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            bodyLabel.leadingAnchor.constraint(equalTo: scrollContentView.leadingAnchor, constant: 16),
+            bodyLabel.trailingAnchor.constraint(equalTo: scrollContentView.trailingAnchor, constant: -16),
 
             backgroundImageView.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 8),
-            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            backgroundImageView.heightAnchor.constraint(
-                equalTo: backgroundImageView.widthAnchor,
-                multiplier: 2.0 / 3.0
-            ),
+            backgroundImageView.leadingAnchor.constraint(equalTo: scrollContentView.leadingAnchor, constant: 16),
+            backgroundImageView.trailingAnchor.constraint(equalTo: scrollContentView.trailingAnchor, constant: -16),
+            backgroundImageView.heightAnchor.constraint(equalToConstant: backgroundHeight),
+            backgroundImageView.bottomAnchor.constraint(equalTo: scrollContentView.bottomAnchor, constant: -8),
 
             widgetImageView.centerXAnchor.constraint(equalTo: backgroundImageView.centerXAnchor),
             widgetImageView.centerYAnchor.constraint(equalTo: backgroundImageView.centerYAnchor),
-            widgetImageView.widthAnchor.constraint(equalToConstant: 180),
-            widgetImageView.heightAnchor.constraint(equalToConstant: 180),
+            widgetImageView.widthAnchor.constraint(equalToConstant: widgetSize),
+            widgetImageView.heightAnchor.constraint(equalToConstant: widgetSize),
 
-            primaryButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            primaryButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            primaryButton.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 16),
-            primaryButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
+            buttonStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            buttonStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            buttonStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
 
         primaryButton.addTarget(self, action: #selector(handlePrimary), for: .touchUpInside)
+        secondaryButton.addTarget(self, action: #selector(handleSecondary), for: .touchUpInside)
     }
-
+    
     // MARK: - Content
 
     private func applyContent() {
         titleLabel.text = titleText
         titleLabel.font = WMFFont.for(.boldTitle3)
         titleLabel.textColor = theme.colors.primaryText
+        titleLabel.adjustsFontForContentSizeCategory = true
 
         bodyLabel.text = bodyText
         bodyLabel.font = WMFFont.for(.subheadline)
         bodyLabel.textColor = theme.colors.secondaryText
+        bodyLabel.adjustsFontForContentSizeCategory = true
+        
+        titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        bodyLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+
+        bodyLabel.lineBreakMode = .byWordWrapping
+        titleLabel.lineBreakMode = .byWordWrapping
 
         backgroundImageView.image = backgroundImage
         widgetImageView.image = image
@@ -547,14 +649,42 @@ final class ReadingChallengeWidgetAnnouncementViewController: UIViewController {
             config?.baseForegroundColor = .white
             button.configuration = config
         }
-    }
+        
+        var secondaryConfig = secondaryButton.configuration ?? UIButton.Configuration.plain()
+        secondaryConfig.title = secondaryButtonTitleText
+        secondaryButton.configuration = secondaryConfig
 
+        secondaryButton.configurationUpdateHandler = { [weak self] button in
+            guard let self else { return }
+
+            var config = button.configuration
+            config?.baseForegroundColor = self.theme.colors.link
+
+            let attributes = AttributeContainer([
+                .font: WMFFont.for(.body)
+            ])
+
+            config?.attributedTitle = AttributedString(
+                self.secondaryButtonTitleText ?? "",
+                attributes: attributes
+            )
+
+            button.configuration = config
+        }
+        
+        secondaryButton.titleLabel?.adjustsFontForContentSizeCategory = true
+    }
+    
     // MARK: - Actions
 
     @objc func handleClose() {
         dismiss(animated: true) { [weak self] in
             self?.closeButtonAction?()
         }
+    }
+    
+    @objc private func handleSecondary() {
+        secondaryButtonAction?()
     }
 
     @objc private func handlePrimary() {
