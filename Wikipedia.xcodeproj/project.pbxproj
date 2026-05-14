@@ -697,7 +697,6 @@
 		679471DC275F245000621071 /* NotificationsCenterInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679471DA275F245000621071 /* NotificationsCenterInboxView.swift */; };
 		679471DE275F245900621071 /* NotificationsCenterInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679471DA275F245000621071 /* NotificationsCenterInboxView.swift */; };
 		679603992C5D48CC009606C4 /* WMFComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 679603982C5D48CC009606C4 /* WMFComponents */; };
-		67A18A162FAD100100000001 /* WMFComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 67A18A172FAD100100000001 /* WMFComponents */; };
 		6798331A22C174ED0073CE6F /* LinkOnlyTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */; };
 		6798331B22C174F00073CE6F /* LinkOnlyTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */; };
 		6798331C22C174F00073CE6F /* LinkOnlyTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */; };
@@ -723,6 +722,7 @@
 		67A0699E2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
 		67A0699F2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
 		67A069A02D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
+		67A18A162FAD100100000001 /* WMFComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 67A18A172FAD100100000001 /* WMFComponents */; };
 		67A486872BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */; };
 		67A486A42BEBF3C5001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
 		67A486A52BEBF40F001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
@@ -4397,7 +4397,8 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		67ADAC722EFA240D00852D2F /* InfoPlist Native Localizations */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (67EFD34A2EFA2724006CBD7B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 67EFD34B2EFA2724006CBD7B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 67EFD34C2EFA2724006CBD7B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "InfoPlist Native Localizations"; sourceTree = "<group>"; };
-		ADDFF88F2FA9363C00C93B94 /* Utilities */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utilities; sourceTree = "<group>"; };
+		AD2E18F52FB3A3BB00156F7D /* Config */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Config; sourceTree = "<group>"; };
+		ADDFF88F2FA9363C00C93B94 /* Robots */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Robots; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -5890,7 +5891,8 @@
 		67623E0D2AFD2897007488C7 /* WikipediaUITests */ = {
 			isa = PBXGroup;
 			children = (
-				ADDFF88F2FA9363C00C93B94 /* Utilities */,
+				AD2E18F52FB3A3BB00156F7D /* Config */,
+				ADDFF88F2FA9363C00C93B94 /* Robots */,
 				67E32CAE2F5BE381009AA52D /* AppOnboardingUITests.swift */,
 				674205302F9A556100BBA0CA /* ExploreUITests.swift */,
 			);
@@ -8448,7 +8450,8 @@
 				67623E132AFD2897007488C7 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				ADDFF88F2FA9363C00C93B94 /* Utilities */,
+				AD2E18F52FB3A3BB00156F7D /* Config */,
+				ADDFF88F2FA9363C00C93B94 /* Robots */,
 			);
 			name = WikipediaUITests;
 			packageProductDependencies = (
@@ -16163,14 +16166,14 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = WMFComponents;
 		};
-		67A18A172FAD100100000001 /* WMFComponents */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = WMFComponents;
-		};
 		679B89EC2E7DFC8B009902BE /* HCaptcha */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 679B89EB2E7DFC8B009902BE /* XCRemoteSwiftPackageReference "HCaptcha-ios-sdk" */;
 			productName = HCaptcha;
+		};
+		67A18A172FAD100100000001 /* WMFComponents */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WMFComponents;
 		};
 		67A770C7251BFE0400F94EF9 /* CocoaLumberjackSwift */ = {
 			isa = XCSwiftPackageProductDependency;
