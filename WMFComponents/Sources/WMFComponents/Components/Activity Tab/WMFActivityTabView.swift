@@ -238,6 +238,11 @@ public struct WMFActivityTabView: View {
     private func loggedOutList(proxy: ScrollViewProxy) -> some View {
         if viewModel.sections.count == 0 {
             VStack {
+
+                if viewModel.showBabyGlobe {
+                    babyGlobeReadingChallengeView
+                }
+                
                 Section {
                     loggedOutView
                         .accessibilityElement(children: .contain)
@@ -260,6 +265,16 @@ public struct WMFActivityTabView: View {
             .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         } else {
             List {
+
+                if viewModel.showBabyGlobe {
+                    Section {
+                        babyGlobeReadingChallengeView
+                            .padding(16)
+                            .listRowInsets(EdgeInsets())
+                    }
+                    .listRowSeparator(.hidden)
+                }
+                
                 Section {
                     loggedOutView
                         .accessibilityElement(children: .contain)
@@ -329,9 +344,6 @@ public struct WMFActivityTabView: View {
 
     private var loggedOutView: some View {
         VStack(alignment: .leading, spacing: 8) {
-            if viewModel.showBabyGlobe {
-                babyGlobeReadingChallengeView
-            }
             HStack(alignment: .top) {
                 Text(viewModel.localizedStrings.loggedOutTitle)
                     .font(Font(WMFFont.for(.semiboldHeadline)))
