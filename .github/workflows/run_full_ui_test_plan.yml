@@ -1,0 +1,85 @@
+name: Run Full UI Test Plan
+
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+env:
+  XCODE_VERSION: "26.2"
+  IOS_VERSION: "26.2"
+  SIMULATOR_NAME: "iPhone 16"
+
+concurrency:
+  group: "full-ui-test-plan-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  run-full-ui-test-plan:
+    runs-on: macos-latest
+    name: Test Full UITests Plan
+    steps:
+      - name: Verify selected release tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SELECTED_REF: ${{ github.ref }}
+          SELECTED_REF_NAME: ${{ github.ref_name }}
+          SELECTED_REF_TYPE: ${{ github.ref_type }}
+        run: |
+          if [ "$SELECTED_REF_TYPE" != "tag" ]; then
+            echo "Full UI test plan runs must use a tag from the 'Use workflow from' selector."
+            echo "Selected ref: $SELECTED_REF"
+            exit 1
+          fi
+
+          gh release view "$SELECTED_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null
+          echo "Verified GitHub release tag: $SELECTED_REF_NAME"
+
+      - name: Check out selected ref
+        uses: actions/checkout@v6
+
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
+
+      - name: Prepare simulator
+        id: simulator
+        uses: ./.github/actions/prepare-simulator
+        with:
+          ios-version: ${{ env.IOS_VERSION }}
+          simulator-name: ${{ env.SIMULATOR_NAME }}
+
+      - name: Run full UITests plan
+        run: |
+          echo "Running full UITests plan on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
+          xcodebuild test \
+            -scheme WikipediaUITests \
+            -project Wikipedia.xcodeproj \
+            -testPlan UITests \
+            -destination "${{ steps.simulator.outputs.destination }}" \
+            -resultBundlePath "WikipediaUITests_FullTestPlan_TestResults" \
+            | xcpretty
+          EXIT_CODE=${PIPESTATUS[0]}
+          if [ "$EXIT_CODE" -ne 0 ]; then
+            exit "$EXIT_CODE"
+          fi
+
+      - name: Upload full UI test result bundle
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: WikipediaUITests-FullTestPlan-TestResults
+          path: WikipediaUITests_FullTestPlan_TestResults.xcresult
+          if-no-files-found: ignore
+
+      - name: Coverage summary
+        if: success()
+        uses: ./.github/actions/coverage-summary
+        with:
+          artifact-name: WikipediaUITests-FullTestPlan-coverage
+          coverage-json-path: WikipediaUITests_FullTestPlan_coverage.json
+          result-bundle-path: WikipediaUITests_FullTestPlan_TestResults.xcresult
+          scheme: WikipediaUITests
+          workflow-file: run_full_ui_test_plan.yml

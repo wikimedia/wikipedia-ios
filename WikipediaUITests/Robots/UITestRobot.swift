@@ -64,12 +64,14 @@ struct UITestRobot {
     @discardableResult
     func tapButton(
         withIdentifier identifier: String,
+        timeout: TimeInterval = 15,
         file: StaticString = #filePath,
         line: UInt = #line
     ) -> Self {
         let button = app.buttons.matching(identifier: identifier).firstMatch
         assertVisible(
             button,
+            timeout: timeout,
             description: "button with identifier '\(identifier)'",
             file: file,
             line: line
