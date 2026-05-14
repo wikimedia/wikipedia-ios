@@ -112,7 +112,8 @@ public struct WMFOnThisDayCardView: View {
     }
 
     private var datePill: some View {
-        Text(viewModel.event.date)
+        // todo
+        Text(viewModel.event.date.description)
             .font(Font(WMFFont.for(.subheadline)))
             .foregroundColor(Color(uiColor: theme.paperBackground))
             .padding(.horizontal, 8)
@@ -126,7 +127,7 @@ public struct WMFOnThisDayCardView: View {
         viewModel: WMFOnThisDayCardViewModel(
             event: WMFOnThisDayCardEvent(
                 text: "The Apollo 11 mission successfully lands the first humans on the Moon, with Neil Armstrong and Buzz Aldrin walking on the lunar surface.",
-                date: "1969",
+                date: Date(),
                 imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Apollo_11_Crew.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
             )
         )
@@ -139,7 +140,7 @@ public struct WMFOnThisDayCardView: View {
         viewModel: WMFOnThisDayCardViewModel(
             event: WMFOnThisDayCardEvent(
                 text: "The Apollo 11 mission successfully lands the first humans on the Moon, with Neil Armstrong and Buzz Aldrin walking on the lunar surface.",
-                date: "1969",
+                date: Date(),
                 imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Apollo_11_Crew.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
             ),
             isSelected: true
@@ -153,7 +154,7 @@ public struct WMFOnThisDayCardView: View {
         viewModel: WMFOnThisDayCardViewModel(
             event: WMFOnThisDayCardEvent(
                 text: "The Apollo 11 mission successfully lands the first humans on the Moon, with Neil Armstrong and Buzz Aldrin walking on the lunar surface.",
-                date: "1969",
+                date: Date(),
                 imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Apollo_11_Crew.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
             ),
             isSelected: true,
@@ -170,7 +171,7 @@ public struct WMFOnThisDayCardView: View {
         viewModel: WMFOnThisDayCardViewModel(
             event: WMFOnThisDayCardEvent(
                 text: "The World Wide Web is invented by Tim Berners-Lee while working at CERN in Geneva, Switzerland.",
-                date: "1989",
+                date: Date(),
                 imageURL: nil
             ),
             isSelected: true,
@@ -187,7 +188,7 @@ public struct WMFOnThisDayCardView: View {
         viewModel: WMFOnThisDayCardViewModel(
             event: WMFOnThisDayCardEvent(
                 text: "The World Wide Web is invented by Tim Berners-Lee while working at CERN in Geneva, Switzerland.",
-                date: "1989"
+                date: Date()
             )
         )
     )

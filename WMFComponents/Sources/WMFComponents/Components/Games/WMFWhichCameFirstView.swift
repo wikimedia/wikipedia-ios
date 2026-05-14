@@ -213,14 +213,14 @@ struct WMFGameButtonStyle: ButtonStyle {
     vm.cardViewModelA = WMFOnThisDayCardViewModel(
         event: WMFOnThisDayCardEvent(
             text: "The Apollo 11 mission successfully lands the first humans on the Moon.",
-            date: "1969",
+            date: Date(),
             imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Apollo_11_Crew.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
         )
     )
     vm.cardViewModelB = WMFOnThisDayCardViewModel(
         event: WMFOnThisDayCardEvent(
             text: "The World Wide Web is invented by Tim Berners-Lee at CERN.",
-            date: "1989"
+            date: Date()
         )
     )
     vm.showCardA = true

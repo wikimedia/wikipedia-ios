@@ -183,7 +183,8 @@ public extension WMFOnThisDayEvent {
     var cardEvent: WMFOnThisDayCardEvent {
         WMFOnThisDayCardEvent(
             text: text,
-            date: makeDate,
+            // todo Grey
+            date: Date(),
             imageURL: pages.first?.thumbnail?.source
         )
     }
