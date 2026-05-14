@@ -12,6 +12,19 @@ public actor WMFActivityTabDataController {
     }
 
     // MARK: - Activity Tab Customization Toggles
+    
+    public var isShowReadingChallengeOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabReadingChallenge.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabReadingChallenge.rawValue,
+                value: false)
+        }
+    }
 
     public var isTimeSpentReadingOn: Bool {
         get {
@@ -83,6 +96,10 @@ public actor WMFActivityTabDataController {
 
     public func updateIsTimelineOfBehaviorOn(_ value: Bool) {
         isTimelineOfBehaviorOn = value
+    }
+    
+    public func turnOffReadingChallenge() {
+        isShowReadingChallengeOn = false
     }
 
     public func getTimeReadPast7Days() async throws -> (Int, Int)? {

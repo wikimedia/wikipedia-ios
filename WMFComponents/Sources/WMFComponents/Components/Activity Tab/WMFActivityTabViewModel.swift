@@ -14,6 +14,8 @@ public final class WMFActivityTabViewModel: ObservableObject {
     public var savedArticlesModuleDataDelegate: SavedArticleModuleDataDelegate?
     public var didTapPrimaryLoggedOutCTA: (() -> Void)?
     public var didTapSearchTab: (() -> Void)?
+    public var didTapReadingChallengeCTA: (() -> Void)?
+    public var didTapCloseReadingChallenge: (() -> Void)?
     public var presentCustomizeLogInToastAction: (() -> Void)? {
         didSet {
             self.customizeViewModel.presentLoggedInToastAction = self.presentCustomizeLogInToastAction
@@ -87,8 +89,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let historyCalloutBodyLoggedIn: String
         public let historyCalloutBodyLoggedOut: String
         public let calloutCloseButtonAccesibilityHint: String
+        public let readingChallengeCardTitle: String
+        public let readingChallengeCardBody: String
+        public let readingChallengeCardCTA: String
 
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEditsAcrossProjects: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String, viewChanges: String, contributionsThisMonth: String, thisMonth: String, lastMonth: String, lookingForSomethingNew: String, exploreWikipedia: String, zeroEditsToArticles: String, looksLikeYouHaventMadeAnEdit: String, makeAnEdit: String, viewsString: @escaping (Int) -> String, mostViewed: String, allTimeImpactTitle: String, totalEditsLabel: String, bestStreakValue: @escaping (Int) -> String, bestStreakLabel: String, thanksLabel: String, lastEditedLabel: String, yourRecentActivityTitle: String, editsLabel: String, startEndDatesAccessibilityLabel: @escaping (String, String) -> String, viewsOnArticlesYouveEditedTitle: String, lineGraphDay: String, lineGraphViews: String, historyCalloutTitle: String, historyCalloutBodyLoggedIn: String, historyCalloutBodyLoggedOut: String, calloutCloseButtonAccesibilityHint: String) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEditsAcrossProjects: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String, viewChanges: String, contributionsThisMonth: String, thisMonth: String, lastMonth: String, lookingForSomethingNew: String, exploreWikipedia: String, zeroEditsToArticles: String, looksLikeYouHaventMadeAnEdit: String, makeAnEdit: String, viewsString: @escaping (Int) -> String, mostViewed: String, allTimeImpactTitle: String, totalEditsLabel: String, bestStreakValue: @escaping (Int) -> String, bestStreakLabel: String, thanksLabel: String, lastEditedLabel: String, yourRecentActivityTitle: String, editsLabel: String, startEndDatesAccessibilityLabel: @escaping (String, String) -> String, viewsOnArticlesYouveEditedTitle: String, lineGraphDay: String, lineGraphViews: String, historyCalloutTitle: String, historyCalloutBodyLoggedIn: String, historyCalloutBodyLoggedOut: String, calloutCloseButtonAccesibilityHint: String, readingChallengeCardTitle: String, readingChallengeCardBody: String, readingChallengeCardCTA: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -151,6 +156,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.historyCalloutBodyLoggedIn = historyCalloutBodyLoggedIn
             self.historyCalloutBodyLoggedOut = historyCalloutBodyLoggedOut
             self.calloutCloseButtonAccesibilityHint = calloutCloseButtonAccesibilityHint
+            self.readingChallengeCardTitle = readingChallengeCardTitle
+            self.readingChallengeCardBody = readingChallengeCardBody
+            self.readingChallengeCardCTA = readingChallengeCardCTA
         }
     }
 
@@ -185,6 +193,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var isLoading: Bool = false
     public var isEmpty: Bool = false
     @Published public var needsHistoryCallout: Bool = true
+    @Published public var showBabyGlobe: Bool = true
     public var onTapGlobalEdits: (() -> Void)?
     public var fetchDataCompleteAction: ((Bool) -> Void)?
     public var openCustomize: () -> Void = { }
@@ -240,7 +249,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
         let customizeViewModel = WMFActivityTabCustomizeViewModel(localizedStrings: WMFActivityTabCustomizeViewModel.LocalizedStrings(timeSpentReading: localizedStrings.customizeTimeSpentReading, readingInsights: localizedStrings.customizeReadingInsights, editingInsights: localizedStrings.customizeEditingInsights, allTimeImpact: localizedStrings.customizeAllTimeImpact, lastInAppDonation: localizedStrings.customizeLastInAppDonation, timeline: localizedStrings.customizeTimelineOfBehavior, footer: localizedStrings.customizeFooter), isLoggedIn: authenticationState == .loggedIn)
         self.customizeViewModel = customizeViewModel
 
-        // Unfortunately this part is needed for SwiftUI view to see changes in binding. Alternative is to have the toggle booleans live here within WMFActivityTabViewModel
         customizeViewModel.objectWillChange
                     .sink { [weak self] _ in
                         self?.objectWillChange.send()
@@ -283,7 +291,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
                 (globalEditCount == 0 || globalEditCount == nil) &&
                 shouldShowEmptyState
 
-            // Minimum 500ms, parity with Android
             let elapsed = start.duration(to: .now)
             let minimum = Duration.milliseconds(500)
 
@@ -329,7 +336,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
         do {
             let data = try await dataController.getUserImpactData(userID: userID)
             if let getURL = getURL {
-                // Only recreate if data has actually changed
                 if let existing = self.mostViewedArticlesViewModel,
                    existing.hasSameArticles(as: data) {
                     // Keep existing view model
@@ -404,10 +410,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
                 isLoading = false
             }
         } else if needsRefetch {
-            // re-fetch anything that might change based on login state
             Task {
-
-                // first reset things
                 globalEditCount = nil
                 mostViewedArticlesViewModel = nil
                 contributionsViewModel = nil

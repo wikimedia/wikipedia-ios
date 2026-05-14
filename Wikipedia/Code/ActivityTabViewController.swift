@@ -104,6 +104,56 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         viewModel.didTapSearchTab = { [weak self] in
             self?.navigateToSearch()
         }
+        
+        viewModel.didTapReadingChallengeCTA = { [weak self] in
+            guard let self else { return }
+
+            self.widgetInstrument.submitInteraction(
+                action: "click",
+                actionSource: "widget_challenge_install",
+                elementId: "show_me_how"
+            )
+            
+            guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+                return
+            }
+
+            guard let url = WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "Team", "25th Birthday Reading Challenge"], section: "How_do_I_install_the_Widget?", language: appLanguage) else { return }
+
+            let config = SinglePageWebViewController.StandardConfig(
+                url: url,
+                useSimpleNavigationBar: true
+            )
+
+            let webVC = SinglePageWebViewController(
+                configType: .standard(config),
+                theme: self.theme
+            )
+
+            let navigationVC = WMFComponentNavigationController(
+                rootViewController: webVC,
+                modalPresentationStyle: .formSheet
+            )
+
+            self.present(navigationVC, animated: true)
+        }
+        
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            let isOn = await dataController.isShowReadingChallengeOn
+            if !isOn {
+                self.viewModel.showBabyGlobe = false
+            }
+        }
+        
+        viewModel.didTapCloseReadingChallenge = { [weak self] in
+            guard let self else { return }
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+                await self.dataController.turnOffReadingChallenge()
+                self.viewModel.showBabyGlobe = false
+            }
+        }
 
         Task {
             await dataController.setHistoryDataController(historyDataController)

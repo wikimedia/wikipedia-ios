@@ -127,6 +127,9 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "Activity tabs third item subtitle";
 "activity-tab-onboarding-third-item-title-updated" = "Title for activity tabs third item";
 "activity-tab-read-title" = "Title for the reading history activity tab";
+"activity-tab-reading-challenge-card-body" = "Body text for the reading challenge card in the activity tab.";
+"activity-tab-reading-challenge-card-cta" = "Button title for the reading challenge card CTA in the activity tab.";
+"activity-tab-reading-challenge-card-title" = "Title for the reading challenge card in the activity tab.";
 "activity-tab-remaining-articles" = "Activity tab saved articles amount, where $1 is replaced with the amount of excess articles saved above 3.";
 "activity-tab-satisfied" = "Satisfaction survey satisfied";
 "activity-tab-saved" = "Title for module about saved articles";
@@ -1047,7 +1050,7 @@
 "reading-challenge-announcement-item1-title" = "Title for reading challenge onboarding first item.";
 "reading-challenge-announcement-item2-subtitle" = "Subtitle for reading challenge onboarding second item.";
 "reading-challenge-announcement-item2-title" = "Title for reading challenge onboarding second item.";
-"reading-challenge-announcement-item3-subtitle" = "Subtitle for reading challenge onboarding third item.";
+"reading-challenge-announcement-item3-subtitle2" = "Subtitle for reading challenge onboarding third item.";
 "reading-challenge-announcement-item3-title" = "Title for reading challenge onboarding third item.";
 "reading-challenge-announcement-secondary-cta" = "Secondary button title";
 "reading-challenge-announcement-subtitle" = "Notice about privacy for reading challenge";
@@ -1086,8 +1089,9 @@
 "reading-challenge-streak-no-days" = "Streak pill shown on the reading challenge widget, $1 is the number of days completed out of 25.";
 "reading-challenge-streak-of-days" = "Streak pill label shown on the reading challenge widget. $1 is the number of days completed out of 25.";
 "reading-challenge-subtitle" = "Subtitle shown on the reading challenge widget indicating the challenge length.";
-"reading-challenge-widget-announcement-body" = "Body text for the reading challenge widget announcement sheet.";
-"reading-challenge-widget-announcement-title" = "Title for the reading challenge widget announcement sheet.";
+"reading-challenge-widget-announcement-body2" = "Body text for the reading challenge widget announcement sheet.";
+"reading-challenge-widget-announcement-secondary-button" = "Secondary button title for showing widget installation instructions.";
+"reading-challenge-widget-announcement-title2" = "Title for the reading challenge widget announcement sheet.";
 "reading-challenge-widget-description" = "Description for the reading challenge widget shown in the widget picker.";
 "reading-challenge-widget-display-name" = "Display name for the reading challenge widget shown in the widget picker.";
 "reading-list-add-generic-hint-title" = "Title of the reading list hint that appears after an article is saved.";
