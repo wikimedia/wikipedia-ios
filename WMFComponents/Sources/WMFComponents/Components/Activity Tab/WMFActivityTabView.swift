@@ -51,6 +51,7 @@ public struct WMFActivityTabView: View {
                 WMFSmallCloseButton(action: {
                     viewModel.didTapCloseReadingChallenge?()
                 })
+                .buttonStyle(BorderlessButtonStyle())
             }
             HStack(alignment: .center, spacing: 8) {
                 if let image = UIImage(named: "spaceGlobe", in: .module, with: nil) {
@@ -81,6 +82,7 @@ public struct WMFActivityTabView: View {
                     )
             }
             .frame(maxWidth: .infinity)
+            .buttonStyle(BorderlessButtonStyle())
         }
         .frame(maxWidth: .infinity)
         .padding(16)
