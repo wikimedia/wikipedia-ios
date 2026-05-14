@@ -180,11 +180,15 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
 
 
 public extension WMFOnThisDayEvent {
-    var cardEvent: WMFOnThisDayCardEvent {
-        WMFOnThisDayCardEvent(
+    func cardEvent(month: Int, day: Int) -> WMFOnThisDayCardEvent {
+        var components = DateComponents()
+        components.year = year
+        components.month = month
+        components.day = day
+        let date = Calendar(identifier: .gregorian).date(from: components) ?? Date()
+        return WMFOnThisDayCardEvent(
             text: text,
-            // todo Grey
-            date: Date(),
+            date: date,
             imageURL: pages.first?.thumbnail?.source
         )
     }
@@ -193,7 +197,7 @@ public extension WMFOnThisDayEvent {
 private extension WMFWhichCameFirstEvent {
     var cardEvent: WMFOnThisDayCardEvent {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM d, yyyy"   // e.g. "May 13, 1969"
+        formatter.dateFormat = "MMMM d, yyyy"
         formatter.locale = Locale.current
         formatter.timeZone = TimeZone(identifier: "UTC")
         return WMFOnThisDayCardEvent(

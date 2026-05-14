@@ -112,8 +112,7 @@ public struct WMFOnThisDayCardView: View {
     }
 
     private var datePill: some View {
-        // todo
-        Text(viewModel.event.date.description)
+        Text(viewModel.event.dateString)
             .font(Font(WMFFont.for(.subheadline)))
             .foregroundColor(Color(uiColor: theme.paperBackground))
             .padding(.horizontal, 8)

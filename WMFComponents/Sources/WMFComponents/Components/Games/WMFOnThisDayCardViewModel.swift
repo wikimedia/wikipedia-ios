@@ -116,6 +116,9 @@ public struct WMFOnThisDayCardEvent: Identifiable {
     public let text: String
     public let date: Date
     public let imageURL: URL?
+    public var dateString: String {
+        DateFormatter.wmfMonthDayYearDateFormatter.string(from: date)
+    }
 
     public init(text: String, date: Date, imageURL: URL? = nil) {
         self.text = text
