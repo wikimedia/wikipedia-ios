@@ -246,6 +246,9 @@ public struct WMFActivityTabView: View {
                         .padding(.top, 16)
                         .padding([.leading, .trailing], 16)
                 }
+                if viewModel.showBabyGlobe {
+                    babyGlobeReadingChallengeView
+                }
                 Section {
                     loggedOutView
                         .accessibilityElement(children: .contain)
@@ -268,6 +271,14 @@ public struct WMFActivityTabView: View {
             .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         } else {
             List {
+                if viewModel.showBabyGlobe {
+                    Section {
+                        babyGlobeReadingChallengeView
+                            .padding(16)
+                            .listRowInsets(EdgeInsets())
+                    }
+                    .listRowSeparator(.hidden)
+                }
                 if viewModel.needsHistoryCallout {
                     Section {
                         historyCalloutView(loggedIn: false)
@@ -345,9 +356,6 @@ public struct WMFActivityTabView: View {
 
     private var loggedOutView: some View {
         VStack(alignment: .leading, spacing: 8) {
-            if viewModel.showBabyGlobe {
-                babyGlobeReadingChallengeView
-            }
             HStack(alignment: .top) {
                 Text(viewModel.localizedStrings.loggedOutTitle)
                     .font(Font(WMFFont.for(.semiboldHeadline)))
