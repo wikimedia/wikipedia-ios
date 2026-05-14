@@ -270,8 +270,13 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
             if let sheet = controller.sheetPresentationController {
                 sheet.prefersGrabberVisible = true
                 sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-                sheet.detents = [.medium(), .large()]
-                sheet.selectedDetentIdentifier = .medium
+                sheet.detents = [
+                        .custom(identifier: .init("fraction65")) { context in
+                            context.maximumDetentValue * 0.65
+                        },
+                        .large()
+                    ]
+                    sheet.selectedDetentIdentifier = .init("fraction65")
             }
         }
 
