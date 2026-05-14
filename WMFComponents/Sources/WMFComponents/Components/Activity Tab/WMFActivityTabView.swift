@@ -47,6 +47,7 @@ public struct WMFActivityTabView: View {
                 Text(viewModel.localizedStrings.readingChallengeCardTitle)
                     .font(Font(WMFFont.for(.boldCaption1)))
                     .foregroundStyle(Color(theme.text))
+                Spacer()
                 WMFSmallCloseButton(action: {
                     viewModel.didTapCloseReadingChallenge?()
                 })
@@ -83,7 +84,10 @@ public struct WMFActivityTabView: View {
         }
         .frame(maxWidth: .infinity)
         .padding(16)
-        .background(Color(theme.softEditorBlue))
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color(theme.softEditorBlue))
+        )
         .accessibilityElement(children: .contain)
         .accessibilityLabel("\(viewModel.localizedStrings.readingChallengeCardTitle). \(viewModel.localizedStrings.readingChallengeCardBody)")
     }
@@ -246,10 +250,6 @@ public struct WMFActivityTabView: View {
                         .listRowInsets(EdgeInsets())
                 }
                 .listRowSeparator(.hidden)
-                
-                if viewModel.showBabyGlobe {
-                    babyGlobeReadingChallengeView
-                }
 
                 HStack {
                     Spacer()
@@ -343,6 +343,9 @@ public struct WMFActivityTabView: View {
 
     private var loggedOutView: some View {
         VStack(alignment: .leading, spacing: 8) {
+            if viewModel.showBabyGlobe {
+                babyGlobeReadingChallengeView
+            }
             HStack(alignment: .top) {
                 Text(viewModel.localizedStrings.loggedOutTitle)
                     .font(Font(WMFFont.for(.semiboldHeadline)))

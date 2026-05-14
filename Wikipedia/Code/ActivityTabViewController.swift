@@ -113,12 +113,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 actionSource: "widget_challenge_install",
                 elementId: "show_me_how"
             )
-
-            guard let url = URL(string:
-                "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/25th_Birthday_Reading_Challenge#How_do_I_install_the_Widget?"
-            ) else {
+            
+            guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
                 return
             }
+
+            guard let url = WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "Team", "25th Birthday Reading Challenge"], section: "How_do_I_install_the_Widget?", language: appLanguage) else { return }
 
             let config = SinglePageWebViewController.StandardConfig(
                 url: url,
@@ -138,8 +138,21 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             self.present(navigationVC, animated: true)
         }
         
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            let isOn = await dataController.isShowReadingChallengeOn
+            if !isOn {
+                self.viewModel.showBabyGlobe = false
+            }
+        }
+        
         viewModel.didTapCloseReadingChallenge = { [weak self] in
-            self?.dataController.turnOffReadingChallenge()
+            guard let self else { return }
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+                await self.dataController.turnOffReadingChallenge()
+                self.viewModel.showBabyGlobe = false
+            }
         }
 
         Task {

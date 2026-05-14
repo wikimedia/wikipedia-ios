@@ -218,11 +218,11 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
                 elementId: "show_me_how"
             )
 
-            guard let url = URL(
-                string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/25th_Birthday_Reading_Challenge#How_do_I_install_the_Widget?"
-            ) else {
+            guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
                 return
             }
+            
+            guard let url = WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "Team", "25th Birthday Reading Challenge"], section: "How_do_I_install_the_Widget?", language: appLanguage) else { return }
 
             guard let presentedViewController = self.navigationController.presentedViewController else {
                 return
