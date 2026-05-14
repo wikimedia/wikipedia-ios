@@ -1,4 +1,5 @@
 #import "WMFArticleLanguagesSectionFooter.h"
+@import WMFComponents;
 #import "Wikipedia-Swift.h"
 
 @interface WMFArticleLanguagesSectionFooter ()
@@ -21,6 +22,7 @@
     self.backgroundView = backgroundView;
     [self.addButton setTitle:WMFLocalizedStringWithDefaultValue(@"welcome-languages-add-button", nil, nil, @"Add another language", @"Title for button for adding another language")
                     forState:UIControlStateNormal];
+    self.addButton.accessibilityIdentifier = [WMFAccessibilityIdentifier languageSelectionPreferredLanguagesAddLanguageButton];
     [self wmf_configureSubviewsForDynamicType];
     [self applyTheme:[WMFTheme standard]];
 }

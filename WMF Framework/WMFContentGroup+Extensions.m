@@ -83,6 +83,10 @@
             URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:[(WMFAnnouncement *)self.contentPreview identifier]];
         case WMFContentGroupKindSuggestedEdits:
             URL = [WMFContentGroup suggestedEditsURLForSiteURL:self.siteURL];
+            break;
+        case WMFContentGroupKindDailyGame:
+            URL = [WMFContentGroup dailyGameURLForSiteURL:self.siteURL];
+            break;
         default:
             break;
     }
@@ -119,6 +123,9 @@
             break;
         case WMFContentGroupKindSuggestedEdits:
             self.contentType = WMFContentTypeSuggestedEdits;
+            break;
+        case WMFContentGroupKindDailyGame:
+            self.contentType = WMFContentTypeDailyGame;
             break;
         case WMFContentGroupKindContinueReading:
         case WMFContentGroupKindMainPage:
@@ -157,6 +164,9 @@
         case WMFContentGroupKindContinueReading:
             updatedDailySortPriority = 0;
             break;
+        case WMFContentGroupKindDailyGame:
+            updatedDailySortPriority = contentLanguageSortOrder + 5;
+            break;
         case WMFContentGroupKindRelatedPages:
             updatedDailySortPriority = 1;
             break;
@@ -170,10 +180,10 @@
             updatedDailySortPriority = contentLanguageSortOrder + 4;
             break;
         case WMFContentGroupKindTopRead:
-            updatedDailySortPriority = contentLanguageSortOrder + 5;
+            updatedDailySortPriority = contentLanguageSortOrder + 6;
             break;
         case WMFContentGroupKindNews:
-            updatedDailySortPriority = contentLanguageSortOrder + 6;
+            updatedDailySortPriority = contentLanguageSortOrder + 7;
             break;
         case WMFContentGroupKindPictureOfTheDay:
             updatedDailySortPriority = 8;
@@ -516,6 +526,19 @@
 
 + (nullable NSURL *)suggestedEditsURLForSiteURL:(NSURL *)siteURL {
     NSURL *URL = [[self baseURL] URLByAppendingPathComponent:@"suggested-edits"];
+    URL.wmf_languageVariantCode = siteURL.wmf_languageVariantCode;
+    return URL;
+}
+
++ (nullable NSURL *)dailyGameURLForSiteURL:(NSURL *)siteURL {
+    NSString *language = siteURL.wmf_languageCode;
+    NSString *domain = siteURL.wmf_domain;
+    if (!domain || !language) {
+        return nil;
+    }
+    NSURL *URL = [[self baseURL] URLByAppendingPathComponent:@"daily-game"];
+    URL = [URL URLByAppendingPathComponent:domain];
+    URL = [URL URLByAppendingPathComponent:language];
     URL.wmf_languageVariantCode = siteURL.wmf_languageVariantCode;
     return URL;
 }

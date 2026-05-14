@@ -17,6 +17,7 @@ env:
   XCODE_VERSION: "26.2"
   IOS_VERSION: "26.2"
   SIMULATOR_NAME: "iPhone 16"
+  UI_TEST_CONFIGURATION: "English (Light)"
 
 concurrency:
   group: "ui-tests-${{ github.ref }}"
@@ -54,63 +55,22 @@ jobs:
         run: |
           sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
 
-      - name: Resolve simulator
+      - name: Prepare simulator
         id: simulator
-        run: |
-          xcrun simctl list devices available --json > simulators.json
-          SIMULATOR_ID=$(python3 - <<'PY'
-          import json
-          import os
-          import sys
-
-          ios_version = os.environ["IOS_VERSION"]
-          simulator_name = os.environ["SIMULATOR_NAME"]
-          runtime_id = f"com.apple.CoreSimulator.SimRuntime.iOS-{ios_version.replace('.', '-')}"
-
-          with open("simulators.json") as file:
-              simulators = json.load(file)
-
-          matches = [
-              device
-              for device in simulators.get("devices", {}).get(runtime_id, [])
-              if device.get("name") == simulator_name and device.get("isAvailable")
-          ]
-
-          if len(matches) != 1:
-              print(
-                  f"Expected exactly one available {simulator_name} simulator for iOS {ios_version}; found {len(matches)}.",
-                  file=sys.stderr
-              )
-              print("Available iOS simulator devices:", file=sys.stderr)
-              for runtime, devices in sorted(simulators.get("devices", {}).items()):
-                  if not runtime.startswith("com.apple.CoreSimulator.SimRuntime.iOS-"):
-                      continue
-                  version = runtime.removeprefix("com.apple.CoreSimulator.SimRuntime.iOS-").replace("-", ".")
-                  names = sorted({
-                      device.get("name", "<unknown>")
-                      for device in devices
-                      if device.get("isAvailable")
-                  })
-                  if names:
-                      print(f"  iOS {version}: {', '.join(names)}", file=sys.stderr)
-              sys.exit(1)
-
-          print(matches[0]["udid"])
-          PY
-          )
-          echo "simulator_id=${SIMULATOR_ID}" >> "$GITHUB_OUTPUT"
-          echo "Resolved ${SIMULATOR_NAME} iOS ${IOS_VERSION} to ${SIMULATOR_ID}"
+        uses: ./.github/actions/prepare-simulator
+        with:
+          ios-version: ${{ env.IOS_VERSION }}
+          simulator-name: ${{ env.SIMULATOR_NAME }}
 
       - name: Run WikipediaUITests
-        env:
-          SIMULATOR_ID: ${{ steps.simulator.outputs.simulator_id }}
         run: |
-          echo "Running WikipediaUITests on ${SIMULATOR_NAME} iOS ${IOS_VERSION} (${SIMULATOR_ID}) with Xcode ${XCODE_VERSION}"
+          echo "Running WikipediaUITests ${UI_TEST_CONFIGURATION} on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
           xcodebuild test \
             -scheme WikipediaUITests \
             -project Wikipedia.xcodeproj \
             -testPlan UITests \
-            -destination "platform=iOS Simulator,id=${SIMULATOR_ID}" \
+            -only-test-configuration "${UI_TEST_CONFIGURATION}" \
+            -destination "${{ steps.simulator.outputs.destination }}" \
             -resultBundlePath "WikipediaUITests_TestResults" \
             | xcpretty
           EXIT_CODE=${PIPESTATUS[0]}
