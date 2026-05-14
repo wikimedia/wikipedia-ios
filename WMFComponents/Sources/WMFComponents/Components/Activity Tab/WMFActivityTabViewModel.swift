@@ -192,7 +192,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published var globalEditCount: Int?
     @Published public var isLoading: Bool = false
     public var isEmpty: Bool = false
-    @Published public var needsHistoryCallout: Bool = true
     @Published public var showBabyGlobe: Bool = true
     public var onTapGlobalEdits: (() -> Void)?
     public var fetchDataCompleteAction: ((Bool) -> Void)?
@@ -301,7 +300,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
             isLoading = false
             isFirstTimeLoading = false
             fetchDataCompleteAction?(fromAppearance)
-            needsHistoryCallout = await getNeedsHistoryCallout()
         }
     }
 
@@ -316,17 +314,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
         } catch {
             debugPrint("Error getting global edit count: \(error)")
             globalEditCount = nil
-        }
-    }
-
-    public func getNeedsHistoryCallout() async -> Bool {
-        return await dataController.getNeedsHistoryCallout()
-    }
-
-    public func setClosedHIstoryCallout() {
-        needsHistoryCallout = false
-        Task {
-            await dataController.setNeedsHistoryCallout(false)
         }
     }
 

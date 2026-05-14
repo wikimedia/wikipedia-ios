@@ -100,9 +100,6 @@ public struct WMFActivityTabView: View {
                 Section {
                     VStack(spacing: 16) {
                         if viewModel.customizeViewModel.isTimeSpentReadingOn {
-                            if viewModel.needsHistoryCallout {
-                                historyCalloutView(loggedIn: true)
-                            }
                             headerView
                                 .accessibilityElement()
                                 .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
@@ -241,14 +238,11 @@ public struct WMFActivityTabView: View {
     private func loggedOutList(proxy: ScrollViewProxy) -> some View {
         if viewModel.sections.count == 0 {
             VStack {
-                if viewModel.needsHistoryCallout {
-                    historyCalloutView(loggedIn: false)
-                        .padding(.top, 16)
-                        .padding([.leading, .trailing], 16)
-                }
+
                 if viewModel.showBabyGlobe {
                     babyGlobeReadingChallengeView
                 }
+                
                 Section {
                     loggedOutView
                         .accessibilityElement(children: .contain)
@@ -271,6 +265,7 @@ public struct WMFActivityTabView: View {
             .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         } else {
             List {
+
                 if viewModel.showBabyGlobe {
                     Section {
                         babyGlobeReadingChallengeView
@@ -279,14 +274,7 @@ public struct WMFActivityTabView: View {
                     }
                     .listRowSeparator(.hidden)
                 }
-                if viewModel.needsHistoryCallout {
-                    Section {
-                        historyCalloutView(loggedIn: false)
-                            .padding(16)
-                            .listRowInsets(EdgeInsets())
-                    }
-                    .listRowSeparator(.hidden)
-                }
+                
                 Section {
                     loggedOutView
                         .accessibilityElement(children: .contain)
@@ -481,57 +469,6 @@ public struct WMFActivityTabView: View {
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(accessibilityLabel)
             .accessibilityAddTraits(.isButton)
-    }
-
-    private func historyCalloutView(loggedIn: Bool) -> some View {
-       let bodyString = loggedIn
-            ? viewModel.localizedStrings.historyCalloutBodyLoggedIn
-            : viewModel.localizedStrings.historyCalloutBodyLoggedOut
-        let bodyAttributed = (try? AttributedString(markdown: bodyString)) ?? AttributedString(bodyString)
-
-        return VStack(alignment: .leading, spacing: 8) {
-            HStack(alignment: .top, spacing: 8) {
-                Text("🔍")
-                    .accessibilityHidden(true)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(viewModel.localizedStrings.historyCalloutTitle)
-                        .font(Font(WMFFont.for(.boldSubheadline)))
-                        .foregroundStyle(Color(uiColor: theme.link))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .accessibilityAddTraits(.isHeader)
-                    Text(bodyAttributed)
-                        .font(Font(WMFFont.for(.subheadline)))
-                        .foregroundStyle(Color(uiColor: theme.link))
-                        .onTapGesture {
-                            viewModel.didTapSearchTab?()
-                        }
-                }
-                Button {
-                    viewModel.setClosedHIstoryCallout()
-                } label: {
-                    if let closeIconName = WMFSFSymbolIcon.closeCircleFill.name {
-                        Image(systemName: closeIconName)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 22, height: 22)
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(
-                                Color(uiColor: theme.secondaryText),
-                                Color(uiColor: theme.secondaryText.withAlphaComponent(0.2))
-                            )
-                    }
-                }
-                .buttonStyle(BorderlessButtonStyle())
-                .accessibilityLabel(viewModel.localizedStrings.calloutCloseButtonAccesibilityHint)
-            }
-        }
-        .padding(16)
-        .background(Color(uiColor: theme.link.withAlphaComponent(0.15)))
-        .cornerRadius(10)
-        .overlay(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(Color(uiColor: theme.link.withAlphaComponent(0.3)), lineWidth: 0.5)
-        )
     }
 
     private func showPlus(displayCount: Int, totalSavedCount: Int) -> Bool {
