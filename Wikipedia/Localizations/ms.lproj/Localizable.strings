@@ -585,6 +585,7 @@
 "reading-challenge-enrolled-not-started-subtitle-article" = "Baca satu artikel untuk bermula.";
 "reading-challenge-enrolled-not-started-subtitle-away" = "Streak anda hanya selangkah lagi.";
 "reading-challenge-enrolled-not-started-subtitle-somewhere" = "Setiap streak bermula dari satu langkah";
+"reading-challenge-enrolled-not-started-subtitle-towards" = "Mulakan usaha untuk mencapai rentetan 25 hari!";
 "reading-challenge-enrolled-not-started-title-fresh" = "Permulaan baharu.";
 "reading-challenge-enrolled-not-started-title-ready" = "Sedia, mula, baca!";
 "reading-challenge-enrolled-not-started-title-spin" = "Mulakan streak baharu?";
@@ -614,6 +615,8 @@
 "reading-challenge-widget-announcement-secondary-button" = "Tunjukkan saya caranya";
 "reading-challenge-widget-announcement-title" = "Pasang widget Cabaran Membaca 25 Hari";
 "reading-challenge-widget-announcement-title2" = "Pergi ke skrin utama anda untuk menambah widget";
+"reading-challenge-widget-description" = "Lacak kemajuan cabaran membaca anda";
+"reading-challenge-widget-display-name" = "Cabaran Membaca";
 "reading-list-add-generic-hint-title" = "Tambahkan rencana ini ke dalam senarai bacaan?";
 "reading-list-add-hint-title" = "Tambahkan “$1” ke senarai bacaan?";
 "reading-list-add-saved-button-title" = "Ya, tambahkan ke senarai bacaan saya";

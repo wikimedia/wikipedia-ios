@@ -952,6 +952,7 @@
 "reading-challenge-enrolled-not-started-subtitle-article" = "Leia um artigo para começar.";
 "reading-challenge-enrolled-not-started-subtitle-away" = "Sua sequência está a apenas um artigo de distância.";
 "reading-challenge-enrolled-not-started-subtitle-somewhere" = "Toda sequência precisa começar em algum lugar";
+"reading-challenge-enrolled-not-started-subtitle-towards" = "Comece a trabalhar para alcançar uma sequência de 25 dias!";
 "reading-challenge-enrolled-not-started-title-fresh" = "Um novo começo.";
 "reading-challenge-enrolled-not-started-title-ready" = "Preparar, apontar, ler!";
 "reading-challenge-enrolled-not-started-title-spin" = "Quer iniciar uma nova sequência?";
@@ -981,6 +982,8 @@
 "reading-challenge-widget-announcement-secondary-button" = "Mostre-me como";
 "reading-challenge-widget-announcement-title" = "Instale o widget do desafio de leitura de 25 dias";
 "reading-challenge-widget-announcement-title2" = "Acesse sua tela inicial para adicionar o widget";
+"reading-challenge-widget-description" = "Acompanhe o progresso do seu desafio de leitura.";
+"reading-challenge-widget-display-name" = "Desafio de leitura";
 "reading-list-add-generic-hint-title" = "Adicionar este artigo a uma lista de leitura?";
 "reading-list-add-hint-title" = "Adicionar “$1” a uma lista de leitura?";
 "reading-list-add-saved-button-title" = "Sim, desejo adicioná-los às minhas listas de leitura";
