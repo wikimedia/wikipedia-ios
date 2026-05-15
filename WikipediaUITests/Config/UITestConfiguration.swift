@@ -1,12 +1,14 @@
 import Foundation
 import XCTest
 
+/// Provides access to the current UI-test launch configuration from XCTest helpers.
 extension XCTestCase {
     var uiTestConfiguration: UITestConfiguration {
         UITestConfiguration()
     }
 }
 
+/// Captures the launch-time settings that make UI tests deterministic across theme, language, and onboarding state.
 struct UITestConfiguration {
     var onboardingState: OnboardingState
     let resetsPreferredLanguages: Bool
@@ -44,6 +46,7 @@ struct UITestConfiguration {
         return argumentValues
     }
 
+    /// Models the persisted onboarding flag that tests need to set before launch.
     enum OnboardingState {
         case completed
         case notCompleted

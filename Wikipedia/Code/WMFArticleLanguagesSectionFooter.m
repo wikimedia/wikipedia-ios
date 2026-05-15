@@ -1,4 +1,5 @@
 #import "WMFArticleLanguagesSectionFooter.h"
+@import WMFComponents;
 #import "Wikipedia-Swift.h"
 
 @interface WMFArticleLanguagesSectionFooter ()

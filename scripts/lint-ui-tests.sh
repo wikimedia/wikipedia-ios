@@ -26,7 +26,7 @@ if [[ -n "$appearance_matches" ]]; then
 fi
 
 language_pattern='AppleLanguages|AppleLocale|AppleTextDirection|-WMFUITestLanguageCode|\.uiTestLanguageCode'
-language_allowed_files='^WikipediaUITests/Utilities/(UITestConfiguration|UITestLaunchArgument)\.swift:'
+language_allowed_files='^WikipediaUITests/(Robots|Config)/(UITestConfiguration|UITestLaunchArgument)\.swift:'
 language_matches=$(find_matches "$language_pattern" | grep -vE "$language_allowed_files" || true)
 
 if [[ -n "$language_matches" ]]; then

@@ -1014,7 +1014,7 @@ extension ExploreViewController {
             return
         }
         
-        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, fromWidgetJoinChallengeButton: false, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent, instrument: widgetInstrument)
+        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, fromWidgetJoinChallengeButton: false, fromAppStoreEvent: false, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent, instrument: widgetInstrument)
         
         readingChallengeCoordinator.onComplete = { [weak self] didPresentSomething in
             

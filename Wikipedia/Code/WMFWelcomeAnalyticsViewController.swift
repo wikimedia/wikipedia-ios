@@ -8,6 +8,8 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
         guard viewIfLoaded != nil else {
             return
         }
+        view.backgroundColor = .clear
+        descriptionLabel.textColor = theme.colors.secondaryText
         learnMoreButton.setTitleColor(theme.colors.link, for: .normal)
     }
 

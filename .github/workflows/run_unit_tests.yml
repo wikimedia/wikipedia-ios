@@ -12,6 +12,7 @@ on:
 env:
   XCODE_VERSION: "26.2"
   IOS_VERSION: "26.2"
+  SIMULATOR_NAME: "iPhone 16"
   SCHEMES: "Wikipedia WMFComponents WMFData"
 
 concurrency:
@@ -36,23 +37,26 @@ jobs:
         run: |
           sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
 
+      - name: Prepare simulator
+        id: simulator
+        uses: ./.github/actions/prepare-simulator
+        with:
+          ios-version: ${{ env.IOS_VERSION }}
+          simulator-name: ${{ env.SIMULATOR_NAME }}
+
       - name: Test ${{ matrix.scheme }} scheme
         run: |
-          xcrun simctl list
-          SIMULATORS=("iPhone 16")
-          for SIMULATOR in "${SIMULATORS[@]}"; do
-            echo "Running scheme: ${{ matrix.scheme }} on ${SIMULATOR} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
-            xcodebuild test \
-              -scheme "${{ matrix.scheme }}" \
-              -project Wikipedia.xcodeproj \
-              -destination "platform=iOS Simulator,name=$SIMULATOR,OS=$IOS_VERSION" \
-              -resultBundlePath "${{ matrix.scheme }}_TestResults" \
-              | xcpretty
-            EXIT_CODE=${PIPESTATUS[0]}
-            if [ "$EXIT_CODE" -ne 0 ]; then
-              exit "$EXIT_CODE"
-            fi
-          done
+          echo "Running scheme: ${{ matrix.scheme }} on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
+          xcodebuild test \
+            -scheme "${{ matrix.scheme }}" \
+            -project Wikipedia.xcodeproj \
+            -destination "${{ steps.simulator.outputs.destination }}" \
+            -resultBundlePath "${{ matrix.scheme }}_TestResults" \
+            | xcpretty
+          EXIT_CODE=${PIPESTATUS[0]}
+          if [ "$EXIT_CODE" -ne 0 ]; then
+            exit "$EXIT_CODE"
+          fi
 
       - name: Coverage summary
         if: success()

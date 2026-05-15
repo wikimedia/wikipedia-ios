@@ -1,12 +1,6 @@
-name: Run UI Tests
+name: Run Full UI Test Plan
 
 on:
-  pull_request:
-    branches:
-      - 'main'
-  push:
-    branches:
-      - 'main'
   workflow_dispatch:
 
 permissions:
@@ -17,19 +11,17 @@ env:
   XCODE_VERSION: "26.2"
   IOS_VERSION: "26.2"
   SIMULATOR_NAME: "iPhone 16"
-  UI_TEST_CONFIGURATION: "English (Light)"
 
 concurrency:
-  group: "ui-tests-${{ github.ref }}"
+  group: "full-ui-test-plan-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
-  run-ui-tests:
+  run-full-ui-test-plan:
     runs-on: macos-latest
-    name: Test WikipediaUITests
+    name: Test Full UITests Plan
     steps:
       - name: Verify selected release tag
-        if: github.event_name == 'workflow_dispatch'
         env:
           GH_TOKEN: ${{ github.token }}
           SELECTED_REF: ${{ github.ref }}
@@ -37,7 +29,7 @@ jobs:
           SELECTED_REF_TYPE: ${{ github.ref_type }}
         run: |
           if [ "$SELECTED_REF_TYPE" != "tag" ]; then
-            echo "Manual UI test runs must use a tag from the 'Use workflow from' selector."
+            echo "Full UI test plan runs must use a tag from the 'Use workflow from' selector."
             echo "Selected ref: $SELECTED_REF"
             exit 1
           fi
@@ -47,9 +39,6 @@ jobs:
 
       - name: Check out selected ref
         uses: actions/checkout@v6
-
-      - name: Ensure UI tests use test-plan appearance and language
-        run: scripts/lint-ui-tests.sh
 
       - name: Select Xcode
         run: |
@@ -62,36 +51,35 @@ jobs:
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
 
-      - name: Run WikipediaUITests
+      - name: Run full UITests plan
         run: |
-          echo "Running WikipediaUITests ${UI_TEST_CONFIGURATION} on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
+          echo "Running full UITests plan on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
           xcodebuild test \
             -scheme WikipediaUITests \
             -project Wikipedia.xcodeproj \
             -testPlan UITests \
-            -only-test-configuration "${UI_TEST_CONFIGURATION}" \
             -destination "${{ steps.simulator.outputs.destination }}" \
-            -resultBundlePath "WikipediaUITests_TestResults" \
+            -resultBundlePath "WikipediaUITests_FullTestPlan_TestResults" \
             | xcpretty
           EXIT_CODE=${PIPESTATUS[0]}
           if [ "$EXIT_CODE" -ne 0 ]; then
             exit "$EXIT_CODE"
           fi
 
-      - name: Upload UI test result bundle
+      - name: Upload full UI test result bundle
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: WikipediaUITests-TestResults
-          path: WikipediaUITests_TestResults.xcresult
+          name: WikipediaUITests-FullTestPlan-TestResults
+          path: WikipediaUITests_FullTestPlan_TestResults.xcresult
           if-no-files-found: ignore
 
       - name: Coverage summary
         if: success()
         uses: ./.github/actions/coverage-summary
         with:
-          artifact-name: WikipediaUITests-coverage
-          coverage-json-path: WikipediaUITests_coverage.json
-          result-bundle-path: WikipediaUITests_TestResults.xcresult
+          artifact-name: WikipediaUITests-FullTestPlan-coverage
+          coverage-json-path: WikipediaUITests_FullTestPlan_coverage.json
+          result-bundle-path: WikipediaUITests_FullTestPlan_TestResults.xcresult
           scheme: WikipediaUITests
-          workflow-file: run_ui_tests.yml
+          workflow-file: run_full_ui_test_plan.yml

@@ -16,6 +16,7 @@
 // Author: Impartial just
 // Author: Kanashimi
 // Author: Kc kennylau
+// Author: Kelly Hsueh
 // Author: Key0121
 // Author: Kly
 // Author: LEEJACK
@@ -1156,9 +1157,9 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "陰暗主題";
 "reading-themes-controls-accessibility-light-theme-button" = "明亮主題";
 "reading-themes-controls-accessibility-sepia-theme-button" = "棕褐色主題";
-"reading-themes-controls-accessibility-syntax-highlighting-switch" = "語法突顯";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "語法醒目標示";
 "reading-themes-controls-accessibility-text-size-slider" = "文字大小滑動桿";
-"reading-themes-controls-syntax-highlighting" = "語法突顯";
+"reading-themes-controls-syntax-highlighting" = "語法醒目標示";
 "reference-section-button-accessibility-label" = "跳到參考資料段落";
 "reference-title" = "參考資料 $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=今天|1=昨天|$1 天前}}";
