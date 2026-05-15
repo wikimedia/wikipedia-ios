@@ -1,12 +1,33 @@
 import UIKit
+import WMFNativeLocalizations
 import SwiftUI
 import WMFData
+import Foundation
 
 // MARK: - Hosting Controller
+
 
 public final class WMFWhichCameFirstHostingController: WMFComponentHostingController<WMFWhichCameFirstView>, WMFNavigationBarConfiguring {
 
     private let viewModel: WMFWhichCameFirstViewModel
+
+    private lazy var moreBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsis), primaryAction: nil, menu: overflowMenu)
+        button.accessibilityLabel = CommonStrings.moreButton
+        return button
+    }()
+
+    private var overflowMenu: UIMenu {
+        // Add actions here as needed
+        let shareAction = UIAction(
+            title: CommonStrings.shareMenuTitle,
+            image: WMFSFSymbolIcon.for(symbol: .squareAndArrowUp)
+        ) { _ in
+            // handle share
+        }
+
+        return UIMenu(title: String(), options: .displayInline, children: [shareAction])
+    }
 
     public init(viewModel: WMFWhichCameFirstViewModel) {
         self.viewModel = viewModel
@@ -25,7 +46,7 @@ public final class WMFWhichCameFirstHostingController: WMFComponentHostingContro
 
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(
-            title: "Which Came First?",
+            title: DateFormatter.wmfMonthDayFromDailyGameDate(viewModel.date),
             customView: nil,
             alignment: .centerCompact
         )
@@ -43,6 +64,17 @@ public final class WMFWhichCameFirstHostingController: WMFComponentHostingContro
             searchBarConfig: nil,
             hideNavigationBarOnScroll: false
         )
+
+        navigationItem.rightBarButtonItem = moreBarButtonItem
+
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = WMFAppEnvironment.current.theme.link
+        appearance.titleTextAttributes = [.foregroundColor: theme.baseBackground]
+        appearance.shadowColor = .clear
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.tintColor = theme.baseBackground
     }
 
     @objc private func tappedClose() {

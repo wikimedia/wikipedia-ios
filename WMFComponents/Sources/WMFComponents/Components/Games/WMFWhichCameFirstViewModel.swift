@@ -33,7 +33,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     @Published var showCardB = false
     @Published var progressResults: [Bool?] = []
 
-    private let date: String
+    public let date: String
     private let project: WMFProject
     private let dataController: WMFGamesDataController
     private var gameState: WMFWhichCameFirstGameState?

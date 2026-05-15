@@ -31,64 +31,93 @@ public struct WMFWhichCameFirstView: View {
 
     private var gameplayView: some View {
         VStack(spacing: 0) {
-            ScrollView {
-                VStack(spacing: 18) {
-                    if viewModel.showCardA, let cardA = viewModel.cardViewModelA {
-                        WMFOnThisDayCardView(viewModel: cardA) {
-                            viewModel.select("A")
-                        }
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
-                    }
-
-                    if viewModel.showCardB, let cardB = viewModel.cardViewModelB {
-                        WMFOnThisDayCardView(viewModel: cardB) {
-                            viewModel.select("B")
-                        }
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
-                    }
-                }
-                .padding()
-                .background(
-                    VStack(spacing: 0) {
-                        Color(uiColor: theme.link)
-                            .frame(height: 32)
-                        Color.clear
-                    }
-                )
+            ZStack {
+                Color(uiColor: theme.link)
+                Text("Which came first?")
+                    .font(Font(WMFFont.for(.semiboldTitle3)))
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 24)
             }
+            .fixedSize(horizontal: false, vertical: true)
 
-            footerArea
+            VStack(spacing: 18) {
+                if viewModel.showCardA, let cardA = viewModel.cardViewModelA {
+                    WMFOnThisDayCardView(viewModel: cardA) {
+                        viewModel.select("A")
+                    }
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+
+                if viewModel.showCardB, let cardB = viewModel.cardViewModelB {
+                    WMFOnThisDayCardView(viewModel: cardB) {
+                        viewModel.select("B")
+                    }
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+                Spacer()
+                
+                footerArea
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, -16)
+            .padding(.bottom, 16)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .background(Color(uiColor: theme.midBackground))
         }
+        .background(Color(uiColor: theme.link)) // fills the gap behind the nav bar
     }
 
     // MARK: - Footer
 
     private var footerArea: some View {
-        VStack(spacing: 14) {
-            if let reveal = viewModel.revealState {
-                feedbackBanner(reveal)
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
+        HStack(alignment: .center, spacing: 12) {
+            HStack(spacing: 8) {
+                ForEach(Array(viewModel.progressResults.enumerated()), id: \.offset) { index, result in
+                    Circle()
+                        .fill(color(for: result))
+                        .frame(width: 10, height: 10)
+                        .scaleEffect(index == viewModel.currentIndex ? 1.3 : 1.0)
+                        .animation(.spring(duration: 0.25), value: result)
+                }
             }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .background(.regularMaterial, in: Capsule())
 
+            Spacer()
+
+            // Action button pill
             if viewModel.phase == .awaitingSubmission {
                 Button("Submit") { viewModel.submitSelectedAnswer() }
-                    .buttonStyle(WMFGameButtonStyle(theme: theme))
+                    .font(Font(WMFFont.for(.semiboldSubheadline)))
+                    .foregroundColor(Color(uiColor: theme.text))
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 12)
+                    .background(.regularMaterial, in: Capsule())
                     .transition(.move(edge: .bottom).combined(with: .opacity))
             }
 
             if viewModel.phase == .revealing {
-                Button(
-                    viewModel.currentIndex == viewModel.totalQuestions - 1 ? "See Results" : "Next"
-                ) {
+                Button {
                     viewModel.animateOutAndAdvance()
+                } label: {
+                    HStack(spacing: 4) {
+                        Text(viewModel.currentIndex == viewModel.totalQuestions - 1 ? "See Results" : "Next")
+                        Image(systemName: "chevron.right")
+                    }
+                    .font(Font(WMFFont.for(.semiboldSubheadline)))
+                    .foregroundColor(Color(uiColor: theme.text))
                 }
-                .buttonStyle(WMFGameButtonStyle(theme: theme))
+                .padding(.horizontal, 20)
+                .padding(.vertical, 12)
+                .background(.regularMaterial, in: Capsule())
             }
-
-            progressTracker
         }
-        .padding()
-        .background(.ultraThinMaterial)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .animation(.spring(duration: 0.3), value: viewModel.phase)
     }
 
     // MARK: - Subviews

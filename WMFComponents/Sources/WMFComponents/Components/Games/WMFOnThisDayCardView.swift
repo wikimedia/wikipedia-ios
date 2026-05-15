@@ -116,7 +116,7 @@ public struct WMFOnThisDayCardView: View {
             .font(Font(WMFFont.for(.subheadline)))
             .foregroundColor(Color(uiColor: theme.paperBackground))
             .padding(.horizontal, 8)
-            .padding(.vertical, 0)
+            .padding(.vertical, 2)
             .background(Capsule().fill(viewModel.pillColor(theme: theme)))
     }
 }
