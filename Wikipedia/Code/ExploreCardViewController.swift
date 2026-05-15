@@ -144,10 +144,6 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             reloadData()
         }
     }
-    
-    func resetContentHeight() {
-        contentHeightByWidth.removeAll()
-    }
 
     private func reloadData() {
         contentHeightByWidth.removeAll()
