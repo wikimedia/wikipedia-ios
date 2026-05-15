@@ -88,19 +88,18 @@ NSInteger WMFParseSizePrefixFromSourceURL(NSString *sourceURL) __attribute__((ov
 }
 
 NSString *WMFOriginalImageURLStringFromURLString(NSString *URLString) {
-    // Strip query string before processing, reappend at the end
-    NSString *queryString = nil;
-    NSRange queryRange = [URLString rangeOfString:@"?"];
-    if (queryRange.location != NSNotFound) {
-        queryString = [URLString substringFromIndex:queryRange.location];
-        URLString = [URLString substringToIndex:queryRange.location];
+    NSURLComponents *components = [NSURLComponents componentsWithString:URLString];
+    if (!components) {
+        return URLString;
     }
 
-    if ([URLString containsString:@"/thumb/"]) {
-        URLString = [[URLString stringByDeletingLastPathComponent] stringByReplacingOccurrencesOfString:@"/thumb/" withString:@"/"];
+    NSString *path = components.path;
+    if ([path containsString:@"/thumb/"]) {
+        path = [[path stringByDeletingLastPathComponent] stringByReplacingOccurrencesOfString:@"/thumb/" withString:@"/"];
+        components.path = path;
     }
 
-    return queryString ? [URLString stringByAppendingString:queryString] : URLString;
+    return components.string;
 }
 
 NSString *WMFChangeImageSourceURLSizePrefix(NSString *sourceURL, NSInteger newSizePrefix) __attribute__((overloadable)) {
@@ -108,38 +107,37 @@ NSString *WMFChangeImageSourceURLSizePrefix(NSString *sourceURL, NSInteger newSi
         newSizePrefix = 1;
     }
 
-    // Strip query string before processing, reappend at the end
-    NSString *queryString = nil;
-    NSRange queryRange = [sourceURL rangeOfString:@"?"];
-    if (queryRange.location != NSNotFound) {
-        queryString = [sourceURL substringFromIndex:queryRange.location];
-        sourceURL = [sourceURL substringToIndex:queryRange.location];
+    NSURLComponents *components = [NSURLComponents componentsWithString:sourceURL];
+    if (!components) {
+        return sourceURL;
     }
+
+    NSString *path = components.path;
 
     NSString *wikipediaString = @"/wikipedia/";
-    NSRange wikipediaStringRange = [sourceURL rangeOfString:wikipediaString];
+    NSRange wikipediaStringRange = [path rangeOfString:wikipediaString];
 
-    if (sourceURL.length == 0 || (wikipediaStringRange.location == NSNotFound)) {
-        return queryString ? [sourceURL stringByAppendingString:queryString] : sourceURL;
+    if (path.length == 0 || wikipediaStringRange.location == NSNotFound) {
+        return sourceURL;
     }
 
-    NSString *urlAfterWikipedia = [sourceURL substringFromIndex:wikipediaStringRange.location + wikipediaStringRange.length];
-    NSRange rangeOfSlashAfterWikipedia = [urlAfterWikipedia rangeOfString:@"/"];
+    NSString *pathAfterWikipedia = [path substringFromIndex:wikipediaStringRange.location + wikipediaStringRange.length];
+    NSRange rangeOfSlashAfterWikipedia = [pathAfterWikipedia rangeOfString:@"/"];
     if (rangeOfSlashAfterWikipedia.location == NSNotFound) {
-        return queryString ? [sourceURL stringByAppendingString:queryString] : sourceURL;
+        return sourceURL;
     }
 
-    NSString *site = [urlAfterWikipedia substringToIndex:rangeOfSlashAfterWikipedia.location];
+    NSString *site = [pathAfterWikipedia substringToIndex:rangeOfSlashAfterWikipedia.location];
     if (site.length == 0) {
-        return queryString ? [sourceURL stringByAppendingString:queryString] : sourceURL;
+        return sourceURL;
     }
 
-    NSString *lastPathComponent = [sourceURL lastPathComponent];
+    NSString *lastPathComponent = [path lastPathComponent];
 
-    if (WMFParseSizePrefixFromSourceURL(sourceURL) == NSNotFound) {
+    if (WMFParseSizePrefixFromSourceURL(path) == NSNotFound) {
         NSString *sizeVariantLastPathComponent = [NSString stringWithFormat:@"%lupx-%@", (unsigned long)newSizePrefix, lastPathComponent];
 
-        NSString *lowerCasePathExtension = [[sourceURL pathExtension] lowercaseString];
+        NSString *lowerCasePathExtension = [[path pathExtension] lowercaseString];
         if ([lowerCasePathExtension isEqualToString:@"pdf"]) {
             sizeVariantLastPathComponent = [NSString stringWithFormat:@"page1-%@.jpg", sizeVariantLastPathComponent];
         } else if ([lowerCasePathExtension isEqualToString:@"tif"] || [lowerCasePathExtension isEqualToString:@"tiff"]) {
@@ -148,23 +146,22 @@ NSString *WMFChangeImageSourceURLSizePrefix(NSString *sourceURL, NSInteger newSi
             sizeVariantLastPathComponent = [NSString stringWithFormat:@"%@.png", sizeVariantLastPathComponent];
         }
 
-        NSString *urlWithSizeVariantLastPathComponent = [[sourceURL stringByAppendingString:@"/"] stringByAppendingString:sizeVariantLastPathComponent];
-
-        NSString *urlWithThumbPath = [urlWithSizeVariantLastPathComponent stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@%@/", wikipediaString, site] withString:[NSString stringWithFormat:@"%@%@/thumb/", wikipediaString, site]];
-
-        return queryString ? [urlWithThumbPath stringByAppendingString:queryString] : urlWithThumbPath;
+        NSString *newPath = [[path stringByAppendingString:@"/"] stringByAppendingString:sizeVariantLastPathComponent];
+        newPath = [newPath stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@%@/", wikipediaString, site]
+                                                     withString:[NSString stringWithFormat:@"%@%@/thumb/", wikipediaString, site]];
+        components.path = newPath;
     } else {
-        NSRange rangeOfLastPathComponent =
-            NSMakeRange(
-                [sourceURL rangeOfString:lastPathComponent
-                                 options:NSBackwardsSearch]
-                    .location,
-                lastPathComponent.length);
-        NSString *result = [WMFImageURLParsingRegex() stringByReplacingMatchesInString:sourceURL
-                                                                               options:NSMatchingAnchored
-                                                                                 range:rangeOfLastPathComponent
-                                                                          withTemplate:[NSString stringWithFormat:@"$1$2%lupx-$3", (unsigned long)newSizePrefix]];
-
-        return queryString ? [result stringByAppendingString:queryString] : result;
+        NSRange rangeOfLastPathComponent = NSMakeRange(
+            [path rangeOfString:lastPathComponent
+                        options:NSBackwardsSearch]
+                .location,
+            lastPathComponent.length);
+        NSString *newPath = [WMFImageURLParsingRegex() stringByReplacingMatchesInString:path
+                                                                                options:NSMatchingAnchored
+                                                                                  range:rangeOfLastPathComponent
+                                                                           withTemplate:[NSString stringWithFormat:@"$1$2%lupx-$3", (unsigned long)newSizePrefix]];
+        components.path = newPath;
     }
+
+    return components.string;
 }
