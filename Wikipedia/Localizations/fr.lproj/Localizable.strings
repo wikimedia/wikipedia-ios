@@ -1117,6 +1117,7 @@
 "reading-challenge-enrolled-not-started-subtitle-article" = "Lisez un article pour vous lancer.";
 "reading-challenge-enrolled-not-started-subtitle-away" = "Il ne vous manque plus qu'un article pour finaliser la série.";
 "reading-challenge-enrolled-not-started-subtitle-somewhere" = "Toute progression commence quelque part";
+"reading-challenge-enrolled-not-started-subtitle-towards" = "Lancez-vous pour atteindre une série de 25 jours consécutifs!";
 "reading-challenge-enrolled-not-started-title-fresh" = "Un nouveau départ.";
 "reading-challenge-enrolled-not-started-title-ready" = "À vos marques, prêts, lisez !";
 "reading-challenge-enrolled-not-started-title-spin" = "Envie de démarrer une nouvelle série?";
@@ -1147,6 +1148,8 @@
 "reading-challenge-widget-announcement-secondary-button" = "Montre-moi comment faire";
 "reading-challenge-widget-announcement-title" = "Installez le widget du défi de lecture de 25 jours";
 "reading-challenge-widget-announcement-title2" = "Rendez-vous sur votre écran d'accueil pour ajouter le widget";
+"reading-challenge-widget-description" = "Suivez vos progrès dans le cadre du défi lecture";
+"reading-challenge-widget-display-name" = "Défi de lecture";
 "reading-list-add-generic-hint-title" = "Ajouter cet article à une liste de lecture ?";
 "reading-list-add-hint-title" = "Ajouter « $1 » à une liste de lecture ?";
 "reading-list-add-saved-button-title" = "Oui, les ajouter à mes listes de lecture";

@@ -1094,6 +1094,7 @@
 "reading-challenge-enrolled-not-started-subtitle-article" = "Lies einen Artikel, um loszulegen.";
 "reading-challenge-enrolled-not-started-subtitle-away" = "Deine Leseserie ist nur noch einen Artikel entfernt.";
 "reading-challenge-enrolled-not-started-subtitle-somewhere" = "Jede Serie beginnt irgendwo";
+"reading-challenge-enrolled-not-started-subtitle-towards" = "Starte deine 25-Tage-Serie!";
 "reading-challenge-enrolled-not-started-title-fresh" = "Ein Neuanfang.";
 "reading-challenge-enrolled-not-started-title-ready" = "Auf die Plätze, fertig, los!";
 "reading-challenge-enrolled-not-started-title-spin" = "Eine neue Serie starten?";
@@ -1124,6 +1125,8 @@
 "reading-challenge-widget-announcement-secondary-button" = "Wie geht das?";
 "reading-challenge-widget-announcement-title" = "Installiere das Widget für die 25-Tage-Lese-Challenge";
 "reading-challenge-widget-announcement-title2" = "Öffne deinen Startbildschirm, und füge das Widget hinzu";
+"reading-challenge-widget-description" = "Verfolge deinen Fortschritt bei der Leseherausforderung.";
+"reading-challenge-widget-display-name" = "Leseherausforderung";
 "reading-list-add-generic-hint-title" = "Diesen Artikel zu einer Leseliste hinzufügen?";
 "reading-list-add-hint-title" = "„$1“ zu einer Leseliste hinzufügen?";
 "reading-list-add-saved-button-title" = "Ja, füge sie zu meinen Leselisten hinzu";
