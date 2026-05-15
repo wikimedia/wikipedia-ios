@@ -122,13 +122,13 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
 
     func animateOutAndAdvance() {
         phase = .transitioning
-        withAnimation(.easeInOut(duration: 0.18)) {
+        withAnimation(.easeInOut(duration: 0.3)) {
             showTitle = false
             showCardA = false
             showCardB = false
         }
         Task {
-            try? await Task.sleep(for: .milliseconds(180))
+            try? await Task.sleep(for: .milliseconds(300))
             advanceInternal()
         }
     }
@@ -153,11 +153,12 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         showCardA = false
         showCardB = false
         Task {
-            withAnimation(.spring(duration: 0.35)) { showTitle = true }
+            try? await Task.sleep(for: .milliseconds(50))
+            withAnimation(.easeIn(duration: 0.25)) { showTitle = true }
+            try? await Task.sleep(for: .milliseconds(150))
+            withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) { showCardA = true }
             try? await Task.sleep(for: .milliseconds(120))
-            withAnimation(.spring(duration: 0.4)) { showCardA = true }
-            try? await Task.sleep(for: .milliseconds(100))
-            withAnimation(.spring(duration: 0.4)) { showCardB = true }
+            withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) { showCardB = true }
         }
     }
 
@@ -196,10 +197,6 @@ public extension WMFOnThisDayEvent {
 
 private extension WMFWhichCameFirstEvent {
     var cardEvent: WMFOnThisDayCardEvent {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM d, yyyy"
-        formatter.locale = Locale.current
-        formatter.timeZone = TimeZone(identifier: "UTC")
         return WMFOnThisDayCardEvent(
             text: title,
             date: date,

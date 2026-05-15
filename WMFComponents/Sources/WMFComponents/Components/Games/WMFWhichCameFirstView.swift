@@ -12,7 +12,7 @@ public struct WMFWhichCameFirstView: View {
         content
             .background(Color(uiColor: theme.midBackground))
     }
-    
+
     @ViewBuilder
     private var content: some View {
         switch viewModel.phase {
@@ -30,43 +30,61 @@ public struct WMFWhichCameFirstView: View {
     // MARK: - Gameplay
 
     private var gameplayView: some View {
-        VStack(spacing: 0) {
-            ZStack {
-                Color(uiColor: theme.link)
-                Text("Which came first?")
-                    .font(Font(WMFFont.for(.semiboldTitle3)))
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 24)
-            }
-            .fixedSize(horizontal: false, vertical: true)
+        GeometryReader { geometry in
+            VStack(spacing: 0) {
+                ZStack {
+                    Color(uiColor: theme.link)
 
-            VStack(spacing: 18) {
-                if viewModel.showCardA, let cardA = viewModel.cardViewModelA {
-                    WMFOnThisDayCardView(viewModel: cardA) {
-                        viewModel.select("A")
+                    if viewModel.showTitle {
+                        Text("Which came first?")
+                            .font(Font(WMFFont.for(.semiboldTitle3)))
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 24)
+                            .transition(.opacity)
                     }
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
+                .frame(height: geometry.size.height / 4)
 
-                if viewModel.showCardB, let cardB = viewModel.cardViewModelB {
-                    WMFOnThisDayCardView(viewModel: cardB) {
-                        viewModel.select("B")
+                VStack(spacing: 0) {
+                    // Card A
+                    if viewModel.showCardA, let cardA = viewModel.cardViewModelA {
+                        WMFOnThisDayCardView(viewModel: cardA) {
+                            viewModel.select("A")
+                        }
+                        .padding(.horizontal, 16)
+                        .transition(.move(edge: .trailing).combined(with: .opacity))
                     }
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
+
+                    // Reveal banner between cards
+                    if let reveal = viewModel.revealState {
+                        feedbackBanner(reveal)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 16)
+                            .transition(.opacity)
+                    } else {
+                        Spacer().frame(height: 18)
+                    }
+
+                    // Card B
+                    if viewModel.showCardB, let cardB = viewModel.cardViewModelB {
+                        WMFOnThisDayCardView(viewModel: cardB) {
+                            viewModel.select("B")
+                        }
+                        .padding(.horizontal, 16)
+                        .transition(.move(edge: .trailing).combined(with: .opacity))
+                    }
+
+                    Spacer()
+                    footerArea
                 }
-                Spacer()
-                
-                footerArea
+                .padding(.top, viewModel.cardViewModelA?.isRevealed == true ? -96 : -16)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .background(Color(uiColor: theme.midBackground))
+                .animation(.easeInOut(duration: 0.25), value: viewModel.revealState != nil)
             }
-            .padding(.horizontal, 16)
-            .padding(.top, -16)
-            .padding(.bottom, 16)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .background(Color(uiColor: theme.midBackground))
+            .background(Color(uiColor: theme.link))
         }
-        .background(Color(uiColor: theme.link)) // fills the gap behind the nav bar
     }
 
     // MARK: - Footer
@@ -88,7 +106,6 @@ public struct WMFWhichCameFirstView: View {
 
             Spacer()
 
-            // Action button pill
             if viewModel.phase == .awaitingSubmission {
                 Button("Submit") { viewModel.submitSelectedAnswer() }
                     .font(Font(WMFFont.for(.semiboldSubheadline)))
@@ -96,7 +113,7 @@ public struct WMFWhichCameFirstView: View {
                     .padding(.horizontal, 20)
                     .padding(.vertical, 12)
                     .background(.regularMaterial, in: Capsule())
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                    .transition(.opacity.combined(with: .move(edge: .trailing)))
             }
 
             if viewModel.phase == .revealing {
@@ -113,6 +130,7 @@ public struct WMFWhichCameFirstView: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 12)
                 .background(.regularMaterial, in: Capsule())
+                .transition(.opacity.combined(with: .move(edge: .trailing)))
             }
         }
         .padding(.horizontal, 16)
@@ -127,29 +145,10 @@ public struct WMFWhichCameFirstView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
-    private var titleView: some View {
-        Text("Which came first?")
-            .font(Font(WMFFont.for(.semiboldHeadline)))
-            .foregroundColor(Color(uiColor: theme.text))
-            .multilineTextAlignment(.center)
-    }
-
-    private var progressTracker: some View {
-        HStack(spacing: 8) {
-            ForEach(Array(viewModel.progressResults.enumerated()), id: \.offset) { index, result in
-                Circle()
-                    .fill(color(for: result))
-                    .frame(width: 10, height: 10)
-                    .scaleEffect(index == viewModel.currentIndex ? 1.3 : 1.0)
-                    .animation(.spring(duration: 0.25), value: result)
-            }
-        }
-    }
-
     private func feedbackBanner(_ reveal: WMFWhichCameFirstViewModel.RevealState) -> some View {
         HStack(spacing: 10) {
             Image(systemName: reveal.isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")
-            Text(reveal.isCorrect ? "Correct!" : "Incorrect")
+            Text(reveal.isCorrect ? "Correct! +1 point" : "Incorrect")
                 .font(Font(WMFFont.for(.semiboldSubheadline)))
         }
         .foregroundColor(reveal.isCorrect ? Color(uiColor: theme.accent) : Color(uiColor: theme.destructive))
@@ -194,9 +193,9 @@ public struct WMFWhichCameFirstView: View {
 
     private var scoreMessage: String {
         switch viewModel.score {
-        case viewModel.totalQuestions:       return "Perfect score!"
+        case viewModel.totalQuestions:          return "Perfect score!"
         case (viewModel.totalQuestions / 2)...: return "Nice work! Come back tomorrow for a new game."
-        default:                             return "Better luck tomorrow!"
+        default:                                return "Better luck tomorrow!"
         }
     }
 
@@ -238,12 +237,11 @@ struct WMFGameButtonStyle: ButtonStyle {
 #Preview {
     let vm = WMFWhichCameFirstViewModel(date: "2026-01-06", project: .wikipedia(.init(languageCode: "en", languageVariantCode: nil)))
 
-    // Manually push into presenting state with mock cards
     vm.cardViewModelA = WMFOnThisDayCardViewModel(
         event: WMFOnThisDayCardEvent(
             text: "The Apollo 11 mission successfully lands the first humans on the Moon.",
             date: Date(),
-            imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Apollo_11_Crew.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
+            imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Apollo_11_Crew.jpg")
         )
     )
     vm.cardViewModelB = WMFOnThisDayCardViewModel(
@@ -252,6 +250,7 @@ struct WMFGameButtonStyle: ButtonStyle {
             date: Date()
         )
     )
+    vm.showTitle = true
     vm.showCardA = true
     vm.showCardB = true
     vm.phase = .presenting
