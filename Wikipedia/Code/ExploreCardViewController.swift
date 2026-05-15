@@ -430,11 +430,11 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         cell.tappedReviewResults = { [weak self] in
             guard let self else { return }
-            // TODO: push to results view
+            // TODO: present results view
         }
         cell.tappedPlayTheArchive = { [weak self] in
             guard let self else { return }
-            // TODO: push to archive
+            // TODO: present archive
         }
 
         let optionA = preview?.optionA
