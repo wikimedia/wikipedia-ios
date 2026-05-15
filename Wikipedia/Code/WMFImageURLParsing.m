@@ -74,12 +74,12 @@ NSInteger WMFParseSizePrefixFromSourceURL(NSString *sourceURL) __attribute__((ov
         NSRange lastDashRange = [stringBeforePx rangeOfString:@"-" options:NSBackwardsSearch];
         NSInteger result = NSNotFound;
         if (lastDashRange.location == NSNotFound) {
-            //stringBeforePx is "200" for the following:
-            //upload.wikimedia.org/wikipedia/commons/thumb/4/41/200px-Potato.jpg/
+            // stringBeforePx is "200" for the following:
+            // upload.wikimedia.org/wikipedia/commons/thumb/4/41/200px-Potato.jpg/
             result = stringBeforePx.integerValue;
         } else {
-            //stringBeforePx is "page1-240" for the following:
-            //upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-240px-A_Fish_and_a_Gift.pdf.jpg
+            // stringBeforePx is "page1-240" for the following:
+            // upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-240px-A_Fish_and_a_Gift.pdf.jpg
             NSString *stringAfterDash = [stringBeforePx substringFromIndex:lastDashRange.location + 1];
             result = stringAfterDash.integerValue;
         }
@@ -88,10 +88,19 @@ NSInteger WMFParseSizePrefixFromSourceURL(NSString *sourceURL) __attribute__((ov
 }
 
 NSString *WMFOriginalImageURLStringFromURLString(NSString *URLString) {
+    // Strip query string before processing, reappend at the end
+    NSString *queryString = nil;
+    NSRange queryRange = [URLString rangeOfString:@"?"];
+    if (queryRange.location != NSNotFound) {
+        queryString = [URLString substringFromIndex:queryRange.location];
+        URLString = [URLString substringToIndex:queryRange.location];
+    }
+
     if ([URLString containsString:@"/thumb/"]) {
         URLString = [[URLString stringByDeletingLastPathComponent] stringByReplacingOccurrencesOfString:@"/thumb/" withString:@"/"];
     }
-    return URLString;
+
+    return queryString ? [URLString stringByAppendingString:queryString] : URLString;
 }
 
 NSString *WMFChangeImageSourceURLSizePrefix(NSString *sourceURL, NSInteger newSizePrefix) __attribute__((overloadable)) {
@@ -99,22 +108,30 @@ NSString *WMFChangeImageSourceURLSizePrefix(NSString *sourceURL, NSInteger newSi
         newSizePrefix = 1;
     }
 
+    // Strip query string before processing, reappend at the end
+    NSString *queryString = nil;
+    NSRange queryRange = [sourceURL rangeOfString:@"?"];
+    if (queryRange.location != NSNotFound) {
+        queryString = [sourceURL substringFromIndex:queryRange.location];
+        sourceURL = [sourceURL substringToIndex:queryRange.location];
+    }
+
     NSString *wikipediaString = @"/wikipedia/";
     NSRange wikipediaStringRange = [sourceURL rangeOfString:wikipediaString];
 
     if (sourceURL.length == 0 || (wikipediaStringRange.location == NSNotFound)) {
-        return sourceURL;
+        return queryString ? [sourceURL stringByAppendingString:queryString] : sourceURL;
     }
 
     NSString *urlAfterWikipedia = [sourceURL substringFromIndex:wikipediaStringRange.location + wikipediaStringRange.length];
     NSRange rangeOfSlashAfterWikipedia = [urlAfterWikipedia rangeOfString:@"/"];
     if (rangeOfSlashAfterWikipedia.location == NSNotFound) {
-        return sourceURL;
+        return queryString ? [sourceURL stringByAppendingString:queryString] : sourceURL;
     }
 
     NSString *site = [urlAfterWikipedia substringToIndex:rangeOfSlashAfterWikipedia.location];
     if (site.length == 0) {
-        return sourceURL;
+        return queryString ? [sourceURL stringByAppendingString:queryString] : sourceURL;
     }
 
     NSString *lastPathComponent = [sourceURL lastPathComponent];
@@ -135,7 +152,7 @@ NSString *WMFChangeImageSourceURLSizePrefix(NSString *sourceURL, NSInteger newSi
 
         NSString *urlWithThumbPath = [urlWithSizeVariantLastPathComponent stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@%@/", wikipediaString, site] withString:[NSString stringWithFormat:@"%@%@/thumb/", wikipediaString, site]];
 
-        return urlWithThumbPath;
+        return queryString ? [urlWithThumbPath stringByAppendingString:queryString] : urlWithThumbPath;
     } else {
         NSRange rangeOfLastPathComponent =
             NSMakeRange(
@@ -143,10 +160,11 @@ NSString *WMFChangeImageSourceURLSizePrefix(NSString *sourceURL, NSInteger newSi
                                  options:NSBackwardsSearch]
                     .location,
                 lastPathComponent.length);
-        return
-            [WMFImageURLParsingRegex() stringByReplacingMatchesInString:sourceURL
-                                                                options:NSMatchingAnchored
-                                                                  range:rangeOfLastPathComponent
-                                                           withTemplate:[NSString stringWithFormat:@"$1$2%lupx-$3", (unsigned long)newSizePrefix]];
+        NSString *result = [WMFImageURLParsingRegex() stringByReplacingMatchesInString:sourceURL
+                                                                               options:NSMatchingAnchored
+                                                                                 range:rangeOfLastPathComponent
+                                                                          withTemplate:[NSString stringWithFormat:@"$1$2%lupx-$3", (unsigned long)newSizePrefix]];
+
+        return queryString ? [result stringByAppendingString:queryString] : result;
     }
 }
