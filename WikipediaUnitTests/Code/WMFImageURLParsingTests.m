@@ -134,6 +134,10 @@
     XCTAssert([WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/200px-Potato.jpg/", 123) isEqualToString:@"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/123px-Potato.jpg/"]);
 }
 
+- (void)testSizePrefixChangeOnURLWithQueryItems {
+    XCTAssert([WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Ben%26Ben_in_2018_2.png/960px-Ben%26Ben_in_2018_2.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail", 1280) isEqualToString:@"//upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Ben%26Ben_in_2018_2.png/1280px-Ben%26Ben_in_2018_2.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"]);
+}
+
 - (void)testSizePrefixChangeOnlyEffectsLastPathComponent {
     XCTAssert([WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/200px-/4/41/200px-Potato.jpg/", 123) isEqualToString:@"//upload.wikimedia.org/wikipedia/commons/thumb/200px-/4/41/123px-Potato.jpg/"]);
 }

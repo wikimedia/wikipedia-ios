@@ -93,16 +93,20 @@ NSString *WMFOriginalImageURLStringFromURLString(NSString *URLString) {
         return URLString;
     }
 
-    NSString *path = components.path;
+    NSString *path = components.percentEncodedPath;
     if ([path containsString:@"/thumb/"]) {
         path = [[path stringByDeletingLastPathComponent] stringByReplacingOccurrencesOfString:@"/thumb/" withString:@"/"];
-        components.path = path;
+        components.percentEncodedPath = path;
     }
 
     return components.string;
 }
 
 NSString *WMFChangeImageSourceURLSizePrefix(NSString *sourceURL, NSInteger newSizePrefix) __attribute__((overloadable)) {
+    if (!sourceURL) {
+        return nil;
+    }
+
     if (newSizePrefix < 1) {
         newSizePrefix = 1;
     }
@@ -112,7 +116,7 @@ NSString *WMFChangeImageSourceURLSizePrefix(NSString *sourceURL, NSInteger newSi
         return sourceURL;
     }
 
-    NSString *path = components.path;
+    NSString *path = components.percentEncodedPath;
 
     NSString *wikipediaString = @"/wikipedia/";
     NSRange wikipediaStringRange = [path rangeOfString:wikipediaString];
@@ -149,7 +153,8 @@ NSString *WMFChangeImageSourceURLSizePrefix(NSString *sourceURL, NSInteger newSi
         NSString *newPath = [[path stringByAppendingString:@"/"] stringByAppendingString:sizeVariantLastPathComponent];
         newPath = [newPath stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@%@/", wikipediaString, site]
                                                      withString:[NSString stringWithFormat:@"%@%@/thumb/", wikipediaString, site]];
-        components.path = newPath;
+
+        components.percentEncodedPath = newPath;
     } else {
         NSRange rangeOfLastPathComponent = NSMakeRange(
             [path rangeOfString:lastPathComponent
@@ -160,7 +165,7 @@ NSString *WMFChangeImageSourceURLSizePrefix(NSString *sourceURL, NSInteger newSi
                                                                                 options:NSMatchingAnchored
                                                                                   range:rangeOfLastPathComponent
                                                                            withTemplate:[NSString stringWithFormat:@"$1$2%lupx-$3", (unsigned long)newSizePrefix]];
-        components.path = newPath;
+        components.percentEncodedPath = newPath;
     }
 
     return components.string;
