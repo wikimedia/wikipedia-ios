@@ -134,10 +134,6 @@
     XCTAssert([WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/200px-Potato.jpg/", 123) isEqualToString:@"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/123px-Potato.jpg/"]);
 }
 
-- (void)testSizePrefixChangeOnURLWithQueryItems {
-    XCTAssert([WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Ben%26Ben_in_2018_2.png/960px-Ben%26Ben_in_2018_2.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail", 1280) isEqualToString:@"//upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Ben%26Ben_in_2018_2.png/1280px-Ben%26Ben_in_2018_2.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"]);
-}
-
 - (void)testSizePrefixChangeOnlyEffectsLastPathComponent {
     XCTAssert([WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/200px-/4/41/200px-Potato.jpg/", 123) isEqualToString:@"//upload.wikimedia.org/wikipedia/commons/thumb/200px-/4/41/123px-Potato.jpg/"]);
 }
@@ -220,7 +216,7 @@
 }
 
 - (void)testSizePrefixChangeWhenCanonicalFileIsTIFWithSizePrefixPage2_lossy {
-    XCTAssert([WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page2-220px-Gerald_Ford_-_NARA_-_530680.tif.jpg", 480) isEqualToString:@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page2-480px-Gerald_Ford_-_NARA_-_530680.tif.jpg"]); //Note: this page2 variant doesn't actually exist.
+    XCTAssert([WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page2-220px-Gerald_Ford_-_NARA_-_530680.tif.jpg", 480) isEqualToString:@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page2-480px-Gerald_Ford_-_NARA_-_530680.tif.jpg"]); // Note: this page2 variant doesn't actually exist.
 }
 
 - (void)testSizePrefixChangeWhenCanonicalFileIsTIFWithoutSizePrefix_lossy {
@@ -242,7 +238,7 @@
 }
 
 - (void)testSizePrefixChangeWhenCanonicalFileIsTIFWithSizePrefixPage2_lossless {
-    XCTAssert([WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page2-220px-Gerald_Ford_-_NARA_-_530680.tif.png", 480) isEqualToString:@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page2-480px-Gerald_Ford_-_NARA_-_530680.tif.png"]); //Note: this page2 variant doesn't actually exist.
+    XCTAssert([WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page2-220px-Gerald_Ford_-_NARA_-_530680.tif.png", 480) isEqualToString:@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page2-480px-Gerald_Ford_-_NARA_-_530680.tif.png"]); // Note: this page2 variant doesn't actually exist.
 }
 
 - (void)testSizePrefixChangeWhenCanonicalFileIsTIFF_lowercase {
@@ -251,6 +247,16 @@
 
 - (void)testSizePrefixChangeWhenCanonicalFileIsTIFF_uppercase {
     XCTAssert([WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/5/55/Charles_Vanderhoop%2C_Jr.%2C_Gay_Head_Light_Assistant_Keeper%2C_with_visiting_island_school_children.TIFF", 800) isEqualToString:@"https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Charles_Vanderhoop%2C_Jr.%2C_Gay_Head_Light_Assistant_Keeper%2C_with_visiting_island_school_children.TIFF/lossy-page1-800px-Charles_Vanderhoop%2C_Jr.%2C_Gay_Head_Light_Assistant_Keeper%2C_with_visiting_island_school_children.TIFF.jpg"]);
+}
+
+- (void)testSizePrefixChangeOnOriginalURLWithQueryItems {
+    NSString *result = WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/a/ab/Ben%26Ben_in_2018_2.png?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original", 1280);
+    XCTAssert([result isEqualToString:@"//upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Ben%26Ben_in_2018_2.png/1280px-Ben%26Ben_in_2018_2.png?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original"]);
+}
+
+- (void)testSizePrefixChangeOnThumbURLWithQueryItems {
+    NSString *result = WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Ben%26Ben_in_2018_2.png/960px-Ben%26Ben_in_2018_2.png?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original", 1280);
+    XCTAssert([result isEqualToString:@"//upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Ben%26Ben_in_2018_2.png/1280px-Ben%26Ben_in_2018_2.png?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original"]);
 }
 
 @end
