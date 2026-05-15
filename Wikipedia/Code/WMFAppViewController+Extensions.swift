@@ -8,6 +8,8 @@ import WMFNativeLocalizations
 import TipKit
 import WMFTestKitchen
 
+private let wmfHideTipsForTesting = "WMFHideTipsForTesting"
+
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
     static let showErrorBannerNSErrorKey = "nserror"
@@ -603,9 +605,9 @@ extension WMFAppViewController: CreateReadingListDelegate {
     @objc func setupTips() {
         do {
             try Tips.configure()
-#if UITEST
-            Tips.hideAllTipsForTesting()
-#endif
+            if UserDefaults.standard.bool(forKey: wmfHideTipsForTesting) {
+                Tips.hideAllTipsForTesting()
+            }
         } catch {
             DDLogError("Error initializing TipKit: \(error.localizedDescription)")
         }
