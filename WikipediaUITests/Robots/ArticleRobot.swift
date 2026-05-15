@@ -38,8 +38,10 @@ struct ArticleRobot: ScreenshotCapturingRobot {
     @discardableResult
     func tapBackToExplore(file: StaticString = #filePath, line: UInt = #line) -> ExploreRobot {
         let navigationBar = navigationBar(file: file, line: line)
-        let leadingOffset = configuration.isRightToLeft ? 0.93 : 0.07
-        navigationBar.coordinate(withNormalizedOffset: CGVector(dx: leadingOffset, dy: 0.5)).tap()
+        let navigationButtons = navigationBar.buttons.allElementsBoundByIndex
+        let backButton = (configuration.isRightToLeft ? navigationButtons.last : navigationButtons.first) ?? navigationBar.buttons.firstMatch
+        base.assertVisible(backButton, timeout: 15, description: "article back button", file: file, line: line)
+        backButton.tap()
         return ExploreRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
     }
 
