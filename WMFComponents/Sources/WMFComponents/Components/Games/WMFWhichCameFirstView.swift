@@ -36,12 +36,13 @@ public struct WMFWhichCameFirstView: View {
                     Color(uiColor: theme.link)
 
                     if viewModel.showTitle {
-                        Text("Which came first?")
+                        Text(viewModel.localizedStrings.title)
                             .font(Font(WMFFont.for(.semiboldTitle3)))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 24)
                             .transition(.opacity)
+                            .opacity(viewModel.cardViewModelA?.isRevealed == true ? 0 : 1)
                     }
                 }
                 .frame(height: geometry.size.height / 4)
@@ -60,10 +61,9 @@ public struct WMFWhichCameFirstView: View {
                     if let reveal = viewModel.revealState {
                         feedbackBanner(reveal)
                             .padding(.horizontal, 16)
-                            .padding(.vertical, 16)
-                            .transition(.opacity)
+                            .padding(.vertical, 49)
                     } else {
-                        Spacer().frame(height: 18)
+                        Spacer().frame(height: 32)
                     }
 
                     // Card B
@@ -81,7 +81,6 @@ public struct WMFWhichCameFirstView: View {
                 .padding(.top, viewModel.cardViewModelA?.isRevealed == true ? -96 : -16)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .background(Color(uiColor: theme.midBackground))
-                .animation(.easeInOut(duration: 0.25), value: viewModel.revealState != nil)
             }
             .background(Color(uiColor: theme.link))
         }
@@ -107,7 +106,7 @@ public struct WMFWhichCameFirstView: View {
             Spacer()
 
             if viewModel.phase == .awaitingSubmission {
-                Button("Submit") { viewModel.submitSelectedAnswer() }
+                Button(viewModel.localizedStrings.submitButton) { viewModel.submitSelectedAnswer() }
                     .font(Font(WMFFont.for(.semiboldSubheadline)))
                     .foregroundColor(Color(uiColor: theme.text))
                     .padding(.horizontal, 20)
@@ -121,7 +120,7 @@ public struct WMFWhichCameFirstView: View {
                     viewModel.animateOutAndAdvance()
                 } label: {
                     HStack(spacing: 4) {
-                        Text(viewModel.currentIndex == viewModel.totalQuestions - 1 ? "See Results" : "Next")
+                        Text(viewModel.currentIndex == viewModel.totalQuestions - 1 ? viewModel.localizedStrings.seeResultsButton : viewModel.localizedStrings.nextButton)
                         Image(systemName: "chevron.right")
                     }
                     .font(Font(WMFFont.for(.semiboldSubheadline)))
@@ -148,7 +147,7 @@ public struct WMFWhichCameFirstView: View {
     private func feedbackBanner(_ reveal: WMFWhichCameFirstViewModel.RevealState) -> some View {
         HStack(spacing: 10) {
             Image(systemName: reveal.isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")
-            Text(reveal.isCorrect ? "Correct! +1 point" : "Incorrect")
+            Text(reveal.isCorrect ? viewModel.localizedStrings.correctFeedback : viewModel.localizedStrings.incorrectFeedback)
                 .font(Font(WMFFont.for(.semiboldSubheadline)))
         }
         .foregroundColor(reveal.isCorrect ? Color(uiColor: theme.accent) : Color(uiColor: theme.destructive))
@@ -176,7 +175,7 @@ public struct WMFWhichCameFirstView: View {
     private var completeView: some View {
         VStack(spacing: 24) {
             Spacer()
-            Text("Game Complete!")
+            Text(viewModel.localizedStrings.gameCompleteTitle)
                 .font(Font(WMFFont.for(.semiboldHeadline)))
                 .foregroundColor(Color(uiColor: theme.text))
             Text("\(viewModel.score) / \(viewModel.totalQuestions)")
@@ -193,9 +192,9 @@ public struct WMFWhichCameFirstView: View {
 
     private var scoreMessage: String {
         switch viewModel.score {
-        case viewModel.totalQuestions:          return "Perfect score!"
-        case (viewModel.totalQuestions / 2)...: return "Nice work! Come back tomorrow for a new game."
-        default:                                return "Better luck tomorrow!"
+        case viewModel.totalQuestions:          return viewModel.localizedStrings.perfectScoreMessage
+        case (viewModel.totalQuestions / 2)...: return viewModel.localizedStrings.niceWorkMessage
+        default:                                return viewModel.localizedStrings.betterLuckMessage
         }
     }
 
@@ -203,14 +202,14 @@ public struct WMFWhichCameFirstView: View {
 
     private func errorView(_ message: String) -> some View {
         VStack(spacing: 16) {
-            Text("Something went wrong")
+            Text(viewModel.localizedStrings.errorTitle)
                 .font(Font(WMFFont.for(.semiboldHeadline)))
                 .foregroundColor(Color(uiColor: theme.text))
             Text(message)
                 .font(Font(WMFFont.for(.subheadline)))
                 .foregroundColor(Color(uiColor: theme.secondaryText))
                 .multilineTextAlignment(.center)
-            Button("Retry") { viewModel.load() }
+            Button(viewModel.localizedStrings.retryButton) { viewModel.load() }
                 .buttonStyle(WMFGameButtonStyle(theme: theme))
         }
         .padding()
@@ -235,7 +234,20 @@ struct WMFGameButtonStyle: ButtonStyle {
 }
 
 #Preview {
-    let vm = WMFWhichCameFirstViewModel(date: "2026-01-06", project: .wikipedia(.init(languageCode: "en", languageVariantCode: nil)))
+    let vm = WMFWhichCameFirstViewModel(date: "2026-01-06", project: .wikipedia(.init(languageCode: "en", languageVariantCode: nil)), localizedStrings: WMFWhichCameFirstViewModel.LocalizedStrings(
+        title: "Which came first?",
+        submitButton: "Submit",
+        nextButton: "Next",
+        seeResultsButton: "See Results",
+        correctFeedback: "Correct! +1 point",
+        incorrectFeedback: "Incorrect",
+        gameCompleteTitle: "Game Complete!",
+        perfectScoreMessage: "Perfect score!",
+        niceWorkMessage: "Nice work! Come back tomorrow for a new game.",
+        betterLuckMessage: "Better luck tomorrow!",
+        errorTitle: "Something went wrong",
+        retryButton: "Retry"
+    ))
 
     vm.cardViewModelA = WMFOnThisDayCardViewModel(
         event: WMFOnThisDayCardEvent(

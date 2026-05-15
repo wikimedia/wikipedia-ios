@@ -5,6 +5,49 @@ import WMFData
 @MainActor
 public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
 
+    public struct LocalizedStrings {
+        public let title: String
+        public let submitButton: String
+        public let nextButton: String
+        public let seeResultsButton: String
+        public let correctFeedback: String
+        public let incorrectFeedback: String
+        public let gameCompleteTitle: String
+        public let perfectScoreMessage: String
+        public let niceWorkMessage: String
+        public let betterLuckMessage: String
+        public let errorTitle: String
+        public let retryButton: String
+
+        public init(
+            title: String,
+            submitButton: String,
+            nextButton: String,
+            seeResultsButton: String,
+            correctFeedback: String,
+            incorrectFeedback: String,
+            gameCompleteTitle: String,
+            perfectScoreMessage: String,
+            niceWorkMessage: String,
+            betterLuckMessage: String,
+            errorTitle: String,
+            retryButton: String
+        ) {
+            self.title = title
+            self.submitButton = submitButton
+            self.nextButton = nextButton
+            self.seeResultsButton = seeResultsButton
+            self.correctFeedback = correctFeedback
+            self.incorrectFeedback = incorrectFeedback
+            self.gameCompleteTitle = gameCompleteTitle
+            self.perfectScoreMessage = perfectScoreMessage
+            self.niceWorkMessage = niceWorkMessage
+            self.betterLuckMessage = betterLuckMessage
+            self.errorTitle = errorTitle
+            self.retryButton = retryButton
+        }
+    }
+
     enum Phase: Equatable {
         case loading
         case presenting
@@ -15,7 +58,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         case error(String)
     }
 
-    struct RevealState {
+    struct RevealState: Equatable {
         let picked: String
         let correct: String
         let isCorrect: Bool
@@ -34,6 +77,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     @Published var progressResults: [Bool?] = []
 
     public let date: String
+    public var localizedStrings: LocalizedStrings
     private let project: WMFProject
     private let dataController: WMFGamesDataController
     private var gameState: WMFWhichCameFirstGameState?
@@ -49,9 +93,10 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
 
     var totalQuestions: Int { questions.count }
 
-    public init(date: String, project: WMFProject) {
+    public init(date: String, project: WMFProject, localizedStrings: LocalizedStrings) {
         self.date = date
         self.project = project
+        self.localizedStrings = localizedStrings
         self.dataController = WMFGamesDataController()
     }
 
