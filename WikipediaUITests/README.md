@@ -2,7 +2,7 @@
 This repository uses the Robots pattern for test legibility and organization. Keep this readme aligned with the checked-in workflows, schemes, test plans, and helper APIs.
 ## CI Lanes
 - Pull requests run `.github/workflows/run_ui_tests.yml` against the `WikipediaUITests` scheme and the `English (Light)` configuration from `Test Plans/UITests.xctestplan`.
-- The full localized/theme UI matrix lives in `Test Plans/UITests.xctestplan` and is exercised by `.github/workflows/run_full_ui_test_plan.yml` on manually selected release tags.
+- The remaining localized/theme configurations live in `Test Plans/UITests.xctestplan`, but they are not the normal development or verification path. Run them only for explicitly requested full-matrix validation or a configuration-specific investigation.
 - The UI-test workflows publish `.xcresult` bundles as artifacts. Use those bundles for screenshots and failure inspection.
 ## UI Test Robot Pattern
 - Write UI tests as intent-level scripts. Test files should describe the user journey and expected result, not raw selectors, scrolling loops, alert dismissal, or screenshot plumbing.
@@ -17,4 +17,13 @@ This repository uses the Robots pattern for test legibility and organization. Ke
 ## Validation
 - For UI-test helper changes, first run `scripts/lint-ui-tests.sh`.
 - For compile validation, use a narrow `xcodebuild build-for-testing` or selected UI-test run while iterating.
-- For final UI-test validation, run the applicable `WikipediaUITests` test plan without narrowing to a single test configuration when the change can affect language, RTL, theme, onboarding, or launch configuration behavior.
+- For development and final UI-test verification, run the `WikipediaUITests` scheme with the `UITests` test plan narrowed to `English (Light)`:
+
+```sh
+xcodebuild test \
+  -scheme WikipediaUITests \
+  -project Wikipedia.xcodeproj \
+  -testPlan UITests \
+  -only-test-configuration "English (Light)" \
+  -destination "platform=iOS Simulator,name=iPhone 16"
+```

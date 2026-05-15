@@ -11,7 +11,7 @@ struct WikipediaAppRobot: ScreenshotCapturingRobot {
     }
 
     var explore: ExploreRobot {
-        ExploreRobot(base: base)
+        ExploreRobot(base: base, configuration: configuration)
     }
 
     var onboarding: OnboardingRobot {

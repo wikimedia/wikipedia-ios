@@ -5,13 +5,26 @@ import Foundation
 /// These strings are an external UI-test contract. Keep them centralized here so app code,
 /// components, and tests do not drift when identifiers are renamed or new elements are added.
 public enum AccessibilityIdentifiers {
+    public enum Article {
+        public static let homeButton = "Article Home Button"
+        public static let searchButton = "Article Search Button"
+        public static let view = "Article View"
+    }
+
     public enum Explore {
+        public static let articleCell = "Explore Article Cell"
         public static let view = "Explore View"
     }
 
     public enum Profile {
         public static let button = "profile-button"
         public static let view = "Profile View"
+    }
+
+    public enum Search {
+        public static let searchField = "Search Field"
+        public static let searchBar = "Search Bar"
+        public static let view = "Search View"
     }
 
     public enum Onboarding {

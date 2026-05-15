@@ -782,6 +782,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         let image = WMFSFSymbolIcon.for(symbol: .magnifyingGlass)
         let searchButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(userDidTapSearch))
         searchButton.accessibilityLabel = CommonStrings.searchButtonAccessibilityHint
+        searchButton.accessibilityIdentifier = AccessibilityIdentifiers.Article.searchButton
         return searchButton
     }
 
@@ -797,6 +798,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             wButton.setImage(UIImage(named: "W"), for: .normal)
         }
         wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
+        wButton.accessibilityIdentifier = AccessibilityIdentifiers.Article.homeButton
 
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
 
@@ -1306,6 +1308,7 @@ private extension ArticleViewController {
         setupMessagingController()
 
         setupTopSafeAreaOverlay(scrollView: webView.scrollView)
+        view.accessibilityIdentifier = AccessibilityIdentifiers.Article.view
     }
 
     // MARK: Notifications

@@ -36,6 +36,8 @@ struct UITestConfiguration {
             argumentValues.append(UITestLaunchArgumentValue(.appThemeName, value: themeName))
         }
 
+        argumentValues.append(UITestLaunchArgumentValue(.hideTipsForTesting, value: "YES"))
+
         if resetsPreferredLanguages {
             argumentValues.append(UITestLaunchArgumentValue(.resetPreferredLanguages, value: "YES"))
         }
