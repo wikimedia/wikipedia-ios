@@ -642,6 +642,12 @@
 "forgot-password-instructions" = "Instructions for resetting password";
 "forgot-password-title" = "Title for reset password interface {{Identical|Reset password}}";
 "forgot-password-username-or-email-title" = "Title shown between the username and email text fields. User only has to specify either username \"Or\" email address {{Identical|Or}}";
+"games-wcf-explore-button-archive-title" = "Button text on Which Came First card in the Explore tab, shown when game is complete. Tapping navigates to the Which Came First archive picker.";
+"games-wcf-explore-button-play-title" = "Button text on Which Came First card in the Explore tab, shown when game is not started. Tapping navigates to the Which Came First game.";
+"games-wcf-explore-button-review-title" = "Button text on Which Came First card in the Explore tab, shown when game is complete. Tapping navigates to the results of the game.";
+"games-wcf-explore-complete-subtitle" = "Description text on Which Came First card in the Explore tab, shown when a game is completed. $1 is replaced by the number of questions answered correctly, $2 is replaced by the number of total questions. $3 is replaced by a countdown timer string, indicating the number of hours / minutes / seconds left until the next game is available.";
+"games-wcf-explore-in-progress-subtitle" = "Description text on Which Came First card in the Explore tab, shown when a game is in progress. $1 is replaced by which question the user left off of.";
+"games-wcf-explore-title" = "Title on Which Came First card in the Explore tab.";
 "gan-variants-alert-body" = "Body text of alert used to inform users about Gan variant support. Please do not translate the newlines (\n) or Gan characters (贛語 原文, etc.).";
 "gan-variants-alert-title" = "Title of alert used to inform users about Gan variant support.";
 "history-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";

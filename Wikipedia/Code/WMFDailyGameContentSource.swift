@@ -143,10 +143,7 @@ public final class WMFDailyGameContentSource: NSObject, WMFContentSource {
     // MARK: - Helpers
 
     private static func todayDateString() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        formatter.timeZone = TimeZone(identifier: "UTC")
-        formatter.locale = Locale(identifier: "en_US_POSIX")
+        let formatter = DateFormatter.onThisDayAPIDateFormatter
         return formatter.string(from: Date())
     }
 }

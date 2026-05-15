@@ -642,6 +642,12 @@
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
 "forgot-password-title" = "Reset password";
 "forgot-password-username-or-email-title" = "Or";
+"games-wcf-explore-button-archive-title" = "Play the archive";
+"games-wcf-explore-button-play-title" = "Play today's game";
+"games-wcf-explore-button-review-title" = "Review results";
+"games-wcf-explore-complete-subtitle" = "You scored $1/$2 on today's game. Next game in $3)";
+"games-wcf-explore-in-progress-subtitle" = "You're on question $1. Continue guessing which event came first on this day in history.";
+"games-wcf-explore-title" = "Which came first?";
 "gan-variants-alert-body" = "The Wikipedia app now supports the following Gan variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "Updates to Gan variant support";
 "history-clear-confirmation-heading" = "Are you sure you want to delete all your recent items?";

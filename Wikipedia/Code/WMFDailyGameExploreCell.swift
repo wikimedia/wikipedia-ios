@@ -1,6 +1,7 @@
 import UIKit
 import WMFComponents
 import WMFData
+import WMFNativeLocalizations
 
 /// Explore card cell for the "Which Came First?" daily game.
 class WMFDailyGameExploreCell: CollectionViewCell {
@@ -57,7 +58,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
         headerIconView.contentMode = .scaleAspectFit
         addSubview(headerIconView)
 
-        headerTitleLabel.text = "Which came first?"
+        headerTitleLabel.text = WMFLocalizedString("games-wcf-explore-title", value:"Which came first?", comment: "Title on Which Came First card in the Explore tab.")
         headerTitleLabel.numberOfLines = 1
         headerTitleLabel.lineBreakMode = .byTruncatingTail
         addSubview(headerTitleLabel)
@@ -110,7 +111,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
                 eventRowB.isHidden = true
             }
             stopCountdownTimer()
-            setButton1Title("Play today's game")
+            setButton1Title(WMFLocalizedString("games-wcf-explore-button-play-title", value:"Play today's game", comment: "Button text on Which Came First card in the Explore tab, shown when game is not started. Tapping navigates to the Which Came First game."))
             button2.isHidden = true
             headerStacked = false
         case .inProgress(let answered, _):
@@ -118,7 +119,8 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             descriptionLabel.isHidden = false
             eventRowA.isHidden = true
             eventRowB.isHidden = true
-            descriptionLabel.text = "You're on question \(answered + 1). Continue guessing which event came first on this day in history."
+            let descriptionText = WMFLocalizedString("games-wcf-explore-in-progress-subtitle", value:"You're on question %1$d. Continue guessing which event came first on this day in history.", comment: "Description text on Which Came First card in the Explore tab, shown when a game is in progress. %1$d is replaced by which question the user left off of.")
+            descriptionLabel.text = String.localizedStringWithFormat(descriptionText, answered + 1)
             stopCountdownTimer()
             setButton1Title("Continue today's game")
             button2.isHidden = true
@@ -130,8 +132,8 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             eventRowB.isHidden = true
             completedScore = score
             completedTotal = total
-            setButton1Title("Review results")
-            setButton2Title("Play the archive")
+            setButton1Title(WMFLocalizedString("games-wcf-explore-button-review-title", value:"Review results", comment: "Button text on Which Came First card in the Explore tab, shown when game is complete. Tapping navigates to the results of the game."))
+            setButton2Title(WMFLocalizedString("games-wcf-explore-button-archive-title", value:"Play the archive", comment: "Button text on Which Came First card in the Explore tab, shown when game is complete. Tapping navigates to the Which Came First archive picker."))
             button2.isHidden = false
             headerStacked = true
             startCountdownTimer()
@@ -185,7 +187,8 @@ class WMFDailyGameExploreCell: CollectionViewCell {
     }
 
     private func updateCountdownLabel() {
-        descriptionLabel.text = "You scored \(completedScore)/\(completedTotal) on today's game. Next game in \(countdownString())"
+        let descriptionText = WMFLocalizedString("games-wcf-explore-complete-subtitle", value:"You scored %1$d/%2$d on today's game. Next game in %3$@)", comment: "Description text on Which Came First card in the Explore tab, shown when a game is completed. %1$d is replaced by the number of questions answered correctly, %2$d is replaced by the number of total questions. %3$@ is replaced by a countdown timer string, indicating the number of hours / minutes / seconds left until the next game is available.")
+        descriptionLabel.text = String.localizedStringWithFormat(descriptionText, completedScore, completedTotal, countdownString())
     }
 
     private func countdownString() -> String {
@@ -439,10 +442,6 @@ private final class WMFDailyGameEventRowView: UIView {
         textLabel.lineBreakMode = .byTruncatingTail
         addSubview(textLabel)
         
-//        sizingTextLabel.numberOfLines = 3
-//        sizingTextLabel.lineBreakMode = .byTruncatingTail
-//        addSubview(sizingTextLabel)
-
         thumbnailView.contentMode = .scaleAspectFill
         thumbnailView.clipsToBounds = true
         thumbnailView.layer.cornerRadius = 2
@@ -452,11 +451,7 @@ private final class WMFDailyGameEventRowView: UIView {
 
     func configure(text: String, thumbnailURL: URL?) {
         textLabel.text = text
-//        sizingTextLabel.text = """
-//        
-//        
-//        
-//        """
+
         thumbnailView.image = nil
         imageLoadTask?.cancel()
         imageLoadTask = nil
@@ -479,7 +474,6 @@ private final class WMFDailyGameEventRowView: UIView {
 
     func updateFonts(with traitCollection: UITraitCollection) {
         textLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
-        // sizingTextLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
     }
 
     func apply(theme: Theme) {

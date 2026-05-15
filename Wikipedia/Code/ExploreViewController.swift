@@ -751,10 +751,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             let languageVariantCode = contentGroup.siteURL?.wmf_languageVariantCode
             let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
             let today = {
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd"
-                formatter.timeZone = TimeZone(identifier: "UTC")
-                formatter.locale = Locale(identifier: "en_US_POSIX")
+                let formatter = DateFormatter.onThisDayAPIDateFormatter
                 return formatter.string(from: Date())
             }()
             let viewModel = WMFWhichCameFirstViewModel(date: today, project: project)
