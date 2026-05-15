@@ -177,6 +177,9 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "A atividade inclui um cronograma completo dos artigos lidos, salvos e editados. Seu histórico de leitura agora está na guia Pesquisar.";
 "activity-tab-onboarding-third-item-title-updated" = "A história de leitura agora está em Pesquisa";
 "activity-tab-read-title" = "Ver histórico de leitura";
+"activity-tab-reading-challenge-card-body" = "Para acompanhar seu progresso com o Globo Bebê, você precisará adicionar o widget Desafio de Leitura à sua tela inicial.";
+"activity-tab-reading-challenge-card-cta" = "Mostre-me como";
+"activity-tab-reading-challenge-card-title" = "Desafio de leitura de 25 dias";
 "activity-tab-satisfied" = "Satisfeito(a)";
 "activity-tab-saved" = "Artigos salvos este mês";
 "activity-tab-start-editing" = "Começar a editar";
@@ -1091,6 +1094,7 @@
 "reading-challenge-announcement-item2-subtitle" = "Complete uma sequência de leitura de 25 dias enquanto o desafio estiver ativo para ganhar prêmios especiais";
 "reading-challenge-announcement-item2-title" = "Ganhe prêmios";
 "reading-challenge-announcement-item3-subtitle" = "Receba lembretes úteis e doses de motivação do nosso adorável mascote de aniversário, o Globo Bebê";
+"reading-challenge-announcement-item3-subtitle2" = "Para acompanhar seu progresso com o Globo Bebê, você precisará adicionar o widget Desafio de Leitura à sua tela inicial.";
 "reading-challenge-announcement-item3-title" = "Instale o widget";
 "reading-challenge-announcement-secondary-cta" = "Saiba mais";
 "reading-challenge-announcement-subtitle" = "Seu histórico de leitura é protegido. As informações de leitura são calculadas utilizando dados armazenados localmente em seu dispositivo.";
@@ -1130,7 +1134,10 @@
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 de 25 dia|$1 de 25 dias}}";
 "reading-challenge-subtitle" = "Desafio de leitura de 25 dias";
 "reading-challenge-widget-announcement-body" = "O Globo Bebê está torcendo por você. Adicione o widget do Desafio de Leitura para acompanhar o seu progresso em sua tela inicial.";
+"reading-challenge-widget-announcement-body2" = "Para acompanhar seu progresso com o Globo Bebê, você precisará adicionar o widget Desafio de Leitura à sua tela inicial.";
+"reading-challenge-widget-announcement-secondary-button" = "Mostre-me como";
 "reading-challenge-widget-announcement-title" = "Instale o widget do desafio de leitura de 25 dias";
+"reading-challenge-widget-announcement-title2" = "Acesse sua tela inicial para adicionar o widget";
 "reading-challenge-widget-description" = "Acompanhe o progresso do seu desafio de leitura.";
 "reading-challenge-widget-display-name" = "Desafio de leitura";
 "reading-list-add-generic-hint-title" = "Adicione este artigo a uma lista de leitura?";
