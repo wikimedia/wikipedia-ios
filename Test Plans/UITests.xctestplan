@@ -21,6 +21,32 @@
       }
     },
     {
+      "id" : "38077FAF-FC51-4296-BF85-0FB00F0EE6F5",
+      "name" : "English (Light, E2E)",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "-WMFAppThemeName"
+          },
+          {
+            "argument" : "light"
+          },
+          {
+            "argument" : "-WMFUITestLanguageCode"
+          },
+          {
+            "argument" : "en"
+          },
+          {
+            "argument" : "-WMFUITestHTTPClientProfile"
+          },
+          {
+            "argument" : "e2e"
+          }
+        ]
+      }
+    },
+    {
       "id" : "67D2A1C7-F722-404E-8F8B-9EE88B448393",
       "name" : "Hebrew (Sepia)",
       "options" : {

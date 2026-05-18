@@ -2,7 +2,8 @@
 This repository uses the Robots pattern for test legibility and organization. Keep this readme aligned with the checked-in workflows, schemes, test plans, and helper APIs.
 ## CI Lanes
 - Pull requests run `.github/workflows/run_ui_tests.yml` against the `WikipediaUITests` scheme and the `English (Light)` configuration from `Test Plans/UITests.xctestplan`.
-- The remaining localized/theme configurations live in `Test Plans/UITests.xctestplan`, but they are not the normal development or verification path. Run them only for explicitly requested full-matrix validation or a configuration-specific investigation.
+- `UITestConfiguration` defaults UI-test launches to fixture mode and forwards `-WMFUITestHTTPClientProfile fixture-strict` to the app.
+- Pull requests also run `.github/workflows/run_e2e_ui_tests.yml` against the same scheme, test plan, and test methods with the `English (Light, E2E)` configuration. That test-plan configuration passes `-WMFUITestHTTPClientProfile e2e` to the UI-test process, so no fixture profile is forwarded to the app and the app uses E2E networking.
 - The UI-test workflows publish `.xcresult` bundles as artifacts. Use those bundles for screenshots and failure inspection.
 ## UI Test Robot Pattern
 - Write UI tests as intent-level scripts. Test files should describe the user journey and expected result, not raw selectors, scrolling loops, alert dismissal, or screenshot plumbing.
@@ -17,7 +18,7 @@ This repository uses the Robots pattern for test legibility and organization. Ke
 ## Validation
 - For UI-test helper changes, first run `scripts/lint-ui-tests.sh`.
 - For compile validation, use a narrow `xcodebuild build-for-testing` or selected UI-test run while iterating.
-- For development and final UI-test verification, run the `WikipediaUITests` scheme with the `UITests` test plan narrowed to `English (Light)`:
+- For development and final UI-test verification, run the default fixture-backed `WikipediaUITests` scheme with the `UITests` test plan narrowed to `English (Light)`:
 
 ```sh
 xcodebuild test \
@@ -25,5 +26,16 @@ xcodebuild test \
   -project Wikipedia.xcodeproj \
   -testPlan UITests \
   -only-test-configuration "English (Light)" \
+  -destination "platform=iOS Simulator,name=iPhone 16"
+```
+
+- To run the same UI tests locally as E2E tests, select the E2E test-plan configuration:
+
+```sh
+xcodebuild test \
+  -scheme WikipediaUITests \
+  -project Wikipedia.xcodeproj \
+  -testPlan UITests \
+  -only-test-configuration "English (Light, E2E)" \
   -destination "platform=iOS Simulator,name=iPhone 16"
 ```
