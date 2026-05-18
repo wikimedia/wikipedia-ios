@@ -138,7 +138,7 @@ struct OnboardingRobot: ScreenshotCapturingRobot {
             file: file,
             line: line
         )
-        return ExploreRobot(base: base).assertVisible(file: file, line: line)
+        return ExploreRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
     }
 
 }
