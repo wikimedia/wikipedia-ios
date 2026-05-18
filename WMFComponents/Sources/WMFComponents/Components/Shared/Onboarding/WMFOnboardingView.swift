@@ -43,7 +43,14 @@ public struct WMFOnboardingView: View {
     // MARK: - Buttons
 
     var buttonArea: some View {
-        VStack(spacing: 20) {
+        VStack(alignment: .center, spacing: 20) {
+            if let subtitle = viewModel.subtitle {
+                Text(subtitle)
+                    .foregroundStyle(Color(appEnvironment.theme.secondaryText))
+                    .font(Font(WMFFont.for(.caption2)))
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .multilineTextAlignment(.center)
+            }
             WMFLargeButton(
                 style: .primary,
                 title: viewModel.primaryButtonTitle,

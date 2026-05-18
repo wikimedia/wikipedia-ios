@@ -8,6 +8,8 @@ import WMFNativeLocalizations
 import TipKit
 import WMFTestKitchen
 
+private let wmfHideTipsForTesting = "WMFHideTipsForTesting"
+
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
     static let showErrorBannerNSErrorKey = "nserror"
@@ -362,11 +364,11 @@ extension WMFAppViewController: WMFWatchlistDelegate {
             }
 
             if !UserDefaults.standard.wmf_didShowThankRevisionAuthorEducationPanel() {
-                topMostViewController?.wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: { [weak self] in
+                topMostViewController?.wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: {
                     WatchlistFunnel.shared.logThanksTapSend(project: wikimediaProject)
                     UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
                     performThanks()
-                }, cancelHandler: { [weak self] in
+                }, cancelHandler: {
                     WatchlistFunnel.shared.logThanksTapCancel(project: wikimediaProject)
                 })
             } else {
@@ -603,6 +605,9 @@ extension WMFAppViewController: CreateReadingListDelegate {
     @objc func setupTips() {
         do {
             try Tips.configure()
+            if UserDefaults.standard.bool(forKey: wmfHideTipsForTesting) {
+                Tips.hideAllTipsForTesting()
+            }
         } catch {
             DDLogError("Error initializing TipKit: \(error.localizedDescription)")
         }
@@ -738,7 +743,7 @@ extension WMFAppViewController {
         }
 
         WMFDataEnvironment.current.appInstallIDUtility = {
-            return UserDefaults.standard.wmf_appInstallId
+            return try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
         }
 
         WMFDataEnvironment.current.acceptLanguageUtility = {
@@ -751,6 +756,45 @@ extension WMFAppViewController {
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
 
         WMFDataEnvironment.current.testKitchenClient = TestKitchenAdapter.shared.client
+
+        evaluateAppInstallAndSessionIDs()
+        
+        // Notify the scene delegate that the data environment is ready, so it can submit any
+        // deferred app_open event (e.g. on fresh install where languages weren't set up yet).
+        #if !TEST
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            sceneDelegate.dataEnvironmentDidSetup()
+        }
+        #endif
+    }
+    
+    private func evaluateAppInstallAndSessionIDs() {
+        
+        let legacyAppInstallID = UserDefaults.standard.string(forKey: WMFAppInstallId)
+        let legacySessionID = UserDefaults.standard.wmf_sessionID
+        
+        let store = WMFDataEnvironment.current.crossProcessUserDefaultsStore
+        let appInstallID: String? = try? store?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+        let sessionID: String? = try? store?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+        
+        if legacyAppInstallID == nil && appInstallID == nil {
+            // This is likely a fresh install! Generate a new app install ID
+            
+            let newAppInstallId = UUID().uuidString
+            try? store?.save(key: WMFUserDefaultsKey.appInstallID.rawValue, value: newAppInstallId)
+        } else {
+            
+            // Check to see if migrations are needed
+            if legacyAppInstallID != nil && appInstallID == nil {
+                try? store?.save(key: WMFUserDefaultsKey.appInstallID.rawValue, value: legacyAppInstallID)
+                UserDefaults.standard.wmf_appInstallId = nil
+            }
+            
+            if legacySessionID != nil && sessionID == nil {
+                try? store?.save(key: WMFUserDefaultsKey.sessionID.rawValue, value: legacySessionID)
+                UserDefaults.standard.wmf_sessionID = nil
+            }
+        }
     }
 
     @objc func updateWMFDataEnvironmentFromLanguagesDidChange() {
@@ -834,11 +878,11 @@ extension WMFAppViewController {
 
      func removeArticlesForDeletedTabParts(tabIdentifier: UUID? = nil, tabItemIdentifier: UUID? = nil) {
          if let tabIdentifier {
-             tabIdentifiersToDelete.add(tabIdentifier)
+             tabIdentifiersToDelete.append(tabIdentifier)
          }
 
          if let tabItemIdentifier {
-             tabItemIdentifiersToDelete.add(tabItemIdentifier)
+             tabItemIdentifiersToDelete.append(tabItemIdentifier)
          }
 
          NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debounceRemoveArticlesForDeletedTabParts), object: nil)
@@ -881,8 +925,8 @@ extension WMFAppViewController {
               }
           }
 
-         tabIdentifiersToDelete.removeAllObjects()
-         tabItemIdentifiersToDelete.removeAllObjects()
+         tabIdentifiersToDelete.removeAll()
+         tabItemIdentifiersToDelete.removeAll()
       }
  }
 
@@ -1248,23 +1292,5 @@ extension WMFAppViewController {
         )
 
         return controller
-    }
-}
-
-extension WMFAppViewController {
-    @objc func setupForUITests() {
-#if UITEST
-        
-        if ProcessInfo.processInfo.arguments.count > 1 {
-            let arguments = ProcessInfo.processInfo.arguments
-            
-            if arguments.contains("UITestSkipAppOnboarding") {
-                UserDefaults.standard.set(true, forKey: "DidShowOnboarding5.3")
-            } else {
-                UserDefaults.standard.removeObject(forKey: "DidShowOnboarding5.3")
-            }
-        }
-        
-#endif
     }
 }

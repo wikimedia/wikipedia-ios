@@ -246,7 +246,12 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
                 self.loginSuccessCompletion?()
                 self.setViewControllerUserInteraction(enabled: true)
-                self.authInstrument.submitInteraction(action: "success")
+                
+                var actionContext: [String: String]? = nil
+                if let category {
+                    actionContext = ["invoke_source": category.rawValue]
+                }
+                self.authInstrument.submitInteraction(action: "success", actionContext: actionContext)
 
                 if let start = self.startDate {
                     LoginFunnel.shared.logSuccess(category: self.category, timeElapsed: fabs(start.timeIntervalSinceNow))
@@ -332,6 +337,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         }
         
         twoFactorViewController.authInstrument = authInstrument
+        twoFactorViewController.loginSuccessCompletion = loginSuccessCompletion
+        twoFactorViewController.category = category
         
         if isEmailAuth {
             twoFactorViewController.setDisplayModeToShortAlphanumeric()

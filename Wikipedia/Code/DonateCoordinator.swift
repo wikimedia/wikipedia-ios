@@ -99,7 +99,7 @@ class DonateCoordinator: Coordinator {
         }
 
         let appVersion = Bundle.main.wmf_debugVersion()
-        let appInstallID = UserDefaults.standard.wmf_appInstallId
+        let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
         return URL(string: urlString)?.appendingAppVersionAndAppInstallID(appVersion: appVersion, appInstallID: appInstallID)
     }
 
@@ -321,7 +321,7 @@ class DonateCoordinator: Coordinator {
         }
 
         let appVersion = Bundle.main.wmf_debugVersion()
-        let appInstallID = UserDefaults.standard.wmf_appInstallId
+        let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
 
         let donateDataController = WMFDonateDataController.shared
         let donateData = donateDataController.loadConfigs()

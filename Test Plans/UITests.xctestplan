@@ -2,14 +2,20 @@
   "configurations" : [
     {
       "id" : "8E0498FE-92FF-40EC-865C-5BEA22044FC7",
-      "name" : "System Language (Light)",
+      "name" : "English (Light)",
       "options" : {
         "commandLineArgumentEntries" : [
           {
-            "argument" : "UITestThemeLight"
+            "argument" : "-WMFAppThemeName"
           },
           {
-            "argument" : "UITestLanguageEN"
+            "argument" : "light"
+          },
+          {
+            "argument" : "-WMFUITestLanguageCode"
+          },
+          {
+            "argument" : "en"
           }
         ]
       }
@@ -20,10 +26,16 @@
       "options" : {
         "commandLineArgumentEntries" : [
           {
-            "argument" : "UITestThemeSepia"
+            "argument" : "-WMFAppThemeName"
           },
           {
-            "argument" : "UITestLanguageHE"
+            "argument" : "sepia"
+          },
+          {
+            "argument" : "-WMFUITestLanguageCode"
+          },
+          {
+            "argument" : "he"
           }
         ],
         "language" : "he",
@@ -36,10 +48,16 @@
       "options" : {
         "commandLineArgumentEntries" : [
           {
-            "argument" : "UITestThemeDark"
+            "argument" : "-WMFAppThemeName"
           },
           {
-            "argument" : "UITestLanguageDE"
+            "argument" : "dark"
+          },
+          {
+            "argument" : "-WMFUITestLanguageCode"
+          },
+          {
+            "argument" : "de"
           }
         ],
         "language" : "de",
@@ -52,10 +70,16 @@
       "options" : {
         "commandLineArgumentEntries" : [
           {
-            "argument" : "UITestThemeBlack"
+            "argument" : "-WMFAppThemeName"
           },
           {
-            "argument" : "UITestLanguageVI"
+            "argument" : "black"
+          },
+          {
+            "argument" : "-WMFUITestLanguageCode"
+          },
+          {
+            "argument" : "vi"
           }
         ],
         "language" : "vi",
@@ -64,6 +88,7 @@
     }
   ],
   "defaultOptions" : {
+    "codeCoverage" : true,
     "language" : "en",
     "region" : "US",
     "testTimeoutsEnabled" : true,
@@ -71,11 +96,6 @@
   },
   "testTargets" : [
     {
-      "skippedTests" : [
-        "WKSourceEditorUITests",
-        "WKSourceEditorUITests\/testSourceEditorInputViewSwitching()",
-        "WikipediaUITests"
-      ],
       "target" : {
         "containerPath" : "container:Wikipedia.xcodeproj",
         "identifier" : "67623E0B2AFD288A007488C7",

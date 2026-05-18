@@ -4,6 +4,7 @@
 // Author: Abbedabb
 // Author: Ainali
 // Author: Bengtsson96
+// Author: Diktys
 // Author: Freked
 // Author: Gkyziridis
 // Author: Haxpett
@@ -269,6 +270,10 @@
 "close-tab-confirmation" = "Stänga fliken?";
 "close-tabs" = "Stäng flikar";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 flik|$1 flikar}} stängdes.";
+"collect-prize-button-title" = "Få 15%% rabatt i butiken";
+"collect-prize-headline" = "Nyfikenhet klär dig! 🛍️";
+"collect-prize-subtitle" = "Fira att du har klarat utmaningen med 15%% rabatt i Wikipedia Store.";
+"collect-prize-title" = "Hämta ditt pris!";
 "compass-direction" = "mot klockan $1";
 "confirm-donation-history-deletion-subtitle" = "Detta gäller endast donationer som görs från den här enheten.";
 "confirm-donation-history-deletion-title" = "Bekräfta radering";
@@ -527,12 +532,14 @@
 "empty-no-saved-pages-title" = "Inga sparade sidor ännu";
 "empty-no-search-results-message" = "Inga resultat hittades";
 "empty-talk-page-title" = "Inga meddelanden har ännu lagts upp för denna användare";
+"end-session" = "Avsluta session";
 "error-generic-recovery-suggestion" = "Försök igen senare";
 "error-unknown" = "Ett okänt fel uppstod";
 "explore-another-random" = "En annan slumpmässig artikel";
 "explore-because-you-read" = "Eftersom du läste";
 "explore-because-you-read-footer" = "Ytterligare relaterade artiklar";
 "explore-continue-reading-heading" = "Fortsätt läsa";
+"explore-daily-game-heading" = "Vilken kom först?";
 "explore-detail-back-button-title" = "Tillbaka till utforskarflödet";
 "explore-enable-location-title" = "Utforska artiklar nära din nuvarande plats";
 "explore-featured-article-heading" = "Utmärkt artikel";
@@ -1062,6 +1069,54 @@
 "project-name-wikiversity" = "Wikiversity";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wiktionary";
+"reading-challenge-announcement-cta" = "Delta i utmaningen";
+"reading-challenge-announcement-item1-subtitle" = "Delta i utmaningen närsomhelst mellan $1 och $2, slutför dina 25 dagar i din egen tidslinje.";
+"reading-challenge-announcement-item1-title" = "Läs 1 artikel om dagen i 25 dagar";
+"reading-challenge-announcement-item2-subtitle" = "Slutför en 25-dagars läsningssvit medan utmaningen pågår för att vinna speciella priser.";
+"reading-challenge-announcement-item2-title" = "Vinn priser";
+"reading-challenge-announcement-item3-subtitle" = "Få hjälpsamma påminnelser och motivation med vår bedårande födelsedagsmaskot Babe Globe.";
+"reading-challenge-announcement-item3-title" = "Installera widgeten";
+"reading-challenge-announcement-secondary-cta" = "Lär dig mer";
+"reading-challenge-announcement-subtitle" = "Din läshistorik skyddas. Läsinsikter beräknas med hjälp av lokalt lagrad data på din enhet.";
+"reading-challenge-announcement-title" = "Fira Wikipedias 25-årsdag genom att delta i 25-dagars läsutmaningen!";
+"reading-challenge-collect-prize-button-small" = "Hämta pris";
+"reading-challenge-completed-subtitle" = "25 av 25 dagar";
+"reading-challenge-completed-subtitle-small" = "25 av 25";
+"reading-challenge-completed-title" = "Du gjorde det!";
+"reading-challenge-concluded-title" = "Utmaning avslutad";
+"reading-challenge-enrolled-not-started-subtitle-article" = "Läs en artikel för att komma igång.";
+"reading-challenge-enrolled-not-started-subtitle-away" = "Din svit är bara en artikel ifrån.";
+"reading-challenge-enrolled-not-started-subtitle-somewhere" = "Varje svit börjar någonstans";
+"reading-challenge-enrolled-not-started-subtitle-towards" = "Börja arbeta mot en 25-dagarssvit!";
+"reading-challenge-enrolled-not-started-title-fresh" = "En nystart.";
+"reading-challenge-enrolled-not-started-title-ready" = "Klara, färdiga, läs!";
+"reading-challenge-enrolled-not-started-title-spin" = "Sätta igång med en ny svit?";
+"reading-challenge-enrolled-not-started-title-start" = "Börja din läsutmaning.";
+"reading-challenge-explore-wikipedia-button" = "Utforska Wikipedia";
+"reading-challenge-join-button-medium" = "Delta i utmaningen";
+"reading-challenge-join-button-small" = "Delta i utmaning";
+"reading-challenge-login-message" = "Logga in eller skapa ett konto för att följa dina framsteg i läsutmaningen.";
+"reading-challenge-login-title" = "Logga in för att delta i utmaningen";
+"reading-challenge-not-enrolled-subtitle" = "Delta i 25-dagarsutmaningen och lås upp specialpriser.";
+"reading-challenge-not-enrolled-title" = "Klara, färdiga, läs!";
+"reading-challenge-not-live-yet-subtitle" = "En 25-dagars läsutmaning är på gång.";
+"reading-challenge-not-live-yet-title" = "Gör dig redo att läsa";
+"reading-challenge-not-yet-read-subtitle-article" = "Din svit är bara en artikel bort.";
+"reading-challenge-not-yet-read-subtitle-bit" = "Även en smula läsning räknas mot ditt mål.";
+"reading-challenge-not-yet-read-subtitle-curiosity" = "Håll din nyfikenhet vid liv.";
+"reading-challenge-not-yet-read-subtitle-drift" = "Låt inte dagen gå förbi. Din läsningssvit väntar.";
+"reading-challenge-not-yet-read-subtitle-jump" = "Hoppa in och läs lite när som helst i dag.";
+"reading-challenge-not-yet-read-subtitle-quiet" = "En lugn lässtund?";
+"reading-challenge-not-yet-read-subtitle-snooze" = "Innan dagen svävar iväg... finns det fortfarande tid att lära sig något.";
+"reading-challenge-random-button" = "Slumpartikel";
+"reading-challenge-streak-days" = "{{PLURAL:$1|$1 dag|$1 dagar}}";
+"reading-challenge-streak-no-days" = "$1 av 25";
+"reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 av 25 dag|$1 av 25 dagar}}";
+"reading-challenge-subtitle" = "25-dagars läsutmaning";
+"reading-challenge-widget-announcement-body" = "Babe Globe hejar på dig. Lägg till widgeten Reading Challenge för att följa dina framgångar från din startskärm.";
+"reading-challenge-widget-announcement-title" = "Installera widgeten 25-dagars läsutmaningen";
+"reading-challenge-widget-description" = "Följ dina framsteg i läsutmaningen.";
+"reading-challenge-widget-display-name" = "Läsutmaning";
 "reading-list-add-generic-hint-title" = "Lägg till denna artikel i en läslista?";
 "reading-list-add-hint-title" = "Lägg till \"$1\" i en läslista?";
 "reading-list-add-saved-button-title" = "Ja, lägg till dem i mina läslistor";
@@ -1231,6 +1286,10 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Visa den sparade läslistan (t.ex. standardlistan) som en separat lista i vyn över dina läslistor. Denna lista syns på Android-enheter.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Visa sparad läslista";
 "settings-storage-and-syncing-title" = "Lagring och synkronisering av artiklar";
+"settings-temp-account-end-session-confirm" = "Logga ut";
+"settings-temp-account-end-session-message" = "Är du säker på att du vill lämna sessionen och logga ut? Det finns inget sätt att logga in på det temporära kontot.";
+"settings-temp-account-end-session-title" = "Avsluta session";
+"settings-temp-accounts-talk-page-footer" = "Det tillfälliga kontot löper ut om 90 dagar.";
 "settings-title" = "Inställningar";
 "settings-year-in-review-header" = "Om du inaktiverar årsöversikten kommer alla lagrade personliga insikter att rensas och dölja årsöversikten.";
 "share-a-fact-made-with" = "Skapad med Wikipedia-appen";

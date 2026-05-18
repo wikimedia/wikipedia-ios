@@ -235,7 +235,22 @@ enum ProfileState {
             )
             settingsItems.append(whichCameFirstItem)
 #endif
-            
+
+            if WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
+                let devSettingsItem = ProfileListItem(
+                    text: "Developer settings",
+                    image: WMFSFSymbolIcon.for(symbol: .testTubeFill),
+                    imageColor: UIColor(Color.gray),
+                    hasNotifications: nil,
+                    isDonate: false,
+                    isLoadingDonateConfigs: false,
+                    action: {
+                        coordinatorDelegate?.handleProfileAction(.showDevSettings)
+                    }
+                )
+                settingsItems.append(devSettingsItem)
+            }
+
             return [
                 ProfileSection(
                     listItems: [
@@ -331,8 +346,23 @@ enum ProfileState {
                    coordinatorDelegate?.handleProfileAction(.showSettings)
                 }
             )
-
+            
             var settingsItems: [ProfileListItem] = [settingsItem]
+
+            if WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
+                let devSettingsItem = ProfileListItem(
+                    text: "Developer settings",
+                    image: WMFSFSymbolIcon.for(symbol: .testTubeFill),
+                    imageColor: UIColor(Color.gray),
+                    hasNotifications: nil,
+                    isDonate: false,
+                    isLoadingDonateConfigs: false,
+                    action: {
+                        coordinatorDelegate?.handleProfileAction(.showDevSettings)
+                    }
+                )
+                settingsItems.append(devSettingsItem)
+            }
 
 #if DEBUG
             let whichCameFirstItemTempAccount = ProfileListItem(
@@ -441,7 +471,22 @@ enum ProfileState {
             )
             settingsItems.append(whichCameFirstItemLoggedOut)
 #endif
-            
+
+            if WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
+                let devSettingsItem = ProfileListItem(
+                    text: "Developer settings",
+                    image: WMFSFSymbolIcon.for(symbol: .testTubeFill),
+                    imageColor: UIColor(Color.gray),
+                    hasNotifications: nil,
+                    isDonate: false,
+                    isLoadingDonateConfigs: false,
+                    action: {
+                        coordinatorDelegate?.handleProfileAction(.showDevSettings)
+                    }
+                )
+                settingsItems.append(devSettingsItem)
+            }
+
             let joinSection = ProfileSection(
                 listItems: [
                     joinWikipediaItem

@@ -18,6 +18,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
+    
+    private let widgetInstrument = WidgetFunnel().widgetInstrument
+    
+    
+    private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
 
     private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
         guard let self, let nav = self.navigationController else { return nil }
@@ -65,7 +70,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.accessibilityIdentifier = "Explore View"
+        view.accessibilityIdentifier = AccessibilityIdentifiers.Explore.view
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
 
         isRefreshControlEnabled = true
@@ -79,6 +84,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(gamesV1SettingDidChange), name: WMFNSNotification.gamesV1SettingDidChange, object: nil)
 
         setupTopSafeAreaOverlay(scrollView: collectionView)
         
@@ -737,6 +743,25 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
 
+        // Daily game card — present the Which Came First game
+        if contentGroup.contentGroupKind == .dailyGame {
+            guard let languageCode = contentGroup.siteURL?.wmf_languageCode else { return }
+            let languageVariantCode = contentGroup.siteURL?.wmf_languageVariantCode
+            let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
+            let today = {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd"
+                formatter.timeZone = TimeZone(identifier: "UTC")
+                formatter.locale = Locale(identifier: "en_US_POSIX")
+                return formatter.string(from: Date())
+            }()
+            let viewModel = WMFWhichCameFirstViewModel(date: today, project: project)
+            let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
+            let navVC = WMFComponentNavigationController(rootViewController: gameVC, modalPresentationStyle: .pageSheet)
+            present(navVC, animated: true)
+            return
+        }
+
         // If that didn't work (probably not pushing to an article), fall back to legacy logic
         guard let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme, source: .undefined, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
             return
@@ -980,22 +1005,42 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 // MARK: - Modal Presentation Logic
 
 extension ExploreViewController {
-
+    
     /// Catch-all method for deciding what is the best modal to present on top of Explore at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
-    fileprivate func presentModalsIfNeeded() {
+    private func presentModalsIfNeeded() {
         
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(listenForTooltips), object: nil)
-
+        // Prioritize reading challenge, then fall back to Activity onboarding or survey view if that doesn't present
+        guard let navigationController, let dataStore else {
+            presentYearInReviewAnnouncementOrTooltipsIfNeeded()
+            return
+        }
+        
+        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, fromWidgetJoinChallengeButton: false, fromAppStoreEvent: false, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent, instrument: widgetInstrument)
+        
+        readingChallengeCoordinator.onComplete = { [weak self] didPresentSomething in
+            
+            self?.readingChallengeCoordinator = nil
+            
+            // Do not present followup modals if they just saw a reading challenge announcement.
+            guard !didPresentSomething else {
+                return
+            }
+            
+            self?.presentYearInReviewAnnouncementOrTooltipsIfNeeded()
+        }
+        
+        self.readingChallengeCoordinator = readingChallengeCoordinator
+        
+        readingChallengeCoordinator.start()
+    }
+    
+    private func presentYearInReviewAnnouncementOrTooltipsIfNeeded() {
         if needsYearInReviewAnnouncement() {
             updateProfileButton()
             presentYearInReviewAnnouncement()
         } else {
             perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
         }
-
-        #if DEBUG
-        presentSearchWidgetAnnouncement()
-        #endif
     }
     
     @objc func listenForTooltips() {
@@ -1003,7 +1048,7 @@ extension ExploreViewController {
             appViewController.tipWrapper.listenForTooltips(appViewController: appViewController)
         }
     }
-    
+
     private func needsYearInReviewAnnouncement() -> Bool {
 
         if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
@@ -1094,7 +1139,7 @@ extension ExploreViewController {
         let backgroundImage = UIImage(named: "gradient")
 
         let viewModel = WMFFeatureAnnouncementViewModel(title: title,body: body,
-        primaryButtonTitle: primaryButtonTitle, image: foregroundImage, backgroundImage: backgroundImage, backgroundImageHeight: 250,
+        primaryButtonTitle: primaryButtonTitle, image: foregroundImage, backgroundImage: backgroundImage,
             gifName: nil, altText: CommonStrings.searchWidgetAnnouncementBody,
             primaryButtonAction: { [weak self] in
                 self?.dismiss(animated: true)
@@ -1364,6 +1409,10 @@ extension ExploreViewController {
 
     @objc func coreDataStoreSetup() {
         configureNavigationBar()
+    }
+
+    @objc func gamesV1SettingDidChange() {
+        updateFeedSources(userInitiated: false)
     }
 }
 
@@ -1765,7 +1814,6 @@ extension ExploreViewController: LogoutCoordinatorDelegate {
         }
     }
 }
-
 
 extension ExploreViewController: YearInReviewBadgeDelegate {
     func updateYIRBadgeVisibility() {

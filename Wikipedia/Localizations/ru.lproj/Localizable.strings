@@ -55,6 +55,7 @@
 // Author: Redredsonia
 // Author: Rubin16
 // Author: Saimongoltinio
+// Author: Shabe
 // Author: Soul Train
 // Author: Stjn
 // Author: Sunpriat
@@ -68,6 +69,7 @@
 // Author: Zpizza
 // Author: Александр Сигачёв
 // Author: Артём 13327
+// Author: Маринад
 // Author: Марио
 
 "about-content-license" = "Лицензия содержимого";
@@ -157,7 +159,7 @@
 "activity-tab-very-unsatisfied" = "Очень неудовлетворен(а)";
 "activity-tab-view-editing-history" = "Просмотреть историю правок";
 "activity-tab-view-reading-history" = "Просмотреть историю чтения";
-"activity-tab-view-saved-articles" = "Просмотреть сохраненные статьи";
+"activity-tab-view-saved-articles" = "Просмотреть сохранённые статьи";
 "activity-tab-you-edited" = "На этой неделе вы редактировали {{PLURAL:$1|$1 раз|$1 раза|$1 раз}}.";
 "activity-tab-you-read" = "На этой неделе вы прочли {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}}.";
 "activity-tab-you-saved" = "На этой неделе вы сохранили {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}}.";
@@ -357,8 +359,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Нажмите дважды, чтобы включить автоматические ежемесячные пожертвования на эту сумму.";
 "donate-accessibility-textfield-hint" = "Введите произвольную сумму для пожертвования.";
 "donate-accessibility-transaction-fee-hint" = "Нажмите дважды, чтобы добавить комиссию за транзакцию к сумме пожертвования.";
-// Fuzzy
-"donate-already-donated" = "Спасибо за ваше пожертвование! Ваша поддержка помогает процветать Википедии и её родственным проектам.";
+"donate-already-donated" = "Спасибо за ваше пожертвование! Ваша поддержка помогает процветать Википедии и другим проектам, распространяющим свободные знания.";
 "donate-apple-fine-print" = "Apple не занимается сбором денег для этой цели.";
 "donate-email-opt-in-text" = "Да, Фонд Викимедиа может время от времени присылать мне электронные письма.";
 "donate-help-frequently-asked-questions" = "Часто задаваемые вопросы";
@@ -1053,7 +1054,7 @@
 "reading-list-login-or-create-account-button-title" = "Войти или создать учётную запись";
 "reading-list-login-or-create-account-title" = "Войдите в систему, чтобы синхронизировать сохранённые статьи";
 "reading-list-login-subtitle" = "Войдите в систему или создайте учётную запись, чтобы ваши сохранённые статьи и списки чтения были синхронизированы между устройствами и сохранены в пользовательских настройках.";
-"reading-list-login-title" = "Синхронизировать сохраненные статьи?";
+"reading-list-login-title" = "Синхронизировать сохранённые статьи?";
 "reading-list-name-user-created-annotation" = "_[участник создан]";
 "reading-list-new-list-description-placeholder" = "Необязательное краткое описание";
 "reading-list-new-list-name-placeholder" = "заголовок списка для чтения";
@@ -1083,7 +1084,7 @@
 "reading-lists-count" = "$1 {{PLURAL:$1|список|списка|списков}} для чтения";
 "reading-lists-default-list-description" = "Стандартный список для ваших сохранённых статей";
 "reading-lists-default-list-title" = "Сохранённые";
-"reading-lists-delete-reading-list-alert-message" = "Это действие не может быть отменено. Любые статьи, сохраненные только для {{PLURAL:$1|этот список|эти списки}} будут несохранены.";
+"reading-lists-delete-reading-list-alert-message" = "Это действие не может быть отменено. Любые статьи, сохранённые только для {{PLURAL:$1|этот список|эти списки}} будут несохранены.";
 "reading-lists-delete-reading-list-alert-title" = "Удалить {{PLURAL:$1|список|списки}}?";
 "reading-lists-large-sync-completed" = "$1 статей и $2 списков чтения были синхронизированы с вашей учётной записью";
 "reading-lists-list-not-synced-limit-exceeded" = "Список не синхронизирован, превышен лимит";

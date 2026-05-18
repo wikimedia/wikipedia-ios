@@ -113,6 +113,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         nextButton.isUserInteractionEnabled = true
         nextButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         nextButton.titleLabel?.numberOfLines = 1
+        nextButton.accessibilityIdentifier = AccessibilityIdentifiers.Onboarding.nextButton
 
         if #available(iOS 26, *) {
             var config: UIButton.Configuration = .glass()
@@ -127,6 +128,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
             nextButton.setTitleColor(theme.colors.disabledText, for: .disabled)
             nextButton.setTitleColor(theme.colors.link, for: .highlighted)
         }
+
 
         view.addSubview(nextButton)
         nextButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
@@ -147,7 +149,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         skipButton.isUserInteractionEnabled = true
         skipButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         skipButton.titleLabel?.numberOfLines = 1
-
+        skipButton.accessibilityIdentifier = AccessibilityIdentifiers.Onboarding.skipButton
         
         if #available(iOS 26, *) {
             var config: UIButton.Configuration = .glass()
@@ -161,7 +163,6 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
             skipButton.setTitleColor(theme.colors.primaryText, for: .normal)
         }
         
-        skipButton.accessibilityIdentifier = "App Onboarding Skip Button"
 
         view.addSubview(skipButton)
         skipButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true

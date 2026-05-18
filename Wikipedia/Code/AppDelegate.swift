@@ -38,6 +38,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         updateDynamicIconShortcutItems()
         registerBackgroundTasks()
+
+        NotificationCenter.default.addObserver(forName: WMFNSNotification.readingChallengeWidgetReload, object: nil, queue: .main) { _ in
+            WidgetController.shared.reloadReadingChallengeWidget()
+        }
+
         return true
     }
     
@@ -93,7 +98,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        appViewController.setRemoteNotificationRegistrationStatusWithDeviceToken(deviceToken, error: nil)
+        #if DEBUG
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        let token = tokenParts.joined()
+        debugPrint("Device Token: \(token)")
+        #endif
+        appViewController.setRemoteNotificationRegistrationStatus(deviceToken: deviceToken, error: nil)
     }
 
     // MARK: Private

@@ -34,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFCommonStringsWrapper.onThisDayTitle;
         case WMFContentGroupKindSuggestedEdits:
             return WMFCommonStringsWrapper.suggestedEditsTitle;
+        case WMFContentGroupKindDailyGame:
+            return WMFLocalizedStringWithDefaultValue(@"explore-daily-game-heading", nil, nil, @"Which came first?", @"Title for the 'Which came first?' daily game Explore feed card");
         default:
             break;
     }
@@ -90,6 +92,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindRandom:
             return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFLocalizedStringWithDefaultValue(@"explore-random-article-sub-heading-from-language-wikipedia", nil, nil, @"From %1$@ Wikipedia", @"Subtext beneath the 'Random article' header describing which Wikipedia the random article came from. %1$@ will be replaced with the language - for example, 'From English Wikipedia'") fallingBackOnGenericString:WMFLocalizedStringWithDefaultValue(@"explore-random-article-sub-heading-from-wikipedia", nil, nil, @"From Wikipedia", @"Subtext beneath the 'Random article' header when the specific language wikipedia is unknown.")];
         case WMFContentGroupKindFeaturedArticle:
+            return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFCommonStringsWrapper.fromWikipedia fallingBackOnGenericString:WMFCommonStringsWrapper.defaultFromWikipedia];
+        case WMFContentGroupKindDailyGame:
             return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFCommonStringsWrapper.fromWikipedia fallingBackOnGenericString:WMFCommonStringsWrapper.defaultFromWikipedia];
         case WMFContentGroupKindTopRead: {
             return [WMFCommonStringsWrapper onLangWikipediaWith:self.siteURL.wmf_languageCode];
@@ -173,6 +177,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedDisplayTypeReadingList;
         case WMFContentGroupKindSuggestedEdits:
             return WMFFeedDisplayTypeSuggestedEdits;
+        case WMFContentGroupKindDailyGame:
+            return WMFFeedDisplayTypeDailyGame;
         case WMFContentGroupKindAnnouncement:
             return WMFFeedDisplayTypeAnnouncement;
         case WMFContentGroupKindUnknown:
@@ -232,6 +238,8 @@ NS_ASSUME_NONNULL_BEGIN
             return YES;
         case WMFContentGroupKindSuggestedEdits:
             return YES;
+        case WMFContentGroupKindDailyGame:
+            return YES;
         case WMFContentGroupKindAnnouncement:
             return YES;
         case WMFContentGroupKindUnknown:
@@ -257,6 +265,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedDetailTypeNone;
         case WMFContentGroupKindSuggestedEdits:
             return WMFFeedDetailTypeSuggestedEdits;
+        case WMFContentGroupKindDailyGame:
+            return WMFFeedDetailTypeNone;
         case WMFContentGroupKindAnnouncement:
             return WMFFeedDetailTypeNone;
         case WMFContentGroupKindUnknown:
@@ -367,6 +377,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedHeaderTypeNone;
         case WMFContentGroupKindSuggestedEdits:
             return WMFFeedHeaderTypeNone;
+        case WMFContentGroupKindDailyGame:
+            return WMFFeedHeaderTypeStandard;
         case WMFContentGroupKindAnnouncement:
             return WMFFeedHeaderTypeNone;
         case WMFContentGroupKindUnknown:
