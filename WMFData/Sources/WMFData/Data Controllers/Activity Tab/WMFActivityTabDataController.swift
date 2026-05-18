@@ -12,6 +12,19 @@ public actor WMFActivityTabDataController {
     }
 
     // MARK: - Activity Tab Customization Toggles
+    
+    public var isShowReadingChallengeOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabReadingChallenge.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabReadingChallenge.rawValue,
+                value: false)
+        }
+    }
 
     public var isTimeSpentReadingOn: Bool {
         get {
@@ -84,6 +97,10 @@ public actor WMFActivityTabDataController {
     public func updateIsTimelineOfBehaviorOn(_ value: Bool) {
         isTimelineOfBehaviorOn = value
     }
+    
+    public func turnOffReadingChallenge() {
+        isShowReadingChallengeOn = false
+    }
 
     public func getTimeReadPast7Days() async throws -> (Int, Int)? {
         let calendar = Calendar.current
@@ -148,33 +165,6 @@ public actor WMFActivityTabDataController {
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenActivityTabNewOnboarding.rawValue, value: newValue)
         }
-    }
-
-    private var seenHistoryCallout: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabSeenHistoryCallout.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabSeenHistoryCallout.rawValue, value: newValue)
-        }
-    }
-
-    public func getNeedsHistoryCallout() -> Bool {
-        guard let endDate = historyCalloutEndDate, endDate >= Date() else {
-            return false
-        }
-        return !seenHistoryCallout
-    }
-
-    public func setNeedsHistoryCallout(_ value: Bool) {
-        seenHistoryCallout = !value
-    }
-
-    private var historyCalloutEndDate: Date? {
-        var dateComponents = DateComponents()
-        dateComponents.year = 2026
-        dateComponents.month = 4
-        dateComponents.day = 24
-        return Calendar.current.date(from: dateComponents)
     }
 
     public func setHasSeenActivityTab(_ value: Bool) {
