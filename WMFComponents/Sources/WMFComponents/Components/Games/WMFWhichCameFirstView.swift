@@ -33,7 +33,7 @@ public struct WMFWhichCameFirstView: View {
         let isPad = UIDevice.current.userInterfaceIdiom == .pad
 
         if isPad {
-            return size.height / 8
+            return size.height / 4
         } else {
             return size.height / 4
         }
@@ -43,17 +43,17 @@ public struct WMFWhichCameFirstView: View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
 
-                ZStack {
+                ZStack(alignment: .bottom) {
                     Color(uiColor: theme.link)
 
                     if viewModel.showTitle {
                         Text(viewModel.localizedStrings.title)
                             .minimumScaleFactor(0.3)
-                            .font(Font(WMFFont.for(.semiboldTitle3)))
+                            .font(Font(WMFFont.for(.georgiaTitle1)))
                             .foregroundColor(Color(uiColor: theme.baseBackground))
                             .multilineTextAlignment(.center)
                             .layoutPriority(1)
-                            .padding(.horizontal, 24)
+                            .padding(.bottom, 40)
                             .transition(.opacity)
                             .opacity(viewModel.cardViewModelA?.isRevealed == true ? 0 : 1)
                     }
@@ -103,35 +103,11 @@ public struct WMFWhichCameFirstView: View {
     private var footerArea: some View {
         HStack(alignment: .center, spacing: 12) {
 
-            HStack(spacing: 8) {
-                ForEach(Array(viewModel.progressResults.enumerated()), id: \.offset) { index, result in
-
-                    ZStack {
-                        if let result = result {
-
-                            Image(systemName: result ? "checkmark.circle.fill" : "xmark.circle.fill")
-                                .minimumScaleFactor(0.3)
-                                .font(.title3)
-                                .foregroundStyle(
-                                    result
-                                    ? Color(uiColor: theme.accent)
-                                    : Color(uiColor: theme.destructive)
-                                )
-
-                        } else {
-
-                            Circle()
-                                .fill(color(for: nil))
-                                .frame(width: 20, height: 20)
-                                .scaleEffect(index == viewModel.currentIndex ? 1.3 : 1.0)
-                                .transition(.scale.combined(with: .opacity))
-                        }
-                    }
-                    .frame(width: 20, height: 20)
-                    .animation(.spring(duration: 0.3), value: result)
-                    .accessibilityHidden(true)
-                }
-            }
+            ProgressDotsView(
+                progressResults: viewModel.progressResults,
+                currentIndex: viewModel.currentIndex,
+                theme: theme
+            )
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
             .background(.regularMaterial, in: Capsule())
@@ -327,6 +303,63 @@ public struct WMFWhichCameFirstView: View {
     }
 }
 
+// MARK: - Progress Dots
+
+private struct ProgressDotsView: View {
+
+    let progressResults: [Bool?]
+    let currentIndex: Int
+    let theme: WMFTheme
+
+    @ScaledMetric(relativeTo: .title3) private var scaledDotSize: CGFloat = 20
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    // Only scale up to xLarge; freeze at that size for a11y sizes
+    private var dotSize: CGFloat {
+        dynamicTypeSize <= .xLarge ? scaledDotSize : scaledDotSize(for: .xLarge)
+    }
+
+    // Computes what scaledDotSize would be at exactly .xLarge
+    private func scaledDotSize(for size: DynamicTypeSize) -> CGFloat {
+        let xLargeMultiplier: CGFloat = 1.235 // UIFontMetrics ratio for title3 at xLarge
+        return 20 * xLargeMultiplier
+    }
+
+    var body: some View {
+        HStack(spacing: 8) {
+            ForEach(Array(progressResults.enumerated()), id: \.offset) { index, result in
+                ZStack {
+                    if let result = result {
+                        Image(systemName: result ? "checkmark.circle.fill" : "xmark.circle.fill")
+                            .font(.system(size: dotSize))
+                            .foregroundStyle(
+                                result
+                                ? Color(uiColor: theme.accent)
+                                : Color(uiColor: theme.destructive)
+                            )
+                    } else {
+                        Circle()
+                            .fill(color(for: nil))
+                            .frame(width: dotSize, height: dotSize)
+                            .transition(.scale.combined(with: .opacity))
+                    }
+                }
+                .frame(width: dotSize, height: dotSize)
+                .animation(.spring(duration: 0.3), value: result)
+                .accessibilityHidden(true)
+            }
+        }
+    }
+
+    private func color(for result: Bool?) -> Color {
+        switch result {
+        case true:  return Color(uiColor: theme.accent)
+        case false: return Color(uiColor: theme.destructive)
+        case nil:   return Color(uiColor: theme.newBorder)
+        }
+    }
+}
+
 // MARK: - Button Style
 
 struct WMFGameButtonStyle: ButtonStyle {
@@ -345,4 +378,3 @@ struct WMFGameButtonStyle: ButtonStyle {
             .opacity(configuration.isPressed ? 0.8 : 1.0)
     }
 }
-

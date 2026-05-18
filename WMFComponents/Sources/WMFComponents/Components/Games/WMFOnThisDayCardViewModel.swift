@@ -80,7 +80,7 @@ public final class WMFOnThisDayCardViewModel: ObservableObject, Identifiable {
     }
 
     func pillColor(theme: WMFTheme) -> Color {
-        isCorrectAnswer ? Color(uiColor: theme.successGreen) : Color(uiColor: theme.destructive)
+        isCorrectAnswer ? Color(uiColor: theme.successGreen) : Color(uiColor: theme.baseBackground)
     }
 
     func resultIconName() -> String {

@@ -17,6 +17,24 @@ public struct WMFOnThisDayCardView: View {
 
     private var theme: WMFTheme { appEnvironment.theme }
 
+    // MARK: - Color helpers
+
+    /// The pill/icon color for this card after reveal.
+    ///
+    /// Rules:
+    ///  - isCorrectAnswer == true  → always green (this IS the right card)
+    ///  - isCorrectAnswer == false, isSelected == true  → red (user picked the wrong card)
+    ///  - isCorrectAnswer == false, isSelected == false → gray (wrong card, not chosen)
+    private var revealColor: Color {
+        if viewModel.isCorrectAnswer {
+            return Color(uiColor: theme.accent)
+        } else if viewModel.isSelected {
+            return Color(uiColor: theme.destructive)
+        } else {
+            return Color(uiColor: theme.secondaryText)
+        }
+    }
+
     public var body: some View {
         ZStack(alignment: .bottom) {
             cardContent
@@ -39,7 +57,7 @@ public struct WMFOnThisDayCardView: View {
             }
             .padding(16)
 
-            if viewModel.isRevealed {
+            if viewModel.isRevealed && viewModel.isCorrectAnswer {
                 HStack {
                     Spacer()
                     resultIcon
@@ -51,10 +69,7 @@ public struct WMFOnThisDayCardView: View {
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .strokeBorder(
-                    Color(viewModel.isSelected ? theme.text : theme.baseBackground),
-                    lineWidth: 1
-                )
+                .strokeBorder(viewModel.isSelected ? Color(uiColor: theme.text) : Color.clear)
         )
         .shadow(
             color: viewModel.isSelected ? .clear : Color(uiColor: theme.text).opacity(0.05),
@@ -116,7 +131,7 @@ public struct WMFOnThisDayCardView: View {
     private var resultIcon: some View {
         ZStack {
             Circle()
-                .fill(viewModel.pillColor(theme: theme))
+                .fill(revealColor)
                 .frame(width: 30, height: 30)
 
             Image(systemName: viewModel.resultIconName())
@@ -127,11 +142,12 @@ public struct WMFOnThisDayCardView: View {
 
     private var datePill: some View {
         Text(viewModel.event.dateString)
+            .minimumScaleFactor(0.3)
             .font(Font(WMFFont.for(.subheadline)))
             .foregroundColor(Color(uiColor: theme.paperBackground))
             .padding(.horizontal, 8)
             .padding(.vertical, 2)
-            .background(Capsule().fill(viewModel.pillColor(theme: theme)))
+            .background(Capsule().fill(revealColor))
     }
 }
 
