@@ -14,7 +14,7 @@ public class WMFProfileHostingController<HostedView: View>: WMFComponentHostingC
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        view.accessibilityIdentifier = "Profile View"
+        view.accessibilityIdentifier = AccessibilityIdentifiers.Profile.view
     }
     
     public override func viewWillAppear(_ animated: Bool) {

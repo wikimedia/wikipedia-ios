@@ -40,7 +40,16 @@ struct WMFDeveloperSettingsView: View {
             Section {
                 Toggle("Enable Developer Mode", isOn: $viewModel.enableDeveloperMode)
             }
-            
+
+            Section(header: Text("Games")) {
+                Toggle("Show Games Version 1", isOn: $viewModel.showGamesV1)
+                Button {
+                    viewModel.clearGamesPersistence()
+                } label: {
+                    Text("Clear games persistence")
+                }
+            }
+
             Section(header: Text("Reading Challenge Widget")) {
                 Toggle("Override Current Date", isOn: $viewModel.readingChallengeOverrideCurrentDate)
 

@@ -143,6 +143,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         [mutableContentSources addObject:[[WMFSuggestedEditsContentSource alloc] initWithDataStore:self.dataStore]];
         
         for (NSURL *siteURL in siteURLs) {
+            [mutableContentSources addObject:[[WMFDailyGameContentSource alloc] initWithDataStore:self.dataStore siteURL:siteURL]];
             WMFFeedContentSource *feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL
                                                                                       userDataStore:self.dataStore];
             [mutableContentSources addObjectsFromArray: @[[[WMFNearbyContentSource alloc] initWithSiteURL:siteURL  dataStore:self.dataStore],
@@ -433,7 +434,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     static NSSet *singularGroupKindNumbers;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        singularGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindSuggestedEdits)]];
+        singularGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindSuggestedEdits), @(WMFContentGroupKindDailyGame)]];
     });
     return singularGroupKindNumbers;
 }

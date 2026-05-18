@@ -516,6 +516,7 @@
 "explore-because-you-read" = "Oxuduğunuz üçün";
 "explore-because-you-read-footer" = "Əlavə əlaqəli məqalələr";
 "explore-continue-reading-heading" = "Oxumağa davam et";
+"explore-daily-game-heading" = "Hansı birinci baş verib?";
 "explore-detail-back-button-title" = "Kəşf lentinə qayıt";
 "explore-enable-location-title" = "Cari məkanınıza yaxın məqalələri kəşf edin";
 "explore-featured-article-heading" = "Seçilmiş məqalə";
@@ -1604,7 +1605,7 @@
 "year-in-review-personalized-donate-title" = "Səxavətiniz Vikipediyanın böyüməsinə kömək etdi";
 "year-in-review-personalized-edit-views-subtitle-format-updated" = "Dünyanın hər yerindən oxucular sizin töhfələrinizi yüksək qiymətləndirirlər. Son 2 ayda sizin redaktə etdiyiniz məqalələr ümumilikdə {{PLURAL:$1|$1 baxış}} əldə edib. Sizin kimi redaktorlar sayəsində Vikipediya daim inkişaf edən, faktlara əsaslanan və etibarlı bir bilik mənbəyinə çevrilir.";
 "year-in-review-personalized-edit-views-title-format-updated" = "Bu yaxınlarda redaktələrinizə {{PLURAL:$1|$1 dəfədən}} çox baxılıb";
-"year-in-review-personalized-editing-subtitle-1" = "Dünyanın hər yerində Vikimediya layihələrinə töhfə verərək fərq yaradan könüllü redaktorlardan biri olduğunuz üçün təşəkkür edirik.";
+"year-in-review-personalized-editing-subtitle-1" = "Dünyanın hər yerində Vikimedia layihələrinə töhfə verərək fərq yaradan könüllü redaktorlardan biri olduğunuz üçün təşəkkür edirik.";
 "year-in-review-personalized-editing-subtitle-2-updated" = "Sizin kimi könüllülər Vikipediyanın {{PLURAL:$2|$2-dən çox}} müxtəlif dilində olan versiyasında {{PLURAL:$1|$1 dəyişiklik}} ediblər.";
 "year-in-review-personalized-editing-title-format-updated" = "{{PLURAL:$1|$1 dəfə}} redaktə etmisiniz";
 "year-in-review-personalized-explore" = "Vikipediya kürəsini tutan bir əlin animasiyalı illüstrasiyası; kürə tədricən kiçik bir pazl parçasına çevrilir və bu da platformaya edilən fərdi töhfələri simvolizə edir.";

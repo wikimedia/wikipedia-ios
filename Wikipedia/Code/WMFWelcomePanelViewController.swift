@@ -8,6 +8,8 @@ class WMFWelcomePanelViewController: ThemeableViewController {
             return
         }
         scrollView.apply(theme: theme)
+        titleLabel.textColor = theme.colors.primaryText
+        nextButton.backgroundColor = .clear
 
         // Apply theme colors to button configuration
         if var config = nextButton.configuration {
@@ -64,6 +66,7 @@ class WMFWelcomePanelViewController: ThemeableViewController {
         }
 
         nextButton.configuration = config
+        nextButton.backgroundColor = .clear
         nextButton.titleLabel?.numberOfLines = 0
         nextButton.titleLabel?.lineBreakMode = .byWordWrapping
     }

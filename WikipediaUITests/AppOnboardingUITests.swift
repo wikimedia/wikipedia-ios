@@ -1,41 +1,89 @@
-import Foundation
 import XCTest
+import WMFComponents
 
 final class AppOnboardingUITests: XCTestCase {
 
     func testFirstLaunchShowsOnboardingSmoke() throws {
-        let app = XCUIApplication()
-        app.configureForUITestLaunch(configuration: .init(onboardingState: .notCompleted))
-        app.launch()
-
-        XCTAssertTrue(app.otherElements["App Onboarding Introduction View"].waitForExistence(timeout: 10))
+        launchWikipediaAppRobot(onboardingState: .notCompleted)
+            .onboarding
+            .assertPage(.introduction)
     }
 
     func testOnboardingScreenshots() throws {
-        let app = XCUIApplication()
-        app.configureForUITestLaunch(configuration: .init(onboardingState: .notCompleted))
-        app.launch()
+        enum ScreenshotNames: String {
+            case analytics = "App Onboarding Analytics"
+            case exploration = "App Onboarding Exploration"
+            case initial = "App Onboarding Initial"
+            case languages = "App Onboarding Languages"
+        }
 
-        XCTAssertTrue(app.otherElements["App Onboarding Introduction View"].waitForExistence(timeout: 5))
-        
-        let initialAttachment = XCTAttachment(screenshot: app.screenshot())
-        initialAttachment.name = ScreenshotNames.initial.rawValue
-        initialAttachment.lifetime = .keepAlways
-        add(initialAttachment)
+        let app = launchWikipediaAppRobot(onboardingState: .notCompleted)
 
-        app.buttons["App Onboarding Skip Button"].tap()
-
-        let exploreView = app.otherElements["Explore View"]
-        XCTAssertTrue(exploreView.waitForExistence(timeout: 5))
-
-        let exploreAttachment = XCTAttachment(screenshot: app.screenshot())
-        exploreAttachment.name = ScreenshotNames.explore.rawValue
-        exploreAttachment.lifetime = .keepAlways
-        add(exploreAttachment)
+        app.onboarding
+            .assertPage(.introduction)
+            .captureScreenshot(ScreenshotNames.initial)
+            .tapNext()
+            .assertPage(.exploration)
+            .captureScreenshot(ScreenshotNames.exploration)
+            .tapNext()
+            .assertPage(.languages)
+            .captureScreenshot(ScreenshotNames.languages)
+            .tapNext()
+            .assertPage(.analytics)
+            .captureScreenshot(ScreenshotNames.analytics)
     }
-}
 
-private enum ScreenshotNames: String {
-    case initial = "App Onboarding Initial"
-    case explore = "App Onboarding Explore"
+    func testLearnMoreLinksPresentDestinations() throws {
+        launchWikipediaAppRobot(onboardingState: .notCompleted)
+            .onboarding
+            .assertPage(.introduction)
+            .verifyIntroductionLearnMoreCanBeDismissed()
+            .advance(to: .analytics)
+            .verifyAnalyticsLearnMoreDestinationsCanBePresented()
+    }
+
+    func testAdditionalLanguageCanBeAddedDuringOnboarding() throws {
+        let app = launchWikipediaAppRobot(
+            onboardingState: .notCompleted,
+            resetsPreferredLanguages: true
+        )
+
+        let preferredLanguages = app.onboarding
+            .advance(to: .languages)
+            .openPreferredLanguages()
+        let targetLanguageCode = try preferredLanguages.languageCodeAvailableToAdd()
+
+        preferredLanguages
+            .tapAddLanguage()
+            .search(for: targetLanguageCode)
+            .selectLanguage(targetLanguageCode)
+    }
+
+    func testWelcomeScreensCanBeAdvancedByTappingNext() throws {
+        launchWikipediaAppRobot(onboardingState: .notCompleted)
+            .onboarding
+            .assertPage(.introduction)
+            .tapNext()
+            .assertPage(.exploration)
+            .tapNext()
+            .assertPage(.languages)
+            .tapNext()
+            .assertPage(.analytics)
+    }
+
+    func testWelcomeScreensCanBeAdvancedBySwiping() throws {
+        launchWikipediaAppRobot(onboardingState: .notCompleted)
+            .onboarding
+            .assertPage(.introduction)
+            .swipeToNextPage(from: .introduction, to: .exploration)
+            .swipeToNextPage(from: .exploration, to: .languages)
+            .swipeToNextPage(from: .languages, to: .analytics)
+    }
+
+    func testOnboardingCanBeSkipped() throws {
+        launchWikipediaAppRobot(onboardingState: .notCompleted)
+            .onboarding
+            .assertPage(.introduction)
+            .skipToExplore()
+    }
 }

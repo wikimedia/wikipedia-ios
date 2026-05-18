@@ -106,7 +106,7 @@ public struct WMFNavigationBarSearchConfig {
 public extension WMFNavigationBarConfiguring where Self: UIViewController {
     
     private var profileButtonAccessibilityID: String {
-        "profile-button"
+        AccessibilityIdentifiers.Profile.button
     }
     
     /// Shared method to apply navigation bar styling on an individual view controller basis. Call within viewWillAppear. For common UINavigationBar styling that should be shared across the app, update WMFComponentNavigationController.
@@ -278,6 +278,8 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             searchController.searchBar.delegate = searchBarConfig.searchBarDelegate
             searchController.searchBar.searchBarStyle = .minimal
             searchController.searchBar.placeholder = searchBarConfig.searchBarPlaceholder
+            searchController.searchBar.accessibilityIdentifier = AccessibilityIdentifiers.Search.searchBar
+            searchController.searchBar.searchTextField.accessibilityIdentifier = AccessibilityIdentifiers.Search.searchField
             searchController.showsSearchResultsController = true
             
             if searchBarConfig.showsScopeBar {
@@ -347,7 +349,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         let paletteColors: [UIColor]
         
         if needsBadge {
-            paletteColors = [theme.destructive, theme.text]
+            paletteColors = [theme.destructive, UIColor.label]
         } else {
             paletteColors = [theme.text]
         }
@@ -425,4 +427,3 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         UIView.animate(withDuration: 0.2) { label.isHidden = false }
     }
 }
-

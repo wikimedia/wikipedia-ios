@@ -70,7 +70,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.accessibilityIdentifier = "Explore View"
+        view.accessibilityIdentifier = AccessibilityIdentifiers.Explore.view
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
 
         isRefreshControlEnabled = true
@@ -84,6 +84,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(gamesV1SettingDidChange), name: WMFNSNotification.gamesV1SettingDidChange, object: nil)
 
         setupTopSafeAreaOverlay(scrollView: collectionView)
         
@@ -742,6 +743,25 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
 
+        // Daily game card — present the Which Came First game
+        if contentGroup.contentGroupKind == .dailyGame {
+            guard let languageCode = contentGroup.siteURL?.wmf_languageCode else { return }
+            let languageVariantCode = contentGroup.siteURL?.wmf_languageVariantCode
+            let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
+            let today = {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd"
+                formatter.timeZone = TimeZone(identifier: "UTC")
+                formatter.locale = Locale(identifier: "en_US_POSIX")
+                return formatter.string(from: Date())
+            }()
+            let viewModel = WMFWhichCameFirstViewModel(date: today, project: project)
+            let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
+            let navVC = WMFComponentNavigationController(rootViewController: gameVC, modalPresentationStyle: .pageSheet)
+            present(navVC, animated: true)
+            return
+        }
+
         // If that didn't work (probably not pushing to an article), fall back to legacy logic
         guard let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme, source: .undefined, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
             return
@@ -1394,6 +1414,10 @@ extension ExploreViewController {
 
     @objc func coreDataStoreSetup() {
         configureNavigationBar()
+    }
+
+    @objc func gamesV1SettingDidChange() {
+        updateFeedSources(userInitiated: false)
     }
 }
 

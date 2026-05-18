@@ -100,6 +100,20 @@
 			<string>문서</string>
 		</dict>
 	</dict>
+	<key>close-all-tabs-confirmation-subtitle-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@를 모두 닫으시겠습니까? 이 작업은 되돌릴 수 없습니다.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>탭 %1$d개</string>
+		</dict>
+	</dict>
 	<key>close-all-tabs-confirmation-title-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -126,6 +140,70 @@
 			<string>d</string>
 			<key>other</key>
 			<string>탭 %1$d개</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>문단이 %#@v1@ 아래로 이동되었습니다. 새 위치로 이동합니다.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d줄</string>
+			<key>zero</key>
+			<string>0줄</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>문단이 %#@v1@ 위로 이동되었습니다. 새 위치로 이동합니다.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d줄</string>
+			<key>zero</key>
+			<string>0줄</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>문단이 %#@v1@ 아래로 이동되었습니다. 새 위치로 이동합니다.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d개 문단</string>
+			<key>zero</key>
+			<string>0개 문단</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>문단이 %#@v1@ 위로 이동되었습니다. 새 위치로 이동합니다.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d개 문단</string>
+			<key>zero</key>
+			<string>0개 문단</string>
 		</dict>
 	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
@@ -217,7 +295,7 @@
 	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ 추가됨</string>
+		<string>%#@v1@ 추가되었습니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -225,13 +303,45 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>lld</string>
 			<key>other</key>
-			<string>%1$lld 바이트</string>
+			<string>%1$lld 바이트가</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>자원봉사자들이 위키백과의 %#@v2@개 언어판에서 %#@v1@의 편집을 수행했습니다.  영어판 위키백과에서는 %#@v3@의 편집이 이루어졌습니다. 매일 매시간, 자원봉사자들이 위키백과를 더 나은 곳으로 만들기 위해 노력하고 있습니다.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld회</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d개</string>
+		</dict>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%3$lld회</string>
 		</dict>
 	</dict>
 	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>편집자들은 올해 %#@v1@ 건의 편집을 수행했습니다</string>
+		<string>편집자들은 올해 %#@v1@ 편집을 수행했습니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -239,7 +349,67 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>lld</string>
 			<key>other</key>
-			<string>%1$lld</string>
+			<string>%1$lld건의</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle-short-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>사람들은 약 %#@v1@을—무려 %#@v2@이나!—%3$@년 동안에 영어 위키백과를 읽는 데 보낸 것으로 추산됩니다.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld시간</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%2$lld년</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>사람들은 약 %#@v1@을—무려 %#@v2@이나!—%3$@년 동안에 영어 위키백과를 읽는 데 보낸 것으로 추산됩니다. 위키백과는 변화하는 세상에 대해 배우고 싶을 때, 친구들과의 내기에서 이기고 싶을 때, 혹은 호기심 많은 아이의 질문에 답해 주고 싶을 때 당신 곁에 있습니다.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld시간</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%2$lld년</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>읽기에 %#@v1@이 할애됐습니다</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld시간</string>
 		</dict>
 	</dict>
 	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
@@ -488,6 +658,34 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d개의 문서</string>
+		</dict>
+	</dict>
+	<key>reading-challenge-streak-days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d일</string>
+		</dict>
+	</dict>
+	<key>reading-challenge-streak-of-days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d일 / 25일</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-exceeded-title</key>
@@ -812,6 +1010,57 @@
 			<string>%1$d회</string>
 		</dict>
 	</dict>
+	<key>year-in-review-base-reading-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>위키백과에는 %#@v1@가 %#@v2@에 걸쳐 있습니다. 당신은 수백만 명의 다른 사용자들과 함께 지식을 넓히고 다양한 주제를 탐구했습니다.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld개의 문서</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d개의 활성화된 언어</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>위키백과는 %#@v1@로 제공되었습니다</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d개 이상의 언어</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-saved-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>앱 사용자들은 %#@v1@를 저장했습니다</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld개 문서</string>
+		</dict>
+	</dict>
 	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -826,6 +1075,43 @@
 			<string>%1$lld 회</string>
 		</dict>
 	</dict>
+	<key>year-in-review-highlights-edit-frequency-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>분 당 %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d회</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>당신과 같은 자원봉사자들 덕분에 위키백과의 %#@v2@개 언어판에서 %#@v1@의 편집이 이루어졌습니다.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld건</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d개</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -838,6 +1124,29 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d회</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-title-v3-format-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@을 들여 %#@v2@를 %3$@년 동안에 읽으셨습니다</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d분</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d개의 문서</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

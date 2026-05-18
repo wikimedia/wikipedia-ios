@@ -557,6 +557,7 @@
 "explore-because-you-read" = "Porque você leu";
 "explore-because-you-read-footer" = "Artigos relacionados adicionais";
 "explore-continue-reading-heading" = "Continue lendo";
+"explore-daily-game-heading" = "O que veio primeiro?";
 "explore-detail-back-button-title" = "Voltar ao feed Explorar";
 "explore-enable-location-title" = "Explore artigos perto da sua localização atual";
 "explore-featured-article-heading" = "Artigo destacado";
@@ -848,8 +849,7 @@
 "more-menu" = "Mais";
 "move-articles-to-reading-list" = "Mover $1 {{PLURAL:$1|artigo|artigos}} para a lista de leitura";
 "navbar-title-mode-edit-wikitext-preview" = "Pré-visualizar";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 pés";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 pé|$1 pés}}";
 "nearby-distance-label-km" = "$1 km";
 // Fuzzy
 "nearby-distance-label-meters" = "$1 m";
@@ -1646,6 +1646,7 @@
 "year-in-review-intro-login-title" = "Entrar para personalização";
 "year-in-review-most-read-categories-title" = "Suas categorias mais interessantes";
 "year-in-review-non-contributor-slide-title" = "Desbloqueie sua recompensa de colaborador para o próximo ano!";
+"year-in-review-noncontributor-slide-subtitle-updated" = "Ficamos felizes que a Wikipédia tenha feito parte do seu $1! Desbloqueie uma recompensa especial no seu Resumo do Ano de $2 tornando-se um colaborador — seja [editando a Wikipédia]($3) ou fazendo uma doação pelo aplicativo para a [Fundação Wikimedia]($4), a organização sem fins lucrativos por trás do projeto. Se a Wikipédia é útil para você, considere fazer uma doação para ajudar a garantir seu futuro e mantê-la gratuita, sem anúncios, confiável e acessível a todos. Se você fez uma doação em outro lugar, agradecemos imensamente o seu apoio.";
 "year-in-review-personalized-date-day-footer-v3" = "Dia favorito para ler";
 "year-in-review-personalized-date-month-footer-v3" = "Mês em que você mais leu";
 "year-in-review-personalized-date-time-footer-v3" = "Hora favorita para ler";
