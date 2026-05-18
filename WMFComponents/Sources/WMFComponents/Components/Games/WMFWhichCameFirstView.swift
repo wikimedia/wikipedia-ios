@@ -31,6 +31,7 @@ public struct WMFWhichCameFirstView: View {
 
     private var gameplayView: some View {
         GeometryReader { geometry in
+            let isLandscape = geometry.size.width > geometry.size.height
             VStack(spacing: 0) {
                 ZStack {
                     Color(uiColor: theme.link)
@@ -45,37 +46,69 @@ public struct WMFWhichCameFirstView: View {
                             .opacity(viewModel.cardViewModelA?.isRevealed == true ? 0 : 1)
                     }
                 }
-                .frame(height: geometry.size.height / 4)
+                .frame(height: isLandscape ? 72: geometry.size.height / 4)
 
                 VStack(spacing: 0) {
-                    // Card A
-                    if viewModel.showCardA, let cardA = viewModel.cardViewModelA {
-                        WMFOnThisDayCardView(viewModel: cardA) {
-                            viewModel.select("A")
+                    if isLandscape {
+                        HStack(alignment: .top, spacing: 16) {
+
+                            if viewModel.showCardA, let cardA = viewModel.cardViewModelA {
+                                WMFOnThisDayCardView(viewModel: cardA) {
+                                    viewModel.select("A")
+                                }
+                                .frame(maxWidth: .infinity)
+                                .transition(.move(edge: .trailing).combined(with: .opacity))
+                            }
+
+                            if viewModel.showCardB, let cardB = viewModel.cardViewModelB {
+                                WMFOnThisDayCardView(viewModel: cardB) {
+                                    viewModel.select("B")
+                                }
+                                .frame(maxWidth: .infinity)
+                                .transition(.move(edge: .trailing).combined(with: .opacity))
+                            }
                         }
                         .padding(.horizontal, 16)
-                        .transition(.move(edge: .trailing).combined(with: .opacity))
-                    }
+                        .padding(.top, 16)
 
-                    // Reveal banner between cards
-                    if let reveal = viewModel.revealState {
-                        feedbackBanner(reveal)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 49)
+                        if let reveal = viewModel.revealState {
+                            feedbackBanner(reveal)
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 24)
+                        }
+
                     } else {
-                        Spacer().frame(height: 32)
-                    }
 
-                    // Card B
-                    if viewModel.showCardB, let cardB = viewModel.cardViewModelB {
-                        WMFOnThisDayCardView(viewModel: cardB) {
-                            viewModel.select("B")
+                        VStack(spacing: 0) {
+
+                            if viewModel.showCardA, let cardA = viewModel.cardViewModelA {
+                                WMFOnThisDayCardView(viewModel: cardA) {
+                                    viewModel.select("A")
+                                }
+                                .padding(.horizontal, 16)
+                                .transition(.move(edge: .trailing).combined(with: .opacity))
+                            }
+
+                            if let reveal = viewModel.revealState {
+                                feedbackBanner(reveal)
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 49)
+                            } else {
+                                Spacer().frame(height: 32)
+                            }
+
+                            if viewModel.showCardB, let cardB = viewModel.cardViewModelB {
+                                WMFOnThisDayCardView(viewModel: cardB) {
+                                    viewModel.select("B")
+                                }
+                                .padding(.horizontal, 16)
+                                .transition(.move(edge: .trailing).combined(with: .opacity))
+                            }
                         }
-                        .padding(.horizontal, 16)
-                        .transition(.move(edge: .trailing).combined(with: .opacity))
                     }
 
                     Spacer()
+
                     footerArea
                 }
                 .padding(.top, viewModel.cardViewModelA?.isRevealed == true ? -96 : -16)
@@ -94,10 +127,11 @@ public struct WMFWhichCameFirstView: View {
                 ForEach(Array(viewModel.progressResults.enumerated()), id: \.offset) { index, result in
                     ZStack {
                         if let result = result {
-                            Image(systemName: result ? "checkmark.circle.fill" : "xmark.circle.fill")
-                                .foregroundColor(result ? Color(uiColor: theme.accent) : Color(uiColor: theme.destructive))
-                                .font(Font(WMFFont.for(.title3)))
-                                .transition(.scale.combined(with: .opacity))
+                            if let uiImage = WMFSFSymbolIcon.for(symbol: result ? .checkmarkCircleFill : .closeCircleFill, font: .title3) {
+                                Image(uiImage: uiImage)
+                                    .foregroundColor(result ? Color(uiColor: theme.accent) : Color(uiColor: theme.destructive))
+                                    .transition(.scale.combined(with: .opacity))
+                            }
                         } else {
                             Circle()
                                 .fill(color(for: nil))
@@ -108,11 +142,13 @@ public struct WMFWhichCameFirstView: View {
                     }
                     .frame(width: 20, height: 20)
                     .animation(.spring(duration: 0.3), value: result)
+                    .accessibilityHidden(true)
                 }
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
             .background(.regularMaterial, in: Capsule())
+            .accessibilityElement(children: .ignore)
 
             Spacer()
 
@@ -120,6 +156,9 @@ public struct WMFWhichCameFirstView: View {
                 Button(viewModel.localizedStrings.submitButton) { viewModel.submitSelectedAnswer() }
                     .font(Font(WMFFont.for(.semiboldSubheadline)))
                     .foregroundColor(Color(uiColor: theme.text))
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.8)
+                    .multilineTextAlignment(.center)
                     .padding(.horizontal, 20)
                     .padding(.vertical, 12)
                     .background(.regularMaterial, in: Capsule())
@@ -131,8 +170,15 @@ public struct WMFWhichCameFirstView: View {
                     viewModel.animateOutAndAdvance()
                 } label: {
                     HStack(spacing: 4) {
-                        Text(viewModel.currentIndex == viewModel.totalQuestions - 1 ? viewModel.localizedStrings.seeResultsButton : viewModel.localizedStrings.nextButton)
-                        Image(systemName: "chevron.right")
+                        Text(viewModel.currentIndex == viewModel.totalQuestions - 1
+                             ? viewModel.localizedStrings.seeResultsButton
+                             : viewModel.localizedStrings.nextButton)
+                            .lineLimit(2)
+                            .minimumScaleFactor(0.8)
+                            .multilineTextAlignment(.center)
+                        if let chevron = WMFSFSymbolIcon.for(symbol: .chevronForward, font: .semiboldSubheadline) {
+                            Image(uiImage: chevron)
+                        }
                     }
                     .font(Font(WMFFont.for(.semiboldSubheadline)))
                     .foregroundColor(Color(uiColor: theme.text))
@@ -160,15 +206,20 @@ public struct WMFWhichCameFirstView: View {
             Text(reveal.isCorrect ? viewModel.localizedStrings.correctFeedback : viewModel.localizedStrings.incorrectFeedback)
                 .font(Font(WMFFont.for(.footnote)))
                 .foregroundColor(Color(uiColor: theme.text))
+                .lineLimit(2)
+                .minimumScaleFactor(0.85)
 
             if reveal.isCorrect {
                 Text(viewModel.localizedStrings.correctFeedback2)
                     .font(Font(WMFFont.for(.footnote)))
                     .foregroundColor(Color(uiColor: theme.accent))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.85)
             }
         }
         .frame(maxWidth: .infinity, alignment: .center)
         .padding(.vertical, 8)
+        .accessibilityElement(children: .combine)
     }
 
     private func color(for result: Bool?) -> Color {

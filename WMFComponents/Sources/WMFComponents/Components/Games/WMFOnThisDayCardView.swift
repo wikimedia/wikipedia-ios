@@ -56,6 +56,8 @@ public struct WMFOnThisDayCardView: View {
             guard !viewModel.isRevealed else { return }
             onTap?()
         }
+        .accessibilityAddTraits(.isButton)
+        .accessibilityRemoveTraits(.isStaticText)
     }
 
     private var eventText: some View {
