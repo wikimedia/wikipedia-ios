@@ -104,7 +104,7 @@ public final class WMFOnThisDayCardViewModel: ObservableObject, Identifiable {
         imageTask = Task { [weak self] in
             guard let self, let url = self.event.imageURL else { return }
             do {
-                let (data, _) = try await URLSession.shared.data(from: url)
+                let data = try await WMFImageDataController.shared.fetchImageData(url: url)
                 self.thumbnailImageData = data
             } catch {}
         }
