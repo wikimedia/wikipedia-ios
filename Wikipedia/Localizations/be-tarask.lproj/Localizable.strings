@@ -151,9 +151,11 @@
 "table-of-contents-heading" = "Зьмест";
 "talk-page-error-loading-subtitle" = "Штось пайшло ня так.";
 "talk-page-error-loading-title" = "Ладаваньне гутаркі не ўдалося";
+"talk-page-permanent-link" = "Сталая спасылка";
 "talk-pages-view-title" = "Гутаркі";
 "two-factor-login-title" = "Вярнуцца ў Ваш рахунак";
 "unable-to-load-talk-page-title" = "Ладаваньне гутаркі не ўдалося";
+"watchlist-change-expiry-option-permanent" = "Заўсёдна";
 "wikitext-preview-changes" = "Атрыманьне папярэдняга прагляду зьменаў...";
 "wikitext-upload-captcha-error" = "Памылка праверкі CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Неаходная праверка CAPTCHA.";
