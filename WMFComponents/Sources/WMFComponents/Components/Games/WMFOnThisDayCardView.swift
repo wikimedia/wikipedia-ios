@@ -8,10 +8,12 @@ public struct WMFOnThisDayCardView: View {
 
     @Environment(\.horizontalSizeClass) private var sizeClass
 
+    let cardHeight: CGFloat
     let onTap: (() -> Void)?
 
-    public init(viewModel: WMFOnThisDayCardViewModel, onTap: (() -> Void)? = nil) {
+    public init(viewModel: WMFOnThisDayCardViewModel, cardHeight: CGFloat = 192, onTap: (() -> Void)? = nil) {
         self.viewModel = viewModel
+        self.cardHeight = cardHeight
         self.onTap = onTap
     }
 
@@ -46,7 +48,7 @@ public struct WMFOnThisDayCardView: View {
         }
         .animation(.easeInOut(duration: 0.25), value: viewModel.isRevealed)
         .animation(.easeInOut(duration: 0.18), value: viewModel.isSelected)
-        .modifier(CardHeightModifier(isRegular: sizeClass == .regular))
+        .modifier(CardHeightModifier(isRegular: sizeClass == .regular, cardHeight: cardHeight))
     }
 
     private var cardContent: some View {
@@ -155,6 +157,7 @@ public struct WMFOnThisDayCardView: View {
 
 private struct CardHeightModifier: ViewModifier {
     let isRegular: Bool
+    let cardHeight: CGFloat
 
     func body(content: Content) -> some View {
         if isRegular {
@@ -162,7 +165,7 @@ private struct CardHeightModifier: ViewModifier {
                 .containerRelativeFrame(.vertical, count: 3, spacing: 16)
         } else {
             content
-                .frame(height: 192)
+                .frame(height: cardHeight)
         }
     }
 }

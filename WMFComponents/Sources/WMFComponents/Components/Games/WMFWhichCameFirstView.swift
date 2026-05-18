@@ -28,19 +28,25 @@ public struct WMFWhichCameFirstView: View {
     }
 
     // MARK: - Gameplay
-    
-    private func headerHeight(for size: CGSize) -> CGFloat {
-        let isPad = UIDevice.current.userInterfaceIdiom == .pad
 
+    private func headerHeight(for height: CGFloat) -> CGFloat {
+        let isPad = UIDevice.current.userInterfaceIdiom == .pad
         if isPad {
-            return size.height / 4
+            return height / 4
+        } else if height <= 667 {
+            return height / 5
         } else {
-            return size.height / 4
+            return height / 4
         }
     }
 
+    private func isSmallScreen(_ height: CGFloat) -> Bool { height < 700 }
+    private func feedbackBannerPadding(_ height: CGFloat) -> CGFloat { isSmallScreen(height) ? 32 : 49 }
+    private func cardHeight(_ height: CGFloat) -> CGFloat { isSmallScreen(height) ? 170 : 192 }
+
     private var gameplayView: some View {
         GeometryReader { geometry in
+            let height = geometry.size.height
             VStack(spacing: 0) {
 
                 ZStack(alignment: .bottom) {
@@ -54,16 +60,17 @@ public struct WMFWhichCameFirstView: View {
                             .multilineTextAlignment(.center)
                             .layoutPriority(1)
                             .padding(.bottom, 40)
+                            .padding(.vertical, 16)
                             .transition(.opacity)
                             .opacity(viewModel.cardViewModelA?.isRevealed == true ? 0 : 1)
                     }
                 }
-                .frame(height: headerHeight(for: geometry.size))
+                .frame(height: headerHeight(for: height))
 
                 VStack(spacing: 0) {
 
                     if viewModel.showCardA, let cardA = viewModel.cardViewModelA {
-                        WMFOnThisDayCardView(viewModel: cardA) {
+                        WMFOnThisDayCardView(viewModel: cardA, cardHeight: cardHeight(height)) {
                             viewModel.select("A")
                         }
                         .padding(.horizontal, 16)
@@ -73,13 +80,13 @@ public struct WMFWhichCameFirstView: View {
                     if let reveal = viewModel.revealState {
                         feedbackBanner(reveal)
                             .padding(.horizontal, 16)
-                            .padding(.vertical, 49)
+                            .padding(.vertical, feedbackBannerPadding(height))
                     } else {
                         Spacer().frame(height: 32)
                     }
 
                     if viewModel.showCardB, let cardB = viewModel.cardViewModelB {
-                        WMFOnThisDayCardView(viewModel: cardB) {
+                        WMFOnThisDayCardView(viewModel: cardB, cardHeight: cardHeight(height)) {
                             viewModel.select("B")
                         }
                         .padding(.horizontal, 16)
@@ -224,10 +231,8 @@ public struct WMFWhichCameFirstView: View {
         switch result {
         case true:
             return Color(uiColor: theme.accent)
-
         case false:
             return Color(uiColor: theme.destructive)
-
         case nil:
             return Color(uiColor: theme.newBorder)
         }
@@ -264,13 +269,10 @@ public struct WMFWhichCameFirstView: View {
 
     private var scoreMessage: String {
         switch viewModel.score {
-
         case viewModel.totalQuestions:
             return viewModel.localizedStrings.perfectScoreMessage
-
         case (viewModel.totalQuestions / 2)...:
             return viewModel.localizedStrings.niceWorkMessage
-
         default:
             return viewModel.localizedStrings.betterLuckMessage
         }
@@ -314,14 +316,12 @@ private struct ProgressDotsView: View {
     @ScaledMetric(relativeTo: .title3) private var scaledDotSize: CGFloat = 20
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    // Only scale up to xLarge; freeze at that size for a11y sizes
     private var dotSize: CGFloat {
         dynamicTypeSize <= .xLarge ? scaledDotSize : scaledDotSize(for: .xLarge)
     }
 
-    // Computes what scaledDotSize would be at exactly .xLarge
     private func scaledDotSize(for size: DynamicTypeSize) -> CGFloat {
-        let xLargeMultiplier: CGFloat = 1.235 // UIFontMetrics ratio for title3 at xLarge
+        let xLargeMultiplier: CGFloat = 1.235
         return 20 * xLargeMultiplier
     }
 
@@ -367,7 +367,6 @@ struct WMFGameButtonStyle: ButtonStyle {
     let theme: WMFTheme
 
     func makeBody(configuration: Configuration) -> some View {
-
         configuration.label
             .font(Font(WMFFont.for(.semiboldSubheadline)))
             .foregroundColor(Color(uiColor: theme.paperBackground))
