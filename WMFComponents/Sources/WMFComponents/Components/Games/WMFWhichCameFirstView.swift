@@ -30,14 +30,8 @@ public struct WMFWhichCameFirstView: View {
     // MARK: - Gameplay
 
     private func headerHeight(for height: CGFloat) -> CGFloat {
-        let isPad = UIDevice.current.userInterfaceIdiom == .pad
-        if isPad {
-            return height / 4
-        } else if height <= 667 {
-            return height / 5
-        } else {
-            return height / 4
-        }
+        let isCompactPhone = UIDevice.current.userInterfaceIdiom != .pad && height <= 667
+        return isCompactPhone ? height / 5 : height / 4
     }
 
     private func isSmallScreen(_ height: CGFloat) -> Bool { height < 700 }
@@ -112,7 +106,6 @@ public struct WMFWhichCameFirstView: View {
 
             ProgressDotsView(
                 progressResults: viewModel.progressResults,
-                currentIndex: viewModel.currentIndex,
                 theme: theme
             )
             .padding(.horizontal, 16)
@@ -131,7 +124,7 @@ public struct WMFWhichCameFirstView: View {
                     HStack(spacing: 4) {
 
                         Text(viewModel.localizedStrings.submitButton)
-                            .minimumScaleFactor(0.1)
+                            .minimumScaleFactor(0.2)
                             .font(Font(WMFFont.for(.semiboldSubheadline)))
                             .multilineTextAlignment(.center)
 
@@ -166,7 +159,7 @@ public struct WMFWhichCameFirstView: View {
                             ? viewModel.localizedStrings.seeResultsButton
                             : viewModel.localizedStrings.nextButton
                         )
-                        .minimumScaleFactor(0.1)
+                        .minimumScaleFactor(0.2)
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
                         .multilineTextAlignment(.center)
 
@@ -227,16 +220,6 @@ public struct WMFWhichCameFirstView: View {
         .accessibilityElement(children: .combine)
     }
 
-    private func color(for result: Bool?) -> Color {
-        switch result {
-        case true:
-            return Color(uiColor: theme.accent)
-        case false:
-            return Color(uiColor: theme.destructive)
-        case nil:
-            return Color(uiColor: theme.newBorder)
-        }
-    }
 
     // MARK: - Complete
 
@@ -310,7 +293,6 @@ public struct WMFWhichCameFirstView: View {
 private struct ProgressDotsView: View {
 
     let progressResults: [Bool?]
-    let currentIndex: Int
     let theme: WMFTheme
 
     @ScaledMetric(relativeTo: .title3) private var scaledDotSize: CGFloat = 20
@@ -373,7 +355,7 @@ struct WMFGameButtonStyle: ButtonStyle {
             .frame(maxWidth: .infinity)
             .padding(.vertical, 14)
             .background(Color(uiColor: theme.link))
-            .cornerRadius(12)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
             .opacity(configuration.isPressed ? 0.8 : 1.0)
     }
 }
