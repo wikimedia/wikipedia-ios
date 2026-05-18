@@ -1,10 +1,13 @@
+/// Enumerates app launch argument keys owned by the UI-test harness.
 enum UITestLaunchArgument: String {
     case appThemeName = "-WMFAppThemeName"
     case didShowOnboarding = "-DidShowOnboarding5.3"
+    case hideTipsForTesting = "-WMFHideTipsForTesting"
     case resetPreferredLanguages = "-WMFResetPreferredLanguages"
     case uiTestLanguageCode = "-WMFUITestLanguageCode"
 }
 
+/// Pairs a launch argument key with the string value passed to `XCUIApplication`.
 struct UITestLaunchArgumentValue {
     let key: UITestLaunchArgument
     let value: String

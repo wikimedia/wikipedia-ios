@@ -287,7 +287,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             groupedLabels.append(extract)
         }
 
-        updatedAccessibilityElements.append(LabelGroupAccessibilityElement(view: self, labels: groupedLabels, actions: actions))
+        let labelGroupAccessibilityElement = LabelGroupAccessibilityElement(view: self, labels: groupedLabels, actions: actions)
+        labelGroupAccessibilityElement.accessibilityIdentifier = accessibilityIdentifier
+        updatedAccessibilityElements.append(labelGroupAccessibilityElement)
 
         accessibilityElements = updatedAccessibilityElements
     }
