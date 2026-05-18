@@ -79,7 +79,7 @@ public struct WMFOnThisDayCardView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.trailing, 2)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
     }
 
     @ViewBuilder
@@ -143,7 +143,7 @@ private struct CardHeightModifier: ViewModifier {
     func body(content: Content) -> some View {
         if isRegular {
             content
-                .containerRelativeFrame(.vertical, count: 2, spacing: 16)
+                .containerRelativeFrame(.vertical, count: 3, spacing: 16)
         } else {
             content
                 .frame(height: 192)
