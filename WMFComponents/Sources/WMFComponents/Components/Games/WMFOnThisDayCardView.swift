@@ -6,6 +6,8 @@ public struct WMFOnThisDayCardView: View {
     @ObservedObject private var viewModel: WMFOnThisDayCardViewModel
     @ObservedObject private var appEnvironment = WMFAppEnvironment.current
 
+    @Environment(\.horizontalSizeClass) private var sizeClass
+
     let onTap: (() -> Void)?
 
     public init(viewModel: WMFOnThisDayCardViewModel, onTap: (() -> Void)? = nil) {
@@ -18,6 +20,7 @@ public struct WMFOnThisDayCardView: View {
     public var body: some View {
         ZStack(alignment: .bottom) {
             cardContent
+
             if viewModel.isRevealed {
                 datePill
                     .offset(y: 10)
@@ -25,6 +28,7 @@ public struct WMFOnThisDayCardView: View {
         }
         .animation(.easeInOut(duration: 0.25), value: viewModel.isRevealed)
         .animation(.easeInOut(duration: 0.18), value: viewModel.isSelected)
+        .modifier(CardHeightModifier(isRegular: sizeClass == .regular))
     }
 
     private var cardContent: some View {
@@ -43,14 +47,21 @@ public struct WMFOnThisDayCardView: View {
                 }
             }
         }
-        .frame(height: 192)
         .background(Color(uiColor: theme.paperBackground))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .strokeBorder(Color(viewModel.isSelected ? theme.text : theme.baseBackground), lineWidth: 1)
+                .strokeBorder(
+                    Color(viewModel.isSelected ? theme.text : theme.baseBackground),
+                    lineWidth: 1
+                )
         )
-        .shadow(color: viewModel.isSelected ? .clear : Color(uiColor: theme.text).opacity(0.05), radius: 8, x: 0, y: 0)
+        .shadow(
+            color: viewModel.isSelected ? .clear : Color(uiColor: theme.text).opacity(0.05),
+            radius: 8,
+            x: 0,
+            y: 0
+        )
         .contentShape(Rectangle())
         .onTapGesture {
             guard !viewModel.isRevealed else { return }
@@ -95,9 +106,9 @@ public struct WMFOnThisDayCardView: View {
                     bottomTrailingRadius: 0,
                     topTrailingRadius: 8
                 )
-                    .fill(Color(uiColor: theme.midBackground))
-                    .frame(width: 100, height: 100)
-                    .overlay(ProgressView().scaleEffect(0.7))
+                .fill(Color(uiColor: theme.midBackground))
+                .frame(width: 100, height: 100)
+                .overlay(ProgressView().scaleEffect(0.7))
             }
         }
     }
@@ -107,6 +118,7 @@ public struct WMFOnThisDayCardView: View {
             Circle()
                 .fill(viewModel.pillColor(theme: theme))
                 .frame(width: 30, height: 30)
+
             Image(systemName: viewModel.resultIconName())
                 .font(Font(WMFFont.for(.subheadline)))
                 .foregroundColor(Color(uiColor: theme.paperBackground))
@@ -123,75 +135,18 @@ public struct WMFOnThisDayCardView: View {
     }
 }
 
-#Preview("Default") {
-    WMFOnThisDayCardView(
-        viewModel: WMFOnThisDayCardViewModel(
-            event: WMFOnThisDayCardEvent(
-                text: "The Apollo 11 mission successfully lands the first humans on the Moon, with Neil Armstrong and Buzz Aldrin walking on the lunar surface.",
-                date: Date(),
-                imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Apollo_11_Crew.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
-            )
-        )
-    )
-    .padding()
-}
+// MARK: - Height Behavior
 
-#Preview("Selected") {
-    WMFOnThisDayCardView(
-        viewModel: WMFOnThisDayCardViewModel(
-            event: WMFOnThisDayCardEvent(
-                text: "The Apollo 11 mission successfully lands the first humans on the Moon, with Neil Armstrong and Buzz Aldrin walking on the lunar surface.",
-                date: Date(),
-                imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Apollo_11_Crew.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
-            ),
-            isSelected: true
-        )
-    )
-    .padding()
-}
+private struct CardHeightModifier: ViewModifier {
+    let isRegular: Bool
 
-#Preview("Revealed Correct") {
-    WMFOnThisDayCardView(
-        viewModel: WMFOnThisDayCardViewModel(
-            event: WMFOnThisDayCardEvent(
-                text: "The Apollo 11 mission successfully lands the first humans on the Moon, with Neil Armstrong and Buzz Aldrin walking on the lunar surface.",
-                date: Date(),
-                imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Apollo_11_Crew.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
-            ),
-            isSelected: true,
-            isRevealed: true,
-            isCorrect: true,
-            isCorrectAnswer: true
-        )
-    )
-    .padding()
-}
-
-#Preview("Revealed Incorrect") {
-    WMFOnThisDayCardView(
-        viewModel: WMFOnThisDayCardViewModel(
-            event: WMFOnThisDayCardEvent(
-                text: "The World Wide Web is invented by Tim Berners-Lee while working at CERN in Geneva, Switzerland.",
-                date: Date(),
-                imageURL: nil
-            ),
-            isSelected: true,
-            isRevealed: true,
-            isCorrect: false,
-            isCorrectAnswer: false
-        )
-    )
-    .padding()
-}
-
-#Preview("No Image") {
-    WMFOnThisDayCardView(
-        viewModel: WMFOnThisDayCardViewModel(
-            event: WMFOnThisDayCardEvent(
-                text: "The World Wide Web is invented by Tim Berners-Lee while working at CERN in Geneva, Switzerland.",
-                date: Date()
-            )
-        )
-    )
-    .padding()
+    func body(content: Content) -> some View {
+        if isRegular {
+            content
+                .containerRelativeFrame(.vertical, count: 2, spacing: 16)
+        } else {
+            content
+                .frame(height: 192)
+        }
+    }
 }

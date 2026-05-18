@@ -10,6 +10,14 @@ import Foundation
 public final class WMFWhichCameFirstHostingController: WMFComponentHostingController<WMFWhichCameFirstView>, WMFNavigationBarConfiguring {
 
     private let viewModel: WMFWhichCameFirstViewModel
+    
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        .portrait
+    }
+    
+    public override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        .portrait
+    }
 
     private lazy var moreBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsis), primaryAction: nil, menu: overflowMenu)
@@ -42,6 +50,7 @@ public final class WMFWhichCameFirstHostingController: WMFComponentHostingContro
         super.viewWillAppear(animated)
         configureNavigationBar()
         viewModel.load()
+        (self.navigationController as? WMFComponentNavigationController)?.turnOnForcePortrait()
     }
 
     private func configureNavigationBar() {
@@ -75,6 +84,7 @@ public final class WMFWhichCameFirstHostingController: WMFComponentHostingContro
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationController?.navigationBar.tintColor = theme.baseBackground
+        (self.navigationController as? WMFComponentNavigationController)?.turnOnForcePortrait()
     }
 
     @objc private func tappedClose() {

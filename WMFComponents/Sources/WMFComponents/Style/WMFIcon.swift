@@ -67,7 +67,7 @@ public enum WMFSFSymbolIcon {
     case starLeadingHalfFilled
     case heart
     case heartFilled
-	case conversation
+    case conversation
     case quoteOpening
     case link
     case curlybraces
@@ -174,7 +174,13 @@ public enum WMFSFSymbolIcon {
         }
     }
 
-    public static func `for`(symbol: WMFSFSymbolIcon, font: WMFFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
+    public static func `for`(
+        symbol: WMFSFSymbolIcon,
+        font: WMFFont = .subheadline,
+        compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection,
+        paletteColors: [UIColor]? = nil
+    ) -> UIImage? {
+
         let font = WMFFont.for(font, compatibleWith: traitCollection)
         let configuration = UIImage.SymbolConfiguration(font: font)
 
@@ -403,7 +409,32 @@ public enum WMFSFSymbolIcon {
             let paletteSymbolConfiguration = UIImage.SymbolConfiguration(paletteColors: paletteColors)
             image = image?.applyingSymbolConfiguration(paletteSymbolConfiguration)
         }
-        
+
         return image
+    }
+}
+
+// MARK: - Trait cap for SF Symbols
+
+extension UITraitCollection {
+
+    static var wmfCappedForSFSymbols: UITraitCollection {
+        let current = WMFAppEnvironment.current.traitCollection
+
+        let cappedCategory: UIContentSizeCategory = {
+            switch current.preferredContentSizeCategory {
+            case .extraSmall,
+                 .small,
+                 .medium,
+                 .large,
+                 .extraLarge:
+                return current.preferredContentSizeCategory
+
+            default:
+                return .extraLarge
+            }
+        }()
+
+        return UITraitCollection(preferredContentSizeCategory: cappedCategory)
     }
 }
