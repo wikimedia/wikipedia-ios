@@ -172,7 +172,15 @@
 
     NSString *norwegianResult = [MWKLanguageLinkController languageCodeForISOLanguageCode:norwegianISOCode];
     XCTAssertEqualObjects(norwegianResult, norwegianLanguageCode);
-    
+
+    // Test the als/gsw mapping (T398296)
+    // "als" is Alemannic in MW but Albanian in ISO 639-3, standard code is "gsw"
+    NSString *alemannicISOCode = @"gsw";
+    NSString *alemannicLanguageCode = @"als";
+
+    NSString *alemannicResult = [MWKLanguageLinkController languageCodeForISOLanguageCode:alemannicISOCode];
+    XCTAssertEqualObjects(alemannicResult, alemannicLanguageCode);
+
     // Test that other language codes are returned just as passed in
     // Note that the method does not check if the passed in code is a valid language code
     NSArray<NSString *> *identicalLanguageCodes = @[@"de", @"ja", @"en", @"es", @"zh", @"uz"];
@@ -185,6 +193,23 @@
     // Test that if a nil value is passed in, nil is returned
     NSString *expectingNil = [MWKLanguageLinkController languageCodeForISOLanguageCode:nil];
     XCTAssertNil(expectingNil);
+}
+
+- (void)testAlemannicLocaleOverride {
+    // T398296: Verify that Alemannisch does not display as "Albanian"
+    // iOS Locale maps "als" to Albanian (ISO 639-3), but MW uses it for Alemannic German
+    MWKLanguageLink *alsLink = nil;
+    for (MWKLanguageLink *link in self.controller.allLanguages) {
+        if ([link.languageCode isEqualToString:@"als"]) {
+            alsLink = link;
+            break;
+        }
+    }
+    XCTAssertNotNil(alsLink, @"Alemannisch (als) should exist in all languages");
+    if (alsLink) {
+        XCTAssertFalse([alsLink.localizedName.lowercaseString containsString:@"albanian"],
+                       @"Alemannisch should not be labeled as Albanian, got: %@", alsLink.localizedName);
+    }
 }
 
 - (void)testDuplicateLanguageCodeFiltering {
