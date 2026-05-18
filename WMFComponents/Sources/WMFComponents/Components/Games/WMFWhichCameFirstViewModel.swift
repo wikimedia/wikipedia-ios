@@ -11,6 +11,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         public let nextButton: String
         public let seeResultsButton: String
         public let correctFeedback: String
+        public let correctFeedback2: String
         public let incorrectFeedback: String
         public let gameCompleteTitle: String
         public let perfectScoreMessage: String
@@ -25,6 +26,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
             nextButton: String,
             seeResultsButton: String,
             correctFeedback: String,
+            correctFeedback2: String,
             incorrectFeedback: String,
             gameCompleteTitle: String,
             perfectScoreMessage: String,
@@ -45,6 +47,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
             self.betterLuckMessage = betterLuckMessage
             self.errorTitle = errorTitle
             self.retryButton = retryButton
+            self.correctFeedback2 = correctFeedback2
         }
     }
 
@@ -167,13 +170,13 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
 
     func animateOutAndAdvance() {
         phase = .transitioning
-        withAnimation(.easeInOut(duration: 0.3)) {
+        withAnimation(.easeInOut(duration: 0.9)) {
             showTitle = false
             showCardA = false
             showCardB = false
         }
         Task {
-            try? await Task.sleep(for: .milliseconds(300))
+            try? await Task.sleep(for: .milliseconds(900))
             advanceInternal()
         }
     }
@@ -199,11 +202,11 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         showCardB = false
         Task {
             try? await Task.sleep(for: .milliseconds(50))
-            withAnimation(.easeIn(duration: 0.25)) { showTitle = true }
+            withAnimation(.easeIn(duration: 0.9)) { showTitle = true }
             try? await Task.sleep(for: .milliseconds(150))
-            withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) { showCardA = true }
-            try? await Task.sleep(for: .milliseconds(120))
-            withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) { showCardB = true }
+            withAnimation(.spring(response: 0.9, dampingFraction: 0.8)) { showCardA = true }
+            try? await Task.sleep(for: .milliseconds(450))
+            withAnimation(.spring(response: 0.9, dampingFraction: 0.8)) { showCardB = true }
         }
     }
 

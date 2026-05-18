@@ -92,11 +92,22 @@ public struct WMFWhichCameFirstView: View {
         HStack(alignment: .center, spacing: 12) {
             HStack(spacing: 8) {
                 ForEach(Array(viewModel.progressResults.enumerated()), id: \.offset) { index, result in
-                    Circle()
-                        .fill(color(for: result))
-                        .frame(width: 10, height: 10)
-                        .scaleEffect(index == viewModel.currentIndex ? 1.3 : 1.0)
-                        .animation(.spring(duration: 0.25), value: result)
+                    ZStack {
+                        if let result = result {
+                            Image(systemName: result ? "checkmark.circle.fill" : "xmark.circle.fill")
+                                .foregroundColor(result ? Color(uiColor: theme.accent) : Color(uiColor: theme.destructive))
+                                .font(.system(size: 20))
+                                .transition(.scale.combined(with: .opacity))
+                        } else {
+                            Circle()
+                                .fill(color(for: nil))
+                                .frame(width: 10, height: 10)
+                                .scaleEffect(index == viewModel.currentIndex ? 1.3 : 1.0)
+                                .transition(.scale.combined(with: .opacity))
+                        }
+                    }
+                    .frame(width: 20, height: 20)
+                    .animation(.spring(duration: 0.3), value: result)
                 }
             }
             .padding(.horizontal, 16)
@@ -112,7 +123,7 @@ public struct WMFWhichCameFirstView: View {
                     .padding(.horizontal, 20)
                     .padding(.vertical, 12)
                     .background(.regularMaterial, in: Capsule())
-                    .transition(.opacity.combined(with: .move(edge: .trailing)))
+                    .transition(.opacity)
             }
 
             if viewModel.phase == .revealing {
@@ -129,7 +140,7 @@ public struct WMFWhichCameFirstView: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 12)
                 .background(.regularMaterial, in: Capsule())
-                .transition(.opacity.combined(with: .move(edge: .trailing)))
+                .transition(.opacity)
             }
         }
         .padding(.horizontal, 16)
@@ -145,21 +156,19 @@ public struct WMFWhichCameFirstView: View {
     }
 
     private func feedbackBanner(_ reveal: WMFWhichCameFirstViewModel.RevealState) -> some View {
-        HStack(spacing: 10) {
-            Image(systemName: reveal.isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")
+        HStack(spacing: 4) {
             Text(reveal.isCorrect ? viewModel.localizedStrings.correctFeedback : viewModel.localizedStrings.incorrectFeedback)
-                .font(Font(WMFFont.for(.semiboldSubheadline)))
+                .font(Font(WMFFont.for(.semiboldTitle3)))
+                .foregroundColor(Color(uiColor: theme.text))
+
+            if reveal.isCorrect {
+                Text("+1 point")
+                    .font(Font(WMFFont.for(.semiboldTitle3)))
+                    .foregroundColor(Color(uiColor: theme.accent))
+            }
         }
-        .foregroundColor(reveal.isCorrect ? Color(uiColor: theme.accent) : Color(uiColor: theme.destructive))
-        .padding(.horizontal, 14)
-        .padding(.vertical, 10)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(
-            RoundedRectangle(cornerRadius: 10)
-                .fill(reveal.isCorrect
-                      ? Color(uiColor: theme.accent).opacity(0.12)
-                      : Color(uiColor: theme.destructive).opacity(0.12))
-        )
+        .frame(maxWidth: .infinity, alignment: .center)
+        .padding(.vertical, 8)
     }
 
     private func color(for result: Bool?) -> Color {
@@ -239,7 +248,8 @@ struct WMFGameButtonStyle: ButtonStyle {
         submitButton: "Submit",
         nextButton: "Next",
         seeResultsButton: "See Results",
-        correctFeedback: "Correct! +1 point",
+        correctFeedback: "Correct!",
+        correctFeedback2: "+1 point",
         incorrectFeedback: "Incorrect",
         gameCompleteTitle: "Game Complete!",
         perfectScoreMessage: "Perfect score!",
