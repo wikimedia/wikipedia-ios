@@ -28,6 +28,16 @@ public struct WMFWhichCameFirstView: View {
     }
 
     // MARK: - Gameplay
+    
+    private func headerHeight(for size: CGSize) -> CGFloat {
+        let isPad = UIDevice.current.userInterfaceIdiom == .pad
+
+        if isPad {
+            return size.height / 8
+        } else {
+            return size.height / 4
+        }
+    }
 
     private var gameplayView: some View {
         GeometryReader { geometry in
@@ -48,7 +58,7 @@ public struct WMFWhichCameFirstView: View {
                             .opacity(viewModel.cardViewModelA?.isRevealed == true ? 0 : 1)
                     }
                 }
-                .frame(height: geometry.size.height / 4)
+                .frame(height: headerHeight(for: geometry.size))
 
                 VStack(spacing: 0) {
 
