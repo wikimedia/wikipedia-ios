@@ -77,6 +77,9 @@
 "action-unsave" = "Nyahsimpan";
 "action-unsaved-accessibility-notification" = "Rencana ternyahsimpan";
 "action-update" = "Kemaskini";
+"activity-tab-reading-challenge-card-body" = "Untuk menjejaki rentetan anda dengan Baby Globe, anda perlu menambah widget Cabaran Membaca daripada skrin utama anda.";
+"activity-tab-reading-challenge-card-cta" = "Tunjukkan saya caranya";
+"activity-tab-reading-challenge-card-title" = "Cabaran membaca 25 hari";
 "activity-tab-start-editing" = "Mula menyunting";
 "activity-tab-title" = "Kegiatan";
 "activity-tab-unsatisfied" = "Tidak puas hati";
@@ -569,6 +572,7 @@
 "reading-challenge-announcement-item2-subtitle" = "Lengkapkan cabaran membaca selama 25 hari berturutan untuk memenangkan hadiah yang istimewa.";
 "reading-challenge-announcement-item2-title" = "Menangkan hadiahnya";
 "reading-challenge-announcement-item3-subtitle" = "Dapatkan pengingat dan motivasi dengan maskot hari jadi kami yang comel, Baby Globe.";
+"reading-challenge-announcement-item3-subtitle2" = "Untuk menjejaki rentetan anda dengan Baby Globe, anda perlu menambah widget Cabaran Membaca daripada skrin utama anda.";
 "reading-challenge-announcement-item3-title" = "Pasang perkakas pengingat";
 "reading-challenge-announcement-secondary-cta" = "Ketahui lebih lanjut";
 "reading-challenge-announcement-subtitle" = "Sejarah bacaan anda kekal terlindungi. Analisis mengenai bacaan dikira menggunakan data yang disimpan pada peranti Anda secara tempatan.";
@@ -581,6 +585,7 @@
 "reading-challenge-enrolled-not-started-subtitle-article" = "Baca satu artikel untuk bermula.";
 "reading-challenge-enrolled-not-started-subtitle-away" = "Streak anda hanya selangkah lagi.";
 "reading-challenge-enrolled-not-started-subtitle-somewhere" = "Setiap streak bermula dari satu langkah";
+"reading-challenge-enrolled-not-started-subtitle-towards" = "Mulakan usaha untuk mencapai rentetan 25 hari!";
 "reading-challenge-enrolled-not-started-title-fresh" = "Permulaan baharu.";
 "reading-challenge-enrolled-not-started-title-ready" = "Sedia, mula, baca!";
 "reading-challenge-enrolled-not-started-title-spin" = "Mulakan streak baharu?";
@@ -606,7 +611,12 @@
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 daripada 25 hari |$1 daripada 25 hari}}";
 "reading-challenge-subtitle" = "Cabaran membaca 25 hari";
 "reading-challenge-widget-announcement-body" = "Baby Globe menyokong anda. Tambahkan widget Cabaran Membaca untuk menjejaki kemajuan terus dari skrin utama.";
+"reading-challenge-widget-announcement-body2" = "Untuk menjejaki rentetan anda dengan Baby Globe, anda perlu menambah widget Cabaran Membaca daripada skrin utama anda.";
+"reading-challenge-widget-announcement-secondary-button" = "Tunjukkan saya caranya";
 "reading-challenge-widget-announcement-title" = "Pasang widget Cabaran Membaca 25 Hari";
+"reading-challenge-widget-announcement-title2" = "Pergi ke skrin utama anda untuk menambah widget";
+"reading-challenge-widget-description" = "Lacak kemajuan cabaran membaca anda";
+"reading-challenge-widget-display-name" = "Cabaran Membaca";
 "reading-list-add-generic-hint-title" = "Tambahkan rencana ini ke dalam senarai bacaan?";
 "reading-list-add-hint-title" = "Tambahkan “$1” ke senarai bacaan?";
 "reading-list-add-saved-button-title" = "Ya, tambahkan ke senarai bacaan saya";

@@ -127,6 +127,9 @@
 "action-update" = "更新";
 "activity-tab-additional-thoughts" = "他に何かご意見はありますか?";
 "activity-tab-neutral" = "どちらともいえない";
+"activity-tab-reading-challenge-card-body" = "ベビー・グローブと一緒に読書記録をつけるには、ホーム画面に「読書チャレンジ」ウィジェットを追加しよう";
+"activity-tab-reading-challenge-card-cta" = "使い方を見る";
+"activity-tab-reading-challenge-card-title" = "25日間閲覧チャレンジ";
 "activity-tab-satisfied" = "満足";
 "activity-tab-survey-title" = "満足度調査";
 "activity-tab-unsatisfied" = "不満";
@@ -813,6 +816,7 @@
 "reading-challenge-announcement-item2-subtitle" = "チャレンジ開催中に25日連続閲覧記録を達成すると、特別な賞品をゲットできます";
 "reading-challenge-announcement-item2-title" = "賞品をゲット";
 "reading-challenge-announcement-item3-subtitle" = "25周年記念のかわいいマスコット「ベビー・グローブ」が便利なリマインダーや励ましをお届け";
+"reading-challenge-announcement-item3-subtitle2" = "ベビー・グローブと一緒に読書記録をつけるには、ホーム画面に「読書チャレンジ」ウィジェットを追加しよう";
 "reading-challenge-announcement-item3-title" = "ウィジェットをインストール";
 "reading-challenge-announcement-secondary-cta" = "さらに詳しく知る";
 "reading-challenge-announcement-subtitle" = "閲覧履歴は安全に保護されます。 閲覧インサイトは、お使いのデバイスにローカル保存されたデータを用いて集計されます。";
@@ -825,6 +829,7 @@
 "reading-challenge-enrolled-not-started-subtitle-article" = "記事をひとつ読むだけで開始できます。";
 "reading-challenge-enrolled-not-started-subtitle-away" = "連続記録も記事をひとつ読めば続いていきます。";
 "reading-challenge-enrolled-not-started-subtitle-somewhere" = "どんな連続記録にも、始まりがあります";
+"reading-challenge-enrolled-not-started-subtitle-towards" = "25日連続達成を目指してさあ始めましょう!";
 "reading-challenge-enrolled-not-started-title-fresh" = "新たなスタート。 連続記録も記事をひとつ読めば続いていきます。";
 "reading-challenge-enrolled-not-started-title-ready" = "準備はいい？閲覧開始！";
 "reading-challenge-enrolled-not-started-title-spin" = "新たな連続記録をスタートさせる？ 記事をひとつ読むだけで開始できます。";
@@ -850,7 +855,12 @@
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 / 25日 |$1 / 25日}}";
 "reading-challenge-subtitle" = "25日間閲覧チャレンジ";
 "reading-challenge-widget-announcement-body" = "ベビー・グローブがあなたにエールを送ります。 ホーム画面から進捗状況を管理できるよう、閲覧チャレンジ用ウィジェットを追加しましょう。";
+"reading-challenge-widget-announcement-body2" = "ベビー・グローブと一緒に読書記録をつけるには、ホーム画面に「読書チャレンジ」ウィジェットを追加しよう";
+"reading-challenge-widget-announcement-secondary-button" = "使い方を見る";
 "reading-challenge-widget-announcement-title" = "25日間閲覧チャレンジ用ウィジェットのインストール";
+"reading-challenge-widget-announcement-title2" = "ホーム画面からウィジェットを追加してください";
+"reading-challenge-widget-description" = "読書チャレンジの進捗を確認する";
+"reading-challenge-widget-display-name" = "読書チャレンジ";
 "reading-list-add-generic-hint-title" = "この記事をあとで読むリストに追加しますか?";
 "reading-list-add-hint-title" = "「$1」をあとで読むリストに保存しますか?";
 "reading-list-add-saved-button-title" = "はい、記事をあとで読むリストに追加します";

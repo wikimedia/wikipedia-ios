@@ -8,6 +8,8 @@ import WMFNativeLocalizations
 import TipKit
 import WMFTestKitchen
 
+private let wmfHideTipsForTesting = "WMFHideTipsForTesting"
+
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
     static let showErrorBannerNSErrorKey = "nserror"
@@ -43,7 +45,7 @@ extension WMFAppViewController {
             return false
         }
 
-        guard let navigationController = self.currentNavigationController else {
+        guard let navigationController = self.currentTabNavigationController else {
             return false
         }
 
@@ -603,9 +605,9 @@ extension WMFAppViewController: CreateReadingListDelegate {
     @objc func setupTips() {
         do {
             try Tips.configure()
-#if UITEST
-            Tips.hideAllTipsForTesting()
-#endif
+            if UserDefaults.standard.bool(forKey: wmfHideTipsForTesting) {
+                Tips.hideAllTipsForTesting()
+            }
         } catch {
             DDLogError("Error initializing TipKit: \(error.localizedDescription)")
         }
@@ -1053,6 +1055,23 @@ extension WMFAppViewController {
             return String.localizedStringWithFormat(format, openingLink, closingLink)
         }
 
+        // Reading Challenge card
+        let readingChallengeCardTitle = WMFLocalizedString(
+            "activity-tab-reading-challenge-card-title",
+            value: "25-day reading challenge",
+            comment: "Title for the reading challenge card in the activity tab."
+        )
+        let readingChallengeCardBody = WMFLocalizedString(
+            "activity-tab-reading-challenge-card-body",
+            value: "To track your streak with Baby Globe, you'll need to add the Reading Challenge widget from your Home Screen.",
+            comment: "Body text for the reading challenge card in the activity tab."
+        )
+        let readingChallengeCardCTA = WMFLocalizedString(
+            "activity-tab-reading-challenge-card-cta",
+            value: "Show me how",
+            comment: "Button title for the reading challenge card CTA in the activity tab."
+        )
+
         var authdValue: LoginState = .loggedOut
         if dataStore.authenticationManager.authStateIsPermanent {
             authdValue = .loggedIn
@@ -1126,7 +1145,10 @@ extension WMFAppViewController {
                     historyCalloutTitle: CommonStrings.historyMovedToSearchTitle,
                     historyCalloutBodyLoggedIn: CommonStrings.historyMovedToSearchSubtitleLoggedIn,
                     historyCalloutBodyLoggedOut: CommonStrings.historyMovedToSearchSubtitleLoggedOut,
-                    calloutCloseButtonAccesibilityHint: WMFLocalizedString("activity-tab-hitory-callout-close", value: "Close history notice card", comment: "Accesibility label for close button in callout about history moving to search")
+                    calloutCloseButtonAccesibilityHint: WMFLocalizedString("activity-tab-hitory-callout-close", value: "Close history notice card", comment: "Accesibility label for close button in callout about history moving to search"),
+                    readingChallengeCardTitle: readingChallengeCardTitle,
+                    readingChallengeCardBody: readingChallengeCardBody,
+                    readingChallengeCardCTA: readingChallengeCardCTA
                 ),
                 dataController: activityTabDataController,
                 authenticationState: authdValue)

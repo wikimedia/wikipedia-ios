@@ -127,6 +127,9 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "Activity includes a comprehensive timeline of articles read, saved, and edited. Your reading history is now within the Search tab.";
 "activity-tab-onboarding-third-item-title-updated" = "Reading history is now in Search";
 "activity-tab-read-title" = "View reading history";
+"activity-tab-reading-challenge-card-body" = "To track your streak with Baby Globe, you'll need to add the Reading Challenge widget from your Home Screen.";
+"activity-tab-reading-challenge-card-cta" = "Show me how";
+"activity-tab-reading-challenge-card-title" = "25-day reading challenge";
 "activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Satisfied";
 "activity-tab-saved" = "Articles saved this month";
@@ -1056,7 +1059,7 @@
 "reading-challenge-announcement-item1-title" = "Read 1 article a day for 25 days";
 "reading-challenge-announcement-item2-subtitle" = "Complete a 25-day reading streak while the challenge is live to win special prizes.";
 "reading-challenge-announcement-item2-title" = "Win prizes";
-"reading-challenge-announcement-item3-subtitle" = "Get helpful reminders and motivation with our adorable birthday mascot Baby Globe.";
+"reading-challenge-announcement-item3-subtitle2" = "To track your streak with Baby Globe, you'll need to add the Reading Challenge widget from your homescreen.";
 "reading-challenge-announcement-item3-title" = "Install the widget";
 "reading-challenge-announcement-secondary-cta" = "Learn more";
 "reading-challenge-announcement-subtitle" = "Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
@@ -1095,8 +1098,9 @@
 "reading-challenge-streak-no-days" = "$1 of 25";
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 of 25 day|$1 of 25 days}}";
 "reading-challenge-subtitle" = "25-day reading challenge";
-"reading-challenge-widget-announcement-body" = "Baby Globe is cheering you on. Add the Reading Challenge widget to track your progress from your homescreen.";
-"reading-challenge-widget-announcement-title" = "Install the 25-day reading challenge widget";
+"reading-challenge-widget-announcement-body2" = "To track your streak with Baby Globe, you'll need to add the Reading Challenge widget from your homescreen.";
+"reading-challenge-widget-announcement-secondary-button" = "Show me how";
+"reading-challenge-widget-announcement-title2" = "Head to your homescreen to add the widget";
 "reading-challenge-widget-description" = "Track your reading challenge progress.";
 "reading-challenge-widget-display-name" = "Reading Challenge";
 "reading-list-add-generic-hint-title" = "Add this article to a reading list?";

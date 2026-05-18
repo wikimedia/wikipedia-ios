@@ -278,6 +278,8 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             searchController.searchBar.delegate = searchBarConfig.searchBarDelegate
             searchController.searchBar.searchBarStyle = .minimal
             searchController.searchBar.placeholder = searchBarConfig.searchBarPlaceholder
+            searchController.searchBar.accessibilityIdentifier = AccessibilityIdentifiers.Search.searchBar
+            searchController.searchBar.searchTextField.accessibilityIdentifier = AccessibilityIdentifiers.Search.searchField
             searchController.showsSearchResultsController = true
             
             if searchBarConfig.showsScopeBar {

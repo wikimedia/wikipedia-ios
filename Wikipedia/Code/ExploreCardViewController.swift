@@ -231,6 +231,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return
         }
         cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
+        cell.accessibilityIdentifier = AccessibilityIdentifiers.Explore.articleCell
         if let fullWidthCell = cell as? ArticleFullWidthImageCollectionViewCell {
             fullWidthCell.saveButton.eventLoggingLabel = eventLoggingLabel
         }
@@ -242,6 +243,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return
         }
         cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
+        cell.accessibilityIdentifier = AccessibilityIdentifiers.Explore.articleCell
         if let authCell = cell as? ArticleLocationAuthorizationCollectionViewCell {
             if locationManager.isAuthorized {
                 authCell.updateForLocationEnabled()
