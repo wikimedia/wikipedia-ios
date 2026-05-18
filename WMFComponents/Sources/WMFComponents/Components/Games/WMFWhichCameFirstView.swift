@@ -38,7 +38,7 @@ public struct WMFWhichCameFirstView: View {
                     if viewModel.showTitle {
                         Text(viewModel.localizedStrings.title)
                             .font(Font(WMFFont.for(.semiboldTitle3)))
-                            .foregroundColor(.white)
+                            .foregroundColor(Color(uiColor: theme.baseBackground))
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 24)
                             .transition(.opacity)
@@ -96,7 +96,7 @@ public struct WMFWhichCameFirstView: View {
                         if let result = result {
                             Image(systemName: result ? "checkmark.circle.fill" : "xmark.circle.fill")
                                 .foregroundColor(result ? Color(uiColor: theme.accent) : Color(uiColor: theme.destructive))
-                                .font(.system(size: 20))
+                                .font(Font(WMFFont.for(.title3)))
                                 .transition(.scale.combined(with: .opacity))
                         } else {
                             Circle()
@@ -158,12 +158,12 @@ public struct WMFWhichCameFirstView: View {
     private func feedbackBanner(_ reveal: WMFWhichCameFirstViewModel.RevealState) -> some View {
         HStack(spacing: 4) {
             Text(reveal.isCorrect ? viewModel.localizedStrings.correctFeedback : viewModel.localizedStrings.incorrectFeedback)
-                .font(Font(WMFFont.for(.semiboldTitle3)))
+                .font(Font(WMFFont.for(.footnote)))
                 .foregroundColor(Color(uiColor: theme.text))
 
             if reveal.isCorrect {
-                Text("+1 point")
-                    .font(Font(WMFFont.for(.semiboldTitle3)))
+                Text(viewModel.localizedStrings.correctFeedback2)
+                    .font(Font(WMFFont.for(.footnote)))
                     .foregroundColor(Color(uiColor: theme.accent))
             }
         }

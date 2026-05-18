@@ -170,13 +170,13 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
 
     func animateOutAndAdvance() {
         phase = .transitioning
-        withAnimation(.easeInOut(duration: 0.9)) {
+        withAnimation(.easeInOut(duration: 0.75)) {
             showTitle = false
             showCardA = false
             showCardB = false
         }
         Task {
-            try? await Task.sleep(for: .milliseconds(900))
+            try? await Task.sleep(for: .milliseconds(750))
             advanceInternal()
         }
     }
@@ -202,11 +202,11 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         showCardB = false
         Task {
             try? await Task.sleep(for: .milliseconds(50))
-            withAnimation(.easeIn(duration: 0.9)) { showTitle = true }
+            withAnimation(.easeIn(duration: 0.75)) { showTitle = true }
             try? await Task.sleep(for: .milliseconds(150))
-            withAnimation(.spring(response: 0.9, dampingFraction: 0.8)) { showCardA = true }
+            withAnimation(.spring(response: 0.75, dampingFraction: 0.8)) { showCardA = true }
             try? await Task.sleep(for: .milliseconds(450))
-            withAnimation(.spring(response: 0.9, dampingFraction: 0.8)) { showCardB = true }
+            withAnimation(.spring(response: 0.75, dampingFraction: 0.8)) { showCardB = true }
         }
     }
 

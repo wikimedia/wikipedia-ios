@@ -1516,7 +1516,8 @@
 "welcome-privacy-subtitle" = "We believe that you should not have to provide personal information to participate in the free knowledge movement. Usage data collected for this app is anonymous.";
 "welcome-privacy-terms-button-text" = "Learn more about our privacy policy and terms of use";
 "which-came-first-better-luck-message" = "Better luck tomorrow!";
-"which-came-first-correct-feedback" = "Correct! +1 point";
+"which-came-first-correct-feedback" = "Correct!";
+"which-came-first-correct-feedback2" = "+1 point";
 "which-came-first-error-title" = "Something went wrong";
 "which-came-first-game-complete-title" = "Game Complete!";
 "which-came-first-incorrect-feedback" = "Incorrect";
