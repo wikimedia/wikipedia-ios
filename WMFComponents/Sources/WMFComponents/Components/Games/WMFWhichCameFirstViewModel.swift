@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import WMFData
+import WMFNativeLocalizations
 
 @MainActor
 public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
@@ -80,7 +81,21 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     @Published var progressResults: [Bool?] = []
 
     public let date: String
-    public var localizedStrings: LocalizedStrings
+    public var localizedStrings: LocalizedStrings = WMFWhichCameFirstViewModel.LocalizedStrings(
+        title: WMFLocalizedString("which-came-first-title", value: "Which came first?", comment: "Title prompt shown to the user during the Which Came First game"),
+        submitButton: WMFLocalizedString("which-came-first-submit-button", value: "Submit", comment: "Button label to submit the user's selected answer in the Which Came First game"),
+        nextButton: WMFLocalizedString("which-came-first-next-button", value: "Next", comment: "Button label to advance to the next question in the Which Came First game"),
+        seeResultsButton: WMFLocalizedString("which-came-first-see-results-button", value: "See Results", comment: "Button label shown after the final question to view the game results"),
+        correctFeedback: WMFLocalizedString("which-came-first-correct-feedback", value: "Correct!", comment: "Feedback message shown when the user answers correctly in the Which Came First game"),
+        correctFeedback2: WMFLocalizedString("which-came-first-correct-feedback2", value: "+1 point", comment: "Feedback message shown when the user answers correctly in the Which Came First game"),
+        incorrectFeedback: WMFLocalizedString("which-came-first-incorrect-feedback", value: "Incorrect", comment: "Feedback message shown when the user answers incorrectly in the Which Came First game"),
+        gameCompleteTitle: WMFLocalizedString("which-came-first-game-complete-title", value: "Game Complete!", comment: "Title shown on the results screen after the Which Came First game is finished"),
+        perfectScoreMessage: WMFLocalizedString("which-came-first-perfect-score-message", value: "Perfect score!", comment: "Message shown when the user achieves a perfect score in the Which Came First game"),
+        niceWorkMessage: WMFLocalizedString("which-came-first-nice-work-message", value: "Nice work! Come back tomorrow for a new game.", comment: "Message shown when the user scores above 50% in the Which Came First game"),
+        betterLuckMessage: WMFLocalizedString("which-came-first-better-luck-message", value: "Better luck tomorrow!", comment: "Message shown when the user scores 50% or below in the Which Came First game"),
+        errorTitle: WMFLocalizedString("which-came-first-error-title", value: "Something went wrong", comment: "Title shown on the error screen in the Which Came First game"),
+        retryButton: WMFLocalizedString("which-came-first-retry-button", value: "Retry", comment: "Button label to retry loading the Which Came First game after an error")
+    )
     private let project: WMFProject
     private let dataController: WMFGamesDataController
     private var gameState: WMFWhichCameFirstGameState?
@@ -96,10 +111,9 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
 
     var totalQuestions: Int { questions.count }
 
-    public init(date: String, project: WMFProject, localizedStrings: LocalizedStrings) {
+    public init(date: String, project: WMFProject) {
         self.date = date
         self.project = project
-        self.localizedStrings = localizedStrings
         self.dataController = WMFGamesDataController()
     }
 

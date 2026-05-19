@@ -754,22 +754,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 let formatter = DateFormatter.onThisDayAPIDateFormatter
                 return formatter.string(from: Date())
             }()
-            let localizedStrings = WMFWhichCameFirstViewModel.LocalizedStrings(
-                title: WMFLocalizedString("which-came-first-title", value: "Which came first?", comment: "Title prompt shown to the user during the Which Came First game"),
-                submitButton: WMFLocalizedString("which-came-first-submit-button", value: "Submit", comment: "Button label to submit the user's selected answer in the Which Came First game"),
-                nextButton: WMFLocalizedString("which-came-first-next-button", value: "Next", comment: "Button label to advance to the next question in the Which Came First game"),
-                seeResultsButton: WMFLocalizedString("which-came-first-see-results-button", value: "See Results", comment: "Button label shown after the final question to view the game results"),
-                correctFeedback: WMFLocalizedString("which-came-first-correct-feedback", value: "Correct!", comment: "Feedback message shown when the user answers correctly in the Which Came First game"),
-                correctFeedback2: WMFLocalizedString("which-came-first-correct-feedback2", value: "+1 point", comment: "Feedback message shown when the user answers correctly in the Which Came First game"),
-                incorrectFeedback: WMFLocalizedString("which-came-first-incorrect-feedback", value: "Incorrect", comment: "Feedback message shown when the user answers incorrectly in the Which Came First game"),
-                gameCompleteTitle: WMFLocalizedString("which-came-first-game-complete-title", value: "Game Complete!", comment: "Title shown on the results screen after the Which Came First game is finished"),
-                perfectScoreMessage: WMFLocalizedString("which-came-first-perfect-score-message", value: "Perfect score!", comment: "Message shown when the user achieves a perfect score in the Which Came First game"),
-                niceWorkMessage: WMFLocalizedString("which-came-first-nice-work-message", value: "Nice work! Come back tomorrow for a new game.", comment: "Message shown when the user scores above 50% in the Which Came First game"),
-                betterLuckMessage: WMFLocalizedString("which-came-first-better-luck-message", value: "Better luck tomorrow!", comment: "Message shown when the user scores 50% or below in the Which Came First game"),
-                errorTitle: WMFLocalizedString("which-came-first-error-title", value: "Something went wrong", comment: "Title shown on the error screen in the Which Came First game"),
-                retryButton: WMFLocalizedString("which-came-first-retry-button", value: "Retry", comment: "Button label to retry loading the Which Came First game after an error")
-            )
-            let viewModel = WMFWhichCameFirstViewModel(date: today, project: project, localizedStrings: localizedStrings)
+
+            let viewModel = WMFWhichCameFirstViewModel(date: today, project: project)
             let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
             let navVC = WMFComponentNavigationController(rootViewController: gameVC, modalPresentationStyle: .pageSheet)
             present(navVC, animated: true)
