@@ -96,18 +96,6 @@ public struct WMFWhichCameFirstView: View {
                 .background(Color(uiColor: theme.midBackground))
             }
             .background(Color(uiColor: theme.link))
-            .overlay(alignment: .bottomLeading) {
-                ProgressDotsView(
-                    progressResults: viewModel.progressResults,
-                    theme: theme
-                )
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
-                .background(.regularMaterial, in: Capsule())
-                .accessibilityElement(children: .ignore)
-                .padding(.leading, 16)
-                .padding(.bottom, 16)
-            }
         }
     }
 
@@ -115,7 +103,15 @@ public struct WMFWhichCameFirstView: View {
 
     private var footerArea: some View {
         HStack(alignment: .center, spacing: 12) {
-
+            ProgressDotsView(
+                progressResults: viewModel.progressResults,
+                theme: theme
+            )
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .background(.regularMaterial, in: Capsule())
+            .accessibilityElement(children: .ignore)
+            
             Spacer()
 
             if viewModel.phase == .awaitingSubmission {
