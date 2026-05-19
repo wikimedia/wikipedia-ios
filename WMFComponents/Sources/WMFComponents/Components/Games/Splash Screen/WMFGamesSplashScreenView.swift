@@ -40,7 +40,7 @@ public struct WMFGamesSplashScreenView: View {
 
                 WMFLargeButton(
                     style: .neutral,
-                    title: viewModel.localizedStrings.playButtonTitle,
+                    title: viewModel.playButtonTitle,
                     action: { viewModel.didTapPlay?() }
                 )
                 .padding(.horizontal, 32)

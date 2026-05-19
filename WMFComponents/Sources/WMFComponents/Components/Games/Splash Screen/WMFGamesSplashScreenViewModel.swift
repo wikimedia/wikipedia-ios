@@ -36,6 +36,8 @@ public final class WMFGamesSplashScreenViewModel: ObservableObject {
     /// Background color applied to the full splash screen.
     public let backgroundColor: UIColor
 
+    @Published public var playButtonTitle: String
+
     // MARK: - Callbacks
 
     public var didTapPlay: (@MainActor @Sendable () -> Void)?
@@ -59,6 +61,7 @@ public final class WMFGamesSplashScreenViewModel: ObservableObject {
         self.icon = icon
         self.dateString = dateString
         self.backgroundColor = backgroundColor
+        self.playButtonTitle = localizedStrings.playButtonTitle
         self.didTapPlay = didTapPlay
         self.didTapAbout = didTapAbout
         self.didTapClose = didTapClose

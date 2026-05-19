@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import WMFComponents
+import WMFData
 import WMFNativeLocalizations
 
 /// Coordinator that presents the Which Came First game, starting with the splash screen.
@@ -11,6 +12,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     var navigationController: UINavigationController
     private let theme: Theme
+    private let gamesDataController = WMFGamesDataController()
 
     // MARK: - Initialization
 
@@ -79,7 +81,34 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             }
         )
 
+        updatePlayButtonTitleIfNeeded(viewModel: viewModel)
+
         return WMFGamesSplashScreenViewController(viewModel: viewModel)
+    }
+
+    private func updatePlayButtonTitleIfNeeded(viewModel: WMFGamesSplashScreenViewModel) {
+        guard let language = WMFDataEnvironment.current.primaryAppLanguage else { return }
+        let project = WMFProject.wikipedia(language)
+        let todayDateString = formattedTodayISODateString()
+
+        Task { [weak self, weak viewModel] in
+            guard let self, let viewModel else { return }
+            guard let session = try? await self.gamesDataController.fetchWhichCameFirstDailySession(date: todayDateString, project: project) else { return }
+            switch session.status {
+            case .inProgress:
+                viewModel.playButtonTitle = WMFLocalizedString(
+                    "which-came-first-splash-continue-button",
+                    value: "Continue today's game",
+                    comment: "Button title to continue an in-progress Which Came First game."
+                )
+            case .completed:
+                viewModel.playButtonTitle = WMFLocalizedString(
+                    "which-came-first-splash-review-button",
+                    value: "Review results",
+                    comment: "Button title to review results of a completed Which Came First game."
+                )
+            }
+        }
     }
 
     // MARK: - Navigation
@@ -101,6 +130,14 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
     private func formattedTodayDateString() -> String { // add a date formatter to allow for international dates, not only US
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM d"
+        return formatter.string(from: Date())
+    }
+
+    /// Returns today's date as a "YYYY-MM-DD" string for matching game session records.
+    private func formattedTodayISODateString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter.string(from: Date())
     }
 }

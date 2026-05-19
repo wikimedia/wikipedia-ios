@@ -1530,7 +1530,9 @@
 "welcome-privacy-subtitle" = "Sub-title explaining how data usage is anonymous";
 "welcome-privacy-terms-button-text" = "Text for links for learning more about data privacy policy and terms of use";
 "which-came-first-splash-about-button" = "Button title to learn more about the Which Came First game.";
+"which-came-first-splash-continue-button" = "Button title to continue an in-progress Which Came First game.";
 "which-came-first-splash-play-button" = "Button title to start the Which Came First game.";
+"which-came-first-splash-review-button" = "Button title to review results of a completed Which Came First game.";
 "which-came-first-splash-subtitle" = "Subtitle shown on the Which Came First game splash screen.";
 "which-came-first-splash-title" = "Title shown on the Which Came First game splash screen.";
 "widget-onthisday-description" = "Description for 'On this day' view in iOS widget gallery";

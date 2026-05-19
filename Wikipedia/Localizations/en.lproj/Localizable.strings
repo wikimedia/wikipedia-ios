@@ -1530,7 +1530,9 @@
 "welcome-privacy-subtitle" = "We believe that you should not have to provide personal information to participate in the free knowledge movement. Usage data collected for this app is anonymous.";
 "welcome-privacy-terms-button-text" = "Learn more about our privacy policy and terms of use";
 "which-came-first-splash-about-button" = "About this game";
+"which-came-first-splash-continue-button" = "Continue today's game";
 "which-came-first-splash-play-button" = "Play today's game";
+"which-came-first-splash-review-button" = "Review results";
 "which-came-first-splash-subtitle" = "Guess which event came first on this day in history.";
 "which-came-first-splash-title" = "Which came first?";
 "widget-onthisday-description" = "Explore what happened on this day in history.";
