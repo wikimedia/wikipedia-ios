@@ -37,3 +37,22 @@ public struct WMFWhichCameFirstEvent: Codable, Sendable {
         self.thumbnailURL = thumbnailURL
     }
 }
+
+/// Stored in `WMFContentGroup.contentPreview` so the Explore cell can configure
+/// its layout synchronously, including the current session state.
+public struct WMFDailyGameContentPreview: Codable, Sendable {
+    public enum GameState: Codable, Sendable {
+        case notStarted
+        case inProgress(questionsAnswered: Int, score: Int)
+        case completed(score: Int, totalQuestions: Int)
+    }
+    public let optionA: WMFWhichCameFirstEvent?
+    public let optionB: WMFWhichCameFirstEvent?
+    public let state: GameState
+
+    public init(optionA: WMFWhichCameFirstEvent?, optionB: WMFWhichCameFirstEvent?, state: GameState) {
+        self.optionA = optionA
+        self.optionB = optionB
+        self.state = state
+    }
+}

@@ -85,6 +85,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(gamesV1SettingDidChange), name: WMFNSNotification.gamesV1SettingDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(whichCameFirstSessionDidUpdate(_:)), name: WMFNSNotification.whichCameFirstSessionDidUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(gamesAllSessionsCleared), name: WMFNSNotification.gamesAllSessionsCleared, object: nil)
 
         setupTopSafeAreaOverlay(scrollView: collectionView)
         
@@ -749,10 +751,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             let languageVariantCode = contentGroup.siteURL?.wmf_languageVariantCode
             let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
             let today = {
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd"
-                formatter.timeZone = TimeZone(identifier: "UTC")
-                formatter.locale = Locale(identifier: "en_US_POSIX")
+                let formatter = DateFormatter.onThisDayAPIDateFormatter
                 return formatter.string(from: Date())
             }()
             let localizedStrings = WMFWhichCameFirstViewModel.LocalizedStrings(
@@ -1328,6 +1327,21 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             } else if let cardVC = cell.cardContent as? ExploreCardViewController {
                 cardVC.savedStateDidChangeForArticleWithKey(articleKey)
             }
+        }
+    }
+    
+    @objc func whichCameFirstSessionDidUpdate(_ note: Notification) {
+        guard let projectID = note.userInfo?["projectID"] as? String,
+              let date = note.userInfo?["dailyGameDate"] as? String else { return }
+        
+        wantsDeleteInsertOnNextItemUpdate = true
+        
+        dataStore.feedContentController.updateDailyGameContentGroupPreview(forProjectID: projectID, date: date)
+    }
+    
+    @objc func gamesAllSessionsCleared() {
+        DispatchQueue.main.async {
+            self.dataStore.feedContentController.resetDailyGameContentGroups()
         }
     }
 
