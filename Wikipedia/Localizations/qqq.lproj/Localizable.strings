@@ -508,7 +508,6 @@
 "explore-because-you-read" = "Text for 'Because you read' header";
 "explore-because-you-read-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article.";
 "explore-continue-reading-heading" = "Text for 'Continue Reading' header";
-"explore-daily-game-heading" = "Title for the 'Which came first?' daily game Explore feed card";
 "explore-detail-back-button-title" = "Title for button that allows users to exit detail view and return to Explore.";
 "explore-enable-location-title" = "Explains that you can explore articles near your current location. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".";
 "explore-featured-article-heading" = "Text for 'Featured article' header";
@@ -529,6 +528,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Text for Explore feed card setting indicating that the global feed card is active";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Text for Explore feed card setting indicating the number of languages it's visible in - $1 is replaced with the number of languages";
 "explore-feed-preferences-feed-cards-hidden-title" = "Title for cell that appears in place of feed card hidden by user via the overflow button - $1 is replaced with feed card type";
+"explore-feed-preferences-games-title" = "Text for the setting that allows users to toggle the visibility of the Games card";
 "explore-feed-preferences-global-card-footer-text" = "Text describing the effects of turning off a global card";
 "explore-feed-preferences-global-cards-description" = "Description of global feed cards";
 "explore-feed-preferences-global-cards-subtitle" = "Subtitle describing non-language specific feed cards";
@@ -545,6 +545,7 @@
 "explore-feed-preferences-show-continue-reading-title" = "Text for the setting that allows users to toggle the visibility of the Continue reading card";
 "explore-feed-preferences-show-featured-article-footer-text" = "Text describing the effects of turning off the Featured article card";
 "explore-feed-preferences-show-featured-article-title" = "Text for the setting that allows users to toggle the visibility of the Featured article card";
+"explore-feed-preferences-show-games-footer-text" = "Text describing the effects of turning off the Games card";
 "explore-feed-preferences-show-news-footer-text" = "Text describing the effects of turning off the In the news card";
 "explore-feed-preferences-show-news-title" = "Text for the setting that allows users to toggle the visibility of the In the news card";
 "explore-feed-preferences-show-on-this-day-footer-text" = "Text describing the effects of turning off the On this day card";
@@ -571,6 +572,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Title for action that allows users to turn on the Explore tab";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Message for alert that allows users to turn on the Explore tab";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Title for alert that allows users to turn on the Explore tab";
+"explore-games-title" = "Title for Games section in Explore";
 "explore-hide-card-prompt" = "Title of button shown for users to confirm the hiding of a suggestion in the explore feed";
 "explore-main-page-description" = "Main page description that shows when the main page lacks a Wikidata description.";
 "explore-main-page-heading" = "Text for 'Today on Wikipedia' header";
@@ -643,6 +645,12 @@
 "forgot-password-instructions" = "Instructions for resetting password";
 "forgot-password-title" = "Title for reset password interface {{Identical|Reset password}}";
 "forgot-password-username-or-email-title" = "Title shown between the username and email text fields. User only has to specify either username \"Or\" email address {{Identical|Or}}";
+"games-wcf-explore-button-archive-title" = "Button text on Which Came First card in the Explore tab, shown when game is complete. Tapping navigates to the Which Came First archive picker.";
+"games-wcf-explore-button-play-title" = "Button text on Which Came First card in the Explore tab, shown when game is not started. Tapping navigates to the Which Came First game.";
+"games-wcf-explore-button-review-title" = "Button text on Which Came First card in the Explore tab, shown when game is complete. Tapping navigates to the results of the game.";
+"games-wcf-explore-complete-subtitle" = "Description text on Which Came First card in the Explore tab, shown when a game is completed. $1 is replaced by the number of questions answered correctly, $2 is replaced by the number of total questions. $3 is replaced by a countdown timer string, indicating the number of hours / minutes / seconds left until the next game is available.";
+"games-wcf-explore-in-progress-subtitle" = "Description text on Which Came First card in the Explore tab, shown when a game is in progress. $1 is replaced by which question the user left off of.";
+"games-wcf-explore-title" = "Title on Which Came First card in the Explore tab.";
 "gan-variants-alert-body" = "Body text of alert used to inform users about Gan variant support. Please do not translate the newlines (\n) or Gan characters (贛語 原文, etc.).";
 "gan-variants-alert-title" = "Title of alert used to inform users about Gan variant support.";
 "history-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
@@ -1234,6 +1242,8 @@
 "settings-clear-cache-cancel" = "Cancel action to clear cached data {{Identical|Cancel}}";
 "settings-clear-cache-ok" = "Confirm action to clear cached data";
 "settings-donate" = "Link to donate";
+"settings-explore-games-subtitle" = "Subtitle for Games section in Explore settings";
+"settings-explore-games-title" = "Title for Games section in Explore settings";
 "settings-help-and-feedback" = "Title for showing a screen that displays the FAQ and allows users to submit bug reports";
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
 "settings-languages-feed-customization" = "Explanation of how you can manage which languages appear in the feed.";
