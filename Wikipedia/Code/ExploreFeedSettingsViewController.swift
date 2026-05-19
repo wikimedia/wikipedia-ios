@@ -58,6 +58,12 @@ private class FeedCard: ExploreFeedSettingsItem {
             iconName = "random-mini"
             iconColor = WMFColor.red600
             iconBackgroundColor = WMFColor.red100
+        case .dailyGame:
+            title = CommonStrings.settingsGamesTitle
+            singleLanguageDescription = CommonStrings.settingsGamesSubtitle
+            iconName = "games-mini"
+            iconColor = WMFColor.white
+            iconBackgroundColor = WMFColor.yellow600
         case .pictureOfTheDay:
             title = CommonStrings.pictureOfTheDayTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-potd-description", value: "Daily featured image from Commons", comment: "Description of Picture of the day section of Explore feed")
@@ -212,12 +218,18 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController, 
         let topRead = FeedCard(contentGroupKind: .topRead, displayType: displayType)
         let places = FeedCard(contentGroupKind: .location, displayType: displayType)
         let randomizer = FeedCard(contentGroupKind: .random, displayType: displayType)
+        let dailyGame = FeedCard(contentGroupKind: .dailyGame, displayType: displayType)
         let pictureOfTheDay = FeedCard(contentGroupKind: .pictureOfTheDay, displayType: displayType)
         let continueReading = FeedCard(contentGroupKind: .continueReading, displayType: displayType)
         let relatedPages = FeedCard(contentGroupKind: .relatedPages, displayType: displayType)
         let suggestedEdits = FeedCard(contentGroupKind: .suggestedEdits, displayType: displayType)
 
         var feedCards = [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
+        
+        if WMFDeveloperSettingsDataController.shared.showGamesV1 {
+            feedCards.insert(dailyGame, at: 3)
+        }
+        
         let suggestedEditsOption = suggestedEdits
 
             let shouldShowSuggestedEdits = !UIAccessibility.isVoiceOverRunning && editCount >= 50

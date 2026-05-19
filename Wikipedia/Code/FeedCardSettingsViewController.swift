@@ -26,6 +26,8 @@ private extension WMFContentGroupKind {
             return WMFLocalizedString("explore-feed-preferences-show-places-footer-text", value: "Turning off the Places card will turn the card off in all available languages.", comment: "Text describing the effects of turning off the Places card")
         case .random:
             return WMFLocalizedString("explore-feed-preferences-show-randomizer-footer-text", value: "Turning off the Randomizer card will turn the card off in all available languages.", comment: "Text describing the effects of turning off the Randomizer card")
+        case .dailyGame:
+            return WMFLocalizedString("explore-feed-preferences-show-games-footer-text", value: "Turning off the Games card will turn the card off in all available languages.", comment: "Text describing the effects of turning off the Games card")
         default:
             assertionFailure("\(self) is not customizable")
             return ""

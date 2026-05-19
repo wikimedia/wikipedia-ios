@@ -171,6 +171,9 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "Die Aktivität umfasst einen umfassenden Verlauf gelesener, gespeicherter und bearbeiteter Artikel. Dein Leseverlauf befindet sich jetzt im Tab „Suche“.";
 "activity-tab-onboarding-third-item-title-updated" = "Leseverlauf jetzt in der Suche";
 "activity-tab-read-title" = "Lesehistorie anzeigen";
+"activity-tab-reading-challenge-card-body" = "Um deine Serie mit Baby Globe zu verfolgen, musst du das Lese-Challenge-Widget aus dem Startbildschirm hinzufügen.";
+"activity-tab-reading-challenge-card-cta" = "Wie geht das?";
+"activity-tab-reading-challenge-card-title" = "25-Tage-Lese-Challenge";
 "activity-tab-satisfied" = "Zufrieden";
 "activity-tab-saved" = "Diesen Monat gespeicherte Artikel";
 "activity-tab-start-editing" = "Jetzt bearbeiten";
@@ -1087,6 +1090,7 @@
 "reading-challenge-announcement-item2-subtitle" = "Schließe eine 25-tägige Leseserie ab, solange die Challenge läuft, und gewinne besondere Preise.";
 "reading-challenge-announcement-item2-title" = "Gewinne Preise";
 "reading-challenge-announcement-item3-subtitle" = "Erhalte hilfreiche Erinnerungen und Motivation von unserem niedlichen Geburtstagsmaskottchen Baby Globe";
+"reading-challenge-announcement-item3-subtitle2" = "Um deine Serie mit Baby Globe zu verfolgen, musst du das Lese-Challenge-Widget aus dem Startbildschirm hinzufügen.";
 "reading-challenge-announcement-item3-title" = "Installiere das Widget";
 "reading-challenge-announcement-secondary-cta" = "Mehr erfahren";
 "reading-challenge-announcement-subtitle" = "Deine Lesehistorie bleibt geschützt. Das Leseverhalten wird anhand lokal auf deinem Gerät gespeicherter Daten berechnet.";
@@ -1127,7 +1131,10 @@
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 von 25 Tagen|$1 von 25 Tagen}}";
 "reading-challenge-subtitle" = "25-Tage-Lese-Challenge";
 "reading-challenge-widget-announcement-body" = "Baby Globe feuert dich an. Füge das Lese-Challenge-Widget hinzu, um deinen Fortschritt direkt auf deinem Startbildschirm zu verfolgen.";
+"reading-challenge-widget-announcement-body2" = "Um deine Serie mit Baby Globe zu verfolgen, musst du das Lese-Challenge-Widget aus dem Startbildschirm hinzufügen.";
+"reading-challenge-widget-announcement-secondary-button" = "Wie geht das?";
 "reading-challenge-widget-announcement-title" = "Installiere das Widget für die 25-Tage-Lese-Challenge";
+"reading-challenge-widget-announcement-title2" = "Öffne deinen Startbildschirm, und füge das Widget hinzu";
 "reading-challenge-widget-description" = "Verfolge deinen Fortschritt bei der Leseherausforderung.";
 "reading-challenge-widget-display-name" = "Leseherausforderung";
 "reading-list-add-generic-hint-title" = "Diesen Artikel zu einer Leseliste hinzufügen?";
