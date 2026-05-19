@@ -24,12 +24,12 @@ public struct WMFGamesSplashScreenView: View {
                         .font(.system(size: 52, weight: .regular))
                         .foregroundColor(.white)
 
-                    Text(viewModel.localizedStrings.title)
+                    Text(viewModel.title)
                         .font(Font(WMFFont.for(.georgiaTitle1)))
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
 
-                    Text(viewModel.localizedStrings.subtitle)
+                    Text(viewModel.subtitle)
                         .font(Font(WMFFont.for(.callout)))
                         .foregroundColor(.white.opacity(0.85))
                         .multilineTextAlignment(.center)
@@ -50,7 +50,7 @@ public struct WMFGamesSplashScreenView: View {
                 Button {
                     viewModel.didTapAbout?()
                 } label: {
-                    Text(viewModel.localizedStrings.aboutButtonTitle)
+                    Text(viewModel.aboutButtonTitle)
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
                         .foregroundColor(.white)
                 }

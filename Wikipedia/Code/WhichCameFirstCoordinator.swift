@@ -2,7 +2,6 @@ import UIKit
 import WMF
 import WMFComponents
 import WMFData
-import WMFNativeLocalizations
 
 /// Coordinator that presents the Which Came First game, starting with the splash screen.
 @MainActor
@@ -37,35 +36,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
     // MARK: - Factory
 
     private func makeSplashViewController() -> WMFGamesSplashScreenViewController {
-        let localizedStrings = WMFGamesSplashScreenViewModel.LocalizedStrings(
-            title: WMFLocalizedString(
-                "which-came-first-splash-title",
-                value: "Which came first?",
-                comment: "Title shown on the Which Came First game splash screen."
-            ),
-            subtitle: WMFLocalizedString(
-                "which-came-first-splash-subtitle",
-                value: "Guess which event came first on this day in history.",
-                comment: "Subtitle shown on the Which Came First game splash screen."
-            ),
-            playButtonTitle: WMFLocalizedString(
-                "which-came-first-splash-play-button",
-                value: "Play today's game",
-                comment: "Button title to start the Which Came First game."
-            ),
-            aboutButtonTitle: WMFLocalizedString(
-                "which-came-first-splash-about-button",
-                value: "About this game",
-                comment: "Button title to learn more about the Which Came First game."
-            )
-        )
-
-        let dateString = formattedTodayDateString()
-
         let viewModel = WMFGamesSplashScreenViewModel(
-            localizedStrings: localizedStrings,
             icon: WMFSFSymbolIcon.for(symbol: .calendar),
-            dateString: dateString,
+            dateString: formattedTodayDateString(),
             backgroundColor: WMFColor.blue600,
             didTapPlay: { [weak self] in
                 self?.showGame()
@@ -86,6 +59,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         return WMFGamesSplashScreenViewController(viewModel: viewModel)
     }
 
+    /// Fetches today's session and delegates play button title updates to the view model.
     private func updatePlayButtonTitleIfNeeded(viewModel: WMFGamesSplashScreenViewModel) {
         guard let language = WMFDataEnvironment.current.primaryAppLanguage else { return }
         let project = WMFProject.wikipedia(language)
@@ -94,20 +68,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         Task { [weak self, weak viewModel] in
             guard let self, let viewModel else { return }
             guard let session = try? await self.gamesDataController.fetchWhichCameFirstDailySession(date: todayDateString, project: project) else { return }
-            switch session.status {
-            case .inProgress:
-                viewModel.playButtonTitle = WMFLocalizedString(
-                    "which-came-first-splash-continue-button",
-                    value: "Continue today's game",
-                    comment: "Button title to continue an in-progress Which Came First game."
-                )
-            case .completed:
-                viewModel.playButtonTitle = WMFLocalizedString(
-                    "which-came-first-splash-review-button",
-                    value: "Review results",
-                    comment: "Button title to review results of a completed Which Came First game."
-                )
-            }
+            viewModel.update(sessionStatus: session.status)
         }
     }
 
