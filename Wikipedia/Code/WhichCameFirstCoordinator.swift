@@ -46,9 +46,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             didTapAbout: { [weak self] in
                 self?.showAbout()
             },
-            didTapClose: { [weak self] in
-                self?.navigationController.dismiss(animated: true)
-            },
+            didTapClose: nil,
             didTapMore: { [weak self] in
                 self?.showMoreOptions()
             }

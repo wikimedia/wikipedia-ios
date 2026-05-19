@@ -4,7 +4,7 @@ import UIKit
 /// Hosting controller for `WMFGamesSplashScreenView`.
 /// Configures the transparent/colored navigation bar so the splash background
 /// extends behind it, and surfaces close + more (ellipsis) bar button items.
-public final class WMFGamesSplashScreenViewController: WMFComponentHostingController<WMFGamesSplashScreenView> {
+public final class WMFGamesSplashScreenViewController: WMFComponentHostingController<WMFGamesSplashScreenView>, WMFNavigationBarConfiguring {
 
     // MARK: - Properties
 
@@ -24,49 +24,56 @@ public final class WMFGamesSplashScreenViewController: WMFComponentHostingContro
 
     // MARK: - Lifecycle
 
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-        configureNavigationBar()
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureNavigationBarForSplash()
     }
 
     public override func appEnvironmentDidChange() {
         super.appEnvironmentDidChange()
-        // Keep the navigation bar transparent so the game background shows through.
-        configureNavigationBar()
+        configureNavigationBarForSplash()
     }
 
     // MARK: - Navigation Bar
 
-    private func configureNavigationBar() {
-        // Temp nav bar
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithTransparentBackground()
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
-        navigationItem.compactAppearance = appearance
-
-        let closeButton = UIBarButtonItem(
-            image: WMFSFSymbolIcon.for(symbol: .closeCircleFill),
-            style: .plain,
-            target: self,
-            action: #selector(didTapClose)
+    private func configureNavigationBarForSplash() {
+        let titleConfig = WMFNavigationBarTitleConfig(
+            title: viewModel.title,
+            customView: viewModel.dateString.map { makeDatePillView(title: $0) },
+            alignment: .centerCompact
         )
-        closeButton.tintColor = UIColor.white
-        navigationItem.leftBarButtonItem = closeButton
 
+        let closeConfig = WMFLargeCloseButtonConfig(
+            imageType: .plainX,
+            target: self,
+            action: #selector(didTapClose),
+            alignment: .leading
+        )
+
+        configureNavigationBar(
+            titleConfig: titleConfig,
+            closeButtonConfig: closeConfig,
+            profileButtonConfig: nil,
+            tabsButtonConfig: nil,
+            searchBarConfig: nil,
+            hideNavigationBarOnScroll: false
+        )
+
+        // The protocol handles the close button; set the more button on the trailing side.
         let moreButton = UIBarButtonItem(
             image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle),
             style: .plain,
             target: self,
             action: #selector(didTapMore)
         )
-        moreButton.tintColor = UIColor.white
         navigationItem.rightBarButtonItem = moreButton
 
-
-        if let dateString = viewModel.dateString {
-            navigationItem.titleView = makeDatePillView(title: dateString)
-        }
+        // Make the navigation bar transparent so the game background shows through.
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+        navigationItem.compactAppearance = appearance
     }
 
     private func makeDatePillView(title: String) -> UIView {
@@ -97,6 +104,7 @@ public final class WMFGamesSplashScreenViewController: WMFComponentHostingContro
     // MARK: - Actions
 
     @objc private func didTapClose() {
+        dismiss(animated: true)
         viewModel.didTapClose?()
     }
 
@@ -104,4 +112,3 @@ public final class WMFGamesSplashScreenViewController: WMFComponentHostingContro
         viewModel.didTapMore?()
     }
 }
-
