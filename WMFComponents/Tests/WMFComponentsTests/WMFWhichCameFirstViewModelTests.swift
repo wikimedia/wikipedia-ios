@@ -26,8 +26,7 @@ final class WMFWhichCameFirstViewModelTests: XCTestCase {
     func makeViewModel() -> WMFWhichCameFirstViewModel {
         WMFWhichCameFirstViewModel(
             date: "2026-01-06",
-            project: enProject,
-            localizedStrings: .demoStrings
+            project: enProject
         )
     }
 
