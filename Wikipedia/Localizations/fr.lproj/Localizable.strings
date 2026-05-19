@@ -191,6 +191,9 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "L'activité comprend un historique complet des articles lus, enregistrés et modifiés. Votre historique de lecture se trouve désormais dans l'onglet Recherche.";
 "activity-tab-onboarding-third-item-title-updated" = "L’historique de lecture est désormais dans Recherche.";
 "activity-tab-read-title" = "Voir l'historique des lectures";
+"activity-tab-reading-challenge-card-body" = "Pour suivre votre série de progression quodienne avec Baby Globe, vous devez ajouter le widget Défi de lecture depuis votre écran d'accueil.";
+"activity-tab-reading-challenge-card-cta" = "Montre-moi comment faire";
+"activity-tab-reading-challenge-card-title" = "Défi de lecture de 25 jours";
 "activity-tab-satisfied" = "Satisfait";
 "activity-tab-saved" = "Articles enregistrés ce mois-ci";
 "activity-tab-start-editing" = "Commencer à modifier";
@@ -566,6 +569,7 @@
 "explore-because-you-read" = "Parce que vous avez lu";
 "explore-because-you-read-footer" = "Autres articles associés";
 "explore-continue-reading-heading" = "Continuer à lire";
+"explore-daily-game-heading" = "Qu'est-ce qui est arrivé en premier ?";
 "explore-detail-back-button-title" = "Retour au flux d'exploration";
 "explore-enable-location-title" = "Explorer les articles proches de votre emplacement actuel";
 "explore-featured-article-heading" = "Article vedette";
@@ -1101,6 +1105,7 @@
 "reading-challenge-announcement-item2-subtitle" = "Terminez une série de 25 jours de lecture pendant la durée du défi pour gagner des prix spéciaux";
 "reading-challenge-announcement-item2-title" = "Des prix à gagner";
 "reading-challenge-announcement-item3-subtitle" = "Profitez de rappels utiles et de motivation grâce à notre adorable mascotte, Baby Globe";
+"reading-challenge-announcement-item3-subtitle2" = "Pour suivre votre série de progression quodienne avec Baby Globe, vous devez ajouter le widget Défi de lecture depuis votre écran d'accueil.";
 "reading-challenge-announcement-item3-title" = "Installez le widget";
 "reading-challenge-announcement-secondary-cta" = "En savoir plus";
 "reading-challenge-announcement-subtitle" = "Votre historique de lecture est protégée. Vos statistiques sont calculées à partir des données stockées localement sur votre appareil.";
@@ -1113,6 +1118,7 @@
 "reading-challenge-enrolled-not-started-subtitle-article" = "Lisez un article pour vous lancer.";
 "reading-challenge-enrolled-not-started-subtitle-away" = "Il ne vous manque plus qu'un article pour finaliser la série.";
 "reading-challenge-enrolled-not-started-subtitle-somewhere" = "Toute progression commence quelque part";
+"reading-challenge-enrolled-not-started-subtitle-towards" = "Lancez-vous pour atteindre une série de 25 jours consécutifs!";
 "reading-challenge-enrolled-not-started-title-fresh" = "Un nouveau départ.";
 "reading-challenge-enrolled-not-started-title-ready" = "À vos marques, prêts, lisez !";
 "reading-challenge-enrolled-not-started-title-spin" = "Envie de démarrer une nouvelle série?";
@@ -1139,7 +1145,12 @@
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 jours sur 25|$1 jours sur 25}}";
 "reading-challenge-subtitle" = "Défi de lecture de 25 jours";
 "reading-challenge-widget-announcement-body" = "Baby Globe vous encourage. Ajoutez le widget du défi de lecture pour suivre vos progrès depuis votre écran d'accueil.";
+"reading-challenge-widget-announcement-body2" = "Pour suivre votre série de progression quodienne avec Baby Globe, vous devez ajouter le widget Défi de lecture depuis votre écran d'accueil.";
+"reading-challenge-widget-announcement-secondary-button" = "Montre-moi comment faire";
 "reading-challenge-widget-announcement-title" = "Installez le widget du défi de lecture de 25 jours";
+"reading-challenge-widget-announcement-title2" = "Rendez-vous sur votre écran d'accueil pour ajouter le widget";
+"reading-challenge-widget-description" = "Suivez vos progrès dans le cadre du défi lecture";
+"reading-challenge-widget-display-name" = "Défi de lecture";
 "reading-list-add-generic-hint-title" = "Ajouter cet article à une liste de lecture ?";
 "reading-list-add-hint-title" = "Ajouter « $1 » à une liste de lecture ?";
 "reading-list-add-saved-button-title" = "Oui, les ajouter à mes listes de lecture";

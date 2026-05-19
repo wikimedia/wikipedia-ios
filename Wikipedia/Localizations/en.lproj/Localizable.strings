@@ -127,6 +127,9 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "Activity includes a comprehensive timeline of articles read, saved, and edited. Your reading history is now within the Search tab.";
 "activity-tab-onboarding-third-item-title-updated" = "Reading history is now in Search";
 "activity-tab-read-title" = "View reading history";
+"activity-tab-reading-challenge-card-body" = "To track your streak with Baby Globe, you'll need to add the Reading Challenge widget from your Home Screen.";
+"activity-tab-reading-challenge-card-cta" = "Show me how";
+"activity-tab-reading-challenge-card-title" = "25-day reading challenge";
 "activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Satisfied";
 "activity-tab-saved" = "Articles saved this month";
@@ -505,7 +508,6 @@
 "explore-because-you-read" = "Because you read";
 "explore-because-you-read-footer" = "Additional related articles";
 "explore-continue-reading-heading" = "Continue reading";
-"explore-daily-game-heading" = "Which came first?";
 "explore-detail-back-button-title" = "Back to Explore feed";
 "explore-enable-location-title" = "Explore articles near your current location";
 "explore-featured-article-heading" = "Featured article";
@@ -526,6 +528,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "On";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "On $1";
 "explore-feed-preferences-feed-cards-hidden-title" = "All $1 cards hidden";
+"explore-feed-preferences-games-title" = "Show Games card";
 "explore-feed-preferences-global-card-footer-text" = "This card is not language specific, turning off this card will remove it from your Explore feed.";
 "explore-feed-preferences-global-cards-description" = "Non-language specific cards";
 "explore-feed-preferences-global-cards-subtitle" = "Not language specific";
@@ -542,6 +545,7 @@
 "explore-feed-preferences-show-continue-reading-title" = "Show Continue reading card";
 "explore-feed-preferences-show-featured-article-footer-text" = "Turning off the Featured article card will turn the card off in all available languages.";
 "explore-feed-preferences-show-featured-article-title" = "Show Featured article card";
+"explore-feed-preferences-show-games-footer-text" = "Turning off the Games card will turn the card off in all available languages.";
 "explore-feed-preferences-show-news-footer-text" = "Turning off the In the news card will turn the card off in all available languages.";
 "explore-feed-preferences-show-news-title" = "Show In the news card";
 "explore-feed-preferences-show-on-this-day-footer-text" = "Turning off the On this day card will turn the card off in all available languages.";
@@ -568,6 +572,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Turn on Explore";
 "explore-feed-preferences-turn-on-explore-tab-message" = "This will replace the Settings tab with the Explore tab, you can access Settings from the top of the Explore tab by tapping on the gear icon";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Turn on the Explore tab?";
+"explore-games-title" = "Games";
 "explore-hide-card-prompt" = "Hide this card";
 "explore-main-page-description" = "Main page of Wikimedia projects";
 "explore-main-page-heading" = "Today on Wikipedia";
@@ -640,6 +645,12 @@
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
 "forgot-password-title" = "Reset password";
 "forgot-password-username-or-email-title" = "Or";
+"games-wcf-explore-button-archive-title" = "Play the archive";
+"games-wcf-explore-button-play-title" = "Play today's game";
+"games-wcf-explore-button-review-title" = "Review results";
+"games-wcf-explore-complete-subtitle" = "You scored $1/$2 on today's game. Next game in $3)";
+"games-wcf-explore-in-progress-subtitle" = "You're on question $1. Continue guessing which event came first on this day in history.";
+"games-wcf-explore-title" = "Which came first?";
 "gan-variants-alert-body" = "The Wikipedia app now supports the following Gan variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "Updates to Gan variant support";
 "history-clear-confirmation-heading" = "Are you sure you want to delete all your recent items?";
@@ -1048,7 +1059,7 @@
 "reading-challenge-announcement-item1-title" = "Read 1 article a day for 25 days";
 "reading-challenge-announcement-item2-subtitle" = "Complete a 25-day reading streak while the challenge is live to win special prizes.";
 "reading-challenge-announcement-item2-title" = "Win prizes";
-"reading-challenge-announcement-item3-subtitle" = "Get helpful reminders and motivation with our adorable birthday mascot Baby Globe.";
+"reading-challenge-announcement-item3-subtitle2" = "To track your streak with Baby Globe, you'll need to add the Reading Challenge widget from your homescreen.";
 "reading-challenge-announcement-item3-title" = "Install the widget";
 "reading-challenge-announcement-secondary-cta" = "Learn more";
 "reading-challenge-announcement-subtitle" = "Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
@@ -1087,8 +1098,9 @@
 "reading-challenge-streak-no-days" = "$1 of 25";
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 of 25 day|$1 of 25 days}}";
 "reading-challenge-subtitle" = "25-day reading challenge";
-"reading-challenge-widget-announcement-body" = "Baby Globe is cheering you on. Add the Reading Challenge widget to track your progress from your homescreen.";
-"reading-challenge-widget-announcement-title" = "Install the 25-day reading challenge widget";
+"reading-challenge-widget-announcement-body2" = "To track your streak with Baby Globe, you'll need to add the Reading Challenge widget from your homescreen.";
+"reading-challenge-widget-announcement-secondary-button" = "Show me how";
+"reading-challenge-widget-announcement-title2" = "Head to your homescreen to add the widget";
 "reading-challenge-widget-description" = "Track your reading challenge progress.";
 "reading-challenge-widget-display-name" = "Reading Challenge";
 "reading-list-add-generic-hint-title" = "Add this article to a reading list?";
@@ -1230,6 +1242,8 @@
 "settings-clear-cache-cancel" = "Cancel";
 "settings-clear-cache-ok" = "Clear cache";
 "settings-donate" = "Donate";
+"settings-explore-games-subtitle" = "Daily games based on Wikipedia content";
+"settings-explore-games-title" = "Wikipedia games";
 "settings-help-and-feedback" = "Help and feedback";
 "settings-language-bar" = "Show languages on search";
 "settings-languages-feed-customization" = "You can manage which languages are shown on your Explore feed by customizing your Explore feed settings.";
