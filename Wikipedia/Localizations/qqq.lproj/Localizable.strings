@@ -1529,9 +1529,12 @@
 "welcome-languages-search-title" = "Title for welcome screen describing Wikipedia languages";
 "welcome-privacy-subtitle" = "Sub-title explaining how data usage is anonymous";
 "welcome-privacy-terms-button-text" = "Text for links for learning more about data privacy policy and terms of use";
+"which-came-first-correct-answer-a11y" = "Accessibility label indicating the correct answer on a card in the Which Came First game";
 "which-came-first-correct-feedback" = "Feedback message shown when the user answers correctly in the Which Came First game";
 "which-came-first-correct-feedback2" = "Feedback message shown when the user answers correctly in the Which Came First game";
 "which-came-first-error-title" = "Title shown on the error screen in the Which Came First game";
+"which-came-first-footer-a11y" = "Accessibility label for the game progress indicator in the Which Came First game, where the first variable is the current question number and the second variable is the total number of questions";
+"which-came-first-incorrect-answer-a11y" = "Accessibility label indicating an incorrect answer on a card in the Which Came First game";
 "which-came-first-incorrect-feedback" = "Feedback message shown when the user answers incorrectly in the Which Came First game";
 "which-came-first-next-button" = "Button label to advance to the next question in the Which Came First game";
 "which-came-first-retry-button" = "Button label to retry loading the Which Came First game after an error";

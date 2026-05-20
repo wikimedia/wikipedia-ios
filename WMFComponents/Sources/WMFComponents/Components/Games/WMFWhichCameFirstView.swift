@@ -64,7 +64,7 @@ public struct WMFWhichCameFirstView: View {
                 VStack(spacing: 0) {
 
                     if viewModel.showCardA, let cardA = viewModel.cardViewModelA {
-                        WMFWhichCameFirstCardView(viewModel: cardA, cardHeight: cardHeight(height)) {
+                        WMFWhichCameFirstCardView(viewModel: cardA, parentViewModel: viewModel, cardHeight: cardHeight(height)) {
                             viewModel.select(.a)
                         }
                         .padding(.horizontal, 16)
@@ -80,7 +80,7 @@ public struct WMFWhichCameFirstView: View {
                     }
 
                     if viewModel.showCardB, let cardB = viewModel.cardViewModelB {
-                        WMFWhichCameFirstCardView(viewModel: cardB, cardHeight: cardHeight(height)) {
+                        WMFWhichCameFirstCardView(viewModel: cardB, parentViewModel: viewModel, cardHeight: cardHeight(height)) {
                             viewModel.select(.b)
                         }
                         .padding(.horizontal, 16)
@@ -179,6 +179,8 @@ public struct WMFWhichCameFirstView: View {
                 .transition(.opacity)
             }
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(viewModel.localizedStrings.footera11y())
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
         .animation(.spring(duration: 0.3), value: viewModel.phase)

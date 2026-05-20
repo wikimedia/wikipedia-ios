@@ -4,6 +4,7 @@ import UIKit
 public struct WMFWhichCameFirstCardView: View {
 
     @ObservedObject private var viewModel: WMFWhichCameFirstCardViewModel
+    @ObservedObject private var parentViewModel: WMFWhichCameFirstViewModel
     @ObservedObject private var appEnvironment = WMFAppEnvironment.current
 
     @Environment(\.horizontalSizeClass) private var sizeClass
@@ -11,10 +12,11 @@ public struct WMFWhichCameFirstCardView: View {
     let cardHeight: CGFloat
     let onTap: (() -> Void)?
 
-    public init(viewModel: WMFWhichCameFirstCardViewModel, cardHeight: CGFloat = 192, onTap: (() -> Void)? = nil) {
+    public init(viewModel: WMFWhichCameFirstCardViewModel,  parentViewModel: WMFWhichCameFirstViewModel, cardHeight: CGFloat = 192, onTap: (() -> Void)? = nil) {
         self.viewModel = viewModel
         self.cardHeight = cardHeight
         self.onTap = onTap
+        self.parentViewModel = parentViewModel
     }
 
     private var theme: WMFTheme { appEnvironment.theme }
@@ -84,8 +86,19 @@ public struct WMFWhichCameFirstCardView: View {
             guard !viewModel.isRevealed else { return }
             onTap?()
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(accessibilityDescription)
         .accessibilityAddTraits(.isButton)
-        .accessibilityRemoveTraits(.isStaticText)
+        .accessibilityRemoveTraits(viewModel.isRevealed ? .isButton : [])
+    }
+    
+    private var accessibilityDescription: String {
+        var parts: [String] = [viewModel.event.text]
+        if viewModel.isRevealed {
+            parts.append(viewModel.event.dateString)
+            parts.append(viewModel.isSelectedCardCorrect ? parentViewModel.localizedStrings.correctAnswerA11y : parentViewModel.localizedStrings.incorrectAnswerA11y)
+        }
+        return parts.joined(separator: ", ")
     }
 
     private var eventText: some View {

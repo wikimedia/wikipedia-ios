@@ -1529,9 +1529,12 @@
 "welcome-languages-search-title" = "Search in over 300 languages";
 "welcome-privacy-subtitle" = "We believe that you should not have to provide personal information to participate in the free knowledge movement. Usage data collected for this app is anonymous.";
 "welcome-privacy-terms-button-text" = "Learn more about our privacy policy and terms of use";
+"which-came-first-correct-answer-a11y" = "Correct answer";
 "which-came-first-correct-feedback" = "Correct!";
 "which-came-first-correct-feedback2" = "+1 point";
 "which-came-first-error-title" = "Something went wrong";
+"which-came-first-footer-a11y" = "Question $1 of $2";
+"which-came-first-incorrect-answer-a11y" = "Incorrect answer";
 "which-came-first-incorrect-feedback" = "Incorrect";
 "which-came-first-next-button" = "Next";
 "which-came-first-retry-button" = "Retry";

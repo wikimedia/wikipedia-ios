@@ -215,11 +215,16 @@ extension WMFGamesDataController {
         return questions.count == Self.whichCameFirstQuestionCount
     }
 
-    public func fetchOrStartWhichCameFirstDailySession(date: String, project: WMFProject, onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared) async throws -> WMFWhichCameFirstGameState {
+    public func fetchOrStartWhichCameFirstDailySession(
+        date: String,
+        project: WMFProject,
+        onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared
+    ) async throws -> (WMFWhichCameFirstGameState, UUID) {
 
         // Resume existing session if one exists
         if let existingSession = try await fetchSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date) {
-            return try decodeWhichCameFirstGameState(from: existingSession.contentData)
+            let gameState = try decodeWhichCameFirstGameState(from: existingSession.contentData)
+            return (gameState, existingSession.identifier)
         }
 
         // Parse month and day from "YYYY-MM-DD"
@@ -239,8 +244,8 @@ extension WMFGamesDataController {
 
         // Persist and return
         let contentData = try encodeWhichCameFirstGameState(gameState)
-        _ = try await createSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date, contentData: contentData)
-        return gameState
+        let session = try await createSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date, contentData: contentData)
+        return (gameState, session.identifier)
     }
 
     /// Selects event pairs from the API response using a year-spread algorithm.
