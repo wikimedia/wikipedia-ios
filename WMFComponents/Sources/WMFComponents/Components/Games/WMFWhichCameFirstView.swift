@@ -198,7 +198,7 @@ public struct WMFWhichCameFirstView: View {
         HStack(spacing: 4) {
 
             Text(
-                reveal.isCorrect
+                reveal.correct == reveal.picked
                 ? viewModel.localizedStrings.correctFeedback
                 : viewModel.localizedStrings.incorrectFeedback
             )
@@ -207,7 +207,7 @@ public struct WMFWhichCameFirstView: View {
             .foregroundColor(Color(uiColor: theme.text))
             .lineLimit(2)
 
-            if reveal.isCorrect {
+            if reveal.correct == reveal.picked {
 
                 Text(viewModel.localizedStrings.correctFeedback2)
                     .minimumScaleFactor(0.3)

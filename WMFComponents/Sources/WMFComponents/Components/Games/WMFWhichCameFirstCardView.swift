@@ -157,6 +157,7 @@ public struct WMFWhichCameFirstCardView: View {
 
     private var datePill: some View {
         Text(viewModel.event.dateString)
+            .accessibilityHidden(true)
             .minimumScaleFactor(0.3)
             .font(Font(WMFFont.for(.subheadline)))
             .foregroundColor(Color(uiColor: theme.paperBackground))

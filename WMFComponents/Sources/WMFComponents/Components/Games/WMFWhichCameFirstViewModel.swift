@@ -79,7 +79,6 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     struct RevealState: Equatable {
         let picked: String
         let correct: String
-        let isCorrect: Bool
     }
 
     @Published var phase: Phase = .loading
@@ -114,7 +113,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     )
         
     private func footera11y() -> String {
-        let format = WMFLocalizedString("which-came-first-footer-a11y", value: "Question %1$d of %2$d", comment: "Accessibility label for the game progress indicator in the Which Came First game, where the first variable is the current question number and the second variable is the total number of questions")
+        let format = WMFLocalizedString("which-came-first-footer-a11y", value: "Question %1$d of %2$d", comment: "Accessibility label for the game progress indicator in the Which Came First game, where $1 is the current question number and the $2 is the total number of questions")
         return String.localizedStringWithFormat(format, currentIndex + 1, totalQuestions)
     }
     
@@ -144,7 +143,10 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         phase = .loading
         loadTask = Task {
             do {
-                let (state, _) = try await dataController.fetchOrStartWhichCameFirstDailySession(date: date, project: project)
+                let (state, sessionID) = try await dataController.fetchOrStartWhichCameFirstDailySession(date: date, project: project)
+                
+                self.gameState = state
+                self.sessionIdentifier = sessionID
                 
                 self.currentIndex = state.answers.count
                 progressResults = Array(repeating: nil, count: state.questions.count)
@@ -193,25 +195,27 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
                     questionIdentifier: question.id,
                     pickedOption: picked.rawValue
                 )
-                applyReveal(pickedOption: picked, correctOption: result.correctAnswer, isCorrect: result.isCorrect)
+
+                applyReveal(pickedOption: picked, correctOption: Option(rawValue: question.correctAnswer) ?? .a)
             } catch {
                 phase = .error(error.localizedDescription)
             }
         }
     }
 
-    private func applyReveal(pickedOption: Option, correctOption: String, isCorrect: Bool) {
-        if isCorrect { score += 1 }
-        progressResults[currentIndex] = isCorrect
-        cardViewModelA?.reveal(userSelected: pickedOption == .a, isCorrectAnswer: correctOption == "A")
-        cardViewModelB?.reveal(userSelected: pickedOption == .b, isCorrectAnswer: correctOption == "B")
-        revealState = RevealState(picked: pickedOption.rawValue, correct: correctOption, isCorrect: isCorrect)
+    private func applyReveal(pickedOption: Option, correctOption: Option) {
+            let isCorrect = pickedOption == correctOption
+            if isCorrect { score += 1 }
+            progressResults[currentIndex] = isCorrect
+            cardViewModelA?.reveal(userSelected: pickedOption == .a, isCorrectAnswer: correctOption == .a)
+            cardViewModelB?.reveal(userSelected: pickedOption == .b, isCorrectAnswer: correctOption == .b)
+            revealState = RevealState(picked: pickedOption.rawValue, correct: correctOption.rawValue)
 
-        let announcement = isCorrect
-            ? "\(localizedStrings.correctFeedback), \(localizedStrings.correctFeedback2)"
-            : localizedStrings.incorrectFeedback
-        UIAccessibility.post(notification: .announcement, argument: announcement)
-    }
+            let announcement = isCorrect
+                ? "\(localizedStrings.correctFeedback), \(localizedStrings.correctFeedback2)"
+                : localizedStrings.incorrectFeedback
+            UIAccessibility.post(notification: .announcement, argument: announcement)
+        }
     
     func animateOutAndAdvance() {
         phase = .transitioning
