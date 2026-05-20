@@ -757,7 +757,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
             let viewModel = WMFWhichCameFirstViewModel(date: today, project: project)
             let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
-            let navVC = WMFComponentNavigationController(rootViewController: gameVC, modalPresentationStyle: .pageSheet)
+            let navVC = WMFComponentNavigationController(rootViewController: gameVC, modalPresentationStyle: .overFullScreen)
             present(navVC, animated: true)
             return
         }

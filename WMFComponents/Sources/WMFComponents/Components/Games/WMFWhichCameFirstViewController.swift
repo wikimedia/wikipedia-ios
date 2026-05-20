@@ -26,15 +26,8 @@ public final class WMFWhichCameFirstHostingController: WMFComponentHostingContro
     }()
 
     private var overflowMenu: UIMenu {
-        // Add actions here as needed
-        let shareAction = UIAction(
-            title: CommonStrings.shareMenuTitle,
-            image: WMFSFSymbolIcon.for(symbol: .squareAndArrowUp)
-        ) { _ in
-            // handle share
-        }
-
-        return UIMenu(title: String(), options: .displayInline, children: [shareAction])
+        // todo
+        return UIMenu(title: String(), options: .displayInline, children: [])
     }
 
     public init(viewModel: WMFWhichCameFirstViewModel) {

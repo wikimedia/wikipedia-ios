@@ -64,7 +64,7 @@ public struct WMFWhichCameFirstView: View {
                 VStack(spacing: 0) {
 
                     if viewModel.showCardA, let cardA = viewModel.cardViewModelA {
-                        WMFOnThisDayCardView(viewModel: cardA, cardHeight: cardHeight(height)) {
+                        WMFWhichCameFirstCardView(viewModel: cardA, cardHeight: cardHeight(height)) {
                             viewModel.select("A")
                         }
                         .padding(.horizontal, 16)
@@ -80,7 +80,7 @@ public struct WMFWhichCameFirstView: View {
                     }
 
                     if viewModel.showCardB, let cardB = viewModel.cardViewModelB {
-                        WMFOnThisDayCardView(viewModel: cardB, cardHeight: cardHeight(height)) {
+                        WMFWhichCameFirstCardView(viewModel: cardB, cardHeight: cardHeight(height)) {
                             viewModel.select("B")
                         }
                         .padding(.horizontal, 16)

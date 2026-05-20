@@ -71,8 +71,8 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     @Published var phase: Phase = .loading
     @Published var currentIndex: Int = 0
     @Published var score: Int = 0
-    @Published var cardViewModelA: WMFOnThisDayCardViewModel?
-    @Published var cardViewModelB: WMFOnThisDayCardViewModel?
+    @Published var cardViewModelA: WMFWhichCameFirstCardViewModel?
+    @Published var cardViewModelB: WMFWhichCameFirstCardViewModel?
     @Published var selectedOption: String?
     @Published var revealState: RevealState?
     @Published var showTitle = false
@@ -226,8 +226,8 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
 
     private func rebuildCardViewModels() {
         guard let question = currentQuestion else { return }
-        cardViewModelA = WMFOnThisDayCardViewModel(event: question.optionA.cardEvent)
-        cardViewModelB = WMFOnThisDayCardViewModel(event: question.optionB.cardEvent)
+        cardViewModelA = WMFWhichCameFirstCardViewModel(event: question.optionA.cardEvent)
+        cardViewModelB = WMFWhichCameFirstCardViewModel(event: question.optionB.cardEvent)
     }
 
     private func applyReveal(picked: String, correct: String, isCorrect: Bool) {

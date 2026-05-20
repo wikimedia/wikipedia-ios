@@ -1,9 +1,9 @@
 import SwiftUI
 import UIKit
 
-public struct WMFOnThisDayCardView: View {
+public struct WMFWhichCameFirstCardView: View {
 
-    @ObservedObject private var viewModel: WMFOnThisDayCardViewModel
+    @ObservedObject private var viewModel: WMFWhichCameFirstCardViewModel
     @ObservedObject private var appEnvironment = WMFAppEnvironment.current
 
     @Environment(\.horizontalSizeClass) private var sizeClass
@@ -11,7 +11,7 @@ public struct WMFOnThisDayCardView: View {
     let cardHeight: CGFloat
     let onTap: (() -> Void)?
 
-    public init(viewModel: WMFOnThisDayCardViewModel, cardHeight: CGFloat = 192, onTap: (() -> Void)? = nil) {
+    public init(viewModel: WMFWhichCameFirstCardViewModel, cardHeight: CGFloat = 192, onTap: (() -> Void)? = nil) {
         self.viewModel = viewModel
         self.cardHeight = cardHeight
         self.onTap = onTap

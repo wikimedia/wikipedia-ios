@@ -116,8 +116,8 @@ final class WMFWhichCameFirstViewModelTests: XCTestCase {
 
     func testSelectASetsCardASelectedCardBUnselected() {
         let viewModel = makeViewModel()
-        viewModel.cardViewModelA = WMFOnThisDayCardViewModel(event: .mockEvent())
-        viewModel.cardViewModelB = WMFOnThisDayCardViewModel(event: .mockEvent())
+        viewModel.cardViewModelA = WMFWhichCameFirstCardViewModel(event: .mockEvent())
+        viewModel.cardViewModelB = WMFWhichCameFirstCardViewModel(event: .mockEvent())
         viewModel.phase = .presenting
         viewModel.select("A")
         XCTAssertTrue(viewModel.cardViewModelA?.isSelected == true)
@@ -126,8 +126,8 @@ final class WMFWhichCameFirstViewModelTests: XCTestCase {
 
     func testSelectBSetsCardBSelectedCardAUnselected() {
         let viewModel = makeViewModel()
-        viewModel.cardViewModelA = WMFOnThisDayCardViewModel(event: .mockEvent())
-        viewModel.cardViewModelB = WMFOnThisDayCardViewModel(event: .mockEvent())
+        viewModel.cardViewModelA = WMFWhichCameFirstCardViewModel(event: .mockEvent())
+        viewModel.cardViewModelB = WMFWhichCameFirstCardViewModel(event: .mockEvent())
         viewModel.phase = .presenting
         viewModel.select("B")
         XCTAssertFalse(viewModel.cardViewModelA?.isSelected == true)
@@ -136,8 +136,8 @@ final class WMFWhichCameFirstViewModelTests: XCTestCase {
 
     func testSelectCanSwitchFromAToB() {
         let viewModel = makeViewModel()
-        viewModel.cardViewModelA = WMFOnThisDayCardViewModel(event: .mockEvent())
-        viewModel.cardViewModelB = WMFOnThisDayCardViewModel(event: .mockEvent())
+        viewModel.cardViewModelA = WMFWhichCameFirstCardViewModel(event: .mockEvent())
+        viewModel.cardViewModelB = WMFWhichCameFirstCardViewModel(event: .mockEvent())
         viewModel.phase = .presenting
         viewModel.select("A")
         viewModel.select("B")
