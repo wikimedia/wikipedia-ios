@@ -204,18 +204,22 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     }
 
     private func applyReveal(pickedOption: Option, correctOption: Option) {
-            let isCorrect = pickedOption == correctOption
-            if isCorrect { score += 1 }
-            progressResults[currentIndex] = isCorrect
-            cardViewModelA?.reveal(userSelected: pickedOption == .a, isCorrectAnswer: correctOption == .a)
-            cardViewModelB?.reveal(userSelected: pickedOption == .b, isCorrectAnswer: correctOption == .b)
-            revealState = RevealState(picked: pickedOption.rawValue, correct: correctOption.rawValue)
+        let isCorrect = pickedOption == correctOption
+        if isCorrect { score += 1 }
+        progressResults[currentIndex] = isCorrect
+        cardViewModelA?.reveal(userSelected: pickedOption == .a, isCorrectAnswer: correctOption == .a)
+        cardViewModelB?.reveal(userSelected: pickedOption == .b, isCorrectAnswer: correctOption == .b)
+        revealState = RevealState(picked: pickedOption.rawValue, correct: correctOption.rawValue)
 
-            let announcement = isCorrect
-                ? "\(localizedStrings.correctFeedback), \(localizedStrings.correctFeedback2)"
-                : localizedStrings.incorrectFeedback
+        let announcement = isCorrect
+            ? "\(localizedStrings.correctFeedback), \(localizedStrings.correctFeedback2)"
+            : localizedStrings.incorrectFeedback
+
+        // Delay so VoiceOver reads after the reveal UI has settled
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             UIAccessibility.post(notification: .announcement, argument: announcement)
         }
+    }
     
     func animateOutAndAdvance() {
         phase = .transitioning

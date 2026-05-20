@@ -194,9 +194,7 @@ public struct WMFWhichCameFirstView: View {
     }
 
     private func feedbackBanner(_ reveal: WMFWhichCameFirstViewModel.RevealState) -> some View {
-
         HStack(spacing: 4) {
-
             Text(
                 reveal.correct == reveal.picked
                 ? viewModel.localizedStrings.correctFeedback
@@ -208,7 +206,6 @@ public struct WMFWhichCameFirstView: View {
             .lineLimit(2)
 
             if reveal.correct == reveal.picked {
-
                 Text(viewModel.localizedStrings.correctFeedback2)
                     .minimumScaleFactor(0.3)
                     .font(Font(WMFFont.for(.footnote)))
@@ -219,6 +216,7 @@ public struct WMFWhichCameFirstView: View {
         .frame(maxWidth: .infinity, alignment: .center)
         .padding(.vertical, 8)
         .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(.updatesFrequently)
     }
 
 
