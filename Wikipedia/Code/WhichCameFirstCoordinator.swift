@@ -85,7 +85,12 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
     }
 
     private func showAbout() {
-        // TODO: Present the about / info sheet for the game.
+        guard let gameNav = gameNavigationController,
+              let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Game:_Which_came_first") else { return }
+        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+        let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
+        let webNav = WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .fullScreen)
+        gameNav.present(webNav, animated: true)
     }
 
     private func showMoreOptions() {
