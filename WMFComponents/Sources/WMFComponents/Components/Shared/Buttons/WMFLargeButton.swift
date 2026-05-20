@@ -7,7 +7,8 @@ public struct WMFLargeButton: View {
 
     let style: WMFButtonStyleKind
     let title: String
-    let forceBackgroundColor: UIColor? // Note: Used for YiR only
+    let forceBackgroundColor: UIColor?
+    let forceForegroundColor: UIColor?
     let action: (() -> Void)?
 
     public init(
@@ -15,12 +16,14 @@ public struct WMFLargeButton: View {
         style: WMFButtonStyleKind,
         title: String,
         forceBackgroundColor: UIColor? = nil,
+        forceForegroundColor: UIColor? = nil,
         action: (() -> Void)?
     ) {
         self.appEnvironment = appEnvironment
         self.style = style
         self.title = title
         self.forceBackgroundColor = forceBackgroundColor
+        self.forceForegroundColor = forceForegroundColor
         self.action = action
     }
 
@@ -36,7 +39,9 @@ public struct WMFLargeButton: View {
                 kind: style,
                 layout: .fill,
                 theme: appEnvironment.theme,
-                height: 46
+                height: 46,
+                forceBackgroundColor: forceBackgroundColor,
+                forceForegroundColor: forceForegroundColor
             )
         )
     }
