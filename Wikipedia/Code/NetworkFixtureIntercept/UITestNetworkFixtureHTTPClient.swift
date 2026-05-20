@@ -12,7 +12,6 @@ final class UITestNetworkFixtureHTTPClient: SessionHTTPClient {
 
     init(profile: UITestNetworkFixtureInterceptor.Profile, defaultURLSession: URLSession, sessionDelegate: SessionDelegate) {
         self.profile = profile
-
         let fixtureConfiguration = defaultURLSession.configuration
         fixtureConfiguration.protocolClasses = Self.protocolClassesInstallingFixtureProtocol(in: fixtureConfiguration.protocolClasses)
         let fixtureURLSession = URLSession(configuration: fixtureConfiguration, delegate: sessionDelegate, delegateQueue: sessionDelegate.delegateQueue)
@@ -48,11 +47,9 @@ final class UITestNetworkFixtureHTTPClient: SessionHTTPClient {
         fixtureURLSession.invalidateAndCancel()
     }
 
-#if TEST || UITEST
     static func resetFixtures() {
         fixtureStore.reset()
     }
-#endif
 
     private func fixtureRequest(for request: URLRequest) -> URLRequest {
         UITestNetworkFixtureURLProtocol.requestByAddingProfile(profile, to: request)

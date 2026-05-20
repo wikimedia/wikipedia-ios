@@ -12,7 +12,7 @@ final class UITestNetworkFixtureInterceptor {
         case fixtureStrict = "fixture-strict"
     }
 
-    static func httpClientProvider(profileValue: String?) -> (any SessionHTTPClientProvider)? {
+    static func httpClientProvider(profileValue: String?) -> SessionHTTPClientProvider? {
 #if TEST || UITEST
         guard let profileValue,
               let profile = Profile(rawValue: profileValue) else {
@@ -21,7 +21,6 @@ final class UITestNetworkFixtureInterceptor {
 
         return UITestNetworkFixtureHTTPClientProvider(profile: profile)
 #else
-        _ = profileValue
         return nil
 #endif
     }

@@ -45,6 +45,5 @@ final class UITestNetworkFixtureURLProtocol: URLProtocol {
         client?.urlProtocolDidFinishLoading(self)
     }
 
-    override func stopLoading() {
-    }
+    override func stopLoading() {}
 }
