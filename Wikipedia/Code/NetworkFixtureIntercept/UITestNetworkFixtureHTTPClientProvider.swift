@@ -3,9 +3,9 @@ import Foundation
 /// Provider selected by launch configuration when UI tests should intercept
 /// app-process `Session` traffic with bundled fixtures.
 final class UITestNetworkFixtureHTTPClientProvider: SessionHTTPClientProvider {
-    private let profile: UITestNetworkFixtureInterceptor.Profile
+    private let profile: UITestHTTPClientProfile
 
-    init(profile: UITestNetworkFixtureInterceptor.Profile) {
+    init(profile: UITestHTTPClientProfile) {
         self.profile = profile
     }
 

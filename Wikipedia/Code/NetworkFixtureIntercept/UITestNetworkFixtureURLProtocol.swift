@@ -7,7 +7,7 @@ final class UITestNetworkFixtureURLProtocol: URLProtocol {
 
     /// Tags a request so this protocol does not intercept unrelated URLSession
     /// traffic in the app process.
-    static func requestByAddingProfile(_ profile: UITestNetworkFixtureInterceptor.Profile, to request: URLRequest) -> URLRequest {
+    static func requestByAddingProfile(_ profile: UITestHTTPClientProfile, to request: URLRequest) -> URLRequest {
         guard let mutableRequest = (request as NSURLRequest).mutableCopy() as? NSMutableURLRequest else {
             return request
         }
@@ -33,7 +33,7 @@ final class UITestNetworkFixtureURLProtocol: URLProtocol {
     /// loads from the caller's point of view.
     override func startLoading() {
         guard let profileValue = URLProtocol.property(forKey: Self.profilePropertyKey, in: request) as? String,
-              UITestNetworkFixtureInterceptor.Profile(rawValue: profileValue) != nil,
+              UITestHTTPClientProfile(rawValue: profileValue) == .fixtureStrict,
               let fixtureResponse = UITestNetworkFixtureHTTPClient.fixtureResponse(for: request),
               let response = UITestNetworkFixtureHTTPClient.httpResponse(for: request, fixtureResponse: fixtureResponse) else {
             client?.urlProtocol(self, didFailWithError: URLError(.badServerResponse))

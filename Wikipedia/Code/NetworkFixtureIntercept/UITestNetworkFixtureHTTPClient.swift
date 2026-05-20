@@ -6,11 +6,11 @@ final class UITestNetworkFixtureHTTPClient: SessionHTTPClient {
     /// URLProtocol callbacks can arrive on URLSession-controlled queues, so the
     /// fixture manifest is shared through a locked store.
     private static let fixtureStore = UITestNetworkFixtureStore()
-    private let profile: UITestNetworkFixtureInterceptor.Profile
+    private let profile: UITestHTTPClientProfile
     private let fixtureURLSession: URLSession
     private let fixtureClient: SessionHTTPClient
 
-    init(profile: UITestNetworkFixtureInterceptor.Profile, defaultURLSession: URLSession, sessionDelegate: SessionDelegate) {
+    init(profile: UITestHTTPClientProfile, defaultURLSession: URLSession, sessionDelegate: SessionDelegate) {
         self.profile = profile
         let fixtureConfiguration = defaultURLSession.configuration
         fixtureConfiguration.protocolClasses = Self.protocolClassesInstallingFixtureProtocol(in: fixtureConfiguration.protocolClasses)

@@ -9,7 +9,7 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
     }
 
     func testFixtureStrictProfileReturnsBundledFixture() async throws {
-        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: "fixture-strict"))
+        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: UITestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
         let url = URL(string: "https://en.wikipedia.org/api/rest_v1/page/summary/Dog")!
 
@@ -21,7 +21,7 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
     }
 
     func testFixtureMatchesPathPrefix() async throws {
-        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: "fixture-strict"))
+        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: UITestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
         let url = URL(string: "https://en.wikipedia.org/api/rest_v1/feed/featured/2026/05/16")!
 
@@ -66,7 +66,7 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
     }
 
     func testFixtureStrictProfileFailsClosedForUnmatchedRequests() async throws {
-        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: "fixture-strict"))
+        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: UITestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
         let url = URL(string: "https://en.wikipedia.org/wiki/NoFixtureRegistered")!
 
@@ -80,7 +80,7 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
 
     func testInvalidProfileDoesNotCreateFixtureProvider() {
         XCTAssertNil(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: nil))
-        XCTAssertNil(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: "e2e"))
+        XCTAssertNil(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: UITestHTTPClientProfile.e2e.rawValue))
     }
 
     func testProviderConfigurationUsesDefaultProviderWithoutFixtureProfile() throws {
@@ -93,7 +93,7 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
 
     func testProviderConfigurationUsesFixtureProviderForCallerProvidedProfile() async throws {
         let userDefaults = try temporaryUserDefaults()
-        userDefaults.set("fixture-strict", forKey: UITestNetworkFixtureInterceptor.profileKey)
+        userDefaults.set(UITestHTTPClientProfile.fixtureStrict.rawValue, forKey: UITestNetworkFixtureInterceptor.profileKey)
 
         let provider = SessionHTTPClientProviderConfiguration.httpClientProvider(userDefaults: userDefaults)
         let session = Session(configuration: .current, httpClientProvider: provider)
@@ -117,7 +117,7 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
     }
 
     func testFixtureClientSupportsCallbackDataTask() async throws {
-        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: "fixture-strict"))
+        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: UITestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
         let url = URL(string: "https://en.wikipedia.org/api/rest_v1/page/summary/Dog")!
         let request = URLRequest(url: url)
@@ -147,7 +147,7 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
     }
 
     func testFixtureClientSupportsDownloadTask() async throws {
-        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: "fixture-strict"))
+        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: UITestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
         let url = URL(string: "https://en.wikipedia.org/api/rest_v1/page/summary/Dog")!
         let request = URLRequest(url: url)
