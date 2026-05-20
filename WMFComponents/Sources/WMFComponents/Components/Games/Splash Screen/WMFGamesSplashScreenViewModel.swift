@@ -13,8 +13,6 @@ public final class WMFGamesSplashScreenViewModel: ObservableObject {
     public let icon: UIImage?
     /// The date label shown in the navigation bar (e.g. "January 6").
     public let dateString: String?
-    /// Background color applied to the full splash screen.
-    public let backgroundColor: UIColor
 
     public let title: String
     public let subtitle: String
@@ -35,7 +33,6 @@ public final class WMFGamesSplashScreenViewModel: ObservableObject {
     public init(
         icon: UIImage?,
         dateString: String? = nil,
-        backgroundColor: UIColor,
         didTapPlay: (@MainActor @Sendable () -> Void)? = nil,
         didTapAbout: (@MainActor @Sendable () -> Void)? = nil,
         didTapClose: (@MainActor @Sendable () -> Void)? = nil,
@@ -43,7 +40,6 @@ public final class WMFGamesSplashScreenViewModel: ObservableObject {
     ) {
         self.icon = icon
         self.dateString = dateString
-        self.backgroundColor = backgroundColor
         self.title = WMFLocalizedString(
             "which-came-first-splash-title",
             value: "Which came first?",

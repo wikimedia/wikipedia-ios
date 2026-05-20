@@ -55,18 +55,22 @@ public struct CapsuleButtonStyle: ButtonStyle {
     public let height: CGFloat
     let forceBackgroundColor: UIColor?
 
+    let forceForegroundColor: UIColor?
+
     public init(
         kind: WMFButtonStyleKind,
         layout: Layout = .fill,
         theme: WMFTheme,
         height: CGFloat = 46,
-        forceBackgroundColor: UIColor? = nil
+        forceBackgroundColor: UIColor? = nil,
+        forceForegroundColor: UIColor? = nil
     ) {
         self.kind = kind
         self.layout = layout
         self.theme = theme
         self.height = height
         self.forceBackgroundColor = forceBackgroundColor
+        self.forceForegroundColor = forceForegroundColor
     }
 
     public func makeBody(configuration: SwiftUI.ButtonStyleConfiguration) -> some View {
@@ -75,23 +79,17 @@ public struct CapsuleButtonStyle: ButtonStyle {
 
         switch kind {
         case .primary:
-            if let forceBackgroundColor {
-                background = forceBackgroundColor
-            } else {
-                background = theme.link
-            }
-            foreground = theme.paperBackground
+            background = forceBackgroundColor ?? theme.link
+            foreground = forceForegroundColor ?? theme.paperBackground
         case .neutral:
-            foreground = theme.link
-            background = theme.baseBackground
-
+            foreground = forceForegroundColor ?? theme.link
+            background = forceBackgroundColor ?? theme.baseBackground
         case .quiet:
-            foreground = theme.link
-            background = .clear
-
+            foreground = forceForegroundColor ?? theme.link
+            background = forceBackgroundColor ?? .clear
         case .glass:
-            foreground = theme.paperBackground
-            background = .clear
+            foreground = forceForegroundColor ?? theme.paperBackground
+            background = forceBackgroundColor ?? .clear
         }
 
         // Glass style uses the glassProminent button style - glass material + background color

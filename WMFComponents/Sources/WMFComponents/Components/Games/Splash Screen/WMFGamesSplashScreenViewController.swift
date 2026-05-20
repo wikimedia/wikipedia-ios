@@ -38,8 +38,8 @@ public final class WMFGamesSplashScreenViewController: WMFComponentHostingContro
 
     private func configureNavigationBarForSplash() {
         let titleConfig = WMFNavigationBarTitleConfig(
-            title: viewModel.title,
-            customView: viewModel.dateString.map { makeDatePillView(title: $0) },
+            title: viewModel.dateString ?? viewModel.title,
+            customView: nil,
             alignment: .centerCompact
         )
 
@@ -59,7 +59,6 @@ public final class WMFGamesSplashScreenViewController: WMFComponentHostingContro
             hideNavigationBarOnScroll: false
         )
 
-        // The protocol handles the close button; set the more button on the trailing side.
         let moreButton = UIBarButtonItem(
             image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle),
             style: .plain,
@@ -68,44 +67,22 @@ public final class WMFGamesSplashScreenViewController: WMFComponentHostingContro
         )
         navigationItem.rightBarButtonItem = moreButton
 
-        // Make the navigation bar transparent so the game background shows through.
+        // Make the navigation bar transparent so the game background shows through,
+        // with white title and button tints regardless of the current theme.
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
-    }
-
-    private func makeDatePillView(title: String) -> UIView {
-        let label = UILabel()
-        label.text = title
-        label.font = WMFFont.for(.semiboldSubheadline)
-        label.textColor = .white
-        label.textAlignment = .center
-        label.sizeToFit()
-
-        let container = UIView()
-        container.backgroundColor = UIColor.black.withAlphaComponent(0.35)
-        container.layer.cornerRadius = 14
-        container.clipsToBounds = true
-
-        container.addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 12),
-            label.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -12),
-            label.topAnchor.constraint(equalTo: container.topAnchor, constant: 6),
-            label.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -6)
-        ])
-        container.sizeToFit()
-        return container
+        navigationController?.navigationBar.tintColor = .white
     }
 
     // MARK: - Actions
 
     @objc private func didTapClose() {
-        dismiss(animated: true)
-        viewModel.didTapClose?()
+        navigationController?.dismiss(animated: true)
+        viewModel.didTapClose?() // any additional handling
     }
 
     @objc private func didTapMore() {

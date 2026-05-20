@@ -39,7 +39,6 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         let viewModel = WMFGamesSplashScreenViewModel(
             icon: WMFSFSymbolIcon.for(symbol: .calendar),
             dateString: formattedTodayDateString(),
-            backgroundColor: WMFColor.blue600,
             didTapPlay: { [weak self] in
                 self?.showGame()
             },

@@ -13,7 +13,7 @@ public struct WMFGamesSplashScreenView: View {
 
     public var body: some View {
         ZStack {
-            Color(uiColor: viewModel.backgroundColor)
+            Color(uiColor: WMFColor.blue600)
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
@@ -21,7 +21,9 @@ public struct WMFGamesSplashScreenView: View {
 
                 VStack(spacing: 16) {
                     Image(uiImage: viewModel.icon ?? UIImage())
-                        .font(.system(size: 52, weight: .regular))
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 44, height: 44)
                         .foregroundColor(.white)
 
                     Text(viewModel.title)
@@ -35,25 +37,26 @@ public struct WMFGamesSplashScreenView: View {
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 32)
                 }
-
-                Spacer()
+                .padding(.bottom, 48)
 
                 WMFLargeButton(
                     style: .neutral,
                     title: viewModel.playButtonTitle,
+                    forceBackgroundColor: WMFColor.white,
+                    forceForegroundColor: WMFColor.blue600,
                     action: { viewModel.didTapPlay?() }
                 )
                 .padding(.horizontal, 32)
 
                 Spacer()
 
-                Button {
-                    viewModel.didTapAbout?()
-                } label: {
-                    Text(viewModel.aboutButtonTitle)
-                        .font(Font(WMFFont.for(.semiboldSubheadline)))
-                        .foregroundColor(.white)
-                }
+                WMFLargeButton(
+                    style: .quiet,
+                    title: viewModel.aboutButtonTitle,
+                    forceForegroundColor: WMFColor.white,
+                    action: { viewModel.didTapAbout?() }
+                )
+                .padding(.horizontal, 32)
                 .padding(.bottom, 24)
             }
         }
