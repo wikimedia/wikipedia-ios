@@ -8,9 +8,10 @@ extension XCTestCase {
     }
 }
 
-/// Captures the launch-time settings that make UI tests deterministic across theme, language, and onboarding state.
+/// Captures the launch-time settings that make UI tests deterministic across theme, language, onboarding state, and network profile.
 struct UITestConfiguration {
     var onboardingState: OnboardingState
+    let httpClientProfile: String
     let resetsPreferredLanguages: Bool
     let themeName: String?
     let languageCode: String
@@ -21,12 +22,13 @@ struct UITestConfiguration {
 
     init(
         onboardingState: OnboardingState = .completed,
-        resetsPreferredLanguages: Bool = true,
+        resetsPreferredLanguages: Bool = true
     ) {
         self.onboardingState = onboardingState
+        self.httpClientProfile = ProcessInfo.processInfo.value(for: .httpClientProfile) ?? defaultHTTPClientProfile
         self.themeName = ProcessInfo.processInfo.value(for: .appThemeName)
         self.resetsPreferredLanguages = resetsPreferredLanguages
-        self.languageCode = ProcessInfo.processInfo.value(for: .uiTestLanguageCode) ?? Self.defaultLanguageCode
+        self.languageCode = ProcessInfo.processInfo.value(for: .uiTestLanguageCode) ?? defaultLanguageCode
     }
 
     var launchArguments: [UITestLaunchArgumentValue] {
@@ -36,12 +38,12 @@ struct UITestConfiguration {
             argumentValues.append(UITestLaunchArgumentValue(.appThemeName, value: themeName))
         }
 
-        argumentValues.append(UITestLaunchArgumentValue(.hideTipsForTesting, value: "YES"))
-
         if resetsPreferredLanguages {
             argumentValues.append(UITestLaunchArgumentValue(.resetPreferredLanguages, value: "YES"))
         }
 
+        argumentValues.append(UITestLaunchArgumentValue(.httpClientProfile, value: httpClientProfile))
+        argumentValues.append(UITestLaunchArgumentValue(.hideTipsForTesting, value: "YES"))
         argumentValues.append(UITestLaunchArgumentValue(.uiTestLanguageCode, value: languageCode))
         argumentValues.append(UITestLaunchArgumentValue(.didShowOnboarding, value: onboardingState.launchArgumentValue))
 
@@ -63,7 +65,14 @@ struct UITestConfiguration {
         }
     }
 
-    private static let defaultLanguageCode = "en"
+    /// Selects the app-process HTTP client profile used by UI tests.
+    enum HTTPClientProfile: String {
+        case e2e = "e2e"
+        case fixtureStrict = "fixture-strict"
+    }
+
+    private let defaultHTTPClientProfile = HTTPClientProfile.fixtureStrict.rawValue
+    private let defaultLanguageCode = "en"
 }
 
 private extension ProcessInfo {

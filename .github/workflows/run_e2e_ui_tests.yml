@@ -1,4 +1,4 @@
-name: Run UI Tests
+name: Run E2E Tests
 
 on:
   pull_request:
@@ -17,16 +17,16 @@ env:
   XCODE_VERSION: "26.2"
   IOS_VERSION: "26.2"
   SIMULATOR_NAME: "iPhone 16"
-  UI_TEST_CONFIGURATION: "English (Light)"
+  UI_TEST_CONFIGURATION: "English (Light, E2E)"
 
 concurrency:
-  group: "ui-tests-${{ github.ref }}"
+  group: "e2e-ui-tests-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
-  run-ui-tests:
+  run-e2e-ui-tests:
     runs-on: macos-latest
-    name: Test WikipediaUITests
+    name: Test WikipediaUITests E2E
     steps:
       - name: Verify selected release tag
         if: github.event_name == 'workflow_dispatch'
@@ -37,7 +37,7 @@ jobs:
           SELECTED_REF_TYPE: ${{ github.ref_type }}
         run: |
           if [ "$SELECTED_REF_TYPE" != "tag" ]; then
-            echo "Manual UI test runs must use a tag from the 'Use workflow from' selector."
+            echo "Manual E2E UI test runs must use a tag from the 'Use workflow from' selector."
             echo "Selected ref: $SELECTED_REF"
             exit 1
           fi
@@ -62,36 +62,36 @@ jobs:
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
 
-      - name: Run WikipediaUITests
+      - name: Run WikipediaUITests E2E
         run: |
-          echo "Running WikipediaUITests ${UI_TEST_CONFIGURATION} [Mocked] on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
+          echo "Running E2E WikipediaUITests ${UI_TEST_CONFIGURATION} [E2E] on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
           xcodebuild test \
             -scheme WikipediaUITests \
             -project Wikipedia.xcodeproj \
             -testPlan UITests \
             -only-test-configuration "${UI_TEST_CONFIGURATION}" \
             -destination "${{ steps.simulator.outputs.destination }}" \
-            -resultBundlePath "WikipediaUITests_TestResults" \
+            -resultBundlePath "WikipediaUITests_E2E_TestResults" \
             | xcpretty
           EXIT_CODE=${PIPESTATUS[0]}
           if [ "$EXIT_CODE" -ne 0 ]; then
             exit "$EXIT_CODE"
           fi
 
-      - name: Upload UI test result bundle
+      - name: Upload E2E UI test result bundle
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: WikipediaUITests-TestResults
-          path: WikipediaUITests_TestResults.xcresult
+          name: WikipediaUITests-E2E-TestResults
+          path: WikipediaUITests_E2E_TestResults.xcresult
           if-no-files-found: ignore
 
-      - name: Coverage summary
+      - name: E2E coverage summary
         if: success()
         uses: ./.github/actions/coverage-summary
         with:
-          artifact-name: WikipediaUITests-coverage
-          coverage-json-path: WikipediaUITests_coverage.json
-          result-bundle-path: WikipediaUITests_TestResults.xcresult
+          artifact-name: WikipediaUITests-E2E-coverage
+          coverage-json-path: WikipediaUITests_E2E_coverage.json
+          result-bundle-path: WikipediaUITests_E2E_TestResults.xcresult
           scheme: WikipediaUITests
-          workflow-file: run_ui_tests.yml
+          workflow-file: run_e2e_ui_tests.yml
