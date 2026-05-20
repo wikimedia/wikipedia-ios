@@ -65,7 +65,7 @@ public struct WMFWhichCameFirstView: View {
 
                     if viewModel.showCardA, let cardA = viewModel.cardViewModelA {
                         WMFWhichCameFirstCardView(viewModel: cardA, cardHeight: cardHeight(height)) {
-                            viewModel.select("A")
+                            viewModel.select(.a)
                         }
                         .padding(.horizontal, 16)
                         .transition(.move(edge: .trailing).combined(with: .opacity))
@@ -81,7 +81,7 @@ public struct WMFWhichCameFirstView: View {
 
                     if viewModel.showCardB, let cardB = viewModel.cardViewModelB {
                         WMFWhichCameFirstCardView(viewModel: cardB, cardHeight: cardHeight(height)) {
-                            viewModel.select("B")
+                            viewModel.select(.b)
                         }
                         .padding(.horizontal, 16)
                         .transition(.move(edge: .trailing).combined(with: .opacity))

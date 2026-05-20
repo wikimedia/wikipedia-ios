@@ -5,6 +5,11 @@ import WMFNativeLocalizations
 
 @MainActor
 public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
+    
+    public enum Option: String, Codable {
+        case a = "A"
+        case b = "B"
+    }
 
     public struct LocalizedStrings {
         public let title: String
@@ -73,7 +78,6 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     @Published var score: Int = 0
     @Published var cardViewModelA: WMFWhichCameFirstCardViewModel?
     @Published var cardViewModelB: WMFWhichCameFirstCardViewModel?
-    @Published var selectedOption: String?
     @Published var revealState: RevealState?
     @Published var showTitle = false
     @Published var showCardA = false
@@ -153,11 +157,13 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         }
     }
 
-    func select(_ option: String) {
+    @Published var selectedOption: Option?
+
+    func select(_ option: Option) {
         guard phase == .presenting || phase == .awaitingSubmission else { return }
         selectedOption = option
-        cardViewModelA?.setSelected(option == "A")
-        cardViewModelB?.setSelected(option == "B")
+        cardViewModelA?.setSelected(option == .a)
+        cardViewModelB?.setSelected(option == .b)
         phase = .awaitingSubmission
     }
 
@@ -172,7 +178,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
                 let result = try await dataController.submitWhichCameFirstAnswer(
                     sessionIdentifier: sessionID,
                     questionIdentifier: question.id,
-                    pickedOption: picked
+                    pickedOption: picked.rawValue
                 )
                 applyReveal(picked: picked, correct: result.correctAnswer, isCorrect: result.isCorrect)
             } catch {
@@ -181,6 +187,14 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         }
     }
 
+    private func applyReveal(picked: Option, correct: String, isCorrect: Bool) {
+        if isCorrect { score += 1 }
+        progressResults[currentIndex] = isCorrect
+        cardViewModelA?.reveal(userSelected: picked == .a, isCorrectAnswer: correct == "A")
+        cardViewModelB?.reveal(userSelected: picked == .b, isCorrectAnswer: correct == "B")
+        revealState = RevealState(picked: picked.rawValue, correct: correct, isCorrect: isCorrect)
+    }
+    
     func animateOutAndAdvance() {
         phase = .transitioning
         withAnimation(.easeInOut(duration: 0.75)) {

@@ -80,28 +80,28 @@ final class WMFWhichCameFirstViewModelTests: XCTestCase {
     func testSelectInPresentingPhaseUpdatesSelectedOption() {
         let viewModel = makeViewModel()
         viewModel.phase = .presenting
-        viewModel.select("A")
-        XCTAssertEqual(viewModel.selectedOption, "A")
+        viewModel.select(.a)
+        XCTAssertEqual(viewModel.selectedOption, .a)
     }
 
     func testSelectInPresentingPhaseTransitionsToAwaitingSubmission() {
         let viewModel = makeViewModel()
         viewModel.phase = .presenting
-        viewModel.select("A")
+        viewModel.select(.a)
         XCTAssertEqual(viewModel.phase, .awaitingSubmission)
     }
 
     func testSelectInAwaitingSubmissionPhaseUpdatesSelectedOption() {
         let viewModel = makeViewModel()
         viewModel.phase = .awaitingSubmission
-        viewModel.select("B")
-        XCTAssertEqual(viewModel.selectedOption, "B")
+        viewModel.select(.b)
+        XCTAssertEqual(viewModel.selectedOption, .b)
     }
 
     func testSelectDoesNothingWhenRevealing() {
         let viewModel = makeViewModel()
         viewModel.phase = .revealing
-        viewModel.select("A")
+        viewModel.select(.a)
         XCTAssertNil(viewModel.selectedOption)
         XCTAssertEqual(viewModel.phase, .revealing)
     }
@@ -109,7 +109,7 @@ final class WMFWhichCameFirstViewModelTests: XCTestCase {
     func testSelectDoesNothingWhenComplete() {
         let viewModel = makeViewModel()
         viewModel.phase = .complete
-        viewModel.select("A")
+        viewModel.select(.a)
         XCTAssertNil(viewModel.selectedOption)
         XCTAssertEqual(viewModel.phase, .complete)
     }
@@ -119,7 +119,7 @@ final class WMFWhichCameFirstViewModelTests: XCTestCase {
         viewModel.cardViewModelA = WMFWhichCameFirstCardViewModel(event: .mockEvent())
         viewModel.cardViewModelB = WMFWhichCameFirstCardViewModel(event: .mockEvent())
         viewModel.phase = .presenting
-        viewModel.select("A")
+        viewModel.select(.a)
         XCTAssertTrue(viewModel.cardViewModelA?.isSelected == true)
         XCTAssertFalse(viewModel.cardViewModelB?.isSelected == true)
     }
@@ -129,7 +129,7 @@ final class WMFWhichCameFirstViewModelTests: XCTestCase {
         viewModel.cardViewModelA = WMFWhichCameFirstCardViewModel(event: .mockEvent())
         viewModel.cardViewModelB = WMFWhichCameFirstCardViewModel(event: .mockEvent())
         viewModel.phase = .presenting
-        viewModel.select("B")
+        viewModel.select(.b)
         XCTAssertFalse(viewModel.cardViewModelA?.isSelected == true)
         XCTAssertTrue(viewModel.cardViewModelB?.isSelected == true)
     }
@@ -139,9 +139,9 @@ final class WMFWhichCameFirstViewModelTests: XCTestCase {
         viewModel.cardViewModelA = WMFWhichCameFirstCardViewModel(event: .mockEvent())
         viewModel.cardViewModelB = WMFWhichCameFirstCardViewModel(event: .mockEvent())
         viewModel.phase = .presenting
-        viewModel.select("A")
-        viewModel.select("B")
-        XCTAssertEqual(viewModel.selectedOption, "B")
+        viewModel.select(.a)
+        viewModel.select(.b)
+        XCTAssertEqual(viewModel.selectedOption, .b)
         XCTAssertFalse(viewModel.cardViewModelA?.isSelected == true)
         XCTAssertTrue(viewModel.cardViewModelB?.isSelected == true)
     }
