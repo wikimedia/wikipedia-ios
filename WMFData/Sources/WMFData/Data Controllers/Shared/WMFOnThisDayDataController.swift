@@ -2,13 +2,14 @@ import Foundation
 
 // MARK: - Controller
 
-public final class WMFOnThisDayDataController {
+public actor WMFOnThisDayDataController {
 
     // MARK: Properties
 
     public static let shared = WMFOnThisDayDataController()
 
     private let basicService: WMFService?
+    private var responseCache: [String: WMFOnThisDayResponse] = [:]
 
     /// Languages known to support the On This Day feed endpoint.
     /// Sourced from the WMFOnThisDayEventsFetcher supported-language list in the main app.
@@ -33,11 +34,11 @@ public final class WMFOnThisDayDataController {
     ///   - month: The calendar month (1–12).
     ///   - day: The calendar day (1–31).
     ///   - completion: Called on an arbitrary queue with the result.
-    public func fetchOnThisDay(
+    private func fetchOnThisDay(
         project: WMFProject,
         month: Int,
         day: Int,
-        completion: @escaping (Result<WMFOnThisDayResponse, Error>) -> Void
+        completion: @escaping @Sendable (Result<WMFOnThisDayResponse, Error>) -> Void
     ) {
         guard isSupported(project: project) else {
             completion(.failure(WMFDataControllerError.unsupportedProject))
@@ -60,13 +61,18 @@ public final class WMFOnThisDayDataController {
         }
     }
 
-    /// Async/await convenience wrapper.
+    /// Fetches On This Day events with in-memory caching.
+    /// Repeated calls for the same project+month+day return the cached response immediately.
     public func fetchOnThisDay(
         project: WMFProject,
         month: Int,
         day: Int
     ) async throws -> WMFOnThisDayResponse {
-        return try await withCheckedThrowingContinuation { continuation in
+        let key = "\(project.id)-\(month)-\(day)"
+        if let cached = responseCache[key] {
+            return cached
+        }
+        let response = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<WMFOnThisDayResponse, Error>) in
             fetchOnThisDay(project: project, month: month, day: day) { result in
                 switch result {
                 case .success(let response):
@@ -76,18 +82,20 @@ public final class WMFOnThisDayDataController {
                 }
             }
         }
+        responseCache[key] = response
+        return response
     }
 
     // MARK: Private helpers
 
-    private func isSupported(project: WMFProject) -> Bool {
+    nonisolated private func isSupported(project: WMFProject) -> Bool {
         guard case .wikipedia(let language) = project else { return false }
         return Self.supportedLanguageCodes.contains(language.languageCode)
     }
 
     /// Builds the REST v1 feed URL:
     /// `https://{lang}.wikipedia.org/api/rest_v1/feed/onthisday/events/{M}/{D}`
-    private func url(for project: WMFProject, month: Int, day: Int) -> URL? {
+    nonisolated private func url(for project: WMFProject, month: Int, day: Int) -> URL? {
         guard case .wikipedia = project else { return nil }
         return URL.wikimediaRestAPIURL(project: project, additionalPathComponents: [
             "feed",

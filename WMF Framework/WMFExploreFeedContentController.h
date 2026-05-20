@@ -118,6 +118,12 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
 - (void)dismissCollapsedContentGroups;
 
+/// Updates the content group preview for the daily game matching the given projectID and date.
+/// Called when a Which Came First session answer is submitted.
+- (void)updateDailyGameContentGroupPreviewForProjectID:(NSString *)projectID date:(NSString *)date;
+
+- (void)resetDailyGameContentGroups;
+
 #if DEBUG
 - (void)debugChaos;
 #endif

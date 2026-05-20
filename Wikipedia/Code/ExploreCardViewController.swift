@@ -3,6 +3,7 @@ import CocoaLumberjackSwift
 import WMF
 import WMFNativeLocalizations
 import WMFComponents
+import WMFData
 import SwiftUI
 import UserNotifications
 
@@ -407,11 +408,45 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         guard let cell = cell as? WMFDailyGameExploreCell else {
             return
         }
-        if !layoutOnly {
-            cell.onPlayButtonTapped = { [weak self] in
-                self?.delegate?.exploreCardViewController(self!, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
-            }
+
+        // Synchronously decode WMFDailyGameContentPreview stored by the content source so
+        // the cell has the correct state and height from the very first layout pass.
+        let preview = (contentGroup?.contentPreview as? Data)
+            .flatMap { try? JSONDecoder().decode(WMFDailyGameContentPreview.self, from: $0) }
+
+        if let siteURL = contentGroup?.siteURL {
+            cell.isContentRTL = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: siteURL.wmf_contentLanguageCode) == .forceRightToLeft
         }
+
+        cell.tappedPlayTodaysGame = { [weak self] in
+            guard let self else { return }
+            self.delegate?.exploreCardViewController(self, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
+        }
+        cell.tappedContinueTodaysGame = { [weak self] in
+            guard let self else { return }
+            self.delegate?.exploreCardViewController(self, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
+        }
+        cell.tappedReviewResults = { [weak self] in
+            guard let self else { return }
+            // TODO: present results view
+        }
+        cell.tappedPlayTheArchive = { [weak self] in
+            guard let self else { return }
+            // TODO: present archive
+        }
+
+        let optionA = preview?.optionA
+        let optionB = preview?.optionB
+        let cellState: WMFDailyGameExploreCell.SessionState
+        switch preview?.state {
+        case .inProgress(let questionsAnswered, let score):
+            cellState = .inProgress(questionsAnswered: questionsAnswered, score: score)
+        case .completed(let score, let totalQuestions):
+            cellState = .completed(score: score, totalQuestions: totalQuestions)
+        default:
+            cellState = .notStarted(optionA: optionA, optionB: optionB)
+        }
+        cell.configure(state: cellState, theme: theme)
         cell.apply(theme: theme)
     }
 

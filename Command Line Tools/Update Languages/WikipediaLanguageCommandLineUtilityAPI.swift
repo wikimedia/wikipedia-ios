@@ -49,7 +49,14 @@ class WikipediaLanguageCommandLineUtilityAPI {
                     // Norwegian (Bokmål) has a different ISO code than it's subdomain, which is useful to reference in some instances (prepopulating preferredLanguages from iOS device languages, and choosing the correct alternative article language from the langlinks endpoint).
                     // https://phabricator.wikimedia.org/T276645
                     // https://phabricator.wikimedia.org/T272193
-                    return Wikipedia(languageCode: code, languageName: name, localName: localname, altISOCode: "nb")
+                    return Wikipedia(languageCode: code, languageName: name, localName: localname, altISOCode: "nb", localeOverrideCode: nil)
+                }
+
+                guard code != "als" else {
+                    // Alemannisch uses "als" in MW but ISO 639-3 assigns
+                    // "als" to Albanian (Tosk). Standard code is "gsw".
+                    // https://phabricator.wikimedia.org/T398296
+                    return Wikipedia(languageCode: code, languageName: name, localName: localname, altISOCode: "gsw", localeOverrideCode: "gsw")
                 }
                 
                 // If there's a site array populated with a subdomain that does NOT equal languageCode, skip. It might show up as a dupe in the languages list.
@@ -71,11 +78,11 @@ class WikipediaLanguageCommandLineUtilityAPI {
                     }
                 }
                 
-                return Wikipedia(languageCode: code, languageName: name, localName: localname, altISOCode: nil)
+                return Wikipedia(languageCode: code, languageName: name, localName: localname, altISOCode: nil, localeOverrideCode: nil)
             }
             // Add testwiki and test2wiki, they are not returned by the site matrix
-            wikipedias.append(Wikipedia(languageCode: "test", languageName: "Test", localName: "Test", altISOCode: nil))
-            wikipedias.append(Wikipedia(languageCode: "test2", languageName: "Test 2", localName: "Test 2", altISOCode: nil))
+            wikipedias.append(Wikipedia(languageCode: "test", languageName: "Test", localName: "Test", altISOCode: nil, localeOverrideCode: nil))
+            wikipedias.append(Wikipedia(languageCode: "test2", languageName: "Test 2", localName: "Test 2", altISOCode: nil, localeOverrideCode: nil))
             return wikipedias
         }.eraseToAnyPublisher()
     }

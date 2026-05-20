@@ -136,6 +136,8 @@ public enum WMFSFSymbolIcon {
     case gear
     case gearShape
     case calendar
+    case calendarExclamation
+    case calendarCheckmark
     case share
     case infoCircleFill
     case trash
@@ -342,6 +344,10 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "heart.fill", withConfiguration: configuration)
         case .calendar:
             image = UIImage(systemName: "calendar", withConfiguration: configuration)
+        case .calendarExclamation:
+            image = UIImage(systemName: "calendar.badge.exclamationmark", withConfiguration: configuration)
+        case .calendarCheckmark:
+            image = UIImage(systemName: "calendar.badge.checkmark", withConfiguration: configuration)
         case .share:
             image = UIImage(systemName: "square.and.arrow.up", withConfiguration: configuration)
         case .infoCircleFill:

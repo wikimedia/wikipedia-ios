@@ -173,6 +173,9 @@
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "No has editado esta semana. Agrega imágenes para mejorar la comprensión del artículo.";
 "activity-tab-read-title" = "Ver historial de lectura";
+"activity-tab-reading-challenge-card-body" = "Para hacer un seguimiento de tu racha con Baby Globe, deberás agregar el widget del Desafío de lectura desde tu pantalla de inicio.";
+"activity-tab-reading-challenge-card-cta" = "Muéstrame cómo hacerlo";
+"activity-tab-reading-challenge-card-title" = "Reto de lectura de 25 días";
 "activity-tab-satisfied" = "Satisfecho";
 "activity-tab-start-editing" = "Empezar a editar";
 "activity-tab-survey-title" = "Encuesta de satisfacción";
@@ -1067,6 +1070,7 @@
 "reading-challenge-announcement-item2-subtitle" = "Completa una racha de lectura de 25 días mientras el reto esté activo y obtén premios especiales.";
 "reading-challenge-announcement-item2-title" = "Gana premios";
 "reading-challenge-announcement-item3-subtitle" = "Recibe recordatorios y motivación de la mano de Baby Globe, nuestra adorable mascota de cumpleaños.";
+"reading-challenge-announcement-item3-subtitle2" = "Para hacer un seguimiento de tu racha con Baby Globe, deberás agregar el widget del Desafío de lectura desde tu pantalla de inicio.";
 "reading-challenge-announcement-item3-title" = "Instala el widget";
 "reading-challenge-announcement-secondary-cta" = "Más información";
 "reading-challenge-announcement-subtitle" = "Tu historial de lectura está protegido. Las estadísticas de lectura se generan a partir de datos almacenados de forma local en tu dispositivo.";
@@ -1079,6 +1083,7 @@
 "reading-challenge-enrolled-not-started-subtitle-article" = "Lee un artículo para empezar.";
 "reading-challenge-enrolled-not-started-subtitle-away" = "Tu racha está a un solo artículo de distancia.";
 "reading-challenge-enrolled-not-started-subtitle-somewhere" = "Toda racha tiene un inicio.";
+"reading-challenge-enrolled-not-started-subtitle-towards" = "¡Empieza a intentar alcanzar una racha de 25 días!";
 "reading-challenge-enrolled-not-started-title-fresh" = "Un nuevo comienzo.";
 "reading-challenge-enrolled-not-started-title-ready" = "¡Preparados, listos, a leer!";
 "reading-challenge-enrolled-not-started-title-spin" = "¿Quieres empezar una nueva racha?";
@@ -1105,7 +1110,12 @@
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 de 25 días|$1 de 25 días}}";
 "reading-challenge-subtitle" = "Reto de lectura de 25 días";
 "reading-challenge-widget-announcement-body" = "Baby Globe te está animando. Añade el widget del reto de lectura para llevar un registro tu progreso desde la pantalla de inicio.";
+"reading-challenge-widget-announcement-body2" = "Para hacer un seguimiento de tu racha con Baby Globe, deberás agregar el widget del Desafío de lectura desde tu pantalla de inicio.";
+"reading-challenge-widget-announcement-secondary-button" = "Muéstrame cómo hacerlo";
 "reading-challenge-widget-announcement-title" = "Instala el widget del reto de lectura de 25 días";
+"reading-challenge-widget-announcement-title2" = "Ve a tu pantalla de inicio para agregar el widget";
+"reading-challenge-widget-description" = "Sigue el progreso de tu desafío de lectura";
+"reading-challenge-widget-display-name" = "Desafío de lectura";
 "reading-list-add-generic-hint-title" = "¿Añadir este artículo a la lista de lectura?";
 "reading-list-add-hint-title" = "¿Quieres añadir «$1» a una lista de lectura?";
 "reading-list-add-saved-button-title" = "Sí, añadirlos a mis listas de lectura";

@@ -36,37 +36,23 @@ final class WMFOnThisDayDataControllerTests: XCTestCase {
         XCTAssertEqual(secondEvent.pages.first?.title, "Dominican Republic")
     }
     
-    func testFetchOnThisDayThrowsForWikidata() throws {
+    func testFetchOnThisDayThrowsForWikidata() async throws {
         let controller = try makeController(mockJSONResource: "onthisday-events-02-21-get")
-        let expectation = expectation(description: "fetchOnThisDay completes")
-
-        controller.fetchOnThisDay(project: .wikidata, month: 2, day: 21) { result in
-            switch result {
-            case .success:
-                XCTFail("Expected unsupportedProject error, got success")
-            case .failure(let error):
-                XCTAssertEqual(error as? WMFDataControllerError, .unsupportedProject)
-            }
-            expectation.fulfill()
+        do {
+            _ = try await controller.fetchOnThisDay(project: .wikidata, month: 2, day: 21)
+            XCTFail("Expected unsupportedProject error, got success")
+        } catch let error as WMFDataControllerError {
+            XCTAssertEqual(error, .unsupportedProject)
         }
-
-        waitForExpectations(timeout: 2)
     }
 
-    func testFetchOnThisDayThrowsForCommons() throws {
+    func testFetchOnThisDayThrowsForCommons() async throws {
         let controller = try makeController(mockJSONResource: "onthisday-events-02-21-get")
-        let expectation = expectation(description: "fetchOnThisDay completes")
-
-        controller.fetchOnThisDay(project: .commons, month: 2, day: 21) { result in
-            switch result {
-            case .success:
-                XCTFail("Expected unsupportedProject error, got success")
-            case .failure(let error):
-                XCTAssertEqual(error as? WMFDataControllerError, .unsupportedProject)
-            }
-            expectation.fulfill()
+        do {
+            _ = try await controller.fetchOnThisDay(project: .commons, month: 2, day: 21)
+            XCTFail("Expected unsupportedProject error, got success")
+        } catch let error as WMFDataControllerError {
+            XCTAssertEqual(error, .unsupportedProject)
         }
-
-        waitForExpectations(timeout: 2)
     }
 }

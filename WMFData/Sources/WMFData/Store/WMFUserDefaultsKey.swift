@@ -40,8 +40,8 @@ public enum WMFUserDefaultsKey: String {
     case showSearchLanguageBar = "show-search-language-bar"
     case openAppOnSearchTab = "open-app-on-search-tab"
     case isSubscribedToEchoNotifications = "is-subscribed-to-echo-notifications"
-    case activityTabSeenHistoryCallout = "activity-tab-seen-history-callout"
     case forceHCaptchaChallenge = "force-hcaptcha-challenge"
+    case activityTabReadingChallenge = "activity-tab-reading-challenge"
     
     // Reading challenge widget keys
     case hasEnrolledInReadingChallenge2026 = "has-enrolled-in-reading-challenge-2026"
