@@ -3,30 +3,24 @@ import Foundation
 /// Lazily loads bundled UI-test network fixtures and resolves each matching
 /// manifest row into response bytes.
 final class UITestNetworkFixtureStore: @unchecked Sendable {
-    private enum LoadResult {
+    private enum ManifestCache {
         case fixtures([UITestNetworkFixture])
-        case failure(LoadFailure)
-    }
-
-    private enum LoadFailure {
-        case missingManifest(String)
-        case unreadableManifest(URL, Error)
-        case invalidManifest(URL, Error)
+        case failureResponse(UITestNetworkFixtureResponse)
     }
 
     private static let manifestResourceName = "UITestNetworkFixtures.json"
 
     /// `URLProtocol` can ask for fixtures from URLSession worker queues.
     private let lock = NSLock()
-    private var loadResult: LoadResult?
+    private var manifestCache: ManifestCache?
 
     func response(for request: URLRequest) -> UITestNetworkFixtureResponse? {
         let fixtures: [UITestNetworkFixture]
-        switch loadFixtures() {
+        switch loadManifest() {
         case .fixtures(let loadedFixtures):
             fixtures = loadedFixtures
-        case .failure(let failure):
-            return Self.loadFailureResponse(for: failure)
+        case .failureResponse(let response):
+            return response
         }
 
         guard let fixture = fixtures.first(where: { $0.matches(request) }) else {
@@ -50,40 +44,53 @@ final class UITestNetworkFixtureStore: @unchecked Sendable {
             lock.unlock()
         }
 
-        loadResult = nil
+        manifestCache = nil
     }
 
-    private func loadFixtures() -> LoadResult {
+    private func loadManifest() -> ManifestCache {
         lock.lock()
         defer {
             lock.unlock()
         }
 
-        if let loadResult {
-            return loadResult
+        if let manifestCache {
+            return manifestCache
         }
 
-        guard let manifestURL = Self.fixtureResourceURL(named: Self.manifestResourceName) else {
-            let loadResult = LoadResult.failure(.missingManifest(Self.manifestResourceName))
-            self.loadResult = loadResult
-            return loadResult
+        let manifestCache: ManifestCache
+        if let manifestURL = Self.fixtureResourceURL(named: Self.manifestResourceName) {
+            do {
+                let data = try Data(contentsOf: manifestURL)
+                let fixtures = try JSONDecoder().decode([UITestNetworkFixture].self, from: data)
+                manifestCache = .fixtures(fixtures)
+            } catch let error as DecodingError {
+                manifestCache = .failureResponse(
+                    Self.errorResponse(
+                        message: "UI test network fixture manifest invalid",
+                        resource: manifestURL.lastPathComponent,
+                        reason: error.localizedDescription
+                    )
+                )
+            } catch {
+                manifestCache = .failureResponse(
+                    Self.errorResponse(
+                        message: "UI test network fixture manifest unreadable",
+                        resource: manifestURL.lastPathComponent,
+                        reason: error.localizedDescription
+                    )
+                )
+            }
+        } else {
+            manifestCache = .failureResponse(
+                Self.errorResponse(
+                    message: "UI test network fixture manifest missing",
+                    resource: Self.manifestResourceName
+                )
+            )
         }
 
-        do {
-            let data = try Data(contentsOf: manifestURL)
-            let fixtures = try JSONDecoder().decode([UITestNetworkFixture].self, from: data)
-            let loadResult = LoadResult.fixtures(fixtures)
-            self.loadResult = loadResult
-            return loadResult
-        } catch let error as DecodingError {
-            let loadResult = LoadResult.failure(.invalidManifest(manifestURL, error))
-            self.loadResult = loadResult
-            return loadResult
-        } catch {
-            let loadResult = LoadResult.failure(.unreadableManifest(manifestURL, error))
-            self.loadResult = loadResult
-            return loadResult
-        }
+        self.manifestCache = manifestCache
+        return manifestCache
     }
 
     private func bodyData(for fixture: UITestNetworkFixture) -> Data? {
@@ -119,36 +126,20 @@ final class UITestNetworkFixtureStore: @unchecked Sendable {
     /// of crashing the app process under UI test.
     private static func missingBodyResponse(for fixture: UITestNetworkFixture) -> UITestNetworkFixtureResponse {
         let resource = fixture.bodyResource ?? "<missing resource>"
-        return UITestNetworkFixtureResponse(
-            statusCode: 500,
-            headers: ["Content-Type": "application/json"],
-            body: jsonBody([
-                "error": "UI test network fixture body missing",
-                "resource": resource
-            ])
+        return errorResponse(
+            message: "UI test network fixture body missing",
+            resource: resource
         )
     }
 
-    private static func loadFailureResponse(for failure: LoadFailure) -> UITestNetworkFixtureResponse {
-        let body: [String: String]
-        switch failure {
-        case .missingManifest(let resourceName):
-            body = [
-                "error": "UI test network fixture manifest missing",
-                "resource": resourceName
-            ]
-        case .unreadableManifest(let manifestURL, let error):
-            body = [
-                "error": "UI test network fixture manifest unreadable",
-                "resource": manifestURL.lastPathComponent,
-                "reason": error.localizedDescription
-            ]
-        case .invalidManifest(let manifestURL, let error):
-            body = [
-                "error": "UI test network fixture manifest invalid",
-                "resource": manifestURL.lastPathComponent,
-                "reason": error.localizedDescription
-            ]
+    private static func errorResponse(message: String, resource: String, reason: String? = nil) -> UITestNetworkFixtureResponse {
+        var body = [
+            "error": message,
+            "resource": resource
+        ]
+
+        if let reason {
+            body["reason"] = reason
         }
 
         return UITestNetworkFixtureResponse(
