@@ -12,7 +12,7 @@ final class UITestNetworkFixtureHTTPClientProvider: SessionHTTPClientProvider {
     /// Reuses the production session delegate and base configuration so fixture
     /// mode exercises the same delegate callbacks, cache policy, and cookie
     /// behavior as the normal client.
-    func httpClient(defaultURLSession: URLSession, sessionDelegate: SessionDelegate) -> any SessionHTTPClient {
+    func httpClient(defaultURLSession: URLSession, sessionDelegate: SessionDelegate) -> SessionHTTPClient {
         UITestNetworkFixtureHTTPClient(profile: profile, defaultURLSession: defaultURLSession, sessionDelegate: sessionDelegate)
     }
 }

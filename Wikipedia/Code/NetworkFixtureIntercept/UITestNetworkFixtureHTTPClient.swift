@@ -8,7 +8,7 @@ final class UITestNetworkFixtureHTTPClient: SessionHTTPClient {
     private static let fixtureStore = UITestNetworkFixtureStore()
     private let profile: UITestNetworkFixtureInterceptor.Profile
     private let fixtureURLSession: URLSession
-    private let fixtureClient: any SessionHTTPClient
+    private let fixtureClient: SessionHTTPClient
 
     init(profile: UITestNetworkFixtureInterceptor.Profile, defaultURLSession: URLSession, sessionDelegate: SessionDelegate) {
         self.profile = profile
@@ -64,9 +64,7 @@ final class UITestNetworkFixtureHTTPClient: SessionHTTPClient {
         return [UITestNetworkFixtureURLProtocol.self] + existingProtocolClasses
     }
 
-    /// Returns a manifest-backed response when available. Strict fixture mode
-    /// fails closed for otherwise valid HTTP(S) requests so missing fixtures are
-    /// visible in tests instead of silently leaking to the network.
+    /// Returns a manifest-backed response when available
     static func fixtureResponse(for request: URLRequest) -> UITestNetworkFixtureResponse? {
         if let fixtureResponse = fixtureStore.response(for: request) {
             return fixtureResponse
