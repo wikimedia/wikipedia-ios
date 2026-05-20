@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindSuggestedEdits:
             return WMFCommonStringsWrapper.suggestedEditsTitle;
         case WMFContentGroupKindDailyGame:
-            return WMFLocalizedStringWithDefaultValue(@"explore-daily-game-heading", nil, nil, @"Which came first?", @"Title for the 'Which came first?' daily game Explore feed card");
+            return WMFCommonStringsWrapper.exploreGamesTitle;
         default:
             break;
     }
@@ -94,7 +94,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindFeaturedArticle:
             return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFCommonStringsWrapper.fromWikipedia fallingBackOnGenericString:WMFCommonStringsWrapper.defaultFromWikipedia];
         case WMFContentGroupKindDailyGame:
-            return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFCommonStringsWrapper.fromWikipedia fallingBackOnGenericString:WMFCommonStringsWrapper.defaultFromWikipedia];
+            return [WMFCommonStringsWrapper onLangWikipediaWith:self.siteURL.wmf_languageCode];
         case WMFContentGroupKindTopRead: {
             return [WMFCommonStringsWrapper onLangWikipediaWith:self.siteURL.wmf_languageCode];
         }

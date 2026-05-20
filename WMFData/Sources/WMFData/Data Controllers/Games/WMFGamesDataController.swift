@@ -192,7 +192,7 @@ extension WMFGamesDataController {
     }
 
     static let whichCameFirstGameType = "which-came-first"
-    static let whichCameFirstQuestionCount = 5
+    public static let whichCameFirstQuestionCount = 5
 
     public func isWhichCameFirstDailySessionAvailable(date: String, project: WMFProject, onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared) async throws -> Bool {
 
@@ -262,20 +262,22 @@ extension WMFGamesDataController {
             pool.removeAll { $0.year == event2.year && $0.text == event2.text }
 
             let page1 = event1.pages.first
+            let thumbnail1 = event1.pages.first(where: { $0.thumbnail?.source != nil })?.thumbnail?.source
             let page2 = event2.pages.first
+            let thumbnail2 = event2.pages.first(where: { $0.thumbnail?.source != nil })?.thumbnail?.source
 
             // Earlier event is always "A"; correctAnswer is "A" since event1.year < event2.year
             let optionA = WMFWhichCameFirstEvent(
                 title: event1.text,
                 year: event1.year,
                 articleTitle: page1?.title,
-                thumbnailURL: page1?.thumbnail?.source
+                thumbnailURL: thumbnail1
             )
             let optionB = WMFWhichCameFirstEvent(
                 title: event2.text,
                 year: event2.year,
                 articleTitle: page2?.title,
-                thumbnailURL: page2?.thumbnail?.source
+                thumbnailURL: thumbnail2
             )
 
             // Randomize which option is presented as A/B so the earlier event isn't always on the left
@@ -341,8 +343,49 @@ extension WMFGamesDataController {
 
             try coreDataStore.saveIfNeeded(moc: moc)
 
-            return WMFWhichCameFirstAnswerResult(isCorrect: isCorrect, correctAnswer: question.correctAnswer)
+            let result = WMFWhichCameFirstAnswerResult(isCorrect: isCorrect, correctAnswer: question.correctAnswer)
+
+            let projectID = cdSession.projectID
+            let dailyGameDate = cdSession.dailyGameDate ?? ""
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(
+                    name: WMFNSNotification.whichCameFirstSessionDidUpdate,
+                    object: nil,
+                    userInfo: ["projectID": projectID, "dailyGameDate": dailyGameDate]
+                )
+            }
+
+            return result
         }
+    }
+
+    public func fetchWhichCameFirstDailySession(date: String, project: WMFProject) async throws -> WMFGameSession? {
+        return try await fetchSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date)
+    }
+
+    /// Returns the first question's two events for the Explore card preview.
+    /// Decodes from existing session content data when a session exists (no network call),
+    /// otherwise fetches one question from the OTD API without persisting anything.
+    public func fetchWhichCameFirstDailyPreviewEvents(
+        date: String,
+        project: WMFProject,
+        onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared
+    ) async throws -> (optionA: WMFWhichCameFirstEvent, optionB: WMFWhichCameFirstEvent)? {
+        if let session = try await fetchSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date) {
+            let gameState = try decodeWhichCameFirstGameState(from: session.contentData)
+            guard let first = gameState.questions.first else { return nil }
+            return (first.optionA, first.optionB)
+        }
+
+        let components = date.split(separator: "-")
+        guard components.count == 3,
+              let month = Int(components[1]),
+              let day = Int(components[2]) else { return nil }
+
+        let response = try await onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
+        let questions = Self.makeWhichCameFirstQuestions(from: response.events, count: 1)
+        guard let first = questions.first else { return nil }
+        return (first.optionA, first.optionB)
     }
 
     public func fetchWhichCameFirstSessions(project: WMFProject) async throws -> [WMFGameSession] {
@@ -360,6 +403,7 @@ extension WMFGamesDataController {
                 moc.delete(session)
             }
             try moc.save()
+            NotificationCenter.default.post(name: WMFNSNotification.gamesAllSessionsCleared, object: nil)
         }
     }
 
