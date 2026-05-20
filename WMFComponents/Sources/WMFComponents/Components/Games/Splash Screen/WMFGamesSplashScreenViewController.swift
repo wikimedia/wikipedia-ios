@@ -57,7 +57,7 @@ public final class WMFGamesSplashScreenViewController: WMFComponentHostingContro
         )
 
         let moreButton = UIBarButtonItem(
-            image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle),
+            image: WMFSFSymbolIcon.for(symbol: .ellipsis),
             style: .plain,
             target: self,
             action: #selector(didTapMore)
