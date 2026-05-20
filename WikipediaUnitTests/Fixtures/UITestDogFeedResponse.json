@@ -2,6 +2,7 @@
   "tfa": {
     "type": "standard",
     "title": "Dog",
+    "normalizedtitle": "Dog",
     "displaytitle": "Dog",
     "namespace": {
       "id": 0,
@@ -55,6 +56,7 @@
         "views": 1000,
         "rank": 1,
         "title": "Dog",
+        "normalizedtitle": "Dog",
         "displaytitle": "Dog",
         "namespace": {
           "id": 0,
