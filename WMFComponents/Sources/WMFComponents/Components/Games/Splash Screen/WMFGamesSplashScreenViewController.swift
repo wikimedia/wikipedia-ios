@@ -1,9 +1,6 @@
 import SwiftUI
 import UIKit
 
-/// Hosting controller for `WMFGamesSplashScreenView`.
-/// Configures the transparent/colored navigation bar so the splash background
-/// extends behind it, and surfaces close + more (ellipsis) bar button items.
 public final class WMFGamesSplashScreenViewController: WMFComponentHostingController<WMFGamesSplashScreenView>, WMFNavigationBarConfiguring {
 
     // MARK: - Properties
@@ -71,7 +68,7 @@ public final class WMFGamesSplashScreenViewController: WMFComponentHostingContro
         // with white title and button tints regardless of the current theme.
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.titleTextAttributes = [.foregroundColor: WMFColor.white]
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance

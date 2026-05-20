@@ -111,7 +111,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
                 eventRowB.isHidden = true
             }
             stopCountdownTimer()
-            setButton1Title(WMFLocalizedString("games-wcf-explore-button-play-title", value:"Play today's game", comment: "Button text on Which Came First card in the Explore tab, shown when game is not started. Tapping navigates to the Which Came First game."))
+            setButton1Title(CommonStrings.playTodaysGameTitle)
             button2.isHidden = true
             headerStacked = false
         case .inProgress(let answered, _):

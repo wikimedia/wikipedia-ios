@@ -55,11 +55,7 @@ public final class WMFGamesSplashScreenViewModel: ObservableObject {
             value: "About this game",
             comment: "Button title to learn more about the Which Came First game."
         )
-        self.playButtonTitle = WMFLocalizedString(
-            "which-came-first-splash-play-button",
-            value: "Play today's game",
-            comment: "Button title to start the Which Came First game."
-        )
+        self.playButtonTitle = CommonStrings.playTodaysGameTitle
         self.didTapPlay = didTapPlay
         self.didTapAbout = didTapAbout
         self.didTapClose = didTapClose
