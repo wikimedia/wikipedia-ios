@@ -63,6 +63,8 @@ private extension WMFContentGroupKind {
             return WMFLocalizedString("explore-feed-preferences-show-related-pages-title", value: "Show Because you read card", comment: "Text for the setting that allows users to toggle the visibility of the Because you read card")
         case .suggestedEdits:
             return WMFLocalizedString("explore-feed-preferences-suggested-edits-title", value: "Show Suggested edits card", comment: "Text for the setting that allows users to toggle the visibility of the Suggested edits card")
+        case .dailyGame:
+            return  WMFLocalizedString("explore-feed-preferences-games-title", value: "Show Games card", comment: "Text for the setting that allows users to toggle the visibility of the Games card")
         default:
             assertionFailure("\(self) is not customizable")
             return ""

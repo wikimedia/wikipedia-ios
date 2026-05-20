@@ -3,6 +3,7 @@ enum UITestLaunchArgument: String {
     case appThemeName = "-WMFAppThemeName"
     case didShowOnboarding = "-DidShowOnboarding5.3"
     case hideTipsForTesting = "-WMFHideTipsForTesting"
+    case httpClientProfile = "-WMFUITestHTTPClientProfile"
     case resetPreferredLanguages = "-WMFResetPreferredLanguages"
     case uiTestLanguageCode = "-WMFUITestLanguageCode"
 }
