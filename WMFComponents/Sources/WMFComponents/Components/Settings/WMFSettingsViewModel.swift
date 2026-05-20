@@ -72,9 +72,8 @@ final public class WMFSettingsViewModel: ObservableObject {
         let aboutTitle: String
         let clearDonationHistoryTitle: String
         let safetyTitle: String
-        let whichCameFirstTitle: String
 
-        public init(settingTitle: String, doneButtonTitle: String, cancelButtonTitle: String, accountTitle: String, logInTitle: String, myLanguagesTitle: String, searchTitle: String, exploreFeedTitle: String, onTitle: String, offTitle: String, yirTitle: String, pushNotificationsTitle: String, readingpreferences: String, articleSyncing: String, databasePopulation: String, clearCacheTitle: String, privacyHeader: String, privacyPolicyTitle: String, termsOfUseTitle: String, rateTheAppTitle: String, helpTitle: String, aboutTitle: String, clearDonationHistoryTitle: String, safetyTitle: String, whichCameFirstTitle: String) {
+        public init(settingTitle: String, doneButtonTitle: String, cancelButtonTitle: String, accountTitle: String, logInTitle: String, myLanguagesTitle: String, searchTitle: String, exploreFeedTitle: String, onTitle: String, offTitle: String, yirTitle: String, pushNotificationsTitle: String, readingpreferences: String, articleSyncing: String, databasePopulation: String, clearCacheTitle: String, privacyHeader: String, privacyPolicyTitle: String, termsOfUseTitle: String, rateTheAppTitle: String, helpTitle: String, aboutTitle: String, clearDonationHistoryTitle: String, safetyTitle: String) {
             self.settingTitle = settingTitle
             self.doneButtonTitle = doneButtonTitle
             self.cancelButtonTitle = cancelButtonTitle
@@ -99,7 +98,6 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.aboutTitle = aboutTitle
             self.clearDonationHistoryTitle = clearDonationHistoryTitle
             self.safetyTitle = safetyTitle
-            self.whichCameFirstTitle = whichCameFirstTitle
         }
     }
 
@@ -308,10 +306,6 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.coordinatorDelegate?.handleSettingsAction(.databasePopulation)
         })
 
-        let whichCameFirst = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .calendar), color: WMFColor.blue600, title: localizedStrings.whichCameFirstTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
-            self.coordinatorDelegate?.handleSettingsAction(.whichCameFirst)
-        })
-
         let clearCache = SettingsItem(image: WMFIcon.settingsClearCache, color: WMFColor.yellow600, title: localizedStrings.clearCacheTitle, subtitle: nil, accessory: .none, action: {
             self.coordinatorDelegate?.handleSettingsAction(.clearCachedData)
         })
@@ -324,7 +318,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         
 #if DEBUG
         section.items.insert(dangerZone, at: 7)
-        section.items.append(whichCameFirst)
 #endif
         return section
     }

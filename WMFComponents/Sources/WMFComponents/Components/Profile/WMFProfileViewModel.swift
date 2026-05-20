@@ -68,9 +68,8 @@ public class WMFProfileViewModel: ObservableObject {
         let donateSubtext: String
         let yearInReviewTitle: String
         let yearInReviewLoggedOutSubtext: String
-        let whichCameFirstTitle: String
 
-        public init(pageTitle: String, notificationsTitle: String, userPageTitle: String, talkPageTitle: String, watchlistTitle: String, logOutTitle: String, donateTitle: String, settingsTitle: String, joinWikipediaTitle: String, joinWikipediaSubtext: String, donateSubtext: String, yearInReviewTitle: String, yearInReviewLoggedOutSubtext: String, whichCameFirstTitle: String) {
+        public init(pageTitle: String, notificationsTitle: String, userPageTitle: String, talkPageTitle: String, watchlistTitle: String, logOutTitle: String, donateTitle: String, settingsTitle: String, joinWikipediaTitle: String, joinWikipediaSubtext: String, donateSubtext: String, yearInReviewTitle: String, yearInReviewLoggedOutSubtext: String) {
             self.pageTitle = pageTitle
             self.notificationsTitle = notificationsTitle
             self.userPageTitle = userPageTitle
@@ -84,7 +83,6 @@ public class WMFProfileViewModel: ObservableObject {
             self.donateSubtext = donateSubtext
             self.yearInReviewTitle = yearInReviewTitle
             self.yearInReviewLoggedOutSubtext = yearInReviewLoggedOutSubtext
-            self.whichCameFirstTitle = whichCameFirstTitle
         }
     }
 }
@@ -221,20 +219,6 @@ enum ProfileState {
             
             var settingsItems: [ProfileListItem] = [settingsItem]
 
-#if DEBUG
-            let whichCameFirstItem = ProfileListItem(
-                text: localizedStrings.whichCameFirstTitle,
-                image: WMFSFSymbolIcon.for(symbol: .calendar),
-                imageColor: WMFColor.blue600,
-                hasNotifications: nil,
-                isDonate: false,
-                isLoadingDonateConfigs: false,
-                action: {
-                    coordinatorDelegate?.handleProfileAction(.showWhichCameFirst)
-                }
-            )
-            settingsItems.append(whichCameFirstItem)
-#endif
 
             if WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
                 let devSettingsItem = ProfileListItem(
@@ -364,20 +348,6 @@ enum ProfileState {
                 settingsItems.append(devSettingsItem)
             }
 
-#if DEBUG
-            let whichCameFirstItemTempAccount = ProfileListItem(
-                text: localizedStrings.whichCameFirstTitle,
-                image: WMFSFSymbolIcon.for(symbol: .calendar),
-                imageColor: WMFColor.blue600,
-                hasNotifications: nil,
-                isDonate: false,
-                isLoadingDonateConfigs: false,
-                action: {
-                    coordinatorDelegate?.handleProfileAction(.showWhichCameFirst)
-                }
-            )
-            settingsItems.append(whichCameFirstItemTempAccount)
-#endif
 
             let joinSection = ProfileSection(
                 listItems: [
@@ -457,20 +427,6 @@ enum ProfileState {
             
             var settingsItems: [ProfileListItem] = [settingsItem]
 
-#if DEBUG
-            let whichCameFirstItemLoggedOut = ProfileListItem(
-                text: localizedStrings.whichCameFirstTitle,
-                image: WMFSFSymbolIcon.for(symbol: .calendar),
-                imageColor: WMFColor.blue600,
-                hasNotifications: nil,
-                isDonate: false,
-                isLoadingDonateConfigs: false,
-                action: {
-                    coordinatorDelegate?.handleProfileAction(.showWhichCameFirst)
-                }
-            )
-            settingsItems.append(whichCameFirstItemLoggedOut)
-#endif
 
             if WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
                 let devSettingsItem = ProfileListItem(

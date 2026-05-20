@@ -1287,8 +1287,7 @@ extension WMFAppViewController {
             helpTitle: CommonStrings.helpAndfeedbackTitle,
             aboutTitle: CommonStrings.aboutTitle,
             clearDonationHistoryTitle: CommonStrings.deleteDonationHistory,
-            safetyTitle: CommonStrings.legalAndSafety,
-            whichCameFirstTitle: "Which Came First (test)"
+            safetyTitle: CommonStrings.legalAndSafety
         )
 
         let viewModel = WMFSettingsViewModel.__createSynchronously(
