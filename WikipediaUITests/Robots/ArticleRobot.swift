@@ -5,6 +5,7 @@ import WMFComponents
 struct ArticleRobot: ScreenshotCapturingRobot {
     let base: UITestRobot
     private let configuration: UITestConfiguration
+    private let systemBackButtonIdentifier = "BackButton"
 
     init(base: UITestRobot, configuration: UITestConfiguration) {
         self.base = base
@@ -40,7 +41,8 @@ struct ArticleRobot: ScreenshotCapturingRobot {
         let navigationBar = navigationBar(file: file, line: line)
         base.assertVisible(navigationBar.buttons.firstMatch, timeout: 15, description: "article navigation button", file: file, line: line)
         let backButton = backButton(in: navigationBar)
-        base.assertVisible(backButton, timeout: 15, description: "article back button", file: file, line: line)
+        base.assertExists(backButton, timeout: 15, description: "article back button", file: file, line: line)
+        XCTAssertFalse(backButton.frame.isEmpty, "Expected article back button to have a tappable frame.", file: file, line: line)
         backButton.tap()
         return ExploreRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
     }
@@ -66,11 +68,16 @@ struct ArticleRobot: ScreenshotCapturingRobot {
     }
 
     private func backButton(in navigationBar: XCUIElement) -> XCUIElement {
+        let systemBackButton = navigationBar.buttons.matching(identifier: systemBackButtonIdentifier).firstMatch
+        if systemBackButton.exists {
+            return systemBackButton
+        }
+
         let buttons = navigationBar.buttons.allElementsBoundByIndex
             .filter { $0.exists && !$0.frame.isEmpty }
             .sorted { $0.frame.midX < $1.frame.midX }
 
-        // UIKit does not expose a stable accessibility identifier for this system back button.
+        // Some simulator versions do not expose the system back button identifier.
         // Select the visually leading navigation-bar button instead of relying on query order.
         return (configuration.isRightToLeft ? buttons.last : buttons.first) ?? navigationBar.buttons.firstMatch
     }
