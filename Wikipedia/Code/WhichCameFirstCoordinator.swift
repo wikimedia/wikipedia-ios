@@ -13,6 +13,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
     private let theme: Theme
     private let gamesDataController = WMFGamesDataController()
 
+    /// The modal navigation controller that hosts the splash screen and game screens.
+    private weak var gameNavigationController: UINavigationController?
+
     // MARK: - Initialization
 
     init(navigationController: UINavigationController, theme: Theme) {
@@ -27,8 +30,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         let splashViewController = makeSplashViewController()
         let nav = WMFComponentNavigationController(
             rootViewController: splashViewController,
-            modalPresentationStyle: .pageSheet
+            modalPresentationStyle: .fullScreen
         )
+        gameNavigationController = nav
         navigationController.present(nav, animated: true)
         return true
     }
@@ -72,7 +76,12 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
     // MARK: - Navigation
 
     private func showGame() {
-        // TODO: Push the Which Came First game view controller.
+        guard let language = WMFDataEnvironment.current.primaryAppLanguage,
+              let gameNav = gameNavigationController else { return }
+        let project = WMFProject.wikipedia(language)
+        let viewModel = WMFWhichCameFirstViewModel(date: formattedTodayISODateString(), project: project)
+        let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
+        gameNav.setViewControllers([gameVC], animated: true)
     }
 
     private func showAbout() {
