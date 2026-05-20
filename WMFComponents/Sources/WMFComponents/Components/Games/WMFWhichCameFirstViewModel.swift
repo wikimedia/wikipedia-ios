@@ -89,10 +89,10 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         correctFeedback: WMFLocalizedString("which-came-first-correct-feedback", value: "Correct!", comment: "Feedback message shown when the user answers correctly in the Which Came First game"),
         correctFeedback2: WMFLocalizedString("which-came-first-correct-feedback2", value: "+1 point", comment: "Feedback message shown when the user answers correctly in the Which Came First game"),
         incorrectFeedback: WMFLocalizedString("which-came-first-incorrect-feedback", value: "Incorrect", comment: "Feedback message shown when the user answers incorrectly in the Which Came First game"),
-        gameCompleteTitle: WMFLocalizedString("which-came-first-game-complete-title", value: "Game Complete!", comment: "Title shown on the results screen after the Which Came First game is finished"),
-        perfectScoreMessage: WMFLocalizedString("which-came-first-perfect-score-message", value: "Perfect score!", comment: "Message shown when the user achieves a perfect score in the Which Came First game"),
-        niceWorkMessage: WMFLocalizedString("which-came-first-nice-work-message", value: "Nice work! Come back tomorrow for a new game.", comment: "Message shown when the user scores above 50% in the Which Came First game"),
-        betterLuckMessage: WMFLocalizedString("which-came-first-better-luck-message", value: "Better luck tomorrow!", comment: "Message shown when the user scores 50% or below in the Which Came First game"),
+        gameCompleteTitle: "Game Complete!",
+        perfectScoreMessage: "Perfect score!",
+        niceWorkMessage: "Nice work! Come back tomorrow for a new game.",
+        betterLuckMessage: "Better luck tomorrow!",
         errorTitle: WMFLocalizedString("which-came-first-error-title", value: "Something went wrong", comment: "Title shown on the error screen in the Which Came First game"),
         retryButton: WMFLocalizedString("which-came-first-retry-button", value: "Retry", comment: "Button label to retry loading the Which Came First game after an error")
     )
@@ -128,17 +128,16 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
                 self.gameState = state
                 let sessions = try await dataController.fetchWhichCameFirstSessions(project: project)
                 self.sessionIdentifier = sessions.first(where: { $0.dailyGameDate == date })?.identifier
+                
                 self.currentIndex = state.answers.count
                 progressResults = Array(repeating: nil, count: state.questions.count)
                 var recalculatedScore = 0
-                for question in state.questions {
+                for (index, question) in state.questions.enumerated() {
                     let key = question.id.uuidString
                     if let picked = state.answers[key] {
                         let isCorrect = picked == question.correctAnswer
                         if isCorrect { recalculatedScore += 1 }
-                        if let index = state.questions.firstIndex(where: { $0.id == question.id }) {
-                            progressResults[index] = isCorrect
-                        }
+                        progressResults[index] = isCorrect
                     }
                 }
                 self.score = recalculatedScore
@@ -239,22 +238,6 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     }
 
     deinit { loadTask?.cancel() }
-}
-
-
-public extension WMFOnThisDayEvent {
-    func cardEvent(month: Int, day: Int) -> WMFOnThisDayCardEvent {
-        var components = DateComponents()
-        components.year = year
-        components.month = month
-        components.day = day
-        let date = Calendar(identifier: .gregorian).date(from: components) ?? Date()
-        return WMFOnThisDayCardEvent(
-            text: text,
-            date: date,
-            imageURL: pages.first?.thumbnail?.source
-        )
-    }
 }
 
 private extension WMFWhichCameFirstEvent {

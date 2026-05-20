@@ -10,8 +10,7 @@ public final class WMFWhichCameFirstCardViewModel: ObservableObject, Identifiabl
 
     @Published public var isSelected: Bool
     @Published public var isRevealed: Bool
-    @Published public var isCorrect: Bool
-    @Published public var isCorrectAnswer: Bool
+    @Published public var isSelectedCardCorrect: Bool // This shows if the explicit card is the correct one
     @Published public var thumbnailImageData: Data?
 
     private var imageTask: Task<Void, Never>?
@@ -21,14 +20,12 @@ public final class WMFWhichCameFirstCardViewModel: ObservableObject, Identifiabl
         event: WMFOnThisDayCardEvent,
         isSelected: Bool = false,
         isRevealed: Bool = false,
-        isCorrect: Bool = false,
         isCorrectAnswer: Bool = false
     ) {
         self.event = event
         self.isSelected = isSelected
         self.isRevealed = isRevealed
-        self.isCorrect = isCorrect
-        self.isCorrectAnswer = isCorrectAnswer
+        self.isSelectedCardCorrect = isCorrectAnswer
 
         if event.imageURL != nil {
             loadImage()
@@ -45,14 +42,13 @@ public final class WMFWhichCameFirstCardViewModel: ObservableObject, Identifiabl
     }
 
     public func reveal(userSelected: Bool, isCorrectAnswer: Bool) {
-        self.isCorrectAnswer = isCorrectAnswer
+        self.isSelectedCardCorrect = isCorrectAnswer
         self.isSelected = userSelected || isCorrectAnswer
-        self.isCorrect = userSelected && isCorrectAnswer
         self.isRevealed = true
     }
 
     func resultIconName() -> String {
-        isCorrectAnswer ? "checkmark" : "xmark"
+        isSelectedCardCorrect ? "checkmark" : "xmark"
     }
 
     private func loadImage() {

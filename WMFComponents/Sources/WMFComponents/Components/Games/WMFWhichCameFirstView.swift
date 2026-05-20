@@ -311,7 +311,8 @@ private struct ProgressDotsView: View {
             ForEach(Array(progressResults.enumerated()), id: \.offset) { index, result in
                 ZStack {
                     if let result = result {
-                        Image(systemName: result ? "checkmark.circle.fill" : "xmark.circle.fill")
+                        Image(uiImage: WMFSFSymbolIcon.for(symbol: result ? .checkmarkCircleFill : .closeCircleFill, font: .subheadline) ?? UIImage())
+                            .renderingMode(.template)
                             .font(.system(size: dotSize))
                             .foregroundStyle(
                                 result

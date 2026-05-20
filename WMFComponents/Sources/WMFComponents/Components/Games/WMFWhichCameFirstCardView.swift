@@ -28,7 +28,7 @@ public struct WMFWhichCameFirstCardView: View {
     ///  - isCorrectAnswer == false, isSelected == true  → red (user picked the wrong card)
     ///  - isCorrectAnswer == false, isSelected == false → gray (wrong card, not chosen)
     private var revealColor: Color {
-        if viewModel.isCorrectAnswer {
+        if viewModel.isSelectedCardCorrect {
             return Color(uiColor: theme.accent)
         } else if viewModel.isSelected {
             return Color(uiColor: theme.destructive)
@@ -59,7 +59,7 @@ public struct WMFWhichCameFirstCardView: View {
             }
             .padding(16)
 
-            if viewModel.isRevealed && viewModel.isCorrectAnswer {
+            if viewModel.isRevealed && viewModel.isSelectedCardCorrect {
                 HStack {
                     Spacer()
                     resultIcon
