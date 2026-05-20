@@ -94,6 +94,11 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue, value: newValue) }
     }
 
+    public var allowGestureZoomArticleWebview: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.allowGestureZoomArticleWebview.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.allowGestureZoomArticleWebview.rawValue, value: newValue) }
+    }
+
     public var showGamesV1: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowGamesV1.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowGamesV1.rawValue, value: newValue) }
