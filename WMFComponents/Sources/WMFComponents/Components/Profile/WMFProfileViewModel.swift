@@ -218,9 +218,9 @@ enum ProfileState {
             )
             
             var settingsItems: [ProfileListItem] = [settingsItem]
-            
+
+
             if WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
-                
                 let devSettingsItem = ProfileListItem(
                     text: "Developer settings",
                     image: WMFSFSymbolIcon.for(symbol: .testTubeFill),
@@ -232,10 +232,9 @@ enum ProfileState {
                         coordinatorDelegate?.handleProfileAction(.showDevSettings)
                     }
                 )
-                
                 settingsItems.append(devSettingsItem)
             }
-            
+
             return [
                 ProfileSection(
                     listItems: [
@@ -333,9 +332,8 @@ enum ProfileState {
             )
             
             var settingsItems: [ProfileListItem] = [settingsItem]
-            
+
             if WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
-                
                 let devSettingsItem = ProfileListItem(
                     text: "Developer settings",
                     image: WMFSFSymbolIcon.for(symbol: .testTubeFill),
@@ -347,9 +345,9 @@ enum ProfileState {
                         coordinatorDelegate?.handleProfileAction(.showDevSettings)
                     }
                 )
-                
                 settingsItems.append(devSettingsItem)
             }
+
 
             let joinSection = ProfileSection(
                 listItems: [
@@ -428,9 +426,9 @@ enum ProfileState {
             )
             
             var settingsItems: [ProfileListItem] = [settingsItem]
-            
+
+
             if WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
-                
                 let devSettingsItem = ProfileListItem(
                     text: "Developer settings",
                     image: WMFSFSymbolIcon.for(symbol: .testTubeFill),
@@ -442,10 +440,9 @@ enum ProfileState {
                         coordinatorDelegate?.handleProfileAction(.showDevSettings)
                     }
                 )
-                
                 settingsItems.append(devSettingsItem)
             }
-            
+
             let joinSection = ProfileSection(
                 listItems: [
                     joinWikipediaItem

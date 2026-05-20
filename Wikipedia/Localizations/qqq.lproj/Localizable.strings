@@ -645,8 +645,8 @@
 "forgot-password-instructions" = "Instructions for resetting password";
 "forgot-password-title" = "Title for reset password interface {{Identical|Reset password}}";
 "forgot-password-username-or-email-title" = "Title shown between the username and email text fields. User only has to specify either username \"Or\" email address {{Identical|Or}}";
+"games-wcf-button-play-title" = "Button text on Which Came First card in the Explore tab and in the game splash screen, shown when game is not started. Tapping navigates to the Which Came First game.";
 "games-wcf-explore-button-archive-title" = "Button text on Which Came First card in the Explore tab, shown when game is complete. Tapping navigates to the Which Came First archive picker.";
-"games-wcf-explore-button-play-title" = "Button text on Which Came First card in the Explore tab, shown when game is not started. Tapping navigates to the Which Came First game.";
 "games-wcf-explore-button-review-title" = "Button text on Which Came First card in the Explore tab, shown when game is complete. Tapping navigates to the results of the game.";
 "games-wcf-explore-complete-subtitle" = "Description text on Which Came First card in the Explore tab, shown when a game is completed. $1 is replaced by the number of questions answered correctly, $2 is replaced by the number of total questions. $3 is replaced by a countdown timer string, indicating the number of hours / minutes / seconds left until the next game is available.";
 "games-wcf-explore-in-progress-subtitle" = "Description text on Which Came First card in the Explore tab, shown when a game is in progress. $1 is replaced by which question the user left off of.";
@@ -1539,6 +1539,11 @@
 "which-came-first-next-button" = "Button label to advance to the next question in the Which Came First game";
 "which-came-first-retry-button" = "Button label to retry loading the Which Came First game after an error";
 "which-came-first-see-results-button" = "Button label shown after the final question to view the game results";
+"which-came-first-splash-about-button" = "Button title to learn more about the Which Came First game.";
+"which-came-first-splash-continue-button" = "Button title to continue an in-progress Which Came First game.";
+"which-came-first-splash-review-button" = "Button title to review results of a completed Which Came First game.";
+"which-came-first-splash-subtitle" = "Subtitle shown on the Which Came First game splash screen.";
+"which-came-first-splash-title" = "Title shown on the Which Came First game splash screen.";
 "which-came-first-submit-button" = "Button label to submit the user's selected answer in the Which Came First game";
 "which-came-first-title" = "Title prompt shown to the user during the Which Came First game";
 "widget-onthisday-description" = "Description for 'On this day' view in iOS widget gallery";

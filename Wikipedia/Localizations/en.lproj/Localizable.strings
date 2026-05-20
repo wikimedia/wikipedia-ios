@@ -645,8 +645,8 @@
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
 "forgot-password-title" = "Reset password";
 "forgot-password-username-or-email-title" = "Or";
+"games-wcf-button-play-title" = "Play today's game";
 "games-wcf-explore-button-archive-title" = "Play the archive";
-"games-wcf-explore-button-play-title" = "Play today's game";
 "games-wcf-explore-button-review-title" = "Review results";
 "games-wcf-explore-complete-subtitle" = "You scored $1/$2 on today's game. Next game in $3)";
 "games-wcf-explore-in-progress-subtitle" = "You're on question $1. Continue guessing which event came first on this day in history.";
@@ -1539,6 +1539,11 @@
 "which-came-first-next-button" = "Next";
 "which-came-first-retry-button" = "Retry";
 "which-came-first-see-results-button" = "See Results";
+"which-came-first-splash-about-button" = "About this game";
+"which-came-first-splash-continue-button" = "Continue today's game";
+"which-came-first-splash-review-button" = "Review results";
+"which-came-first-splash-subtitle" = "Guess which event came first on this day in history.";
+"which-came-first-splash-title" = "Which came first?";
 "which-came-first-submit-button" = "Submit";
 "which-came-first-title" = "Which came first?";
 "widget-onthisday-description" = "Explore what happened on this day in history.";

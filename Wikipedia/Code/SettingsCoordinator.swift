@@ -297,6 +297,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         settingsNav.pushViewController(hostingController, animated: true)
     }
 
+
     // MARK: - Database population
 
     private func tappedDatabasePopulation() {
