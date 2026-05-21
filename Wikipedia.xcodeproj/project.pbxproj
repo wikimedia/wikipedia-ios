@@ -1365,6 +1365,9 @@
 		836BF56F2869F9C200B98321 /* TalkPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836BF56D2869F9C200B98321 /* TalkPageViewController.swift */; };
 		836BF5702869F9C200B98321 /* TalkPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836BF56D2869F9C200B98321 /* TalkPageViewController.swift */; };
 		836CB7A229DF45F10058A454 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836CB7A129DF45F10058A454 /* UserSession.swift */; };
+		837172E42F9BDF390040F83E /* WhichCameFirstCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837172E32F9BDF2F0040F83E /* WhichCameFirstCoordinator.swift */; };
+		837172E52F9BDF390040F83E /* WhichCameFirstCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837172E32F9BDF2F0040F83E /* WhichCameFirstCoordinator.swift */; };
+		837172E62F9BDF390040F83E /* WhichCameFirstCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837172E32F9BDF2F0040F83E /* WhichCameFirstCoordinator.swift */; };
 		8373EDFA2AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8373EDF92AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift */; };
 		8373EDFB2AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8373EDF92AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift */; };
 		8373EDFC2AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8373EDF92AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift */; };
@@ -2157,6 +2160,7 @@
 		D89D44031D74D40100F7862E /* MWKSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807CC1C0CF04A0065EBC0 /* MWKSearchResult.m */; };
 		D89DAE1B1D6CC6410089F7E1 /* MWKTitleLanguageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */; };
 		D8A3C8F22FBB000100E6073C /* UserDefaultsThemeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A3C8F12FBB000100E6073C /* UserDefaultsThemeTests.swift */; };
+		3099083C46BB436A98D28535 /* UITestNetworkFixtureInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92477EAD1E964A5B9D86A01E /* UITestNetworkFixtureInterceptorTests.swift */; };
 		D8A47C8523D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A47C8423D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift */; };
 		D8A47C8623D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A47C8423D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift */; };
 		D8A47C8723D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A47C8423D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift */; };
@@ -2378,6 +2382,16 @@
 		D8E6FF7E2405AAC400686272 /* ArticleViewController+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E6FF7B2405AAC400686272 /* ArticleViewController+Analytics.swift */; };
 		D8E78FA41FB4C8250094B968 /* ReadingListsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E78FA31FB4C8250094B968 /* ReadingListsController.swift */; };
 		D8E78FA61FB4C8740094B968 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E78FA51FB4C8740094B968 /* Session.swift */; };
+		7B41F9C6D1A14BB6A9F0E101 /* SessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B41F9C5D1A14BB6A9F0E101 /* SessionHTTPClient.swift */; };
+		F1A700000000000000000010 /* UITestHTTPClientProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000011 /* UITestHTTPClientProfile.swift */; };
+		F1A700000000000000000012 /* UITestHTTPClientProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000011 /* UITestHTTPClientProfile.swift */; };
+		F1A700000000000000000009 /* UITestNetworkFixtureInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000002 /* UITestNetworkFixtureInterceptor.swift */; };
+		F1A70000000000000000000A /* UITestNetworkFixtureHTTPClientProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000003 /* UITestNetworkFixtureHTTPClientProvider.swift */; };
+		F1A70000000000000000000B /* UITestNetworkFixtureHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000004 /* UITestNetworkFixtureHTTPClient.swift */; };
+		F1A70000000000000000000C /* UITestNetworkFixtureURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000005 /* UITestNetworkFixtureURLProtocol.swift */; };
+		F1A70000000000000000000D /* UITestNetworkFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000006 /* UITestNetworkFixture.swift */; };
+		F1A70000000000000000000E /* UITestNetworkFixtureResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000007 /* UITestNetworkFixtureResponse.swift */; };
+		F1A70000000000000000000F /* UITestNetworkFixtureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000008 /* UITestNetworkFixtureStore.swift */; };
 		D8E892252176124F00587F61 /* PeriodicWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E892242176124F00587F61 /* PeriodicWorker.swift */; };
 		D8EBD1B81FBB13EE00AA7DA9 /* ReadingList+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EBD1B71FBB13EE00AA7DA9 /* ReadingList+JSON.swift */; };
 		D8EBD1BC1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EBD1BB1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift */; };
@@ -3631,6 +3645,7 @@
 		836BF56D2869F9C200B98321 /* TalkPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageViewController.swift; sourceTree = "<group>"; };
 		836CB7A129DF45F10058A454 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		83703A7724DC44C600EE98EA /* RemoteNotifications 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RemoteNotifications 2.xcdatamodel"; sourceTree = "<group>"; };
+		837172E32F9BDF2F0040F83E /* WhichCameFirstCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhichCameFirstCoordinator.swift; sourceTree = "<group>"; };
 		8373EDF92AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundraisingAnnouncementPanel.swift; sourceTree = "<group>"; };
 		83796AEF2C9C6EB300E55C69 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		83796AF02C9C6EB300E55C69 /* NotificationsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCoordinator.swift; sourceTree = "<group>"; };
@@ -4285,6 +4300,7 @@
 		D8987E021E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFKeyValue+CoreDataProperties.h"; sourceTree = "<group>"; };
 		D8987E031E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFKeyValue+CoreDataProperties.m"; sourceTree = "<group>"; };
 		D8A3C8F12FBB000100E6073C /* UserDefaultsThemeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsThemeTests.swift; sourceTree = "<group>"; };
+		92477EAD1E964A5B9D86A01E /* UITestNetworkFixtureInterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureInterceptorTests.swift; sourceTree = "<group>"; };
 		D8A47C8423D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoIntrinsicContentSizeImageView.swift; sourceTree = "<group>"; };
 		D8A47C8923D728A4002AA823 /* ArticleTableOfContentsDisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTableOfContentsDisplayController.swift; sourceTree = "<group>"; };
 		D8A47C8E23D7338C002AA823 /* ArticleViewController+TableOfContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+TableOfContents.swift"; sourceTree = "<group>"; };
@@ -4342,6 +4358,15 @@
 		D8E6FF7B2405AAC400686272 /* ArticleViewController+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Analytics.swift"; sourceTree = "<group>"; };
 		D8E78FA31FB4C8250094B968 /* ReadingListsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReadingListsController.swift; path = Wikipedia/Code/ReadingListsController.swift; sourceTree = SOURCE_ROOT; };
 		D8E78FA51FB4C8740094B968 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		7B41F9C5D1A14BB6A9F0E101 /* SessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHTTPClient.swift; sourceTree = "<group>"; };
+		F1A700000000000000000011 /* UITestHTTPClientProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestHTTPClientProfile.swift; sourceTree = "<group>"; };
+		F1A700000000000000000002 /* UITestNetworkFixtureInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureInterceptor.swift; sourceTree = "<group>"; };
+		F1A700000000000000000003 /* UITestNetworkFixtureHTTPClientProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureHTTPClientProvider.swift; sourceTree = "<group>"; };
+		F1A700000000000000000004 /* UITestNetworkFixtureHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureHTTPClient.swift; sourceTree = "<group>"; };
+		F1A700000000000000000005 /* UITestNetworkFixtureURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureURLProtocol.swift; sourceTree = "<group>"; };
+		F1A700000000000000000006 /* UITestNetworkFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixture.swift; sourceTree = "<group>"; };
+		F1A700000000000000000007 /* UITestNetworkFixtureResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureResponse.swift; sourceTree = "<group>"; };
+		F1A700000000000000000008 /* UITestNetworkFixtureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureStore.swift; sourceTree = "<group>"; };
 		D8E892242176124F00587F61 /* PeriodicWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodicWorker.swift; sourceTree = "<group>"; };
 		D8EBD1B71FBB13EE00AA7DA9 /* ReadingList+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingList+JSON.swift"; sourceTree = "<group>"; };
 		D8EBD1BB1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingListEntry+JSON.swift"; sourceTree = "<group>"; };
@@ -6492,6 +6517,7 @@
 		83796B012C9C6F6000E55C69 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				837172E32F9BDF2F0040F83E /* WhichCameFirstCoordinator.swift */,
 				37EE25132F6DB9AB0038504A /* ReadingChallengeAnnouncementCoordinator.swift */,
 				675C97132F297EAC00830CEF /* SavedAllArticlesCoordinator.swift */,
 				37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */,
@@ -7478,6 +7504,7 @@
 				00D280FB247F019C006BEE23 /* Date+ExtensionTests.swift */,
 				FFBA8C1827D824D8009E9B65 /* URL+ExtensionTests.swift */,
 				D8A3C8F12FBB000100E6073C /* UserDefaultsThemeTests.swift */,
+				92477EAD1E964A5B9D86A01E /* UITestNetworkFixtureInterceptorTests.swift */,
 				00A8F58526BDD5E700175B8E /* WidgetSampleContentTests.swift */,
 			);
 			name = Tests;
@@ -8026,6 +8053,8 @@
 				D8181FA42188DC1400FDEC59 /* String+Domains.swift */,
 				8386BDF02386D3E1007EE89D /* RequestError.swift */,
 				D8E78FA51FB4C8740094B968 /* Session.swift */,
+				7B41F9C5D1A14BB6A9F0E101 /* SessionHTTPClient.swift */,
+				F1A700000000000000000001 /* NetworkFixtureIntercept */,
 				D826C51A217741C50012F940 /* ReachabilityNotifier.swift */,
 				D8635AE7216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift */,
 				7AE5248C21383D9C00CDC817 /* WikidataFetcher.swift */,
@@ -8036,6 +8065,21 @@
 			);
 			name = Controllers;
 			path = ../Wikipedia/Code;
+			sourceTree = "<group>";
+		};
+		F1A700000000000000000001 /* NetworkFixtureIntercept */ = {
+			isa = PBXGroup;
+			children = (
+				F1A700000000000000000011 /* UITestHTTPClientProfile.swift */,
+				F1A700000000000000000002 /* UITestNetworkFixtureInterceptor.swift */,
+				F1A700000000000000000003 /* UITestNetworkFixtureHTTPClientProvider.swift */,
+				F1A700000000000000000004 /* UITestNetworkFixtureHTTPClient.swift */,
+				F1A700000000000000000005 /* UITestNetworkFixtureURLProtocol.swift */,
+				F1A700000000000000000006 /* UITestNetworkFixture.swift */,
+				F1A700000000000000000007 /* UITestNetworkFixtureResponse.swift */,
+				F1A700000000000000000008 /* UITestNetworkFixtureStore.swift */,
+			);
+			path = NetworkFixtureIntercept;
 			sourceTree = "<group>";
 		};
 		D8BA1F1F1DF1E19700502877 /* Resources */ = {
@@ -8510,6 +8554,7 @@
 				D4991431181D51DE00E6073C /* Sources */,
 				D4991432181D51DE00E6073C /* Frameworks */,
 				D4991433181D51DE00E6073C /* Resources */,
+				02E8F355DB334C71BB93887C /* Copy UI Test Network Fixtures */,
 				0E8380771D64989F0076EDE4 /* Embed Foundation Extensions */,
 				D84581101D67572D00B09640 /* Embed Frameworks */,
 			);
@@ -9363,6 +9408,26 @@
 			shellPath = /bin/sh;
 			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n\tswiftlint --fix --config \".swiftlint-autocorrect.yml\" && swiftlint\nelse\n\techo \"warning: SwiftLint not installed, run \\\"scripts/brew_install\\\" script to install\"\nfi\n";
 		};
+		02E8F355DB334C71BB93887C /* Copy UI Test Network Fixtures */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/WikipediaUnitTests/Fixtures",
+			);
+			name = "Copy UI Test Network Fixtures";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/Fixtures",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$CONFIGURATION\" != \"UITests\" ]; then\n    exit 0\nfi\n\nrm -rf \"${SCRIPT_OUTPUT_FILE_0}\"\ncp -R \"${SCRIPT_INPUT_FILE_0}/\" \"${SCRIPT_OUTPUT_FILE_0}/\"\n";
+		};
 		D87021721EBA69B7000D02D6 /* Update Localizations */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -9456,6 +9521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1A700000000000000000012 /* UITestHTTPClientProfile.swift in Sources */,
 				67E32CAF2F5BE381009AA52D /* AppOnboardingUITests.swift in Sources */,
 				6742052E2FBFD50100A1C0DE /* ArticleControlsUITests.swift in Sources */,
 				674205312F9A556100BBA0CA /* ExploreUITests.swift in Sources */,
@@ -9506,6 +9572,7 @@
 				67E3992A24786E2100441831 /* ReadingListManualPerformanceTests.swift in Sources */,
 				D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */,
 				D8A3C8F22FBB000100E6073C /* UserDefaultsThemeTests.swift in Sources */,
+				3099083C46BB436A98D28535 /* UITestNetworkFixtureInterceptorTests.swift in Sources */,
 				A452F9F824081A5500D8ED09 /* MockCLLocationManager.swift in Sources */,
 				67DAEDEC27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelUserTalkMessageTests.swift in Sources */,
 				B0C06B9F218240CA00E481CC /* Collection+AsyncMapTests.swift in Sources */,
@@ -9655,6 +9722,7 @@
 				B0C7A0801F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				00E75B6C27EB92DE00A45B78 /* NotificationsCenterDetailHeaderCell.swift in Sources */,
 				8382F8D320D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
+				837172E52F9BDF390040F83E /* WhichCameFirstCoordinator.swift in Sources */,
 				67A0699E2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */,
 				D88FCADF1E4B74D300505A9F /* WikidataFetcher+Places.swift in Sources */,
 				B0432344210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
@@ -10433,6 +10501,15 @@
 				00669500265DA01000E23AE4 /* WidgetContentFetcher.swift in Sources */,
 				0015712C27D92F6B00F1EB26 /* RetryBlockTask.swift in Sources */,
 				D8E78FA61FB4C8740094B968 /* Session.swift in Sources */,
+				7B41F9C6D1A14BB6A9F0E101 /* SessionHTTPClient.swift in Sources */,
+				F1A700000000000000000010 /* UITestHTTPClientProfile.swift in Sources */,
+				F1A700000000000000000009 /* UITestNetworkFixtureInterceptor.swift in Sources */,
+				F1A70000000000000000000A /* UITestNetworkFixtureHTTPClientProvider.swift in Sources */,
+				F1A70000000000000000000B /* UITestNetworkFixtureHTTPClient.swift in Sources */,
+				F1A70000000000000000000C /* UITestNetworkFixtureURLProtocol.swift in Sources */,
+				F1A70000000000000000000D /* UITestNetworkFixture.swift in Sources */,
+				F1A70000000000000000000E /* UITestNetworkFixtureResponse.swift in Sources */,
+				F1A70000000000000000000F /* UITestNetworkFixtureStore.swift in Sources */,
 				D8FA18D51E1BD891009675C3 /* NSError+WMFExtensions.m in Sources */,
 				8320332322B906A0004A9EDA /* NavigationState.swift in Sources */,
 				83222DB31F8E554800338BE5 /* WMFContent+CoreDataClass.m in Sources */,
@@ -10736,6 +10813,7 @@
 				D8CE256B1E698E2400DAE2E0 /* WMFWelcomeContainerViewController.swift in Sources */,
 				D8CE256C1E698E2400DAE2E0 /* WMFAccountCreator.swift in Sources */,
 				67AA15572DB6F60400D7C08F /* ArticleViewController+Categories.swift in Sources */,
+				837172E42F9BDF390040F83E /* WhichCameFirstCoordinator.swift in Sources */,
 				67033E1B2A61DC3700896852 /* ArticleViewController+Watchlist.swift in Sources */,
 				0072990828AC44F100DCD2E6 /* TalkPageCellTopicView.swift in Sources */,
 				0072991728AC49FA00DCD2E6 /* TalkPageCellCommentSeparator.swift in Sources */,
@@ -11279,6 +11357,7 @@
 				D88C701A1EE595E90022A26A /* MapView.swift in Sources */,
 				67033E1A2A61DC3700896852 /* ArticleViewController+Watchlist.swift in Sources */,
 				67AA15582DB6F60400D7C08F /* ArticleViewController+Categories.swift in Sources */,
+				837172E62F9BDF390040F83E /* WhichCameFirstCoordinator.swift in Sources */,
 				0072990728AC44F100DCD2E6 /* TalkPageCellTopicView.swift in Sources */,
 				0072991628AC49FA00DCD2E6 /* TalkPageCellCommentSeparator.swift in Sources */,
 				D8EC3E5B1E9BDA35006712EB /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
@@ -12345,7 +12424,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-DNDEBUG";
+				OTHER_SWIFT_FLAGS = "-DNDEBUG -DUITEST";
 				SDKROOT = iphoneos;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

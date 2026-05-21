@@ -428,7 +428,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         cell.tappedReviewResults = { [weak self] in
             guard let self else { return }
-            // TODO: present results view
+            self.delegate?.exploreCardViewController(self, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
         }
         cell.tappedPlayTheArchive = { [weak self] in
             guard let self else { return }

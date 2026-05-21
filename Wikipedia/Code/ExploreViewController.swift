@@ -23,6 +23,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     
     private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
+    private var whichCameFirstCoordinator: WhichCameFirstCoordinator?
 
     private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
         guard let self, let nav = self.navigationController else { return nil }
@@ -745,19 +746,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
 
-        // Daily game card — present the Which Came First game
+        // Daily game card — present the Which Came First splash screen
         if contentGroup.contentGroupKind == .dailyGame {
-            guard let languageCode = contentGroup.siteURL?.wmf_languageCode else { return }
-            let languageVariantCode = contentGroup.siteURL?.wmf_languageVariantCode
-            let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
-            let today = {
-                let formatter = DateFormatter.onThisDayAPIDateFormatter
-                return formatter.string(from: Date())
-            }()
-            let viewModel = WMFWhichCameFirstViewModel(date: today, project: project)
-            let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
-            let navVC = WMFComponentNavigationController(rootViewController: gameVC, modalPresentationStyle: .pageSheet)
-            present(navVC, animated: true)
+            guard let navigationController else { return }
+            let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: theme)
+            whichCameFirstCoordinator = coordinator
+            coordinator.start()
             return
         }
 
