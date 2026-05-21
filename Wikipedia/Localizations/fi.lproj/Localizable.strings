@@ -491,7 +491,6 @@
 "explore-because-you-read" = "Aiemmin lukemasi perusteella";
 "explore-because-you-read-footer" = "Muut liittyvät artikkelit";
 "explore-continue-reading-heading" = "Jatka lukemista";
-"explore-daily-game-heading" = "Kumpi tapahtui ensin?";
 "explore-detail-back-button-title" = "Takaisin Tutki-syötteeseen";
 "explore-enable-location-title" = "Tutki artikkeleita lähellä nykyistä sijaintisi";
 "explore-featured-article-heading" = "Suositeltu artikkeli";
@@ -625,6 +624,7 @@
 "forgot-password-instructions" = "Saat ohjeet salasanan palauttamiseen sähköpostitse täytettyäsi yhden alla olevista kentistä";
 "forgot-password-title" = "Salasanan palauttaminen";
 "forgot-password-username-or-email-title" = "tai";
+"games-wcf-explore-title" = "Kumpi tapahtui ensin?";
 "gan-variants-alert-title" = "Päivityksiä Gan-version tukeen";
 "history-clear-confirmation-heading" = "Tyhjennetäänkö historia?";
 "history-clear-delete-all" = "Kyllä, poista kaikki";
@@ -1106,7 +1106,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Syntaksin korostus";
 "reading-themes-controls-accessibility-text-size-slider" = "Tekstin koon liukusäädin";
 "reading-themes-controls-syntax-highlighting" = "Syntaksin korostus";
-"reference-section-button-accessibility-label" = "Hyppää lähdeosioon";
+"reference-section-button-accessibility-label" = "Siirry lähdeosioon";
 "reference-title" = "Lähde $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Tänään|1=Eilen|$1 päivää sitten}}";
 "relative-date-hours-abbreviated" = "$1 t";

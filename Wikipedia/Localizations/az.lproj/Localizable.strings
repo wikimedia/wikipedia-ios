@@ -516,7 +516,6 @@
 "explore-because-you-read" = "Oxuduğunuz üçün";
 "explore-because-you-read-footer" = "Əlavə əlaqəli məqalələr";
 "explore-continue-reading-heading" = "Oxumağa davam et";
-"explore-daily-game-heading" = "Hansı birinci baş verib?";
 "explore-detail-back-button-title" = "Kəşf lentinə qayıt";
 "explore-enable-location-title" = "Cari məkanınıza yaxın məqalələri kəşf edin";
 "explore-featured-article-heading" = "Seçilmiş məqalə";
@@ -651,6 +650,7 @@
 "forgot-password-instructions" = "Parol sıfırlama təlimatlarını e-poçt vasitəsilə almaq üçün aşağıdakı sahələrdən birini doldurun";
 "forgot-password-title" = "Parolu yenilə";
 "forgot-password-username-or-email-title" = "Ya da";
+"games-wcf-explore-title" = "Hansı birinci baş verib?";
 "gan-variants-alert-body" = "Vikipediya proqramı indi tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı Gan variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarmağı və redaktə etməyi asanlaşdırır:\n\n贛語 原文 Gan (gan)\n赣语简体 Gan, Sadələşdirilmiş (gan-hans)\n贛語 繁體 Gan, Ənənəvi (gan-hant)";
 "gan-variants-alert-title" = "Gan variant dəstəyi üçün yeniləmələr";
 "history-clear-confirmation-heading" = "Bütün son elementlərinizi silmək istədiyinizə əminsiniz?";
@@ -1047,7 +1047,6 @@
 "reading-challenge-announcement-item1-title" = "25 gün ərzində gündə 1 məqalə oxuyun";
 "reading-challenge-announcement-item2-subtitle" = "Xüsusi mükafatlar qazanmaq üçün yarışma canlı yayımlandığı müddətdə 25 günlük oxuma seriyasını tamamlayın.";
 "reading-challenge-announcement-item2-title" = "Mükafatlar qazanın";
-"reading-challenge-announcement-item3-subtitle" = "Sevimli ad günü maskotumuz Körpə Qlobus ilə faydalı xatırlatmalar və motivasiyalar əldə edin.";
 "reading-challenge-announcement-item3-title" = "Vidceti quraşdır";
 "reading-challenge-announcement-secondary-cta" = "Daha ətraflı öyrən";
 "reading-challenge-announcement-subtitle" = "Oxuma tarixçəniz qorunur. Oxuma məlumatları cihazınızda lokal olaraq saxlanılan datadan istifadə etməklə hesablanır.";
@@ -1086,8 +1085,6 @@
 "reading-challenge-streak-no-days" = "25 gündən $1";
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|25 gündən $1}}";
 "reading-challenge-subtitle" = "25 günlük oxuma yarışması";
-"reading-challenge-widget-announcement-body" = "Körpə qlobus sizi dəstəkləyir. Əsas ekrandan irəliləyişinizi izləmək üçün Oxuma Yarışması vidcetini əlavə edin.";
-"reading-challenge-widget-announcement-title" = "25 günlük oxuma yarışması vidcetini quraşdırın";
 "reading-challenge-widget-description" = "Oxuma tapşırığınızı izləyin.";
 "reading-challenge-widget-display-name" = "Oxuma Yarışması";
 "reading-list-add-generic-hint-title" = "Bu məqalə oxuma siyahısına əlavə edilsin?";
