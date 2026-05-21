@@ -6,24 +6,28 @@ import WMFData
 public struct WMFWhichCameFirstShareView: View {
 
     @ObservedObject var viewModel: WMFWhichCameFirstShareViewModel
+    let theme: WMFTheme
 
     private let viewWidth: CGFloat = 393
     private let viewHeight: CGFloat = 627
 
-    public init(viewModel: WMFWhichCameFirstShareViewModel) {
+    public init(viewModel: WMFWhichCameFirstShareViewModel, theme: WMFTheme = WMFTheme.light) {
         self.viewModel = viewModel
+        self.theme = theme
     }
 
     public var body: some View {
         ZStack {
-            Color(uiColor: WMFColor.white)
+            Color(uiColor: theme.paperBackground)
             VStack(alignment: .leading, spacing: 0) {
 
                 Image("wikipedia", bundle: .module)
                     .resizable()
+                    .renderingMode(.template)
                     .scaledToFit()
                     .frame(height: 28)
                     .frame(maxWidth: .infinity, alignment: .center)
+                    .foregroundColor(Color(uiColor: theme.text))
                     .padding(.top, 28)
                     .padding(.bottom, 32)
 
@@ -32,7 +36,7 @@ public struct WMFWhichCameFirstShareView: View {
 
                 Text(viewModel.topicsIncludedTitle)
                     .font(Font(WMFFont.for(.semiboldSubheadline)))
-                    .foregroundColor(Color(uiColor: WMFColor.gray700))
+                    .foregroundColor(Color(uiColor: theme.text))
                     .padding(.top, 32)
                     .padding(.horizontal, 20)
                     .padding(.bottom, 16)
@@ -59,12 +63,12 @@ public struct WMFWhichCameFirstShareView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(article.title)
                     .font(Font(WMFFont.for(.callout)))
-                    .foregroundColor(Color(uiColor: WMFColor.gray700))
+                    .foregroundColor(Color(uiColor: theme.text))
                     .lineLimit(1)
                 if let description = article.description {
                     Text(description)
                         .font(Font(WMFFont.for(.subheadline)))
-                        .foregroundColor(Color(uiColor: WMFColor.gray500))
+                        .foregroundColor(Color(uiColor: theme.secondaryText))
                         .lineLimit(1)
                 }
             }
@@ -88,7 +92,7 @@ public struct WMFWhichCameFirstShareView: View {
         VStack(spacing: 22) {
             Text(viewModel.scoreSummaryText)
                 .font(Font(WMFFont.for(.georgiaTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large))))
-                .foregroundColor(Color(uiColor: WMFColor.gray700))
+                .foregroundColor(Color(uiColor: theme.text))
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 8)
 

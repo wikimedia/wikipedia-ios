@@ -95,8 +95,8 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
               let events = gameViewModel.makeShareArticleEvents(),
               let results = gameViewModel.makeShareQuestionResults() else { return }
 
-        Task { [weak gameNav] in
-            guard let gameNav else { return }
+        Task { [weak self, weak gameNav] in
+            guard let self, let gameNav else { return }
 
             let summaryController = WMFArticleSummaryDataController.shared
             let imageController = WMFImageDataController.shared
@@ -129,7 +129,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
                 articles: articles
             )
 
-            let shareView = WMFWhichCameFirstShareView(viewModel: shareViewModel)
+            let shareView = WMFWhichCameFirstShareView(viewModel: shareViewModel, theme: Theme.wmfTheme(from: self.theme))
             let renderer = ImageRenderer(content: shareView)
             renderer.scale = UIScreen.main.scale
             guard let image = renderer.uiImage else { return }
