@@ -19,31 +19,27 @@ public struct WMFWhichCameFirstShareView: View {
     public var body: some View {
         ZStack {
             Color(uiColor: WMFColor.white)
-
             VStack(alignment: .leading, spacing: 0) {
 
-                // MARK: Wikipedia wordmark
                 Image("wikipedia", bundle: .module)
                     .resizable()
                     .scaledToFit()
                     .frame(height: 28)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.top, 28)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 32)
 
-                // MARK: Score card
                 scoreCard
                     .padding(.horizontal, 20)
 
-                // MARK: Topics header
-                Text("Topics included:")
+
+                Text(viewModel.topicsIncludedTitle)
                     .font(Font(WMFFont.for(.semiboldSubheadline)))
                     .foregroundColor(Color(uiColor: WMFColor.gray700))
-                    .padding(.top, 24)
+                    .padding(.top, 32)
                     .padding(.horizontal, 20)
                     .padding(.bottom, 16)
 
-                // MARK: Article list
                 VStack(spacing: 0) {
                     ForEach(viewModel.articleTitles, id: \.self) { title in
                         WMFAsyncPageRow(
@@ -69,7 +65,7 @@ public struct WMFWhichCameFirstShareView: View {
 
     private var scoreCard: some View {
         VStack(spacing: 22) {
-            Text("I scored \(viewModel.score)/\(viewModel.totalQuestions) on \u{201C}Which came first?\u{201D} today.")
+            Text(viewModel.scoreSummaryText)
                 .font(Font(WMFFont.for(.georgiaTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large))))
                 .foregroundColor(Color(uiColor: WMFColor.gray700))
                 .multilineTextAlignment(.center)

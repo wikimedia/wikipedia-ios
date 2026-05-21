@@ -1529,6 +1529,8 @@
 "welcome-languages-search-title" = "Search in over 300 languages";
 "welcome-privacy-subtitle" = "We believe that you should not have to provide personal information to participate in the free knowledge movement. Usage data collected for this app is anonymous.";
 "welcome-privacy-terms-button-text" = "Learn more about our privacy policy and terms of use";
+"which-came-first-share-score-summary" = "I scored $1/$2 on u{201C}Which came first?u{201D} today.";
+"which-came-first-share-topics-title" = "Topics included:";
 "which-came-first-splash-about-button" = "About this game";
 "which-came-first-splash-continue-button" = "Continue today's game";
 "which-came-first-splash-review-button" = "Review results";
