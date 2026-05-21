@@ -7,12 +7,14 @@ import Foundation
 public enum AccessibilityIdentifiers {
     public enum Article {
         public static let homeButton = "Article Home Button"
+        public static let leadImage = "Article Lead Image"
         public static let searchButton = "Article Search Button"
         public static let view = "Article View"
     }
 
     public enum Explore {
         public static let articleCell = "Explore Article Cell"
+        public static let pictureOfTheDayCell = "Explore Picture of the Day Cell"
         public static let view = "Explore View"
     }
 
@@ -24,7 +26,19 @@ public enum AccessibilityIdentifiers {
     public enum Search {
         public static let searchField = "Search Field"
         public static let searchBar = "Search Bar"
+        public static let tabButton = "Search Tab Button"
         public static let view = "Search View"
+
+        public static func result(_ title: String) -> String {
+            "Search Result \(title)"
+        }
+    }
+
+    public enum ImageGallery {
+        public static let image = "Image Gallery Image"
+        public static let loadingIndicator = "Image Gallery Loading Indicator"
+        public static let shareButton = "Image Gallery Share Button"
+        public static let view = "Image Gallery View"
     }
 
     public enum Onboarding {
@@ -37,23 +51,12 @@ public enum AccessibilityIdentifiers {
         public static let languagesView = "App Onboarding Languages View"
         public static let nextButton = "App Onboarding Next Button"
         public static let skipButton = "App Onboarding Skip Button"
-
-        public static func preferredLanguage(_ contentLanguageCode: String) -> String {
-            "App Onboarding Preferred Language \(contentLanguageCode)"
-        }
-
-        public static func primaryLanguage(_ contentLanguageCode: String) -> String {
-            "App Onboarding Primary Language \(contentLanguageCode)"
-        }
     }
 
     public enum LanguageSelection {
-        public static let allLanguagesTable = "All Languages Table"
         public static let allLanguagesView = "All Languages View"
-        public static let languagesTable = "Languages Table"
         public static let languagesView = "Languages View"
         public static let preferredLanguagesAddLanguageButton = "Preferred Languages Add Language Button"
-        public static let preferredLanguagesTable = "Preferred Languages Table"
         public static let preferredLanguagesView = "Preferred Languages View"
 
         public static func allLanguage(_ contentLanguageCode: String) -> String {
@@ -73,12 +76,14 @@ public enum AccessibilityIdentifiers {
 @objc(WMFAccessibilityIdentifier)
 @objcMembers
 public final class WMFAccessibilityIdentifier: NSObject {
-    public static var languageSelectionAllLanguagesTable: String { AccessibilityIdentifiers.LanguageSelection.allLanguagesTable }
+    public static var imageGalleryImage: String { AccessibilityIdentifiers.ImageGallery.image }
+    public static var imageGalleryLoadingIndicator: String { AccessibilityIdentifiers.ImageGallery.loadingIndicator }
+    public static var imageGalleryShareButton: String { AccessibilityIdentifiers.ImageGallery.shareButton }
+    public static var imageGalleryView: String { AccessibilityIdentifiers.ImageGallery.view }
+
     public static var languageSelectionAllLanguagesView: String { AccessibilityIdentifiers.LanguageSelection.allLanguagesView }
-    public static var languageSelectionLanguagesTable: String { AccessibilityIdentifiers.LanguageSelection.languagesTable }
     public static var languageSelectionLanguagesView: String { AccessibilityIdentifiers.LanguageSelection.languagesView }
     public static var languageSelectionPreferredLanguagesAddLanguageButton: String { AccessibilityIdentifiers.LanguageSelection.preferredLanguagesAddLanguageButton }
-    public static var languageSelectionPreferredLanguagesTable: String { AccessibilityIdentifiers.LanguageSelection.preferredLanguagesTable }
     public static var languageSelectionPreferredLanguagesView: String { AccessibilityIdentifiers.LanguageSelection.preferredLanguagesView }
 
     public static func languageSelectionAllLanguage(_ contentLanguageCode: String) -> String {

@@ -128,6 +128,7 @@ NS_ASSUME_NONNULL_BEGIN
 
         UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
         share.tintColor = [UIColor whiteColor];
+        share.accessibilityIdentifier = [WMFAccessibilityIdentifier imageGalleryShareButton];
         self.overlayView.rightBarButtonItem = share;
 
         WMFLargeCloseButtonConfig *config = [[WMFLargeCloseButtonConfig alloc] initWithImageType:WMFLargeCloseButtonImageTypePlainX target:self action:@selector(didTapCloseButton) alignment:AlignmentTrailing];
@@ -181,6 +182,8 @@ NS_ASSUME_NONNULL_BEGIN
         self.theme = [NSUserDefaults.standardUserDefaults themeCompatibleWith:self.traitCollection];
     }
     vc.scalingImageView.imageView.alpha = self.theme.imageOpacity;
+    vc.scalingImageView.imageView.accessibilityIdentifier = [WMFAccessibilityIdentifier imageGalleryImage];
+    vc.loadingView.accessibilityIdentifier = [WMFAccessibilityIdentifier imageGalleryLoadingIndicator];
     return vc;
 }
 
@@ -200,6 +203,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.accessibilityIdentifier = [WMFAccessibilityIdentifier imageGalleryView];
     self.view.accessibilityIgnoresInvertColors = YES;
     // Very subtle gradient background so close and share buttons don't disappear when over white background parts of image.
     UIImage *gradientImage = [[UIImage imageNamed:@"gallery-top-gradient"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];

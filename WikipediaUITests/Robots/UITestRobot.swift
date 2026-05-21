@@ -13,7 +13,7 @@ extension ScreenshotCapturingRobot {
     }
 }
 
-/// Shared primitive used by screen robots for common waits, taps, screenshots, and failure reporting.
+/// Shared primitive used by screen robots for common waits, taps, gestures, screenshots, and failure reporting.
 struct UITestRobot {
     let app: XCUIApplication
     private let testCase: XCTestCase
@@ -77,6 +77,14 @@ struct UITestRobot {
             line: line
         )
         button.tap()
+        return self
+    }
+
+    @discardableResult
+    func dragUp(_ element: XCUIElement) -> Self {
+        let start = element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.85))
+        let end = element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.2))
+        start.press(forDuration: 0.01, thenDragTo: end)
         return self
     }
 

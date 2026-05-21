@@ -304,6 +304,9 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         guard let cell = cell as? ImageCollectionViewCell, let imageInfo = contentGroup?.contentPreview as? WMFFeedImage else {
             return
         }
+        cell.accessibilityIdentifier = contentGroup?.contentGroupKind == .pictureOfTheDay
+            ? AccessibilityIdentifiers.Explore.pictureOfTheDayCell
+            : nil
         if !layoutOnly, let imageURL = contentGroup?.imageURLsCompatibleWithTraitCollection(traitCollection, dataStore: dataStore, viewSize: view.bounds.size)?.first {
             cell.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
         }
