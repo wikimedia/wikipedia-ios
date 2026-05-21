@@ -184,6 +184,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
 // MARK: - Share Content Provider
 
+// @unchecked Sendable: UIActivityItemProvider is a legacy UIKit class with no Sendable conformance,
+// required by UIActivityViewController. This usage is safe because the provider is short-lived,
+// immutable after init, and only accessed on the main thread via UIActivityViewController callbacks.
 private final class WCFShareActivityContentProvider: UIActivityItemProvider, @unchecked Sendable {
 
     let text: String

@@ -11,7 +11,7 @@ public final class WMFWhichCameFirstShareViewModel: ObservableObject {
         let isCorrect: Bool
     }
 
-    public struct ArticleItem: Sendable {
+    public struct ArticleItem {
         public let title: String
         public let description: String?
         public let image: UIImage?

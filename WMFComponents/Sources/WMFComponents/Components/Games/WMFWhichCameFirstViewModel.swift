@@ -153,6 +153,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     private var gameState: WMFWhichCameFirstGameState?
     private var sessionIdentifier: UUID?
     private var loadTask: Task<Void, Never>?
+    private var animationTask: Task<Void, Never>?
 
     var questions: [WMFWhichCameFirstQuestion] { gameState?.questions ?? [] }
 
@@ -171,6 +172,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
 
     func load() {
         loadTask?.cancel()
+        animationTask?.cancel()
         phase = .loading
         loadTask = Task {
             do {
@@ -247,7 +249,9 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
             : localizedStrings.incorrectFeedback
 
         // Delay so VoiceOver reads after the reveal UI has settled
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        Task { [weak self] in
+            guard self != nil else { return }
+            try? await Task.sleep(for: .milliseconds(500))
             UIAccessibility.post(notification: .announcement, argument: announcement)
         }
     }
@@ -259,9 +263,10 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
             showCardA = false
             showCardB = false
         }
-        Task {
+        animationTask?.cancel()
+        animationTask = Task { [weak self] in
             try? await Task.sleep(for: .milliseconds(750))
-            advanceInternal()
+            self?.advanceInternal()
         }
     }
 
@@ -284,13 +289,15 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         showTitle = false
         showCardA = false
         showCardB = false
-        Task {
+        animationTask?.cancel()
+        animationTask = Task { [weak self] in
+            guard let self else { return }
             try? await Task.sleep(for: .milliseconds(50))
-            withAnimation(.easeIn(duration: 0.75)) { showTitle = true }
+            withAnimation(.easeIn(duration: 0.75)) { self.showTitle = true }
             try? await Task.sleep(for: .milliseconds(150))
-            withAnimation(.spring(response: 0.75, dampingFraction: 0.8)) { showCardA = true }
+            withAnimation(.spring(response: 0.75, dampingFraction: 0.8)) { self.showCardA = true }
             try? await Task.sleep(for: .milliseconds(450))
-            withAnimation(.spring(response: 0.75, dampingFraction: 0.8)) { showCardB = true }
+            withAnimation(.spring(response: 0.75, dampingFraction: 0.8)) { self.showCardB = true }
         }
     }
 
@@ -300,7 +307,10 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         cardViewModelB = WMFWhichCameFirstCardViewModel(event: question.optionB.cardEvent)
     }
 
-    deinit { loadTask?.cancel() }
+    deinit {
+        loadTask?.cancel()
+        animationTask?.cancel()
+    }
 }
 
 private extension WMFWhichCameFirstEvent {
