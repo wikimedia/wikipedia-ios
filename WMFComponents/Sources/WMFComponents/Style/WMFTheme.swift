@@ -50,6 +50,7 @@ public struct WMFTheme: Equatable {
     public let tagText: UIColor
     public let tagBackground: UIColor
     public let batchSelectionBackground: UIColor
+    public let successGreen: UIColor
 
     public var preferredColorScheme: ColorScheme {
     return (self == WMFTheme.light || self == WMFTheme.sepia) ? .light : .dark
@@ -105,7 +106,8 @@ public struct WMFTheme: Equatable {
         toastShadow: WMFColor.gray400,
         tagText: WMFColor.blue600,
         tagBackground: WMFColor.blue600.withAlphaComponent(0.1),
-        batchSelectionBackground: WMFColor.blue100
+        batchSelectionBackground: WMFColor.blue100,
+        successGreen: WMFColor.successGreen
     )
 
     public static let sepia = WMFTheme(
@@ -154,7 +156,8 @@ public struct WMFTheme: Equatable {
         toastShadow: WMFColor.taupe200,
         tagText: .white,
         tagBackground: WMFColor.blue300,
-        batchSelectionBackground: WMFColor.blue100
+        batchSelectionBackground: WMFColor.blue100,
+        successGreen: WMFColor.successGreen
     )
 
     public static let dark = WMFTheme(
@@ -203,7 +206,8 @@ public struct WMFTheme: Equatable {
         toastShadow: WMFColor.gray800,
         tagText: .white,
         tagBackground: WMFColor.blue300,
-        batchSelectionBackground: WMFColor.blue700
+        batchSelectionBackground: WMFColor.blue700,
+        successGreen: WMFColor.successGreen
     )
 
     public static let black = WMFTheme(
@@ -252,7 +256,8 @@ public struct WMFTheme: Equatable {
         toastShadow: WMFColor.gray600,
         tagText: .white,
         tagBackground: WMFColor.blue300,
-        batchSelectionBackground: WMFColor.blue700
+        batchSelectionBackground: WMFColor.blue700,
+        successGreen: WMFColor.successGreen
     )
 
     // MARK: - Reading Challenge Semantic Colors (UIKit backing)
