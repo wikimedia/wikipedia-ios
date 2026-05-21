@@ -74,6 +74,7 @@
 // Author: Vivaelcelta
 // Author: Whovian Biologist
 // Author: Wifidel
+// Author: YeBoy371
 // Author: Yllelder
 // Author: Yucavalla
 // Author: Zpizza
@@ -273,7 +274,7 @@
 "close-tab-confirmation" = "¿Cerrar pestaña?";
 "close-tabs" = "Cerrar pestañas";
 "collect-prize-button-title" = "Obtén un 15%% de descuento en la tienda";
-"collect-prize-headline" = "¡La curiosidad te sienta muy bien!";
+"collect-prize-headline" = "¡La curiosidad te sienta muy bien! 🛍️";
 "collect-prize-subtitle" = "Celebra haber completado el reto con un 15%% de descuento en la tienda de Wikipedia.";
 "collect-prize-title" = "¡Reclama tu premio!";
 "compass-direction" = "a las $1 en punto";
@@ -1069,7 +1070,6 @@
 "reading-challenge-announcement-item1-title" = "Lee un artículo al día durante 25 días";
 "reading-challenge-announcement-item2-subtitle" = "Completa una racha de lectura de 25 días mientras el reto esté activo y obtén premios especiales.";
 "reading-challenge-announcement-item2-title" = "Gana premios";
-"reading-challenge-announcement-item3-subtitle" = "Recibe recordatorios y motivación de la mano de Baby Globe, nuestra adorable mascota de cumpleaños.";
 "reading-challenge-announcement-item3-subtitle2" = "Para hacer un seguimiento de tu racha con Baby Globe, deberás agregar el widget del Desafío de lectura desde tu pantalla de inicio.";
 "reading-challenge-announcement-item3-title" = "Instala el widget";
 "reading-challenge-announcement-secondary-cta" = "Más información";
@@ -1109,10 +1109,8 @@
 // Fuzzy
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 de 25 días|$1 de 25 días}}";
 "reading-challenge-subtitle" = "Reto de lectura de 25 días";
-"reading-challenge-widget-announcement-body" = "Baby Globe te está animando. Añade el widget del reto de lectura para llevar un registro tu progreso desde la pantalla de inicio.";
 "reading-challenge-widget-announcement-body2" = "Para hacer un seguimiento de tu racha con Baby Globe, deberás agregar el widget del Desafío de lectura desde tu pantalla de inicio.";
 "reading-challenge-widget-announcement-secondary-button" = "Muéstrame cómo hacerlo";
-"reading-challenge-widget-announcement-title" = "Instala el widget del reto de lectura de 25 días";
 "reading-challenge-widget-announcement-title2" = "Ve a tu pantalla de inicio para agregar el widget";
 "reading-challenge-widget-description" = "Sigue el progreso de tu desafío de lectura";
 "reading-challenge-widget-display-name" = "Desafío de lectura";

@@ -59,6 +59,7 @@
 // Author: Verdy p
 // Author: Weft
 // Author: Wladek92
+// Author: YeBoy371
 // Author: Zarisi
 // Author: ꠢꠣꠍꠘ ꠞꠣꠎꠣ
 
@@ -301,7 +302,7 @@
 "close-tabs" = "Fermer les onglets";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 onglet fermé|$1 onglets fermés}}.";
 "collect-prize-button-title" = "Bénéficiez de 15%% de réduction à la boutique";
-"collect-prize-headline" = "La curiosité vous va à merveille !";
+"collect-prize-headline" = "La curiosité vous va à merveille ! 🛍️";
 "collect-prize-subtitle" = "Fêtez la réussite de ce défi en bénéficiant de 15%% de réduction à la boutique Wikipédia";
 "collect-prize-title" = "Venez récupérer votre prix!";
 "compass-direction" = "à $1 heures";
@@ -569,7 +570,6 @@
 "explore-because-you-read" = "Parce que vous avez lu";
 "explore-because-you-read-footer" = "Autres articles associés";
 "explore-continue-reading-heading" = "Continuer à lire";
-"explore-daily-game-heading" = "Qu'est-ce qui est arrivé en premier ?";
 "explore-detail-back-button-title" = "Retour au flux d'exploration";
 "explore-enable-location-title" = "Explorer les articles proches de votre emplacement actuel";
 "explore-featured-article-heading" = "Article vedette";
@@ -704,6 +704,7 @@
 "forgot-password-instructions" = "Remplir un des champs ci-dessous pour recevoir les instructions de réinitialisation du mot de passe par courriel";
 "forgot-password-title" = "Réinitialiser le mot de passe";
 "forgot-password-username-or-email-title" = "Ou";
+"games-wcf-explore-title" = "Qu'est-ce qui est arrivé en premier ?";
 "gan-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du gan comme langues principale et secondaire dans l’application, le rendant plus facile à lire, rechercher et modifier dans vos variantes préférées :\n\n贛語 原文 – gan (gan)\n赣语 简体 – gan simplifié (gan-hans)\n贛語 繁體 – gan traditionnel (gan-hant)";
 "gan-variants-alert-title" = "Mises à jour de la prise en charge des variantes du gan";
 "history-clear-confirmation-heading" = "Êtes-vous sûr de vouloir supprimer tous vos éléments récents ?";
@@ -1104,7 +1105,6 @@
 "reading-challenge-announcement-item1-title" = "Lisez un article par jour et ce, pendant 25 jours";
 "reading-challenge-announcement-item2-subtitle" = "Terminez une série de 25 jours de lecture pendant la durée du défi pour gagner des prix spéciaux";
 "reading-challenge-announcement-item2-title" = "Des prix à gagner";
-"reading-challenge-announcement-item3-subtitle" = "Profitez de rappels utiles et de motivation grâce à notre adorable mascotte, Baby Globe";
 "reading-challenge-announcement-item3-subtitle2" = "Pour suivre votre série de progression quodienne avec Baby Globe, vous devez ajouter le widget Défi de lecture depuis votre écran d'accueil.";
 "reading-challenge-announcement-item3-title" = "Installez le widget";
 "reading-challenge-announcement-secondary-cta" = "En savoir plus";
@@ -1144,10 +1144,8 @@
 // Fuzzy
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 jours sur 25|$1 jours sur 25}}";
 "reading-challenge-subtitle" = "Défi de lecture de 25 jours";
-"reading-challenge-widget-announcement-body" = "Baby Globe vous encourage. Ajoutez le widget du défi de lecture pour suivre vos progrès depuis votre écran d'accueil.";
 "reading-challenge-widget-announcement-body2" = "Pour suivre votre série de progression quodienne avec Baby Globe, vous devez ajouter le widget Défi de lecture depuis votre écran d'accueil.";
 "reading-challenge-widget-announcement-secondary-button" = "Montre-moi comment faire";
-"reading-challenge-widget-announcement-title" = "Installez le widget du défi de lecture de 25 jours";
 "reading-challenge-widget-announcement-title2" = "Rendez-vous sur votre écran d'accueil pour ajouter le widget";
 "reading-challenge-widget-description" = "Suivez vos progrès dans le cadre du défi lecture";
 "reading-challenge-widget-display-name" = "Défi de lecture";

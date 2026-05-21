@@ -162,6 +162,9 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "Aktiviteten innehåller en omfattande tidslinje över artiklar som lästs, sparats och redigerats. Din läshistorik finns nu på Sök-fliken.";
 "activity-tab-onboarding-third-item-title-updated" = "Läshistoriken finns nu i Sök";
 "activity-tab-read-title" = "Visa redigeringshistorik";
+"activity-tab-reading-challenge-card-body" = "För att följa din svit med Baby Globe måste du lägga till widgeten Läsutmaning på din startskärm.";
+"activity-tab-reading-challenge-card-cta" = "Visa mig hur man gör";
+"activity-tab-reading-challenge-card-title" = "25-dagars läsutmaning";
 "activity-tab-satisfied" = "Nöjd";
 "activity-tab-saved" = "Artiklar som har sparats denna månad";
 "activity-tab-start-editing" = "Börja redigera";
@@ -539,7 +542,6 @@
 "explore-because-you-read" = "Eftersom du läste";
 "explore-because-you-read-footer" = "Ytterligare relaterade artiklar";
 "explore-continue-reading-heading" = "Fortsätt läsa";
-"explore-daily-game-heading" = "Vilken kom först?";
 "explore-detail-back-button-title" = "Tillbaka till utforskarflödet";
 "explore-enable-location-title" = "Utforska artiklar nära din nuvarande plats";
 "explore-featured-article-heading" = "Utmärkt artikel";
@@ -560,6 +562,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "På";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "På för $1";
 "explore-feed-preferences-feed-cards-hidden-title" = "Dolde alla \"$1\"-kort";
+"explore-feed-preferences-games-title" = "Visa kortet Spel";
 "explore-feed-preferences-global-card-footer-text" = "Detta kort är inte språkspecifikt, kortet kommer att tas bort från ditt utforskarflöde om du inaktiverar det.";
 "explore-feed-preferences-global-cards-description" = "Kort som inte är språkspecifika";
 "explore-feed-preferences-global-cards-subtitle" = "Inte språkspecifikt";
@@ -576,6 +579,7 @@
 "explore-feed-preferences-show-continue-reading-title" = "Visa kortet Fortsätt läsa";
 "explore-feed-preferences-show-featured-article-footer-text" = "När kortet Utmärkt artikel inaktiveras kommer kortet inaktiveras på alla tillgängliga språk.";
 "explore-feed-preferences-show-featured-article-title" = "Visa kortet Utmärkt artikel";
+"explore-feed-preferences-show-games-footer-text" = "När kortet Spel inaktiveras kommer kortet inaktiveras på alla tillgängliga språk.";
 "explore-feed-preferences-show-news-footer-text" = "När kortet Aktuella händelser inaktiveras kommer kortet inaktiveras på alla tillgängliga språk.";
 "explore-feed-preferences-show-news-title" = "Visa kortet Aktuella händelser";
 "explore-feed-preferences-show-on-this-day-footer-text" = "När kortet Dagens datum inaktiveras kommer kortet inaktiveras på alla tillgängliga språk.";
@@ -602,6 +606,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Aktivera utforska";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Detta kommer att ersätta inställningsfliken med utforskarfliken. Du kan komma åt inställningarna längst upp i utforskarfliken genom att trycka på kugghjulsikonen";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Aktivera utforskarfliken?";
+"explore-games-title" = "Spel";
 "explore-hide-card-prompt" = "Dölj detta kort";
 "explore-main-page-description" = "Huvudsidan för Wikimedia-projekt";
 "explore-main-page-heading" = "Idag på Wikipedia";
@@ -674,6 +679,12 @@
 "forgot-password-instructions" = "Fyll i ett av fälten nedan för att få instruktioner om lösenordsåterställning via e-post";
 "forgot-password-title" = "Återställ lösenord";
 "forgot-password-username-or-email-title" = "Eller";
+"games-wcf-button-play-title" = "Spela dagens spel";
+"games-wcf-explore-button-archive-title" = "Spela upp arkivet";
+"games-wcf-explore-button-review-title" = "Granska resultatet";
+"games-wcf-explore-complete-subtitle" = "Du fick $1/$2 poäng i dagens spel. Nästa spel om $3)";
+"games-wcf-explore-in-progress-subtitle" = "Du är på fråga $1. Fortsätt gissa vilken händelse som inträffade först denna dag i historien.";
+"games-wcf-explore-title" = "Vilken kom först?";
 "gan-variants-alert-body" = "Wikipediaappen stödjer följande gan varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\n贛語 原文 gan (gan)\n赣语 简体 gan, förenklat (gan-hans)\n贛語 繁體 gan, traditionellt (gan-hant)";
 "gan-variants-alert-title" = "Uppdaterades till stöd för gan varianter";
 "history-clear-confirmation-heading" = "Är du säker på att du vill radera alla dina senaste objekt?";
@@ -1074,7 +1085,7 @@
 "reading-challenge-announcement-item1-title" = "Läs 1 artikel om dagen i 25 dagar";
 "reading-challenge-announcement-item2-subtitle" = "Slutför en 25-dagars läsningssvit medan utmaningen pågår för att vinna speciella priser.";
 "reading-challenge-announcement-item2-title" = "Vinn priser";
-"reading-challenge-announcement-item3-subtitle" = "Få hjälpsamma påminnelser och motivation med vår bedårande födelsedagsmaskot Babe Globe.";
+"reading-challenge-announcement-item3-subtitle2" = "För att följa din svit med Baby Globe måste du lägga till widgeten Läsutmaning på din startskärm.";
 "reading-challenge-announcement-item3-title" = "Installera widgeten";
 "reading-challenge-announcement-secondary-cta" = "Lär dig mer";
 "reading-challenge-announcement-subtitle" = "Din läshistorik skyddas. Läsinsikter beräknas med hjälp av lokalt lagrad data på din enhet.";
@@ -1113,8 +1124,9 @@
 "reading-challenge-streak-no-days" = "$1 av 25";
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 av 25 dag|$1 av 25 dagar}}";
 "reading-challenge-subtitle" = "25-dagars läsutmaning";
-"reading-challenge-widget-announcement-body" = "Babe Globe hejar på dig. Lägg till widgeten Reading Challenge för att följa dina framgångar från din startskärm.";
-"reading-challenge-widget-announcement-title" = "Installera widgeten 25-dagars läsutmaningen";
+"reading-challenge-widget-announcement-body2" = "För att följa din svit med Baby Globe måste du lägga till widgeten Läsutmaning på din startskärm.";
+"reading-challenge-widget-announcement-secondary-button" = "Visa mig hur man gör";
+"reading-challenge-widget-announcement-title2" = "Gå till din startskärm för att lägga till widgeten";
 "reading-challenge-widget-description" = "Följ dina framsteg i läsutmaningen.";
 "reading-challenge-widget-display-name" = "Läsutmaning";
 "reading-list-add-generic-hint-title" = "Lägg till denna artikel i en läslista?";
@@ -1256,6 +1268,8 @@
 "settings-clear-cache-cancel" = "Avbryt";
 "settings-clear-cache-ok" = "Rensa cachen";
 "settings-donate" = "Donera";
+"settings-explore-games-subtitle" = "Dagliga spel baserade på Wikipedia-innehåll";
+"settings-explore-games-title" = "Wikipedia-spel";
 "settings-help-and-feedback" = "Hjälp och återkoppling";
 "settings-language-bar" = "Visa språk vid sökfältet";
 "settings-languages-feed-customization" = "Du kan hantera vilka språk som visas i ditt utforskarflöde genom att anpassa inställningarna för utforskarflödet.";
@@ -1541,6 +1555,11 @@
 "welcome-languages-search-title" = "Sök på över 300 språk";
 "welcome-privacy-subtitle" = "Vi anser att du inte ska behöva lämna personlig information för att delta i rörelsen för fri kunskap. Användningsdata som samlas in för den här appen är anonym.";
 "welcome-privacy-terms-button-text" = "Läs mer om vår integritetspolicy och användarvillkor";
+"which-came-first-splash-about-button" = "Om detta spel";
+"which-came-first-splash-continue-button" = "Fortsätt dagens spel";
+"which-came-first-splash-review-button" = "Granska resultatet";
+"which-came-first-splash-subtitle" = "Gissa vilken händelse som kom först den här dagen i historien.";
+"which-came-first-splash-title" = "Vad inträffade först?";
 "widget-onthisday-description" = "Utforska vad som hände på denna dag i historien.";
 "widget-onthisday-placeholder-article-snippet" = "Fri encyklopedi på nätet som alla kan redigera";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, en fri encyklopedi med wikiinnehåll, på nätet.";
