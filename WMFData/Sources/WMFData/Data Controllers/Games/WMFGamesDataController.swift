@@ -211,15 +211,20 @@ extension WMFGamesDataController {
 
         // Check if the API returns enough events to form the required number of pairs
         let response = try await onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
-        let questions = Self.makeWhichCameFirstQuestions(from: response.events, count: Self.whichCameFirstQuestionCount)
+        let questions = Self.makeWhichCameFirstQuestions(from: response.events, month: month, day: day, count: Self.whichCameFirstQuestionCount)
         return questions.count == Self.whichCameFirstQuestionCount
     }
 
-    public func fetchOrStartWhichCameFirstDailySession(date: String, project: WMFProject, onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared) async throws -> WMFWhichCameFirstGameState {
+    public func fetchOrStartWhichCameFirstDailySession(
+        date: String,
+        project: WMFProject,
+        onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared
+    ) async throws -> (WMFWhichCameFirstGameState, UUID) {
 
         // Resume existing session if one exists
         if let existingSession = try await fetchSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date) {
-            return try decodeWhichCameFirstGameState(from: existingSession.contentData)
+            let gameState = try decodeWhichCameFirstGameState(from: existingSession.contentData)
+            return (gameState, existingSession.identifier)
         }
 
         // Parse month and day from "YYYY-MM-DD"
@@ -234,26 +239,33 @@ extension WMFGamesDataController {
         let response = try await onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
 
         // Build question pairs from events
-        let questions = Self.makeWhichCameFirstQuestions(from: response.events, count: Self.whichCameFirstQuestionCount)
+        let questions = Self.makeWhichCameFirstQuestions(from: response.events, month: month, day: day, count: Self.whichCameFirstQuestionCount)
         let gameState = WMFWhichCameFirstGameState(questions: questions)
 
         // Persist and return
         let contentData = try encodeWhichCameFirstGameState(gameState)
-        _ = try await createSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date, contentData: contentData)
-        return gameState
+        let session = try await createSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date, contentData: contentData)
+        return (gameState, session.identifier)
     }
 
     /// Selects event pairs from the API response using a year-spread algorithm.
     /// Events are sorted by year so pairs are always meaningfully distinguishable.
-    private static func makeWhichCameFirstQuestions(from events: [WMFOnThisDayEvent], count: Int) -> [WMFWhichCameFirstQuestion] {
-        // Filter to events that have at least one linked page
+    private static func makeWhichCameFirstQuestions(from events: [WMFOnThisDayEvent], month: Int, day: Int, count: Int) -> [WMFWhichCameFirstQuestion] {
+        let calendar = Calendar(identifier: .gregorian)
         var pool = events.filter { !$0.pages.isEmpty }.sorted { $0.year < $1.year }
         var questions: [WMFWhichCameFirstQuestion] = []
+
+        func makeDate(year: Int) -> Date {
+            var components = DateComponents()
+            components.year = year
+            components.month = month
+            components.day = day
+            return calendar.date(from: components) ?? Date()
+        }
 
         while questions.count < count && !pool.isEmpty {
             let event1 = pool.removeFirst()
 
-            // Prefer a partner within a dynamic year spread; fall back to closest available
             let yearSpread = max(Int((390.0 - 0.19043 * Double(event1.year))), 5)
             let partner = pool.first(where: { abs(event1.year - $0.year) <= yearSpread })
                 ?? pool.min(by: { abs(event1.year - $0.year) < abs(event1.year - $1.year) })
@@ -266,21 +278,19 @@ extension WMFGamesDataController {
             let page2 = event2.pages.first
             let thumbnail2 = event2.pages.first(where: { $0.thumbnail?.source != nil })?.thumbnail?.source
 
-            // Earlier event is always "A"; correctAnswer is "A" since event1.year < event2.year
             let optionA = WMFWhichCameFirstEvent(
                 title: event1.text,
-                year: event1.year,
+                date: makeDate(year: event1.year),
                 articleTitle: page1?.title,
                 thumbnailURL: thumbnail1
             )
             let optionB = WMFWhichCameFirstEvent(
                 title: event2.text,
-                year: event2.year,
+                date: makeDate(year: event2.year),
                 articleTitle: page2?.title,
                 thumbnailURL: thumbnail2
             )
 
-            // Randomize which option is presented as A/B so the earlier event isn't always on the left
             let flip = Bool.random()
             questions.append(WMFWhichCameFirstQuestion(
                 optionA: flip ? optionB : optionA,
@@ -345,7 +355,7 @@ extension WMFGamesDataController {
 
             let result = WMFWhichCameFirstAnswerResult(isCorrect: isCorrect, correctAnswer: question.correctAnswer)
 
-            let projectID = cdSession.projectID
+            let projectID = cdSession.projectID ?? ""
             let dailyGameDate = cdSession.dailyGameDate ?? ""
             DispatchQueue.main.async {
                 NotificationCenter.default.post(
@@ -383,7 +393,7 @@ extension WMFGamesDataController {
               let day = Int(components[2]) else { return nil }
 
         let response = try await onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
-        let questions = Self.makeWhichCameFirstQuestions(from: response.events, count: 1)
+        let questions = Self.makeWhichCameFirstQuestions(from: response.events, month: month, day: day, count: 1)
         guard let first = questions.first else { return nil }
         return (first.optionA, first.optionB)
     }
