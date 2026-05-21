@@ -32,7 +32,6 @@ public struct WMFWhichCameFirstShareView: View {
                 scoreCard
                     .padding(.horizontal, 20)
 
-
                 Text(viewModel.topicsIncludedTitle)
                     .font(Font(WMFFont.for(.semiboldSubheadline)))
                     .foregroundColor(Color(uiColor: WMFColor.gray700))

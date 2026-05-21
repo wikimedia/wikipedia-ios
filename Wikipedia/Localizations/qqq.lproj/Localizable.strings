@@ -1529,6 +1529,16 @@
 "welcome-languages-search-title" = "Title for welcome screen describing Wikipedia languages";
 "welcome-privacy-subtitle" = "Sub-title explaining how data usage is anonymous";
 "welcome-privacy-terms-button-text" = "Text for links for learning more about data privacy policy and terms of use";
+"which-came-first-correct-answer-a11y" = "Accessibility label indicating the correct answer on a card in the Which Came First game";
+"which-came-first-correct-feedback" = "Feedback message shown when the user answers correctly in the Which Came First game";
+"which-came-first-correct-feedback2" = "Feedback message shown when the user answers correctly in the Which Came First game";
+"which-came-first-error-title" = "Title shown on the error screen in the Which Came First game";
+"which-came-first-footer-a11y" = "Accessibility label for the game progress indicator in the Which Came First game, where $1 is the current question number and the $2 is the total number of questions";
+"which-came-first-incorrect-answer-a11y" = "Accessibility label indicating an incorrect answer on a card in the Which Came First game";
+"which-came-first-incorrect-feedback" = "Feedback message shown when the user answers incorrectly in the Which Came First game";
+"which-came-first-next-button" = "Button label to advance to the next question in the Which Came First game";
+"which-came-first-retry-button" = "Button label to retry loading the Which Came First game after an error";
+"which-came-first-see-results-button" = "Button label shown after the final question to view the game results";
 "which-came-first-share-score-summary" = "Score summary text on the Which Came First share image. $1 is the user's score, $2 is the total number of questions.";
 "which-came-first-share-topics-title" = "Header label above the list of article topics on the Which Came First share image.";
 "which-came-first-splash-about-button" = "Button title to learn more about the Which Came First game.";
@@ -1536,6 +1546,8 @@
 "which-came-first-splash-review-button" = "Button title to review results of a completed Which Came First game.";
 "which-came-first-splash-subtitle" = "Subtitle shown on the Which Came First game splash screen.";
 "which-came-first-splash-title" = "Title shown on the Which Came First game splash screen.";
+"which-came-first-submit-button" = "Button label to submit the user's selected answer in the Which Came First game";
+"which-came-first-title" = "Title prompt shown to the user during the Which Came First game";
 "widget-onthisday-description" = "Description for 'On this day' view in iOS widget gallery";
 "widget-onthisday-placeholder-article-snippet" = "Placeholder text for On This Day widget: Article description for an article about Wikipedia";
 "widget-onthisday-placeholder-event-snippet" = "Placeholder text for On This Day widget: Event describing launch of Wikipedia";
