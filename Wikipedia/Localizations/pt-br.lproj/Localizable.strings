@@ -557,7 +557,6 @@
 "explore-because-you-read" = "Porque você leu";
 "explore-because-you-read-footer" = "Artigos relacionados adicionais";
 "explore-continue-reading-heading" = "Continue lendo";
-"explore-daily-game-heading" = "O que veio primeiro?";
 "explore-detail-back-button-title" = "Voltar ao feed Explorar";
 "explore-enable-location-title" = "Explore artigos perto da sua localização atual";
 "explore-featured-article-heading" = "Artigo destacado";
@@ -692,6 +691,7 @@
 "forgot-password-instructions" = "Preencha um dos campos abaixo para receber instruções de redefinição de senha por e-mail";
 "forgot-password-title" = "Redefinir senha";
 "forgot-password-username-or-email-title" = "ou";
+"games-wcf-explore-title" = "O que veio primeiro?";
 "gan-variants-alert-body" = "O aplicativo Wikipedia agora suporta as seguintes variantes Gan como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan simplificado (gan-hans)\n贛語 繁體 Gan tradicional (gan-hant)";
 "gan-variants-alert-title" = "Atualizações para o suporte da variante Gan";
 "history-clear-confirmation-heading" = "Você tem certeza que quer apagar todos os itens recentes?";
@@ -1093,7 +1093,6 @@
 "reading-challenge-announcement-item1-title" = "Leia 1 artigo por dia durante 25 dias";
 "reading-challenge-announcement-item2-subtitle" = "Complete uma sequência de leitura de 25 dias enquanto o desafio estiver ativo para ganhar prêmios especiais";
 "reading-challenge-announcement-item2-title" = "Ganhe prêmios";
-"reading-challenge-announcement-item3-subtitle" = "Receba lembretes úteis e doses de motivação do nosso adorável mascote de aniversário, o Globo Bebê";
 "reading-challenge-announcement-item3-subtitle2" = "Para acompanhar seu progresso com o Globo Bebê, você precisará adicionar o widget Desafio de Leitura à sua tela inicial.";
 "reading-challenge-announcement-item3-title" = "Instale o widget";
 "reading-challenge-announcement-secondary-cta" = "Saiba mais";
@@ -1133,10 +1132,8 @@
 "reading-challenge-streak-no-days" = "$1 de 25";
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 de 25 dia|$1 de 25 dias}}";
 "reading-challenge-subtitle" = "Desafio de leitura de 25 dias";
-"reading-challenge-widget-announcement-body" = "O Globo Bebê está torcendo por você. Adicione o widget do Desafio de Leitura para acompanhar o seu progresso em sua tela inicial.";
 "reading-challenge-widget-announcement-body2" = "Para acompanhar seu progresso com o Globo Bebê, você precisará adicionar o widget Desafio de Leitura à sua tela inicial.";
 "reading-challenge-widget-announcement-secondary-button" = "Mostre-me como";
-"reading-challenge-widget-announcement-title" = "Instale o widget do desafio de leitura de 25 dias";
 "reading-challenge-widget-announcement-title2" = "Acesse sua tela inicial para adicionar o widget";
 "reading-challenge-widget-description" = "Acompanhe o progresso do seu desafio de leitura.";
 "reading-challenge-widget-display-name" = "Desafio de leitura";

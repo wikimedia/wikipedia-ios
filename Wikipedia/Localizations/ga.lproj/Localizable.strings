@@ -136,6 +136,9 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "Áirítear leis an ngníomhaíocht amlíne chuimsitheach d’ailt a léadh, a sábháladh agus a cuireadh in eagar. Tá do stair léitheoireachta anois laistigh den chluaisín Cuardaigh.";
 "activity-tab-onboarding-third-item-title-updated" = "Tá stair léitheoireachta i gCuardach anois";
 "activity-tab-read-title" = "Féach ar stair léitheoireachta";
+"activity-tab-reading-challenge-card-body" = "Chun do shraith úsáide le Baby Globe a rianú, beidh ort an giuirléid Dúshlán Léitheoireachta a chur leis ó do Scáileán Baile.";
+"activity-tab-reading-challenge-card-cta" = "Taispeáin dom conas";
+"activity-tab-reading-challenge-card-title" = "Dúshlán léitheoireachta 25 lá";
 "activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Sásta";
 "activity-tab-saved" = "Airteagail sábháilte an mhí seo";
@@ -514,7 +517,6 @@
 "explore-because-you-read" = "De bharr gur léigh tú";
 "explore-because-you-read-footer" = "Airteagail ghaolmhara breise";
 "explore-continue-reading-heading" = "Lean ort ag léamh";
-"explore-daily-game-heading" = "Cé acu a tháinig ar dtús?";
 "explore-detail-back-button-title" = "Siar go fotha Taiscéal";
 "explore-enable-location-title" = "Taiscéal ailt in aice le do shuíomh reatha";
 "explore-featured-article-heading" = "Alt roghnaithe";
@@ -649,6 +651,7 @@
 "forgot-password-instructions" = "Líon ceann de na réimsí seo thíos le treoracha athshocraithe pasfhocail a ghlacadh trí ríomhphost";
 "forgot-password-title" = "Athshocraigh pasfhocal";
 "forgot-password-username-or-email-title" = "Nó";
+"games-wcf-explore-title" = "Cé acu a tháinig ar dtús?";
 "gan-variants-alert-body" = "The Wikipedia app now supports the following Gan variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "Nuashonruithe ar thacaíocht le malairt Gan";
 "history-clear-confirmation-heading" = "An bhfuil tú cinnte gur mian leat do chuid míreanna le déanaí go léir a scriosadh?";
@@ -1057,7 +1060,7 @@
 "reading-challenge-announcement-item1-title" = "Léigh alt amháin in aghaidh an lae ar feadh 25 lá";
 "reading-challenge-announcement-item2-subtitle" = "Comhlánaigh sraith léitheoireachta 25 lá agus an dúshlán beo chun duaiseanna speisialta a bhuachan.";
 "reading-challenge-announcement-item2-title" = "Buaigh duaiseanna";
-"reading-challenge-announcement-item3-subtitle" = "Faigh meabhrúcháin agus spreagadh cabhrach lenár mascóid lá breithe gleoite, Baby Globe.";
+"reading-challenge-announcement-item3-subtitle2" = "Chun do shraith úsáide le Baby Globe a rianú, beidh ort an giuirléid Dúshlán Léitheoireachta a chur leis ó do scáileán baile.";
 "reading-challenge-announcement-item3-title" = "Suiteáil an giuirléid";
 "reading-challenge-announcement-secondary-cta" = "Foghlaim níos mó";
 "reading-challenge-announcement-subtitle" = "Coinnítear do stair léitheoireachta faoi chosaint. Ríomhtar léargais léitheoireachta trí úsáid a bhaint as sonraí atá stóráilte go háitiúil ar do ghléas.";
@@ -1096,8 +1099,9 @@
 "reading-challenge-streak-no-days" = "$1 de 25";
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 de 25 lá|$1 de 25 laethanta}}";
 "reading-challenge-subtitle" = "Dúshlán léitheoireachta 25 lá";
-"reading-challenge-widget-announcement-body" = "Tá Baby Globe ag spreagadh tú. Cuir an giuirléid Dúshlán Léitheoireachta leis chun do dhul chun cinn a rianú ó do scáileán baile.";
-"reading-challenge-widget-announcement-title" = "Suiteáil an giuirléid dúshlán léitheoireachta 25 lá";
+"reading-challenge-widget-announcement-body2" = "Chun do shraith úsáide le Baby Globe a rianú, beidh ort an giuirléid Dúshlán Léitheoireachta a chur leis ó do scáileán baile.";
+"reading-challenge-widget-announcement-secondary-button" = "Taispeáin dom conas";
+"reading-challenge-widget-announcement-title2" = "Téigh chuig do scáileán baile chun an giuirléid a chur leis";
 "reading-challenge-widget-description" = "Rianaigh do dhul chun cinn sa dúshlán léitheoireachta.";
 "reading-challenge-widget-display-name" = "Dúshlán Léitheoireachta";
 "reading-list-add-generic-hint-title" = "Cuir an t-alt seo ar liosta léitheoireachta?";
