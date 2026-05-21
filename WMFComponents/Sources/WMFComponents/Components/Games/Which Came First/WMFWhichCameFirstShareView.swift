@@ -58,6 +58,8 @@ public struct WMFWhichCameFirstShareView: View {
 
     // MARK: - Article Row
 
+    // This intentionally does not use `WMFAsyncPageRow`, because this view is rendered to an image via
+    // `ImageRenderer` which is synchronous, any async fetches would not complete in time and the row would appear empty.
     private func articleRow(_ article: WMFWhichCameFirstShareViewModel.ArticleItem) -> some View {
         HStack(alignment: .center, spacing: 8) {
             VStack(alignment: .leading, spacing: 2) {
