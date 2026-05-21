@@ -1,14 +1,12 @@
 import SwiftUI
 import WMFData
 
-
 // MARK: - Share View
 
 public struct WMFWhichCameFirstShareView: View {
 
     @ObservedObject var viewModel: WMFWhichCameFirstShareViewModel
 
-    // Fixed sizing for image sharing
     private let viewWidth: CGFloat = 393
     private let viewHeight: CGFloat = 627
 
@@ -40,16 +38,10 @@ public struct WMFWhichCameFirstShareView: View {
                     .padding(.bottom, 16)
 
                 VStack(spacing: 0) {
-                    ForEach(viewModel.articleTitles, id: \.self) { title in
-                        WMFAsyncPageRow(
-                            viewModel: WMFAsyncPageRowViewModel(
-                                id: title,
-                                title: title,
-                                projectID: viewModel.projectID,
-                                iconAccessibilityLabel: ""
-                            )
-                        )
-                        .padding(.horizontal, 20)
+                    ForEach(viewModel.articles, id: \.title) { article in
+                        articleRow(article)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 8)
                     }
                 }
 
@@ -58,6 +50,36 @@ public struct WMFWhichCameFirstShareView: View {
         }
         .frame(width: viewWidth, height: viewHeight)
         .clipped()
+    }
+
+    // MARK: - Article Row
+
+    private func articleRow(_ article: WMFWhichCameFirstShareViewModel.ArticleItem) -> some View {
+        HStack(alignment: .center, spacing: 8) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(article.title)
+                    .font(Font(WMFFont.for(.callout)))
+                    .foregroundColor(Color(uiColor: WMFColor.gray700))
+                    .lineLimit(1)
+                if let description = article.description {
+                    Text(description)
+                        .font(Font(WMFFont.for(.subheadline)))
+                        .foregroundColor(Color(uiColor: WMFColor.gray500))
+                        .lineLimit(1)
+                }
+            }
+            Spacer()
+            if let image = article.image {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 40, height: 40)
+                    .clipShape(RoundedRectangle(cornerRadius: 4))
+            } else {
+                Color.clear
+                    .frame(width: 40, height: 40)
+            }
+        }
     }
 
     // MARK: - Score Card
@@ -94,8 +116,8 @@ public struct WMFWhichCameFirstShareView: View {
     private func resultIcon(isCorrect: Bool) -> some View {
         ZStack {
             Circle()
-                .fill(isCorrect ? Color(uiColor: WMFColor.green700) : Color(uiColor: WMFColor.red700))
-                .frame(width: 22, height: 22)
+                .fill(isCorrect ? Color(uiColor: WMFColor.green600) : Color(uiColor: WMFColor.red600))
+                .frame(width: 28, height: 28)
 
             if let icon = WMFSFSymbolIcon.for(symbol: isCorrect ? .checkmark : .xMark, font: .boldCaption1) {
                 Image(uiImage: icon)
@@ -113,8 +135,13 @@ public struct WMFWhichCameFirstShareView: View {
             score: 1,
             totalQuestions: 5,
             questionResults: [false, true, true, true, true],
-            articleTitles: ["Jawan (film)", "2023 Asia Cup", "Asia Cup", "Coco Gauff", "Danny Masterson"],
-            projectID: "wikipedia_en"
+            articles: [
+                .init(title: "Jawan (film)", description: "2023 Indian action film"),
+                .init(title: "2023 Asia Cup", description: "Cricket tournament"),
+                .init(title: "Coco Gauff", description: "American tennis player"),
+                .init(title: "Danny Masterson", description: "American actor"),
+                .init(title: "Asia Cup", description: "Cricket tournament")
+            ]
         )
     )
 }
