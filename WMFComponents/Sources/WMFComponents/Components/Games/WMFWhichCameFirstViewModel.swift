@@ -25,6 +25,9 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         public let betterLuckMessage: String
         public let errorTitle: String
         public let retryButton: String
+        public let footera11y: () -> String
+        public let correctAnswerA11y: String
+        public let incorrectAnswerA11y: String
 
         public init(
             title: String,
@@ -39,7 +42,10 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
             niceWorkMessage: String,
             betterLuckMessage: String,
             errorTitle: String,
-            retryButton: String
+            retryButton: String,
+            footerA11y: @escaping () -> String,
+            correctAnswerA11y: String,
+            incorrectAnswerA11y: String
         ) {
             self.title = title
             self.submitButton = submitButton
@@ -54,6 +60,9 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
             self.errorTitle = errorTitle
             self.retryButton = retryButton
             self.correctFeedback2 = correctFeedback2
+            self.footera11y = footerA11y
+            self.correctAnswerA11y = correctAnswerA11y
+            self.incorrectAnswerA11y = incorrectAnswerA11y
         }
     }
 
@@ -70,7 +79,6 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     struct RevealState: Equatable {
         let picked: String
         let correct: String
-        let isCorrect: Bool
     }
 
     @Published var phase: Phase = .loading
@@ -85,7 +93,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     @Published var progressResults: [Bool?] = []
 
     public let date: String
-    public var localizedStrings: LocalizedStrings = WMFWhichCameFirstViewModel.LocalizedStrings(
+    public lazy var localizedStrings: LocalizedStrings = WMFWhichCameFirstViewModel.LocalizedStrings(
         title: WMFLocalizedString("which-came-first-title", value: "Which came first?", comment: "Title prompt shown to the user during the Which Came First game"),
         submitButton: WMFLocalizedString("which-came-first-submit-button", value: "Submit", comment: "Button label to submit the user's selected answer in the Which Came First game"),
         nextButton: WMFLocalizedString("which-came-first-next-button", value: "Next", comment: "Button label to advance to the next question in the Which Came First game"),
@@ -98,8 +106,17 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         niceWorkMessage: "Nice work! Come back tomorrow for a new game.",
         betterLuckMessage: "Better luck tomorrow!",
         errorTitle: WMFLocalizedString("which-came-first-error-title", value: "Something went wrong", comment: "Title shown on the error screen in the Which Came First game"),
-        retryButton: WMFLocalizedString("which-came-first-retry-button", value: "Retry", comment: "Button label to retry loading the Which Came First game after an error")
+        retryButton: WMFLocalizedString("which-came-first-retry-button", value: "Retry", comment: "Button label to retry loading the Which Came First game after an error"),
+        footerA11y: footera11y,
+        correctAnswerA11y: WMFLocalizedString("which-came-first-correct-answer-a11y", value: "Correct answer", comment: "Accessibility label indicating the correct answer on a card in the Which Came First game"),
+        incorrectAnswerA11y: WMFLocalizedString("which-came-first-incorrect-answer-a11y", value: "Incorrect answer", comment: "Accessibility label indicating an incorrect answer on a card in the Which Came First game")
     )
+        
+    private func footera11y() -> String {
+        let format = WMFLocalizedString("which-came-first-footer-a11y", value: "Question %1$d of %2$d", comment: "Accessibility label for the game progress indicator in the Which Came First game, where $1 is the current question number and the $2 is the total number of questions")
+        return String.localizedStringWithFormat(format, currentIndex + 1, totalQuestions)
+    }
+    
     private let project: WMFProject
     private let dataController: WMFGamesDataController
     private var gameState: WMFWhichCameFirstGameState?
@@ -126,12 +143,10 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         phase = .loading
         loadTask = Task {
             do {
-                let state = try await dataController.fetchOrStartWhichCameFirstDailySession(
-                    date: date, project: project
-                )
+                let (state, sessionID) = try await dataController.fetchOrStartWhichCameFirstDailySession(date: date, project: project)
+                
                 self.gameState = state
-                let sessions = try await dataController.fetchWhichCameFirstSessions(project: project)
-                self.sessionIdentifier = sessions.first(where: { $0.dailyGameDate == date })?.identifier
+                self.sessionIdentifier = sessionID
                 
                 self.currentIndex = state.answers.count
                 progressResults = Array(repeating: nil, count: state.questions.count)
@@ -180,19 +195,30 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
                     questionIdentifier: question.id,
                     pickedOption: picked.rawValue
                 )
-                applyReveal(picked: picked, correct: result.correctAnswer, isCorrect: result.isCorrect)
+
+                applyReveal(pickedOption: picked, correctOption: Option(rawValue: question.correctAnswer) ?? .a)
             } catch {
                 phase = .error(error.localizedDescription)
             }
         }
     }
 
-    private func applyReveal(picked: Option, correct: String, isCorrect: Bool) {
+    private func applyReveal(pickedOption: Option, correctOption: Option) {
+        let isCorrect = pickedOption == correctOption
         if isCorrect { score += 1 }
         progressResults[currentIndex] = isCorrect
-        cardViewModelA?.reveal(userSelected: picked == .a, isCorrectAnswer: correct == "A")
-        cardViewModelB?.reveal(userSelected: picked == .b, isCorrectAnswer: correct == "B")
-        revealState = RevealState(picked: picked.rawValue, correct: correct, isCorrect: isCorrect)
+        cardViewModelA?.reveal(userSelected: pickedOption == .a, isCorrectAnswer: correctOption == .a)
+        cardViewModelB?.reveal(userSelected: pickedOption == .b, isCorrectAnswer: correctOption == .b)
+        revealState = RevealState(picked: pickedOption.rawValue, correct: correctOption.rawValue)
+
+        let announcement = isCorrect
+            ? "\(localizedStrings.correctFeedback), \(localizedStrings.correctFeedback2)"
+            : localizedStrings.incorrectFeedback
+
+        // Delay so VoiceOver reads after the reveal UI has settled
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            UIAccessibility.post(notification: .announcement, argument: announcement)
+        }
     }
     
     func animateOutAndAdvance() {
@@ -241,14 +267,6 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         guard let question = currentQuestion else { return }
         cardViewModelA = WMFWhichCameFirstCardViewModel(event: question.optionA.cardEvent)
         cardViewModelB = WMFWhichCameFirstCardViewModel(event: question.optionB.cardEvent)
-    }
-
-    private func applyReveal(picked: String, correct: String, isCorrect: Bool) {
-        if isCorrect { score += 1 }
-        progressResults[currentIndex] = isCorrect
-        cardViewModelA?.reveal(userSelected: picked == "A", isCorrectAnswer: correct == "A")
-        cardViewModelB?.reveal(userSelected: picked == "B", isCorrectAnswer: correct == "B")
-        revealState = RevealState(picked: picked, correct: correct, isCorrect: isCorrect)
     }
 
     deinit { loadTask?.cancel() }

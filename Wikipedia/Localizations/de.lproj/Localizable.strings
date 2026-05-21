@@ -40,6 +40,7 @@
 // Author: Tte
 // Author: Ubahnverleih
 // Author: Umlaut
+// Author: YeBoy371
 // Author: ZiqiLiang
 
 "about-content-license" = "Inhaltslizenz";
@@ -283,7 +284,7 @@
 "close-tabs" = "Tabs schließen";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 Tab|$1 Tabs}} geschlossen.";
 "collect-prize-button-title" = "Sichere dir 15%% Rabatt im Shop!";
-"collect-prize-headline" = "Neugier steht dir gut!";
+"collect-prize-headline" = "Neugier steht dir gut! 🛍️";
 "collect-prize-subtitle" = "Feiere den Abschluss der Herausforderung mit 15%% Rabatt im Wikipedia-Shop!";
 "collect-prize-title" = "Sammle deinen Preis ein!";
 "compass-direction" = "auf $1 Uhr";
@@ -551,7 +552,6 @@
 "explore-because-you-read" = "Weil du gelesen hast";
 "explore-because-you-read-footer" = "Weitere ähnliche Artikel";
 "explore-continue-reading-heading" = "Weiterlesen";
-"explore-daily-game-heading" = "Was kam zuerst?";
 "explore-detail-back-button-title" = "Zurück zum Entdecken-Feed";
 "explore-enable-location-title" = "Entdecke Artikel nahe deines aktuellen Standortes";
 "explore-featured-article-heading" = "Artikel des Tages";
@@ -686,6 +686,7 @@
 "forgot-password-instructions" = "Fülle unten eines der Felder aus, um per E-Mail Anweisungen zur Zurücksetzung des Passworts zu erhalten.";
 "forgot-password-title" = "Passwort zurücksetzen";
 "forgot-password-username-or-email-title" = "Oder";
+"games-wcf-explore-title" = "Was kam zuerst?";
 "gan-variants-alert-body" = "Die Wikipedia-App unterstützt nun die folgenden Gan-Varianten als primäre oder sekundäre Sprachen innerhalb der App, was das Lesen, Suchen und Bearbeiten in deinen bevorzugten Varianten erleichtert:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Vereinfacht (gan-hans)\n贛語 繁體 Gan, Traditionell (gan-hant)";
 "gan-variants-alert-title" = "Updates zur Gan-Varianten-Unterstützung";
 "history-clear-confirmation-heading" = "Bist du sicher, dass du alle deine letzten Objekte löschen möchtest?";
@@ -1089,7 +1090,6 @@
 "reading-challenge-announcement-item1-title" = "Lies 25 Tage lang jeden Tag einen Artikel";
 "reading-challenge-announcement-item2-subtitle" = "Schließe eine 25-tägige Leseserie ab, solange die Challenge läuft, und gewinne besondere Preise.";
 "reading-challenge-announcement-item2-title" = "Gewinne Preise";
-"reading-challenge-announcement-item3-subtitle" = "Erhalte hilfreiche Erinnerungen und Motivation von unserem niedlichen Geburtstagsmaskottchen Baby Globe";
 "reading-challenge-announcement-item3-subtitle2" = "Um deine Serie mit Baby Globe zu verfolgen, musst du das Lese-Challenge-Widget aus dem Startbildschirm hinzufügen.";
 "reading-challenge-announcement-item3-title" = "Installiere das Widget";
 "reading-challenge-announcement-secondary-cta" = "Mehr erfahren";
@@ -1130,10 +1130,8 @@
 // Fuzzy
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 von 25 Tagen|$1 von 25 Tagen}}";
 "reading-challenge-subtitle" = "25-Tage-Lese-Challenge";
-"reading-challenge-widget-announcement-body" = "Baby Globe feuert dich an. Füge das Lese-Challenge-Widget hinzu, um deinen Fortschritt direkt auf deinem Startbildschirm zu verfolgen.";
 "reading-challenge-widget-announcement-body2" = "Um deine Serie mit Baby Globe zu verfolgen, musst du das Lese-Challenge-Widget aus dem Startbildschirm hinzufügen.";
 "reading-challenge-widget-announcement-secondary-button" = "Wie geht das?";
-"reading-challenge-widget-announcement-title" = "Installiere das Widget für die 25-Tage-Lese-Challenge";
 "reading-challenge-widget-announcement-title2" = "Öffne deinen Startbildschirm, und füge das Widget hinzu";
 "reading-challenge-widget-description" = "Verfolge deinen Fortschritt bei der Leseherausforderung.";
 "reading-challenge-widget-display-name" = "Leseherausforderung";

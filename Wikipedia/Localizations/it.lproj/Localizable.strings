@@ -449,6 +449,7 @@
 "explore-feed-preferences-related-pages-description" = "Suggerimenti basati sulla cronologia di lettura";
 "explore-feed-preferences-suggested-edits-description" = "Suggerimenti per aggiungere contenuti a Wikipedia";
 "explore-feed-preferences-top-read-description" = "Voci più lette del giorno";
+"explore-games-title" = "Giochi";
 "explore-hide-card-prompt" = "Nascondi questa scheda";
 "explore-main-page-description" = "Pagina principale dei progetti Wikimedia";
 "explore-main-page-heading" = "Oggi su Wikipedia";
@@ -507,6 +508,9 @@
 "forgot-password-email-sent" = "Una email è stata inviata con le istruzioni per la reimpostazione della password";
 "forgot-password-title" = "Reimposta password";
 "forgot-password-username-or-email-title" = "O";
+"games-wcf-button-play-title" = "Gioca la partita di oggi";
+"games-wcf-explore-button-archive-title" = "Gioca dall'archivio";
+"games-wcf-explore-button-review-title" = "Esamina risultati";
 "history-clear-confirmation-heading" = "Sei sicuro di voler cancellare tutti i tuoi elementi recenti?";
 "history-clear-delete-all" = "Sì, cancella tutto";
 "history-title" = "Cronologia";
@@ -874,6 +878,8 @@
 "settings-clear-cache-cancel" = "Annulla";
 "settings-clear-cache-ok" = "Pulisci cache";
 "settings-donate" = "Dona";
+"settings-explore-games-subtitle" = "Giochi giornalieri basati sui contenuti di Wikipedia";
+"settings-explore-games-title" = "Giochi di Wikipedia";
 "settings-help-and-feedback" = "Aiuto e feedback";
 "settings-language-bar" = "Mostra lingue nella ricerca";
 "settings-my-languages" = "Le mie lingue";
@@ -1069,6 +1075,10 @@
 "welcome-languages-add-or-edit-button" = "Aggiungi o modifica lingue preferite";
 "welcome-languages-description" = "Abbiamo trovato le seguenti lingue sul tuo dispositivo:";
 "welcome-languages-search-title" = "Cerca in più di 300 lingue";
+"which-came-first-splash-continue-button" = "Continua la partita di oggi";
+"which-came-first-splash-review-button" = "Esamina risultati";
+"which-came-first-splash-subtitle" = "Indovinate quale evento si è verificato per primo in questo giorno della storia.";
+"which-came-first-splash-title" = "Chi è arrivato prima?";
 "widget-onthisday-description" = "Scopri cosa è successo in questo giorno nella storia.";
 "widget-onthisday-placeholder-article-snippet" = "Enciclopedia online gratuita che chiunque può modificare";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, un'enciclopedia gratuita di contenuti wiki, va online.";

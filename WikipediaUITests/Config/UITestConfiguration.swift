@@ -65,13 +65,7 @@ struct UITestConfiguration {
         }
     }
 
-    /// Selects the app-process HTTP client profile used by UI tests.
-    enum HTTPClientProfile: String {
-        case e2e = "e2e"
-        case fixtureStrict = "fixture-strict"
-    }
-
-    private let defaultHTTPClientProfile = HTTPClientProfile.fixtureStrict.rawValue
+    private let defaultHTTPClientProfile = UITestHTTPClientProfile.fixtureStrict.rawValue
     private let defaultLanguageCode = "en"
 }
 

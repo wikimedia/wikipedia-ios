@@ -533,7 +533,6 @@
 "explore-because-you-read" = "Оскільки ви читали";
 "explore-because-you-read-footer" = "Більше пов'язаних статей";
 "explore-continue-reading-heading" = "Продовжити читання";
-"explore-daily-game-heading" = "Що було першим?";
 "explore-detail-back-button-title" = "Назад до стрічки";
 "explore-enable-location-title" = "Досліджуйте статті Вікіпедії поблизу з вашим місцем розташування";
 "explore-featured-article-heading" = "Вибрана стаття";
@@ -668,6 +667,7 @@
 "forgot-password-instructions" = "Заповніть одне з полів нижче, щоб отримати на скриньку електронної пошти інструкції щодо скидання пароля";
 "forgot-password-title" = "Скинути пароль";
 "forgot-password-username-or-email-title" = "Або";
+"games-wcf-explore-title" = "Що було першим?";
 "gan-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти мови ґань як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\n贛語 原文 ґань (gan)\n赣语 简体 ґань, спрощена (gan-hans)\n贛語 繁體 ґань, традиційна (gan-hant)";
 "gan-variants-alert-title" = "Оновлення щодо підтримки варіантів ґань";
 "history-clear-confirmation-heading" = "Ви впевнені, що хочете вилучити всі недавні елементи?";
@@ -1077,7 +1077,6 @@
 "reading-challenge-announcement-item1-title" = "Читайте 1 статтю щодня упродовж 25 днів";
 "reading-challenge-announcement-item2-subtitle" = "Завершіть 25-денну серію читання, поки триває виклик, щоб виграти спеціальні призи.";
 "reading-challenge-announcement-item2-title" = "Вигравайте призи";
-"reading-challenge-announcement-item3-subtitle" = "Отримуйте корисні нагадування та мотивацію від нашого чарівного талісмана дня народження Малюка Глобуса.";
 "reading-challenge-announcement-item3-title" = "Встановіть віджет";
 "reading-challenge-announcement-secondary-cta" = "Дізнатися більше";
 "reading-challenge-announcement-subtitle" = "Ваша історія читання захищена. Статистика читання розраховується на основі даних, що зберігаються локально на вашому пристрої.";
@@ -1116,8 +1115,6 @@
 "reading-challenge-streak-no-days" = "$1 з 25";
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 з 25 днів}}";
 "reading-challenge-subtitle" = "25-денний читацький виклик";
-"reading-challenge-widget-announcement-body" = "Малюк Глобус підтримує вас. Додайте віджет читацького виклику, щоб відстежувати свій прогрес на головному екрані.";
-"reading-challenge-widget-announcement-title" = "Встановити віджет 25-денного читацького виклику";
 "reading-challenge-widget-description" = "Відстежуйте свій прогрес у читацькому виклику.";
 "reading-challenge-widget-display-name" = "Читацький виклик";
 "reading-list-add-generic-hint-title" = "Додати цю статтю до читального списку?";
