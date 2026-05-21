@@ -3,6 +3,7 @@ import SwiftUI
 import WMF
 import WMFComponents
 import WMFData
+import WMFNativeLocalizations
 
 /// Coordinator that presents the Which Came First game, starting with the splash screen.
 @MainActor
@@ -133,8 +134,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             renderer.scale = UIScreen.main.scale
             guard let image = renderer.uiImage else { return }
 
+            let shareText = WMFLocalizedString("which-came-first-share-activity-text", value: "I'm playing \"Which came first?\" a daily trivia game on the Wikipedia iOS app https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=wiki_game_202605&mt=8", comment: "Text shared when a user shares the Which Came First game via Messages, Notes, or other text-based share targets.")
             let textProvider = WCFShareActivityContentProvider(
-                text: "I'm playing \"Which came first?\" a daily trivia game on the Wikipedia iOS app https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=wiki_game_202605&mt=8"
+                text: shareText
             )
             let imageProvider = ShareAFactActivityImageItemProvider(image: image)
             let activityVC = UIActivityViewController(activityItems: [textProvider, imageProvider], applicationActivities: nil)
@@ -182,7 +184,6 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
 // MARK: - Share Content Provider
 
-/// Provides share text for most activity types, but returns nil for Instagram (image-only).
 private final class WCFShareActivityContentProvider: UIActivityItemProvider, @unchecked Sendable {
 
     let text: String

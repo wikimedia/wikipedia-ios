@@ -1539,7 +1539,8 @@
 "which-came-first-next-button" = "Next";
 "which-came-first-retry-button" = "Retry";
 "which-came-first-see-results-button" = "See Results";
-"which-came-first-share-score-summary" = "I scored $1/$2 on u{201C}Which came first?u{201D} today.";
+"which-came-first-share-activity-text" = "I'm playing \"Which came first?\" a daily trivia game on the Wikipedia iOS app https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=wiki_game_202605&mt=8";
+"which-came-first-share-score-summary" = "I scored $1/$2 on \"Which came first?\" today.";
 "which-came-first-share-topics-title" = "Topics included:";
 "which-came-first-splash-about-button" = "About this game";
 "which-came-first-splash-continue-button" = "Continue today's game";
