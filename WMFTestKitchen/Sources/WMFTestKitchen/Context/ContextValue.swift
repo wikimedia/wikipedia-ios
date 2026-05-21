@@ -40,6 +40,7 @@ public struct ContextValue {
         performerIsTemp,
         performerSessionId,
         performerLanguageGroups,
-        performerLanguagePrimary
+        performerLanguagePrimary,
+        mediawikiDatabase
     ]
 }

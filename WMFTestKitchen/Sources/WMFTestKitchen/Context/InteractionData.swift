@@ -7,6 +7,7 @@ public struct InteractionData {
     public let actionContext: String?
     public let elementId: String?
     public let elementFriendlyName: String?
+    public let mediawikiDatabase: String?
 
     public init(
         action: String? = nil,
@@ -14,7 +15,8 @@ public struct InteractionData {
         actionSource: String? = nil,
         actionContext: String? = nil,
         elementId: String? = nil,
-        elementFriendlyName: String? = nil
+        elementFriendlyName: String? = nil,
+        mediawikiDatabase: String? = nil
     ) {
         self.action = action
         self.actionSubtype = actionSubtype
@@ -22,5 +24,6 @@ public struct InteractionData {
         self.actionContext = actionContext
         self.elementId = elementId
         self.elementFriendlyName = elementFriendlyName
+        self.mediawikiDatabase = mediawikiDatabase
     }
 }
