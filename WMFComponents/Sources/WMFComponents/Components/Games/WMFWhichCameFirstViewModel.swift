@@ -119,8 +119,6 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     
     public var didTapShare: (@MainActor @Sendable () -> Void)?
 
-    /// Returns the game state needed for building a share view model.
-    /// The caller is responsible for fetching article summaries and images, then constructing the view model.
     public func makeShareArticleEvents() -> [(event: WMFWhichCameFirstEvent, project: WMFProject)]? {
         guard let state = gameState else { return nil }
         return state.questions.compactMap { question in
@@ -130,15 +128,10 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     }
 
     public func makeShareQuestionResults() -> [Bool]? {
-        guard let state = gameState else { return nil }
-        return state.questions.map { question in
-            guard let picked = state.answers[question.id.uuidString] else { return false }
-            return picked == question.correctAnswer
-        }
+        guard !progressResults.isEmpty else { return nil }
+        return progressResults.map { $0 ?? false }
     }
 
-    /// Picks one event per question, preferring options that have a thumbnail image.
-    /// If both options have images, picks at random. If neither has an image, picks at random.
     private func selectedEvent(from question: WMFWhichCameFirstQuestion) -> WMFWhichCameFirstEvent? {
         let a = question.optionA
         let b = question.optionB
@@ -228,7 +221,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         loadTask?.cancel()
         loadTask = Task {
             do {
-                let result = try await dataController.submitWhichCameFirstAnswer(
+                _ = try await dataController.submitWhichCameFirstAnswer(
                     sessionIdentifier: sessionID,
                     questionIdentifier: question.id,
                     pickedOption: picked.rawValue

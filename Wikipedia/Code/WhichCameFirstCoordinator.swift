@@ -132,7 +132,20 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             let renderer = ImageRenderer(content: shareView)
             renderer.scale = UIScreen.main.scale
             guard let image = renderer.uiImage else { return }
-            let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+
+            let textProvider = WCFShareActivityContentProvider(
+                text: "I'm playing \"Which came first?\" a daily trivia game on the Wikipedia iOS app https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=wiki_game_202605&mt=8"
+            )
+            let imageProvider = ShareAFactActivityImageItemProvider(image: image)
+            let activityVC = UIActivityViewController(activityItems: [textProvider, imageProvider], applicationActivities: nil)
+            activityVC.excludedActivityTypes = [.print, .assignToContact, .addToReadingList]
+
+            if let popover = activityVC.popoverPresentationController {
+                popover.sourceView = gameNav.visibleViewController?.view
+                popover.sourceRect = gameNav.visibleViewController?.view.bounds ?? .zero
+                popover.permittedArrowDirections = []
+            }
+
             gameNav.present(activityVC, animated: true)
         }
     }
@@ -164,6 +177,30 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter.string(from: Date())
+    }
+}
+
+// MARK: - Share Content Provider
+
+/// Provides share text for most activity types, but returns nil for Instagram (image-only).
+private final class WCFShareActivityContentProvider: UIActivityItemProvider, @unchecked Sendable {
+
+    let text: String
+
+    init(text: String) {
+        self.text = text
+        super.init(placeholderItem: text)
+    }
+
+    override var item: Any {
+        return text
+    }
+
+    override func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        if let activityType, activityType.rawValue.lowercased().contains("instagram") {
+            return nil
+        }
+        return text
     }
 }
 
