@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 import WMF
 import WMFComponents
 import WMFData
@@ -80,8 +81,60 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
               let gameNav = gameNavigationController else { return }
         let project = WMFProject.wikipedia(language)
         let viewModel = WMFWhichCameFirstViewModel(date: formattedTodayISODateString(), project: project)
+        viewModel.didTapShare = { [weak self, weak viewModel] in
+            guard let self, let viewModel else { return }
+            self.showShare(gameViewModel: viewModel)
+        }
         let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
         gameNav.setViewControllers([gameVC], animated: true)
+    }
+
+    private func showShare(gameViewModel: WMFWhichCameFirstViewModel) {
+        guard let gameNav = gameNavigationController,
+              let events = gameViewModel.makeShareArticleEvents(),
+              let results = gameViewModel.makeShareQuestionResults() else { return }
+
+        Task { [weak gameNav] in
+            guard let gameNav else { return }
+
+            let summaryController = WMFArticleSummaryDataController.shared
+            let imageController = WMFImageDataController.shared
+
+            var articles: [WMFWhichCameFirstShareViewModel.ArticleItem] = []
+
+            for (event, project) in events {
+                guard let articleTitle = event.articleTitle else { continue }
+                let cleanTitle = articleTitle.underscoresToSpaces
+
+                // Fetch summary for description
+                let summary = try? await summaryController.fetchArticleSummary(project: project, title: articleTitle)
+                let description = summary?.description ?? summary?.extract
+
+                // Fetch thumbnail image — prefer the event's known URL, fall back to summary's
+                let thumbnailURL = event.thumbnailURL ?? summary?.thumbnailURL
+                var image: UIImage?
+                if let url = thumbnailURL,
+                   let data = try? await imageController.fetchImageData(url: url) {
+                    image = UIImage(data: data)
+                }
+
+                articles.append(.init(title: cleanTitle, description: description, image: image))
+            }
+
+            let shareViewModel = WMFWhichCameFirstShareViewModel(
+                score: gameViewModel.score,
+                totalQuestions: gameViewModel.totalQuestions,
+                questionResults: results,
+                articles: articles
+            )
+
+            let shareView = WMFWhichCameFirstShareView(viewModel: shareViewModel)
+            let renderer = ImageRenderer(content: shareView)
+            renderer.scale = UIScreen.main.scale
+            guard let image = renderer.uiImage else { return }
+            let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+            gameNav.present(activityVC, animated: true)
+        }
     }
 
     private func showAbout() {
@@ -99,7 +152,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     // MARK: - Helpers
 
-    private func formattedTodayDateString() -> String { // add a date formatter to allow for international dates, not only US
+    private func formattedTodayDateString() -> String { // TODO: add a date formatter to allow for international dates, not only US
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM d"
         return formatter.string(from: Date())

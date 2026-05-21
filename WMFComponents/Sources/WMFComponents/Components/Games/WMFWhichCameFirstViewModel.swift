@@ -83,7 +83,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
 
     @Published var phase: Phase = .loading
     @Published var currentIndex: Int = 0
-    @Published var score: Int = 0
+    @Published public var score: Int = 0
     @Published var cardViewModelA: WMFWhichCameFirstCardViewModel?
     @Published var cardViewModelB: WMFWhichCameFirstCardViewModel?
     @Published var revealState: RevealState?
@@ -117,6 +117,44 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         return String.localizedStringWithFormat(format, currentIndex + 1, totalQuestions)
     }
     
+    public var didTapShare: (@MainActor @Sendable () -> Void)?
+
+    /// Returns the game state needed for building a share view model.
+    /// The caller is responsible for fetching article summaries and images, then constructing the view model.
+    public func makeShareArticleEvents() -> [(event: WMFWhichCameFirstEvent, project: WMFProject)]? {
+        guard let state = gameState else { return nil }
+        return state.questions.compactMap { question in
+            guard let event = selectedEvent(from: question) else { return nil }
+            return (event: event, project: project)
+        }
+    }
+
+    public func makeShareQuestionResults() -> [Bool]? {
+        guard let state = gameState else { return nil }
+        return state.questions.map { question in
+            guard let picked = state.answers[question.id.uuidString] else { return false }
+            return picked == question.correctAnswer
+        }
+    }
+
+    /// Picks one event per question, preferring options that have a thumbnail image.
+    /// If both options have images, picks at random. If neither has an image, picks at random.
+    private func selectedEvent(from question: WMFWhichCameFirstQuestion) -> WMFWhichCameFirstEvent? {
+        let a = question.optionA
+        let b = question.optionB
+        let aHasImage = a.thumbnailURL != nil
+        let bHasImage = b.thumbnailURL != nil
+
+        switch (aHasImage, bHasImage) {
+        case (true, false):
+            return a
+        case (false, true):
+            return b
+        default:
+            return Bool.random() ? a : b
+        }
+    }
+
     private let project: WMFProject
     private let dataController: WMFGamesDataController
     private var gameState: WMFWhichCameFirstGameState?
@@ -130,7 +168,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         return questions[currentIndex]
     }
 
-    var totalQuestions: Int { questions.count }
+    public var totalQuestions: Int { questions.count }
 
     public init(date: String, project: WMFProject) {
         self.date = date
