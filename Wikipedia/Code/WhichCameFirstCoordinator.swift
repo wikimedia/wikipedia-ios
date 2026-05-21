@@ -167,9 +167,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     // MARK: - Helpers
 
-    private func formattedTodayDateString() -> String { // TODO: add a date formatter to allow for international dates, not only US
+    private func formattedTodayDateString() -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM d"
+        formatter.setLocalizedDateFormatFromTemplate("MMMMd")
         return formatter.string(from: Date())
     }
 
