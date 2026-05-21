@@ -204,14 +204,14 @@ final class WMFWhichCameFirstViewModelTests: XCTestCase {
     // MARK: - RevealState
 
     func testRevealStateCorrect() {
-        let state = WMFWhichCameFirstViewModel.RevealState(picked: "A", correct: "A", isCorrect: true)
-        XCTAssertTrue(state.isCorrect)
+        let state = WMFWhichCameFirstViewModel.RevealState(picked: "A", correct: "A")
+        XCTAssertTrue(state.correct == "A")
         XCTAssertEqual(state.picked, state.correct)
     }
 
     func testRevealStateIncorrect() {
-        let state = WMFWhichCameFirstViewModel.RevealState(picked: "B", correct: "A", isCorrect: false)
-        XCTAssertFalse(state.isCorrect)
+        let state = WMFWhichCameFirstViewModel.RevealState(picked: "B", correct: "A")
+        XCTAssertFalse(state.correct == "B")
         XCTAssertNotEqual(state.picked, state.correct)
     }
 }
@@ -233,7 +233,12 @@ private extension WMFWhichCameFirstViewModel.LocalizedStrings {
             niceWorkMessage: "Nice work! Come back tomorrow for a new game.",
             betterLuckMessage: "Better luck tomorrow!",
             errorTitle: "Something went wrong",
-            retryButton: "Retry"
+            retryButton: "Retry",
+            footerA11y: {
+                    "Footer"
+            },
+            correctAnswerA11y: "Correct answer",
+            incorrectAnswerA11y: "Incorrect answer"
         )
     }
 }
