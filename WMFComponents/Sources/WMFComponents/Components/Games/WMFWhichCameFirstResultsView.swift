@@ -96,11 +96,11 @@ public struct WMFWhichCameFirstResultsView: View {
 
             HStack(spacing: 6) {
                 Image(systemName: "clock")
-                    .font(.footnote)
+                    .font(Font(WMFFont.for(.body)))
                 // Specificlly left as hardcoded color
                     .foregroundStyle(Color.black)
                 Text(viewModel.localizedStrings.countdownLabel(from: viewModel.nextGameCountdownString))
-                    .font(Font(WMFFont.for(.footnote)))
+                    .font(Font(WMFFont.for(.callout)))
                 // Specificlly left as hardcoded color
                     .foregroundStyle(Color.black)
             }
@@ -153,7 +153,7 @@ public struct WMFWhichCameFirstResultsView: View {
                 Capsule()
                     .fill(Color(uiColor: theme.baseBackground))
             )
-            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 22))
+            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16))
         }
     }
 
@@ -171,6 +171,7 @@ public struct WMFWhichCameFirstResultsView: View {
                 loggedOutStats
             }
         }
+        .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 4)
     }
 
     private var loggedInStats: some View {
@@ -181,21 +182,18 @@ public struct WMFWhichCameFirstResultsView: View {
                     value: viewModel.gamesPlayed.map { "\($0)" } ?? "–",
                     label: viewModel.localizedStrings.gamesPlayedLabel
                 )
-                Divider().frame(height: 44)
                 statCell(
                     icon: "star.square.on.square",
                     value: viewModel.currentStreak.map { "\($0)" } ?? "–",
                     label: viewModel.localizedStrings.currentStreakLabel
                 )
             }
-            Divider()
             HStack(spacing: 0) {
                 statCell(
                     icon: "medal.star",
                     value: viewModel.bestStreak.map { "\($0)" } ?? "–",
                     label: viewModel.localizedStrings.bestStreakLabel
                 )
-                Divider().frame(height: 44)
                 statCell(
                     icon: "flag.pattern.checkered",
                     value: viewModel.averageScore.map { "\($0)" } ?? "–",
@@ -204,7 +202,7 @@ public struct WMFWhichCameFirstResultsView: View {
             }
         }
         .background(Color(uiColor: theme.paperBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 
     private func statCell(icon: String, value: String, label: String) -> some View {
@@ -215,11 +213,11 @@ public struct WMFWhichCameFirstResultsView: View {
                 .frame(width: 32, alignment: .center)
             VStack(alignment: .leading, spacing: 2) {
                 Text(value)
-                    .font(Font(WMFFont.for(.semiboldSubheadline)))
+                    .font(Font(WMFFont.for(.boldCallout)))
                     .foregroundColor(Color(uiColor: theme.text))
                 Text(label)
-                    .font(Font(WMFFont.for(.footnote)))
-                    .foregroundColor(Color(uiColor: theme.secondaryText))
+                    .font(Font(WMFFont.for(.caption1)))
+                    .foregroundColor(Color(uiColor: theme.text))
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
