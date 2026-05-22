@@ -29,5 +29,167 @@
       "Content-Type": "text/html; charset=utf-8"
     },
     "bodyResource": "DogMobileHTML.html"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/api/rest_v1/page/media-list/Dog",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "DogMediaList.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/api/rest_v1/page/summary/Canis",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "CanisArticleSummary.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/api/rest_v1/page/mobile-html/Canis",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "text/html; charset=utf-8"
+    },
+    "bodyResource": "CanisMobileHTML.html"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "CanisLepophagusSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/api/rest_v1/page/summary/Canis_lepophagus",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "CanisLepophagusArticleSummary.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/api/rest_v1/page/mobile-html/Canis_lepophagus",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "text/html; charset=utf-8"
+    },
+    "bodyResource": "CanisLepophagusMobileHTML.html"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/api/rest_v1/data/i18n/pcs",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "PCSI18N.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "titles": "File:Collage_of_Nine_Dogs.jpg"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "CollageImageInfo.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "titles": "File:Dog_morphological_variation.png"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "DogMorphologicalVariationImageInfo.json"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "pathSuffix": "/320px-Collage_of_Nine_Dogs.jpg",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/jpeg"
+    },
+    "bodyResource": "CollageOfNineDogs.jpg"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "pathSuffix": "/1280px-Collage_of_Nine_Dogs.jpg",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/jpeg"
+    },
+    "bodyResource": "CollageOfNineDogs.jpg"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "pathSuffix": "/Collage_of_Nine_Dogs.jpg",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/jpeg"
+    },
+    "bodyResource": "CollageOfNineDogs.jpg"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "pathSuffix": "/640px-Dog_morphological_variation.png",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/png"
+    },
+    "bodyResource": "640pxDogMorphologicalVariation.png"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "pathSuffix": "/1280px-Dog_morphological_variation.png",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/png"
+    },
+    "bodyResource": "640pxDogMorphologicalVariation.png"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "pathSuffix": "/Dog_morphological_variation.png",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/png"
+    },
+    "bodyResource": "640pxDogMorphologicalVariation.png"
   }
 ]
