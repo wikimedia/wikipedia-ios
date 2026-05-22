@@ -141,6 +141,9 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "Активноста опфаќа содржаен времеслед на прочитани, зачувани и уредени статии. Вашата историја на читање сега е сместена во Пребарување.";
 "activity-tab-onboarding-third-item-title-updated" = "Историјата на читање сега е во Пребарување";
 "activity-tab-read-title" = "Погл. историја на читање";
+"activity-tab-reading-challenge-card-body" = "За да го следите напредокот со Глобусчето, ќе треба да го додадете елементот Читателски предизвик од вашиот почетен екран.";
+"activity-tab-reading-challenge-card-cta" = "Покажи ми како";
+"activity-tab-reading-challenge-card-title" = "25-дневен читателски предизвик";
 "activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Задоволен";
 "activity-tab-saved" = "Зачувани статии овој месец";
@@ -519,7 +522,6 @@
 "explore-because-you-read" = "Бидејќи читавте";
 "explore-because-you-read-footer" = "Други поврзани статии";
 "explore-continue-reading-heading" = "Продолжете со читање";
-"explore-daily-game-heading" = "Што се случило попрво?";
 "explore-detail-back-button-title" = "Назад кон тековникот „Истражи“";
 "explore-enable-location-title" = "Истражете статии околу вашето тековно наоѓалиште";
 "explore-featured-article-heading" = "Избрани статии";
@@ -540,6 +542,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Вкл.";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "На $1";
 "explore-feed-preferences-feed-cards-hidden-title" = "Сите картички „$1“ се скриени";
+"explore-feed-preferences-games-title" = "Прикажи ја картичката „Игри“";
 "explore-feed-preferences-global-card-footer-text" = "Оваа картичка нема посветен јазик. Исклучувајќи ја, ќе ја отстраните од тековникот „Истражи“.";
 "explore-feed-preferences-global-cards-description" = "Нејазични картички";
 "explore-feed-preferences-global-cards-subtitle" = "Нејазични";
@@ -556,6 +559,7 @@
 "explore-feed-preferences-show-continue-reading-title" = "Прикажи ја картичката „Продолжете со читање“";
 "explore-feed-preferences-show-featured-article-footer-text" = "Исклучувајќи ја картичката „Избрана статија“ ќе ја исклучите на сите достапни јазици.";
 "explore-feed-preferences-show-featured-article-title" = "Прикажи ја картичката „Избрани“";
+"explore-feed-preferences-show-games-footer-text" = "Исклучувајќи ја картичката за „Игри“ ќе ја исклучите на сите достапни јазици.";
 "explore-feed-preferences-show-news-footer-text" = "Исклучувајќи ја картичката „Вести“ ќе ја исклучите на сите достапни јазици.";
 "explore-feed-preferences-show-news-title" = "Прикажи ја картичката „Вести“";
 "explore-feed-preferences-show-on-this-day-footer-text" = "Исклучувајќи ја картичката „На денешен ден“ ќе ја исклучите на сите достапни јазици.";
@@ -582,6 +586,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Вклучи го „Истражи“";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ова ќе го замени јазичето „Нагодувања“ со јазичето „Истражи“. Можете да дојдете до нагодувањата над јазичето „Истражи“ стискајќи на иконката со запченик";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Да го всклучам јазичето „Истражи“?";
+"explore-games-title" = "Игри";
 "explore-hide-card-prompt" = "Скриј ја картичкава";
 "explore-main-page-description" = "Главна страница на Викимедиини проекти";
 "explore-main-page-heading" = "Денес на Википедија";
@@ -654,6 +659,12 @@
 "forgot-password-instructions" = "Пополнете едно од полињата подолу за да добиете напатствија за ставање нова лозинка по е-пошта.";
 "forgot-password-title" = "Смени лозинка";
 "forgot-password-username-or-email-title" = "Или";
+"games-wcf-button-play-title" = "Играј денешна игра";
+"games-wcf-explore-button-archive-title" = "Играј од архивата";
+"games-wcf-explore-button-review-title" = "Преглед на исходот";
+"games-wcf-explore-complete-subtitle" = "Во денешната игра освоивте $1/$2. Следната игра ќе биде достапна за $3";
+"games-wcf-explore-in-progress-subtitle" = "Сега сте на прашање $1. Продолжите да погодувате кој настан се случил попрво на денешен ден во историјата.";
+"games-wcf-explore-title" = "Што се случило попрво?";
 "gan-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве варијанти на ган како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти\n\n贛語 原文 ган (gan)\n赣语 简体 ган, упростено (gan-hans)\n贛語 繁體 ган, традиционално (gan-hant)";
 "gan-variants-alert-title" = "Новост за поддршка на варијанти на ган";
 "history-clear-confirmation-heading" = "Сигурни сте дека сакате да ги избришам сите скорешни ставки?";
@@ -1062,7 +1073,7 @@
 "reading-challenge-announcement-item1-title" = "Чирајте по една статија дневно во текот на 25 дена";
 "reading-challenge-announcement-item2-subtitle" = "Завршете ја 25-дневната низа на читање додека трае предизвикот и освојте специјални награди.";
 "reading-challenge-announcement-item2-title" = "Освојте награди";
-"reading-challenge-announcement-item3-subtitle" = "Добивајте корисни потсетници и мотивација со нашата маскота Глобусче.";
+"reading-challenge-announcement-item3-subtitle2" = "За да го следите напредокот со Глобусчето, ќе треба да го додадете елементот Читателски предизвик од вашиот почетен екран.";
 "reading-challenge-announcement-item3-title" = "Воспоставете го елеменетот";
 "reading-challenge-announcement-secondary-cta" = "Дознајте повеќе";
 "reading-challenge-announcement-subtitle" = "Вашата историја на читање е заштитена. Увидите во вашите читања се пресметуваат користејќи месно складирани податоци на вашиот уред.";
@@ -1101,8 +1112,9 @@
 "reading-challenge-streak-no-days" = "$1 од 25";
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 од 25 ден|$1 од 25 дена}}";
 "reading-challenge-subtitle" = "25-дневен читателски предизвик";
-"reading-challenge-widget-announcement-body" = "Глобусчето ве бодри. Додајте го елементот Читателски предизвик за да го следите вашиот напредок од почетниот екран.";
-"reading-challenge-widget-announcement-title" = "Воспоставете го елементот за 25-дневен читателски предизвик";
+"reading-challenge-widget-announcement-body2" = "За да го следите напредокот со Глобусчето, ќе треба да го додадете елементот Читателски предизвик од вашиот почетен екран.";
+"reading-challenge-widget-announcement-secondary-button" = "Покажи ми како";
+"reading-challenge-widget-announcement-title2" = "Појдете на вашиот почетен екран за да го додадете елементот";
 "reading-challenge-widget-description" = "Следете го направениот напредок во вашиот читателски предизвик.";
 "reading-challenge-widget-display-name" = "Читателски предизвик";
 "reading-list-add-generic-hint-title" = "Да ја додадам статијава во списокот за читање?";
@@ -1244,6 +1256,8 @@
 "settings-clear-cache-cancel" = "Откажи";
 "settings-clear-cache-ok" = "Исчисти";
 "settings-donate" = "Дарувајте";
+"settings-explore-games-subtitle" = "Дневни игри со содржини на Википедија";
+"settings-explore-games-title" = "Википедиини игри";
 "settings-help-and-feedback" = "Помош и мислења";
 "settings-language-bar" = "Прикажувај јазици при пребарувањето";
 "settings-languages-feed-customization" = "Можете да изберете кои јазици да се прикажуваат во поставките за тековникот „Истражи“.";

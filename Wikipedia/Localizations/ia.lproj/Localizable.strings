@@ -510,7 +510,6 @@
 "explore-because-you-read" = "Perque tu ha legite";
 "explore-because-you-read-footer" = "Altere articulos associate";
 "explore-continue-reading-heading" = "Continuar a leger";
-"explore-daily-game-heading" = "Qual ha evenite primo?";
 "explore-detail-back-button-title" = "Retornar al canal Explorar";
 "explore-enable-location-title" = "Explorar articulos proxime a tu position actual";
 "explore-featured-article-heading" = "Articulo eminente";
@@ -645,6 +644,7 @@
 "forgot-password-instructions" = "Reimple un del campos infra pro reciper instructiones pro reinitialisar le contrasigno per e-mail";
 "forgot-password-title" = "Reinitialisar contrasigno";
 "forgot-password-username-or-email-title" = "O";
+"games-wcf-explore-title" = "Qual ha evenite primo?";
 "gan-variants-alert-body" = "Le application de Wikipedia ora supporta le variantes sequente del gan como linguas primari o secundari in le application, rendente lo plus facile leger, cercar e modificar in tu variantes preferite:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan simplificate (gan-hans)\n贛語 繁體 Gan traditional (gan-hant)";
 "gan-variants-alert-title" = "Actualisationes del supporto de variantes del gan";
 "history-clear-confirmation-heading" = "Es tu secur de voler deler tote tu elementos recente?";
@@ -1053,7 +1053,6 @@
 "reading-challenge-announcement-item1-title" = "Lege 1 articulo per die durante 25 dies";
 "reading-challenge-announcement-item2-subtitle" = "Completa un serie de lectura de 25 dies durante que le defia es active pro ganiar premios special.";
 "reading-challenge-announcement-item2-title" = "Gania premios";
-"reading-challenge-announcement-item3-subtitle" = "Recipe rememorationes utile e motiva te con nostre adorabile mascotte de anniversario, le Globo infante.";
 "reading-challenge-announcement-item3-title" = "Installar le widget";
 "reading-challenge-announcement-secondary-cta" = "Leger plus";
 "reading-challenge-announcement-subtitle" = "Tu historia de lectura se mantene protegite. Le analyses de lectura se calcula a base de datos immagazinate localmente sur tu apparato.";
@@ -1092,8 +1091,6 @@
 "reading-challenge-streak-no-days" = "$1 de 25";
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 de 25 dies}}";
 "reading-challenge-subtitle" = "Defia de lectura de 25 dies";
-"reading-challenge-widget-announcement-body" = "Le Globo infante te incoragia. Adde le utensile del defia de lectura pro sequer tu progresso desde tu schermo initial.";
-"reading-challenge-widget-announcement-title" = "Installa le widget del defia de lectura de 25 dies";
 "reading-challenge-widget-description" = "Tracia tu progresso in le defia de lectura.";
 "reading-challenge-widget-display-name" = "Defia de lectura";
 "reading-list-add-generic-hint-title" = "Adder iste articulo a un lista de lectura?";

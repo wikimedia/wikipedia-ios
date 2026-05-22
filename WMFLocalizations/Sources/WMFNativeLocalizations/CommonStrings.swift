@@ -891,6 +891,9 @@ public class CommonStrings: NSObject {
     // Reading Challenge widget
     
     public static let collectPrizeTitle = WMFLocalizedString("collect-prize-title", value: "Collect your prize!", comment: "Title for collect prize modal sheet and button")
+    
+    // Games
+    public static let playTodaysGameTitle = WMFLocalizedString("games-wcf-button-play-title", value:"Play today's game", comment: "Button text on Which Came First card in the Explore tab and in the game splash screen, shown when game is not started. Tapping navigates to the Which Came First game.")
 }
 
 // Language variant strings

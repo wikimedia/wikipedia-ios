@@ -26,6 +26,7 @@
 // Author: Tsevener
 // Author: Vitorvicentevalente
 // Author: Webysther
+// Author: YeBoy371
 
 "about-content-license" = "Licença de conteúdo";
 "about-content-license-details" = "Salvo indicação em contrário, o conteúdo está disponível ao abrigo da $1.";
@@ -210,7 +211,7 @@
 "close-tabs" = "Fechar separadores";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 separador|$1 separadores}} fechado(s).";
 "collect-prize-button-title" = "Receba 15%% de desconto na loja";
-"collect-prize-headline" = "A curiosidade combina com você!";
+"collect-prize-headline" = "A curiosidade combina com você! 🛍️";
 "collect-prize-subtitle" = "Comemore a conclusão do desafio com 15%% de desconto na Loja da Wikipédia";
 "collect-prize-title" = "Resgate seu prêmio!";
 "compass-direction" = "às $1 horas";
@@ -938,7 +939,6 @@
 "reading-challenge-announcement-item1-title" = "Leia 1 artigo por dia durante 25 dias";
 "reading-challenge-announcement-item2-subtitle" = "Complete uma sequência de leitura de 25 dias enquanto o desafio estiver ativo para ganhar prêmios especiais";
 "reading-challenge-announcement-item2-title" = "Ganhe prêmios";
-"reading-challenge-announcement-item3-subtitle" = "Receba lembretes úteis e doses de motivação do nosso adorável mascote de aniversário, o Globo Bebê";
 "reading-challenge-announcement-item3-subtitle2" = "Para acompanhar seu progresso com o Globo Bebê, você precisará adicionar o widget Desafio de Leitura à sua tela inicial.";
 "reading-challenge-announcement-item3-title" = "Instale o widget";
 "reading-challenge-announcement-secondary-cta" = "Saiba mais";
@@ -975,12 +975,11 @@
 "reading-challenge-not-yet-read-subtitle-snooze" = "Antes que o dia acabe…\nAinda há tempo para aprender algo.";
 "reading-challenge-random-button" = "Aleatório";
 "reading-challenge-streak-days" = "{{PLURAL:$1|$1 dia|$1 dias}}";
+// Fuzzy
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 de 25 dias|$1 de 25 dias}}";
 "reading-challenge-subtitle" = "Desafio de leitura de 25 dias";
-"reading-challenge-widget-announcement-body" = "O Globo Bebê está torcendo por você. Adicione o widget do Desafio de Leitura para acompanhar o seu progresso em sua tela inicial.";
 "reading-challenge-widget-announcement-body2" = "Para acompanhar seu progresso com o Globo Bebê, você precisará adicionar o widget Desafio de Leitura à sua tela inicial.";
 "reading-challenge-widget-announcement-secondary-button" = "Mostre-me como";
-"reading-challenge-widget-announcement-title" = "Instale o widget do desafio de leitura de 25 dias";
 "reading-challenge-widget-announcement-title2" = "Acesse sua tela inicial para adicionar o widget";
 "reading-challenge-widget-description" = "Acompanhe o progresso do seu desafio de leitura.";
 "reading-challenge-widget-display-name" = "Desafio de leitura";

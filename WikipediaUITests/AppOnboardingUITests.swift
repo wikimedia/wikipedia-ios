@@ -59,6 +59,19 @@ final class AppOnboardingUITests: XCTestCase {
             .selectLanguage(targetLanguageCode)
     }
 
+    func testLaunchLocaleSeedsPreferredWikipediaLanguage() throws {
+        let expectedLanguageCode = uiTestConfiguration.languageCode
+
+        launchWikipediaAppRobot(
+            onboardingState: .notCompleted,
+            resetsPreferredLanguages: true
+    )
+            .onboarding
+            .advance(to: .languages)
+            .openPreferredLanguages()
+            .assertPreferredLanguage(expectedLanguageCode)
+    }
+
     func testWelcomeScreensCanBeAdvancedByTappingNext() throws {
         launchWikipediaAppRobot(onboardingState: .notCompleted)
             .onboarding

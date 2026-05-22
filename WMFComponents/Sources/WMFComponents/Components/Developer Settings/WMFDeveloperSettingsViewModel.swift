@@ -128,6 +128,7 @@ import WMFData
         let enableYiRVLoginExperimentControl = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment Control", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentControl)
         let enableYiRVLoginExperimentB = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment B", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB)
         let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
+        let allowGestureZoomArticleWebview = WMFFormItemSelectViewModel(title: "Allow pinch to zoom when reading articles", isSelected: WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview)
 
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
@@ -140,7 +141,8 @@ import WMFData
                 showYiRV3,
                 enableYiRVLoginExperimentControl,
                 enableYiRVLoginExperimentB,
-                forceHcaptchaChallenge
+                forceHcaptchaChallenge,
+                allowGestureZoomArticleWebview
             ], selectType: .multi)
         ])
 
@@ -186,6 +188,10 @@ import WMFData
             control: enableYiRVLoginExperimentControl,
             b: enableYiRVLoginExperimentB
         )
+
+        allowGestureZoomArticleWebview.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview = isSelected }
+            .store(in: &subscribers)
     }
 
     public func clearAllReadingChallengePersistence() {

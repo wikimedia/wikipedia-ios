@@ -62,8 +62,8 @@ final class WMFGamesDataControllerTests: XCTestCase {
             onThisDayDataController: onThisDayControllerWithEnoughEvents()
         )
 
-        XCTAssertEqual(gameState.questions.count, 5)
-        XCTAssertTrue(gameState.answers.isEmpty)
+        XCTAssertEqual(gameState.0.questions.count, 5)
+        XCTAssertTrue(gameState.0.answers.isEmpty)
     }
 
     func testFetchOrStartResumesExistingSessionWithoutNewAPICall() async throws {
@@ -78,7 +78,7 @@ final class WMFGamesDataControllerTests: XCTestCase {
             onThisDayDataController: otdController
         )
 
-        guard let firstQuestion = firstState.questions.first else {
+        guard let firstQuestion = firstState.0.questions.first else {
             XCTFail("Expected at least one question")
             return
         }
@@ -98,9 +98,9 @@ final class WMFGamesDataControllerTests: XCTestCase {
         )
 
         // Should have the same 5 questions and the already-submitted answer
-        XCTAssertEqual(resumedState.questions.count, 5)
-        XCTAssertEqual(resumedState.answers.count, 1)
-        XCTAssertEqual(resumedState.answers[firstQuestion.id.uuidString], firstQuestion.correctAnswer)
+        XCTAssertEqual(resumedState.0.questions.count, 5)
+        XCTAssertEqual(resumedState.0.answers.count, 1)
+        XCTAssertEqual(resumedState.0.answers[firstQuestion.id.uuidString], firstQuestion.correctAnswer)
     }
 
     // MARK: - submitWhichCameFirstAnswer Tests
@@ -114,7 +114,7 @@ final class WMFGamesDataControllerTests: XCTestCase {
             onThisDayDataController: onThisDayControllerWithEnoughEvents()
         )
 
-        guard let firstQuestion = gameState.questions.first else {
+        guard let firstQuestion = gameState.0.questions.first else {
             XCTFail("Expected at least one question")
             return
         }
@@ -142,7 +142,7 @@ final class WMFGamesDataControllerTests: XCTestCase {
             onThisDayDataController: onThisDayControllerWithEnoughEvents()
         )
 
-        guard let firstQuestion = gameState.questions.first else {
+        guard let firstQuestion = gameState.0.questions.first else {
             XCTFail("Expected at least one question")
             return
         }
@@ -171,7 +171,7 @@ final class WMFGamesDataControllerTests: XCTestCase {
             onThisDayDataController: onThisDayControllerWithEnoughEvents()
         )
 
-        guard let firstQuestion = gameState.questions.first else {
+        guard let firstQuestion = gameState.0.questions.first else {
             XCTFail("Expected at least one question")
             return
         }
@@ -198,10 +198,10 @@ final class WMFGamesDataControllerTests: XCTestCase {
             onThisDayDataController: onThisDayControllerWithEnoughEvents()
         )
 
-        XCTAssertEqual(gameState.questions.count, 5)
+        XCTAssertEqual(gameState.0.questions.count, 5)
         let sessionID = try await sessionIdentifier(for: dateWithEnoughEvents)
 
-        for question in gameState.questions {
+        for question in gameState.0.questions {
             _ = try await dataController.submitWhichCameFirstAnswer(
                 sessionIdentifier: sessionID,
                 questionIdentifier: question.id,
