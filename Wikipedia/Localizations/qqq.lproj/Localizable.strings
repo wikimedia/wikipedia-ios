@@ -1538,6 +1538,7 @@
 "which-came-first-incorrect-feedback" = "Feedback message shown when the user answers incorrectly in the Which Came First game";
 "which-came-first-next-button" = "Button label to advance to the next question in the Which Came First game";
 "which-came-first-retry-button" = "Button label to retry loading the Which Came First game after an error";
+"which-came-first-score" = "Score label, where $1 is score and $2 is the total number of questions";
 "which-came-first-see-results-button" = "Button label shown after the final question to view the game results";
 "which-came-first-splash-about-button" = "Button title to learn more about the Which Came First game.";
 "which-came-first-splash-continue-button" = "Button title to continue an in-progress Which Came First game.";
@@ -1546,6 +1547,7 @@
 "which-came-first-splash-title" = "Title shown on the Which Came First game splash screen.";
 "which-came-first-submit-button" = "Button label to submit the user's selected answer in the Which Came First game";
 "which-came-first-title" = "Title prompt shown to the user during the Which Came First game";
+"which-came-frst-next-game-time" = "Indication of when new game is available. $1 is replaced by a countdown timer string, indicating the number of hours / minutes / seconds left until the next game is available.";
 "widget-onthisday-description" = "Description for 'On this day' view in iOS widget gallery";
 "widget-onthisday-placeholder-article-snippet" = "Placeholder text for On This Day widget: Article description for an article about Wikipedia";
 "widget-onthisday-placeholder-event-snippet" = "Placeholder text for On This Day widget: Event describing launch of Wikipedia";

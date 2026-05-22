@@ -1,13 +1,13 @@
 import Combine
 import Foundation
 import SwiftUI
+import WMFNativeLocalizations
 
 @MainActor
 public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
 
     public struct LocalizedStrings {
         public let shareScoreButton: String
-        public let nextGameCountdown: String
         public let playArchiveButton: String
         public let yourStatsTitle: String
         public let gamesPlayedLabel: String
@@ -21,7 +21,6 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
 
         public init(
             shareScoreButton: String = "Share score",
-            nextGameCountdown: String = "Next game in 08:24:15",
             playArchiveButton: String = "Play the archive",
             yourStatsTitle: String = "Your stats",
             gamesPlayedLabel: String = "games played",
@@ -34,7 +33,6 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
             articlesReferencedTitle: String = "Articles referenced in today's game"
         ) {
             self.shareScoreButton = shareScoreButton
-            self.nextGameCountdown = nextGameCountdown
             self.playArchiveButton = playArchiveButton
             self.yourStatsTitle = yourStatsTitle
             self.gamesPlayedLabel = gamesPlayedLabel
@@ -49,6 +47,16 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
 
         func scoredLabel(_ score: Int, of total: Int) -> String {
             "You scored \(score)/\(total)."
+        }
+
+        public func scoreLabel(_ score: Int, of total: Int) -> String {
+            let format = WMFLocalizedString("which-came-first-score", value: "You scored %1$d/%2$d.", comment: "Score label, where $1 is score and $2 is the total number of questions")
+            return String.localizedStringWithFormat(format, score, total)
+        }
+
+        public func countdownLabel(from countdownString: String) -> String {
+            let descriptionText = WMFLocalizedString("which-came-frst-next-game-time", value: "Next game in %1$@", comment: "Indication of when new game is available. %1$d is replaced by a countdown timer string, indicating the number of hours / minutes / seconds left until the next game is available.")
+            return String.localizedStringWithFormat(descriptionText, countdownString)
         }
     }
 
@@ -68,6 +76,8 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
     public var onLogIn: (() -> Void)?
     public var onOpenArticle: ((WMFWhichCameFirstResultsArticle) -> Void)?
 
+    private var timerCancellable: AnyCancellable?
+
     public init(
         score: Int,
         totalQuestions: Int,
@@ -77,7 +87,6 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         bestStreak: Int? = nil,
         averageScore: Int? = nil,
         referencedArticles: [WMFWhichCameFirstResultsArticle] = [],
-        nextGameCountdownString: String = "08:24:15",
         localizedStrings: LocalizedStrings = LocalizedStrings()
     ) {
         self.score = score
@@ -88,9 +97,32 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         self.bestStreak = bestStreak
         self.averageScore = averageScore
         self.referencedArticles = referencedArticles
-        self.nextGameCountdownString = nextGameCountdownString
+        self.nextGameCountdownString = Self.computeCountdown()
         self.localizedStrings = localizedStrings
+        startCountdownTimer()
     }
+
+    // MARK: - Countdown
+
+    private func startCountdownTimer() {
+        timerCancellable = Timer.publish(every: 1, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                self?.nextGameCountdownString = Self.computeCountdown()
+            }
+    }
+
+    private static func computeCountdown() -> String {
+        let now = Date()
+        guard let tomorrow = Calendar.current.date(
+            byAdding: .day, value: 1,
+            to: Calendar.current.startOfDay(for: now)
+        ) else { return "--:--:--" }
+        let seconds = max(0, Int(tomorrow.timeIntervalSince(now)))
+        return String(format: "%02d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, seconds % 60)
+    }
+
+    // MARK: - Actions
 
     func shareScore() { onShareScore?() }
     func playArchive() { onPlayArchive?() }
