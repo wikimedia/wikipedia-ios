@@ -135,6 +135,7 @@ NS_ASSUME_NONNULL_BEGIN
         UIBarButtonItem *close = [UIBarButtonItem closeNavigationBarButtonItemWithConfig:config];
         close.tintColor = [UIColor whiteColor]; // Need to override this since gallery is always dark
         close.accessibilityLabel = [WMFCommonStringsWrapper closeButtonAccessibilityLabel];
+        close.accessibilityIdentifier = [WMFAccessibilityIdentifier imageGalleryCloseButton];
 
         self.overlayView.leftBarButtonItem = close;
     }
