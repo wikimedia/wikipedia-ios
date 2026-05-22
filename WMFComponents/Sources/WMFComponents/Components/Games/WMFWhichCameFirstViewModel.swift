@@ -162,6 +162,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
                 self.score = recalculatedScore
                 if currentIndex >= state.questions.count {
                     phase = .complete
+                    showTitle = false
                     return
                 }
                 rebuildCardViewModels()

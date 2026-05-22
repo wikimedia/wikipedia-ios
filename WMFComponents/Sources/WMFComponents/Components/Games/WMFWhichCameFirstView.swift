@@ -21,7 +21,8 @@ public struct WMFWhichCameFirstView: View {
         case .presenting, .awaitingSubmission, .revealing, .transitioning:
             gameplayView
         case .complete:
-            completeView
+            // TODO Grey update isLoggedIn
+            WMFWhichCameFirstResultsView(viewModel: WMFWhichCameFirstResultsViewModel(score: viewModel.score, totalQuestions: viewModel.totalQuestions, isLoggedIn: true))
         case .error(let message):
             errorView(message)
         }
@@ -62,7 +63,7 @@ public struct WMFWhichCameFirstView: View {
                 .frame(height: headerHeight(for: height))
 
                 VStack(spacing: 0) {
-
+                    
                     if viewModel.showCardA, let cardA = viewModel.cardViewModelA {
                         WMFWhichCameFirstCardView(viewModel: cardA, parentViewModel: viewModel, cardHeight: cardHeight(height)) {
                             viewModel.select(.a)
@@ -70,7 +71,7 @@ public struct WMFWhichCameFirstView: View {
                         .padding(.horizontal, 16)
                         .transition(.move(edge: .trailing).combined(with: .opacity))
                     }
-
+                    
                     if let reveal = viewModel.revealState {
                         feedbackBanner(reveal)
                             .padding(.horizontal, 16)
@@ -78,7 +79,7 @@ public struct WMFWhichCameFirstView: View {
                     } else {
                         Spacer().frame(height: 32)
                     }
-
+                    
                     if viewModel.showCardB, let cardB = viewModel.cardViewModelB {
                         WMFWhichCameFirstCardView(viewModel: cardB, parentViewModel: viewModel, cardHeight: cardHeight(height)) {
                             viewModel.select(.b)
@@ -86,9 +87,9 @@ public struct WMFWhichCameFirstView: View {
                         .padding(.horizontal, 16)
                         .transition(.move(edge: .trailing).combined(with: .opacity))
                     }
-
+                    
                     Spacer()
-
+                    
                     footerArea
                 }
                 .padding(.top, viewModel.cardViewModelA?.isRevealed == true ? -96 : -16)

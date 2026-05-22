@@ -9,47 +9,86 @@ public struct WMFWhichCameFirstResultsView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
     private var theme: WMFTheme { appEnvironment.theme }
+    
+    
+    private func headerHeight(for height: CGFloat) -> CGFloat {
+        let isCompactPhone = UIDevice.current.userInterfaceIdiom != .pad && height <= 667
+        return isCompactPhone ? height / 5 : height / 4
+    }
 
+    private func isSmallScreen(_ height: CGFloat) -> Bool { height < 700 }
+    private func cardHeight(_ height: CGFloat) -> CGFloat { isSmallScreen(height) ? 150 : 167 }
+    
     public var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                scoreCard
-                    .padding(.horizontal, 16)
-                    .padding(.top, 16)
-                    .padding(.bottom, 20)
+        GeometryReader { geometry in
+            let height = geometry.size.height
 
-                playArchiveButton
-                    .padding(.horizontal, 16)
+            ZStack(alignment: .top) {
+                Color(uiColor: theme.midBackground)
+                    .ignoresSafeArea()
+
+                Color(uiColor: theme.link)
+                    .frame(height: headerHeight(for: height))
+                    .zIndex(0)
+
+                ScrollView {
+                    VStack(spacing: 0) {
+                        scoreCard
+                            .padding(.horizontal, 16)
+                        
+                        playArchiveButton
+                            .padding(.horizontal, 16)
+
+                        statsSection
+                            .padding(.horizontal, 16)
+
+                        if !viewModel.referencedArticles.isEmpty {
+                            articlesSection
+                                .padding(.bottom, 24)
+                        }
+                    }
+                    .padding(.top, headerHeight(for: height) - 123)
                     .padding(.bottom, 24)
-
-                statsSection
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 24)
-
-                if !viewModel.referencedArticles.isEmpty {
-                    articlesSection
                 }
+                .zIndex(1)
             }
         }
-        .background(Color(uiColor: theme.midBackground))
     }
 
     // MARK: - Score Card
 
+    private enum Score {
+        case low
+        case medium
+        case high
+
+        init(score: Int, total: Int) {
+            switch score {
+            case total:
+                self = .high
+            case ((total / 2) + 1)..<total:
+                self = .medium
+            default:
+                self = .low
+            }
+        }
+    }
+
+    private var currentScore: Score {
+        Score(score: viewModel.score, total: viewModel.totalQuestions)
+    }
+    
     private var scoreCardColor: Color {
-        switch viewModel.score {
-        case viewModel.totalQuestions:
-            return Color(red: 0.18, green: 0.69, blue: 0.52) // green ~#2EB185
-        case (viewModel.totalQuestions / 2 + (viewModel.totalQuestions % 2 == 0 ? 1 : 1))...:
-            return Color(red: 0.96, green: 0.60, blue: 0.07) // orange ~#F59912
-        default:
-            return Color(red: 0.98, green: 0.76, blue: 0.15) // yellow ~#FAC226
+        switch currentScore {
+        case .high:   return Color(red: 0.18, green: 0.69, blue: 0.52)
+        case .medium: return Color(red: 0.96, green: 0.60, blue: 0.07)
+        case .low:    return Color(red: 0.98, green: 0.76, blue: 0.15)
         }
     }
 
     private var scoreCard: some View {
         VStack(spacing: 8) {
-            if viewModel.score == viewModel.totalQuestions || viewModel.score >= (viewModel.totalQuestions / 2 + 1) {
+            if currentScore == .medium || currentScore == .high {
                 Text(viewModel.localizedStrings.scoredLabel(viewModel.score, of: viewModel.totalQuestions))
                     .font(Font(WMFFont.for(.boldTitle1)))
                     .foregroundColor(.white)
@@ -83,10 +122,18 @@ public struct WMFWhichCameFirstResultsView: View {
             .padding(.top, 4)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 28)
-        .padding(.horizontal, 20)
+        .frame(height: 167)
+        .padding(.vertical, 24)
+        .padding(.horizontal, 16)
         .background(scoreCardColor)
-        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .shadow(
+            color: Color(uiColor: theme.text).opacity(0.05),
+            radius: 8,
+            x: 0,
+            y: 0
+        )
+        .contentShape(Rectangle())
     }
 
     // MARK: - Play Archive Button
@@ -332,7 +379,7 @@ public struct WMFWhichCameFirstResultsArticle: Identifiable {
 }
 
 
-#Preview("Logged In") {
+#Preview("Logged In 1") {
 
     let articles: [WMFWhichCameFirstResultsArticle] = [
         .init(
@@ -358,8 +405,168 @@ public struct WMFWhichCameFirstResultsArticle: Identifiable {
     ]
 
     let viewModel = WMFWhichCameFirstResultsViewModel(
-        score: 8,
-        totalQuestions: 10,
+        score: 1,
+        totalQuestions: 5,
+        isLoggedIn: true,
+        gamesPlayed: 42,
+        currentStreak: 6,
+        bestStreak: 18,
+        averageScore: 7,
+        referencedArticles: articles,
+        nextGameCountdownString: "08:24:15"
+    )
+
+    return WMFWhichCameFirstResultsView(viewModel: viewModel)
+}
+
+#Preview("Logged In 2") {
+
+    let articles: [WMFWhichCameFirstResultsArticle] = [
+        .init(
+            title: "Apollo 11",
+            description: "First crewed Moon landing mission conducted by NASA.",
+            imageURL: URL(string: "https://www.mediawiki.org/wiki/Help:Images#/media/File:Example.jpg/")
+        ),
+        .init(
+            title: "The Internet",
+            description: "Global system of interconnected computer networks.",
+            imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Internet_map_1024.jpg")
+        ),
+        .init(
+            title: "Mount Everest",
+            description: "Earth’s highest mountain above sea level.",
+            imageURL: nil
+        ),
+        .init(
+            title: "Printing Press",
+            description: "Mechanical device for mass-producing printed text.",
+            imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Gutenberg.jpg")
+        )
+    ]
+
+    let viewModel = WMFWhichCameFirstResultsViewModel(
+        score: 2,
+        totalQuestions: 5,
+        isLoggedIn: true,
+        gamesPlayed: 42,
+        currentStreak: 6,
+        bestStreak: 18,
+        averageScore: 7,
+        referencedArticles: articles,
+        nextGameCountdownString: "08:24:15"
+    )
+
+    return WMFWhichCameFirstResultsView(viewModel: viewModel)
+}
+
+#Preview("Logged In 3") {
+
+    let articles: [WMFWhichCameFirstResultsArticle] = [
+        .init(
+            title: "Apollo 11",
+            description: "First crewed Moon landing mission conducted by NASA.",
+            imageURL: URL(string: "https://www.mediawiki.org/wiki/Help:Images#/media/File:Example.jpg/")
+        ),
+        .init(
+            title: "The Internet",
+            description: "Global system of interconnected computer networks.",
+            imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Internet_map_1024.jpg")
+        ),
+        .init(
+            title: "Mount Everest",
+            description: "Earth’s highest mountain above sea level.",
+            imageURL: nil
+        ),
+        .init(
+            title: "Printing Press",
+            description: "Mechanical device for mass-producing printed text.",
+            imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Gutenberg.jpg")
+        )
+    ]
+
+    let viewModel = WMFWhichCameFirstResultsViewModel(
+        score: 3,
+        totalQuestions: 5,
+        isLoggedIn: true,
+        gamesPlayed: 42,
+        currentStreak: 6,
+        bestStreak: 18,
+        averageScore: 7,
+        referencedArticles: articles,
+        nextGameCountdownString: "08:24:15"
+    )
+
+    return WMFWhichCameFirstResultsView(viewModel: viewModel)
+}
+
+#Preview("Logged In 4") {
+
+    let articles: [WMFWhichCameFirstResultsArticle] = [
+        .init(
+            title: "Apollo 11",
+            description: "First crewed Moon landing mission conducted by NASA.",
+            imageURL: URL(string: "https://www.mediawiki.org/wiki/Help:Images#/media/File:Example.jpg/")
+        ),
+        .init(
+            title: "The Internet",
+            description: "Global system of interconnected computer networks.",
+            imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Internet_map_1024.jpg")
+        ),
+        .init(
+            title: "Mount Everest",
+            description: "Earth’s highest mountain above sea level.",
+            imageURL: nil
+        ),
+        .init(
+            title: "Printing Press",
+            description: "Mechanical device for mass-producing printed text.",
+            imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Gutenberg.jpg")
+        )
+    ]
+
+    let viewModel = WMFWhichCameFirstResultsViewModel(
+        score: 4,
+        totalQuestions: 5,
+        isLoggedIn: true,
+        gamesPlayed: 42,
+        currentStreak: 6,
+        bestStreak: 18,
+        averageScore: 7,
+        referencedArticles: articles,
+        nextGameCountdownString: "08:24:15"
+    )
+
+    return WMFWhichCameFirstResultsView(viewModel: viewModel)
+}
+
+#Preview("Logged In 5") {
+
+    let articles: [WMFWhichCameFirstResultsArticle] = [
+        .init(
+            title: "Apollo 11",
+            description: "First crewed Moon landing mission conducted by NASA.",
+            imageURL: URL(string: "https://www.mediawiki.org/wiki/Help:Images#/media/File:Example.jpg/")
+        ),
+        .init(
+            title: "The Internet",
+            description: "Global system of interconnected computer networks.",
+            imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Internet_map_1024.jpg")
+        ),
+        .init(
+            title: "Mount Everest",
+            description: "Earth’s highest mountain above sea level.",
+            imageURL: nil
+        ),
+        .init(
+            title: "Printing Press",
+            description: "Mechanical device for mass-producing printed text.",
+            imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Gutenberg.jpg")
+        )
+    ]
+
+    let viewModel = WMFWhichCameFirstResultsViewModel(
+        score: 5,
+        totalQuestions: 5,
         isLoggedIn: true,
         gamesPlayed: 42,
         currentStreak: 6,
@@ -376,7 +583,7 @@ public struct WMFWhichCameFirstResultsArticle: Identifiable {
 
     let viewModel = WMFWhichCameFirstResultsViewModel(
         score: 4,
-        totalQuestions: 10,
+        totalQuestions: 5,
         isLoggedIn: false,
         referencedArticles: [],
         nextGameCountdownString: "08:24:15"
