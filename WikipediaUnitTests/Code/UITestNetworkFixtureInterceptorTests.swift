@@ -1,9 +1,11 @@
 @testable import WMF
+import WMFData
 import XCTest
 
 final class UITestNetworkFixtureInterceptorTests: XCTestCase {
     override func tearDown() {
         UserDefaults.standard.removeObject(forKey: UITestNetworkFixtureInterceptor.profileKey)
+        WMFDataEnvironment.current.basicService = WMFBasicService()
         UITestNetworkFixtureHTTPClient.resetFixtures()
         super.tearDown()
     }
@@ -102,6 +104,27 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
         let (_, response) = try await session.data(for: url)
 
         XCTAssertEqual((response as? HTTPURLResponse)?.statusCode, 501)
+    }
+
+    func testFixtureProfileConfiguresWMFBasicServiceTraffic() async throws {
+        let userDefaults = try temporaryUserDefaults()
+        userDefaults.set(UITestHTTPClientProfile.fixtureStrict.rawValue, forKey: UITestNetworkFixtureInterceptor.profileKey)
+
+        XCTAssertTrue(UITestNetworkFixtureInterceptor.configureBasicServiceIfNeeded(userDefaults: userDefaults))
+
+        let controller = WMFImageDataController(basicService: WMFDataEnvironment.current.basicService)
+        let url = try XCTUnwrap(URL(string: "https://en.wikipedia.org/api/rest_v1/page/summary/Dog"))
+        let data = try await controller.fetchImageData(url: url)
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+
+        XCTAssertEqual(json["title"] as? String, "Dog")
+    }
+
+    func testE2EProfileDoesNotConfigureWMFBasicServiceTraffic() throws {
+        let userDefaults = try temporaryUserDefaults()
+        userDefaults.set(UITestHTTPClientProfile.e2e.rawValue, forKey: UITestNetworkFixtureInterceptor.profileKey)
+
+        XCTAssertFalse(UITestNetworkFixtureInterceptor.configureBasicServiceIfNeeded(userDefaults: userDefaults))
     }
 
     func testSessionTeardownInvalidatesCurrentHTTPClient() {
