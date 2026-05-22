@@ -97,6 +97,91 @@
   {
     "method": "GET",
     "host": "en.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "prop": "revisions",
+      "rvdir": "newer",
+      "rvlimit": "1",
+      "titles": "Canis lepophagus"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "CanisLepophagusFirstRevision.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "prop": "revisions",
+      "rvdir": "older",
+      "rvlimit": "51",
+      "rvprop": "ids|timestamp|user|size|parsedcomment|flags",
+      "titles": "Canis lepophagus"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "CanisLepophagusPageHistory.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/w/rest.php/v1/page/Canis_lepophagus/history/counts/edits",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"count\":90,\"limit\":false}"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/w/rest.php/v1/page/Canis_lepophagus/history/counts/anonymous",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"count\":12,\"limit\":false}"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/w/rest.php/v1/page/Canis_lepophagus/history/counts/bot",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"count\":7,\"limit\":false}"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/w/rest.php/v1/page/Canis_lepophagus/history/counts/temporary",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"count\":1,\"limit\":false}"
+  },
+  {
+    "method": "GET",
+    "host": "wikimedia.org",
+    "pathPrefix": "/api/rest_v1/metrics/edits/per-page/en.wikipedia.org/Canis_lepophagus/all-editor-types/monthly/",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "CanisLepophagusMonthlyEditMetrics.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
     "path": "/api/rest_v1/data/i18n/pcs",
     "statusCode": 200,
     "headers": {

@@ -161,7 +161,7 @@ struct ArticleRobot: ScreenshotCapturingRobot {
     @discardableResult
     func tapAboutThisArticleItem(file: StaticString = #filePath, line: UInt = #line) -> Self {
         visibleArticleElement(matchingLabel: ArticleContentLabel.footerItem, maxScrolls: 20, file: file, line: line).tap()
-        return self
+        return assertHistoryVisibleAndReturnToArticle(file: file, line: line)
     }
 
     @discardableResult
@@ -231,6 +231,21 @@ struct ArticleRobot: ScreenshotCapturingRobot {
             line: line
         )
     }
+
+    @discardableResult
+    private func assertHistoryVisibleAndReturnToArticle(file: StaticString, line: UInt) -> Self {
+        let historyNavigationBar = base.app.navigationBars["History"]
+        base.assertExists(historyNavigationBar, timeout: 15, description: "history navigation bar", file: file, line: line)
+        base.assertExists(base.app.staticTexts[ArticleHistoryLabel.heading], timeout: 15, description: "revision history heading", file: file, line: line)
+        base.assertExists(base.app.staticTexts[ArticleHistoryLabel.editSummary], timeout: 15, description: "article history edit summary", file: file, line: line)
+        base.assertExists(base.app.otherElements[ArticleHistoryLabel.editGraph], timeout: 15, description: "article history edit graph", file: file, line: line)
+
+        let backButton = base.backButton(in: historyNavigationBar, isRightToLeft: configuration.isRightToLeft)
+        base.assertExists(backButton, timeout: 15, description: "history back button", file: file, line: line)
+        XCTAssertFalse(backButton.frame.isEmpty, "Expected history back button to have a tappable frame.", file: file, line: line)
+        backButton.tap()
+        return assertVisible(file: file, line: line)
+    }
     
     // MARK: - Navigation elements
     
@@ -292,5 +307,11 @@ fileprivate extension ArticleRobot {
         static let licenseLink = "Article License Link"
         static let protectedEditIcon = "Edit section on protected page"
         static let unprotectedEditIcon = "Edit section"
+    }
+
+    private enum ArticleHistoryLabel {
+        static let heading = "REVISION HISTORY"
+        static let editSummary = "90 edits since 2009"
+        static let editGraph = "Graph of edits over time"
     }
 }
