@@ -96,6 +96,8 @@
 "activity-tab-onboarding-first-item-title" = "Liesgewunnechten";
 "activity-tab-onboarding-second-item-title" = "Impakt-Highlights";
 "activity-tab-read-title" = "Lies-Historique weisen";
+"activity-tab-reading-challenge-card-cta" = "Weist mir wéi";
+"activity-tab-reading-challenge-card-title" = "25-Deeg-Lies-Challenge";
 "activity-tab-satisfied" = "Zefridden";
 "activity-tab-saved" = "Artikelen, déi dëse Mount gespäichert goufen";
 "activity-tab-start-editing" = "Ufänke mat Änneren";
@@ -359,7 +361,6 @@
 "explore-another-random" = "En aneren zoufällegen Artikel";
 "explore-because-you-read" = "Well Dir liest";
 "explore-continue-reading-heading" = "Virufuere mat Liesen";
-"explore-daily-game-heading" = "Wat koum als éischt?";
 "explore-detail-back-button-title" = "Zréck op den Entdecke-Feed";
 "explore-enable-location-title" = "Entdeckt Artikelen an der aktueller Noperschaft.";
 "explore-featured-article-heading" = "Recommandéierten Artikel";
@@ -462,6 +463,7 @@
 "forgot-password-email-sent" = "Eng E-Mail mat Instruktioune wéi d'Passwuert zréckgesat gi kann, gouf gschéckt";
 "forgot-password-title" = "Passwuert zerécksetzen";
 "forgot-password-username-or-email-title" = "Oder";
+"games-wcf-explore-title" = "Wat koum als éischt?";
 "history-clear-confirmation-heading" = "Sidd Dir sécher, datt Dir all Är rezent Elementer läsche wëllt?";
 "history-clear-delete-all" = "Jo, all läschen";
 "history-title" = "Versiounen";
@@ -772,6 +774,7 @@
 "reading-challenge-streak-days" = "{{PLURAL:$1|$1 Dag|$1 Deeg}}";
 "reading-challenge-streak-no-days" = "$1 vu 25";
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 vu 25 Deeg}}";
+"reading-challenge-widget-announcement-secondary-button" = "Weist mir wéi";
 "reading-list-add-generic-hint-title" = "Dësen Artikel op eng Lieslëscht derbäisetzen?";
 "reading-list-add-hint-title" = "\"$1\" op eng Lieslëscht derbäisetzen?";
 "reading-list-add-saved-button-title" = "Jo, setzt s'op meng Lieslëschten derbäi";

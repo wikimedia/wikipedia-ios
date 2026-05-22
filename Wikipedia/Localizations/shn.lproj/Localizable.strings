@@ -60,7 +60,7 @@
 "action-redo" = "ႁဵတ်းၶိုၼ်း";
 "action-remove" = "ထွၼ်ပႅတ်ႈ";
 "action-retry" = "ၶိုၼ်းၶတ်းၸႂ်တူၺ်း";
-"action-save" = "ၵဵပ်းသိမ်း";
+"action-save" = "သိမ်း";
 "action-saved" = "ၵဵပ်းသိမ်းယဝ်ႉ";
 "action-saved-accessibility" = "သိမ်းယဝ်ႉယဝ်ႈ။ တူင်ႉၶိုၼ်း တွၼ်ႈတႃႇ ဢမ်ႇသိမ်း။";
 "action-saved-accessibility-notification" = "ပွင်ႈၵႂၢမ်း သိမ်းဝႆႉယဝ်ႉ တွၼ်ႈတႃႇ ဝၢႆးလင်";
@@ -394,7 +394,7 @@
 "main-menu-privacy-policy" = "လၵ်း​ၼမ်း လွင်ႈ​ႁူမ်ႇ​လူမ်ႈ သုၼ်ႇ​လဵဝ်";
 "main-menu-rate-app" = "ပၼ်ထၢၼ်ႈ ဢႅပ်ႉ";
 "main-menu-terms-of-use" = "ၶေႃႈမၵ်းမၼ်ႈလွင်ႈၸႂ်ႉတိုဝ်း";
-"main-menu-title" = "ၼမ်လိူဝ်";
+"main-menu-title" = "ထႅင်ႈ";
 "main-menu-zero-faq" = "ၶေႃႈၵႆႉထၢမ်တွပ်ႇ တႃႇ ဝီႇၶီႇၽီးတီးယႃး သုၼ်";
 "more-languages-tooltip-description" = "ၶူၼ်ႉႁႃ ဝီႇၶီႇၽီးတီးယႃး ၼႂ်းၽႃႇသႃႇၵႂၢမ်း 300 လိူဝ်";
 "more-languages-tooltip-title" = "ထႅမ်သႂ်ႇ ၽႃႇသႃႇ";
