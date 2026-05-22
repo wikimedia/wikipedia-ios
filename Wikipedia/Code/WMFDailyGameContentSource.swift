@@ -47,7 +47,13 @@ public final class WMFDailyGameContentSource: NSObject, WMFContentSource {
                 let gamesController = WMFGamesDataController()
                 let isAvailable = try await gamesController.isWhichCameFirstDailySessionAvailable(date: today, project: project)
                 guard isAvailable else {
-                    completion?()
+                    let groupURL = WMFContentGroup.dailyGameURL(forSiteURL: siteURL)
+                    await moc.perform {
+                        if let groupURL, let group = moc.contentGroup(for: groupURL) {
+                            moc.remove(group)
+                        }
+                        completion?()
+                    }
                     return
                 }
 
@@ -75,7 +81,13 @@ public final class WMFDailyGameContentSource: NSObject, WMFContentSource {
                     completion?()
                 }
             } catch {
-                completion?()
+                let groupURL = WMFContentGroup.dailyGameURL(forSiteURL: siteURL)
+                await moc.perform {
+                    if let groupURL, let group = moc.contentGroup(for: groupURL) {
+                        moc.remove(group)
+                    }
+                    completion?()
+                }
             }
         }
     }
