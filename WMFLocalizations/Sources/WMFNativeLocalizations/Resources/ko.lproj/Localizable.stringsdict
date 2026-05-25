@@ -292,6 +292,20 @@
 			<string>편집되지 않은 줄 %1$d개</string>
 		</dict>
 	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$@년에 자원봉사자들이 영어 위키백과에 %#@v2@를 추가했습니다. 그들의 공동 작업이 합쳐져 꾸준히 개선되고, 사실에 기반하며, 신뢰할 수 있는 지식 자원이 되어 전 세계에 제공됩니다. 우리 모두는 공유할 지식을 가지고 있습니다. [참여 방법에 대해 알아보세요](%3$@).</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%2$lld바이트</string>
+		</dict>
+	</dict>
 	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -410,6 +424,20 @@
 			<string>lld</string>
 			<key>other</key>
 			<string>%1$lld시간</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>활성 앱 사용자는 올해 %#@v1@를 저장했습니다. 읽기 목록에 기사를 추가하면 오프라인 상태에서도 기사에 접근할 수 있습니다. 또한 로그인하여 여러 기기에서 읽기 목록을 동기화할 수 있습니다.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld개 문서</string>
 		</dict>
 	</dict>
 	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
@@ -1103,6 +1131,34 @@
 			<string>%1$d회</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>전 세계 독자들이 여러분의 기여에 감사드립니다. 지난 2개월 동안 여러분이 편집한 문서는 총 %#@v1@를 기록했습니다. 여러분과 같은 편집자 덕분에 위키백과는 꾸준히 발전하고, 사실에 기반하며, 신뢰할 수 있는 세계적인 지식 자원으로 자리매김하고 있습니다.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld회의 조회수</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>최근에 당신의 편집 내용이 %#@v1@ 이상 조회되었습니다</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld회</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -1140,6 +1196,20 @@
 			<string>%1$d회</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>전 세계 위키백과 독자 중 상위 **PERCENT**에 해당한다고 추정됩니다. 일반적인 사람은 연간 %#@v1@를 읽습니다.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d개의 문서</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-reading-title-v3-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -1161,6 +1231,22 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%2$d개의 문서</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format-v3-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>이 문서에는 %1$@, %2$@, 및 %3$@ 문서가 포함됩니다. 저장된 각 문서는 사용자의 관심사를 반영하며 위키백과에 개인화된 지식 기반을 구축하는 데 도움이 됩니다.
+
+활성 앱 사용자는 올해 %#@v4@했습니다.</string>
+		<key>v4</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%4$lld개의 문서를 저장</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
