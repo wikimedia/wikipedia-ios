@@ -7,9 +7,9 @@ public struct WMFWhichCameFirstResultsView: View {
 
     @ObservedObject var viewModel: WMFWhichCameFirstResultsViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private var theme: WMFTheme { appEnvironment.theme }
-
 
     private func headerHeight(for height: CGFloat) -> CGFloat {
         let isCompactPhone = UIDevice.current.userInterfaceIdiom != .pad && height <= 667
@@ -17,7 +17,10 @@ public struct WMFWhichCameFirstResultsView: View {
     }
 
     private func isSmallScreen(_ height: CGFloat) -> Bool { height < 700 }
-    private func cardHeight(_ height: CGFloat) -> CGFloat { isSmallScreen(height) ? 150 : 167 }
+
+    private var isAccessibilitySize: Bool {
+        dynamicTypeSize.isAccessibilitySize
+    }
 
     public var body: some View {
         GeometryReader { geometry in
@@ -91,20 +94,25 @@ public struct WMFWhichCameFirstResultsView: View {
         VStack(alignment: .center, spacing: 12) {
             Text(viewModel.localizedStrings.scoredLabel(viewModel.score, of: viewModel.totalQuestions))
                 .font(Font(WMFFont.for(.georgiaTitle1)))
-            // Specificlly left as hardcoded color
+                // Specificlly left as hardcoded color
                 .foregroundStyle(Color.black)
                 .multilineTextAlignment(.center)
+                .minimumScaleFactor(0.7)
+                .fixedSize(horizontal: false, vertical: true)
 
             HStack(spacing: 6) {
                 if let image = WMFSFSymbolIcon.for(symbol: .clock, font: .body) {
                     Image(uiImage: image)
-                    // Specificlly left as hardcoded color
+                        // Specificlly left as hardcoded color
                         .foregroundStyle(Color.black)
+                        .accessibilityHidden(true)
                 }
                 Text(viewModel.localizedStrings.countdownLabel(from: viewModel.nextGameCountdownString))
                     .font(Font(WMFFont.for(.callout)))
-                // Specificlly left as hardcoded color
+                    // Specificlly left as hardcoded color
                     .foregroundStyle(Color.black)
+                    .minimumScaleFactor(0.8)
+                    .fixedSize(horizontal: false, vertical: true)
             }
 
             Button {
@@ -113,8 +121,10 @@ public struct WMFWhichCameFirstResultsView: View {
                 HStack(alignment: .center, spacing: 4) {
                     Image(systemName: "square.and.arrow.up")
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
+                        .accessibilityHidden(true)
                     Text(viewModel.localizedStrings.shareScoreButton)
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 // Specificlly left as hardcoded color
                 .foregroundColor(.white)
@@ -127,7 +137,7 @@ public struct WMFWhichCameFirstResultsView: View {
             .padding(.top, 4)
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 167)
+        .padding(.vertical, 20)
         .background(
             RoundedRectangle(cornerRadius: 10)
                 .fill(scoreCardColor)
@@ -145,9 +155,11 @@ public struct WMFWhichCameFirstResultsView: View {
             HStack(spacing: 6) {
                 if let image = WMFSFSymbolIcon.for(symbol: .calendarBadgeClock, font: .semiboldHeadline) {
                     Image(uiImage: image)
+                        .accessibilityHidden(true)
                 }
                 Text(viewModel.localizedStrings.playArchiveButton)
                     .font(Font(WMFFont.for(.semiboldHeadline)))
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .foregroundColor(Color(uiColor: theme.link))
             .frame(maxWidth: .infinity)
@@ -167,6 +179,7 @@ public struct WMFWhichCameFirstResultsView: View {
             Text(viewModel.localizedStrings.yourStatsTitle)
                 .font(Font(WMFFont.for(.semiboldSubheadline)))
                 .foregroundColor(Color(uiColor: theme.text))
+                .fixedSize(horizontal: false, vertical: true)
 
             if viewModel.isLoggedIn {
                 loggedInStats
@@ -178,30 +191,60 @@ public struct WMFWhichCameFirstResultsView: View {
     }
 
     private var loggedInStats: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 0) {
-                statCell(
-                    icon: "gamecontroller.fill",
-                    value: viewModel.gamesPlayed.map { "\($0)" } ?? "–",
-                    label: viewModel.localizedStrings.gamesPlayedLabel
-                )
-                statCell(
-                    icon: "star.square.on.square",
-                    value: viewModel.currentStreak.map { "\($0)" } ?? "–",
-                    label: viewModel.localizedStrings.currentStreakLabel
-                )
-            }
-            HStack(spacing: 0) {
-                statCell(
-                    icon: "medal.star",
-                    value: viewModel.bestStreak.map { "\($0)" } ?? "–",
-                    label: viewModel.localizedStrings.bestStreakLabel
-                )
-                statCell(
-                    icon: "flag.pattern.checkered",
-                    value: viewModel.averageScore.map { "\($0)" } ?? "–",
-                    label: viewModel.localizedStrings.averageScoreLabel
-                )
+        Group {
+            if isAccessibilitySize {
+                VStack(spacing: 0) {
+                    statCell(
+                        icon: "gamecontroller.fill",
+                        value: viewModel.gamesPlayed.map { "\($0)" } ?? "–",
+                        label: viewModel.localizedStrings.gamesPlayedLabel
+                    )
+                    Divider()
+                    statCell(
+                        icon: "star.square.on.square",
+                        value: viewModel.currentStreak.map { "\($0)" } ?? "–",
+                        label: viewModel.localizedStrings.currentStreakLabel
+                    )
+                    Divider()
+                    statCell(
+                        icon: "medal.star",
+                        value: viewModel.bestStreak.map { "\($0)" } ?? "–",
+                        label: viewModel.localizedStrings.bestStreakLabel
+                    )
+                    Divider()
+                    statCell(
+                        icon: "flag.pattern.checkered",
+                        value: viewModel.averageScore.map { "\($0)" } ?? "–",
+                        label: viewModel.localizedStrings.averageScoreLabel
+                    )
+                }
+            } else {
+                VStack(spacing: 0) {
+                    HStack(spacing: 0) {
+                        statCell(
+                            icon: "gamecontroller.fill",
+                            value: viewModel.gamesPlayed.map { "\($0)" } ?? "–",
+                            label: viewModel.localizedStrings.gamesPlayedLabel
+                        )
+                        statCell(
+                            icon: "star.square.on.square",
+                            value: viewModel.currentStreak.map { "\($0)" } ?? "–",
+                            label: viewModel.localizedStrings.currentStreakLabel
+                        )
+                    }
+                    HStack(spacing: 0) {
+                        statCell(
+                            icon: "medal.star",
+                            value: viewModel.bestStreak.map { "\($0)" } ?? "–",
+                            label: viewModel.localizedStrings.bestStreakLabel
+                        )
+                        statCell(
+                            icon: "flag.pattern.checkered",
+                            value: viewModel.averageScore.map { "\($0)" } ?? "–",
+                            label: viewModel.localizedStrings.averageScoreLabel
+                        )
+                    }
+                }
             }
         }
         .background(Color(uiColor: theme.paperBackground))
@@ -214,13 +257,16 @@ public struct WMFWhichCameFirstResultsView: View {
                 .font(.title3)
                 .foregroundColor(Color(uiColor: theme.link))
                 .frame(width: 32, alignment: .center)
+                .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 2) {
                 Text(value)
                     .font(Font(WMFFont.for(.boldCallout)))
                     .foregroundColor(Color(uiColor: theme.text))
+                    .minimumScaleFactor(0.8)
                 Text(label)
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundColor(Color(uiColor: theme.text))
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -234,11 +280,13 @@ public struct WMFWhichCameFirstResultsView: View {
                 .font(Font(WMFFont.for(.semiboldSubheadline)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
 
             Text(viewModel.localizedStrings.logInToViewStatsBody)
                 .font(Font(WMFFont.for(.subheadline)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
 
             Button {
                 viewModel.onLogIn?()
@@ -246,9 +294,11 @@ public struct WMFWhichCameFirstResultsView: View {
                 HStack(spacing: 4) {
                     if let image = WMFSFSymbolIcon.for(symbol: .personFilled, font: .semiboldSubheadline) {
                         Image(uiImage: image)
+                            .accessibilityHidden(true)
                     }
                     Text(viewModel.localizedStrings.logInButton)
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 .foregroundColor(Color(uiColor: theme.paperBackground))
                 .padding(.horizontal, 14)
@@ -272,17 +322,28 @@ public struct WMFWhichCameFirstResultsView: View {
                 .font(Font(WMFFont.for(.semiboldSubheadline)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .padding(.horizontal, 16)
+                .fixedSize(horizontal: false, vertical: true)
 
-            LazyVGrid(
-                columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)],
-                spacing: 12
-            ) {
-                ForEach(viewModel.referencedArticles) { article in
-                    articleCard(article)
+            if isAccessibilitySize {
+                VStack(spacing: 12) {
+                    ForEach(viewModel.referencedArticles) { article in
+                        articleCard(article)
+                    }
                 }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 24)
+            } else {
+                LazyVGrid(
+                    columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)],
+                    spacing: 12
+                ) {
+                    ForEach(viewModel.referencedArticles) { article in
+                        articleCard(article)
+                    }
+                }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 24)
             }
-            .padding(.horizontal, 16)
-            .padding(.bottom, 24)
         }
     }
 
@@ -341,15 +402,16 @@ public struct WMFWhichCameFirstResultsView: View {
                     Text(article.title)
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
                         .foregroundColor(Color(uiColor: theme.text))
-                        .lineLimit(2)
                         .multilineTextAlignment(.leading)
+                        .minimumScaleFactor(0.85)
+                        .fixedSize(horizontal: false, vertical: true)
 
                     if let description = article.description {
                         Text(description)
                             .font(Font(WMFFont.for(.footnote)))
                             .foregroundColor(Color(uiColor: theme.secondaryText))
-                            .lineLimit(2)
                             .multilineTextAlignment(.leading)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
 
                     Spacer(minLength: 8)
@@ -408,56 +470,3 @@ private let previewArticles: [WMFWhichCameFirstResultsArticle] = [
         imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Gutenberg.jpg")
     )
 ]
-//
-// #Preview("Logged In 1") {
-//    let viewModel = WMFWhichCameFirstResultsViewModel(
-//        score: 1, totalQuestions: 5, isLoggedIn: true,
-//        gamesPlayed: 42, currentStreak: 6, bestStreak: 18, averageScore: 7,
-//        referencedArticles: previewArticles
-//    )
-//    WMFWhichCameFirstResultsView(viewModel: viewModel)
-// }
-//
-// #Preview("Logged In 2") {
-//    let viewModel = WMFWhichCameFirstResultsViewModel(
-//        score: 2, totalQuestions: 5, isLoggedIn: true,
-//        gamesPlayed: 42, currentStreak: 6, bestStreak: 18, averageScore: 7,
-//        referencedArticles: previewArticles
-//    )
-//    return WMFWhichCameFirstResultsView(viewModel: viewModel)
-// }
-//
-// #Preview("Logged In 3") {
-//    let viewModel = WMFWhichCameFirstResultsViewModel(
-//        score: 3, totalQuestions: 5, isLoggedIn: true,
-//        gamesPlayed: 42, currentStreak: 6, bestStreak: 18, averageScore: 7,
-//        referencedArticles: previewArticles
-//    )
-//    return WMFWhichCameFirstResultsView(viewModel: viewModel)
-// }
-//
-// #Preview("Logged In 4") {
-//    let viewModel = WMFWhichCameFirstResultsViewModel(
-//        score: 4, totalQuestions: 5, isLoggedIn: true,
-//        gamesPlayed: 42, currentStreak: 6, bestStreak: 18, averageScore: 7,
-//        referencedArticles: previewArticles
-//    )
-//    return WMFWhichCameFirstResultsView(viewModel: viewModel)
-// }
-//
-// #Preview("Logged In 5") {
-//    let viewModel = WMFWhichCameFirstResultsViewModel(
-//        score: 5, totalQuestions: 5, isLoggedIn: true,
-//        gamesPlayed: 42, currentStreak: 6, bestStreak: 18, averageScore: 7,
-//        referencedArticles: previewArticles
-//    )
-//    return WMFWhichCameFirstResultsView(viewModel: viewModel)
-// }
-//
-// #Preview("Logged Out") {
-//    let viewModel = WMFWhichCameFirstResultsViewModel(
-//        score: 4, totalQuestions: 5, isLoggedIn: false,
-//        referencedArticles: []
-//    )
-//    return WMFWhichCameFirstResultsView(viewModel: viewModel)
-// }
