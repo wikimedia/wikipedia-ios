@@ -2393,6 +2393,7 @@
 		F1A70000000000000000000D /* UITestNetworkFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000006 /* UITestNetworkFixture.swift */; };
 		F1A70000000000000000000E /* UITestNetworkFixtureResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000007 /* UITestNetworkFixtureResponse.swift */; };
 		F1A70000000000000000000F /* UITestNetworkFixtureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000008 /* UITestNetworkFixtureStore.swift */; };
+		F1A700000000000000000013 /* UITestNetworkFixtureURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000014 /* UITestNetworkFixtureURLSession.swift */; };
 		D8E892252176124F00587F61 /* PeriodicWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E892242176124F00587F61 /* PeriodicWorker.swift */; };
 		D8EBD1B81FBB13EE00AA7DA9 /* ReadingList+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EBD1B71FBB13EE00AA7DA9 /* ReadingList+JSON.swift */; };
 		D8EBD1BC1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EBD1BB1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift */; };
@@ -4369,6 +4370,7 @@
 		F1A700000000000000000006 /* UITestNetworkFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixture.swift; sourceTree = "<group>"; };
 		F1A700000000000000000007 /* UITestNetworkFixtureResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureResponse.swift; sourceTree = "<group>"; };
 		F1A700000000000000000008 /* UITestNetworkFixtureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureStore.swift; sourceTree = "<group>"; };
+		F1A700000000000000000014 /* UITestNetworkFixtureURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureURLSession.swift; sourceTree = "<group>"; };
 		D8E892242176124F00587F61 /* PeriodicWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodicWorker.swift; sourceTree = "<group>"; };
 		D8EBD1B71FBB13EE00AA7DA9 /* ReadingList+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingList+JSON.swift"; sourceTree = "<group>"; };
 		D8EBD1BB1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingListEntry+JSON.swift"; sourceTree = "<group>"; };
@@ -8078,6 +8080,7 @@
 				F1A700000000000000000003 /* UITestNetworkFixtureHTTPClientProvider.swift */,
 				F1A700000000000000000004 /* UITestNetworkFixtureHTTPClient.swift */,
 				F1A700000000000000000005 /* UITestNetworkFixtureURLProtocol.swift */,
+				F1A700000000000000000014 /* UITestNetworkFixtureURLSession.swift */,
 				F1A700000000000000000006 /* UITestNetworkFixture.swift */,
 				F1A700000000000000000007 /* UITestNetworkFixtureResponse.swift */,
 				F1A700000000000000000008 /* UITestNetworkFixtureStore.swift */,
@@ -10511,6 +10514,7 @@
 				F1A70000000000000000000A /* UITestNetworkFixtureHTTPClientProvider.swift in Sources */,
 				F1A70000000000000000000B /* UITestNetworkFixtureHTTPClient.swift in Sources */,
 				F1A70000000000000000000C /* UITestNetworkFixtureURLProtocol.swift in Sources */,
+				F1A700000000000000000013 /* UITestNetworkFixtureURLSession.swift in Sources */,
 				F1A70000000000000000000D /* UITestNetworkFixture.swift in Sources */,
 				F1A70000000000000000000E /* UITestNetworkFixtureResponse.swift in Sources */,
 				F1A70000000000000000000F /* UITestNetworkFixtureStore.swift in Sources */,
