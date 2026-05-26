@@ -20,6 +20,30 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
         XCTAssertEqual(json["title"] as? String, "Dog")
     }
 
+    func testFixtureStrictProfileReturnsLocalizedBundledFixture() async throws {
+        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: UITestHTTPClientProfile.fixtureStrict.rawValue))
+        let session = Session(configuration: .current, httpClientProvider: provider)
+        let url = URL(string: "https://de.wikipedia.org/api/rest_v1/page/summary/Haushund")!
+
+        let (data, response) = try await session.data(for: url)
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+
+        XCTAssertEqual((response as? HTTPURLResponse)?.statusCode, 200)
+        XCTAssertEqual(json["title"] as? String, "Haushund")
+    }
+
+    func testFixtureStrictProfileMatchesPercentEncodedLocalizedPath() async throws {
+        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: UITestHTTPClientProfile.fixtureStrict.rawValue))
+        let session = Session(configuration: .current, httpClientProvider: provider)
+        let url = URL(string: "https://he.wikipedia.org/api/rest_v1/page/summary/%D7%9B%D7%9C%D7%91_%D7%94%D7%91%D7%99%D7%AA")!
+
+        let (data, response) = try await session.data(for: url)
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+
+        XCTAssertEqual((response as? HTTPURLResponse)?.statusCode, 200)
+        XCTAssertEqual(json["title"] as? String, "כלב הבית")
+    }
+
     func testFixtureMatchesPathPrefix() async throws {
         let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: UITestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
