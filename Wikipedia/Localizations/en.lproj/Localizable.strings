@@ -1529,15 +1529,16 @@
 "welcome-languages-search-title" = "Search in over 300 languages";
 "welcome-privacy-subtitle" = "We believe that you should not have to provide personal information to participate in the free knowledge movement. Usage data collected for this app is anonymous.";
 "welcome-privacy-terms-button-text" = "Learn more about our privacy policy and terms of use";
-"which-came-first-articles-referenced-title" = "Articles referenced in today's game";
 "which-came-first-average-score-label" = "average score";
 "which-came-first-best-streak-label" = "best streak";
+"which-came-first-better-luck" = "Better luck tomorrow!";
 "which-came-first-correct-answer-a11y" = "Correct answer";
 "which-came-first-correct-feedback" = "Correct!";
 "which-came-first-correct-feedback2" = "+1 point";
 "which-came-first-current-streak-label" = "current streak";
 "which-came-first-error-title" = "Something went wrong";
 "which-came-first-footer-a11y" = "Question $1 of $2";
+"which-came-first-game-complete-title" = "Game Complete!";
 "which-came-first-games-played-label" = "games played";
 "which-came-first-incorrect-answer-a11y" = "Incorrect answer";
 "which-came-first-incorrect-feedback" = "Incorrect";
@@ -1545,7 +1546,8 @@
 "which-came-first-log-in-stats-body" = "See your streaks, scores, and more";
 "which-came-first-log-in-stats-title" = "Log in to view your game stats";
 "which-came-first-next-button" = "Next";
-"which-came-first-play-archive-button" = "Play the archive";
+"which-came-first-nice-work" = "Nice work! Come back tomorrow for a new game.";
+"which-came-first-perfect-score" = "Perfect score!";
 "which-came-first-retry-button" = "Retry";
 "which-came-first-score" = "You scored $1/$2.";
 "which-came-first-see-results-button" = "See Results";

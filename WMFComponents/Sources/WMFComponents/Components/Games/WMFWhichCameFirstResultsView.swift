@@ -4,52 +4,42 @@ import UIKit
 // MARK: - Results View
 
 public struct WMFWhichCameFirstResultsView: View {
-
+    
     @ObservedObject var viewModel: WMFWhichCameFirstResultsViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-
+    
     private var theme: WMFTheme { appEnvironment.theme }
-
+    
     private func headerHeight(for height: CGFloat) -> CGFloat {
         let isCompactPhone = UIDevice.current.userInterfaceIdiom != .pad && height <= 667
         return isCompactPhone ? height / 5 : height / 4
     }
-
-    private func isSmallScreen(_ height: CGFloat) -> Bool { height < 700 }
-
+    
     private var isAccessibilitySize: Bool {
         dynamicTypeSize.isAccessibilitySize
     }
-
+    
     public var body: some View {
         GeometryReader { geometry in
             let height = geometry.size.height
-
+            
             ZStack(alignment: .top) {
                 Color(uiColor: theme.midBackground)
                     .ignoresSafeArea()
-
+                
                 Color(uiColor: theme.link)
                     .frame(height: headerHeight(for: height))
                     .zIndex(0)
-
+                
                 ScrollView {
                     VStack(spacing: 24) {
                         scoreCard
                             .padding(.horizontal, 16)
-
-                        // TODO: bring when needed
-//                        playArchiveButton
-//                            .padding(.horizontal, 16)
-
+                        
                         statsSection
                             .padding(.horizontal, 16)
-
-                        if !viewModel.referencedArticles.isEmpty {
-                            articlesSection
-                                .padding(.bottom, 24)
-                        }
+                        
                     }
                     .padding(.top, headerHeight(for: height) - 123)
                     .padding(.bottom, 24)
@@ -58,14 +48,14 @@ public struct WMFWhichCameFirstResultsView: View {
             }
         }
     }
-
+    
     // MARK: - Score Card
-
+    
     private enum Score {
         case low
         case medium
         case high
-
+        
         init(score: Int, total: Int) {
             switch score {
             case total:
@@ -77,11 +67,11 @@ public struct WMFWhichCameFirstResultsView: View {
             }
         }
     }
-
+    
     private var currentScore: Score {
         Score(score: viewModel.score, total: viewModel.totalQuestions)
     }
-
+    
     private var scoreCardColor: Color {
         switch currentScore {
         case .high:   return Color(red: 0.18, green: 0.69, blue: 0.52)
@@ -89,39 +79,40 @@ public struct WMFWhichCameFirstResultsView: View {
         case .low:    return Color(red: 0.98, green: 0.76, blue: 0.15)
         }
     }
-
+    
     private var scoreCard: some View {
         VStack(alignment: .center, spacing: 12) {
-            Text(viewModel.localizedStrings.scoredLabel(viewModel.score, of: viewModel.totalQuestions))
+            Text(viewModel.localizedStrings.scoreLabel(viewModel.score, of: viewModel.totalQuestions))
                 .font(Font(WMFFont.for(.georgiaTitle1)))
-                // Specificlly left as hardcoded color
+            // Specificlly left as hardcoded color
                 .foregroundStyle(Color.black)
                 .multilineTextAlignment(.center)
                 .minimumScaleFactor(0.7)
                 .fixedSize(horizontal: false, vertical: true)
-
+            
             HStack(spacing: 6) {
                 if let image = WMFSFSymbolIcon.for(symbol: .clock, font: .body) {
                     Image(uiImage: image)
-                        // Specificlly left as hardcoded color
+                    // Specificlly left as hardcoded color
                         .foregroundStyle(Color.black)
                         .accessibilityHidden(true)
                 }
                 Text(viewModel.localizedStrings.countdownLabel(from: viewModel.nextGameCountdownString))
                     .font(Font(WMFFont.for(.callout)))
-                    // Specificlly left as hardcoded color
+                // Specificlly left as hardcoded color
                     .foregroundStyle(Color.black)
                     .minimumScaleFactor(0.8)
                     .fixedSize(horizontal: false, vertical: true)
             }
-
+            
             Button {
                 viewModel.shareScore?()
             } label: {
                 HStack(alignment: .center, spacing: 4) {
-                    Image(systemName: "square.and.arrow.up")
-                        .font(Font(WMFFont.for(.semiboldSubheadline)))
-                        .accessibilityHidden(true)
+                    if let image = WMFSFSymbolIcon.for(symbol: .squareAndArrowUp, font: .semiboldSubheadline) {
+                        Image(uiImage: image)
+                            .accessibilityHidden(true)
+                    }
                     Text(viewModel.localizedStrings.shareScoreButton)
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
                         .fixedSize(horizontal: false, vertical: true)
@@ -145,42 +136,16 @@ public struct WMFWhichCameFirstResultsView: View {
                 .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
         )
     }
-
-    // MARK: - Play Archive Button
-
-    private var playArchiveButton: some View {
-        Button {
-            viewModel.playArchive()
-        } label: {
-            HStack(spacing: 6) {
-                if let image = WMFSFSymbolIcon.for(symbol: .calendarBadgeClock, font: .semiboldHeadline) {
-                    Image(uiImage: image)
-                        .accessibilityHidden(true)
-                }
-                Text(viewModel.localizedStrings.playArchiveButton)
-                    .font(Font(WMFFont.for(.semiboldHeadline)))
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            .foregroundColor(Color(uiColor: theme.link))
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 14)
-            .background(
-                Capsule()
-                    .fill(Color(uiColor: theme.baseBackground))
-            )
-            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16))
-        }
-    }
-
+    
     // MARK: - Stats Section
-
+    
     private var statsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(viewModel.localizedStrings.yourStatsTitle)
                 .font(Font(WMFFont.for(.semiboldSubheadline)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .fixedSize(horizontal: false, vertical: true)
-
+            
             if viewModel.isLoggedIn {
                 loggedInStats
             } else {
@@ -189,31 +154,31 @@ public struct WMFWhichCameFirstResultsView: View {
         }
         .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 4)
     }
-
+    
     private var loggedInStats: some View {
         Group {
             if isAccessibilitySize {
                 VStack(spacing: 0) {
                     statCell(
-                        icon: "gamecontroller.fill",
+                        symbol: .gameControllerFill,
                         value: viewModel.gamesPlayed.map { "\($0)" } ?? "–",
                         label: viewModel.localizedStrings.gamesPlayedLabel
                     )
                     Divider()
                     statCell(
-                        icon: "star.square.on.square",
+                        symbol: .flameFill,
                         value: viewModel.currentStreak.map { "\($0)" } ?? "–",
                         label: viewModel.localizedStrings.currentStreakLabel
                     )
                     Divider()
                     statCell(
-                        icon: "medal.star",
+                        symbol: .trophy,
                         value: viewModel.bestStreak.map { "\($0)" } ?? "–",
                         label: viewModel.localizedStrings.bestStreakLabel
                     )
                     Divider()
                     statCell(
-                        icon: "flag.pattern.checkered",
+                        symbol: .medal,
                         value: viewModel.averageScore.map { "\($0)" } ?? "–",
                         label: viewModel.localizedStrings.averageScoreLabel
                     )
@@ -222,24 +187,24 @@ public struct WMFWhichCameFirstResultsView: View {
                 VStack(spacing: 0) {
                     HStack(spacing: 0) {
                         statCell(
-                            icon: "gamecontroller.fill",
+                            symbol: .gameControllerFill,
                             value: viewModel.gamesPlayed.map { "\($0)" } ?? "–",
                             label: viewModel.localizedStrings.gamesPlayedLabel
                         )
                         statCell(
-                            icon: "star.square.on.square",
+                            symbol: .flameFill,
                             value: viewModel.currentStreak.map { "\($0)" } ?? "–",
                             label: viewModel.localizedStrings.currentStreakLabel
                         )
                     }
                     HStack(spacing: 0) {
                         statCell(
-                            icon: "medal.star",
+                            symbol: .trophy,
                             value: viewModel.bestStreak.map { "\($0)" } ?? "–",
                             label: viewModel.localizedStrings.bestStreakLabel
                         )
                         statCell(
-                            icon: "flag.pattern.checkered",
+                            symbol: .medal,
                             value: viewModel.averageScore.map { "\($0)" } ?? "–",
                             label: viewModel.localizedStrings.averageScoreLabel
                         )
@@ -250,14 +215,15 @@ public struct WMFWhichCameFirstResultsView: View {
         .background(Color(uiColor: theme.paperBackground))
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
-
-    private func statCell(icon: String, value: String, label: String) -> some View {
+    
+    private func statCell(symbol: WMFSFSymbolIcon, value: String, label: String) -> some View {
         HStack(spacing: 10) {
-            Image(systemName: icon)
-                .font(.title3)
-                .foregroundColor(Color(uiColor: theme.link))
-                .frame(width: 32, alignment: .center)
-                .accessibilityHidden(true)
+            if let image = WMFSFSymbolIcon.for(symbol: symbol, font: .title3) {
+                Image(uiImage: image)
+                    .foregroundColor(Color(uiColor: theme.link))
+                    .frame(width: 32, alignment: .center)
+                    .accessibilityHidden(true)
+            }
             VStack(alignment: .leading, spacing: 2) {
                 Text(value)
                     .font(Font(WMFFont.for(.boldCallout)))
@@ -273,7 +239,7 @@ public struct WMFWhichCameFirstResultsView: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
     }
-
+    
     private var loggedOutStats: some View {
         VStack(spacing: 8) {
             Text(viewModel.localizedStrings.logInToViewStatsTitle)
@@ -281,13 +247,13 @@ public struct WMFWhichCameFirstResultsView: View {
                 .foregroundColor(Color(uiColor: theme.text))
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
-
+            
             Text(viewModel.localizedStrings.logInToViewStatsBody)
                 .font(Font(WMFFont.for(.subheadline)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
-
+            
             Button {
                 viewModel.onLogIn?()
             } label: {
@@ -313,160 +279,4 @@ public struct WMFWhichCameFirstResultsView: View {
         .background(Color(uiColor: theme.paperBackground))
         .clipShape(RoundedRectangle(cornerRadius: 10))
     }
-
-    // MARK: - Articles Section
-
-    private var articlesSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text(viewModel.localizedStrings.articlesReferencedTitle)
-                .font(Font(WMFFont.for(.semiboldSubheadline)))
-                .foregroundColor(Color(uiColor: theme.text))
-                .padding(.horizontal, 16)
-                .fixedSize(horizontal: false, vertical: true)
-
-            if isAccessibilitySize {
-                VStack(spacing: 12) {
-                    ForEach(viewModel.referencedArticles) { article in
-                        articleCard(article)
-                    }
-                }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 24)
-            } else {
-                LazyVGrid(
-                    columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)],
-                    spacing: 12
-                ) {
-                    ForEach(viewModel.referencedArticles) { article in
-                        articleCard(article)
-                    }
-                }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 24)
-            }
-        }
-    }
-
-    private func articleCard(_ article: WMFWhichCameFirstResultsArticle) -> some View {
-        Button {
-            viewModel.openArticle(article)
-        } label: {
-            VStack(alignment: .leading, spacing: 0) {
-                if let imageURL = article.imageURL {
-                    AsyncImage(url: imageURL) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                    } placeholder: {
-                        Color(uiColor: theme.newBorder)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 100)
-                    .clipped()
-                } else {
-                    Color(uiColor: theme.newBorder)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 100)
-                }
-
-                /*
-                 todo
-                 if let data = viewModel.thumbnailImageData,
-                    let uiImage = UIImage(data: data) {
-                     Image(uiImage: uiImage)
-                         .resizable()
-                         .scaledToFill()
-                         .frame(width: 100, height: 100)
-                         .clipShape(
-                             UnevenRoundedRectangle(
-                                 topLeadingRadius: 0,
-                                 bottomLeadingRadius: 0,
-                                 bottomTrailingRadius: 0,
-                                 topTrailingRadius: 8
-                             )
-                         )
-                 } else {
-                     UnevenRoundedRectangle(
-                         topLeadingRadius: 0,
-                         bottomLeadingRadius: 0,
-                         bottomTrailingRadius: 0,
-                         topTrailingRadius: 8
-                     )
-                     .fill(Color(uiColor: theme.midBackground))
-                     .frame(width: 100, height: 100)
-                     .overlay(ProgressView().scaleEffect(0.7))
-                 }
-                 */
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(article.title)
-                        .font(Font(WMFFont.for(.semiboldSubheadline)))
-                        .foregroundColor(Color(uiColor: theme.text))
-                        .multilineTextAlignment(.leading)
-                        .minimumScaleFactor(0.85)
-                        .fixedSize(horizontal: false, vertical: true)
-
-                    if let description = article.description {
-                        Text(description)
-                            .font(Font(WMFFont.for(.footnote)))
-                            .foregroundColor(Color(uiColor: theme.secondaryText))
-                            .multilineTextAlignment(.leading)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-
-                    Spacer(minLength: 8)
-
-                    Image(systemName: "ellipsis")
-                        .font(.footnote)
-                        .foregroundColor(Color(uiColor: theme.secondaryText))
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                }
-                .padding(10)
-            }
-            .background(Color(uiColor: theme.paperBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-        }
-        .buttonStyle(.plain)
-    }
 }
-
-// MARK: - Results Article Model
-
-public struct WMFWhichCameFirstResultsArticle: Identifiable {
-    public let id: UUID
-    public let title: String
-    public let description: String?
-    public let imageURL: URL?
-
-    public init(id: UUID = UUID(), title: String, description: String?, imageURL: URL?) {
-        self.id = id
-        self.title = title
-        self.description = description
-        self.imageURL = imageURL
-    }
-}
-
-// MARK: - Previews
-
-private let previewArticles: [WMFWhichCameFirstResultsArticle] = [
-    .init(
-        title: "Apollo 11",
-        description: "First crewed Moon landing mission conducted by NASA.",
-        imageURL: URL(string: "https://www.mediawiki.org/wiki/Help:Images#/media/File:Example.jpg/")
-    ),
-    .init(
-        title: "The Internet",
-        description: "Global system of interconnected computer networks.",
-        imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Internet_map_1024.jpg")
-    ),
-    .init(
-        title: "Mount Everest",
-        description: "Earth's highest mountain above sea level.",
-        imageURL: nil
-    ),
-    .init(
-        title: "Printing Press",
-        description: "Mechanical device for mass-producing printed text.",
-        imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Gutenberg.jpg")
-    )
-]

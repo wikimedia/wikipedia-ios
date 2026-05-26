@@ -40,8 +40,7 @@ public struct WMFWhichCameFirstView: View {
                 isLoggedIn: gameViewModel.isLoggedIn,
                 project: gameViewModel.project,
                 shareScore: gameViewModel.didTapShare,
-                onLogIn: gameViewModel.onLogIn,
-                referencedArticles: []
+                onLogIn: gameViewModel.onLogIn
             ))
         }
 
@@ -243,52 +242,6 @@ public struct WMFWhichCameFirstView: View {
         .padding(.vertical, 8)
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(.updatesFrequently)
-    }
-
-
-    // MARK: - Complete
-
-    private var completeView: some View {
-
-        VStack(spacing: 24) {
-
-            Spacer()
-
-            Text(viewModel.localizedStrings.gameCompleteTitle)
-                .minimumScaleFactor(0.3)
-                .font(Font(WMFFont.for(.semiboldHeadline)))
-                .foregroundColor(Color(uiColor: theme.text))
-
-            Text("\(viewModel.score) / \(viewModel.totalQuestions)")
-                .minimumScaleFactor(0.3)
-                .font(Font(WMFFont.for(.boldTitle1)))
-                .foregroundColor(Color(uiColor: theme.text))
-
-            Text(scoreMessage)
-                .minimumScaleFactor(0.3)
-                .font(Font(WMFFont.for(.subheadline)))
-                .foregroundColor(Color(uiColor: theme.secondaryText))
-                .multilineTextAlignment(.center)
-
-            WMFLargeButton(style: .primary, title: "Share (temp)") {
-                viewModel.didTapShare?()
-            }
-            .padding(.horizontal, 16)
-
-            Spacer()
-        }
-        .padding()
-    }
-
-    private var scoreMessage: String {
-        switch viewModel.score {
-        case viewModel.totalQuestions:
-            return viewModel.localizedStrings.perfectScoreMessage
-        case (viewModel.totalQuestions / 2)...:
-            return viewModel.localizedStrings.niceWorkMessage
-        default:
-            return viewModel.localizedStrings.betterLuckMessage
-        }
     }
 
     // MARK: - Error

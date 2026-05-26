@@ -46,7 +46,6 @@ public enum WMFIcon {
     static let wikidata = UIImage(named: "project-icons/wikidata", in: .module, with: nil)
     static let wikipediaW = UIImage(named: "W", in: .module, with: nil)
 
-
     // License
     static let ccLicense = UIImage(named: "project-icons/license-cc", in: .module, with: nil)
 
@@ -62,7 +61,7 @@ public enum WMFSFSymbolIcon {
     case starFill
     case starCircleFill
     case person
-	case personFilled
+    case personFilled
     case personFilledbadgeMinus
     case starLeadingHalfFilled
     case heart
@@ -105,8 +104,8 @@ public enum WMFSFSymbolIcon {
     case redo
     case textFormatSize
     case textFormat
-	case plusForwardSlashMinus
-	case photoOnRectangleAngled
+    case plusForwardSlashMinus
+    case photoOnRectangleAngled
     case xMark
     case textBelowPhoto
     case infoCircle
@@ -166,6 +165,9 @@ public enum WMFSFSymbolIcon {
     case testTubeFill
     case clock
     case calendarBadgeClock
+    case gameControllerFill
+    case medal
+    case flagPatternCheckered
 
     public var name: String? {
         switch self {
@@ -306,7 +308,7 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "eye", withConfiguration: configuration)
         case .eyeSlash:
             image = UIImage(systemName: "eye.slash", withConfiguration: configuration)
-        case.ellipsisBubble:
+        case .ellipsisBubble:
             image = UIImage(systemName: "ellipsis.bubble", withConfiguration: configuration)
         case .flag:
             image = UIImage(systemName: "flag", withConfiguration: configuration)
@@ -414,6 +416,12 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "clock", withConfiguration: configuration)
         case .calendarBadgeClock:
             image = UIImage(systemName: "calendar.badge.clock", withConfiguration: configuration)
+        case .gameControllerFill:
+            image = UIImage(systemName: "gamecontroller.fill", withConfiguration: configuration)
+        case .medal:
+            image = UIImage(systemName: "medal", withConfiguration: configuration)
+        case .flagPatternCheckered:
+            image = UIImage(systemName: "flag.pattern.checkered", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
