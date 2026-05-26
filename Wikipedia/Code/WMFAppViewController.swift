@@ -26,6 +26,7 @@ private let wmfTempAccountConfigCheckInterval: CFTimeInterval = 3 * 60 * 60
 private let wmfLastRemoteAppConfigCheckAbsoluteTimeKey = "WMFLastRemoteAppConfigCheckAbsoluteTimeKey"
 private let wmfTempAccountConfigCheckAbsoluteTimeKey = "WMFTempAccountConfigCheckAbsoluteTimeKey"
 private let wmfResetPreferredLanguages = "WMFResetPreferredLanguages"
+private let wmfSuppressReadingChallengeAnnouncementForTesting = "WMFSuppressReadingChallengeAnnouncementForTesting"
 
 // KVO context pointers
 private var kvoSavedArticlesFetcherProgress = UInt8(0)
@@ -845,8 +846,18 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     private func applyUITestLaunchOverridesIfNeeded() {
-        guard UserDefaults.standard.bool(forKey: wmfResetPreferredLanguages) else { return }
-        dataStore.languageLinkController.resetPreferredLanguages()
+        if UserDefaults.standard.bool(forKey: wmfResetPreferredLanguages) {
+            dataStore.languageLinkController.resetPreferredLanguages()
+        }
+
+        if UserDefaults.standard.bool(forKey: wmfSuppressReadingChallengeAnnouncementForTesting) {
+            let sharedDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
+            sharedDefaults?.set(
+                true,
+                forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue
+            )
+            sharedDefaults?.synchronize()
+        }
     }
 
     // MARK: - Start/Pause/Resume App
@@ -1348,6 +1359,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             vc.apply(theme: theme)
             vc.dataStore = dataStore
             vc.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: Int(WMFAppTabType.search.rawValue))
+            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.Search.tabButton
             vc.title = WMFCommonStringsWrapper.searchTitle
             _searchTabViewController = vc
             return vc

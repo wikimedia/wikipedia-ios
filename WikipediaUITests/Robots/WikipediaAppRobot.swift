@@ -29,12 +29,14 @@ struct WikipediaAppRobot: ScreenshotCapturingRobot {
 extension XCTestCase {
     func launchWikipediaAppRobot(
         onboardingState: UITestConfiguration.OnboardingState,
-        resetsPreferredLanguages: Bool = true
+        resetsPreferredLanguages: Bool = true,
+        suppressesReadingChallengeAnnouncement: Bool = true
     ) -> WikipediaAppRobot {
         let app = XCUIApplication()
         let configuration = UITestConfiguration(
             onboardingState: onboardingState,
-            resetsPreferredLanguages: resetsPreferredLanguages
+            resetsPreferredLanguages: resetsPreferredLanguages,
+            suppressesReadingChallengeAnnouncement: suppressesReadingChallengeAnnouncement
         )
         app.configureForUITestLaunch(configuration: configuration)
         app.launch()
