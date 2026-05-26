@@ -2,6 +2,7 @@ import Combine
 import Foundation
 import SwiftUI
 import WMFNativeLocalizations
+import WMFData
 
 @MainActor
 public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
@@ -20,17 +21,17 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         public let articlesReferencedTitle: String
 
         public init(
-            shareScoreButton: String = "Share score",
-            playArchiveButton: String = "Play the archive",
-            yourStatsTitle: String = "Your stats",
-            gamesPlayedLabel: String = "games played",
-            currentStreakLabel: String = "current streak",
-            bestStreakLabel: String = "best streak",
-            averageScoreLabel: String = "average score",
-            logInToViewStatsTitle: String = "Log in to view your game stats",
-            logInToViewStatsBody: String = "See your streaks, scores, and more",
-            logInButton: String = "Log in",
-            articlesReferencedTitle: String = "Articles referenced in today's game"
+            shareScoreButton: String = WMFLocalizedString("which-came-first-share-score-button", value: "Share score", comment: "Button to share the user's score in the Which Came First game"),
+            playArchiveButton: String = WMFLocalizedString("which-came-first-play-archive-button", value: "Play the archive", comment: "Button to play archived games in the Which Came First game"),
+            yourStatsTitle: String = WMFLocalizedString("which-came-first-your-stats-title", value: "Your stats", comment: "Section title for the user's stats in the Which Came First results screen"),
+            gamesPlayedLabel: String = WMFLocalizedString("which-came-first-games-played-label", value: "games played", comment: "Label for the games played stat in the Which Came First results screen"),
+            currentStreakLabel: String = WMFLocalizedString("which-came-first-current-streak-label", value: "current streak", comment: "Label for the current streak stat in the Which Came First results screen"),
+            bestStreakLabel: String = WMFLocalizedString("which-came-first-best-streak-label", value: "best streak", comment: "Label for the best streak stat in the Which Came First results screen"),
+            averageScoreLabel: String = WMFLocalizedString("which-came-first-average-score-label", value: "average score", comment: "Label for the average score stat in the Which Came First results screen"),
+            logInToViewStatsTitle: String = WMFLocalizedString("which-came-first-log-in-stats-title", value: "Log in to view your game stats", comment: "Title prompting the user to log in to view stats in the Which Came First results screen"),
+            logInToViewStatsBody: String = WMFLocalizedString("which-came-first-log-in-stats-body", value: "See your streaks, scores, and more", comment: "Body text prompting the user to log in to view stats in the Which Came First results screen"),
+            logInButton: String = WMFLocalizedString("which-came-first-log-in-button", value: "Log in", comment: "Button to log in from the Which Came First results screen"),
+            articlesReferencedTitle: String = WMFLocalizedString("which-came-first-articles-referenced-title", value: "Articles referenced in today's game", comment: "Section title for articles referenced in the Which Came First game results screen")
         ) {
             self.shareScoreButton = shareScoreButton
             self.playArchiveButton = playArchiveButton
@@ -83,6 +84,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         score: Int,
         totalQuestions: Int,
         isLoggedIn: Bool,
+        project: WMFProject,
         gamesPlayed: Int? = nil,
         currentStreak: Int? = nil,
         bestStreak: Int? = nil,
@@ -103,6 +105,19 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         self.localizedStrings = localizedStrings
         self.shareScore = shareScore
         startCountdownTimer()
+        fetchStats(project: project)
+    }
+
+    private func fetchStats(project: WMFProject) {
+        let dataController = WMFGamesDataController()
+        Task { [weak self] in
+            guard let self else { return }
+            guard let stats = try? await dataController.fetchWhichCameFirstStats(project: project) else { return }
+            self.gamesPlayed = stats.gamesPlayed
+            self.currentStreak = stats.currentStreak
+            self.bestStreak = stats.bestStreak
+            self.averageScore = stats.averageScore
+        }
     }
 
     // MARK: - Countdown

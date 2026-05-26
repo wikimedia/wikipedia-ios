@@ -22,8 +22,7 @@ public struct WMFWhichCameFirstView: View {
             gameplayView
         case .complete:
             // TODO Grey update isLoggedIn
-            // TODO references
-            WMFWhichCameFirstResultsView(viewModel: WMFWhichCameFirstResultsViewModel(score: viewModel.score, totalQuestions: viewModel.totalQuestions, isLoggedIn: true, shareScore: viewModel.didTapShare, referencedArticles: []))
+            WMFWhichCameFirstResultsView(viewModel: WMFWhichCameFirstResultsViewModel(score: viewModel.score, totalQuestions: viewModel.totalQuestions, isLoggedIn: true, project: viewModel.project, shareScore: viewModel.didTapShare, referencedArticles: []))
         case .error(let message):
             errorView(message)
         }

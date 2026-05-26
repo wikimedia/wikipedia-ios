@@ -36,8 +36,9 @@ public struct WMFWhichCameFirstResultsView: View {
                         scoreCard
                             .padding(.horizontal, 16)
 
-                        playArchiveButton
-                            .padding(.horizontal, 16)
+                        // TODO: bring when needed
+//                        playArchiveButton
+//                            .padding(.horizontal, 16)
 
                         statsSection
                             .padding(.horizontal, 16)
@@ -402,56 +403,56 @@ private let previewArticles: [WMFWhichCameFirstResultsArticle] = [
         imageURL: URL(string: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Gutenberg.jpg")
     )
 ]
-
-#Preview("Logged In 1") {
-    let viewModel = WMFWhichCameFirstResultsViewModel(
-        score: 1, totalQuestions: 5, isLoggedIn: true,
-        gamesPlayed: 42, currentStreak: 6, bestStreak: 18, averageScore: 7,
-        referencedArticles: previewArticles
-    )
-    return WMFWhichCameFirstResultsView(viewModel: viewModel)
-}
-
-#Preview("Logged In 2") {
-    let viewModel = WMFWhichCameFirstResultsViewModel(
-        score: 2, totalQuestions: 5, isLoggedIn: true,
-        gamesPlayed: 42, currentStreak: 6, bestStreak: 18, averageScore: 7,
-        referencedArticles: previewArticles
-    )
-    return WMFWhichCameFirstResultsView(viewModel: viewModel)
-}
-
-#Preview("Logged In 3") {
-    let viewModel = WMFWhichCameFirstResultsViewModel(
-        score: 3, totalQuestions: 5, isLoggedIn: true,
-        gamesPlayed: 42, currentStreak: 6, bestStreak: 18, averageScore: 7,
-        referencedArticles: previewArticles
-    )
-    return WMFWhichCameFirstResultsView(viewModel: viewModel)
-}
-
-#Preview("Logged In 4") {
-    let viewModel = WMFWhichCameFirstResultsViewModel(
-        score: 4, totalQuestions: 5, isLoggedIn: true,
-        gamesPlayed: 42, currentStreak: 6, bestStreak: 18, averageScore: 7,
-        referencedArticles: previewArticles
-    )
-    return WMFWhichCameFirstResultsView(viewModel: viewModel)
-}
-
-#Preview("Logged In 5") {
-    let viewModel = WMFWhichCameFirstResultsViewModel(
-        score: 5, totalQuestions: 5, isLoggedIn: true,
-        gamesPlayed: 42, currentStreak: 6, bestStreak: 18, averageScore: 7,
-        referencedArticles: previewArticles
-    )
-    return WMFWhichCameFirstResultsView(viewModel: viewModel)
-}
-
-#Preview("Logged Out") {
-    let viewModel = WMFWhichCameFirstResultsViewModel(
-        score: 4, totalQuestions: 5, isLoggedIn: false,
-        referencedArticles: []
-    )
-    return WMFWhichCameFirstResultsView(viewModel: viewModel)
-}
+//
+// #Preview("Logged In 1") {
+//    let viewModel = WMFWhichCameFirstResultsViewModel(
+//        score: 1, totalQuestions: 5, isLoggedIn: true,
+//        gamesPlayed: 42, currentStreak: 6, bestStreak: 18, averageScore: 7,
+//        referencedArticles: previewArticles
+//    )
+//    WMFWhichCameFirstResultsView(viewModel: viewModel)
+// }
+//
+// #Preview("Logged In 2") {
+//    let viewModel = WMFWhichCameFirstResultsViewModel(
+//        score: 2, totalQuestions: 5, isLoggedIn: true,
+//        gamesPlayed: 42, currentStreak: 6, bestStreak: 18, averageScore: 7,
+//        referencedArticles: previewArticles
+//    )
+//    return WMFWhichCameFirstResultsView(viewModel: viewModel)
+// }
+//
+// #Preview("Logged In 3") {
+//    let viewModel = WMFWhichCameFirstResultsViewModel(
+//        score: 3, totalQuestions: 5, isLoggedIn: true,
+//        gamesPlayed: 42, currentStreak: 6, bestStreak: 18, averageScore: 7,
+//        referencedArticles: previewArticles
+//    )
+//    return WMFWhichCameFirstResultsView(viewModel: viewModel)
+// }
+//
+// #Preview("Logged In 4") {
+//    let viewModel = WMFWhichCameFirstResultsViewModel(
+//        score: 4, totalQuestions: 5, isLoggedIn: true,
+//        gamesPlayed: 42, currentStreak: 6, bestStreak: 18, averageScore: 7,
+//        referencedArticles: previewArticles
+//    )
+//    return WMFWhichCameFirstResultsView(viewModel: viewModel)
+// }
+//
+// #Preview("Logged In 5") {
+//    let viewModel = WMFWhichCameFirstResultsViewModel(
+//        score: 5, totalQuestions: 5, isLoggedIn: true,
+//        gamesPlayed: 42, currentStreak: 6, bestStreak: 18, averageScore: 7,
+//        referencedArticles: previewArticles
+//    )
+//    return WMFWhichCameFirstResultsView(viewModel: viewModel)
+// }
+//
+// #Preview("Logged Out") {
+//    let viewModel = WMFWhichCameFirstResultsViewModel(
+//        score: 4, totalQuestions: 5, isLoggedIn: false,
+//        referencedArticles: []
+//    )
+//    return WMFWhichCameFirstResultsView(viewModel: viewModel)
+// }

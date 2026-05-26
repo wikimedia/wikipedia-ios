@@ -89,6 +89,19 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
         gameNav.setViewControllers([gameVC], animated: true)
     }
+    
+    private func fetchAndInjectStats(into resultsViewModel: WMFWhichCameFirstResultsViewModel) {
+        guard let language = WMFDataEnvironment.current.primaryAppLanguage else { return }
+        let project = WMFProject.wikipedia(language)
+
+        Task {
+            guard let stats = try? await gamesDataController.fetchWhichCameFirstStats(project: project) else { return }
+            resultsViewModel.gamesPlayed = stats.gamesPlayed
+            resultsViewModel.currentStreak = stats.currentStreak
+            resultsViewModel.bestStreak = stats.bestStreak
+            resultsViewModel.averageScore = stats.averageScore
+        }
+    }
 
     private func showShare(gameViewModel: WMFWhichCameFirstViewModel) {
         guard let gameNav = gameNavigationController,

@@ -148,7 +148,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         }
     }
 
-    private let project: WMFProject
+    public let project: WMFProject
     private let dataController: WMFGamesDataController
     private var gameState: WMFWhichCameFirstGameState?
     private var sessionIdentifier: UUID?

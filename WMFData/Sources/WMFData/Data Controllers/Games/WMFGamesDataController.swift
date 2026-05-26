@@ -185,6 +185,73 @@ public class WMFGamesDataController {
 // MARK: - Which Came First
 
 extension WMFGamesDataController {
+    
+    public struct WMFWhichCameFirstStats {
+        public let gamesPlayed: Int
+        public let currentStreak: Int
+        public let bestStreak: Int
+        public let averageScore: Int
+    }
+
+    public func fetchWhichCameFirstStats(project: WMFProject) async throws -> WMFWhichCameFirstStats {
+        let sessions = try await fetchSessions(gameType: Self.whichCameFirstGameType, project: project)
+        let completed = sessions.filter { $0.status == .completed }
+
+        let gamesPlayed = completed.count
+        let averageScore = gamesPlayed > 0
+            ? Int(completed.map { Int($0.score) }.reduce(0, +) / gamesPlayed)
+            : 0
+
+        // Sort by date ascending to compute streaks
+        let sorted = completed
+            .compactMap { session -> (date: String, score: Int32)? in
+                guard let date = session.dailyGameDate else { return nil }
+                return (date: date, score: session.score)
+            }
+            .sorted { $0.date < $1.date }
+
+        var bestStreak = 0
+        var currentStreak = 0
+        var previousDate: String? = nil
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+
+        for entry in sorted {
+            if let prev = previousDate,
+               let prevDate = formatter.date(from: prev),
+               let entryDate = formatter.date(from: entry.date),
+               let dayAfterPrev = Calendar.current.date(byAdding: .day, value: 1, to: prevDate),
+               Calendar.current.isDate(dayAfterPrev, inSameDayAs: entryDate) {
+                currentStreak += 1
+            } else {
+                currentStreak = 1
+            }
+            bestStreak = max(bestStreak, currentStreak)
+            previousDate = entry.date
+        }
+
+        // Reset current streak if last game wasn't yesterday or today
+        if let lastDate = sorted.last?.date,
+           let last = formatter.date(from: lastDate) {
+            let today = Calendar.current.startOfDay(for: Date())
+            let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
+            let lastDay = Calendar.current.startOfDay(for: last)
+            if lastDay != today && lastDay != yesterday {
+                currentStreak = 0
+            }
+        } else {
+            currentStreak = 0
+        }
+
+        return WMFWhichCameFirstStats(
+            gamesPlayed: gamesPlayed,
+            currentStreak: currentStreak,
+            bestStreak: bestStreak,
+            averageScore: averageScore
+        )
+    }
 
     public struct WMFWhichCameFirstAnswerResult: Sendable {
         public let isCorrect: Bool
