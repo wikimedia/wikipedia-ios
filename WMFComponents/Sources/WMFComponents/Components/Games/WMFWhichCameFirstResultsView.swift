@@ -9,6 +9,10 @@ public struct WMFWhichCameFirstResultsView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     
+    public init(viewModel: WMFWhichCameFirstResultsViewModel) {
+        self.viewModel = viewModel
+    }
+    
     private var theme: WMFTheme { appEnvironment.theme }
     
     private func headerHeight(for height: CGFloat) -> CGFloat {
@@ -84,7 +88,7 @@ public struct WMFWhichCameFirstResultsView: View {
         VStack(alignment: .center, spacing: 12) {
             Text(viewModel.localizedStrings.scoreLabel(viewModel.score, of: viewModel.totalQuestions))
                 .font(Font(WMFFont.for(.georgiaTitle1)))
-            // Specificlly left as hardcoded color
+            // Specifically left as hardcoded color
                 .foregroundStyle(Color.black)
                 .multilineTextAlignment(.center)
                 .minimumScaleFactor(0.7)
@@ -93,13 +97,13 @@ public struct WMFWhichCameFirstResultsView: View {
             HStack(spacing: 6) {
                 if let image = WMFSFSymbolIcon.for(symbol: .clock, font: .body) {
                     Image(uiImage: image)
-                    // Specificlly left as hardcoded color
+                    // Specifically left as hardcoded color
                         .foregroundStyle(Color.black)
                         .accessibilityHidden(true)
                 }
                 Text(viewModel.localizedStrings.countdownLabel(from: viewModel.nextGameCountdownString))
                     .font(Font(WMFFont.for(.callout)))
-                // Specificlly left as hardcoded color
+                // Specifically left as hardcoded color
                     .foregroundStyle(Color.black)
                     .minimumScaleFactor(0.8)
                     .fixedSize(horizontal: false, vertical: true)
@@ -117,11 +121,11 @@ public struct WMFWhichCameFirstResultsView: View {
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
                         .fixedSize(horizontal: false, vertical: true)
                 }
-                // Specificlly left as hardcoded color
+                // Specifically left as hardcoded color
                 .foregroundColor(.white)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 7)
-                // Specificlly left as hardcoded color
+                // Specifically left as hardcoded color
                 .background(.black.opacity(0.3))
                 .clipShape(Capsule())
             }
@@ -132,7 +136,7 @@ public struct WMFWhichCameFirstResultsView: View {
         .background(
             RoundedRectangle(cornerRadius: 10)
                 .fill(scoreCardColor)
-            // Specificlly left as hardcoded color
+            // Specifically left as hardcoded color
                 .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
         )
     }

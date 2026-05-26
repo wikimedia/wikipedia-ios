@@ -1546,6 +1546,7 @@
 "which-came-first-log-in-stats-body" = "See your streaks, scores, and more";
 "which-came-first-log-in-stats-title" = "Log in to view your game stats";
 "which-came-first-next-button" = "Next";
+"which-came-first-next-game-time" = "Next game in $1";
 "which-came-first-nice-work" = "Nice work! Come back tomorrow for a new game.";
 "which-came-first-perfect-score" = "Perfect score!";
 "which-came-first-retry-button" = "Retry";
@@ -1563,7 +1564,6 @@
 "which-came-first-submit-button" = "Submit";
 "which-came-first-title" = "Which came first?";
 "which-came-first-your-stats-title" = "Your stats";
-"which-came-frst-next-game-time" = "Next game in $1";
 "widget-onthisday-description" = "Explore what happened on this day in history.";
 "widget-onthisday-placeholder-article-snippet" = "Free online encyclopedia that anyone can edit";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, a free wiki content encyclopedia, goes online.";

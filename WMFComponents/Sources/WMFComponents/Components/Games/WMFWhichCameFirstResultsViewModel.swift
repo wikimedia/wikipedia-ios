@@ -5,7 +5,7 @@ import WMFNativeLocalizations
 import WMFData
 
 @MainActor
-public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
+public final class WMFWhichCameFirstResultsViewModel: ObservableObject, @unchecked Sendable {
 
     public struct LocalizedStrings {
         public let shareScoreButton: String
@@ -46,7 +46,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         }
 
         public func countdownLabel(from countdownString: String) -> String {
-            let descriptionText = WMFLocalizedString("which-came-frst-next-game-time", value: "Next game in %1$@", comment: "Indication of when new game is available. %1$d is replaced by a countdown timer string, indicating the number of hours / minutes / seconds left until the next game is available.")
+            let descriptionText = WMFLocalizedString("which-came-first-next-game-time", value: "Next game in %1$@", comment: "Indication of when new game is available. $1 is replaced by a countdown timer string, indicating the number of hours / minutes / seconds left until the next game is available.")
             return String.localizedStringWithFormat(descriptionText, countdownString)
         }
     }
@@ -61,8 +61,8 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
     @Published public var nextGameCountdownString: String
 
     public var localizedStrings: LocalizedStrings
-    public var onLogIn: (() -> Void)?
-    public var shareScore: (() -> Void)?
+    public var onLogIn: (@MainActor @Sendable () -> Void)?
+    public var shareScore: (@MainActor @Sendable () -> Void)?
 
     private var timerCancellable: AnyCancellable?
 
@@ -75,8 +75,8 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         currentStreak: Int? = nil,
         bestStreak: Int? = nil,
         averageScore: Int? = nil,
-        shareScore: (() -> Void)? = nil,
-        onLogIn: (() -> Void)? = nil,
+        shareScore: (@Sendable () -> Void)? = nil,
+        onLogIn: (@Sendable () -> Void)? = nil,
         localizedStrings: LocalizedStrings = LocalizedStrings()
     ) {
         self.score = score
