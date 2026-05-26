@@ -74,6 +74,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
     public var onShareScore: (() -> Void)?
     public var onPlayArchive: (() -> Void)?
     public var onLogIn: (() -> Void)?
+    public var shareScore: (() -> Void)?
     public var onOpenArticle: ((WMFWhichCameFirstResultsArticle) -> Void)?
 
     private var timerCancellable: AnyCancellable?
@@ -86,6 +87,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         currentStreak: Int? = nil,
         bestStreak: Int? = nil,
         averageScore: Int? = nil,
+        shareScore: (() -> Void)? = nil,
         referencedArticles: [WMFWhichCameFirstResultsArticle] = [],
         localizedStrings: LocalizedStrings = LocalizedStrings()
     ) {
@@ -99,6 +101,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         self.referencedArticles = referencedArticles
         self.nextGameCountdownString = Self.computeCountdown()
         self.localizedStrings = localizedStrings
+        self.shareScore = shareScore
         startCountdownTimer()
     }
 
@@ -124,7 +127,6 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
 
     // MARK: - Actions
 
-    func shareScore() { onShareScore?() }
     func playArchive() { onPlayArchive?() }
     func logIn() { onLogIn?() }
     func openArticle(_ article: WMFWhichCameFirstResultsArticle) { onOpenArticle?(article) }

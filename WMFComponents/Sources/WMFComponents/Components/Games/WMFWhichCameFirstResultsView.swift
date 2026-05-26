@@ -106,7 +106,7 @@ public struct WMFWhichCameFirstResultsView: View {
             }
 
             Button {
-                viewModel.shareScore()
+                viewModel.shareScore?()
             } label: {
                 HStack(alignment: .center, spacing: 4) {
                     Image(systemName: "square.and.arrow.up")
