@@ -200,7 +200,7 @@ extension WMFGamesDataController {
     private static var gamesAnnouncementExpirationDate: Date {
         var components = DateComponents()
         components.year = 2026
-        components.month = 7
+        components.month = 9
         components.day = 1
         return Calendar.current.date(from: components) ?? Date.distantPast
     }
