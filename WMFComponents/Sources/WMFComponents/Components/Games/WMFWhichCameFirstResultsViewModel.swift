@@ -61,8 +61,8 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
     @Published public var nextGameCountdownString: String
 
     public var localizedStrings: LocalizedStrings
-    public var onLogIn: ( @Sendable () -> Void)?
-    public var shareScore: ( @Sendable () -> Void)?
+    public var onLogIn: ( @MainActor @Sendable () -> Void)?
+    public var shareScore: ( @MainActor @Sendable () -> Void)?
 
     private var timerCancellable: AnyCancellable?
 
@@ -75,8 +75,8 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         currentStreak: Int? = nil,
         bestStreak: Int? = nil,
         averageScore: Int? = nil,
-        shareScore: (@Sendable () -> Void)? = nil,
-        onLogIn: (@Sendable () -> Void)? = nil,
+        shareScore: (@MainActor @Sendable () -> Void)? = nil,
+        onLogIn: (@MainActor @Sendable () -> Void)? = nil,
         localizedStrings: LocalizedStrings = LocalizedStrings()
     ) {
         self.score = score
