@@ -154,6 +154,9 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     private var sessionIdentifier: UUID?
     private var loadTask: Task<Void, Never>?
     private var animationTask: Task<Void, Never>?
+    
+    @Published public var isLoggedIn: Bool = false
+    public var onLogIn: (() -> Void)?
 
     var questions: [WMFWhichCameFirstQuestion] { gameState?.questions ?? [] }
 

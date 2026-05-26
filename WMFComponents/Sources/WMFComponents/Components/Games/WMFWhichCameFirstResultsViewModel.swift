@@ -90,6 +90,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         bestStreak: Int? = nil,
         averageScore: Int? = nil,
         shareScore: (() -> Void)? = nil,
+        onLogIn: (() -> Void)? = nil,
         referencedArticles: [WMFWhichCameFirstResultsArticle] = [],
         localizedStrings: LocalizedStrings = LocalizedStrings()
     ) {
@@ -104,6 +105,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         self.nextGameCountdownString = Self.computeCountdown()
         self.localizedStrings = localizedStrings
         self.shareScore = shareScore
+        self.onLogIn = onLogIn
         startCountdownTimer()
         fetchStats(project: project)
     }
@@ -114,8 +116,8 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
             guard let self else { return }
             guard let stats = try? await dataController.fetchWhichCameFirstStats(project: project) else { return }
             self.gamesPlayed = stats.gamesPlayed
-            self.currentStreak = stats.currentStreak
-            self.bestStreak = stats.bestStreak
+            self.currentStreak = stats.currentStreak > 1 ? stats.currentStreak : nil
+            self.bestStreak = stats.bestStreak > 1 ? stats.bestStreak : nil
             self.averageScore = stats.averageScore
         }
     }
@@ -143,6 +145,5 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
     // MARK: - Actions
 
     func playArchive() { onPlayArchive?() }
-    func logIn() { onLogIn?() }
     func openArticle(_ article: WMFWhichCameFirstResultsArticle) { onOpenArticle?(article) }
 }

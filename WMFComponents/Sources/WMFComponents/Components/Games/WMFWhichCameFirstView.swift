@@ -21,10 +21,35 @@ public struct WMFWhichCameFirstView: View {
         case .presenting, .awaitingSubmission, .revealing, .transitioning:
             gameplayView
         case .complete:
-            // TODO Grey update isLoggedIn
-            WMFWhichCameFirstResultsView(viewModel: WMFWhichCameFirstResultsViewModel(score: viewModel.score, totalQuestions: viewModel.totalQuestions, isLoggedIn: true, project: viewModel.project, shareScore: viewModel.didTapShare, referencedArticles: []))
+            CompleteView(gameViewModel: viewModel)
         case .error(let message):
             errorView(message)
+        }
+    }
+    
+    private struct CompleteView: View {
+        let gameViewModel: WMFWhichCameFirstViewModel
+
+        @StateObject private var resultsViewModel: WMFWhichCameFirstResultsViewModel
+
+        init(gameViewModel: WMFWhichCameFirstViewModel) {
+            self.gameViewModel = gameViewModel
+            self._resultsViewModel = StateObject(wrappedValue: WMFWhichCameFirstResultsViewModel(
+                score: gameViewModel.score,
+                totalQuestions: gameViewModel.totalQuestions,
+                isLoggedIn: gameViewModel.isLoggedIn,
+                project: gameViewModel.project,
+                shareScore: gameViewModel.didTapShare,
+                onLogIn: gameViewModel.onLogIn,
+                referencedArticles: []
+            ))
+        }
+
+        var body: some View {
+            WMFWhichCameFirstResultsView(viewModel: resultsViewModel)
+                .onReceive(gameViewModel.$isLoggedIn) { isLoggedIn in
+                    resultsViewModel.isLoggedIn = isLoggedIn
+                }
         }
     }
 

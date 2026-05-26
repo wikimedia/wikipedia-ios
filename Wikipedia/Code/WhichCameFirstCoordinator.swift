@@ -17,12 +17,13 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     /// The modal navigation controller that hosts the splash screen and game screens.
     private weak var gameNavigationController: UINavigationController?
+    
+    private let dataStore: MWKDataStore
 
-    // MARK: - Initialization
-
-    init(navigationController: UINavigationController, theme: Theme) {
+    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
         self.navigationController = navigationController
         self.theme = theme
+        self.dataStore = dataStore
     }
 
     // MARK: - Coordinator
@@ -81,26 +82,32 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         guard let language = WMFDataEnvironment.current.primaryAppLanguage,
               let gameNav = gameNavigationController else { return }
         let project = WMFProject.wikipedia(language)
+        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         let viewModel = WMFWhichCameFirstViewModel(date: formattedTodayISODateString(), project: project)
         viewModel.didTapShare = { [weak self, weak viewModel] in
             guard let self, let viewModel else { return }
             self.showShare(gameViewModel: viewModel)
         }
+        viewModel.isLoggedIn = isLoggedIn
+        viewModel.onLogIn = { [weak self] in
+            self?.showLogin()
+        }
         let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
         gameNav.setViewControllers([gameVC], animated: true)
     }
-    
-    private func fetchAndInjectStats(into resultsViewModel: WMFWhichCameFirstResultsViewModel) {
-        guard let language = WMFDataEnvironment.current.primaryAppLanguage else { return }
-        let project = WMFProject.wikipedia(language)
 
-        Task {
-            guard let stats = try? await gamesDataController.fetchWhichCameFirstStats(project: project) else { return }
-            resultsViewModel.gamesPlayed = stats.gamesPlayed
-            resultsViewModel.currentStreak = stats.currentStreak
-            resultsViewModel.bestStreak = stats.bestStreak
-            resultsViewModel.averageScore = stats.averageScore
+    private func showLogin() {
+        guard let gameNav = gameNavigationController,
+              let hostingVC = gameNav.viewControllers.first as? WMFWhichCameFirstHostingController else { return }
+        let gameViewModel = hostingVC.viewModel
+        
+        let loginCoordinator = LoginCoordinator(navigationController: gameNav, theme: theme, loggingCategory: .activity)
+        loginCoordinator.loginSuccessCompletion = { [weak self, weak gameViewModel] in
+            guard let self else { return }
+            gameNav.presentedViewController?.dismiss(animated: true)
+            gameViewModel?.isLoggedIn = self.dataStore.authenticationManager.authStateIsPermanent
         }
+        loginCoordinator.start()
     }
 
     private func showShare(gameViewModel: WMFWhichCameFirstViewModel) {

@@ -96,10 +96,11 @@ public struct WMFWhichCameFirstResultsView: View {
                 .multilineTextAlignment(.center)
 
             HStack(spacing: 6) {
-                Image(systemName: "clock")
-                    .font(Font(WMFFont.for(.body)))
-                // Specificlly left as hardcoded color
-                    .foregroundStyle(Color.black)
+                if let image = WMFSFSymbolIcon.for(symbol: .clock, font: .body) {
+                    Image(uiImage: image)
+                    // Specificlly left as hardcoded color
+                        .foregroundStyle(Color.black)
+                }
                 Text(viewModel.localizedStrings.countdownLabel(from: viewModel.nextGameCountdownString))
                     .font(Font(WMFFont.for(.callout)))
                 // Specificlly left as hardcoded color
@@ -142,8 +143,9 @@ public struct WMFWhichCameFirstResultsView: View {
             viewModel.playArchive()
         } label: {
             HStack(spacing: 6) {
-                Image(systemName: "calendar.badge.clock")
-                    .font(Font(WMFFont.for(.semiboldHeadline)))
+                if let image = WMFSFSymbolIcon.for(symbol: .calendarBadgeClock, font: .semiboldHeadline) {
+                    Image(uiImage: image)
+                }
                 Text(viewModel.localizedStrings.playArchiveButton)
                     .font(Font(WMFFont.for(.semiboldHeadline)))
             }
@@ -227,36 +229,39 @@ public struct WMFWhichCameFirstResultsView: View {
     }
 
     private var loggedOutStats: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 8) {
             Text(viewModel.localizedStrings.logInToViewStatsTitle)
                 .font(Font(WMFFont.for(.semiboldSubheadline)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .multilineTextAlignment(.center)
 
             Text(viewModel.localizedStrings.logInToViewStatsBody)
-                .font(Font(WMFFont.for(.footnote)))
-                .foregroundColor(Color(uiColor: theme.secondaryText))
+                .font(Font(WMFFont.for(.subheadline)))
+                .foregroundColor(Color(uiColor: theme.text))
                 .multilineTextAlignment(.center)
 
             Button {
-                viewModel.logIn()
+                viewModel.onLogIn?()
             } label: {
-                HStack(spacing: 6) {
-                    Image(systemName: "person")
+                HStack(spacing: 4) {
+                    if let image = WMFSFSymbolIcon.for(symbol: .personFilled, font: .semiboldSubheadline) {
+                        Image(uiImage: image)
+                    }
                     Text(viewModel.localizedStrings.logInButton)
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
                 }
                 .foregroundColor(Color(uiColor: theme.paperBackground))
-                .padding(.horizontal, 20)
-                .padding(.vertical, 10)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 7)
                 .background(Color(uiColor: theme.link))
                 .clipShape(Capsule())
             }
+            .padding(.top, 8)
         }
         .frame(maxWidth: .infinity)
         .padding(16)
         .background(Color(uiColor: theme.paperBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 
     // MARK: - Articles Section

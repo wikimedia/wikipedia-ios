@@ -164,6 +164,8 @@ public enum WMFSFSymbolIcon {
     case appGiftFill
     case widgetAdd
     case testTubeFill
+    case clock
+    case calendarBadgeClock
 
     public var name: String? {
         switch self {
@@ -408,6 +410,10 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "widget.small.badge.plus", withConfiguration: configuration)
         case .testTubeFill:
             image = UIImage(systemName: "testtube.2", withConfiguration: configuration)
+        case .clock:
+            image = UIImage(systemName: "clock", withConfiguration: configuration)
+        case .calendarBadgeClock:
+            image = UIImage(systemName: "calendar.badge.clock", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
