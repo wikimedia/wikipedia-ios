@@ -122,6 +122,11 @@ import CocoaLumberjackSwift
         
         let encoder = JSONEncoder()
         for event in events {
+            
+#if DEBUG
+            encoder.outputFormatting = .prettyPrinted
+#endif
+            
             guard let data = try? encoder.encode(event) else {
                 DDLogError("TestKitchenAdapter: Failed to encode event")
                 continue
@@ -131,8 +136,8 @@ import CocoaLumberjackSwift
             // Convert to loose dictionary so we can sort keys and print that way.
             if let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 let printablePayload = PrintableEventPayload(payload: dict)
-                debugPrint("\n\n🧑‍🍳TestKitchen: Scheduling event to be sent to \(event.schema):")
-                debugPrint("\(printablePayload)")
+                print("\n\n🧑‍🍳TestKitchen: Scheduling event to be sent to \(event.schema):")
+                print("\(printablePayload)")
             }
 #endif
             
