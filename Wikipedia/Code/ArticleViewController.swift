@@ -507,7 +507,14 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
     }
 
-    /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
+    /// Modal presentation priority chain for the Article view:
+    ///   1. Reading challenge  →  if shown, stop.
+    ///   2. Year in Review     →  if shown, stop.
+    ///   3. Fundraising        →  if shown, stop.
+    ///   4. Games announcement →  shown only when all of the above decline.
+    ///
+    /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
+    /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
         
         // Do not replace an in-flight reading challenge coordinator.
@@ -515,7 +522,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             return
         }
         
-        // Prioritize reading challenge, then fall back to Activity onboarding or survey view if that doesn't present
+        // Prioritize reading challenge, then fall back to year in review or fundraising
         guard let navigationController else {
             presentYearInReviewAnnouncementOrFundraisingIfNeeded()
             return
@@ -539,7 +546,57 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         
         readingChallengeCoordinator.start()
     }
+
+    /// Called at the tail of the modal chain (after RC, YIR, and fundraising have all declined).
+    /// If something unexpected appears before the async check resolves (e.g. background login/2FA),
+    /// the safety-net guard on presentedViewController drops the attempt and defers to next launch.
+    private func presentGamesAnnouncementIfNeeded() {
+        let gamesDataController = WMFGamesDataController()
+        let todayDateString = todayDateString()
+
+        Task { [weak self] in
+            guard let self else { return }
+            guard await gamesDataController.shouldShowGamesAnnouncement(date: todayDateString) else { return }
+            // Safety net: bail if something unexpected appeared (e.g. background login/2FA).
+            guard self.presentedViewController == nil else { return }
+            self.presentGamesAnnouncementAlert(gamesDataController: gamesDataController)
+        }
+    }
+
+    private func presentGamesAnnouncementAlert(gamesDataController: WMFGamesDataController) {
+        guard let navigationController else { return }
+
+        let alert = UIAlertController(
+            title: WMFLocalizedString("games-announcement-title", value: "Play \"Which came first?\"", comment: "Title for the games announcement action sheet."),
+            message: WMFLocalizedString("games-announcement-message", value: "A new trivia game has arrived, based on Wikipedia content. Guess which event came first in history.", comment: "Message body for the games announcement action sheet."),
+            preferredStyle: .actionSheet
+        )
+
+        alert.addAction(UIAlertAction(title: WMFLocalizedString("games-announcement-play-button", value: "Play", comment: "Play button title for the games announcement action sheet."), style: .default) { [weak self] _ in
+            guard let self else { return }
+            gamesDataController.markGamesAnnouncementSeen()
+            let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: self.theme)
+            coordinator.start()
+        })
+
+        alert.addAction(UIAlertAction(title: WMFLocalizedString("games-announcement-maybe-later-button", value: "Maybe later", comment: "Dismiss button title for the games announcement action sheet."), style: .default) { _ in
+            gamesDataController.markGamesAnnouncementSeen()
+        })
+
+        if let popover = alert.popoverPresentationController {
+            popover.sourceView = navigationController.view
+            popover.sourceRect = CGRect(x: navigationController.view.bounds.midX, y: navigationController.view.bounds.midY, width: 0, height: 0)
+            popover.permittedArrowDirections = []
+        }
+
+        navigationController.present(alert, animated: true)
+    }
     
+    private func todayDateString() -> String {
+        let formatter = DateFormatter.onThisDayAPIDateFormatter
+        return formatter.string(from: Date())
+    }
+
     private func presentYearInReviewAnnouncementOrFundraisingIfNeeded() {
         listenForTooltips()
         
@@ -547,10 +604,12 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             willDisplayYearInReviewModal = true
             updateProfileButton()
             presentYearInReviewAnnouncement()
-
+            // YIR showed — games deferred to next launch.
         } else {
             willDisplayYearInReviewModal = false
-            showFundraisingCampaignAnnouncementIfNeeded()
+            showFundraisingCampaignAnnouncementIfNeeded(onNothingShown: { [weak self] in
+                self?.presentGamesAnnouncementIfNeeded()
+            })
         }
     }
     

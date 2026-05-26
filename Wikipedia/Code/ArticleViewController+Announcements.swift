@@ -6,12 +6,13 @@ import WMFNativeLocalizations
 
 extension ArticleViewController {
 
-    func showFundraisingCampaignAnnouncementIfNeeded() {
+    func showFundraisingCampaignAnnouncementIfNeeded(onNothingShown: (() -> Void)? = nil) {
 
         guard let countryCode = Locale.current.region?.identifier,
            let wikimediaProject = WikimediaProject(siteURL: articleURL),
            let wmfProject = wikimediaProject.wmfProject else {
             willDisplayCampaignModal = false
+            onNothingShown?()
             return
         }
 
@@ -22,6 +23,7 @@ extension ArticleViewController {
 
             guard let activeCampaignAsset = fundraisingDataController.loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: .now) else {
                 willDisplayCampaignModal = false
+                onNothingShown?()
                 return
             }
 
@@ -33,11 +35,13 @@ extension ArticleViewController {
 
             guard isOptedIn else {
                 willDisplayCampaignModal = false
+                onNothingShown?()
                 return
             }
 
             guard !userDonatedWithinLast250Days() else {
                 willDisplayCampaignModal = false
+                onNothingShown?()
                 return
             }
 

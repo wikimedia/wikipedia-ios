@@ -645,6 +645,10 @@
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
 "forgot-password-title" = "Reset password";
 "forgot-password-username-or-email-title" = "Or";
+"games-announcement-maybe-later-button" = "Maybe later";
+"games-announcement-message" = "A new trivia game has arrived, based on Wikipedia content. Guess which event came first in history.";
+"games-announcement-play-button" = "Play";
+"games-announcement-title" = "Play \"Which came first?\"";
 "games-wcf-button-play-title" = "Play today's game";
 "games-wcf-explore-button-archive-title" = "Play the archive";
 "games-wcf-explore-button-review-title" = "Review results";

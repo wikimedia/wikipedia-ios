@@ -194,6 +194,49 @@ extension WMFGamesDataController {
     static let whichCameFirstGameType = "which-came-first"
     public static let whichCameFirstQuestionCount = 5
 
+    // MARK: - Games Announcement
+
+    /// Expiration date for the games announcement (July 1, 2026 UTC).
+    private static var gamesAnnouncementExpirationDate: Date {
+        var components = DateComponents()
+        components.year = 2026
+        components.month = 7
+        components.day = 1
+        return Calendar.current.date(from: components) ?? Date.distantPast
+    }
+
+    private var hasSeenGamesAnnouncement: Bool {
+        get { UserDefaults.standard.bool(forKey: WMFUserDefaultsKey.hasSeenGamesAnnouncement.rawValue) }
+        set { UserDefaults.standard.set(newValue, forKey: WMFUserDefaultsKey.hasSeenGamesAnnouncement.rawValue) }
+    }
+
+    public func markGamesAnnouncementSeen() {
+        hasSeenGamesAnnouncement = true
+    }
+
+    public func resetAnnouncementSeen() {
+        hasSeenGamesAnnouncement = false
+    }
+
+    /// Returns true if the games announcement should be shown.
+    /// Checks: not yet seen, not past expiration, games feature enabled, and game available in at least one app language.
+    public func shouldShowGamesAnnouncement(date: String) async -> Bool {
+        guard !hasSeenGamesAnnouncement else { return false }
+        guard Date() < Self.gamesAnnouncementExpirationDate else { return false }
+        guard WMFDeveloperSettingsDataController.shared.showGamesV1 else { return false }
+
+        let appLanguages = WMFDataEnvironment.current.appData.appLanguages
+        guard !appLanguages.isEmpty else { return false }
+
+        for language in appLanguages {
+            let project = WMFProject.wikipedia(language)
+            if (try? await isWhichCameFirstDailySessionAvailable(date: date, project: project)) == true {
+                return true
+            }
+        }
+        return false
+    }
+
     public func isWhichCameFirstDailySessionAvailable(date: String, project: WMFProject, onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared) async throws -> Bool {
 
         // Already have a session for this date — definitely available
