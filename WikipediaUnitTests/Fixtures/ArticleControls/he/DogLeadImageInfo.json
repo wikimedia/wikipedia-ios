@@ -1,0 +1,40 @@
+{
+  "continue": {
+    "iistart": "2012-11-04T00:04:45Z",
+    "continue": "||"
+  },
+  "query": {
+    "normalized": [
+      {
+        "from": "קובץ:Collage_of_Nine_Dogs.jpg",
+        "to": "קובץ:Collage of Nine Dogs.jpg"
+      }
+    ],
+    "pages": {
+      "-1": {
+        "ns": 6,
+        "title": "קובץ:Collage of Nine Dogs.jpg",
+        "missing": "",
+        "known": "",
+        "imagerepository": "shared",
+        "imageinfo": [
+          {
+            "size": 2330812,
+            "width": 1665,
+            "height": 1463,
+            "thumburl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Collage_of_Nine_Dogs.jpg/500px-Collage_of_Nine_Dogs.jpg",
+            "thumbwidth": 500,
+            "thumbheight": 439,
+            "responsiveUrls": {
+              "2": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Collage_of_Nine_Dogs.jpg/1280px-Collage_of_Nine_Dogs.jpg"
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Collage_of_Nine_Dogs.jpg",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Collage_of_Nine_Dogs.jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=10793219",
+            "mime": "image/jpeg"
+          }
+        ]
+      }
+    }
+  }
+}

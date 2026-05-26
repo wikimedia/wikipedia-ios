@@ -1,0 +1,37 @@
+{
+  "batchcomplete": "",
+  "query": {
+    "normalized": [
+      {
+        "from": "Datei:Anatomy_dog.png",
+        "to": "Datei:Anatomy dog.png"
+      }
+    ],
+    "pages": {
+      "-1": {
+        "ns": 6,
+        "title": "Datei:Anatomy dog.png",
+        "missing": "",
+        "known": "",
+        "imagerepository": "shared",
+        "imageinfo": [
+          {
+            "size": 191321,
+            "width": 1200,
+            "height": 800,
+            "thumburl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Anatomy_dog.png/500px-Anatomy_dog.png",
+            "thumbwidth": 500,
+            "thumbheight": 333,
+            "responsiveUrls": {
+              "2": "https://upload.wikimedia.org/wikipedia/commons/3/38/Anatomy_dog.png"
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/3/38/Anatomy_dog.png",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Anatomy_dog.png",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=830187",
+            "mime": "image/png"
+          }
+        ]
+      }
+    }
+  }
+}

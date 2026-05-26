@@ -1,0 +1,37 @@
+{
+  "batchcomplete": "",
+  "query": {
+    "normalized": [
+      {
+        "from": "Tập_tin:Mix_breed_dog.jpg",
+        "to": "Tập tin:Mix breed dog.jpg"
+      }
+    ],
+    "pages": {
+      "-1": {
+        "ns": 6,
+        "title": "Tập tin:Mix breed dog.jpg",
+        "missing": "",
+        "known": "",
+        "imagerepository": "shared",
+        "imageinfo": [
+          {
+            "size": 447098,
+            "width": 1600,
+            "height": 1067,
+            "thumburl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Mix_breed_dog.jpg/500px-Mix_breed_dog.jpg",
+            "thumbwidth": 500,
+            "thumbheight": 333,
+            "responsiveUrls": {
+              "2": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Mix_breed_dog.jpg/1280px-Mix_breed_dog.jpg"
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/8/85/Mix_breed_dog.jpg",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Mix_breed_dog.jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=321115",
+            "mime": "image/jpeg"
+          }
+        ]
+      }
+    }
+  }
+}
