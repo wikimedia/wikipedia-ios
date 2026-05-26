@@ -249,6 +249,11 @@
     XCTAssert([WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/5/55/Charles_Vanderhoop%2C_Jr.%2C_Gay_Head_Light_Assistant_Keeper%2C_with_visiting_island_school_children.TIFF", 800) isEqualToString:@"https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Charles_Vanderhoop%2C_Jr.%2C_Gay_Head_Light_Assistant_Keeper%2C_with_visiting_island_school_children.TIFF/lossy-page1-800px-Charles_Vanderhoop%2C_Jr.%2C_Gay_Head_Light_Assistant_Keeper%2C_with_visiting_island_school_children.TIFF.jpg"]);
 }
 
+- (void)testOriginalImageURLStringFromThumbURLWithQueryItems {
+    NSString *result = WMFOriginalImageURLStringFromURLString(@"//upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Ben%26Ben_in_2018_2.png/960px-Ben%26Ben_in_2018_2.png?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=thumbnail");
+    XCTAssert([result isEqualToString:@"//upload.wikimedia.org/wikipedia/commons/a/ab/Ben%26Ben_in_2018_2.png?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=thumbnail"]);
+}
+
 - (void)testSizePrefixChangeOnOriginalURLWithQueryItems {
     NSString *result = WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/a/ab/Ben%26Ben_in_2018_2.png?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original", 1280);
     XCTAssert([result isEqualToString:@"//upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Ben%26Ben_in_2018_2.png/1280px-Ben%26Ben_in_2018_2.png?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original"]);

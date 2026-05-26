@@ -244,6 +244,11 @@ public struct WMFWhichCameFirstView: View {
                 .foregroundColor(Color(uiColor: theme.secondaryText))
                 .multilineTextAlignment(.center)
 
+            WMFLargeButton(style: .primary, title: "Share (temp)") {
+                viewModel.didTapShare?()
+            }
+            .padding(.horizontal, 16)
+
             Spacer()
         }
         .padding()
@@ -277,11 +282,10 @@ public struct WMFWhichCameFirstView: View {
                 .foregroundColor(Color(uiColor: theme.secondaryText))
                 .multilineTextAlignment(.center)
 
-            Button(viewModel.localizedStrings.retryButton) {
+            WMFLargeButton(style: .primary, title: viewModel.localizedStrings.retryButton) {
                 viewModel.load()
             }
-            .buttonStyle(WMFGameButtonStyle(theme: theme))
-            .minimumScaleFactor(0.3)
+            .padding(.horizontal, 16)
         }
         .padding()
     }
@@ -342,20 +346,4 @@ private struct ProgressDotsView: View {
     }
 }
 
-// MARK: - Button Style
 
-struct WMFGameButtonStyle: ButtonStyle {
-
-    let theme: WMFTheme
-
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(Font(WMFFont.for(.semiboldSubheadline)))
-            .foregroundColor(Color(uiColor: theme.paperBackground))
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 14)
-            .background(Color(uiColor: theme.link))
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .opacity(configuration.isPressed ? 0.8 : 1.0)
-    }
-}
