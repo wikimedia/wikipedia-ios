@@ -1539,6 +1539,9 @@
 "which-came-first-next-button" = "Button label to advance to the next question in the Which Came First game";
 "which-came-first-retry-button" = "Button label to retry loading the Which Came First game after an error";
 "which-came-first-see-results-button" = "Button label shown after the final question to view the game results";
+"which-came-first-share-activity-text" = "Text shared when a user shares the Which Came First game via Messages, Notes, or other text-based share targets.";
+"which-came-first-share-score-summary" = "Score summary text on the Which Came First share image. $1 is the user's score, $2 is the total number of questions.";
+"which-came-first-share-topics-title" = "Header label above the list of article topics on the Which Came First share image.";
 "which-came-first-splash-about-button" = "Button title to learn more about the Which Came First game.";
 "which-came-first-splash-continue-button" = "Button title to continue an in-progress Which Came First game.";
 "which-came-first-splash-review-button" = "Button title to review results of a completed Which Came First game.";

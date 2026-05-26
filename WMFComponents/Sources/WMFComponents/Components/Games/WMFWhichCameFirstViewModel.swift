@@ -83,7 +83,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
 
     @Published var phase: Phase = .loading
     @Published var currentIndex: Int = 0
-    @Published var score: Int = 0
+    @Published public var score: Int = 0
     @Published var cardViewModelA: WMFWhichCameFirstCardViewModel?
     @Published var cardViewModelB: WMFWhichCameFirstCardViewModel?
     @Published var revealState: RevealState?
@@ -117,11 +117,43 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         return String.localizedStringWithFormat(format, currentIndex + 1, totalQuestions)
     }
     
+    public var didTapShare: (@MainActor @Sendable () -> Void)?
+
+    public func makeShareArticleEvents() -> [(event: WMFWhichCameFirstEvent, project: WMFProject)]? {
+        guard let state = gameState else { return nil }
+        return state.questions.compactMap { question in
+            guard let event = selectedEvent(from: question) else { return nil }
+            return (event: event, project: project)
+        }
+    }
+
+    public func makeShareQuestionResults() -> [Bool]? {
+        guard !progressResults.isEmpty else { return nil }
+        return progressResults.map { $0 ?? false }
+    }
+
+    private func selectedEvent(from question: WMFWhichCameFirstQuestion) -> WMFWhichCameFirstEvent? {
+        let a = question.optionA
+        let b = question.optionB
+        let aHasImage = a.thumbnailURL != nil
+        let bHasImage = b.thumbnailURL != nil
+
+        switch (aHasImage, bHasImage) {
+        case (true, false):
+            return a
+        case (false, true):
+            return b
+        default:
+            return Bool.random() ? a : b
+        }
+    }
+
     private let project: WMFProject
     private let dataController: WMFGamesDataController
     private var gameState: WMFWhichCameFirstGameState?
     private var sessionIdentifier: UUID?
     private var loadTask: Task<Void, Never>?
+    private var animationTask: Task<Void, Never>?
 
     var questions: [WMFWhichCameFirstQuestion] { gameState?.questions ?? [] }
 
@@ -130,7 +162,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         return questions[currentIndex]
     }
 
-    var totalQuestions: Int { questions.count }
+    public var totalQuestions: Int { questions.count }
 
     public init(date: String, project: WMFProject) {
         self.date = date
@@ -140,6 +172,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
 
     func load() {
         loadTask?.cancel()
+        animationTask?.cancel()
         phase = .loading
         loadTask = Task {
             do {
@@ -190,7 +223,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         loadTask?.cancel()
         loadTask = Task {
             do {
-                let result = try await dataController.submitWhichCameFirstAnswer(
+                _ = try await dataController.submitWhichCameFirstAnswer(
                     sessionIdentifier: sessionID,
                     questionIdentifier: question.id,
                     pickedOption: picked.rawValue
@@ -216,7 +249,9 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
             : localizedStrings.incorrectFeedback
 
         // Delay so VoiceOver reads after the reveal UI has settled
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        Task { [weak self] in
+            guard self != nil else { return }
+            try? await Task.sleep(for: .milliseconds(500))
             UIAccessibility.post(notification: .announcement, argument: announcement)
         }
     }
@@ -228,9 +263,10 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
             showCardA = false
             showCardB = false
         }
-        Task {
+        animationTask?.cancel()
+        animationTask = Task { [weak self] in
             try? await Task.sleep(for: .milliseconds(750))
-            advanceInternal()
+            self?.advanceInternal()
         }
     }
 
@@ -253,13 +289,15 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         showTitle = false
         showCardA = false
         showCardB = false
-        Task {
+        animationTask?.cancel()
+        animationTask = Task { [weak self] in
+            guard let self else { return }
             try? await Task.sleep(for: .milliseconds(50))
-            withAnimation(.easeIn(duration: 0.75)) { showTitle = true }
+            withAnimation(.easeIn(duration: 0.75)) { self.showTitle = true }
             try? await Task.sleep(for: .milliseconds(150))
-            withAnimation(.spring(response: 0.75, dampingFraction: 0.8)) { showCardA = true }
+            withAnimation(.spring(response: 0.75, dampingFraction: 0.8)) { self.showCardA = true }
             try? await Task.sleep(for: .milliseconds(450))
-            withAnimation(.spring(response: 0.75, dampingFraction: 0.8)) { showCardB = true }
+            withAnimation(.spring(response: 0.75, dampingFraction: 0.8)) { self.showCardB = true }
         }
     }
 
@@ -269,7 +307,10 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         cardViewModelB = WMFWhichCameFirstCardViewModel(event: question.optionB.cardEvent)
     }
 
-    deinit { loadTask?.cancel() }
+    deinit {
+        loadTask?.cancel()
+        animationTask?.cancel()
+    }
 }
 
 private extension WMFWhichCameFirstEvent {
