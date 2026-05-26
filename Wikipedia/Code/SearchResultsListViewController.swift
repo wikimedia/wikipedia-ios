@@ -1,5 +1,6 @@
 import UIKit
 import WMF
+import WMFComponents
 import WMFNativeLocalizations
 
 class SearchResultsListViewController: ArticleCollectionViewController {
@@ -106,6 +107,7 @@ class SearchResultsListViewController: ArticleCollectionViewController {
             cell.configureForCompactList(at: indexPath.item)
         }
 
+        cell.accessibilityIdentifier = AccessibilityIdentifiers.Search.result(result.displayTitle ?? result.title ?? "")
         cell.setTitleHTML(result.displayTitleHTML, boldedString: resultsInfo?.searchTerm)
         cell.articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
         cell.titleLabel.accessibilityLanguage = languageCode

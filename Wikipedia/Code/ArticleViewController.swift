@@ -314,6 +314,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.accessibilityIgnoresInvertColors = true
+        imageView.accessibilityIdentifier = AccessibilityIdentifiers.Article.leadImage
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(userDidTapLeadImage))
         imageView.addGestureRecognizer(tapGR)
         return imageView
