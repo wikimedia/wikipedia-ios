@@ -5,7 +5,7 @@ import WMFNativeLocalizations
 import WMFData
 
 @MainActor
-public final class WMFWhichCameFirstResultsViewModel: ObservableObject, @unchecked Sendable {
+public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
 
     public struct LocalizedStrings {
         public let shareScoreButton: String
@@ -61,8 +61,8 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject, @uncheck
     @Published public var nextGameCountdownString: String
 
     public var localizedStrings: LocalizedStrings
-    public var onLogIn: (@MainActor @Sendable () -> Void)?
-    public var shareScore: (@MainActor @Sendable () -> Void)?
+    public var onLogIn: ( @Sendable () -> Void)?
+    public var shareScore: ( @Sendable () -> Void)?
 
     private var timerCancellable: AnyCancellable?
 
@@ -100,8 +100,8 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject, @uncheck
             guard let self else { return }
             guard let stats = try? await dataController.fetchWhichCameFirstStats(project: project) else { return }
             self.gamesPlayed = stats.gamesPlayed
-            self.currentStreak = stats.currentStreak > 1 ? stats.currentStreak : nil
-            self.bestStreak = stats.bestStreak > 1 ? stats.bestStreak : nil
+            self.currentStreak = stats.currentStreak > 0 ? stats.currentStreak : nil
+            self.bestStreak = stats.bestStreak > 0 ? stats.bestStreak : nil
             self.averageScore = stats.averageScore
         }
     }

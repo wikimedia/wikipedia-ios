@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
-public class WMFGamesDataController: @unchecked Sendable {
+public class WMFGamesDataController {
 
     // MARK: - Nested Types
 
