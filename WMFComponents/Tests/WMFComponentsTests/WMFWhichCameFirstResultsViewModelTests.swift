@@ -24,7 +24,7 @@ final class WMFWhichCameFirstResultsViewModelTests: XCTestCase {
         gamesPlayed: Int? = nil,
         currentStreak: Int? = nil,
         bestStreak: Int? = nil,
-        averageScore: Int? = nil
+        averageScore: Double? = nil
     ) -> WMFWhichCameFirstResultsViewModel {
         WMFWhichCameFirstResultsViewModel(
             score: score,
