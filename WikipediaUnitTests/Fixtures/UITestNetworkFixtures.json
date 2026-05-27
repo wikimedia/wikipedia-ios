@@ -81,6 +81,21 @@
     "path": "/w/api.php",
     "queryItems": {
       "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Canis"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/en/CanisSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
       "generator": "prefixsearch"
     },
     "statusCode": 200,
@@ -203,20 +218,6 @@
       "Content-Type": "application/json"
     },
     "bodyResource": "ArticleControls/en/PCSI18N.json"
-  },
-  {
-    "method": "GET",
-    "host": "en.wikipedia.org",
-    "path": "/w/api.php",
-    "queryItems": {
-      "action": "query",
-      "titles": "File:Collage_of_Nine_Dogs.jpg"
-    },
-    "statusCode": 200,
-    "headers": {
-      "Content-Type": "application/json"
-    },
-    "bodyResource": "ArticleControls/en/DogLeadImageInfo.json"
   },
   {
     "method": "GET",
@@ -478,62 +479,6 @@
   },
   {
     "method": "GET",
-    "host": "de.wikipedia.org",
-    "path": "/w/api.php",
-    "queryItems": {
-      "action": "query",
-      "titles": "Datei:Harzer_Fuchs_Hündin_2.jpg"
-    },
-    "statusCode": 200,
-    "headers": {
-      "Content-Type": "application/json"
-    },
-    "bodyResource": "ArticleControls/de/DogLeadImageInfo.json"
-  },
-  {
-    "method": "GET",
-    "host": "de.wikipedia.org",
-    "path": "/w/api.php",
-    "queryItems": {
-      "action": "query",
-      "titles": "Datei:Harzer Fuchs Hündin 2.jpg"
-    },
-    "statusCode": 200,
-    "headers": {
-      "Content-Type": "application/json"
-    },
-    "bodyResource": "ArticleControls/de/DogLeadImageInfo.json"
-  },
-  {
-    "method": "GET",
-    "host": "de.wikipedia.org",
-    "path": "/w/api.php",
-    "queryItems": {
-      "action": "query",
-      "titles": "Datei:Anatomy_dog.png"
-    },
-    "statusCode": 200,
-    "headers": {
-      "Content-Type": "application/json"
-    },
-    "bodyResource": "ArticleControls/de/DogNonLeadImageInfo.json"
-  },
-  {
-    "method": "GET",
-    "host": "de.wikipedia.org",
-    "path": "/w/api.php",
-    "queryItems": {
-      "action": "query",
-      "titles": "Datei:Anatomy dog.png"
-    },
-    "statusCode": 200,
-    "headers": {
-      "Content-Type": "application/json"
-    },
-    "bodyResource": "ArticleControls/de/DogNonLeadImageInfo.json"
-  },
-  {
-    "method": "GET",
     "host": "he.wikipedia.org",
     "pathPrefix": "/api/rest_v1/feed/featured/",
     "statusCode": 200,
@@ -715,34 +660,6 @@
       "Content-Type": "application/json"
     },
     "bodyResource": "ArticleControls/he/PCSI18N.json"
-  },
-  {
-    "method": "GET",
-    "host": "he.wikipedia.org",
-    "path": "/w/api.php",
-    "queryItems": {
-      "action": "query",
-      "titles": "קובץ:Collage_of_Nine_Dogs.jpg"
-    },
-    "statusCode": 200,
-    "headers": {
-      "Content-Type": "application/json"
-    },
-    "bodyResource": "ArticleControls/he/DogLeadImageInfo.json"
-  },
-  {
-    "method": "GET",
-    "host": "he.wikipedia.org",
-    "path": "/w/api.php",
-    "queryItems": {
-      "action": "query",
-      "titles": "קובץ:Collage of Nine Dogs.jpg"
-    },
-    "statusCode": 200,
-    "headers": {
-      "Content-Type": "application/json"
-    },
-    "bodyResource": "ArticleControls/he/DogLeadImageInfo.json"
   },
   {
     "method": "GET",
@@ -948,34 +865,6 @@
     "path": "/w/api.php",
     "queryItems": {
       "action": "query",
-      "titles": "Tập tin:Collage of Nine Dogs.jpg"
-    },
-    "statusCode": 200,
-    "headers": {
-      "Content-Type": "application/json"
-    },
-    "bodyResource": "ArticleControls/vi/DogLeadImageInfo.json"
-  },
-  {
-    "method": "GET",
-    "host": "vi.wikipedia.org",
-    "path": "/w/api.php",
-    "queryItems": {
-      "action": "query",
-      "titles": "Tập_tin:Collage_of_Nine_Dogs.jpg"
-    },
-    "statusCode": 200,
-    "headers": {
-      "Content-Type": "application/json"
-    },
-    "bodyResource": "ArticleControls/vi/DogLeadImageInfo.json"
-  },
-  {
-    "method": "GET",
-    "host": "vi.wikipedia.org",
-    "path": "/w/api.php",
-    "queryItems": {
-      "action": "query",
       "titles": "Tập tin:Mix breed dog.jpg"
     },
     "statusCode": 200,
@@ -1017,16 +906,6 @@
       "Content-Type": "image/jpeg"
     },
     "bodyResource": "ArticleControls/de/HarzerFuchsHuendin2.jpg"
-  },
-  {
-    "method": "GET",
-    "host": "upload.wikimedia.org",
-    "pathSuffix": "Anatomy_dog.png",
-    "statusCode": 200,
-    "headers": {
-      "Content-Type": "image/png"
-    },
-    "bodyResource": "ArticleControls/de/AnatomyDog.png"
   },
   {
     "method": "GET",
