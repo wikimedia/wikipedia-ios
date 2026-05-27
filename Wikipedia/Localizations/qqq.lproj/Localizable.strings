@@ -645,6 +645,13 @@
 "forgot-password-instructions" = "Instructions for resetting password";
 "forgot-password-title" = "Title for reset password interface {{Identical|Reset password}}";
 "forgot-password-username-or-email-title" = "Title shown between the username and email text fields. User only has to specify either username \"Or\" email address {{Identical|Or}}";
+"games-email-report-body-behavior" = "Line in the problem report email asking the user to describe the desired behavior.";
+"games-email-report-body-describe-problem" = "Placeholder in the problem report email where the user describes the specific problem they encountered.";
+"games-email-report-body-encountered" = "Opening line of the problem report email body for the Wikipedia games feature.";
+"games-email-report-body-solution" = "Placeholder in the problem report email where the user describes their proposed solution.";
+"games-email-report-subject" = "Email subject line for reporting a problem with the Wikipedia games feature.";
+"games-overflow-menu-learn-more" = "Menu item in the games overflow menu that opens a page with more information about the game.";
+"games-overflow-menu-report-problem" = "Menu item in the games overflow menu that lets the user report a problem with the feature.";
 "games-wcf-button-play-title" = "Button text on Which Came First card in the Explore tab and in the game splash screen, shown when game is not started. Tapping navigates to the Which Came First game.";
 "games-wcf-explore-button-archive-title" = "Button text on Which Came First card in the Explore tab, shown when game is complete. Tapping navigates to the Which Came First archive picker.";
 "games-wcf-explore-button-review-title" = "Button text on Which Came First card in the Explore tab, shown when game is complete. Tapping navigates to the results of the game.";

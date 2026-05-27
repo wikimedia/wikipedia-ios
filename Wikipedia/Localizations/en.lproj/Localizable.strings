@@ -645,6 +645,13 @@
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
 "forgot-password-title" = "Reset password";
 "forgot-password-username-or-email-title" = "Or";
+"games-email-report-body-behavior" = "The behavior I would like to see is:";
+"games-email-report-body-describe-problem" = "[Describe specific problem]";
+"games-email-report-body-encountered" = "I have encountered a problem with the Wikipedia games feature:";
+"games-email-report-body-solution" = "[Describe proposed solution]";
+"games-email-report-subject" = "Issue Report - Wikipedia games";
+"games-overflow-menu-learn-more" = "Learn more";
+"games-overflow-menu-report-problem" = "Problem with feature";
 "games-wcf-button-play-title" = "Play today's game";
 "games-wcf-explore-button-archive-title" = "Play the archive";
 "games-wcf-explore-button-review-title" = "Review results";

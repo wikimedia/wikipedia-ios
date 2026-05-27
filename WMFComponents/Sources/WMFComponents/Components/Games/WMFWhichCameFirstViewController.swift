@@ -26,8 +26,19 @@ public final class WMFWhichCameFirstHostingController: WMFComponentHostingContro
     }()
 
     private var overflowMenu: UIMenu {
-        // todo
-        return UIMenu(title: String(), options: .displayInline, children: [])
+        let learnMoreAction = UIAction(
+            title: WMFLocalizedString("games-overflow-menu-learn-more", value: "Learn more", comment: "Menu item in the games overflow menu that opens a page with more information about the game."),
+            image: WMFSFSymbolIcon.for(symbol: .infoCircle)
+        ) { [weak self] _ in
+            self?.viewModel.didTapLearnMore?()
+        }
+        let reportProblemAction = UIAction(
+            title: WMFLocalizedString("games-overflow-menu-report-problem", value: "Problem with feature", comment: "Menu item in the games overflow menu that lets the user report a problem with the feature."),
+            image: WMFSFSymbolIcon.for(symbol: .flag)
+        ) { [weak self] _ in
+            self?.viewModel.didTapReportProblem?()
+        }
+        return UIMenu(title: String(), options: .displayInline, children: [learnMoreAction, reportProblemAction])
     }
 
     public init(viewModel: WMFWhichCameFirstViewModel) {
