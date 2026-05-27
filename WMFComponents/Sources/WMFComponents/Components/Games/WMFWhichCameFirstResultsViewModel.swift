@@ -57,14 +57,14 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
     @Published public var gamesPlayed: Int?
     @Published public var currentStreak: Int?
     @Published public var bestStreak: Int?
-    @Published public var averageScore: Int?
+    @Published public var averageScore: Double?
     @Published public var nextGameCountdownString: String
 
     public var localizedStrings: LocalizedStrings
     public var onLogIn: ( @MainActor @Sendable () -> Void)?
     public var shareScore: ( @MainActor @Sendable () -> Void)?
 
-    private var timerCancellable: AnyCancellable?
+    nonisolated(unsafe) private var timerCancellable: AnyCancellable?
 
     public init(
         score: Int,
@@ -74,7 +74,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         gamesPlayed: Int? = nil,
         currentStreak: Int? = nil,
         bestStreak: Int? = nil,
-        averageScore: Int? = nil,
+        averageScore: Double? = nil,
         shareScore: (@MainActor @Sendable () -> Void)? = nil,
         onLogIn: (@MainActor @Sendable () -> Void)? = nil,
         localizedStrings: LocalizedStrings = LocalizedStrings()
@@ -115,8 +115,6 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
                 self?.nextGameCountdownString = Self.computeCountdown()
             }
     }
-
-    deinit { timerCancellable?.cancel() }
 
     private static func computeCountdown() -> String {
         let now = Date()

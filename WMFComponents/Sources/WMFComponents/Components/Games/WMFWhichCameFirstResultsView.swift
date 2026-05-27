@@ -24,6 +24,13 @@ public struct WMFWhichCameFirstResultsView: View {
         dynamicTypeSize.isAccessibilitySize
     }
     
+    private func formattedAverageScore(_ score: Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 1
+        return formatter.string(from: NSNumber(value: score)) ?? "\(score)"
+    }
+    
     public var body: some View {
         GeometryReader { geometry in
             let height = geometry.size.height
@@ -183,7 +190,7 @@ public struct WMFWhichCameFirstResultsView: View {
                     Divider()
                     statCell(
                         symbol: .medal,
-                        value: viewModel.averageScore.map { "\($0)" } ?? "–",
+                        value: viewModel.averageScore.map { formattedAverageScore($0) } ?? "–",
                         label: viewModel.localizedStrings.averageScoreLabel
                     )
                 }
