@@ -133,6 +133,9 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "Le scheda Activitate contine un chronologia comprehensive de articulos legite, salveguardate e modificate. Tu historia de lectura se trova ora in le scheda Cercar.";
 "activity-tab-onboarding-third-item-title-updated" = "Le historia de lectura es ora in Cercar";
 "activity-tab-read-title" = "Vider historia de lectura";
+"activity-tab-reading-challenge-card-body" = "Pro sequer tu serie de progression quotidian con le Globo infante, tu debe adder le widget del Defia de Lectura desde tu schermo de initio.";
+"activity-tab-reading-challenge-card-cta" = "Monstrar me como facer";
+"activity-tab-reading-challenge-card-title" = "Defia de lectura de 25 dies";
 "activity-tab-satisfied" = "Satisfacite";
 "activity-tab-saved" = "Articulos salveguardate iste mense";
 "activity-tab-start-editing" = "Comenciar a modificar";
@@ -530,6 +533,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Active";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Active in $1";
 "explore-feed-preferences-feed-cards-hidden-title" = "Tote le $1 cartas celate";
+"explore-feed-preferences-games-title" = "Monstrar carta Jocos";
 "explore-feed-preferences-global-card-footer-text" = "Iste carta es independente de lingua. Disactivar iste carta lo removera de tu canal Explorar.";
 "explore-feed-preferences-global-cards-description" = "Cartas independente de lingua";
 "explore-feed-preferences-global-cards-subtitle" = "Independente de lingua";
@@ -546,6 +550,7 @@
 "explore-feed-preferences-show-continue-reading-title" = "Monstrar carta Continuar a leger";
 "explore-feed-preferences-show-featured-article-footer-text" = "Disactivar le carta “Articulo eminente” retira iste carta pro tote le linguas disponibile.";
 "explore-feed-preferences-show-featured-article-title" = "Monstrar carta “Articulo eminente”";
+"explore-feed-preferences-show-games-footer-text" = "Disactivar le carta Jocos retira iste carta pro tote le linguas disponibile.";
 "explore-feed-preferences-show-news-footer-text" = "Disactivar le carta “Actualitates” retira iste carta pro tote le linguas disponibile.";
 "explore-feed-preferences-show-news-title" = "Monstrar carta “Actualitates”";
 "explore-feed-preferences-show-on-this-day-footer-text" = "Le disactivation del carta “In iste die” se applica a tote le linguas disponibile.";
@@ -572,6 +577,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Activar Explorar";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Isto reimplaciara le scheda Parametros per le scheda Explorar. Le parametros essera accessibile in alto del scheda Explorar toccante le icone de rota dentate";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Activar le scheda Explorar?";
+"explore-games-title" = "Jocos";
 "explore-hide-card-prompt" = "Celar iste carta";
 "explore-main-page-description" = "Pagina principal de projectos Wikimedia";
 "explore-main-page-heading" = "Hodie sur Wikipedia";
@@ -644,6 +650,11 @@
 "forgot-password-instructions" = "Reimple un del campos infra pro reciper instructiones pro reinitialisar le contrasigno per e-mail";
 "forgot-password-title" = "Reinitialisar contrasigno";
 "forgot-password-username-or-email-title" = "O";
+"games-wcf-button-play-title" = "Jocar le joco de hodie";
+"games-wcf-explore-button-archive-title" = "Jocar jocos archivate";
+"games-wcf-explore-button-review-title" = "Revider resultatos";
+"games-wcf-explore-complete-subtitle" = "Tu score del joco de hodie es $1/$2. Proxime joco in $3)";
+"games-wcf-explore-in-progress-subtitle" = "Tu es al question $1. Continua a divinar qual evento ha evenite primo in iste die del historia.";
 "games-wcf-explore-title" = "Qual ha evenite primo?";
 "gan-variants-alert-body" = "Le application de Wikipedia ora supporta le variantes sequente del gan como linguas primari o secundari in le application, rendente lo plus facile leger, cercar e modificar in tu variantes preferite:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan simplificate (gan-hans)\n贛語 繁體 Gan traditional (gan-hant)";
 "gan-variants-alert-title" = "Actualisationes del supporto de variantes del gan";
@@ -1053,6 +1064,7 @@
 "reading-challenge-announcement-item1-title" = "Lege 1 articulo per die durante 25 dies";
 "reading-challenge-announcement-item2-subtitle" = "Completa un serie de lectura de 25 dies durante que le defia es active pro ganiar premios special.";
 "reading-challenge-announcement-item2-title" = "Gania premios";
+"reading-challenge-announcement-item3-subtitle2" = "Pro sequer tu serie de progression quotidian con le Globo infante, tu debe adder le widget del Defia de Lectura desde tu schermo de initio.";
 "reading-challenge-announcement-item3-title" = "Installar le widget";
 "reading-challenge-announcement-secondary-cta" = "Leger plus";
 "reading-challenge-announcement-subtitle" = "Tu historia de lectura se mantene protegite. Le analyses de lectura se calcula a base de datos immagazinate localmente sur tu apparato.";
@@ -1091,6 +1103,9 @@
 "reading-challenge-streak-no-days" = "$1 de 25";
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 de 25 dies}}";
 "reading-challenge-subtitle" = "Defia de lectura de 25 dies";
+"reading-challenge-widget-announcement-body2" = "Pro sequer tu serie de progression quotidian con le Globo infante, tu debe adder le widget del Defia de Lectura desde tu schermo de initio.";
+"reading-challenge-widget-announcement-secondary-button" = "Monstrar me como facer";
+"reading-challenge-widget-announcement-title2" = "Accede a tu schermo initial pro adder le widget";
 "reading-challenge-widget-description" = "Tracia tu progresso in le defia de lectura.";
 "reading-challenge-widget-display-name" = "Defia de lectura";
 "reading-list-add-generic-hint-title" = "Adder iste articulo a un lista de lectura?";
@@ -1232,6 +1247,8 @@
 "settings-clear-cache-cancel" = "Cancellar";
 "settings-clear-cache-ok" = "Rader cache";
 "settings-donate" = "Donar";
+"settings-explore-games-subtitle" = "Jocos quotidian basate sur le contento de Wikipedia";
+"settings-explore-games-title" = "Jocos de Wikipedia";
 "settings-help-and-feedback" = "Adjuta e commentario";
 "settings-language-bar" = "Monstrar linguas in recerca";
 "settings-languages-feed-customization" = "Tu pote eliger le linguas que appare in tu canal Explorar personalisante tu parametros de canal Explorar.";
@@ -1517,6 +1534,23 @@
 "welcome-languages-search-title" = "Cercar in plus de 300 linguas";
 "welcome-privacy-subtitle" = "Nos crede que non debe esser obligatori fornir informationes personal pro participar al movimento de cognoscentia libere. Le datos de uso colligite pro iste application es anonyme.";
 "welcome-privacy-terms-button-text" = "Leger plus sur nostre politica de confidentialitate e conditiones de uso";
+"which-came-first-correct-answer-a11y" = "Responsa correcte";
+"which-came-first-correct-feedback" = "Correcte!";
+"which-came-first-correct-feedback2" = "+1 puncto";
+"which-came-first-error-title" = "Qualcosa ha vadite mal";
+"which-came-first-footer-a11y" = "Question $1 de $2";
+"which-came-first-incorrect-answer-a11y" = "Responsa incorrecte";
+"which-came-first-incorrect-feedback" = "Incorrecte";
+"which-came-first-next-button" = "Sequente";
+"which-came-first-retry-button" = "Reprobar";
+"which-came-first-see-results-button" = "Vider resultatos";
+"which-came-first-splash-about-button" = "A proposito de iste joco";
+"which-came-first-splash-continue-button" = "Continuar le joco de hodie";
+"which-came-first-splash-review-button" = "Revider resultatos";
+"which-came-first-splash-subtitle" = "Divina qual evento se ha producite primo sur iste die in le historia.";
+"which-came-first-splash-title" = "Qual ha evenite primo?";
+"which-came-first-submit-button" = "Submitter";
+"which-came-first-title" = "Qual ha evenite primo?";
 "widget-onthisday-description" = "Explorar lo que ha evenite in iste die in le historia.";
 "widget-onthisday-placeholder-article-snippet" = "Encyclopedia libere in linea que omnes pote modificar";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, un encyclopedia de contento wiki libere, appare in linea.";
