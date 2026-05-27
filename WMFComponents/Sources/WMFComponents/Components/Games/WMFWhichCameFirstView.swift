@@ -45,10 +45,12 @@ public struct WMFWhichCameFirstView: View {
         }
 
         var body: some View {
-            WMFWhichCameFirstResultsView(viewModel: resultsViewModel)
-                .onReceive(gameViewModel.$isLoggedIn) { isLoggedIn in
-                    resultsViewModel.isLoggedIn = isLoggedIn
-                }
+            if gameViewModel.totalQuestions > 0 {
+                WMFWhichCameFirstResultsView(viewModel: resultsViewModel)
+                    .onReceive(gameViewModel.$isLoggedIn) { isLoggedIn in
+                        resultsViewModel.isLoggedIn = isLoggedIn
+                    }
+            }
         }
     }
 

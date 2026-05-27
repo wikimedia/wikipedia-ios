@@ -64,7 +64,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
     public var onLogIn: ( @MainActor @Sendable () -> Void)?
     public var shareScore: ( @MainActor @Sendable () -> Void)?
 
-    private var timerCancellable: AnyCancellable?
+    nonisolated(unsafe) private var timerCancellable: AnyCancellable?
 
     public init(
         score: Int,
@@ -115,8 +115,6 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
                 self?.nextGameCountdownString = Self.computeCountdown()
             }
     }
-
-    deinit { timerCancellable?.cancel() }
 
     private static func computeCountdown() -> String {
         let now = Date()

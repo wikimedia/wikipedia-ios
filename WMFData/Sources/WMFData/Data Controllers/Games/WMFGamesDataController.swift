@@ -141,7 +141,7 @@ extension WMFGamesDataController {
         public let gamesPlayed: Int
         public let currentStreak: Int
         public let bestStreak: Int
-        public let averageScore: Int
+        public let averageScore: Double
     }
 
     public func fetchWhichCameFirstStats(project: WMFProject) async throws -> WMFWhichCameFirstStats {
@@ -149,9 +149,12 @@ extension WMFGamesDataController {
         let completed = sessions.filter { $0.status == .completed }
 
         let gamesPlayed = completed.count
-        let averageScore = gamesPlayed > 0
-            ? Int(completed.map { Int($0.score) }.reduce(0, +) / gamesPlayed)
-            : 0
+        let totalScore = completed.reduce(0) { $0 + Int($1.score) }
+        let averageScore: Double? = gamesPlayed > 0 ? {
+            let raw = Double(totalScore) / Double(gamesPlayed)
+            let rounded = (raw * 10).rounded() / 10
+            return rounded
+        }() : nil
 
         let sorted = completed
             .compactMap { session -> (date: String, score: Int32)? in
@@ -167,7 +170,7 @@ extension WMFGamesDataController {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.locale = Locale(identifier: "en_US_POSIX")
-
+        
         for entry in sorted {
             if let prev = previousDate,
                let prevDate = formatter.date(from: prev),
@@ -184,10 +187,11 @@ extension WMFGamesDataController {
 
         if let lastDate = sorted.last?.date,
            let last = formatter.date(from: lastDate) {
-            let today = Calendar.current.startOfDay(for: Date())
-            let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)
+            let today = Date()
+            let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
             let lastDay = Calendar.current.startOfDay(for: last)
-            if lastDay != today && lastDay != yesterday {
+            if !Calendar.current.isDate(lastDay, inSameDayAs: today) &&
+               !Calendar.current.isDate(lastDay, inSameDayAs: yesterday) {
                 currentStreak = 0
             }
         } else {
@@ -198,7 +202,7 @@ extension WMFGamesDataController {
             gamesPlayed: gamesPlayed,
             currentStreak: currentStreak,
             bestStreak: bestStreak,
-            averageScore: averageScore
+            averageScore: averageScore ?? 0.0
         )
     }
 

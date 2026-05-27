@@ -102,9 +102,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         let gameViewModel = hostingVC.viewModel
         
         let loginCoordinator = LoginCoordinator(navigationController: gameNav, theme: theme, loggingCategory: .activity)
-        loginCoordinator.loginSuccessCompletion = { [weak self, weak gameViewModel] in
+        loginCoordinator.loginSuccessCompletion = { [weak self, weak gameViewModel, weak gameNav] in
             guard let self else { return }
-            gameNav.presentedViewController?.dismiss(animated: true)
+            gameNav?.presentedViewController?.dismiss(animated: true)
             gameViewModel?.isLoggedIn = self.dataStore.authenticationManager.authStateIsPermanent
         }
         loginCoordinator.start()
