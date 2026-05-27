@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import WMFData
+import WMFNativeLocalizations
 
 /// View model for a single article card shown in the post-game articles summary.
 @MainActor
@@ -70,7 +71,12 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
         public let shareArticleTitle: String
         public let articleTapAccessibility: String
 
-        public init(sectionTitle: String, openArticleTitle: String, shareArticleTitle: String, articleTapAccessibility: String) {
+        public init(
+            sectionTitle: String = WMFLocalizedString("which-came-first-articles-section-title", value: "Articles from today's game", comment: "Section title for the article cards shown after completing the Which Came First game"),
+            openArticleTitle: String = WMFLocalizedString("which-came-first-articles-open-article", value: "Open article", comment: "Context menu action to open an article from the Which Came First results screen"),
+            shareArticleTitle: String = WMFLocalizedString("which-came-first-articles-share-article", value: "Share", comment: "Context menu action to share an article from the Which Came First results screen"),
+            articleTapAccessibility: String = WMFLocalizedString("which-came-first-articles-tap-accessibility", value: "Open article", comment: "Accessibility label for tapping an article card on the Which Came First results screen")
+        ) {
             self.sectionTitle = sectionTitle
             self.openArticleTitle = openArticleTitle
             self.shareArticleTitle = shareArticleTitle
@@ -90,7 +96,7 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
 
     public init(
         articleItems: [WMFWhichCameFirstArticleItemViewModel],
-        localizedStrings: LocalizedStrings,
+        localizedStrings: LocalizedStrings = LocalizedStrings(),
         didTapArticle: ((URL) -> Void)? = nil,
         didShareArticle: ((URL) -> Void)? = nil
     ) {

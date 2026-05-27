@@ -29,7 +29,6 @@ public struct WMFWhichCameFirstArticlesView: View {
             Text(viewModel.localizedStrings.sectionTitle)
                 .font(Font(WMFFont.for(.semiboldHeadline)))
                 .foregroundStyle(Color(uiColor: theme.text))
-                .padding(.horizontal, 16)
 
             LazyVGrid(
                 columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: columnCount),
@@ -99,8 +98,10 @@ public struct WMFWhichCameFirstArticlesView: View {
             .onPreferenceChange(ArticleCardFramePreferenceKey.self) { updates in
                 cellFrames.merge(updates, uniquingKeysWith: { _, new in new })
             }
-            .padding(.horizontal, 8)
         }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 16)
+        .background(Color(uiColor: theme.midBackground))
     }
 }
 

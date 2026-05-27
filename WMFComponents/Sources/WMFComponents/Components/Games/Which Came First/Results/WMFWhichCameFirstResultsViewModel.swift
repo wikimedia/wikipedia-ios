@@ -60,6 +60,8 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
     @Published public var averageScore: Double?
     @Published public var nextGameCountdownString: String
 
+    public let articlesViewModel: WMFWhichCameFirstArticlesViewModel
+
     public var localizedStrings: LocalizedStrings
     public var onLogIn: ( @MainActor @Sendable () -> Void)?
     public var shareScore: ( @MainActor @Sendable () -> Void)?
@@ -71,6 +73,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         totalQuestions: Int,
         isLoggedIn: Bool,
         project: WMFProject,
+        questions: [WMFWhichCameFirstQuestion] = [],
         gamesPlayed: Int? = nil,
         currentStreak: Int? = nil,
         bestStreak: Int? = nil,
@@ -90,6 +93,29 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         self.localizedStrings = localizedStrings
         self.shareScore = shareScore
         self.onLogIn = onLogIn
+
+        var seen = Set<String>()
+        var items: [WMFWhichCameFirstArticleItemViewModel] = []
+        for question in questions {
+            for event in [question.optionA, question.optionB] {
+                guard seen.insert(event.title).inserted else { continue }
+                let articleURL: URL? = {
+                    let titleForURL = event.articleTitle ?? event.title
+                    guard let siteURL = project.siteURL else { return nil }
+                    var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
+                    components?.path = "/wiki/\(titleForURL)"
+                    return components?.url
+                }()
+                items.append(WMFWhichCameFirstArticleItemViewModel(
+                    title: event.title,
+                    date: event.date,
+                    articleURL: articleURL,
+                    thumbnailURL: event.thumbnailURL
+                ))
+            }
+        }
+        self.articlesViewModel = WMFWhichCameFirstArticlesViewModel(articleItems: items)
+
         startCountdownTimer()
         fetchStats(project: project)
     }
