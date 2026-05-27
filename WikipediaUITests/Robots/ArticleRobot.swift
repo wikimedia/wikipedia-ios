@@ -130,7 +130,14 @@ extension ArticleRobot {
 extension ArticleRobot {
     @discardableResult
     func openArticleLinkContextMenu(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        expandQuickFactsIfNeededForArticleLink(file: file, line: line)
+        let articleLink = articleElement(.articleLink, file: file, line: line)
+        pressArticleElement(articleLink, forDuration: 1.2, file: file, line: line)
+        return assertArticleLinkContextMenuVisible(file: file, line: line)
+    }
+
+    @discardableResult
+    func openQuickFactsArticleLinkContextMenu(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        tapArticleElement(.quickFactsTable, file: file, line: line)
         let articleLink = articleElement(.articleLink, file: file, line: line)
         pressArticleElement(articleLink, forDuration: 1.2, file: file, line: line)
         return assertArticleLinkContextMenuVisible(file: file, line: line)
@@ -156,17 +163,9 @@ extension ArticleRobot {
     }
 
     @discardableResult
-    func tapArticleLink(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        expandQuickFactsIfNeededForArticleLink(file: file, line: line)
-        tapArticleElement(.articleLink, file: file, line: line)
-        assertArticleElementExists(matchingLabel: articleControlsFixture.linkedArticleDescription, file: file, line: line)
-        return assertVisible(file: file, line: line)
-    }
-
-    @discardableResult
     func tapQuickFactsTableItem(file: StaticString = #filePath, line: UInt = #line) -> Self {
         tapArticleElement(.quickFactsTable, file: file, line: line)
-        tapArticleElement(quickFactsTableItem, file: file, line: line)
+        tapArticleElement(.quickFactsTableItem, file: file, line: line)
         assertArticleElementExists(matchingLabel: articleControlsFixture.linkedArticleDescription, file: file, line: line)
         return assertVisible(file: file, line: line)
     }
@@ -203,7 +202,6 @@ extension ArticleRobot {
         let linkedArticleDescription: String
         let footerArticleTitle: String
         let contextMenuActionTitles: [String]
-        let articleLinkRequiresQuickFactsExpansion: Bool
     }
 
     static func articleControlsFixture(languageCode: String) -> ArticleControlsFixture? {
@@ -219,8 +217,7 @@ extension ArticleRobot {
                     "Open in new tab",
                     "Open in background tab",
                     "Share…"
-                ],
-                articleLinkRequiresQuickFactsExpansion: false
+                ]
             )
         case "de":
             return ArticleControlsFixture(
@@ -233,8 +230,7 @@ extension ArticleRobot {
                     "In neuem Tab öffnen",
                     "Im Hintergrund-Tab öffnen",
                     "Teilen ..."
-                ],
-                articleLinkRequiresQuickFactsExpansion: true
+                ]
             )
         case "he":
             return ArticleControlsFixture(
@@ -247,8 +243,7 @@ extension ArticleRobot {
                     "פתיחה בלשונית חדשה",
                     "פתיחה בלשונית ברקע",
                     "שיתוף..."
-                ],
-                articleLinkRequiresQuickFactsExpansion: true
+                ]
             )
         case "vi":
             return ArticleControlsFixture(
@@ -261,8 +256,7 @@ extension ArticleRobot {
                     "Mở trong thẻ mới",
                     "Open in background tab",
                     "Chia sẻ…"
-                ],
-                articleLinkRequiresQuickFactsExpansion: false
+                ]
             )
         default:
             return nil
@@ -290,10 +284,6 @@ private extension ArticleRobot {
         }
 
         return fixture
-    }
-
-    var quickFactsTableItem: ArticleContentElement {
-        articleControlsFixture.articleLinkRequiresQuickFactsExpansion ? .articleLink : .quickFactsTableItem
     }
 
     var leadImage: XCUIElement {
@@ -354,14 +344,6 @@ private extension ArticleRobot {
 
     func tapArticleElement(_ articleContentElement: ArticleContentElement, file: StaticString, line: UInt) {
         tapArticleElement(articleElement(articleContentElement, file: file, line: line), file: file, line: line)
-    }
-
-    func expandQuickFactsIfNeededForArticleLink(file: StaticString, line: UInt) {
-        guard articleControlsFixture.articleLinkRequiresQuickFactsExpansion else {
-            return
-        }
-
-        tapArticleElement(.quickFactsTable, file: file, line: line)
     }
 
     func tapArticleElement(_ element: XCUIElement, file: StaticString, line: UInt) {

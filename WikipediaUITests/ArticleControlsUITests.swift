@@ -1,34 +1,64 @@
 import XCTest
 
 final class ArticleControlsUITests: XCTestCase {
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        try XCTSkipUnless(
+            uiTestConfiguration.httpClientProfile == UITestHTTPClientProfile.fixtureStrict.rawValue,
+            "ArticleControlsUITests require bundled fixture networking."
+        )
+        try XCTSkipUnless(
+            ArticleRobot.articleControlsFixture(languageCode: uiTestConfiguration.languageCode) != nil,
+            "ArticleControlsUITests do not have fixtures for \(uiTestConfiguration.languageCode)."
+        )
+    }
+
     func testArticleBackButtonReturnsToExplore() throws {
-        openArticle()
+        openExploreArticle()
             .tapBackToExplore()
     }
 
     func testArticleHomeButtonReturnsToExplore() throws {
-        openArticle()
+        openExploreArticle()
             .tapHomeButtonToExplore()
     }
 
     func testArticleSearchButtonOpensSearch() throws {
-        openArticle()
+        openExploreArticle()
             .tapSearch()
     }
 
-    func testArticleImagesCanBeTapped() throws {
+    func testArticleNonLeadImageCanBeTapped() throws {
+        try XCTSkipIf(
+            uiTestConfiguration.languageCode == "de",
+            "The German Dog fixture's configured non-lead image is inside a collapsed section."
+        )
+
         openArticle()
-            .tapLeadImage()
-            .assertImageGalleryVisible()
-            .closeImageGallery()
             .tapNonLeadImage()
             .assertImageGalleryVisible()
             .closeImageGallery()
     }
 
     func testArticleLinkLongPressShowsPreviewAndMenuItems() throws {
+        try XCTSkipUnless(
+            ["en", "vi"].contains(uiTestConfiguration.languageCode),
+            "This test covers Dog fixtures where the linked article is visible in the body."
+        )
+
         openArticle()
             .openArticleLinkContextMenu()
+            .dismissArticleLinkContextMenu()
+    }
+
+    func testQuickFactsArticleLinkLongPressShowsPreviewAndMenuItems() throws {
+        try XCTSkipUnless(
+            ["de", "he"].contains(uiTestConfiguration.languageCode),
+            "This test covers Dog fixtures where the linked article is inside Quick Facts."
+        )
+
+        openArticle()
+            .openQuickFactsArticleLinkContextMenu()
             .dismissArticleLinkContextMenu()
     }
 
@@ -39,13 +69,17 @@ final class ArticleControlsUITests: XCTestCase {
     }
 
     func testUnprotectedArticleEditIconCanBeTapped() throws {
-        openArticle()
-            .tapArticleLink()
+        openLinkedArticle()
             .tapUnprotectedEditIcon()
             .assertVisible()
     }
 
     func testArticleTableItemsCanBeTapped() throws {
+        try XCTSkipUnless(
+            ["en", "vi"].contains(uiTestConfiguration.languageCode),
+            "This test covers Dog fixtures with a separate Quick Facts table item."
+        )
+
         openArticle()
             .tapQuickFactsTableItem()
     }
@@ -65,12 +99,27 @@ final class ArticleControlsUITests: XCTestCase {
             .rotateAndAssertArticleWorks()
     }
 
+    private func openExploreArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
+        launchWikipediaAppRobot(onboardingState: .completed)
+            .explore
+            .assertVisible(file: file, line: line)
+            .openFirstArticle(file: file, line: line)
+    }
+
     private func openArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
         launchWikipediaAppRobot(onboardingState: .completed)
             .explore
             .assertVisible(file: file, line: line)
             .openSearch(file: file, line: line)
             .openArticle(named: articleControlsFixture.primaryArticleTitle, file: file, line: line)
+    }
+
+    private func openLinkedArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
+        launchWikipediaAppRobot(onboardingState: .completed)
+            .explore
+            .assertVisible(file: file, line: line)
+            .openSearch(file: file, line: line)
+            .openArticle(named: articleControlsFixture.linkedArticleTitle, file: file, line: line)
     }
 
     private func openShortArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {

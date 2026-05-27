@@ -34,21 +34,13 @@ extension PageContentService {
                     element.setAttribute("aria-label", label);
                 }
 
-                function setAccessibilityThroughExistingLabel(element, label) {
+                function setDirectAccessibility(element, label) {
                     if (!element) {
                         return;
                     }
 
-                    const labelledBy = element.getAttribute("aria-labelledby") || "";
-                    const labelElement = labelledBy
-                        .split(/\\s+/)
-                        .map((id) => document.getElementById(id))
-                        .find((labelElement) => labelElement);
-                    setAccessibility(labelElement || element, label);
-
-                    if (labelElement) {
-                        setAccessibility(element, label);
-                    }
+                    element.removeAttribute("aria-labelledby");
+                    setAccessibility(element, label);
                 }
 
                 function textIncludes(element, text) {
@@ -101,6 +93,16 @@ extension PageContentService {
                     return links.find((element) => element.closest(".pcs-collapse-table-container table"));
                 }
 
+                function quickFactsTable() {
+                    const collapsedContainer = document.querySelector(".pcs-collapse-table-collapsed-container");
+                    if (collapsedContainer) {
+                        collapsedContainer.setAttribute("role", "button");
+                        return collapsedContainer;
+                    }
+
+                    return document.querySelector(".pcs-collapse-table-container [role='button']");
+                }
+
                 function editSectionLabel() {
                     return document.querySelector('meta[property="mw:pageProtection:edit"]') ? labels.protectedEditIcon : labels.unprotectedEditIcon;
                 }
@@ -120,9 +122,9 @@ extension PageContentService {
                     const links = articleLinks();
                     setAccessibility(articleLink(links), labels.articleLink);
                     setAccessibility(nonLeadImage(), labels.nonLeadImage);
-                    setAccessibilityThroughExistingLabel(document.querySelector(".pcs-collapse-table-container [role='button']"), labels.quickFactsTable);
+                    setAccessibility(quickFactsTable(), labels.quickFactsTable);
                     setAccessibility(quickFactsTableItem(links), labels.quickFactsTableItem);
-                    setAccessibility(document.querySelector('a.pcs-edit-section-link[data-action="edit_section"]'), editSectionLabel());
+                    setDirectAccessibility(document.querySelector('a.pcs-edit-section-link[data-action="edit_section"]'), editSectionLabel());
                     setAccessibility(aboutThisArticleItem(), labels.aboutThisArticleItem);
                     setAccessibility(document.querySelector("#pcs-footer-container-legal a"), labels.licenseLink);
                 }
