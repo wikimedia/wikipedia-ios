@@ -108,6 +108,11 @@ extension PageContentService {
                 }
 
                 function aboutThisArticleItem() {
+                    const lastEditedItem = document.querySelector("#pcs-footer-container-menu-items .pcs-footer-menu-icon-last-edited a");
+                    if (lastEditedItem) {
+                        return lastEditedItem;
+                    }
+
                     const footerItems = allElements("#pcs-footer-container-menu-items a, #pcs-footer-container-menu-items *");
                     const editHistoryText = footerItems.find((element) => textIncludes(element, strings.viewEditHistory));
                     const editHistoryLink = footerItems.find((element) => {

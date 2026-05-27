@@ -1,6 +1,26 @@
 [
   {
     "method": "GET",
+    "host": "meta.wikimedia.org",
+    "path": "/api/rest_v1/data/javascript/mobile/pcs",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/javascript"
+    },
+    "bodyResource": "PageContentService/mobile-pcs.js"
+  },
+  {
+    "method": "GET",
+    "host": "meta.wikimedia.org",
+    "path": "/api/rest_v1/data/css/mobile/pcs",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "text/css"
+    },
+    "bodyResource": "PageContentService/mobile-pcs.css"
+  },
+  {
+    "method": "GET",
     "host": "en.wikipedia.org",
     "pathPrefix": "/api/rest_v1/feed/featured/",
     "statusCode": 200,
