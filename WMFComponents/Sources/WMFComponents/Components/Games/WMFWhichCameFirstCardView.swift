@@ -31,12 +31,20 @@ public struct WMFWhichCameFirstCardView: View {
     ///  - isCorrectAnswer == false, isSelected == false → gray (wrong card, not chosen)
     private var revealColor: Color {
         if viewModel.isSelectedCardCorrect {
-            return Color(uiColor: theme.accent)
+            return Color(red: 0.08, green: 0.53, blue: 0.43)
         } else if viewModel.isSelected {
-            return Color(uiColor: theme.destructive)
+            return Color(red: 0.7, green: 0.14, blue: 0.14)
         } else {
             return Color(uiColor: theme.secondaryText)
         }
+    }
+
+    /// The background color for the result icon circle.
+    /// The ✕ is always red regardless of which card this is; the ✓ is always green.
+    private var iconColor: Color {
+        viewModel.isSelectedCardCorrect
+            ? Color(red: 0.08, green: 0.53, blue: 0.43)
+            : Color(red: 0.7, green: 0.14, blue: 0.14)
     }
 
     public var body: some View {
@@ -54,19 +62,18 @@ public struct WMFWhichCameFirstCardView: View {
     }
 
     private var cardContent: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack(alignment: .top, spacing: 16) {
-                eventText
-                thumbnailView
-            }
-            .padding(16)
-
-            if viewModel.isRevealed && viewModel.isSelectedCardCorrect {
-                HStack {
-                    Spacer()
-                    resultIcon
-                        .padding([.bottom, .trailing], 12)
+        ZStack(alignment: .bottomTrailing) {
+            VStack(alignment: .leading, spacing: 0) {
+                HStack(alignment: .top, spacing: 16) {
+                    eventText
+                    thumbnailView
                 }
+                .padding(16)
+            }
+
+            if viewModel.isRevealed {
+                resultIcon
+                    .padding([.bottom, .trailing], 12)
             }
         }
         .background(Color(uiColor: theme.paperBackground))
@@ -91,7 +98,7 @@ public struct WMFWhichCameFirstCardView: View {
         .accessibilityAddTraits(.isButton)
         .accessibilityRemoveTraits(viewModel.isRevealed ? .isButton : [])
     }
-    
+
     private var accessibilityDescription: String {
         var parts: [String] = [viewModel.event.text]
         if viewModel.isRevealed {
@@ -121,32 +128,21 @@ public struct WMFWhichCameFirstCardView: View {
                     .resizable()
                     .scaledToFill()
                     .frame(width: 100, height: 100)
-                    .clipShape(
-                        UnevenRoundedRectangle(
-                            topLeadingRadius: 0,
-                            bottomLeadingRadius: 0,
-                            bottomTrailingRadius: 0,
-                            topTrailingRadius: 8
-                        )
-                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 2))
             } else {
-                UnevenRoundedRectangle(
-                    topLeadingRadius: 0,
-                    bottomLeadingRadius: 0,
-                    bottomTrailingRadius: 0,
-                    topTrailingRadius: 8
-                )
-                .fill(Color(uiColor: theme.midBackground))
-                .frame(width: 100, height: 100)
-                .overlay(ProgressView().scaleEffect(0.7))
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(Color(uiColor: theme.midBackground))
+                    .frame(width: 100, height: 100)
+                    .overlay(ProgressView().scaleEffect(0.7))
             }
         }
     }
 
+    /// Checkmark (correct) or xmark (wrong/unselected) icon shown after reveal.
     private var resultIcon: some View {
         ZStack {
             Circle()
-                .fill(revealColor)
+                .fill(iconColor)
                 .frame(width: 30, height: 30)
 
             Image(systemName: viewModel.resultIconName())
