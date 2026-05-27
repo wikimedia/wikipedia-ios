@@ -234,9 +234,7 @@ private extension WMFWhichCameFirstViewModel.LocalizedStrings {
             betterLuckMessage: "Better luck tomorrow!",
             errorTitle: "Something went wrong",
             retryButton: "Retry",
-            footerA11y: {
-                    "Footer"
-            },
+            footerA11y: { "Footer" },
             correctAnswerA11y: "Correct answer",
             incorrectAnswerA11y: "Incorrect answer"
         )

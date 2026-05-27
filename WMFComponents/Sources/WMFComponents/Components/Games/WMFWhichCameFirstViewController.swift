@@ -9,7 +9,7 @@ import Foundation
 
 public final class WMFWhichCameFirstHostingController: WMFComponentHostingController<WMFWhichCameFirstView>, WMFNavigationBarConfiguring {
 
-    private let viewModel: WMFWhichCameFirstViewModel
+    public let viewModel: WMFWhichCameFirstViewModel
     
     public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         .portrait
