@@ -724,6 +724,7 @@
 		67A0699F2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
 		67A069A02D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
 		67A18A162FAD100100000001 /* WMFComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 67A18A172FAD100100000001 /* WMFComponents */; };
+		67A417DE2FBFD9E100C0DE01 /* ArticleImageGalleryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A417DF2FBFD9E100C0DE01 /* ArticleImageGalleryUITests.swift */; };
 		67A486872BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */; };
 		67A486A42BEBF3C5001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
 		67A486A52BEBF40F001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
@@ -2392,6 +2393,7 @@
 		F1A70000000000000000000D /* UITestNetworkFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000006 /* UITestNetworkFixture.swift */; };
 		F1A70000000000000000000E /* UITestNetworkFixtureResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000007 /* UITestNetworkFixtureResponse.swift */; };
 		F1A70000000000000000000F /* UITestNetworkFixtureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000008 /* UITestNetworkFixtureStore.swift */; };
+		F1A700000000000000000013 /* UITestNetworkFixtureURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000014 /* UITestNetworkFixtureURLSession.swift */; };
 		D8E892252176124F00587F61 /* PeriodicWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E892242176124F00587F61 /* PeriodicWorker.swift */; };
 		D8EBD1B81FBB13EE00AA7DA9 /* ReadingList+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EBD1B71FBB13EE00AA7DA9 /* ReadingList+JSON.swift */; };
 		D8EBD1BC1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EBD1BB1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift */; };
@@ -3347,6 +3349,7 @@
 		679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTests.swift; sourceTree = "<group>"; };
 		679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleManualPerformanceTests.swift; sourceTree = "<group>"; };
 		67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ProfileButton.swift"; sourceTree = "<group>"; };
+		67A417DF2FBFD9E100C0DE01 /* ArticleImageGalleryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleImageGalleryUITests.swift; sourceTree = "<group>"; };
 		67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFAnnouncementsContentSource+Extensions.swift"; sourceTree = "<group>"; };
 		67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicWord.swift; sourceTree = "<group>"; };
 		67A486A72BEC009F001D3FF9 /* MagicWordUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicWordUtils.swift; sourceTree = "<group>"; };
@@ -4367,6 +4370,7 @@
 		F1A700000000000000000006 /* UITestNetworkFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixture.swift; sourceTree = "<group>"; };
 		F1A700000000000000000007 /* UITestNetworkFixtureResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureResponse.swift; sourceTree = "<group>"; };
 		F1A700000000000000000008 /* UITestNetworkFixtureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureStore.swift; sourceTree = "<group>"; };
+		F1A700000000000000000014 /* UITestNetworkFixtureURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureURLSession.swift; sourceTree = "<group>"; };
 		D8E892242176124F00587F61 /* PeriodicWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodicWorker.swift; sourceTree = "<group>"; };
 		D8EBD1B71FBB13EE00AA7DA9 /* ReadingList+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingList+JSON.swift"; sourceTree = "<group>"; };
 		D8EBD1BB1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingListEntry+JSON.swift"; sourceTree = "<group>"; };
@@ -5922,6 +5926,7 @@
 				ADDFF88F2FA9363C00C93B94 /* Robots */,
 				67E32CAE2F5BE381009AA52D /* AppOnboardingUITests.swift */,
 				6742052D2FBFD50100A1C0DE /* ArticleControlsUITests.swift */,
+				67A417DF2FBFD9E100C0DE01 /* ArticleImageGalleryUITests.swift */,
 				674205302F9A556100BBA0CA /* ExploreUITests.swift */,
 			);
 			path = WikipediaUITests;
@@ -8075,6 +8080,7 @@
 				F1A700000000000000000003 /* UITestNetworkFixtureHTTPClientProvider.swift */,
 				F1A700000000000000000004 /* UITestNetworkFixtureHTTPClient.swift */,
 				F1A700000000000000000005 /* UITestNetworkFixtureURLProtocol.swift */,
+				F1A700000000000000000014 /* UITestNetworkFixtureURLSession.swift */,
 				F1A700000000000000000006 /* UITestNetworkFixture.swift */,
 				F1A700000000000000000007 /* UITestNetworkFixtureResponse.swift */,
 				F1A700000000000000000008 /* UITestNetworkFixtureStore.swift */,
@@ -9524,6 +9530,7 @@
 				F1A700000000000000000012 /* UITestHTTPClientProfile.swift in Sources */,
 				67E32CAF2F5BE381009AA52D /* AppOnboardingUITests.swift in Sources */,
 				6742052E2FBFD50100A1C0DE /* ArticleControlsUITests.swift in Sources */,
+				67A417DE2FBFD9E100C0DE01 /* ArticleImageGalleryUITests.swift in Sources */,
 				674205312F9A556100BBA0CA /* ExploreUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -10507,6 +10514,7 @@
 				F1A70000000000000000000A /* UITestNetworkFixtureHTTPClientProvider.swift in Sources */,
 				F1A70000000000000000000B /* UITestNetworkFixtureHTTPClient.swift in Sources */,
 				F1A70000000000000000000C /* UITestNetworkFixtureURLProtocol.swift in Sources */,
+				F1A700000000000000000013 /* UITestNetworkFixtureURLSession.swift in Sources */,
 				F1A70000000000000000000D /* UITestNetworkFixture.swift in Sources */,
 				F1A70000000000000000000E /* UITestNetworkFixtureResponse.swift in Sources */,
 				F1A70000000000000000000F /* UITestNetworkFixtureStore.swift in Sources */,

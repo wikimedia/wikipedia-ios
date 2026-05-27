@@ -56,7 +56,18 @@ struct ArticleRobot: ScreenshotCapturingRobot {
     @discardableResult
     func tapSearch(file: StaticString = #filePath, line: UInt = #line) -> SearchRobot {
         base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.searchButton, file: file, line: line)
-        return SearchRobot(base: base).assertVisible(file: file, line: line)
+        return SearchRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
+    }
+
+    @discardableResult
+    func openLeadImageGallery(file: StaticString = #filePath, line: UInt = #line) -> ImageGalleryRobot {
+        let leadImage = base.app.descendants(matching: .any)
+            .matching(identifier: AccessibilityIdentifiers.Article.leadImage)
+            .firstMatch
+        base.assertExists(leadImage, timeout: 30, description: "article lead image", file: file, line: line)
+        leadImage.tap()
+        return ImageGalleryRobot(base: base)
+            .assertVisible(file: file, line: line)
     }
 
     private var homeButton: XCUIElement {

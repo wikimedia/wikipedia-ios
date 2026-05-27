@@ -1,7 +1,7 @@
 import Foundation
 
-/// URL loading hook installed only on the fixture-backed URLSession created by
-/// `UITestNetworkFixtureHTTPClient`.
+/// URL loading hook installed on fixture-backed URLSessions for app-side
+/// `Session` traffic and `WMFBasicService` traffic.
 final class UITestNetworkFixtureURLProtocol: URLProtocol {
     private static let profilePropertyKey = "WMFUITestNetworkFixtureProfile"
 
@@ -14,6 +14,15 @@ final class UITestNetworkFixtureURLProtocol: URLProtocol {
 
         URLProtocol.setProperty(profile.rawValue, forKey: profilePropertyKey, in: mutableRequest)
         return mutableRequest as URLRequest
+    }
+
+    static func protocolClassesInstallingFixtureProtocol(in protocolClasses: [AnyClass]?) -> [AnyClass] {
+        let existingProtocolClasses = protocolClasses ?? []
+        guard !existingProtocolClasses.contains(where: { $0 == UITestNetworkFixtureURLProtocol.self }) else {
+            return existingProtocolClasses
+        }
+
+        return [UITestNetworkFixtureURLProtocol.self] + existingProtocolClasses
     }
 
     override static func canInit(with request: URLRequest) -> Bool {

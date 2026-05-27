@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, strong) NSData *imageData;
 
-//used for metadaata
+// used for metadaata
 @property (nonatomic, strong, nullable) MWKImageInfo *imageInfo;
 
 @end
@@ -128,6 +128,7 @@ NS_ASSUME_NONNULL_BEGIN
 
         UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
         share.tintColor = [UIColor whiteColor];
+        share.accessibilityIdentifier = [WMFAccessibilityIdentifier imageGalleryShareButton];
         self.overlayView.rightBarButtonItem = share;
 
         WMFLargeCloseButtonConfig *config = [[WMFLargeCloseButtonConfig alloc] initWithImageType:WMFLargeCloseButtonImageTypePlainX target:self action:@selector(didTapCloseButton) alignment:AlignmentTrailing];
@@ -181,6 +182,8 @@ NS_ASSUME_NONNULL_BEGIN
         self.theme = [NSUserDefaults.standardUserDefaults themeCompatibleWith:self.traitCollection];
     }
     vc.scalingImageView.imageView.alpha = self.theme.imageOpacity;
+    vc.scalingImageView.imageView.accessibilityIdentifier = [WMFAccessibilityIdentifier imageGalleryImage];
+    vc.loadingView.accessibilityIdentifier = [WMFAccessibilityIdentifier imageGalleryLoadingIndicator];
     return vc;
 }
 
@@ -200,6 +203,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.accessibilityIdentifier = [WMFAccessibilityIdentifier imageGalleryView];
     self.view.accessibilityIgnoresInvertColors = YES;
     // Very subtle gradient background so close and share buttons don't disappear when over white background parts of image.
     UIImage *gradientImage = [[UIImage imageNamed:@"gallery-top-gradient"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
@@ -209,11 +213,12 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Actions
 
 - (void)didTapCloseButton {
-    [self dismissViewControllerAnimated:YES completion:^{
-        if ([self.dismissDelegate respondsToSelector:@selector(galleryDidDismiss:)]) {
-            [self.dismissDelegate galleryDidDismiss:self];
-        }
-    }];
+    [self dismissViewControllerAnimated:YES
+                             completion:^{
+                                 if ([self.dismissDelegate respondsToSelector:@selector(galleryDidDismiss:)]) {
+                                     [self.dismissDelegate galleryDidDismiss:self];
+                                 }
+                             }];
 }
 
 - (void)didTapShareButton {
@@ -225,7 +230,9 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     [[[MWKDataStore shared] cacheController] fetchImageWithURL:url
         failure:^(NSError *_Nonnull error) {
-            [[WMFToastManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousToasts:NO tapCallBack:NULL];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[WMFToastManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousToasts:NO tapCallBack:NULL];
+            });
         }
         success:^(WMFImageDownload *_Nonnull download) {
             @strongify(self);
@@ -241,7 +248,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark NYTPhotosViewControllerDelegate
 
 - (UIView *_Nullable)photosViewController:(NYTPhotosViewController *)photosViewController referenceViewForPhoto:(id<NYTPhoto>)photo {
-    return nil; //TODO: remove this and re-enable animations when tickets for fixing anmimations are addressed
+    return nil; // TODO: remove this and re-enable animations when tickets for fixing anmimations are addressed
     return [self.referenceViewDelegate referenceViewForImageController:self];
 }
 
@@ -286,16 +293,17 @@ NS_ASSUME_NONNULL_BEGIN
     caption.infoTapCallback = ^{
         @strongify(self);
         if (imageInfo.filePageURL) {
-            
+
             // First dismiss self
-            [self dismissViewControllerAnimated:YES completion:^{
-                if ([self.dismissDelegate respondsToSelector:@selector(galleryDidTapInfoButton:)]) {
-                    [self.dismissDelegate galleryDidTapInfoButton:self];
-                }
-                
-                // then navigate to in-app web view
-                [self wmf_navigateToURL:imageInfo.filePageURL.wmf_urlByPrependingSchemeIfSchemeless];
-            }];
+            [self dismissViewControllerAnimated:YES
+                                     completion:^{
+                                         if ([self.dismissDelegate respondsToSelector:@selector(galleryDidTapInfoButton:)]) {
+                                             [self.dismissDelegate galleryDidTapInfoButton:self];
+                                         }
+
+                                         // then navigate to in-app web view
+                                         [self wmf_navigateToURL:imageInfo.filePageURL.wmf_urlByPrependingSchemeIfSchemeless];
+                                     }];
         }
     };
     // Use the screen bounds height as a reliable fallback since self.view may not
@@ -307,7 +315,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateImageForPhotoAfterUserInteractionIsFinished:(id<NYTPhoto> _Nullable)photo {
-    //Exclude UITrackingRunLoopMode so the update doesn't happen while the user is pinching or scrolling
+    // Exclude UITrackingRunLoopMode so the update doesn't happen while the user is pinching or scrolling
     dispatch_async(dispatch_get_main_queue(), ^{
         [self performSelector:@selector(updateImageForPhoto:) withObject:photo afterDelay:0 inModes:@[NSDefaultRunLoopMode]];
     });
@@ -339,10 +347,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFPOTDPhoto : WMFBasePhoto <WMFPhoto>
 
-//used to fetch imageInfo
+// used to fetch imageInfo
 @property (nonatomic, strong, nullable) NSDate *potdDate;
 
-//set to display a thumbnail during download
+// set to display a thumbnail during download
 @property (nonatomic, strong, nullable) MWKImageInfo *thumbnailImageInfo;
 
 @end
@@ -504,7 +512,7 @@ NS_ASSUME_NONNULL_BEGIN
         [[[MWKDataStore shared] cacheController] fetchImageWithURL:[galleryImage bestImageURL]
             failure:^(NSError *_Nonnull error) {
                 if (error) {
-                    //show error
+                    // show error
                     return;
                 }
             }

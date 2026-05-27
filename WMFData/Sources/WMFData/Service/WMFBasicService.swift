@@ -5,7 +5,7 @@ public final class WMFBasicService: WMFService {
     
     private let urlSession: WMFURLSession
     
-    init(urlSession: WMFURLSession = URLSession.shared) {
+    public init(urlSession: WMFURLSession = URLSession.shared) {
         self.urlSession = urlSession
     }
     

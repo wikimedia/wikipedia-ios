@@ -13,7 +13,7 @@ final class UITestNetworkFixtureHTTPClient: SessionHTTPClient {
     init(profile: UITestHTTPClientProfile, defaultURLSession: URLSession, sessionDelegate: SessionDelegate) {
         self.profile = profile
         let fixtureConfiguration = defaultURLSession.configuration
-        fixtureConfiguration.protocolClasses = Self.protocolClassesInstallingFixtureProtocol(in: fixtureConfiguration.protocolClasses)
+        fixtureConfiguration.protocolClasses = UITestNetworkFixtureURLProtocol.protocolClassesInstallingFixtureProtocol(in: fixtureConfiguration.protocolClasses)
         let fixtureURLSession = URLSession(configuration: fixtureConfiguration, delegate: sessionDelegate, delegateQueue: sessionDelegate.delegateQueue)
         self.fixtureURLSession = fixtureURLSession
         self.fixtureClient = URLSessionHTTPClient(urlSession: fixtureURLSession, sessionDelegate: sessionDelegate)
@@ -53,15 +53,6 @@ final class UITestNetworkFixtureHTTPClient: SessionHTTPClient {
 
     private func fixtureRequest(for request: URLRequest) -> URLRequest {
         UITestNetworkFixtureURLProtocol.requestByAddingProfile(profile, to: request)
-    }
-
-    private static func protocolClassesInstallingFixtureProtocol(in protocolClasses: [AnyClass]?) -> [AnyClass] {
-        let existingProtocolClasses = protocolClasses ?? []
-        guard !existingProtocolClasses.contains(where: { $0 == UITestNetworkFixtureURLProtocol.self }) else {
-            return existingProtocolClasses
-        }
-
-        return [UITestNetworkFixtureURLProtocol.self] + existingProtocolClasses
     }
 
     /// Returns a manifest-backed response when available

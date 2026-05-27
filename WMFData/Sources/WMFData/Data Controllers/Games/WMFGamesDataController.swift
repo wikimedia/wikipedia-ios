@@ -45,7 +45,7 @@ public class WMFGamesDataController {
             throw CustomError.missingContext
         }
 
-        return try await moc.perform {
+        return try await moc.perform { [self] in
             let predicate: NSPredicate
             if let dailyGameDate {
                 predicate = NSPredicate(format: "gameType == %@ AND projectID == %@ AND dailyGameDate == %@", gameType, projectID, dailyGameDate)
@@ -69,9 +69,7 @@ public class WMFGamesDataController {
             throw CustomError.missingContext
         }
 
-        return try await moc.perform { [weak self] in
-            guard let self else { throw CustomError.missingSelf }
-
+        return try await moc.perform { [self] in
             let cdSession = try coreDataStore.create(entityType: CDGameSession.self, in: moc)
             cdSession.identifier = UUID()
             cdSession.gameType = gameType
@@ -87,60 +85,13 @@ public class WMFGamesDataController {
         }
     }
 
-    private func updateContentData(sessionIdentifier: UUID, contentData: Data, currentQuestionIndex: Int32, score: Int32) async throws {
-        guard let coreDataStore else {
-            throw WMFDataControllerError.coreDataStoreUnavailable
-        }
-
-        guard let moc = backgroundContext else {
-            throw CustomError.missingContext
-        }
-
-        try await moc.perform {
-            let predicate = NSPredicate(format: "identifier == %@", sessionIdentifier as CVarArg)
-            guard let cdSession = try self.coreDataStore?.fetch(entityType: CDGameSession.self, predicate: predicate, fetchLimit: 1, in: moc)?.first else {
-                throw CustomError.sessionNotFound
-            }
-
-            cdSession.contentData = contentData
-            cdSession.currentQuestionIndex = currentQuestionIndex
-            cdSession.score = score
-
-            try coreDataStore.saveIfNeeded(moc: moc)
-        }
-    }
-
-    private func completeSession(identifier: UUID, completedDate: Date) async throws {
-        guard let coreDataStore else {
-            throw WMFDataControllerError.coreDataStoreUnavailable
-        }
-
-        guard let moc = backgroundContext else {
-            throw CustomError.missingContext
-        }
-
-        try await moc.perform {
-            let predicate = NSPredicate(format: "identifier == %@", identifier as CVarArg)
-            guard let cdSession = try self.coreDataStore?.fetch(entityType: CDGameSession.self, predicate: predicate, fetchLimit: 1, in: moc)?.first else {
-                throw CustomError.sessionNotFound
-            }
-
-            cdSession.status = WMFGameSessionStatus.completed.rawValue
-            cdSession.completedDate = completedDate
-
-            try coreDataStore.saveIfNeeded(moc: moc)
-        }
-    }
-
     private func fetchSessions(gameType: String, project: WMFProject) async throws -> [WMFGameSession] {
         let projectID = project.id
         guard let moc = backgroundContext else {
             throw CustomError.missingContext
         }
 
-        return try await moc.perform { [weak self] in
-            guard let self else { throw CustomError.missingSelf }
-
+        return try await moc.perform { [self] in
             let predicate = NSPredicate(format: "gameType == %@ AND projectID == %@", gameType, projectID)
             let sortDescriptors = [NSSortDescriptor(key: "dailyGameDate", ascending: false)]
             let cdSessions = try self.coreDataStore?.fetch(entityType: CDGameSession.self, predicate: predicate, fetchLimit: nil, sortDescriptors: sortDescriptors, in: moc) ?? []
@@ -186,6 +137,75 @@ public class WMFGamesDataController {
 
 extension WMFGamesDataController {
 
+    public struct WMFWhichCameFirstStats: Sendable {
+        public let gamesPlayed: Int
+        public let currentStreak: Int
+        public let bestStreak: Int
+        public let averageScore: Double
+    }
+
+    public func fetchWhichCameFirstStats(project: WMFProject) async throws -> WMFWhichCameFirstStats {
+        let sessions = try await fetchSessions(gameType: Self.whichCameFirstGameType, project: project)
+        let completed = sessions.filter { $0.status == .completed }
+
+        let gamesPlayed = completed.count
+        let totalScore = completed.reduce(0) { $0 + Int($1.score) }
+        let averageScore: Double? = gamesPlayed > 0 ? {
+            let raw = Double(totalScore) / Double(gamesPlayed)
+            let rounded = (raw * 10).rounded() / 10
+            return rounded
+        }() : nil
+
+        let sorted = completed
+            .compactMap { session -> (date: String, score: Int32)? in
+                guard let date = session.dailyGameDate else { return nil }
+                return (date: date, score: session.score)
+            }
+            .sorted { $0.date < $1.date }
+
+        var bestStreak = 0
+        var currentStreak = 0
+        var previousDate: String? = nil
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        for entry in sorted {
+            if let prev = previousDate,
+               let prevDate = formatter.date(from: prev),
+               let entryDate = formatter.date(from: entry.date),
+               let dayAfterPrev = Calendar.current.date(byAdding: .day, value: 1, to: prevDate),
+               Calendar.current.isDate(dayAfterPrev, inSameDayAs: entryDate) {
+                currentStreak += 1
+            } else {
+                currentStreak = 1
+            }
+            bestStreak = max(bestStreak, currentStreak)
+            previousDate = entry.date
+        }
+
+        if let lastDate = sorted.last?.date,
+           let last = formatter.date(from: lastDate) {
+            let today = Date()
+            let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
+            let lastDay = Calendar.current.startOfDay(for: last)
+            if !Calendar.current.isDate(lastDay, inSameDayAs: today) &&
+               !Calendar.current.isDate(lastDay, inSameDayAs: yesterday) {
+                currentStreak = 0
+            }
+        } else {
+            currentStreak = 0
+        }
+
+        return WMFWhichCameFirstStats(
+            gamesPlayed: gamesPlayed,
+            currentStreak: currentStreak,
+            bestStreak: bestStreak,
+            averageScore: averageScore ?? 0.0
+        )
+    }
+
     public struct WMFWhichCameFirstAnswerResult: Sendable {
         public let isCorrect: Bool
         public let correctAnswer: String
@@ -195,13 +215,10 @@ extension WMFGamesDataController {
     public static let whichCameFirstQuestionCount = 5
 
     public func isWhichCameFirstDailySessionAvailable(date: String, project: WMFProject, onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared) async throws -> Bool {
-
-        // Already have a session for this date — definitely available
         if let _ = try await fetchSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date) {
             return true
         }
 
-        // Parse month and day from "YYYY-MM-DD"
         let components = date.split(separator: "-")
         guard components.count == 3,
               let month = Int(components[1]),
@@ -209,7 +226,6 @@ extension WMFGamesDataController {
             return false
         }
 
-        // Check if the API returns enough events to form the required number of pairs
         let response = try await onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
         let questions = Self.makeWhichCameFirstQuestions(from: response.events, month: month, day: day, count: Self.whichCameFirstQuestionCount)
         return questions.count == Self.whichCameFirstQuestionCount
@@ -220,14 +236,11 @@ extension WMFGamesDataController {
         project: WMFProject,
         onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared
     ) async throws -> (WMFWhichCameFirstGameState, UUID) {
-
-        // Resume existing session if one exists
         if let existingSession = try await fetchSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date) {
             let gameState = try decodeWhichCameFirstGameState(from: existingSession.contentData)
             return (gameState, existingSession.identifier)
         }
 
-        // Parse month and day from "YYYY-MM-DD"
         let components = date.split(separator: "-")
         guard components.count == 3,
               let month = Int(components[1]),
@@ -235,21 +248,15 @@ extension WMFGamesDataController {
             throw CustomError.missingIdentifier
         }
 
-        // Fetch events from API
         let response = try await onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
-
-        // Build question pairs from events
         let questions = Self.makeWhichCameFirstQuestions(from: response.events, month: month, day: day, count: Self.whichCameFirstQuestionCount)
         let gameState = WMFWhichCameFirstGameState(questions: questions)
 
-        // Persist and return
         let contentData = try encodeWhichCameFirstGameState(gameState)
         let session = try await createSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date, contentData: contentData)
         return (gameState, session.identifier)
     }
 
-    /// Selects event pairs from the API response using a year-spread algorithm.
-    /// Events are sorted by year so pairs are always meaningfully distinguishable.
     private static func makeWhichCameFirstQuestions(from events: [WMFOnThisDayEvent], month: Int, day: Int, count: Int) -> [WMFWhichCameFirstQuestion] {
         let calendar = Calendar(identifier: .gregorian)
         var pool = events.filter { !$0.pages.isEmpty }.sorted { $0.year < $1.year }
@@ -315,9 +322,7 @@ extension WMFGamesDataController {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
 
-        return try await moc.perform { [weak self] in
-            guard let self else { throw CustomError.missingSelf }
-
+        return try await moc.perform { [self] in
             let predicate = NSPredicate(format: "identifier == %@", sessionIdentifier as CVarArg)
             guard let cdSession = try self.coreDataStore?.fetch(entityType: CDGameSession.self, predicate: predicate, fetchLimit: 1, in: moc)?.first else {
                 throw CustomError.sessionNotFound
@@ -373,9 +378,6 @@ extension WMFGamesDataController {
         return try await fetchSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date)
     }
 
-    /// Returns the first question's two events for the Explore card preview.
-    /// Decodes from existing session content data when a session exists (no network call),
-    /// otherwise fetches one question from the OTD API without persisting anything.
     public func fetchWhichCameFirstDailyPreviewEvents(
         date: String,
         project: WMFProject,
@@ -406,8 +408,7 @@ extension WMFGamesDataController {
         guard let moc = backgroundContext else {
             throw CustomError.missingContext
         }
-        try await moc.perform { [weak self] in
-            guard let self else { throw CustomError.missingSelf }
+        try await moc.perform { [self] in
             let sessions = try self.coreDataStore?.fetch(entityType: CDGameSession.self, predicate: nil, fetchLimit: nil, in: moc) ?? []
             for session in sessions {
                 moc.delete(session)

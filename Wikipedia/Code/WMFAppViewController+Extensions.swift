@@ -759,6 +759,9 @@ extension WMFAppViewController {
 
         evaluateAppInstallAndSessionIDs()
         
+        #if TEST || UITEST
+            UITestNetworkFixtureInterceptor.configureBasicServiceIfNeeded()
+        #endif
         // Notify the scene delegate that the data environment is ready, so it can submit any
         // deferred app_open event (e.g. on fresh install where languages weren't set up yet).
         #if !TEST
