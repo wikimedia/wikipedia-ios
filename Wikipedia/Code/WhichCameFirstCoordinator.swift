@@ -1,7 +1,9 @@
 import UIKit
+import SwiftUI
 import WMF
 import WMFComponents
 import WMFData
+import WMFNativeLocalizations
 
 /// Coordinator that presents the Which Came First game, starting with the splash screen.
 @MainActor
@@ -80,8 +82,74 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
               let gameNav = gameNavigationController else { return }
         let project = WMFProject.wikipedia(language)
         let viewModel = WMFWhichCameFirstViewModel(date: formattedTodayISODateString(), project: project)
+        viewModel.didTapShare = { [weak self, weak viewModel] in
+            guard let self, let viewModel else { return }
+            self.showShare(gameViewModel: viewModel)
+        }
         let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
         gameNav.setViewControllers([gameVC], animated: true)
+    }
+
+    private func showShare(gameViewModel: WMFWhichCameFirstViewModel) {
+        guard let gameNav = gameNavigationController,
+              let events = gameViewModel.makeShareArticleEvents(),
+              let results = gameViewModel.makeShareQuestionResults() else { return }
+
+        Task { [weak self, weak gameNav] in
+            guard let self, let gameNav else { return }
+
+            let summaryController = WMFArticleSummaryDataController.shared
+            let imageController = WMFImageDataController.shared
+
+            var articles: [WMFWhichCameFirstShareViewModel.ArticleItem] = []
+
+            for (event, project) in events {
+                guard let articleTitle = event.articleTitle else { continue }
+                let cleanTitle = articleTitle.underscoresToSpaces
+
+                // Fetch summary for description
+                let summary = try? await summaryController.fetchArticleSummary(project: project, title: articleTitle)
+                let description = summary?.description ?? summary?.extract
+
+                // Fetch thumbnail image — prefer the event's known URL, fall back to summary's
+                let thumbnailURL = event.thumbnailURL ?? summary?.thumbnailURL
+                var image: UIImage?
+                if let url = thumbnailURL,
+                   let data = try? await imageController.fetchImageData(url: url) {
+                    image = UIImage(data: data)
+                }
+
+                articles.append(.init(title: cleanTitle, description: description, image: image))
+            }
+
+            let shareViewModel = WMFWhichCameFirstShareViewModel(
+                score: gameViewModel.score,
+                totalQuestions: gameViewModel.totalQuestions,
+                questionResults: results,
+                articles: articles
+            )
+
+            let shareView = WMFWhichCameFirstShareView(viewModel: shareViewModel, theme: Theme.wmfTheme(from: self.theme))
+            let renderer = ImageRenderer(content: shareView)
+            renderer.scale = UIScreen.main.scale
+            guard let image = renderer.uiImage else { return }
+
+            let shareText = WMFLocalizedString("which-came-first-share-activity-text", value: "I'm playing \"Which came first?\" a daily trivia game on the Wikipedia iOS app https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=wiki_game_202605&mt=8", comment: "Text shared when a user shares the Which Came First game via Messages, Notes, or other text-based share targets.")
+            let textProvider = WCFShareActivityContentProvider(
+                text: shareText
+            )
+            let imageProvider = ShareAFactActivityImageItemProvider(image: image)
+            let activityVC = UIActivityViewController(activityItems: [textProvider, imageProvider], applicationActivities: nil)
+            activityVC.excludedActivityTypes = [.print, .assignToContact, .addToReadingList]
+
+            if let popover = activityVC.popoverPresentationController {
+                popover.sourceView = gameNav.visibleViewController?.view
+                popover.sourceRect = gameNav.visibleViewController?.view.bounds ?? .zero
+                popover.permittedArrowDirections = []
+            }
+
+            gameNav.present(activityVC, animated: true)
+        }
     }
 
     private func showAbout() {
@@ -99,9 +167,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     // MARK: - Helpers
 
-    private func formattedTodayDateString() -> String { // add a date formatter to allow for international dates, not only US
+    private func formattedTodayDateString() -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM d"
+        formatter.setLocalizedDateFormatFromTemplate("MMMMd")
         return formatter.string(from: Date())
     }
 
@@ -111,6 +179,32 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter.string(from: Date())
+    }
+}
+
+// MARK: - Share Content Provider
+
+// @unchecked Sendable: UIActivityItemProvider is a legacy UIKit class with no Sendable conformance,
+// required by UIActivityViewController. This usage is safe because the provider is short-lived,
+// immutable after init, and only accessed on the main thread via UIActivityViewController callbacks.
+private final class WCFShareActivityContentProvider: UIActivityItemProvider, @unchecked Sendable {
+
+    let text: String
+
+    init(text: String) {
+        self.text = text
+        super.init(placeholderItem: text)
+    }
+
+    override var item: Any {
+        return text
+    }
+
+    override func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        if let activityType, activityType.rawValue.lowercased().contains("instagram") {
+            return nil
+        }
+        return text
     }
 }
 
