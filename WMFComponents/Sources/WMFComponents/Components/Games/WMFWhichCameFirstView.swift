@@ -21,9 +21,36 @@ public struct WMFWhichCameFirstView: View {
         case .presenting, .awaitingSubmission, .revealing, .transitioning:
             gameplayView
         case .complete:
-            completeView
+            CompleteView(gameViewModel: viewModel)
         case .error(let message):
             errorView(message)
+        }
+    }
+    
+    private struct CompleteView: View {
+        let gameViewModel: WMFWhichCameFirstViewModel
+
+        @StateObject private var resultsViewModel: WMFWhichCameFirstResultsViewModel
+
+        init(gameViewModel: WMFWhichCameFirstViewModel) {
+            self.gameViewModel = gameViewModel
+            self._resultsViewModel = StateObject(wrappedValue: WMFWhichCameFirstResultsViewModel(
+                score: gameViewModel.score,
+                totalQuestions: gameViewModel.totalQuestions,
+                isLoggedIn: gameViewModel.isLoggedIn,
+                project: gameViewModel.project,
+                shareScore: gameViewModel.didTapShare,
+                onLogIn: gameViewModel.onLogIn
+            ))
+        }
+
+        var body: some View {
+            if gameViewModel.totalQuestions > 0 {
+                WMFWhichCameFirstResultsView(viewModel: resultsViewModel)
+                    .onReceive(gameViewModel.$isLoggedIn) { isLoggedIn in
+                        resultsViewModel.isLoggedIn = isLoggedIn
+                    }
+            }
         }
     }
 
@@ -62,7 +89,7 @@ public struct WMFWhichCameFirstView: View {
                 .frame(height: headerHeight(for: height))
 
                 VStack(spacing: 0) {
-
+                    
                     if viewModel.showCardA, let cardA = viewModel.cardViewModelA {
                         WMFWhichCameFirstCardView(viewModel: cardA, parentViewModel: viewModel, cardHeight: cardHeight(height)) {
                             viewModel.select(.a)
@@ -70,7 +97,7 @@ public struct WMFWhichCameFirstView: View {
                         .padding(.horizontal, 16)
                         .transition(.move(edge: .trailing).combined(with: .opacity))
                     }
-
+                    
                     if let reveal = viewModel.revealState {
                         feedbackBanner(reveal)
                             .padding(.horizontal, 16)
@@ -78,7 +105,7 @@ public struct WMFWhichCameFirstView: View {
                     } else {
                         Spacer().frame(height: 32)
                     }
-
+                    
                     if viewModel.showCardB, let cardB = viewModel.cardViewModelB {
                         WMFWhichCameFirstCardView(viewModel: cardB, parentViewModel: viewModel, cardHeight: cardHeight(height)) {
                             viewModel.select(.b)
@@ -86,9 +113,9 @@ public struct WMFWhichCameFirstView: View {
                         .padding(.horizontal, 16)
                         .transition(.move(edge: .trailing).combined(with: .opacity))
                     }
-
+                    
                     Spacer()
-
+                    
                     footerArea
                 }
                 .padding(.top, viewModel.cardViewModelA?.isRevealed == true ? -96 : -16)
@@ -217,52 +244,6 @@ public struct WMFWhichCameFirstView: View {
         .padding(.vertical, 8)
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(.updatesFrequently)
-    }
-
-
-    // MARK: - Complete
-
-    private var completeView: some View {
-
-        VStack(spacing: 24) {
-
-            Spacer()
-
-            Text(viewModel.localizedStrings.gameCompleteTitle)
-                .minimumScaleFactor(0.3)
-                .font(Font(WMFFont.for(.semiboldHeadline)))
-                .foregroundColor(Color(uiColor: theme.text))
-
-            Text("\(viewModel.score) / \(viewModel.totalQuestions)")
-                .minimumScaleFactor(0.3)
-                .font(Font(WMFFont.for(.boldTitle1)))
-                .foregroundColor(Color(uiColor: theme.text))
-
-            Text(scoreMessage)
-                .minimumScaleFactor(0.3)
-                .font(Font(WMFFont.for(.subheadline)))
-                .foregroundColor(Color(uiColor: theme.secondaryText))
-                .multilineTextAlignment(.center)
-
-            WMFLargeButton(style: .primary, title: "Share (temp)") {
-                viewModel.didTapShare?()
-            }
-            .padding(.horizontal, 16)
-
-            Spacer()
-        }
-        .padding()
-    }
-
-    private var scoreMessage: String {
-        switch viewModel.score {
-        case viewModel.totalQuestions:
-            return viewModel.localizedStrings.perfectScoreMessage
-        case (viewModel.totalQuestions / 2)...:
-            return viewModel.localizedStrings.niceWorkMessage
-        default:
-            return viewModel.localizedStrings.betterLuckMessage
-        }
     }
 
     // MARK: - Error

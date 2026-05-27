@@ -37,7 +37,7 @@ public protocol WMFArticleTabsDataControlling {
         case missingURL
     }
     
-    public struct WMFArticle: Codable {
+    public struct WMFArticle: Codable, Sendable {
         public let identifier: UUID?
         public let title: String
         public let description: String?

@@ -56,14 +56,14 @@ final class WMFGamesDataControllerTests: XCTestCase {
     func testFetchOrStartCreatesNewSessionWithFiveQuestions() async throws {
         guard let dataController else { throw TestsError.missingDataController }
 
-        let gameState = try await dataController.fetchOrStartWhichCameFirstDailySession(
+        let (gameState, _) = try await dataController.fetchOrStartWhichCameFirstDailySession(
             date: dateWithEnoughEvents,
             project: enProject,
             onThisDayDataController: onThisDayControllerWithEnoughEvents()
         )
 
-        XCTAssertEqual(gameState.0.questions.count, 5)
-        XCTAssertTrue(gameState.0.answers.isEmpty)
+        XCTAssertEqual(gameState.questions.count, 5)
+        XCTAssertTrue(gameState.answers.isEmpty)
     }
 
     func testFetchOrStartResumesExistingSessionWithoutNewAPICall() async throws {
@@ -71,36 +71,67 @@ final class WMFGamesDataControllerTests: XCTestCase {
 
         let otdController = onThisDayControllerWithEnoughEvents()
 
-        // Start a fresh session
-        let firstState = try await dataController.fetchOrStartWhichCameFirstDailySession(
+        let (firstState, _) = try await dataController.fetchOrStartWhichCameFirstDailySession(
             date: dateWithEnoughEvents,
             project: enProject,
             onThisDayDataController: otdController
         )
 
-        guard let firstQuestion = firstState.0.questions.first else {
+        guard let firstQuestion = firstState.questions.first else {
             XCTFail("Expected at least one question")
             return
         }
 
-        // Submit one answer so the session has a non-empty answers dict
         _ = try await dataController.submitWhichCameFirstAnswer(
             sessionIdentifier: try await sessionIdentifier(for: dateWithEnoughEvents),
             questionIdentifier: firstQuestion.id,
             pickedOption: firstQuestion.correctAnswer
         )
 
-        // Resume — pass a new controller that would also work (but session should be loaded from DB)
-        let resumedState = try await dataController.fetchOrStartWhichCameFirstDailySession(
+        let (resumedState, _) = try await dataController.fetchOrStartWhichCameFirstDailySession(
             date: dateWithEnoughEvents,
             project: enProject,
             onThisDayDataController: makeOnThisDayController(fixture: "onthisday-events-05-07-get")
         )
 
-        // Should have the same 5 questions and the already-submitted answer
-        XCTAssertEqual(resumedState.0.questions.count, 5)
-        XCTAssertEqual(resumedState.0.answers.count, 1)
-        XCTAssertEqual(resumedState.0.answers[firstQuestion.id.uuidString], firstQuestion.correctAnswer)
+        XCTAssertEqual(resumedState.questions.count, 5)
+        XCTAssertEqual(resumedState.answers.count, 1)
+        XCTAssertEqual(resumedState.answers[firstQuestion.id.uuidString], firstQuestion.correctAnswer)
+    }
+
+    func testFetchOrStartQuestionsHaveDistinctYears() async throws {
+        guard let dataController else { throw TestsError.missingDataController }
+
+        let (gameState, _) = try await dataController.fetchOrStartWhichCameFirstDailySession(
+            date: dateWithEnoughEvents,
+            project: enProject,
+            onThisDayDataController: onThisDayControllerWithEnoughEvents()
+        )
+
+        for question in gameState.questions {
+            XCTAssertNotEqual(
+                question.optionA.date,
+                question.optionB.date,
+                "Each question's two options should have different dates"
+            )
+        }
+    }
+
+    func testFetchOrStartCorrectAnswerIsValidOption() async throws {
+        guard let dataController else { throw TestsError.missingDataController }
+
+        let (gameState, _) = try await dataController.fetchOrStartWhichCameFirstDailySession(
+            date: dateWithEnoughEvents,
+            project: enProject,
+            onThisDayDataController: onThisDayControllerWithEnoughEvents()
+        )
+
+        for question in gameState.questions {
+            XCTAssertTrue(
+                question.correctAnswer == "A" || question.correctAnswer == "B",
+                "correctAnswer must be 'A' or 'B', got '\(question.correctAnswer)'"
+            )
+        }
     }
 
     // MARK: - submitWhichCameFirstAnswer Tests
@@ -108,13 +139,13 @@ final class WMFGamesDataControllerTests: XCTestCase {
     func testSubmitCorrectAnswerIncrementsScore() async throws {
         guard let dataController else { throw TestsError.missingDataController }
 
-        let gameState = try await dataController.fetchOrStartWhichCameFirstDailySession(
+        let (gameState, _) = try await dataController.fetchOrStartWhichCameFirstDailySession(
             date: dateWithEnoughEvents,
             project: enProject,
             onThisDayDataController: onThisDayControllerWithEnoughEvents()
         )
 
-        guard let firstQuestion = gameState.0.questions.first else {
+        guard let firstQuestion = gameState.questions.first else {
             XCTFail("Expected at least one question")
             return
         }
@@ -136,13 +167,13 @@ final class WMFGamesDataControllerTests: XCTestCase {
     func testSubmitWrongAnswerDoesNotIncrementScore() async throws {
         guard let dataController else { throw TestsError.missingDataController }
 
-        let gameState = try await dataController.fetchOrStartWhichCameFirstDailySession(
+        let (gameState, _) = try await dataController.fetchOrStartWhichCameFirstDailySession(
             date: dateWithEnoughEvents,
             project: enProject,
             onThisDayDataController: onThisDayControllerWithEnoughEvents()
         )
 
-        guard let firstQuestion = gameState.0.questions.first else {
+        guard let firstQuestion = gameState.questions.first else {
             XCTFail("Expected at least one question")
             return
         }
@@ -165,13 +196,13 @@ final class WMFGamesDataControllerTests: XCTestCase {
     func testSubmitInvalidOptionThrows() async throws {
         guard let dataController else { throw TestsError.missingDataController }
 
-        let gameState = try await dataController.fetchOrStartWhichCameFirstDailySession(
+        let (gameState, _) = try await dataController.fetchOrStartWhichCameFirstDailySession(
             date: dateWithEnoughEvents,
             project: enProject,
             onThisDayDataController: onThisDayControllerWithEnoughEvents()
         )
 
-        guard let firstQuestion = gameState.0.questions.first else {
+        guard let firstQuestion = gameState.questions.first else {
             XCTFail("Expected at least one question")
             return
         }
@@ -192,16 +223,16 @@ final class WMFGamesDataControllerTests: XCTestCase {
     func testAnsweringAllQuestionsCompletesSession() async throws {
         guard let dataController else { throw TestsError.missingDataController }
 
-        let gameState = try await dataController.fetchOrStartWhichCameFirstDailySession(
+        let (gameState, _) = try await dataController.fetchOrStartWhichCameFirstDailySession(
             date: dateWithEnoughEvents,
             project: enProject,
             onThisDayDataController: onThisDayControllerWithEnoughEvents()
         )
 
-        XCTAssertEqual(gameState.0.questions.count, 5)
+        XCTAssertEqual(gameState.questions.count, 5)
         let sessionID = try await sessionIdentifier(for: dateWithEnoughEvents)
 
-        for question in gameState.0.questions {
+        for question in gameState.questions {
             _ = try await dataController.submitWhichCameFirstAnswer(
                 sessionIdentifier: sessionID,
                 questionIdentifier: question.id,
@@ -221,6 +252,31 @@ final class WMFGamesDataControllerTests: XCTestCase {
         XCTAssertEqual(session.currentQuestionIndex, 5)
     }
 
+    func testSubmitAnswerUpdatesCurrentQuestionIndex() async throws {
+        guard let dataController else { throw TestsError.missingDataController }
+
+        let (gameState, _) = try await dataController.fetchOrStartWhichCameFirstDailySession(
+            date: dateWithEnoughEvents,
+            project: enProject,
+            onThisDayDataController: onThisDayControllerWithEnoughEvents()
+        )
+
+        guard let firstQuestion = gameState.questions.first else {
+            XCTFail("Expected at least one question")
+            return
+        }
+
+        let sessionID = try await sessionIdentifier(for: dateWithEnoughEvents)
+        _ = try await dataController.submitWhichCameFirstAnswer(
+            sessionIdentifier: sessionID,
+            questionIdentifier: firstQuestion.id,
+            pickedOption: firstQuestion.correctAnswer
+        )
+
+        let sessions = try await dataController.fetchWhichCameFirstSessions(project: enProject)
+        XCTAssertEqual(sessions.first?.currentQuestionIndex, 1)
+    }
+
     // MARK: - fetchWhichCameFirstSessions Tests
 
     func testFetchSessionsReturnsSortedByDateDescending() async throws {
@@ -229,7 +285,6 @@ final class WMFGamesDataControllerTests: XCTestCase {
         let earlierDate = "2026-05-06"
         let laterDate = "2026-05-07"
 
-        // Create sessions on two different dates (both use the same 55-event fixture)
         _ = try await dataController.fetchOrStartWhichCameFirstDailySession(
             date: earlierDate,
             project: enProject,
@@ -248,19 +303,24 @@ final class WMFGamesDataControllerTests: XCTestCase {
         XCTAssertEqual(sessions[1].dailyGameDate, earlierDate)
     }
 
+    func testFetchSessionsReturnsEmptyForNewStore() async throws {
+        guard let dataController else { throw TestsError.missingDataController }
+
+        let sessions = try await dataController.fetchWhichCameFirstSessions(project: enProject)
+        XCTAssertTrue(sessions.isEmpty)
+    }
+
     // MARK: - isWhichCameFirstDailySessionAvailable Tests
 
     func testIsAvailableReturnsTrueForExistingSession() async throws {
         guard let dataController else { throw TestsError.missingDataController }
 
-        // Create a session first
         _ = try await dataController.fetchOrStartWhichCameFirstDailySession(
             date: dateWithEnoughEvents,
             project: enProject,
             onThisDayDataController: onThisDayControllerWithEnoughEvents()
         )
 
-        // isAvailable should return true even with a mock that would fail (session is already persisted)
         let isAvailable = try await dataController.isWhichCameFirstDailySessionAvailable(
             date: dateWithEnoughEvents,
             project: enProject,
@@ -294,6 +354,100 @@ final class WMFGamesDataControllerTests: XCTestCase {
         XCTAssertFalse(isAvailable)
     }
 
+    // MARK: - fetchWhichCameFirstStats Tests
+
+    func testStatsGamesPlayedCountsOnlyCompletedSessions() async throws {
+        guard let dataController else { throw TestsError.missingDataController }
+
+        // Start but do not complete a session
+        _ = try await dataController.fetchOrStartWhichCameFirstDailySession(
+            date: dateWithEnoughEvents,
+            project: enProject,
+            onThisDayDataController: onThisDayControllerWithEnoughEvents()
+        )
+
+        let stats = try await dataController.fetchWhichCameFirstStats(project: enProject)
+        XCTAssertEqual(stats.gamesPlayed, 0)
+    }
+
+    func testStatsGamesPlayedIncrementsAfterCompletion() async throws {
+        guard let dataController else { throw TestsError.missingDataController }
+
+        try await completeAllQuestions(for: dateWithEnoughEvents)
+
+        let stats = try await dataController.fetchWhichCameFirstStats(project: enProject)
+        XCTAssertEqual(stats.gamesPlayed, 1)
+    }
+
+    func testStatsAverageScoreAfterPerfectGame() async throws {
+        guard let dataController else { throw TestsError.missingDataController }
+
+        try await completeAllQuestions(for: dateWithEnoughEvents)
+
+        let stats = try await dataController.fetchWhichCameFirstStats(project: enProject)
+        XCTAssertEqual(stats.averageScore, 5)
+    }
+
+    func testStatsBestStreakAfterOneGame() async throws {
+        guard let dataController else { throw TestsError.missingDataController }
+
+        try await completeAllQuestions(for: dateWithEnoughEvents)
+
+        let stats = try await dataController.fetchWhichCameFirstStats(project: enProject)
+        XCTAssertEqual(stats.bestStreak, 1)
+    }
+
+    func testStatsAreZeroWithNoSessions() async throws {
+        guard let dataController else { throw TestsError.missingDataController }
+
+        let stats = try await dataController.fetchWhichCameFirstStats(project: enProject)
+        XCTAssertEqual(stats.gamesPlayed, 0)
+        XCTAssertEqual(stats.currentStreak, 0)
+        XCTAssertEqual(stats.bestStreak, 0)
+        XCTAssertEqual(stats.averageScore, 0)
+    }
+
+    // MARK: - fetchWhichCameFirstDailyPreviewEvents Tests
+
+    func testPreviewEventsReturnsTwoDistinctOptions() async throws {
+        guard let dataController else { throw TestsError.missingDataController }
+
+        let preview = try await dataController.fetchWhichCameFirstDailyPreviewEvents(
+            date: dateWithEnoughEvents,
+            project: enProject,
+            onThisDayDataController: onThisDayControllerWithEnoughEvents()
+        )
+
+        XCTAssertNotNil(preview)
+        XCTAssertNotEqual(preview?.optionA.date, preview?.optionB.date)
+    }
+
+    func testPreviewEventsReusesExistingSessionWithoutAPICall() async throws {
+        guard let dataController else { throw TestsError.missingDataController }
+
+        // Create a session first
+        let (gameState, _) = try await dataController.fetchOrStartWhichCameFirstDailySession(
+            date: dateWithEnoughEvents,
+            project: enProject,
+            onThisDayDataController: onThisDayControllerWithEnoughEvents()
+        )
+
+        guard let firstQuestion = gameState.questions.first else {
+            XCTFail("Expected at least one question")
+            return
+        }
+
+        // Preview should match the already-persisted first question
+        let preview = try await dataController.fetchWhichCameFirstDailyPreviewEvents(
+            date: dateWithEnoughEvents,
+            project: enProject,
+            onThisDayDataController: onThisDayControllerWithEnoughEvents()
+        )
+
+        XCTAssertEqual(preview?.optionA.title, firstQuestion.optionA.title)
+        XCTAssertEqual(preview?.optionB.title, firstQuestion.optionB.title)
+    }
+
     // MARK: - Helpers
 
     /// Fetches the identifier of the persisted session for a given date from Core Data.
@@ -304,6 +458,29 @@ final class WMFGamesDataControllerTests: XCTestCase {
             throw TestsError.sessionNotFound
         }
         return session.identifier
+    }
+
+    /// Starts a session for the given date and answers all questions correctly.
+    @discardableResult
+    private func completeAllQuestions(for date: String) async throws -> [WMFWhichCameFirstQuestion] {
+        guard let dataController else { throw TestsError.missingDataController }
+
+        let (gameState, _) = try await dataController.fetchOrStartWhichCameFirstDailySession(
+            date: date,
+            project: enProject,
+            onThisDayDataController: onThisDayControllerWithEnoughEvents()
+        )
+
+        let sessionID = try await sessionIdentifier(for: date)
+        for question in gameState.questions {
+            _ = try await dataController.submitWhichCameFirstAnswer(
+                sessionIdentifier: sessionID,
+                questionIdentifier: question.id,
+                pickedOption: question.correctAnswer
+            )
+        }
+
+        return gameState.questions
     }
 
     // MARK: - Error
