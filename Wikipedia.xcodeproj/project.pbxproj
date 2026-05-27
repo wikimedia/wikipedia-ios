@@ -1891,6 +1891,9 @@
 		B0F929A01F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F9299B1F84789C002A0788 /* WMFWelcomeInitialViewController.swift */; };
 		B0F92C6F1E3C580900B72802 /* WMFCaptchaResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C6E1E3C580900B72802 /* WMFCaptchaResetter.swift */; };
 		B0F92C821E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C811E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift */; };
+		A5A1C2022EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A1C2012EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift */; };
+		A5A1C2032EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A1C2012EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift */; };
+		A5A1C2042EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A1C2012EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift */; };
 		B2BECD1B2CFC4098AE814E46 /* PageContentService+UITestAccessibilityScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A66E119365436E9C5F853D /* PageContentService+UITestAccessibilityScript.swift */; };
 		B37B38F01E5F432F00FE11BD /* WMFDatabaseHousekeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B38EF1E5F432F00FE11BD /* WMFDatabaseHousekeeper.swift */; };
 		B389CFCB1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */; };
@@ -3211,6 +3214,7 @@
 		53A575F92602C845009835E6 /* WMFAppViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFAppViewController+Extensions.swift"; sourceTree = "<group>"; };
 		53BAB79925DDDEE100A5ED4E /* Wikipedia 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 6.xcdatamodel"; sourceTree = "<group>"; };
 		59A66E119365436E9C5F853D /* PageContentService+UITestAccessibilityScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageContentService+UITestAccessibilityScript.swift"; sourceTree = "<group>"; };
+		A5A1C2012EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageContentService+UITestAccessibilityConfiguration.swift"; sourceTree = "<group>"; };
 		60A952CD4C29EF4BB953B27E /* WMFReadingListToastManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WMFReadingListToastManager.swift; sourceTree = "<group>"; };
 		67033E132A61B24800896852 /* WatchlistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistController.swift; sourceTree = "<group>"; };
 		67033E182A61DC3700896852 /* ArticleViewController+Watchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Watchlist.swift"; sourceTree = "<group>"; };
@@ -6140,6 +6144,7 @@
 				BAA0D91B1F4F165A00091284 /* PageIssuesTableViewController.swift */,
 				830AD2B824D1D615003EEFE6 /* WebPageUserScript.swift */,
 				67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */,
+				A5A1C2012EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift */,
 				59A66E119365436E9C5F853D /* PageContentService+UITestAccessibilityScript.swift */,
 				67DC5BE223A017CA00B03A84 /* ArticleViewController.swift */,
 				D8A47C8E23D7338C002AA823 /* ArticleViewController+TableOfContents.swift */,
@@ -10152,6 +10157,7 @@
 				67E50B2B27EAD3AD00ABA159 /* NotificationsCenterDetailViewModel+ImageExtensions.swift in Sources */,
 				B0C6BE4A1E42D19D0033BD6E /* WMFCaptchaViewController.swift in Sources */,
 				83DE45B92449C09B00671878 /* SplashScreenViewController.swift in Sources */,
+				A5A1C2032EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift in Sources */,
 				BC9EDE212A4D4BB4B84407FC /* PageContentService+UITestAccessibilityScript.swift in Sources */,
 				67DC5BEF23A1427D00B03A84 /* ActionHandlerScript.swift in Sources */,
 				7A6ED51220ADBF950001849F /* ReadingListsFunnel.swift in Sources */,
@@ -10738,6 +10744,7 @@
 				6782DBD42343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */,
 				67E0690C22399D1D008550AC /* ReadingThemesControlsViewController.swift in Sources */,
 				67E069132239B33D008550AC /* FindAndReplaceKeyboardBar.swift in Sources */,
+				A5A1C2022EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift in Sources */,
 				B2BECD1B2CFC4098AE814E46 /* PageContentService+UITestAccessibilityScript.swift in Sources */,
 				67DC5BF023A1427D00B03A84 /* ActionHandlerScript.swift in Sources */,
 				D8CE251B1E698E2400DAE2E0 /* LoggingDefaults.swift in Sources */,
@@ -11282,6 +11289,7 @@
 				6782DBD52343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */,
 				67E0690B22399D1C008550AC /* ReadingThemesControlsViewController.swift in Sources */,
 				67E069122239B33D008550AC /* FindAndReplaceKeyboardBar.swift in Sources */,
+				A5A1C2042EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift in Sources */,
 				C5A99F81181347DFA472B1E9 /* PageContentService+UITestAccessibilityScript.swift in Sources */,
 				67DC5BF123A1427D00B03A84 /* ActionHandlerScript.swift in Sources */,
 				D8EC3E0C1E9BDA35006712EB /* WMFSettingsTableViewCell.m in Sources */,

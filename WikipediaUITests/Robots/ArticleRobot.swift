@@ -1,3 +1,4 @@
+import Foundation
 import XCTest
 import WMFComponents
 
@@ -5,12 +6,17 @@ import WMFComponents
 struct ArticleRobot: ScreenshotCapturingRobot {
     let base: UITestRobot
     private let configuration: UITestConfiguration
+    private static let articleElementSearchTimeout: TimeInterval = 30
 
     init(base: UITestRobot, configuration: UITestConfiguration) {
         self.base = base
         self.configuration = configuration
     }
+}
 
+// MARK: - Screen state
+
+extension ArticleRobot {
     @discardableResult
     func assertVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.assertExists(
@@ -36,6 +42,21 @@ struct ArticleRobot: ScreenshotCapturingRobot {
     }
 
     @discardableResult
+    func rotateAndAssertArticleWorks(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        XCUIDevice.shared.orientation = .landscapeLeft
+        _ = assertVisible(file: file, line: line)
+        _ = assertTopControlsVisible(file: file, line: line)
+
+        XCUIDevice.shared.orientation = .portrait
+        _ = assertVisible(file: file, line: line)
+        return assertTopControlsVisible(file: file, line: line)
+    }
+}
+
+// MARK: - Navigation
+
+extension ArticleRobot {
+    @discardableResult
     func tapBackToExplore(file: StaticString = #filePath, line: UInt = #line) -> ExploreRobot {
         let navigationBar = navigationBar(file: file, line: line)
         base.assertVisible(navigationBar.buttons.firstMatch, timeout: 15, description: "article navigation button", file: file, line: line)
@@ -57,12 +78,13 @@ struct ArticleRobot: ScreenshotCapturingRobot {
         base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.searchButton, file: file, line: line)
         return SearchRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
     }
+}
 
+// MARK: - Images
+
+extension ArticleRobot {
     @discardableResult
     func openLeadImageGallery(file: StaticString = #filePath, line: UInt = #line) -> ImageGalleryRobot {
-        let leadImage = base.app.descendants(matching: .any)
-            .matching(identifier: AccessibilityIdentifiers.Article.leadImage)
-            .firstMatch
         base.assertExists(leadImage, timeout: 30, description: "article lead image", file: file, line: line)
         leadImage.tap()
         return ImageGalleryRobot(base: base)
@@ -71,9 +93,6 @@ struct ArticleRobot: ScreenshotCapturingRobot {
 
     @discardableResult
     func tapLeadImage(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        let leadImage = base.app.descendants(matching: .any)
-            .matching(identifier: AccessibilityIdentifiers.Article.leadImage)
-            .firstMatch
         base.assertVisible(leadImage, timeout: 15, description: "article lead image", file: file, line: line)
         leadImage.tap()
         return self
@@ -81,7 +100,7 @@ struct ArticleRobot: ScreenshotCapturingRobot {
 
     @discardableResult
     func tapNonLeadImage(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        visibleArticleElement(matchingLabel: ArticleContentLabel.nonLeadImage, maxScrolls: 15, file: file, line: line).tap()
+        tapArticleElement(.nonLeadImage, file: file, line: line)
         return self
     }
 
@@ -104,19 +123,24 @@ struct ArticleRobot: ScreenshotCapturingRobot {
         closeButton.tap()
         return assertVisible(file: file, line: line)
     }
+}
 
+// MARK: - Article content
+
+extension ArticleRobot {
     @discardableResult
     func openArticleLinkContextMenu(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        let articleLink = visibleArticleElement(matchingLabel: ArticleContentLabel.articleLink, maxScrolls: 3, file: file, line: line)
-        articleLink.press(forDuration: 1.2)
+        expandQuickFactsIfNeededForArticleLink(file: file, line: line)
+        let articleLink = articleElement(.articleLink, file: file, line: line)
+        pressArticleElement(articleLink, forDuration: 1.2, file: file, line: line)
         return assertArticleLinkContextMenuVisible(file: file, line: line)
     }
 
     @discardableResult
     func assertArticleLinkContextMenuVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        for action in ArticleLinkContextMenuAction.visibleInLongPressMenu {
-            let item = contextMenuItem(for: action)
-            base.assertExists(item, timeout: 5, description: "\(action.title) context menu item", file: file, line: line)
+        for title in articleControlsFixture.contextMenuActionTitles {
+            let item = contextMenuItem(withTitle: title)
+            base.assertExists(item, timeout: 5, description: "\(title) context menu item", file: file, line: line)
         }
 
         assertArticleLinkPreviewVisible(file: file, line: line)
@@ -125,102 +149,281 @@ struct ArticleRobot: ScreenshotCapturingRobot {
 
     @discardableResult
     func dismissArticleLinkContextMenu(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        let openMenuItem = contextMenuItem(for: .open)
-        base.app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.95)).tap()
+        let openMenuItem = contextMenuItem(withTitle: articleControlsFixture.contextMenuActionTitles[0])
+        base.app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.08)).tap()
         base.waitForElementToDisappear(openMenuItem, timeout: 5, file: file, line: line)
         return assertVisible(file: file, line: line)
     }
 
     @discardableResult
     func tapArticleLink(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        visibleArticleElement(matchingLabel: ArticleContentLabel.articleLink, maxScrolls: 3, file: file, line: line).tap()
-        _ = visibleArticleElement(matchingLabel: ArticleContentLabel.articleLinkDescription, maxScrolls: 2, file: file, line: line)
+        expandQuickFactsIfNeededForArticleLink(file: file, line: line)
+        tapArticleElement(.articleLink, file: file, line: line)
+        assertArticleElementExists(matchingLabel: articleControlsFixture.linkedArticleDescription, file: file, line: line)
         return assertVisible(file: file, line: line)
     }
 
     @discardableResult
     func tapQuickFactsTableItem(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        visibleArticleElement(matchingLabel: ArticleContentLabel.quickFactsTable, maxScrolls: 3, file: file, line: line).tap()
-        visibleArticleElement(matchingLabel: ArticleContentLabel.quickFactsTableItem, maxScrolls: 3, file: file, line: line).tap()
-        _ = visibleArticleElement(matchingLabel: ArticleContentLabel.articleLinkDescription, maxScrolls: 2, file: file, line: line)
+        tapArticleElement(.quickFactsTable, file: file, line: line)
+        tapArticleElement(quickFactsTableItem, file: file, line: line)
+        assertArticleElementExists(matchingLabel: articleControlsFixture.linkedArticleDescription, file: file, line: line)
         return assertVisible(file: file, line: line)
     }
 
     @discardableResult
     func tapProtectedEditIcon(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        visibleArticleElement(matchingLabel: ArticleContentLabel.protectedEditIcon, maxScrolls: 2, file: file, line: line).tap()
+        tapArticleElement(.protectedEditIcon, file: file, line: line)
         return self
     }
 
     @discardableResult
     func tapUnprotectedEditIcon(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        visibleArticleElement(matchingLabel: ArticleContentLabel.unprotectedEditIcon, maxScrolls: 2, file: file, line: line).tap()
+        tapArticleElement(.unprotectedEditIcon, file: file, line: line)
         return self
     }
 
     @discardableResult
     func tapAboutThisArticleItem(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        visibleArticleElement(matchingLabel: ArticleContentLabel.footerItem, maxScrolls: 20, file: file, line: line).tap()
+        tapArticleElement(.footerItem, file: file, line: line)
         return assertHistoryVisibleAndReturnToArticle(file: file, line: line)
     }
 
     @discardableResult
     func tapLicenseLink(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        visibleArticleElement(matchingLabel: ArticleContentLabel.licenseLink, maxScrolls: 20, file: file, line: line).tap()
+        tapArticleElement(.licenseLink, file: file, line: line)
         return self
     }
+}
 
-    @discardableResult
-    func rotateAndAssertArticleWorks(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        XCUIDevice.shared.orientation = .landscapeLeft
-        _ = assertVisible(file: file, line: line)
-        _ = assertTopControlsVisible(file: file, line: line)
-
-        XCUIDevice.shared.orientation = .portrait
-        _ = assertVisible(file: file, line: line)
-        return assertTopControlsVisible(file: file, line: line)
+extension ArticleRobot {
+    struct ArticleControlsFixture {
+        let primaryArticleTitle: String
+        let linkedArticleTitle: String
+        let linkedArticleDescription: String
+        let footerArticleTitle: String
+        let contextMenuActionTitles: [String]
+        let articleLinkRequiresQuickFactsExpansion: Bool
     }
 
-    private func visibleArticleElement(matchingLabel label: String, maxScrolls: Int, file: StaticString, line: UInt) -> XCUIElement {
-        visibleArticleElement(matching: NSPredicate(format: "label == %@", label), description: label, maxScrolls: maxScrolls, file: file, line: line)
+    static func articleControlsFixture(languageCode: String) -> ArticleControlsFixture? {
+        switch languageCode {
+        case "en":
+            return ArticleControlsFixture(
+                primaryArticleTitle: "Dog",
+                linkedArticleTitle: "Canis",
+                linkedArticleDescription: "Genus of canines",
+                footerArticleTitle: "Canis lepophagus",
+                contextMenuActionTitles: [
+                    "Open",
+                    "Open in new tab",
+                    "Open in background tab",
+                    "Share…"
+                ],
+                articleLinkRequiresQuickFactsExpansion: false
+            )
+        case "de":
+            return ArticleControlsFixture(
+                primaryArticleTitle: "Haushund",
+                linkedArticleTitle: "Wolfs- und Schakalartige",
+                linkedArticleDescription: "Gattung der Familie Hunde (Canidae)",
+                footerArticleTitle: "Wolfs- und Schakalartige",
+                contextMenuActionTitles: [
+                    "Öffnen",
+                    "In neuem Tab öffnen",
+                    "Im Hintergrund-Tab öffnen",
+                    "Teilen ..."
+                ],
+                articleLinkRequiresQuickFactsExpansion: true
+            )
+        case "he":
+            return ArticleControlsFixture(
+                primaryArticleTitle: "כלב הבית",
+                linkedArticleTitle: "כלב (סוג)",
+                linkedArticleDescription: "סוג של בעל חיים",
+                footerArticleTitle: "כלב (סוג)",
+                contextMenuActionTitles: [
+                    "פתיחה",
+                    "פתיחה בלשונית חדשה",
+                    "פתיחה בלשונית ברקע",
+                    "שיתוף..."
+                ],
+                articleLinkRequiresQuickFactsExpansion: true
+            )
+        case "vi":
+            return ArticleControlsFixture(
+                primaryArticleTitle: "Chó",
+                linkedArticleTitle: "Chi Chó",
+                linkedArticleDescription: "chi động vật có vú, bao gồm chó nhà",
+                footerArticleTitle: "Chi Chó",
+                contextMenuActionTitles: [
+                    "Mở",
+                    "Mở trong thẻ mới",
+                    "Open in background tab",
+                    "Chia sẻ…"
+                ],
+                articleLinkRequiresQuickFactsExpansion: false
+            )
+        default:
+            return nil
+        }
+    }
+}
+
+// MARK: - Private helpers
+
+private extension ArticleRobot {
+    enum ArticleContentElement: String {
+        case articleLink = "Article Link Canis"
+        case nonLeadImage = "Article Non-Lead Image"
+        case quickFactsTable = "Article Quick Facts Table"
+        case quickFactsTableItem = "Article Quick Facts Table Link"
+        case footerItem = "Article About This Article Item"
+        case licenseLink = "Article License Link"
+        case protectedEditIcon = "Edit section on protected page"
+        case unprotectedEditIcon = "Edit section"
     }
 
-    private func visibleArticleElement(matching predicate: NSPredicate, description: String, maxScrolls: Int, file: StaticString, line: UInt) -> XCUIElement {
-        let element = articleElement(matching: predicate)
-        if element.waitForExistence(timeout: 2), element.isHittable {
+    var articleControlsFixture: ArticleControlsFixture {
+        guard let fixture = Self.articleControlsFixture(languageCode: configuration.languageCode) else {
+            preconditionFailure("Article control robot actions require a bundled article-control fixture language.")
+        }
+
+        return fixture
+    }
+
+    var quickFactsTableItem: ArticleContentElement {
+        articleControlsFixture.articleLinkRequiresQuickFactsExpansion ? .articleLink : .quickFactsTableItem
+    }
+
+    var leadImage: XCUIElement {
+        base.app.descendants(matching: .any)
+            .matching(identifier: AccessibilityIdentifiers.Article.leadImage)
+            .firstMatch
+    }
+
+    var homeButton: XCUIElement {
+        base.app.buttons[AccessibilityIdentifiers.Article.homeButton]
+    }
+
+    var searchButton: XCUIElement {
+        base.app.buttons[AccessibilityIdentifiers.Article.searchButton]
+    }
+
+    func navigationBar(file: StaticString = #filePath, line: UInt = #line) -> XCUIElement {
+        let navigationBar = base.app.navigationBars.firstMatch
+        base.assertExists(navigationBar, description: "article navigation bar", file: file, line: line)
+        return navigationBar
+    }
+
+    func articleElement(_ articleContentElement: ArticleContentElement, file: StaticString, line: UInt) -> XCUIElement {
+        articleElement(matchingLabel: articleContentElement.rawValue, file: file, line: line)
+    }
+
+    func articleElement(matchingLabel label: String, file: StaticString, line: UInt) -> XCUIElement {
+        articleElement(matching: NSPredicate(format: "label == %@", label), description: label, file: file, line: line)
+    }
+
+    func articleElement(matching predicate: NSPredicate, description: String, file: StaticString, line: UInt) -> XCUIElement {
+        let element = base.app.descendants(matching: .any).matching(predicate).firstMatch
+        if element.waitForExistence(timeout: 2), canInteractWithArticleElement(element) {
             return element
         }
 
-        for _ in 0..<maxScrolls {
-            if element.exists && element.isHittable {
+        let timeoutDate = Date().addingTimeInterval(Self.articleElementSearchTimeout)
+        repeat {
+            if canInteractWithArticleElement(element) {
                 return element
             }
-            base.app.swipeUp()
-        }
 
-        base.assertVisible(element, timeout: 2, description: "article element labeled '\(description)'", file: file, line: line)
+            scrollArticleTowardElement(element)
+        } while Date() < timeoutDate
+
+        XCTAssertTrue(
+            canInteractWithArticleElement(element),
+            "Expected article element labeled '\(description)' to be on screen within \(Self.articleElementSearchTimeout) seconds.",
+            file: file,
+            line: line
+        )
         return element
     }
 
-    private func articleElement(matching predicate: NSPredicate) -> XCUIElement {
-        return base.app.descendants(matching: .any).matching(predicate).firstMatch
+    func assertArticleElementExists(matchingLabel label: String, file: StaticString, line: UInt) {
+        _ = articleElement(matchingLabel: label, file: file, line: line)
     }
 
-    private func contextMenuItem(for action: ArticleLinkContextMenuAction) -> XCUIElement {
-        let predicate = NSPredicate(format: "label == %@ OR identifier == %@", action.title, action.title)
+    func tapArticleElement(_ articleContentElement: ArticleContentElement, file: StaticString, line: UInt) {
+        tapArticleElement(articleElement(articleContentElement, file: file, line: line), file: file, line: line)
+    }
+
+    func expandQuickFactsIfNeededForArticleLink(file: StaticString, line: UInt) {
+        guard articleControlsFixture.articleLinkRequiresQuickFactsExpansion else {
+            return
+        }
+
+        tapArticleElement(.quickFactsTable, file: file, line: line)
+    }
+
+    func tapArticleElement(_ element: XCUIElement, file: StaticString, line: UInt) {
+        element.tap()
+    }
+
+    func pressArticleElement(_ element: XCUIElement, forDuration duration: TimeInterval, file: StaticString, line: UInt) {
+        element.press(forDuration: duration)
+    }
+
+    func scrollArticleTowardElement(_ element: XCUIElement) {
+        if element.exists, !element.frame.isEmpty, element.frame.midY < tappableArticleFrame.minY {
+            base.dragDown(articleScrollTarget)
+        } else {
+            base.dragUp(articleScrollTarget)
+        }
+    }
+
+    var articleScrollTarget: XCUIElement {
+        let webView = base.app.webViews.firstMatch
+        return webView.exists ? webView : base.app.scrollViews.firstMatch
+    }
+
+    var tappableArticleFrame: CGRect {
+        base.app.frame.insetBy(dx: 0, dy: 130)
+    }
+
+    func canInteractWithArticleElement(_ element: XCUIElement) -> Bool {
+        guard element.exists, !element.frame.isEmpty else {
+            return false
+        }
+
+        return tappableArticleFrame.contains(CGPoint(x: element.frame.midX, y: element.frame.midY))
+    }
+
+    func contextMenuItem(withTitle title: String) -> XCUIElement {
+        let titleWithoutTrailingEllipsis = title.trimmingCharacters(in: CharacterSet(charactersIn: " .…"))
+        let predicate: NSPredicate
+        if titleWithoutTrailingEllipsis != title, !titleWithoutTrailingEllipsis.isEmpty {
+            predicate = NSPredicate(
+                format: "label == %@ OR identifier == %@ OR label BEGINSWITH %@ OR identifier BEGINSWITH %@",
+                title,
+                title,
+                titleWithoutTrailingEllipsis,
+                titleWithoutTrailingEllipsis
+            )
+        } else {
+            predicate = NSPredicate(format: "label == %@ OR identifier == %@", title, title)
+        }
         return base.app.buttons.matching(predicate).firstMatch
     }
 
-    private func assertArticleLinkPreviewVisible(file: StaticString, line: UInt) {
+    func assertArticleLinkPreviewVisible(file: StaticString, line: UInt) {
         let preview = base.app.otherElements[AccessibilityIdentifiers.Article.linkPreview]
         if preview.waitForExistence(timeout: 2) {
             return
         }
 
         let previewContentPredicate = NSPredicate(
-            format: "label == %@ OR label CONTAINS %@",
-            ArticleContentLabel.articleLinkPreviewTitle,
-            ArticleContentLabel.articleLinkPreviewDescription
+            format: "label == %@ OR label CONTAINS[c] %@",
+            articleControlsFixture.linkedArticleTitle,
+            articleControlsFixture.linkedArticleDescription
         )
         let previewContent = base.app.descendants(matching: .any).matching(previewContentPredicate).firstMatch
 
@@ -233,85 +436,17 @@ struct ArticleRobot: ScreenshotCapturingRobot {
     }
 
     @discardableResult
-    private func assertHistoryVisibleAndReturnToArticle(file: StaticString, line: UInt) -> Self {
-        let historyNavigationBar = base.app.navigationBars["History"]
+    func assertHistoryVisibleAndReturnToArticle(file: StaticString, line: UInt) -> Self {
+        let articleView = base.app.otherElements[AccessibilityIdentifiers.Article.view]
+        base.waitForElementToDisappear(articleView, timeout: 15, file: file, line: line)
+
+        let historyNavigationBar = base.app.navigationBars.firstMatch
         base.assertExists(historyNavigationBar, timeout: 15, description: "history navigation bar", file: file, line: line)
-        base.assertExists(base.app.staticTexts[ArticleHistoryLabel.heading], timeout: 15, description: "revision history heading", file: file, line: line)
-        base.assertExists(base.app.staticTexts[ArticleHistoryLabel.editSummary], timeout: 15, description: "article history edit summary", file: file, line: line)
-        base.assertExists(base.app.otherElements[ArticleHistoryLabel.editGraph], timeout: 15, description: "article history edit graph", file: file, line: line)
 
         let backButton = base.backButton(in: historyNavigationBar, isRightToLeft: configuration.isRightToLeft)
         base.assertExists(backButton, timeout: 15, description: "history back button", file: file, line: line)
         XCTAssertFalse(backButton.frame.isEmpty, "Expected history back button to have a tappable frame.", file: file, line: line)
         backButton.tap()
         return assertVisible(file: file, line: line)
-    }
-    
-    // MARK: - Navigation elements
-    
-    private var homeButton: XCUIElement {
-        base.app.buttons[AccessibilityIdentifiers.Article.homeButton]
-    }
-
-    private var searchButton: XCUIElement {
-        base.app.buttons[AccessibilityIdentifiers.Article.searchButton]
-    }
-
-    private func navigationBar(file: StaticString = #filePath, line: UInt = #line) -> XCUIElement {
-        let navigationBar = base.app.navigationBars.firstMatch
-        base.assertExists(navigationBar, description: "article navigation bar", file: file, line: line)
-        return navigationBar
-    }
-}
-
-fileprivate extension ArticleRobot {
-    enum ArticleLinkContextMenuAction: CaseIterable {
-        case open
-        case openInNewTab
-        case openInBackground
-        case saveForLater
-        case share
-
-        static let visibleInLongPressMenu: [Self] = [
-            .open,
-            .openInNewTab,
-            .openInBackground,
-            .share
-        ]
-
-        var title: String {
-            switch self {
-            case .open:
-                return "Open"
-            case .openInNewTab:
-                return "Open in new tab"
-            case .openInBackground:
-                return "Open in background tab"
-            case .saveForLater:
-                return "Save for later"
-            case .share:
-                return "Share\u{2026}"
-            }
-        }
-    }
-
-    private enum ArticleContentLabel {
-        static let articleLink = "Article Link Canis"
-        static let articleLinkPreviewTitle = "Canis"
-        static let articleLinkPreviewDescription = "Genus of mammals"
-        static let articleLinkDescription = "Genus of canines"
-        static let nonLeadImage = "Article Non-Lead Image"
-        static let quickFactsTable = "Article Quick Facts Table"
-        static let quickFactsTableItem = "Article Quick Facts Table Link"
-        static let footerItem = "Article About This Article Item"
-        static let licenseLink = "Article License Link"
-        static let protectedEditIcon = "Edit section on protected page"
-        static let unprotectedEditIcon = "Edit section"
-    }
-
-    private enum ArticleHistoryLabel {
-        static let heading = "REVISION HISTORY"
-        static let editSummary = "90 edits since 2009"
-        static let editGraph = "Graph of edits over time"
     }
 }

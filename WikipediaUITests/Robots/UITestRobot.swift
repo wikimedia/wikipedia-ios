@@ -90,6 +90,14 @@ struct UITestRobot {
         return self
     }
 
+    @discardableResult
+    func dragDown(_ element: XCUIElement) -> Self {
+        let start = element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.2))
+        let end = element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.85))
+        start.press(forDuration: 0.01, thenDragTo: end)
+        return self
+    }
+
     func backButton(in navigationBar: XCUIElement, isRightToLeft: Bool) -> XCUIElement {
         let systemBackButton = navigationBar.buttons.matching(identifier: Self.systemBackButtonIdentifier).firstMatch
         if systemBackButton.exists {

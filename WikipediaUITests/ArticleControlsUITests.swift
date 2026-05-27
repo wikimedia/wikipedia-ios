@@ -69,7 +69,8 @@ final class ArticleControlsUITests: XCTestCase {
         launchWikipediaAppRobot(onboardingState: .completed)
             .explore
             .assertVisible(file: file, line: line)
-            .openFirstArticle(file: file, line: line)
+            .openSearch(file: file, line: line)
+            .openArticle(named: articleControlsFixture.primaryArticleTitle, file: file, line: line)
     }
 
     private func openShortArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
@@ -77,6 +78,14 @@ final class ArticleControlsUITests: XCTestCase {
             .explore
             .assertVisible(file: file, line: line)
             .openSearch(file: file, line: line)
-            .openArticle(named: "Canis lepophagus", file: file, line: line)
+            .openArticle(named: articleControlsFixture.footerArticleTitle, file: file, line: line)
+    }
+
+    private var articleControlsFixture: ArticleRobot.ArticleControlsFixture {
+        guard let fixture = ArticleRobot.articleControlsFixture(languageCode: uiTestConfiguration.languageCode) else {
+            preconditionFailure("ArticleControlsUITests must be skipped for unsupported fixture languages.")
+        }
+
+        return fixture
     }
 }

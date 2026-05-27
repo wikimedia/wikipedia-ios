@@ -113,9 +113,20 @@ final class UITestNetworkFixtureStore: @unchecked Sendable {
     /// Unit tests load resources from the test bundle, while app UI tests load
     /// them from the app bundle, so fixture lookup checks both bundle sets.
     private static func fixtureResourceURL(named resourceName: String) -> URL? {
+        guard !resourceName.isEmpty else {
+            return nil
+        }
+
         for bundle in Bundle.allBundles + [Bundle.main] {
-            if let url = bundle.url(forResource: resourceName, withExtension: nil, subdirectory: "Fixtures") {
-                return url
+            guard let resourceURL = bundle.resourceURL else {
+                continue
+            }
+
+            let fixtureURL = resourceURL
+                .appendingPathComponent("Fixtures")
+                .appendingPathComponent(resourceName)
+            if FileManager.default.fileExists(atPath: fixtureURL.path) {
+                return fixtureURL
             }
         }
 

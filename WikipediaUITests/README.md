@@ -15,6 +15,7 @@ This repository uses the Robots pattern for test legibility and organization. Ke
 - Keep shared app-side accessibility identifiers in `WMFComponents/Sources/WMFComponents/Utility/AccessibilityIdentifiers.swift`, including Objective-C bridge values used by legacy screens.
 - Keep launch arguments centralized in `UITestConfiguration` and `UITestLaunchArgument`. Do not set language, locale, text direction, or simulator appearance directly from individual tests.
 - Prefer stable accessibility identifiers over localized visible text. Assert localized strings only when the localization behavior itself is under test.
+- Keep fixture-backed article-control tests locale-aware through `ArticleControlsFixture`. The fixture-backed `en`, `de`, `he`, and `vi` configurations should open the active language's Dog article through search and load bundled article resources from `WikipediaUnitTests/Fixtures/ArticleControls/<language-code>`; E2E and unsupported languages should skip that deterministic article-control coverage.
 ## Validation
 - For UI-test helper changes, first run `scripts/lint-ui-tests.sh`.
 - For compile validation, use a narrow `xcodebuild build-for-testing` or selected UI-test run while iterating.
