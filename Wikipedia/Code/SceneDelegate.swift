@@ -148,15 +148,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
-        guard let firstURL = URLContexts.first?.url else {
+        guard var firstURL = URLContexts.first?.url else {
             return
         }
         
         // Extract source from URL query parameters before any activity processing, so widget taps
         // (which include source=widget_*) are not overwritten by processUserActivity setting "external_link".
-        if let components = URLComponents(url: firstURL, resolvingAgainstBaseURL: false),
+        if var components = URLComponents(url: firstURL, resolvingAgainstBaseURL: false),
            let sourceValue = components.queryItems?.first(where: { $0.name == "source" })?.value {
             self.lastOpenSource = sourceValue
+            
+            // reassign without source component before deep linking
+            // Fixes deep link bug https://phabricator.wikimedia.org/T426637
+            components.queryItems = components.queryItems?.filter { $0.name != "source" }
+            if (components.queryItems?.count ?? 0) == 0 {
+                components.queryItems = nil
+            }
+            if let strippedFirstURL = components.url {
+                firstURL = strippedFirstURL
+            }
+            
         } else {
             // URL opened from an external app (e.g. Chrome, Safari) with no source param.
             self.lastOpenSource = "external_link"

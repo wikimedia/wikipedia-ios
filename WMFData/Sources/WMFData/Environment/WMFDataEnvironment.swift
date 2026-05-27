@@ -23,7 +23,7 @@ public final class WMFDataEnvironment: ObservableObject {
     }
     
     public var mediaWikiService: WMFService?
-    public internal(set) var basicService: WMFService? = WMFBasicService()
+    public var basicService: WMFService? = WMFBasicService()
     
     public var userAgentUtility: (() -> String)?
     public var appInstallIDUtility: (() -> String?)?
