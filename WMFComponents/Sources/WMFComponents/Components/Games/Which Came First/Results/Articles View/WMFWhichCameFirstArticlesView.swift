@@ -46,7 +46,7 @@ public struct WMFWhichCameFirstArticlesView: View {
                                     )
                             }
                         )
-                        .contextMenu(menuItems: {
+                        .contextMenu {
                             Button {
                                 if let url = item.articleURL {
                                     viewModel.didTapArticle?(url)
@@ -55,6 +55,37 @@ public struct WMFWhichCameFirstArticlesView: View {
                                 Text(viewModel.localizedStrings.openArticleTitle)
                                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
                             }
+                            .labelStyle(.titleAndIcon)
+
+                            Button {
+                                if let url = item.articleURL {
+                                    viewModel.didTapOpenInNewTab?(url)
+                                }
+                            } label: {
+                                Text(viewModel.localizedStrings.openInNewTabTitle)
+                                Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIcon) ?? UIImage())
+                            }
+                            .labelStyle(.titleAndIcon)
+
+                            Button {
+                                if let url = item.articleURL {
+                                    viewModel.didTapOpenInBackgroundTab?(url)
+                                }
+                            } label: {
+                                Text(viewModel.localizedStrings.openInBackgroundTabTitle)
+                                Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIconBackground) ?? UIImage())
+                            }
+                            .labelStyle(.titleAndIcon)
+
+                            Button {
+                                if let url = item.articleURL {
+                                    viewModel.didSaveForLater?(url)
+                                }
+                            } label: {
+                                Text(viewModel.localizedStrings.saveForLaterTitle)
+                                Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage())
+                            }
+                            .labelStyle(.titleAndIcon)
 
                             Button {
                                 if let url = item.articleURL {
@@ -64,28 +95,25 @@ public struct WMFWhichCameFirstArticlesView: View {
                                 Text(viewModel.localizedStrings.shareArticleTitle)
                                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
                             }
-                        }, preview: {
-                            WMFArticlePreviewView(viewModel: WMFArticlePreviewViewModel(
-                                url: item.articleURL,
-                                titleHtml: item.title,
-                                description: item.dateString,
-                                imageURL: nil,
-                                isSaved: false,
-                                snippet: nil
-                            ))
-                        })
+                            .labelStyle(.titleAndIcon)
+                        }
                         .accessibilityElement(children: .combine)
                         .accessibilityLabel(item.title)
                         .accessibilityActions {
                             accessibilityAction(named: viewModel.localizedStrings.openArticleTitle) {
-                                if let url = item.articleURL {
-                                    viewModel.didTapArticle?(url)
-                                }
+                                if let url = item.articleURL { viewModel.didTapArticle?(url) }
+                            }
+                            accessibilityAction(named: viewModel.localizedStrings.openInNewTabTitle) {
+                                if let url = item.articleURL { viewModel.didTapOpenInNewTab?(url) }
+                            }
+                            accessibilityAction(named: viewModel.localizedStrings.openInBackgroundTabTitle) {
+                                if let url = item.articleURL { viewModel.didTapOpenInBackgroundTab?(url) }
+                            }
+                            accessibilityAction(named: viewModel.localizedStrings.saveForLaterTitle) {
+                                if let url = item.articleURL { viewModel.didSaveForLater?(url) }
                             }
                             accessibilityAction(named: viewModel.localizedStrings.shareArticleTitle) {
-                                if let url = item.articleURL {
-                                    viewModel.didShareArticle?(url)
-                                }
+                                if let url = item.articleURL { viewModel.didShareArticle?(url) }
                             }
                         }
                         .onTapGesture {

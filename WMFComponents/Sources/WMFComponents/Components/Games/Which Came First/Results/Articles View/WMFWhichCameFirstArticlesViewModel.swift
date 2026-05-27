@@ -68,17 +68,26 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
     public struct LocalizedStrings {
         public let sectionTitle: String
         public let openArticleTitle: String
+        public let openInNewTabTitle: String
+        public let openInBackgroundTabTitle: String
+        public let saveForLaterTitle: String
         public let shareArticleTitle: String
         public let articleTapAccessibility: String
 
         public init(
             sectionTitle: String = WMFLocalizedString("which-came-first-articles-section-title", value: "Articles from today's game", comment: "Section title for the article cards shown after completing the Which Came First game"),
-            openArticleTitle: String = WMFLocalizedString("which-came-first-articles-open-article", value: "Open article", comment: "Context menu action to open an article from the Which Came First results screen"),
-            shareArticleTitle: String = WMFLocalizedString("which-came-first-articles-share-article", value: "Share", comment: "Context menu action to share an article from the Which Came First results screen"),
-            articleTapAccessibility: String = WMFLocalizedString("which-came-first-articles-tap-accessibility", value: "Open article", comment: "Accessibility label for tapping an article card on the Which Came First results screen")
+            openArticleTitle: String = CommonStrings.articleTabsOpen,
+            openInNewTabTitle: String = CommonStrings.articleTabsOpenInNewTab,
+            openInBackgroundTabTitle: String = CommonStrings.articleTabsOpenInBackgroundTab,
+            saveForLaterTitle: String = CommonStrings.saveTitle,
+            shareArticleTitle: String = CommonStrings.shortShareTitle,
+            articleTapAccessibility: String = CommonStrings.articleTabsOpen
         ) {
             self.sectionTitle = sectionTitle
             self.openArticleTitle = openArticleTitle
+            self.openInNewTabTitle = openInNewTabTitle
+            self.openInBackgroundTabTitle = openInBackgroundTabTitle
+            self.saveForLaterTitle = saveForLaterTitle
             self.shareArticleTitle = shareArticleTitle
             self.articleTapAccessibility = articleTapAccessibility
         }
@@ -88,21 +97,17 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
 
     @Published public var articleItems: [WMFWhichCameFirstArticleItemViewModel]
 
-    /// Called when the user taps or selects "Open" on an article card.
     public var didTapArticle: ((URL) -> Void)?
-
-    /// Called when the user selects "Share" on an article card.
+    public var didTapOpenInNewTab: ((URL) -> Void)?
+    public var didTapOpenInBackgroundTab: ((URL) -> Void)?
+    public var didSaveForLater: ((URL) -> Void)?
     public var didShareArticle: ((URL) -> Void)?
 
     public init(
         articleItems: [WMFWhichCameFirstArticleItemViewModel],
-        localizedStrings: LocalizedStrings = LocalizedStrings(),
-        didTapArticle: ((URL) -> Void)? = nil,
-        didShareArticle: ((URL) -> Void)? = nil
+        localizedStrings: LocalizedStrings = LocalizedStrings()
     ) {
         self.articleItems = articleItems
         self.localizedStrings = localizedStrings
-        self.didTapArticle = didTapArticle
-        self.didShareArticle = didShareArticle
     }
 }
