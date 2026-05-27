@@ -187,7 +187,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
     }
 
     private func updateCountdownLabel() {
-        let descriptionText = WMFLocalizedString("games-wcf-explore-complete-subtitle", value:"You scored %1$d/%2$d on today's game. Next game in %3$@)", comment: "Description text on Which Came First card in the Explore tab, shown when a game is completed. %1$d is replaced by the number of questions answered correctly, %2$d is replaced by the number of total questions. %3$@ is replaced by a countdown timer string, indicating the number of hours / minutes / seconds left until the next game is available.")
+        let descriptionText = WMFLocalizedString("games-wcf-explore-complete-subtitle", value:"You scored %1$d/%2$d on today's game. Next game in %3$@", comment: "Description text on Which Came First card in the Explore tab, shown when a game is completed. %1$d is replaced by the number of questions answered correctly, %2$d is replaced by the number of total questions. %3$@ is replaced by a countdown timer string, indicating the number of hours / minutes / seconds left until the next game is available.")
         descriptionLabel.text = String.localizedStringWithFormat(descriptionText, completedScore, completedTotal, countdownString())
     }
 
