@@ -156,6 +156,9 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "Активність містить повну хронологію прочитаних, збережених та відредагованих статей. Ваша історія читання тепер знаходиться на вкладці «Пошук».";
 "activity-tab-onboarding-third-item-title-updated" = "Історія читання тепер доступна в пошуку";
 "activity-tab-read-title" = "Переглянути історію читання";
+"activity-tab-reading-challenge-card-body" = "Щоб відстежувати свою серію разом з Малюком Глобусом, вам потрібно додати віджет «Читацький виклик» на головний екран.";
+"activity-tab-reading-challenge-card-cta" = "Показати мені, як";
+"activity-tab-reading-challenge-card-title" = "25-денний читацький виклик";
 "activity-tab-satisfied" = "Задоволений/а";
 "activity-tab-saved" = "Статті, збережені цього місяця";
 "activity-tab-start-editing" = "Почати редагування";
@@ -553,6 +556,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "вкл";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "На $1";
 "explore-feed-preferences-feed-cards-hidden-title" = "Усі картки $1 приховані";
+"explore-feed-preferences-games-title" = "Показувати картку «Ігри»";
 "explore-feed-preferences-global-card-footer-text" = "Ця картка не прив'язана до мови, її вимкнення вилучить її з вашої стрічки.";
 "explore-feed-preferences-global-cards-description" = "Картки, не прив'язані до мови";
 "explore-feed-preferences-global-cards-subtitle" = "Не прив'язана до мови";
@@ -569,6 +573,7 @@
 "explore-feed-preferences-show-continue-reading-title" = "Показувати картку «Продовжити читання»";
 "explore-feed-preferences-show-featured-article-footer-text" = "Приховання картки «Вибрана стаття» буде застосовано для всіх доступних мов.";
 "explore-feed-preferences-show-featured-article-title" = "Показувати картку «Вибрана стаття»";
+"explore-feed-preferences-show-games-footer-text" = "Приховання картки «Ігри» буде застосовано для всіх доступних мов.";
 "explore-feed-preferences-show-news-footer-text" = "Приховання картки «У новинах» буде застосовано для всіх доступних мов.";
 "explore-feed-preferences-show-news-title" = "Показувати картку «У новинах»";
 "explore-feed-preferences-show-on-this-day-footer-text" = "Приховання картки «Цього дня» буде застосовано для всіх доступних мов.";
@@ -595,6 +600,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Увімкнути стрічку";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Вкладинка «Налаштування» буде замінена стрічкою. Ви можете перейти до налаштувань, натиснувши зверху на іконку з шестернею";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Увімкнути стрічку?";
+"explore-games-title" = "Ігри";
 "explore-hide-card-prompt" = "Сховати цю картку";
 "explore-main-page-description" = "Головна сторінка проєктів Вікімедіа";
 "explore-main-page-heading" = "Сьогодні у Вікіпедії";
@@ -667,6 +673,11 @@
 "forgot-password-instructions" = "Заповніть одне з полів нижче, щоб отримати на скриньку електронної пошти інструкції щодо скидання пароля";
 "forgot-password-title" = "Скинути пароль";
 "forgot-password-username-or-email-title" = "Або";
+"games-wcf-button-play-title" = "Зіграти сьогоднішню гру";
+"games-wcf-explore-button-archive-title" = "Відграти архів";
+"games-wcf-explore-button-review-title" = "Переглянути результати";
+"games-wcf-explore-complete-subtitle" = "Ви набрали $1/$2 очок у сьогоднішній грі. Наступна гра через $3";
+"games-wcf-explore-in-progress-subtitle" = "Ви на питанні $1. Продовжуйте вгадувати, яка подія відбулася першою в цей день в історії.";
 "games-wcf-explore-title" = "Що було першим?";
 "gan-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти мови ґань як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\n贛語 原文 ґань (gan)\n赣语 简体 ґань, спрощена (gan-hans)\n贛語 繁體 ґань, традиційна (gan-hant)";
 "gan-variants-alert-title" = "Оновлення щодо підтримки варіантів ґань";
@@ -1077,6 +1088,7 @@
 "reading-challenge-announcement-item1-title" = "Читайте 1 статтю щодня упродовж 25 днів";
 "reading-challenge-announcement-item2-subtitle" = "Завершіть 25-денну серію читання, поки триває виклик, щоб виграти спеціальні призи.";
 "reading-challenge-announcement-item2-title" = "Вигравайте призи";
+"reading-challenge-announcement-item3-subtitle2" = "Щоб відстежувати свою серію разом з Малюком Глобусом, вам потрібно додати віджет «Читацький виклик» на головний екран.";
 "reading-challenge-announcement-item3-title" = "Встановіть віджет";
 "reading-challenge-announcement-secondary-cta" = "Дізнатися більше";
 "reading-challenge-announcement-subtitle" = "Ваша історія читання захищена. Статистика читання розраховується на основі даних, що зберігаються локально на вашому пристрої.";
@@ -1115,6 +1127,9 @@
 "reading-challenge-streak-no-days" = "$1 з 25";
 "reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 з 25 днів}}";
 "reading-challenge-subtitle" = "25-денний читацький виклик";
+"reading-challenge-widget-announcement-body2" = "Щоб відстежувати свою серію разом з Малюком Глобусом, вам потрібно додати віджет «Читацький виклик» на головний екран.";
+"reading-challenge-widget-announcement-secondary-button" = "Показати мені, як";
+"reading-challenge-widget-announcement-title2" = "Перейдіть на головний екран, щоб додати віджет";
 "reading-challenge-widget-description" = "Відстежуйте свій прогрес у читацькому виклику.";
 "reading-challenge-widget-display-name" = "Читацький виклик";
 "reading-list-add-generic-hint-title" = "Додати цю статтю до читального списку?";
@@ -1256,6 +1271,8 @@
 "settings-clear-cache-cancel" = "Скасувати";
 "settings-clear-cache-ok" = "Очистити кеш";
 "settings-donate" = "Пожертвувати";
+"settings-explore-games-subtitle" = "Щоденні ігри на основі контенту Вікіпедії";
+"settings-explore-games-title" = "Ігри Вікіпедії";
 "settings-help-and-feedback" = "Допомога та зворотний зв'язок";
 "settings-language-bar" = "Показувати мови при пошуку";
 "settings-languages-feed-customization" = "Ви можете зазначити в налаштуваннях, які мови показуватимуться у вашій стрічці.";
@@ -1541,6 +1558,23 @@
 "welcome-languages-search-title" = "Шукати майже 300 мовами";
 "welcome-privacy-subtitle" = "Ми вважаємо, що ви не маєте надавати особисту інформацію, щоб брати участь у русі вільних знань. Дані про використання, зібрані для цієї програми, є анонімними.";
 "welcome-privacy-terms-button-text" = "Дізнайтеся більше про нашу політику конфіденційності та умови використання";
+"which-came-first-correct-answer-a11y" = "Правильна відповідь";
+"which-came-first-correct-feedback" = "Правильно!";
+"which-came-first-correct-feedback2" = "+1 бал";
+"which-came-first-error-title" = "Щось пішло не так";
+"which-came-first-footer-a11y" = "Запитання $1 з $2";
+"which-came-first-incorrect-answer-a11y" = "Неправильна відповідь";
+"which-came-first-incorrect-feedback" = "Неправильно";
+"which-came-first-next-button" = "Далі";
+"which-came-first-retry-button" = "Повторити спробу";
+"which-came-first-see-results-button" = "Переглянути результати";
+"which-came-first-splash-about-button" = "Про цю гру";
+"which-came-first-splash-continue-button" = "Продовжити сьогоднішню гру";
+"which-came-first-splash-review-button" = "Переглянути результати";
+"which-came-first-splash-subtitle" = "Вгадайте, яка подія цього дня в історії відбулася першою.";
+"which-came-first-splash-title" = "Що було першим?";
+"which-came-first-submit-button" = "Надіслати";
+"which-came-first-title" = "Що було першим?";
 "widget-onthisday-description" = "Дізнайтеся, що сталося цього дня в історії.";
 "widget-onthisday-placeholder-article-snippet" = "Вільна онлайн-енциклопедія, яку може редагувати будь-хто";
 "widget-onthisday-placeholder-event-snippet" = "Вікіпедія, вільна вікі-енциклопедія, з'явилася онлайн.";
