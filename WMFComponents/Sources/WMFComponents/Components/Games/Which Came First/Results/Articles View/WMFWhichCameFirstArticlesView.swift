@@ -2,9 +2,6 @@ import SwiftUI
 import UIKit
 import WMFData
 
-/// A grid of article cards displayed after the user completes a Which Came First game.
-/// Each card mirrors the visual style of the Article Tabs grid: thumbnail image on top,
-/// article title, a short divider, and the event date below.
 public struct WMFWhichCameFirstArticlesView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -148,7 +145,6 @@ private struct ArticleCardFramePreferenceKey: PreferenceKey {
 
 // MARK: - Card
 
-/// A single article card styled to match the Article Tabs grid cards.
 private struct WMFWhichCameFirstArticleCardView: View {
 
     @ObservedObject var item: WMFWhichCameFirstArticleItemViewModel
@@ -156,17 +152,14 @@ private struct WMFWhichCameFirstArticleCardView: View {
 
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-    /// Image height mirrors the values used in WMFArticleTabsViewContent.
     private var imageHeight: CGFloat {
         horizontalSizeClass == .regular ? 110 : 95
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // Thumbnail
             thumbnailArea
 
-            // Title (up to 2 lines)
             Text(item.title)
                 .font(Font(WMFFont.for(.georgiaCallout)))
                 .foregroundStyle(Color(uiColor: theme.text))
@@ -175,7 +168,6 @@ private struct WMFWhichCameFirstArticleCardView: View {
                 .padding(.top, 10)
                 .padding(.bottom, 4)
 
-            // Description / summary snippet (up to 3 lines)
             if let snippet = item.snippetText {
                 Text(snippet)
                     .font(Font(WMFFont.for(.caption1)))
@@ -203,7 +195,6 @@ private struct WMFWhichCameFirstArticleCardView: View {
     @ViewBuilder
     private var thumbnailArea: some View {
         if let data = item.thumbnailImageData, let uiImage = UIImage(data: data) {
-            // Image loaded successfully.
             GeometryReader { geo in
                 Image(uiImage: uiImage)
                     .resizable()
@@ -213,12 +204,10 @@ private struct WMFWhichCameFirstArticleCardView: View {
             }
             .frame(height: imageHeight)
         } else if item.hasThumbnailURL {
-            // URL exists but image hasn't loaded yet – show a loading placeholder.
             Color(uiColor: theme.midBackground)
                 .frame(height: imageHeight)
                 .overlay(ProgressView().scaleEffect(0.7))
         }
-        // No thumbnail URL at all → no image area is rendered.
     }
 }
 // MARK: - Preview
