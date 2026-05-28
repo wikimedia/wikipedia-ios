@@ -124,6 +124,7 @@
 "notifications-center-type-title-login-attempts-subtitle" = "Няўдалыя спробы ўваходу ў ваш рахунак";
 "page-protected-can-not-edit" = "Вы ня маеце правоў рэдагаваць гэтую старонку";
 "page-protected-can-not-edit-title" = "Гэтая старонка абароненая";
+"places-filter-button-title" = "Фільтар";
 "places-location-enabled" = "Лякацыя ўвамкнёная";
 "places-map-title" = "Мапа";
 "potd-description-prefix" = "Выява дня за $1";
@@ -156,6 +157,7 @@
 "two-factor-login-title" = "Вярнуцца ў Ваш рахунак";
 "unable-to-load-talk-page-title" = "Ладаваньне гутаркі не ўдалося";
 "watchlist-change-expiry-option-permanent" = "Заўсёдна";
+"watchlist-filter" = "Фільтар";
 "wikitext-preview-changes" = "Атрыманьне папярэдняга прагляду зьменаў...";
 "wikitext-upload-captcha-error" = "Памылка праверкі CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Неаходная праверка CAPTCHA.";

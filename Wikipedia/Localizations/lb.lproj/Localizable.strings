@@ -401,6 +401,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Entdecken aktivéieren";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Heiduerch gëtt den Astellungen-Tab duerch den Entdecken-Tab ersat. Dir kënnt op d'Astellungen zougräifen, andeems Dir am Entdecken-Tab uewen op d'Zännradsymbol tippt.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Den Entdecken-Tab aktivéieren?";
+"explore-games-title" = "Spiller";
 "explore-hide-card-prompt" = "Dës Kaart verstoppen";
 "explore-main-page-description" = "Haaptsäit vun de Wikimedia-Projeten";
 "explore-main-page-heading" = "Haut op Wikipedia";
@@ -870,6 +871,7 @@
 "settings-clear-cache-cancel" = "Ofbriechen";
 "settings-clear-cache-ok" = "Tëschespäicher eidelmaachen";
 "settings-donate" = "Spenden";
+"settings-explore-games-title" = "Wikipedia-Spiller";
 "settings-help-and-feedback" = "Hëllef a Feedback";
 "settings-language-bar" = "Sprooche beim Siche weisen";
 "settings-my-languages" = "Meng Sproochen";
@@ -1065,6 +1067,17 @@
 "welcome-languages-add-or-edit-button" = "Preferéiert Sproochen derbäisetzen oder änneren";
 "welcome-languages-description" = "Op Ärem Apparat hu mir dës Sprooche fonnt:";
 "welcome-languages-search-title" = "A méi wéi 300 Sprooche sichen";
+"which-came-first-correct-answer-a11y" = "Richteg Äntwert";
+"which-came-first-correct-feedback" = "Richteg!";
+"which-came-first-correct-feedback2" = "+1 Punkt";
+"which-came-first-error-title" = "Et ass eppes schif gaangen";
+"which-came-first-footer-a11y" = "Fro $1 vu(n) $2";
+"which-came-first-incorrect-answer-a11y" = "Falsch Äntwert";
+"which-came-first-incorrect-feedback" = "Falsch";
+"which-came-first-see-results-button" = "Resultat weisen";
+"which-came-first-splash-about-button" = "Iwwer dëst Spill";
+"which-came-first-splash-title" = "Wat koum als éischt?";
+"which-came-first-title" = "Wat koum als éischt?";
 "widget-onthisday-placeholder-article-snippet" = "Fräi Online-Enzyklopedie, déi jiddereen ännere kann";
 "wikitext-preview-changes" = "Kucken ouni ze späichere vun Ären Ännerunge gëtt preparéiert...";
 "wikitext-preview-link-external-preview-description" = "Dëse Link féiert op eng extern Websäit: $1";
