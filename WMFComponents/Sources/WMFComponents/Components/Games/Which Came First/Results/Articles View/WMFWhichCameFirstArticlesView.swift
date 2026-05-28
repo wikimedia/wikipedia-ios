@@ -68,6 +68,15 @@ private struct ArticleCardMenuWrapper: View {
     @ObservedObject var viewModel: WMFWhichCameFirstArticlesViewModel
     let theme: WMFTheme
 
+    /// Full VoiceOver label: article title, followed by the snippet when loaded,
+    /// followed by "Saved for later" when the article is in the reading list.
+    private var cardAccessibilityLabel: String {
+        var parts = [item.title]
+        if let snippet = item.snippetText { parts.append(snippet) }
+        if item.isSaved { parts.append(viewModel.localizedStrings.articleSavedAccessibility) }
+        return parts.joined(separator: ", ")
+    }
+
     var body: some View {
         WMFWhichCameFirstArticleCardView(item: item, theme: theme)
             .aspectRatio(3 / 4, contentMode: .fit)
@@ -113,7 +122,9 @@ private struct ArticleCardMenuWrapper: View {
                 .labelStyle(.titleAndIcon)
             }
             .accessibilityElement(children: .combine)
-            .accessibilityLabel(item.title)
+            .accessibilityAddTraits(.isButton)
+            .accessibilityLabel(cardAccessibilityLabel)
+            .accessibilityHint(viewModel.localizedStrings.openArticleHint)
             .accessibilityActions {
                 accessibilityAction(named: viewModel.localizedStrings.openArticleTitle) {
                     if let url = item.articleURL { viewModel.didTapArticle?(url) }

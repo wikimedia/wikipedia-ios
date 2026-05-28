@@ -88,6 +88,9 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
         public let unsaveTitle: String
         public let shareArticleTitle: String
         public let articleTapAccessibility: String
+        // VoiceOver helpers
+        public let openArticleHint: String
+        public let articleSavedAccessibility: String
 
         public init(
             sectionTitle: String = WMFLocalizedString("which-came-first-articles-section-title", value: "Articles from today's game", comment: "Section title for the article cards shown after completing the Which Came First game"),
@@ -97,7 +100,9 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
             saveForLaterTitle: String = CommonStrings.saveTitle,
             unsaveTitle: String = CommonStrings.shortUnsaveTitle,
             shareArticleTitle: String = CommonStrings.shortShareTitle,
-            articleTapAccessibility: String = CommonStrings.articleTabsOpen
+            articleTapAccessibility: String = CommonStrings.articleTabsOpen,
+            openArticleHint: String = WMFLocalizedString("which-came-first-article-card-open-hint", value: "Opens article", comment: "VoiceOver hint for an article card in the Which Came First game results screen. Describes the outcome of double-tapping the card."),
+            articleSavedAccessibility: String = CommonStrings.savedTitle
         ) {
             self.sectionTitle = sectionTitle
             self.openArticleTitle = openArticleTitle
@@ -107,6 +112,8 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
             self.unsaveTitle = unsaveTitle
             self.shareArticleTitle = shareArticleTitle
             self.articleTapAccessibility = articleTapAccessibility
+            self.openArticleHint = openArticleHint
+            self.articleSavedAccessibility = articleSavedAccessibility
         }
     }
 
