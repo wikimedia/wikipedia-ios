@@ -187,30 +187,10 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     // MARK: - Helpers
 
-    /// Returns today's date formatted for display (e.g. "May 27" or "May 27, 240").
-    ///
-    /// `setLocalizedDateFormatFromTemplate` can zero-pad short years (e.g. "0240") on some
-    /// locales. We strip leading zeros from the year so that year 240 displays as "240" while
-    /// a four-digit year like 2010 is left untouched.
     private func formattedTodayDateString() -> String {
-        let calendar = Calendar.current
-        let date = Date()
-        let year = calendar.component(.year, from: date)
-
         let formatter = DateFormatter()
-        formatter.setLocalizedDateFormatFromTemplate("yMMMMd")  // added 'y'
-        var result = formatter.string(from: date)
-
-        // Only attempt year fixup for years that could be zero-padded (fewer than 4 digits).
-        if year > 0 && year < 1000 {
-            let paddedYear = String(format: "%04d", year) // e.g. "0240"
-            let naturalYear = String(year)                // e.g. "240"
-            if paddedYear != naturalYear {
-                result = result.replacingOccurrences(of: paddedYear, with: naturalYear)
-            }
-        }
-
-        return result
+        formatter.setLocalizedDateFormatFromTemplate("MMMMd")
+        return formatter.string(from: Date())
     }
 
     /// Returns today's date as a "YYYY-MM-DD" string for matching game session records.
