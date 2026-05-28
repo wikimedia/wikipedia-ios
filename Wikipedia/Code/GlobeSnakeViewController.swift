@@ -6,6 +6,8 @@ final class GlobeSnakeViewController: UIViewController {
 
     private var skView: SKView!
 
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask { .all }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0.07, green: 0.04, blue: 0.18, alpha: 1.0)
@@ -33,10 +35,17 @@ final class GlobeSnakeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        guard skView.scene == nil else { return }
-        let scene = GlobeSnakeScene()
-        scene.scaleMode = .resizeFill
-        skView.presentScene(scene)
+        if skView.scene == nil {
+            let scene = GlobeSnakeScene()
+            scene.scaleMode = .resizeFill
+            scene.safeAreaInsets = view.safeAreaInsets
+            skView.presentScene(scene)
+        }
+    }
+
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        (skView.scene as? GlobeSnakeScene)?.safeAreaInsets = view.safeAreaInsets
     }
 
     @objc private func closeTapped() {

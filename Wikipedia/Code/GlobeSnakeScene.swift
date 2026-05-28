@@ -9,6 +9,10 @@ final class GlobeSnakeScene: SKScene {
     private let cellSize: CGFloat = 32
     private let moveInterval: TimeInterval = 0.18
 
+    // MARK: - Safe area (set by the view controller before/after rotation)
+
+    var safeAreaInsets: UIEdgeInsets = .zero
+
     // MARK: - Grid
 
     private var columns: Int = 0
@@ -30,16 +34,46 @@ final class GlobeSnakeScene: SKScene {
     private var isGameOver = false
     private var lastMoveTime: TimeInterval = 0
 
+    // MARK: - Background palette
+
+    private let backgroundPalette: [SKColor] = [
+        SKColor(red: 0xA2/255, green: 0xA9/255, blue: 0xB1/255, alpha: 1), // gray400
+        SKColor(red: 0x33/255, green: 0x66/255, blue: 0xCC/255, alpha: 1), // blue600
+        SKColor(red: 0xDD/255, green: 0x33/255, blue: 0x33/255, alpha: 1), // red600
+        SKColor(red: 0x00/255, green: 0xAF/255, blue: 0x89/255, alpha: 1), // green600
+        SKColor(red: 0xFF/255, green: 0xCC/255, blue: 0x33/255, alpha: 1), // yellow600
+        SKColor(red: 0x6B/255, green: 0x4B/255, blue: 0xA1/255, alpha: 1), // purple600
+        SKColor(red: 0xFF/255, green: 0x95/255, blue: 0x00/255, alpha: 1)  // orange600
+    ]
+    private var lastBgIndex: Int = -1
+
     // MARK: - Nodes
 
     private var snakeNodes: [SKSpriteNode] = []
     private var foodNode: SKSpriteNode?
     private var scoreLabel: SKLabelNode!
+    private var subLabel: SKLabelNode!
     private var gameOverOverlay: SKNode?
 
     // MARK: - Lifecycle
 
     override func didMove(to view: SKView) {
+        rebuildScene()
+    }
+
+    override func didChangeSize(_ oldSize: CGSize) {
+        guard oldSize != .zero, oldSize != size else { return }
+        rebuildScene()
+    }
+
+    // MARK: - Full rebuild (called on first load and on rotation)
+
+    private func rebuildScene() {
+        removeAllChildren()
+        snakeNodes = []
+        foodNode = nil
+        gameOverOverlay = nil
+
         setupGrid()
         setupBackground()
         setupHUD()
@@ -49,16 +83,20 @@ final class GlobeSnakeScene: SKScene {
     // MARK: - Setup
 
     private func setupGrid() {
-        columns = max(10, Int(size.width / cellSize))
-        rows = max(10, Int(size.height / cellSize))
-        gridOriginX = (size.width - CGFloat(columns) * cellSize) / 2 + cellSize / 2
-        gridOriginY = cellSize * 1.5
+        let usableW = size.width  - safeAreaInsets.left - safeAreaInsets.right
+        let usableH = size.height - safeAreaInsets.top  - safeAreaInsets.bottom
+
+        columns = max(8, Int(usableW / cellSize))
+        rows    = max(8, Int(usableH / cellSize))
+
+        // Center the grid inside the safe area
+        gridOriginX = safeAreaInsets.left + (usableW - CGFloat(columns) * cellSize) / 2 + cellSize / 2
+        gridOriginY = safeAreaInsets.bottom + cellSize * 1.5
     }
 
     private func setupBackground() {
         backgroundColor = SKColor(red: 0.07, green: 0.04, blue: 0.18, alpha: 1.0)
 
-        // Subtle dot grid
         for col in 0..<columns {
             for row in 0..<rows {
                 let dot = SKShapeNode(circleOfRadius: 1.5)
@@ -73,22 +111,26 @@ final class GlobeSnakeScene: SKScene {
     }
 
     private func setupHUD() {
+        // Position below the safe area top so it clears the Dynamic Island in portrait,
+        // and sits naturally near the top in landscape where safeAreaInsets.top is 0.
+        let hudCenterY = size.height - safeAreaInsets.top - 50
+
         scoreLabel = SKLabelNode(fontNamed: "AvenirNext-Heavy")
         scoreLabel.text = "0"
         scoreLabel.fontSize = 44
         scoreLabel.fontColor = .white
         scoreLabel.alpha = 0.9
-        scoreLabel.position = CGPoint(x: size.width / 2, y: size.height - 64)
+        scoreLabel.position = CGPoint(x: size.width / 2, y: hudCenterY)
         scoreLabel.zPosition = 20
         addChild(scoreLabel)
 
-        let sub = SKLabelNode(fontNamed: "AvenirNext-Medium")
-        sub.text = "GLOBES EATEN"
-        sub.fontSize = 11
-        sub.fontColor = SKColor.white.withAlphaComponent(0.4)
-        sub.position = CGPoint(x: size.width / 2, y: size.height - 84)
-        sub.zPosition = 20
-        addChild(sub)
+        subLabel = SKLabelNode(fontNamed: "AvenirNext-Medium")
+        subLabel.text = "GLOBES EATEN"
+        subLabel.fontSize = 11
+        subLabel.fontColor = SKColor.white.withAlphaComponent(0.4)
+        subLabel.position = CGPoint(x: size.width / 2, y: hudCenterY - 22)
+        subLabel.zPosition = 20
+        addChild(subLabel)
     }
 
     // MARK: - Game
@@ -107,20 +149,17 @@ final class GlobeSnakeScene: SKScene {
         queuedDirection = .right
         lastMoveTime = 0
 
+        lastBgIndex = -1
+        backgroundColor = SKColor(red: 0.07, green: 0.04, blue: 0.18, alpha: 1.0)
+
         let midX = Int32(columns / 2)
         let midY = Int32(rows / 2)
-        snake = [
-            SIMD2<Int32>(midX, midY),
-            SIMD2<Int32>(midX - 1, midY),
-            SIMD2<Int32>(midX - 2, midY)
-        ]
+        snake = [SIMD2<Int32>(midX, midY)]
 
-        for (i, cell) in snake.enumerated() {
-            let node = makeSegmentNode(index: i, total: snake.count)
-            node.position = screenPos(Int(cell.x), Int(cell.y))
-            snakeNodes.append(node)
-            addChild(node)
-        }
+        let node = makeSegmentNode(index: 0, total: 1)
+        node.position = screenPos(Int(midX), Int(midY))
+        snakeNodes.append(node)
+        addChild(node)
 
         placeFood()
     }
@@ -129,18 +168,9 @@ final class GlobeSnakeScene: SKScene {
 
     private func makeSegmentNode(index: Int, total: Int) -> SKSpriteNode {
         let isHead = index == 0
-        let symbolName: String
-        let tintColor: UIColor
-
-        if isHead {
-            symbolName = "globe.americas.fill"
-            tintColor = UIColor(red: 0.3, green: 0.85, blue: 1.0, alpha: 1.0)
-        } else {
-            let symbols = ["globe.europe.africa.fill", "globe.asia.australia.fill", "globe.americas.fill"]
-            symbolName = symbols[index % symbols.count]
-            let hue = 0.58 + Double(index) / Double(max(total, 10)) * 0.15
-            tintColor = UIColor(hue: CGFloat(hue), saturation: 0.75, brightness: 0.95, alpha: 1.0)
-        }
+        let symbols = ["globe.americas.fill", "globe.europe.africa.fill", "globe.asia.australia.fill"]
+        let symbolName = isHead ? "globe.americas.fill" : symbols[index % symbols.count]
+        let tintColor = UIColor.white
 
         let nodeSize = isHead
             ? CGSize(width: cellSize, height: cellSize)
@@ -161,8 +191,7 @@ final class GlobeSnakeScene: SKScene {
     private func convertHeadToBody(_ node: SKSpriteNode, newIndex: Int, total: Int) {
         let symbols = ["globe.europe.africa.fill", "globe.asia.australia.fill", "globe.americas.fill"]
         let symbolName = symbols[newIndex % symbols.count]
-        let hue = 0.58 + Double(newIndex) / Double(max(total, 10)) * 0.15
-        let tintColor = UIColor(hue: CGFloat(hue), saturation: 0.75, brightness: 0.95, alpha: 1.0)
+        let tintColor = UIColor.white
 
         if let img = UIImage(systemName: symbolName) {
             node.texture = SKTexture(image: img.withTintColor(tintColor, renderingMode: .alwaysOriginal))
@@ -174,11 +203,12 @@ final class GlobeSnakeScene: SKScene {
     // MARK: - Food
 
     private func placeFood() {
+        let maxRow = max(Int32(rows) - 2, 3)
         var pos: SIMD2<Int32>
         repeat {
             pos = SIMD2<Int32>(
                 Int32.random(in: 1..<Int32(columns - 1)),
-                Int32.random(in: 2..<Int32(rows - 3))
+                Int32.random(in: 1..<maxRow)
             )
         } while snake.contains(pos)
         foodCell = pos
@@ -244,14 +274,12 @@ final class GlobeSnakeScene: SKScene {
         case .right: next = SIMD2<Int32>(head.x + 1, head.y)
         }
 
-        // Wall collision
         guard next.x >= 0, next.x < Int32(columns),
               next.y >= 0, next.y < Int32(rows) else {
             triggerGameOver()
             return
         }
 
-        // Self-collision (tail is vacating its cell, so we skip it)
         if snake.dropLast().contains(next) {
             triggerGameOver()
             return
@@ -259,12 +287,10 @@ final class GlobeSnakeScene: SKScene {
 
         let ateFood = next == foodCell
 
-        // New head node
         let headNode = makeSegmentNode(index: 0, total: snakeNodes.count + 1)
         headNode.position = screenPos(Int(next.x), Int(next.y))
         addChild(headNode)
 
-        // Old head becomes first body segment
         convertHeadToBody(snakeNodes[0], newIndex: 1, total: snakeNodes.count + 1)
 
         snakeNodes.insert(headNode, at: 0)
@@ -279,6 +305,7 @@ final class GlobeSnakeScene: SKScene {
             ])
             scoreLabel.run(pop)
             spawnEatParticles(at: screenPos(Int(foodCell.x), Int(foodCell.y)))
+            transitionToNextBackground()
             placeFood()
         } else {
             let tail = snakeNodes.removeLast()
@@ -288,6 +315,35 @@ final class GlobeSnakeScene: SKScene {
                 .removeFromParent()
             ]))
         }
+    }
+
+    // MARK: - Background transition
+
+    private func transitionToNextBackground() {
+        var nextIndex: Int
+        repeat { nextIndex = Int.random(in: 0..<backgroundPalette.count) }
+        while nextIndex == lastBgIndex
+        lastBgIndex = nextIndex
+
+        let from = backgroundColor
+        let to = backgroundPalette[nextIndex]
+        removeAction(forKey: "bgTransition")
+
+        let action = SKAction.customAction(withDuration: 0.35) { [weak self] _, elapsed in
+            guard let self else { return }
+            let t = CGFloat(min(1.0, elapsed / 0.35))
+            self.backgroundColor = self.lerpColor(from: from, to: to, t: t)
+        }
+        run(action, withKey: "bgTransition")
+    }
+
+    private func lerpColor(from: SKColor, to: SKColor, t: CGFloat) -> SKColor {
+        var r1: CGFloat = 0, g1: CGFloat = 0, b1: CGFloat = 0, a1: CGFloat = 0
+        var r2: CGFloat = 0, g2: CGFloat = 0, b2: CGFloat = 0, a2: CGFloat = 0
+        from.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+        to.getRed(&r2, green: &g2, blue: &b2, alpha: &a2)
+        return SKColor(red: r1 + (r2 - r1) * t, green: g1 + (g2 - g1) * t,
+                       blue: b1 + (b2 - b1) * t, alpha: 1.0)
     }
 
     // MARK: - Effects
@@ -362,14 +418,15 @@ final class GlobeSnakeScene: SKScene {
         if let img = UIImage(named: "ftux-puzzle-globe") {
             globeIcon.texture = SKTexture(image: img)
         }
-        globeIcon.position = CGPoint(x: -54, y: 4)
+        globeIcon.position = CGPoint(x: -68, y: 4)
         overlay.addChild(globeIcon)
 
         let countLabel = SKLabelNode(fontNamed: "AvenirNext-Bold")
         countLabel.text = "\(score) globe\(score == 1 ? "" : "s") eaten"
         countLabel.fontSize = 16
         countLabel.fontColor = SKColor.white.withAlphaComponent(0.7)
-        countLabel.position = CGPoint(x: 14, y: 0)
+        countLabel.horizontalAlignmentMode = .left
+        countLabel.position = CGPoint(x: -50, y: 0)
         overlay.addChild(countLabel)
 
         let hint = SKLabelNode(fontNamed: "AvenirNext-Regular")
@@ -403,7 +460,6 @@ final class GlobeSnakeScene: SKScene {
         let dx = loc.x - headPos.x
         let dy = loc.y - headPos.y
 
-        // Choose cardinal direction based on dominant axis from snake head
         let candidate: Direction
         if abs(dx) >= abs(dy) {
             candidate = dx > 0 ? .right : .left

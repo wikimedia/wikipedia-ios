@@ -199,11 +199,19 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationItem.backButtonDisplayMode = .minimal
         navigationItem.backBarButtonItem?.accessibilityLabel = CommonStrings.exploreTabTitle
         
-        let logoBarButtonItem = UIBarButtonItem(image: UIImage(named: "W"), style: .plain, target: self, action: #selector(titleBarButtonPressed(_:)))
+        let logoButton = UIButton(type: .system)
+        logoButton.setImage(UIImage(named: "W")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        logoButton.addTarget(self, action: #selector(titleBarButtonPressed(_:)), for: .touchUpInside)
+        let logoLongPress = UILongPressGestureRecognizer(target: self, action: #selector(logoLongPressed))
+        logoLongPress.minimumPressDuration = 0.6
+        logoButton.addGestureRecognizer(logoLongPress)
+        logoButton.sizeToFit()
+
+        let logoBarButtonItem = UIBarButtonItem(customView: logoButton)
         logoBarButtonItem.accessibilityLabel = WMFLocalizedString("home-title-accessibility-label", value: "Wikipedia, scroll to top of Explore", comment: "Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.")
         navigationItem.leftBarButtonItem = logoBarButtonItem
         if #unavailable(iOS 26.0) {
-            logoBarButtonItem.tintColor = theme.colors.logoTintColor
+            logoButton.tintColor = theme.colors.logoTintColor
         }
     }
 
@@ -224,6 +232,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     @objc func titleBarButtonPressed(_ sender: UIButton?) {
         scrollToTop()
+    }
+
+    @objc private func logoLongPressed() {
+        let gameVC = GlobeSnakeViewController()
+        gameVC.modalPresentationStyle = .fullScreen
+        present(gameVC, animated: true)
     }
 
     @objc func userDidTapProfile() {
@@ -674,7 +688,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         themeTopSafeAreaOverlay()
         
         if #unavailable(iOS 26.0) {
-            navigationItem.leftBarButtonItem?.tintColor = theme.colors.logoTintColor
+            (navigationItem.leftBarButtonItem?.customView as? UIButton)?.tintColor = theme.colors.logoTintColor
         }
     }
 

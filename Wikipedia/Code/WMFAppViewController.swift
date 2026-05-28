@@ -2116,3 +2116,21 @@ extension WMFAppViewController {
         present(navVC, animated: true, completion: nil)
     }
 }
+
+// MARK: - Globe Snake Easter Egg
+
+extension WMFAppViewController {
+
+    @objc private func handleTabBarLongPress(_ gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else { return }
+
+        let itemCount = CGFloat(tabBar.items?.count ?? 1)
+        let tappedIndex = Int(gesture.location(in: tabBar).x / (tabBar.bounds.width / itemCount))
+
+        guard tappedIndex == WMFAppTabType.main.rawValue else { return }
+
+        let gameVC = GlobeSnakeViewController()
+        gameVC.modalPresentationStyle = .fullScreen
+        present(gameVC, animated: true)
+    }
+}
