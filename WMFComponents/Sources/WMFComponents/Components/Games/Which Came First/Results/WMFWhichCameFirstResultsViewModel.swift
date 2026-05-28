@@ -105,17 +105,20 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         var items: [WMFWhichCameFirstArticleItemViewModel] = []
         for question in questions {
             for event in [question.optionA, question.optionB] {
-                guard seen.insert(event.title).inserted else { continue }
+                let apiTitle = event.articleTitle ?? event.title
+                guard seen.insert(apiTitle).inserted else { continue }
                 let articleURL: URL? = {
-                    let titleForURL = event.articleTitle ?? event.title
                     guard let siteURL = project.siteURL else { return nil }
                     var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
-                    components?.path = "/wiki/\(titleForURL)"
+                    components?.path = "/wiki/\(apiTitle)"
                     return components?.url
                 }()
+                // Use the human-readable article title (spaces, not underscores) for display
+                let displayTitle = apiTitle.underscoresToSpaces
                 items.append(WMFWhichCameFirstArticleItemViewModel(
-                    title: event.title,
-                    date: event.date,
+                    title: displayTitle,
+                    apiTitle: apiTitle,
+                    project: project,
                     articleURL: articleURL,
                     thumbnailURL: event.thumbnailURL
                 ))

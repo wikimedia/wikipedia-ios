@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import WMFData
 
 /// A grid of article cards displayed after the user completes a Which Came First game.
 /// Each card mirrors the visual style of the Article Tabs grid: thumbnail image on top,
@@ -165,31 +166,25 @@ private struct WMFWhichCameFirstArticleCardView: View {
             // Thumbnail
             thumbnailArea
 
-            // Title
+            // Title (up to 2 lines)
             Text(item.title)
                 .font(Font(WMFFont.for(.georgiaCallout)))
                 .foregroundStyle(Color(uiColor: theme.text))
-                .lineLimit(1)
+                .lineLimit(2)
                 .padding(.horizontal, 10)
                 .padding(.top, 10)
-                .padding(.bottom, 2)
+                .padding(.bottom, 4)
 
-            // Divider + date
-            VStack(alignment: .leading, spacing: 0) {
-                Divider()
-                    .frame(width: 24)
-                    .padding(.bottom, 8)
-                    .padding(.top, 6)
-                    .foregroundStyle(Color(uiColor: theme.secondaryText))
-
-                Text(item.dateString)
+            // Description / summary snippet (up to 3 lines)
+            if let snippet = item.snippetText {
+                Text(snippet)
                     .font(Font(WMFFont.for(.caption1)))
-                    .foregroundStyle(Color(uiColor: theme.text))
-                    .lineLimit(2)
+                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                    .lineLimit(3)
                     .lineSpacing(1.4)
-                    .padding(.bottom, 4)
+                    .padding(.horizontal, 10)
+                    .padding(.bottom, 8)
             }
-            .padding(.horizontal, 10)
 
             Spacer()
         }
@@ -236,29 +231,33 @@ private struct WMFWhichCameFirstArticleCardView: View {
         articleTapAccessibility: "Open article"
     )
 
-    let calendar = Calendar.current
+    let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
     let items: [WMFWhichCameFirstArticleItemViewModel] = [
         WMFWhichCameFirstArticleItemViewModel(
             title: "Moon landing",
-            date: calendar.date(from: DateComponents(year: 1969, month: 7, day: 20)) ?? Date(),
+            apiTitle: "Moon_landing",
+            project: project,
             articleURL: nil,
             thumbnailURL: nil
         ),
         WMFWhichCameFirstArticleItemViewModel(
             title: "World Wide Web",
-            date: calendar.date(from: DateComponents(year: 1991, month: 8, day: 6)) ?? Date(),
+            apiTitle: "World_Wide_Web",
+            project: project,
             articleURL: nil,
             thumbnailURL: nil
         ),
         WMFWhichCameFirstArticleItemViewModel(
             title: "Berlin Wall",
-            date: calendar.date(from: DateComponents(year: 1989, month: 11, day: 9)) ?? Date(),
+            apiTitle: "Berlin_Wall",
+            project: project,
             articleURL: nil,
             thumbnailURL: nil
         ),
         WMFWhichCameFirstArticleItemViewModel(
             title: "DNA double helix",
-            date: calendar.date(from: DateComponents(year: 1953, month: 4, day: 25)) ?? Date(),
+            apiTitle: "DNA",
+            project: project,
             articleURL: nil,
             thumbnailURL: nil
         )

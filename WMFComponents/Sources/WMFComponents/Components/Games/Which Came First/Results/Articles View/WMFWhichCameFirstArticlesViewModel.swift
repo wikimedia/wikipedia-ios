@@ -12,13 +12,13 @@ public final class WMFWhichCameFirstArticleItemViewModel: ObservableObject, Iden
     /// The article title to display on the card.
     public let title: String
 
-    /// The formatted date string for the event associated with this article.
-    public let dateString: String
-
     /// The URL of the article on Wikipedia (used when the user taps the card).
     /// This must be supplied by the app-side coordinator because URL construction
     /// requires WMF framework extensions not available in WMFComponents.
     public let articleURL: URL?
+
+    /// Short description or plain-text extract fetched asynchronously from the summary API.
+    @Published public var snippetText: String?
 
     /// Thumbnail image data fetched asynchronously.
     @Published public var thumbnailImageData: Data?
@@ -28,23 +28,25 @@ public final class WMFWhichCameFirstArticleItemViewModel: ObservableObject, Iden
 
     private let thumbnailURL: URL?
     private var imageTask: Task<Void, Never>?
+    private var snippetTask: Task<Void, Never>?
 
     /// Whether this article is currently in the user's saved pages list.
     @Published public var isSaved: Bool = false
 
-    public init(title: String, date: Date, articleURL: URL?, thumbnailURL: URL?) {
+    public init(title: String, apiTitle: String, project: WMFProject, articleURL: URL?, thumbnailURL: URL?) {
         self.title = title
-        self.dateString = DateFormatter.wmfMonthDayYearDateFormatter.string(from: date)
         self.articleURL = articleURL
         self.thumbnailURL = thumbnailURL
 
         if thumbnailURL != nil {
             loadImage()
         }
+        loadSnippet(apiTitle: apiTitle, project: project)
     }
 
     deinit {
         imageTask?.cancel()
+        snippetTask?.cancel()
     }
 
     private func loadImage() {
@@ -55,6 +57,15 @@ public final class WMFWhichCameFirstArticleItemViewModel: ObservableObject, Iden
                 let data = try await WMFImageDataController.shared.fetchImageData(url: url)
                 self.thumbnailImageData = data
             } catch {}
+        }
+    }
+
+    private func loadSnippet(apiTitle: String, project: WMFProject) {
+        snippetTask?.cancel()
+        snippetTask = Task { [weak self] in
+            guard let self else { return }
+            guard let summary = try? await WMFArticleSummaryDataController.shared.fetchArticleSummary(project: project, title: apiTitle) else { return }
+            self.snippetText = summary.description ?? summary.extract
         }
     }
 }
