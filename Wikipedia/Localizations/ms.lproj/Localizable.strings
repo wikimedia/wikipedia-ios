@@ -195,12 +195,12 @@
 "diff-single-header-summary-heading" = "Ringkasan suntingan";
 "diff-single-intro-title" = "Pengenalan";
 "diff-single-line-format" = "Baris $1";
-"diff-thanks-anonymous-no-thanks" = "Pengguna awanama tidak dapat dihantar ucapan terima kasih";
-"diff-thanks-login-title" = "Log masuk untuk hantar ucapan 'Terima kasih'";
+"diff-thanks-anonymous-no-thanks" = "Pengguna awanama tidak dapat diberi penghargaan";
+"diff-thanks-login-title" = "Log masuk untuk hantar penghargaan";
 "diff-thanks-send-button-title" = "Ucap 'Terima kasih'";
 "diff-thanks-send-title" = "Beri 'Terima kasih' awamnya";
-"diff-thanks-sent" = "Ucapan 'Terima kasih' anda diberi kepada $1";
-"diff-thanks-sent-cannot-unsend" = "Ucapan terima kasih tidak boleh dinyahhantar";
+"diff-thanks-sent" = "Penghargaan anda diberi kepada $1";
+"diff-thanks-sent-cannot-unsend" = "Penghargaan tidak boleh dinyahhantar";
 "dim-images" = "Samarkan imej";
 "donate-payment-method-prompt-apple-pay-button-title" = "Derma menggunakan Apple Pay";
 "edit-link-display-text-title" = "Teks paparan";
@@ -431,7 +431,7 @@
 "main-menu-title" = "Lagi";
 "main-menu-zero-faq" = "Soalan Lazim Wikipedia Zero";
 "more-languages-tooltip-description" = "Cari Wikipedia dalam lebih 300 bahasa";
-"more-languages-tooltip-title" = "Tambahkan bahasa";
+"more-languages-tooltip-title" = "Tambah bahasa";
 "move-articles-to-reading-list" = "Pindahkan {{PLURAL:$1|$1 rencana|$1 rencana}} ke daftar bacaan";
 "navbar-title-mode-edit-wikitext-preview" = "Pralihat";
 // Fuzzy
@@ -484,7 +484,7 @@
 "notifications-center-status-unread" = "Belum dibaca";
 "notifications-center-subheader-email-from-other-user" = "E-mel baru";
 "notifications-center-subheader-login-success-unknown-device" = "Log masuk daripada peranti yang tidak dikenali";
-"notifications-center-subheader-thanks" = "Terima kasih";
+"notifications-center-subheader-thanks" = "Penghargaan";
 "notifications-center-subheader-welcome" = "Selamat datang!";
 "notifications-center-swipe-more" = "Lebih";
 "notifications-center-title" = "Pemberitahuan";
@@ -497,7 +497,7 @@
 "notifications-center-type-title-login-attempts" = "Cubaan log masuk";
 "notifications-center-type-title-other" = "Lain";
 "notifications-center-type-title-page-link" = "Pautan halaman";
-"notifications-center-type-title-thanks" = "Terima kasih";
+"notifications-center-type-title-thanks" = "Penghargaan";
 "notifications-center-type-title-welcome" = "Selamat datang";
 "notifications-push-fallback-body-text" = "Kegiatan baru di Wikipedia";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|Pesanan baru|Pesanan baru}}";
@@ -821,7 +821,7 @@
 "welcome-intro-free-encyclopedia-more-about" = "Mengenai Wikipedia";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipedia adalah projek global untuk membina ensiklopedia bebas dalam semua bahasa di dunia. Hampir semua orang yang mempunyai akses Internet bebas untuk mengambil bahagian dengan menyumbang maklumat neutral, yang disebut.";
 "welcome-intro-free-encyclopedia-title" = "Ensiklopedia bebas";
-"welcome-languages-add-button" = "Tambahkan bahasa lain";
+"welcome-languages-add-button" = "Tambah bahasa lain";
 "welcome-languages-add-or-edit-button" = "Tambah atau sunting bahasa pilihan";
 "welcome-languages-description" = "Kami telah menemui bahasa berikut pada peranti anda:";
 "welcome-languages-search-title" = "Cari dalam lebih 300 bahasa";

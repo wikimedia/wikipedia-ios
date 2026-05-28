@@ -1,0 +1,472 @@
+{
+  "continue": {
+    "rvcontinue": "20240409094444|38412256",
+    "continue": "||"
+  },
+  "query": {
+    "pages": {
+      "156638": {
+        "pageid": 156638,
+        "ns": 0,
+        "title": "כלב (סוג)",
+        "revisions": [
+          {
+            "revid": 43124767,
+            "parentid": 43124333,
+            "minor": "",
+            "user": "איש עיטי",
+            "timestamp": "2026-04-21T14:08:48Z",
+            "size": 4165,
+            "parsedcomment": "שוחזר מעריכות של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/~2026-24445-67\" class=\"mw-tempuserlink\" title=\"מיוחד:תרומות/~2026-24445-67\">~2026-24445-67</a> (<a href=\"/w/index.php?title=%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:~2026-24445-67&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"שיחת משתמש:~2026-24445-67 (הדף אינו קיים)\">שיחה</a>) לעריכה האחרונה של <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:%D7%A9%D7%99%D7%A4%D7%95%D7%A5-%D7%A0%D7%99%D7%A7\" title=\"משתמש:שיפוץ-ניק\">שיפוץ-ניק</a>"
+          },
+          {
+            "revid": 43124333,
+            "parentid": 43124325,
+            "user": "~2026-24445-67",
+            "temp": "",
+            "timestamp": "2026-04-21T13:05:52Z",
+            "size": 4177,
+            "parsedcomment": ""
+          },
+          {
+            "revid": 43124325,
+            "parentid": 43111153,
+            "user": "~2026-24445-67",
+            "temp": "",
+            "timestamp": "2026-04-21T13:05:15Z",
+            "size": 4212,
+            "parsedcomment": ""
+          },
+          {
+            "revid": 43111153,
+            "parentid": 43111151,
+            "user": "שיפוץ-ניק",
+            "timestamp": "2026-04-19T22:10:34Z",
+            "size": 4165,
+            "parsedcomment": "שחזור לגרסה <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%A7%D7%99%D7%A9%D7%95%D7%A8_%D7%A7%D7%91%D7%95%D7%A2/42663343\" title=\"מיוחד:קישור קבוע/42663343\">42663343</a> מ־06:09, 6 בפברואר 2026 מאת <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:%D7%A9%D7%A2%D7%94_%D7%98%D7%95%D7%91%D7%94\" title=\"משתמש:שעה טובה\">שעה טובה</a>"
+          },
+          {
+            "revid": 43111151,
+            "parentid": 43111127,
+            "minor": "",
+            "user": "שיפוץ-ניק",
+            "timestamp": "2026-04-19T22:09:58Z",
+            "size": 4189,
+            "parsedcomment": "שוחזר מעריכות של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/~2026-24136-30\" class=\"mw-tempuserlink\" title=\"מיוחד:תרומות/~2026-24136-30\">~2026-24136-30</a> (<a href=\"/wiki/%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:~2026-24136-30\" title=\"שיחת משתמש:~2026-24136-30\">שיחה</a>) לעריכה האחרונה של <a href=\"/w/index.php?title=%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:~2026-23952-78&amp;action=edit&amp;redlink=1\" class=\"new mw-tempuserlink\" title=\"משתמש:~2026-23952-78 (הדף אינו קיים)\">~2026-23952-78</a>"
+          },
+          {
+            "revid": 43111127,
+            "parentid": 43111123,
+            "user": "~2026-24136-30",
+            "temp": "",
+            "timestamp": "2026-04-19T22:06:10Z",
+            "size": 3035,
+            "parsedcomment": ""
+          },
+          {
+            "revid": 43111123,
+            "parentid": 43111116,
+            "user": "~2026-24136-30",
+            "temp": "",
+            "timestamp": "2026-04-19T22:04:49Z",
+            "size": 3654,
+            "parsedcomment": ""
+          },
+          {
+            "revid": 43111116,
+            "parentid": 43111104,
+            "user": "~2026-24136-30",
+            "temp": "",
+            "timestamp": "2026-04-19T22:03:56Z",
+            "size": 3878,
+            "parsedcomment": "לא תיארתי יותר מידי יש לי כלבה בשם הזה אז זה מרגש אותי"
+          },
+          {
+            "revid": 43111104,
+            "parentid": 42663343,
+            "user": "~2026-23952-78",
+            "temp": "",
+            "timestamp": "2026-04-19T22:01:32Z",
+            "size": 4189,
+            "parsedcomment": ""
+          },
+          {
+            "revid": 42663343,
+            "parentid": 42662901,
+            "minor": "",
+            "user": "שעה טובה",
+            "timestamp": "2026-02-06T04:09:11Z",
+            "size": 4165,
+            "parsedcomment": "שוחזר מעריכה של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/~2026-66136-6\" class=\"mw-tempuserlink\" title=\"מיוחד:תרומות/~2026-66136-6\">~2026-66136-6</a> (<a href=\"/wiki/%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:~2026-66136-6\" title=\"שיחת משתמש:~2026-66136-6\">שיחה</a>) לעריכה האחרונה של <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:Idoiz\" title=\"משתמש:Idoiz\">Idoiz</a>"
+          },
+          {
+            "revid": 42662901,
+            "parentid": 42544785,
+            "user": "~2026-66136-6",
+            "temp": "",
+            "timestamp": "2026-02-05T21:56:10Z",
+            "size": 4191,
+            "parsedcomment": ""
+          },
+          {
+            "revid": 42544785,
+            "parentid": 42544781,
+            "minor": "",
+            "user": "Idoiz",
+            "timestamp": "2026-01-15T12:05:18Z",
+            "size": 4165,
+            "parsedcomment": "שוחזר מעריכה של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/~2026-31529-1\" class=\"mw-tempuserlink\" title=\"מיוחד:תרומות/~2026-31529-1\">~2026-31529-1</a> (<a href=\"/w/index.php?title=%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:~2026-31529-1&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"שיחת משתמש:~2026-31529-1 (הדף אינו קיים)\">שיחה</a>) לעריכה האחרונה של <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:Idoiz\" title=\"משתמש:Idoiz\">Idoiz</a>"
+          },
+          {
+            "revid": 42544781,
+            "parentid": 42544777,
+            "user": "~2026-31529-1",
+            "temp": "",
+            "timestamp": "2026-01-15T12:05:07Z",
+            "size": 4183,
+            "parsedcomment": "יובל"
+          },
+          {
+            "revid": 42544777,
+            "parentid": 42544774,
+            "minor": "",
+            "user": "Idoiz",
+            "timestamp": "2026-01-15T12:04:34Z",
+            "size": 4165,
+            "parsedcomment": "שוחזר מעריכה של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/~2026-31529-1\" class=\"mw-tempuserlink\" title=\"מיוחד:תרומות/~2026-31529-1\">~2026-31529-1</a> (<a href=\"/w/index.php?title=%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:~2026-31529-1&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"שיחת משתמש:~2026-31529-1 (הדף אינו קיים)\">שיחה</a>) לעריכה האחרונה של <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:Asaf_M\" title=\"משתמש:Asaf M\">Asaf M</a>"
+          },
+          {
+            "revid": 42544774,
+            "parentid": 42542672,
+            "user": "~2026-31529-1",
+            "temp": "",
+            "timestamp": "2026-01-15T12:04:18Z",
+            "size": 4183,
+            "parsedcomment": "יי"
+          },
+          {
+            "revid": 42542672,
+            "parentid": 42542669,
+            "minor": "",
+            "user": "Asaf M",
+            "timestamp": "2026-01-14T22:00:59Z",
+            "size": 4165,
+            "parsedcomment": "שוחזר מעריכה של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/~2026-30514-9\" class=\"mw-tempuserlink\" title=\"מיוחד:תרומות/~2026-30514-9\">~2026-30514-9</a> (<a href=\"/wiki/%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:~2026-30514-9\" title=\"שיחת משתמש:~2026-30514-9\">שיחה</a>) לעריכה האחרונה של <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:Asaf_M\" title=\"משתמש:Asaf M\">Asaf M</a>"
+          },
+          {
+            "revid": 42542669,
+            "parentid": 42542665,
+            "user": "~2026-30514-9",
+            "temp": "",
+            "timestamp": "2026-01-14T22:00:16Z",
+            "size": 4183,
+            "parsedcomment": "כמה דברים חשובים"
+          },
+          {
+            "revid": 42542665,
+            "parentid": 42542664,
+            "minor": "",
+            "user": "Asaf M",
+            "timestamp": "2026-01-14T21:59:31Z",
+            "size": 4165,
+            "parsedcomment": "שוחזר מעריכה של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/~2026-30514-9\" class=\"mw-tempuserlink\" title=\"מיוחד:תרומות/~2026-30514-9\">~2026-30514-9</a> (<a href=\"/wiki/%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:~2026-30514-9\" title=\"שיחת משתמש:~2026-30514-9\">שיחה</a>) לעריכה האחרונה של <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:Asaf_M\" title=\"משתמש:Asaf M\">Asaf M</a>"
+          },
+          {
+            "revid": 42542664,
+            "parentid": 42542657,
+            "user": "~2026-30514-9",
+            "temp": "",
+            "timestamp": "2026-01-14T21:58:52Z",
+            "size": 4182,
+            "parsedcomment": "אמ4"
+          },
+          {
+            "revid": 42542657,
+            "parentid": 42542648,
+            "minor": "",
+            "user": "Asaf M",
+            "timestamp": "2026-01-14T21:58:05Z",
+            "size": 4165,
+            "parsedcomment": "שוחזר מעריכה של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/~2026-30514-9\" class=\"mw-tempuserlink\" title=\"מיוחד:תרומות/~2026-30514-9\">~2026-30514-9</a> (<a href=\"/wiki/%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:~2026-30514-9\" title=\"שיחת משתמש:~2026-30514-9\">שיחה</a>) לעריכה האחרונה של <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:Virant\" title=\"משתמש:Virant\">Virant</a>"
+          },
+          {
+            "revid": 42542648,
+            "parentid": 42347206,
+            "user": "~2026-30514-9",
+            "temp": "",
+            "timestamp": "2026-01-14T21:56:26Z",
+            "size": 4183,
+            "parsedcomment": "חגח"
+          },
+          {
+            "revid": 42347206,
+            "parentid": 42329937,
+            "minor": "",
+            "user": "Virant",
+            "timestamp": "2025-12-11T11:21:03Z",
+            "size": 4165,
+            "parsedcomment": "שוחזר מעריכה של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/Juerbhjefvbleshem121\" title=\"מיוחד:תרומות/Juerbhjefvbleshem121\">Juerbhjefvbleshem121</a> (<a href=\"/wiki/%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:Juerbhjefvbleshem121\" title=\"שיחת משתמש:Juerbhjefvbleshem121\">שיחה</a>) לעריכה האחרונה של <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:%D7%A9%D7%A2%D7%94_%D7%98%D7%95%D7%91%D7%94\" title=\"משתמש:שעה טובה\">שעה טובה</a>"
+          },
+          {
+            "revid": 42329937,
+            "parentid": 41026032,
+            "user": "Juerbhjefvbleshem121",
+            "timestamp": "2025-12-07T18:35:51Z",
+            "size": 4207,
+            "parsedcomment": "הוספתי תמונה של כלב חמוד ממש שצילמתי"
+          },
+          {
+            "revid": 41026032,
+            "parentid": 41026016,
+            "minor": "",
+            "user": "שעה טובה",
+            "timestamp": "2025-05-13T09:24:16Z",
+            "size": 4165,
+            "parsedcomment": "שוחזר מעריכה של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/2A02:14F:16F:644E:6932:9C18:2800:C74E\" title=\"מיוחד:תרומות/2A02:14F:16F:644E:6932:9C18:2800:C74E\">2A02:14F:16F:644E:6932:9C18:2800:C74E</a> (<a href=\"/wiki/%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:2A02:14F:16F:644E:6932:9C18:2800:C74E\" title=\"שיחת משתמש:2A02:14F:16F:644E:6932:9C18:2800:C74E\">שיחה</a>) לעריכה האחרונה של <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9%D7%AA:Pixie.ca\" title=\"משתמשת:Pixie.ca\">Pixie.ca</a>"
+          },
+          {
+            "revid": 41026016,
+            "parentid": 40856472,
+            "user": "2A02:14F:16F:644E:6932:9C18:2800:C74E",
+            "anon": "",
+            "timestamp": "2025-05-13T09:22:24Z",
+            "size": 4232,
+            "parsedcomment": ""
+          },
+          {
+            "revid": 40856472,
+            "parentid": 40856372,
+            "minor": "",
+            "user": "Pixie.ca",
+            "timestamp": "2025-04-13T18:03:46Z",
+            "size": 4165,
+            "parsedcomment": "שוחזר מעריכה של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/79.177.138.188\" title=\"מיוחד:תרומות/79.177.138.188\">79.177.138.188</a> (<a href=\"/wiki/%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:79.177.138.188\" title=\"שיחת משתמש:79.177.138.188\">שיחה</a>) לעריכה האחרונה של <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:Sapper-bot\" title=\"משתמש:Sapper-bot\">Sapper-bot</a>"
+          },
+          {
+            "revid": 40856372,
+            "parentid": 40790415,
+            "user": "79.177.138.188",
+            "anon": "",
+            "timestamp": "2025-04-13T17:54:47Z",
+            "size": 4196,
+            "parsedcomment": ""
+          },
+          {
+            "revid": 40790415,
+            "parentid": 40196343,
+            "user": "Sapper-bot",
+            "timestamp": "2025-04-01T19:40:39Z",
+            "size": 4165,
+            "parsedcomment": "תיקון שם מדעי על פי <a href=\"/wiki/%D7%95%D7%99%D7%A7%D7%99%D7%A4%D7%93%D7%99%D7%94:%D7%9E%D7%93%D7%A8%D7%99%D7%9A_%D7%9C%D7%A2%D7%99%D7%A6%D7%95%D7%91_%D7%A2%D7%A8%D7%9B%D7%99%D7%9D/%D7%91%D7%A2%D7%9C%D7%99_%D7%97%D7%99%D7%99%D7%9D#הטיית_שמות_מרמת_הסוג_ומטה\" title=\"ויקיפדיה:מדריך לעיצוב ערכים/בעלי חיים\">דף המדיניות</a>"
+          },
+          {
+            "revid": 40196343,
+            "parentid": 39949885,
+            "minor": "",
+            "user": "AutoMod",
+            "timestamp": "2024-12-23T08:35:23Z",
+            "size": 4171,
+            "parsedcomment": "עדכון שם קטגוריה (טקסונים שתוארו בידי קארולוס ליניאוס)"
+          },
+          {
+            "revid": 39949885,
+            "parentid": 39949878,
+            "minor": "",
+            "user": "אלעדב.",
+            "timestamp": "2024-11-10T07:00:10Z",
+            "size": 4173,
+            "parsedcomment": "שוחזר מעריכה של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/212.179.64.120\" title=\"מיוחד:תרומות/212.179.64.120\">212.179.64.120</a> (<a href=\"/wiki/%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:212.179.64.120\" title=\"שיחת משתמש:212.179.64.120\">שיחה</a>) לעריכה האחרונה של <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9%D7%AA:Avigail56\" title=\"משתמשת:Avigail56\">Avigail56</a>"
+          },
+          {
+            "revid": 39949878,
+            "parentid": 39434152,
+            "user": "212.179.64.120",
+            "anon": "",
+            "timestamp": "2024-11-10T06:58:32Z",
+            "size": 2088,
+            "parsedcomment": ""
+          },
+          {
+            "revid": 39434152,
+            "parentid": 39434120,
+            "user": "Avigail56",
+            "timestamp": "2024-08-25T15:22:32Z",
+            "size": 4173,
+            "parsedcomment": "ביטול גרסה <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%94%D7%91%D7%93%D7%9C%D7%99%D7%9D/39434120\" title=\"מיוחד:הבדלים/39434120\">39434120</a> של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/2A02:6680:1104:9601:50E1:2392:DD:ECCE\" title=\"מיוחד:תרומות/2A02:6680:1104:9601:50E1:2392:DD:ECCE\">2A02:6680:1104:9601:50E1:2392:DD:ECCE</a> (<a href=\"/w/index.php?title=%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:2A02:6680:1104:9601:50E1:2392:DD:ECCE&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"שיחת משתמש:2A02:6680:1104:9601:50E1:2392:DD:ECCE (הדף אינו קיים)\">שיחה</a>)"
+          },
+          {
+            "revid": 39434120,
+            "parentid": 39136704,
+            "user": "2A02:6680:1104:9601:50E1:2392:DD:ECCE",
+            "anon": "",
+            "timestamp": "2024-08-25T15:17:48Z",
+            "size": 4195,
+            "parsedcomment": ""
+          },
+          {
+            "revid": 39136704,
+            "parentid": 39136653,
+            "minor": "",
+            "user": "חן מקום על יושביו",
+            "timestamp": "2024-07-29T20:27:17Z",
+            "size": 4173,
+            "parsedcomment": "שוחזר מעריכה של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/2A0D:6FC7:340:EC8E:778:5634:1232:5476\" title=\"מיוחד:תרומות/2A0D:6FC7:340:EC8E:778:5634:1232:5476\">2A0D:6FC7:340:EC8E:778:5634:1232:5476</a> (<a href=\"/w/index.php?title=%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:2A0D:6FC7:340:EC8E:778:5634:1232:5476&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"שיחת משתמש:2A0D:6FC7:340:EC8E:778:5634:1232:5476 (הדף אינו קיים)\">שיחה</a>) לעריכה האחרונה של <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9%D7%AA:%D7%9E%D7%99%D7%A9%D7%94%D7%99_%D7%A9%D7%90%D7%99%D7%9B%D7%A4%D7%AA_%D7%9C%D7%94\" title=\"משתמשת:מישהי שאיכפת לה\">מישהי שאיכפת לה</a>"
+          },
+          {
+            "revid": 39136653,
+            "parentid": 39039095,
+            "user": "2A0D:6FC7:340:EC8E:778:5634:1232:5476",
+            "anon": "",
+            "timestamp": "2024-07-29T20:26:10Z",
+            "size": 3780,
+            "parsedcomment": "יפה"
+          },
+          {
+            "revid": 39039095,
+            "parentid": 39039077,
+            "minor": "",
+            "user": "מישהי שאיכפת לה",
+            "timestamp": "2024-07-16T07:45:30Z",
+            "size": 4173,
+            "parsedcomment": "שוחזר מעריכה של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/2A02:14F:1F1:3EF4:143E:8050:AD0F:124E\" title=\"מיוחד:תרומות/2A02:14F:1F1:3EF4:143E:8050:AD0F:124E\">2A02:14F:1F1:3EF4:143E:8050:AD0F:124E</a> (<a href=\"/w/index.php?title=%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:2A02:14F:1F1:3EF4:143E:8050:AD0F:124E&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"שיחת משתמש:2A02:14F:1F1:3EF4:143E:8050:AD0F:124E (הדף אינו קיים)\">שיחה</a>) לעריכה האחרונה של <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:%D7%97%D7%96%D7%A8%D7%AA%D7%99\" title=\"משתמש:חזרתי\">חזרתי</a>"
+          },
+          {
+            "revid": 39039077,
+            "parentid": 38975321,
+            "user": "2A02:14F:1F1:3EF4:143E:8050:AD0F:124E",
+            "anon": "",
+            "timestamp": "2024-07-16T07:41:59Z",
+            "size": 4228,
+            "parsedcomment": ""
+          },
+          {
+            "revid": 38975321,
+            "parentid": 38975315,
+            "minor": "",
+            "user": "חזרתי",
+            "timestamp": "2024-07-05T20:10:56Z",
+            "size": 4173,
+            "parsedcomment": "שחזור לגרסה <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%A7%D7%99%D7%A9%D7%95%D7%A8_%D7%A7%D7%91%D7%95%D7%A2/38864636\" title=\"מיוחד:קישור קבוע/38864636\">38864636</a> מ־17:58, 17 ביוני 2024 מאת <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9%D7%AA:%D7%97%D7%9F_%D7%9E%D7%A7%D7%95%D7%9D_%D7%A2%D7%9C_%D7%99%D7%95%D7%A9%D7%91%D7%99%D7%95\" title=\"משתמשת:חן מקום על יושביו\">חן מקום על יושביו</a>"
+          },
+          {
+            "revid": 38975315,
+            "parentid": 38975313,
+            "user": "46.116.47.149",
+            "anon": "",
+            "timestamp": "2024-07-05T20:09:55Z",
+            "size": 4219,
+            "parsedcomment": ""
+          },
+          {
+            "revid": 38975313,
+            "parentid": 38975311,
+            "user": "46.116.47.149",
+            "anon": "",
+            "timestamp": "2024-07-05T20:09:18Z",
+            "size": 4343,
+            "parsedcomment": ""
+          },
+          {
+            "revid": 38975311,
+            "parentid": 38975296,
+            "user": "2A05:BB80:0:B076:1C20:8360:B660:B93F",
+            "anon": "",
+            "timestamp": "2024-07-05T20:09:05Z",
+            "size": 4304,
+            "parsedcomment": "נקמה"
+          },
+          {
+            "revid": 38975296,
+            "parentid": 38864636,
+            "user": "46.116.47.149",
+            "anon": "",
+            "timestamp": "2024-07-05T20:06:31Z",
+            "size": 4324,
+            "parsedcomment": ""
+          },
+          {
+            "revid": 38864636,
+            "parentid": 38864633,
+            "minor": "",
+            "user": "חן מקום על יושביו",
+            "timestamp": "2024-06-17T14:58:12Z",
+            "size": 4173,
+            "parsedcomment": "שוחזר מעריכות של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/77.137.79.233\" title=\"מיוחד:תרומות/77.137.79.233\">77.137.79.233</a> (<a href=\"/wiki/%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:77.137.79.233\" title=\"שיחת משתמש:77.137.79.233\">שיחה</a>) לעריכה האחרונה של <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9%D7%AA:%D7%9E%D7%99%D7%A9%D7%94%D7%99_%D7%A9%D7%90%D7%99%D7%9B%D7%A4%D7%AA_%D7%9C%D7%94\" title=\"משתמשת:מישהי שאיכפת לה\">מישהי שאיכפת לה</a>"
+          },
+          {
+            "revid": 38864633,
+            "parentid": 38864620,
+            "user": "77.137.79.233",
+            "anon": "",
+            "timestamp": "2024-06-17T14:57:58Z",
+            "size": 3930,
+            "parsedcomment": ""
+          },
+          {
+            "revid": 38864620,
+            "parentid": 38732927,
+            "user": "77.137.79.233",
+            "anon": "",
+            "timestamp": "2024-06-17T14:56:04Z",
+            "size": 3917,
+            "parsedcomment": ""
+          },
+          {
+            "revid": 38732927,
+            "parentid": 38732921,
+            "minor": "",
+            "user": "מישהי שאיכפת לה",
+            "timestamp": "2024-05-29T10:13:34Z",
+            "size": 4173,
+            "parsedcomment": "שוחזר מעריכה של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/2001:4CD0:AC50:7A7B:7729:0:54B6:A652\" title=\"מיוחד:תרומות/2001:4CD0:AC50:7A7B:7729:0:54B6:A652\">2001:4CD0:AC50:7A7B:7729:0:54B6:A652</a> (<a href=\"/w/index.php?title=%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:2001:4CD0:AC50:7A7B:7729:0:54B6:A652&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"שיחת משתמש:2001:4CD0:AC50:7A7B:7729:0:54B6:A652 (הדף אינו קיים)\">שיחה</a>) לעריכה האחרונה של <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9%D7%AA:%D7%9E%D7%99%D7%A9%D7%94%D7%99_%D7%A9%D7%90%D7%99%D7%9B%D7%A4%D7%AA_%D7%9C%D7%94\" title=\"משתמשת:מישהי שאיכפת לה\">מישהי שאיכפת לה</a>"
+          },
+          {
+            "revid": 38732921,
+            "parentid": 38732905,
+            "user": "2001:4CD0:AC50:7A7B:7729:0:54B6:A652",
+            "anon": "",
+            "timestamp": "2024-05-29T10:12:51Z",
+            "size": 4131,
+            "parsedcomment": "שנועה מלכה"
+          },
+          {
+            "revid": 38732905,
+            "parentid": 38732897,
+            "minor": "",
+            "user": "מישהי שאיכפת לה",
+            "timestamp": "2024-05-29T10:11:05Z",
+            "size": 4173,
+            "parsedcomment": "שוחזר מעריכה של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/2001:4CD0:AC50:7A7B:7729:0:54B6:A652\" title=\"מיוחד:תרומות/2001:4CD0:AC50:7A7B:7729:0:54B6:A652\">2001:4CD0:AC50:7A7B:7729:0:54B6:A652</a> (<a href=\"/w/index.php?title=%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:2001:4CD0:AC50:7A7B:7729:0:54B6:A652&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"שיחת משתמש:2001:4CD0:AC50:7A7B:7729:0:54B6:A652 (הדף אינו קיים)\">שיחה</a>) לעריכה האחרונה של <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9%D7%AA:%D7%97%D7%9F_%D7%9E%D7%A7%D7%95%D7%9D_%D7%A2%D7%9C_%D7%99%D7%95%D7%A9%D7%91%D7%99%D7%95\" title=\"משתמשת:חן מקום על יושביו\">חן מקום על יושביו</a>"
+          },
+          {
+            "revid": 38732897,
+            "parentid": 38613833,
+            "user": "2001:4CD0:AC50:7A7B:7729:0:54B6:A652",
+            "anon": "",
+            "timestamp": "2024-05-29T10:10:22Z",
+            "size": 4129,
+            "parsedcomment": ""
+          },
+          {
+            "revid": 38613833,
+            "parentid": 38612473,
+            "minor": "",
+            "user": "חן מקום על יושביו",
+            "timestamp": "2024-05-09T14:31:38Z",
+            "size": 4173,
+            "parsedcomment": "שוחזר מעריכה של <a href=\"/wiki/%D7%9E%D7%99%D7%95%D7%97%D7%93:%D7%AA%D7%A8%D7%95%D7%9E%D7%95%D7%AA/2001:4CD0:AC54:DC07:A67A:28A3:E0:B741\" title=\"מיוחד:תרומות/2001:4CD0:AC54:DC07:A67A:28A3:E0:B741\">2001:4CD0:AC54:DC07:A67A:28A3:E0:B741</a> (<a href=\"/w/index.php?title=%D7%A9%D7%99%D7%97%D7%AA_%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:2001:4CD0:AC54:DC07:A67A:28A3:E0:B741&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"שיחת משתמש:2001:4CD0:AC54:DC07:A67A:28A3:E0:B741 (הדף אינו קיים)\">שיחה</a>) לעריכה האחרונה של <a href=\"/wiki/%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9:%D7%91%D7%9F_%D7%A2%D7%93%D7%A8%D7%99%D7%90%D7%9C\" title=\"משתמש:בן עדריאל\">בן עדריאל</a>"
+          },
+          {
+            "revid": 38612473,
+            "parentid": 38412256,
+            "user": "2001:4CD0:AC54:DC07:A67A:28A3:E0:B741",
+            "anon": "",
+            "timestamp": "2024-05-09T09:30:32Z",
+            "size": 4163,
+            "parsedcomment": ""
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "batchcomplete": "",
+  "query": {
+    "pages": {
+      "703329": {
+        "pageid": 703329,
+        "ns": 0,
+        "title": "כלב הבית",
+        "index": 1,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Collage_of_Nine_Dogs.jpg/330px-Collage_of_Nine_Dogs.jpg",
+          "width": 330,
+          "height": 290
+        },
+        "terms": {
+          "description": [
+            "כלב הבית, בעל חיים מבוית ממשפחת הכלביים"
+          ]
+        }
+      }
+    }
+  },
+  "limits": {
+    "pageimages": 50
+  }
+}

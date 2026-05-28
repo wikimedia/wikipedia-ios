@@ -1,0 +1,72 @@
+{
+  "items": [
+    {
+      "project": "he.wikipedia",
+      "editor-type": "all-editor-types",
+      "page-title": "כלב_(סוג)",
+      "granularity": "monthly",
+      "results": [
+        {
+          "timestamp": "2024-02-01T00:00:00.000Z",
+          "edits": 2
+        },
+        {
+          "timestamp": "2024-03-01T00:00:00.000Z",
+          "edits": 9
+        },
+        {
+          "timestamp": "2024-04-01T00:00:00.000Z",
+          "edits": 6
+        },
+        {
+          "timestamp": "2024-05-01T00:00:00.000Z",
+          "edits": 6
+        },
+        {
+          "timestamp": "2024-06-01T00:00:00.000Z",
+          "edits": 3
+        },
+        {
+          "timestamp": "2024-07-01T00:00:00.000Z",
+          "edits": 9
+        },
+        {
+          "timestamp": "2024-08-01T00:00:00.000Z",
+          "edits": 2
+        },
+        {
+          "timestamp": "2024-11-01T00:00:00.000Z",
+          "edits": 2
+        },
+        {
+          "timestamp": "2024-12-01T00:00:00.000Z",
+          "edits": 1
+        },
+        {
+          "timestamp": "2025-04-01T00:00:00.000Z",
+          "edits": 3
+        },
+        {
+          "timestamp": "2025-05-01T00:00:00.000Z",
+          "edits": 2
+        },
+        {
+          "timestamp": "2025-12-01T00:00:00.000Z",
+          "edits": 2
+        },
+        {
+          "timestamp": "2026-01-01T00:00:00.000Z",
+          "edits": 10
+        },
+        {
+          "timestamp": "2026-02-01T00:00:00.000Z",
+          "edits": 2
+        },
+        {
+          "timestamp": "2026-04-01T00:00:00.000Z",
+          "edits": 9
+        }
+      ]
+    }
+  ]
+}
