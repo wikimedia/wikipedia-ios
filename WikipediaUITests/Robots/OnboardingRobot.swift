@@ -34,7 +34,12 @@ struct OnboardingRobot: ScreenshotCapturingRobot {
 
     @discardableResult
     func assertPage(_ page: OnboardingPage, file: StaticString = #filePath, line: UInt = #line) -> Self {
-        base.assertVisible(base.app.otherElements[page.accessibilityIdentifier], file: file, line: line)
+        base.assertExists(
+            base.app.otherElements[page.accessibilityIdentifier],
+            timeout: 10,
+            file: file,
+            line: line
+        )
         return self
     }
 

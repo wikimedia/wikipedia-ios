@@ -3,7 +3,7 @@ This repository uses the Robots pattern for test legibility and organization. Ke
 ## CI Lanes
 - Pull requests run `.github/workflows/run_ui_tests.yml` against the `WikipediaUITests` scheme and the `English (Light)` configuration from `Test Plans/UITests.xctestplan`.
 - `UITestConfiguration` defaults UI-test launches to fixture mode and forwards `-WMFUITestHTTPClientProfile fixture-strict` to the app.
-- Pull requests also run `.github/workflows/run_e2e_ui_tests.yml` against the same scheme, test plan, and test methods with the `English (Light, E2E)` configuration. That test-plan configuration passes `-WMFUITestHTTPClientProfile e2e` to the UI-test process, so no fixture profile is forwarded to the app and the app uses E2E networking.
+- Pull requests also run `.github/workflows/run_e2e_ui_tests.yml` against the same scheme and test plan with the `English (Light, E2E)` configuration, narrowed to the test identifiers listed in `WikipediaUITests/E2ESmokeTests.txt`. That test-plan configuration passes `-WMFUITestHTTPClientProfile e2e` to the UI-test process, so no fixture profile is forwarded to the app and the app uses E2E networking.
 - The UI-test workflows publish `.xcresult` bundles as artifacts. Use those bundles for screenshots and failure inspection.
 ## UI Test Robot Pattern
 - Write UI tests as intent-level scripts. Test files should describe the user journey and expected result, not raw selectors, scrolling loops, alert dismissal, or screenshot plumbing.
@@ -15,6 +15,7 @@ This repository uses the Robots pattern for test legibility and organization. Ke
 - Keep shared app-side accessibility identifiers in `WMFComponents/Sources/WMFComponents/Utility/AccessibilityIdentifiers.swift`, including Objective-C bridge values used by legacy screens.
 - Keep launch arguments centralized in `UITestConfiguration` and `UITestLaunchArgument`. Do not set language, locale, text direction, or simulator appearance directly from individual tests.
 - Prefer stable accessibility identifiers over localized visible text. Assert localized strings only when the localization behavior itself is under test.
+- Keep fixture-backed article-control tests locale-aware through `ArticleControlsFixture`. The fixture-backed `en`, `de`, `he`, and `vi` configurations should open the active language's Dog article through search and load bundled article resources from `WikipediaUnitTests/Fixtures/ArticleControls/<language-code>`; E2E, unsupported languages, and language configurations irrelevant to a specific assertion should skip with XCTest skip APIs.
 ## Validation
 - For UI-test helper changes, first run `scripts/lint-ui-tests.sh`.
 - For compile validation, use a narrow `xcodebuild build-for-testing` or selected UI-test run while iterating.

@@ -8,6 +8,7 @@ public enum AccessibilityIdentifiers {
     public enum Article {
         public static let homeButton = "Article Home Button"
         public static let leadImage = "Article Lead Image"
+        public static let linkPreview = "Article Link Preview"
         public static let searchButton = "Article Search Button"
         public static let view = "Article View"
     }
@@ -35,6 +36,7 @@ public enum AccessibilityIdentifiers {
     }
 
     public enum ImageGallery {
+        public static let closeButton = "Image Gallery Close Button"
         public static let image = "Image Gallery Image"
         public static let loadingIndicator = "Image Gallery Loading Indicator"
         public static let shareButton = "Image Gallery Share Button"
@@ -76,6 +78,7 @@ public enum AccessibilityIdentifiers {
 @objc(WMFAccessibilityIdentifier)
 @objcMembers
 public final class WMFAccessibilityIdentifier: NSObject {
+    public static var imageGalleryCloseButton: String { AccessibilityIdentifiers.ImageGallery.closeButton }
     public static var imageGalleryImage: String { AccessibilityIdentifiers.ImageGallery.image }
     public static var imageGalleryLoadingIndicator: String { AccessibilityIdentifiers.ImageGallery.loadingIndicator }
     public static var imageGalleryShareButton: String { AccessibilityIdentifiers.ImageGallery.shareButton }

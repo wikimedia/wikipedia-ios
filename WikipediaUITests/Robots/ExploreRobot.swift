@@ -66,7 +66,7 @@ struct ExploreRobot: ScreenshotCapturingRobot {
         let identifiedButton = base.app.tabBars.buttons[AccessibilityIdentifiers.Search.tabButton]
         let searchButton = identifiedButton.waitForExistence(timeout: 5)
             ? identifiedButton
-            : base.app.tabBars.buttons["Search"]
+            : searchTabButtonFallback()
         base.assertVisible(searchButton, timeout: 15, description: "Search tab button", file: file, line: line)
         searchButton.tap()
         return SearchRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
@@ -76,5 +76,9 @@ struct ExploreRobot: ScreenshotCapturingRobot {
     func openProfile(file: StaticString = #filePath, line: UInt = #line) -> ProfileRobot {
         base.tapButton(withIdentifier: AccessibilityIdentifiers.Profile.button, file: file, line: line)
         return ProfileRobot(base: base).assertVisible(file: file, line: line)
+    }
+
+    private func searchTabButtonFallback() -> XCUIElement {
+        base.app.tabBars.buttons.element(boundBy: 4)
     }
 }
