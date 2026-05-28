@@ -7,15 +7,18 @@ public struct WMFWhichCameFirstArticlesView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFWhichCameFirstArticlesViewModel
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     /// Tracks each card's global frame so share sheets can be anchored correctly.
     @State private var cellFrames: [UUID: CGRect] = [:]
 
     private var theme: WMFTheme { appEnvironment.theme }
 
-    /// Number of columns adapts to device size class (iPad = 3, iPhone = 2).
+    /// Collapses to 1 column for accessibility type sizes (matching the article tabs grid behaviour),
+    /// otherwise uses 2 columns on iPhone and 3 on iPad.
     private var columnCount: Int {
-        horizontalSizeClass == .regular ? 3 : 2
+        if dynamicTypeSize.isAccessibilitySize { return 1 }
+        return horizontalSizeClass == .regular ? 3 : 2
     }
 
     public init(viewModel: WMFWhichCameFirstArticlesViewModel) {
