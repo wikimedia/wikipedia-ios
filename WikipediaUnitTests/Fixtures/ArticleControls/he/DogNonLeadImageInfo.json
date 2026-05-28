@@ -1,0 +1,31 @@
+{
+  "batchcomplete": "",
+  "query": {
+    "pages": {
+      "-1": {
+        "ns": 6,
+        "title": "קובץ:CanaanDogChakede1.jpg",
+        "missing": "",
+        "known": "",
+        "imagerepository": "shared",
+        "imageinfo": [
+          {
+            "size": 223977,
+            "width": 800,
+            "height": 797,
+            "thumburl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/CanaanDogChakede1.jpg/500px-CanaanDogChakede1.jpg",
+            "thumbwidth": 500,
+            "thumbheight": 498,
+            "responsiveUrls": {
+              "2": "https://upload.wikimedia.org/wikipedia/commons/f/f6/CanaanDogChakede1.jpg"
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/CanaanDogChakede1.jpg",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:CanaanDogChakede1.jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=15667833",
+            "mime": "image/jpeg"
+          }
+        ]
+      }
+    }
+  }
+}

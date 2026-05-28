@@ -1,0 +1,24 @@
+{
+  "continue": {
+    "rvcontinue": "20060220071117|1080278",
+    "continue": "||"
+  },
+  "query": {
+    "pages": {
+      "156638": {
+        "pageid": 156638,
+        "ns": 0,
+        "title": "כלב (סוג)",
+        "revisions": [
+          {
+            "revid": 1080272,
+            "parentid": 0,
+            "user": "Felagund",
+            "timestamp": "2006-02-20T07:07:24Z",
+            "comment": "הוצאת מידע מ[[כלב]]"
+          }
+        ]
+      }
+    }
+  }
+}

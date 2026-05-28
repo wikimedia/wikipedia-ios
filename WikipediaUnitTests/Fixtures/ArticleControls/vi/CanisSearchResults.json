@@ -1,0 +1,144 @@
+{
+  "batchcomplete": "",
+  "continue": {
+    "gpsoffset": 10,
+    "continue": "gpsoffset||"
+  },
+  "query": {
+    "pages": {
+      "36609": {
+        "pageid": 36609,
+        "ns": 0,
+        "title": "Chi Cam chanh",
+        "index": 7,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/OrangeBloss_wb.jpg/250px-OrangeBloss_wb.jpg",
+          "width": 160,
+          "height": 141
+        },
+        "terms": {
+          "description": [
+            "chi thực vật có hoa trong họ Cửu lý hương"
+          ]
+        }
+      },
+      "1233103": {
+        "pageid": 1233103,
+        "ns": 0,
+        "title": "Chi Chuối",
+        "index": 9,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Starr_050826-4195_Musa_sp..jpg/250px-Starr_050826-4195_Musa_sp..jpg",
+          "width": 160,
+          "height": 213
+        }
+      },
+      "830158": {
+        "pageid": 830158,
+        "ns": 0,
+        "title": "Chi Chó",
+        "index": 1,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Canis.jpg/250px-Canis.jpg",
+          "width": 160,
+          "height": 230
+        },
+        "terms": {
+          "description": [
+            "chi động vật có vú, bao gồm chó nhà"
+          ]
+        }
+      },
+      "2262675": {
+        "pageid": 2262675,
+        "ns": 0,
+        "title": "Chi Cà",
+        "index": 8,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Starr_020323-0062_Solanum_seaforthianum.jpg/250px-Starr_020323-0062_Solanum_seaforthianum.jpg",
+          "width": 160,
+          "height": 120
+        }
+      },
+      "3228182": {
+        "pageid": 3228182,
+        "ns": 0,
+        "title": "Chi Cá bướm",
+        "index": 6,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Four-Eye_Butterflyfish_%288422762054%29.jpg/250px-Four-Eye_Butterflyfish_%288422762054%29.jpg",
+          "width": 160,
+          "height": 105
+        }
+      },
+      "511516": {
+        "pageid": 511516,
+        "ns": 0,
+        "title": "Chi Cá nục",
+        "index": 5,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Decapt_macar_121019-29161_tdp.JPG/250px-Decapt_macar_121019-29161_tdp.JPG",
+          "width": 160,
+          "height": 96
+        },
+        "terms": {
+          "description": [
+            "Loài cá"
+          ]
+        }
+      },
+      "2399359": {
+        "pageid": 2399359,
+        "ns": 0,
+        "title": "Chi Cúc",
+        "index": 2,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Chrysanthemum_November_2007_Osaka_Japan.jpg/250px-Chrysanthemum_November_2007_Osaka_Japan.jpg",
+          "width": 160,
+          "height": 118
+        }
+      },
+      "14585522": {
+        "pageid": 14585522,
+        "ns": 0,
+        "title": "Chi Cơm cháy",
+        "index": 3,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Sambucus_nigra_Gerda_2zz.jpg/250px-Sambucus_nigra_Gerda_2zz.jpg",
+          "width": 160,
+          "height": 107
+        }
+      },
+      "45032": {
+        "pageid": 45032,
+        "ns": 0,
+        "title": "Chi Cạp nia",
+        "index": 4,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Banded_Krait_%28Bangarus_fasciatus%29_by_David_V_Raju.jpg/250px-Banded_Krait_%28Bangarus_fasciatus%29_by_David_V_Raju.jpg",
+          "width": 160,
+          "height": 107
+        }
+      },
+      "42061": {
+        "pageid": 42061,
+        "ns": 0,
+        "title": "Chi Cắt",
+        "index": 10,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Brown-Falcon%2C-Vic%2C-3.1.2008.jpg/250px-Brown-Falcon%2C-Vic%2C-3.1.2008.jpg",
+          "width": 160,
+          "height": 240
+        },
+        "terms": {
+          "description": [
+            "chi chim"
+          ]
+        }
+      }
+    }
+  },
+  "limits": {
+    "pageimages": 50
+  }
+}

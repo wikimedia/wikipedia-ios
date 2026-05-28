@@ -1,0 +1,52 @@
+{
+  "tfa": {
+    "type": "standard",
+    "title": "Chó",
+    "displaytitle": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Chó</span></span>",
+    "namespace": {
+      "id": 0,
+      "text": ""
+    },
+    "wikibase_item": "Q144",
+    "titles": {
+      "canonical": "Chó",
+      "normalized": "Chó",
+      "display": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Chó</span></span>"
+    },
+    "pageid": 30817,
+    "thumbnail": {
+      "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Collage_of_Nine_Dogs.jpg/330px-Collage_of_Nine_Dogs.jpg",
+      "width": 330,
+      "height": 290
+    },
+    "originalimage": {
+      "source": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Collage_of_Nine_Dogs.jpg",
+      "width": 1665,
+      "height": 1463
+    },
+    "lang": "vi",
+    "dir": "ltr",
+    "revision": "75053411",
+    "tid": "b4afb07e-4ad8-11f1-90e5-44a24f8cf53f",
+    "timestamp": "2026-05-08T12:23:23Z",
+    "description": "động vật nuôi trong nhà để làm các nhiệm vụ khác nhau",
+    "description_source": "central",
+    "content_urls": {
+      "desktop": {
+        "page": "https://vi.wikipedia.org/wiki/Ch%C3%B3",
+        "revisions": "https://vi.wikipedia.org/wiki/Ch%C3%B3?action=history",
+        "edit": "https://vi.wikipedia.org/wiki/Ch%C3%B3?action=edit",
+        "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Ch%C3%B3"
+      },
+      "mobile": {
+        "page": "https://vi.wikipedia.org/wiki/Ch%C3%B3",
+        "revisions": "https://vi.wikipedia.org/wiki/Special:History/Ch%C3%B3",
+        "edit": "https://vi.wikipedia.org/wiki/Ch%C3%B3?action=edit",
+        "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Ch%C3%B3"
+      }
+    },
+    "extract": "Chó, là một loài động vật thuộc chi Chó (Canis), tạo nên một phần tiến hóa của sói, đồng thời là loài động vật ăn thịt trên cạn có số lượng lớn nhất. Chó và sói xám thuộc nhóm chị em, giống như những loài sói hiện đại đều không có họ hàng gần đến những loài sói được thuần hóa đầu tiên, đồng nghĩa với tổ tiên gốc của chó đã bị tuyệt chủng.",
+    "extract_html": "<p><b>Chó</b>, là một loài động vật thuộc chi Chó (<i>Canis</i>), tạo nên một phần tiến hóa của sói, đồng thời là loài động vật ăn thịt trên cạn có số lượng lớn nhất. Chó và sói xám thuộc nhóm chị em, giống như những loài sói hiện đại đều không có họ hàng gần đến những loài sói được thuần hóa đầu tiên, đồng nghĩa với tổ tiên gốc của chó đã bị tuyệt chủng.</p>",
+    "normalizedtitle": "Chó"
+  }
+}

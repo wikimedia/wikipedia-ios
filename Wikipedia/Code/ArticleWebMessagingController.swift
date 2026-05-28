@@ -52,6 +52,13 @@ class ArticleWebMessagingController: NSObject {
 
         let styleScript = PageContentService.StyleScript()
         contentController.addUserScript(styleScript)
+
+#if TEST || UITEST
+        if UserDefaults.standard.string(forKey: "WMFUITestHTTPClientProfile") != nil {
+            let uiTestAccessibilityScript = PageContentService.UITestAccessibilityScript()
+            contentController.addUserScript(uiTestAccessibilityScript)
+        }
+#endif
     }
 
     func addFooter(articleURL: URL, restAPIBaseURL: URL, menuItems: [PageContentService.Footer.Menu.Item], lastModified: Date?) {
