@@ -314,6 +314,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.accessibilityIgnoresInvertColors = true
+        imageView.isAccessibilityElement = true
         imageView.accessibilityIdentifier = AccessibilityIdentifiers.Article.leadImage
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(userDidTapLeadImage))
         imageView.addGestureRecognizer(tapGR)
@@ -575,7 +576,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         alert.addAction(UIAlertAction(title: WMFLocalizedString("games-announcement-play-button", value: "Play", comment: "Play button title for the games announcement action sheet."), style: .default) { [weak self] _ in
             guard let self else { return }
             gamesDataController.markGamesAnnouncementSeen()
-            let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: self.theme)
+            let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore)
             coordinator.start()
         })
 

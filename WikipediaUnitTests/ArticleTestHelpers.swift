@@ -112,15 +112,15 @@ class ArticleTestHelpers {
     }
     
     static func stubCompleteMobileHTMLResponse(inBundle bundle: Bundle) {
-        guard let dogSummaryJSONData = bundle.wmf_data(fromContentsOfFile: "DogArticleSummary", ofType: "json"),
-            let dogCollageImageData = bundle.wmf_data(fromContentsOfFile:"CollageOfNineDogs", ofType:"jpg"),
+        guard let dogSummaryJSONData = bundle.wmf_data(fromContentsOfFile: "ArticleControls/en/DogArticleSummary", ofType: "json"),
+            let dogCollageImageData = bundle.wmf_data(fromContentsOfFile:"ArticleControls/en/CollageOfNineDogs", ofType:"jpg"),
             let userGroupsData = bundle.wmf_data(fromContentsOfFile:"UserInfoGroups", ofType:"json"),
-            let mobileHTMLData = bundle.wmf_data(fromContentsOfFile:"DogMobileHTML", ofType:"html"),
+            let mobileHTMLData = bundle.wmf_data(fromContentsOfFile:"ArticleControls/en/DogMobileHTML", ofType:"html"),
             let mobileBaseCSSData = bundle.wmf_data(fromContentsOfFile:"MobileBase", ofType:"css"),
             let mobileSiteCSSData = bundle.wmf_data(fromContentsOfFile:"MobileSite", ofType:"css"),
             let mobilePCSCSSData = bundle.wmf_data(fromContentsOfFile:"MobilePCS", ofType:"css"),
             let mobilePCSJSData = bundle.wmf_data(fromContentsOfFile:"MobilePCS", ofType:"js"),
-            let i18PCSData = bundle.wmf_data(fromContentsOfFile:"PCSI18N", ofType: "json"),
+            let i18PCSData = bundle.wmf_data(fromContentsOfFile:"ArticleControls/en/PCSI18N", ofType: "json"),
             let redPencilImageData = bundle.wmf_data(fromContentsOfFile:"RedPencilIcon", ofType:"png"),
             let commonsLogoImageData = bundle.wmf_data(fromContentsOfFile:"59pxCommonsLogo.svg", ofType:"webp"),
             let footerDog1ImageData = bundle.wmf_data(fromContentsOfFile:"64pxAussieBlacktri", ofType:"jpg"),
@@ -132,7 +132,7 @@ class ArticleTestHelpers {
             let wikiSourceLogoImageData = bundle.wmf_data(fromContentsOfFile:"51pxWikisourceLogo.svg", ofType:"webp"),
             let wikiBooksLogoImageData = bundle.wmf_data(fromContentsOfFile:"54pxWikibooksLogo.svg", ofType:"webp"),
             let wikiNewsLogoImageData = bundle.wmf_data(fromContentsOfFile:"54pxWikinewsLogo.svg", ofType:"webp"),
-            let genericDogImageData = bundle.wmf_data(fromContentsOfFile:"640pxDogMorphologicalVariation", ofType:"png"),
+            let genericDogImageData = bundle.wmf_data(fromContentsOfFile:"ArticleControls/en/640pxDogMorphologicalVariation", ofType:"png"),
             let dailyMetricsData = bundle.wmf_data(fromContentsOfFile:"DogDailyMetrics", ofType: "json"),
             let dailyMetricsRegex = try? NSRegularExpression(pattern: "https://wikimedia.org/api/rest_v1/metrics/edits/per-page/en.wikipedia.org/Dog/all-editor-types/daily/(.*?)/(.*?)", options: []),
             let imageRegex = try? NSRegularExpression(pattern: "https://upload.wikimedia.org/wikipedia/commons/thumb.*", options: []) else {
