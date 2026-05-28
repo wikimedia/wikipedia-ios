@@ -80,6 +80,13 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         averageScore: Double? = nil,
         shareScore: (@MainActor @Sendable () -> Void)? = nil,
         onLogIn: (@MainActor @Sendable () -> Void)? = nil,
+        onArticleTap: WMFWhichCameFirstArticlesViewModel.ArticleTapAction? = nil,
+        onArticleOpenInNewTab: WMFWhichCameFirstArticlesViewModel.ArticleTapAction? = nil,
+        onArticleOpenInBackgroundTab: WMFWhichCameFirstArticlesViewModel.ArticleTapAction? = nil,
+        onArticleSaveForLater: WMFWhichCameFirstArticlesViewModel.ArticleTapAction? = nil,
+        onArticleUnsave: WMFWhichCameFirstArticlesViewModel.ArticleTapAction? = nil,
+        onCheckSavedState: ((URL) -> Bool)? = nil,
+        onArticleShare: WMFWhichCameFirstArticlesViewModel.ArticleShareAction? = nil,
         localizedStrings: LocalizedStrings = LocalizedStrings()
     ) {
         self.score = score
@@ -114,7 +121,16 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
                 ))
             }
         }
-        self.articlesViewModel = WMFWhichCameFirstArticlesViewModel(articleItems: items)
+        self.articlesViewModel = WMFWhichCameFirstArticlesViewModel(
+            articleItems: items,
+            onCheckSavedState: onCheckSavedState,
+            didTapArticle: onArticleTap,
+            didTapOpenInNewTab: onArticleOpenInNewTab,
+            didTapOpenInBackgroundTab: onArticleOpenInBackgroundTab,
+            didSaveForLater: onArticleSaveForLater,
+            didUnsaveArticle: onArticleUnsave,
+            didShareArticle: onArticleShare
+        )
 
         startCountdownTimer()
         fetchStats(project: project)

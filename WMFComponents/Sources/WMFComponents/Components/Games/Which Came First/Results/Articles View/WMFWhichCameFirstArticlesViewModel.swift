@@ -29,6 +29,9 @@ public final class WMFWhichCameFirstArticleItemViewModel: ObservableObject, Iden
     private let thumbnailURL: URL?
     private var imageTask: Task<Void, Never>?
 
+    /// Whether this article is currently in the user's saved pages list.
+    @Published public var isSaved: Bool = false
+
     public init(title: String, date: Date, articleURL: URL?, thumbnailURL: URL?) {
         self.title = title
         self.dateString = DateFormatter.wmfMonthDayYearDateFormatter.string(from: date)
@@ -71,6 +74,7 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
         public let openInNewTabTitle: String
         public let openInBackgroundTabTitle: String
         public let saveForLaterTitle: String
+        public let unsaveTitle: String
         public let shareArticleTitle: String
         public let articleTapAccessibility: String
 
@@ -80,6 +84,7 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
             openInNewTabTitle: String = CommonStrings.articleTabsOpenInNewTab,
             openInBackgroundTabTitle: String = CommonStrings.articleTabsOpenInBackgroundTab,
             saveForLaterTitle: String = CommonStrings.saveTitle,
+            unsaveTitle: String = CommonStrings.shortUnsaveTitle,
             shareArticleTitle: String = CommonStrings.shortShareTitle,
             articleTapAccessibility: String = CommonStrings.articleTabsOpen
         ) {
@@ -88,26 +93,64 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
             self.openInNewTabTitle = openInNewTabTitle
             self.openInBackgroundTabTitle = openInBackgroundTabTitle
             self.saveForLaterTitle = saveForLaterTitle
+            self.unsaveTitle = unsaveTitle
             self.shareArticleTitle = shareArticleTitle
             self.articleTapAccessibility = articleTapAccessibility
         }
     }
 
+    public typealias ArticleTapAction = (URL) -> Void
+    public typealias ArticleShareAction = (URL) -> Void
+
     public let localizedStrings: LocalizedStrings
 
     @Published public var articleItems: [WMFWhichCameFirstArticleItemViewModel]
 
-    public var didTapArticle: ((URL) -> Void)?
-    public var didTapOpenInNewTab: ((URL) -> Void)?
-    public var didTapOpenInBackgroundTab: ((URL) -> Void)?
-    public var didSaveForLater: ((URL) -> Void)?
-    public var didShareArticle: ((URL) -> Void)?
+    public var didTapArticle: ArticleTapAction?
+    public var didTapOpenInNewTab: ArticleTapAction?
+    public var didTapOpenInBackgroundTab: ArticleTapAction?
+    public var didSaveForLater: ArticleTapAction?
+    public var didUnsaveArticle: ArticleTapAction?
+    public var didShareArticle: ArticleShareAction?
 
     public init(
         articleItems: [WMFWhichCameFirstArticleItemViewModel],
-        localizedStrings: LocalizedStrings = LocalizedStrings()
+        localizedStrings: LocalizedStrings = LocalizedStrings(),
+        onCheckSavedState: ((URL) -> Bool)? = nil,
+        didTapArticle: ArticleTapAction? = nil,
+        didTapOpenInNewTab: ArticleTapAction? = nil,
+        didTapOpenInBackgroundTab: ArticleTapAction? = nil,
+        didSaveForLater: ArticleTapAction? = nil,
+        didUnsaveArticle: ArticleTapAction? = nil,
+        didShareArticle: ArticleShareAction? = nil
     ) {
         self.articleItems = articleItems
         self.localizedStrings = localizedStrings
+        self.didTapArticle = didTapArticle
+        self.didTapOpenInNewTab = didTapOpenInNewTab
+        self.didTapOpenInBackgroundTab = didTapOpenInBackgroundTab
+        self.didSaveForLater = didSaveForLater
+        self.didUnsaveArticle = didUnsaveArticle
+        self.didShareArticle = didShareArticle
+
+        if let onCheckSavedState {
+            for item in articleItems {
+                if let url = item.articleURL {
+                    item.isSaved = onCheckSavedState(url)
+                }
+            }
+        }
+    }
+
+    /// Optimistically toggles the saved state for the given item and fires the appropriate callback.
+    public func toggleSave(for item: WMFWhichCameFirstArticleItemViewModel) {
+        guard let url = item.articleURL else { return }
+        if item.isSaved {
+            item.isSaved = false
+            didUnsaveArticle?(url)
+        } else {
+            item.isSaved = true
+            didSaveForLater?(url)
+        }
     }
 }

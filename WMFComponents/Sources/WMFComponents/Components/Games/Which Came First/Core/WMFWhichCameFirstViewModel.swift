@@ -118,6 +118,13 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     }
     
     public var didTapShare: (@MainActor @Sendable () -> Void)?
+    public var onArticleTap: WMFWhichCameFirstArticlesViewModel.ArticleTapAction?
+    public var onArticleOpenInNewTab: WMFWhichCameFirstArticlesViewModel.ArticleTapAction?
+    public var onArticleOpenInBackgroundTab: WMFWhichCameFirstArticlesViewModel.ArticleTapAction?
+    public var onArticleSaveForLater: WMFWhichCameFirstArticlesViewModel.ArticleTapAction?
+    public var onArticleUnsave: WMFWhichCameFirstArticlesViewModel.ArticleTapAction?
+    public var onCheckSavedState: ((URL) -> Bool)?
+    public var onArticleShare: WMFWhichCameFirstArticlesViewModel.ArticleShareAction?
 
     public func makeShareArticleEvents() -> [(event: WMFWhichCameFirstEvent, project: WMFProject)]? {
         guard let state = gameState else { return nil }
