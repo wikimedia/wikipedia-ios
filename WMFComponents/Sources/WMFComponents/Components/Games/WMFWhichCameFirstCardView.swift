@@ -12,7 +12,7 @@ public struct WMFWhichCameFirstCardView: View {
     let cardHeight: CGFloat
     let onTap: (() -> Void)?
 
-    public init(viewModel: WMFWhichCameFirstCardViewModel,  parentViewModel: WMFWhichCameFirstViewModel, cardHeight: CGFloat = 192, onTap: (() -> Void)? = nil) {
+    public init(viewModel: WMFWhichCameFirstCardViewModel, parentViewModel: WMFWhichCameFirstViewModel, cardHeight: CGFloat = 192, onTap: (() -> Void)? = nil) {
         self.viewModel = viewModel
         self.cardHeight = cardHeight
         self.onTap = onTap
@@ -23,12 +23,6 @@ public struct WMFWhichCameFirstCardView: View {
 
     // MARK: - Color helpers
 
-    /// The pill/icon color for this card after reveal.
-    ///
-    /// Rules:
-    ///  - isCorrectAnswer == true  → always green (this IS the right card)
-    ///  - isCorrectAnswer == false, isSelected == true  → red (user picked the wrong card)
-    ///  - isCorrectAnswer == false, isSelected == false → gray (wrong card, not chosen)
     private var revealColor: Color {
         if viewModel.isSelectedCardCorrect {
             return Color(red: 0.08, green: 0.53, blue: 0.43)
@@ -39,8 +33,7 @@ public struct WMFWhichCameFirstCardView: View {
         }
     }
 
-    /// The background color for the result icon circle.
-    /// The ✕ is always red regardless of which card this is; the ✓ is always green.
+    /// The ✕ is always red; the ✓ is always green.
     private var iconColor: Color {
         viewModel.isSelectedCardCorrect
             ? Color(red: 0.08, green: 0.53, blue: 0.43)
@@ -116,7 +109,9 @@ public struct WMFWhichCameFirstCardView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.trailing, 2)
         }
+        .scrollIndicatorsFlash(onAppear: true)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        .padding(.trailing, 8)
     }
 
     @ViewBuilder
