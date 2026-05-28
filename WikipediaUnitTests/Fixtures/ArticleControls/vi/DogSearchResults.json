@@ -1,0 +1,26 @@
+{
+  "batchcomplete": "",
+  "query": {
+    "pages": {
+      "30817": {
+        "pageid": 30817,
+        "ns": 0,
+        "title": "Chó",
+        "index": 1,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Collage_of_Nine_Dogs.jpg/330px-Collage_of_Nine_Dogs.jpg",
+          "width": 330,
+          "height": 290
+        },
+        "terms": {
+          "description": [
+            "động vật nuôi trong nhà để làm các nhiệm vụ khác nhau"
+          ]
+        }
+      }
+    }
+  },
+  "limits": {
+    "pageimages": 50
+  }
+}

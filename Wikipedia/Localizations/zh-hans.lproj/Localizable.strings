@@ -6,6 +6,7 @@
 // Author: A Chinese Wikipedian
 // Author: A Retired User
 // Author: A2B4C
+// Author: Administrator66
 // Author: Angrydog001
 // Author: Anterdc99
 // Author: Chimes
@@ -1245,6 +1246,7 @@
 "settings-clear-cache-cancel" = "取消";
 "settings-clear-cache-ok" = "清空缓存";
 "settings-donate" = "捐款";
+"settings-explore-games-title" = "维基百科游戏";
 "settings-help-and-feedback" = "帮助和反馈";
 "settings-language-bar" = "搜索时显示语言";
 "settings-languages-feed-customization" = "您可以通过自定义您的探索订阅源设置，管理显示在您的探索订阅源的语言。";
@@ -1523,6 +1525,14 @@
 "welcome-languages-search-title" = "在超过300种语言中搜索";
 "welcome-privacy-subtitle" = "我们相信参与自由知识运动不需要您提供个人信息。本应用收集的使用数据皆为匿名数据。";
 "welcome-privacy-terms-button-text" = "了解我们的隐私政策和使用条款的更多信息";
+"which-came-first-correct-answer-a11y" = "正确答案";
+"which-came-first-correct-feedback" = "正确！";
+"which-came-first-error-title" = "出错了";
+"which-came-first-incorrect-answer-a11y" = "错误答案";
+"which-came-first-incorrect-feedback" = "不正确";
+"which-came-first-retry-button" = "重试";
+"which-came-first-splash-title" = "猜先后";
+"which-came-first-title" = "猜先后";
 "widget-onthisday-description" = "探索在历史上的今天发生的事件。";
 "widget-onthisday-placeholder-article-snippet" = "人人都可编辑的自由在线百科全书";
 "widget-onthisday-placeholder-event-snippet" = "自由的wiki内容式百科全书“维基百科”即日上线。";

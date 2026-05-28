@@ -49,9 +49,9 @@ struct UITestConfiguration {
             argumentValues.append(UITestLaunchArgumentValue(.suppressReadingChallengeAnnouncement, value: "YES"))
         }
 
+        argumentValues.append(UITestLaunchArgumentValue(.appleLanguages, value: "(\(languageCode))"))
         argumentValues.append(UITestLaunchArgumentValue(.httpClientProfile, value: httpClientProfile))
         argumentValues.append(UITestLaunchArgumentValue(.hideTipsForTesting, value: "YES"))
-        argumentValues.append(UITestLaunchArgumentValue(.uiTestLanguageCode, value: languageCode))
         argumentValues.append(UITestLaunchArgumentValue(.didShowOnboarding, value: onboardingState.launchArgumentValue))
 
         return argumentValues
