@@ -15,6 +15,8 @@ extension ScreenshotCapturingRobot {
 
 /// Shared primitive used by screen robots for common waits, taps, gestures, screenshots, and failure reporting.
 struct UITestRobot {
+    static let systemBackButtonIdentifier = "BackButton"
+
     let app: XCUIApplication
     private let testCase: XCTestCase
 
@@ -86,6 +88,29 @@ struct UITestRobot {
         let end = element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.2))
         start.press(forDuration: 0.01, thenDragTo: end)
         return self
+    }
+
+    @discardableResult
+    func dragDown(_ element: XCUIElement) -> Self {
+        let start = element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.2))
+        let end = element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.85))
+        start.press(forDuration: 0.01, thenDragTo: end)
+        return self
+    }
+
+    func backButton(in navigationBar: XCUIElement, isRightToLeft: Bool) -> XCUIElement {
+        let systemBackButton = navigationBar.buttons.matching(identifier: Self.systemBackButtonIdentifier).firstMatch
+        if systemBackButton.exists {
+            return systemBackButton
+        }
+
+        let buttons = navigationBar.buttons.allElementsBoundByIndex
+            .filter { $0.exists && !$0.frame.isEmpty }
+            .sorted { $0.frame.midX < $1.frame.midX }
+
+        // Some simulator versions do not expose the system back button identifier.
+        // Select the visually leading navigation-bar button instead of relying on query order.
+        return (isRightToLeft ? buttons.last : buttons.first) ?? navigationBar.buttons.firstMatch
     }
 
     @discardableResult

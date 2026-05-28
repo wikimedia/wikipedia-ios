@@ -1,0 +1,159 @@
+{
+  "batchcomplete": "",
+  "continue": {
+    "gpsoffset": 10,
+    "continue": "gpsoffset||"
+  },
+  "query": {
+    "pages": {
+      "263445": {
+        "pageid": 263445,
+        "ns": 0,
+        "title": "כבש (סוג)",
+        "index": 2,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Ovis_Diversity.jpg/250px-Ovis_Diversity.jpg",
+          "width": 160,
+          "height": 120
+        },
+        "terms": {
+          "description": [
+            "סוג של יונק"
+          ]
+        }
+      },
+      "1774521": {
+        "pageid": 1774521,
+        "ns": 0,
+        "title": "כוח (סוג)",
+        "index": 7
+      },
+      "1570433": {
+        "pageid": 1570433,
+        "ns": 0,
+        "title": "כחל (סוג)",
+        "index": 4,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Coracias_abyssinica_-_Carlos_Vermeersch_Santana_%28cropped%29.JPG/250px-Coracias_abyssinica_-_Carlos_Vermeersch_Santana_%28cropped%29.JPG",
+          "width": 160,
+          "height": 124
+        },
+        "terms": {
+          "description": [
+            "סוג של עופות משפ כחליים"
+          ]
+        }
+      },
+      "156638": {
+        "pageid": 156638,
+        "ns": 0,
+        "title": "כלב (סוג)",
+        "index": 1,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Canis.png/250px-Canis.png",
+          "width": 160,
+          "height": 224
+        },
+        "terms": {
+          "description": [
+            "סוג של בעל חיים"
+          ]
+        }
+      },
+      "2416216": {
+        "pageid": 2416216,
+        "ns": 0,
+        "title": "כלב סיוע",
+        "index": 8,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Emmet_Practices_Opening_a_Power_Door.jpg/250px-Emmet_Practices_Opening_a_Power_Door.jpg",
+          "width": 160,
+          "height": 122
+        }
+      },
+      "2309000": {
+        "pageid": 2309000,
+        "ns": 0,
+        "title": "כלב רועים קנגל",
+        "index": 9,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Kangal_front_on.jpg/250px-Kangal_front_on.jpg",
+          "width": 160,
+          "height": 139
+        },
+        "terms": {
+          "description": [
+            "גזע של כלבים"
+          ]
+        }
+      },
+      "216633": {
+        "pageid": 216633,
+        "ns": 0,
+        "title": "כלבוטק",
+        "index": 5,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/he/thumb/6/67/%D7%9B%D7%9C%D7%91%D7%95%D7%98%D7%A7.PNG/250px-%D7%9B%D7%9C%D7%91%D7%95%D7%98%D7%A7.PNG",
+          "width": 160,
+          "height": 63
+        },
+        "terms": {
+          "description": [
+            "תכנית טלוויזיה ישראלית"
+          ]
+        }
+      },
+      "891529": {
+        "pageid": 891529,
+        "ns": 0,
+        "title": "כלבי רוח",
+        "index": 10,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhippetWhiteSaddled_wb.jpg/250px-WhippetWhiteSaddled_wb.jpg",
+          "width": 160,
+          "height": 140
+        },
+        "terms": {
+          "description": [
+            "סוג של כלבים"
+          ]
+        }
+      },
+      "346487": {
+        "pageid": 346487,
+        "ns": 0,
+        "title": "כלוב סוללה",
+        "index": 6,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Industrial-Chicken-Coop.JPG/250px-Industrial-Chicken-Coop.JPG",
+          "width": 160,
+          "height": 120
+        },
+        "terms": {
+          "description": [
+            "כלובים המשמשים להחזקת תרנגולות מטילות בתעשיית הביצים"
+          ]
+        }
+      },
+      "581067": {
+        "pageid": 581067,
+        "ns": 0,
+        "title": "כרוב (סוג)",
+        "index": 3,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Oktober_2011_Feld_bei_Plankstadt.JPG/250px-Oktober_2011_Feld_bei_Plankstadt.JPG",
+          "width": 160,
+          "height": 213
+        },
+        "terms": {
+          "description": [
+            "סוג של צמח"
+          ]
+        }
+      }
+    }
+  },
+  "limits": {
+    "pageimages": 50
+  }
+}
