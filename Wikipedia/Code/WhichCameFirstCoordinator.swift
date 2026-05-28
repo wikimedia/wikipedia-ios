@@ -198,34 +198,15 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         let mailVC = MFMailComposeViewController()
         mailVC.mailComposeDelegate = self
 
-        mailVC.setSubject(WMFLocalizedString(
-            "games-email-report-subject",
-            value: "Issue Report - Wikipedia games",
-            comment: "Email subject line for reporting a problem with the Wikipedia games feature."
-        ))
+        mailVC.setSubject(WMFLocalizedString("games-email-report-subject", value: "Issue Report - Wikipedia games", comment: "Email subject line for reporting a problem with the Wikipedia games feature."))
 
-        let encountered = WMFLocalizedString(
-            "games-email-report-body-encountered",
-            value: "I have encountered a problem with the Wikipedia games feature:",
-            comment: "Opening line of the problem report email body for the Wikipedia games feature."
-        )
-        let describeProblem = WMFLocalizedString(
-            "games-email-report-body-describe-problem",
-            value: "[Describe specific problem]",
-            comment: "Placeholder in the problem report email where the user describes the specific problem they encountered."
-        )
-        let desiredBehavior = WMFLocalizedString(
-            "games-email-report-body-behavior",
-            value: "The behavior I would like to see is:",
-            comment: "Line in the problem report email asking the user to describe the desired behavior."
-        )
-        let proposedSolution = WMFLocalizedString(
-            "games-email-report-body-solution",
-            value: "[Describe proposed solution]",
-            comment: "Placeholder in the problem report email where the user describes their proposed solution."
-        )
-
-        mailVC.setMessageBody("\(encountered)\n\n\(describeProblem)\n\n\(desiredBehavior)\n\n\(proposedSolution)", isHTML: false)
+        let body = [
+            WMFLocalizedString("games-email-report-body-encountered", value: "I have encountered a problem with the Wikipedia games feature:", comment: "Opening line of the problem report email body for the Wikipedia games feature."),
+            CommonStrings.issueReportEmailBodyDescribeProblem,
+            CommonStrings.issueReportEmailBodyBehavior,
+            CommonStrings.issueReportEmailBodyProposedSolution
+        ].joined(separator: "\n\n")
+        mailVC.setMessageBody(body, isHTML: false)
         gameNav.present(mailVC, animated: true)
     }
 
