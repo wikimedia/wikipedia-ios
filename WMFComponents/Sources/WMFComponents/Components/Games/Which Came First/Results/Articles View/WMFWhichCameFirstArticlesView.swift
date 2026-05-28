@@ -124,7 +124,7 @@ private struct ArticleCardMenuWrapper: View {
             .accessibilityElement(children: .combine)
             .accessibilityAddTraits(.isButton)
             .accessibilityLabel(cardAccessibilityLabel)
-            .accessibilityHint(viewModel.localizedStrings.openArticleHint)
+            .accessibilityHint(viewModel.localizedStrings.openArticleRelatedEventHint)
             .accessibilityActions {
                 accessibilityAction(named: viewModel.localizedStrings.openArticleTitle) {
                     if let url = item.articleURL { viewModel.didTapArticle?(url) }
@@ -143,7 +143,7 @@ private struct ArticleCardMenuWrapper: View {
                 }
             }
             .onTapGesture {
-                if let url = item.articleURL { viewModel.didTapArticle?(url) }
+                if let url = item.articleURL { viewModel.didTapArticleToEvent?(url) }
             }
     }
 }

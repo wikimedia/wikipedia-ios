@@ -89,7 +89,7 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
         public let shareArticleTitle: String
         public let articleTapAccessibility: String
         // VoiceOver helpers
-        public let openArticleHint: String
+        public let openArticleRelatedEventHint: String
         public let articleSavedAccessibility: String
 
         public init(
@@ -101,7 +101,7 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
             unsaveTitle: String = CommonStrings.shortUnsaveTitle,
             shareArticleTitle: String = CommonStrings.shortShareTitle,
             articleTapAccessibility: String = CommonStrings.articleTabsOpen,
-            openArticleHint: String = WMFLocalizedString("which-came-first-article-card-open-hint", value: "Opens article", comment: "VoiceOver hint for an article card in the Which Came First game results screen. Describes the outcome of double-tapping the card."),
+            openArticleHint: String = WMFLocalizedString("which-came-first-article-card-open-hint", value: "Opens event related to this article ", comment: "VoiceOver hint for an article card in the Which Came First game results screen. Describes the outcome of tapping the card."),
             articleSavedAccessibility: String = CommonStrings.savedTitle
         ) {
             self.sectionTitle = sectionTitle
@@ -112,13 +112,14 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
             self.unsaveTitle = unsaveTitle
             self.shareArticleTitle = shareArticleTitle
             self.articleTapAccessibility = articleTapAccessibility
-            self.openArticleHint = openArticleHint
+            self.openArticleRelatedEventHint = openArticleHint
             self.articleSavedAccessibility = articleSavedAccessibility
         }
     }
 
     public typealias ArticleTapAction = (URL) -> Void
     public typealias ArticleShareAction = (URL) -> Void
+    public typealias ArticleEventTapAction = (URL) -> Void
 
     public let localizedStrings: LocalizedStrings
 
@@ -130,6 +131,7 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
     public var didSaveForLater: ArticleTapAction?
     public var didUnsaveArticle: ArticleTapAction?
     public var didShareArticle: ArticleShareAction?
+    public var didTapArticleToEvent: ArticleEventTapAction?
 
     public init(
         articleItems: [WMFWhichCameFirstArticleItemViewModel],
