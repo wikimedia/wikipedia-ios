@@ -25,9 +25,9 @@ public struct WMFWhichCameFirstCardView: View {
 
     private var revealColor: Color {
         if viewModel.isSelectedCardCorrect {
-            return Color(red: 0.08, green: 0.53, blue: 0.43)
+            return Color(uiColor: WMFColor.green700)
         } else if viewModel.isSelected {
-            return Color(red: 0.7, green: 0.14, blue: 0.14)
+            return Color(uiColor: WMFColor.red700)
         } else {
             return Color(uiColor: theme.secondaryText)
         }
@@ -36,8 +36,8 @@ public struct WMFWhichCameFirstCardView: View {
     /// The ✕ is always red; the ✓ is always green.
     private var iconColor: Color {
         viewModel.isSelectedCardCorrect
-            ? Color(red: 0.08, green: 0.53, blue: 0.43)
-            : Color(red: 0.7, green: 0.14, blue: 0.14)
+            ? Color(uiColor: WMFColor.green700)
+        : Color(uiColor: WMFColor.red700)
     }
 
     public var body: some View {

@@ -198,7 +198,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         let year = calendar.component(.year, from: date)
 
         let formatter = DateFormatter()
-        formatter.setLocalizedDateFormatFromTemplate("MMMMd")
+        formatter.setLocalizedDateFormatFromTemplate("yMMMMd")  // added 'y'
         var result = formatter.string(from: date)
 
         // Only attempt year fixup for years that could be zero-padded (fewer than 4 digits).
