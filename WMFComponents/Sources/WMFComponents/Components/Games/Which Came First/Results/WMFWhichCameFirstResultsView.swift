@@ -47,10 +47,10 @@ public struct WMFWhichCameFirstResultsView: View {
                     VStack(spacing: 24) {
                         scoreCard
                             .padding(.horizontal, 16)
-                        
+
                         statsSection
                             .padding(.horizontal, 16)
-                        
+                        WMFWhichCameFirstArticlesView(viewModel: viewModel.articlesViewModel)
                     }
                     .padding(.top, headerHeight(for: height) - 123)
                     .padding(.bottom, 24)
@@ -156,13 +156,17 @@ public struct WMFWhichCameFirstResultsView: View {
                 .font(Font(WMFFont.for(.semiboldSubheadline)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .fixedSize(horizontal: false, vertical: true)
-            
+                .padding(.horizontal, 16)
+                .padding(.top, 16)
+
             if viewModel.isLoggedIn {
                 loggedInStats
             } else {
                 loggedOutStats
             }
         }
+        .background(Color(uiColor: theme.paperBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
         .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 4)
     }
     
@@ -223,10 +227,8 @@ public struct WMFWhichCameFirstResultsView: View {
                 }
             }
         }
-        .background(Color(uiColor: theme.paperBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 16))
     }
-    
+
     private func statCell(symbol: WMFSFSymbolIcon, value: String, label: String) -> some View {
         HStack(spacing: 10) {
             if let image = WMFSFSymbolIcon.for(symbol: symbol, font: .title3) {
@@ -287,7 +289,5 @@ public struct WMFWhichCameFirstResultsView: View {
         }
         .frame(maxWidth: .infinity)
         .padding(16)
-        .background(Color(uiColor: theme.paperBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
