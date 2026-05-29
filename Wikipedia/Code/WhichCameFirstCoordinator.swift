@@ -260,4 +260,3 @@ private final class WCFShareActivityContentProvider: UIActivityItemProvider, @un
         return text
     }
 }
-
