@@ -659,9 +659,10 @@
 "forgot-password-instructions" = "Пополнете едно од полињата подолу за да добиете напатствија за ставање нова лозинка по е-пошта.";
 "forgot-password-title" = "Смени лозинка";
 "forgot-password-username-or-email-title" = "Или";
-"games-wcf-button-play-title" = "Играј денешна игра";
+"games-wcf-button-play-title" = "Играј ја денешната игра";
 "games-wcf-explore-button-archive-title" = "Играј од архивата";
 "games-wcf-explore-button-review-title" = "Преглед на исходот";
+// Fuzzy
 "games-wcf-explore-complete-subtitle" = "Во денешната игра освоивте $1/$2. Следната игра ќе биде достапна за $3";
 "games-wcf-explore-in-progress-subtitle" = "Сега сте на прашање $1. Продолжите да погодувате кој настан се случил попрво на денешен ден во историјата.";
 "games-wcf-explore-title" = "Што се случило попрво?";
@@ -1543,6 +1544,26 @@
 "welcome-languages-search-title" = "Пребарајте на преку 300 јазици";
 "welcome-privacy-subtitle" = "Сметаме дека не треба да давате лични информации за да учествувате во движењето за слободно знаење. Податоците за употреба на овој прилог што ги собираме се анонимни.";
 "welcome-privacy-terms-button-text" = "Дознајте повеќе за нашите правила за лични податоци и условите на употреба";
+"which-came-first-correct-answer-a11y" = "Точен одговор";
+"which-came-first-correct-feedback" = "Точно!";
+"which-came-first-correct-feedback2" = "+1 бод";
+"which-came-first-error-title" = "Нешто не е во ред";
+"which-came-first-footer-a11y" = "Прашање $1 од $2";
+"which-came-first-incorrect-answer-a11y" = "Погрешен одговор";
+"which-came-first-incorrect-feedback" = "Погрешно";
+"which-came-first-next-button" = "Следно";
+"which-came-first-retry-button" = "Пробај пак";
+"which-came-first-see-results-button" = "Исход";
+"which-came-first-share-activity-text" = "Играм „Што се случило попрво?“, дневен квиз на прилогот на Википедија за iOS https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=wiki_game_202605&mt=8";
+"which-came-first-share-score-summary" = "Денес освоив $1/$2 на „Што се случило попрво?“.";
+"which-came-first-share-topics-title" = "Вклучени теми:";
+"which-came-first-splash-about-button" = "За играва";
+"which-came-first-splash-continue-button" = "Продолжи со денешната игра";
+"which-came-first-splash-review-button" = "Преглед на исходот";
+"which-came-first-splash-subtitle" = "Погодете кој настан се случил попрво на денешен ден во историјата.";
+"which-came-first-splash-title" = "Што се случило попрво?";
+"which-came-first-submit-button" = "Поднеси";
+"which-came-first-title" = "Што се случило попрво?";
 "widget-onthisday-description" = "Истражете што се случило на денешниот ден во историјата.";
 "widget-onthisday-placeholder-article-snippet" = "Слободна енциклопедија која секој може да ја уредува";
 "widget-onthisday-placeholder-event-snippet" = "Пуштена Википедија — слободна енциклопедија на викисодржини.";

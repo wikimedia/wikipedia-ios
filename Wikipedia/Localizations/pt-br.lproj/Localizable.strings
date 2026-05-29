@@ -577,6 +577,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Ligado";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Em $1";
 "explore-feed-preferences-feed-cards-hidden-title" = "Todos os cartões $1 ocultados";
+"explore-feed-preferences-games-title" = "Mostrar cartão de jogos";
 "explore-feed-preferences-global-card-footer-text" = "Este cartão não depende do idioma, desligá-lo remove-o do seu feed Explorar.";
 "explore-feed-preferences-global-cards-description" = "Cartões independentes do idioma";
 "explore-feed-preferences-global-cards-subtitle" = "Independentes do idioma";
@@ -619,6 +620,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ativar Explorar";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Isto irá substituir a aba Configurações pelo separador Explorar. Pode aceder a Definições no topo do separador Explorar tocando no ícone da roda dentada";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ativar a aba Explorar?";
+"explore-games-title" = "Jogos";
 "explore-hide-card-prompt" = "Ocultar este cartão";
 "explore-main-page-description" = "Página principal de Wikimedia";
 "explore-main-page-heading" = "Hoje na Wikipédia";
@@ -691,6 +693,12 @@
 "forgot-password-instructions" = "Preencha um dos campos abaixo para receber instruções de redefinição de senha por e-mail";
 "forgot-password-title" = "Redefinir senha";
 "forgot-password-username-or-email-title" = "ou";
+"games-wcf-button-play-title" = "Jogar jogo de hoje";
+"games-wcf-explore-button-archive-title" = "Jogar arquivo";
+"games-wcf-explore-button-review-title" = "Ver resultados";
+// Fuzzy
+"games-wcf-explore-complete-subtitle" = "Você marcou $1/$2 no jogo de hoje. Próximo jogo: $3)";
+"games-wcf-explore-in-progress-subtitle" = "Você está na pergunta $1. Continue tentando adivinhar qual evento ocorreu primeiro neste dia na história.";
 "games-wcf-explore-title" = "O que veio primeiro?";
 "gan-variants-alert-body" = "O aplicativo Wikipedia agora suporta as seguintes variantes Gan como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan simplificado (gan-hans)\n贛語 繁體 Gan tradicional (gan-hant)";
 "gan-variants-alert-title" = "Atualizações para o suporte da variante Gan";
@@ -1276,6 +1284,8 @@
 "settings-clear-cache-cancel" = "Cancelar";
 "settings-clear-cache-ok" = "Limpar cache";
 "settings-donate" = "Doar";
+"settings-explore-games-subtitle" = "Jogos diários baseados no conteúdo da Wikipédia";
+"settings-explore-games-title" = "Wikipédia jogos";
 "settings-help-and-feedback" = "Ajuda e comentários";
 "settings-language-bar" = "Mostrar idiomas ao buscar";
 "settings-languages-feed-customization" = "Você pode gerenciar quais idiomas são exibidos no seu feed do Explore, personalizando as configurações do feed do Explore.";
@@ -1561,6 +1571,23 @@
 "welcome-languages-search-title" = "Pesquise em mais de 300 idiomas";
 "welcome-privacy-subtitle" = "Acreditamos que você não deve ter que fornecer informações pessoais para participar do movimento pelo conhecimento livre. Os dados de uso coletados para este aplicativo são anônimos.";
 "welcome-privacy-terms-button-text" = "Saiba mais sobre nossa política de privacidade e termos de uso";
+"which-came-first-correct-answer-a11y" = "Resposta correta";
+"which-came-first-correct-feedback" = "Correto!";
+"which-came-first-correct-feedback2" = "+1 ponto";
+"which-came-first-error-title" = "Algo deu errado";
+"which-came-first-footer-a11y" = "Pergunta $1 de $2";
+"which-came-first-incorrect-answer-a11y" = "Resposta incorreta";
+"which-came-first-incorrect-feedback" = "Incorreta";
+"which-came-first-next-button" = "Próximo";
+"which-came-first-retry-button" = "Tentar novamente";
+"which-came-first-see-results-button" = "Ver resultados";
+"which-came-first-splash-about-button" = "Sobre esse jogo";
+"which-came-first-splash-continue-button" = "Continue o jogo de hoje";
+"which-came-first-splash-review-button" = "Ver resultados";
+"which-came-first-splash-subtitle" = "Adivinhe qual evento ocorreu primeiro neste dia na história.";
+"which-came-first-splash-title" = "O que veio primeiro?";
+"which-came-first-submit-button" = "Enviar";
+"which-came-first-title" = "O que veio primeiro?";
 "widget-onthisday-description" = "Explore o que aconteceu neste dia na história.";
 "widget-onthisday-placeholder-article-snippet" = "A enciclopédia online livre que qualquer um pode editar";
 "widget-onthisday-placeholder-event-snippet" = "A Wikipédia, uma enciclopédia de conteúdo wiki gratuito, fica online.";

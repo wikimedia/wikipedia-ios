@@ -676,6 +676,14 @@ public class CommonStrings: NSObject {
 
     public static let problemWithFeatureTitle = WMFLocalizedString("problem-with-feature-title", value: "Problem with feature", comment: "Button title text that allows user to send feedback to the iOS support email about a particular feature.")
 
+    public static let issueReportEmailBodyDescribeProblem = WMFLocalizedString("activity-tab-email-second-line", value: "- [Describe specific problem]", comment: "Text for pre-filled issue report email. This text is intended to be replaced by the user with a description of the problem they are encountering.")
+
+    public static let issueReportEmailBodyBehavior = WMFLocalizedString("activity-tab-email-third-line", value: "The behavior I would like to see is:", comment: "Text for pre-filled issue report email.")
+
+    public static let issueReportEmailBodyProposedSolution = WMFLocalizedString("activity-tab-email-fourth-line", value: "[Describe proposed solution]", comment: "Text for pre-filled issue report email. This text is intended to be replaced by the user with a description of a proposed solution.")
+
+    public static let issueReportEmailBodyScreenshotsOrLinks = WMFLocalizedString("activity-tab-email-fifth-line", value: "[Screenshots or Links]", comment: "Text for pre-filled issue report email. This text is intended to be replaced by the user with a screenshot or link.")
+
     public static let returnToArticle = WMFLocalizedString("return-to-article", value: "Return to article", comment: "Title for button indicating that is possible to go back to article")
 
     public static let returnButtonTitle = WMFLocalizedString("return-button-title", value: "Return", comment: "Title for button indicating that is possible return from this point")

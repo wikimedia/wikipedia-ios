@@ -1,0 +1,26 @@
+{
+  "batchcomplete": "",
+  "query": {
+    "pages": {
+      "2527125": {
+        "pageid": 2527125,
+        "ns": 0,
+        "title": "Haushund",
+        "index": 1,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Harzer_Fuchs_H%C3%BCndin_2.jpg/330px-Harzer_Fuchs_H%C3%BCndin_2.jpg",
+          "width": 330,
+          "height": 269
+        },
+        "terms": {
+          "description": [
+            "als Heim- und Nutztier gehaltenes Haustier"
+          ]
+        }
+      }
+    }
+  },
+  "limits": {
+    "pageimages": 50
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "batchcomplete": "",
+  "continue": {
+    "gpsoffset": 1,
+    "continue": "gpsoffset||"
+  },
+  "query": {
+    "pages": {
+      "403300": {
+        "pageid": 403300,
+        "ns": 0,
+        "title": "Canis",
+        "index": 1,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Canis.png/330px-Canis.png",
+          "width": 320,
+          "height": 448
+        },
+        "terms": {
+          "description": [
+            "genus of mammals, including domestic dogs"
+          ]
+        }
+      }
+    }
+  }
+}

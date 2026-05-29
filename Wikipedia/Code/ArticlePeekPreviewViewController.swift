@@ -83,6 +83,7 @@ class ArticlePeekPreviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = theme.colors.paperBackground
+        view.accessibilityIdentifier = AccessibilityIdentifiers.Article.linkPreview
         activityIndicatorView.color = theme.isDark ? .white : .gray
         activityIndicatorView.startAnimating()
         view.addSubview(activityIndicatorView)

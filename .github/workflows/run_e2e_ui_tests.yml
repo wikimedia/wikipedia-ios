@@ -18,6 +18,7 @@ env:
   IOS_VERSION: "26.2"
   SIMULATOR_NAME: "iPhone 16"
   UI_TEST_CONFIGURATION: "English (Light, E2E)"
+  E2E_SMOKE_TEST_LIST: "WikipediaUITests/E2ESmokeTests.txt"
 
 concurrency:
   group: "e2e-ui-tests-${{ github.ref }}"
@@ -64,12 +65,37 @@ jobs:
 
       - name: Run WikipediaUITests E2E
         run: |
+          if [ ! -f "${E2E_SMOKE_TEST_LIST}" ]; then
+            echo "Missing E2E smoke test list: ${E2E_SMOKE_TEST_LIST}"
+            exit 1
+          fi
+
+          only_testing_args=()
+          while IFS= read -r test_identifier || [ -n "${test_identifier}" ]; do
+            test_identifier="${test_identifier%%#*}"
+            test_identifier="${test_identifier#"${test_identifier%%[![:space:]]*}"}"
+            test_identifier="${test_identifier%"${test_identifier##*[![:space:]]}"}"
+
+            if [ -z "${test_identifier}" ]; then
+              continue
+            fi
+
+            only_testing_args+=("-only-testing:${test_identifier}")
+          done < "${E2E_SMOKE_TEST_LIST}"
+
+          if [ "${#only_testing_args[@]}" -eq 0 ]; then
+            echo "No E2E smoke tests configured in ${E2E_SMOKE_TEST_LIST}."
+            exit 1
+          fi
+
           echo "Running E2E WikipediaUITests ${UI_TEST_CONFIGURATION} [E2E] on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
+          printf 'E2E smoke selection: %s\n' "${only_testing_args[@]}"
           xcodebuild test \
             -scheme WikipediaUITests \
             -project Wikipedia.xcodeproj \
             -testPlan UITests \
             -only-test-configuration "${UI_TEST_CONFIGURATION}" \
+            "${only_testing_args[@]}" \
             -destination "${{ steps.simulator.outputs.destination }}" \
             -resultBundlePath "WikipediaUITests_E2E_TestResults" \
             | xcpretty

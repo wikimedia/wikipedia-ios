@@ -1,0 +1,26 @@
+{
+  "batchcomplete": "",
+  "query": {
+    "pages": {
+      "26366": {
+        "pageid": 26366,
+        "ns": 0,
+        "title": "Wolfs- und Schakalartige",
+        "index": 1,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Canis_%28excluding_Lupulella%29.jpg/250px-Canis_%28excluding_Lupulella%29.jpg",
+          "width": 160,
+          "height": 182
+        },
+        "terms": {
+          "description": [
+            "Gattung der Familie Hunde (Canidae)"
+          ]
+        }
+      }
+    }
+  },
+  "limits": {
+    "pageimages": 50
+  }
+}
