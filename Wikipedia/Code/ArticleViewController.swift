@@ -569,19 +569,21 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         guard let navigationController else { return }
 
         let alert = UIAlertController(
-            title: WMFLocalizedString("games-announcement-title", value: "Play \"Which came first?\"", comment: "Title for the games announcement action sheet."),
-            message: WMFLocalizedString("games-announcement-message", value: "A new trivia game has arrived, based on Wikipedia content. Guess which event came first in history.", comment: "Message body for the games announcement action sheet."),
+            title: CommonStrings.gamesAnnouncementTitle,
+            message: CommonStrings.gamesAnnouncementMessage,
             preferredStyle: .actionSheet
         )
 
-        alert.addAction(UIAlertAction(title: WMFLocalizedString("games-announcement-play-button", value: "Play", comment: "Play button title for the games announcement action sheet."), style: .default) { [weak self] _ in
+        alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementPlayButton, style: .default) { [weak self] _ in
             guard let self else { return }
             gamesDataController.markGamesAnnouncementSeen()
             let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore)
+            coordinator.didFinish = { [weak self] in self?.whichCameFirstCoordinator = nil }
+            self.whichCameFirstCoordinator = coordinator
             coordinator.start()
         })
 
-        alert.addAction(UIAlertAction(title: WMFLocalizedString("games-announcement-maybe-later-button", value: "Maybe later", comment: "Dismiss button title for the games announcement action sheet."), style: .default) { _ in
+        alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementMaybeLaterButton, style: .default) { _ in
             gamesDataController.markGamesAnnouncementSeen()
         })
 
