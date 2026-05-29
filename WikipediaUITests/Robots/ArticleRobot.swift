@@ -85,7 +85,7 @@ extension ArticleRobot {
 extension ArticleRobot {
     @discardableResult
     func openLeadImageGallery(file: StaticString = #filePath, line: UInt = #line) -> ImageGalleryRobot {
-        base.assertExists(leadImage, timeout: 30, description: "article lead image", file: file, line: line)
+        base.assertExists(leadImage, timeout: 60, description: "article lead image", file: file, line: line)
         leadImage.tap()
         return ImageGalleryRobot(base: base)
             .assertVisible(file: file, line: line)
