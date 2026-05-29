@@ -8,7 +8,7 @@ final class UITestNetworkFixtureStore: @unchecked Sendable {
         case failureResponse(UITestNetworkFixtureResponse)
     }
 
-    private static let manifestResourceName = "UITestNetworkFixtures.json"
+    private static let manifestResourceName = "TestNetworkFixtures.json"
 
     /// `URLProtocol` can ask for fixtures from URLSession worker queues.
     private let lock = NSLock()

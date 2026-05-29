@@ -1,0 +1,263 @@
+[
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "pathPrefix": "/api/rest_v1/feed/featured/",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json",
+      "Cache-Control": "s-maxage=18000"
+    },
+    "bodyResource": "UITestDogFeedResponse.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/api/rest_v1/page/summary/Dog",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "DogArticleSummary.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/api/rest_v1/page/mobile-html/Dog",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "text/html; charset=utf-8"
+    },
+    "bodyResource": "DogMobileHTML.html"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/api/rest_v1/page/summary/Cat",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "DogArticleSummary.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/api/rest_v1/page/mobile-html/Cat",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "text/html; charset=utf-8"
+    },
+    "bodyResource": "DogMobileHTML.html"
+  },
+  {
+    "method": "POST",
+    "host": "en.wikipedia.org",
+    "path": "/w/api.php",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "UserInfoGroups.json"
+  },
+  {
+    "method": "GET",
+    "host": "wikimedia.org",
+    "pathPrefix": "/api/rest_v1/metrics/edits/per-page/en.wikipedia.org/Dog/all-editor-types/daily/",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "DogDailyMetrics.json"
+  },
+  {
+    "method": "GET",
+    "host": "meta.wikimedia.org",
+    "path": "/api/rest_v1/data/css/mobile/base",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "text/css"
+    },
+    "bodyResource": "MobileBase.css"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/api/rest_v1/data/css/mobile/site",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "text/css"
+    },
+    "bodyResource": "MobileSite.css"
+  },
+  {
+    "method": "GET",
+    "host": "meta.wikimedia.org",
+    "path": "/api/rest_v1/data/css/mobile/pcs",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "text/css"
+    },
+    "bodyResource": "MobilePCS.css"
+  },
+  {
+    "method": "GET",
+    "host": "meta.wikimedia.org",
+    "path": "/api/rest_v1/data/javascript/mobile/pcs",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "text/javascript"
+    },
+    "bodyResource": "MobilePCS.js"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/api/rest_v1/data/i18n/pcs",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "PCSI18N.json"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "path": "/wikipedia/commons/thumb/d/d9/Collage_of_Nine_Dogs.jpg/1280px-Collage_of_Nine_Dogs.jpg",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/jpeg"
+    },
+    "bodyResource": "CollageOfNineDogs.jpg"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "path": "/wikipedia/commons/thumb/6/69/Dog_morphological_variation.png/640px-Dog_morphological_variation.png",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/png"
+    },
+    "bodyResource": "640pxDogMorphologicalVariation.png"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "path": "/wikipedia/commons/thumb/a/a0/Llop.jpg/320px-Llop.jpg",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/png"
+    },
+    "bodyResource": "640pxDogMorphologicalVariation.png"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "path": "/wikipedia/commons/7/74/Red_Pencil_Icon.png",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/png"
+    },
+    "bodyResource": "RedPencilIcon.png"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "path": "/wikipedia/en/thumb/4/4a/Commons-logo.svg/59px-Commons-logo.svg.png",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/webp"
+    },
+    "bodyResource": "59pxCommonsLogo.svg.webp"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "path": "/wikipedia/commons/thumb/d/da/Aussie-blacktri.jpg/64px-Aussie-blacktri.jpg",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/jpeg"
+    },
+    "bodyResource": "64pxAussieBlacktri.jpg"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "path": "/wikipedia/commons/thumb/1/18/Okapi2.jpg/64px-Okapi2.jpg",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/jpeg"
+    },
+    "bodyResource": "64pxOkapi2.jpg"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "path": "/wikipedia/en/thumb/0/06/Wiktionary-logo-v2.svg/54px-Wiktionary-logo-v2.svg.png",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/webp"
+    },
+    "bodyResource": "54pxWiktionaryLogoV2.svg.webp"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "path": "/wikipedia/en/thumb/4/4a/Commons-logo.svg/40px-Commons-logo.svg.png",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/webp"
+    },
+    "bodyResource": "40pxCommonsLogo.svg.webp"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "path": "/wikipedia/commons/thumb/2/24/Wikinews-logo.svg/54px-Wikinews-logo.svg.png",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/webp"
+    },
+    "bodyResource": "54pxWikinewsLogo.svg.webp"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "path": "/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/46px-Wikiquote-logo.svg.png",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/webp"
+    },
+    "bodyResource": "46pxWikiquoteLogo.svg.webp"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "path": "/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/51px-Wikisource-logo.svg.png",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/webp"
+    },
+    "bodyResource": "51pxWikisourceLogo.svg.webp"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "path": "/wikipedia/commons/thumb/f/fa/Wikibooks-logo.svg/54px-Wikibooks-logo.svg.png",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/webp"
+    },
+    "bodyResource": "54pxWikibooksLogo.svg.webp"
+  },
+  {
+    "method": "GET",
+    "host": "upload.wikimedia.org",
+    "path": "/wikipedia/commons/thumb/d/df/Wikispecies-logo.svg/46px-Wikispecies-logo.svg.png",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "image/webp"
+    },
+    "bodyResource": "46pxWikispeciesLogo.svg.webp"
+  }
+]
