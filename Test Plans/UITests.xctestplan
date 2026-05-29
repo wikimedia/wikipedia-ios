@@ -38,7 +38,7 @@
             "argument" : "en"
           },
           {
-            "argument" : "-WMFUITestHTTPClientProfile"
+            "argument" : "-WMFTestHTTPClientProfile"
           },
           {
             "argument" : "e2e"

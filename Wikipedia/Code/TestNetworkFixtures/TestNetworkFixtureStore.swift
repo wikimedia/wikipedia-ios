@@ -1,11 +1,11 @@
 import Foundation
 
-/// Lazily loads bundled UI-test network fixtures and resolves each matching
+/// Lazily loads bundled test network fixtures and resolves each matching
 /// manifest row into response bytes.
-final class UITestNetworkFixtureStore: @unchecked Sendable {
+final class TestNetworkFixtureStore: @unchecked Sendable {
     private enum ManifestCache {
-        case fixtures([UITestNetworkFixture])
-        case failureResponse(UITestNetworkFixtureResponse)
+        case fixtures([TestNetworkFixture])
+        case failureResponse(TestNetworkFixtureResponse)
     }
 
     private static let manifestResourceName = "TestNetworkFixtures.json"
@@ -14,8 +14,8 @@ final class UITestNetworkFixtureStore: @unchecked Sendable {
     private let lock = NSLock()
     private var manifestCache: ManifestCache?
 
-    func response(for request: URLRequest) -> UITestNetworkFixtureResponse? {
-        let fixtures: [UITestNetworkFixture]
+    func response(for request: URLRequest) -> TestNetworkFixtureResponse? {
+        let fixtures: [TestNetworkFixture]
         switch loadManifest() {
         case .fixtures(let loadedFixtures):
             fixtures = loadedFixtures
@@ -31,7 +31,7 @@ final class UITestNetworkFixtureStore: @unchecked Sendable {
             return Self.missingBodyResponse(for: fixture)
         }
 
-        return UITestNetworkFixtureResponse(
+        return TestNetworkFixtureResponse(
             statusCode: fixture.statusCode ?? 200,
             headers: fixture.headers ?? ["Content-Type": "application/json"],
             body: body
@@ -61,12 +61,12 @@ final class UITestNetworkFixtureStore: @unchecked Sendable {
         if let manifestURL = Self.fixtureResourceURL(named: Self.manifestResourceName) {
             do {
                 let data = try Data(contentsOf: manifestURL)
-                let fixtures = try JSONDecoder().decode([UITestNetworkFixture].self, from: data)
+                let fixtures = try JSONDecoder().decode([TestNetworkFixture].self, from: data)
                 manifestCache = .fixtures(fixtures)
             } catch let error as DecodingError {
                 manifestCache = .failureResponse(
                     Self.errorResponse(
-                        message: "UI test network fixture manifest invalid",
+                        message: "test network fixture manifest invalid",
                         resource: manifestURL.lastPathComponent,
                         reason: error.localizedDescription
                     )
@@ -74,7 +74,7 @@ final class UITestNetworkFixtureStore: @unchecked Sendable {
             } catch {
                 manifestCache = .failureResponse(
                     Self.errorResponse(
-                        message: "UI test network fixture manifest unreadable",
+                        message: "test network fixture manifest unreadable",
                         resource: manifestURL.lastPathComponent,
                         reason: error.localizedDescription
                     )
@@ -83,7 +83,7 @@ final class UITestNetworkFixtureStore: @unchecked Sendable {
         } else {
             manifestCache = .failureResponse(
                 Self.errorResponse(
-                    message: "UI test network fixture manifest missing",
+                    message: "test network fixture manifest missing",
                     resource: Self.manifestResourceName
                 )
             )
@@ -93,7 +93,7 @@ final class UITestNetworkFixtureStore: @unchecked Sendable {
         return manifestCache
     }
 
-    private func bodyData(for fixture: UITestNetworkFixture) -> Data? {
+    private func bodyData(for fixture: TestNetworkFixture) -> Data? {
         if let body = fixture.body {
             return Data(body.utf8)
         }
@@ -135,15 +135,15 @@ final class UITestNetworkFixtureStore: @unchecked Sendable {
 
     /// Treat a bad manifest body reference as a fixture error response instead
     /// of crashing the app process under UI test.
-    private static func missingBodyResponse(for fixture: UITestNetworkFixture) -> UITestNetworkFixtureResponse {
+    private static func missingBodyResponse(for fixture: TestNetworkFixture) -> TestNetworkFixtureResponse {
         let resource = fixture.bodyResource ?? "<missing resource>"
         return errorResponse(
-            message: "UI test network fixture body missing",
+            message: "test network fixture body missing",
             resource: resource
         )
     }
 
-    private static func errorResponse(message: String, resource: String, reason: String? = nil) -> UITestNetworkFixtureResponse {
+    private static func errorResponse(message: String, resource: String, reason: String? = nil) -> TestNetworkFixtureResponse {
         var body = [
             "error": message,
             "resource": resource
@@ -153,7 +153,7 @@ final class UITestNetworkFixtureStore: @unchecked Sendable {
             body["reason"] = reason
         }
 
-        return UITestNetworkFixtureResponse(
+        return TestNetworkFixtureResponse(
             statusCode: 500,
             headers: ["Content-Type": "application/json"],
             body: jsonBody(body)

@@ -4,7 +4,7 @@ final class ArticleControlsUITests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         try XCTSkipUnless(
-            uiTestConfiguration.httpClientProfile == UITestHTTPClientProfile.fixtureStrict.rawValue,
+            uiTestConfiguration.httpClientProfile == TestHTTPClientProfile.fixtureStrict.rawValue,
             "ArticleControlsUITests require bundled fixture networking."
         )
         try XCTSkipUnless(

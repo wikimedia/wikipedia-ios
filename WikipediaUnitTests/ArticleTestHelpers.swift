@@ -86,8 +86,8 @@ class ArticleTestHelpers {
     }
 
     static func tearDownNetworkFixtures() {
-        UserDefaults.standard.removeObject(forKey: UITestNetworkFixtureInterceptor.profileKey)
-        UITestNetworkFixtureHTTPClient.resetFixtures()
+        UserDefaults.standard.removeObject(forKey: TestNetworkFixtureInterceptor.profileKey)
+        TestNetworkFixtureHTTPClient.resetFixtures()
     }
 
     static func setup(completion: @escaping () -> Void) {
@@ -105,8 +105,8 @@ class ArticleTestHelpers {
     }
 
     private static func enableNetworkFixtures() {
-        UserDefaults.standard.set(UITestHTTPClientProfile.fixtureStrict.rawValue, forKey: UITestNetworkFixtureInterceptor.profileKey)
-        UITestNetworkFixtureHTTPClient.resetFixtures()
+        UserDefaults.standard.set(TestHTTPClientProfile.fixtureStrict.rawValue, forKey: TestNetworkFixtureInterceptor.profileKey)
+        TestNetworkFixtureHTTPClient.resetFixtures()
     }
     
     static func pullDataFromFixtures(inBundle bundle: Bundle) {

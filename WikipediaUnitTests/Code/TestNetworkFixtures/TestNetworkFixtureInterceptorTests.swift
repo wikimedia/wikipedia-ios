@@ -2,16 +2,16 @@
 import WMFData
 import XCTest
 
-final class UITestNetworkFixtureInterceptorTests: XCTestCase {
+final class TestNetworkFixtureInterceptorTests: XCTestCase {
     override func tearDown() {
-        UserDefaults.standard.removeObject(forKey: UITestNetworkFixtureInterceptor.profileKey)
+        UserDefaults.standard.removeObject(forKey: TestNetworkFixtureInterceptor.profileKey)
         WMFDataEnvironment.current.basicService = WMFBasicService()
-        UITestNetworkFixtureHTTPClient.resetFixtures()
+        TestNetworkFixtureHTTPClient.resetFixtures()
         super.tearDown()
     }
 
     func testFixtureStrictProfileReturnsBundledFixture() async throws {
-        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: UITestHTTPClientProfile.fixtureStrict.rawValue))
+        let provider = try XCTUnwrap(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
         let url = URL(string: "https://en.wikipedia.org/api/rest_v1/page/summary/Dog")!
 
@@ -23,7 +23,7 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
     }
 
     func testFixtureStrictProfileReturnsLocalizedBundledFixture() async throws {
-        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: UITestHTTPClientProfile.fixtureStrict.rawValue))
+        let provider = try XCTUnwrap(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
         let url = URL(string: "https://de.wikipedia.org/api/rest_v1/page/summary/Haushund")!
 
@@ -35,7 +35,7 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
     }
 
     func testFixtureStrictProfileMatchesPercentEncodedLocalizedPath() async throws {
-        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: UITestHTTPClientProfile.fixtureStrict.rawValue))
+        let provider = try XCTUnwrap(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
         let url = URL(string: "https://he.wikipedia.org/api/rest_v1/page/summary/%D7%9B%D7%9C%D7%91_%D7%94%D7%91%D7%99%D7%AA")!
 
@@ -47,7 +47,7 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
     }
 
     func testFixtureMatchesPathPrefix() async throws {
-        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: UITestHTTPClientProfile.fixtureStrict.rawValue))
+        let provider = try XCTUnwrap(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
         let url = URL(string: "https://en.wikipedia.org/api/rest_v1/feed/featured/2026/05/16")!
 
@@ -92,7 +92,7 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
     }
 
     func testFixtureStrictProfileFailsClosedForUnmatchedRequests() async throws {
-        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: UITestHTTPClientProfile.fixtureStrict.rawValue))
+        let provider = try XCTUnwrap(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
         let url = URL(string: "https://en.wikipedia.org/wiki/NoFixtureRegistered")!
 
@@ -100,13 +100,13 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
         let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: String])
 
         XCTAssertEqual((response as? HTTPURLResponse)?.statusCode, 501)
-        XCTAssertEqual(json["error"], "No UI test network fixture registered")
+        XCTAssertEqual(json["error"], "No test network fixture registered")
         XCTAssertEqual(json["request"], "GET https://en.wikipedia.org/wiki/NoFixtureRegistered")
     }
 
     func testInvalidProfileDoesNotCreateFixtureProvider() {
-        XCTAssertNil(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: nil))
-        XCTAssertNil(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: UITestHTTPClientProfile.e2e.rawValue))
+        XCTAssertNil(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: nil))
+        XCTAssertNil(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.e2e.rawValue))
     }
 
     func testProviderConfigurationUsesDefaultProviderWithoutFixtureProfile() throws {
@@ -119,7 +119,7 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
 
     func testProviderConfigurationUsesFixtureProviderForCallerProvidedProfile() async throws {
         let userDefaults = try temporaryUserDefaults()
-        userDefaults.set(UITestHTTPClientProfile.fixtureStrict.rawValue, forKey: UITestNetworkFixtureInterceptor.profileKey)
+        userDefaults.set(TestHTTPClientProfile.fixtureStrict.rawValue, forKey: TestNetworkFixtureInterceptor.profileKey)
 
         let provider = SessionHTTPClientProviderConfiguration.httpClientProvider(userDefaults: userDefaults)
         let session = Session(configuration: .current, httpClientProvider: provider)
@@ -132,9 +132,9 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
 
     func testFixtureProfileConfiguresWMFBasicServiceTraffic() async throws {
         let userDefaults = try temporaryUserDefaults()
-        userDefaults.set(UITestHTTPClientProfile.fixtureStrict.rawValue, forKey: UITestNetworkFixtureInterceptor.profileKey)
+        userDefaults.set(TestHTTPClientProfile.fixtureStrict.rawValue, forKey: TestNetworkFixtureInterceptor.profileKey)
 
-        XCTAssertTrue(UITestNetworkFixtureInterceptor.configureBasicServiceIfNeeded(userDefaults: userDefaults))
+        XCTAssertTrue(TestNetworkFixtureInterceptor.configureBasicServiceIfNeeded(userDefaults: userDefaults))
 
         let controller = WMFImageDataController(basicService: WMFDataEnvironment.current.basicService)
         let url = try XCTUnwrap(URL(string: "https://en.wikipedia.org/api/rest_v1/page/summary/Dog"))
@@ -146,9 +146,9 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
 
     func testE2EProfileDoesNotConfigureWMFBasicServiceTraffic() throws {
         let userDefaults = try temporaryUserDefaults()
-        userDefaults.set(UITestHTTPClientProfile.e2e.rawValue, forKey: UITestNetworkFixtureInterceptor.profileKey)
+        userDefaults.set(TestHTTPClientProfile.e2e.rawValue, forKey: TestNetworkFixtureInterceptor.profileKey)
 
-        XCTAssertFalse(UITestNetworkFixtureInterceptor.configureBasicServiceIfNeeded(userDefaults: userDefaults))
+        XCTAssertFalse(TestNetworkFixtureInterceptor.configureBasicServiceIfNeeded(userDefaults: userDefaults))
     }
 
     func testSessionTeardownInvalidatesCurrentHTTPClient() {
@@ -164,7 +164,7 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
     }
 
     func testFixtureClientSupportsCallbackDataTask() async throws {
-        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: UITestHTTPClientProfile.fixtureStrict.rawValue))
+        let provider = try XCTUnwrap(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
         let url = URL(string: "https://en.wikipedia.org/api/rest_v1/page/summary/Dog")!
         let request = URLRequest(url: url)
@@ -194,7 +194,7 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
     }
 
     func testFixtureClientSupportsDownloadTask() async throws {
-        let provider = try XCTUnwrap(UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: UITestHTTPClientProfile.fixtureStrict.rawValue))
+        let provider = try XCTUnwrap(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
         let url = URL(string: "https://en.wikipedia.org/api/rest_v1/page/summary/Dog")!
         let request = URLRequest(url: url)
@@ -221,14 +221,14 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
     }
 
     private func temporaryUserDefaults() throws -> UserDefaults {
-        let suiteName = "UITestNetworkFixtureInterceptorTests-\(UUID().uuidString)"
+        let suiteName = "TestNetworkFixtureInterceptorTests-\(UUID().uuidString)"
         let userDefaults = try XCTUnwrap(UserDefaults(suiteName: suiteName))
         userDefaults.removePersistentDomain(forName: suiteName)
         return userDefaults
     }
 
-    private func queryItemFixture() -> UITestNetworkFixture {
-        UITestNetworkFixture(
+    private func queryItemFixture() -> TestNetworkFixture {
+        TestNetworkFixture(
             method: "GET",
             url: nil,
             ignoreQuery: nil,
@@ -248,8 +248,8 @@ final class UITestNetworkFixtureInterceptorTests: XCTestCase {
         )
     }
 
-    private func exactURLFixture(ignoreQuery: Bool) -> UITestNetworkFixture {
-        UITestNetworkFixture(
+    private func exactURLFixture(ignoreQuery: Bool) -> TestNetworkFixture {
+        TestNetworkFixture(
             method: "GET",
             url: "https://en.wikipedia.org/w/api.php?action=query&titles=Dog",
             ignoreQuery: ignoreQuery,

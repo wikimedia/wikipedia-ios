@@ -2,21 +2,21 @@ import Foundation
 import WMFData
 
 /// App-side entry point for turning the normal `Session` transport into a
-/// fixture-backed transport during UI tests.
-public final class UITestNetworkFixtureInterceptor {
-    /// UserDefaults key written from UI-test launch arguments before `Session`
+/// fixture-backed transport during tests.
+public final class TestNetworkFixtureInterceptor {
+    /// UserDefaults key written from test launch arguments before `Session`
     /// asks `SessionHTTPClientProviderConfiguration` for its provider.
-    static let profileKey = "WMFUITestHTTPClientProfile"
+    static let profileKey = "WMFTestHTTPClientProfile"
 
     static func httpClientProvider(profileValue: String?) -> SessionHTTPClientProvider? {
 #if TEST || UITEST
         guard let profileValue,
-              let profile = UITestHTTPClientProfile(rawValue: profileValue),
+              let profile = TestHTTPClientProfile(rawValue: profileValue),
               profile == .fixtureStrict else {
             return nil
         }
 
-        return UITestNetworkFixtureHTTPClientProvider(profile: profile)
+        return TestNetworkFixtureHTTPClientProvider(profile: profile)
 #else
         return nil
 #endif
@@ -39,12 +39,12 @@ public final class UITestNetworkFixtureInterceptor {
     static func basicServiceURLSession(profileValue: String?) -> WMFURLSession? {
 #if TEST || UITEST
         guard let profileValue,
-              let profile = UITestHTTPClientProfile(rawValue: profileValue),
+              let profile = TestHTTPClientProfile(rawValue: profileValue),
               profile == .fixtureStrict else {
             return nil
         }
 
-        return UITestNetworkFixtureURLSession(profile: profile)
+        return TestNetworkFixtureURLSession(profile: profile)
 #else
         return nil
 #endif

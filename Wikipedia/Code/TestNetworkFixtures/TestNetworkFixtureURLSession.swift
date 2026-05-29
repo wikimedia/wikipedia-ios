@@ -3,14 +3,14 @@ import WMFData
 
 /// `WMFURLSession` wrapper that routes `WMFBasicService` requests through the
 /// same fixture URLProtocol used by the app-side `Session` transport.
-final class UITestNetworkFixtureURLSession: WMFURLSession {
-    private let profile: UITestHTTPClientProfile
+final class TestNetworkFixtureURLSession: WMFURLSession {
+    private let profile: TestHTTPClientProfile
     private let urlSession: URLSession
 
-    init(profile: UITestHTTPClientProfile, defaultURLSession: URLSession = .shared) {
+    init(profile: TestHTTPClientProfile, defaultURLSession: URLSession = .shared) {
         self.profile = profile
         let fixtureConfiguration = defaultURLSession.configuration
-        fixtureConfiguration.protocolClasses = UITestNetworkFixtureURLProtocol.protocolClassesInstallingFixtureProtocol(in: fixtureConfiguration.protocolClasses)
+        fixtureConfiguration.protocolClasses = TestNetworkFixtureURLProtocol.protocolClassesInstallingFixtureProtocol(in: fixtureConfiguration.protocolClasses)
         self.urlSession = URLSession(configuration: fixtureConfiguration)
     }
 
@@ -27,6 +27,6 @@ final class UITestNetworkFixtureURLSession: WMFURLSession {
     }
 
     private func fixtureRequest(for request: URLRequest) -> URLRequest {
-        UITestNetworkFixtureURLProtocol.requestByAddingProfile(profile, to: request)
+        TestNetworkFixtureURLProtocol.requestByAddingProfile(profile, to: request)
     }
 }

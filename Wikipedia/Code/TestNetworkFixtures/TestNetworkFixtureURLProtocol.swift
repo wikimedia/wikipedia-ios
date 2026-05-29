@@ -2,12 +2,12 @@ import Foundation
 
 /// URL loading hook installed on fixture-backed URLSessions for app-side
 /// `Session` traffic and `WMFBasicService` traffic.
-final class UITestNetworkFixtureURLProtocol: URLProtocol {
-    private static let profilePropertyKey = "WMFUITestNetworkFixtureProfile"
+final class TestNetworkFixtureURLProtocol: URLProtocol {
+    private static let profilePropertyKey = "WMFTestNetworkFixtureProfile"
 
     /// Tags a request so this protocol does not intercept unrelated URLSession
     /// traffic in the app process.
-    static func requestByAddingProfile(_ profile: UITestHTTPClientProfile, to request: URLRequest) -> URLRequest {
+    static func requestByAddingProfile(_ profile: TestHTTPClientProfile, to request: URLRequest) -> URLRequest {
         guard let mutableRequest = (request as NSURLRequest).mutableCopy() as? NSMutableURLRequest else {
             return request
         }
@@ -18,11 +18,11 @@ final class UITestNetworkFixtureURLProtocol: URLProtocol {
 
     static func protocolClassesInstallingFixtureProtocol(in protocolClasses: [AnyClass]?) -> [AnyClass] {
         let existingProtocolClasses = protocolClasses ?? []
-        guard !existingProtocolClasses.contains(where: { $0 == UITestNetworkFixtureURLProtocol.self }) else {
+        guard !existingProtocolClasses.contains(where: { $0 == TestNetworkFixtureURLProtocol.self }) else {
             return existingProtocolClasses
         }
 
-        return [UITestNetworkFixtureURLProtocol.self] + existingProtocolClasses
+        return [TestNetworkFixtureURLProtocol.self] + existingProtocolClasses
     }
 
     override static func canInit(with request: URLRequest) -> Bool {
@@ -30,7 +30,7 @@ final class UITestNetworkFixtureURLProtocol: URLProtocol {
             return false
         }
 
-        return UITestNetworkFixtureHTTPClient.canHandle(request)
+        return TestNetworkFixtureHTTPClient.canHandle(request)
     }
 
     override static func canonicalRequest(for request: URLRequest) -> URLRequest {
@@ -42,9 +42,9 @@ final class UITestNetworkFixtureURLProtocol: URLProtocol {
     /// loads from the caller's point of view.
     override func startLoading() {
         guard let profileValue = URLProtocol.property(forKey: Self.profilePropertyKey, in: request) as? String,
-              UITestHTTPClientProfile(rawValue: profileValue) == .fixtureStrict,
-              let fixtureResponse = UITestNetworkFixtureHTTPClient.fixtureResponse(for: request),
-              let response = UITestNetworkFixtureHTTPClient.httpResponse(for: request, fixtureResponse: fixtureResponse) else {
+              TestHTTPClientProfile(rawValue: profileValue) == .fixtureStrict,
+              let fixtureResponse = TestNetworkFixtureHTTPClient.fixtureResponse(for: request),
+              let response = TestNetworkFixtureHTTPClient.httpResponse(for: request, fixtureResponse: fixtureResponse) else {
             client?.urlProtocol(self, didFailWithError: URLError(.badServerResponse))
             return
         }

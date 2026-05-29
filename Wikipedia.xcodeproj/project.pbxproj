@@ -340,7 +340,7 @@
 		0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EF8634D1C19E02700006D2D /* WMFEmptyView.xib */; };
 		0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
 		19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */; };
-		3099083C46BB436A98D28535 /* UITestNetworkFixtureInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92477EAD1E964A5B9D86A01E /* UITestNetworkFixtureInterceptorTests.swift */; };
+		3099083C46BB436A98D28535 /* TestNetworkFixtureInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92477EAD1E964A5B9D86A01E /* TestNetworkFixtureInterceptorTests.swift */; };
 		370107AA2D5EEBFE00E17486 /* TempAccountSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */; };
 		370107AB2D5EEBFE00E17486 /* TempAccountSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */; };
 		370107AC2D5EEBFE00E17486 /* TempAccountSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */; };
@@ -1842,6 +1842,9 @@
 		B0E809551C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */; };
 		B0E8095E1C0D1B930065EBC0 /* WMFMTLModelSerializationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8095D1C0D1B930065EBC0 /* WMFMTLModelSerializationTests.m */; };
 		7D8C00012FCF000000000001 /* WMFSearchFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00002FCF000000000001 /* WMFSearchFetcherTests.swift */; };
+		7D8C00042FCF000000000001 /* SearchHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00032FCF000000000001 /* SearchHTTPClient.swift */; };
+		7D8C00062FCF000000000001 /* SearchURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00052FCF000000000001 /* SearchURLProtocol.swift */; };
+		7D8C00082FCF000000000001 /* URLRequest+SearchRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00072FCF000000000001 /* URLRequest+SearchRequestTests.swift */; };
 		B0ED17341E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED17331E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift */; };
 		B0ED173D1E49831B008B70AD /* WMFTwoFactorPasswordViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0ED173C1E49831B008B70AD /* WMFTwoFactorPasswordViewController.storyboard */; };
 		B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */; };
@@ -2609,16 +2612,16 @@
 		E1CFD6E6210C103900D8E37C /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
 		E446C3D95A844026889BE43A /* ArticlePeekPreviewViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17F65B649B1404086AB3BE8 /* ArticlePeekPreviewViewControllerTests.swift */; };
 		EB8237532970AE6A00FD629E /* WMFItemSourceExcludingActivityTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8237522970AE6A00FD629E /* WMFItemSourceExcludingActivityTypes.swift */; };
-		F1A700000000000000000009 /* UITestNetworkFixtureInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000002 /* UITestNetworkFixtureInterceptor.swift */; };
-		F1A70000000000000000000A /* UITestNetworkFixtureHTTPClientProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000003 /* UITestNetworkFixtureHTTPClientProvider.swift */; };
-		F1A70000000000000000000B /* UITestNetworkFixtureHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000004 /* UITestNetworkFixtureHTTPClient.swift */; };
-		F1A70000000000000000000C /* UITestNetworkFixtureURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000005 /* UITestNetworkFixtureURLProtocol.swift */; };
-		F1A70000000000000000000D /* UITestNetworkFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000006 /* UITestNetworkFixture.swift */; };
-		F1A70000000000000000000E /* UITestNetworkFixtureResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000007 /* UITestNetworkFixtureResponse.swift */; };
-		F1A70000000000000000000F /* UITestNetworkFixtureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000008 /* UITestNetworkFixtureStore.swift */; };
-		F1A700000000000000000010 /* UITestHTTPClientProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000011 /* UITestHTTPClientProfile.swift */; };
-		F1A700000000000000000012 /* UITestHTTPClientProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000011 /* UITestHTTPClientProfile.swift */; };
-		F1A700000000000000000013 /* UITestNetworkFixtureURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000014 /* UITestNetworkFixtureURLSession.swift */; };
+		F1A700000000000000000009 /* TestNetworkFixtureInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000002 /* TestNetworkFixtureInterceptor.swift */; };
+		F1A70000000000000000000A /* TestNetworkFixtureHTTPClientProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000003 /* TestNetworkFixtureHTTPClientProvider.swift */; };
+		F1A70000000000000000000B /* TestNetworkFixtureHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000004 /* TestNetworkFixtureHTTPClient.swift */; };
+		F1A70000000000000000000C /* TestNetworkFixtureURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000005 /* TestNetworkFixtureURLProtocol.swift */; };
+		F1A70000000000000000000D /* TestNetworkFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000006 /* TestNetworkFixture.swift */; };
+		F1A70000000000000000000E /* TestNetworkFixtureResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000007 /* TestNetworkFixtureResponse.swift */; };
+		F1A70000000000000000000F /* TestNetworkFixtureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000008 /* TestNetworkFixtureStore.swift */; };
+		F1A700000000000000000010 /* TestHTTPClientProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000011 /* TestHTTPClientProfile.swift */; };
+		F1A700000000000000000012 /* TestHTTPClientProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000011 /* TestHTTPClientProfile.swift */; };
+		F1A700000000000000000013 /* TestNetworkFixtureURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000014 /* TestNetworkFixtureURLSession.swift */; };
 		FF2090F02500247100849774 /* ThreeLineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2090EE2500247100849774 /* ThreeLineHeaderView.swift */; };
 		FF5555642771388F00925099 /* CollectionViewContextMenuShowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5555632771388F00925099 /* CollectionViewContextMenuShowing.swift */; };
 		FF555565277287F300925099 /* CollectionViewContextMenuShowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5555632771388F00925099 /* CollectionViewContextMenuShowing.swift */; };
@@ -3689,7 +3692,7 @@
 		83FBE9741F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactActivityImageItemProvider.swift; sourceTree = "<group>"; };
 		83FD0A5B29913A4D00D459A8 /* Wikipedia 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 7.xcdatamodel"; sourceTree = "<group>"; };
 		83FDE798293564AC006D55FE /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
-		92477EAD1E964A5B9D86A01E /* UITestNetworkFixtureInterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureInterceptorTests.swift; sourceTree = "<group>"; };
+		92477EAD1E964A5B9D86A01E /* TestNetworkFixtureInterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkFixtureInterceptorTests.swift; sourceTree = "<group>"; };
 		982800D524D302BF004B1850 /* EventPlatformClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPlatformClient.swift; sourceTree = "<group>"; };
 		A452F9F624081A5500D8ED09 /* MockCLLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCLLocationManager.swift; sourceTree = "<group>"; };
 		A452F9F724081A5500D8ED09 /* MockCLHeading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCLHeading.swift; sourceTree = "<group>"; };
@@ -4008,7 +4011,10 @@
 		B0E809401C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFLinkParsingTests.m"; path = "WikipediaUnitTests/Code/NSURL+WMFLinkParsingTests.m"; sourceTree = SOURCE_ROOT; };
 		B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CLLocation+WMFBearingTests.m"; path = "WikipediaUnitTests/Code/CLLocation+WMFBearingTests.m"; sourceTree = SOURCE_ROOT; };
 		B0E8095D1C0D1B930065EBC0 /* WMFMTLModelSerializationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMTLModelSerializationTests.m; path = WikipediaUnitTests/Code/WMFMTLModelSerializationTests.m; sourceTree = SOURCE_ROOT; };
-		7D8C00002FCF000000000001 /* WMFSearchFetcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFSearchFetcherTests.swift; path = WikipediaUnitTests/Code/WMFSearchFetcherTests.swift; sourceTree = SOURCE_ROOT; };
+		7D8C00002FCF000000000001 /* WMFSearchFetcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFSearchFetcherTests.swift; sourceTree = "<group>"; };
+		7D8C00032FCF000000000001 /* SearchHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHTTPClient.swift; sourceTree = "<group>"; };
+		7D8C00052FCF000000000001 /* SearchURLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchURLProtocol.swift; sourceTree = "<group>"; };
+		7D8C00072FCF000000000001 /* URLRequest+SearchRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLRequest+SearchRequestTests.swift"; sourceTree = "<group>"; };
 		B0E8096D1C0D1DD50065EBC0 /* WikipediaUnitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "WikipediaUnitTests-Bridging-Header.h"; path = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		B0E8096E1C0D21530065EBC0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0E809701C0D215D0065EBC0 /* WikipediaUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WikipediaUnitTests-Prefix.pch"; sourceTree = "<group>"; };
@@ -4306,15 +4312,15 @@
 		D8FEECCB1DE3729400B883F0 /* WMFChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFChange.h; sourceTree = "<group>"; };
 		D8FEECCC1DE3729400B883F0 /* WMFChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFChange.m; sourceTree = "<group>"; };
 		EB8237522970AE6A00FD629E /* WMFItemSourceExcludingActivityTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFItemSourceExcludingActivityTypes.swift; sourceTree = "<group>"; };
-		F1A700000000000000000002 /* UITestNetworkFixtureInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureInterceptor.swift; sourceTree = "<group>"; };
-		F1A700000000000000000003 /* UITestNetworkFixtureHTTPClientProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureHTTPClientProvider.swift; sourceTree = "<group>"; };
-		F1A700000000000000000004 /* UITestNetworkFixtureHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureHTTPClient.swift; sourceTree = "<group>"; };
-		F1A700000000000000000005 /* UITestNetworkFixtureURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureURLProtocol.swift; sourceTree = "<group>"; };
-		F1A700000000000000000006 /* UITestNetworkFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixture.swift; sourceTree = "<group>"; };
-		F1A700000000000000000007 /* UITestNetworkFixtureResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureResponse.swift; sourceTree = "<group>"; };
-		F1A700000000000000000008 /* UITestNetworkFixtureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureStore.swift; sourceTree = "<group>"; };
-		F1A700000000000000000011 /* UITestHTTPClientProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestHTTPClientProfile.swift; sourceTree = "<group>"; };
-		F1A700000000000000000014 /* UITestNetworkFixtureURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestNetworkFixtureURLSession.swift; sourceTree = "<group>"; };
+		F1A700000000000000000002 /* TestNetworkFixtureInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkFixtureInterceptor.swift; sourceTree = "<group>"; };
+		F1A700000000000000000003 /* TestNetworkFixtureHTTPClientProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkFixtureHTTPClientProvider.swift; sourceTree = "<group>"; };
+		F1A700000000000000000004 /* TestNetworkFixtureHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkFixtureHTTPClient.swift; sourceTree = "<group>"; };
+		F1A700000000000000000005 /* TestNetworkFixtureURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkFixtureURLProtocol.swift; sourceTree = "<group>"; };
+		F1A700000000000000000006 /* TestNetworkFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkFixture.swift; sourceTree = "<group>"; };
+		F1A700000000000000000007 /* TestNetworkFixtureResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkFixtureResponse.swift; sourceTree = "<group>"; };
+		F1A700000000000000000008 /* TestNetworkFixtureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkFixtureStore.swift; sourceTree = "<group>"; };
+		F1A700000000000000000011 /* TestHTTPClientProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHTTPClientProfile.swift; sourceTree = "<group>"; };
+		F1A700000000000000000014 /* TestNetworkFixtureURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkFixtureURLSession.swift; sourceTree = "<group>"; };
 		FF2090EE2500247100849774 /* ThreeLineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeLineHeaderView.swift; sourceTree = "<group>"; };
 		FF5555632771388F00925099 /* CollectionViewContextMenuShowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewContextMenuShowing.swift; sourceTree = "<group>"; };
 		FF59DF4C2555E0CB0048E66C /* InternalLinkPreviewing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalLinkPreviewing.swift; sourceTree = "<group>"; };
@@ -7238,6 +7244,18 @@
 			name = "Persistence Utilities";
 			sourceTree = "<group>";
 		};
+		7D8C00102FCF000000000001 /* TestNetworkFixtures */ = {
+			isa = PBXGroup;
+			children = (
+				7D8C00002FCF000000000001 /* WMFSearchFetcherTests.swift */,
+				7D8C00032FCF000000000001 /* SearchHTTPClient.swift */,
+				7D8C00052FCF000000000001 /* SearchURLProtocol.swift */,
+				7D8C00072FCF000000000001 /* URLRequest+SearchRequestTests.swift */,
+				92477EAD1E964A5B9D86A01E /* TestNetworkFixtureInterceptorTests.swift */,
+			);
+			path = TestNetworkFixtures;
+			sourceTree = "<group>";
+		};
 		BCD67E7D1C1F12F2005179E1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -7270,7 +7288,7 @@
 				B0E809401C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m */,
 				B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */,
 				B0E8095D1C0D1B930065EBC0 /* WMFMTLModelSerializationTests.m */,
-					7D8C00002FCF000000000001 /* WMFSearchFetcherTests.swift */,
+				7D8C00102FCF000000000001 /* TestNetworkFixtures */,
 				BC52D0F61C207D3300F625A9 /* TWNStringsTests.m */,
 				BC90DE781C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m */,
 				B0D530EA1CE151C10078BAED /* CodeFileLocationTests.m */,
@@ -7285,7 +7303,6 @@
 				00D280FB247F019C006BEE23 /* Date+ExtensionTests.swift */,
 				FFBA8C1827D824D8009E9B65 /* URL+ExtensionTests.swift */,
 				D8A3C8F12FBB000100E6073C /* UserDefaultsThemeTests.swift */,
-				92477EAD1E964A5B9D86A01E /* UITestNetworkFixtureInterceptorTests.swift */,
 				00A8F58526BDD5E700175B8E /* WidgetSampleContentTests.swift */,
 			);
 			name = Tests;
@@ -7835,7 +7852,7 @@
 				8386BDF02386D3E1007EE89D /* RequestError.swift */,
 				D8E78FA51FB4C8740094B968 /* Session.swift */,
 				7B41F9C5D1A14BB6A9F0E101 /* SessionHTTPClient.swift */,
-				F1A700000000000000000001 /* NetworkFixtureIntercept */,
+				F1A700000000000000000001 /* TestNetworkFixtures */,
 				D826C51A217741C50012F940 /* ReachabilityNotifier.swift */,
 				D8635AE7216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift */,
 				7AE5248C21383D9C00CDC817 /* WikidataFetcher.swift */,
@@ -8059,20 +8076,20 @@
 			name = UI;
 			sourceTree = "<group>";
 		};
-		F1A700000000000000000001 /* NetworkFixtureIntercept */ = {
+		F1A700000000000000000001 /* TestNetworkFixtures */ = {
 			isa = PBXGroup;
 			children = (
-				F1A700000000000000000011 /* UITestHTTPClientProfile.swift */,
-				F1A700000000000000000002 /* UITestNetworkFixtureInterceptor.swift */,
-				F1A700000000000000000003 /* UITestNetworkFixtureHTTPClientProvider.swift */,
-				F1A700000000000000000004 /* UITestNetworkFixtureHTTPClient.swift */,
-				F1A700000000000000000005 /* UITestNetworkFixtureURLProtocol.swift */,
-				F1A700000000000000000014 /* UITestNetworkFixtureURLSession.swift */,
-				F1A700000000000000000006 /* UITestNetworkFixture.swift */,
-				F1A700000000000000000007 /* UITestNetworkFixtureResponse.swift */,
-				F1A700000000000000000008 /* UITestNetworkFixtureStore.swift */,
+				F1A700000000000000000011 /* TestHTTPClientProfile.swift */,
+				F1A700000000000000000002 /* TestNetworkFixtureInterceptor.swift */,
+				F1A700000000000000000003 /* TestNetworkFixtureHTTPClientProvider.swift */,
+				F1A700000000000000000004 /* TestNetworkFixtureHTTPClient.swift */,
+				F1A700000000000000000005 /* TestNetworkFixtureURLProtocol.swift */,
+				F1A700000000000000000014 /* TestNetworkFixtureURLSession.swift */,
+				F1A700000000000000000006 /* TestNetworkFixture.swift */,
+				F1A700000000000000000007 /* TestNetworkFixtureResponse.swift */,
+				F1A700000000000000000008 /* TestNetworkFixtureStore.swift */,
 			);
-			path = NetworkFixtureIntercept;
+			path = TestNetworkFixtures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -9303,7 +9320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1A700000000000000000012 /* UITestHTTPClientProfile.swift in Sources */,
+				F1A700000000000000000012 /* TestHTTPClientProfile.swift in Sources */,
 				67E32CAF2F5BE381009AA52D /* AppOnboardingUITests.swift in Sources */,
 				6742052E2FBFD50100A1C0DE /* ArticleControlsUITests.swift in Sources */,
 				67A417DE2FBFD9E100C0DE01 /* ArticleImageGalleryUITests.swift in Sources */,
@@ -9350,7 +9367,7 @@
 				67E3992A24786E2100441831 /* ReadingListManualPerformanceTests.swift in Sources */,
 				D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */,
 				D8A3C8F22FBB000100E6073C /* UserDefaultsThemeTests.swift in Sources */,
-				3099083C46BB436A98D28535 /* UITestNetworkFixtureInterceptorTests.swift in Sources */,
+				3099083C46BB436A98D28535 /* TestNetworkFixtureInterceptorTests.swift in Sources */,
 				A452F9F824081A5500D8ED09 /* MockCLLocationManager.swift in Sources */,
 				67DAEDEC27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelUserTalkMessageTests.swift in Sources */,
 				B0C06B9F218240CA00E481CC /* Collection+AsyncMapTests.swift in Sources */,
@@ -9367,6 +9384,9 @@
 				67C6F77B27E2E78800B9C864 /* NotificationsCenterCellViewModelLoginIssuesTests.swift in Sources */,
 				67C6F77527E2E78800B9C864 /* NotificationsCenterCellViewModelGenericTests.swift in Sources */,
 					7D8C00012FCF000000000001 /* WMFSearchFetcherTests.swift in Sources */,
+					7D8C00042FCF000000000001 /* SearchHTTPClient.swift in Sources */,
+					7D8C00062FCF000000000001 /* SearchURLProtocol.swift in Sources */,
+					7D8C00082FCF000000000001 /* URLRequest+SearchRequestTests.swift in Sources */,
 					67C6F77727E2E78800B9C864 /* NotificationsCenterCellViewModelEditMilestoneTests.swift in Sources */,
 					B01662B31D1B8CAB006F4544 /* NSURL+WMFQueryParametersTests.m in Sources */,
 				67F73386273C1FBA00D7D713 /* NotificationServiceHelperTests.swift in Sources */,
@@ -10263,15 +10283,15 @@
 				0015712C27D92F6B00F1EB26 /* RetryBlockTask.swift in Sources */,
 				D8E78FA61FB4C8740094B968 /* Session.swift in Sources */,
 				7B41F9C6D1A14BB6A9F0E101 /* SessionHTTPClient.swift in Sources */,
-				F1A700000000000000000010 /* UITestHTTPClientProfile.swift in Sources */,
-				F1A700000000000000000009 /* UITestNetworkFixtureInterceptor.swift in Sources */,
-				F1A70000000000000000000A /* UITestNetworkFixtureHTTPClientProvider.swift in Sources */,
-				F1A70000000000000000000B /* UITestNetworkFixtureHTTPClient.swift in Sources */,
-				F1A70000000000000000000C /* UITestNetworkFixtureURLProtocol.swift in Sources */,
-				F1A700000000000000000013 /* UITestNetworkFixtureURLSession.swift in Sources */,
-				F1A70000000000000000000D /* UITestNetworkFixture.swift in Sources */,
-				F1A70000000000000000000E /* UITestNetworkFixtureResponse.swift in Sources */,
-				F1A70000000000000000000F /* UITestNetworkFixtureStore.swift in Sources */,
+				F1A700000000000000000010 /* TestHTTPClientProfile.swift in Sources */,
+				F1A700000000000000000009 /* TestNetworkFixtureInterceptor.swift in Sources */,
+				F1A70000000000000000000A /* TestNetworkFixtureHTTPClientProvider.swift in Sources */,
+				F1A70000000000000000000B /* TestNetworkFixtureHTTPClient.swift in Sources */,
+				F1A70000000000000000000C /* TestNetworkFixtureURLProtocol.swift in Sources */,
+				F1A700000000000000000013 /* TestNetworkFixtureURLSession.swift in Sources */,
+				F1A70000000000000000000D /* TestNetworkFixture.swift in Sources */,
+				F1A70000000000000000000E /* TestNetworkFixtureResponse.swift in Sources */,
+				F1A70000000000000000000F /* TestNetworkFixtureStore.swift in Sources */,
 				D8FA18D51E1BD891009675C3 /* NSError+WMFExtensions.m in Sources */,
 				8320332322B906A0004A9EDA /* NavigationState.swift in Sources */,
 				83222DB31F8E554800338BE5 /* WMFContent+CoreDataClass.m in Sources */,

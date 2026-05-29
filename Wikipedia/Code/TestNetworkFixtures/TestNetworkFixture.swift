@@ -1,7 +1,7 @@
 import Foundation
 
-/// One route in the UI-test fixture manifest.
-struct UITestNetworkFixture: Decodable {
+/// One route in the test fixture manifest.
+struct TestNetworkFixture: Decodable {
     let method: String?
     let url: String?
     let ignoreQuery: Bool?

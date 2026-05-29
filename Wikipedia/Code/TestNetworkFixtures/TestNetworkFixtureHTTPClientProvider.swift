@@ -1,11 +1,11 @@
 import Foundation
 
-/// Provider selected by launch configuration when UI tests should intercept
+/// Provider selected by launch configuration when tests should intercept
 /// app-process `Session` traffic with bundled fixtures.
-final class UITestNetworkFixtureHTTPClientProvider: SessionHTTPClientProvider {
-    private let profile: UITestHTTPClientProfile
+final class TestNetworkFixtureHTTPClientProvider: SessionHTTPClientProvider {
+    private let profile: TestHTTPClientProfile
 
-    init(profile: UITestHTTPClientProfile) {
+    init(profile: TestHTTPClientProfile) {
         self.profile = profile
     }
 
@@ -13,6 +13,6 @@ final class UITestNetworkFixtureHTTPClientProvider: SessionHTTPClientProvider {
     /// mode exercises the same delegate callbacks, cache policy, and cookie
     /// behavior as the normal client.
     func httpClient(defaultURLSession: URLSession, sessionDelegate: SessionDelegate) -> SessionHTTPClient {
-        UITestNetworkFixtureHTTPClient(profile: profile, defaultURLSession: defaultURLSession, sessionDelegate: sessionDelegate)
+        TestNetworkFixtureHTTPClient(profile: profile, defaultURLSession: defaultURLSession, sessionDelegate: sessionDelegate)
     }
 }

@@ -3,7 +3,7 @@ import XCTest
 final class ExploreUITests: XCTestCase {
     func testPictureOfTheDayImageLoadsBeforeSharing() throws {
         try XCTSkipUnless(
-            uiTestConfiguration.httpClientProfile == UITestHTTPClientProfile.e2e.rawValue,
+            uiTestConfiguration.httpClientProfile == TestHTTPClientProfile.e2e.rawValue,
             "Picture of the Day gallery coverage requires live Commons image loading."
         )
 

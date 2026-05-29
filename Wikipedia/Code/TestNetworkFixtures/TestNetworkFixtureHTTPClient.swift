@@ -2,18 +2,18 @@ import Foundation
 
 /// `SessionHTTPClient` wrapper that tags requests for fixture interception and
 /// delegates the actual task creation back to a URLSession-backed client.
-final class UITestNetworkFixtureHTTPClient: SessionHTTPClient {
+final class TestNetworkFixtureHTTPClient: SessionHTTPClient {
     /// URLProtocol callbacks can arrive on URLSession-controlled queues, so the
     /// fixture manifest is shared through a locked store.
-    private static let fixtureStore = UITestNetworkFixtureStore()
-    private let profile: UITestHTTPClientProfile
+    private static let fixtureStore = TestNetworkFixtureStore()
+    private let profile: TestHTTPClientProfile
     private let fixtureURLSession: URLSession
     private let fixtureClient: SessionHTTPClient
 
-    init(profile: UITestHTTPClientProfile, defaultURLSession: URLSession, sessionDelegate: SessionDelegate) {
+    init(profile: TestHTTPClientProfile, defaultURLSession: URLSession, sessionDelegate: SessionDelegate) {
         self.profile = profile
         let fixtureConfiguration = defaultURLSession.configuration
-        fixtureConfiguration.protocolClasses = UITestNetworkFixtureURLProtocol.protocolClassesInstallingFixtureProtocol(in: fixtureConfiguration.protocolClasses)
+        fixtureConfiguration.protocolClasses = TestNetworkFixtureURLProtocol.protocolClassesInstallingFixtureProtocol(in: fixtureConfiguration.protocolClasses)
         let fixtureURLSession = URLSession(configuration: fixtureConfiguration, delegate: sessionDelegate, delegateQueue: sessionDelegate.delegateQueue)
         self.fixtureURLSession = fixtureURLSession
         self.fixtureClient = URLSessionHTTPClient(urlSession: fixtureURLSession, sessionDelegate: sessionDelegate)
@@ -52,11 +52,11 @@ final class UITestNetworkFixtureHTTPClient: SessionHTTPClient {
     }
 
     private func fixtureRequest(for request: URLRequest) -> URLRequest {
-        UITestNetworkFixtureURLProtocol.requestByAddingProfile(profile, to: request)
+        TestNetworkFixtureURLProtocol.requestByAddingProfile(profile, to: request)
     }
 
     /// Returns a manifest-backed response when available
-    static func fixtureResponse(for request: URLRequest) -> UITestNetworkFixtureResponse? {
+    static func fixtureResponse(for request: URLRequest) -> TestNetworkFixtureResponse? {
         if let fixtureResponse = fixtureStore.response(for: request) {
             return fixtureResponse
         }
@@ -76,7 +76,7 @@ final class UITestNetworkFixtureHTTPClient: SessionHTTPClient {
         return ["http", "https"].contains(scheme)
     }
 
-    static func httpResponse(for request: URLRequest, fixtureResponse: UITestNetworkFixtureResponse) -> HTTPURLResponse? {
+    static func httpResponse(for request: URLRequest, fixtureResponse: TestNetworkFixtureResponse) -> HTTPURLResponse? {
         guard let url = request.url else {
             return nil
         }
@@ -89,13 +89,13 @@ final class UITestNetworkFixtureHTTPClient: SessionHTTPClient {
         )
     }
 
-    /// The 501 response is intentionally JSON so failing UI-test logs show the
+    /// The 501 response is intentionally JSON so failing test logs show the
     /// exact request that needs a fixture entry.
-    private static func unhandledResponse(for request: URLRequest) -> UITestNetworkFixtureResponse {
+    private static func unhandledResponse(for request: URLRequest) -> TestNetworkFixtureResponse {
         let method = request.httpMethod ?? "GET"
         let urlString = request.url?.absoluteString ?? "<missing URL>"
-        let body = #"{"error":"No UI test network fixture registered","request":"\#(method) \#(urlString)"}"#
-        return UITestNetworkFixtureResponse(
+        let body = #"{"error":"No test network fixture registered","request":"\#(method) \#(urlString)"}"#
+        return TestNetworkFixtureResponse(
             statusCode: 501,
             headers: ["Content-Type": "application/json"],
             body: Data(body.utf8)
