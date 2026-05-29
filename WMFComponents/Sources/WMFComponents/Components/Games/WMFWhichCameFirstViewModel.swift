@@ -118,6 +118,8 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     }
     
     public var didTapShare: (@MainActor @Sendable () -> Void)?
+    public var didTapLearnMore: (@MainActor @Sendable () -> Void)?
+    public var didTapReportProblem: (@MainActor @Sendable () -> Void)?
 
     public func makeShareArticleEvents() -> [(event: WMFWhichCameFirstEvent, project: WMFProject)]? {
         guard let state = gameState else { return nil }

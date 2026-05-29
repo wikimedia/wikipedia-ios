@@ -26,7 +26,8 @@ public final class WMFGamesSplashScreenViewModel: ObservableObject {
     public var didTapPlay: (@MainActor @Sendable () -> Void)?
     public var didTapAbout: (@MainActor @Sendable () -> Void)?
     public var didTapClose: (@MainActor @Sendable () -> Void)?
-    public var didTapMore: (@MainActor @Sendable () -> Void)?
+    public var didTapLearnMore: (@MainActor @Sendable () -> Void)?
+    public var didTapReportProblem: (@MainActor @Sendable () -> Void)?
 
     // MARK: - Initialization
 
@@ -36,7 +37,8 @@ public final class WMFGamesSplashScreenViewModel: ObservableObject {
         didTapPlay: (@MainActor @Sendable () -> Void)? = nil,
         didTapAbout: (@MainActor @Sendable () -> Void)? = nil,
         didTapClose: (@MainActor @Sendable () -> Void)? = nil,
-        didTapMore: (@MainActor @Sendable () -> Void)? = nil
+        didTapLearnMore: (@MainActor @Sendable () -> Void)? = nil,
+        didTapReportProblem: (@MainActor @Sendable () -> Void)? = nil
     ) {
         self.icon = icon
         self.dateString = dateString
@@ -59,7 +61,8 @@ public final class WMFGamesSplashScreenViewModel: ObservableObject {
         self.didTapPlay = didTapPlay
         self.didTapAbout = didTapAbout
         self.didTapClose = didTapClose
-        self.didTapMore = didTapMore
+        self.didTapLearnMore = didTapLearnMore
+        self.didTapReportProblem = didTapReportProblem
     }
 
     // MARK: - Public
