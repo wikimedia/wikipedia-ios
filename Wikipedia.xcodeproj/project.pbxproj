@@ -8088,22 +8088,6 @@
 			path = ../Wikipedia/Code;
 			sourceTree = "<group>";
 		};
-		F1A700000000000000000001 /* NetworkFixtureIntercept */ = {
-			isa = PBXGroup;
-			children = (
-				F1A700000000000000000011 /* UITestHTTPClientProfile.swift */,
-				F1A700000000000000000002 /* UITestNetworkFixtureInterceptor.swift */,
-				F1A700000000000000000003 /* UITestNetworkFixtureHTTPClientProvider.swift */,
-				F1A700000000000000000004 /* UITestNetworkFixtureHTTPClient.swift */,
-				F1A700000000000000000005 /* UITestNetworkFixtureURLProtocol.swift */,
-				F1A700000000000000000014 /* UITestNetworkFixtureURLSession.swift */,
-				F1A700000000000000000006 /* UITestNetworkFixture.swift */,
-				F1A700000000000000000007 /* UITestNetworkFixtureResponse.swift */,
-				F1A700000000000000000008 /* UITestNetworkFixtureStore.swift */,
-			);
-			path = NetworkFixtureIntercept;
-			sourceTree = "<group>";
-		};
 		D8BA1F1F1DF1E19700502877 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -8313,6 +8297,22 @@
 				6734F051227B634900BDDB94 /* ActionButton.swift */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		F1A700000000000000000001 /* NetworkFixtureIntercept */ = {
+			isa = PBXGroup;
+			children = (
+				F1A700000000000000000011 /* UITestHTTPClientProfile.swift */,
+				F1A700000000000000000002 /* UITestNetworkFixtureInterceptor.swift */,
+				F1A700000000000000000003 /* UITestNetworkFixtureHTTPClientProvider.swift */,
+				F1A700000000000000000004 /* UITestNetworkFixtureHTTPClient.swift */,
+				F1A700000000000000000005 /* UITestNetworkFixtureURLProtocol.swift */,
+				F1A700000000000000000014 /* UITestNetworkFixtureURLSession.swift */,
+				F1A700000000000000000006 /* UITestNetworkFixture.swift */,
+				F1A700000000000000000007 /* UITestNetworkFixtureResponse.swift */,
+				F1A700000000000000000008 /* UITestNetworkFixtureStore.swift */,
+			);
+			path = NetworkFixtureIntercept;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -5,6 +5,7 @@ import WMF
 import WMFComponents
 import WMFData
 import WMFNativeLocalizations
+import CocoaLumberjackSwift
 
 /// Coordinator that presents the Which Came First game, starting with the splash screen.
 @MainActor
@@ -107,6 +108,29 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         viewModel.onLogIn = { [weak self] in
             self?.showLogin()
         }
+        viewModel.onArticleTap = { [weak self] url in
+            self?.openArticle(url: url, inNewTab: false)
+        }
+        viewModel.onArticleOpenInNewTab = { [weak self] url in
+            WMFArticleTabsDataController.shared.didTapOpenNewTab()
+            ArticleTabsFunnel.shared.logLongPressOpenInNewTab()
+            self?.openArticle(url: url, inNewTab: true)
+        }
+        viewModel.onArticleOpenInBackgroundTab = { [weak self] url in
+            self?.openArticleInBackgroundTab(url: url)
+        }
+        viewModel.onArticleSaveForLater = { [weak self] url in
+            self?.saveArticle(url: url)
+        }
+        viewModel.onArticleUnsave = { [weak self] url in
+            self?.unsaveArticle(url: url)
+        }
+        viewModel.onCheckSavedState = { [weak self] url in
+            self?.dataStore.savedPageList.isAnyVariantSaved(url) ?? false
+        }
+        viewModel.onArticleShare = { [weak self] url in
+            self?.shareArticle(url: url)
+        }
         viewModel.didTapLearnMore = { [weak self] in
             self?.showAbout()
         }
@@ -191,6 +215,79 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
             gameNav.present(activityVC, animated: true)
         }
+    }
+
+    private func openArticle(url: URL, inNewTab: Bool) {
+        let tabConfig: ArticleTabConfig = inNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTab
+        let articleCoordinator = ArticleCoordinator(
+            navigationController: navigationController,
+            articleURL: url,
+            dataStore: dataStore,
+            theme: theme,
+            source: .undefined,
+            tabConfig: tabConfig
+        )
+        gameNavigationController?.dismiss(animated: true) {
+            articleCoordinator.start()
+        }
+    }
+
+    private func openArticleInBackgroundTab(url: URL) {
+        guard let title = url.wmf_title,
+              let languageCode = url.wmf_languageCode else { return }
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: url.wmf_languageVariantCode))
+        let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: project, articleURL: url)
+
+        Task {
+            do {
+                let articleTabsDataController = WMFArticleTabsDataController.shared
+                articleTabsDataController.didTapOpenNewTab()
+                let tabsCount = try await articleTabsDataController.tabsCount()
+                let tabsMax = articleTabsDataController.tabsMax
+                if tabsCount >= tabsMax {
+                    if let currentTabIdentifier = try await articleTabsDataController.currentTabIdentifier() {
+                        _ = try await articleTabsDataController.appendArticle(article, toTabIdentifier: currentTabIdentifier)
+                    } else {
+                        _ = try await articleTabsDataController.createArticleTab(initialArticle: article)
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        WMFToastManager.sharedInstance.showRichToast(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousToasts: true)
+                    }
+                } else {
+                    _ = try await articleTabsDataController.createArticleTab(initialArticle: article, setAsCurrent: false)
+                    ArticleTabsFunnel.shared.logLongPressOpenInBackgroundTab()
+                }
+            } catch {
+                DDLogError("Failed to open article in background tab: \(error)")
+            }
+        }
+    }
+
+    private func saveArticle(url: URL) {
+        dataStore.savedPageList.addSavedPage(with: url)
+        showReadingListToast(for: url)
+    }
+
+    private func unsaveArticle(url: URL) {
+        dataStore.savedPageList.removeEntry(with: url)
+    }
+
+    private func showReadingListToast(for url: URL) {
+        guard let article = dataStore.fetchArticle(with: url),
+              let appVC = navigationController.tabBarController as? WMFAppViewController,
+              let presenter = gameNavigationController?.visibleViewController else { return }
+        appVC.readingListHintPresenter.toggle(presenter: presenter, article: article, theme: theme)
+    }
+
+    private func shareArticle(url: URL) {
+        guard let gameNav = gameNavigationController else { return }
+        let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        if let popover = activityVC.popoverPresentationController {
+            popover.sourceView = gameNav.visibleViewController?.view
+            popover.sourceRect = gameNav.visibleViewController?.view.bounds ?? .zero
+            popover.permittedArrowDirections = []
+        }
+        gameNav.present(activityVC, animated: true)
     }
 
     private func showAbout() {

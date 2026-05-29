@@ -39,8 +39,16 @@ public struct WMFWhichCameFirstView: View {
                 totalQuestions: gameViewModel.totalQuestions,
                 isLoggedIn: gameViewModel.isLoggedIn,
                 project: gameViewModel.project,
+                questions: gameViewModel.questions,
                 shareScore: gameViewModel.didTapShare,
-                onLogIn: gameViewModel.onLogIn
+                onLogIn: gameViewModel.onLogIn,
+                onArticleTap: gameViewModel.onArticleTap,
+                onArticleOpenInNewTab: gameViewModel.onArticleOpenInNewTab,
+                onArticleOpenInBackgroundTab: gameViewModel.onArticleOpenInBackgroundTab,
+                onArticleSaveForLater: gameViewModel.onArticleSaveForLater,
+                onArticleUnsave: gameViewModel.onArticleUnsave,
+                onCheckSavedState: gameViewModel.onCheckSavedState,
+                onArticleShare: gameViewModel.onArticleShare
             ))
         }
 
