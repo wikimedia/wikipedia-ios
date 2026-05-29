@@ -1527,6 +1527,8 @@
 "welcome-languages-search-title" = "Title for welcome screen describing Wikipedia languages";
 "welcome-privacy-subtitle" = "Sub-title explaining how data usage is anonymous";
 "welcome-privacy-terms-button-text" = "Text for links for learning more about data privacy policy and terms of use";
+"which-came-first-article-card-open-hint" = "VoiceOver hint for an article card in the Which Came First game results screen. Describes the outcome of tapping the card.";
+"which-came-first-articles-section-title" = "Section title for the article cards shown after completing the Which Came First game";
 "which-came-first-average-score-label" = "Label for the average score stat in the Which Came First results screen";
 "which-came-first-best-streak-label" = "Label for the best streak stat in the Which Came First results screen";
 "which-came-first-better-luck" = "Message shown when the user scores half or below in the Which Came First game";
