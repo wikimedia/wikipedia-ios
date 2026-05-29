@@ -1,5 +1,6 @@
 import UIKit
 import SwiftUI
+import MessageUI
 import WMF
 import WMFComponents
 import WMFData
@@ -66,8 +67,11 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
                 self?.showAbout()
             },
             didTapClose: nil,
-            didTapMore: { [weak self] in
-                self?.showMoreOptions()
+            didTapLearnMore: { [weak self] in
+                self?.showAbout()
+            },
+            didTapReportProblem: { [weak self] in
+                self?.showReportProblem()
             }
         )
 
@@ -102,6 +106,12 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         viewModel.isLoggedIn = isLoggedIn
         viewModel.onLogIn = { [weak self] in
             self?.showLogin()
+        }
+        viewModel.didTapLearnMore = { [weak self] in
+            self?.showAbout()
+        }
+        viewModel.didTapReportProblem = { [weak self] in
+            self?.showReportProblem()
         }
         let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
         gameNav.setViewControllers([gameVC], animated: true)
@@ -192,8 +202,23 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         gameNav.present(webNav, animated: true)
     }
 
-    private func showMoreOptions() {
-        // TODO: Present an action sheet with additional game options.
+    private func showReportProblem() {
+        guard MFMailComposeViewController.canSendMail(),
+              let gameNav = gameNavigationController else { return }
+
+        let mailVC = MFMailComposeViewController()
+        mailVC.mailComposeDelegate = self
+
+        mailVC.setSubject(WMFLocalizedString("games-email-report-subject", value: "Issue Report - Wikipedia games", comment: "Email subject line for reporting a problem with the Wikipedia games feature."))
+
+        let body = [
+            WMFLocalizedString("games-email-report-body-encountered", value: "I have encountered a problem with the Wikipedia games feature:", comment: "Opening line of the problem report email body for the Wikipedia games feature."),
+            CommonStrings.issueReportEmailBodyDescribeProblem,
+            CommonStrings.issueReportEmailBodyBehavior,
+            CommonStrings.issueReportEmailBodyProposedSolution
+        ].joined(separator: "\n\n")
+        mailVC.setMessageBody(body, isHTML: false)
+        gameNav.present(mailVC, animated: true)
     }
 
     // MARK: - Helpers
@@ -210,6 +235,14 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter.string(from: Date())
+    }
+}
+
+// MARK: - Mail Compose Delegate
+
+extension WhichCameFirstCoordinator: @MainActor MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
     }
 }
 
@@ -238,4 +271,3 @@ private final class WCFShareActivityContentProvider: UIActivityItemProvider, @un
         return text
     }
 }
-

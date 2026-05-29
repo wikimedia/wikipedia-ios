@@ -696,6 +696,7 @@
 "games-wcf-button-play-title" = "Jogar jogo de hoje";
 "games-wcf-explore-button-archive-title" = "Jogar arquivo";
 "games-wcf-explore-button-review-title" = "Ver resultados";
+// Fuzzy
 "games-wcf-explore-complete-subtitle" = "Você marcou $1/$2 no jogo de hoje. Próximo jogo: $3)";
 "games-wcf-explore-in-progress-subtitle" = "Você está na pergunta $1. Continue tentando adivinhar qual evento ocorreu primeiro neste dia na história.";
 "games-wcf-explore-title" = "O que veio primeiro?";
