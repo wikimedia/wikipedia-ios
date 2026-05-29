@@ -1527,6 +1527,8 @@
 "welcome-languages-search-title" = "Search in over 300 languages";
 "welcome-privacy-subtitle" = "We believe that you should not have to provide personal information to participate in the free knowledge movement. Usage data collected for this app is anonymous.";
 "welcome-privacy-terms-button-text" = "Learn more about our privacy policy and terms of use";
+"which-came-first-article-card-open-hint" = "Opens event related to this article ";
+"which-came-first-articles-section-title" = "Articles from today's game";
 "which-came-first-average-score-label" = "average score";
 "which-came-first-best-streak-label" = "best streak";
 "which-came-first-better-luck" = "Better luck tomorrow!";

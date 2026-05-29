@@ -118,6 +118,13 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     }
     
     public var didTapShare: (@MainActor @Sendable () -> Void)?
+    public var onArticleTap: WMFWhichCameFirstArticlesViewModel.ArticleTapAction?
+    public var onArticleOpenInNewTab: WMFWhichCameFirstArticlesViewModel.ArticleTapAction?
+    public var onArticleOpenInBackgroundTab: WMFWhichCameFirstArticlesViewModel.ArticleTapAction?
+    public var onArticleSaveForLater: WMFWhichCameFirstArticlesViewModel.ArticleTapAction?
+    public var onArticleUnsave: WMFWhichCameFirstArticlesViewModel.ArticleTapAction?
+    public var onCheckSavedState: ((URL) -> Bool)?
+    public var onArticleShare: WMFWhichCameFirstArticlesViewModel.ArticleShareAction?
     public var didTapLearnMore: (@MainActor @Sendable () -> Void)?
     public var didTapReportProblem: (@MainActor @Sendable () -> Void)?
 

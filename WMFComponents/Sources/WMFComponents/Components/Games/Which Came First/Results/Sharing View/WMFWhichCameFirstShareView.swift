@@ -122,8 +122,8 @@ public struct WMFWhichCameFirstShareView: View {
     private func resultIcon(isCorrect: Bool) -> some View {
         ZStack {
             Circle()
-                .fill(isCorrect ? Color(uiColor: WMFColor.green600) : Color(uiColor: WMFColor.red600))
-                .frame(width: 28, height: 28)
+                .fill(isCorrect ? Color(uiColor: WMFColor.green700) : Color(uiColor: WMFColor.red700))
+                .frame(width: 22, height: 22)
 
             if let icon = WMFSFSymbolIcon.for(symbol: isCorrect ? .checkmark : .xMark, font: .boldCaption1) {
                 Image(uiImage: icon)

@@ -60,6 +60,8 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
     @Published public var averageScore: Double?
     @Published public var nextGameCountdownString: String
 
+    public let articlesViewModel: WMFWhichCameFirstArticlesViewModel
+
     public var localizedStrings: LocalizedStrings
     public var onLogIn: ( @MainActor @Sendable () -> Void)?
     public var shareScore: ( @MainActor @Sendable () -> Void)?
@@ -71,12 +73,20 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         totalQuestions: Int,
         isLoggedIn: Bool,
         project: WMFProject,
+        questions: [WMFWhichCameFirstQuestion] = [],
         gamesPlayed: Int? = nil,
         currentStreak: Int? = nil,
         bestStreak: Int? = nil,
         averageScore: Double? = nil,
         shareScore: (@MainActor @Sendable () -> Void)? = nil,
         onLogIn: (@MainActor @Sendable () -> Void)? = nil,
+        onArticleTap: WMFWhichCameFirstArticlesViewModel.ArticleTapAction? = nil,
+        onArticleOpenInNewTab: WMFWhichCameFirstArticlesViewModel.ArticleTapAction? = nil,
+        onArticleOpenInBackgroundTab: WMFWhichCameFirstArticlesViewModel.ArticleTapAction? = nil,
+        onArticleSaveForLater: WMFWhichCameFirstArticlesViewModel.ArticleTapAction? = nil,
+        onArticleUnsave: WMFWhichCameFirstArticlesViewModel.ArticleTapAction? = nil,
+        onCheckSavedState: ((URL) -> Bool)? = nil,
+        onArticleShare: WMFWhichCameFirstArticlesViewModel.ArticleShareAction? = nil,
         localizedStrings: LocalizedStrings = LocalizedStrings()
     ) {
         self.score = score
@@ -90,6 +100,41 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         self.localizedStrings = localizedStrings
         self.shareScore = shareScore
         self.onLogIn = onLogIn
+
+        var seen = Set<String>()
+        var items: [WMFWhichCameFirstArticleItemViewModel] = []
+        for question in questions {
+            for event in [question.optionA, question.optionB] {
+                let apiTitle = event.articleTitle ?? event.title
+                guard seen.insert(apiTitle).inserted else { continue }
+                let articleURL: URL? = {
+                    guard let siteURL = project.siteURL else { return nil }
+                    var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
+                    components?.path = "/wiki/\(apiTitle)"
+                    return components?.url
+                }()
+                // Use the human-readable article title (spaces, not underscores) for display
+                let displayTitle = apiTitle.underscoresToSpaces
+                items.append(WMFWhichCameFirstArticleItemViewModel(
+                    title: displayTitle,
+                    apiTitle: apiTitle,
+                    project: project,
+                    articleURL: articleURL,
+                    thumbnailURL: event.thumbnailURL
+                ))
+            }
+        }
+        self.articlesViewModel = WMFWhichCameFirstArticlesViewModel(
+            articleItems: items,
+            onCheckSavedState: onCheckSavedState,
+            didTapArticle: onArticleTap,
+            didTapOpenInNewTab: onArticleOpenInNewTab,
+            didTapOpenInBackgroundTab: onArticleOpenInBackgroundTab,
+            didSaveForLater: onArticleSaveForLater,
+            didUnsaveArticle: onArticleUnsave,
+            didShareArticle: onArticleShare
+        )
+
         startCountdownTimer()
         fetchStats(project: project)
     }
