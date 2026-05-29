@@ -526,7 +526,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         
         // Prioritize reading challenge, then fall back to year in review or fundraising
         guard let navigationController else {
-            presentYearInReviewAnnouncementOrFundraisingIfNeeded()
+            presentYearInReviewAnnouncementOrFundraisingOrGamesIfNeeded()
             return
         }
         
@@ -541,7 +541,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
                 return
             }
             
-            self?.presentYearInReviewAnnouncementOrFundraisingIfNeeded()
+            self?.presentYearInReviewAnnouncementOrFundraisingOrGamesIfNeeded()
         }
         
         self.readingChallengeCoordinator = readingChallengeCoordinator
@@ -601,7 +601,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         return formatter.string(from: Date())
     }
 
-    private func presentYearInReviewAnnouncementOrFundraisingIfNeeded() {
+    private func presentYearInReviewAnnouncementOrFundraisingOrGamesIfNeeded() {
         listenForTooltips()
         
         if needsYearInReviewAnnouncement() {
@@ -617,7 +617,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
     }
     
-    private func presentYearInReviewAnnouncementOrTooltipsIfNeeded() {
+    private func presentYearInReviewAnnouncementOrTooltipsOrGamesIfNeeded() {
         if needsYearInReviewAnnouncement() {
             updateProfileButton()
             presentYearInReviewAnnouncement()
