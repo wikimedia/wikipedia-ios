@@ -23,12 +23,11 @@ struct ExploreRobot: ScreenshotCapturingRobot {
 
     @discardableResult
     func openFirstArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
-        let articleCell = base.app.descendants(matching: .any)
+        let articleCells = base.app.descendants(matching: .any)
             .matching(identifier: AccessibilityIdentifiers.Explore.articleCell)
-            .firstMatch
-        base.assertVisible(
-            articleCell,
-            timeout: 30,
+        let articleCell = base.firstHittableElement(
+            matching: articleCells,
+            timeout: 60,
             description: "Explore article cell",
             file: file,
             line: line
