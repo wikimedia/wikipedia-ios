@@ -167,10 +167,8 @@ extension WMFGamesDataController {
         var currentStreak = 0
         var previousDate: String? = nil
 
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        
+        let formatter = DateFormatter.onThisDayAPIDateFormatter
+
         for entry in sorted {
             if let prev = previousDate,
                let prevDate = formatter.date(from: prev),
@@ -186,7 +184,7 @@ extension WMFGamesDataController {
         }
 
         if let lastDate = sorted.last?.date,
-           let last = formatter.date(from: lastDate) {
+           let last = DateFormatter.onThisDayAPIDateFormatter.date(from: lastDate) {
             let today = Date()
             let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
             let lastDay = Calendar.current.startOfDay(for: last)

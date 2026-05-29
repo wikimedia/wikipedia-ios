@@ -83,7 +83,7 @@
 "activity-tab-customize-timeline-of-behavior" = "Timeline of behavior";
 "activity-tab-email-fifth-line" = "[Screenshots or Links]";
 "activity-tab-email-first-line" = "I have encountered a problem with Activity Tab Feature:";
-"activity-tab-email-fourth-line" = "[Describe desired behavior]";
+"activity-tab-email-fourth-line" = "[Describe proposed solution]";
 "activity-tab-email-second-line" = "- [Describe specific problem]";
 "activity-tab-email-third-line" = "The behavior I would like to see is:";
 "activity-tab-email-title" = "Issue Report - Activity Tab";
@@ -645,6 +645,8 @@
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
 "forgot-password-title" = "Reset password";
 "forgot-password-username-or-email-title" = "Or";
+"games-email-report-body-encountered" = "I have encountered a problem with the Wikipedia games feature:";
+"games-email-report-subject" = "Issue Report - Wikipedia games";
 "games-wcf-button-play-title" = "Play today's game";
 "games-wcf-explore-button-archive-title" = "Play the archive";
 "games-wcf-explore-button-review-title" = "Review results";
@@ -702,11 +704,7 @@
 "image-rec-tooltip-3-body" = "Decide if the image helps readers understand this topic better.";
 "image-rec-tooltip-3-title" = "Decide";
 "image-rec-view-article" = "View article";
-"image-recommendations-email-fifth-line" = "[Screenshots or Links]";
-"image-recommendations-email-first-line" = "I’ve encountered a problem with the Add an Image Suggested Edits Feature:";
-"image-recommendations-email-fourth-line" = "- [Describe proposed solution]";
-"image-recommendations-email-second-line" = "- [Describe specific problem]";
-"image-recommendations-email-third-line" = "The behavior I would like to see is:";
+"image-recommendations-email-first-line" = "I've encountered a problem with the Add an Image Suggested Edits Feature:";
 "image-recommendations-email-title" = "Issue Report - Add an Image Feature";
 "image-recs-no-title" = "No";
 "image-recs-not-sure-title" = "Not sure";
