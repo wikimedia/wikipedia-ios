@@ -17,13 +17,26 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     /// The modal navigation controller that hosts the splash screen and game screens.
     private weak var gameNavigationController: UINavigationController?
-    
-    private let dataStore: MWKDataStore
 
-    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
+    private let dataStore: MWKDataStore
+    private let project: WMFProject?
+    
+    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, siteURL: URL?) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
+        self.project = Self.resolveProject(siteURL: siteURL)
+    }
+
+    private static func resolveProject(siteURL: URL?) -> WMFProject? {
+        if let siteURL, let languageCode = siteURL.wmf_languageCode {
+            let language = WMFLanguage(languageCode: languageCode, languageVariantCode: siteURL.wmf_languageVariantCode)
+            return WMFProject.wikipedia(language)
+        }
+        if let language = WMFDataEnvironment.current.primaryAppLanguage {
+            return WMFProject.wikipedia(language)
+        }
+        return nil
     }
 
     // MARK: - Coordinator
@@ -65,8 +78,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     /// Fetches today's session and delegates play button title updates to the view model.
     private func updatePlayButtonTitleIfNeeded(viewModel: WMFGamesSplashScreenViewModel) {
-        guard let language = WMFDataEnvironment.current.primaryAppLanguage else { return }
-        let project = WMFProject.wikipedia(language)
+        guard let project else { return }
         let todayDateString = formattedTodayISODateString()
 
         Task { [weak self, weak viewModel] in
@@ -79,9 +91,8 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
     // MARK: - Navigation
 
     private func showGame() {
-        guard let language = WMFDataEnvironment.current.primaryAppLanguage,
+        guard let project,
               let gameNav = gameNavigationController else { return }
-        let project = WMFProject.wikipedia(language)
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         let viewModel = WMFWhichCameFirstViewModel(date: formattedTodayISODateString(), project: project)
         viewModel.didTapShare = { [weak self, weak viewModel] in
