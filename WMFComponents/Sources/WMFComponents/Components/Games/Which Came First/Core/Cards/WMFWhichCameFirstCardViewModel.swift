@@ -69,7 +69,14 @@ public struct WMFOnThisDayCardEvent: Identifiable {
     public let date: Date
     public let imageURL: URL?
     public var dateString: String {
-        DateFormatter.wmfMonthDayYearDateFormatter.string(from: date)
+        var result = DateFormatter.wmfMonthDayYearDateFormatter.string(from: date)
+        let year = Calendar.current.component(.year, from: date)
+        if year > 0 && year < 1000 {
+            let paddedYear = String(format: "%04d", year)
+            let naturalYear = String(year)
+            result = result.replacingOccurrences(of: paddedYear, with: naturalYear)
+        }
+        return result
     }
 
     public init(text: String, date: Date, imageURL: URL? = nil) {

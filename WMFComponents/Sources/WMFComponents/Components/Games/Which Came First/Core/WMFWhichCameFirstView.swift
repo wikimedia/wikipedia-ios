@@ -306,11 +306,13 @@ private struct ProgressDotsView: View {
                     if let result = result {
                         Image(uiImage: WMFSFSymbolIcon.for(symbol: result ? .checkmarkCircleFill : .closeCircleFill, font: .subheadline) ?? UIImage())
                             .renderingMode(.template)
-                            .font(.system(size: dotSize))
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: dotSize, height: dotSize)
                             .foregroundStyle(
                                 result
-                                ? Color(uiColor: theme.accent)
-                                : Color(uiColor: theme.destructive)
+                                ? Color(uiColor: WMFColor.green700)
+                                : Color(uiColor: WMFColor.red700)
                             )
                     } else {
                         Circle()
@@ -328,8 +330,8 @@ private struct ProgressDotsView: View {
 
     private func color(for result: Bool?) -> Color {
         switch result {
-        case true:  return Color(uiColor: theme.accent)
-        case false: return Color(uiColor: theme.destructive)
+        case true:  return Color(uiColor: WMFColor.green700)
+        case false: return Color(uiColor: WMFColor.red700)
         case nil:   return Color(uiColor: theme.newBorder)
         }
     }
