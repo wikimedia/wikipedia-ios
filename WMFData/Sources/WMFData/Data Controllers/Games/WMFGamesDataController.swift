@@ -257,7 +257,7 @@ extension WMFGamesDataController {
     }
 
     public func isWhichCameFirstDailySessionAvailable(date: String, project: WMFProject, onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared) async throws -> Bool {
-        if let _ = try await fetchSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date) {
+        if try await fetchSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date) != nil {
             return true
         }
 
