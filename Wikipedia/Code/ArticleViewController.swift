@@ -53,6 +53,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     private let cacheController: ArticleCacheController
     public var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
+    private var whichCameFirstCoordinator: WhichCameFirstCoordinator?
 
     internal var willDisplayCampaignModal: Bool? {
         didSet {
