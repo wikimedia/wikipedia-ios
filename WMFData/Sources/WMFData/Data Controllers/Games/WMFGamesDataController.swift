@@ -240,7 +240,8 @@ extension WMFGamesDataController {
     /// Checks: not yet seen, not past expiration, games feature enabled, and game available in at least one app language.
     public func shouldShowGamesAnnouncement(date: String) async -> Bool {
         guard !hasSeenGamesAnnouncement else { return false }
-        guard Date() < Self.gamesAnnouncementExpirationDate else { return false }
+        guard let parsedDate = DateFormatter.onThisDayAPIDateFormatter.date(from: date),
+              parsedDate < Self.gamesAnnouncementExpirationDate else { return false }
         guard WMFDeveloperSettingsDataController.shared.showGamesV1 else { return false }
 
         let appLanguages = WMFDataEnvironment.current.appData.appLanguages
