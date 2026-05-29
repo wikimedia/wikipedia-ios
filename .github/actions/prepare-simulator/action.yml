@@ -13,6 +13,9 @@ outputs:
   destination:
     description: xcodebuild destination for the selected simulator.
     value: ${{ steps.destination.outputs.destination }}
+  simulator-udid:
+    description: UDID of the selected simulator.
+    value: ${{ steps.destination.outputs.simulator-udid }}
 
 runs:
   using: composite
@@ -22,13 +25,70 @@ runs:
       run: |
         xcrun simctl list devices available
 
-    - name: Set xcodebuild destination
+    - name: Resolve and boot simulator
       id: destination
       shell: bash
       env:
         IOS_VERSION: ${{ inputs.ios-version }}
         SIMULATOR_NAME: ${{ inputs.simulator-name }}
       run: |
-        DESTINATION="platform=iOS Simulator,name=${SIMULATOR_NAME},OS=${IOS_VERSION}"
+        set -euo pipefail
+
+        SIMULATORS_JSON="$(mktemp)"
+        xcrun simctl list devices available -j > "$SIMULATORS_JSON"
+
+        RESOLUTION="$(
+          python3 - "$SIMULATORS_JSON" <<'PY'
+        import json
+        import os
+        import sys
+
+        simulators_path = sys.argv[1]
+        simulator_name = os.environ["SIMULATOR_NAME"]
+        ios_version = os.environ["IOS_VERSION"]
+        runtime_suffix = f"iOS-{ios_version.replace('.', '-')}"
+
+        with open(simulators_path, encoding="utf-8") as simulators_file:
+            simulators = json.load(simulators_file)
+
+        matches = []
+        for runtime, devices in simulators.get("devices", {}).items():
+            if not runtime.endswith(runtime_suffix):
+                continue
+
+            for device in devices:
+                if device.get("isAvailable") and device.get("name") == simulator_name:
+                    matches.append((runtime, device["udid"]))
+
+        if not matches:
+            available_runtimes = "\n".join(sorted(simulators.get("devices", {}).keys()))
+            sys.stderr.write(
+                f"Could not find available simulator '{simulator_name}' for iOS {ios_version}.\n"
+                f"Available runtimes:\n{available_runtimes}\n"
+            )
+            sys.exit(1)
+
+        runtime, udid = matches[0]
+        print(f"{udid}\t{runtime}")
+        PY
+        )"
+        rm -f "$SIMULATORS_JSON"
+
+        SIMULATOR_UDID="${RESOLUTION%%$'\t'*}"
+        SIMULATOR_RUNTIME="${RESOLUTION#*$'\t'}"
+        echo "Resolved simulator: ${SIMULATOR_NAME} ${IOS_VERSION} (${SIMULATOR_UDID}) in ${SIMULATOR_RUNTIME}"
+
+        if ! xcrun simctl boot "$SIMULATOR_UDID"; then
+          if xcrun simctl list devices booted | grep -q "$SIMULATOR_UDID"; then
+            echo "Simulator is already booted."
+          else
+            echo "Failed to boot simulator ${SIMULATOR_UDID}."
+            exit 1
+          fi
+        fi
+        xcrun simctl bootstatus "$SIMULATOR_UDID" -b
+
+        DESTINATION="platform=iOS Simulator,id=${SIMULATOR_UDID}"
         echo "destination=${DESTINATION}" >> "$GITHUB_OUTPUT"
+        echo "simulator-udid=${SIMULATOR_UDID}" >> "$GITHUB_OUTPUT"
         echo "Using simulator destination: ${DESTINATION}"
