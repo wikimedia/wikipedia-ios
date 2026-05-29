@@ -100,7 +100,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         seeResultsButton: WMFLocalizedString("which-came-first-see-results-button", value: "See Results", comment: "Button label shown after the final question to view the game results"),
         correctFeedback: WMFLocalizedString("which-came-first-correct-feedback", value: "Correct!", comment: "Feedback message shown when the user answers correctly in the Which Came First game"),
         correctFeedback2: WMFLocalizedString("which-came-first-correct-feedback2", value: "+1 point", comment: "Feedback message shown when the user answers correctly in the Which Came First game"),
-        incorrectFeedback: WMFLocalizedString("which-came-first-incorrect-feedback", value: "Incorrect", comment: "Feedback message shown when the user answers incorrectly in the Which Came First game"),
+        incorrectFeedback: WMFLocalizedString("which-came-first-incorrect-feedback", value: "Incorrect!", comment: "Feedback message shown when the user answers incorrectly in the Which Came First game"),
         gameCompleteTitle: WMFLocalizedString("which-came-first-game-complete-title", value: "Game Complete!", comment: "Title shown when the user has completed all questions in the Which Came First game"),
         perfectScoreMessage: WMFLocalizedString("which-came-first-perfect-score", value: "Perfect score!", comment: "Message shown when the user answers all questions correctly in the Which Came First game"),
         niceWorkMessage: WMFLocalizedString("which-came-first-nice-work", value: "Nice work! Come back tomorrow for a new game.", comment: "Message shown when the user scores above half in the Which Came First game"),
