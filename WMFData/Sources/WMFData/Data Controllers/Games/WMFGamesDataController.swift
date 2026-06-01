@@ -21,7 +21,7 @@ public class WMFGamesDataController {
     private var backgroundContext: NSManagedObjectContext? {
         if _backgroundContext == nil {
             _backgroundContext = try? coreDataStore?.newBackgroundContext
-            _backgroundContext?.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+            _backgroundContext?.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         }
         return _backgroundContext
     }
