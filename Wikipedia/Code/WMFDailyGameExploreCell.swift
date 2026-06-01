@@ -220,7 +220,8 @@ class WMFDailyGameExploreCell: CollectionViewCell {
 
     // MARK: - Layout
 
-     private static let eventRowSpacing: CGFloat = 16
+    private static let eventRowSpacing: CGFloat = 16
+    private static let cardBottomPadding: CGFloat = 20
 
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         layoutMarginsAdditions = UIEdgeInsets(top: 12, left: 1, bottom: 12, right: 1)
@@ -282,7 +283,10 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             y = headerTitleFrame.maxY + 12
         }
         
-        var descriptionBottomSpacing = CGFloat(0)
+        // Gap between the content above and the primary button. Consistent across every state so
+        // the button stays comfortably padded no matter how tall the event rows grow (e.g. three
+        // lines of text per event) or how long the description is.
+        let button1Spacing: CGFloat = layoutMargins.bottom
         if !descriptionLabel.isHidden {
             let descriptionFrame = descriptionLabel.wmf_preferredFrame(
                 at: CGPoint(x: layoutMargins.left, y: y),
@@ -291,9 +295,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
                 alignedBy: .forceLeftToRight,
                 apply: false
             )
-            
-            descriptionBottomSpacing = 54
-            
+
             if apply {
                 if isChromeRTL {
                     descriptionLabel.frame = CGRect(x: size.width - layoutMargins.right - descriptionFrame.width, y: descriptionFrame.minY, width: descriptionFrame.width, height: descriptionFrame.height)
@@ -301,7 +303,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
                     descriptionLabel.frame = descriptionFrame
                 }
             }
-            
+
             y += descriptionFrame.height
         } else {
             let rowWidth = availableWidth
@@ -314,7 +316,6 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             y += bFrame.height
         }
 
-        let button1Spacing: CGFloat = 20 + descriptionBottomSpacing
         let button1Frame = button1.wmf_preferredFrame(
             at: CGPoint(x: layoutMargins.left, y: y + button1Spacing),
             maximumSize: CGSize(width: availableWidth, height: UIView.noIntrinsicMetric),
@@ -368,7 +369,7 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             }
         }
 
-        return CGSize(width: size.width, height: y + layoutMargins.bottom)
+        return CGSize(width: size.width, height: y + Self.cardBottomPadding)
     }
     
     /// UIButton defers flushing `setTitle(_:for:)` to `titleLabel.text` until its own
