@@ -54,7 +54,7 @@ class ArticleWebMessagingController: NSObject {
         contentController.addUserScript(styleScript)
 
 #if TEST || UITEST
-        if UserDefaults.standard.string(forKey: "WMFUITestHTTPClientProfile") != nil {
+        if UserDefaults.standard.string(forKey: "WMFTestHTTPClientProfile") != nil {
             let uiTestAccessibilityScript = PageContentService.UITestAccessibilityScript()
             contentController.addUserScript(uiTestAccessibilityScript)
         }

@@ -63,6 +63,32 @@ struct UITestRobot {
         return self
     }
 
+    func firstHittableElement(
+        matching query: XCUIElementQuery,
+        timeout: TimeInterval = 15,
+        description: String,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> XCUIElement {
+        var hittableElement: XCUIElement?
+        let predicate = NSPredicate { _, _ in
+            hittableElement = query.allElementsBoundByIndex.first { element in
+                element.exists && element.isHittable
+            }
+            return hittableElement != nil
+        }
+        let expectation = XCTNSPredicateExpectation(predicate: predicate, object: nil)
+        let result = XCTWaiter.wait(for: [expectation], timeout: timeout)
+        XCTAssertEqual(
+            result,
+            .completed,
+            "Expected \(description) to be visible within \(timeout) seconds.",
+            file: file,
+            line: line
+        )
+        return hittableElement ?? query.firstMatch
+    }
+
     @discardableResult
     func tapButton(
         withIdentifier identifier: String,
