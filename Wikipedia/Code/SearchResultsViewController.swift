@@ -423,9 +423,11 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             message: CommonStrings.clearRecentSearchesDialogSubtitle,
             preferredStyle: .alert)
         dialog.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
-        dialog.addAction(UIAlertAction(title: CommonStrings.deleteAllTitle, style: .destructive) { _ in
+        let deleteAction = UIAlertAction(title: CommonStrings.deleteAllTitle, style: .destructive) { _ in
             self?.deleteAllRecentSearches()
-        })
+        }
+        deleteAction.accessibilityIdentifier = AccessibilityIdentifiers.Search.clearRecentSearchesConfirmButton
+        dialog.addAction(deleteAction)
         self?.present(dialog, animated: true)
     }
 

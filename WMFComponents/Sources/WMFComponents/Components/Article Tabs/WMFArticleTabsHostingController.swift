@@ -54,6 +54,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = AccessibilityIdentifiers.Tabs.view
         viewModel.loggingDelegate?.logArticleTabsOverviewImpression()
     }
 
