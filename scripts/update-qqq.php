@@ -5,7 +5,7 @@
  * AppleFFS class implements support for Apple .strings files.
  * This class reads and writes only UTF-8 files.
  *
- * @author Brion Vibber <bvibber@wikimedia.org>
+ * @author Brooke Vibber <bvibber@pobox.com>
  *
  * derived from the AppleFFS in Translate extension, but hacked down
  */
