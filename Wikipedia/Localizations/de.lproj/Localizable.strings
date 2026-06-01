@@ -128,6 +128,7 @@
 "activity-tab-customize-timeline-of-behavior" = "Aktivitätsverlauf";
 "activity-tab-email-fifth-line" = "[Screenshots oder Links]";
 "activity-tab-email-first-line" = "Ich habe ein Problem mit der Aktivitäten-Tab-Funktion festgestellt:";
+// Fuzzy
 "activity-tab-email-fourth-line" = "[Gewünschtes Verhalten beschreiben]";
 "activity-tab-email-second-line" = "- [Spezifisches Problem beschreiben]";
 "activity-tab-email-third-line" = "Das gewünschte Verhalten wäre:";
@@ -738,11 +739,8 @@
 "image-rec-tooltip-3-body" = "Entscheide, ob das Bild den Lesern hilft, dieses Thema besser zu verstehen.";
 "image-rec-tooltip-3-title" = "Entscheiden";
 "image-rec-view-article" = "Artikel anzeigen";
-"image-recommendations-email-fifth-line" = "[Screenshots oder Links]";
+// Fuzzy
 "image-recommendations-email-first-line" = "Ich bin auf ein Problem mit der Funktion \"Bild hinzufügen\" bei vorgeschlagenen Bearbeitungen gestoßen:";
-"image-recommendations-email-fourth-line" = "- [Beschreibung der vorgeschlagenen Lösung]";
-"image-recommendations-email-second-line" = "- [Beschreibung des spezifischen Problems]";
-"image-recommendations-email-third-line" = "Das Verhalten, das ich sehen möchte, ist:";
 "image-recommendations-email-title" = "Problembericht - Bild hinzufügen Funktion";
 "image-recs-no-title" = "Nein";
 "image-recs-not-sure-title" = "Nicht sicher";

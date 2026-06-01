@@ -7,6 +7,7 @@
 // Author: Diktys
 // Author: Freked
 // Author: Gkyziridis
+// Author: HakanIST
 // Author: Haxpett
 // Author: Jenniesarina
 // Author: Johan
@@ -118,6 +119,7 @@
 "activity-tab-customize-timeline-of-behavior" = "Tidslinje för beteende";
 "activity-tab-email-fifth-line" = "[Skärmdumpar eller länkar]";
 "activity-tab-email-first-line" = "Jag har stött på ett problem med aktivitetsfliken:";
+// Fuzzy
 "activity-tab-email-fourth-line" = "[Beskriv önskat beteende]";
 "activity-tab-email-second-line" = "- [Beskriv det specifika problemet]";
 "activity-tab-email-third-line" = "Det beteende jag skulle vilja se är:";
@@ -682,8 +684,7 @@
 "games-wcf-button-play-title" = "Spela dagens spel";
 "games-wcf-explore-button-archive-title" = "Spela upp arkivet";
 "games-wcf-explore-button-review-title" = "Granska resultatet";
-// Fuzzy
-"games-wcf-explore-complete-subtitle" = "Du fick $1/$2 poäng i dagens spel. Nästa spel om $3)";
+"games-wcf-explore-complete-subtitle" = "Du fick $1/$2 poäng i dagens spel. Nästa spel om $3";
 "games-wcf-explore-in-progress-subtitle" = "Du är på fråga $1. Fortsätt gissa vilken händelse som inträffade först denna dag i historien.";
 "games-wcf-explore-title" = "Vilket kom först?";
 "gan-variants-alert-body" = "Wikipediaappen stödjer följande gan varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\n贛語 原文 gan (gan)\n赣语 简体 gan, förenklat (gan-hans)\n贛語 繁體 gan, traditionellt (gan-hant)";
@@ -737,11 +738,8 @@
 "image-rec-tooltip-3-body" = "Bedöm om bilden hjälper läsarna att förstå detta ämne bättre.";
 "image-rec-tooltip-3-title" = "Bedöm";
 "image-rec-view-article" = "Visa artikeln";
-"image-recommendations-email-fifth-line" = "[Skärmbilder eller länkar]";
+// Fuzzy
 "image-recommendations-email-first-line" = "Jag har stött på ett problem med funktionen \"Lägg till en bild\" i redigeringsförslag:";
-"image-recommendations-email-fourth-line" = "- [Beskriv ett föreslag på en lösning]";
-"image-recommendations-email-second-line" = "- [Beskriv det specifika problemet]";
-"image-recommendations-email-third-line" = "Beteendet jag skulle vilja se:";
 "image-recommendations-email-title" = "Problemrapport - Funktionen \"Lägg till en bild\"";
 "image-recs-no-title" = "Nej";
 "image-recs-not-sure-title" = "Osäker";
@@ -1562,6 +1560,7 @@
 "which-came-first-error-title" = "Någonting gick fel";
 "which-came-first-footer-a11y" = "Fråga $1 av $2";
 "which-came-first-incorrect-answer-a11y" = "Fel svar";
+// Fuzzy
 "which-came-first-incorrect-feedback" = "Fel";
 "which-came-first-next-button" = "Nästa";
 "which-came-first-retry-button" = "Försök igen";

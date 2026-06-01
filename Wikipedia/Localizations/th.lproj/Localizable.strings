@@ -91,6 +91,7 @@
 "activity-tab-articles-read-graph-label" = "บทความ";
 "activity-tab-email-fifth-line" = "[ภาพหน้าจอหรือลิงก์]";
 "activity-tab-email-first-line" = "ฉันเจอปัญหาเกี่ยวกับฟีเจอร์แท็บกิจกรรม:";
+// Fuzzy
 "activity-tab-email-fourth-line" = "[อธิบายสิ่งที่คิดว่าควรเกิดขึ้น]";
 "activity-tab-email-second-line" = "- [รายละเอียดของปัญหา]";
 "activity-tab-email-third-line" = "สิ่งที่ฉันคิดว่าจะเกิดคือ:";

@@ -1,5 +1,6 @@
 // Messages for Interlingua (interlingua)
 // Exported from translatewiki.net
+// Author: HakanIST
 // Author: Karmwiki
 // Author: McDutchie
 // Author: Tsevener
@@ -89,7 +90,7 @@
 "activity-tab-customize-timeline-of-behavior" = "Chronologia de comportamento";
 "activity-tab-email-fifth-line" = "[Capturas de schermo o ligamines]";
 "activity-tab-email-first-line" = "Io ha incontrate un problema con le function Scheda de activitate:";
-"activity-tab-email-fourth-line" = "[Describe le comportamento desirate]";
+"activity-tab-email-fourth-line" = "[Describe le solution proponite]";
 "activity-tab-email-second-line" = "- [Describe le problema specific]";
 "activity-tab-email-third-line" = "Le comportamento que io vole vider es:";
 "activity-tab-email-title" = "Reporto de problema: scheda Activitate";
@@ -650,11 +651,12 @@
 "forgot-password-instructions" = "Reimple un del campos infra pro reciper instructiones pro reinitialisar le contrasigno per e-mail";
 "forgot-password-title" = "Reinitialisar contrasigno";
 "forgot-password-username-or-email-title" = "O";
+"games-email-report-body-encountered" = "Io ha incontrate un problema con le functionalitate de jocos de Wikipedia:";
+"games-email-report-subject" = "Reporto de problema – jocos de Wikipedia";
 "games-wcf-button-play-title" = "Jocar le joco de hodie";
 "games-wcf-explore-button-archive-title" = "Jocar jocos archivate";
 "games-wcf-explore-button-review-title" = "Revider resultatos";
-// Fuzzy
-"games-wcf-explore-complete-subtitle" = "Tu score del joco de hodie es $1/$2. Proxime joco in $3)";
+"games-wcf-explore-complete-subtitle" = "Tu score del joco de hodie es $1/$2. Proxime joco in $3";
 "games-wcf-explore-in-progress-subtitle" = "Tu es al question $1. Continua a divinar qual evento ha evenite primo in iste die del historia.";
 "games-wcf-explore-title" = "Qual ha evenite primo?";
 "gan-variants-alert-body" = "Le application de Wikipedia ora supporta le variantes sequente del gan como linguas primari o secundari in le application, rendente lo plus facile leger, cercar e modificar in tu variantes preferite:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan simplificate (gan-hans)\n贛語 繁體 Gan traditional (gan-hant)";
@@ -708,11 +710,7 @@
 "image-rec-tooltip-3-body" = "Decide si le imagine adjuta lectores a comprender melio iste subjecto.";
 "image-rec-tooltip-3-title" = "Decider";
 "image-rec-view-article" = "Vider articulo";
-"image-recommendations-email-fifth-line" = "[Capturas de schermo o ligamines]";
 "image-recommendations-email-first-line" = "Io ha incontrate un problema con le function Adder un imagine del Modificationes suggerite:";
-"image-recommendations-email-fourth-line" = "- [Describe le solution proponite]";
-"image-recommendations-email-second-line" = "- [Describe le problema specific]";
-"image-recommendations-email-third-line" = "Le comportamento que io vole vider es:";
 "image-recommendations-email-title" = "Reporto de problema: Function Adder un imagine";
 "image-recs-no-title" = "No";
 "image-recs-not-sure-title" = "Non secur";
@@ -1535,17 +1533,33 @@
 "welcome-languages-search-title" = "Cercar in plus de 300 linguas";
 "welcome-privacy-subtitle" = "Nos crede que non debe esser obligatori fornir informationes personal pro participar al movimento de cognoscentia libere. Le datos de uso colligite pro iste application es anonyme.";
 "welcome-privacy-terms-button-text" = "Leger plus sur nostre politica de confidentialitate e conditiones de uso";
+"which-came-first-article-card-open-hint" = "Aperi un evento ligate a iste articulo";
+"which-came-first-articles-section-title" = "Articulos del partita de hodie";
+"which-came-first-average-score-label" = "score medie";
+"which-came-first-best-streak-label" = "melior serie";
+"which-came-first-better-luck" = "Melior fortuna deman!";
 "which-came-first-correct-answer-a11y" = "Responsa correcte";
 "which-came-first-correct-feedback" = "Correcte!";
 "which-came-first-correct-feedback2" = "+1 puncto";
+"which-came-first-current-streak-label" = "serie actual";
 "which-came-first-error-title" = "Qualcosa ha vadite mal";
 "which-came-first-footer-a11y" = "Question $1 de $2";
+"which-came-first-game-complete-title" = "Partita concludite!";
+"which-came-first-games-played-label" = "partitas jocate";
 "which-came-first-incorrect-answer-a11y" = "Responsa incorrecte";
-"which-came-first-incorrect-feedback" = "Incorrecte";
+"which-came-first-incorrect-feedback" = "Incorrecte!";
+"which-came-first-log-in-button" = "Aperir session";
+"which-came-first-log-in-stats-body" = "Vider tu series de victoria, punctos e plus";
+"which-came-first-log-in-stats-title" = "Aperi session pro vider tu statisticas de jocos";
 "which-came-first-next-button" = "Sequente";
+"which-came-first-next-game-time" = "Proxime partita in $1";
+"which-came-first-nice-work" = "Optime labor! Reveni deman pro un nove partita.";
+"which-came-first-perfect-score" = "Score perfecte!";
 "which-came-first-retry-button" = "Reprobar";
+"which-came-first-score" = "Tu score es $1/$2.";
 "which-came-first-see-results-button" = "Vider resultatos";
 "which-came-first-share-activity-text" = "Io joca a “Qual ha evenite primo?”, un joco quotidian de questiones e responsas sur le application de Wikipedia pro iOS https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=wiki_game_202605&mt=8";
+"which-came-first-share-score-button" = "Condivider score";
 "which-came-first-share-score-summary" = "Hodie io ha obtenite un score de $1/$2 sur “Qual ha evenite primo?”.";
 "which-came-first-share-topics-title" = "Topicos includite:";
 "which-came-first-splash-about-button" = "A proposito de iste joco";
@@ -1555,6 +1569,7 @@
 "which-came-first-splash-title" = "Qual ha evenite primo?";
 "which-came-first-submit-button" = "Submitter";
 "which-came-first-title" = "Qual ha evenite primo?";
+"which-came-first-your-stats-title" = "Tu statisticas";
 "widget-onthisday-description" = "Explorar lo que ha evenite in iste die in le historia.";
 "widget-onthisday-placeholder-article-snippet" = "Encyclopedia libere in linea que omnes pote modificar";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, un encyclopedia de contento wiki libere, appare in linea.";

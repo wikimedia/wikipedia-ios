@@ -97,6 +97,7 @@
 "activity-tab-customize-timeline-of-behavior" = "Времеслед на поведение";
 "activity-tab-email-fifth-line" = "[Екрански снимки или Врски]";
 "activity-tab-email-first-line" = "Наидов на проблем со функцијата Јазиче за активности:";
+// Fuzzy
 "activity-tab-email-fourth-line" = "[Опишете како сакате да биде]";
 "activity-tab-email-second-line" = "— [Опишете го конкретниот проблем]";
 "activity-tab-email-third-line" = "Сакам да го видам следново поведение:";
@@ -662,7 +663,6 @@
 "games-wcf-button-play-title" = "Играј ја денешната игра";
 "games-wcf-explore-button-archive-title" = "Играј од архивата";
 "games-wcf-explore-button-review-title" = "Преглед на исходот";
-// Fuzzy
 "games-wcf-explore-complete-subtitle" = "Во денешната игра освоивте $1/$2. Следната игра ќе биде достапна за $3";
 "games-wcf-explore-in-progress-subtitle" = "Сега сте на прашање $1. Продолжите да погодувате кој настан се случил попрво на денешен ден во историјата.";
 "games-wcf-explore-title" = "Што се случило попрво?";
@@ -717,11 +717,8 @@
 "image-rec-tooltip-3-body" = "Одлучете дали сликата им помага на читателите подобро да ја разберат оваа тема.";
 "image-rec-tooltip-3-title" = "Одлучете";
 "image-rec-view-article" = "Погл. статија";
-"image-recommendations-email-fifth-line" = "[Екрански снимки или Врски]";
+// Fuzzy
 "image-recommendations-email-first-line" = "Наидов на проблем со функцијата „Додај слика“ во Предложените уредувања:";
-"image-recommendations-email-fourth-line" = "— [Опишете го предложеното решение]";
-"image-recommendations-email-second-line" = "— [Опишете го конкретниот проблем]";
-"image-recommendations-email-third-line" = "Сакам да го видам следново поведение:";
 "image-recommendations-email-title" = "Пријава на проблем — Функција „Додај слика“";
 "image-recs-no-title" = "Не";
 "image-recs-not-sure-title" = "Не знам";
@@ -1544,17 +1541,32 @@
 "welcome-languages-search-title" = "Пребарајте на преку 300 јазици";
 "welcome-privacy-subtitle" = "Сметаме дека не треба да давате лични информации за да учествувате во движењето за слободно знаење. Податоците за употреба на овој прилог што ги собираме се анонимни.";
 "welcome-privacy-terms-button-text" = "Дознајте повеќе за нашите правила за лични податоци и условите на употреба";
+"which-came-first-average-score-label" = "просечно бодови";
+"which-came-first-best-streak-label" = "најдобра тура";
+"which-came-first-better-luck" = "Повеќе среќа утре!";
 "which-came-first-correct-answer-a11y" = "Точен одговор";
 "which-came-first-correct-feedback" = "Точно!";
 "which-came-first-correct-feedback2" = "+1 бод";
+"which-came-first-current-streak-label" = "тековна тура";
 "which-came-first-error-title" = "Нешто не е во ред";
 "which-came-first-footer-a11y" = "Прашање $1 од $2";
+"which-came-first-game-complete-title" = "Играта е завршена!";
+"which-came-first-games-played-label" = "одиграни игри";
 "which-came-first-incorrect-answer-a11y" = "Погрешен одговор";
+// Fuzzy
 "which-came-first-incorrect-feedback" = "Погрешно";
+"which-came-first-log-in-button" = "Најава";
+"which-came-first-log-in-stats-body" = "Погледајте ги вашите тури, резултати и друго";
+"which-came-first-log-in-stats-title" = "Најавете се за да ги видите статистиките за вашите игри";
 "which-came-first-next-button" = "Следно";
+"which-came-first-next-game-time" = "Следната игра е достапна за $1";
+"which-came-first-nice-work" = "Одлично! Вратете се утре за нова игра.";
+"which-came-first-perfect-score" = "Совршен резултат!";
 "which-came-first-retry-button" = "Пробај пак";
+"which-came-first-score" = "Освоивте $1/$2.";
 "which-came-first-see-results-button" = "Исход";
 "which-came-first-share-activity-text" = "Играм „Што се случило попрво?“, дневен квиз на прилогот на Википедија за iOS https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=wiki_game_202605&mt=8";
+"which-came-first-share-score-button" = "Сподели резултат";
 "which-came-first-share-score-summary" = "Денес освоив $1/$2 на „Што се случило попрво?“.";
 "which-came-first-share-topics-title" = "Вклучени теми:";
 "which-came-first-splash-about-button" = "За играва";
@@ -1564,6 +1576,7 @@
 "which-came-first-splash-title" = "Што се случило попрво?";
 "which-came-first-submit-button" = "Поднеси";
 "which-came-first-title" = "Што се случило попрво?";
+"which-came-first-your-stats-title" = "Ваша статистика";
 "widget-onthisday-description" = "Истражете што се случило на денешниот ден во историјата.";
 "widget-onthisday-placeholder-article-snippet" = "Слободна енциклопедија која секој може да ја уредува";
 "widget-onthisday-placeholder-event-snippet" = "Пуштена Википедија — слободна енциклопедија на викисодржини.";

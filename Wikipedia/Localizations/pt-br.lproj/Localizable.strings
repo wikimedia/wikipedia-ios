@@ -133,6 +133,7 @@
 "activity-tab-customize-timeline-of-behavior" = "Linha do tempo do comportamento";
 "activity-tab-email-fifth-line" = "[Capturas de tela ou links]";
 "activity-tab-email-first-line" = "Encontrei um problema com o recurso da guia Atividade:";
+// Fuzzy
 "activity-tab-email-fourth-line" = "[Descreva o comportamento desejado]";
 "activity-tab-email-second-line" = "[Descreva o problema específico]";
 "activity-tab-email-third-line" = "O comportamento que eu gostaria de ver é:";
@@ -594,6 +595,7 @@
 "explore-feed-preferences-show-continue-reading-title" = "Mostrar o cartão 'Continuar a ler'";
 "explore-feed-preferences-show-featured-article-footer-text" = "Desativar o cartão de artigo destacado desativará o cartão em todos os idiomas disponíveis.";
 "explore-feed-preferences-show-featured-article-title" = "Mostrar cartão de artigo em destaque";
+"explore-feed-preferences-show-games-footer-text" = "Desativar o cartão de jogos desativará o cartão em todos os idiomas disponíveis.";
 "explore-feed-preferences-show-news-footer-text" = "Desativar o o cartão de notícias, o cartão será desativado em todos os idiomas disponíveis.";
 "explore-feed-preferences-show-news-title" = "Mostrar no cartão de notícias";
 "explore-feed-preferences-show-on-this-day-footer-text" = "Se desligar o cartão Neste dia, o cartão será desativado em todos os idiomas disponíveis.";
@@ -696,8 +698,7 @@
 "games-wcf-button-play-title" = "Jogar jogo de hoje";
 "games-wcf-explore-button-archive-title" = "Jogar arquivo";
 "games-wcf-explore-button-review-title" = "Ver resultados";
-// Fuzzy
-"games-wcf-explore-complete-subtitle" = "Você marcou $1/$2 no jogo de hoje. Próximo jogo: $3)";
+"games-wcf-explore-complete-subtitle" = "Você marcou $1/$2 no jogo de hoje. Próximo jogo: $3";
 "games-wcf-explore-in-progress-subtitle" = "Você está na pergunta $1. Continue tentando adivinhar qual evento ocorreu primeiro neste dia na história.";
 "games-wcf-explore-title" = "O que veio primeiro?";
 "gan-variants-alert-body" = "O aplicativo Wikipedia agora suporta as seguintes variantes Gan como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan simplificado (gan-hans)\n贛語 繁體 Gan tradicional (gan-hant)";
@@ -751,11 +752,8 @@
 "image-rec-tooltip-3-body" = "Decida se a imagem ajuda os leitores a entender melhor este tema.";
 "image-rec-tooltip-3-title" = "Decidir";
 "image-rec-view-article" = "Ver artigo";
-"image-recommendations-email-fifth-line" = "[Capturas de tela ou links]";
+// Fuzzy
 "image-recommendations-email-first-line" = "Encontrei um problema com o recurso Adicionar uma Imagem com Edições Sugeridas:";
-"image-recommendations-email-fourth-line" = "[Descreva a solução proposta]";
-"image-recommendations-email-second-line" = "[Descreva o problema específico]";
-"image-recommendations-email-third-line" = "O comportamento que eu gostaria de ver é:";
 "image-recommendations-email-title" = "Relatório de Problemas - Recurso Adicionar uma Imagem";
 "image-recs-no-title" = "Não";
 "image-recs-not-sure-title" = "Não tenho certeza";
@@ -1571,16 +1569,33 @@
 "welcome-languages-search-title" = "Pesquise em mais de 300 idiomas";
 "welcome-privacy-subtitle" = "Acreditamos que você não deve ter que fornecer informações pessoais para participar do movimento pelo conhecimento livre. Os dados de uso coletados para este aplicativo são anônimos.";
 "welcome-privacy-terms-button-text" = "Saiba mais sobre nossa política de privacidade e termos de uso";
+"which-came-first-average-score-label" = "pontuação média";
+"which-came-first-best-streak-label" = "melhor sequência";
+"which-came-first-better-luck" = "Mais sorte amanhã!";
 "which-came-first-correct-answer-a11y" = "Resposta correta";
 "which-came-first-correct-feedback" = "Correto!";
 "which-came-first-correct-feedback2" = "+1 ponto";
+"which-came-first-current-streak-label" = "sequência atual";
 "which-came-first-error-title" = "Algo deu errado";
 "which-came-first-footer-a11y" = "Pergunta $1 de $2";
+"which-came-first-game-complete-title" = "Jogo concluído!";
+"which-came-first-games-played-label" = "jogos disputados";
 "which-came-first-incorrect-answer-a11y" = "Resposta incorreta";
+// Fuzzy
 "which-came-first-incorrect-feedback" = "Incorreta";
+"which-came-first-log-in-button" = "Entrar";
+"which-came-first-log-in-stats-body" = "Veja suas sequências, pontuações e muito mais";
+"which-came-first-log-in-stats-title" = "Entre para ver suas estatísticas de jogo";
 "which-came-first-next-button" = "Próximo";
+"which-came-first-next-game-time" = "Próximo jogo em $1";
+"which-came-first-nice-work" = "Bom trabalho! Volte amanhã para um novo jogo.";
+"which-came-first-perfect-score" = "Pontuação máxima!";
 "which-came-first-retry-button" = "Tentar novamente";
+"which-came-first-score" = "Você marcou $1/$2.";
 "which-came-first-see-results-button" = "Ver resultados";
+"which-came-first-share-score-button" = "Compartilhar pontuação";
+"which-came-first-share-score-summary" = "Hoje ganhei $1/$2 na aposta \"O que veio primeiro?\".";
+"which-came-first-share-topics-title" = "Os tópicos incluíram:";
 "which-came-first-splash-about-button" = "Sobre esse jogo";
 "which-came-first-splash-continue-button" = "Continue o jogo de hoje";
 "which-came-first-splash-review-button" = "Ver resultados";
@@ -1588,6 +1603,7 @@
 "which-came-first-splash-title" = "O que veio primeiro?";
 "which-came-first-submit-button" = "Enviar";
 "which-came-first-title" = "O que veio primeiro?";
+"which-came-first-your-stats-title" = "Suas estatísticas";
 "widget-onthisday-description" = "Explore o que aconteceu neste dia na história.";
 "widget-onthisday-placeholder-article-snippet" = "A enciclopédia online livre que qualquer um pode editar";
 "widget-onthisday-placeholder-event-snippet" = "A Wikipédia, uma enciclopédia de conteúdo wiki gratuito, fica online.";

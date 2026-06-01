@@ -551,10 +551,8 @@
 "image-rec-tooltip-3-body" = "Суратны, окъуучуланы бу теманы андан да иги ангыларларына болушлукъ болуб болмагъанына оноу этигиз.";
 "image-rec-tooltip-3-title" = "Оноун эт";
 "image-rec-view-article" = "Статья кёргюз";
+// Fuzzy
 "image-recommendations-email-first-line" = "Теджелген Тюзетиулери бла Сурат Къош функцияны хайырланыуда проблемагъа тюртюлдюм:";
-"image-recommendations-email-fourth-line" = "- [Теджелген этиуню таныт]";
-"image-recommendations-email-second-line" = "- [Кескин проблеманы таныт]";
-"image-recommendations-email-third-line" = "Мен кёрюрге излеген къылыкъ:";
 "image-recommendations-email-title" = "Джетмегенликлени Билдирмеси - Сурат Функцияны Къошуу";
 "image-recs-no-title" = "Огъай";
 "image-recs-not-sure-title" = "Ишексиз тюлме";

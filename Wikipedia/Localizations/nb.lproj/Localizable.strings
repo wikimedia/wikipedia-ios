@@ -583,10 +583,8 @@
 "image-rec-tooltip-3-body" = "Avgjør om bildet hjelper leseren med å forstå dette emnet bedre.";
 "image-rec-tooltip-3-title" = "Avgjør";
 "image-rec-view-article" = "Vis artikkelen";
-"image-recommendations-email-fifth-line" = "[Skjermbilder eller lenker]";
+// Fuzzy
 "image-recommendations-email-first-line" = "Jeg har støtt på et problem med funksjonen for å legge til et foreslått bilde:";
-"image-recommendations-email-fourth-line" = "- [Beskriv foreslått løsning]";
-"image-recommendations-email-second-line" = "- [Beskriv et spesifikt problem]";
 "image-recs-no-title" = "Nei";
 "image-recs-not-sure-title" = "Usikker";
 "image-recs-yes-title" = "Ja";

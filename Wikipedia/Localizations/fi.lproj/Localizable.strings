@@ -118,6 +118,7 @@
 "activity-tab-customize-logout-warning" = "Voit ottaa tämän aktiviteetin tilastot käyttöön kirjautumalla sisään.";
 "activity-tab-customize-reading-insights" = "Lukutilastot";
 "activity-tab-customize-time-spent-reading" = "Lukemiseen käytetty aika";
+"activity-tab-customize-timeline-of-behavior" = "Käytöksesi aikajana";
 "activity-tab-email-fifth-line" = "[Näyttökuvat tai linkit]";
 "activity-tab-email-second-line" = "- [Kuvaile ongelmaa]";
 "activity-tab-empty-title" = "Ei mitään näytettävää";
@@ -553,6 +554,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ota Tutki-välilehti käyttöön";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Asetukset-painike korvataan Tutki-painikkeella, Asetuksiin pääsee napauttamalla mutterin kuvaketta Tutki-näkymän ylälaidasta";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ota käyttöön Tutki-välilehti?";
+"explore-games-title" = "Pelit";
 "explore-hide-card-prompt" = "Piilota tämä kortti";
 "explore-main-page-description" = "Wikimedia projektin etusivu";
 "explore-main-page-heading" = "Tänään Wikipediassa";
@@ -675,10 +677,8 @@
 "image-rec-tooltip-3-body" = "Päätä, auttaako kuva lukijoita ymmärtämään tätä aihetta paremmin.";
 "image-rec-tooltip-3-title" = "Päätä";
 "image-rec-view-article" = "Näytä artikkeli";
-"image-recommendations-email-fifth-line" = "[Näyttökuvat tai linkit]";
+// Fuzzy
 "image-recommendations-email-first-line" = "Olen havainnut ongelman Lisää ehdotettu kuva -toiminnossa:";
-"image-recommendations-email-fourth-line" = "- [Kuvaile ehdottamaasi ratkaisua]";
-"image-recommendations-email-second-line" = "- [Kuvaile ongelmaa]";
 "image-recs-no-title" = "Ei";
 "image-recs-not-sure-title" = "Epävarma";
 "image-recs-time-warning-message" = "Ymmärrä aihepiiri paremmin tutustumalla artikkeliin ja tarkista kuva";
@@ -758,15 +758,11 @@
 "main-menu-zero-faq" = "Usein kysyttyjä kysymyksiä Wikipedia Zerosta";
 "main-page" = "Etusivu";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|$1 tavu|$1 tavua}} lisätty";
-// Fuzzy
-"microsite-yir-english-edits-slide-subtitle-updated" = "Vapaaehtoiset tekivät 98 222 407 muutosta yli 300 eri kieliversioon Wikipediassa. Englanninkieliseen Wikipediaan tehtiin yli 37 miljoonaa muutosta. Joka päivä, joka tunti, vapaaehtoiset työskentelevät parantaakseen Wikipediaa.";
+"microsite-yir-english-edits-slide-subtitle-updated" = "Vapaaehtoiset tekivät {{PLURAL:$1|$1 muutoksen|$1 muutosta}} yli {{PLURAL:$2|$2 eri kieliversioon}} Wikipediassa. Englanninkieliseen Wikipediaan tehtiin {{PLURAL:$3|$3 muutos|$3 muutosta}}. Joka päivä, joka tunti, vapaaehtoiset työskentelevät parantaakseen Wikipediaa.";
 "microsite-yir-english-edits-slide-title-updated" = "Muokkaajat tekivät tänä vuonna {{PLURAL:$1|$1 muutoksen|$1 muutosta}}";
-// Fuzzy
-"microsite-yir-english-reading-slide-subtitle-updated" = "Ihmiset viettivät arviolta 2,9 miljardia tuntia – yli 331 000 vuotta! – englanninkielisen Wikipedian lukemiseen vuonna 2024. Wikipedia on palveluksessasi, kun haluat oppia lisää muuttuvasta maailmasta, voittaa vedon ystävien kesken tai vastata uteliaan lapsen kysymykseen.";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-subtitle-updated" = "Aktiivisilla iOS-sovelluksen käyttäjillä oli yli 62,2 miljoonaa lukulistaa. Artikkelien lisääminen lukulistoihin mahdollistaa artikkelien käytön myös ilman Internet-yhteyttä. Voit myös synkronoida lukulistoja eri laitteiden välillä.";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-title-updated" = "Yli 62,2 miljoonaa lukulistaa";
+"microsite-yir-english-reading-slide-subtitle-updated" = "Ihmiset viettivät arviolta {{PLURAL:$1|$1 tunti|$1 tuntia}} – noin {{PLURAL:$2|$2 vuosi|$2 vuotta}}! – englanninkielisen Wikipedian lukemiseen vuonna $3. Wikipedia on palveluksessasi, kun haluat oppia lisää muuttuvasta maailmasta, voittaa vedon ystävien kesken tai vastata uteliaan lapsen kysymykseen.";
+"microsite-yir-english-saved-reading-slide-subtitle-updated" = "Aktiivisilla apin käyttäjillä oli tänä vuonna {{PLURAL:$1|$1 tallennettu artikkeli|$1 tallennettuja artikkeleita}}. Artikkelien lisääminen lukulistoihin mahdollistaa artikkelien käytön myös ilman Internet-yhteyttä. Voit myös synkronoida lukulistoja eri laitteiden välillä.";
+"microsite-yir-english-saved-reading-slide-title-updated" = "Meillä oli {{PLURAL:$1|$1 tallennettu artikkeli|$1 tallennettuja artikkeleita}}";
 "microsite-yir-english-top-read-slide-title" = "Englanninkielisen Wikipedian luetuimmat artikkelit";
 "more-languages-tooltip-description" = "Hae Wikipediasta yli 300 kielellä";
 "more-languages-tooltip-title" = "Lisää kieliä";
@@ -1433,16 +1429,11 @@
 "wikitext-upload-save-anonymously-warning" = "Muokkaukset yhdistetään laitteesi IP-osoitteeseen. Jos $1 tietoturvasi paranee.";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Julkaisemalla hyväksyt $1käyttöehdot$2 ja peruuttomattomasti muokkaustesi lisensoinnin $3CC BY-SA 4.0$4 ja $5GFDL$6 lisensseillä. Hyväksyt, että hyperlinkki tai URL on riittää nimeämiseen Creative Commons -lisenssin mukaisesti.";
 "wikitext-upload-save-terms-name" = "käyttöehdot";
-// Fuzzy
-"year-in-review-base-edits-subtitle-updated" = "Wikipediaa muokattiin keskimäärin $1 kertaa joka minuutti. Artikkeleita luodaan ja parannetaan yhteistyössä luotettavien lähteiden avulla. Meillä kaikilla on tietoa jaettavana, [näin osallistut]($2).";
-// Fuzzy
-"year-in-review-base-edits-title-updated" = "Wikipediaa muokattiin $1 kertaa joka minuutti";
-// Fuzzy
-"year-in-review-base-reading-subtitle-updated" = "Wikipediassa oli yli $1 artikkelia yli $2 aktiivisella kielellä. Liityit miljoonien joukkoon laajentamassa tietämystä ja tutkimassa erilaisia aiheita.";
-// Fuzzy
-"year-in-review-base-saved-subtitle" = "Aktiivisilla iOS-sovelluksen käyttäjillä oli yli 62,2 miljoonaa lukulistaa. Lukulistaan lisättyä artikkelia voi käyttää myös ilman Internet-yhteyttä. Lukulistoja voi myös synkronoida laitteiden välillä.";
-// Fuzzy
-"year-in-review-base-saved-title-updated" = "Yli $1 miljoonaa lukulistaa";
+"year-in-review-base-edits-subtitle-updated" = "Artikkeleita luodaan ja parannellaan luotettavien lähteiden avulla. Meillä kaikilla on tietoa jaettavana, [näin osallistut]($1).";
+"year-in-review-base-edits-title-updated" = "Wikipediaa muokattiin {{PLURAL:$1|$1 kertaa}} per minuutti";
+"year-in-review-base-reading-subtitle-updated" = "Wikipediassa oli {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} yli {{PLURAL:$2|$2 aktiivisen kielen|$2 aktiivisten kielien}}. Liityit miljoonien joukkoon laajentamassa tietämystä ja tutkimaan erilaisia aihealueita.";
+"year-in-review-base-saved-subtitle" = "Lukulistaan lisättyä artikkelia voi käyttää myös ilman Internet-yhteyttä. Lukulistoja voi myös synkronoida laitteiden välillä.";
+"year-in-review-base-saved-title-updated" = "Apin käyttäjillä oli {{PLURAL:$1|$1 tallennettu artikkeli|$1 tallennettuja artikkeleita}}";
 "year-in-review-base-viewed-title-updated" = "Sovelluksen käyttäjät katsoivat Wikipedian artikkeleita {{PLURAL:$1| $1 kerran| $1 kertaa}}";
 "year-in-review-button-title" = "Vuosikatsaus";
 "year-in-review-contributor-gift-title" = "Ota uusi sovelluskuvake käyttöön";
@@ -1480,12 +1471,9 @@
 "year-in-review-personalized-date-time-footer-v3" = "Mieluisin lukuaikasi";
 "year-in-review-personalized-date-title-v3" = "Sinulla on selviä lukutottumuksia";
 "year-in-review-personalized-donate-title" = "Anteliaisuutesi on auttanut Wikipediaa menestymään";
-// Fuzzy
-"year-in-review-personalized-edit-views-subtitle-format-updated" = "Lukijat ympäri maailmaa arvostavat panostasi. Viimeisen kahden kuukauden aikana muokkaamasi artikkelit ovat saaneet yhteensä $1 katselukertaa. Kiitos kaltaistesi vapaaehtoisten, Wikipedia on jatkuvasti kehittyvä, faktaan perustuva ja luotettava tietolähde maailmalle.";
-// Fuzzy
-"year-in-review-personalized-edit-views-title-format-updated" = "Muokkauksiasi on näytetty yli $1 kertaa";
-// Fuzzy
-"year-in-review-personalized-editing-title-format-updated" = "Muokkasit Wikipediaa {{PLURAL:$1|$1 kerran|$1 kertaa}}";
+"year-in-review-personalized-edit-views-subtitle-format-updated" = "Lukijat ympäri maailmaa arvostavat panostasi. Viimeisen kahden kuukauden aikana muokkaamasi artikkelit ovat saaneet yhteensä {{PLURAL:$1|$1 katselukerran|$1 katselukertaa}}. Kiitos kaltaistesi vapaaehtoisten, Wikipedia on jatkuvasti kehittyvä, faktaan perustuva ja luotettava tietolähde maailmalle.";
+"year-in-review-personalized-edit-views-title-format-updated" = "Muokkauksiasi on näytetty viime aikoina yli {{PLURAL:$1|$1 kerran|$1 kertaa}}";
+"year-in-review-personalized-editing-title-format-updated" = "Muokkasit {{PLURAL:$1|$1 kerran|$1 kertaa}}";
 "year-in-review-share-text" = "Tämä on Wikipedia-vuosikatsaukseni, joka on luotu Wikipedian iOS-sovelluksella.";
 "year-in-review-survey-additional-thoughts" = "Muita ajatuksia?";
 "year-in-review-survey-neutral" = "Neutraali";

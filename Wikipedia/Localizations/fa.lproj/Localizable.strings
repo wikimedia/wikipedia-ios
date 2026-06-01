@@ -605,11 +605,8 @@
 "image-rec-tooltip-3-body" = "تصمیم بگیرید که آیا تصویر در درک بهتر موضوع به افراد کمک خواهد کرد یا خیر.";
 "image-rec-tooltip-3-title" = "تصمیم بگیرید";
 "image-rec-view-article" = "مشاهدهٔ مقاله";
-"image-recommendations-email-fifth-line" = "[نماگرفت‌ها یا پیوندها]";
+// Fuzzy
 "image-recommendations-email-first-line" = "من در ویژگی ویرایش‌های پیشنهاد افزودن تصویر با یک مشکل مواجه شدم:";
-"image-recommendations-email-fourth-line" = "- [راه حل پیشنهادی را توصیف کنید]";
-"image-recommendations-email-second-line" = "- [مشکل خاص را توصیف کنید]";
-"image-recommendations-email-third-line" = "رفتاری که تمایل دارم ببینم چنین است:";
 "image-recommendations-email-title" = "گزارش اشکال - ویژگی افزودن تصویر";
 "image-recs-no-title" = "خیر";
 "image-recs-not-sure-title" = "مطمئن نیستم";
