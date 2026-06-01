@@ -5,8 +5,8 @@ final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataContr
     let id = WMFYearInReviewPersonalizedSlideID.editCount.rawValue
     let year: Int
     var isEvaluated: Bool = false
-    static var containsPersonalizedNetworkData = true
-    static var shouldFreeze = false
+    static let containsPersonalizedNetworkData = true
+    static let shouldFreeze = false
     
     private var editCount: Int?
 

@@ -460,7 +460,7 @@ private struct WMFFundraisingCampaignConfigResponse: Codable {
         }
     }
     
-    static var currentVersion = 2
+    static let currentVersion = 2
     let configs: [FundraisingCampaignConfig]
     
     init(from decoder: Decoder) throws {
