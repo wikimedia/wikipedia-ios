@@ -3,7 +3,7 @@ import CoreData
 import WidgetKit
 import WMFTestKitchen
 
-public final class WMFPage: Hashable, Equatable {
+public final class WMFPage: Hashable, Equatable, Sendable {
    public let namespaceID: Int
    public let projectID: String
    public let title: String

@@ -1,6 +1,6 @@
 import Foundation
 
-public final class UserContributionsDataController {
+public actor UserContributionsDataController {
     
     public static let shared = UserContributionsDataController()
     private let service = WMFDataEnvironment.current.mediaWikiService
