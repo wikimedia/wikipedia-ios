@@ -185,7 +185,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
               let hostingVC = gameNav.viewControllers.first as? WMFWhichCameFirstHostingController else { return }
         let gameViewModel = hostingVC.viewModel
         
-        let loginCoordinator = LoginCoordinator(navigationController: gameNav, theme: theme, loggingCategory: .activity)
+        let loginCoordinator = LoginCoordinator(navigationController: gameNav, theme: theme, loggingCategory: .game)
         loginCoordinator.loginSuccessCompletion = { [weak self, weak gameViewModel, weak gameNav] in
             guard let self else { return }
             gameNav?.presentedViewController?.dismiss(animated: true)
@@ -263,7 +263,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             articleURL: url,
             dataStore: dataStore,
             theme: theme,
-            source: .undefined,
+            source: .game,
             tabConfig: tabConfig
         )
         gameNavigationController?.dismiss(animated: true) {
@@ -305,6 +305,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
     private func saveArticle(url: URL) {
         dataStore.savedPageList.addSavedPage(with: url)
         showReadingListToast(for: url)
+        ReadingListsFunnel.shared.logSave(category: .game, label: nil, articleURL: url)
     }
 
     private func unsaveArticle(url: URL) {
