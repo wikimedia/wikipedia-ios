@@ -653,6 +653,7 @@
 "games-wcf-button-play-title" = "Jocar le joco de hodie";
 "games-wcf-explore-button-archive-title" = "Jocar jocos archivate";
 "games-wcf-explore-button-review-title" = "Revider resultatos";
+// Fuzzy
 "games-wcf-explore-complete-subtitle" = "Tu score del joco de hodie es $1/$2. Proxime joco in $3)";
 "games-wcf-explore-in-progress-subtitle" = "Tu es al question $1. Continua a divinar qual evento ha evenite primo in iste die del historia.";
 "games-wcf-explore-title" = "Qual ha evenite primo?";
@@ -1544,6 +1545,9 @@
 "which-came-first-next-button" = "Sequente";
 "which-came-first-retry-button" = "Reprobar";
 "which-came-first-see-results-button" = "Vider resultatos";
+"which-came-first-share-activity-text" = "Io joca a “Qual ha evenite primo?”, un joco quotidian de questiones e responsas sur le application de Wikipedia pro iOS https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=wiki_game_202605&mt=8";
+"which-came-first-share-score-summary" = "Hodie io ha obtenite un score de $1/$2 sur “Qual ha evenite primo?”.";
+"which-came-first-share-topics-title" = "Topicos includite:";
 "which-came-first-splash-about-button" = "A proposito de iste joco";
 "which-came-first-splash-continue-button" = "Continuar le joco de hodie";
 "which-came-first-splash-review-button" = "Revider resultatos";

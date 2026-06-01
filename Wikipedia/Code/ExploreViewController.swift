@@ -749,7 +749,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         // Daily game card — present the Which Came First splash screen
         if contentGroup.contentGroupKind == .dailyGame {
             guard let navigationController else { return }
-            let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+            let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, siteURL: contentGroup.siteURL)
             whichCameFirstCoordinator = coordinator
             coordinator.start()
             return
@@ -1066,7 +1066,8 @@ extension ExploreViewController {
         alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementPlayButton, style: .default) { [weak self] _ in
             guard let self else { return }
             gamesDataController.markGamesAnnouncementSeen()
-            let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore)
+            let siteURL = dataStore.languageLinkController.appLanguage?.siteURL
+            let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, siteURL: siteURL)
             coordinator.didFinish = { [weak self] in self?.whichCameFirstCoordinator = nil }
             self.whichCameFirstCoordinator = coordinator
             coordinator.start()

@@ -5,6 +5,7 @@ import WMF
 import WMFComponents
 import WMFData
 import WMFNativeLocalizations
+import CocoaLumberjackSwift
 
 /// Coordinator that presents the Which Came First game, starting with the splash screen.
 @MainActor
@@ -18,15 +19,27 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     /// The modal navigation controller that hosts the splash screen and game screens.
     private weak var gameNavigationController: UINavigationController?
-
     private let dataStore: MWKDataStore
+    private let project: WMFProject?
 
     var didFinish: (() -> Void)?
 
-    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
+    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, siteURL: URL?) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
+        self.project = Self.resolveProject(siteURL: siteURL)
+    }
+
+    private static func resolveProject(siteURL: URL?) -> WMFProject? {
+        if let siteURL, let languageCode = siteURL.wmf_languageCode {
+            let language = WMFLanguage(languageCode: languageCode, languageVariantCode: siteURL.wmf_languageVariantCode)
+            return WMFProject.wikipedia(language)
+        }
+        if let language = WMFDataEnvironment.current.primaryAppLanguage {
+            return WMFProject.wikipedia(language)
+        }
+        return nil
     }
 
     // MARK: - Coordinator
@@ -73,8 +86,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     /// Fetches today's session and delegates play button title updates to the view model.
     private func updatePlayButtonTitleIfNeeded(viewModel: WMFGamesSplashScreenViewModel) {
-        guard let language = WMFDataEnvironment.current.primaryAppLanguage else { return }
-        let project = WMFProject.wikipedia(language)
+        guard let project else { return }
         let todayDateString = formattedTodayISODateString()
 
         Task { [weak self, weak viewModel] in
@@ -87,9 +99,8 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
     // MARK: - Navigation
 
     private func showGame() {
-        guard let language = WMFDataEnvironment.current.primaryAppLanguage,
+        guard let project,
               let gameNav = gameNavigationController else { return }
-        let project = WMFProject.wikipedia(language)
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         let viewModel = WMFWhichCameFirstViewModel(date: formattedTodayISODateString(), project: project)
         viewModel.didTapShare = { [weak self, weak viewModel] in
@@ -99,6 +110,29 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         viewModel.isLoggedIn = isLoggedIn
         viewModel.onLogIn = { [weak self] in
             self?.showLogin()
+        }
+        viewModel.onArticleTap = { [weak self] url in
+            self?.openArticle(url: url, inNewTab: false)
+        }
+        viewModel.onArticleOpenInNewTab = { [weak self] url in
+            WMFArticleTabsDataController.shared.didTapOpenNewTab()
+            ArticleTabsFunnel.shared.logLongPressOpenInNewTab()
+            self?.openArticle(url: url, inNewTab: true)
+        }
+        viewModel.onArticleOpenInBackgroundTab = { [weak self] url in
+            self?.openArticleInBackgroundTab(url: url)
+        }
+        viewModel.onArticleSaveForLater = { [weak self] url in
+            self?.saveArticle(url: url)
+        }
+        viewModel.onArticleUnsave = { [weak self] url in
+            self?.unsaveArticle(url: url)
+        }
+        viewModel.onCheckSavedState = { [weak self] url in
+            self?.dataStore.savedPageList.isAnyVariantSaved(url) ?? false
+        }
+        viewModel.onArticleShare = { [weak self] url in
+            self?.shareArticle(url: url)
         }
         viewModel.didTapLearnMore = { [weak self] in
             self?.showAbout()
@@ -186,6 +220,79 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         }
     }
 
+    private func openArticle(url: URL, inNewTab: Bool) {
+        let tabConfig: ArticleTabConfig = inNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTab
+        let articleCoordinator = ArticleCoordinator(
+            navigationController: navigationController,
+            articleURL: url,
+            dataStore: dataStore,
+            theme: theme,
+            source: .undefined,
+            tabConfig: tabConfig
+        )
+        gameNavigationController?.dismiss(animated: true) {
+            articleCoordinator.start()
+        }
+    }
+
+    private func openArticleInBackgroundTab(url: URL) {
+        guard let title = url.wmf_title,
+              let languageCode = url.wmf_languageCode else { return }
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: url.wmf_languageVariantCode))
+        let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: project, articleURL: url)
+
+        Task {
+            do {
+                let articleTabsDataController = WMFArticleTabsDataController.shared
+                articleTabsDataController.didTapOpenNewTab()
+                let tabsCount = try await articleTabsDataController.tabsCount()
+                let tabsMax = articleTabsDataController.tabsMax
+                if tabsCount >= tabsMax {
+                    if let currentTabIdentifier = try await articleTabsDataController.currentTabIdentifier() {
+                        _ = try await articleTabsDataController.appendArticle(article, toTabIdentifier: currentTabIdentifier)
+                    } else {
+                        _ = try await articleTabsDataController.createArticleTab(initialArticle: article)
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        WMFToastManager.sharedInstance.showRichToast(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousToasts: true)
+                    }
+                } else {
+                    _ = try await articleTabsDataController.createArticleTab(initialArticle: article, setAsCurrent: false)
+                    ArticleTabsFunnel.shared.logLongPressOpenInBackgroundTab()
+                }
+            } catch {
+                DDLogError("Failed to open article in background tab: \(error)")
+            }
+        }
+    }
+
+    private func saveArticle(url: URL) {
+        dataStore.savedPageList.addSavedPage(with: url)
+        showReadingListToast(for: url)
+    }
+
+    private func unsaveArticle(url: URL) {
+        dataStore.savedPageList.removeEntry(with: url)
+    }
+
+    private func showReadingListToast(for url: URL) {
+        guard let article = dataStore.fetchArticle(with: url),
+              let appVC = navigationController.tabBarController as? WMFAppViewController,
+              let presenter = gameNavigationController?.visibleViewController else { return }
+        appVC.readingListHintPresenter.toggle(presenter: presenter, article: article, theme: theme)
+    }
+
+    private func shareArticle(url: URL) {
+        guard let gameNav = gameNavigationController else { return }
+        let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        if let popover = activityVC.popoverPresentationController {
+            popover.sourceView = gameNav.visibleViewController?.view
+            popover.sourceRect = gameNav.visibleViewController?.view.bounds ?? .zero
+            popover.permittedArrowDirections = []
+        }
+        gameNav.present(activityVC, animated: true)
+    }
+
     private func showAbout() {
         guard let gameNav = gameNavigationController,
               let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Game:_Which_came_first") else { return }
@@ -264,4 +371,3 @@ private final class WCFShareActivityContentProvider: UIActivityItemProvider, @un
         return text
     }
 }
-
