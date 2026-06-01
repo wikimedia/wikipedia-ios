@@ -648,7 +648,6 @@
 "games-email-report-body-encountered" = "I have encountered a problem with the Wikipedia games feature:";
 "games-email-report-subject" = "Issue Report - Wikipedia games";
 "games-wcf-button-play-title" = "Play today's game";
-"games-wcf-explore-button-archive-title" = "Play the archive";
 "games-wcf-explore-button-review-title" = "Review results";
 "games-wcf-explore-complete-subtitle" = "You scored $1/$2 on today's game. Next game in $3";
 "games-wcf-explore-in-progress-subtitle" = "You're on question $1. Continue guessing which event came first on this day in history.";

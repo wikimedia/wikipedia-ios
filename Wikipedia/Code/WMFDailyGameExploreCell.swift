@@ -133,7 +133,6 @@ class WMFDailyGameExploreCell: CollectionViewCell {
             completedScore = score
             completedTotal = total
             setButton1Title(WMFLocalizedString("games-wcf-explore-button-review-title", value:"Review results", comment: "Button text on Which Came First card in the Explore tab, shown when game is complete. Tapping navigates to the results of the game."))
-            setButton2Title(WMFLocalizedString("games-wcf-explore-button-archive-title", value:"Play the archive", comment: "Button text on Which Came First card in the Explore tab, shown when game is complete. Tapping navigates to the Which Came First archive picker."))
             button2.isHidden = false
             headerStacked = true
             startCountdownTimer()
@@ -378,11 +377,6 @@ class WMFDailyGameExploreCell: CollectionViewCell {
     private func setButton1Title(_ title: String) {
         button1.setTitle(title, for: .normal)
         button1.titleLabel?.text = title
-    }
-
-    private func setButton2Title(_ title: String) {
-        button2.setTitle(title, for: .normal)
-        button2.titleLabel?.text = title
     }
 }
 
