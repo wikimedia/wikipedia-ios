@@ -7,6 +7,20 @@ import WMFNativeLocalizations
 import WMFTestKitchen
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring {
+    
+    func exploreCardViewControllerDidTapReviewResults(_ exploreCardViewController: ExploreCardViewController) {
+        guard let contentGroup = exploreCardViewController.contentGroup,
+              let navigationController else { return }
+        gameInstrument.submitInteraction(
+            action: "click",
+            actionSource: "feed_games",
+            elementId: "review_results",
+            actionContext: ["isFirstVisit" :"false"]
+        )
+        let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, siteURL: contentGroup.siteURL)
+        whichCameFirstCoordinator = coordinator
+        coordinator.start()
+    }
 
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
@@ -20,6 +34,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     private let widgetInstrument = WidgetFunnel().widgetInstrument
+    
+    private lazy var gameInstrument = TestKitchenAdapter.shared.client
+        .getInstrument(name: "apps-wiki-game")
+        .setDefaultActionSource("feed_games")
+        .startFunnel(name: "wiki_game")
     
     
     private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
@@ -737,6 +756,19 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             } else {
                 imageScaleTransitionView = nil
             }
+        }
+        
+        if contentGroup.contentGroupKind == .dailyGame {
+            guard let navigationController else { return }
+            gameInstrument.submitInteraction(
+                action: "click",
+                actionSource: "feed_games",
+                elementId: "game_enter"
+            )
+            let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, siteURL: contentGroup.siteURL)
+            whichCameFirstCoordinator = coordinator
+            coordinator.start()
+            return
         }
 
         // First try pushing articles via coordinators

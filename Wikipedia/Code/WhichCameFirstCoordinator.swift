@@ -22,7 +22,14 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     private let dataStore: MWKDataStore
     private let project: WMFProject?
-    
+
+    // MARK: - Instrumentation
+
+    private lazy var instrument = TestKitchenAdapter.shared.client
+        .getInstrument(name: "apps-wiki-game")
+        .setDefaultActionSource("wiki_game")
+        .startFunnel(name: "wiki_game")
+
     init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, siteURL: URL?) {
         self.navigationController = navigationController
         self.theme = theme
@@ -52,6 +59,10 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         )
         gameNavigationController = nav
         navigationController.present(nav, animated: true)
+
+        // Funnel starts here — impression of the splash/game_start screen
+        logImpression(actionSource: "game_start", actionSubtype: "game_play_start")
+
         return true
     }
 
@@ -62,6 +73,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             icon: WMFSFSymbolIcon.for(symbol: .calendar),
             dateString: formattedTodayDateString(),
             didTapPlay: { [weak self] in
+                self?.logClick(actionSource: "game_start", elementId: "game_play_start")
                 self?.showGame()
             },
             didTapAbout: { [weak self] in
@@ -100,44 +112,71 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
               let gameNav = gameNavigationController else { return }
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         let viewModel = WMFWhichCameFirstViewModel(date: formattedTodayISODateString(), project: project)
+
         viewModel.didTapShare = { [weak self, weak viewModel] in
             guard let self, let viewModel else { return }
+            self.logClick(actionSource: "game_end", elementId: "share_score_button")
             self.showShare(gameViewModel: viewModel)
         }
         viewModel.isLoggedIn = isLoggedIn
         viewModel.onLogIn = { [weak self] in
+            self?.logClick(actionSource: "game_end", elementId: "login_button")
             self?.showLogin()
         }
         viewModel.onArticleTap = { [weak self] url in
+            self?.logClick(actionSource: "game_end", elementId: "article_open")
             self?.openArticle(url: url, inNewTab: false)
         }
         viewModel.onArticleOpenInNewTab = { [weak self] url in
+            self?.logClick(actionSource: "game_end", actionSubtype: "article_overflow", elementId: "article_open_tab")
             WMFArticleTabsDataController.shared.didTapOpenNewTab()
             ArticleTabsFunnel.shared.logLongPressOpenInNewTab()
             self?.openArticle(url: url, inNewTab: true)
         }
         viewModel.onArticleOpenInBackgroundTab = { [weak self] url in
+            self?.logClick(actionSource: "game_end", actionSubtype: "article_overflow", elementId: "article_open_background")
             self?.openArticleInBackgroundTab(url: url)
         }
         viewModel.onArticleSaveForLater = { [weak self] url in
+            self?.logClick(actionSource: "game_end", actionSubtype: "article_overflow", elementId: "article_save")
             self?.saveArticle(url: url)
         }
         viewModel.onArticleUnsave = { [weak self] url in
+            self?.logClick(actionSource: "game_end", actionSubtype: "article_overflow", elementId: "article_save")
             self?.unsaveArticle(url: url)
         }
         viewModel.onCheckSavedState = { [weak self] url in
             self?.dataStore.savedPageList.isAnyVariantSaved(url) ?? false
         }
         viewModel.onArticleShare = { [weak self] url in
+            self?.logClick(actionSource: "game_end", actionSubtype: "article_overflow", elementId: "article_share")
             self?.shareArticle(url: url)
         }
         viewModel.didTapLearnMore = { [weak self] in
+            self?.logClick(actionSource: "game_end", actionSubtype: "game_overflow", elementId: "learn_more")
             self?.showAbout()
         }
         viewModel.didTapReportProblem = { [weak self] in
+            self?.logClick(actionSource: "game_end", actionSubtype: "game_overflow", elementId: "problem_report")
             self?.showReportProblem()
         }
+
+        // Slide-level instrumentation
+        viewModel.didImpressionSlide = { [weak self] slideIndex in
+            self?.logImpression(actionSource: "game_play", actionSubtype: "game_play_\(slideIndex)")
+        }
+        viewModel.didTapExitDuringPlay = { [weak self] slideIndex in
+            self?.logClick(actionSource: "game_play", actionSubtype: "game_play_\(slideIndex)", elementId: "exit_button")
+        }
+        viewModel.didSubmitAnswer = { [weak self] slideIndex in
+            self?.logClick(actionSource: "game_play", actionSubtype: "game_play_\(slideIndex)", elementId: "answer_submit")
+        }
+        viewModel.didFinishGame = { [weak self] in
+            self?.logImpression(actionSource: "game_end")
+        }
+
         let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
+        
         gameNav.setViewControllers([gameVC], animated: true)
     }
 
@@ -316,6 +355,25 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         ].joined(separator: "\n\n")
         mailVC.setMessageBody(body, isHTML: false)
         gameNav.present(mailVC, animated: true)
+    }
+
+    // MARK: - Instrumentation Helpers
+
+    private func logImpression(actionSource: String, actionSubtype: String? = nil) {
+        instrument.submitInteraction(
+            action: "impression",
+            actionSource: actionSource,
+            actionSubtype: actionSubtype
+        )
+    }
+
+    private func logClick(actionSource: String, actionSubtype: String? = nil, elementId: String) {
+        instrument.submitInteraction(
+            action: "click",
+            actionSource: actionSource,
+            actionSubtype: actionSubtype,
+            elementId: elementId
+        )
     }
 
     // MARK: - Helpers

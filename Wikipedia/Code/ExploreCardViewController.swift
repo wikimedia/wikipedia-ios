@@ -11,6 +11,7 @@ protocol ExploreCardViewControllerDelegate: NestedCollectionViewContextMenuDeleg
     var saveButtonsController: SaveButtonsController { get }
     var layoutCache: ColumnarCollectionViewControllerLayoutCache { get }
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath: IndexPath)
+    func exploreCardViewControllerDidTapReviewResults(_ exploreCardViewController: ExploreCardViewController)
 }
 
 struct ExploreSaveButtonUserInfo {
@@ -431,7 +432,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         cell.tappedReviewResults = { [weak self] in
             guard let self else { return }
-            self.delegate?.exploreCardViewController(self, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
+            self.delegate?.exploreCardViewControllerDidTapReviewResults(self)
         }
         cell.tappedPlayTheArchive = { [weak self] in
             guard let self else { return }
