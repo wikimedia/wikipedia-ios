@@ -72,7 +72,7 @@ struct UITestConfiguration {
         }
     }
 
-    private let defaultHTTPClientProfile = UITestHTTPClientProfile.fixtureStrict.rawValue
+    private let defaultHTTPClientProfile = TestHTTPClientProfile.fixtureStrict.rawValue
     private let defaultLanguageCode = "en"
 }
 

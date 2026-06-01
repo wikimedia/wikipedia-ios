@@ -18,16 +18,14 @@ class ArticleManualPerformanceTests: XCTestCase {
     private var contextMenuConfigAppSchemeArticleURL: URL! = URL(string: "app://en.wikipedia.org/wiki/Cat")
     
     override func setUp(completion: @escaping (Error?) -> Void) {
-        LSNocilla.sharedInstance().start()
-        ArticleTestHelpers.setup {
-            ArticleTestHelpers.stubCompleteMobileHTMLResponse(inBundle: self.wmf_bundle())
+        ArticleTestHelpers.setupWithNetworkFixtures {
             completion(nil)
         }
     }
 
     override func tearDown() {
+        ArticleTestHelpers.tearDownNetworkFixtures()
         super.tearDown()
-        LSNocilla.sharedInstance().stop()
     }
 
     // represents the speed at which article content is seen on screen
