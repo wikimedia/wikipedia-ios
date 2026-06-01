@@ -15,7 +15,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             action: "click",
             actionSource: "feed_games",
             elementId: "review_results",
-            actionContext: ["isFirstVisit" :"false"]
+            // Always false since review results from explore card is always finishedly
+            actionContext: ["isFirstVisit" : "false"]
         )
         let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, siteURL: contentGroup.siteURL)
         whichCameFirstCoordinator = coordinator

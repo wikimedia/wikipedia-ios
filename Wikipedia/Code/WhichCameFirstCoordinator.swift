@@ -142,7 +142,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             self?.saveArticle(url: url)
         }
         viewModel.onArticleUnsave = { [weak self] url in
-            self?.logClick(actionSource: "game_end", actionSubtype: "article_overflow", elementId: "article_save")
+            self?.logClick(actionSource: "game_end", actionSubtype: "article_overflow", elementId: "article_unsave")
             self?.unsaveArticle(url: url)
         }
         viewModel.onCheckSavedState = { [weak self] url in
