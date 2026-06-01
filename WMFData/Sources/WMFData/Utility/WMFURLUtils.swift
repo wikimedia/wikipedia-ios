@@ -14,7 +14,11 @@ extension String {
 }
 
 // MARK: - Language variant (associated object)
-private var wmfLanguageVariantKey: UInt8 = 0
+// Only this byte's *address* is used, as a unique key for the objc associated
+// object below; its value is never read or written, so there is no data race.
+// `nonisolated(unsafe)` is Apple's recommended annotation for associated-object
+// keys under the Swift 6 language mode.
+private nonisolated(unsafe) var wmfLanguageVariantKey: UInt8 = 0
 extension NSURL {
     @objc var wmf_languageVariantCode: String? {
         get { objc_getAssociatedObject(self, &wmfLanguageVariantKey) as? String }
