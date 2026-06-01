@@ -999,7 +999,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
 extension ExploreViewController {
     
-    /// Catch-all method for deciding what is the best modal to present on top of Explore at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
+    /// Modal presentation priority chain for the Explore view:
+    ///   1. Reading challenge  →  if shown, stop.
+    ///   2. Year in Review     →  if shown, stop.
+    ///   3. Games announcement →  shown only when both of the above decline.
+    ///
+    /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
+    /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
         
         // Do not replace an in-flight reading challenge coordinator.
@@ -1007,7 +1013,7 @@ extension ExploreViewController {
             return
         }
         
-        // Prioritize reading challenge, then fall back to Activity onboarding or survey view if that doesn't present
+        // Prioritize reading challenge, then fall back to year in review or tooltips
         guard let navigationController, let dataStore else {
             presentYearInReviewAnnouncementOrTooltipsIfNeeded()
             return
@@ -1031,13 +1037,68 @@ extension ExploreViewController {
         
         readingChallengeCoordinator.start()
     }
-    
+
+    /// Called at the tail of the modal chain (after RC and YIR have both declined).
+    /// If something unexpected appears before the async check resolves (e.g. background login/2FA),
+    /// the safety-net guard on presentedViewController drops the attempt and defers to next launch.
+    private func presentGamesAnnouncementIfNeeded() {
+        let gamesDataController = WMFGamesDataController()
+        let todayDateString = todayDateString()
+
+        Task { [weak self] in
+            guard let self else { return }
+            guard await gamesDataController.shouldShowGamesAnnouncement(date: todayDateString) else { return }
+            // Safety net: bail if something unexpected appeared (e.g. background login/2FA).
+            guard self.presentedViewController == nil else { return }
+            self.presentGamesAnnouncementAlert(gamesDataController: gamesDataController)
+        }
+    }
+
+    private func presentGamesAnnouncementAlert(gamesDataController: WMFGamesDataController) {
+        guard let navigationController else { return }
+
+        let alert = UIAlertController(
+            title: CommonStrings.gamesAnnouncementTitle,
+            message: CommonStrings.gamesAnnouncementMessage,
+            preferredStyle: .actionSheet
+        )
+
+        alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementPlayButton, style: .default) { [weak self] _ in
+            guard let self else { return }
+            gamesDataController.markGamesAnnouncementSeen()
+            let siteURL = dataStore.languageLinkController.appLanguage?.siteURL
+            let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, siteURL: siteURL)
+            coordinator.didFinish = { [weak self] in self?.whichCameFirstCoordinator = nil }
+            self.whichCameFirstCoordinator = coordinator
+            coordinator.start()
+        })
+
+        alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementMaybeLaterButton, style: .default) { _ in
+            gamesDataController.markGamesAnnouncementSeen()
+        })
+
+        if let popover = alert.popoverPresentationController {
+            popover.sourceView = navigationController.view
+            popover.sourceRect = CGRect(x: navigationController.view.bounds.midX, y: navigationController.view.bounds.midY, width: 0, height: 0)
+            popover.permittedArrowDirections = []
+        }
+
+        navigationController.present(alert, animated: true)
+    }
+
+    private func todayDateString() -> String {
+        let formatter = DateFormatter.onThisDayAPIDateFormatter
+        return formatter.string(from: Date())
+    }
+
     private func presentYearInReviewAnnouncementOrTooltipsIfNeeded() {
         if needsYearInReviewAnnouncement() {
             updateProfileButton()
             presentYearInReviewAnnouncement()
+            // YIR showed — games deferred to next launch.
         } else {
             perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
+            presentGamesAnnouncementIfNeeded()
         }
     }
     
