@@ -56,7 +56,6 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
                 self?.showAbout()
             },
             didTapClose: { [weak self] in
-                self?.gameNavigationController?.dismiss(animated: true)
                 self?.didFinish?()
             },
             didTapLearnMore: { [weak self] in
