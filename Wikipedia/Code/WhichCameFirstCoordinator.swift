@@ -19,10 +19,11 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     /// The modal navigation controller that hosts the splash screen and game screens.
     private weak var gameNavigationController: UINavigationController?
-
     private let dataStore: MWKDataStore
     private let project: WMFProject?
-    
+
+    var didFinish: (() -> Void)?
+
     init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, siteURL: URL?) {
         self.navigationController = navigationController
         self.theme = theme
@@ -67,7 +68,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             didTapAbout: { [weak self] in
                 self?.showAbout()
             },
-            didTapClose: nil,
+            didTapClose: { [weak self] in
+                self?.didFinish?()
+            },
             didTapLearnMore: { [weak self] in
                 self?.showAbout()
             },

@@ -61,6 +61,9 @@ public enum WMFUserDefaultsKey: String {
     case devReadingChallengeCurrentDate = "dev-reading-challenge-current-date"
     case devReadingChallengeState = "dev-reading-challenge-state"
 
+    // Games announcement
+    case hasSeenGamesAnnouncement = "has-seen-games-announcement"
+
     // Games dev settings
     case developerSettingsShowGamesV1 = "dev-settings-show-games-v1"
     
