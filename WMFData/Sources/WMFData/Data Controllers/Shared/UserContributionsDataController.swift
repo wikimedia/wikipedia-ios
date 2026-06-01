@@ -134,7 +134,7 @@ public actor UserContributionsDataController {
     }
 }
 
-public struct ArticleEdit: Identifiable, Hashable {
+public struct ArticleEdit: Identifiable, Hashable, Sendable {
     public let id: String
     public let title: String
     public let projectID: String
