@@ -42,12 +42,22 @@ extension ArticleRobot {
     }
 
     @discardableResult
+    func assertTabsOverviewVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.assertExists(
+            base.app.otherElements[AccessibilityIdentifiers.Tabs.view],
+            file: file,
+            line: line
+        )
+        return self
+    }
+
+    @discardableResult
     func rotateAndAssertArticleWorks(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        XCUIDevice.shared.orientation = .landscapeLeft
+        base.rotateToLandscapeLeft()
         _ = assertVisible(file: file, line: line)
         _ = assertTopControlsVisible(file: file, line: line)
 
-        XCUIDevice.shared.orientation = .portrait
+        base.rotateToPortrait()
         _ = assertVisible(file: file, line: line)
         return assertTopControlsVisible(file: file, line: line)
     }

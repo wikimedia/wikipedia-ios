@@ -67,6 +67,36 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
+      "gpssearch": "D"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/en/DogSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Do"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/en/DogSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
       "gpssearch": "Dog"
     },
     "statusCode": 200,
@@ -360,6 +390,111 @@
     "queryItems": {
       "action": "query",
       "generator": "prefixsearch",
+      "gpssearch": "H"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/de/DogSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Ha"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/de/DogSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Hau"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/de/DogSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Haus"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/de/DogSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Haush"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/de/DogSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Haushu"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/de/DogSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Haushun"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/de/DogSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
       "gpssearch": "Haushund"
     },
     "statusCode": 200,
@@ -536,6 +671,111 @@
       "Content-Type": "application/json"
     },
     "bodyResource": "ArticleControls/he/DogMediaList.json"
+  },
+  {
+    "method": "GET",
+    "host": "he.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "כ"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/he/DogSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "he.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "כל"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/he/DogSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "he.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "כלב"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/he/DogSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "he.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "כלב "
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/he/DogSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "he.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "כלב ה"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/he/DogSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "he.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "כלב הב"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/he/DogSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "he.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "כלב הבי"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/he/DogSearchResults.json"
   },
   {
     "method": "GET",
@@ -734,6 +974,36 @@
       "Content-Type": "application/json"
     },
     "bodyResource": "ArticleControls/vi/DogMediaList.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "C"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/DogSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Ch"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/DogSearchResults.json"
   },
   {
     "method": "GET",

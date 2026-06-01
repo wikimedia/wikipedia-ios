@@ -1205,6 +1205,10 @@
 		7AFEB3F61FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEB3F41FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift */; };
 		7AFEB3F71FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEB3F41FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift */; };
 		7B41F9C6D1A14BB6A9F0E101 /* SessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B41F9C5D1A14BB6A9F0E101 /* SessionHTTPClient.swift */; };
+		7D8C00012FCF000000000001 /* WMFSearchFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00002FCF000000000001 /* WMFSearchFetcherTests.swift */; };
+		7D8C00042FCF000000000001 /* SearchHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00032FCF000000000001 /* SearchHTTPClient.swift */; };
+		7D8C00062FCF000000000001 /* SearchURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00052FCF000000000001 /* SearchURLProtocol.swift */; };
+		7D8C00082FCF000000000001 /* URLRequest+SearchRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00072FCF000000000001 /* URLRequest+SearchRequestTests.swift */; };
 		830177FA1FBF3E490005681C /* ReadingListsAPIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830177F91FBF3E490005681C /* ReadingListsAPIController.swift */; };
 		830177FC1FBF3EF70005681C /* NSManagedObjectContext+WMFUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830177FB1FBF3EF70005681C /* NSManagedObjectContext+WMFUtilities.swift */; };
 		83023C0620E51DDF00EC7592 /* SearchLanguagesBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C0420E51DDF00EC7592 /* SearchLanguagesBarViewController.swift */; };
@@ -1592,6 +1596,9 @@
 		A452F9FD24081B0200D8ED09 /* MockUIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452F9FC24081B0200D8ED09 /* MockUIDevice.swift */; };
 		A4C558BD2403D74100AFBFDC /* LocationManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C558BC2403D74100AFBFDC /* LocationManagerProtocol.swift */; };
 		A4C558BF2403D7E300AFBFDC /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C558BE2403D7E200AFBFDC /* LocationManager.swift */; };
+		A5A1C2022EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A1C2012EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift */; };
+		A5A1C2032EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A1C2012EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift */; };
+		A5A1C2042EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A1C2012EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift */; };
 		A714355D2E01CB56001514EB /* LockscreenSearchWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A714355C2E01CB56001514EB /* LockscreenSearchWidget.swift */; };
 		A77070232DF6ECB500D9F09B /* SearchWidget+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77070222DF6ECA400D9F09B /* SearchWidget+LocalizedStrings.swift */; };
 		A7B292132DF1CF9D001C213F /* SearchWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B292122DF1CF9D001C213F /* SearchWidget.swift */; };
@@ -1841,10 +1848,6 @@
 		B0E809411C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809401C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m */; };
 		B0E809551C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */; };
 		B0E8095E1C0D1B930065EBC0 /* WMFMTLModelSerializationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8095D1C0D1B930065EBC0 /* WMFMTLModelSerializationTests.m */; };
-		7D8C00012FCF000000000001 /* WMFSearchFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00002FCF000000000001 /* WMFSearchFetcherTests.swift */; };
-		7D8C00042FCF000000000001 /* SearchHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00032FCF000000000001 /* SearchHTTPClient.swift */; };
-		7D8C00062FCF000000000001 /* SearchURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00052FCF000000000001 /* SearchURLProtocol.swift */; };
-		7D8C00082FCF000000000001 /* URLRequest+SearchRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00072FCF000000000001 /* URLRequest+SearchRequestTests.swift */; };
 		B0ED17341E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED17331E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift */; };
 		B0ED173D1E49831B008B70AD /* WMFTwoFactorPasswordViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0ED173C1E49831B008B70AD /* WMFTwoFactorPasswordViewController.storyboard */; };
 		B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */; };
@@ -1868,9 +1871,6 @@
 		B0F929A01F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F9299B1F84789C002A0788 /* WMFWelcomeInitialViewController.swift */; };
 		B0F92C6F1E3C580900B72802 /* WMFCaptchaResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C6E1E3C580900B72802 /* WMFCaptchaResetter.swift */; };
 		B0F92C821E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C811E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift */; };
-		A5A1C2022EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A1C2012EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift */; };
-		A5A1C2032EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A1C2012EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift */; };
-		A5A1C2042EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A1C2012EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift */; };
 		B2BECD1B2CFC4098AE814E46 /* PageContentService+UITestAccessibilityScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A66E119365436E9C5F853D /* PageContentService+UITestAccessibilityScript.swift */; };
 		B37B38F01E5F432F00FE11BD /* WMFDatabaseHousekeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B38EF1E5F432F00FE11BD /* WMFDatabaseHousekeeper.swift */; };
 		B389CFCB1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */; };
@@ -3136,7 +3136,6 @@
 		53A575F92602C845009835E6 /* WMFAppViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFAppViewController+Extensions.swift"; sourceTree = "<group>"; };
 		53BAB79925DDDEE100A5ED4E /* Wikipedia 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 6.xcdatamodel"; sourceTree = "<group>"; };
 		59A66E119365436E9C5F853D /* PageContentService+UITestAccessibilityScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageContentService+UITestAccessibilityScript.swift"; sourceTree = "<group>"; };
-		A5A1C2012EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageContentService+UITestAccessibilityConfiguration.swift"; sourceTree = "<group>"; };
 		60A952CD4C29EF4BB953B27E /* WMFReadingListToastManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WMFReadingListToastManager.swift; sourceTree = "<group>"; };
 		67033E132A61B24800896852 /* WatchlistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistController.swift; sourceTree = "<group>"; };
 		67033E182A61DC3700896852 /* ArticleViewController+Watchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Watchlist.swift"; sourceTree = "<group>"; };
@@ -3515,6 +3514,10 @@
 		7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Peekable.swift"; sourceTree = "<group>"; };
 		7AFEB3F41FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewCell.swift; sourceTree = "<group>"; };
 		7B41F9C5D1A14BB6A9F0E101 /* SessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHTTPClient.swift; sourceTree = "<group>"; };
+		7D8C00002FCF000000000001 /* WMFSearchFetcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFSearchFetcherTests.swift; sourceTree = "<group>"; };
+		7D8C00032FCF000000000001 /* SearchHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHTTPClient.swift; sourceTree = "<group>"; };
+		7D8C00052FCF000000000001 /* SearchURLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchURLProtocol.swift; sourceTree = "<group>"; };
+		7D8C00072FCF000000000001 /* URLRequest+SearchRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLRequest+SearchRequestTests.swift"; sourceTree = "<group>"; };
 		81B26C372E6D757400EADB09 /* OpenSourceDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = OpenSourceDebug.xcconfig; sourceTree = "<group>"; };
 		830177F91FBF3E490005681C /* ReadingListsAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReadingListsAPIController.swift; path = "WMF Framework/ReadingListsAPIController.swift"; sourceTree = SOURCE_ROOT; };
 		830177FB1FBF3EF70005681C /* NSManagedObjectContext+WMFUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+WMFUtilities.swift"; sourceTree = "<group>"; };
@@ -3700,6 +3703,7 @@
 		A452F9FC24081B0200D8ED09 /* MockUIDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUIDevice.swift; sourceTree = "<group>"; };
 		A4C558BC2403D74100AFBFDC /* LocationManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManagerProtocol.swift; sourceTree = "<group>"; };
 		A4C558BE2403D7E200AFBFDC /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		A5A1C2012EDE900100000001 /* PageContentService+UITestAccessibilityConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageContentService+UITestAccessibilityConfiguration.swift"; sourceTree = "<group>"; };
 		A714355C2E01CB56001514EB /* LockscreenSearchWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockscreenSearchWidget.swift; sourceTree = "<group>"; };
 		A77070222DF6ECA400D9F09B /* SearchWidget+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchWidget+LocalizedStrings.swift"; sourceTree = "<group>"; };
 		A7B292122DF1CF9D001C213F /* SearchWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWidget.swift; sourceTree = "<group>"; };
@@ -4011,10 +4015,6 @@
 		B0E809401C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFLinkParsingTests.m"; path = "WikipediaUnitTests/Code/NSURL+WMFLinkParsingTests.m"; sourceTree = SOURCE_ROOT; };
 		B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CLLocation+WMFBearingTests.m"; path = "WikipediaUnitTests/Code/CLLocation+WMFBearingTests.m"; sourceTree = SOURCE_ROOT; };
 		B0E8095D1C0D1B930065EBC0 /* WMFMTLModelSerializationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMTLModelSerializationTests.m; path = WikipediaUnitTests/Code/WMFMTLModelSerializationTests.m; sourceTree = SOURCE_ROOT; };
-		7D8C00002FCF000000000001 /* WMFSearchFetcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFSearchFetcherTests.swift; sourceTree = "<group>"; };
-		7D8C00032FCF000000000001 /* SearchHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHTTPClient.swift; sourceTree = "<group>"; };
-		7D8C00052FCF000000000001 /* SearchURLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchURLProtocol.swift; sourceTree = "<group>"; };
-		7D8C00072FCF000000000001 /* URLRequest+SearchRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLRequest+SearchRequestTests.swift"; sourceTree = "<group>"; };
 		B0E8096D1C0D1DD50065EBC0 /* WikipediaUnitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "WikipediaUnitTests-Bridging-Header.h"; path = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		B0E8096E1C0D21530065EBC0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0E809701C0D215D0065EBC0 /* WikipediaUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WikipediaUnitTests-Prefix.pch"; sourceTree = "<group>"; };
@@ -6258,6 +6258,18 @@
 			name = Settings;
 			sourceTree = "<group>";
 		};
+		7D8C00102FCF000000000001 /* TestNetworkFixtures */ = {
+			isa = PBXGroup;
+			children = (
+				7D8C00002FCF000000000001 /* WMFSearchFetcherTests.swift */,
+				7D8C00032FCF000000000001 /* SearchHTTPClient.swift */,
+				7D8C00052FCF000000000001 /* SearchURLProtocol.swift */,
+				7D8C00072FCF000000000001 /* URLRequest+SearchRequestTests.swift */,
+				92477EAD1E964A5B9D86A01E /* TestNetworkFixtureInterceptorTests.swift */,
+			);
+			path = TestNetworkFixtures;
+			sourceTree = "<group>";
+		};
 		81B26C352E6D733A00EADB09 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
@@ -7073,10 +7085,10 @@
 		BC7C3A381C0FF9620057F023 /* Code */ = {
 			isa = PBXGroup;
 			children = (
-					6714D6C9245A2B6A00CE5A4A /* Manual Tests */,
-					BCA6764F1AC05FE200A16160 /* Utilities */,
-					BCD67E7D1C1F12F2005179E1 /* Tests */,
-				);
+				6714D6C9245A2B6A00CE5A4A /* Manual Tests */,
+				BCA6764F1AC05FE200A16160 /* Utilities */,
+				BCD67E7D1C1F12F2005179E1 /* Tests */,
+			);
 			name = Code;
 			sourceTree = "<group>";
 		};
@@ -7167,13 +7179,13 @@
 				B0E808A81C0D16A00065EBC0 /* UIView+VisualTestSizingUtils.m */,
 				D8D5507F1DF0D2BD00B90177 /* NSArray+WMFMatching.h */,
 				D8D550801DF0D2BD00B90177 /* NSArray+WMFMatching.m */,
-					B0E808B71C0D17160065EBC0 /* WMFHTTPHangingProtocol.h */,
-					B0E808B81C0D17160065EBC0 /* WMFHTTPHangingProtocol.m */,
+				B0E808B71C0D17160065EBC0 /* WMFHTTPHangingProtocol.h */,
+				B0E808B81C0D17160065EBC0 /* WMFHTTPHangingProtocol.m */,
 				BC45FF461C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.h */,
 				BC45FF471C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.m */,
 				BC45FF491C1B22C200BAE501 /* NSObject+WMFReflection.h */,
 				BC45FF4A1C1B22C200BAE501 /* NSObject+WMFReflection.m */,
-					BCD557B91C45B1600060A51A /* UIApplication+VisualTestUtils.h */,
+				BCD557B91C45B1600060A51A /* UIApplication+VisualTestUtils.h */,
 				BCD557BA1C45B1600060A51A /* UIApplication+VisualTestUtils.m */,
 				BC62AE601C58FC810064C589 /* NSProcessInfo+WMFTestEnvironment.h */,
 				BC62AE611C58FC810064C589 /* NSProcessInfo+WMFTestEnvironment.m */,
@@ -7242,18 +7254,6 @@
 				B0E808811C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.m */,
 			);
 			name = "Persistence Utilities";
-			sourceTree = "<group>";
-		};
-		7D8C00102FCF000000000001 /* TestNetworkFixtures */ = {
-			isa = PBXGroup;
-			children = (
-				7D8C00002FCF000000000001 /* WMFSearchFetcherTests.swift */,
-				7D8C00032FCF000000000001 /* SearchHTTPClient.swift */,
-				7D8C00052FCF000000000001 /* SearchURLProtocol.swift */,
-				7D8C00072FCF000000000001 /* URLRequest+SearchRequestTests.swift */,
-				92477EAD1E964A5B9D86A01E /* TestNetworkFixtureInterceptorTests.swift */,
-			);
-			path = TestNetworkFixtures;
 			sourceTree = "<group>";
 		};
 		BCD67E7D1C1F12F2005179E1 /* Tests */ = {
@@ -9341,13 +9341,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-					D84649AD1D4514F7009DB4A0 /* WMFTaskGroupTests.m in Sources */,
-					B0E809371C0D1A420065EBC0 /* MWKLanguageLinkControllerTests.m in Sources */,
-					FFBA8C1927D824D8009E9B65 /* URL+ExtensionTests.swift in Sources */,
-					B0E809411C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m in Sources */,
+				D84649AD1D4514F7009DB4A0 /* WMFTaskGroupTests.m in Sources */,
+				B0E809371C0D1A420065EBC0 /* MWKLanguageLinkControllerTests.m in Sources */,
+				FFBA8C1927D824D8009E9B65 /* URL+ExtensionTests.swift in Sources */,
+				B0E809411C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m in Sources */,
 				67DAEDEA27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelGenericTests.swift in Sources */,
 				B0E808981C0D16430065EBC0 /* XCTestCase+WMFLocaleTesting.m in Sources */,
-					BC45FF4B1C1B22C200BAE501 /* NSObject+WMFReflection.m in Sources */,
+				BC45FF4B1C1B22C200BAE501 /* NSObject+WMFReflection.m in Sources */,
 				A452F9FD24081B0200D8ED09 /* MockUIDevice.swift in Sources */,
 				B0E808741C0D154C0065EBC0 /* NSBundle+TestAssets.m in Sources */,
 				B0E8093B1C0D1A590065EBC0 /* WMFSafeAssignTests.m in Sources */,
@@ -9371,24 +9371,24 @@
 				A452F9F824081A5500D8ED09 /* MockCLLocationManager.swift in Sources */,
 				67DAEDEC27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelUserTalkMessageTests.swift in Sources */,
 				B0C06B9F218240CA00E481CC /* Collection+AsyncMapTests.swift in Sources */,
-					BC62AE621C58FC810064C589 /* NSProcessInfo+WMFTestEnvironment.m in Sources */,
+				BC62AE621C58FC810064C589 /* NSProcessInfo+WMFTestEnvironment.m in Sources */,
 				D8BDA8C11E71C0760031F4BF /* WMFBlocksKitTests.m in Sources */,
 				B0E8092F1C0D1A0B0065EBC0 /* NSURL+WMFExtrasTests.m in Sources */,
 				B39427441E71F79700D3146D /* NSDictionaryBlocksKitTest.m in Sources */,
 				67DAEDF027E8FB63005CF9B6 /* NotificationsCenterDetailViewModelMentionTests.swift in Sources */,
 				B0E808771C0D155A0065EBC0 /* XCTestCase+WMFBundleConvenience.m in Sources */,
-					67C6F77C27E2E78800B9C864 /* NotificationsCenterCellViewModelWelcomeTests.swift in Sources */,
+				67C6F77C27E2E78800B9C864 /* NotificationsCenterCellViewModelWelcomeTests.swift in Sources */,
 				B389CFCB1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift in Sources */,
 				67C6F77927E2E78800B9C864 /* NotificationsCenterCellViewModelUserRightsChangeTests.swift in Sources */,
 				67DAEDE927E8FB63005CF9B6 /* NotificationsCenterDetailViewModelLoginIssuesTests.swift in Sources */,
 				67C6F77B27E2E78800B9C864 /* NotificationsCenterCellViewModelLoginIssuesTests.swift in Sources */,
 				67C6F77527E2E78800B9C864 /* NotificationsCenterCellViewModelGenericTests.swift in Sources */,
-					7D8C00012FCF000000000001 /* WMFSearchFetcherTests.swift in Sources */,
-					7D8C00042FCF000000000001 /* SearchHTTPClient.swift in Sources */,
-					7D8C00062FCF000000000001 /* SearchURLProtocol.swift in Sources */,
-					7D8C00082FCF000000000001 /* URLRequest+SearchRequestTests.swift in Sources */,
-					67C6F77727E2E78800B9C864 /* NotificationsCenterCellViewModelEditMilestoneTests.swift in Sources */,
-					B01662B31D1B8CAB006F4544 /* NSURL+WMFQueryParametersTests.m in Sources */,
+				7D8C00012FCF000000000001 /* WMFSearchFetcherTests.swift in Sources */,
+				7D8C00042FCF000000000001 /* SearchHTTPClient.swift in Sources */,
+				7D8C00062FCF000000000001 /* SearchURLProtocol.swift in Sources */,
+				7D8C00082FCF000000000001 /* URLRequest+SearchRequestTests.swift in Sources */,
+				67C6F77727E2E78800B9C864 /* NotificationsCenterCellViewModelEditMilestoneTests.swift in Sources */,
+				B01662B31D1B8CAB006F4544 /* NSURL+WMFQueryParametersTests.m in Sources */,
 				67F73386273C1FBA00D7D713 /* NotificationServiceHelperTests.swift in Sources */,
 				67C6F75027E293C700B9C864 /* NotificationsCenterViewModelTests.swift in Sources */,
 				67DAEDEB27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelUserRightsChangeTests.swift in Sources */,
@@ -9399,21 +9399,21 @@
 				B0E8087D1C0D15760065EBC0 /* WMFRandomFileUtilities.m in Sources */,
 				BC90DE791C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m in Sources */,
 				B0E809551C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m in Sources */,
-					679FA104242E651C0095F3C6 /* ArticleManualPerformanceTests.swift in Sources */,
-					D858A7DF1DA6A04A009C3DEB /* WMFDateCalculationTests.m in Sources */,
-					67DAEDF227E8FB63005CF9B6 /* NotificationsCenterDetailViewModelPageLinkTests.swift in Sources */,
-					B0E809051C0D18A00065EBC0 /* CircularBitwiseRotationTests.m in Sources */,
+				679FA104242E651C0095F3C6 /* ArticleManualPerformanceTests.swift in Sources */,
+				D858A7DF1DA6A04A009C3DEB /* WMFDateCalculationTests.m in Sources */,
+				67DAEDF227E8FB63005CF9B6 /* NotificationsCenterDetailViewModelPageLinkTests.swift in Sources */,
+				B0E809051C0D18A00065EBC0 /* CircularBitwiseRotationTests.m in Sources */,
 				B0E8095E1C0D1B930065EBC0 /* WMFMTLModelSerializationTests.m in Sources */,
 				D8EC64031D007B1F00C286EE /* WMFLinkParsingTests.m in Sources */,
-					B0E809131C0D19090065EBC0 /* WMFDateFormatterTests.m in Sources */,
+				B0E809131C0D19090065EBC0 /* WMFDateFormatterTests.m in Sources */,
 				83BBBE5623F56F9400AD0994 /* LocaleTests.swift in Sources */,
 				B39427451E71F79700D3146D /* NSSetBlocksKitTest.m in Sources */,
 				B0E808B91C0D17160065EBC0 /* WMFHTTPHangingProtocol.m in Sources */,
 				BC52D0F71C207D3300F625A9 /* TWNStringsTests.m in Sources */,
-					B0E808A91C0D16A00065EBC0 /* UIView+VisualTestSizingUtils.m in Sources */,
-					BC45FF481C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.m in Sources */,
-					6714D6CB245A2B9700CE5A4A /* ArticleCacheReadingManualTests.swift in Sources */,
-					67C6F77327E2E78800B9C864 /* NotificationsCenterCellViewModelWikidataConnectionTests.swift in Sources */,
+				B0E808A91C0D16A00065EBC0 /* UIView+VisualTestSizingUtils.m in Sources */,
+				BC45FF481C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.m in Sources */,
+				6714D6CB245A2B9700CE5A4A /* ArticleCacheReadingManualTests.swift in Sources */,
+				67C6F77327E2E78800B9C864 /* NotificationsCenterCellViewModelWikidataConnectionTests.swift in Sources */,
 				67C6F77627E2E78800B9C864 /* NotificationsCenterCellViewModelMentionTests.swift in Sources */,
 				B0E809351C0D1A2F0065EBC0 /* WMFGeometryTests.m in Sources */,
 				6714D6CD245A2C1D00CE5A4A /* ArticleTestHelpers.swift in Sources */,
@@ -9423,12 +9423,12 @@
 				67C6F77827E2E78800B9C864 /* NotificationsCenterCellViewModelThanksTests.swift in Sources */,
 				AD82B5762FC0D83F00F310B2 /* ArticlePreviewingDelegateMock.swift in Sources */,
 				67E5A1E829E6ED3400BADF20 /* WMFTestConstants.m in Sources */,
-					A452F9F924081A5500D8ED09 /* MockCLHeading.swift in Sources */,
+				A452F9F924081A5500D8ED09 /* MockCLHeading.swift in Sources */,
 				00A8F58626BDD5E700175B8E /* WidgetSampleContentTests.swift in Sources */,
 				B0E8089C1C0D165B0065EBC0 /* XCTestCase+SwiftDefaults.swift in Sources */,
 				BCD3200A1C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m in Sources */,
 				B0E808831C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.m in Sources */,
-					67C6F77A27E2E78800B9C864 /* NotificationsCenterCellViewModelEditRevertedTests.swift in Sources */,
+				67C6F77A27E2E78800B9C864 /* NotificationsCenterCellViewModelEditRevertedTests.swift in Sources */,
 				B0E8086D1C0D15170065EBC0 /* WMFCodingStyle.m in Sources */,
 				830ECAD61FBDE77F0080B1EF /* ReadingListsTests.swift in Sources */,
 				67C6F74E27E2919B00B9C864 /* RemoteNotificationsModelController+TestExtensions.swift in Sources */,
@@ -9440,8 +9440,8 @@
 				19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */,
 				67DAEDEF27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelThanksTests.swift in Sources */,
 				67DAEDF127E8FB63005CF9B6 /* NotificationsCenterDetailViewModelEditMilestoneTests.swift in Sources */,
-					835021BA2CD1496E00D0CB5E /* SinglePageWebViewParseDonationTests.swift in Sources */,
-				);
+				835021BA2CD1496E00D0CB5E /* SinglePageWebViewParseDonationTests.swift in Sources */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4991431181D51DE00E6073C /* Sources */ = {
