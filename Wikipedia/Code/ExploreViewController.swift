@@ -1414,6 +1414,8 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     
     @objc func gamesAllSessionsCleared() {
         DispatchQueue.main.async {
+            self.layoutCache.reset()
+            self.collectionView.collectionViewLayout.invalidateLayout()
             self.dataStore.feedContentController.resetDailyGameContentGroups()
         }
     }
