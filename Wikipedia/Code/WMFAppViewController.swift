@@ -1228,6 +1228,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             showSettings(with: appearanceSettingsVC, animated: animated)
 
         default:
+            dismissPresentedViewControllers()
             if processLinkUserActivity(activity) {
                 done()
                 return true
