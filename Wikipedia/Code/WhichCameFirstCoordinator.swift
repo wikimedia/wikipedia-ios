@@ -126,7 +126,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             self?.showLogin()
         }
         viewModel.onArticleTap = { [weak self] url in
-            self?.logClick(actionSource: "game_end", elementId: "article_open")
+            self?.logClick(actionSource: "game_end", actionSubtype: "article_overflow", elementId: "article_open")
             self?.openArticle(url: url, inNewTab: false)
         }
         viewModel.onArticleOpenInNewTab = { [weak self] url in
@@ -312,6 +312,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     private func unsaveArticle(url: URL) {
         dataStore.savedPageList.removeEntry(with: url)
+        ReadingListsFunnel.shared.logUnsave(category: .game, label: nil, articleURL: url)
     }
 
     private func showReadingListToast(for url: URL) {
