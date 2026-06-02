@@ -645,6 +645,10 @@
 "forgot-password-instructions" = "Instructions for resetting password";
 "forgot-password-title" = "Title for reset password interface {{Identical|Reset password}}";
 "forgot-password-username-or-email-title" = "Title shown between the username and email text fields. User only has to specify either username \"Or\" email address {{Identical|Or}}";
+"games-announcement-maybe-later-button" = "Dismiss button title for the games announcement action sheet.";
+"games-announcement-message" = "Message body for the games announcement action sheet.";
+"games-announcement-play-button" = "Play button title for the games announcement action sheet.";
+"games-announcement-title" = "Title for the games announcement action sheet.";
 "games-email-report-body-encountered" = "Opening line of the problem report email body for the Wikipedia games feature.";
 "games-email-report-subject" = "Email subject line for reporting a problem with the Wikipedia games feature.";
 "games-wcf-button-play-title" = "Button text on Which Came First card in the Explore tab and in the game splash screen, shown when game is not started. Tapping navigates to the Which Came First game.";
