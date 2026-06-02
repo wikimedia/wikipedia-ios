@@ -142,7 +142,8 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
         didTapOpenInBackgroundTab: ArticleTapAction? = nil,
         didSaveForLater: ArticleTapAction? = nil,
         didUnsaveArticle: ArticleTapAction? = nil,
-        didShareArticle: ArticleShareAction? = nil
+        didShareArticle: ArticleShareAction? = nil,
+        didTapArticleToEvent: ArticleEventTapAction? = nil
     ) {
         self.articleItems = articleItems
         self.localizedStrings = localizedStrings
@@ -152,6 +153,7 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
         self.didSaveForLater = didSaveForLater
         self.didUnsaveArticle = didUnsaveArticle
         self.didShareArticle = didShareArticle
+        self.didTapArticleToEvent = didTapArticleToEvent
 
         if let onCheckSavedState {
             for item in articleItems {

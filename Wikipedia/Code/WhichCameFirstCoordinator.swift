@@ -134,6 +134,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         viewModel.onArticleShare = { [weak self] url in
             self?.shareArticle(url: url)
         }
+        viewModel.onArticleTapToEvent = { [weak self] url in
+            self?.openArticle(url: url, inNewTab: false)
+        }
         viewModel.didTapLearnMore = { [weak self] in
             self?.showAbout()
         }
