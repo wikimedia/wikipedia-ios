@@ -86,7 +86,8 @@ extension ArticleRobot {
         let button = navigationHomeButton.waitForExistence(timeout: 5)
             ? navigationHomeButton
             : homeButton
-        base.tapVisible(button, timeout: 15, description: "article W home button", file: file, line: line)
+        base.assertVisible(button, timeout: 15, description: "article W home button", file: file, line: line)
+        button.tap()
         return ExploreRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
     }
 
