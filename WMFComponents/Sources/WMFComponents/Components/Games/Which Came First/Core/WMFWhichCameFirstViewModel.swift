@@ -125,6 +125,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     public var onArticleUnsave: WMFWhichCameFirstArticlesViewModel.ArticleTapAction?
     public var onCheckSavedState: ((URL) -> Bool)?
     public var onArticleShare: WMFWhichCameFirstArticlesViewModel.ArticleShareAction?
+    public var onArticleTapToEvent: WMFWhichCameFirstArticlesViewModel.ArticleEventTapAction?
     public var didTapLearnMore: (@MainActor @Sendable () -> Void)?
     public var didTapReportProblem: (@MainActor @Sendable () -> Void)?
 
