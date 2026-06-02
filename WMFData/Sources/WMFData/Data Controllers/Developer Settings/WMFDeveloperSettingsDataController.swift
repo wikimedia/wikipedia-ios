@@ -105,7 +105,9 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     }
 
     public func clearGamesPersistence() async throws {
-        try await WMFGamesDataController().clearAllSessions()
+        let gamesDataController = WMFGamesDataController()
+        try await gamesDataController.clearAllSessions()
+        gamesDataController.resetAnnouncementSeen()
     }
 
     // MARK: - Reading Challenge Forced States

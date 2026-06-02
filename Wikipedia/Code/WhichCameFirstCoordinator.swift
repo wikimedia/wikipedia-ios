@@ -19,10 +19,10 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     /// The modal navigation controller that hosts the splash screen and game screens.
     private weak var gameNavigationController: UINavigationController?
-
     private let dataStore: MWKDataStore
     private let project: WMFProject?
 
+    var didFinish: (() -> Void)?
     // MARK: - Instrumentation
 
     private lazy var instrument = TestKitchenAdapter.shared.client
@@ -79,7 +79,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             didTapAbout: { [weak self] in
                 self?.showAbout()
             },
-            didTapClose: nil,
+            didTapClose: { [weak self] in
+                self?.didFinish?()
+            },
             didTapLearnMore: { [weak self] in
                 self?.showAbout()
             },
