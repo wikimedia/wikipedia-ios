@@ -153,6 +153,11 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         guard !progressResults.isEmpty else { return nil }
         return progressResults.map { $0 ?? false }
     }
+    
+    public var isGameInProgress: Bool {
+        if case .error = phase { return false }
+        return phase != .complete && phase != .loading
+    }
 
     private func selectedEvent(from question: WMFWhichCameFirstQuestion) -> WMFWhichCameFirstEvent? {
         let a = question.optionA

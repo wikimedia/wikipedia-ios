@@ -154,12 +154,14 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             self?.logClick(actionSource: "game_end", actionSubtype: "article_overflow", elementId: "article_share")
             self?.shareArticle(url: url)
         }
-        viewModel.didTapLearnMore = { [weak self] in
-            self?.logClick(actionSource: "game_end", actionSubtype: "game_overflow", elementId: "learn_more")
+        viewModel.didTapLearnMore = { [weak self, weak viewModel] in
+            let source = viewModel?.isGameInProgress == true ? "game_play" : "game_end"
+            self?.logClick(actionSource: source, actionSubtype: "game_overflow", elementId: "learn_more")
             self?.showAbout()
         }
-        viewModel.didTapReportProblem = { [weak self] in
-            self?.logClick(actionSource: "game_end", actionSubtype: "game_overflow", elementId: "problem_report")
+        viewModel.didTapReportProblem = { [weak self, weak viewModel] in
+            let source = viewModel?.isGameInProgress == true ? "game_play" : "game_end"
+            self?.logClick(actionSource: source, actionSubtype: "game_overflow", elementId: "problem_report")
             self?.showReportProblem()
         }
 
