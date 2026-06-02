@@ -64,7 +64,7 @@ public struct WMFWhichCameFirstCardView: View {
                 .padding(16)
             }
 
-            if viewModel.isRevealed {
+            if viewModel.isRevealed && (viewModel.isSelected || !viewModel.isSelectedCardCorrect && viewModel.isSelected) {
                 resultIcon
                     .padding([.bottom, .trailing], 12)
             }
