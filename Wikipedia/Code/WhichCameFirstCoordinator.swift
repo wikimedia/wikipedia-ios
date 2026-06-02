@@ -60,12 +60,8 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         gameNavigationController = nav
         navigationController.present(nav, animated: true)
 
-        // Funnel starts here — impression of the splash/game_start screen
-        logImpression(actionSource: "game_start", actionSubtype: "game_play_start", actionContext: nil)
-
         return true
     }
-
     // MARK: - Factory
 
     private func makeSplashViewController() -> WMFGamesSplashScreenViewController {
@@ -102,7 +98,11 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
         Task { [weak self, weak viewModel] in
             guard let self, let viewModel else { return }
-            guard let session = try? await self.gamesDataController.fetchWhichCameFirstDailySession(date: todayDateString, project: project) else { return }
+            guard let session = try? await self.gamesDataController.fetchWhichCameFirstDailySession(date: todayDateString, project: project) else {
+                // Fetch failed — fire impression without context of is first visit
+                self.logImpression(actionSource: "game_start", actionSubtype: "game_play_start")
+                return
+            }
             viewModel.update(sessionStatus: session.status)
             
             // Re-fire impression now that we know session status
