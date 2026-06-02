@@ -58,6 +58,7 @@ public enum WMFSFSymbolIcon {
     case checkmarkSquareFill
     case square
     case star
+    case starSquare
     case starFill
     case starCircleFill
     case person
@@ -422,6 +423,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "medal", withConfiguration: configuration)
         case .flagPatternCheckered:
             image = UIImage(systemName: "flag.pattern.checkered", withConfiguration: configuration)
+        case .starSquare:
+            image = UIImage(systemName: "star.square.on.square", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

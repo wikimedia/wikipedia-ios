@@ -109,7 +109,7 @@ public struct WMFWhichCameFirstResultsView: View {
                         .accessibilityHidden(true)
                 }
                 Text(viewModel.localizedStrings.countdownLabel(from: viewModel.nextGameCountdownString))
-                    .font(Font(WMFFont.for(.callout)))
+                    .font(Font(WMFFont.for(.callout)).monospacedDigit())
                 // Specifically left as hardcoded color
                     .foregroundStyle(Color.black)
                     .minimumScaleFactor(0.8)
@@ -181,19 +181,19 @@ public struct WMFWhichCameFirstResultsView: View {
                     )
                     Divider()
                     statCell(
-                        symbol: .flameFill,
+                        symbol: .starSquare,
                         value: viewModel.currentStreak.map { "\($0)" } ?? "–",
                         label: viewModel.localizedStrings.currentStreakLabel
                     )
                     Divider()
                     statCell(
-                        symbol: .trophy,
+                        symbol: .medal,
                         value: viewModel.bestStreak.map { "\($0)" } ?? "–",
                         label: viewModel.localizedStrings.bestStreakLabel
                     )
                     Divider()
                     statCell(
-                        symbol: .medal,
+                        symbol: .flagPatternCheckered,
                         value: viewModel.averageScore.map { formattedAverageScore($0) } ?? "–",
                         label: viewModel.localizedStrings.averageScoreLabel
                     )
@@ -207,19 +207,19 @@ public struct WMFWhichCameFirstResultsView: View {
                             label: viewModel.localizedStrings.gamesPlayedLabel
                         )
                         statCell(
-                            symbol: .flameFill,
+                            symbol: .starSquare,
                             value: viewModel.currentStreak.map { "\($0)" } ?? "–",
                             label: viewModel.localizedStrings.currentStreakLabel
                         )
                     }
                     HStack(spacing: 0) {
                         statCell(
-                            symbol: .trophy,
+                            symbol: .medal,
                             value: viewModel.bestStreak.map { "\($0)" } ?? "–",
                             label: viewModel.localizedStrings.bestStreakLabel
                         )
                         statCell(
-                            symbol: .medal,
+                            symbol: .flagPatternCheckered,
                             value: viewModel.averageScore.map { "\($0)" } ?? "–",
                             label: viewModel.localizedStrings.averageScoreLabel
                         )
