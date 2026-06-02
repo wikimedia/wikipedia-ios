@@ -125,6 +125,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     public var onArticleUnsave: WMFWhichCameFirstArticlesViewModel.ArticleTapAction?
     public var onCheckSavedState: ((URL) -> Bool)?
     public var onArticleShare: WMFWhichCameFirstArticlesViewModel.ArticleShareAction?
+    public var onArticleTapToEvent: WMFWhichCameFirstArticlesViewModel.ArticleEventTapAction?
     public var didTapLearnMore: (@MainActor @Sendable () -> Void)?
     public var didTapReportProblem: (@MainActor @Sendable () -> Void)?
 
@@ -163,6 +164,9 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     private var sessionIdentifier: UUID?
     private var loadTask: Task<Void, Never>?
     private var animationTask: Task<Void, Never>?
+
+    /// Guards `load()` so it only runs once per game presentation, and  `viewWillAppear` doesn't reload the game everytime
+    private var hasLoaded = false
     
     @Published public var isLoggedIn: Bool = false
     public var onLogIn: (@MainActor @Sendable () -> Void)?
@@ -183,6 +187,8 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     }
 
     func load() {
+        guard !hasLoaded else { return }
+        hasLoaded = true
         loadTask?.cancel()
         animationTask?.cancel()
         phase = .loading
@@ -213,6 +219,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
                 rebuildCardViewModels()
                 presentQuestion()
             } catch {
+                hasLoaded = false
                 phase = .error(error.localizedDescription)
             }
         }

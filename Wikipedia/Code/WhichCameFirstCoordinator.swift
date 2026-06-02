@@ -134,6 +134,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         viewModel.onArticleShare = { [weak self] url in
             self?.shareArticle(url: url)
         }
+        viewModel.onArticleTapToEvent = { [weak self] url in
+            self?.openArticle(url: url, inNewTab: false)
+        }
         viewModel.didTapLearnMore = { [weak self] in
             self?.showAbout()
         }
@@ -310,6 +313,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         mailVC.mailComposeDelegate = self
 
         mailVC.setSubject(WMFLocalizedString("games-email-report-subject", value: "Issue Report - Wikipedia games", comment: "Email subject line for reporting a problem with the Wikipedia games feature."))
+        mailVC.setToRecipients(["ios-support@wikimedia.org"])
 
         let body = [
             WMFLocalizedString("games-email-report-body-encountered", value: "I have encountered a problem with the Wikipedia games feature:", comment: "Opening line of the problem report email body for the Wikipedia games feature."),

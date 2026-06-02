@@ -13,6 +13,7 @@ public class WMFGamesDataController {
         case missingContentData
         case sessionNotFound
         case invalidPickedOption
+        case insufficientQuestions
     }
 
     // MARK: - Properties
@@ -292,6 +293,11 @@ extension WMFGamesDataController {
 
         let response = try await onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
         let questions = Self.makeWhichCameFirstQuestions(from: response.events, month: month, day: day, count: Self.whichCameFirstQuestionCount)
+
+        guard questions.count == Self.whichCameFirstQuestionCount else {
+            throw CustomError.insufficientQuestions
+        }
+
         let gameState = WMFWhichCameFirstGameState(questions: questions)
 
         let contentData = try encodeWhichCameFirstGameState(gameState)
