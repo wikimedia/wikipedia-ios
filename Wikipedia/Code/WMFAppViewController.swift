@@ -26,6 +26,7 @@ private let wmfTempAccountConfigCheckInterval: CFTimeInterval = 3 * 60 * 60
 private let wmfLastRemoteAppConfigCheckAbsoluteTimeKey = "WMFLastRemoteAppConfigCheckAbsoluteTimeKey"
 private let wmfTempAccountConfigCheckAbsoluteTimeKey = "WMFTempAccountConfigCheckAbsoluteTimeKey"
 private let wmfResetPreferredLanguages = "WMFResetPreferredLanguages"
+private let wmfSuppressActivityTabOnboardingForTesting = "WMFSuppressActivityTabOnboardingForTesting"
 private let wmfSuppressReadingChallengeAnnouncementForTesting = "WMFSuppressReadingChallengeAnnouncementForTesting"
 
 // KVO context pointers
@@ -858,6 +859,13 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                 forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue
             )
             sharedDefaults?.synchronize()
+        }
+
+        if UserDefaults.standard.bool(forKey: wmfSuppressActivityTabOnboardingForTesting) {
+            try? WMFDataEnvironment.current.userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.hasSeenActivityTabNewOnboarding.rawValue,
+                value: true
+            )
         }
     }
 
