@@ -79,7 +79,14 @@ extension ArticleRobot {
 
     @discardableResult
     func tapHomeButtonToExplore(file: StaticString = #filePath, line: UInt = #line) -> ExploreRobot {
-        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.homeButton, file: file, line: line)
+        let navigationHomeButton = navigationBar(file: file, line: line)
+            .buttons
+            .matching(identifier: AccessibilityIdentifiers.Article.homeButton)
+            .firstMatch
+        let button = navigationHomeButton.waitForExistence(timeout: 5)
+            ? navigationHomeButton
+            : homeButton
+        base.tapVisible(button, timeout: 15, description: "article W home button", file: file, line: line)
         return ExploreRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
     }
 
