@@ -61,7 +61,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         navigationController.present(nav, animated: true)
 
         // Funnel starts here — impression of the splash/game_start screen
-        logImpression(actionSource: "game_start", actionSubtype: "game_play_start")
+        logImpression(actionSource: "game_start", actionSubtype: "game_play_start", actionContext: nil)
 
         return true
     }
@@ -104,6 +104,11 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             guard let self, let viewModel else { return }
             guard let session = try? await self.gamesDataController.fetchWhichCameFirstDailySession(date: todayDateString, project: project) else { return }
             viewModel.update(sessionStatus: session.status)
+            
+            // Re-fire impression now that we know session status
+            let isReturning = session.status == .completed
+            let context: [String: String]? = isReturning ? ["is_first_visit": "false"] : nil
+            self.logImpression(actionSource: "game_start", actionSubtype: "game_play_start", actionContext: context)
         }
     }
 
@@ -365,11 +370,13 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     // MARK: - Instrumentation Helpers
 
-    private func logImpression(actionSource: String, actionSubtype: String? = nil) {
+    // Update logImpression to accept optional context:
+    private func logImpression(actionSource: String, actionSubtype: String? = nil, actionContext: [String: String]? = nil) {
         instrument.submitInteraction(
             action: "impression",
             actionSource: actionSource,
-            actionSubtype: actionSubtype
+            actionSubtype: actionSubtype,
+            actionContext: actionContext
         )
     }
 
