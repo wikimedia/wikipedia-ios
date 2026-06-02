@@ -21,6 +21,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     internal var toolbarController: ArticleToolbarController?
     private let widgetInstrument = WidgetFunnel().widgetInstrument
 
+    private lazy var gameInstrument = TestKitchenAdapter.shared.client
+        .getInstrument(name: "apps-wiki-game")
+        .setDefaultActionSource("game_announce")
+        .startFunnel(name: "wiki_game")
+
     // Watchlist properies
     internal lazy var watchlistController: WatchlistController = {
         return WatchlistController(delegate: self, context: .article)
@@ -576,6 +581,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementPlayButton, style: .default) { [weak self] _ in
             guard let self else { return }
+            gameInstrument.submitInteraction(
+                action: "click",
+                actionSource: "game_announce",
+                elementId: "game_enter"
+            )
             gamesDataController.markGamesAnnouncementSeen()
             let siteURL = dataStore.languageLinkController.appLanguage?.siteURL
             let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, siteURL: siteURL)
@@ -584,7 +594,12 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             coordinator.start()
         })
 
-        alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementMaybeLaterButton, style: .default) { _ in
+        alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementMaybeLaterButton, style: .default) { [weak self] _ in
+            self?.gameInstrument.submitInteraction(
+                action: "click",
+                actionSource: "game_announce",
+                elementId: "game_later"
+            )
             gamesDataController.markGamesAnnouncementSeen()
         })
 
@@ -594,6 +609,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             popover.permittedArrowDirections = []
         }
 
+        gameInstrument.submitInteraction(
+            action: "impression",
+            actionSource: "game_announce"
+        )
         navigationController.present(alert, animated: true)
     }
     

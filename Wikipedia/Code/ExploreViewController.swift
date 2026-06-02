@@ -1095,9 +1095,20 @@ extension ExploreViewController {
             message: CommonStrings.gamesAnnouncementMessage,
             preferredStyle: .actionSheet
         )
+        
+        gameInstrument.submitInteraction(
+            action: "impression",
+            actionSource: "game_announce"
+        )
+        navigationController.present(alert, animated: true)
 
         alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementPlayButton, style: .default) { [weak self] _ in
             guard let self else { return }
+            gameInstrument.submitInteraction(
+                action: "click",
+                actionSource: "game_announce",
+                elementId: "game_enter"
+            )
             gamesDataController.markGamesAnnouncementSeen()
             let siteURL = dataStore.languageLinkController.appLanguage?.siteURL
             let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, siteURL: siteURL)
@@ -1106,7 +1117,12 @@ extension ExploreViewController {
             coordinator.start()
         })
 
-        alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementMaybeLaterButton, style: .default) { _ in
+        alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementMaybeLaterButton, style: .default) { [weak self] _ in
+            self?.gameInstrument.submitInteraction(
+                action: "click",
+                actionSource: "game_announce",
+                elementId: "game_later"
+            )
             gamesDataController.markGamesAnnouncementSeen()
         })
 
