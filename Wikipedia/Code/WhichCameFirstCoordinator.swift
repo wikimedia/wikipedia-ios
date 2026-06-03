@@ -26,7 +26,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
     // MARK: - Instrumentation
 
     private lazy var instrument = TestKitchenAdapter.shared.client
-        .getInstrument(name: "apps-wiki-game")
+        .getInstrument(name: "apps-games")
         .setDefaultActionSource("wiki_game")
         .startFunnel(name: "wiki_game")
 
