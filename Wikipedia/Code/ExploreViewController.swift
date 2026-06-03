@@ -37,7 +37,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private let widgetInstrument = WidgetFunnel().widgetInstrument
     
     private lazy var gameInstrument = TestKitchenAdapter.shared.client
-        .getInstrument(name: "apps-wiki-game")
+        .getInstrument(name: "apps-games")
         .setDefaultActionSource("feed_games")
         .startFunnel(name: "wiki_game")
     
