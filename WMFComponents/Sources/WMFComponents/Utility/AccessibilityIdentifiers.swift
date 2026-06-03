@@ -19,20 +19,40 @@ public enum AccessibilityIdentifiers {
         public static let view = "Explore View"
     }
 
+    public enum RootTab {
+        public static let activityButton = "Root Tab Activity Button"
+        public static let exploreButton = "Root Tab Explore Button"
+        public static let placesButton = "Root Tab Places Button"
+        public static let savedButton = "Root Tab Saved Button"
+        public static let searchButton = Search.tabButton
+    }
+
     public enum Profile {
         public static let button = "profile-button"
         public static let view = "Profile View"
     }
 
     public enum Search {
+        public static let clearRecentSearchesButton = "Search Clear Recent Searches Button"
+        public static let clearRecentSearchesConfirmButton = "Search Clear Recent Searches Confirm Button"
+        public static let recentSearchesView = "Search Recent Searches View"
         public static let searchField = "Search Field"
         public static let searchBar = "Search Bar"
         public static let tabButton = "Search Tab Button"
         public static let view = "Search View"
 
+        public static func recentSearchTerm(_ term: String) -> String {
+            "Search Recent Term \(term)"
+        }
+
         public static func result(_ title: String) -> String {
             "Search Result \(title)"
         }
+    }
+
+    public enum Tabs {
+        public static let button = "Tabs Button"
+        public static let view = "Tabs View"
     }
 
     public enum ImageGallery {

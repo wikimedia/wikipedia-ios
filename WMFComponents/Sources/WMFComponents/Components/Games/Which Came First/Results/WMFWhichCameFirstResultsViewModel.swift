@@ -87,6 +87,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         onArticleUnsave: WMFWhichCameFirstArticlesViewModel.ArticleTapAction? = nil,
         onCheckSavedState: ((URL) -> Bool)? = nil,
         onArticleShare: WMFWhichCameFirstArticlesViewModel.ArticleShareAction? = nil,
+        onArticleTapToEvent: WMFWhichCameFirstArticlesViewModel.ArticleEventTapAction? = nil,
         localizedStrings: LocalizedStrings = LocalizedStrings()
     ) {
         self.score = score
@@ -132,7 +133,8 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
             didTapOpenInBackgroundTab: onArticleOpenInBackgroundTab,
             didSaveForLater: onArticleSaveForLater,
             didUnsaveArticle: onArticleUnsave,
-            didShareArticle: onArticleShare
+            didShareArticle: onArticleShare,
+            didTapArticleToEvent: onArticleTapToEvent
         )
 
         startCountdownTimer()

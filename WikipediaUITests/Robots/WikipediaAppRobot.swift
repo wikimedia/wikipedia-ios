@@ -30,12 +30,14 @@ extension XCTestCase {
     func launchWikipediaAppRobot(
         onboardingState: UITestConfiguration.OnboardingState,
         resetsPreferredLanguages: Bool = true,
+        suppressesActivityTabOnboarding: Bool = true,
         suppressesReadingChallengeAnnouncement: Bool = true
     ) -> WikipediaAppRobot {
         let app = XCUIApplication()
         let configuration = UITestConfiguration(
             onboardingState: onboardingState,
             resetsPreferredLanguages: resetsPreferredLanguages,
+            suppressesActivityTabOnboarding: suppressesActivityTabOnboarding,
             suppressesReadingChallengeAnnouncement: suppressesReadingChallengeAnnouncement
         )
         app.configureForUITestLaunch(configuration: configuration)

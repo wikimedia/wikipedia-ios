@@ -11,7 +11,12 @@ final class ArticleImageGalleryUITests: XCTestCase {
             .explore
             .assertVisible()
             .openSearch()
-            .openArticle(named: "Bohemia")
+            .focusSearchField()
+            .typeSearchTerm("Bohemia")
+            .assertSearchResultVisible(named: "Bohemia")
+            .openResult(named: "Bohemia")
+            .assertVisible()
+            .assertTopControlsVisible()
             .openLeadImageGallery()
             .assertImagePresented()
     }
