@@ -116,7 +116,9 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         let format = WMFLocalizedString("which-came-first-footer-a11y", value: "Question %1$d of %2$d", comment: "Accessibility label for the game progress indicator in the Which Came First game, where $1 is the current question number and the $2 is the total number of questions")
         return String.localizedStringWithFormat(format, currentIndex + 1, totalQuestions)
     }
-    
+
+    // MARK: - Navigation Callbacks
+
     public var didTapShare: (@MainActor @Sendable () -> Void)?
     public var onArticleTap: WMFWhichCameFirstArticlesViewModel.ArticleTapAction?
     public var onArticleOpenInNewTab: WMFWhichCameFirstArticlesViewModel.ArticleTapAction?
@@ -129,6 +131,17 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     public var didTapLearnMore: (@MainActor @Sendable () -> Void)?
     public var didTapReportProblem: (@MainActor @Sendable () -> Void)?
 
+    // MARK: - Instrumentation Callbacks
+
+    /// Slide becomes visible. Index is 1-based (game_play_1 … game_play_5).
+    public var didImpressionSlide: (@MainActor @Sendable (_ slideIndex: Int) -> Void)?
+    /// Taps the exit button during gameplay. Index is 1-based.
+    public var didTapExitDuringPlay: (@MainActor @Sendable (_ slideIndex: Int) -> Void)?
+    /// Taps Submit on a question. Index is 1-based.
+    public var didSubmitAnswer: (@MainActor @Sendable (_ slideIndex: Int) -> Void)?
+    /// Last question is answered and the game transitions to complete.
+    public var didFinishGame: (@MainActor @Sendable () -> Void)?
+
     public func makeShareArticleEvents() -> [(event: WMFWhichCameFirstEvent, project: WMFProject)]? {
         guard let state = gameState else { return nil }
         return state.questions.compactMap { question in
@@ -140,6 +153,11 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     public func makeShareQuestionResults() -> [Bool]? {
         guard !progressResults.isEmpty else { return nil }
         return progressResults.map { $0 ?? false }
+    }
+    
+    public var isGameInProgress: Bool {
+        if case .error = phase { return false }
+        return phase != .complete && phase != .loading
     }
 
     private func selectedEvent(from question: WMFWhichCameFirstQuestion) -> WMFWhichCameFirstEvent? {
@@ -239,6 +257,10 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         guard let picked = selectedOption,
               let question = currentQuestion,
               let sessionID = sessionIdentifier else { return }
+
+        // Fire before kicking off the async work; index is 1-based to match game_play_1–5
+        didSubmitAnswer?(currentIndex + 1)
+
         phase = .revealing
         loadTask?.cancel()
         loadTask = Task {
@@ -248,7 +270,6 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
                     questionIdentifier: question.id,
                     pickedOption: picked.rawValue
                 )
-
                 applyReveal(pickedOption: picked, correctOption: Option(rawValue: question.correctAnswer) ?? .a)
             } catch {
                 phase = .error(error.localizedDescription)
@@ -268,7 +289,6 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
             ? "\(localizedStrings.correctFeedback), \(localizedStrings.correctFeedback2)"
             : localizedStrings.incorrectFeedback
 
-        // Delay so VoiceOver reads after the reveal UI has settled
         Task { [weak self] in
             guard self != nil else { return }
             try? await Task.sleep(for: .milliseconds(500))
@@ -295,6 +315,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         let nextIndex = currentIndex + 1
         if nextIndex >= gameState.questions.count {
             phase = .complete
+            didFinishGame?()
             return
         }
         currentIndex = nextIndex
@@ -309,6 +330,9 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         showTitle = false
         showCardA = false
         showCardB = false
+
+        didImpressionSlide?(currentIndex + 1)
+
         animationTask?.cancel()
         animationTask = Task { [weak self] in
             guard let self else { return }
