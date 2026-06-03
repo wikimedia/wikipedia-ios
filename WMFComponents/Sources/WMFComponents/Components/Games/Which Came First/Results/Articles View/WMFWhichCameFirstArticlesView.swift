@@ -125,22 +125,20 @@ private struct ArticleCardMenuWrapper: View {
             .accessibilityAddTraits(.isButton)
             .accessibilityLabel(cardAccessibilityLabel)
             .accessibilityHint(viewModel.localizedStrings.openArticleRelatedEventHint)
-            .accessibilityActions {
-                accessibilityAction(named: viewModel.localizedStrings.openArticleTitle) {
-                    if let url = item.articleURL { viewModel.didTapArticle?(url) }
-                }
-                accessibilityAction(named: viewModel.localizedStrings.openInNewTabTitle) {
-                    if let url = item.articleURL { viewModel.didTapOpenInNewTab?(url) }
-                }
-                accessibilityAction(named: viewModel.localizedStrings.openInBackgroundTabTitle) {
-                    if let url = item.articleURL { viewModel.didTapOpenInBackgroundTab?(url) }
-                }
-                accessibilityAction(named: item.isSaved ? viewModel.localizedStrings.unsaveTitle : viewModel.localizedStrings.saveForLaterTitle) {
-                    viewModel.toggleSave(for: item)
-                }
-                accessibilityAction(named: viewModel.localizedStrings.shareArticleTitle) {
-                    if let url = item.articleURL { viewModel.didShareArticle?(url) }
-                }
+            .accessibilityAction(named: Text(viewModel.localizedStrings.openArticleTitle)) {
+                if let url = item.articleURL { viewModel.didTapArticle?(url) }
+            }
+            .accessibilityAction(named: Text(viewModel.localizedStrings.openInNewTabTitle)) {
+                if let url = item.articleURL { viewModel.didTapOpenInNewTab?(url) }
+            }
+            .accessibilityAction(named: Text(viewModel.localizedStrings.openInBackgroundTabTitle)) {
+                if let url = item.articleURL { viewModel.didTapOpenInBackgroundTab?(url) }
+            }
+            .accessibilityAction(named: Text(item.isSaved ? viewModel.localizedStrings.unsaveTitle : viewModel.localizedStrings.saveForLaterTitle)) {
+                viewModel.toggleSave(for: item)
+            }
+            .accessibilityAction(named: Text(viewModel.localizedStrings.shareArticleTitle)) {
+                if let url = item.articleURL { viewModel.didShareArticle?(url) }
             }
             .onTapGesture {
                 if let url = item.articleURL { viewModel.didTapArticleToEvent?(url) }
