@@ -73,15 +73,19 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
                 self?.showGame()
             },
             didTapAbout: { [weak self] in
+                self?.logClick(actionSource: "game_start", actionSubtype: "splash_overflow", elementId: "about")
                 self?.showAbout()
             },
             didTapClose: { [weak self] in
+                self?.logClick(actionSource: "game_start", elementId: "exit_button")
                 self?.didFinish?()
             },
             didTapLearnMore: { [weak self] in
+                self?.logClick(actionSource: "game_start", actionSubtype: "splash_overflow", elementId: "learn_more")
                 self?.showAbout()
             },
             didTapReportProblem: { [weak self] in
+                self?.logClick(actionSource: "game_start", actionSubtype: "splash_overflow", elementId: "problem_report")
                 self?.showReportProblem()
             }
         )
@@ -160,9 +164,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             self?.shareArticle(url: url)
         }
         viewModel.onArticleTapToEvent = { [weak self] url in
+            self?.logClick(actionSource: "game_end", elementId: "article_open")
             self?.openArticle(url: url, inNewTab: false)
         }
-
         viewModel.didTapLearnMore = { [weak self, weak viewModel] in
             let source = viewModel?.isGameInProgress == true ? "game_play" : "game_end"
             self?.logClick(actionSource: source, actionSubtype: "game_overflow", elementId: "learn_more")
