@@ -549,10 +549,6 @@
 "image-rec-tooltip-3-body" = "Decidi se l'immagine aiuta i lettori a comprendere meglio questo argomento.";
 "image-rec-tooltip-3-title" = "Decidi";
 "image-rec-view-article" = "Visualizza voce";
-"image-recommendations-email-fifth-line" = "[Screenshot o collegamenti]";
-"image-recommendations-email-fourth-line" = "- [Descrivi la soluzione proposta]";
-"image-recommendations-email-second-line" = "- [Descrivi il problema specifico]";
-"image-recommendations-email-third-line" = "Il comportamento che vorrei vedere è:";
 "image-recs-no-title" = "No";
 "image-recs-not-sure-title" = "Non sono sicuro";
 "image-recs-yes-title" = "Sì";
@@ -1080,6 +1076,7 @@
 "which-came-first-best-streak-label" = "migliore serie";
 "which-came-first-current-streak-label" = "serie attuale";
 "which-came-first-games-played-label" = "partite giocate";
+"which-came-first-incorrect-feedback" = "Sbagliato!";
 "which-came-first-log-in-button" = "Entra";
 "which-came-first-log-in-stats-body" = "Visualizza le tue serie di vittorie, i punteggi e altro ancora";
 "which-came-first-log-in-stats-title" = "Accedi per visualizzare le tue statistiche di gioco";

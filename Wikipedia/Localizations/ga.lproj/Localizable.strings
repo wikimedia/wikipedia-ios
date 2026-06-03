@@ -92,6 +92,7 @@
 "activity-tab-customize-timeline-of-behavior" = "Amlíne iompair";
 "activity-tab-email-fifth-line" = "[Grianghraif Scáileáin nó Naisc]";
 "activity-tab-email-first-line" = "Tá fadhb agam le Gné an Chluaisín Gníomhaíochta:";
+// Fuzzy
 "activity-tab-email-fourth-line" = "[Cuir síos ar an iompar atá ag teastáil]";
 "activity-tab-email-second-line" = "- [Déan cur síos ar fhadhb shonrach]";
 "activity-tab-email-third-line" = "Seo an t-iompar ar mhaith liom a fheiceáil:";
@@ -537,6 +538,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Air";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Air $1";
 "explore-feed-preferences-feed-cards-hidden-title" = "Gach cárta $1 i bhfolach";
+"explore-feed-preferences-games-title" = "Taispeáin cárta Cluichí";
 "explore-feed-preferences-global-card-footer-text" = "Níl an cárta seo sainiúil don teanga, agus má mhúchtar é bainfear é de do bheatha Explore.";
 "explore-feed-preferences-global-cards-description" = "Cártaí nach bhfuil sainiúil don teanga";
 "explore-feed-preferences-global-cards-subtitle" = "Cártaí nach bhfuil sainiúil don teanga";
@@ -553,6 +555,7 @@
 "explore-feed-preferences-show-continue-reading-title" = "Taispeáin cárta Léan ort ag léamh";
 "explore-feed-preferences-show-featured-article-footer-text" = "Má mhúchtar an cárta Alt Réadmhaoin, múchtar é i ngach teanga atá ar fáil.";
 "explore-feed-preferences-show-featured-article-title" = "Taispeáin cárta Alt roghnaithe";
+"explore-feed-preferences-show-games-footer-text" = "Má mhúchann tú an cárta Cluichí, múchfar é i ngach teanga atá ar fáil.";
 "explore-feed-preferences-show-news-footer-text" = "Má mhúchtar an cárta Sa nuacht, múchtar é i ngach teanga atá ar fáil.";
 "explore-feed-preferences-show-news-title" = "Taispeáin cárta Sa nuacht";
 "explore-feed-preferences-show-on-this-day-footer-text" = "Má mhúchtar an cárta Ar an lá seo, múchtar é i ngach teanga atá ar fáil.";
@@ -579,6 +582,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Cas air Taiscéal";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Cuirfidh sé seo an cluaisín Iniúchadh in ionad an chluaisín Socruithe, is féidir leat rochtain a fháil ar Socruithe ó bharr an chluaisín Iniúchadh trí thapáil ar dheilbhín an ghiar.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Cas air táb Taiscéal?";
+"explore-games-title" = "Cluichí";
 "explore-hide-card-prompt" = "Folaigh an cárta seo";
 "explore-main-page-description" = "Príomhleathanach thionscadail Wikimedia";
 "explore-main-page-heading" = "Inniu ar Vicipéid";
@@ -651,6 +655,11 @@
 "forgot-password-instructions" = "Líon ceann de na réimsí seo thíos le treoracha athshocraithe pasfhocail a ghlacadh trí ríomhphost";
 "forgot-password-title" = "Athshocraigh pasfhocal";
 "forgot-password-username-or-email-title" = "Nó";
+"games-wcf-button-play-title" = "Imir cluiche an lae inniu";
+"games-wcf-explore-button-archive-title" = "Seinn an chartlann";
+"games-wcf-explore-button-review-title" = "Torthaí athbhreithnithe";
+"games-wcf-explore-complete-subtitle" = "Scóráil tú $1/$2 i gcluiche an lae inniu. An chéad chluiche eile i gceann $3.";
+"games-wcf-explore-in-progress-subtitle" = "Tá tú ar cheist $1. Lean ort ag buille faoi thuairim a thabhairt faoin gcéad imeacht a tharla ar an lá seo sa stair.";
 "games-wcf-explore-title" = "Cé acu a tháinig ar dtús?";
 "gan-variants-alert-body" = "The Wikipedia app now supports the following Gan variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "Nuashonruithe ar thacaíocht le malairt Gan";
@@ -703,11 +712,8 @@
 "image-rec-tooltip-3-body" = "Déan cinneadh an gcabhraíonn an íomhá le léitheoirí an topaic seo a thuiscint níos fearr.";
 "image-rec-tooltip-3-title" = "Cinneadh";
 "image-rec-view-article" = "Féach ar an alt";
-"image-recommendations-email-fifth-line" = "[Grianghraif Scáileáin nó Naisc]";
+// Fuzzy
 "image-recommendations-email-first-line" = "Tá fadhb agam leis an ngné Eagarthóireachtaí Molta maidir le hÍomhá a Chur Leis:";
-"image-recommendations-email-fourth-line" = "- [Cur síos ar an réiteach atá beartaithe]";
-"image-recommendations-email-second-line" = "- [Déan cur síos ar fhadhb shonrach]";
-"image-recommendations-email-third-line" = "Seo an t-iompar ar mhaith liom a fheiceáil:";
 "image-recommendations-email-title" = "Tuairisc ar an bhFadhb - Cuir Gné Íomhá leis";
 "image-recs-no-title" = "Níl";
 "image-recs-not-sure-title" = "Níl mé cinnte";
@@ -1243,6 +1249,8 @@
 "settings-clear-cache-cancel" = "Cealaigh";
 "settings-clear-cache-ok" = "Glan taisce";
 "settings-donate" = "Tabhair Síntiús";
+"settings-explore-games-subtitle" = "Cluichí laethúla bunaithe ar ábhar Vicipéid";
+"settings-explore-games-title" = "Cluichí Vicipéid";
 "settings-help-and-feedback" = "Cabhair agus aiseolas";
 "settings-language-bar" = "Taispeáin teangacha ar chuardach";
 "settings-languages-feed-customization" = "Is féidir leat na teangacha a thaispeántar ar do bheatha Explore a bhainistiú trí shocruithe do bheatha Explore a shaincheapadh.";
@@ -1528,6 +1536,42 @@
 "welcome-languages-search-title" = "Cuardaigh i níos mó ná 300 teanga";
 "welcome-privacy-subtitle" = "Creidimid nach ceart go mbeadh ort faisnéis phearsanta a sholáthar le bheith páirteach sa ghluaiseacht eolais shaor. Tá sonraí úsáide a bhailítear don aip seo gan ainm.";
 "welcome-privacy-terms-button-text" = "Faigh tuilleadh eolais faoinár mbeartas príobháideachais agus téarmaí úsáide";
+"which-came-first-average-score-label" = "meánscór";
+"which-came-first-best-streak-label" = "an tsraith is fearr";
+"which-came-first-better-luck" = "Ádh mór amárach!";
+"which-came-first-correct-answer-a11y" = "An freagra ceart";
+"which-came-first-correct-feedback" = "Ceart!";
+"which-came-first-correct-feedback2" = "+1 pointe";
+"which-came-first-current-streak-label" = "an tsraith reatha";
+"which-came-first-error-title" = "Chuaigh rud éigin mícheart";
+"which-came-first-footer-a11y" = "Ceist $1 de $2";
+"which-came-first-game-complete-title" = "Cluiche Críochnaithe!";
+"which-came-first-games-played-label" = "cluichí a imríodh";
+"which-came-first-incorrect-answer-a11y" = "Freagra mícheart";
+// Fuzzy
+"which-came-first-incorrect-feedback" = "Mícheart";
+"which-came-first-log-in-button" = "Logáil isteach";
+"which-came-first-log-in-stats-body" = "Féach ar do shraitheanna, do scóir, agus tuilleadh";
+"which-came-first-log-in-stats-title" = "Logáil isteach chun staitisticí do chluiche a fheiceáil";
+"which-came-first-next-button" = "Ar Aghaidh";
+"which-came-first-next-game-time" = "An chéad chluiche eile i $1";
+"which-came-first-nice-work" = "Dea-obair! Tar ar ais amárach le haghaidh cluiche nua.";
+"which-came-first-perfect-score" = "Scór foirfe!";
+"which-came-first-retry-button" = "Déan iarracht arís";
+"which-came-first-score" = "Scóráil tú $1/$2.";
+"which-came-first-see-results-button" = "Féach ar na Torthaí";
+"which-came-first-share-activity-text" = "Táim ag imirt \"Cé acu a tháinig ar dtús?\" cluiche tráth na gceist laethúil ar aip Vicipéid iOS https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=wiki_game_202605&mt=8";
+"which-came-first-share-score-button" = "Scór a roinnt";
+"which-came-first-share-score-summary" = "Scóráil mé $1/$2 ar \"Cé acu a tháinig ar dtús?\" inniu.";
+"which-came-first-share-topics-title" = "Ábhair a bhí san áireamh:";
+"which-came-first-splash-about-button" = "Maidir leis an gcluiche seo";
+"which-came-first-splash-continue-button" = "Lean ar aghaidh leis an gcluiche inniu";
+"which-came-first-splash-review-button" = "Torthaí athbhreithnithe";
+"which-came-first-splash-subtitle" = "Buille faoi thuairim cén eachtra a tharla ar dtús ar an lá seo sa stair.";
+"which-came-first-splash-title" = "Cé acu a tháinig ar dtús?";
+"which-came-first-submit-button" = "Cuir isteach";
+"which-came-first-title" = "Cé acu a tháinig ar dtús?";
+"which-came-first-your-stats-title" = "Do staitisticí";
 "widget-onthisday-description" = "Scrúdaigh cad a tharla ar an lá seo sa stair.";
 "widget-onthisday-placeholder-article-snippet" = "Ciclipéid ar líne saor in aisce ar féidir le duine ar bith a chur in eagar";
 "widget-onthisday-placeholder-event-snippet" = "Tá Vicipéid, ciclipéid ábhar vicí saor in aisce, ar líne.";

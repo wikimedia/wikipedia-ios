@@ -130,7 +130,7 @@
 "activity-tab-customize-timeline-of-behavior" = "Gedragstijdlijn";
 "activity-tab-email-fifth-line" = "[Schermafbeeldingen of koppelingen]";
 "activity-tab-email-first-line" = "Ik heb een probleem ondervonden met de functie 'Activiteitentabblad':";
-"activity-tab-email-fourth-line" = "[Beschrijf het gewenste gedrag]";
+"activity-tab-email-fourth-line" = "[Beschrijf de voorgestelde oplossing]";
 "activity-tab-email-second-line" = "- [Beschrijf het specifieke probleem]";
 "activity-tab-email-third-line" = "Het gedrag dat ik graag zou willen zien is:";
 "activity-tab-email-title" = "Probleemmelding - tabblad Activiteit";
@@ -383,10 +383,10 @@
 "diff-single-intro-title" = "Introductie";
 "diff-single-line-format" = "Regel $1";
 "diff-thanks-anonymous-no-thanks" = "Anonieme gebruikers kunnen niet worden bedankt";
-"diff-thanks-login-subtitle" = "'Bedankjes' zijn een gemakkelijke manier om waardering te tonen voor het werk van een redacteur op Wikipedia. U moet aangemeld zijn om 'Bedankjes' te verzenden.";
+"diff-thanks-login-subtitle" = "'Bedankjes' zijn een gemakkelijke manier om waardering te tonen voor het werk van een bewerker op Wikipedia. U moet aangemeld zijn om 'Bedankjes' te verzenden.";
 "diff-thanks-login-title" = "Meld u aan om een bedankje te versturen";
 "diff-thanks-send-button-title" = "Bedankje sturen";
-"diff-thanks-send-subtitle" = "'Bedankjes' zijn een gemakkelijke manier om waardering te tonen voor het werk van een redacteur op Wikipedia. 'Bedankjes' kunnen niet ongedaan worden gemaakt en zijn openbaar zichtbaar.";
+"diff-thanks-send-subtitle" = "'Bedankjes' zijn een gemakkelijke manier om waardering te tonen voor het werk van een bewerker op Wikipedia. 'Bedankjes' kunnen niet ongedaan worden gemaakt en zijn openbaar zichtbaar.";
 "diff-thanks-send-title" = "Publiekelijk een bedankje sturen";
 "diff-thanks-sent" = "Uw bedankje is verstuurd naar $1";
 "diff-thanks-sent-already" = "U hebt al een bedankje voor deze bewerking verstuurd";
@@ -691,6 +691,8 @@
 "forgot-password-instructions" = "Vul één van de onderstaande velden in hieronder om instructies te ontvangen via e-mail over hoe u uw wachtwoord kunt wijzigen.";
 "forgot-password-title" = "Wachtwoord opnieuw instellen";
 "forgot-password-username-or-email-title" = "Of";
+"games-email-report-body-encountered" = "Ik heb een probleem ondervonden met de spelletjesfunctie van Wikipedia:";
+"games-email-report-subject" = "Probleemmelding – Wikipedia-spelletjes";
 "games-wcf-button-play-title" = "Spel van de dag spelen";
 "games-wcf-explore-button-archive-title" = "Archief afspelen";
 "games-wcf-explore-button-review-title" = "Resultaten bekijken";
@@ -748,11 +750,7 @@
 "image-rec-tooltip-3-body" = "Bepaal of de afbeelding lezers helpt dit onderwerp beter te begrijpen";
 "image-rec-tooltip-3-title" = "Beslissen";
 "image-rec-view-article" = "Pagina bekijken";
-"image-recommendations-email-fifth-line" = "[Schermafbeeldingen of links]";
 "image-recommendations-email-first-line" = "Ik ben een probleem tegengekomen met de functie om een afbeelding toe te voegen voor voorgestelde bewerkingen:";
-"image-recommendations-email-fourth-line" = "- [Beschrijf de voorgestelde oplossing]";
-"image-recommendations-email-second-line" = "- [Beschrijf het specifieke probleem]";
-"image-recommendations-email-third-line" = "Het gedrag dat ik graag zou willen zien is:";
 "image-recommendations-email-title" = "Probleemrapport - Voeg een afbeeldingsfunctie toe";
 "image-recs-no-title" = "Nee";
 "image-recs-not-sure-title" = "Niet zeker";
@@ -1575,6 +1573,8 @@
 "welcome-languages-search-title" = "Zoek in bijna 300 talen";
 "welcome-privacy-subtitle" = "Wij zijn van mening dat u geen persoonlijke informatie hoeft te verstrekken om deel te nemen aan de vrije kennisbeweging. De gebruiksgegevens die voor deze app worden verzameld zijn anoniem.";
 "welcome-privacy-terms-button-text" = "Lees meer over ons privacybeleid en onze gebruiksvoorwaarden";
+"which-came-first-article-card-open-hint" = "Opent een gebeurtenis regelateerd aan deze pagina";
+"which-came-first-articles-section-title" = "Pagina's uit het spelletje van vandaag";
 "which-came-first-average-score-label" = "gemiddelde score";
 "which-came-first-best-streak-label" = "beste reeks";
 "which-came-first-better-luck" = "Morgen hebt u vast meer geluk!";
@@ -1587,7 +1587,7 @@
 "which-came-first-game-complete-title" = "Spel voltooid!";
 "which-came-first-games-played-label" = "gespeelde spelletjes";
 "which-came-first-incorrect-answer-a11y" = "Onjuist antwoord";
-"which-came-first-incorrect-feedback" = "Fout";
+"which-came-first-incorrect-feedback" = "Incorrect!";
 "which-came-first-log-in-button" = "Aanmelden";
 "which-came-first-log-in-stats-body" = "Bekijk uw reeksen, scores en meer";
 "which-came-first-log-in-stats-title" = "Meld u aan om uw spelstatistieken te bekijken";

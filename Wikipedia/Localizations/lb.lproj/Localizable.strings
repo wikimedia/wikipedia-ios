@@ -530,7 +530,6 @@
 "image-rec-tooltip-3-body" = "Entscheet, ob d'Bild dem Lieser dobäi hëlleft d'Theema besser ze verstoen.";
 "image-rec-tooltip-3-title" = "Entscheeden";
 "image-rec-view-article" = "Artikel weisen";
-"image-recommendations-email-fifth-line" = "[Screenshotten oder Linken]";
 "image-recs-no-title" = "Nee";
 "image-recs-not-sure-title" = "Net sécher";
 "image-recs-yes-title" = "Jo";
@@ -1143,6 +1142,7 @@
 "which-came-first-footer-a11y" = "Fro $1 vu(n) $2";
 "which-came-first-games-played-label" = "Spiller gespillt";
 "which-came-first-incorrect-answer-a11y" = "Falsch Äntwert";
+// Fuzzy
 "which-came-first-incorrect-feedback" = "Falsch";
 "which-came-first-log-in-button" = "Aloggen";
 "which-came-first-log-in-stats-body" = "Kuckt Är Serien, Punkten a méi";

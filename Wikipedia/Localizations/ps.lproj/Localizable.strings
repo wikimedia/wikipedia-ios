@@ -92,6 +92,7 @@
 "activity-tab-customize-timeline-of-behavior" = "د چلند مهالوېش";
 "activity-tab-email-fifth-line" = "[سکرین‌شاټونه یا تړوني]";
 "activity-tab-email-first-line" = "زه د چارو ريښکې ځانگړنې سره ستونزې سره مخ شوی يم:";
+// Fuzzy
 "activity-tab-email-fourth-line" = "[غوښتل شوی چلند تشریح کړئ]";
 "activity-tab-email-second-line" = "- [ځانګړې ستونزه تشریح کړئ]";
 "activity-tab-email-third-line" = "هغه چلند چې زه يې ليدل غواړم:";
@@ -355,6 +356,7 @@
 "field-username-title" = "کارن‌نوم";
 "filter-options-all" = "ټول";
 "find-clear-button-accessibility" = "موندل پاکول";
+"games-wcf-explore-complete-subtitle" = "تاسو نننۍ لوبه کې $1/$2 نومرې ترلاسه کړې. راتلونکې لوبه په $3 وي";
 "history-clear-confirmation-heading" = "آيا ډاډمن يې چې خپل ټول وروستني توکي ړنگول غواړې؟";
 "history-clear-delete-all" = "هو، ټول ړنگول";
 "history-title" = "پېښليک";
@@ -419,6 +421,21 @@
 "welcome-explore-continue-button" = "پيلول";
 "welcome-explore-tell-me-more-done-button" = "وپوهېدم";
 "welcome-languages-add-button" = "بله ژبه ورگډول";
+"which-came-first-average-score-label" = "منځگوړې نومرې";
+"which-came-first-best-streak-label" = "غوره لړۍ";
+"which-came-first-better-luck" = "د سبا لپاره ښې چارې!";
+"which-came-first-current-streak-label" = "اوسنۍ لړۍ";
+"which-came-first-game-complete-title" = "لوبه پای ته ورسېده!";
+"which-came-first-games-played-label" = "لوبې وشوې";
+"which-came-first-log-in-button" = "ننوتل";
+"which-came-first-log-in-stats-body" = "خپله لړۍ، نومرې او نور وگورئ";
+"which-came-first-log-in-stats-title" = "د خپلې لوبې شمارنو د کتلو لپاره ننوځئ";
+"which-came-first-next-game-time" = "راتلونکې لوبه به په $1 وي";
+"which-came-first-nice-work" = "ښه چاره! سبا د يوې نوې لوبې لپاره بيا راشئ.";
+"which-came-first-perfect-score" = "بشپړې نومرې!";
+"which-came-first-score" = "تاسو $1/$2 نومرې ترلاسه کړې.";
+"which-came-first-share-score-button" = "نومرې شريکول";
+"which-came-first-your-stats-title" = "ستاسو شمارنې";
 "wikitext-upload-save" = "خپرېږي...";
 "wikitext-upload-save-terms-name" = "د کارولو منښتونه";
 "year-in-review-day-friday" = "هره ادينه";
