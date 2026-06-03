@@ -572,10 +572,8 @@
 "image-rec-tooltip-3-body" = "Mearrit veahkeha go govva lohkkiid buorebut ipmirdit dán fáttá.";
 "image-rec-tooltip-3-title" = "Mearrit";
 "image-rec-view-article" = "Čájet artihkkala";
-"image-recommendations-email-fifth-line" = "[Šearbmagovat dahje liŋkkat]";
+// Fuzzy
 "image-recommendations-email-first-line" = "Mus lea čuožžilan váttisvuohta doaimmain mainna galgá lasihit ovtta evttohuvvon gova:";
-"image-recommendations-email-fourth-line" = "- [Čilge evttohuvvon čovdosa]";
-"image-recommendations-email-second-line" = "- [Čilge dihto váttisvuođa]";
 "image-recs-not-sure-title" = "Eahpesihkar";
 "image-recs-time-warning-message" = "Loga artihkkala vai ipmirdat dan fáttá, ja dárkkis gova";
 "import-shared-reading-list-default-title" = "Mu lohkanlistu";

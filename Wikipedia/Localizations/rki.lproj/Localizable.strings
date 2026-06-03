@@ -603,11 +603,8 @@
 "image-rec-tooltip-3-body" = "ပုံသည် စာဖတ်သူရို့ကို ဒေအကြောင်းအရာကို ပိုနားလည်သဘောပေါက်စီဖို့ ကူညီပီးဖို့လား ဆုံးဖြတ်ပါ။";
 "image-rec-tooltip-3-title" = "ဆုံးဖြတ်ပါ";
 "image-rec-view-article" = "ဆောင်းပါးကိုကြေ့ပါ";
-"image-recommendations-email-fifth-line" = "[ဖန်သားပြင်ဓာတ်ပုံတိ ယင်းသို့မဟုတ် လင့်ခ်တိ]";
+// Fuzzy
 "image-recommendations-email-first-line" = "ပုံထည့်ဖို့ အကြံပြုထားရေ တီးဖြတ်မှုအင်္ဂါရပ်မှာ ပြဿနာတခု ကြုံတွိခရရေ-";
-"image-recommendations-email-fourth-line" = "- [အဆိုပြုထားရေ ဖြေရှင်းချက်ကို ဖော်ပြပါ]";
-"image-recommendations-email-second-line" = "- [အထူးပြဿနာကိုဖော်ပြပါ]";
-"image-recommendations-email-third-line" = "ကိုယ်မြင်ချင်ရေ အပြုအမူက-";
 "image-recommendations-email-title" = "ပြဿနာအစီရင်ခံစာ - ရုပ်ပုံအင်္ဂါရပ်တခုထည့်ပါ";
 "image-recs-no-title" = "မဟုတ်";
 "image-recs-not-sure-title" = "မသေချာ";

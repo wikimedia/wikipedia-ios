@@ -577,10 +577,8 @@
 "image-rec-tooltip-1-title" = "Прегледај";
 "image-rec-tooltip-3-title" = "Одлучите";
 "image-rec-view-article" = "Види чланак";
+// Fuzzy
 "image-recommendations-email-first-line" = "Наишао сам на проблем са функцијом Предложене измене: додавање слика:";
-"image-recommendations-email-fourth-line" = "- [Опишите могуће решење]";
-"image-recommendations-email-second-line" = "- [Опишите конкретан проблем]";
-"image-recommendations-email-third-line" = "Жељено понашање:";
 "image-recs-no-title" = "Не";
 "image-recs-not-sure-title" = "Нисам сигуран";
 "image-recs-yes-title" = "Да";
@@ -1291,6 +1289,7 @@
 "which-came-first-error-title" = "Дошло је до грешке";
 "which-came-first-footer-a11y" = "Питање $1 од $2";
 "which-came-first-incorrect-answer-a11y" = "Нетачан одговор";
+// Fuzzy
 "which-came-first-incorrect-feedback" = "Нетачно";
 "which-came-first-next-button" = "Следеће";
 "which-came-first-retry-button" = "Покушај поново";

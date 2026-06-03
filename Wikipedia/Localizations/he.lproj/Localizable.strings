@@ -107,6 +107,7 @@
 "activity-tab-customize-timeline-of-behavior" = "ציר זמן של התנהגות";
 "activity-tab-email-fifth-line" = "[צילומי מסך או קישורים]";
 "activity-tab-email-first-line" = "נתקלתי בבעיה עם יכולת לשונית הפעילות:";
+// Fuzzy
 "activity-tab-email-fourth-line" = "[נא לתאר את ההתנהגות הרצויה]";
 "activity-tab-email-second-line" = "- [נא לתאר בעיה מסוימת]";
 "activity-tab-email-third-line" = "ההתנהגות שאני רוצה לראות היא:";
@@ -650,11 +651,8 @@
 "image-rec-tooltip-3-body" = "יש להחליט האם התמונה עוזרת לקוראים להבין טוב יותר את הנושא הזה.";
 "image-rec-tooltip-3-title" = "להחליט";
 "image-rec-view-article" = "הצגת הערך";
-"image-recommendations-email-fifth-line" = "[צילומי מסך או קישורים]";
+// Fuzzy
 "image-recommendations-email-first-line" = "נתקלתי בבעיה בתכונת העריכות המוצעות \"הוספת תמונה\":";
-"image-recommendations-email-fourth-line" = "- [תיאור פתרון מוצע]";
-"image-recommendations-email-second-line" = "- [תיאור בעיה מסוימת]";
-"image-recommendations-email-third-line" = "ההתנהגות שאני רוצה לראות היא:";
 "image-recommendations-email-title" = "דו\"ח בעיה - תכונת הוספת תמונה";
 "image-recs-no-title" = "לא";
 "image-recs-not-sure-title" = "אין לי תשובה";
