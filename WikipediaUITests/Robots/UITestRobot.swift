@@ -11,6 +11,18 @@ extension ScreenshotCapturingRobot {
         base.captureScreenshot(named: screenshot.rawValue)
         return self
     }
+
+    @discardableResult
+    func rotateToLandscapeLeft() -> Self {
+        base.rotateToLandscapeLeft()
+        return self
+    }
+
+    @discardableResult
+    func rotateToPortrait() -> Self {
+        base.rotateToPortrait()
+        return self
+    }
 }
 
 /// Shared primitive used by screen robots for common waits, taps, gestures, screenshots, and failure reporting.
@@ -57,6 +69,27 @@ struct UITestRobot {
             result,
             .completed,
             "Expected \(description ?? Self.describe(element)) to be visible within \(timeout) seconds.",
+            file: file,
+            line: line
+        )
+        return self
+    }
+
+    @discardableResult
+    func assertSelected(
+        _ element: XCUIElement,
+        timeout: TimeInterval = 5,
+        description: String? = nil,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> Self {
+        let predicate = NSPredicate(format: "selected == true")
+        let expectation = testCase.expectation(for: predicate, evaluatedWith: element)
+        let result = XCTWaiter.wait(for: [expectation], timeout: timeout)
+        XCTAssertEqual(
+            result,
+            .completed,
+            "Expected \(description ?? Self.describe(element)) to be selected within \(timeout) seconds.",
             file: file,
             line: line
         )
@@ -121,6 +154,18 @@ struct UITestRobot {
         let start = element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.2))
         let end = element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.85))
         start.press(forDuration: 0.01, thenDragTo: end)
+        return self
+    }
+
+    @discardableResult
+    func rotateToLandscapeLeft() -> Self {
+        XCUIDevice.shared.orientation = .landscapeLeft
+        return self
+    }
+
+    @discardableResult
+    func rotateToPortrait() -> Self {
+        XCUIDevice.shared.orientation = .portrait
         return self
     }
 
