@@ -1096,6 +1096,10 @@ extension ExploreViewController {
             preferredStyle: .actionSheet
         )
         
+        // Mark as seen as soon as it is displayed so it is never shown twice, regardless of how it
+        // is dismissed (button tap, outside tap, or app backgrounding).
+        gamesDataController.markGamesAnnouncementSeen()
+
         gameInstrument.submitInteraction(
             action: "impression",
             actionSource: "game_announce"
@@ -1109,7 +1113,6 @@ extension ExploreViewController {
                 actionSource: "game_announce",
                 elementId: "game_enter"
             )
-            gamesDataController.markGamesAnnouncementSeen()
             let siteURL = dataStore.languageLinkController.appLanguage?.siteURL
             let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, siteURL: siteURL)
             coordinator.didFinish = { [weak self] in self?.whichCameFirstCoordinator = nil }
@@ -1123,7 +1126,6 @@ extension ExploreViewController {
                 actionSource: "game_announce",
                 elementId: "game_later"
             )
-            gamesDataController.markGamesAnnouncementSeen()
         })
 
         if let popover = alert.popoverPresentationController {
@@ -1529,6 +1531,10 @@ extension ExploreViewController {
     }
 
     @objc func applicationDidBecomeActive() {
+        // The Explore view controller stays alive in the tab bar even when another tab is on screen.
+        // Only run the modal chain on foreground when Explore is actually visible, otherwise the
+        // games announcement (and other modals) would be presented over whichever tab is showing.
+        guard viewIfLoaded?.window != nil else { return }
         presentModalsIfNeeded()
     }
 
