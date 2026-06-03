@@ -42,12 +42,22 @@ extension ArticleRobot {
     }
 
     @discardableResult
+    func assertTabsOverviewVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.assertExists(
+            base.app.otherElements[AccessibilityIdentifiers.Tabs.view],
+            file: file,
+            line: line
+        )
+        return self
+    }
+
+    @discardableResult
     func rotateAndAssertArticleWorks(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        XCUIDevice.shared.orientation = .landscapeLeft
+        base.rotateToLandscapeLeft()
         _ = assertVisible(file: file, line: line)
         _ = assertTopControlsVisible(file: file, line: line)
 
-        XCUIDevice.shared.orientation = .portrait
+        base.rotateToPortrait()
         _ = assertVisible(file: file, line: line)
         return assertTopControlsVisible(file: file, line: line)
     }
@@ -69,7 +79,15 @@ extension ArticleRobot {
 
     @discardableResult
     func tapHomeButtonToExplore(file: StaticString = #filePath, line: UInt = #line) -> ExploreRobot {
-        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.homeButton, file: file, line: line)
+        let navigationHomeButton = navigationBar(file: file, line: line)
+            .buttons
+            .matching(identifier: AccessibilityIdentifiers.Article.homeButton)
+            .firstMatch
+        let button = navigationHomeButton.waitForExistence(timeout: 5)
+            ? navigationHomeButton
+            : homeButton
+        base.assertVisible(button, timeout: 15, description: "article W home button", file: file, line: line)
+        button.tap()
         return ExploreRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
     }
 

@@ -19,17 +19,15 @@ class ArticleViewControllerTests: XCTestCase {
     
     override func setUp(completion: @escaping (Error?) -> Void) {
         
-        ArticleTestHelpers.setup {
-            LSNocilla.sharedInstance().start()
-            ArticleTestHelpers.stubCompleteMobileHTMLResponse(inBundle: self.wmf_bundle())
+        ArticleTestHelpers.setupWithNetworkFixtures {
             completion(nil)
         }
         
     }
 
     override func tearDown() {
-       super.tearDown()
-       LSNocilla.sharedInstance().stop()
+        ArticleTestHelpers.tearDownNetworkFixtures()
+        super.tearDown()
     }
 
     func testArticleVCAccessesSchemeHandler() throws {

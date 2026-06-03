@@ -26,6 +26,7 @@ private let wmfTempAccountConfigCheckInterval: CFTimeInterval = 3 * 60 * 60
 private let wmfLastRemoteAppConfigCheckAbsoluteTimeKey = "WMFLastRemoteAppConfigCheckAbsoluteTimeKey"
 private let wmfTempAccountConfigCheckAbsoluteTimeKey = "WMFTempAccountConfigCheckAbsoluteTimeKey"
 private let wmfResetPreferredLanguages = "WMFResetPreferredLanguages"
+private let wmfSuppressActivityTabOnboardingForTesting = "WMFSuppressActivityTabOnboardingForTesting"
 private let wmfSuppressReadingChallengeAnnouncementForTesting = "WMFSuppressReadingChallengeAnnouncementForTesting"
 
 // KVO context pointers
@@ -365,7 +366,8 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                       let title = rootVC.title,
                       let image = rootVC.tabBarItem.image else { continue }
                 
-                let tab = UITab(title: title, image: image, identifier: title) { tab in
+                let identifier = rootVC.tabBarItem.accessibilityIdentifier ?? title
+                let tab = UITab(title: title, image: image, identifier: identifier) { tab in
                     return nav
                 }
                 
@@ -858,6 +860,13 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             )
             sharedDefaults?.synchronize()
         }
+
+        if UserDefaults.standard.bool(forKey: wmfSuppressActivityTabOnboardingForTesting) {
+            try? WMFDataEnvironment.current.userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.hasSeenActivityTabNewOnboarding.rawValue,
+                value: true
+            )
+        }
     }
 
     // MARK: - Start/Pause/Resume App
@@ -1219,6 +1228,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             showSettings(with: appearanceSettingsVC, animated: animated)
 
         default:
+            dismissPresentedViewControllers()
             if processLinkUserActivity(activity) {
                 done()
                 return true
@@ -1327,6 +1337,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             vc.dataStore = dataStore
             vc.notificationsCenterPresentationDelegate = self
             vc.tabBarItem.image = UIImage(named: "tabbar-explore")
+            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.exploreButton
             vc.title = WMFCommonStringsWrapper.exploreTabTitle
             vc.apply(theme: theme)
             _exploreViewController = vc
@@ -1359,7 +1370,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             vc.apply(theme: theme)
             vc.dataStore = dataStore
             vc.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: Int(WMFAppTabType.search.rawValue))
-            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.Search.tabButton
+            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.searchButton
             vc.title = WMFCommonStringsWrapper.searchTitle
             _searchTabViewController = vc
             return vc
@@ -1378,6 +1389,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             vc.dataStore = dataStore
             vc.tabBarDelegate = self
             vc.tabBarItem.image = UIImage(named: "tabbar-save")
+            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.savedButton
             vc.title = WMFCommonStringsWrapper.savedTabTitle
             _savedViewController = vc
             return vc
@@ -1391,6 +1403,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         guard let _activityTabViewController else {
             let vc = generateActivityTab()
             vc.tabBarItem.image = UIImage(named: "tabbar-recent")
+            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.activityButton
             vc.title = WMFCommonStringsWrapper.activityTitle
             _activityTabViewController = vc
             return vc
@@ -1405,6 +1418,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             let vc = UIStoryboard(name: "Places", bundle: nil).instantiateInitialViewController() as! PlacesViewController
             vc.apply(theme: theme)
             vc.tabBarItem.image = UIImage(named: "tabbar-nearby")
+            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.placesButton
             vc.title = WMFCommonStringsWrapper.placesTabTitle
             _placesViewController = vc
             return vc

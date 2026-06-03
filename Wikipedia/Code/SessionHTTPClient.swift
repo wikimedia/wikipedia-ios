@@ -18,7 +18,7 @@ extension SessionHTTPClient {
 /// Builds the transport used by a `Session` instance.
 ///
 /// Providers receive the `URLSession` and delegate that `Session` owns so the
-/// default implementation can preserve normal delegate callbacks, while UI test
+/// default implementation can preserve normal delegate callbacks, while test
 /// providers can swap in fixture-backed request execution underneath `Session`.
 protocol SessionHTTPClientProvider {
     func httpClient(defaultURLSession: URLSession, sessionDelegate: SessionDelegate) -> SessionHTTPClient
@@ -27,10 +27,10 @@ protocol SessionHTTPClientProvider {
 struct SessionHTTPClientProviderConfiguration {
     /// Selects the app-process network client from launch/defaults state.
     ///
-    /// UI tests set the fixture profile in `UserDefaults`; production and E2E
+    /// Tests set the fixture profile in `UserDefaults`; production and E2E
     /// runs fall back to the normal URLSession-backed transport.
     static func httpClientProvider(userDefaults: UserDefaults = .standard) -> any SessionHTTPClientProvider {
-        if let fixtureProvider = UITestNetworkFixtureInterceptor.httpClientProvider(profileValue: userDefaults.string(forKey: UITestNetworkFixtureInterceptor.profileKey)) {
+        if let fixtureProvider = TestNetworkFixtureInterceptor.httpClientProvider(profileValue: userDefaults.string(forKey: TestNetworkFixtureInterceptor.profileKey)) {
             return fixtureProvider
         }
 
@@ -45,7 +45,7 @@ struct URLSessionHTTPClientProvider: SessionHTTPClientProvider {
     }
 }
 
-/// URLSession-backed implementation used outside fixture-backed UI-test runs.
+/// URLSession-backed implementation used outside fixture-backed test runs.
 final class URLSessionHTTPClient: SessionHTTPClient {
     private let urlSession: URLSession
     private let sessionDelegate: SessionDelegate

@@ -4,7 +4,7 @@ final class ArticleControlsUITests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         try XCTSkipUnless(
-            uiTestConfiguration.httpClientProfile == UITestHTTPClientProfile.fixtureStrict.rawValue,
+            uiTestConfiguration.httpClientProfile == TestHTTPClientProfile.fixtureStrict.rawValue,
             "ArticleControlsUITests require bundled fixture networking."
         )
         try XCTSkipUnless(
@@ -107,27 +107,28 @@ final class ArticleControlsUITests: XCTestCase {
     }
 
     private func openArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
-        launchWikipediaAppRobot(onboardingState: .completed)
-            .explore
-            .assertVisible(file: file, line: line)
-            .openSearch(file: file, line: line)
-            .openArticle(named: articleControlsFixture.primaryArticleTitle, file: file, line: line)
+        openArticle(named: articleControlsFixture.primaryArticleTitle, file: file, line: line)
     }
 
     private func openLinkedArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
-        launchWikipediaAppRobot(onboardingState: .completed)
-            .explore
-            .assertVisible(file: file, line: line)
-            .openSearch(file: file, line: line)
-            .openArticle(named: articleControlsFixture.linkedArticleTitle, file: file, line: line)
+        openArticle(named: articleControlsFixture.linkedArticleTitle, file: file, line: line)
     }
 
     private func openShortArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
+        openArticle(named: articleControlsFixture.footerArticleTitle, file: file, line: line)
+    }
+
+    private func openArticle(named title: String, file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
         launchWikipediaAppRobot(onboardingState: .completed)
             .explore
             .assertVisible(file: file, line: line)
             .openSearch(file: file, line: line)
-            .openArticle(named: articleControlsFixture.footerArticleTitle, file: file, line: line)
+            .focusSearchField(file: file, line: line)
+            .typeSearchTerm(title)
+            .assertSearchResultVisible(named: title, file: file, line: line)
+            .openResult(named: title, file: file, line: line)
+            .assertVisible(file: file, line: line)
+            .assertTopControlsVisible(file: file, line: line)
     }
 
     private var articleControlsFixture: ArticleRobot.ArticleControlsFixture {

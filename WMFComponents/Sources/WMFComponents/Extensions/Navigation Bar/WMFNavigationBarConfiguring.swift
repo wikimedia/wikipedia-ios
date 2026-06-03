@@ -193,6 +193,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
 
                 let image = WMFSFSymbolIcon.for(symbol: .tabsIcon)
                 let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
+                tabsButton.accessibilityIdentifier = AccessibilityIdentifiers.Tabs.button
 
                 if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
                     trailingBarButtonItems.append(leadingBarButtonItem)

@@ -80,6 +80,16 @@ class ArticleTestHelpers {
     static var dataStore: MWKDataStore!
     static var cacheController: PermanentCacheController!
     
+    static func setupWithNetworkFixtures(completion: @escaping () -> Void) {
+        enableNetworkFixtures()
+        setup(completion: completion)
+    }
+
+    static func tearDownNetworkFixtures() {
+        UserDefaults.standard.removeObject(forKey: TestNetworkFixtureInterceptor.profileKey)
+        TestNetworkFixtureHTTPClient.resetFixtures()
+    }
+
     static func setup(completion: @escaping () -> Void) {
         MWKDataStore.createTemporaryDataStore(completion: { dataStore in
             
@@ -92,6 +102,11 @@ class ArticleTestHelpers {
             self.cacheController = permCache
             completion()
         })
+    }
+
+    private static func enableNetworkFixtures() {
+        UserDefaults.standard.set(TestHTTPClientProfile.fixtureStrict.rawValue, forKey: TestNetworkFixtureInterceptor.profileKey)
+        TestNetworkFixtureHTTPClient.resetFixtures()
     }
     
     static func pullDataFromFixtures(inBundle bundle: Bundle) {
@@ -109,131 +124,6 @@ class ArticleTestHelpers {
         }
         
         self.fixtureData = FixtureData(image: image, html: html, css: css, cachedHTML: cachedHTML, cachedCSS: cachedCSS, cachedZhansHTML: cachedZhansHTML, cachedZhCSS: cachedZhCSS, imageZh640: imageZh640)
-    }
-    
-    static func stubCompleteMobileHTMLResponse(inBundle bundle: Bundle) {
-        guard let dogSummaryJSONData = bundle.wmf_data(fromContentsOfFile: "ArticleControls/en/DogArticleSummary", ofType: "json"),
-            let dogCollageImageData = bundle.wmf_data(fromContentsOfFile:"ArticleControls/en/CollageOfNineDogs", ofType:"jpg"),
-            let userGroupsData = bundle.wmf_data(fromContentsOfFile:"UserInfoGroups", ofType:"json"),
-            let mobileHTMLData = bundle.wmf_data(fromContentsOfFile:"ArticleControls/en/DogMobileHTML", ofType:"html"),
-            let mobileBaseCSSData = bundle.wmf_data(fromContentsOfFile:"MobileBase", ofType:"css"),
-            let mobileSiteCSSData = bundle.wmf_data(fromContentsOfFile:"MobileSite", ofType:"css"),
-            let mobilePCSCSSData = bundle.wmf_data(fromContentsOfFile:"MobilePCS", ofType:"css"),
-            let mobilePCSJSData = bundle.wmf_data(fromContentsOfFile:"MobilePCS", ofType:"js"),
-            let i18PCSData = bundle.wmf_data(fromContentsOfFile:"ArticleControls/en/PCSI18N", ofType: "json"),
-            let redPencilImageData = bundle.wmf_data(fromContentsOfFile:"RedPencilIcon", ofType:"png"),
-            let commonsLogoImageData = bundle.wmf_data(fromContentsOfFile:"59pxCommonsLogo.svg", ofType:"webp"),
-            let footerDog1ImageData = bundle.wmf_data(fromContentsOfFile:"64pxAussieBlacktri", ofType:"jpg"),
-            let footerDog2ImageData = bundle.wmf_data(fromContentsOfFile:"64pxOkapi2", ofType:"jpg"),
-            let wiktionaryLogoImageData = bundle.wmf_data(fromContentsOfFile:"54pxWiktionaryLogoV2.svg", ofType:"webp"),
-            let smallCommonsLogoImageData = bundle.wmf_data(fromContentsOfFile:"40pxCommonsLogo.svg", ofType:"webp"),
-            let wikiQuoteLogoImageData = bundle.wmf_data(fromContentsOfFile:"46pxWikiquoteLogo.svg", ofType:"webp"),
-            let wikiSpeciesLogoImageData = bundle.wmf_data(fromContentsOfFile:"46pxWikispeciesLogo.svg", ofType:"webp"),
-            let wikiSourceLogoImageData = bundle.wmf_data(fromContentsOfFile:"51pxWikisourceLogo.svg", ofType:"webp"),
-            let wikiBooksLogoImageData = bundle.wmf_data(fromContentsOfFile:"54pxWikibooksLogo.svg", ofType:"webp"),
-            let wikiNewsLogoImageData = bundle.wmf_data(fromContentsOfFile:"54pxWikinewsLogo.svg", ofType:"webp"),
-            let genericDogImageData = bundle.wmf_data(fromContentsOfFile:"ArticleControls/en/640pxDogMorphologicalVariation", ofType:"png"),
-            let dailyMetricsData = bundle.wmf_data(fromContentsOfFile:"DogDailyMetrics", ofType: "json"),
-            let dailyMetricsRegex = try? NSRegularExpression(pattern: "https://wikimedia.org/api/rest_v1/metrics/edits/per-page/en.wikipedia.org/Dog/all-editor-types/daily/(.*?)/(.*?)", options: []),
-            let imageRegex = try? NSRegularExpression(pattern: "https://upload.wikimedia.org/wikipedia/commons/thumb.*", options: []) else {
-            assertionFailure("Error setting up fixtures.")
-            return
-        }
-
-        _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/page/summary/Dog" as NSString)
-            .andReturn(200)?
-            .withHeaders(["Content-Type": "application/json"])?
-            .withBody(dogSummaryJSONData as NSData)
-        
-        _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/page/summary/Cat" as NSString)
-            .andReturn(200)?
-            .withHeaders(["Content-Type": "application/json"])?
-            .withBody(dogSummaryJSONData as NSData)
-        
-        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Collage_of_Nine_Dogs.jpg/1280px-Collage_of_Nine_Dogs.jpg" as NSString)
-            .andReturnRawResponse(dogCollageImageData)
-        
-        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Dog_morphological_variation.png/640px-Dog_morphological_variation.png" as NSString)
-            .andReturnRawResponse(genericDogImageData)
-        
-        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Llop.jpg/320px-Llop.jpg" as NSString)
-            .andReturnRawResponse(genericDogImageData)
-        
-        _ = stubRequest("POST", "https://en.wikipedia.org/w/api.php" as NSString)
-            .withBody("action=query&format=json&meta=userinfo&uiprop=groups" as NSString)?
-            .andReturn(200)?
-            .withBody(userGroupsData as NSData)
-        
-        _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/page/mobile-html/Dog" as NSString)
-            .andReturn(200)?
-            .withBody(mobileHTMLData as NSData)
-        
-        _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/page/mobile-html/Cat" as NSString)
-            .andReturn(200)?
-            .withBody(mobileHTMLData as NSData)
-        
-        _ = stubRequest("GET", dailyMetricsRegex)
-            .andReturn(200)?
-            .withBody(dailyMetricsData as NSData)
-        
-        _ = stubRequest("GET", "https://meta.wikimedia.org/api/rest_v1/data/css/mobile/base" as NSString)
-            .andReturn(200)?
-            .withBody(mobileBaseCSSData as NSData)
-        
-        _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site" as NSString)
-        .andReturn(200)?
-        .withBody(mobileSiteCSSData as NSData)
-        
-        _ = stubRequest("GET", "https://meta.wikimedia.org/api/rest_v1/data/css/mobile/pcs" as NSString)
-        .andReturn(200)?
-        .withBody(mobilePCSCSSData as NSData)
-        
-        _ = stubRequest("GET", "https://meta.wikimedia.org/api/rest_v1/data/javascript/mobile/pcs" as NSString)
-        .andReturn(200)?
-        .withBody(mobilePCSJSData as NSData)
-        
-        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/7/74/Red_Pencil_Icon.png" as NSString)
-        .andReturnRawResponse(redPencilImageData)
-        
-        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Commons-logo.svg/59px-Commons-logo.svg.png" as NSString)
-        .andReturnRawResponse(commonsLogoImageData)
-        
-        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Aussie-blacktri.jpg/64px-Aussie-blacktri.jpg" as NSString)
-        .andReturnRawResponse(footerDog1ImageData)
-        
-        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Okapi2.jpg/64px-Okapi2.jpg" as NSString)
-        .andReturnRawResponse(footerDog2ImageData)
-        
-        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Okapi2.jpg/64px-Okapi2.jpg" as NSString)
-        .andReturnRawResponse(footerDog2ImageData)
-        
-        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/en/thumb/0/06/Wiktionary-logo-v2.svg/54px-Wiktionary-logo-v2.svg.png" as NSString)
-        .andReturnRawResponse(wiktionaryLogoImageData)
-        
-        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Commons-logo.svg/40px-Commons-logo.svg.png" as NSString)
-        .andReturnRawResponse(smallCommonsLogoImageData)
-        
-        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Wikinews-logo.svg/54px-Wikinews-logo.svg.png" as NSString)
-        .andReturnRawResponse(wikiNewsLogoImageData)
-        
-        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/46px-Wikiquote-logo.svg.png" as NSString)
-        .andReturnRawResponse(wikiQuoteLogoImageData)
-        
-        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/51px-Wikisource-logo.svg.png" as NSString)
-        .andReturnRawResponse(wikiSourceLogoImageData)
-        
-        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikibooks-logo.svg/54px-Wikibooks-logo.svg.png" as NSString)
-        .andReturnRawResponse(wikiBooksLogoImageData)
-        
-        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikispecies-logo.svg/46px-Wikispecies-logo.svg.png" as NSString)
-        .andReturnRawResponse(wikiSpeciesLogoImageData)
-        
-        _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/data/i18n/pcs" as NSString)
-        .andReturn(200)?
-        .withBody(i18PCSData as NSData)
-        
-        _ = stubRequest("GET", imageRegex)
-        .andReturnRawResponse(genericDogImageData)
     }
     
     static func writeCachedPiecesToCachingSystem() {

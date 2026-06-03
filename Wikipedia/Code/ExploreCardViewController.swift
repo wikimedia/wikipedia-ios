@@ -11,6 +11,7 @@ protocol ExploreCardViewControllerDelegate: NestedCollectionViewContextMenuDeleg
     var saveButtonsController: SaveButtonsController { get }
     var layoutCache: ColumnarCollectionViewControllerLayoutCache { get }
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath: IndexPath)
+    func exploreCardViewControllerDidTapReviewResults(_ exploreCardViewController: ExploreCardViewController)
 }
 
 struct ExploreSaveButtonUserInfo {
@@ -407,6 +408,22 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         cell.apply(theme: theme)
     }
 
+    /// String identifying the daily game card's layout shape for preventimg cahed heights breaking layout with state changes
+    private func dailyGameStateDiscriminator() -> String {
+        guard let data = contentGroup?.contentPreview as? Data,
+              let preview = try? JSONDecoder().decode(WMFDailyGameContentPreview.self, from: data) else {
+            return "empty"
+        }
+        switch preview.state {
+        case .notStarted:
+            return (preview.optionA != nil && preview.optionB != nil) ? "events" : "notStarted"
+        case .inProgress:
+            return "inProgress"
+        case .completed:
+            return "completed"
+        }
+    }
+
     private func configureDailyGameCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
         guard let cell = cell as? WMFDailyGameExploreCell else {
             return
@@ -431,7 +448,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         cell.tappedReviewResults = { [weak self] in
             guard let self else { return }
-            self.delegate?.exploreCardViewController(self, didSelectItemAtIndexPath: IndexPath(item: 0, section: 0))
+            self.delegate?.exploreCardViewControllerDidTapReviewResults(self)
         }
         cell.tappedPlayTheArchive = { [weak self] in
             guard let self else { return }
@@ -521,7 +538,10 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         } else {
             key = articleKey?.userInfoString ?? groupKey?.userInfoString
         }
-        let userInfo = "\(key ?? "")-\(displayType.rawValue)"
+        var userInfo = "\(key ?? "")-\(displayType.rawValue)"
+        if displayType == .dailyGame {
+            userInfo += "-\(dailyGameStateDiscriminator())"
+        }
         if let height = delegate?.layoutCache.cachedHeightForCellWithIdentifier(reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo) {
             return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: height)
         }
