@@ -50,6 +50,8 @@ class ArticleToolbarController: Themeable {
     lazy var showTableOfContentsButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "toc", target: self, action: #selector(showTableOfContents), for: .touchUpInside)
         item.accessibilityLabel = WMFLocalizedString("table-of-contents-button-label", value: "Table of contents", comment: "Accessibility label for the Table of Contents button {{Identical|Table of contents}}")
+        item.accessibilityIdentifier = AccessibilityIdentifiers.Article.tableOfContentsButton
+        item.customView?.accessibilityIdentifier = AccessibilityIdentifiers.Article.tableOfContentsButton
         item.apply(theme: theme)
         return item
     }()
@@ -75,6 +77,8 @@ class ArticleToolbarController: Themeable {
             button.layer.masksToBounds = true
         }
         item.accessibilityLabel = WMFLocalizedString("table-of-contents-hide-button-label", value: "Hide table of contents", comment: "Accessibility label for the hide Table of Contents button")
+        item.accessibilityIdentifier = AccessibilityIdentifiers.Article.tableOfContentsButton
+        item.customView?.accessibilityIdentifier = AccessibilityIdentifiers.Article.tableOfContentsButton
         item.apply(theme: theme)
         return item
     }()

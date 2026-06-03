@@ -10,6 +10,8 @@ public enum AccessibilityIdentifiers {
         public static let leadImage = "Article Lead Image"
         public static let linkPreview = "Article Link Preview"
         public static let searchButton = "Article Search Button"
+        public static let tableOfContentsButton = "Article Table of Contents Button"
+        public static let tableOfContentsView = "Article Table of Contents View"
         public static let view = "Article View"
     }
 

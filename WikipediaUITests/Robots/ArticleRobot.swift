@@ -52,6 +52,18 @@ extension ArticleRobot {
     }
 
     @discardableResult
+    func assertTableOfContentsVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.assertExists(
+            tableOfContentsView,
+            timeout: 15,
+            description: "article table of contents",
+            file: file,
+            line: line
+        )
+        return self
+    }
+
+    @discardableResult
     func rotateAndAssertArticleWorks(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.rotateToLandscapeLeft()
         _ = assertVisible(file: file, line: line)
@@ -95,6 +107,12 @@ extension ArticleRobot {
     func tapSearch(file: StaticString = #filePath, line: UInt = #line) -> SearchRobot {
         base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.searchButton, file: file, line: line)
         return SearchRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
+    }
+
+    @discardableResult
+    func openTableOfContents(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.tableOfContentsButton, file: file, line: line)
+        return assertTableOfContentsVisible(file: file, line: line)
     }
 }
 
@@ -316,6 +334,17 @@ private extension ArticleRobot {
 
     var searchButton: XCUIElement {
         base.app.buttons[AccessibilityIdentifiers.Article.searchButton]
+    }
+
+    var tableOfContentsView: XCUIElement {
+        let table = base.app.tables[AccessibilityIdentifiers.Article.tableOfContentsView]
+        if table.waitForExistence(timeout: 2) {
+            return table
+        }
+
+        return base.app.descendants(matching: .any)
+            .matching(identifier: AccessibilityIdentifiers.Article.tableOfContentsView)
+            .firstMatch
     }
 
     func navigationBar(file: StaticString = #filePath, line: UInt = #line) -> XCUIElement {
