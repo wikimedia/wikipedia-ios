@@ -187,7 +187,7 @@ public struct WMFWhichCameFirstResultsView: View {
                     )
                     Divider()
                     statCell(
-                        symbol: .medal,
+                        symbol: .medalStar,
                         value: viewModel.bestStreak.map { "\($0)" } ?? "–",
                         label: viewModel.localizedStrings.bestStreakLabel
                     )
@@ -214,7 +214,7 @@ public struct WMFWhichCameFirstResultsView: View {
                     }
                     HStack(spacing: 0) {
                         statCell(
-                            symbol: .medal,
+                            symbol: .medalStar,
                             value: viewModel.bestStreak.map { "\($0)" } ?? "–",
                             label: viewModel.localizedStrings.bestStreakLabel
                         )

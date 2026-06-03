@@ -573,6 +573,9 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     private func presentGamesAnnouncementAlert(gamesDataController: WMFGamesDataController) {
         guard let navigationController else { return }
 
+        // Mark as seen as soon as it is displayed so it is never shown again if user taps background to dismiss
+        gamesDataController.markGamesAnnouncementSeen()
+
         let alert = UIAlertController(
             title: CommonStrings.gamesAnnouncementTitle,
             message: CommonStrings.gamesAnnouncementMessage,
@@ -586,7 +589,6 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
                 actionSource: "game_announce",
                 elementId: "game_enter"
             )
-            gamesDataController.markGamesAnnouncementSeen()
             let siteURL = dataStore.languageLinkController.appLanguage?.siteURL
             let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, siteURL: siteURL)
             coordinator.didFinish = { [weak self] in self?.whichCameFirstCoordinator = nil }
@@ -600,7 +602,6 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
                 actionSource: "game_announce",
                 elementId: "game_later"
             )
-            gamesDataController.markGamesAnnouncementSeen()
         })
 
         if let popover = alert.popoverPresentationController {

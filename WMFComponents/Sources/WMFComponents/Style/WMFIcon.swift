@@ -168,6 +168,7 @@ public enum WMFSFSymbolIcon {
     case calendarBadgeClock
     case gameControllerFill
     case medal
+    case medalStar
     case flagPatternCheckered
 
     public var name: String? {
@@ -421,6 +422,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "gamecontroller.fill", withConfiguration: configuration)
         case .medal:
             image = UIImage(systemName: "medal", withConfiguration: configuration)
+        case .medalStar:
+            image = UIImage(systemName: "medal.star", withConfiguration: configuration)
         case .flagPatternCheckered:
             image = UIImage(systemName: "flag.pattern.checkered", withConfiguration: configuration)
         case .starSquare:
