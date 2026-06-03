@@ -137,6 +137,7 @@
 "activity-tab-customize-timeline-of-behavior" = "الجدول الزمني للسلوك";
 "activity-tab-email-fifth-line" = "[لقطات الشاشة أو الروابط]";
 "activity-tab-email-first-line" = "لقد واجهت مشكلة مع ميزة علامة التبويب النشاط:";
+// Fuzzy
 "activity-tab-email-fourth-line" = "[وصف السلوك المطلوب]";
 "activity-tab-email-second-line" = "- [وصف المشكلة المحددة]";
 "activity-tab-email-third-line" = "السلوك الذي أود رؤيته هو:";
@@ -740,11 +741,8 @@
 "image-rec-tooltip-3-body" = "قرر ما إذا كانت الصورة تساعد القراء على فهم هذا الموضوع بشكل أفضل.";
 "image-rec-tooltip-3-title" = "يقرر";
 "image-rec-view-article" = "عرض المقال";
-"image-recommendations-email-fifth-line" = "[لقطات الشاشة أو الروابط]";
+// Fuzzy
 "image-recommendations-email-first-line" = "لقد واجهت مشكلة مع ميزة إضافة صورة والتعديلات المقترحة:";
-"image-recommendations-email-fourth-line" = "- [وصف الحل المقترح]";
-"image-recommendations-email-second-line" = "- [وصف المشكلة المحددة]";
-"image-recommendations-email-third-line" = "السلوك الذي أود رؤيته هو:";
 "image-recommendations-email-title" = "تقرير المشكلة - إضافة ميزة الصورة";
 "image-recs-no-title" = "لا";
 "image-recs-not-sure-title" = "غير متأكد";

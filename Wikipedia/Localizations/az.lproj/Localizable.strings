@@ -97,7 +97,7 @@
 "activity-tab-customize-timeline-of-behavior" = "Davranış qrafiki";
 "activity-tab-email-fifth-line" = "[Skrinşotlar və ya Linklər]";
 "activity-tab-email-first-line" = "Fəaliyyət Vərəqəsi Xüsusiyyəti ilə bağlı problemlə qarşılaşdım:";
-"activity-tab-email-fourth-line" = "[İstədiyiniz davranışı təsvir edin]";
+"activity-tab-email-fourth-line" = "[Təklif etdiyiniz həll yolunu təsvir edin]";
 "activity-tab-email-second-line" = "- [Spesifik problemi təsvir edin]";
 "activity-tab-email-third-line" = "Görmək istədiyim davranış:";
 "activity-tab-email-title" = "Problemin bildirilməsi - Fəaliyyət vərəqəsi";
@@ -656,6 +656,8 @@
 "forgot-password-instructions" = "Parol sıfırlama təlimatlarını e-poçt vasitəsilə almaq üçün aşağıdakı sahələrdən birini doldurun";
 "forgot-password-title" = "Parolu yenilə";
 "forgot-password-username-or-email-title" = "Ya da";
+"games-email-report-body-encountered" = "Vikipediya oyunları funksiyası ilə bağlı bir problemlə qarşılaşdım:";
+"games-email-report-subject" = "Problem bildirişi - Vikipediya oyunları";
 "games-wcf-button-play-title" = "Bu günün oyununu oyna";
 "games-wcf-explore-button-archive-title" = "Arxivi oyna";
 "games-wcf-explore-button-review-title" = "Nəticələrə bax";
@@ -713,11 +715,7 @@
 "image-rec-tooltip-3-body" = "Şəklin oxuculara bu mövzunu daha yaxşı başa düşməsinə kömək edib-etmədiyinə qərar verin.";
 "image-rec-tooltip-3-title" = "Qərar ver";
 "image-rec-view-article" = "Məqaləyə bax";
-"image-recommendations-email-fifth-line" = "[Ekran görüntüləri və ya Linklər]";
 "image-recommendations-email-first-line" = "Təklif olunan Şəkil Əlavə Edilməsi Xüsusiyyəti ilə bağlı problemlə qarşılaşdım:";
-"image-recommendations-email-fourth-line" = "- [Təklif olunan həlli təsvir edin]";
-"image-recommendations-email-second-line" = "- [Problemi təsvir edin]";
-"image-recommendations-email-third-line" = "Görmək istədiyim davranış:";
 "image-recommendations-email-title" = "Xəta Bildirişi - Şəkil Əlavə etmə";
 "image-recs-no-title" = "Xeyr";
 "image-recs-not-sure-title" = "Əmin deyiləm";
@@ -1528,6 +1526,8 @@
 "welcome-languages-search-title" = "300-dən çox dildə axtar";
 "welcome-privacy-subtitle" = "Biz inanırıq ki, azad bilik hərəkatında iştirak etmək üçün şəxsi məlumatlarınızı təqdim etməməlisiniz. Bu proqram üçün toplanmış istifadə məlumatları anonimdir.";
 "welcome-privacy-terms-button-text" = "Məxfilik siyasətimiz və istifadə şərtlərimiz haqqında ətraflı məlumat əldə edin";
+"which-came-first-article-card-open-hint" = "Bu məqalə ilə əlaqəli tədbiri açır";
+"which-came-first-articles-section-title" = "Bugünkü oyundan məqalələr";
 "which-came-first-average-score-label" = "orta xal";
 "which-came-first-best-streak-label" = "ən yaxşı davamiyyət";
 "which-came-first-better-luck" = "Sabahkı oyununuzda uğurlar!";
@@ -1540,7 +1540,7 @@
 "which-came-first-game-complete-title" = "Oyun tamamlandı!";
 "which-came-first-games-played-label" = "oynanılan oyun";
 "which-came-first-incorrect-answer-a11y" = "Yanlış cavab";
-"which-came-first-incorrect-feedback" = "Yanlış";
+"which-came-first-incorrect-feedback" = "Yanlış!";
 "which-came-first-log-in-button" = "Daxil ol";
 "which-came-first-log-in-stats-body" = "Davamiyyətinizə, xallarınıza və daha çoxuna baxın";
 "which-came-first-log-in-stats-title" = "Oyun statistikanızı görmək üçün daxil olun";

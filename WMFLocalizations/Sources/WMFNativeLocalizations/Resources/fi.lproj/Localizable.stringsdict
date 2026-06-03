@@ -346,6 +346,42 @@
 			<string>%1$lld tavua</string>
 		</dict>
 	</dict>
+	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Vapaaehtoiset tekivät %#@v1@ yli %#@v2@ Wikipediassa. Englanninkieliseen Wikipediaan tehtiin %#@v3@. Joka päivä, joka tunti, vapaaehtoiset työskentelevät parantaakseen Wikipediaa.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld muutoksen</string>
+			<key>other</key>
+			<string>%1$lld muutosta</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d eri kieliversioon</string>
+		</dict>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%3$lld muutos</string>
+			<key>other</key>
+			<string>%3$lld muutosta</string>
+		</dict>
+	</dict>
 	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -360,6 +396,65 @@
 			<string>%1$lld muutoksen</string>
 			<key>other</key>
 			<string>%1$lld muutosta</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Ihmiset viettivät arviolta %#@v1@ – noin %#@v2@! – englanninkielisen Wikipedian lukemiseen vuonna %3$@. Wikipedia on palveluksessasi, kun haluat oppia lisää muuttuvasta maailmasta, voittaa vedon ystävien kesken tai vastata uteliaan lapsen kysymykseen.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld tunti</string>
+			<key>other</key>
+			<string>%1$lld tuntia</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld vuosi</string>
+			<key>other</key>
+			<string>%2$lld vuotta</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Aktiivisilla apin käyttäjillä oli tänä vuonna %#@v1@. Artikkelien lisääminen lukulistoihin mahdollistaa artikkelien käytön myös ilman Internet-yhteyttä. Voit myös synkronoida lukulistoja eri laitteiden välillä.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld tallennettu artikkeli</string>
+			<key>other</key>
+			<string>%1$lld tallennettuja artikkeleita</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Meillä oli %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld tallennettu artikkeli</string>
+			<key>other</key>
+			<string>%1$lld tallennettuja artikkeleita</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -934,6 +1029,63 @@
 			<string>%1$d tavua</string>
 		</dict>
 	</dict>
+	<key>year-in-review-base-edits-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wikipediaa muokattiin %#@v1@ per minuutti</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d kertaa</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wikipediassa oli %#@v1@ yli %#@v2@. Liityit miljoonien joukkoon laajentamassa tietämystä ja tutkimaan erilaisia aihealueita.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld artikkeli</string>
+			<key>other</key>
+			<string>%1$lld artikkelia</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d aktiivisen kielen</string>
+			<key>other</key>
+			<string>%2$d aktiivisten kielien</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-saved-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Apin käyttäjillä oli %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld tallennettu artikkeli</string>
+			<key>other</key>
+			<string>%1$lld tallennettuja artikkeleita</string>
+		</dict>
+	</dict>
 	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -966,10 +1118,42 @@
 			<string> %1$d kertaa</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Lukijat ympäri maailmaa arvostavat panostasi. Viimeisen kahden kuukauden aikana muokkaamasi artikkelit ovat saaneet yhteensä %#@v1@. Kiitos kaltaistesi vapaaehtoisten, Wikipedia on jatkuvasti kehittyvä, faktaan perustuva ja luotettava tietolähde maailmalle.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld katselukerran</string>
+			<key>other</key>
+			<string>%1$lld katselukertaa</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Muokkauksiasi on näytetty viime aikoina yli %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld kerran</string>
+			<key>other</key>
+			<string>%1$lld kertaa</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Muokkasit Wikipediaa %#@v1@</string>
+		<string>Muokkasit %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

@@ -127,7 +127,7 @@
 "activity-tab-customize-timeline-of-behavior" = "활동 타임라인";
 "activity-tab-email-fifth-line" = "[스크린샷 또는 링크]";
 "activity-tab-email-first-line" = "활동 탭 기능 사용 중 문제가 발생했습니다:";
-"activity-tab-email-fourth-line" = "[원하던 동작 설명]";
+"activity-tab-email-fourth-line" = "[해결책 제안 설명]";
 "activity-tab-email-second-line" = "- [구체적인 문제 설명]";
 "activity-tab-email-third-line" = "원하던 동작은 다음과 같습니다:";
 "activity-tab-email-title" = "문제 보고 - 활동 탭";
@@ -688,6 +688,8 @@
 "forgot-password-instructions" = "이메일을 통해 암호 재설정 지시사항을 받으려면 아래의 필드 중 하나를 채우십시오";
 "forgot-password-title" = "비밀번호 재설정";
 "forgot-password-username-or-email-title" = "또는";
+"games-email-report-body-encountered" = "위키백과 게임 기능에 문제가 생겼습니다:";
+"games-email-report-subject" = "문제 보고 - 위키백과 게임";
 "games-wcf-button-play-title" = "오늘의 게임 플레이";
 "games-wcf-explore-button-archive-title" = "이전 게임을 플레이";
 "games-wcf-explore-button-review-title" = "결과 검토";
@@ -745,11 +747,7 @@
 "image-rec-tooltip-3-body" = "독자가 이 주제를 더 잘 이해할 수 있을지 결정합니다.";
 "image-rec-tooltip-3-title" = "결정";
 "image-rec-view-article" = "문서 보기";
-"image-recommendations-email-fifth-line" = "[스크린샷 또는 링크]";
-"image-recommendations-email-first-line" = "이미지 추가 제안 편집 기능에 문제가 발생했습니다.";
-"image-recommendations-email-fourth-line" = "- [해결책 제안 설명]";
-"image-recommendations-email-second-line" = "- [구체적인 문제 설명]";
-"image-recommendations-email-third-line" = "제가 보고 싶은 동작은 아래와 같습니다:";
+"image-recommendations-email-first-line" = "이미지 추가 제안 편집 기능에 문제가 발생했습니다:";
 "image-recommendations-email-title" = "문제 보고 - 이미지 추가 기능";
 "image-recs-no-title" = "아니요";
 "image-recs-not-sure-title" = "확실치 않음";
@@ -1564,6 +1562,8 @@
 "welcome-languages-search-title" = "300개 이상의 언어에서 검색";
 "welcome-privacy-subtitle" = "저희는 자유로운 지식 교류 운동에 참여하기 위해 개인 정보를 제공할 필요가 없다고 생각합니다. 이 앱에서 수집되는 사용 데이터는 익명으로 처리됩니다.";
 "welcome-privacy-terms-button-text" = "개인정보 보호정책 및 이용약관에 대해 더 알아보기";
+"which-came-first-article-card-open-hint" = "본 문서와 관련된 이벤트 열기";
+"which-came-first-articles-section-title" = "오늘의 게임에서 나온 문서";
 "which-came-first-average-score-label" = "평균 점수";
 "which-came-first-best-streak-label" = "최고 연승 기록";
 "which-came-first-better-luck" = "내일은 더 잘될 거예요!";
@@ -1576,7 +1576,7 @@
 "which-came-first-game-complete-title" = "게임 완료!";
 "which-came-first-games-played-label" = "플레이한 게임";
 "which-came-first-incorrect-answer-a11y" = "오답입니다";
-"which-came-first-incorrect-feedback" = "오답";
+"which-came-first-incorrect-feedback" = "틀렸습니다!";
 "which-came-first-log-in-button" = "로그인";
 "which-came-first-log-in-stats-body" = "연승 기록, 점수 등을 확인하세요";
 "which-came-first-log-in-stats-title" = "게임 통계를 보려면 로그인하세요";
