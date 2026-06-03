@@ -1,4 +1,4 @@
-name: Run UI Tests
+name: Run UI and E2E Tests
 
 on:
   pull_request:
@@ -18,15 +18,20 @@ env:
   IOS_VERSION: "26.2"
   SIMULATOR_NAME: "iPhone 16"
   UI_TEST_CONFIGURATION: "English (Light)"
+  E2E_UI_TEST_CONFIGURATION: "English (Light, E2E)"
+  E2E_SMOKE_TEST_LIST: "WikipediaUITests/E2ESmokeTests.txt"
+  UI_TEST_PRODUCTS_ARTIFACT: "WikipediaUITests-xctestproducts"
+  UI_TEST_PRODUCTS_ARCHIVE: "WikipediaUITests.xctestproducts.tar.gz"
+  UI_TEST_PRODUCTS_PATH: "WikipediaUITests.xctestproducts"
 
 concurrency:
-  group: "ui-tests-${{ github.ref }}"
+  group: "ui-and-e2e-tests-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
-  run-ui-tests:
+  build-uitests:
     runs-on: macos-latest
-    name: Test WikipediaUITests
+    name: Build WikipediaUITests
     steps:
       - name: Verify selected release tag
         if: github.event_name == 'workflow_dispatch'
@@ -37,7 +42,7 @@ jobs:
           SELECTED_REF_TYPE: ${{ github.ref_type }}
         run: |
           if [ "$SELECTED_REF_TYPE" != "tag" ]; then
-            echo "Manual UI test runs must use a tag from the 'Use workflow from' selector."
+            echo "Manual UI and E2E test runs must use a tag from the 'Use workflow from' selector."
             echo "Selected ref: $SELECTED_REF"
             exit 1
           fi
@@ -62,13 +67,70 @@ jobs:
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
 
+      - name: Build WikipediaUITests products
+        run: |
+          echo "Building WikipediaUITests products for ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
+          xcodebuild build-for-testing \
+            -scheme WikipediaUITests \
+            -testPlan UITests \
+            -destination "${{ steps.simulator.outputs.destination }}" \
+            -testProductsPath "${UI_TEST_PRODUCTS_PATH}" \
+            | xcpretty
+          EXIT_CODE=${PIPESTATUS[0]}
+          if [ "$EXIT_CODE" -ne 0 ]; then
+            exit "$EXIT_CODE"
+          fi
+
+          tar -czf "${UI_TEST_PRODUCTS_ARCHIVE}" "${UI_TEST_PRODUCTS_PATH}"
+
+      - name: Upload UI test products
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ env.UI_TEST_PRODUCTS_ARTIFACT }}
+          path: ${{ env.UI_TEST_PRODUCTS_ARCHIVE }}
+          if-no-files-found: error
+
+  run-ui-tests:
+    needs: build-uitests
+    if: always()
+    runs-on: macos-latest
+    name: Test WikipediaUITests
+    steps:
+      - name: Require shared UI test build
+        if: needs.build-uitests.result != 'success'
+        run: |
+          echo "Shared UI test build finished with result: ${{ needs.build-uitests.result }}"
+          exit 1
+
+      - name: Check out selected ref
+        uses: actions/checkout@v6
+
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
+
+      - name: Prepare simulator
+        id: simulator
+        uses: ./.github/actions/prepare-simulator
+        with:
+          ios-version: ${{ env.IOS_VERSION }}
+          simulator-name: ${{ env.SIMULATOR_NAME }}
+
+      - name: Download UI test products
+        uses: actions/download-artifact@v7
+        with:
+          name: ${{ env.UI_TEST_PRODUCTS_ARTIFACT }}
+          path: .
+
+      - name: Extract UI test products
+        run: |
+          tar -xzf "${UI_TEST_PRODUCTS_ARCHIVE}"
+
       - name: Run WikipediaUITests
         run: |
           echo "Running WikipediaUITests ${UI_TEST_CONFIGURATION} [Mocked] on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
-          xcodebuild test \
-            -scheme WikipediaUITests \
-            -project Wikipedia.xcodeproj \
-            -testPlan UITests \
+          xcodebuild test-without-building \
+            -testProductsPath "${UI_TEST_PRODUCTS_PATH}" \
             -only-test-configuration "${UI_TEST_CONFIGURATION}" \
             -destination "${{ steps.simulator.outputs.destination }}" \
             -resultBundlePath "WikipediaUITests_TestResults" \
@@ -93,5 +155,98 @@ jobs:
           artifact-name: WikipediaUITests-coverage
           coverage-json-path: WikipediaUITests_coverage.json
           result-bundle-path: WikipediaUITests_TestResults.xcresult
+          scheme: WikipediaUITests
+          workflow-file: run_ui_tests.yml
+
+  run-e2e-ui-tests:
+    needs: build-uitests
+    if: always()
+    runs-on: macos-latest
+    name: Test WikipediaUITests E2E
+    steps:
+      - name: Require shared UI test build
+        if: needs.build-uitests.result != 'success'
+        run: |
+          echo "Shared UI test build finished with result: ${{ needs.build-uitests.result }}"
+          exit 1
+
+      - name: Check out selected ref
+        uses: actions/checkout@v6
+
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
+
+      - name: Prepare simulator
+        id: simulator
+        uses: ./.github/actions/prepare-simulator
+        with:
+          ios-version: ${{ env.IOS_VERSION }}
+          simulator-name: ${{ env.SIMULATOR_NAME }}
+
+      - name: Download UI test products
+        uses: actions/download-artifact@v7
+        with:
+          name: ${{ env.UI_TEST_PRODUCTS_ARTIFACT }}
+          path: .
+
+      - name: Extract UI test products
+        run: |
+          tar -xzf "${UI_TEST_PRODUCTS_ARCHIVE}"
+
+      - name: Run WikipediaUITests E2E
+        run: |
+          if [ ! -f "${E2E_SMOKE_TEST_LIST}" ]; then
+            echo "Missing E2E smoke test list: ${E2E_SMOKE_TEST_LIST}"
+            exit 1
+          fi
+
+          only_testing_args=()
+          while IFS= read -r test_identifier || [ -n "${test_identifier}" ]; do
+            test_identifier="${test_identifier%%#*}"
+            test_identifier="${test_identifier#"${test_identifier%%[![:space:]]*}"}"
+            test_identifier="${test_identifier%"${test_identifier##*[![:space:]]}"}"
+
+            if [ -z "${test_identifier}" ]; then
+              continue
+            fi
+
+            only_testing_args+=("-only-testing:${test_identifier}")
+          done < "${E2E_SMOKE_TEST_LIST}"
+
+          if [ "${#only_testing_args[@]}" -eq 0 ]; then
+            echo "No E2E smoke tests configured in ${E2E_SMOKE_TEST_LIST}."
+            exit 1
+          fi
+
+          echo "Running E2E WikipediaUITests ${E2E_UI_TEST_CONFIGURATION} [E2E] on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
+          printf 'E2E smoke selection: %s\n' "${only_testing_args[@]}"
+          xcodebuild test-without-building \
+            -testProductsPath "${UI_TEST_PRODUCTS_PATH}" \
+            -only-test-configuration "${E2E_UI_TEST_CONFIGURATION}" \
+            "${only_testing_args[@]}" \
+            -destination "${{ steps.simulator.outputs.destination }}" \
+            -resultBundlePath "WikipediaUITests_E2E_TestResults" \
+            | xcpretty
+          EXIT_CODE=${PIPESTATUS[0]}
+          if [ "$EXIT_CODE" -ne 0 ]; then
+            exit "$EXIT_CODE"
+          fi
+
+      - name: Upload E2E UI test result bundle
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: WikipediaUITests-E2E-TestResults
+          path: WikipediaUITests_E2E_TestResults.xcresult
+          if-no-files-found: ignore
+
+      - name: E2E coverage summary
+        if: success()
+        uses: ./.github/actions/coverage-summary
+        with:
+          artifact-name: WikipediaUITests-E2E-coverage
+          coverage-json-path: WikipediaUITests_E2E_coverage.json
+          result-bundle-path: WikipediaUITests_E2E_TestResults.xcresult
           scheme: WikipediaUITests
           workflow-file: run_ui_tests.yml

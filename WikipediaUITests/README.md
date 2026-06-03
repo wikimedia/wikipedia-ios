@@ -1,9 +1,10 @@
 # Wikipedia UI Tests
 This repository uses the Robots pattern for test legibility and organization. Keep this readme aligned with the checked-in workflows, schemes, test plans, and helper APIs.
 ## CI Lanes
-- Pull requests run `.github/workflows/run_ui_tests.yml` against the `WikipediaUITests` scheme and the `English (Light)` configuration from `Test Plans/UITests.xctestplan`.
+- Pull requests run `.github/workflows/run_ui_tests.yml`, which builds the `WikipediaUITests` scheme once with the `UITests` test plan and uploads the compiled `.xctestproducts` bundle for the test jobs.
+- The `Test WikipediaUITests` job runs the shared build with the `English (Light)` configuration from `Test Plans/UITests.xctestplan`.
 - `UITestConfiguration` defaults UI-test launches to fixture mode and forwards `-WMFTestHTTPClientProfile fixture-strict` to the app.
-- Pull requests also run `.github/workflows/run_e2e_ui_tests.yml` against the same scheme and test plan with the `English (Light, E2E)` configuration, narrowed to the test identifiers listed in `WikipediaUITests/E2ESmokeTests.txt`. That test-plan configuration passes `-WMFTestHTTPClientProfile e2e` to the UI-test process, so no fixture profile is forwarded to the app and the app uses E2E networking.
+- The `Test WikipediaUITests E2E` job runs the same shared build with the `English (Light, E2E)` configuration, narrowed to the test identifiers listed in `WikipediaUITests/E2ESmokeTests.txt`. That test-plan configuration passes `-WMFTestHTTPClientProfile e2e` to the UI-test process, so no fixture profile is forwarded to the app and the app uses E2E networking.
 - The UI-test workflows publish `.xcresult` bundles as artifacts. Use those bundles for screenshots and failure inspection.
 ## UI Test Robot Pattern
 - Write UI tests as intent-level scripts. Test files should describe the user journey and expected result, not raw selectors, scrolling loops, alert dismissal, or screenshot plumbing.
@@ -19,6 +20,7 @@ This repository uses the Robots pattern for test legibility and organization. Ke
 ## Validation
 - For UI-test helper changes, first run `scripts/lint-ui-tests.sh`.
 - For compile validation, use a narrow `xcodebuild build-for-testing` or selected UI-test run while iterating.
+- To mirror CI's shared-build shape locally, use `xcodebuild build-for-testing -scheme WikipediaUITests -testPlan UITests -destination "platform=iOS Simulator,name=iPhone 16" -testProductsPath WikipediaUITests.xctestproducts`, then run `xcodebuild test-without-building -testProductsPath WikipediaUITests.xctestproducts` with the same destination and the target test-plan configuration.
 - For development and final UI-test verification, run the default fixture-backed `WikipediaUITests` scheme with the `UITests` test plan narrowed to `English (Light)`:
 
 ```sh
