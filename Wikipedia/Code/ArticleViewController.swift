@@ -22,7 +22,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     private let widgetInstrument = WidgetFunnel().widgetInstrument
 
     private lazy var gameInstrument = TestKitchenAdapter.shared.client
-        .getInstrument(name: "apps-wiki-game")
+        .getInstrument(name: "apps-games")
         .setDefaultActionSource("game_announce")
         .startFunnel(name: "wiki_game")
 
