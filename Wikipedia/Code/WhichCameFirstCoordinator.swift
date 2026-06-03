@@ -23,6 +23,12 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
     private let project: WMFProject?
 
     var didFinish: (() -> Void)?
+    // MARK: - Instrumentation
+
+    private lazy var instrument = TestKitchenAdapter.shared.client
+        .getInstrument(name: "apps-games")
+        .setDefaultActionSource("wiki_game")
+        .startFunnel(name: "wiki_game")
 
     init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, siteURL: URL?) {
         self.navigationController = navigationController
@@ -53,9 +59,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         )
         gameNavigationController = nav
         navigationController.present(nav, animated: true)
+
         return true
     }
-
     // MARK: - Factory
 
     private func makeSplashViewController() -> WMFGamesSplashScreenViewController {
@@ -63,18 +69,23 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             icon: WMFSFSymbolIcon.for(symbol: .calendar),
             dateString: formattedTodayDateString(),
             didTapPlay: { [weak self] in
+                self?.logClick(actionSource: "game_start", elementId: "game_play_start")
                 self?.showGame()
             },
             didTapAbout: { [weak self] in
+                self?.logClick(actionSource: "game_start", actionSubtype: "splash_overflow", elementId: "about")
                 self?.showAbout()
             },
             didTapClose: { [weak self] in
+                self?.logClick(actionSource: "game_start", elementId: "exit_button")
                 self?.didFinish?()
             },
             didTapLearnMore: { [weak self] in
+                self?.logClick(actionSource: "game_start", actionSubtype: "splash_overflow", elementId: "learn_more")
                 self?.showAbout()
             },
             didTapReportProblem: { [weak self] in
+                self?.logClick(actionSource: "game_start", actionSubtype: "splash_overflow", elementId: "problem_report")
                 self?.showReportProblem()
             }
         )
@@ -91,8 +102,17 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
         Task { [weak self, weak viewModel] in
             guard let self, let viewModel else { return }
-            guard let session = try? await self.gamesDataController.fetchWhichCameFirstDailySession(date: todayDateString, project: project) else { return }
+            guard let session = try? await self.gamesDataController.fetchWhichCameFirstDailySession(date: todayDateString, project: project) else {
+                // Fetch failed — fire impression without context of is first visit
+                self.logImpression(actionSource: "game_start", actionSubtype: "game_play_start")
+                return
+            }
             viewModel.update(sessionStatus: session.status)
+            
+            // Re-fire impression now that we know session status
+            let isReturning = session.status == .completed
+            let context: [String: String]? = isReturning ? ["is_first_visit": "false"] : nil
+            self.logImpression(actionSource: "game_start", actionSubtype: "game_play_start", actionContext: context)
         }
     }
 
@@ -103,47 +123,77 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
               let gameNav = gameNavigationController else { return }
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         let viewModel = WMFWhichCameFirstViewModel(date: formattedTodayISODateString(), project: project)
+
         viewModel.didTapShare = { [weak self, weak viewModel] in
             guard let self, let viewModel else { return }
+            self.logClick(actionSource: "game_end", elementId: "share_score_button")
             self.showShare(gameViewModel: viewModel)
         }
         viewModel.isLoggedIn = isLoggedIn
         viewModel.onLogIn = { [weak self] in
+            self?.logClick(actionSource: "game_end", elementId: "login_button")
             self?.showLogin()
         }
         viewModel.onArticleTap = { [weak self] url in
+            self?.logClick(actionSource: "game_end", actionSubtype: "article_overflow", elementId: "article_open")
             self?.openArticle(url: url, inNewTab: false)
         }
         viewModel.onArticleOpenInNewTab = { [weak self] url in
+            self?.logClick(actionSource: "game_end", actionSubtype: "article_overflow", elementId: "article_open_tab")
             WMFArticleTabsDataController.shared.didTapOpenNewTab()
             ArticleTabsFunnel.shared.logLongPressOpenInNewTab()
             self?.openArticle(url: url, inNewTab: true)
         }
         viewModel.onArticleOpenInBackgroundTab = { [weak self] url in
+            self?.logClick(actionSource: "game_end", actionSubtype: "article_overflow", elementId: "article_open_background")
             self?.openArticleInBackgroundTab(url: url)
         }
         viewModel.onArticleSaveForLater = { [weak self] url in
+            self?.logClick(actionSource: "game_end", actionSubtype: "article_overflow", elementId: "article_save")
             self?.saveArticle(url: url)
         }
         viewModel.onArticleUnsave = { [weak self] url in
+            self?.logClick(actionSource: "game_end", actionSubtype: "article_overflow", elementId: "article_unsave")
             self?.unsaveArticle(url: url)
         }
         viewModel.onCheckSavedState = { [weak self] url in
             self?.dataStore.savedPageList.isAnyVariantSaved(url) ?? false
         }
         viewModel.onArticleShare = { [weak self] url in
+            self?.logClick(actionSource: "game_end", actionSubtype: "article_overflow", elementId: "article_share")
             self?.shareArticle(url: url)
         }
         viewModel.onArticleTapToEvent = { [weak self] url in
+            self?.logClick(actionSource: "game_end", elementId: "article_open")
             self?.openArticle(url: url, inNewTab: false)
         }
-        viewModel.didTapLearnMore = { [weak self] in
+        viewModel.didTapLearnMore = { [weak self, weak viewModel] in
+            let source = viewModel?.isGameInProgress == true ? "game_play" : "game_end"
+            self?.logClick(actionSource: source, actionSubtype: "game_overflow", elementId: "learn_more")
             self?.showAbout()
         }
-        viewModel.didTapReportProblem = { [weak self] in
+        viewModel.didTapReportProblem = { [weak self, weak viewModel] in
+            let source = viewModel?.isGameInProgress == true ? "game_play" : "game_end"
+            self?.logClick(actionSource: source, actionSubtype: "game_overflow", elementId: "problem_report")
             self?.showReportProblem()
         }
+
+        // Slide-level instrumentation
+        viewModel.didImpressionSlide = { [weak self] slideIndex in
+            self?.logImpression(actionSource: "game_play", actionSubtype: "game_play_\(slideIndex)")
+        }
+        viewModel.didTapExitDuringPlay = { [weak self] slideIndex in
+            self?.logClick(actionSource: "game_play", actionSubtype: "game_play_\(slideIndex)", elementId: "exit_button")
+        }
+        viewModel.didSubmitAnswer = { [weak self] slideIndex in
+            self?.logClick(actionSource: "game_play", actionSubtype: "game_play_\(slideIndex)", elementId: "answer_submit")
+        }
+        viewModel.didFinishGame = { [weak self] in
+            self?.logImpression(actionSource: "game_end")
+        }
+
         let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
+        
         gameNav.setViewControllers([gameVC], animated: true)
     }
 
@@ -152,7 +202,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
               let hostingVC = gameNav.viewControllers.first as? WMFWhichCameFirstHostingController else { return }
         let gameViewModel = hostingVC.viewModel
         
-        let loginCoordinator = LoginCoordinator(navigationController: gameNav, theme: theme, loggingCategory: .activity)
+        let loginCoordinator = LoginCoordinator(navigationController: gameNav, theme: theme, loggingCategory: .game)
         loginCoordinator.loginSuccessCompletion = { [weak self, weak gameViewModel, weak gameNav] in
             guard let self else { return }
             gameNav?.presentedViewController?.dismiss(animated: true)
@@ -230,7 +280,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             articleURL: url,
             dataStore: dataStore,
             theme: theme,
-            source: .undefined,
+            source: .game,
             tabConfig: tabConfig
         )
         gameNavigationController?.dismiss(animated: true) {
@@ -272,10 +322,12 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
     private func saveArticle(url: URL) {
         dataStore.savedPageList.addSavedPage(with: url)
         showReadingListToast(for: url)
+        ReadingListsFunnel.shared.logSave(category: .game, label: nil, articleURL: url)
     }
 
     private func unsaveArticle(url: URL) {
         dataStore.savedPageList.removeEntry(with: url)
+        ReadingListsFunnel.shared.logUnsave(category: .game, label: nil, articleURL: url)
     }
 
     private func showReadingListToast(for url: URL) {
@@ -323,6 +375,27 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         ].joined(separator: "\n\n")
         mailVC.setMessageBody(body, isHTML: false)
         gameNav.present(mailVC, animated: true)
+    }
+
+    // MARK: - Instrumentation Helpers
+
+    // Update logImpression to accept optional context:
+    private func logImpression(actionSource: String, actionSubtype: String? = nil, actionContext: [String: String]? = nil) {
+        instrument.submitInteraction(
+            action: "impression",
+            actionSource: actionSource,
+            actionSubtype: actionSubtype,
+            actionContext: actionContext
+        )
+    }
+
+    private func logClick(actionSource: String, actionSubtype: String? = nil, elementId: String) {
+        instrument.submitInteraction(
+            action: "click",
+            actionSource: actionSource,
+            actionSubtype: actionSubtype,
+            elementId: elementId
+        )
     }
 
     // MARK: - Helpers
