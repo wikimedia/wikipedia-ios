@@ -292,9 +292,9 @@
 "close-tab-confirmation" = "Sekme kapatılsın mı?";
 "close-tabs" = "Sekmeleri kapat";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 sekme}} kapatıldı.";
-"collect-prize-button-title" = "Mağazada %15 indirim kazanın";
+"collect-prize-button-title" = "Mağazada %%15 indirim kazanın";
 "collect-prize-headline" = "Merak size yakışıyor! 🛍️";
-"collect-prize-subtitle" = "Mücadeleyi tamamlamayı Vikipedi Mağazasında %15 indirimle kutlayın.";
+"collect-prize-subtitle" = "Mücadeleyi tamamlamayı Vikipedi Mağazasında %%15 indirimle kutlayın.";
 "collect-prize-title" = "Ödülünüzü alın!";
 "compass-direction" = "saat $1 yönünde";
 "confirm-donation-history-deletion-subtitle" = "Bu yalnızca bu aygıttan yapılan bağışlar için geçerli olacaktır.";
