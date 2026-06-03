@@ -243,7 +243,6 @@ extension WMFGamesDataController {
         guard !hasSeenGamesAnnouncement else { return false }
         guard let parsedDate = DateFormatter.onThisDayAPIDateFormatter.date(from: date),
               parsedDate < Self.gamesAnnouncementExpirationDate else { return false }
-        guard WMFDeveloperSettingsDataController.shared.showGamesV1 else { return false }
 
         let appLanguages = WMFDataEnvironment.current.appData.appLanguages
         guard !appLanguages.isEmpty else { return false }
