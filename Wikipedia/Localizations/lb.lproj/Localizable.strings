@@ -480,8 +480,10 @@
 "forgot-password-email-sent" = "Eng E-Mail mat Instruktioune wéi d'Passwuert zréckgesat gi kann, gouf gschéckt";
 "forgot-password-title" = "Passwuert zerécksetzen";
 "forgot-password-username-or-email-title" = "Oder";
+"games-announcement-maybe-later-button" = "Villäicht méi spéit";
+"games-announcement-play-button" = "Spillen";
+"games-announcement-title" = "„Wat koum als éischt?“ spillen";
 "games-wcf-button-play-title" = "Spill vum Dag spillen";
-"games-wcf-explore-button-archive-title" = "Aus dem Archiv spillen";
 "games-wcf-explore-button-review-title" = "Resultater nokucken";
 "games-wcf-explore-complete-subtitle" = "Dir krut $1/$2 Punkten am Spill vun haut. Dat nächst Spill fänkt a(n) $3 un";
 "games-wcf-explore-in-progress-subtitle" = "Dir sidd bei der Fro Nr. $1. Rot weider, wateren Evenement als éischt op dësem Dag an der Geschicht koum.";
@@ -1133,6 +1135,7 @@
 "welcome-languages-description" = "Op Ärem Apparat hu mir dës Sprooche fonnt:";
 "welcome-languages-search-title" = "A méi wéi 300 Sprooche sichen";
 "welcome-privacy-terms-button-text" = "Gitt méi iwwer eis Dateschutzrichtlinnen a Benotzungsbedingunge gewuer";
+"which-came-first-articles-section-title" = "Artikele vum Spill vun haut";
 "which-came-first-best-streak-label" = "bescht Serie";
 "which-came-first-correct-answer-a11y" = "Richteg Äntwert";
 "which-came-first-correct-feedback" = "Richteg!";
@@ -1142,8 +1145,7 @@
 "which-came-first-footer-a11y" = "Fro $1 vu(n) $2";
 "which-came-first-games-played-label" = "Spiller gespillt";
 "which-came-first-incorrect-answer-a11y" = "Falsch Äntwert";
-// Fuzzy
-"which-came-first-incorrect-feedback" = "Falsch";
+"which-came-first-incorrect-feedback" = "Falsch!";
 "which-came-first-log-in-button" = "Aloggen";
 "which-came-first-log-in-stats-body" = "Kuckt Är Serien, Punkten a méi";
 "which-came-first-log-in-stats-title" = "Loggt Iech an, fir Är Spillstatistiken ze kucken";

@@ -656,10 +656,13 @@
 "forgot-password-instructions" = "Parol sıfırlama təlimatlarını e-poçt vasitəsilə almaq üçün aşağıdakı sahələrdən birini doldurun";
 "forgot-password-title" = "Parolu yenilə";
 "forgot-password-username-or-email-title" = "Ya da";
+"games-announcement-maybe-later-button" = "Bəlkə daha sonra";
+"games-announcement-message" = "Vikipediya məzmununa əsaslanan yeni bir viktorina oyunu gəldi. Tarixdə hansı hadisənin ilk baş verdiyini təxmin edin.";
+"games-announcement-play-button" = "Oyna";
+"games-announcement-title" = "\"Hansı birinci baş verib?\" oyununu oynayın.";
 "games-email-report-body-encountered" = "Vikipediya oyunları funksiyası ilə bağlı bir problemlə qarşılaşdım:";
 "games-email-report-subject" = "Problem bildirişi - Vikipediya oyunları";
 "games-wcf-button-play-title" = "Bu günün oyununu oyna";
-"games-wcf-explore-button-archive-title" = "Arxivi oyna";
 "games-wcf-explore-button-review-title" = "Nəticələrə bax";
 "games-wcf-explore-complete-subtitle" = "Bugünkü oyunda $1/$2 xal qazandınız. Növbəti oyun $3 sonra olacaq";
 "games-wcf-explore-in-progress-subtitle" = "Siz $1-ci sualdasınız. Tarixdə bu gün hansı hadisənin ilk baş verdiyini təxmin etməyə davam edin.";

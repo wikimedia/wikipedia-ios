@@ -97,8 +97,7 @@
 "activity-tab-customize-timeline-of-behavior" = "Времеслед на поведение";
 "activity-tab-email-fifth-line" = "[Екрански снимки или Врски]";
 "activity-tab-email-first-line" = "Наидов на проблем со функцијата Јазиче за активности:";
-// Fuzzy
-"activity-tab-email-fourth-line" = "[Опишете како сакате да биде]";
+"activity-tab-email-fourth-line" = "[Опишете го предложеното решение]";
 "activity-tab-email-second-line" = "— [Опишете го конкретниот проблем]";
 "activity-tab-email-third-line" = "Сакам да го видам следново поведение:";
 "activity-tab-email-title" = "Пријава на проблем — Јазиче за активности";
@@ -660,8 +659,13 @@
 "forgot-password-instructions" = "Пополнете едно од полињата подолу за да добиете напатствија за ставање нова лозинка по е-пошта.";
 "forgot-password-title" = "Смени лозинка";
 "forgot-password-username-or-email-title" = "Или";
+"games-announcement-maybe-later-button" = "Можеби подоцна";
+"games-announcement-message" = "Пристигна нов квиз за содржината на Википедија. Погодете кој настан во историјата се случил попрво.";
+"games-announcement-play-button" = "Пушти";
+"games-announcement-title" = "Играјте „Што се случило попрво?“";
+"games-email-report-body-encountered" = "Наидов на проблем со функцијата Википедиини игри:";
+"games-email-report-subject" = "Пријава на проблем — Википедиини игри";
 "games-wcf-button-play-title" = "Играј ја денешната игра";
-"games-wcf-explore-button-archive-title" = "Играј од архивата";
 "games-wcf-explore-button-review-title" = "Преглед на исходот";
 "games-wcf-explore-complete-subtitle" = "Во денешната игра освоивте $1/$2. Следната игра ќе биде достапна за $3";
 "games-wcf-explore-in-progress-subtitle" = "Сега сте на прашање $1. Продолжите да погодувате кој настан се случил попрво на денешен ден во историјата.";
@@ -717,7 +721,6 @@
 "image-rec-tooltip-3-body" = "Одлучете дали сликата им помага на читателите подобро да ја разберат оваа тема.";
 "image-rec-tooltip-3-title" = "Одлучете";
 "image-rec-view-article" = "Погл. статија";
-// Fuzzy
 "image-recommendations-email-first-line" = "Наидов на проблем со функцијата „Додај слика“ во Предложените уредувања:";
 "image-recommendations-email-title" = "Пријава на проблем — Функција „Додај слика“";
 "image-recs-no-title" = "Не";
@@ -1541,6 +1544,8 @@
 "welcome-languages-search-title" = "Пребарајте на преку 300 јазици";
 "welcome-privacy-subtitle" = "Сметаме дека не треба да давате лични информации за да учествувате во движењето за слободно знаење. Податоците за употреба на овој прилог што ги собираме се анонимни.";
 "welcome-privacy-terms-button-text" = "Дознајте повеќе за нашите правила за лични податоци и условите на употреба";
+"which-came-first-article-card-open-hint" = "Отвора настан поврзан со оваа статија";
+"which-came-first-articles-section-title" = "Статии од денешната игра";
 "which-came-first-average-score-label" = "просечно бодови";
 "which-came-first-best-streak-label" = "најдобра тура";
 "which-came-first-better-luck" = "Повеќе среќа утре!";
@@ -1553,8 +1558,7 @@
 "which-came-first-game-complete-title" = "Играта е завршена!";
 "which-came-first-games-played-label" = "одиграни игри";
 "which-came-first-incorrect-answer-a11y" = "Погрешен одговор";
-// Fuzzy
-"which-came-first-incorrect-feedback" = "Погрешно";
+"which-came-first-incorrect-feedback" = "Погрешно!";
 "which-came-first-log-in-button" = "Најава";
 "which-came-first-log-in-stats-body" = "Погледајте ги вашите тури, резултати и друго";
 "which-came-first-log-in-stats-title" = "Најавете се за да ги видите статистиките за вашите игри";
