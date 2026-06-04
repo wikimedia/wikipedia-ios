@@ -651,10 +651,13 @@
 "forgot-password-instructions" = "Reimple un del campos infra pro reciper instructiones pro reinitialisar le contrasigno per e-mail";
 "forgot-password-title" = "Reinitialisar contrasigno";
 "forgot-password-username-or-email-title" = "O";
+"games-announcement-maybe-later-button" = "Forsan plus tarde";
+"games-announcement-message" = "Un nove joco de questiones e responsas ha arrivate, basate sur le contento de Wikipedia. Divina qual evento occurreva primo in le historia.";
+"games-announcement-play-button" = "Jocar";
+"games-announcement-title" = "Jocar a “Qual ha evenite primo?”";
 "games-email-report-body-encountered" = "Io ha incontrate un problema con le functionalitate de jocos de Wikipedia:";
 "games-email-report-subject" = "Reporto de problema – jocos de Wikipedia";
 "games-wcf-button-play-title" = "Jocar le joco de hodie";
-"games-wcf-explore-button-archive-title" = "Jocar jocos archivate";
 "games-wcf-explore-button-review-title" = "Revider resultatos";
 "games-wcf-explore-complete-subtitle" = "Tu score del joco de hodie es $1/$2. Proxime joco in $3";
 "games-wcf-explore-in-progress-subtitle" = "Tu es al question $1. Continua a divinar qual evento ha evenite primo in iste die del historia.";

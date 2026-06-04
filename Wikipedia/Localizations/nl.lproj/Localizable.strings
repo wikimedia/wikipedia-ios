@@ -691,10 +691,13 @@
 "forgot-password-instructions" = "Vul één van de onderstaande velden in hieronder om instructies te ontvangen via e-mail over hoe u uw wachtwoord kunt wijzigen.";
 "forgot-password-title" = "Wachtwoord opnieuw instellen";
 "forgot-password-username-or-email-title" = "Of";
+"games-announcement-maybe-later-button" = "Nu niet";
+"games-announcement-message" = "Er is een nieuw quizspelletje verschenen, gebaseerd op Wikipedia-inhoud. Raad welke gebeurtenis als eerste in de geschiedenis plaatsvond.";
+"games-announcement-play-button" = "Spelen";
+"games-announcement-title" = "\"Wat gebeurde als eerste\" spelen?";
 "games-email-report-body-encountered" = "Ik heb een probleem ondervonden met de spelletjesfunctie van Wikipedia:";
 "games-email-report-subject" = "Probleemmelding – Wikipedia-spelletjes";
 "games-wcf-button-play-title" = "Spel van de dag spelen";
-"games-wcf-explore-button-archive-title" = "Archief afspelen";
 "games-wcf-explore-button-review-title" = "Resultaten bekijken";
 "games-wcf-explore-complete-subtitle" = "U hebt $1/$2 gescoord in het spel van de dag. Het volgende spel is over $3";
 "games-wcf-explore-in-progress-subtitle" = "U bent bij vraag $1. Blijf raden welke gebeurtenis op deze dag in de geschiedenis als eerste plaatsvond.";

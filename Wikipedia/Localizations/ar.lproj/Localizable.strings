@@ -40,6 +40,7 @@
 // Author: XIDME
 // Author: Zinou2go
 // Author: Zpizza
+// Author: أبو هشام
 // Author: أَحمد
 // Author: إزبيكييل
 // Author: بدارين
@@ -1557,7 +1558,7 @@
 "year-in-review-contributor-slide-subtitle-editor-updated" = "نشكرك على الاستثمار في مستقبل المعرفة المجانية.! إن مساهماتك كمحرر بمبلغ $1 تساعد في تمهيد الطريق لعالم من المعلومات المجانية ونتيجة لذلك قمت بفتح أيقونة مساهم مخصصة لويكيبيديا على الشاشة الرئيسية.";
 "year-in-review-contributor-slide-title" = "تم فتح أيقونة التطبيق الجديدة على الشاشة الرئيسية";
 "year-in-review-day-friday" = "الجمعة";
-"year-in-review-day-monday" = "الإثنين";
+"year-in-review-day-monday" = "الاثنين";
 "year-in-review-day-saturday" = "السبت";
 "year-in-review-day-sunday" = "الأحد";
 "year-in-review-day-thursday" = "الخميس";
