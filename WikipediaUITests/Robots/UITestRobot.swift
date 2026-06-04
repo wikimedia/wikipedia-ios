@@ -142,6 +142,22 @@ struct UITestRobot {
     }
 
     @discardableResult
+    func tapCenter(
+        of element: XCUIElement,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> Self {
+        XCTAssertFalse(
+            element.frame.isEmpty,
+            "Expected \(Self.describe(element)) to have a tappable frame.",
+            file: file,
+            line: line
+        )
+        element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        return self
+    }
+
+    @discardableResult
     func dragUp(_ element: XCUIElement) -> Self {
         let start = element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.85))
         let end = element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.2))

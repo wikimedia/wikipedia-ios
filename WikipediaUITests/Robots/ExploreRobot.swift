@@ -98,19 +98,21 @@ struct ExploreRobot: ScreenshotCapturingRobot {
             .matching(identifier: AccessibilityIdentifiers.Explore.pictureOfTheDayCell)
             .firstMatch
 
-        for _ in 0..<10 where !pictureOfTheDayCell.exists || !pictureOfTheDayCell.isHittable {
+        for _ in 0..<10 {
+            if waitForExploreElementToEnterTappableFrame(pictureOfTheDayCell, timeout: 2) {
+                base.tapCenter(of: pictureOfTheDayCell, file: file, line: line)
+                return ImageGalleryRobot(base: base).assertVisible(file: file, line: line)
+            }
+
             base.dragUp(collectionView)
         }
 
-        base.assertVisible(
-            pictureOfTheDayCell,
-            timeout: 10,
-            description: "Explore Picture of the Day cell",
+        XCTFail(
+            "Expected Explore Picture of the Day cell to scroll into a tappable area.",
             file: file,
             line: line
         )
-        pictureOfTheDayCell.tap()
-        return ImageGalleryRobot(base: base).assertVisible(file: file, line: line)
+        return ImageGalleryRobot(base: base)
     }
 
     @discardableResult
@@ -168,6 +170,22 @@ struct ExploreRobot: ScreenshotCapturingRobot {
 
     private func searchTabButtonFallback() -> XCUIElement {
         base.app.tabBars.buttons.element(boundBy: 4)
+    }
+
+    private var tappableExploreFrame: CGRect {
+        base.app.frame.insetBy(dx: 0, dy: 130)
+    }
+
+    private func waitForExploreElementToEnterTappableFrame(_ element: XCUIElement, timeout: TimeInterval) -> Bool {
+        let predicate = NSPredicate { _, _ in
+            guard element.exists, !element.frame.isEmpty else {
+                return false
+            }
+
+            return tappableExploreFrame.contains(CGPoint(x: element.frame.midX, y: element.frame.midY))
+        }
+        let expectation = XCTNSPredicateExpectation(predicate: predicate, object: nil)
+        return XCTWaiter.wait(for: [expectation], timeout: timeout) == .completed
     }
 
     private func dismissPlacesLocationPromptIfNeeded(file: StaticString = #filePath, line: UInt = #line) {
