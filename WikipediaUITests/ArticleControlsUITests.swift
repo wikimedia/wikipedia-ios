@@ -107,6 +107,7 @@ final class ArticleControlsUITests: XCTestCase {
             .explore
             .assertVisible(file: file, line: line)
             .openFirstArticle(file: file, line: line)
+            .assertLoadedArticle(named: articleControlsFixture.primaryArticleTitle, file: file, line: line)
     }
 
     private func openArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
