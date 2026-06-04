@@ -52,6 +52,10 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     @discardableResult
     func start() -> Bool {
+
+        // do not show alert if user already tapped card
+        gamesDataController.markGamesAnnouncementSeen()
+
         let splashViewController = makeSplashViewController()
         let nav = WMFComponentNavigationController(
             rootViewController: splashViewController,

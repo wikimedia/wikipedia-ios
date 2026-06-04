@@ -573,6 +573,9 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     private func presentGamesAnnouncementAlert(gamesDataController: WMFGamesDataController) {
         guard let navigationController else { return }
 
+        // Never present over an existing modal — doing so crashes with "already presenting". Defer to next launch.
+        guard navigationController.presentedViewController == nil else { return }
+
         // Mark as seen as soon as it is displayed so it is never shown again if user taps background to dismiss
         gamesDataController.markGamesAnnouncementSeen()
 

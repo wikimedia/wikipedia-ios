@@ -1090,12 +1090,15 @@ extension ExploreViewController {
     private func presentGamesAnnouncementAlert(gamesDataController: WMFGamesDataController) {
         guard let navigationController else { return }
 
+        // Never present over an existing modal — doing so crashes with "already presenting". Defer to next launch.
+        guard navigationController.presentedViewController == nil else { return }
+
         let alert = UIAlertController(
             title: CommonStrings.gamesAnnouncementTitle,
             message: CommonStrings.gamesAnnouncementMessage,
             preferredStyle: .actionSheet
         )
-        
+
         // Mark as seen as soon as it is displayed so it is never shown twice, regardless of how it
         // is dismissed (button tap, outside tap, or app backgrounding).
         gamesDataController.markGamesAnnouncementSeen()
@@ -1104,7 +1107,6 @@ extension ExploreViewController {
             action: "impression",
             actionSource: "game_announce"
         )
-        navigationController.present(alert, animated: true)
 
         alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementPlayButton, style: .default) { [weak self] _ in
             guard let self else { return }
