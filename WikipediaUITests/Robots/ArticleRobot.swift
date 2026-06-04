@@ -42,6 +42,22 @@ extension ArticleRobot {
     }
 
     @discardableResult
+    func assertLoadedArticle(named title: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let titlePredicate = NSPredicate(format: "label == %@ OR value == %@", title, title)
+        let titleElement = base.app.descendants(matching: .any)
+            .matching(titlePredicate)
+            .firstMatch
+        base.assertExists(
+            titleElement,
+            timeout: Self.articleElementSearchTimeout,
+            description: "article title '\(title)'",
+            file: file,
+            line: line
+        )
+        return assertTopControlsVisible(file: file, line: line)
+    }
+
+    @discardableResult
     func assertTabsOverviewVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.assertExists(
             base.app.otherElements[AccessibilityIdentifiers.Tabs.view],
@@ -83,10 +99,12 @@ extension ArticleRobot {
         let navigationBar = navigationBar(file: file, line: line)
         base.assertVisible(navigationBar.buttons.firstMatch, timeout: 15, description: "article navigation button", file: file, line: line)
         let backButton = base.backButton(in: navigationBar, isRightToLeft: configuration.isRightToLeft)
-        base.assertExists(backButton, timeout: 15, description: "article back button", file: file, line: line)
-        XCTAssertFalse(backButton.frame.isEmpty, "Expected article back button to have a tappable frame.", file: file, line: line)
-        backButton.tap()
-        return ExploreRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
+        return tapArticleNavigationButtonReturningToExplore(
+            backButton,
+            description: "article back button",
+            file: file,
+            line: line
+        )
     }
 
     @discardableResult
@@ -98,9 +116,12 @@ extension ArticleRobot {
         let button = navigationHomeButton.waitForExistence(timeout: 5)
             ? navigationHomeButton
             : homeButton
-        base.assertVisible(button, timeout: 15, description: "article W home button", file: file, line: line)
-        button.tap()
-        return ExploreRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
+        return tapArticleNavigationButtonReturningToExplore(
+            button,
+            description: "article W home button",
+            file: file,
+            line: line
+        )
     }
 
     @discardableResult
@@ -441,6 +462,35 @@ private extension ArticleRobot {
             predicate = NSPredicate(format: "label == %@ OR identifier == %@", title, title)
         }
         return base.app.buttons.matching(predicate).firstMatch
+    }
+
+    func tapArticleNavigationButtonReturningToExplore(
+        _ button: XCUIElement,
+        description: String,
+        file: StaticString,
+        line: UInt
+    ) -> ExploreRobot {
+        let articleView = base.app.otherElements[AccessibilityIdentifiers.Article.view]
+        base.assertExists(button, timeout: 15, description: description, file: file, line: line)
+        XCTAssertFalse(button.frame.isEmpty, "Expected \(description) to have a tappable frame.", file: file, line: line)
+
+        tapCenter(of: button)
+        if !waitForArticleViewToDisappear(articleView, timeout: 5) {
+            tapCenter(of: button)
+            base.waitForElementToDisappear(articleView, timeout: 15, file: file, line: line)
+        }
+
+        return ExploreRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
+    }
+
+    func waitForArticleViewToDisappear(_ articleView: XCUIElement, timeout: TimeInterval) -> Bool {
+        let predicate = NSPredicate(format: "exists == false")
+        let expectation = XCTNSPredicateExpectation(predicate: predicate, object: articleView)
+        return XCTWaiter.wait(for: [expectation], timeout: timeout) == .completed
+    }
+
+    func tapCenter(of element: XCUIElement) {
+        element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
     }
 
     func assertArticleLinkPreviewVisible(file: StaticString, line: UInt) {
