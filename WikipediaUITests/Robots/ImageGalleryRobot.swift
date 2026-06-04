@@ -4,7 +4,11 @@ import WMFComponents
 /// Represents the full-screen image gallery.
 struct ImageGalleryRobot: ScreenshotCapturingRobot {
     let base: UITestRobot
+}
 
+// MARK: - Screen state
+
+extension ImageGalleryRobot {
     @discardableResult
     func assertVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.assertExists(
@@ -40,14 +44,25 @@ struct ImageGalleryRobot: ScreenshotCapturingRobot {
     }
 
     @discardableResult
-    func shareImage(file: StaticString = #filePath, line: UInt = #line) -> Self {
+    func assertShareButtonEnabled(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.assertVisible(
+            shareButton,
+            timeout: 15,
+            description: "image gallery share button",
+            file: file,
+            line: line
+        )
         XCTAssertTrue(
             shareButton.isEnabled,
             "Expected image gallery share button to be enabled before tapping.",
             file: file,
             line: line
         )
-        shareButton.tap()
+        return self
+    }
+
+    @discardableResult
+    func assertAppRunning(file: StaticString = #filePath, line: UInt = #line) -> Self {
         XCTAssertNotEqual(
             base.app.state,
             .notRunning,
@@ -57,7 +72,28 @@ struct ImageGalleryRobot: ScreenshotCapturingRobot {
         )
         return self
     }
+}
 
+// MARK: - Actions
+
+extension ImageGalleryRobot {
+    @discardableResult
+    func tapShareButton(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.assertVisible(
+            shareButton,
+            timeout: 15,
+            description: "image gallery share button",
+            file: file,
+            line: line
+        )
+        shareButton.tap()
+        return self
+    }
+}
+
+// MARK: - Private helpers
+
+private extension ImageGalleryRobot {
     private var loadingIndicator: XCUIElement {
         base.app.activityIndicators[AccessibilityIdentifiers.ImageGallery.loadingIndicator]
     }

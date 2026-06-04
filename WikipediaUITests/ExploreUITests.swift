@@ -12,7 +12,9 @@ final class ExploreUITests: XCTestCase {
             .assertVisible()
             .openPictureOfTheDay()
             .assertImagePresented()
-            .shareImage()
+            .assertShareButtonEnabled()
+            .tapShareButton()
+            .assertAppRunning()
     }
 
     func testExplore() throws {

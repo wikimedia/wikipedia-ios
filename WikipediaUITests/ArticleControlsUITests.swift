@@ -82,11 +82,14 @@ final class ArticleControlsUITests: XCTestCase {
 
         openArticle()
             .tapQuickFactsTableItem()
+            .assertLinkedArticleVisible()
     }
 
     func testArticleFooterAndLicenseLinksCanBeTapped() throws {
         openShortArticle()
             .tapAboutThisArticleItem()
+            .assertHistoryVisible()
+            .tapBackToArticleFromHistory()
             .assertVisible()
 
         openShortArticle()
