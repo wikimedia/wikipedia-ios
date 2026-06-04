@@ -698,10 +698,13 @@
 "forgot-password-instructions" = "Parola sıfırlama talimatlarını e-posta yoluyla almak için aşağıdaki alanlardan birini doldurun";
 "forgot-password-title" = "Parolayı sıfırla";
 "forgot-password-username-or-email-title" = "Veya";
+"games-announcement-maybe-later-button" = "Belki daha sonra";
+"games-announcement-message" = "Wikipedia içeriğine dayanan yeni bir trivia oyunu geldi. Tarihte ilk hangi olayın olduğunu tahmin et.";
+"games-announcement-play-button" = "Oyna";
+"games-announcement-title" = "\"Hangisi ilk?\" oyunu.";
 "games-email-report-body-encountered" = "Vikipedideli oyunlar özelliğiyle ilgili bir sorunla karşılaştım:";
 "games-email-report-subject" = "Sorun Bildirimi - Vikipedi oyunları";
 "games-wcf-button-play-title" = "Bugünkü oyunu oyna";
-"games-wcf-explore-button-archive-title" = "Arşivi oyna";
 "games-wcf-explore-button-review-title" = "Sonuçları incele";
 "games-wcf-explore-complete-subtitle" = "$1/$2 puan aldınız. Sonraki oyun $3 içinde";
 "games-wcf-explore-in-progress-subtitle" = "$1. sorudasınız. Tarihte bugün hangi olayın daha önce gerçekleştiğini tahmin etmeye devam edin.";

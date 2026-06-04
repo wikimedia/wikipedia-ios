@@ -40,6 +40,7 @@
 // Author: Suyama
 // Author: Takot
 // Author: Tamaki Wakita
+// Author: Tensama0415
 // Author: Thibaut120094
 // Author: Tsevener
 // Author: Wat
@@ -134,6 +135,7 @@
 "activity-tab-satisfied" = "満足";
 "activity-tab-survey-title" = "満足度調査";
 "activity-tab-unsatisfied" = "不満";
+"activity-tab-usernames-reading-title" = "$1を読んでいます";
 "activity-tab-very-satisfied" = "非常に満足";
 "activity-tab-very-unsatisfied" = "非常に不満";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 件の記事}}をあとで読むリストに追加";
@@ -605,8 +607,7 @@
 "more-menu" = "もっと見る";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 件の記事}}をあとで読むリストに移動";
 "navbar-title-mode-edit-wikitext-preview" = "プレビュー";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 フィート";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 フィート}}";
 "nearby-distance-label-km" = "$1 km";
 // Fuzzy
 "nearby-distance-label-meters" = "$1 m";

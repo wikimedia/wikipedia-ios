@@ -695,8 +695,12 @@
 "forgot-password-instructions" = "Preencha um dos campos abaixo para receber instruções de redefinição de senha por e-mail";
 "forgot-password-title" = "Redefinir senha";
 "forgot-password-username-or-email-title" = "ou";
+"games-announcement-maybe-later-button" = "Talvez mais tarde";
+"games-announcement-message" = "Chegou um novo jogo de perguntas e respostas, baseado no conteúdo da Wikipédia. Adivinhe qual evento ocorreu primeiro na história.";
+"games-announcement-play-button" = "Jogar";
+"games-email-report-body-encountered" = "Encontrei um problema com o recurso de Wikipédia jogos:";
+"games-email-report-subject" = "Relatório de problemas - Wikipédia jogos";
 "games-wcf-button-play-title" = "Jogar jogo de hoje";
-"games-wcf-explore-button-archive-title" = "Jogar arquivo";
 "games-wcf-explore-button-review-title" = "Ver resultados";
 "games-wcf-explore-complete-subtitle" = "Você marcou $1/$2 no jogo de hoje. Próximo jogo: $3";
 "games-wcf-explore-in-progress-subtitle" = "Você está na pergunta $1. Continue tentando adivinhar qual evento ocorreu primeiro neste dia na história.";
@@ -752,7 +756,6 @@
 "image-rec-tooltip-3-body" = "Decida se a imagem ajuda os leitores a entender melhor este tema.";
 "image-rec-tooltip-3-title" = "Decidir";
 "image-rec-view-article" = "Ver artigo";
-// Fuzzy
 "image-recommendations-email-first-line" = "Encontrei um problema com o recurso Adicionar uma Imagem com Edições Sugeridas:";
 "image-recommendations-email-title" = "Relatório de Problemas - Recurso Adicionar uma Imagem";
 "image-recs-no-title" = "Não";
@@ -1569,6 +1572,8 @@
 "welcome-languages-search-title" = "Pesquise em mais de 300 idiomas";
 "welcome-privacy-subtitle" = "Acreditamos que você não deve ter que fornecer informações pessoais para participar do movimento pelo conhecimento livre. Os dados de uso coletados para este aplicativo são anônimos.";
 "welcome-privacy-terms-button-text" = "Saiba mais sobre nossa política de privacidade e termos de uso";
+"which-came-first-article-card-open-hint" = "Abre o evento relacionado a este artigo";
+"which-came-first-articles-section-title" = "Artigos sobre o jogo de hoje";
 "which-came-first-average-score-label" = "pontuação média";
 "which-came-first-best-streak-label" = "melhor sequência";
 "which-came-first-better-luck" = "Mais sorte amanhã!";
@@ -1581,8 +1586,7 @@
 "which-came-first-game-complete-title" = "Jogo concluído!";
 "which-came-first-games-played-label" = "jogos disputados";
 "which-came-first-incorrect-answer-a11y" = "Resposta incorreta";
-// Fuzzy
-"which-came-first-incorrect-feedback" = "Incorreta";
+"which-came-first-incorrect-feedback" = "Incorreto!";
 "which-came-first-log-in-button" = "Entrar";
 "which-came-first-log-in-stats-body" = "Veja suas sequências, pontuações e muito mais";
 "which-came-first-log-in-stats-title" = "Entre para ver suas estatísticas de jogo";

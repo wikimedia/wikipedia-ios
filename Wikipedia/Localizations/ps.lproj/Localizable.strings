@@ -92,8 +92,7 @@
 "activity-tab-customize-timeline-of-behavior" = "د چلند مهالوېش";
 "activity-tab-email-fifth-line" = "[سکرین‌شاټونه یا تړوني]";
 "activity-tab-email-first-line" = "زه د چارو ريښکې ځانگړنې سره ستونزې سره مخ شوی يم:";
-// Fuzzy
-"activity-tab-email-fourth-line" = "[غوښتل شوی چلند تشریح کړئ]";
+"activity-tab-email-fourth-line" = "[وړانديز شوی حل څرگندول]";
 "activity-tab-email-second-line" = "- [ځانګړې ستونزه تشریح کړئ]";
 "activity-tab-email-third-line" = "هغه چلند چې زه يې ليدل غواړم:";
 "activity-tab-email-title" = "ستونزې راپور - چارو ريښکه";
@@ -356,6 +355,7 @@
 "field-username-title" = "کارن‌نوم";
 "filter-options-all" = "ټول";
 "find-clear-button-accessibility" = "موندل پاکول";
+"games-announcement-play-button" = "لوبول";
 "games-wcf-explore-complete-subtitle" = "تاسو نننۍ لوبه کې $1/$2 نومرې ترلاسه کړې. راتلونکې لوبه په $3 وي";
 "history-clear-confirmation-heading" = "آيا ډاډمن يې چې خپل ټول وروستني توکي ړنگول غواړې؟";
 "history-clear-delete-all" = "هو، ټول ړنگول";
@@ -427,6 +427,7 @@
 "which-came-first-current-streak-label" = "اوسنۍ لړۍ";
 "which-came-first-game-complete-title" = "لوبه پای ته ورسېده!";
 "which-came-first-games-played-label" = "لوبې وشوې";
+"which-came-first-incorrect-feedback" = "ناسم!";
 "which-came-first-log-in-button" = "ننوتل";
 "which-came-first-log-in-stats-body" = "خپله لړۍ، نومرې او نور وگورئ";
 "which-came-first-log-in-stats-title" = "د خپلې لوبې شمارنو د کتلو لپاره ننوځئ";

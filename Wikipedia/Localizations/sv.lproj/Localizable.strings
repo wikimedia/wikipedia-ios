@@ -682,7 +682,6 @@
 "forgot-password-title" = "Återställ lösenord";
 "forgot-password-username-or-email-title" = "Eller";
 "games-wcf-button-play-title" = "Spela dagens spel";
-"games-wcf-explore-button-archive-title" = "Spela upp arkivet";
 "games-wcf-explore-button-review-title" = "Granska resultatet";
 "games-wcf-explore-complete-subtitle" = "Du fick $1/$2 poäng i dagens spel. Nästa spel om $3";
 "games-wcf-explore-in-progress-subtitle" = "Du är på fråga $1. Fortsätt gissa vilken händelse som inträffade först denna dag i historien.";
