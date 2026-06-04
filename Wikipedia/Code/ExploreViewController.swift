@@ -1040,7 +1040,7 @@ extension ExploreViewController {
     /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
     /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
-        
+
         // Do not replace an in-flight reading challenge coordinator.
         guard readingChallengeCoordinator == nil else {
             return
@@ -1075,6 +1075,12 @@ extension ExploreViewController {
     /// If something unexpected appears before the async check resolves (e.g. background login/2FA),
     /// the safety-net guard on presentedViewController drops the attempt and defers to next launch.
     private func presentGamesAnnouncementIfNeeded() {
+#if !TEST
+        if let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate,
+           sceneDelegate.didOpenAppFromExternalLink {
+            return
+        }
+#endif
         let gamesDataController = WMFGamesDataController()
         let todayDateString = todayDateString()
 

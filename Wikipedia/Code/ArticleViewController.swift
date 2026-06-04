@@ -523,7 +523,6 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
     /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
-        
         // Do not replace an in-flight reading challenge coordinator.
         guard readingChallengeCoordinator == nil else {
             return
@@ -558,6 +557,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     /// If something unexpected appears before the async check resolves (e.g. background login/2FA),
     /// the safety-net guard on presentedViewController drops the attempt and defers to next launch.
     private func presentGamesAnnouncementIfNeeded() {
+        // Not using `sceneDelegate.didOpenAppFromExternalLink` here since it's persistent across the whole session
+        // If a user taps an internal link from the current deeplinked article, they won't get the games announcement since that flag will still be true
+        guard articleViewSource != .external_link else {
+            return
+        }
         let gamesDataController = WMFGamesDataController()
         let todayDateString = todayDateString()
 
