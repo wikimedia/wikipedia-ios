@@ -5,6 +5,9 @@ on:
     - cron: '0 10 * * *' # run at 10AM UTC
   workflow_dispatch: # allows workflow to be triggered manually
 
+permissions:
+  contents: write
+
 jobs:
   Tag-Latest-Beta:
     runs-on: macOS-latest
@@ -18,6 +21,8 @@ jobs:
             git checkout main
             git pull origin main
       - name: Move latest_beta tag
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           LATESTBETATAG='latest_beta'
           LASTBETASHA=$(git rev-parse $LATESTBETATAG)
@@ -32,6 +37,11 @@ jobs:
             echo "Creating new tag and pushing"
             git tag ${LATESTBETATAG}
             git push --tags
+            gh api \
+              --method POST \
+              "repos/${GITHUB_REPOSITORY}/dispatches" \
+              -f "event_type=nightly-ui-tests" \
+              -f "client_payload[ref]=${LATESTBETATAG}"
           else
             echo "No new commits determined. Exiting."
           fi
