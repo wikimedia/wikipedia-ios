@@ -988,7 +988,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             let key = WMFUserDefaultsKey.needsDailyGameFeedRefresh.rawValue
             if UserDefaults.standard.bool(forKey: key) {
                 UserDefaults.standard.removeObject(forKey: key)
-                NotificationCenter.default.post(name: WMFNSNotification.gamesV1SettingDidChange, object: nil)
+                NotificationCenter.default.post(name: WMFNSNotification.refreshExploreForGamesCard, object: nil)
             }
         }
 
