@@ -6,11 +6,37 @@ import Foundation
 /// components, and tests do not drift when identifiers are renamed or new elements are added.
 public enum AccessibilityIdentifiers {
     public enum Article {
+        public static let findInPageButton = "Article Find In Page Button"
+        public static let findInPageClearButton = "Article Find In Page Clear Button"
+        public static let findInPageCloseButton = "Article Find In Page Close Button"
+        public static let findInPageMatchLabel = "Article Find In Page Match Label"
+        public static let findInPageNextButton = "Article Find In Page Next Button"
+        public static let findInPagePreviousButton = "Article Find In Page Previous Button"
+        public static let findInPageTextField = "Article Find In Page Text Field"
+        public static let findInPageView = "Article Find In Page View"
         public static let homeButton = "Article Home Button"
+        public static let languagesButton = "Article Languages Button"
         public static let leadImage = "Article Lead Image"
         public static let linkPreview = "Article Link Preview"
+        public static let moreButton = "Article More Button"
+        public static let readingThemesBlackButton = "Article Reading Themes Black Button"
+        public static let readingThemesBrightnessSlider = "Article Reading Themes Brightness Slider"
+        public static let readingThemesDarkButton = "Article Reading Themes Dark Button"
+        public static let readingThemesLightButton = "Article Reading Themes Light Button"
+        public static let readingThemesSepiaButton = "Article Reading Themes Sepia Button"
+        public static let readingThemesTextSizeSlider = "Article Reading Themes Text Size Slider"
+        public static let readingThemesView = "Article Reading Themes View"
+        public static let saveButton = "Article Save Button"
+        public static let shareButton = "Article Share Button"
         public static let searchButton = "Article Search Button"
+        public static let tableOfContentsButton = "Article Table of Contents Button"
+        public static let tableOfContentsView = "Article Table of Contents View"
+        public static let themeButton = "Article Theme Button"
         public static let view = "Article View"
+
+        public static func tableOfContentsItem(_ anchor: String) -> String {
+            "Article Table of Contents Item \(anchor)"
+        }
     }
 
     public enum Explore {

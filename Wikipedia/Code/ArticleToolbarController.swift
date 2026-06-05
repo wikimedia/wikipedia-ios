@@ -34,7 +34,9 @@ class ArticleToolbarController: Themeable {
     lazy var saveButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "save", target: self, action: #selector(toggleSave), for: .touchUpInside)
         let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(handleSaveButtonLongPress))
+        item.accessibilityIdentifier = AccessibilityIdentifiers.Article.saveButton
         if let button = item.customView as? UIButton {
+            button.accessibilityIdentifier = AccessibilityIdentifiers.Article.saveButton
             button.addGestureRecognizer(longPressGR)
         }
         item.apply(theme: theme)
@@ -43,6 +45,8 @@ class ArticleToolbarController: Themeable {
 
     lazy var themeButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "font-size", target: self, action: #selector(showThemes), for: .touchUpInside)
+        item.accessibilityIdentifier = AccessibilityIdentifiers.Article.themeButton
+        item.customView?.accessibilityIdentifier = AccessibilityIdentifiers.Article.themeButton
         item.apply(theme: theme)
         return item
     }()
@@ -57,6 +61,8 @@ class ArticleToolbarController: Themeable {
     lazy var shareButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "share", target: self, action: #selector(share), for: .touchUpInside)
         item.accessibilityLabel = CommonStrings.accessibilityShareTitle
+        item.accessibilityIdentifier = AccessibilityIdentifiers.Article.shareButton
+        item.customView?.accessibilityIdentifier = AccessibilityIdentifiers.Article.shareButton
         item.apply(theme: theme)
         return item
     }()
@@ -64,6 +70,8 @@ class ArticleToolbarController: Themeable {
     lazy var findInPageButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "find-in-page", target: self, action: #selector(findInPage), for: .touchUpInside)
         item.accessibilityLabel = CommonStrings.findInPage
+        item.accessibilityIdentifier = AccessibilityIdentifiers.Article.findInPageButton
+        item.customView?.accessibilityIdentifier = AccessibilityIdentifiers.Article.findInPageButton
         item.apply(theme: theme)
         return item
     }()
@@ -82,6 +90,8 @@ class ArticleToolbarController: Themeable {
     lazy var languagesButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "language", target: self, action: #selector(showLanguagePicker), for: .touchUpInside)
         item.accessibilityLabel = CommonStrings.accessibilityLanguagesTitle
+        item.accessibilityIdentifier = AccessibilityIdentifiers.Article.languagesButton
+        item.customView?.accessibilityIdentifier = AccessibilityIdentifiers.Article.languagesButton
         item.apply(theme: theme)
         return item
     }()
@@ -103,6 +113,8 @@ class ArticleToolbarController: Themeable {
         let item = IconBarButtonItem(image: moreImage, menu: menu)
 
         item.accessibilityLabel = CommonStrings.moreButton
+        item.accessibilityIdentifier = AccessibilityIdentifiers.Article.moreButton
+        item.customView?.accessibilityIdentifier = AccessibilityIdentifiers.Article.moreButton
         return item
     }
     
