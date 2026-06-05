@@ -1,7 +1,7 @@
 import XCTest
 
 final class ArticleImageGalleryUITests: XCTestCase {
-    func testBohemiaLeadImagePresentsImageGallery() throws {
+    func testBohemiaLeadImageOpensImageGalleryAndCanShare() throws {
         try XCTSkipUnless(
             uiTestConfiguration.httpClientProfile == TestHTTPClientProfile.e2e.rawValue,
             "Lead-image gallery coverage requires live E2E networking."
@@ -19,5 +19,6 @@ final class ArticleImageGalleryUITests: XCTestCase {
             .assertTopControlsVisible()
             .openLeadImageGallery()
             .assertImagePresented()
+            .shareImage()
     }
 }
