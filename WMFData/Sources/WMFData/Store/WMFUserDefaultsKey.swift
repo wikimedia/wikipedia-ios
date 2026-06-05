@@ -63,6 +63,7 @@ public enum WMFUserDefaultsKey: String {
 
     // Games announcement
     case hasSeenGamesAnnouncement = "has-seen-games-announcement"
+    case needsDailyGameFeedRefresh = "needs-daily-game-feed-refresh"
 
     // Games dev settings
     case developerSettingsShowGamesV2 = "dev-settings-show-games-v2"

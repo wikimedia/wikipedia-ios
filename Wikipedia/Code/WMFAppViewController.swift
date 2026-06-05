@@ -985,6 +985,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             resumeAndAnnouncementsCompleteGroup.leave()
             self.performTasksThatShouldOccurAfterBecomeActiveAndResume()
             self.showLoggedOutPanelIfNeeded()
+            let key = WMFUserDefaultsKey.needsDailyGameFeedRefresh.rawValue
+            if UserDefaults.standard.bool(forKey: key) {
+                UserDefaults.standard.removeObject(forKey: key)
+                NotificationCenter.default.post(name: WMFNSNotification.refreshExploreForGamesCard, object: nil)
+            }
         }
 
         dataStore.feedContentController.startContentSources()

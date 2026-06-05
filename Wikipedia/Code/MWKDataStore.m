@@ -15,7 +15,7 @@ NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 NSString *const WMFViewContextDidResetNotification = @"WMFViewContextDidResetNotification";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
-static const NSInteger WMFCurrentLibraryVersion = 19;
+static const NSInteger WMFCurrentLibraryVersion = 20;
 
 NSString *const WMFCoreDataSynchronizerInfoFileName = @"Wikipedia.info";
 
@@ -279,7 +279,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
                     if (article.savedDate == nil && article.isSavedMigrated) {
                         if (articleURL != nil) {
                             DDLogInfo(@"[SavedMigration] Revert hook firing for key=%@ (unsave)", article.key);
-                            NSArray<NSURL *> *urls = @[ articleURL ];
+                            NSArray<NSURL *> *urls = @[articleURL];
                             [WMFArticleSavedStateMigrationManager.shared removeFromSavedWithURLs:urls];
                         }
                     }
@@ -532,6 +532,16 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         [self importViewedArticlesIntoWMFDataWithDataStoreMOC:moc];
         [moc wmf_setValue:@(19) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:nil]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
+
+    if (currentLibraryVersion < 20) {
+        [self.feedContentController toggleContentGroupOfKind:WMFContentGroupKindDailyGame isOn:YES updateFeed:NO];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"needs-daily-game-feed-refresh"];
+        [moc wmf_setValue:@(20) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
             return;
         }
@@ -872,7 +882,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 
 #pragma mark - Remote Configuration
 
-- (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError * _Nullable))completion {
+- (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError *_Nullable))completion {
     void (^combinedCompletion)(NSError *) = ^(NSError *error) {
         if (completion) {
             completion(error);

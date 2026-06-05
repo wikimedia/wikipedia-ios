@@ -105,7 +105,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(gamesV1SettingDidChange), name: WMFNSNotification.gamesV1SettingDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshExploreForGamesCard), name: WMFNSNotification.refreshExploreForGamesCard, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(whichCameFirstSessionDidUpdate(_:)), name: WMFNSNotification.whichCameFirstSessionDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(gamesAllSessionsCleared), name: WMFNSNotification.gamesAllSessionsCleared, object: nil)
 
@@ -1544,7 +1544,7 @@ extension ExploreViewController {
         configureNavigationBar()
     }
 
-    @objc func gamesV1SettingDidChange() {
+    @objc func refreshExploreForGamesCard() {
         updateFeedSources(userInitiated: false)
     }
 }
