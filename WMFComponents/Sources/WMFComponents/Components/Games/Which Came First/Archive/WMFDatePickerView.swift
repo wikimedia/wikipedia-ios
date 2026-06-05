@@ -30,7 +30,6 @@ public struct WMFDatePickerView: View {
         ZStack(alignment: .top) {
             ScrollView {
                 VStack(spacing: 0) {
-
                     headerSection
                         .padding(.top, 32)
 
@@ -43,7 +42,6 @@ public struct WMFDatePickerView: View {
 
             dismissButton
 
-            // todo: replace with our toast?
             if let msg = viewModel.toastMessage {
                 toastView(msg)
                     .transition(.move(edge: .top).combined(with: .opacity))
@@ -152,7 +150,7 @@ public struct WMFDatePickerView: View {
 
     private var weekdayHeaders: some View {
         HStack(spacing: 0) {
-            ForEach(viewModel.localizedStrings.weekdaySymbols, id: \.self) { symbol in
+            ForEach(viewModel.weekdaySymbols, id: \.self) { symbol in
                 Text(symbol)
                     .font(.system(size: 10, weight: .semibold))
                     .foregroundColor(.secondary)
@@ -190,7 +188,7 @@ public struct WMFDatePickerView: View {
                     .frame(width: Layout.daySize, height: Layout.daySize)
 
                 Circle()
-                    .fill(day.playedScore != nil ? Color.accentColor : Color.clear)
+                    .fill(dayCellDotColor(day))
                     .frame(width: Layout.dotSize, height: Layout.dotSize)
             }
         }
@@ -201,6 +199,13 @@ public struct WMFDatePickerView: View {
 
     private func dayCellTextColor(_ day: WMFDatePickerDay) -> Color {
         day.isToday ? .accentColor : .primary
+    }
+
+    private func dayCellDotColor(_ day: WMFDatePickerDay) -> Color {
+        if day.playedScore != nil || day.isPaused {
+            return .accentColor
+        }
+        return .clear
     }
 
     // MARK: Dismiss button
@@ -275,6 +280,24 @@ private extension Date {
     )
 }
 
+#Preview("With paused dates") {
+    WMFDatePickerView(
+        viewModel: WMFDatePickerViewModel(
+            localizedStrings: WMFDatePickerViewModel.LocalizedStrings(),
+            playedDates: [
+                .today(offsetBy: -2): 5,
+                .today(offsetBy: -5): 3
+            ],
+            pausedDates: [
+                .today(offsetBy: -1),
+                .today(offsetBy: -7)
+            ],
+            onSelectDate: { date in print("Selected: \(date)") }
+        ),
+        onDismiss: {}
+    )
+}
+
 #Preview("Empty – no played days") {
     WMFDatePickerView(
         viewModel: WMFDatePickerViewModel(
@@ -296,6 +319,20 @@ private extension Date {
         ]
     )
     return WMFDatePickerView(viewModel: vm, onDismiss: {})
+}
+
+#Preview("Weekday symbol override (French)") {
+    WMFDatePickerView(
+        viewModel: WMFDatePickerViewModel(
+            localizedStrings: WMFDatePickerViewModel.LocalizedStrings(
+                title: "Lequel est venu en premier?",
+                subtitle: "Jouez depuis juin 2024.",
+                weekdaySymbolOverrides: ["DIM", "LUN", "MAR", "MER", "JEU", "VEN", "SAM"]
+            ),
+            playedDates: [.today(offsetBy: -3): 4]
+        ),
+        onDismiss: {}
+    )
 }
 
 #Preview("Dark mode") {

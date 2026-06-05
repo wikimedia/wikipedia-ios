@@ -49,6 +49,7 @@ public struct WMFWhichCameFirstView: View {
                 onArticleUnsave: gameViewModel.onArticleUnsave,
                 onCheckSavedState: gameViewModel.onCheckSavedState,
                 onArticleShare: gameViewModel.onArticleShare,
+                onPlayArchive: gameViewModel.onPlayArchive,
                 onArticleTapToEvent: gameViewModel.onArticleTapToEvent
             ))
         }

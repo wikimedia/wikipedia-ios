@@ -130,6 +130,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     public var onArticleTapToEvent: WMFWhichCameFirstArticlesViewModel.ArticleEventTapAction?
     public var didTapLearnMore: (@MainActor @Sendable () -> Void)?
     public var didTapReportProblem: (@MainActor @Sendable () -> Void)?
+    public var onPlayArchive: (@MainActor @Sendable () -> Void)?
 
     // MARK: - Instrumentation Callbacks
 

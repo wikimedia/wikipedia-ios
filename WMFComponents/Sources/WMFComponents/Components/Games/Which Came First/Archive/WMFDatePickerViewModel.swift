@@ -10,6 +10,7 @@ struct WMFDatePickerDay: Identifiable {
     let isToday: Bool
     let isInCurrentMonth: Bool
     let playedScore: Int?
+    let isPaused: Bool
 }
 
 // MARK: - ViewModel
@@ -22,40 +23,22 @@ public final class WMFDatePickerViewModel: ObservableObject {
     public struct LocalizedStrings {
         public let title: String
         public let subtitle: String
-        public let sundayAbbreviation: String
-        public let mondayAbbreviation: String
-        public let tuesdayAbbreviation: String
-        public let wednesdayAbbreviation: String
-        public let thursdayAbbreviation: String
-        public let fridayAbbreviation: String
-        public let saturdayAbbreviation: String
+        /// When non-nil, overrides the system-derived weekday abbreviations.
+        /// All 7 values must be provided, ordered Sun–Sat.
+        public let weekdaySymbolOverrides: [String]?
 
         public init(
             title: String = "Which came first?",
             subtitle: String = "Play games since June 2024.",
-            sundayAbbreviation: String = "SUN",
-            mondayAbbreviation: String = "MON",
-            tuesdayAbbreviation: String = "TUE",
-            wednesdayAbbreviation: String = "WED",
-            thursdayAbbreviation: String = "THU",
-            fridayAbbreviation: String = "FRI",
-            saturdayAbbreviation: String = "SAT"
+            weekdaySymbolOverrides: [String]? = nil
         ) {
+            precondition(
+                weekdaySymbolOverrides == nil || weekdaySymbolOverrides?.count == 7,
+                "weekdaySymbolOverrides must contain exactly 7 symbols (Sun–Sat)"
+            )
             self.title = title
             self.subtitle = subtitle
-            self.sundayAbbreviation = sundayAbbreviation
-            self.mondayAbbreviation = mondayAbbreviation
-            self.tuesdayAbbreviation = tuesdayAbbreviation
-            self.wednesdayAbbreviation = wednesdayAbbreviation
-            self.thursdayAbbreviation = thursdayAbbreviation
-            self.fridayAbbreviation = fridayAbbreviation
-            self.saturdayAbbreviation = saturdayAbbreviation
-        }
-
-        var weekdaySymbols: [String] {
-            [sundayAbbreviation, mondayAbbreviation, tuesdayAbbreviation,
-             wednesdayAbbreviation, thursdayAbbreviation, fridayAbbreviation,
-             saturdayAbbreviation]
+            self.weekdaySymbolOverrides = weekdaySymbolOverrides
         }
     }
 
@@ -68,7 +51,6 @@ public final class WMFDatePickerViewModel: ObservableObject {
     // MARK: Config
 
     public let localizedStrings: LocalizedStrings
-    /// Earliest selectable date (archive start)
     let archiveStartDate: Date
 
     var title: String { localizedStrings.title }
@@ -79,8 +61,34 @@ public final class WMFDatePickerViewModel: ObservableObject {
     private let calendar: Calendar
     private var toastTimer: Timer?
 
-    /// Closure called when user taps an unplayed, valid date
     var onSelectDate: ((Date) -> Void)?
+
+    // MARK: - Weekday Symbols
+
+    /// Weekday abbreviations respecting locale first-day-of-week, with optional
+    /// override from LocalizedStrings. System symbols come from the device locale
+    /// via Calendar.current so they automatically translate (e.g. "LUN" in French).
+    var weekdaySymbols: [String] {
+        if let overrides = localizedStrings.weekdaySymbolOverrides {
+            // Rotate the caller-supplied Sun–Sat array to match the
+            // locale's firstWeekday so column order stays correct.
+            return rotatedToFirstWeekday(overrides)
+        }
+
+        // Use shortWeekdaySymbols from the locale-aware calendar.
+        // These are already ordered Sun–Sat in the symbols array, so we
+        // rotate to match firstWeekday (e.g. Mon-first locales).
+        let symbols = calendar.shortWeekdaySymbols.map { $0.uppercased() }
+        return rotatedToFirstWeekday(symbols)
+    }
+
+    /// Rotates a Sun-indexed array of 7 symbols so index 0 aligns with
+    /// the calendar's firstWeekday (1 = Sun, 2 = Mon, … 7 = Sat).
+    private func rotatedToFirstWeekday(_ symbols: [String]) -> [String] {
+        let offset = calendar.firstWeekday - 1   // 0 for Sun, 1 for Mon, etc.
+        guard offset > 0 else { return symbols }
+        return Array(symbols[offset...] + symbols[..<offset])
+    }
 
     // MARK: Init
 
@@ -88,19 +96,21 @@ public final class WMFDatePickerViewModel: ObservableObject {
         localizedStrings: LocalizedStrings = LocalizedStrings(),
         archiveStartDate: Date = DateComponents(calendar: .current, year: 2024, month: 6, day: 1).date!,
         playedDates: [Date: Int] = [:],
+        pausedDates: Set<Date> = [],
         onSelectDate: ((Date) -> Void)? = nil
     ) {
         self.localizedStrings = localizedStrings
         self.archiveStartDate = archiveStartDate
         self.onSelectDate = onSelectDate
 
+        // Respect the device locale for first day of week.
         var cal = Calendar.current
-        cal.firstWeekday = 1  // Sunday
         self.calendar = cal
 
         let now = Date()
         self.displayedMonth = cal.date(from: cal.dateComponents([.year, .month], from: now))!
         self._playedDates = playedDates
+        self._pausedDates = pausedDates
 
         buildWeeks()
     }
@@ -108,12 +118,18 @@ public final class WMFDatePickerViewModel: ObservableObject {
     // MARK: Private storage
 
     private var _playedDates: [Date: Int]
+    private var _pausedDates: Set<Date>
 
     // MARK: Public helpers
 
     var displayedMonthTitle: String {
+        // DateFormatter respects the device locale automatically.
         let fmt = DateFormatter()
-        fmt.dateFormat = "MMMM yyyy"
+        fmt.dateFormat = DateFormatter.dateFormat(
+            fromTemplate: "MMMM yyyy",
+            options: 0,
+            locale: .current
+        )
         return fmt.string(from: displayedMonth)
     }
 
@@ -153,6 +169,8 @@ public final class WMFDatePickerViewModel: ObservableObject {
 
         if let score = day.playedScore {
             showToast("You scored \(score)/5 on this day.")
+        } else if day.isPaused {
+            onSelectDate?(day.date)
         } else if day.date <= Date() && day.date >= archiveStartDate {
             onSelectDate?(day.date)
         }
@@ -174,32 +192,36 @@ public final class WMFDatePickerViewModel: ObservableObject {
 
     private func buildWeeks() {
         let today = calendar.startOfDay(for: Date())
-
         let firstOfMonth = displayedMonth
-        let firstWeekday = calendar.component(.weekday, from: firstOfMonth)
         let daysInMonth = calendar.range(of: .day, in: .month, for: firstOfMonth)!.count
 
-        var days: [WMFDatePickerDay?] = []
+        // firstWeekday is 1-based (1 = Sun). Work out how many leading
+        // empty cells are needed for this month given the locale's first day.
+        let rawWeekday = calendar.component(.weekday, from: firstOfMonth)  // 1 = Sun
+        let firstWeekday = calendar.firstWeekday                            // 1 = Sun, 2 = Mon…
+        let leadingEmpties = (rawWeekday - firstWeekday + 7) % 7
 
-        for _ in 1..<firstWeekday { days.append(nil) }
+        var days: [WMFDatePickerDay?] = Array(repeating: nil, count: leadingEmpties)
 
         for dayOffset in 0..<daysInMonth {
             guard let date = calendar.date(byAdding: .day, value: dayOffset, to: firstOfMonth) else { continue }
             let normalised = calendar.startOfDay(for: date)
             let score = _playedDates[normalised]
+            let paused = _pausedDates.contains(normalised)
             days.append(WMFDatePickerDay(
                 id: normalised,
                 date: normalised,
                 dayNumber: dayOffset + 1,
                 isToday: normalised == today,
                 isInCurrentMonth: true,
-                playedScore: score
+                playedScore: score,
+                isPaused: paused
             ))
         }
 
         let remainder = days.count % 7
         if remainder != 0 {
-            for _ in 0..<(7 - remainder) { days.append(nil) }
+            days.append(contentsOf: Array(repeating: nil, count: 7 - remainder))
         }
 
         weeks = stride(from: 0, to: days.count, by: 7).map {

@@ -47,6 +47,9 @@ public struct WMFWhichCameFirstResultsView: View {
                     VStack(spacing: 24) {
                         scoreCard
                             .padding(.horizontal, 16)
+                        
+                        archiveButton
+                            .padding(.horizontal, 16)
 
                         statsSection
                             .padding(.horizontal, 16)
@@ -57,6 +60,28 @@ public struct WMFWhichCameFirstResultsView: View {
                 }
                 .zIndex(1)
             }
+        }
+    }
+    
+    private var archiveButton: some View {
+        Button {
+            viewModel.onPlayArchive?()
+        } label: {
+            HStack(alignment: .center, spacing: 4) {
+                if let image = WMFSFSymbolIcon.for(symbol: .calendarBadgeClock, font: .semiboldSubheadline) {
+                    Image(uiImage: image)
+                        .accessibilityHidden(true)
+                }
+                Text(viewModel.localizedStrings.playTheArchiveButton)
+                    .font(Font(WMFFont.for(.semiboldSubheadline)))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .frame(maxWidth: .infinity)
+            .foregroundColor(.white)
+            .padding(.horizontal, 14)
+            .padding(.vertical, 7)
+            .background(.black.opacity(0.3))
+            .clipShape(Capsule())
         }
     }
     

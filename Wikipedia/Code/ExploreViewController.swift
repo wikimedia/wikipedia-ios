@@ -8,6 +8,18 @@ import WMFTestKitchen
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring {
     
+    func exploreCardViewControllerDidTapArchive(_ exploreCardViewController: ExploreCardViewController) {
+        guard let navigationController else { return }
+        let coordinator = WhichCameFirstCoordinator(
+            navigationController: navigationController,
+            theme: theme,
+            dataStore: dataStore,
+            siteURL: exploreCardViewController.contentGroup?.siteURL
+        )
+        coordinator.start()
+        coordinator.showArchive()
+    }
+    
     func exploreCardViewControllerDidTapReviewResults(_ exploreCardViewController: ExploreCardViewController) {
         guard let contentGroup = exploreCardViewController.contentGroup,
               let navigationController else { return }

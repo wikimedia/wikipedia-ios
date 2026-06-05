@@ -181,6 +181,10 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             self?.logClick(actionSource: source, actionSubtype: "game_overflow", elementId: "problem_report")
             self?.showReportProblem()
         }
+        viewModel.onPlayArchive = { [weak self] in
+            self?.logClick(actionSource: "game_end", elementId: "play_archive_button")
+            self?.showArchive()
+        }
 
         // Slide-level instrumentation
         viewModel.didImpressionSlide = { [weak self] slideIndex in
@@ -379,6 +383,82 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         ].joined(separator: "\n\n")
         mailVC.setMessageBody(body, isHTML: false)
         gameNav.present(mailVC, animated: true)
+    }
+    
+    // MARK: - Archive
+
+    func showArchive() {
+        guard let project,
+              let gameNav = gameNavigationController else { return }
+
+        Task { [weak self, weak gameNav] in
+            guard let self, let gameNav else { return }
+
+            let sessions = (try? await self.gamesDataController.fetchWhichCameFirstSessions(project: project)) ?? []
+
+            let playedDates: [Date: Int] = Dictionary(uniqueKeysWithValues:
+                sessions
+                    .filter { $0.status == .completed && $0.dailyGameDate != nil }
+                    .compactMap { session -> (Date, Int)? in
+                        guard let dateString = session.dailyGameDate,
+                              let date = DateFormatter.onThisDayAPIDateFormatter.date(from: dateString) else { return nil }
+                        return (Calendar.current.startOfDay(for: date), Int(session.score))
+                    }
+            )
+
+            let pausedDates: Set<Date> = Set(
+                sessions
+                    .filter { $0.status == .inProgress && $0.dailyGameDate != nil }
+                    .compactMap { session -> Date? in
+                        guard let dateString = session.dailyGameDate,
+                              let date = DateFormatter.onThisDayAPIDateFormatter.date(from: dateString) else { return nil }
+                        return Calendar.current.startOfDay(for: date)
+                    }
+            )
+
+            let viewModel = WMFDatePickerViewModel(
+                localizedStrings: WMFDatePickerViewModel.LocalizedStrings(
+                    title: WMFLocalizedString("which-came-first-archive-title", value: "Which came first?", comment: "Title for the Which Came First archive date picker."),
+                    subtitle: WMFLocalizedString("which-came-first-archive-subtitle", value: "Play games since June 2024.", comment: "Subtitle for the Which Came First archive date picker.")
+                ),
+                playedDates: playedDates,
+                pausedDates: pausedDates,
+                onSelectDate: { [weak self] date in
+                    self?.showGameForArchiveDate(date)
+                }
+            )
+
+            let archiveView = WMFDatePickerView(
+                viewModel: viewModel,
+                onDismiss: { [weak gameNav] in
+                    gameNav?.dismiss(animated: true)
+                }
+            )
+
+            let hostingVC = UIHostingController(rootView: archiveView)
+            hostingVC.modalPresentationStyle = .pageSheet
+            if let sheet = hostingVC.sheetPresentationController {
+                sheet.detents = [.large()]
+                sheet.prefersGrabberVisible = true
+            }
+            gameNav.present(hostingVC, animated: true)
+        }
+    }
+
+    private func showGameForArchiveDate(_ date: Date) {
+        guard let project,
+              let gameNav = gameNavigationController else { return }
+
+        let dateString = DateFormatter.onThisDayAPIDateFormatter.string(from: date)
+
+        // Dismiss the archive sheet, then push into the game
+        gameNav.presentedViewController?.dismiss(animated: true) { [weak self] in
+            guard let self else { return }
+            let viewModel = WMFWhichCameFirstViewModel(date: dateString, project: project)
+            // wire up viewModel callbacks the same way showGame() does...
+            let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
+            gameNav.pushViewController(gameVC, animated: true)
+        }
     }
 
     // MARK: - Instrumentation Helpers
