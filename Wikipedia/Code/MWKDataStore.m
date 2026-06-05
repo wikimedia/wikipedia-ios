@@ -538,7 +538,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     }
 
     if (currentLibraryVersion < 20) {
-        [self.feedContentController toggleContentGroupOfKind:WMFContentGroupKindDailyGame isOn:YES updateFeed:NO];
+        [self.feedContentController toggleContentGroupOfKind:WMFContentGroupKindDailyGame isOn:YES updateFeed:YES];
         [moc wmf_setValue:@(20) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
