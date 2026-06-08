@@ -673,6 +673,10 @@
 "forgot-password-instructions" = "Заповніть одне з полів нижче, щоб отримати на скриньку електронної пошти інструкції щодо скидання пароля";
 "forgot-password-title" = "Скинути пароль";
 "forgot-password-username-or-email-title" = "Або";
+"games-announcement-maybe-later-button" = "Можливо пізніше";
+"games-announcement-message" = "З'явилася нова вікторина, заснована на матеріалах Вікіпедії. Вгадайте, яка подія сталася першою в історії.";
+"games-announcement-play-button" = "Грати";
+"games-announcement-title" = "Грати «Що було першим?»";
 "games-email-report-body-encountered" = "У мене виникла проблема з функцією ігор у Вікіпедії:";
 "games-email-report-subject" = "Звіт про проблему - Ігри Вікіпедії";
 "games-wcf-button-play-title" = "Зіграти сьогоднішню гру";
@@ -731,7 +735,6 @@
 "image-rec-tooltip-3-body" = "Вирішіть, чи допоможе зображення краще зрозуміти читачам цю тему.";
 "image-rec-tooltip-3-title" = "Вирішіть";
 "image-rec-view-article" = "Переглянути статтю";
-// Fuzzy
 "image-recommendations-email-first-line" = "У мене виникла проблема з функцією додавання пропонованих зображень:";
 "image-recommendations-email-title" = "Звіт про проблему — функція додавання зображень";
 "image-recs-no-title" = "Ні";
