@@ -168,15 +168,10 @@ final class WMFDonateViewModelTests: XCTestCase {
         
         // Select amount button
         firstButtonVM.isSelected = true
-        
-        let expectation = XCTestExpectation(description: "Waiting for textfield amount to update")
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            XCTAssertEqual(viewModel.textfieldViewModel.amount, firstButtonVM.amount)
-            expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: 2.0)
+
+        // The button-selection -> textfield update propagates synchronously through Combine,
+        // so the new amount is observable immediately without waiting.
+        XCTAssertEqual(viewModel.textfieldViewModel.amount, firstButtonVM.amount)
     }
     
     func testUpdateTextfieldSelectsAmountButtonUSD() {
@@ -201,17 +196,11 @@ final class WMFDonateViewModelTests: XCTestCase {
         
         // Update textfield
         viewModel.textfieldViewModel.amount = 3
-        
-        let expectation = XCTestExpectation(description: "Waiting for button selections to update")
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            // Confirm first button is now selected
-            let newFirstButton = viewModel.buttonViewModels[0]
-            XCTAssertTrue(newFirstButton.isSelected)
-            expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: 2.0)
+
+        // The textfield -> button-selection update propagates synchronously through Combine.
+        // Confirm first button is now selected.
+        let newFirstButton = viewModel.buttonViewModels[0]
+        XCTAssertTrue(newFirstButton.isSelected)
     }
     
     func testSelectTransactionFeeUpdatesTextfieldAndAmountButtonUSD() {
@@ -237,17 +226,10 @@ final class WMFDonateViewModelTests: XCTestCase {
         
         // Select transaction fee
         viewModel.transactionFeeOptInViewModel.isSelected = true
-        
-        let expectation = XCTestExpectation(description: "Waiting for textfield amount to update")
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            
-            // Confirm textfield has updated
-            XCTAssertEqual(viewModel.textfieldViewModel.amount, 3.35)
-            expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: 2.0)
+
+        // The transaction-fee -> textfield update propagates synchronously through Combine.
+        // Confirm textfield has updated.
+        XCTAssertEqual(viewModel.textfieldViewModel.amount, 3.35)
     }
     
     func testSmallAmountTriggersMinimumErrorUSD() {

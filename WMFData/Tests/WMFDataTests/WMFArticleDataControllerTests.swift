@@ -15,16 +15,14 @@ final class WMFArticleDataControllerTests: XCTestCase {
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
     }
     
-    func testFetchWatchStatus() {
+    func testFetchWatchStatus() throws {
         let controller = WMFArticleDataController()
 
          let expectation = XCTestExpectation(description: "Fetch Watch Status")
         var statusToTest: WMFArticleDataController.WMFArticleInfoResponse?
-        
-        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: true, needsRollbackRights: false, needsCategories: false) else {
-            return
-        }
-        
+
+        let request = try WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: true, needsRollbackRights: false, needsCategories: false)
+
         controller.fetchArticleInfo(title: "Cat", project: enProject, request: request) { result in
              switch result {
              case .success(let status):
@@ -46,16 +44,14 @@ final class WMFArticleDataControllerTests: XCTestCase {
          XCTAssertNil(statusToTest.userHasRollbackRights)
      }
 
-     func testFetchWatchStatusWithRollbackRights() {
+     func testFetchWatchStatusWithRollbackRights() throws {
          let controller = WMFArticleDataController()
 
          let expectation = XCTestExpectation(description: "Fetch Watch Status")
          var statusToTest: WMFArticleDataController.WMFArticleInfoResponse?
-         
-         guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: true, needsRollbackRights: true, needsCategories: false) else {
-             return
-         }
-         
+
+         let request = try WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: true, needsRollbackRights: true, needsCategories: false)
+
          controller.fetchArticleInfo(title: "Cat", project: enProject, request: request) { result in
              switch result {
              case .success(let status):
