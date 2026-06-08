@@ -133,8 +133,7 @@
 "activity-tab-customize-timeline-of-behavior" = "Linha do tempo do comportamento";
 "activity-tab-email-fifth-line" = "[Capturas de tela ou links]";
 "activity-tab-email-first-line" = "Encontrei um problema com o recurso da guia Atividade:";
-// Fuzzy
-"activity-tab-email-fourth-line" = "[Descreva o comportamento desejado]";
+"activity-tab-email-fourth-line" = "[Descreva a solução proposta]";
 "activity-tab-email-second-line" = "[Descreva o problema específico]";
 "activity-tab-email-third-line" = "O comportamento que eu gostaria de ver é:";
 "activity-tab-email-title" = "Relatório de problemas - Guia de Atividade";
@@ -698,6 +697,7 @@
 "games-announcement-maybe-later-button" = "Talvez mais tarde";
 "games-announcement-message" = "Chegou um novo jogo de perguntas e respostas, baseado no conteúdo da Wikipédia. Adivinhe qual evento ocorreu primeiro na história.";
 "games-announcement-play-button" = "Jogar";
+"games-announcement-title" = "Jogue \"O que veio primeiro?\"";
 "games-email-report-body-encountered" = "Encontrei um problema com o recurso de Wikipédia jogos:";
 "games-email-report-subject" = "Relatório de problemas - Wikipédia jogos";
 "games-wcf-button-play-title" = "Jogar jogo de hoje";
@@ -1597,6 +1597,7 @@
 "which-came-first-retry-button" = "Tentar novamente";
 "which-came-first-score" = "Você marcou $1/$2.";
 "which-came-first-see-results-button" = "Ver resultados";
+"which-came-first-share-activity-text" = "IEstou jogando \"O que veio primeiro?\", um jogo de perguntas e respostas diário no aplicativo da Wikipédia para iOS https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=wiki_game_202605&mt=8";
 "which-came-first-share-score-button" = "Compartilhar pontuação";
 "which-came-first-share-score-summary" = "Hoje ganhei $1/$2 na aposta \"O que veio primeiro?\".";
 "which-came-first-share-topics-title" = "Os tópicos incluíram:";
