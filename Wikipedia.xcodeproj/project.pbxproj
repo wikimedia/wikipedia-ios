@@ -1279,9 +1279,6 @@
 		832289DB1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832289DA1F7291BA0081A5FB /* SizeThatFitsReusableView.swift */; };
 		832289DC1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832289DA1F7291BA0081A5FB /* SizeThatFitsReusableView.swift */; };
 		832289DD1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832289DA1F7291BA0081A5FB /* SizeThatFitsReusableView.swift */; };
-		8324EE8D2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon in Resources */ = {isa = PBXBuildFile; fileRef = 8324EE8C2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon */; };
-		8324EE8E2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon in Resources */ = {isa = PBXBuildFile; fileRef = 8324EE8C2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon */; };
-		8324EE8F2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon in Resources */ = {isa = PBXBuildFile; fileRef = 8324EE8C2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon */; };
 		832A7A5B23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */; };
 		832A7A5C23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */; };
 		832A7A5D23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */; };
@@ -1418,6 +1415,12 @@
 		83987AD120E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */; };
 		83987AD220E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */; };
 		839B2C1C29BA3BD700FCAB74 /* WMFContentGroup+MEPExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839B2C1B29BA3BD600FCAB74 /* WMFContentGroup+MEPExtension.swift */; };
+		839BCDBB2FD1F5930041BA6E /* wikipedia-app-icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 839BCDBA2FD1F5930041BA6E /* wikipedia-app-icon.icon */; };
+		839BCDBC2FD1F5930041BA6E /* wikipedia-app-icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 839BCDBA2FD1F5930041BA6E /* wikipedia-app-icon.icon */; };
+		839BCDBD2FD1F5930041BA6E /* wikipedia-app-icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 839BCDBA2FD1F5930041BA6E /* wikipedia-app-icon.icon */; };
+		839BCDBF2FD1F5A90041BA6E /* wikipedia-app-icon-experimental.icon in Resources */ = {isa = PBXBuildFile; fileRef = 839BCDBE2FD1F5A90041BA6E /* wikipedia-app-icon-experimental.icon */; };
+		839BCDC02FD1F5A90041BA6E /* wikipedia-app-icon-experimental.icon in Resources */ = {isa = PBXBuildFile; fileRef = 839BCDBE2FD1F5A90041BA6E /* wikipedia-app-icon-experimental.icon */; };
+		839BCDC12FD1F5A90041BA6E /* wikipedia-app-icon-experimental.icon in Resources */ = {isa = PBXBuildFile; fileRef = 839BCDBE2FD1F5A90041BA6E /* wikipedia-app-icon-experimental.icon */; };
 		83A1561420DBE08C0052487B /* ColumnarCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A1561320DBE08C0052487B /* ColumnarCollectionViewLayout.swift */; };
 		83A171D72819B6A60029FB89 /* UNAuthorizationStatus+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397601A2811ABC7000FE3B1 /* UNAuthorizationStatus+String.swift */; };
 		83A171D82819B6A70029FB89 /* UNAuthorizationStatus+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397601A2811ABC7000FE3B1 /* UNAuthorizationStatus+String.swift */; };
@@ -1519,11 +1522,8 @@
 		83D3140A2F5B420E007F822D /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D314092F5B4203007F822D /* UIViewController+Extensions.swift */; };
 		83D3140B2F5B420E007F822D /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D314092F5B4203007F822D /* UIViewController+Extensions.swift */; };
 		83D3140C2F5B420E007F822D /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D314092F5B4203007F822D /* UIViewController+Extensions.swift */; };
-		83D314182F5F56FA007F822D /* wikipedia-app-icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 83D314172F5F56FA007F822D /* wikipedia-app-icon.icon */; };
 		83D314192F5F56FA007F822D /* contributor-app-icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 83D314162F5F56FA007F822D /* contributor-app-icon.icon */; };
-		83D3141A2F5F56FA007F822D /* wikipedia-app-icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 83D314172F5F56FA007F822D /* wikipedia-app-icon.icon */; };
 		83D3141B2F5F56FA007F822D /* contributor-app-icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 83D314162F5F56FA007F822D /* contributor-app-icon.icon */; };
-		83D3141C2F5F56FA007F822D /* wikipedia-app-icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 83D314172F5F56FA007F822D /* wikipedia-app-icon.icon */; };
 		83D3141D2F5F56FA007F822D /* contributor-app-icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 83D314162F5F56FA007F822D /* contributor-app-icon.icon */; };
 		83D5EC871F755E1F003DE6F2 /* SwipeableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */; };
 		83D861432DE7581F003313CD /* ArticleTabsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D861422DE7580C003313CD /* ArticleTabsFunnel.swift */; };
@@ -3550,7 +3550,6 @@
 		83222DAF1F8E554800338BE5 /* WMFContent+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMFContent+CoreDataClass.m"; sourceTree = "<group>"; };
 		83222DB01F8E554800338BE5 /* WMFContent+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMFContent+CoreDataProperties.m"; sourceTree = "<group>"; };
 		832289DA1F7291BA0081A5FB /* SizeThatFitsReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeThatFitsReusableView.swift; sourceTree = "<group>"; };
-		8324EE8C2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "wikipedia-app-icon-experimental.icon"; sourceTree = "<group>"; };
 		832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+References.swift"; sourceTree = "<group>"; };
 		832A7A5F23EAE03200D0A750 /* String+JavaScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+JavaScript.swift"; sourceTree = "<group>"; };
 		832B2B8323D9F9420087EB5F /* NSRegularExpression+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRegularExpression+Utilities.swift"; sourceTree = "<group>"; };
@@ -3617,6 +3616,8 @@
 		8397601A2811ABC7000FE3B1 /* UNAuthorizationStatus+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNAuthorizationStatus+String.swift"; sourceTree = "<group>"; };
 		83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Theme.swift"; sourceTree = "<group>"; };
 		839B2C1B29BA3BD600FCAB74 /* WMFContentGroup+MEPExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFContentGroup+MEPExtension.swift"; sourceTree = "<group>"; };
+		839BCDBA2FD1F5930041BA6E /* wikipedia-app-icon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "wikipedia-app-icon.icon"; sourceTree = "<group>"; };
+		839BCDBE2FD1F5A90041BA6E /* wikipedia-app-icon-experimental.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "wikipedia-app-icon-experimental.icon"; sourceTree = "<group>"; };
 		83A1561320DBE08C0052487B /* ColumnarCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayout.swift; sourceTree = "<group>"; };
 		83A422B422786E2000BA446A /* Local-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Local-Info.plist"; sourceTree = "<group>"; };
 		83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftKVOCrashWorkaround.swift; sourceTree = "<group>"; };
@@ -3666,7 +3667,6 @@
 		83CDC7D325122A1700A2F8A1 /* PermanentCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermanentCacheController.swift; sourceTree = "<group>"; };
 		83D314092F5B4203007F822D /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		83D314162F5F56FA007F822D /* contributor-app-icon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "contributor-app-icon.icon"; sourceTree = "<group>"; };
-		83D314172F5F56FA007F822D /* wikipedia-app-icon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "wikipedia-app-icon.icon"; sourceTree = "<group>"; };
 		83D3FC12223A8BCD0048384B /* ArticleSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSummary.swift; sourceTree = "<group>"; };
 		83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCell.swift; sourceTree = "<group>"; };
 		83D861422DE7580C003313CD /* ArticleTabsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTabsFunnel.swift; sourceTree = "<group>"; };
@@ -7419,8 +7419,8 @@
 				D8BA1F1F1DF1E19700502877 /* Resources */,
 				67ADAC722EFA240D00852D2F /* InfoPlist Native Localizations */,
 				83D314162F5F56FA007F822D /* contributor-app-icon.icon */,
-				8324EE8C2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon */,
-				83D314172F5F56FA007F822D /* wikipedia-app-icon.icon */,
+				839BCDBE2FD1F5A90041BA6E /* wikipedia-app-icon-experimental.icon */,
+				839BCDBA2FD1F5930041BA6E /* wikipedia-app-icon.icon */,
 			);
 			path = Wikipedia;
 			sourceTree = "<group>";
@@ -8825,6 +8825,7 @@
 				D8D92B631DF22E1700B95311 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				83B01F8B23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */,
 				7A71567322697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.xib in Resources */,
+				839BCDBB2FD1F5930041BA6E /* wikipedia-app-icon.icon in Resources */,
 				B0524B0321484FB400D8FD8D /* DescriptionWelcome.storyboard in Resources */,
 				B0ED173D1E49831B008B70AD /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				D80ED2601EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
@@ -8848,7 +8849,6 @@
 				7ABE17292239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				D8D92B651DF22E1700B95311 /* NotificationBackgroundWarning@2x.png in Resources */,
 				B0EFCD681EBEC2F6008F36E5 /* LibrariesUsed.storyboard in Resources */,
-				83D3141C2F5F56FA007F822D /* wikipedia-app-icon.icon in Resources */,
 				83D3141D2F5F56FA007F822D /* contributor-app-icon.icon in Resources */,
 				67E069082238A5A6008550AC /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D8D92B611DF22E1700B95311 /* NotificationBackgroundSuccess@2x.png in Resources */,
@@ -8880,7 +8880,7 @@
 				B0E804121C0CDE480065EBC0 /* EditSaveViewController.storyboard in Resources */,
 				D8D92B641DF22E1700B95311 /* NotificationBackgroundWarning.png in Resources */,
 				7A6CA2932289AF2200C7FD47 /* EditLinkViewController.xib in Resources */,
-				8324EE8E2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon in Resources */,
+				839BCDC12FD1F5A90041BA6E /* wikipedia-app-icon-experimental.icon in Resources */,
 				D82E958A1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
 				7A2FE5562051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8D92B5B1DF22E1700B95311 /* NotificationBackgroundError@2x.png in Resources */,
@@ -8948,7 +8948,6 @@
 				83E52BBA1F681F940045E776 /* ShareAFactViewController.xib in Resources */,
 				7A84224D2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */,
 				D8CE265E1E698E2400DAE2E0 /* WMFEmptyView.xib in Resources */,
-				83D3141A2F5F56FA007F822D /* wikipedia-app-icon.icon in Resources */,
 				83D3141B2F5F56FA007F822D /* contributor-app-icon.icon in Resources */,
 				D8CE265F1E698E2400DAE2E0 /* NotificationBackgroundMessage@2x.png in Resources */,
 				7A393287236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
@@ -8962,6 +8961,7 @@
 				7ABE172A2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				83B01F8C23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */,
 				83E3E72B2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */,
+				839BCDBC2FD1F5930041BA6E /* wikipedia-app-icon.icon in Resources */,
 				0067E51F2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy in Resources */,
 				D8CE266B1E698E2400DAE2E0 /* NotificationBackgroundWarning@2x.png in Resources */,
 				B0EFCD691EBEC2F7008F36E5 /* LibrariesUsed.storyboard in Resources */,
@@ -8971,7 +8971,7 @@
 				6768B9442D36C7680031003C /* logo-wikipedia.ttf in Resources */,
 				7ABAD6BA20338CFB006A364C /* ReadingListDetailHeaderView.xib in Resources */,
 				D8CE266F1E698E2400DAE2E0 /* NotificationBackgroundError.png in Resources */,
-				8324EE8D2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon in Resources */,
+				839BCDC02FD1F5A90041BA6E /* wikipedia-app-icon-experimental.icon in Resources */,
 				D8CE26701E698E2400DAE2E0 /* WMFReferencePanels.storyboard in Resources */,
 				67AD18012C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				83023C0C20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,
@@ -9055,7 +9055,6 @@
 				83E52BBB1F681F940045E776 /* ShareAFactViewController.xib in Resources */,
 				7A84224E2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */,
 				D8EC3F5E1E9BDA35006712EB /* WMFEmptyView.xib in Resources */,
-				83D314182F5F56FA007F822D /* wikipedia-app-icon.icon in Resources */,
 				83D314192F5F56FA007F822D /* contributor-app-icon.icon in Resources */,
 				D8EC3F5F1E9BDA35006712EB /* NotificationBackgroundMessage@2x.png in Resources */,
 				7A393288236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
@@ -9069,6 +9068,7 @@
 				7ABE172B2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				83B01F8D23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */,
 				83E3E72C2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */,
+				839BCDBD2FD1F5930041BA6E /* wikipedia-app-icon.icon in Resources */,
 				0067E51E2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy in Resources */,
 				D8EC3F6B1E9BDA35006712EB /* NotificationBackgroundWarning@2x.png in Resources */,
 				B0EFCD6A1EBEC2F8008F36E5 /* LibrariesUsed.storyboard in Resources */,
@@ -9078,7 +9078,7 @@
 				6768B9432D36C7680031003C /* logo-wikipedia.ttf in Resources */,
 				7ABAD6BB20338CFB006A364C /* ReadingListDetailHeaderView.xib in Resources */,
 				D8EC3F6F1E9BDA35006712EB /* NotificationBackgroundError.png in Resources */,
-				8324EE8F2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon in Resources */,
+				839BCDBF2FD1F5A90041BA6E /* wikipedia-app-icon-experimental.icon in Resources */,
 				D8EC3F701E9BDA35006712EB /* WMFReferencePanels.storyboard in Resources */,
 				67AD18002C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				83023C0D20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,

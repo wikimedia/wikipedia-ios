@@ -92,8 +92,7 @@
 "activity-tab-customize-timeline-of-behavior" = "Amlíne iompair";
 "activity-tab-email-fifth-line" = "[Grianghraif Scáileáin nó Naisc]";
 "activity-tab-email-first-line" = "Tá fadhb agam le Gné an Chluaisín Gníomhaíochta:";
-// Fuzzy
-"activity-tab-email-fourth-line" = "[Cuir síos ar an iompar atá ag teastáil]";
+"activity-tab-email-fourth-line" = "[Cur síos ar an réiteach atá beartaithe]";
 "activity-tab-email-second-line" = "- [Déan cur síos ar fhadhb shonrach]";
 "activity-tab-email-third-line" = "Seo an t-iompar ar mhaith liom a fheiceáil:";
 "activity-tab-email-title" = "Tuarascáil Fadhbanna - Cluaisín Gníomhaíochta";
@@ -655,8 +654,13 @@
 "forgot-password-instructions" = "Líon ceann de na réimsí seo thíos le treoracha athshocraithe pasfhocail a ghlacadh trí ríomhphost";
 "forgot-password-title" = "Athshocraigh pasfhocal";
 "forgot-password-username-or-email-title" = "Nó";
+"games-announcement-maybe-later-button" = "B’fhéidir níos déanaí";
+"games-announcement-message" = "Tá cluiche tráth na gceist nua tagtha, bunaithe ar ábhar Vicipéid. Buille faoi thuairim cén imeacht a tharla ar dtús sa stair.";
+"games-announcement-play-button" = "Seinn";
+"games-announcement-title" = "Seinn \"Cé acu a tháinig ar dtús?\"";
+"games-email-report-body-encountered" = "Tá fadhb agam leis an ngné cluichí ar Vicipéid:";
+"games-email-report-subject" = "Tuairisc ar an bhFadhb - Cluichí Vicipéid";
 "games-wcf-button-play-title" = "Imir cluiche an lae inniu";
-"games-wcf-explore-button-archive-title" = "Seinn an chartlann";
 "games-wcf-explore-button-review-title" = "Torthaí athbhreithnithe";
 "games-wcf-explore-complete-subtitle" = "Scóráil tú $1/$2 i gcluiche an lae inniu. An chéad chluiche eile i gceann $3.";
 "games-wcf-explore-in-progress-subtitle" = "Tá tú ar cheist $1. Lean ort ag buille faoi thuairim a thabhairt faoin gcéad imeacht a tharla ar an lá seo sa stair.";
@@ -712,7 +716,6 @@
 "image-rec-tooltip-3-body" = "Déan cinneadh an gcabhraíonn an íomhá le léitheoirí an topaic seo a thuiscint níos fearr.";
 "image-rec-tooltip-3-title" = "Cinneadh";
 "image-rec-view-article" = "Féach ar an alt";
-// Fuzzy
 "image-recommendations-email-first-line" = "Tá fadhb agam leis an ngné Eagarthóireachtaí Molta maidir le hÍomhá a Chur Leis:";
 "image-recommendations-email-title" = "Tuairisc ar an bhFadhb - Cuir Gné Íomhá leis";
 "image-recs-no-title" = "Níl";
@@ -1536,6 +1539,8 @@
 "welcome-languages-search-title" = "Cuardaigh i níos mó ná 300 teanga";
 "welcome-privacy-subtitle" = "Creidimid nach ceart go mbeadh ort faisnéis phearsanta a sholáthar le bheith páirteach sa ghluaiseacht eolais shaor. Tá sonraí úsáide a bhailítear don aip seo gan ainm.";
 "welcome-privacy-terms-button-text" = "Faigh tuilleadh eolais faoinár mbeartas príobháideachais agus téarmaí úsáide";
+"which-came-first-article-card-open-hint" = "Osclaíonn imeacht a bhaineann leis an alt seo";
+"which-came-first-articles-section-title" = "Airteagail ón gcluiche inniu";
 "which-came-first-average-score-label" = "meánscór";
 "which-came-first-best-streak-label" = "an tsraith is fearr";
 "which-came-first-better-luck" = "Ádh mór amárach!";
@@ -1548,8 +1553,7 @@
 "which-came-first-game-complete-title" = "Cluiche Críochnaithe!";
 "which-came-first-games-played-label" = "cluichí a imríodh";
 "which-came-first-incorrect-answer-a11y" = "Freagra mícheart";
-// Fuzzy
-"which-came-first-incorrect-feedback" = "Mícheart";
+"which-came-first-incorrect-feedback" = "Mícheart!";
 "which-came-first-log-in-button" = "Logáil isteach";
 "which-came-first-log-in-stats-body" = "Féach ar do shraitheanna, do scóir, agus tuilleadh";
 "which-came-first-log-in-stats-title" = "Logáil isteach chun staitisticí do chluiche a fheiceáil";

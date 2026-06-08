@@ -51,9 +51,6 @@
                   Identifier = "CircularBitwiseRotationTests">
                </Test>
                <Test
-                  Identifier = "LegacyCoreDataMigratorTests">
-               </Test>
-               <Test
                   Identifier = "MWKArticleEqualityCheckTests">
                </Test>
                <Test

@@ -181,7 +181,7 @@
 "activity-tab-saved" = "Pagina's opgeslagen deze maand";
 "activity-tab-start-editing" = "Beginnen met bewerken";
 "activity-tab-survey-subtitle" = "Help Activiteit te verbeteren. Bent u tevreden met deze functie?";
-"activity-tab-survey-title" = "Tevredenheids-enquête";
+"activity-tab-survey-title" = "Tevredenheidsvragenlijst";
 "activity-tab-time-spent-reading" = "Tijd besteed aan lezen deze week";
 "activity-tab-title" = "Activiteit";
 "activity-tab-top-categories" = "Topcategorieën deze maand";
@@ -202,7 +202,7 @@
 "advanced-settings-title" = "Geavanceerde instellingen";
 "alert-temporary-account" = "U gebruikt een tijdelijk account. Het account verloopt over 90 dagen.";
 "alert-temporary-account-learn-more" = "Meer informatie";
-"alt-text-feedback-survey-toast-title" = "Feedback verzonden";
+"alt-text-feedback-survey-toast-title" = "Terugkoppeling verzonden";
 "announcements-dismiss" = "Sluiten";
 "app-store-keywords" = "Wikipedia, referentie, wiki, encyclopedie, info, kennis, onderzoek, informatie, ontdekken, leren";
 "app-store-release-notes" = "Volledig aanpasbaar en gemakkelijker te lezen Explore-feed. Lokalisatie, prestatieverbeteringen en bugfixes.";
@@ -387,7 +387,7 @@
 "diff-thanks-login-title" = "Meld u aan om een bedankje te versturen";
 "diff-thanks-send-button-title" = "Bedankje sturen";
 "diff-thanks-send-subtitle" = "'Bedankjes' zijn een gemakkelijke manier om waardering te tonen voor het werk van een bewerker op Wikipedia. 'Bedankjes' kunnen niet ongedaan worden gemaakt en zijn openbaar zichtbaar.";
-"diff-thanks-send-title" = "Publiekelijk een bedankje sturen";
+"diff-thanks-send-title" = "Openbaar een bedankje sturen";
 "diff-thanks-sent" = "Uw bedankje is verstuurd naar $1";
 "diff-thanks-sent-already" = "U hebt al een bedankje voor deze bewerking verstuurd";
 "diff-thanks-sent-cannot-unsend" = "Het versturen van een bedankje kan niet ongedaan worden gemaakt";
@@ -529,7 +529,7 @@
 "edits-last-month" = "bewerkingen vorige maand";
 "edits-this-month" = "bewerkingen deze maand";
 "empty-diff-compare-title" = "Geen verschillen tussen versies";
-"empty-diff-single-title" = "Geen zichtbare veranderingen gemaakt";
+"empty-diff-single-title" = "Geen zichtbare wijzigingen gemaakt";
 "empty-edit-summary" = "Lege bewerkingssamenvatting";
 "empty-insert-media-title" = "Selecteer een bestand van Wikimedia Commons";
 "empty-no-article-message" = "Sorry, de pagina kon niet worden geladen";
@@ -691,10 +691,13 @@
 "forgot-password-instructions" = "Vul één van de onderstaande velden in hieronder om instructies te ontvangen via e-mail over hoe u uw wachtwoord kunt wijzigen.";
 "forgot-password-title" = "Wachtwoord opnieuw instellen";
 "forgot-password-username-or-email-title" = "Of";
+"games-announcement-maybe-later-button" = "Nu niet";
+"games-announcement-message" = "Er is een nieuw quizspelletje verschenen, gebaseerd op Wikipedia-inhoud. Raad welke gebeurtenis als eerste in de geschiedenis plaatsvond.";
+"games-announcement-play-button" = "Spelen";
+"games-announcement-title" = "\"Wat gebeurde als eerste\" spelen?";
 "games-email-report-body-encountered" = "Ik heb een probleem ondervonden met de spelletjesfunctie van Wikipedia:";
 "games-email-report-subject" = "Probleemmelding – Wikipedia-spelletjes";
 "games-wcf-button-play-title" = "Spel van de dag spelen";
-"games-wcf-explore-button-archive-title" = "Archief afspelen";
 "games-wcf-explore-button-review-title" = "Resultaten bekijken";
 "games-wcf-explore-complete-subtitle" = "U hebt $1/$2 gescoord in het spel van de dag. Het volgende spel is over $3";
 "games-wcf-explore-in-progress-subtitle" = "U bent bij vraag $1. Blijf raden welke gebeurtenis op deze dag in de geschiedenis als eerste plaatsvond.";
@@ -758,7 +761,7 @@
 "image-recs-yes-title" = "Ja";
 "import-shared-reading-list-default-title" = "Mijn leeslijst";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Vragenlijst beantwoorden";
-"import-shared-reading-list-survey-prompt-subtitle" = "\"Leeslijsten delen\" is een testfunctie en we hebben uw feedback nodig om deze te verbeteren of te verwijderen.";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"Leeslijsten delen\" is een testfunctie en we hebben uw terugkoppeling nodig om deze te verbeteren of te verwijderen.";
 "import-shared-reading-list-survey-prompt-title" = "Kunt u ons helpen om \"Leeslijsten delen\" te verbeteren?";
 "import-shared-reading-list-title" = "Importeer gedeelde leeslijst";
 "in-the-news-sub-title-from-language-wikipedia" = "Van Wikipedia in het $1";
@@ -1288,7 +1291,7 @@
 "settings-donate" = "Doneren";
 "settings-explore-games-subtitle" = "Dagelijkse spelletjes gebaseerd op Wikipedia-inhoud";
 "settings-explore-games-title" = "Wikipedia-spelletjes";
-"settings-help-and-feedback" = "Hulp en feedback";
+"settings-help-and-feedback" = "Hulp en terugkoppeling";
 "settings-language-bar" = "Talen weergeven bij zoeken";
 "settings-languages-feed-customization" = "U kunt bepalen welke talen worden weergegeven in uw overzicht Verkennen door de bijbehorende instellingen aan te passen.";
 "settings-legal-sefaty-title" = "Contact juridisch & veiligheid";
@@ -1384,8 +1387,8 @@
 "talk-page-menu-open-all" = "Alle onderwerpen openen";
 "talk-page-new-banner-subtitle" = "Vergeet niet dat we hier allemaal mensen zijn";
 "talk-page-new-banner-title" = "Wees vriendelijk";
-"talk-page-new-reply-success-text" = "Uw reactie is succesvol gepubliceerd";
-"talk-page-new-topic-success-text" = "Uw reactie is succesvol gepubliceerd";
+"talk-page-new-reply-success-text" = "Uw reactie is gepubliceerd";
+"talk-page-new-topic-success-text" = "Uw reactie is gepubliceerd";
 "talk-page-onboarding-button-accessibility-label" = "Dubbel tikken om terug te keren naar het antwoord";
 "talk-page-overflow-menu-accessibility" = "Meer overlegpagina opties";
 "talk-page-page-info" = "Paginagegevens";
@@ -1723,7 +1726,7 @@
 "year-in-review-survey-neutral" = "Neutraal";
 "year-in-review-survey-satisfied" = "Tevreden";
 "year-in-review-survey-subtitle" = "Help mee met het verbeteren van het Wikipedia-jaaroverzicht. Bent u tevreden met deze functie? Wat wilt u volgend jaar zien?";
-"year-in-review-survey-title" = "Tevredenheids-enquête";
+"year-in-review-survey-title" = "Tevredenheidsvragenlijst";
 "year-in-review-survey-unsatisfied" = "Niet tevreden";
 "year-in-review-survey-very-satisfied" = "Zeer tevreden";
 "year-in-review-survey-very-unsatisfied" = "Zeer ontevreden";

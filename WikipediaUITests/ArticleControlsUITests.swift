@@ -1,18 +1,6 @@
 import XCTest
 
 final class ArticleControlsUITests: XCTestCase {
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-        try XCTSkipUnless(
-            uiTestConfiguration.httpClientProfile == TestHTTPClientProfile.fixtureStrict.rawValue,
-            "ArticleControlsUITests require bundled fixture networking."
-        )
-        try XCTSkipUnless(
-            ArticleRobot.articleControlsFixture(languageCode: uiTestConfiguration.languageCode) != nil,
-            "ArticleControlsUITests do not have fixtures for \(uiTestConfiguration.languageCode)."
-        )
-    }
-
     func testArticleBackButtonReturnsToExplore() throws {
         openExploreArticle()
             .tapBackToExplore()
@@ -26,6 +14,11 @@ final class ArticleControlsUITests: XCTestCase {
     func testArticleSearchButtonOpensSearch() throws {
         openExploreArticle()
             .tapSearch()
+    }
+
+    func testArticleTableOfContentsButtonOpensContents() throws {
+        openArticle()
+            .openTableOfContents()
     }
 
     func testArticleNonLeadImageCanBeTapped() throws {

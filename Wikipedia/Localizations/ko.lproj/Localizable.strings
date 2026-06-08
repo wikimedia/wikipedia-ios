@@ -184,7 +184,7 @@
 "activity-tab-top-categories" = "이번 달 동안 가장 많이 읽은 분류";
 "activity-tab-total-edits" = "프로젝트 전체 편집 수";
 "activity-tab-unsatisfied" = "불만족";
-"activity-tab-usernames-reading-title" = "$1 (을/를) 읽고 있습니다";
+"activity-tab-usernames-reading-title" = "$1(을)를 읽고 있습니다";
 "activity-tab-very-satisfied" = "매우 만족";
 "activity-tab-very-unsatisfied" = "매우 불만족";
 "activity-tab-view-editing-history" = "편집 역사 보기";
@@ -688,10 +688,13 @@
 "forgot-password-instructions" = "이메일을 통해 암호 재설정 지시사항을 받으려면 아래의 필드 중 하나를 채우십시오";
 "forgot-password-title" = "비밀번호 재설정";
 "forgot-password-username-or-email-title" = "또는";
+"games-announcement-maybe-later-button" = "나중에";
+"games-announcement-message" = "위키백과 콘텐츠를 기반으로 한 새로운 퀴즈 게임이 출시되었습니다. 역사 속 오늘 어떤 사건이 먼저 일어났는지 맞춰보세요.";
+"games-announcement-play-button" = "플레이";
+"games-announcement-title" = "\"어느 것이 먼저 일어났나요?\" 플레이하기";
 "games-email-report-body-encountered" = "위키백과 게임 기능에 문제가 생겼습니다:";
 "games-email-report-subject" = "문제 보고 - 위키백과 게임";
 "games-wcf-button-play-title" = "오늘의 게임 플레이";
-"games-wcf-explore-button-archive-title" = "이전 게임을 플레이";
 "games-wcf-explore-button-review-title" = "결과 검토";
 "games-wcf-explore-complete-subtitle" = "오늘의 게임에서 $1/$2의 기록을 달성했습니다. 다음 게임은 $3 후에 가능합니다";
 "games-wcf-explore-in-progress-subtitle" = "$1번째 문제를 푸는 중입니다. 역사 속 오늘 어떤 사건이 먼저 일어났는지 계속해서 맞춰보세요.";
@@ -1594,7 +1597,7 @@
 "which-came-first-splash-about-button" = "이 게임에 대해";
 "which-came-first-splash-continue-button" = "오늘의 게임 계속하기";
 "which-came-first-splash-review-button" = "결과 검토";
-"which-came-first-splash-subtitle" = "오늘 어떤 역사적 사건이 먼저 일어났는지 맞춰보세요.";
+"which-came-first-splash-subtitle" = "역사 속 오늘 어떤 사건이 먼저 일어났는지 맞춰보세요.";
 "which-came-first-splash-title" = "어느 것이 먼저 일어났나요?";
 "which-came-first-submit-button" = "제출";
 "which-came-first-title" = "어느 것이 먼저 일어났나요?";

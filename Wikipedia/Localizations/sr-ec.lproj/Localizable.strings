@@ -94,6 +94,7 @@
 "activity-tab-add-images-subtitle" = "Додајте предложене слике у чланке на Википедији да би сте побољшали њихово разумевање.";
 "activity-tab-add-images-title" = "Додај слике";
 "activity-tab-articles-read-graph-label" = "Чланци";
+"activity-tab-email-fourth-line" = "[Опишите предложено решење]";
 "activity-tab-empty-title" = "Ништа за приказ";
 "activity-tab-hours-on-wikipedia-ios" = "НА ВИКИПЕДИЈИ ЗА iOS";
 "activity-tab-impact-recent-startend-accessibility" = "Од $1 до $2";
@@ -532,6 +533,7 @@
 "forgot-password-instructions" = "Попуните једно од поља испод да бисте примили упутство за ресетовање лозинке путем имејла";
 "forgot-password-title" = "Ресетовање лозинке";
 "forgot-password-username-or-email-title" = "Или";
+"games-announcement-maybe-later-button" = "Можда касније";
 "history-clear-confirmation-heading" = "Желите ли заиста да избришете све недавне ставке?";
 "history-clear-delete-all" = "Да, избриши све";
 "history-title" = "Историја";
@@ -577,7 +579,6 @@
 "image-rec-tooltip-1-title" = "Прегледај";
 "image-rec-tooltip-3-title" = "Одлучите";
 "image-rec-view-article" = "Види чланак";
-// Fuzzy
 "image-recommendations-email-first-line" = "Наишао сам на проблем са функцијом Предложене измене: додавање слика:";
 "image-recs-no-title" = "Не";
 "image-recs-not-sure-title" = "Нисам сигуран";
@@ -1289,8 +1290,8 @@
 "which-came-first-error-title" = "Дошло је до грешке";
 "which-came-first-footer-a11y" = "Питање $1 од $2";
 "which-came-first-incorrect-answer-a11y" = "Нетачан одговор";
-// Fuzzy
-"which-came-first-incorrect-feedback" = "Нетачно";
+"which-came-first-incorrect-feedback" = "Нетачно!";
+"which-came-first-log-in-button" = "Пријави ме";
 "which-came-first-next-button" = "Следеће";
 "which-came-first-retry-button" = "Покушај поново";
 "which-came-first-submit-button" = "Проследи";

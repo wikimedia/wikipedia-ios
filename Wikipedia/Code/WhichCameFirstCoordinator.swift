@@ -52,6 +52,10 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     @discardableResult
     func start() -> Bool {
+
+        // do not show alert if user already tapped card
+        gamesDataController.markGamesAnnouncementSeen()
+
         let splashViewController = makeSplashViewController()
         let nav = WMFComponentNavigationController(
             rootViewController: splashViewController,
@@ -350,7 +354,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     private func showAbout() {
         guard let gameNav = gameNavigationController,
-              let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Game:_Which_came_first") else { return }
+              let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/%22Which_came_first%3F%22_Game") else { return }
         let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
         let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
         let webNav = WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .fullScreen)
