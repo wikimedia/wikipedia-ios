@@ -1110,9 +1110,8 @@ extension ExploreViewController {
             action: "impression",
             actionSource: "game_announce"
         )
-        navigationController.present(alert, animated: true)
 
-        alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementPlayButton, style: .default) { [weak self] _ in
+        let playAction = UIAlertAction(title: CommonStrings.gamesAnnouncementPlayButton, style: .default) { [weak self] _ in
             guard let self else { return }
             gameInstrument.submitInteraction(
                 action: "click",
@@ -1124,7 +1123,8 @@ extension ExploreViewController {
             coordinator.didFinish = { [weak self] in self?.whichCameFirstCoordinator = nil }
             self.whichCameFirstCoordinator = coordinator
             coordinator.start()
-        })
+        }
+        alert.addAction(playAction)
 
         alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementMaybeLaterButton, style: .default) { [weak self] _ in
             self?.gameInstrument.submitInteraction(
@@ -1133,6 +1133,9 @@ extension ExploreViewController {
                 elementId: "game_later"
             )
         })
+
+        alert.preferredAction = playAction
+        alert.view.tintColor = theme.colors.link
 
         if let popover = alert.popoverPresentationController {
             popover.sourceView = navigationController.view

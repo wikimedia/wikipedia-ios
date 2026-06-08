@@ -586,7 +586,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             preferredStyle: .actionSheet
         )
 
-        alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementPlayButton, style: .default) { [weak self] _ in
+        let playAction = UIAlertAction(title: CommonStrings.gamesAnnouncementPlayButton, style: .default) { [weak self] _ in
             guard let self else { return }
             gameInstrument.submitInteraction(
                 action: "click",
@@ -598,7 +598,8 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             coordinator.didFinish = { [weak self] in self?.whichCameFirstCoordinator = nil }
             self.whichCameFirstCoordinator = coordinator
             coordinator.start()
-        })
+        }
+        alert.addAction(playAction)
 
         alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementMaybeLaterButton, style: .default) { [weak self] _ in
             self?.gameInstrument.submitInteraction(
@@ -607,6 +608,9 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
                 elementId: "game_later"
             )
         })
+        
+        alert.preferredAction = playAction
+        alert.view.tintColor = theme.colors.link
 
         if let popover = alert.popoverPresentationController {
             popover.sourceView = navigationController.view
