@@ -206,15 +206,15 @@ private extension SearchRobot {
         line: UInt = #line
     ) -> XCUIElement {
         let identifier = AccessibilityIdentifiers.Search.result(title)
-        let identifiedResult = base.app.descendants(matching: .any)
-            .matching(identifier: identifier)
-            .firstMatch
-        let labelledResult = base.app.descendants(matching: .any)
-            .matching(NSPredicate(format: "label == %@ OR label BEGINSWITH %@", title, "\(title),"))
-            .firstMatch
+        let query = base.app.descendants(matching: .any)
+            .matching(NSPredicate(format: "identifier == %@ OR label == %@ OR label BEGINSWITH %@", identifier, title, "\(title),"))
 
+        var matchedResult: XCUIElement?
         let predicate = NSPredicate { _, _ in
-            identifiedResult.exists || labelledResult.exists
+            matchedResult = query.allElementsBoundByIndex.first { element in
+                element.exists
+            }
+            return matchedResult != nil
         }
         let expectation = XCTNSPredicateExpectation(predicate: predicate, object: nil)
         let result = XCTWaiter.wait(for: [expectation], timeout: timeout)
@@ -226,6 +226,6 @@ private extension SearchRobot {
             line: line
         )
 
-        return identifiedResult.exists ? identifiedResult : labelledResult
+        return matchedResult ?? query.firstMatch
     }
 }
