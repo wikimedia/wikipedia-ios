@@ -39,7 +39,6 @@ import WMFData
     @Published public var showGamesV2: Bool = WMFDeveloperSettingsDataController.shared.showGamesV2 {
         didSet {
             WMFDeveloperSettingsDataController.shared.showGamesV2 = showGamesV2
-            NotificationCenter.default.post(name: WMFNSNotification.gamesV1SettingDidChange, object: nil)
         }
     }
     

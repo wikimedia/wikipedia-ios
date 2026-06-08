@@ -105,7 +105,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(gamesV1SettingDidChange), name: WMFNSNotification.gamesV1SettingDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshExploreForGamesCard), name: WMFNSNotification.refreshExploreForGamesCard, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(whichCameFirstSessionDidUpdate(_:)), name: WMFNSNotification.whichCameFirstSessionDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(gamesAllSessionsCleared), name: WMFNSNotification.gamesAllSessionsCleared, object: nil)
 
@@ -1096,12 +1096,15 @@ extension ExploreViewController {
     private func presentGamesAnnouncementAlert(gamesDataController: WMFGamesDataController) {
         guard let navigationController else { return }
 
+        // Never present over an existing modal — doing so crashes with "already presenting". Defer to next launch.
+        guard navigationController.presentedViewController == nil else { return }
+
         let alert = UIAlertController(
             title: CommonStrings.gamesAnnouncementTitle,
             message: CommonStrings.gamesAnnouncementMessage,
             preferredStyle: .actionSheet
         )
-        
+
         // Mark as seen as soon as it is displayed so it is never shown twice, regardless of how it
         // is dismissed (button tap, outside tap, or app backgrounding).
         gamesDataController.markGamesAnnouncementSeen()
@@ -1551,7 +1554,7 @@ extension ExploreViewController {
         configureNavigationBar()
     }
 
-    @objc func gamesV1SettingDidChange() {
+    @objc func refreshExploreForGamesCard() {
         updateFeedSources(userInitiated: false)
     }
 }
