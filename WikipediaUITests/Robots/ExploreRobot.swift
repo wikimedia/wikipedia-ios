@@ -92,28 +92,6 @@ struct ExploreRobot: ScreenshotCapturingRobot {
     }
 
     @discardableResult
-    func openPictureOfTheDay(file: StaticString = #filePath, line: UInt = #line) -> ImageGalleryRobot {
-        let collectionView = base.app.collectionViews.firstMatch
-        let pictureOfTheDayCell = base.app.descendants(matching: .any)
-            .matching(identifier: AccessibilityIdentifiers.Explore.pictureOfTheDayCell)
-            .firstMatch
-
-        for _ in 0..<10 where !pictureOfTheDayCell.exists || !pictureOfTheDayCell.isHittable {
-            base.dragUp(collectionView)
-        }
-
-        base.assertVisible(
-            pictureOfTheDayCell,
-            timeout: 10,
-            description: "Explore Picture of the Day cell",
-            file: file,
-            line: line
-        )
-        pictureOfTheDayCell.tap()
-        return ImageGalleryRobot(base: base).assertVisible(file: file, line: line)
-    }
-
-    @discardableResult
     func openSearch(file: StaticString = #filePath, line: UInt = #line) -> SearchRobot {
         let identifiedButton = rootTabButton(for: .search)
         let searchButton = identifiedButton.waitForExistence(timeout: 5)
