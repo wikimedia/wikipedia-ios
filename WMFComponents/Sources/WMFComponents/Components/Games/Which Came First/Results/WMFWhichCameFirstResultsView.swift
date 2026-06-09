@@ -73,14 +73,14 @@ public struct WMFWhichCameFirstResultsView: View {
                         .accessibilityHidden(true)
                 }
                 Text(viewModel.localizedStrings.playTheArchiveButton)
-                    .font(Font(WMFFont.for(.semiboldSubheadline)))
+                    .font(Font(WMFFont.for(.semiboldHeadline)))
                     .fixedSize(horizontal: false, vertical: true)
             }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 14)
             .frame(maxWidth: .infinity)
-            .foregroundColor(.white)
-            .padding(.horizontal, 14)
-            .padding(.vertical, 7)
-            .background(.black.opacity(0.3))
+            .foregroundColor(Color(uiColor: theme.link))
+            .background(Color(uiColor: theme.baseBackground))
             .clipShape(Capsule())
         }
     }

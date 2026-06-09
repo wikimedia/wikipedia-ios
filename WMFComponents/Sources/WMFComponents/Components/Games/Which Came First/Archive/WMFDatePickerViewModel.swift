@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import WMFNativeLocalizations
 
 // MARK: - Day Model
 
@@ -23,13 +24,29 @@ public final class WMFDatePickerViewModel: ObservableObject {
     public struct LocalizedStrings {
         public let title: String
         public let subtitle: String
+        public let archiveLabel: String
+        public let toastScoreFormat: String
+        public let monthPickerA11y: String
+        public let previousMonthA11y: String
+        public let nextMonthA11y: String
+        public let dayScoreA11yFormat: String
+        public let dayPausedA11y: String
+        public let dismissA11y: String
         /// When non-nil, overrides the system-derived weekday abbreviations.
         /// All 7 values must be provided, ordered Sun–Sat.
         public let weekdaySymbolOverrides: [String]?
 
         public init(
-            title: String = "Which came first?",
-            subtitle: String = "Play games since June 2024.",
+            title: String = WMFLocalizedString("which-came-first-archive-title", value: "Which came first?", comment: "Title for the Which Came First archive date picker sheet header."),
+            subtitle: String = WMFLocalizedString("which-came-first-archive-subtitle", value: "Play games since June 2024.", comment: "Subtitle for the Which Came First archive date picker sheet header."),
+            archiveLabel: String = WMFLocalizedString("which-came-first-archive-nav-title", value: "Archive", comment: "Label appended to the game title in the Which Came First archive date picker sheet header."),
+            toastScoreFormat: String = WMFLocalizedString("which-came-first-archive-toast-score", value: "You scored %1$d/5 on this day.", comment: "Toast message shown when a user taps a completed day in the Which Came First archive date picker. %1$d is the user's score."),
+            monthPickerA11y: String = WMFLocalizedString("which-came-first-archive-month-picker-a11y", value: "Select month and year", comment: "Accessibility label for the month/year button in the Which Came First archive date picker."),
+            previousMonthA11y: String = WMFLocalizedString("which-came-first-archive-previous-month-a11y", value: "Previous month", comment: "Accessibility label for the previous month navigation button in the Which Came First archive date picker."),
+            nextMonthA11y: String = WMFLocalizedString("which-came-first-archive-next-month-a11y", value: "Next month", comment: "Accessibility label for the next month navigation button in the Which Came First archive date picker."),
+            dayScoreA11yFormat: String = WMFLocalizedString("which-came-first-archive-day-score-a11y", value: "Score: %1$d out of 5", comment: "Accessibility label suffix for a day cell in the Which Came First archive date picker that shows the user's score. %1$d is the numeric score."),
+            dayPausedA11y: String = WMFLocalizedString("which-came-first-archive-day-paused-a11y", value: "Game in progress", comment: "Accessibility label suffix for a day cell in the Which Came First archive date picker indicating a paused game."),
+            dismissA11y: String = WMFLocalizedString("which-came-first-archive-dismiss-a11y", value: "Close archive", comment: "Accessibility label for the close/dismiss button on the Which Came First archive date picker sheet."),
             weekdaySymbolOverrides: [String]? = nil
         ) {
             precondition(
@@ -38,6 +55,14 @@ public final class WMFDatePickerViewModel: ObservableObject {
             )
             self.title = title
             self.subtitle = subtitle
+            self.archiveLabel = archiveLabel
+            self.toastScoreFormat = toastScoreFormat
+            self.monthPickerA11y = monthPickerA11y
+            self.previousMonthA11y = previousMonthA11y
+            self.nextMonthA11y = nextMonthA11y
+            self.dayScoreA11yFormat = dayScoreA11yFormat
+            self.dayPausedA11y = dayPausedA11y
+            self.dismissA11y = dismissA11y
             self.weekdaySymbolOverrides = weekdaySymbolOverrides
         }
     }
@@ -103,7 +128,6 @@ public final class WMFDatePickerViewModel: ObservableObject {
         self.archiveStartDate = archiveStartDate
         self.onSelectDate = onSelectDate
 
-        // Respect the device locale for first day of week.
         var cal = Calendar.current
         self.calendar = cal
 
@@ -123,7 +147,6 @@ public final class WMFDatePickerViewModel: ObservableObject {
     // MARK: Public helpers
 
     var displayedMonthTitle: String {
-        // DateFormatter respects the device locale automatically.
         let fmt = DateFormatter()
         fmt.dateFormat = DateFormatter.dateFormat(
             fromTemplate: "MMMM yyyy",
@@ -168,7 +191,7 @@ public final class WMFDatePickerViewModel: ObservableObject {
         guard day.isInCurrentMonth else { return }
 
         if let score = day.playedScore {
-            showToast("You scored \(score)/5 on this day.")
+            showToast(String.localizedStringWithFormat(localizedStrings.toastScoreFormat, score))
         } else if day.isPaused {
             onSelectDate?(day.date)
         } else if day.date <= Date() && day.date >= archiveStartDate {
@@ -195,8 +218,6 @@ public final class WMFDatePickerViewModel: ObservableObject {
         let firstOfMonth = displayedMonth
         let daysInMonth = calendar.range(of: .day, in: .month, for: firstOfMonth)!.count
 
-        // firstWeekday is 1-based (1 = Sun). Work out how many leading
-        // empty cells are needed for this month given the locale's first day.
         let rawWeekday = calendar.component(.weekday, from: firstOfMonth)  // 1 = Sun
         let firstWeekday = calendar.firstWeekday                            // 1 = Sun, 2 = Mon…
         let leadingEmpties = (rawWeekday - firstWeekday + 7) % 7

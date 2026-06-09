@@ -59,6 +59,7 @@ public final class WMFWhichCameFirstHostingController: WMFComponentHostingContro
         }
         (self.navigationController as? WMFComponentNavigationController)?.turnOnForcePortrait()
     }
+    
 
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(

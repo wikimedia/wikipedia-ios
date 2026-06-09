@@ -16,6 +16,9 @@ public struct WMFDatePickerView: View {
 
     @StateObject public var viewModel: WMFDatePickerViewModel
 
+    @ObservedObject private var appEnvironment = WMFAppEnvironment.current
+    private var theme: WMFTheme { appEnvironment.theme }
+
     var onDismiss: (() -> Void)?
 
     public init(
@@ -28,16 +31,22 @@ public struct WMFDatePickerView: View {
 
     public var body: some View {
         ZStack(alignment: .top) {
-            ScrollView {
+            Color(.secondarySystemBackground)
+                .ignoresSafeArea()
+
+            GeometryReader { proxy in
                 VStack(spacing: 0) {
                     headerSection
-                        .padding(.top, 32)
+                        .padding(.horizontal, 24)
+                        .padding(.bottom, 32)
+                        .padding(.top, 56)
 
                     calendarCard
                         .padding(.horizontal, 16)
-                        .padding(.top, 24)
                         .padding(.bottom, 40)
                 }
+                .frame(maxWidth: .infinity)
+                .frame(height: proxy.size.height, alignment: .center)
             }
 
             dismissButton
@@ -48,7 +57,6 @@ public struct WMFDatePickerView: View {
                     .zIndex(10)
             }
         }
-        .background(Color(.systemBackground))
         .animation(.easeInOut(duration: 0.2), value: viewModel.toastMessage)
     }
 
@@ -58,23 +66,24 @@ public struct WMFDatePickerView: View {
         VStack(spacing: 8) {
             Image(systemName: "calendar.badge.clock")
                 .font(.system(size: 52))
-                .foregroundColor(.primary)
+                .foregroundColor(Color(uiColor: theme.text))
+                .padding(.bottom, 4)
 
             Group {
                 Text(viewModel.title + " ")
-                    .font(.title2).bold()
-                + Text("Archive")
-                    .font(.title2).fontWeight(.regular)
+                    .font(Font(WMFFont.for(.boldTitle3)))
+                + Text(viewModel.localizedStrings.archiveLabel)
+                    .font(Font(WMFFont.for(.title3)))
             }
+            .foregroundColor(Color(uiColor: theme.text))
             .multilineTextAlignment(.center)
-            .padding(.top, 8)
+            .padding(.top, 4)
 
             Text(viewModel.subtitle)
-                .font(.subheadline)
-                .foregroundColor(.secondary)
+                .font(Font(WMFFont.for(.subheadline)))
+                .foregroundColor(Color(uiColor: theme.secondaryText))
                 .multilineTextAlignment(.center)
         }
-        .padding(.horizontal, 24)
     }
 
     // MARK: Calendar card
@@ -100,7 +109,7 @@ public struct WMFDatePickerView: View {
 
             Spacer(minLength: Layout.calendarPadding)
         }
-        .background(Color(.secondarySystemBackground))
+        .background(Color(uiColor: theme.paperBackground))
         .cornerRadius(Layout.cornerRadius)
     }
 
@@ -113,14 +122,15 @@ public struct WMFDatePickerView: View {
             } label: {
                 HStack(spacing: 4) {
                     Text(viewModel.displayedMonthTitle)
-                        .font(.headline)
-                        .foregroundColor(.primary)
+                        .font(Font(WMFFont.for(.headline)))
+                        .foregroundColor(Color(uiColor: theme.text))
                     Image(systemName: "chevron.right")
-                        .font(.caption.bold())
-                        .foregroundColor(.secondary)
+                        .font(Font(WMFFont.for(.caption1)).weight(.bold))
+                        .foregroundColor(Color(uiColor: theme.secondaryText))
                 }
             }
             .buttonStyle(.plain)
+            .accessibilityLabel(viewModel.localizedStrings.monthPickerA11y)
 
             Spacer()
 
@@ -130,18 +140,24 @@ public struct WMFDatePickerView: View {
                 } label: {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(viewModel.canGoBack ? .primary : .secondary.opacity(0.4))
+                        .foregroundColor(viewModel.canGoBack
+                            ? Color(uiColor: theme.text)
+                            : Color(uiColor: theme.secondaryText).opacity(0.4))
                 }
                 .disabled(!viewModel.canGoBack)
+                .accessibilityLabel(viewModel.localizedStrings.previousMonthA11y)
 
                 Button {
                     viewModel.goToNextMonth()
                 } label: {
                     Image(systemName: "chevron.right")
                         .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(viewModel.canGoForward ? .primary : .secondary.opacity(0.4))
+                        .foregroundColor(viewModel.canGoForward
+                            ? Color(uiColor: theme.text)
+                            : Color(uiColor: theme.secondaryText).opacity(0.4))
                 }
                 .disabled(!viewModel.canGoForward)
+                .accessibilityLabel(viewModel.localizedStrings.nextMonthA11y)
             }
         }
     }
@@ -152,8 +168,8 @@ public struct WMFDatePickerView: View {
         HStack(spacing: 0) {
             ForEach(viewModel.weekdaySymbols, id: \.self) { symbol in
                 Text(symbol)
-                    .font(.system(size: 10, weight: .semibold))
-                    .foregroundColor(.secondary)
+                    .font(Font(WMFFont.for(.caption2)).weight(.semibold))
+                    .foregroundColor(Color(uiColor: theme.secondaryText))
                     .frame(maxWidth: .infinity)
             }
         }
@@ -183,7 +199,7 @@ public struct WMFDatePickerView: View {
         } label: {
             VStack(spacing: 2) {
                 Text("\(day.dayNumber)")
-                    .font(.system(size: 16, weight: day.isToday ? .bold : .regular))
+                    .font(Font(WMFFont.for(day.isToday ? .boldCallout : .callout)))
                     .foregroundColor(dayCellTextColor(day))
                     .frame(width: Layout.daySize, height: Layout.daySize)
 
@@ -195,17 +211,31 @@ public struct WMFDatePickerView: View {
         .buttonStyle(.plain)
         .frame(maxWidth: .infinity)
         .opacity(day.isInCurrentMonth ? 1 : 0.3)
+        .accessibilityLabel(dayCellAccessibilityLabel(day))
     }
 
     private func dayCellTextColor(_ day: WMFDatePickerDay) -> Color {
-        day.isToday ? .accentColor : .primary
+        day.isToday ? Color(uiColor: theme.link) : Color(uiColor: theme.text)
     }
 
     private func dayCellDotColor(_ day: WMFDatePickerDay) -> Color {
         if day.playedScore != nil || day.isPaused {
-            return .accentColor
+            return Color(uiColor: theme.link)
         }
         return .clear
+    }
+
+    private func dayCellAccessibilityLabel(_ day: WMFDatePickerDay) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
+        var parts = [formatter.string(from: day.date)]
+        if let score = day.playedScore {
+            parts.append(String.localizedStringWithFormat(viewModel.localizedStrings.dayScoreA11yFormat, score))
+        } else if day.isPaused {
+            parts.append(viewModel.localizedStrings.dayPausedA11y)
+        }
+        return parts.joined(separator: ", ")
     }
 
     // MARK: Dismiss button
@@ -216,28 +246,47 @@ public struct WMFDatePickerView: View {
                 onDismiss?()
             } label: {
                 Image(systemName: "xmark")
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(.primary)
+                    .font(Font(WMFFont.for(.footnote)).weight(.semibold))
+                    .foregroundColor(Color(uiColor: theme.text))
                     .padding(10)
-                    .background(Color(.tertiarySystemBackground))
+                    .background {
+                        if #available(iOS 26.0, *) {
+                            Color.clear
+                        } else {
+                            Circle()
+                                .fill(.ultraThinMaterial)
+                        }
+                    }
                     .clipShape(Circle())
             }
+            .modifier(GlassCircleEffect())
             .padding(.leading, 16)
             .padding(.top, 16)
+            .accessibilityLabel(viewModel.localizedStrings.dismissA11y)
             Spacer()
         }
     }
-
+    
+    private struct GlassCircleEffect: ViewModifier {
+        func body(content: Content) -> some View {
+            if #available(iOS 26.0, *) {
+                content.glassEffect(in: Circle())
+            } else {
+                content
+            }
+        }
+    }
+    
     // MARK: Toast
 
     private func toastView(_ message: String) -> some View {
         HStack {
             Text(message)
-                .font(.subheadline.weight(.semibold))
-                .foregroundColor(.primary)
+                .font(Font(WMFFont.for(.subheadline)).weight(.semibold))
+                .foregroundColor(Color(uiColor: theme.text))
                 .padding(.horizontal, 16)
                 .padding(.vertical, 14)
-                .background(Color(.secondarySystemBackground))
+                .background(Color(uiColor: theme.paperBackground))
                 .cornerRadius(Layout.toastCornerRadius)
                 .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 4)
         }
