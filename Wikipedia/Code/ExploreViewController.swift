@@ -1040,7 +1040,7 @@ extension ExploreViewController {
     /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
     /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
-        
+
         // Do not replace an in-flight reading challenge coordinator.
         guard readingChallengeCoordinator == nil else {
             return
@@ -1075,6 +1075,12 @@ extension ExploreViewController {
     /// If something unexpected appears before the async check resolves (e.g. background login/2FA),
     /// the safety-net guard on presentedViewController drops the attempt and defers to next launch.
     private func presentGamesAnnouncementIfNeeded() {
+#if !TEST
+        if let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate,
+           sceneDelegate.didOpenAppFromExternalLink {
+            return
+        }
+#endif
         let gamesDataController = WMFGamesDataController()
         let todayDateString = todayDateString()
 
@@ -1108,7 +1114,7 @@ extension ExploreViewController {
             actionSource: "game_announce"
         )
 
-        alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementPlayButton, style: .default) { [weak self] _ in
+        let playAction = UIAlertAction(title: CommonStrings.gamesAnnouncementPlayButton, style: .default) { [weak self] _ in
             guard let self else { return }
             gameInstrument.submitInteraction(
                 action: "click",
@@ -1120,7 +1126,8 @@ extension ExploreViewController {
             coordinator.didFinish = { [weak self] in self?.whichCameFirstCoordinator = nil }
             self.whichCameFirstCoordinator = coordinator
             coordinator.start()
-        })
+        }
+        alert.addAction(playAction)
 
         alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementMaybeLaterButton, style: .default) { [weak self] _ in
             self?.gameInstrument.submitInteraction(
@@ -1129,6 +1136,9 @@ extension ExploreViewController {
                 elementId: "game_later"
             )
         })
+
+        alert.preferredAction = playAction
+        alert.view.tintColor = theme.colors.link
 
         if let popover = alert.popoverPresentationController {
             popover.sourceView = navigationController.view
