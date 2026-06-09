@@ -223,6 +223,11 @@ extension ArticleRobot {
     func tapQuickFactsTableItem(file: StaticString = #filePath, line: UInt = #line) -> Self {
         tapArticleElement(.quickFactsTable, file: file, line: line)
         tapArticleElement(.quickFactsTableItem, file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func assertLinkedArticleVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
         assertArticleElementExists(matchingLabel: articleControlsFixture.linkedArticleDescription, file: file, line: line)
         return assertVisible(file: file, line: line)
     }
@@ -242,7 +247,29 @@ extension ArticleRobot {
     @discardableResult
     func tapAboutThisArticleItem(file: StaticString = #filePath, line: UInt = #line) -> Self {
         tapArticleElement(.footerItem, file: file, line: line)
-        return assertHistoryVisibleAndReturnToArticle(file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func assertHistoryVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let articleView = base.app.otherElements[AccessibilityIdentifiers.Article.view]
+        base.waitForElementToDisappear(articleView, timeout: 15, file: file, line: line)
+
+        let historyNavigationBar = base.app.navigationBars.firstMatch
+        base.assertExists(historyNavigationBar, timeout: 15, description: "history navigation bar", file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func tapBackToArticleFromHistory(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let historyNavigationBar = base.app.navigationBars.firstMatch
+        base.assertExists(historyNavigationBar, timeout: 15, description: "history navigation bar", file: file, line: line)
+
+        let backButton = base.backButton(in: historyNavigationBar, isRightToLeft: configuration.isRightToLeft)
+        base.assertExists(backButton, timeout: 15, description: "history back button", file: file, line: line)
+        XCTAssertFalse(backButton.frame.isEmpty, "Expected history back button to have a tappable frame.", file: file, line: line)
+        backButton.tap()
+        return assertVisible(file: file, line: line)
     }
 
     @discardableResult
@@ -509,18 +536,4 @@ private extension ArticleRobot {
         )
     }
 
-    @discardableResult
-    func assertHistoryVisibleAndReturnToArticle(file: StaticString, line: UInt) -> Self {
-        let articleView = base.app.otherElements[AccessibilityIdentifiers.Article.view]
-        base.waitForElementToDisappear(articleView, timeout: 15, file: file, line: line)
-
-        let historyNavigationBar = base.app.navigationBars.firstMatch
-        base.assertExists(historyNavigationBar, timeout: 15, description: "history navigation bar", file: file, line: line)
-
-        let backButton = base.backButton(in: historyNavigationBar, isRightToLeft: configuration.isRightToLeft)
-        base.assertExists(backButton, timeout: 15, description: "history back button", file: file, line: line)
-        XCTAssertFalse(backButton.frame.isEmpty, "Expected history back button to have a tappable frame.", file: file, line: line)
-        backButton.tap()
-        return assertVisible(file: file, line: line)
-    }
 }
