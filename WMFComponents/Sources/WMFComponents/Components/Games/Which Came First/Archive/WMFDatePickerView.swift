@@ -106,9 +106,8 @@ public struct WMFDatePickerView: View {
                 weekRow(week)
                     .padding(.horizontal, Layout.calendarPadding)
             }
-
-            Spacer(minLength: Layout.calendarPadding)
         }
+        .padding(.bottom, Layout.calendarPadding)
         .background(Color(uiColor: theme.paperBackground))
         .cornerRadius(Layout.cornerRadius)
     }
