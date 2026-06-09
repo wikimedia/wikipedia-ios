@@ -132,8 +132,7 @@
 "activity-tab-customize-timeline-of-behavior" = "行為時間軸";
 "activity-tab-email-fifth-line" = "[截圖或連結]";
 "activity-tab-email-first-line" = "我在使用活動分頁功能時遇到的問題：";
-// Fuzzy
-"activity-tab-email-fourth-line" = "[描述期望的行為]";
+"activity-tab-email-fourth-line" = "[描述擬定的解決方案]";
 "activity-tab-email-second-line" = "- [描述具體問題]";
 "activity-tab-email-third-line" = "我期望看到的情況是：";
 "activity-tab-email-title" = "問題報告 - 活動分頁";
@@ -728,7 +727,6 @@
 "image-rec-tooltip-3-body" = "決定圖片是否有幫助到讀者更好理解這個主題";
 "image-rec-tooltip-3-title" = "決定";
 "image-rec-view-article" = "查看條目";
-// Fuzzy
 "image-recommendations-email-first-line" = "我在使用「新增圖片」建議編輯功能時遇到問題：";
 "image-recommendations-email-title" = "問題報告 - 新增圖片功能";
 "image-recs-no-title" = "否";

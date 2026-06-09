@@ -1,18 +1,6 @@
 import XCTest
 
 final class ArticleControlsUITests: XCTestCase {
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-        try XCTSkipUnless(
-            uiTestConfiguration.httpClientProfile == TestHTTPClientProfile.fixtureStrict.rawValue,
-            "Article controls coverage uses bundled fixture networking."
-        )
-        try XCTSkipUnless(
-            ArticleRobot.articleControlsFixture(languageCode: uiTestConfiguration.languageCode) != nil,
-            "ArticleControlsUITests do not have fixtures for \(uiTestConfiguration.languageCode)."
-        )
-    }
-
     func testArticleBackButtonReturnsToExplore() throws {
         openExploreArticle()
             .tapBackToExplore()
@@ -171,11 +159,14 @@ final class ArticleControlsUITests: XCTestCase {
 
         openArticle()
             .tapQuickFactsTableItem()
+            .assertLinkedArticleVisible()
     }
 
     func testArticleFooterAndLicenseLinksCanBeTapped() throws {
         openShortArticle()
             .tapAboutThisArticleItem()
+            .assertHistoryVisible()
+            .tapBackToArticleFromHistory()
             .assertVisible()
 
         openShortArticle()

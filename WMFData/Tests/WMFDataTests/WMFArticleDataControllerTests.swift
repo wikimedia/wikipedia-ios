@@ -35,6 +35,8 @@ final class WMFArticleDataControllerTests: XCTestCase {
              expectation.fulfill()
          }
 
+         wait(for: [expectation], timeout: 10.0)
+
          guard let statusToTest else {
              XCTFail("Missing statusToTest")
              return
@@ -63,6 +65,8 @@ final class WMFArticleDataControllerTests: XCTestCase {
              }
              expectation.fulfill()
          }
+
+         wait(for: [expectation], timeout: 10.0)
 
          guard let statusToTest else {
              XCTFail("Missing statusToTest")

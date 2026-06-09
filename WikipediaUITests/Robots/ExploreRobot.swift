@@ -3,6 +3,18 @@ import WMFComponents
 
 /// Represents the Explore tab after app launch or onboarding dismissal.
 struct ExploreRobot: ScreenshotCapturingRobot {
+    let base: UITestRobot
+    private let configuration: UITestConfiguration
+
+    init(base: UITestRobot, configuration: UITestConfiguration) {
+        self.base = base
+        self.configuration = configuration
+    }
+}
+
+// MARK: - Root tabs
+
+extension ExploreRobot {
     enum RootTab {
         case activity
         case explore
@@ -55,15 +67,11 @@ struct ExploreRobot: ScreenshotCapturingRobot {
             }
         }
     }
+}
 
-    let base: UITestRobot
-    private let configuration: UITestConfiguration
+// MARK: - Screen state
 
-    init(base: UITestRobot, configuration: UITestConfiguration) {
-        self.base = base
-        self.configuration = configuration
-    }
-
+extension ExploreRobot {
     @discardableResult
     func assertVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.assertExists(
@@ -73,7 +81,11 @@ struct ExploreRobot: ScreenshotCapturingRobot {
         )
         return self
     }
+}
 
+// MARK: - Content
+
+extension ExploreRobot {
     @discardableResult
     func openFirstArticle(file: StaticString = #filePath, line: UInt = #line) -> ArticleRobot {
         let articleCells = base.app.descendants(matching: .any)
@@ -89,28 +101,6 @@ struct ExploreRobot: ScreenshotCapturingRobot {
         return ArticleRobot(base: base, configuration: configuration)
             .assertVisible(file: file, line: line)
             .assertTopControlsVisible(file: file, line: line)
-    }
-
-    @discardableResult
-    func openPictureOfTheDay(file: StaticString = #filePath, line: UInt = #line) -> ImageGalleryRobot {
-        let collectionView = base.app.collectionViews.firstMatch
-        let pictureOfTheDayCell = base.app.descendants(matching: .any)
-            .matching(identifier: AccessibilityIdentifiers.Explore.pictureOfTheDayCell)
-            .firstMatch
-
-        for _ in 0..<10 where !pictureOfTheDayCell.exists || !pictureOfTheDayCell.isHittable {
-            base.dragUp(collectionView)
-        }
-
-        base.assertVisible(
-            pictureOfTheDayCell,
-            timeout: 10,
-            description: "Explore Picture of the Day cell",
-            file: file,
-            line: line
-        )
-        pictureOfTheDayCell.tap()
-        return ImageGalleryRobot(base: base).assertVisible(file: file, line: line)
     }
 
     @discardableResult
@@ -161,16 +151,20 @@ struct ExploreRobot: ScreenshotCapturingRobot {
         }
         return self
     }
+}
 
-    private func rootTabButton(for tab: RootTab) -> XCUIElement {
+// MARK: - Private helpers
+
+private extension ExploreRobot {
+    func rootTabButton(for tab: RootTab) -> XCUIElement {
         base.app.buttons.matching(identifier: tab.accessibilityIdentifier).firstMatch
     }
 
-    private func searchTabButtonFallback() -> XCUIElement {
+    func searchTabButtonFallback() -> XCUIElement {
         base.app.tabBars.buttons.element(boundBy: 4)
     }
 
-    private func dismissPlacesLocationPromptIfNeeded(file: StaticString = #filePath, line: UInt = #line) {
+    func dismissPlacesLocationPromptIfNeeded(file: StaticString = #filePath, line: UInt = #line) {
         let alert = base.app.alerts.firstMatch
         guard alert.waitForExistence(timeout: 2) else {
             return

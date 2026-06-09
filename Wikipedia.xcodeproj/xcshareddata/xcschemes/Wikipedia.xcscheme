@@ -68,9 +68,6 @@
                   Identifier = "ArticleViewControllerTests">
                </Test>
                <Test
-                  Identifier = "LegacyCoreDataMigratorTests">
-               </Test>
-               <Test
                   Identifier = "MWKHistoryListPerformanceTests/testReadPerformance">
                </Test>
                <Test
