@@ -3,11 +3,11 @@ import SwiftUI
 // MARK: - Constants
 
 public enum Layout {
-    static let daySize: CGFloat = 40
-    static let dotSize: CGFloat = 7
+    static let daySize: CGFloat = 36
+    static let dotSize: CGFloat = 11
     static let cornerRadius: CGFloat = 16
     static let toastCornerRadius: CGFloat = 12
-    static let calendarPadding: CGFloat = 16
+    static let calendarPadding: CGFloat = 12
 }
 
 // MARK: - WMFDatePickerView
@@ -31,23 +31,24 @@ public struct WMFDatePickerView: View {
 
     public var body: some View {
         ZStack(alignment: .top) {
-            Color(.secondarySystemBackground)
+            Color(uiColor: theme.midBackground)
                 .ignoresSafeArea()
 
-            GeometryReader { proxy in
+            ScrollView {
                 VStack(spacing: 0) {
                     headerSection
                         .padding(.horizontal, 24)
+                        .padding(.top, 100)
                         .padding(.bottom, 32)
-                        .padding(.top, 56)
 
                     calendarCard
+                        .shadow(color: Color(uiColor: theme.text).opacity(0.05), radius: 8, x: 0, y: 0)
                         .padding(.horizontal, 16)
-                        .padding(.bottom, 40)
+
+                    Spacer()
                 }
-                .frame(maxWidth: .infinity)
-                .frame(height: proxy.size.height, alignment: .center)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             dismissButton
 
@@ -63,25 +64,26 @@ public struct WMFDatePickerView: View {
     // MARK: Header
 
     private var headerSection: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 4) {
+            // Need system name since using font size isn't big enough
             Image(systemName: "calendar.badge.clock")
-                .font(.system(size: 52))
+                .font(.system(size: 64))
                 .foregroundColor(Color(uiColor: theme.text))
-                .padding(.bottom, 4)
+                .frame(width: 98, height: 72)
+                .padding(.bottom, 12)
 
             Group {
                 Text(viewModel.title + " ")
-                    .font(Font(WMFFont.for(.boldTitle3)))
+                    .font(Font(WMFFont.for(.boldTitle1)))
                 + Text(viewModel.localizedStrings.archiveLabel)
-                    .font(Font(WMFFont.for(.title3)))
+                    .font(Font(WMFFont.for(.title1)))
             }
             .foregroundColor(Color(uiColor: theme.text))
             .multilineTextAlignment(.center)
-            .padding(.top, 4)
 
             Text(viewModel.subtitle)
-                .font(Font(WMFFont.for(.subheadline)))
-                .foregroundColor(Color(uiColor: theme.secondaryText))
+                .font(Font(WMFFont.for(.headline)))
+                .foregroundColor(Color(uiColor: theme.text))
                 .multilineTextAlignment(.center)
         }
     }
@@ -93,7 +95,7 @@ public struct WMFDatePickerView: View {
             monthNavigationBar
                 .padding(.horizontal, Layout.calendarPadding)
                 .padding(.top, Layout.calendarPadding)
-                .padding(.bottom, 8)
+                .padding(.bottom, 24)
 
             weekdayHeaders
                 .padding(.horizontal, Layout.calendarPadding)
@@ -110,6 +112,7 @@ public struct WMFDatePickerView: View {
         .padding(.bottom, Layout.calendarPadding)
         .background(Color(uiColor: theme.paperBackground))
         .cornerRadius(Layout.cornerRadius)
+        .dynamicTypeSize(.small ... .xLarge)
     }
 
     // MARK: Month navigation
@@ -121,11 +124,14 @@ public struct WMFDatePickerView: View {
             } label: {
                 HStack(spacing: 4) {
                     Text(viewModel.displayedMonthTitle)
-                        .font(Font(WMFFont.for(.headline)))
+                        .font(Font(WMFFont.for(.semiboldSubheadline)))
                         .foregroundColor(Color(uiColor: theme.text))
-                    Image(systemName: "chevron.right")
-                        .font(Font(WMFFont.for(.caption1)).weight(.bold))
-                        .foregroundColor(Color(uiColor: theme.secondaryText))
+                        .minimumScaleFactor(0.2)
+                        .lineLimit(1)
+                    if let chevron = WMFSFSymbolIcon.for(symbol: .chevronForward, font: .caption1) {
+                        Image(uiImage: chevron)
+                            .foregroundColor(Color(uiColor: theme.link))
+                    }
                 }
             }
             .buttonStyle(.plain)
@@ -137,11 +143,12 @@ public struct WMFDatePickerView: View {
                 Button {
                     viewModel.goToPreviousMonth()
                 } label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(viewModel.canGoBack
-                            ? Color(uiColor: theme.text)
-                            : Color(uiColor: theme.secondaryText).opacity(0.4))
+                    if let chevron = WMFSFSymbolIcon.for(symbol: .chevronBackward, font: .callout) {
+                        Image(uiImage: chevron)
+                            .foregroundColor(viewModel.canGoBack
+                                ? Color(uiColor: theme.link)
+                                : Color(uiColor: theme.secondaryText).opacity(0.4))
+                    }
                 }
                 .disabled(!viewModel.canGoBack)
                 .accessibilityLabel(viewModel.localizedStrings.previousMonthA11y)
@@ -149,11 +156,12 @@ public struct WMFDatePickerView: View {
                 Button {
                     viewModel.goToNextMonth()
                 } label: {
-                    Image(systemName: "chevron.right")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(viewModel.canGoForward
-                            ? Color(uiColor: theme.text)
-                            : Color(uiColor: theme.secondaryText).opacity(0.4))
+                    if let chevron = WMFSFSymbolIcon.for(symbol: .chevronForward, font: .callout) {
+                        Image(uiImage: chevron)
+                            .foregroundColor(viewModel.canGoForward
+                                ? Color(uiColor: theme.link)
+                                : Color(uiColor: theme.secondaryText).opacity(0.4))
+                    }
                 }
                 .disabled(!viewModel.canGoForward)
                 .accessibilityLabel(viewModel.localizedStrings.nextMonthA11y)
@@ -169,6 +177,8 @@ public struct WMFDatePickerView: View {
                 Text(symbol)
                     .font(Font(WMFFont.for(.caption2)).weight(.semibold))
                     .foregroundColor(Color(uiColor: theme.secondaryText))
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
                     .frame(maxWidth: .infinity)
             }
         }
@@ -198,8 +208,11 @@ public struct WMFDatePickerView: View {
         } label: {
             VStack(spacing: 2) {
                 Text("\(day.dayNumber)")
-                    .font(Font(WMFFont.for(day.isToday ? .boldCallout : .callout)))
+                    .font(Font(WMFFont.for(day.isToday ? .boldCallout : .callout)).monospacedDigit())
                     .foregroundColor(dayCellTextColor(day))
+                    .minimumScaleFactor(0.2)
+                    .lineLimit(1)
+                    .allowsTightening(true)
                     .frame(width: Layout.daySize, height: Layout.daySize)
 
                 Circle()
@@ -244,19 +257,20 @@ public struct WMFDatePickerView: View {
             Button {
                 onDismiss?()
             } label: {
-                Image(systemName: "xmark")
-                    .font(Font(WMFFont.for(.footnote)).weight(.semibold))
-                    .foregroundColor(Color(uiColor: theme.text))
-                    .padding(10)
-                    .background {
-                        if #available(iOS 26.0, *) {
-                            Color.clear
-                        } else {
-                            Circle()
-                                .fill(.ultraThinMaterial)
+                if let xmark = WMFSFSymbolIcon.for(symbol: .xMark, font: .footnote) {
+                    Image(uiImage: xmark)
+                        .foregroundColor(Color(uiColor: theme.text))
+                        .padding(10)
+                        .background {
+                            if #available(iOS 26.0, *) {
+                                Color.clear
+                            } else {
+                                Circle()
+                                    .fill(.ultraThinMaterial)
+                            }
                         }
-                    }
-                    .clipShape(Circle())
+                        .clipShape(Circle())
+                }
             }
             .modifier(GlassCircleEffect())
             .padding(.leading, 16)
@@ -265,7 +279,7 @@ public struct WMFDatePickerView: View {
             Spacer()
         }
     }
-    
+
     private struct GlassCircleEffect: ViewModifier {
         func body(content: Content) -> some View {
             if #available(iOS 26.0, *) {
@@ -275,7 +289,7 @@ public struct WMFDatePickerView: View {
             }
         }
     }
-    
+
     // MARK: Toast
 
     private func toastView(_ message: String) -> some View {
@@ -287,7 +301,7 @@ public struct WMFDatePickerView: View {
                 .padding(.vertical, 14)
                 .background(Color(uiColor: theme.paperBackground))
                 .cornerRadius(Layout.toastCornerRadius)
-                .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 4)
+                .shadow(color: Color(uiColor: theme.text).opacity(0.08), radius: 8, x: 0, y: 4)
         }
         .padding(.top, 60)
         .padding(.horizontal, 20)

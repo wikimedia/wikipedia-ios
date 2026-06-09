@@ -156,6 +156,7 @@ public final class WMFDatePickerViewModel: ObservableObject {
         return fmt.string(from: displayedMonth)
     }
 
+    // Guard to protect from out of range dates
     var canGoBack: Bool {
         guard let prevMonth = calendar.date(byAdding: .month, value: -1, to: displayedMonth) else { return false }
         let archiveMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: archiveStartDate))!
