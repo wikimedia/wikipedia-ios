@@ -37,9 +37,9 @@ final class AppOnboardingUITests: XCTestCase {
         launchWikipediaAppRobot(onboardingState: .notCompleted)
             .onboarding
             .assertPage(.introduction)
-            .verifyIntroductionLearnMoreCanBeDismissed()
+            .assertIntroductionLearnMoreCanBeDismissed()
             .advance(to: .analytics)
-            .verifyAnalyticsLearnMoreDestinationsCanBePresented()
+            .assertAnalyticsLearnMoreDestinationsCanBePresented()
     }
 
     func testAdditionalLanguageCanBeAddedDuringOnboarding() throws {

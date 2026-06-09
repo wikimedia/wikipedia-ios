@@ -9,7 +9,11 @@ struct WikipediaAppRobot: ScreenshotCapturingRobot {
         self.base = UITestRobot(app: app, testCase: testCase)
         self.configuration = configuration
     }
+}
 
+// MARK: - Navigation
+
+extension WikipediaAppRobot {
     var explore: ExploreRobot {
         ExploreRobot(base: base, configuration: configuration)
     }
@@ -17,13 +21,19 @@ struct WikipediaAppRobot: ScreenshotCapturingRobot {
     var onboarding: OnboardingRobot {
         OnboardingRobot(base: base, configuration: configuration)
     }
+}
 
+// MARK: - App lifecycle
+
+extension WikipediaAppRobot {
     @discardableResult
     func terminate() -> Self {
         base.app.terminate()
         return self
     }
 }
+
+// MARK: - Launching
 
 /// Provides the test-case convenience API for launching the app and receiving the root robot.
 extension XCTestCase {
@@ -47,6 +57,8 @@ extension XCTestCase {
         return WikipediaAppRobot(app: app, testCase: self, configuration: configuration)
     }
 }
+
+// MARK: - Private helpers
 
 /// Applies the launch argument configuration used by robot-based UI tests.
 fileprivate extension XCUIApplication {

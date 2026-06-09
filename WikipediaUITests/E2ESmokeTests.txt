@@ -1,6 +1,5 @@
 # One XCTest identifier per line, without the -only-testing: prefix.
 # Blank lines and comments are ignored by the E2E UI test workflow.
 WikipediaUITests/AppOnboardingUITests/testFirstLaunchShowsOnboardingSmoke
-WikipediaUITests/ArticleImageGalleryUITests/testBohemiaLeadImagePresentsImageGallery
-WikipediaUITests/ExploreUITests/testPictureOfTheDayImageLoadsBeforeSharing
+WikipediaUITests/ArticleImageGalleryUITests/testBohemiaLeadImageOpensImageGalleryAndCanShare
 WikipediaUITests/ExploreUITests/testExploreSearchResultOpensArticle

@@ -10,7 +10,11 @@ struct SearchRobot: ScreenshotCapturingRobot {
         self.base = base
         self.configuration = configuration
     }
+}
 
+// MARK: - Screen state
+
+extension SearchRobot {
     @discardableResult
     func assertVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.assertExists(
@@ -35,7 +39,11 @@ struct SearchRobot: ScreenshotCapturingRobot {
         base.assertVisible(searchField, timeout: 15, description: description, file: file, line: line)
         return self
     }
+}
 
+// MARK: - Search entry
+
+extension SearchRobot {
     @discardableResult
     func focusSearchField(file: StaticString = #filePath, line: UInt = #line) -> Self {
         assertSearchFieldVisible(file: file, line: line)
@@ -56,7 +64,11 @@ struct SearchRobot: ScreenshotCapturingRobot {
         }
         return self
     }
+}
 
+// MARK: - Search results
+
+extension SearchRobot {
     @discardableResult
     func assertSearchResultVisible(
         named title: String,
@@ -78,7 +90,11 @@ struct SearchRobot: ScreenshotCapturingRobot {
 
         return ArticleRobot(base: base, configuration: configuration)
     }
+}
 
+// MARK: - Recent searches
+
+extension SearchRobot {
     @discardableResult
     func assertRecentSearchTermVisible(
         _ searchTerm: String,
@@ -152,18 +168,22 @@ struct SearchRobot: ScreenshotCapturingRobot {
         )
         return self
     }
+}
 
-    private func recentSearchTerm(_ searchTerm: String) -> XCUIElement {
+// MARK: - Private helpers
+
+private extension SearchRobot {
+    func recentSearchTerm(_ searchTerm: String) -> XCUIElement {
         base.app.descendants(matching: .any)
             .matching(identifier: AccessibilityIdentifiers.Search.recentSearchTerm(searchTerm))
             .firstMatch
     }
 
-    private var searchField: XCUIElement {
+    var searchField: XCUIElement {
         base.app.searchFields[AccessibilityIdentifiers.Search.searchField]
     }
 
-    private func button(withIdentifier identifier: String, fallbackIdentifier: String?) -> XCUIElement {
+    func button(withIdentifier identifier: String, fallbackIdentifier: String?) -> XCUIElement {
         let identifiedButton = base.app.buttons.matching(identifier: identifier).firstMatch
         if identifiedButton.waitForExistence(timeout: 2) {
             return identifiedButton
@@ -179,22 +199,22 @@ struct SearchRobot: ScreenshotCapturingRobot {
         return identifiedButton
     }
 
-    private func waitForSearchResult(
+    func waitForSearchResult(
         named title: String,
         timeout: TimeInterval = 30,
         file: StaticString = #filePath,
         line: UInt = #line
     ) -> XCUIElement {
         let identifier = AccessibilityIdentifiers.Search.result(title)
-        let identifiedResult = base.app.descendants(matching: .any)
-            .matching(identifier: identifier)
-            .firstMatch
-        let labelledResult = base.app.descendants(matching: .any)
-            .matching(NSPredicate(format: "label == %@ OR label BEGINSWITH %@", title, "\(title),"))
-            .firstMatch
+        let query = base.app.descendants(matching: .any)
+            .matching(NSPredicate(format: "identifier == %@ OR label == %@ OR label BEGINSWITH %@", identifier, title, "\(title),"))
 
+        var matchedResult: XCUIElement?
         let predicate = NSPredicate { _, _ in
-            identifiedResult.exists || labelledResult.exists
+            matchedResult = query.allElementsBoundByIndex.first { element in
+                element.exists
+            }
+            return matchedResult != nil
         }
         let expectation = XCTNSPredicateExpectation(predicate: predicate, object: nil)
         let result = XCTWaiter.wait(for: [expectation], timeout: timeout)
@@ -206,6 +226,6 @@ struct SearchRobot: ScreenshotCapturingRobot {
             line: line
         )
 
-        return identifiedResult.exists ? identifiedResult : labelledResult
+        return matchedResult ?? query.firstMatch
     }
 }

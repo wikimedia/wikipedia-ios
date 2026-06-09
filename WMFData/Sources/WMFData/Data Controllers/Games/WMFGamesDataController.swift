@@ -213,6 +213,15 @@ extension WMFGamesDataController {
     static let whichCameFirstGameType = "which-came-first"
     public static let whichCameFirstQuestionCount = 5
 
+    public static let whichCameFirstSupportedLanguageCodes: Set<String> = [
+        "de", "en", "fr", "pt", "ru", "es", "ar", "zh", "tr"
+    ]
+
+    public static func isWhichCameFirstSupported(project: WMFProject) -> Bool {
+        guard let languageCode = project.languageCode else { return false }
+        return whichCameFirstSupportedLanguageCodes.contains(languageCode.lowercased())
+    }
+
     // MARK: - Games Announcement
 
     /// Expiration date for the games announcement (July 1, 2026 UTC).
@@ -238,25 +247,22 @@ extension WMFGamesDataController {
     }
 
     /// Returns true if the games announcement should be shown.
-    /// Checks: not yet seen, not past expiration, games feature enabled, and game available in at least one app language.
+    /// Checks: not yet seen, not past expiration, and game available in the primary app language.
     public func shouldShowGamesAnnouncement(date: String) async -> Bool {
         guard !hasSeenGamesAnnouncement else { return false }
         guard let parsedDate = DateFormatter.onThisDayAPIDateFormatter.date(from: date),
               parsedDate < Self.gamesAnnouncementExpirationDate else { return false }
 
-        let appLanguages = WMFDataEnvironment.current.appData.appLanguages
-        guard !appLanguages.isEmpty else { return false }
-
-        for language in appLanguages {
-            let project = WMFProject.wikipedia(language)
-            if (try? await isWhichCameFirstDailySessionAvailable(date: date, project: project)) == true {
-                return true
-            }
-        }
-        return false
+        guard let primaryLanguage = WMFDataEnvironment.current.primaryAppLanguage else { return false }
+        let project = WMFProject.wikipedia(primaryLanguage)
+        return (try? await isWhichCameFirstDailySessionAvailable(date: date, project: project)) == true
     }
 
     public func isWhichCameFirstDailySessionAvailable(date: String, project: WMFProject, onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared) async throws -> Bool {
+        guard Self.isWhichCameFirstSupported(project: project) else {
+            return false
+        }
+
         if try await fetchSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date) != nil {
             return true
         }
@@ -278,6 +284,10 @@ extension WMFGamesDataController {
         project: WMFProject,
         onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared
     ) async throws -> (WMFWhichCameFirstGameState, UUID) {
+        guard Self.isWhichCameFirstSupported(project: project) else {
+            throw CustomError.missingProject
+        }
+
         if let existingSession = try await fetchSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date) {
             let gameState = try decodeWhichCameFirstGameState(from: existingSession.contentData)
             return (gameState, existingSession.identifier)

@@ -117,7 +117,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(gamesV1SettingDidChange), name: WMFNSNotification.gamesV1SettingDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshExploreForGamesCard), name: WMFNSNotification.refreshExploreForGamesCard, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(whichCameFirstSessionDidUpdate(_:)), name: WMFNSNotification.whichCameFirstSessionDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(gamesAllSessionsCleared), name: WMFNSNotification.gamesAllSessionsCleared, object: nil)
 
@@ -1052,7 +1052,7 @@ extension ExploreViewController {
     /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
     /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
-        
+
         // Do not replace an in-flight reading challenge coordinator.
         guard readingChallengeCoordinator == nil else {
             return
@@ -1087,6 +1087,12 @@ extension ExploreViewController {
     /// If something unexpected appears before the async check resolves (e.g. background login/2FA),
     /// the safety-net guard on presentedViewController drops the attempt and defers to next launch.
     private func presentGamesAnnouncementIfNeeded() {
+#if !TEST
+        if let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate,
+           sceneDelegate.didOpenAppFromExternalLink {
+            return
+        }
+#endif
         let gamesDataController = WMFGamesDataController()
         let todayDateString = todayDateString()
 
@@ -1120,7 +1126,7 @@ extension ExploreViewController {
             actionSource: "game_announce"
         )
 
-        alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementPlayButton, style: .default) { [weak self] _ in
+        let playAction = UIAlertAction(title: CommonStrings.gamesAnnouncementPlayButton, style: .default) { [weak self] _ in
             guard let self else { return }
             gameInstrument.submitInteraction(
                 action: "click",
@@ -1132,7 +1138,8 @@ extension ExploreViewController {
             coordinator.didFinish = { [weak self] in self?.whichCameFirstCoordinator = nil }
             self.whichCameFirstCoordinator = coordinator
             coordinator.start()
-        })
+        }
+        alert.addAction(playAction)
 
         alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementMaybeLaterButton, style: .default) { [weak self] _ in
             self?.gameInstrument.submitInteraction(
@@ -1141,6 +1148,9 @@ extension ExploreViewController {
                 elementId: "game_later"
             )
         })
+
+        alert.preferredAction = playAction
+        alert.view.tintColor = theme.colors.link
 
         if let popover = alert.popoverPresentationController {
             popover.sourceView = navigationController.view
@@ -1556,7 +1566,7 @@ extension ExploreViewController {
         configureNavigationBar()
     }
 
-    @objc func gamesV1SettingDidChange() {
+    @objc func refreshExploreForGamesCard() {
         updateFeedSources(userInitiated: false)
     }
 }

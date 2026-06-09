@@ -68,6 +68,18 @@ extension ArticleRobot {
     }
 
     @discardableResult
+    func assertTableOfContentsVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.assertExists(
+            tableOfContentsView,
+            timeout: 15,
+            description: "article table of contents",
+            file: file,
+            line: line
+        )
+        return self
+    }
+
+    @discardableResult
     func rotateAndAssertArticleWorks(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.rotateToLandscapeLeft()
         _ = assertVisible(file: file, line: line)
@@ -117,6 +129,12 @@ extension ArticleRobot {
         base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.searchButton, file: file, line: line)
         return SearchRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
     }
+
+    @discardableResult
+    func openTableOfContents(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.tableOfContentsButton, file: file, line: line)
+        return assertTableOfContentsVisible(file: file, line: line)
+    }
 }
 
 // MARK: - Images
@@ -124,8 +142,8 @@ extension ArticleRobot {
 extension ArticleRobot {
     @discardableResult
     func openLeadImageGallery(file: StaticString = #filePath, line: UInt = #line) -> ImageGalleryRobot {
-        base.assertExists(leadImage, timeout: 30, description: "article lead image", file: file, line: line)
-        leadImage.tap()
+        base.assertExists(leadImage, timeout: 60, description: "article lead image", file: file, line: line)
+        base.tapCenter(of: leadImage, file: file, line: line)
         return ImageGalleryRobot(base: base)
             .assertVisible(file: file, line: line)
     }
@@ -133,7 +151,7 @@ extension ArticleRobot {
     @discardableResult
     func tapLeadImage(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.assertVisible(leadImage, timeout: 15, description: "article lead image", file: file, line: line)
-        leadImage.tap()
+        base.tapCenter(of: leadImage, file: file, line: line)
         return self
     }
 
@@ -205,6 +223,11 @@ extension ArticleRobot {
     func tapQuickFactsTableItem(file: StaticString = #filePath, line: UInt = #line) -> Self {
         tapArticleElement(.quickFactsTable, file: file, line: line)
         tapArticleElement(.quickFactsTableItem, file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func assertLinkedArticleVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
         assertArticleElementExists(matchingLabel: articleControlsFixture.linkedArticleDescription, file: file, line: line)
         return assertVisible(file: file, line: line)
     }
@@ -224,7 +247,29 @@ extension ArticleRobot {
     @discardableResult
     func tapAboutThisArticleItem(file: StaticString = #filePath, line: UInt = #line) -> Self {
         tapArticleElement(.footerItem, file: file, line: line)
-        return assertHistoryVisibleAndReturnToArticle(file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func assertHistoryVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let articleView = base.app.otherElements[AccessibilityIdentifiers.Article.view]
+        base.waitForElementToDisappear(articleView, timeout: 15, file: file, line: line)
+
+        let historyNavigationBar = base.app.navigationBars.firstMatch
+        base.assertExists(historyNavigationBar, timeout: 15, description: "history navigation bar", file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func tapBackToArticleFromHistory(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let historyNavigationBar = base.app.navigationBars.firstMatch
+        base.assertExists(historyNavigationBar, timeout: 15, description: "history navigation bar", file: file, line: line)
+
+        let backButton = base.backButton(in: historyNavigationBar, isRightToLeft: configuration.isRightToLeft)
+        base.assertExists(backButton, timeout: 15, description: "history back button", file: file, line: line)
+        XCTAssertFalse(backButton.frame.isEmpty, "Expected history back button to have a tappable frame.", file: file, line: line)
+        backButton.tap()
+        return assertVisible(file: file, line: line)
     }
 
     @discardableResult
@@ -339,6 +384,17 @@ private extension ArticleRobot {
         base.app.buttons[AccessibilityIdentifiers.Article.searchButton]
     }
 
+    var tableOfContentsView: XCUIElement {
+        let table = base.app.tables[AccessibilityIdentifiers.Article.tableOfContentsView]
+        if table.waitForExistence(timeout: 2) {
+            return table
+        }
+
+        return base.app.descendants(matching: .any)
+            .matching(identifier: AccessibilityIdentifiers.Article.tableOfContentsView)
+            .firstMatch
+    }
+
     func navigationBar(file: StaticString = #filePath, line: UInt = #line) -> XCUIElement {
         let navigationBar = base.app.navigationBars.firstMatch
         base.assertExists(navigationBar, description: "article navigation bar", file: file, line: line)
@@ -443,11 +499,10 @@ private extension ArticleRobot {
     ) -> ExploreRobot {
         let articleView = base.app.otherElements[AccessibilityIdentifiers.Article.view]
         base.assertExists(button, timeout: 15, description: description, file: file, line: line)
-        XCTAssertFalse(button.frame.isEmpty, "Expected \(description) to have a tappable frame.", file: file, line: line)
 
-        tapCenter(of: button)
+        base.tapCenter(of: button, file: file, line: line)
         if !waitForArticleViewToDisappear(articleView, timeout: 5) {
-            tapCenter(of: button)
+            base.tapCenter(of: button, file: file, line: line)
             base.waitForElementToDisappear(articleView, timeout: 15, file: file, line: line)
         }
 
@@ -458,10 +513,6 @@ private extension ArticleRobot {
         let predicate = NSPredicate(format: "exists == false")
         let expectation = XCTNSPredicateExpectation(predicate: predicate, object: articleView)
         return XCTWaiter.wait(for: [expectation], timeout: timeout) == .completed
-    }
-
-    func tapCenter(of element: XCUIElement) {
-        element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
     }
 
     func assertArticleLinkPreviewVisible(file: StaticString, line: UInt) {
@@ -485,18 +536,4 @@ private extension ArticleRobot {
         )
     }
 
-    @discardableResult
-    func assertHistoryVisibleAndReturnToArticle(file: StaticString, line: UInt) -> Self {
-        let articleView = base.app.otherElements[AccessibilityIdentifiers.Article.view]
-        base.waitForElementToDisappear(articleView, timeout: 15, file: file, line: line)
-
-        let historyNavigationBar = base.app.navigationBars.firstMatch
-        base.assertExists(historyNavigationBar, timeout: 15, description: "history navigation bar", file: file, line: line)
-
-        let backButton = base.backButton(in: historyNavigationBar, isRightToLeft: configuration.isRightToLeft)
-        base.assertExists(backButton, timeout: 15, description: "history back button", file: file, line: line)
-        XCTAssertFalse(backButton.frame.isEmpty, "Expected history back button to have a tappable frame.", file: file, line: line)
-        backButton.tap()
-        return assertVisible(file: file, line: line)
-    }
 }
