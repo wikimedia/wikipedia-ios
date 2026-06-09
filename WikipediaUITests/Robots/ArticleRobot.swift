@@ -534,7 +534,8 @@ extension ArticleRobot {
         let item = contextMenuItem(withTitle: articleControlsFixture.overflowRevisionHistoryTitle)
         base.assertExists(item, timeout: 10, description: "revision history overflow menu item", file: file, line: line)
         item.tap()
-        return assertHistoryVisibleAndReturnToArticle(file: file, line: line)
+        return assertHistoryVisible(file: file, line: line)
+            .tapBackToArticleFromHistory(file: file, line: line)
     }
 
 }
