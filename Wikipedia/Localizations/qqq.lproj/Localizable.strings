@@ -1539,7 +1539,7 @@
 "which-came-first-archive-previous-month-a11y" = "Accessibility label for the previous month navigation button in the Which Came First archive date picker.";
 "which-came-first-archive-subtitle" = "Subtitle for the Which Came First archive date picker sheet header.";
 "which-came-first-archive-title" = "Title for the Which Came First archive date picker sheet header.";
-"which-came-first-archive-toast-score" = "Toast message shown when a user taps a completed day in the Which Came First archive date picker. $1 is the user's score.";
+"which-came-first-archive-toast-score" = "Toast message shown when a user taps a completed day in the Which Came First archive date picker. $1 is the user's numeric score out of 5.";
 "which-came-first-article-card-open-hint" = "VoiceOver hint for an article card in the Which Came First game results screen. Describes the outcome of tapping the card.";
 "which-came-first-articles-section-title" = "Section title for the article cards shown after completing the Which Came First game";
 "which-came-first-average-score-label" = "Label for the average score stat in the Which Came First results screen";

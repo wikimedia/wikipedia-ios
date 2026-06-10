@@ -453,10 +453,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         cell.tappedPlayTheArchive = { [weak self] in
             guard let self else { return }
-            cell.tappedPlayTheArchive = { [weak self] in
-                guard let self else { return }
-                self.delegate?.exploreCardViewControllerDidTapArchive(self)
-            }
+            self.delegate?.exploreCardViewControllerDidTapArchive(self)
         }
 
         let optionA = preview?.optionA

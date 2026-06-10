@@ -11,7 +11,7 @@ public enum Layout {
     static let emptyCellSpacing: CGFloat = 4
 }
 
-// MARK: - WMFDatePickerView
+// MARK: - WMFWhichCameFirstArchiveView
 
 public struct WMFWhichCameFirstArchiveView: View {
 
@@ -121,7 +121,7 @@ public struct WMFWhichCameFirstArchiveView: View {
         .padding(.bottom, Layout.calendarPadding)
         .background(Color(uiColor: theme.paperBackground))
         .cornerRadius(Layout.cornerRadius)
-        .dynamicTypeSize(.small ... .xLarge)
+        .dynamicTypeSize(.small ... .medium)
     }
 
     // MARK: Month navigation
@@ -218,6 +218,7 @@ public struct WMFWhichCameFirstArchiveView: View {
             VStack(spacing: 2) {
                 Text("\(day.dayNumber)")
                     .font(Font(WMFFont.for(day.isToday ? .boldCallout : .callout)).monospacedDigit())
+                    .minimumScaleFactor(0.1)
                     .foregroundColor(dayCellTextColor(day))
                     .lineLimit(1)
                     .frame(width: Layout.daySize, height: Layout.daySize)

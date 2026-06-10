@@ -412,8 +412,8 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
                     }
             )
 
-            let viewModel = WMFDatePickerViewModel(
-                localizedStrings: WMFDatePickerViewModel.LocalizedStrings(
+            let viewModel = WMFWhichCameFirstArchiveViewModel(
+                localizedStrings: WMFWhichCameFirstArchiveViewModel.LocalizedStrings(
                     title: WMFLocalizedString("which-came-first-archive-title", value: "Which came first?", comment: "Title for the Which Came First archive date picker."),
                     subtitle: WMFLocalizedString("which-came-first-archive-subtitle", value: "Play games since June 2024.", comment: "Subtitle for the Which Came First archive date picker.")
                 ),
@@ -424,7 +424,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
                 }
             )
 
-            let archiveView = WMFDatePickerView(
+            let archiveView = WMFWhichCameFirstArchiveView(
                 viewModel: viewModel,
                 onDismiss: { [weak gameNav] in
                     gameNav?.dismiss(animated: true)
