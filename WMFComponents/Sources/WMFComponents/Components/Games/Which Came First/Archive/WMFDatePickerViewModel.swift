@@ -40,7 +40,7 @@ public final class WMFDatePickerViewModel: ObservableObject {
             title: String = WMFLocalizedString("which-came-first-archive-title", value: "Which came first?", comment: "Title for the Which Came First archive date picker sheet header."),
             subtitle: String = WMFLocalizedString("which-came-first-archive-subtitle", value: "Play games since June 2024.", comment: "Subtitle for the Which Came First archive date picker sheet header."),
             archiveLabel: String = WMFLocalizedString("which-came-first-archive-nav-title", value: "Archive", comment: "Label appended to the game title in the Which Came First archive date picker sheet header."),
-            toastScoreFormat: String = WMFLocalizedString("which-came-first-archive-toast-score", value: "You scored %1$d/5 on this day.", comment: "Toast message shown when a user taps a completed day in the Which Came First archive date picker. %1$d is the user's score."),
+            toastScoreFormat: String = WMFLocalizedString("which-came-first-archive-toast-score", value: "You scored %1$d out of 5 on this day.", comment: "Toast message shown when a user taps a completed day in the Which Came First archive date picker. %1$d is the user's numeric score out of 5."),
             monthPickerA11y: String = WMFLocalizedString("which-came-first-archive-month-picker-a11y", value: "Select month and year", comment: "Accessibility label for the month/year button in the Which Came First archive date picker."),
             previousMonthA11y: String = WMFLocalizedString("which-came-first-archive-previous-month-a11y", value: "Previous month", comment: "Accessibility label for the previous month navigation button in the Which Came First archive date picker."),
             nextMonthA11y: String = WMFLocalizedString("which-came-first-archive-next-month-a11y", value: "Next month", comment: "Accessibility label for the next month navigation button in the Which Came First archive date picker."),
@@ -86,7 +86,7 @@ public final class WMFDatePickerViewModel: ObservableObject {
     private let calendar: Calendar
     private var toastTimer: Timer?
 
-    var onSelectDate: ((Date) -> Void)?
+    let onSelectDate: ((Date) -> Void)?
 
     // MARK: - Weekday Symbols
 
@@ -119,7 +119,7 @@ public final class WMFDatePickerViewModel: ObservableObject {
 
     public init(
         localizedStrings: LocalizedStrings = LocalizedStrings(),
-        archiveStartDate: Date = DateComponents(calendar: .current, year: 2024, month: 6, day: 1).date!,
+        archiveStartDate: Date = DateComponents(calendar: .current, year: 2024, month: 6, day: 1).date ?? Date(),
         playedDates: [Date: Int] = [:],
         pausedDates: Set<Date> = [],
         onSelectDate: ((Date) -> Void)? = nil
@@ -128,11 +128,11 @@ public final class WMFDatePickerViewModel: ObservableObject {
         self.archiveStartDate = archiveStartDate
         self.onSelectDate = onSelectDate
 
-        var cal = Calendar.current
+        let cal = Calendar.current
         self.calendar = cal
 
         let now = Date()
-        self.displayedMonth = cal.date(from: cal.dateComponents([.year, .month], from: now))!
+        self.displayedMonth = cal.date(from: cal.dateComponents([.year, .month], from: now)) ?? now
         self._playedDates = playedDates
         self._pausedDates = pausedDates
 
@@ -156,17 +156,20 @@ public final class WMFDatePickerViewModel: ObservableObject {
         return fmt.string(from: displayedMonth)
     }
 
-    // Guard to protect from out of range dates
     var canGoBack: Bool {
-        guard let prevMonth = calendar.date(byAdding: .month, value: -1, to: displayedMonth) else { return false }
-        let archiveMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: archiveStartDate))!
+        guard let prevMonth = calendar.date(byAdding: .month, value: -1, to: displayedMonth),
+              let archiveMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: archiveStartDate)) else {
+            return false
+        }
         return prevMonth >= archiveMonth
     }
 
     var canGoForward: Bool {
         let now = Date()
-        let currentMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: now))!
-        guard let nextMonth = calendar.date(byAdding: .month, value: 1, to: displayedMonth) else { return false }
+        guard let currentMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: now)),
+              let nextMonth = calendar.date(byAdding: .month, value: 1, to: displayedMonth) else {
+            return false
+        }
         return nextMonth <= currentMonth
     }
 
@@ -217,7 +220,7 @@ public final class WMFDatePickerViewModel: ObservableObject {
     private func buildWeeks() {
         let today = calendar.startOfDay(for: Date())
         let firstOfMonth = displayedMonth
-        let daysInMonth = calendar.range(of: .day, in: .month, for: firstOfMonth)!.count
+        guard let daysInMonth = calendar.range(of: .day, in: .month, for: firstOfMonth)?.count else { return }
 
         let rawWeekday = calendar.component(.weekday, from: firstOfMonth)  // 1 = Sun
         let firstWeekday = calendar.firstWeekday                            // 1 = Sun, 2 = Mon…
@@ -249,5 +252,11 @@ public final class WMFDatePickerViewModel: ObservableObject {
         weeks = stride(from: 0, to: days.count, by: 7).map {
             Array(days[$0..<min($0 + 7, days.count)])
         }
+    }
+
+    // MARK: - Deinit
+
+    deinit {
+        toastTimer?.invalidate()
     }
 }

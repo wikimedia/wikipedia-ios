@@ -8,6 +8,7 @@ public enum Layout {
     static let cornerRadius: CGFloat = 16
     static let toastCornerRadius: CGFloat = 12
     static let calendarPadding: CGFloat = 12
+    static let emptyCellSpacing: CGFloat = 4
 }
 
 // MARK: - WMFDatePickerView
@@ -20,6 +21,14 @@ public struct WMFDatePickerView: View {
     private var theme: WMFTheme { appEnvironment.theme }
 
     var onDismiss: (() -> Void)?
+
+    // Allocated once rather than on every dayCell render
+    private let dateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateStyle = .long
+        f.timeStyle = .none
+        return f
+    }()
 
     public init(
         viewModel: WMFDatePickerViewModel,
@@ -177,7 +186,7 @@ public struct WMFDatePickerView: View {
                 Text(symbol)
                     .font(Font(WMFFont.for(.caption2)).weight(.semibold))
                     .foregroundColor(Color(uiColor: theme.secondaryText))
-                    .minimumScaleFactor(0.5)
+                    .minimumScaleFactor(0.2)
                     .lineLimit(1)
                     .frame(maxWidth: .infinity)
             }
@@ -194,7 +203,7 @@ public struct WMFDatePickerView: View {
                 } else {
                     Color.clear
                         .frame(maxWidth: .infinity)
-                        .frame(height: Layout.daySize + Layout.dotSize + 4)
+                        .frame(height: Layout.daySize + Layout.dotSize + Layout.emptyCellSpacing)
                 }
             }
         }
@@ -210,9 +219,7 @@ public struct WMFDatePickerView: View {
                 Text("\(day.dayNumber)")
                     .font(Font(WMFFont.for(day.isToday ? .boldCallout : .callout)).monospacedDigit())
                     .foregroundColor(dayCellTextColor(day))
-                    .minimumScaleFactor(0.2)
                     .lineLimit(1)
-                    .allowsTightening(true)
                     .frame(width: Layout.daySize, height: Layout.daySize)
 
                 Circle()
@@ -238,10 +245,7 @@ public struct WMFDatePickerView: View {
     }
 
     private func dayCellAccessibilityLabel(_ day: WMFDatePickerDay) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .none
-        var parts = [formatter.string(from: day.date)]
+        var parts = [dateFormatter.string(from: day.date)]
         if let score = day.playedScore {
             parts.append(String.localizedStringWithFormat(viewModel.localizedStrings.dayScoreA11yFormat, score))
         } else if day.isPaused {
