@@ -44,7 +44,7 @@ public final class WMFWhichCameFirstArchiveViewModel: ObservableObject {
             monthPickerA11y: String = WMFLocalizedString("which-came-first-archive-month-picker-a11y", value: "Select month and year", comment: "Accessibility label for the month/year button in the Which Came First archive date picker."),
             previousMonthA11y: String = WMFLocalizedString("which-came-first-archive-previous-month-a11y", value: "Previous month", comment: "Accessibility label for the previous month navigation button in the Which Came First archive date picker."),
             nextMonthA11y: String = WMFLocalizedString("which-came-first-archive-next-month-a11y", value: "Next month", comment: "Accessibility label for the next month navigation button in the Which Came First archive date picker."),
-            dayScoreA11yFormat: String = WMFLocalizedString("which-came-first-archive-day-score-a11y", value: "Score: %1$d out of 5", comment: "Accessibility label suffix for a day cell in the Which Came First archive date picker that shows the user's score. %1$d is the numeric score."),
+            dayScoreA11yFormat: String = WMFLocalizedString("which-came-first-archive-day-score-a11y", value: "Score: %1$d out of 5", comment: "Accessibility label suffix for a day cell in the Which Came First archive date picker that shows the user's score. $1 is the numeric score."),
             dayPausedA11y: String = WMFLocalizedString("which-came-first-archive-day-paused-a11y", value: "Game in progress", comment: "Accessibility label suffix for a day cell in the Which Came First archive date picker indicating a paused game."),
             dismissA11y: String = WMFLocalizedString("which-came-first-archive-dismiss-a11y", value: "Close archive", comment: "Accessibility label for the close/dismiss button on the Which Came First archive date picker sheet."),
             weekdaySymbolOverrides: [String]? = nil
@@ -119,7 +119,7 @@ public final class WMFWhichCameFirstArchiveViewModel: ObservableObject {
 
     public init(
         localizedStrings: LocalizedStrings = LocalizedStrings(),
-        archiveStartDate: Date = DateComponents(calendar: .current, year: 2024, month: 6, day: 1).date ?? Date(),
+        archiveStartDate: Date = DateComponents(calendar: Calendar(identifier: .gregorian), year: 2024, month: 6, day: 1).date ?? Date(),
         playedDates: [Date: Int] = [:],
         pausedDates: Set<Date> = [],
         onSelectDate: ((Date) -> Void)? = nil

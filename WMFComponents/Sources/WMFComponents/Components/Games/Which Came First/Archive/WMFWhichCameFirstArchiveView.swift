@@ -2,7 +2,7 @@ import SwiftUI
 
 // MARK: - Constants
 
-public enum Layout {
+private enum Layout {
     static let daySize: CGFloat = 36
     static let dotSize: CGFloat = 11
     static let cornerRadius: CGFloat = 16
