@@ -17,7 +17,7 @@ struct WMFDatePickerDay: Identifiable {
 // MARK: - ViewModel
 
 @MainActor
-public final class WMFDatePickerViewModel: ObservableObject {
+public final class WMFWhichCameFirstArchiveViewModel: ObservableObject {
 
     // MARK: - Localized Strings
 

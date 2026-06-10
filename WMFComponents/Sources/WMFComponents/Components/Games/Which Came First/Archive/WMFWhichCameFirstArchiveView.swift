@@ -13,9 +13,9 @@ public enum Layout {
 
 // MARK: - WMFDatePickerView
 
-public struct WMFDatePickerView: View {
+public struct WMFWhichCameFirstArchiveView: View {
 
-    @StateObject public var viewModel: WMFDatePickerViewModel
+    @StateObject public var viewModel: WMFWhichCameFirstArchiveViewModel
 
     @ObservedObject private var appEnvironment = WMFAppEnvironment.current
     private var theme: WMFTheme { appEnvironment.theme }
@@ -31,7 +31,7 @@ public struct WMFDatePickerView: View {
     }()
 
     public init(
-        viewModel: WMFDatePickerViewModel,
+        viewModel: WMFWhichCameFirstArchiveViewModel,
         onDismiss: (() -> Void)? = nil
     ) {
         self._viewModel = StateObject(wrappedValue: viewModel)
@@ -74,7 +74,7 @@ public struct WMFDatePickerView: View {
 
     private var headerSection: some View {
         VStack(spacing: 4) {
-            // Need system name since using font size isn't big enough
+            // system(size:) required — WMFSFSymbolIcon upscales poorly at this display size
             Image(systemName: "calendar.badge.clock")
                 .font(.system(size: 64))
                 .foregroundColor(Color(uiColor: theme.text))
@@ -331,9 +331,9 @@ private extension Date {
 // MARK: - Previews
 
 #Preview("Default – current month, some played days") {
-    WMFDatePickerView(
-        viewModel: WMFDatePickerViewModel(
-            localizedStrings: WMFDatePickerViewModel.LocalizedStrings(),
+    WMFWhichCameFirstArchiveView(
+        viewModel: WMFWhichCameFirstArchiveViewModel(
+            localizedStrings: WMFWhichCameFirstArchiveViewModel.LocalizedStrings(),
             playedDates: [
                 .today(offsetBy: -2): 5,
                 .today(offsetBy: -5): 3,
@@ -347,9 +347,9 @@ private extension Date {
 }
 
 #Preview("With paused dates") {
-    WMFDatePickerView(
-        viewModel: WMFDatePickerViewModel(
-            localizedStrings: WMFDatePickerViewModel.LocalizedStrings(),
+    WMFWhichCameFirstArchiveView(
+        viewModel: WMFWhichCameFirstArchiveViewModel(
+            localizedStrings: WMFWhichCameFirstArchiveViewModel.LocalizedStrings(),
             playedDates: [
                 .today(offsetBy: -2): 5,
                 .today(offsetBy: -5): 3
@@ -365,9 +365,9 @@ private extension Date {
 }
 
 #Preview("Empty – no played days") {
-    WMFDatePickerView(
-        viewModel: WMFDatePickerViewModel(
-            localizedStrings: WMFDatePickerViewModel.LocalizedStrings(),
+    WMFWhichCameFirstArchiveView(
+        viewModel: WMFWhichCameFirstArchiveViewModel(
+            localizedStrings: WMFWhichCameFirstArchiveViewModel.LocalizedStrings(),
             playedDates: [:]
         ),
         onDismiss: {}
@@ -376,21 +376,21 @@ private extension Date {
 
 #Preview("Archive start month (June 2024)") {
     let archiveStart = DateComponents(calendar: .current, year: 2024, month: 6, day: 1).date!
-    let vm = WMFDatePickerViewModel(
-        localizedStrings: WMFDatePickerViewModel.LocalizedStrings(),
+    let vm = WMFWhichCameFirstArchiveViewModel(
+        localizedStrings: WMFWhichCameFirstArchiveViewModel.LocalizedStrings(),
         archiveStartDate: archiveStart,
         playedDates: [
             DateComponents(calendar: .current, year: 2024, month: 6, day: 5).date!: 5,
             DateComponents(calendar: .current, year: 2024, month: 6, day: 12).date!: 1
         ]
     )
-    return WMFDatePickerView(viewModel: vm, onDismiss: {})
+    return WMFWhichCameFirstArchiveView(viewModel: vm, onDismiss: {})
 }
 
 #Preview("Weekday symbol override (French)") {
-    WMFDatePickerView(
-        viewModel: WMFDatePickerViewModel(
-            localizedStrings: WMFDatePickerViewModel.LocalizedStrings(
+    WMFWhichCameFirstArchiveView(
+        viewModel: WMFWhichCameFirstArchiveViewModel(
+            localizedStrings: WMFWhichCameFirstArchiveViewModel.LocalizedStrings(
                 title: "Lequel est venu en premier?",
                 subtitle: "Jouez depuis juin 2024.",
                 weekdaySymbolOverrides: ["DIM", "LUN", "MAR", "MER", "JEU", "VEN", "SAM"]
@@ -402,9 +402,9 @@ private extension Date {
 }
 
 #Preview("Dark mode") {
-    WMFDatePickerView(
-        viewModel: WMFDatePickerViewModel(
-            localizedStrings: WMFDatePickerViewModel.LocalizedStrings(),
+    WMFWhichCameFirstArchiveView(
+        viewModel: WMFWhichCameFirstArchiveViewModel(
+            localizedStrings: WMFWhichCameFirstArchiveViewModel.LocalizedStrings(),
             playedDates: [
                 .today(offsetBy: -1): 4,
                 .today(offsetBy: -3): 5
@@ -418,9 +418,9 @@ private extension Date {
 #Preview("Presented as sheet") {
     Color.clear
         .sheet(isPresented: .constant(true)) {
-            WMFDatePickerView(
-                viewModel: WMFDatePickerViewModel(
-                    localizedStrings: WMFDatePickerViewModel.LocalizedStrings(),
+            WMFWhichCameFirstArchiveView(
+                viewModel: WMFWhichCameFirstArchiveViewModel(
+                    localizedStrings: WMFWhichCameFirstArchiveViewModel.LocalizedStrings(),
                     playedDates: [
                         .today(offsetBy: -4): 3,
                         .today(offsetBy: -7): 5
