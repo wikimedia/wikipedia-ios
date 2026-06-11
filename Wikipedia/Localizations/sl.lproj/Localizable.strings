@@ -609,7 +609,7 @@
 "no-internet-connection" = "Ni internetne povezave";
 "not-now-title" = "Ne zdaj";
 "notifications-center-agent-description-from-format" = "Iz $1";
-"notifications-center-alert" = "Opomnik";
+"notifications-center-alert" = "Opozorilo";
 "notifications-center-applied-filters-accessibility-label" = "Filter obvestil – ima uporabljene filtre";
 "notifications-center-applied-project-filters-accessibility-label" = "Filter projektov – ima uporabljene filtre";
 "notifications-center-badge-button-accessibility-label" = "Obvestila z značko neprebrano";
@@ -642,7 +642,7 @@
 "notifications-center-go-to-user-page" = "Uporabniška stran: $1";
 "notifications-center-go-to-wikidata-item" = "Predmet v Wikipodatkih";
 "notifications-center-go-to-your-talk-page" = "Vaša pogovorna stran";
-"notifications-center-header-alert-from-agent" = "Opomnik od $1";
+"notifications-center-header-alert-from-agent" = "Opozorilo od $1";
 "notifications-center-inbox-title" = "Projekti";
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Tu bodo navedeni samo projekti, za katere ste ustvarili račun";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Projekti Wikimedie";
