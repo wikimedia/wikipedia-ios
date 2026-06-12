@@ -27,7 +27,7 @@ public struct WMFFeedArticle: Codable {
     public let titles: WMFFeedArticleTitles?
     public let pageid: Int?
     public let thumbnail: WMFFeedImageSource?
-    public let originalimage: WMFFeedImageSource?
+    public let originalImage: WMFFeedImageSource?
     public let lang: String?
     public let dir: String?
     public let revision: String?
@@ -40,7 +40,8 @@ public struct WMFFeedArticle: Codable {
     public let extractHTML: String?
 
     enum CodingKeys: String, CodingKey {
-        case type, title, namespace, titles, pageid, thumbnail, originalimage
+        case type, title, namespace, titles, pageid, thumbnail
+        case originalImage = "originalimage"
         case lang, dir, revision, tid, timestamp, description
         case displayTitle = "displaytitle"
         case normalizedTitle = "normalizedtitle"
