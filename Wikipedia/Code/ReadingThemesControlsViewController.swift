@@ -64,6 +64,7 @@ class ReadingThemesControlsViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = AccessibilityIdentifiers.Article.readingThemesView
         if let max = self.maximumValue {
             if let current = self.currentValue {
                 self.setValues(0, maximum: max, current: current)
@@ -74,11 +75,17 @@ class ReadingThemesControlsViewController: UIViewController {
         brightnessSlider.value = Float(UIScreen.main.brightness)
         
         slider.accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
+        slider.accessibilityIdentifier = AccessibilityIdentifiers.Article.readingThemesTextSizeSlider
         brightnessSlider.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-brightness-slider", value: "Brightness slider", comment: "Accessibility label for the brightness slider in the Reading Themes Controls popover")
+        brightnessSlider.accessibilityIdentifier = AccessibilityIdentifiers.Article.readingThemesBrightnessSlider
         lightThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-light-theme-button", value: "Light theme", comment: "Accessibility label for the light theme button in the Reading Themes Controls popover")
+        lightThemeButton.accessibilityIdentifier = AccessibilityIdentifiers.Article.readingThemesLightButton
         sepiaThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-sepia-theme-button", value: "Sepia theme", comment: "Accessibility label for the sepia theme button in the Reading Themes Controls popover")
+        sepiaThemeButton.accessibilityIdentifier = AccessibilityIdentifiers.Article.readingThemesSepiaButton
         darkThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-dark-theme-button", value: "Dark theme", comment: "Accessibility label for the dark theme button in the Reading Themes Controls popover")
+        darkThemeButton.accessibilityIdentifier = AccessibilityIdentifiers.Article.readingThemesDarkButton
         blackThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-black-theme-button", value: "Black theme", comment: "Accessibility label for the black theme button in the Reading Themes Controls popover")
+        blackThemeButton.accessibilityIdentifier = AccessibilityIdentifiers.Article.readingThemesBlackButton
         
         lightThemeButton.backgroundColor = Theme.light.colors.paperBackground
         sepiaThemeButton.backgroundColor = Theme.sepia.colors.paperBackground
