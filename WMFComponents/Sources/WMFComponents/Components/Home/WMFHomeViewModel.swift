@@ -8,11 +8,24 @@ public final class WMFHomeViewModel: ObservableObject {
         public let title: String
         public let forYouTabTitle: String
         public let communityTabTitle: String
+        public let editLanguagesTitle: String
 
-        public init(title: String, forYouTabTitle: String, communityTabTitle: String) {
+        public init(title: String, forYouTabTitle: String, communityTabTitle: String, editLanguagesTitle: String) {
             self.title = title
             self.forYouTabTitle = forYouTabTitle
             self.communityTabTitle = communityTabTitle
+            self.editLanguagesTitle = editLanguagesTitle
+        }
+    }
+
+    public struct Language: Identifiable, Equatable {
+        public let code: String
+        public let localizedName: String
+        public var id: String { code }
+
+        public init(code: String, localizedName: String) {
+            self.code = code
+            self.localizedName = localizedName
         }
     }
 
@@ -24,14 +37,22 @@ public final class WMFHomeViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
 
     @Published public var selectedTab: Tab = .forYou
-    @Published public var currentLanguageCode: String
+    @Published public var languages: [Language]
+    @Published public var selectedLanguageCode: String
 
-    /// Called when the user taps the language picker. Wired up app-side by the coordinator.
-    public var didTapLanguagePicker: (() -> Void)?
+    public var didSelectLanguage: ((String) -> Void)?
+    public var didTapEditLanguages: (() -> Void)?
 
-    public init(localizedStrings: LocalizedStrings, currentLanguageCode: String, didTapLanguagePicker: (() -> Void)? = nil) {
+    public init(localizedStrings: LocalizedStrings, languages: [Language] = [], selectedLanguageCode: String = "", didSelectLanguage: ((String) -> Void)? = nil, didTapEditLanguages: (() -> Void)? = nil) {
         self.localizedStrings = localizedStrings
-        self.currentLanguageCode = currentLanguageCode
-        self.didTapLanguagePicker = didTapLanguagePicker
+        self.languages = languages
+        self.selectedLanguageCode = selectedLanguageCode
+        self.didSelectLanguage = didSelectLanguage
+        self.didTapEditLanguages = didTapEditLanguages
+    }
+
+    /// The short code shown on the language menu button (e.g. "EN").
+    var languageButtonTitle: String {
+        selectedLanguageCode.uppercased()
     }
 }

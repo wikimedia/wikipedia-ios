@@ -20,6 +20,13 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         return try? WMFYearInReviewDataController()
     }
 
+    // Doing basic persistence for now, All this logic should live in a data controller
+    private static let selectedLanguageCodeDefaultsKey = "home-selected-language-code"
+    private var persistedSelectedLanguageCode: String? {
+        get { UserDefaults.standard.string(forKey: Self.selectedLanguageCodeDefaultsKey) }
+        set { UserDefaults.standard.set(newValue, forKey: Self.selectedLanguageCodeDefaultsKey) }
+    }
+
     init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFHomeViewModel) {
         self.dataStore = dataStore
         self.theme = theme
@@ -38,11 +45,47 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         super.viewDidLoad()
         view.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.homeButton
         embedHostingController()
+
+        viewModel.didSelectLanguage = { [weak self] languageCode in
+            self?.selectLanguage(languageCode)
+        }
+        viewModel.didTapEditLanguages = { [weak self] in
+            self?.presentLanguagesViewController()
+        }
+        reloadLanguages()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
+        reloadLanguages()
+    }
+
+    // MARK: - Languages
+
+    private func reloadLanguages() {
+        let preferredLanguages = dataStore.languageLinkController.preferredLanguages
+        viewModel.languages = preferredLanguages.map { WMFHomeViewModel.Language(code: $0.languageCode, localizedName: $0.localizedName) }
+
+        if let persisted = persistedSelectedLanguageCode, preferredLanguages.contains(where: { $0.languageCode == persisted }) {
+            viewModel.selectedLanguageCode = persisted
+        } else {
+            viewModel.selectedLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode ?? preferredLanguages.first?.languageCode ?? ""
+        }
+    }
+
+    private func selectLanguage(_ languageCode: String) {
+        persistedSelectedLanguageCode = languageCode
+        viewModel.selectedLanguageCode = languageCode
+    }
+
+    private func presentLanguagesViewController() {
+        let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
+        languagesVC.showExploreFeedCustomizationSettings = true
+        languagesVC.delegate = self
+        (languagesVC as Themeable?)?.apply(theme: theme)
+        let navVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .overFullScreen)
+        present(navVC, animated: true)
     }
 
     private func embedHostingController() {
@@ -136,5 +179,11 @@ extension HomeViewController: LogoutCoordinatorDelegate {
 extension HomeViewController: YearInReviewBadgeDelegate {
     func updateYIRBadgeVisibility() {
         updateProfileButton()
+    }
+}
+
+extension HomeViewController: WMFPreferredLanguagesViewControllerDelegate {
+    func languagesController(_ controller: WMFPreferredLanguagesViewController, didUpdatePreferredLanguages languages: [MWKLanguageLink]) {
+        reloadLanguages()
     }
 }

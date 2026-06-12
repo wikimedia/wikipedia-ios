@@ -20,10 +20,28 @@ public struct WMFHomeView: View {
                 }
                 .pickerStyle(.segmented)
 
-                Button {
-                    viewModel.didTapLanguagePicker?()
+                Menu {
+                    ForEach(viewModel.languages) { language in
+                        Button {
+                            viewModel.didSelectLanguage?(language.code)
+                        } label: {
+                            if language.code == viewModel.selectedLanguageCode {
+                                Label(language.localizedName, systemImage: "checkmark")
+                            } else {
+                                Text(language.localizedName)
+                            }
+                        }
+                    }
+
+                    Divider()
+
+                    Button {
+                        viewModel.didTapEditLanguages?()
+                    } label: {
+                        Label(viewModel.localizedStrings.editLanguagesTitle, systemImage: "globe")
+                    }
                 } label: {
-                    Text(viewModel.currentLanguageCode)
+                    Text(viewModel.languageButtonTitle)
                         .font(Font(WMFFont.for(.semiboldHeadline)))
                         .foregroundStyle(Color(uiColor: theme.link))
                 }

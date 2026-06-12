@@ -38,20 +38,15 @@ final class HomeCoordinator: NSObject, Coordinator {
         return true
     }
 
-    /// Builds the configured Home tab root view controller, with its tab bar item title and icon set.
     func makeHomeViewController() -> HomeViewController {
         let localizedStrings = WMFHomeViewModel.LocalizedStrings(
             title: CommonStrings.homeTabTitle,
             forYouTabTitle: CommonStrings.homeForYouTabTitle,
-            communityTabTitle: CommonStrings.homeCommunityTabTitle
+            communityTabTitle: CommonStrings.homeCommunityTabTitle,
+            editLanguagesTitle: CommonStrings.homeEditLanguagesTitle
         )
 
-        let languageCode = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
-
-        let viewModel = WMFHomeViewModel(localizedStrings: localizedStrings, currentLanguageCode: languageCode)
-        viewModel.didTapLanguagePicker = { [weak self] in
-            self?.showLanguagePicker()
-        }
+        let viewModel = WMFHomeViewModel(localizedStrings: localizedStrings)
 
         let vc = HomeViewController(dataStore: dataStore, theme: theme, viewModel: viewModel)
         vc.title = CommonStrings.homeTabTitle
@@ -61,9 +56,5 @@ final class HomeCoordinator: NSObject, Coordinator {
 
         homeViewController = vc
         return vc
-    }
-
-    private func showLanguagePicker() {
-        // TODO: Present the Home language picker once it is designed.
     }
 }
