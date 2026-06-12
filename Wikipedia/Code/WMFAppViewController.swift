@@ -272,6 +272,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                                                name: .dismissReadingListToast,
                                                object: nil)
 
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleEnableHomeTabDidChange),
+                                               name: WMFNSNotification.enableHomeTabDidChange,
+                                               object: nil)
+
         observeArticleTabsNSNotifications()
         setupReadingListsHelpers()
 
@@ -354,6 +359,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             coordinator.attach(navigationController: nav1)
             homeCoordinator = coordinator
         } else {
+            homeCoordinator = nil
             let mainViewController: UIViewController
             switch UserDefaults.standard.defaultTabType {
             case .settings:
@@ -638,6 +644,39 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                 update()
             }
         }
+    }
+
+    @objc private func handleEnableHomeTabDidChange() {
+        guard !isUpdatingDefaultTab else { return }
+        isUpdatingDefaultTab = true
+        DispatchQueue.main.async {
+            let update: () -> Void = {
+                self.currentTabNavigationController?.popToRootViewController(animated: false)
+
+                self.resetCachedRootTabViewControllers()
+                self.configureTabController()
+                if let savedTabBarItem = self.savedViewController.tabBarItem {
+                    self.savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(with: savedTabBarItem)
+                }
+                self.selectedIndex = WMFAppTabType.main.rawValue
+                self.isUpdatingDefaultTab = false
+            }
+            if let presented = self.presentedViewController {
+                presented.dismiss(animated: true, completion: update)
+            } else {
+                update()
+            }
+        }
+    }
+
+    private func resetCachedRootTabViewControllers() {
+        _exploreViewController = nil
+        _settingsViewController = nil
+        _placesViewController = nil
+        _savedViewController = nil
+        _activityTabViewController = nil
+        _searchTabViewController = nil
+        homeCoordinator = nil
     }
 
     // MARK: - Hint

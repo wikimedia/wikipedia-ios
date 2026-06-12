@@ -77,7 +77,13 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     public var enableHomeTab: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableHomeTab.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableHomeTab.rawValue, value: newValue) }
+        set {
+            let oldValue = enableHomeTab
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableHomeTab.rawValue, value: newValue)
+            if oldValue != newValue {
+                NotificationCenter.default.post(name: WMFNSNotification.enableHomeTabDidChange, object: nil)
+            }
+        }
     }
 
     public var showYiRV3: Bool {

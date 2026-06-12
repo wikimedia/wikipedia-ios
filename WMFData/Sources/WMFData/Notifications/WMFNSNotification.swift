@@ -11,7 +11,8 @@ public enum WMFNSNotification {
     public static let refreshExploreForGamesCard = Notification.Name(WMFNotificationName.refreshExploreForGamesCard.rawValue)
     public static let whichCameFirstSessionDidUpdate = Notification.Name(WMFNotificationName.whichCameFirstSessionDidUpdate.rawValue)
     public static let gamesAllSessionsCleared = Notification.Name(WMFNotificationName.gamesAllSessionsCleared.rawValue)
-    
+    public static let enableHomeTabDidChange = Notification.Name(WMFNotificationName.enableHomeTabDidChange.rawValue)
+
     /// User info keys for notifications
     public enum UserInfoKey {
         public static let articleTabIdentifier = "articleTabIdentifier"
@@ -29,4 +30,5 @@ private enum WMFNotificationName: String {
     case refreshExploreForGamesCard = "WMFDataRefreshExploreForGamesCard"
     case whichCameFirstSessionDidUpdate = "WMFDataWhichCameFirstSessionDidUpdate"
     case gamesAllSessionsCleared = "WMFDataGamesAllSessionsCleared"
+    case enableHomeTabDidChange = "WMFDataEnableHomeTabDidChange"
 }
