@@ -240,6 +240,8 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         let item = items[index]
 
         let shouldHighlight = indiciesOfHighlightedItems.contains(index)
+        let anchor = item.anchor.isEmpty ? "top" : item.anchor
+        cell.accessibilityIdentifier = AccessibilityIdentifiers.Article.tableOfContentsItem(anchor)
 
         cell.backgroundColor = tableView.backgroundColor
         cell.contentView.backgroundColor = tableView.backgroundColor

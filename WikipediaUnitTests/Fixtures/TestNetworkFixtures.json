@@ -66,6 +66,40 @@
     "path": "/w/api.php",
     "queryItems": {
       "action": "query",
+      "prop": "langlinks",
+      "titles": "Dog",
+      "lllimit": "500",
+      "llprop": "langname|autonym",
+      "format": "json"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/en/DogLanguageLinks.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "titles": "Dog",
+      "prop": "categories",
+      "formatversion": "2"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/en/DogArticleInfo.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
       "generator": "prefixsearch",
       "gpssearch": "D"
     },
@@ -389,6 +423,40 @@
     "path": "/w/api.php",
     "queryItems": {
       "action": "query",
+      "prop": "langlinks",
+      "titles": "Haushund",
+      "lllimit": "500",
+      "llprop": "langname|autonym",
+      "format": "json"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/de/DogLanguageLinks.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "titles": "Haushund",
+      "prop": "categories",
+      "formatversion": "2"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/de/DogArticleInfo.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
       "generator": "prefixsearch",
       "gpssearch": "H"
     },
@@ -671,6 +739,40 @@
       "Content-Type": "application/json"
     },
     "bodyResource": "ArticleControls/he/DogMediaList.json"
+  },
+  {
+    "method": "GET",
+    "host": "he.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "prop": "langlinks",
+      "titles": "כלב הבית",
+      "lllimit": "500",
+      "llprop": "langname|autonym",
+      "format": "json"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/he/DogLanguageLinks.json"
+  },
+  {
+    "method": "GET",
+    "host": "he.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "titles": "כלב הבית",
+      "prop": "categories",
+      "formatversion": "2"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/he/DogArticleInfo.json"
   },
   {
     "method": "GET",
@@ -974,6 +1076,40 @@
       "Content-Type": "application/json"
     },
     "bodyResource": "ArticleControls/vi/DogMediaList.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "prop": "langlinks",
+      "titles": "Chó",
+      "lllimit": "500",
+      "llprop": "langname|autonym",
+      "format": "json"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/DogLanguageLinks.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "titles": "Chó",
+      "prop": "categories",
+      "formatversion": "2"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/DogArticleInfo.json"
   },
   {
     "method": "GET",
