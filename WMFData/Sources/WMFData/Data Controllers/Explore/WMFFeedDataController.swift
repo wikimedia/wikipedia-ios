@@ -2,7 +2,7 @@ import Foundation
 
 public final class WMFFeedDataController {
 
-    private var basicService: WMFService?
+    private let basicService: WMFService?
 
     public static let shared = WMFFeedDataController()
 
@@ -45,6 +45,15 @@ public final class WMFFeedDataController {
         let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, parameters: [:], acceptType: .json)
         basicService.performDecodableGET(request: request) { (result: Result<WMFFeedAPIResponse, Error>) in
             completion(result)
+        }
+    }
+    
+    // Add async throws option
+    public func fetchFeed(project: WMFProject, date: Date) async throws -> WMFFeedAPIResponse {
+        try await withCheckedThrowingContinuation { continuation in
+            fetchFeed(project: project, date: date) { result in
+                continuation.resume(with: result)
+            }
         }
     }
 }
