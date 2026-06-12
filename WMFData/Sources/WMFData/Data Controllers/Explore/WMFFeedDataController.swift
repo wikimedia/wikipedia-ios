@@ -1,6 +1,6 @@
 import Foundation
 
-public final class WMFFeedDataController {
+public final actor WMFFeedDataController {
 
     private let basicService: WMFService?
 
