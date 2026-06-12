@@ -131,12 +131,19 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     // MARK: - Navigation Bar
 
     private func configureNavigationBar() {
-        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.homeTabTitle, customView: nil, alignment: .customLeadingLarge)
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.homeTabTitle, customView: nil, alignment: .hidden)
 
         let profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
         let tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+
+        let logoBarButtonItem = UIBarButtonItem(image: UIImage(named: "W"), style: .plain, target: nil, action: nil)
+        logoBarButtonItem.accessibilityLabel = CommonStrings.plainWikipediaName
+        navigationItem.leftBarButtonItem = logoBarButtonItem
+        if #unavailable(iOS 26.0) {
+            logoBarButtonItem.tintColor = theme.colors.logoTintColor
+        }
     }
 
     @objc func userDidTapTabs() {
@@ -164,7 +171,9 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         guard viewIfLoaded != nil else { return }
         updateProfileButton()
         profileCoordinator?.theme = theme
-        themeNavigationBarCustomLeadingLargeTitle()
+        if #unavailable(iOS 26.0) {
+            navigationItem.leftBarButtonItem?.tintColor = theme.colors.logoTintColor
+        }
     }
 }
 
