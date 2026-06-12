@@ -15,8 +15,8 @@ public struct WMFHomeView: View {
         VStack(spacing: 0) {
             HStack {
                 Picker("", selection: $viewModel.selectedTab) {
-                    Text(viewModel.localizedStrings.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
-                    Text(viewModel.localizedStrings.communityTabTitle).tag(WMFHomeViewModel.Tab.community)
+                    Text(viewModel.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
+                    Text(viewModel.communityTabTitle).tag(WMFHomeViewModel.Tab.community)
                 }
                 .pickerStyle(.segmented)
 
@@ -38,7 +38,7 @@ public struct WMFHomeView: View {
                     Button {
                         viewModel.didTapEditLanguages?()
                     } label: {
-                        Label(viewModel.localizedStrings.editLanguagesTitle, systemImage: "globe")
+                        Label(viewModel.editLanguagesTitle, systemImage: "globe")
                     }
                 } label: {
                     Text(viewModel.languageButtonTitle)
@@ -66,9 +66,9 @@ public struct WMFHomeView: View {
     private var currentTabTitle: String {
         switch viewModel.selectedTab {
         case .forYou:
-            return viewModel.localizedStrings.forYouTabTitle
+            return viewModel.forYouTabTitle
         case .community:
-            return viewModel.localizedStrings.communityTabTitle
+            return viewModel.communityTabTitle
         }
     }
 }

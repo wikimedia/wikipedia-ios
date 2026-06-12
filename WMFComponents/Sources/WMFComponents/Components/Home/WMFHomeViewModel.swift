@@ -1,22 +1,9 @@
 import Foundation
 import SwiftUI
+import WMFNativeLocalizations
 
 @MainActor
 public final class WMFHomeViewModel: ObservableObject {
-
-    public struct LocalizedStrings {
-        public let title: String
-        public let forYouTabTitle: String
-        public let communityTabTitle: String
-        public let editLanguagesTitle: String
-
-        public init(title: String, forYouTabTitle: String, communityTabTitle: String, editLanguagesTitle: String) {
-            self.title = title
-            self.forYouTabTitle = forYouTabTitle
-            self.communityTabTitle = communityTabTitle
-            self.editLanguagesTitle = editLanguagesTitle
-        }
-    }
 
     public struct Language: Identifiable, Equatable {
         public let code: String
@@ -34,7 +21,9 @@ public final class WMFHomeViewModel: ObservableObject {
         case community
     }
 
-    let localizedStrings: LocalizedStrings
+    let forYouTabTitle = WMFLocalizedString("home-for-you-tab-title", value: "For You", comment: "Title for the For You segment within the Home tab.")
+    let communityTabTitle = WMFLocalizedString("home-community-tab-title", value: "Community", comment: "Title for the Community segment within the Home tab.")
+    let editLanguagesTitle = WMFLocalizedString("home-edit-languages-title", value: "Add or edit languages", comment: "Title for the option at the bottom of the Home language menu that opens the languages settings screen.")
 
     @Published public var selectedTab: Tab = .forYou
     @Published public var languages: [Language]
@@ -43,8 +32,7 @@ public final class WMFHomeViewModel: ObservableObject {
     public var didSelectLanguage: ((String) -> Void)?
     public var didTapEditLanguages: (() -> Void)?
 
-    public init(localizedStrings: LocalizedStrings, languages: [Language] = [], selectedLanguageCode: String = "", didSelectLanguage: ((String) -> Void)? = nil, didTapEditLanguages: (() -> Void)? = nil) {
-        self.localizedStrings = localizedStrings
+    public init(languages: [Language] = [], selectedLanguageCode: String = "", didSelectLanguage: ((String) -> Void)? = nil, didTapEditLanguages: (() -> Void)? = nil) {
         self.languages = languages
         self.selectedLanguageCode = selectedLanguageCode
         self.didSelectLanguage = didSelectLanguage

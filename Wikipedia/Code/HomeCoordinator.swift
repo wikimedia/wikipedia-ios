@@ -39,14 +39,7 @@ final class HomeCoordinator: NSObject, Coordinator {
     }
 
     func makeHomeViewController() -> HomeViewController {
-        let localizedStrings = WMFHomeViewModel.LocalizedStrings(
-            title: CommonStrings.homeTabTitle,
-            forYouTabTitle: CommonStrings.homeForYouTabTitle,
-            communityTabTitle: CommonStrings.homeCommunityTabTitle,
-            editLanguagesTitle: CommonStrings.homeEditLanguagesTitle
-        )
-
-        let viewModel = WMFHomeViewModel(localizedStrings: localizedStrings)
+        let viewModel = WMFHomeViewModel()
 
         let vc = HomeViewController(dataStore: dataStore, theme: theme, viewModel: viewModel)
         vc.title = CommonStrings.homeTabTitle
