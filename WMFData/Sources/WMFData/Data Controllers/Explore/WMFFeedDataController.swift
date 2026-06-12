@@ -12,28 +12,15 @@ public final class WMFFeedDataController {
 
     // MARK: - Fetch
 
-    public func fetchFeed(project: WMFProject, date: Date, completion: @escaping (Result<WMFFeedAPIResponse, Error>) -> Void) {
+    public func fetchFeed(project: WMFProject, date: Date, completion: @escaping @Sendable (Result<WMFFeedAPIResponse, Error>) -> Void) {
         guard let basicService else {
             completion(.failure(WMFDataControllerError.basicServiceUnavailable))
             return
         }
 
-        guard let url = feedURL(project: project, date: date) else {
-            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
+        guard case .wikipedia = project else {
+            completion(.failure(WMFDataControllerError.unsupportedProject))
             return
-        }
-
-        let request = WMFBasicServiceRequest(url: url, method: .GET, parameters: [:], acceptType: .json)
-        basicService.performDecodableGET(request: request) { (result: Result<WMFFeedAPIResponse, Error>) in
-            completion(result)
-        }
-    }
-
-    // MARK: - Private
-
-    private func feedURL(project: WMFProject, date: Date) -> URL? {
-        guard case .wikipedia(let language) = project else {
-            return nil
         }
 
         let calendar = Calendar(identifier: .gregorian)
@@ -41,13 +28,23 @@ public final class WMFFeedDataController {
 
         guard let year = components.year,
               let month = components.month,
-              let day = components.day else {
-            return nil
+              let day = components.day,
+              let url = URL.wikimediaRestAPIURL(
+                project: project,
+                additionalPathComponents: [
+                    "feed", "featured",
+                    String(year),
+                    String(format: "%02d", month),
+                    String(format: "%02d", day)
+                ]
+              ) else {
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
+            return
         }
 
-        let monthString = String(format: "%02d", month)
-        let dayString = String(format: "%02d", day)
-
-        return URL(string: "https://\(language.languageCode).wikipedia.org/api/rest_v1/feed/featured/\(year)/\(monthString)/\(dayString)")
+        let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, parameters: [:], acceptType: .json)
+        basicService.performDecodableGET(request: request) { (result: Result<WMFFeedAPIResponse, Error>) in
+            completion(result)
+        }
     }
 }

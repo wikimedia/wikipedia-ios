@@ -1,14 +1,14 @@
 import Foundation
 
 public struct WMFFeedAPIResponse: Codable {
-    public let todaysFeatureArticle: WMFFeedArticle?
+    public let todaysFeaturedArticle: WMFFeedArticle?
     public let mostRead: WMFFeedMostRead?
     public let image: WMFFeedImageNew?
     public let news: [WMFFeedNewsItem]?
     // onthisday intentionally omitted — see T418486
 
     enum CodingKeys: String, CodingKey {
-        case todaysFeatureArticle = "tfa"
+        case todaysFeaturedArticle = "tfa"
         case mostRead = "mostread"
         case image
         case news
@@ -85,7 +85,8 @@ public struct WMFFeedContentURLs: Codable {
     public init(from decoder: Decoder) throws {
         let top = try decoder.container(keyedBy: TopLevelKeys.self)
 
-        if let desktop = try? top.nestedContainer(keyedBy: PageKeys.self, forKey: .desktop) {
+        if top.contains(.desktop) {
+            let desktop = try top.nestedContainer(keyedBy: PageKeys.self, forKey: .desktop)
             desktopPage = try desktop.decodeIfPresent(String.self, forKey: .page)
             desktopRevisions = try desktop.decodeIfPresent(String.self, forKey: .revisions)
             desktopEdit = try desktop.decodeIfPresent(String.self, forKey: .edit)
@@ -94,7 +95,8 @@ public struct WMFFeedContentURLs: Codable {
             desktopPage = nil; desktopRevisions = nil; desktopEdit = nil; desktopTalk = nil
         }
 
-        if let mobile = try? top.nestedContainer(keyedBy: PageKeys.self, forKey: .mobile) {
+        if top.contains(.mobile) {
+            let mobile = try top.nestedContainer(keyedBy: PageKeys.self, forKey: .mobile)
             mobilePage = try mobile.decodeIfPresent(String.self, forKey: .page)
             mobileRevisions = try mobile.decodeIfPresent(String.self, forKey: .revisions)
             mobileEdit = try mobile.decodeIfPresent(String.self, forKey: .edit)

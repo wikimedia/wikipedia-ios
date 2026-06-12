@@ -52,7 +52,7 @@ final class WMFFeedDataControllerTests: XCTestCase {
         controller.fetchFeed(project: enProject, date: fixtureDate) { if case .success(let r) = $0 { response = r }; expectation.fulfill() }
         wait(for: [expectation], timeout: 10.0)
 
-        let tfa = response?.todaysFeatureArticle
+        let tfa = response?.todaysFeaturedArticle
         XCTAssertNotNil(tfa, "TFA should not be nil")
         XCTAssertEqual(tfa?.title, "George_Mason", "Incorrect TFA title")
         XCTAssertEqual(tfa?.normalizedTitle, "George Mason", "Incorrect TFA normalizedtitle")
@@ -72,7 +72,7 @@ final class WMFFeedDataControllerTests: XCTestCase {
         controller.fetchFeed(project: enProject, date: fixtureDate) { if case .success(let r) = $0 { response = r }; expectation.fulfill() }
         wait(for: [expectation], timeout: 10.0)
 
-        let thumbnail = response?.todaysFeatureArticle?.thumbnail
+        let thumbnail = response?.todaysFeaturedArticle?.thumbnail
         XCTAssertEqual(thumbnail?.width, 772, "Incorrect thumbnail width")
         XCTAssertEqual(thumbnail?.height, 900, "Incorrect thumbnail height")
         XCTAssertEqual(thumbnail?.source, "https://upload.wikimedia.org/wikipedia/commons/1/12/George_Mason.jpg", "Incorrect thumbnail source")
@@ -85,7 +85,7 @@ final class WMFFeedDataControllerTests: XCTestCase {
         controller.fetchFeed(project: enProject, date: fixtureDate) { if case .success(let r) = $0 { response = r }; expectation.fulfill() }
         wait(for: [expectation], timeout: 10.0)
 
-        let urls = response?.todaysFeatureArticle?.contentURLs
+        let urls = response?.todaysFeaturedArticle?.contentURLs
         XCTAssertEqual(urls?.desktopPage, "https://en.wikipedia.org/wiki/George_Mason", "Incorrect desktop page URL")
         XCTAssertEqual(urls?.desktopEdit, "https://en.wikipedia.org/wiki/George_Mason?action=edit", "Incorrect desktop edit URL")
         XCTAssertEqual(urls?.desktopTalk, "https://en.wikipedia.org/wiki/Talk:George_Mason", "Incorrect desktop talk URL")
@@ -100,7 +100,7 @@ final class WMFFeedDataControllerTests: XCTestCase {
         controller.fetchFeed(project: enProject, date: fixtureDate) { if case .success(let r) = $0 { response = r }; expectation.fulfill() }
         wait(for: [expectation], timeout: 10.0)
 
-        let titles = response?.todaysFeatureArticle?.titles
+        let titles = response?.todaysFeaturedArticle?.titles
         XCTAssertEqual(titles?.canonical, "George_Mason", "Incorrect canonical title")
         XCTAssertEqual(titles?.normalized, "George Mason", "Incorrect normalized title")
     }
@@ -213,7 +213,7 @@ final class WMFFeedDataControllerTests: XCTestCase {
 
         // WMFFeedAPIResponse intentionally omits onthisday (T418486).
         // Verify that omitting it doesn't break decoding of everything else.
-        XCTAssertNotNil(response?.todaysFeatureArticle, "TFA must decode even when onthisday is present in JSON")
+        XCTAssertNotNil(response?.todaysFeaturedArticle, "TFA must decode even when onthisday is present in JSON")
         XCTAssertNotNil(response?.mostRead, "mostRead must decode even when onthisday is present in JSON")
         XCTAssertNotNil(response?.image, "image must decode even when onthisday is present in JSON")
     }
