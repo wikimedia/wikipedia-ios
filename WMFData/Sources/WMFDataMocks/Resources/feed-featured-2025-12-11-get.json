@@ -1,0 +1,187 @@
+{
+  "tfa": {
+    "type": "standard",
+    "title": "George_Mason",
+    "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">George Mason</span></span>",
+    "normalizedtitle": "George Mason",
+    "namespace": { "id": 0, "text": "" },
+    "wikibase_item": "Q532329",
+    "titles": {
+      "canonical": "George_Mason",
+      "normalized": "George Mason",
+      "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">George Mason</span></span>"
+    },
+    "pageid": 224314,
+    "thumbnail": {
+      "source": "https://upload.wikimedia.org/wikipedia/commons/1/12/George_Mason.jpg",
+      "width": 772,
+      "height": 900
+    },
+    "originalimage": {
+      "source": "https://upload.wikimedia.org/wikipedia/commons/1/12/George_Mason.jpg",
+      "width": 772,
+      "height": 900
+    },
+    "lang": "en",
+    "dir": "ltr",
+    "revision": "1357446716",
+    "tid": "521bbacf-5eb0-11f1-a732-a6a5bab87f76",
+    "timestamp": "2026-06-02T18:24:41Z",
+    "description": "American Founding Father and Bill of Rights advocate (1725–1792)",
+    "description_source": "local",
+    "content_urls": {
+      "desktop": {
+        "page": "https://en.wikipedia.org/wiki/George_Mason",
+        "revisions": "https://en.wikipedia.org/wiki/George_Mason?action=history",
+        "edit": "https://en.wikipedia.org/wiki/George_Mason?action=edit",
+        "talk": "https://en.wikipedia.org/wiki/Talk:George_Mason"
+      },
+      "mobile": {
+        "page": "https://en.wikipedia.org/wiki/George_Mason",
+        "revisions": "https://en.wikipedia.org/wiki/Special:History/George_Mason",
+        "edit": "https://en.wikipedia.org/wiki/George_Mason?action=edit",
+        "talk": "https://en.wikipedia.org/wiki/Talk:George_Mason"
+      }
+    },
+    "extract": "George Mason was an American planter, politician, Founding Father, and delegate to the U.S. Constitutional Convention in Philadelphia in 1787, one of three delegates who refused to sign the Constitution.",
+    "extract_html": "<p><b>George Mason</b> was an American planter, politician, Founding Father, and delegate to the U.S. Constitutional Convention in Philadelphia in 1787, one of three delegates who refused to sign the Constitution.</p>"
+  },
+  "mostread": {
+    "date": "2025-12-10Z",
+    "articles": [
+      {
+        "views": 562210,
+        "rank": 3,
+        "view_history": [
+          { "date": "2025-12-06Z", "views": 397072 },
+          { "date": "2025-12-07Z", "views": 502205 },
+          { "date": "2025-12-08Z", "views": 534807 },
+          { "date": "2025-12-09Z", "views": 539066 },
+          { "date": "2025-12-10Z", "views": 562210 }
+        ],
+        "type": "standard",
+        "title": "Dhurandhar",
+        "displaytitle": "<i>Dhurandhar</i>",
+        "normalizedtitle": "Dhurandhar",
+        "namespace": { "id": 0, "text": "" },
+        "wikibase_item": "Q135230927",
+        "titles": {
+          "canonical": "Dhurandhar",
+          "normalized": "Dhurandhar",
+          "display": "<i>Dhurandhar</i>"
+        },
+        "pageid": 80369939,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/en/c/ce/Dhurandhar_poster.jpg",
+          "width": 283,
+          "height": 354
+        },
+        "originalimage": {
+          "source": "https://upload.wikimedia.org/wikipedia/en/c/ce/Dhurandhar_poster.jpg",
+          "width": 283,
+          "height": 354
+        },
+        "lang": "en",
+        "description": "2025 Indian film by Aditya Dhar",
+        "description_source": "local",
+        "content_urls": {
+          "desktop": {
+            "page": "https://en.wikipedia.org/wiki/Dhurandhar",
+            "revisions": "https://en.wikipedia.org/wiki/Dhurandhar?action=history",
+            "edit": "https://en.wikipedia.org/wiki/Dhurandhar?action=edit",
+            "talk": "https://en.wikipedia.org/wiki/Talk:Dhurandhar"
+          },
+          "mobile": {
+            "page": "https://en.wikipedia.org/wiki/Dhurandhar",
+            "revisions": "https://en.wikipedia.org/wiki/Special:History/Dhurandhar",
+            "edit": "https://en.wikipedia.org/wiki/Dhurandhar?action=edit",
+            "talk": "https://en.wikipedia.org/wiki/Talk:Dhurandhar"
+          }
+        },
+        "extract": "Dhurandhar is a 2025 Indian Hindi-language spy action thriller film written and directed by Aditya Dhar.",
+        "extract_html": "<p><i><b>Dhurandhar</b></i> is a 2025 Indian Hindi-language spy action thriller film written and directed by Aditya Dhar.</p>"
+      },
+      {
+        "views": 389259,
+        "rank": 4,
+        "view_history": [
+          { "date": "2025-12-06Z", "views": 5 },
+          { "date": "2025-12-07Z", "views": 6 },
+          { "date": "2025-12-08Z", "views": 17 },
+          { "date": "2025-12-09Z", "views": 8 },
+          { "date": "2025-12-10Z", "views": 389259 }
+        ],
+        "type": "standard",
+        "title": "E-Government_in_Saudi_Arabia",
+        "displaytitle": "e-Government in Saudi Arabia",
+        "normalizedtitle": "E-Government in Saudi Arabia",
+        "namespace": { "id": 0, "text": "" },
+        "wikibase_item": "Q5321408",
+        "titles": {
+          "canonical": "E-Government_in_Saudi_Arabia",
+          "normalized": "E-Government in Saudi Arabia",
+          "display": "e-Government in Saudi Arabia"
+        },
+        "pageid": 36857921,
+        "lang": "en",
+        "description": "Government digitisation policy",
+        "description_source": "local",
+        "content_urls": {
+          "desktop": {
+            "page": "https://en.wikipedia.org/wiki/E-Government_in_Saudi_Arabia",
+            "revisions": "https://en.wikipedia.org/wiki/E-Government_in_Saudi_Arabia?action=history",
+            "edit": "https://en.wikipedia.org/wiki/E-Government_in_Saudi_Arabia?action=edit",
+            "talk": "https://en.wikipedia.org/wiki/Talk:E-Government_in_Saudi_Arabia"
+          },
+          "mobile": {
+            "page": "https://en.wikipedia.org/wiki/E-Government_in_Saudi_Arabia",
+            "revisions": "https://en.wikipedia.org/wiki/Special:History/E-Government_in_Saudi_Arabia",
+            "edit": "https://en.wikipedia.org/wiki/E-Government_in_Saudi_Arabia?action=edit",
+            "talk": "https://en.wikipedia.org/wiki/Talk:E-Government_in_Saudi_Arabia"
+          }
+        },
+        "extract": "The e-Government in Saudi Arabia was established as per Royal Decree No. 7/B/33181 dated 7 September 2003.",
+        "extract_html": "<p>The <b>e-Government in Saudi Arabia</b> was established as per Royal Decree No. 7/B/33181 dated 7 September 2003.</p>"
+      }
+    ]
+  },
+  "image": {
+    "title": "File:Mountains_in_snow,_Mountain_lake,_Chola_Valley,_Nepal,_Himalayas.jpg",
+    "thumbnail": {
+      "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Mountains_in_snow%2C_Mountain_lake%2C_Chola_Valley%2C_Nepal%2C_Himalayas.jpg/960px-Mountains_in_snow%2C_Mountain_lake%2C_Chola_Valley%2C_Nepal%2C_Himalayas.jpg",
+      "width": 640,
+      "height": 427
+    },
+    "image": {
+      "source": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Mountains_in_snow%2C_Mountain_lake%2C_Chola_Valley%2C_Nepal%2C_Himalayas.jpg",
+      "width": 4032,
+      "height": 2688
+    },
+    "file_page": "https://commons.wikimedia.org/wiki/File:Mountains_in_snow,_Mountain_lake,_Chola_Valley,_Nepal,_Himalayas.jpg",
+    "artist": {
+      "html": "<a href=\"//commons.wikimedia.org/wiki/User:Argenberg\" title=\"User:Argenberg\">Vyacheslav Argenberg</a>",
+      "text": "Vyacheslav Argenberg"
+    },
+    "credit": {
+      "html": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+      "text": "Own work"
+    },
+    "license": {
+      "type": "CC BY 4.0",
+      "code": "cc-by-4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0"
+    },
+    "description": {
+      "html": "Mountaineers descending into Chola Valley, 5,200 metres (17,100&nbsp;ft) a. s. l., in good weather conditions, with a panoramic view over snow-capped Himalayan peaks.",
+      "text": "Mountaineers descending into Chola Valley, 5,200 metres (17,100\u00a0ft) a. s. l., in good weather conditions, with a panoramic view over snow-capped Himalayan peaks.",
+      "lang": "en"
+    },
+    "wb_entity_id": "M134682226",
+    "structured": {
+      "captions": {
+        "en": "Mountains in snow. Mountain lake. Chola Valley, Nepal, Himalayas.",
+        "fr": "Vallée du Chola, népal"
+      }
+    }
+  }
+}
