@@ -122,7 +122,7 @@ import WMFData
         let forceEmailAuth = WMFFormItemSelectViewModel(title: localizedStrings.forceEmailAuth, isSelected: WMFDeveloperSettingsDataController.shared.forceEmailAuth)
         let forceMaxArticleTabsTo5 = WMFFormItemSelectViewModel(title: "Force Max Article Tabs to 5", isSelected: WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5)
         let enableMoreDynamicTabsV2GroupC = WMFFormItemSelectViewModel(title: localizedStrings.enableMoreDynamicTabsV2GroupC, isSelected: WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabsV2GroupC)
-        let showYiRV3 = WMFFormItemSelectViewModel(title: "Show Year in Review Version 3", isSelected: WMFDeveloperSettingsDataController.shared.showYiRV3)
+        let showYiR2025 = WMFFormItemSelectViewModel(title: "Show Year in Review 2025", isSelected: WMFDeveloperSettingsDataController.shared.showYiR2025)
         let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
         let allowGestureZoomArticleWebview = WMFFormItemSelectViewModel(title: "Allow pinch to zoom when reading articles", isSelected: WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview)
 
@@ -134,7 +134,7 @@ import WMFData
                 forceEmailAuth,
                 forceMaxArticleTabsTo5,
                 enableMoreDynamicTabsV2GroupC,
-                showYiRV3,
+                showYiR2025,
                 forceHcaptchaChallenge,
                 allowGestureZoomArticleWebview
             ], selectType: .multi)
@@ -162,8 +162,8 @@ import WMFData
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5 = isSelected }
             .store(in: &subscribers)
 
-        showYiRV3.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.showYiRV3 = isSelected }
+        showYiR2025.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.showYiR2025 = isSelected }
             .store(in: &subscribers)
 
         forceHcaptchaChallenge.$isSelected
