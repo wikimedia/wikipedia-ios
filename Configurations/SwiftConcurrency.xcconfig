@@ -1,0 +1,48 @@
+// SwiftConcurrency.xcconfig
+//
+// Shared Swift 6 / Swift 6.2 concurrency migration flags for the app-project targets
+// (Wikipedia / Experimental / Staging app targets, WMF framework, extensions, test
+// targets). Swift Package targets (WMFData, WMFComponents, WMFTestKitchen) are NOT
+// configured here — they set the equivalent flags via `swiftSettings` in their own
+// Package.swift.
+//
+// HOW TO WIRE THIS UP (one-time, do via Xcode to keep the pbxproj clean):
+//   Project navigator → Wikipedia project → Info tab → Configurations.
+//   For each configuration (Debug, Release, etc.) set the *project-level* base
+//   configuration to a file that `#include`s this one, OR add this file as the base
+//   configuration on the specific target(s) being migrated. Per-target settings still
+//   win, so a target can opt out by overriding a key locally.
+//
+// MIGRATION STAGING (leaf-first; uncomment per target as it advances — see the
+// Swift 6.2 migration plan). Everything below is commented out so that merely adding
+// this file changes NO build behavior.
+
+// ---------------------------------------------------------------------------
+// Stage 1 — Warnings: targeted strict concurrency (language mode still 5).
+//   Surfaces the high-confidence subset first. Build stays green (warnings only).
+// ---------------------------------------------------------------------------
+// SWIFT_STRICT_CONCURRENCY = targeted
+
+// ---------------------------------------------------------------------------
+// Stage 2 — Warnings: complete strict concurrency (language mode still 5).
+//   Surfaces the full backlog (~800 completion handlers, ~270 DispatchQueue uses,
+//   @unchecked Sendable, @preconcurrency). Build stays green (warnings only).
+// ---------------------------------------------------------------------------
+// SWIFT_STRICT_CONCURRENCY = complete
+
+// ---------------------------------------------------------------------------
+// Stage 3 — Adopt Swift 6.2 "approachable concurrency" (language mode still 5).
+//   For UI-bearing targets (app, WMF framework, extensions): default new types to
+//   MainActor isolation so UIKit/SwiftUI code is correct for free; annotate only the
+//   `nonisolated` exceptions. Re-measure: many Stage-2 warnings disappear.
+//   NOTE: Do NOT set SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor on data-layer targets.
+// ---------------------------------------------------------------------------
+// SWIFT_APPROACHABLE_CONCURRENCY = YES
+// SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor
+
+// ---------------------------------------------------------------------------
+// Stage 4 — Flip the language mode (warnings become errors). ONLY when the target
+//   shows zero concurrency warnings under Stage 2 + Stage 3. `complete` strict
+//   concurrency is implied by v6, so the explicit flag above can be dropped.
+// ---------------------------------------------------------------------------
+// SWIFT_VERSION = 6.0
