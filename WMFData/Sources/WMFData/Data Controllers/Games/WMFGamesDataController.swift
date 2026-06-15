@@ -18,6 +18,7 @@ public final class WMFGamesDataController: @unchecked Sendable {
         case missingContentData
         case sessionNotFound
         case invalidPickedOption
+        case insufficientQuestions
     }
 
     // MARK: - Properties
@@ -172,10 +173,8 @@ extension WMFGamesDataController {
         var currentStreak = 0
         var previousDate: String? = nil
 
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        
+        let formatter = DateFormatter.onThisDayAPIDateFormatter
+
         for entry in sorted {
             if let prev = previousDate,
                let prevDate = formatter.date(from: prev),
@@ -191,7 +190,7 @@ extension WMFGamesDataController {
         }
 
         if let lastDate = sorted.last?.date,
-           let last = formatter.date(from: lastDate) {
+           let last = DateFormatter.onThisDayAPIDateFormatter.date(from: lastDate) {
             let today = Date()
             let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
             let lastDay = Calendar.current.startOfDay(for: last)
@@ -219,8 +218,57 @@ extension WMFGamesDataController {
     static let whichCameFirstGameType = "which-came-first"
     public static let whichCameFirstQuestionCount = 5
 
+    public static let whichCameFirstSupportedLanguageCodes: Set<String> = [
+        "de", "en", "fr", "pt", "ru", "es", "ar", "zh", "tr"
+    ]
+
+    public static func isWhichCameFirstSupported(project: WMFProject) -> Bool {
+        guard let languageCode = project.languageCode else { return false }
+        return whichCameFirstSupportedLanguageCodes.contains(languageCode.lowercased())
+    }
+
+    // MARK: - Games Announcement
+
+    /// Expiration date for the games announcement (July 1, 2026 UTC).
+    private static var gamesAnnouncementExpirationDate: Date {
+        var components = DateComponents()
+        components.year = 2026
+        components.month = 9
+        components.day = 1
+        return Calendar.current.date(from: components) ?? Date.distantPast
+    }
+
+    private var hasSeenGamesAnnouncement: Bool {
+        get { UserDefaults.standard.bool(forKey: WMFUserDefaultsKey.hasSeenGamesAnnouncement.rawValue) }
+        set { UserDefaults.standard.set(newValue, forKey: WMFUserDefaultsKey.hasSeenGamesAnnouncement.rawValue) }
+    }
+
+    public func markGamesAnnouncementSeen() {
+        hasSeenGamesAnnouncement = true
+    }
+
+    public func resetAnnouncementSeen() {
+        hasSeenGamesAnnouncement = false
+    }
+
+    /// Returns true if the games announcement should be shown.
+    /// Checks: not yet seen, not past expiration, and game available in the primary app language.
+    public func shouldShowGamesAnnouncement(date: String) async -> Bool {
+        guard !hasSeenGamesAnnouncement else { return false }
+        guard let parsedDate = DateFormatter.onThisDayAPIDateFormatter.date(from: date),
+              parsedDate < Self.gamesAnnouncementExpirationDate else { return false }
+
+        guard let primaryLanguage = WMFDataEnvironment.current.primaryAppLanguage else { return false }
+        let project = WMFProject.wikipedia(primaryLanguage)
+        return (try? await isWhichCameFirstDailySessionAvailable(date: date, project: project)) == true
+    }
+
     public func isWhichCameFirstDailySessionAvailable(date: String, project: WMFProject, onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared) async throws -> Bool {
-        if let _ = try await fetchSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date) {
+        guard Self.isWhichCameFirstSupported(project: project) else {
+            return false
+        }
+
+        if try await fetchSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date) != nil {
             return true
         }
 
@@ -241,6 +289,10 @@ extension WMFGamesDataController {
         project: WMFProject,
         onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared
     ) async throws -> (WMFWhichCameFirstGameState, UUID) {
+        guard Self.isWhichCameFirstSupported(project: project) else {
+            throw CustomError.missingProject
+        }
+
         if let existingSession = try await fetchSession(gameType: Self.whichCameFirstGameType, project: project, dailyGameDate: date) {
             let gameState = try decodeWhichCameFirstGameState(from: existingSession.contentData)
             return (gameState, existingSession.identifier)
@@ -255,6 +307,11 @@ extension WMFGamesDataController {
 
         let response = try await onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
         let questions = Self.makeWhichCameFirstQuestions(from: response.events, month: month, day: day, count: Self.whichCameFirstQuestionCount)
+
+        guard questions.count == Self.whichCameFirstQuestionCount else {
+            throw CustomError.insufficientQuestions
+        }
+
         let gameState = WMFWhichCameFirstGameState(questions: questions)
 
         let contentData = try encodeWhichCameFirstGameState(gameState)

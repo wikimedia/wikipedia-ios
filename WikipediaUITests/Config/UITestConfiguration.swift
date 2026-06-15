@@ -13,6 +13,8 @@ struct UITestConfiguration {
     var onboardingState: OnboardingState
     let httpClientProfile: String
     let resetsPreferredLanguages: Bool
+    let suppressesActivityTabOnboarding: Bool
+    let suppressesGamesAnnouncement: Bool
     let suppressesReadingChallengeAnnouncement: Bool
     let themeName: String?
     let languageCode: String
@@ -24,12 +26,16 @@ struct UITestConfiguration {
     init(
         onboardingState: OnboardingState = .completed,
         resetsPreferredLanguages: Bool = true,
+        suppressesActivityTabOnboarding: Bool = true,
+        suppressesGamesAnnouncement: Bool = true,
         suppressesReadingChallengeAnnouncement: Bool = true
     ) {
         self.onboardingState = onboardingState
         self.httpClientProfile = ProcessInfo.processInfo.value(for: .httpClientProfile) ?? defaultHTTPClientProfile
         self.themeName = ProcessInfo.processInfo.value(for: .appThemeName)
         self.resetsPreferredLanguages = resetsPreferredLanguages
+        self.suppressesActivityTabOnboarding = suppressesActivityTabOnboarding
+        self.suppressesGamesAnnouncement = suppressesGamesAnnouncement
         self.suppressesReadingChallengeAnnouncement = suppressesReadingChallengeAnnouncement
         self.languageCode = ProcessInfo.processInfo.value(for: .uiTestLanguageCode) ?? defaultLanguageCode
     }
@@ -47,6 +53,14 @@ struct UITestConfiguration {
 
         if suppressesReadingChallengeAnnouncement {
             argumentValues.append(UITestLaunchArgumentValue(.suppressReadingChallengeAnnouncement, value: "YES"))
+        }
+
+        if suppressesActivityTabOnboarding {
+            argumentValues.append(UITestLaunchArgumentValue(.suppressActivityTabOnboarding, value: "YES"))
+        }
+
+        if suppressesGamesAnnouncement {
+            argumentValues.append(UITestLaunchArgumentValue(.suppressGamesAnnouncement, value: "YES"))
         }
 
         argumentValues.append(UITestLaunchArgumentValue(.appleLanguages, value: "(\(languageCode))"))
@@ -72,7 +86,7 @@ struct UITestConfiguration {
         }
     }
 
-    private let defaultHTTPClientProfile = UITestHTTPClientProfile.fixtureStrict.rawValue
+    private let defaultHTTPClientProfile = TestHTTPClientProfile.fixtureStrict.rawValue
     private let defaultLanguageCode = "en"
 }
 

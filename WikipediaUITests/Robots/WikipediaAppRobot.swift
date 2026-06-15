@@ -9,7 +9,11 @@ struct WikipediaAppRobot: ScreenshotCapturingRobot {
         self.base = UITestRobot(app: app, testCase: testCase)
         self.configuration = configuration
     }
+}
 
+// MARK: - Navigation
+
+extension WikipediaAppRobot {
     var explore: ExploreRobot {
         ExploreRobot(base: base, configuration: configuration)
     }
@@ -17,7 +21,11 @@ struct WikipediaAppRobot: ScreenshotCapturingRobot {
     var onboarding: OnboardingRobot {
         OnboardingRobot(base: base, configuration: configuration)
     }
+}
 
+// MARK: - App lifecycle
+
+extension WikipediaAppRobot {
     @discardableResult
     func terminate() -> Self {
         base.app.terminate()
@@ -25,17 +33,23 @@ struct WikipediaAppRobot: ScreenshotCapturingRobot {
     }
 }
 
+// MARK: - Launching
+
 /// Provides the test-case convenience API for launching the app and receiving the root robot.
 extension XCTestCase {
     func launchWikipediaAppRobot(
         onboardingState: UITestConfiguration.OnboardingState,
         resetsPreferredLanguages: Bool = true,
+        suppressesActivityTabOnboarding: Bool = true,
+        suppressesGamesAnnouncement: Bool = true,
         suppressesReadingChallengeAnnouncement: Bool = true
     ) -> WikipediaAppRobot {
         let app = XCUIApplication()
         let configuration = UITestConfiguration(
             onboardingState: onboardingState,
             resetsPreferredLanguages: resetsPreferredLanguages,
+            suppressesActivityTabOnboarding: suppressesActivityTabOnboarding,
+            suppressesGamesAnnouncement: suppressesGamesAnnouncement,
             suppressesReadingChallengeAnnouncement: suppressesReadingChallengeAnnouncement
         )
         app.configureForUITestLaunch(configuration: configuration)
@@ -43,6 +57,8 @@ extension XCTestCase {
         return WikipediaAppRobot(app: app, testCase: self, configuration: configuration)
     }
 }
+
+// MARK: - Private helpers
 
 /// Applies the launch argument configuration used by robot-based UI tests.
 fileprivate extension XCUIApplication {

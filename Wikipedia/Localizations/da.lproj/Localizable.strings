@@ -102,6 +102,7 @@
 "activity-tab-customize-time-spent-reading" = "Tid brugt på at læse";
 "activity-tab-email-fifth-line" = "[Skærmbilleder eller links]";
 "activity-tab-email-first-line" = "Jeg har oplevet et problem med funktionen Aktivitetsfane:";
+// Fuzzy
 "activity-tab-email-fourth-line" = "[Beskriv ønsket adfærd]";
 "activity-tab-email-second-line" = "- [Beskriv specifikt problem]";
 "activity-tab-email-third-line" = "Den adfærd jeg gerne vil se er:";
@@ -677,11 +678,8 @@
 "image-rec-tooltip-3-body" = "Beslut om billedet hjælper læserne med at forstå dette emne bedre.";
 "image-rec-tooltip-3-title" = "Afgør";
 "image-rec-view-article" = "Vis artikel";
-"image-recommendations-email-fifth-line" = "[Skærmbilleder eller links]";
+// Fuzzy
 "image-recommendations-email-first-line" = "Jeg har stødt på et problem med funktionen Tilføj et Billede Foreslåede Redigeringer:";
-"image-recommendations-email-fourth-line" = "- [Beskriv løsningsforslag]";
-"image-recommendations-email-second-line" = "- [Beskriv specifikt problem]";
-"image-recommendations-email-third-line" = "Den adfærd jeg gerne vil se er:";
 "image-recommendations-email-title" = "Problemrapport - Tilføj et Billed Funktion";
 "image-recs-no-title" = "Nej";
 "image-recs-not-sure-title" = "Ikke sikker";

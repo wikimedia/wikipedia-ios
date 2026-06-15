@@ -25,6 +25,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // Tracks the most recent source used to open the app (external_link, widget, shortcut, notification, etc.)
     // This is consumed when the scene becomes active to submit the apps-open instrument.
     var lastOpenSource: String? = nil
+    // Tracks whether the current activation was triggered by an external link (deep link from Safari, etc.).
+    // Unlike `lastOpenSource`, this is NOT consumed by the app_open instrument — it persists for the
+    // activation so announcement modals (on Explore and Article) can suppress themselves and defer to the
+    // next normal app open. Reset to false at the start of each foreground cycle.
+    var didOpenAppFromExternalLink = false
     // Holds a pending app_open source when the data environment isn't ready yet (e.g. fresh install).
     // Consumed by dataEnvironmentDidSetup() once setup completes.
     private var pendingAppOpenSource: String? = nil
@@ -79,6 +84,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         appDelegate?.cancelPendingBackgroundTasks()
         wasInBackground = true
+        // Reset at the start of each foreground cycle. If this activation is an external-link open,
+        // openURLContexts/continue userActivity (which fire after this) will set it back to true.
+        didOpenAppFromExternalLink = false
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -114,6 +122,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Only set external_link source if not already set (e.g. by openURLContexts which may have extracted a widget source from the URL)
         if lastOpenSource == nil {
             self.lastOpenSource = "external_link"
+            self.didOpenAppFromExternalLink = true
         }
         userActivity.userInfo = userInfo
         
@@ -171,6 +180,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             // URL opened from an external app (e.g. Chrome, Safari) with no source param.
             self.lastOpenSource = "external_link"
+            self.didOpenAppFromExternalLink = true
         }
         
         // Try to derive an NSUserActivity for the URL and route accordingly.

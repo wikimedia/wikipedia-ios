@@ -683,11 +683,8 @@
 "image-rec-survey-title" = "Причина";
 "image-rec-title" = "Добавить изображение";
 "image-rec-view-article" = "Посмотреть статью";
-"image-recommendations-email-fifth-line" = "[Скриншоты или ссылки]";
+// Fuzzy
 "image-recommendations-email-first-line" = "Я столкнулся с проблемой при использовании функции «Добавить изображение с предлагаемыми изменениями»:";
-"image-recommendations-email-fourth-line" = "- [Опишите предлагаемое решение]";
-"image-recommendations-email-second-line" = "- [Опишите конкретную проблему]";
-"image-recommendations-email-third-line" = "Поведение, которое я хотел бы видеть:";
 "image-recommendations-email-title" = "Отчет о проблеме – добавление функции изображения";
 "image-recs-no-title" = "Нет";
 "image-recs-not-sure-title" = "Точно сказать нельзя";

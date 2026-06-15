@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>activity-tab-impact-best-streak-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Dag</string>
+			<key>other</key>
+			<string>%1$d Deeg</string>
+		</dict>
+	</dict>
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -128,6 +144,42 @@
 			<string>%1$d Tab</string>
 			<key>other</key>
 			<string>%1$d Tabs</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Abschnitt %#@v1@ no ënne geréckelt. Op déi nei Positioun goen.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Zeil</string>
+			<key>other</key>
+			<string>%1$d Zeilen</string>
+			<key>zero</key>
+			<string>0 Zeilen</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Abschnitt %#@v1@ erop geréckelt. Op déi nei Positioun goen.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Zeil</string>
+			<key>other</key>
+			<string>%1$d Zeilen</string>
+			<key>zero</key>
+			<string>0 Zeilen</string>
 		</dict>
 	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
@@ -502,6 +554,22 @@
 			<string>%1$d vu 25 Deeg</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Dir hutt d'Limitt %#@v1@ pro Kont iwwerschratt.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>vun %1$d Artikel</string>
+			<key>other</key>
+			<string>vu(n) %1$d Artikele</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -516,6 +584,22 @@
 			<string>Den Artikel kann</string>
 			<key>other</key>
 			<string>D'Artikele kënnen</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Dir hutt d'Limitt %#@v1@ pro Kont iwwerschratt.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>vun %1$d Lieslëscht</string>
+			<key>other</key>
+			<string>vu(n) %1$d Lieslëschte</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -717,6 +801,22 @@
 			<string>Artikel</string>
 			<key>other</key>
 			<string>Artikele</string>
+		</dict>
+	</dict>
+	<key>tabs-navbar-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Tab</string>
+			<key>other</key>
+			<string>%1$d Tabs</string>
 		</dict>
 	</dict>
 	<key>talk-page-active-users-accessibilty-label</key>

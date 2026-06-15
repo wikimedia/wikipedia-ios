@@ -58,6 +58,7 @@ public enum WMFSFSymbolIcon {
     case checkmarkSquareFill
     case square
     case star
+    case starSquare
     case starFill
     case starCircleFill
     case person
@@ -167,7 +168,9 @@ public enum WMFSFSymbolIcon {
     case calendarBadgeClock
     case gameControllerFill
     case medal
+    case medalStar
     case flagPatternCheckered
+    case house
 
     public var name: String? {
         switch self {
@@ -420,8 +423,14 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "gamecontroller.fill", withConfiguration: configuration)
         case .medal:
             image = UIImage(systemName: "medal", withConfiguration: configuration)
+        case .medalStar:
+            image = UIImage(systemName: "medal.star", withConfiguration: configuration)
         case .flagPatternCheckered:
             image = UIImage(systemName: "flag.pattern.checkered", withConfiguration: configuration)
+        case .house:
+            image = UIImage(systemName: "house", withConfiguration: configuration)
+        case .starSquare:
+            image = UIImage(systemName: "star.square.on.square", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

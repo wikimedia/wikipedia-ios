@@ -7,6 +7,21 @@ import WMFNativeLocalizations
 import WMFTestKitchen
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring {
+    
+    func exploreCardViewControllerDidTapReviewResults(_ exploreCardViewController: ExploreCardViewController) {
+        guard let contentGroup = exploreCardViewController.contentGroup,
+              let navigationController else { return }
+        gameInstrument.submitInteraction(
+            action: "click",
+            actionSource: "feed_games",
+            elementId: "review_results",
+            // Always false since review results from explore card is always finishedly
+            actionContext: ["is_first_visit" : "false"]
+        )
+        let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, siteURL: contentGroup.siteURL)
+        whichCameFirstCoordinator = coordinator
+        coordinator.start()
+    }
 
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
@@ -20,6 +35,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     private let widgetInstrument = WidgetFunnel().widgetInstrument
+    
+    private lazy var gameInstrument = TestKitchenAdapter.shared.client
+        .getInstrument(name: "apps-games")
+        .setDefaultActionSource("feed_games")
+        .startFunnel(name: "wiki_game")
     
     
     private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
@@ -85,7 +105,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(gamesV1SettingDidChange), name: WMFNSNotification.gamesV1SettingDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshExploreForGamesCard), name: WMFNSNotification.refreshExploreForGamesCard, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(whichCameFirstSessionDidUpdate(_:)), name: WMFNSNotification.whichCameFirstSessionDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(gamesAllSessionsCleared), name: WMFNSNotification.gamesAllSessionsCleared, object: nil)
 
@@ -738,6 +758,19 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 imageScaleTransitionView = nil
             }
         }
+        
+        if contentGroup.contentGroupKind == .dailyGame {
+            guard let navigationController else { return }
+            gameInstrument.submitInteraction(
+                action: "click",
+                actionSource: "feed_games",
+                elementId: "game_enter"
+            )
+            let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, siteURL: contentGroup.siteURL)
+            whichCameFirstCoordinator = coordinator
+            coordinator.start()
+            return
+        }
 
         // First try pushing articles via coordinators
         let successWithCoordinators = pushArticlesViaCoordinators(contentGroup: contentGroup, indexPath: indexPath)
@@ -749,7 +782,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         // Daily game card — present the Which Came First splash screen
         if contentGroup.contentGroupKind == .dailyGame {
             guard let navigationController else { return }
-            let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+            let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, siteURL: contentGroup.siteURL)
             whichCameFirstCoordinator = coordinator
             coordinator.start()
             return
@@ -999,15 +1032,21 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
 extension ExploreViewController {
     
-    /// Catch-all method for deciding what is the best modal to present on top of Explore at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
+    /// Modal presentation priority chain for the Explore view:
+    ///   1. Reading challenge  →  if shown, stop.
+    ///   2. Year in Review     →  if shown, stop.
+    ///   3. Games announcement →  shown only when both of the above decline.
+    ///
+    /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
+    /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
-        
+
         // Do not replace an in-flight reading challenge coordinator.
         guard readingChallengeCoordinator == nil else {
             return
         }
         
-        // Prioritize reading challenge, then fall back to Activity onboarding or survey view if that doesn't present
+        // Prioritize reading challenge, then fall back to year in review or tooltips
         guard let navigationController, let dataStore else {
             presentYearInReviewAnnouncementOrTooltipsIfNeeded()
             return
@@ -1031,13 +1070,98 @@ extension ExploreViewController {
         
         readingChallengeCoordinator.start()
     }
-    
+
+    /// Called at the tail of the modal chain (after RC and YIR have both declined).
+    /// If something unexpected appears before the async check resolves (e.g. background login/2FA),
+    /// the safety-net guard on presentedViewController drops the attempt and defers to next launch.
+    private func presentGamesAnnouncementIfNeeded() {
+#if !TEST
+        if let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate,
+           sceneDelegate.didOpenAppFromExternalLink {
+            return
+        }
+#endif
+        let gamesDataController = WMFGamesDataController()
+        let todayDateString = todayDateString()
+
+        Task { [weak self] in
+            guard let self else { return }
+            guard await gamesDataController.shouldShowGamesAnnouncement(date: todayDateString) else { return }
+            // Safety net: bail if something unexpected appeared (e.g. background login/2FA).
+            guard self.presentedViewController == nil else { return }
+            self.presentGamesAnnouncementAlert(gamesDataController: gamesDataController)
+        }
+    }
+
+    private func presentGamesAnnouncementAlert(gamesDataController: WMFGamesDataController) {
+        guard let navigationController else { return }
+
+        // Never present over an existing modal — doing so crashes with "already presenting". Defer to next launch.
+        guard navigationController.presentedViewController == nil else { return }
+
+        let alert = UIAlertController(
+            title: CommonStrings.gamesAnnouncementTitle,
+            message: CommonStrings.gamesAnnouncementMessage,
+            preferredStyle: .actionSheet
+        )
+
+        // Mark as seen as soon as it is displayed so it is never shown twice, regardless of how it
+        // is dismissed (button tap, outside tap, or app backgrounding).
+        gamesDataController.markGamesAnnouncementSeen()
+
+        gameInstrument.submitInteraction(
+            action: "impression",
+            actionSource: "game_announce"
+        )
+
+        let playAction = UIAlertAction(title: CommonStrings.gamesAnnouncementPlayButton, style: .default) { [weak self] _ in
+            guard let self else { return }
+            gameInstrument.submitInteraction(
+                action: "click",
+                actionSource: "game_announce",
+                elementId: "game_enter"
+            )
+            let siteURL = dataStore.languageLinkController.appLanguage?.siteURL
+            let coordinator = WhichCameFirstCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, siteURL: siteURL)
+            coordinator.didFinish = { [weak self] in self?.whichCameFirstCoordinator = nil }
+            self.whichCameFirstCoordinator = coordinator
+            coordinator.start()
+        }
+        alert.addAction(playAction)
+
+        alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementMaybeLaterButton, style: .default) { [weak self] _ in
+            self?.gameInstrument.submitInteraction(
+                action: "click",
+                actionSource: "game_announce",
+                elementId: "game_later"
+            )
+        })
+
+        alert.preferredAction = playAction
+        alert.view.tintColor = theme.colors.link
+
+        if let popover = alert.popoverPresentationController {
+            popover.sourceView = navigationController.view
+            popover.sourceRect = CGRect(x: navigationController.view.bounds.midX, y: navigationController.view.bounds.midY, width: 0, height: 0)
+            popover.permittedArrowDirections = []
+        }
+
+        navigationController.present(alert, animated: true)
+    }
+
+    private func todayDateString() -> String {
+        let formatter = DateFormatter.onThisDayAPIDateFormatter
+        return formatter.string(from: Date())
+    }
+
     private func presentYearInReviewAnnouncementOrTooltipsIfNeeded() {
         if needsYearInReviewAnnouncement() {
             updateProfileButton()
             presentYearInReviewAnnouncement()
+            // YIR showed — games deferred to next launch.
         } else {
             perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
+            presentGamesAnnouncementIfNeeded()
         }
     }
     
@@ -1320,6 +1444,8 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     
     @objc func gamesAllSessionsCleared() {
         DispatchQueue.main.async {
+            self.layoutCache.reset()
+            self.collectionView.collectionViewLayout.invalidateLayout()
             self.dataStore.feedContentController.resetDailyGameContentGroups()
         }
     }
@@ -1417,6 +1543,10 @@ extension ExploreViewController {
     }
 
     @objc func applicationDidBecomeActive() {
+        // The Explore view controller stays alive in the tab bar even when another tab is on screen.
+        // Only run the modal chain on foreground when Explore is actually visible, otherwise the
+        // games announcement (and other modals) would be presented over whichever tab is showing.
+        guard viewIfLoaded?.window != nil else { return }
         presentModalsIfNeeded()
     }
 
@@ -1424,7 +1554,7 @@ extension ExploreViewController {
         configureNavigationBar()
     }
 
-    @objc func gamesV1SettingDidChange() {
+    @objc func refreshExploreForGamesCard() {
         updateFeedSources(userInitiated: false)
     }
 }
@@ -1557,12 +1687,14 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
     func imageRecommendationsUserDidTapReportIssue() {
         let emailAddress = "ios-support@wikimedia.org"
         let emailSubject = WMFLocalizedString("image-recommendations-email-title", value: "Issue Report - Add an Image Feature", comment: "Title text for Image recommendations pre-filled issue report email")
-        let emailBodyLine1 = WMFLocalizedString("image-recommendations-email-first-line", value: "I’ve encountered a problem with the Add an Image Suggested Edits Feature:", comment: "Text for Image recommendations pre-filled issue report email")
-        let emailBodyLine2 = WMFLocalizedString("image-recommendations-email-second-line", value: "- [Describe specific problem]", comment: "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a description of the problem they are encountering")
-        let emailBodyLine3 = WMFLocalizedString("image-recommendations-email-third-line", value: "The behavior I would like to see is:", comment: "Text for Image recommendations pre-filled issue report email")
-        let emailBodyLine4 = WMFLocalizedString("image-recommendations-email-fourth-line", value: "- [Describe proposed solution]", comment: "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a description of a user suggested solution")
-        let emailBodyLine5 = WMFLocalizedString("image-recommendations-email-fifth-line", value: "[Screenshots or Links]", comment: "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a screenshot or link.")
-        let emailBody = "\(emailBodyLine1)\n\n\(emailBodyLine2)\n\n\(emailBodyLine3)\n\n\(emailBodyLine4)\n\n\(emailBodyLine5)"
+        let emailBodyLine1 = WMFLocalizedString("image-recommendations-email-first-line", value: "I've encountered a problem with the Add an Image Suggested Edits Feature:", comment: "Text for Image recommendations pre-filled issue report email")
+        let emailBody = [
+            emailBodyLine1,
+            CommonStrings.issueReportEmailBodyDescribeProblem,
+            CommonStrings.issueReportEmailBodyBehavior,
+            CommonStrings.issueReportEmailBodyProposedSolution,
+            CommonStrings.issueReportEmailBodyScreenshotsOrLinks
+        ].joined(separator: "\n\n")
         let mailto = "mailto:\(emailAddress)?subject=\(emailSubject)&body=\(emailBody)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 
         guard let encodedMailto = mailto, let mailtoURL = URL(string: encodedMailto), UIApplication.shared.canOpenURL(mailtoURL) else {

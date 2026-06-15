@@ -55,6 +55,7 @@ import WMFNativeLocalizations
     @objc public static let doneTitle = CommonStrings.doneTitle
     @objc public static let closeButtonAccessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
     @objc public static let exploreTabTitle = CommonStrings.exploreTabTitle
+    @objc public static let homeTabTitle = CommonStrings.homeTabTitle
     @objc public static let savedTabTitle = CommonStrings.savedTabTitle
     @objc public static let historyTabTitle = CommonStrings.historyTabTitle
     @objc public static let activityTitle = CommonStrings.activityTitle

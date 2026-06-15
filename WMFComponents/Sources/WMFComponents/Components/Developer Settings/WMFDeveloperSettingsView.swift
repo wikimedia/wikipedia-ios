@@ -42,7 +42,7 @@ struct WMFDeveloperSettingsView: View {
             }
 
             Section(header: Text("Games")) {
-                Toggle("Show Games Version 1", isOn: $viewModel.showGamesV1)
+                Toggle("Show Games Version 2", isOn: $viewModel.showGamesV2)
                 Button {
                     viewModel.clearGamesPersistence()
                 } label: {
