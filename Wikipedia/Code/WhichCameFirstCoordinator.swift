@@ -467,9 +467,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
             let archiveView = WMFWhichCameFirstArchiveView(
                 viewModel: viewModel,
-                onDismiss: { [weak gameNav] in
-                    gameNav?.dismiss(animated: true)
-                }
+//                onDismiss: { [weak gameNav] in
+//                    gameNav?.dismiss(animated: true)
+//                }
             )
 
             let hostingVC = UIHostingController(rootView: archiveView)

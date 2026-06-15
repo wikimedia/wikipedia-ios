@@ -1537,11 +1537,7 @@
 "welcome-privacy-terms-button-text" = "Learn more about our privacy policy and terms of use";
 "which-came-first-archive-day-paused-a11y" = "Game in progress";
 "which-came-first-archive-day-score-a11y" = "Score: $1 out of 5";
-"which-came-first-archive-dismiss-a11y" = "Close archive";
-"which-came-first-archive-month-picker-a11y" = "Select month and year";
 "which-came-first-archive-nav-title" = "Archive";
-"which-came-first-archive-next-month-a11y" = "Next month";
-"which-came-first-archive-previous-month-a11y" = "Previous month";
 "which-came-first-archive-subtitle" = "Play games since June 2024.";
 "which-came-first-archive-title" = "Which came first?";
 "which-came-first-archive-toast-score" = "You scored $1 / 5 on this day.";
