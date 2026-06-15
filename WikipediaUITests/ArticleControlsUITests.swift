@@ -21,6 +21,90 @@ final class ArticleControlsUITests: XCTestCase {
             .openTableOfContents()
     }
 
+    func testArticleLanguageControlSwitchesArticleLanguage() throws {
+        let fixture = articleControlsFixture
+        openArticle()
+            .switchArticleLanguage(to: fixture.languageSwitchTargetCode, expectedArticleTitle: fixture.languageSwitchTargetTitle)
+            .tapBackToArticle(named: fixture.primaryArticleTitle)
+    }
+
+    func testArticleSaveControlTogglesSavedState() throws {
+        openArticle()
+            .tapSaveAndAssertStateChanges()
+    }
+
+    func testArticleFindInArticleSearchesAndCloses() throws {
+        openArticle()
+            .findInArticle(searchTerm: articleControlsFixture.findSearchTerm)
+            .closeFindInArticle()
+    }
+
+    func testArticleThemeControlAdjustsReadingTheme() throws {
+        openArticle()
+            .openReadingThemeControls()
+            .adjustReadingThemeControls()
+            .dismissReadingThemeControls()
+    }
+
+    func testArticleTableOfContentsDismissesWhenTappingOutside() throws {
+        openArticle()
+            .openTableOfContents()
+            .dismissTableOfContentsByTappingOutside()
+    }
+
+    func testArticleTableOfContentsSectionSelectionWorks() throws {
+        let fixture = articleControlsFixture
+        openArticle()
+            .openTableOfContents()
+            .tapTableOfContentsSection(
+                anchor: fixture.tableOfContentsSections[0].anchor,
+                expectedHeading: fixture.tableOfContentsSections[0].heading
+            )
+            .openTableOfContents()
+            .tapTableOfContentsSection(
+                anchor: fixture.tableOfContentsSections[1].anchor,
+                expectedHeading: fixture.tableOfContentsSections[1].heading
+            )
+    }
+
+    func testArticleTableOfContentsWorksAfterRotation() throws {
+        openArticle()
+            .rotateAndAssertTableOfContentsWorks(anchor: articleControlsFixture.rotatedTableOfContentsAnchor)
+    }
+
+    func testArticleOverflowMenuItemsAreAvailable() throws {
+        openArticle()
+            .openOverflowMenu()
+            .assertOverflowMenuItemsVisible(articleControlsFixture.overflowMenuTitles)
+            .dismissOverflowMenu()
+    }
+
+    func testArticleOverflowWatchCanBeTapped() throws {
+        openArticle()
+            .tapOverflowMenuItemAndAssertMenuDismisses(title: articleControlsFixture.overflowWatchTitle)
+    }
+
+    func testArticleOverflowTalkPageCanBeTapped() throws {
+        openArticle()
+            .tapOverflowMenuItemAndAssertMenuDismisses(title: articleControlsFixture.overflowTalkPageTitle)
+    }
+
+    func testArticleOverflowEditSourceCanBeTapped() throws {
+        openArticle()
+            .tapOverflowMenuItemAndAssertMenuDismisses(title: articleControlsFixture.overflowEditSourceTitle)
+    }
+
+    func testArticleOverflowBackReturnsToPreviousArticle() throws {
+        openArticle()
+            .tapArticleLinkAndAssertLoaded()
+            .tapOverflowPreviousArticle(named: articleControlsFixture.primaryArticleTitle)
+    }
+
+    func testArticleOverflowRevisionHistoryCanBeTapped() throws {
+        openShortArticle()
+            .tapOverflowRevisionHistoryAndReturn()
+    }
+
     func testArticleNonLeadImageCanBeTapped() throws {
         try XCTSkipIf(
             uiTestConfiguration.languageCode == "de",
@@ -130,7 +214,7 @@ final class ArticleControlsUITests: XCTestCase {
 
     private var articleControlsFixture: ArticleRobot.ArticleControlsFixture {
         guard let fixture = ArticleRobot.articleControlsFixture(languageCode: uiTestConfiguration.languageCode) else {
-            preconditionFailure("ArticleControlsUITests must be skipped for unsupported fixture languages.")
+            preconditionFailure("ArticleControlsUITests requires a supported article-control fixture language.")
         }
 
         return fixture

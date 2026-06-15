@@ -1,9 +1,11 @@
-import XCTest
+import Testing
 @testable import WMFComponents
 @testable import WMFData
 @testable import WMFDataMocks
 
-final class WMFImageRecommendationsViewModelTests: XCTestCase {
+@MainActor
+@Suite(.serialized)
+struct WMFImageRecommendationsViewModelTests {
     
     private let csProject = WMFProject.wikipedia(WMFLanguage(languageCode: "cs", languageVariantCode: nil))
     
@@ -16,49 +18,49 @@ final class WMFImageRecommendationsViewModelTests: XCTestCase {
             WMFSurveyViewModel.OptionViewModel(text: "I don’t know this subject", apiIdentifer: "unfamiliar")
     ]
 
-    override func setUpWithError() throws {
+    init() {
         WMFDataEnvironment.current.mediaWikiService = WMFMockGrowthTasksService()
         WMFDataEnvironment.current.basicService = WMFMockBasicService()
     }
 
-    func testFetchInitialImageRecommendations() throws {
+    @Test
+    func fetchInitialImageRecommendations() async {
         let viewModel = WMFImageRecommendationsViewModel(project: csProject, semanticContentAttribute: .forceLeftToRight, isPermanent: true, localizedStrings: localizedStrings, surveyOptions: surveyOptions, needsSuppressPosting: false)
 
-        let expectation = XCTestExpectation(description: "Fetch Image Recommendations")
-        
-        viewModel.fetchImageRecommendationsIfNeeded {
-            expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: 3.0)
-        
-        XCTAssertEqual(viewModel.imageRecommendations.count, 9, "Unexpected image recommendations count.")
-        XCTAssertNotNil(viewModel.currentRecommendation, "currentRecommendation should not be nil after fetching recommendations")
-        XCTAssertNotNil(viewModel.currentRecommendation?.articleSummary, "currentRecommendation.articleSummary should not be nil after fetching recommendations")
+        await viewModel.fetchImageRecommendationsIfNeeded()
+
+        #expect(viewModel.imageRecommendations.count == 9)
+        #expect(viewModel.currentRecommendation != nil)
+        #expect(viewModel.currentRecommendation?.articleSummary != nil)
     }
     
-    func testFetchNextImageRecommendation() throws {
+    @Test
+    func fetchNextImageRecommendation() async {
         let viewModel = WMFImageRecommendationsViewModel(project: csProject, semanticContentAttribute: .forceLeftToRight, isPermanent: true, localizedStrings: localizedStrings, surveyOptions: surveyOptions, needsSuppressPosting: false)
-        
-        let expectation1 = XCTestExpectation(description: "Fetch Image Recommendations")
-        
-        viewModel.fetchImageRecommendationsIfNeeded {
-            expectation1.fulfill()
-        }
-        
-        wait(for: [expectation1], timeout: 3.0)
-        
-        let expectation2 = XCTestExpectation(description: "Fetch Next Image Recommendation")
-        viewModel.next {
-            expectation2.fulfill()
-        }
-        
-        wait(for: [expectation2], timeout: 3.0)
-        
-        XCTAssertEqual(viewModel.imageRecommendations.count, 8, "Unexpected image recommendations count.")
 
-        XCTAssertNotNil(viewModel.currentRecommendation, "currentRecommendation should not be nil after next()")
-        XCTAssertNotNil(viewModel.currentRecommendation?.articleSummary, "currentRecommendation.articleSummary should not be nil after next()")
+        await viewModel.fetchImageRecommendationsIfNeeded()
+        await viewModel.next()
+
+        #expect(viewModel.imageRecommendations.count == 8)
+        #expect(viewModel.currentRecommendation != nil)
+        #expect(viewModel.currentRecommendation?.articleSummary != nil)
+    }
+}
+
+private extension WMFImageRecommendationsViewModel {
+    func fetchImageRecommendationsIfNeeded() async {
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            fetchImageRecommendationsIfNeeded {
+                continuation.resume()
+            }
+        }
     }
 
+    func next() async {
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            next {
+                continuation.resume()
+            }
+        }
+    }
 }

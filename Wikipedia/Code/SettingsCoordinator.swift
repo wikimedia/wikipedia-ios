@@ -87,6 +87,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             myLanguagesTitle: CommonStrings.myLanguages,
             searchTitle: CommonStrings.searchTitle,
             exploreFeedTitle: CommonStrings.exploreFeedTitle,
+            homeFeedTitle: CommonStrings.homeFeedTitle,
             onTitle: CommonStrings.onTitle,
             offTitle: CommonStrings.offTitle,
             yirTitle: CommonStrings.yirTitle,
@@ -148,6 +149,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             showSearch()
         case .exploreFeed:
             showExploreFeedSettings()
+        case .homeFeed:
+            showHomeFeedSettings()
         case .yearInReview:
             self.goToYearInReviewSettings()
         case .notifications:
@@ -579,6 +582,15 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         feedSettingsVC.dataStore = dataStore
         feedSettingsVC.apply(theme: currentTheme)
         settingsNav.pushViewController(feedSettingsVC, animated: true)
+    }
+
+    private func showHomeFeedSettings() {
+        guard let settingsNav = settingsNavigationController else {
+            return
+        }
+
+        let homeFeedSettingsVC = WMFHomeFeedSettingsViewController(title: CommonStrings.homeFeedTitle)
+        settingsNav.pushViewController(homeFeedSettingsVC, animated: true)
     }
 
     // MARK: - Notifications

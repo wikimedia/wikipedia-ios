@@ -1,236 +1,162 @@
-import XCTest
+import Foundation
+import Testing
 @testable import WMFComponents
 @testable import WMFData
 @testable import WMFDataMocks
 
-final class WMFDonateViewModelTests: XCTestCase {
-    
-    private var paymentMethods: WMFPaymentMethods?
-    private var donateConfig: WMFDonateConfig?
-    
+@MainActor
+struct WMFDonateViewModelTests {
+
     private let merchantID = "merchant.id"
-    
-    override func setUp(completion: @escaping (Error?) -> Void) {
-        WMFDataEnvironment.current.basicService = WMFMockBasicService()
-        WMFDataEnvironment.current.serviceEnvironment = .staging
-        
-        let controller = WMFDonateDataController.shared
-        
-        controller.fetchConfigs(for: "US") { result in
-            switch result {
-            case .success:
-                let data = controller.loadConfigs()
-                self.paymentMethods = data.paymentMethods
-                self.donateConfig = data.donateConfig
-                completion(nil)
-            case .failure(let error):
-                completion(error)
-            }
-        }
-    }
-    
-    func testViewModelInstantiatesWithCorrectDefaultsUSD() {
-        
-        guard let donateConfig,
-              let paymentMethods else {
-            XCTFail("Failure mocking donate config and payment methods")
-            return
-        }
-        
-        guard let viewModel = WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD",  languageCode: "EN", merchantID: merchantID, metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", appInstallID: nil, coordinatorDelegate: nil, loggingDelegate: nil) else {
-            XCTFail("View model failed to instantiate")
-            return
-        }
-        XCTAssertEqual(viewModel.buttonViewModels.count, 7)
+
+    @Test
+    func viewModelInstantiatesWithCorrectDefaultsUSD() async throws {
+        let viewModel = try await makeViewModel(countryCode: "US", currencyCode: "USD", languageCode: "EN", appInstallID: nil)
+
+        #expect(viewModel.buttonViewModels.count == 7)
         
         let firstButtonVM = viewModel.buttonViewModels[0]
-        XCTAssertEqual(firstButtonVM.currencyCode, "USD")
-        XCTAssertFalse(firstButtonVM.isSelected)
-        XCTAssertEqual(firstButtonVM.amount, 3)
+        #expect(firstButtonVM.currencyCode == "USD")
+        #expect(firstButtonVM.isSelected == false)
+        #expect(firstButtonVM.amount == 3)
         
         let secondButtonVM = viewModel.buttonViewModels[1]
-        XCTAssertEqual(secondButtonVM.currencyCode, "USD")
-        XCTAssertFalse(secondButtonVM.isSelected)
-        XCTAssertEqual(secondButtonVM.amount, 10)
+        #expect(secondButtonVM.currencyCode == "USD")
+        #expect(secondButtonVM.isSelected == false)
+        #expect(secondButtonVM.amount == 10)
         
         let thirdButtonVM = viewModel.buttonViewModels[2]
-        XCTAssertEqual(thirdButtonVM.currencyCode, "USD")
-        XCTAssertFalse(thirdButtonVM.isSelected)
-        XCTAssertEqual(thirdButtonVM.amount, 15)
+        #expect(thirdButtonVM.currencyCode == "USD")
+        #expect(thirdButtonVM.isSelected == false)
+        #expect(thirdButtonVM.amount == 15)
         
         let fourthButtonVM = viewModel.buttonViewModels[3]
-        XCTAssertEqual(fourthButtonVM.currencyCode, "USD")
-        XCTAssertFalse(fourthButtonVM.isSelected)
-        XCTAssertEqual(fourthButtonVM.amount, 25)
+        #expect(fourthButtonVM.currencyCode == "USD")
+        #expect(fourthButtonVM.isSelected == false)
+        #expect(fourthButtonVM.amount == 25)
         
         let fifthButtonVM = viewModel.buttonViewModels[4]
-        XCTAssertEqual(fifthButtonVM.currencyCode, "USD")
-        XCTAssertFalse(fifthButtonVM.isSelected)
-        XCTAssertEqual(fifthButtonVM.amount, 50)
+        #expect(fifthButtonVM.currencyCode == "USD")
+        #expect(fifthButtonVM.isSelected == false)
+        #expect(fifthButtonVM.amount == 50)
         
         let sixthButtonVM = viewModel.buttonViewModels[5]
-        XCTAssertEqual(sixthButtonVM.currencyCode, "USD")
-        XCTAssertFalse(sixthButtonVM.isSelected)
-        XCTAssertEqual(sixthButtonVM.amount, 75)
+        #expect(sixthButtonVM.currencyCode == "USD")
+        #expect(sixthButtonVM.isSelected == false)
+        #expect(sixthButtonVM.amount == 75)
         
         let seventhButtonVM = viewModel.buttonViewModels[6]
-        XCTAssertEqual(seventhButtonVM.currencyCode, "USD")
-        XCTAssertFalse(seventhButtonVM.isSelected)
-        XCTAssertEqual(seventhButtonVM.amount, 100)
+        #expect(seventhButtonVM.currencyCode == "USD")
+        #expect(seventhButtonVM.isSelected == false)
+        #expect(seventhButtonVM.amount == 100)
         
-        XCTAssertEqual(viewModel.textfieldViewModel.currencyCode, "USD")
-        XCTAssertEqual(viewModel.textfieldViewModel.amount, 0)
+        #expect(viewModel.textfieldViewModel.currencyCode == "USD")
+        #expect(viewModel.textfieldViewModel.amount == 0)
         
-        XCTAssertFalse(viewModel.transactionFeeOptInViewModel.isSelected)
+        #expect(viewModel.transactionFeeOptInViewModel.isSelected == false)
         
-        XCTAssertNil(viewModel.emailOptInViewModel)
-        XCTAssertNil(viewModel.errorViewModel)
+        #expect(viewModel.emailOptInViewModel == nil)
+        #expect(viewModel.errorViewModel == nil)
     }
     
-    func testViewModelInstantiatesWithCorrectDefaultsUYU() {
-        
-        guard let donateConfig,
-              let paymentMethods else {
-            XCTFail("Failure mocking donate config and payment methods")
-            return
-        }
-        
-        guard let viewModel = WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("UYU"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "UY", currencyCode: "UYU", languageCode: "ES", merchantID: merchantID, metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", appInstallID: UUID().uuidString, coordinatorDelegate: nil, loggingDelegate: nil) else {
-            XCTFail("View model failed to instantiate")
-            return
-        }
-        XCTAssertEqual(viewModel.buttonViewModels.count, 7)
+    @Test
+    func viewModelInstantiatesWithCorrectDefaultsUYU() async throws {
+        let viewModel = try await makeViewModel(countryCode: "UY", currencyCode: "UYU", languageCode: "ES")
+
+        #expect(viewModel.buttonViewModels.count == 7)
         
         let firstButtonVM = viewModel.buttonViewModels[0]
-        XCTAssertEqual(firstButtonVM.currencyCode, "UYU")
-        XCTAssertFalse(firstButtonVM.isSelected)
-        XCTAssertEqual(firstButtonVM.amount, 100)
+        #expect(firstButtonVM.currencyCode == "UYU")
+        #expect(firstButtonVM.isSelected == false)
+        #expect(firstButtonVM.amount == 100)
         
         let secondButtonVM = viewModel.buttonViewModels[1]
-        XCTAssertEqual(secondButtonVM.currencyCode, "UYU")
-        XCTAssertFalse(secondButtonVM.isSelected)
-        XCTAssertEqual(secondButtonVM.amount, 200)
+        #expect(secondButtonVM.currencyCode == "UYU")
+        #expect(secondButtonVM.isSelected == false)
+        #expect(secondButtonVM.amount == 200)
         
         let thirdButtonVM = viewModel.buttonViewModels[2]
-        XCTAssertEqual(thirdButtonVM.currencyCode, "UYU")
-        XCTAssertFalse(thirdButtonVM.isSelected)
-        XCTAssertEqual(thirdButtonVM.amount, 300)
+        #expect(thirdButtonVM.currencyCode == "UYU")
+        #expect(thirdButtonVM.isSelected == false)
+        #expect(thirdButtonVM.amount == 300)
         
         let fourthButtonVM = viewModel.buttonViewModels[3]
-        XCTAssertEqual(fourthButtonVM.currencyCode, "UYU")
-        XCTAssertFalse(fourthButtonVM.isSelected)
-        XCTAssertEqual(fourthButtonVM.amount, 500)
+        #expect(fourthButtonVM.currencyCode == "UYU")
+        #expect(fourthButtonVM.isSelected == false)
+        #expect(fourthButtonVM.amount == 500)
         
         let fifthButtonVM = viewModel.buttonViewModels[4]
-        XCTAssertEqual(fifthButtonVM.currencyCode, "UYU")
-        XCTAssertFalse(fifthButtonVM.isSelected)
-        XCTAssertEqual(fifthButtonVM.amount, 1000)
+        #expect(fifthButtonVM.currencyCode == "UYU")
+        #expect(fifthButtonVM.isSelected == false)
+        #expect(fifthButtonVM.amount == 1000)
         
         let sixthButtonVM = viewModel.buttonViewModels[5]
-        XCTAssertEqual(sixthButtonVM.currencyCode, "UYU")
-        XCTAssertFalse(sixthButtonVM.isSelected)
-        XCTAssertEqual(sixthButtonVM.amount, 1500)
+        #expect(sixthButtonVM.currencyCode == "UYU")
+        #expect(sixthButtonVM.isSelected == false)
+        #expect(sixthButtonVM.amount == 1500)
         
         let seventhButtonVM = viewModel.buttonViewModels[6]
-        XCTAssertEqual(seventhButtonVM.currencyCode, "UYU")
-        XCTAssertFalse(seventhButtonVM.isSelected)
-        XCTAssertEqual(seventhButtonVM.amount, 2000)
+        #expect(seventhButtonVM.currencyCode == "UYU")
+        #expect(seventhButtonVM.isSelected == false)
+        #expect(seventhButtonVM.amount == 2000)
         
-        XCTAssertEqual(viewModel.textfieldViewModel.currencyCode, "UYU")
-        XCTAssertEqual(viewModel.textfieldViewModel.amount, 0)
+        #expect(viewModel.textfieldViewModel.currencyCode == "UYU")
+        #expect(viewModel.textfieldViewModel.amount == 0)
         
-        XCTAssertFalse(viewModel.transactionFeeOptInViewModel.isSelected)
+        #expect(viewModel.transactionFeeOptInViewModel.isSelected == false)
         
-        XCTAssertNotNil(viewModel.emailOptInViewModel)
-        XCTAssertEqual(viewModel.emailOptInViewModel?.isSelected, false)
-        XCTAssertNil(viewModel.errorViewModel)
+        #expect(viewModel.emailOptInViewModel != nil)
+        #expect(viewModel.emailOptInViewModel?.isSelected == false)
+        #expect(viewModel.errorViewModel == nil)
     }
     
-    func testSelectAmountButtonUpdatesTextfieldUSD() {
-        guard let donateConfig,
-              let paymentMethods else {
-            XCTFail("Failure mocking donate config and payment methods")
-            return
-        }
-        
-        guard let viewModel = WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD", languageCode: "EN", merchantID: merchantID, metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", appInstallID: UUID().uuidString, coordinatorDelegate: nil, loggingDelegate: nil) else {
-            XCTFail("View model failed to instantiate")
-            return
-        }
+    @Test
+    func selectAmountButtonUpdatesTextfieldUSD() async throws {
+        let viewModel = try await makeViewModel(countryCode: "US", currencyCode: "USD", languageCode: "EN")
         
         // Confirm initial values are correct
         viewModel.textfieldViewModel.hasFocus = false
         let firstButtonVM = viewModel.buttonViewModels[0]
-        XCTAssertFalse(firstButtonVM.isSelected)
-        XCTAssertEqual(viewModel.textfieldViewModel.amount, 0)
+        #expect(firstButtonVM.isSelected == false)
+        #expect(viewModel.textfieldViewModel.amount == 0)
         
         viewModel.textfieldViewModel.hasFocus = false
         
         // Select amount button
         firstButtonVM.isSelected = true
         
-        let expectation = XCTestExpectation(description: "Waiting for textfield amount to update")
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            XCTAssertEqual(viewModel.textfieldViewModel.amount, firstButtonVM.amount)
-            expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: 2.0)
+        #expect(viewModel.textfieldViewModel.amount == firstButtonVM.amount)
     }
     
-    func testUpdateTextfieldSelectsAmountButtonUSD() {
-        guard let donateConfig,
-              let paymentMethods else {
-            XCTFail("Failure mocking donate config and payment methods")
-            return
-        }
-        
-        guard let viewModel = WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD", languageCode: "EN", merchantID: merchantID, metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", appInstallID: UUID().uuidString, coordinatorDelegate: nil, loggingDelegate: nil) else {
-            XCTFail("View model failed to instantiate")
-            return
-        }
+    @Test
+    func updateTextfieldSelectsAmountButtonUSD() async throws {
+        let viewModel = try await makeViewModel(countryCode: "US", currencyCode: "USD", languageCode: "EN")
         
         viewModel.textfieldViewModel.hasFocus = false
         
         
         // Confirm initial values are correct
         let firstButtonVM = viewModel.buttonViewModels[0]
-        XCTAssertFalse(firstButtonVM.isSelected)
-        XCTAssertEqual(viewModel.textfieldViewModel.amount, 0)
+        #expect(firstButtonVM.isSelected == false)
+        #expect(viewModel.textfieldViewModel.amount == 0)
         
         // Update textfield
         viewModel.textfieldViewModel.amount = 3
         
-        let expectation = XCTestExpectation(description: "Waiting for button selections to update")
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            // Confirm first button is now selected
-            let newFirstButton = viewModel.buttonViewModels[0]
-            XCTAssertTrue(newFirstButton.isSelected)
-            expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: 2.0)
+        // Confirm first button is now selected
+        let newFirstButton = viewModel.buttonViewModels[0]
+        #expect(newFirstButton.isSelected)
     }
     
-    func testSelectTransactionFeeUpdatesTextfieldAndAmountButtonUSD() {
-        guard let donateConfig,
-              let paymentMethods else {
-            XCTFail("Failure mocking donate config and payment methods")
-            return
-        }
-        
-        guard let viewModel = WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD", languageCode: "EN", merchantID: merchantID, metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", appInstallID: UUID().uuidString, coordinatorDelegate: nil, loggingDelegate: nil) else {
-            XCTFail("View model failed to instantiate")
-            return
-        }
+    @Test
+    func selectTransactionFeeUpdatesTextfieldAndAmountButtonUSD() async throws {
+        let viewModel = try await makeViewModel(countryCode: "US", currencyCode: "USD", languageCode: "EN")
         
         viewModel.textfieldViewModel.hasFocus = false
         
         // Confirm initial values are correct
-        XCTAssertEqual(viewModel.textfieldViewModel.amount, 0)
-        XCTAssertFalse(viewModel.transactionFeeOptInViewModel.isSelected)
+        #expect(viewModel.textfieldViewModel.amount == 0)
+        #expect(viewModel.transactionFeeOptInViewModel.isSelected == false)
         
         // Set amount to 3 initially
         viewModel.textfieldViewModel.amount = 3
@@ -238,33 +164,17 @@ final class WMFDonateViewModelTests: XCTestCase {
         // Select transaction fee
         viewModel.transactionFeeOptInViewModel.isSelected = true
         
-        let expectation = XCTestExpectation(description: "Waiting for textfield amount to update")
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            
-            // Confirm textfield has updated
-            XCTAssertEqual(viewModel.textfieldViewModel.amount, 3.35)
-            expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: 2.0)
+        // Confirm textfield has updated
+        #expect(viewModel.textfieldViewModel.amount == 3.35)
     }
     
-    func testSmallAmountTriggersMinimumErrorUSD() {
-        guard let donateConfig,
-              let paymentMethods else {
-            XCTFail("Failure mocking donate config and payment methods")
-            return
-        }
-        
-        guard let viewModel = WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD", languageCode: "EN", merchantID: merchantID, metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", appInstallID: UUID().uuidString, coordinatorDelegate: nil, loggingDelegate: nil) else {
-            XCTFail("View model failed to instantiate")
-            return
-        }
+    @Test
+    func smallAmountTriggersMinimumErrorUSD() async throws {
+        let viewModel = try await makeViewModel(countryCode: "US", currencyCode: "USD", languageCode: "EN")
         
         // Confirm initial values are correct
-        XCTAssertEqual(viewModel.textfieldViewModel.amount, 0)
-        XCTAssertNil(viewModel.errorViewModel)
+        #expect(viewModel.textfieldViewModel.amount == 0)
+        #expect(viewModel.errorViewModel == nil)
         
         // Set amount to something small
         viewModel.textfieldViewModel.amount = 0.25
@@ -272,24 +182,16 @@ final class WMFDonateViewModelTests: XCTestCase {
         // Trigger validation
         viewModel.validateAmount()
         
-        XCTAssertNotNil(viewModel.errorViewModel)
+        #expect(viewModel.errorViewModel != nil)
     }
     
-    func testLargeAmountTriggersMaximumErrorUSD() {
-        guard let donateConfig,
-              let paymentMethods else {
-            XCTFail("Failure mocking donate config and payment methods")
-            return
-        }
-        
-        guard let viewModel = WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode("USD"), donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: "US", currencyCode: "USD", languageCode: "EN", merchantID: merchantID, metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", appInstallID: UUID().uuidString, coordinatorDelegate: nil, loggingDelegate: nil) else {
-            XCTFail("View model failed to instantiate")
-            return
-        }
+    @Test
+    func largeAmountTriggersMaximumErrorUSD() async throws {
+        let viewModel = try await makeViewModel(countryCode: "US", currencyCode: "USD", languageCode: "EN")
         
         // Confirm initial values are correct
-        XCTAssertEqual(viewModel.textfieldViewModel.amount, 0)
-        XCTAssertNil(viewModel.errorViewModel)
+        #expect(viewModel.textfieldViewModel.amount == 0)
+        #expect(viewModel.errorViewModel == nil)
         
         // Set amount to something large
         viewModel.textfieldViewModel.amount = 30000
@@ -297,7 +199,34 @@ final class WMFDonateViewModelTests: XCTestCase {
         // Trigger validation
         viewModel.validateAmount()
         
-        XCTAssertNotNil(viewModel.errorViewModel)
+        #expect(viewModel.errorViewModel != nil)
+    }
+
+    private func makeViewModel(countryCode: String, currencyCode: String, languageCode: String, appInstallID: String? = UUID().uuidString) async throws -> WMFDonateViewModel {
+        let donateData = try await loadDonateData()
+        return try #require(WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode(currencyCode), donateConfig: donateData.donateConfig, paymentMethods: donateData.paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", appInstallID: appInstallID, coordinatorDelegate: nil, loggingDelegate: nil))
+    }
+
+    private func loadDonateData() async throws -> (donateConfig: WMFDonateConfig, paymentMethods: WMFPaymentMethods) {
+        WMFDataEnvironment.current.serviceEnvironment = .staging
+        let controller = WMFDonateDataController(service: WMFMockBasicService(), sharedCacheStore: WMFMockKeyValueStore())
+        try await controller.fetchConfigs(for: "US")
+
+        let data = controller.loadConfigs()
+        return (
+            donateConfig: try #require(data.donateConfig),
+            paymentMethods: try #require(data.paymentMethods)
+        )
+    }
+}
+
+private extension WMFDonateDataController {
+    func fetchConfigs(for countryCode: String) async throws {
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            fetchConfigs(for: countryCode) { result in
+                continuation.resume(with: result)
+            }
+        }
     }
 }
 

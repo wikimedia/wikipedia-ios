@@ -1275,6 +1275,7 @@ extension WMFAppViewController {
             myLanguagesTitle: CommonStrings.myLanguages,
             searchTitle: CommonStrings.searchTitle,
             exploreFeedTitle: CommonStrings.exploreFeedTitle,
+            homeFeedTitle: CommonStrings.homeFeedTitle,
             onTitle: CommonStrings.onTitle,
             offTitle: CommonStrings.offTitle,
             yirTitle: CommonStrings.yirTitle,
