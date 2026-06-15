@@ -132,6 +132,7 @@ import WMFData
 
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
+                enableHomeTab,
                 doNotPostImageRecommendationsEditItem,
                 sendAnalyticsToWMFLabsItem,
                 bypassDonationItem,
@@ -142,8 +143,7 @@ import WMFData
                 enableYiRVLoginExperimentControl,
                 enableYiRVLoginExperimentB,
                 forceHcaptchaChallenge,
-                allowGestureZoomArticleWebview,
-                enableHomeTab
+                allowGestureZoomArticleWebview
             ], selectType: .multi)
         ])
 
