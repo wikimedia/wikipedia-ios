@@ -125,6 +125,57 @@ final class WMFFeedDataControllerTests: XCTestCase {
         XCTAssertEqual(filePage, "https://commons.wikimedia.org/wiki/File:Mountains_in_snow,_Mountain_lake,_Chola_Valley,_Nepal,_Himalayas.jpg")
     }
 
+    // MARK: - News
+
+    func testParseNews() async throws {
+        let news = try await fetchFixture().news
+        XCTAssertNotNil(news)
+        XCTAssertEqual(news?.count, 4)
+    }
+
+    func testParseNewsFirstItemStory() async throws {
+        let firstStory = try await fetchFixture().news?.first?.story
+        XCTAssertNotNil(firstStory)
+        XCTAssertTrue(firstStory?.contains("New York Knicks") == true)
+        XCTAssertTrue(firstStory?.contains("NBA Finals") == true)
+    }
+
+    func testParseNewsFirstItemLinks() async throws {
+        let links = try await fetchFixture().news?.first?.links
+        XCTAssertEqual(links?.count, 5)
+    }
+
+    func testParseNewsFirstItemFirstLink() async throws {
+        let link = try await fetchFixture().news?.first?.links?.first
+        XCTAssertEqual(link?.title, "2026_NBA_Finals")
+        XCTAssertEqual(link?.normalizedTitle, "2026 NBA Finals")
+        XCTAssertEqual(link?.pageid, 82427430)
+        XCTAssertEqual(link?.description, "North America basketball championship")
+        XCTAssertEqual(link?.lang, "en")
+    }
+
+    func testParseNewsFirstItemFirstLinkThumbnail() async throws {
+        let thumbnail = try await fetchFixture().news?.first?.links?.first?.thumbnail
+        XCTAssertEqual(thumbnail?.width, 330)
+        XCTAssertEqual(thumbnail?.height, 200)
+        XCTAssertEqual(thumbnail?.source, "https://upload.wikimedia.org/wikipedia/en/thumb/f/ff/2026_NBA_Finals_Logo.png/330px-2026_NBA_Finals_Logo.png")
+    }
+
+    func testParseNewsFirstItemFirstLinkContentURLs() async throws {
+        let contentURLs = try await fetchFixture().news?.first?.links?.first?.contentURLs
+        XCTAssertEqual(contentURLs?.desktop?.page, "https://en.wikipedia.org/wiki/2026_NBA_Finals")
+        XCTAssertEqual(contentURLs?.mobile?.page, "https://en.wikipedia.org/wiki/2026_NBA_Finals")
+        XCTAssertEqual(contentURLs?.mobile?.revisions, "https://en.wikipedia.org/wiki/Special:History/2026_NBA_Finals")
+    }
+
+    func testParseNewsLastItemStoryAndLink() async throws {
+        let lastItem = try await fetchFixture().news?.last
+        XCTAssertTrue(lastItem?.story?.contains("David Hockney") == true)
+        XCTAssertEqual(lastItem?.links?.count, 1)
+        XCTAssertEqual(lastItem?.links?.first?.title, "David_Hockney")
+        XCTAssertEqual(lastItem?.links?.first?.pageid, 238341)
+    }
+
     // MARK: - onthisday excluded
 
     func testOnThisDayIsNotDeserialized() async throws {
