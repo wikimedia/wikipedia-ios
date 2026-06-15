@@ -1,64 +1,107 @@
-import XCTest
+import Foundation
+import Testing
 @testable import WMFData
 @testable import WMFDataMocks
 
-final class WMFDeveloperSettingsDataControllerTests: XCTestCase {
-    
-    private var controller: WMFDeveloperSettingsDataController?
-    
-    override func setUp() async throws {
-        WMFDataEnvironment.current.basicService = WMFMockBasicService()
+@Suite(.serialized)
+struct WMFDeveloperSettingsDataControllerTests {
+
+    private let controller: WMFDeveloperSettingsDataController
+
+    init() {
+        WMFDataEnvironment.current.basicService = WMFFeatureConfigRequestMockService()
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)])
-        self.controller = WMFDeveloperSettingsDataController()
+        controller = WMFDeveloperSettingsDataController()
     }
-    
-    func testFetchFeatureConfigAndLoad() {
-        
-        guard let controller else {
-            XCTFail("Missing WMFDeveloperSettingsDataController")
+
+    @Test
+    func fetchFeatureConfigAndLoad() async throws {
+        try await controller.fetchFeatureConfig()
+
+        let config = try #require(controller.loadFeatureConfig())
+        let yirConfig = try #require(config.common.yir(year: 2025))
+
+        #expect(yirConfig.year == 2025)
+        #expect(yirConfig.activeStartDateString == "2025-12-01T00:00:00Z")
+        #expect(yirConfig.activeEndDateString == "2026-02-01T00:00:00Z")
+        #expect(yirConfig.dataStartDateString == "2025-01-01T00:00:00Z")
+        #expect(yirConfig.dataEndDateString == "2025-12-01T00:00:00Z")
+        #expect(yirConfig.languages == 300)
+        #expect(yirConfig.articles == 10000000)
+        #expect(yirConfig.savedArticlesApps == 37574993)
+        #expect(yirConfig.viewsApps == 1000000000)
+        #expect(yirConfig.editsApps == 124356)
+        #expect(yirConfig.editsPerMinute == 342)
+        #expect(yirConfig.averageArticlesReadPerYear == 335)
+        #expect(yirConfig.edits == 81987181)
+        #expect(yirConfig.editsEN == 31000000)
+        #expect(yirConfig.bytesAddedEN == 1000000000)
+        #expect(yirConfig.hoursReadEN == 2423171000)
+        #expect(yirConfig.yearsReadEN == 275000)
+        #expect(yirConfig.topReadEN.count == 5)
+        #expect(yirConfig.topReadPercentages.count == 8)
+        #expect(yirConfig.hideCountryCodes.count == 22)
+        #expect(yirConfig.hideDonateCountryCodes.count == 30)
+    }
+}
+
+private final class WMFFeatureConfigRequestMockService: WMFService {
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+        completion(.failure(WMFServiceError.unexpectedResponse))
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+        completion(.failure(WMFServiceError.unexpectedResponse))
+    }
+
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        guard isFeatureConfigRequest(request) else {
+            completion(.failure(WMFServiceError.unexpectedResponse))
             return
         }
-        
-        let expectation = XCTestExpectation(description: "Fetch Config")
-        
-        controller.fetchFeatureConfig { error in
-            guard error == nil else {
-                XCTFail("Failure fetching feature config")
-                return
-            }
-            
-            guard let config = controller.loadFeatureConfig(),
-                  let yirConfig = config.common.yir(year: 2025) else {
-                XCTFail("Failure loading feature config")
-                return
-            }
-            
-            XCTAssertEqual(yirConfig.year, 2025, "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.activeStartDateString, "2025-12-01T00:00:00Z", "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.activeEndDateString, "2026-02-01T00:00:00Z", "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.dataStartDateString, "2025-01-01T00:00:00Z", "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.dataEndDateString, "2025-12-01T00:00:00Z", "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.languages, 300, "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.articles, 10000000, "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.savedArticlesApps, 37574993, "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.viewsApps, 1000000000, "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.editsApps, 124356, "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.editsPerMinute, 342, "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.averageArticlesReadPerYear, 335, "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.edits, 81987181, "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.editsEN, 31000000, "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.bytesAddedEN, 1000000000, "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.hoursReadEN, 2423171000, "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.yearsReadEN, 275000, "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.topReadEN.count, 5, "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.topReadPercentages.count, 8, "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.hideCountryCodes.count, 22, "Unexpected feature config yir")
-            XCTAssertEqual(yirConfig.hideDonateCountryCodes.count, 30, "Unexpected feature config yir")
-            
-            expectation.fulfill()
+
+        WMFMockBasicService(jsonResourceName: "feature-get-config").performDecodableGET(request: request, completion: completion)
+    }
+
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        completion(.failure(WMFServiceError.unexpectedResponse))
+    }
+
+    func clearCachedData() {}
+
+    private func isFeatureConfigRequest(_ request: WMFServiceRequest) -> Bool {
+        request.method == .GET &&
+            (isProductionFeatureConfigRequest(request) || isStagingFeatureConfigRequest(request))
+    }
+
+    private func isProductionFeatureConfigRequest(_ request: WMFServiceRequest) -> Bool {
+        request.url?.host == "en.wikipedia.org" &&
+            request.url?.path == "/api/rest_v1/feed/configuration"
+    }
+
+    private func isStagingFeatureConfigRequest(_ request: WMFServiceRequest) -> Bool {
+        guard let url = request.url,
+              url.host == "test.wikipedia.org",
+              url.path == "/wiki/MediaWiki:AppsFeatureConfig.json",
+              let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems else {
+            return false
         }
-        
-        wait(for: [expectation], timeout: 2.0)
+
+        return queryItems.contains(URLQueryItem(name: "action", value: "raw"))
+    }
+}
+
+private extension WMFDeveloperSettingsDataController {
+    func fetchFeatureConfig() async throws {
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            fetchFeatureConfig { error in
+                if let error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(returning: ())
+                }
+            }
+        }
     }
 }
