@@ -89,9 +89,6 @@ final class FindAndReplaceKeyboardBar: UIInputView {
         super.awakeFromNib()
         hideUndoRedoIcons()
         
-        
-        setupStaticAccessibilityLabels()
-        
         if #available(iOS 26.0, *) {
             setupForLiquidGlass()
             modernPrevButton?.isEnabled = false
@@ -101,6 +98,8 @@ final class FindAndReplaceKeyboardBar: UIInputView {
             legacyPreviousButton.isEnabled = false
             legacyNextButton.isEnabled = false
         }
+
+        setupStaticAccessibilityLabels()
     }
     
     private func setupForLegacyView() {
@@ -347,18 +346,33 @@ private extension FindAndReplaceKeyboardBar {
         let clearButtonLabel = WMFLocalizedString("find-clear-button-accessibility", value: "Clear find", comment: "Accessibility label for the clear values X button in the find textfield.")
         let nextButtonLabel = WMFLocalizedString("find-next-button-accessibility", value: "Next find result", comment: "Accessibility label for the next button when traversing find results.")
         let prevButtonLabel = WMFLocalizedString("find-previous-button-accessibility", value: "Previous find result", comment: "Accessibility label for the previous button when traversing find results.")
+        accessibilityIdentifier = AccessibilityIdentifiers.Article.findInPageView
         if #available(iOS 26.0, *) {
+            modernOuterContainer.accessibilityIdentifier = AccessibilityIdentifiers.Article.findInPageView
             modernFindTextField.accessibilityLabel = findTextFieldLabel
+            modernFindTextField.accessibilityIdentifier = AccessibilityIdentifiers.Article.findInPageTextField
             modernFindClearButton.accessibilityLabel = clearButtonLabel
+            modernFindClearButton.accessibilityIdentifier = AccessibilityIdentifiers.Article.findInPageClearButton
             modernCloseButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+            modernCloseButton.accessibilityIdentifier = AccessibilityIdentifiers.Article.findInPageCloseButton
             modernNextButton?.accessibilityLabel = nextButtonLabel
+            modernNextButton?.accessibilityIdentifier = AccessibilityIdentifiers.Article.findInPageNextButton
             modernPrevButton?.accessibilityLabel = prevButtonLabel
+            modernPrevButton?.accessibilityIdentifier = AccessibilityIdentifiers.Article.findInPagePreviousButton
+            modernCurrentMatchLabel.accessibilityIdentifier = AccessibilityIdentifiers.Article.findInPageMatchLabel
         } else {
+            legacyOuterContainer.accessibilityIdentifier = AccessibilityIdentifiers.Article.findInPageView
             legacyFindTextField.accessibilityLabel = findTextFieldLabel
+            legacyFindTextField.accessibilityIdentifier = AccessibilityIdentifiers.Article.findInPageTextField
             legacyFindClearButton.accessibilityLabel = clearButtonLabel
+            legacyFindClearButton.accessibilityIdentifier = AccessibilityIdentifiers.Article.findInPageClearButton
             legacyCloseButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+            legacyCloseButton.accessibilityIdentifier = AccessibilityIdentifiers.Article.findInPageCloseButton
             legacyNextButton.accessibilityLabel = nextButtonLabel
+            legacyNextButton.accessibilityIdentifier = AccessibilityIdentifiers.Article.findInPageNextButton
             legacyPreviousButton.accessibilityLabel = prevButtonLabel
+            legacyPreviousButton.accessibilityIdentifier = AccessibilityIdentifiers.Article.findInPagePreviousButton
+            legacyCurrentMatchLabel.accessibilityIdentifier = AccessibilityIdentifiers.Article.findInPageMatchLabel
         }
 
     }

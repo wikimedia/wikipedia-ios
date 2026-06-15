@@ -1,41 +1,40 @@
 import Foundation
+import Testing
 import UIKit
-import XCTest
 
-class CollectionAsyncMapTests: XCTestCase {
+struct CollectionAsyncMapTests {
 
-    func testAsyncMapResultsAreMappedToCorrectItemsEvenIfReceivedOutOfOrder() {
-        let expectation = XCTestExpectation(description: "maps results received out of order correctly")
-        
+    @Test
+    func asyncMapResultsAreMappedToCorrectItemsEvenIfReceivedOutOfOrder() async {
         let inputItems = ["THIS", "THAT", "OTHER"]
         let expectedOutputItems = ["THIS result", "THAT result", "OTHER result"]
-        
+
         let asyncItemTransformer = { (item: String, completion: @escaping (String) -> Void) in
-            // fake out a process which takes 'item' and asynchronously gets a result for it
-            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) { // use random delay to ensure results map to correct items even if results are received out of (collection) order
+            // Fake a process which returns results out of collection order.
+            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) {
                 let resultForItem = "\(item) result"
                 completion(resultForItem)
             }
         }
 
-        let completionHandler: ([String]) -> Void = { results in
-            XCTAssertEqual(results, expectedOutputItems)
-            expectation.fulfill()
+        let results = await withCheckedContinuation { continuation in
+            inputItems.asyncMap(asyncItemTransformer) { results in
+                continuation.resume(returning: results)
+            }
         }
-        inputItems.asyncMap(asyncItemTransformer, completion: completionHandler)
-        wait(for:[expectation], timeout: 5, enforceOrder: true)
+
+        #expect(results == expectedOutputItems)
     }
 
-    func testAsyncCompactMapResultsAreMappedToCorrectItemsEvenIfReceivedOutOfOrder() {
-        let expectation = XCTestExpectation(description: "maps results received out of order correctly (even when compacting)")
-        
+    @Test
+    func asyncCompactMapResultsAreMappedToCorrectItemsEvenIfReceivedOutOfOrder() async {
         let inputItems = ["THIS", "MAP_TO_NIL", "THAT", "MAP_TO_NIL", "OTHER"]
         let expectedOutputItems = ["THIS result", "THAT result", "OTHER result"]
-        
+
         let asyncItemTransformer = { (item: String, completion: @escaping (String?) -> Void) in
-            // fake out a process which takes 'item' and asynchronously gets a result for it
-            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) { // use random delay to ensure results map to correct items even if results are received out of (collection) order
-                guard item != "MAP_TO_NIL" else { // fake out getting nil for some items
+            // Fake a process which returns results out of collection order.
+            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) {
+                guard item != "MAP_TO_NIL" else {
                     completion(nil)
                     return
                 }
@@ -43,65 +42,62 @@ class CollectionAsyncMapTests: XCTestCase {
                 completion(resultForItem)
             }
         }
-        
-        let completionHandler: ([String]) -> Void = { results in
-            XCTAssertEqual(results, expectedOutputItems)
-            expectation.fulfill()
+
+        let results = await withCheckedContinuation { continuation in
+            inputItems.asyncCompactMap(asyncItemTransformer) { results in
+                continuation.resume(returning: results)
+            }
         }
-        inputItems.asyncCompactMap(asyncItemTransformer, completion: completionHandler)
-        wait(for:[expectation], timeout: 5, enforceOrder: true)
+
+        #expect(results == expectedOutputItems)
     }
 
-    func testAsyncForEachPerformsBlockForEachItem() {
-        let expectation = XCTestExpectation(description: "block performed for each object")
-        
+    @Test
+    func asyncForEachPerformsBlockForEachItem() async {
         let inputItems = ["THIS", "THAT", "OTHER"]
-        
-        // use Sets because `asyncForEach` does no mapping, so order isn't important
         let expectedResults = Set(arrayLiteral: "THIS", "OTHER", "THAT")
-        var results:Set<String> = []
-        let semaphore = DispatchSemaphore(value: 1)
+        let results = AsyncForEachResults()
+
         let asyncItemBlock = { (item: String, completion: @escaping () -> Void) in
-            // fake out a process which takes 'item' and asynchronously performs a block with it
-            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) { // use random delay to more closely simulate read async usage
-                semaphore.wait()
-                results.insert(item)
-                semaphore.signal()
-                completion()
+            // Fake a process which completes out of collection order.
+            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) {
+                Task {
+                    await results.insert(item)
+                    completion()
+                }
             }
         }
-        
-        let completionHandler: () -> Void = {
-            XCTAssertEqual(results, expectedResults)
-            expectation.fulfill()
+
+        await withCheckedContinuation { continuation in
+            inputItems.asyncForEach(asyncItemBlock) {
+                continuation.resume()
+            }
         }
-        inputItems.asyncForEach(asyncItemBlock, completion: completionHandler)
-        wait(for:[expectation], timeout: 5, enforceOrder: true)
+
+        #expect(await results.snapshot() == expectedResults)
     }
-    
-    func testAsyncMapToDictionary() {
-        let expectation = XCTestExpectation(description: "wait for notification")
-        
+
+    @Test
+    func asyncMapToDictionary() async {
         let input = ["A", "B", "C", "D", "E", "F", "G", "H"]
         let expectedOutput = ["A":"a", "B":"b", "C":"c", "D":"d", "E":"e", "F":"f", "G":"g", "H":"h"]
-        
-        input.asyncMapToDictionary(block: { (input, completion) in
-            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) {
-                completion(input, input.lowercased())
+
+        let result = await withCheckedContinuation { continuation in
+            input.asyncMapToDictionary(block: { input, completion in
+                DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) {
+                    completion(input, input.lowercased())
+                }
+            }, queue: DispatchQueue.main) { output in
+                continuation.resume(returning: (output, Thread.isMainThread))
             }
-        }, queue: DispatchQueue.main) { (output) in
-            XCTAssert(Thread.isMainThread)
-            XCTAssertEqual(output, expectedOutput, "Result of asyncMapToDictionary not the same as the expected")
-            expectation.fulfill()
         }
-        
-        wait(for:[expectation], timeout: 5, enforceOrder: true)
+
+        #expect(result.1)
+        #expect(result.0 == expectedOutput)
     }
-    
-    
-    func testAsyncMapToDictionaryWithLargeInput() {
-        let expectation = XCTestExpectation(description: "wait for notification")
-        
+
+    @Test
+    func asyncMapToDictionaryWithLargeInput() async {
         let count = 10000
         var input = [Int]()
         input.reserveCapacity(count)
@@ -112,28 +108,29 @@ class CollectionAsyncMapTests: XCTestCase {
             input.append(i)
             expectedOutput[i] = transform(i)
         }
-        
-        input.asyncMapToDictionary(block: { (input, completion) in
-            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) {
-                completion(input, transform(input))
+
+        let result = await withCheckedContinuation { continuation in
+            input.asyncMapToDictionary(block: { input, completion in
+                DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) {
+                    completion(input, transform(input))
+                }
+            }, queue: DispatchQueue.main) { output in
+                continuation.resume(returning: (output, Thread.isMainThread))
             }
-        }, queue: DispatchQueue.main) { (output) in
-            XCTAssert(Thread.isMainThread)
-            XCTAssertEqual(output, expectedOutput, "Result of asyncMapToDictionary not the same as the expected")
-            expectation.fulfill()
         }
-        
-        wait(for:[expectation], timeout: 5, enforceOrder: true)
+
+        #expect(result.1)
+        #expect(result.0 == expectedOutput)
     }
-    
-    func testLargeAsyncMap() {
-        let randomDelayBlock: (String, @escaping (String) -> Void) -> Void = { (string, completion) in
+
+    @Test
+    func largeAsyncMap() async {
+        let randomDelayBlock: (String, @escaping (String) -> Void) -> Void = { string, completion in
             let randomMillisecondDelay = DispatchTimeInterval.milliseconds(Int.random(in: 1...10))
             let time = DispatchTime.now() + randomMillisecondDelay
             DispatchQueue.global(qos: .default).asyncAfter(deadline: time) {
                 completion(string)
             }
-            
         }
         let count = 1000
         var identifiers: [String] = []
@@ -141,22 +138,24 @@ class CollectionAsyncMapTests: XCTestCase {
         for _ in 1...count {
             identifiers.append(UUID().uuidString)
         }
-        let expectation = XCTestExpectation(description: "wait for completion")
-        identifiers.asyncMap(randomDelayBlock) { (processedIdentifiers) in
-            XCTAssert(processedIdentifiers == identifiers)
-            expectation.fulfill()
+
+        let processedIdentifiers = await withCheckedContinuation { continuation in
+            identifiers.asyncMap(randomDelayBlock) { processedIdentifiers in
+                continuation.resume(returning: processedIdentifiers)
+            }
         }
-        wait(for:[expectation], timeout: 5, enforceOrder: true)
+
+        #expect(processedIdentifiers == identifiers)
     }
-    
-    func testLargeAsyncCompactMap() {
-        let randomDelayBlock: (String, @escaping (String?) -> Void) -> Void = { (string, completion) in
+
+    @Test
+    func largeAsyncCompactMap() async {
+        let randomDelayBlock: (String, @escaping (String?) -> Void) -> Void = { string, completion in
             let randomMillisecondDelay = DispatchTimeInterval.milliseconds(Int.random(in: 1...10))
             let time = DispatchTime.now() + randomMillisecondDelay
             DispatchQueue.global(qos: .default).asyncAfter(deadline: time) {
                 completion(string.hasPrefix("A") ? nil : string)
             }
-            
         }
         let count = 1000
         var identifiers: [String] = []
@@ -164,12 +163,25 @@ class CollectionAsyncMapTests: XCTestCase {
         for _ in 1...count {
             identifiers.append(UUID().uuidString)
         }
-        let expectation = XCTestExpectation(description: "wait for completion")
-        identifiers.asyncCompactMap(randomDelayBlock) { (processedIdentifiers) in
-            XCTAssert(processedIdentifiers.filter { $0.hasPrefix("A") }.isEmpty)
-            expectation.fulfill()
+
+        let processedIdentifiers = await withCheckedContinuation { continuation in
+            identifiers.asyncCompactMap(randomDelayBlock) { processedIdentifiers in
+                continuation.resume(returning: processedIdentifiers)
+            }
         }
-        wait(for:[expectation], timeout: 5, enforceOrder: true)
+
+        #expect(processedIdentifiers.filter { $0.hasPrefix("A") }.isEmpty)
     }
-    
+}
+
+private actor AsyncForEachResults {
+    private var values: Set<String> = []
+
+    func insert(_ value: String) {
+        values.insert(value)
+    }
+
+    func snapshot() -> Set<String> {
+        values
+    }
 }

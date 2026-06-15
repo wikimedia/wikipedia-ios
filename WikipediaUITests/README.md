@@ -5,6 +5,7 @@ This repository uses the Robots pattern for test legibility and organization. Ke
 - `.github/workflows/run_ui_tests.yml` runs on manual dispatch against the `WikipediaUITests` scheme and the `English (Light)` configuration from `Test Plans/UITests.xctestplan`.
 - `UITestConfiguration` defaults UI-test launches to fixture mode and forwards `-WMFTestHTTPClientProfile fixture-strict` to the app.
 - `.github/workflows/run_e2e_ui_tests.yml` runs on manual dispatch against the same scheme and test plan with the `English (Light, E2E)` configuration, narrowed to the test identifiers listed in `WikipediaUITests/E2ESmokeTests.txt`. That test-plan configuration passes `-WMFTestHTTPClientProfile e2e` to the UI-test process, so no fixture profile is forwarded to the app and the app uses E2E networking.
+- `.github/workflows/run_full_ui_test_plan.yml` runs on manual dispatch from a release tag, builds `WikipediaUITests` once with `build-for-testing`, and runs each checked-in `UITests.xctestplan` configuration as a separate `test-without-building` matrix job, following the existing test-plan configurations.
 - The UI-test workflows publish `.xcresult` bundles as artifacts. Use those bundles for screenshots and failure inspection.
 ## UI Test Robot Pattern
 - Write UI tests as intent-level scripts. Test files should describe the user journey and expected result, not raw selectors, scrolling loops, alert dismissal, or screenshot plumbing.
