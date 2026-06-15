@@ -70,6 +70,8 @@ public class CommonStrings: NSObject {
     @objc public static let placesTabTitle = WMFLocalizedString("places-title", value: "Places", comment: "Title of the Places screen shown on the places tab.")
     @objc public static let historyTabTitle = WMFLocalizedString("history-title", value: "History", comment: "Title of the history screen shown on history tab {{Identical|History}}")
     @objc public static let exploreTabTitle = WMFLocalizedString("home-title", value: "Explore", comment: "Title for home interface. {{Identical|Explore}}")
+    @objc public static let homeTabTitle = WMFLocalizedString("home-tab-title", value: "Home", comment: "Title for the Home tab.")
+    @objc public static let homeFeedTitle = WMFLocalizedString("settings-home-feed-title", value: "Home feed", comment: "Title for the Home feed item in Settings.")
     @objc public static let tabsTitle = WMFLocalizedString("tabs-title", value: "Tabs", comment: "Title for tabs")
     @objc public static let savedTabTitle = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab {{Identical|Saved}}")
 

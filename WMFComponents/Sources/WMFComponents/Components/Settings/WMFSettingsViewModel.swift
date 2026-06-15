@@ -56,6 +56,7 @@ final public class WMFSettingsViewModel: ObservableObject {
         let myLanguagesTitle: String
         let searchTitle: String
         let exploreFeedTitle: String
+        let homeFeedTitle: String
         let onTitle: String
         let offTitle: String
         let yirTitle: String
@@ -73,7 +74,7 @@ final public class WMFSettingsViewModel: ObservableObject {
         let clearDonationHistoryTitle: String
         let safetyTitle: String
 
-        public init(settingTitle: String, doneButtonTitle: String, cancelButtonTitle: String, accountTitle: String, logInTitle: String, myLanguagesTitle: String, searchTitle: String, exploreFeedTitle: String, onTitle: String, offTitle: String, yirTitle: String, pushNotificationsTitle: String, readingpreferences: String, articleSyncing: String, databasePopulation: String, clearCacheTitle: String, privacyHeader: String, privacyPolicyTitle: String, termsOfUseTitle: String, rateTheAppTitle: String, helpTitle: String, aboutTitle: String, clearDonationHistoryTitle: String, safetyTitle: String) {
+        public init(settingTitle: String, doneButtonTitle: String, cancelButtonTitle: String, accountTitle: String, logInTitle: String, myLanguagesTitle: String, searchTitle: String, exploreFeedTitle: String, homeFeedTitle: String, onTitle: String, offTitle: String, yirTitle: String, pushNotificationsTitle: String, readingpreferences: String, articleSyncing: String, databasePopulation: String, clearCacheTitle: String, privacyHeader: String, privacyPolicyTitle: String, termsOfUseTitle: String, rateTheAppTitle: String, helpTitle: String, aboutTitle: String, clearDonationHistoryTitle: String, safetyTitle: String) {
             self.settingTitle = settingTitle
             self.doneButtonTitle = doneButtonTitle
             self.cancelButtonTitle = cancelButtonTitle
@@ -82,6 +83,7 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.myLanguagesTitle = myLanguagesTitle
             self.searchTitle = searchTitle
             self.exploreFeedTitle = exploreFeedTitle
+            self.homeFeedTitle = homeFeedTitle
             self.onTitle = onTitle
             self.offTitle = offTitle
             self.yirTitle = yirTitle
@@ -280,9 +282,16 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.coordinatorDelegate?.handleSettingsAction(.search)
         })
 
-        let exploreFeed = SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: localizedStrings.exploreFeedTitle, subtitle: nil, accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle), action: {
-            self.coordinatorDelegate?.handleSettingsAction(.exploreFeed)
-        })
+        let exploreFeed: SettingsItem
+        if WMFDeveloperSettingsDataController.shared.enableHomeTab {
+            exploreFeed = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: localizedStrings.homeFeedTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
+                self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
+            })
+        } else {
+            exploreFeed = SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: localizedStrings.exploreFeedTitle, subtitle: nil, accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle), action: {
+                self.coordinatorDelegate?.handleSettingsAction(.exploreFeed)
+            })
+        }
 
         let label = await dataController.yirIsActive() == true ? localizedStrings.onTitle : localizedStrings.offTitle
 

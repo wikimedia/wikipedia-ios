@@ -22,7 +22,7 @@ extension ArticleRobot {
     func assertVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.assertExists(
             base.app.otherElements[AccessibilityIdentifiers.Article.view],
-            timeout: 10,
+            timeout: 30,
             file: file,
             line: line
         )

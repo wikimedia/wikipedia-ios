@@ -120,6 +120,7 @@
 "activity-tab-customize-time-spent-reading" = "Lukemiseen käytetty aika";
 "activity-tab-customize-timeline-of-behavior" = "Käytöksesi aikajana";
 "activity-tab-email-fifth-line" = "[Näyttökuvat tai linkit]";
+"activity-tab-email-fourth-line" = "[Kuvaile ehdottamaasi ratkaisua]";
 "activity-tab-email-second-line" = "- [Kuvaile ongelmaa]";
 "activity-tab-empty-title" = "Ei mitään näytettävää";
 "activity-tab-generic-no-edits" = "Et ole tehnyt muokkauksia tällä viikolla. Aloita muokkauksiesi seuraaminen.";
@@ -626,6 +627,8 @@
 "forgot-password-instructions" = "Saat ohjeet salasanan palauttamiseen sähköpostitse täytettyäsi yhden alla olevista kentistä";
 "forgot-password-title" = "Salasanan palauttaminen";
 "forgot-password-username-or-email-title" = "tai";
+"games-announcement-maybe-later-button" = "Ehkä myöhemmin";
+"games-email-report-body-encountered" = "Olen havainnut seuraavan ongelman Wikipedian pelitoiminnossa:";
 "games-wcf-explore-title" = "Kumpi tapahtui ensin?";
 "gan-variants-alert-title" = "Päivityksiä Gan-version tukeen";
 "history-clear-confirmation-heading" = "Tyhjennetäänkö historia?";
@@ -1410,6 +1413,7 @@
 "welcome-languages-description" = "Laitteesta löytyneet kielet:";
 "welcome-languages-search-title" = "Hae yli 300 kielellä";
 "welcome-privacy-terms-button-text" = "Lue lisää tietosuojakäytännöstämme ja käyttöehdoistamme";
+"which-came-first-incorrect-feedback" = "Väärin!";
 "widget-onthisday-description" = "Tutki mitä tänä päivänä on tapahtunut historiassa.";
 "widget-onthisday-placeholder-article-snippet" = "Vapaa tietosanakirja, jota kuka tahansa voi muokata";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, ilmainen tietosanakirja, siirtyy verkkoon.";

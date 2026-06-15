@@ -48,9 +48,14 @@ public enum AccessibilityIdentifiers {
     public enum RootTab {
         public static let activityButton = "Root Tab Activity Button"
         public static let exploreButton = "Root Tab Explore Button"
+        public static let homeButton = "Root Tab Home Button"
         public static let placesButton = "Root Tab Places Button"
         public static let savedButton = "Root Tab Saved Button"
         public static let searchButton = Search.tabButton
+    }
+
+    public enum Home {
+        public static let languagePickerButton = "Home Language Picker Button"
     }
 
     public enum Profile {

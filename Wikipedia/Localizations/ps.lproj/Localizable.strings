@@ -355,6 +355,7 @@
 "field-username-title" = "کارن‌نوم";
 "filter-options-all" = "ټول";
 "find-clear-button-accessibility" = "موندل پاکول";
+"forgot-password-email-sent" = "د پټنوم بيااوڼلو لارښوونو سره يو برېښليک ولېږل شو";
 "games-announcement-play-button" = "لوبول";
 "games-wcf-explore-complete-subtitle" = "تاسو نننۍ لوبه کې $1/$2 نومرې ترلاسه کړې. راتلونکې لوبه په $3 وي";
 "history-clear-confirmation-heading" = "آيا ډاډمن يې چې خپل ټول وروستني توکي ړنگول غواړې؟";
