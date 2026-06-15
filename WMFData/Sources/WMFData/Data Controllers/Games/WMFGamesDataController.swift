@@ -91,11 +91,12 @@ public class WMFGamesDataController {
         guard let moc = backgroundContext else {
             throw CustomError.missingContext
         }
+        let coreDataStore = self.coreDataStore
 
-        return try await moc.perform { [self] in
+        return try await moc.perform {
             let predicate = NSPredicate(format: "gameType == %@ AND projectID == %@", gameType, projectID)
             let sortDescriptors = [NSSortDescriptor(key: "dailyGameDate", ascending: false)]
-            let cdSessions = try self.coreDataStore?.fetch(entityType: CDGameSession.self, predicate: predicate, fetchLimit: nil, sortDescriptors: sortDescriptors, in: moc) ?? []
+            let cdSessions = try coreDataStore?.fetch(entityType: CDGameSession.self, predicate: predicate, fetchLimit: nil, sortDescriptors: sortDescriptors, in: moc) ?? []
             return try cdSessions.map { try self.gameSession(from: $0) }
         }
     }

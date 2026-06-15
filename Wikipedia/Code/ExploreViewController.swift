@@ -18,16 +18,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         )
         whichCameFirstCoordinator = coordinator
         coordinator.start()
-
-        // Present the sheet after the modal navigation controller finishes presenting.
-        if let presented = navigationController.presentedViewController,
-           let transitionCoordinator = presented.transitionCoordinator {
-            transitionCoordinator.animate(alongsideTransition: nil) { _ in
-                coordinator.showArchive()
-            }
-        } else {
-            coordinator.showArchive()
-        }
     }
     
     func exploreCardViewControllerDidTapReviewResults(_ exploreCardViewController: ExploreCardViewController) {

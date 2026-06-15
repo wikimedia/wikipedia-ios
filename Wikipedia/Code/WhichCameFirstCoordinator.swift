@@ -55,15 +55,60 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
     func start() -> Bool {
         gamesDataController.markGamesAnnouncementSeen()
 
-        let splashViewController = makeSplashViewController()
+        let loadingVC = makeLoadingViewController()
         let nav = WMFComponentNavigationController(
-            rootViewController: splashViewController,
+            rootViewController: loadingVC,
             modalPresentationStyle: .fullScreen
         )
         gameNavigationController = nav
         navigationController.present(nav, animated: true)
 
+        guard let project else {
+            Task { [weak self] in self?.transitionFromLoading() }
+            return true
+        }
+
+        let todayDateString = formattedTodayISODateString()
+        Task { [weak self] in
+            guard let self else { return }
+            let available = (try? await self.gamesDataController.isWhichCameFirstDailySessionAvailable(
+                date: todayDateString,
+                project: project
+            )) ?? false
+            self.transitionFromLoading(todayAvailable: available)
+        }
+
         return true
+    }
+
+    private func makeLoadingViewController() -> UIViewController {
+        let vc = UIViewController()
+        vc.view.backgroundColor = theme.colors.paperBackground
+        let spinner = UIActivityIndicatorView(style: .medium)
+        spinner.color = theme.colors.secondaryText
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.startAnimating()
+        vc.view.addSubview(spinner)
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)
+        ])
+        return vc
+    }
+
+    @MainActor
+    private func transitionFromLoading(todayAvailable: Bool = false) {
+        guard let gameNav = gameNavigationController else { return }
+        if todayAvailable {
+            let splashVC = makeSplashViewController()
+            gameNav.setViewControllers([splashVC], animated: false)
+        } else {
+            // No today game — go straight to archive.
+            // setViewControllers first so gameNav has a real root before presenting the sheet.
+            let placeholderVC = makeLoadingViewController()
+            gameNav.setViewControllers([placeholderVC], animated: false)
+            showArchive()
+        }
     }
 
     // MARK: - Factory
@@ -123,7 +168,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         guard let project,
               let gameNav = gameNavigationController else { return }
         let viewModel = WMFWhichCameFirstViewModel(date: formattedTodayISODateString(), project: project)
-        wireUpGameViewModel(viewModel)
+        buildViewModel(viewModel)
         let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
         gameNav.setViewControllers([gameVC], animated: true)
     }
@@ -132,7 +177,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     /// Attaches all coordinator callbacks to a game view model.
     /// Used both for today's game and for archive games.
-    private func wireUpGameViewModel(_ viewModel: WMFWhichCameFirstViewModel) {
+    private func buildViewModel(_ viewModel: WMFWhichCameFirstViewModel) {
         viewModel.isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
 
         viewModel.didTapShare = { [weak self, weak viewModel] in
@@ -413,10 +458,6 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             )
 
             let viewModel = WMFWhichCameFirstArchiveViewModel(
-                localizedStrings: WMFWhichCameFirstArchiveViewModel.LocalizedStrings(
-                    title: WMFLocalizedString("which-came-first-archive-title", value: "Which came first?", comment: "Title for the Which Came First archive date picker."),
-                    subtitle: WMFLocalizedString("which-came-first-archive-subtitle", value: "Play games since June 2024.", comment: "Subtitle for the Which Came First archive date picker.")
-                ),
                 playedDates: playedDates,
                 pausedDates: pausedDates,
                 onSelectDate: { [weak self] date in
@@ -461,7 +502,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             gameNav.presentedViewController?.dismiss(animated: true) { [weak self] in
                 guard let self else { return }
                 let viewModel = WMFWhichCameFirstViewModel(date: dateString, project: project)
-                self.wireUpGameViewModel(viewModel)
+                self.buildViewModel(viewModel)
                 let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
                 gameNav.setViewControllers([gameVC], animated: true)
             }
