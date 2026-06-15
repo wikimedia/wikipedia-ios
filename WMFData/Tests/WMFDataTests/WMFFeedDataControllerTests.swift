@@ -55,11 +55,11 @@ final class WMFFeedDataControllerTests: XCTestCase {
 
     func testParseTFAContentURLs() async throws {
         let urls = try await fetchFixture().todaysFeaturedArticle?.contentURLs
-        XCTAssertEqual(urls?.desktopPage, "https://en.wikipedia.org/wiki/George_Mason")
-        XCTAssertEqual(urls?.desktopEdit, "https://en.wikipedia.org/wiki/George_Mason?action=edit")
-        XCTAssertEqual(urls?.desktopTalk, "https://en.wikipedia.org/wiki/Talk:George_Mason")
-        XCTAssertEqual(urls?.mobilePage, "https://en.wikipedia.org/wiki/George_Mason")
-        XCTAssertEqual(urls?.mobileRevisions, "https://en.wikipedia.org/wiki/Special:History/George_Mason")
+        XCTAssertEqual(urls?.desktop?.page, "https://en.wikipedia.org/wiki/George_Mason")
+        XCTAssertEqual(urls?.desktop?.edit, "https://en.wikipedia.org/wiki/George_Mason?action=edit")
+        XCTAssertEqual(urls?.desktop?.talk, "https://en.wikipedia.org/wiki/Talk:George_Mason")
+        XCTAssertEqual(urls?.mobile?.page, "https://en.wikipedia.org/wiki/George_Mason")
+        XCTAssertEqual(urls?.mobile?.revisions, "https://en.wikipedia.org/wiki/Special:History/George_Mason")
     }
 
     func testParseTFATitles() async throws {

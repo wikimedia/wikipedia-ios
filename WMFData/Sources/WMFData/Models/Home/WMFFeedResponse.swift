@@ -67,59 +67,15 @@ public struct WMFFeedNamespace: Codable {
 // MARK: - Content URLs
 
 public struct WMFFeedContentURLs: Codable {
-    public let desktopPage: String?
-    public let desktopRevisions: String?
-    public let desktopEdit: String?
-    public let desktopTalk: String?
-    public let mobilePage: String?
-    public let mobileRevisions: String?
-    public let mobileEdit: String?
-    public let mobileTalk: String?
+    public let desktop: WMFFeedContentURLGroup?
+    public let mobile: WMFFeedContentURLGroup?
+}
 
-    private enum TopLevelKeys: String, CodingKey {
-        case desktop, mobile
-    }
-    private enum PageKeys: String, CodingKey {
-        case page, revisions, edit, talk
-    }
-
-    public init(from decoder: Decoder) throws {
-        let top = try decoder.container(keyedBy: TopLevelKeys.self)
-
-        if top.contains(.desktop) {
-            let desktop = try top.nestedContainer(keyedBy: PageKeys.self, forKey: .desktop)
-            desktopPage = try desktop.decodeIfPresent(String.self, forKey: .page)
-            desktopRevisions = try desktop.decodeIfPresent(String.self, forKey: .revisions)
-            desktopEdit = try desktop.decodeIfPresent(String.self, forKey: .edit)
-            desktopTalk = try desktop.decodeIfPresent(String.self, forKey: .talk)
-        } else {
-            desktopPage = nil; desktopRevisions = nil; desktopEdit = nil; desktopTalk = nil
-        }
-
-        if top.contains(.mobile) {
-            let mobile = try top.nestedContainer(keyedBy: PageKeys.self, forKey: .mobile)
-            mobilePage = try mobile.decodeIfPresent(String.self, forKey: .page)
-            mobileRevisions = try mobile.decodeIfPresent(String.self, forKey: .revisions)
-            mobileEdit = try mobile.decodeIfPresent(String.self, forKey: .edit)
-            mobileTalk = try mobile.decodeIfPresent(String.self, forKey: .talk)
-        } else {
-            mobilePage = nil; mobileRevisions = nil; mobileEdit = nil; mobileTalk = nil
-        }
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var top = encoder.container(keyedBy: TopLevelKeys.self)
-        var desktop = top.nestedContainer(keyedBy: PageKeys.self, forKey: .desktop)
-        try desktop.encodeIfPresent(desktopPage, forKey: .page)
-        try desktop.encodeIfPresent(desktopRevisions, forKey: .revisions)
-        try desktop.encodeIfPresent(desktopEdit, forKey: .edit)
-        try desktop.encodeIfPresent(desktopTalk, forKey: .talk)
-        var mobile = top.nestedContainer(keyedBy: PageKeys.self, forKey: .mobile)
-        try mobile.encodeIfPresent(mobilePage, forKey: .page)
-        try mobile.encodeIfPresent(mobileRevisions, forKey: .revisions)
-        try mobile.encodeIfPresent(mobileEdit, forKey: .edit)
-        try mobile.encodeIfPresent(mobileTalk, forKey: .talk)
-    }
+public struct WMFFeedContentURLGroup: Codable {
+    public let page: String?
+    public let revisions: String?
+    public let edit: String?
+    public let talk: String?
 }
 
 // MARK: - Most Read
