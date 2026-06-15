@@ -28,7 +28,6 @@ import WMFData
     let formViewModel: WMFFormViewModel
     
     private var subscribers: Set<AnyCancellable> = []
-    private var yirLoginExperimentGroupCoordinator: YirLoginExperimentBindingCoordinator?
     
     @Published public var enableDeveloperMode: Bool = WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
         didSet {
@@ -123,9 +122,7 @@ import WMFData
         let forceEmailAuth = WMFFormItemSelectViewModel(title: localizedStrings.forceEmailAuth, isSelected: WMFDeveloperSettingsDataController.shared.forceEmailAuth)
         let forceMaxArticleTabsTo5 = WMFFormItemSelectViewModel(title: "Force Max Article Tabs to 5", isSelected: WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5)
         let enableMoreDynamicTabsV2GroupC = WMFFormItemSelectViewModel(title: localizedStrings.enableMoreDynamicTabsV2GroupC, isSelected: WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabsV2GroupC)
-        let showYiRV3 = WMFFormItemSelectViewModel(title: "Show Year in Review Version 3", isSelected: WMFDeveloperSettingsDataController.shared.showYiRV3)
-        let enableYiRVLoginExperimentControl = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment Control", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentControl)
-        let enableYiRVLoginExperimentB = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment B", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB)
+        let showYiR2025 = WMFFormItemSelectViewModel(title: "Show Year in Review 2025", isSelected: WMFDeveloperSettingsDataController.shared.showYiR2025)
         let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
         let allowGestureZoomArticleWebview = WMFFormItemSelectViewModel(title: "Allow pinch to zoom when reading articles", isSelected: WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview)
         let enableHomeTab = WMFFormItemSelectViewModel(title: "Enable Home Tab", isSelected: WMFDeveloperSettingsDataController.shared.enableHomeTab)
@@ -139,9 +136,7 @@ import WMFData
                 forceEmailAuth,
                 forceMaxArticleTabsTo5,
                 enableMoreDynamicTabsV2GroupC,
-                showYiRV3,
-                enableYiRVLoginExperimentControl,
-                enableYiRVLoginExperimentB,
+                showYiR2025,
                 forceHcaptchaChallenge,
                 allowGestureZoomArticleWebview
             ], selectType: .multi)
@@ -169,26 +164,13 @@ import WMFData
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5 = isSelected }
             .store(in: &subscribers)
 
-        showYiRV3.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.showYiRV3 = isSelected }
+        showYiR2025.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.showYiR2025 = isSelected }
             .store(in: &subscribers)
-        
-        enableYiRVLoginExperimentControl.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentControl = isSelected }
-            .store(in: &subscribers)
-        
-        enableYiRVLoginExperimentB.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB = isSelected }
-            .store(in: &subscribers)
-        
+
         forceHcaptchaChallenge.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge = isSelected }
             .store(in: &subscribers)
-
-        yirLoginExperimentGroupCoordinator = YirLoginExperimentBindingCoordinator(
-            control: enableYiRVLoginExperimentControl,
-            b: enableYiRVLoginExperimentB
-        )
 
         allowGestureZoomArticleWebview.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview = isSelected }
