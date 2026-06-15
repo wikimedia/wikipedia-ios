@@ -161,7 +161,7 @@
 "wikitext-preview-changes" = "Атрыманьне папярэдняга прагляду зьменаў...";
 "wikitext-upload-captcha-error" = "Памылка праверкі CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Неаходная праверка CAPTCHA.";
-"wikitext-upload-result-unknown" = "Не атрымліваецца вызначыць вынік загрузкі вікі-тэксту.";
+"wikitext-upload-result-unknown" = "Не ўдаецца вызначыць вынік загрузкі вікі-тэксту.";
 "wikitext-upload-save" = "Публікацыя…";
 "wikitext-upload-save-anonymously-warning" = "Рэдагаваньні будуць зьвязаны з IP-адрасам Вашага прыстасаваньня. Калі Вы $1, Вы атрымаеце больш высокі ўзровень прыватнасьці.";
 "wikitext-upload-save-terms-name" = "Умовы ўжываньня";

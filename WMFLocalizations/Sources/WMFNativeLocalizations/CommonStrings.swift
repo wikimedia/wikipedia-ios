@@ -70,6 +70,8 @@ public class CommonStrings: NSObject {
     @objc public static let placesTabTitle = WMFLocalizedString("places-title", value: "Places", comment: "Title of the Places screen shown on the places tab.")
     @objc public static let historyTabTitle = WMFLocalizedString("history-title", value: "History", comment: "Title of the history screen shown on history tab {{Identical|History}}")
     @objc public static let exploreTabTitle = WMFLocalizedString("home-title", value: "Explore", comment: "Title for home interface. {{Identical|Explore}}")
+    @objc public static let homeTabTitle = WMFLocalizedString("home-tab-title", value: "Home", comment: "Title for the Home tab.")
+    @objc public static let homeFeedTitle = WMFLocalizedString("settings-home-feed-title", value: "Home feed", comment: "Title for the Home feed item in Settings.")
     @objc public static let tabsTitle = WMFLocalizedString("tabs-title", value: "Tabs", comment: "Title for tabs")
     @objc public static let savedTabTitle = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab {{Identical|Saved}}")
 
@@ -136,6 +138,10 @@ public class CommonStrings: NSObject {
     public static let exploreGamesTitle = WMFLocalizedString("explore-games-title", value: "Games", comment: "Title for Games section in Explore")
     public static let settingsGamesTitle = WMFLocalizedString("settings-explore-games-title", value: "Wikipedia games", comment: "Title for Games section in Explore settings")
     public static let settingsGamesSubtitle = WMFLocalizedString("settings-explore-games-subtitle", value: "Daily games based on Wikipedia content", comment: "Subtitle for Games section in Explore settings")
+    public static let gamesAnnouncementTitle = WMFLocalizedString("games-announcement-title", value: "Play \"Which came first?\"", comment: "Title for the games announcement action sheet.")
+    public static let gamesAnnouncementMessage = WMFLocalizedString("games-announcement-message", value: "A new trivia game has arrived, based on Wikipedia content. Guess which event came first in history.", comment: "Message body for the games announcement action sheet.")
+    public static let gamesAnnouncementPlayButton = WMFLocalizedString("games-announcement-play-button", value: "Play", comment: "Play button title for the games announcement action sheet.")
+    public static let gamesAnnouncementMaybeLaterButton = WMFLocalizedString("games-announcement-maybe-later-button", value: "Maybe later", comment: "Dismiss button title for the games announcement action sheet.")
     @objc public static let languagesTitle = WMFLocalizedString("languages-settings-title", value: "Languages", comment: "Title for the 'Languages' section in Settings")
     @objc public static let relatedPagesTitle = WMFLocalizedString("explore-because-you-read", value: "Because you read", comment: "Text for 'Because you read' header")
     @objc public static let continueReadingTitle = WMFLocalizedString("explore-continue-reading-heading", value: "Continue reading", comment: "Text for 'Continue Reading' header")
@@ -675,6 +681,14 @@ public class CommonStrings: NSObject {
     public static let tutorialTitle = WMFLocalizedString("tutorial-title", value: "Tutorial", comment: "Button title text that triggers a tutorial flow. This can be a series of tooltips informing the user on how a feature works.")
 
     public static let problemWithFeatureTitle = WMFLocalizedString("problem-with-feature-title", value: "Problem with feature", comment: "Button title text that allows user to send feedback to the iOS support email about a particular feature.")
+
+    public static let issueReportEmailBodyDescribeProblem = WMFLocalizedString("activity-tab-email-second-line", value: "- [Describe specific problem]", comment: "Text for pre-filled issue report email. This text is intended to be replaced by the user with a description of the problem they are encountering.")
+
+    public static let issueReportEmailBodyBehavior = WMFLocalizedString("activity-tab-email-third-line", value: "The behavior I would like to see is:", comment: "Text for pre-filled issue report email.")
+
+    public static let issueReportEmailBodyProposedSolution = WMFLocalizedString("activity-tab-email-fourth-line", value: "[Describe proposed solution]", comment: "Text for pre-filled issue report email. This text is intended to be replaced by the user with a description of a proposed solution.")
+
+    public static let issueReportEmailBodyScreenshotsOrLinks = WMFLocalizedString("activity-tab-email-fifth-line", value: "[Screenshots or Links]", comment: "Text for pre-filled issue report email. This text is intended to be replaced by the user with a screenshot or link.")
 
     public static let returnToArticle = WMFLocalizedString("return-to-article", value: "Return to article", comment: "Title for button indicating that is possible to go back to article")
 

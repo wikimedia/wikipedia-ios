@@ -168,7 +168,7 @@
 "description-published-subtitle" = "Anda hanya membuat Wikipedia lebih baik untuk semua orang";
 "description-published-title" = "Huraian diterbitkan!";
 "description-welcome-concise-sub-title" = "Idealnya satu baris, antara dua hingga dua belas kata";
-"description-welcome-concise-title" = "Pastikan ia pendek";
+"description-welcome-concise-title" = "Pastikan keterangan itu pendek";
 "description-welcome-descriptions-sub-title" = "Meringkaskan rencana untuk membantu pembaca memahami subjek dengan pantas";
 "description-welcome-descriptions-title" = "Huraian rencana";
 "description-welcome-promise-title" = "Dengan bermula, saya berjanji tidak menyalahgunakan ciri ini";
@@ -490,7 +490,7 @@
 "notifications-center-title" = "Pemberitahuan";
 "notifications-center-type-item-description-notice" = "Notis";
 "notifications-center-type-item-description-welcome-verbose" = "Pesanan selamat datang";
-"notifications-center-type-title-connection-with-wikidata" = "Pautan dengan Wikidata";
+"notifications-center-type-title-connection-with-wikidata" = "Sambungan dengan Wikidata";
 "notifications-center-type-title-edit-milestone" = "Pencapaian suntingan";
 "notifications-center-type-title-edit-reverted" = "Suntingan diundurkan";
 "notifications-center-type-title-email-from-other-user" = "E-mel daripada pengguna lain";

@@ -24,15 +24,6 @@ public final class WMFDailyGameContentSource: NSObject, WMFContentSource {
     // MARK: - WMFContentSource
 
     public func loadNewContent(in moc: NSManagedObjectContext, force: Bool, completion: (() -> Void)?) {
-
-        guard WMFDeveloperSettingsDataController.shared.showGamesV1 else {
-            moc.perform {
-                self.removeAllContent(in: moc)
-                completion?()
-            }
-            return
-        }
-
         guard let languageCode = siteURL.wmf_languageCode else {
             completion?()
             return

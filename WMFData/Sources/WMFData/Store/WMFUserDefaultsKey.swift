@@ -6,6 +6,7 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsSendAnalyticsToWMFLabs = "dev-settings-send-analytics-to-wmflabs"
     case developerSettingsArticleTab = "dev-settings-article-tab"
     case developerSettingsForceMaxArticleTabsTo5 = "dev-settings-article-tab-max-5"
+    case developerSettingsEnableHomeTab = "dev-settings-enable-home-tab"
     case hasLocallySavedDonations = "donate-history-has-locally-saved-donations"
     case yearInReviewSettingsIsEnabled = "year-in-review-settings-is-enabled-v3"
     case seenYearInReviewFeatureAnnouncement = "year-in-review-feature-announcement-v3"
@@ -21,7 +22,7 @@ public enum WMFUserDefaultsKey: String {
     case articleTabsDidShowSurvey = "article-tabs-did-show-survey"
     case articleTabsDidShowSurveyBandC = "article-tabs-did-show-survey-b-and-c"
     case developerSettingsMoreDynamicTabsV2GroupC = "more-dynamic-tabs-group-c-v2"
-    case developerSettingsShowYiRV3 = "dev-settings-yir-show-v3"
+    case developerSettingsShowYiR2025 = "dev-settings-yir-show-v3"
     case developerSettingsYiRV3LoginExperimentControl = "dev-settings-yir-login-experiment-control"
     case developerSettingsYiRV3LoginExperimentB = "dev-settings-yir-login-experiment-b"
     case yearInReviewNewIcon2025 = "year-in-review-new-icon-2025"
@@ -61,8 +62,12 @@ public enum WMFUserDefaultsKey: String {
     case devReadingChallengeCurrentDate = "dev-reading-challenge-current-date"
     case devReadingChallengeState = "dev-reading-challenge-state"
 
+    // Games announcement
+    case hasSeenGamesAnnouncement = "has-seen-games-announcement"
+    case needsDailyGameFeedRefresh = "needs-daily-game-feed-refresh"
+
     // Games dev settings
-    case developerSettingsShowGamesV1 = "dev-settings-show-games-v1"
+    case developerSettingsShowGamesV2 = "dev-settings-show-games-v2"
     
     // Logging
     case appInstallID = "wmf-app-install-id"

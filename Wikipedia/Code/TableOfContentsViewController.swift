@@ -1,5 +1,6 @@
 import UIKit
 import WMF
+import WMFComponents
 
 enum TableOfContentsDisplayMode {
     case inline
@@ -180,6 +181,8 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
 
         assert(tableView.style == .grouped, "Use grouped UITableView layout so our TableOfContentsHeader's autolayout works properly. Formerly we used a .Plain table style and set self.tableView.tableHeaderView to our TableOfContentsHeader, but doing so caused autolayout issues for unknown reasons. Instead, we now use a grouped layout and use TableOfContentsHeader with viewForHeaderInSection, which plays nicely with autolayout. (grouped layouts also used because they allow the header to scroll *with* the section cells rather than floating)")
 
+        view.accessibilityIdentifier = AccessibilityIdentifiers.Article.tableOfContentsView
+        tableView.accessibilityIdentifier = AccessibilityIdentifiers.Article.tableOfContentsView
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
@@ -237,6 +240,8 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         let item = items[index]
 
         let shouldHighlight = indiciesOfHighlightedItems.contains(index)
+        let anchor = item.anchor.isEmpty ? "top" : item.anchor
+        cell.accessibilityIdentifier = AccessibilityIdentifiers.Article.tableOfContentsItem(anchor)
 
         cell.backgroundColor = tableView.backgroundColor
         cell.contentView.backgroundColor = tableView.backgroundColor
@@ -321,4 +326,3 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         tableView.reloadData()
     }
 }
-

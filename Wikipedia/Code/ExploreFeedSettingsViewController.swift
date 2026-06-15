@@ -226,10 +226,8 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController, 
 
         var feedCards = [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
         
-        if WMFDeveloperSettingsDataController.shared.showGamesV1 {
-            feedCards.insert(dailyGame, at: 3)
-        }
-        
+        feedCards.insert(dailyGame, at: 3)
+  
         let suggestedEditsOption = suggestedEdits
 
             let shouldShowSuggestedEdits = !UIAccessibility.isVoiceOverRunning && editCount >= 50

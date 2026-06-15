@@ -695,11 +695,13 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         let emailAddress = "ios-support@wikimedia.org"
         let emailSubject = WMFLocalizedString("activity-tab-email-title", value: "Issue Report - Activity Tab", comment: "Title text for Activity Tab pre-filled issue report email")
         let emailBodyLine1 = WMFLocalizedString("activity-tab-email-first-line", value: "I have encountered a problem with Activity Tab Feature:", comment: "Text for Activity Tab pre-filled issue report email")
-        let emailBodyLine2 = WMFLocalizedString("activity-tab-email-second-line", value: "- [Describe specific problem]", comment: "Text for Activity Tab pre-filled issue report email. This text is intended to be replaced by the user with a description of the problem they are encountering")
-        let emailBodyLine3 = WMFLocalizedString("activity-tab-email-third-line", value: "The behavior I would like to see is:", comment: "Text for Activity Tab pre-filled issue report email")
-        let emailBodyLine4 = WMFLocalizedString("activity-tab-email-fourth-line", value: "[Describe desired behavior]", comment: "Text for Activity Tab pre-filled issue report email. This text is intended to be replaced by the user with a description of the desired behavior")
-        let emailBodyLine5 = WMFLocalizedString("activity-tab-email-fifth-line", value: "[Screenshots or Links]", comment: "Text for Activity Tab pre-filled issue report email. This text is intended to be replaced by the user with a screenshot or link.")
-        let emailBody = "\(emailBodyLine1)\n\n\(emailBodyLine2)\n\n\(emailBodyLine3)\n\n\(emailBodyLine4)\n\n\(emailBodyLine5)"
+        let emailBody = [
+            emailBodyLine1,
+            CommonStrings.issueReportEmailBodyDescribeProblem,
+            CommonStrings.issueReportEmailBodyBehavior,
+            CommonStrings.issueReportEmailBodyProposedSolution,
+            CommonStrings.issueReportEmailBodyScreenshotsOrLinks
+        ].joined(separator: "\n\n")
         let mailto = "mailto:\(emailAddress)?subject=\(emailSubject)&body=\(emailBody)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 
         guard

@@ -26,6 +26,8 @@ private let wmfTempAccountConfigCheckInterval: CFTimeInterval = 3 * 60 * 60
 private let wmfLastRemoteAppConfigCheckAbsoluteTimeKey = "WMFLastRemoteAppConfigCheckAbsoluteTimeKey"
 private let wmfTempAccountConfigCheckAbsoluteTimeKey = "WMFTempAccountConfigCheckAbsoluteTimeKey"
 private let wmfResetPreferredLanguages = "WMFResetPreferredLanguages"
+private let wmfSuppressActivityTabOnboardingForTesting = "WMFSuppressActivityTabOnboardingForTesting"
+private let wmfSuppressGamesAnnouncementForTesting = "WMFSuppressGamesAnnouncementForTesting"
 private let wmfSuppressReadingChallengeAnnouncementForTesting = "WMFSuppressReadingChallengeAnnouncementForTesting"
 
 // KVO context pointers
@@ -57,6 +59,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     private var _settingsViewController: SettingsTabViewController?
     private var _exploreViewController: ExploreViewController?
+    private var homeCoordinator: HomeCoordinator?
     private var _searchTabViewController: SearchViewController?
     private var _savedViewController: SavedViewController?
     private var _placesViewController: PlacesViewController?
@@ -269,6 +272,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                                                name: .dismissReadingListToast,
                                                object: nil)
 
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleEnableHomeTabDidChange),
+                                               name: WMFNSNotification.enableHomeTabDidChange,
+                                               object: nil)
+
         observeArticleTabsNSNotifications()
         setupReadingListsHelpers()
 
@@ -343,15 +351,24 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private func configureTabController() {
         self.delegate = self
 
-        let mainViewController: UIViewController
-        switch UserDefaults.standard.defaultTabType {
-        case .settings:
-            mainViewController = settingsViewController
-        default:
-            mainViewController = exploreViewController
+        let nav1: WMFComponentNavigationController
+        if WMFDeveloperSettingsDataController.shared.enableHomeTab {
+            let coordinator = HomeCoordinator(theme: theme, dataStore: dataStore)
+            let homeViewController = coordinator.makeHomeViewController()
+            nav1 = rootNavigationController(with: homeViewController)
+            coordinator.attach(navigationController: nav1)
+            homeCoordinator = coordinator
+        } else {
+            homeCoordinator = nil
+            let mainViewController: UIViewController
+            switch UserDefaults.standard.defaultTabType {
+            case .settings:
+                mainViewController = settingsViewController
+            default:
+                mainViewController = exploreViewController
+            }
+            nav1 = rootNavigationController(with: mainViewController)
         }
-
-        let nav1 = rootNavigationController(with: mainViewController)
         let nav2 = rootNavigationController(with: placesViewController)
         let nav3 = rootNavigationController(with: savedViewController)
         let nav4 = rootNavigationController(with: activityTabViewController)
@@ -365,7 +382,8 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                       let title = rootVC.title,
                       let image = rootVC.tabBarItem.image else { continue }
                 
-                let tab = UITab(title: title, image: image, identifier: title) { tab in
+                let identifier = rootVC.tabBarItem.accessibilityIdentifier ?? title
+                let tab = UITab(title: title, image: image, identifier: identifier) { tab in
                     return nav
                 }
                 
@@ -628,6 +646,39 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         }
     }
 
+    @objc private func handleEnableHomeTabDidChange() {
+        guard !isUpdatingDefaultTab else { return }
+        isUpdatingDefaultTab = true
+        DispatchQueue.main.async {
+            let update: () -> Void = {
+                self.currentTabNavigationController?.popToRootViewController(animated: false)
+
+                self.resetCachedRootTabViewControllers()
+                self.configureTabController()
+                if let savedTabBarItem = self.savedViewController.tabBarItem {
+                    self.savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(with: savedTabBarItem)
+                }
+                self.selectedIndex = WMFAppTabType.main.rawValue
+                self.isUpdatingDefaultTab = false
+            }
+            if let presented = self.presentedViewController {
+                presented.dismiss(animated: true, completion: update)
+            } else {
+                update()
+            }
+        }
+    }
+
+    private func resetCachedRootTabViewControllers() {
+        _exploreViewController = nil
+        _settingsViewController = nil
+        _placesViewController = nil
+        _savedViewController = nil
+        _activityTabViewController = nil
+        _searchTabViewController = nil
+        homeCoordinator = nil
+    }
+
     // MARK: - Hint
 
     private func showReadingListHintForArticle(_ article: WMFArticle) {
@@ -858,6 +909,17 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             )
             sharedDefaults?.synchronize()
         }
+
+        if UserDefaults.standard.bool(forKey: wmfSuppressActivityTabOnboardingForTesting) {
+            try? WMFDataEnvironment.current.userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.hasSeenActivityTabNewOnboarding.rawValue,
+                value: true
+            )
+        }
+
+        if UserDefaults.standard.bool(forKey: wmfSuppressGamesAnnouncementForTesting) {
+            UserDefaults.standard.set(true, forKey: WMFUserDefaultsKey.hasSeenGamesAnnouncement.rawValue)
+        }
     }
 
     // MARK: - Start/Pause/Resume App
@@ -971,6 +1033,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             resumeAndAnnouncementsCompleteGroup.leave()
             self.performTasksThatShouldOccurAfterBecomeActiveAndResume()
             self.showLoggedOutPanelIfNeeded()
+            let key = WMFUserDefaultsKey.needsDailyGameFeedRefresh.rawValue
+            if UserDefaults.standard.bool(forKey: key) {
+                UserDefaults.standard.removeObject(forKey: key)
+                NotificationCenter.default.post(name: WMFNSNotification.refreshExploreForGamesCard, object: nil)
+            }
         }
 
         dataStore.feedContentController.startContentSources()
@@ -1219,6 +1286,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             showSettings(with: appearanceSettingsVC, animated: animated)
 
         default:
+            dismissPresentedViewControllers()
             if processLinkUserActivity(activity) {
                 done()
                 return true
@@ -1327,6 +1395,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             vc.dataStore = dataStore
             vc.notificationsCenterPresentationDelegate = self
             vc.tabBarItem.image = UIImage(named: "tabbar-explore")
+            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.exploreButton
             vc.title = WMFCommonStringsWrapper.exploreTabTitle
             vc.apply(theme: theme)
             _exploreViewController = vc
@@ -1338,7 +1407,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     @objc func handleExploreCenterBadgeNeedsUpdateNotification() {
         DispatchQueue.main.async {
-            self.exploreViewController.updateProfileButton()
+            if let homeViewController = self.homeCoordinator?.homeViewController {
+                homeViewController.updateProfileButton()
+            } else {
+                self.exploreViewController.updateProfileButton()
+            }
             if UserDefaults.standard.defaultTabType == .settings {
                 self.settingsViewController.updateProfileButton()
             }
@@ -1359,7 +1432,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             vc.apply(theme: theme)
             vc.dataStore = dataStore
             vc.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: Int(WMFAppTabType.search.rawValue))
-            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.Search.tabButton
+            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.searchButton
             vc.title = WMFCommonStringsWrapper.searchTitle
             _searchTabViewController = vc
             return vc
@@ -1378,6 +1451,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             vc.dataStore = dataStore
             vc.tabBarDelegate = self
             vc.tabBarItem.image = UIImage(named: "tabbar-save")
+            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.savedButton
             vc.title = WMFCommonStringsWrapper.savedTabTitle
             _savedViewController = vc
             return vc
@@ -1391,6 +1465,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         guard let _activityTabViewController else {
             let vc = generateActivityTab()
             vc.tabBarItem.image = UIImage(named: "tabbar-recent")
+            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.activityButton
             vc.title = WMFCommonStringsWrapper.activityTitle
             _activityTabViewController = vc
             return vc
@@ -1405,6 +1480,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             let vc = UIStoryboard(name: "Places", bundle: nil).instantiateInitialViewController() as! PlacesViewController
             vc.apply(theme: theme)
             vc.tabBarItem.image = UIImage(named: "tabbar-nearby")
+            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.placesButton
             vc.title = WMFCommonStringsWrapper.placesTabTitle
             _placesViewController = vc
             return vc

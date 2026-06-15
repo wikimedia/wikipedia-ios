@@ -1,12 +1,9 @@
 name: Run UI Tests
 
 on:
-  pull_request:
-    branches:
-      - 'main'
-  push:
-    branches:
-      - 'main'
+  repository_dispatch:
+    types:
+      - nightly-ui-tests
   workflow_dispatch:
 
 permissions:
@@ -47,6 +44,8 @@ jobs:
 
       - name: Check out selected ref
         uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.ref || github.ref }}
 
       - name: Ensure UI tests use test-plan appearance and language
         run: scripts/lint-ui-tests.sh

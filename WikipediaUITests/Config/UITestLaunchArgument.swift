@@ -4,8 +4,10 @@ enum UITestLaunchArgument: String {
     case appleLanguages = "-AppleLanguages"
     case didShowOnboarding = "-DidShowOnboarding5.3"
     case hideTipsForTesting = "-WMFHideTipsForTesting"
-    case httpClientProfile = "-WMFUITestHTTPClientProfile"
+    case httpClientProfile = "-WMFTestHTTPClientProfile"
     case resetPreferredLanguages = "-WMFResetPreferredLanguages"
+    case suppressActivityTabOnboarding = "-WMFSuppressActivityTabOnboardingForTesting"
+    case suppressGamesAnnouncement = "-WMFSuppressGamesAnnouncementForTesting"
     case suppressReadingChallengeAnnouncement = "-WMFSuppressReadingChallengeAnnouncementForTesting"
     case uiTestLanguageCode = "-WMFUITestLanguageCode"
 }

@@ -97,6 +97,7 @@
 "activity-tab-customize-reading-insights" = "ਪੜ੍ਹਨ ਦੀਆਂ ਅੰਦਰੂਨੀ-ਝਾਤਾਂ";
 "activity-tab-customize-time-spent-reading" = "ਪੜ੍ਹਨ ਵਿੱਚ ਬਿਤਾਇਆ ਸਮਾਂ";
 "activity-tab-customize-timeline-of-behavior" = "ਵਿਵਹਾਰ ਦੀ ਸਮਾਂਰੇਖਾ";
+// Fuzzy
 "activity-tab-email-fourth-line" = "[ਲੋੜੀਂਦੇ ਵਿਹਾਰ ਦਾ ਵੇਰਵਾ ਦਿਓ]";
 "activity-tab-email-second-line" = "- [ਖਾਸ ਸਮੱਸਿਆ ਦਾ ਵੇਰਵਾ ਦਿਓ]";
 "activity-tab-email-third-line" = "ਮੈਂ ਜੋ ਵਿਹਾਰ ਵੇਖਣਾ ਚਾਹੁੰਦਾ/ਚਾਹੁੰਦੀ ਹਾਂ ਉਹ ਏ:";
@@ -466,8 +467,6 @@
 "image-rec-tooltip-3-body" = "ਫੈਸਲਾ ਕਰੋ ਕੀ ਤਸਵੀਰ ਪਾਠਕਾਂ ਨੂੰ ਇਸ ਵਿਸ਼ੇ ਨੂੰ ਬਿਹਤਰ ਢੰਗ ਨਾਲ ਸਮਝਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ";
 "image-rec-tooltip-3-title" = "ਫ਼ੈਸਲਾ ਕਰੋ";
 "image-rec-view-article" = "ਲੇਖ ਵੇਖੋ";
-"image-recommendations-email-second-line" = "- [ਖਾਸ ਸਮੱਸਿਆ ਦਾ ਵੇਰਵਾ ਦਿਓ]";
-"image-recommendations-email-third-line" = "ਮੈਂ ਜੋ ਵਿਵਹਾਰ ਦੇਖਣਾ ਚਾਹੁੰਦਾ/ਚਾਹੁੰਦੀ ਹਾਂ ਉਹ ਹੈ:";
 "image-recs-no-title" = "ਨਹੀਂ";
 "image-recs-not-sure-title" = "ਪਤਾ ਨਹੀਂ";
 "image-recs-yes-title" = "ਹਾਂ";

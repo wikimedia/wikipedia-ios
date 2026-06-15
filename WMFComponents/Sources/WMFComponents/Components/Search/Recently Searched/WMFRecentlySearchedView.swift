@@ -35,6 +35,7 @@ public struct WMFRecentlySearchedView: View {
                         Button(viewModel.localizedStrings.clearAll) {
                             viewModel.deleteAllAction()
                         }
+                        .accessibilityIdentifier(AccessibilityIdentifiers.Search.clearRecentSearchesButton)
                         .font(Font(WMFFont.for(.subheadline)))
                         .foregroundStyle(Color(uiColor: theme.link))
                     }
@@ -52,6 +53,7 @@ public struct WMFRecentlySearchedView: View {
                         .padding(.vertical, 4)
                         .background(Color(theme.paperBackground))
                         .contentShape(Rectangle())
+                        .accessibilityIdentifier(AccessibilityIdentifiers.Search.recentSearchTerm(item.text))
                         .onTapGesture {
                             viewModel.selectAction(item)
                         }
@@ -73,6 +75,7 @@ public struct WMFRecentlySearchedView: View {
         }
         .background(Color(theme.paperBackground))
         .padding(.top, viewModel.topPadding)
+        .accessibilityIdentifier(AccessibilityIdentifiers.Search.recentSearchesView)
 
     }
 }

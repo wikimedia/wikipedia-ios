@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import WMFNativeLocalizations
 
 public final class WMFGamesSplashScreenViewController: WMFComponentHostingController<WMFGamesSplashScreenView>, WMFNavigationBarConfiguring {
 
@@ -58,9 +59,8 @@ public final class WMFGamesSplashScreenViewController: WMFComponentHostingContro
 
         let moreButton = UIBarButtonItem(
             image: WMFSFSymbolIcon.for(symbol: .ellipsis),
-            style: .plain,
-            target: self,
-            action: #selector(didTapMore)
+            primaryAction: nil,
+            menu: makeMoreMenu()
         )
         navigationItem.rightBarButtonItem = moreButton
 
@@ -75,14 +75,26 @@ public final class WMFGamesSplashScreenViewController: WMFComponentHostingContro
         navigationController?.navigationBar.tintColor = .white
     }
 
+    private func makeMoreMenu() -> UIMenu {
+        let learnMoreAction = UIAction(
+            title: CommonStrings.learnMoreTitle(),
+            image: WMFSFSymbolIcon.for(symbol: .infoCircle)
+        ) { [weak self] _ in
+            self?.viewModel.didTapLearnMore?()
+        }
+        let reportProblemAction = UIAction(
+            title: CommonStrings.problemWithFeatureTitle,
+            image: WMFSFSymbolIcon.for(symbol: .flag)
+        ) { [weak self] _ in
+            self?.viewModel.didTapReportProblem?()
+        }
+        return UIMenu(title: String(), options: .displayInline, children: [learnMoreAction, reportProblemAction])
+    }
+
     // MARK: - Actions
 
     @objc private func didTapClose() {
         navigationController?.dismiss(animated: true)
-        viewModel.didTapClose?() // any additional handling
-    }
-
-    @objc private func didTapMore() {
-        viewModel.didTapMore?()
+        viewModel.didTapClose?()
     }
 }
