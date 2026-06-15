@@ -104,6 +104,7 @@
 "activity-tab-generic-no-edits" = "Bạn chưa sửa đổi bài viết nào trong tuần này. Hãy bắt đầu ngay để theo dõi bài viết của bạn.";
 "activity-tab-neutral" = "Trung lập";
 "activity-tab-no-edits-title" = "Bạn chưa sửa đổi tuần này. Hãy thêm hình ảnh để hiểu rõ hơn về bài viết.";
+"activity-tab-onboarding-second-button-title" = "Tìm hiểu thêm về Hoạt động";
 "activity-tab-read-title" = "Xem lịch sử đọc";
 "activity-tab-satisfied" = "Hài lòng";
 "activity-tab-start-editing" = "Bắt đầu sửa đổi";
@@ -395,6 +396,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Bật Thám hiểm";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Thẻ Cài đặt sẽ được thay thế bằng thẻ Thám hiểm. Bạn có thể truy cập Cài đặt bằng cách chạm vào hình bánh răng ở đầu thẻ Thám hiểm.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Bật thẻ Thám hiểm?";
+"explore-games-title" = "Trò chơi";
 "explore-hide-card-prompt" = "Ẩn phiếu này";
 "explore-main-page-description" = "trang đầu của dự án Wikimania";
 "explore-main-page-heading" = "Hôm nay tại Wikipedia";
@@ -416,6 +418,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Từ Wikipedia";
 "explore-randomizer" = "Ngẫu nhiên";
 "explore-suggested-edits-footer" = "Thêm";
+"explore-suggested-edits-image-recs-title" = "Thêm hình ảnh";
 "export-user-data-confirmation-message" = "Chia sẻ thư viện ứng dụng của bạn bao gồm dữ liệu về danh sách Đọc và lịch sử, tùy chọn cũng như nội dung nguồn cấp dữ liệu Khám phá. Tệp dữ liệu này chỉ nên được chia sẻ với người nhận đáng tin cậy để sử dụng cho mục đích chẩn đoán kỹ thuật.";
 "export-user-data-confirmation-title" = "Chia sẻ thư viện ứng dụng?";
 "export-user-data-generic-error" = "Đã xảy ra lỗi khi xuất dữ liệu của bạn. Vui lòng thử lại sau.";
@@ -463,6 +466,9 @@
 "forgot-password-instructions" = "Điền vào một trong những trường sau để nhận hướng dẫn đặt lại mật khẩu qua thư điện tử";
 "forgot-password-title" = "Đặt lại mật khẩu";
 "forgot-password-username-or-email-title" = "Hoặc";
+"games-announcement-maybe-later-button" = "Có lẽ để sau";
+"games-announcement-play-button" = "Chơi";
+"games-wcf-explore-title" = "Sự kiện nào đến trước?";
 "gan-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các biến thể chữ Hán cho tiếng Cám là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong biến thể của bạn:\n\n贛語 原文 Cám (gan)\n赣语 简体 Cám giản thể (gan-hans)\n贛語 繁體 Cám phồn thể (gan-hant)";
 "gan-variants-alert-title" = "Cập nhật hỗ trợ biến thể chữ Hán trong tiếng Cám";
 "history-clear-confirmation-heading" = "Bạn có chắc chắn muốn xóa tất cả các mục gần đây của bạn?";
@@ -527,6 +533,7 @@
 "languages-settings-title" = "Ngôn ngữ";
 "languages-title" = "Thay đổi ngôn ngữ";
 "languages-wikipedia" = "Ngôn ngữ Wikipedia";
+"learn-more-title" = "Tìm hiểu thêm";
 "logged-out-continue-without-logging-in-button-title" = "Tiếp tục mà không đăng nhập";
 "logged-out-log-back-in-button-title" = "Đăng nhập vào tài khoản của bạn";
 "logged-out-subtitle" = "Đã gặp sự cố khi xác minh tài khoản của bạn. Để đồng bộ hóa các danh sách đọc của bạn và sửa đổi với tên của bạn, xin hãy đăng nhập lại.";
@@ -749,6 +756,7 @@
 "project-name-wikiversity" = "Wikiversity";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wiktionary";
+"reading-challenge-announcement-secondary-cta" = "Tìm hiểu thêm";
 "reading-list-add-generic-hint-title" = "Thêm bài này vào danh sách đọc?";
 "reading-list-add-hint-title" = "Thêm “$1” vào danh sách đọc?";
 "reading-list-add-saved-button-title" = "Có, thêm chúng vào các danh sách đọc của tôi";
@@ -872,6 +880,7 @@
 "settings-clear-cache-are-you-sure-title" = "Xóa dữ liệu đệm?";
 "settings-clear-cache-cancel" = "Hủy bỏ";
 "settings-clear-cache-ok" = "Xóa bộ nhớ đệm";
+"settings-explore-games-title" = "Trò chơi Wikipedia";
 "settings-help-and-feedback" = "Trợ giúp và phản hồi";
 "settings-language-bar" = "Hiển thị ngôn ngữ khi tìm kiếm";
 "settings-languages-feed-customization" = "Bạn có thể quản lý các ngôn ngữ xuất hiện trong nguồn cấp Thám hiểm trong cài đặt nguồn cấp Thám hiểm.";
@@ -973,6 +982,7 @@
 "theme-default-explanation" = "Phù hợp với chủ đề hệ thống";
 "theme-light-display-name" = "Sáng";
 "theme-sepia-display-name" = "Nâu";
+"today-title" = "Hôm nay";
 "top-read-widget-readers-count" = "$1 người đọc";
 "top-read-widget-title" = "Bài đọc nhiều nhất";
 "two-factor-login-continue" = "Tiếp tục đăng nhập";
@@ -1000,6 +1010,7 @@
 "watchlist-filter-automated-contributions-options-human" = "Con người (không phải bot)";
 "watchlist-filter-latest-revisions-header" = "Phiên bản mới nhất";
 "watchlist-filters-add-language" = "Thêm ngôn ngữ...";
+"watchlist-onboarding-button-title" = "Tìm hiểu thêm về Đã lưu";
 "watchlist-thanks-success" = "\"Lời cảm ơn\" của bạn đã được gửi tới $1";
 "watchlist-user-button-thank" = "Cảm ơn";
 "watchlist-user-button-user-contributions" = "Đóng góp của người dùng";

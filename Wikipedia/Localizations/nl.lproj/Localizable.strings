@@ -457,7 +457,7 @@
 "edited-article" = "Bewerkt";
 "editing-welcome-be-bold-subtitle" = "Wees gedurfd, maar niet roekeloos bij het bewerken van pagina's. Maak u niet te veel zorgen over eventuele fouten: elke vorige versie van een pagina wordt opgeslagen, zodat fouten makkelijk door onze gemeenschap kunnen worden verbeterd.";
 "editing-welcome-be-bold-title" = "Uw stem is belangrijk";
-"editing-welcome-citations-subtitle" = "Alle inhoud moet verifieerbaar zijn. Bij het toevoegen van nieuwe informatie aan een pagina, moeten redacteuren een inline referentie leveren naar een betrouwbare bron die de bijdrage direct ondersteunt.";
+"editing-welcome-citations-subtitle" = "Alle inhoud moet verifieerbaar zijn. Bij het toevoegen van nieuwe informatie aan een pagina, moeten bewerkers een ingebedde referentie leveren naar een betrouwbare bron die de bijdrage direct ondersteunt.";
 "editing-welcome-citations-title" = "Vermeld betrouwbare bronnen";
 "editing-welcome-impartial-tone-subtitle" = "We streven ernaar dat pagina's op een onpartijdige toon worden geschreven. Probeer bij het bewerken een eerlijke weergave van de wereld te maken zoals betrouwbare bronnen deze beschrijven.";
 "editing-welcome-impartial-tone-title" = "Schrijf met een neutrale toon";
@@ -656,9 +656,9 @@
 "featured-widget-title" = "Uitgelichte pagina's";
 "fetcher-error-generic" = "Er is iets misgegaan. Probeer het later opnieuw.";
 "fetcher-error-unexpected-response" = "De toepassing heeft een onverwacht antwoord van de server ontvangen. Probeer het later opnieuw.";
-"field-alert-captcha-invalid" = "Ongeldige CAPTCHA";
+"field-alert-captcha-invalid" = "Incorrecte CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Wachtwoorden komen niet overeen";
-"field-alert-token-invalid" = "Ongeldige code";
+"field-alert-token-invalid" = "Incorrecte code";
 "field-alert-username-unavailable" = "Gebruikersnaam niet beschikbaar";
 "field-backup-token-title" = "Back-upcode";
 "field-backup-token-title-email" = "E-mailcode";
@@ -930,7 +930,7 @@
 "notifications-center-onboarding-panel-heading" = "Pushmeldingen inschakelen?";
 "notifications-center-onboarding-panel-primary-button" = "Pushmeldingen inschakelen";
 "notifications-center-onboarding-panel-secondary-button" = "Nee, bedankt";
-"notifications-center-onboarding-panel-subheading" = "Wikipedia is een samenwerkingsproject en het inschakelen van pushmeldingen kan het gemakkelijker maken om op de hoogte te blijven van berichten, waarschuwingen en \"bedankjes\" van collega-redacteuren.";
+"notifications-center-onboarding-panel-subheading" = "Wikipedia is een samenwerkingsproject en het inschakelen van pushmeldingen kan het gemakkelijker maken om op de hoogte te blijven van berichten, waarschuwingen en \"bedankjes\" van collegabewerkers.";
 "notifications-center-project-filters-accessibility-label" = "Projectenfilter";
 "notifications-center-status-all" = "Alle";
 "notifications-center-status-all-notifications" = "Alle meldingen";
@@ -1301,7 +1301,7 @@
 "settings-notifications-echo-failure-message" = "Er is een fout opgetreden bij het controleren op meldingsabonnementen met betrekking tot uw account.";
 "settings-notifications-echo-failure-title" = "Kan niet controleren op Echonotificatie-abonnementen";
 "settings-notifications-echo-failure-try-again" = "Opnieuw proberen";
-"settings-notifications-header" = "Word op de hoogte gesteld van activiteiten met betrekking tot uw account, zoals berichten van andere bijdragers, waarschuwingen en kennisgevingen. Allemaal met respect voor privacy en up-to-date data.";
+"settings-notifications-header" = "Word op de hoogte gesteld van activiteiten met betrekking tot uw account, zoals berichten van andere bijdragers, waarschuwingen en kennisgevingen. Allemaal met respect voor privacy en actuele gegevens.";
 "settings-off" = "Uit";
 "settings-on" = "Aan";
 "settings-primary-language" = "Primair";
@@ -1677,7 +1677,7 @@
 "year-in-review-highlights-articles-viewed" = "Aantal bekeken pagina's";
 "year-in-review-highlights-button-title" = "Hoogtepunten delen";
 "year-in-review-highlights-categories" = "Categorieën die mij interesseerden";
-"year-in-review-highlights-changes" = "Wijzigingen van redacteuren";
+"year-in-review-highlights-changes" = "Wijzigingen door bewerkers";
 "year-in-review-highlights-collective-time-spent" = "Uren besteed aan lezen";
 "year-in-review-highlights-created-lists" = "Aantal aangemaakte leeslijsten";
 "year-in-review-highlights-edit-frequency" = "Hoe vaak Wikipedia werd bewerkt";
@@ -1704,7 +1704,7 @@
 "year-in-review-personalized-donate-title" = "Dankzij uw vrijgevigheid blijft Wikipedia bloeien";
 "year-in-review-personalized-edit-views-subtitle-format-updated" = "Over de hele wereld waarderen lezers uw bijdragen. In de afgelopen twee maanden zijn de pagina's die u hebt bewerkt {{PLURAL:$1|één keer|in totaal $1 keer}} bekeken. Dankzij bewerkers zoals u is Wikipedia een steeds betere, op feiten gebaseerde en betrouwbare kennisbron voor de wereld.";
 "year-in-review-personalized-edit-views-title-format-updated" = "Uw bewerkingen zijn onlangs meer dan {{PLURAL:$1|$1 keer}} bekeken";
-"year-in-review-personalized-editing-subtitle-1" = "Hartelijk dank dat u een van de vrijwillige redacteuren bent die een verschil maakt op Wikimedia-projecten over de hele wereld.";
+"year-in-review-personalized-editing-subtitle-1" = "Hartelijk dank dat u een van de vrijwillige bewerkers bent die een verschil maakt op Wikimedia-projecten over de hele wereld.";
 "year-in-review-personalized-editing-subtitle-2-updated" = "Vrijwilligers zoals u hebben {{PLURAL:$1|één wijziging|$1 wijzigingen}} aangebracht in {{PLURAL:$2|één taalversie|$2 verschillende taalversies}} van Wikipedia.";
 "year-in-review-personalized-editing-title-format-updated" = "U hebt {{PLURAL:$1|$1 keer}} bewerkt";
 "year-in-review-personalized-explore" = "Een animatie van een hand die de Wikipedia-wereldbol vasthoudt. De wereldbol verandert geleidelijk in een klein puzzelstukje, wat symbool staat voor individuele bijdragen aan het platform.";
