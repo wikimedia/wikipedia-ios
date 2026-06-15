@@ -4,7 +4,8 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var enableMoreDynamicTabsV2GroupC: Bool { get }
     var forceMaxArticleTabsTo5: Bool { get }
-    var showYiRV3: Bool { get }
+    var enableHomeTab: Bool { get }
+    var showYiR2025: Bool { get }
     var enableYiRLoginExperimentControl: Bool { get }
     var enableYiRLoginExperimentB: Bool { get }
 }
@@ -74,9 +75,21 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue, value: newValue) }
     }
 
-    public var showYiRV3: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue, value: newValue) }
+
+    public var showYiR2025: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiR2025.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiR2025.rawValue, value: newValue) }
+    }
+
+    public var enableHomeTab: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableHomeTab.rawValue)) ?? false }
+        set {
+            let oldValue = enableHomeTab
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableHomeTab.rawValue, value: newValue)
+            if oldValue != newValue {
+                NotificationCenter.default.post(name: WMFNSNotification.enableHomeTabDidChange, object: nil)
+            }
+        }
     }
 
     public var enableYiRLoginExperimentControl: Bool {

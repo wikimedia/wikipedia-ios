@@ -663,11 +663,15 @@
 "history-title" = "History";
 "home-button-explore-accessibility-label" = "Wikipedia, return to Explore";
 "home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
+"home-community-tab-title" = "Community";
+"home-edit-languages-title" = "Add or edit languages";
+"home-for-you-tab-title" = "For You";
 "home-more-like-footer" = "More like $1";
 "home-nearby-footer" = "More places near your location";
 "home-nearby-location-footer" = "More nearby $1";
 "home-news-footer" = "More current events";
 "home-reading-list-prompt" = "Your saved articles can now be organized into reading lists and synced across devices. Log in to allow your reading lists to be saved to your user preferences.";
+"home-tab-title" = "Home";
 "home-themes-action-title" = "Manage preferences";
 "home-themes-prompt" = "Adjust your Reading preferences including text size and theme from the article tool bar or in your user settings for a more comfortable reading experience.";
 "home-title" = "Explore";
@@ -1246,6 +1250,7 @@
 "settings-explore-games-subtitle" = "Daily games based on Wikipedia content";
 "settings-explore-games-title" = "Wikipedia games";
 "settings-help-and-feedback" = "Help and feedback";
+"settings-home-feed-title" = "Home feed";
 "settings-language-bar" = "Show languages on search";
 "settings-languages-feed-customization" = "You can manage which languages are shown on your Explore feed by customizing your Explore feed settings.";
 "settings-legal-sefaty-title" = "Legal & safety contacts";
