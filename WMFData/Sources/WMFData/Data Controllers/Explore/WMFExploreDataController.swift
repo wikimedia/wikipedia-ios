@@ -2,14 +2,14 @@ import Foundation
 
 public final actor WMFExploreDataController {
 
-    private let feedDataController: WMFFeedDataController
+    private let feedDataController: any WMFFeedDataControlling
 
     // Dates for which feed data has been fetched, in descending order (most recent first).
     private var fetchedDates: [Date] = []
 
     public static let shared = WMFExploreDataController()
 
-    public init(feedDataController: WMFFeedDataController = WMFFeedDataController.shared) {
+    public init(feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared) {
         self.feedDataController = feedDataController
     }
 
