@@ -3,7 +3,7 @@ import XCTest
 @testable import WMFData
 @testable import WMFDataMocks
 
-final class WMFExploreDataControllerTests: XCTestCase {
+final class WMFHomeDataControllerTests: XCTestCase {
 
     private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
 
@@ -25,32 +25,32 @@ final class WMFExploreDataControllerTests: XCTestCase {
 
     private let stubResponse = WMFFeedAPIResponse(todaysFeaturedArticle: nil, mostRead: nil, image: nil, news: nil)
 
-    private func makeController() -> (WMFExploreDataController, WMFMockFeedDataController) {
+    private func makeController() -> (WMFHomeDataController, WMFMockFeedDataController) {
         let spy = WMFMockFeedDataController(response: stubResponse)
-        let controller = WMFExploreDataController(feedDataController: spy)
+        let controller = WMFHomeDataController(feedDataController: spy)
         return (controller, spy)
     }
 
-    // MARK: - fetchCommunityPicks
+    // MARK: - fetchCommunity
 
-    func testFetchCommunityPicksSucceeds() async throws {
+    func testFetchCommunitySucceeds() async throws {
         let (controller, _) = makeController()
-        _ = try await controller.fetchCommunityPicks(project: enProject, date: dec11)
+        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
     }
 
-    func testFetchCommunityPicksRequestsCorrectDate() async throws {
+    func testFetchCommunityRequestsCorrectDate() async throws {
         let (controller, spy) = makeController()
-        _ = try await controller.fetchCommunityPicks(project: enProject, date: dec11)
+        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
         let calls = await spy.calls
         XCTAssertEqual(calls.count, 1)
         XCTAssertTrue(Calendar(identifier: .gregorian).isDate(calls[0].date, inSameDayAs: dec11))
     }
 
-    func testFetchCommunityPicksDeduplicatesSameDay() async throws {
+    func testFetchCommunityDeduplicatesSameDay() async throws {
         let (controller, spy) = makeController()
-        _ = try await controller.fetchCommunityPicks(project: enProject, date: dec11)
-        _ = try await controller.fetchCommunityPicks(project: enProject, date: dec10)
-        _ = try await controller.fetchCommunityPicks(project: enProject, date: dec10) // duplicate — should not be recorded
+        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
+        _ = try await controller.fetchCommunity(project: enProject, date: dec10)
+        _ = try await controller.fetchCommunity(project: enProject, date: dec10) // duplicate — should not be recorded
         // fetchedDates should be [Dec 11, Dec 10]; previousPage anchors off Dec 10 → Dec 9.
         _ = try await controller.fetchPreviousPage(project: enProject)
         let calls = await spy.calls
@@ -64,10 +64,10 @@ final class WMFExploreDataControllerTests: XCTestCase {
         XCTAssertTrue(calendar.isDate(calls[3].date, inSameDayAs: dec9))
     }
 
-    func testFetchCommunityPicksFailsForNonWikipediaProject() async throws {
-        let controller = WMFExploreDataController(feedDataController: WMFFeedDataController())
+    func testFetchCommunityFailsForNonWikipediaProject() async throws {
+        let controller = WMFHomeDataController(feedDataController: WMFFeedDataController())
         do {
-            _ = try await controller.fetchCommunityPicks(project: .commons, date: dec11)
+            _ = try await controller.fetchCommunity(project: .commons, date: dec11)
             XCTFail("Expected unsupportedProject error")
         } catch WMFDataControllerError.unsupportedProject {
             // expected
@@ -81,18 +81,17 @@ final class WMFExploreDataControllerTests: XCTestCase {
         do {
             _ = try await controller.fetchPreviousPage(project: enProject)
             XCTFail("Expected noFetchedDatesAvailable error")
-        } catch WMFExploreDataControllerError.noFetchedDatesAvailable {
+        } catch WMFHomeDataControllerError.noFetchedDatesAvailable {
             // expected
         }
     }
 
     func testFetchPreviousPageRequestsPreviousDate() async throws {
         let (controller, spy) = makeController()
-        _ = try await controller.fetchCommunityPicks(project: enProject, date: dec11)
+        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
         _ = try await controller.fetchPreviousPage(project: enProject)
         let calls = await spy.calls
         XCTAssertEqual(calls.count, 2)
         XCTAssertTrue(Calendar(identifier: .gregorian).isDate(calls[1].date, inSameDayAs: dec10))
     }
-
 }

@@ -1,13 +1,13 @@
 import Foundation
 
-public final actor WMFExploreDataController {
+public final actor WMFHomeDataController {
 
     private let feedDataController: any WMFFeedDataControlling
 
     // Dates for which feed data has been fetched, in descending order (most recent first).
     private var fetchedDates: [Date] = []
 
-    public static let shared = WMFExploreDataController()
+    public static let shared = WMFHomeDataController()
 
     public init(feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared) {
         self.feedDataController = feedDataController
@@ -15,25 +15,25 @@ public final actor WMFExploreDataController {
 
     // MARK: - Public API
 
-    /// Fetches the Explore feed "Community Picks" data for the given date.
+    /// Fetches the Home feed "Community" data for the given date.
     /// Pass `Date()` (the default) to fetch today's data.
     @discardableResult
-    public func fetchCommunityPicks(project: WMFProject, date: Date = Date()) async throws -> WMFFeedAPIResponse {
+    public func fetchCommunity(project: WMFProject, date: Date = Date()) async throws -> WMFFeedAPIResponse {
         let response = try await feedDataController.fetchFeed(project: project, date: date)
         recordFetchedDate(date)
         return response
     }
 
     /// Fetches the feed data for the day that precedes the earliest date already fetched.
-    /// Callers must have fetched at least one page via `fetchCommunityPicks` before calling this.
+    /// Callers must have fetched at least one page via `fetchCommunity` before calling this.
     public func fetchPreviousPage(project: WMFProject) async throws -> WMFFeedAPIResponse {
         guard let earliest = fetchedDates.last else {
-            throw WMFExploreDataControllerError.noFetchedDatesAvailable
+            throw WMFHomeDataControllerError.noFetchedDatesAvailable
         }
 
         let calendar = Calendar(identifier: .gregorian)
         guard let previousDate = calendar.date(byAdding: .day, value: -1, to: earliest) else {
-            throw WMFExploreDataControllerError.failureCalculatingPreviousDate
+            throw WMFHomeDataControllerError.failureCalculatingPreviousDate
         }
 
         let response = try await feedDataController.fetchFeed(project: project, date: previousDate)
@@ -52,14 +52,14 @@ public final actor WMFExploreDataController {
     }
 }
 
-public enum WMFExploreDataControllerError: LocalizedError {
+public enum WMFHomeDataControllerError: LocalizedError {
     case noFetchedDatesAvailable
     case failureCalculatingPreviousDate
 
     public var errorDescription: String? {
         switch self {
         case .noFetchedDatesAvailable:
-            return "No feed pages have been fetched yet. Call fetchCommunityPicks first."
+            return "No feed pages have been fetched yet. Call fetchCommunity first."
         case .failureCalculatingPreviousDate:
             return "Failed to calculate the previous date."
         }
