@@ -17,9 +17,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  run-full-ui-test-plan:
+  build-uitests:
     runs-on: macos-latest
-    name: Test Full UITests Plan
+    name: Build WikipediaUITests
+    outputs:
+      test-configurations: ${{ steps.test-configurations.outputs.matrix }}
     steps:
       - name: Verify selected release tag
         env:
@@ -40,6 +42,16 @@ jobs:
       - name: Check out selected ref
         uses: actions/checkout@v6
 
+      - name: Read UITests test-plan configurations
+        id: test-configurations
+        run: |
+          matrix="$(jq -c '{include: [.configurations[] | {
+            id: (.name | ascii_downcase | gsub("[^a-z0-9]+"; "-") | gsub("^-+|-+$"; "")),
+            configuration: .name
+          }]}' "Test Plans/UITests.xctestplan")"
+
+          echo "matrix=${matrix}" >> "$GITHUB_OUTPUT"
+
       - name: Select Xcode
         run: |
           sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
@@ -51,35 +63,105 @@ jobs:
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
 
-      - name: Run full UITests plan
+      - name: Build WikipediaUITests
         run: |
-          echo "Running full UITests plan on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
-          xcodebuild test \
+          echo "Building WikipediaUITests on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
+          xcodebuild build-for-testing \
             -scheme WikipediaUITests \
             -project Wikipedia.xcodeproj \
             -testPlan UITests \
             -destination "${{ steps.simulator.outputs.destination }}" \
-            -resultBundlePath "WikipediaUITests_FullTestPlan_TestResults" \
+            -testProductsPath "WikipediaUITests.xctestproducts" \
             | xcpretty
           EXIT_CODE=${PIPESTATUS[0]}
           if [ "$EXIT_CODE" -ne 0 ]; then
             exit "$EXIT_CODE"
           fi
 
+      - name: Archive WikipediaUITests test products
+        run: |
+          tar -czf WikipediaUITests.xctestproducts.tar.gz WikipediaUITests.xctestproducts
+
+      - name: Upload WikipediaUITests test products
+        uses: actions/upload-artifact@v7
+        with:
+          name: WikipediaUITests-xctestproducts
+          path: WikipediaUITests.xctestproducts.tar.gz
+          if-no-files-found: error
+
+  test-uitests-configuration:
+    needs: build-uitests
+    runs-on: macos-latest
+    name: Test ${{ matrix.configuration }}
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.build-uitests.outputs.test-configurations) }}
+    env:
+      UI_TEST_CONFIGURATION: ${{ matrix.configuration }}
+      RESULT_BUNDLE_PATH: WikipediaUITests_${{ matrix.id }}_TestResults
+      COVERAGE_JSON_PATH: WikipediaUITests_${{ matrix.id }}_coverage.json
+    steps:
+      - name: Check out selected ref
+        uses: actions/checkout@v6
+
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
+
+      - name: Download WikipediaUITests test products
+        uses: actions/download-artifact@v8
+        with:
+          name: WikipediaUITests-xctestproducts
+
+      - name: Unarchive WikipediaUITests test products
+        run: |
+          tar -xzf WikipediaUITests.xctestproducts.tar.gz
+
+      - name: Prepare simulator
+        id: simulator
+        uses: ./.github/actions/prepare-simulator
+        with:
+          ios-version: ${{ env.IOS_VERSION }}
+          simulator-name: ${{ env.SIMULATOR_NAME }}
+
+      - name: Run WikipediaUITests
+        run: |
+          echo "Running WikipediaUITests ${UI_TEST_CONFIGURATION} on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
+          xcodebuild test-without-building \
+            -scheme WikipediaUITests \
+            -project Wikipedia.xcodeproj \
+            -testPlan UITests \
+            -only-test-configuration "${UI_TEST_CONFIGURATION}" \
+            -destination "${{ steps.simulator.outputs.destination }}" \
+            -testProductsPath "WikipediaUITests.xctestproducts" \
+            -resultBundlePath "${RESULT_BUNDLE_PATH}" \
+            | xcpretty
+          EXIT_CODE=${PIPESTATUS[0]}
+          if [ "$EXIT_CODE" -ne 0 ]; then
+            exit "$EXIT_CODE"
+          fi
+
+      - name: Test result summary
+        if: always()
+        uses: ./.github/actions/test-result-summary
+        with:
+          result-bundle-path: ${{ env.RESULT_BUNDLE_PATH }}.xcresult
+          title: WikipediaUITests ${{ matrix.configuration }}
+
       - name: Upload full UI test result bundle
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: WikipediaUITests-FullTestPlan-TestResults
-          path: WikipediaUITests_FullTestPlan_TestResults.xcresult
+          name: WikipediaUITests-FullTestPlan-${{ matrix.id }}-TestResults
+          path: ${{ env.RESULT_BUNDLE_PATH }}.xcresult
           if-no-files-found: ignore
 
       - name: Coverage summary
         if: success()
         uses: ./.github/actions/coverage-summary
         with:
-          artifact-name: WikipediaUITests-FullTestPlan-coverage
-          coverage-json-path: WikipediaUITests_FullTestPlan_coverage.json
-          result-bundle-path: WikipediaUITests_FullTestPlan_TestResults.xcresult
+          artifact-name: WikipediaUITests-FullTestPlan-${{ matrix.id }}-coverage
+          coverage-json-path: ${{ env.COVERAGE_JSON_PATH }}
+          result-bundle-path: ${{ env.RESULT_BUNDLE_PATH }}.xcresult
           scheme: WikipediaUITests
           workflow-file: run_full_ui_test_plan.yml

@@ -523,7 +523,6 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
     /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
-        
         // Do not replace an in-flight reading challenge coordinator.
         guard readingChallengeCoordinator == nil else {
             return
@@ -558,6 +557,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     /// If something unexpected appears before the async check resolves (e.g. background login/2FA),
     /// the safety-net guard on presentedViewController drops the attempt and defers to next launch.
     private func presentGamesAnnouncementIfNeeded() {
+        // Not using `sceneDelegate.didOpenAppFromExternalLink` here since it's persistent across the whole session
+        // If a user taps an internal link from the current deeplinked article, they won't get the games announcement since that flag will still be true
+        guard articleViewSource != .external_link else {
+            return
+        }
         let gamesDataController = WMFGamesDataController()
         let todayDateString = todayDateString()
 
@@ -585,7 +589,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             preferredStyle: .actionSheet
         )
 
-        alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementPlayButton, style: .default) { [weak self] _ in
+        let playAction = UIAlertAction(title: CommonStrings.gamesAnnouncementPlayButton, style: .default) { [weak self] _ in
             guard let self else { return }
             gameInstrument.submitInteraction(
                 action: "click",
@@ -597,7 +601,8 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             coordinator.didFinish = { [weak self] in self?.whichCameFirstCoordinator = nil }
             self.whichCameFirstCoordinator = coordinator
             coordinator.start()
-        })
+        }
+        alert.addAction(playAction)
 
         alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementMaybeLaterButton, style: .default) { [weak self] _ in
             self?.gameInstrument.submitInteraction(
@@ -606,6 +611,9 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
                 elementId: "game_later"
             )
         })
+        
+        alert.preferredAction = playAction
+        alert.view.tintColor = theme.colors.link
 
         if let popover = alert.popoverPresentationController {
             popover.sourceView = navigationController.view

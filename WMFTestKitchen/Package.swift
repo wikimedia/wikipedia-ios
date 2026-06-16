@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -21,5 +21,9 @@ let package = Package(
             name: "WMFTestKitchenTests",
             dependencies: ["WMFTestKitchen"]
         )
-    ]
+    ],
+    // Bumped tools-version to unlock per-target swiftSettings/swiftLanguageMode syntax.
+    // Language mode is explicitly pinned to .v5 (warnings-only) until this package
+    // completes its strict-concurrency burn-down and flips to .v6.
+    swiftLanguageModes: [.v5]
 )

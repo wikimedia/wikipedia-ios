@@ -59,6 +59,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     private var _settingsViewController: SettingsTabViewController?
     private var _exploreViewController: ExploreViewController?
+    private var homeCoordinator: HomeCoordinator?
     private var _searchTabViewController: SearchViewController?
     private var _savedViewController: SavedViewController?
     private var _placesViewController: PlacesViewController?
@@ -271,6 +272,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                                                name: .dismissReadingListToast,
                                                object: nil)
 
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleEnableHomeTabDidChange),
+                                               name: WMFNSNotification.enableHomeTabDidChange,
+                                               object: nil)
+
         observeArticleTabsNSNotifications()
         setupReadingListsHelpers()
 
@@ -345,15 +351,24 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private func configureTabController() {
         self.delegate = self
 
-        let mainViewController: UIViewController
-        switch UserDefaults.standard.defaultTabType {
-        case .settings:
-            mainViewController = settingsViewController
-        default:
-            mainViewController = exploreViewController
+        let nav1: WMFComponentNavigationController
+        if WMFDeveloperSettingsDataController.shared.enableHomeTab {
+            let coordinator = HomeCoordinator(theme: theme, dataStore: dataStore)
+            let homeViewController = coordinator.makeHomeViewController()
+            nav1 = rootNavigationController(with: homeViewController)
+            coordinator.attach(navigationController: nav1)
+            homeCoordinator = coordinator
+        } else {
+            homeCoordinator = nil
+            let mainViewController: UIViewController
+            switch UserDefaults.standard.defaultTabType {
+            case .settings:
+                mainViewController = settingsViewController
+            default:
+                mainViewController = exploreViewController
+            }
+            nav1 = rootNavigationController(with: mainViewController)
         }
-
-        let nav1 = rootNavigationController(with: mainViewController)
         let nav2 = rootNavigationController(with: placesViewController)
         let nav3 = rootNavigationController(with: savedViewController)
         let nav4 = rootNavigationController(with: activityTabViewController)
@@ -629,6 +644,39 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                 update()
             }
         }
+    }
+
+    @objc private func handleEnableHomeTabDidChange() {
+        guard !isUpdatingDefaultTab else { return }
+        isUpdatingDefaultTab = true
+        DispatchQueue.main.async {
+            let update: () -> Void = {
+                self.currentTabNavigationController?.popToRootViewController(animated: false)
+
+                self.resetCachedRootTabViewControllers()
+                self.configureTabController()
+                if let savedTabBarItem = self.savedViewController.tabBarItem {
+                    self.savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(with: savedTabBarItem)
+                }
+                self.selectedIndex = WMFAppTabType.main.rawValue
+                self.isUpdatingDefaultTab = false
+            }
+            if let presented = self.presentedViewController {
+                presented.dismiss(animated: true, completion: update)
+            } else {
+                update()
+            }
+        }
+    }
+
+    private func resetCachedRootTabViewControllers() {
+        _exploreViewController = nil
+        _settingsViewController = nil
+        _placesViewController = nil
+        _savedViewController = nil
+        _activityTabViewController = nil
+        _searchTabViewController = nil
+        homeCoordinator = nil
     }
 
     // MARK: - Hint
@@ -1359,7 +1407,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     @objc func handleExploreCenterBadgeNeedsUpdateNotification() {
         DispatchQueue.main.async {
-            self.exploreViewController.updateProfileButton()
+            if let homeViewController = self.homeCoordinator?.homeViewController {
+                homeViewController.updateProfileButton()
+            } else {
+                self.exploreViewController.updateProfileButton()
+            }
             if UserDefaults.standard.defaultTabType == .settings {
                 self.settingsViewController.updateProfileButton()
             }

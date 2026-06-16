@@ -3,7 +3,18 @@ import WMFComponents
 
 /// Drives the first-launch onboarding flow, including paging, learn-more modals, language setup, and skip behavior.
 struct OnboardingRobot: ScreenshotCapturingRobot {
-    
+    let base: UITestRobot
+    private let configuration: UITestConfiguration
+
+    init(base: UITestRobot, configuration: UITestConfiguration) {
+        self.base = base
+        self.configuration = configuration
+    }
+}
+
+// MARK: - Page types
+
+extension OnboardingRobot {
     enum OnboardingPage: CaseIterable {
         case introduction
         case exploration
@@ -23,15 +34,11 @@ struct OnboardingRobot: ScreenshotCapturingRobot {
             }
         }
     }
-    
-    let base: UITestRobot
-    private let configuration: UITestConfiguration
+}
 
-    init(base: UITestRobot, configuration: UITestConfiguration) {
-        self.base = base
-        self.configuration = configuration
-    }
+// MARK: - Screen state
 
+extension OnboardingRobot {
     @discardableResult
     func assertPage(_ page: OnboardingPage, file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.assertExists(
@@ -42,7 +49,11 @@ struct OnboardingRobot: ScreenshotCapturingRobot {
         )
         return self
     }
+}
 
+// MARK: - Navigation
+
+extension OnboardingRobot {
     @discardableResult
     func advance(to targetPage: OnboardingPage, file: StaticString = #filePath, line: UInt = #line) -> Self {
         guard let targetIndex = OnboardingPage.allCases.firstIndex(of: targetPage) else {
@@ -95,38 +106,6 @@ struct OnboardingRobot: ScreenshotCapturingRobot {
     }
 
     @discardableResult
-    func verifyIntroductionLearnMoreCanBeDismissed(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        base.tapButton(
-            withIdentifier: AccessibilityIdentifiers.Onboarding.introductionLearnMoreButton,
-            file: file,
-            line: line
-        )
-
-        let alert = base.app.alerts.firstMatch
-        base.assertExists(alert, file: file, line: line)
-        alert.buttons.firstMatch.tap()
-        base.waitForElementToDisappear(alert, file: file, line: line)
-        return self
-    }
-
-    @discardableResult
-    func verifyAnalyticsLearnMoreDestinationsCanBePresented(file: StaticString = #filePath, line: UInt = #line) -> Self {
-        base.tapButton(
-            withIdentifier: AccessibilityIdentifiers.Onboarding.analyticsLearnMoreButton,
-            file: file,
-            line: line
-        )
-
-        let analyticsLinks = base.app.sheets.firstMatch
-        base.assertExists(analyticsLinks, file: file, line: line)
-        base.assertExists(analyticsLinks.buttons.element(boundBy: 0), file: file, line: line)
-        base.assertExists(analyticsLinks.buttons.element(boundBy: 1), file: file, line: line)
-        base.assertExists(analyticsLinks.buttons.element(boundBy: 2), file: file, line: line)
-        analyticsLinks.buttons.element(boundBy: 2).tap()
-        return self
-    }
-
-    @discardableResult
     func openPreferredLanguages(file: StaticString = #filePath, line: UInt = #line) -> PreferredLanguagesRobot {
         base.tapButton(
             withIdentifier: AccessibilityIdentifiers.Onboarding.addLanguagesButton,
@@ -145,5 +124,40 @@ struct OnboardingRobot: ScreenshotCapturingRobot {
         )
         return ExploreRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
     }
+}
 
+// MARK: - Content
+
+extension OnboardingRobot {
+    @discardableResult
+    func assertIntroductionLearnMoreCanBeDismissed(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.tapButton(
+            withIdentifier: AccessibilityIdentifiers.Onboarding.introductionLearnMoreButton,
+            file: file,
+            line: line
+        )
+
+        let alert = base.app.alerts.firstMatch
+        base.assertExists(alert, file: file, line: line)
+        alert.buttons.firstMatch.tap()
+        base.waitForElementToDisappear(alert, file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func assertAnalyticsLearnMoreDestinationsCanBePresented(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.tapButton(
+            withIdentifier: AccessibilityIdentifiers.Onboarding.analyticsLearnMoreButton,
+            file: file,
+            line: line
+        )
+
+        let analyticsLinks = base.app.sheets.firstMatch
+        base.assertExists(analyticsLinks, file: file, line: line)
+        base.assertExists(analyticsLinks.buttons.element(boundBy: 0), file: file, line: line)
+        base.assertExists(analyticsLinks.buttons.element(boundBy: 1), file: file, line: line)
+        base.assertExists(analyticsLinks.buttons.element(boundBy: 2), file: file, line: line)
+        analyticsLinks.buttons.element(boundBy: 2).tap()
+        return self
+    }
 }

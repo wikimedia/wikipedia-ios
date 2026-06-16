@@ -1,157 +1,174 @@
+import Foundation
+import Testing
 @testable import WMF
 import WMFData
-import XCTest
 
-final class TestNetworkFixtureInterceptorTests: XCTestCase {
-    override func tearDown() {
-        UserDefaults.standard.removeObject(forKey: TestNetworkFixtureInterceptor.profileKey)
-        WMFDataEnvironment.current.basicService = WMFBasicService()
-        TestNetworkFixtureHTTPClient.resetFixtures()
-        super.tearDown()
+@Suite(.serialized)
+struct TestNetworkFixtureInterceptorTests {
+    init() {
+        resetSharedFixtureState()
     }
 
-    func testFixtureStrictProfileReturnsBundledFixture() async throws {
-        let provider = try XCTUnwrap(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
+    @Test
+    func fixtureStrictProfileReturnsBundledFixture() async throws {
+        let provider = try #require(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
-        let url = URL(string: "https://en.wikipedia.org/api/rest_v1/page/summary/Dog")!
+        let url = try #require(URL(string: "https://en.wikipedia.org/api/rest_v1/page/summary/Dog"))
 
         let (data, response) = try await session.data(for: url)
-        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let json = try #require(JSONSerialization.jsonObject(with: data) as? [String: Any])
 
-        XCTAssertEqual((response as? HTTPURLResponse)?.statusCode, 200)
-        XCTAssertEqual(json["title"] as? String, "Dog")
+        #expect((response as? HTTPURLResponse)?.statusCode == 200)
+        #expect(json["title"] as? String == "Dog")
     }
 
-    func testFixtureStrictProfileReturnsLocalizedBundledFixture() async throws {
-        let provider = try XCTUnwrap(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
+    @Test
+    func fixtureStrictProfileReturnsLocalizedBundledFixture() async throws {
+        let provider = try #require(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
-        let url = URL(string: "https://de.wikipedia.org/api/rest_v1/page/summary/Haushund")!
+        let url = try #require(URL(string: "https://de.wikipedia.org/api/rest_v1/page/summary/Haushund"))
 
         let (data, response) = try await session.data(for: url)
-        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let json = try #require(JSONSerialization.jsonObject(with: data) as? [String: Any])
 
-        XCTAssertEqual((response as? HTTPURLResponse)?.statusCode, 200)
-        XCTAssertEqual(json["title"] as? String, "Haushund")
+        #expect((response as? HTTPURLResponse)?.statusCode == 200)
+        #expect(json["title"] as? String == "Haushund")
     }
 
-    func testFixtureStrictProfileMatchesPercentEncodedLocalizedPath() async throws {
-        let provider = try XCTUnwrap(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
+    @Test
+    func fixtureStrictProfileMatchesPercentEncodedLocalizedPath() async throws {
+        let provider = try #require(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
-        let url = URL(string: "https://he.wikipedia.org/api/rest_v1/page/summary/%D7%9B%D7%9C%D7%91_%D7%94%D7%91%D7%99%D7%AA")!
+        let url = try #require(URL(string: "https://he.wikipedia.org/api/rest_v1/page/summary/%D7%9B%D7%9C%D7%91_%D7%94%D7%91%D7%99%D7%AA"))
 
         let (data, response) = try await session.data(for: url)
-        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let json = try #require(JSONSerialization.jsonObject(with: data) as? [String: Any])
 
-        XCTAssertEqual((response as? HTTPURLResponse)?.statusCode, 200)
-        XCTAssertEqual(json["title"] as? String, "כלב הבית")
+        #expect((response as? HTTPURLResponse)?.statusCode == 200)
+        #expect(json["title"] as? String == "כלב הבית")
     }
 
-    func testFixtureMatchesPathPrefix() async throws {
-        let provider = try XCTUnwrap(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
+    @Test
+    func fixtureMatchesPathPrefix() async throws {
+        let provider = try #require(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
-        let url = URL(string: "https://en.wikipedia.org/api/rest_v1/feed/featured/2026/05/16")!
+        let url = try #require(URL(string: "https://en.wikipedia.org/api/rest_v1/feed/featured/2026/05/16"))
 
         let (data, response) = try await session.data(for: url)
-        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
-        let featuredArticle = try XCTUnwrap(json["tfa"] as? [String: Any])
+        let json = try #require(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let featuredArticle = try #require(json["tfa"] as? [String: Any])
 
-        XCTAssertEqual((response as? HTTPURLResponse)?.statusCode, 200)
-        XCTAssertEqual(featuredArticle["title"] as? String, "Dog")
+        #expect((response as? HTTPURLResponse)?.statusCode == 200)
+        #expect(featuredArticle["title"] as? String == "Dog")
     }
 
-    func testFixtureMatchesStructuredQueryItems() {
+    @Test
+    func fixtureMatchesStructuredQueryItems() throws {
         let fixture = queryItemFixture()
-        let url = URL(string: "https://en.wikipedia.org/w/api.php?format=json&titles=Dog&action=query")!
+        let url = try #require(URL(string: "https://en.wikipedia.org/w/api.php?format=json&titles=Dog&action=query"))
         let request = URLRequest(url: url)
 
-        XCTAssertTrue(fixture.matches(request))
+        #expect(fixture.matches(request))
     }
 
-    func testFixtureQueryItemsRequireExactValue() {
+    @Test
+    func fixtureQueryItemsRequireExactValue() throws {
         let fixture = queryItemFixture()
-        let url = URL(string: "https://en.wikipedia.org/w/api.php?format=json&titles=Dog&action=querying")!
+        let url = try #require(URL(string: "https://en.wikipedia.org/w/api.php?format=json&titles=Dog&action=querying"))
         let request = URLRequest(url: url)
 
-        XCTAssertFalse(fixture.matches(request))
+        #expect(fixture.matches(request) == false)
     }
 
-    func testFixtureMatchesExactURLIncludingQueryByDefault() {
+    @Test
+    func fixtureMatchesExactURLIncludingQueryByDefault() throws {
         let fixture = exactURLFixture(ignoreQuery: false)
-        let matchingURL = URL(string: "https://en.wikipedia.org/w/api.php?action=query&titles=Dog")!
-        let mismatchedURL = URL(string: "https://en.wikipedia.org/w/api.php?action=querying&titles=Dog")!
+        let matchingURL = try #require(URL(string: "https://en.wikipedia.org/w/api.php?action=query&titles=Dog"))
+        let mismatchedURL = try #require(URL(string: "https://en.wikipedia.org/w/api.php?action=querying&titles=Dog"))
 
-        XCTAssertTrue(fixture.matches(URLRequest(url: matchingURL)))
-        XCTAssertFalse(fixture.matches(URLRequest(url: mismatchedURL)))
+        #expect(fixture.matches(URLRequest(url: matchingURL)))
+        #expect(fixture.matches(URLRequest(url: mismatchedURL)) == false)
     }
 
-    func testFixtureCanIgnoreQueryForExactURLMatcher() {
+    @Test
+    func fixtureCanIgnoreQueryForExactURLMatcher() throws {
         let fixture = exactURLFixture(ignoreQuery: true)
-        let url = URL(string: "https://en.wikipedia.org/w/api.php?action=querying&titles=Cat")!
+        let url = try #require(URL(string: "https://en.wikipedia.org/w/api.php?action=querying&titles=Cat"))
 
-        XCTAssertTrue(fixture.matches(URLRequest(url: url)))
+        #expect(fixture.matches(URLRequest(url: url)))
     }
 
-    func testFixtureStrictProfileFailsClosedForUnmatchedRequests() async throws {
-        let provider = try XCTUnwrap(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
+    @Test
+    func fixtureStrictProfileFailsClosedForUnmatchedRequests() async throws {
+        let provider = try #require(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
-        let url = URL(string: "https://en.wikipedia.org/wiki/NoFixtureRegistered")!
+        let url = try #require(URL(string: "https://en.wikipedia.org/wiki/NoFixtureRegistered"))
 
         let (data, response) = try await session.data(for: url)
-        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: String])
+        let json = try #require(JSONSerialization.jsonObject(with: data) as? [String: String])
 
-        XCTAssertEqual((response as? HTTPURLResponse)?.statusCode, 501)
-        XCTAssertEqual(json["error"], "No test network fixture registered")
-        XCTAssertEqual(json["request"], "GET https://en.wikipedia.org/wiki/NoFixtureRegistered")
+        #expect((response as? HTTPURLResponse)?.statusCode == 501)
+        #expect(json["error"] == "No test network fixture registered")
+        #expect(json["request"] == "GET https://en.wikipedia.org/wiki/NoFixtureRegistered")
     }
 
-    func testInvalidProfileDoesNotCreateFixtureProvider() {
-        XCTAssertNil(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: nil))
-        XCTAssertNil(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.e2e.rawValue))
+    @Test
+    func invalidProfileDoesNotCreateFixtureProvider() {
+        #expect(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: nil) == nil)
+        #expect(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.e2e.rawValue) == nil)
     }
 
-    func testProviderConfigurationUsesDefaultProviderWithoutFixtureProfile() throws {
+    @Test
+    func providerConfigurationUsesDefaultProviderWithoutFixtureProfile() throws {
         let userDefaults = try temporaryUserDefaults()
 
         let provider = SessionHTTPClientProviderConfiguration.httpClientProvider(userDefaults: userDefaults)
 
-        XCTAssertTrue(provider is URLSessionHTTPClientProvider)
+        #expect(provider is URLSessionHTTPClientProvider)
     }
 
-    func testProviderConfigurationUsesFixtureProviderForCallerProvidedProfile() async throws {
+    @Test
+    func providerConfigurationUsesFixtureProviderForCallerProvidedProfile() async throws {
         let userDefaults = try temporaryUserDefaults()
         userDefaults.set(TestHTTPClientProfile.fixtureStrict.rawValue, forKey: TestNetworkFixtureInterceptor.profileKey)
 
         let provider = SessionHTTPClientProviderConfiguration.httpClientProvider(userDefaults: userDefaults)
         let session = Session(configuration: .current, httpClientProvider: provider)
-        let url = URL(string: "https://en.wikipedia.org/wiki/NoFixtureRegistered")!
+        let url = try #require(URL(string: "https://en.wikipedia.org/wiki/NoFixtureRegistered"))
 
         let (_, response) = try await session.data(for: url)
 
-        XCTAssertEqual((response as? HTTPURLResponse)?.statusCode, 501)
+        #expect((response as? HTTPURLResponse)?.statusCode == 501)
     }
 
-    func testFixtureProfileConfiguresWMFBasicServiceTraffic() async throws {
+    @Test
+    func fixtureProfileConfiguresWMFBasicServiceTraffic() async throws {
+        defer {
+            resetSharedFixtureState()
+        }
         let userDefaults = try temporaryUserDefaults()
         userDefaults.set(TestHTTPClientProfile.fixtureStrict.rawValue, forKey: TestNetworkFixtureInterceptor.profileKey)
 
-        XCTAssertTrue(TestNetworkFixtureInterceptor.configureBasicServiceIfNeeded(userDefaults: userDefaults))
+        #expect(TestNetworkFixtureInterceptor.configureBasicServiceIfNeeded(userDefaults: userDefaults))
 
         let controller = WMFImageDataController(basicService: WMFDataEnvironment.current.basicService)
-        let url = try XCTUnwrap(URL(string: "https://en.wikipedia.org/api/rest_v1/page/summary/Dog"))
+        let url = try #require(URL(string: "https://en.wikipedia.org/api/rest_v1/page/summary/Dog"))
         let data = try await controller.fetchImageData(url: url)
-        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let json = try #require(JSONSerialization.jsonObject(with: data) as? [String: Any])
 
-        XCTAssertEqual(json["title"] as? String, "Dog")
+        #expect(json["title"] as? String == "Dog")
     }
 
-    func testE2EProfileDoesNotConfigureWMFBasicServiceTraffic() throws {
+    @Test
+    func e2EProfileDoesNotConfigureWMFBasicServiceTraffic() throws {
         let userDefaults = try temporaryUserDefaults()
         userDefaults.set(TestHTTPClientProfile.e2e.rawValue, forKey: TestNetworkFixtureInterceptor.profileKey)
 
-        XCTAssertFalse(TestNetworkFixtureInterceptor.configureBasicServiceIfNeeded(userDefaults: userDefaults))
+        #expect(TestNetworkFixtureInterceptor.configureBasicServiceIfNeeded(userDefaults: userDefaults) == false)
     }
 
-    func testSessionTeardownInvalidatesCurrentHTTPClient() {
+    @Test
+    func sessionTeardownInvalidatesCurrentHTTPClient() {
         let httpClient = InvalidationTrackingHTTPClient()
         let provider = InvalidationTrackingHTTPClientProvider(httpClient: httpClient)
         let session = Session(configuration: .current, httpClientProvider: provider)
@@ -159,70 +176,113 @@ final class TestNetworkFixtureInterceptorTests: XCTestCase {
         session.teardown()
 
         withExtendedLifetime(session) {
-            XCTAssertEqual(httpClient.invalidationCount, 1)
+            #expect(httpClient.invalidationCount == 1)
         }
     }
 
-    func testFixtureClientSupportsCallbackDataTask() async throws {
-        let provider = try XCTUnwrap(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
+    @Test
+    func fixtureClientSupportsCallbackDataTask() async throws {
+        let provider = try #require(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
-        let url = URL(string: "https://en.wikipedia.org/api/rest_v1/page/summary/Dog")!
+        let url = try #require(URL(string: "https://en.wikipedia.org/api/rest_v1/page/summary/Dog"))
         let request = URLRequest(url: url)
-        let expectation = expectation(description: "Fixture callback completes")
 
-        let callback = Session.Callback(
-            response: { response in
-                XCTAssertEqual((response as? HTTPURLResponse)?.statusCode, 200)
-            },
-            data: { data in
-                let json = try? XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
-                XCTAssertEqual(json?["title"] as? String, "Dog")
-            },
-            success: { usedCache in
-                XCTAssertFalse(usedCache)
-                expectation.fulfill()
-            },
-            failure: { error in
-                XCTFail("Expected fixture success, got \(error)")
-            },
-            cacheFallbackError: nil
-        )
+        let result = try await callbackDataTaskResult(session: session, request: request)
+        let json = try #require(JSONSerialization.jsonObject(with: result.data) as? [String: Any])
 
-        let task = try XCTUnwrap(session.dataTask(with: request, callback: callback))
-        task.resume()
-        await fulfillment(of: [expectation], timeout: 1)
+        #expect(result.response?.statusCode == 200)
+        #expect(json["title"] as? String == "Dog")
+        #expect(result.usedCache == false)
     }
 
-    func testFixtureClientSupportsDownloadTask() async throws {
-        let provider = try XCTUnwrap(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
+    @Test
+    func fixtureClientSupportsDownloadTask() async throws {
+        let provider = try #require(TestNetworkFixtureInterceptor.httpClientProvider(profileValue: TestHTTPClientProfile.fixtureStrict.rawValue))
         let session = Session(configuration: .current, httpClientProvider: provider)
-        let url = URL(string: "https://en.wikipedia.org/api/rest_v1/page/summary/Dog")!
+        let url = try #require(URL(string: "https://en.wikipedia.org/api/rest_v1/page/summary/Dog"))
         let request = URLRequest(url: url)
-        let expectation = expectation(description: "Fixture download completes")
 
-        let task = try XCTUnwrap(session.downloadTask(with: request) { fileURL, response, error in
-            XCTAssertNil(error)
-            XCTAssertEqual((response as? HTTPURLResponse)?.statusCode, 200)
+        let result = try await downloadTaskResult(session: session, request: request)
+        let data = try Data(contentsOf: result.fileURL)
+        let json = try #require(JSONSerialization.jsonObject(with: data) as? [String: Any])
 
-            do {
-                let fileURL = try XCTUnwrap(fileURL)
-                let data = try Data(contentsOf: fileURL)
-                let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
-                XCTAssertEqual(json["title"] as? String, "Dog")
-            } catch {
-                XCTFail("Expected fixture download body, got \(error)")
+        #expect(result.response?.statusCode == 200)
+        #expect(json["title"] as? String == "Dog")
+    }
+
+    private func resetSharedFixtureState() {
+        UserDefaults.standard.removeObject(forKey: TestNetworkFixtureInterceptor.profileKey)
+        WMFDataEnvironment.current.basicService = WMFBasicService()
+        TestNetworkFixtureHTTPClient.resetFixtures()
+    }
+
+    private struct CallbackDataTaskResult {
+        let response: HTTPURLResponse?
+        let data: Data
+        let usedCache: Bool
+    }
+
+    private struct DownloadTaskResult {
+        let response: HTTPURLResponse?
+        let fileURL: URL
+    }
+
+    private func callbackDataTaskResult(session: Session, request: URLRequest) async throws -> CallbackDataTaskResult {
+        try await withCheckedThrowingContinuation { continuation in
+            var receivedResponse: URLResponse?
+            var receivedData = Data()
+
+            let callback = Session.Callback(
+                response: { response in
+                    receivedResponse = response
+                },
+                data: { data in
+                    receivedData.append(data)
+                },
+                success: { usedCache in
+                    continuation.resume(returning: CallbackDataTaskResult(response: receivedResponse as? HTTPURLResponse, data: receivedData, usedCache: usedCache))
+                },
+                failure: { error in
+                    continuation.resume(throwing: error)
+                },
+                cacheFallbackError: nil
+            )
+
+            guard let task = session.dataTask(with: request, callback: callback) else {
+                continuation.resume(throwing: URLError(.unknown))
+                return
             }
 
-            expectation.fulfill()
-        })
+            task.resume()
+        }
+    }
 
-        task.resume()
-        await fulfillment(of: [expectation], timeout: 1)
+    private func downloadTaskResult(session: Session, request: URLRequest) async throws -> DownloadTaskResult {
+        try await withCheckedThrowingContinuation { continuation in
+            guard let task = session.downloadTask(with: request, completionHandler: { fileURL, response, error in
+                if let error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+
+                guard let fileURL else {
+                    continuation.resume(throwing: URLError(.badServerResponse))
+                    return
+                }
+
+                continuation.resume(returning: DownloadTaskResult(response: response as? HTTPURLResponse, fileURL: fileURL))
+            }) else {
+                continuation.resume(throwing: URLError(.unknown))
+                return
+            }
+
+            task.resume()
+        }
     }
 
     private func temporaryUserDefaults() throws -> UserDefaults {
         let suiteName = "TestNetworkFixtureInterceptorTests-\(UUID().uuidString)"
-        let userDefaults = try XCTUnwrap(UserDefaults(suiteName: suiteName))
+        let userDefaults = try #require(UserDefaults(suiteName: suiteName))
         userDefaults.removePersistentDomain(forName: suiteName)
         return userDefaults
     }

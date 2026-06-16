@@ -705,6 +705,7 @@
 "forgot-password-instructions" = "Remplir un des champs ci-dessous pour recevoir les instructions de réinitialisation du mot de passe par courriel";
 "forgot-password-title" = "Réinitialiser le mot de passe";
 "forgot-password-username-or-email-title" = "Ou";
+"games-wcf-button-play-title" = "Jouer au jeu du jour";
 "games-wcf-explore-title" = "Qu'est-ce qui est arrivé en premier ?";
 "gan-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du gan comme langues principale et secondaire dans l’application, le rendant plus facile à lire, rechercher et modifier dans vos variantes préférées :\n\n贛語 原文 – gan (gan)\n赣语 简体 – gan simplifié (gan-hans)\n贛語 繁體 – gan traditionnel (gan-hant)";
 "gan-variants-alert-title" = "Mises à jour de la prise en charge des variantes du gan";
@@ -1548,7 +1549,7 @@
 "watchlist-watch-title" = "Suivre les articles";
 "welcome-data-privacy-title" = "Données & confidentialité";
 "welcome-exploration-explore-feed-description" = "Lecture recommandée et articles du jour de notre communauté";
-"welcome-exploration-explore-feed-title" = "Flux d'exploration";
+"welcome-exploration-explore-feed-title" = "Flux d’exploration";
 "welcome-exploration-on-this-day-description" = "Revenir dans le temps pour apprendre ce qui s’est passé aujourd’hui dans l’histoire";
 "welcome-exploration-on-this-day-title" = "Ce jour";
 "welcome-exploration-places-description" = "Découvrir des monuments proches de vous ou rechercher des lieux dans le monde";
@@ -1565,7 +1566,7 @@
 "welcome-languages-add-or-edit-button" = "Ajouter ou modifier les langues préférées";
 "welcome-languages-description" = "Nous avons trouvé les langues suivantes sur votre appareil :";
 "welcome-languages-search-title" = "Rechercher dans plus de 300 langues";
-"welcome-privacy-subtitle" = "Nous pensons que vous ne devriez pas avoir à fournir d'informations personnelles pour participer au mouvement de la connaissance libre. Les données d'utilisation collectées pour cette application sont anonymes.";
+"welcome-privacy-subtitle" = "Nous considérons que vous ne devriez pas avoir à fournir d'informations personnelles pour participer au mouvement de la connaissance libre. Les données d'utilisation collectées pour cette application sont anonymes.";
 "welcome-privacy-terms-button-text" = "En savoir plus sur notre politique de confidentialité et nos conditions d'utilisation";
 "widget-onthisday-description" = "Explorer ce qui s’est passé à cette date-ci de l’année au cours de l’histoire.";
 "widget-onthisday-placeholder-article-snippet" = "Encyclopédie en ligne gratuite que tout le monde peut modifier";

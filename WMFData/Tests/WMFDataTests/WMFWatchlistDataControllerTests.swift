@@ -1,14 +1,16 @@
-import XCTest
+import Foundation
+import Testing
 @testable import WMFData
 @testable import WMFDataMocks
 
-final class WMFWatchlistDataControllerTests: XCTestCase {
-    
+@Suite(.serialized)
+struct WMFWatchlistDataControllerTests {
+
     private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
     private let esProject = WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil))
-    
-    override func setUp() async throws {
-        WMFDataEnvironment.current.appData = WMFAppData(appLanguages:[
+
+    init() {
+        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [
             WMFLanguage(languageCode: "en", languageVariantCode: nil),
             WMFLanguage(languageCode: "es", languageVariantCode: nil)
         ])
@@ -16,110 +18,222 @@ final class WMFWatchlistDataControllerTests: XCTestCase {
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
     }
-    
-    func testAllWatchlistProjects() {
+
+    @Test
+    func allWatchlistProjects() {
         let controller = WMFWatchlistDataController()
         let allProjects = controller.allWatchlistProjects()
-        XCTAssertEqual([enProject, esProject, .commons, .wikidata], allProjects)
+
+        #expect([enProject, esProject, .commons, .wikidata] == allProjects)
     }
-    
-    func testSavingAndLoadingFilterSettings() {
+
+    @Test
+    func savingAndLoadingFilterSettings() {
         let controller = WMFWatchlistDataController()
-        let filterSettingsToSave = WMFWatchlistFilterSettings(offProjects: [.wikidata, .commons], latestRevisions: .latestRevision, activity: .seenChanges, automatedContributions: .bot, significance: .minorEdits, userRegistration: .registered, offTypes: [.categoryChanges, .loggedActions])
-        controller.saveFilterSettings(filterSettingsToSave)
+        let filterSettings = WMFWatchlistFilterSettings(offProjects: [.wikidata, .commons], latestRevisions: .latestRevision, activity: .seenChanges, automatedContributions: .bot, significance: .minorEdits, userRegistration: .registered, offTypes: [.categoryChanges, .loggedActions])
+
+        controller.saveFilterSettings(filterSettings)
         let loadedFilterSettings = controller.loadFilterSettings()
-        XCTAssertEqual(filterSettingsToSave, loadedFilterSettings)
+
+        #expect(filterSettings == loadedFilterSettings)
     }
-    
-    func testOnOffWatchlistProjects() {
+
+    @Test
+    func onOffWatchlistProjects() {
         let controller = WMFWatchlistDataController()
-        let filterSettingsToSave = WMFWatchlistFilterSettings(offProjects: [.wikidata, .commons], latestRevisions: .notTheLatestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [])
-        controller.saveFilterSettings(filterSettingsToSave)
-        XCTAssertEqual(controller.onWatchlistProjects(), [enProject, esProject])
-        XCTAssertEqual(controller.offWatchlistProjects(), [.wikidata, .commons])
+        let filterSettings = WMFWatchlistFilterSettings(offProjects: [.wikidata, .commons], latestRevisions: .notTheLatestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [])
+
+        controller.saveFilterSettings(filterSettings)
+
+        #expect(controller.onWatchlistProjects() == [enProject, esProject])
+        #expect(controller.offWatchlistProjects() == [.wikidata, .commons])
     }
-    
-    func testAllOffChangeTypes() {
+
+    @Test
+    func allOffChangeTypes() {
         let controller = WMFWatchlistDataController()
-        let filterSettingsToSave = WMFWatchlistFilterSettings(offProjects: [], latestRevisions: .notTheLatestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [.categoryChanges, .pageCreations])
-        controller.saveFilterSettings(filterSettingsToSave)
-        XCTAssertEqual(controller.allChangeTypes(), [.pageEdits, .pageCreations, .categoryChanges, .wikidataEdits, .loggedActions])
-        XCTAssertEqual(controller.offChangeTypes(), [.categoryChanges, .pageCreations])
+        let filterSettings = WMFWatchlistFilterSettings(offProjects: [], latestRevisions: .notTheLatestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [.categoryChanges, .pageCreations])
+
+        controller.saveFilterSettings(filterSettings)
+
+        #expect(controller.allChangeTypes() == [.pageEdits, .pageCreations, .categoryChanges, .wikidataEdits, .loggedActions])
+        #expect(controller.offChangeTypes() == [.categoryChanges, .pageCreations])
     }
-    
-    func testActiveFilterCount1() {
+
+    @Test
+    func activeFilterCount1() {
         let controller = WMFWatchlistDataController()
-        let filterSettingsToSave = WMFWatchlistFilterSettings(offProjects: [.commons, .wikidata], latestRevisions: .notTheLatestRevision, activity: .seenChanges, automatedContributions: .bot, significance: .minorEdits, userRegistration: .registered, offTypes: [])
-        controller.saveFilterSettings(filterSettingsToSave)
-        XCTAssertEqual(controller.activeFilterCount(), 6)
+        let filterSettings = WMFWatchlistFilterSettings(offProjects: [.commons, .wikidata], latestRevisions: .notTheLatestRevision, activity: .seenChanges, automatedContributions: .bot, significance: .minorEdits, userRegistration: .registered, offTypes: [])
+
+        controller.saveFilterSettings(filterSettings)
+
+        #expect(controller.activeFilterCount() == 6)
     }
-    
-    func testActiveFilterCount2() {
+
+    @Test
+    func activeFilterCount2() {
         let controller = WMFWatchlistDataController()
-        let filterSettingsToSave = WMFWatchlistFilterSettings(offProjects: [], latestRevisions: .latestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [.categoryChanges])
-        controller.saveFilterSettings(filterSettingsToSave)
-        XCTAssertEqual(controller.activeFilterCount(), 2)
+        let filterSettings = WMFWatchlistFilterSettings(offProjects: [], latestRevisions: .latestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [.categoryChanges])
+
+        controller.saveFilterSettings(filterSettings)
+
+        #expect(controller.activeFilterCount() == 2)
     }
-    
-    func testActiveFilterCount3() {
+
+    @Test
+    func activeFilterCount3() {
         let controller = WMFWatchlistDataController()
-        let filterSettingsToSave = WMFWatchlistFilterSettings(offProjects: [.commons, .wikidata, enProject], latestRevisions: .latestRevision, activity: .unseenChanges, automatedContributions: .human, significance: .nonMinorEdits, userRegistration: .unregistered, offTypes: [.categoryChanges, .loggedActions, .pageCreations, .pageEdits, .wikidataEdits])
-        controller.saveFilterSettings(filterSettingsToSave)
-        XCTAssertEqual(controller.activeFilterCount(), 13)
+        let filterSettings = WMFWatchlistFilterSettings(offProjects: [.commons, .wikidata, enProject], latestRevisions: .latestRevision, activity: .unseenChanges, automatedContributions: .human, significance: .nonMinorEdits, userRegistration: .unregistered, offTypes: [.categoryChanges, .loggedActions, .pageCreations, .pageEdits, .wikidataEdits])
+
+        controller.saveFilterSettings(filterSettings)
+
+        #expect(controller.activeFilterCount() == 13)
     }
-    
-    func testFetchWatchlistWithDefaultFilter() {
+
+    @Test
+    func fetchWatchlistWithDefaultFilter() async throws {
         let controller = WMFWatchlistDataController()
-        
-        let expectation = XCTestExpectation(description: "Fetch Watchlist")
-        
-        var watchlistToTest: WMFWatchlist?
-        controller.fetchWatchlist { result in
-            switch result {
-            case .success(let watchlist):
-                
-                watchlistToTest = watchlist
-                
-            case .failure(let error):
-                XCTFail("Failure fetching watchlist: \(error)")
-            }
-            
-            expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: 10.0)
-        
-        guard let watchlistToTest else {
-            XCTFail("Missing watchlistToTest")
+
+        let watchlist = try await controller.fetchWatchlist()
+
+        #expect(watchlist.items.count == 82)
+        #expect(watchlist.activeFilterCount == 0)
+        #expect(watchlist.items.filter { $0.project == enProject }.count == 38)
+        #expect(watchlist.items.filter { $0.project == esProject }.count == 13)
+        #expect(watchlist.items.filter { $0.project == .wikidata }.count == 28)
+        #expect(watchlist.items.filter { $0.project == .commons }.count == 3)
+
+        let first = try #require(watchlist.items.first)
+        #expect(first.title == "Talk:Cat")
+        #expect(first.username == "CatLover 1137")
+        #expect(first.revisionID == 1157699533)
+        #expect(first.oldRevisionID == 1157699360)
+        #expect(first.isAnon == false)
+        #expect(first.isBot == false)
+        #expect(first.commentWikitext == "/* I disagree with the above comment */ Reply")
+        #expect(first.commentHtml == "<span dir=\"auto\"><span class=\"autocomment\"><a href=\"/wiki/Talk:Cat#I_disagree_with_the_above_comment\" title=\"Talk:Cat\">→‎I disagree with the above comment</a>: </span> Reply</span>")
+        #expect(first.byteLength == 4246)
+        #expect(first.oldByteLength == 4071)
+        #expect(first.project == enProject)
+        let expectedDate = try testDate()
+        #expect(first.timestamp == expectedDate)
+    }
+
+    @Test
+    func fetchWatchlistWithProjectFilter() async throws {
+        let controller = WMFWatchlistDataController()
+        let filterSettings = WMFWatchlistFilterSettings(offProjects: [enProject, esProject], latestRevisions: .notTheLatestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [])
+        controller.saveFilterSettings(filterSettings)
+
+        let watchlist = try await controller.fetchWatchlist()
+
+        #expect(watchlist.items.count == 31)
+        #expect(watchlist.activeFilterCount == 2)
+        #expect(watchlist.items.filter { $0.project == enProject }.count == 0)
+        #expect(watchlist.items.filter { $0.project == esProject }.count == 0)
+        #expect(watchlist.items.filter { $0.project == .wikidata }.count == 28)
+        #expect(watchlist.items.filter { $0.project == .commons }.count == 3)
+    }
+
+    @Test
+    func fetchWatchlistWithAllProjectsPlusOneFilter() async throws {
+        let controller = WMFWatchlistDataController()
+        let filterSettings = WMFWatchlistFilterSettings(offProjects: [enProject, esProject, .wikidata, .commons], latestRevisions: .latestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [])
+        controller.saveFilterSettings(filterSettings)
+
+        let watchlist = try await controller.fetchWatchlist()
+
+        #expect(watchlist.activeFilterCount == 5)
+    }
+
+    @Test
+    func fetchWatchlistWithBotsFilter() async throws {
+        let controller = WMFWatchlistDataController()
+        let filterSettings = WMFWatchlistFilterSettings(offProjects: [], latestRevisions: .notTheLatestRevision, activity: .all, automatedContributions: .bot, significance: .all, userRegistration: .all, offTypes: [])
+        controller.saveFilterSettings(filterSettings)
+
+        let watchlist = try await controller.fetchWatchlist()
+
+        #expect(watchlist.items.count == 2)
+        #expect(watchlist.activeFilterCount == 1)
+        #expect(watchlist.items.filter { $0.isBot == false }.count == 0)
+    }
+
+    @Test
+    func fetchWatchlistWithNoCacheAndNoInternetConnection() async throws {
+        WMFDataEnvironment.current.mediaWikiService = WMFMockServiceNoInternetConnection()
+        let controller = WMFWatchlistDataController()
+
+        let error = try #require(await #expect(throws: WMFDataControllerError.self) {
+            _ = try await controller.fetchWatchlist()
+        })
+
+        guard case .serviceError(let underlyingError) = error else {
+            Issue.record("Expected serviceError, got \(error)")
             return
         }
-        
-        XCTAssertEqual(watchlistToTest.items.count, 82, "Incorrect number of watchlist items returned")
-        XCTAssertEqual(watchlistToTest.activeFilterCount, 0, "Incorrect activeFilterCount")
-        
-        let enItems = watchlistToTest.items.filter { $0.project == enProject }
-        let esItems = watchlistToTest.items.filter { $0.project == esProject }
-        let wikidataItems = watchlistToTest.items.filter { $0.project == .wikidata }
-        let commonsItems = watchlistToTest.items.filter { $0.project == .commons }
-        
-        XCTAssertEqual(enItems.count, 38, "Incorrect number of EN watchlist items returned")
-        XCTAssertEqual(esItems.count, 13, "Incorrect number of ES watchlist items returned")
-        XCTAssertEqual(wikidataItems.count, 28, "Incorrect number of wikidata watchlist items returned")
-        XCTAssertEqual(commonsItems.count, 3, "Incorrect number of commons watchlist items returned")
-        
-        let first = watchlistToTest.items.first!
-        XCTAssertEqual(first.title, "Talk:Cat", "Unexpected watchlist item title property")
-        XCTAssertEqual(first.username, "CatLover 1137", "Unexpected watchlist item username property")
-        XCTAssertEqual(first.revisionID, 1157699533, "Unexpected watchlist item revisionID property")
-        XCTAssertEqual(first.oldRevisionID, 1157699360, "Unexpected watchlist item oldRevisionID property")
-        XCTAssertEqual(first.isAnon, false, "Unexpected watchlist item isAnon property")
-        XCTAssertEqual(first.isBot, false, "Unexpected watchlist item isBot property")
-        XCTAssertEqual(first.commentWikitext, "/* I disagree with the above comment */ Reply", "Unexpected watchlist item commentWikitext property")
-        XCTAssertEqual(first.commentHtml, "<span dir=\"auto\"><span class=\"autocomment\"><a href=\"/wiki/Talk:Cat#I_disagree_with_the_above_comment\" title=\"Talk:Cat\">→‎I disagree with the above comment</a>: </span> Reply</span>", "Unexpected watchlist item commentHtml property")
-        XCTAssertEqual(first.byteLength, 4246, "Unexpected watchlist item byteLength property")
-        XCTAssertEqual(first.oldByteLength, 4071, "Unexpected watchlist item oldByteLength property")
-        XCTAssertEqual(first.project, WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
-        
+
+        let nsError = underlyingError as NSError
+        #expect(nsError.domain == NSURLErrorDomain)
+        #expect(nsError.code == NSURLErrorNotConnectedToInternet)
+    }
+
+    @Test
+    func fetchWatchlistWithCacheAndNoInternetConnection() async throws {
+        let controller = WMFWatchlistDataController()
+        let connectedWatchlist = try await controller.fetchWatchlist()
+
+        WMFDataEnvironment.current.mediaWikiService = WMFMockServiceNoInternetConnection()
+        controller.service = WMFDataEnvironment.current.mediaWikiService
+
+        let disconnectedAndCachedWatchlist = try await controller.fetchWatchlist()
+
+        #expect(connectedWatchlist.items.count == 82)
+        #expect(disconnectedAndCachedWatchlist.items.count == 82)
+    }
+
+    @Test
+    func postWatchArticleExpiryNever() async throws {
+        let controller = WMFWatchlistDataController()
+
+        try await controller.watch(title: "Cat", project: enProject, expiry: .never)
+    }
+
+    @Test
+    func postWatchArticleExpiryDate() async throws {
+        let controller = WMFWatchlistDataController()
+
+        try await controller.watch(title: "Cat", project: enProject, expiry: .oneMonth)
+    }
+
+    @Test
+    func postUnwatchArticle() async throws {
+        let controller = WMFWatchlistDataController()
+
+        try await controller.unwatch(title: "Cat", project: enProject)
+    }
+
+    @Test
+    func postRollbackArticle() async throws {
+        let controller = WMFWatchlistDataController()
+
+        let result = try await controller.rollback(title: "Cat", project: enProject, username: "Amigao")
+
+        #expect(result.newRevisionID == 573955)
+        #expect(result.oldRevisionID == 573953)
+    }
+
+    @Test
+    func postUndoArticle() async throws {
+        let controller = WMFWatchlistDataController()
+
+        let result = try await controller.undo(title: "Cat", revisionID: 1155871225, summary: "Testing", username: "Amigao", project: enProject)
+
+        #expect(result.newRevisionID == 573989)
+        #expect(result.oldRevisionID == 573988)
+    }
+
+    private func testDate() throws -> Date {
         var dateComponents = DateComponents()
         dateComponents.year = 2023
         dateComponents.month = 5
@@ -128,296 +242,49 @@ final class WMFWatchlistDataControllerTests: XCTestCase {
         dateComponents.hour = 11
         dateComponents.minute = 37
         dateComponents.second = 31
-        
-        guard let testDate = Calendar.current.date(from: dateComponents) else {
-            XCTFail("Failure creating testDate")
-            return
-        }
-        
-        XCTAssertEqual(first.timestamp, testDate, "Unexpected watchlist item timestamp property")
+
+        return try #require(Calendar.current.date(from: dateComponents))
     }
-    
-    func testFetchWatchlistWithProjectFilter() {
-        let controller = WMFWatchlistDataController()
-        
-        let filterSettingsToSave = WMFWatchlistFilterSettings(offProjects: [enProject, esProject], latestRevisions: .notTheLatestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [])
-        controller.saveFilterSettings(filterSettingsToSave)
-        
-        let expectation = XCTestExpectation(description: "Fetch Watchlist")
-        
-        var watchlistToTest: WMFWatchlist?
-        controller.fetchWatchlist { result in
-            switch result {
-            case .success(let watchlist):
-                
-                watchlistToTest = watchlist
-                
-            case .failure(let error):
-                XCTFail("Failure fetching watchlist: \(error)")
+}
+
+private extension WMFWatchlistDataController {
+    func fetchWatchlist() async throws -> WMFWatchlist {
+        try await withCheckedThrowingContinuation { continuation in
+            fetchWatchlist { result in
+                continuation.resume(with: result)
             }
-            
-            expectation.fulfill()
         }
-        
-        wait(for: [expectation], timeout: 10.0)
-        
-        guard let watchlistToTest else {
-            XCTFail("Missing watchlistToTest")
-            return
-        }
-        
-        XCTAssertEqual(watchlistToTest.items.count, 31, "Incorrect number of watchlist items returned")
-        XCTAssertEqual(watchlistToTest.activeFilterCount, 2, "Incorrect activeFilterCount")
-        
-        let enItems = watchlistToTest.items.filter { $0.project == enProject }
-        let esItems = watchlistToTest.items.filter { $0.project == esProject }
-        let wikidataItems = watchlistToTest.items.filter { $0.project == .wikidata }
-        let commonsItems = watchlistToTest.items.filter { $0.project == .commons }
-        
-        XCTAssertEqual(enItems.count, 0, "Incorrect number of EN watchlist items returned")
-        XCTAssertEqual(esItems.count, 0, "Incorrect number of ES watchlist items returned")
-        XCTAssertEqual(wikidataItems.count, 28, "Incorrect number of wikidata watchlist items returned")
-        XCTAssertEqual(commonsItems.count, 3, "Incorrect number of commons watchlist items returned")
     }
-    
-    func testFetchWatchlistWithAllProjectsPlusOneFilter() {
-        let controller = WMFWatchlistDataController()
-        
-        let filterSettingsToSave = WMFWatchlistFilterSettings(offProjects: [enProject, esProject, .wikidata, .commons], latestRevisions: .latestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [])
-        controller.saveFilterSettings(filterSettingsToSave)
-        
-        let expectation = XCTestExpectation(description: "Fetch Watchlist")
-        
-        var watchlistToTest: WMFWatchlist?
-        controller.fetchWatchlist { result in
-            switch result {
-            case .success(let watchlist):
-                
-                watchlistToTest = watchlist
-                
-            case .failure(let error):
-                XCTFail("Failure fetching watchlist: \(error)")
+
+    func watch(title: String, project: WMFProject, expiry: WMFWatchlistExpiryType) async throws {
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            watch(title: title, project: project, expiry: expiry) { result in
+                continuation.resume(with: result)
             }
-            
-            expectation.fulfill()
         }
-        
-        wait(for: [expectation], timeout: 10.0)
-        
-        guard let watchlistToTest else {
-            XCTFail("Missing watchlistToTest")
-            return
-        }
-        
-        XCTAssertEqual(watchlistToTest.activeFilterCount, 5, "Incorrect activeFilterCount")
     }
-    
-    func testFetchWatchlistWithBotsFilter() {
-        let controller = WMFWatchlistDataController()
-        
-        let filterSettingsToSave = WMFWatchlistFilterSettings(offProjects: [], latestRevisions: .notTheLatestRevision, activity: .all, automatedContributions: .bot, significance: .all, userRegistration: .all, offTypes: [])
-        controller.saveFilterSettings(filterSettingsToSave)
-        
-        let expectation = XCTestExpectation(description: "Fetch Watchlist")
-        
-        var watchlistToTest: WMFWatchlist?
-        controller.fetchWatchlist { result in
-            switch result {
-            case .success(let watchlist):
-                
-                watchlistToTest = watchlist
-                
-            case .failure(let error):
-                XCTFail("Failure fetching watchlist: \(error)")
+
+    func unwatch(title: String, project: WMFProject) async throws {
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            unwatch(title: title, project: project) { result in
+                continuation.resume(with: result)
             }
-            
-            expectation.fulfill()
         }
-        
-        wait(for: [expectation], timeout: 10.0)
-        
-        guard let watchlistToTest else {
-            XCTFail("Missing watchlistToTest")
-            return
-        }
-        
-        XCTAssertEqual(watchlistToTest.items.count, 2, "Incorrect number of watchlist items returned")
-        XCTAssertEqual(watchlistToTest.activeFilterCount, 1, "Incorrect activeFilterCount")
-        
-        let humanItems = watchlistToTest.items.filter { $0.isBot == false }
-        XCTAssertEqual(humanItems.count, 0)
     }
-    
-    func testFetchWatchlistWithNoCacheAndNoInternetConnection() {
-        WMFDataEnvironment.current.mediaWikiService = WMFMockServiceNoInternetConnection()
-        let controller = WMFWatchlistDataController()
-        
-        let expectation = XCTestExpectation(description: "Fetch Watchlist")
-        
-        controller.fetchWatchlist { result in
-            switch result {
-            case .success:
-                
-                XCTFail("Unexpected success")
-                
-            case .failure:
-                break
+
+    func rollback(title: String, project: WMFProject, username: String) async throws -> WMFUndoOrRollbackResult {
+        try await withCheckedThrowingContinuation { continuation in
+            rollback(title: title, project: project, username: username) { result in
+                continuation.resume(with: result)
             }
-            
-            expectation.fulfill()
         }
-        
-        wait(for: [expectation], timeout: 10.0)
     }
-    
-    func testFetchWatchlistWithCacheAndNoInternetConnection() {
-        
-        // First fetch successfully to populate cache
-        let controller = WMFWatchlistDataController()
-        
-        let expectation1 = XCTestExpectation(description: "Fetch Watchlist with Internet Connection")
-        let expectation2 = XCTestExpectation(description: "Fetch Watchlist without Internet Connection")
-        var connectedWatchlistReturned: WMFWatchlist? = nil
-        var disconnectedAndCachedWatchlistReturned: WMFWatchlist? = nil
-        
-        controller.fetchWatchlist { result in
-            switch result {
-            case .success(let watchlist1):
-                
-                connectedWatchlistReturned = watchlist1
-                
-                // Drop Internet Connection
-                WMFDataEnvironment.current.mediaWikiService = WMFMockServiceNoInternetConnection()
-                controller.service = WMFDataEnvironment.current.mediaWikiService
 
-                // Fetch again, confirm it still succeeds
-                controller.fetchWatchlist { result in
-                    switch result {
-                    case .success(let watchlist2):
-                        disconnectedAndCachedWatchlistReturned = watchlist2
-                    case .failure:
-                        XCTFail("Unexpected disconnected failure")
-                    }
-                    
-                    expectation2.fulfill()
-                }
-            case .failure:
-                XCTFail("Unexpected connected failure")
+    func undo(title: String, revisionID: UInt, summary: String, username: String, project: WMFProject) async throws -> WMFUndoOrRollbackResult {
+        try await withCheckedThrowingContinuation { continuation in
+            undo(title: title, revisionID: revisionID, summary: summary, username: username, project: project) { result in
+                continuation.resume(with: result)
             }
-            
-            expectation1.fulfill()
-        }
-        
-        wait(for: [expectation1], timeout: 10.0)
-        wait(for: [expectation2], timeout: 10.0)
-        
-        XCTAssertEqual(connectedWatchlistReturned?.items.count, 82, "Incorrect number of watchlist items initially returned")
-        XCTAssertEqual(disconnectedAndCachedWatchlistReturned?.items.count, 82, "Incorrect number of watchlist items initially returned")
-    }
-    
-    func testPostWatchArticleExpiryNever() {
-         let controller = WMFWatchlistDataController()
-
-         let expectation = XCTestExpectation(description: "Post Watch Article Expiry Never")
-
-         var resultToTest: Result<Void, Error>?
-        controller.watch(title: "Cat", project: enProject, expiry: .never) { result in
-             resultToTest = result
-             expectation.fulfill()
-         }
-
-         wait(for: [expectation], timeout: 10.0)
-
-         guard case .success = resultToTest else {
-             return XCTFail("Unexpected result")
-         }
-     }
-
-     func testPostWatchArticleExpiryDate() {
-         let controller = WMFWatchlistDataController()
-
-         let expectation = XCTestExpectation(description: "Post Watch Article Expiry Date")
-
-         var resultToTest: Result<Void, Error>?
-         controller.watch(title: "Cat", project: enProject, expiry: .oneMonth) { result in
-             resultToTest = result
-             expectation.fulfill()
-         }
-
-         wait(for: [expectation], timeout: 10.0)
-
-         guard case .success = resultToTest else {
-             return XCTFail("Unexpected result")
-         }
-     }
-
-     func testPostUnwatchArticle() {
-         let controller = WMFWatchlistDataController()
-
-         let expectation = XCTestExpectation(description: "Post Watch Unwatch Article")
-
-         var resultToTest: Result<Void, Error>?
-         controller.unwatch(title: "Cat", project: enProject) { result in
-             resultToTest = result
-             expectation.fulfill()
-         }
-
-         wait(for: [expectation], timeout: 10.0)
-
-         guard case .success = resultToTest else {
-             return XCTFail("Unexpected result")
-         }
-     }
-    
-    func testPostRollbackArticle() {
-        let controller = WMFWatchlistDataController()
-
-        let expectation = XCTestExpectation(description: "Post Rollback Article")
-
-        var resultToTest: Result<WMFUndoOrRollbackResult, Error>?
-        controller.rollback(title: "Cat", project: enProject, username: "Amigao") { result in
-            resultToTest = result
-            expectation.fulfill()
-        }
-
-        wait(for: [expectation], timeout: 10.0)
-
-        guard let resultToTest else {
-            return XCTFail("Unexpected result")
-        }
-        
-        switch resultToTest {
-        case .success(let result):
-            XCTAssertEqual(result.newRevisionID, 573955)
-            XCTAssertEqual(result.oldRevisionID, 573953)
-        case .failure:
-            return XCTFail("Unexpected result")
-        }
-    }
-    
-    func testPostUndoArticle() {
-        let controller = WMFWatchlistDataController()
-        
-        let expectation = XCTestExpectation(description: "Post Undo Article")
-
-        var resultToTest: Result<WMFUndoOrRollbackResult, Error>?
-        controller.undo(title: "Cat", revisionID: 1155871225, summary: "Testing", username: "Amigao", project: enProject) { result in
-            resultToTest = result
-            expectation.fulfill()
-        }
-
-        wait(for: [expectation], timeout: 10.0)
-        
-        guard let resultToTest else {
-            return XCTFail("Unexpected result")
-        }
-        
-        switch resultToTest {
-        case .success(let result):
-            XCTAssertEqual(result.newRevisionID, 573989)
-            XCTAssertEqual(result.oldRevisionID, 573988)
-        case .failure:
-            return XCTFail("Unexpected result")
         }
     }
 }

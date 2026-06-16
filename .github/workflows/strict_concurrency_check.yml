@@ -1,0 +1,105 @@
+name: Strict Concurrency Check
+
+# Swift 6 migration guard.
+#
+# This workflow builds the leaf Swift packages with SWIFT_STRICT_CONCURRENCY=complete
+# and reports the number of concurrency warnings per scheme. Every one of these
+# warnings becomes a hard ERROR once the package flips to Swift 6 language mode, so
+# this is the burn-down metric for the migration (see the Swift 6.2 migration plan).
+#
+# It is intentionally NON-BLOCKING today: the leaf packages still have a backlog of
+# concurrency warnings (WMFData alone had ~127 at the start of the migration). As each
+# scheme reaches zero, move it into the `gated-schemes` list below to make it a hard
+# gate (build fails on ANY concurrency regression for that scheme).
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+env:
+  XCODE_VERSION: "26.2"
+  IOS_VERSION: "26.2"
+  SIMULATOR_NAME: "iPhone 16"
+  # Schemes that have completed their strict-concurrency burn-down. These are built
+  # with warnings-as-errors so any regression fails CI. Space-separated.
+  GATED_SCHEMES: ""
+
+concurrency:
+  group: "strict-concurrency-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  strict-concurrency:
+    runs-on: macos-latest
+    permissions:
+      actions: read
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        # Leaf-first migration order. Add WMF / Wikipedia here as they begin their burn-down.
+        scheme: ["WMFData", "WMFComponents"]
+
+    name: Strict concurrency (${{ matrix.scheme }})
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
+
+      - name: Prepare simulator
+        id: simulator
+        uses: ./.github/actions/prepare-simulator
+        with:
+          ios-version: ${{ env.IOS_VERSION }}
+          simulator-name: ${{ env.SIMULATOR_NAME }}
+
+      - name: Build ${{ matrix.scheme }} with strict concurrency
+        run: |
+          SCHEME="${{ matrix.scheme }}"
+          echo "Building ${SCHEME} with SWIFT_STRICT_CONCURRENCY=complete"
+
+          # Decide whether this scheme is gated (warnings-as-errors) or report-only.
+          TREAT_AS_ERRORS="NO"
+          for gated in ${GATED_SCHEMES}; do
+            if [ "${gated}" = "${SCHEME}" ]; then
+              TREAT_AS_ERRORS="YES"
+            fi
+          done
+
+          set -o pipefail
+          xcodebuild build \
+            -scheme "${SCHEME}" \
+            -project Wikipedia.xcodeproj \
+            -destination "${{ steps.simulator.outputs.destination }}" \
+            SWIFT_STRICT_CONCURRENCY=complete \
+            SWIFT_TREAT_WARNINGS_AS_ERRORS=${TREAT_AS_ERRORS} \
+            2>&1 | tee "${SCHEME}_strict.log"
+          BUILD_EXIT=${PIPESTATUS[0]}
+
+          COUNT=$(grep -c "warning:" "${SCHEME}_strict.log" || true)
+          {
+            echo "## Strict concurrency: ${SCHEME}"
+            echo ""
+            echo "**Concurrency warnings (errors under Swift 6 language mode): ${COUNT}**"
+            echo ""
+            echo "Top warnings:"
+            echo '```'
+            grep "warning:" "${SCHEME}_strict.log" \
+              | sed -E 's/^.*warning:/warning:/' \
+              | sort | uniq -c | sort -rn | head -20
+            echo '```'
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+          if [ "${TREAT_AS_ERRORS}" = "YES" ] && [ "${BUILD_EXIT}" -ne 0 ]; then
+            echo "::error::${SCHEME} is a gated scheme and introduced a strict-concurrency regression."
+            exit "${BUILD_EXIT}"
+          fi
+
+          echo "${SCHEME}: ${COUNT} concurrency warning(s) (report-only)."
