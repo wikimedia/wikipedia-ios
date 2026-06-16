@@ -665,6 +665,15 @@
 "home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.";
 "home-community-tab-title" = "Title for the Community segment within the Home tab.";
 "home-edit-languages-title" = "Title for the option at the bottom of the Home language menu that opens the languages settings screen.";
+"home-feed-for-you-based-on-interests-subtitle" = "Subtitle describing the Based on your interests module.";
+"home-feed-for-you-based-on-interests-title" = "Title for the Based on your interests module toggle.";
+"home-feed-for-you-because-you-read-subtitle" = "Subtitle describing the Because you read module.";
+"home-feed-for-you-because-you-read-title" = "Title for the Because you read module toggle.";
+"home-feed-for-you-continue-reading-subtitle" = "Subtitle describing the Continue reading module.";
+"home-feed-for-you-continue-reading-title" = "Title for the Continue reading module toggle.";
+"home-feed-for-you-settings-header" = "Header text describing what turning For You feed modules on or off does.";
+"home-feed-for-you-settings-title" = "Navigation bar title for the For You modules settings screen.";
+"home-feed-for-you-whats-driving-title" = "Title for the link row that explains what is driving the user's For You feed.";
 "home-feed-modules-featured-article-subtitle" = "Subtitle describing the Featured article module.";
 "home-feed-modules-featured-article-title" = "Title for the Featured article module toggle.";
 "home-feed-modules-in-the-news-subtitle" = "Subtitle describing the In the news module.";

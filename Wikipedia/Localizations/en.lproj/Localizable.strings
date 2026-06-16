@@ -665,6 +665,15 @@
 "home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
 "home-community-tab-title" = "Community";
 "home-edit-languages-title" = "Add or edit languages";
+"home-feed-for-you-based-on-interests-subtitle" = "Articles tailored to the topics you chose.";
+"home-feed-for-you-based-on-interests-title" = "Based on your interests";
+"home-feed-for-you-because-you-read-subtitle" = "Suggestions based on a recent article from your history";
+"home-feed-for-you-because-you-read-title" = "Because you read";
+"home-feed-for-you-continue-reading-subtitle" = "Jump back into articles you didn't finish";
+"home-feed-for-you-continue-reading-title" = "Continue reading";
+"home-feed-for-you-settings-header" = "Turning off a module hides it from your \"For you\" feed. You can re-enable it here at any time.";
+"home-feed-for-you-settings-title" = "Modules";
+"home-feed-for-you-whats-driving-title" = "What's driving your feed";
 "home-feed-modules-featured-article-subtitle" = "Featured articles are some of the highest-quality articles on Wikipedia, selected daily by editors";
 "home-feed-modules-featured-article-title" = "Featured article";
 "home-feed-modules-in-the-news-subtitle" = "Articles that have been substantially updated to reflect recent or current events of wide interest";

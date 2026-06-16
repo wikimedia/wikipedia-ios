@@ -595,6 +595,16 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         settingsNav.pushViewController(homeFeedSettingsVC, animated: true)
     }
 
+    private func showHomeFeedCommunityModulesSettings() {
+        guard let settingsNav = settingsNavigationController else {
+            return
+        }
+
+        let viewModel = WMFHomeFeedCommunitySettingsViewModel()
+        let modulesSettingsVC = WMFHomeFeedCommunitySettingsViewController(viewModel: viewModel)
+        settingsNav.pushViewController(modulesSettingsVC, animated: true)
+    }
+
     // MARK: - Notifications
 
     private func showNotifications() {
