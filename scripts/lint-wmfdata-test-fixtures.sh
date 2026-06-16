@@ -42,20 +42,14 @@ while IFS= read -r file; do
       ;;
   esac
 
-  uses_xctest_fixture=0
-  if grep -q "WMFDataEnvironmentResettingTestCase" "$file" &&
-    grep -q "try await super.setUp()" "$file"; then
-    uses_xctest_fixture=1
-  fi
-
-  uses_swift_testing_fixture=0
+  uses_fixture=0
   if grep -q "WMFDataTestFixture" "$file" &&
     grep -Eq "await[[:space:]]+[[:alnum:]_]+\\.setUp\\(\\)" "$file"; then
-    uses_swift_testing_fixture=1
+    uses_fixture=1
   fi
 
-  if [ "$uses_xctest_fixture" -ne 1 ] && [ "$uses_swift_testing_fixture" -ne 1 ]; then
-    echo "error: $file mutates WMFDataEnvironment.current but does not use WMFDataEnvironmentResettingTestCase or WMFDataTestFixture setup" >&2
+  if [ "$uses_fixture" -ne 1 ]; then
+    echo "error: $file mutates WMFDataEnvironment.current but does not use WMFDataTestFixture setup" >&2
     failed=1
   fi
 
