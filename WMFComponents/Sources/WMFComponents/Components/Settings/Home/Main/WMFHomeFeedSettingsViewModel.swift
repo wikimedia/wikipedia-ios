@@ -8,7 +8,7 @@ public final class WMFHomeFeedSettingsViewModel: ObservableObject {
 
     let sections: [SettingsSection]
 
-    public init(didTapCommunityModules: (() -> Void)? = nil) {
+    public init(didTapCommunityModules: (() -> Void)? = nil, didTapForYouModules: (() -> Void)? = nil) {
         let modulesTitle = WMFLocalizedString("home-feed-settings-modules-title", value: "Modules", comment: "Title for the row that lets users turn feed modules on or off in Home feed settings.")
         let communityModulesSubtitle = WMFLocalizedString("home-feed-settings-community-modules-subtitle", value: "Turn on or off 'Community' modules", comment: "Subtitle for the Modules row describing that it toggles Community modules on or off.")
         let whatsDrivingTitle = WMFLocalizedString("home-feed-settings-whats-driving-title", value: "What's Driving your feed", comment: "Title for the row that shows what is driving the user's feed in Home feed settings.")
@@ -22,7 +22,7 @@ public final class WMFHomeFeedSettingsViewModel: ObservableObject {
                 SettingsItem(image: nil, color: nil, title: modulesTitle, subtitle: communityModulesSubtitle, accessory: .chevron(label: nil), action: didTapCommunityModules)
             ]),
             SettingsSection(header: forYouHeader, footer: nil, items: [
-                SettingsItem(image: nil, color: nil, title: modulesTitle, subtitle: communityModulesSubtitle, accessory: .chevron(label: nil), action: nil),
+                SettingsItem(image: nil, color: nil, title: modulesTitle, subtitle: communityModulesSubtitle, accessory: .chevron(label: nil), action: didTapForYouModules),
                 SettingsItem(image: nil, color: nil, title: whatsDrivingTitle, subtitle: whatsDrivingSubtitle, accessory: .chevron(label: nil), action: nil)
             ])
         ]

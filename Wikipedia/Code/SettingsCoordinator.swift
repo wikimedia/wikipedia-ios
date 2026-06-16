@@ -591,6 +591,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
         let homeFeedSettingsVC = WMFHomeFeedSettingsViewController(didTapCommunityModules: { [weak self] in
             self?.showHomeFeedCommunityModulesSettings()
+        }, didTapForYouModules: { [weak self] in
+            self?.showHomeFeedForYouModulesSettings()
         })
         settingsNav.pushViewController(homeFeedSettingsVC, animated: true)
     }
@@ -603,6 +605,16 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         let viewModel = WMFHomeFeedCommunitySettingsViewModel()
         let modulesSettingsVC = WMFHomeFeedCommunitySettingsViewController(viewModel: viewModel)
         settingsNav.pushViewController(modulesSettingsVC, animated: true)
+    }
+
+    private func showHomeFeedForYouModulesSettings() {
+        guard let settingsNav = settingsNavigationController else {
+            return
+        }
+
+        let viewModel = WMFHomeFeedForYouSettingsViewModel()
+        let forYouSettingsVC = WMFHomeFeedForYouSettingsViewController(viewModel: viewModel)
+        settingsNav.pushViewController(forYouSettingsVC, animated: true)
     }
 
     // MARK: - Notifications
