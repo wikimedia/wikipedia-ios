@@ -4,7 +4,11 @@ import WMFComponents
 /// Represents the profile screen opened from Explore.
 struct ProfileRobot: ScreenshotCapturingRobot {
     let base: UITestRobot
+}
 
+// MARK: - Screen state
+
+extension ProfileRobot {
     @discardableResult
     func assertVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.assertExists(
@@ -14,5 +18,4 @@ struct ProfileRobot: ScreenshotCapturingRobot {
         )
         return self
     }
-
 }

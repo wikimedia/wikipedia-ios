@@ -19,6 +19,8 @@ final class ArticleImageGalleryUITests: XCTestCase {
             .assertTopControlsVisible()
             .openLeadImageGallery()
             .assertImagePresented()
-            .shareImage()
+            .assertShareButtonEnabled()
+            .tapShareButton()
+            .assertAppRunning()
     }
 }

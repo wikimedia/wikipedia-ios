@@ -6,7 +6,11 @@ struct PreferredLanguagesRobot: ScreenshotCapturingRobot {
     let base: UITestRobot
     private static let preferredLanguageIdentifierPrefix =
         AccessibilityIdentifiers.LanguageSelection.preferredLanguage("")
+}
 
+// MARK: - Screen state
+
+extension PreferredLanguagesRobot {
     @discardableResult
     func assertVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
         let preferredLanguageCell = base.app.cells.matching(
@@ -16,6 +20,17 @@ struct PreferredLanguagesRobot: ScreenshotCapturingRobot {
         return self
     }
 
+    @discardableResult
+    func assertPreferredLanguage(_ languageCode: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let preferredLanguageCell = base.app.cells[AccessibilityIdentifiers.LanguageSelection.preferredLanguage(languageCode)]
+        base.assertExists(preferredLanguageCell, file: file, line: line)
+        return self
+    }
+}
+
+// MARK: - Content
+
+extension PreferredLanguagesRobot {
     func languageCodeAvailableToAdd() throws -> String {
         let candidateLanguageCodes = ["es", "fr", "it", "ja", "pt", "ar"]
 
@@ -27,7 +42,11 @@ struct PreferredLanguagesRobot: ScreenshotCapturingRobot {
 
         return languageCode
     }
+}
 
+// MARK: - Navigation
+
+extension PreferredLanguagesRobot {
     @discardableResult
     func tapAddLanguage(file: StaticString = #filePath, line: UInt = #line) -> AllLanguagesRobot {
         let button = base.app.buttons.matching(
@@ -43,12 +62,5 @@ struct PreferredLanguagesRobot: ScreenshotCapturingRobot {
         base.assertExists(button, file: file, line: line)
         button.tap()
         return AllLanguagesRobot(base: base).assertVisible(file: file, line: line)
-    }
-
-    @discardableResult
-    func assertPreferredLanguage(_ languageCode: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
-        let preferredLanguageCell = base.app.cells[AccessibilityIdentifiers.LanguageSelection.preferredLanguage(languageCode)]
-        base.assertExists(preferredLanguageCell, file: file, line: line)
-        return self
     }
 }

@@ -4,7 +4,11 @@ import WMFComponents
 /// Drives the all-languages picker shown after a user chooses to add another app language.
 struct AllLanguagesRobot: ScreenshotCapturingRobot {
     let base: UITestRobot
+}
 
+// MARK: - Screen state
+
+extension AllLanguagesRobot {
     @discardableResult
     func assertVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.assertExists(
@@ -14,7 +18,11 @@ struct AllLanguagesRobot: ScreenshotCapturingRobot {
         )
         return self
     }
+}
 
+// MARK: - Content
+
+extension AllLanguagesRobot {
     @discardableResult
     func search(for languageCode: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
         let searchField = base.app.searchFields.firstMatch
@@ -23,7 +31,11 @@ struct AllLanguagesRobot: ScreenshotCapturingRobot {
         searchField.typeText(languageCode)
         return self
     }
+}
 
+// MARK: - Navigation
+
+extension AllLanguagesRobot {
     @discardableResult
     func selectLanguage(_ languageCode: String, file: StaticString = #filePath, line: UInt = #line) -> PreferredLanguagesRobot {
         let languageCell = base.app.cells[AccessibilityIdentifiers.LanguageSelection.allLanguage(languageCode)]

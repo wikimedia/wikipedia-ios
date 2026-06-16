@@ -5,6 +5,8 @@ protocol ScreenshotCapturingRobot {
     var base: UITestRobot { get }
 }
 
+// MARK: - Shared screen actions
+
 extension ScreenshotCapturingRobot {
     @discardableResult
     func captureScreenshot(_ screenshot: any RawRepresentable<String>) -> Self {
@@ -36,7 +38,11 @@ struct UITestRobot {
         self.app = app
         self.testCase = testCase
     }
+}
 
+// MARK: - Assertions
+
+extension UITestRobot {
     @discardableResult
     func assertExists(
         _ element: XCUIElement,
@@ -95,7 +101,11 @@ struct UITestRobot {
         )
         return self
     }
+}
 
+// MARK: - Element resolution
+
+extension UITestRobot {
     func firstHittableElement(
         matching query: XCUIElementQuery,
         timeout: TimeInterval = 15,
@@ -121,7 +131,11 @@ struct UITestRobot {
         )
         return hittableElement ?? query.firstMatch
     }
+}
 
+// MARK: - Actions
+
+extension UITestRobot {
     @discardableResult
     func tapButton(
         withIdentifier identifier: String,
@@ -140,7 +154,11 @@ struct UITestRobot {
         button.tap()
         return self
     }
+}
 
+// MARK: - Gestures
+
+extension UITestRobot {
     @discardableResult
     func tapCenter(
         of element: XCUIElement,
@@ -172,7 +190,11 @@ struct UITestRobot {
         start.press(forDuration: 0.01, thenDragTo: end)
         return self
     }
+}
 
+// MARK: - Device orientation
+
+extension UITestRobot {
     @discardableResult
     func rotateToLandscapeLeft() -> Self {
         XCUIDevice.shared.orientation = .landscapeLeft
@@ -184,7 +206,11 @@ struct UITestRobot {
         XCUIDevice.shared.orientation = .portrait
         return self
     }
+}
 
+// MARK: - Navigation
+
+extension UITestRobot {
     func backButton(in navigationBar: XCUIElement, isRightToLeft: Bool) -> XCUIElement {
         let systemBackButton = navigationBar.buttons.matching(identifier: Self.systemBackButtonIdentifier).firstMatch
         if systemBackButton.exists {
@@ -199,7 +225,11 @@ struct UITestRobot {
         // Select the visually leading navigation-bar button instead of relying on query order.
         return (isRightToLeft ? buttons.last : buttons.first) ?? navigationBar.buttons.firstMatch
     }
+}
 
+// MARK: - Waiting and screenshots
+
+extension UITestRobot {
     @discardableResult
     func waitForElementToDisappear(
         _ element: XCUIElement,
@@ -228,8 +258,12 @@ struct UITestRobot {
         testCase.add(attachment)
         return self
     }
+}
 
-    private static func describe(_ element: XCUIElement) -> String {
+// MARK: - Private helpers
+
+private extension UITestRobot {
+    static func describe(_ element: XCUIElement) -> String {
         if !element.identifier.isEmpty {
             return "element with identifier '\(element.identifier)'"
         }

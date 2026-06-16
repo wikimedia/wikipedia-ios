@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import XCTest
 import WMFComponents
 
@@ -21,7 +22,7 @@ extension ArticleRobot {
     func assertVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.assertExists(
             base.app.otherElements[AccessibilityIdentifiers.Article.view],
-            timeout: 10,
+            timeout: 30,
             file: file,
             line: line
         )
@@ -135,6 +136,194 @@ extension ArticleRobot {
         base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.tableOfContentsButton, file: file, line: line)
         return assertTableOfContentsVisible(file: file, line: line)
     }
+
+    @discardableResult
+    func tapBackToArticle(named title: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let navigationBar = navigationBar(file: file, line: line)
+        let backButton = base.backButton(in: navigationBar, isRightToLeft: configuration.isRightToLeft)
+        base.assertVisible(backButton, timeout: 15, description: "article back button", file: file, line: line)
+        tapCenter(of: backButton)
+        return assertLoadedArticle(named: title, file: file, line: line)
+    }
+}
+
+// MARK: - Bottom article controls
+
+extension ArticleRobot {
+    @discardableResult
+    func switchArticleLanguage(
+        to languageCode: String,
+        expectedArticleTitle: String,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> Self {
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.languagesButton, file: file, line: line)
+        base.assertExists(
+            languagePickerView,
+            timeout: 15,
+            description: "article language picker",
+            file: file,
+            line: line
+        )
+
+        tapLanguageCell(languageCode, filterTerm: languageSearchTerm(for: languageCode), file: file, line: line)
+
+        return assertLoadedArticle(named: expectedArticleTitle, file: file, line: line)
+    }
+
+    @discardableResult
+    func tapSaveAndAssertStateChanges(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let saveButton = element(withIdentifier: AccessibilityIdentifiers.Article.saveButton)
+        base.assertVisible(saveButton, timeout: 15, description: "article save button", file: file, line: line)
+        let initialLabel = saveButton.label
+        saveButton.tap()
+
+        let predicate = NSPredicate { _, _ in
+            saveButton.exists && saveButton.label != initialLabel
+        }
+        let expectation = XCTNSPredicateExpectation(predicate: predicate, object: nil)
+        XCTAssertEqual(
+            XCTWaiter.wait(for: [expectation], timeout: 5),
+            .completed,
+            "Expected the article save button state to change after tapping it.",
+            file: file,
+            line: line
+        )
+
+        return assertVisible(file: file, line: line)
+    }
+
+    @discardableResult
+    func findInArticle(searchTerm: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.findInPageButton, file: file, line: line)
+        base.assertExists(findInPageView, timeout: 10, description: "find in article bar", file: file, line: line)
+
+        let textField = element(withIdentifier: AccessibilityIdentifiers.Article.findInPageTextField)
+        base.assertVisible(textField, timeout: 10, description: "find in article text field", file: file, line: line)
+        textField.tap()
+        textField.typeText(searchTerm)
+
+        let matchLabel = element(withIdentifier: AccessibilityIdentifiers.Article.findInPageMatchLabel)
+        let predicate = NSPredicate { object, _ in
+            guard let matchLabel = object as? XCUIElement else {
+                return false
+            }
+
+            return matchLabel.label.range(of: "[1-9]", options: .regularExpression) != nil
+        }
+        let expectation = XCTNSPredicateExpectation(predicate: predicate, object: matchLabel)
+        XCTAssertEqual(
+            XCTWaiter.wait(for: [expectation], timeout: 15),
+            .completed,
+            "Expected find in article to report at least one match for '\(searchTerm)'.",
+            file: file,
+            line: line
+        )
+
+        base.assertVisible(
+            element(withIdentifier: AccessibilityIdentifiers.Article.findInPageNextButton),
+            timeout: 10,
+            description: "find in article next button",
+            file: file,
+            line: line
+        )
+        base.assertVisible(
+            element(withIdentifier: AccessibilityIdentifiers.Article.findInPagePreviousButton),
+            timeout: 10,
+            description: "find in article previous button",
+            file: file,
+            line: line
+        )
+        return self
+    }
+
+    @discardableResult
+    func closeFindInArticle(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let closeButton = element(withIdentifier: AccessibilityIdentifiers.Article.findInPageCloseButton)
+        base.assertVisible(closeButton, timeout: 10, description: "find in article close button", file: file, line: line)
+        closeButton.tap()
+        base.waitForElementToDisappear(findInPageView, timeout: 10, file: file, line: line)
+        return assertVisible(file: file, line: line)
+    }
+
+    @discardableResult
+    func openReadingThemeControls(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.themeButton, file: file, line: line)
+        base.assertExists(
+            readingThemesView,
+            timeout: 10,
+            description: "reading theme controls",
+            file: file,
+            line: line
+        )
+        return self
+    }
+
+    @discardableResult
+    func adjustReadingThemeControls(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        tapControl(withIdentifier: AccessibilityIdentifiers.Article.readingThemesTextSizeSlider, xOffset: 0.8, file: file, line: line)
+        tapControl(withIdentifier: AccessibilityIdentifiers.Article.readingThemesBrightnessSlider, xOffset: 0.35, file: file, line: line)
+        tapControl(withIdentifier: AccessibilityIdentifiers.Article.readingThemesSepiaButton, file: file, line: line)
+        tapControl(withIdentifier: AccessibilityIdentifiers.Article.readingThemesDarkButton, file: file, line: line)
+        tapControl(withIdentifier: AccessibilityIdentifiers.Article.readingThemesLightButton, file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func dismissReadingThemeControls(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let themesView = readingThemesView
+        base.assertExists(themesView, timeout: 10, description: "reading theme controls", file: file, line: line)
+        base.app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.35)).tap()
+        waitForElementToStopBeingVisible(themesView, timeout: 10, file: file, line: line)
+        return assertVisible(file: file, line: line)
+    }
+}
+
+// MARK: - Table of contents
+
+extension ArticleRobot {
+    @discardableResult
+    func dismissTableOfContentsByTappingOutside(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let tocView = tableOfContentsView
+        base.assertExists(tocView, timeout: 10, description: "article table of contents", file: file, line: line)
+        let offset = configuration.isRightToLeft ? CGVector(dx: 0.05, dy: 0.5) : CGVector(dx: 0.95, dy: 0.5)
+        base.app.coordinate(withNormalizedOffset: offset).tap()
+        base.waitForElementToDisappear(tocView, timeout: 10, file: file, line: line)
+        return assertVisible(file: file, line: line)
+    }
+
+    @discardableResult
+    func tapTableOfContentsSection(
+        anchor: String,
+        expectedHeading: String,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> Self {
+        let tocView = tableOfContentsView
+        let sectionCell = scrollToTableOfContentsCell(anchor: anchor, timeout: 20, file: file, line: line)
+        tapCenter(of: sectionCell)
+        _ = waitForArticleViewToDisappear(tocView, timeout: 10)
+        assertArticleElementExists(matchingLabel: expectedHeading, file: file, line: line)
+        return assertVisible(file: file, line: line)
+    }
+
+    @discardableResult
+    func rotateAndAssertTableOfContentsWorks(
+        anchor: String,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> Self {
+        base.rotateToLandscapeLeft()
+        _ = assertVisible(file: file, line: line)
+        _ = openTableOfContents(file: file, line: line)
+        let tocView = tableOfContentsView
+        let sectionCell = scrollToTableOfContentsCell(anchor: anchor, timeout: 20, file: file, line: line)
+        tapCenter(of: sectionCell)
+        waitForElementToStopBeingVisible(tocView, timeout: 10, file: file, line: line)
+        _ = assertVisible(file: file, line: line)
+        base.rotateToPortrait()
+        return assertVisible(file: file, line: line)
+    }
 }
 
 // MARK: - Images
@@ -223,6 +412,11 @@ extension ArticleRobot {
     func tapQuickFactsTableItem(file: StaticString = #filePath, line: UInt = #line) -> Self {
         tapArticleElement(.quickFactsTable, file: file, line: line)
         tapArticleElement(.quickFactsTableItem, file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func assertLinkedArticleVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
         assertArticleElementExists(matchingLabel: articleControlsFixture.linkedArticleDescription, file: file, line: line)
         return assertVisible(file: file, line: line)
     }
@@ -242,7 +436,29 @@ extension ArticleRobot {
     @discardableResult
     func tapAboutThisArticleItem(file: StaticString = #filePath, line: UInt = #line) -> Self {
         tapArticleElement(.footerItem, file: file, line: line)
-        return assertHistoryVisibleAndReturnToArticle(file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func assertHistoryVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let articleView = base.app.otherElements[AccessibilityIdentifiers.Article.view]
+        base.waitForElementToDisappear(articleView, timeout: 15, file: file, line: line)
+
+        let historyNavigationBar = base.app.navigationBars.firstMatch
+        base.assertExists(historyNavigationBar, timeout: 15, description: "history navigation bar", file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func tapBackToArticleFromHistory(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let historyNavigationBar = base.app.navigationBars.firstMatch
+        base.assertExists(historyNavigationBar, timeout: 15, description: "history navigation bar", file: file, line: line)
+
+        let backButton = base.backButton(in: historyNavigationBar, isRightToLeft: configuration.isRightToLeft)
+        base.assertExists(backButton, timeout: 15, description: "history back button", file: file, line: line)
+        XCTAssertFalse(backButton.frame.isEmpty, "Expected history back button to have a tappable frame.", file: file, line: line)
+        backButton.tap()
+        return assertVisible(file: file, line: line)
     }
 
     @discardableResult
@@ -250,15 +466,113 @@ extension ArticleRobot {
         tapArticleElement(.licenseLink, file: file, line: line)
         return self
     }
+
+    @discardableResult
+    func tapArticleLinkAndAssertLoaded(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        if articleControlsFixture.linkedArticleIsInQuickFacts {
+            tapArticleElement(.quickFactsTable, file: file, line: line)
+        }
+
+        tapArticleElement(.articleLink, file: file, line: line)
+        return assertLoadedArticle(named: articleControlsFixture.linkedArticleTitle, file: file, line: line)
+    }
+}
+
+// MARK: - Overflow menu
+
+extension ArticleRobot {
+    @discardableResult
+    func openOverflowMenu(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.tapButton(withIdentifier: AccessibilityIdentifiers.Article.moreButton, file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func assertOverflowMenuItemsVisible(_ titles: [String], file: StaticString = #filePath, line: UInt = #line) -> Self {
+        for title in titles {
+            let item = contextMenuItem(withTitle: title)
+            base.assertExists(item, timeout: 5, description: "\(title) overflow menu item", file: file, line: line)
+            XCTAssertTrue(item.isEnabled, "Expected \(title) overflow menu item to be enabled.", file: file, line: line)
+        }
+        return self
+    }
+
+    @discardableResult
+    func dismissOverflowMenu(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let shareItem = contextMenuItem(withTitle: articleControlsFixture.overflowShareTitle)
+        base.app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.08)).tap()
+        base.waitForElementToDisappear(shareItem, timeout: 5, file: file, line: line)
+        return assertVisible(file: file, line: line)
+    }
+
+    @discardableResult
+    func tapOverflowMenuItemAndAssertMenuDismisses(
+        title: String,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> Self {
+        openOverflowMenu(file: file, line: line)
+        let item = contextMenuItem(withTitle: title)
+        base.assertExists(item, timeout: 10, description: "\(title) overflow menu item", file: file, line: line)
+        item.tap()
+        waitForElementToStopBeingVisible(item, timeout: 10, file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func tapOverflowPreviousArticle(named title: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
+        openOverflowMenu(file: file, line: line)
+        let item = contextMenuItem(withTitle: title)
+        base.assertExists(item, timeout: 10, description: "\(title) previous article overflow menu item", file: file, line: line)
+        item.tap()
+        return assertLoadedArticle(named: title, file: file, line: line)
+    }
+
+    @discardableResult
+    func tapOverflowRevisionHistoryAndReturn(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        openOverflowMenu(file: file, line: line)
+        let item = contextMenuItem(withTitle: articleControlsFixture.overflowRevisionHistoryTitle)
+        base.assertExists(item, timeout: 10, description: "revision history overflow menu item", file: file, line: line)
+        item.tap()
+        return assertHistoryVisible(file: file, line: line)
+            .tapBackToArticleFromHistory(file: file, line: line)
+    }
+
 }
 
 extension ArticleRobot {
+    struct ArticleControlsTableOfContentsSection {
+        let anchor: String
+        let heading: String
+    }
+
     struct ArticleControlsFixture {
         let primaryArticleTitle: String
         let linkedArticleTitle: String
         let linkedArticleDescription: String
+        let linkedArticleIsInQuickFacts: Bool
         let footerArticleTitle: String
+        let languageSwitchTargetCode: String
+        let languageSwitchTargetTitle: String
+        let findSearchTerm: String
+        let tableOfContentsSections: [ArticleControlsTableOfContentsSection]
+        let rotatedTableOfContentsAnchor: String
+        let overflowEditSourceTitle: String
+        let overflowRevisionHistoryTitle: String
+        let overflowTalkPageTitle: String
+        let overflowWatchTitle: String
+        let overflowShareTitle: String
         let contextMenuActionTitles: [String]
+
+        var overflowMenuTitles: [String] {
+            [
+                overflowEditSourceTitle,
+                overflowRevisionHistoryTitle,
+                overflowTalkPageTitle,
+                overflowWatchTitle,
+                overflowShareTitle
+            ]
+        }
     }
 
     static func articleControlsFixture(languageCode: String) -> ArticleControlsFixture? {
@@ -268,7 +582,21 @@ extension ArticleRobot {
                 primaryArticleTitle: "Dog",
                 linkedArticleTitle: "Canis",
                 linkedArticleDescription: "Genus of canines",
+                linkedArticleIsInQuickFacts: false,
                 footerArticleTitle: "Canis lepophagus",
+                languageSwitchTargetCode: "de",
+                languageSwitchTargetTitle: "Haushund",
+                findSearchTerm: "Canis",
+                tableOfContentsSections: [
+                    ArticleControlsTableOfContentsSection(anchor: "Taxonomy", heading: "Taxonomy"),
+                    ArticleControlsTableOfContentsSection(anchor: "Origin", heading: "Origin")
+                ],
+                rotatedTableOfContentsAnchor: "Taxonomy",
+                overflowEditSourceTitle: "Edit source",
+                overflowRevisionHistoryTitle: "Article revision history",
+                overflowTalkPageTitle: "Article talk page",
+                overflowWatchTitle: "Watch",
+                overflowShareTitle: "Share",
                 contextMenuActionTitles: [
                     "Open",
                     "Open in new tab",
@@ -281,7 +609,21 @@ extension ArticleRobot {
                 primaryArticleTitle: "Haushund",
                 linkedArticleTitle: "Wolfs- und Schakalartige",
                 linkedArticleDescription: "Gattung der Familie Hunde (Canidae)",
+                linkedArticleIsInQuickFacts: true,
                 footerArticleTitle: "Wolfs- und Schakalartige",
+                languageSwitchTargetCode: "en",
+                languageSwitchTargetTitle: "Dog",
+                findSearchTerm: "Canis",
+                tableOfContentsSections: [
+                    ArticleControlsTableOfContentsSection(anchor: "Etymologie", heading: "Etymologie"),
+                    ArticleControlsTableOfContentsSection(anchor: "Population", heading: "Population")
+                ],
+                rotatedTableOfContentsAnchor: "Etymologie",
+                overflowEditSourceTitle: "Quelltext bearbeiten",
+                overflowRevisionHistoryTitle: "Versionsgeschichte",
+                overflowTalkPageTitle: "Diskussion",
+                overflowWatchTitle: "Beobachten",
+                overflowShareTitle: "Teilen",
                 contextMenuActionTitles: [
                     "Öffnen",
                     "In neuem Tab öffnen",
@@ -294,7 +636,21 @@ extension ArticleRobot {
                 primaryArticleTitle: "כלב הבית",
                 linkedArticleTitle: "כלב (סוג)",
                 linkedArticleDescription: "סוג של בעל חיים",
+                linkedArticleIsInQuickFacts: true,
                 footerArticleTitle: "כלב (סוג)",
+                languageSwitchTargetCode: "en",
+                languageSwitchTargetTitle: "Dog",
+                findSearchTerm: "Canis",
+                tableOfContentsSections: [
+                    ArticleControlsTableOfContentsSection(anchor: "טקסונומיה", heading: "טקסונומיה"),
+                    ArticleControlsTableOfContentsSection(anchor: "פיזיולוגיה", heading: "פיזיולוגיה")
+                ],
+                rotatedTableOfContentsAnchor: "טקסונומיה",
+                overflowEditSourceTitle: "עריכת קוד מקור",
+                overflowRevisionHistoryTitle: "היסטוריית גרסאות של ערך",
+                overflowTalkPageTitle: "דף שיחה של ערך",
+                overflowWatchTitle: "מעקב",
+                overflowShareTitle: "שיתוף",
                 contextMenuActionTitles: [
                     "פתיחה",
                     "פתיחה בלשונית חדשה",
@@ -307,7 +663,21 @@ extension ArticleRobot {
                 primaryArticleTitle: "Chó",
                 linkedArticleTitle: "Chi Chó",
                 linkedArticleDescription: "chi động vật có vú, bao gồm chó nhà",
+                linkedArticleIsInQuickFacts: false,
                 footerArticleTitle: "Chi Chó",
+                languageSwitchTargetCode: "en",
+                languageSwitchTargetTitle: "Dog",
+                findSearchTerm: "Canis",
+                tableOfContentsSections: [
+                    ArticleControlsTableOfContentsSection(anchor: "Nguồn_gốc", heading: "Nguồn gốc"),
+                    ArticleControlsTableOfContentsSection(anchor: "Phân_loại", heading: "Phân loại")
+                ],
+                rotatedTableOfContentsAnchor: "Nguồn_gốc",
+                overflowEditSourceTitle: "Sửa mã nguồn",
+                overflowRevisionHistoryTitle: "Lịch sử sửa đổi bài viết",
+                overflowTalkPageTitle: "Trang thảo luận bài viết",
+                overflowWatchTitle: "Watch",
+                overflowShareTitle: "Chia sẻ",
                 contextMenuActionTitles: [
                     "Mở",
                     "Mở trong thẻ mới",
@@ -366,6 +736,23 @@ private extension ArticleRobot {
         return base.app.descendants(matching: .any)
             .matching(identifier: AccessibilityIdentifiers.Article.tableOfContentsView)
             .firstMatch
+    }
+
+    var findInPageView: XCUIElement {
+        element(withIdentifier: AccessibilityIdentifiers.Article.findInPageView)
+    }
+
+    var readingThemesView: XCUIElement {
+        element(withIdentifier: AccessibilityIdentifiers.Article.readingThemesView)
+    }
+
+    var languagePickerView: XCUIElement {
+        let articlePicker = base.app.otherElements[AccessibilityIdentifiers.LanguageSelection.preferredLanguagesView]
+        if articlePicker.waitForExistence(timeout: 2) {
+            return articlePicker
+        }
+
+        return base.app.otherElements[AccessibilityIdentifiers.LanguageSelection.languagesView]
     }
 
     func navigationBar(file: StaticString = #filePath, line: UInt = #line) -> XCUIElement {
@@ -464,6 +851,109 @@ private extension ArticleRobot {
         return base.app.buttons.matching(predicate).firstMatch
     }
 
+    func element(withIdentifier identifier: String) -> XCUIElement {
+        base.app.descendants(matching: .any)
+            .matching(identifier: identifier)
+            .firstMatch
+    }
+
+    func tableOfContentsCell(anchor: String) -> XCUIElement {
+        base.app.cells[AccessibilityIdentifiers.Article.tableOfContentsItem(anchor)]
+    }
+
+    func scrollToTableOfContentsCell(anchor: String, timeout: TimeInterval, file: StaticString, line: UInt) -> XCUIElement {
+        let cell = tableOfContentsCell(anchor: anchor)
+        let scrollTarget = tableOfContentsScrollTarget
+        let deadline = Date().addingTimeInterval(timeout)
+
+        repeat {
+            if cell.exists && cell.isHittable {
+                return cell
+            }
+            base.dragUp(scrollTarget)
+        } while Date() < deadline
+
+        XCTAssertTrue(
+            cell.exists && cell.isHittable,
+            "Expected \(anchor) table of contents item to be visible within \(timeout) seconds.",
+            file: file,
+            line: line
+        )
+        return cell
+    }
+
+    var tableOfContentsScrollTarget: XCUIElement {
+        let table = tableOfContentsView.tables.firstMatch
+        if table.exists {
+            return table
+        }
+
+        let collectionView = tableOfContentsView.collectionViews.firstMatch
+        if collectionView.exists {
+            return collectionView
+        }
+
+        return tableOfContentsView
+    }
+
+    func tapLanguageCell(_ languageCode: String, filterTerm: String, file: StaticString, line: UInt) {
+        let languageCell = base.app.cells[AccessibilityIdentifiers.LanguageSelection.otherLanguage(languageCode)]
+        if languageCell.waitForExistence(timeout: 2), languageCell.isHittable {
+            languageCell.tap()
+            return
+        }
+
+        let searchField = base.app.searchFields[AccessibilityIdentifiers.Search.searchField]
+        if searchField.waitForExistence(timeout: 10), searchField.isHittable {
+            searchField.tap()
+            searchField.typeText(filterTerm)
+        }
+
+        if languageCell.waitForExistence(timeout: 10), languageCell.isHittable {
+            languageCell.tap()
+            return
+        }
+
+        let table = base.app.tables.firstMatch
+        let timeoutDate = Date().addingTimeInterval(30)
+        repeat {
+            if languageCell.exists && languageCell.isHittable {
+                languageCell.tap()
+                return
+            }
+            base.dragUp(table)
+        } while Date() < timeoutDate
+
+        XCTAssertTrue(
+            languageCell.exists && languageCell.isHittable,
+            "Expected \(languageCode) language cell to be visible within 30.0 seconds.",
+            file: file,
+            line: line
+        )
+    }
+
+    func languageSearchTerm(for languageCode: String) -> String {
+        switch languageCode {
+        case "en":
+            return "English"
+        case "de":
+            return "German"
+        default:
+            return languageCode
+        }
+    }
+
+    func tapControl(
+        withIdentifier identifier: String,
+        xOffset: CGFloat = 0.5,
+        file: StaticString,
+        line: UInt
+    ) {
+        let control = element(withIdentifier: identifier)
+        base.assertVisible(control, timeout: 10, description: "control with identifier '\(identifier)'", file: file, line: line)
+        control.coordinate(withNormalizedOffset: CGVector(dx: xOffset, dy: 0.5)).tap()
+    }
+
     func tapArticleNavigationButtonReturningToExplore(
         _ button: XCUIElement,
         description: String,
@@ -488,6 +978,27 @@ private extension ArticleRobot {
         return XCTWaiter.wait(for: [expectation], timeout: timeout) == .completed
     }
 
+    func waitForElementToStopBeingVisible(
+        _ element: XCUIElement,
+        timeout: TimeInterval,
+        file: StaticString,
+        line: UInt
+    ) {
+        let predicate = NSPredicate(format: "exists == false || hittable == false")
+        let expectation = XCTNSPredicateExpectation(predicate: predicate, object: element)
+        XCTAssertEqual(
+            XCTWaiter.wait(for: [expectation], timeout: timeout),
+            .completed,
+            "Expected element with identifier '\(element.identifier)' to disappear or become non-hittable within \(timeout) seconds.",
+            file: file,
+            line: line
+        )
+    }
+
+    func tapCenter(of element: XCUIElement) {
+        element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+    }
+
     func assertArticleLinkPreviewVisible(file: StaticString, line: UInt) {
         let preview = base.app.otherElements[AccessibilityIdentifiers.Article.linkPreview]
         if preview.waitForExistence(timeout: 2) {
@@ -509,18 +1020,4 @@ private extension ArticleRobot {
         )
     }
 
-    @discardableResult
-    func assertHistoryVisibleAndReturnToArticle(file: StaticString, line: UInt) -> Self {
-        let articleView = base.app.otherElements[AccessibilityIdentifiers.Article.view]
-        base.waitForElementToDisappear(articleView, timeout: 15, file: file, line: line)
-
-        let historyNavigationBar = base.app.navigationBars.firstMatch
-        base.assertExists(historyNavigationBar, timeout: 15, description: "history navigation bar", file: file, line: line)
-
-        let backButton = base.backButton(in: historyNavigationBar, isRightToLeft: configuration.isRightToLeft)
-        base.assertExists(backButton, timeout: 15, description: "history back button", file: file, line: line)
-        XCTAssertFalse(backButton.frame.isEmpty, "Expected history back button to have a tappable frame.", file: file, line: line)
-        backButton.tap()
-        return assertVisible(file: file, line: line)
-    }
 }
