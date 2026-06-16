@@ -91,6 +91,12 @@ import Foundation
             }
         }
     }
+
+    @_spi(Testing) public func reset() {
+        mediaWikiService = WMFDataEnvironment.current.mediaWikiService
+        _primaryWikiHasTempAccountsEnabled = nil
+        wikisWithTempAccountsEnabled = []
+    }
 }
 
 private struct TempStatusResponse: Codable {

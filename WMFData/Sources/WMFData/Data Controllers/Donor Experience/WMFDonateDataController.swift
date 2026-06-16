@@ -316,9 +316,11 @@ import Contacts
         try? self.sharedCacheStore?.remove(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
     }
 
-    // MARK: - Internal
-    
-    func reset() {
+    // MARK: - Testing
+
+    @_spi(Testing) public func reset() {
+        service = WMFDataEnvironment.current.basicService
+        sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
         donateConfig = nil
         paymentMethods = nil
     }

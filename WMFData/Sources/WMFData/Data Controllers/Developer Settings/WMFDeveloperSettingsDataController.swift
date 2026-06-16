@@ -237,4 +237,9 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             }
         }
     }
+
+    @_spi(Testing) public func reset() {
+        featureConfig = nil
+        sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
+    }
 }
