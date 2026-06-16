@@ -589,7 +589,9 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             return
         }
 
-        let homeFeedSettingsVC = WMFHomeFeedSettingsViewController(title: CommonStrings.homeFeedTitle)
+        let homeFeedSettingsVC = WMFHomeFeedSettingsViewController(didTapCommunityModules: { [weak self] in
+            self?.showHomeFeedCommunityModulesSettings()
+        })
         settingsNav.pushViewController(homeFeedSettingsVC, animated: true)
     }
 
