@@ -141,6 +141,13 @@ jobs:
             exit "$EXIT_CODE"
           fi
 
+      - name: Test result summary
+        if: always()
+        uses: ./.github/actions/test-result-summary
+        with:
+          result-bundle-path: ${{ env.RESULT_BUNDLE_PATH }}.xcresult
+          title: WikipediaUITests ${{ matrix.configuration }}
+
       - name: Upload full UI test result bundle
         if: always()
         uses: actions/upload-artifact@v7
