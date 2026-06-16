@@ -64,25 +64,14 @@ public struct WMFWhichCameFirstResultsView: View {
     }
     
     private var archiveButton: some View {
-        Button {
-            viewModel.onPlayArchive?()
-        } label: {
-            HStack(alignment: .center, spacing: 4) {
-                if let image = WMFSFSymbolIcon.for(symbol: .calendarBadgeClock, font: .semiboldSubheadline) {
-                    Image(uiImage: image)
-                        .accessibilityHidden(true)
-                }
-                Text(viewModel.localizedStrings.playTheArchiveButton)
-                    .font(Font(WMFFont.for(.semiboldHeadline)))
-                    .fixedSize(horizontal: false, vertical: true)
+        WMFLargeButton(
+            style: .neutral,
+            title: viewModel.localizedStrings.playTheArchiveButton,
+            icon: .calendarBadgeClock,
+            action: {
+                viewModel.onPlayArchive?()
             }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 14)
-            .frame(maxWidth: .infinity)
-            .foregroundColor(Color(uiColor: theme.link))
-            .background(Color(uiColor: theme.baseBackground))
-            .clipShape(Capsule())
-        }
+        )
     }
     
     // MARK: - Score Card
