@@ -1,13 +1,12 @@
 import SwiftUI
 
-// MARK: - Constants
-
 private enum Layout {
-    static let dotSize: CGFloat = 6
-    static let calendarPadding: CGFloat = 16
+    static let daySize: CGFloat = 36
+    static let dotSize: CGFloat = 11
+    static let cornerRadius: CGFloat = 16
+    static let calendarPadding: CGFloat = 12
+    static let emptyCellSpacing: CGFloat = 4
 }
-
-// MARK: - WMFWhichCameFirstArchiveView
 
 public struct WMFWhichCameFirstArchiveView: View {
 
@@ -16,43 +15,110 @@ public struct WMFWhichCameFirstArchiveView: View {
     @ObservedObject private var appEnvironment = WMFAppEnvironment.current
     private var theme: WMFTheme { appEnvironment.theme }
 
-    private let dateFormatter: DateFormatter = {
-        let f = DateFormatter()
-        f.dateStyle = .long
-        f.timeStyle = .none
-        return f
-    }()
+    var onDismiss: (() -> Void)?
 
-    public init(viewModel: WMFWhichCameFirstArchiveViewModel) {
+    public init(viewModel: WMFWhichCameFirstArchiveViewModel, onDismiss: (() -> Void)? = nil) {
         self.viewModel = viewModel
+        self.onDismiss = onDismiss
     }
 
     public var body: some View {
-        ZStack {
-            Color(uiColor: theme.paperBackground)
+        ZStack(alignment: .top) {
+            Color(uiColor: theme.midBackground)
                 .ignoresSafeArea()
 
             ScrollView {
                 VStack(spacing: 0) {
-                    subtitleView
-                        .padding(.horizontal, Layout.calendarPadding)
-                        .padding(.top, 16)
-                        .padding(.bottom, 8)
+                    headerSection
+                        .padding(.horizontal, 24)
+                        .padding(.top, 100)
+                        .padding(.bottom, 32)
 
-                    CalendarRepresentable(viewModel: viewModel, theme: theme)
-                        .frame(maxWidth: .infinity)
-                        .padding(.horizontal, Layout.calendarPadding)
+                    calendarCard
+                        .shadow(color: Color(uiColor: theme.text).opacity(0.05), radius: 8, x: 0, y: 0)
+                        .padding(.horizontal, 16)
+
+                    Spacer()
                 }
             }
+
+            dismissButton
         }
     }
 
-    private var subtitleView: some View {
-        Text(viewModel.localizedStrings.subtitle)
-            .font(Font(WMFFont.for(.headline)))
-            .foregroundColor(Color(uiColor: theme.secondaryText))
+    // MARK: Header
+
+    private var headerSection: some View {
+        VStack(spacing: 4) {
+            Image(systemName: "calendar.badge.clock")
+                .font(.system(size: 64))
+                .foregroundColor(Color(uiColor: theme.text))
+                .frame(width: 98, height: 72)
+                .padding(.bottom, 12)
+
+            Group {
+                Text(viewModel.localizedStrings.title + " ")
+                    .font(Font(WMFFont.for(.boldTitle1)))
+                + Text(viewModel.localizedStrings.archiveLabel)
+                    .font(Font(WMFFont.for(.title1)))
+            }
+            .foregroundColor(Color(uiColor: theme.text))
             .multilineTextAlignment(.center)
+
+            Text(viewModel.localizedStrings.subtitle)
+                .font(Font(WMFFont.for(.headline)))
+                .foregroundColor(Color(uiColor: theme.text))
+                .multilineTextAlignment(.center)
+        }
+    }
+
+    // MARK: Calendar card
+
+    private var calendarCard: some View {
+        CalendarRepresentable(viewModel: viewModel, theme: theme)
             .frame(maxWidth: .infinity)
+            .background(Color(uiColor: theme.paperBackground))
+            .cornerRadius(Layout.cornerRadius)
+            .dynamicTypeSize(.small ... .medium)
+    }
+
+    // MARK: Dismiss button
+
+    private var dismissButton: some View {
+        HStack {
+            Button {
+                onDismiss?()
+            } label: {
+                if let xmark = WMFSFSymbolIcon.for(symbol: .xMark, font: .footnote) {
+                    Image(uiImage: xmark)
+                        .foregroundColor(Color(uiColor: theme.text))
+                        .padding(10)
+                        .background {
+                            if #available(iOS 26.0, *) {
+                                Color.clear
+                            } else {
+                                Circle()
+                                    .fill(.ultraThinMaterial)
+                            }
+                        }
+                        .clipShape(Circle())
+                }
+            }
+            .modifier(GlassCircleEffect())
+            .padding(.leading, 16)
+            .padding(.top, 16)
+            Spacer()
+        }
+    }
+
+    private struct GlassCircleEffect: ViewModifier {
+        func body(content: Content) -> some View {
+            if #available(iOS 26.0, *) {
+                content.glassEffect(in: Circle())
+            } else {
+                content
+            }
+        }
     }
 }
 
@@ -71,28 +137,27 @@ private struct CalendarRepresentable: UIViewRepresentable {
         let cv = UICalendarView()
         cv.delegate = context.coordinator
         cv.tintColor = theme.link
+        // Background is transparent — the SwiftUI layer provides the card background.
         cv.backgroundColor = .clear
 
         let selection = UICalendarSelectionSingleDate(delegate: context.coordinator)
         cv.selectionBehavior = selection
         context.coordinator.selection = selection
 
-        let startComponents = Calendar.current.dateComponents([.year, .month, .day], from: viewModel.archiveStartDate)
-        let endComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
         cv.availableDateRange = DateInterval(
-            start: Calendar.current.date(from: startComponents) ?? viewModel.archiveStartDate,
-            end: Calendar.current.date(from: endComponents) ?? Date()
+            start: Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: viewModel.archiveStartDate)) ?? viewModel.archiveStartDate,
+            end: Date()
         )
 
         return cv
     }
 
     func updateUIView(_ uiView: UICalendarView, context: Context) {
+        // Background is intentionally .clear — the SwiftUI layer provides the card background.
         uiView.tintColor = theme.link
     }
 
-    // MARK: - Coordinator
-
+    @MainActor
     final class Coordinator: NSObject, UICalendarViewDelegate, UICalendarSelectionSingleDateDelegate {
 
         let viewModel: WMFWhichCameFirstArchiveViewModel
@@ -115,9 +180,7 @@ private struct CalendarRepresentable: UIViewRepresentable {
             guard let dateComponents,
                   let date = Calendar.current.date(from: dateComponents) else { return }
             self.selection?.setSelected(nil, animated: false)
-            Task { @MainActor in
-                self.viewModel.selectDay(date)
-            }
+            viewModel.selectDay(date)
         }
     }
 }

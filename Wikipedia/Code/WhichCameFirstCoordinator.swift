@@ -465,11 +465,15 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
                 }
             )
 
+            viewModel.onShowScoreToast = { message in
+                WMFToastManager.sharedInstance.showToast(message, sticky: false, dismissPreviousToasts: true)
+            }
+
             let archiveView = WMFWhichCameFirstArchiveView(
                 viewModel: viewModel,
-//                onDismiss: { [weak gameNav] in
-//                    gameNav?.dismiss(animated: true)
-//                }
+                onDismiss: { [weak gameNav] in
+                    gameNav?.dismiss(animated: true)
+                }
             )
 
             let hostingVC = UIHostingController(rootView: archiveView)
@@ -481,7 +485,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             gameNav.present(hostingVC, animated: true)
         }
     }
-    
+
     private func showGameForArchiveDate(_ date: Date) {
         guard let gameNav = gameNavigationController else { return }
 
@@ -508,7 +512,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             }
         }
     }
-    
+
     private func formattedDateString(from date: Date) -> String {
         let formatter = DateFormatter()
         formatter.setLocalizedDateFormatFromTemplate("MMMMd")
