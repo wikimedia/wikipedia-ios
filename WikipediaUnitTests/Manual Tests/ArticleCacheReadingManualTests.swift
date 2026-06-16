@@ -4,7 +4,7 @@ import Testing
 @testable import WMF
 
 @MainActor
-struct ArticleCacheReadingManualTests {
+final class ArticleCacheReadingManualTests {
     
     init() async {
         await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
@@ -14,6 +14,10 @@ struct ArticleCacheReadingManualTests {
         }
 
         ArticleTestHelpers.pullDataFromFixtures(inBundle: Bundle(for: ArticleCacheReadingManualTestBundleToken.self))
+    }
+
+    deinit {
+        ArticleTestHelpers.tearDown()
     }
 
     private func loadResponses(

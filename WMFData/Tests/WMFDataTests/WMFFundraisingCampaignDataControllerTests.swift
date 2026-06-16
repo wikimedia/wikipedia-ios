@@ -1,21 +1,24 @@
 import Foundation
 import Testing
+import WMFDataTestSupport
 @testable import WMFData
 @testable import WMFDataMocks
 
 @Suite(.serialized)
-struct WMFFundraisingCampaignDataControllerTests {
+final class WMFFundraisingCampaignDataControllerTests {
 
+    private let fixture = WMFDataTestFixture()
     private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
     private let esProject = WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil))
     private let nlProject = WMFProject.wikipedia(WMFLanguage(languageCode: "nl", languageVariantCode: nil))
-    private let controller: WMFFundraisingCampaignDataController
+    private let controller = WMFFundraisingCampaignDataController.shared
 
-    init() {
-        controller = WMFFundraisingCampaignDataController.shared
-        controller.reset()
-        controller.service = WMFFundraisingCampaignRequestMockService()
-        controller.sharedCacheStore = WMFMockKeyValueStore()
+    init() async {
+        await fixture.setUp()
+        WMFDataEnvironment.current.basicService = WMFFundraisingCampaignRequestMockService()
+        WMFDataEnvironment.current.serviceEnvironment = .staging
+        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        await fixture.resetWMFDataTestState()
     }
 
     @Test

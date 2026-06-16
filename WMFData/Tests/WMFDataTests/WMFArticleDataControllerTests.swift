@@ -1,20 +1,24 @@
 import Foundation
 import Testing
+import WMFDataTestSupport
 @testable import WMFData
 @testable import WMFDataMocks
 
 @Suite(.serialized)
-struct WMFArticleDataControllerTests {
+final class WMFArticleDataControllerTests {
 
+    private let fixture = WMFDataTestFixture()
     private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
 
-    init() {
+    init() async {
+        await fixture.setUp()
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [
             WMFLanguage(languageCode: "en", languageVariantCode: nil)
         ])
         WMFDataEnvironment.current.mediaWikiService = WMFMockWatchlistMediaWikiService()
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        await fixture.resetWMFDataTestState()
     }
 
     @Test

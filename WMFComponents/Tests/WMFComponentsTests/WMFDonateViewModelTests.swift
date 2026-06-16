@@ -1,13 +1,22 @@
 import Foundation
 import Testing
+import WMFDataTestSupport
 @testable import WMFComponents
 @testable import WMFData
 @testable import WMFDataMocks
 
 @MainActor
-struct WMFDonateViewModelTests {
+final class WMFDonateViewModelTests {
 
+    private let fixture = WMFDataTestFixture()
     private let merchantID = "merchant.id"
+
+    init() async {
+        await fixture.setUp()
+        WMFDataEnvironment.current.basicService = WMFMockBasicService()
+        WMFDataEnvironment.current.serviceEnvironment = .staging
+        await fixture.resetWMFDataTestState()
+    }
 
     @Test
     func viewModelInstantiatesWithCorrectDefaultsUSD() async throws {
@@ -208,7 +217,6 @@ struct WMFDonateViewModelTests {
     }
 
     private func loadDonateData() async throws -> (donateConfig: WMFDonateConfig, paymentMethods: WMFPaymentMethods) {
-        WMFDataEnvironment.current.serviceEnvironment = .staging
         let controller = WMFDonateDataController(service: WMFMockBasicService(), sharedCacheStore: WMFMockKeyValueStore())
         try await controller.fetchConfigs(for: "US")
 

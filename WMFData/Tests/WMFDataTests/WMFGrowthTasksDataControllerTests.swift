@@ -1,16 +1,20 @@
 import Testing
+import WMFDataTestSupport
 @testable import WMFData
 @testable import WMFDataMocks
 
 @Suite(.serialized)
-struct WMFGrowthTasksDataControllerTests {
+final class WMFGrowthTasksDataControllerTests {
 
+    private let fixture = WMFDataTestFixture()
     private let csProject = WMFProject.wikipedia(WMFLanguage(languageCode: "cs", languageVariantCode: nil))
     private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
 
-    init() {
+    init() async {
+        await fixture.setUp()
         WMFDataEnvironment.current.mediaWikiService = WMFMockGrowthTasksService()
         WMFDataEnvironment.current.basicService = WMFMockBasicService()
+        await fixture.resetWMFDataTestState()
     }
 
     @Test

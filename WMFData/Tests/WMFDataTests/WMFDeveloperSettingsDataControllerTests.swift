@@ -1,17 +1,21 @@
 import Foundation
 import Testing
+import WMFDataTestSupport
 @testable import WMFData
 @testable import WMFDataMocks
 
 @Suite(.serialized)
-struct WMFDeveloperSettingsDataControllerTests {
+final class WMFDeveloperSettingsDataControllerTests {
 
-    private let controller: WMFDeveloperSettingsDataController
+    private let fixture = WMFDataTestFixture()
+    private var controller: WMFDeveloperSettingsDataController!
 
-    init() {
+    init() async {
+        await fixture.setUp()
         WMFDataEnvironment.current.basicService = WMFFeatureConfigRequestMockService()
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)])
+        await fixture.resetWMFDataTestState()
         controller = WMFDeveloperSettingsDataController()
     }
 

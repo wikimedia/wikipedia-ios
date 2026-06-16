@@ -1,15 +1,18 @@
 import Foundation
 import Testing
+import WMFDataTestSupport
 @testable import WMFData
 @testable import WMFDataMocks
 
 @Suite(.serialized)
-struct WMFWatchlistDataControllerTests {
+final class WMFWatchlistDataControllerTests {
 
+    private let fixture = WMFDataTestFixture()
     private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
     private let esProject = WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil))
 
-    init() {
+    init() async {
+        await fixture.setUp()
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [
             WMFLanguage(languageCode: "en", languageVariantCode: nil),
             WMFLanguage(languageCode: "es", languageVariantCode: nil)
@@ -17,6 +20,7 @@ struct WMFWatchlistDataControllerTests {
         WMFDataEnvironment.current.mediaWikiService = WMFMockWatchlistMediaWikiService()
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        await fixture.resetWMFDataTestState()
     }
 
     @Test
@@ -161,8 +165,8 @@ struct WMFWatchlistDataControllerTests {
 
     @Test
     func fetchWatchlistWithNoCacheAndNoInternetConnection() async throws {
-        WMFDataEnvironment.current.mediaWikiService = WMFMockServiceNoInternetConnection()
         let controller = WMFWatchlistDataController()
+        controller.service = WMFMockServiceNoInternetConnection()
 
         let error = try #require(await #expect(throws: WMFDataControllerError.self) {
             _ = try await controller.fetchWatchlist()
@@ -183,8 +187,7 @@ struct WMFWatchlistDataControllerTests {
         let controller = WMFWatchlistDataController()
         let connectedWatchlist = try await controller.fetchWatchlist()
 
-        WMFDataEnvironment.current.mediaWikiService = WMFMockServiceNoInternetConnection()
-        controller.service = WMFDataEnvironment.current.mediaWikiService
+        controller.service = WMFMockServiceNoInternetConnection()
 
         let disconnectedAndCachedWatchlist = try await controller.fetchWatchlist()
 

@@ -1,12 +1,14 @@
 import Testing
+import WMFDataTestSupport
 @testable import WMFComponents
 @testable import WMFData
 @testable import WMFDataMocks
 
 @MainActor
 @Suite(.serialized)
-struct WMFImageRecommendationsViewModelTests {
+final class WMFImageRecommendationsViewModelTests {
     
+    private let fixture = WMFDataTestFixture()
     private let csProject = WMFProject.wikipedia(WMFLanguage(languageCode: "cs", languageVariantCode: nil))
     
     private let localizedStrings = WMFImageRecommendationsViewModel.LocalizedStrings(title: "Add image", viewArticle: "View article", onboardingStrings: WMFImageRecommendationsViewModel.LocalizedStrings.OnboardingStrings(title: "Onboarding title", firstItemTitle: "First item title", firstItemBody: "First item body", secondItemTitle: "Second item title", secondItemBody: "Second item body", thirdItemTitle: "Third item title", thirdItemBody: "Third item body", continueButton: "Continue", learnMoreButton: "Learn more"), tooltipStrings: WMFImageRecommendationsViewModel.LocalizedStrings.TooltipStrings(tooltip1Title: "Review", tooltip1Body: "Review this article to understand its topic.", tooltip2Title: "Inspect", tooltip2Body: "Inspect the image and its associated information.", tooltip3Title: "Decide", tooltip3Body: "Decide if the image helps readers understand this topic better."), surveyLocalizedStrings: WMFImageRecommendationsViewModel.LocalizedStrings.SurveyLocalizedStrings(title: "Reason", cancel: "Cancel", submit: "Submit", subtitle: "Improve", instructions: "Instructions", otherPlaceholder: "Other"), emptyLocalizedStrings: WMFImageRecommendationsViewModel.LocalizedStrings.EmptyLocalizedStrings(title: "You have no more suggested images available at this time.", subtitle: "Try coming back later.", titleFilter: nil, buttonTitle: nil, attributedFilterString: nil), errorLocalizedStrings: WMFImageRecommendationsViewModel.LocalizedStrings.ErrorLocalizedStrings(title: "Unable to load page", subtitle: "Something went wrong.", buttonTitle: "Try again"), bottomSheetTitle: "Add this image?", yesButtonTitle: "yes", noButtonTitle: "no", notSureButtonTitle: "not sure", learnMoreButtonTitle: "Learn more", tutorialButtonTitle: "Tutorial", problemWithFeatureButtonTitle: "Problem with feature")
@@ -18,9 +20,11 @@ struct WMFImageRecommendationsViewModelTests {
             WMFSurveyViewModel.OptionViewModel(text: "I don’t know this subject", apiIdentifer: "unfamiliar")
     ]
 
-    init() {
+    init() async {
+        await fixture.setUp()
         WMFDataEnvironment.current.mediaWikiService = WMFMockGrowthTasksService()
         WMFDataEnvironment.current.basicService = WMFMockBasicService()
+        await fixture.resetWMFDataTestState()
     }
 
     @Test
