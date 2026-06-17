@@ -1,16 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if ! command -v ast-grep >/dev/null 2>&1; then
-  echo "error: ast-grep is required to lint WMFData test fixture usage" >&2
-  exit 1
-fi
-
-if ! command -v ruby >/dev/null 2>&1; then
-  echo "error: ruby is required to parse ast-grep JSON output" >&2
-  exit 1
-fi
-
 paths=("$@")
 if [ "${#paths[@]}" -eq 0 ]; then
   paths=(
@@ -23,13 +13,13 @@ fi
 matches_file="$(mktemp)"
 trap 'rm -f "$matches_file"' EXIT
 
-ast-grep run \
-  --lang swift \
-  --pattern 'WMFDataEnvironment.current.$PROPERTY = $VALUE' \
-  --json=stream \
-  "${paths[@]}" \
-  | ruby -rjson -ne 'puts JSON.parse($_).fetch("file")' \
-  | sort -u > "$matches_file"
+assignment_pattern='WMFDataEnvironment\.current\.[[:alnum:]_]+[[:space:]]*=[[:space:]]*[^=]'
+
+if command -v rg >/dev/null 2>&1; then
+  rg -l --glob '*.swift' "$assignment_pattern" "${paths[@]}" || true
+else
+  grep -RIlE --include='*.swift' "$assignment_pattern" "${paths[@]}" || true
+fi | sort -u > "$matches_file"
 
 failed=0
 
