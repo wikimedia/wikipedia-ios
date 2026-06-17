@@ -20,34 +20,49 @@ final class WMFImageRecommendationsViewModelTests {
             WMFSurveyViewModel.OptionViewModel(text: "I don’t know this subject", apiIdentifer: "unfamiliar")
     ]
 
-    init() async {
-        await fixture.setUp()
-        WMFDataEnvironment.current.mediaWikiService = WMFMockGrowthTasksService()
-        WMFDataEnvironment.current.basicService = WMFMockBasicService()
-        await fixture.resetWMFDataTestState()
-    }
-
     @Test
     func fetchInitialImageRecommendations() async {
-        let viewModel = WMFImageRecommendationsViewModel(project: csProject, semanticContentAttribute: .forceLeftToRight, isPermanent: true, localizedStrings: localizedStrings, surveyOptions: surveyOptions, needsSuppressPosting: false)
+        await withConfiguredEnvironment {
+            let viewModel = WMFImageRecommendationsViewModel(project: csProject, semanticContentAttribute: .forceLeftToRight, isPermanent: true, localizedStrings: localizedStrings, surveyOptions: surveyOptions, needsSuppressPosting: false)
 
-        await viewModel.fetchImageRecommendationsIfNeeded()
+            await viewModel.fetchImageRecommendationsIfNeeded()
 
-        #expect(viewModel.imageRecommendations.count == 9)
-        #expect(viewModel.currentRecommendation != nil)
-        #expect(viewModel.currentRecommendation?.articleSummary != nil)
+            #expect(viewModel.imageRecommendations.count == 9)
+            #expect(viewModel.currentRecommendation != nil)
+            #expect(viewModel.currentRecommendation?.articleSummary != nil)
+        }
     }
     
     @Test
     func fetchNextImageRecommendation() async {
-        let viewModel = WMFImageRecommendationsViewModel(project: csProject, semanticContentAttribute: .forceLeftToRight, isPermanent: true, localizedStrings: localizedStrings, surveyOptions: surveyOptions, needsSuppressPosting: false)
+        await withConfiguredEnvironment {
+            let viewModel = WMFImageRecommendationsViewModel(project: csProject, semanticContentAttribute: .forceLeftToRight, isPermanent: true, localizedStrings: localizedStrings, surveyOptions: surveyOptions, needsSuppressPosting: false)
 
-        await viewModel.fetchImageRecommendationsIfNeeded()
-        await viewModel.next()
+            await viewModel.fetchImageRecommendationsIfNeeded()
+            await viewModel.next()
 
-        #expect(viewModel.imageRecommendations.count == 8)
-        #expect(viewModel.currentRecommendation != nil)
-        #expect(viewModel.currentRecommendation?.articleSummary != nil)
+            #expect(viewModel.imageRecommendations.count == 8)
+            #expect(viewModel.currentRecommendation != nil)
+            #expect(viewModel.currentRecommendation?.articleSummary != nil)
+        }
+    }
+
+    private func withConfiguredEnvironment<T>(_ operation: () async throws -> T) async rethrows -> T {
+        try await fixture.withGlobalStateLease {
+            await fixture.setUp()
+            WMFDataEnvironment.current.mediaWikiService = WMFMockGrowthTasksService()
+            WMFDataEnvironment.current.basicService = WMFMockBasicService()
+            await fixture.resetWMFDataTestState()
+
+            do {
+                let result = try await operation()
+                await fixture.tearDown()
+                return result
+            } catch {
+                await fixture.tearDown()
+                throw error
+            }
+        }
     }
 }
 

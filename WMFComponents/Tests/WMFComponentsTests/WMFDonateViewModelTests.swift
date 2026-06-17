@@ -11,13 +11,6 @@ final class WMFDonateViewModelTests {
     private let fixture = WMFDataTestFixture()
     private let merchantID = "merchant.id"
 
-    init() async {
-        await fixture.setUp()
-        WMFDataEnvironment.current.basicService = WMFMockBasicService()
-        WMFDataEnvironment.current.serviceEnvironment = .staging
-        await fixture.resetWMFDataTestState()
-    }
-
     @Test
     func viewModelInstantiatesWithCorrectDefaultsUSD() async throws {
         let viewModel = try await makeViewModel(countryCode: "US", currencyCode: "USD", languageCode: "EN", appInstallID: nil)
@@ -212,8 +205,28 @@ final class WMFDonateViewModelTests {
     }
 
     private func makeViewModel(countryCode: String, currencyCode: String, languageCode: String, appInstallID: String? = UUID().uuidString) async throws -> WMFDonateViewModel {
-        let donateData = try await loadDonateData()
-        return try #require(WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode(currencyCode), donateConfig: donateData.donateConfig, paymentMethods: donateData.paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", appInstallID: appInstallID, coordinatorDelegate: nil, loggingDelegate: nil))
+        try await withConfiguredEnvironment {
+            let donateData = try await loadDonateData()
+            return try #require(WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode(currencyCode), donateConfig: donateData.donateConfig, paymentMethods: donateData.paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", appInstallID: appInstallID, coordinatorDelegate: nil, loggingDelegate: nil))
+        }
+    }
+
+    private func withConfiguredEnvironment<T>(_ operation: () async throws -> T) async rethrows -> T {
+        try await fixture.withGlobalStateLease {
+            await fixture.setUp()
+            WMFDataEnvironment.current.basicService = WMFMockBasicService()
+            WMFDataEnvironment.current.serviceEnvironment = .staging
+            await fixture.resetWMFDataTestState()
+
+            do {
+                let result = try await operation()
+                await fixture.tearDown()
+                return result
+            } catch {
+                await fixture.tearDown()
+                throw error
+            }
+        }
     }
 
     private func loadDonateData() async throws -> (donateConfig: WMFDonateConfig, paymentMethods: WMFPaymentMethods) {

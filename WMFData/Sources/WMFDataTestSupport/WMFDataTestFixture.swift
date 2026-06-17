@@ -5,7 +5,6 @@ public final class WMFDataTestFixture {
 
     private var restoreEnvironment: (() -> Void)?
     private var temporaryDirectories: [URL] = []
-    private var isGlobalFixtureLockHeld = false
 
     public init() {}
 
@@ -13,11 +12,9 @@ public final class WMFDataTestFixture {
         resetSynchronousWMFDataTestState()
         restoreEnvironmentForTesting()
         resetSynchronousWMFDataTestState()
-        unlockGlobalFixtureState()
     }
 
     public func setUp() async {
-        lockGlobalFixtureState()
         restoreEnvironmentForTesting()
         snapshotEnvironment()
         await resetWMFDataTestState()
@@ -27,12 +24,24 @@ public final class WMFDataTestFixture {
         await resetWMFDataTestState()
         restoreEnvironmentForTesting()
         await resetWMFDataTestState()
-        unlockGlobalFixtureState()
     }
 
     public func resetWMFDataTestState() async {
         resetSynchronousWMFDataTestState()
         await WMFOnThisDayDataController.shared.reset()
+    }
+
+    public func withGlobalStateLease<T>(_ operation: () async throws -> T) async rethrows -> T {
+        let lease = await WMFDataTestFixtureGlobalStateLease.shared.acquire()
+
+        do {
+            let result = try await operation()
+            await lease.release()
+            return result
+        } catch {
+            await lease.release()
+            throw error
+        }
     }
 
     private func resetSynchronousWMFDataTestState() {
@@ -71,39 +80,43 @@ public final class WMFDataTestFixture {
         }
         temporaryDirectories = []
     }
-
-    private func lockGlobalFixtureState() {
-        guard isGlobalFixtureLockHeld == false else {
-            return
-        }
-
-        WMFDataTestFixtureLock.shared.lock()
-        isGlobalFixtureLockHeld = true
-    }
-
-    private func unlockGlobalFixtureState() {
-        guard isGlobalFixtureLockHeld else {
-            return
-        }
-
-        isGlobalFixtureLockHeld = false
-        WMFDataTestFixtureLock.shared.unlock()
-    }
 }
 
-// Swift Testing serializes tests within a suite, but different suites can still
-// run in parallel. Fixture setup and teardown mutate process-wide WMFData
-// singletons, so fixture users need one cross-suite lease for the whole test.
-private final class WMFDataTestFixtureLock: @unchecked Sendable {
-    static let shared = WMFDataTestFixtureLock()
+private actor WMFDataTestFixtureGlobalStateLease {
+    static let shared = WMFDataTestFixtureGlobalStateLease()
 
-    private let mutex = NSLock()
+    private var isHeld = false
+    private var waiters: [CheckedContinuation<Lease, Never>] = []
 
-    func lock() {
-        mutex.lock()
+    func acquire() async -> Lease {
+        if isHeld {
+            return await withCheckedContinuation { continuation in
+                waiters.append(continuation)
+            }
+        }
+
+        isHeld = true
+        return Lease(owner: self)
     }
 
-    func unlock() {
-        mutex.unlock()
+    private func release() {
+        guard waiters.isEmpty else {
+            waiters.removeFirst().resume(returning: Lease(owner: self))
+            return
+        }
+
+        isHeld = false
+    }
+
+    struct Lease: Sendable {
+        private let owner: WMFDataTestFixtureGlobalStateLease
+
+        fileprivate init(owner: WMFDataTestFixtureGlobalStateLease) {
+            self.owner = owner
+        }
+
+        func release() async {
+            await owner.release()
+        }
     }
 }
