@@ -522,3 +522,7 @@ All new code must comply with Swift 6 strict concurrency. The following rules ap
 
 - When interfacing with legacy Objective-C or non-`Sendable` types, isolate the interaction inside `@MainActor` blocks or within an actor boundary.
 - Do not widen the surface area of `@preconcurrency` imports. Confine them to the specific file or extension where the legacy type is used.
+
+### Skills
+
+@.github/skills/ios-dev-setting/SKILL.md
