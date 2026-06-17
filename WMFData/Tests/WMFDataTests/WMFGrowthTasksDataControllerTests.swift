@@ -12,7 +12,7 @@ final class WMFGrowthTasksDataControllerTests {
 
     @Test
     func fetchImageRecommendationCombinedForTasks() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFGrowthTasksDataController(project: csProject)
 
             let imageRecommendations = try await controller.imageRecommendationsCombined()
@@ -23,7 +23,7 @@ final class WMFGrowthTasksDataControllerTests {
 
     @Test
     func parseImageRecommendationsCombined() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFGrowthTasksDataController(project: enProject)
 
             let imageRecommendations = try await controller.imageRecommendationsCombined()
@@ -63,7 +63,7 @@ final class WMFGrowthTasksDataControllerTests {
 
     @Test
     func fetchArticleSummary() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFArticleSummaryDataController.shared
 
             let articleSummary = try await controller.fetchArticleSummary(project: csProject, title: "Novela (právo)")
@@ -74,22 +74,9 @@ final class WMFGrowthTasksDataControllerTests {
         }
     }
 
-    private func withConfiguredEnvironment<T>(_ operation: () async throws -> T) async rethrows -> T {
-        try await fixture.withGlobalStateLease {
-            await fixture.setUp()
-            WMFDataEnvironment.current.mediaWikiService = WMFMockGrowthTasksService()
-            WMFDataEnvironment.current.basicService = WMFMockBasicService()
-            await fixture.resetWMFDataTestState()
-
-            do {
-                let result = try await operation()
-                await fixture.tearDown()
-                return result
-            } catch {
-                await fixture.tearDown()
-                throw error
-            }
-        }
+    private func configureEnvironment() async {
+        WMFDataEnvironment.current.mediaWikiService = WMFMockGrowthTasksService()
+        WMFDataEnvironment.current.basicService = WMFMockBasicService()
     }
 }
 

@@ -11,7 +11,9 @@ final class WMFDeveloperSettingsDataControllerTests {
 
     @Test
     func fetchFeatureConfigAndLoad() async throws {
-        try await withConfiguredEnvironment { controller in
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let controller = WMFDeveloperSettingsDataController()
+
             try await controller.fetchFeatureConfig()
 
             let config = try #require(controller.loadFeatureConfig())
@@ -41,25 +43,10 @@ final class WMFDeveloperSettingsDataControllerTests {
         }
     }
 
-    private func withConfiguredEnvironment<T>(_ operation: (WMFDeveloperSettingsDataController) async throws -> T) async rethrows -> T {
-        try await fixture.withGlobalStateLease {
-            await fixture.setUp()
-            WMFDataEnvironment.current.basicService = WMFFeatureConfigRequestMockService()
-            WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
-            WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)])
-            await fixture.resetWMFDataTestState()
-
-            let controller = WMFDeveloperSettingsDataController()
-
-            do {
-                let result = try await operation(controller)
-                await fixture.tearDown()
-                return result
-            } catch {
-                await fixture.tearDown()
-                throw error
-            }
-        }
+    private func configureEnvironment() async {
+        WMFDataEnvironment.current.basicService = WMFFeatureConfigRequestMockService()
+        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)])
     }
 }
 

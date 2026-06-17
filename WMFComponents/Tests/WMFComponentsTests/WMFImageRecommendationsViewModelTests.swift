@@ -22,7 +22,7 @@ final class WMFImageRecommendationsViewModelTests {
 
     @Test
     func fetchInitialImageRecommendations() async {
-        await withConfiguredEnvironment {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let viewModel = WMFImageRecommendationsViewModel(project: csProject, semanticContentAttribute: .forceLeftToRight, isPermanent: true, localizedStrings: localizedStrings, surveyOptions: surveyOptions, needsSuppressPosting: false)
 
             await viewModel.fetchImageRecommendationsIfNeeded()
@@ -35,7 +35,7 @@ final class WMFImageRecommendationsViewModelTests {
     
     @Test
     func fetchNextImageRecommendation() async {
-        await withConfiguredEnvironment {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let viewModel = WMFImageRecommendationsViewModel(project: csProject, semanticContentAttribute: .forceLeftToRight, isPermanent: true, localizedStrings: localizedStrings, surveyOptions: surveyOptions, needsSuppressPosting: false)
 
             await viewModel.fetchImageRecommendationsIfNeeded()
@@ -47,22 +47,9 @@ final class WMFImageRecommendationsViewModelTests {
         }
     }
 
-    private func withConfiguredEnvironment<T>(_ operation: () async throws -> T) async rethrows -> T {
-        try await fixture.withGlobalStateLease {
-            await fixture.setUp()
-            WMFDataEnvironment.current.mediaWikiService = WMFMockGrowthTasksService()
-            WMFDataEnvironment.current.basicService = WMFMockBasicService()
-            await fixture.resetWMFDataTestState()
-
-            do {
-                let result = try await operation()
-                await fixture.tearDown()
-                return result
-            } catch {
-                await fixture.tearDown()
-                throw error
-            }
-        }
+    private func configureEnvironment() async {
+        WMFDataEnvironment.current.mediaWikiService = WMFMockGrowthTasksService()
+        WMFDataEnvironment.current.basicService = WMFMockBasicService()
     }
 }
 

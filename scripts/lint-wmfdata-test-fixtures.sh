@@ -34,7 +34,8 @@ while IFS= read -r file; do
 
   uses_fixture=0
   if grep -q "WMFDataTestFixture" "$file" &&
-    grep -Eq "await[[:space:]]+[[:alnum:]_]+\\.setUp\\(\\)" "$file"; then
+    (grep -Eq "await[[:space:]]+[[:alnum:]_]+\\.setUp\\(\\)" "$file" ||
+      grep -Eq "[[:alnum:]_]+\\.withConfiguredEnvironment\\(" "$file"); then
     uses_fixture=1
   fi
 
@@ -43,7 +44,8 @@ while IFS= read -r file; do
     failed=1
   fi
 
-  if ! grep -q "resetWMFDataTestState()" "$file"; then
+  if ! grep -q "resetWMFDataTestState()" "$file" &&
+    ! grep -Eq "[[:alnum:]_]+\\.withConfiguredEnvironment\\(" "$file"; then
     echo "error: $file mutates WMFDataEnvironment.current but does not call resetWMFDataTestState()" >&2
     failed=1
   fi

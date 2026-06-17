@@ -15,7 +15,7 @@ final class WMFFundraisingCampaignDataControllerTests {
 
     @Test
     func fetchConfigAndLoadAssetWithValidCountryValidDateValidWiki() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let validCountry = "NL"
             let validDate = try validFirstDayDate()
 
@@ -48,7 +48,7 @@ final class WMFFundraisingCampaignDataControllerTests {
 
     @Test
     func fetchConfigAndLoadAssetWithInvalidCountryValidDateValidWiki() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let invalidCountry = "US"
             let validDate = try validFirstDayDate()
 
@@ -61,7 +61,7 @@ final class WMFFundraisingCampaignDataControllerTests {
 
     @Test
     func fetchConfigAndLoadAssetWithValidCountryInvalidDateValidWiki() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let validCountry = "NL"
             let invalidDate = try invalidDate()
 
@@ -74,7 +74,7 @@ final class WMFFundraisingCampaignDataControllerTests {
 
     @Test
     func fetchConfigAndLoadAssetWithValidCountryValidDateInvalidWiki() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let validCountry = "NL"
             let validDate = try validFirstDayDate()
 
@@ -86,7 +86,7 @@ final class WMFFundraisingCampaignDataControllerTests {
 
     @Test
     func fetchConfigAndLoadAssetWithNoCacheAndNoInternetConnection() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             controller.service = WMFMockServiceNoInternetConnection()
 
             let validCountry = "NL"
@@ -105,7 +105,7 @@ final class WMFFundraisingCampaignDataControllerTests {
 
     @Test
     func fetchConfigAndLoadAssetWithCacheAndNoInternetConnection() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let validCountry = "NL"
             let validDate = try validFirstDayDate()
 
@@ -128,7 +128,7 @@ final class WMFFundraisingCampaignDataControllerTests {
 
     @Test
     func loadHiddenAsset() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let validCountry = "NL"
             let validDate = try validFirstDayDate()
 
@@ -144,7 +144,7 @@ final class WMFFundraisingCampaignDataControllerTests {
 
     @Test
     func loadMaybeLaterAssetSixHoursLater() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let validCountry = "NL"
             let validDate = try validFirstDayDate()
 
@@ -160,7 +160,7 @@ final class WMFFundraisingCampaignDataControllerTests {
 
     @Test
     func loadMaybeLaterAssetThirtyHoursLater() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let validCountry = "NL"
             let validDate = try validFirstDayDate()
 
@@ -176,7 +176,7 @@ final class WMFFundraisingCampaignDataControllerTests {
 
     @Test
     func loadMaybeLaterAssetAfterCampaignEnds() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let validCountry = "NL"
             let validDate = try validLastDayDate()
 
@@ -190,23 +190,10 @@ final class WMFFundraisingCampaignDataControllerTests {
         }
     }
 
-    private func withConfiguredEnvironment<T>(_ operation: () async throws -> T) async rethrows -> T {
-        try await fixture.withGlobalStateLease {
-            await fixture.setUp()
-            WMFDataEnvironment.current.basicService = WMFFundraisingCampaignRequestMockService()
-            WMFDataEnvironment.current.serviceEnvironment = .staging
-            WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
-            await fixture.resetWMFDataTestState()
-
-            do {
-                let result = try await operation()
-                await fixture.tearDown()
-                return result
-            } catch {
-                await fixture.tearDown()
-                throw error
-            }
-        }
+    private func configureEnvironment() async {
+        WMFDataEnvironment.current.basicService = WMFFundraisingCampaignRequestMockService()
+        WMFDataEnvironment.current.serviceEnvironment = .staging
+        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
     }
 
     private func validFirstDayDate() throws -> Date {

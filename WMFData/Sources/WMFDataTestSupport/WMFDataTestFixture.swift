@@ -44,6 +44,26 @@ public final class WMFDataTestFixture {
         }
     }
 
+    public func withConfiguredEnvironment<T>(
+        configure: () async throws -> Void,
+        operation: () async throws -> T
+    ) async rethrows -> T {
+        try await withGlobalStateLease {
+            await setUp()
+
+            do {
+                try await configure()
+                await resetWMFDataTestState()
+                let result = try await operation()
+                await tearDown()
+                return result
+            } catch {
+                await tearDown()
+                throw error
+            }
+        }
+    }
+
     private func resetSynchronousWMFDataTestState() {
         WMFDonateDataController.shared.reset()
         WMFFundraisingCampaignDataController.shared.reset()

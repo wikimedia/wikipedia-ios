@@ -12,7 +12,7 @@ final class WMFArticleDataControllerTests {
 
     @Test
     func fetchWatchStatus() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFArticleDataController()
             let request = try WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: true, needsRollbackRights: false, needsCategories: false)
 
@@ -25,7 +25,7 @@ final class WMFArticleDataControllerTests {
 
     @Test
     func fetchWatchStatusWithRollbackRights() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFArticleDataController()
             let request = try WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: true, needsRollbackRights: true, needsCategories: false)
 
@@ -36,26 +36,13 @@ final class WMFArticleDataControllerTests {
         }
     }
 
-    private func withConfiguredEnvironment<T>(_ operation: () async throws -> T) async rethrows -> T {
-        try await fixture.withGlobalStateLease {
-            await fixture.setUp()
-            WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [
-                WMFLanguage(languageCode: "en", languageVariantCode: nil)
-            ])
-            WMFDataEnvironment.current.mediaWikiService = WMFMockWatchlistMediaWikiService()
-            WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
-            WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
-            await fixture.resetWMFDataTestState()
-
-            do {
-                let result = try await operation()
-                await fixture.tearDown()
-                return result
-            } catch {
-                await fixture.tearDown()
-                throw error
-            }
-        }
+    private func configureEnvironment() async {
+        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [
+            WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        ])
+        WMFDataEnvironment.current.mediaWikiService = WMFMockWatchlistMediaWikiService()
+        WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
     }
 }
 

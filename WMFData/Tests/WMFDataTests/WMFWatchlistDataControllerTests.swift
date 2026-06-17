@@ -13,7 +13,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func allWatchlistProjects() async {
-        await withConfiguredEnvironment {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
             let allProjects = controller.allWatchlistProjects()
 
@@ -23,7 +23,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func savingAndLoadingFilterSettings() async {
-        await withConfiguredEnvironment {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
             let filterSettings = WMFWatchlistFilterSettings(offProjects: [.wikidata, .commons], latestRevisions: .latestRevision, activity: .seenChanges, automatedContributions: .bot, significance: .minorEdits, userRegistration: .registered, offTypes: [.categoryChanges, .loggedActions])
 
@@ -36,7 +36,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func onOffWatchlistProjects() async {
-        await withConfiguredEnvironment {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
             let filterSettings = WMFWatchlistFilterSettings(offProjects: [.wikidata, .commons], latestRevisions: .notTheLatestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [])
 
@@ -49,7 +49,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func allOffChangeTypes() async {
-        await withConfiguredEnvironment {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
             let filterSettings = WMFWatchlistFilterSettings(offProjects: [], latestRevisions: .notTheLatestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [.categoryChanges, .pageCreations])
 
@@ -62,7 +62,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func activeFilterCount1() async {
-        await withConfiguredEnvironment {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
             let filterSettings = WMFWatchlistFilterSettings(offProjects: [.commons, .wikidata], latestRevisions: .notTheLatestRevision, activity: .seenChanges, automatedContributions: .bot, significance: .minorEdits, userRegistration: .registered, offTypes: [])
 
@@ -74,7 +74,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func activeFilterCount2() async {
-        await withConfiguredEnvironment {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
             let filterSettings = WMFWatchlistFilterSettings(offProjects: [], latestRevisions: .latestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [.categoryChanges])
 
@@ -86,7 +86,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func activeFilterCount3() async {
-        await withConfiguredEnvironment {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
             let filterSettings = WMFWatchlistFilterSettings(offProjects: [.commons, .wikidata, enProject], latestRevisions: .latestRevision, activity: .unseenChanges, automatedContributions: .human, significance: .nonMinorEdits, userRegistration: .unregistered, offTypes: [.categoryChanges, .loggedActions, .pageCreations, .pageEdits, .wikidataEdits])
 
@@ -98,7 +98,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func fetchWatchlistWithDefaultFilter() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
 
             let watchlist = try await controller.fetchWatchlist()
@@ -129,7 +129,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func fetchWatchlistWithProjectFilter() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
             let filterSettings = WMFWatchlistFilterSettings(offProjects: [enProject, esProject], latestRevisions: .notTheLatestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [])
             controller.saveFilterSettings(filterSettings)
@@ -147,7 +147,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func fetchWatchlistWithAllProjectsPlusOneFilter() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
             let filterSettings = WMFWatchlistFilterSettings(offProjects: [enProject, esProject, .wikidata, .commons], latestRevisions: .latestRevision, activity: .all, automatedContributions: .all, significance: .all, userRegistration: .all, offTypes: [])
             controller.saveFilterSettings(filterSettings)
@@ -160,7 +160,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func fetchWatchlistWithBotsFilter() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
             let filterSettings = WMFWatchlistFilterSettings(offProjects: [], latestRevisions: .notTheLatestRevision, activity: .all, automatedContributions: .bot, significance: .all, userRegistration: .all, offTypes: [])
             controller.saveFilterSettings(filterSettings)
@@ -175,7 +175,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func fetchWatchlistWithNoCacheAndNoInternetConnection() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
             controller.service = WMFMockServiceNoInternetConnection()
 
@@ -196,7 +196,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func fetchWatchlistWithCacheAndNoInternetConnection() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
             let connectedWatchlist = try await controller.fetchWatchlist()
 
@@ -211,7 +211,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func postWatchArticleExpiryNever() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
 
             try await controller.watch(title: "Cat", project: enProject, expiry: .never)
@@ -220,7 +220,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func postWatchArticleExpiryDate() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
 
             try await controller.watch(title: "Cat", project: enProject, expiry: .oneMonth)
@@ -229,7 +229,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func postUnwatchArticle() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
 
             try await controller.unwatch(title: "Cat", project: enProject)
@@ -238,7 +238,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func postRollbackArticle() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
 
             let result = try await controller.rollback(title: "Cat", project: enProject, username: "Amigao")
@@ -250,7 +250,7 @@ final class WMFWatchlistDataControllerTests {
 
     @Test
     func postUndoArticle() async throws {
-        try await withConfiguredEnvironment {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let controller = WMFWatchlistDataController()
 
             let result = try await controller.undo(title: "Cat", revisionID: 1155871225, summary: "Testing", username: "Amigao", project: enProject)
@@ -260,27 +260,14 @@ final class WMFWatchlistDataControllerTests {
         }
     }
 
-    private func withConfiguredEnvironment<T>(_ operation: () async throws -> T) async rethrows -> T {
-        try await fixture.withGlobalStateLease {
-            await fixture.setUp()
-            WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [
-                WMFLanguage(languageCode: "en", languageVariantCode: nil),
-                WMFLanguage(languageCode: "es", languageVariantCode: nil)
-            ])
-            WMFDataEnvironment.current.mediaWikiService = WMFMockWatchlistMediaWikiService()
-            WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
-            WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
-            await fixture.resetWMFDataTestState()
-
-            do {
-                let result = try await operation()
-                await fixture.tearDown()
-                return result
-            } catch {
-                await fixture.tearDown()
-                throw error
-            }
-        }
+    private func configureEnvironment() async {
+        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [
+            WMFLanguage(languageCode: "en", languageVariantCode: nil),
+            WMFLanguage(languageCode: "es", languageVariantCode: nil)
+        ])
+        WMFDataEnvironment.current.mediaWikiService = WMFMockWatchlistMediaWikiService()
+        WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
     }
 
     private func testDate() throws -> Date {
