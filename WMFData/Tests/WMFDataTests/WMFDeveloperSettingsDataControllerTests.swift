@@ -8,45 +8,58 @@ import WMFDataTestSupport
 final class WMFDeveloperSettingsDataControllerTests {
 
     private let fixture = WMFDataTestFixture()
-    private var controller: WMFDeveloperSettingsDataController!
-
-    init() async {
-        await fixture.setUp()
-        WMFDataEnvironment.current.basicService = WMFFeatureConfigRequestMockService()
-        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
-        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)])
-        await fixture.resetWMFDataTestState()
-        controller = WMFDeveloperSettingsDataController()
-    }
 
     @Test
     func fetchFeatureConfigAndLoad() async throws {
-        try await controller.fetchFeatureConfig()
+        try await withConfiguredEnvironment { controller in
+            try await controller.fetchFeatureConfig()
 
-        let config = try #require(controller.loadFeatureConfig())
-        let yirConfig = try #require(config.common.yir(year: 2025))
+            let config = try #require(controller.loadFeatureConfig())
+            let yirConfig = try #require(config.common.yir(year: 2025))
 
-        #expect(yirConfig.year == 2025)
-        #expect(yirConfig.activeStartDateString == "2025-12-01T00:00:00Z")
-        #expect(yirConfig.activeEndDateString == "2026-02-01T00:00:00Z")
-        #expect(yirConfig.dataStartDateString == "2025-01-01T00:00:00Z")
-        #expect(yirConfig.dataEndDateString == "2025-12-01T00:00:00Z")
-        #expect(yirConfig.languages == 300)
-        #expect(yirConfig.articles == 10000000)
-        #expect(yirConfig.savedArticlesApps == 37574993)
-        #expect(yirConfig.viewsApps == 1000000000)
-        #expect(yirConfig.editsApps == 124356)
-        #expect(yirConfig.editsPerMinute == 342)
-        #expect(yirConfig.averageArticlesReadPerYear == 335)
-        #expect(yirConfig.edits == 81987181)
-        #expect(yirConfig.editsEN == 31000000)
-        #expect(yirConfig.bytesAddedEN == 1000000000)
-        #expect(yirConfig.hoursReadEN == 2423171000)
-        #expect(yirConfig.yearsReadEN == 275000)
-        #expect(yirConfig.topReadEN.count == 5)
-        #expect(yirConfig.topReadPercentages.count == 8)
-        #expect(yirConfig.hideCountryCodes.count == 22)
-        #expect(yirConfig.hideDonateCountryCodes.count == 30)
+            #expect(yirConfig.year == 2025)
+            #expect(yirConfig.activeStartDateString == "2025-12-01T00:00:00Z")
+            #expect(yirConfig.activeEndDateString == "2026-02-01T00:00:00Z")
+            #expect(yirConfig.dataStartDateString == "2025-01-01T00:00:00Z")
+            #expect(yirConfig.dataEndDateString == "2025-12-01T00:00:00Z")
+            #expect(yirConfig.languages == 300)
+            #expect(yirConfig.articles == 10000000)
+            #expect(yirConfig.savedArticlesApps == 37574993)
+            #expect(yirConfig.viewsApps == 1000000000)
+            #expect(yirConfig.editsApps == 124356)
+            #expect(yirConfig.editsPerMinute == 342)
+            #expect(yirConfig.averageArticlesReadPerYear == 335)
+            #expect(yirConfig.edits == 81987181)
+            #expect(yirConfig.editsEN == 31000000)
+            #expect(yirConfig.bytesAddedEN == 1000000000)
+            #expect(yirConfig.hoursReadEN == 2423171000)
+            #expect(yirConfig.yearsReadEN == 275000)
+            #expect(yirConfig.topReadEN.count == 5)
+            #expect(yirConfig.topReadPercentages.count == 8)
+            #expect(yirConfig.hideCountryCodes.count == 22)
+            #expect(yirConfig.hideDonateCountryCodes.count == 30)
+        }
+    }
+
+    private func withConfiguredEnvironment<T>(_ operation: (WMFDeveloperSettingsDataController) async throws -> T) async rethrows -> T {
+        try await fixture.withGlobalStateLease {
+            await fixture.setUp()
+            WMFDataEnvironment.current.basicService = WMFFeatureConfigRequestMockService()
+            WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+            WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)])
+            await fixture.resetWMFDataTestState()
+
+            let controller = WMFDeveloperSettingsDataController()
+
+            do {
+                let result = try await operation(controller)
+                await fixture.tearDown()
+                return result
+            } catch {
+                await fixture.tearDown()
+                throw error
+            }
+        }
     }
 }
 
