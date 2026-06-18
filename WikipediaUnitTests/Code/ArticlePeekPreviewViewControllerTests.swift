@@ -5,23 +5,22 @@ import XCTest
 
 class ArticlePeekPreviewViewControllerTests: XCTestCase {
 
-    private var dataStore: MWKDataStore!
-    private var articleTabsCoreDataStore: WMFCoreDataStore?
+    private let fixture = WMFDataTestFixture()
 
-    override func setUp(completion: @escaping (Error?) -> Void) {
-        MWKDataStore.createTemporaryDataStore { dataStore in
-            self.dataStore = dataStore
-            completion(nil)
+    override func setUp() async throws {
+        try await super.setUp()
+        await fixture.setUp()
+        await withCheckedContinuation { continuation in
+            ArticleTestHelpers.setup {
+                continuation.resume()
+            }
         }
     }
 
-    override func tearDown() {
-        super.tearDown()
-        WMFArticleTabsDataController.shared.backgroundContext = nil
-        WMFDataEnvironment.current.coreDataStore = nil
-        articleTabsCoreDataStore = nil
-        dataStore.removeFolderAtBasePath()
-        dataStore = nil
+    override func tearDown() async throws {
+        ArticleTestHelpers.tearDown()
+        await fixture.tearDown()
+        try await super.tearDown()
     }
 
     func testContextMenuItemsIncludeExpectedArticleActions() throws {
@@ -93,6 +92,7 @@ class ArticlePeekPreviewViewControllerTests: XCTestCase {
 
     private func makePreviewController() throws -> (controller: ArticlePeekPreviewViewController, delegate: ArticlePreviewingDelegateMock, articleURL: URL) {
         let articleURL = try XCTUnwrap(URL(string: "https://en.wikipedia.org/wiki/Canis"))
+        let dataStore = try XCTUnwrap(ArticleTestHelpers.dataStore)
         let article = try XCTUnwrap(dataStore.fetchOrCreateArticle(with: articleURL))
         let delegate = ArticlePreviewingDelegateMock()
         let controller = ArticlePeekPreviewViewController(
@@ -110,13 +110,11 @@ class ArticlePeekPreviewViewControllerTests: XCTestCase {
     }
 
     private func prepareArticleTabsDataController() async throws -> WMFArticleTabsDataController {
-        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        try FileManager.default.createDirectory(at: temporaryDirectory, withIntermediateDirectories: true)
-        let coreDataStore = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
-        articleTabsCoreDataStore = coreDataStore
+        let coreDataStore = try await fixture.makeTemporaryCoreDataStore()
 
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)])
         WMFDataEnvironment.current.coreDataStore = coreDataStore
+        await fixture.resetWMFDataTestState()
 
         let articleTabsDataController = WMFArticleTabsDataController.shared
         articleTabsDataController.backgroundContext = nil
@@ -149,4 +147,3 @@ private enum ArticleContextMenuTitle {
     static let saveForLater = "Save for later"
     static let share = "Share\u{2026}"
 }
-

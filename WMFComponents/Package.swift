@@ -36,6 +36,7 @@ let package = Package(
         .testTarget(
             name: "WMFComponentsTests",
             dependencies: ["WMFComponents",
+                           .product(name: "WMFDataTestSupport", package: "WMFData"),
                            .product(name: "WMFDataMocks", package: "WMFData")])
     ],
     // Bumped tools-version to unlock per-target swiftSettings/swiftLanguageMode syntax.
