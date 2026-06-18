@@ -435,54 +435,24 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         Task { [weak self, weak gameNav] in
             guard let self, let gameNav else { return }
 
-            let sessions = (try? await self.gamesDataController.fetchWhichCameFirstSessions(project: project)) ?? []
-
-            let playedDates: [Date: Int] = Dictionary(uniqueKeysWithValues:
-                sessions
-                    .filter { $0.status == .completed && $0.dailyGameDate != nil }
-                    .compactMap { session -> (Date, Int)? in
-                        guard let dateString = session.dailyGameDate,
-                              let date = DateFormatter.onThisDayAPIDateFormatter.date(from: dateString) else { return nil }
-                        return (Calendar.current.startOfDay(for: date), Int(session.score))
-                    }
-            )
-
-            let pausedDates: Set<Date> = Set(
-                sessions
-                    .filter { $0.status == .inProgress && $0.dailyGameDate != nil }
-                    .compactMap { session -> Date? in
-                        guard let dateString = session.dailyGameDate,
-                              let date = DateFormatter.onThisDayAPIDateFormatter.date(from: dateString) else { return nil }
-                        return Calendar.current.startOfDay(for: date)
-                    }
-            )
+            let archiveData = (try? await self.gamesDataController.fetchWhichCameFirstArchiveData(project: project))
+                ?? WMFGamesDataController.WMFWhichCameFirstArchiveData(playedDates: [:], pausedDates: [])
 
             let viewModel = WMFWhichCameFirstArchiveViewModel(
-                playedDates: playedDates,
-                pausedDates: pausedDates,
+                playedDates: archiveData.playedDates,
+                pausedDates: archiveData.pausedDates,
                 onSelectDate: { [weak self] date in
                     self?.showGameForArchiveDate(date)
                 }
             )
 
-            viewModel.onShowScoreToast = { message in
-                WMFToastManager.sharedInstance.showToast(message, sticky: false, dismissPreviousToasts: true)
-            }
-
-            let archiveView = WMFWhichCameFirstArchiveView(
-                viewModel: viewModel,
-                onDismiss: { [weak gameNav] in
-                    gameNav?.dismiss(animated: true)
-                }
-            )
-
-            let hostingVC = UIHostingController(rootView: archiveView)
-            hostingVC.modalPresentationStyle = .pageSheet
-            if let sheet = hostingVC.sheetPresentationController {
+            let archiveVC = WMFWhichCameFirstArchiveViewController(viewModel: viewModel)
+            let nav = WMFComponentNavigationController(rootViewController: archiveVC, modalPresentationStyle: .pageSheet)
+            if let sheet = nav.sheetPresentationController {
                 sheet.detents = [.large()]
                 sheet.prefersGrabberVisible = true
             }
-            gameNav.present(hostingVC, animated: true)
+            gameNav.present(nav, animated: true)
         }
     }
 

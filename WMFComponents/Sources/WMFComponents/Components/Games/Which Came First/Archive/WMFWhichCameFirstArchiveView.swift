@@ -1,13 +1,5 @@
 import SwiftUI
 
-private enum Layout {
-    static let daySize: CGFloat = 36
-    static let dotSize: CGFloat = 11
-    static let cornerRadius: CGFloat = 16
-    static let calendarPadding: CGFloat = 12
-    static let emptyCellSpacing: CGFloat = 4
-}
-
 public struct WMFWhichCameFirstArchiveView: View {
 
     @ObservedObject public var viewModel: WMFWhichCameFirstArchiveViewModel
@@ -15,15 +7,12 @@ public struct WMFWhichCameFirstArchiveView: View {
     @ObservedObject private var appEnvironment = WMFAppEnvironment.current
     private var theme: WMFTheme { appEnvironment.theme }
 
-    var onDismiss: (() -> Void)?
-
-    public init(viewModel: WMFWhichCameFirstArchiveViewModel, onDismiss: (() -> Void)? = nil) {
+    public init(viewModel: WMFWhichCameFirstArchiveViewModel) {
         self.viewModel = viewModel
-        self.onDismiss = onDismiss
     }
 
     public var body: some View {
-        ZStack(alignment: .top) {
+        ZStack {
             Color(uiColor: theme.midBackground)
                 .ignoresSafeArea()
 
@@ -31,7 +20,7 @@ public struct WMFWhichCameFirstArchiveView: View {
                 VStack(spacing: 0) {
                     headerSection
                         .padding(.horizontal, 24)
-                        .padding(.top, 100)
+                        .padding(.top, 16)
                         .padding(.bottom, 32)
 
                     calendarCard
@@ -41,8 +30,6 @@ public struct WMFWhichCameFirstArchiveView: View {
                     Spacer()
                 }
             }
-
-            dismissButton
         }
     }
 
@@ -78,47 +65,8 @@ public struct WMFWhichCameFirstArchiveView: View {
         CalendarRepresentable(viewModel: viewModel, theme: theme)
             .frame(maxWidth: .infinity)
             .background(Color(uiColor: theme.paperBackground))
-            .cornerRadius(Layout.cornerRadius)
+            .cornerRadius(16)
             .dynamicTypeSize(.small ... .medium)
-    }
-
-    // MARK: Dismiss button
-
-    private var dismissButton: some View {
-        HStack {
-            Button {
-                onDismiss?()
-            } label: {
-                if let xmark = WMFSFSymbolIcon.for(symbol: .xMark, font: .footnote) {
-                    Image(uiImage: xmark)
-                        .foregroundColor(Color(uiColor: theme.text))
-                        .padding(10)
-                        .background {
-                            if #available(iOS 26.0, *) {
-                                Color.clear
-                            } else {
-                                Circle()
-                                    .fill(.ultraThinMaterial)
-                            }
-                        }
-                        .clipShape(Circle())
-                }
-            }
-            .modifier(GlassCircleEffect())
-            .padding(.leading, 16)
-            .padding(.top, 16)
-            Spacer()
-        }
-    }
-
-    private struct GlassCircleEffect: ViewModifier {
-        func body(content: Content) -> some View {
-            if #available(iOS 26.0, *) {
-                content.glassEffect(in: Circle())
-            } else {
-                content
-            }
-        }
     }
 }
 
