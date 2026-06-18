@@ -147,6 +147,12 @@ public protocol WMFArticleTabsDataControlling {
             self.experimentsDataController = nil
         }
     }
+
+    @_spi(Testing) public func reset() {
+        backgroundContext = nil
+        assignmentCache = nil
+        _coreDataStore = nil
+    }
     
     // MARK: - Experiment
 

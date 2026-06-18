@@ -89,6 +89,12 @@ public final class WMFImageDataController {
             }
         }
     }
+
+    @_spi(Testing) public func reset() {
+        basicService = WMFDataEnvironment.current.basicService
+        mediaWikiService = WMFDataEnvironment.current.mediaWikiService
+        imageCache.removeAllObjects()
+    }
 }
 
 private extension WMFImageDataController {

@@ -60,3 +60,56 @@ public final class WMFDataEnvironment: ObservableObject {
         }
     }
 }
+
+@_spi(Testing) public struct WMFDataEnvironmentSnapshot {
+    fileprivate let serviceEnvironment: WMFServiceEnvironment
+    fileprivate let appContainerURL: URL?
+    fileprivate let appData: WMFAppData
+    fileprivate let mediaWikiService: WMFService?
+    fileprivate let basicService: WMFService?
+    fileprivate let userAgentUtility: (() -> String)?
+    fileprivate let appInstallIDUtility: (() -> String?)?
+    fileprivate let acceptLanguageUtility: (() -> String)?
+    fileprivate let userDefaultsStore: WMFKeyValueStore?
+    fileprivate let crossProcessUserDefaultsStore: WMFKeyValueStore?
+    fileprivate let sharedCacheStore: WMFKeyValueStore?
+    fileprivate let testKitchenClient: TestKitchenClient?
+    fileprivate let coreDataStore: WMFCoreDataStore?
+}
+
+@_spi(Testing) public extension WMFDataEnvironment {
+
+    func snapshotForTesting() -> WMFDataEnvironmentSnapshot {
+        return WMFDataEnvironmentSnapshot(
+            serviceEnvironment: serviceEnvironment,
+            appContainerURL: appContainerURL,
+            appData: appData,
+            mediaWikiService: mediaWikiService,
+            basicService: basicService,
+            userAgentUtility: userAgentUtility,
+            appInstallIDUtility: appInstallIDUtility,
+            acceptLanguageUtility: acceptLanguageUtility,
+            userDefaultsStore: userDefaultsStore,
+            crossProcessUserDefaultsStore: crossProcessUserDefaultsStore,
+            sharedCacheStore: sharedCacheStore,
+            testKitchenClient: testKitchenClient,
+            coreDataStore: coreDataStore
+        )
+    }
+
+    func restoreForTesting(_ snapshot: WMFDataEnvironmentSnapshot) {
+        serviceEnvironment = snapshot.serviceEnvironment
+        appContainerURL = snapshot.appContainerURL
+        appData = snapshot.appData
+        mediaWikiService = snapshot.mediaWikiService
+        basicService = snapshot.basicService
+        userAgentUtility = snapshot.userAgentUtility
+        appInstallIDUtility = snapshot.appInstallIDUtility
+        acceptLanguageUtility = snapshot.acceptLanguageUtility
+        userDefaultsStore = snapshot.userDefaultsStore
+        crossProcessUserDefaultsStore = snapshot.crossProcessUserDefaultsStore
+        sharedCacheStore = snapshot.sharedCacheStore
+        testKitchenClient = snapshot.testKitchenClient
+        coreDataStore = snapshot.coreDataStore
+    }
+}

@@ -1,12 +1,14 @@
 import Foundation
 import Testing
+import WMFDataTestSupport
 @testable import WMFComponents
 @testable import WMFData
 @testable import WMFDataMocks
 
 @MainActor
-struct WMFDonateViewModelTests {
+final class WMFDonateViewModelTests {
 
+    private let fixture = WMFDataTestFixture()
     private let merchantID = "merchant.id"
 
     @Test
@@ -203,12 +205,18 @@ struct WMFDonateViewModelTests {
     }
 
     private func makeViewModel(countryCode: String, currencyCode: String, languageCode: String, appInstallID: String? = UUID().uuidString) async throws -> WMFDonateViewModel {
-        let donateData = try await loadDonateData()
-        return try #require(WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode(currencyCode), donateConfig: donateData.donateConfig, paymentMethods: donateData.paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", appInstallID: appInstallID, coordinatorDelegate: nil, loggingDelegate: nil))
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let donateData = try await loadDonateData()
+            return try #require(WMFDonateViewModel(localizedStrings: .demoStringsForCurrencyCode(currencyCode), donateConfig: donateData.donateConfig, paymentMethods: donateData.paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, metricsID: "enNL_2023_11_iOS", appVersion: "7.4.3", appInstallID: appInstallID, coordinatorDelegate: nil, loggingDelegate: nil))
+        }
+    }
+
+    private func configureEnvironment() async {
+        WMFDataEnvironment.current.basicService = WMFMockBasicService()
+        WMFDataEnvironment.current.serviceEnvironment = .staging
     }
 
     private func loadDonateData() async throws -> (donateConfig: WMFDonateConfig, paymentMethods: WMFPaymentMethods) {
-        WMFDataEnvironment.current.serviceEnvironment = .staging
         let controller = WMFDonateDataController(service: WMFMockBasicService(), sharedCacheStore: WMFMockKeyValueStore())
         try await controller.fetchConfigs(for: "US")
 
