@@ -44,6 +44,10 @@ jobs:
           ios-version: ${{ env.IOS_VERSION }}
           simulator-name: ${{ env.SIMULATOR_NAME }}
 
+      - name: Ensure tests reset WMFData global environment state
+        if: matrix.scheme == 'WMFData'
+        run: scripts/lint-wmfdata-test-fixtures.sh
+
       - name: Test ${{ matrix.scheme }} scheme
         run: |
           echo "Running scheme: ${{ matrix.scheme }} on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"

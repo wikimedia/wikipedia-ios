@@ -220,11 +220,15 @@ import Foundation
         mediaWikiService.perform(request: request, completion: completion)
     }
     
-    // MARK: - Internal
-    
-    func reset() {
+    // MARK: - Testing
+
+    @_spi(Testing) public func reset() {
+        service = WMFDataEnvironment.current.basicService
+        mediaWikiService = WMFDataEnvironment.current.mediaWikiService
+        sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
         activeCountryConfigs = []
         promptState = nil
+        preferencesBannerOptIns = SafeDictionary<WMFProject, Bool>()
     }
     
     // MARK: - Private

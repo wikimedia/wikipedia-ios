@@ -10,10 +10,10 @@ struct ImageGalleryRobot: ScreenshotCapturingRobot {
 
 extension ImageGalleryRobot {
     @discardableResult
-    func assertVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
+    func assertVisible(timeout: TimeInterval = 15, file: StaticString = #filePath, line: UInt = #line) -> Self {
         base.assertExists(
             base.app.otherElements[AccessibilityIdentifiers.ImageGallery.view],
-            timeout: 15,
+            timeout: timeout,
             file: file,
             line: line
         )

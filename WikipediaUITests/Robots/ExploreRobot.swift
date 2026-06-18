@@ -15,7 +15,7 @@ struct ExploreRobot: ScreenshotCapturingRobot {
 // MARK: - Root tabs
 
 extension ExploreRobot {
-    enum RootTab {
+    enum RootTab: CaseIterable {
         case activity
         case explore
         case places
@@ -52,20 +52,6 @@ extension ExploreRobot {
             }
         }
 
-        var index: Int {
-            switch self {
-            case .explore:
-                return 0
-            case .places:
-                return 1
-            case .saved:
-                return 2
-            case .activity:
-                return 3
-            case .search:
-                return 4
-            }
-        }
     }
 }
 
@@ -79,6 +65,20 @@ extension ExploreRobot {
             file: file,
             line: line
         )
+        return self
+    }
+
+    @discardableResult
+    func assertRootTabAccessibilityIdentifiersSurfaced(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        for tab in RootTab.allCases {
+            base.assertExists(
+                base.app.buttons[tab.accessibilityIdentifier],
+                timeout: 15,
+                description: "\(tab.description) accessibility identifier",
+                file: file,
+                line: line
+            )
+        }
         return self
     }
 }
@@ -105,12 +105,7 @@ extension ExploreRobot {
 
     @discardableResult
     func openSearch(file: StaticString = #filePath, line: UInt = #line) -> SearchRobot {
-        let identifiedButton = rootTabButton(for: .search)
-        let searchButton = identifiedButton.waitForExistence(timeout: 5)
-            ? identifiedButton
-            : searchTabButtonFallback()
-        base.assertVisible(searchButton, timeout: 15, description: "Search tab button", file: file, line: line)
-        searchButton.tap()
+        tapRootTab(.search, file: file, line: line)
         return SearchRobot(base: base, configuration: configuration).assertVisible(file: file, line: line)
     }
 
@@ -129,26 +124,31 @@ extension ExploreRobot {
 
     @discardableResult
     func tapRootTab(_ tab: RootTab, file: StaticString = #filePath, line: UInt = #line) -> Self {
-        let identifiedButton = rootTabButton(for: tab)
-        let button = identifiedButton.waitForExistence(timeout: 5)
-            ? identifiedButton
-            : base.app.tabBars.buttons.element(boundBy: tab.index)
+        let button = rootTabButton(for: tab)
         base.assertVisible(button, timeout: 15, description: tab.description, file: file, line: line)
-        button.tap()
-        if tab == .search {
-            base.assertExists(
-                base.app.otherElements[AccessibilityIdentifiers.Search.view],
-                timeout: 15,
-                description: "Search view",
-                file: file,
-                line: line
-            )
-        } else {
-            base.assertSelected(button, timeout: 10, description: tab.description, file: file, line: line)
-            if tab == .places {
-                dismissPlacesLocationPromptIfNeeded(file: file, line: line)
+        base.tapCenter(of: button, file: file, line: line)
+
+        switch tab {
+        case .search:
+            if !searchView.waitForExistence(timeout: 15) {
+                let retryButton = rootTabButton(for: tab)
+                base.assertVisible(retryButton, timeout: 5, description: tab.description, file: file, line: line)
+                base.tapCenter(of: retryButton, file: file, line: line)
+                base.assertExists(
+                    searchView,
+                    timeout: 15,
+                    description: "Search view",
+                    file: file,
+                    line: line
+                )
             }
+        case .places:
+            base.assertSelected(button, timeout: 10, description: tab.description, file: file, line: line)
+            dismissPlacesLocationPromptIfNeeded(file: file, line: line)
+        default:
+            base.assertSelected(button, timeout: 10, description: tab.description, file: file, line: line)
         }
+
         return self
     }
 }
@@ -160,8 +160,8 @@ private extension ExploreRobot {
         base.app.buttons.matching(identifier: tab.accessibilityIdentifier).firstMatch
     }
 
-    func searchTabButtonFallback() -> XCUIElement {
-        base.app.tabBars.buttons.element(boundBy: 4)
+    var searchView: XCUIElement {
+        base.app.otherElements[AccessibilityIdentifiers.Search.view]
     }
 
     func dismissPlacesLocationPromptIfNeeded(file: StaticString = #filePath, line: UInt = #line) {

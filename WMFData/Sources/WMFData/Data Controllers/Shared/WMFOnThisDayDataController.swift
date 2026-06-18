@@ -86,6 +86,10 @@ public actor WMFOnThisDayDataController {
         return response
     }
 
+    @_spi(Testing) public func reset() {
+        responseCache = [:]
+    }
+
     // MARK: Private helpers
 
     nonisolated private func isSupported(project: WMFProject) -> Bool {

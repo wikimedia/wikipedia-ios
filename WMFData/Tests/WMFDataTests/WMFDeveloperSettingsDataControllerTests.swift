@@ -1,48 +1,52 @@
 import Foundation
 import Testing
+import WMFDataTestSupport
 @testable import WMFData
 @testable import WMFDataMocks
 
 @Suite(.serialized)
-struct WMFDeveloperSettingsDataControllerTests {
+final class WMFDeveloperSettingsDataControllerTests {
 
-    private let controller: WMFDeveloperSettingsDataController
-
-    init() {
-        WMFDataEnvironment.current.basicService = WMFFeatureConfigRequestMockService()
-        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
-        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)])
-        controller = WMFDeveloperSettingsDataController()
-    }
+    private let fixture = WMFDataTestFixture()
 
     @Test
     func fetchFeatureConfigAndLoad() async throws {
-        try await controller.fetchFeatureConfig()
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let controller = WMFDeveloperSettingsDataController()
 
-        let config = try #require(controller.loadFeatureConfig())
-        let yirConfig = try #require(config.common.yir(year: 2025))
+            try await controller.fetchFeatureConfig()
 
-        #expect(yirConfig.year == 2025)
-        #expect(yirConfig.activeStartDateString == "2025-12-01T00:00:00Z")
-        #expect(yirConfig.activeEndDateString == "2026-02-01T00:00:00Z")
-        #expect(yirConfig.dataStartDateString == "2025-01-01T00:00:00Z")
-        #expect(yirConfig.dataEndDateString == "2025-12-01T00:00:00Z")
-        #expect(yirConfig.languages == 300)
-        #expect(yirConfig.articles == 10000000)
-        #expect(yirConfig.savedArticlesApps == 37574993)
-        #expect(yirConfig.viewsApps == 1000000000)
-        #expect(yirConfig.editsApps == 124356)
-        #expect(yirConfig.editsPerMinute == 342)
-        #expect(yirConfig.averageArticlesReadPerYear == 335)
-        #expect(yirConfig.edits == 81987181)
-        #expect(yirConfig.editsEN == 31000000)
-        #expect(yirConfig.bytesAddedEN == 1000000000)
-        #expect(yirConfig.hoursReadEN == 2423171000)
-        #expect(yirConfig.yearsReadEN == 275000)
-        #expect(yirConfig.topReadEN.count == 5)
-        #expect(yirConfig.topReadPercentages.count == 8)
-        #expect(yirConfig.hideCountryCodes.count == 22)
-        #expect(yirConfig.hideDonateCountryCodes.count == 30)
+            let config = try #require(controller.loadFeatureConfig())
+            let yirConfig = try #require(config.common.yir(year: 2025))
+
+            #expect(yirConfig.year == 2025)
+            #expect(yirConfig.activeStartDateString == "2025-12-01T00:00:00Z")
+            #expect(yirConfig.activeEndDateString == "2026-02-01T00:00:00Z")
+            #expect(yirConfig.dataStartDateString == "2025-01-01T00:00:00Z")
+            #expect(yirConfig.dataEndDateString == "2025-12-01T00:00:00Z")
+            #expect(yirConfig.languages == 300)
+            #expect(yirConfig.articles == 10000000)
+            #expect(yirConfig.savedArticlesApps == 37574993)
+            #expect(yirConfig.viewsApps == 1000000000)
+            #expect(yirConfig.editsApps == 124356)
+            #expect(yirConfig.editsPerMinute == 342)
+            #expect(yirConfig.averageArticlesReadPerYear == 335)
+            #expect(yirConfig.edits == 81987181)
+            #expect(yirConfig.editsEN == 31000000)
+            #expect(yirConfig.bytesAddedEN == 1000000000)
+            #expect(yirConfig.hoursReadEN == 2423171000)
+            #expect(yirConfig.yearsReadEN == 275000)
+            #expect(yirConfig.topReadEN.count == 5)
+            #expect(yirConfig.topReadPercentages.count == 8)
+            #expect(yirConfig.hideCountryCodes.count == 22)
+            #expect(yirConfig.hideDonateCountryCodes.count == 30)
+        }
+    }
+
+    private func configureEnvironment() async {
+        WMFDataEnvironment.current.basicService = WMFFeatureConfigRequestMockService()
+        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)])
     }
 }
 
