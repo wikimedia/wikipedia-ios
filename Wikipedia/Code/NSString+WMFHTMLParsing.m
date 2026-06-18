@@ -321,7 +321,10 @@
     static NSRegularExpression *hrefRegex;
     static dispatch_once_t hrefOnceToken;
     dispatch_once(&hrefOnceToken, ^{
-        NSString *hrefPattern = @"href[\\s]*=[\\s]*[\"']?[\\s]*((?:.(?![\"']?\\s+(?:\\S+)=|[>\"']))+.)[\\s]*[\"']?";
+        // Match the href value as either double-quoted (group 1), single-quoted (group 2), or unquoted (group 3).
+        // Capturing up to the matching quote character (rather than the first quote of any kind) ensures an apostrophe
+        // inside a double-quoted value is preserved instead of truncating the value (e.g. href="./New_Year's_Eve"). See T308268.
+        NSString *hrefPattern = @"href[\\s]*=[\\s]*(?:\"([^\"]*)\"|'([^']*)'|([^\\s>]+))";
         hrefRegex = [NSRegularExpression regularExpressionWithPattern:hrefPattern options:NSRegularExpressionCaseInsensitive error:nil];
     });
 
@@ -379,7 +382,8 @@
                                             options:0
                                               range:NSMakeRange(0, HTMLTagAttributes.length)
                                          usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
-                                             NSString *URLString = [hrefRegex replacementStringForResult:result inString:HTMLTagAttributes offset:0 template:@"$1"];
+                                             // Only one of the three quoting alternatives matches; the others expand to empty, so concatenating yields the value.
+                                             NSString *URLString = [hrefRegex replacementStringForResult:result inString:HTMLTagAttributes offset:0 template:@"$1$2$3"];
                                              if ([URLString hasPrefix:@"."] || [URLString hasPrefix:@"/"]) {
                                                  URLString = [URLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_relativePathAndFragmentAllowedCharacterSet]];
                                              }
