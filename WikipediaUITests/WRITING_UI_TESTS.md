@@ -145,16 +145,17 @@ Use localized visible text only when localization is the behavior under test or 
 
 For fixture-backed tests, confirm the required data already exists before writing broad robot logic around it.
 
-1. Capture real API responses from the app's production request shape. Do not synthesize fixture payloads unless the test is explicitly about impossible or error states.
-2. Store bodies under `WikipediaUnitTests/Fixtures`, usually in a feature folder.
-3. Register routes in:
+1. Generate or update fixtures for every checked-in fixture-backed language configuration by default. Do not stop at English unless the requested behavior explicitly has a narrower language surface.
+2. Capture real API responses from the app's production request shape for each language. Do not synthesize fixture payloads unless the test is explicitly about impossible or error states.
+3. Store bodies under `WikipediaUnitTests/Fixtures`, usually in a feature folder with language-specific subfolders when the response is localized.
+4. Register routes in:
 
    ```text
    WikipediaUnitTests/Fixtures/TestNetworkFixtures.json
    ```
 
-4. Include secondary resources the screen needs, such as summaries, mobile-html, media lists, image bytes, PCS scripts, CSS, language links, and history calls.
-5. Use exact URL matching, structured `queryItems`, or `ignoreQuery` only when the query is genuinely unstable.
+5. Include secondary resources the screen needs for each language, such as summaries, mobile-html, media lists, image bytes, PCS scripts, CSS, language links, and history calls.
+6. Use exact URL matching, structured `queryItems`, or `ignoreQuery` only when the query is genuinely unstable.
 
 Strict fixture mode returns a fixture error for unregistered requests. If a test renders a partial page, inspect the failing request before adding waits.
 

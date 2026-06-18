@@ -25,6 +25,7 @@ This repository uses the Robots pattern for test legibility and organization. Ke
 - Keep launch arguments centralized in `UITestConfiguration` and `UITestLaunchArgument`. Do not set language, locale, text direction, or simulator appearance directly from individual tests.
 - Prefer stable accessibility identifiers over localized visible text. Assert localized strings only when the localization behavior itself is under test.
 - Write UI tests so they pass by default across all checked-in language configurations, in both fixture-backed and E2E runs. If a behavior is intentionally limited to a specific language, theme, or network profile, make that boundary explicit in the test.
+- Generate fixture data for every checked-in fixture-backed language configuration by default, not just English. Add narrower fixture coverage only when the requested test behavior explicitly has a narrower language surface.
 - Keep fixture-backed article-control tests locale-aware through `ArticleControlsFixture`. The fixture-backed `en`, `de`, `he`, and `vi` configurations should open the active language's Dog article through search and load bundled article resources from `WikipediaUnitTests/Fixtures/ArticleControls/<language-code>`; E2E, unsupported languages, and language configurations irrelevant to a specific assertion should skip with XCTest skip APIs.
 
 ## Validation
