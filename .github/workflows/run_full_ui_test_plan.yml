@@ -159,7 +159,6 @@ jobs:
         run: |
           echo "Running WikipediaUITests ${UI_TEST_CONFIGURATION} on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
           xcodebuild test-without-building \
-            -scheme WikipediaUITests \
             -only-test-configuration "${UI_TEST_CONFIGURATION}" \
             -destination "${{ steps.simulator.outputs.destination }}" \
             -testProductsPath "WikipediaUITests.xctestproducts" \
