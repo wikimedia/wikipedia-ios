@@ -62,15 +62,32 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
 + (instancetype)wmf_placesActivityWithURL:(NSURL *)activityURL {
     NSURLComponents *components = [NSURLComponents componentsWithURL:activityURL resolvingAgainstBaseURL:NO];
     NSURL *articleURL = nil;
+    NSString *latString = nil, *lonString = nil, *placeName = nil;
     for (NSURLQueryItem *item in components.queryItems) {
         if ([item.name isEqualToString:@"WMFArticleURL"]) {
             NSString *articleURLString = item.value;
             articleURL = [NSURL URLWithString:articleURLString];
             break;
+        } else if ([item.name isEqualToString:@"lat"]) {
+            latString = item.value;
+        } else if ([item.name isEqualToString:@"lon"] || [item.name isEqualToString:@"lng"] || [item.name isEqualToString:@"long"]) {
+            lonString = item.value;
+        } else if ([item.name isEqualToString:@"name"] || [item.name isEqualToString:@"title"]) {
+            placeName = item.value;
         }
     }
     NSUserActivity *activity = [self wmf_pageActivityWithName:@"Places"];
     activity.webpageURL = articleURL;
+    
+    if (latString.length > 0 && lonString.length > 0) {
+        NSMutableDictionary *userInfo = [activity.userInfo mutableCopy] ?: [NSMutableDictionary dictionary];
+        userInfo[@"WMFPlacesLatitude"] = latString;
+        userInfo[@"WMFPlacesLongitude"] = lonString;
+        if (placeName.length > 0) {
+            userInfo[@"WMFPlacesName"] = placeName;
+        }
+        activity.userInfo = userInfo;
+    }
     return activity;
 }
 
