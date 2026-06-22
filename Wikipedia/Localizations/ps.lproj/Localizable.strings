@@ -387,6 +387,7 @@
 "nearby-distance-label-meters" = "$1 متر";
 "nearby-distance-label-miles" = "$1 ميله";
 "page-history-bot-edits" = "روباټ";
+"page-history-graph-accessibility-label" = "د وخت په تېرېدو سره د سمونونو گراف";
 "page-protected-can-not-edit-title" = "دا مخ ژغورل شوی";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 ليکنې|$1 ليکنې}}";
 "potd-description-prefix" = "د $1 د ورځې انځور";

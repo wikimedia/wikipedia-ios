@@ -102,6 +102,9 @@
 "activity-tab-amount-article-views" = "{{PLURAL:$1|$1 lượt xem}}";
 "activity-tab-articles-read-graph-label" = "Bài viết";
 "activity-tab-generic-no-edits" = "Bạn chưa sửa đổi bài viết nào trong tuần này. Hãy bắt đầu ngay để theo dõi bài viết của bạn.";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|$1 ngày}}";
+"activity-tab-impact-recent-activity-title" = "Hoạt động gần đây của bạn (30 ngày qua)";
+"activity-tab-menu-clear-history" = "Xóa lịch sử đọc";
 "activity-tab-neutral" = "Trung lập";
 "activity-tab-no-edits-title" = "Bạn chưa sửa đổi tuần này. Hãy thêm hình ảnh để hiểu rõ hơn về bài viết.";
 "activity-tab-onboarding-second-button-title" = "Tìm hiểu thêm về Hoạt động";
@@ -135,6 +138,7 @@
 "appearance-settings-image-dimming-footer" = "Giảm độ mờ của hình ảnh trên các giao diện tối và đen";
 "appearance-settings-reading-themes" = "Giao diện đọc";
 "appearance-settings-set-automatic-table-opening" = "Cài đặt Bảng";
+"appearance-settings-set-icon-header" = "Biểu tượng ứng dụng";
 "appearance-settings-text-sizing-example-text" = "Kéo con trượt để điều chỉnh kích thước văn bản trong bài. Cấu hình kích thước văn bản hệ thống để thay đổi kích thước văn bản ở các phần khác của ứng dụng.";
 "appearance-settings-theme-options" = "Tùy chọn giao diện";
 "article-about-title" = "Thông tin về bài viết";
@@ -147,6 +151,7 @@
 "article-languages-yours" = "Ngôn ngữ của bạn";
 "article-read-more-title" = "Đọc thêm";
 "article-reference-view-title" = "Tham chiếu $1";
+"article-return-button-accessibility-title" = "Trở về: $1";
 "article-revision-history" = "Lịch sử sửa đổi bài viết";
 "article-save-error-not-enough-space" = "Bạn không có đủ dung lượng trống trên bộ nhớ để lưu bài viết này";
 "article-share" = "Chia sẻ";
@@ -154,6 +159,7 @@
 "article-tabs-open-new-tab" = "Mở trong thẻ mới";
 "article-talk-page" = "Trang thảo luận bài viết";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Điều khiển Giao diện Đọc bài";
+"article-view-controller-editing-temp-account-created-subtitle" = "Tài khoản tạm thời $1 đã được tạo sau khi sửa đổi của bạn được đăng tải. Tài khoản này sẽ hết hạn sau 90 ngày.";
 "back-button-accessibility-label" = "Quay lại";
 "back-button-popover-title" = "Chạm để quay lại";
 "button-go-back" = "Quay lại";
@@ -193,6 +199,7 @@
 "description-edit-title" = "Sửa tóm lược";
 "description-edit-warning" = "Cố gắng giữ lời tóm lược cho ngắn gọn để người dùng có thể hiểu nhanh chủ đề của bài viết";
 "description-edit-warning-casing" = "Viết thường chữ đầu của lời tóm lược; chỉ viết hoa danh từ riêng.";
+"description-editing-temp-account-created-subtitle" = "Tài khoản tạm thời $1 đã được tạo sau khi sửa đổi của bạn được đăng tải. Tài khoản này sẽ hết hạn sau 90 ngày.";
 "description-help-about-description" = "Lời tóm lược bài viết giúp độc giả dễ dàng hiểu chủ đề.";
 "description-help-about-title" = "Giới thiệu";
 "description-help-about-wikidata" = "Giới thiệu về Wikidata";
@@ -310,6 +317,8 @@
 "editor-keyboard-subscript-accessibility" = "Viết xuống dưới";
 "editor-keyboard-superscript-accessibility" = "Viết lên trên";
 "editor-keyboard-template-accessibility" = "Bản mẫu";
+"editor-replace-textfield-placeholder" = "Thay thế bằng...";
+"editor-replace-type-all" = "Thay tất cả";
 "editor-replace-type-single" = "Thay thế";
 "editor-toolbar-find-accessibility" = "Tìm trong trang";
 "empty-diff-compare-title" = "Các phiên bản không có khác biệt";
@@ -468,6 +477,7 @@
 "forgot-password-username-or-email-title" = "Hoặc";
 "games-announcement-maybe-later-button" = "Có lẽ để sau";
 "games-announcement-play-button" = "Chơi";
+"games-wcf-button-play-title" = "Chơi trò chơi hôm nay";
 "games-wcf-explore-title" = "Sự kiện nào đến trước?";
 "gan-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các biến thể chữ Hán cho tiếng Cám là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong biến thể của bạn:\n\n贛語 原文 Cám (gan)\n赣语 简体 Cám giản thể (gan-hans)\n贛語 繁體 Cám phồn thể (gan-hant)";
 "gan-variants-alert-title" = "Cập nhật hỗ trợ biến thể chữ Hán trong tiếng Cám";
@@ -476,11 +486,15 @@
 "history-title" = "Lịch sử";
 "home-button-explore-accessibility-label" = "Wikipedia, quay về Thám hiểm";
 "home-button-saved-accessibility-label" = "Wikipedia, quay về Đã lưu";
+"home-community-tab-title" = "Cộng đồng";
+"home-edit-languages-title" = "Thêm hoặc chỉnh sửa ngôn ngữ";
+"home-for-you-tab-title" = "Dành cho bạn";
 "home-more-like-footer" = "Thêm bài tương tự $1";
 "home-nearby-footer" = "Thêm địa điểm gần vị trí của bạn";
 "home-nearby-location-footer" = "Thêm mục gần $1";
 "home-news-footer" = "Thêm thời sự";
 "home-reading-list-prompt" = "Hiện có thể tổ chức các bài đã lưu của bạn thành danh sách đọc và đồng bộ hóa chúng trên nhiều thiết bị. Đăng nhập để lưu các danh sách đọc của bạn vào tùy chọn cá nhân.";
+"home-tab-title" = "Trang nhà";
 "home-themes-action-title" = "Thiết lập";
 "home-themes-prompt" = "Điều chỉnh tùy chọn Đọc bài, thí dụ kích thước văn bản và giao diện, dùng thanh công cụ bài viết hoặc trong Cài đặt để đọc bài một cách thoải mái hơn.";
 "home-title" = "Thám hiểm";
@@ -489,6 +503,8 @@
 "icon-shortcut-random-title" = "Bài viết ngẫu nhiên";
 "icon-shortcut-search-title" = "Tìm trong Wikipedia";
 "image-gallery-unknown-owner" = "Tác giả không rõ.";
+"image-rec-add-image-title" = "Thêm hình ảnh này?";
+"image-rec-error-subtitle" = "Đã xảy ra sự cố.";
 "image-recs-no-title" = "Không";
 "import-shared-reading-list-default-title" = "Danh sách đọc của tôi";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Thực hiện khảo sát";
@@ -568,6 +584,7 @@
 "nearby-distance-label-miles" = "$1 dặm";
 "new-password-instructions" = "Bạn đã đăng nhập bằng mật khẩu tạm. Để hoàn tất việc đăng nhập, bạn phải tạo lại mật khẩu mới tại đây.";
 "new-password-title" = "Đặt mật khẩu";
+"next-action-title" = "Tiếp";
 "no-email-account-alert" = "Vui lòng thiết lập một tài khoản thư điện tử trên thiết bị của bạn và thử lại.";
 "no-internet-connection" = "Không có kết nối Internet";
 "not-now-title" = "Để sau";
@@ -617,9 +634,11 @@
 "notifications-center-mark-as-unread" = "Đánh dấu là chưa đọc";
 "notifications-center-more-action-accessibility-label" = "Thêm";
 "notifications-center-notifications-settings" = "Tùy chọn thông báo";
+"notifications-center-onboarding-modal-continue-action" = "Tiếp tục";
 "notifications-center-onboarding-modal-push-notifications-title" = "Thông báo đẩy";
 "notifications-center-onboarding-panel-secondary-button" = "Không, cảm ơn";
 "notifications-center-status-all" = "Tất cả";
+"notifications-center-status-all-notifications" = "Tất cả các thông báo";
 "notifications-center-status-read" = "Đã đọc";
 "notifications-center-status-unread" = "Chưa đọc";
 "notifications-center-subheader-edit-milestone" = "Cột mốc sửa đổi";
@@ -682,11 +701,13 @@
 "on-this-day-no-internet-error" = "Không có sẵn dữ liệu";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 từ Wikipedia $2";
 "on-this-day-title" = "Ngày này năm xưa";
+"open-article" = "Mở bài viết";
 "original-tab-button-popover-description" = "Chạm vào chữ “W” để quay lại thẻ ban đầu";
 "page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Chạm để chọn hai phiên bản để so sánh";
 "page-history-compare-title" = "So sánh";
 "page-history-graph-accessibility-label" = "Biểu đồ các sửa đổi qua thời gian";
+"page-history-logged-in-edits" = "đã đăng nhập";
 "page-history-minor-edits" = "sửa đổi nhỏ";
 "page-history-revision-author-accessibility-label" = "Tác giả: $1";
 "page-history-revision-comment-accessibility-label" = "Bình luận $1";
@@ -725,6 +746,7 @@
 "places-filter-top-articles" = "Bài đọc nhiều nhất";
 "places-filter-top-articles-count" = "$1 bài";
 "places-filter-top-read-articles" = "Bài đọc nhiều nhất";
+"places-list-title'" = "Danh sách";
 "places-location-enabled" = "Vị trí được kích hoạt";
 "places-no-saved-articles-have-location" = "Chưa lưu bài nào có thông tin địa điểm";
 "places-search-articles-that-match" = "$1 khớp với “$2”";
@@ -756,7 +778,13 @@
 "project-name-wikiversity" = "Wikiversity";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wiktionary";
+"reading-challenge-announcement-item1-title" = "Đọc 1 bài viết mỗi ngày trong 25 ngày";
 "reading-challenge-announcement-secondary-cta" = "Tìm hiểu thêm";
+"reading-challenge-completed-subtitle" = "25 trên 25 ngày";
+"reading-challenge-random-button" = "Ngẫu nhiên";
+"reading-challenge-streak-days" = "{{PLURAL:$1|$1 ngày}}";
+"reading-challenge-streak-no-days" = "$1 trên 25";
+"reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 trên 25 ngày}}";
 "reading-list-add-generic-hint-title" = "Thêm bài này vào danh sách đọc?";
 "reading-list-add-hint-title" = "Thêm “$1” vào danh sách đọc?";
 "reading-list-add-saved-button-title" = "Có, thêm chúng vào các danh sách đọc của tôi";
@@ -871,6 +899,7 @@
 "search-recent-title" = "Tìm kiếm gần đây";
 "search-result-redirected-from" = "Đổi hướng từ: $1";
 "search-title" = "Tìm kiếm";
+"search-widget-wikipedia-title" = "Wikipedia";
 "serbian-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Serbia là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\nсрпски ћирилица Serbia chữ Kirin (sr-ec)\nsrpski latinica Serbia chữ Latinh (sr-el)";
 "serbian-variants-alert-title" = "Cập nhật hỗ trợ hệ chữ viết trong tiếng Serbia";
 "settings-account" = "Tài khoản";
@@ -880,6 +909,7 @@
 "settings-clear-cache-are-you-sure-title" = "Xóa dữ liệu đệm?";
 "settings-clear-cache-cancel" = "Hủy bỏ";
 "settings-clear-cache-ok" = "Xóa bộ nhớ đệm";
+"settings-donate" = "Quyên góp";
 "settings-explore-games-title" = "Trò chơi Wikipedia";
 "settings-help-and-feedback" = "Trợ giúp và phản hồi";
 "settings-language-bar" = "Hiển thị ngôn ngữ khi tìm kiếm";
@@ -909,6 +939,7 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Hiển thị danh sách đọc Đã lưu (danh sách đọc mặc định) như một danh sách riêng khi xem các danh sách đọc. Danh sách đọc này xuất hiện trong thiết bị Android.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Hiện danh sách đọc được lưu";
 "settings-storage-and-syncing-title" = "Lưu trữ và đồng bộ hóa bài viết";
+"settings-temp-accounts-talk-page-footer" = "Tài khoản tạm thời sẽ hết hạn sau 90 ngày";
 "settings-title" = "Cài đặt";
 "share-a-fact-made-with" = "Tạo bằng ứng dụng Wikipedia";
 "share-article-name-on-wikipedia" = "“$1” trên Wikipedia:";
@@ -974,6 +1005,8 @@
 "talk-page-title-article-talk" = "Thảo luận Bài viết";
 "talk-page-title-user-talk" = "Thảo luận Người dùng";
 "talk-page-user-contributions" = "Đóng góp";
+"talk-pages-archives-empty-title" = "Không tìm thấy trang lưu trữ nào.";
+"talk-pages-archives-view-title" = "Lưu trữ";
 "talk-pages-coffee-roll-read-more" = "Đọc thêm";
 "talk-pages-view-title" = "Thảo luận";
 "theme-black-display-name" = "Đen";

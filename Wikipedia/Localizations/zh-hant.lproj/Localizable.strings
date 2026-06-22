@@ -207,6 +207,7 @@
 "appearance-settings-adjust-text-sizing" = "調整條目文字大小";
 "appearance-settings-expand-tables" = "展開表格";
 "appearance-settings-expand-tables-footer" = "設定所有表格在所有條目裡來依預設值自動開啓，包含快速預覽、參考資料、備註與外部連結";
+"appearance-settings-icon-contributor-title" = "貢獻者";
 "appearance-settings-image-dimming-footer" = "在陰暗與漆黑主題裡減少圖片的不透明度";
 "appearance-settings-reading-themes" = "閱讀主題";
 "appearance-settings-set-automatic-table-opening" = "表格設定";
@@ -829,8 +830,7 @@
 "more-menu" = "更多";
 "move-articles-to-reading-list" = "移動 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
 "navbar-title-mode-edit-wikitext-preview" = "預覽";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 英尺";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 英尺}}";
 "nearby-distance-label-km" = "$1 公里";
 // Fuzzy
 "nearby-distance-label-meters" = "$1 公尺";
@@ -1076,6 +1076,10 @@
 "project-name-wikiversity" = "維基學院";
 "project-name-wikivoyage" = "維基導遊";
 "project-name-wiktionary" = "維基詞典";
+"reading-challenge-explore-wikipedia-button" = "探索維基百科";
+"reading-challenge-join-button-medium" = "參與挑戰";
+"reading-challenge-join-button-small" = "參與挑戰";
+"reading-challenge-login-title" = "登入來參與挑戰";
 "reading-list-add-generic-hint-title" = "新增此條目至閱讀清單？";
 "reading-list-add-hint-title" = "添加「$1」至閱讀清單嗎？";
 "reading-list-add-saved-button-title" = "是，將它們添加到我的閱讀列表";
@@ -1213,6 +1217,7 @@
 "settings-clear-cache-cancel" = "取消";
 "settings-clear-cache-ok" = "清除快取";
 "settings-donate" = "捐款";
+"settings-explore-games-title" = "維基百科遊戲";
 "settings-help-and-feedback" = "說明與回饋";
 "settings-language-bar" = "搜尋時顯示語言";
 "settings-languages-feed-customization" = "透過自訂您的探索摘要設定，您可以管理在您的探索摘要裡所要顯示出的語言。";
@@ -1242,6 +1247,7 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "在您的閱讀清單檢視裡將已儲存（例如：預設的）閱讀清單各別顯示。此清單會呈現在 Android 裝置上";
 "settings-storage-and-syncing-show-default-reading-list-title" = "顯示已儲存的閱讀清單";
 "settings-storage-and-syncing-title" = "條目的儲存庫與同步";
+"settings-temp-account-end-session-confirm" = "登出";
 "settings-title" = "設定";
 "settings-year-in-review-header" = "關閉年度回顧將清除所有儲存的個人化分析資訊，並隱藏年度回顧功能。";
 "share-a-fact-made-with" = "用維基百科應用程式製作";
@@ -1491,6 +1497,21 @@
 "welcome-languages-search-title" = "在超過 300 種語言裡搜尋";
 "welcome-privacy-subtitle" = "我們堅信，使用者不必提供個人資訊，即可參與自由的知識運動。此應用程式會以匿名方式收集使用資料。";
 "welcome-privacy-terms-button-text" = "詳細了解我們的隱私權政策和使用條款。";
+"which-came-first-best-streak-label" = "最長連勝";
+"which-came-first-correct-answer-a11y" = "正確答案";
+"which-came-first-correct-feedback" = "正確！";
+"which-came-first-correct-feedback2" = "+1 分";
+"which-came-first-current-streak-label" = "目前連勝";
+"which-came-first-incorrect-answer-a11y" = "錯誤答案";
+"which-came-first-incorrect-feedback" = "錯誤！";
+"which-came-first-log-in-button" = "登入";
+"which-came-first-splash-about-button" = "關於此遊戲";
+"which-came-first-splash-continue-button" = "繼續今天的遊戲";
+"which-came-first-splash-review-button" = "查看結果";
+"which-came-first-splash-subtitle" = "猜猜歷史上的這一天最先發生的事件是什麼。";
+"which-came-first-splash-title" = "猜先後";
+"which-came-first-submit-button" = "提交";
+"which-came-first-title" = "猜先後";
 "widget-onthisday-description" = "探索在歷史上的今天發生的事件。";
 "widget-onthisday-placeholder-article-snippet" = "人人都可編輯的自由線上百科全書";
 "widget-onthisday-placeholder-event-snippet" = "自由的 wiki 內容式的百科全書「維基百科」即日上線。";

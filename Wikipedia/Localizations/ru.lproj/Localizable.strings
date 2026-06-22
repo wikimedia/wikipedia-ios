@@ -11,6 +11,7 @@
 // Author: Borealex
 // Author: Bsitzmann
 // Author: Butko
+// Author: Codex29
 // Author: Deltaspace
 // Author: Dicto23456
 // Author: Diralik
@@ -41,6 +42,7 @@
 // Author: MaxBioHazard
 // Author: Megakott
 // Author: Mikhail94
+// Author: Mitte27
 // Author: Mouse21
 // Author: Movses
 // Author: MuratTheTurkish
@@ -144,15 +146,18 @@
 "activity-tab-add-images-title" = "Добавить изображения";
 "activity-tab-additional-thoughts" = "Есть ли у вас какие-нибудь дополнительные мысли?";
 "activity-tab-articles-read-graph-label" = "Статьи";
+"activity-tab-customize-time-spent-reading" = "Время за чтением";
 "activity-tab-generic-no-edits" = "На этой неделе вы ничего не редактировали. Начните прямо сейчас и отслеживайте свой вклад.";
 "activity-tab-logged-out-subtitle" = "Войдите в систему или создайте аккаунт, чтобы просмотреть свою активность в приложении Википедии.";
 "activity-tab-logged-out-title" = "Посмотреть больше данных о чтении и редактировании";
+"activity-tab-menu-clear-history" = "Очистить историю чтения";
 "activity-tab-neutral" = "Воздержусь";
 "activity-tab-no-edits-title" = "Вы ничего не редактировали на этой неделе. Добавляйте изображения в статьи, чтобы улучшить их восприятие.";
 "activity-tab-read-title" = "Просмотреть историю чтения";
 "activity-tab-satisfied" = "Доволен";
 "activity-tab-start-editing" = "Начать редактирование";
 "activity-tab-survey-title" = "Опрос об удовлетворенности";
+"activity-tab-time-spent-reading" = "Время за чтением на этой неделе";
 "activity-tab-title" = "Активность";
 "activity-tab-unsatisfied" = "Неудовлетворен(а)";
 "activity-tab-very-satisfied" = "Очень удовлетворен(а)";
@@ -173,10 +178,10 @@
 "app-store-release-notes" = "Лента в приложении теперь сделана полностью настраиваемой и лёгкой в использовании. Были улучшены сообщения локализации, а также повышена производительность приложения и, традиционно, исправлены некоторые ошибки.";
 "app-store-short-description" = "Загрузите приложение Википедия, чтобы исследовать места вокруг и читать статьи оффлайн.";
 "app-store-subtitle" = "Свободная энциклопедия";
-"appearance-settings-adjust-text-sizing" = "Регулирует размер текста статьи";
-"appearance-settings-expand-tables" = "Расширить таблицы";
-"appearance-settings-expand-tables-footer" = "Раскрывать по умолчанию все разделы, включая \"Краткие факты\", \"Примечания\", \"Комментарии\", \"Внешние ссылки\".";
-"appearance-settings-image-dimming-footer" = "Уменьшает непрозрачность изображений в тёмной и чёрной темах";
+"appearance-settings-adjust-text-sizing" = "Настройка размера текста в статьях";
+"appearance-settings-expand-tables" = "Раскрывать таблицы";
+"appearance-settings-expand-tables-footer" = "Раскрывать по умолчанию все разделы, включая «Краткие факты», «Примечания», «Комментарии» и «Внешние ссылки».";
+"appearance-settings-image-dimming-footer" = "Затемнение изображений в тёмной и чёрной темах";
 "appearance-settings-reading-themes" = "Темы для чтения";
 "appearance-settings-set-automatic-table-opening" = "Настройки таблиц";
 "appearance-settings-set-icon-footer" = "Значок участника отмечает ваш вклад через приложение в развитие Википедии в 2025 году. Он сохранится до следующего выпуска «Обзор года».";
@@ -256,6 +261,7 @@
 "continue-reading-empty-title" = "Нет недавно прочитанных статей";
 "crimean-tatar-variants-alert-body" = "Приложение Википедия теперь поддерживает следующие варианты крымскотатарского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nQırımtatarca, крымскотатарский латиница (chr-latn)\nКъырымтатарджа, крымскотатарская кириллица (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Обновления поддержки вариантов Крымскотатарского";
+"customize-action-title" = "Настроить";
 "data-migration-status" = "Обновление…";
 "description-add-title" = "Добавить описание";
 "description-article-introduction-warning-message" = "Порядок элементов в режиме редактирования будет отличаться от порядка в режиме статьи.";
@@ -512,21 +518,22 @@
 "explore-featured-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-feed-customize-accessibility-title" = "Настроить";
 "explore-feed-language-settings" = "Языковые настройки Ленты";
-"explore-feed-preferences-additional-languages-footer-text" = "Дополнительные языки могут быть добавлены в разделе настроек \"Мои языки\".";
+"explore-feed-preferences-additional-languages-footer-text" = "Дополнительные языки могут быть добавлены в разделе настроек «Мои языки».";
 "explore-feed-preferences-card-hidden-title" = "Карточка скрыта";
 "explore-feed-preferences-continue-reading-description" = "Быстрая ссылка назад к чтению открытой статьи";
 "explore-feed-preferences-customize-explore-feed" = "Настроить ленту";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Настроить ленту";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Скрытие карточки приведёт к тому, что она не будет показана в ленте.";
-"explore-feed-preferences-explore-tab" = "Вкладка \"Лента\"";
+"explore-feed-preferences-explore-tab" = "Вкладка «Лента»";
 "explore-feed-preferences-featured-article-description" = "Избранная статья дня в Википедии";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "выкл.";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "вкл. все";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "вкл.";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "вкл. $1";
 "explore-feed-preferences-feed-cards-hidden-title" = "Все %@ карточек скрыты";
+"explore-feed-preferences-games-title" = "Показать карточку «Игры»";
 "explore-feed-preferences-global-card-footer-text" = "Эта карточка не является привязанной к языку, поэтому её выключение приведёт к исключению карточки из ленты во всех языках.";
-"explore-feed-preferences-global-cards-description" = "Карточки не привязанные к языкам.";
+"explore-feed-preferences-global-cards-description" = "Карточки не привязанные к языкам";
 "explore-feed-preferences-global-cards-subtitle" = "Не привязана к языку";
 "explore-feed-preferences-global-cards-title" = "Глобальные карточки";
 "explore-feed-preferences-hide-card-action-title" = "Скрыть эту карточку";
@@ -541,6 +548,7 @@
 "explore-feed-preferences-show-continue-reading-title" = "Показывать карточку «Продолжить чтение»";
 "explore-feed-preferences-show-featured-article-footer-text" = "Выключение карточки «Избранная статья» будет применено для всех доступных языков.";
 "explore-feed-preferences-show-featured-article-title" = "Показать карточку «Избранная статья»";
+"explore-feed-preferences-show-games-footer-text" = "Выключение карточки «Игры» будет применено для всех доступных языков.";
 "explore-feed-preferences-show-news-footer-text" = "Выключение карточки «В новостях» будет применено для всех доступных языков.";
 "explore-feed-preferences-show-news-title" = "Показать карточку «В новостях»";
 "explore-feed-preferences-show-on-this-day-footer-text" = "Выключение карточки «В этот день» будет применено для всех доступных языков.";
@@ -567,6 +575,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Включить «Ленту»";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Вкладка «Настройки» будет заменена вкладкой «Лента». Вы можете вызвать настройки, нажав сверху на иконку с шестерёнкой";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Включить «Ленту»?";
+"explore-games-title" = "Игры";
 "explore-hide-card-prompt" = "Скрыть эту карточку";
 "explore-main-page-description" = "Заглавная страница проектов Викимедиа";
 "explore-main-page-heading" = "Сегодня в Википедии";
@@ -638,6 +647,17 @@
 "forgot-password-instructions" = "Заполните одно из полей ниже, чтобы получить инструкции сброса пароля по электронной почте";
 "forgot-password-title" = "Сбросить пароль";
 "forgot-password-username-or-email-title" = "Или";
+"games-announcement-maybe-later-button" = "Возможно, позже";
+"games-announcement-message" = "Появилась новая викторина, основанная на материалах Википедии. Угадайте, какое событие произошло в истории раньше другого.";
+"games-announcement-play-button" = "Сыграть";
+"games-announcement-title" = "Сыграть в «Что было раньше?»";
+"games-email-report-body-encountered" = "Мной обнаружена проблема в работе функции «Игры Википедии»:";
+"games-email-report-subject" = "Сообщить о проблеме — Игры Википедии";
+"games-wcf-button-play-title" = "Сыграть в сегодняшнюю игру";
+"games-wcf-explore-button-review-title" = "Узнать результат";
+"games-wcf-explore-complete-subtitle" = "Ваш сегодняшний результат: $1/$2. Следующая игра через $3.";
+"games-wcf-explore-in-progress-subtitle" = "Вопрос $1. Отгадайте какое историческое событие произошло раньше другого.";
+"games-wcf-explore-title" = "Что произошло раньше?";
 "gan-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты Gan в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Упрощенный (gan-hans)\n贛語 繁體 Gan, Традиционный (gan-hant)";
 "gan-variants-alert-title" = "Обновление поддержки вариантов Gan";
 "history-clear-confirmation-heading" = "Вы уверены, что хотите удалить все недавние элементы?";
@@ -765,21 +785,17 @@
 "main-menu-title" = "Ещё";
 "main-menu-zero-faq" = "ЧЗВ по Wikipedia Zero";
 "main-page" = "Заглавная страница";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-subtitle-updated" = "В 2024 году добровольцы добавили 3 416 899 197 байт текста в англоязычную Википедию. В результате их работы создаётся постоянно совершенствующийся, основанный на фактах и ​​надёжный ресурс знаний, который они предоставляют миру. У каждого из нас есть знания, которыми можно поделиться. [Узнайте, как и вам принять участие]($1).";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title-updated" = "Добавлено 3,4 миллиарда байт";
-// Fuzzy
-"microsite-yir-english-edits-slide-title-updated" = "В этом году редакторы внесли около 82 миллионов правок.";
-// Fuzzy
-"microsite-yir-english-top-read-slide-title" = "Наиболее читаемые статьи в английской Википедии";
+"microsite-yir-english-edits-bytes-slide-subtitle-updated" = "В $1 году добровольцы добавили {{PLURAL:$2|$2 байт|$2 байта|$2 байт}} текста в англоязычную Википедию. В результате их работы создаётся постоянно совершенствующийся, основанный на фактах и ​​надёжный ресурс знаний, который они предоставляют миру. У каждого из нас есть знания, которыми можно поделиться. [Узнайте, как и вам принять участие]($3).";
+"microsite-yir-english-edits-bytes-slide-title-updated" = "Добавлено {{PLURAL:$1|$1 байт|$1 байта|$1 байт}}";
+"microsite-yir-english-edits-slide-title-updated" = "В этом году редакторы внесли {{PLURAL:$1|$1 правку|$1 правки|$1 правок}}.";
+"microsite-yir-english-top-read-slide-subtitle-updated" = "Когда люди хотят узнать о нашем мире, они обращаются к Википедии. Пятью самыми посещаемыми статьями в англоязычной Википедии стали:\n\n1. $1 \n2. $2 \n3. $3 \n4. $4 \n5. $5 \n\nПодробнее читайте в $6нашей статье в блоге$7.";
+"microsite-yir-english-top-read-slide-title" = "Наиболее читаемые статьи английской Википедии";
 "more-languages-tooltip-description" = "Искать в Википедии на более чем 300 языках";
 "more-languages-tooltip-title" = "Добавить языки";
 "more-menu" = "Ещё";
 "move-articles-to-reading-list" = "Перенести {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} в список для чтения";
 "navbar-title-mode-edit-wikitext-preview" = "Предпросмотр";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 фут.";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 фут|$1 фута|$1 футов}}";
 "nearby-distance-label-km" = "$1 км";
 // Fuzzy
 "nearby-distance-label-meters" = "$1 м";
@@ -933,6 +949,7 @@
 "page-history-compare-accessibility-hint" = "Нажмите, чтобы выбрать две версии для сравнения";
 "page-history-compare-title" = "Сравнить";
 "page-history-graph-accessibility-label" = "График изменений во времени";
+"page-history-logged-in-edits" = "зарегистрированные";
 "page-history-minor-edits" = "малые правки";
 "page-history-revision-author-accessibility-label" = "Автор: $1";
 "page-history-revision-comment-accessibility-label" = "Комментарий $1";
@@ -943,6 +960,7 @@
 "page-history-revision-time-accessibility-label" = "Изменения внесены $1";
 "page-history-revisions-comparison-warning" = "Можно выбрать только две версии";
 "page-history-stats-text" = "{{PLURAL:$1|$1 правка|$1 правки|$1 правок}} с $2";
+"page-history-unregistered-edits" = "незарегистрированные";
 "page-issues" = "Проблемы страницы";
 "page-location" = "Посмотреть на карте";
 "page-protected-can-not-edit" = "У вас нет прав на редактирование этой страницы";
@@ -1002,7 +1020,7 @@
 "potd-widget-title" = "Изображение дня";
 "preference-summary-eventlogging-opt-in" = "Разрешить Фонду Викимедиа собирать информацию о том, как вы используете приложение. Это позволит сделать его лучше.";
 "privacy-policy-title" = "Политика конфиденциальности";
-"problem-with-feature-title" = "Проблема с функцией";
+"problem-with-feature-title" = "Сообщить о проблеме";
 "profile-button-accessibility-hint" = "Переход к просмотру профиля.";
 "profile-button-accessibility-label" = "Профиль";
 "profile-page-join-title" = "Войдите / Присоединитесь к Википедии";
@@ -1148,9 +1166,12 @@
 "settings-clear-cache-cancel" = "Отмена";
 "settings-clear-cache-ok" = "Очистить кэш";
 "settings-donate" = "Пожертвовать";
+"settings-explore-games-subtitle" = "Ежедневные игры по материалам Википедии";
+"settings-explore-games-title" = "Игры Википедии";
 "settings-help-and-feedback" = "Помощь и обратная связь";
 "settings-language-bar" = "Показывать языки при поиске";
 "settings-languages-feed-customization" = "В настройках вы можете указать, какие языки будут показаны в вашей Ленте.";
+"settings-legal-sefaty-title" = "Контакты по вопросам права и безопасности";
 "settings-my-languages" = "Мои языки";
 "settings-notifications" = "Пуш-уведомления";
 "settings-notifications-echo-failure-message" = "Во время проверки подписок на уведомления, связанных с вашей учётной записью, произошла ошибка.";
@@ -1161,8 +1182,8 @@
 "settings-on" = "вкл.";
 "settings-primary-language" = "Основной";
 "settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения.";
-"settings-search-footer-text" = "Открывать при запуске приложения вкладку \"Поиск\", вместо вкладки \"Лента\"";
-"settings-search-open-app-on-search" = "Открыть приложение на вкладке \"Поиск\"";
+"settings-search-footer-text" = "Открывать при запуске приложения вкладку «Поиск» вместо вкладки «Лента»";
+"settings-search-open-app-on-search" = "Открыть приложение на вкладке «Поиск»";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Разрешить Wikimedia сохранять статьи и списки чтения в ваших пользовательских настройках.";
 "settings-storage-and-syncing-enable-sync-title" = "Синхронизировать сохранённые статьи и списки";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Удаление сохранённых статей приведёт к удалению их из вашей учётной записи пользователя, если у вас включена синхронизация, а также с этого устройства. Вы не сможете отменить это действие.";
@@ -1203,6 +1224,9 @@
 "table-of-contents-hide-button-label" = "Скрывает содержание";
 "table-of-contents-subheading-label" = "Подзаголовок $1";
 "tabs-close-tab" = "Закрыть вкладку";
+"tabs-empty-view-subtitle" = "Нажмите «+» для добавления вкладки. Статьи также можно открывать в новых вкладках долгим нажатием на соответствующей ссылке.";
+"tabs-empty-view-title" = "Ваши вкладки будут отображаться здесь";
+"tabs-navbar-title-format" = "{{PLURAL:$1|$1 вкладка|$1 вкладки|$1 вкладок}}";
 "tabs-open-tab" = "Открыть вкладку";
 "tabs-title" = "Вкладки";
 "tachelhit-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты Тачелхита в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
@@ -1282,11 +1306,11 @@
 "talk-pages-view-title" = "Обсуждение";
 "temporary-account" = "Временная учётная запись";
 "terms-of-use-title" = "Условия использования";
-"theme-black-display-name" = "Чёрное";
+"theme-black-display-name" = "Чёрная";
 "theme-dark-display-name" = "Тёмная";
 "theme-default-display-name" = "По умолчанию";
-"theme-default-explanation" = "Соответствует системной теме оформления";
-"theme-light-display-name" = "Свет";
+"theme-default-explanation" = "Оформление как в системе";
+"theme-light-display-name" = "Светлая";
 "theme-sepia-display-name" = "Сепия";
 "today-title" = "Сегодня";
 "top-read-widget-description" = "Узнайте, что мир читает сегодня в Википедии.";
@@ -1373,7 +1397,7 @@
 "welcome-exploration-on-this-day-description" = "Перенеситесь назад во времени, чтобы узнать, что произошло сегодня в истории";
 "welcome-exploration-on-this-day-title" = "В этот день…";
 "welcome-exploration-places-description" = "Исследовать достопримечательности вблизи или искать места по всему миру";
-"welcome-exploration-places-title" = "Вкладка \"Места\"";
+"welcome-exploration-places-title" = "Вкладка «Места»";
 "welcome-explore-continue-button" = "Начать";
 "welcome-explore-new-ways-title" = "Новые способы изучения";
 "welcome-explore-tell-me-more-done-button" = "Понятно";
@@ -1388,6 +1412,11 @@
 "welcome-languages-search-title" = "Искать на более чем 300 языках";
 "welcome-privacy-subtitle" = "Мы считаем, что вам не нужно предоставлять личную информацию для участия в движении за свободные знания. Данные об использовании, собранные для этого приложения, анонимны.";
 "welcome-privacy-terms-button-text" = "Узнайте больше о нашей политике конфиденциальности и условиях использования.";
+"which-came-first-correct-feedback" = "Верно!";
+"which-came-first-correct-feedback2" = "+1 балл";
+"which-came-first-next-button" = "Далее";
+"which-came-first-next-game-time" = "Следующая игра через $1";
+"which-came-first-submit-button" = "Отправить";
 "widget-onthisday-description" = "Узнайте, что произошло в этот день в истории.";
 "widget-onthisday-placeholder-article-snippet" = "Свободная онлайн-энциклопедия, которую каждый может редактировать";
 "widget-onthisday-placeholder-event-snippet" = "Википедия, бесплатная энциклопедия вики-контента, выходит в Интернет.";
@@ -1429,6 +1458,8 @@
 "year-in-review-donate-now" = "Сделать пожертвование сейчас";
 "year-in-review-finish" = "Завершить";
 "year-in-review-highlights-english-articles" = "Самые читаемые статьи Википедии на английском языке";
+"year-in-review-highlights-subtitle" = "Мы с нетерпением ждём следующего года!";
+"year-in-review-non-contributor-slide-title" = "Откройте награду за вклад в следующем году!";
 "year-in-review-personalized-donate-title" = "Ваша щедрость помогла Википедии процветать";
 // Fuzzy
 "year-in-review-personalized-editing-title-format-updated" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}";
