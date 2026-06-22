@@ -4,13 +4,95 @@ public final actor WMFHomeDataController {
 
     private let feedDataController: any WMFFeedDataControlling
 
+    // Accessed only from `nonisolated` UserDefaults helpers below; WMFKeyValueStore is not Sendable.
+    nonisolated(unsafe) private let userDefaultsStore: WMFKeyValueStore?
+
     // Dates for which feed data has been fetched per project, in descending order (most recent first).
     private var fetchedDates: [WMFProject: [Date]] = [:]
 
     public static let shared = WMFHomeDataController()
 
-    public init(feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared) {
+    public init(feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore) {
         self.feedDataController = feedDataController
+        self.userDefaultsStore = userDefaultsStore
+    }
+
+    // MARK: - Settings: Selected Language
+
+    public nonisolated func selectedLanguageCode() -> String? {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeSelectedLanguageCode.rawValue)) ?? nil
+    }
+
+    public nonisolated func setSelectedLanguageCode(_ newValue: String) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeSelectedLanguageCode.rawValue, value: newValue)
+    }
+
+    // MARK: - Settings: Community Modules
+
+    public nonisolated func communityFeaturedArticleIsOn() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeFeedCommunityFeaturedArticleIsOn.rawValue)) ?? true
+    }
+
+    public nonisolated func setCommunityFeaturedArticleIsOn(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedCommunityFeaturedArticleIsOn.rawValue, value: newValue)
+    }
+
+    public nonisolated func communityTopReadIsOn() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeFeedCommunityTopReadIsOn.rawValue)) ?? true
+    }
+
+    public nonisolated func setCommunityTopReadIsOn(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedCommunityTopReadIsOn.rawValue, value: newValue)
+    }
+
+    public nonisolated func communityInTheNewsIsOn() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeFeedCommunityInTheNewsIsOn.rawValue)) ?? true
+    }
+
+    public nonisolated func setCommunityInTheNewsIsOn(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedCommunityInTheNewsIsOn.rawValue, value: newValue)
+    }
+
+    public nonisolated func communityOnThisDayIsOn() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeFeedCommunityOnThisDayIsOn.rawValue)) ?? true
+    }
+
+    public nonisolated func setCommunityOnThisDayIsOn(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedCommunityOnThisDayIsOn.rawValue, value: newValue)
+    }
+
+    public nonisolated func communityPictureOfTheDayIsOn() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeFeedCommunityPictureOfTheDayIsOn.rawValue)) ?? true
+    }
+
+    public nonisolated func setCommunityPictureOfTheDayIsOn(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedCommunityPictureOfTheDayIsOn.rawValue, value: newValue)
+    }
+
+    // MARK: - Settings: For You Modules
+
+    public nonisolated func forYouBasedOnInterestsIsOn() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeFeedForYouBasedOnInterestsIsOn.rawValue)) ?? true
+    }
+
+    public nonisolated func setForYouBasedOnInterestsIsOn(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedForYouBasedOnInterestsIsOn.rawValue, value: newValue)
+    }
+
+    public nonisolated func forYouBecauseYouReadIsOn() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeFeedForYouBecauseYouReadIsOn.rawValue)) ?? true
+    }
+
+    public nonisolated func setForYouBecauseYouReadIsOn(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedForYouBecauseYouReadIsOn.rawValue, value: newValue)
+    }
+
+    public nonisolated func forYouContinueReadingIsOn() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeFeedForYouContinueReadingIsOn.rawValue)) ?? true
+    }
+
+    public nonisolated func setForYouContinueReadingIsOn(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedForYouContinueReadingIsOn.rawValue, value: newValue)
     }
 
     // MARK: - Public API

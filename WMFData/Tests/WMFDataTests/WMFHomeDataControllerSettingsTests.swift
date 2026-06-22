@@ -4,10 +4,10 @@ import Testing
 @testable import WMFDataMocks
 
 @Suite
-struct WMFExploreDataControllerTests {
+struct WMFHomeDataControllerSettingsTests {
 
-    private func makeController() -> WMFExploreDataController {
-        return WMFExploreDataController(userDefaultsStore: WMFMockKeyValueStore())
+    private func makeController() -> WMFHomeDataController {
+        return WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
     }
 
     // MARK: - Defaults
@@ -69,6 +69,25 @@ struct WMFExploreDataControllerTests {
         #expect(controller.forYouContinueReadingIsOn() == true)
     }
 
+    // MARK: - Selected Language
+
+    @Test
+    func selectedLanguageCodeDefaultsToNil() {
+        let controller = makeController()
+        #expect(controller.selectedLanguageCode() == nil)
+    }
+
+    @Test
+    func selectedLanguageCodePersistsChanges() {
+        let controller = makeController()
+
+        controller.setSelectedLanguageCode("es")
+        #expect(controller.selectedLanguageCode() == "es")
+
+        controller.setSelectedLanguageCode("fr")
+        #expect(controller.selectedLanguageCode() == "fr")
+    }
+
     // MARK: - Independence
 
     @Test
@@ -93,10 +112,10 @@ struct WMFExploreDataControllerTests {
     @Test
     func separateControllersShareTheSameStore() {
         let store = WMFMockKeyValueStore()
-        let writer = WMFExploreDataController(userDefaultsStore: store)
+        let writer = WMFHomeDataController(userDefaultsStore: store)
         writer.setForYouBecauseYouReadIsOn(false)
 
-        let reader = WMFExploreDataController(userDefaultsStore: store)
+        let reader = WMFHomeDataController(userDefaultsStore: store)
         #expect(reader.forYouBecauseYouReadIsOn() == false)
     }
 }
