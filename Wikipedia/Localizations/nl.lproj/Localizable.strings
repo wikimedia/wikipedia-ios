@@ -709,11 +709,15 @@
 "history-title" = "Geschiedenis";
 "home-button-explore-accessibility-label" = "Wikipedia, terug om te verkennen";
 "home-button-saved-accessibility-label" = "Wikipedia, terug naar opgslagen";
+"home-community-tab-title" = "Gemeenschap";
+"home-edit-languages-title" = "Talen toevoegen of bewerken";
+"home-for-you-tab-title" = "Voor u";
 "home-more-like-footer" = "Vergelijkbaar met $1";
 "home-nearby-footer" = "Meer in de buurt van uw huidige locatie";
 "home-nearby-location-footer" = "Meer in de buurt van $1";
 "home-news-footer" = "Meer in het nieuws";
 "home-reading-list-prompt" = "Uw opgeslagen pagina's kunnen nu in leeslijsten worden ingedeeld en tussen apparaten worden gesynchroniseerd. Meld u aan om uw leeslijsten in uw gebruikersvoorkeuren te laten opslaan.";
+"home-tab-title" = "Startpagina";
 "home-themes-action-title" = "Voorkeuren beheren";
 "home-themes-prompt" = "Pas uw leesvoorkeuren aan, inclusief de tekstgrootte en het thema in de paginawerkbalk of in uw gebruikersinstellingen voor een comfortabelere leeservaring.";
 "home-title" = "Verkennen";
@@ -1292,6 +1296,7 @@
 "settings-explore-games-subtitle" = "Dagelijkse spelletjes gebaseerd op Wikipedia-inhoud";
 "settings-explore-games-title" = "Wikipedia-spelletjes";
 "settings-help-and-feedback" = "Hulp en terugkoppeling";
+"settings-home-feed-title" = "Startpagina";
 "settings-language-bar" = "Talen weergeven bij zoeken";
 "settings-languages-feed-customization" = "U kunt bepalen welke talen worden weergegeven in uw overzicht Verkennen door de bijbehorende instellingen aan te passen.";
 "settings-legal-sefaty-title" = "Contact juridisch & veiligheid";
@@ -1632,6 +1637,7 @@
 "wikitext-upload-save-anonymously-warning" = "Bewerkingen worden toegeschreven aan het IP-adres van uw apparaat. Door $1 hebt u meer privacy.";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Door wijzigingen te publiceren, gaat u akkoord met de $1Gebruiksvoorwaarden$2 en geeft u onherroepelijk uw bijdrage vrij onder de licenties $3CC BY-SA 4.0$4 en $5GFDL$6. U gaat ermee akkoord dat een hyperlink of URL voldoende bronvermelding is onder de Creative Commons-licentie.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
+"wmf-localizations-tests-nonexistent-key" = "terugvallen op";
 "year-in-review-articles-slide-subtitle" = "Dit waren de pagina's die u in 2025 het vaakst hebt bezocht:\n$1";
 "year-in-review-base-editors-subtitle" = "De gemeenschap van vrijwillige bewerkers van Wikipedia heeft meer dan 555.647 bewerkingen gemaakt op de iOS-app. Het hart en de ziel van Wikipedia is onze wereldwijde gemeenschap van vrijwillige bijdragers, donateurs en miljarden lezers zoals u - allemaal verenigd om onbeperkte toegang tot betrouwbare informatie te delen.";
 "year-in-review-base-editors-title-updated" = "Redacteuren op de officiële Wikipedia-apps hebben {{PLURAL:$1|één bewerking|$1 bewerkingen}} aangebracht";

@@ -691,11 +691,15 @@
 "history-title" = "Історія";
 "home-button-explore-accessibility-label" = "Вікіпедіє, повернутися до стрічки";
 "home-button-saved-accessibility-label" = "Вікіпедіє, повернутися до Збереженого";
+"home-community-tab-title" = "Спільнота";
+"home-edit-languages-title" = "Додати або редагувати мови";
+"home-for-you-tab-title" = "Для вас";
 "home-more-like-footer" = "Більше схожого на $1";
 "home-nearby-footer" = "Більше місць поблизу";
 "home-nearby-location-footer" = "Більше поблизу $1";
 "home-news-footer" = "Більше новин";
 "home-reading-list-prompt" = "Збережені вами статті тепер можуть бути організовані в читальні списки та синхронізовані між приладами. Увійдіть до системи, аби ваші читальні списки збереглися в користувацьких налаштуваннях.";
+"home-tab-title" = "Головна";
 "home-themes-action-title" = "Керування налаштуваннями";
 "home-themes-prompt" = "Для комфортнішого читання налагодьте читальні налаштування (зокрема розмір шрифту та тему оформлення) на панелі управління статтею чи у ваших користувацьких налаштуваннях.";
 "home-title" = "Стрічка";
@@ -1275,6 +1279,7 @@
 "settings-explore-games-subtitle" = "Щоденні ігри на основі контенту Вікіпедії";
 "settings-explore-games-title" = "Ігри Вікіпедії";
 "settings-help-and-feedback" = "Допомога та зворотний зв'язок";
+"settings-home-feed-title" = "Головна стрічка";
 "settings-language-bar" = "Показувати мови при пошуку";
 "settings-languages-feed-customization" = "Ви можете зазначити в налаштуваннях, які мови показуватимуться у вашій стрічці.";
 "settings-legal-sefaty-title" = "Контакти з юридичних питань та безпеки";
@@ -1615,6 +1620,7 @@
 "wikitext-upload-save-anonymously-warning" = "Редагування буде приписано ІР-адресі вашого пристрою. Якщо ви $1, ваші дії будуть більш конфіденційними.";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Публікуючи зміни, ви погоджуєтеся з $1Умовами використання$2 і з тим, що розміщуєте свій внесок за ліцензіями $3CC BY-SA 4.0$4 і $5GFDL$6. Ви також погоджуєтеся, що зазначене гіперпосилання чи URL задовольняє ліцензію Creative Commons.";
 "wikitext-upload-save-terms-name" = "Умови використання";
+"wmf-localizations-tests-nonexistent-key" = "резервний варіант";
 "year-in-review-articles-slide-subtitle" = "Ось статті, які ви відвідували найчастіше у 2025 році: \n$1";
 "year-in-review-base-editors-subtitle" = "Серцем і душею Вікіпедії є наша глобальна спільнота волонтерів, донорів і мільярдів читачів, таких як ви, — усі вони об'єдналися, щоб ділитися необмеженим доступом до надійної інформації.";
 "year-in-review-base-editors-title-updated" = "Редактори офіційних застосунків Вікіпедії зробили {{PLURAL:$1|$1 редагування|$1 редагування|$1 редагувань}}";

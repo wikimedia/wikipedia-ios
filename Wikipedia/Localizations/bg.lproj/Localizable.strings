@@ -1,5 +1,6 @@
 // Messages for Bulgarian (български)
 // Exported from translatewiki.net
+// Author: ArcaneIE
 // Author: Kareyac
 // Author: Spas.Z.Spasov
 // Author: StanProg
@@ -266,11 +267,15 @@
 "history-title" = "История";
 "home-button-explore-accessibility-label" = "Уикипедия, връщане към Изследване";
 "home-button-saved-accessibility-label" = "Уикипедия, връщане към Запазени";
+"home-community-tab-title" = "Общност";
+"home-edit-languages-title" = "Добавяне или редактиране на езици";
+"home-for-you-tab-title" = "За теб";
 "home-more-like-footer" = "Още статии, подобни на $1";
 "home-nearby-footer" = "Още места близо до вашето местоположение";
 "home-nearby-location-footer" = "Още близо до $1";
 "home-news-footer" = "Още актуални събития";
 "home-reading-list-prompt" = "Вашите запазени статии вече могат да бъдат организирани в списъци за четене и синхронизирани между устройствата. Влезте, за да разрешите Вашите списъци за четене да бъдат запазени в потребителските Ви предпочитания.";
+"home-tab-title" = "Начало";
 "home-themes-action-title" = "Управление на предпочитанията";
 "home-title" = "Разгледайте!";
 "icon-shortcut-random-title" = "Случайна статия";
@@ -490,6 +495,7 @@
 "settings-clear-cache-ok" = "Изчистване на кеша";
 "settings-donate" = "Направете дарение";
 "settings-help-and-feedback" = "Помощ и обратна връзка";
+"settings-home-feed-title" = "Домашна емисия";
 "settings-language-bar" = "Показване на езиците при търсене";
 "settings-my-languages" = "Моите езици";
 "settings-notifications" = "Насочени известия";
@@ -587,3 +593,4 @@
 "wikitext-upload-captcha-error" = "Грешка при проверката на CAPTCHA.";
 "wikitext-upload-save" = "Публикуване...";
 "wikitext-upload-save-terms-name" = "Условия за ползване";
+"wmf-localizations-tests-nonexistent-key" = "резервен вариант";

@@ -677,11 +677,15 @@
 "history-title" = "Историја";
 "home-button-explore-accessibility-label" = "Википедија, назад на Истражете";
 "home-button-saved-accessibility-label" = "Википедија, назад на Зачувано";
+"home-community-tab-title" = "Заедница";
+"home-edit-languages-title" = "Додај или измени јазици";
+"home-for-you-tab-title" = "За вас";
 "home-more-like-footer" = "Уште статии како $1";
 "home-nearby-footer" = "Уште места во близина";
 "home-nearby-location-footer" = "Повеќе околу $1";
 "home-news-footer" = "Уште тековни настани";
 "home-reading-list-prompt" = "Зачуваните статии сега можат да се организираат во списоци за читање усогласени низ сите уреди. Најавете се и дозволете зачувување на списоци во вашите нагодувања.";
+"home-tab-title" = "Почетна";
 "home-themes-action-title" = "Упр. со поставки";
 "home-themes-prompt" = "Прилагодете ги поставките за читање (вкл. големина и тема на текстот) од статискиот алатник во вашите нагодувања за поудобно читање.";
 "home-title" = "Истражете";
@@ -1260,6 +1264,7 @@
 "settings-explore-games-subtitle" = "Дневни игри со содржини на Википедија";
 "settings-explore-games-title" = "Википедиини игри";
 "settings-help-and-feedback" = "Помош и мислења";
+"settings-home-feed-title" = "Тековник „Почетна“";
 "settings-language-bar" = "Прикажувај јазици при пребарувањето";
 "settings-languages-feed-customization" = "Можете да изберете кои јазици да се прикажуваат во поставките за тековникот „Истражи“.";
 "settings-legal-sefaty-title" = "Контакти за правни и безбедносни прашања";
@@ -1600,6 +1605,7 @@
 "wikitext-upload-save-anonymously-warning" = "Уредувањата ќе ѝ бидат припишани на IP-адресата на вашиот уред. Ако направите $1, тогаш ќе имате повеќе приватност.";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Објавувајќи ги промените, се согласувате со $1Условите на употреба$2 и со објавувањето вашите придонеси под лиценците $3CC BY-SA 4.0$4 и $5ГЛСД$6. Се согласувате дека наведената хиперврска или URL претставува достатен припис согласно лиценцата на Криејтив комонс.";
 "wikitext-upload-save-terms-name" = "Условите на употреба";
+"wmf-localizations-tests-nonexistent-key" = "резервна";
 "year-in-review-articles-slide-subtitle" = "Еве ги статиите што највеќе ги посетувавте во 2025 година:\n$1";
 "year-in-review-base-editors-subtitle" = "Сржта на Википедија е нашата глобална заедница на доброволни учесници, дарители и милијарди читатели како вас — сите обединети во напорот за споделување на неограничен пристап до проверени информации.";
 "year-in-review-base-editors-title-updated" = "Уредниците од официјалните прилози на Википедија направија {{PLURAL:$1|$1 уредување|$1 уредувања}}";

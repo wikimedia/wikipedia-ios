@@ -73,6 +73,9 @@
 "history-clear-confirmation-heading" = "Şıma qayılê vêrdey xo pêro besterê?";
 "history-clear-delete-all" = "Eya, pêro bestere";
 "history-title" = "Tarix";
+"home-community-tab-title" = "Cemaet";
+"home-edit-languages-title" = "Zıwan cı kerê ya zi bıvurnê";
+"home-tab-title" = "Keye";
 "icon-shortcut-nearby-title" = "Nezdıra wesiqey";
 "icon-shortcut-random-title" = "Nuşteyo raştameye";
 "insert-media-alternative-text-title" = "Metıno alternatif";
@@ -156,3 +159,4 @@
 "wikitext-preview-save-changes-title" = "Vurnayışan qeyd ke";
 "wikitext-upload-save" = "Weşaniyeno...";
 "wikitext-upload-save-terms-name" = "Şertê gurenayışi";
+"wmf-localizations-tests-nonexistent-key" = "peyserardış";

@@ -138,8 +138,7 @@
 "activity-tab-customize-timeline-of-behavior" = "الجدول الزمني للسلوك";
 "activity-tab-email-fifth-line" = "[لقطات الشاشة أو الروابط]";
 "activity-tab-email-first-line" = "لقد واجهت مشكلة مع ميزة علامة التبويب النشاط:";
-// Fuzzy
-"activity-tab-email-fourth-line" = "[وصف السلوك المطلوب]";
+"activity-tab-email-fourth-line" = "[وصف الحل المقترح]";
 "activity-tab-email-second-line" = "- [وصف المشكلة المحددة]";
 "activity-tab-email-third-line" = "السلوك الذي أود رؤيته هو:";
 "activity-tab-email-title" = "تقرير المشكلة - علامة التبويب النشاط";
@@ -742,8 +741,7 @@
 "image-rec-tooltip-3-body" = "قرر ما إذا كانت الصورة تساعد القراء على فهم هذا الموضوع بشكل أفضل.";
 "image-rec-tooltip-3-title" = "يقرر";
 "image-rec-view-article" = "عرض المقال";
-// Fuzzy
-"image-recommendations-email-first-line" = "لقد واجهت مشكلة مع ميزة إضافة صورة والتعديلات المقترحة:";
+"image-recommendations-email-first-line" = "لقد واجهت مشكلة في ميزة \"إضافة صورة مع اقتراحات التعديل\":";
 "image-recommendations-email-title" = "تقرير المشكلة - إضافة ميزة الصورة";
 "image-recs-no-title" = "لا";
 "image-recs-not-sure-title" = "غير متأكد";
@@ -1081,7 +1079,7 @@
 "profile-year-in-review-login-subtitle" = "قم بتسجيل الدخول أو إنشاء حساب لمشاهدة مراجعة العام والتأهل للحصول على رؤى أكثر تخصيصًا.";
 "profile-year-in-review-login-title" = "تسجيل الدخول للوصول إلى مراجعة العام";
 "project-name-mediawiki" = "ميدياويكي";
-"project-name-wikibooks" = "ويكي الكتب";
+"project-name-wikibooks" = "ويكي كتب";
 "project-name-wikidata" = "ويكي بيانات";
 "project-name-wikimedia-commons" = "ويكيميديا كومنز";
 "project-name-wikinews" = "ويكي الأخبار";
