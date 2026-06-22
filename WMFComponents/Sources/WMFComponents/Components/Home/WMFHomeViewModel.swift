@@ -32,11 +32,16 @@ public final class WMFHomeViewModel: ObservableObject {
     public var didSelectLanguage: ((String) -> Void)?
     public var didTapEditLanguages: (() -> Void)?
 
-    public init(languages: [Language] = [], selectedLanguageCode: String = "", didSelectLanguage: ((String) -> Void)? = nil, didTapEditLanguages: (() -> Void)? = nil) {
+    // TODO: Temporary mock button for testing the "What's driving your feed" deep-link. Remove once the real feed entry point exists.
+    let whatsDrivingTestButtonTitle = "settings test button"
+    public var didTapWhatsDrivingTestButton: (() -> Void)?
+
+    public init(languages: [Language] = [], selectedLanguageCode: String = "", didSelectLanguage: ((String) -> Void)? = nil, didTapEditLanguages: (() -> Void)? = nil, didTapWhatsDrivingTestButton: (() -> Void)? = nil) {
         self.languages = languages
         self.selectedLanguageCode = selectedLanguageCode
         self.didSelectLanguage = didSelectLanguage
         self.didTapEditLanguages = didTapEditLanguages
+        self.didTapWhatsDrivingTestButton = didTapWhatsDrivingTestButton
     }
 
     /// The short code shown on the language menu button (e.g. "EN").

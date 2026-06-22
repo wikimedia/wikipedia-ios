@@ -52,6 +52,9 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         viewModel.didTapEditLanguages = { [weak self] in
             self?.presentLanguagesViewController()
         }
+        viewModel.didTapWhatsDrivingTestButton = { [weak self] in
+            self?.presentWhatsDrivingTest()
+        }
         reloadLanguages()
     }
 
@@ -86,6 +89,17 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         (languagesVC as Themeable?)?.apply(theme: theme)
         let navVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .overFullScreen)
         present(navVC, animated: true)
+    }
+
+    // MARK: - What's Driving (test deep-link)
+
+    // TODO: Temporary. Presents "What's driving your feed" modally to test the settings entry point. You can delete if you're working on implementing the feed.
+    private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
+    private func presentWhatsDrivingTest() {
+        guard let navigationController else { return }
+        let coordinator = HomeFeedSettingsCoordinator(navigationController: navigationController, theme: theme, initialView: .modalFromFeed, presentation: .modal)
+        homeFeedSettingsCoordinator = coordinator
+        coordinator.start()
     }
 
     private func embedHostingController() {

@@ -25,7 +25,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     private let dataStore: MWKDataStore
 
     private let dataController: WMFSettingsDataController
-    private let exploreDataController = WMFExploreDataController()
+    private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
     @MainActor private weak var settingsViewModel: WMFSettingsViewModel?
     @MainActor private var pushNotificationsViewModel: WMFPushNotificationsSettingsViewModel?
     private let languagesDelegateBridge = SettingsLanguagesDelegateBridge()
@@ -590,98 +590,9 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             return
         }
 
-        let homeFeedSettingsVC = WMFHomeFeedSettingsViewController(didTapCommunityModules: { [weak self] in
-            self?.showHomeFeedCommunityModulesSettings()
-        }, didTapForYouModules: { [weak self] in
-            self?.showHomeFeedForYouModulesSettings()
-        }, didTapForYouWhatsDriving: { [weak self] in
-            self?.showHomeFeedWhatsDrivingSettings()
-        })
-        settingsNav.pushViewController(homeFeedSettingsVC, animated: true)
-    }
-
-    private func showHomeFeedCommunityModulesSettings() {
-        guard let settingsNav = settingsNavigationController else {
-            return
-        }
-
-        let viewModel = WMFHomeFeedCommunitySettingsViewModel(
-            featuredArticleIsOn: exploreDataController.communityFeaturedArticleIsOn(),
-            topReadIsOn: exploreDataController.communityTopReadIsOn(),
-            inTheNewsIsOn: exploreDataController.communityInTheNewsIsOn(),
-            onThisDayIsOn: exploreDataController.communityOnThisDayIsOn(),
-            pictureOfTheDayIsOn: exploreDataController.communityPictureOfTheDayIsOn(),
-            onToggleModule: { [weak self] module, isOn in
-                guard let self else { return }
-                switch module {
-                case .featuredArticle: self.exploreDataController.setCommunityFeaturedArticleIsOn(isOn)
-                case .topRead: self.exploreDataController.setCommunityTopReadIsOn(isOn)
-                case .inTheNews: self.exploreDataController.setCommunityInTheNewsIsOn(isOn)
-                case .onThisDay: self.exploreDataController.setCommunityOnThisDayIsOn(isOn)
-                case .pictureOfTheDay: self.exploreDataController.setCommunityPictureOfTheDayIsOn(isOn)
-                }
-            }
-        )
-        let modulesSettingsVC = WMFHomeFeedCommunitySettingsViewController(viewModel: viewModel)
-        settingsNav.pushViewController(modulesSettingsVC, animated: true)
-    }
-
-    private func showHomeFeedForYouModulesSettings() {
-        guard let settingsNav = settingsNavigationController else {
-            return
-        }
-
-        let viewModel = WMFHomeFeedForYouSettingsViewModel(
-            basedOnYourInterestsIsOn: exploreDataController.forYouBasedOnInterestsIsOn(),
-            becauseYouReadIsOn: exploreDataController.forYouBecauseYouReadIsOn(),
-            continueReadingIsOn: exploreDataController.forYouContinueReadingIsOn(),
-            onToggleModule: { [weak self] module, isOn in
-                guard let self else { return }
-                switch module {
-                case .basedOnYourInterests: self.exploreDataController.setForYouBasedOnInterestsIsOn(isOn)
-                case .becauseYouRead: self.exploreDataController.setForYouBecauseYouReadIsOn(isOn)
-                case .continueReading: self.exploreDataController.setForYouContinueReadingIsOn(isOn)
-                }
-            },
-            didTapWhatsDriving: { [weak self] in
-                self?.showHomeFeedWhatsDrivingSettings()
-            })
-        let forYouSettingsVC = WMFHomeFeedForYouSettingsViewController(viewModel: viewModel)
-        settingsNav.pushViewController(forYouSettingsVC, animated: true)
-    }
-
-    private func showHomeFeedWhatsDrivingSettings() {
-        guard let settingsNav = settingsNavigationController else {
-            return
-        }
-
-        let viewModel = WMFHomeFeedWhatsDrivingSettingsViewModel(didTapYourInterests: { [weak self] in
-            self?.showHomeFeedInterestsSettings()
-        }, didTapReadingHistory: { [weak self] in
-            self?.switchToSearchTab()
-        }, didTapLanguages: { [weak self] in
-            self?.showLanguages()
-        })
-        let whatsDrivingVC = WMFHomeFeedWhatsDrivingSettingsViewController(viewModel: viewModel)
-        settingsNav.pushViewController(whatsDrivingVC, animated: true)
-    }
-
-    private func showHomeFeedInterestsSettings() {
-        guard let settingsNav = settingsNavigationController else {
-            return
-        }
-
-        let viewModel = WMFHomeFeedInterestsSettingsViewModel()
-        let interestsVC = WMFHomeFeedInterestsSettingsViewController(viewModel: viewModel)
-        settingsNav.pushViewController(interestsVC, animated: true)
-    }
-
-    private func switchToSearchTab() {
-        // Dismisses the presented Settings flow and selects the Search tab, leaving the search bar unfocused.
-        guard let appViewController = (UIApplication.shared.delegate as? AppDelegate)?.appViewController else {
-            return
-        }
-        appViewController.switchToSearchTab(focusSearchBar: false, animated: true)
+        let coordinator = HomeFeedSettingsCoordinator(navigationController: settingsNav, theme: theme)
+        self.homeFeedSettingsCoordinator = coordinator
+        coordinator.start()
     }
 
     // MARK: - Notifications
