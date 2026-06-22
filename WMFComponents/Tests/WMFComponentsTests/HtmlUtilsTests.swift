@@ -39,14 +39,77 @@ final class HtmlUtilsTests: XCTestCase {
     func testHtmlLinkWithSpecialCharacter() throws {
         let html = "<a rel=\"mw:WikiLink\" href=\"https://en.wikipedia.org/wiki/Stephen_of_La_Ferté\" title=\"Stephen of La Ferté\" id=\"mwFQ\">Patriarch Stephen</a>"
         let attributed = try HtmlUtils.nsAttributedStringFromHtml(html, styles: .testStyle)
-        
+
         // Preferrable that this is a URL type: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/link
         if let linkAttributeURL = attributed.attribute(.link, at: 0, effectiveRange: nil) as? URL {
             XCTAssertEqual(linkAttributeURL.absoluteString, "https://en.wikipedia.org/wiki/Stephen_of_La_Fert%C3%A9", "Special characters can cause crashes in UITextView - é should be encoded.")
         } else if let linkAttributeString = attributed.attribute(.link, at: 0, effectiveRange: nil) as? String {
             XCTAssertEqual(linkAttributeString, "https://en.wikipedia.org/wiki/Stephen_of_La_Fert%C3%A9", "Special characters can cause crashes in UITextView - é should be encoded.")
         }
-        
+
+    }
+
+    // Regression test for T308268 / the talk page apostrophe bug: an apostrophe inside a
+    // double-quoted href must not truncate the link value.
+    func testHtmlLinkWithApostropheInHref() throws {
+        let html = "<a rel=\"mw:WikiLink\" href=\"./New_Year's_Eve\" title=\"New Year's Eve\">New Year's Eve</a>"
+        let attributed = try HtmlUtils.nsAttributedStringFromHtml(html, styles: .testStyle)
+
+        let linkAttribute = attributed.attribute(.link, at: 0, effectiveRange: nil)
+        XCTAssertNotNil(linkAttribute, "The link attribute should be present.")
+
+        let linkString: String?
+        if let url = linkAttribute as? URL {
+            linkString = url.absoluteString
+        } else {
+            linkString = linkAttribute as? String
+        }
+
+        // The apostrophe (possibly percent-encoded) must survive — the value must not stop at "./New_Year".
+        XCTAssertNotNil(linkString)
+        XCTAssertTrue(linkString?.contains("Eve") ?? false, "Href value was truncated at the apostrophe.")
+        XCTAssertFalse(linkString == "./New_Year", "Href value was truncated at the apostrophe, sending the user to the wrong page.")
+    }
+
+    // The string between the apostrophes must not be mistaken for a single-quoted value when the
+    // href itself is double-quoted, matching the People's Republic example from the bug report.
+    func testHtmlLinkWithApostropheInHrefResolvesFullTitle() throws {
+        let html = "<a href=\"./History_of_the_People's_Republic_of_China\" title=\"History of the People's Republic of China\">China</a>"
+        let attributed = try HtmlUtils.nsAttributedStringFromHtml(html, styles: .testStyle)
+
+        let linkAttribute = attributed.attribute(.link, at: 0, effectiveRange: nil)
+        XCTAssertNotNil(linkAttribute, "The link attribute should be present.")
+
+        let linkString: String?
+        if let url = linkAttribute as? URL {
+            linkString = url.absoluteString
+        } else {
+            linkString = linkAttribute as? String
+        }
+
+        XCTAssertTrue(linkString?.contains("Republic_of_China") ?? false, "Href value was truncated at the apostrophe.")
+    }
+
+    // Regression test for the pt.wikipedia "Ocean's 8" report: Parsoid emits the apostrophe literally
+    // in a relative href (href="./Ocean's_8"). The old regex truncated this to "./Ocean", which
+    // resolved to the wrong article and made the downstream action=query fetch fail to decode.
+    func testHtmlLinkWithApostropheInRelativeHref() throws {
+        let html = "<a rel=\"mw:WikiLink\" href=\"./Ocean's_8\" title=\"Ocean's 8\">Ocean's 8</a>"
+        let attributed = try HtmlUtils.nsAttributedStringFromHtml(html, styles: .testStyle)
+
+        let linkAttribute = attributed.attribute(.link, at: 0, effectiveRange: nil)
+        XCTAssertNotNil(linkAttribute, "The link attribute should be present.")
+
+        let linkString: String?
+        if let url = linkAttribute as? URL {
+            linkString = url.absoluteString
+        } else {
+            linkString = linkAttribute as? String
+        }
+
+        XCTAssertNotNil(linkString)
+        XCTAssertTrue(linkString?.contains("8") ?? false, "Href value was truncated at the apostrophe.")
+        XCTAssertFalse(linkString == "./Ocean", "Href value was truncated at the apostrophe, sending the user to the wrong page.")
     }
 }
 
