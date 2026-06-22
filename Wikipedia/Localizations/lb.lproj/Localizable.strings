@@ -493,6 +493,9 @@
 "history-title" = "Versiounen";
 "home-button-explore-accessibility-label" = "Wikipedia, zeréck bei d'Entdecken";
 "home-button-saved-accessibility-label" = "Wikipedia, zréck op Gespäichert";
+"home-community-tab-title" = "Communautéit";
+"home-edit-languages-title" = "Sproochen derbäisetzen oder änneren";
+"home-for-you-tab-title" = "Fir Iech";
 "home-more-like-footer" = "Méi wéi $1";
 "home-nearby-footer" = "Méi aus der Géigend, wou Dir elo sidd";
 "home-nearby-location-footer" = "Méi nobäi vun $1";

@@ -128,8 +128,7 @@
 "activity-tab-customize-timeline-of-behavior" = "Aktivitätsverlauf";
 "activity-tab-email-fifth-line" = "[Screenshots oder Links]";
 "activity-tab-email-first-line" = "Ich habe ein Problem mit der Aktivitäten-Tab-Funktion festgestellt:";
-// Fuzzy
-"activity-tab-email-fourth-line" = "[Gewünschtes Verhalten beschreiben]";
+"activity-tab-email-fourth-line" = "[Vorgeschlagene Lösung beschreiben]";
 "activity-tab-email-second-line" = "- [Spezifisches Problem beschreiben]";
 "activity-tab-email-third-line" = "Das gewünschte Verhalten wäre:";
 "activity-tab-email-title" = "Problembericht - Aktivitäten-Tab";
@@ -573,6 +572,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Ein";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 Sprachen";
 "explore-feed-preferences-feed-cards-hidden-title" = "Alle Karten des Typs $1 ausgeblendet";
+"explore-feed-preferences-games-title" = "Spielekarte anzeigen";
 "explore-feed-preferences-global-card-footer-text" = "Diese Karte ist nicht sprachspezifisch. Das Ausschalten dieser Karte entfernt sie aus deinem Entdecken-Feed.";
 "explore-feed-preferences-global-cards-description" = "Sprachunabhängige Karten";
 "explore-feed-preferences-global-cards-subtitle" = "Nicht sprachspezifisch";
@@ -589,6 +589,7 @@
 "explore-feed-preferences-show-continue-reading-title" = "Karte „Weiterlesen“ anzeigen";
 "explore-feed-preferences-show-featured-article-footer-text" = "Das Ausschalten der Karte „Artikel des Tages“ wird die Karte in allen verfügbaren Sprachen ausschalten.";
 "explore-feed-preferences-show-featured-article-title" = "Karte „Artikel des Tages“ anzeigen";
+"explore-feed-preferences-show-games-footer-text" = "Wenn du die Spielekarte ausschaltest, wird sie in allen verfügbaren Sprachen ausgeschaltet.";
 "explore-feed-preferences-show-news-footer-text" = "Das Ausschalten der Karte „In den Nachrichten“ wird die Karte in allen verfügbaren Sprachen ausschalten.";
 "explore-feed-preferences-show-news-title" = "Karte „In den Nachrichten“ anzeigen";
 "explore-feed-preferences-show-on-this-day-footer-text" = "Das Ausschalten der Karte „An diesem Tag“ wird die Karte in allen verfügbaren Sprachen ausschalten.";
@@ -615,6 +616,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Entdecken anschalten";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Dies ersetzt den Einstellungen-Reiter durch den Entdecken-Reiter. Du kannst auf die Einstellungen vom Entdecken-Reiter zugreifen, indem du oben auf das Zahnradsymbol tippst.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Den Entdecken-Reiter anschalten?";
+"explore-games-title" = "Spiele";
 "explore-hide-card-prompt" = "Diese Karte ausblenden";
 "explore-main-page-description" = "Hauptseite der Wikimedia-Projekte";
 "explore-main-page-heading" = "Heute auf Wikipedia";
@@ -687,7 +689,17 @@
 "forgot-password-instructions" = "Fülle unten eines der Felder aus, um per E-Mail Anweisungen zur Zurücksetzung des Passworts zu erhalten.";
 "forgot-password-title" = "Passwort zurücksetzen";
 "forgot-password-username-or-email-title" = "Oder";
-"games-wcf-explore-title" = "Was kam zuerst?";
+"games-announcement-maybe-later-button" = "Vielleicht später";
+"games-announcement-message" = "Ein neues Quizspiel ist da – basierend auf Wikipedia-Inhalten. Rate, welches Ereignis in der Geschichte zuerst geschah.";
+"games-announcement-play-button" = "Spielen";
+"games-announcement-title" = "„Was war zuerst?“ spielen";
+"games-email-report-body-encountered" = "Ich bin auf ein Problem mit der Wikipedia-Spielefunktion gestoßen:";
+"games-email-report-subject" = "Problembericht – Wikipedia-Spiele";
+"games-wcf-button-play-title" = "Heutiges Spiel spielen";
+"games-wcf-explore-button-review-title" = "Ergebnisse ansehen";
+"games-wcf-explore-complete-subtitle" = "Du hast $1/$2 im heutigen Spiel erreicht. Nächstes Spiel in $3";
+"games-wcf-explore-in-progress-subtitle" = "Du bist bei Frage $1. Rate weiter, welches Ereignis an diesem Tag in der Geschichte zuerst geschah.";
+"games-wcf-explore-title" = "Was war zuerst?";
 "gan-variants-alert-body" = "Die Wikipedia-App unterstützt nun die folgenden Gan-Varianten als primäre oder sekundäre Sprachen innerhalb der App, was das Lesen, Suchen und Bearbeiten in deinen bevorzugten Varianten erleichtert:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Vereinfacht (gan-hans)\n贛語 繁體 Gan, Traditionell (gan-hant)";
 "gan-variants-alert-title" = "Updates zur Gan-Varianten-Unterstützung";
 "history-clear-confirmation-heading" = "Bist du sicher, dass du alle deine letzten Objekte löschen möchtest?";
@@ -695,11 +707,15 @@
 "history-title" = "Verlauf";
 "home-button-explore-accessibility-label" = "Wikipedia, zurück zu Entdecken";
 "home-button-saved-accessibility-label" = "Wikipedia, zurück zu Gespeichert";
+"home-community-tab-title" = "Gemeinschaft";
+"home-edit-languages-title" = "Sprachen hinzufügen oder bearbeiten";
+"home-for-you-tab-title" = "Für dich";
 "home-more-like-footer" = "Mehr wie $1";
 "home-nearby-footer" = "Mehr Orte nahe deines Standortes";
 "home-nearby-location-footer" = "Mehr in der Nähe von $1";
 "home-news-footer" = "Mehr aktuelle Ereignisse";
 "home-reading-list-prompt" = "Deine gespeicherten Artikel können jetzt in Leselisten organisiert und zwischen deinen Geräten synchronisiert werden. Melde dich an, um die Speicherung deiner Leselisten in deinen Benutzereinstellungen zu erlauben.";
+"home-tab-title" = "Start";
 "home-themes-action-title" = "Einstellungen verwalten";
 "home-themes-prompt" = "Passe deine Leseeinstellungen einschließlich Textgröße und Farbschema von der Artikel-Werkzeugleiste oder in deinen Benutzereinstellungen an für eine komfortablere Leseerfahrung.";
 "home-title" = "Entdecken";
@@ -739,8 +755,7 @@
 "image-rec-tooltip-3-body" = "Entscheide, ob das Bild den Lesern hilft, dieses Thema besser zu verstehen.";
 "image-rec-tooltip-3-title" = "Entscheiden";
 "image-rec-view-article" = "Artikel anzeigen";
-// Fuzzy
-"image-recommendations-email-first-line" = "Ich bin auf ein Problem mit der Funktion \"Bild hinzufügen\" bei vorgeschlagenen Bearbeitungen gestoßen:";
+"image-recommendations-email-first-line" = "Ich bin auf ein Problem mit der Funktion „Bild hinzufügen“ bei vorgeschlagenen Bearbeitungen gestoßen:";
 "image-recommendations-email-title" = "Problembericht - Bild hinzufügen Funktion";
 "image-recs-no-title" = "Nein";
 "image-recs-not-sure-title" = "Nicht sicher";
@@ -842,8 +857,7 @@
 "more-menu" = "Mehr";
 "move-articles-to-reading-list" = "{{PLURAL:$1|Einen|$1}} Artikel in eine Leseliste verschieben";
 "navbar-title-mode-edit-wikitext-preview" = "Vorschau";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 Fuß";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 Fuß}}";
 "nearby-distance-label-km" = "$1 km";
 // Fuzzy
 "nearby-distance-label-meters" = "$1 Meter";
@@ -1125,8 +1139,7 @@
 "reading-challenge-random-button" = "Zufällig";
 "reading-challenge-streak-days" = "{{PLURAL:$1|$1 Tag|$1 Tage}}";
 "reading-challenge-streak-no-days" = "$1 von 25";
-// Fuzzy
-"reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 von 25 Tagen|$1 von 25 Tagen}}";
+"reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 von 25 Tagen}}";
 "reading-challenge-subtitle" = "25-Tage-Lese-Challenge";
 "reading-challenge-widget-announcement-body2" = "Um deine Serie mit Baby Globe zu verfolgen, musst du das Lese-Challenge-Widget aus dem Startbildschirm hinzufügen.";
 "reading-challenge-widget-announcement-secondary-button" = "Wie geht das?";
@@ -1272,7 +1285,10 @@
 "settings-clear-cache-cancel" = "Abbrechen";
 "settings-clear-cache-ok" = "Cache löschen";
 "settings-donate" = "Spenden";
+"settings-explore-games-subtitle" = "Tägliche Spiele auf Basis von Wikipedia-Inhalten";
+"settings-explore-games-title" = "Wikipedia-Spiele";
 "settings-help-and-feedback" = "Hilfe und Rückmeldung";
+"settings-home-feed-title" = "Startseite";
 "settings-language-bar" = "Sprachauswahl unter der Suchleiste anzeigen";
 "settings-languages-feed-customization" = "Du kannst bestimmen, welche Sprachen auf deinem Entdecken-Feed angezeigt werden, indem du die Einstellungen für deinen Entdecken-Feed anpasst.";
 "settings-legal-sefaty-title" = "Kontakte für Rechtliches & Sicherheit";
@@ -1557,6 +1573,43 @@
 "welcome-languages-search-title" = "Suche in über 300 Sprachen";
 "welcome-privacy-subtitle" = "Wir sind der Meinung, dass Du keine persönlichen Daten angeben musst, um an der Bewegung für freies Wissen teilzunehmen. Die für diese App gesammelten Nutzungsdaten sind anonym.";
 "welcome-privacy-terms-button-text" = "Erfahre mehr über unsere Datenschutzrichtlinien und Nutzungsbedingungen";
+"which-came-first-article-card-open-hint" = "Öffnet das Ereignis zu diesem Artikel";
+"which-came-first-articles-section-title" = "Artikel aus dem heutigen Spiel";
+"which-came-first-average-score-label" = "Durchschnittspunktzahl";
+"which-came-first-best-streak-label" = "Längste Serie";
+"which-came-first-better-luck" = "Mehr Glück morgen!";
+"which-came-first-correct-answer-a11y" = "Richtige Antwort";
+"which-came-first-correct-feedback" = "Richtig!";
+"which-came-first-correct-feedback2" = "+1 Punkt";
+"which-came-first-current-streak-label" = "Aktuelle Serie";
+"which-came-first-error-title" = "Etwas ist schiefgelaufen";
+"which-came-first-footer-a11y" = "Frage $1 von $2";
+"which-came-first-game-complete-title" = "Spiel abgeschlossen!";
+"which-came-first-games-played-label" = "Gespielte Spiele";
+"which-came-first-incorrect-answer-a11y" = "Falsche Antwort";
+"which-came-first-incorrect-feedback" = "Falsch!";
+"which-came-first-log-in-button" = "Anmelden";
+"which-came-first-log-in-stats-body" = "Sieh dir deine Serien, Punktzahlen und mehr an";
+"which-came-first-log-in-stats-title" = "Melde dich an, um deine Spielstatistik zu sehen";
+"which-came-first-next-button" = "Weiter";
+"which-came-first-next-game-time" = "Nächstes Spiel in $1";
+"which-came-first-nice-work" = "Gut gemacht! Komm morgen für ein neues Spiel wieder.";
+"which-came-first-perfect-score" = "Perfekte Punktzahl!";
+"which-came-first-retry-button" = "Erneut versuchen";
+"which-came-first-score" = "Du hast $1/$2 erreicht.";
+"which-came-first-see-results-button" = "Ergebnisse anzeigen";
+"which-came-first-share-activity-text" = "Ich spiele „Was war zuerst?“, ein tägliches Quizspiel in der Wikipedia-iOS-App https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=wiki_game_202605&mt=8";
+"which-came-first-share-score-button" = "Punktzahl teilen";
+"which-came-first-share-score-summary" = "Ich habe heute $1/$2 bei „Was war zuerst?“ erreicht.";
+"which-came-first-share-topics-title" = "Enthaltene Themen:";
+"which-came-first-splash-about-button" = "Über dieses Spiel";
+"which-came-first-splash-continue-button" = "Heutiges Spiel fortsetzen";
+"which-came-first-splash-review-button" = "Heutiges Spiel fortsetzen";
+"which-came-first-splash-subtitle" = "Rate, welches Ereignis an diesem Tag in der Geschichte zuerst geschah.";
+"which-came-first-splash-title" = "Was war zuerst?";
+"which-came-first-submit-button" = "Absenden";
+"which-came-first-title" = "Was war zuerst?";
+"which-came-first-your-stats-title" = "Deine Statistik";
 "widget-onthisday-description" = "Erforsche, was an diesem Tag in der Geschichte passiert ist.";
 "widget-onthisday-placeholder-article-snippet" = "Freie Online-Enzyklopädie, die jeder bearbeiten kann";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, eine freie Enzyklopädie mit Wiki-Inhalten, geht online.";

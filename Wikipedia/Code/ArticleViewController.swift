@@ -604,7 +604,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
         alert.addAction(playAction)
 
-        alert.addAction(UIAlertAction(title: CommonStrings.gamesAnnouncementMaybeLaterButton, style: .default) { [weak self] _ in
+        alert.addAction(UIAlertAction(title: CommonStrings.noThanksTitle, style: .default) { [weak self] _ in
             self?.gameInstrument.submitInteraction(
                 action: "click",
                 actionSource: "game_announce",
