@@ -332,6 +332,60 @@
 			<string>%1$d строк не изменилось</string>
 		</dict>
 	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>В %1$@ году добровольцы добавили %#@v2@ текста в англоязычную Википедию. В результате их работы создаётся постоянно совершенствующийся, основанный на фактах и ​​надёжный ресурс знаний, который они предоставляют миру. У каждого из нас есть знания, которыми можно поделиться. [Узнайте, как и вам принять участие](%3$@).</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>%2$lld байта</string>
+			<key>one</key>
+			<string>%2$lld байт</string>
+			<key>other</key>
+			<string>%2$lld байт</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Добавлено %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>%1$lld байта</string>
+			<key>one</key>
+			<string>%1$lld байт</string>
+			<key>other</key>
+			<string>%1$lld байт</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>В этом году редакторы внесли %#@v1@.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>%1$lld правки</string>
+			<key>one</key>
+			<string>%1$lld правку</string>
+			<key>other</key>
+			<string>%1$lld правок</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -348,6 +402,24 @@
 			<string>%1$d статью</string>
 			<key>other</key>
 			<string>%1$d статей</string>
+		</dict>
+	</dict>
+	<key>nearby-distance-label-feet</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d фута</string>
+			<key>one</key>
+			<string>%1$d фут</string>
+			<key>other</key>
+			<string>%1$d футов</string>
 		</dict>
 	</dict>
 	<key>notifications-center-empty-state-num-filters</key>
@@ -854,6 +926,24 @@
 			<string>статья</string>
 			<key>other</key>
 			<string>статей</string>
+		</dict>
+	</dict>
+	<key>tabs-navbar-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d вкладки</string>
+			<key>one</key>
+			<string>%1$d вкладка</string>
+			<key>other</key>
+			<string>%1$d вкладок</string>
 		</dict>
 	</dict>
 	<key>talk-page-active-users-accessibilty-label</key>

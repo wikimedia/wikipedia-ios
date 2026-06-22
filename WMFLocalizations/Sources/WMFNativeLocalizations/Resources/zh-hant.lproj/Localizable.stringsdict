@@ -476,6 +476,11 @@
 			<string>%1$d 個條目</string>
 		</dict>
 	</dict>
+	<key>nearby-distance-label-feet</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>{{PLURAL:%1$d|%1$d 英尺}</string>
+	</dict>
 	<key>notifications-center-empty-state-num-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
