@@ -86,6 +86,19 @@ final class WMFHomeDataControllerTests: XCTestCase {
         }
     }
 
+    func testFetchPreviousPageIsIsolatedByProject() async throws {
+        let esProject = WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil))
+        let (controller, _) = makeController()
+        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
+        // Fetching en on Dec 11 should not seed the es project's date history.
+        do {
+            _ = try await controller.fetchPreviousPage(project: esProject)
+            XCTFail("Expected noFetchedDatesAvailable error")
+        } catch WMFHomeDataControllerError.noFetchedDatesAvailable {
+            // expected
+        }
+    }
+
     func testFetchPreviousPageRequestsPreviousDate() async throws {
         let (controller, spy) = makeController()
         _ = try await controller.fetchCommunity(project: enProject, date: dec11)

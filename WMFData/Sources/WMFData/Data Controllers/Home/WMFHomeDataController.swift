@@ -4,8 +4,8 @@ public final actor WMFHomeDataController {
 
     private let feedDataController: any WMFFeedDataControlling
 
-    // Dates for which feed data has been fetched, in descending order (most recent first).
-    private var fetchedDates: [Date] = []
+    // Dates for which feed data has been fetched per project, in descending order (most recent first).
+    private var fetchedDates: [WMFProject: [Date]] = [:]
 
     public static let shared = WMFHomeDataController()
 
@@ -20,14 +20,14 @@ public final actor WMFHomeDataController {
     @discardableResult
     public func fetchCommunity(project: WMFProject, date: Date = Date()) async throws -> WMFFeedAPIResponse {
         let response = try await feedDataController.fetchFeed(project: project, date: date)
-        recordFetchedDate(date)
+        recordFetchedDate(date, project: project)
         return response
     }
 
-    /// Fetches the feed data for the day that precedes the earliest date already fetched.
+    /// Fetches the feed data for the day that precedes the earliest date already fetched for the given project.
     /// Callers must have fetched at least one page via `fetchCommunity` before calling this.
     public func fetchPreviousPage(project: WMFProject) async throws -> WMFFeedAPIResponse {
-        guard let earliest = fetchedDates.last else {
+        guard let earliest = fetchedDates[project]?.last else {
             throw WMFHomeDataControllerError.noFetchedDatesAvailable
         }
 
@@ -37,18 +37,20 @@ public final actor WMFHomeDataController {
         }
 
         let response = try await feedDataController.fetchFeed(project: project, date: previousDate)
-        recordFetchedDate(previousDate)
+        recordFetchedDate(previousDate, project: project)
         return response
     }
 
     // MARK: - Private
 
-    private func recordFetchedDate(_ date: Date) {
+    private func recordFetchedDate(_ date: Date, project: WMFProject) {
         let calendar = Calendar(identifier: .gregorian)
         let normalized = calendar.startOfDay(for: date)
-        guard !fetchedDates.contains(where: { calendar.isDate($0, inSameDayAs: normalized) }) else { return }
-        fetchedDates.append(normalized)
-        fetchedDates.sort(by: >)
+        var dates = fetchedDates[project] ?? []
+        guard !dates.contains(where: { calendar.isDate($0, inSameDayAs: normalized) }) else { return }
+        dates.append(normalized)
+        dates.sort(by: >)
+        fetchedDates[project] = dates
     }
 }
 
