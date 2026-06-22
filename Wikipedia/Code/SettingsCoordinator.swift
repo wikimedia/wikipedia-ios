@@ -25,6 +25,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     private let dataStore: MWKDataStore
 
     private let dataController: WMFSettingsDataController
+    private let exploreDataController = WMFExploreDataController()
     @MainActor private weak var settingsViewModel: WMFSettingsViewModel?
     @MainActor private var pushNotificationsViewModel: WMFPushNotificationsSettingsViewModel?
     private let languagesDelegateBridge = SettingsLanguagesDelegateBridge()
@@ -604,7 +605,23 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             return
         }
 
-        let viewModel = WMFHomeFeedCommunitySettingsViewModel()
+        let viewModel = WMFHomeFeedCommunitySettingsViewModel(
+            featuredArticleIsOn: exploreDataController.communityFeaturedArticleIsOn(),
+            topReadIsOn: exploreDataController.communityTopReadIsOn(),
+            inTheNewsIsOn: exploreDataController.communityInTheNewsIsOn(),
+            onThisDayIsOn: exploreDataController.communityOnThisDayIsOn(),
+            pictureOfTheDayIsOn: exploreDataController.communityPictureOfTheDayIsOn(),
+            onToggleModule: { [weak self] module, isOn in
+                guard let self else { return }
+                switch module {
+                case .featuredArticle: self.exploreDataController.setCommunityFeaturedArticleIsOn(isOn)
+                case .topRead: self.exploreDataController.setCommunityTopReadIsOn(isOn)
+                case .inTheNews: self.exploreDataController.setCommunityInTheNewsIsOn(isOn)
+                case .onThisDay: self.exploreDataController.setCommunityOnThisDayIsOn(isOn)
+                case .pictureOfTheDay: self.exploreDataController.setCommunityPictureOfTheDayIsOn(isOn)
+                }
+            }
+        )
         let modulesSettingsVC = WMFHomeFeedCommunitySettingsViewController(viewModel: viewModel)
         settingsNav.pushViewController(modulesSettingsVC, animated: true)
     }
@@ -614,9 +631,21 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             return
         }
 
-        let viewModel = WMFHomeFeedForYouSettingsViewModel(didTapWhatsDriving: { [weak self] in
-            self?.showHomeFeedWhatsDrivingSettings()
-        })
+        let viewModel = WMFHomeFeedForYouSettingsViewModel(
+            basedOnYourInterestsIsOn: exploreDataController.forYouBasedOnInterestsIsOn(),
+            becauseYouReadIsOn: exploreDataController.forYouBecauseYouReadIsOn(),
+            continueReadingIsOn: exploreDataController.forYouContinueReadingIsOn(),
+            onToggleModule: { [weak self] module, isOn in
+                guard let self else { return }
+                switch module {
+                case .basedOnYourInterests: self.exploreDataController.setForYouBasedOnInterestsIsOn(isOn)
+                case .becauseYouRead: self.exploreDataController.setForYouBecauseYouReadIsOn(isOn)
+                case .continueReading: self.exploreDataController.setForYouContinueReadingIsOn(isOn)
+                }
+            },
+            didTapWhatsDriving: { [weak self] in
+                self?.showHomeFeedWhatsDrivingSettings()
+            })
         let forYouSettingsVC = WMFHomeFeedForYouSettingsViewController(viewModel: viewModel)
         settingsNav.pushViewController(forYouSettingsVC, animated: true)
     }
