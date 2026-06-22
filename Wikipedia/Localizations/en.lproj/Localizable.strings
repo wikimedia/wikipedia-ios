@@ -674,6 +674,8 @@
 "home-feed-for-you-settings-header" = "Turning off a module hides it from your \"For you\" feed. You can re-enable it here at any time.";
 "home-feed-for-you-settings-title" = "Modules";
 "home-feed-for-you-whats-driving-title" = "What's driving your feed";
+"home-feed-interests-settings-empty-message" = "Your interests will show here";
+"home-feed-interests-settings-title" = "Your interests";
 "home-feed-modules-featured-article-subtitle" = "Featured articles are some of the highest-quality articles on Wikipedia, selected daily by editors";
 "home-feed-modules-featured-article-title" = "Featured article";
 "home-feed-modules-in-the-news-subtitle" = "Articles that have been substantially updated to reflect recent or current events of wide interest";
@@ -693,6 +695,14 @@
 "home-feed-settings-title" = "Customize the home feed";
 "home-feed-settings-whats-driving-subtitle" = "Topics and articles shaping your content";
 "home-feed-settings-whats-driving-title" = "What's Driving your feed";
+"home-feed-whats-driving-languages-subtitle" = "Edit your preferred languages";
+"home-feed-whats-driving-languages-title" = "Languages";
+"home-feed-whats-driving-reading-history-subtitle" = "Browse your recently read articles";
+"home-feed-whats-driving-reading-history-title" = "Reading history";
+"home-feed-whats-driving-settings-header" = "These topics and articles shape what appears in your \"For You\" feed. Remove any you no longer want or add new interests.";
+"home-feed-whats-driving-settings-title" = "What's driving your feed";
+"home-feed-whats-driving-your-interests-subtitle" = "Edit your topics of interest";
+"home-feed-whats-driving-your-interests-title" = "Your interests";
 "home-for-you-tab-title" = "For You";
 "home-more-like-footer" = "More like $1";
 "home-nearby-footer" = "More places near your location";

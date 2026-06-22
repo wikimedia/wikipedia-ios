@@ -593,6 +593,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             self?.showHomeFeedCommunityModulesSettings()
         }, didTapForYouModules: { [weak self] in
             self?.showHomeFeedForYouModulesSettings()
+        }, didTapForYouWhatsDriving: { [weak self] in
+            self?.showHomeFeedWhatsDrivingSettings()
         })
         settingsNav.pushViewController(homeFeedSettingsVC, animated: true)
     }
@@ -612,9 +614,45 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             return
         }
 
-        let viewModel = WMFHomeFeedForYouSettingsViewModel()
+        let viewModel = WMFHomeFeedForYouSettingsViewModel(didTapWhatsDriving: { [weak self] in
+            self?.showHomeFeedWhatsDrivingSettings()
+        })
         let forYouSettingsVC = WMFHomeFeedForYouSettingsViewController(viewModel: viewModel)
         settingsNav.pushViewController(forYouSettingsVC, animated: true)
+    }
+
+    private func showHomeFeedWhatsDrivingSettings() {
+        guard let settingsNav = settingsNavigationController else {
+            return
+        }
+
+        let viewModel = WMFHomeFeedWhatsDrivingSettingsViewModel(didTapYourInterests: { [weak self] in
+            self?.showHomeFeedInterestsSettings()
+        }, didTapReadingHistory: { [weak self] in
+            self?.switchToSearchTab()
+        }, didTapLanguages: { [weak self] in
+            self?.showLanguages()
+        })
+        let whatsDrivingVC = WMFHomeFeedWhatsDrivingSettingsViewController(viewModel: viewModel)
+        settingsNav.pushViewController(whatsDrivingVC, animated: true)
+    }
+
+    private func showHomeFeedInterestsSettings() {
+        guard let settingsNav = settingsNavigationController else {
+            return
+        }
+
+        let viewModel = WMFHomeFeedInterestsSettingsViewModel()
+        let interestsVC = WMFHomeFeedInterestsSettingsViewController(viewModel: viewModel)
+        settingsNav.pushViewController(interestsVC, animated: true)
+    }
+
+    private func switchToSearchTab() {
+        // Dismisses the presented Settings flow and selects the Search tab, leaving the search bar unfocused.
+        guard let appViewController = (UIApplication.shared.delegate as? AppDelegate)?.appViewController else {
+            return
+        }
+        appViewController.switchToSearchTab(focusSearchBar: false, animated: true)
     }
 
     // MARK: - Notifications

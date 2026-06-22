@@ -674,6 +674,8 @@
 "home-feed-for-you-settings-header" = "Header text describing what turning For You feed modules on or off does.";
 "home-feed-for-you-settings-title" = "Navigation bar title for the For You modules settings screen.";
 "home-feed-for-you-whats-driving-title" = "Title for the link row that explains what is driving the user's For You feed.";
+"home-feed-interests-settings-empty-message" = "Message shown on the Your interests screen when there are no interests to display yet.";
+"home-feed-interests-settings-title" = "Navigation bar title for the Your interests settings screen.";
 "home-feed-modules-featured-article-subtitle" = "Subtitle describing the Featured article module.";
 "home-feed-modules-featured-article-title" = "Title for the Featured article module toggle.";
 "home-feed-modules-in-the-news-subtitle" = "Subtitle describing the In the news module.";
@@ -693,6 +695,14 @@
 "home-feed-settings-title" = "Navigation bar title for the Home feed customization settings screen.";
 "home-feed-settings-whats-driving-subtitle" = "Subtitle for the row describing the topics and articles that shape the user's feed.";
 "home-feed-settings-whats-driving-title" = "Title for the row that shows what is driving the user's feed in Home feed settings.";
+"home-feed-whats-driving-languages-subtitle" = "Subtitle for the Languages row.";
+"home-feed-whats-driving-languages-title" = "Title for the Languages row on the What's driving your feed screen.";
+"home-feed-whats-driving-reading-history-subtitle" = "Subtitle for the Reading history row.";
+"home-feed-whats-driving-reading-history-title" = "Title for the Reading history row on the What's driving your feed screen.";
+"home-feed-whats-driving-settings-header" = "Header text describing what the topics and articles on the What's driving your feed screen control.";
+"home-feed-whats-driving-settings-title" = "Navigation bar title for the What's driving your feed settings screen.";
+"home-feed-whats-driving-your-interests-subtitle" = "Subtitle for the Your interests row.";
+"home-feed-whats-driving-your-interests-title" = "Title for the Your interests row on the What's driving your feed screen.";
 "home-for-you-tab-title" = "Title for the For You segment within the Home tab.";
 "home-more-like-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
 "home-nearby-footer" = "Footer for presenting user option to see longer list of nearby articles.";

@@ -1,15 +1,12 @@
 import UIKit
-import SwiftUI
-import WMFNativeLocalizations
 
-public final class WMFHomeFeedSettingsViewController: WMFComponentHostingController<WMFHomeFeedSettingsView>, WMFNavigationBarConfiguring {
+public final class WMFHomeFeedInterestsSettingsViewController: WMFComponentHostingController<WMFHomeFeedInterestsSettingsView>, WMFNavigationBarConfiguring {
 
-    private let viewModel: WMFHomeFeedSettingsViewModel
+    private let viewModel: WMFHomeFeedInterestsSettingsViewModel
 
-    public init(didTapCommunityModules: (() -> Void)? = nil, didTapForYouModules: (() -> Void)? = nil, didTapForYouWhatsDriving: (() -> Void)? = nil) {
-        let viewModel = WMFHomeFeedSettingsViewModel(didTapCommunityModules: didTapCommunityModules, didTapForYouModules: didTapForYouModules, didTapForYouWhatsDriving: didTapForYouWhatsDriving)
+    public init(viewModel: WMFHomeFeedInterestsSettingsViewModel) {
         self.viewModel = viewModel
-        super.init(rootView: WMFHomeFeedSettingsView(viewModel: viewModel))
+        super.init(rootView: WMFHomeFeedInterestsSettingsView(viewModel: viewModel))
     }
 
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {
