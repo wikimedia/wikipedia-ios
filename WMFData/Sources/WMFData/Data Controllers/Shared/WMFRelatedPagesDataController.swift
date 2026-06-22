@@ -4,11 +4,11 @@ public actor WMFRelatedPagesDataController {
 
     public static let shared = WMFRelatedPagesDataController()
 
-    private var service: WMFService? {
-        WMFDataEnvironment.current.basicService
-    }
+    private let service: WMFService?
 
-    private init() {}
+    public init(basicService: WMFService? = WMFDataEnvironment.current.basicService) {
+        self.service = basicService
+    }
 
     public struct WMFRelatedPage: Sendable {
         public let pageid: Int
