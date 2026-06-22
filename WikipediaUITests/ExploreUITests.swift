@@ -40,6 +40,13 @@ final class ExploreUITests: XCTestCase {
             .tapRootTab(.search)
     }
 
+    func testExploreBottomTabsExposeAccessibilityIdentifiers() throws {
+        launchWikipediaAppRobot(onboardingState: .completed)
+            .explore
+            .assertVisible()
+            .assertRootTabAccessibilityIdentifiersSurfaced()
+    }
+
     func testExploreSearchShowsResult() throws {
         let searchTerm = exploreSearchTerm
 

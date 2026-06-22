@@ -1,4 +1,5 @@
 import XCTest
+import WMFDataTestSupport
 @testable import WMFComponents
 @testable import WMFData
 import WMFDataMocks
@@ -6,11 +7,21 @@ import WMFDataMocks
 @MainActor
 final class WMFWhichCameFirstViewModelTests: XCTestCase {
 
+    private let fixture = WMFDataTestFixture()
+
     // MARK: - Setup
 
-    override func setUpWithError() throws {
+    override func setUp() async throws {
+        try await super.setUp()
+        await fixture.setUp()
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [enLanguage])
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
+        await fixture.resetWMFDataTestState()
+    }
+
+    override func tearDown() async throws {
+        await fixture.tearDown()
+        try await super.tearDown()
     }
 
     // MARK: - Fixtures

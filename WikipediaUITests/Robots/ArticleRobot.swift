@@ -331,10 +331,10 @@ extension ArticleRobot {
 extension ArticleRobot {
     @discardableResult
     func openLeadImageGallery(file: StaticString = #filePath, line: UInt = #line) -> ImageGalleryRobot {
-        base.assertExists(leadImage, timeout: 60, description: "article lead image", file: file, line: line)
+        base.assertVisible(leadImage, timeout: 60, description: "article lead image", file: file, line: line)
         base.tapCenter(of: leadImage, file: file, line: line)
         return ImageGalleryRobot(base: base)
-            .assertVisible(file: file, line: line)
+            .assertVisible(timeout: 60, file: file, line: line)
     }
 
     @discardableResult
@@ -610,7 +610,7 @@ extension ArticleRobot {
                 linkedArticleTitle: "Wolfs- und Schakalartige",
                 linkedArticleDescription: "Gattung der Familie Hunde (Canidae)",
                 linkedArticleIsInQuickFacts: true,
-                footerArticleTitle: "Wolfs- und Schakalartige",
+                footerArticleTitle: "Schakal",
                 languageSwitchTargetCode: "en",
                 languageSwitchTargetTitle: "Dog",
                 findSearchTerm: "Canis",
@@ -664,7 +664,7 @@ extension ArticleRobot {
                 linkedArticleTitle: "Chi Chó",
                 linkedArticleDescription: "chi động vật có vú, bao gồm chó nhà",
                 linkedArticleIsInQuickFacts: false,
-                footerArticleTitle: "Chi Chó",
+                footerArticleTitle: "Chó rừng lông vàng",
                 languageSwitchTargetCode: "en",
                 languageSwitchTargetTitle: "Dog",
                 findSearchTerm: "Canis",
@@ -802,7 +802,7 @@ private extension ArticleRobot {
     }
 
     func tapArticleElement(_ element: XCUIElement, file: StaticString, line: UInt) {
-        element.tap()
+        base.tapCenter(of: element, file: file, line: line)
     }
 
     func pressArticleElement(_ element: XCUIElement, forDuration duration: TimeInterval, file: StaticString, line: UInt) {

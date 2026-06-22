@@ -707,6 +707,7 @@
 		67A0699F2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
 		67A069A02D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
 		67A18A162FAD100100000001 /* WMFComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 67A18A172FAD100100000001 /* WMFComponents */; };
+		7D8C00212FCF000000000021 /* WMFDataTestFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C00202FCF000000000020 /* WMFDataTestFixture.swift */; };
 		67A417DE2FBFD9E100C0DE01 /* ArticleImageGalleryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A417DF2FBFD9E100C0DE01 /* ArticleImageGalleryUITests.swift */; };
 		67A486872BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */; };
 		67A486A42BEBF3C5001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
@@ -3159,6 +3160,7 @@
 		67146033243B8B4F008CE885 /* AnnouncementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementType.swift; sourceTree = "<group>"; };
 		6714D6CA245A2B9700CE5A4A /* ArticleCacheReadingManualTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheReadingManualTests.swift; sourceTree = "<group>"; };
 		6714D6CC245A2C1D00CE5A4A /* ArticleTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTestHelpers.swift; sourceTree = "<group>"; };
+		7D8C00202FCF000000000020 /* WMFDataTestFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WMFDataTestFixture.swift; path = WMFData/Sources/WMFDataTestSupport/WMFDataTestFixture.swift; sourceTree = SOURCE_ROOT; };
 		67165C5F2ECFD3E60078098D /* DatabasePopulationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabasePopulationViewModel.swift; sourceTree = "<group>"; };
 		67165C632ECFD4030078098D /* DatabasePopulationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabasePopulationView.swift; sourceTree = "<group>"; };
 		671AC2552226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingThemesControlsProtocols.swift; sourceTree = "<group>"; };
@@ -7204,6 +7206,7 @@
 				BC62AE611C58FC810064C589 /* NSProcessInfo+WMFTestEnvironment.m */,
 				BCD320081C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.h */,
 				BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */,
+				7D8C00202FCF000000000020 /* WMFDataTestFixture.swift */,
 				6714D6CC245A2C1D00CE5A4A /* ArticleTestHelpers.swift */,
 			);
 			name = Utilities;
@@ -9430,6 +9433,7 @@
 				67C6F77327E2E78800B9C864 /* NotificationsCenterCellViewModelWikidataConnectionTests.swift in Sources */,
 				67C6F77627E2E78800B9C864 /* NotificationsCenterCellViewModelMentionTests.swift in Sources */,
 				B0E809351C0D1A2F0065EBC0 /* WMFGeometryTests.m in Sources */,
+				7D8C00212FCF000000000021 /* WMFDataTestFixture.swift in Sources */,
 				6714D6CD245A2C1D00CE5A4A /* ArticleTestHelpers.swift in Sources */,
 				B0E8090B1C0D18D90065EBC0 /* NSString+FormattedAttributedStringTests.m in Sources */,
 				D8396D1B22CF7052005625D8 /* WMFArticleTests.swift in Sources */,

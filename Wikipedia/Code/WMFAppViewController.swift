@@ -101,6 +101,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var router: ViewControllerRouter?
     
     private var isUpdatingDefaultTab: Bool = false
+    private var rootTabAccessibilityIdentifiers: [String?] = []
 
     // MARK: - init / deinit
     
@@ -373,11 +374,15 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         let nav3 = rootNavigationController(with: savedViewController)
         let nav4 = rootNavigationController(with: activityTabViewController)
         let nav5 = rootNavigationController(with: searchTabViewController)
+        let rootNavigationControllers = [nav1, nav2, nav3, nav4, nav5]
+        rootTabAccessibilityIdentifiers = rootNavigationControllers.map { nav in
+            nav.viewControllers.first?.tabBarItem.accessibilityIdentifier
+        }
 
         if #available(iOS 18.0, *) {
             // A magic fix for https://phabricator.wikimedia.org/T403896
             var potentialTabs: [UITab] = []
-            for nav in [nav1, nav2, nav3, nav4, nav5] {
+            for nav in rootNavigationControllers {
                 guard let rootVC = nav.viewControllers.first,
                       let title = rootVC.title,
                       let image = rootVC.tabBarItem.image else { continue }
@@ -396,6 +401,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         // This should be called all the time for backward compatibility
         setViewControllers([nav1, nav2, nav3, nav4, nav5], animated: false)
+        applyRootTabAccessibilityIdentifiers()
 
         updateUserInterfaceStyleOfNavigationControllersForCurrentTheme()
 
@@ -412,6 +418,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         let navigationController = WMFComponentNavigationController(rootViewController: rootViewController, modalPresentationStyle: .overFullScreen, customBarBackgroundColor: nil)
         navigationController.delegate = self
         return navigationController
+    }
+
+    private func applyRootTabAccessibilityIdentifiers() {
+        for (tabBarItem, identifier) in zip(tabBar.items ?? [], rootTabAccessibilityIdentifiers) {
+            tabBarItem.accessibilityIdentifier = identifier
+        }
     }
 
     private func setupReadingListsHelpers() {

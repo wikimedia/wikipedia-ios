@@ -5,6 +5,7 @@ import XCTest
 
 final class WMFFeedDataControllerTests: XCTestCase {
 
+    private let basicService = WMFMockBasicService(jsonResourceName: "feed-featured-2025-12-11-get")
     private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
 
     private var fixtureDate: Date {
@@ -15,13 +16,8 @@ final class WMFFeedDataControllerTests: XCTestCase {
         return Calendar(identifier: .gregorian).date(from: components)!
     }
 
-    override func setUp() async throws {
-        try await super.setUp()
-        WMFDataEnvironment.current.basicService = WMFMockBasicService(jsonResourceName: "feed-featured-2025-12-11-get")
-    }
-
     private func fetchFixture() async throws -> WMFFeedAPIResponse {
-        try await WMFFeedDataController().fetchFeed(project: enProject, date: fixtureDate)
+        try await WMFFeedDataController(basicService: basicService).fetchFeed(project: enProject, date: fixtureDate)
     }
 
     // MARK: - Fetch

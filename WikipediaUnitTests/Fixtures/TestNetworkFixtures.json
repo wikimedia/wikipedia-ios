@@ -597,6 +597,131 @@
     "path": "/w/api.php",
     "queryItems": {
       "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "S"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/de/SchakalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Sc"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/de/SchakalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Sch"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/de/SchakalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Scha"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/de/SchakalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Schak"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/de/SchakalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Schaka"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/de/SchakalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Schakal"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/de/SchakalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/api/rest_v1/page/summary/Schakal",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/de/SchakalArticleSummary.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/api/rest_v1/page/mobile-html/Schakal",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "text/html; charset=utf-8"
+    },
+    "bodyResource": "ArticleControls/de/SchakalMobileHTML.html"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
       "generator": "prefixsearch"
     },
     "statusCode": 200,
@@ -614,13 +739,13 @@
       "prop": "revisions",
       "rvdir": "newer",
       "rvlimit": "1",
-      "titles": "Wolfs- und Schakalartige"
+      "titles": "Schakal"
     },
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
     },
-    "bodyResource": "ArticleControls/de/CanisFirstRevision.json"
+    "bodyResource": "ArticleControls/de/SchakalFirstRevision.json"
   },
   {
     "method": "GET",
@@ -632,63 +757,63 @@
       "rvdir": "older",
       "rvlimit": "51",
       "rvprop": "ids|timestamp|user|size|parsedcomment|flags",
-      "titles": "Wolfs- und Schakalartige"
+      "titles": "Schakal"
     },
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
     },
-    "bodyResource": "ArticleControls/de/CanisPageHistory.json"
+    "bodyResource": "ArticleControls/de/SchakalPageHistory.json"
   },
   {
     "method": "GET",
     "host": "de.wikipedia.org",
-    "path": "/w/rest.php/v1/page/Wolfs-_und_Schakalartige/history/counts/edits",
+    "path": "/w/rest.php/v1/page/Schakal/history/counts/edits",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
     },
-    "bodyResource": "ArticleControls/de/CanisHistoryCount-edits.json"
+    "bodyResource": "ArticleControls/de/SchakalHistoryCount-edits.json"
   },
   {
     "method": "GET",
     "host": "de.wikipedia.org",
-    "path": "/w/rest.php/v1/page/Wolfs-_und_Schakalartige/history/counts/anonymous",
+    "path": "/w/rest.php/v1/page/Schakal/history/counts/anonymous",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
     },
-    "bodyResource": "ArticleControls/de/CanisHistoryCount-anonymous.json"
+    "bodyResource": "ArticleControls/de/SchakalHistoryCount-anonymous.json"
   },
   {
     "method": "GET",
     "host": "de.wikipedia.org",
-    "path": "/w/rest.php/v1/page/Wolfs-_und_Schakalartige/history/counts/bot",
+    "path": "/w/rest.php/v1/page/Schakal/history/counts/bot",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
     },
-    "bodyResource": "ArticleControls/de/CanisHistoryCount-bot.json"
+    "bodyResource": "ArticleControls/de/SchakalHistoryCount-bot.json"
   },
   {
     "method": "GET",
     "host": "de.wikipedia.org",
-    "path": "/w/rest.php/v1/page/Wolfs-_und_Schakalartige/history/counts/temporary",
+    "path": "/w/rest.php/v1/page/Schakal/history/counts/temporary",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
     },
-    "bodyResource": "ArticleControls/de/CanisHistoryCount-temporary.json"
+    "bodyResource": "ArticleControls/de/SchakalHistoryCount-temporary.json"
   },
   {
     "method": "GET",
     "host": "wikimedia.org",
-    "pathPrefix": "/api/rest_v1/metrics/edits/per-page/de.wikipedia.org/Wolfs-_und_Schakalartige/all-editor-types/monthly/",
+    "pathPrefix": "/api/rest_v1/metrics/edits/per-page/de.wikipedia.org/Schakal/all-editor-types/monthly/",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
     },
-    "bodyResource": "ArticleControls/de/CanisMonthlyEditMetrics.json"
+    "bodyResource": "ArticleControls/de/SchakalMonthlyEditMetrics.json"
   },
   {
     "method": "GET",
@@ -1159,6 +1284,221 @@
   {
     "method": "GET",
     "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Chó "
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/GoldenJackalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Chó r"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/GoldenJackalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Chó rừ"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/GoldenJackalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Chó rừng"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/GoldenJackalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Chó rừng "
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/GoldenJackalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Chó rừng l"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/GoldenJackalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Chó rừng lô"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/GoldenJackalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Chó rừng lông"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/GoldenJackalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Chó rừng lông "
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/GoldenJackalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Chó rừng lông v"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/GoldenJackalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Chó rừng lông và"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/GoldenJackalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Chó rừng lông vàn"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/GoldenJackalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "prefixsearch",
+      "gpssearch": "Chó rừng lông vàng"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/GoldenJackalSearchResults.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/api/rest_v1/page/summary/Chó_rừng_lông_vàng",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "ArticleControls/vi/GoldenJackalArticleSummary.json"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
+    "path": "/api/rest_v1/page/mobile-html/Chó_rừng_lông_vàng",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "text/html; charset=utf-8"
+    },
+    "bodyResource": "ArticleControls/vi/GoldenJackalMobileHTML.html"
+  },
+  {
+    "method": "GET",
+    "host": "vi.wikipedia.org",
     "path": "/api/rest_v1/page/summary/Chi_Chó",
     "statusCode": 200,
     "headers": {
@@ -1199,13 +1539,13 @@
       "prop": "revisions",
       "rvdir": "newer",
       "rvlimit": "1",
-      "titles": "Chi Chó"
+      "titles": "Chó rừng lông vàng"
     },
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
     },
-    "bodyResource": "ArticleControls/vi/CanisFirstRevision.json"
+    "bodyResource": "ArticleControls/vi/GoldenJackalFirstRevision.json"
   },
   {
     "method": "GET",
@@ -1217,63 +1557,63 @@
       "rvdir": "older",
       "rvlimit": "51",
       "rvprop": "ids|timestamp|user|size|parsedcomment|flags",
-      "titles": "Chi Chó"
+      "titles": "Chó rừng lông vàng"
     },
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
     },
-    "bodyResource": "ArticleControls/vi/CanisPageHistory.json"
+    "bodyResource": "ArticleControls/vi/GoldenJackalPageHistory.json"
   },
   {
     "method": "GET",
     "host": "vi.wikipedia.org",
-    "path": "/w/rest.php/v1/page/Chi_Chó/history/counts/edits",
+    "path": "/w/rest.php/v1/page/Chó_rừng_lông_vàng/history/counts/edits",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
     },
-    "bodyResource": "ArticleControls/vi/CanisHistoryCount-edits.json"
+    "bodyResource": "ArticleControls/vi/GoldenJackalHistoryCount-edits.json"
   },
   {
     "method": "GET",
     "host": "vi.wikipedia.org",
-    "path": "/w/rest.php/v1/page/Chi_Chó/history/counts/anonymous",
+    "path": "/w/rest.php/v1/page/Chó_rừng_lông_vàng/history/counts/anonymous",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
     },
-    "bodyResource": "ArticleControls/vi/CanisHistoryCount-anonymous.json"
+    "bodyResource": "ArticleControls/vi/GoldenJackalHistoryCount-anonymous.json"
   },
   {
     "method": "GET",
     "host": "vi.wikipedia.org",
-    "path": "/w/rest.php/v1/page/Chi_Chó/history/counts/bot",
+    "path": "/w/rest.php/v1/page/Chó_rừng_lông_vàng/history/counts/bot",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
     },
-    "bodyResource": "ArticleControls/vi/CanisHistoryCount-bot.json"
+    "bodyResource": "ArticleControls/vi/GoldenJackalHistoryCount-bot.json"
   },
   {
     "method": "GET",
     "host": "vi.wikipedia.org",
-    "path": "/w/rest.php/v1/page/Chi_Chó/history/counts/temporary",
+    "path": "/w/rest.php/v1/page/Chó_rừng_lông_vàng/history/counts/temporary",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
     },
-    "bodyResource": "ArticleControls/vi/CanisHistoryCount-temporary.json"
+    "bodyResource": "ArticleControls/vi/GoldenJackalHistoryCount-temporary.json"
   },
   {
     "method": "GET",
     "host": "wikimedia.org",
-    "pathPrefix": "/api/rest_v1/metrics/edits/per-page/vi.wikipedia.org/Chi_Chó/all-editor-types/monthly/",
+    "pathPrefix": "/api/rest_v1/metrics/edits/per-page/vi.wikipedia.org/Chó_rừng_lông_vàng/all-editor-types/monthly/",
     "statusCode": 200,
     "headers": {
       "Content-Type": "application/json"
     },
-    "bodyResource": "ArticleControls/vi/CanisMonthlyEditMetrics.json"
+    "bodyResource": "ArticleControls/vi/GoldenJackalMonthlyEditMetrics.json"
   },
   {
     "method": "GET",

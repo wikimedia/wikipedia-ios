@@ -1,0 +1,189 @@
+name: Test result summary
+description: Write XCTest run, passed, failed, and skipped counts to the GitHub Actions summary.
+
+inputs:
+  result-bundle-path:
+    description: Path to the xcresult bundle produced by xcodebuild.
+    required: true
+  title:
+    description: Heading to use for the GitHub Actions summary section.
+    required: false
+    default: XCTest
+
+runs:
+  using: composite
+  steps:
+    - name: Test result summary
+      shell: bash
+      env:
+        RESULT_BUNDLE_PATH: ${{ inputs.result-bundle-path }}
+        SUMMARY_TITLE: ${{ inputs.title }}
+      run: |
+        python3 - <<'PYEOF'
+        import json
+        import os
+        import subprocess
+        import sys
+
+        result_bundle_path = os.environ["RESULT_BUNDLE_PATH"]
+        summary_title = os.environ["SUMMARY_TITLE"]
+
+
+        def markdown_escape(value):
+            return str(value).replace("|", "\\|").replace("\n", "<br>")
+
+
+        def truncate(value, limit=240):
+            text = " ".join(str(value).split())
+            if len(text) <= limit:
+                return text
+            return text[: limit - 3] + "..."
+
+
+        def write_summary(markdown):
+            print(markdown)
+            summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+            if summary_path:
+                with open(summary_path, "a") as file:
+                    file.write(markdown)
+                    file.write("\n")
+
+
+        def count_value(summary, key):
+            value = summary.get(key, 0)
+            return value if isinstance(value, int) else 0
+
+
+        def first_device_and_configuration(summary):
+            value = summary.get("devicesAndConfigurations", {})
+            if isinstance(value, list):
+                first_value = next((item for item in value if isinstance(item, dict)), {})
+                return first_value
+            if isinstance(value, dict):
+                return value
+            return {}
+
+
+        if not os.path.exists(result_bundle_path):
+            write_summary(
+                "\n".join(
+                    [
+                        f"### {markdown_escape(summary_title)} Test Results",
+                        "",
+                        f"No result bundle was found at `{markdown_escape(result_bundle_path)}`.",
+                        "",
+                    ]
+                )
+            )
+            sys.exit(0)
+
+        result = subprocess.run(
+            [
+                "xcrun",
+                "xcresulttool",
+                "get",
+                "test-results",
+                "summary",
+                "--path",
+                result_bundle_path,
+                "--compact",
+            ],
+            capture_output=True,
+            text=True,
+        )
+
+        if result.returncode != 0:
+            details = truncate(result.stderr or result.stdout or "xcresulttool did not return details.")
+            write_summary(
+                "\n".join(
+                    [
+                        f"### {markdown_escape(summary_title)} Test Results",
+                        "",
+                        f"Could not read `{markdown_escape(result_bundle_path)}` with `xcresulttool`.",
+                        "",
+                        f"`{markdown_escape(details)}`",
+                        "",
+                    ]
+                )
+            )
+            sys.exit(0)
+
+        summary = json.loads(result.stdout)
+        total = count_value(summary, "totalTestCount")
+        passed = count_value(summary, "passedTests")
+        failed = count_value(summary, "failedTests")
+        skipped = count_value(summary, "skippedTests")
+        expected_failures = count_value(summary, "expectedFailures")
+        outcome = summary.get("result", "unknown")
+
+        device_and_configuration = first_device_and_configuration(summary)
+        configuration = device_and_configuration.get("testPlanConfiguration", {})
+        device = device_and_configuration.get("device", {})
+        configuration_name = configuration.get("configurationName")
+        device_name = device.get("deviceName")
+        os_version = device.get("osVersion")
+
+        lines = [
+            f"### {markdown_escape(summary_title)} Test Results",
+            "",
+            f"Outcome: **{markdown_escape(outcome)}**",
+        ]
+
+        if configuration_name:
+            lines.append(f"Configuration: `{markdown_escape(configuration_name)}`")
+        if device_name:
+            device_description = device_name
+            if os_version:
+                device_description += f" ({os_version})"
+            lines.append(f"Device: `{markdown_escape(device_description)}`")
+
+        lines.extend(
+            [
+                "",
+                "| Status | Count | Meaning |",
+                "|--------|------:|---------|",
+                f"| Run | {total} | Total test cases reported by the result bundle. |",
+                f"| Passed | {passed} | Completed without failures. |",
+                f"| Failed | {failed} | Completed with assertion, runtime, or infrastructure failures. |",
+                f"| Skipped | {skipped} | Marked skipped by the test plan or test code. |",
+                f"| Expected failures | {expected_failures} | Failures recorded as expected by XCTest. |",
+                "",
+            ]
+        )
+
+        if total == 0:
+            lines.extend(
+                [
+                    "The result bundle reports zero tests, which usually means XCTest did not start test execution.",
+                    "",
+                ]
+            )
+
+        failures = summary.get("testFailures", [])
+        if failures:
+            lines.extend(
+                [
+                    "#### Failures",
+                    "",
+                    "| Target | Test | Failure |",
+                    "|--------|------|---------|",
+                ]
+            )
+            for failure in failures[:10]:
+                target_name = markdown_escape(failure.get("targetName", ""))
+                test_name = markdown_escape(failure.get("testName", ""))
+                failure_text = markdown_escape(truncate(failure.get("failureText", "")))
+                lines.append(f"| {target_name} | {test_name} | {failure_text} |")
+            if len(failures) > 10:
+                lines.append(f"| | | {len(failures) - 10} additional failures omitted. |")
+            lines.append("")
+        elif failed > 0:
+            lines.extend(
+                [
+                    "The result bundle reported failures but did not include failure details in the summary.",
+                    "",
+                ]
+            )
+
+        write_summary("\n".join(lines))
+        PYEOF

@@ -1,4 +1,5 @@
 import XCTest
+import WMFDataTestSupport
 @testable import WMFData
 @testable import WMFDataMocks
 
@@ -6,6 +7,7 @@ final class WMFGamesDataControllerTests: XCTestCase {
 
     // MARK: - Properties
 
+    private let fixture = WMFDataTestFixture()
     var store: WMFCoreDataStore?
     var dataController: WMFGamesDataController?
 
@@ -23,17 +25,22 @@ final class WMFGamesDataControllerTests: XCTestCase {
     // MARK: - Setup
 
     override func setUp() async throws {
-        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
+        try await super.setUp()
+        await fixture.setUp()
+        let store = try await fixture.makeTemporaryCoreDataStore()
         self.store = store
 
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [
             WMFLanguage(languageCode: "en", languageVariantCode: nil)
         ])
+        await fixture.resetWMFDataTestState()
 
         self.dataController = WMFGamesDataController(coreDataStore: store)
+    }
 
-        try await super.setUp()
+    override func tearDown() async throws {
+        await fixture.tearDown()
+        try await super.tearDown()
     }
 
     // MARK: - Helper Factories
