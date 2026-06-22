@@ -112,9 +112,10 @@ fileprivate extension WMFData.WMFServiceRequest {
               url.absoluteString.contains("/page/summary/") else {
             return false
         }
-        
+
         return true
     }
+
 }
 
 public class WMFMockBasicService: WMFService {
@@ -249,15 +250,15 @@ public class WMFMockBasicService: WMFService {
             return jsonData
         } else if request.isOnThisDayEventsGet {
             let resourceName = "onthisday-events-02-21-get"
-         
+
             guard let url = Bundle.module.url(forResource: resourceName, withExtension: "json"),
                   let jsonData = try? Data(contentsOf: url) else {
                 return nil
             }
-         
+
             return jsonData
         }
-        
+
         return nil
     }
     

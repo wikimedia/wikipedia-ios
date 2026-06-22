@@ -2,13 +2,13 @@ import Foundation
 
 public actor WMFRandomDataController {
 
-    private var service: WMFService? {
-        WMFDataEnvironment.current.basicService
-    }
-
     public static let shared = WMFRandomDataController()
 
-    private init() {}
+    private let basicService: WMFService?
+
+    public init(basicService: WMFService? = WMFDataEnvironment.current.basicService) {
+        self.basicService = basicService
+    }
 
     // MARK: - Fetch single random article summary
 
@@ -16,7 +16,7 @@ public actor WMFRandomDataController {
     /// - Parameters:
     ///   - project: The WMFProject to fetch from.
     public func fetchRandomArticleSummary(project: WMFProject) async throws -> WMFArticleSummary {
-        guard let service else {
+        guard let service = basicService else {
             throw WMFDataControllerError.basicServiceUnavailable
         }
 
@@ -42,7 +42,7 @@ public actor WMFRandomDataController {
     /// - Parameters:
     ///   - project: The WMFProject to fetch from.
     public func fetchRandomArticles(project: WMFProject) async throws -> [WMFRandomArticle] {
-        guard let service else {
+        guard let service = basicService else {
             throw WMFDataControllerError.basicServiceUnavailable
         }
 
@@ -115,8 +115,7 @@ public struct WMFRandomArticle: Decodable {
 }
 
 public struct WMFRandomArticleVariantTitles: Decodable {
-    public let display: String?
-    public let normalized: String?
+    public let en: String?
 }
 
 public struct WMFRandomArticleThumbnail: Decodable {
