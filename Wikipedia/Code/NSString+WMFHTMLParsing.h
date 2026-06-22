@@ -28,21 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nonnull NSString *)wmf_stringByRemovingHTML;
 
-/**
- * DEPRECATION WARNING: Utilize byAttributingString in String+HTML.swift for all new HTML --> NSAttributedString conversions. Only use this if absolutely necessary from Objective-C.
- */
-- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font
-                                                           boldFont:(nullable UIFont *)boldFont
-                                                         italicFont:(nullable UIFont *)italicFont
-                                                     boldItalicFont:(nullable UIFont *)boldItalicFont
-                                                              color:(nullable UIColor *)color
-                                                          linkColor:(nullable UIColor *)color
-                                                      handlingLinks:(BOOL)handlingLinks
-                                                      handlingLists:(BOOL)handlingLists
-                                            handlingSuperSubscripts:(BOOL)handlingSuperSubscripts
-                                                         tagMapping:(nullable NSDictionary<NSString *, NSString *> *)tagMapping
-                                            additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes;
-
 @end
 
 NS_ASSUME_NONNULL_END
