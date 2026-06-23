@@ -1,5 +1,6 @@
 import SwiftUI
 import WMFNativeLocalizations
+import WMFData
 
 @MainActor
 public final class WMFHomeFeedCommunitySettingsViewModel: ObservableObject {
@@ -14,6 +15,8 @@ public final class WMFHomeFeedCommunitySettingsViewModel: ObservableObject {
 
     let title = WMFLocalizedString("home-feed-modules-settings-title", value: "Modules", comment: "Navigation bar title for the Community modules settings screen.")
     let headerText = WMFLocalizedString("home-feed-modules-settings-header", value: "Turning off a module hides it from your Community feed. You can re-enable it here at any time. Some modules may not be available in your language.", comment: "Header text describing what turning Community feed modules on or off does.")
+    
+    private let homeDataController: WMFHomeDataController
 
     @Published public var featuredArticleIsOn: Bool
     @Published public var topReadIsOn: Bool
@@ -23,13 +26,23 @@ public final class WMFHomeFeedCommunitySettingsViewModel: ObservableObject {
 
     public var onToggleModule: ((Module, Bool) -> Void)?
 
-    public init(featuredArticleIsOn: Bool = true, topReadIsOn: Bool = true, inTheNewsIsOn: Bool = true, onThisDayIsOn: Bool = true, pictureOfTheDayIsOn: Bool = true, onToggleModule: ((Module, Bool) -> Void)? = nil) {
-        self.featuredArticleIsOn = featuredArticleIsOn
-        self.topReadIsOn = topReadIsOn
-        self.inTheNewsIsOn = inTheNewsIsOn
-        self.onThisDayIsOn = onThisDayIsOn
-        self.pictureOfTheDayIsOn = pictureOfTheDayIsOn
-        self.onToggleModule = onToggleModule
+    public init(homeDataController: WMFHomeDataController = .shared) {
+        self.homeDataController = homeDataController
+        self.featuredArticleIsOn = homeDataController.communityFeaturedArticleIsOn()
+        self.topReadIsOn = homeDataController.communityTopReadIsOn()
+        self.inTheNewsIsOn = homeDataController.communityInTheNewsIsOn()
+        self.onThisDayIsOn = homeDataController.communityOnThisDayIsOn()
+        self.pictureOfTheDayIsOn = homeDataController.communityPictureOfTheDayIsOn()
+        self.onToggleModule =  { [weak self] module, isOn in
+            guard let self else { return }
+            switch module {
+            case .featuredArticle: self.homeDataController.setCommunityFeaturedArticleIsOn(isOn)
+            case .topRead: self.homeDataController.setCommunityTopReadIsOn(isOn)
+            case .inTheNews: self.homeDataController.setCommunityInTheNewsIsOn(isOn)
+            case .onThisDay: self.homeDataController.setCommunityOnThisDayIsOn(isOn)
+            case .pictureOfTheDay: self.homeDataController.setCommunityPictureOfTheDayIsOn(isOn)
+            }
+        }
     }
 
     var sections: [SettingsSection] {

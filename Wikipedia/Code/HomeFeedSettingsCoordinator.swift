@@ -31,7 +31,7 @@ final class HomeFeedSettingsCoordinator: Coordinator {
     private var currentTheme: Theme {
         return UserDefaults.standard.theme(compatibleWith: UITraitCollection.current)
     }
-    private let homeDataController: WMFHomeDataController
+
     private let initialView: InitialView
     private let presentation: Presentation
 
@@ -41,12 +41,11 @@ final class HomeFeedSettingsCoordinator: Coordinator {
 
     // MARK: Lifecycle
 
-    init(navigationController: UINavigationController, theme: Theme, initialView: InitialView = .root, presentation: Presentation = .push, homeDataController: WMFHomeDataController = .shared) {
+    init(navigationController: UINavigationController, theme: Theme, initialView: InitialView = .root, presentation: Presentation = .push) {
         self.navigationController = navigationController
         self.theme = theme
         self.initialView = initialView
         self.presentation = presentation
-        self.homeDataController = homeDataController
         self.activeNavigationController = navigationController
     }
 
@@ -99,43 +98,15 @@ final class HomeFeedSettingsCoordinator: Coordinator {
     // MARK: - Sub-flows
 
     private func showCommunityModulesSettings() {
-        let viewModel = WMFHomeFeedCommunitySettingsViewModel(
-            featuredArticleIsOn: homeDataController.communityFeaturedArticleIsOn(),
-            topReadIsOn: homeDataController.communityTopReadIsOn(),
-            inTheNewsIsOn: homeDataController.communityInTheNewsIsOn(),
-            onThisDayIsOn: homeDataController.communityOnThisDayIsOn(),
-            pictureOfTheDayIsOn: homeDataController.communityPictureOfTheDayIsOn(),
-            onToggleModule: { [weak self] module, isOn in
-                guard let self else { return }
-                switch module {
-                case .featuredArticle: self.homeDataController.setCommunityFeaturedArticleIsOn(isOn)
-                case .topRead: self.homeDataController.setCommunityTopReadIsOn(isOn)
-                case .inTheNews: self.homeDataController.setCommunityInTheNewsIsOn(isOn)
-                case .onThisDay: self.homeDataController.setCommunityOnThisDayIsOn(isOn)
-                case .pictureOfTheDay: self.homeDataController.setCommunityPictureOfTheDayIsOn(isOn)
-                }
-            }
-        )
+        let viewModel = WMFHomeFeedCommunitySettingsViewModel()
         let modulesSettingsVC = WMFHomeFeedCommunitySettingsViewController(viewModel: viewModel)
         activeNavigationController.pushViewController(modulesSettingsVC, animated: true)
     }
 
     private func showForYouModulesSettings() {
-        let viewModel = WMFHomeFeedForYouSettingsViewModel(
-            basedOnYourInterestsIsOn: homeDataController.forYouBasedOnInterestsIsOn(),
-            becauseYouReadIsOn: homeDataController.forYouBecauseYouReadIsOn(),
-            continueReadingIsOn: homeDataController.forYouContinueReadingIsOn(),
-            onToggleModule: { [weak self] module, isOn in
-                guard let self else { return }
-                switch module {
-                case .basedOnYourInterests: self.homeDataController.setForYouBasedOnInterestsIsOn(isOn)
-                case .becauseYouRead: self.homeDataController.setForYouBecauseYouReadIsOn(isOn)
-                case .continueReading: self.homeDataController.setForYouContinueReadingIsOn(isOn)
-                }
-            },
-            didTapWhatsDriving: { [weak self] in
-                self?.showWhatsDrivingSettings()
-            })
+        let viewModel = WMFHomeFeedForYouSettingsViewModel(didTapWhatsDriving: { [weak self] in
+            self?.showWhatsDrivingSettings()
+        })
         let forYouSettingsVC = WMFHomeFeedForYouSettingsViewController(viewModel: viewModel)
         activeNavigationController.pushViewController(forYouSettingsVC, animated: true)
     }

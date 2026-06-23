@@ -1,5 +1,6 @@
 import SwiftUI
 import WMFNativeLocalizations
+import WMFData
 
 @MainActor
 public final class WMFHomeFeedForYouSettingsViewModel: ObservableObject {
@@ -13,6 +14,8 @@ public final class WMFHomeFeedForYouSettingsViewModel: ObservableObject {
     let title = WMFLocalizedString("home-feed-for-you-settings-title", value: "Modules", comment: "Navigation bar title for the For You modules settings screen.")
     let headerText = WMFLocalizedString("home-feed-for-you-settings-header", value: "Turning off a module hides it from your \"For you\" feed. You can re-enable it here at any time.", comment: "Header text describing what turning For You feed modules on or off does.")
 
+    private let homeDataController: WMFHomeDataController
+
     @Published public var basedOnYourInterestsIsOn: Bool
     @Published public var becauseYouReadIsOn: Bool
     @Published public var continueReadingIsOn: Bool
@@ -20,12 +23,20 @@ public final class WMFHomeFeedForYouSettingsViewModel: ObservableObject {
     public var onToggleModule: ((Module, Bool) -> Void)?
     public var didTapWhatsDriving: (() -> Void)?
 
-    public init(basedOnYourInterestsIsOn: Bool = true, becauseYouReadIsOn: Bool = true, continueReadingIsOn: Bool = true, onToggleModule: ((Module, Bool) -> Void)? = nil, didTapWhatsDriving: (() -> Void)? = nil) {
-        self.basedOnYourInterestsIsOn = basedOnYourInterestsIsOn
-        self.becauseYouReadIsOn = becauseYouReadIsOn
-        self.continueReadingIsOn = continueReadingIsOn
-        self.onToggleModule = onToggleModule
+    public init(didTapWhatsDriving: (() -> Void)? = nil, homeDataController: WMFHomeDataController = .shared) {
+        self.homeDataController = homeDataController
+        self.basedOnYourInterestsIsOn = homeDataController.forYouBasedOnInterestsIsOn()
+        self.becauseYouReadIsOn = homeDataController.forYouBecauseYouReadIsOn()
+        self.continueReadingIsOn = homeDataController.forYouContinueReadingIsOn()
         self.didTapWhatsDriving = didTapWhatsDriving
+        self.onToggleModule = { [weak self] module, isOn in
+            guard let self else { return }
+            switch module {
+            case .basedOnYourInterests: self.homeDataController.setForYouBasedOnInterestsIsOn(isOn)
+            case .becauseYouRead: self.homeDataController.setForYouBecauseYouReadIsOn(isOn)
+            case .continueReading: self.homeDataController.setForYouContinueReadingIsOn(isOn)
+            }
+        }
     }
 
     var sections: [SettingsSection] {

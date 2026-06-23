@@ -25,7 +25,7 @@ public final class WMFHomeViewModel: ObservableObject {
     let communityTabTitle = WMFLocalizedString("home-community-tab-title", value: "Community", comment: "Title for the Community segment within the Home tab.")
     let editLanguagesTitle = WMFLocalizedString("home-edit-languages-title", value: "Add or edit languages", comment: "Title for the option at the bottom of the Home language menu that opens the languages settings screen.")
 
-    @Published public var selectedTab: Tab = .forYou
+    @Published public var selectedTab: Tab = .community
     @Published public var languages: [Language]
     @Published public var selectedLanguageCode: String
 

@@ -15,8 +15,9 @@ public struct WMFHomeView: View {
         VStack(spacing: 0) {
             HStack {
                 Picker("", selection: $viewModel.selectedTab) {
-                    Text(viewModel.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
                     Text(viewModel.communityTabTitle).tag(WMFHomeViewModel.Tab.community)
+                    Text(viewModel.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
+
                 }
                 .pickerStyle(.segmented)
 
