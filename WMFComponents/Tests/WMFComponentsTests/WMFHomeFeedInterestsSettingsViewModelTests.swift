@@ -7,9 +7,11 @@ import Testing
 @Suite
 struct WMFHomeFeedInterestsSettingsViewModelTests {
 
+    private let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
+
     private func makeViewModel(store: WMFMockKeyValueStore = WMFMockKeyValueStore()) -> WMFHomeFeedInterestsSettingsViewModel {
         let dataController = WMFHomeDataController(userDefaultsStore: store)
-        return WMFHomeFeedInterestsSettingsViewModel(dataController: dataController)
+        return WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, project: project)
     }
 
     // MARK: - Initial state
@@ -62,7 +64,7 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
         let dataController = WMFHomeDataController(userDefaultsStore: store)
         dataController.setInterestTopicIDs(["architecture", "not-a-real-topic"])
 
-        let viewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: dataController)
+        let viewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, project: project)
         #expect(viewModel.selectedTopics == [.architecture])
     }
 }

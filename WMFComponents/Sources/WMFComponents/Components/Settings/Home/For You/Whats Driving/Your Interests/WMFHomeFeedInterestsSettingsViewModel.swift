@@ -10,13 +10,22 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
 
     let topics: [WMFArticleTopic] = WMFArticleTopic.allCases
     @Published var selectedTopics: Set<WMFArticleTopic> = []
+    @Published var randomArticles: [WMFRandomArticle] = []
+    @Published var isFetchingArticles: Bool = false
 
     private let dataController: WMFHomeDataController
+    private let project: WMFProject
+    private var fetchTask: Task<Void, Never>?
 
-    public init(dataController: WMFHomeDataController = WMFHomeDataController.shared) {
+    public init(dataController: WMFHomeDataController = WMFHomeDataController.shared, project: WMFProject) {
         self.dataController = dataController
+        self.project = project
         let savedIDs = dataController.interestTopicIDs()
         self.selectedTopics = Set(savedIDs.compactMap { WMFArticleTopic(rawValue: $0) })
+
+        if selectedTopics.isEmpty {
+            fetchRandomArticles()
+        }
     }
 
     func toggleTopic(_ topic: WMFArticleTopic) {
@@ -26,5 +35,24 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
             selectedTopics.insert(topic)
         }
         dataController.setInterestTopicIDs(selectedTopics.map { $0.rawValue })
+    }
+
+    func fetchRandomArticles() {
+        fetchTask?.cancel()
+        isFetchingArticles = true
+        fetchTask = Task {
+            do {
+                let articles = try await dataController.fetchRandomArticles(project: project)
+                guard !Task.isCancelled else { return }
+                self.randomArticles = articles
+            } catch {
+                // TODO: Error state
+            }
+            self.isFetchingArticles = false
+        }
+    }
+
+    deinit {
+        fetchTask?.cancel()
     }
 }

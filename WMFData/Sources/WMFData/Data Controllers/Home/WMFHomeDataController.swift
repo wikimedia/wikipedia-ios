@@ -107,6 +107,11 @@ public final actor WMFHomeDataController {
 
     // MARK: - Public API
 
+    /// Fetches random articles for display when no interest topics have been selected.
+    public func fetchRandomArticles(project: WMFProject) async throws -> [WMFRandomArticle] {
+        return try await WMFRandomDataController.shared.fetchRandomArticles(project: project)
+    }
+
     /// Fetches the Home feed "Community" data for the given date.
     /// Pass `Date()` (the default) to fetch today's data.
     @discardableResult
