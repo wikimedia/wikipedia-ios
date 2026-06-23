@@ -37,7 +37,7 @@ public struct WMFWhichCameFirstArchiveView: View {
 
     private var headerSection: some View {
         VStack(spacing: 4) {
-            Image(systemName: "calendar.badge.clock")
+            Image(systemName: "calendar.badge.clock") // TODO: ignore accesibility reading
                 .font(.system(size: 64))
                 .foregroundColor(Color(uiColor: theme.text))
                 .frame(width: 98, height: 72)
@@ -81,7 +81,7 @@ private struct CalendarRepresentable: UIViewRepresentable {
         Coordinator(viewModel: viewModel)
     }
 
-    func makeUIView(context: Context) -> UICalendarView {
+    func makeUIView(context: Context) -> UICalendarView { //TODO: fix padding
         let cv = UICalendarView()
         cv.delegate = context.coordinator
         cv.tintColor = theme.link
