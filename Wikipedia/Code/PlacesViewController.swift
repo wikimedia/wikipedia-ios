@@ -2088,6 +2088,17 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         recenterOnUserLocation(self)
     }
 
+    @objc public func showCoordinate(_ coordinate: CLLocationCoordinate2D) {
+        guard view != nil else { // force view instantiation
+            return
+        }
+
+        let span = MKCoordinateSpan(latitudeDelta: 0.6, longitudeDelta: 0.6)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+
+        currentSearch = PlaceSearch(filter: .top, type: .location, origin: .system, sortStyle: .links, string: nil, region: region, localizedDescription: nil, searchResult: nil, siteURL: nil)
+    }
+
     @objc public func showArticleURL(_ articleURL: URL) {
         guard let article = dataStore.fetchArticle(with: articleURL), let title = articleURL.wmf_title,
               view != nil else { // force view instantiation
