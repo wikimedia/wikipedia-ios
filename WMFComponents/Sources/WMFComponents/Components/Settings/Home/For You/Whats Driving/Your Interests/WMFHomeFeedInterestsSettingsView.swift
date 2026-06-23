@@ -33,13 +33,13 @@ public struct WMFHomeFeedInterestsSettingsView: View {
                     .padding(.vertical, 12)
                 }
 
-                if viewModel.selectedTopics.isEmpty && viewModel.isFetchingArticles {
+                if viewModel.isFetchingArticles {
                     ProgressView()
                         .frame(maxWidth: .infinity)
                         .padding(.top, 80)
-                } else if viewModel.selectedTopics.isEmpty && !viewModel.randomArticles.isEmpty {
+                } else if !viewModel.randomArticles.isEmpty {
                     WMFInterestArticleGridView(articles: viewModel.randomArticles, theme: theme)
-                } else if viewModel.selectedTopics.isEmpty {
+                } else {
                     HStack {
                         Spacer()
                         Text(viewModel.emptyMessage)

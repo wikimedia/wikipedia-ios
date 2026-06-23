@@ -61,9 +61,10 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
     @Test
     func unknownRawValuesAreIgnoredOnLoad() {
         let store = WMFMockKeyValueStore()
-        let dataController = WMFHomeDataController(userDefaultsStore: store)
-        dataController.setInterestTopicIDs(["architecture", "not-a-real-topic"])
+        // Write raw strings directly to the store to simulate a stale/unknown topic ID
+        try? store.save(key: "home-feed-interest-topics", value: ["architecture", "not-a-real-topic"])
 
+        let dataController = WMFHomeDataController(userDefaultsStore: store)
         let viewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, project: project)
         #expect(viewModel.selectedTopics == [.architecture])
     }

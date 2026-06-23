@@ -93,34 +93,34 @@ struct WMFHomeDataControllerSettingsTests {
     @Test
     func interestTopicsDefaultToEmpty() {
         let controller = makeController()
-        #expect(controller.interestTopicIDs() == [])
+        #expect(controller.interestTopics() == [])
     }
 
     @Test
     func interestTopicsPersistChanges() {
         let controller = makeController()
 
-        controller.setInterestTopicIDs(["architecture", "music", "stem"])
-        #expect(controller.interestTopicIDs() == ["architecture", "music", "stem"])
+        controller.setInterestTopics([.architecture, .music, .stem])
+        #expect(controller.interestTopics() == [.architecture, .music, .stem])
     }
 
     @Test
     func interestTopicsCanBeCleared() {
         let controller = makeController()
 
-        controller.setInterestTopicIDs(["architecture", "music"])
-        controller.setInterestTopicIDs([])
-        #expect(controller.interestTopicIDs() == [])
+        controller.setInterestTopics([.architecture, .music])
+        controller.setInterestTopics([])
+        #expect(controller.interestTopics() == [])
     }
 
     @Test
     func separateControllersShareInterestTopics() {
         let store = WMFMockKeyValueStore()
         let writer = WMFHomeDataController(userDefaultsStore: store)
-        writer.setInterestTopicIDs(["biology", "films"])
+        writer.setInterestTopics([.biology, .films])
 
         let reader = WMFHomeDataController(userDefaultsStore: store)
-        #expect(reader.interestTopicIDs() == ["biology", "films"])
+        #expect(reader.interestTopics() == [.biology, .films])
     }
 
     // MARK: - Independence
