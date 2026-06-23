@@ -12,6 +12,8 @@ public final class WMFWhichCameFirstArchiveViewController: UIViewController, WMF
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         viewModel.onShowScoreToast = { message in
+            // Suppress the toast under VoiceOver — the score is already announced as the calendar cell's accessibility value
+            guard !UIAccessibility.isVoiceOverRunning else { return }
             WMFToastManager.sharedInstance.showToast(message, sticky: false, dismissPreviousToasts: true)
         }
     }

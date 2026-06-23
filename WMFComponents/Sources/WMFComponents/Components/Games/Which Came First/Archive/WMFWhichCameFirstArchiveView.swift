@@ -25,7 +25,7 @@ public struct WMFWhichCameFirstArchiveView: View {
 
                     calendarCard
                         .shadow(color: Color(uiColor: theme.text).opacity(0.05), radius: 8, x: 0, y: 0)
-                        .padding(.horizontal, 16)
+                        .padding(.horizontal, 32)
 
                     Spacer()
                 }
@@ -85,6 +85,8 @@ private struct CalendarRepresentable: UIViewRepresentable {
         let cv = UICalendarView()
         cv.delegate = context.coordinator
         cv.tintColor = theme.link
+        // Force the calendar's text/background palette to match the WMF theme to avoid issues when app theme is not a match to device theme
+        cv.overrideUserInterfaceStyle = theme.userInterfaceStyle
         // Background is transparent — the SwiftUI layer provides the card background.
         cv.backgroundColor = .clear
 
@@ -101,8 +103,9 @@ private struct CalendarRepresentable: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: UICalendarView, context: Context) {
-        // Background is intentionally .clear — the SwiftUI layer provides the card background.
         uiView.tintColor = theme.link
+        uiView.overrideUserInterfaceStyle = theme.userInterfaceStyle
+        uiView.reloadDecorations(forDateComponents: viewModel.decoratedDateComponents, animated: false)
     }
 
     @MainActor
@@ -118,10 +121,12 @@ private struct CalendarRepresentable: UIViewRepresentable {
         func calendarView(_ calendarView: UICalendarView, decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
             guard let date = Calendar.current.date(from: dateComponents) else { return nil }
             let normalised = Calendar.current.startOfDay(for: date)
-            if viewModel.playedDates[normalised] != nil || viewModel.pausedDates.contains(normalised) {
-                return .default(color: calendarView.tintColor)
+            guard viewModel.playedDates[normalised] != nil || viewModel.pausedDates.contains(normalised) else {
+                return nil
             }
-            return nil
+            let image = UIImage(systemName: "circlebadge.fill")?.withRenderingMode(.alwaysTemplate) // TODO: check if we can use our component
+            image?.accessibilityLabel = viewModel.decorationAccessibilityLabel(for: date)
+            return .image(image, color: calendarView.tintColor)
         }
 
         func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {

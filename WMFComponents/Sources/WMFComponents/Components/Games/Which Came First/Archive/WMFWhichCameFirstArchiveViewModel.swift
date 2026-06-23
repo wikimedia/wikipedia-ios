@@ -56,6 +56,23 @@ public final class WMFWhichCameFirstArchiveViewModel: ObservableObject {
         self.onSelectDate = onSelectDate
     }
 
+    // MARK: - Decorations
+
+    var decoratedDateComponents: [DateComponents] {
+        let dates = Set(playedDates.keys).union(pausedDates)
+        return dates.map { Calendar.current.dateComponents([.year, .month, .day], from: $0) }
+    }
+
+    func decorationAccessibilityLabel(for date: Date) -> String? {
+        let normalised = Calendar.current.startOfDay(for: date)
+        if let score = playedDates[normalised] {
+            return String.localizedStringWithFormat(localizedStrings.dayScoreA11yFormat, score)
+        } else if pausedDates.contains(normalised) {
+            return localizedStrings.dayPausedA11y
+        }
+        return nil
+    }
+
     // MARK: - Selection
 
     func selectDay(_ date: Date) {
