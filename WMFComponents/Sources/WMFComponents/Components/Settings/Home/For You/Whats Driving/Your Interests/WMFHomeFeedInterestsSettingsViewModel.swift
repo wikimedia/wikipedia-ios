@@ -1,5 +1,6 @@
 import Foundation
 import WMFNativeLocalizations
+import WMFData
 
 @MainActor
 public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
@@ -10,8 +11,12 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     let topics: [WMFArticleTopic] = WMFArticleTopic.allCases
     @Published var selectedTopics: Set<WMFArticleTopic> = []
 
-    public init() {
+    private let dataController: WMFHomeDataController
 
+    public init(dataController: WMFHomeDataController = WMFHomeDataController.shared) {
+        self.dataController = dataController
+        let savedIDs = dataController.interestTopicIDs()
+        self.selectedTopics = Set(savedIDs.compactMap { WMFArticleTopic(rawValue: $0) })
     }
 
     func toggleTopic(_ topic: WMFArticleTopic) {
@@ -20,5 +25,6 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
         } else {
             selectedTopics.insert(topic)
         }
+        dataController.setInterestTopicIDs(selectedTopics.map { $0.rawValue })
     }
 }

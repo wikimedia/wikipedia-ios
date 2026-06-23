@@ -95,6 +95,16 @@ public final actor WMFHomeDataController {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedForYouContinueReadingIsOn.rawValue, value: newValue)
     }
 
+    // MARK: - Settings: Interest Topics
+
+    public nonisolated func interestTopicIDs() -> [String] {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeFeedInterestTopics.rawValue)) ?? []
+    }
+
+    public nonisolated func setInterestTopicIDs(_ topicIDs: [String]) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedInterestTopics.rawValue, value: topicIDs)
+    }
+
     // MARK: - Public API
 
     /// Fetches the Home feed "Community" data for the given date.
