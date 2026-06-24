@@ -10,6 +10,10 @@ public final actor WMFHomeDataController {
         try? WMFPageInterestDataController()
     }
 
+    private var pageViewsDataController: WMFPageViewsDataController? {
+        try? WMFPageViewsDataController()
+    }
+
     // Accessed only from `nonisolated` UserDefaults helpers below; WMFKeyValueStore is not Sendable.
     nonisolated(unsafe) private let userDefaultsStore: WMFKeyValueStore?
 
@@ -117,14 +121,16 @@ public final actor WMFHomeDataController {
     // MARK: - Public API
 
     public func fetchForYou(project: WMFProject) async throws -> WMFForYouResponse {
-        guard pageInterestDataController != nil else {
+        guard WMFDataEnvironment.current.coreDataStore != nil else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
         async let interestTopicRandomArticles = fetchForYouInterestTopicRandomArticles(project: project)
         async let interestPageRelatedArticles = fetchForYouInterestPageRelatedArticles(project: project)
+        async let becauseYouReadArticles = fetchForYouBecauseYouReadArticles(project: project)
         return try await WMFForYouResponse(
             interestTopicRandomArticles: interestTopicRandomArticles,
-            interestPageRelatedArticles: interestPageRelatedArticles
+            interestPageRelatedArticles: interestPageRelatedArticles,
+            becauseYouReadArticles: becauseYouReadArticles
         )
     }
 
@@ -162,6 +168,14 @@ public final actor WMFHomeDataController {
             for try await item in group { results.append(item) }
             return results
         }
+    }
+
+    private func fetchForYouBecauseYouReadArticles(project: WMFProject) async throws -> WMFForYouBecauseYouReadArticles? {
+        guard let pageViewsDataController else { return nil }
+        let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project)
+        guard let recentlyRead = pages.randomElement() else { return nil }
+        let related = try await relatedPagesDataController.fetchRelatedPages(title: recentlyRead.title, project: project)
+        return WMFForYouBecauseYouReadArticles(recentlyRead: recentlyRead, articles: Array(related.shuffled().prefix(4)))
     }
 
     /// Fetches random articles for display when no interest topics have been selected.
@@ -268,9 +282,15 @@ public struct WMFForYouInterestPageRelatedArticles: Sendable {
     public let articles: [WMFRelatedPagesDataController.WMFRelatedPage]
 }
 
+public struct WMFForYouBecauseYouReadArticles: Sendable {
+    public let recentlyRead: WMFPage
+    public let articles: [WMFRelatedPagesDataController.WMFRelatedPage]
+}
+
 public struct WMFForYouResponse: Sendable {
     public let interestTopicRandomArticles: [WMFForYouInterestTopicRandomArticles]
     public let interestPageRelatedArticles: [WMFForYouInterestPageRelatedArticles]
+    public let becauseYouReadArticles: WMFForYouBecauseYouReadArticles?
 }
 
 // MARK: - Topic articles response models

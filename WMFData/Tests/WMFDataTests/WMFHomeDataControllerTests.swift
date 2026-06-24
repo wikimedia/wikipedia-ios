@@ -101,6 +101,56 @@ final class WMFHomeDataControllerTests: XCTestCase {
         XCTAssertTrue(response.interestPageRelatedArticles.isEmpty)
     }
 
+    // MARK: - fetchForYou becauseYouReadArticles
+
+    private func seedPageViews(_ titles: [String], project: WMFProject, seconds: Double = 90) async throws {
+        let pageViewsController = try WMFPageViewsDataController()
+        for title in titles {
+            if let objectID = try await pageViewsController.addPageView(title: title, namespaceID: 0, project: project, previousPageViewObjectID: nil) {
+                try await pageViewsController.addPageViewSeconds(pageViewManagedObjectID: objectID, numberOfSeconds: seconds)
+            }
+        }
+    }
+
+    func testFetchForYouBecauseYouReadArticlesIsNilWhenNoPageViewsExist() async throws {
+        let controller = makeForYouController(topics: [])
+        let response = try await controller.fetchForYou(project: enProject)
+        XCTAssertNil(response.becauseYouReadArticles)
+    }
+
+    func testFetchForYouBecauseYouReadArticlesIsNilWhenPageViewsUnderOneMinute() async throws {
+        let pageViewsController = try WMFPageViewsDataController()
+        if let objectID = try await pageViewsController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil) {
+            try await pageViewsController.addPageViewSeconds(pageViewManagedObjectID: objectID, numberOfSeconds: 30)
+        }
+        let controller = makeForYouController(topics: [])
+        let response = try await controller.fetchForYou(project: enProject)
+        XCTAssertNil(response.becauseYouReadArticles)
+    }
+
+    func testFetchForYouBecauseYouReadArticlesPopulatedWhenPageViewExists() async throws {
+        try await seedPageViews(["Cat"], project: enProject)
+        let controller = makeForYouController(topics: [])
+        let response = try await controller.fetchForYou(project: enProject)
+        XCTAssertNotNil(response.becauseYouReadArticles)
+        XCTAssertEqual(response.becauseYouReadArticles?.recentlyRead.title, "Cat")
+    }
+
+    func testFetchForYouBecauseYouReadArticlesCapsAtFourRelatedArticles() async throws {
+        try await seedPageViews(["Cat"], project: enProject)
+        let controller = makeForYouController(topics: [])
+        let response = try await controller.fetchForYou(project: enProject)
+        XCTAssertLessThanOrEqual(response.becauseYouReadArticles?.articles.count ?? 0, 4)
+    }
+
+    func testFetchForYouBecauseYouReadArticlesIsNilForNonMatchingProject() async throws {
+        let esProject = WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil))
+        try await seedPageViews(["Cat"], project: enProject)
+        let controller = makeForYouController(topics: [])
+        let response = try await controller.fetchForYou(project: esProject)
+        XCTAssertNil(response.becauseYouReadArticles)
+    }
+
     func testFetchForYouThrowsWhenCoreDataUnavailable() async throws {
         WMFDataEnvironment.current.coreDataStore = nil
         let controller = makeForYouController(topics: [])
