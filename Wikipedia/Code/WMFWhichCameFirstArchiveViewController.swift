@@ -4,39 +4,22 @@ import WMF
 import WMFComponents
 import WMFNativeLocalizations
 
-public final class WMFWhichCameFirstArchiveViewController: UIViewController, WMFNavigationBarConfiguring {
+public final class WMFWhichCameFirstArchiveViewController: WMFComponentHostingController<WMFWhichCameFirstArchiveView>, WMFNavigationBarConfiguring {
 
     private let viewModel: WMFWhichCameFirstArchiveViewModel
 
     public init(viewModel: WMFWhichCameFirstArchiveViewModel) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
         viewModel.onShowScoreToast = { message in
             // Suppress the toast under VoiceOver — the score is already announced as the calendar cell's accessibility value
             guard !UIAccessibility.isVoiceOverRunning else { return }
             WMFToastManager.sharedInstance.showToast(message, sticky: false, dismissPreviousToasts: true)
         }
+        super.init(rootView: WMFWhichCameFirstArchiveView(viewModel: viewModel))
     }
 
-    required init?(coder: NSCoder) {
+    @MainActor required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-
-        let archiveView = WMFWhichCameFirstArchiveView(viewModel: viewModel)
-        let hostingVC = UIHostingController(rootView: archiveView)
-        addChild(hostingVC)
-        hostingVC.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(hostingVC.view)
-        NSLayoutConstraint.activate([
-            hostingVC.view.topAnchor.constraint(equalTo: view.topAnchor),
-            hostingVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            hostingVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            hostingVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        hostingVC.didMove(toParent: self)
     }
 
     public override func viewWillAppear(_ animated: Bool) {
@@ -44,6 +27,11 @@ public final class WMFWhichCameFirstArchiveViewController: UIViewController, WMF
         configureNavigationBar()
     }
     
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        WMFToastManager.sharedInstance.dismissCurrentToast()
+    }
+
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .centerCompact)
         let closeConfig = WMFLargeCloseButtonConfig(
@@ -63,7 +51,6 @@ public final class WMFWhichCameFirstArchiveViewController: UIViewController, WMF
     }
 
     @objc private func didTapClose() {
-        WMFToastManager.sharedInstance.dismissCurrentToast()
         dismiss(animated: true)
     }
 }
