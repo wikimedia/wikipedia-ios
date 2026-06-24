@@ -30,12 +30,13 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
         self.project = project
         self.selectedTopics = dataController.interestTopics()
 
-        Task {
+        Task { [weak self] in
+            guard let self else { return }
             await loadSavedInterests()
-            if self.selectedTopics.isEmpty {
-                self.fetchRandomArticles()
-            } else if let topic = self.selectedTopics.last {
-                self.fetchArticles(for: topic)
+            if selectedTopics.isEmpty {
+                fetchRandomArticles()
+            } else if let topic = selectedTopics.last {
+                fetchArticles(for: topic)
             }
         }
     }

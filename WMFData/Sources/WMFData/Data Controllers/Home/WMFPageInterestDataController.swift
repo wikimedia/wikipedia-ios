@@ -1,6 +1,7 @@
 import Foundation
 import CoreData
 
+// @unchecked Sendable: coreDataStore is an immutable let; all mutations go through backgroundContext.perform { }
 public final class WMFPageInterestDataController: @unchecked Sendable {
 
     private let coreDataStore: WMFCoreDataStore
