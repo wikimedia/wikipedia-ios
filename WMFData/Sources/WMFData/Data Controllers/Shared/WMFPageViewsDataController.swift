@@ -85,7 +85,7 @@ public final class WMFPageViewTime: Codable {
     }
 }
 
-public struct WMFPageWithTimestamp {
+public struct WMFPageWithTimestamp: Sendable {
     public let page: WMFPage
     public let timestamp: Date
 }

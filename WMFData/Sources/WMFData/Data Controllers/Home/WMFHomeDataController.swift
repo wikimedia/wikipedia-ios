@@ -5,6 +5,7 @@ public final actor WMFHomeDataController {
     private let feedDataController: any WMFFeedDataControlling
     private let basicService: WMFService?
     private let relatedPagesDataController: WMFRelatedPagesDataController
+    private let savedArticlesDataController: WMFSavedArticlesDataController
 
     private var pageInterestDataController: WMFPageInterestDataController? {
         try? WMFPageInterestDataController()
@@ -22,11 +23,12 @@ public final actor WMFHomeDataController {
 
     public static let shared = WMFHomeDataController()
 
-    public init(feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared, basicService: WMFService? = WMFDataEnvironment.current.basicService, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, relatedPagesDataController: WMFRelatedPagesDataController = WMFRelatedPagesDataController.shared) {
+    public init(feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared, basicService: WMFService? = WMFDataEnvironment.current.basicService, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, relatedPagesDataController: WMFRelatedPagesDataController = WMFRelatedPagesDataController.shared, savedArticlesDataController: WMFSavedArticlesDataController = WMFSavedArticlesDataController.shared) {
         self.feedDataController = feedDataController
         self.basicService = basicService
         self.userDefaultsStore = userDefaultsStore
         self.relatedPagesDataController = relatedPagesDataController
+        self.savedArticlesDataController = savedArticlesDataController
     }
 
     // MARK: - Settings: Selected Language
@@ -127,10 +129,12 @@ public final actor WMFHomeDataController {
         async let interestTopicRandomArticles = fetchForYouInterestTopicRandomArticles(project: project)
         async let interestPageRelatedArticles = fetchForYouInterestPageRelatedArticles(project: project)
         async let becauseYouReadArticles = fetchForYouBecauseYouReadArticles(project: project)
+        async let continueReading = fetchForYouContinueReading(project: project)
         return try await WMFForYouResponse(
             interestTopicRandomArticles: interestTopicRandomArticles,
             interestPageRelatedArticles: interestPageRelatedArticles,
-            becauseYouReadArticles: becauseYouReadArticles
+            becauseYouReadArticles: becauseYouReadArticles,
+            continueReadingArticles: continueReading
         )
     }
 
@@ -176,6 +180,14 @@ public final actor WMFHomeDataController {
         guard let recentlyRead = pages.randomElement() else { return nil }
         let related = try await relatedPagesDataController.fetchRelatedPages(title: recentlyRead.title, project: project)
         return WMFForYouBecauseYouReadArticles(recentlyRead: recentlyRead, articles: Array(related.shuffled().prefix(4)))
+    }
+
+    private func fetchForYouContinueReading(project: WMFProject) async throws -> WMFForYouContinueReading? {
+        guard let pageViewsDataController else { return nil }
+        let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60)
+        guard let continueReadingArticle = pages.randomElement() else { return nil }
+        let continueReadingArticles = try await savedArticlesDataController.fetchRecentlySavedArticles(limit: 3)
+        return WMFForYouContinueReading(continueReadingArticle: continueReadingArticle, savedArticles: continueReadingArticles)
     }
 
     /// Fetches random articles for display when no interest topics have been selected.
@@ -287,10 +299,16 @@ public struct WMFForYouBecauseYouReadArticles: Sendable {
     public let articles: [WMFRelatedPagesDataController.WMFRelatedPage]
 }
 
+public struct WMFForYouContinueReading: Sendable {
+    public let continueReadingArticle: WMFPage
+    public let savedArticles: [WMFPageWithTimestamp]
+}
+
 public struct WMFForYouResponse: Sendable {
     public let interestTopicRandomArticles: [WMFForYouInterestTopicRandomArticles]
     public let interestPageRelatedArticles: [WMFForYouInterestPageRelatedArticles]
     public let becauseYouReadArticles: WMFForYouBecauseYouReadArticles?
+    public let continueReadingArticles: WMFForYouContinueReading?
 }
 
 // MARK: - Topic articles response models

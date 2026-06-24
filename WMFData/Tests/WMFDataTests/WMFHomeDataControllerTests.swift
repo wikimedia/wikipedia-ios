@@ -1,4 +1,5 @@
 import XCTest
+import CoreData
 
 @testable import WMFData
 @testable import WMFDataMocks
@@ -50,7 +51,8 @@ final class WMFHomeDataControllerTests: XCTestCase {
             feedDataController: WMFMockFeedDataController(response: stubResponse),
             basicService: service,
             userDefaultsStore: store,
-            relatedPagesDataController: relatedPagesDataController
+            relatedPagesDataController: relatedPagesDataController,
+            savedArticlesDataController: WMFSavedArticlesDataController()
         )
         controller.setInterestTopics(topics)
         return controller
@@ -160,6 +162,59 @@ final class WMFHomeDataControllerTests: XCTestCase {
         } catch WMFDataControllerError.coreDataStoreUnavailable {
             // expected
         }
+    }
+
+    // MARK: - fetchForYou continueReading
+
+    private func seedSavedArticles(_ titles: [String], project: WMFProject, savedDate: Date = Date()) async throws {
+        guard let store = WMFDataEnvironment.current.coreDataStore else { return }
+        let context = try store.newBackgroundContext
+        try await context.perform {
+            for title in titles {
+                let page = try store.create(entityType: CDPage.self, in: context)
+                page.title = title
+                page.namespaceID = 0
+                page.projectID = project.id
+                page.timestamp = savedDate
+
+                let savedInfo = try store.create(entityType: CDPageSavedInfo.self, in: context)
+                savedInfo.savedDate = savedDate
+                savedInfo.page = page
+            }
+            try store.saveIfNeeded(moc: context)
+        }
+    }
+
+    func testFetchForYouContinueReadingIsNilWhenNoPageViewsExist() async throws {
+        let controller = makeForYouController(topics: [])
+        let response = try await controller.fetchForYou(project: enProject)
+        XCTAssertNil(response.continueReadingArticles)
+    }
+
+    func testFetchForYouContinueReadingIsNilWhenPageViewsUnderSixtySeconds() async throws {
+        let pageViewsController = try WMFPageViewsDataController()
+        if let objectID = try await pageViewsController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil) {
+            try await pageViewsController.addPageViewSeconds(pageViewManagedObjectID: objectID, numberOfSeconds: 30)
+        }
+        let controller = makeForYouController(topics: [])
+        let response = try await controller.fetchForYou(project: enProject)
+        XCTAssertNil(response.continueReadingArticles)
+    }
+
+    func testFetchForYouContinueReadingIsPopulatedWhenPageViewQualifies() async throws {
+        try await seedPageViews(["Cat"], project: enProject, seconds: 90)
+        let controller = makeForYouController(topics: [])
+        let response = try await controller.fetchForYou(project: enProject)
+        XCTAssertNotNil(response.continueReadingArticles)
+        XCTAssertEqual(response.continueReadingArticles?.continueReadingArticle.title, "Cat")
+    }
+
+    func testFetchForYouContinueReadingCapsAtThreeSavedArticles() async throws {
+        try await seedPageViews(["Cat"], project: enProject, seconds: 90)
+        try await seedSavedArticles(["Article1", "Article2", "Article3", "Article4"], project: enProject)
+        let controller = makeForYouController(topics: [])
+        let response = try await controller.fetchForYou(project: enProject)
+        XCTAssertEqual(response.continueReadingArticles?.savedArticles.count, 3)
     }
 
     func testFetchForYouReturnsOneGroupPerTopicWhenFewerThanFive() async throws {
