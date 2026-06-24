@@ -595,18 +595,29 @@ public struct HtmlUtils {
     }
     
     private static func updateStyleAttributeDataIfNeeded(styleData: inout StyleData, tagString: String, targetAttributeName: String?) {
-        
+
+        // Match the attribute value as either double-quoted (group 1), single-quoted (group 2), or unquoted (group 3).
+        // Capturing up to the matching quote character (rather than the first quote of any kind) ensures an apostrophe
+        // inside a double-quoted value is preserved instead of truncating the value. For example, Parsoid emits
+        // href="./New_Year's_Eve" with a literal apostrophe; the old pattern stopped at the apostrophe and produced
+        // "./New_Year", sending the user to the wrong page (T308268, T395708).
         guard let targetAttributeName,
-              let attributeValueRegex = try? NSRegularExpression(pattern: "\(targetAttributeName)[\\s]*=[\\s]*[\"']?[\\s]*((?:.(?![\"']?\\s+(?:\\S+)=|[>\"']))+.)[\\s]*[\"']?") else {
+              let attributeValueRegex = try? NSRegularExpression(pattern: "\(targetAttributeName)[\\s]*=[\\s]*(?:\"([^\"]*)\"|'([^']*)'|([^\\s>]+))") else {
             return
         }
-        
-        let attrMatch = attributeValueRegex.firstMatch(in: tagString, range: tagString.fullNSRange)
-       if let attrMatchNSRange = attrMatch?.range(at: 1),
-          let attrMatchRange = Range(attrMatchNSRange, in: tagString) {
-           let attrMatchValue = String(tagString[attrMatchRange])
-           styleData.targetAttributeValues.append(attrMatchValue)
-       }
+
+        guard let attrMatch = attributeValueRegex.firstMatch(in: tagString, range: tagString.fullNSRange) else {
+            return
+        }
+
+        for groupIndex in 1...3 {
+            let groupNSRange = attrMatch.range(at: groupIndex)
+            if groupNSRange.location != NSNotFound,
+               let groupRange = Range(groupNSRange, in: tagString) {
+                styleData.targetAttributeValues.append(String(tagString[groupRange]))
+                return
+            }
+        }
     }
     
     private static func tagAndContentRemoveData(html: String) throws -> [TagAndContentRemoveData] {
