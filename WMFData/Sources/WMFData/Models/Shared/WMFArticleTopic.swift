@@ -1,6 +1,6 @@
 import Foundation
 
-public enum WMFArticleTopic: String, CaseIterable, Sendable {
+public enum WMFArticleTopic: String, CaseIterable, Codable, Sendable {
     case architecture = "architecture"
     case visualArts = "visual-arts"
     case comicsAndAnime = "comics-and-anime"

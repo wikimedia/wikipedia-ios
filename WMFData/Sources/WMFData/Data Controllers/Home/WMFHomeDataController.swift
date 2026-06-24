@@ -122,20 +122,27 @@ public final actor WMFHomeDataController {
 
     // MARK: - Public API
 
-    public func fetchForYou(project: WMFProject) async throws -> WMFForYouResponse {
+    public func fetchForYou(project: WMFProject, forceFetch: Bool = false) async throws -> WMFForYouResponse {
         guard WMFDataEnvironment.current.coreDataStore != nil else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
+
+        if !forceFetch, let cached = cachedForYouResponse(for: project) {
+            return cached
+        }
+
         async let interestTopicRandomArticles = fetchForYouInterestTopicRandomArticles(project: project)
         async let interestPageRelatedArticles = fetchForYouInterestPageRelatedArticles(project: project)
         async let becauseYouReadArticles = fetchForYouBecauseYouReadArticles(project: project)
         async let continueReading = fetchForYouContinueReading(project: project)
-        return try await WMFForYouResponse(
+        let response = try await WMFForYouResponse(
             interestTopicRandomArticles: interestTopicRandomArticles,
             interestPageRelatedArticles: interestPageRelatedArticles,
             becauseYouReadArticles: becauseYouReadArticles,
             continueReadingArticles: continueReading
         )
+        cacheForYouResponse(response, for: project)
+        return response
     }
 
     private func fetchForYouInterestTopicRandomArticles(project: WMFProject) async throws -> [WMFForYouInterestTopicRandomArticles] {
@@ -146,7 +153,8 @@ public final actor WMFHomeDataController {
             for topic in topics {
                 group.addTask {
                     let articles = try await self.fetchArticles(for: topic, project: project)
-                    return WMFForYouInterestTopicRandomArticles(topic: topic, articles: Array(articles.shuffled().prefix(4)))
+                    let mapped = articles.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
+                    return WMFForYouInterestTopicRandomArticles(topic: topic, articles: mapped)
                 }
             }
             var results: [WMFForYouInterestTopicRandomArticles] = []
@@ -165,7 +173,8 @@ public final actor WMFHomeDataController {
             for interest in selected {
                 group.addTask {
                     let related = try await self.relatedPagesDataController.fetchRelatedPages(title: interest.title, project: project)
-                    return WMFForYouInterestPageRelatedArticles(pageInterest: interest, articles: Array(related.shuffled().prefix(4)))
+                    let mapped = related.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
+                    return WMFForYouInterestPageRelatedArticles(pageInterest: WMFForYouArticle(title: interest.title, project: project), articles: mapped)
                 }
             }
             var results: [WMFForYouInterestPageRelatedArticles] = []
@@ -179,15 +188,26 @@ public final actor WMFHomeDataController {
         let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 10)
         guard let recentlyRead = pages.randomElement() else { return nil }
         let related = try await relatedPagesDataController.fetchRelatedPages(title: recentlyRead.title, project: project)
-        return WMFForYouBecauseYouReadArticles(recentlyRead: recentlyRead, articles: Array(related.shuffled().prefix(4)))
+        let mapped = related.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
+        return WMFForYouBecauseYouReadArticles(
+            recentlyRead: WMFForYouArticle(title: recentlyRead.title, project: project),
+            articles: mapped
+        )
     }
 
     private func fetchForYouContinueReading(project: WMFProject) async throws -> WMFForYouContinueReading? {
         guard let pageViewsDataController else { return nil }
         let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60)
         guard let continueReadingArticle = pages.randomElement() else { return nil }
-        let continueReadingArticles = try await savedArticlesDataController.fetchRecentlySavedArticles(limit: 3)
-        return WMFForYouContinueReading(continueReadingArticle: continueReadingArticle, savedArticles: continueReadingArticles)
+        let saved = try await savedArticlesDataController.fetchRecentlySavedArticles(limit: 3)
+        let mapped = saved.compactMap { item -> WMFForYouArticle? in
+            guard let proj = WMFProject(id: item.page.projectID) else { return nil }
+            return WMFForYouArticle(title: item.page.title, project: proj)
+        }
+        return WMFForYouContinueReading(
+            continueReadingArticle: WMFForYouArticle(title: continueReadingArticle.title, project: project),
+            savedArticles: mapped
+        )
     }
 
     /// Fetches random articles for display when no interest topics have been selected.
@@ -244,11 +264,15 @@ public final actor WMFHomeDataController {
     }
 
     /// Fetches the Home feed "Community" data for the given date.
-    /// Pass `Date()` (the default) to fetch today's data.
+    /// Pass `Date()` (the default) to fetch today's data. The first-page response is cached per project per day.
     @discardableResult
-    public func fetchCommunity(project: WMFProject, date: Date = Date()) async throws -> WMFFeedAPIResponse {
+    public func fetchCommunity(project: WMFProject, date: Date = Date(), forceFetch: Bool = false) async throws -> WMFFeedAPIResponse {
+        if !forceFetch, let cached = cachedCommunityResponse(for: project) {
+            return cached
+        }
         let response = try await feedDataController.fetchFeed(project: project, date: date)
         recordCommunityFetchedDate(date, project: project)
+        cacheCommunityResponse(response, for: project)
         return response
     }
 
@@ -271,6 +295,40 @@ public final actor WMFHomeDataController {
 
     // MARK: - Private
 
+    private func forYouCacheKey(for project: WMFProject) -> String {
+        "home.forYou.\(project.id)"
+    }
+
+    private func communityCacheKey(for project: WMFProject) -> String {
+        "home.community.\(project.id)"
+    }
+
+    private func cachedForYouResponse(for project: WMFProject) -> WMFForYouResponse? {
+        guard let store = WMFDataEnvironment.current.sharedCacheStore,
+              let entry: WMFHomeForYouCacheEntry = try? store.load(key: forYouCacheKey(for: project)),
+              Calendar.current.isDateInToday(entry.date) else { return nil }
+        return entry.response
+    }
+
+    private func cacheForYouResponse(_ response: WMFForYouResponse, for project: WMFProject) {
+        guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
+        let entry = WMFHomeForYouCacheEntry(date: Date(), response: response)
+        try? store.save(key: forYouCacheKey(for: project), value: entry)
+    }
+
+    private func cachedCommunityResponse(for project: WMFProject) -> WMFFeedAPIResponse? {
+        guard let store = WMFDataEnvironment.current.sharedCacheStore,
+              let entry: WMFHomeCommunityFirstPageCacheEntry = try? store.load(key: communityCacheKey(for: project)),
+              Calendar.current.isDateInToday(entry.date) else { return nil }
+        return entry.response
+    }
+
+    private func cacheCommunityResponse(_ response: WMFFeedAPIResponse, for project: WMFProject) {
+        guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
+        let entry = WMFHomeCommunityFirstPageCacheEntry(date: Date(), response: response)
+        try? store.save(key: communityCacheKey(for: project), value: entry)
+    }
+
     private func recordCommunityFetchedDate(_ date: Date, project: WMFProject) {
         let calendar = Calendar(identifier: .gregorian)
         let normalized = calendar.startOfDay(for: date)
@@ -284,31 +342,48 @@ public final actor WMFHomeDataController {
 
 // MARK: - For You response models
 
-public struct WMFForYouInterestTopicRandomArticles: Sendable {
+public struct WMFForYouArticle: Codable, Sendable {
+    public let title: String
+    public let project: WMFProject
+}
+
+public struct WMFForYouInterestTopicRandomArticles: Codable, Sendable {
     public let topic: WMFArticleTopic
-    public let articles: [WMFRandomArticle]
+    public let articles: [WMFForYouArticle]
 }
 
-public struct WMFForYouInterestPageRelatedArticles: Sendable {
-    public let pageInterest: WMFPageInterest
-    public let articles: [WMFRelatedPagesDataController.WMFRelatedPage]
+public struct WMFForYouInterestPageRelatedArticles: Codable, Sendable {
+    public let pageInterest: WMFForYouArticle
+    public let articles: [WMFForYouArticle]
 }
 
-public struct WMFForYouBecauseYouReadArticles: Sendable {
-    public let recentlyRead: WMFPage
-    public let articles: [WMFRelatedPagesDataController.WMFRelatedPage]
+public struct WMFForYouBecauseYouReadArticles: Codable, Sendable {
+    public let recentlyRead: WMFForYouArticle
+    public let articles: [WMFForYouArticle]
 }
 
-public struct WMFForYouContinueReading: Sendable {
-    public let continueReadingArticle: WMFPage
-    public let savedArticles: [WMFPageWithTimestamp]
+public struct WMFForYouContinueReading: Codable, Sendable {
+    public let continueReadingArticle: WMFForYouArticle
+    public let savedArticles: [WMFForYouArticle]
 }
 
-public struct WMFForYouResponse: Sendable {
+public struct WMFForYouResponse: Codable, Sendable {
     public let interestTopicRandomArticles: [WMFForYouInterestTopicRandomArticles]
     public let interestPageRelatedArticles: [WMFForYouInterestPageRelatedArticles]
     public let becauseYouReadArticles: WMFForYouBecauseYouReadArticles?
     public let continueReadingArticles: WMFForYouContinueReading?
+}
+
+// MARK: - Cache entry models
+
+private struct WMFHomeForYouCacheEntry: Codable {
+    let date: Date
+    let response: WMFForYouResponse
+}
+
+private struct WMFHomeCommunityFirstPageCacheEntry: Codable {
+    let date: Date
+    let response: WMFFeedAPIResponse
 }
 
 // MARK: - Topic articles response models
