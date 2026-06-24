@@ -118,10 +118,10 @@ final class WMFHomeDataControllerTests: XCTestCase {
         XCTAssertNil(response.becauseYouReadArticles)
     }
 
-    func testFetchForYouBecauseYouReadArticlesIsNilWhenPageViewsUnderOneMinute() async throws {
+    func testFetchForYouBecauseYouReadArticlesIsNilWhenPageViewsUnderTenSeconds() async throws {
         let pageViewsController = try WMFPageViewsDataController()
         if let objectID = try await pageViewsController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil) {
-            try await pageViewsController.addPageViewSeconds(pageViewManagedObjectID: objectID, numberOfSeconds: 30)
+            try await pageViewsController.addPageViewSeconds(pageViewManagedObjectID: objectID, numberOfSeconds: 5)
         }
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)

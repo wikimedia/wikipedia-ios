@@ -172,7 +172,7 @@ public final actor WMFHomeDataController {
 
     private func fetchForYouBecauseYouReadArticles(project: WMFProject) async throws -> WMFForYouBecauseYouReadArticles? {
         guard let pageViewsDataController else { return nil }
-        let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project)
+        let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 10)
         guard let recentlyRead = pages.randomElement() else { return nil }
         let related = try await relatedPagesDataController.fetchRelatedPages(title: recentlyRead.title, project: project)
         return WMFForYouBecauseYouReadArticles(recentlyRead: recentlyRead, articles: Array(related.shuffled().prefix(4)))
