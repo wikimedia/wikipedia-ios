@@ -43,7 +43,7 @@ public final class WMFWhichCameFirstArchiveViewController: UIViewController, WMF
         super.viewWillAppear(animated)
         configureNavigationBar()
     }
-
+    
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .centerCompact)
         let closeConfig = WMFLargeCloseButtonConfig(
@@ -63,6 +63,7 @@ public final class WMFWhichCameFirstArchiveViewController: UIViewController, WMF
     }
 
     @objc private func didTapClose() {
+        WMFToastManager.sharedInstance.dismissCurrentToast()
         dismiss(animated: true)
     }
 }
