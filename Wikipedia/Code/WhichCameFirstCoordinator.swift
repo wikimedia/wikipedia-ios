@@ -81,6 +81,13 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         return true
     }
 
+    @discardableResult
+    func startArchive() -> Bool {
+        gamesDataController.markGamesAnnouncementSeen()
+        showArchive()
+        return true
+    }
+
     private func makeLoadingViewController() -> UIViewController {
         let vc = UIViewController()
         vc.view.backgroundColor = theme.colors.paperBackground
@@ -96,7 +103,6 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         return vc
     }
 
-    @MainActor
     private func transitionFromLoading(todayAvailable: Bool = false) {
         guard let gameNav = gameNavigationController else { return }
         if todayAvailable {
@@ -429,11 +435,13 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
     // MARK: - Archive
 
     func showArchive() {
-        guard let project,
-              let gameNav = gameNavigationController else { return }
+        guard let project else { return }
+        // Present on the game-nav when launched from within the game; otherwise
+        // (e.g. from Explore) present directly on the Explore navigation controller.
+        let presenter = gameNavigationController ?? navigationController
 
-        Task { [weak self, weak gameNav] in
-            guard let self, let gameNav else { return }
+        Task { [weak self, weak presenter] in
+            guard let self, let presenter else { return }
 
             let archiveData = (try? await self.gamesDataController.fetchWhichCameFirstArchiveData(project: project))
                 ?? WMFGamesDataController.WMFWhichCameFirstArchiveData(playedDates: [:], pausedDates: [])
@@ -450,19 +458,30 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             let nav = WMFComponentNavigationController(rootViewController: archiveVC, modalPresentationStyle: .pageSheet)
             if let sheet = nav.sheetPresentationController {
                 sheet.detents = [.large()]
-                sheet.prefersGrabberVisible = true
+                sheet.prefersGrabberVisible = false
             }
-            gameNav.present(nav, animated: true)
+            presenter.present(nav, animated: true)
         }
     }
 
     private func showGameForArchiveDate(_ date: Date) {
-        guard let gameNav = gameNavigationController else { return }
-
         let dateString = DateFormatter.onThisDayAPIDateFormatter.string(from: date)
         let displayDateString = formattedDateString(from: date)
 
-        // Update the splash screen nav title to reflect the archive date
+        guard let gameNav = gameNavigationController else {
+            guard let project else { return }
+            navigationController.dismiss(animated: true) { [weak self] in
+                guard let self else { return }
+                let viewModel = WMFWhichCameFirstViewModel(date: dateString, project: project)
+                self.buildViewModel(viewModel)
+                let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
+                let nav = WMFComponentNavigationController(rootViewController: gameVC, modalPresentationStyle: .fullScreen)
+                self.gameNavigationController = nav
+                self.navigationController.present(nav, animated: true)
+            }
+            return
+        }
+
         if let splashVC = gameNav.viewControllers.first(where: { $0 is WMFGamesSplashScreenViewController }) as? WMFGamesSplashScreenViewController {
             splashVC.viewModel.dateString = displayDateString
         }

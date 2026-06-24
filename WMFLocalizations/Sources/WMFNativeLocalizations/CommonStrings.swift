@@ -146,6 +146,8 @@ public class CommonStrings: NSObject {
     @objc public static let relatedPagesTitle = WMFLocalizedString("explore-because-you-read", value: "Because you read", comment: "Text for 'Because you read' header")
     @objc public static let continueReadingTitle = WMFLocalizedString("explore-continue-reading-heading", value: "Continue reading", comment: "Text for 'Continue Reading' header")
     @objc public static let defaultText = WMFLocalizedString("insert-media-image-size-setting-default", value: "Default", comment: "Title for image size setting that sizes image using default size")
+    @objc public static let continueGameTitle = WMFLocalizedString("which-came-first-splash-continue-button",value: "Continue today's game",comment: "Button title to continue an in-progress Which Came First game.")
+    public static let playTheArchiveTitle = WMFLocalizedString("which-came-first-play-archive-button", value: "Play the archive", comment: "Button to play archived Which Came First games from the results screen")
 
     @objc public static let hideCardTitle = WMFLocalizedString("explore-hide-card-prompt", value: "Hide this card", comment: "Title of button shown for users to confirm the hiding of a suggestion in the explore feed")
 

@@ -71,11 +71,7 @@ public final class WMFGamesSplashScreenViewModel: ObservableObject {
     public func update(sessionStatus: WMFGameSessionStatus) {
         switch sessionStatus {
         case .inProgress:
-            playButtonTitle = WMFLocalizedString(
-                "which-came-first-splash-continue-button",
-                value: "Continue today's game",
-                comment: "Button title to continue an in-progress Which Came First game."
-            )
+            playButtonTitle = CommonStrings.continueGameTitle
         case .completed:
             playButtonTitle = WMFLocalizedString(
                 "which-came-first-splash-review-button",

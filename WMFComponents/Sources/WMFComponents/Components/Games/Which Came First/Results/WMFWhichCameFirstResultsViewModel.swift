@@ -29,7 +29,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
             logInToViewStatsTitle: String = WMFLocalizedString("which-came-first-log-in-stats-title", value: "Log in to view your game stats", comment: "Title prompting the user to log in to view stats in the Which Came First results screen"),
             logInToViewStatsBody: String = WMFLocalizedString("which-came-first-log-in-stats-body", value: "See your streaks, scores, and more", comment: "Body text prompting the user to log in to view stats in the Which Came First results screen"),
             logInButton: String = WMFLocalizedString("which-came-first-log-in-button", value: "Log in", comment: "Button to log in from the Which Came First results screen"),
-            playTheArchiveButton: String = WMFLocalizedString("which-came-first-play-archive-button", value: "Play the archive", comment: "Button to play archived Which Came First games from the results screen")
+            playTheArchiveButton: String = CommonStrings.playTheArchiveTitle
         ) {
             self.shareScoreButton = shareScoreButton
             self.yourStatsTitle = yourStatsTitle

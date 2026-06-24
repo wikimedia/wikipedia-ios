@@ -37,12 +37,15 @@ public struct WMFWhichCameFirstArchiveView: View {
 
     private var headerSection: some View {
         VStack(spacing: 4) {
-            Image(systemName: "calendar.badge.clock")
-                .font(.system(size: 64))
-                .foregroundColor(Color(uiColor: theme.text))
-                .frame(width: 98, height: 72)
-                .padding(.bottom, 12)
-                .accessibilityHidden(true)
+            if let icon = WMFSFSymbolIcon.for(symbol: .calendarBadgeClock)?
+                .withConfiguration(UIImage.SymbolConfiguration(pointSize: 64)) {
+                Image(uiImage: icon)
+                    .renderingMode(.template)
+                    .foregroundColor(Color(uiColor: theme.text))
+                    .frame(width: 98, height: 72)
+                    .padding(.bottom, 12)
+                    .accessibilityHidden(true)
+            }
 
             Group {
                 Text(viewModel.localizedStrings.title + " ")

@@ -17,7 +17,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             siteURL: exploreCardViewController.contentGroup?.siteURL
         )
         whichCameFirstCoordinator = coordinator
-        coordinator.start()
+        coordinator.startArchive()
     }
     
     func exploreCardViewControllerDidTapReviewResults(_ exploreCardViewController: ExploreCardViewController) {
