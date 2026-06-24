@@ -51,9 +51,8 @@ public struct WMFHomeView: View {
             }
             .padding()
 
-            Spacer()
-
             if viewModel.selectedTab == .forYou {
+                Spacer()
                 // TODO: Temporary mock button for testing the "What's driving your feed" deep-link.
                 Button {
                     viewModel.didTapWhatsDrivingTestButton?()
@@ -62,26 +61,35 @@ public struct WMFHomeView: View {
                         .font(Font(WMFFont.for(.semiboldHeadline)))
                         .foregroundStyle(Color(uiColor: theme.link))
                 }
+                Spacer()
             } else {
-                // Temporary placeholder content until the Home feed is built out.
-                Text(currentTabTitle)
-                    .font(Font(WMFFont.for(.headline)))
-                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                communityTabContent
             }
-
-            Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(uiColor: theme.paperBackground))
         .environment(\.colorScheme, theme.preferredColorScheme)
+        .onChange(of: viewModel.selectedTab) { tab in
+            if tab == .community {
+                viewModel.loadCommunityFeedIfNeeded()
+            }
+        }
     }
 
-    private var currentTabTitle: String {
-        switch viewModel.selectedTab {
-        case .forYou:
-            return viewModel.forYouTabTitle
-        case .community:
-            return viewModel.communityTabTitle
+    @ViewBuilder
+    private var communityTabContent: some View {
+        if let feed = viewModel.communityFeed, let project = viewModel.selectedLanguage.map({ WMFProject.wikipedia($0) }) {
+            WMFCommunityFeedView(feed: feed, project: project)
+        } else if viewModel.isLoadingCommunity {
+            Spacer()
+            ProgressView()
+            Spacer()
+        } else {
+            Spacer()
+            Text(viewModel.communityTabTitle)
+                .font(Font(WMFFont.for(.headline)))
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
+            Spacer()
         }
     }
 }

@@ -22,6 +22,9 @@ public final class WMFHomeViewModel: ObservableObject {
     @Published public var selectedTab: Tab = .community
     @Published public var languages: [WMFLanguage]
     @Published public var selectedLanguage: WMFLanguage?
+    @Published public var communityFeed: WMFFeedAPIResponse?
+    @Published public var communityFeedError: Error?
+    @Published public var isLoadingCommunity: Bool = false
 
     public var didSelectLanguage: ((WMFLanguage) -> Void)?
     public var didTapEditLanguages: (() -> Void)?
@@ -29,6 +32,22 @@ public final class WMFHomeViewModel: ObservableObject {
     // TODO: Temporary mock button for testing the "What's driving your feed" deep-link. Remove once the real feed entry point exists.
     let whatsDrivingTestButtonTitle = "settings test button"
     public var didTapWhatsDrivingTestButton: (() -> Void)?
+
+    public func loadCommunityFeedIfNeeded() {
+        guard communityFeed == nil, !isLoadingCommunity else { return }
+        guard let language = selectedLanguage else { return }
+        let project = WMFProject.wikipedia(language)
+        isLoadingCommunity = true
+        Task {
+            do {
+                let feed = try await WMFHomeDataController.shared.fetchCommunity(project: project)
+                self.communityFeed = feed
+            } catch {
+                self.communityFeedError = error
+            }
+            self.isLoadingCommunity = false
+        }
+    }
 
     public init(languages: [WMFLanguage] = [], selectedLanguage: WMFLanguage? = nil, didSelectLanguage: ((WMFLanguage) -> Void)? = nil, didTapEditLanguages: (() -> Void)? = nil, didTapWhatsDrivingTestButton: (() -> Void)? = nil) {
         self.languages = languages
