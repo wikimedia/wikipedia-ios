@@ -141,7 +141,6 @@ public class CommonStrings: NSObject {
     public static let gamesAnnouncementTitle = WMFLocalizedString("games-announcement-title", value: "Play \"Which came first?\"", comment: "Title for the games announcement action sheet.")
     public static let gamesAnnouncementMessage = WMFLocalizedString("games-announcement-message", value: "A new trivia game has arrived, based on Wikipedia content. Guess which event came first in history.", comment: "Message body for the games announcement action sheet.")
     public static let gamesAnnouncementPlayButton = WMFLocalizedString("games-announcement-play-button", value: "Play", comment: "Play button title for the games announcement action sheet.")
-    public static let gamesAnnouncementMaybeLaterButton = WMFLocalizedString("games-announcement-maybe-later-button", value: "Maybe later", comment: "Dismiss button title for the games announcement action sheet.")
     @objc public static let languagesTitle = WMFLocalizedString("languages-settings-title", value: "Languages", comment: "Title for the 'Languages' section in Settings")
     @objc public static let relatedPagesTitle = WMFLocalizedString("explore-because-you-read", value: "Because you read", comment: "Text for 'Because you read' header")
     @objc public static let continueReadingTitle = WMFLocalizedString("explore-continue-reading-heading", value: "Continue reading", comment: "Text for 'Continue Reading' header")

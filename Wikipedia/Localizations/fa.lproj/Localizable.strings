@@ -561,11 +561,15 @@
 "history-title" = "تاریخچه";
 "home-button-explore-accessibility-label" = "ویکی‌پدیا، بازگشت به بازدید";
 "home-button-saved-accessibility-label" = "ویکی‌پدیا، بازگشت به ذخیره‌شده‌ها";
+"home-community-tab-title" = "جامعه";
+"home-edit-languages-title" = "افزودن یا ویرایش زبان‌ها";
+"home-for-you-tab-title" = "برای شما";
 "home-more-like-footer" = "موارد بیشتر شبیه $1";
 "home-nearby-footer" = "مکان‌های بیشتر در نزدیکی موقعیت شما";
 "home-nearby-location-footer" = "موارد بیشتر نزدیک به $1";
 "home-news-footer" = "رویدادهای کنونی بیشتر";
 "home-reading-list-prompt" = "مقاله‌های ذخیره‌شدهٔ شما اکنون می‌توانند در فهرست‌های مطالعه مرتب شده و با دیگر دستگاه‌ها همگام‌سازی شوند. برای ذخیره فهرست‌های مطالعه در ترجیحات کاربری خود، به سامانه وارد شوید.";
+"home-tab-title" = "خانه";
 "home-themes-action-title" = "مدیریت ترجیحات";
 "home-themes-prompt" = "با تنظیم ترجیحات مطالعه شامل اندازه متن و پوسته از نوار ابزار مقاله یا در تنظیمات کاربری می‌توانید تجریهٔ یک مطالعهٔ مطبوع داشته باشید.";
 "home-title" = "بازدید";
@@ -1076,6 +1080,7 @@
 "settings-clear-cache-ok" = "پاک‌سازی حافظهٔ نهان";
 "settings-donate" = "کمک مالی";
 "settings-help-and-feedback" = "کمک و بازخورد";
+"settings-home-feed-title" = "صفحهٔ خانه";
 "settings-language-bar" = "نمایش زبان‌ها در جستجو";
 "settings-languages-feed-customization" = "می‌توانید با شفارشی‌سازی تنظیمات خوراک بازدید خود، زبان‌هایی که در این خوراک نمایش داده می‌شوند را مدیریت کنید.";
 "settings-my-languages" = "زبان‌های من";

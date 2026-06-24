@@ -128,7 +128,7 @@ private struct CalendarRepresentable: UIViewRepresentable {
             guard viewModel.playedDates[normalised] != nil else {
                 return nil
             }
-            let image = UIImage(systemName: "circlebadge.fill")?.withRenderingMode(.alwaysTemplate) // not adding our component to avond formatting issues.
+            let image = UIImage(systemName: "circlebadge.fill")?.withRenderingMode(.alwaysTemplate) // not adding our component to avoid formatting issues.
             image?.accessibilityLabel = viewModel.decorationAccessibilityLabel(for: date)
             return .image(image, color: calendarView.tintColor)
         }

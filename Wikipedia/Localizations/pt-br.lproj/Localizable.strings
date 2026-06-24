@@ -712,11 +712,15 @@
 "history-title" = "Histórico";
 "home-button-explore-accessibility-label" = "Wikipedia, retornar a Explorar";
 "home-button-saved-accessibility-label" = "Wikipédia, Retornar para Savado";
+"home-community-tab-title" = "Comunidade";
+"home-edit-languages-title" = "Acrescentar ou editar idiomas";
+"home-for-you-tab-title" = "Para você";
 "home-more-like-footer" = "Mais como $1";
 "home-nearby-footer" = "Mais lugares perto de sua localização";
 "home-nearby-location-footer" = "Mais perto de $1";
 "home-news-footer" = "Eventos mais atuais";
 "home-reading-list-prompt" = "Seus artigos salvos agora podem ser organizados em listas de leitura e sincronizados entre dispositivos. Faça login para permitir que suas listas de leitura sejam salvas nas preferências do usuário.";
+"home-tab-title" = "Início";
 "home-themes-action-title" = "Gerenciar preferências";
 "home-themes-prompt" = "Ajuste suas preferências de leitura, incluindo tamanho e tema do texto, na barra de ferramentas do artigo ou nas configurações do usuário para uma experiência de leitura mais confortável.";
 "home-title" = "Explorar";
@@ -1288,6 +1292,7 @@
 "settings-explore-games-subtitle" = "Jogos diários baseados no conteúdo da Wikipédia";
 "settings-explore-games-title" = "Wikipédia jogos";
 "settings-help-and-feedback" = "Ajuda e comentários";
+"settings-home-feed-title" = "Feed inicial";
 "settings-language-bar" = "Mostrar idiomas ao buscar";
 "settings-languages-feed-customization" = "Você pode gerenciar quais idiomas são exibidos no seu feed do Explore, personalizando as configurações do feed do Explore.";
 "settings-legal-sefaty-title" = "Contatos jurídicos e de segurança";

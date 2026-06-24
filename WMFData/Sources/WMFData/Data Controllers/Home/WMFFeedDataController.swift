@@ -1,6 +1,10 @@
 import Foundation
 
-public final actor WMFFeedDataController {
+public protocol WMFFeedDataControlling: Sendable {
+    func fetchFeed(project: WMFProject, date: Date) async throws -> WMFFeedAPIResponse
+}
+
+public final actor WMFFeedDataController: WMFFeedDataControlling {
 
     private let basicService: WMFService?
 
