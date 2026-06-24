@@ -22,9 +22,10 @@ public final class WMFHomeViewModel: ObservableObject {
     @Published public var selectedTab: Tab = .community
     @Published public var languages: [WMFLanguage]
     @Published public var selectedLanguage: WMFLanguage?
-    @Published public var communityFeed: WMFHomeCommunityViewModel?
+    @Published public var communityPages: [WMFHomeCommunityViewModel] = []
     @Published public var communityFeedError: Error?
     @Published public var isLoadingCommunity: Bool = false
+    @Published public var isLoadingCommunityPreviousPage: Bool = false
 
     public var didSelectLanguage: ((WMFLanguage) -> Void)?
     public var didTapEditLanguages: (() -> Void)?
@@ -34,18 +35,34 @@ public final class WMFHomeViewModel: ObservableObject {
     public var didTapWhatsDrivingTestButton: (() -> Void)?
 
     public func loadCommunityFeedIfNeeded() {
-        guard communityFeed == nil, !isLoadingCommunity else { return }
+        guard communityPages.isEmpty, !isLoadingCommunity else { return }
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
         isLoadingCommunity = true
         Task {
             do {
                 let response = try await WMFHomeDataController.shared.fetchCommunity(project: project)
-                self.communityFeed = WMFHomeCommunityViewModel(response: response, project: project)
+                self.communityPages = [WMFHomeCommunityViewModel(response: response, project: project)]
             } catch {
                 self.communityFeedError = error
             }
             self.isLoadingCommunity = false
+        }
+    }
+
+    public func loadCommunityPreviousPage() {
+        guard !isLoadingCommunityPreviousPage else { return }
+        guard let language = selectedLanguage else { return }
+        let project = WMFProject.wikipedia(language)
+        isLoadingCommunityPreviousPage = true
+        Task {
+            do {
+                let response = try await WMFHomeDataController.shared.fetchCommunityPreviousPage(project: project)
+                self.communityPages.append(WMFHomeCommunityViewModel(response: response, project: project))
+            } catch {
+                self.communityFeedError = error
+            }
+            self.isLoadingCommunityPreviousPage = false
         }
     }
 

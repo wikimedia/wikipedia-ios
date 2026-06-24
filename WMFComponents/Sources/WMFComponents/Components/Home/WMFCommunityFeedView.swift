@@ -9,28 +9,47 @@ struct WMFCommunityFeedView: View {
 
     var theme: WMFTheme { appEnvironment.theme }
 
-    let viewModel: WMFHomeCommunityViewModel
+    let pages: [WMFHomeCommunityViewModel]
+    let isLoadingPreviousPage: Bool
+    let onTapSeePastContent: () -> Void
 
     var body: some View {
         List {
-            if let tfa = viewModel.featuredArticle {
-                featuredArticleSection(tfa)
+            ForEach(Array(pages.enumerated()), id: \.offset) { _, page in
+                if let tfa = page.featuredArticle {
+                    featuredArticleSection(tfa)
+                }
+                if !page.topReadItems.isEmpty {
+                    topReadSection(page.topReadItems)
+                }
+                if !page.newsItems.isEmpty {
+                    inTheNewsSection(page.newsItems)
+                }
+                if let onThisDayItems = page.onThisDayItems {
+                    onThisDaySection(onThisDayItems)
+                }
+                if let pictureOfDay = page.pictureOfDay {
+                    pictureOfTheDaySection(pictureOfDay)
+                }
             }
 
-            if !viewModel.topReadItems.isEmpty {
-                topReadSection(viewModel.topReadItems)
-            }
-
-            if !viewModel.newsItems.isEmpty {
-                inTheNewsSection(viewModel.newsItems)
-            }
-
-            if let onThisDayItems = viewModel.onThisDayItems {
-                onThisDaySection(onThisDayItems)
-            }
-
-            if let pictureOfDay = viewModel.pictureOfDay {
-                pictureOfTheDaySection(pictureOfDay)
+            Section {
+                if isLoadingPreviousPage {
+                    ProgressView()
+                        .frame(maxWidth: .infinity)
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color(uiColor: theme.paperBackground))
+                } else {
+                    Button(action: onTapSeePastContent) {
+                        Text("See past community content")
+                            .font(Font(WMFFont.for(.semiboldHeadline)))
+                            .foregroundStyle(Color(uiColor: theme.link))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
+                    }
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color(uiColor: theme.paperBackground))
+                }
             }
         }
         .listStyle(.plain)

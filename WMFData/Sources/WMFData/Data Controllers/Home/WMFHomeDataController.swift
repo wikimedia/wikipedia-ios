@@ -270,6 +270,7 @@ public final actor WMFHomeDataController {
     @discardableResult
     public func fetchCommunity(project: WMFProject, date: Date = Date(), forceFetch: Bool = false) async throws -> WMFCommunityResponse {
         if !forceFetch, let cached = cachedCommunityResponse(for: project) {
+            recordCommunityFetchedDate(date, project: project)
             return cached
         }
         let calendar = Calendar(identifier: .gregorian)

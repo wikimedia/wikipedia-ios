@@ -78,8 +78,12 @@ public struct WMFHomeView: View {
 
     @ViewBuilder
     private var communityTabContent: some View {
-        if let communityViewModel = viewModel.communityFeed {
-            WMFCommunityFeedView(viewModel: communityViewModel)
+        if !viewModel.communityPages.isEmpty {
+            WMFCommunityFeedView(
+                pages: viewModel.communityPages,
+                isLoadingPreviousPage: viewModel.isLoadingCommunityPreviousPage,
+                onTapSeePastContent: { viewModel.loadCommunityPreviousPage() }
+            )
         } else if viewModel.isLoadingCommunity {
             Spacer()
             ProgressView()
