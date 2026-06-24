@@ -54,10 +54,10 @@ struct WMFInterestArticleCardViewModelTests {
     }
 
     @Test
-    func loadImageIfNeededDoesNothingWhenNoThumbnail() {
+    func loadIfNeededDoesNothingWhenNoThumbnail() {
         let article = makeArticle(thumbnailSource: nil)
         let viewModel = WMFInterestArticleCardViewModel(article: article)
-        viewModel.loadImageIfNeeded()
+        viewModel.loadIfNeeded()
         #expect(viewModel.uiImage == nil)
     }
 }

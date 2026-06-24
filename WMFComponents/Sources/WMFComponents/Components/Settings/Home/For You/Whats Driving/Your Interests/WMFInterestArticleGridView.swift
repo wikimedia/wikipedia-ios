@@ -5,39 +5,40 @@ import WMFData
 
 struct WMFInterestArticleGridView: View {
 
-    let articles: [WMFRandomArticle]
+    let viewModels: [WMFInterestArticleCardViewModel]
     let theme: WMFTheme
+    let onTap: (WMFInterestArticleCardViewModel) -> Void
 
-    private var columns: (left: [WMFRandomArticle], right: [WMFRandomArticle]) {
-        var left: [WMFRandomArticle] = []
-        var right: [WMFRandomArticle] = []
+    private var columns: (left: [WMFInterestArticleCardViewModel], right: [WMFInterestArticleCardViewModel]) {
+        var left: [WMFInterestArticleCardViewModel] = []
+        var right: [WMFInterestArticleCardViewModel] = []
         var leftHeight: CGFloat = 0
         var rightHeight: CGFloat = 0
 
-        for article in articles {
+        for vm in viewModels {
             if leftHeight <= rightHeight {
-                left.append(article)
-                leftHeight += estimatedHeight(for: article)
+                left.append(vm)
+                leftHeight += estimatedHeight(for: vm)
             } else {
-                right.append(article)
-                rightHeight += estimatedHeight(for: article)
+                right.append(vm)
+                rightHeight += estimatedHeight(for: vm)
             }
         }
         return (left, right)
     }
 
-    private func estimatedHeight(for article: WMFRandomArticle) -> CGFloat {
-        let imageHeight: CGFloat = article.thumbnail?.url != nil ? 100 : 0
-        let titleLines = max(1, Int(ceil(Double((article.displayTitle ?? article.title).count) / 18.0)))
+    private func estimatedHeight(for vm: WMFInterestArticleCardViewModel) -> CGFloat {
+        let imageHeight: CGFloat = vm.thumbnailURL != nil ? 100 : 0
+        let titleLines = max(1, Int(ceil(Double(vm.title.count) / 18.0)))
         let titleHeight = CGFloat(titleLines) * 20
         let descriptionHeight: CGFloat
-        if let desc = article.description {
+        if let desc = vm.description {
             let lines = max(1, Int(ceil(Double(desc.count) / 20.0)))
             descriptionHeight = CGFloat(lines) * 16
         } else {
             descriptionHeight = 0
         }
-        return imageHeight + titleHeight + descriptionHeight + 32 // 32 for padding + spacing
+        return imageHeight + titleHeight + descriptionHeight + 32
     }
 
     var body: some View {
@@ -50,13 +51,13 @@ struct WMFInterestArticleGridView: View {
         .padding(.vertical, 12)
     }
 
-    private func column(_ items: [WMFRandomArticle]) -> some View {
+    private func column(_ items: [WMFInterestArticleCardViewModel]) -> some View {
         LazyVStack(spacing: 12) {
-            ForEach(items, id: \.pageid) { article in
-                WMFInterestArticleCardView(
-                    viewModel: WMFInterestArticleCardViewModel(article: article),
-                    theme: theme
-                )
+            ForEach(items) { vm in
+                WMFInterestArticleCardView(viewModel: vm, theme: theme)
+                    .onTapGesture {
+                        onTap(vm)
+                    }
             }
         }
     }
@@ -70,12 +71,28 @@ private struct WMFInterestArticleCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             if let uiImage = viewModel.uiImage {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: 100)
-                    .clipped()
-                    .contentShape(Rectangle())
+                ZStack(alignment: .topTrailing) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 100)
+                        .clipped()
+                        .contentShape(Rectangle())
+
+                    if viewModel.isSelected {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundStyle(Color(uiColor: theme.link))
+                            .background(Color(uiColor: theme.paperBackground).clipShape(Circle()))
+                            .padding(6)
+                    }
+                }
+            } else if viewModel.isSelected {
+                HStack {
+                    Spacer()
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundStyle(Color(uiColor: theme.link))
+                        .padding(6)
+                }
             }
             VStack(alignment: .leading, spacing: 4) {
                 WMFHtmlText(html: viewModel.title, styles: HtmlUtils.Styles(font: WMFFont.for(.subheadline), boldFont: WMFFont.for(.boldSubheadline), italicsFont: WMFFont.for(.italicSubheadline), boldItalicsFont: WMFFont.for(.italicSubheadline), color: theme.text, linkColor: theme.link, lineSpacing: 1))
@@ -93,10 +110,13 @@ private struct WMFInterestArticleCardView: View {
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .overlay(
             RoundedRectangle(cornerRadius: 8)
-                .strokeBorder(Color(uiColor: theme.border), lineWidth: 0.5)
+                .strokeBorder(
+                    viewModel.isSelected ? Color(uiColor: theme.link) : Color(uiColor: theme.border),
+                    lineWidth: viewModel.isSelected ? 2 : 0.5
+                )
         )
         .onAppear {
-            viewModel.loadImageIfNeeded()
+            viewModel.loadIfNeeded()
         }
     }
 }

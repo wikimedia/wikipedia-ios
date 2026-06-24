@@ -37,8 +37,14 @@ public struct WMFHomeFeedInterestsSettingsView: View {
                     ProgressView()
                         .frame(maxWidth: .infinity)
                         .padding(.top, 80)
-                } else if !viewModel.randomArticles.isEmpty {
-                    WMFInterestArticleGridView(articles: viewModel.randomArticles, theme: theme)
+                } else if !viewModel.gridViewModels.isEmpty {
+                    WMFInterestArticleGridView(
+                        viewModels: viewModel.gridViewModels,
+                        theme: theme,
+                        onTap: { vm in
+                            viewModel.toggleArticleSelection(vm)
+                        }
+                    )
                 } else {
                     HStack {
                         Spacer()
