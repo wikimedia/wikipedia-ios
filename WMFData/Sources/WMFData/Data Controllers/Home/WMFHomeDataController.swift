@@ -4,6 +4,11 @@ public final actor WMFHomeDataController {
 
     private let feedDataController: any WMFFeedDataControlling
     private let basicService: WMFService?
+    private let relatedPagesDataController: WMFRelatedPagesDataController
+
+    private var pageInterestDataController: WMFPageInterestDataController? {
+        try? WMFPageInterestDataController()
+    }
 
     // Accessed only from `nonisolated` UserDefaults helpers below; WMFKeyValueStore is not Sendable.
     nonisolated(unsafe) private let userDefaultsStore: WMFKeyValueStore?
@@ -13,10 +18,11 @@ public final actor WMFHomeDataController {
 
     public static let shared = WMFHomeDataController()
 
-    public init(feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared, basicService: WMFService? = WMFDataEnvironment.current.basicService, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore) {
+    public init(feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared, basicService: WMFService? = WMFDataEnvironment.current.basicService, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, relatedPagesDataController: WMFRelatedPagesDataController = WMFRelatedPagesDataController.shared) {
         self.feedDataController = feedDataController
         self.basicService = basicService
         self.userDefaultsStore = userDefaultsStore
+        self.relatedPagesDataController = relatedPagesDataController
     }
 
     // MARK: - Settings: Selected Language
@@ -111,24 +117,50 @@ public final actor WMFHomeDataController {
     // MARK: - Public API
 
     public func fetchForYou(project: WMFProject) async throws -> WMFForYouResponse {
-        let topics = interestTopics().shuffled().prefix(5)
-        guard !topics.isEmpty else {
-            return WMFForYouResponse(interestTopicArticles: [])
+        guard pageInterestDataController != nil else {
+            throw WMFDataControllerError.coreDataStoreUnavailable
         }
+        async let interestTopicRandomArticles = fetchForYouInterestTopicRandomArticles(project: project)
+        async let interestPageRelatedArticles = fetchForYouInterestPageRelatedArticles(project: project)
+        return try await WMFForYouResponse(
+            interestTopicRandomArticles: interestTopicRandomArticles,
+            interestPageRelatedArticles: interestPageRelatedArticles
+        )
+    }
 
-        return try await withThrowingTaskGroup(of: WMFForYouInterestTopicArticles.self) { group in
+    private func fetchForYouInterestTopicRandomArticles(project: WMFProject) async throws -> [WMFForYouInterestTopicRandomArticles] {
+        let topics = interestTopics().shuffled().prefix(5)
+        guard !topics.isEmpty else { return [] }
+
+        return try await withThrowingTaskGroup(of: WMFForYouInterestTopicRandomArticles.self) { group in
             for topic in topics {
                 group.addTask {
                     let articles = try await self.fetchArticles(for: topic, project: project)
-                    return WMFForYouInterestTopicArticles(topic: topic, articles: Array(articles.shuffled().prefix(4)))
+                    return WMFForYouInterestTopicRandomArticles(topic: topic, articles: Array(articles.shuffled().prefix(4)))
                 }
             }
+            var results: [WMFForYouInterestTopicRandomArticles] = []
+            for try await item in group { results.append(item) }
+            return results
+        }
+    }
 
-            var results: [WMFForYouInterestTopicArticles] = []
-            for try await topicArticles in group {
-                results.append(topicArticles)
+    private func fetchForYouInterestPageRelatedArticles(project: WMFProject) async throws -> [WMFForYouInterestPageRelatedArticles] {
+        guard let pageInterestDataController else { return [] }
+        let interests = try await pageInterestDataController.fetchPageInterests(project: project)
+        let selected = interests.shuffled().prefix(5)
+        guard !selected.isEmpty else { return [] }
+
+        return try await withThrowingTaskGroup(of: WMFForYouInterestPageRelatedArticles.self) { group in
+            for interest in selected {
+                group.addTask {
+                    let related = try await self.relatedPagesDataController.fetchRelatedPages(title: interest.title, project: project)
+                    return WMFForYouInterestPageRelatedArticles(pageInterest: interest, articles: Array(related.shuffled().prefix(4)))
+                }
             }
-            return WMFForYouResponse(interestTopicArticles: results)
+            var results: [WMFForYouInterestPageRelatedArticles] = []
+            for try await item in group { results.append(item) }
+            return results
         }
     }
 
@@ -226,13 +258,19 @@ public final actor WMFHomeDataController {
 
 // MARK: - For You response models
 
-public struct WMFForYouInterestTopicArticles: Sendable {
+public struct WMFForYouInterestTopicRandomArticles: Sendable {
     public let topic: WMFArticleTopic
     public let articles: [WMFRandomArticle]
 }
 
+public struct WMFForYouInterestPageRelatedArticles: Sendable {
+    public let pageInterest: WMFPageInterest
+    public let articles: [WMFRelatedPagesDataController.WMFRelatedPage]
+}
+
 public struct WMFForYouResponse: Sendable {
-    public let interestTopicArticles: [WMFForYouInterestTopicArticles]
+    public let interestTopicRandomArticles: [WMFForYouInterestTopicRandomArticles]
+    public let interestPageRelatedArticles: [WMFForYouInterestPageRelatedArticles]
 }
 
 // MARK: - Topic articles response models

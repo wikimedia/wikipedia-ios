@@ -7,6 +7,16 @@ final class WMFHomeDataControllerTests: XCTestCase {
 
     private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
 
+    override func setUp() async throws {
+        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
+        WMFDataEnvironment.current.coreDataStore = store
+    }
+
+    override func tearDown() async throws {
+        WMFDataEnvironment.current.coreDataStore = nil
+    }
+
     private var dec11: Date {
         var components = DateComponents()
         components.year = 2025
@@ -33,30 +43,81 @@ final class WMFHomeDataControllerTests: XCTestCase {
 
     // MARK: - fetchForYou
 
-    private func makeForYouController(topics: [WMFArticleTopic]) -> WMFHomeDataController {
+    private func makeForYouController(topics: [WMFArticleTopic], relatedPagesDataController: WMFRelatedPagesDataController = WMFRelatedPagesDataController(basicService: WMFMockBasicService(jsonResourceName: "related-pages-get"))) -> WMFHomeDataController {
         let store = WMFMockKeyValueStore()
         let service = WMFMockBasicService(jsonResourceName: "random-articles-get")
         let controller = WMFHomeDataController(
             feedDataController: WMFMockFeedDataController(response: stubResponse),
             basicService: service,
-            userDefaultsStore: store
+            userDefaultsStore: store,
+            relatedPagesDataController: relatedPagesDataController
         )
         controller.setInterestTopics(topics)
         return controller
     }
 
-    func testFetchForYouReturnsEmptyResponseWhenNoTopicsSelected() async throws {
+    private func seedPageInterests(_ titles: [String], project: WMFProject) async throws {
+        let pageInterestController = try WMFPageInterestDataController()
+        for title in titles {
+            try await pageInterestController.addPageInterest(title: title, project: project)
+        }
+    }
+
+    func testFetchForYouReturnsEmptyPageInterestArticlesWhenNoPageInterestsSaved() async throws {
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)
-        XCTAssertTrue(response.interestTopicArticles.isEmpty)
+        XCTAssertTrue(response.interestPageRelatedArticles.isEmpty)
+    }
+
+    func testFetchForYouReturnsOneGroupPerPageInterest() async throws {
+        try await seedPageInterests(["Cat", "Dog", "Fish"], project: enProject)
+        let controller = makeForYouController(topics: [])
+        let response = try await controller.fetchForYou(project: enProject)
+        XCTAssertEqual(response.interestPageRelatedArticles.count, 3)
+        let returnedTitles = Set(response.interestPageRelatedArticles.map { $0.pageInterest.title })
+        XCTAssertEqual(returnedTitles, ["Cat", "Dog", "Fish"])
+    }
+
+    func testFetchForYouCapsAtFivePageInterests() async throws {
+        try await seedPageInterests(["Cat", "Dog", "Fish", "Bird", "Lizard", "Snake", "Frog"], project: enProject)
+        let controller = makeForYouController(topics: [])
+        let response = try await controller.fetchForYou(project: enProject)
+        XCTAssertEqual(response.interestPageRelatedArticles.count, 5)
+    }
+
+    func testFetchForYouCapsAtFourRelatedArticlesPerPageInterest() async throws {
+        try await seedPageInterests(["Cat"], project: enProject)
+        let controller = makeForYouController(topics: [])
+        let response = try await controller.fetchForYou(project: enProject)
+        XCTAssertEqual(response.interestPageRelatedArticles.count, 1)
+        XCTAssertLessThanOrEqual(response.interestPageRelatedArticles[0].articles.count, 4)
+    }
+
+    func testFetchForYouPageInterestArticlesAreIsolatedByProject() async throws {
+        let esProject = WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil))
+        try await seedPageInterests(["Cat"], project: enProject)
+        let controller = makeForYouController(topics: [])
+        let response = try await controller.fetchForYou(project: esProject)
+        XCTAssertTrue(response.interestPageRelatedArticles.isEmpty)
+    }
+
+    func testFetchForYouThrowsWhenCoreDataUnavailable() async throws {
+        WMFDataEnvironment.current.coreDataStore = nil
+        let controller = makeForYouController(topics: [])
+        do {
+            _ = try await controller.fetchForYou(project: enProject)
+            XCTFail("Expected coreDataStoreUnavailable error")
+        } catch WMFDataControllerError.coreDataStoreUnavailable {
+            // expected
+        }
     }
 
     func testFetchForYouReturnsOneGroupPerTopicWhenFewerThanFive() async throws {
         let topics: [WMFArticleTopic] = [.history, .biology, .music]
         let controller = makeForYouController(topics: topics)
         let response = try await controller.fetchForYou(project: enProject)
-        XCTAssertEqual(response.interestTopicArticles.count, 3)
-        let returnedTopics = Set(response.interestTopicArticles.map { $0.topic })
+        XCTAssertEqual(response.interestTopicRandomArticles.count, 3)
+        let returnedTopics = Set(response.interestTopicRandomArticles.map { $0.topic })
         XCTAssertEqual(returnedTopics, Set(topics))
     }
 
@@ -64,14 +125,14 @@ final class WMFHomeDataControllerTests: XCTestCase {
         let topics: [WMFArticleTopic] = [.history, .biology, .music, .films, .sports, .physics, .technology]
         let controller = makeForYouController(topics: topics)
         let response = try await controller.fetchForYou(project: enProject)
-        XCTAssertEqual(response.interestTopicArticles.count, 5)
+        XCTAssertEqual(response.interestTopicRandomArticles.count, 5)
     }
 
     func testFetchForYouCapsAtFourArticlesPerTopic() async throws {
         let controller = makeForYouController(topics: [.history])
         let response = try await controller.fetchForYou(project: enProject)
-        XCTAssertEqual(response.interestTopicArticles.count, 1)
-        XCTAssertLessThanOrEqual(response.interestTopicArticles[0].articles.count, 4)
+        XCTAssertEqual(response.interestTopicRandomArticles.count, 1)
+        XCTAssertLessThanOrEqual(response.interestTopicRandomArticles[0].articles.count, 4)
     }
 
     func testFetchForYouFailsForNonWikipediaProject() async throws {
