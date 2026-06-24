@@ -25,6 +25,7 @@ public struct WMFHomeCommunityViewModel {
 
     // MARK: - Properties
 
+    public let date: String
     public let featuredArticle: WMFFeedArticle?
     public let topReadItems: [TopReadItem]
     public let newsItems: [NewsItem]
@@ -39,6 +40,10 @@ public struct WMFHomeCommunityViewModel {
         let currentYear = Calendar.current.component(.year, from: Date())
 
         self.project = project
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM d, yyyy"
+        self.date = dateFormatter.string(from: response.date)
         self.featuredArticle = response.feedResponse.todaysFeaturedArticle
 
         self.topReadItems = (response.feedResponse.mostRead?.articles ?? [])

@@ -16,6 +16,7 @@ struct WMFCommunityFeedView: View {
     var body: some View {
         List {
             ForEach(Array(pages.enumerated()), id: \.offset) { _, page in
+                dateSection(page.date)
                 if let tfa = page.featuredArticle {
                     featuredArticleSection(tfa)
                 }
@@ -54,6 +55,21 @@ struct WMFCommunityFeedView: View {
         }
         .listStyle(.plain)
         .background(Color(uiColor: theme.paperBackground))
+    }
+
+    // MARK: - Date Callout
+
+    private func dateSection(_ dateString: String) -> some View {
+        Section {
+            Text(dateString)
+                .font(Font(WMFFont.for(.boldTitle1)))
+                .foregroundStyle(Color(uiColor: theme.text))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.vertical, 12)
+                .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color(uiColor: theme.paperBackground))
+        }
     }
 
     // MARK: - Featured Article

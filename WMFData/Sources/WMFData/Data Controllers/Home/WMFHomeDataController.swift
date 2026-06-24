@@ -278,7 +278,7 @@ public final actor WMFHomeDataController {
         let day = calendar.component(.day, from: date)
         async let feedResponse = feedDataController.fetchFeed(project: project, date: date)
         async let onThisDay = try? onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
-        let response = try await WMFCommunityResponse(feedResponse: feedResponse, onThisDay: onThisDay)
+        let response = try await WMFCommunityResponse(date: date, feedResponse: feedResponse, onThisDay: onThisDay)
         recordCommunityFetchedDate(date, project: project)
         cacheCommunityResponse(response, for: project)
         return response
@@ -300,7 +300,7 @@ public final actor WMFHomeDataController {
         let day = calendar.component(.day, from: previousDate)
         async let feedResponse = feedDataController.fetchFeed(project: project, date: previousDate)
         async let onThisDay = try? onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
-        let response = try await WMFCommunityResponse(feedResponse: feedResponse, onThisDay: onThisDay)
+        let response = try await WMFCommunityResponse(date: previousDate, feedResponse: feedResponse, onThisDay: onThisDay)
         recordCommunityFetchedDate(previousDate, project: project)
         return response
     }
@@ -355,6 +355,7 @@ public final actor WMFHomeDataController {
 // MARK: - Community response model
 
 public struct WMFCommunityResponse: Codable, Sendable {
+    public let date: Date
     public let feedResponse: WMFFeedAPIResponse
     public let onThisDay: WMFOnThisDayResponse?
 }
