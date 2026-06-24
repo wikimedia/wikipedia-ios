@@ -18,6 +18,7 @@ public enum WMFFont {
     case boldItalicSubheadline
     case boldSubheadline
     case boldTitle1
+    case boldTitle2
     case boldTitle3
     case georgiaCallout
     case callout
@@ -128,6 +129,10 @@ public enum WMFFont {
             let base = UIFont.preferredFont(forTextStyle: .title1, compatibleWith: traitCollection)
             let font = UIFont.systemFont(ofSize: base.pointSize, weight: .bold)
             return UIFontMetrics(forTextStyle: .title1).scaledFont(for: font, compatibleWith: traitCollection)
+        case .boldTitle2:
+            let base = UIFont.preferredFont(forTextStyle: .title2, compatibleWith: traitCollection)
+            let font = UIFont.systemFont(ofSize: base.pointSize, weight: .bold)
+            return UIFontMetrics(forTextStyle: .title2).scaledFont(for: font, compatibleWith: traitCollection)
         case .boldTitle3:
             let base = UIFont.preferredFont(forTextStyle: .title3, compatibleWith: traitCollection)
             let font = UIFont.systemFont(ofSize: base.pointSize, weight: .bold)
