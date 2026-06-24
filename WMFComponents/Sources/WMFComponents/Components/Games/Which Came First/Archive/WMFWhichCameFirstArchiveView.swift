@@ -25,7 +25,7 @@ public struct WMFWhichCameFirstArchiveView: View {
 
                     calendarCard
                         .shadow(color: Color(uiColor: theme.text).opacity(0.05), radius: 8, x: 0, y: 0)
-                        .padding(.horizontal, 32)
+                        .padding(.horizontal, 16)
 
                     Spacer()
                 }
@@ -37,11 +37,12 @@ public struct WMFWhichCameFirstArchiveView: View {
 
     private var headerSection: some View {
         VStack(spacing: 4) {
-            Image(systemName: "calendar.badge.clock") // TODO: ignore accesibility reading
+            Image(systemName: "calendar.badge.clock")
                 .font(.system(size: 64))
                 .foregroundColor(Color(uiColor: theme.text))
                 .frame(width: 98, height: 72)
                 .padding(.bottom, 12)
+                .accessibilityHidden(true)
 
             Group {
                 Text(viewModel.localizedStrings.title + " ")
@@ -81,7 +82,7 @@ private struct CalendarRepresentable: UIViewRepresentable {
         Coordinator(viewModel: viewModel)
     }
 
-    func makeUIView(context: Context) -> UICalendarView { //TODO: fix padding
+    func makeUIView(context: Context) -> UICalendarView {
         let cv = UICalendarView()
         cv.delegate = context.coordinator
         cv.tintColor = theme.link
@@ -124,7 +125,7 @@ private struct CalendarRepresentable: UIViewRepresentable {
             guard viewModel.playedDates[normalised] != nil || viewModel.pausedDates.contains(normalised) else {
                 return nil
             }
-            let image = UIImage(systemName: "circlebadge.fill")?.withRenderingMode(.alwaysTemplate) // TODO: check if we can use our component
+            let image = UIImage(systemName: "circlebadge.fill")?.withRenderingMode(.alwaysTemplate) // not adding our component to avond formatting issues.
             image?.accessibilityLabel = viewModel.decorationAccessibilityLabel(for: date)
             return .image(image, color: calendarView.tintColor)
         }
