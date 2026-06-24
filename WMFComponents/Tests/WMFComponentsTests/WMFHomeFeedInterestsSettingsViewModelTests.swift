@@ -58,6 +58,41 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
         #expect(viewModel.selectedTopics.contains(.architecture))
     }
 
+    // MARK: - Article selection
+
+    @Test
+    func toggleArticleSelectionSelectsUnselectedCard() {
+        let viewModel = makeViewModel()
+        let article = WMFRandomArticle(pageid: 1, title: "Test", displayTitle: nil, variantTitles: nil, description: nil, extract: nil, thumbnail: nil)
+        let cardVM = WMFInterestArticleCardViewModel(article: article)
+        viewModel.toggleArticleSelection(cardVM)
+        #expect(cardVM.isSelected == true)
+    }
+
+    @Test
+    func toggleArticleSelectionDeselectsSelectedCard() {
+        let viewModel = makeViewModel()
+        let article = WMFRandomArticle(pageid: 1, title: "Test", displayTitle: nil, variantTitles: nil, description: nil, extract: nil, thumbnail: nil)
+        let cardVM = WMFInterestArticleCardViewModel(article: article)
+        viewModel.toggleArticleSelection(cardVM) // select
+        viewModel.toggleArticleSelection(cardVM) // deselect
+        #expect(cardVM.isSelected == false)
+    }
+
+    @Test
+    func toggleArticleSelectionTracksMultipleArticles() {
+        let viewModel = makeViewModel()
+        let a = WMFInterestArticleCardViewModel(article: WMFRandomArticle(pageid: 1, title: "A", displayTitle: nil, variantTitles: nil, description: nil, extract: nil, thumbnail: nil))
+        let b = WMFInterestArticleCardViewModel(article: WMFRandomArticle(pageid: 2, title: "B", displayTitle: nil, variantTitles: nil, description: nil, extract: nil, thumbnail: nil))
+        viewModel.toggleArticleSelection(a)
+        viewModel.toggleArticleSelection(b)
+        viewModel.toggleArticleSelection(a) // deselect A only
+        #expect(a.isSelected == false)
+        #expect(b.isSelected == true)
+    }
+
+    // MARK: - Persistence
+
     @Test
     func unknownRawValuesAreIgnoredOnLoad() {
         let store = WMFMockKeyValueStore()

@@ -1,3 +1,4 @@
+import Foundation
 import Testing
 @testable import WMFComponents
 @testable import WMFData
@@ -18,6 +19,8 @@ struct WMFInterestArticleCardViewModelTests {
         return WMFRandomArticle(pageid: pageid, title: title, displayTitle: displayTitle, variantTitles: nil, description: description, extract: nil, thumbnail: thumbnail)
     }
 
+    // MARK: - Title
+
     @Test
     func prefersDisplayTitleOverTitle() {
         let article = makeArticle(title: "Raw title", displayTitle: "<i>Display title</i>")
@@ -32,6 +35,8 @@ struct WMFInterestArticleCardViewModelTests {
         #expect(viewModel.title == "Raw title")
     }
 
+    // MARK: - Description
+
     @Test
     func descriptionIsNilWhenAbsent() {
         let article = makeArticle(description: nil)
@@ -45,6 +50,8 @@ struct WMFInterestArticleCardViewModelTests {
         let viewModel = WMFInterestArticleCardViewModel(article: article)
         #expect(viewModel.description == "A short description")
     }
+
+    // MARK: - Image
 
     @Test
     func imageIsNilBeforeLoad() {
