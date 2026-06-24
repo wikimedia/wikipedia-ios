@@ -12,10 +12,12 @@ final class WMFHomeDataControllerTests: XCTestCase {
         let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
         WMFDataEnvironment.current.coreDataStore = store
+        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
     }
 
     override func tearDown() async throws {
         WMFDataEnvironment.current.coreDataStore = nil
+        WMFDataEnvironment.current.sharedCacheStore = nil
     }
 
     private var dec11: Date {
@@ -325,5 +327,96 @@ final class WMFHomeDataControllerTests: XCTestCase {
         let calls = await spy.calls
         XCTAssertEqual(calls.count, 2)
         XCTAssertTrue(Calendar(identifier: .gregorian).isDate(calls[1].date, inSameDayAs: dec10))
+    }
+
+    // MARK: - fetchCommunity caching
+
+    func testFetchCommunityReturnsCachedResponseOnSameDay() async throws {
+        let (controller, spy) = makeController()
+        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
+        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
+        let calls = await spy.calls
+        XCTAssertEqual(calls.count, 1)
+    }
+
+    func testFetchCommunityForceFetchBypassesCache() async throws {
+        let (controller, spy) = makeController()
+        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
+        _ = try await controller.fetchCommunity(project: enProject, date: dec11, forceFetch: true)
+        let calls = await spy.calls
+        XCTAssertEqual(calls.count, 2)
+    }
+
+    func testFetchCommunityCacheIsIsolatedByProject() async throws {
+        let esProject = WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil))
+        let (controller, spy) = makeController()
+        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
+        _ = try await controller.fetchCommunity(project: esProject, date: dec11)
+        let calls = await spy.calls
+        XCTAssertEqual(calls.count, 2)
+    }
+
+    // MARK: - fetchForYou caching
+
+    func testFetchForYouReturnsCachedResponseOnSameDay() async throws {
+        // First call with a working service populates the cache.
+        let controller = makeForYouController(topics: [.history])
+        _ = try await controller.fetchForYou(project: enProject)
+
+        // Second call with no basic service — succeeds only if served from cache.
+        let noServiceController = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            basicService: nil,
+            userDefaultsStore: WMFMockKeyValueStore(),
+            relatedPagesDataController: WMFRelatedPagesDataController(basicService: nil),
+            savedArticlesDataController: WMFSavedArticlesDataController()
+        )
+        noServiceController.setInterestTopics([.history])
+        let response = try await noServiceController.fetchForYou(project: enProject)
+        XCTAssertFalse(response.interestTopicRandomArticles.isEmpty)
+    }
+
+    func testFetchForYouForceFetchBypassesCache() async throws {
+        // Populate the cache.
+        let controller = makeForYouController(topics: [.history])
+        _ = try await controller.fetchForYou(project: enProject)
+
+        // forceFetch with no service — should throw because it bypasses cache and hits the network.
+        let noServiceController = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            basicService: nil,
+            userDefaultsStore: WMFMockKeyValueStore(),
+            relatedPagesDataController: WMFRelatedPagesDataController(basicService: nil),
+            savedArticlesDataController: WMFSavedArticlesDataController()
+        )
+        noServiceController.setInterestTopics([.history])
+        do {
+            _ = try await noServiceController.fetchForYou(project: enProject, forceFetch: true)
+            XCTFail("Expected basicServiceUnavailable error")
+        } catch WMFDataControllerError.basicServiceUnavailable {
+            // expected — cache was bypassed and network call failed
+        }
+    }
+
+    func testFetchForYouCacheIsIsolatedByProject() async throws {
+        let esProject = WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil))
+        let controller = makeForYouController(topics: [.history])
+        _ = try await controller.fetchForYou(project: enProject)
+
+        // es project has no cached data — a nil-service controller should fail.
+        let noServiceController = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            basicService: nil,
+            userDefaultsStore: WMFMockKeyValueStore(),
+            relatedPagesDataController: WMFRelatedPagesDataController(basicService: nil),
+            savedArticlesDataController: WMFSavedArticlesDataController()
+        )
+        noServiceController.setInterestTopics([.history])
+        do {
+            _ = try await noServiceController.fetchForYou(project: esProject)
+            XCTFail("Expected basicServiceUnavailable error")
+        } catch WMFDataControllerError.basicServiceUnavailable {
+            // expected — es project cache miss triggers network call which fails
+        }
     }
 }
