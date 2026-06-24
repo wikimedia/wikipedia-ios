@@ -271,7 +271,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
         _ = try await controller.fetchCommunity(project: enProject, date: dec10)
         _ = try await controller.fetchCommunity(project: enProject, date: dec10) // duplicate — should not be recorded
         // fetchedDates should be [Dec 11, Dec 10]; previousPage anchors off Dec 10 → Dec 9.
-        _ = try await controller.fetchPreviousPage(project: enProject)
+        _ = try await controller.fetchCommunityPreviousPage(project: enProject)
         let calls = await spy.calls
         let calendar = Calendar(identifier: .gregorian)
         var dec9Components = DateComponents()
@@ -293,12 +293,12 @@ final class WMFHomeDataControllerTests: XCTestCase {
         }
     }
 
-    // MARK: - fetchPreviousPage
+    // MARK: - fetchCommunityPreviousPage
 
     func testFetchPreviousPageThrowsWithoutInitialFetch() async throws {
         let (controller, _) = makeController()
         do {
-            _ = try await controller.fetchPreviousPage(project: enProject)
+            _ = try await controller.fetchCommunityPreviousPage(project: enProject)
             XCTFail("Expected noFetchedDatesAvailable error")
         } catch WMFHomeDataControllerError.noFetchedDatesAvailable {
             // expected
@@ -311,7 +311,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
         _ = try await controller.fetchCommunity(project: enProject, date: dec11)
         // Fetching en on Dec 11 should not seed the es project's date history.
         do {
-            _ = try await controller.fetchPreviousPage(project: esProject)
+            _ = try await controller.fetchCommunityPreviousPage(project: esProject)
             XCTFail("Expected noFetchedDatesAvailable error")
         } catch WMFHomeDataControllerError.noFetchedDatesAvailable {
             // expected
@@ -321,7 +321,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
     func testFetchPreviousPageRequestsPreviousDate() async throws {
         let (controller, spy) = makeController()
         _ = try await controller.fetchCommunity(project: enProject, date: dec11)
-        _ = try await controller.fetchPreviousPage(project: enProject)
+        _ = try await controller.fetchCommunityPreviousPage(project: enProject)
         let calls = await spy.calls
         XCTAssertEqual(calls.count, 2)
         XCTAssertTrue(Calendar(identifier: .gregorian).isDate(calls[1].date, inSameDayAs: dec10))

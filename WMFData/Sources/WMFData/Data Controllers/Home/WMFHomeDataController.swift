@@ -19,7 +19,7 @@ public final actor WMFHomeDataController {
     nonisolated(unsafe) private let userDefaultsStore: WMFKeyValueStore?
 
     // Dates for which feed data has been fetched per project, in descending order (most recent first).
-    private var fetchedDates: [WMFProject: [Date]] = [:]
+    private var communityFetchedDates: [WMFProject: [Date]] = [:]
 
     public static let shared = WMFHomeDataController()
 
@@ -248,14 +248,14 @@ public final actor WMFHomeDataController {
     @discardableResult
     public func fetchCommunity(project: WMFProject, date: Date = Date()) async throws -> WMFFeedAPIResponse {
         let response = try await feedDataController.fetchFeed(project: project, date: date)
-        recordFetchedDate(date, project: project)
+        recordCommunityFetchedDate(date, project: project)
         return response
     }
 
     /// Fetches the feed data for the day that precedes the earliest date already fetched for the given project.
     /// Callers must have fetched at least one page via `fetchCommunity` before calling this.
-    public func fetchPreviousPage(project: WMFProject) async throws -> WMFFeedAPIResponse {
-        guard let earliest = fetchedDates[project]?.last else {
+    public func fetchCommunityPreviousPage(project: WMFProject) async throws -> WMFFeedAPIResponse {
+        guard let earliest = communityFetchedDates[project]?.last else {
             throw WMFHomeDataControllerError.noFetchedDatesAvailable
         }
 
@@ -265,20 +265,20 @@ public final actor WMFHomeDataController {
         }
 
         let response = try await feedDataController.fetchFeed(project: project, date: previousDate)
-        recordFetchedDate(previousDate, project: project)
+        recordCommunityFetchedDate(previousDate, project: project)
         return response
     }
 
     // MARK: - Private
 
-    private func recordFetchedDate(_ date: Date, project: WMFProject) {
+    private func recordCommunityFetchedDate(_ date: Date, project: WMFProject) {
         let calendar = Calendar(identifier: .gregorian)
         let normalized = calendar.startOfDay(for: date)
-        var dates = fetchedDates[project] ?? []
+        var dates = communityFetchedDates[project] ?? []
         guard !dates.contains(where: { calendar.isDate($0, inSameDayAs: normalized) }) else { return }
         dates.append(normalized)
         dates.sort(by: >)
-        fetchedDates[project] = dates
+        communityFetchedDates[project] = dates
     }
 }
 
