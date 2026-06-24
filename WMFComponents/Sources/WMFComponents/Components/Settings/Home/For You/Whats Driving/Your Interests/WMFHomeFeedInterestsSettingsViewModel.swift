@@ -93,7 +93,8 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     func fetchRandomArticles() {
         fetchTask?.cancel()
         isFetchingArticles = true
-        fetchTask = Task {
+        fetchTask = Task { [weak self] in
+            guard let self else { return }
             do {
                 let articles = try await dataController.fetchRandomArticles(project: project)
                 guard !Task.isCancelled else { return }
@@ -108,7 +109,8 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     func fetchArticles(for topic: WMFArticleTopic) {
         fetchTask?.cancel()
         isFetchingArticles = true
-        fetchTask = Task {
+        fetchTask = Task { [weak self] in
+            guard let self else { return }
             do {
                 let articles = try await dataController.fetchArticles(for: topic, project: project)
                 guard !Task.isCancelled else { return }

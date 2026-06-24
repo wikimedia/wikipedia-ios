@@ -79,17 +79,17 @@ private struct WMFInterestArticleCardView: View {
                         .clipped()
                         .contentShape(Rectangle())
 
-                    if viewModel.isSelected {
-                        Image(systemName: "checkmark.circle.fill")
+                    if viewModel.isSelected, let checkmark = WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill) {
+                        Image(uiImage: checkmark)
                             .foregroundStyle(Color(uiColor: theme.link))
                             .background(Color(uiColor: theme.paperBackground).clipShape(Circle()))
                             .padding(6)
                     }
                 }
-            } else if viewModel.isSelected {
+            } else if viewModel.isSelected, let checkmark = WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill) {
                 HStack {
                     Spacer()
-                    Image(systemName: "checkmark.circle.fill")
+                    Image(uiImage: checkmark)
                         .foregroundStyle(Color(uiColor: theme.link))
                         .padding(6)
                 }

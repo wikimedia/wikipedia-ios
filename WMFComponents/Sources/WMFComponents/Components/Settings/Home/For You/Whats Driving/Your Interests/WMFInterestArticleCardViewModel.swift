@@ -61,7 +61,8 @@ final class WMFInterestArticleCardViewModel: ObservableObject, Identifiable {
     private func loadImageIfNeeded() {
         guard uiImage == nil, let url = thumbnailURL else { return }
         imageTask?.cancel()
-        imageTask = Task {
+        imageTask = Task { [weak self] in
+            guard let self else { return }
             guard let data = try? await WMFImageDataController.shared.fetchImageData(url: url),
                   !Task.isCancelled else { return }
             self.uiImage = UIImage(data: data)
@@ -70,7 +71,8 @@ final class WMFInterestArticleCardViewModel: ObservableObject, Identifiable {
 
     private func loadSummaryAndImage(title: String, project: WMFProject) {
         guard summaryTask == nil else { return }
-        summaryTask = Task {
+        summaryTask = Task { [weak self] in
+            guard let self else { return }
             guard let summary = try? await WMFArticleSummaryDataController.shared.fetchArticleSummary(project: project, title: title.spacesToUnderscores),
                   !Task.isCancelled else { return }
             self.description = summary.description
