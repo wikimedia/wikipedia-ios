@@ -5,10 +5,8 @@ import UIKit
 @MainActor
 final class WMFInterestArticleCardViewModel: ObservableObject, Identifiable {
 
-    // Normalized title used as the stable identifier and for Core Data operations
     let id: String
     let title: String
-    let rawTitle: String
     @Published var description: String?
     @Published var uiImage: UIImage?
     @Published var isSelected: Bool
@@ -19,8 +17,7 @@ final class WMFInterestArticleCardViewModel: ObservableObject, Identifiable {
     private var summaryTask: Task<Void, Never>?
 
     init(article: WMFRandomArticle, isSelected: Bool = false) {
-        self.rawTitle = article.title
-        self.id = article.title.normalizedForCoreData
+        self.id = article.title
         self.title = article.displayTitle ?? article.title.underscoresToSpaces
         self.description = article.description
         self.thumbnailURL = article.thumbnail?.url
@@ -30,8 +27,7 @@ final class WMFInterestArticleCardViewModel: ObservableObject, Identifiable {
 
     // Used when creating a card from a WMFPageInterest — loads summary on demand
     init(pageInterest: WMFPageInterest, project: WMFProject) {
-        self.rawTitle = pageInterest.title
-        self.id = pageInterest.title.normalizedForCoreData
+        self.id = pageInterest.title
         self.title = pageInterest.title.underscoresToSpaces
         self.description = nil
         self.thumbnailURL = nil

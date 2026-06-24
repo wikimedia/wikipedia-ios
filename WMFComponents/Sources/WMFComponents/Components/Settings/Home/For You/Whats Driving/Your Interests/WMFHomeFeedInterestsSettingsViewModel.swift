@@ -18,10 +18,6 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     private let project: WMFProject
     private var fetchTask: Task<Void, Never>?
 
-    // Saved CDPageInterest records — kept in sync with toggles so buildGrid always has current state
-    private var savedInterests: [WMFPageInterest] = []
-    private var savedIDs: Set<String> = []
-
     public init(dataController: WMFHomeDataController = WMFHomeDataController.shared,
                 pageInterestDataController: WMFPageInterestDataController? = try? WMFPageInterestDataController(),
                 project: WMFProject) {
@@ -61,15 +57,10 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     func toggleArticleSelection(_ vm: WMFInterestArticleCardViewModel) {
         if vm.isSelected {
             vm.isSelected = false
-            savedIDs.remove(vm.id)
-            savedInterests.removeAll { $0.title.normalizedForCoreData == vm.id }
-            Task { try? await pageInterestDataController?.removePageInterest(title: vm.rawTitle, project: project) }
+            Task { try? await pageInterestDataController?.removePageInterest(title: vm.title, project: project) }
         } else {
             vm.isSelected = true
-            savedIDs.insert(vm.id)
-            let interest = WMFPageInterest(title: vm.rawTitle, projectID: project.id, timestamp: Date())
-            savedInterests.insert(interest, at: 0)
-            Task { try? await pageInterestDataController?.addPageInterest(title: vm.rawTitle, project: project) }
+            Task { try? await pageInterestDataController?.addPageInterest(title: vm.title, project: project) }
         }
     }
 
@@ -77,16 +68,16 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
 
     private func loadSavedInterests() async {
         let interests = (try? await pageInterestDataController?.fetchPageInterests(project: project)) ?? []
-        savedInterests = interests
-        savedIDs = Set(interests.map { $0.title.normalizedForCoreData })
+        gridViewModels = interests.map { WMFInterestArticleCardViewModel(pageInterest: $0, project: project) }
     }
 
-    /// Rebuilds gridViewModels: saved interests at top (selected), then the given random/topic articles.
+    /// Rebuilds gridViewModels: currently selected VMs at top, then new random/topic articles.
     /// Only called when the article list reloads — not on individual card selection.
     private func buildGrid(from articles: [WMFRandomArticle]) {
-        let savedVMs = savedInterests.map { WMFInterestArticleCardViewModel(pageInterest: $0, project: project) }
+        let savedVMs = gridViewModels.filter { $0.isSelected }
+        let savedIDs = Set(savedVMs.map { $0.id })
         let randomVMs = articles
-            .filter { !savedIDs.contains($0.title.normalizedForCoreData) }
+            .filter { !savedIDs.contains($0.title) }
             .map { WMFInterestArticleCardViewModel(article: $0) }
         gridViewModels = savedVMs + randomVMs
     }

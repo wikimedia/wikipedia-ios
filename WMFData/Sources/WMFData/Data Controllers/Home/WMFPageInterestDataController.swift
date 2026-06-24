@@ -29,11 +29,9 @@ public final class WMFPageInterestDataController: @unchecked Sendable {
             ) ?? []
 
             return interests.compactMap { interest in
-                guard let page = interest.page,
-                      let title = page.title,
-                      let projectID = page.projectID,
+                guard let title = interest.page?.title,
                       let timestamp = interest.timestamp else { return nil }
-                return WMFPageInterest(title: title, projectID: projectID, timestamp: timestamp)
+                return WMFPageInterest(title: title, timestamp: timestamp)
             }
         }
     }
