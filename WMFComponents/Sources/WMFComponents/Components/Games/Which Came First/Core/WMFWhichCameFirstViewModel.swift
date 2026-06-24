@@ -136,7 +136,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     /// Slide becomes visible. Index is 1-based (game_play_1 … game_play_5).
     public var didImpressionSlide: (@MainActor @Sendable (_ slideIndex: Int) -> Void)?
     /// Taps the exit button during gameplay. Index is 1-based.
-    public var didTapExitDuringPlay: (@MainActor @Sendable (_ slideIndex: Int) -> Void)?
+    public var didTapExitDuringPlay: (@MainActor @Sendable (_ slideIndex: Int, _ isComplete: Bool) -> Void)?
     /// Taps Submit on a question. Index is 1-based.
     public var didSubmitAnswer: (@MainActor @Sendable (_ slideIndex: Int) -> Void)?
     /// Last question is answered and the game transitions to complete.
