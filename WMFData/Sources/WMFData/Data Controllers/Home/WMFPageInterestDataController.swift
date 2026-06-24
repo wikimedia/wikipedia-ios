@@ -12,15 +12,16 @@ public final class WMFPageInterestDataController: @unchecked Sendable {
         self.coreDataStore = coreDataStore
     }
 
-    public func fetchPageInterests() async throws -> [WMFPageInterest] {
+    public func fetchPageInterests(project: WMFProject) async throws -> [WMFPageInterest] {
         let backgroundContext = try coreDataStore.newBackgroundContext
 
         return try await backgroundContext.perform { [weak self] () -> [WMFPageInterest] in
             guard let self else { return [] }
+            let predicate = NSPredicate(format: "page.projectID == %@", project.id)
             let sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
             let interests = try self.coreDataStore.fetch(
                 entityType: CDPageInterest.self,
-                predicate: nil,
+                predicate: predicate,
                 fetchLimit: nil,
                 sortDescriptors: sortDescriptors,
                 in: backgroundContext

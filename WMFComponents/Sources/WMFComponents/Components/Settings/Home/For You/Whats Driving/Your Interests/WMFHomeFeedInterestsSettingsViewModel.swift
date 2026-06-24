@@ -75,7 +75,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     // MARK: - Private
 
     private func loadSavedInterests() async {
-        let interests = (try? await pageInterestDataController?.fetchPageInterests()) ?? []
+        let interests = (try? await pageInterestDataController?.fetchPageInterests(project: project)) ?? []
         savedInterests = interests
         savedIDs = Set(interests.map { $0.title.normalizedForCoreData })
     }
