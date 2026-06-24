@@ -58,17 +58,16 @@ public final class WMFWhichCameFirstArchiveViewModel: ObservableObject {
 
     // MARK: - Decorations
 
+    // Only completed (played) games get a decoration — in-progress/paused days
+    // are intentionally undecorated.
     var decoratedDateComponents: [DateComponents] {
-        let dates = Set(playedDates.keys).union(pausedDates)
-        return dates.map { Calendar.current.dateComponents([.year, .month, .day], from: $0) }
+        playedDates.keys.map { Calendar.current.dateComponents([.year, .month, .day], from: $0) }
     }
 
     func decorationAccessibilityLabel(for date: Date) -> String? {
         let normalised = Calendar.current.startOfDay(for: date)
         if let score = playedDates[normalised] {
             return String.localizedStringWithFormat(localizedStrings.dayScoreA11yFormat, score)
-        } else if pausedDates.contains(normalised) {
-            return localizedStrings.dayPausedA11y
         }
         return nil
     }

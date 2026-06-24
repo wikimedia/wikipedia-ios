@@ -125,7 +125,7 @@ private struct CalendarRepresentable: UIViewRepresentable {
         func calendarView(_ calendarView: UICalendarView, decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
             guard let date = Calendar.current.date(from: dateComponents) else { return nil }
             let normalised = Calendar.current.startOfDay(for: date)
-            guard viewModel.playedDates[normalised] != nil || viewModel.pausedDates.contains(normalised) else {
+            guard viewModel.playedDates[normalised] != nil else {
                 return nil
             }
             let image = UIImage(systemName: "circlebadge.fill")?.withRenderingMode(.alwaysTemplate) // not adding our component to avond formatting issues.
