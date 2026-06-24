@@ -82,6 +82,7 @@ public struct WMFHomeView: View {
             WMFCommunityFeedView(
                 pages: viewModel.communityPages,
                 isLoadingPreviousPage: viewModel.isLoadingCommunityPreviousPage,
+                onRefresh: { await viewModel.refreshCommunityFeed() },
                 onTapSeePastContent: { viewModel.loadCommunityPreviousPage() }
             )
         } else if viewModel.isLoadingCommunity {

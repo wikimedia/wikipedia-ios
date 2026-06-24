@@ -11,6 +11,7 @@ struct WMFCommunityFeedView: View {
 
     let pages: [WMFHomeCommunityViewModel]
     let isLoadingPreviousPage: Bool
+    let onRefresh: () async -> Void
     let onTapSeePastContent: () -> Void
 
     var body: some View {
@@ -55,6 +56,9 @@ struct WMFCommunityFeedView: View {
         }
         .listStyle(.plain)
         .background(Color(uiColor: theme.paperBackground))
+        .refreshable {
+            await onRefresh()
+        }
     }
 
     // MARK: - Date Callout
