@@ -6,6 +6,7 @@ public final actor WMFHomeDataController {
     private let basicService: WMFService?
     private let relatedPagesDataController: WMFRelatedPagesDataController
     private let savedArticlesDataController: WMFSavedArticlesDataController
+    private let onThisDayDataController: WMFOnThisDayDataController
 
     private var pageInterestDataController: WMFPageInterestDataController? {
         try? WMFPageInterestDataController()
@@ -23,12 +24,13 @@ public final actor WMFHomeDataController {
 
     public static let shared = WMFHomeDataController()
 
-    public init(feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared, basicService: WMFService? = WMFDataEnvironment.current.basicService, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, relatedPagesDataController: WMFRelatedPagesDataController = WMFRelatedPagesDataController.shared, savedArticlesDataController: WMFSavedArticlesDataController = WMFSavedArticlesDataController.shared) {
+    public init(feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared, basicService: WMFService? = WMFDataEnvironment.current.basicService, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, relatedPagesDataController: WMFRelatedPagesDataController = WMFRelatedPagesDataController.shared, savedArticlesDataController: WMFSavedArticlesDataController = WMFSavedArticlesDataController.shared, onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared) {
         self.feedDataController = feedDataController
         self.basicService = basicService
         self.userDefaultsStore = userDefaultsStore
         self.relatedPagesDataController = relatedPagesDataController
         self.savedArticlesDataController = savedArticlesDataController
+        self.onThisDayDataController = onThisDayDataController
     }
 
     // MARK: - Settings: Selected Language
@@ -266,11 +268,16 @@ public final actor WMFHomeDataController {
     /// Fetches the Home feed "Community" data for the given date.
     /// Pass `Date()` (the default) to fetch today's data. The first-page response is cached per project per day.
     @discardableResult
-    public func fetchCommunity(project: WMFProject, date: Date = Date(), forceFetch: Bool = false) async throws -> WMFFeedAPIResponse {
+    public func fetchCommunity(project: WMFProject, date: Date = Date(), forceFetch: Bool = false) async throws -> WMFCommunityResponse {
         if !forceFetch, let cached = cachedCommunityResponse(for: project) {
             return cached
         }
-        let response = try await feedDataController.fetchFeed(project: project, date: date)
+        let calendar = Calendar(identifier: .gregorian)
+        let month = calendar.component(.month, from: date)
+        let day = calendar.component(.day, from: date)
+        async let feedResponse = feedDataController.fetchFeed(project: project, date: date)
+        async let onThisDay = try? onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
+        let response = try await WMFCommunityResponse(feedResponse: feedResponse, onThisDay: onThisDay)
         recordCommunityFetchedDate(date, project: project)
         cacheCommunityResponse(response, for: project)
         return response
@@ -278,7 +285,7 @@ public final actor WMFHomeDataController {
 
     /// Fetches the feed data for the day that precedes the earliest date already fetched for the given project.
     /// Callers must have fetched at least one page via `fetchCommunity` before calling this.
-    public func fetchCommunityPreviousPage(project: WMFProject) async throws -> WMFFeedAPIResponse {
+    public func fetchCommunityPreviousPage(project: WMFProject) async throws -> WMFCommunityResponse {
         guard let earliest = communityFetchedDates[project]?.last else {
             throw WMFHomeDataControllerError.noFetchedDatesAvailable
         }
@@ -288,7 +295,11 @@ public final actor WMFHomeDataController {
             throw WMFHomeDataControllerError.failureCalculatingPreviousDate
         }
 
-        let response = try await feedDataController.fetchFeed(project: project, date: previousDate)
+        let month = calendar.component(.month, from: previousDate)
+        let day = calendar.component(.day, from: previousDate)
+        async let feedResponse = feedDataController.fetchFeed(project: project, date: previousDate)
+        async let onThisDay = try? onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
+        let response = try await WMFCommunityResponse(feedResponse: feedResponse, onThisDay: onThisDay)
         recordCommunityFetchedDate(previousDate, project: project)
         return response
     }
@@ -316,14 +327,14 @@ public final actor WMFHomeDataController {
         try? store.save(key: forYouCacheKey(for: project), value: entry)
     }
 
-    private func cachedCommunityResponse(for project: WMFProject) -> WMFFeedAPIResponse? {
+    private func cachedCommunityResponse(for project: WMFProject) -> WMFCommunityResponse? {
         guard let store = WMFDataEnvironment.current.sharedCacheStore,
               let entry: WMFHomeCommunityFirstPageCacheEntry = try? store.load(key: communityCacheKey(for: project)),
               Calendar.current.isDateInToday(entry.date) else { return nil }
         return entry.response
     }
 
-    private func cacheCommunityResponse(_ response: WMFFeedAPIResponse, for project: WMFProject) {
+    private func cacheCommunityResponse(_ response: WMFCommunityResponse, for project: WMFProject) {
         guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
         let entry = WMFHomeCommunityFirstPageCacheEntry(date: Date(), response: response)
         try? store.save(key: communityCacheKey(for: project), value: entry)
@@ -338,6 +349,13 @@ public final actor WMFHomeDataController {
         dates.sort(by: >)
         communityFetchedDates[project] = dates
     }
+}
+
+// MARK: - Community response model
+
+public struct WMFCommunityResponse: Codable, Sendable {
+    public let feedResponse: WMFFeedAPIResponse
+    public let onThisDay: WMFOnThisDayResponse?
 }
 
 // MARK: - For You response models
@@ -383,7 +401,7 @@ private struct WMFHomeForYouCacheEntry: Codable {
 
 private struct WMFHomeCommunityFirstPageCacheEntry: Codable {
     let date: Date
-    let response: WMFFeedAPIResponse
+    let response: WMFCommunityResponse
 }
 
 // MARK: - Topic articles response models

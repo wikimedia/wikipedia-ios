@@ -22,7 +22,7 @@ public final class WMFHomeViewModel: ObservableObject {
     @Published public var selectedTab: Tab = .community
     @Published public var languages: [WMFLanguage]
     @Published public var selectedLanguage: WMFLanguage?
-    @Published public var communityFeed: WMFFeedAPIResponse?
+    @Published public var communityFeed: WMFCommunityResponse?
     @Published public var communityFeedError: Error?
     @Published public var isLoadingCommunity: Bool = false
 

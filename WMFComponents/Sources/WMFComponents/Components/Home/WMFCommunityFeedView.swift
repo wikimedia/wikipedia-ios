@@ -9,26 +9,28 @@ struct WMFCommunityFeedView: View {
 
     var theme: WMFTheme { appEnvironment.theme }
 
-    let feed: WMFFeedAPIResponse
+    let feed: WMFCommunityResponse
     let project: WMFProject
 
     var body: some View {
         List {
-            if let tfa = feed.todaysFeaturedArticle {
+            if let tfa = feed.feedResponse.todaysFeaturedArticle {
                 featuredArticleSection(tfa)
             }
 
-            if let mostRead = feed.mostRead, let articles = mostRead.articles, !articles.isEmpty {
+            if let mostRead = feed.feedResponse.mostRead, let articles = mostRead.articles, !articles.isEmpty {
                 topReadSection(articles)
             }
 
-            if let news = feed.news, !news.isEmpty {
+            if let news = feed.feedResponse.news, !news.isEmpty {
                 inTheNewsSection(news)
             }
 
-            onThisDaySection()
+            if let onThisDay = feed.onThisDay {
+                onThisDaySection(onThisDay)
+            }
 
-            if let image = feed.image {
+            if let image = feed.feedResponse.image {
                 pictureOfTheDaySection(image)
             }
         }
@@ -94,12 +96,43 @@ struct WMFCommunityFeedView: View {
 
     // MARK: - On This Day
 
-    private func onThisDaySection() -> some View {
-        Section {
-            Color.clear
-                .frame(height: 80)
+    private func onThisDaySection(_ onThisDay: WMFOnThisDayResponse) -> some View {
+        let currentYear = Calendar.current.component(.year, from: Date())
+        let events = Array(onThisDay.events.prefix(2))
+        return Section {
+            ForEach(Array(events.enumerated()), id: \.offset) { _, event in
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("\(event.year)")
+                        .font(Font(WMFFont.for(.boldTitle3)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                    Text("\(currentYear - event.year) years ago")
+                        .font(Font(WMFFont.for(.semiboldSubheadline)))
+                        .foregroundStyle(Color(uiColor: theme.secondaryText))
+                    Text(event.text)
+                        .font(Font(WMFFont.for(.callout)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                    if !event.pages.isEmpty {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(alignment: .top, spacing: 12) {
+                                ForEach(Array(event.pages.enumerated()), id: \.offset) { _, page in
+                                    WMFAsyncPageRow(viewModel: WMFAsyncPageRowViewModel(
+                                        id: page.title,
+                                        title: page.title,
+                                        projectID: project.id,
+                                        iconAccessibilityLabel: ""
+                                    ))
+                                    .containerRelativeFrame(.horizontal) { width, _ in width * 0.8 }
+                                    .padding(.vertical, 4)
+                                }
+                            }
+                        }
+                    }
+                }
+                .padding(.vertical, 8)
+                .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color(uiColor: theme.paperBackground))
+            }
         } header: {
             sectionHeader("On this day")
         }
