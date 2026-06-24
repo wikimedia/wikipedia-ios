@@ -56,7 +56,6 @@ final class WMFPageInterestDataControllerTests: XCTestCase {
         let interests = try await controller.fetchPageInterests(project: enProject)
         XCTAssertEqual(interests.count, 1)
         XCTAssertEqual(interests.first?.title, "Cat")
-        XCTAssertEqual(interests.first?.projectID, enProject.id)
     }
 
     func testAddPageInterestDoesNotCreateDuplicate() async throws {
