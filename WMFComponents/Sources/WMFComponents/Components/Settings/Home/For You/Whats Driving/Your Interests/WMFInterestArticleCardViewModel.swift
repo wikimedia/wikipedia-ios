@@ -39,17 +39,6 @@ final class WMFInterestArticleCardViewModel: ObservableObject, Identifiable {
         self.isSelected = true
     }
 
-    // Used when promoting a random article card to a saved interest without a new network fetch
-    init(rawTitle: String, displayTitle: String, description: String?, thumbnailURL: URL?, project: WMFProject) {
-        self.rawTitle = rawTitle
-        self.id = rawTitle.normalizedForCoreData
-        self.title = displayTitle
-        self.description = description
-        self.thumbnailURL = thumbnailURL
-        self.summaryFetchInfo = nil
-        self.isSelected = true
-    }
-
     func loadIfNeeded() {
         if let info = summaryFetchInfo {
             loadSummaryAndImage(title: info.title, project: info.project)
