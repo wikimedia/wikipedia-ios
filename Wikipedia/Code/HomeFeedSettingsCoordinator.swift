@@ -122,10 +122,13 @@ final class HomeFeedSettingsCoordinator: Coordinator {
     }
 
     private func switchToSearchTab() {
+        // `AppDelegate` is compiled out of test builds (replaced by `MockAppDelegate`), so any reference to it must be guarded in test builds
+#if !TEST
         guard let appViewController = (UIApplication.shared.delegate as? AppDelegate)?.appViewController else {
             return
         }
         appViewController.switchToSearchTab(focusSearchBar: false, animated: true)
+#endif
     }
 
     private func showLanguages() {
