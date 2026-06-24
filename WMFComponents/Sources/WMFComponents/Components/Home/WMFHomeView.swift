@@ -78,8 +78,8 @@ public struct WMFHomeView: View {
 
     @ViewBuilder
     private var communityTabContent: some View {
-        if let feed = viewModel.communityFeed, let project = viewModel.selectedLanguage.map({ WMFProject.wikipedia($0) }) {
-            WMFCommunityFeedView(feed: feed, project: project)
+        if let communityViewModel = viewModel.communityFeed {
+            WMFCommunityFeedView(viewModel: communityViewModel)
         } else if viewModel.isLoadingCommunity {
             Spacer()
             ProgressView()

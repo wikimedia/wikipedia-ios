@@ -9,29 +9,28 @@ struct WMFCommunityFeedView: View {
 
     var theme: WMFTheme { appEnvironment.theme }
 
-    let feed: WMFCommunityResponse
-    let project: WMFProject
+    let viewModel: WMFHomeCommunityViewModel
 
     var body: some View {
         List {
-            if let tfa = feed.feedResponse.todaysFeaturedArticle {
+            if let tfa = viewModel.featuredArticle {
                 featuredArticleSection(tfa)
             }
 
-            if let mostRead = feed.feedResponse.mostRead, let articles = mostRead.articles, !articles.isEmpty {
-                topReadSection(articles)
+            if !viewModel.topReadItems.isEmpty {
+                topReadSection(viewModel.topReadItems)
             }
 
-            if let news = feed.feedResponse.news, !news.isEmpty {
-                inTheNewsSection(news)
+            if !viewModel.newsItems.isEmpty {
+                inTheNewsSection(viewModel.newsItems)
             }
 
-            if let onThisDay = feed.onThisDay {
-                onThisDaySection(onThisDay)
+            if let onThisDayItems = viewModel.onThisDayItems {
+                onThisDaySection(onThisDayItems)
             }
 
-            if let image = feed.feedResponse.image {
-                pictureOfTheDaySection(image)
+            if let pictureOfDay = viewModel.pictureOfDay {
+                pictureOfTheDaySection(pictureOfDay)
             }
         }
         .listStyle(.plain)
@@ -53,20 +52,17 @@ struct WMFCommunityFeedView: View {
 
     // MARK: - Top Read
 
-    private func topReadSection(_ articles: [WMFFeedMostReadArticle]) -> some View {
+    private func topReadSection(_ items: [WMFHomeCommunityViewModel.TopReadItem]) -> some View {
         Section {
-            ForEach(Array(articles.prefix(5).enumerated()), id: \.offset) { _, article in
-                if let title = article.title ?? article.normalizedTitle {
-                    let displayTitle = (try? HtmlUtils.stringFromHTML(article.displayTitle ?? title)) ?? title
-                    WMFAsyncPageRow(viewModel: WMFAsyncPageRowViewModel(
-                        id: title,
-                        title: displayTitle,
-                        projectID: project.id,
-                        iconAccessibilityLabel: ""
-                    ))
-                    .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
-                    .listRowBackground(Color(uiColor: theme.paperBackground))
-                }
+            ForEach(Array(items.enumerated()), id: \.offset) { _, item in
+                WMFAsyncPageRow(viewModel: WMFAsyncPageRowViewModel(
+                    id: item.title,
+                    title: item.displayTitle,
+                    projectID: item.projectID,
+                    iconAccessibilityLabel: ""
+                ))
+                .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
+                .listRowBackground(Color(uiColor: theme.paperBackground))
             }
         } header: {
             sectionHeader("Top read")
@@ -75,11 +71,11 @@ struct WMFCommunityFeedView: View {
 
     // MARK: - In The News
 
-    private func inTheNewsSection(_ news: [WMFFeedNewsItem]) -> some View {
+    private func inTheNewsSection(_ items: [WMFHomeCommunityViewModel.NewsItem]) -> some View {
         Section {
             TabView {
-                ForEach(Array(news.enumerated()), id: \.offset) { _, item in
-                    WMFNewsStoryCard(story: item.story ?? "", theme: theme)
+                ForEach(Array(items.enumerated()), id: \.offset) { _, item in
+                    WMFNewsStoryCard(story: item.story, theme: theme)
                 }
             }
             .tabViewStyle(.page)
@@ -96,29 +92,27 @@ struct WMFCommunityFeedView: View {
 
     // MARK: - On This Day
 
-    private func onThisDaySection(_ onThisDay: WMFOnThisDayResponse) -> some View {
-        let currentYear = Calendar.current.component(.year, from: Date())
-        let events = Array(onThisDay.events.prefix(2))
-        return Section {
-            ForEach(Array(events.enumerated()), id: \.offset) { _, event in
+    private func onThisDaySection(_ items: [WMFHomeCommunityViewModel.OnThisDayItem]) -> some View {
+        Section {
+            ForEach(Array(items.enumerated()), id: \.offset) { _, item in
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("\(event.year)")
+                    Text("\(item.year)")
                         .font(Font(WMFFont.for(.boldTitle3)))
                         .foregroundStyle(Color(uiColor: theme.text))
-                    Text("\(currentYear - event.year) years ago")
+                    Text(item.yearsAgo)
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
                         .foregroundStyle(Color(uiColor: theme.secondaryText))
-                    Text(event.text)
+                    Text(item.text)
                         .font(Font(WMFFont.for(.callout)))
                         .foregroundStyle(Color(uiColor: theme.text))
-                    if !event.pages.isEmpty {
+                    if !item.pages.isEmpty {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(alignment: .top, spacing: 12) {
-                                ForEach(Array(event.pages.enumerated()), id: \.offset) { _, page in
+                                ForEach(Array(item.pages.enumerated()), id: \.offset) { _, page in
                                     WMFAsyncPageRow(viewModel: WMFAsyncPageRowViewModel(
                                         id: page.title,
                                         title: page.title,
-                                        projectID: project.id,
+                                        projectID: item.projectID,
                                         iconAccessibilityLabel: ""
                                     ))
                                     .containerRelativeFrame(.horizontal) { width, _ in width * 0.8 }
@@ -140,9 +134,9 @@ struct WMFCommunityFeedView: View {
 
     // MARK: - Picture of the Day
 
-    private func pictureOfTheDaySection(_ image: WMFFeedImageNew) -> some View {
+    private func pictureOfTheDaySection(_ imageSource: WMFFeedImageSource) -> some View {
         Section {
-            WMFPictureOfTheDayCard(imageSource: image.thumbnail, theme: theme)
+            WMFPictureOfTheDayCard(imageSource: imageSource, theme: theme)
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color(uiColor: theme.paperBackground))
@@ -241,7 +235,7 @@ private struct WMFNewsStoryCard: View {
 
     var body: some View {
         ScrollView {
-            Text((try? HtmlUtils.stringFromHTML(story)) ?? story)
+            Text(story)
                 .font(Font(WMFFont.for(.callout)))
                 .foregroundStyle(Color(uiColor: theme.text))
                 .multilineTextAlignment(.leading)
@@ -260,7 +254,7 @@ private struct WMFNewsStoryCard: View {
 
 private struct WMFPictureOfTheDayCard: View {
 
-    let imageSource: WMFFeedImageSource?
+    let imageSource: WMFFeedImageSource
     let theme: WMFTheme
 
     @StateObject private var imageViewModel = WMFPictureOfTheDayImageViewModel()
@@ -281,7 +275,7 @@ private struct WMFPictureOfTheDayCard: View {
             }
         }
         .onAppear {
-            if let urlString = imageSource?.source, let url = URL(string: urlString) {
+            if let urlString = imageSource.source, let url = URL(string: urlString) {
                 imageViewModel.load(url: url)
             }
         }
@@ -299,4 +293,3 @@ private final class WMFPictureOfTheDayImageViewModel: ObservableObject {
         }
     }
 }
-

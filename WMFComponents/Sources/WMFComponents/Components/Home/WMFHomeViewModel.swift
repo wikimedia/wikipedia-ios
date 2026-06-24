@@ -22,7 +22,7 @@ public final class WMFHomeViewModel: ObservableObject {
     @Published public var selectedTab: Tab = .community
     @Published public var languages: [WMFLanguage]
     @Published public var selectedLanguage: WMFLanguage?
-    @Published public var communityFeed: WMFCommunityResponse?
+    @Published public var communityFeed: WMFHomeCommunityViewModel?
     @Published public var communityFeedError: Error?
     @Published public var isLoadingCommunity: Bool = false
 
@@ -40,8 +40,8 @@ public final class WMFHomeViewModel: ObservableObject {
         isLoadingCommunity = true
         Task {
             do {
-                let feed = try await WMFHomeDataController.shared.fetchCommunity(project: project)
-                self.communityFeed = feed
+                let response = try await WMFHomeDataController.shared.fetchCommunity(project: project)
+                self.communityFeed = WMFHomeCommunityViewModel(response: response, project: project)
             } catch {
                 self.communityFeedError = error
             }

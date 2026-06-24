@@ -1,0 +1,74 @@
+import Foundation
+import WMFData
+
+public struct WMFHomeCommunityViewModel {
+
+    // MARK: - Nested display types
+
+    public struct TopReadItem {
+        public let title: String
+        public let displayTitle: String
+        public let projectID: String
+    }
+
+    public struct NewsItem {
+        public let story: String
+    }
+
+    public struct OnThisDayItem {
+        public let year: Int
+        public let yearsAgo: String
+        public let text: String
+        public let pages: [WMFOnThisDayPage]
+        public let projectID: String
+    }
+
+    // MARK: - Properties
+
+    public let featuredArticle: WMFFeedArticle?
+    public let topReadItems: [TopReadItem]
+    public let newsItems: [NewsItem]
+    public let onThisDayItems: [OnThisDayItem]?
+    public let pictureOfDay: WMFFeedImageSource?
+    public let project: WMFProject
+
+    // MARK: - Init
+
+    public init(response: WMFCommunityResponse, project: WMFProject) {
+        let projectID = project.id
+        let currentYear = Calendar.current.component(.year, from: Date())
+
+        self.project = project
+        self.featuredArticle = response.feedResponse.todaysFeaturedArticle
+
+        self.topReadItems = (response.feedResponse.mostRead?.articles ?? [])
+            .prefix(5)
+            .compactMap { article in
+                guard let title = article.title ?? article.normalizedTitle else { return nil }
+                let displayTitle = (try? HtmlUtils.stringFromHTML(article.displayTitle ?? title)) ?? title
+                return TopReadItem(title: title, displayTitle: displayTitle, projectID: projectID)
+            }
+
+        self.newsItems = (response.feedResponse.news ?? [])
+            .map { item in
+                let story = (try? HtmlUtils.stringFromHTML(item.story ?? "")) ?? item.story ?? ""
+                return NewsItem(story: story)
+            }
+
+        if let onThisDay = response.onThisDay {
+            self.onThisDayItems = onThisDay.events.prefix(2).map { event in
+                OnThisDayItem(
+                    year: event.year,
+                    yearsAgo: "\(currentYear - event.year) years ago",
+                    text: event.text,
+                    pages: event.pages,
+                    projectID: projectID
+                )
+            }
+        } else {
+            self.onThisDayItems = nil
+        }
+
+        self.pictureOfDay = response.feedResponse.image?.thumbnail
+    }
+}
