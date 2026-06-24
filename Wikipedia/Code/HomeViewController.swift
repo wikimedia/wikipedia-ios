@@ -41,8 +41,8 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         view.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.homeButton
         embedHostingController()
 
-        viewModel.didSelectLanguage = { [weak self] languageCode in
-            self?.selectLanguage(languageCode)
+        viewModel.didSelectLanguage = { [weak self] language in
+            self?.selectLanguage(language)
         }
         viewModel.didTapEditLanguages = { [weak self] in
             self?.presentLanguagesViewController()
@@ -63,18 +63,20 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     private func reloadLanguages() {
         let preferredLanguages = dataStore.languageLinkController.preferredLanguages
-        viewModel.languages = preferredLanguages.map { WMFHomeViewModel.Language(code: $0.languageCode, localizedName: $0.localizedName) }
+        viewModel.languages = preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
 
-        if let persisted = homeDataController.selectedLanguageCode(), preferredLanguages.contains(where: { $0.languageCode == persisted }) {
-            viewModel.selectedLanguageCode = persisted
-        } else {
-            viewModel.selectedLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode ?? preferredLanguages.first?.languageCode ?? ""
+        if let persisted = homeDataController.selectedLanguage(), preferredLanguages.contains(where: { $0.languageCode == persisted.languageCode }) {
+            viewModel.selectedLanguage = persisted
+        } else if let appLanguage = dataStore.languageLinkController.appLanguage {
+            viewModel.selectedLanguage = WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode)
+        } else if let first = preferredLanguages.first {
+            viewModel.selectedLanguage = WMFLanguage(languageCode: first.languageCode, languageVariantCode: first.languageVariantCode)
         }
     }
 
-    private func selectLanguage(_ languageCode: String) {
-        homeDataController.setSelectedLanguageCode(languageCode)
-        viewModel.selectedLanguageCode = languageCode
+    private func selectLanguage(_ language: WMFLanguage) {
+        homeDataController.setSelectedLanguage(language)
+        viewModel.selectedLanguage = language
     }
 
     private func presentLanguagesViewController() {

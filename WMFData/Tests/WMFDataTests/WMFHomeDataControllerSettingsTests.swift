@@ -72,20 +72,20 @@ struct WMFHomeDataControllerSettingsTests {
     // MARK: - Selected Language
 
     @Test
-    func selectedLanguageCodeDefaultsToNil() {
+    func selectedLanguageDefaultsToNil() {
         let controller = makeController()
-        #expect(controller.selectedLanguageCode() == nil)
+        #expect(controller.selectedLanguage() == nil)
     }
 
     @Test
-    func selectedLanguageCodePersistsChanges() {
+    func selectedLanguagePersistsChanges() {
         let controller = makeController()
 
-        controller.setSelectedLanguageCode("es")
-        #expect(controller.selectedLanguageCode() == "es")
+        controller.setSelectedLanguage(WMFLanguage(languageCode: "es", languageVariantCode: nil))
+        #expect(controller.selectedLanguage() == WMFLanguage(languageCode: "es", languageVariantCode: nil))
 
-        controller.setSelectedLanguageCode("fr")
-        #expect(controller.selectedLanguageCode() == "fr")
+        controller.setSelectedLanguage(WMFLanguage(languageCode: "zh", languageVariantCode: "zh-hant"))
+        #expect(controller.selectedLanguage() == WMFLanguage(languageCode: "zh", languageVariantCode: "zh-hant"))
     }
 
     // MARK: - Interest Topics

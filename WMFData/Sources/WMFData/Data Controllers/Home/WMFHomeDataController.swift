@@ -21,12 +21,12 @@ public final actor WMFHomeDataController {
 
     // MARK: - Settings: Selected Language
 
-    public nonisolated func selectedLanguageCode() -> String? {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeSelectedLanguageCode.rawValue)) ?? nil
+    public nonisolated func selectedLanguage() -> WMFLanguage? {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeSelectedLanguage.rawValue)) ?? nil
     }
 
-    public nonisolated func setSelectedLanguageCode(_ newValue: String) {
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeSelectedLanguageCode.rawValue, value: newValue)
+    public nonisolated func setSelectedLanguage(_ newValue: WMFLanguage) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeSelectedLanguage.rawValue, value: newValue)
     }
 
     // MARK: - Settings: Community Modules

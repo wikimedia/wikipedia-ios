@@ -1,4 +1,5 @@
 import SwiftUI
+import WMFData
 
 public struct WMFHomeView: View {
 
@@ -24,9 +25,9 @@ public struct WMFHomeView: View {
                 Menu {
                     ForEach(viewModel.languages) { language in
                         Button {
-                            viewModel.didSelectLanguage?(language.code)
+                            viewModel.didSelectLanguage?(language)
                         } label: {
-                            if language.code == viewModel.selectedLanguageCode {
+                            if language.languageCode == viewModel.selectedLanguage?.languageCode {
                                 Label(language.localizedName, systemImage: "checkmark")
                             } else {
                                 Text(language.localizedName)
