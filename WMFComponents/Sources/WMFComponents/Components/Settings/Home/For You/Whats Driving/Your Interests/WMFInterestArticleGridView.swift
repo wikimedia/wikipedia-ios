@@ -75,7 +75,7 @@ private struct WMFInterestArticleCardView: View {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFill()
-                        .frame(height: 100)
+                        .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 100)
                         .clipped()
                         .contentShape(Rectangle())
 
