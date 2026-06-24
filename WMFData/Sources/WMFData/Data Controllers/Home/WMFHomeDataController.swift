@@ -110,6 +110,28 @@ public final actor WMFHomeDataController {
 
     // MARK: - Public API
 
+    public func fetchForYou(project: WMFProject) async throws -> WMFForYouResponse {
+        let topics = interestTopics().shuffled().prefix(5)
+        guard !topics.isEmpty else {
+            return WMFForYouResponse(interestTopicArticles: [])
+        }
+
+        return try await withThrowingTaskGroup(of: WMFForYouInterestTopicArticles.self) { group in
+            for topic in topics {
+                group.addTask {
+                    let articles = try await self.fetchArticles(for: topic, project: project)
+                    return WMFForYouInterestTopicArticles(topic: topic, articles: Array(articles.shuffled().prefix(4)))
+                }
+            }
+
+            var results: [WMFForYouInterestTopicArticles] = []
+            for try await topicArticles in group {
+                results.append(topicArticles)
+            }
+            return WMFForYouResponse(interestTopicArticles: results)
+        }
+    }
+
     /// Fetches random articles for display when no interest topics have been selected.
     public func fetchRandomArticles(project: WMFProject) async throws -> [WMFRandomArticle] {
         return try await WMFRandomDataController.shared.fetchRandomArticles(project: project)
@@ -200,6 +222,17 @@ public final actor WMFHomeDataController {
         dates.sort(by: >)
         fetchedDates[project] = dates
     }
+}
+
+// MARK: - For You response models
+
+public struct WMFForYouInterestTopicArticles: Sendable {
+    public let topic: WMFArticleTopic
+    public let articles: [WMFRandomArticle]
+}
+
+public struct WMFForYouResponse: Sendable {
+    public let interestTopicArticles: [WMFForYouInterestTopicArticles]
 }
 
 // MARK: - Topic articles response models

@@ -31,6 +31,59 @@ final class WMFHomeDataControllerTests: XCTestCase {
         return (controller, spy)
     }
 
+    // MARK: - fetchForYou
+
+    private func makeForYouController(topics: [WMFArticleTopic]) -> WMFHomeDataController {
+        let store = WMFMockKeyValueStore()
+        let service = WMFMockBasicService(jsonResourceName: "random-articles-get")
+        let controller = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            basicService: service,
+            userDefaultsStore: store
+        )
+        controller.setInterestTopics(topics)
+        return controller
+    }
+
+    func testFetchForYouReturnsEmptyResponseWhenNoTopicsSelected() async throws {
+        let controller = makeForYouController(topics: [])
+        let response = try await controller.fetchForYou(project: enProject)
+        XCTAssertTrue(response.interestTopicArticles.isEmpty)
+    }
+
+    func testFetchForYouReturnsOneGroupPerTopicWhenFewerThanFive() async throws {
+        let topics: [WMFArticleTopic] = [.history, .biology, .music]
+        let controller = makeForYouController(topics: topics)
+        let response = try await controller.fetchForYou(project: enProject)
+        XCTAssertEqual(response.interestTopicArticles.count, 3)
+        let returnedTopics = Set(response.interestTopicArticles.map { $0.topic })
+        XCTAssertEqual(returnedTopics, Set(topics))
+    }
+
+    func testFetchForYouCapsAtFiveTopics() async throws {
+        let topics: [WMFArticleTopic] = [.history, .biology, .music, .films, .sports, .physics, .technology]
+        let controller = makeForYouController(topics: topics)
+        let response = try await controller.fetchForYou(project: enProject)
+        XCTAssertEqual(response.interestTopicArticles.count, 5)
+    }
+
+    func testFetchForYouCapsAtFourArticlesPerTopic() async throws {
+        let controller = makeForYouController(topics: [.history])
+        let response = try await controller.fetchForYou(project: enProject)
+        XCTAssertEqual(response.interestTopicArticles.count, 1)
+        XCTAssertLessThanOrEqual(response.interestTopicArticles[0].articles.count, 4)
+    }
+
+    func testFetchForYouFailsForNonWikipediaProject() async throws {
+        let controller = makeForYouController(topics: [.history])
+        do {
+            _ = try await controller.fetchForYou(project: .commons)
+            XCTFail("Expected unsupportedProject error")
+        } catch WMFDataControllerError.unsupportedProject {
+            // expected
+        }
+    }
+
     // MARK: - fetchCommunity
 
     func testFetchCommunitySucceeds() async throws {
