@@ -21,7 +21,14 @@ public final class WMFHomeViewModel: ObservableObject {
 
     @Published public var selectedTab: Tab = .community
     @Published public var languages: [WMFLanguage]
-    @Published public var selectedLanguage: WMFLanguage?
+    @Published public var selectedLanguage: WMFLanguage? {
+        didSet {
+            guard let newValue = selectedLanguage, newValue.id != oldValue?.id else { return }
+            forYouViewModel = nil
+            communityPages = []
+            loadCurrentTabFeedIfNeeded()
+        }
+    }
     @Published public var forYouViewModel: WMFForYouViewModel?
     @Published public var isLoadingForYou: Bool = false
     @Published public var forYouModuleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(
