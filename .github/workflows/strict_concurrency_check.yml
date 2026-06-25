@@ -23,8 +23,6 @@ on:
 
 env:
   XCODE_VERSION: "26.2"
-  IOS_VERSION: "26.2"
-  SIMULATOR_NAME: "iPhone 16"
   # Schemes that have completed their strict-concurrency burn-down. These are built
   # with warnings-as-errors so any regression fails CI. Space-separated.
   GATED_SCHEMES: ""
@@ -53,13 +51,6 @@ jobs:
         run: |
           sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
 
-      - name: Prepare simulator
-        id: simulator
-        uses: ./.github/actions/prepare-simulator
-        with:
-          ios-version: ${{ env.IOS_VERSION }}
-          simulator-name: ${{ env.SIMULATOR_NAME }}
-
       - name: Build ${{ matrix.scheme }} with strict concurrency
         run: |
           SCHEME="${{ matrix.scheme }}"
@@ -74,10 +65,12 @@ jobs:
           done
 
           set -o pipefail
+          # Build-only job: a generic simulator destination needs no specific runtime/device,
+          # so it doesn't break when the runner image drops a pinned iOS version.
           xcodebuild build \
             -scheme "${SCHEME}" \
             -project Wikipedia.xcodeproj \
-            -destination "${{ steps.simulator.outputs.destination }}" \
+            -destination "generic/platform=iOS Simulator" \
             SWIFT_STRICT_CONCURRENCY=complete \
             SWIFT_TREAT_WARNINGS_AS_ERRORS=${TREAT_AS_ERRORS} \
             2>&1 | tee "${SCHEME}_strict.log"
