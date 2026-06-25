@@ -1448,9 +1448,12 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     @objc func whichCameFirstSessionDidUpdate(_ note: Notification) {
         guard let projectID = note.userInfo?["projectID"] as? String,
               let date = note.userInfo?["dailyGameDate"] as? String else { return }
-        
+
+        let todayDateString = DateFormatter.onThisDayAPIDateFormatter.string(from: Date())
+        guard date == todayDateString else { return }
+
         wantsDeleteInsertOnNextItemUpdate = true
-        
+
         dataStore.feedContentController.updateDailyGameContentGroupPreview(forProjectID: projectID, date: date)
     }
     
