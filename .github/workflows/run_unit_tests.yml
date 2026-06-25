@@ -10,9 +10,9 @@ on:
   workflow_dispatch:
 
 env:
-  XCODE_VERSION: "26.2"
-  IOS_VERSION: "26.2"
-  SIMULATOR_NAME: "iPhone 16"
+  XCODE_VERSION: "26.5"
+  IOS_VERSION: "26.5"
+  SIMULATOR_NAME: "iPhone 17"
   SCHEMES: "Wikipedia WMFComponents WMFData"
 
 concurrency:
@@ -31,7 +31,7 @@ jobs:
 
     name: Test ${{ matrix.scheme }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Select Xcode
         run: |
