@@ -52,16 +52,7 @@ public struct WMFHomeView: View {
             .padding()
 
             if viewModel.selectedTab == .forYou {
-                Spacer()
-                // TODO: Temporary mock button for testing the "What's driving your feed" deep-link.
-                Button {
-                    viewModel.didTapWhatsDrivingTestButton?()
-                } label: {
-                    Text(viewModel.whatsDrivingTestButtonTitle)
-                        .font(Font(WMFFont.for(.semiboldHeadline)))
-                        .foregroundStyle(Color(uiColor: theme.link))
-                }
-                Spacer()
+                forYouTabContent
             } else {
                 communityTabContent
             }
@@ -70,9 +61,29 @@ public struct WMFHomeView: View {
         .background(Color(uiColor: theme.paperBackground))
         .environment(\.colorScheme, theme.preferredColorScheme)
         .onChange(of: viewModel.selectedTab) { tab in
-            if tab == .community {
+            switch tab {
+            case .forYou:
+                viewModel.loadForYouFeedIfNeeded()
+            case .community:
                 viewModel.loadCommunityFeedIfNeeded()
             }
+        }
+    }
+
+    @ViewBuilder
+    private var forYouTabContent: some View {
+        if let forYouViewModel = viewModel.forYouViewModel {
+            WMFForYouView(viewModel: forYouViewModel)
+        } else if viewModel.isLoadingForYou {
+            Spacer()
+            ProgressView()
+            Spacer()
+        } else {
+            Spacer()
+            Text(viewModel.forYouTabTitle)
+                .font(Font(WMFFont.for(.headline)))
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
+            Spacer()
         }
     }
 

@@ -22,6 +22,8 @@ public final class WMFHomeViewModel: ObservableObject {
     @Published public var selectedTab: Tab = .community
     @Published public var languages: [WMFLanguage]
     @Published public var selectedLanguage: WMFLanguage?
+    @Published public var forYouViewModel: WMFForYouViewModel?
+    @Published public var isLoadingForYou: Bool = false
     @Published public var communityPages: [WMFHomeCommunityViewModel] = []
     @Published public var communityFeedError: Error?
     @Published public var isLoadingCommunity: Bool = false
@@ -35,9 +37,21 @@ public final class WMFHomeViewModel: ObservableObject {
     public var didSelectLanguage: ((WMFLanguage) -> Void)?
     public var didTapEditLanguages: (() -> Void)?
 
-    // TODO: Temporary mock button for testing the "What's driving your feed" deep-link. Remove once the real feed entry point exists.
-    let whatsDrivingTestButtonTitle = "settings test button"
-    public var didTapWhatsDrivingTestButton: (() -> Void)?
+    public func loadForYouFeedIfNeeded() {
+        guard forYouViewModel == nil, !isLoadingForYou else { return }
+        guard let language = selectedLanguage else { return }
+        let project = WMFProject.wikipedia(language)
+        isLoadingForYou = true
+        Task {
+            do {
+                let response = try await WMFHomeDataController.shared.fetchForYou(project: project)
+                self.forYouViewModel = WMFForYouViewModel(response: response)
+            } catch {
+                // TODO: surface error
+            }
+            self.isLoadingForYou = false
+        }
+    }
 
     public func refreshCommunityFeed() async {
         guard let language = selectedLanguage else { return }
@@ -133,12 +147,11 @@ public final class WMFHomeViewModel: ObservableObject {
         }
     }
 
-    public init(languages: [WMFLanguage] = [], selectedLanguage: WMFLanguage? = nil, didSelectLanguage: ((WMFLanguage) -> Void)? = nil, didTapEditLanguages: (() -> Void)? = nil, didTapWhatsDrivingTestButton: (() -> Void)? = nil) {
+    public init(languages: [WMFLanguage] = [], selectedLanguage: WMFLanguage? = nil, didSelectLanguage: ((WMFLanguage) -> Void)? = nil, didTapEditLanguages: (() -> Void)? = nil) {
         self.languages = languages
         self.selectedLanguage = selectedLanguage
         self.didSelectLanguage = didSelectLanguage
         self.didTapEditLanguages = didTapEditLanguages
-        self.didTapWhatsDrivingTestButton = didTapWhatsDrivingTestButton
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleVisibilityChange), name: WMFNSNotification.communityModuleVisibilityDidChange, object: nil)
     }

@@ -47,9 +47,9 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         viewModel.didTapEditLanguages = { [weak self] in
             self?.presentLanguagesViewController()
         }
-        viewModel.didTapWhatsDrivingTestButton = { [weak self] in
-            self?.presentWhatsDrivingTest()
-        }
+//        viewModel.didTapWhatsDrivingTestButton = { [weak self] in
+//            self?.presentWhatsDrivingTest()
+//        }
         reloadLanguages()
     }
 
