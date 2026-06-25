@@ -11,13 +11,15 @@ public struct WMFForYouView: View {
     var theme: WMFTheme { appEnvironment.theme }
 
     let moduleVisibility: WMFForYouModuleVisibility
+    let hiddenCardKeys: Set<String>
     let onRefresh: () async -> Void
     let onHideModule: (WMFForYouModule) -> Void
     let onHideCard: (WMFForYouArticleCardViewModel) -> Void
 
-    public init(viewModel: WMFForYouViewModel, moduleVisibility: WMFForYouModuleVisibility, onRefresh: @escaping () async -> Void, onHideModule: @escaping (WMFForYouModule) -> Void, onHideCard: @escaping (WMFForYouArticleCardViewModel) -> Void) {
+    public init(viewModel: WMFForYouViewModel, moduleVisibility: WMFForYouModuleVisibility, hiddenCardKeys: Set<String> = [], onRefresh: @escaping () async -> Void, onHideModule: @escaping (WMFForYouModule) -> Void, onHideCard: @escaping (WMFForYouArticleCardViewModel) -> Void) {
         self.viewModel = viewModel
         self.moduleVisibility = moduleVisibility
+        self.hiddenCardKeys = hiddenCardKeys
         self.onRefresh = onRefresh
         self.onHideModule = onHideModule
         self.onHideCard = onHideCard
@@ -28,8 +30,11 @@ public struct WMFForYouView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(spacing: 0) {
                     ForEach(viewModel.pages.filter { moduleVisibility.isVisible($0.module) }) { page in
-                        WMFForYouPageView(viewModel: page, theme: theme, onHideModule: { onHideModule(page.module) }, onHideCard: onHideCard)
-                            .frame(width: geometry.size.width, height: geometry.size.height)
+                        let visibleArticles = page.articleViewModels.filter { !hiddenCardKeys.contains($0.hideKey) }
+                        if !visibleArticles.isEmpty {
+                            WMFForYouPageView(articleViewModels: visibleArticles, theme: theme, onHideModule: { onHideModule(page.module) }, onHideCard: onHideCard)
+                                .frame(width: geometry.size.width, height: geometry.size.height)
+                        }
                     }
                 }
             }
@@ -45,14 +50,14 @@ public struct WMFForYouView: View {
 
 private struct WMFForYouPageView: View {
 
-    @ObservedObject var viewModel: WMFForYouPageViewModel
+    let articleViewModels: [WMFForYouArticleCardViewModel]
     let theme: WMFTheme
     let onHideModule: () -> Void
     let onHideCard: (WMFForYouArticleCardViewModel) -> Void
 
     var body: some View {
         TabView {
-            ForEach(viewModel.articleViewModels) { article in
+            ForEach(articleViewModels) { article in
                 WMFForYouArticleCardView(viewModel: article, theme: theme, onHideModule: onHideModule, onHideCard: { onHideCard(article) })
             }
         }

@@ -87,10 +87,13 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
 
     private var loadTask: Task<Void, Never>?
 
+    public let hideKey: String
+
     public init(article: WMFForYouArticle, headerLabel: String) {
         self.headerLabel = headerLabel
         self.title = article.title
         self.project = article.project
+        self.hideKey = "for_you_\(article.project.id)_\(article.title)"
     }
 
     public func load() {

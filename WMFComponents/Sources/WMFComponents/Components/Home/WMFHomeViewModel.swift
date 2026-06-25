@@ -63,7 +63,10 @@ public final class WMFHomeViewModel: ObservableObject {
     }
 
     public func hideForYouCard(_ card: WMFForYouArticleCardViewModel) {
-        // TODO: persist and filter hidden cards
+        WMFHomeDataController.shared.hideCard(key: card.hideKey)
+        withAnimation {
+            hiddenCardKeys.append(card.hideKey)
+        }
     }
 
     public func refreshForYouFeed() async {
@@ -92,6 +95,7 @@ public final class WMFHomeViewModel: ObservableObject {
         let project = WMFProject.wikipedia(language)
         isLoadingForYou = true
         refreshForYouModuleVisibility()
+        hiddenCardKeys = WMFHomeDataController.shared.hiddenCardKeys()
         Task {
             do {
                 let response = try await WMFHomeDataController.shared.fetchForYou(project: project)

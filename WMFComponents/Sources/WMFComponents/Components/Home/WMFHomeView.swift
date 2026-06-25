@@ -74,6 +74,7 @@ public struct WMFHomeView: View {
             WMFForYouView(
                 viewModel: forYouViewModel,
                 moduleVisibility: viewModel.forYouModuleVisibility,
+                hiddenCardKeys: viewModel.hiddenCardKeySet,
                 onRefresh: { await viewModel.refreshForYouFeed() },
                 onHideModule: { viewModel.hideForYouModule($0) },
                 onHideCard: { viewModel.hideForYouCard($0) }
