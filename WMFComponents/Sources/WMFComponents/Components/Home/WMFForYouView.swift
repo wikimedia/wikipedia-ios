@@ -22,7 +22,7 @@ public struct WMFForYouView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(spacing: 0) {
                     ForEach(viewModel.pages) { page in
-                        WMFForYouTopicPageView(viewModel: page, theme: theme)
+                        WMFForYouPageView(viewModel: page, theme: theme)
                             .frame(width: geometry.size.width, height: geometry.size.height)
                     }
                 }
@@ -37,7 +37,7 @@ public struct WMFForYouView: View {
 
 // MARK: - Topic Page View
 
-private struct WMFForYouTopicPageView: View {
+private struct WMFForYouPageView: View {
 
     @ObservedObject var viewModel: WMFForYouPageViewModel
     let theme: WMFTheme
