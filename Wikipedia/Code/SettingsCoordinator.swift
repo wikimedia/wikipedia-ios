@@ -25,6 +25,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     private let dataStore: MWKDataStore
 
     private let dataController: WMFSettingsDataController
+    private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
     @MainActor private weak var settingsViewModel: WMFSettingsViewModel?
     @MainActor private var pushNotificationsViewModel: WMFPushNotificationsSettingsViewModel?
     private let languagesDelegateBridge = SettingsLanguagesDelegateBridge()
@@ -589,8 +590,9 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             return
         }
 
-        let homeFeedSettingsVC = WMFHomeFeedSettingsViewController(title: CommonStrings.homeFeedTitle)
-        settingsNav.pushViewController(homeFeedSettingsVC, animated: true)
+        let coordinator = HomeFeedSettingsCoordinator(navigationController: settingsNav, theme: theme)
+        self.homeFeedSettingsCoordinator = coordinator
+        coordinator.start()
     }
 
     // MARK: - Notifications

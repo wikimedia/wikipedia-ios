@@ -10,20 +10,29 @@ public enum AccessoryType {
     case chevron(label: String?)
 }
 
+public enum SettingsItemTitleStyle {
+    /// Standard row title (body font, primary text color).
+    case standard
+    /// Link-style title (bold subheadline font, link color), used for title-only rows that act as a link.
+    case link
+}
+
 public struct SettingsItem: Identifiable {
     public let id = UUID()
     let image: UIImage?
     let color: UIColor?
     let title: String
     let subtitle: String?
+    let titleStyle: SettingsItemTitleStyle
     let accessory: AccessoryType
     let action: (() -> Void)?
 
-    public init(image: UIImage?, color: UIColor?, title: String, subtitle: String?, accessory: AccessoryType, action: (() -> Void)?) {
+    public init(image: UIImage?, color: UIColor?, title: String, subtitle: String?, titleStyle: SettingsItemTitleStyle = .standard, accessory: AccessoryType, action: (() -> Void)?) {
         self.image = image
         self.color = color
         self.title = title
         self.subtitle = subtitle
+        self.titleStyle = titleStyle
         self.accessory = accessory
         self.action = action
     }
