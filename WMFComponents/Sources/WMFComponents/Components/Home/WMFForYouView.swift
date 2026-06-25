@@ -43,21 +43,12 @@ private struct WMFForYouTopicPageView: View {
     let theme: WMFTheme
 
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            TabView {
-                ForEach(viewModel.articleViewModels) { article in
-                    WMFForYouArticleCardView(viewModel: article, theme: theme)
-                }
+        TabView {
+            ForEach(viewModel.articleViewModels) { article in
+                WMFForYouArticleCardView(viewModel: article, theme: theme)
             }
-            .tabViewStyle(.page(indexDisplayMode: .always))
-
-            Text(viewModel.headerLabel)
-                .font(Font(WMFFont.for(.boldTitle1)))
-                .foregroundStyle(.white)
-                .shadow(radius: 4)
-                .padding(.horizontal, 20)
-                .padding(.top, 16)
         }
+        .tabViewStyle(.page(indexDisplayMode: .always))
     }
 }
 
@@ -78,11 +69,14 @@ private struct WMFForYouArticleCardView: View {
             .ignoresSafeArea()
 
             VStack(alignment: .leading, spacing: 8) {
+                Text(viewModel.headerLabel)
+                    .font(Font(WMFFont.for(.boldSubheadline)))
+                    .foregroundStyle(.white.opacity(0.8))
+                    .shadow(radius: 2)
                 Text(viewModel.title)
                     .font(Font(WMFFont.for(.boldTitle1)))
                     .foregroundStyle(.white)
                     .shadow(radius: 2)
-
                 if let description = viewModel.description {
                     Text(description)
                         .font(Font(WMFFont.for(.subheadline)))

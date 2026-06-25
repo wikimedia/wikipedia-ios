@@ -17,7 +17,17 @@ public final class WMFForYouViewModel: ObservableObject {
         let becauseYouReadPage: [WMFForYouPageViewModel] = response.becauseYouReadArticles.map {
             [WMFForYouPageViewModel(headerLabel: "Because you read: \($0.recentlyRead.title)", articles: $0.articles)]
         } ?? []
-        self.pages = topicPages + relatedPages + becauseYouReadPage
+        let continueReadingPage: [WMFForYouPageViewModel] = response.continueReadingArticles.map { continueReading in
+            let continueCard = WMFForYouArticleCardViewModel(
+                article: continueReading.continueReadingArticle,
+                headerLabel: "Continue reading: \(continueReading.continueReadingArticle.title)"
+            )
+            let savedCards = continueReading.savedArticles.map {
+                WMFForYouArticleCardViewModel(article: $0, headerLabel: "Saved article: \($0.title)")
+            }
+            return [WMFForYouPageViewModel(articleViewModels: [continueCard] + savedCards)]
+        } ?? []
+        self.pages = topicPages + relatedPages + becauseYouReadPage + continueReadingPage
     }
 }
 
@@ -25,14 +35,16 @@ public final class WMFForYouViewModel: ObservableObject {
 public final class WMFForYouPageViewModel: ObservableObject, Identifiable {
 
     public let id = UUID()
-    public let headerLabel: String
     public let articleViewModels: [WMFForYouArticleCardViewModel]
 
     public init(headerLabel: String, articles: [WMFForYouArticle]) {
-        self.headerLabel = headerLabel
         self.articleViewModels = articles.map {
-            WMFForYouArticleCardViewModel(article: $0)
+            WMFForYouArticleCardViewModel(article: $0, headerLabel: headerLabel)
         }
+    }
+
+    public init(articleViewModels: [WMFForYouArticleCardViewModel]) {
+        self.articleViewModels = articleViewModels
     }
 }
 
@@ -40,6 +52,7 @@ public final class WMFForYouPageViewModel: ObservableObject, Identifiable {
 public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable {
 
     public let id = UUID()
+    public let headerLabel: String
     public let title: String
     public let project: WMFProject
     @Published public var description: String?
@@ -47,7 +60,8 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
 
     private var loadTask: Task<Void, Never>?
 
-    public init(article: WMFForYouArticle) {
+    public init(article: WMFForYouArticle, headerLabel: String) {
+        self.headerLabel = headerLabel
         self.title = article.title
         self.project = article.project
     }
