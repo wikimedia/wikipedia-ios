@@ -5,25 +5,29 @@ import WMFData
 @MainActor
 public final class WMFForYouViewModel: ObservableObject {
 
-    @Published public var topicPages: [WMFForYouTopicPageViewModel] = []
+    @Published public var pages: [WMFForYouPageViewModel] = []
 
     public init(response: WMFForYouResponse) {
-        self.topicPages = response.interestTopicRandomArticles.map {
-            WMFForYouTopicPageViewModel(topicArticles: $0)
+        let pages = response.interestTopicRandomArticles.map {
+            WMFForYouPageViewModel(headerLabel: "Topic: \($0.topic.displayName)", articles: $0.articles)
         }
+        let relatedPages = response.interestPageRelatedArticles.map {
+            WMFForYouPageViewModel(headerLabel: "Related to: \($0.pageInterest.title)", articles: $0.articles)
+        }
+        self.pages = pages + relatedPages
     }
 }
 
 @MainActor
-public final class WMFForYouTopicPageViewModel: ObservableObject, Identifiable {
+public final class WMFForYouPageViewModel: ObservableObject, Identifiable {
 
     public let id = UUID()
-    public let topicName: String
+    public let headerLabel: String
     public let articleViewModels: [WMFForYouArticleCardViewModel]
 
-    public init(topicArticles: WMFForYouInterestTopicRandomArticles) {
-        self.topicName = topicArticles.topic.displayName
-        self.articleViewModels = topicArticles.articles.map {
+    public init(headerLabel: String, articles: [WMFForYouArticle]) {
+        self.headerLabel = headerLabel
+        self.articleViewModels = articles.map {
             WMFForYouArticleCardViewModel(article: $0)
         }
     }

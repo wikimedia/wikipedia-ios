@@ -18,7 +18,7 @@ public struct WMFForYouView: View {
         GeometryReader { geometry in
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(spacing: 0) {
-                    ForEach(viewModel.topicPages) { page in
+                    ForEach(viewModel.pages) { page in
                         WMFForYouTopicPageView(viewModel: page, theme: theme)
                             .frame(width: geometry.size.width, height: geometry.size.height)
                     }
@@ -33,7 +33,7 @@ public struct WMFForYouView: View {
 
 private struct WMFForYouTopicPageView: View {
 
-    @ObservedObject var viewModel: WMFForYouTopicPageViewModel
+    @ObservedObject var viewModel: WMFForYouPageViewModel
     let theme: WMFTheme
 
     var body: some View {
@@ -45,7 +45,7 @@ private struct WMFForYouTopicPageView: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .always))
 
-            Text(viewModel.topicName)
+            Text(viewModel.headerLabel)
                 .font(Font(WMFFont.for(.boldTitle1)))
                 .foregroundStyle(.white)
                 .shadow(radius: 4)
