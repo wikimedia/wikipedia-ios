@@ -15,14 +15,16 @@ public struct WMFForYouView: View {
     let onRefresh: () async -> Void
     let onHideModule: (WMFForYouModule) -> Void
     let onHideCard: (WMFForYouArticleCardViewModel) -> Void
+    let onCustomizeInterests: () -> Void
 
-    public init(viewModel: WMFForYouViewModel, moduleVisibility: WMFForYouModuleVisibility, hiddenCardKeys: Set<String> = [], onRefresh: @escaping () async -> Void, onHideModule: @escaping (WMFForYouModule) -> Void, onHideCard: @escaping (WMFForYouArticleCardViewModel) -> Void) {
+    public init(viewModel: WMFForYouViewModel, moduleVisibility: WMFForYouModuleVisibility, hiddenCardKeys: Set<String> = [], onRefresh: @escaping () async -> Void, onHideModule: @escaping (WMFForYouModule) -> Void, onHideCard: @escaping (WMFForYouArticleCardViewModel) -> Void, onCustomizeInterests: @escaping () -> Void) {
         self.viewModel = viewModel
         self.moduleVisibility = moduleVisibility
         self.hiddenCardKeys = hiddenCardKeys
         self.onRefresh = onRefresh
         self.onHideModule = onHideModule
         self.onHideCard = onHideCard
+        self.onCustomizeInterests = onCustomizeInterests
     }
 
     public var body: some View {
@@ -32,7 +34,7 @@ public struct WMFForYouView: View {
                     ForEach(viewModel.pages.filter { moduleVisibility.isVisible($0.module) }) { page in
                         let visibleArticles = page.articleViewModels.filter { !hiddenCardKeys.contains($0.hideKey) }
                         if !visibleArticles.isEmpty {
-                            WMFForYouPageView(articleViewModels: visibleArticles, theme: theme, onHideModule: { onHideModule(page.module) }, onHideCard: onHideCard)
+                            WMFForYouPageView(articleViewModels: visibleArticles, theme: theme, onHideModule: { onHideModule(page.module) }, onHideCard: onHideCard, onCustomizeInterests: onCustomizeInterests)
                                 .frame(width: geometry.size.width, height: geometry.size.height)
                         }
                     }
@@ -54,11 +56,12 @@ private struct WMFForYouPageView: View {
     let theme: WMFTheme
     let onHideModule: () -> Void
     let onHideCard: (WMFForYouArticleCardViewModel) -> Void
+    let onCustomizeInterests: () -> Void
 
     var body: some View {
         TabView {
             ForEach(articleViewModels) { article in
-                WMFForYouArticleCardView(viewModel: article, theme: theme, onHideModule: onHideModule, onHideCard: { onHideCard(article) })
+                WMFForYouArticleCardView(viewModel: article, theme: theme, onHideModule: onHideModule, onHideCard: { onHideCard(article) }, onCustomizeInterests: onCustomizeInterests)
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .always))
@@ -73,6 +76,7 @@ private struct WMFForYouArticleCardView: View {
     let theme: WMFTheme
     let onHideModule: () -> Void
     let onHideCard: () -> Void
+    let onCustomizeInterests: () -> Void
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
@@ -105,6 +109,9 @@ private struct WMFForYouArticleCardView: View {
         }
         .overlay(alignment: .topTrailing) {
             Menu {
+                Button(action: onCustomizeInterests) {
+                    Label("Customize interests", systemImage: "slider.horizontal.3")
+                }
                 Button(role: .destructive, action: onHideCard) {
                     Label("Hide this card", systemImage: "eye.slash")
                 }

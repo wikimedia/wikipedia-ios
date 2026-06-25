@@ -14,6 +14,7 @@ public enum WMFNSNotification {
     public static let enableHomeTabDidChange = Notification.Name(WMFNotificationName.enableHomeTabDidChange.rawValue)
     public static let communityModuleVisibilityDidChange = Notification.Name(WMFNotificationName.communityModuleVisibilityDidChange.rawValue)
     public static let forYouModuleVisibilityDidChange = Notification.Name(WMFNotificationName.forYouModuleVisibilityDidChange.rawValue)
+    public static let forYouInterestsDidChange = Notification.Name(WMFNotificationName.forYouInterestsDidChange.rawValue)
 
     /// User info keys for notifications
     public enum UserInfoKey {
@@ -35,4 +36,5 @@ private enum WMFNotificationName: String {
     case enableHomeTabDidChange = "WMFDataEnableHomeTabDidChange"
     case communityModuleVisibilityDidChange = "WMFDataCommunityModuleVisibilityDidChange"
     case forYouModuleVisibilityDidChange = "WMFDataForYouModuleVisibilityDidChange"
+    case forYouInterestsDidChange = "WMFDataForYouInterestsDidChange"
 }

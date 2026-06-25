@@ -77,7 +77,8 @@ public struct WMFHomeView: View {
                 hiddenCardKeys: viewModel.hiddenCardKeySet,
                 onRefresh: { await viewModel.refreshForYouFeed() },
                 onHideModule: { viewModel.hideForYouModule($0) },
-                onHideCard: { viewModel.hideForYouCard($0) }
+                onHideCard: { viewModel.hideForYouCard($0) },
+                onCustomizeInterests: { viewModel.didTapCustomizeInterests?() }
             )
         } else if viewModel.isLoadingForYou {
             Spacer()
