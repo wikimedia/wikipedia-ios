@@ -1154,7 +1154,7 @@
 	<key>watchlist-number-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Modificar [%#@v1@](wikipedia://watchlist/filter) para ver mais elementos da lista de páginas vigiadas</string>
+		<string>Modifique [%#@v1@](wikipedia://watchlist/filter) para ver mais elementos da lista de páginas vigiadas</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

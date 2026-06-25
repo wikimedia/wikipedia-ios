@@ -13,7 +13,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>une vue</string>
+			<string>%1$d vue</string>
 			<key>other</key>
 			<string>%1$d vues</string>
 		</dict>
@@ -798,8 +798,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d jours sur 25</string>
 			<key>other</key>
 			<string>%1$d jours sur 25</string>
 		</dict>
