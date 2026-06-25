@@ -24,6 +24,9 @@ public final class WMFHomeViewModel: ObservableObject {
     @Published public var selectedLanguage: WMFLanguage?
     @Published public var forYouViewModel: WMFForYouViewModel?
     @Published public var isLoadingForYou: Bool = false
+    @Published public var forYouModuleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(
+        basedOnInterests: true, becauseYouRead: true, continueReading: true
+    )
     @Published public var communityPages: [WMFHomeCommunityViewModel] = []
     @Published public var communityFeedError: Error?
     @Published public var isLoadingCommunity: Bool = false
@@ -37,8 +40,26 @@ public final class WMFHomeViewModel: ObservableObject {
     public var didSelectLanguage: ((WMFLanguage) -> Void)?
     public var didTapEditLanguages: (() -> Void)?
 
-    public func hideForYouModule(_ page: WMFForYouPageViewModel) {
-        // TODO: persist and filter hidden modules
+    public func refreshForYouModuleVisibility() {
+        forYouModuleVisibility = WMFForYouModuleVisibility(
+            basedOnInterests: WMFHomeDataController.shared.forYouBasedOnInterestsIsOn(),
+            becauseYouRead: WMFHomeDataController.shared.forYouBecauseYouReadIsOn(),
+            continueReading: WMFHomeDataController.shared.forYouContinueReadingIsOn()
+        )
+    }
+
+    public func hideForYouModule(_ module: WMFForYouModule) {
+        switch module {
+        case .basedOnInterests:
+            WMFHomeDataController.shared.setForYouBasedOnInterestsIsOn(false)
+        case .becauseYouRead:
+            WMFHomeDataController.shared.setForYouBecauseYouReadIsOn(false)
+        case .continueReading:
+            WMFHomeDataController.shared.setForYouContinueReadingIsOn(false)
+        }
+        withAnimation {
+            refreshForYouModuleVisibility()
+        }
     }
 
     public func hideForYouCard(_ card: WMFForYouArticleCardViewModel) {
@@ -70,6 +91,7 @@ public final class WMFHomeViewModel: ObservableObject {
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
         isLoadingForYou = true
+        refreshForYouModuleVisibility()
         Task {
             do {
                 let response = try await WMFHomeDataController.shared.fetchForYou(project: project)
@@ -183,6 +205,7 @@ public final class WMFHomeViewModel: ObservableObject {
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleVisibilityChange), name: WMFNSNotification.communityModuleVisibilityDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleCoreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleForYouVisibilityChange), name: WMFNSNotification.forYouModuleVisibilityDidChange, object: nil)
     }
 
     @objc private func handleVisibilityChange() {
@@ -191,6 +214,10 @@ public final class WMFHomeViewModel: ObservableObject {
 
     @objc private func handleCoreDataStoreSetup() {
         loadCurrentTabFeedIfNeeded()
+    }
+
+    @objc private func handleForYouVisibilityChange() {
+        refreshForYouModuleVisibility()
     }
 
     /// The short code shown on the language menu button (e.g. "EN").

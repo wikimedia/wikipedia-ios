@@ -73,6 +73,7 @@ public struct WMFHomeView: View {
         if let forYouViewModel = viewModel.forYouViewModel {
             WMFForYouView(
                 viewModel: forYouViewModel,
+                moduleVisibility: viewModel.forYouModuleVisibility,
                 onRefresh: { await viewModel.refreshForYouFeed() },
                 onHideModule: { viewModel.hideForYouModule($0) },
                 onHideCard: { viewModel.hideForYouCard($0) }

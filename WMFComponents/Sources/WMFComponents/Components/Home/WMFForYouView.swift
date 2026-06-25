@@ -10,12 +10,14 @@ public struct WMFForYouView: View {
 
     var theme: WMFTheme { appEnvironment.theme }
 
+    let moduleVisibility: WMFForYouModuleVisibility
     let onRefresh: () async -> Void
-    let onHideModule: (WMFForYouPageViewModel) -> Void
+    let onHideModule: (WMFForYouModule) -> Void
     let onHideCard: (WMFForYouArticleCardViewModel) -> Void
 
-    public init(viewModel: WMFForYouViewModel, onRefresh: @escaping () async -> Void, onHideModule: @escaping (WMFForYouPageViewModel) -> Void, onHideCard: @escaping (WMFForYouArticleCardViewModel) -> Void) {
+    public init(viewModel: WMFForYouViewModel, moduleVisibility: WMFForYouModuleVisibility, onRefresh: @escaping () async -> Void, onHideModule: @escaping (WMFForYouModule) -> Void, onHideCard: @escaping (WMFForYouArticleCardViewModel) -> Void) {
         self.viewModel = viewModel
+        self.moduleVisibility = moduleVisibility
         self.onRefresh = onRefresh
         self.onHideModule = onHideModule
         self.onHideCard = onHideCard
@@ -25,8 +27,8 @@ public struct WMFForYouView: View {
         GeometryReader { geometry in
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(spacing: 0) {
-                    ForEach(viewModel.pages) { page in
-                        WMFForYouPageView(viewModel: page, theme: theme, onHideModule: { onHideModule(page) }, onHideCard: onHideCard)
+                    ForEach(viewModel.pages.filter { moduleVisibility.isVisible($0.module) }) { page in
+                        WMFForYouPageView(viewModel: page, theme: theme, onHideModule: { onHideModule(page.module) }, onHideCard: onHideCard)
                             .frame(width: geometry.size.width, height: geometry.size.height)
                     }
                 }

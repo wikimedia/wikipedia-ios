@@ -98,6 +98,7 @@ public final actor WMFHomeDataController {
 
     public nonisolated func setForYouBasedOnInterestsIsOn(_ newValue: Bool) {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedForYouBasedOnInterestsIsOn.rawValue, value: newValue)
+        NotificationCenter.default.post(name: WMFNSNotification.forYouModuleVisibilityDidChange, object: nil)
     }
 
     public nonisolated func forYouBecauseYouReadIsOn() -> Bool {
@@ -106,6 +107,7 @@ public final actor WMFHomeDataController {
 
     public nonisolated func setForYouBecauseYouReadIsOn(_ newValue: Bool) {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedForYouBecauseYouReadIsOn.rawValue, value: newValue)
+        NotificationCenter.default.post(name: WMFNSNotification.forYouModuleVisibilityDidChange, object: nil)
     }
 
     public nonisolated func forYouContinueReadingIsOn() -> Bool {
@@ -114,6 +116,7 @@ public final actor WMFHomeDataController {
 
     public nonisolated func setForYouContinueReadingIsOn(_ newValue: Bool) {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedForYouContinueReadingIsOn.rawValue, value: newValue)
+        NotificationCenter.default.post(name: WMFNSNotification.forYouModuleVisibilityDidChange, object: nil)
     }
 
     // MARK: - Settings: Hidden Cards
