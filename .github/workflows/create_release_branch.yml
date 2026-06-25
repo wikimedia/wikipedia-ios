@@ -1,0 +1,181 @@
+name: Create Release Branch
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'Release type'
+        required: true
+        type: choice
+        options:
+          - patch       # bug fixes  — bumps x.y.Z
+          - minor       # new features — bumps x.Y.0
+          - major       # app-wide changes — bumps X.0.0
+          - hotfix      # emergency: branch off latest app store tag, not main
+      hotfix_base_tag:
+        description: 'Hotfix base tag override (e.g. releases/7.5.2). Leave blank to auto-detect latest release tag.'
+        required: false
+        default: ''
+      plist_path:
+        description: 'Path to Info.plist (relative to repo root)'
+        required: true
+        default: 'Wikipedia/Code/Application/Supporting Files/Wikipedia-Info.plist'
+        # Grab info.plist information for current version
+
+jobs:
+  create-release-branch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history + all tags needed for auto-detect
+
+      - name: Resolve base ref
+        id: base
+        run: |
+          if [ "${{ inputs.release_type }}" = "hotfix" ]; then
+            if [ -n "${{ inputs.hotfix_base_tag }}" ]; then
+              BASE_REF="${{ inputs.hotfix_base_tag }}"
+              echo "Using manually supplied tag: $BASE_REF"
+            else
+              # Auto-detect: latest tag matching releases/X.Y.Z
+              BASE_REF=$(git tag --list 'releases/*' \
+                | sort -t. -k1,1 -k2,2n -k3,3n \
+                | tail -n 1)
+              if [ -z "$BASE_REF" ]; then
+                echo "::error::No tags matching 'releases/*' found. Supply a tag manually via hotfix_base_tag."
+                exit 1
+              fi
+              echo "Auto-detected latest release tag: $BASE_REF"
+            fi
+          else
+            BASE_REF="main"
+          fi
+          echo "base_ref=$BASE_REF" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout base ref
+        run: git checkout ${{ steps.base.outputs.base_ref }}
+
+      - name: Read current version from Info.plist
+        id: current_version
+        run: |
+          PLIST="${{ inputs.plist_path }}"
+          VERSION=$(python3 -c "
+          import plistlib
+          with open('$PLIST', 'rb') as f:
+              d = plistlib.load(f)
+          print(d['CFBundleShortVersionString'])
+          ")
+          echo "Current version: $VERSION"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Compute next version
+        id: next_version
+        run: |
+          VERSION="${{ steps.current_version.outputs.version }}"
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+
+          case "${{ inputs.release_type }}" in
+            major)
+              MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0 ;;
+            minor)
+              MINOR=$((MINOR + 1)); PATCH=0 ;;
+            patch|hotfix)
+              PATCH=$((PATCH + 1)) ;;
+          esac
+
+          NEXT="$MAJOR.$MINOR.$PATCH"
+          echo "Next version: $NEXT"
+          echo "next=$NEXT" >> "$GITHUB_OUTPUT"
+
+      - name: Create release branch
+        id: branch
+        run: |
+          BRANCH="releases/${{ steps.next_version.outputs.next }}"
+          git checkout -b "$BRANCH"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+      - name: Bump version in Info.plist
+        run: |
+          python3 -c "
+          import plistlib
+          path = '${{ inputs.plist_path }}'
+          with open(path, 'rb') as f:
+              d = plistlib.load(f)
+          d['CFBundleShortVersionString'] = '${{ steps.next_version.outputs.next }}'
+          with open(path, 'wb') as f:
+              plistlib.dump(d, f)
+          print('Updated', path, 'to ${{ steps.next_version.outputs.next }}')
+          "
+
+      - name: Commit and push version bump
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "${{ inputs.plist_path }}"
+          git commit -m "chore: bump version to ${{ steps.next_version.outputs.next }}"
+          git push origin ${{ steps.branch.outputs.branch }}
+
+      - name: Create git tag
+        run: |
+          TAG="releases/${{ steps.next_version.outputs.next }}"
+          git tag "$TAG"
+          git push origin "$TAG"
+
+      - name: Set PR body
+        id: pr_body
+        run: |
+          TYPE="${{ inputs.release_type }}"
+          BASE="${{ steps.base.outputs.base_ref }}"
+          PREV="${{ steps.current_version.outputs.version }}"
+          NEXT="${{ steps.next_version.outputs.next }}"
+
+          if [ "$TYPE" = "hotfix" ]; then
+            HOTFIX_NOTE="> **Hotfix** — branched off \`$BASE\`, not \`main\`."$'\n\n'
+          else
+            HOTFIX_NOTE=""
+          fi
+
+          BODY="${HOTFIX_NOTE}**Version:** \`$PREV\` → \`$NEXT\`
+          **Type:** $TYPE
+          **Base:** \`$BASE\`
+
+          ### Checklist
+          - [ ] Trigger Nightly Build in Xcode Cloud
+          - [ ] Verify build passes
+          - [ ] QA sign-off"
+
+          echo "body<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$BODY" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Open pull request
+        id: pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_URL=$(gh pr create \
+            --base main \
+            --head "${{ steps.branch.outputs.branch }}" \
+            --title "Release ${{ steps.next_version.outputs.next }} (${{ inputs.release_type }})" \
+            --body "${{ steps.pr_body.outputs.body }}")
+          echo "url=$PR_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Summary
+        run: |
+          echo "### Release branch created" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| | |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| **Type** | ${{ inputs.release_type }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Base** | \`${{ steps.base.outputs.base_ref }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Branch** | \`${{ steps.branch.outputs.branch }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Version** | ${{ steps.current_version.outputs.version }} → ${{ steps.next_version.outputs.next }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **PR** | ${{ steps.pr.outputs.url }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Open the PR and trigger build in Xcode Cloud when ready." >> $GITHUB_STEP_SUMMARY
