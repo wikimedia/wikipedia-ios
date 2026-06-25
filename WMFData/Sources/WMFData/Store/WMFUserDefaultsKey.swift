@@ -72,4 +72,19 @@ public enum WMFUserDefaultsKey: String {
     // Logging
     case appInstallID = "wmf-app-install-id"
     case sessionID = "wmf-session-id"
+
+    // Home feed: Community modules
+    case homeFeedCommunityFeaturedArticleIsOn = "home-feed-community-featured-article-is-on"
+    case homeFeedCommunityTopReadIsOn = "home-feed-community-top-read-is-on"
+    case homeFeedCommunityInTheNewsIsOn = "home-feed-community-in-the-news-is-on"
+    case homeFeedCommunityOnThisDayIsOn = "home-feed-community-on-this-day-is-on"
+    case homeFeedCommunityPictureOfTheDayIsOn = "home-feed-community-picture-of-the-day-is-on"
+
+    // Home feed: For You modules
+    case homeFeedForYouBasedOnInterestsIsOn = "home-feed-for-you-based-on-interests-is-on"
+    case homeFeedForYouBecauseYouReadIsOn = "home-feed-for-you-because-you-read-is-on"
+    case homeFeedForYouContinueReadingIsOn = "home-feed-for-you-continue-reading-is-on"
+
+    // Home feed: selected language
+    case homeSelectedLanguageCode = "home-selected-language-code"
 }
