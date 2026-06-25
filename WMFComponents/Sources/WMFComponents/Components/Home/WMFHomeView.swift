@@ -82,8 +82,10 @@ public struct WMFHomeView: View {
             WMFCommunityFeedView(
                 pages: viewModel.communityPages,
                 moduleVisibility: viewModel.communityModuleVisibility,
+                hiddenCardKeys: viewModel.hiddenCardKeySet,
                 isLoadingPreviousPage: viewModel.isLoadingCommunityPreviousPage,
                 onHideModule: { viewModel.hideModule($0) },
+                onHideCard: { viewModel.hideCard(key: $0) },
                 onRefresh: { await viewModel.refreshCommunityFeed() },
                 onTapSeePastContent: { viewModel.loadCommunityPreviousPage() }
             )

@@ -29,6 +29,8 @@ public final class WMFHomeViewModel: ObservableObject {
     @Published public var communityModuleVisibility: WMFCommunityModuleVisibility = WMFCommunityModuleVisibility(
         featuredArticle: true, topRead: true, inTheNews: true, onThisDay: true, pictureOfDay: true
     )
+    @Published public var hiddenCardKeys: [String] = []
+    public var hiddenCardKeySet: Set<String> { Set(hiddenCardKeys) }
 
     public var didSelectLanguage: ((WMFLanguage) -> Void)?
     public var didTapEditLanguages: (() -> Void)?
@@ -60,6 +62,7 @@ public final class WMFHomeViewModel: ObservableObject {
             onThisDay: WMFHomeDataController.shared.communityOnThisDayIsOn(),
             pictureOfDay: WMFHomeDataController.shared.communityPictureOfTheDayIsOn()
         )
+        hiddenCardKeys = WMFHomeDataController.shared.hiddenCardKeys()
         Task {
             do {
                 let response = try await WMFHomeDataController.shared.fetchCommunity(project: project)
@@ -79,6 +82,17 @@ public final class WMFHomeViewModel: ObservableObject {
             onThisDay: WMFHomeDataController.shared.communityOnThisDayIsOn(),
             pictureOfDay: WMFHomeDataController.shared.communityPictureOfTheDayIsOn()
         )
+    }
+
+    public func refreshHiddenCardKeys() {
+        hiddenCardKeys = WMFHomeDataController.shared.hiddenCardKeys()
+    }
+
+    public func hideCard(key: String) {
+        WMFHomeDataController.shared.hideCard(key: key)
+        withAnimation {
+            hiddenCardKeys.append(key)
+        }
     }
 
     public func hideModule(_ module: WMFCommunityModule) {

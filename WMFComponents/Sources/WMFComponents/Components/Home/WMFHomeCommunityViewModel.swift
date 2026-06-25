@@ -49,6 +49,17 @@ public struct WMFHomeCommunityViewModel {
     public let pictureOfDay: WMFFeedImageSource?
     public let project: WMFProject
 
+    // MARK: - Hide keys
+    // Content-specific cards (Featured Article, Picture of Day) use a title-based key so the same
+    // content stays hidden across days. Date-bounded cards use date + project so only that day's
+    // instance is hidden and tomorrow's content reappears naturally (mirrors Android's scheme).
+
+    public let featuredArticleHideKey: String?
+    public let topReadHideKey: String
+    public let inTheNewsHideKey: String
+    public let onThisDayHideKey: String
+    public let pictureOfDayHideKey: String?
+
     // MARK: - Init
 
     public init(response: WMFCommunityResponse, project: WMFProject) {
@@ -56,6 +67,15 @@ public struct WMFHomeCommunityViewModel {
         let currentYear = Calendar.current.component(.year, from: Date())
 
         self.project = project
+
+        let keyDateFormatter = DateFormatter()
+        keyDateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateKey = keyDateFormatter.string(from: response.date)
+        self.featuredArticleHideKey = response.feedResponse.todaysFeaturedArticle?.title.map { "featured_article_\($0)" }
+        self.topReadHideKey = "top_read_\(dateKey)_\(projectID)"
+        self.inTheNewsHideKey = "in_the_news_\(dateKey)_\(projectID)"
+        self.onThisDayHideKey = "on_this_day_\(dateKey)_\(projectID)"
+        self.pictureOfDayHideKey = response.feedResponse.image?.thumbnail?.source.map { "picture_of_day_\($0.hashValue)" }
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM d, yyyy"

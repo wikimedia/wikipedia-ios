@@ -116,6 +116,28 @@ public final actor WMFHomeDataController {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedForYouContinueReadingIsOn.rawValue, value: newValue)
     }
 
+    // MARK: - Settings: Hidden Cards
+
+    private static let maxHiddenCardKeys = 100
+
+    public nonisolated func hiddenCardKeys() -> [String] {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeFeedHiddenCardKeys.rawValue)) ?? []
+    }
+
+    public nonisolated func hideCard(key: String) {
+        var keys = hiddenCardKeys()
+        guard !keys.contains(key) else { return }
+        keys.append(key)
+        if keys.count > Self.maxHiddenCardKeys {
+            keys = Array(keys.dropFirst(keys.count - Self.maxHiddenCardKeys))
+        }
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedHiddenCardKeys.rawValue, value: keys)
+    }
+
+    public nonisolated func isCardHidden(key: String) -> Bool {
+        return hiddenCardKeys().contains(key)
+    }
+
     // MARK: - Settings: Interest Topics
 
     public nonisolated func interestTopics() -> [WMFArticleTopic] {

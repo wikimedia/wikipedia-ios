@@ -11,8 +11,10 @@ struct WMFCommunityFeedView: View {
 
     let pages: [WMFHomeCommunityViewModel]
     let moduleVisibility: WMFCommunityModuleVisibility
+    let hiddenCardKeys: Set<String>
     let isLoadingPreviousPage: Bool
     let onHideModule: (WMFCommunityModule) -> Void
+    let onHideCard: (String) -> Void
     let onRefresh: () async -> Void
     let onTapSeePastContent: () -> Void
 
@@ -20,20 +22,30 @@ struct WMFCommunityFeedView: View {
         List {
             ForEach(Array(pages.enumerated()), id: \.offset) { _, page in
                 dateSection(page.date)
-                if moduleVisibility.featuredArticle, let tfa = page.featuredArticle {
-                    featuredArticleSection(tfa)
+                if moduleVisibility.featuredArticle,
+                   let tfa = page.featuredArticle,
+                   !hiddenCardKeys.contains(page.featuredArticleHideKey ?? "") {
+                    featuredArticleSection(tfa, hideKey: page.featuredArticleHideKey)
                 }
-                if moduleVisibility.topRead, !page.topReadItems.isEmpty {
-                    topReadSection(page.topReadItems)
+                if moduleVisibility.topRead,
+                   !page.topReadItems.isEmpty,
+                   !hiddenCardKeys.contains(page.topReadHideKey) {
+                    topReadSection(page.topReadItems, hideKey: page.topReadHideKey)
                 }
-                if moduleVisibility.inTheNews, !page.newsItems.isEmpty {
-                    inTheNewsSection(page.newsItems)
+                if moduleVisibility.inTheNews,
+                   !page.newsItems.isEmpty,
+                   !hiddenCardKeys.contains(page.inTheNewsHideKey) {
+                    inTheNewsSection(page.newsItems, hideKey: page.inTheNewsHideKey)
                 }
-                if moduleVisibility.onThisDay, let onThisDayItems = page.onThisDayItems {
-                    onThisDaySection(onThisDayItems)
+                if moduleVisibility.onThisDay,
+                   let onThisDayItems = page.onThisDayItems,
+                   !hiddenCardKeys.contains(page.onThisDayHideKey) {
+                    onThisDaySection(onThisDayItems, hideKey: page.onThisDayHideKey)
                 }
-                if moduleVisibility.pictureOfDay, let pictureOfDay = page.pictureOfDay {
-                    pictureOfTheDaySection(pictureOfDay)
+                if moduleVisibility.pictureOfDay,
+                   let pictureOfDay = page.pictureOfDay,
+                   !hiddenCardKeys.contains(page.pictureOfDayHideKey ?? "") {
+                    pictureOfTheDaySection(pictureOfDay, hideKey: page.pictureOfDayHideKey)
                 }
             }
 
@@ -80,20 +92,20 @@ struct WMFCommunityFeedView: View {
 
     // MARK: - Featured Article
 
-    private func featuredArticleSection(_ article: WMFFeedArticle) -> some View {
+    private func featuredArticleSection(_ article: WMFFeedArticle, hideKey: String?) -> some View {
         Section {
             WMFFeaturedArticleCard(article: article, theme: theme)
                 .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color(uiColor: theme.paperBackground))
         } header: {
-            sectionHeader("Featured Article", module: .featuredArticle)
+            sectionHeader("Featured Article", module: .featuredArticle, hideKey: hideKey)
         }
     }
 
     // MARK: - Top Read
 
-    private func topReadSection(_ items: [WMFHomeCommunityViewModel.TopReadItem]) -> some View {
+    private func topReadSection(_ items: [WMFHomeCommunityViewModel.TopReadItem], hideKey: String) -> some View {
         Section {
             ForEach(Array(items.enumerated()), id: \.offset) { _, item in
                 WMFAsyncPageRow(viewModel: WMFAsyncPageRowViewModel(
@@ -106,13 +118,13 @@ struct WMFCommunityFeedView: View {
                 .listRowBackground(Color(uiColor: theme.paperBackground))
             }
         } header: {
-            sectionHeader("Top read", module: .topRead)
+            sectionHeader("Top read", module: .topRead, hideKey: hideKey)
         }
     }
 
     // MARK: - In The News
 
-    private func inTheNewsSection(_ items: [WMFHomeCommunityViewModel.NewsItem]) -> some View {
+    private func inTheNewsSection(_ items: [WMFHomeCommunityViewModel.NewsItem], hideKey: String) -> some View {
         Section {
             TabView {
                 ForEach(Array(items.enumerated()), id: \.offset) { _, item in
@@ -127,13 +139,13 @@ struct WMFCommunityFeedView: View {
             .listRowSeparator(.hidden)
             .listRowBackground(Color(uiColor: theme.paperBackground))
         } header: {
-            sectionHeader("In the news", module: .inTheNews)
+            sectionHeader("In the news", module: .inTheNews, hideKey: hideKey)
         }
     }
 
     // MARK: - On This Day
 
-    private func onThisDaySection(_ items: [WMFHomeCommunityViewModel.OnThisDayItem]) -> some View {
+    private func onThisDaySection(_ items: [WMFHomeCommunityViewModel.OnThisDayItem], hideKey: String) -> some View {
         Section {
             ForEach(Array(items.enumerated()), id: \.offset) { _, item in
                 VStack(alignment: .leading, spacing: 6) {
@@ -169,35 +181,38 @@ struct WMFCommunityFeedView: View {
                 .listRowBackground(Color(uiColor: theme.paperBackground))
             }
         } header: {
-            sectionHeader("On this day", module: .onThisDay)
+            sectionHeader("On this day", module: .onThisDay, hideKey: hideKey)
         }
     }
 
     // MARK: - Picture of the Day
 
-    private func pictureOfTheDaySection(_ imageSource: WMFFeedImageSource) -> some View {
+    private func pictureOfTheDaySection(_ imageSource: WMFFeedImageSource, hideKey: String?) -> some View {
         Section {
             WMFPictureOfTheDayCard(imageSource: imageSource, theme: theme)
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color(uiColor: theme.paperBackground))
         } header: {
-            sectionHeader("Picture of the day", module: .pictureOfDay)
+            sectionHeader("Picture of the day", module: .pictureOfDay, hideKey: hideKey)
         }
     }
 
     // MARK: - Section Header
 
-    private func sectionHeader(_ title: String, module: WMFCommunityModule) -> some View {
+    private func sectionHeader(_ title: String, module: WMFCommunityModule, hideKey: String?) -> some View {
         HStack {
             Text(title)
                 .font(Font(WMFFont.for(.boldTitle3)))
                 .foregroundStyle(Color(uiColor: theme.text))
             Spacer()
             Menu {
-                Button(role: .destructive) { } label: {
+                Button(role: .destructive) {
+                    if let hideKey { onHideCard(hideKey) }
+                } label: {
                     Label("Hide this card", systemImage: "eye.slash")
                 }
+                .disabled(hideKey == nil)
                 Button(role: .destructive) {
                     onHideModule(module)
                 } label: {
