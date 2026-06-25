@@ -37,6 +37,17 @@ public final class WMFHomeViewModel: ObservableObject {
     public var didSelectLanguage: ((WMFLanguage) -> Void)?
     public var didTapEditLanguages: (() -> Void)?
 
+    public func refreshForYouFeed() async {
+        guard let language = selectedLanguage else { return }
+        let project = WMFProject.wikipedia(language)
+        do {
+            let response = try await WMFHomeDataController.shared.fetchForYou(project: project, forceFetch: true)
+            self.forYouViewModel = WMFForYouViewModel(response: response)
+        } catch {
+            // TODO: surface error
+        }
+    }
+
     public func loadForYouFeedIfNeeded() {
         guard forYouViewModel == nil, !isLoadingForYou else { return }
         guard let language = selectedLanguage else { return }

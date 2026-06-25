@@ -10,8 +10,11 @@ public struct WMFForYouView: View {
 
     var theme: WMFTheme { appEnvironment.theme }
 
-    public init(viewModel: WMFForYouViewModel) {
+    let onRefresh: () async -> Void
+
+    public init(viewModel: WMFForYouViewModel, onRefresh: @escaping () async -> Void) {
         self.viewModel = viewModel
+        self.onRefresh = onRefresh
     }
 
     public var body: some View {
@@ -25,6 +28,9 @@ public struct WMFForYouView: View {
                 }
             }
             .scrollTargetBehavior(.paging)
+            .refreshable {
+                await onRefresh()
+            }
         }
     }
 }

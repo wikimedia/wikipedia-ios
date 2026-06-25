@@ -73,7 +73,7 @@ public struct WMFHomeView: View {
     @ViewBuilder
     private var forYouTabContent: some View {
         if let forYouViewModel = viewModel.forYouViewModel {
-            WMFForYouView(viewModel: forYouViewModel)
+            WMFForYouView(viewModel: forYouViewModel, onRefresh: { await viewModel.refreshForYouFeed() })
         } else if viewModel.isLoadingForYou {
             Spacer()
             ProgressView()
