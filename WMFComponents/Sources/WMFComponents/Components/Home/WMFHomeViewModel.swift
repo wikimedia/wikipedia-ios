@@ -48,6 +48,15 @@ public final class WMFHomeViewModel: ObservableObject {
         }
     }
 
+    public func loadCurrentTabFeedIfNeeded() {
+        switch selectedTab {
+        case .forYou:
+            loadForYouFeedIfNeeded()
+        case .community:
+            loadCommunityFeedIfNeeded()
+        }
+    }
+
     public func loadForYouFeedIfNeeded() {
         guard forYouViewModel == nil, !isLoadingForYou else { return }
         guard let language = selectedLanguage else { return }
@@ -165,10 +174,15 @@ public final class WMFHomeViewModel: ObservableObject {
         self.didTapEditLanguages = didTapEditLanguages
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleVisibilityChange), name: WMFNSNotification.communityModuleVisibilityDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCoreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
     }
 
     @objc private func handleVisibilityChange() {
         refreshCommunityModuleVisibility()
+    }
+
+    @objc private func handleCoreDataStoreSetup() {
+        loadCurrentTabFeedIfNeeded()
     }
 
     /// The short code shown on the language menu button (e.g. "EN").

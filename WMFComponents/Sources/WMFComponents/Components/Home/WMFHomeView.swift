@@ -60,13 +60,11 @@ public struct WMFHomeView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(uiColor: theme.paperBackground))
         .environment(\.colorScheme, theme.preferredColorScheme)
-        .onChange(of: viewModel.selectedTab) { tab in
-            switch tab {
-            case .forYou:
-                viewModel.loadForYouFeedIfNeeded()
-            case .community:
-                viewModel.loadCommunityFeedIfNeeded()
-            }
+        .task {
+            viewModel.loadCurrentTabFeedIfNeeded()
+        }
+        .onChange(of: viewModel.selectedTab) { _ in
+            viewModel.loadCurrentTabFeedIfNeeded()
         }
     }
 
