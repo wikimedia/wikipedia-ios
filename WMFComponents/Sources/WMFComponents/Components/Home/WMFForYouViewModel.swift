@@ -8,13 +8,16 @@ public final class WMFForYouViewModel: ObservableObject {
     @Published public var pages: [WMFForYouPageViewModel] = []
 
     public init(response: WMFForYouResponse) {
-        let pages = response.interestTopicRandomArticles.map {
+        let topicPages = response.interestTopicRandomArticles.map {
             WMFForYouPageViewModel(headerLabel: "Topic: \($0.topic.displayName)", articles: $0.articles)
         }
         let relatedPages = response.interestPageRelatedArticles.map {
             WMFForYouPageViewModel(headerLabel: "Related to: \($0.pageInterest.title)", articles: $0.articles)
         }
-        self.pages = pages + relatedPages
+        let becauseYouReadPage: [WMFForYouPageViewModel] = response.becauseYouReadArticles.map {
+            [WMFForYouPageViewModel(headerLabel: "Because you read: \($0.recentlyRead.title)", articles: $0.articles)]
+        } ?? []
+        self.pages = topicPages + relatedPages + becauseYouReadPage
     }
 }
 
