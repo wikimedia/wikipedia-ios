@@ -40,7 +40,6 @@ public final class WMFHomeViewModel: ObservableObject {
     public func refreshCommunityFeed() async {
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
-        communityPages = []
         do {
             let response = try await WMFHomeDataController.shared.fetchCommunity(project: project, forceFetch: true)
             self.communityPages = [WMFHomeCommunityViewModel(response: response, project: project)]
