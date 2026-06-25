@@ -483,7 +483,7 @@
 "empty-no-saved-pages-in-reading-list-message" = "Tallenna sivuja tähän listaan nähdäksesi ne täällä";
 "empty-no-saved-pages-in-reading-list-title" = "Ei sivuja tallennettuna tähän listaan";
 "empty-no-saved-pages-message" = "Tallenna sivuja tarkastellaksesi niitä myöhemmin myös yhteydettömässä tilassa";
-"empty-no-saved-pages-title" = "Ei tallennettuja sivua vielä";
+"empty-no-saved-pages-title" = "Ei vielä tallennettuja sivua";
 "empty-no-search-results-message" = "Tuloksia ei löytynyt";
 "empty-talk-page-title" = "Käyttäjälle ei ole lähetetty viestejä";
 "end-session" = "Lopeta istunto";
@@ -627,7 +627,6 @@
 "forgot-password-instructions" = "Saat ohjeet salasanan palauttamiseen sähköpostitse täytettyäsi yhden alla olevista kentistä";
 "forgot-password-title" = "Salasanan palauttaminen";
 "forgot-password-username-or-email-title" = "tai";
-"games-announcement-maybe-later-button" = "Ehkä myöhemmin";
 "games-email-report-body-encountered" = "Olen havainnut seuraavan ongelman Wikipedian pelitoiminnossa:";
 "games-wcf-explore-title" = "Kumpi tapahtui ensin?";
 "gan-variants-alert-title" = "Päivityksiä Gan-version tukeen";
