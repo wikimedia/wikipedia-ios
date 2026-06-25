@@ -186,8 +186,13 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         viewModel.didImpressionSlide = { [weak self] slideIndex in
             self?.logImpression(actionSource: "game_play", actionSubtype: "game_play_\(slideIndex)")
         }
-        viewModel.didTapExitDuringPlay = { [weak self] slideIndex in
-            self?.logClick(actionSource: "game_play", actionSubtype: "game_play_\(slideIndex)", elementId: "exit_button")
+        viewModel.didTapExitDuringPlay = { [weak self] slideIndex, isComplete in
+            if isComplete {
+                self?.logClick(actionSource: "game_end", elementId: "exit_button")
+            } else {
+                self?.logClick(actionSource: "game_play", actionSubtype: "game_play_\(slideIndex)", elementId: "exit_button")
+            }
+            
         }
         viewModel.didSubmitAnswer = { [weak self] slideIndex in
             self?.logClick(actionSource: "game_play", actionSubtype: "game_play_\(slideIndex)", elementId: "answer_submit")
