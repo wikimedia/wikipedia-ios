@@ -37,6 +37,14 @@ public final class WMFHomeViewModel: ObservableObject {
     public var didSelectLanguage: ((WMFLanguage) -> Void)?
     public var didTapEditLanguages: (() -> Void)?
 
+    public func hideForYouModule(_ page: WMFForYouPageViewModel) {
+        // TODO: persist and filter hidden modules
+    }
+
+    public func hideForYouCard(_ card: WMFForYouArticleCardViewModel) {
+        // TODO: persist and filter hidden cards
+    }
+
     public func refreshForYouFeed() async {
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)

@@ -11,10 +11,14 @@ public struct WMFForYouView: View {
     var theme: WMFTheme { appEnvironment.theme }
 
     let onRefresh: () async -> Void
+    let onHideModule: (WMFForYouPageViewModel) -> Void
+    let onHideCard: (WMFForYouArticleCardViewModel) -> Void
 
-    public init(viewModel: WMFForYouViewModel, onRefresh: @escaping () async -> Void) {
+    public init(viewModel: WMFForYouViewModel, onRefresh: @escaping () async -> Void, onHideModule: @escaping (WMFForYouPageViewModel) -> Void, onHideCard: @escaping (WMFForYouArticleCardViewModel) -> Void) {
         self.viewModel = viewModel
         self.onRefresh = onRefresh
+        self.onHideModule = onHideModule
+        self.onHideCard = onHideCard
     }
 
     public var body: some View {
@@ -22,7 +26,7 @@ public struct WMFForYouView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(spacing: 0) {
                     ForEach(viewModel.pages) { page in
-                        WMFForYouPageView(viewModel: page, theme: theme)
+                        WMFForYouPageView(viewModel: page, theme: theme, onHideModule: { onHideModule(page) }, onHideCard: onHideCard)
                             .frame(width: geometry.size.width, height: geometry.size.height)
                     }
                 }
@@ -35,17 +39,19 @@ public struct WMFForYouView: View {
     }
 }
 
-// MARK: - Topic Page View
+// MARK: - Page View
 
 private struct WMFForYouPageView: View {
 
     @ObservedObject var viewModel: WMFForYouPageViewModel
     let theme: WMFTheme
+    let onHideModule: () -> Void
+    let onHideCard: (WMFForYouArticleCardViewModel) -> Void
 
     var body: some View {
         TabView {
             ForEach(viewModel.articleViewModels) { article in
-                WMFForYouArticleCardView(viewModel: article, theme: theme)
+                WMFForYouArticleCardView(viewModel: article, theme: theme, onHideModule: onHideModule, onHideCard: { onHideCard(article) })
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .always))
@@ -58,6 +64,8 @@ private struct WMFForYouArticleCardView: View {
 
     @ObservedObject var viewModel: WMFForYouArticleCardViewModel
     let theme: WMFTheme
+    let onHideModule: () -> Void
+    let onHideCard: () -> Void
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
@@ -87,6 +95,21 @@ private struct WMFForYouArticleCardView: View {
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 44)
+        }
+        .overlay(alignment: .topTrailing) {
+            Menu {
+                Button(role: .destructive, action: onHideCard) {
+                    Label("Hide this card", systemImage: "eye.slash")
+                }
+                Button(role: .destructive, action: onHideModule) {
+                    Label("Hide module", systemImage: "xmark.circle")
+                }
+            } label: {
+                Image(systemName: "ellipsis")
+                    .foregroundStyle(.white)
+                    .shadow(radius: 2)
+                    .padding(16)
+            }
         }
         .background {
             Group {

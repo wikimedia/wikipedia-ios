@@ -71,7 +71,12 @@ public struct WMFHomeView: View {
     @ViewBuilder
     private var forYouTabContent: some View {
         if let forYouViewModel = viewModel.forYouViewModel {
-            WMFForYouView(viewModel: forYouViewModel, onRefresh: { await viewModel.refreshForYouFeed() })
+            WMFForYouView(
+                viewModel: forYouViewModel,
+                onRefresh: { await viewModel.refreshForYouFeed() },
+                onHideModule: { viewModel.hideForYouModule($0) },
+                onHideCard: { viewModel.hideForYouCard($0) }
+            )
         } else if viewModel.isLoadingForYou {
             Spacer()
             ProgressView()
