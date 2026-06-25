@@ -26,6 +26,8 @@ public final class WMFHomeFeedCommunitySettingsViewModel: ObservableObject {
 
     public var onToggleModule: ((Module, Bool) -> Void)?
 
+    public private(set) var sections: [SettingsSection] = []
+
     public init(homeDataController: WMFHomeDataController = .shared) {
         self.homeDataController = homeDataController
         self.featuredArticleIsOn = homeDataController.communityFeaturedArticleIsOn()
@@ -43,9 +45,10 @@ public final class WMFHomeFeedCommunitySettingsViewModel: ObservableObject {
             case .pictureOfTheDay: self.homeDataController.setCommunityPictureOfTheDayIsOn(isOn)
             }
         }
+        self.sections = buildSections()
     }
 
-    var sections: [SettingsSection] {
+    private func buildSections() -> [SettingsSection] {
         let featuredArticle = SettingsItem(
             image: nil,
             color: nil,
