@@ -10,7 +10,9 @@ struct WMFCommunityFeedView: View {
     var theme: WMFTheme { appEnvironment.theme }
 
     let pages: [WMFHomeCommunityViewModel]
+    let moduleVisibility: WMFCommunityModuleVisibility
     let isLoadingPreviousPage: Bool
+    let onHideModule: (WMFCommunityModule) -> Void
     let onRefresh: () async -> Void
     let onTapSeePastContent: () -> Void
 
@@ -18,19 +20,19 @@ struct WMFCommunityFeedView: View {
         List {
             ForEach(Array(pages.enumerated()), id: \.offset) { _, page in
                 dateSection(page.date)
-                if let tfa = page.featuredArticle {
+                if moduleVisibility.featuredArticle, let tfa = page.featuredArticle {
                     featuredArticleSection(tfa)
                 }
-                if !page.topReadItems.isEmpty {
+                if moduleVisibility.topRead, !page.topReadItems.isEmpty {
                     topReadSection(page.topReadItems)
                 }
-                if !page.newsItems.isEmpty {
+                if moduleVisibility.inTheNews, !page.newsItems.isEmpty {
                     inTheNewsSection(page.newsItems)
                 }
-                if let onThisDayItems = page.onThisDayItems {
+                if moduleVisibility.onThisDay, let onThisDayItems = page.onThisDayItems {
                     onThisDaySection(onThisDayItems)
                 }
-                if let pictureOfDay = page.pictureOfDay {
+                if moduleVisibility.pictureOfDay, let pictureOfDay = page.pictureOfDay {
                     pictureOfTheDaySection(pictureOfDay)
                 }
             }
@@ -85,7 +87,7 @@ struct WMFCommunityFeedView: View {
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color(uiColor: theme.paperBackground))
         } header: {
-            sectionHeader("Featured Article")
+            sectionHeader("Featured Article", module: .featuredArticle)
         }
     }
 
@@ -104,7 +106,7 @@ struct WMFCommunityFeedView: View {
                 .listRowBackground(Color(uiColor: theme.paperBackground))
             }
         } header: {
-            sectionHeader("Top read")
+            sectionHeader("Top read", module: .topRead)
         }
     }
 
@@ -125,7 +127,7 @@ struct WMFCommunityFeedView: View {
             .listRowSeparator(.hidden)
             .listRowBackground(Color(uiColor: theme.paperBackground))
         } header: {
-            sectionHeader("In the news")
+            sectionHeader("In the news", module: .inTheNews)
         }
     }
 
@@ -167,7 +169,7 @@ struct WMFCommunityFeedView: View {
                 .listRowBackground(Color(uiColor: theme.paperBackground))
             }
         } header: {
-            sectionHeader("On this day")
+            sectionHeader("On this day", module: .onThisDay)
         }
     }
 
@@ -180,23 +182,39 @@ struct WMFCommunityFeedView: View {
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color(uiColor: theme.paperBackground))
         } header: {
-            sectionHeader("Picture of the day")
+            sectionHeader("Picture of the day", module: .pictureOfDay)
         }
     }
 
     // MARK: - Section Header
 
-    private func sectionHeader(_ title: String) -> some View {
-        Text(title)
-            .font(Font(WMFFont.for(.boldTitle3)))
-            .foregroundStyle(Color(uiColor: theme.text))
-            .padding(.horizontal, 16)
-            .padding(.top, 12)
-            .padding(.bottom, 4)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color(uiColor: theme.paperBackground))
-            .listRowInsets(EdgeInsets())
-            .textCase(nil)
+    private func sectionHeader(_ title: String, module: WMFCommunityModule) -> some View {
+        HStack {
+            Text(title)
+                .font(Font(WMFFont.for(.boldTitle3)))
+                .foregroundStyle(Color(uiColor: theme.text))
+            Spacer()
+            Menu {
+                Button(role: .destructive) { } label: {
+                    Label("Hide this card", systemImage: "eye.slash")
+                }
+                Button(role: .destructive) {
+                    onHideModule(module)
+                } label: {
+                    Label("Hide module", systemImage: "xmark.circle")
+                }
+            } label: {
+                Image(systemName: "ellipsis")
+                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+            }
+        }
+        .padding(.horizontal, 16)
+        .padding(.top, 12)
+        .padding(.bottom, 4)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color(uiColor: theme.paperBackground))
+        .listRowInsets(EdgeInsets())
+        .textCase(nil)
     }
 }
 

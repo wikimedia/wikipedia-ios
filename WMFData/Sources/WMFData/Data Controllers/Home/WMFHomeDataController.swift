@@ -51,6 +51,7 @@ public final actor WMFHomeDataController {
 
     public nonisolated func setCommunityFeaturedArticleIsOn(_ newValue: Bool) {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedCommunityFeaturedArticleIsOn.rawValue, value: newValue)
+        NotificationCenter.default.post(name: WMFNSNotification.communityModuleVisibilityDidChange, object: nil)
     }
 
     public nonisolated func communityTopReadIsOn() -> Bool {
@@ -59,6 +60,7 @@ public final actor WMFHomeDataController {
 
     public nonisolated func setCommunityTopReadIsOn(_ newValue: Bool) {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedCommunityTopReadIsOn.rawValue, value: newValue)
+        NotificationCenter.default.post(name: WMFNSNotification.communityModuleVisibilityDidChange, object: nil)
     }
 
     public nonisolated func communityInTheNewsIsOn() -> Bool {
@@ -67,6 +69,7 @@ public final actor WMFHomeDataController {
 
     public nonisolated func setCommunityInTheNewsIsOn(_ newValue: Bool) {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedCommunityInTheNewsIsOn.rawValue, value: newValue)
+        NotificationCenter.default.post(name: WMFNSNotification.communityModuleVisibilityDidChange, object: nil)
     }
 
     public nonisolated func communityOnThisDayIsOn() -> Bool {
@@ -75,6 +78,7 @@ public final actor WMFHomeDataController {
 
     public nonisolated func setCommunityOnThisDayIsOn(_ newValue: Bool) {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedCommunityOnThisDayIsOn.rawValue, value: newValue)
+        NotificationCenter.default.post(name: WMFNSNotification.communityModuleVisibilityDidChange, object: nil)
     }
 
     public nonisolated func communityPictureOfTheDayIsOn() -> Bool {
@@ -83,6 +87,7 @@ public final actor WMFHomeDataController {
 
     public nonisolated func setCommunityPictureOfTheDayIsOn(_ newValue: Bool) {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedCommunityPictureOfTheDayIsOn.rawValue, value: newValue)
+        NotificationCenter.default.post(name: WMFNSNotification.communityModuleVisibilityDidChange, object: nil)
     }
 
     // MARK: - Settings: For You Modules

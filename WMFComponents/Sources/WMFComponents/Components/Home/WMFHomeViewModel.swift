@@ -26,6 +26,9 @@ public final class WMFHomeViewModel: ObservableObject {
     @Published public var communityFeedError: Error?
     @Published public var isLoadingCommunity: Bool = false
     @Published public var isLoadingCommunityPreviousPage: Bool = false
+    @Published public var communityModuleVisibility: WMFCommunityModuleVisibility = WMFCommunityModuleVisibility(
+        featuredArticle: true, topRead: true, inTheNews: true, onThisDay: true, pictureOfDay: true
+    )
 
     public var didSelectLanguage: ((WMFLanguage) -> Void)?
     public var didTapEditLanguages: (() -> Void)?
@@ -51,6 +54,13 @@ public final class WMFHomeViewModel: ObservableObject {
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
         isLoadingCommunity = true
+        communityModuleVisibility = WMFCommunityModuleVisibility(
+            featuredArticle: WMFHomeDataController.shared.communityFeaturedArticleIsOn(),
+            topRead: WMFHomeDataController.shared.communityTopReadIsOn(),
+            inTheNews: WMFHomeDataController.shared.communityInTheNewsIsOn(),
+            onThisDay: WMFHomeDataController.shared.communityOnThisDayIsOn(),
+            pictureOfDay: WMFHomeDataController.shared.communityPictureOfTheDayIsOn()
+        )
         Task {
             do {
                 let response = try await WMFHomeDataController.shared.fetchCommunity(project: project)
@@ -59,6 +69,38 @@ public final class WMFHomeViewModel: ObservableObject {
                 self.communityFeedError = error
             }
             self.isLoadingCommunity = false
+        }
+    }
+
+    public func refreshCommunityModuleVisibility() {
+        communityModuleVisibility = WMFCommunityModuleVisibility(
+            featuredArticle: WMFHomeDataController.shared.communityFeaturedArticleIsOn(),
+            topRead: WMFHomeDataController.shared.communityTopReadIsOn(),
+            inTheNews: WMFHomeDataController.shared.communityInTheNewsIsOn(),
+            onThisDay: WMFHomeDataController.shared.communityOnThisDayIsOn(),
+            pictureOfDay: WMFHomeDataController.shared.communityPictureOfTheDayIsOn()
+        )
+    }
+
+    public func hideModule(_ module: WMFCommunityModule) {
+        withAnimation {
+            switch module {
+            case .featuredArticle:
+                WMFHomeDataController.shared.setCommunityFeaturedArticleIsOn(false)
+                communityModuleVisibility.featuredArticle = false
+            case .topRead:
+                WMFHomeDataController.shared.setCommunityTopReadIsOn(false)
+                communityModuleVisibility.topRead = false
+            case .inTheNews:
+                WMFHomeDataController.shared.setCommunityInTheNewsIsOn(false)
+                communityModuleVisibility.inTheNews = false
+            case .onThisDay:
+                WMFHomeDataController.shared.setCommunityOnThisDayIsOn(false)
+                communityModuleVisibility.onThisDay = false
+            case .pictureOfDay:
+                WMFHomeDataController.shared.setCommunityPictureOfTheDayIsOn(false)
+                communityModuleVisibility.pictureOfDay = false
+            }
         }
     }
 
@@ -84,6 +126,12 @@ public final class WMFHomeViewModel: ObservableObject {
         self.didSelectLanguage = didSelectLanguage
         self.didTapEditLanguages = didTapEditLanguages
         self.didTapWhatsDrivingTestButton = didTapWhatsDrivingTestButton
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handleVisibilityChange), name: WMFNSNotification.communityModuleVisibilityDidChange, object: nil)
+    }
+
+    @objc private func handleVisibilityChange() {
+        refreshCommunityModuleVisibility()
     }
 
     /// The short code shown on the language menu button (e.g. "EN").

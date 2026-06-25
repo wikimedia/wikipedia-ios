@@ -12,6 +12,7 @@ public enum WMFNSNotification {
     public static let whichCameFirstSessionDidUpdate = Notification.Name(WMFNotificationName.whichCameFirstSessionDidUpdate.rawValue)
     public static let gamesAllSessionsCleared = Notification.Name(WMFNotificationName.gamesAllSessionsCleared.rawValue)
     public static let enableHomeTabDidChange = Notification.Name(WMFNotificationName.enableHomeTabDidChange.rawValue)
+    public static let communityModuleVisibilityDidChange = Notification.Name(WMFNotificationName.communityModuleVisibilityDidChange.rawValue)
 
     /// User info keys for notifications
     public enum UserInfoKey {
@@ -31,4 +32,5 @@ private enum WMFNotificationName: String {
     case whichCameFirstSessionDidUpdate = "WMFDataWhichCameFirstSessionDidUpdate"
     case gamesAllSessionsCleared = "WMFDataGamesAllSessionsCleared"
     case enableHomeTabDidChange = "WMFDataEnableHomeTabDidChange"
+    case communityModuleVisibilityDidChange = "WMFDataCommunityModuleVisibilityDidChange"
 }

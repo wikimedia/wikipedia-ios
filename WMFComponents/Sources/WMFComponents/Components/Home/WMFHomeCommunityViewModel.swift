@@ -1,6 +1,22 @@
 import Foundation
 import WMFData
 
+public enum WMFCommunityModule {
+    case featuredArticle
+    case topRead
+    case inTheNews
+    case onThisDay
+    case pictureOfDay
+}
+
+public struct WMFCommunityModuleVisibility {
+    public var featuredArticle: Bool
+    public var topRead: Bool
+    public var inTheNews: Bool
+    public var onThisDay: Bool
+    public var pictureOfDay: Bool
+}
+
 public struct WMFHomeCommunityViewModel {
 
     // MARK: - Nested display types

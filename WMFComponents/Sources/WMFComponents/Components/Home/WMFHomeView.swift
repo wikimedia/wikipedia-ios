@@ -81,7 +81,9 @@ public struct WMFHomeView: View {
         if !viewModel.communityPages.isEmpty {
             WMFCommunityFeedView(
                 pages: viewModel.communityPages,
+                moduleVisibility: viewModel.communityModuleVisibility,
                 isLoadingPreviousPage: viewModel.isLoadingCommunityPreviousPage,
+                onHideModule: { viewModel.hideModule($0) },
                 onRefresh: { await viewModel.refreshCommunityFeed() },
                 onTapSeePastContent: { viewModel.loadCommunityPreviousPage() }
             )
