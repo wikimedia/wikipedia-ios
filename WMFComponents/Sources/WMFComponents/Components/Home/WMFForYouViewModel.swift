@@ -9,10 +9,10 @@ public final class WMFForYouViewModel: ObservableObject {
 
     public init(response: WMFForYouResponse) {
         let topicPages = response.interestTopicRandomArticles.map {
-            WMFForYouPageViewModel(headerLabel: "Topic: \($0.topic.displayName)", articles: $0.articles)
+            WMFForYouPageViewModel(headerLabel: "Interest Topic: \($0.topic.displayName)", articles: $0.articles)
         }
         let relatedPages = response.interestPageRelatedArticles.map {
-            WMFForYouPageViewModel(headerLabel: "Related to: \($0.pageInterest.title)", articles: $0.articles)
+            WMFForYouPageViewModel(headerLabel: "Interest Article: \($0.pageInterest.title)", articles: $0.articles)
         }
         let becauseYouReadPage: [WMFForYouPageViewModel] = response.becauseYouReadArticles.map {
             [WMFForYouPageViewModel(headerLabel: "Because you read: \($0.recentlyRead.title)", articles: $0.articles)]
