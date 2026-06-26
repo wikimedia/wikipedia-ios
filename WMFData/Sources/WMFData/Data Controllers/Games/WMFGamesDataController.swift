@@ -318,8 +318,14 @@ extension WMFGamesDataController {
     static func makeWhichCameFirstQuestions(from events: [WMFOnThisDayEvent], month: Int, day: Int, count: Int) -> [WMFWhichCameFirstQuestion] {
         let calendar = Calendar(identifier: .gregorian)
         // Exclude BC/BCE events (negative or zero years) — the Gregorian calendar has no year 0, so any year < 1 is BC.
+        // Exclude events whose text contains a standalone number (1–4 digits) — it could reveal the answer year.
         // Deduplicate by year (keep first event per year, matching Android's distinctBy { year }).
-        var pool = events.filter { !$0.pages.isEmpty && $0.year > 0 }.sorted { $0.year < $1.year }
+        let yearInTextRegex = try? NSRegularExpression(pattern: "\\b\\d{1,4}\\b")
+        var pool = events.filter { event in
+            guard !event.pages.isEmpty && event.year > 0 else { return false }
+            let range = NSRange(event.text.startIndex..., in: event.text)
+            return yearInTextRegex?.firstMatch(in: event.text, range: range) == nil
+        }.sorted { $0.year < $1.year }
         pool = pool.reduce(into: [WMFOnThisDayEvent]()) { acc, event in
             if acc.last?.year != event.year { acc.append(event) }
         }

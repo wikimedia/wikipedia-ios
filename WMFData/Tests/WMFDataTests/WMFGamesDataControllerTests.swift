@@ -189,6 +189,29 @@ final class WMFGamesDataControllerTests: XCTestCase {
         }
     }
 
+    func testPoolFiltersEventsWithYearInText() {
+        // Events whose text contains a standalone number should be excluded from the pool.
+        let eventsWithYearInText = [
+            makeEvent(text: "Something happened in 1492", year: 100),
+            makeEvent(text: "The 42nd event occurred", year: 200),
+            makeEvent(text: "Event from year 800", year: 300)
+        ]
+        let cleanEvents = (1...10).map { makeEvent(text: "Clean event \($0)", year: $0 * 100 + 400) }
+
+        let questions = WMFGamesDataController.makeWhichCameFirstQuestions(
+            from: eventsWithYearInText + cleanEvents,
+            month: 5,
+            day: 7,
+            count: 5
+        )
+
+        let filteredTitles = Set(eventsWithYearInText.map { $0.text })
+        for question in questions {
+            XCTAssertFalse(filteredTitles.contains(question.optionA.title), "Event with number in text leaked into optionA: \(question.optionA.title)")
+            XCTAssertFalse(filteredTitles.contains(question.optionB.title), "Event with number in text leaked into optionB: \(question.optionB.title)")
+        }
+    }
+
     func testPoolDeduplicatesByYear() {
         // Two events with the same year — only one should enter the pool, so both
         // questions must use distinct years for their paired options.
