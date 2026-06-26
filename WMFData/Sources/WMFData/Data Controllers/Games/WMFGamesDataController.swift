@@ -1,5 +1,6 @@
 import Foundation
 import CoreData
+import GameplayKit
 
 public class WMFGamesDataController {
 
@@ -329,6 +330,11 @@ extension WMFGamesDataController {
         pool = pool.reduce(into: [WMFOnThisDayEvent]()) { acc, event in
             if acc.last?.year != event.year { acc.append(event) }
         }
+        // Shuffle with a date-seeded RNG so question order is consistent for the same day,
+        // matching Android's Random(month * 100 + day) seeded shuffle.
+        let rng = GKMersenneTwisterRandomSource(seed: UInt64(month * 100 + day))
+        guard let shuffled = rng.arrayByShufflingObjects(in: pool) as? [WMFOnThisDayEvent] else { return [] }
+        pool = shuffled
         var questions: [WMFWhichCameFirstQuestion] = []
 
         func makeDate(year: Int) -> Date {

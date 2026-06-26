@@ -189,6 +189,15 @@ final class WMFGamesDataControllerTests: XCTestCase {
         }
     }
 
+    func testQuestionsAreDeterministicForSameDate() {
+        let events = (1...30).map { makeEvent(text: "Event \($0)", year: $0 * 50) }
+
+        let first = WMFGamesDataController.makeWhichCameFirstQuestions(from: events, month: 5, day: 7, count: 5)
+        let second = WMFGamesDataController.makeWhichCameFirstQuestions(from: events, month: 5, day: 7, count: 5)
+
+        XCTAssertEqual(first.map { $0.optionA.title }, second.map { $0.optionA.title }, "Same date should always produce the same question order")
+    }
+
     func testPoolFiltersEventsWithYearInText() {
         // Events whose text contains a standalone number should be excluded from the pool.
         let eventsWithYearInText = [
