@@ -86,15 +86,15 @@ public actor WMFRandomDataController {
 
 // MARK: - Multiple random articles response models
 
-struct WMFRandomArticlesAPIResponse: Decodable {
+struct WMFRandomArticlesAPIResponse: Decodable, Sendable {
     let query: WMFRandomArticlesQuery?
 }
 
-struct WMFRandomArticlesQuery: Decodable {
+struct WMFRandomArticlesQuery: Decodable, Sendable {
     let pages: [WMFRandomArticle]?
 }
 
-public struct WMFRandomArticle: Decodable {
+public struct WMFRandomArticle: Decodable, Sendable {
     public let pageid: Int
     public let title: String
     public let displayTitle: String?
@@ -114,11 +114,11 @@ public struct WMFRandomArticle: Decodable {
     }
 }
 
-public struct WMFRandomArticleVariantTitles: Decodable {
+public struct WMFRandomArticleVariantTitles: Decodable, Sendable {
     public let en: String?
 }
 
-public struct WMFRandomArticleThumbnail: Decodable {
+public struct WMFRandomArticleThumbnail: Decodable, Sendable {
     public let source: String?
     public let width: Int?
     public let height: Int?

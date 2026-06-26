@@ -3,7 +3,7 @@ import CoreData
 import WidgetKit
 import WMFTestKitchen
 
-public final class WMFPage: Hashable, Equatable {
+public final class WMFPage: Hashable, Equatable, Sendable {
    public let namespaceID: Int
    public let projectID: String
    public let title: String
@@ -85,7 +85,7 @@ public final class WMFPageViewTime: Codable {
     }
 }
 
-public struct WMFPageWithTimestamp {
+public struct WMFPageWithTimestamp: Sendable {
     public let page: WMFPage
     public let timestamp: Date
 }
@@ -371,6 +371,38 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         }
 
         return results
+    }
+
+    public func fetchRecentlyReadPages(project: WMFProject, minimumSeconds: Int = 60, withinDays: Int = 30) async throws -> [WMFPage] {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        let startDate = Calendar.current.date(byAdding: .day, value: -withinDays, to: Date()) ?? Date()
+
+        return try await backgroundContext.perform {
+            let predicate = NSPredicate(
+                format: "timestamp >= %@ && numberOfSeconds >= %d && page.projectID == %@",
+                startDate as CVarArg, minimumSeconds, project.id
+            )
+            let sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+            let pageViews = try self.coreDataStore.fetch(
+                entityType: CDPageView.self,
+                predicate: predicate,
+                fetchLimit: nil,
+                sortDescriptors: sortDescriptors,
+                in: backgroundContext
+            ) ?? []
+
+            var seen = Set<String>()
+            var pages: [WMFPage] = []
+            for pageView in pageViews {
+                guard let page = pageView.page,
+                      let projectID = page.projectID,
+                      let title = page.title,
+                      !seen.contains(title) else { continue }
+                seen.insert(title)
+                pages.append(WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title))
+            }
+            return pages
+        }
     }
 }
 
