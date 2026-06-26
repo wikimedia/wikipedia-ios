@@ -164,6 +164,7 @@ public final class WMFHomeViewModel: ObservableObject {
     }
 
     public func hideCard(key: String) {
+        guard !hiddenCardKeys.contains(key) else { return }
         dataController.hideCard(key: key)
         withAnimation {
             hiddenCardKeys.append(key)
