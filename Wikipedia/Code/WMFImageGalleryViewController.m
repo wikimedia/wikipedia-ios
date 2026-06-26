@@ -125,6 +125,7 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         self.overlayView.topCoverBackgroundColor = [UIColor blackColor];
         self.overlayView.navigationBar.backgroundColor = [UIColor clearColor];
+        self.overlayView.navigationBar.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
 
         UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
         share.tintColor = [UIColor whiteColor];
