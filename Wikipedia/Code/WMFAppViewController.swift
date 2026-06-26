@@ -1580,6 +1580,14 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         currentTabNavigationController?.popToRootViewController(animated: animated)
     }
 
+    /// Switches to the Search tab, optionally focusing the search bar. Dismisses any presented flow (e.g. modally presented Settings) first.
+    func switchToSearchTab(focusSearchBar: Bool, animated: Bool) {
+        switchToSearch(animated: animated)
+        if focusSearchBar {
+            searchTabViewController.makeSearchBarBecomeFirstResponder()
+        }
+    }
+
     // MARK: - App Shortcuts
 
     func dismissPresentedViewControllers() {

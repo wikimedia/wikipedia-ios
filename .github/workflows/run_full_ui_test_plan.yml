@@ -13,9 +13,9 @@ permissions:
   contents: read
 
 env:
-  XCODE_VERSION: "26.2"
-  IOS_VERSION: "26.2"
-  SIMULATOR_NAME: "iPhone 16"
+  XCODE_VERSION: "26.5"
+  IOS_VERSION: "26.5"
+  SIMULATOR_NAME: "iPhone 17"
 
 concurrency:
   group: "full-ui-test-plan-${{ inputs.release_tag }}"
@@ -23,7 +23,7 @@ concurrency:
 
 jobs:
   build-uitests:
-    runs-on: macos-latest
+    runs-on: macos-26
     name: Build WikipediaUITests
     outputs:
       test-configurations: ${{ steps.test-configurations.outputs.matrix }}
@@ -49,12 +49,12 @@ jobs:
           echo "Verified GitHub release tag: $RELEASE_TAG"
 
       - name: Check out workflow ref
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: main
 
       - name: Check out app tag
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: refs/tags/${{ inputs.release_tag }}
           path: app
@@ -122,12 +122,12 @@ jobs:
       COVERAGE_JSON_PATH: WikipediaUITests_${{ matrix.id }}_coverage.json
     steps:
       - name: Check out workflow ref
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: main
 
       - name: Check out app tag
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: refs/tags/${{ inputs.release_tag }}
           path: app

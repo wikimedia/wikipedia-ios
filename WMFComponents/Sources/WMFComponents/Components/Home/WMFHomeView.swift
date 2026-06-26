@@ -15,8 +15,9 @@ public struct WMFHomeView: View {
         VStack(spacing: 0) {
             HStack {
                 Picker("", selection: $viewModel.selectedTab) {
-                    Text(viewModel.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
                     Text(viewModel.communityTabTitle).tag(WMFHomeViewModel.Tab.community)
+                    Text(viewModel.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
+
                 }
                 .pickerStyle(.segmented)
 
@@ -51,10 +52,21 @@ public struct WMFHomeView: View {
 
             Spacer()
 
-            // Temporary placeholder content until the Home feed is built out.
-            Text(currentTabTitle)
-                .font(Font(WMFFont.for(.headline)))
-                .foregroundStyle(Color(uiColor: theme.secondaryText))
+            if viewModel.selectedTab == .forYou {
+                // TODO: Temporary mock button for testing the "What's driving your feed" deep-link.
+                Button {
+                    viewModel.didTapWhatsDrivingTestButton?()
+                } label: {
+                    Text(viewModel.whatsDrivingTestButtonTitle)
+                        .font(Font(WMFFont.for(.semiboldHeadline)))
+                        .foregroundStyle(Color(uiColor: theme.link))
+                }
+            } else {
+                // Temporary placeholder content until the Home feed is built out.
+                Text(currentTabTitle)
+                    .font(Font(WMFFont.for(.headline)))
+                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+            }
 
             Spacer()
         }

@@ -23,6 +23,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
     private let project: WMFProject?
 
     var didFinish: (() -> Void)?
+
     // MARK: - Instrumentation
 
     private lazy var instrument = TestKitchenAdapter.shared.client
@@ -52,20 +53,73 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
 
     @discardableResult
     func start() -> Bool {
-
-        // do not show alert if user already tapped card
         gamesDataController.markGamesAnnouncementSeen()
 
-        let splashViewController = makeSplashViewController()
+        let loadingVC = makeLoadingViewController()
         let nav = WMFComponentNavigationController(
-            rootViewController: splashViewController,
+            rootViewController: loadingVC,
             modalPresentationStyle: .fullScreen
         )
         gameNavigationController = nav
-        navigationController.present(nav, animated: true)
+
+        navigationController.present(nav, animated: true) { [weak self] in
+            guard let self else { return }
+
+            guard let project = self.project else {
+                self.transitionFromLoading()
+                return
+            }
+
+            let todayDateString = self.formattedTodayISODateString()
+            Task { [weak self] in
+                guard let self else { return }
+                let available = (try? await self.gamesDataController.isWhichCameFirstDailySessionAvailable(
+                    date: todayDateString,
+                    project: project
+                )) ?? false
+                self.transitionFromLoading(todayAvailable: available)
+            }
+        }
 
         return true
     }
+
+    @discardableResult
+    func startArchive() -> Bool {
+        gamesDataController.markGamesAnnouncementSeen()
+        showArchive()
+        return true
+    }
+
+    private func makeLoadingViewController() -> UIViewController {
+        let vc = UIViewController()
+        vc.view.backgroundColor = theme.colors.paperBackground
+        let spinner = UIActivityIndicatorView(style: .medium)
+        spinner.color = theme.colors.secondaryText
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.startAnimating()
+        vc.view.addSubview(spinner)
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)
+        ])
+        return vc
+    }
+
+    private func transitionFromLoading(todayAvailable: Bool = false) {
+        guard let gameNav = gameNavigationController else { return }
+        if todayAvailable {
+            let splashVC = makeSplashViewController()
+            gameNav.setViewControllers([splashVC], animated: false)
+        } else {
+            // No today game — go straight to archive.
+            // setViewControllers first so gameNav has a real root before presenting the sheet.
+            let placeholderVC = makeLoadingViewController()
+            gameNav.setViewControllers([placeholderVC], animated: false)
+            showArchive()
+        }
+    }
+
     // MARK: - Factory
 
     private func makeSplashViewController() -> WMFGamesSplashScreenViewController {
@@ -99,7 +153,6 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         return WMFGamesSplashScreenViewController(viewModel: viewModel)
     }
 
-    /// Fetches today's session and delegates play button title updates to the view model.
     private func updatePlayButtonTitleIfNeeded(viewModel: WMFGamesSplashScreenViewModel) {
         guard let project else { return }
         let todayDateString = formattedTodayISODateString()
@@ -107,13 +160,11 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         Task { [weak self, weak viewModel] in
             guard let self, let viewModel else { return }
             guard let session = try? await self.gamesDataController.fetchWhichCameFirstDailySession(date: todayDateString, project: project) else {
-                // Fetch failed — fire impression without context of is first visit
                 self.logImpression(actionSource: "game_start", actionSubtype: "game_play_start")
                 return
             }
             viewModel.update(sessionStatus: session.status)
-            
-            // Re-fire impression now that we know session status
+
             let isReturning = session.status == .completed
             let context: [String: String]? = isReturning ? ["is_first_visit": "false"] : nil
             self.logImpression(actionSource: "game_start", actionSubtype: "game_play_start", actionContext: context)
@@ -125,15 +176,24 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
     private func showGame() {
         guard let project,
               let gameNav = gameNavigationController else { return }
-        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         let viewModel = WMFWhichCameFirstViewModel(date: formattedTodayISODateString(), project: project)
+        buildViewModel(viewModel)
+        let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
+        gameNav.setViewControllers([gameVC], animated: true)
+    }
+
+    // MARK: - Game ViewModel Wiring
+
+    /// Attaches all coordinator callbacks to a game view model.
+    /// Used both for today's game and for archive games.
+    private func buildViewModel(_ viewModel: WMFWhichCameFirstViewModel) {
+        viewModel.isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
 
         viewModel.didTapShare = { [weak self, weak viewModel] in
             guard let self, let viewModel else { return }
             self.logClick(actionSource: "game_end", elementId: "share_score_button")
             self.showShare(gameViewModel: viewModel)
         }
-        viewModel.isLoggedIn = isLoggedIn
         viewModel.onLogIn = { [weak self] in
             self?.logClick(actionSource: "game_end", elementId: "login_button")
             self?.showLogin()
@@ -181,13 +241,20 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             self?.logClick(actionSource: source, actionSubtype: "game_overflow", elementId: "problem_report")
             self?.showReportProblem()
         }
-
-        // Slide-level instrumentation
+        viewModel.onPlayArchive = { [weak self] in
+            self?.logClick(actionSource: "game_end", elementId: "play_archive_button")
+            self?.showArchive()
+        }
         viewModel.didImpressionSlide = { [weak self] slideIndex in
             self?.logImpression(actionSource: "game_play", actionSubtype: "game_play_\(slideIndex)")
         }
-        viewModel.didTapExitDuringPlay = { [weak self] slideIndex in
-            self?.logClick(actionSource: "game_play", actionSubtype: "game_play_\(slideIndex)", elementId: "exit_button")
+        viewModel.didTapExitDuringPlay = { [weak self] slideIndex, isComplete in
+            if isComplete {
+                self?.logClick(actionSource: "game_end", elementId: "exit_button")
+            } else {
+                self?.logClick(actionSource: "game_play", actionSubtype: "game_play_\(slideIndex)", elementId: "exit_button")
+            }
+            
         }
         viewModel.didSubmitAnswer = { [weak self] slideIndex in
             self?.logClick(actionSource: "game_play", actionSubtype: "game_play_\(slideIndex)", elementId: "answer_submit")
@@ -195,17 +262,13 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         viewModel.didFinishGame = { [weak self] in
             self?.logImpression(actionSource: "game_end")
         }
-
-        let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
-        
-        gameNav.setViewControllers([gameVC], animated: true)
     }
 
     private func showLogin() {
         guard let gameNav = gameNavigationController,
               let hostingVC = gameNav.viewControllers.first as? WMFWhichCameFirstHostingController else { return }
         let gameViewModel = hostingVC.viewModel
-        
+
         let loginCoordinator = LoginCoordinator(navigationController: gameNav, theme: theme, loggingCategory: .game)
         loginCoordinator.loginSuccessCompletion = { [weak self, weak gameViewModel, weak gameNav] in
             guard let self else { return }
@@ -232,11 +295,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
                 guard let articleTitle = event.articleTitle else { continue }
                 let cleanTitle = articleTitle.underscoresToSpaces
 
-                // Fetch summary for description
                 let summary = try? await summaryController.fetchArticleSummary(project: project, title: articleTitle)
                 let description = summary?.description ?? summary?.extract
 
-                // Fetch thumbnail image — prefer the event's known URL, fall back to summary's
                 let thumbnailURL = event.thumbnailURL ?? summary?.thumbnailURL
                 var image: UIImage?
                 if let url = thumbnailURL,
@@ -260,9 +321,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             guard let image = renderer.uiImage else { return }
 
             let shareText = WMFLocalizedString("which-came-first-share-activity-text", value: "I'm playing \"Which came first?\" a daily trivia game on the Wikipedia iOS app https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=wiki_game_202605&mt=8", comment: "Text shared when a user shares the Which Came First game via Messages, Notes, or other text-based share targets.")
-            let textProvider = WCFShareActivityContentProvider(
-                text: shareText
-            )
+            let textProvider = WCFShareActivityContentProvider(text: shareText)
             let imageProvider = ShareAFactActivityImageItemProvider(image: image)
             let activityVC = UIActivityViewController(activityItems: [textProvider, imageProvider], applicationActivities: nil)
             activityVC.excludedActivityTypes = [.print, .assignToContact, .addToReadingList]
@@ -381,9 +440,84 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         gameNav.present(mailVC, animated: true)
     }
 
+    // MARK: - Archive
+
+    func showArchive() {
+        guard let project else { return }
+        // Present on the game-nav when launched from within the game; otherwise
+        // (e.g. from Explore) present directly on the Explore navigation controller.
+        let presenter = gameNavigationController ?? navigationController
+
+        Task { [weak self, weak presenter] in
+            guard let self, let presenter else { return }
+
+            let archiveData = (try? await self.gamesDataController.fetchWhichCameFirstArchiveData(project: project))
+                ?? WMFGamesDataController.WMFWhichCameFirstArchiveData(playedDates: [:], pausedDates: [])
+
+            let viewModel = WMFWhichCameFirstArchiveViewModel(
+                playedDates: archiveData.playedDates,
+                pausedDates: archiveData.pausedDates,
+                onSelectDate: { [weak self] date in
+                    self?.showGameForArchiveDate(date)
+                }
+            )
+
+            let archiveVC = WMFWhichCameFirstArchiveViewController(viewModel: viewModel)
+            let nav = WMFComponentNavigationController(rootViewController: archiveVC, modalPresentationStyle: .pageSheet)
+            if let sheet = nav.sheetPresentationController {
+                sheet.detents = [.large()]
+                sheet.prefersGrabberVisible = false
+            }
+            presenter.present(nav, animated: true)
+        }
+    }
+
+    private func showGameForArchiveDate(_ date: Date) {
+        let dateString = DateFormatter.onThisDayAPIDateFormatter.string(from: date)
+        let displayDateString = formattedDateString(from: date)
+
+        guard let gameNav = gameNavigationController else {
+            guard let project else { return }
+            navigationController.dismiss(animated: true) { [weak self] in
+                guard let self else { return }
+                let viewModel = WMFWhichCameFirstViewModel(date: dateString, project: project)
+                self.buildViewModel(viewModel)
+                let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
+                let nav = WMFComponentNavigationController(rootViewController: gameVC, modalPresentationStyle: .fullScreen)
+                self.gameNavigationController = nav
+                self.navigationController.present(nav, animated: true)
+            }
+            return
+        }
+
+        if let splashVC = gameNav.viewControllers.first(where: { $0 is WMFGamesSplashScreenViewController }) as? WMFGamesSplashScreenViewController {
+            splashVC.viewModel.dateString = displayDateString
+        }
+
+        if let existingGameVC = gameNav.viewControllers.first(where: { $0 is WMFWhichCameFirstHostingController }) as? WMFWhichCameFirstHostingController {
+            gameNav.presentedViewController?.dismiss(animated: true) {
+                existingGameVC.viewModel.reload(with: dateString)
+            }
+        } else {
+            guard let project else { return }
+            gameNav.presentedViewController?.dismiss(animated: true) { [weak self] in
+                guard let self else { return }
+                let viewModel = WMFWhichCameFirstViewModel(date: dateString, project: project)
+                self.buildViewModel(viewModel)
+                let gameVC = WMFWhichCameFirstHostingController(viewModel: viewModel)
+                gameNav.setViewControllers([gameVC], animated: true)
+            }
+        }
+    }
+
+    private func formattedDateString(from date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("MMMMd")
+        return formatter.string(from: date)
+    }
+
     // MARK: - Instrumentation Helpers
 
-    // Update logImpression to accept optional context:
     private func logImpression(actionSource: String, actionSubtype: String? = nil, actionContext: [String: String]? = nil) {
         instrument.submitInteraction(
             action: "impression",
@@ -410,7 +544,6 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         return formatter.string(from: Date())
     }
 
-    /// Returns today's date as a "YYYY-MM-DD" string for matching game session records.
     private func formattedTodayISODateString() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"

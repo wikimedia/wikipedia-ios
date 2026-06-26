@@ -20,12 +20,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         return try? WMFYearInReviewDataController()
     }
 
-    // Doing basic persistence for now, All this logic should live in a data controller
-    private static let selectedLanguageCodeDefaultsKey = "home-selected-language-code"
-    private var persistedSelectedLanguageCode: String? {
-        get { UserDefaults.standard.string(forKey: Self.selectedLanguageCodeDefaultsKey) }
-        set { UserDefaults.standard.set(newValue, forKey: Self.selectedLanguageCodeDefaultsKey) }
-    }
+    private let homeDataController = WMFHomeDataController.shared
 
     init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFHomeViewModel) {
         self.dataStore = dataStore
@@ -52,6 +47,9 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         viewModel.didTapEditLanguages = { [weak self] in
             self?.presentLanguagesViewController()
         }
+        viewModel.didTapWhatsDrivingTestButton = { [weak self] in
+            self?.presentWhatsDrivingTest()
+        }
         reloadLanguages()
     }
 
@@ -67,7 +65,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         let preferredLanguages = dataStore.languageLinkController.preferredLanguages
         viewModel.languages = preferredLanguages.map { WMFHomeViewModel.Language(code: $0.languageCode, localizedName: $0.localizedName) }
 
-        if let persisted = persistedSelectedLanguageCode, preferredLanguages.contains(where: { $0.languageCode == persisted }) {
+        if let persisted = homeDataController.selectedLanguageCode(), preferredLanguages.contains(where: { $0.languageCode == persisted }) {
             viewModel.selectedLanguageCode = persisted
         } else {
             viewModel.selectedLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode ?? preferredLanguages.first?.languageCode ?? ""
@@ -75,7 +73,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     }
 
     private func selectLanguage(_ languageCode: String) {
-        persistedSelectedLanguageCode = languageCode
+        homeDataController.setSelectedLanguageCode(languageCode)
         viewModel.selectedLanguageCode = languageCode
     }
 
@@ -86,6 +84,17 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         (languagesVC as Themeable?)?.apply(theme: theme)
         let navVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .overFullScreen)
         present(navVC, animated: true)
+    }
+
+    // MARK: - What's Driving (test deep-link)
+
+    // TODO: Temporary. Presents "What's driving your feed" modally to test the settings entry point. You can delete if you're working on implementing the feed.
+    private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
+    private func presentWhatsDrivingTest() {
+        guard let navigationController else { return }
+        let coordinator = HomeFeedSettingsCoordinator(navigationController: navigationController, theme: theme, initialView: .modalFromFeed, presentation: .modal)
+        homeFeedSettingsCoordinator = coordinator
+        coordinator.start()
     }
 
     private func embedHostingController() {

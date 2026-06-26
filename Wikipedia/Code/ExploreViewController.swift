@@ -8,6 +8,18 @@ import WMFTestKitchen
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring {
     
+    func exploreCardViewControllerDidTapArchive(_ exploreCardViewController: ExploreCardViewController) {
+        guard let navigationController else { return }
+        let coordinator = WhichCameFirstCoordinator(
+            navigationController: navigationController,
+            theme: theme,
+            dataStore: dataStore,
+            siteURL: exploreCardViewController.contentGroup?.siteURL
+        )
+        whichCameFirstCoordinator = coordinator
+        coordinator.startArchive()
+    }
+    
     func exploreCardViewControllerDidTapReviewResults(_ exploreCardViewController: ExploreCardViewController) {
         guard let contentGroup = exploreCardViewController.contentGroup,
               let navigationController else { return }
@@ -1436,9 +1448,12 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     @objc func whichCameFirstSessionDidUpdate(_ note: Notification) {
         guard let projectID = note.userInfo?["projectID"] as? String,
               let date = note.userInfo?["dailyGameDate"] as? String else { return }
-        
+
+        let todayDateString = DateFormatter.onThisDayAPIDateFormatter.string(from: Date())
+        guard date == todayDateString else { return }
+
         wantsDeleteInsertOnNextItemUpdate = true
-        
+
         dataStore.feedContentController.updateDailyGameContentGroupPreview(forProjectID: projectID, date: date)
     }
     
