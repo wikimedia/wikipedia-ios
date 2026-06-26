@@ -17,6 +17,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         public let logInToViewStatsTitle: String
         public let logInToViewStatsBody: String
         public let logInButton: String
+        public let playTheArchiveButton: String
 
         public init(
             shareScoreButton: String = WMFLocalizedString("which-came-first-share-score-button", value: "Share score", comment: "Button to share the user's score in the Which Came First game"),
@@ -27,7 +28,8 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
             averageScoreLabel: String = WMFLocalizedString("which-came-first-average-score-label", value: "average score", comment: "Label for the average score stat in the Which Came First results screen"),
             logInToViewStatsTitle: String = WMFLocalizedString("which-came-first-log-in-stats-title", value: "Log in to view your game stats", comment: "Title prompting the user to log in to view stats in the Which Came First results screen"),
             logInToViewStatsBody: String = WMFLocalizedString("which-came-first-log-in-stats-body", value: "See your streaks, scores, and more", comment: "Body text prompting the user to log in to view stats in the Which Came First results screen"),
-            logInButton: String = WMFLocalizedString("which-came-first-log-in-button", value: "Log in", comment: "Button to log in from the Which Came First results screen")
+            logInButton: String = WMFLocalizedString("which-came-first-log-in-button", value: "Log in", comment: "Button to log in from the Which Came First results screen"),
+            playTheArchiveButton: String = CommonStrings.playTheArchiveTitle
         ) {
             self.shareScoreButton = shareScoreButton
             self.yourStatsTitle = yourStatsTitle
@@ -38,6 +40,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
             self.logInToViewStatsTitle = logInToViewStatsTitle
             self.logInToViewStatsBody = logInToViewStatsBody
             self.logInButton = logInButton
+            self.playTheArchiveButton = playTheArchiveButton
         }
 
         public func scoreLabel(_ score: Int, of total: Int) -> String {
@@ -65,6 +68,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
     public var localizedStrings: LocalizedStrings
     public var onLogIn: ( @MainActor @Sendable () -> Void)?
     public var shareScore: ( @MainActor @Sendable () -> Void)?
+    public var onPlayArchive: (@MainActor @Sendable () -> Void)?
 
     nonisolated(unsafe) private var timerCancellable: AnyCancellable?
 
@@ -87,6 +91,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         onArticleUnsave: WMFWhichCameFirstArticlesViewModel.ArticleTapAction? = nil,
         onCheckSavedState: ((URL) -> Bool)? = nil,
         onArticleShare: WMFWhichCameFirstArticlesViewModel.ArticleShareAction? = nil,
+        onPlayArchive: (@MainActor @Sendable () -> Void)? = nil,
         onArticleTapToEvent: WMFWhichCameFirstArticlesViewModel.ArticleEventTapAction? = nil,
         localizedStrings: LocalizedStrings = LocalizedStrings()
     ) {
@@ -101,6 +106,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
         self.localizedStrings = localizedStrings
         self.shareScore = shareScore
         self.onLogIn = onLogIn
+        self.onPlayArchive = onPlayArchive
 
         var seen = Set<String>()
         var items: [WMFWhichCameFirstArticleItemViewModel] = []

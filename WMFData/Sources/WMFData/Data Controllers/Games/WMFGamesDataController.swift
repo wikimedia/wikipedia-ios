@@ -91,11 +91,12 @@ public class WMFGamesDataController {
         guard let moc = backgroundContext else {
             throw CustomError.missingContext
         }
+        let coreDataStore = self.coreDataStore
 
-        return try await moc.perform { [self] in
+        return try await moc.perform {
             let predicate = NSPredicate(format: "gameType == %@ AND projectID == %@", gameType, projectID)
             let sortDescriptors = [NSSortDescriptor(key: "dailyGameDate", ascending: false)]
-            let cdSessions = try self.coreDataStore?.fetch(entityType: CDGameSession.self, predicate: predicate, fetchLimit: nil, sortDescriptors: sortDescriptors, in: moc) ?? []
+            let cdSessions = try coreDataStore?.fetch(entityType: CDGameSession.self, predicate: predicate, fetchLimit: nil, sortDescriptors: sortDescriptors, in: moc) ?? []
             return try cdSessions.map { try self.gameSession(from: $0) }
         }
     }
@@ -137,6 +138,46 @@ public class WMFGamesDataController {
 // MARK: - Which Came First
 
 extension WMFGamesDataController {
+    
+    // MARK: - Archive
+    
+    public struct WMFWhichCameFirstArchiveData: Sendable {
+        public let playedDates: [Date: Int]
+        public let pausedDates: Set<Date>
+
+        public init(playedDates: [Date: Int], pausedDates: Set<Date>) {
+            self.playedDates = playedDates
+            self.pausedDates = pausedDates
+        }
+    }
+
+    public func fetchWhichCameFirstArchiveData(project: WMFProject) async throws -> WMFWhichCameFirstArchiveData {
+        let sessions = try await fetchSessions(gameType: Self.whichCameFirstGameType, project: project)
+
+        let playedDates: [Date: Int] = Dictionary(uniqueKeysWithValues:
+            sessions
+                .filter { $0.status == .completed && $0.dailyGameDate != nil }
+                .compactMap { session -> (Date, Int)? in
+                    guard let dateString = session.dailyGameDate,
+                          let date = DateFormatter.onThisDayAPIDateFormatter.date(from: dateString) else { return nil }
+                    return (Calendar.current.startOfDay(for: date), Int(session.score))
+                }
+        )
+
+        let pausedDates: Set<Date> = Set(
+            sessions
+                .filter { $0.status == .inProgress && $0.dailyGameDate != nil }
+                .compactMap { session -> Date? in
+                    guard let dateString = session.dailyGameDate,
+                          let date = DateFormatter.onThisDayAPIDateFormatter.date(from: dateString) else { return nil }
+                    return Calendar.current.startOfDay(for: date)
+                }
+        )
+
+        return WMFWhichCameFirstArchiveData(playedDates: playedDates, pausedDates: pausedDates)
+    }
+    
+    // MARK: - Which Came First
 
     public struct WMFWhichCameFirstStats: Sendable {
         public let gamesPlayed: Int
