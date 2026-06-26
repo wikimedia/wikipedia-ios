@@ -10,7 +10,7 @@ public final class WMFWhichCameFirstArchiveViewModel: ObservableObject {
     let subtitle: String = WMFLocalizedString("which-came-first-archive-subtitle", value: "Play games since June 2024.", comment: "Subtitle for the Which Came First archive date picker sheet header.")
     let archiveLabel: String = WMFLocalizedString("which-came-first-archive-nav-title", value: "Archive", comment: "Label appended to the game title in the archive sheet header.")
     let toastScoreFormat: String = WMFLocalizedString("which-came-first-archive-toast-score", value: "You scored %1$d / 5 on this day.", comment: "Toast message shown when a user taps a completed day. %1$d is the numeric score out of 5.")
-    let dayScoreA11yFormat: String = WMFLocalizedString("which-came-first-archive-day-score-a11y", value: "Score: %1$d out of 5", comment: "Accessibility label suffix for a completed day cell showing the user's score.")
+    let dayScoreA11yFormat: String = WMFLocalizedString("which-came-first-archive-day-score-a11y", value: "Score: %1$d out of 5", comment: "Accessibility label suffix for a completed game in a day cell showing the user's score. $1 is the user's numeric score out of 5.")
 
     // MARK: - Properties
 
