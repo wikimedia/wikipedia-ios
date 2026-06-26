@@ -73,6 +73,7 @@ public final class WMFHomeViewModel: ObservableObject {
     }
 
     public func hideForYouCard(_ card: WMFForYouArticleCardViewModel) {
+        guard !hiddenCardKeys.contains(card.hideKey) else { return }
         dataController.hideCard(key: card.hideKey)
         withAnimation {
             hiddenCardKeys.append(card.hideKey)
@@ -160,10 +161,6 @@ public final class WMFHomeViewModel: ObservableObject {
             onThisDay: dataController.communityOnThisDayIsOn(),
             pictureOfDay: dataController.communityPictureOfTheDayIsOn()
         )
-    }
-
-    public func refreshHiddenCardKeys() {
-        hiddenCardKeys = dataController.hiddenCardKeys()
     }
 
     public func hideCard(key: String) {
