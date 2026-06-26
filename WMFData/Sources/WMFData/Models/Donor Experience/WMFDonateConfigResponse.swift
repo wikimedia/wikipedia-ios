@@ -2,7 +2,7 @@ import Foundation
 
 public struct WMFDonateConfigResponse: Codable {
     
-    static var currentVersion = 1
+    static let currentVersion = 1
     var config: WMFDonateConfig
     
     public init(from decoder: Decoder) throws {

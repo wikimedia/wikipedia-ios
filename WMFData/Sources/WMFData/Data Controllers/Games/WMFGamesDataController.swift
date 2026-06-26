@@ -2,7 +2,12 @@ import Foundation
 import CoreData
 import GameplayKit
 
-public class WMFGamesDataController {
+// All Core Data access is serialized through `moc.perform { }` on a single
+// background context, so the controller is safe to capture in the @Sendable
+// closures those perform calls require. This mirrors WMFArticleTabsDataController,
+// the codebase's Core Data exemplar. `@unchecked` is used (rather than a true
+// Sendable) because the lazily-initialized context properties are mutable.
+public final class WMFGamesDataController: @unchecked Sendable {
 
     // MARK: - Nested Types
 
@@ -23,7 +28,7 @@ public class WMFGamesDataController {
     private var backgroundContext: NSManagedObjectContext? {
         if _backgroundContext == nil {
             _backgroundContext = try? coreDataStore?.newBackgroundContext
-            _backgroundContext?.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+            _backgroundContext?.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         }
         return _backgroundContext
     }

@@ -114,7 +114,7 @@ public actor WMFOnThisDayDataController {
 // MARK: - Response Models
 
 /// Top-level response from `/api/rest_v1/feed/onthisday/events/{M}/{D}`.
-public struct WMFOnThisDayResponse: Codable {
+public struct WMFOnThisDayResponse: Codable, Sendable {
     /// General historical events.
     public let events: [WMFOnThisDayEvent]
 
@@ -124,7 +124,7 @@ public struct WMFOnThisDayResponse: Codable {
 }
 
 /// A single on-this-day event.
-public struct WMFOnThisDayEvent: Codable {
+public struct WMFOnThisDayEvent: Codable, Sendable {
     /// Plain-text description of the event.
     public let text: String
     /// The year the event occurred (may be negative for BCE).
@@ -140,7 +140,7 @@ public struct WMFOnThisDayEvent: Codable {
 }
 
 /// Summarised Wikipedia article attached to an event.
-public struct WMFOnThisDayPage: Codable {
+public struct WMFOnThisDayPage: Codable, Sendable {
     public let title: String
     /// Short description of the article, if available.
     public let description: String?
@@ -175,7 +175,7 @@ public struct WMFOnThisDayPage: Codable {
 }
 
 /// Thumbnail metadata for a page.
-public struct WMFOnThisDayThumbnail: Codable {
+public struct WMFOnThisDayThumbnail: Codable, Sendable {
     public let source: URL
     public let width: Int
     public let height: Int
@@ -188,7 +188,7 @@ public struct WMFOnThisDayThumbnail: Codable {
 }
 
 /// Desktop and mobile URL pair for a page.
-public struct WMFOnThisDayContentURLs: Codable {
+public struct WMFOnThisDayContentURLs: Codable, Sendable {
     public let desktop: WMFOnThisDayURLPair?
     public let mobile: WMFOnThisDayURLPair?
 
@@ -199,7 +199,7 @@ public struct WMFOnThisDayContentURLs: Codable {
 }
 
 /// A single canonical page URL.
-public struct WMFOnThisDayURLPair: Codable {
+public struct WMFOnThisDayURLPair: Codable, Sendable {
     public let page: URL?
 
     public init(page: URL?) {

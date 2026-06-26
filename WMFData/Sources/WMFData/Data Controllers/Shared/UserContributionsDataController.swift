@@ -1,6 +1,6 @@
 import Foundation
 
-public final class UserContributionsDataController {
+public actor UserContributionsDataController {
     
     public static let shared = UserContributionsDataController()
     private let service = WMFDataEnvironment.current.mediaWikiService
@@ -134,7 +134,7 @@ public final class UserContributionsDataController {
     }
 }
 
-public struct ArticleEdit: Identifiable, Hashable {
+public struct ArticleEdit: Identifiable, Hashable, Sendable {
     public let id: String
     public let title: String
     public let projectID: String

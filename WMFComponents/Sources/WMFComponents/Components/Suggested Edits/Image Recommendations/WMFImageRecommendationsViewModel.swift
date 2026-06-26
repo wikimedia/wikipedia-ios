@@ -360,13 +360,12 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
             return
         }
         
-        imageDataController.fetchImageData(url: url) { result in
-            switch result {
-            case .success(let data):
-                let image = UIImage(data: data)
-                imageData.uiImage = image
+        Task {
+            do {
+                let data = try await imageDataController.fetchImageData(url: url)
+                imageData.uiImage = UIImage(data: data)
                 completion(nil)
-            case .failure(let error):
+            } catch {
                 completion(error)
             }
         }
