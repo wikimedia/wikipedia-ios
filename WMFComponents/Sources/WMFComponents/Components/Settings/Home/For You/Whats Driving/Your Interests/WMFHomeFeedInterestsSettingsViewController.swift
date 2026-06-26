@@ -1,4 +1,5 @@
 import UIKit
+import WMFData
 
 public final class WMFHomeFeedInterestsSettingsViewController: WMFComponentHostingController<WMFHomeFeedInterestsSettingsView>, WMFNavigationBarConfiguring {
 
@@ -16,6 +17,14 @@ public final class WMFHomeFeedInterestsSettingsViewController: WMFComponentHosti
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
+    }
+
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        guard isMovingFromParent || isBeingDismissed else { return }
+        if viewModel.hasChanges {
+            NotificationCenter.default.post(name: WMFNSNotification.forYouInterestsDidChange, object: nil)
+        }
     }
 
     private func configureNavigationBar() {
