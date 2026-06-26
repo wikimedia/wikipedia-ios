@@ -61,21 +61,24 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
             modalPresentationStyle: .fullScreen
         )
         gameNavigationController = nav
-        navigationController.present(nav, animated: true)
 
-        guard let project else {
-            Task { [weak self] in self?.transitionFromLoading() }
-            return true
-        }
-
-        let todayDateString = formattedTodayISODateString()
-        Task { [weak self] in
+        navigationController.present(nav, animated: true) { [weak self] in
             guard let self else { return }
-            let available = (try? await self.gamesDataController.isWhichCameFirstDailySessionAvailable(
-                date: todayDateString,
-                project: project
-            )) ?? false
-            self.transitionFromLoading(todayAvailable: available)
+
+            guard let project = self.project else {
+                self.transitionFromLoading()
+                return
+            }
+
+            let todayDateString = self.formattedTodayISODateString()
+            Task { [weak self] in
+                guard let self else { return }
+                let available = (try? await self.gamesDataController.isWhichCameFirstDailySessionAvailable(
+                    date: todayDateString,
+                    project: project
+                )) ?? false
+                self.transitionFromLoading(todayAvailable: available)
+            }
         }
 
         return true
