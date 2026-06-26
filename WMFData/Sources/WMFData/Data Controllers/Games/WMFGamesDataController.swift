@@ -314,9 +314,11 @@ extension WMFGamesDataController {
         return (gameState, session.identifier)
     }
 
-    private static func makeWhichCameFirstQuestions(from events: [WMFOnThisDayEvent], month: Int, day: Int, count: Int) -> [WMFWhichCameFirstQuestion] {
+    // Internal rather than private so it can be unit tested directly (e.g. BC date filtering).
+    static func makeWhichCameFirstQuestions(from events: [WMFOnThisDayEvent], month: Int, day: Int, count: Int) -> [WMFWhichCameFirstQuestion] {
         let calendar = Calendar(identifier: .gregorian)
-        var pool = events.filter { !$0.pages.isEmpty }.sorted { $0.year < $1.year }
+        // Exclude BC/BCE events (negative or zero years) — the Gregorian calendar has no year 0, so any year < 1 is BC.
+        var pool = events.filter { !$0.pages.isEmpty && $0.year > 0 }.sorted { $0.year < $1.year }
         var questions: [WMFWhichCameFirstQuestion] = []
 
         func makeDate(year: Int) -> Date {

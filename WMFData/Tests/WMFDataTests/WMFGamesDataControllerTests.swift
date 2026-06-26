@@ -141,6 +141,67 @@ final class WMFGamesDataControllerTests: XCTestCase {
         }
     }
 
+    // MARK: - makeWhichCameFirstQuestions BC Date Filtering Tests
+
+    /// Builds an event with a single page so it passes the `!pages.isEmpty` filter.
+    private func makeEvent(text: String, year: Int) -> WMFOnThisDayEvent {
+        let page = WMFOnThisDayPage(
+            title: text,
+            description: nil,
+            extract: nil,
+            thumbnail: nil,
+            contentUrls: nil
+        )
+        return WMFOnThisDayEvent(text: text, year: year, pages: [page])
+    }
+
+    func testQuestionsExcludeBCEvents() {
+        let bcEvents = [
+            makeEvent(text: "BC Event 500", year: -500),
+            makeEvent(text: "BC Event 100", year: -100),
+            makeEvent(text: "BC Event 1", year: -1)
+        ]
+        // Year 0 does not exist in the Gregorian calendar; treat it as BC and exclude it too.
+        let yearZeroEvent = makeEvent(text: "Year Zero Event", year: 0)
+        let adEvents = (1...20).map { makeEvent(text: "AD Event \($0)", year: $0 * 100) }
+
+        let events = bcEvents + [yearZeroEvent] + adEvents
+
+        let questions = WMFGamesDataController.makeWhichCameFirstQuestions(
+            from: events,
+            month: 5,
+            day: 7,
+            count: 5
+        )
+
+        XCTAssertEqual(questions.count, 5, "AD events alone should be enough to build all questions")
+
+        let excludedTitles = Set(bcEvents.map { $0.text } + [yearZeroEvent.text])
+        for question in questions {
+            XCTAssertFalse(
+                excludedTitles.contains(question.optionA.title),
+                "BC/year-zero event leaked into optionA: \(question.optionA.title)"
+            )
+            XCTAssertFalse(
+                excludedTitles.contains(question.optionB.title),
+                "BC/year-zero event leaked into optionB: \(question.optionB.title)"
+            )
+        }
+    }
+
+    func testAllBCEventsProduceNoQuestions() {
+        let bcEvents = (1...20).map { makeEvent(text: "BC Event \($0)", year: -$0 * 100) }
+
+        let questions = WMFGamesDataController.makeWhichCameFirstQuestions(
+            from: bcEvents,
+            month: 5,
+            day: 7,
+            count: 5
+        )
+
+        XCTAssertTrue(questions.isEmpty, "A pool of only BC events should yield no questions")
+    }
+
     // MARK: - submitWhichCameFirstAnswer Tests
 
     func testSubmitCorrectAnswerIncrementsScore() async throws {
