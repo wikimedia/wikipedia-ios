@@ -96,7 +96,7 @@ public final class WMFWhichCameFirstHostingController: WMFComponentHostingContro
     }
 
     @objc private func tappedClose() {
-        viewModel.didTapExitDuringPlay?(viewModel.currentIndex + 1)
+        viewModel.didTapExitDuringPlay?(viewModel.currentIndex + 1, viewModel.phase == .complete)
         dismiss(animated: true)
     }
 }
