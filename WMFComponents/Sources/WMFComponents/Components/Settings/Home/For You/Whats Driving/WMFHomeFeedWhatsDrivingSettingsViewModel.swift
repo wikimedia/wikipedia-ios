@@ -11,13 +11,16 @@ public final class WMFHomeFeedWhatsDrivingSettingsViewModel: ObservableObject {
     public var didTapReadingHistory: (() -> Void)?
     public var didTapLanguages: (() -> Void)?
 
+    public private(set) var sections: [SettingsSection] = []
+
     public init(didTapYourInterests: (() -> Void)? = nil, didTapReadingHistory: (() -> Void)? = nil, didTapLanguages: (() -> Void)? = nil) {
         self.didTapYourInterests = didTapYourInterests
         self.didTapReadingHistory = didTapReadingHistory
         self.didTapLanguages = didTapLanguages
+        self.sections = buildSections()
     }
 
-    var sections: [SettingsSection] {
+    private func buildSections() -> [SettingsSection] {
         let yourInterests = SettingsItem(
             image: WMFSFSymbolIcon.for(symbol: .sliderHorizontal3),
             color: WMFColor.blue300,

@@ -23,6 +23,8 @@ public final class WMFHomeFeedForYouSettingsViewModel: ObservableObject {
     public var onToggleModule: ((Module, Bool) -> Void)?
     public var didTapWhatsDriving: (() -> Void)?
 
+    public private(set) var sections: [SettingsSection] = []
+
     public init(didTapWhatsDriving: (() -> Void)? = nil, homeDataController: WMFHomeDataController = .shared) {
         self.homeDataController = homeDataController
         self.basedOnYourInterestsIsOn = homeDataController.forYouBasedOnInterestsIsOn()
@@ -37,9 +39,10 @@ public final class WMFHomeFeedForYouSettingsViewModel: ObservableObject {
             case .continueReading: self.homeDataController.setForYouContinueReadingIsOn(isOn)
             }
         }
+        self.sections = buildSections()
     }
 
-    var sections: [SettingsSection] {
+    private func buildSections() -> [SettingsSection] {
         let basedOnYourInterests = SettingsItem(
             image: nil,
             color: nil,
