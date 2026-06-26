@@ -189,6 +189,44 @@ final class WMFGamesDataControllerTests: XCTestCase {
         }
     }
 
+    func testPoolDeduplicatesByYear() {
+        // Two events with the same year — only one should enter the pool, so both
+        // questions must use distinct years for their paired options.
+        let events = [
+            makeEvent(text: "Event A year 100", year: 100),
+            makeEvent(text: "Event B year 100", year: 100),
+            makeEvent(text: "Event C year 200", year: 200),
+            makeEvent(text: "Event D year 300", year: 300),
+            makeEvent(text: "Event E year 400", year: 400),
+            makeEvent(text: "Event F year 500", year: 500),
+            makeEvent(text: "Event G year 600", year: 600),
+            makeEvent(text: "Event H year 700", year: 700),
+            makeEvent(text: "Event I year 800", year: 800),
+            makeEvent(text: "Event J year 900", year: 900),
+            makeEvent(text: "Event K year 1000", year: 1000)
+        ]
+
+        let questions = WMFGamesDataController.makeWhichCameFirstQuestions(
+            from: events,
+            month: 5,
+            day: 7,
+            count: 5
+        )
+
+        // Collect every year used across all questions.
+        var usedYears: [Int] = []
+        for question in questions {
+            let calendar = Calendar(identifier: .gregorian)
+            let yearA = calendar.component(.year, from: question.optionA.date)
+            let yearB = calendar.component(.year, from: question.optionB.date)
+            usedYears.append(contentsOf: [yearA, yearB])
+        }
+
+        // After dedup, year 100 appears only once in the pool, so it can appear at most once.
+        let year100Count = usedYears.filter { $0 == 100 }.count
+        XCTAssertLessThanOrEqual(year100Count, 1, "Year 100 should appear at most once across all questions after year deduplication")
+    }
+
     func testAllBCEventsProduceNoQuestions() {
         let bcEvents = (1...20).map { makeEvent(text: "BC Event \($0)", year: -$0 * 100) }
 

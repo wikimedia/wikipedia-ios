@@ -318,7 +318,11 @@ extension WMFGamesDataController {
     static func makeWhichCameFirstQuestions(from events: [WMFOnThisDayEvent], month: Int, day: Int, count: Int) -> [WMFWhichCameFirstQuestion] {
         let calendar = Calendar(identifier: .gregorian)
         // Exclude BC/BCE events (negative or zero years) — the Gregorian calendar has no year 0, so any year < 1 is BC.
+        // Deduplicate by year (keep first event per year, matching Android's distinctBy { year }).
         var pool = events.filter { !$0.pages.isEmpty && $0.year > 0 }.sorted { $0.year < $1.year }
+        pool = pool.reduce(into: [WMFOnThisDayEvent]()) { acc, event in
+            if acc.last?.year != event.year { acc.append(event) }
+        }
         var questions: [WMFWhichCameFirstQuestion] = []
 
         func makeDate(year: Int) -> Date {
