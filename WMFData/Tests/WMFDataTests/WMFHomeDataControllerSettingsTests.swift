@@ -153,4 +153,73 @@ struct WMFHomeDataControllerSettingsTests {
         let reader = WMFHomeDataController(userDefaultsStore: store)
         #expect(reader.forYouBecauseYouReadIsOn() == false)
     }
+
+    // MARK: - Hidden Cards
+
+    @Test
+    func hiddenCardKeysDefaultToEmpty() {
+        let controller = makeController()
+        #expect(controller.hiddenCardKeys() == [])
+    }
+
+    @Test
+    func hideCardAppendsKey() {
+        let controller = makeController()
+        controller.hideCard(key: "featured_article_Octopus")
+        #expect(controller.hiddenCardKeys() == ["featured_article_Octopus"])
+    }
+
+    @Test
+    func hideCardIgnoresDuplicates() {
+        let controller = makeController()
+        controller.hideCard(key: "featured_article_Octopus")
+        controller.hideCard(key: "featured_article_Octopus")
+        #expect(controller.hiddenCardKeys().count == 1)
+    }
+
+    @Test
+    func isCardHiddenReturnsTrueAfterHide() {
+        let controller = makeController()
+        controller.hideCard(key: "top_read_2025-06-26_enwiki")
+        #expect(controller.isCardHidden(key: "top_read_2025-06-26_enwiki") == true)
+    }
+
+    @Test
+    func isCardHiddenReturnsFalseForUnhiddenKey() {
+        let controller = makeController()
+        #expect(controller.isCardHidden(key: "top_read_2025-06-26_enwiki") == false)
+    }
+
+    @Test
+    func hideCardEnforcesFIFOCapOf100() {
+        let controller = makeController()
+        for i in 0..<105 {
+            controller.hideCard(key: "card_\(i)")
+        }
+        let keys = controller.hiddenCardKeys()
+        #expect(keys.count == 100)
+        // Oldest keys (0–4) should have been evicted; newest should remain.
+        #expect(keys.contains("card_4") == false)
+        #expect(keys.contains("card_5") == true)
+        #expect(keys.contains("card_104") == true)
+    }
+
+    @Test
+    func hiddenCardKeysSharedAcrossControllers() {
+        let store = WMFMockKeyValueStore()
+        let writer = WMFHomeDataController(userDefaultsStore: store)
+        writer.hideCard(key: "for_you_enwiki_Octopus")
+
+        let reader = WMFHomeDataController(userDefaultsStore: store)
+        #expect(reader.isCardHidden(key: "for_you_enwiki_Octopus") == true)
+    }
+
+    @Test
+    func hiddenCardKeysPreservesInsertionOrder() {
+        let controller = makeController()
+        controller.hideCard(key: "card_a")
+        controller.hideCard(key: "card_b")
+        controller.hideCard(key: "card_c")
+        #expect(controller.hiddenCardKeys() == ["card_a", "card_b", "card_c"])
+    }
 }
