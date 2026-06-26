@@ -48,15 +48,15 @@ public struct WMFWhichCameFirstArchiveView: View {
             }
 
             Group {
-                Text(viewModel.localizedStrings.title + " ")
+                Text(viewModel.title + " ")
                     .font(Font(WMFFont.for(.boldTitle2)))
-                + Text(viewModel.localizedStrings.archiveLabel)
+                + Text(viewModel.archiveLabel)
                     .font(Font(WMFFont.for(.title2)))
             }
             .foregroundColor(Color(uiColor: theme.text))
             .multilineTextAlignment(.center)
 
-            Text(viewModel.localizedStrings.subtitle)
+            Text(viewModel.subtitle)
                 .font(Font(WMFFont.for(.body)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .multilineTextAlignment(.center)

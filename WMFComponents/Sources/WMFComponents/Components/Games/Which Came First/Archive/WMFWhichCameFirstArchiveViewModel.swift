@@ -6,34 +6,14 @@ public final class WMFWhichCameFirstArchiveViewModel: ObservableObject {
 
     // MARK: - Localized Strings
 
-    public struct LocalizedStrings {
-        public let title: String
-        public let subtitle: String
-        public let archiveLabel: String
-        public let toastScoreFormat: String
-        public let dayScoreA11yFormat: String
-        public let dayPausedA11y: String
-
-        public init(
-            title: String = WMFLocalizedString("which-came-first-archive-title", value: "Which came first?", comment: "Title for the Which Came First archive date picker sheet header."),
-            subtitle: String = WMFLocalizedString("which-came-first-archive-subtitle", value: "Play games since June 2024.", comment: "Subtitle for the Which Came First archive date picker sheet header."),
-            archiveLabel: String = WMFLocalizedString("which-came-first-archive-nav-title", value: "Archive", comment: "Label appended to the game title in the archive sheet header."),
-            toastScoreFormat: String = WMFLocalizedString("which-came-first-archive-toast-score", value: "You scored %1$d / 5 on this day.", comment: "Toast message shown when a user taps a completed day. %1$d is the numeric score out of 5."),
-            dayScoreA11yFormat: String = WMFLocalizedString("which-came-first-archive-day-score-a11y", value: "Score: %1$d out of 5", comment: "Accessibility label suffix for a completed day cell showing the user's score."),
-            dayPausedA11y: String = WMFLocalizedString("which-came-first-archive-day-paused-a11y", value: "Game in progress", comment: "Accessibility label suffix for a day cell indicating a paused game.")
-        ) {
-            self.title = title
-            self.subtitle = subtitle
-            self.archiveLabel = archiveLabel
-            self.toastScoreFormat = toastScoreFormat
-            self.dayScoreA11yFormat = dayScoreA11yFormat
-            self.dayPausedA11y = dayPausedA11y
-        }
-    }
+    let title: String = WMFLocalizedString("which-came-first-archive-title", value: "Which came first?", comment: "Title for the Which Came First archive date picker sheet header.")
+    let subtitle: String = WMFLocalizedString("which-came-first-archive-subtitle", value: "Play games since June 2024.", comment: "Subtitle for the Which Came First archive date picker sheet header.")
+    let archiveLabel: String = WMFLocalizedString("which-came-first-archive-nav-title", value: "Archive", comment: "Label appended to the game title in the archive sheet header.")
+    let toastScoreFormat: String = WMFLocalizedString("which-came-first-archive-toast-score", value: "You scored %1$d / 5 on this day.", comment: "Toast message shown when a user taps a completed day. %1$d is the numeric score out of 5.")
+    let dayScoreA11yFormat: String = WMFLocalizedString("which-came-first-archive-day-score-a11y", value: "Score: %1$d out of 5", comment: "Accessibility label suffix for a completed day cell showing the user's score.")
 
     // MARK: - Properties
 
-    public let localizedStrings: LocalizedStrings
     public let archiveStartDate: Date
     public let playedDates: [Date: Int]
     public let pausedDates: Set<Date>
@@ -43,13 +23,11 @@ public final class WMFWhichCameFirstArchiveViewModel: ObservableObject {
     // MARK: - Init
 
     public init(
-        localizedStrings: LocalizedStrings = LocalizedStrings(),
         archiveStartDate: Date = DateComponents(calendar: Calendar(identifier: .gregorian), year: 2024, month: 6, day: 1).date ?? Date(),
         playedDates: [Date: Int] = [:],
         pausedDates: Set<Date> = [],
         onSelectDate: ((Date) -> Void)? = nil
     ) {
-        self.localizedStrings = localizedStrings
         self.archiveStartDate = archiveStartDate
         self.playedDates = playedDates
         self.pausedDates = pausedDates
@@ -67,7 +45,7 @@ public final class WMFWhichCameFirstArchiveViewModel: ObservableObject {
     func decorationAccessibilityLabel(for date: Date) -> String? {
         let normalised = Calendar.current.startOfDay(for: date)
         if let score = playedDates[normalised] {
-            return String.localizedStringWithFormat(localizedStrings.dayScoreA11yFormat, score)
+            return String.localizedStringWithFormat(dayScoreA11yFormat, score)
         }
         return nil
     }
@@ -78,7 +56,7 @@ public final class WMFWhichCameFirstArchiveViewModel: ObservableObject {
         let normalised = Calendar.current.startOfDay(for: date)
 
         if let score = playedDates[normalised] {
-            let message = String.localizedStringWithFormat(localizedStrings.toastScoreFormat, score)
+            let message = String.localizedStringWithFormat(toastScoreFormat, score)
             onShowScoreToast?(message)
         } else if pausedDates.contains(normalised) || (normalised <= Date() && normalised >= archiveStartDate) {
             onSelectDate?(normalised)

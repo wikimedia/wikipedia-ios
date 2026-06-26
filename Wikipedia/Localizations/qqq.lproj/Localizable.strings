@@ -1573,7 +1573,6 @@
 "welcome-languages-search-title" = "Title for welcome screen describing Wikipedia languages";
 "welcome-privacy-subtitle" = "Sub-title explaining how data usage is anonymous";
 "welcome-privacy-terms-button-text" = "Text for links for learning more about data privacy policy and terms of use";
-"which-came-first-archive-day-paused-a11y" = "Accessibility label suffix for a day cell indicating a paused game.";
 "which-came-first-archive-day-score-a11y" = "Accessibility label suffix for a completed day cell showing the user's score.";
 "which-came-first-archive-nav-title" = "Label appended to the game title in the archive sheet header.";
 "which-came-first-archive-subtitle" = "Subtitle for the Which Came First archive date picker sheet header.";
