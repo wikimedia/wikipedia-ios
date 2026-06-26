@@ -1,5 +1,6 @@
 import Foundation
 import CoreData
+import GameplayKit
 
 public class WMFGamesDataController {
 
@@ -310,13 +311,14 @@ extension WMFGamesDataController {
 
         let components = date.split(separator: "-")
         guard components.count == 3,
+              let year = Int(components[0]),
               let month = Int(components[1]),
               let day = Int(components[2]) else {
             return false
         }
 
         let response = try await onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
-        let questions = Self.makeWhichCameFirstQuestions(from: response.events, month: month, day: day, count: Self.whichCameFirstQuestionCount)
+        let questions = Self.makeWhichCameFirstQuestions(from: response.events, month: month, day: day, year: year, count: Self.whichCameFirstQuestionCount)
         return questions.count == Self.whichCameFirstQuestionCount
     }
 
@@ -336,13 +338,14 @@ extension WMFGamesDataController {
 
         let components = date.split(separator: "-")
         guard components.count == 3,
+              let year = Int(components[0]),
               let month = Int(components[1]),
               let day = Int(components[2]) else {
             throw CustomError.missingIdentifier
         }
 
         let response = try await onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
-        let questions = Self.makeWhichCameFirstQuestions(from: response.events, month: month, day: day, count: Self.whichCameFirstQuestionCount)
+        let questions = Self.makeWhichCameFirstQuestions(from: response.events, month: month, day: day, year: year, count: Self.whichCameFirstQuestionCount)
 
         guard questions.count == Self.whichCameFirstQuestionCount else {
             throw CustomError.insufficientQuestions
@@ -356,10 +359,34 @@ extension WMFGamesDataController {
     }
 
     // Internal rather than private so it can be unit tested directly (e.g. BC date filtering).
-    static func makeWhichCameFirstQuestions(from events: [WMFOnThisDayEvent], month: Int, day: Int, count: Int) -> [WMFWhichCameFirstQuestion] {
+    static func makeWhichCameFirstQuestions(from events: [WMFOnThisDayEvent], month: Int, day: Int, year: Int, count: Int) -> [WMFWhichCameFirstQuestion] {
         let calendar = Calendar(identifier: .gregorian)
-        // Exclude BC/BCE events (negative or zero years) — the Gregorian calendar has no year 0, so any year < 1 is BC.
-        var pool = events.filter { !$0.pages.isEmpty && $0.year > 0 }.sorted { $0.year < $1.year }
+        
+
+        // Filter out events that we don't want to consider
+        let yearInTextRegex = try? NSRegularExpression(pattern: "\\b\\d{1,4}\\b")
+        var pool = events.filter { event in
+            
+            // Exclude BC/BCE events (negative or zero years)
+            // Exclude future events (year > current year)
+            guard !event.pages.isEmpty && event.year > 0 && event.year <= year else { return false }
+            
+            // Exclude events whose text contains a standalone number (1–4 digits) — it could reveal the answer year.
+            let range = NSRange(event.text.startIndex..., in: event.text)
+            return yearInTextRegex?.firstMatch(in: event.text, range: range) == nil
+        }.sorted { $0.year < $1.year }
+        
+        // Deduplicate by year (keep first event per year, matching Android's distinctBy { year }).
+        pool = pool.reduce(into: [WMFOnThisDayEvent]()) { acc, event in
+            if acc.last?.year != event.year { acc.append(event) }
+        }
+        
+        // Shuffle with a date-seeded RNG so question order is consistent for the same day,
+        // matching Android's Random(month * 100 + day) seeded shuffle.
+        let rng = GKMersenneTwisterRandomSource(seed: UInt64(month * 100 + day))
+        guard let shuffled = rng.arrayByShufflingObjects(in: pool) as? [WMFOnThisDayEvent] else { return [] }
+        pool = shuffled
+        
         var questions: [WMFWhichCameFirstQuestion] = []
 
         func makeDate(year: Int) -> Date {
@@ -491,11 +518,12 @@ extension WMFGamesDataController {
 
         let components = date.split(separator: "-")
         guard components.count == 3,
+              let year = Int(components[0]),
               let month = Int(components[1]),
               let day = Int(components[2]) else { return nil }
 
         let response = try await onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
-        let questions = Self.makeWhichCameFirstQuestions(from: response.events, month: month, day: day, count: 1)
+        let questions = Self.makeWhichCameFirstQuestions(from: response.events, month: month, day: day, year: year, count: 1)
         guard let first = questions.first else { return nil }
         return (first.optionA, first.optionB)
     }

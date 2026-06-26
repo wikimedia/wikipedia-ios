@@ -157,13 +157,13 @@ final class WMFGamesDataControllerTests: XCTestCase {
 
     func testQuestionsExcludeBCEvents() {
         let bcEvents = [
-            makeEvent(text: "BC Event 500", year: -500),
-            makeEvent(text: "BC Event 100", year: -100),
-            makeEvent(text: "BC Event 1", year: -1)
+            makeEvent(text: "Battle of Thermopylae", year: -500),
+            makeEvent(text: "Founding of Rome", year: -100),
+            makeEvent(text: "Julius Caesar born", year: -1)
         ]
-        // Year 0 does not exist in the Gregorian calendar; treat it as BC and exclude it too.
         let yearZeroEvent = makeEvent(text: "Year Zero Event", year: 0)
-        let adEvents = (1...20).map { makeEvent(text: "AD Event \($0)", year: $0 * 100) }
+        let adEventTitles = ["Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon"]
+        let adEvents = (0...19).map { makeEvent(text: "AD Event \(adEventTitles[$0])", year: ($0 + 1) * 100) }
 
         let events = bcEvents + [yearZeroEvent] + adEvents
 
@@ -171,6 +171,7 @@ final class WMFGamesDataControllerTests: XCTestCase {
             from: events,
             month: 5,
             day: 7,
+            year: 2026,
             count: 5
         )
 
@@ -189,13 +190,114 @@ final class WMFGamesDataControllerTests: XCTestCase {
         }
     }
 
+    func testQuestionsAreDeterministicForSameDate() {
+        let events = (1...30).map { makeEvent(text: "Event \(["Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon","Phi","Chi","Psi","Omega","Ares","Zeus","Hera","Athena","Apollo","Hermes"][$0 - 1])", year: $0 * 50) }
+
+        let first = WMFGamesDataController.makeWhichCameFirstQuestions(from: events, month: 5, day: 7, year: 2026, count: 5)
+        let second = WMFGamesDataController.makeWhichCameFirstQuestions(from: events, month: 5, day: 7, year: 2026, count: 5)
+
+        // Compare the unordered pair of titles per question — optionA/B assignment uses Bool.random()
+        // so we can't compare positionally, but the paired events themselves must be identical.
+        let firstPairs = first.map { Set([$0.optionA.title, $0.optionB.title]) }
+        let secondPairs = second.map { Set([$0.optionA.title, $0.optionB.title]) }
+        XCTAssertEqual(firstPairs, secondPairs, "Same date should always produce the same question pairings")
+    }
+
+    func testPoolFiltersEventsWithYearInText() {
+        // Events whose text contains a standalone number should be excluded from the pool.
+        let eventsWithYearInText = [
+            makeEvent(text: "Something happened in 1492", year: 100),
+            makeEvent(text: "An event occurred in 42 AD", year: 200),
+            makeEvent(text: "Event from the year 800", year: 300)
+        ]
+        let cleanEventNames = ["Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa"]
+        let cleanEvents = (0...9).map { makeEvent(text: "Clean event \(cleanEventNames[$0])", year: ($0 + 1) * 100 + 400) }
+
+        let questions = WMFGamesDataController.makeWhichCameFirstQuestions(
+            from: eventsWithYearInText + cleanEvents,
+            month: 5,
+            day: 7,
+            year: 2026,
+            count: 5
+        )
+
+        let filteredTitles = Set(eventsWithYearInText.map { $0.text })
+        for question in questions {
+            XCTAssertFalse(filteredTitles.contains(question.optionA.title), "Event with number in text leaked into optionA: \(question.optionA.title)")
+            XCTAssertFalse(filteredTitles.contains(question.optionB.title), "Event with number in text leaked into optionB: \(question.optionB.title)")
+        }
+    }
+
+    func testPoolFiltersEventsBeyondCurrentYear() {
+        let pastEventNames = ["Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa"]
+        let currentYearEvents = (0...9).map { makeEvent(text: "Past event \(pastEventNames[$0])", year: ($0 + 1) * 100) }
+        let futureEvents = [
+            makeEvent(text: "Future event Alpha", year: 2100),
+            makeEvent(text: "Future event Beta", year: 2200)
+        ]
+
+        let questions = WMFGamesDataController.makeWhichCameFirstQuestions(
+            from: currentYearEvents + futureEvents,
+            month: 5,
+            day: 7,
+            year: 2026,
+            count: 5
+        )
+
+        let futureTitles = Set(futureEvents.map { $0.text })
+        for question in questions {
+            XCTAssertFalse(futureTitles.contains(question.optionA.title), "Future event leaked into optionA: \(question.optionA.title)")
+            XCTAssertFalse(futureTitles.contains(question.optionB.title), "Future event leaked into optionB: \(question.optionB.title)")
+        }
+    }
+
+    func testPoolDeduplicatesByYear() {
+        // Two events with the same year — only one should enter the pool, so both
+        // questions must use distinct years for their paired options.
+        let events = [
+            makeEvent(text: "Event Alpha", year: 100),
+            makeEvent(text: "Event Beta", year: 100),
+            makeEvent(text: "Event Gamma", year: 200),
+            makeEvent(text: "Event Delta", year: 300),
+            makeEvent(text: "Event Epsilon", year: 400),
+            makeEvent(text: "Event Zeta", year: 500),
+            makeEvent(text: "Event Eta", year: 600),
+            makeEvent(text: "Event Theta", year: 700),
+            makeEvent(text: "Event Iota", year: 800),
+            makeEvent(text: "Event Kappa", year: 900),
+            makeEvent(text: "Event Lambda", year: 1000)
+        ]
+
+        let questions = WMFGamesDataController.makeWhichCameFirstQuestions(
+            from: events,
+            month: 5,
+            day: 7,
+            year: 2026,
+            count: 5
+        )
+
+        // Collect every year used across all questions.
+        var usedYears: [Int] = []
+        for question in questions {
+            let calendar = Calendar(identifier: .gregorian)
+            let yearA = calendar.component(.year, from: question.optionA.date)
+            let yearB = calendar.component(.year, from: question.optionB.date)
+            usedYears.append(contentsOf: [yearA, yearB])
+        }
+
+        // After dedup, year 100 appears only once in the pool, so it can appear at most once.
+        let year100Count = usedYears.filter { $0 == 100 }.count
+        XCTAssertLessThanOrEqual(year100Count, 1, "Year 100 should appear at most once across all questions after year deduplication")
+    }
+
     func testAllBCEventsProduceNoQuestions() {
-        let bcEvents = (1...20).map { makeEvent(text: "BC Event \($0)", year: -$0 * 100) }
+        let bcEvents = (1...20).map { makeEvent(text: "BC Event \(["Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon"][$0 - 1])", year: -$0 * 100) }
 
         let questions = WMFGamesDataController.makeWhichCameFirstQuestions(
             from: bcEvents,
             month: 5,
             day: 7,
+            year: 2026,
             count: 5
         )
 
