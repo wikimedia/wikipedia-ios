@@ -157,13 +157,13 @@ final class WMFGamesDataControllerTests: XCTestCase {
 
     func testQuestionsExcludeBCEvents() {
         let bcEvents = [
-            makeEvent(text: "BC Event 500", year: -500),
-            makeEvent(text: "BC Event 100", year: -100),
-            makeEvent(text: "BC Event 1", year: -1)
+            makeEvent(text: "Battle of Thermopylae", year: -500),
+            makeEvent(text: "Founding of Rome", year: -100),
+            makeEvent(text: "Julius Caesar born", year: -1)
         ]
-        // Year 0 does not exist in the Gregorian calendar; treat it as BC and exclude it too.
         let yearZeroEvent = makeEvent(text: "Year Zero Event", year: 0)
-        let adEvents = (1...20).map { makeEvent(text: "AD Event \($0)", year: $0 * 100) }
+        let adEventTitles = ["Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon"]
+        let adEvents = (0...19).map { makeEvent(text: "AD Event \(adEventTitles[$0])", year: ($0 + 1) * 100) }
 
         let events = bcEvents + [yearZeroEvent] + adEvents
 
@@ -171,6 +171,7 @@ final class WMFGamesDataControllerTests: XCTestCase {
             from: events,
             month: 5,
             day: 7,
+            year: 2026,
             count: 5
         )
 
@@ -190,27 +191,33 @@ final class WMFGamesDataControllerTests: XCTestCase {
     }
 
     func testQuestionsAreDeterministicForSameDate() {
-        let events = (1...30).map { makeEvent(text: "Event \($0)", year: $0 * 50) }
+        let events = (1...30).map { makeEvent(text: "Event \(["Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon","Phi","Chi","Psi","Omega","Ares","Zeus","Hera","Athena","Apollo","Hermes"][$0 - 1])", year: $0 * 50) }
 
-        let first = WMFGamesDataController.makeWhichCameFirstQuestions(from: events, month: 5, day: 7, count: 5)
-        let second = WMFGamesDataController.makeWhichCameFirstQuestions(from: events, month: 5, day: 7, count: 5)
+        let first = WMFGamesDataController.makeWhichCameFirstQuestions(from: events, month: 5, day: 7, year: 2026, count: 5)
+        let second = WMFGamesDataController.makeWhichCameFirstQuestions(from: events, month: 5, day: 7, year: 2026, count: 5)
 
-        XCTAssertEqual(first.map { $0.optionA.title }, second.map { $0.optionA.title }, "Same date should always produce the same question order")
+        // Compare the unordered pair of titles per question — optionA/B assignment uses Bool.random()
+        // so we can't compare positionally, but the paired events themselves must be identical.
+        let firstPairs = first.map { Set([$0.optionA.title, $0.optionB.title]) }
+        let secondPairs = second.map { Set([$0.optionA.title, $0.optionB.title]) }
+        XCTAssertEqual(firstPairs, secondPairs, "Same date should always produce the same question pairings")
     }
 
     func testPoolFiltersEventsWithYearInText() {
         // Events whose text contains a standalone number should be excluded from the pool.
         let eventsWithYearInText = [
             makeEvent(text: "Something happened in 1492", year: 100),
-            makeEvent(text: "The 42nd event occurred", year: 200),
-            makeEvent(text: "Event from year 800", year: 300)
+            makeEvent(text: "An event occurred in 42 AD", year: 200),
+            makeEvent(text: "Event from the year 800", year: 300)
         ]
-        let cleanEvents = (1...10).map { makeEvent(text: "Clean event \($0)", year: $0 * 100 + 400) }
+        let cleanEventNames = ["Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa"]
+        let cleanEvents = (0...9).map { makeEvent(text: "Clean event \(cleanEventNames[$0])", year: ($0 + 1) * 100 + 400) }
 
         let questions = WMFGamesDataController.makeWhichCameFirstQuestions(
             from: eventsWithYearInText + cleanEvents,
             month: 5,
             day: 7,
+            year: 2026,
             count: 5
         )
 
@@ -221,27 +228,51 @@ final class WMFGamesDataControllerTests: XCTestCase {
         }
     }
 
+    func testPoolFiltersEventsBeyondCurrentYear() {
+        let pastEventNames = ["Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa"]
+        let currentYearEvents = (0...9).map { makeEvent(text: "Past event \(pastEventNames[$0])", year: ($0 + 1) * 100) }
+        let futureEvents = [
+            makeEvent(text: "Future event Alpha", year: 2100),
+            makeEvent(text: "Future event Beta", year: 2200)
+        ]
+
+        let questions = WMFGamesDataController.makeWhichCameFirstQuestions(
+            from: currentYearEvents + futureEvents,
+            month: 5,
+            day: 7,
+            year: 2026,
+            count: 5
+        )
+
+        let futureTitles = Set(futureEvents.map { $0.text })
+        for question in questions {
+            XCTAssertFalse(futureTitles.contains(question.optionA.title), "Future event leaked into optionA: \(question.optionA.title)")
+            XCTAssertFalse(futureTitles.contains(question.optionB.title), "Future event leaked into optionB: \(question.optionB.title)")
+        }
+    }
+
     func testPoolDeduplicatesByYear() {
         // Two events with the same year — only one should enter the pool, so both
         // questions must use distinct years for their paired options.
         let events = [
-            makeEvent(text: "Event A year 100", year: 100),
-            makeEvent(text: "Event B year 100", year: 100),
-            makeEvent(text: "Event C year 200", year: 200),
-            makeEvent(text: "Event D year 300", year: 300),
-            makeEvent(text: "Event E year 400", year: 400),
-            makeEvent(text: "Event F year 500", year: 500),
-            makeEvent(text: "Event G year 600", year: 600),
-            makeEvent(text: "Event H year 700", year: 700),
-            makeEvent(text: "Event I year 800", year: 800),
-            makeEvent(text: "Event J year 900", year: 900),
-            makeEvent(text: "Event K year 1000", year: 1000)
+            makeEvent(text: "Event Alpha", year: 100),
+            makeEvent(text: "Event Beta", year: 100),
+            makeEvent(text: "Event Gamma", year: 200),
+            makeEvent(text: "Event Delta", year: 300),
+            makeEvent(text: "Event Epsilon", year: 400),
+            makeEvent(text: "Event Zeta", year: 500),
+            makeEvent(text: "Event Eta", year: 600),
+            makeEvent(text: "Event Theta", year: 700),
+            makeEvent(text: "Event Iota", year: 800),
+            makeEvent(text: "Event Kappa", year: 900),
+            makeEvent(text: "Event Lambda", year: 1000)
         ]
 
         let questions = WMFGamesDataController.makeWhichCameFirstQuestions(
             from: events,
             month: 5,
             day: 7,
+            year: 2026,
             count: 5
         )
 
@@ -260,12 +291,13 @@ final class WMFGamesDataControllerTests: XCTestCase {
     }
 
     func testAllBCEventsProduceNoQuestions() {
-        let bcEvents = (1...20).map { makeEvent(text: "BC Event \($0)", year: -$0 * 100) }
+        let bcEvents = (1...20).map { makeEvent(text: "BC Event \(["Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon"][$0 - 1])", year: -$0 * 100) }
 
         let questions = WMFGamesDataController.makeWhichCameFirstQuestions(
             from: bcEvents,
             month: 5,
             day: 7,
+            year: 2026,
             count: 5
         )
 
