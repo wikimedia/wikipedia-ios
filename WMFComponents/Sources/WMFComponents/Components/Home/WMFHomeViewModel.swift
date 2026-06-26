@@ -44,26 +44,28 @@ public final class WMFHomeViewModel: ObservableObject {
     @Published public var hiddenCardKeys: [String] = []
     public var hiddenCardKeySet: Set<String> { Set(hiddenCardKeys) }
 
+    let dataController: WMFHomeDataController
+
     public var didSelectLanguage: ((WMFLanguage) -> Void)?
     public var didTapEditLanguages: (() -> Void)?
     public var didTapCustomizeInterests: (() -> Void)?
 
     public func refreshForYouModuleVisibility() {
         forYouModuleVisibility = WMFForYouModuleVisibility(
-            basedOnInterests: WMFHomeDataController.shared.forYouBasedOnInterestsIsOn(),
-            becauseYouRead: WMFHomeDataController.shared.forYouBecauseYouReadIsOn(),
-            continueReading: WMFHomeDataController.shared.forYouContinueReadingIsOn()
+            basedOnInterests: dataController.forYouBasedOnInterestsIsOn(),
+            becauseYouRead: dataController.forYouBecauseYouReadIsOn(),
+            continueReading: dataController.forYouContinueReadingIsOn()
         )
     }
 
     public func hideForYouModule(_ module: WMFForYouModule) {
         switch module {
         case .basedOnInterests:
-            WMFHomeDataController.shared.setForYouBasedOnInterestsIsOn(false)
+            dataController.setForYouBasedOnInterestsIsOn(false)
         case .becauseYouRead:
-            WMFHomeDataController.shared.setForYouBecauseYouReadIsOn(false)
+            dataController.setForYouBecauseYouReadIsOn(false)
         case .continueReading:
-            WMFHomeDataController.shared.setForYouContinueReadingIsOn(false)
+            dataController.setForYouContinueReadingIsOn(false)
         }
         withAnimation {
             refreshForYouModuleVisibility()
@@ -71,7 +73,7 @@ public final class WMFHomeViewModel: ObservableObject {
     }
 
     public func hideForYouCard(_ card: WMFForYouArticleCardViewModel) {
-        WMFHomeDataController.shared.hideCard(key: card.hideKey)
+        dataController.hideCard(key: card.hideKey)
         withAnimation {
             hiddenCardKeys.append(card.hideKey)
         }
@@ -81,7 +83,7 @@ public final class WMFHomeViewModel: ObservableObject {
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
         do {
-            let response = try await WMFHomeDataController.shared.fetchForYou(project: project, forceFetch: true)
+            let response = try await dataController.fetchForYou(project: project, forceFetch: true)
             self.forYouViewModel = WMFForYouViewModel(response: response)
         } catch {
             // TODO: surface error
@@ -103,10 +105,10 @@ public final class WMFHomeViewModel: ObservableObject {
         let project = WMFProject.wikipedia(language)
         isLoadingForYou = true
         refreshForYouModuleVisibility()
-        hiddenCardKeys = WMFHomeDataController.shared.hiddenCardKeys()
+        hiddenCardKeys = dataController.hiddenCardKeys()
         Task {
             do {
-                let response = try await WMFHomeDataController.shared.fetchForYou(project: project)
+                let response = try await dataController.fetchForYou(project: project)
                 self.forYouViewModel = WMFForYouViewModel(response: response)
             } catch {
                 // TODO: surface error
@@ -119,7 +121,7 @@ public final class WMFHomeViewModel: ObservableObject {
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
         do {
-            let response = try await WMFHomeDataController.shared.fetchCommunity(project: project, forceFetch: true)
+            let response = try await dataController.fetchCommunity(project: project, forceFetch: true)
             self.communityPages = [WMFHomeCommunityViewModel(response: response, project: project)]
         } catch {
             self.communityFeedError = error
@@ -132,16 +134,16 @@ public final class WMFHomeViewModel: ObservableObject {
         let project = WMFProject.wikipedia(language)
         isLoadingCommunity = true
         communityModuleVisibility = WMFCommunityModuleVisibility(
-            featuredArticle: WMFHomeDataController.shared.communityFeaturedArticleIsOn(),
-            topRead: WMFHomeDataController.shared.communityTopReadIsOn(),
-            inTheNews: WMFHomeDataController.shared.communityInTheNewsIsOn(),
-            onThisDay: WMFHomeDataController.shared.communityOnThisDayIsOn(),
-            pictureOfDay: WMFHomeDataController.shared.communityPictureOfTheDayIsOn()
+            featuredArticle: dataController.communityFeaturedArticleIsOn(),
+            topRead: dataController.communityTopReadIsOn(),
+            inTheNews: dataController.communityInTheNewsIsOn(),
+            onThisDay: dataController.communityOnThisDayIsOn(),
+            pictureOfDay: dataController.communityPictureOfTheDayIsOn()
         )
-        hiddenCardKeys = WMFHomeDataController.shared.hiddenCardKeys()
+        hiddenCardKeys = dataController.hiddenCardKeys()
         Task {
             do {
-                let response = try await WMFHomeDataController.shared.fetchCommunity(project: project)
+                let response = try await dataController.fetchCommunity(project: project)
                 self.communityPages = [WMFHomeCommunityViewModel(response: response, project: project)]
             } catch {
                 self.communityFeedError = error
@@ -152,20 +154,20 @@ public final class WMFHomeViewModel: ObservableObject {
 
     public func refreshCommunityModuleVisibility() {
         communityModuleVisibility = WMFCommunityModuleVisibility(
-            featuredArticle: WMFHomeDataController.shared.communityFeaturedArticleIsOn(),
-            topRead: WMFHomeDataController.shared.communityTopReadIsOn(),
-            inTheNews: WMFHomeDataController.shared.communityInTheNewsIsOn(),
-            onThisDay: WMFHomeDataController.shared.communityOnThisDayIsOn(),
-            pictureOfDay: WMFHomeDataController.shared.communityPictureOfTheDayIsOn()
+            featuredArticle: dataController.communityFeaturedArticleIsOn(),
+            topRead: dataController.communityTopReadIsOn(),
+            inTheNews: dataController.communityInTheNewsIsOn(),
+            onThisDay: dataController.communityOnThisDayIsOn(),
+            pictureOfDay: dataController.communityPictureOfTheDayIsOn()
         )
     }
 
     public func refreshHiddenCardKeys() {
-        hiddenCardKeys = WMFHomeDataController.shared.hiddenCardKeys()
+        hiddenCardKeys = dataController.hiddenCardKeys()
     }
 
     public func hideCard(key: String) {
-        WMFHomeDataController.shared.hideCard(key: key)
+        dataController.hideCard(key: key)
         withAnimation {
             hiddenCardKeys.append(key)
         }
@@ -175,19 +177,19 @@ public final class WMFHomeViewModel: ObservableObject {
         withAnimation {
             switch module {
             case .featuredArticle:
-                WMFHomeDataController.shared.setCommunityFeaturedArticleIsOn(false)
+                dataController.setCommunityFeaturedArticleIsOn(false)
                 communityModuleVisibility.featuredArticle = false
             case .topRead:
-                WMFHomeDataController.shared.setCommunityTopReadIsOn(false)
+                dataController.setCommunityTopReadIsOn(false)
                 communityModuleVisibility.topRead = false
             case .inTheNews:
-                WMFHomeDataController.shared.setCommunityInTheNewsIsOn(false)
+                dataController.setCommunityInTheNewsIsOn(false)
                 communityModuleVisibility.inTheNews = false
             case .onThisDay:
-                WMFHomeDataController.shared.setCommunityOnThisDayIsOn(false)
+                dataController.setCommunityOnThisDayIsOn(false)
                 communityModuleVisibility.onThisDay = false
             case .pictureOfDay:
-                WMFHomeDataController.shared.setCommunityPictureOfTheDayIsOn(false)
+                dataController.setCommunityPictureOfTheDayIsOn(false)
                 communityModuleVisibility.pictureOfDay = false
             }
         }
@@ -200,7 +202,7 @@ public final class WMFHomeViewModel: ObservableObject {
         isLoadingCommunityPreviousPage = true
         Task {
             do {
-                let response = try await WMFHomeDataController.shared.fetchCommunityPreviousPage(project: project)
+                let response = try await dataController.fetchCommunityPreviousPage(project: project)
                 self.communityPages.append(WMFHomeCommunityViewModel(response: response, project: project))
             } catch {
                 self.communityFeedError = error
@@ -209,7 +211,8 @@ public final class WMFHomeViewModel: ObservableObject {
         }
     }
 
-    public init(languages: [WMFLanguage] = [], selectedLanguage: WMFLanguage? = nil, didSelectLanguage: ((WMFLanguage) -> Void)? = nil, didTapEditLanguages: (() -> Void)? = nil) {
+    public init(dataController: WMFHomeDataController = .shared, languages: [WMFLanguage] = [], selectedLanguage: WMFLanguage? = nil, didSelectLanguage: ((WMFLanguage) -> Void)? = nil, didTapEditLanguages: (() -> Void)? = nil) {
+        self.dataController = dataController
         self.languages = languages
         self.selectedLanguage = selectedLanguage
         self.didSelectLanguage = didSelectLanguage
