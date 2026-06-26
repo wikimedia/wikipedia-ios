@@ -321,13 +321,16 @@ extension WMFGamesDataController {
     static func makeWhichCameFirstQuestions(from events: [WMFOnThisDayEvent], month: Int, day: Int, year: Int, count: Int) -> [WMFWhichCameFirstQuestion] {
         let calendar = Calendar(identifier: .gregorian)
         
-        // Exclude BC/BCE events (negative or zero years) — the Gregorian calendar has no year 0, so any year < 1 is BC.
-        // Exclude future events (year > current year).
-        // Exclude events whose text contains a standalone number (1–4 digits) — it could reveal the answer year.
-        
+
+        // Filter out events that we don't want to consider
         let yearInTextRegex = try? NSRegularExpression(pattern: "\\b\\d{1,4}\\b")
         var pool = events.filter { event in
+            
+            // Exclude BC/BCE events (negative or zero years)
+            // Exclude future events (year > current year)
             guard !event.pages.isEmpty && event.year > 0 && event.year <= year else { return false }
+            
+            // Exclude events whose text contains a standalone number (1–4 digits) — it could reveal the answer year.
             let range = NSRange(event.text.startIndex..., in: event.text)
             return yearInTextRegex?.firstMatch(in: event.text, range: range) == nil
         }.sorted { $0.year < $1.year }
