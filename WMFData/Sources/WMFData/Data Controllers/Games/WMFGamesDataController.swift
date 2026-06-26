@@ -320,24 +320,29 @@ extension WMFGamesDataController {
     // Internal rather than private so it can be unit tested directly (e.g. BC date filtering).
     static func makeWhichCameFirstQuestions(from events: [WMFOnThisDayEvent], month: Int, day: Int, year: Int, count: Int) -> [WMFWhichCameFirstQuestion] {
         let calendar = Calendar(identifier: .gregorian)
+        
         // Exclude BC/BCE events (negative or zero years) — the Gregorian calendar has no year 0, so any year < 1 is BC.
         // Exclude future events (year > current year).
         // Exclude events whose text contains a standalone number (1–4 digits) — it could reveal the answer year.
-        // Deduplicate by year (keep first event per year, matching Android's distinctBy { year }).
+        
         let yearInTextRegex = try? NSRegularExpression(pattern: "\\b\\d{1,4}\\b")
         var pool = events.filter { event in
             guard !event.pages.isEmpty && event.year > 0 && event.year <= year else { return false }
             let range = NSRange(event.text.startIndex..., in: event.text)
             return yearInTextRegex?.firstMatch(in: event.text, range: range) == nil
         }.sorted { $0.year < $1.year }
+        
+        // Deduplicate by year (keep first event per year, matching Android's distinctBy { year }).
         pool = pool.reduce(into: [WMFOnThisDayEvent]()) { acc, event in
             if acc.last?.year != event.year { acc.append(event) }
         }
+        
         // Shuffle with a date-seeded RNG so question order is consistent for the same day,
         // matching Android's Random(month * 100 + day) seeded shuffle.
         let rng = GKMersenneTwisterRandomSource(seed: UInt64(month * 100 + day))
         guard let shuffled = rng.arrayByShufflingObjects(in: pool) as? [WMFOnThisDayEvent] else { return [] }
         pool = shuffled
+        
         var questions: [WMFWhichCameFirstQuestion] = []
 
         func makeDate(year: Int) -> Date {
