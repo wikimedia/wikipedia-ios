@@ -92,9 +92,14 @@
 "activity-tab-additional-thoughts" = "További gondolatok?";
 "activity-tab-articles-read" = "Ebben a hónapban olvasott szócikkek";
 "activity-tab-articles-read-graph-label" = "Szócikkek";
+"activity-tab-customize-all-time-impact" = "Összesített hozzájárulás";
+"activity-tab-customize-editing-insights" = "Szerkesztési áttekintések";
+"activity-tab-customize-last-in-app-donation" = "Legutóbbi adomány az alkalmazásban";
 "activity-tab-generic-no-edits" = "Ezen a héten nem szerkesztettél. Ha szerkesztesz, itt nyomon tudod követni a közreműködéseidet.";
 "activity-tab-hours-on-wikipedia-ios" = "A WIKIPÉDIÁN iOS-EN";
 "activity-tab-neutral" = "Semleges";
+"activity-tab-reading-challenge-card-cta" = "Mutasd meg, hogyan";
+"activity-tab-reading-challenge-card-title" = "25 napos olvasási kihívás";
 "activity-tab-satisfied" = "Elégedett";
 "activity-tab-saved" = "Ebben a hónapban elmentett szócikkek";
 "activity-tab-start-editing" = "Szerkesztés elkezdése";
@@ -108,6 +113,7 @@
 "activity-tab-view-reading-history" = "Olvasási előzmények megtekintése";
 "activity-tab-view-saved-articles" = "Mentett szócikkek megtekintése";
 "activity-tab-week-graph-label" = "Hét";
+"activity-tab-your-impact" = "Tevékenységed";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 szócikk|$1 szócikk}} hozzáadása az olvasólistához";
 "advanced-settings-title" = "Speciális beállítások";
 "alert-temporary-account-learn-more" = "Tudj meg többet.";
@@ -376,6 +382,7 @@
 "explore-feed-preferences-randomizer-description" = "Véletlenszerűen kiválasztott szócikkek";
 "explore-feed-preferences-related-pages-description" = "Javaslatok olvasási előzményeid alapján";
 "explore-feed-preferences-top-read-description" = "A nap legolvasottabb szócikkei";
+"explore-games-title" = "Játékok";
 "explore-hide-card-prompt" = "Kártya elrejtése";
 "explore-main-page-description" = "A Wikimédia projektek főoldala";
 "explore-main-page-heading" = "Ma a Wikipédián";
@@ -395,6 +402,8 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "A(z) $1 Wikipédiáról";
 "explore-random-article-sub-heading-from-wikipedia" = "A Wikipédiáról";
 "explore-randomizer" = "Randomizáló";
+"explore-suggested-edits-image-recs-title" = "Kép hozzáadása";
+"explore-wikipedia" = "Wikipédia felfedezése";
 "export-user-data-confirmation-title" = "Megosztod az alkalmazáskönyvtárat?";
 "export-user-data-generic-error" = "Hiba történet az adatok exportálása során. Kérlek próbáld újra később.";
 "export-user-data-space-error" = "Nincs elég tárterület az eszközön a felhasználói adatok exportálásához. Kérlek, próbáld újra később.";
@@ -438,6 +447,8 @@
 "forgot-password-instructions" = "Töltsd ki a lenti mezők egyikét, hogy megkapd a jelszó-visszaállítási utasításokat e-mailben";
 "forgot-password-title" = "Jelszó visszaállítása";
 "forgot-password-username-or-email-title" = "Vagy";
+"games-wcf-button-play-title" = "Játssz a mai játékkal";
+"games-wcf-explore-button-review-title" = "Eredmények áttekintése";
 "history-clear-confirmation-heading" = "Biztosan törölni akarod az összes korábbi elemet?";
 "history-clear-delete-all" = "Igen, összes törlése";
 "history-title" = "Előzmények";
@@ -456,6 +467,7 @@
 "icon-shortcut-search-title" = "Keresés a Wikipédiában";
 "image-gallery-unknown-owner" = "Ismeretlen szerző.";
 "image-rec-empty-subtitle" = "Próbálj később visszatérni.";
+"image-rec-error-subtitle" = "Valami elromlott.";
 "image-rec-onboarding-item-1-title" = "Javaslat megtekintése";
 "image-rec-onboarding-item-2-body" = "A javaslatok gépi úton vannak generálva, és a te belátásodra van bízva, hogy elfogadod vagy elutasítod azokat.";
 "image-rec-onboarding-item-2-title" = "Kép elfogadása vagy elutasítása";
@@ -539,8 +551,7 @@
 "more-menu" = "Több";
 "move-articles-to-reading-list" = "{{PLURAL:$1|egy szócikk|$1 szócikk}} hozzáadása az olvasólistához";
 "navbar-title-mode-edit-wikitext-preview" = "Előnézet";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 láb";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 láb}}";
 "nearby-distance-label-km" = "$1 km";
 // Fuzzy
 "nearby-distance-label-meters" = "$1 m";
@@ -552,6 +563,7 @@
 "no-email-account-alert" = "Állíts be egy e-mail-fiókot az eszközödön és próbáld újra.";
 "no-internet-connection" = "Nincs internetkapcsolat";
 "not-now-title" = "Ne most";
+"notifications-center-agent-description-from-format" = "A(z) $1 lapról";
 "notifications-center-change-password" = "Jelszó módosítása";
 "notifications-center-checking-for-notifications" = "Értesítések keresése...";
 "notifications-center-detail-title" = "Értesítés részletei";
@@ -704,6 +716,21 @@
 "project-name-wikiversity" = "Wikiegyetem";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wikiszótár";
+"reading-challenge-enrolled-not-started-title-fresh" = "Új kezdet.";
+"reading-challenge-enrolled-not-started-title-ready" = "Elkészülni, vigyázz, olvass!";
+"reading-challenge-enrolled-not-started-title-spin" = "Indítasz egy új sorozatot?";
+"reading-challenge-enrolled-not-started-title-start" = "Kezdd el az olvasási kihívást.";
+"reading-challenge-explore-wikipedia-button" = "Wikipédia felfedezése";
+"reading-challenge-join-button-medium" = "Csatlakozás a kihíváshoz";
+"reading-challenge-join-button-small" = "Csatlakozás a kihíváshoz";
+"reading-challenge-login-message" = "Jelentkezz be, vagy hozz létre egy fiókot, hogy nyomon követhesd a haladásodat az olvasási kihívásban.";
+"reading-challenge-login-title" = "Jelentkezz be, hogy csatlakozhass a kihíváshoz";
+"reading-challenge-not-enrolled-subtitle" = "Csatlakozz a 25 napos kihíváshoz, és szerezz különleges jutalmakat.";
+"reading-challenge-not-enrolled-title" = "Elkészülni, vigyázz, olvass!";
+"reading-challenge-random-button" = "Véletlen";
+"reading-challenge-streak-days" = "{{PLURAL:$1|$1 nap}}";
+"reading-challenge-streak-no-days" = "$1 / 25";
+"reading-challenge-widget-display-name" = "Olvasási kihívás";
 "reading-list-add-generic-hint-title" = "Szócikket olvasólistára?";
 "reading-list-add-hint-title" = "„$1” hozzáadása egy olvasólistához?";
 "reading-list-add-saved-button-title" = "Igen, vedd fel az olvasólistáimhoz";

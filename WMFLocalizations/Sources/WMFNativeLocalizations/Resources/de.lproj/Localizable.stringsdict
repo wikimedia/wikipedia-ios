@@ -332,10 +332,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>lld</string>
-			<key>one</key>
-			<string>%2$lld Byte</string>
 			<key>other</key>
-			<string>%2$lld Bytes</string>
+			<string>%2$lld Byte</string>
 		</dict>
 	</dict>
 	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
@@ -348,10 +346,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>lld</string>
-			<key>one</key>
-			<string>%1$lld Byte</string>
 			<key>other</key>
-			<string>%1$lld Bytes</string>
+			<string>%1$lld Byte</string>
 		</dict>
 	</dict>
 	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
@@ -438,7 +434,7 @@
 	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Menschen verbrachten geschätzt %#@v1@ — über %#@v2@! — mit dem Lesen der Englischsprachigen Wikipedia im Jahr %3$@. Wikipedia ist da, wenn du über unsere sich verändernde Welt lernst, eine Wette unter Freunden gewinnen oder die Frage eines neugierigen Kindes beantworten möchtest.</string>
+		<string>Menschen verbrachten im Jahr %3$@ geschätzt %#@v1@ — über %#@v2@! — mit dem Lesen der englischsprachigen Wikipedia. Wikipedia ist da, wenn du etwas über unsere sich verändernde Welt lernst, eine Wette unter Freunden gewinnen oder die Frage eines neugierigen Kindes beantworten möchtest.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -708,10 +704,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d Byte</string>
 			<key>other</key>
-			<string>%1$d Bytes</string>
+			<string>%1$d Byte</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-subtraction</key>
@@ -724,10 +718,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d Byte</string>
 			<key>other</key>
-			<string>%1$d Bytes</string>
+			<string>%1$d Byte</string>
 		</dict>
 	</dict>
 	<key>page-history-stats-text</key>
@@ -1118,10 +1110,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d Byte</string>
 			<key>other</key>
-			<string>%1$d Bytes</string>
+			<string>%1$d Byte</string>
 		</dict>
 	</dict>
 	<key>watchlist-number-filters</key>
@@ -1313,7 +1303,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%2$der Sprachversion</string>
+			<string>%2$d Sprachversion</string>
 			<key>other</key>
 			<string>%2$d verschiedenen Sprachversionen</string>
 		</dict>
