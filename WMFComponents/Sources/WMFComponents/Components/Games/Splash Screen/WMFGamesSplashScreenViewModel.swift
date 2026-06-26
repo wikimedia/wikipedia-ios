@@ -12,7 +12,7 @@ public final class WMFGamesSplashScreenViewModel: ObservableObject {
     /// SF Symbol name or custom icon name for the game icon displayed above the title.
     public let icon: UIImage?
     /// The date label shown in the navigation bar (e.g. "January 6").
-    public let dateString: String?
+    @Published public var dateString: String?
 
     public let title: String
     public let subtitle: String
@@ -71,11 +71,7 @@ public final class WMFGamesSplashScreenViewModel: ObservableObject {
     public func update(sessionStatus: WMFGameSessionStatus) {
         switch sessionStatus {
         case .inProgress:
-            playButtonTitle = WMFLocalizedString(
-                "which-came-first-splash-continue-button",
-                value: "Continue today's game",
-                comment: "Button title to continue an in-progress Which Came First game."
-            )
+            playButtonTitle = CommonStrings.continueGameTitle
         case .completed:
             playButtonTitle = WMFLocalizedString(
                 "which-came-first-splash-review-button",

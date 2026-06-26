@@ -54,8 +54,12 @@ public final class WMFWhichCameFirstHostingController: WMFComponentHostingContro
         super.viewWillAppear(animated)
         configureNavigationBar()
         viewModel.load()
+        viewModel.onDateChanged = { [weak self] in
+            self?.configureNavigationBar()
+        }
         (self.navigationController as? WMFComponentNavigationController)?.turnOnForcePortrait()
     }
+    
 
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(

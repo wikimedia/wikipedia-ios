@@ -1573,6 +1573,11 @@
 "welcome-languages-search-title" = "Search in over 300 languages";
 "welcome-privacy-subtitle" = "We believe that you should not have to provide personal information to participate in the free knowledge movement. Usage data collected for this app is anonymous.";
 "welcome-privacy-terms-button-text" = "Learn more about our privacy policy and terms of use";
+"which-came-first-archive-day-score-a11y" = "Score: $1 out of 5";
+"which-came-first-archive-nav-title" = "Archive";
+"which-came-first-archive-subtitle" = "Play games since June 2024.";
+"which-came-first-archive-title" = "Which came first?";
+"which-came-first-archive-toast-score" = "You scored $1 / 5 on this day.";
 "which-came-first-article-card-open-hint" = "Opens event related to this article ";
 "which-came-first-articles-section-title" = "Articles from today's game";
 "which-came-first-average-score-label" = "average score";
@@ -1595,6 +1600,7 @@
 "which-came-first-next-game-time" = "Next game in $1";
 "which-came-first-nice-work" = "Nice work! Come back tomorrow for a new game.";
 "which-came-first-perfect-score" = "Perfect score!";
+"which-came-first-play-archive-button" = "Play the archive";
 "which-came-first-retry-button" = "Retry";
 "which-came-first-score" = "You scored $1/$2.";
 "which-came-first-see-results-button" = "See Results";
