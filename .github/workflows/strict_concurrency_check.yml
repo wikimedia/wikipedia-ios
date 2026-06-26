@@ -19,7 +19,6 @@ on:
   workflow_dispatch:
 
 env:
-
   XCODE_VERSION: "26.5"
   IOS_VERSION: "26.5"
   SIMULATOR_NAME: "iPhone 17"
@@ -51,6 +50,13 @@ jobs:
         run: |
           sudo xcode-select -switch "/Applications/Xcode_${XCODE_VERSION}.app"
 
+      - name: Prepare simulator
+        id: simulator
+        uses: ./.github/actions/prepare-simulator
+        with:
+          ios-version: ${{ env.IOS_VERSION }}
+          simulator-name: ${{ env.SIMULATOR_NAME }}
+
       - name: Build ${{ matrix.scheme }} with strict concurrency
         run: |
           SCHEME="${{ matrix.scheme }}"
@@ -65,12 +71,10 @@ jobs:
           done
 
           set -o pipefail
-          # Build-only job: a generic simulator destination needs no specific runtime/device,
-          # so it doesn't break when the runner image drops a pinned iOS version.
           xcodebuild build \
             -scheme "${SCHEME}" \
             -project Wikipedia.xcodeproj \
-            -destination "generic/platform=iOS Simulator" \
+            -destination "${{ steps.simulator.outputs.destination }}" \
             SWIFT_STRICT_CONCURRENCY=complete \
             SWIFT_TREAT_WARNINGS_AS_ERRORS=${TREAT_AS_ERRORS} \
             2>&1 | tee "${SCHEME}_strict.log"

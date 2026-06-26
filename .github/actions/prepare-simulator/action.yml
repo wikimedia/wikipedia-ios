@@ -29,46 +29,6 @@ runs:
         IOS_VERSION: ${{ inputs.ios-version }}
         SIMULATOR_NAME: ${{ inputs.simulator-name }}
       run: |
-        set -euo pipefail
-        # Resolve a concrete, available simulator UDID. Prefer the requested device + runtime, but
-        # fall back to the newest available iOS simulator so the job survives runner-image changes
-        # that drop a pinned runtime/device (e.g. iOS 26.2 / "iPhone 16" disappearing from the image).
-        UDID=$(xcrun simctl list devices available --json | python3 - "${IOS_VERSION}" "${SIMULATOR_NAME}" <<'PY'
-        import json, re, sys
-
-        requested_os, requested_name = sys.argv[1], sys.argv[2]
-        data = json.load(sys.stdin)
-
-        def runtime_version(identifier):
-            match = re.search(r'iOS-(\d+)-(\d+)', identifier)
-            return (int(match.group(1)), int(match.group(2))) if match else (0, 0)
-
-        # iOS runtime identifier -> available devices, ordered newest runtime first.
-        runtimes = {rt: devs for rt, devs in data.get("devices", {}).items() if "iOS" in rt and devs}
-        ordered = sorted(runtimes, key=runtime_version, reverse=True)
-        requested_runtime = "iOS-" + requested_os.replace(".", "-")
-
-        def find(predicate):
-            for rt in ordered:
-                for device in runtimes[rt]:
-                    if predicate(rt, device):
-                        return device["udid"]
-            return None
-
-        udid = (
-            find(lambda rt, d: rt.endswith(requested_runtime) and d["name"] == requested_name)
-            or find(lambda rt, d: d["name"] == requested_name)
-            or find(lambda rt, d: True)
-        )
-
-        if not udid:
-            sys.stderr.write("No available iOS simulator found\n")
-            sys.exit(1)
-
-        print(udid)
-        PY
-        )
-
-        DESTINATION="platform=iOS Simulator,id=${UDID}"
+        DESTINATION="platform=iOS Simulator,name=${SIMULATOR_NAME},OS=${IOS_VERSION}"
         echo "destination=${DESTINATION}" >> "$GITHUB_OUTPUT"
-        echo "Resolved simulator destination: ${DESTINATION} (requested: ${SIMULATOR_NAME} / iOS ${IOS_VERSION})"
+        echo "Using simulator destination: ${DESTINATION}"
