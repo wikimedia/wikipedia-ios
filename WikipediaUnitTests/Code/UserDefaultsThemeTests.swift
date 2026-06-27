@@ -29,6 +29,19 @@ final class UserDefaultsThemeTests: XCTestCase {
         XCTAssertTrue(theme.isDark)
     }
 
+    func testDefaultThemeReturnsBlackDimmedForSystemDark() {
+        let defaults = makeDefaults()
+        defaults.themeName = Theme.defaultThemeName
+        defaults.wmf_isImageDimmingEnabled = true
+
+        let theme = defaults.theme(compatibleWith: UITraitCollection(userInterfaceStyle: .dark))
+
+        XCTAssertEqual(theme.name, Theme.blackDimmed.name)
+        XCTAssertEqual(theme.imageOpacity, Theme.blackDimmed.imageOpacity)
+        XCTAssertTrue(theme.isDark)
+        XCTAssertTrue(theme.isDimmed)
+    }
+
     private func makeDefaults() -> UserDefaults {
         let defaults = UserDefaults(suiteName: defaultsSuiteName)!
         // reset defaults

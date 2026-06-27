@@ -1134,6 +1134,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         view.backgroundColor = theme.colors.paperBackground
         webView.scrollView.indicatorStyle = theme.scrollIndicatorStyle
+        leadImageView.alpha = theme.imageOpacity
         toolbarController?.apply(theme: theme)
         tableOfContentsController.apply(theme: theme)
         findInPage.view?.apply(theme: theme)

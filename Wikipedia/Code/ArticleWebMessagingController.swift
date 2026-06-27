@@ -19,7 +19,7 @@ class ArticleWebMessagingController: NSObject {
     func setup(with webView: WKWebView, languageCode: String, theme: Theme, layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat = 0, areTablesInitiallyExpanded: Bool = false, textSizeAdjustment: Int? = nil, userGroups: [String] = []) {
         let margins = getPageContentServiceMargins(from: layoutMargins)
         let textSizeAdjustment =  textSizeAdjustment ?? UserDefaults.standard.wmf_articleFontSizeMultiplier() as? Int ?? 100
-        let parameters = PageContentService.Setup.Parameters(theme: theme.webName.lowercased(), dimImages: theme.imageOpacity < 1, margins: margins, leadImageHeight: "\(leadImageHeight)px", areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustmentPercentage: "\(textSizeAdjustment)%", userGroups: userGroups)
+        let parameters = PageContentService.Setup.Parameters(theme: theme.webName.lowercased(), dimImages: theme.isDimmed, margins: margins, leadImageHeight: "\(leadImageHeight)px", areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustmentPercentage: "\(textSizeAdjustment)%", userGroups: userGroups)
         self.parameters = parameters
         self.webView = webView
         let contentController = webView.configuration.userContentController
@@ -97,9 +97,13 @@ class ArticleWebMessagingController: NSObject {
 
     func updateTheme(_ theme: Theme) {
         let webTheme = theme.webName.lowercased()
-        let js = "pcs.c1.Page.setTheme(pcs.c1.Themes.\(theme.webName.uppercased()))"
+        let js = """
+            pcs.c1.Page.setTheme(pcs.c1.Themes.\(theme.webName.uppercased()));
+            pcs.c1.Page.setDimImages(\(theme.isDimmed));
+            """
         webView?.evaluateJavaScript(js)
         parameters?.theme = webTheme
+        parameters?.dimImages = theme.isDimmed
         updateSetupParameters()
     }
 
