@@ -206,6 +206,8 @@
 "forgot-password-username-or-email-title" = "یا";
 "history-clear-delete-all" = "جیا سبھ مٹاؤ";
 "history-title" = "تاریخچہ";
+"home-feed-settings-community-section-title" = "برادری";
+"home-feed-settings-for-you-section-title" = "تہاݙے کیتے";
 "home-more-like-footer" = "$1 وانگوں ٻئے";
 "home-themes-action-title" = "ترجیحاں منیج کرو";
 "home-title" = "پھرولو";
@@ -501,6 +503,7 @@
 "welcome-intro-free-encyclopedia-more" = "وکی پیڈیا بارے ٻیا سکھو";
 "welcome-intro-free-encyclopedia-more-about" = "وکیپیڈیا دا تعارف";
 "welcome-languages-add-button" = "ٻئی زبان رلاؤ";
+"which-came-first-archive-nav-title" = "آرکائیو";
 "wikitext-preview-link-external-preview-title" = "ٻاہرلا لنک";
 "wikitext-preview-link-not-found-preview-title" = "کوئی اندرلا لنک کائنی لبھا";
 "wikitext-preview-save-changes-title" = "تبدیلیاں محفوظ کرو";

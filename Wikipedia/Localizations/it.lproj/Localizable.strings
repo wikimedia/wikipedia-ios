@@ -518,6 +518,10 @@
 "home-button-saved-accessibility-label" = "Wikipedia, ritorna alle pagine salvate";
 "home-community-tab-title" = "Comunità";
 "home-edit-languages-title" = "Aggiungi o modifica lingue";
+"home-feed-for-you-based-on-interests-title" = "In base ai tuoi interessi";
+"home-feed-for-you-settings-title" = "Moduli";
+"home-feed-settings-community-section-title" = "Comunità";
+"home-feed-whats-driving-your-interests-title" = "I tuoi interessi";
 "home-for-you-tab-title" = "Per te";
 "home-more-like-footer" = "Altro come $1";
 "home-nearby-footer" = "Altri luoghi vicini alla tua posizione";
@@ -1075,6 +1079,8 @@
 "welcome-languages-add-or-edit-button" = "Aggiungi o modifica lingue preferite";
 "welcome-languages-description" = "Abbiamo trovato le seguenti lingue sul tuo dispositivo:";
 "welcome-languages-search-title" = "Cerca in più di 300 lingue";
+"which-came-first-archive-nav-title" = "Archivia";
+"which-came-first-archive-title" = "Chi è arrivato prima?";
 "which-came-first-average-score-label" = "punteggio medio";
 "which-came-first-best-streak-label" = "migliore serie";
 "which-came-first-current-streak-label" = "serie attuale";

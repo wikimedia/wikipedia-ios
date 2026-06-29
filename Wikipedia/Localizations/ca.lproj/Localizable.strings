@@ -454,6 +454,11 @@
 "history-title" = "Historial";
 "home-button-explore-accessibility-label" = "Viquipèdia, torna a Exploreu";
 "home-button-saved-accessibility-label" = "Viquipèdia, torna a Desats";
+"home-community-tab-title" = "Comunitat";
+"home-feed-for-you-settings-title" = "Mòduls";
+"home-feed-modules-settings-title" = "Mòduls";
+"home-feed-settings-community-section-title" = "Comunitat";
+"home-feed-whats-driving-languages-title" = "Llengües";
 "home-more-like-footer" = "Més com $1";
 "home-nearby-footer" = "Més llocs prop de la vostra ubicació";
 "home-nearby-location-footer" = "Més propers a $1";
@@ -1149,6 +1154,7 @@
 "welcome-languages-search-title" = "Cerca en més de 300 llengües";
 "welcome-privacy-subtitle" = "Creiem que no hauríeu de proporcionar informació personal per a participar en el moviment de coneixement lliure. Les dades d'ús recopilades per a l'aplicació són anònimes.";
 "welcome-privacy-terms-button-text" = "Més informació sobre la nostra política de privadesa i les condicions d'ús";
+"which-came-first-archive-nav-title" = "Fitxer";
 "widget-onthisday-description" = "Exploreu què va passar aquest dia al llarg de la història.";
 "widget-onthisday-placeholder-article-snippet" = "L'enciclopèdia en línia lliure que tothom pot editar";
 "widget-onthisday-placeholder-event-snippet" = "La Viquipèdia, una enciclopèdia de contingut wiki lliure, es posa en línia.";

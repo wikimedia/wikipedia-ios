@@ -30,6 +30,7 @@
 // Author: Naufal06
 // Author: Nemo bis
 // Author: NikolasKHF
+// Author: Nohirara
 // Author: Penyuwangi
 // Author: Polos
 // Author: Presidenvolksraad
@@ -968,7 +969,7 @@
 "settings-clear-cache-are-you-sure-title" = "Hapus data dalam cache?";
 "settings-clear-cache-cancel" = "Batal";
 "settings-clear-cache-ok" = "Hapus cache";
-"settings-donate" = "Sumbangi";
+"settings-donate" = "Menyumbang";
 "settings-help-and-feedback" = "Bantuan dan masukan";
 "settings-language-bar" = "Tampilkan bahasa di pencarian";
 "settings-languages-feed-customization" = "Anda dapat mengelola bahasa mana yang ditampilkan di umpan Jelajahi Anda dengan menyesuaikan pengaturan umpan Jelajahi Anda.";
@@ -1221,8 +1222,8 @@
 "year-in-review-base-reading-title-updated" = "Wikipedia tersedia dalam lebih dari {{PLURAL:$1|$1 bahasa}}";
 "year-in-review-button-title" = "Tinjauan Tahunan";
 "year-in-review-contributor-slide-title" = "Ikon aplikasi baru tersedia untuk layar beranda Anda";
-"year-in-review-donate" = "Sumbangi";
-"year-in-review-donate-now" = "Sumbangi sekarang";
+"year-in-review-donate" = "Menyumbang";
+"year-in-review-donate-now" = "Menyumbang sekarang";
 "year-in-review-feature-announcement-title-personalized" = "Jelajahi Tinjauan Tahunan Wikipedia Anda";
 "year-in-review-highlights-edit-frequency" = "Seberapa sering Wikipedia disunting";
 "year-in-review-highlights-english-articles" = "Artikel yang paling dibaca di Wikipedia bahasa Inggris";
