@@ -1,5 +1,6 @@
 // Messages for Swahili (Kiswahili)
 // Exported from translatewiki.net
+// Author: Fredrick Kafuka
 // Author: Kipala
 // Author: Kwisha
 // Author: Nemo bis
@@ -51,6 +52,45 @@
 "history-clear-confirmation-heading" = "Futa vifaa vyote vya hivi karibuni?";
 // Fuzzy
 "history-clear-delete-all" = "Futa Zote";
+"home-feed-for-you-based-on-interests-subtitle" = "Makala zilizoundwa kulingana na mada ulizochagua.";
+"home-feed-for-you-based-on-interests-title" = "Kulingana na mambo yanayokuvutia";
+"home-feed-for-you-because-you-read-subtitle" = "Mapendekezo kulingana na makala ya hivi karibuni kutoka historia yako";
+"home-feed-for-you-because-you-read-title" = "Sababu umesoma";
+"home-feed-for-you-continue-reading-subtitle" = "Rudi kwenye makala ambazo hukumaliza";
+"home-feed-for-you-continue-reading-title" = "Endelea kusoma";
+"home-feed-for-you-settings-header" = "Kuzima moduli ficha kutoka kwenye mlisho wako wa \"Kwa ajili yako\". Unaweza kuiwezesha tena hapa wakati wowote.";
+"home-feed-for-you-settings-title" = "Moduli";
+"home-feed-for-you-whats-driving-title" = "Ni nini kinachoendesha mlisho wako";
+"home-feed-interests-settings-empty-message" = "Mapendeleo yako yataoneshwa hapa";
+"home-feed-interests-settings-title" = "Unavyopendelea";
+"home-feed-modules-featured-article-subtitle" = "Makala zilizoteuliwa ni baadhi ya makala zenye ubora wa hali ya juu kwenye Wikipedia, zinazochaguliwa kila siku na wahariri";
+"home-feed-modules-featured-article-title" = "Makala Maalum";
+"home-feed-modules-in-the-news-subtitle" = "Makala ambazo zimesasishwa kwa kiasi kikubwa ili kuakisi matukio ya hivi karibuni au ya sasa yenye maslahi mapana";
+"home-feed-modules-in-the-news-title" = "Kwenye habari";
+"home-feed-modules-on-this-day-subtitle" = "Gundua matukio ya kihistoria kuanzia siku ya leo";
+"home-feed-modules-on-this-day-title" = "Kwenye siku hii";
+"home-feed-modules-picture-of-the-day-subtitle" = "Picha za kila siku kwenye Wikimedia Commons, zilizochaguliwa na wachangiaji wa kujitolea";
+"home-feed-modules-picture-of-the-day-title" = "Picha ya siku";
+"home-feed-modules-settings-header" = "Kuzima moduli huificha kutoka kwa mlisho wako wa Jumuiya. Unaweza kuiwasha tena  wakati wowote. Huenda baadhi ya moduli zisipatikane katika lugha yako.";
+"home-feed-modules-settings-title" = "Moduli";
+"home-feed-modules-top-read-subtitle" = "Nini kimevuma leo kwenye Wikipedia";
+"home-feed-modules-top-read-title" = "Yaliyo somwa zaidi";
+"home-feed-settings-community-modules-subtitle" = "Kuwasha au kuzima moduli za \"Jamii\"";
+"home-feed-settings-community-section-title" = "Jumuiya";
+"home-feed-settings-for-you-modules-subtitle" = "Washa au zima moduli za 'Kwa Ajili Yako'";
+"home-feed-settings-for-you-section-title" = "Kwa ajili yako";
+"home-feed-settings-modules-title" = "Moduli";
+"home-feed-settings-title" = "Badilisha mipasho ya nyumbani";
+"home-feed-settings-whats-driving-subtitle" = "Mada na makala zinazounda maudhui yako";
+"home-feed-settings-whats-driving-title" = "Nini kinaendesha marejeo Yako";
+"home-feed-whats-driving-languages-subtitle" = "Hariri lugha unazopendelea";
+"home-feed-whats-driving-languages-title" = "Lugha";
+"home-feed-whats-driving-reading-history-subtitle" = "Fungua makala za ulizosoma hivi karibuni";
+"home-feed-whats-driving-reading-history-title" = "Historia ya kusoma";
+"home-feed-whats-driving-settings-header" = "Mada na makala haya huunda kile kinachoonekana kwenye mlisho wako wa \"Kwa Ajili Yako\". Ondoa chochote ambacho hutaki tena au ongeza mambo mapya yanayokuvutia.";
+"home-feed-whats-driving-settings-title" = "Ni nini kinachoendesha mlisho wako";
+"home-feed-whats-driving-your-interests-subtitle" = "Hariri mada unazopendelea";
+"home-feed-whats-driving-your-interests-title" = "Unavyopendelea";
 "logged-out-log-back-in-button-title" = "Ingia tena katika akaunti yako";
 // Fuzzy
 "main-menu-about" = "Kuhusu programu tumizi ya Wikimedia";
@@ -82,6 +122,12 @@
 "share-article-name-on-wikipedia" = "\"$1\" katika @Wikipedia:";
 "table-of-contents-heading" = "Yaliyomo";
 "vanish-account-continue-button-title" = "Endelea";
+"which-came-first-archive-day-score-a11y" = "Pata:$1 kati ya 5";
+"which-came-first-archive-nav-title" = "Kumbukumbu iliyohifadhiwa";
+"which-came-first-archive-subtitle" = "Cheza michezo tangu Juni 2024.";
+"which-came-first-archive-title" = "Ni ipi iliyotangulia?";
+"which-came-first-archive-toast-score" = "Ulipata $1 /5 siku hii.";
+"which-came-first-play-archive-button" = "Cheza kumbukumbu iliyohifadhiwa";
 // Fuzzy
 "wikitext-upload-save" = "Inahifadhi...";
 "wikitext-upload-save-terms-name" = "Masharti ya matumizi";
