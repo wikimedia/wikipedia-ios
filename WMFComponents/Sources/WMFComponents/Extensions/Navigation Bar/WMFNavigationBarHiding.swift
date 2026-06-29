@@ -36,7 +36,9 @@ public extension WMFNavigationBarHiding where Self:UIViewController {
     ///     - from appEnvironmentDidChange() if WMFComponents
     func themeTopSafeAreaOverlay() {
         if #available(iOS 26.0, *) {
-            topSafeAreaOverlayView?.backgroundColor = .clear
+            topSafeAreaOverlayView?.backgroundColor =
+                WMFAppEnvironment.current.theme.paperBackground
+                    .withAlphaComponent(0.75)
             topSafeAreaOverlayView?.alpha = 1.0
             return
         }
