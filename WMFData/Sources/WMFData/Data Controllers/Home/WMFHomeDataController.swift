@@ -3,6 +3,7 @@ import Foundation
 public final actor WMFHomeDataController {
 
     private let feedDataController: any WMFFeedDataControlling
+    private let basicService: WMFService?
 
     // Accessed only from `nonisolated` UserDefaults helpers below; WMFKeyValueStore is not Sendable.
     nonisolated(unsafe) private let userDefaultsStore: WMFKeyValueStore?
@@ -12,19 +13,20 @@ public final actor WMFHomeDataController {
 
     public static let shared = WMFHomeDataController()
 
-    public init(feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore) {
+    public init(feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared, basicService: WMFService? = WMFDataEnvironment.current.basicService, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore) {
         self.feedDataController = feedDataController
+        self.basicService = basicService
         self.userDefaultsStore = userDefaultsStore
     }
 
     // MARK: - Settings: Selected Language
 
-    public nonisolated func selectedLanguageCode() -> String? {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeSelectedLanguageCode.rawValue)) ?? nil
+    public nonisolated func selectedLanguage() -> WMFLanguage? {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeSelectedLanguage.rawValue)) ?? nil
     }
 
-    public nonisolated func setSelectedLanguageCode(_ newValue: String) {
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeSelectedLanguageCode.rawValue, value: newValue)
+    public nonisolated func setSelectedLanguage(_ newValue: WMFLanguage) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeSelectedLanguage.rawValue, value: newValue)
     }
 
     // MARK: - Settings: Community Modules
@@ -95,7 +97,71 @@ public final actor WMFHomeDataController {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedForYouContinueReadingIsOn.rawValue, value: newValue)
     }
 
+    // MARK: - Settings: Interest Topics
+
+    public nonisolated func interestTopics() -> [WMFArticleTopic] {
+        let ids: [String] = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeFeedInterestTopics.rawValue)) ?? []
+        return ids.compactMap { WMFArticleTopic(rawValue: $0) }
+    }
+
+    public nonisolated func setInterestTopics(_ topics: [WMFArticleTopic]) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedInterestTopics.rawValue, value: topics.map { $0.rawValue })
+    }
+
     // MARK: - Public API
+
+    /// Fetches random articles for display when no interest topics have been selected.
+    public func fetchRandomArticles(project: WMFProject) async throws -> [WMFRandomArticle] {
+        return try await WMFRandomDataController.shared.fetchRandomArticles(project: project)
+    }
+
+    /// Fetches articles matching a specific interest topic.
+    public func fetchArticles(for topic: WMFArticleTopic, project: WMFProject) async throws -> [WMFRandomArticle] {
+        let topicID = topic.rawValue
+        guard let service = basicService else {
+            throw WMFDataControllerError.basicServiceUnavailable
+        }
+
+        guard case .wikipedia = project else {
+            throw WMFDataControllerError.unsupportedProject
+        }
+
+        guard let url = URL.mediaWikiAPIURL(project: project) else {
+            throw WMFDataControllerError.failureCreatingRequestURL
+        }
+
+        let parameters: [String: Any] = [
+            "format": "json",
+            "formatversion": "2",
+            "errorformat": "html",
+            "errorsuselocal": "1",
+            "action": "query",
+            "generator": "search",
+            "redirects": "",
+            "converttitles": "",
+            "prop": "description|pageimages|pageprops|info|extracts",
+            "exchars": "500",
+            "exintro": "1",
+            "explaintext": "1",
+            "piprop": "thumbnail",
+            "pilicense": "any",
+            "gsrnamespace": "0",
+            "inprop": "varianttitles|displaytitle",
+            "pithumbsize": "330",
+            "gsrsearch": "articletopic:\(topicID)^95",
+            "gsrlimit": "20",
+            "gsrqiprofile": "classic_noboostlinks",
+            "gsrsort": "random"
+        ]
+
+        let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, parameters: parameters, acceptType: .json)
+        let response: WMFTopicArticlesAPIResponse = try await withCheckedThrowingContinuation { continuation in
+            service.performDecodableGET(request: request) { (result: Result<WMFTopicArticlesAPIResponse, Error>) in
+                continuation.resume(with: result)
+            }
+        }
+        return response.query?.pages ?? []
+    }
 
     /// Fetches the Home feed "Community" data for the given date.
     /// Pass `Date()` (the default) to fetch today's data.
@@ -134,6 +200,16 @@ public final actor WMFHomeDataController {
         dates.sort(by: >)
         fetchedDates[project] = dates
     }
+}
+
+// MARK: - Topic articles response models
+
+struct WMFTopicArticlesAPIResponse: Decodable {
+    let query: WMFTopicArticlesQuery?
+}
+
+struct WMFTopicArticlesQuery: Decodable {
+    let pages: [WMFRandomArticle]?
 }
 
 public enum WMFHomeDataControllerError: LocalizedError {

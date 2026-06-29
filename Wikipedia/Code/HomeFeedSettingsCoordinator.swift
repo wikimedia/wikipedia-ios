@@ -32,6 +32,7 @@ final class HomeFeedSettingsCoordinator: Coordinator {
         return UserDefaults.standard.theme(compatibleWith: UITraitCollection.current)
     }
 
+    private let homeDataController: WMFHomeDataController
     private let initialView: InitialView
     private let presentation: Presentation
 
@@ -41,11 +42,12 @@ final class HomeFeedSettingsCoordinator: Coordinator {
 
     // MARK: Lifecycle
 
-    init(navigationController: UINavigationController, theme: Theme, initialView: InitialView = .root, presentation: Presentation = .push) {
+    init(navigationController: UINavigationController, theme: Theme, initialView: InitialView = .root, presentation: Presentation = .push, homeDataController: WMFHomeDataController = .shared) {
         self.navigationController = navigationController
         self.theme = theme
         self.initialView = initialView
         self.presentation = presentation
+        self.homeDataController = homeDataController
         self.activeNavigationController = navigationController
     }
 
@@ -116,7 +118,9 @@ final class HomeFeedSettingsCoordinator: Coordinator {
     }
 
     private func showInterestsSettings() {
-        let viewModel = WMFHomeFeedInterestsSettingsViewModel()
+        let language = homeDataController.selectedLanguage() ?? WMFDataEnvironment.current.primaryAppLanguage ?? WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        let project = WMFProject.wikipedia(language)
+        let viewModel = WMFHomeFeedInterestsSettingsViewModel(project: project)
         let interestsVC = WMFHomeFeedInterestsSettingsViewController(viewModel: viewModel)
         activeNavigationController.pushViewController(interestsVC, animated: true)
     }

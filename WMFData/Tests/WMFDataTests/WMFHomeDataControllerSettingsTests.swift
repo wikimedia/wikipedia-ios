@@ -72,20 +72,55 @@ struct WMFHomeDataControllerSettingsTests {
     // MARK: - Selected Language
 
     @Test
-    func selectedLanguageCodeDefaultsToNil() {
+    func selectedLanguageDefaultsToNil() {
         let controller = makeController()
-        #expect(controller.selectedLanguageCode() == nil)
+        #expect(controller.selectedLanguage() == nil)
     }
 
     @Test
-    func selectedLanguageCodePersistsChanges() {
+    func selectedLanguagePersistsChanges() {
         let controller = makeController()
 
-        controller.setSelectedLanguageCode("es")
-        #expect(controller.selectedLanguageCode() == "es")
+        controller.setSelectedLanguage(WMFLanguage(languageCode: "es", languageVariantCode: nil))
+        #expect(controller.selectedLanguage() == WMFLanguage(languageCode: "es", languageVariantCode: nil))
 
-        controller.setSelectedLanguageCode("fr")
-        #expect(controller.selectedLanguageCode() == "fr")
+        controller.setSelectedLanguage(WMFLanguage(languageCode: "zh", languageVariantCode: "zh-hant"))
+        #expect(controller.selectedLanguage() == WMFLanguage(languageCode: "zh", languageVariantCode: "zh-hant"))
+    }
+
+    // MARK: - Interest Topics
+
+    @Test
+    func interestTopicsDefaultToEmpty() {
+        let controller = makeController()
+        #expect(controller.interestTopics() == [])
+    }
+
+    @Test
+    func interestTopicsPersistChanges() {
+        let controller = makeController()
+
+        controller.setInterestTopics([.architecture, .music, .stem])
+        #expect(controller.interestTopics() == [.architecture, .music, .stem])
+    }
+
+    @Test
+    func interestTopicsCanBeCleared() {
+        let controller = makeController()
+
+        controller.setInterestTopics([.architecture, .music])
+        controller.setInterestTopics([])
+        #expect(controller.interestTopics() == [])
+    }
+
+    @Test
+    func separateControllersShareInterestTopics() {
+        let store = WMFMockKeyValueStore()
+        let writer = WMFHomeDataController(userDefaultsStore: store)
+        writer.setInterestTopics([.biology, .films])
+
+        let reader = WMFHomeDataController(userDefaultsStore: store)
+        #expect(reader.interestTopics() == [.biology, .films])
     }
 
     // MARK: - Independence

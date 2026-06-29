@@ -86,5 +86,8 @@ public enum WMFUserDefaultsKey: String {
     case homeFeedForYouContinueReadingIsOn = "home-feed-for-you-continue-reading-is-on"
 
     // Home feed: selected language
-    case homeSelectedLanguageCode = "home-selected-language-code"
+    case homeSelectedLanguage = "home-selected-language-code"
+
+    // Home feed: interests
+    case homeFeedInterestTopics = "home-feed-interest-topics"
 }
