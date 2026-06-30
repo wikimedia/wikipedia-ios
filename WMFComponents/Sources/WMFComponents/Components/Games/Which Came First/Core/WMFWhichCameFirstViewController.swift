@@ -63,7 +63,7 @@ public final class WMFWhichCameFirstHostingController: WMFComponentHostingContro
 
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(
-            title: DateFormatter.wmfMonthDayFromDailyGameDate(viewModel.date),
+            title: DateFormatter.wmfMonthDayYearFromDailyGameDate(viewModel.date),
             customView: nil,
             alignment: .centerCompact
         )

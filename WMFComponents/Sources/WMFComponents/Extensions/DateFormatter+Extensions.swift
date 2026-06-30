@@ -44,6 +44,15 @@ public extension DateFormatter {
         return dateFormatter
     }()
 
+    /// Month and Day and two-digit Year: e.g. `August 22, 25`
+    static var wmfMonthDayShortYearDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = .current
+        dateFormatter.setLocalizedDateFormatFromTemplate("MMMM d yy")
+        return dateFormatter
+    }()
+
     /// Smart formatter for "Last Read" dates:
     /// - If the date is today → show time (e.g. `2:48 PM`)
     /// - Otherwise → show month and day (e.g. `August 22`)
@@ -75,5 +84,14 @@ public extension DateFormatter {
         parser.locale = Locale(identifier: "en_US_POSIX")
         guard let date = parser.date(from: dateString) else { return dateString }
         return wmfMonthDayDateFormatter.string(from: date)
+    }
+
+    /// Parses a `yyyy-MM-dd` string and returns "Month Day, ’Year" e.g. `December 19, 25`
+    static func wmfMonthDayYearFromDailyGameDate(_ dateString: String) -> String {
+        let parser = DateFormatter()
+        parser.dateFormat = "yyyy-MM-dd"
+        parser.locale = Locale(identifier: "en_US_POSIX")
+        guard let date = parser.date(from: dateString) else { return dateString }
+        return wmfMonthDayShortYearDateFormatter.string(from: date)
     }
 }
