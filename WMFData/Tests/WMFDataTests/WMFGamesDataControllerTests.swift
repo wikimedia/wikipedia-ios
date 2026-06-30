@@ -141,6 +141,31 @@ final class WMFGamesDataControllerTests: XCTestCase {
         }
     }
 
+    func testCorrectAnswerPointsToEarlierEvent() {
+        // The game asks which event came first, so correctAnswer must identify the
+        // option with the earlier (oldest) date, regardless of slot randomization.
+        let eventNames = ["Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon"]
+        let events = (0...19).map { makeEvent(text: "Event \(eventNames[$0])", year: ($0 + 1) * 100) }
+
+        let questions = WMFGamesDataController.makeWhichCameFirstQuestions(
+            from: events,
+            month: 5,
+            day: 7,
+            year: 2026,
+            count: 5
+        )
+
+        XCTAssertEqual(questions.count, 5)
+        for question in questions {
+            let earlierOption = question.optionA.date < question.optionB.date ? "A" : "B"
+            XCTAssertEqual(
+                question.correctAnswer,
+                earlierOption,
+                "correctAnswer should point to the earlier event (A: \(question.optionA.date), B: \(question.optionB.date))"
+            )
+        }
+    }
+
     // MARK: - makeWhichCameFirstQuestions BC Date Filtering Tests
 
     /// Builds an event with a single page so it passes the `!pages.isEmpty` filter.
