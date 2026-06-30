@@ -458,6 +458,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
                 playedDates: archiveData.playedDates,
                 pausedDates: archiveData.pausedDates,
                 onSelectDate: { [weak self] date in
+                    // Only fires for non-completed (new or in-progress) games; completed
+                    // days show a score toast instead and never reach this callback.
+                    self?.logClick(actionSource: "game_start", actionSubtype: "game_archive_calendar", elementId: "game_play_start", actionContext: ["archive": "true"])
                     self?.showGameForArchiveDate(date)
                 }
             )
@@ -468,7 +471,9 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
                 sheet.detents = [.large()]
                 sheet.prefersGrabberVisible = false
             }
-            presenter.present(nav, animated: true)
+            presenter.present(nav, animated: true) { [weak self] in
+                self?.logImpression(actionSource: "game_start", actionSubtype: "game_archive_calendar", actionContext: ["archive": "true"])
+            }
         }
     }
 
@@ -527,12 +532,13 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
         )
     }
 
-    private func logClick(actionSource: String, actionSubtype: String? = nil, elementId: String) {
+    private func logClick(actionSource: String, actionSubtype: String? = nil, elementId: String, actionContext: [String: String]? = nil) {
         instrument.submitInteraction(
             action: "click",
             actionSource: actionSource,
             actionSubtype: actionSubtype,
-            elementId: elementId
+            elementId: elementId,
+            actionContext: actionContext
         )
     }
 
