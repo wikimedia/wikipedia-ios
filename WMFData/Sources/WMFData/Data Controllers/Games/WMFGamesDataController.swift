@@ -425,11 +425,15 @@ extension WMFGamesDataController {
                 thumbnailURL: thumbnail2
             )
 
+            // Randomize which slot each event lands in, then mark the earlier (oldest)
+            // event as correct — the game asks the user which event came first.
             let flip = Bool.random()
+            let slotA = flip ? optionB : optionA
+            let slotB = flip ? optionA : optionB
             questions.append(WMFWhichCameFirstQuestion(
-                optionA: flip ? optionB : optionA,
-                optionB: flip ? optionA : optionB,
-                correctAnswer: flip ? "B" : "A"
+                optionA: slotA,
+                optionB: slotB,
+                correctAnswer: slotA.date < slotB.date ? "A" : "B"
             ))
         }
 
