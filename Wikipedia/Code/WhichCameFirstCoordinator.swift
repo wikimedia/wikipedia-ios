@@ -539,9 +539,7 @@ final class WhichCameFirstCoordinator: NSObject, Coordinator {
     // MARK: - Helpers
 
     private func formattedTodayDateString() -> String {
-        let formatter = DateFormatter()
-        formatter.setLocalizedDateFormatFromTemplate("MMMMd")
-        return formatter.string(from: Date())
+        return DateFormatter.wmfMonthDayShortYearDateFormatter.string(from: Date())
     }
 
     private func formattedTodayISODateString() -> String {

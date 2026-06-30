@@ -11,7 +11,7 @@ public final class WMFGamesSplashScreenViewModel: ObservableObject {
 
     /// SF Symbol name or custom icon name for the game icon displayed above the title.
     public let icon: UIImage?
-    /// The date label shown in the navigation bar (e.g. "January 6").
+    /// The date label shown in the navigation bar (e.g. "January 6, 25").
     @Published public var dateString: String?
 
     public let title: String
