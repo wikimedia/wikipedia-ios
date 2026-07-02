@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 import WMF
 import WMFComponents
 import WMFData
@@ -21,6 +22,14 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     }
 
     private let homeDataController = WMFHomeDataController.shared
+
+    // MARK: - Swipe-up coach mark
+
+    private var coachMarkView: SwipeUpCoachMarkView?
+    private var selectedTabCancellable: AnyCancellable?
+
+    // TODO: Temporary. For now the instruction shows every time the user lands on the "For You" tab.
+    private static let swipeUpCoachMarkText = WMFLocalizedString("home-for-you-swipe-up-coach-mark", value: "Swipe up if to see more!", comment: "Instructional text shown in a coach mark on the Home For You tab, teaching the user to swipe up on content they are interested in.")
 
     init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFHomeViewModel) {
         self.dataStore = dataStore
@@ -50,6 +59,11 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         viewModel.didTapWhatsDrivingTestButton = { [weak self] in
             self?.presentWhatsDrivingTest()
         }
+
+        selectedTabCancellable = viewModel.$selectedTab.sink { [weak self] tab in
+            self?.updateCoachMark(for: tab)
+        }
+
         reloadLanguages()
     }
 
@@ -57,6 +71,46 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         super.viewWillAppear(animated)
         configureNavigationBar()
         reloadLanguages()
+        updateCoachMark(for: viewModel.selectedTab)
+    }
+
+    // MARK: - Swipe-up coach mark
+
+    private func updateCoachMark(for tab: WMFHomeViewModel.Tab) {
+        guard viewIfLoaded != nil else { return }
+        if tab == .forYou {
+            presentCoachMarkIfNeeded()
+        } else {
+            dismissCoachMark()
+        }
+    }
+
+    private func presentCoachMarkIfNeeded() {
+        guard coachMarkView == nil else { return }
+
+        let coachMark = SwipeUpCoachMarkView(captionText: Self.swipeUpCoachMarkText)
+        coachMark.translatesAutoresizingMaskIntoConstraints = false
+        coachMark.onDismiss = { [weak self] in
+            self?.dismissCoachMark()
+        }
+        view.addSubview(coachMark)
+        NSLayoutConstraint.activate([
+            coachMark.topAnchor.constraint(equalTo: view.topAnchor),
+            coachMark.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            coachMark.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            coachMark.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        self.coachMarkView = coachMark
+    }
+
+    private func dismissCoachMark() {
+        guard let coachMarkView else { return }
+        self.coachMarkView = nil
+        UIView.animate(withDuration: 0.25, animations: {
+            coachMarkView.alpha = 0
+        }, completion: { _ in
+            coachMarkView.removeFromSuperview()
+        })
     }
 
     // MARK: - Languages

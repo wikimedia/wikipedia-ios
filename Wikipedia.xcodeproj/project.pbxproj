@@ -491,6 +491,9 @@
 		6747118A25072D1500287951 /* IconTitleBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747118725072D1500287951 /* IconTitleBadge.swift */; };
 		674DF84C2E84250900F58603 /* HCaptcha in Frameworks */ = {isa = PBXBuildFile; productRef = 674DF84B2E84250900F58603 /* HCaptcha */; };
 		674DF84E2E84251500F58603 /* HCaptcha in Frameworks */ = {isa = PBXBuildFile; productRef = 674DF84D2E84251500F58603 /* HCaptcha */; };
+		6710770E2F0000A100000001 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 6710770B2F0000A100000001 /* Lottie */; };
+		6710770F2F0000A100000001 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 6710770C2F0000A100000001 /* Lottie */; };
+		671077102F0000A100000001 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 6710770D2F0000A100000001 /* Lottie */; };
 		674E8AB92382DEFF0053D206 /* DiffTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E8AB82382DEFF0053D206 /* DiffTransformer.swift */; };
 		674E8ABA2382DF020053D206 /* DiffTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E8AB82382DEFF0053D206 /* DiffTransformer.swift */; };
 		674E8ABB2382DF030053D206 /* DiffTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E8AB82382DEFF0053D206 /* DiffTransformer.swift */; };
@@ -2630,6 +2633,12 @@
 		FACE0000000000000000FE06 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE05 /* HomeViewController.swift */; };
 		FACE0000000000000000FE07 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE05 /* HomeViewController.swift */; };
 		FACE0000000000000000FE08 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE05 /* HomeViewController.swift */; };
+		671077212F0000A100000001 /* swipe_up_hand.json in Resources */ = {isa = PBXBuildFile; fileRef = 671077202F0000A100000001 /* swipe_up_hand.json */; };
+		671077312F0000A100000001 /* SwipeUpCoachMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671077302F0000A100000001 /* SwipeUpCoachMarkView.swift */; };
+		671077322F0000A100000001 /* SwipeUpCoachMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671077302F0000A100000001 /* SwipeUpCoachMarkView.swift */; };
+		671077332F0000A100000001 /* SwipeUpCoachMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671077302F0000A100000001 /* SwipeUpCoachMarkView.swift */; };
+		671077222F0000A100000001 /* swipe_up_hand.json in Resources */ = {isa = PBXBuildFile; fileRef = 671077202F0000A100000001 /* swipe_up_hand.json */; };
+		671077232F0000A100000001 /* swipe_up_hand.json in Resources */ = {isa = PBXBuildFile; fileRef = 671077202F0000A100000001 /* swipe_up_hand.json */; };
 		FACE0000000000000000FE12 /* HomeFeedSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE11 /* HomeFeedSettingsCoordinator.swift */; };
 		FACE0000000000000000FE13 /* HomeFeedSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE11 /* HomeFeedSettingsCoordinator.swift */; };
 		FACE0000000000000000FE14 /* HomeFeedSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE11 /* HomeFeedSettingsCoordinator.swift */; };
@@ -4334,6 +4343,8 @@
 		F1A700000000000000000014 /* TestNetworkFixtureURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkFixtureURLSession.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE01 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE05 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		671077202F0000A100000001 /* swipe_up_hand.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = swipe_up_hand.json; sourceTree = "<group>"; };
+		671077302F0000A100000001 /* SwipeUpCoachMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeUpCoachMarkView.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE11 /* HomeFeedSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedSettingsCoordinator.swift; sourceTree = "<group>"; };
 		FF2090EE2500247100849774 /* ThreeLineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeLineHeaderView.swift; sourceTree = "<group>"; };
 		FF5555632771388F00925099 /* CollectionViewContextMenuShowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewContextMenuShowing.swift; sourceTree = "<group>"; };
@@ -4434,6 +4445,7 @@
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
 				D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */,
 				679B89ED2E7DFC8B009902BE /* HCaptcha in Frameworks */,
+				6710770E2F0000A100000001 /* Lottie in Frameworks */,
 				D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */,
 				D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */,
 				041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */,
@@ -4475,6 +4487,7 @@
 				D8CE262B1E698E2400DAE2E0 /* CoreData.framework in Frameworks */,
 				D8CE262E1E698E2400DAE2E0 /* CoreGraphics.framework in Frameworks */,
 				674DF84C2E84250900F58603 /* HCaptcha in Frameworks */,
+				6710770F2F0000A100000001 /* Lottie in Frameworks */,
 				D8CE26321E698E2400DAE2E0 /* UIKit.framework in Frameworks */,
 				D8CE26351E698E2400DAE2E0 /* Foundation.framework in Frameworks */,
 				D8CE26361E698E2400DAE2E0 /* MapKit.framework in Frameworks */,
@@ -4491,6 +4504,7 @@
 				D8EC3F2D1E9BDA35006712EB /* CoreData.framework in Frameworks */,
 				D8EC3F301E9BDA35006712EB /* CoreGraphics.framework in Frameworks */,
 				674DF84E2E84251500F58603 /* HCaptcha in Frameworks */,
+				671077102F0000A100000001 /* Lottie in Frameworks */,
 				D8EC3F341E9BDA35006712EB /* UIKit.framework in Frameworks */,
 				D8EC3F361E9BDA35006712EB /* Foundation.framework in Frameworks */,
 				D8EC3F371E9BDA35006712EB /* MapKit.framework in Frameworks */,
@@ -7463,6 +7477,8 @@
 			children = (
 				37D535952FE47D8B0023824C /* WMFWhichCameFirstArchiveViewController.swift */,
 				FACE0000000000000000FE05 /* HomeViewController.swift */,
+				671077302F0000A100000001 /* SwipeUpCoachMarkView.swift */,
+				671077202F0000A100000001 /* swipe_up_hand.json */,
 				37B5B2C12F85595100E9BED1 /* CollectPrizeViewController.swift */,
 				8319C8AE2F3BE2AF0027EE24 /* SettingsTabViewController.swift */,
 				67467E9D2F4F5AD40023532D /* SearchBarIPadCustomizer.swift */,
@@ -8386,6 +8402,7 @@
 			name = Wikipedia;
 			packageProductDependencies = (
 				679B89EC2E7DFC8B009902BE /* HCaptcha */,
+				6710770B2F0000A100000001 /* Lottie */,
 			);
 			productName = "Wikipedia-iOS";
 			productReference = D4991435181D51DE00E6073C /* Wikipedia.app */;
@@ -8486,6 +8503,7 @@
 			name = Experimental;
 			packageProductDependencies = (
 				674DF84B2E84250900F58603 /* HCaptcha */,
+				6710770C2F0000A100000001 /* Lottie */,
 			);
 			productName = "Wikipedia-iOS";
 			productReference = D8CE26AF1E698E2400DAE2E0 /* Experimental.app */;
@@ -8513,6 +8531,7 @@
 			name = Staging;
 			packageProductDependencies = (
 				674DF84D2E84251500F58603 /* HCaptcha */,
+				6710770D2F0000A100000001 /* Lottie */,
 			);
 			productName = "Wikipedia-iOS";
 			productReference = D8EC3FB41E9BDA35006712EB /* Staging.app */;
@@ -8755,6 +8774,7 @@
 			packageReferences = (
 				67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 				679B89EB2E7DFC8B009902BE /* XCRemoteSwiftPackageReference "HCaptcha-ios-sdk" */,
+				6710770A2F0000A100000001 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 51;
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
@@ -8822,6 +8842,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0E8040C1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard in Resources */,
+				671077212F0000A100000001 /* swipe_up_hand.json in Resources */,
 				7A9524DC22669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */,
 				0067E51D2BAA21AA00AF0960 /* PrivacyInfo.xcprivacy in Resources */,
 				BA4524291F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
@@ -8938,6 +8959,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8CE263D1E698E2400DAE2E0 /* WMFCaptchaViewController.storyboard in Resources */,
+				671077222F0000A100000001 /* swipe_up_hand.json in Resources */,
 				7A9524DD22669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */,
 				D8CE26421E698E2400DAE2E0 /* AboutViewController.plist in Resources */,
 				D8CE26431E698E2400DAE2E0 /* NotificationBackgroundMessage.png in Resources */,
@@ -9045,6 +9067,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8EC3F3D1E9BDA35006712EB /* WMFCaptchaViewController.storyboard in Resources */,
+				671077232F0000A100000001 /* swipe_up_hand.json in Resources */,
 				7A9524DE22669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */,
 				D8EC3F421E9BDA35006712EB /* AboutViewController.plist in Resources */,
 				D8EC3F431E9BDA35006712EB /* NotificationBackgroundMessage.png in Resources */,
@@ -9541,6 +9564,7 @@
 				FACE0000000000000000FE04 /* HomeCoordinator.swift in Sources */,
 				FACE0000000000000000FE14 /* HomeFeedSettingsCoordinator.swift in Sources */,
 				FACE0000000000000000FE08 /* HomeViewController.swift in Sources */,
+				671077312F0000A100000001 /* SwipeUpCoachMarkView.swift in Sources */,
 				83510B0728F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */,
 				B083375D1DB16A09002860D2 /* WMFWelcomePanelViewController.swift in Sources */,
 				67C6F7A627E8CB9000B9C864 /* NotificationsCenterCommonViewModel+TextExtensions.swift in Sources */,
@@ -10544,6 +10568,7 @@
 				FACE0000000000000000FE02 /* HomeCoordinator.swift in Sources */,
 				FACE0000000000000000FE12 /* HomeFeedSettingsCoordinator.swift in Sources */,
 				FACE0000000000000000FE06 /* HomeViewController.swift in Sources */,
+				671077322F0000A100000001 /* SwipeUpCoachMarkView.swift in Sources */,
 				6782DB922343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
 				6780D5BB237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */,
 				0042811B25E6E841004945B3 /* NYTPhotosOverlayView.m in Sources */,
@@ -11093,6 +11118,7 @@
 				FACE0000000000000000FE03 /* HomeCoordinator.swift in Sources */,
 				FACE0000000000000000FE13 /* HomeFeedSettingsCoordinator.swift in Sources */,
 				FACE0000000000000000FE07 /* HomeViewController.swift in Sources */,
+				671077332F0000A100000001 /* SwipeUpCoachMarkView.swift in Sources */,
 				B0524B67214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				6782DB932343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
 				6780D5BC237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */,
@@ -16030,6 +16056,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6710770A2F0000A100000001 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
 		679B89EB2E7DFC8B009902BE /* XCRemoteSwiftPackageReference "HCaptcha-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hCaptcha/HCaptcha-ios-sdk";
@@ -16049,6 +16083,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6710770B2F0000A100000001 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6710770A2F0000A100000001 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		6710770C2F0000A100000001 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6710770A2F0000A100000001 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		6710770D2F0000A100000001 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6710770A2F0000A100000001 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		674DF84B2E84250900F58603 /* HCaptcha */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 679B89EB2E7DFC8B009902BE /* XCRemoteSwiftPackageReference "HCaptcha-ios-sdk" */;

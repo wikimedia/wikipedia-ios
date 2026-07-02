@@ -703,6 +703,7 @@
 "home-feed-whats-driving-settings-title" = "Navigation bar title for the What's driving your feed settings screen.";
 "home-feed-whats-driving-your-interests-subtitle" = "Subtitle for the Your interests row.";
 "home-feed-whats-driving-your-interests-title" = "Title for the Your interests row on the What's driving your feed screen.";
+"home-for-you-swipe-up-coach-mark" = "Instructional text shown in a coach mark on the Home For You tab, teaching the user to swipe up on content they are interested in.";
 "home-for-you-tab-title" = "Title for the For You segment within the Home tab.";
 "home-more-like-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
 "home-nearby-footer" = "Footer for presenting user option to see longer list of nearby articles.";
