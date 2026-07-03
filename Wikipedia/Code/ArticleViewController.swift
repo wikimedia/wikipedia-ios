@@ -460,6 +460,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
     }
 
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        calculateTopSafeAreaOverlayHeight()
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableOfContentsController.setup(with: traitCollection)

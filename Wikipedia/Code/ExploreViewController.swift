@@ -126,6 +126,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
 
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        calculateTopSafeAreaOverlayHeight()
+    }
+
     @objc var isGranularUpdatingEnabled: Bool = true {
         didSet {
             collectionViewUpdater?.isGranularUpdatingEnabled = isGranularUpdatingEnabled

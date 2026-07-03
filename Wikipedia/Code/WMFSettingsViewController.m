@@ -100,6 +100,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self configureNavigationBarFromObjC];
 }
 
+- (void)viewSafeAreaInsetsDidChange {
+    [super viewSafeAreaInsetsDidChange];
+    [self calculateTopSafeAreaOverlayHeightFromObjC];
+}
+
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
 
