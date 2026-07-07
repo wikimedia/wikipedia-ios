@@ -15,7 +15,8 @@ let package = Package(
     dependencies: [
         .package(name: "WMFData", path: "../WMFData/"),
         .package(name: "WMFLocalizations", path: "../WMFLocalizations/"),
-        .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.19.0")
+        .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.19.0"),
+        .package(url: "https://github.com/airbnb/lottie-spm.git", from: "4.4.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -26,7 +27,8 @@ let package = Package(
                 .product(name: "WMFData", package: "WMFData"),
                 .product(name: "WMFDataMocks", package: "WMFData"),
                 .product(name: "SDWebImage", package: "SDWebImage"),
-                .product(name: "WMFNativeLocalizations", package: "WMFLocalizations")
+                .product(name: "WMFNativeLocalizations", package: "WMFLocalizations"),
+                .product(name: "Lottie", package: "lottie-spm")
             ],
             path: "Sources/WMFComponents",
             resources: [

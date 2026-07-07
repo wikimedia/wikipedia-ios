@@ -3,13 +3,13 @@ import SwiftUI
 // MARK: - Content Slide
 
 /// Full-bleed immersive slide with Lottie animation + centred text overlay.
-struct WMFYiR2026ContentSlideView: View {
+public struct WMFYiR2026ContentSlideView: View {
 
     let data: WMFYiR2026ContentSlideData
 
     @State private var textVisible = false
 
-    var body: some View {
+    public var body: some View {
         ZStack {
             // MARK: Background gradient (accent color fills entire screen)
             LinearGradient(
@@ -24,6 +24,7 @@ struct WMFYiR2026ContentSlideView: View {
             .ignoresSafeArea()
 
             // MARK: Lottie animation (full bleed)
+            // WMFLottieView self-resolves to the WMFComponents bundle — no bundle param needed.
             if let lottieName = data.lottieName {
                 WMFLottieView(animationName: lottieName, loopMode: .loop)
                     .ignoresSafeArea()

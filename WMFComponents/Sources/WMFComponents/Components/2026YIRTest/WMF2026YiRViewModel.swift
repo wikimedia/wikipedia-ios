@@ -12,7 +12,7 @@ public enum WMFYiR2026SlideContent {
 
 public struct WMFYiR2026ContentSlideData: Identifiable {
     public let id: UUID
-    /// Name of the Lottie JSON file in the bundle (no extension)
+    /// Name of the Lottie file in the bundle (no extension — .lottie or .json)
     public let lottieName: String?
     /// Fallback image name if no Lottie animation is provided
     public let imageName: String?
@@ -124,7 +124,6 @@ public final class WMFYiR2026ViewModel: ObservableObject {
         guard currentIndex > 0 else { return }
         resetCurrentSegment()
         currentIndex -= 1
-        // Also reset the segment we're going back to
         segmentProgress[currentIndex] = 0
         activeSegmentFill = 0
         startTimer()
@@ -132,7 +131,6 @@ public final class WMFYiR2026ViewModel: ObservableObject {
 
     public func selectOption(slideID: UUID, optionIndex: Int) {
         selections[slideID] = optionIndex
-        // Auto-advance after a short delay so the user sees confirmation
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 900_000_000)
             advance()
@@ -143,7 +141,6 @@ public final class WMFYiR2026ViewModel: ObservableObject {
 
     private func startTimer() {
         storyTimer?.cancel()
-        // Pause on interactive slides until the user selects an answer
         guard case .content = slides[currentIndex].content else { return }
 
         storyTimer = Timer.publish(every: timerInterval, on: .main, in: .common)
@@ -170,23 +167,29 @@ public final class WMFYiR2026ViewModel: ObservableObject {
     }
 
     // MARK: Sample data
+    //
+    // Animation files available in WMFComponents/Lotties:
+    //   bg_shooting_star.lottie — star field, good for intro/outro
+    //   reading_book.lottie     — open book, article count slides
+    //   pencil_write.lottie     — writing, good for interactive/quiz slides
+    //   bg3.lottie              — abstract background, general content slides
 
     private static func makeSampleSlides() -> [WMFYiR2026Slide] {
         [
             WMFYiR2026Slide(content: .content(.init(
-                lottieName: "yir_globe_spin",
-                accentColor: Color(red: 0.13, green: 0.35, blue: 0.63),
-                headline: "Your 2024\nin Review",
+                lottieName: "bg_shooting_star",
+                accentColor: Color(red: 0.08, green: 0.08, blue: 0.20),
+                headline: "Your 2026\nin Review",
                 body: "You explored the world through Wikipedia this year."
             ))),
             WMFYiR2026Slide(content: .content(.init(
-                lottieName: "yir_reading_streak",
+                lottieName: "reading_book",
                 accentColor: Color(red: 0.55, green: 0.25, blue: 0.70),
                 headline: "4,200 Articles\nRead",
                 body: "You were in the top 3% of Wikipedia readers globally."
             ))),
             WMFYiR2026Slide(content: .interactive(.init(
-                lottieName: "yir_question_mark",
+                lottieName: "pencil_write",
                 accentColor: Color(red: 0.85, green: 0.40, blue: 0.10),
                 question: "What was your most-read topic this year?",
                 options: [
@@ -197,13 +200,13 @@ public final class WMFYiR2026ViewModel: ObservableObject {
                 ]
             ))),
             WMFYiR2026Slide(content: .content(.init(
-                lottieName: "yir_languages",
+                lottieName: "bg3",
                 accentColor: Color(red: 0.10, green: 0.55, blue: 0.45),
                 headline: "12 Languages\nExplored",
                 body: "From English to Swahili, your curiosity knows no borders."
             ))),
             WMFYiR2026Slide(content: .interactive(.init(
-                lottieName: "yir_share",
+                lottieName: "pencil_write",
                 accentColor: Color(red: 0.70, green: 0.15, blue: 0.35),
                 question: "How do you mainly use Wikipedia?",
                 options: [
@@ -214,10 +217,10 @@ public final class WMFYiR2026ViewModel: ObservableObject {
                 ]
             ))),
             WMFYiR2026Slide(content: .content(.init(
-                lottieName: "yir_thank_you",
-                accentColor: Color(red: 0.13, green: 0.35, blue: 0.63),
+                lottieName: "bg_shooting_star",
+                accentColor: Color(red: 0.08, green: 0.08, blue: 0.20),
                 headline: "Thanks for\nbeing curious.",
-                body: "See you in 2025. Keep exploring."
+                body: "See you in 2027. Keep exploring."
             )))
         ]
     }

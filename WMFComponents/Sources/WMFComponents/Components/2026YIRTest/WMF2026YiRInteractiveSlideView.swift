@@ -3,7 +3,7 @@ import SwiftUI
 // MARK: - Interactive Slide
 
 /// Slide showing a question with 3-4 selectable options. No backend validation required.
-public struct WMFYiR2026InteractiveSlideView: View {
+struct WMFYiR2026InteractiveSlideView: View {
 
     let data: WMFYiR2026InteractiveSlideData
     let selectedOptionIndex: Int?
@@ -12,7 +12,7 @@ public struct WMFYiR2026InteractiveSlideView: View {
     @State private var contentVisible = false
     @State private var pressedIndex: Int? = nil
 
-    public var body: some View {
+    var body: some View {
         ZStack {
             // MARK: Background
             LinearGradient(
