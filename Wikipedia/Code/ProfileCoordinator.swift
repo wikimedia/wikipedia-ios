@@ -219,6 +219,14 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             done: CommonStrings.doneTitle
         )
         let viewModel = WMFDeveloperSettingsViewModel(localizedStrings: localizedStrings)
+        viewModel.didTapShowYiR2026Test = { [weak self] in
+            guard let self else { return }
+            let yir2026VC = WMFYiR2026ViewController()
+            yir2026VC.modalPresentationStyle = .overFullScreen
+            // Present from the already-presented dev settings modal, not the base nav controller
+            let presenter = self.navigationController.presentedViewController ?? self.navigationController
+            presenter.present(yir2026VC, animated: true)
+        }
         let vc = WMFDeveloperSettingsViewController(viewModel: viewModel)
         let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .pageSheet)
 

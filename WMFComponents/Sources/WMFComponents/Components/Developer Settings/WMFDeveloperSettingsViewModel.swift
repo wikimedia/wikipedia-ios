@@ -112,6 +112,9 @@ import WMFData
         }
     }
 
+    /// Called when the user taps "Open 2026 YiR Test" in the developer settings.
+    public var didTapShowYiR2026Test: (@MainActor @Sendable () -> Void)?
+
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
 

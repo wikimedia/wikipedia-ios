@@ -41,6 +41,14 @@ struct WMFDeveloperSettingsView: View {
                 Toggle("Enable Developer Mode", isOn: $viewModel.enableDeveloperMode)
             }
 
+            Section(header: Text("2026 Year in Review Test")) {
+                Button {
+                    viewModel.didTapShowYiR2026Test?()
+                } label: {
+                    Text("Open 2026 YiR Test")
+                }
+            }
+
             Section(header: Text("Games")) {
                 Toggle("Show Games Version 2", isOn: $viewModel.showGamesV2)
                 Button {
