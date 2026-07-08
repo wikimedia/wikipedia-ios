@@ -10,6 +10,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
 
     let topics: [WMFArticleTopic] = WMFArticleTopic.allCases
     @Published var selectedTopics: [WMFArticleTopic] = []
+    public private(set) var hasChanges: Bool = false
     @Published var gridViewModels: [WMFInterestArticleCardViewModel] = []
     @Published var isFetchingArticles: Bool = false
 
@@ -44,6 +45,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
             selectedTopics.append(topic)
         }
         dataController.setInterestTopics(selectedTopics)
+        hasChanges = true
 
         if selectedTopics.isEmpty {
             fetchRandomArticles()
@@ -62,6 +64,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
             vm.isSelected = true
             Task { try? await pageInterestDataController?.addPageInterest(title: vm.title, project: project) }
         }
+        hasChanges = true
     }
 
     // MARK: - Private

@@ -51,37 +51,71 @@ public struct WMFHomeView: View {
             }
             .padding()
 
-            Spacer()
-
             if viewModel.selectedTab == .forYou {
-                // TODO: Temporary mock button for testing the "What's driving your feed" deep-link.
-                Button {
-                    viewModel.didTapWhatsDrivingTestButton?()
-                } label: {
-                    Text(viewModel.whatsDrivingTestButtonTitle)
-                        .font(Font(WMFFont.for(.semiboldHeadline)))
-                        .foregroundStyle(Color(uiColor: theme.link))
-                }
+                forYouTabContent
             } else {
-                // Temporary placeholder content until the Home feed is built out.
-                Text(currentTabTitle)
-                    .font(Font(WMFFont.for(.headline)))
-                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                communityTabContent
             }
-
-            Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(uiColor: theme.paperBackground))
         .environment(\.colorScheme, theme.preferredColorScheme)
+        .task {
+            viewModel.loadCurrentTabFeedIfNeeded()
+        }
+        .onChange(of: viewModel.selectedTab) { _ in
+            viewModel.loadCurrentTabFeedIfNeeded()
+        }
     }
 
-    private var currentTabTitle: String {
-        switch viewModel.selectedTab {
-        case .forYou:
-            return viewModel.forYouTabTitle
-        case .community:
-            return viewModel.communityTabTitle
+    @ViewBuilder
+    private var forYouTabContent: some View {
+        if let forYouViewModel = viewModel.forYouViewModel {
+            WMFForYouView(
+                viewModel: forYouViewModel,
+                moduleVisibility: viewModel.forYouModuleVisibility,
+                hiddenCardKeys: viewModel.hiddenCardKeySet,
+                onRefresh: { await viewModel.refreshForYouFeed() },
+                onHideModule: { viewModel.hideForYouModule($0) },
+                onHideCard: { viewModel.hideForYouCard($0) },
+                onCustomizeInterests: { viewModel.didTapCustomizeInterests?() }
+            )
+        } else if viewModel.isLoadingForYou {
+            Spacer()
+            ProgressView()
+            Spacer()
+        } else {
+            Spacer()
+            Text(viewModel.forYouTabTitle)
+                .font(Font(WMFFont.for(.headline)))
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
+            Spacer()
+        }
+    }
+
+    @ViewBuilder
+    private var communityTabContent: some View {
+        if !viewModel.communityPages.isEmpty {
+            WMFCommunityFeedView(
+                pages: viewModel.communityPages,
+                moduleVisibility: viewModel.communityModuleVisibility,
+                hiddenCardKeys: viewModel.hiddenCardKeySet,
+                isLoadingPreviousPage: viewModel.isLoadingCommunityPreviousPage,
+                onHideModule: { viewModel.hideModule($0) },
+                onHideCard: { viewModel.hideCard(key: $0) },
+                onRefresh: { await viewModel.refreshCommunityFeed() },
+                onTapSeePastContent: { viewModel.loadCommunityPreviousPage() }
+            )
+        } else if viewModel.isLoadingCommunity {
+            Spacer()
+            ProgressView()
+            Spacer()
+        } else {
+            Spacer()
+            Text(viewModel.communityTabTitle)
+                .font(Font(WMFFont.for(.headline)))
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
+            Spacer()
         }
     }
 }

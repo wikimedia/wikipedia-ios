@@ -90,4 +90,7 @@ public enum WMFUserDefaultsKey: String {
 
     // Home feed: interests
     case homeFeedInterestTopics = "home-feed-interest-topics"
+
+    // Home feed: hidden cards (shared across Community and For You tabs)
+    case homeFeedHiddenCardKeys = "home-feed-hidden-card-keys"
 }
