@@ -143,7 +143,7 @@ public final class WMFYiR2026ViewModel: ObservableObject {
 
     // MARK: Published state
 
-    @Published public private(set) var currentIndex: Int = 0
+    @Published public var currentIndex: Int = 0
     @Published public private(set) var slides: [WMFYiR2026Slide] = []
     /// Which option index the user selected on each interactive slide (keyed by slide id)
     @Published public private(set) var selections: [UUID: Int] = [:]

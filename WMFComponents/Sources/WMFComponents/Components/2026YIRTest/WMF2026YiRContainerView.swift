@@ -2,7 +2,6 @@ import SwiftUI
 
 // MARK: - Container
 
-/// Root view. Swipe up to advance, swipe down to retreat.
 public struct WMFYiR2026ContainerView: View {
 
     @ObservedObject var viewModel: WMFYiR2026ViewModel
@@ -26,6 +25,11 @@ public struct WMFYiR2026ContainerView: View {
                     .padding(.top, geo.safeAreaInsets.top + 36)
                     .padding(.trailing, 16)
                     .frame(maxWidth: .infinity, alignment: .trailing)
+
+                // MARK: Slide position indicator
+                slideIndicator
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
+                    .padding(.trailing, 10)
             }
             .offset(y: dragOffsetY)
             .animation(.interactiveSpring(response: 0.3, dampingFraction: 0.8), value: dragOffsetY)
@@ -109,6 +113,22 @@ public struct WMFYiR2026ContainerView: View {
                     viewModel.retreat()
                 }
             }
+    }
+
+    // MARK: Slide indicator
+
+    private var slideIndicator: some View {
+        VStack(spacing: 5) {
+            ForEach(0..<viewModel.slides.count, id: \.self) { index in
+                RoundedRectangle(cornerRadius: 2, style: .continuous)
+                    .fill(Color.white.opacity(index == viewModel.currentIndex ? 1.0 : 0.3))
+                    .frame(width: 3, height: index == viewModel.currentIndex ? 48 : 30)
+                    .animation(.spring(response: 0.3, dampingFraction: 0.7), value: viewModel.currentIndex)
+            }
+        }
+        .padding(.vertical, 10)
+        .padding(.horizontal, 6)
+        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
     }
 
     // MARK: Dismiss
