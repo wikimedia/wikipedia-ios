@@ -39,12 +39,10 @@ public struct WMFYiR2026ContainerView: View {
                     .padding(.trailing, 16)
                     .frame(maxWidth: .infinity, alignment: .trailing)
 
-                // MARK: Tap zones (story advance / retreat)
-                // Only rendered on non-interactive slides; interactive slides
-                // handle their own touch entirely via the option buttons.
-                if case .content = viewModel.slides[viewModel.currentIndex].content {
-                    tapZones(geo: geo)
-                }
+                // MARK: Tap zones (always present)
+                // On interactive slides restrict height to top 55% so the card
+                // buttons underneath can still receive touches.
+                tapZones(geo: geo)
             }
             .offset(y: dragOffsetY)
             .animation(.interactiveSpring(response: 0.3, dampingFraction: 0.8), value: dragOffsetY)
@@ -85,11 +83,17 @@ public struct WMFYiR2026ContainerView: View {
         .frame(width: geo.size.width, height: geo.size.height + geo.safeAreaInsets.top + geo.safeAreaInsets.bottom)
     }
 
-    // MARK: Tap zones (content slides only)
+    // MARK: Tap zones
 
-    @ViewBuilder
     private func tapZones(geo: GeometryProxy) -> some View {
-        HStack(spacing: 0) {
+        // On interactive slides restrict to top 50% so card buttons stay tappable
+        let isInteractive: Bool = {
+            if case .interactive = viewModel.slides[viewModel.currentIndex].content { return true }
+            return false
+        }()
+        let height = isInteractive ? geo.size.height * 0.50 : geo.size.height
+
+        return HStack(spacing: 0) {
             // Retreat: left 35%
             Color.clear
                 .contentShape(Rectangle())
@@ -102,6 +106,8 @@ public struct WMFYiR2026ContainerView: View {
                 .frame(maxWidth: .infinity)
                 .onTapGesture { viewModel.advance() }
         }
+        .frame(height: height, alignment: .top)
+        .frame(maxHeight: .infinity, alignment: .top)
         // Keep tap zones below the progress bar + dismiss button
         .padding(.top, 80)
     }

@@ -132,7 +132,7 @@ public final class WMFYiR2026ViewModel: ObservableObject {
     public func selectOption(slideID: UUID, optionIndex: Int) {
         selections[slideID] = optionIndex
         Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 900_000_000)
+            try? await Task.sleep(nanoseconds: 1_500_000_000)
             advance()
         }
     }
