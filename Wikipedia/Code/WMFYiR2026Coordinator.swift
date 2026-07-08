@@ -1,7 +1,6 @@
 import UIKit
 import SwiftUI
 import WMFComponents
-import Foundation
 
 // MARK: - Coordinator
 
@@ -36,7 +35,6 @@ public final class WMFYiR2026Coordinator: NSObject {
 final class WMFYiR2026HostingController: UIViewController {
 
     private let viewModel: WMFYiR2026ViewModel
-
     init(viewModel: WMFYiR2026ViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)

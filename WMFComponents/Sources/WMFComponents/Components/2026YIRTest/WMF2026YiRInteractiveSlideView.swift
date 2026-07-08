@@ -22,26 +22,36 @@ struct WMFYiR2026InteractiveSlideView: View {
                 )
                 .ignoresSafeArea()
 
-                // MARK: Lottie — top portion only
+                // MARK: Lottie — full bleed behind everything
                 if let lottieName = data.lottieName {
-                    VStack {
-                        WMFLottieView(animationName: lottieName, loopMode: .loop)
-                            .frame(height: 200)
-                            .clipped()
-                            .allowsHitTesting(false)
-                        Spacer()
-                    }
-                    .frame(maxWidth: .infinity)
-                    .ignoresSafeArea(edges: .top)
+                    WMFLottieView(animationName: lottieName, loopMode: .loop)
+                        .ignoresSafeArea()
+                        .allowsHitTesting(false)
                 }
 
-                // MARK: Card — hard-capped so it never overflows screen
-                card
-                    .frame(
-                        width: geo.size.width - 32,   // 16pt inset each side
-                        alignment: .center
-                    )
-                    .padding(.bottom, geo.safeAreaInsets.bottom + 12)
+                // MARK: Card
+                VStack(spacing: 14) {
+                    Text(data.question)
+                        .font(.system(size: 22, weight: .bold, design: .rounded))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.white)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(maxWidth: .infinity)
+
+                    VStack(spacing: 10) {
+                        ForEach(Array(data.options.enumerated()), id: \.element.id) { index, option in
+                            optionButton(option: option, index: index, width: geo.size.width - 64)
+                        }
+                    }
+                }
+                .padding(20)
+                .frame(width: geo.size.width - 32)
+                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 28, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 28, style: .continuous)
+                        .stroke(Color.white.opacity(0.15), lineWidth: 1)
+                )
+                .padding(.bottom, geo.safeAreaInsets.bottom + 12)
             }
             .frame(width: geo.size.width, height: geo.size.height)
         }
@@ -53,57 +63,27 @@ struct WMFYiR2026InteractiveSlideView: View {
         .onDisappear { contentVisible = false }
     }
 
-    // MARK: Card
-
-    private var card: some View {
-        VStack(spacing: 12) {
-            Text(data.question)
-                .font(.system(size: 20, weight: .bold, design: .rounded))
-                .multilineTextAlignment(.center)
-                .foregroundColor(.white)
-                .fixedSize(horizontal: false, vertical: true)
-                .frame(maxWidth: .infinity)
-
-            optionsGrid
-        }
-        .padding(16)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .stroke(Color.white.opacity(0.15), lineWidth: 1)
-        )
-    }
-
-    // MARK: Options
-
-    @ViewBuilder
-    private var optionsGrid: some View {
-        if data.options.count == 4 {
-            VStack(spacing: 8) {
-                HStack(spacing: 8) {
-                    optionButton(option: data.options[0], index: 0)
-                    optionButton(option: data.options[1], index: 1)
-                }
-                HStack(spacing: 8) {
-                    optionButton(option: data.options[2], index: 2)
-                    optionButton(option: data.options[3], index: 3)
-                }
-            }
-        } else {
-            VStack(spacing: 8) {
-                ForEach(Array(data.options.enumerated()), id: \.element.id) { index, option in
-                    optionButton(option: option, index: index)
-                }
-            }
-        }
-    }
-
     // MARK: Option button
 
     @ViewBuilder
-    private func optionButton(option: WMFYiR2026Option, index: Int) -> some View {
+    private func optionButton(option: WMFYiR2026Option, index: Int, width: CGFloat) -> some View {
         let isSelected = selectedOptionIndex == index
         let isOtherSelected = selectedOptionIndex != nil && !isSelected
+        let hasCorrect = data.correctOptionIndex != nil
+        let isCorrect = hasCorrect && index == data.correctOptionIndex
+        let isWrong = isSelected && hasCorrect && !isCorrect
+
+        // After selection: correct = green, wrong = red, others dim
+        let bgColor: Color = {
+            guard selectedOptionIndex != nil, hasCorrect else {
+                return option.optionColor ?? Color.white.opacity(0.2)
+            }
+            if isCorrect { return Color(red: 0.18, green: 0.65, blue: 0.35) }
+            if isWrong { return Color(red: 0.80, green: 0.20, blue: 0.20) }
+            return option.optionColor?.opacity(0.4) ?? Color.white.opacity(0.1)
+        }()
+
+        let feedbackIcon: String = isWrong ? "xmark.circle.fill" : "checkmark.circle.fill"
 
         Button {
             guard selectedOptionIndex == nil else { return }
@@ -111,37 +91,51 @@ struct WMFYiR2026InteractiveSlideView: View {
                 onSelect(index)
             }
         } label: {
-            HStack(spacing: 8) {
-                if let emoji = option.emoji {
-                    Text(emoji).font(.system(size: 18))
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(option.label)
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
+
+                    if let subtitle = option.subtitle {
+                        Text(subtitle)
+                            .font(.system(size: 12, weight: .regular))
+                            .foregroundColor(.white.opacity(0.8))
+                            .lineLimit(2)
+                    }
                 }
-                Text(option.label)
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundColor(isSelected ? data.accentColor : .white)
-                    .lineLimit(2)
-                    .minimumScaleFactor(0.75)
-                    .multilineTextAlignment(.leading)
-                Spacer(minLength: 0)
-                if isSelected {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(data.accentColor)
-                        .font(.system(size: 15))
-                        .transition(.scale.combined(with: .opacity))
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+                ZStack {
+                    if let imageName = option.imageName {
+                        Image(imageName)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 48, height: 48)
+                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    }
+                    // Show feedback icon on selected, or correct answer after wrong pick
+                    if isSelected || (isCorrect && selectedOptionIndex != nil) {
+                        Image(systemName: feedbackIcon)
+                            .font(.system(size: 22, weight: .semibold))
+                            .foregroundColor(.white)
+                            .transition(.scale.combined(with: .opacity))
+                    }
                 }
+                .frame(width: 48, height: 48)
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(isSelected ? Color.white : Color.white.opacity(0.15))
-            )
+            .padding(.horizontal, 16)
+            .padding(.vertical, 14)
+            .frame(width: width, alignment: .leading)
+            .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(bgColor))
             .overlay(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .stroke(isSelected ? Color.white : Color.white.opacity(0.25), lineWidth: 1)
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .stroke(Color.white.opacity(isSelected || isCorrect ? 0.5 : 0.2), lineWidth: 1.5)
             )
-            .opacity(isOtherSelected ? 0.4 : 1.0)
-            .scaleEffect(pressedIndex == index ? 0.96 : 1.0)
+            .opacity(isOtherSelected && !isCorrect ? 0.4 : 1.0)
+            .scaleEffect(pressedIndex == index ? 0.97 : 1.0)
         }
         .buttonStyle(.plain)
         .simultaneousGesture(
@@ -163,10 +157,10 @@ struct WMFYiR2026InteractiveSlideView: View {
             accentColor: Color(red: 0.85, green: 0.40, blue: 0.10),
             question: "What was your most-read topic this year?",
             options: [
-                .init(label: "Science & Technology", emoji: "🔬"),
-                .init(label: "History & Culture",    emoji: "🏛️"),
-                .init(label: "Geography",             emoji: "🌍"),
-                .init(label: "Sports & Games",        emoji: "⚽")
+                .init(label: "Science & Technology", subtitle: "Physics, space & more",   optionColor: Color(red: 0.25, green: 0.45, blue: 0.85)),
+                .init(label: "History & Culture",    subtitle: "People & civilizations",   optionColor: Color(red: 0.85, green: 0.55, blue: 0.15)),
+                .init(label: "Geography",            subtitle: "Places around the world",  optionColor: Color(red: 0.20, green: 0.65, blue: 0.45)),
+                .init(label: "Sports & Games",       subtitle: "Athletics & competition",  optionColor: Color(red: 0.75, green: 0.25, blue: 0.35))
             ]
         ),
         selectedOptionIndex: nil,

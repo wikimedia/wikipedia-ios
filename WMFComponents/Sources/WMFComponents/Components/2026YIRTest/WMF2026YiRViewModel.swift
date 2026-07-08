@@ -1,13 +1,14 @@
 import SwiftUI
-import Combine
 
 // MARK: - Slide Model
 
 public enum WMFYiR2026SlideContent {
     /// Full-bleed image/animation with centred text overlay
     case content(WMFYiR2026ContentSlideData)
-    /// 3-4 option interactive quiz/poll card
+    /// Text options quiz/poll card with optional correct answer
     case interactive(WMFYiR2026InteractiveSlideData)
+    /// Image-based quiz — tap one of the image tiles
+    case imageQuiz(WMFYiR2026ImageQuizSlideData)
 }
 
 public struct WMFYiR2026ContentSlideData: Identifiable {
@@ -42,12 +43,55 @@ public struct WMFYiR2026InteractiveSlideData: Identifiable {
     public let accentColor: Color
     public let question: String
     public let options: [WMFYiR2026Option]
+    /// Index into `options` that is the correct answer. nil = poll (no right/wrong).
+    public let correctOptionIndex: Int?
 
     public init(id: UUID = UUID(),
                 lottieName: String? = nil,
                 accentColor: Color,
                 question: String,
-                options: [WMFYiR2026Option]) {
+                options: [WMFYiR2026Option],
+                correctOptionIndex: Int? = nil) {
+        self.id = id
+        self.lottieName = lottieName
+        self.accentColor = accentColor
+        self.question = question
+        self.options = options
+        self.correctOptionIndex = correctOptionIndex
+    }
+}
+
+// MARK: - Image Quiz Slide
+
+public struct WMFYiR2026ImageOption: Identifiable {
+    public let id: UUID
+    /// Remote URL string (Wikimedia Commons etc.) — takes priority over imageName.
+    public let imageURL: String?
+    /// Local asset name or SF Symbol fallback when imageURL is nil or fails to load.
+    public let imageName: String?
+    /// Whether this is the correct answer.
+    public let isCorrect: Bool
+
+    public init(id: UUID = UUID(), imageURL: String? = nil, imageName: String? = nil, isCorrect: Bool) {
+        self.id = id
+        self.imageURL = imageURL
+        self.imageName = imageName
+        self.isCorrect = isCorrect
+    }
+}
+
+public struct WMFYiR2026ImageQuizSlideData: Identifiable {
+    public let id: UUID
+    public let lottieName: String?
+    public let accentColor: Color
+    public let question: String
+    public let options: [WMFYiR2026ImageOption]
+
+    public init(id: UUID = UUID(),
+                lottieName: String? = nil,
+                accentColor: Color,
+                question: String,
+                options: [WMFYiR2026ImageOption]) {
         self.id = id
         self.lottieName = lottieName
         self.accentColor = accentColor
@@ -59,12 +103,24 @@ public struct WMFYiR2026InteractiveSlideData: Identifiable {
 public struct WMFYiR2026Option: Identifiable {
     public let id: UUID
     public let label: String
-    public let emoji: String?
+    public let subtitle: String?
+    /// SF Symbol or asset name for the thumbnail. Optional.
+    public let imageName: String?
+    /// Per-option card background color. Falls back to white.opacity(0.15) if nil.
+    public let optionColor: Color?
 
-    public init(id: UUID = UUID(), label: String, emoji: String? = nil) {
+    public init(
+        id: UUID = UUID(),
+        label: String,
+        subtitle: String? = nil,
+        imageName: String? = nil,
+        optionColor: Color? = nil
+    ) {
         self.id = id
         self.label = label
-        self.emoji = emoji
+        self.subtitle = subtitle
+        self.imageName = imageName
+        self.optionColor = optionColor
     }
 }
 
@@ -91,79 +147,31 @@ public final class WMFYiR2026ViewModel: ObservableObject {
     @Published public private(set) var slides: [WMFYiR2026Slide] = []
     /// Which option index the user selected on each interactive slide (keyed by slide id)
     @Published public private(set) var selections: [UUID: Int] = [:]
-    /// Controls the animated progress bar segments at the top
-    @Published public private(set) var segmentProgress: [CGFloat] = []
-
-    // MARK: Story-bar timer
-
-    private var storyTimer: AnyCancellable?
-    /// How long each content slide auto-advances (seconds). Interactive slides pause until answered.
-    public let contentSlideDuration: TimeInterval = 6.0
-    private let timerInterval: TimeInterval = 0.05
-    @Published public private(set) var activeSegmentFill: CGFloat = 0
+    /// Whether the last navigation was a retreat — used to flip slide transition direction
+    @Published public private(set) var isRetreating: Bool = false
 
     // MARK: Init
 
     public init() {
         slides = Self.makeSampleSlides()
-        segmentProgress = Array(repeating: 0, count: slides.count)
-        startTimer()
     }
 
     // MARK: Navigation
 
     public func advance() {
         guard currentIndex < slides.count - 1 else { return }
-        completeCurrentSegment()
+        isRetreating = false
         currentIndex += 1
-        activeSegmentFill = 0
-        startTimer()
     }
 
     public func retreat() {
         guard currentIndex > 0 else { return }
-        resetCurrentSegment()
+        isRetreating = true
         currentIndex -= 1
-        segmentProgress[currentIndex] = 0
-        activeSegmentFill = 0
-        startTimer()
     }
 
     public func selectOption(slideID: UUID, optionIndex: Int) {
         selections[slideID] = optionIndex
-        Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 1_500_000_000)
-            advance()
-        }
-    }
-
-    // MARK: Story bar helpers
-
-    private func startTimer() {
-        storyTimer?.cancel()
-        guard case .content = slides[currentIndex].content else { return }
-
-        storyTimer = Timer.publish(every: timerInterval, on: .main, in: .common)
-            .autoconnect()
-            .sink { [weak self] _ in
-                guard let self else { return }
-                let step = CGFloat(self.timerInterval / self.contentSlideDuration)
-                self.activeSegmentFill = min(self.activeSegmentFill + step, 1.0)
-                if self.activeSegmentFill >= 1.0 {
-                    self.advance()
-                }
-            }
-    }
-
-    private func completeCurrentSegment() {
-        storyTimer?.cancel()
-        segmentProgress[currentIndex] = 1.0
-    }
-
-    private func resetCurrentSegment() {
-        storyTimer?.cancel()
-        segmentProgress[currentIndex] = 0
-        activeSegmentFill = 0
     }
 
     // MARK: Sample data
@@ -193,10 +201,22 @@ public final class WMFYiR2026ViewModel: ObservableObject {
                 accentColor: Color(red: 0.85, green: 0.40, blue: 0.10),
                 question: "What was your most-read topic this year?",
                 options: [
-                    .init(label: "Science & Technology", emoji: "🔬"),
-                    .init(label: "History & Culture",    emoji: "🏛️"),
-                    .init(label: "Geography",             emoji: "🌍"),
-                    .init(label: "Sports & Games",        emoji: "⚽")
+                    .init(label: "Science & Technology", subtitle: "Physics, space & more",  optionColor: Color(red: 0.25, green: 0.45, blue: 0.85)),
+                    .init(label: "History & Culture",    subtitle: "People & civilizations",  optionColor: Color(red: 0.85, green: 0.55, blue: 0.15)),
+                    .init(label: "Geography",            subtitle: "Places around the world", optionColor: Color(red: 0.20, green: 0.65, blue: 0.45)),
+                    .init(label: "Sports & Games",       subtitle: "Athletics & competition",  optionColor: Color(red: 0.75, green: 0.25, blue: 0.35))
+                ]
+                // No correctOptionIndex — this is a poll, no right/wrong
+            ))),
+            WMFYiR2026Slide(content: .imageQuiz(.init(
+                lottieName: "bg3",
+                accentColor: Color(red: 0.05, green: 0.45, blue: 0.40),
+                question: "Which of these appeared in your most-visited article?",
+                options: [
+                    .init(imageURL: "https://upload.wikimedia.org/wikipedia/commons/9/99/Welsh_Pembroke_Corgi.jpg",         isCorrect: false),
+                    .init(imageURL: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Dolina-dolnej-wisly-2.jpg",        isCorrect: true),
+                    .init(imageURL: "https://upload.wikimedia.org/wikipedia/commons/3/34/Pommes_d_amour.jpg",              isCorrect: false),
+                    .init(imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Shipwreck_of_the_SS_American_Star_on_the_shore_of_Fuerteventura.jpg", isCorrect: false)
                 ]
             ))),
             WMFYiR2026Slide(content: .content(.init(
@@ -208,13 +228,14 @@ public final class WMFYiR2026ViewModel: ObservableObject {
             WMFYiR2026Slide(content: .interactive(.init(
                 lottieName: "pencil_write",
                 accentColor: Color(red: 0.70, green: 0.15, blue: 0.35),
-                question: "How do you mainly use Wikipedia?",
+                question: "Wikipedia was founded in which year?",
                 options: [
-                    .init(label: "Quick fact-checks",  emoji: "⚡"),
-                    .init(label: "Deep dives",          emoji: "🏊"),
-                    .init(label: "Settling arguments",  emoji: "🤝"),
-                    .init(label: "Just browsing",       emoji: "👀")
-                ]
+                    .init(label: "1999", subtitle: "Two years before the web boom",  optionColor: Color(red: 0.25, green: 0.45, blue: 0.85)),
+                    .init(label: "2001", subtitle: "The year of the iPod",            optionColor: Color(red: 0.85, green: 0.55, blue: 0.15)),
+                    .init(label: "2004", subtitle: "Same year as Facebook",           optionColor: Color(red: 0.20, green: 0.65, blue: 0.45)),
+                    .init(label: "2007", subtitle: "Year of the first iPhone",        optionColor: Color(red: 0.75, green: 0.25, blue: 0.35))
+                ],
+                correctOptionIndex: 1  // 2001 is correct
             ))),
             WMFYiR2026Slide(content: .content(.init(
                 lottieName: "bg_shooting_star",
