@@ -34,6 +34,7 @@ public struct WMFYiR2026ContainerView: View {
             .offset(y: dragOffsetY)
             .animation(.interactiveSpring(response: 0.3, dampingFraction: 0.8), value: dragOffsetY)
             .gesture(swipeGesture(geo: geo))
+            .simultaneousGesture(holdGesture)
             .ignoresSafeArea()
         }
         .statusBarHidden(true)
@@ -89,15 +90,12 @@ public struct WMFYiR2026ContainerView: View {
     private func swipeGesture(geo: GeometryProxy) -> some Gesture {
         DragGesture(minimumDistance: 20)
             .onChanged { value in
-                // Only rubber-band in the direction that makes sense
                 let isInteractive: Bool
                 if case .interactive = viewModel.slides[viewModel.currentIndex].content {
                     isInteractive = true
                 } else {
                     isInteractive = false
                 }
-                // On interactive slides don't rubber-band upward so the card
-                // scroll/tap still feels natural
                 if isInteractive && value.translation.height < 0 { return }
                 dragOffsetY = value.translation.height * 0.3
             }
@@ -106,12 +104,22 @@ public struct WMFYiR2026ContainerView: View {
                 dragOffsetY = 0
 
                 if value.translation.height < -60 || velocity < -400 {
-                    // Swiped up → advance
                     viewModel.advance()
                 } else if value.translation.height > 60 || velocity > 400 {
-                    // Swiped down → retreat
                     viewModel.retreat()
                 }
+            }
+    }
+
+    // MARK: Hold to pause gesture
+
+    private var holdGesture: some Gesture {
+        DragGesture(minimumDistance: 0)
+            .onChanged { _ in
+                if !viewModel.isPaused { viewModel.pause() }
+            }
+            .onEnded { _ in
+                if viewModel.isPaused { viewModel.resume() }
             }
     }
 
@@ -120,10 +128,21 @@ public struct WMFYiR2026ContainerView: View {
     private var slideIndicator: some View {
         VStack(spacing: 5) {
             ForEach(0..<viewModel.slides.count, id: \.self) { index in
-                RoundedRectangle(cornerRadius: 2, style: .continuous)
-                    .fill(Color.white.opacity(index == viewModel.currentIndex ? 1.0 : 0.3))
-                    .frame(width: 3, height: index == viewModel.currentIndex ? 48 : 30)
-                    .animation(.spring(response: 0.3, dampingFraction: 0.7), value: viewModel.currentIndex)
+                ZStack(alignment: .top) {
+                    // Track
+                    RoundedRectangle(cornerRadius: 2, style: .continuous)
+                        .fill(Color.white.opacity(index < viewModel.currentIndex ? 1.0 : 0.3))
+                        .frame(width: 3, height: index == viewModel.currentIndex ? 48 : 30)
+
+                    // Progress fill on current slide
+                    if index == viewModel.currentIndex {
+                        RoundedRectangle(cornerRadius: 2, style: .continuous)
+                            .fill(Color.white.opacity(viewModel.isPaused ? 0.6 : 1.0))
+                            .frame(width: 3, height: 48 * viewModel.autoAdvanceProgress)
+                    }
+                }
+                .frame(width: 3, height: index == viewModel.currentIndex ? 48 : 30)
+                .animation(.spring(response: 0.3, dampingFraction: 0.7), value: viewModel.currentIndex)
             }
         }
         .padding(.vertical, 10)

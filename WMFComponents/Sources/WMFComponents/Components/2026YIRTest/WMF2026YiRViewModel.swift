@@ -143,17 +143,30 @@ public final class WMFYiR2026ViewModel: ObservableObject {
 
     // MARK: Published state
 
+    /// Bound directly to the vertical TabView — publicly settable so the native
+    /// scroll gesture can update it without going through advance()/retreat().
     @Published public var currentIndex: Int = 0
     @Published public private(set) var slides: [WMFYiR2026Slide] = []
     /// Which option index the user selected on each interactive slide (keyed by slide id)
     @Published public private(set) var selections: [UUID: Int] = [:]
+    /// Progress of the current slide's auto-advance timer (0–1)
+    @Published public var autoAdvanceProgress: CGFloat = 0
+    /// Whether the timer is paused by a long press
+    @Published public private(set) var isPaused: Bool = false
     /// Whether the last navigation was a retreat — used to flip slide transition direction
     @Published public private(set) var isRetreating: Bool = false
+
+    // MARK: Timer
+
+    private var timerTask: Task<Void, Never>?
+    public let autoAdvanceDuration: TimeInterval = 5.0
+    private let timerInterval: TimeInterval = 0.05
 
     // MARK: Init
 
     public init() {
         slides = Self.makeSampleSlides()
+        startTimer()
     }
 
     // MARK: Navigation
@@ -162,12 +175,52 @@ public final class WMFYiR2026ViewModel: ObservableObject {
         guard currentIndex < slides.count - 1 else { return }
         isRetreating = false
         currentIndex += 1
+        autoAdvanceProgress = 0
+        startTimer()
     }
 
     public func retreat() {
         guard currentIndex > 0 else { return }
         isRetreating = true
         currentIndex -= 1
+        autoAdvanceProgress = 0
+        startTimer()
+    }
+
+    public func pause() {
+        isPaused = true
+        timerTask?.cancel()
+        timerTask = nil
+    }
+
+    public func resume() {
+        isPaused = false
+        startTimer()
+    }
+
+    // MARK: Timer
+
+    private func startTimer() {
+        timerTask?.cancel()
+        timerTask = nil
+        // Don't auto-advance interactive or image quiz slides
+        guard case .content = slides[currentIndex].content else { return }
+
+        let interval = timerInterval
+        let duration = autoAdvanceDuration
+        timerTask = Task { @MainActor in
+            let intervalNanos = UInt64(interval * 1_000_000_000)
+            while !Task.isCancelled {
+                try? await Task.sleep(nanoseconds: intervalNanos)
+                guard !Task.isCancelled else { return }
+                let step = CGFloat(interval / duration)
+                self.autoAdvanceProgress = min(self.autoAdvanceProgress + step, 1.0)
+                if self.autoAdvanceProgress >= 1.0 {
+                    self.advance()
+                    return
+                }
+            }
+        }
     }
 
     public func selectOption(slideID: UUID, optionIndex: Int) {
