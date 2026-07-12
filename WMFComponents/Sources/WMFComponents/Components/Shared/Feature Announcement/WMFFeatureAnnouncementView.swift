@@ -2,6 +2,14 @@ import SwiftUI
 
 struct WMFFeatureAnnouncementView: View {
     
+    private struct ContentSizePreferenceKey: PreferenceKey {
+        static var defaultValue: CGFloat = 0
+        
+        static func reduce(value: inout Value, nextValue: () -> Value) {
+            value = max(value, nextValue())
+        }
+    }
+    
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     
     let viewModel: WMFFeatureAnnouncementViewModel
@@ -85,7 +93,7 @@ struct WMFFeatureAnnouncementView: View {
                                     Image(uiImage: backgroundImage)
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
-                                        .frame(height: backgroundImageHeight(for: geometry))
+                                        .frame(height: 1.5 * 118)
                                         .frame(maxWidth: max(geometry.size.width - 64, 100))
                                         .cornerRadius(8)
                                         .clipped()
@@ -106,8 +114,22 @@ struct WMFFeatureAnnouncementView: View {
                     .padding([.leading, .trailing], 10)
                     .padding(.top, 10)
                 }
+                .background {
+                    GeometryReader { proxy in
+                        Color.clear.preference(
+                            key: ContentSizePreferenceKey.self,
+                            value: proxy.size.height
+                        )
+                    }
+                }
                 .ignoresSafeArea(.container, edges: .bottom)
+                .fixedSize(horizontal: false, vertical: true)
             }
+            .onPreferenceChange(ContentSizePreferenceKey.self) { height in
+                guard height > 0 else { return }
+                viewModel.contentHeightChanged?(height + 54)
+            }
+ 
         }
     }
 }
