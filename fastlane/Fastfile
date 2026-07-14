@@ -13,7 +13,7 @@ platform :ios do
   end
 
   # Shared helper: build the app
-  def build_the_app(api_key)
+  def build_the_app
     build_app(
       project: "Wikipedia.xcodeproj",
       scheme: "Wikipedia",
@@ -22,8 +22,7 @@ platform :ios do
       destination: "generic/platform=iOS",
       archive_path: "build/Wikipedia.xcarchive",
       export_method: "app-store",
-      xcargs: "-allowProvisioningUpdates",
-      api_key: api_key,
+      xcargs: "-allowProvisioningUpdates -authenticationKeyPath #{ENV['APP_STORE_KEY_PATH']} -authenticationKeyID #{ENV['APP_STORE_API_KEY_ID']} -authenticationKeyIssuerID #{ENV['APP_STORE_ISSUER_ID']}",
     )
   end
 
@@ -33,7 +32,7 @@ platform :ios do
   desc "Build and deploy to internal TestFlight testers"
   lane :internal_beta do
     api_key = get_api_key
-    build_the_app(api_key)
+    build_the_app
 
     what_to_test = File.read(ENV["WHAT_TO_TEST_PATH"]) rescue "See Phabricator tasks for details"
 
