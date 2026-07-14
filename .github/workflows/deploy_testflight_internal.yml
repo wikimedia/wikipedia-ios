@@ -130,14 +130,17 @@ jobs:
           EOF
 
       # -------------------------------------------------------
-      # 4. Fetch Phabricator tasks from NEW PRs (since last beta)
+      # 4. Fetch Phabricator tasks from PRs
+      #    - All PRs since last release → What to Test notes
+      #    - New PRs since last beta → Phabricator commenting
       # -------------------------------------------------------
       - name: Fetch Phabricator tasks from PRs
         id: phab
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
-          PR_NUMBERS: ${{ steps.new_prs.outputs.new_pr_numbers }}
+          ALL_PR_NUMBERS: ${{ steps.prs.outputs.pr_numbers }}
+          NEW_PR_NUMBERS: ${{ steps.new_prs.outputs.new_pr_numbers }}
         run: |
           python3 << 'EOF'
           import urllib.request
@@ -146,56 +149,65 @@ jobs:
           import re
           import os
 
-          pr_numbers_str = os.environ.get('PR_NUMBERS', '')
-          if not pr_numbers_str:
-            print("No PRs found, skipping Phabricator lookup")
-            with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-              f.write("phab_tasks=\n")
-              f.write("phab_task_urls=\n")
-            exit(0)
-
-          pr_numbers = [p for p in pr_numbers_str.split(',') if p]
+          all_pr_numbers_str = os.environ.get('ALL_PR_NUMBERS', '')
+          new_pr_numbers_str = os.environ.get('NEW_PR_NUMBERS', '')
           repo = os.environ['REPO']
           token = os.environ['GH_TOKEN']
 
-          phab_tasks = []
+          new_pr_numbers = set(p for p in new_pr_numbers_str.split(',') if p)
 
-          for pr_num in pr_numbers:
-            url = f"https://api.github.com/repos/{repo}/pulls/{pr_num}"
-            req = urllib.request.Request(url, headers={'Authorization': f'token {token}'})
-            body = ''
-            for attempt in range(3):
-              try:
-                with urllib.request.urlopen(req) as resp:
-                  body = json.loads(resp.read()).get('body') or ''
-                break
-              except urllib.error.HTTPError as e:
-                if e.code == 504 and attempt < 2:
-                  print(f"PR #{pr_num}: 504 timeout, retrying ({attempt + 1}/3)...")
-                  import time
-                  time.sleep(5)
-                else:
-                  print(f"Could not fetch PR #{pr_num}: {e}")
+          def fetch_phab_tasks(pr_numbers):
+            phab_tasks = []
+            for pr_num in pr_numbers:
+              url = f"https://api.github.com/repos/{repo}/pulls/{pr_num}"
+              req = urllib.request.Request(url, headers={'Authorization': f'token {token}'})
+              body = ''
+              for attempt in range(3):
+                try:
+                  with urllib.request.urlopen(req) as resp:
+                    body = json.loads(resp.read()).get('body') or ''
                   break
+                except urllib.error.HTTPError as e:
+                  if e.code == 504 and attempt < 2:
+                    print(f"PR #{pr_num}: 504 timeout, retrying ({attempt + 1}/3)...")
+                    import time
+                    time.sleep(5)
+                  else:
+                    print(f"Could not fetch PR #{pr_num}: {e}")
+                    break
 
-            phab_section = re.findall(
-              r'\*{0,2}Phabricator:\*{0,2}\s*((?:https://phabricator\.wikimedia\.org/T\d+[\s,]*)+)',
-              body, re.IGNORECASE
-            )
+              phab_section = re.findall(
+                r'\*{0,2}Phabricator:\*{0,2}\s*((?:https://phabricator\.wikimedia\.org/T\d+[\s,]*)+)',
+                body, re.IGNORECASE
+              )
+              for section in phab_section:
+                urls = re.findall(r'https://phabricator\.wikimedia\.org/T\d+', section)
+                phab_tasks.extend(urls)
 
-            for section in phab_section:
-              urls = re.findall(r'https://phabricator\.wikimedia\.org/T\d+', section)
-              phab_tasks.extend(urls)
+            return list(dict.fromkeys(phab_tasks))  # deduplicate
 
-          # Deduplicate
-          phab_tasks = list(dict.fromkeys(phab_tasks))
-          print(f"Found Phabricator tasks: {phab_tasks}")
+          # All tasks since last release → for What to Test notes
+          if all_pr_numbers_str:
+            all_pr_numbers = [p for p in all_pr_numbers_str.split(',') if p]
+            all_tasks = fetch_phab_tasks(all_pr_numbers)
+            print(f"All Phabricator tasks (since last release): {all_tasks}")
+            with open('/tmp/phab_tasks.txt', 'w') as f:
+              f.write('\n'.join(f'• {t}' for t in all_tasks))
+          else:
+            print("No PRs since last release")
+            open('/tmp/phab_tasks.txt', 'w').close()
+
+          # New tasks since last beta → for Phabricator commenting
+          if new_pr_numbers_str:
+            new_pr_list = [p for p in new_pr_numbers_str.split(',') if p]
+            new_tasks = fetch_phab_tasks(new_pr_list)
+            print(f"New Phabricator tasks (since last beta): {new_tasks}")
+          else:
+            print("No new PRs since last beta, skipping Phabricator commenting")
+            new_tasks = []
 
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-            f.write(f"phab_task_urls={','.join(phab_tasks)}\n")
-
-          with open('/tmp/phab_tasks.txt', 'w') as f:
-            f.write('\n'.join(f'• {t}' for t in phab_tasks))
+            f.write(f"phab_task_urls={','.join(new_tasks)}\n")
           EOF
 
       # -------------------------------------------------------
