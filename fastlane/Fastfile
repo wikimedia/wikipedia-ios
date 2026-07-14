@@ -15,7 +15,7 @@ platform :ios do
   # Shared helper: build the app
   def build_the_app
     build_app(
-      workspace: "Wikipedia.xcodeproj",
+      project: "Wikipedia.xcodeproj",
       scheme: "Wikipedia",
       configuration: "Release",
       derived_data_path: "build",
