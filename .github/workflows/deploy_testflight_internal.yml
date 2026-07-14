@@ -244,9 +244,8 @@ jobs:
 
           cat > /tmp/what_to_test.txt << EOF
           Build: $VERSION ($BUILD)
-          Changes since $LAST_RELEASE_TAG
 
-          Phabricator Tasks:
+          Changes since $LAST_RELEASE_TAG:
           $PHAB_TASKS
           EOF
 
