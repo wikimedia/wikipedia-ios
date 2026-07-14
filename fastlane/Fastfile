@@ -22,6 +22,7 @@ platform :ios do
       destination: "generic/platform=iOS",
       archive_path: "build/Wikipedia.xcarchive",
       export_method: "app-store",
+      xcargs: "-allowProvisioningUpdates",
     )
   end
 
