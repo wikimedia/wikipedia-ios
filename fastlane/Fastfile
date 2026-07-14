@@ -41,7 +41,7 @@ platform :ios do
       distribute_external: false,       # Internal testers only
       notify_external_testers: false,
       changelog: what_to_test,
-      skip_waiting_for_build_processing: false,
+      skip_waiting_for_build_processing: true,
     )
   end
 
