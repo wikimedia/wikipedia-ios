@@ -289,55 +289,24 @@ jobs:
           VERSION: ${{ steps.versioning.outputs.version }}
           BUILD: ${{ steps.versioning.outputs.build }}
         run: |
-          python3 << 'EOF'
-          import urllib.request
-          import urllib.error
-          import urllib.parse
-          import os
-          import re
+          if [ -z "$PHAB_TASK_URLS" ]; then
+            echo "No Phabricator tasks to comment on"
+            exit 0
+          fi
 
-          task_urls = os.environ.get('PHAB_TASK_URLS', '')
-          if not task_urls:
-            print("No Phabricator tasks to comment on")
-            exit(0)
+          MESSAGE="Available in: TestFlight Wikipedia $VERSION ($BUILD)"
 
-          token = os.environ['PHAB_TOKEN']
-          version = os.environ['VERSION']
-          build = os.environ['BUILD']
-
-          comment = f"Available in: TestFlight Wikipedia {version} ({build})"
-
-          for url in task_urls.split(','):
-            if not url:
+          echo "$PHAB_TASK_URLS" | tr ',' '\n' | while IFS= read -r url; do
+            TASK_ID=$(echo "$url" | grep -oEi "T[0-9]+$")
+            if [ -z "$TASK_ID" ]; then
               continue
-
-            # Extract task ID e.g. T430860
-            match = re.search(r'T(\d+)$', url.strip())
-            if not match:
-              continue
-            task_id = f"T{match.group(1)}"
-
-            data = urllib.parse.urlencode({
-              'transactions[0][type]': 'comment',
-              'transactions[0][value]': comment,
-              'objectIdentifier': task_id,
-              'token': token,
-            }).encode()
-
-            req = urllib.request.Request(
-              'https://phabricator.wikimedia.org/api/maniphest.edit',
-              data=data
-            )
-
-            try:
-              with urllib.request.urlopen(req) as resp:
-                result = resp.read()
-                import json
-                parsed = json.loads(result)
-                if not parsed.get('error_code'):
-                  print(f"✓ Commented on {task_id}")
-                else:
-                  print(f"✗ Failed to comment on {task_id}: {parsed.get('error_info')}")
-            except urllib.error.HTTPError as e:
-              print(f"✗ Failed to comment on {task_id}: {e}")
-          EOF
+            fi
+            echo "Commenting on $TASK_ID..."
+            curl --header "User-Agent: GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)" \
+              https://phabricator.wikimedia.org/api/maniphest.edit \
+              -d "api.token=$PHAB_TOKEN" \
+              -d "transactions[0][type]=comment" \
+              -d "transactions[0][value]=$MESSAGE" \
+              -d "objectIdentifier=$TASK_ID"
+            echo "✓ Commented on $TASK_ID"
+          done
