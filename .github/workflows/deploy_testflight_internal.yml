@@ -45,7 +45,6 @@ jobs:
           python3 << 'EOF'
           import subprocess
           import re
-          import json
           import os
 
           # Find latest releases/X.Y.Z tag
@@ -100,7 +99,6 @@ jobs:
           import requests
           import re
           import os
-          import json
 
           pr_numbers_str = os.environ.get('PR_NUMBERS', '')
           if not pr_numbers_str:
@@ -126,10 +124,6 @@ jobs:
 
             body = resp.json().get('body') or ''
 
-            # Match patterns like:
-            # Phabricator: https://phabricator.wikimedia.org/T430860
-            # Phabricator:
-            # https://phabricator.wikimedia.org/T430860, https://...
             phab_section = re.findall(
               r'Phabricator:\s*((?:https://phabricator\.wikimedia\.org/T\d+[\s,]*)+)',
               body, re.IGNORECASE
@@ -141,135 +135,41 @@ jobs:
 
           # Deduplicate
           phab_tasks = list(dict.fromkeys(phab_tasks))
-          print(f"Found Phabricator tasks: {phab_tasks}")
-
-          # Format as bullet list for TestFlight notes
-          task_list = '\n'.join(f'• {t}' for t in phab_tasks)
 
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
             f.write(f"phab_task_urls={','.join(phab_tasks)}\n")
 
-          # Write to file for multiline
           with open('/tmp/phab_tasks.txt', 'w') as f:
-            f.write(task_list)
+            f.write('\n'.join(f'• {t}' for t in phab_tasks))
           EOF
 
       # -------------------------------------------------------
-      # 4. Write TestFlight "What to Test" notes
+      # 4. Log what would be used
       # -------------------------------------------------------
-      - name: Write TestFlight notes
+      - name: Log dry run results
         env:
           VERSION: ${{ steps.versioning.outputs.version }}
           BUILD: ${{ steps.versioning.outputs.build }}
           LAST_RELEASE_TAG: ${{ steps.prs.outputs.last_release_tag }}
-        run: |
-          mkdir -p fastlane/metadata
-          PHAB_TASKS=$(cat /tmp/phab_tasks.txt 2>/dev/null || echo "No Phabricator tasks found")
-
-          cat > /tmp/what_to_test.txt << EOF
-          Build: $VERSION ($BUILD)
-          Changes since $LAST_RELEASE_TAG
-
-          Phabricator Tasks:
-          $PHAB_TASKS
-          EOF
-
-          cat /tmp/what_to_test.txt
-
-      # -------------------------------------------------------
-      # 5. Update build number in Info.plist
-      # -------------------------------------------------------
-      - name: Update build number
-        env:
-          BUILD: ${{ steps.versioning.outputs.build }}
-        run: |
-          # Only update CFBundleVersion, leave CFBundleShortVersionString as-is
-          /usr/libexec/PlistBuddy -c \
-            "Set :CFBundleVersion $BUILD" \
-            Wikipedia/Wikipedia-Info.plist
-
-          echo "Updated CFBundleVersion to $BUILD"
-
-      # -------------------------------------------------------
-      # 6. Build and upload to TestFlight (internal)
-      # -------------------------------------------------------
-      - name: Install fastlane
-        run: bundle install
-
-      - name: Build and upload to internal TestFlight
-        env:
-          APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
-          APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
-          APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
-          WHAT_TO_TEST_PATH: /tmp/what_to_test.txt
-        run: |
-          bundle exec fastlane internal_beta
-
-      # -------------------------------------------------------
-      # 7. Tag the build
-      # -------------------------------------------------------
-      - name: Tag build
-        env:
-          BUILD: ${{ steps.versioning.outputs.build }}
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git tag "betas/$BUILD"
-          git push origin "betas/$BUILD"
-
-      # -------------------------------------------------------
-      # 8. Post to Phabricator tasks
-      # -------------------------------------------------------
-      - name: Post to Phabricator tasks
-        env:
-          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
+          PR_NUMBERS: ${{ steps.prs.outputs.pr_numbers }}
           PHAB_TASK_URLS: ${{ steps.phab.outputs.phab_task_urls }}
-          VERSION: ${{ steps.versioning.outputs.version }}
-          BUILD: ${{ steps.versioning.outputs.build }}
         run: |
-          python3 << 'EOF'
-          import requests
-          import os
-          import re
-
-          task_urls = os.environ.get('PHAB_TASK_URLS', '')
-          if not task_urls:
-            print("No Phabricator tasks to comment on")
-            exit(0)
-
-          token = os.environ['PHAB_TOKEN']
-          version = os.environ['VERSION']
-          build = os.environ['BUILD']
-
-          comment = (
-            f"A new internal TestFlight build is available.\n\n"
-            f"**Version:** {version} ({build})\n"
-            f"**Track:** Internal TestFlight\n\n"
-            f"Install via TestFlight on your device."
-          )
-
-          for url in task_urls.split(','):
-            if not url:
-              continue
-
-            # Extract task ID e.g. T430860
-            match = re.search(r'T(\d+)$', url.strip())
-            if not match:
-              continue
-            task_id = f"T{match.group(1)}"
-
-            resp = requests.post(
-              'https://phabricator.wikimedia.org/api/maniphest.edit',
-              data={
-                'transactions[0][type]': 'comment',
-                'transactions[0][value]': comment,
-                'objectIdentifier': task_id,
-                'token': token,
-              }
-            )
-
-            if resp.status_code == 200 and not resp.json().get('error_code'):
-              print(f"✓ Commented on {task_id}")
-            else:
-              print(f"✗ Failed to comment on {task_id}: {resp.text}")
-          EOF
+          echo "==============================="
+          echo "DRY RUN — nothing will be uploaded or tagged"
+          echo "==============================="
+          echo "Version:          $VERSION"
+          echo "Build number:     $BUILD"
+          echo "Last release tag: $LAST_RELEASE_TAG"
+          echo "PRs found:        $PR_NUMBERS"
+          echo ""
+          echo "Phabricator tasks:"
+          cat /tmp/phab_tasks.txt 2>/dev/null || echo "  (none)"
+          echo ""
+          echo "TestFlight 'What to Test' notes would be:"
+          echo "-------------------------------"
+          echo "Build: $VERSION ($BUILD)"
+          echo "Changes since $LAST_RELEASE_TAG"
+          echo ""
+          echo "Phabricator Tasks:"
+          cat /tmp/phab_tasks.txt 2>/dev/null || echo "  (none)"
+          echo "-------------------------------"
