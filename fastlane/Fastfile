@@ -13,7 +13,7 @@ platform :ios do
   end
 
   # Shared helper: build the app
-  def build_the_app
+  def build_the_app(api_key)
     build_app(
       project: "Wikipedia.xcodeproj",
       scheme: "Wikipedia",
@@ -23,6 +23,7 @@ platform :ios do
       archive_path: "build/Wikipedia.xcarchive",
       export_method: "app-store",
       xcargs: "-allowProvisioningUpdates",
+      api_key: api_key,
     )
   end
 
@@ -32,7 +33,7 @@ platform :ios do
   desc "Build and deploy to internal TestFlight testers"
   lane :internal_beta do
     api_key = get_api_key
-    build_the_app
+    build_the_app(api_key)
 
     what_to_test = File.read(ENV["WHAT_TO_TEST_PATH"]) rescue "See Phabricator tasks for details"
 
