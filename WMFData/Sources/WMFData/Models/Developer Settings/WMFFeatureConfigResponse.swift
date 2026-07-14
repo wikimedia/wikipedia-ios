@@ -115,6 +115,7 @@ public struct WMFFeatureConfigResponse: Codable {
             public let reportapi: String
             public let sentry: Bool
             public let apiKey: String
+            public let editApiKey: String?
         }
     }
     

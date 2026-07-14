@@ -27,6 +27,8 @@ class TalkPageDataController {
     
     enum TalkPageError: Error {
         case unableToDetermineWikimediaProject
+        /// `siteKey` is server-dictated (nil falls back to the configured key).
+        case hCaptchaRequired(siteKey: String?, forceShowCaptcha: Bool)
     }
     
     // MARK: Public
@@ -76,18 +78,18 @@ class TalkPageDataController {
 
     }
     
-    func postReply(commentId: String, comment: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        
-        talkPageFetcher.postReply(talkPageTitle: pageTitle, siteURL: siteURL, commentId: commentId, comment: comment.signed) { result in
+    func postReply(commentId: String, comment: String, hCaptchaToken: String? = nil, forceShowCaptcha: Bool = false, completion: @escaping (Result<Void, Error>) -> Void) {
+
+        talkPageFetcher.postReply(talkPageTitle: pageTitle, siteURL: siteURL, commentId: commentId, comment: comment.signed, hCaptchaToken: hCaptchaToken, forceShowCaptcha: forceShowCaptcha) { result in
             DispatchQueue.main.async {
                 completion(result)
             }
         }
     }
-    
-    func postTopic(topicTitle: String, topicBody: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        
-        talkPageFetcher.postTopic(talkPageTitle: pageTitle, siteURL: siteURL, topicTitle: topicTitle, topicBody: topicBody.signed) { result in
+
+    func postTopic(topicTitle: String, topicBody: String, hCaptchaToken: String? = nil, forceShowCaptcha: Bool = false, completion: @escaping (Result<Void, Error>) -> Void) {
+
+        talkPageFetcher.postTopic(talkPageTitle: pageTitle, siteURL: siteURL, topicTitle: topicTitle, topicBody: topicBody.signed, hCaptchaToken: hCaptchaToken, forceShowCaptcha: forceShowCaptcha) { result in
             DispatchQueue.main.async {
                 completion(result)
             }

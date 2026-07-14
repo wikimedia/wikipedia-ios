@@ -129,12 +129,12 @@ final class TalkPageViewModel {
         }
     }
 
-    func postTopic(topicTitle: String, topicBody: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        dataController.postTopic(topicTitle: topicTitle, topicBody: topicBody, completion: completion)
+    func postTopic(topicTitle: String, topicBody: String, hCaptchaToken: String? = nil, forceShowCaptcha: Bool = false, completion: @escaping (Result<Void, Error>) -> Void) {
+        dataController.postTopic(topicTitle: topicTitle, topicBody: topicBody, hCaptchaToken: hCaptchaToken, forceShowCaptcha: forceShowCaptcha, completion: completion)
     }
-    
-    func postReply(commentId: String, comment: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        dataController.postReply(commentId: commentId, comment: comment, completion: completion)
+
+    func postReply(commentId: String, comment: String, hCaptchaToken: String? = nil, forceShowCaptcha: Bool = false, completion: @escaping (Result<Void, Error>) -> Void) {
+        dataController.postReply(commentId: commentId, comment: comment, hCaptchaToken: hCaptchaToken, forceShowCaptcha: forceShowCaptcha, completion: completion)
     }
     
 
