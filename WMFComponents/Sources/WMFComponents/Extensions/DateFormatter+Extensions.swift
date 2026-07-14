@@ -86,12 +86,12 @@ public extension DateFormatter {
         return wmfMonthDayDateFormatter.string(from: date)
     }
 
-    /// Parses a `yyyy-MM-dd` string and returns "Month Day, ’Year" e.g. `December 19, 25`
+    /// Parses a `yyyy-MM-dd` string and returns "Month Day, Year" e.g. `December 19, 2025`
     static func wmfMonthDayYearFromDailyGameDate(_ dateString: String) -> String {
         let parser = DateFormatter()
         parser.dateFormat = "yyyy-MM-dd"
         parser.locale = Locale(identifier: "en_US_POSIX")
         guard let date = parser.date(from: dateString) else { return dateString }
-        return wmfMonthDayShortYearDateFormatter.string(from: date)
+        return wmfMonthDayYearDateFormatter.string(from: date)
     }
 }
