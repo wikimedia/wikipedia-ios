@@ -35,9 +35,26 @@ jobs:
           echo "Version: $VERSION, Build: $BUILD"
 
       # -------------------------------------------------------
-      # 2. Find new PRs since last release tag (for What to Test notes)
+      # 2. Check for duplicate build
+      # -------------------------------------------------------
+      - name: Check for duplicate build
+        id: duplicate_check
+        run: |
+          LATEST_COMMIT=$(git rev-parse HEAD)
+          EXISTING_TAG=$(git tag --points-at $LATEST_COMMIT | grep 'betas/' | head -1)
+          if [ -n "$EXISTING_TAG" ]; then
+            echo "Commit $LATEST_COMMIT already has tag $EXISTING_TAG, skipping build"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "No existing beta tag for this commit, proceeding"
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      # -------------------------------------------------------
+      # 4. Find new PRs since last release tag (for What to Test notes)
       # -------------------------------------------------------
       - name: Find new PRs since last release
+        if: steps.duplicate_check.outputs.skip != 'true'
         id: prs
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -87,6 +104,7 @@ jobs:
       # 3. Find new PRs since last beta tag (for Phabricator commenting)
       # -------------------------------------------------------
       - name: Find new PRs since last beta
+        if: steps.duplicate_check.outputs.skip != 'true'
         id: new_prs
         run: |
           python3 << 'EOF'
@@ -130,11 +148,12 @@ jobs:
           EOF
 
       # -------------------------------------------------------
-      # 4. Fetch Phabricator tasks from PRs
+      # 6. Fetch Phabricator tasks from PRs
       #    - All PRs since last release → What to Test notes
       #    - New PRs since last beta → Phabricator commenting
       # -------------------------------------------------------
       - name: Fetch Phabricator tasks from PRs
+        if: steps.duplicate_check.outputs.skip != 'true'
         id: phab
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -211,9 +230,10 @@ jobs:
           EOF
 
       # -------------------------------------------------------
-      # 5. Write TestFlight "What to Test" notes
+      # 7. Write TestFlight "What to Test" notes
       # -------------------------------------------------------
       - name: Write TestFlight notes
+        if: steps.duplicate_check.outputs.skip != 'true'
         env:
           VERSION: ${{ steps.versioning.outputs.version }}
           BUILD: ${{ steps.versioning.outputs.build }}
@@ -233,9 +253,10 @@ jobs:
           cat /tmp/what_to_test.txt
 
       # -------------------------------------------------------
-      # 6. Update build number in Info.plist
+      # 8. Update build number in Info.plist
       # -------------------------------------------------------
       - name: Update build number
+        if: steps.duplicate_check.outputs.skip != 'true'
         env:
           BUILD: ${{ steps.versioning.outputs.build }}
         run: |
@@ -247,18 +268,21 @@ jobs:
           echo "Updated CFBundleVersion to $BUILD"
 
       # -------------------------------------------------------
-      # 7. Build and upload to TestFlight (internal)
+      # 9. Build and upload to TestFlight (internal)
       # -------------------------------------------------------
       - name: Install fastlane
+        if: steps.duplicate_check.outputs.skip != 'true'
         run: bundle install
 
       - name: Write App Store API Key
+        if: steps.duplicate_check.outputs.skip != 'true'
         run: |
           mkdir -p ~/.appstore
           echo "${{ secrets.APP_STORE_API_KEY }}" > ~/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8
           echo "APP_STORE_KEY_PATH=$HOME/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8" >> $GITHUB_ENV
 
       - name: Build and upload to internal TestFlight
+        if: steps.duplicate_check.outputs.skip != 'true'
         env:
           APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
           APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
@@ -268,9 +292,10 @@ jobs:
           bundle exec fastlane internal_beta
 
       # -------------------------------------------------------
-      # 8. Tag the build
+      # 10. Tag the build
       # -------------------------------------------------------
       - name: Tag build
+        if: steps.duplicate_check.outputs.skip != 'true'
         env:
           BUILD: ${{ steps.versioning.outputs.build }}
         run: |
@@ -280,9 +305,10 @@ jobs:
           git push origin "betas/$BUILD"
 
       # -------------------------------------------------------
-      # 9. Post to Phabricator tasks
+      # 11. Post to Phabricator tasks
       # -------------------------------------------------------
       - name: Post to Phabricator tasks
+        if: steps.duplicate_check.outputs.skip != 'true'
         env:
           PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
           PHAB_TASK_URLS: ${{ steps.phab.outputs.phab_task_urls }}
