@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          fetch-depth: 0  # Full history needed for git diff
+          fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       # -------------------------------------------------------
@@ -35,7 +35,7 @@ jobs:
           echo "Version: $VERSION, Build: $BUILD"
 
       # -------------------------------------------------------
-      # 2. Find new PRs since last release tag
+      # 2. Find new PRs since last release tag (for What to Test notes)
       # -------------------------------------------------------
       - name: Find new PRs since last release
         id: prs
@@ -70,15 +70,13 @@ jobs:
           )
           commits = result.stdout.strip().split('\n')
 
-          # Extract PR numbers from commit messages like:
-          # "Merge pull request #5990 from wikimedia/home-settings-fix"
           pr_numbers = []
           for commit in commits:
             match = re.search(r'Merge pull request #(\d+)', commit)
             if match:
               pr_numbers.append(match.group(1))
 
-          print(f"Found PRs: {pr_numbers}")
+          print(f"Found PRs since last release: {pr_numbers}")
 
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
             f.write(f"pr_numbers={','.join(pr_numbers)}\n")
@@ -86,17 +84,65 @@ jobs:
           EOF
 
       # -------------------------------------------------------
-      # 3. Fetch Phabricator tasks from PR descriptions
+      # 3. Find new PRs since last beta tag (for Phabricator commenting)
+      # -------------------------------------------------------
+      - name: Find new PRs since last beta
+        id: new_prs
+        run: |
+          python3 << 'EOF'
+          import subprocess
+          import re
+          import os
+
+          # Find latest betas/XXXX tag
+          result = subprocess.run(
+            ['git', 'tag', '--list', 'betas/*', '--sort=-version:refname'],
+            capture_output=True, text=True
+          )
+          tags = result.stdout.strip().split('\n')
+          last_beta_tag = next((t for t in tags if t), None)
+
+          if not last_beta_tag:
+            print("No beta tag found, skipping new PR lookup")
+            with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write("new_pr_numbers=\n")
+            exit(0)
+
+          print(f"Last beta tag: {last_beta_tag}")
+
+          # Get merge commits since that tag
+          result = subprocess.run(
+            ['git', 'log', '--oneline', '--merges', f'{last_beta_tag}..HEAD'],
+            capture_output=True, text=True
+          )
+          commits = result.stdout.strip().split('\n')
+
+          pr_numbers = []
+          for commit in commits:
+            match = re.search(r'Merge pull request #(\d+)', commit)
+            if match:
+              pr_numbers.append(match.group(1))
+
+          print(f"Found PRs since last beta: {pr_numbers}")
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f"new_pr_numbers={','.join(pr_numbers)}\n")
+          EOF
+
+      # -------------------------------------------------------
+      # 4. Fetch Phabricator tasks from NEW PRs (since last beta)
       # -------------------------------------------------------
       - name: Fetch Phabricator tasks from PRs
         id: phab
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
-          PR_NUMBERS: ${{ steps.prs.outputs.pr_numbers }}
+          PR_NUMBERS: ${{ steps.new_prs.outputs.new_pr_numbers }}
         run: |
           python3 << 'EOF'
-          import requests
+          import urllib.request
+          import urllib.error
+          import json
           import re
           import os
 
@@ -111,21 +157,29 @@ jobs:
           pr_numbers = [p for p in pr_numbers_str.split(',') if p]
           repo = os.environ['REPO']
           token = os.environ['GH_TOKEN']
-          headers = {'Authorization': f'token {token}'}
 
           phab_tasks = []
 
           for pr_num in pr_numbers:
             url = f"https://api.github.com/repos/{repo}/pulls/{pr_num}"
-            resp = requests.get(url, headers=headers)
-            if resp.status_code != 200:
-              print(f"Could not fetch PR #{pr_num}")
-              continue
-
-            body = resp.json().get('body') or ''
+            req = urllib.request.Request(url, headers={'Authorization': f'token {token}'})
+            body = ''
+            for attempt in range(3):
+              try:
+                with urllib.request.urlopen(req) as resp:
+                  body = json.loads(resp.read()).get('body') or ''
+                break
+              except urllib.error.HTTPError as e:
+                if e.code == 504 and attempt < 2:
+                  print(f"PR #{pr_num}: 504 timeout, retrying ({attempt + 1}/3)...")
+                  import time
+                  time.sleep(5)
+                else:
+                  print(f"Could not fetch PR #{pr_num}: {e}")
+                  break
 
             phab_section = re.findall(
-              r'Phabricator:\s*((?:https://phabricator\.wikimedia\.org/T\d+[\s,]*)+)',
+              r'\*{0,2}Phabricator:\*{0,2}\s*((?:https://phabricator\.wikimedia\.org/T\d+[\s,]*)+)',
               body, re.IGNORECASE
             )
 
@@ -135,6 +189,7 @@ jobs:
 
           # Deduplicate
           phab_tasks = list(dict.fromkeys(phab_tasks))
+          print(f"Found Phabricator tasks: {phab_tasks}")
 
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
             f.write(f"phab_task_urls={','.join(phab_tasks)}\n")
@@ -144,32 +199,127 @@ jobs:
           EOF
 
       # -------------------------------------------------------
-      # 4. Log what would be used
+      # 5. Write TestFlight "What to Test" notes
       # -------------------------------------------------------
-      - name: Log dry run results
+      - name: Write TestFlight notes
         env:
           VERSION: ${{ steps.versioning.outputs.version }}
           BUILD: ${{ steps.versioning.outputs.build }}
           LAST_RELEASE_TAG: ${{ steps.prs.outputs.last_release_tag }}
-          PR_NUMBERS: ${{ steps.prs.outputs.pr_numbers }}
-          PHAB_TASK_URLS: ${{ steps.phab.outputs.phab_task_urls }}
         run: |
-          echo "==============================="
-          echo "DRY RUN — nothing will be uploaded or tagged"
-          echo "==============================="
-          echo "Version:          $VERSION"
-          echo "Build number:     $BUILD"
-          echo "Last release tag: $LAST_RELEASE_TAG"
-          echo "PRs found:        $PR_NUMBERS"
-          echo ""
-          echo "Phabricator tasks:"
-          cat /tmp/phab_tasks.txt 2>/dev/null || echo "  (none)"
-          echo ""
-          echo "TestFlight 'What to Test' notes would be:"
-          echo "-------------------------------"
-          echo "Build: $VERSION ($BUILD)"
-          echo "Changes since $LAST_RELEASE_TAG"
-          echo ""
-          echo "Phabricator Tasks:"
-          cat /tmp/phab_tasks.txt 2>/dev/null || echo "  (none)"
-          echo "-------------------------------"
+          mkdir -p fastlane/metadata
+          PHAB_TASKS=$(cat /tmp/phab_tasks.txt 2>/dev/null || echo "No Phabricator tasks found")
+
+          cat > /tmp/what_to_test.txt << EOF
+          Build: $VERSION ($BUILD)
+          Changes since $LAST_RELEASE_TAG
+
+          Phabricator Tasks:
+          $PHAB_TASKS
+          EOF
+
+          cat /tmp/what_to_test.txt
+
+      # -------------------------------------------------------
+      # 6. Update build number in Info.plist
+      # -------------------------------------------------------
+      - name: Update build number
+        env:
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          # Only update CFBundleVersion, leave CFBundleShortVersionString as-is
+          /usr/libexec/PlistBuddy -c \
+            "Set :CFBundleVersion $BUILD" \
+            Wikipedia/Wikipedia-Info.plist
+
+          echo "Updated CFBundleVersion to $BUILD"
+
+      # -------------------------------------------------------
+      # 7. Build and upload to TestFlight (internal)
+      # -------------------------------------------------------
+      - name: Install fastlane
+        run: bundle install
+
+      - name: Build and upload to internal TestFlight
+        env:
+          APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
+          APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
+          APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
+          WHAT_TO_TEST_PATH: /tmp/what_to_test.txt
+        run: |
+          bundle exec fastlane internal_beta
+
+      # -------------------------------------------------------
+      # 8. Tag the build
+      # -------------------------------------------------------
+      - name: Tag build
+        env:
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git tag "betas/$BUILD"
+          git push origin "betas/$BUILD"
+
+      # -------------------------------------------------------
+      # 9. Post to Phabricator tasks
+      # -------------------------------------------------------
+      - name: Post to Phabricator tasks
+        env:
+          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
+          PHAB_TASK_URLS: ${{ steps.phab.outputs.phab_task_urls }}
+          VERSION: ${{ steps.versioning.outputs.version }}
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          python3 << 'EOF'
+          import urllib.request
+          import urllib.error
+          import urllib.parse
+          import os
+          import re
+
+          task_urls = os.environ.get('PHAB_TASK_URLS', '')
+          if not task_urls:
+            print("No Phabricator tasks to comment on")
+            exit(0)
+
+          token = os.environ['PHAB_TOKEN']
+          version = os.environ['VERSION']
+          build = os.environ['BUILD']
+
+          comment = f"Available in: TestFlight Wikipedia {version} ({build})"
+
+          for url in task_urls.split(','):
+            if not url:
+              continue
+
+            # Extract task ID e.g. T430860
+            match = re.search(r'T(\d+)$', url.strip())
+            if not match:
+              continue
+            task_id = f"T{match.group(1)}"
+
+            data = urllib.parse.urlencode({
+              'transactions[0][type]': 'comment',
+              'transactions[0][value]': comment,
+              'objectIdentifier': task_id,
+              'token': token,
+            }).encode()
+
+            req = urllib.request.Request(
+              'https://phabricator.wikimedia.org/api/maniphest.edit',
+              data=data
+            )
+
+            try:
+              with urllib.request.urlopen(req) as resp:
+                result = resp.read()
+                import json
+                parsed = json.loads(result)
+                if not parsed.get('error_code'):
+                  print(f"✓ Commented on {task_id}")
+                else:
+                  print(f"✗ Failed to comment on {task_id}: {parsed.get('error_info')}")
+            except urllib.error.HTTPError as e:
+              print(f"✗ Failed to comment on {task_id}: {e}")
+          EOF
