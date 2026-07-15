@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import SwiftUI
 import WMFData
 
 // MARK: - Module types and visibility
@@ -84,6 +85,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
     public let project: WMFProject
     @Published public var description: String?
     @Published public var uiImage: UIImage?
+    @Published public var sampledColor: Color?
 
     private var loadTask: Task<Void, Never>?
 
@@ -104,11 +106,87 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
             self.description = summary.description
             guard let thumbnailURL = summary.thumbnailURL else { return }
             guard let data = try? await WMFImageDataController.shared.fetchImageData(url: thumbnailURL) else { return }
-            self.uiImage = UIImage(data: data)
+            let image = UIImage(data: data)
+            self.uiImage = image
+            if let image, let color = image.accessibleSampledColor() {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    self.sampledColor = color
+                }
+            }
         }
     }
 
     deinit {
         loadTask?.cancel()
     }
+}
+
+// MARK: - WCAG color sampling
+
+private extension UIImage {
+    func accessibleSampledColor() -> Color? {
+        guard let cgImage else { return nil }
+        let width = cgImage.width
+        let height = cgImage.height
+        guard width > 0, height > 0 else { return nil }
+
+        let sampleStartY = (height * 2) / 3
+        let sampleHeight = height - sampleStartY
+
+        guard let cropped = cgImage.cropping(
+            to: CGRect(x: 0, y: sampleStartY, width: width, height: sampleHeight)
+        ) else { return nil }
+
+        let bytesPerPixel = 4
+        let bytesPerRow = bytesPerPixel * width
+        var rawData = [UInt8](repeating: 0, count: sampleHeight * bytesPerRow)
+
+        guard let context = CGContext(
+            data: &rawData,
+            width: width,
+            height: sampleHeight,
+            bitsPerComponent: 8,
+            bytesPerRow: bytesPerRow,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else { return nil }
+
+        context.draw(cropped, in: CGRect(x: 0, y: 0, width: width, height: sampleHeight))
+
+        var totalR: CGFloat = 0
+        var totalG: CGFloat = 0
+        var totalB: CGFloat = 0
+        let pixelCount = CGFloat(width * sampleHeight)
+
+        for i in stride(from: 0, to: rawData.count, by: bytesPerPixel) {
+            totalR += CGFloat(rawData[i])
+            totalG += CGFloat(rawData[i + 1])
+            totalB += CGFloat(rawData[i + 2])
+        }
+
+        var r = totalR / pixelCount / 255
+        var g = totalG / pixelCount / 255
+        var b = totalB / pixelCount / 255
+
+        (r, g, b) = darkenToMeetContrast(r: r, g: g, b: b, targetRatio: 4.5)
+
+        return Color(red: r, green: g, blue: b)
+    }
+}
+
+private func darkenToMeetContrast(r: CGFloat, g: CGFloat, b: CGFloat, targetRatio: CGFloat) -> (CGFloat, CGFloat, CGFloat) {
+    var r = r, g = g, b = b
+    func linearize(_ c: CGFloat) -> CGFloat {
+        c <= 0.03928 ? c / 12.92 : pow((c + 0.055) / 1.055, 2.4)
+    }
+    func luminance(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) -> CGFloat {
+        0.2126 * linearize(r) + 0.7152 * linearize(g) + 0.0722 * linearize(b)
+    }
+    func contrastAgainstWhite(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) -> CGFloat {
+        (1.05) / (luminance(r, g, b) + 0.05)
+    }
+    while contrastAgainstWhite(r, g, b) < targetRatio {
+        r *= 0.95; g *= 0.95; b *= 0.95
+    }
+    return (r, g, b)
 }

@@ -50,6 +50,10 @@ struct WMFDeveloperSettingsView: View {
                 }
             }
 
+            Section(header: Text("For You")) {
+                Toggle("Use color test data", isOn: $viewModel.isUsingColorTestForYou)
+            }
+
             Section(header: Text("Reading Challenge Widget")) {
                 Toggle("Override Current Date", isOn: $viewModel.readingChallengeOverrideCurrentDate)
 

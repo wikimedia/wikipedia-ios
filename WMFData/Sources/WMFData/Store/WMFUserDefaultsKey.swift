@@ -44,6 +44,8 @@ public enum WMFUserDefaultsKey: String {
     case forceHCaptchaChallenge = "force-hcaptcha-challenge"
     case activityTabReadingChallenge = "activity-tab-reading-challenge"
     case allowGestureZoomArticleWebview = "allow-gesture-zoom-article-webview"
+    // Home feed: For You dev settings
+    case homeFeedForYouColorTest = "home-feed-for-you-color-test"
     
     // Reading challenge widget keys
     case hasEnrolledInReadingChallenge2026 = "has-enrolled-in-reading-challenge-2026"

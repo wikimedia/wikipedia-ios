@@ -42,6 +42,7 @@ public final class WMFHomeViewModel: ObservableObject {
         featuredArticle: true, topRead: true, inTheNews: true, onThisDay: true, pictureOfDay: true
     )
     @Published public var hiddenCardKeys: [String] = []
+    @Published public var isUsingColorTestForYou: Bool = WMFDeveloperSettingsDataController.shared.isUsingColorTestForYou
     public var hiddenCardKeySet: Set<String> { Set(hiddenCardKeys) }
 
     let dataController: WMFHomeDataController
@@ -81,6 +82,13 @@ public final class WMFHomeViewModel: ObservableObject {
     }
 
     public func refreshForYouFeed() async {
+        isUsingColorTestForYou = WMFDeveloperSettingsDataController.shared.isUsingColorTestForYou
+
+        if isUsingColorTestForYou {
+            forYouViewModel = WMFForYouViewModel(response: .colorTest)
+            return
+        }
+
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
         do {
@@ -102,11 +110,22 @@ public final class WMFHomeViewModel: ObservableObject {
 
     public func loadForYouFeedIfNeeded() {
         guard forYouViewModel == nil, !isLoadingForYou else { return }
-        guard let language = selectedLanguage else { return }
-        let project = WMFProject.wikipedia(language)
         isLoadingForYou = true
+        isUsingColorTestForYou = WMFDeveloperSettingsDataController.shared.isUsingColorTestForYou
         refreshForYouModuleVisibility()
         hiddenCardKeys = dataController.hiddenCardKeys()
+
+        if isUsingColorTestForYou {
+            forYouViewModel = WMFForYouViewModel(response: .colorTest)
+            isLoadingForYou = false
+            return
+        }
+
+        guard let language = selectedLanguage else {
+            isLoadingForYou = false
+            return
+        }
+        let project = WMFProject.wikipedia(language)
         Task {
             do {
                 let response = try await dataController.fetchForYou(project: project)
@@ -239,7 +258,6 @@ public final class WMFHomeViewModel: ObservableObject {
         Task { await refreshForYouFeed() }
     }
 
-    /// The short code shown on the language menu button (e.g. "EN").
     var languageButtonTitle: String {
         selectedLanguage?.languageCode.uppercased() ?? ""
     }

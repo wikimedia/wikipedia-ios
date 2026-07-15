@@ -81,10 +81,15 @@ private struct WMFForYouArticleCardView: View {
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             LinearGradient(
-                colors: [.clear, .black.opacity(0.75)],
-                startPoint: .center,
+                stops: [
+                    .init(color: .clear, location: 0),
+                    .init(color: (viewModel.sampledColor ?? Color.black.opacity(0.75)).opacity(0.85), location: 0.3),
+                    .init(color: (viewModel.sampledColor ?? Color.black.opacity(0.9)).opacity(1), location: 1)
+                ],
+                startPoint: .init(x: 0.5, y: 0.6),
                 endPoint: .bottom
             )
+            .animation(.easeInOut(duration: 0.3), value: viewModel.sampledColor)
             .ignoresSafeArea()
 
             VStack(alignment: .leading, spacing: 8) {
