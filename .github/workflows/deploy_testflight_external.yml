@@ -43,6 +43,7 @@ jobs:
           python3 << 'EOF'
           import urllib.request
           import csv
+          import json
           import os
           from io import StringIO
 
@@ -58,28 +59,33 @@ jobs:
             with urllib.request.urlopen(url) as resp:
               return list(csv.DictReader(StringIO(resp.read().decode('utf-8'))))
 
-          def get_english_notes(gid):
-            rows = fetch_tab(gid)
-            for row in rows:
-              if row.get('App Store Connect Code', '').strip() == 'en-US':
-                notes = row.get('Notes', '').strip()
-                if notes:
-                  return notes
-            return ''
+          primary_rows = fetch_tab(WHAT_TO_TEST_GID)
+          fallback_rows = fetch_tab(WHAT_TO_TEST_FALLBACK_GID)
 
-          # Try primary tab first, fall back if empty
-          notes = get_english_notes(WHAT_TO_TEST_GID)
-          if not notes:
-            print("No notes in what_to_test tab, using fallback")
-            notes = get_english_notes(WHAT_TO_TEST_FALLBACK_GID)
+          # Build fallback lookup
+          fallback = {}
+          for row in fallback_rows:
+            code = row.get('App Store Connect Code', '').strip()
+            notes = row.get('Notes', '').strip()
+            if code and notes:
+              fallback[code] = notes
 
-          full_notes = f"Build: {version} ({build})\n\n{notes}"
+          # Build localized notes dict
+          localized = {}
+          for row in primary_rows:
+            code = row.get('App Store Connect Code', '').strip()
+            notes = row.get('Notes', '').strip()
+            if not code:
+              continue
+            if not notes:
+              notes = fallback.get(code, '')
+            if notes:
+              localized[code] = f"Build: {version} ({build})\n\n{notes}"
 
-          with open('/tmp/what_to_test.txt', 'w') as f:
-            f.write(full_notes)
+          with open('/tmp/what_to_test.json', 'w') as f:
+            json.dump(localized, f)
 
-          print("What to Test notes:")
-          print(full_notes)
+          print(f"Fetched notes for {len(localized)} languages")
           EOF
 
       # -------------------------------------------------------
@@ -112,7 +118,6 @@ jobs:
           APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
           APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
           APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
-          WHAT_TO_TEST_PATH: /tmp/what_to_test.txt
         run: |
           bundle exec fastlane external_beta
 

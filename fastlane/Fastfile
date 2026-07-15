@@ -1,3 +1,5 @@
+require 'json'
+
 default_platform(:ios)
 
 platform :ios do
@@ -53,13 +55,25 @@ platform :ios do
     api_key = get_api_key
     build_the_app
 
-    what_to_test = File.read(ENV["WHAT_TO_TEST_PATH"]) rescue "See release notes for details"
+    # Read localized notes from JSON file written by workflow
+    localized_notes = JSON.parse(File.read("/tmp/what_to_test.json")) rescue {}
+
+    # Build localized_build_info hash
+    localized_build_info = localized_notes.transform_values do |notes|
+      { whats_new: notes }
+    end
+
+    # Ensure there's always a default
+    unless localized_build_info.key?("default")
+      default_notes = localized_notes["en-US"] || "See release notes for details"
+      localized_build_info["default"] = { whats_new: default_notes }
+    end
 
     upload_to_testflight(
       api_key: api_key,
       distribute_external: true,
       notify_external_testers: true,
-      changelog: what_to_test,
+      localized_build_info: localized_build_info,
       submit_beta_review: true,
       skip_waiting_for_build_processing: false,
       groups: ["External Testers"],
