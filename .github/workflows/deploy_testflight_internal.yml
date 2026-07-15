@@ -359,7 +359,7 @@ jobs:
             headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
             data=urllib.parse.urlencode({
               'api.token': token,
-              'constraints[fullText]': f'Release {version}',
+              'constraints[query]': f'Release {version}',
               'constraints[projects][0]': 'PHID-PROJ-ojylfmfiogxrvnxoiwlp',
             }).encode()
           )

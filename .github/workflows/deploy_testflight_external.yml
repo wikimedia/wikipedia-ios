@@ -260,7 +260,7 @@ jobs:
             --header "User-Agent: GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)" \
             https://phabricator.wikimedia.org/api/maniphest.search \
             -d "api.token=$PHAB_TOKEN" \
-            -d "constraints[fullText]=Release $VERSION" \
+            -d "constraints[query]=Release $VERSION" \
             -d "constraints[projects][0]=PHID-PROJ-ojylfmfiogxrvnxoiwlp")
 
           cat > /tmp/check_phab.py << 'EOF'
@@ -320,7 +320,7 @@ jobs:
             headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
             data=urllib.parse.urlencode({
               'api.token': token,
-              'constraints[fullText]': f'Release {version}',
+              'constraints[query]': f'Release {version}',
               'constraints[projects][0]': 'PHID-PROJ-ojylfmfiogxrvnxoiwlp',
             }).encode()
           )
