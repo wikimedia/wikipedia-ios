@@ -21,7 +21,7 @@ platform :ios do
       derived_data_path: "build",
       destination: "generic/platform=iOS",
       archive_path: "build/Wikipedia.xcarchive",
-      export_method: "app-store",
+      export_method: "app-store-connect",
       xcargs: "-allowProvisioningUpdates -authenticationKeyPath #{ENV['APP_STORE_KEY_PATH']} -authenticationKeyID #{ENV['APP_STORE_API_KEY_ID']} -authenticationKeyIssuerID #{ENV['APP_STORE_ISSUER_ID']}",
     )
   end
@@ -38,10 +38,31 @@ platform :ios do
 
     upload_to_testflight(
       api_key: api_key,
-      distribute_external: false,       # Internal testers only
+      distribute_external: false,
       notify_external_testers: false,
       changelog: what_to_test,
       skip_waiting_for_build_processing: true,
+    )
+  end
+
+  # ----------------------------------------------------------
+  # Workflow 2: External TestFlight
+  # ----------------------------------------------------------
+  desc "Build and deploy to external TestFlight testers, submit for beta review"
+  lane :external_beta do
+    api_key = get_api_key
+    build_the_app
+
+    what_to_test = File.read(ENV["WHAT_TO_TEST_PATH"]) rescue "See release notes for details"
+
+    upload_to_testflight(
+      api_key: api_key,
+      distribute_external: true,
+      notify_external_testers: true,
+      changelog: what_to_test,
+      submit_beta_review: true,
+      skip_waiting_for_build_processing: true,
+      groups: ["External Testers"],
     )
   end
 

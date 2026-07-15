@@ -1,12 +1,149 @@
 name: External TestFlight
- 
+
 on:
   workflow_dispatch:
- 
+
 jobs:
   build-and-upload:
     runs-on: macos-26
+
     steps:
       - uses: actions/checkout@v7
-      - run: echo "hello world"
- 
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # -------------------------------------------------------
+      # 1. Compute build number
+      # -------------------------------------------------------
+      - name: Compute build number
+        id: versioning
+        run: |
+          VERSION=$(/usr/libexec/PlistBuddy -c \
+            "Print :CFBundleShortVersionString" \
+            Wikipedia/Wikipedia-Info.plist)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+          LATEST=$(git tag --list 'betas/*' \
+            | sed 's|betas/||' \
+            | sort -n \
+            | tail -1)
+          BUILD=$(( ${LATEST:-0} + 1 ))
+          echo "build=$BUILD" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION, Build: $BUILD"
+
+      # -------------------------------------------------------
+      # 2. Fetch "What to Test" notes from Google Sheet
+      # -------------------------------------------------------
+      - name: Fetch What to Test notes
+        env:
+          VERSION: ${{ steps.versioning.outputs.version }}
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          python3 << 'EOF'
+          import urllib.request
+          import csv
+          import os
+          from io import StringIO
+
+          SHEET_ID = "16pac3mausm9_ExRKuywfMlnsz2INKcQHu1e23q0XYrk"
+          WHAT_TO_TEST_GID = "0"
+          WHAT_TO_TEST_FALLBACK_GID = "1976262091"
+
+          version = os.environ['VERSION']
+          build = os.environ['BUILD']
+
+          def fetch_tab(gid):
+            url = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&gid={gid}"
+            with urllib.request.urlopen(url) as resp:
+              return list(csv.DictReader(StringIO(resp.read().decode('utf-8'))))
+
+          def get_english_notes(gid):
+            rows = fetch_tab(gid)
+            for row in rows:
+              if row.get('App Store Connect Code', '').strip() == 'en-US':
+                notes = row.get('Notes', '').strip()
+                if notes:
+                  return notes
+            return ''
+
+          # Try primary tab first, fall back if empty
+          notes = get_english_notes(WHAT_TO_TEST_GID)
+          if not notes:
+            print("No notes in what_to_test tab, using fallback")
+            notes = get_english_notes(WHAT_TO_TEST_FALLBACK_GID)
+
+          full_notes = f"Build: {version} ({build})\n\n{notes}"
+
+          with open('/tmp/what_to_test.txt', 'w') as f:
+            f.write(full_notes)
+
+          print("What to Test notes:")
+          print(full_notes)
+          EOF
+
+      # -------------------------------------------------------
+      # 3. Update build number in Info.plist
+      # -------------------------------------------------------
+      - name: Update build number
+        env:
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          /usr/libexec/PlistBuddy -c \
+            "Set :CFBundleVersion $BUILD" \
+            Wikipedia/Wikipedia-Info.plist
+
+          echo "Updated CFBundleVersion to $BUILD"
+
+      # -------------------------------------------------------
+      # 4. Build and upload to TestFlight (external)
+      # -------------------------------------------------------
+      - name: Install fastlane
+        run: bundle install
+
+      - name: Write App Store API Key
+        run: |
+          mkdir -p ~/.appstore
+          echo "${{ secrets.APP_STORE_API_KEY }}" > ~/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8
+          echo "APP_STORE_KEY_PATH=$HOME/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8" >> $GITHUB_ENV
+
+      - name: Build and upload to external TestFlight
+        env:
+          APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
+          APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
+          APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
+          WHAT_TO_TEST_PATH: /tmp/what_to_test.txt
+        run: |
+          bundle exec fastlane external_beta
+
+      # -------------------------------------------------------
+      # 5. Tag the build
+      # -------------------------------------------------------
+      - name: Tag build
+        env:
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git tag "betas/$BUILD"
+          git push origin "betas/$BUILD"
+
+      # -------------------------------------------------------
+      # 6. Create Phabricator release task
+      # -------------------------------------------------------
+      - name: Create Phabricator release task
+        env:
+          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
+          VERSION: ${{ steps.versioning.outputs.version }}
+        run: |
+          DESCRIPTION=$'**Release version**:\n**Release tag**:\n**Release SHA1**:\n**App Store Submission Date**:\n**App Store Approval Date**:\n**App Store Release Date**:'
+
+          curl --header "User-Agent: GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)" \
+            https://phabricator.wikimedia.org/api/maniphest.edit \
+            -d "api.token=$PHAB_TOKEN" \
+            -d "transactions[0][type]=title" \
+            -d "transactions[0][value]=Release $VERSION" \
+            -d "transactions[1][type]=description" \
+            -d "transactions[1][value]=$DESCRIPTION" \
+            -d "transactions[2][type]=projects.add" \
+            -d "transactions[2][value][0]=PHID-PROJ-ojylfmfiogxrvnxoiwlp"
