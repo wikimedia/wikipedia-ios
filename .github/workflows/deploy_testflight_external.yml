@@ -173,25 +173,29 @@ jobs:
               return list(csv.DictReader(StringIO(resp.read().decode('utf-8'))))
 
           primary_rows = fetch_tab(WHAT_TO_TEST_GID)
-          fallback_rows = fetch_tab(WHAT_TO_TEST_FALLBACK_GID)
 
-          fallback = {}
-          for row in fallback_rows:
-            code = row.get('App Store Connect Code', '').strip()
-            notes = row.get('Notes', '').strip()
-            if code and notes:
-              fallback[code] = notes
+          # Check if en-US has content in primary tab
+          en_us_notes = next(
+            (row.get('Notes', '').strip() for row in primary_rows
+             if row.get('App Store Connect Code', '').strip() == 'en-US'),
+            ''
+          )
+
+          # If en-US is empty, use entire fallback tab instead
+          if not en_us_notes:
+            print("en-US is empty in primary tab, using entire fallback tab")
+            rows = fetch_tab(WHAT_TO_TEST_FALLBACK_GID)
+          else:
+            print("en-US has content, using primary tab")
+            rows = primary_rows
 
           localized = {}
-          for row in primary_rows:
+          for row in rows:
             code = row.get('App Store Connect Code', '').strip()
             notes = row.get('Notes', '').strip()
-            if not code:
+            if not code or not notes:
               continue
-            if not notes:
-              notes = fallback.get(code, '')
-            if notes:
-              localized[code] = f"Build: {version} ({build})\n\n{notes}"
+            localized[code] = f"Build: {version} ({build})\n\n{notes}"
 
           with open('/tmp/what_to_test.json', 'w') as f:
             json.dump(localized, f)
