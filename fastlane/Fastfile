@@ -61,7 +61,7 @@ platform :ios do
       notify_external_testers: true,
       changelog: what_to_test,
       submit_beta_review: true,
-      skip_waiting_for_build_processing: true,
+      skip_waiting_for_build_processing: false,
       groups: ["External Testers"],
     )
   end

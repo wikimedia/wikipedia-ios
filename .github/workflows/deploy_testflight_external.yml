@@ -136,6 +136,31 @@ jobs:
           PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
           VERSION: ${{ steps.versioning.outputs.version }}
         run: |
+          # Check if a task already exists with this title
+          SEARCH_RESULT=$(curl -s \
+            --header "User-Agent: GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)" \
+            https://phabricator.wikimedia.org/api/maniphest.search \
+            -d "api.token=$PHAB_TOKEN" \
+            -d "constraints[fullText]=Release $VERSION" \
+            -d "constraints[projects][0]=PHID-PROJ-ojylfmfiogxrvnxoiwlp")
+
+          EXISTING=$(echo "$SEARCH_RESULT" | python3 << 'EOF'
+            import sys, json
+            data = json.load(sys.stdin)
+            tasks = data.get('result', {}).get('data', [])
+            import os
+            title = f"Release {os.environ['VERSION']}"
+            found = any(t.get('fields', {}).get('name') == title for t in tasks)
+            print('found' if found else 'not_found')
+EOF
+          )
+
+          if [ "$EXISTING" = "found" ]; then
+            echo "Release task for $VERSION already exists, skipping"
+            exit 0
+          fi
+
+          echo "Creating release task for $VERSION..."
           DESCRIPTION=$'**Release version**:\n**Release tag**:\n**Release SHA1**:\n**App Store Submission Date**:\n**App Store Approval Date**:\n**App Store Release Date**:'
 
           curl --header "User-Agent: GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)" \
