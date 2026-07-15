@@ -90,7 +90,6 @@ private struct WMFForYouArticleCardView: View {
                 endPoint: .bottom
             )
             .animation(.easeInOut(duration: 0.3), value: viewModel.sampledColor)
-            .ignoresSafeArea()
 
             VStack(alignment: .leading, spacing: 8) {
                 Text(viewModel.headerLabel)
@@ -142,6 +141,7 @@ private struct WMFForYouArticleCardView: View {
             }
             .ignoresSafeArea()
         }
+        .clipped()
         .onAppear {
             viewModel.load()
         }
