@@ -144,16 +144,16 @@ jobs:
             -d "constraints[fullText]=Release $VERSION" \
             -d "constraints[projects][0]=PHID-PROJ-ojylfmfiogxrvnxoiwlp")
 
-          EXISTING=$(echo "$SEARCH_RESULT" | python3 << 'EOF'
-            import sys, json
-            data = json.load(sys.stdin)
-            tasks = data.get('result', {}).get('data', [])
-            import os
-            title = f"Release {os.environ['VERSION']}"
-            found = any(t.get('fields', {}).get('name') == title for t in tasks)
-            print('found' if found else 'not_found')
-EOF
-          )
+          cat > /tmp/check_phab.py << 'EOF'
+          import sys, json, os
+          data = json.load(sys.stdin)
+          tasks = data.get('result', {}).get('data', [])
+          title = f"Release {os.environ['VERSION']}"
+          found = any(t.get('fields', {}).get('name') == title for t in tasks)
+          print('found' if found else 'not_found')
+          EOF
+
+          EXISTING=$(echo "$SEARCH_RESULT" | python3 /tmp/check_phab.py)
 
           if [ "$EXISTING" = "found" ]; then
             echo "Release task for $VERSION already exists, skipping"
