@@ -123,6 +123,8 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
 
 // MARK: - WCAG color sampling
 
+// MARK: - WCAG color sampling
+
 private extension UIImage {
     func accessibleSampledColor() -> Color? {
         guard let cgImage else { return nil }
@@ -153,40 +155,68 @@ private extension UIImage {
 
         context.draw(cropped, in: CGRect(x: 0, y: 0, width: width, height: sampleHeight))
 
-        var totalR: CGFloat = 0
-        var totalG: CGFloat = 0
-        var totalB: CGFloat = 0
-        let pixelCount = CGFloat(width * sampleHeight)
+        var weightedR: CGFloat = 0
+        var weightedG: CGFloat = 0
+        var weightedB: CGFloat = 0
+        var totalWeight: CGFloat = 0
 
         for i in stride(from: 0, to: rawData.count, by: bytesPerPixel) {
-            totalR += CGFloat(rawData[i])
-            totalG += CGFloat(rawData[i + 1])
-            totalB += CGFloat(rawData[i + 2])
+            let r = CGFloat(rawData[i]) / 255
+            let g = CGFloat(rawData[i + 1]) / 255
+            let b = CGFloat(rawData[i + 2]) / 255
+
+            let maxC = max(r, g, b)
+            let minC = min(r, g, b)
+            let saturation = maxC == 0 ? 0 : (maxC - minC) / maxC
+
+            // Square the saturation so highly saturated pixels
+            // dominate much more strongly over gray/white ones
+            let weight = saturation * saturation
+
+            weightedR += r * weight
+            weightedG += g * weight
+            weightedB += b * weight
+            totalWeight += weight
         }
 
-        var r = totalR / pixelCount / 255
-        var g = totalG / pixelCount / 255
-        var b = totalB / pixelCount / 255
+        // Fall back to plain average if image is entirely desaturated
+        guard totalWeight > 0 else {
+            var totalR: CGFloat = 0, totalG: CGFloat = 0, totalB: CGFloat = 0
+            let pixelCount = CGFloat(width * sampleHeight)
+            for i in stride(from: 0, to: rawData.count, by: bytesPerPixel) {
+                totalR += CGFloat(rawData[i])
+                totalG += CGFloat(rawData[i + 1])
+                totalB += CGFloat(rawData[i + 2])
+            }
+            let r = (totalR / pixelCount / 255) * 0.5
+            let g = (totalG / pixelCount / 255) * 0.5
+            let b = (totalB / pixelCount / 255) * 0.5
+            let (dr, dg, db) = darkenToMeetContrast(r: r, g: g, b: b, targetRatio: 4.5)
+            return Color(red: dr, green: dg, blue: db)
+        }
+
+        var r = weightedR / totalWeight
+        var g = weightedG / totalWeight
+        var b = weightedB / totalWeight
 
         (r, g, b) = darkenToMeetContrast(r: r, g: g, b: b, targetRatio: 4.5)
-
         return Color(red: r, green: g, blue: b)
     }
-}
-
-private func darkenToMeetContrast(r: CGFloat, g: CGFloat, b: CGFloat, targetRatio: CGFloat) -> (CGFloat, CGFloat, CGFloat) {
-    var r = r, g = g, b = b
-    func linearize(_ c: CGFloat) -> CGFloat {
-        c <= 0.03928 ? c / 12.92 : pow((c + 0.055) / 1.055, 2.4)
+    
+    private func darkenToMeetContrast(r: CGFloat, g: CGFloat, b: CGFloat, targetRatio: CGFloat) -> (CGFloat, CGFloat, CGFloat) {
+        var r = r, g = g, b = b
+        func linearize(_ c: CGFloat) -> CGFloat {
+            c <= 0.03928 ? c / 12.92 : pow((c + 0.055) / 1.055, 2.4)
+        }
+        func luminance(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) -> CGFloat {
+            0.2126 * linearize(r) + 0.7152 * linearize(g) + 0.0722 * linearize(b)
+        }
+        func contrastAgainstWhite(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) -> CGFloat {
+            (1.05) / (luminance(r, g, b) + 0.05)
+        }
+        while contrastAgainstWhite(r, g, b) < targetRatio {
+            r *= 0.95; g *= 0.95; b *= 0.95
+        }
+        return (r, g, b)
     }
-    func luminance(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) -> CGFloat {
-        0.2126 * linearize(r) + 0.7152 * linearize(g) + 0.0722 * linearize(b)
-    }
-    func contrastAgainstWhite(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) -> CGFloat {
-        (1.05) / (luminance(r, g, b) + 0.05)
-    }
-    while contrastAgainstWhite(r, g, b) < targetRatio {
-        r *= 0.95; g *= 0.95; b *= 0.95
-    }
-    return (r, g, b)
 }
