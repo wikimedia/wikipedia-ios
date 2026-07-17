@@ -58,17 +58,38 @@ private struct WMFForYouPageView: View {
     let onHideCard: (WMFForYouArticleCardViewModel) -> Void
     let onCustomizeInterests: () -> Void
 
+    @State private var currentPage: Int = 0
+
+    private var windowSafeAreaBottom: CGFloat {
+        let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        return scene?.windows.first?.safeAreaInsets.bottom ?? 0
+    }
+
     var body: some View {
-        TabView {
-            ForEach(articleViewModels) { article in
+        TabView(selection: $currentPage) {
+            ForEach(Array(articleViewModels.enumerated()), id: \.element.id) { index, article in
                 WMFForYouArticleCardView(viewModel: article, theme: theme, onHideModule: onHideModule, onHideCard: { onHideCard(article) }, onCustomizeInterests: onCustomizeInterests)
+                    .tag(index)
             }
         }
-        .tabViewStyle(.page(indexDisplayMode: .always))
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .overlay(alignment: .bottom) {
+            HStack(spacing: 8) {
+                ForEach(0..<articleViewModels.count, id: \.self) { index in
+                    Circle()
+                        .fill(index == currentPage ? Color.white : Color.white.opacity(0.4))
+                        .frame(
+                            width: index == currentPage ? 8 : 7,
+                            height: index == currentPage ? 8 : 7
+                        )
+                        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: currentPage)
+                }
+            }
+            .padding(.vertical, 20)
+            .padding(.bottom, windowSafeAreaBottom + 49 + 12)
+        }
     }
 }
-
-// MARK: - Article Card View
 
 // MARK: - Article Card View
 
@@ -79,6 +100,11 @@ private struct WMFForYouArticleCardView: View {
     let onHideModule: () -> Void
     let onHideCard: () -> Void
     let onCustomizeInterests: () -> Void
+
+    private var windowSafeAreaBottom: CGFloat {
+        let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        return scene?.windows.first?.safeAreaInsets.bottom ?? 0
+    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -96,10 +122,9 @@ private struct WMFForYouArticleCardView: View {
                 .frame(width: geometry.size.width, height: geometry.size.height)
                 .clipped()
 
-                // cardColor is already AA compliant against white from sampling
                 let cardColor = viewModel.sampledColor ?? Color.black
 
-                // 2. Gradients at reduced opacity so image shows through
+                // 2. Gradients + blur
                 ZStack {
                     LinearGradient(
                         stops: [
@@ -124,7 +149,7 @@ private struct WMFForYouArticleCardView: View {
                 .blur(radius: 5)
                 .animation(.easeInOut(duration: 0.3), value: viewModel.sampledColor)
 
-                // 3. Text on top, unblurred, full cardColor for AA compliance
+                // 3. Text on top, unblurred
                 VStack(alignment: .leading, spacing: 8) {
                     Text(viewModel.headerLabel)
                         .font(Font(WMFFont.for(.boldSubheadline)))
@@ -143,7 +168,7 @@ private struct WMFForYouArticleCardView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, geometry.safeAreaInsets.bottom + 44)
+                .padding(.bottom, windowSafeAreaBottom + 44 + 32 + 47)
                 .frame(width: geometry.size.width, alignment: .leading)
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
@@ -172,3 +197,4 @@ private struct WMFForYouArticleCardView: View {
         }
     }
 }
+
