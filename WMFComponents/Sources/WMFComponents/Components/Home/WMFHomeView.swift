@@ -12,13 +12,28 @@ public struct WMFHomeView: View {
         self.viewModel = viewModel
     }
 
+    private var navBarBottom: CGFloat {
+        let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let window = scene?.windows.first
+        let safeAreaTop = window?.safeAreaInsets.top ?? 0
+        return safeAreaTop + 44
+    }
+
     public var body: some View {
-        VStack(spacing: 0) {
-            HStack {
+        ZStack(alignment: .top) {
+            if viewModel.selectedTab == .forYou {
+                forYouTabContent
+            } else {
+                communityTabContent
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color(uiColor: theme.paperBackground))
+                    .padding(.top, navBarBottom + 52)
+            }
+
+            HStack(alignment: .center, spacing: 8) {
                 Picker("", selection: $viewModel.selectedTab) {
                     Text(viewModel.communityTabTitle).tag(WMFHomeViewModel.Tab.community)
                     Text(viewModel.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
-
                 }
                 .pickerStyle(.segmented)
 
@@ -34,9 +49,7 @@ public struct WMFHomeView: View {
                             }
                         }
                     }
-
                     Divider()
-
                     Button {
                         viewModel.didTapEditLanguages?()
                     } label: {
@@ -46,24 +59,24 @@ public struct WMFHomeView: View {
                     Text(viewModel.languageButtonTitle)
                         .font(Font(WMFFont.for(.semiboldHeadline)))
                         .foregroundStyle(Color(uiColor: theme.link))
+                        .dynamicTypeSize(.xSmall ... .accessibility2)
+                        .minimumScaleFactor(0.7)
+                        .lineLimit(1)
                 }
                 .accessibilityIdentifier(AccessibilityIdentifiers.Home.languagePickerButton)
             }
-            .padding()
-
-            if viewModel.selectedTab == .forYou {
-                forYouTabContent
-            } else {
-                communityTabContent
-            }
+            .padding(.horizontal)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.top, navBarBottom + 8)
+            .background(viewModel.selectedTab == .forYou ? Color.clear : Color(uiColor: theme.paperBackground))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(uiColor: theme.paperBackground))
+        .ignoresSafeArea()
         .environment(\.colorScheme, theme.preferredColorScheme)
         .task {
             viewModel.loadCurrentTabFeedIfNeeded()
         }
-        .onChange(of: viewModel.selectedTab) { _ in
+        .onChange(of: viewModel.selectedTab) {
             viewModel.loadCurrentTabFeedIfNeeded()
         }
     }
@@ -80,6 +93,7 @@ public struct WMFHomeView: View {
                 onHideCard: { viewModel.hideForYouCard($0) },
                 onCustomizeInterests: { viewModel.didTapCustomizeInterests?() }
             )
+            .ignoresSafeArea()
         } else if viewModel.isLoadingForYou {
             Spacer()
             ProgressView()

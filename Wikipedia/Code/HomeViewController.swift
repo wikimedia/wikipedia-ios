@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 import WMF
 import WMFComponents
 import WMFData
@@ -15,6 +16,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     private let dataStore: MWKDataStore
     let viewModel: WMFHomeViewModel
     private let hostingController: WMFHomeHostingController
+    private var tabObservation: AnyCancellable?
 
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
@@ -39,6 +41,10 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     override func viewDidLoad() {
         super.viewDidLoad()
         view.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.homeButton
+
+        edgesForExtendedLayout = .all
+        extendedLayoutIncludesOpaqueBars = true
+
         embedHostingController()
 
         viewModel.didSelectLanguage = { [weak self] language in
@@ -50,13 +56,37 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         viewModel.didTapCustomizeInterests = { [weak self] in
             self?.presentWhatsDrivingTest()
         }
+
+        tabObservation = viewModel.$selectedTab.sink { [weak self] tab in
+            DispatchQueue.main.async {
+                self?.updateNavigationBarAppearance(for: tab)
+            }
+        }
+
         reloadLanguages()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
+        updateNavigationBarAppearance(for: viewModel.selectedTab)
         reloadLanguages()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateNavigationBarAppearance(for: viewModel.selectedTab)
+    }
+    
+    // MARK: - Navigation Bar Appearance
+
+    private func updateNavigationBarAppearance(for tab: WMFHomeViewModel.Tab) {
+        guard let navController = navigationController as? WMFComponentNavigationController else { return }
+        if tab == .forYou {
+            navController.setTransparentAppearance(true)
+        } else {
+            navController.setTransparentAppearance(false)
+        }
     }
 
     // MARK: - Languages
@@ -102,6 +132,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     private func embedHostingController() {
         addChild(hostingController)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        hostingController.view.backgroundColor = .clear
         view.addSubview(hostingController.view)
         NSLayoutConstraint.activate([
             hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
