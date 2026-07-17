@@ -84,6 +84,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
     public let title: String
     public let project: WMFProject
     @Published public var description: String?
+    @Published public var extract: String?
     @Published public var uiImage: UIImage?
     @Published public var sampledColor: Color?
 
@@ -95,6 +96,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
         self.headerLabel = headerLabel
         self.title = article.title
         self.project = article.project
+        self.description = article.title
         self.hideKey = "for_you_\(article.project.id)_\(article.title)"
     }
 
@@ -104,6 +106,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
             guard let self else { return }
             guard let summary = try? await WMFArticleSummaryDataController.shared.fetchArticleSummary(project: project, title: title) else { return }
             self.description = summary.description
+            self.extract = summary.extract
             guard let thumbnailURL = summary.thumbnailURL else { return }
             guard let data = try? await WMFImageDataController.shared.fetchImageData(url: thumbnailURL) else { return }
             let image = UIImage(data: data)

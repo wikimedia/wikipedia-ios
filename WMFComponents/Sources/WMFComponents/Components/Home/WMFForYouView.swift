@@ -106,6 +106,11 @@ private struct WMFForYouArticleCardView: View {
         return scene?.windows.first?.safeAreaInsets.bottom ?? 0
     }
 
+    // dots (8pt) + vertical padding (20pt x2) + tab bar (49pt) + offset (12pt)
+    private var dotsAndTabBarHeight: CGFloat {
+        windowSafeAreaBottom + 49 + 12 + 20 + 8 + 20
+    }
+
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .bottomLeading) {
@@ -149,47 +154,77 @@ private struct WMFForYouArticleCardView: View {
                 .blur(radius: 5)
                 .animation(.easeInOut(duration: 0.3), value: viewModel.sampledColor)
 
-                // 3. Text on top, unblurred
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(viewModel.headerLabel)
-                        .font(Font(WMFFont.for(.boldSubheadline)))
-                        .foregroundStyle(.white.opacity(0.8))
-                        .shadow(color: cardColor.opacity(0.8), radius: 4)
-                    Text(viewModel.title)
-                        .font(Font(WMFFont.for(.boldTitle1)))
-                        .foregroundStyle(.white)
-                        .shadow(color: cardColor.opacity(0.8), radius: 4)
-                    if let description = viewModel.description {
-                        Text(description)
-                            .font(Font(WMFFont.for(.subheadline)))
-                            .foregroundStyle(.white.opacity(0.9))
-                            .lineLimit(3)
+                // 3. Content: title row, description, because of
+                VStack(alignment: .leading, spacing: 0) {
+
+                    // Title + menu
+                    HStack(alignment: .top, spacing: 12) {
+                        Text(viewModel.title)
+                            .font(Font(WMFFont.for(.georgiaTitle1)))
+                            .foregroundStyle(.white)
                             .shadow(color: cardColor.opacity(0.8), radius: 4)
+                            .lineLimit(3)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+
+                        Menu {
+                            Button(action: onCustomizeInterests) {
+                                Label("Customize interests", systemImage: "slider.horizontal.3")
+                            }
+                            Button(role: .destructive, action: onHideCard) {
+                                Label("Hide this card", systemImage: "eye.slash")
+                            }
+                            Button(role: .destructive, action: onHideModule) {
+                                Label("Hide module", systemImage: "xmark.circle")
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .foregroundStyle(.white)
+                                .shadow(radius: 2)
+                                .padding(12)
+                                .background(.ultraThinMaterial, in: Circle())
+                        }
+                    }
+
+                    if let extract = viewModel.extract {
+                        Spacer().frame(height: 12)
+                        Text(extract)
+                            .font(Font(WMFFont.for(.body)))
+                            .foregroundStyle(.white.opacity(0.9))
+                            .shadow(color: cardColor.opacity(0.8), radius: 4)
+                            .lineLimit(5)
+                    }
+
+                    if !viewModel.headerLabel.isEmpty {
+                        Spacer().frame(height: 16)
+                        // "Because of your interest: <Topic>"
+                        // headerLabel is e.g. "Interest Topic: Visual arts"
+                        // Split on ": " to style separately
+                        let parts = viewModel.headerLabel.components(separatedBy: ": ")
+                        if parts.count >= 2 {
+                            let prefix = parts[0] + ": "
+                            let interest = parts[1...].joined(separator: ": ")
+                            (Text(prefix)
+                                .font(Font(WMFFont.for(.caption1)))
+                                .foregroundStyle(.white.opacity(0.8))
+                             + Text(interest)
+                                .font(Font(WMFFont.for(.boldCaption1)))
+                                .foregroundStyle(.white.opacity(0.8)))
+                            .shadow(color: cardColor.opacity(0.8), radius: 4)
+                            .lineLimit(2)
+                        } else {
+                            Text(viewModel.headerLabel)
+                                .font(Font(WMFFont.for(.caption1)))
+                                .foregroundStyle(.white.opacity(0.8))
+                                .shadow(color: cardColor.opacity(0.8), radius: 4)
+                                .lineLimit(2)
+                        }
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, windowSafeAreaBottom + 44 + 32 + 47)
+                .padding(.bottom, dotsAndTabBarHeight)
                 .frame(width: geometry.size.width, alignment: .leading)
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
-            .overlay(alignment: .topTrailing) {
-                Menu {
-                    Button(action: onCustomizeInterests) {
-                        Label("Customize interests", systemImage: "slider.horizontal.3")
-                    }
-                    Button(role: .destructive, action: onHideCard) {
-                        Label("Hide this card", systemImage: "eye.slash")
-                    }
-                    Button(role: .destructive, action: onHideModule) {
-                        Label("Hide module", systemImage: "xmark.circle")
-                    }
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundStyle(.white)
-                        .shadow(radius: 2)
-                        .padding(16)
-                }
-            }
             .clipped()
             .onAppear {
                 viewModel.load()
@@ -197,4 +232,3 @@ private struct WMFForYouArticleCardView: View {
         }
     }
 }
-
