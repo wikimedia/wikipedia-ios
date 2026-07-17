@@ -56,6 +56,15 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         viewModel.didTapCustomizeInterests = { [weak self] in
             self?.presentWhatsDrivingTest()
         }
+        viewModel.didTapForYouCard = { [weak self] article in
+            self?.navigateToForYouArticle(article)
+        }
+        viewModel.didSaveForYouCard = { [weak self] article in
+            self?.saveForYouArticle(article)
+        }
+        viewModel.didShareForYouCard = { [weak self] article in
+            self?.shareForYouArticle(article)
+        }
 
         tabObservation = viewModel.$selectedTab.sink { [weak self] tab in
             DispatchQueue.main.async {
@@ -64,6 +73,40 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         }
 
         reloadLanguages()
+    }
+    
+    private func navigateToForYouArticle(_ article: WMFForYouArticleCardViewModel) {
+        guard let siteURL = article.project.siteURL,
+              var articleURL = siteURL.wmf_URL(withTitle: article.title) else { return }
+        articleURL.wmf_languageVariantCode = article.project.languageVariantCode
+        let coordinator = ArticleCoordinator(
+            navigationController: navigationController ?? UINavigationController(),
+            articleURL: articleURL,
+            dataStore: dataStore,
+            theme: theme,
+            source: .undefined,
+            tabConfig: .appendArticleAndAssignCurrentTab
+        )
+        coordinator.start()
+    }
+
+    private func saveForYouArticle(_ article: WMFForYouArticleCardViewModel) {
+        guard let siteURL = article.project.siteURL,
+              var articleURL = siteURL.wmf_URL(withTitle: article.title) else { return }
+        articleURL.wmf_languageVariantCode = article.project.languageVariantCode
+        dataStore.savedPageList.addSavedPage(with: articleURL)
+    }
+
+    private func shareForYouArticle(_ article: WMFForYouArticleCardViewModel) {
+        guard let siteURL = article.project.siteURL,
+              var articleURL = siteURL.wmf_URL(withTitle: article.title) else { return }
+        articleURL.wmf_languageVariantCode = article.project.languageVariantCode
+        let activityVC = UIActivityViewController(activityItems: [articleURL], applicationActivities: nil)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            activityVC.popoverPresentationController?.sourceView = view
+            activityVC.popoverPresentationController?.sourceRect = view.bounds
+        }
+        present(activityVC, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -1,6 +1,33 @@
 import SwiftUI
 import WMFData
 
+// MARK: - Card Variant
+
+private enum WMFForYouCardVariant {
+    case balanced       // variant 1: image bg + extract (index 0, 3)
+    case imageFocused   // variant 2: image bg + description only (index 1)
+    case textFocused    // variant 3: no image + color bg + mini card (index 2)
+
+    static func variant(for index: Int) -> WMFForYouCardVariant {
+        switch index % 4 {
+        case 0, 3: return .balanced
+        case 1:    return .imageFocused
+        case 2:    return .textFocused
+        default:   return .balanced
+        }
+    }
+
+    static let textFocusedBackgrounds: [Color] = [
+        Color(uiColor: WMFColor.purple800),
+        Color(uiColor: WMFColor.pink800),
+        Color(uiColor: WMFColor.orange800)
+    ]
+
+    func backgroundColor(for index: Int) -> Color {
+        Self.textFocusedBackgrounds[index % Self.textFocusedBackgrounds.count]
+    }
+}
+
 // MARK: - For You Feed View
 
 public struct WMFForYouView: View {
@@ -16,8 +43,22 @@ public struct WMFForYouView: View {
     let onHideModule: (WMFForYouModule) -> Void
     let onHideCard: (WMFForYouArticleCardViewModel) -> Void
     let onCustomizeInterests: () -> Void
+    let onTapCard: (WMFForYouArticleCardViewModel) -> Void
+    let onSaveCard: (WMFForYouArticleCardViewModel) -> Void
+    let onShareCard: (WMFForYouArticleCardViewModel) -> Void
 
-    public init(viewModel: WMFForYouViewModel, moduleVisibility: WMFForYouModuleVisibility, hiddenCardKeys: Set<String> = [], onRefresh: @escaping () async -> Void, onHideModule: @escaping (WMFForYouModule) -> Void, onHideCard: @escaping (WMFForYouArticleCardViewModel) -> Void, onCustomizeInterests: @escaping () -> Void) {
+    public init(
+        viewModel: WMFForYouViewModel,
+        moduleVisibility: WMFForYouModuleVisibility,
+        hiddenCardKeys: Set<String> = [],
+        onRefresh: @escaping () async -> Void,
+        onHideModule: @escaping (WMFForYouModule) -> Void,
+        onHideCard: @escaping (WMFForYouArticleCardViewModel) -> Void,
+        onCustomizeInterests: @escaping () -> Void,
+        onTapCard: @escaping (WMFForYouArticleCardViewModel) -> Void,
+        onSaveCard: @escaping (WMFForYouArticleCardViewModel) -> Void,
+        onShareCard: @escaping (WMFForYouArticleCardViewModel) -> Void
+    ) {
         self.viewModel = viewModel
         self.moduleVisibility = moduleVisibility
         self.hiddenCardKeys = hiddenCardKeys
@@ -25,6 +66,9 @@ public struct WMFForYouView: View {
         self.onHideModule = onHideModule
         self.onHideCard = onHideCard
         self.onCustomizeInterests = onCustomizeInterests
+        self.onTapCard = onTapCard
+        self.onSaveCard = onSaveCard
+        self.onShareCard = onShareCard
     }
 
     public var body: some View {
@@ -34,8 +78,17 @@ public struct WMFForYouView: View {
                     ForEach(viewModel.pages.filter { moduleVisibility.isVisible($0.module) }) { page in
                         let visibleArticles = page.articleViewModels.filter { !hiddenCardKeys.contains($0.hideKey) }
                         if !visibleArticles.isEmpty {
-                            WMFForYouPageView(articleViewModels: visibleArticles, theme: theme, onHideModule: { onHideModule(page.module) }, onHideCard: onHideCard, onCustomizeInterests: onCustomizeInterests)
-                                .frame(width: geometry.size.width, height: geometry.size.height)
+                            WMFForYouPageView(
+                                articleViewModels: visibleArticles,
+                                theme: theme,
+                                onHideModule: { onHideModule(page.module) },
+                                onHideCard: onHideCard,
+                                onCustomizeInterests: onCustomizeInterests,
+                                onTapCard: onTapCard,
+                                onSaveCard: onSaveCard,
+                                onShareCard: onShareCard
+                            )
+                            .frame(width: geometry.size.width, height: geometry.size.height)
                         }
                     }
                 }
@@ -57,6 +110,9 @@ private struct WMFForYouPageView: View {
     let onHideModule: () -> Void
     let onHideCard: (WMFForYouArticleCardViewModel) -> Void
     let onCustomizeInterests: () -> Void
+    let onTapCard: (WMFForYouArticleCardViewModel) -> Void
+    let onSaveCard: (WMFForYouArticleCardViewModel) -> Void
+    let onShareCard: (WMFForYouArticleCardViewModel) -> Void
 
     @State private var currentPage: Int = 0
 
@@ -68,8 +124,20 @@ private struct WMFForYouPageView: View {
     var body: some View {
         TabView(selection: $currentPage) {
             ForEach(Array(articleViewModels.enumerated()), id: \.element.id) { index, article in
-                WMFForYouArticleCardView(viewModel: article, theme: theme, onHideModule: onHideModule, onHideCard: { onHideCard(article) }, onCustomizeInterests: onCustomizeInterests)
-                    .tag(index)
+                let variant = WMFForYouCardVariant.variant(for: index)
+                WMFForYouArticleCardView(
+                    viewModel: article,
+                    variant: variant,
+                    variantIndex: index,
+                    theme: theme,
+                    onHideModule: onHideModule,
+                    onHideCard: { onHideCard(article) },
+                    onCustomizeInterests: onCustomizeInterests,
+                    onTapCard: { onTapCard(article) },
+                    onSaveCard: { onSaveCard(article) },
+                    onShareCard: { onShareCard(article) }
+                )
+                .tag(index)
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
@@ -91,144 +159,275 @@ private struct WMFForYouPageView: View {
     }
 }
 
+// MARK: - Mini Card (Variant 3)
+
+private struct WMFForYouMiniCard: View {
+    let title: String
+    let description: String?
+    let uiImage: UIImage?
+    let onMenu: () -> Void
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 12) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Mini card")
+                    .font(Font(WMFFont.for(.boldCaption1)))
+                    .foregroundStyle(.white.opacity(0.5))
+                Text(title)
+                    .font(Font(WMFFont.for(.boldSubheadline)))
+                    .foregroundStyle(.white)
+                    .lineLimit(1)
+                if let description {
+                    Text(description)
+                        .font(Font(WMFFont.for(.caption1)))
+                        .foregroundStyle(.white.opacity(0.8))
+                        .lineLimit(2)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            if let uiImage {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 56, height: 56)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            } else {
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(.white.opacity(0.15))
+                    .frame(width: 56, height: 56)
+            }
+
+            Button(action: onMenu) {
+                Image(systemName: "ellipsis")
+                    .foregroundStyle(.white)
+                    .padding(8)
+            }
+        }
+        .padding(16)
+        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
+    }
+}
+
 // MARK: - Article Card View
 
 private struct WMFForYouArticleCardView: View {
 
     @ObservedObject var viewModel: WMFForYouArticleCardViewModel
+    let variant: WMFForYouCardVariant
+    let variantIndex: Int
     let theme: WMFTheme
     let onHideModule: () -> Void
     let onHideCard: () -> Void
     let onCustomizeInterests: () -> Void
+    let onTapCard: () -> Void
+    let onSaveCard: () -> Void
+    let onShareCard: () -> Void
 
     private var windowSafeAreaBottom: CGFloat {
         let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         return scene?.windows.first?.safeAreaInsets.bottom ?? 0
     }
 
-    // dots (8pt) + vertical padding (20pt x2) + tab bar (49pt) + offset (12pt)
     private var dotsAndTabBarHeight: CGFloat {
         windowSafeAreaBottom + 49 + 12 + 20 + 8 + 20
+    }
+
+    /// If the assigned variant requires an image but none is available, fall back to textFocused.
+    private var effectiveVariant: WMFForYouCardVariant {
+        if variant != .textFocused && viewModel.uiImage == nil {
+            return .textFocused
+        }
+        return variant
+    }
+
+    private var cardColor: Color {
+        switch effectiveVariant {
+        case .textFocused:
+            return WMFForYouCardVariant.textFocusedBackgrounds[variantIndex % WMFForYouCardVariant.textFocusedBackgrounds.count]
+        default:
+            return viewModel.sampledColor ?? Color.black
+        }
+    }
+
+    private var menuView: some View {
+        Menu {
+            Button { onSaveCard() } label: {
+                Label("Save", systemImage: "bookmark")
+            }
+            Button { onShareCard() } label: {
+                Label("Share", systemImage: "square.and.arrow.up")
+            }
+            Button(role: .destructive, action: onHideCard) {
+                Label("Hide this card", systemImage: "eye.slash")
+            }
+            Button(role: .destructive, action: onHideModule) {
+                Label("Hide module", systemImage: "xmark.circle")
+            }
+            Button(action: onCustomizeInterests) {
+                Label("Customize interests", systemImage: "slider.horizontal.3")
+            }
+        } label: {
+            Image(systemName: "ellipsis")
+                .foregroundStyle(.white)
+                .shadow(radius: 2)
+                .padding(12)
+                .background(.ultraThinMaterial, in: Circle())
+        }
+    }
+
+    private var headerLabel: some View {
+        Group {
+            let parts = viewModel.headerLabel.components(separatedBy: ": ")
+            if parts.count >= 2 {
+                let prefix = parts[0] + ": "
+                let interest = parts[1...].joined(separator: ": ")
+                (Text(prefix)
+                    .font(Font(WMFFont.for(.caption1)))
+                 + Text(interest)
+                    .font(Font(WMFFont.for(.boldCaption1))))
+                .foregroundStyle(.white.opacity(0.8))
+                .lineLimit(2)
+            } else {
+                Text(viewModel.headerLabel)
+                    .font(Font(WMFFont.for(.caption1)))
+                    .foregroundStyle(.white.opacity(0.8))
+                    .lineLimit(2)
+            }
+        }
     }
 
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .bottomLeading) {
-                // 1. Background image
+
+                // 1. Background
                 Group {
-                    if let uiImage = viewModel.uiImage {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .scaledToFill()
-                    } else {
-                        Color(uiColor: theme.midBackground)
-                    }
-                }
-                .frame(width: geometry.size.width, height: geometry.size.height)
-                .clipped()
-
-                let cardColor = viewModel.sampledColor ?? Color.black
-
-                // 2. Gradients + blur
-                ZStack {
-                    LinearGradient(
-                        stops: [
-                            .init(color: cardColor.opacity(0), location: 0.0),
-                            .init(color: cardColor.opacity(0.6), location: 1.0)
-                        ],
-                        startPoint: UnitPoint(x: 0.5, y: 0.26),
-                        endPoint: UnitPoint(x: 0.5, y: 0.15)
-                    )
-                    LinearGradient(
-                        stops: [
-                            .init(color: cardColor.opacity(0), location: 0.0),
-                            .init(color: cardColor.opacity(0.85), location: 0.35)
-                        ],
-                        startPoint: UnitPoint(x: 0.5, y: 0.61),
-                        endPoint: UnitPoint(x: 0.5, y: 0.92)
-                    )
-                }
-                .frame(width: geometry.size.width, height: geometry.size.height)
-                .clipped()
-                .drawingGroup()
-                .blur(radius: 5)
-                .animation(.easeInOut(duration: 0.3), value: viewModel.sampledColor)
-
-                // 3. Content: title row, description, because of
-                VStack(alignment: .leading, spacing: 0) {
-
-                    // Title + menu
-                    HStack(alignment: .top, spacing: 12) {
-                        Text(viewModel.title)
-                            .font(Font(WMFFont.for(.georgiaTitle1)))
-                            .foregroundStyle(.white)
-                            .shadow(color: cardColor.opacity(0.8), radius: 4)
-                            .lineLimit(3)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-
-                        Menu {
-                            Button(action: onCustomizeInterests) {
-                                Label("Customize interests", systemImage: "slider.horizontal.3")
-                            }
-                            Button(role: .destructive, action: onHideCard) {
-                                Label("Hide this card", systemImage: "eye.slash")
-                            }
-                            Button(role: .destructive, action: onHideModule) {
-                                Label("Hide module", systemImage: "xmark.circle")
-                            }
-                        } label: {
-                            Image(systemName: "ellipsis")
-                                .foregroundStyle(.white)
-                                .shadow(radius: 2)
-                                .padding(12)
-                                .background(.ultraThinMaterial, in: Circle())
-                        }
-                    }
-
-                    if let extract = viewModel.extract {
-                        Spacer().frame(height: 12)
-                        Text(extract)
-                            .font(Font(WMFFont.for(.body)))
-                            .foregroundStyle(.white.opacity(0.9))
-                            .shadow(color: cardColor.opacity(0.8), radius: 4)
-                            .lineLimit(5)
-                    }
-
-                    if !viewModel.headerLabel.isEmpty {
-                        Spacer().frame(height: 16)
-                        // "Because of your interest: <Topic>"
-                        // headerLabel is e.g. "Interest Topic: Visual arts"
-                        // Split on ": " to style separately
-                        let parts = viewModel.headerLabel.components(separatedBy: ": ")
-                        if parts.count >= 2 {
-                            let prefix = parts[0] + ": "
-                            let interest = parts[1...].joined(separator: ": ")
-                            (Text(prefix)
-                                .font(Font(WMFFont.for(.caption1)))
-                                .foregroundStyle(.white.opacity(0.8))
-                             + Text(interest)
-                                .font(Font(WMFFont.for(.boldCaption1)))
-                                .foregroundStyle(.white.opacity(0.8)))
-                            .shadow(color: cardColor.opacity(0.8), radius: 4)
-                            .lineLimit(2)
+                    switch effectiveVariant {
+                    case .textFocused:
+                        cardColor
+                    default:
+                        if let uiImage = viewModel.uiImage {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFill()
                         } else {
-                            Text(viewModel.headerLabel)
-                                .font(Font(WMFFont.for(.caption1)))
-                                .foregroundStyle(.white.opacity(0.8))
-                                .shadow(color: cardColor.opacity(0.8), radius: 4)
-                                .lineLimit(2)
+                            cardColor
                         }
                     }
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, dotsAndTabBarHeight)
-                .frame(width: geometry.size.width, alignment: .leading)
+                .frame(width: geometry.size.width, height: geometry.size.height)
+                .clipped()
+
+                // 2. Gradients + blur (image variants with actual image only)
+                if effectiveVariant != .textFocused {
+                    ZStack {
+                        LinearGradient(
+                            stops: [
+                                .init(color: cardColor.opacity(0), location: 0.0),
+                                .init(color: cardColor.opacity(0.6), location: 1.0)
+                            ],
+                            startPoint: UnitPoint(x: 0.5, y: 0.26),
+                            endPoint: UnitPoint(x: 0.5, y: 0.15)
+                        )
+                        LinearGradient(
+                            stops: [
+                                .init(color: cardColor.opacity(0), location: 0.0),
+                                .init(color: cardColor.opacity(0.85), location: 0.35)
+                            ],
+                            startPoint: UnitPoint(x: 0.5, y: 0.61),
+                            endPoint: UnitPoint(x: 0.5, y: 0.92)
+                        )
+                    }
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .clipped()
+                    .drawingGroup()
+                    .blur(radius: 5)
+                    .animation(.easeInOut(duration: 0.3), value: viewModel.sampledColor)
+                }
+
+                // 3. Content
+                switch effectiveVariant {
+
+                // MARK: Variant 3: Text-focused (also used as fallback when no image)
+                case .textFocused:
+                    VStack(alignment: .leading, spacing: 0) {
+                        HStack(alignment: .top, spacing: 12) {
+                            Text(viewModel.extract ?? viewModel.title)
+                                .font(Font(WMFFont.for(.georgiaTitle1)))
+                                .foregroundStyle(.white)
+                                .lineLimit(8)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            menuView
+                        }
+
+                        Spacer().frame(height: 16)
+
+                        WMFForYouMiniCard(
+                            title: viewModel.title,
+                            description: viewModel.description,
+                            uiImage: viewModel.uiImage,
+                            onMenu: onSaveCard
+                        )
+
+                        if !viewModel.headerLabel.isEmpty {
+                            Spacer().frame(height: 16)
+                            headerLabel
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, dotsAndTabBarHeight)
+                    .frame(width: geometry.size.width, alignment: .leading)
+
+                // MARK: Variant 1 & 2: Image-backed
+                default:
+                    VStack(alignment: .leading, spacing: 0) {
+                        HStack(alignment: .top, spacing: 12) {
+                            Text(viewModel.title)
+                                .font(Font(WMFFont.for(.georgiaTitle1)))
+                                .foregroundStyle(.white)
+                                .shadow(color: cardColor.opacity(0.8), radius: 4)
+                                .lineLimit(effectiveVariant == .imageFocused ? 1 : 3)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            menuView
+                        }
+
+                        let bodyText: String? = {
+                            switch effectiveVariant {
+                            case .balanced:
+                                return viewModel.extract ?? viewModel.description
+                            case .imageFocused:
+                                return viewModel.description
+                            default:
+                                return nil
+                            }
+                        }()
+
+                        if let bodyText {
+                            Spacer().frame(height: 12)
+                            Text(bodyText)
+                                .font(Font(WMFFont.for(.body)))
+                                .foregroundStyle(.white.opacity(0.9))
+                                .shadow(color: cardColor.opacity(0.8), radius: 4)
+                                .lineLimit(effectiveVariant == .imageFocused ? 2 : 5)
+                        }
+
+                        if !viewModel.headerLabel.isEmpty {
+                            Spacer().frame(height: 16)
+                            headerLabel
+                                .shadow(color: cardColor.opacity(0.8), radius: 4)
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, dotsAndTabBarHeight)
+                    .frame(width: geometry.size.width, alignment: .leading)
+                }
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
             .clipped()
-            .onAppear {
-                viewModel.load()
-            }
+            .contentShape(Rectangle())
+            .onTapGesture { onTapCard() }
+            .onAppear { viewModel.load() }
         }
     }
 }

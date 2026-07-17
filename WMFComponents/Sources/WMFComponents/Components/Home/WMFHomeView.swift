@@ -91,7 +91,10 @@ public struct WMFHomeView: View {
                 onRefresh: { await viewModel.refreshForYouFeed() },
                 onHideModule: { viewModel.hideForYouModule($0) },
                 onHideCard: { viewModel.hideForYouCard($0) },
-                onCustomizeInterests: { viewModel.didTapCustomizeInterests?() }
+                onCustomizeInterests: { viewModel.didTapCustomizeInterests?() },
+                onTapCard: { viewModel.didTapForYouCard?($0) },
+                onSaveCard: { viewModel.didSaveForYouCard?($0) },
+                onShareCard: { viewModel.didShareForYouCard?($0) }
             )
             .ignoresSafeArea()
         } else if viewModel.isLoadingForYou {

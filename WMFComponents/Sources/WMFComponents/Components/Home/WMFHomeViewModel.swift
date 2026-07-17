@@ -9,6 +9,10 @@ extension WMFLanguage: Identifiable {
 
 @MainActor
 public final class WMFHomeViewModel: ObservableObject {
+    
+    public var didTapForYouCard: ((WMFForYouArticleCardViewModel) -> Void)?
+    public var didSaveForYouCard: ((WMFForYouArticleCardViewModel) -> Void)?
+    public var didShareForYouCard: ((WMFForYouArticleCardViewModel) -> Void)?
 
     public enum Tab: Int, CaseIterable {
         case forYou
