@@ -43,6 +43,17 @@ public final actor WMFHomeDataController {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeSelectedLanguage.rawValue, value: newValue)
     }
 
+    // MARK: - Settings: See first content preference
+
+    /// Which content the Home feed shows first, chosen during app onboarding.
+    public nonisolated func seeFirstContent() -> WMFHomeFeedSeeFirst {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeFeedSeeFirst.rawValue)) ?? .community
+    }
+
+    public nonisolated func setSeeFirstContent(_ newValue: WMFHomeFeedSeeFirst) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedSeeFirst.rawValue, value: newValue)
+    }
+
     // MARK: - Settings: Community Modules
 
     public nonisolated func communityFeaturedArticleIsOn() -> Bool {
@@ -380,6 +391,14 @@ public final actor WMFHomeDataController {
         dates.sort(by: >)
         communityFetchedDates[project] = dates
     }
+}
+
+// MARK: - See first preference
+
+/// The content type the Home feed opens on, chosen during app onboarding.
+public enum WMFHomeFeedSeeFirst: String, Codable, Sendable {
+    case community
+    case personalized
 }
 
 // MARK: - Community response model

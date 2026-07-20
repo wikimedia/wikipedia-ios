@@ -131,10 +131,12 @@ import WMFData
         let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
         let allowGestureZoomArticleWebview = WMFFormItemSelectViewModel(title: "Allow pinch to zoom when reading articles", isSelected: WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview)
         let enableHomeTab = WMFFormItemSelectViewModel(title: "Enable Home Tab", isSelected: WMFDeveloperSettingsDataController.shared.enableHomeTab)
+        let alwaysShowNewOnboarding = WMFFormItemSelectViewModel(title: "Always Show New Onboarding", isSelected: WMFDeveloperSettingsDataController.shared.alwaysShowNewOnboarding)
 
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
                 enableHomeTab,
+                alwaysShowNewOnboarding,
                 doNotPostImageRecommendationsEditItem,
                 sendAnalyticsToWMFLabsItem,
                 bypassDonationItem,
@@ -181,6 +183,10 @@ import WMFData
 
         enableHomeTab.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableHomeTab = isSelected }
+            .store(in: &subscribers)
+
+        alwaysShowNewOnboarding.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.alwaysShowNewOnboarding = isSelected }
             .store(in: &subscribers)
     }
 

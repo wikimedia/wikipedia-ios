@@ -236,6 +236,7 @@ public class CommonStrings: NSObject {
 
     @objc public static let privacyPolicyURLString = "https://foundation.wikimedia.org/wiki/Policy:Privacy_policy"
     @objc public static let termsOfUseURLString = "https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use"
+    public static let aboutWikipediaURLString = "https://en.wikipedia.org/wiki/Wikipedia:About"
     public static let legalAndSafetyContactUsURLString = "https://foundation.wikimedia.org/wiki/Legal:Wikimedia_Foundation_Legal_and_Safety_Contact_Information"
 
     @objc public static let account = WMFLocalizedString("settings-account", value: "Account", comment: "Title for button and page letting user view their account page.")

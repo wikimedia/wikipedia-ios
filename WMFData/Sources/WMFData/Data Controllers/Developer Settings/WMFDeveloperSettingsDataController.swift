@@ -98,6 +98,13 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
+    /// Debugging convenience: when true (and the home tab is enabled), the new app onboarding
+    /// presents on every launch, ignoring the persisted "did show onboarding" flag.
+    public var alwaysShowNewOnboarding: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsAlwaysShowNewOnboarding.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsAlwaysShowNewOnboarding.rawValue, value: newValue) }
+    }
+
     public var enableYiRLoginExperimentControl: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue, value: newValue) }

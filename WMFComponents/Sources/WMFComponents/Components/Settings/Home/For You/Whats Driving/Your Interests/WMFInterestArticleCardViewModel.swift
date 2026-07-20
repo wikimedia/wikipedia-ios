@@ -7,6 +7,7 @@ final class WMFInterestArticleCardViewModel: ObservableObject, Identifiable {
 
     let id: String
     let title: String
+    let project: WMFProject
     @Published var description: String?
     @Published var uiImage: UIImage?
     @Published var isSelected: Bool
@@ -16,9 +17,10 @@ final class WMFInterestArticleCardViewModel: ObservableObject, Identifiable {
     private var imageTask: Task<Void, Never>?
     private var summaryTask: Task<Void, Never>?
 
-    init(article: WMFRandomArticle, isSelected: Bool = false) {
+    init(article: WMFRandomArticle, project: WMFProject, isSelected: Bool = false) {
         self.id = article.title
         self.title = article.displayTitle ?? article.title.underscoresToSpaces
+        self.project = project
         self.description = article.description
         self.thumbnailURL = article.thumbnail?.url
         self.summaryFetchInfo = nil
@@ -29,10 +31,22 @@ final class WMFInterestArticleCardViewModel: ObservableObject, Identifiable {
     init(pageInterest: WMFPageInterest, project: WMFProject) {
         self.id = pageInterest.title
         self.title = pageInterest.title.underscoresToSpaces
+        self.project = project
         self.description = nil
         self.thumbnailURL = nil
         self.summaryFetchInfo = (pageInterest.title, project)
         self.isSelected = true
+    }
+
+    // Used when creating a card from an article search result
+    init(searchResult: WMFArticleSearchResult, project: WMFProject, isSelected: Bool = false) {
+        self.id = searchResult.title
+        self.title = searchResult.displayTitle ?? searchResult.title.underscoresToSpaces
+        self.project = project
+        self.description = searchResult.description
+        self.thumbnailURL = searchResult.thumbnailURL
+        self.summaryFetchInfo = nil
+        self.isSelected = isSelected
     }
 
     func loadIfNeeded() {

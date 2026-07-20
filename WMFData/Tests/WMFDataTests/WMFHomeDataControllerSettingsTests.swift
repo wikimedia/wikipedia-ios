@@ -30,6 +30,21 @@ struct WMFHomeDataControllerSettingsTests {
         #expect(controller.forYouContinueReadingIsOn() == true)
     }
 
+    @Test
+    func seeFirstContentDefaultsToCommunity() {
+        let controller = makeController()
+        #expect(controller.seeFirstContent() == .community)
+    }
+
+    @Test
+    func seeFirstContentPersistsChanges() {
+        let controller = makeController()
+        controller.setSeeFirstContent(.personalized)
+        #expect(controller.seeFirstContent() == .personalized)
+        controller.setSeeFirstContent(.community)
+        #expect(controller.seeFirstContent() == .community)
+    }
+
     // MARK: - Persistence
 
     @Test

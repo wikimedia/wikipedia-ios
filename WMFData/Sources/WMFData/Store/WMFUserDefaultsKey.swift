@@ -7,6 +7,7 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsArticleTab = "dev-settings-article-tab"
     case developerSettingsForceMaxArticleTabsTo5 = "dev-settings-article-tab-max-5"
     case developerSettingsEnableHomeTab = "dev-settings-enable-home-tab"
+    case developerSettingsAlwaysShowNewOnboarding = "dev-settings-always-show-new-onboarding"
     case hasLocallySavedDonations = "donate-history-has-locally-saved-donations"
     case yearInReviewSettingsIsEnabled = "year-in-review-settings-is-enabled-v3"
     case seenYearInReviewFeatureAnnouncement = "year-in-review-feature-announcement-v3"
@@ -89,6 +90,9 @@ public enum WMFUserDefaultsKey: String {
 
     // Home feed: selected language
     case homeSelectedLanguage = "home-selected-language-code"
+
+    // Home feed: initial content preference (community vs personalized)
+    case homeFeedSeeFirst = "home-feed-see-first"
 
     // Home feed: interests
     case homeFeedInterestTopics = "home-feed-interest-topics"
