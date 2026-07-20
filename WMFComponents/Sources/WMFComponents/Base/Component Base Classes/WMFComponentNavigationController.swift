@@ -127,8 +127,10 @@ open class WMFComponentNavigationController: UINavigationController {
     private func applySystemGlassAppearance(customLargeTitleFont: UIFont?) {
         let appearance = UINavigationBarAppearance()
 
-        appearance.configureWithDefaultBackground()
+        appearance.configureWithTransparentBackground()
         appearance.shadowColor = nil
+        let gradientImage = UIImage.gradientImage(startColor: theme.paperBackground, endColor: .clear, size: CGSize(width: 1, height: 150))
+        appearance.backgroundImage = gradientImage
 
         let largeTitleFont = self.customLargeTitleFont ?? WMFFont.navigationBarLeadingLargeTitleFont
         let titleColor = theme.text
