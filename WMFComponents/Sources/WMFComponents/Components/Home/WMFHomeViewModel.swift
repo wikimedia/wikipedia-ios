@@ -12,7 +12,9 @@ public final class WMFHomeViewModel: ObservableObject {
     
     public var didTapForYouCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var didSaveForYouCard: ((WMFForYouArticleCardViewModel) -> Void)?
+    public var didTapUnsaveForYouCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var didShareForYouCard: ((WMFForYouArticleCardViewModel) -> Void)?
+    public var isArticleSaved: ((WMFForYouArticleCardViewModel) -> Bool)?
 
     public enum Tab: Int, CaseIterable {
         case forYou
@@ -63,6 +65,15 @@ public final class WMFHomeViewModel: ObservableObject {
         )
     }
 
+    public func refreshSavedStates() {
+        guard let isArticleSaved else { return }
+        forYouViewModel?.pages.forEach { page in
+            page.articleViewModels.forEach { card in
+                card.refreshSavedState(isSaved: isArticleSaved(card))
+            }
+        }
+    }
+
     public func hideForYouModule(_ module: WMFForYouModule) {
         switch module {
         case .basedOnInterests:
@@ -90,6 +101,7 @@ public final class WMFHomeViewModel: ObservableObject {
 
         if isUsingColorTestForYou {
             forYouViewModel = WMFForYouViewModel(response: .colorTest)
+            refreshSavedStates()
             return
         }
 
@@ -98,6 +110,7 @@ public final class WMFHomeViewModel: ObservableObject {
         do {
             let response = try await dataController.fetchForYou(project: project, forceFetch: true)
             self.forYouViewModel = WMFForYouViewModel(response: response)
+            self.refreshSavedStates()
         } catch {
             // TODO: surface error
         }
@@ -121,6 +134,7 @@ public final class WMFHomeViewModel: ObservableObject {
 
         if isUsingColorTestForYou {
             forYouViewModel = WMFForYouViewModel(response: .colorTest)
+            refreshSavedStates()
             isLoadingForYou = false
             return
         }
@@ -134,6 +148,7 @@ public final class WMFHomeViewModel: ObservableObject {
             do {
                 let response = try await dataController.fetchForYou(project: project)
                 self.forYouViewModel = WMFForYouViewModel(response: response)
+                self.refreshSavedStates()
             } catch {
                 // TODO: surface error
             }

@@ -46,6 +46,7 @@ public struct WMFForYouView: View {
     let onTapCard: (WMFForYouArticleCardViewModel) -> Void
     let onSaveCard: (WMFForYouArticleCardViewModel) -> Void
     let onShareCard: (WMFForYouArticleCardViewModel) -> Void
+    let onUnsaveCard: (WMFForYouArticleCardViewModel) -> Void
 
     public init(
         viewModel: WMFForYouViewModel,
@@ -57,7 +58,8 @@ public struct WMFForYouView: View {
         onCustomizeInterests: @escaping () -> Void,
         onTapCard: @escaping (WMFForYouArticleCardViewModel) -> Void,
         onSaveCard: @escaping (WMFForYouArticleCardViewModel) -> Void,
-        onShareCard: @escaping (WMFForYouArticleCardViewModel) -> Void
+        onShareCard: @escaping (WMFForYouArticleCardViewModel) -> Void,
+        onUnsaveCard: @escaping (WMFForYouArticleCardViewModel) -> Void
     ) {
         self.viewModel = viewModel
         self.moduleVisibility = moduleVisibility
@@ -69,6 +71,7 @@ public struct WMFForYouView: View {
         self.onTapCard = onTapCard
         self.onSaveCard = onSaveCard
         self.onShareCard = onShareCard
+        self.onUnsaveCard = onUnsaveCard
     }
 
     public var body: some View {
@@ -86,7 +89,8 @@ public struct WMFForYouView: View {
                                 onCustomizeInterests: onCustomizeInterests,
                                 onTapCard: onTapCard,
                                 onSaveCard: onSaveCard,
-                                onShareCard: onShareCard
+                                onShareCard: onShareCard,
+                                onUnsaveCard: onUnsaveCard
                             )
                             .frame(width: geometry.size.width, height: geometry.size.height)
                         }
@@ -113,6 +117,7 @@ private struct WMFForYouPageView: View {
     let onTapCard: (WMFForYouArticleCardViewModel) -> Void
     let onSaveCard: (WMFForYouArticleCardViewModel) -> Void
     let onShareCard: (WMFForYouArticleCardViewModel) -> Void
+    let onUnsaveCard: (WMFForYouArticleCardViewModel) -> Void
 
     @State private var currentPage: Int = 0
 
@@ -135,6 +140,7 @@ private struct WMFForYouPageView: View {
                     onCustomizeInterests: onCustomizeInterests,
                     onTapCard: { onTapCard(article) },
                     onSaveCard: { onSaveCard(article) },
+                    onUnsaveCard: { onUnsaveCard(article)},
                     onShareCard: { onShareCard(article) }
                 )
                 .tag(index)
@@ -222,8 +228,9 @@ private struct WMFForYouArticleCardView: View {
     let onCustomizeInterests: () -> Void
     let onTapCard: () -> Void
     let onSaveCard: () -> Void
+    let onUnsaveCard: () -> Void
     let onShareCard: () -> Void
-
+    
     private var windowSafeAreaBottom: CGFloat {
         let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         return scene?.windows.first?.safeAreaInsets.bottom ?? 0
@@ -252,8 +259,18 @@ private struct WMFForYouArticleCardView: View {
 
     private var menuView: some View {
         Menu {
-            Button { onSaveCard() } label: {
-                Label("Save", systemImage: "bookmark")
+            Button {
+                viewModel.toggleSaved()
+                if viewModel.isSaved {
+                    onSaveCard()
+                } else {
+                    onUnsaveCard()
+                }
+            } label: {
+                Label(
+                    viewModel.isSaved ? "Remove" : "Save",
+                    systemImage: viewModel.isSaved ? "bookmark.fill" : "bookmark"
+                )
             }
             Button { onShareCard() } label: {
                 Label("Share", systemImage: "square.and.arrow.up")

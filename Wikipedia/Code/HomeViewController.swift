@@ -65,6 +65,9 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         viewModel.didShareForYouCard = { [weak self] article in
             self?.shareForYouArticle(article)
         }
+        viewModel.didTapUnsaveForYouCard = { [weak self] article in
+            self?.unsaveForYouArticle(article)
+        }
 
         tabObservation = viewModel.$selectedTab.sink { [weak self] tab in
             DispatchQueue.main.async {
@@ -73,6 +76,21 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         }
 
         reloadLanguages()
+        
+        viewModel.isArticleSaved = { [weak self] card in
+            guard let self,
+                  let siteURL = card.project.siteURL,
+                  var articleURL = siteURL.wmf_URL(withTitle: card.title) else { return false }
+            articleURL.wmf_languageVariantCode = card.project.languageVariantCode
+            return dataStore.savedPageList.isAnyVariantSaved(articleURL)
+        }
+    }
+    
+    private func unsaveForYouArticle(_ article: WMFForYouArticleCardViewModel) {
+        guard let siteURL = article.project.siteURL,
+              var articleURL = siteURL.wmf_URL(withTitle: article.title) else { return }
+        articleURL.wmf_languageVariantCode = article.project.languageVariantCode
+        dataStore.savedPageList.removeEntry(with: articleURL)
     }
     
     private func navigateToForYouArticle(_ article: WMFForYouArticleCardViewModel) {

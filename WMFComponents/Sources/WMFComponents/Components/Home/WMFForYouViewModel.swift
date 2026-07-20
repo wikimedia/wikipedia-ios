@@ -87,6 +87,14 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
     @Published public var extract: String?
     @Published public var uiImage: UIImage?
     @Published public var sampledColor: Color?
+    @Published public var isSaved: Bool = false
+    public func refreshSavedState(isSaved: Bool) {
+        self.isSaved = isSaved
+    }
+
+    public func toggleSaved() {
+        isSaved.toggle()
+    }
 
     private var loadTask: Task<Void, Never>?
 
