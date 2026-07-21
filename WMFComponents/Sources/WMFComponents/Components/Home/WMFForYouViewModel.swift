@@ -49,6 +49,10 @@ public final class WMFForYouViewModel: ObservableObject {
     public var onSaveCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onShareCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onUnsaveCard: ((WMFForYouArticleCardViewModel) -> Void)?
+    
+    public let emptyTitle = WMFLocalizedString("for-you-empty-title", value: "Nothing here yet", comment: "Title shown on the For You tab when there is no content to display.")
+    public let emptySubtitle = WMFLocalizedString("for-you-empty-subtitle", value: "Add interests to get personalized article recommendations.", comment: "Subtitle shown on the For You tab empty state encouraging the user to add interests.")
+    public let emptyButtonTitle = WMFLocalizedString("for-you-empty-button", value: "Choose your interests", comment: "Button on the For You empty state that opens the interests customization screen.")
 
     public init(
         response: WMFForYouResponse,

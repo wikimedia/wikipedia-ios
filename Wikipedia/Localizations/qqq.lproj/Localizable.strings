@@ -696,6 +696,9 @@
 "find-replace-header" = "Find and replace header title.";
 "find-replace-header-close-accessibility" = "Accessibility label for closing the find and replace view.";
 "find-textfield-accessibility" = "Accessibility label for the find text field.";
+"for-you-empty-button" = "Button on the For You empty state that opens the interests customization screen.";
+"for-you-empty-subtitle" = "Subtitle shown on the For You tab empty state encouraging the user to add interests.";
+"for-you-empty-title" = "Title shown on the For You tab when there is no content to display.";
 "for-you-header-because-you-read" = "Header label for a For You feed card shown because the user recently read a related article. $1 is replaced with the article title.";
 "for-you-header-continue-reading" = "Header label for a For You feed card prompting the user to continue reading an article. $1 is replaced with the article title.";
 "for-you-header-interest-article" = "Header label for a For You feed card based on an article the user has shown interest in. $1 is replaced with the article title.";

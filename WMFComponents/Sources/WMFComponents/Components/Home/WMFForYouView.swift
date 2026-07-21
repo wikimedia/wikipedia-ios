@@ -41,34 +41,83 @@ public struct WMFForYouView: View {
         self.viewModel = viewModel
     }
 
+    private var visiblePages: [WMFForYouPageViewModel] {
+        viewModel.pages.filter { viewModel.moduleVisibility.isVisible($0.module) }
+    }
+
     public var body: some View {
-        GeometryReader { geometry in
-            ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack(spacing: 0) {
-                    ForEach(viewModel.pages.filter { viewModel.moduleVisibility.isVisible($0.module) }) { page in
-                        let visibleArticles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.hideKey) }
-                        if !visibleArticles.isEmpty {
-                            WMFForYouPageView(
-                                articleViewModels: visibleArticles,
-                                theme: theme,
-                                onHideModule: { viewModel.onHideModule?(page.module) },
-                                onHideCard: { viewModel.onHideCard?($0) },
-                                onCustomizeInterests: { viewModel.onCustomizeInterests?() },
-                                onTapCard: { viewModel.onTapCard?($0) },
-                                onSaveCard: { viewModel.onSaveCard?($0) },
-                                onShareCard: { viewModel.onShareCard?($0) },
-                                onUnsaveCard: { viewModel.onUnsaveCard?($0) }
-                            )
-                            .frame(width: geometry.size.width, height: geometry.size.height)
+        if visiblePages.isEmpty {
+            emptyState
+        } else {
+            GeometryReader { geometry in
+                ScrollView(.vertical, showsIndicators: false) {
+                    LazyVStack(spacing: 0) {
+                        ForEach(visiblePages) { page in
+                            let visibleArticles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.hideKey) }
+                            if !visibleArticles.isEmpty {
+                                WMFForYouPageView(
+                                    articleViewModels: visibleArticles,
+                                    theme: theme,
+                                    onHideModule: { viewModel.onHideModule?(page.module) },
+                                    onHideCard: { viewModel.onHideCard?($0) },
+                                    onCustomizeInterests: { viewModel.onCustomizeInterests?() },
+                                    onTapCard: { viewModel.onTapCard?($0) },
+                                    onSaveCard: { viewModel.onSaveCard?($0) },
+                                    onShareCard: { viewModel.onShareCard?($0) },
+                                    onUnsaveCard: { viewModel.onUnsaveCard?($0) }
+                                )
+                                .frame(width: geometry.size.width, height: geometry.size.height)
+                            }
                         }
                     }
                 }
-            }
-            .scrollTargetBehavior(.paging)
-            .refreshable {
-                await viewModel.onRefresh?()
+                .scrollTargetBehavior(.paging)
+                .refreshable {
+                    await viewModel.onRefresh?()
+                }
             }
         }
+    }
+
+    // MARK: - Empty State
+
+    private var emptyState: some View {
+        VStack(spacing: 0) {
+            Spacer()
+
+            Image(systemName: "sparkles")
+                .font(.system(size: 48, weight: .light))
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                .padding(.bottom, 16)
+
+            Text(viewModel.emptyTitle)
+                .font(Font(WMFFont.for(.boldTitle3)))
+                .foregroundStyle(Color(uiColor: theme.text))
+                .multilineTextAlignment(.center)
+                .padding(.bottom, 8)
+
+            Text(viewModel.emptySubtitle)
+                .font(Font(WMFFont.for(.callout)))
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 40)
+                .padding(.bottom, 24)
+
+            Button {
+                viewModel.onCustomizeInterests?()
+            } label: {
+                Text(viewModel.emptyButtonTitle)
+                    .font(Font(WMFFont.for(.boldCallout)))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 12)
+                    .background(Color(uiColor: theme.link), in: Capsule())
+            }
+
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(uiColor: theme.paperBackground))
     }
 }
 

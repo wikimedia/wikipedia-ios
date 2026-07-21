@@ -696,6 +696,9 @@
 "find-replace-header" = "Find and replace";
 "find-replace-header-close-accessibility" = "Close find and replace";
 "find-textfield-accessibility" = "Find";
+"for-you-empty-button" = "Choose your interests";
+"for-you-empty-subtitle" = "Add interests to get personalized article recommendations.";
+"for-you-empty-title" = "Nothing here yet";
 "for-you-header-because-you-read" = "Because you read: $1";
 "for-you-header-continue-reading" = "Continue reading: $1";
 "for-you-header-interest-article" = "Interest Article: $1";
