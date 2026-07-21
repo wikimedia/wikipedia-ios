@@ -29,7 +29,6 @@ private let wmfResetPreferredLanguages = "WMFResetPreferredLanguages"
 private let wmfEnableHomeTabForTesting = "WMFEnableHomeTabForTesting"
 private let wmfSuppressActivityTabOnboardingForTesting = "WMFSuppressActivityTabOnboardingForTesting"
 private let wmfSuppressGamesAnnouncementForTesting = "WMFSuppressGamesAnnouncementForTesting"
-private let wmfSuppressReadingChallengeAnnouncementForTesting = "WMFSuppressReadingChallengeAnnouncementForTesting"
 
 // KVO context pointers
 private var kvoSavedArticlesFetcherProgress = UInt8(0)
@@ -919,15 +918,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             dataStore.languageLinkController.resetPreferredLanguages()
         }
 
-        if UserDefaults.standard.bool(forKey: wmfSuppressReadingChallengeAnnouncementForTesting) {
-            let sharedDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
-            sharedDefaults?.set(
-                true,
-                forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue
-            )
-            sharedDefaults?.synchronize()
-        }
-
         if UserDefaults.standard.bool(forKey: wmfSuppressActivityTabOnboardingForTesting) {
             try? WMFDataEnvironment.current.userDefaultsStore?.save(
                 key: WMFUserDefaultsKey.hasSeenActivityTabNewOnboarding.rawValue,
@@ -1226,7 +1216,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         case .random:
             dismissPresentedViewControllers()
-            showRandomArticleFromShortcut(siteURL: siteURL, animated: animated)
+            showRandomArticleFromShortcut(siteURL: siteURL, animated: animated, userInfo: activity.userInfo)
 
         case .activity:
             
@@ -1236,23 +1226,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             dismissPresentedViewControllers()
             selectedIndex = WMFAppTabType.recent.rawValue
             currentTabNavigationController?.popToRootViewController(animated: animated)
-            let shouldCollectPrize = activity.userInfo?["collectPrize"] as? Bool ?? false
-            let tappedJoin = activity.userInfo?["join"] as? Bool ?? false
-            let fromAppStoreEvent = activity.userInfo?["appStoreEvent"] as? Bool ?? false
-            
-            if shouldCollectPrize {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    activityVC.presentCollectPrize()
-                }
-            } else if tappedJoin {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    activityVC.presentReadingChallengeAnnouncementFromWidget()
-                }
-            } else if fromAppStoreEvent {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    activityVC.presentReadingChallengeAnnouncementFromAppStoreEvent()
-                }
-            }
 
         case .content:
             dismissPresentedViewControllers()
@@ -1634,7 +1607,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     private func showRandomArticleFromShortcut(animated: Bool) {
         dismissPresentedViewControllers()
-        showRandomArticleFromShortcut(siteURL: siteURL, animated: animated)
+        showRandomArticleFromShortcut(siteURL: siteURL, animated: animated, userInfo: nil)
     }
 
     private func showNearby(animated: Bool) {

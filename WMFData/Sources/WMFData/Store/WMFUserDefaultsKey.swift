@@ -43,27 +43,10 @@ public enum WMFUserDefaultsKey: String {
     case openAppOnSearchTab = "open-app-on-search-tab"
     case isSubscribedToEchoNotifications = "is-subscribed-to-echo-notifications"
     case forceHCaptchaChallenge = "force-hcaptcha-challenge"
-    case activityTabReadingChallenge = "activity-tab-reading-challenge"
+
     case allowGestureZoomArticleWebview = "allow-gesture-zoom-article-webview"
     // Home feed: For You dev settings
     case homeFeedForYouColorTest = "home-feed-for-you-color-test"
-    
-    // Reading challenge widget keys
-    case hasEnrolledInReadingChallenge2026 = "has-enrolled-in-reading-challenge-2026"
-    case hasSeenFullPageReadingChallengeAnnouncement2026 = "has-seen-full-page-reading-challenge-announcement-2026"
-    case readingChallengeUserCompleted = "reading-challenge-user-completed"
-    case readingChallengeStreakReadRandomIndex = "reading-challenge-read-random-index"
-    case readingChallengeStreakReadRandomIndexDate = "reading-challenge-read-random-index-date"
-    case readingChallengeStreakNotReadRandomIndex = "reading-challenge-not-read-random-index"
-    case readingChallengeStreakNotReadRandomIndexDate = "reading-challenge-not-read-random-index-date"
-    case readingChallengeEnrolledNotStartedRandomIndex = "reading-challenge-enrolled-not-started"
-    case readingChallengeEnrolledNotStartedRandomIndexDate = "reading-challenge-enrolled-not-started-date"
-    case readingChallengeWidgetStreakCount = "reading-challenge-widget-streak-count"
-    
-    // Reading challenge widget dev settings
-    case devReadingChallengeOverrideCurrentDate = "dev-reading-challenge-override-current-date"
-    case devReadingChallengeCurrentDate = "dev-reading-challenge-current-date"
-    case devReadingChallengeState = "dev-reading-challenge-state"
 
     // Games announcement
     case hasSeenGamesAnnouncement = "has-seen-games-announcement"
@@ -99,4 +82,7 @@ public enum WMFUserDefaultsKey: String {
 
     // Home feed: hidden cards (shared across Community and For You tabs)
     case homeFeedHiddenCardKeys = "home-feed-hidden-card-keys"
+    
+    case randomWidgetDailyIndex = "random-widget-daily-index"
+    case randomWidgetDailyDate = "random-widget-daily-date"
 }

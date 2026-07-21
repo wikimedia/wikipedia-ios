@@ -19,8 +19,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     public let viewModel: WMFActivityTabViewModel
     private let dataController: WMFActivityTabDataController
 
-    private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
-
     @objc var disableModalsOnAppearance: Bool = false
     private let widgetInstrument = WidgetFunnel().widgetInstrument
 
@@ -105,56 +103,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             self?.navigateToSearch()
         }
         
-        viewModel.didTapReadingChallengeCTA = { [weak self] in
-            guard let self else { return }
-
-            self.widgetInstrument.submitInteraction(
-                action: "click",
-                actionSource: "widget_challenge_install",
-                elementId: "show_me_how"
-            )
-            
-            guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
-                return
-            }
-
-            guard let url = WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "Team", "25th Birthday Reading Challenge"], section: "How_do_I_install_the_Widget?", language: appLanguage) else { return }
-
-            let config = SinglePageWebViewController.StandardConfig(
-                url: url,
-                useSimpleNavigationBar: true
-            )
-
-            let webVC = SinglePageWebViewController(
-                configType: .standard(config),
-                theme: self.theme
-            )
-
-            let navigationVC = WMFComponentNavigationController(
-                rootViewController: webVC,
-                modalPresentationStyle: .formSheet
-            )
-
-            self.present(navigationVC, animated: true)
-        }
-        
-        Task { @MainActor [weak self] in
-            guard let self else { return }
-            let isOn = await dataController.isShowReadingChallengeOn
-            if !isOn {
-                self.viewModel.showBabyGlobe = false
-            }
-        }
-        
-        viewModel.didTapCloseReadingChallenge = { [weak self] in
-            guard let self else { return }
-            Task { @MainActor [weak self] in
-                guard let self else { return }
-                await self.dataController.turnOffReadingChallenge()
-                self.viewModel.showBabyGlobe = false
-            }
-        }
-
         Task {
             await dataController.setHistoryDataController(historyDataController)
         }
@@ -192,48 +140,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         let url = WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "iOS FAQ"], section: "Editing", language: appLanguage)
         return url?.absoluteString ?? ""
-    }
-
-    @objc public func presentCollectPrize() {
-        guard let dataStore else { return }
-        if dataStore.authenticationManager.authStateIsPermanent {
-            showCollectPrizeModal()
-        } else {
-            presentFullLoginFlow(loginSuccessCompletion: { [weak self] in
-                guard let self else { return }
-                self.showCollectPrizeModal()
-            }, fromWidget: true)
-        }
-    }
-
-    private func showCollectPrizeModal() {
-        let show = { [weak self] in
-            guard let self else { return }
-            let prizeVC = CollectPrizeViewController(theme: self.theme)
-            prizeVC.modalPresentationStyle = .pageSheet
-            if let sheet = prizeVC.sheetPresentationController {
-                sheet.detents = [.medium()]
-                sheet.prefersGrabberVisible = true
-            }
-            self.present(prizeVC, animated: true)
-        }
-
-        if let presented = presentedViewController {
-            presented.dismiss(animated: true, completion: show)
-        } else {
-            show()
-        }
-    }
-
-    @objc public func presentFeature() {
-        guard let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn else { return }
-        let prizeVC = CollectPrizeViewController(theme: theme)
-        prizeVC.modalPresentationStyle = .pageSheet
-        if let sheet = prizeVC.sheetPresentationController {
-            sheet.detents = [.medium()]
-            sheet.prefersGrabberVisible = true
-        }
-        present(prizeVC, animated: true)
     }
 
     public func makeAnEdit() {
@@ -419,42 +325,11 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     @MainActor
     private func presentModalsIfNeeded() {
         
-        // Do not replace an in-flight reading challenge coordinator.
-        guard readingChallengeCoordinator == nil else {
-            return
-        }
-
         // Prioritize reading challenge, then fall back to Activity onboarding or survey view if that doesn't present
         guard let navigationController, let dataStore else {
             presentActivityOnboardingOrSurveyIfNeeded()
             return
         }
-        
-        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(
-            navigationController: navigationController,
-            dataStore: dataStore,
-            theme: theme,
-            fromWidgetJoinChallengeButton: false,
-            fromAppStoreEvent: false,
-            isLoggedIn: dataStore.authenticationManager.authStateIsPermanent,
-            instrument: widgetInstrument
-        )
-
-        readingChallengeCoordinator.onComplete = { [weak self] didPresentSomething in
-
-            self?.readingChallengeCoordinator = nil
-
-            // Do not present activity onboarding or survey if they just saw a reading challenge announcement.
-            guard !didPresentSomething else {
-                return
-            }
-
-            self?.presentActivityOnboardingOrSurveyIfNeeded()
-        }
-
-        self.readingChallengeCoordinator = readingChallengeCoordinator
-
-        readingChallengeCoordinator.start()
     }
 
     private func presentActivityOnboardingOrSurveyIfNeeded() {
@@ -471,74 +346,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             }
         }
     }
-    
-    @objc func presentReadingChallengeAnnouncementFromAppStoreEvent() {
-        
-        // Do not replace an in-flight reading challenge coordinator.
-        guard readingChallengeCoordinator == nil else {
-            return
-        }
-        
-        guard let navigationController, let dataStore else {
-            return
-        }
-        
-        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(
-            navigationController: navigationController,
-            dataStore: dataStore,
-            theme: theme,
-            fromWidgetJoinChallengeButton: false,
-            fromAppStoreEvent: true,
-            isLoggedIn: dataStore.authenticationManager.authStateIsPermanent,
-            instrument: widgetInstrument
-        )
-
-        readingChallengeCoordinator.onComplete = { [weak self] didPresentSomething in
-
-            self?.readingChallengeCoordinator = nil
-            self?.disableModalsOnAppearance = false
-        }
-
-        self.readingChallengeCoordinator = readingChallengeCoordinator
-
-        readingChallengeCoordinator.start()
-    }
-
-    // Explicit method to fire the announcement, meant to be called ONLY when tapping Join on the widget. It differs from presentModalsIfNeeded in these ways:
-    // 1. We do not try to present any activity onboarding/survey whatsoever
-    // 2. We purposfully set a temp "disableModals" flag, just in case viewDidAppear (which calls presentModalsIfNeeded) fires at the same time. "disableModals" disables all modal attempts in presentModalsIfNeeded.
-    // 3. We tell the announcement coordinator that it is from the widget, which bypasses hasSeen flag logic
-    @objc func presentReadingChallengeAnnouncementFromWidget() {
-        
-        // Do not replace an in-flight reading challenge coordinator.
-        guard readingChallengeCoordinator == nil else {
-            return
-        }
-        
-        guard let navigationController, let dataStore else {
-            return
-        }
-
-        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(
-            navigationController: navigationController,
-            dataStore: dataStore,
-            theme: theme,
-            fromWidgetJoinChallengeButton: true,
-            fromAppStoreEvent: false,
-            isLoggedIn: dataStore.authenticationManager.authStateIsPermanent,
-            instrument: widgetInstrument
-        )
-
-        readingChallengeCoordinator.onComplete = { [weak self] didPresentSomething in
-            self?.readingChallengeCoordinator = nil
-            self?.disableModalsOnAppearance = false
-        }
-
-        self.readingChallengeCoordinator = readingChallengeCoordinator
-
-        readingChallengeCoordinator.start()
-    }
-
+  
     private func presentOnboarding() {
         let firstItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .bookPages), title: firstItemTitle, subtitle: firstItemSubtitle, fillIconBackground: false)
         let secondItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .pencil), title: secondItemTitle, subtitle: secondItemSubtitle, fillIconBackground: false)

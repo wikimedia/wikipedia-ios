@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import WMFData
 
-public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
+public final class WMFRandomWidgetViewModel: ObservableObject {
 
     // MARK: - Localized Strings
 
@@ -75,17 +75,14 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
 
     public let localizedStrings: LocalizedStrings
     public let displaySet: DisplaySet
-    @Published public var state: ReadingChallengeState
 
     // MARK: - Init
 
     public init(
         localizedStrings: LocalizedStrings,
         displaySet: DisplaySet,
-        state: ReadingChallengeState = .notEnrolled
     ) {
         self.localizedStrings = localizedStrings
         self.displaySet = displaySet
-        self.state = state
     }
 }

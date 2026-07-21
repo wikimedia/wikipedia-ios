@@ -15,7 +15,7 @@ public final class WidgetController: NSObject {
         case topRead = "org.wikimedia.wikipedia.widgets.topRead"
         case search = "org.wikimedia.wikipedia.widgets.search"
         case lockscreenSearch = "org.wikimedia.wikipedia.widgets.lockscreen-search"
-        case readingChallenge = "org.wikimedia.wikipedia.widgets.readingChallenge"
+        case randomWidget = "org.wikimedia.wikipedia.widgets.randomWidget"
 
         public var identifier: String {
             return self.rawValue
@@ -63,11 +63,6 @@ public final class WidgetController: NSObject {
         }
         
         WidgetCenter.shared.reloadTimelines(ofKind: SupportedWidget.featuredArticle.rawValue)
-    }
-
-    public func reloadReadingChallengeWidget() {
-        guard !Bundle.main.isAppExtension else { return }
-        WidgetCenter.shared.reloadTimelines(ofKind: SupportedWidget.readingChallenge.rawValue)
     }
     
     /// For requesting background time from widgets
