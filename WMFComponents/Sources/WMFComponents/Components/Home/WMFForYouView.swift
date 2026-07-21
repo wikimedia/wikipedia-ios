@@ -293,9 +293,18 @@ private struct WMFForYouArticleCardView: View {
                         cardColor
                     default:
                         if let uiImage = viewModel.uiImage {
-                            Image(uiImage: uiImage)
-                                .resizable()
-                                .scaledToFill()
+                            ZStack {
+                                // Blurred fill as backdrop for letterboxed images
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .blur(radius: 20)
+                                    .clipped()
+                                // Actual image, fitted so full image is visible
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .scaledToFit()
+                            }
                         } else {
                             cardColor
                         }

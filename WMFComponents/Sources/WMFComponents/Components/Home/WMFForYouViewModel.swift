@@ -197,7 +197,18 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
             self.description = summary.description
             self.extract = summary.extract
             guard let thumbnailURL = summary.thumbnailURL else { return }
-            guard let data = try? await WMFImageDataController.shared.fetchImageData(url: thumbnailURL) else { return }
+
+            // Upsize the Wikimedia thumbnail URL to get a higher resolution image
+            let largeURL: URL = {
+                var urlString = thumbnailURL.absoluteString
+                if let range = urlString.range(of: #"/\d+px-"#, options: .regularExpression) {
+                    urlString.replaceSubrange(range, with: "/1280px-")
+                }
+                return URL(string: urlString) ?? thumbnailURL
+            }()
+
+            guard let data = try? await WMFImageDataController.shared.fetchImageData(url: largeURL) else { return }
+            
             let image = UIImage(data: data)
             self.uiImage = image
             if let image, let color = image.accessibleSampledColor() {
