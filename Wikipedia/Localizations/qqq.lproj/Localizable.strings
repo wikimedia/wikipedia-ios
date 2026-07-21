@@ -702,6 +702,14 @@
 "find-replace-header" = "Find and replace header title.";
 "find-replace-header-close-accessibility" = "Accessibility label for closing the find and replace view.";
 "find-textfield-accessibility" = "Accessibility label for the find text field.";
+"for-you-header-because-you-read" = "Header label for a For You feed card shown because the user recently read a related article. $1 is replaced with the article title.";
+"for-you-header-continue-reading" = "Header label for a For You feed card prompting the user to continue reading an article. $1 is replaced with the article title.";
+"for-you-header-interest-article" = "Header label for a For You feed card based on an article the user has shown interest in. $1 is replaced with the article title.";
+"for-you-header-interest-topic" = "Header label for a For You feed card based on an interest topic. $1 is replaced with the topic name.";
+"for-you-header-saved-article" = "Header label for a For You feed card showing a saved article. $1 is replaced with the article title.";
+"for-you-menu-customize-interests" = "Menu action to open the interests customization screen from a For You feed card.";
+"for-you-menu-hide-module" = "Menu action to hide the entire For You feed module that contains this card.";
+"for-you-mini-card-label" = "Small label displayed above the title on the mini card variant of the For You feed card.";
 "forgot-password-button-title" = "Title for reset password button {{Identical|Reset}}";
 "forgot-password-email-sent" = "Alert text shown when password reset email is sent";
 "forgot-password-instructions" = "Instructions for resetting password";

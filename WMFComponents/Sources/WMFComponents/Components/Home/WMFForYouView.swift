@@ -168,6 +168,7 @@ private struct WMFForYouPageView: View {
 // MARK: - Mini Card (Variant 3)
 
 private struct WMFForYouMiniCard: View {
+    let label: String
     let title: String
     let description: String?
     let uiImage: UIImage?
@@ -176,7 +177,7 @@ private struct WMFForYouMiniCard: View {
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
             VStack(alignment: .leading, spacing: 2) {
-                Text("Mini card")
+                Text(label)
                     .font(Font(WMFFont.for(.boldCaption1)))
                     .foregroundStyle(.white.opacity(0.5))
                 Text(title)
@@ -230,7 +231,7 @@ private struct WMFForYouArticleCardView: View {
     let onSaveCard: () -> Void
     let onUnsaveCard: () -> Void
     let onShareCard: () -> Void
-    
+
     private var windowSafeAreaBottom: CGFloat {
         let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         return scene?.windows.first?.safeAreaInsets.bottom ?? 0
@@ -268,21 +269,21 @@ private struct WMFForYouArticleCardView: View {
                 }
             } label: {
                 Label(
-                    viewModel.isSaved ? "Remove" : "Save",
+                    viewModel.isSaved ? viewModel.unsaveTitle : viewModel.saveTitle,
                     systemImage: viewModel.isSaved ? "bookmark.fill" : "bookmark"
                 )
             }
             Button { onShareCard() } label: {
-                Label("Share", systemImage: "square.and.arrow.up")
+                Label(viewModel.shareTitle, systemImage: "square.and.arrow.up")
             }
             Button(role: .destructive, action: onHideCard) {
-                Label("Hide this card", systemImage: "eye.slash")
+                Label(viewModel.hideCardTitle, systemImage: "eye.slash")
             }
             Button(role: .destructive, action: onHideModule) {
-                Label("Hide module", systemImage: "xmark.circle")
+                Label(viewModel.hideModuleTitle, systemImage: "xmark.circle")
             }
             Button(action: onCustomizeInterests) {
-                Label("Customize interests", systemImage: "slider.horizontal.3")
+                Label(viewModel.customizeInterestsTitle, systemImage: "slider.horizontal.3")
             }
         } label: {
             Image(systemName: "ellipsis")
@@ -381,6 +382,7 @@ private struct WMFForYouArticleCardView: View {
                         Spacer().frame(height: 16)
 
                         WMFForYouMiniCard(
+                            label: viewModel.miniCardLabel,
                             title: viewModel.title,
                             description: viewModel.description,
                             uiImage: viewModel.uiImage,

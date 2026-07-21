@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 import SwiftUI
 import WMFData
+import WMFNativeLocalizations
 
 // MARK: - Module types and visibility
 
@@ -34,21 +35,41 @@ public final class WMFForYouViewModel: ObservableObject {
 
     public init(response: WMFForYouResponse) {
         let topicPages = response.interestTopicRandomArticles.map {
-            WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: "Interest Topic: \($0.topic.displayName)", articles: $0.articles)
+            let header = String.localizedStringWithFormat(
+                WMFLocalizedString("for-you-header-interest-topic", value: "Because of your interest: %1$@", comment: "Header label for a For You feed card based on an interest topic. %1$@ is replaced with the topic name."),
+                $0.topic.displayName
+            )
+            return WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: $0.articles)
         }
         let relatedPages = response.interestPageRelatedArticles.map {
-            WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: "Interest Article: \($0.pageInterest.title)", articles: $0.articles)
+            let header = String.localizedStringWithFormat(
+                WMFLocalizedString("for-you-header-interest-article", value: "Interest Article: %1$@", comment: "Header label for a For You feed card based on an article the user has shown interest in. %1$@ is replaced with the article title."),
+                $0.pageInterest.title
+            )
+            return WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: $0.articles)
         }
         let becauseYouReadPage: [WMFForYouPageViewModel] = response.becauseYouReadArticles.map {
-            [WMFForYouPageViewModel(module: .becauseYouRead, headerLabel: "Because you read: \($0.recentlyRead.title)", articles: $0.articles)]
+            let header = String.localizedStringWithFormat(
+                WMFLocalizedString("for-you-header-because-you-read", value: "Because you read: %1$@", comment: "Header label for a For You feed card shown because the user recently read a related article. %1$@ is replaced with the article title."),
+                $0.recentlyRead.title
+            )
+            return [WMFForYouPageViewModel(module: .becauseYouRead, headerLabel: header, articles: $0.articles)]
         } ?? []
         let continueReadingPage: [WMFForYouPageViewModel] = response.continueReadingArticles.map { continueReading in
+            let continueHeader = String.localizedStringWithFormat(
+                WMFLocalizedString("for-you-header-continue-reading", value: "Continue reading: %1$@", comment: "Header label for a For You feed card prompting the user to continue reading an article. %1$@ is replaced with the article title."),
+                continueReading.continueReadingArticle.title
+            )
             let continueCard = WMFForYouArticleCardViewModel(
                 article: continueReading.continueReadingArticle,
-                headerLabel: "Continue reading: \(continueReading.continueReadingArticle.title)"
+                headerLabel: continueHeader
             )
             let savedCards = continueReading.savedArticles.map {
-                WMFForYouArticleCardViewModel(article: $0, headerLabel: "Saved article: \($0.title)")
+                let savedHeader = String.localizedStringWithFormat(
+                    WMFLocalizedString("for-you-header-saved-article", value: "Saved article: %1$@", comment: "Header label for a For You feed card showing a saved article. %1$@ is replaced with the article title."),
+                    $0.title
+                )
+                return WMFForYouArticleCardViewModel(article: $0, headerLabel: savedHeader)
             }
             return [WMFForYouPageViewModel(module: .continueReading, articleViewModels: [continueCard] + savedCards)]
         } ?? []
@@ -100,6 +121,30 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
 
     public let hideKey: String
 
+    // MARK: - Localized strings
+
+    public var saveTitle: String {
+        CommonStrings.shortSaveTitle
+    }
+
+    public var unsaveTitle: String {
+        CommonStrings.shortUnsaveTitle
+    }
+
+    public var shareTitle: String {
+        CommonStrings.shortShareTitle
+    }
+
+    public var hideCardTitle: String {
+        CommonStrings.hideCardTitle
+    }
+
+    public let hideModuleTitle = WMFLocalizedString("for-you-menu-hide-module", value: "Hide module", comment: "Menu action to hide the entire For You feed module that contains this card.")
+
+    public let customizeInterestsTitle = WMFLocalizedString("for-you-menu-customize-interests", value: "Customize interests", comment: "Menu action to open the interests customization screen from a For You feed card.")
+
+    public let miniCardLabel = WMFLocalizedString("for-you-mini-card-label", value: "Mini card", comment: "Small label displayed above the title on the mini card variant of the For You feed card.")
+
     public init(article: WMFForYouArticle, headerLabel: String) {
         self.headerLabel = headerLabel
         self.title = article.title
@@ -134,9 +179,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
 
 // MARK: - WCAG color sampling
 
-// MARK: - WCAG color sampling
-
-private extension UIImage {
+extension UIImage {
     func accessibleSampledColor() -> Color? {
         guard let cgImage else { return nil }
         let width = cgImage.width
@@ -213,7 +256,7 @@ private extension UIImage {
         (r, g, b) = darkenToMeetContrast(r: r, g: g, b: b, targetRatio: 4.5)
         return Color(red: r, green: g, blue: b)
     }
-    
+
     private func darkenToMeetContrast(r: CGFloat, g: CGFloat, b: CGFloat, targetRatio: CGFloat) -> (CGFloat, CGFloat, CGFloat) {
         var r = r, g = g, b = b
         func linearize(_ c: CGFloat) -> CGFloat {
