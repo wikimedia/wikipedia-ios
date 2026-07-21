@@ -15,7 +15,7 @@ public final class WidgetController: NSObject {
         case topRead = "org.wikimedia.wikipedia.widgets.topRead"
         case search = "org.wikimedia.wikipedia.widgets.search"
         case lockscreenSearch = "org.wikimedia.wikipedia.widgets.lockscreen-search"
-        case randomWidget = "org.wikimedia.wikipedia.widgets.randomWidget"
+        case readingChallenge, randomWidget = "org.wikimedia.wikipedia.widgets.randomWidget"
 
         public var identifier: String {
             return self.rawValue
