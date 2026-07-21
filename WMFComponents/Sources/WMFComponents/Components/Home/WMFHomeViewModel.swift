@@ -9,7 +9,7 @@ extension WMFLanguage: Identifiable {
 
 @MainActor
 public final class WMFHomeViewModel: ObservableObject {
-    
+
     public var didTapForYouCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var didSaveForYouCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var didTapUnsaveForYouCard: ((WMFForYouArticleCardViewModel) -> Void)?
@@ -35,11 +35,10 @@ public final class WMFHomeViewModel: ObservableObject {
             loadCurrentTabFeedIfNeeded()
         }
     }
-    @Published public var forYouViewModel: WMFForYouViewModel?
+    @Published public var forYouViewModel: WMFForYouViewModel? {
+        didSet { configureForYouViewModel() }
+    }
     @Published public var isLoadingForYou: Bool = false
-    @Published public var forYouModuleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(
-        basedOnInterests: true, becauseYouRead: true, continueReading: true
-    )
     @Published public var communityPages: [WMFHomeCommunityViewModel] = []
     @Published public var communityFeedError: Error?
     @Published public var isLoadingCommunity: Bool = false
@@ -47,9 +46,8 @@ public final class WMFHomeViewModel: ObservableObject {
     @Published public var communityModuleVisibility: WMFCommunityModuleVisibility = WMFCommunityModuleVisibility(
         featuredArticle: true, topRead: true, inTheNews: true, onThisDay: true, pictureOfDay: true
     )
-    @Published public var hiddenCardKeys: [String] = []
+    @Published public var hiddenCardKeys: Set<String> = []
     @Published public var isUsingColorTestForYou: Bool = WMFDeveloperSettingsDataController.shared.isUsingColorTestForYou
-    public var hiddenCardKeySet: Set<String> { Set(hiddenCardKeys) }
 
     let dataController: WMFHomeDataController
 
@@ -57,8 +55,32 @@ public final class WMFHomeViewModel: ObservableObject {
     public var didTapEditLanguages: (() -> Void)?
     public var didTapCustomizeInterests: (() -> Void)?
 
+    // MARK: - For You view model configuration
+
+    private func configureForYouViewModel() {
+        guard let forYouViewModel else { return }
+        forYouViewModel.moduleVisibility = WMFForYouModuleVisibility(
+            basedOnInterests: dataController.forYouBasedOnInterestsIsOn(),
+            becauseYouRead: dataController.forYouBecauseYouReadIsOn(),
+            continueReading: dataController.forYouContinueReadingIsOn()
+        )
+        forYouViewModel.hiddenCardKeys = hiddenCardKeys
+        forYouViewModel.onRefresh = { [weak self] in await self?.refreshForYouFeed() }
+        forYouViewModel.onHideModule = { [weak self] in self?.hideForYouModule($0) }
+        forYouViewModel.onHideCard = { [weak self] card in
+            self?.hideForYouCard(card)
+        }
+        forYouViewModel.onCustomizeInterests = { [weak self] in self?.didTapCustomizeInterests?() }
+        forYouViewModel.onTapCard = { [weak self] in self?.didTapForYouCard?($0) }
+        forYouViewModel.onSaveCard = { [weak self] in self?.didSaveForYouCard?($0) }
+        forYouViewModel.onShareCard = { [weak self] in self?.didShareForYouCard?($0) }
+        forYouViewModel.onUnsaveCard = { [weak self] in self?.didTapUnsaveForYouCard?($0) }
+    }
+
+    // MARK: - For You
+
     public func refreshForYouModuleVisibility() {
-        forYouModuleVisibility = WMFForYouModuleVisibility(
+        forYouViewModel?.moduleVisibility = WMFForYouModuleVisibility(
             basedOnInterests: dataController.forYouBasedOnInterestsIsOn(),
             becauseYouRead: dataController.forYouBecauseYouReadIsOn(),
             continueReading: dataController.forYouContinueReadingIsOn()
@@ -92,7 +114,8 @@ public final class WMFHomeViewModel: ObservableObject {
         guard !hiddenCardKeys.contains(card.hideKey) else { return }
         dataController.hideCard(key: card.hideKey)
         withAnimation {
-            hiddenCardKeys.append(card.hideKey)
+            hiddenCardKeys.insert(card.hideKey)
+            forYouViewModel?.hiddenCardKeys.insert(card.hideKey)
         }
     }
 
@@ -129,8 +152,7 @@ public final class WMFHomeViewModel: ObservableObject {
         guard forYouViewModel == nil, !isLoadingForYou else { return }
         isLoadingForYou = true
         isUsingColorTestForYou = WMFDeveloperSettingsDataController.shared.isUsingColorTestForYou
-        refreshForYouModuleVisibility()
-        hiddenCardKeys = dataController.hiddenCardKeys()
+        hiddenCardKeys = Set(dataController.hiddenCardKeys())
 
         if isUsingColorTestForYou {
             forYouViewModel = WMFForYouViewModel(response: .colorTest)
@@ -156,6 +178,8 @@ public final class WMFHomeViewModel: ObservableObject {
         }
     }
 
+    // MARK: - Community
+
     public func refreshCommunityFeed() async {
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
@@ -179,7 +203,7 @@ public final class WMFHomeViewModel: ObservableObject {
             onThisDay: dataController.communityOnThisDayIsOn(),
             pictureOfDay: dataController.communityPictureOfTheDayIsOn()
         )
-        hiddenCardKeys = dataController.hiddenCardKeys()
+        hiddenCardKeys = Set(dataController.hiddenCardKeys())
         Task {
             do {
                 let response = try await dataController.fetchCommunity(project: project)
@@ -205,7 +229,8 @@ public final class WMFHomeViewModel: ObservableObject {
         guard !hiddenCardKeys.contains(key) else { return }
         dataController.hideCard(key: key)
         withAnimation {
-            hiddenCardKeys.append(key)
+            hiddenCardKeys.insert(key)
+            forYouViewModel?.hiddenCardKeys.insert(key)
         }
     }
 
@@ -247,6 +272,8 @@ public final class WMFHomeViewModel: ObservableObject {
         }
     }
 
+    // MARK: - Init
+
     public init(dataController: WMFHomeDataController = .shared, languages: [WMFLanguage] = [], selectedLanguage: WMFLanguage? = nil, didSelectLanguage: ((WMFLanguage) -> Void)? = nil, didTapEditLanguages: (() -> Void)? = nil) {
         self.dataController = dataController
         self.languages = languages
@@ -260,6 +287,8 @@ public final class WMFHomeViewModel: ObservableObject {
         NotificationCenter.default.addObserver(self, selector: #selector(handleForYouVisibilityChange), name: WMFNSNotification.forYouModuleVisibilityDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleForYouInterestsDidChange), name: WMFNSNotification.forYouInterestsDidChange, object: nil)
     }
+
+    // MARK: - Notification handlers
 
     @objc private func handleVisibilityChange() {
         refreshCommunityModuleVisibility()
@@ -277,6 +306,8 @@ public final class WMFHomeViewModel: ObservableObject {
         forYouViewModel = nil
         Task { await refreshForYouFeed() }
     }
+
+    // MARK: - Helpers
 
     var languageButtonTitle: String {
         selectedLanguage?.languageCode.uppercased() ?? ""

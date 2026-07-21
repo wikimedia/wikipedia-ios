@@ -16,8 +16,14 @@ public struct WMFForYouModuleVisibility {
     public var basedOnInterests: Bool
     public var becauseYouRead: Bool
     public var continueReading: Bool
+    
+    public init(basedOnInterests: Bool, becauseYouRead: Bool, continueReading: Bool) {
+        self.basedOnInterests = basedOnInterests
+        self.becauseYouRead = becauseYouRead
+        self.continueReading = continueReading
+    }
 
-    func isVisible(_ module: WMFForYouModule) -> Bool {
+    public func isVisible(_ module: WMFForYouModule) -> Bool {
         switch module {
         case .basedOnInterests: return basedOnInterests
         case .becauseYouRead: return becauseYouRead
@@ -32,28 +38,56 @@ public struct WMFForYouModuleVisibility {
 public final class WMFForYouViewModel: ObservableObject {
 
     @Published public var pages: [WMFForYouPageViewModel] = []
+    @Published public var moduleVisibility: WMFForYouModuleVisibility
+    @Published public var hiddenCardKeys: Set<String>
 
-    public init(response: WMFForYouResponse) {
+    public var onRefresh: (() async -> Void)?
+    public var onHideModule: ((WMFForYouModule) -> Void)?
+    public var onHideCard: ((WMFForYouArticleCardViewModel) -> Void)?
+    public var onCustomizeInterests: (() -> Void)?
+    public var onTapCard: ((WMFForYouArticleCardViewModel) -> Void)?
+    public var onSaveCard: ((WMFForYouArticleCardViewModel) -> Void)?
+    public var onShareCard: ((WMFForYouArticleCardViewModel) -> Void)?
+    public var onUnsaveCard: ((WMFForYouArticleCardViewModel) -> Void)?
+
+    public init(
+        response: WMFForYouResponse,
+        moduleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(basedOnInterests: true, becauseYouRead: true, continueReading: true),
+        hiddenCardKeys: Set<String> = []
+    ) {
+        self.moduleVisibility = moduleVisibility
+        self.hiddenCardKeys = hiddenCardKeys
+
+        var seenTitles: Set<String> = []
+
+        func makeKey(_ article: WMFForYouArticle) -> String {
+            "\(article.project.id)_\(article.title)"
+        }
+
+        func deduplicated(_ articles: [WMFForYouArticle]) -> [WMFForYouArticle] {
+            articles.filter { seenTitles.insert(makeKey($0)).inserted }
+        }
+
         let topicPages = response.interestTopicRandomArticles.map {
             let header = String.localizedStringWithFormat(
-                WMFLocalizedString("for-you-header-interest-topic", value: "Because of your interest: %1$@", comment: "Header label for a For You feed card based on an interest topic. %1$@ is replaced with the topic name."),
+                WMFLocalizedString("for-you-header-interest-topic", value: "Interest Topic: %1$@", comment: "Header label for a For You feed card based on an interest topic. %1$@ is replaced with the topic name."),
                 $0.topic.displayName
             )
-            return WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: $0.articles)
+            return WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: deduplicated($0.articles))
         }
         let relatedPages = response.interestPageRelatedArticles.map {
             let header = String.localizedStringWithFormat(
                 WMFLocalizedString("for-you-header-interest-article", value: "Interest Article: %1$@", comment: "Header label for a For You feed card based on an article the user has shown interest in. %1$@ is replaced with the article title."),
                 $0.pageInterest.title
             )
-            return WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: $0.articles)
+            return WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: deduplicated($0.articles))
         }
         let becauseYouReadPage: [WMFForYouPageViewModel] = response.becauseYouReadArticles.map {
             let header = String.localizedStringWithFormat(
                 WMFLocalizedString("for-you-header-because-you-read", value: "Because you read: %1$@", comment: "Header label for a For You feed card shown because the user recently read a related article. %1$@ is replaced with the article title."),
                 $0.recentlyRead.title
             )
-            return [WMFForYouPageViewModel(module: .becauseYouRead, headerLabel: header, articles: $0.articles)]
+            return [WMFForYouPageViewModel(module: .becauseYouRead, headerLabel: header, articles: deduplicated($0.articles))]
         } ?? []
         let continueReadingPage: [WMFForYouPageViewModel] = response.continueReadingArticles.map { continueReading in
             let continueHeader = String.localizedStringWithFormat(
@@ -64,7 +98,8 @@ public final class WMFForYouViewModel: ObservableObject {
                 article: continueReading.continueReadingArticle,
                 headerLabel: continueHeader
             )
-            let savedCards = continueReading.savedArticles.map {
+            seenTitles.insert(makeKey(continueReading.continueReadingArticle))
+            let savedCards = deduplicated(continueReading.savedArticles).map {
                 let savedHeader = String.localizedStringWithFormat(
                     WMFLocalizedString("for-you-header-saved-article", value: "Saved article: %1$@", comment: "Header label for a For You feed card showing a saved article. %1$@ is replaced with the article title."),
                     $0.title
@@ -109,6 +144,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
     @Published public var uiImage: UIImage?
     @Published public var sampledColor: Color?
     @Published public var isSaved: Bool = false
+
     public func refreshSavedState(isSaved: Bool) {
         self.isSaved = isSaved
     }
@@ -223,8 +259,6 @@ extension UIImage {
             let minC = min(r, g, b)
             let saturation = maxC == 0 ? 0 : (maxC - minC) / maxC
 
-            // Square the saturation so highly saturated pixels
-            // dominate much more strongly over gray/white ones
             let weight = saturation * saturation
 
             weightedR += r * weight
@@ -233,7 +267,6 @@ extension UIImage {
             totalWeight += weight
         }
 
-        // Fall back to plain average if image is entirely desaturated
         guard totalWeight > 0 else {
             var totalR: CGFloat = 0, totalG: CGFloat = 0, totalB: CGFloat = 0
             let pixelCount = CGFloat(width * sampleHeight)

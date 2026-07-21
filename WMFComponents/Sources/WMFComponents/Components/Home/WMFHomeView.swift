@@ -84,20 +84,8 @@ public struct WMFHomeView: View {
     @ViewBuilder
     private var forYouTabContent: some View {
         if let forYouViewModel = viewModel.forYouViewModel {
-            WMFForYouView(
-                viewModel: forYouViewModel,
-                moduleVisibility: viewModel.forYouModuleVisibility,
-                hiddenCardKeys: viewModel.hiddenCardKeySet,
-                onRefresh: { await viewModel.refreshForYouFeed() },
-                onHideModule: { viewModel.hideForYouModule($0) },
-                onHideCard: { viewModel.hideForYouCard($0) },
-                onCustomizeInterests: { viewModel.didTapCustomizeInterests?() },
-                onTapCard: { viewModel.didTapForYouCard?($0) },
-                onSaveCard: { viewModel.didSaveForYouCard?($0) },
-                onShareCard: { viewModel.didShareForYouCard?($0) },
-                onUnsaveCard: { viewModel.didTapUnsaveForYouCard?($0)}
-            )
-            .ignoresSafeArea()
+            WMFForYouView(viewModel: forYouViewModel)
+                .ignoresSafeArea()
         } else if viewModel.isLoadingForYou {
             Spacer()
             ProgressView()
@@ -117,7 +105,7 @@ public struct WMFHomeView: View {
             WMFCommunityFeedView(
                 pages: viewModel.communityPages,
                 moduleVisibility: viewModel.communityModuleVisibility,
-                hiddenCardKeys: viewModel.hiddenCardKeySet,
+                hiddenCardKeys: viewModel.hiddenCardKeys,
                 isLoadingPreviousPage: viewModel.isLoadingCommunityPreviousPage,
                 onHideModule: { viewModel.hideModule($0) },
                 onHideCard: { viewModel.hideCard(key: $0) },

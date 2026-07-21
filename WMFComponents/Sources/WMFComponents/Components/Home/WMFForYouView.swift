@@ -37,60 +37,27 @@ public struct WMFForYouView: View {
 
     var theme: WMFTheme { appEnvironment.theme }
 
-    let moduleVisibility: WMFForYouModuleVisibility
-    let hiddenCardKeys: Set<String>
-    let onRefresh: () async -> Void
-    let onHideModule: (WMFForYouModule) -> Void
-    let onHideCard: (WMFForYouArticleCardViewModel) -> Void
-    let onCustomizeInterests: () -> Void
-    let onTapCard: (WMFForYouArticleCardViewModel) -> Void
-    let onSaveCard: (WMFForYouArticleCardViewModel) -> Void
-    let onShareCard: (WMFForYouArticleCardViewModel) -> Void
-    let onUnsaveCard: (WMFForYouArticleCardViewModel) -> Void
-
-    public init(
-        viewModel: WMFForYouViewModel,
-        moduleVisibility: WMFForYouModuleVisibility,
-        hiddenCardKeys: Set<String> = [],
-        onRefresh: @escaping () async -> Void,
-        onHideModule: @escaping (WMFForYouModule) -> Void,
-        onHideCard: @escaping (WMFForYouArticleCardViewModel) -> Void,
-        onCustomizeInterests: @escaping () -> Void,
-        onTapCard: @escaping (WMFForYouArticleCardViewModel) -> Void,
-        onSaveCard: @escaping (WMFForYouArticleCardViewModel) -> Void,
-        onShareCard: @escaping (WMFForYouArticleCardViewModel) -> Void,
-        onUnsaveCard: @escaping (WMFForYouArticleCardViewModel) -> Void
-    ) {
+    public init(viewModel: WMFForYouViewModel) {
         self.viewModel = viewModel
-        self.moduleVisibility = moduleVisibility
-        self.hiddenCardKeys = hiddenCardKeys
-        self.onRefresh = onRefresh
-        self.onHideModule = onHideModule
-        self.onHideCard = onHideCard
-        self.onCustomizeInterests = onCustomizeInterests
-        self.onTapCard = onTapCard
-        self.onSaveCard = onSaveCard
-        self.onShareCard = onShareCard
-        self.onUnsaveCard = onUnsaveCard
     }
 
     public var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(spacing: 0) {
-                    ForEach(viewModel.pages.filter { moduleVisibility.isVisible($0.module) }) { page in
-                        let visibleArticles = page.articleViewModels.filter { !hiddenCardKeys.contains($0.hideKey) }
+                    ForEach(viewModel.pages.filter { viewModel.moduleVisibility.isVisible($0.module) }) { page in
+                        let visibleArticles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.hideKey) }
                         if !visibleArticles.isEmpty {
                             WMFForYouPageView(
                                 articleViewModels: visibleArticles,
                                 theme: theme,
-                                onHideModule: { onHideModule(page.module) },
-                                onHideCard: onHideCard,
-                                onCustomizeInterests: onCustomizeInterests,
-                                onTapCard: onTapCard,
-                                onSaveCard: onSaveCard,
-                                onShareCard: onShareCard,
-                                onUnsaveCard: onUnsaveCard
+                                onHideModule: { viewModel.onHideModule?(page.module) },
+                                onHideCard: { viewModel.onHideCard?($0) },
+                                onCustomizeInterests: { viewModel.onCustomizeInterests?() },
+                                onTapCard: { viewModel.onTapCard?($0) },
+                                onSaveCard: { viewModel.onSaveCard?($0) },
+                                onShareCard: { viewModel.onShareCard?($0) },
+                                onUnsaveCard: { viewModel.onUnsaveCard?($0) }
                             )
                             .frame(width: geometry.size.width, height: geometry.size.height)
                         }
@@ -99,7 +66,7 @@ public struct WMFForYouView: View {
             }
             .scrollTargetBehavior(.paging)
             .refreshable {
-                await onRefresh()
+                await viewModel.onRefresh?()
             }
         }
     }
@@ -140,7 +107,7 @@ private struct WMFForYouPageView: View {
                     onCustomizeInterests: onCustomizeInterests,
                     onTapCard: { onTapCard(article) },
                     onSaveCard: { onSaveCard(article) },
-                    onUnsaveCard: { onUnsaveCard(article)},
+                    onUnsaveCard: { onUnsaveCard(article) },
                     onShareCard: { onShareCard(article) }
                 )
                 .tag(index)
