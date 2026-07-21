@@ -313,30 +313,32 @@ private struct WMFForYouArticleCardView: View {
                 .frame(width: geometry.size.width, height: geometry.size.height)
                 .clipped()
 
-                // 2. Gradients + blur (image variants with actual image only)
+                // 2. Gradients (image variants only)
                 if effectiveVariant != .textFocused {
                     ZStack {
+                        // Top gradient — subtle dark fade for nav bar legibility
                         LinearGradient(
                             stops: [
-                                .init(color: cardColor.opacity(0), location: 0.0),
-                                .init(color: cardColor.opacity(0.6), location: 1.0)
+                                .init(color: .black.opacity(0.4), location: 0.00),
+                                .init(color: .black.opacity(0), location: 1.00)
                             ],
-                            startPoint: UnitPoint(x: 0.5, y: 0.26),
-                            endPoint: UnitPoint(x: 0.5, y: 0.15)
+                            startPoint: UnitPoint(x: 0.5, y: 0),
+                            endPoint: UnitPoint(x: 0.5, y: 0.25)
                         )
+
+                        // Bottom gradient — transparent → sampled color → black
                         LinearGradient(
                             stops: [
-                                .init(color: cardColor.opacity(0), location: 0.0),
-                                .init(color: cardColor.opacity(0.85), location: 0.35)
+                                .init(color: cardColor.opacity(0), location: 0.00),
+                                .init(color: cardColor.opacity(0.85), location: 0.55),
+                                .init(color: .black, location: 1.00)
                             ],
-                            startPoint: UnitPoint(x: 0.5, y: 0.61),
-                            endPoint: UnitPoint(x: 0.5, y: 0.92)
+                            startPoint: UnitPoint(x: 0.5, y: 0.4),
+                            endPoint: UnitPoint(x: 0.5, y: 1.0)
                         )
                     }
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .clipped()
-                    .drawingGroup()
-                    .blur(radius: 5)
                     .animation(.easeInOut(duration: 0.3), value: viewModel.sampledColor)
                 }
 
