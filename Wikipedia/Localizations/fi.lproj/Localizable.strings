@@ -1062,7 +1062,6 @@
 "reading-challenge-not-yet-read-subtitle-quiet" = "Haluatko pitää hiljaisen lukuhetken?";
 "reading-challenge-not-yet-read-subtitle-snooze" = "Ehdit vielä oppia jotain, ennen kuin tämä päivä on ohi.";
 "reading-challenge-random-button" = "Satunnainen";
-"reading-challenge-streak-days" = "{{PLURAL:$1|$1 päivä|$1 päivää}}";
 "reading-challenge-streak-no-days" = "$1/25";
 "reading-challenge-subtitle" = "25 päivän lukuhaaste";
 "reading-challenge-widget-description" = "Seuraa edistymistäsi lukuhaasteessa.";

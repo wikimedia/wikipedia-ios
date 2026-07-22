@@ -46,7 +46,7 @@ class WatchlistController {
             performAfterLoginBlock = { [weak self] in
                 self?.watch(pageTitle: pageTitle, siteURL: siteURL, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
             }
-            viewController.wmf_showLoginViewController(theme: theme)
+            viewController.wmf_showLoginViewController(category: .diff, theme: theme)
             return
         }
 
@@ -226,7 +226,7 @@ class WatchlistController {
             performAfterLoginBlock = { [weak self] in
                 self?.unwatch(pageTitle: pageTitle, siteURL: siteURL, viewController: viewController, authenticationManager: authenticationManager, theme: theme)
             }
-            viewController.wmf_showLoginViewController(theme: theme)
+            viewController.wmf_showLoginViewController(category: .diff, theme: theme)
             return
         }
 
@@ -311,7 +311,7 @@ class WatchlistController {
                 }
 
                 self.performAfterLoginBlock = performAfterLoginBlock
-                viewController.wmf_showLoginViewController(theme: theme)
+                viewController.wmf_showLoginViewController(category: .diff, theme: theme)
                 return
             default:
                 break

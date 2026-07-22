@@ -37,7 +37,12 @@ final class PictureOfTheDayData {
 
     // MARK: Public
 
-    static func fetchPictureOfTheDayEntryData(usingCache: Bool = false, maxWidth: Int = 960, completion: @escaping (PictureOfTheDayEntry) -> Void) {
+    static func fetchPictureOfTheDayEntryData(
+        usingCache: Bool = false,
+        maxWidth: Int = 960,
+        targetSize: CGSize,
+        completion: @escaping (PictureOfTheDayEntry) -> Void
+    ) {
         let widgetController = WidgetController.shared
         widgetController.fetchPictureOfTheDayContent(isSnapshot: usingCache, maxWidth: maxWidth) { result in
             let midnightUTCDate: Date = (Date() as NSDate).wmf_midnightUTCDateFromLocal ?? Date()
@@ -45,7 +50,7 @@ final class PictureOfTheDayData {
 
             if let pictureOfTheDay = try? result.get(),
                let imageData = pictureOfTheDay.originalImageSource?.data,
-               let image = UIImage(data: imageData) {
+               let image = UIImage.downsampled(from: imageData, targetSize: targetSize) {
                 let description = pictureOfTheDay.description.text
                 let license = pictureOfTheDay.license.code
                 let entry = PictureOfTheDayEntry(date: Date(), kind: .entry, contentURL: groupURL, image: image, imageDescription: description, licenseCode: license)
@@ -100,14 +105,6 @@ struct PictureOfTheDayEntry: TimelineEntry {
         return licenseImages
     }
 
-    // MARK: - Scale Entry Image
-
-    func scalingImageTo(targetSize: CGSize) -> PictureOfTheDayEntry {
-        var entry = self
-        entry.image = entry.image?.scaleImageToFill(targetSize: targetSize)
-        return entry
-    }
-
 }
 
 // MARK: - TimelineProvider
@@ -127,7 +124,7 @@ struct PictureOfTheDayProvider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<PictureOfTheDayEntry>) -> Void) {
         let maxWidth = context.potdMaxImageWidth
         let renderSize = context.potdRenderSize
-        PictureOfTheDayData.fetchPictureOfTheDayEntryData(maxWidth: maxWidth) { entry in
+        PictureOfTheDayData.fetchPictureOfTheDayEntryData(maxWidth: maxWidth, targetSize: renderSize) { entry in
             let currentDate = Date()
             let nextUpdate: Date
 
@@ -138,7 +135,7 @@ struct PictureOfTheDayProvider: TimelineProvider {
                 nextUpdate = Calendar.current.date(byAdding: components, to: currentDate) ?? currentDate
             }
 
-            let timeline = Timeline(entries: [entry.scalingImageTo(targetSize: renderSize)], policy: .after(nextUpdate))
+            let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
             completion(timeline)
         }
     }
@@ -146,8 +143,12 @@ struct PictureOfTheDayProvider: TimelineProvider {
     func getSnapshot(in context: Context, completion: @escaping (PictureOfTheDayEntry) -> Void) {
         let maxWidth = context.potdMaxImageWidth
         let renderSize = context.potdRenderSize
-        PictureOfTheDayData.fetchPictureOfTheDayEntryData(usingCache: context.isPreview, maxWidth: maxWidth) { entry in
-            completion(entry.scalingImageTo(targetSize: renderSize))
+        PictureOfTheDayData.fetchPictureOfTheDayEntryData(
+            usingCache: context.isPreview,
+            maxWidth: maxWidth,
+            targetSize: renderSize
+        ) { entry in
+            completion(entry)
         }
     }
 

@@ -33,6 +33,7 @@
 "account-creation-passwords-mismatched" = "Los senhals son pas identics.";
 "account-creation-saving" = "Enregistrament en cors…";
 "action-add-to-reading-list-short" = "Ajustar a la lista";
+"action-discard-edits" = "Abandonar la modificacion";
 // Fuzzy
 "action-find-in-page" = "Trobar dins la pagina";
 "action-read" = "Legir";

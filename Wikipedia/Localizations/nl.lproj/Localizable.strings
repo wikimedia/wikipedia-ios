@@ -1150,9 +1150,7 @@
 "reading-challenge-not-yet-read-subtitle-quiet" = "Een rustig moment om te lezen?";
 "reading-challenge-not-yet-read-subtitle-snooze" = "Voordat de dag ten einde loopt... is er nog tijd om iets te leren.";
 "reading-challenge-random-button" = "Willekeurig";
-"reading-challenge-streak-days" = "{{PLURAL:$1|$1 dag|$1 dagen}}";
 "reading-challenge-streak-no-days" = "$1 van 25";
-"reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 van 25 dagen}}";
 "reading-challenge-subtitle" = "25-daagse leesuitdaging";
 "reading-challenge-widget-announcement-body2" = "Om uw leesvoortgang bij Baby Globe bij te houden, moet u de widget 'Leesuitdaging' toevoegen aan uw startscherm.";
 "reading-challenge-widget-announcement-secondary-button" = "Laat mij zien hoe";

@@ -49,7 +49,17 @@ extension WMFAppViewController {
             return false
         }
 
-        let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: linkURL, dataStore: dataStore, theme: theme, articleSource: .external_link, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
+        // Use the article source from userInfo if provided (e.g. widget deep links inject .widget),
+        // otherwise default to external_link for generic deep links from browsers etc.
+        let articleSource: ArticleSource
+        if let sourceInt = userActivity.userInfo?[ArticleSourceUserInfoKeys.articleSource] as? Int,
+           let source = ArticleSource(rawValue: sourceInt) {
+            articleSource = source
+        } else {
+            articleSource = .external_link
+        }
+
+        let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: linkURL, dataStore: dataStore, theme: theme, articleSource: articleSource, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
         return linkCoordinator.start()
     }
 
@@ -258,10 +268,17 @@ extension WMFAppViewController {
 
         viewController.present(alertController, animated: true, completion: nil)
     }
-
-    @objc func showRandomArticleFromShortcut(siteURL: URL?, animated: Bool) {
+    
+    @objc func showRandomArticleFromShortcut(siteURL: URL?, animated: Bool, userInfo: [AnyHashable: Any]? = nil) {
         guard let navVC = currentTabNavigationController else { return }
-        let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: nil, siteURL: siteURL, dataStore: dataStore, theme: theme, source: .undefined, animated: animated)
+        let articleSource: ArticleSource
+        if let sourceInt = userInfo?[ArticleSourceUserInfoKeys.articleSource] as? Int,
+           let source = ArticleSource(rawValue: sourceInt) {
+            articleSource = source
+        } else {
+            articleSource = .undefined
+        }
+        let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: nil, siteURL: siteURL, dataStore: dataStore, theme: theme, source: articleSource, animated: animated)
         coordinator.start()
     }
 
@@ -1058,23 +1075,6 @@ extension WMFAppViewController {
             return String.localizedStringWithFormat(format, openingLink, closingLink)
         }
 
-        // Reading Challenge card
-        let readingChallengeCardTitle = WMFLocalizedString(
-            "activity-tab-reading-challenge-card-title",
-            value: "25-day reading challenge",
-            comment: "Title for the reading challenge card in the activity tab."
-        )
-        let readingChallengeCardBody = WMFLocalizedString(
-            "activity-tab-reading-challenge-card-body",
-            value: "To track your streak with Baby Globe, you'll need to add the Reading Challenge widget from your Home Screen.",
-            comment: "Body text for the reading challenge card in the activity tab."
-        )
-        let readingChallengeCardCTA = WMFLocalizedString(
-            "activity-tab-reading-challenge-card-cta",
-            value: "Show me how",
-            comment: "Button title for the reading challenge card CTA in the activity tab."
-        )
-
         var authdValue: LoginState = .loggedOut
         if dataStore.authenticationManager.authStateIsPermanent {
             authdValue = .loggedIn
@@ -1148,10 +1148,7 @@ extension WMFAppViewController {
                     historyCalloutTitle: CommonStrings.historyMovedToSearchTitle,
                     historyCalloutBodyLoggedIn: CommonStrings.historyMovedToSearchSubtitleLoggedIn,
                     historyCalloutBodyLoggedOut: CommonStrings.historyMovedToSearchSubtitleLoggedOut,
-                    calloutCloseButtonAccesibilityHint: WMFLocalizedString("activity-tab-hitory-callout-close", value: "Close history notice card", comment: "Accesibility label for close button in callout about history moving to search"),
-                    readingChallengeCardTitle: readingChallengeCardTitle,
-                    readingChallengeCardBody: readingChallengeCardBody,
-                    readingChallengeCardCTA: readingChallengeCardCTA
+                    calloutCloseButtonAccesibilityHint: WMFLocalizedString("activity-tab-hitory-callout-close", value: "Close history notice card", comment: "Accesibility label for close button in callout about history moving to search")
                 ),
                 dataController: activityTabDataController,
                 authenticationState: authdValue)

@@ -1,5 +1,3 @@
-// TODO: This is temporary UI — article grid and card views are placeholders pending final design.
-
 import SwiftUI
 import WMFData
 
@@ -8,6 +6,10 @@ struct WMFInterestArticleGridView: View {
     let viewModels: [WMFInterestArticleCardViewModel]
     let theme: WMFTheme
     let onTap: (WMFInterestArticleCardViewModel) -> Void
+
+    // At accessibility sizes half-width columns word-break the scaled titles, so the grid
+    // collapses to a single full-width column.
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private var columns: (left: [WMFInterestArticleCardViewModel], right: [WMFInterestArticleCardViewModel]) {
         var left: [WMFInterestArticleCardViewModel] = []
@@ -42,10 +44,16 @@ struct WMFInterestArticleGridView: View {
     }
 
     var body: some View {
-        let cols = columns
-        HStack(alignment: .top, spacing: 12) {
-            column(cols.left)
-            column(cols.right)
+        Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                column(viewModels)
+            } else {
+                let cols = columns
+                HStack(alignment: .top, spacing: 12) {
+                    column(cols.left)
+                    column(cols.right)
+                }
+            }
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
@@ -65,58 +73,69 @@ struct WMFInterestArticleGridView: View {
 
 private struct WMFInterestArticleCardView: View {
 
+    // Capped by the interests screen; fonts resolve against the capped value.
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    // Scales with Dynamic Type so the image band keeps its proportion of the card.
+    @ScaledMetric private var imageHeight: CGFloat = 100
+
     @ObservedObject var viewModel: WMFInterestArticleCardViewModel
     let theme: WMFTheme
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             if let uiImage = viewModel.uiImage {
-                ZStack(alignment: .topTrailing) {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 100)
-                        .clipped()
-                        .contentShape(Rectangle())
-
-                    if viewModel.isSelected, let checkmark = WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill) {
-                        Image(uiImage: checkmark)
-                            .foregroundStyle(Color(uiColor: theme.link))
-                            .background(Color(uiColor: theme.paperBackground).clipShape(Circle()))
-                            .padding(6)
-                    }
-                }
-            } else if viewModel.isSelected, let checkmark = WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill) {
-                HStack {
-                    Spacer()
-                    Image(uiImage: checkmark)
-                        .foregroundStyle(Color(uiColor: theme.link))
-                        .padding(6)
-                }
+                // The container drives layout; scaledToFill images would otherwise report
+                // their own width and inflate the card beyond its column width
+                Color.clear
+                    .frame(height: imageHeight)
+                    .overlay(
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFill()
+                    )
+                    .clipped()
+                    .contentShape(Rectangle())
             }
             VStack(alignment: .leading, spacing: 4) {
-                WMFHtmlText(html: viewModel.title, styles: HtmlUtils.Styles(font: WMFFont.for(.subheadline), boldFont: WMFFont.for(.boldSubheadline), italicsFont: WMFFont.for(.italicSubheadline), boldItalicsFont: WMFFont.for(.italicSubheadline), color: theme.text, linkColor: theme.link, lineSpacing: 1))
+                WMFHtmlText(html: viewModel.title, styles: HtmlUtils.Styles(font: WMFFont.for(.semiboldHeadline, sized: dynamicTypeSize), boldFont: WMFFont.for(.boldHeadline, sized: dynamicTypeSize), italicsFont: WMFFont.for(.semiboldHeadline, sized: dynamicTypeSize), boldItalicsFont: WMFFont.for(.boldHeadline, sized: dynamicTypeSize), color: theme.text, linkColor: theme.link, lineSpacing: 1))
                 if let description = viewModel.description {
                     Text(description)
-                        .font(Font(WMFFont.for(.caption1)))
+                        .font(Font(WMFFont.for(.callout, sized: dynamicTypeSize)))
                         .foregroundStyle(Color(uiColor: theme.secondaryText))
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }
             .padding(8)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(viewModel.isSelected ? Color(uiColor: theme.addition) : Color.clear)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(uiColor: theme.paperBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
         .overlay(
-            RoundedRectangle(cornerRadius: 8)
-                .strokeBorder(
-                    viewModel.isSelected ? Color(uiColor: theme.link) : Color(uiColor: theme.border),
-                    lineWidth: viewModel.isSelected ? 2 : 0.5
-                )
+            RoundedRectangle(cornerRadius: 16)
+                .strokeBorder(Color(uiColor: theme.newBorder), lineWidth: 1)
         )
+        .overlay(alignment: .bottomTrailing) {
+            if viewModel.isSelected, let checkmark = WMFSFSymbolIcon.for(symbol: .checkmark, font: .subheadline, compatibleWith: dynamicTypeSize.wmfTraitCollection) {
+                Image(uiImage: checkmark)
+                    .foregroundStyle(Color(uiColor: theme.link))
+                    .padding(8)
+            }
+        }
         .onAppear {
             viewModel.loadIfNeeded()
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(accessibilityLabel)
+        .accessibilityAddTraits(viewModel.isSelected ? [.isButton, .isSelected] : .isButton)
+    }
+
+    private var accessibilityLabel: String {
+        [viewModel.title.wmf_strippingHTMLForAccessibility, viewModel.description]
+            .compactMap { $0 }
+            .filter { !$0.isEmpty }
+            .joined(separator: ", ")
     }
 }
