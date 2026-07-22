@@ -178,16 +178,17 @@ import WMFTestKitchen
     ///   - oathToken: Two factor password required if user's account has 2FA enabled. Optional.
     ///   - captchaID: CaptchaID if login requiers captcha information
     ///   - captchaWord: CaptchaWord if login requiers captcha information
+    ///   - hCaptchaToken: hCaptcha token if login requires an hCaptcha challenge to be solved
     ///   - reattemptOn401Response: Attempts login again if response http is 401.
     ///   - completion: Completion handler with current user object upon success
-    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, emailAuthCode: String?, captchaID: String?, captchaWord: String?, reattemptOn401Response: Bool = false, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void) {
+    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, emailAuthCode: String?, captchaID: String?, captchaWord: String?, hCaptchaToken: String? = nil, reattemptOn401Response: Bool = false, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void) {
         guard let siteURL = loginSiteURL else {
             DispatchQueue.main.async {
                 completion(.failure(LoginError.missingLoginURL))
             }
             return
         }
-        accountLoginLogoutFetcher.login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, emailAuthCode: emailAuthCode, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, reattemptOn401Response: reattemptOn401Response, success: {username in
+        accountLoginLogoutFetcher.login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, emailAuthCode: emailAuthCode, captchaID: captchaID, captchaWord: captchaWord, hCaptchaToken: hCaptchaToken, siteURL: siteURL, reattemptOn401Response: reattemptOn401Response, success: {username in
 
             // Upon successful login, try fetching userinfo to populate user cache
             self.currentUserFetcher.fetch(siteURL: siteURL, success: { user in

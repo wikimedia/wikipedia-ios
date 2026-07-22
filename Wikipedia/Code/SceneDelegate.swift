@@ -117,9 +117,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         appViewController.showSplashView()
+
+        // Extract source from the webpage URL's query parameters (e.g. universal links from widgets
+        // include source=widget_* so we can attribute the open correctly without overwriting
+        // a source that openURLContexts may have already set).
+        if lastOpenSource == nil,
+           let webpageURL = userActivity.webpageURL,
+           let components = URLComponents(url: webpageURL, resolvingAgainstBaseURL: false),
+           let sourceValue = components.queryItems?.first(where: { $0.name == "source" })?.value {
+            self.lastOpenSource = sourceValue
+        }
+
         var userInfo = userActivity.userInfo
         userInfo?[WMFRoutingUserInfoKeys.source] = WMFRoutingUserInfoSourceValue.deepLinkRawValue
-        // Only set external_link source if not already set (e.g. by openURLContexts which may have extracted a widget source from the URL)
+
+        // Inject widget article source if this activation came from a widget universal link, so the
+        // ios_article_link_interaction instrument can record source = 29 (widget).
+        if let openSource = lastOpenSource, openSource.hasPrefix("widget_") {
+            var info = userInfo ?? [:]
+            info[ArticleSourceUserInfoKeys.articleSource] = ArticleSource.widget.rawValue
+            userInfo = info
+        }
+
+        // Only set external_link source if not already set (e.g. by openURLContexts which may have
+        // extracted a widget source from the URL, or extracted above from the webpageURL query params).
         if lastOpenSource == nil {
             self.lastOpenSource = "external_link"
             self.didOpenAppFromExternalLink = true
@@ -184,7 +205,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         // Try to derive an NSUserActivity for the URL and route accordingly.
-        if let activity = NSUserActivity.wmf_activity(forWikipediaScheme: firstURL) ?? NSUserActivity.wmf_activity(for: firstURL) {
+        if var activity = NSUserActivity.wmf_activity(forWikipediaScheme: firstURL) ?? NSUserActivity.wmf_activity(for: firstURL) {
+            // Propagate widget article source into the activity userInfo so article-view
+            // instrumentation (ios_article_link_interaction) can record source = 29 (widget).
+            if let openSource = self.lastOpenSource, openSource.hasPrefix("widget_") {
+                var userInfo = activity.userInfo ?? [:]
+                userInfo[ArticleSourceUserInfoKeys.articleSource] = ArticleSource.widget.rawValue
+                activity.userInfo = userInfo
+            }
             appViewController.showSplashView()
             _ = appViewController.processUserActivity(activity, animated: false) { [weak self] in
                 

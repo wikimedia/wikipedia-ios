@@ -692,7 +692,7 @@
 "reading-list-list-limit-exceeded-message" = "Ta lista do czytania i zapisane na niej artykuły nie zostaną zsynchronizowane. Zmniejsz liczbę list do $1, aby wznowić synchronizację tej listy.";
 "reading-list-list-limit-exceeded-title" = "Przekroczono limit {{PLURAL:$1|$1 lista czytelnicza |$1 list czytelniczych}} na konto.";
 "reading-list-list-limit-reached" = "Osiągnięto limit list czytania $1 na konto";
-"reading-list-login-button-title" = "Zaloguj się, aby zsynchronizować twoje zapisane artykuły";
+"reading-list-login-button-title" = "Zaloguj się, aby zsynchronizować Twoje zapisane artykuły";
 "reading-list-login-or-create-account-button-title" = "Zaloguj się lub utwórz konto";
 "reading-list-login-or-create-account-title" = "Zaloguj się, aby zsynchronizować zapisane artykuły";
 "reading-list-login-subtitle" = "Zaloguj się lub utwórz konto, aby umożliwić synchronizację zapisanych artykułów i list do czytania na różnych urządzeniach i zapisać je w preferencjach użytkownika.";
@@ -818,7 +818,7 @@
 "table-of-contents-hide-button-label" = "Ukryj spis treści";
 "tachelhit-variants-alert-title" = "Aktualizacje obsługi wariantów Tachelhit";
 "tajik-variants-alert-title" = "Aktualizacje obsługi wariantów tadżyckich";
-"talk-page-add-topic-button" = "Dodaj temat";
+"talk-page-add-topic-button" = "Dodaj wątek";
 "talk-page-change-language" = "Zmień język";
 "talk-page-discussion-read-accessibility-label" = "Czytaj";
 "talk-page-discussion-unread-accessibility-label" = "Nieprzeczytane";

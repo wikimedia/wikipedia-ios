@@ -1107,9 +1107,7 @@
 "reading-challenge-not-yet-read-subtitle-quiet" = "Nóiméad ciúin léitheoireachta?";
 "reading-challenge-not-yet-read-subtitle-snooze" = "Sula dtéann an lá thart...tá am ann fós rud éigin a fhoghlaim.";
 "reading-challenge-random-button" = "Randamach";
-"reading-challenge-streak-days" = "{{PLURAL:$1|$1 lae|$1 laethanta}}";
 "reading-challenge-streak-no-days" = "$1 de 25";
-"reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 de 25 lá|$1 de 25 laethanta}}";
 "reading-challenge-subtitle" = "Dúshlán léitheoireachta 25 lá";
 "reading-challenge-widget-announcement-body2" = "Chun do shraith úsáide le Baby Globe a rianú, beidh ort an giuirléid Dúshlán Léitheoireachta a chur leis ó do scáileán baile.";
 "reading-challenge-widget-announcement-secondary-button" = "Taispeáin dom conas";

@@ -78,16 +78,10 @@ extension UIViewController {
         present(alert, animated: true)
     }
 
-    private func shouldSuppressForReadingChallenge() async -> Bool {
-        return await WMFActivityTabDataController.shared.isReadingChallengeActive()
-    }
-
     @objc func wmf_showEnableReadingListSyncPanel(theme: Theme, oncePerLogin: Bool = false, didNotPresentPanelCompletion: (() -> Void)? = nil, dismissHandler: (() -> Void)? = nil) {
         Task { @MainActor [weak self] in
             guard let self else { return }
-            guard await !self.shouldSuppressForReadingChallenge() else {
-                return
-            }
+
             if oncePerLogin {
                 guard !UserDefaults.standard.wmf_didShowEnableReadingListSyncPanel() else {
                     didNotPresentPanelCompletion?()
@@ -142,9 +136,7 @@ extension UIViewController {
     fileprivate func wmf_showAddSavedArticlesToReadingListAlert() {
         Task { @MainActor [weak self] in
             guard let self else { return }
-            guard await !self.shouldSuppressForReadingChallenge() else {
-                return
-            }
+
             let dataStore = MWKDataStore.shared()
             let alert = UIAlertController(
                 title: WMFLocalizedString("reading-list-add-saved-title", value: "Saved articles found", comment: "Title explaining saved articles were found."),
@@ -195,9 +187,7 @@ extension UIViewController {
     @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme, dismissHandler: (() -> Void)? = nil, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
         Task { @MainActor [weak self] in
             guard let self else { return }
-            guard await !self.shouldSuppressForReadingChallenge() else {
-                return
-            }
+
             LoginFunnel.shared.logLoginImpressionInSyncPopover()
             let alert = UIAlertController(
                 title: WMFLocalizedString("reading-list-login-or-create-account-title", value: "Log in to sync saved articles", comment: "Title for syncing saved articles."),
@@ -220,9 +210,7 @@ extension UIViewController {
     func wmf_showSyncEnabledPanelOncePerLoginIfNeeded(wasSyncEnabledOnDevice: Bool) {
         Task { @MainActor [weak self] in
             guard let self else { return }
-            guard await !self.shouldSuppressForReadingChallenge() else {
-                return
-            }
+
             guard !wasSyncEnabledOnDevice, !UserDefaults.standard.wmf_didShowSyncEnabledPanel() else {
                 return
             }
@@ -243,9 +231,7 @@ extension UIViewController {
     func wmf_showSyncDisabledPanelIfNeeded(wasSyncEnabledOnDevice: Bool) {
         Task { @MainActor [weak self] in
             guard let self else { return }
-            guard await !self.shouldSuppressForReadingChallenge() else {
-                return
-            }
+
             guard wasSyncEnabledOnDevice, !UserDefaults.standard.wmf_didShowSyncDisabledPanel() else {
                 return
             }

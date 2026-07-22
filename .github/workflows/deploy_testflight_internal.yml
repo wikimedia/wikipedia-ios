@@ -1,0 +1,411 @@
+name: Internal TestFlight
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-upload:
+    runs-on: macos-26
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # -------------------------------------------------------
+      # 1. Compute build number
+      # -------------------------------------------------------
+      - name: Compute build number
+        id: versioning
+        run: |
+          VERSION=$(/usr/libexec/PlistBuddy -c \
+            "Print :CFBundleShortVersionString" \
+            Wikipedia/Wikipedia-Info.plist)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+          LATEST=$(git tag --list 'betas/*' \
+            | sed 's|betas/||' \
+            | sort -n \
+            | tail -1)
+          BUILD=$(( ${LATEST:-0} + 1 ))
+          echo "build=$BUILD" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION, Build: $BUILD"
+
+      # -------------------------------------------------------
+      # 2. Check for duplicate build
+      # -------------------------------------------------------
+      - name: Check for duplicate build
+        id: duplicate_check
+        run: |
+          LATEST_COMMIT=$(git rev-parse HEAD)
+          EXISTING_TAG=$(git tag --points-at $LATEST_COMMIT | grep 'betas/' | head -1)
+          if [ -n "$EXISTING_TAG" ]; then
+            echo "Commit $LATEST_COMMIT already has tag $EXISTING_TAG, skipping build"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "No existing beta tag for this commit, proceeding"
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      # -------------------------------------------------------
+      # 3. Find new PRs since last release tag (for What to Test notes)
+      # -------------------------------------------------------
+      - name: Find new PRs since last release
+        id: prs
+        if: steps.duplicate_check.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 << 'EOF'
+          import subprocess
+          import re
+          import os
+
+          result = subprocess.run(
+            ['git', 'tag', '--list', 'releases/*', '--sort=-version:refname'],
+            capture_output=True, text=True
+          )
+          tags = result.stdout.strip().split('\n')
+          last_release_tag = next((t for t in tags if t), None)
+
+          if not last_release_tag:
+            print("No release tag found, skipping PR lookup")
+            with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write("pr_numbers=\n")
+            exit(0)
+
+          print(f"Last release tag: {last_release_tag}")
+
+          result = subprocess.run(
+            ['git', 'log', '--oneline', '--merges', f'{last_release_tag}..HEAD'],
+            capture_output=True, text=True
+          )
+          commits = result.stdout.strip().split('\n')
+
+          pr_numbers = []
+          for commit in commits:
+            match = re.search(r'Merge pull request #(\d+)', commit)
+            if match:
+              pr_numbers.append(match.group(1))
+
+          print(f"Found PRs since last release: {pr_numbers}")
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f"pr_numbers={','.join(pr_numbers)}\n")
+            f.write(f"last_release_tag={last_release_tag}\n")
+          EOF
+
+      # -------------------------------------------------------
+      # 4. Find new PRs since last beta tag (for Phabricator commenting)
+      # -------------------------------------------------------
+      - name: Find new PRs since last beta
+        id: new_prs
+        if: steps.duplicate_check.outputs.skip != 'true'
+        run: |
+          python3 << 'EOF'
+          import subprocess
+          import re
+          import os
+
+          result = subprocess.run(
+            ['git', 'tag', '--list', 'betas/*', '--sort=-version:refname'],
+            capture_output=True, text=True
+          )
+          tags = result.stdout.strip().split('\n')
+          last_beta_tag = next((t for t in tags if t), None)
+
+          if not last_beta_tag:
+            print("No beta tag found, skipping new PR lookup")
+            with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write("new_pr_numbers=\n")
+            exit(0)
+
+          print(f"Last beta tag: {last_beta_tag}")
+
+          result = subprocess.run(
+            ['git', 'log', '--oneline', '--merges', f'{last_beta_tag}..HEAD'],
+            capture_output=True, text=True
+          )
+          commits = result.stdout.strip().split('\n')
+
+          pr_numbers = []
+          for commit in commits:
+            match = re.search(r'Merge pull request #(\d+)', commit)
+            if match:
+              pr_numbers.append(match.group(1))
+
+          print(f"Found PRs since last beta: {pr_numbers}")
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f"new_pr_numbers={','.join(pr_numbers)}\n")
+          EOF
+
+      # -------------------------------------------------------
+      # 5. Fetch Phabricator tasks from PRs
+      #    - All PRs since last release → What to Test notes + release task
+      #    - New PRs since last beta → Phabricator commenting
+      # -------------------------------------------------------
+      - name: Fetch Phabricator tasks from PRs
+        id: phab
+        if: steps.duplicate_check.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          ALL_PR_NUMBERS: ${{ steps.prs.outputs.pr_numbers }}
+          NEW_PR_NUMBERS: ${{ steps.new_prs.outputs.new_pr_numbers }}
+        run: |
+          python3 << 'EOF'
+          import urllib.request
+          import urllib.error
+          import json
+          import re
+          import os
+
+          all_pr_numbers_str = os.environ.get('ALL_PR_NUMBERS', '')
+          new_pr_numbers_str = os.environ.get('NEW_PR_NUMBERS', '')
+          repo = os.environ['REPO']
+          token = os.environ['GH_TOKEN']
+
+          def fetch_phab_tasks(pr_numbers):
+            phab_tasks = []
+            for pr_num in pr_numbers:
+              url = f"https://api.github.com/repos/{repo}/pulls/{pr_num}"
+              req = urllib.request.Request(url, headers={'Authorization': f'token {token}'})
+              body = ''
+              for attempt in range(3):
+                try:
+                  with urllib.request.urlopen(req) as resp:
+                    body = json.loads(resp.read()).get('body') or ''
+                  break
+                except urllib.error.HTTPError as e:
+                  if e.code == 504 and attempt < 2:
+                    print(f"PR #{pr_num}: 504 timeout, retrying ({attempt + 1}/3)...")
+                    import time
+                    time.sleep(5)
+                  else:
+                    print(f"Could not fetch PR #{pr_num}: {e}")
+                    break
+
+              phab_section = re.findall(
+                r'\*{0,2}Phabricator:\*{0,2}\s*((?:https://phabricator\.wikimedia\.org/T\d+[\s,]*)+)',
+                body, re.IGNORECASE
+              )
+              for section in phab_section:
+                urls = re.findall(r'https://phabricator\.wikimedia\.org/T\d+', section)
+                phab_tasks.extend(urls)
+
+            return list(dict.fromkeys(phab_tasks))
+
+          # All tasks since last release → What to Test notes + release task
+          if all_pr_numbers_str:
+            all_pr_numbers = [p for p in all_pr_numbers_str.split(',') if p]
+            all_tasks = fetch_phab_tasks(all_pr_numbers)
+            print(f"All Phabricator tasks (since last release): {all_tasks}")
+            with open('/tmp/phab_tasks.txt', 'w') as f:
+              f.write('\n'.join(f'• {t}' for t in all_tasks))
+          else:
+            print("No PRs since last release")
+            open('/tmp/phab_tasks.txt', 'w').close()
+            all_tasks = []
+
+          # New tasks since last beta → for Phabricator commenting
+          if new_pr_numbers_str:
+            new_pr_list = [p for p in new_pr_numbers_str.split(',') if p]
+            new_tasks = fetch_phab_tasks(new_pr_list)
+            print(f"New Phabricator tasks (since last beta): {new_tasks}")
+          else:
+            print("No new PRs since last beta, skipping Phabricator commenting")
+            new_tasks = []
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f"phab_task_urls={','.join(new_tasks)}\n")
+            f.write(f"all_phab_task_urls={','.join(all_tasks)}\n")
+          EOF
+
+      # -------------------------------------------------------
+      # 6. Write TestFlight "What to Test" notes
+      # -------------------------------------------------------
+      - name: Write TestFlight notes
+        if: steps.duplicate_check.outputs.skip != 'true'
+        env:
+          VERSION: ${{ steps.versioning.outputs.version }}
+          BUILD: ${{ steps.versioning.outputs.build }}
+          LAST_RELEASE_TAG: ${{ steps.prs.outputs.last_release_tag }}
+        run: |
+          mkdir -p fastlane/metadata
+          PHAB_TASKS=$(cat /tmp/phab_tasks.txt 2>/dev/null || echo "No Phabricator tasks found")
+
+          cat > /tmp/what_to_test.txt << EOF
+          Build: $VERSION ($BUILD)
+
+          Changes since $LAST_RELEASE_TAG:
+          $PHAB_TASKS
+          EOF
+
+          cat /tmp/what_to_test.txt
+
+      # -------------------------------------------------------
+      # 7. Update build number in Info.plist
+      # -------------------------------------------------------
+      - name: Update build number
+        if: steps.duplicate_check.outputs.skip != 'true'
+        env:
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          /usr/libexec/PlistBuddy -c \
+            "Set :CFBundleVersion $BUILD" \
+            Wikipedia/Wikipedia-Info.plist
+
+          echo "Updated CFBundleVersion to $BUILD"
+
+      # -------------------------------------------------------
+      # 8. Build and upload to TestFlight (internal)
+      # -------------------------------------------------------
+      - name: Install fastlane
+        if: steps.duplicate_check.outputs.skip != 'true'
+        run: bundle install
+
+      - name: Write App Store API Key
+        if: steps.duplicate_check.outputs.skip != 'true'
+        run: |
+          mkdir -p ~/.appstore
+          echo "${{ secrets.APP_STORE_API_KEY }}" > ~/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8
+          echo "APP_STORE_KEY_PATH=$HOME/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8" >> $GITHUB_ENV
+
+      - name: Build and upload to internal TestFlight
+        if: steps.duplicate_check.outputs.skip != 'true'
+        env:
+          APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
+          APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
+          APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
+          WHAT_TO_TEST_PATH: /tmp/what_to_test.txt
+        run: |
+          bundle exec fastlane internal_beta
+
+      # -------------------------------------------------------
+      # 9. Tag the build
+      # -------------------------------------------------------
+      - name: Tag build
+        if: steps.duplicate_check.outputs.skip != 'true'
+        env:
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git tag "betas/$BUILD"
+          git push origin "betas/$BUILD"
+
+      # -------------------------------------------------------
+      # 10. Post to Phabricator tasks
+      # -------------------------------------------------------
+      - name: Post to Phabricator tasks
+        if: steps.duplicate_check.outputs.skip != 'true'
+        env:
+          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
+          PHAB_TASK_URLS: ${{ steps.phab.outputs.phab_task_urls }}
+          VERSION: ${{ steps.versioning.outputs.version }}
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          if [ -z "$PHAB_TASK_URLS" ]; then
+            echo "No Phabricator tasks to comment on"
+            exit 0
+          fi
+
+          MESSAGE="Available in: TestFlight Wikipedia $VERSION ($BUILD)"
+
+          echo "$PHAB_TASK_URLS" | tr ',' '\n' | while IFS= read -r url; do
+            TASK_ID=$(echo "$url" | grep -oEi "T[0-9]+$")
+            if [ -z "$TASK_ID" ]; then
+              continue
+            fi
+            echo "Commenting on $TASK_ID..."
+            curl --header "User-Agent: GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)" \
+              https://phabricator.wikimedia.org/api/maniphest.edit \
+              -d "api.token=$PHAB_TOKEN" \
+              -d "transactions[0][type]=comment" \
+              -d "transactions[0][value]=$MESSAGE" \
+              -d "objectIdentifier=$TASK_ID"
+            echo "✓ Commented on $TASK_ID"
+          done
+
+      # -------------------------------------------------------
+      # 11. Update release task with included tasks
+      # -------------------------------------------------------
+      - name: Update release task with included tasks
+        if: steps.duplicate_check.outputs.skip != 'true'
+        env:
+          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
+          ALL_PHAB_TASK_URLS: ${{ steps.phab.outputs.all_phab_task_urls }}
+          VERSION: ${{ steps.versioning.outputs.version }}
+        run: |
+          python3 << 'EOF'
+          import urllib.request
+          import urllib.parse
+          import json
+          import os
+
+          token = os.environ['PHAB_TOKEN']
+          version = os.environ['VERSION']
+          task_urls = os.environ.get('ALL_PHAB_TASK_URLS', '')
+
+          if not task_urls:
+            print("No Phabricator tasks found, skipping release task update")
+            exit(0)
+
+          # Search for release task
+          req = urllib.request.Request(
+            'https://phabricator.wikimedia.org/api/maniphest.search',
+            headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
+            data=urllib.parse.urlencode({
+              'api.token': token,
+              'constraints[query]': f'Release {version}',
+              'constraints[projects][0]': 'PHID-PROJ-ojylfmfiogxrvnxoiwlp',
+            }).encode()
+          )
+
+          with urllib.request.urlopen(req) as resp:
+            data = json.loads(resp.read())
+
+          tasks = data.get('result', {}).get('data', [])
+          release_task = next(
+            (t for t in tasks if t.get('fields', {}).get('name') == f'Release {version}'),
+            None
+          )
+
+          if not release_task:
+            print(f"No release task found for Release {version}, skipping")
+            exit(0)
+
+          task_phid = release_task['phid']
+          current_description = release_task.get('fields', {}).get('description', {}).get('raw', '')
+
+          # Build new included tasks section
+          task_list = '\n'.join(task_urls.split(','))
+          new_section = f"\n\n**Included Tasks:**\n{task_list}"
+
+          # Replace existing section or append
+          if '**Included Tasks:**' in current_description:
+            new_description = current_description.split('**Included Tasks:**')[0].rstrip() + new_section
+          else:
+            new_description = current_description.rstrip() + new_section
+
+          # Update task description
+          req = urllib.request.Request(
+            'https://phabricator.wikimedia.org/api/maniphest.edit',
+            headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
+            data=urllib.parse.urlencode({
+              'api.token': token,
+              'objectIdentifier': task_phid,
+              'transactions[0][type]': 'description',
+              'transactions[0][value]': new_description,
+            }).encode()
+          )
+
+          with urllib.request.urlopen(req) as resp:
+            result = json.loads(resp.read())
+            if not result.get('error_code'):
+              print(f"✓ Updated release task for Release {version}")
+            else:
+              print(f"✗ Failed to update release task: {result.get('error_info')}")
+          EOF

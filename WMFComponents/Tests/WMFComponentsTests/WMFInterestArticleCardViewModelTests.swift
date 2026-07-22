@@ -24,14 +24,14 @@ struct WMFInterestArticleCardViewModelTests {
     @Test
     func prefersDisplayTitleOverTitle() {
         let article = makeArticle(title: "Raw title", displayTitle: "<i>Display title</i>")
-        let viewModel = WMFInterestArticleCardViewModel(article: article)
+        let viewModel = WMFInterestArticleCardViewModel(article: article, project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
         #expect(viewModel.title == "<i>Display title</i>")
     }
 
     @Test
     func fallsBackToTitleWhenDisplayTitleIsNil() {
         let article = makeArticle(title: "Raw title", displayTitle: nil)
-        let viewModel = WMFInterestArticleCardViewModel(article: article)
+        let viewModel = WMFInterestArticleCardViewModel(article: article, project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
         #expect(viewModel.title == "Raw title")
     }
 
@@ -40,14 +40,14 @@ struct WMFInterestArticleCardViewModelTests {
     @Test
     func descriptionIsNilWhenAbsent() {
         let article = makeArticle(description: nil)
-        let viewModel = WMFInterestArticleCardViewModel(article: article)
+        let viewModel = WMFInterestArticleCardViewModel(article: article, project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
         #expect(viewModel.description == nil)
     }
 
     @Test
     func descriptionIsPopulatedWhenPresent() {
         let article = makeArticle(description: "A short description")
-        let viewModel = WMFInterestArticleCardViewModel(article: article)
+        let viewModel = WMFInterestArticleCardViewModel(article: article, project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
         #expect(viewModel.description == "A short description")
     }
 
@@ -56,14 +56,14 @@ struct WMFInterestArticleCardViewModelTests {
     @Test
     func imageIsNilBeforeLoad() {
         let article = makeArticle(thumbnailSource: "https://example.com/image.jpg")
-        let viewModel = WMFInterestArticleCardViewModel(article: article)
+        let viewModel = WMFInterestArticleCardViewModel(article: article, project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
         #expect(viewModel.uiImage == nil)
     }
 
     @Test
     func loadIfNeededDoesNothingWhenNoThumbnail() {
         let article = makeArticle(thumbnailSource: nil)
-        let viewModel = WMFInterestArticleCardViewModel(article: article)
+        let viewModel = WMFInterestArticleCardViewModel(article: article, project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
         viewModel.loadIfNeeded()
         #expect(viewModel.uiImage == nil)
     }

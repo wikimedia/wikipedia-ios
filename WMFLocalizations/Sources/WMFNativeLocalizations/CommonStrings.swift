@@ -236,6 +236,7 @@ public class CommonStrings: NSObject {
 
     @objc public static let privacyPolicyURLString = "https://foundation.wikimedia.org/wiki/Policy:Privacy_policy"
     @objc public static let termsOfUseURLString = "https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use"
+    public static let aboutWikipediaURLString = "https://en.wikipedia.org/wiki/Wikipedia:About"
     public static let legalAndSafetyContactUsURLString = "https://foundation.wikimedia.org/wiki/Legal:Wikimedia_Foundation_Legal_and_Safety_Contact_Information"
 
     @objc public static let account = WMFLocalizedString("settings-account", value: "Account", comment: "Title for button and page letting user view their account page.")
@@ -906,6 +907,9 @@ public class CommonStrings: NSObject {
     // Reading Challenge widget
     
     public static let collectPrizeTitle = WMFLocalizedString("collect-prize-title", value: "Collect your prize!", comment: "Title for collect prize modal sheet and button")
+    
+    public static let randomButton = WMFLocalizedString("reading-challenge-random-button", value: "Random", comment: "Title for the Random article button on the reading challenge widget.")
+    public static let randomArticleButton = WMFLocalizedString("reading-challenge-random-article-button", value: "Random article", comment: "Button title on the post-challenge randomizer widget for medium size, linking to a random Wikipedia article.")
     
     // Games
     public static let playTodaysGameTitle = WMFLocalizedString("games-wcf-button-play-title", value:"Play today's game", comment: "Button text on Which Came First card in the Explore tab and in the game splash screen, shown when game is not started. Tapping navigates to the Which Came First game.")

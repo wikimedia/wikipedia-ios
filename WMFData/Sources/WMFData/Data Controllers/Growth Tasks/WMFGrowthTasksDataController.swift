@@ -5,7 +5,15 @@ import Foundation
     private var service = WMFDataEnvironment.current.mediaWikiService
     let project: WMFProject
     
-    private static var currentImageRecommendations: [WMFProject: [WMFImageRecommendation.Page]] = [:]
+    // In-memory cache shared across instances. Guarded by `cacheLock` so the
+    // nonisolated static state is concurrency-safe under Swift 6 (each get/set
+    // is individually locked, which is sufficient for this last-write-wins cache).
+    private static let cacheLock = NSLock()
+    private nonisolated(unsafe) static var _currentImageRecommendations: [WMFProject: [WMFImageRecommendation.Page]] = [:]
+    private static var currentImageRecommendations: [WMFProject: [WMFImageRecommendation.Page]] {
+        get { cacheLock.withLock { _currentImageRecommendations } }
+        set { cacheLock.withLock { _currentImageRecommendations = newValue } }
+    }
 
     public init (project: WMFProject) {
         self.project = project

@@ -781,9 +781,7 @@
 "reading-challenge-announcement-secondary-cta" = "Tìm hiểu thêm";
 "reading-challenge-completed-subtitle" = "25 trên 25 ngày";
 "reading-challenge-random-button" = "Ngẫu nhiên";
-"reading-challenge-streak-days" = "{{PLURAL:$1|$1 ngày}}";
 "reading-challenge-streak-no-days" = "$1 trên 25";
-"reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 trên 25 ngày}}";
 "reading-list-add-generic-hint-title" = "Thêm bài này vào danh sách đọc?";
 "reading-list-add-hint-title" = "Thêm “$1” vào danh sách đọc?";
 "reading-list-add-saved-button-title" = "Có, thêm chúng vào các danh sách đọc của tôi";

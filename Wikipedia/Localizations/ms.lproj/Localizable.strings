@@ -607,8 +607,6 @@
 "reading-challenge-not-yet-read-subtitle-quiet" = "Momen membaca yang tenang?";
 "reading-challenge-not-yet-read-subtitle-snooze" = "Masih ada masa untuk belajar sesuatu…\nsebelum hari berakhir.";
 "reading-challenge-random-button" = "Rawak";
-"reading-challenge-streak-days" = "{{PLURAL:$1|$1 hari}}";
-"reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 daripada 25 hari |$1 daripada 25 hari}}";
 "reading-challenge-subtitle" = "Cabaran membaca 25 hari";
 "reading-challenge-widget-announcement-body2" = "Untuk menjejaki rentetan anda dengan Baby Globe, anda perlu menambah widget Cabaran Membaca daripada skrin utama anda.";
 "reading-challenge-widget-announcement-secondary-button" = "Tunjukkan saya caranya";
