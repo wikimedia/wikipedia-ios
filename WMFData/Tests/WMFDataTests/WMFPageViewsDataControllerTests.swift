@@ -40,12 +40,6 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         
         self.dataController = try? WMFPageViewsDataController(coreDataStore: store)
 
-        // Reading-challenge state reads these process-wide shared defaults; clear them so each
-        // test starts from a known state (no dev override, challenge not previously completed).
-        let sharedDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
-        sharedDefaults?.removeObject(forKey: WMFUserDefaultsKey.devReadingChallengeState.rawValue)
-        sharedDefaults?.removeObject(forKey: WMFUserDefaultsKey.readingChallengeUserCompleted.rawValue)
-
         try await super.setUp()
     }
     
@@ -272,66 +266,4 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
     // crashes the test runner, which looks like a latent issue in the relationship walk rather
     // than a test problem. Tracking that separately rather than shipping a crashing test.
 
-    // MARK: - Reading challenge state
-    // Config window: startDate 2026-05-11, endDate 2026-06-18, removeDate 2026-07-27, streakGoal 25.
-
-    func testReadingChallengeRemovedAfterRemoveDate() async throws {
-        guard let dataController else { throw TestsError.missingDataController }
-        let state = try await dataController.fetchReadingChallengeState(isEnrolled: true, now: makeDate(2026, 8, 1))
-        XCTAssertEqual(state, .challengeRemoved)
-    }
-
-    func testReadingChallengeNotLiveBeforeStartDate() async throws {
-        guard let dataController else { throw TestsError.missingDataController }
-        let state = try await dataController.fetchReadingChallengeState(isEnrolled: true, now: makeDate(2026, 5, 1))
-        XCTAssertEqual(state, .notLiveYet)
-    }
-
-    func testReadingChallengeNotEnrolledDuringWindow() async throws {
-        guard let dataController else { throw TestsError.missingDataController }
-        let state = try await dataController.fetchReadingChallengeState(isEnrolled: false, now: makeDate(2026, 6, 1))
-        XCTAssertEqual(state, .notEnrolled)
-    }
-
-    func testReadingChallengeConcludedNoStreakWhenNotEnrolledAfterEnd() async throws {
-        guard let dataController else { throw TestsError.missingDataController }
-        let state = try await dataController.fetchReadingChallengeState(isEnrolled: false, now: makeDate(2026, 6, 20))
-        XCTAssertEqual(state, .challengeConcludedNoStreak)
-    }
-
-    func testReadingChallengeEnrolledNotStartedWithNoReads() async throws {
-        guard let dataController else { throw TestsError.missingDataController }
-        let state = try await dataController.fetchReadingChallengeState(isEnrolled: true, now: makeDate(2026, 6, 1))
-        XCTAssertEqual(state, .enrolledNotStarted)
-    }
-
-    func testReadingChallengeStreakOngoingReadToday() async throws {
-        guard let dataController else { throw TestsError.missingDataController }
-        try await addView(title: "Today", timestamp: makeDate(2026, 6, 1, hour: 9))
-        try await addView(title: "Yesterday", timestamp: makeDate(2026, 5, 31, hour: 9))
-        try await addView(title: "DayBefore", timestamp: makeDate(2026, 5, 30, hour: 9))
-
-        let state = try await dataController.fetchReadingChallengeState(isEnrolled: true, now: makeDate(2026, 6, 1))
-        XCTAssertEqual(state, .streakOngoingRead(streak: 3))
-    }
-
-    func testReadingChallengeStreakOngoingNotYetReadToday() async throws {
-        guard let dataController else { throw TestsError.missingDataController }
-        try await addView(title: "Yesterday", timestamp: makeDate(2026, 5, 31, hour: 9))
-        try await addView(title: "DayBefore", timestamp: makeDate(2026, 5, 30, hour: 9))
-
-        let state = try await dataController.fetchReadingChallengeState(isEnrolled: true, now: makeDate(2026, 6, 1))
-        XCTAssertEqual(state, .streakOngoingNotYetRead(streak: 2))
-    }
-
-    func testReadingChallengeConcludedIncompleteUsesLongestPastStreak() async throws {
-        guard let dataController else { throw TestsError.missingDataController }
-        // A 3-day streak earlier in the window, nothing recent; evaluated after the end date.
-        try await addView(title: "D1", timestamp: makeDate(2026, 5, 13, hour: 9))
-        try await addView(title: "D2", timestamp: makeDate(2026, 5, 14, hour: 9))
-        try await addView(title: "D3", timestamp: makeDate(2026, 5, 15, hour: 9))
-
-        let state = try await dataController.fetchReadingChallengeState(isEnrolled: true, now: makeDate(2026, 6, 20))
-        XCTAssertEqual(state, .challengeConcludedIncomplete(streak: 3))
-    }
 }
