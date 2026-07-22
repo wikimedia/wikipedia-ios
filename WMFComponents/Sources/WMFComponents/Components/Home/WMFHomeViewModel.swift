@@ -215,6 +215,7 @@ public final class WMFHomeViewModel: ObservableObject {
         self.selectedLanguage = selectedLanguage
         self.didSelectLanguage = didSelectLanguage
         self.didTapEditLanguages = didTapEditLanguages
+        self.selectedTab = dataController.seeFirstContent() == .personalized ? .forYou : .community
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleVisibilityChange), name: WMFNSNotification.communityModuleVisibilityDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleCoreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)

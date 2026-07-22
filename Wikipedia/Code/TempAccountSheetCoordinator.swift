@@ -85,7 +85,7 @@ final class TempAccountSheetCoordinator: Coordinator {
                 },
                 didTapDone: didTapDone,
                 ctaTopButtonAction: {
-                  let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
+                  let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme, loggingCategory: .unknown)
                   loginCoordinator.loginSuccessCompletion = {
                             self.didTapContinue()
                         }
@@ -152,7 +152,7 @@ final class TempAccountSheetCoordinator: Coordinator {
             didTapDone: didTapDone,
             ctaTopButtonAction: {
 
-               let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme) 
+               let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme, loggingCategory: .unknown)
 
                 loginCoordinator.loginSuccessCompletion = {
                     self.didTapContinue()

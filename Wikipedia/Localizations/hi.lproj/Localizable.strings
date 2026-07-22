@@ -122,6 +122,8 @@
 "article-save-error-not-enough-space" = "इस लेख को सहेजने के लिए आपके डिवाइस पर पर्याप्त जगह नहीं है";
 "article-share" = "साझा करें";
 "article-toolbar-reading-themes-controls-toolbar-item" = "विषय नियंत्रण पढ़ रहा";
+"article-topic-entertainment" = "मनोरंजन";
+"article-topic-sports" = "खेल";
 "back-button-accessibility-label" = "पीछे";
 "back-button-popover-title" = "वापस जाने के लिए टैप करें";
 "button-go-back" = "वापस जाएँ";

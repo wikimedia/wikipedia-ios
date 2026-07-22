@@ -29,6 +29,9 @@ public final class WMFDataTestFixture {
     public func resetWMFDataTestState() async {
         resetSynchronousWMFDataTestState()
         await WMFOnThisDayDataController.shared.reset()
+        // WMFImageDataController is an actor, so its reset is awaited here rather
+        // than in resetSynchronousWMFDataTestState (same as WMFOnThisDayDataController).
+        await WMFImageDataController.shared.reset()
     }
 
     public func withGlobalStateLease<T>(_ operation: () async throws -> T) async rethrows -> T {
@@ -69,7 +72,6 @@ public final class WMFDataTestFixture {
         WMFFundraisingCampaignDataController.shared.reset()
         WMFArticleTabsDataController.shared.reset()
         WMFDeveloperSettingsDataController.shared.reset()
-        WMFImageDataController.shared.reset()
         WMFTempAccountDataController.shared.reset()
     }
 

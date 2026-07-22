@@ -26,9 +26,9 @@ private let wmfTempAccountConfigCheckInterval: CFTimeInterval = 3 * 60 * 60
 private let wmfLastRemoteAppConfigCheckAbsoluteTimeKey = "WMFLastRemoteAppConfigCheckAbsoluteTimeKey"
 private let wmfTempAccountConfigCheckAbsoluteTimeKey = "WMFTempAccountConfigCheckAbsoluteTimeKey"
 private let wmfResetPreferredLanguages = "WMFResetPreferredLanguages"
+private let wmfEnableHomeTabForTesting = "WMFEnableHomeTabForTesting"
 private let wmfSuppressActivityTabOnboardingForTesting = "WMFSuppressActivityTabOnboardingForTesting"
 private let wmfSuppressGamesAnnouncementForTesting = "WMFSuppressGamesAnnouncementForTesting"
-private let wmfSuppressReadingChallengeAnnouncementForTesting = "WMFSuppressReadingChallengeAnnouncementForTesting"
 
 // KVO context pointers
 private var kvoSavedArticlesFetcherProgress = UInt8(0)
@@ -301,8 +301,10 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     var isPresentingOnboarding: Bool {
-        return presentedViewController is WMFWelcomeInitialViewController
+        return presentedViewController is WMFAppOnboardingHostingController || presentedViewController is WMFWelcomeInitialViewController
     }
+
+    private var appOnboardingCoordinator: AppOnboardingCoordinator?
 
     private var uiIsLoaded: Bool {
         return (viewControllers?.count ?? 0) > 0
@@ -659,6 +661,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     @objc private func handleEnableHomeTabDidChange() {
+        // There are no tabs to rebuild before the main UI loads — and dismissing
+        // presented view controllers at that point would tear down onboarding.
+        guard uiIsLoaded else { return }
         guard !isUpdatingDefaultTab else { return }
         isUpdatingDefaultTab = true
         DispatchQueue.main.async {
@@ -913,15 +918,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             dataStore.languageLinkController.resetPreferredLanguages()
         }
 
-        if UserDefaults.standard.bool(forKey: wmfSuppressReadingChallengeAnnouncementForTesting) {
-            let sharedDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
-            sharedDefaults?.set(
-                true,
-                forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue
-            )
-            sharedDefaults?.synchronize()
-        }
-
         if UserDefaults.standard.bool(forKey: wmfSuppressActivityTabOnboardingForTesting) {
             try? WMFDataEnvironment.current.userDefaultsStore?.save(
                 key: WMFUserDefaultsKey.hasSeenActivityTabNewOnboarding.rawValue,
@@ -931,6 +927,13 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         if UserDefaults.standard.bool(forKey: wmfSuppressGamesAnnouncementForTesting) {
             UserDefaults.standard.set(true, forKey: WMFUserDefaultsKey.hasSeenGamesAnnouncement.rawValue)
+        }
+
+        // WMFData's user defaults store JSON-encodes its values, so a plain launch-argument
+        // default can't set this flag directly — write it through the data controller instead.
+        // The flag persists across launches, so apply the argument in both directions.
+        if UserDefaults.standard.object(forKey: wmfEnableHomeTabForTesting) != nil {
+            WMFDeveloperSettingsDataController.shared.enableHomeTab = UserDefaults.standard.bool(forKey: wmfEnableHomeTabForTesting)
         }
     }
 
@@ -1213,7 +1216,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         case .random:
             dismissPresentedViewControllers()
-            showRandomArticleFromShortcut(siteURL: siteURL, animated: animated)
+            showRandomArticleFromShortcut(siteURL: siteURL, animated: animated, userInfo: activity.userInfo)
 
         case .activity:
             
@@ -1223,23 +1226,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             dismissPresentedViewControllers()
             selectedIndex = WMFAppTabType.recent.rawValue
             currentTabNavigationController?.popToRootViewController(animated: animated)
-            let shouldCollectPrize = activity.userInfo?["collectPrize"] as? Bool ?? false
-            let tappedJoin = activity.userInfo?["join"] as? Bool ?? false
-            let fromAppStoreEvent = activity.userInfo?["appStoreEvent"] as? Bool ?? false
-            
-            if shouldCollectPrize {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    activityVC.presentCollectPrize()
-                }
-            } else if tappedJoin {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    activityVC.presentReadingChallengeAnnouncementFromWidget()
-                }
-            } else if fromAppStoreEvent {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    activityVC.presentReadingChallengeAnnouncementFromAppStoreEvent()
-                }
-            }
 
         case .content:
             dismissPresentedViewControllers()
@@ -1523,11 +1509,31 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     private func presentOnboardingIfNeeded(completion: @escaping (Bool) -> Void) {
-        guard shouldShowOnboarding() else {
+        let developerSettings = WMFDeveloperSettingsDataController.shared
+        let forceNewOnboarding = developerSettings.enableHomeTab && developerSettings.alwaysShowNewOnboarding
+
+        guard shouldShowOnboarding() || forceNewOnboarding else {
             completion(false)
             return
         }
-        
+
+        guard developerSettings.enableHomeTab else {
+            presentLegacyOnboarding(completion: completion)
+            return
+        }
+
+        let coordinator = AppOnboardingCoordinator(presentingViewController: self, dataStore: dataStore, theme: theme) { [weak self] in
+            self?.setDidShowOnboarding()
+            self?.appOnboardingCoordinator = nil
+            completion(true)
+        }
+        appOnboardingCoordinator = coordinator
+        hideSplashView()
+        coordinator.start()
+    }
+
+    // TODO: Remove the legacy welcome flow once the new home feed onboarding ships unflagged.
+    private func presentLegacyOnboarding(completion: @escaping (Bool) -> Void) {
         let vc = WMFWelcomeInitialViewController.wmf_viewControllerFromWelcomeStoryboard()
         vc.apply(theme: theme)
         vc.completionBlock = {
@@ -1601,7 +1607,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     private func showRandomArticleFromShortcut(animated: Bool) {
         dismissPresentedViewControllers()
-        showRandomArticleFromShortcut(siteURL: siteURL, animated: animated)
+        showRandomArticleFromShortcut(siteURL: siteURL, animated: animated, userInfo: nil)
     }
 
     private func showNearby(animated: Bool) {

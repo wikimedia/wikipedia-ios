@@ -112,7 +112,7 @@ public protocol WMFArticleTabsDataControlling {
         get {
             if _backgroundContext == nil {
                 _backgroundContext = try? coreDataStore?.newBackgroundContext
-                _backgroundContext?.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+                _backgroundContext?.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
             }
             return _backgroundContext
         } set {
@@ -428,7 +428,7 @@ public protocol WMFArticleTabsDataControlling {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
         
-        let block: () throws -> WMFArticle? = {
+        let block: @Sendable () throws -> WMFArticle? = {
             let predicate = NSPredicate(format: "identifier == %@", argumentArray: [tabIdentifier])
             
             guard let tab = try coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: moc)?.first else {

@@ -84,7 +84,7 @@ import WMFNativeLocalizations
     @objc
     private func login() {
         guard let navigationController else { return }
-        let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme)
+        let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme, loggingCategory: .unknown)
         loginCoordinator.start()
     }
 
