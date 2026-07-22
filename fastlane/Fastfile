@@ -1,16 +1,83 @@
-# Customise this file, documentation can be found here:
-# https://github.com/KrauseFx/fastlane/tree/master/docs
+require 'json'
 
-$:.unshift File.dirname(__FILE__)
-
-default_platform :ios
-
+default_platform(:ios)
 
 platform :ios do
-  before_all do
-     # Set project for commit_version_bump, which seems to get confused by projects in other folders
-     ENV['FL_BUILD_NUMBER_PROJECT'] = "Wikipedia.xcodeproj"
-     ensure_git_status_clean if ENV['FL_ENSURE_CLEAN']
+
+  # Shared helper: build API key object from env vars
+  def get_api_key
+    app_store_connect_api_key(
+      key_id: ENV["APP_STORE_API_KEY_ID"],
+      issuer_id: ENV["APP_STORE_ISSUER_ID"],
+      key_content: ENV["APP_STORE_API_KEY"],
+      in_house: false
+    )
+  end
+
+  # Shared helper: build the app
+  def build_the_app
+    build_app(
+      project: "Wikipedia.xcodeproj",
+      scheme: "Wikipedia",
+      configuration: "Release",
+      derived_data_path: "build",
+      destination: "generic/platform=iOS",
+      archive_path: "build/Wikipedia.xcarchive",
+      export_method: "app-store",
+      xcargs: "-allowProvisioningUpdates -authenticationKeyPath #{ENV['APP_STORE_KEY_PATH']} -authenticationKeyID #{ENV['APP_STORE_API_KEY_ID']} -authenticationKeyIssuerID #{ENV['APP_STORE_ISSUER_ID']}",
+    )
+  end
+
+  # ----------------------------------------------------------
+  # Workflow 1: Internal TestFlight
+  # ----------------------------------------------------------
+  desc "Build and deploy to internal TestFlight testers"
+  lane :internal_beta do
+    api_key = get_api_key
+    build_the_app
+
+    what_to_test = File.read(ENV["WHAT_TO_TEST_PATH"]) rescue "See Phabricator tasks for details"
+
+    upload_to_testflight(
+      api_key: api_key,
+      distribute_external: false,
+      notify_external_testers: false,
+      changelog: what_to_test,
+      skip_waiting_for_build_processing: true,
+    )
+  end
+
+  # ----------------------------------------------------------
+  # Workflow 2: External TestFlight
+  # ----------------------------------------------------------
+  desc "Build and deploy to external TestFlight testers, submit for beta review"
+  lane :external_beta do
+    api_key = get_api_key
+    build_the_app
+
+    # Read localized notes from JSON file written by workflow
+    localized_notes = JSON.parse(File.read("/tmp/what_to_test.json")) rescue {}
+
+    # Build localized_build_info hash
+    localized_build_info = localized_notes.transform_values do |notes|
+      { whats_new: notes }
+    end
+
+    # Ensure there's always a default
+    unless localized_build_info.key?("default")
+      default_notes = localized_notes["en-US"] || "See release notes for details"
+      localized_build_info["default"] = { whats_new: default_notes }
+    end
+
+    upload_to_testflight(
+      api_key: api_key,
+      distribute_external: true,
+      notify_external_testers: true,
+      localized_build_info: localized_build_info,
+      submit_beta_review: true,
+      skip_waiting_for_build_processing: false,
+      groups: ["External Testers"],
+    )
   end
 
 end

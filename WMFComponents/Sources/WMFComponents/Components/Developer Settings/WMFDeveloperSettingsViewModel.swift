@@ -26,9 +26,9 @@ import WMFData
 
     let localizedStrings: WMFDeveloperSettingsLocalizedStrings
     let formViewModel: WMFFormViewModel
-    
+
     private var subscribers: Set<AnyCancellable> = []
-    
+
     @Published public var enableDeveloperMode: Bool = WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
         didSet {
             WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode = enableDeveloperMode
@@ -38,77 +38,6 @@ import WMFData
     @Published public var showGamesV2: Bool = WMFDeveloperSettingsDataController.shared.showGamesV2 {
         didSet {
             WMFDeveloperSettingsDataController.shared.showGamesV2 = showGamesV2
-        }
-    }
-    
-    @Published public var readingChallengeOverrideCurrentDate: Bool = WMFDeveloperSettingsDataController.shared.devReadingChallengeOverrideCurrentDate ?? false {
-        didSet {
-            WMFDeveloperSettingsDataController.shared.setDevReadingChallengeOverrideCurrentDate(readingChallengeOverrideCurrentDate)
-
-            if readingChallengeOverrideCurrentDate == true {
-                WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(readingChallengeCurrentDate)
-                if readingChallengeState != nil {
-                    readingChallengeState = nil
-                }
-            } else {
-                WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(nil)
-            }
-            
-            WMFDeveloperSettingsDataController.shared.reloadReadingChallengeWidget()
-        }
-    }
-    
-    @Published public var readingChallengeCurrentDate: Date = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date() {
-        didSet {
-            if readingChallengeOverrideCurrentDate == true {
-                WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(readingChallengeCurrentDate)
-            } else {
-                WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(nil)
-            }
-            
-            WMFDeveloperSettingsDataController.shared.reloadReadingChallengeWidget()
-        }
-    }
-    
-    @Published public var readingChallengeStreakCount: Int = {
-        switch WMFDeveloperSettingsDataController.shared.devReadingChallengeState {
-        case .streakOngoingRead(let streak), .streakOngoingNotYetRead(let streak), .challengeConcludedIncomplete(let streak):
-            return streak
-        default:
-            return 7
-        }
-    }() {
-        didSet {
-            let clamped = max(1, min(24, readingChallengeStreakCount))
-            if clamped != readingChallengeStreakCount {
-                readingChallengeStreakCount = clamped
-                return
-            }
-            switch readingChallengeState {
-            case .streakOngoingRead:
-                readingChallengeState = .streakOngoingRead(streak: clamped)
-            case .streakOngoingNotYetRead:
-                readingChallengeState = .streakOngoingNotYetRead(streak: clamped)
-            case .challengeConcludedIncomplete:
-                readingChallengeState = .challengeConcludedIncomplete(streak: clamped)
-            default:
-                break
-            }
-            
-            WMFDeveloperSettingsDataController.shared.reloadReadingChallengeWidget()
-        }
-    }
-
-    @Published public var readingChallengeState: ReadingChallengeState? = WMFDeveloperSettingsDataController.shared.devReadingChallengeState {
-        didSet {
-            WMFDeveloperSettingsDataController.shared.devReadingChallengeState = readingChallengeState
-            if readingChallengeState == nil {
-                readingChallengeStreakCount = 7
-            } else if readingChallengeOverrideCurrentDate {
-                readingChallengeOverrideCurrentDate = false
-            }
-            
-            WMFDeveloperSettingsDataController.shared.reloadReadingChallengeWidget()
         }
     }
 
@@ -126,10 +55,12 @@ import WMFData
         let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
         let allowGestureZoomArticleWebview = WMFFormItemSelectViewModel(title: "Allow pinch to zoom when reading articles", isSelected: WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview)
         let enableHomeTab = WMFFormItemSelectViewModel(title: "Enable Home Tab", isSelected: WMFDeveloperSettingsDataController.shared.enableHomeTab)
+        let alwaysShowNewOnboarding = WMFFormItemSelectViewModel(title: "Always Show New Onboarding", isSelected: WMFDeveloperSettingsDataController.shared.alwaysShowNewOnboarding)
 
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
                 enableHomeTab,
+                alwaysShowNewOnboarding,
                 doNotPostImageRecommendationsEditItem,
                 sendAnalyticsToWMFLabsItem,
                 bypassDonationItem,
@@ -143,7 +74,7 @@ import WMFData
         ])
 
         // Individual Toggle Bindings
-        
+
         doNotPostImageRecommendationsEditItem.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit = isSelected }
             .store(in: &subscribers)
@@ -159,7 +90,7 @@ import WMFData
         forceEmailAuth.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceEmailAuth = isSelected }
             .store(in: &subscribers)
-        
+
         forceMaxArticleTabsTo5.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5 = isSelected }
             .store(in: &subscribers)
@@ -179,14 +110,10 @@ import WMFData
         enableHomeTab.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableHomeTab = isSelected }
             .store(in: &subscribers)
-    }
 
-    public func clearAllReadingChallengePersistence() {
-        readingChallengeOverrideCurrentDate = false
-        readingChallengeCurrentDate = Date()
-        readingChallengeState = nil
-        readingChallengeStreakCount = 7
-        WMFDeveloperSettingsDataController.shared.devClearAllReadingChallengePersistence()
+        alwaysShowNewOnboarding.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.alwaysShowNewOnboarding = isSelected }
+            .store(in: &subscribers)
     }
 
     public func clearGamesPersistence() {

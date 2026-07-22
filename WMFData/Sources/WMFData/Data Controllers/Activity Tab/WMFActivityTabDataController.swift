@@ -12,19 +12,6 @@ public actor WMFActivityTabDataController {
     }
 
     // MARK: - Activity Tab Customization Toggles
-    
-    public var isShowReadingChallengeOn: Bool {
-        get {
-            return (try? userDefaultsStore?.load(
-                key: WMFUserDefaultsKey.activityTabReadingChallenge.rawValue
-            )) ?? true
-        }
-        set {
-            try? userDefaultsStore?.save(
-                key: WMFUserDefaultsKey.activityTabReadingChallenge.rawValue,
-                value: false)
-        }
-    }
 
     public var isTimeSpentReadingOn: Bool {
         get {
@@ -96,10 +83,6 @@ public actor WMFActivityTabDataController {
 
     public func updateIsTimelineOfBehaviorOn(_ value: Bool) {
         isTimelineOfBehaviorOn = value
-    }
-    
-    public func turnOffReadingChallenge() {
-        isShowReadingChallengeOn = false
     }
 
     public func getTimeReadPast7Days() async throws -> (Int, Int)? {
@@ -226,37 +209,6 @@ public actor WMFActivityTabDataController {
     // MARK: - Reading Challenge 2026
 
     private static let sharedGroupID = "group.org.wikimedia.wikipedia"
-
-    private nonisolated var hasEnrolledInReadingChallenge2026: Bool {
-        get { UserDefaults(suiteName: Self.sharedGroupID)?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false }
-        set { UserDefaults(suiteName: Self.sharedGroupID)?.set(newValue, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) }
-    }
-    
-    public func setEnrolledInReadingChallenge(_ value: Bool) {
-        hasEnrolledInReadingChallenge2026 = value
-        UserDefaults(suiteName: Self.sharedGroupID)?.synchronize()
-    }
-
-    public var hasSeenFullPageReadingChallengeAnnouncement2026: Bool {
-        get { UserDefaults(suiteName: Self.sharedGroupID)?.bool(forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue) ?? false }
-        set { UserDefaults(suiteName: Self.sharedGroupID)?.set(newValue, forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue) }
-    }
-    
-    public func setHasSeenFullPageAnnouncement() {
-        hasSeenFullPageReadingChallengeAnnouncement2026 = true
-        UserDefaults(suiteName: Self.sharedGroupID)?.synchronize()
-    }
-    
-    public func shouldShowReadingChallengeAnnouncement() -> Bool {
-        guard !hasSeenFullPageReadingChallengeAnnouncement2026 else { return false }
-        let now = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
-        return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
-    }
-    
-    public func isReadingChallengeActive() -> Bool {
-        let now = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
-        return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
-    }
 
     public func getMostRecentReadDateTime() async throws -> Date? {
         let dataController = try WMFPageViewsDataController()

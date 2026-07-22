@@ -1195,9 +1195,7 @@
 "reading-challenge-not-yet-read-subtitle-quiet" = "Envie d'un moment de lecture au calme ?";
 "reading-challenge-not-yet-read-subtitle-snooze" = "Avant que la journée ne s'achève…\nIl est encore temps d'apprendre quelque chose.";
 "reading-challenge-random-button" = "Au hasard";
-"reading-challenge-streak-days" = "{{PLURAL:$1|$1 jour|$1 jours}}";
 "reading-challenge-streak-no-days" = "$1 sur 25";
-"reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 jours sur 25}}";
 "reading-challenge-subtitle" = "Défi de lecture de 25 jours";
 "reading-challenge-widget-announcement-body2" = "Pour suivre votre série de progression quodienne avec Baby Globe, vous devez ajouter le widget Défi de lecture depuis votre écran d'accueil.";
 "reading-challenge-widget-announcement-secondary-button" = "Montre-moi comment faire";
@@ -1631,6 +1629,7 @@
 "welcome-languages-search-title" = "Rechercher dans plus de 300 langues";
 "welcome-privacy-subtitle" = "Nous considérons que vous ne devriez pas avoir à fournir d'informations personnelles pour participer au mouvement de la connaissance libre. Les données d'utilisation collectées pour cette application sont anonymes.";
 "welcome-privacy-terms-button-text" = "En savoir plus sur notre politique de confidentialité et nos conditions d'utilisation";
+"which-came-first-archive-title" = "Le plus ancien ?";
 "which-came-first-article-card-open-hint" = "Ouvre un évènement lié à cet article";
 "which-came-first-articles-section-title" = "Articles du jeu d'aujourd'hui";
 "which-came-first-average-score-label" = "Score moyen";

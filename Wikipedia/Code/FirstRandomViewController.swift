@@ -5,11 +5,13 @@ class FirstRandomViewController: UIViewController, Themeable {
     private let siteURL: URL
     private let dataStore: MWKDataStore
     private let theme: Theme
+    private let source: ArticleSource
 
-    init(siteURL: URL, dataStore: MWKDataStore, theme: Theme) {
+    init(siteURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource = .undefined) {
         self.siteURL = siteURL
         self.dataStore = dataStore
         self.theme = theme
+        self.source = source
         
         super.init(nibName: nil, bundle: nil)
         configureHidesBottomBarWhenPushed()
@@ -40,7 +42,7 @@ class FirstRandomViewController: UIViewController, Themeable {
                 }
                 
                 if let navigationController = self.navigationController {
-                    let randomCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: articleURL, siteURL: self.siteURL, dataStore: self.dataStore, theme: self.theme, source: .undefined, animated: false, replaceLastViewControllerInNavStack: true)
+                    let randomCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: articleURL, siteURL: self.siteURL, dataStore: self.dataStore, theme: self.theme, source: self.source, animated: false, replaceLastViewControllerInNavStack: true)
                     randomCoordinator.start()
                 }
                 

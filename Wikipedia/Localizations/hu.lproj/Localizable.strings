@@ -728,7 +728,6 @@
 "reading-challenge-not-enrolled-subtitle" = "Csatlakozz a 25 napos kihíváshoz, és szerezz különleges jutalmakat.";
 "reading-challenge-not-enrolled-title" = "Elkészülni, vigyázz, olvass!";
 "reading-challenge-random-button" = "Véletlen";
-"reading-challenge-streak-days" = "{{PLURAL:$1|$1 nap}}";
 "reading-challenge-streak-no-days" = "$1 / 25";
 "reading-challenge-widget-display-name" = "Olvasási kihívás";
 "reading-list-add-generic-hint-title" = "Szócikket olvasólistára?";

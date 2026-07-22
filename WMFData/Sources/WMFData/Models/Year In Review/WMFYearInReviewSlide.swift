@@ -1,9 +1,9 @@
 import Foundation
 
-public class WMFYearInReviewSlide: Identifiable {
+public final class WMFYearInReviewSlide: Identifiable, Sendable {
     public let year: Int
     public let id: WMFYearInReviewPersonalizedSlideID
-    public var data: Data?
+    public let data: Data?
 
     init(year: Int, id: WMFYearInReviewPersonalizedSlideID, data: Data? = nil) {
         self.year = year
@@ -12,7 +12,7 @@ public class WMFYearInReviewSlide: Identifiable {
     }
 }
 
-public enum WMFYearInReviewPersonalizedSlideID: String, Comparable {
+public enum WMFYearInReviewPersonalizedSlideID: String, Comparable, Sendable {
     case readCount
     case editCount
     case donateCount

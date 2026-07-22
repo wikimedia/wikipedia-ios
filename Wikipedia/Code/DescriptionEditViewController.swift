@@ -309,7 +309,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     }
 
     @IBAction func loginTapped() {
-        wmf_showLoginViewController(theme: theme)
+        wmf_showLoginViewController(category: .article, theme: theme)
     }
 
     @IBAction private func publishDescriptionButton(withSender sender: UIButton) {
