@@ -1,4 +1,5 @@
 import XCTest
+import WMFDataTestSupport
 @testable import WMFData
 @testable import WMFDataMocks
 
@@ -12,10 +13,20 @@ final class YearInReviewSlideDataControllersTests: XCTestCase {
 
     private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
 
+    private let fixture = WMFDataTestFixture()
+
     override func setUp() async throws {
+        try await super.setUp()
+        await fixture.setUp()
         // Fresh mock stores so WMFDeveloperSettingsDataController.shared state is deterministic.
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        await fixture.resetWMFDataTestState()
+    }
+
+    override func tearDown() async throws {
+        await fixture.tearDown()
+        try await super.tearDown()
     }
 
     private func makeDependencies(username: String? = nil, userID: Int? = nil) -> YearInReviewSlideDataControllerDependencies {
