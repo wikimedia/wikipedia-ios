@@ -699,11 +699,11 @@
 "for-you-empty-button" = "Choose your interests";
 "for-you-empty-subtitle" = "Add interests to get personalized article recommendations.";
 "for-you-empty-title" = "Nothing here yet";
-"for-you-header-because-you-read" = "Because you read: $1";
-"for-you-header-continue-reading" = "Continue reading: $1";
-"for-you-header-interest-article" = "Interest Article: $1";
-"for-you-header-interest-topic" = "Because of your interest: $1";
-"for-you-header-saved-article" = "Saved article: $1";
+"for-you-header-because-you-read-prefix" = "Because you read: ";
+"for-you-header-continue-reading-prefix" = "Continue reading: ";
+"for-you-header-interest-article-prefix" = "Because of your interest: ";
+"for-you-header-interest-topic-prefix" = "Because of your interest: ";
+"for-you-header-saved-article-prefix" = "From your reading list: ";
 "for-you-menu-customize-interests" = "Customize interests";
 "for-you-menu-hide-module" = "Hide module";
 "for-you-mini-card-label" = "Mini card";

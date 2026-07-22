@@ -121,6 +121,33 @@ public struct WMFForYouView: View {
     }
 }
 
+// MARK: - Header Label View
+
+private struct WMFForYouHeaderLabelView: View {
+    let headerLabel: WMFForYouHeaderLabel
+
+    var body: some View {
+        Group {
+            if let symbolName = headerLabel.symbolName {
+                Text(Image(systemName: symbolName))
+                    .font(Font(WMFFont.for(.caption1)))
+                + Text(" ")
+                + Text(headerLabel.prefix)
+                    .font(Font(WMFFont.for(.caption1)))
+                + Text(headerLabel.boldSuffix)
+                    .font(Font(WMFFont.for(.boldCaption1)))
+            } else {
+                Text(headerLabel.prefix)
+                    .font(Font(WMFFont.for(.caption1)))
+                + Text(headerLabel.boldSuffix)
+                    .font(Font(WMFFont.for(.boldCaption1)))
+            }
+        }
+        .foregroundStyle(.white.opacity(0.8))
+        .lineLimit(2)
+    }
+}
+
 // MARK: - Page View
 
 private struct WMFForYouPageView: View {
@@ -310,27 +337,6 @@ private struct WMFForYouArticleCardView: View {
         }
     }
 
-    private var headerLabel: some View {
-        Group {
-            let parts = viewModel.headerLabel.components(separatedBy: ": ")
-            if parts.count >= 2 {
-                let prefix = parts[0] + ": "
-                let interest = parts[1...].joined(separator: ": ")
-                (Text(prefix)
-                    .font(Font(WMFFont.for(.caption1)))
-                 + Text(interest)
-                    .font(Font(WMFFont.for(.boldCaption1))))
-                .foregroundStyle(.white.opacity(0.8))
-                .lineLimit(2)
-            } else {
-                Text(viewModel.headerLabel)
-                    .font(Font(WMFFont.for(.caption1)))
-                    .foregroundStyle(.white.opacity(0.8))
-                    .lineLimit(2)
-            }
-        }
-    }
-
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .bottomLeading) {
@@ -392,9 +398,9 @@ private struct WMFForYouArticleCardView: View {
                             onMenu: onSaveCard
                         )
 
-                        if !viewModel.headerLabel.isEmpty {
+                        if !viewModel.headerLabel.prefix.isEmpty {
                             Spacer().frame(height: 16)
-                            headerLabel
+                            WMFForYouHeaderLabelView(headerLabel: viewModel.headerLabel)
                         }
                     }
                     .padding(.horizontal, 20)
@@ -434,9 +440,9 @@ private struct WMFForYouArticleCardView: View {
                                 .lineLimit(effectiveVariant == .imageFocused ? 2 : 5)
                         }
 
-                        if !viewModel.headerLabel.isEmpty {
+                        if !viewModel.headerLabel.prefix.isEmpty {
                             Spacer().frame(height: 16)
-                            headerLabel
+                            WMFForYouHeaderLabelView(headerLabel: viewModel.headerLabel)
                                 .shadow(color: cardColor.opacity(0.8), radius: 4)
                         }
                     }

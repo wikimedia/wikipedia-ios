@@ -522,8 +522,22 @@ extension WMFForYouResponse {
                 ])
             ],
             interestPageRelatedArticles: [],
-            becauseYouReadArticles: nil,
-            continueReadingArticles: nil
+            becauseYouReadArticles: WMFForYouBecauseYouReadArticles(
+                recentlyRead: article("Contemporary art"),
+                articles: [
+                    article("Expressionism"),
+                    article("Bauhaus"),
+                    article("Abstract expressionism"),
+                    article("Surrealism")
+                ]
+            ),
+            continueReadingArticles: WMFForYouContinueReading(
+                continueReadingArticle: article("Boli (plantain)"),
+                savedArticles: [
+                    article("Clabber Girl"),
+                    article("Heart")
+                ]
+            )
         )
     }()
 }

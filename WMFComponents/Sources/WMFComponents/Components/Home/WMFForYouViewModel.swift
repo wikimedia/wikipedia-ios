@@ -16,7 +16,7 @@ public struct WMFForYouModuleVisibility {
     public var basedOnInterests: Bool
     public var becauseYouRead: Bool
     public var continueReading: Bool
-    
+
     public init(basedOnInterests: Bool, becauseYouRead: Bool, continueReading: Bool) {
         self.basedOnInterests = basedOnInterests
         self.becauseYouRead = becauseYouRead
@@ -29,6 +29,20 @@ public struct WMFForYouModuleVisibility {
         case .becauseYouRead: return becauseYouRead
         case .continueReading: return continueReading
         }
+    }
+}
+
+// MARK: - Header label
+
+public struct WMFForYouHeaderLabel {
+    public let symbolName: String?
+    public let prefix: String
+    public let boldSuffix: String
+
+    public init(symbolName: String? = nil, prefix: String, boldSuffix: String) {
+        self.symbolName = symbolName
+        self.prefix = prefix
+        self.boldSuffix = boldSuffix
     }
 }
 
@@ -49,7 +63,7 @@ public final class WMFForYouViewModel: ObservableObject {
     public var onSaveCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onShareCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onUnsaveCard: ((WMFForYouArticleCardViewModel) -> Void)?
-    
+
     public let emptyTitle = WMFLocalizedString("for-you-empty-title", value: "Nothing here yet", comment: "Title shown on the For You tab when there is no content to display.")
     public let emptySubtitle = WMFLocalizedString("for-you-empty-subtitle", value: "Add interests to get personalized article recommendations.", comment: "Subtitle shown on the For You tab empty state encouraging the user to add interests.")
     public let emptyButtonTitle = WMFLocalizedString("for-you-empty-button", value: "Choose your interests", comment: "Button on the For You empty state that opens the interests customization screen.")
@@ -73,30 +87,32 @@ public final class WMFForYouViewModel: ObservableObject {
         }
 
         let topicPages = response.interestTopicRandomArticles.map {
-            let header = String.localizedStringWithFormat(
-                WMFLocalizedString("for-you-header-interest-topic", value: "Because of your interest: %1$@", comment: "Header label for a For You feed card based on an interest topic. %1$@ is replaced with the topic name."),
-                $0.topic.displayName
+            let header = WMFForYouHeaderLabel(
+                prefix: WMFLocalizedString("for-you-header-interest-topic-prefix", value: "Because of your interest: ", comment: "Prefix for a For You feed card header based on an interest topic."),
+                boldSuffix: $0.topic.displayName
             )
             return WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: deduplicated($0.articles))
         }
         let relatedPages = response.interestPageRelatedArticles.map {
-            let header = String.localizedStringWithFormat(
-                WMFLocalizedString("for-you-header-interest-article", value: "Interest Article: %1$@", comment: "Header label for a For You feed card based on an article the user has shown interest in. %1$@ is replaced with the article title."),
-                $0.pageInterest.title
+            let header = WMFForYouHeaderLabel(
+                prefix: WMFLocalizedString("for-you-header-interest-article-prefix", value: "Because of your interest: ", comment: "Prefix for a For You feed card header based on an article the user has shown interest in."),
+                boldSuffix: $0.pageInterest.title
             )
             return WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: deduplicated($0.articles))
         }
         let becauseYouReadPage: [WMFForYouPageViewModel] = response.becauseYouReadArticles.map {
-            let header = String.localizedStringWithFormat(
-                WMFLocalizedString("for-you-header-because-you-read", value: "Because you read: %1$@", comment: "Header label for a For You feed card shown because the user recently read a related article. %1$@ is replaced with the article title."),
-                $0.recentlyRead.title
+            let header = WMFForYouHeaderLabel(
+                symbolName: "clock",
+                prefix: WMFLocalizedString("for-you-header-because-you-read-prefix", value: "Because you read: ", comment: "Prefix for a For You feed card header shown because the user recently read a related article."),
+                boldSuffix: $0.recentlyRead.title
             )
             return [WMFForYouPageViewModel(module: .becauseYouRead, headerLabel: header, articles: deduplicated($0.articles))]
         } ?? []
         let continueReadingPage: [WMFForYouPageViewModel] = response.continueReadingArticles.map { continueReading in
-            let continueHeader = String.localizedStringWithFormat(
-                WMFLocalizedString("for-you-header-continue-reading", value: "Continue reading: %1$@", comment: "Header label for a For You feed card prompting the user to continue reading an article. %1$@ is replaced with the article title."),
-                continueReading.continueReadingArticle.title
+            let continueHeader = WMFForYouHeaderLabel(
+                symbolName: "doc.text",
+                prefix: WMFLocalizedString("for-you-header-continue-reading-prefix", value: "Continue reading: ", comment: "Prefix for a For You feed card header prompting the user to continue reading an article."),
+                boldSuffix: continueReading.continueReadingArticle.title
             )
             let continueCard = WMFForYouArticleCardViewModel(
                 article: continueReading.continueReadingArticle,
@@ -104,15 +120,21 @@ public final class WMFForYouViewModel: ObservableObject {
             )
             seenTitles.insert(makeKey(continueReading.continueReadingArticle))
             let savedCards = deduplicated(continueReading.savedArticles).map {
-                let savedHeader = String.localizedStringWithFormat(
-                    WMFLocalizedString("for-you-header-saved-article", value: "Saved article: %1$@", comment: "Header label for a For You feed card showing a saved article. %1$@ is replaced with the article title."),
-                    $0.title
+                let savedHeader = WMFForYouHeaderLabel(
+                    symbolName: "bookmark.fill",
+                    prefix: WMFLocalizedString("for-you-header-saved-article-prefix", value: "From your reading list: ", comment: "Prefix for a For You feed card header showing a saved article."),
+                    boldSuffix: $0.title
                 )
                 return WMFForYouArticleCardViewModel(article: $0, headerLabel: savedHeader)
             }
             return [WMFForYouPageViewModel(module: .continueReading, articleViewModels: [continueCard] + savedCards)]
         } ?? []
-        self.pages = topicPages + relatedPages + becauseYouReadPage + continueReadingPage
+
+        let allInterestPages = topicPages + relatedPages
+        let firstInterests = Array(allInterestPages.prefix(3))
+        let remainingInterests = Array(allInterestPages.dropFirst(3))
+
+        self.pages = firstInterests + becauseYouReadPage + continueReadingPage + remainingInterests
     }
 }
 
@@ -123,7 +145,7 @@ public final class WMFForYouPageViewModel: ObservableObject, Identifiable {
     public let module: WMFForYouModule
     public let articleViewModels: [WMFForYouArticleCardViewModel]
 
-    public init(module: WMFForYouModule, headerLabel: String, articles: [WMFForYouArticle]) {
+    public init(module: WMFForYouModule, headerLabel: WMFForYouHeaderLabel, articles: [WMFForYouArticle]) {
         self.module = module
         self.articleViewModels = articles.map {
             WMFForYouArticleCardViewModel(article: $0, headerLabel: headerLabel)
@@ -140,7 +162,7 @@ public final class WMFForYouPageViewModel: ObservableObject, Identifiable {
 public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable {
 
     public let id = UUID()
-    public let headerLabel: String
+    public let headerLabel: WMFForYouHeaderLabel
     public let title: String
     public let project: WMFProject
     @Published public var description: String?
@@ -185,7 +207,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
 
     public let miniCardLabel = WMFLocalizedString("for-you-mini-card-label", value: "Mini card", comment: "Small label displayed above the title on the mini card variant of the For You feed card.")
 
-    public init(article: WMFForYouArticle, headerLabel: String) {
+    public init(article: WMFForYouArticle, headerLabel: WMFForYouHeaderLabel) {
         self.headerLabel = headerLabel
         self.title = article.title
         self.project = article.project
@@ -212,7 +234,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
             }()
 
             guard let data = try? await WMFImageDataController.shared.fetchImageData(url: largeURL) else { return }
-            
+
             let image = UIImage(data: data)
             self.uiImage = image
             if let image, let color = image.accessibleSampledColor() {

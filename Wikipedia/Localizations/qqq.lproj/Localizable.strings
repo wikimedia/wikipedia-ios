@@ -699,11 +699,11 @@
 "for-you-empty-button" = "Button on the For You empty state that opens the interests customization screen.";
 "for-you-empty-subtitle" = "Subtitle shown on the For You tab empty state encouraging the user to add interests.";
 "for-you-empty-title" = "Title shown on the For You tab when there is no content to display.";
-"for-you-header-because-you-read" = "Header label for a For You feed card shown because the user recently read a related article. $1 is replaced with the article title.";
-"for-you-header-continue-reading" = "Header label for a For You feed card prompting the user to continue reading an article. $1 is replaced with the article title.";
-"for-you-header-interest-article" = "Header label for a For You feed card based on an article the user has shown interest in. $1 is replaced with the article title.";
-"for-you-header-interest-topic" = "Header label for a For You feed card based on an interest topic. $1 is replaced with the topic name.";
-"for-you-header-saved-article" = "Header label for a For You feed card showing a saved article. $1 is replaced with the article title.";
+"for-you-header-because-you-read-prefix" = "Prefix for a For You feed card header shown because the user recently read a related article.";
+"for-you-header-continue-reading-prefix" = "Prefix for a For You feed card header prompting the user to continue reading an article.";
+"for-you-header-interest-article-prefix" = "Prefix for a For You feed card header based on an article the user has shown interest in.";
+"for-you-header-interest-topic-prefix" = "Prefix for a For You feed card header based on an interest topic.";
+"for-you-header-saved-article-prefix" = "Prefix for a For You feed card header showing a saved article.";
 "for-you-menu-customize-interests" = "Menu action to open the interests customization screen from a For You feed card.";
 "for-you-menu-hide-module" = "Menu action to hide the entire For You feed module that contains this card.";
 "for-you-mini-card-label" = "Small label displayed above the title on the mini card variant of the For You feed card.";
