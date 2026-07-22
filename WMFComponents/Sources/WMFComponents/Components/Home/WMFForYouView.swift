@@ -358,20 +358,21 @@ private struct WMFForYouArticleCardView: View {
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height)
                 .clipped()
-//
-//                // 2. Top gradient (image variants only)
-//                if effectiveVariant != .textFocused {
-//                    LinearGradient(
-//                        stops: [
-//                            .init(color: .black.opacity(0.4), location: 0.00),
-//                            .init(color: .black.opacity(0), location: 1.00)
-//                        ],
-//                        startPoint: UnitPoint(x: 0.5, y: 0),
-//                        endPoint: UnitPoint(x: 0.5, y: 0.25)
-//                    )
-//                    .frame(width: geometry.size.width, height: geometry.size.height)
-//                    .clipped()
-//                }
+                
+                // 2. Top gradient — dark fade for nav bar legibility
+                if effectiveVariant != .textFocused {
+                    LinearGradient(
+                        stops: [
+                            .init(color: .black.opacity(1), location: 0.00),
+                            .init(color: .black.opacity(0), location: 1.00)
+                        ],
+                        startPoint: UnitPoint(x: 0.5, y: 0),
+                        endPoint: UnitPoint(x: 0.5, y: 1)
+                    )
+                    .frame(width: geometry.size.width, height: geometry.size.height * 0.35)
+                    .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
+                    .allowsHitTesting(false)
+                }
 
                 // 3. Content + per-content bottom gradient
                 switch effectiveVariant {

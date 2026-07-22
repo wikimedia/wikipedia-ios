@@ -19,6 +19,10 @@ public struct WMFHomeView: View {
         return safeAreaTop + 44
     }
 
+    private var navTheme: WMFTheme {
+        viewModel.selectedTab == .forYou ? .dark : theme
+    }
+
     public var body: some View {
         ZStack(alignment: .top) {
             if viewModel.selectedTab == .forYou {
@@ -30,12 +34,15 @@ public struct WMFHomeView: View {
                     .padding(.top, navBarBottom + 52)
             }
 
-            HStack(alignment: .center, spacing: 8) {
-                Picker("", selection: $viewModel.selectedTab) {
-                    Text(viewModel.communityTabTitle).tag(WMFHomeViewModel.Tab.community)
-                    Text(viewModel.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
-                }
-                .pickerStyle(.segmented)
+            HStack(spacing: 8) {
+                WMFForYouTabPicker(
+                    selectedTab: $viewModel.selectedTab,
+                    communityTitle: viewModel.communityTabTitle,
+                    forYouTitle: viewModel.forYouTabTitle,
+                    theme: navTheme
+                )
+
+                Spacer()
 
                 Menu {
                     ForEach(viewModel.languages) { language in
@@ -58,11 +65,17 @@ public struct WMFHomeView: View {
                 } label: {
                     Text(viewModel.languageButtonTitle)
                         .font(Font(WMFFont.for(.semiboldHeadline)))
-                        .foregroundStyle(Color(uiColor: theme.link))
+                        .foregroundStyle(Color(uiColor: navTheme.text))
                         .dynamicTypeSize(.xSmall ... .accessibility2)
                         .minimumScaleFactor(0.7)
                         .lineLimit(1)
+                    Image(systemName: "chevron.up.chevron.down")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(Color(uiColor: navTheme.text))
                 }
+                .padding(.horizontal, 14)
+                .padding(.vertical, 8)
+                .background(Color(uiColor: navTheme.baseBackground), in: RoundedRectangle(cornerRadius: 20))
                 .accessibilityIdentifier(AccessibilityIdentifiers.Home.languagePickerButton)
             }
             .padding(.horizontal)
@@ -81,6 +94,49 @@ public struct WMFHomeView: View {
         }
     }
 
+    // MARK: - Tab Picker
+
+    private struct WMFForYouTabPicker: View {
+        @Binding var selectedTab: WMFHomeViewModel.Tab
+        let communityTitle: String
+        let forYouTitle: String
+        let theme: WMFTheme
+
+        var body: some View {
+            HStack(spacing: 2) {
+                tabButton(title: communityTitle, tab: .community)
+                tabButton(title: forYouTitle, tab: .forYou)
+            }
+            .padding(3)
+            .background(Color(uiColor: theme.baseBackground), in: Capsule())
+        }
+
+        private func tabButton(title: String, tab: WMFHomeViewModel.Tab) -> some View {
+            let isSelected = selectedTab == tab
+            return Button {
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                    selectedTab = tab
+                }
+            } label: {
+                Text(title)
+                    .font(Font(WMFFont.for(.semiboldSubheadline)))
+                    .foregroundStyle(isSelected ? Color(uiColor: theme.link) : Color(uiColor: theme.text))
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(
+                        Group {
+                            if isSelected {
+                                Capsule()
+                                    .fill(Color(uiColor: theme.midBackground))
+                            }
+                        }
+                    )
+            }
+        }
+    }
+
+    // MARK: - For You Tab
+
     @ViewBuilder
     private var forYouTabContent: some View {
         if let forYouViewModel = viewModel.forYouViewModel {
@@ -98,6 +154,8 @@ public struct WMFHomeView: View {
             Spacer()
         }
     }
+
+    // MARK: - Community Tab
 
     @ViewBuilder
     private var communityTabContent: some View {
