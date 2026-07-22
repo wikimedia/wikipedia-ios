@@ -702,7 +702,7 @@
 "for-you-header-because-you-read" = "Because you read: $1";
 "for-you-header-continue-reading" = "Continue reading: $1";
 "for-you-header-interest-article" = "Interest Article: $1";
-"for-you-header-interest-topic" = "Interest Topic: $1";
+"for-you-header-interest-topic" = "Because of your interest: $1";
 "for-you-header-saved-article" = "Saved article: $1";
 "for-you-menu-customize-interests" = "Customize interests";
 "for-you-menu-hide-module" = "Hide module";

@@ -74,7 +74,7 @@ public final class WMFForYouViewModel: ObservableObject {
 
         let topicPages = response.interestTopicRandomArticles.map {
             let header = String.localizedStringWithFormat(
-                WMFLocalizedString("for-you-header-interest-topic", value: "Interest Topic: %1$@", comment: "Header label for a For You feed card based on an interest topic. %1$@ is replaced with the topic name."),
+                WMFLocalizedString("for-you-header-interest-topic", value: "Because of your interest: %1$@", comment: "Header label for a For You feed card based on an interest topic. %1$@ is replaced with the topic name."),
                 $0.topic.displayName
             )
             return WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: deduplicated($0.articles))
@@ -293,7 +293,7 @@ extension UIImage {
             let r = (totalR / pixelCount / 255) * 0.5
             let g = (totalG / pixelCount / 255) * 0.5
             let b = (totalB / pixelCount / 255) * 0.5
-            let (dr, dg, db) = darkenToMeetContrast(r: r, g: g, b: b, targetRatio: 4.5)
+            let (dr, dg, db) = darkenToMeetContrast(r: r, g: g, b: b, targetRatio: 5)
             return Color(red: dr, green: dg, blue: db)
         }
 
@@ -301,7 +301,7 @@ extension UIImage {
         var g = weightedG / totalWeight
         var b = weightedB / totalWeight
 
-        (r, g, b) = darkenToMeetContrast(r: r, g: g, b: b, targetRatio: 4.5)
+        (r, g, b) = darkenToMeetContrast(r: r, g: g, b: b, targetRatio: 5)
         return Color(red: r, green: g, blue: b)
     }
 
@@ -318,6 +318,12 @@ extension UIImage {
         }
         while contrastAgainstWhite(r, g, b) < targetRatio {
             r *= 0.95; g *= 0.95; b *= 0.95
+        }
+        // Clamp brightness so light/desaturated images always produce a dark usable gradient
+        let maxComponent = max(r, g, b)
+        if maxComponent > 0.25 {
+            let scale = 0.25 / maxComponent
+            r *= scale; g *= scale; b *= scale
         }
         return (r, g, b)
     }

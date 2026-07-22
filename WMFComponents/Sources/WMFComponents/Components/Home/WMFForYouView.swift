@@ -342,18 +342,9 @@ private struct WMFForYouArticleCardView: View {
                         cardColor
                     default:
                         if let uiImage = viewModel.uiImage {
-                            ZStack {
-                                // Blurred fill as backdrop for letterboxed images
-                                Image(uiImage: uiImage)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .blur(radius: 20)
-                                    .clipped()
-                                // Actual image, fitted so full image is visible
-                                Image(uiImage: uiImage)
-                                    .resizable()
-                                    .scaledToFit()
-                            }
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFill()
                         } else {
                             cardColor
                         }
@@ -361,37 +352,22 @@ private struct WMFForYouArticleCardView: View {
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height)
                 .clipped()
+//
+//                // 2. Top gradient (image variants only)
+//                if effectiveVariant != .textFocused {
+//                    LinearGradient(
+//                        stops: [
+//                            .init(color: .black.opacity(0.4), location: 0.00),
+//                            .init(color: .black.opacity(0), location: 1.00)
+//                        ],
+//                        startPoint: UnitPoint(x: 0.5, y: 0),
+//                        endPoint: UnitPoint(x: 0.5, y: 0.25)
+//                    )
+//                    .frame(width: geometry.size.width, height: geometry.size.height)
+//                    .clipped()
+//                }
 
-                // 2. Gradients (image variants only)
-                if effectiveVariant != .textFocused {
-                    ZStack {
-                        // Top gradient — subtle dark fade for nav bar legibility
-                        LinearGradient(
-                            stops: [
-                                .init(color: .black.opacity(0.4), location: 0.00),
-                                .init(color: .black.opacity(0), location: 1.00)
-                            ],
-                            startPoint: UnitPoint(x: 0.5, y: 0),
-                            endPoint: UnitPoint(x: 0.5, y: 0.25)
-                        )
-
-                        // Bottom gradient — transparent → sampled color → black
-                        LinearGradient(
-                            stops: [
-                                .init(color: cardColor.opacity(0), location: 0.00),
-                                .init(color: cardColor.opacity(0.85), location: 0.55),
-                                .init(color: .black, location: 1.00)
-                            ],
-                            startPoint: UnitPoint(x: 0.5, y: 0.4),
-                            endPoint: UnitPoint(x: 0.5, y: 1.0)
-                        )
-                    }
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-                    .clipped()
-                    .animation(.easeInOut(duration: 0.3), value: viewModel.sampledColor)
-                }
-
-                // 3. Content
+                // 3. Content + per-content bottom gradient
                 switch effectiveVariant {
 
                 // MARK: Variant 3: Text-focused (also used as fallback when no image)
@@ -467,6 +443,19 @@ private struct WMFForYouArticleCardView: View {
                     .padding(.horizontal, 20)
                     .padding(.bottom, dotsAndTabBarHeight)
                     .frame(width: geometry.size.width, alignment: .leading)
+                    .background(alignment: .bottom) {
+                        LinearGradient(
+                            stops: [
+                                .init(color: .black.opacity(0), location: 0.0),
+                                .init(color: cardColor.opacity(0.85), location: 0.5),
+                                .init(color: .black, location: 1.0)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.6)
+                        .allowsHitTesting(false)
+                    }
                 }
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
