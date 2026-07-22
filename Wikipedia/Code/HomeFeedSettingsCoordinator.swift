@@ -120,7 +120,10 @@ final class HomeFeedSettingsCoordinator: Coordinator {
     private func showInterestsSettings() {
         let language = homeDataController.selectedLanguage() ?? WMFDataEnvironment.current.primaryAppLanguage ?? WMFLanguage(languageCode: "en", languageVariantCode: nil)
         let project = WMFProject.wikipedia(language)
-        let viewModel = WMFHomeFeedInterestsSettingsViewModel(project: project)
+        let searchLanguages = MWKDataStore.shared().languageLinkController.preferredLanguages.map {
+            WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode)
+        }
+        let viewModel = WMFHomeFeedInterestsSettingsViewModel(project: project, searchLanguages: searchLanguages)
         let interestsVC = WMFHomeFeedInterestsSettingsViewController(viewModel: viewModel)
         activeNavigationController.pushViewController(interestsVC, animated: true)
     }

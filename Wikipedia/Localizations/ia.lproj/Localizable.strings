@@ -1100,9 +1100,7 @@
 "reading-challenge-not-yet-read-subtitle-quiet" = "Momento de lectura tranquille?";
 "reading-challenge-not-yet-read-subtitle-snooze" = "Ora, ante le termino tranquille del die… ancora resta un momento pro apprender qualcosa.";
 "reading-challenge-random-button" = "Aleatori";
-"reading-challenge-streak-days" = "{{PLURAL:$1|$1 die|$1 dies}}";
 "reading-challenge-streak-no-days" = "$1 de 25";
-"reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 de 25 dies}}";
 "reading-challenge-subtitle" = "Defia de lectura de 25 dies";
 "reading-challenge-widget-announcement-body2" = "Pro sequer tu serie de progression quotidian con le Globo infante, tu debe adder le widget del Defia de Lectura desde tu schermo de initio.";
 "reading-challenge-widget-announcement-secondary-button" = "Monstrar me como facer";

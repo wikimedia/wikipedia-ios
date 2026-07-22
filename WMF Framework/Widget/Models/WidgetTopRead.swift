@@ -44,7 +44,7 @@ public struct WidgetTopRead: Codable {
         public let normalizedTitle: String
         public let description: String?
         public let timestamp: String
-        public let viewHistory: [ViewHistoryDataPoint] // ordered from oldest to newest
+        public let viewHistory: [ViewHistoryDataPoint]? // ordered from oldest to newest
         public var thumbnailImageSource: WidgetImageSource?
         public let originalImageSource: WidgetImageSource?
         public let language: String

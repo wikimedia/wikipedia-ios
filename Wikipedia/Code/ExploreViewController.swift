@@ -54,7 +54,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         .startFunnel(name: "wiki_game")
     
     
-    private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
     private var whichCameFirstCoordinator: WhichCameFirstCoordinator?
 
     private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
@@ -203,6 +202,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         stopMonitoringReachability()
         isGranularUpdatingEnabled = false
         resetNavBarAppearance()
+        hasLoggedSuggestedEditsCardImpression = false
     }
 
     open override func refresh() {
@@ -346,6 +346,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     // MARK: - Event logging
 
+    private var hasLoggedSuggestedEditsCardImpression: Bool = false
+
     private func logFeedImpressionAfterDelay() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(logFeedImpression), object: nil)
         perform(#selector(logFeedImpression), with: self, afterDelay: 3)
@@ -364,6 +366,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             let isUnobstructed = visibleRect.contains(itemCenter)
             guard isUnobstructed else {
                 continue
+            }
+
+            if group.contentGroupKind == .suggestedEdits, !hasLoggedSuggestedEditsCardImpression {
+                hasLoggedSuggestedEditsCardImpression = true
+                ImageRecommendationsFunnel.shared.logExploreCardDidAppear()
             }
         }
     }
@@ -1052,35 +1059,10 @@ extension ExploreViewController {
     /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
     /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
-
-        // Do not replace an in-flight reading challenge coordinator.
-        guard readingChallengeCoordinator == nil else {
-            return
-        }
-        
-        // Prioritize reading challenge, then fall back to year in review or tooltips
         guard let navigationController, let dataStore else {
             presentYearInReviewAnnouncementOrTooltipsIfNeeded()
             return
         }
-        
-        let readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme, fromWidgetJoinChallengeButton: false, fromAppStoreEvent: false, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent, instrument: widgetInstrument)
-        
-        readingChallengeCoordinator.onComplete = { [weak self] didPresentSomething in
-            
-            self?.readingChallengeCoordinator = nil
-            
-            // Do not present followup modals if they just saw a reading challenge announcement.
-            guard !didPresentSomething else {
-                return
-            }
-            
-            self?.presentYearInReviewAnnouncementOrTooltipsIfNeeded()
-        }
-        
-        self.readingChallengeCoordinator = readingChallengeCoordinator
-        
-        readingChallengeCoordinator.start()
     }
 
     /// Called at the tail of the modal chain (after RC and YIR have both declined).

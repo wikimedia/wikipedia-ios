@@ -92,6 +92,13 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
+    /// Debugging convenience: when true (and the home tab is enabled), the new app onboarding
+    /// presents on every launch, ignoring the persisted "did show onboarding" flag.
+    public var alwaysShowNewOnboarding: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsAlwaysShowNewOnboarding.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsAlwaysShowNewOnboarding.rawValue, value: newValue) }
+    }
+
     public var enableYiRLoginExperimentControl: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue, value: newValue) }
@@ -134,68 +141,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     private func saveSharedStore(_ key: WMFUserDefaultsKey, _ value: Any?) {
         sharedDefaults?.set(value, forKey: key.rawValue)
         sharedDefaults?.synchronize()
-    }
-    
-    public func devClearAllReadingChallengePersistence() {
-        let sharedDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
-        
-        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.devReadingChallengeOverrideCurrentDate.rawValue)
-        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.devReadingChallengeCurrentDate.rawValue)
-        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.devReadingChallengeState.rawValue)
-        
-        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue)
-        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue)
-        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeUserCompleted.rawValue)
-        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakReadRandomIndex.rawValue)
-        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakReadRandomIndexDate.rawValue)
-        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakNotReadRandomIndex.rawValue)
-        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakNotReadRandomIndexDate.rawValue)
-        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeEnrolledNotStartedRandomIndex.rawValue)
-        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeEnrolledNotStartedRandomIndexDate.rawValue)
-        sharedDefaults?.synchronize()
-        
-        Task { [weak self] in
-            let dataController = try? WMFPageViewsDataController()
-            try? await dataController?.deleteAllPageViewsAndCategories()
-            
-            self?.reloadReadingChallengeWidget()
-        }
-    }
-    
-    public var devReadingChallengeOverrideCurrentDate: Bool? {
-        loadSharedStore(.devReadingChallengeOverrideCurrentDate) as? Bool
-    }
-    
-    public func setDevReadingChallengeOverrideCurrentDate(_ value: Bool?) {
-        saveSharedStore(.devReadingChallengeOverrideCurrentDate, value)
-    }
-    
-    public func reloadReadingChallengeWidget() {
-        NotificationCenter.default.post(name: WMFNSNotification.readingChallengeWidgetReload, object: nil)
-    }
-
-    public var devReadingChallengeCurrentDate: Date? {
-        loadSharedStore(.devReadingChallengeCurrentDate) as? Date
-    }
-    
-    public func setDevReadingChallengeCurrentDate(_ date: Date?) {
-        saveSharedStore(.devReadingChallengeCurrentDate, date)
-    }
-    
-    public var devReadingChallengeState: ReadingChallengeState? {
-        get {
-            guard let data = sharedDefaults?.data(forKey: WMFUserDefaultsKey.devReadingChallengeState.rawValue) else {
-                return nil
-            }
-            return try? JSONDecoder().decode(ReadingChallengeState.self, from: data)
-        }
-        set {
-            if let newValue, let data = try? JSONEncoder().encode(newValue) {
-                sharedDefaults?.set(data, forKey: WMFUserDefaultsKey.devReadingChallengeState.rawValue)
-            } else {
-                sharedDefaults?.removeObject(forKey: WMFUserDefaultsKey.devReadingChallengeState.rawValue)
-            }
-        }
     }
 
     // MARK: - Remote Settings

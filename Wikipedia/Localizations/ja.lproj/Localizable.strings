@@ -851,8 +851,6 @@
 "reading-challenge-not-yet-read-subtitle-quiet" = "静かな読書タイムはいかがですか？";
 "reading-challenge-not-yet-read-subtitle-snooze" = "今日が過ぎ去ってしまう前に…\n学びの時間はまだ残っています。";
 "reading-challenge-random-button" = "ランダムに選択";
-"reading-challenge-streak-days" = "{{PLURAL:$1|$1日目}}";
-"reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 / 25日 |$1 / 25日}}";
 "reading-challenge-subtitle" = "25日間閲覧チャレンジ";
 "reading-challenge-widget-announcement-body2" = "ベビー・グローブと一緒に読書記録をつけるには、ホーム画面に「読書チャレンジ」ウィジェットを追加しよう";
 "reading-challenge-widget-announcement-secondary-button" = "使い方を見る";

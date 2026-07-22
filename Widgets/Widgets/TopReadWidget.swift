@@ -59,7 +59,7 @@ final class TopReadData {
                     let title = rankedElement.displayTitle.removingHTML
                     let description = rankedElement.description?.removingHTML ?? ""
                     let url = URL(string: rankedElement.contentURL.desktop.page)
-                    let viewCounts: [NSNumber] = rankedElement.viewHistory.compactMap { NSNumber(value: $0.views) }
+                    let viewCounts: [NSNumber] = rankedElement.viewHistory?.compactMap { NSNumber(value: $0.views) } ?? [NSNumber(value: rankedElement.views)]
                     var image: UIImage?
                     if let imageData = rankedElement.thumbnailImageSource?.data {
                         image = UIImage(data: imageData)

@@ -1,7 +1,9 @@
 import Foundation
 
-public final class WMFImageDataController {
+public actor WMFImageDataController {
     public static let shared = WMFImageDataController()
+    // `var` (not `let`) so the @_spi(Testing) reset() below can reassign them.
+    // Safe: they are actor-isolated state.
     private var basicService: WMFService?
     private var mediaWikiService: WMFService?
     private let imageCache = NSCache<NSURL, NSData>()
@@ -12,44 +14,30 @@ public final class WMFImageDataController {
     }
     
     public func fetchImageData(url: URL) async throws -> Data {
-        return try await withCheckedThrowingContinuation { continuation in
-            fetchImageData(url: url) { result in
-                switch result {
-                case .success(let data):
-                    continuation.resume(returning: data)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
-    }
-    
-    public func fetchImageData(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
-        
+
         if let cachedData = imageCache.object(forKey: url as NSURL) {
-            completion(.success(cachedData as Data))
-            return
+            return cachedData as Data
         }
-        
+
         guard let basicService else {
-            completion(.failure(WMFDataControllerError.basicServiceUnavailable))
-            return
+            throw WMFDataControllerError.basicServiceUnavailable
         }
 
         let request = WMFBasicServiceRequest(url: url, method: .GET, acceptType: .none)
 
-        basicService.perform(request: request) { [weak self] result in
-            switch result {
-            case .success(let data):
-                self?.imageCache.setObject(data as NSData, forKey: url as NSURL)
-            default:
-                break
+        // The service is still completion-based; bridge it to async via a continuation.
+        // The cache write happens after the await, back on the actor, so `imageCache`
+        // stays actor-isolated and no nonisolated/Sendable workaround is needed.
+        let data: Data = try await withCheckedThrowingContinuation { continuation in
+            basicService.perform(request: request) { result in
+                continuation.resume(with: result)
             }
-            
-            completion(result)
         }
+
+        imageCache.setObject(data as NSData, forKey: url as NSURL)
+        return data
     }
-    
+
     public func fetchImageInfo(title: String, thumbnailWidth: UInt, project: WMFProject, completion: @escaping (Result<WMFImageInfo, Error>) -> Void) {
         guard let mediaWikiService else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))

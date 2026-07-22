@@ -1190,9 +1190,7 @@
 "reading-challenge-not-yet-read-subtitle-quiet" = "Sessiz bir okuma anı mı?";
 "reading-challenge-not-yet-read-subtitle-snooze" = "Gün uykuya dalmadan önce... bir şeyler öğrenmek için hâlâ vakit var.";
 "reading-challenge-random-button" = "Rastgele";
-"reading-challenge-streak-days" = "{{PLURAL:$1|bir gün|$1 gün}}";
 "reading-challenge-streak-no-days" = "$1 / 25";
-"reading-challenge-streak-of-days" = "{{PLURAL:$1|25 günden $1}}";
 "reading-challenge-subtitle" = "25 günlük okuma mücadelesi";
 "reading-challenge-widget-announcement-body2" = "Bebek Küre ile serinizi takip etmek için ana ekranınızdan Okuma Mücadelesi widget'ını eklemeniz gerekir.";
 "reading-challenge-widget-announcement-secondary-button" = "Nasıl yapılacağını göster";

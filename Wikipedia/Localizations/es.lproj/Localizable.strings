@@ -1102,9 +1102,6 @@
 "reading-challenge-not-yet-read-subtitle-quiet" = "¿Un momento tranquilo para leer?";
 "reading-challenge-not-yet-read-subtitle-snooze" = "Antes de que el día se acabe…\naún hay tiempo para aprender algo.";
 "reading-challenge-random-button" = "Aleatorio";
-"reading-challenge-streak-days" = "{{PLURAL:$1|$1 día|$1 días}}";
-// Fuzzy
-"reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 de 25 días|$1 de 25 días}}";
 "reading-challenge-subtitle" = "Reto de lectura de 25 días";
 "reading-challenge-widget-announcement-body2" = "Para hacer un seguimiento de tu racha con Baby Globe, deberás agregar el widget del Desafío de lectura desde tu pantalla de inicio.";
 "reading-challenge-widget-announcement-secondary-button" = "Muéstrame cómo hacerlo";
