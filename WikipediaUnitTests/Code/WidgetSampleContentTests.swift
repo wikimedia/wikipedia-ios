@@ -16,4 +16,21 @@ class WidgetSampleContentTests: XCTestCase {
 		XCTAssertNotNil(sampleContent?.featuredArticle?.description, "Featured Article Widget sample description unavailable")
 	}
 
+    func testFeaturedContentDecodingToleratesMissingViewHistory() throws {
+        // Regression test: the feed API omits view_history for some most-read
+        // articles (typically newly trending ones). Decoding must not fail for
+        // the whole payload — it previously broke the Featured Article,
+        // Picture of the Day, and Top Read widgets together.
+        let data = try XCTUnwrap(wmf_bundle().wmf_data(fromContentsOfFile: "FeedDayResponseMissingViewHistory", ofType: "json"))
+
+        let content = try JSONDecoder().decode(WidgetFeaturedContent.self, from: data)
+
+        XCTAssertNotNil(content.featuredArticle, "Today's featured article should decode despite a mostread article without view_history")
+        XCTAssertNotNil(content.pictureOfTheDay, "Picture of the day should decode despite a mostread article without view_history")
+        let articles = try XCTUnwrap(content.topRead?.elements)
+        XCTAssertEqual(articles.count, 2)
+        XCTAssertNotNil(articles[0].viewHistory)
+        XCTAssertNotNil(articles[0].views)
+        XCTAssertNil(articles[1].viewHistory, "article without view_history should decode with nil history")
+    }
 }
