@@ -96,6 +96,7 @@ public struct WMFHomeView: View {
             .padding(.top, navBarBottom + 8)
             .background(viewModel.selectedTab == .forYou ? Color.clear : Color(uiColor: theme.paperBackground))
         }
+        .background(viewModel.selectedTab == .forYou ? Color.black : Color(uiColor: theme.paperBackground))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()
         .environment(\.colorScheme, theme.preferredColorScheme)
@@ -161,6 +162,33 @@ public struct WMFHomeView: View {
             Spacer()
             ProgressView()
             Spacer()
+        } else if viewModel.forYouFeedError == nil {
+            VStack(spacing: 16) {
+                Spacer()
+                Text(viewModel.forYouErrorTitle)
+                    .font(Font(WMFFont.for(.boldHeadline)))
+                    .foregroundStyle(Color(uiColor: navTheme.text))
+                    .multilineTextAlignment(.center)
+                Text(viewModel.forYouErrorSubtitle)
+                    .font(Font(WMFFont.for(.callout)))
+                    .foregroundStyle(Color(uiColor: navTheme.secondaryText))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+                Button {
+                    viewModel.loadForYouFeedIfNeeded()
+                } label: {
+                    Text(viewModel.forYouErrorRetryTitle)
+                        .font(Font(WMFFont.for(.boldCallout)))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 12)
+                        .background(Color(uiColor: navTheme.link), in: Capsule())
+                }
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.black)
+            .padding(.top, navBarBottom + 52)
         } else {
             Spacer()
             Text(viewModel.forYouTabTitle)

@@ -703,6 +703,9 @@
 "for-you-empty-button" = "Choose your interests";
 "for-you-empty-subtitle" = "Add interests to get personalized article recommendations.";
 "for-you-empty-title" = "Nothing here yet";
+"for-you-error-retry" = "Try again";
+"for-you-error-subtitle" = "Connect to the Internet and try again.";
+"for-you-error-title" = "No internet connection";
 "for-you-header-because-you-read-prefix" = "Because you read: ";
 "for-you-header-continue-reading-prefix" = "Continue reading: ";
 "for-you-header-interest-article-prefix" = "Because of your interest: ";

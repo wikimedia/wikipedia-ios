@@ -25,6 +25,10 @@ public final class WMFHomeViewModel: ObservableObject {
     let forYouTabTitle = CommonStrings.forYouTabTitle
     let communityTabTitle = WMFLocalizedString("home-community-tab-title", value: "Community", comment: "Title for the Community segment within the Home tab.")
     let editLanguagesTitle = WMFLocalizedString("home-edit-languages-title", value: "Add or edit languages", comment: "Title for the option at the bottom of the Home language menu that opens the languages settings screen.")
+    
+    let forYouErrorTitle = WMFLocalizedString("for-you-error-title", value: "No internet connection", comment: "Title shown on the For You tab when content cannot be loaded due to a network error.")
+    let forYouErrorSubtitle = WMFLocalizedString("for-you-error-subtitle", value: "Connect to the Internet and try again.", comment: "Subtitle shown on the For You tab when content cannot be loaded due to a network error.")
+    let forYouErrorRetryTitle = WMFLocalizedString("for-you-error-retry", value: "Try again", comment: "Button on the For You error state that retries loading the feed.")
 
     @Published public var selectedTab: Tab = .community
     @Published public var languages: [WMFLanguage]
@@ -32,6 +36,7 @@ public final class WMFHomeViewModel: ObservableObject {
         didSet {
             guard let newValue = selectedLanguage, newValue.id != oldValue?.id else { return }
             forYouViewModel = nil
+            forYouFeedError = nil
             communityPages = []
             loadCurrentTabFeedIfNeeded()
         }
@@ -39,6 +44,7 @@ public final class WMFHomeViewModel: ObservableObject {
     @Published public var forYouViewModel: WMFForYouViewModel? {
         didSet { configureForYouViewModel() }
     }
+    @Published public var forYouFeedError: Error?
     @Published public var isLoadingForYou: Bool = false
     @Published public var communityPages: [WMFHomeCommunityViewModel] = []
     @Published public var communityFeedError: Error?
@@ -130,6 +136,7 @@ public final class WMFHomeViewModel: ObservableObject {
 
         if isUsingColorTestForYou {
             forYouViewModel = WMFForYouViewModel(response: .colorTest)
+            forYouFeedError = nil
             refreshSavedStates()
             return
         }
@@ -139,9 +146,10 @@ public final class WMFHomeViewModel: ObservableObject {
         do {
             let response = try await dataController.fetchForYou(project: project, forceFetch: true)
             self.forYouViewModel = WMFForYouViewModel(response: response)
+            self.forYouFeedError = nil
             self.refreshSavedStates()
         } catch {
-            // TODO: surface error
+            self.forYouFeedError = error
         }
     }
 
@@ -156,6 +164,7 @@ public final class WMFHomeViewModel: ObservableObject {
 
     public func loadForYouFeedIfNeeded() {
         guard forYouViewModel == nil, !isLoadingForYou else { return }
+        forYouFeedError = nil
         isLoadingForYou = true
         isUsingColorTestForYou = WMFDeveloperSettingsDataController.shared.isUsingColorTestForYou
         hiddenCardKeys = Set(dataController.hiddenCardKeys())
@@ -178,7 +187,7 @@ public final class WMFHomeViewModel: ObservableObject {
                 self.forYouViewModel = WMFForYouViewModel(response: response)
                 self.refreshSavedStates()
             } catch {
-                // TODO: surface error
+                self.forYouFeedError = error
             }
             self.isLoadingForYou = false
         }
