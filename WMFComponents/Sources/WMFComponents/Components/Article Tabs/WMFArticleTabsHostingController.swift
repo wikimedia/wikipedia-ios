@@ -36,6 +36,10 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     @MainActor public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // Toolchain workaround: see the nonisolated deinit note in WMFComponentHostingController.
+    nonisolated deinit {
+    }
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
