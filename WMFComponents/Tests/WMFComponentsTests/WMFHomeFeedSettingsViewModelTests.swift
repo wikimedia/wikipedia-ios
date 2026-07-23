@@ -16,6 +16,25 @@ private func toggleBindings(_ sections: [SettingsSection]) -> [Binding<Bool>] {
 }
 
 @MainActor
+final class WMFHomeFeedSettingsViewModelTests: XCTestCase {
+
+    func testCommunitySectionHiddenWithoutHomePhase2() {
+        let vm = WMFHomeFeedSettingsViewModel(showCommunitySettings: false)
+        XCTAssertEqual(vm.sections.count, 1)
+        // Only the For You section remains: Modules + What's Driving rows.
+        XCTAssertEqual(vm.sections[0].items.count, 2)
+    }
+
+    func testCommunitySectionShownWithHomePhase2() {
+        let vm = WMFHomeFeedSettingsViewModel(showCommunitySettings: true)
+        XCTAssertEqual(vm.sections.count, 2)
+        // Community section leads with its single Modules row.
+        XCTAssertEqual(vm.sections[0].items.count, 1)
+        XCTAssertEqual(vm.sections[1].items.count, 2)
+    }
+}
+
+@MainActor
 final class WMFHomeFeedCommunitySettingsViewModelTests: XCTestCase {
 
     private func makeController() -> WMFHomeDataController {

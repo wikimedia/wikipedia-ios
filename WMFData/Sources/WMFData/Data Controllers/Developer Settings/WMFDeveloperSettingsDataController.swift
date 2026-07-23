@@ -92,6 +92,26 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
+    /// Gates home feed work that ships after the initial Home tab experiment: the reworked community
+    /// feed (replacing the embedded legacy Explore feed) and its settings. Only has an effect when
+    /// `enableHomeTab` is also true.
+    public var enableHomePhase2: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableHomePhase2.rawValue)) ?? false }
+        set {
+            let oldValue = enableHomePhase2
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableHomePhase2.rawValue, value: newValue)
+            if oldValue != newValue {
+                NotificationCenter.default.post(name: WMFNSNotification.enableHomePhase2DidChange, object: nil)
+            }
+        }
+    }
+
+    /// True while the legacy Explore feed backs the Home tab's Community segment (home tab on, phase 2
+    /// off). In this mode the feed is presented as the "Community feed" throughout the UI.
+    public var isCommunityFeedMode: Bool {
+        enableHomeTab && !enableHomePhase2
+    }
+
     /// Debugging convenience: when true (and the home tab is enabled), the new app onboarding
     /// presents on every launch, ignoring the persisted "did show onboarding" flag.
     public var alwaysShowNewOnboarding: Bool {

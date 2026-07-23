@@ -299,6 +299,8 @@
 "close-tabs" = "Action to confirm closing multiple tabs.";
 "closed-all-tabs-confirmation-with-value" = "Confirmation title of deleting all tabs. $1 is the number of tabs deleted.";
 "collect-prize-title" = "Title for collect prize modal sheet and button";
+"community-detail-back-button-title" = "Title for button that allows users to exit detail view and return to the Community feed.";
+"community-feed-preferences-global-card-footer-text" = "Text describing the effects of turning off a global card";
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
 "confirm-donation-history-deletion-subtitle" = "Subtitle for confirm local donation history deletion alert";
 "confirm-donation-history-deletion-title" = "Title for confirm local donation history deletion alert";
@@ -574,6 +576,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Text explaining how to add additional languages";
 "explore-feed-preferences-card-hidden-title" = "Title for button that appears in place of feed card hidden by user via the overflow button";
 "explore-feed-preferences-continue-reading-description" = "Description of Continue reading section of Explore feed";
+"explore-feed-preferences-customize-community-feed-action-title" = "Title for action that allows users to go to the Community feed settings screen";
 "explore-feed-preferences-customize-explore-feed" = "Title of the Settings section that allows users to customize the Explore feed";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Title for action that allows users to go to the Explore feed settings screen";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Text for explaining the effects of hiding feed cards";
@@ -654,6 +657,7 @@
 "explore-suggested-edits-image-recs-title" = "Title text shown in the image recommendations explore feed card.";
 "explore-wikipedia" = "Button title to explore Wikipedia";
 "export-user-data-confirmation-message" = "Message of confirmation modal after user taps \"Export User Data\" button.";
+"export-user-data-confirmation-message-community" = "Message of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-confirmation-title" = "Title of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-generic-error" = "Error message displayed after user has tried exporting their data and an error occurs.";
 "export-user-data-space-error" = "Error message displayed after user has tried exporting their data and the system determines it doesn't have space to do so.";
@@ -718,6 +722,9 @@
 "history-title" = "Title of the history screen shown on history tab {{Identical|History}}";
 "home-button-explore-accessibility-label" = "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
 "home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.";
+"home-community-empty-feed-button-title" = "Title of the button shown in the Home tab Community segment when every feed card is hidden. It opens the feed settings.";
+"home-community-empty-feed-message" = "Message shown in the Home tab Community segment when the user has hidden every feed card.";
+"home-community-empty-feed-title" = "Title shown in the Home tab Community segment when the user has hidden every feed card.";
 "home-community-tab-title" = "Title for the Community segment within the Home tab.";
 "home-edit-languages-title" = "Title for the option at the bottom of the Home language menu that opens the languages settings screen.";
 "home-feed-for-you-based-on-interests-subtitle" = "Subtitle describing the Based on your interests module.";
@@ -728,7 +735,6 @@
 "home-feed-for-you-continue-reading-title" = "Title for the Continue reading module toggle.";
 "home-feed-for-you-settings-header" = "Header text describing what turning For You feed modules on or off does.";
 "home-feed-for-you-settings-title" = "Navigation bar title for the For You modules settings screen.";
-"home-feed-for-you-whats-driving-title" = "Title for the link row that explains what is driving the user's For You feed.";
 "home-feed-interests-deselect-all" = "Title of the button on the interests selection screen that clears all selected topics and articles.";
 "home-feed-interests-header-title" = "Header title on the interests selection screen, shown before any topics or articles are selected.";
 "home-feed-interests-non-mainspace-toast" = "Toast error message shown when a user tries to add a non-article page (e.g. a talk page) as an interest.";
@@ -916,6 +922,8 @@
 "nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles.\n\nParameters:\n* $1 - the number of kilometers. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-meters" = "Label for showing distance in meters to nearby geotagged articles.\n\nParameters:\n* $1 - the number of meters.\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* $1 - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}} {{Identical|Mile}}";
+"new-explore-feed-preferences-customize-explore-feed" = "Title of the Settings section that allows users to customize the Community feed";
+"new-explore-feed-preferences-customize-explore-feed-footer-text" = "Text for explaining the effects of hiding feed cards";
 "new-password-instructions" = "Instructions for password change interface";
 "new-password-title" = "Title for password change interface";
 "new-tab" = "Title for creating a new tab.";
@@ -1298,6 +1306,7 @@
 "settings-clear-cache-are-you-sure-title" = "Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.";
 "settings-clear-cache-cancel" = "Cancel action to clear cached data {{Identical|Cancel}}";
 "settings-clear-cache-ok" = "Confirm action to clear cached data";
+"settings-community-feed-title" = "Title for the Community feed settings item in Settings, shown while the Home tab experiment is enabled. {{Identical|Community}}";
 "settings-donate" = "Link to donate";
 "settings-explore-games-subtitle" = "Subtitle for Games section in Explore settings";
 "settings-explore-games-title" = "Title for Games section in Explore settings";
@@ -1318,6 +1327,7 @@
 "settings-primary-language" = "Label shown next to primary language {{Identical|Primary}}";
 "settings-primary-language-details" = "Explanation of how the first preferred language is used. \"Explore\" is {{msg-wm|Wikipedia-ios-home-title}}.";
 "settings-search-footer-text" = "Footer text for section that allows users to customize certain Search settings";
+"settings-search-footer-text-home" = "Footer text for section that allows users to customize certain Search settings, shown while the Home tab experiment is enabled";
 "settings-search-open-app-on-search" = "Title for setting that allows users to open app on Search tab";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Footer text of the settings option that enables saved articles and reading lists syncing";
 "settings-storage-and-syncing-enable-sync-title" = "Title of the settings option that enables saved articles and reading lists syncing";
