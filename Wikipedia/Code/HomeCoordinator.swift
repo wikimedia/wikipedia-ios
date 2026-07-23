@@ -25,6 +25,15 @@ final class HomeCoordinator: NSObject, Coordinator {
     init(theme: Theme, dataStore: MWKDataStore) {
         self.theme = theme
         self.dataStore = dataStore
+        super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleEnableHomePhase2DidChange), name: WMFNSNotification.enableHomePhase2DidChange, object: nil)
+    }
+
+    /// Rebuilds the Home tab when the phase 2 flag is toggled so the Community segment swaps between
+    /// the embedded legacy Explore feed and the new community feed without an app relaunch.
+    @objc private func handleEnableHomePhase2DidChange() {
+        guard tabNavigationController != nil else { return }
+        start()
     }
 
     func attach(navigationController: UINavigationController) {

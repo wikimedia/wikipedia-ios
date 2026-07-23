@@ -56,6 +56,13 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         viewModel.didTapCustomizeInterests = { [weak self] in
             self?.presentWhatsDrivingTest()
         }
+        // While the reworked community feed (home phase 2) is in development, the Community segment
+        // hosts the legacy Explore feed. With phase 2 enabled, the new community feed renders instead.
+        if !WMFDeveloperSettingsDataController.shared.enableHomePhase2 {
+            viewModel.makeEmbeddedCommunityViewController = { [weak self] in
+                self?.embeddedExploreViewController() ?? UIViewController()
+            }
+        }
         viewModel.didTapForYouCard = { [weak self] article in
             self?.navigateToForYouArticle(article)
         }
@@ -190,6 +197,24 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         coordinator.start()
     }
 
+    // MARK: - Embedded Explore Feed
+
+    // Temporary: while the native community feed is under development, the Community segment hosts
+    // the legacy Explore feed. Remove once the community feed rework ships.
+    private var _embeddedExploreViewController: ExploreViewController?
+    private func embeddedExploreViewController() -> ExploreViewController {
+        if let _embeddedExploreViewController {
+            return _embeddedExploreViewController
+        }
+        let vc = ExploreViewController()
+        vc.dataStore = dataStore
+        vc.isEmbeddedInHomeTab = true
+        vc.notificationsCenterPresentationDelegate = tabBarController as? NotificationsCenterPresentationDelegate
+        vc.apply(theme: theme)
+        _embeddedExploreViewController = vc
+        return vc
+    }
+
     private func embedHostingController() {
         addChild(hostingController)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -274,6 +299,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         guard viewIfLoaded != nil else { return }
         updateProfileButton()
         profileCoordinator?.theme = theme
+        _embeddedExploreViewController?.apply(theme: theme)
         if #unavailable(iOS 26.0) {
             navigationItem.leftBarButtonItem?.tintColor = theme.colors.logoTintColor
         }

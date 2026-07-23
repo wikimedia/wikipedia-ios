@@ -1,3 +1,4 @@
+import WMFData
 import WMFNativeLocalizations
 
 @objc public class ExploreFeedPreferencesUpdateCoordinator: NSObject {
@@ -19,6 +20,14 @@ import WMFNativeLocalizations
     }
 
     @objc public func coordinateUpdate(from viewController: UIViewController) {
+        // While the Home tab experiment is running (phase 1), this feed powers the Community segment
+        // of the Home tab and cannot be turned off — hiding every card just empties the feed, which
+        // shows an empty state instead. Skip the turn on/off Explore alerts and save directly.
+        if WMFDeveloperSettingsDataController.shared.enableHomeTab && !WMFDeveloperSettingsDataController.shared.enableHomePhase2 {
+            feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, apply: true, updateFeed: updateFeed)
+            return
+        }
+
         if willTurnOnContentGroupOrLanguage {
             guard UserDefaults.standard.defaultTabType == .settings else {
                 feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, apply: true, updateFeed: updateFeed)

@@ -421,7 +421,16 @@ public extension WidgetController {
         fetchFeaturedContent { result in
             switch result {
             case .success(var featuredContent):
-                let standardWidth = ImageUtils.standardizeWidthToMediaWiki(maxWidth)
+                // Portrait images deliver far more pixels for the same requested width;
+                // cap the request so the decoded bitmap stays comparable to landscape
+                // (the widget extension has a ~30MB memory limit).
+                var effectiveMaxWidth = maxWidth
+                if let imageSource = featuredContent.pictureOfTheDay?.thumbnailImageSource ?? featuredContent.pictureOfTheDay?.originalImageSource,
+                   imageSource.height > imageSource.width {
+                    effectiveMaxWidth = min(maxWidth, ImageUtils.ImageWidth.w960.rawValue)
+                }
+                let standardWidth = ImageUtils.standardizeWidthToMediaWiki(effectiveMaxWidth)
+
                 if let cachedSource = featuredContent.pictureOfTheDay?.originalImageSource,
                    cachedSource.data != nil,
                    WMFChangeImageSourceURLSizePrefix(cachedSource.source, standardWidth) == cachedSource.source,

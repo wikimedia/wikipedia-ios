@@ -60,11 +60,13 @@ import WMFData
         let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
         let allowGestureZoomArticleWebview = WMFFormItemSelectViewModel(title: "Allow pinch to zoom when reading articles", isSelected: WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview)
         let enableHomeTab = WMFFormItemSelectViewModel(title: "Enable Home Tab", isSelected: WMFDeveloperSettingsDataController.shared.enableHomeTab)
+        let enableHomePhase2 = WMFFormItemSelectViewModel(title: "Enable Home Phase 2", isSelected: WMFDeveloperSettingsDataController.shared.enableHomePhase2)
         let alwaysShowNewOnboarding = WMFFormItemSelectViewModel(title: "Always Show New Onboarding", isSelected: WMFDeveloperSettingsDataController.shared.alwaysShowNewOnboarding)
 
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
                 enableHomeTab,
+                enableHomePhase2,
                 alwaysShowNewOnboarding,
                 doNotPostImageRecommendationsEditItem,
                 sendAnalyticsToWMFLabsItem,
@@ -112,6 +114,10 @@ import WMFData
 
         enableHomeTab.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableHomeTab = isSelected }
+            .store(in: &subscribers)
+
+        enableHomePhase2.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableHomePhase2 = isSelected }
             .store(in: &subscribers)
 
         alwaysShowNewOnboarding.$isSelected

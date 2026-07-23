@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import UIKit
 import WMFData
 import WMFNativeLocalizations
 
@@ -21,7 +22,7 @@ public final class WMFHomeViewModel: ObservableObject {
         case community
     }
 
-    let forYouTabTitle = WMFLocalizedString("home-for-you-tab-title", value: "For You", comment: "Title for the For You segment within the Home tab.")
+    let forYouTabTitle = CommonStrings.forYouTabTitle
     let communityTabTitle = WMFLocalizedString("home-community-tab-title", value: "Community", comment: "Title for the Community segment within the Home tab.")
     let editLanguagesTitle = WMFLocalizedString("home-edit-languages-title", value: "Add or edit languages", comment: "Title for the option at the bottom of the Home language menu that opens the languages settings screen.")
 
@@ -54,6 +55,11 @@ public final class WMFHomeViewModel: ObservableObject {
     public var didSelectLanguage: ((WMFLanguage) -> Void)?
     public var didTapEditLanguages: (() -> Void)?
     public var didTapCustomizeInterests: (() -> Void)?
+
+    /// Temporary: when set (app-side), the Community tab hosts this legacy view controller instead of
+    /// the native SwiftUI community feed, and the community feed fetch is skipped. Remove once the
+    /// community feed rework ships.
+    public var makeEmbeddedCommunityViewController: (() -> UIViewController)?
 
     // MARK: - For You view model configuration
 
@@ -192,6 +198,7 @@ public final class WMFHomeViewModel: ObservableObject {
     }
 
     public func loadCommunityFeedIfNeeded() {
+        guard makeEmbeddedCommunityViewController == nil else { return }
         guard communityPages.isEmpty, !isLoadingCommunity else { return }
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
@@ -311,5 +318,13 @@ public final class WMFHomeViewModel: ObservableObject {
 
     var languageButtonTitle: String {
         selectedLanguage?.languageCode.uppercased() ?? ""
+    }
+
+    /// The language menu only applies to feeds that follow the Home language selection. The embedded
+    /// legacy Explore feed (phase 1 Community segment) manages languages through its own feed
+    /// settings, so the picker is hidden while it is showing.
+    var shouldShowLanguagePicker: Bool {
+        guard selectedTab == .community else { return true }
+        return makeEmbeddedCommunityViewController == nil
     }
 }
