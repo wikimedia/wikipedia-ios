@@ -13,6 +13,12 @@ final class WMFHomeViewModelTests: XCTestCase {
         return (vm, controller)
     }
 
+    private func makeForYouCardViewModel() -> WMFForYouArticleCardViewModel {
+        let article = WMFForYouArticle(title: "Octopus", project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
+        let header = WMFForYouHeaderLabel(prefix: "Test", boldSuffix: "")
+        return WMFForYouArticleCardViewModel(article: article, headerLabel: header)
+    }
+
     // MARK: - Hide Community Module
 
     func testHideCommunityFeaturedArticle() {
@@ -60,26 +66,35 @@ final class WMFHomeViewModelTests: XCTestCase {
     func testHideForYouBasedOnInterests() {
         let (vm, controller) = makeViewModel()
         vm.hideForYouModule(.basedOnInterests)
-        XCTAssertFalse(vm.forYouModuleVisibility.basedOnInterests)
         XCTAssertFalse(controller.forYouBasedOnInterestsIsOn())
-        XCTAssertTrue(vm.forYouModuleVisibility.becauseYouRead)
-        XCTAssertTrue(vm.forYouModuleVisibility.continueReading)
+        XCTAssertTrue(controller.forYouBecauseYouReadIsOn())
+        XCTAssertTrue(controller.forYouContinueReadingIsOn())
     }
 
     func testHideForYouBecauseYouRead() {
         let (vm, controller) = makeViewModel()
         vm.hideForYouModule(.becauseYouRead)
-        XCTAssertFalse(vm.forYouModuleVisibility.becauseYouRead)
         XCTAssertFalse(controller.forYouBecauseYouReadIsOn())
-        XCTAssertTrue(vm.forYouModuleVisibility.basedOnInterests)
-        XCTAssertTrue(vm.forYouModuleVisibility.continueReading)
+        XCTAssertTrue(controller.forYouBasedOnInterestsIsOn())
+        XCTAssertTrue(controller.forYouContinueReadingIsOn())
     }
 
     func testHideForYouContinueReading() {
         let (vm, controller) = makeViewModel()
         vm.hideForYouModule(.continueReading)
-        XCTAssertFalse(vm.forYouModuleVisibility.continueReading)
         XCTAssertFalse(controller.forYouContinueReadingIsOn())
+    }
+
+    func testHideForYouModuleUpdatesForYouViewModelVisibility() {
+        let (vm, _) = makeViewModel()
+        vm.forYouViewModel = WMFForYouViewModel(response: WMFForYouResponse(
+            interestTopicRandomArticles: [],
+            interestPageRelatedArticles: [],
+            becauseYouReadArticles: nil,
+            continueReadingArticles: nil
+        ))
+        vm.hideForYouModule(.basedOnInterests)
+        XCTAssertFalse(vm.forYouViewModel?.moduleVisibility.basedOnInterests ?? true)
     }
 
     // MARK: - Hide Card (Community)
@@ -88,7 +103,6 @@ final class WMFHomeViewModelTests: XCTestCase {
         let (vm, _) = makeViewModel()
         vm.hideCard(key: "featured_article_Octopus")
         XCTAssertTrue(vm.hiddenCardKeys.contains("featured_article_Octopus"))
-        XCTAssertTrue(vm.hiddenCardKeySet.contains("featured_article_Octopus"))
     }
 
     func testHideCardPersistsViaDataController() {
@@ -101,15 +115,16 @@ final class WMFHomeViewModelTests: XCTestCase {
         let (vm, _) = makeViewModel()
         vm.hideCard(key: "card_a")
         vm.hideCard(key: "card_b")
-        XCTAssertEqual(vm.hiddenCardKeys, ["card_a", "card_b"])
+        XCTAssertTrue(vm.hiddenCardKeys.contains("card_a"))
+        XCTAssertTrue(vm.hiddenCardKeys.contains("card_b"))
+        XCTAssertEqual(vm.hiddenCardKeys.count, 2)
     }
 
     // MARK: - Hide Card (For You)
 
     func testHideForYouCardAppendsKey() {
         let (vm, controller) = makeViewModel()
-        let article = WMFForYouArticle(title: "Octopus", project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
-        let cardVM = WMFForYouArticleCardViewModel(article: article, headerLabel: "Test")
+        let cardVM = makeForYouCardViewModel()
         vm.hideForYouCard(cardVM)
         XCTAssertTrue(vm.hiddenCardKeys.contains(cardVM.hideKey))
         XCTAssertTrue(controller.isCardHidden(key: cardVM.hideKey))
@@ -119,8 +134,17 @@ final class WMFHomeViewModelTests: XCTestCase {
         let language = WMFLanguage(languageCode: "en", languageVariantCode: nil)
         let project = WMFProject.wikipedia(language)
         let article = WMFForYouArticle(title: "Octopus", project: project)
-        let cardVM = WMFForYouArticleCardViewModel(article: article, headerLabel: "Test")
+        let header = WMFForYouHeaderLabel(prefix: "Test", boldSuffix: "")
+        let cardVM = WMFForYouArticleCardViewModel(article: article, headerLabel: header)
         XCTAssertEqual(cardVM.hideKey, "for_you_\(project.id)_Octopus")
+    }
+
+    func testHideForYouCardIdempotent() {
+        let (vm, _) = makeViewModel()
+        let cardVM = makeForYouCardViewModel()
+        vm.hideForYouCard(cardVM)
+        vm.hideForYouCard(cardVM)
+        XCTAssertEqual(vm.hiddenCardKeys.count, 1)
     }
 
     // MARK: - Embedded Community Content
@@ -186,8 +210,6 @@ final class WMFHomeViewModelTests: XCTestCase {
         let spanish = WMFLanguage(languageCode: "es", languageVariantCode: nil)
 
         vm.selectedLanguage = english
-        // communityPages is backed by WMFHomeCommunityViewModel which requires a full response,
-        // so we verify it stays empty (cleared) after a language change — the didSet fires and clears it.
         vm.selectedLanguage = spanish
 
         XCTAssertTrue(vm.communityPages.isEmpty)
@@ -207,5 +229,19 @@ final class WMFHomeViewModelTests: XCTestCase {
         vm.selectedLanguage = english
 
         XCTAssertNotNil(vm.forYouViewModel)
+    }
+
+    func testChangingLanguageClearsForYouFeedError() {
+        let (vm, _) = makeViewModel()
+        let english = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        let spanish = WMFLanguage(languageCode: "es", languageVariantCode: nil)
+
+        vm.selectedLanguage = english
+        vm.forYouFeedError = URLError(.notConnectedToInternet)
+        XCTAssertNotNil(vm.forYouFeedError)
+
+        vm.selectedLanguage = spanish
+
+        XCTAssertNil(vm.forYouFeedError)
     }
 }
