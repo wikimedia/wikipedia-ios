@@ -127,24 +127,27 @@ private struct WMFForYouHeaderLabelView: View {
     let headerLabel: WMFForYouHeaderLabel
 
     var body: some View {
-        Group {
-            if let symbolName = headerLabel.symbolName {
-                Text(Image(systemName: symbolName))
-                    .font(Font(WMFFont.for(.caption1)))
-                + Text(" ")
-                + Text(headerLabel.prefix)
-                    .font(Font(WMFFont.for(.caption1)))
-                + Text(headerLabel.boldSuffix)
-                    .font(Font(WMFFont.for(.boldCaption1)))
-            } else {
-                Text(headerLabel.prefix)
-                    .font(Font(WMFFont.for(.caption1)))
-                + Text(headerLabel.boldSuffix)
-                    .font(Font(WMFFont.for(.boldCaption1)))
-            }
+        if let symbolName = headerLabel.symbolName {
+            let icon = Text(Image(systemName: symbolName))
+                .font(Font(WMFFont.for(.caption1)))
+            let prefix = Text(" " + headerLabel.prefix)
+                .font(Font(WMFFont.for(.caption1)))
+            let suffix = Text(headerLabel.boldSuffix)
+                .font(Font(WMFFont.for(.boldCaption1)))
+            (icon + prefix + suffix)
+                .foregroundStyle(.white.opacity(0.8))
+                .lineLimit(2)
+                .minimumScaleFactor(0.35)
+        } else {
+            let prefix = Text(headerLabel.prefix)
+                .font(Font(WMFFont.for(.caption1)))
+            let suffix = Text(headerLabel.boldSuffix)
+                .font(Font(WMFFont.for(.boldCaption1)))
+            (prefix + suffix)
+                .foregroundStyle(.white.opacity(0.8))
+                .lineLimit(2)
+                .minimumScaleFactor(0.35)
         }
-        .foregroundStyle(.white.opacity(0.8))
-        .lineLimit(2)
     }
 }
 
@@ -386,6 +389,7 @@ private struct WMFForYouArticleCardView: View {
                                 .foregroundStyle(.white)
                                 .lineLimit(8)
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .minimumScaleFactor(0.45)
                             menuView
                         }
 
@@ -418,6 +422,7 @@ private struct WMFForYouArticleCardView: View {
                                 .shadow(color: cardColor.opacity(0.8), radius: 4)
                                 .lineLimit(effectiveVariant == .imageFocused ? 1 : 3)
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .minimumScaleFactor(0.35)
                             menuView
                         }
 
@@ -439,6 +444,7 @@ private struct WMFForYouArticleCardView: View {
                                 .foregroundStyle(.white.opacity(0.9))
                                 .shadow(color: cardColor.opacity(0.8), radius: 4)
                                 .lineLimit(effectiveVariant == .imageFocused ? 2 : 5)
+                                .minimumScaleFactor(0.35)
                         }
 
                         if !viewModel.headerLabel.prefix.isEmpty {

@@ -61,8 +61,10 @@ public struct WMFHomeView: View {
                             } label: {
                                 if language.languageCode == viewModel.selectedLanguage?.languageCode {
                                     Label(language.localizedName, systemImage: "checkmark")
+                                        .minimumScaleFactor(0.25)
                                 } else {
                                     Text(language.localizedName)
+                                        .minimumScaleFactor(0.25)
                                 }
                             }
                         }
@@ -77,7 +79,7 @@ public struct WMFHomeView: View {
                             .font(Font(WMFFont.for(.semiboldHeadline)))
                             .foregroundStyle(Color(uiColor: navTheme.text))
                             .dynamicTypeSize(.xSmall ... .accessibility2)
-                            .minimumScaleFactor(0.7)
+                            .minimumScaleFactor(0.25)
                             .lineLimit(1)
                         Image(systemName: "chevron.up.chevron.down")
                             .font(.system(size: 12, weight: .semibold))
@@ -120,6 +122,7 @@ public struct WMFHomeView: View {
             }
             .padding(3)
             .background(Color(uiColor: theme.baseBackground), in: Capsule())
+            .dynamicTypeSize(.xSmall ... .large)
         }
 
         private func tabButton(title: String, tab: WMFHomeViewModel.Tab) -> some View {
@@ -132,6 +135,7 @@ public struct WMFHomeView: View {
                 Text(title)
                     .font(Font(WMFFont.for(.semiboldSubheadline)))
                     .foregroundStyle(isSelected ? Color(uiColor: theme.link) : Color(uiColor: theme.text))
+                    .minimumScaleFactor(0.25)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
                     .background(
