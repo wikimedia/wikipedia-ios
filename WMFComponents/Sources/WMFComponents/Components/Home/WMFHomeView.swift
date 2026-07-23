@@ -162,7 +162,7 @@ public struct WMFHomeView: View {
             Spacer()
             ProgressView()
             Spacer()
-        } else if viewModel.forYouFeedError == nil {
+        } else if viewModel.forYouFeedError != nil {
             VStack(spacing: 16) {
                 Spacer()
                 Text(viewModel.forYouErrorTitle)
