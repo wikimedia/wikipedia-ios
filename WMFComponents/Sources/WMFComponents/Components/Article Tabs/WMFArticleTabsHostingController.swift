@@ -96,10 +96,6 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         return mainMenu
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: UIApplication.userDidTakeScreenshotNotification, object: nil)
-    }
-
     private func presentCloseAllTabsConfirmationDialog() async {
         let button1Title = viewModel.localizedStrings.cancelActionTitle
         let button2Title = viewModel.localizedStrings.closeAllTabs
