@@ -389,7 +389,6 @@ private struct WMFForYouArticleCardView: View {
                                 .foregroundStyle(.white)
                                 .lineLimit(8)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .minimumScaleFactor(0.45)
                             menuView
                         }
 
@@ -422,7 +421,6 @@ private struct WMFForYouArticleCardView: View {
                                 .shadow(color: cardColor.opacity(0.8), radius: 4)
                                 .lineLimit(effectiveVariant == .imageFocused ? 1 : 3)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .minimumScaleFactor(0.35)
                             menuView
                         }
 
@@ -444,7 +442,6 @@ private struct WMFForYouArticleCardView: View {
                                 .foregroundStyle(.white.opacity(0.9))
                                 .shadow(color: cardColor.opacity(0.8), radius: 4)
                                 .lineLimit(effectiveVariant == .imageFocused ? 2 : 5)
-                                .minimumScaleFactor(0.35)
                         }
 
                         if !viewModel.headerLabel.prefix.isEmpty {
