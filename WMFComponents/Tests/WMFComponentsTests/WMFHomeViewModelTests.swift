@@ -13,6 +13,12 @@ final class WMFHomeViewModelTests: XCTestCase {
         return (vm, controller)
     }
 
+    private func makeForYouCardViewModel() -> WMFForYouArticleCardViewModel {
+        let article = WMFForYouArticle(title: "Octopus", project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
+        let header = WMFForYouHeaderLabel(prefix: "Test", boldSuffix: "")
+        return WMFForYouArticleCardViewModel(article: article, headerLabel: header)
+    }
+
     // MARK: - Hide Community Module
 
     func testHideCommunityFeaturedArticle() {
@@ -108,8 +114,7 @@ final class WMFHomeViewModelTests: XCTestCase {
 
     func testHideForYouCardAppendsKey() {
         let (vm, controller) = makeViewModel()
-        let article = WMFForYouArticle(title: "Octopus", project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
-        let cardVM = WMFForYouArticleCardViewModel(article: article, headerLabel: "Test")
+        let cardVM = makeForYouCardViewModel()
         vm.hideForYouCard(cardVM)
         XCTAssertTrue(vm.hiddenCardKeys.contains(cardVM.hideKey))
         XCTAssertTrue(controller.isCardHidden(key: cardVM.hideKey))
@@ -119,7 +124,8 @@ final class WMFHomeViewModelTests: XCTestCase {
         let language = WMFLanguage(languageCode: "en", languageVariantCode: nil)
         let project = WMFProject.wikipedia(language)
         let article = WMFForYouArticle(title: "Octopus", project: project)
-        let cardVM = WMFForYouArticleCardViewModel(article: article, headerLabel: "Test")
+        let header = WMFForYouHeaderLabel(prefix: "Test", boldSuffix: "")
+        let cardVM = WMFForYouArticleCardViewModel(article: article, headerLabel: header)
         XCTAssertEqual(cardVM.hideKey, "for_you_\(project.id)_Octopus")
     }
 
@@ -186,8 +192,6 @@ final class WMFHomeViewModelTests: XCTestCase {
         let spanish = WMFLanguage(languageCode: "es", languageVariantCode: nil)
 
         vm.selectedLanguage = english
-        // communityPages is backed by WMFHomeCommunityViewModel which requires a full response,
-        // so we verify it stays empty (cleared) after a language change — the didSet fires and clears it.
         vm.selectedLanguage = spanish
 
         XCTAssertTrue(vm.communityPages.isEmpty)
