@@ -90,22 +90,32 @@ jobs:
           # to this scheme. The pattern matches the strict-concurrency diagnostic
           # vocabulary; plain warnings (deprecations etc.) are not counted.
           CONCURRENCY_PATTERN='[Ss]endable|concurren|actor|isolat|data race|main actor|nonisolated'
-          COUNT=$(grep "warning:" "${SCHEME}_strict.log" \
+          # Grep once; every stage tolerates zero matches. (The job runs under
+          # bash -e with pipefail, so an unguarded empty grep pipeline would
+          # fail the step exactly when a gated scheme is clean.)
+          MATCHES=$(grep "warning:" "${SCHEME}_strict.log" \
             | grep "${SCHEME}/Sources" \
-            | grep -icE "${CONCURRENCY_PATTERN}" || true)
+            | grep -iE "${CONCURRENCY_PATTERN}" || true)
+          if [ -n "${MATCHES}" ]; then
+            COUNT=$(printf '%s\n' "${MATCHES}" | wc -l | tr -d ' ')
+          else
+            COUNT=0
+          fi
           {
             echo "## Strict concurrency: ${SCHEME}"
             echo ""
             echo "**Concurrency warnings in ${SCHEME} sources (errors under Swift 6 language mode): ${COUNT}**"
             echo ""
-            echo "Top warnings:"
-            echo '```'
-            grep "warning:" "${SCHEME}_strict.log" \
-              | grep "${SCHEME}/Sources" \
-              | grep -iE "${CONCURRENCY_PATTERN}" \
-              | sed -E 's/^.*warning:/warning:/' \
-              | sort | uniq -c | sort -rn | head -20
-            echo '```'
+            if [ "${COUNT}" -gt 0 ]; then
+              echo "Top warnings:"
+              echo '```'
+              printf '%s\n' "${MATCHES}" \
+                | sed -E 's/^.*warning:/warning:/' \
+                | sort | uniq -c | sort -rn | head -20
+              echo '```'
+            else
+              echo "No concurrency warnings. 🎉"
+            fi
           } >> "${GITHUB_STEP_SUMMARY}"
 
           if [ "${GATED}" = "YES" ] && [ "${COUNT}" -gt 0 ]; then
