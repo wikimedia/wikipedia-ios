@@ -619,15 +619,6 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             })
         }
     }
-    
-    private func presentYearInReviewAnnouncementOrTooltipsOrGamesIfNeeded() {
-        if needsYearInReviewAnnouncement() {
-            updateProfileButton()
-            presentYearInReviewAnnouncement()
-        } else {
-            perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
-        }
-    }
 
     @objc private func wButtonTapped(_ sender: UIButton) {
         wTip.invalidate(reason: .actionPerformed)
