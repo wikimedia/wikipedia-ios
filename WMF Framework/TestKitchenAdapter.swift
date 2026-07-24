@@ -29,10 +29,11 @@ import CocoaLumberjackSwift
         let deviceLanguage = Locale.preferredLanguages.first ?? "en"
 
         // Release status must be 1 of 2 values: dev or prod
+        let releaseStatus: String
         #if DEBUG || WMF_STAGING || WMF_EXPERIMENTAL || UITESTS || TEST || WMF_LOCAL
-        let releaseStatus = "dev"
+        releaseStatus = "dev"
         #else
-        let releaseStatus = "prod"
+        releaseStatus = Bundle.main.isTestFlight() ? "dev" : "prod"
         #endif
         
         let appFlavor: String
