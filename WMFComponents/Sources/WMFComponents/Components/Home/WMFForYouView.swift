@@ -457,13 +457,17 @@ private struct WMFForYouArticleCardView: View {
                         LinearGradient(
                             stops: [
                                 .init(color: .black.opacity(0), location: 0.0),
-                                .init(color: cardColor.opacity(0.85), location: 0.5),
-                                .init(color: .black, location: 1.0)
+                                .init(color: cardColor.opacity(0.2), location: 0.3),
+                                .init(color: cardColor.opacity(0.5), location: 0.5),
+                                .init(color: cardColor.opacity(0.75), location: 0.65),
+                                .init(color: darkCardColor(cardColor).opacity(0.88), location: 0.78),
+                                .init(color: darkCardColor(cardColor).opacity(0.95), location: 0.88),
+                                .init(color: .black.opacity(0.98), location: 1.0)
                             ],
                             startPoint: .top,
                             endPoint: .bottom
                         )
-                        .frame(width: geometry.size.width, height: geometry.size.height * 0.6)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.7)
                         .allowsHitTesting(false)
                     }
                 }
@@ -474,5 +478,11 @@ private struct WMFForYouArticleCardView: View {
             .onTapGesture { onTapCard() }
             .onAppear { viewModel.load() }
         }
+    }
+    
+    private func darkCardColor(_ cardColor: Color) -> Color {
+        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        UIColor(cardColor).getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+        return Color(hue: h, saturation: s, brightness: b * 0.4)
     }
 }
