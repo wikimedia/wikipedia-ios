@@ -282,6 +282,7 @@ jobs:
           echo "Creating release task for $VERSION..."
           DESCRIPTION=$'**Release version**:\n**Release tag**:\n**Release SHA1**:\n**App Store Submission Date**:\n**App Store Approval Date**:\n**App Store Release Date**:'
 
+          # Wikipedia-iOS-App, WikipediaApp, Release
           curl --header "User-Agent: GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)" \
             https://phabricator.wikimedia.org/api/maniphest.edit \
             -d "api.token=$PHAB_TOKEN" \
@@ -290,7 +291,9 @@ jobs:
             -d "transactions[1][type]=description" \
             -d "transactions[1][value]=$DESCRIPTION" \
             -d "transactions[2][type]=projects.add" \
-            -d "transactions[2][value][0]=PHID-PROJ-ojylfmfiogxrvnxoiwlp"
+            -d "transactions[2][value][0]=PHID-PROJ-ojylfmfiogxrvnxoiwlp" \
+            -d "transactions[2][value][1]=PHID-PROJ-iqrw7mfn2e2mvc7f6rir" \
+            -d "transactions[2][value][2]=PHID-PROJ-pf35un2jsnsiriivnmeo"
 
       # -------------------------------------------------------
       # 9. Update release task with included tasks
