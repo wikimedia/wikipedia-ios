@@ -28,19 +28,8 @@ import CocoaLumberjackSwift
 
         let deviceLanguage = Locale.preferredLanguages.first ?? "en"
 
-        // Release status must be 1 of 3 values: debug, dev or prod
-        
-        #if DEBUG
-        let releaseStatus = "debug"
-        #elseif WMF_STAGING
-        let releaseStatus = "dev"
-        #elseif WMF_EXPERIMENTAL
-        let releaseStatus = "dev"
-        #elseif UITESTS
-        let releaseStatus = "dev"
-        #elseif TEST
-        let releaseStatus = "dev"
-        #elseif WMF_LOCAL
+        // Release status must be 1 of 2 values: dev or prod
+        #if DEBUG || WMF_STAGING || WMF_EXPERIMENTAL || UITESTS || TEST || WMF_LOCAL
         let releaseStatus = "dev"
         #else
         let releaseStatus = "prod"
