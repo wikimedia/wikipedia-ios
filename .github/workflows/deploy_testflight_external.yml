@@ -344,7 +344,13 @@ jobs:
           task_phid = release_task['phid']
           current_description = release_task.get('fields', {}).get('description', {}).get('raw', '')
 
-          task_list = '\n'.join(task_urls.split(','))
+          import re
+          task_ids = []
+          for url in task_urls.split(','):
+            match = re.search(r'T(\d+)$', url.strip())
+            if match:
+              task_ids.append(f"{{{match.group(0)}}}")
+          task_list = '\n'.join(task_ids)
           new_section = f"\n\n**Included Tasks:**\n{task_list}"
 
           if '**Included Tasks:**' in current_description:
