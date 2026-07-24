@@ -8,12 +8,7 @@ final class WMFBasicServiceTests: XCTestCase {
     let mockServerErrorSession = WMFMockServerErrorSession()
     let mockNoInternetConnectionSession = WMFMockNoInternetConnectionSession()
     let mockMissingDataSession = WMFMockMissingDataSession()
-
-    override func tearDown() {
-        WMFDataEnvironment.current.httpErrorLogger = nil
-        super.tearDown()
-    }
-
+    
     // MARK: - GET Tests
 
     func testSuccessfulDictionaryGet() {
@@ -328,49 +323,5 @@ final class WMFBasicServiceTests: XCTestCase {
         }
 
         service.perform(request: request, completion: completion)
-    }
-
-    // MARK: - HTTP Error Logger Tests
-    func testServerErrorGetCallsHTTPErrorLogger() {
-        let loggerExpectation = expectation(description: "httpErrorLogger should be called")
-        WMFDataEnvironment.current.httpErrorLogger = { statusCode, urlString in
-            XCTAssertEqual(statusCode, 500)
-            XCTAssertEqual(urlString, "http://wikipedia.org")
-            loggerExpectation.fulfill()
-        }
-
-        let service = WMFBasicService(urlSession: mockServerErrorSession)
-        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
-
-        service.perform(request: request) { (_: Result<Data, Error>) in }
-
-        wait(for: [loggerExpectation], timeout: 1)
-    }
-
-    func testServerErrorPostCallsHTTPErrorLogger() {
-        let loggerExpectation = expectation(description: "httpErrorLogger should be called")
-        WMFDataEnvironment.current.httpErrorLogger = { statusCode, urlString in
-            XCTAssertEqual(statusCode, 500)
-            XCTAssertEqual(urlString, "http://wikipedia.org")
-            loggerExpectation.fulfill()
-        }
-
-        let service = WMFBasicService(urlSession: mockServerErrorSession)
-        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .POST, acceptType: .json)
-
-        service.perform(request: request) { (_: Result<Data, Error>) in }
-
-        wait(for: [loggerExpectation], timeout: 1)
-    }
-
-    func testSuccessDoesNotCallHTTPErrorLogger() {
-        WMFDataEnvironment.current.httpErrorLogger = { statusCode, _ in
-            XCTFail("httpErrorLogger should not be called on success, got \(statusCode)")
-        }
-
-        let service = WMFBasicService(urlSession: mockSuccessSession)
-        let request = WMFBasicServiceRequest(url: URL(string: "http://wikipedia.org")!, method: .GET, acceptType: .json)
-
-        service.perform(request: request) { (_: Result<Data, Error>) in }
     }
 }
