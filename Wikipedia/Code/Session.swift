@@ -384,6 +384,10 @@ public class Session: NSObject {
         default:
             break
         }
+
+        if httpResponse.isHTTPError {
+            ClientErrorFunnel.shared.logHTTPError(statusCode: httpResponse.statusCode, url: response.url?.absoluteString)
+        }
     }
     
     /**
@@ -726,7 +730,10 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         }
         
         if let httpResponse = response as? HTTPURLResponse {
-            
+            if httpResponse.isHTTPError {
+                ClientErrorFunnel.shared.logHTTPError(statusCode: httpResponse.statusCode, url: httpResponse.url?.absoluteString)
+            }
+
             var shouldCheckPersistentCache = false
             if httpResponse.statusCode == 304 {
                 shouldCheckPersistentCache = true

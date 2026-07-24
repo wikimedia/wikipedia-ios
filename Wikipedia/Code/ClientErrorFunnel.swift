@@ -2,9 +2,9 @@ import Foundation
 import WMF
 import WMFData
 
-@objc(WMFClientErrorFunnel) final class ClientErrorFunnel: NSObject {
+@objc(WMFClientErrorFunnel) public final class ClientErrorFunnel: NSObject {
 
-    @objc static let shared = ClientErrorFunnel()
+    @objc public static let shared = ClientErrorFunnel()
 
     private struct Event: EventInterface {
         static let schema: EventPlatformClient.Schema = .clientError
@@ -25,6 +25,19 @@ import WMFData
 
     func logEvent(message: String?) {
         let event: ClientErrorFunnel.Event = ClientErrorFunnel.Event(message: message, errorClass: nil, errorContext: nil, stackTrace: nil, url: nil)
+        EventPlatformClient.shared.submit(stream: .clientError, event: event, needsMinimal: true)
+    }
+
+    public func logHTTPError(statusCode: Int, url: String?) {
+        // Never log errors from the event intake itself: that would emit a new event
+        // to the same failing endpoint, creating a feedback loop. Intake requests
+        // currently bypass the hooks that call this method; this guard makes sure
+        // the loop can't be closed by accident later.
+        if let url, url.contains("intake-analytics") || url.contains("intake-logging") {
+            return
+        }
+
+        let event = Event(message: "HTTP \(statusCode)", errorClass: nil, errorContext: nil, stackTrace: nil, url: url)
         EventPlatformClient.shared.submit(stream: .clientError, event: event, needsMinimal: true)
     }
 }

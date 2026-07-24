@@ -66,6 +66,7 @@ public final class WMFDataEnvironment: ObservableObject, @unchecked Sendable {
     public var userAgentUtility: (() -> String)?
     public var appInstallIDUtility: (() -> String?)?
     public var acceptLanguageUtility: (() -> String)?
+    public var httpErrorLogger: (@Sendable (_ statusCode: Int, _ url: String?) -> Void)?
 
     public internal(set) var userDefaultsStore: WMFKeyValueStore? {
         get { environmentLock.withLock { _userDefaultsStore } }
@@ -124,6 +125,7 @@ public final class WMFDataEnvironment: ObservableObject, @unchecked Sendable {
     fileprivate let userAgentUtility: (() -> String)?
     fileprivate let appInstallIDUtility: (() -> String?)?
     fileprivate let acceptLanguageUtility: (() -> String)?
+    fileprivate let httpErrorLogger: (@Sendable (Int, String?) -> Void)?
     fileprivate let userDefaultsStore: WMFKeyValueStore?
     fileprivate let crossProcessUserDefaultsStore: WMFKeyValueStore?
     fileprivate let sharedCacheStore: WMFKeyValueStore?
@@ -143,6 +145,7 @@ public final class WMFDataEnvironment: ObservableObject, @unchecked Sendable {
             userAgentUtility: userAgentUtility,
             appInstallIDUtility: appInstallIDUtility,
             acceptLanguageUtility: acceptLanguageUtility,
+            httpErrorLogger: httpErrorLogger,
             userDefaultsStore: userDefaultsStore,
             crossProcessUserDefaultsStore: crossProcessUserDefaultsStore,
             sharedCacheStore: sharedCacheStore,
@@ -160,6 +163,7 @@ public final class WMFDataEnvironment: ObservableObject, @unchecked Sendable {
         userAgentUtility = snapshot.userAgentUtility
         appInstallIDUtility = snapshot.appInstallIDUtility
         acceptLanguageUtility = snapshot.acceptLanguageUtility
+        httpErrorLogger = snapshot.httpErrorLogger
         userDefaultsStore = snapshot.userDefaultsStore
         crossProcessUserDefaultsStore = snapshot.crossProcessUserDefaultsStore
         sharedCacheStore = snapshot.sharedCacheStore

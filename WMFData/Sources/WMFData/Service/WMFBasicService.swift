@@ -105,7 +105,8 @@ public final class WMFBasicService: WMFService {
                 urlRequest.populateCommonHeaders(request: basicRequest)
             }
         }
-        
+
+        let attemptedURLString = urlRequest.url?.absoluteString
         let task = urlSession.wmfDataTask(with: urlRequest) { data, response, error in
             
             if let error {
@@ -119,6 +120,9 @@ public final class WMFBasicService: WMFService {
             }
             
             guard httpResponse.isSuccessStatusCode else {
+                if httpResponse.isHTTPError {
+                    WMFDataEnvironment.current.httpErrorLogger?(httpResponse.statusCode, attemptedURLString)
+                }
                 completion(nil, nil, WMFServiceError.invalidHttpResponse(httpResponse.statusCode))
                 return
             }
@@ -166,7 +170,8 @@ public final class WMFBasicService: WMFService {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
         urlRequest.populateCommonHeaders(request: basicRequest)
-        
+
+        let attemptedURLString = urlRequest.url?.absoluteString
         let task = urlSession.wmfDataTask(with: urlRequest) { data, response, error in
             
             if let error {
@@ -180,6 +185,10 @@ public final class WMFBasicService: WMFService {
             }
             
             guard httpResponse.isSuccessStatusCode else {
+                if httpResponse.isHTTPError {
+                    WMFDataEnvironment.current.httpErrorLogger?(httpResponse.statusCode, attemptedURLString)
+                }
+
                 completion(nil, nil, WMFServiceError.invalidHttpResponse(httpResponse.statusCode))
                 return
             }
