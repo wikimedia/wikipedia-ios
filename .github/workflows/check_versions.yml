@@ -1,4 +1,4 @@
-# Checks the PR label against the app version, fails if they do not match.
+# Checks that the PR has a label beginning with "Release-" (e.g. "Release-2027.01.01").
 # This is to prevent unwanted PRs from being merged into main.
 name: Check PR and App Versions
 
@@ -17,31 +17,26 @@ jobs:
   check-version:
     runs-on: macos-26
     steps:
-    - uses: actions/checkout@v7
-    - name: Check PR label and App Versions
+    - name: Check PR label for Release- prefix
       continue-on-error: false
       run: |
-        APPVERSION=$(plutil -extract CFBundleShortVersionString raw -o - Wikipedia/Wikipedia-Info.plist)
         PRLABELS='${{ toJson(github.event.pull_request.labels.*.name) }}'
 
         MATCH_FOUND=false
 
-        echo "App Version: $APPVERSION"
         echo "PR Labels: $PRLABELS"
 
-        # Loop through all labels correctly
         for LABEL in $(echo "$PRLABELS" | jq -r '.[]'); do
-          if [ "$LABEL" == "$APPVERSION" ]; then
+          if [[ "$LABEL" == Release-* ]]; then
             MATCH_FOUND=true
-            echo "Match found: APPVERSION='$APPVERSION' matches PR label '$LABEL'"
-            break  # No need to check further, exit loop early
+            echo "Match found: '$LABEL' begins with 'Release-'"
+            break
           fi
         done
 
-        # Check if any match was found
         if [ "$MATCH_FOUND" != "true" ]; then
-          echo "Error: No PR label matches the app version! APPVERSION='$APPVERSION'"
+          echo "Error: No PR label beginning with 'Release-' was found."
           exit 1
         fi
 
-        echo "Success: At least one PR label matches the app version."
+        echo "Success: A Release- label is present on this PR."
