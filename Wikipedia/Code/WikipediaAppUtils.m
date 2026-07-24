@@ -33,9 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (NSString *)versionName {
-    UIDevice *d = [UIDevice currentDevice];
     return [NSString stringWithFormat:@"WikipediaApp/%@",
-            [[NSBundle mainBundle] wmf_appVersion]];
+                                      [[NSBundle mainBundle] wmf_appVersion]];
 }
 
 + (NSString *)versionedUserAgent {
