@@ -90,17 +90,24 @@ class DonateCoordinator: Coordinator {
             return nil
         }
 
-        var urlString: String
+        var parameterizedUrl: String
         if case .articleCampaignModal(_, _, let articleCampaignDonateURL) = source {
-            urlString = articleCampaignDonateURL.absoluteString
+            parameterizedUrl = articleCampaignDonateURL.absoluteString
         } else {
-            urlString = "https://donate.wikimedia.org/?wmf_medium=WikipediaApp&wmf_campaign=iOS&wmf_source=\(metricsID)&uselang=<langcode>"
-            urlString = urlString.replacingOccurrences(of: "<langcode>", with: languageCode)
+            parameterizedUrl = "https://donate.wikimedia.org/?wmf_medium=WikipediaApp&wmf_campaign=iOS&wmf_source=$formattedId;&uselang=$language;"
         }
 
         let appVersion = Bundle.main.wmf_debugVersion()
         let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
-        return URL(string: urlString)?.appendingAppVersionAndAppInstallID(appVersion: appVersion, appInstallID: appInstallID)
+        
+        let finalUrlString = parameterizedUrl
+                    .replacingOccurrences(of: "$formattedId;", with: metricsID)
+                    .replacingOccurrences(of: "$country;", with: Locale.current.region?.identifier ?? "")
+                    .replacingOccurrences(of: "$language;", with: languageCode)
+                    .replacingOccurrences(of: "$appVersion;", with: appVersion ?? "")
+                    .replacingOccurrences(of: "$appInstallId;", with: appInstallID ?? "")
+        
+        return URL(string: finalUrlString)
     }
 
     // MARK: Lifecycle
