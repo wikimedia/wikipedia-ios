@@ -80,4 +80,25 @@ platform :ios do
     )
   end
 
+  # ----------------------------------------------------------
+  # Workflow 3: App Store submission
+  # ----------------------------------------------------------
+  desc "Build and submit to App Store Review"
+  lane :submit_for_review do
+    api_key = get_api_key
+    build_the_app
+
+    should_submit = ENV["SUBMIT_FOR_REVIEW"] == "true"
+
+    upload_to_app_store(
+      api_key: api_key,
+      app_version: ENV["VERSION"],
+      submit_for_review: should_submit,
+      automatic_release: false,
+      skip_screenshots: true,
+      skip_metadata: false,
+      metadata_path: "fastlane/metadata",
+    )
+  end
+
 end
