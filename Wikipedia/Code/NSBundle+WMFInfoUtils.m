@@ -27,7 +27,9 @@
 #elif defined(WMF_EXPERIMENTAL) || defined(WMF_STAGING)
     environment = @"alpha";
 #else
-    if ([self isTestFlight]) {
+    if (![[self wmf_bundleIdentifier] hasSuffix:@"wikipedia"]) {
+        environment = @"alpha";
+    } else if ([self isTestFlight]) {
         environment = @"beta";
     } else {
         environment = @"r";
