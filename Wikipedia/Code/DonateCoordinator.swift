@@ -94,7 +94,7 @@ class DonateCoordinator: Coordinator {
         if case .articleCampaignModal(_, _, let articleCampaignDonateURL) = source {
             parameterizedUrl = articleCampaignDonateURL.absoluteString
         } else {
-            parameterizedUrl = "https://donate.wikimedia.org/?wmf_medium=WikipediaApp&wmf_campaign=$platform;&wmf_source=$formattedId;&uselang=$language;"
+            parameterizedUrl = "https://donate.wikimedia.org/?wmf_medium=WikipediaApp&wmf_campaign=$platform;&wmf_source=$formattedId;&uselang=$language;&app_install_id=$appInstallId;&app_version=$appVersion;"
         }
 
         let appVersion = Bundle.main.wmf_debugVersion()
