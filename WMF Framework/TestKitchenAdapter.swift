@@ -46,13 +46,13 @@ import CocoaLumberjackSwift
         let releaseStatus = "prod"
         #endif
         
-        var appFlavor: String?
-        #if NDEBUG
-        if Bundle.main.isTestFlight() {
-            appFlavor = "TestFlight"
-        } else {
-            appFlavor = "AppStore"
-        }
+        let appFlavor: String
+        #if DEBUG
+        appFlavor = "devdebug"
+        #elseif WMF_STAGING || WMF_EXPERIMENTAL
+        appFlavor = "alpharelease"
+        #else
+        appFlavor = Bundle.main.isTestFlight() ? "betarelease" : "prodrelease"
         #endif
 
         return AgentData(
