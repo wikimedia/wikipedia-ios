@@ -1,4 +1,6 @@
 import XCTest
+import CoreData
+@testable import WMF
 
 class ReadingListsTests: XCTestCase {
     
@@ -154,6 +156,97 @@ class ReadingListsTests: XCTestCase {
         } catch let error {
             XCTAssert(false, "Should be able to add articles to \(readingListName) reading list: \(error)")
         }
+    }
+
+    func testClearNeedsRemoteDisableSyncState() {
+        let readingListsController = dataStore.readingListsController
+        readingListsController.syncState = [.needsRemoteDisable, .needsLocalReset]
+
+        readingListsController.clearNeedsRemoteDisableSyncState()
+
+        XCTAssertFalse(readingListsController.syncState.contains(.needsRemoteDisable), "A pending remote disable should be cleared")
+        XCTAssertTrue(readingListsController.syncState.contains(.needsLocalReset), "Other sync state flags should be retained")
+    }
+
+    func testClearNeedsRemoteDisableSyncStateIsANoOpWithoutTheFlag() {
+        let readingListsController = dataStore.readingListsController
+        readingListsController.syncState = [.needsSync, .needsUpdate]
+
+        readingListsController.clearNeedsRemoteDisableSyncState()
+
+        XCTAssertEqual(readingListsController.syncState, [.needsSync, .needsUpdate], "Sync state without a pending remote disable should be unchanged")
+    }
+
+    func testDisablingSyncToDeleteRemoteListsDoesNotRequestLocalDataDeletion() {
+        let readingListsController = dataStore.readingListsController
+
+        // The disable-sync alert's "Yes" path (T431140)
+        readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: true)
+
+        let state = readingListsController.syncState
+        XCTAssertTrue(state.contains(.needsRemoteDisable), "Yes should request the remote teardown")
+        XCTAssertTrue(state.contains(.needsLocalReset), "Yes should only reset remote IDs locally")
+        XCTAssertFalse(state.contains(.needsLocalArticleClear), "Yes must never delete local saved articles")
+        XCTAssertFalse(state.contains(.needsLocalListClear), "Yes must never delete local reading lists")
+        XCTAssertFalse(readingListsController.isSyncEnabled)
+    }
+
+    func testPendingRemoteDisableSurvivesSyncWithoutPermanentAuthAndPreservesLocalLists() throws {
+        let readingListsController = dataStore.readingListsController
+        let article = try XCTUnwrap(dataStore.fetchOrCreateArticle(with: URL(string: "//en.wikipedia.org/wiki/Foo")!))
+        _ = try readingListsController.createReadingList(named: "pending-teardown", description: "Foo", with: [article])
+
+        // The disable-sync alert's "Yes" path, but the teardown can't complete
+        // (no permanent account here — the same situation as being offline mid-teardown)
+        readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: true)
+        readingListsController.isSyncRemotelyEnabled = true
+
+        try runSyncOperation()
+
+        dataStore.viewContext.refreshAllObjects()
+        XCTAssertFalse(readingListsController.syncState.contains(.needsLocalReset), "The sync operation should have processed the local reset")
+        XCTAssertTrue(readingListsController.syncState.contains(.needsRemoteDisable), "An unfulfilled remote disable is retained by the sync operation — the T431140 stale-flag precondition")
+        XCTAssertEqual(try fetchReadingLists(named: "pending-teardown").count, 1, "Local lists must survive the disable-sync Yes path")
+
+        // App launch / logout clears the stale flag so a later sync can't tear down remote lists
+        readingListsController.clearNeedsRemoteDisableSyncState()
+        XCTAssertFalse(readingListsController.syncState.contains(.needsRemoteDisable))
+
+        // The next sync of the session (relaunch) leaves everything intact
+        try runSyncOperation()
+        dataStore.viewContext.refreshAllObjects()
+        XCTAssertFalse(readingListsController.syncState.contains(.needsRemoteDisable))
+        XCTAssertEqual(try fetchReadingLists(named: "pending-teardown").count, 1)
+    }
+
+    func testAuthenticationManagerResetClearsPendingRemoteDisable() throws {
+        let readingListsController = dataStore.readingListsController
+        readingListsController.syncState = [.needsRemoteDisable, .needsSync]
+
+        let delegate = try XCTUnwrap(dataStore as? WMFAuthenticationManagerDelegate, "MWKDataStore should be the authentication manager's delegate")
+        delegate.authenticationManagerDidReset()
+
+        XCTAssertFalse(readingListsController.syncState.contains(.needsRemoteDisable), "Logout must clear a pending remote disable")
+        XCTAssertFalse(readingListsController.isSyncEnabled)
+    }
+
+    private func runSyncOperation(timeout: TimeInterval = 30) throws {
+        let operation = ReadingListsSyncOperation(readingListsController: dataStore.readingListsController)
+        let operationFinished = expectation(description: "sync operation finished")
+        operation.completionBlock = {
+            operationFinished.fulfill()
+        }
+        OperationQueue().addOperation(operation)
+        waitForExpectations(timeout: timeout)
+        if let error = operation.error {
+            throw error
+        }
+    }
+
+    private func fetchReadingLists(named name: String) throws -> [ReadingList] {
+        let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        request.predicate = NSPredicate(format: "canonicalName == %@", name)
+        return try dataStore.viewContext.fetch(request)
     }
 }
 
