@@ -36,7 +36,7 @@ import CocoaLumberjackSwift
         #endif
         
         let appFlavor: String
-        #if DEBUG
+        #if DEBUG || WMF_LOCAL || UITESTS || TEST
         appFlavor = "devdebug"
         #elseif WMF_STAGING || WMF_EXPERIMENTAL
         appFlavor = "alpharelease"

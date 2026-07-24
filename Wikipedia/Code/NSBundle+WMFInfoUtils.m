@@ -22,13 +22,17 @@
     NSString *datePart = [shortVersion stringByReplacingOccurrencesOfString:@"." withString:@"-"];
 
     NSString *environment;
+#if DEBUG || defined(WMF_LOCAL) || defined(UITESTS) || defined(TEST)
+    environment = @"dev";
+#elif defined(WMF_EXPERIMENTAL) || defined(WMF_STAGING)
+    environment = @"alpha";
+#else
     if ([self isTestFlight]) {
         environment = @"beta";
-    } else if ([[self wmf_bundleIdentifier] hasSuffix:@"wikipedia"]) {
-        environment = @"r";
     } else {
-        environment = @"alpha";
+        environment = @"r";
     }
+#endif
 
     return [NSString stringWithFormat:@"%@-%@-%@", build, environment, datePart];
 }
