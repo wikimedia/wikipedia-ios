@@ -299,6 +299,8 @@
 "close-tabs" = "Close tabs";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 tab|$1 tabs}} closed.";
 "collect-prize-title" = "Collect your prize!";
+"community-detail-back-button-title" = "Back to Community feed";
+"community-feed-preferences-global-card-footer-text" = "This card is not language specific, turning off this card will remove it from your Community feed.";
 "compass-direction" = "at $1 o'clock";
 "confirm-donation-history-deletion-subtitle" = "This will only apply to donations made from this device.";
 "confirm-donation-history-deletion-title" = "Confirm deletion";
@@ -574,6 +576,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Additional languages can be added in the ‘My languages’ settings page.";
 "explore-feed-preferences-card-hidden-title" = "Card hidden";
 "explore-feed-preferences-continue-reading-description" = "Quick link back to reading an open article";
+"explore-feed-preferences-customize-community-feed-action-title" = "Customize Community feed";
 "explore-feed-preferences-customize-explore-feed" = "Customize the Explore feed";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Customize Explore feed";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Hiding a card type will stop this card type from appearing in the Explore feed.";
@@ -654,6 +657,7 @@
 "explore-suggested-edits-image-recs-title" = "Add an image";
 "explore-wikipedia" = "Explore Wikipedia";
 "export-user-data-confirmation-message" = "Sharing your app library includes data about your Reading lists and history, preferences, and Explore feed content. This data file should only be shared with a trusted recipient to use for technical diagnostic purposes.";
+"export-user-data-confirmation-message-community" = "Sharing your app library includes data about your Reading lists and history, preferences, and Community feed content. This data file should only be shared with a trusted recipient to use for technical diagnostic purposes.";
 "export-user-data-confirmation-title" = "Share app library?";
 "export-user-data-generic-error" = "There was an error while exporting your data. Please try again later.";
 "export-user-data-space-error" = "You do not have enough device space to export your user data. Please try again later.";
@@ -718,6 +722,9 @@
 "history-title" = "History";
 "home-button-explore-accessibility-label" = "Wikipedia, return to Explore";
 "home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
+"home-community-empty-feed-button-title" = "Customize the feed";
+"home-community-empty-feed-message" = "Turn on cards in the feed settings to see the Community feed.";
+"home-community-empty-feed-title" = "All Community feed cards are hidden";
 "home-community-tab-title" = "Community";
 "home-edit-languages-title" = "Add or edit languages";
 "home-feed-for-you-based-on-interests-subtitle" = "Articles tailored to the topics you chose.";
@@ -728,7 +735,6 @@
 "home-feed-for-you-continue-reading-title" = "Continue reading";
 "home-feed-for-you-settings-header" = "Turning off a module hides it from your \"For you\" feed. You can re-enable it here at any time.";
 "home-feed-for-you-settings-title" = "Modules";
-"home-feed-for-you-whats-driving-title" = "What's driving your feed";
 "home-feed-interests-deselect-all" = "Deselect all";
 "home-feed-interests-header-title" = "What are you interested in?";
 "home-feed-interests-non-mainspace-toast" = "Only articles in the main namespace can be added as interests.";
@@ -916,6 +922,8 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "{{PLURAL:$1|$1 meter|$1 meters}}";
 "nearby-distance-label-miles" = "$1 miles";
+"new-explore-feed-preferences-customize-explore-feed" = "Customize the Community feed";
+"new-explore-feed-preferences-customize-explore-feed-footer-text" = "Hiding a card type will stop this card type from appearing in the Community feed.";
 "new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
 "new-password-title" = "Set your password";
 "new-tab" = "New tab";
@@ -1298,6 +1306,7 @@
 "settings-clear-cache-are-you-sure-title" = "Clear cached data?";
 "settings-clear-cache-cancel" = "Cancel";
 "settings-clear-cache-ok" = "Clear cache";
+"settings-community-feed-title" = "Community";
 "settings-donate" = "Donate";
 "settings-explore-games-subtitle" = "Daily games based on Wikipedia content";
 "settings-explore-games-title" = "Wikipedia games";
@@ -1318,6 +1327,7 @@
 "settings-primary-language" = "Primary";
 "settings-primary-language-details" = "The first language in this list is used as the primary language for the app.";
 "settings-search-footer-text" = "Set the app to open to the Search tab instead of the Explore tab";
+"settings-search-footer-text-home" = "Set the app to open to the Search tab instead of the Home tab";
 "settings-search-open-app-on-search" = "Open app on Search tab";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Allow Wikimedia to save your saved articles and reading lists to your user preferences when you login and sync.";
 "settings-storage-and-syncing-enable-sync-title" = "Sync saved articles and lists";

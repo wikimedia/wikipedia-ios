@@ -1,4 +1,5 @@
 import SwiftUI
+import WMFData
 import WMFNativeLocalizations
 
 @MainActor
@@ -8,7 +9,7 @@ public final class WMFHomeFeedSettingsViewModel: ObservableObject {
 
     let sections: [SettingsSection]
 
-    public init(didTapCommunityModules: (() -> Void)? = nil, didTapForYouModules: (() -> Void)? = nil, didTapForYouWhatsDriving: (() -> Void)? = nil) {
+    public init(showCommunitySettings: Bool = WMFDeveloperSettingsDataController.shared.enableHomePhase2, didTapCommunityModules: (() -> Void)? = nil, didTapForYouModules: (() -> Void)? = nil, didTapForYouWhatsDriving: (() -> Void)? = nil) {
         let modulesTitle = WMFLocalizedString("home-feed-settings-modules-title", value: "Modules", comment: "Title for the row that lets users turn feed modules on or off in Home feed settings.")
         let communityModulesSubtitle = WMFLocalizedString("home-feed-settings-community-modules-subtitle", value: "Turn on or off 'Community' modules", comment: "Subtitle for the Modules row describing that it toggles Community modules on or off.")
         let forYouModulesSubtitle = WMFLocalizedString("home-feed-settings-for-you-modules-subtitle", value: "Turn on or off 'For You' modules", comment: "Subtitle for the Modules row describing that it toggles For You modules on or off.")
@@ -18,14 +19,21 @@ public final class WMFHomeFeedSettingsViewModel: ObservableObject {
         let communityHeader = WMFLocalizedString("home-feed-settings-community-section-title", value: "Community", comment: "Section header for Community settings in Home feed settings.")
         let forYouHeader = WMFLocalizedString("home-feed-settings-for-you-section-title", value: "For you", comment: "Section header for For You settings in Home feed settings.")
 
-        self.sections = [
-            SettingsSection(header: communityHeader, footer: nil, items: [
+        var sections: [SettingsSection] = []
+
+        // The reworked community feed ships with home phase 2. Until then the Community segment is
+        // powered by the legacy Explore feed, which has its own settings entry in the main Settings screen.
+        if showCommunitySettings {
+            sections.append(SettingsSection(header: communityHeader, footer: nil, items: [
                 SettingsItem(image: nil, color: nil, title: modulesTitle, subtitle: communityModulesSubtitle, accessory: .chevron(label: nil), action: didTapCommunityModules)
-            ]),
-            SettingsSection(header: forYouHeader, footer: nil, items: [
-                SettingsItem(image: nil, color: nil, title: modulesTitle, subtitle: forYouModulesSubtitle, accessory: .chevron(label: nil), action: didTapForYouModules),
-                SettingsItem(image: nil, color: nil, title: whatsDrivingTitle, subtitle: whatsDrivingSubtitle, accessory: .chevron(label: nil), action: didTapForYouWhatsDriving)
-            ])
-        ]
+            ]))
+        }
+
+        sections.append(SettingsSection(header: forYouHeader, footer: nil, items: [
+            SettingsItem(image: nil, color: nil, title: modulesTitle, subtitle: forYouModulesSubtitle, accessory: .chevron(label: nil), action: didTapForYouModules),
+            SettingsItem(image: nil, color: nil, title: whatsDrivingTitle, subtitle: whatsDrivingSubtitle, accessory: .chevron(label: nil), action: didTapForYouWhatsDriving)
+        ]))
+
+        self.sections = sections
     }
 }
