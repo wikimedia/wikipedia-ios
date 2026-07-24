@@ -42,7 +42,13 @@ import CocoaLumberjackSwift
         #elseif WMF_STAGING || WMF_EXPERIMENTAL
         appFlavor = "alpharelease"
         #else
-        appFlavor = Bundle.main.isTestFlight() ? "betarelease" : "prodrelease"
+        if !Bundle.main.wmf_isAppStoreBundleIdentifier() {
+            appFlavor = "alpharelease"
+        } else if Bundle.main.isTestFlight() {
+            appFlavor = "betarelease"
+        } else {
+            appFlavor = "prodrelease"
+        }
         #endif
 
         return AgentData(

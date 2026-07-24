@@ -16,6 +16,10 @@
     return [self objectForInfoDictionaryKey:@"CFBundleVersion"];
 }
 
+- (BOOL)wmf_isAppStoreBundleIdentifier {
+    return [[self wmf_bundleIdentifier] hasSuffix:@"wikipedia"];
+}
+
 - (NSString *)wmf_appVersion {
     NSString *build = [self wmf_bundleVersion] ?: @"0";
     NSString *shortVersion = [self objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ?: @"0.0.0";
@@ -27,7 +31,7 @@
 #elif defined(WMF_EXPERIMENTAL) || defined(WMF_STAGING)
     environment = @"alpha";
 #else
-    if (![[self wmf_bundleIdentifier] hasSuffix:@"wikipedia"]) {
+    if (![self wmf_isAppStoreBundleIdentifier]) {
         environment = @"alpha";
     } else if ([self isTestFlight]) {
         environment = @"beta";
