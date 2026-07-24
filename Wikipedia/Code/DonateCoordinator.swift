@@ -859,26 +859,3 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
     }
 }
 
-// MARK: URL Extensions
-
-fileprivate extension URL {
-    func appendingAppVersionAndAppInstallID(appVersion: String?, appInstallID: String?) -> URL {
-
-        guard let appVersion,
-              let appInstallID,
-              var components = URLComponents(url: self, resolvingAgainstBaseURL: false),
-        var queryItems = components.queryItems else {
-            return self
-        }
-
-        queryItems.append(URLQueryItem(name: "app_version", value: appVersion))
-        queryItems.append(URLQueryItem(name: "app_install_id", value: appInstallID))
-        components.queryItems = queryItems
-
-        guard let url = components.url else {
-            return self
-        }
-
-        return url
-    }
-}
