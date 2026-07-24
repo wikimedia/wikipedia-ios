@@ -252,6 +252,9 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     var findInPage = ArticleFindInPageState()
 
+    /// The web view scroll view's `contentInset.bottom` before the find-in-page keyboard was shown, so it can be restored when the keyboard is dismissed.
+    var findInPageBaseScrollViewBottomInset: CGFloat?
+
     // MARK: Responder chain
 
     override var canBecomeFirstResponder: Bool {
