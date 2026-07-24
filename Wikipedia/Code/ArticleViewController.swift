@@ -524,13 +524,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     /// If any higher-priority modal is shown, the games announcement is deferred to the next launch.
     /// Only one modal is ever presented per appearance.
     private func presentModalsIfNeeded() {
-
-        // fall back to year in review or fundraising
-        guard let navigationController else {
-            presentYearInReviewAnnouncementOrFundraisingOrGamesIfNeeded()
-            return
-        }
-
+        presentYearInReviewAnnouncementOrFundraisingOrGamesIfNeeded()
     }
 
     /// Called at the tail of the modal chain (after RC, YIR, and fundraising have all declined).
@@ -626,15 +620,6 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             showFundraisingCampaignAnnouncementIfNeeded(onNothingShown: { [weak self] in
                 self?.presentGamesAnnouncementIfNeeded()
             })
-        }
-    }
-    
-    private func presentYearInReviewAnnouncementOrTooltipsOrGamesIfNeeded() {
-        if needsYearInReviewAnnouncement() {
-            updateProfileButton()
-            presentYearInReviewAnnouncement()
-        } else {
-            perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
         }
     }
 
