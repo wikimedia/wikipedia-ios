@@ -7,7 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WikipediaAppUtils
 
 + (NSString *)appVersion {
-    return [[NSBundle mainBundle] wmf_versionForCurrentBundleIdentifier];
+    return [[NSBundle mainBundle] wmf_appVersion];
 }
 
 + (NSString *)bundleID {
@@ -35,13 +35,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)versionName {
     UIDevice *d = [UIDevice currentDevice];
     return [NSString stringWithFormat:@"WikipediaApp/%@",
-            [[NSBundle mainBundle] wmf_debugVersion]];
+            [[NSBundle mainBundle] wmf_appVersion]];
 }
 
 + (NSString *)versionedUserAgent {
     UIDevice *d = [UIDevice currentDevice];
     return [NSString stringWithFormat:@"WikipediaApp/%@ (iOS %@; %@)",
-                                      [[NSBundle mainBundle] wmf_debugVersion],
+                                      [[NSBundle mainBundle] wmf_appVersion],
                                       [d systemVersion],
                                       [self formFactor]];
 }
