@@ -9,8 +9,6 @@ import Foundation
             appearance.backgroundColor = .clear
             appearance.backgroundEffect = nil
             appearance.shadowColor = .clear
-            let gradientImage = UIImage.gradientImage(startColor: .clear, endColor: theme.colors.paperBackground, size: CGSize(width: 1, height: 83))
-            appearance.backgroundImage = gradientImage
             // If subtle divider needed later: appearance.shadowColor = theme.colors.border
         } else {
             appearance.configureWithOpaqueBackground()

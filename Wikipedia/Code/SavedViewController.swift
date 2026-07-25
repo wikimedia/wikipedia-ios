@@ -276,11 +276,6 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         }
     }
 
-    override func viewSafeAreaInsetsDidChange() {
-        super.viewSafeAreaInsetsDidChange()
-        calculateTopSafeAreaOverlayHeight()
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
