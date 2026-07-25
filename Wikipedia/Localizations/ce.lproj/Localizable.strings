@@ -64,7 +64,7 @@
 "article-about-title" = "ХӀокху агӀонах лаьцна";
 "article-delete" = "ДӀайаккха";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|йаззам}} дӀабаьккхина";
-"article-languages-filter-placeholder" = "Мотт лаха";
+"article-languages-filter-placeholder" = "Мотт лахар";
 "article-languages-label" = "Мотт харжа";
 "article-languages-others" = "Кхин меттанаш";
 "article-languages-yours" = "Хьан меттанаш";

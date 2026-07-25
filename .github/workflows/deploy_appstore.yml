@@ -1,0 +1,12 @@
+name: App Store Submission
+ 
+on:
+  workflow_dispatch:
+ 
+jobs:
+  build-and-upload:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v7
+      - run: echo "hello world"
+ 

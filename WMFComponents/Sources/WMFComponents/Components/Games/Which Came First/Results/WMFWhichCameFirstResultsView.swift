@@ -47,6 +47,9 @@ public struct WMFWhichCameFirstResultsView: View {
                     VStack(spacing: 24) {
                         scoreCard
                             .padding(.horizontal, 16)
+                        
+                        archiveButton
+                            .padding(.horizontal, 16)
 
                         statsSection
                             .padding(.horizontal, 16)
@@ -58,6 +61,17 @@ public struct WMFWhichCameFirstResultsView: View {
                 .zIndex(1)
             }
         }
+    }
+    
+    private var archiveButton: some View {
+        WMFLargeButton(
+            style: .neutral,
+            title: viewModel.localizedStrings.playTheArchiveButton,
+            icon: .calendarBadgeClock,
+            action: {
+                viewModel.onPlayArchive?()
+            }
+        )
     }
     
     // MARK: - Score Card

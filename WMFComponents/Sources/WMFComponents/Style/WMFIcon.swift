@@ -30,6 +30,7 @@ public enum WMFIcon {
 
     // Settings icons
     public static let settingsLanguage = UIImage(named: "settings-language", in: .module, with: nil)
+    public static let language = UIImage(named: "language", in: .module, with: nil)
     public static let settingsExplore = UIImage(named: "settings-explore", in: .module, with: nil)
     public static let settingsPreferences = UIImage(named: "settings-preferences", in: .module, with: nil)
     public static let settingsClearCache = UIImage(named: "settings-clear-cache", in: .module, with: nil)
@@ -171,6 +172,8 @@ public enum WMFSFSymbolIcon {
     case medalStar
     case flagPatternCheckered
     case house
+    case sliderHorizontal3
+    case clockArrowCounterclockwise
 
     public var name: String? {
         switch self {
@@ -429,6 +432,10 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "flag.pattern.checkered", withConfiguration: configuration)
         case .house:
             image = UIImage(systemName: "house", withConfiguration: configuration)
+        case .sliderHorizontal3:
+            image = UIImage(systemName: "slider.horizontal.3", withConfiguration: configuration)
+        case .clockArrowCounterclockwise:
+            image = UIImage(systemName: "clock.arrow.trianglehead.2.counterclockwise.rotate.90", withConfiguration: configuration)
         case .starSquare:
             image = UIImage(systemName: "star.square.on.square", withConfiguration: configuration)
         }

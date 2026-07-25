@@ -20,12 +20,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         return try? WMFYearInReviewDataController()
     }
 
-    // Doing basic persistence for now, All this logic should live in a data controller
-    private static let selectedLanguageCodeDefaultsKey = "home-selected-language-code"
-    private var persistedSelectedLanguageCode: String? {
-        get { UserDefaults.standard.string(forKey: Self.selectedLanguageCodeDefaultsKey) }
-        set { UserDefaults.standard.set(newValue, forKey: Self.selectedLanguageCodeDefaultsKey) }
-    }
+    private let homeDataController = WMFHomeDataController.shared
 
     init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFHomeViewModel) {
         self.dataStore = dataStore
@@ -46,11 +41,21 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         view.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.homeButton
         embedHostingController()
 
-        viewModel.didSelectLanguage = { [weak self] languageCode in
-            self?.selectLanguage(languageCode)
+        viewModel.didSelectLanguage = { [weak self] language in
+            self?.selectLanguage(language)
         }
         viewModel.didTapEditLanguages = { [weak self] in
             self?.presentLanguagesViewController()
+        }
+        viewModel.didTapCustomizeInterests = { [weak self] in
+            self?.presentWhatsDrivingTest()
+        }
+        // While the reworked community feed (home phase 2) is in development, the Community segment
+        // hosts the legacy Explore feed. With phase 2 enabled, the new community feed renders instead.
+        if !WMFDeveloperSettingsDataController.shared.enableHomePhase2 {
+            viewModel.makeEmbeddedCommunityViewController = { [weak self] in
+                self?.embeddedExploreViewController() ?? UIViewController()
+            }
         }
         reloadLanguages()
     }
@@ -65,18 +70,20 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     private func reloadLanguages() {
         let preferredLanguages = dataStore.languageLinkController.preferredLanguages
-        viewModel.languages = preferredLanguages.map { WMFHomeViewModel.Language(code: $0.languageCode, localizedName: $0.localizedName) }
+        viewModel.languages = preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
 
-        if let persisted = persistedSelectedLanguageCode, preferredLanguages.contains(where: { $0.languageCode == persisted }) {
-            viewModel.selectedLanguageCode = persisted
-        } else {
-            viewModel.selectedLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode ?? preferredLanguages.first?.languageCode ?? ""
+        if let persisted = homeDataController.selectedLanguage(), preferredLanguages.contains(where: { $0.languageCode == persisted.languageCode }) {
+            viewModel.selectedLanguage = persisted
+        } else if let appLanguage = dataStore.languageLinkController.appLanguage {
+            viewModel.selectedLanguage = WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode)
+        } else if let first = preferredLanguages.first {
+            viewModel.selectedLanguage = WMFLanguage(languageCode: first.languageCode, languageVariantCode: first.languageVariantCode)
         }
     }
 
-    private func selectLanguage(_ languageCode: String) {
-        persistedSelectedLanguageCode = languageCode
-        viewModel.selectedLanguageCode = languageCode
+    private func selectLanguage(_ language: WMFLanguage) {
+        homeDataController.setSelectedLanguage(language)
+        viewModel.selectedLanguage = language
     }
 
     private func presentLanguagesViewController() {
@@ -86,6 +93,35 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         (languagesVC as Themeable?)?.apply(theme: theme)
         let navVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .overFullScreen)
         present(navVC, animated: true)
+    }
+
+    // MARK: - What's Driving (test deep-link)
+
+    // TODO: Temporary. Presents "What's driving your feed" modally to test the settings entry point. You can delete if you're working on implementing the feed.
+    private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
+    private func presentWhatsDrivingTest() {
+        guard let navigationController else { return }
+        let coordinator = HomeFeedSettingsCoordinator(navigationController: navigationController, theme: theme, initialView: .modalFromFeed, presentation: .modal)
+        homeFeedSettingsCoordinator = coordinator
+        coordinator.start()
+    }
+
+    // MARK: - Embedded Explore Feed
+
+    // Temporary: while the native community feed is under development, the Community segment hosts
+    // the legacy Explore feed. Remove once the community feed rework ships.
+    private var _embeddedExploreViewController: ExploreViewController?
+    private func embeddedExploreViewController() -> ExploreViewController {
+        if let _embeddedExploreViewController {
+            return _embeddedExploreViewController
+        }
+        let vc = ExploreViewController()
+        vc.dataStore = dataStore
+        vc.isEmbeddedInHomeTab = true
+        vc.notificationsCenterPresentationDelegate = tabBarController as? NotificationsCenterPresentationDelegate
+        vc.apply(theme: theme)
+        _embeddedExploreViewController = vc
+        return vc
     }
 
     private func embedHostingController() {
@@ -171,6 +207,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         guard viewIfLoaded != nil else { return }
         updateProfileButton()
         profileCoordinator?.theme = theme
+        _embeddedExploreViewController?.apply(theme: theme)
         if #unavailable(iOS 26.0) {
             navigationItem.leftBarButtonItem?.tintColor = theme.colors.logoTintColor
         }

@@ -7,6 +7,7 @@ public struct WMFLargeButton: View {
 
     let style: WMFButtonStyleKind
     let title: String
+    let icon: WMFSFSymbolIcon?
     let forceBackgroundColor: UIColor?
     let forceForegroundColor: UIColor?
     let action: (() -> Void)?
@@ -15,6 +16,7 @@ public struct WMFLargeButton: View {
         appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current,
         style: WMFButtonStyleKind,
         title: String,
+        icon: WMFSFSymbolIcon? = nil,
         forceBackgroundColor: UIColor? = nil,
         forceForegroundColor: UIColor? = nil,
         action: (() -> Void)?
@@ -22,6 +24,7 @@ public struct WMFLargeButton: View {
         self.appEnvironment = appEnvironment
         self.style = style
         self.title = title
+        self.icon = icon
         self.forceBackgroundColor = forceBackgroundColor
         self.forceForegroundColor = forceForegroundColor
         self.action = action
@@ -31,8 +34,14 @@ public struct WMFLargeButton: View {
         Button {
             action?()
         } label: {
-            Text(title)
-                .font(Font(WMFFont.for(.semiboldHeadline)))
+            HStack(alignment: .center, spacing: 4) {
+                if let icon, let image = WMFSFSymbolIcon.for(symbol: icon, font: .semiboldSubheadline) {
+                    Image(uiImage: image)
+                        .accessibilityHidden(true)
+                }
+                Text(title)
+                    .font(Font(WMFFont.for(.semiboldHeadline)))
+            }
         }
         .buttonStyle(
             CapsuleButtonStyle(

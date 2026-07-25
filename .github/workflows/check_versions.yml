@@ -15,9 +15,9 @@ on:
 
 jobs:
   check-version:
-    runs-on: macOS-latest
+    runs-on: macos-26
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
     - name: Check PR label and App Versions
       continue-on-error: false
       run: |

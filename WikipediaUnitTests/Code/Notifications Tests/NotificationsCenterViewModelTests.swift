@@ -22,6 +22,7 @@ class NotificationsCenterViewModelTests: XCTestCase {
 
     private var data: Data!
     private var networkModels: [RemoteNotificationsAPIController.NotificationsResult.Notification]!
+    private var previousDefaultTimeZone: TimeZone?
 
     var dataStore: MWKDataStore!
 
@@ -40,6 +41,7 @@ class NotificationsCenterViewModelTests: XCTestCase {
             self.dataStore = dataStore
             
             if let gmtTimeZone = TimeZone(abbreviation: "GMT") {
+                self.previousDefaultTimeZone = NSTimeZone.default
                 NSTimeZone.default = gmtTimeZone
             }
             
@@ -86,7 +88,13 @@ class NotificationsCenterViewModelTests: XCTestCase {
     }
     
     override func tearDown(completion: @escaping (Error?) -> Void) {
-        NSTimeZone.resetSystemTimeZone()
+        if let previousDefaultTimeZone {
+            NSTimeZone.default = previousDefaultTimeZone
+        } else {
+            NSTimeZone.resetSystemTimeZone()
+        }
+
+        previousDefaultTimeZone = nil
         completion(nil)
     }
     

@@ -88,9 +88,24 @@ class ArticleTestHelpers {
     static func tearDownNetworkFixtures() {
         UserDefaults.standard.removeObject(forKey: TestNetworkFixtureInterceptor.profileKey)
         TestNetworkFixtureHTTPClient.resetFixtures()
+        tearDown()
+    }
+
+    static func tearDown() {
+        resetSharedState()
+    }
+
+    private static func resetSharedState() {
+        fixtureData = nil
+        cacheController = nil
+        dataStore?.session.teardown()
+        dataStore?.removeFolderAtBasePath()
+        dataStore = nil
+        URLCache.shared.removeAllCachedResponses()
     }
 
     static func setup(completion: @escaping () -> Void) {
+        resetSharedState()
         MWKDataStore.createTemporaryDataStore(completion: { dataStore in
             
             let tempPath = WMFRandomTemporaryPath()!

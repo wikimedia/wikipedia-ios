@@ -610,7 +610,7 @@ extension ArticleRobot {
                 linkedArticleTitle: "Wolfs- und Schakalartige",
                 linkedArticleDescription: "Gattung der Familie Hunde (Canidae)",
                 linkedArticleIsInQuickFacts: true,
-                footerArticleTitle: "Wolfs- und Schakalartige",
+                footerArticleTitle: "Schakal",
                 languageSwitchTargetCode: "en",
                 languageSwitchTargetTitle: "Dog",
                 findSearchTerm: "Canis",
@@ -664,7 +664,7 @@ extension ArticleRobot {
                 linkedArticleTitle: "Chi Chó",
                 linkedArticleDescription: "chi động vật có vú, bao gồm chó nhà",
                 linkedArticleIsInQuickFacts: false,
-                footerArticleTitle: "Chi Chó",
+                footerArticleTitle: "Chó rừng lông vàng",
                 languageSwitchTargetCode: "en",
                 languageSwitchTargetTitle: "Dog",
                 findSearchTerm: "Canis",
@@ -802,7 +802,7 @@ private extension ArticleRobot {
     }
 
     func tapArticleElement(_ element: XCUIElement, file: StaticString, line: UInt) {
-        element.tap()
+        base.tapCenter(of: element, file: file, line: line)
     }
 
     func pressArticleElement(_ element: XCUIElement, forDuration duration: TimeInterval, file: StaticString, line: UInt) {

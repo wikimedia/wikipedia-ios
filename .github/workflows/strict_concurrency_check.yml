@@ -16,15 +16,12 @@ on:
   pull_request:
     branches:
       - 'main'
-  push:
-    branches:
-      - 'main'
   workflow_dispatch:
 
 env:
-  XCODE_VERSION: "26.2"
-  IOS_VERSION: "26.2"
-  SIMULATOR_NAME: "iPhone 16"
+  XCODE_VERSION: "26.5"
+  IOS_VERSION: "26.5"
+  SIMULATOR_NAME: "iPhone 17"
   # Schemes that have completed their strict-concurrency burn-down. These are built
   # with warnings-as-errors so any regression fails CI. Space-separated.
   GATED_SCHEMES: ""
@@ -35,7 +32,7 @@ concurrency:
 
 jobs:
   strict-concurrency:
-    runs-on: macos-latest
+    runs-on: macos-26
     permissions:
       actions: read
       contents: read
@@ -47,7 +44,7 @@ jobs:
 
     name: Strict concurrency (${{ matrix.scheme }})
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Select Xcode
         run: |

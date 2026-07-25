@@ -1,5 +1,6 @@
 import SwiftUI
 import WMFData
+import WMFNativeLocalizations
 
 // MARK: - Types
 
@@ -255,7 +256,7 @@ final public class WMFSettingsViewModel: ObservableObject {
                         accessory: .chevron(label: primaryLanguage),
                         action: existing.action)
 
-                } else if title == localizedStrings.exploreFeedTitle {
+                } else if title == localizedStrings.exploreFeedTitle || title == CommonStrings.communityFeedTitle {
                     sections[sectionIndex].items[itemIndex] = SettingsItem(
                         image: existing.image, color: existing.color,
                         title: existing.title, subtitle: existing.subtitle,
@@ -282,15 +283,28 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.coordinatorDelegate?.handleSettingsAction(.search)
         })
 
-        let exploreFeed: SettingsItem
+        var feedItems: [SettingsItem] = []
         if WMFDeveloperSettingsDataController.shared.enableHomeTab {
-            exploreFeed = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: localizedStrings.homeFeedTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
-                self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
-            })
+            if WMFDeveloperSettingsDataController.shared.enableHomePhase2 {
+                // Phase 2: the reworked community feed ships inside the Home tab, so a single Home
+                // feed row covers customization for both segments.
+                feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: localizedStrings.homeFeedTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
+                    self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
+                }))
+            } else {
+                // Phase 1: the row is titled after the For You segment, since the legacy Explore feed
+                // powers the Community segment and its settings stay reachable here relabeled as Community.
+                feedItems.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .house), color: WMFColor.blue300, title: CommonStrings.forYouTabTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
+                    self.coordinatorDelegate?.handleSettingsAction(.homeFeed)
+                }))
+                feedItems.append(SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: CommonStrings.communityFeedTitle, subtitle: nil, accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle), action: {
+                    self.coordinatorDelegate?.handleSettingsAction(.exploreFeed)
+                }))
+            }
         } else {
-            exploreFeed = SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: localizedStrings.exploreFeedTitle, subtitle: nil, accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle), action: {
+            feedItems.append(SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: localizedStrings.exploreFeedTitle, subtitle: nil, accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle), action: {
                 self.coordinatorDelegate?.handleSettingsAction(.exploreFeed)
-            })
+            }))
         }
 
         let label = await dataController.yirIsActive() == true ? localizedStrings.onTitle : localizedStrings.offTitle
@@ -319,14 +333,14 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.coordinatorDelegate?.handleSettingsAction(.clearCachedData)
         })
 
-        var section = SettingsSection(header: nil, footer: nil, items: [myLanguages, search, exploreFeed, pushNotifications, readingPrefs, articleStorage, clearCache])
+        var section = SettingsSection(header: nil, footer: nil, items: [myLanguages, search] + feedItems + [pushNotifications, readingPrefs, articleStorage, clearCache])
 
         if await dataController.shouldShowYiRSettingsItem() {
-            section.items.insert(yearInReview, at: 3)
+            section.items.insert(yearInReview, at: 2 + feedItems.count)
         }
-        
+
 #if DEBUG
-        section.items.insert(dangerZone, at: 7)
+        section.items.insert(dangerZone, at: 6 + feedItems.count)
 #endif
         return section
     }

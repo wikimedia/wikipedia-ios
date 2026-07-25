@@ -1,0 +1,78 @@
+{
+  "batchcomplete": true,
+  "continue": {
+    "gsroffset": 20,
+    "continue": "gsroffset||"
+  },
+  "query": {
+    "pages": [
+      {
+        "pageid": 586558,
+        "ns": 0,
+        "title": "Trap–neuter–return",
+        "index": 6,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Feral_cat%2C_sterilized_through_a_Trap-Neuter-Return_program.jpg/250px-Feral_cat%2C_sterilized_through_a_Trap-Neuter-Return_program.jpg",
+          "width": 160,
+          "height": 120
+        },
+        "description": "Strategy for controlling feral animal populations",
+        "descriptionsource": "local",
+        "contentmodel": "wikitext",
+        "pagelanguage": "en",
+        "pagelanguagehtmlcode": "en",
+        "pagelanguagedir": "ltr",
+        "touched": "2026-05-31T02:54:18Z",
+        "lastrevid": 1356989886,
+        "length": 101656,
+        "varianttitles": {
+          "en": "Trap–neuter–return"
+        },
+        "extract": "Trap–neuter–return (TNR), also known as trap–neuter–release, is a controversial method that attempts to manage populations of feral cats."
+      },
+      {
+        "pageid": 629216,
+        "ns": 0,
+        "title": "Purr",
+        "index": 7,
+        "description": "Fluttering vocalization",
+        "descriptionsource": "local",
+        "contentmodel": "wikitext",
+        "pagelanguage": "en",
+        "pagelanguagehtmlcode": "en",
+        "pagelanguagedir": "ltr",
+        "touched": "2026-06-21T21:49:54Z",
+        "lastrevid": 1353803747,
+        "length": 16020,
+        "varianttitles": {
+          "en": "Purr"
+        },
+        "extract": "A purr or whirr is a tonal fluttering sound made by some species of felids, including both larger, wild cats and the domestic cat (Felis catus)."
+      },
+      {
+        "pageid": 895672,
+        "ns": 0,
+        "title": "Feral cat",
+        "index": 1,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Feral_cat_1.JPG/250px-Feral_cat_1.JPG",
+          "width": 160,
+          "height": 107
+        },
+        "description": "Unowned or untamed domestic cat in the outdoors",
+        "descriptionsource": "local",
+        "contentmodel": "wikitext",
+        "pagelanguage": "en",
+        "pagelanguagehtmlcode": "en",
+        "pagelanguagedir": "ltr",
+        "touched": "2026-06-20T00:20:46Z",
+        "lastrevid": 1358802933,
+        "length": 88006,
+        "varianttitles": {
+          "en": "Feral cat"
+        },
+        "extract": "A feral cat or stray cat is an unowned domestic cat (Felis catus) that lives freely outdoors and avoids human contact."
+      }
+    ]
+  }
+}

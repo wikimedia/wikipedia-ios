@@ -11,7 +11,6 @@ struct WMFDonateDataControllerTests {
 
     init() {
         controller = WMFDonateDataController(service: WMFDonateRequestMockService(), sharedCacheStore: WMFMockKeyValueStore())
-        controller.reset()
     }
 
     @Test

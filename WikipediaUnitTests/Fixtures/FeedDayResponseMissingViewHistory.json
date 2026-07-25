@@ -1,0 +1,221 @@
+{
+ "tfa": {
+  "type": "standard",
+  "title": "Curlew_sandpiper",
+  "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Curlew sandpiper</span></span>",
+  "namespace": {
+   "id": 0,
+   "text": ""
+  },
+  "wikibase_item": "Q62345",
+  "titles": {
+   "canonical": "Curlew_sandpiper",
+   "normalized": "Curlew sandpiper",
+   "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Curlew sandpiper</span></span>"
+  },
+  "pageid": 352084,
+  "thumbnail": {
+   "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Curlew_Sandpiper_%28Calidris_ferruginea%29_%2844855173205%29.jpg/960px-Curlew_Sandpiper_%28Calidris_ferruginea%29_%2844855173205%29.jpg",
+   "width": 960,
+   "height": 678
+  },
+  "originalimage": {
+   "source": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Curlew_Sandpiper_%28Calidris_ferruginea%29_%2844855173205%29.jpg",
+   "width": 1611,
+   "height": 1137
+  },
+  "lang": "en",
+  "dir": "ltr",
+  "revision": "1365181728",
+  "tid": "acc8a1cd-8477-11f1-80b1-3fdf4b999cfe",
+  "timestamp": "2026-07-20T20:14:56Z",
+  "description": "Species of bird",
+  "description_source": "local",
+  "content_urls": {
+   "desktop": {
+    "page": "https://en.wikipedia.org/wiki/Curlew_sandpiper",
+    "revisions": "https://en.wikipedia.org/wiki/Curlew_sandpiper?action=history",
+    "edit": "https://en.wikipedia.org/wiki/Curlew_sandpiper?action=edit",
+    "talk": "https://en.wikipedia.org/wiki/Talk:Curlew_sandpiper"
+   },
+   "mobile": {
+    "page": "https://en.wikipedia.org/wiki/Curlew_sandpiper",
+    "revisions": "https://en.wikipedia.org/wiki/Special:History/Curlew_sandpiper",
+    "edit": "https://en.wikipedia.org/wiki/Curlew_sandpiper?action=edit",
+    "talk": "https://en.wikipedia.org/wiki/Talk:Curlew_sandpiper"
+   }
+  },
+  "extract": "The curlew sandpiper is a small wader. It is a long-distance migrant, breeding in the bogs and coastal lowlands of the Siberian Arctic, arriving there in June and staying until August or September. After the breeding season, it migrates south to spend the winter in Africa and along the coasts of Oceania and southern Eurasia, occupying tidal mudflats and saltpans.",
+  "extract_html": "<p>The <b>curlew sandpiper</b> is a small wader. It is a long-distance migrant, breeding in the bogs and coastal lowlands of the Siberian Arctic, arriving there in June and staying until August or September. After the breeding season, it migrates south to spend the winter in Africa and along the coasts of Oceania and southern Eurasia, occupying tidal mudflats and saltpans.</p>",
+  "normalizedtitle": "Curlew sandpiper"
+ },
+ "image": {
+  "title": "File:The Chess Queen.jpg",
+  "thumbnail": {
+   "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/The_Chess_Queen.jpg/960px-The_Chess_Queen.jpg",
+   "width": 640,
+   "height": 558
+  },
+  "image": {
+   "source": "https://upload.wikimedia.org/wikipedia/commons/5/5e/The_Chess_Queen.jpg",
+   "width": 3454,
+   "height": 3009
+  },
+  "file_page": "https://commons.wikimedia.org/wiki/File:The_Chess_Queen.jpg",
+  "artist": {
+   "html": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/53986933@N00\">John Fowler</a>",
+   "text": "John Fowler"
+  },
+  "credit": {
+   "html": "<a rel=\"nofollow\" class=\"external free\" href=\"https://www.flickr.com/photos/snowpeak/11505239155/\">https://www.flickr.com/photos/snowpeak/11505239155/</a>",
+   "text": "https://www.flickr.com/photos/snowpeak/11505239155/"
+  },
+  "license": {
+   "type": "CC BY 2.0",
+   "code": "cc-by-2.0",
+   "url": "https://creativecommons.org/licenses/by/2.0"
+  },
+  "description": {
+   "html": "The Chess Queen, a.k.a. The Totem Pole, located a few hundred yards east of Cottonwood Cove, in <a rel=\"mw:WikiLink\" href=\"./Category:Vermilion_Cliffs_National_Monument\" title=\"Category:Vermilion Cliffs National Monument\">Vermilion Cliffs National Monument</a>, northern <a rel=\"mw:WikiLink/Interwiki\" href=\"https://en.wikipedia.org/wiki/Arizona\" title=\"w:Arizona\" class=\"extiw\">Arizona</a>. Today is <a rel=\"mw:WikiLink/Interwiki\" href=\"https://en.wikipedia.org/wiki/International%20Chess%20Day\" title=\"w:International Chess Day\" class=\"extiw\">International Chess Day</a>.",
+   "text": "The Chess Queen, a.k.a. The Totem Pole, located a few hundred yards east of Cottonwood Cove, in Vermilion Cliffs National Monument, northern Arizona. Today is International Chess Day.",
+   "lang": "en"
+  },
+  "wb_entity_id": "M30346151",
+  "structured": {
+   "captions": {
+    "zh-hant": "\u897f\u6d0b\u68cb\u7687\u540e\uff0ca.k.a.\u5716\u9a30\u67f1\uff0c\u4f4d\u65bc\u4e9e\u5229\u6851\u90a3\u5dde\u5317\u90e8\u7d05\u5d16\u570b\u5bb6\u540d\u52dd\uff0c\u68c9\u82b1\u53e2\u7063\u4ee5\u6771\u5e7e\u767e\u78bc\u8655"
+   }
+  }
+ },
+ "mostread": {
+  "date": "2026-07-19Z",
+  "articles": [
+   {
+    "views": 1200352,
+    "rank": 3,
+    "view_history": [
+     {
+      "date": "2026-07-15Z",
+      "views": 369975
+     },
+     {
+      "date": "2026-07-16Z",
+      "views": 292389
+     },
+     {
+      "date": "2026-07-17Z",
+      "views": 197899
+     },
+     {
+      "date": "2026-07-18Z",
+      "views": 212473
+     },
+     {
+      "date": "2026-07-19Z",
+      "views": 1200352
+     }
+    ],
+    "type": "standard",
+    "title": "Lamine_Yamal",
+    "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Lamine Yamal</span></span>",
+    "namespace": {
+     "id": 0,
+     "text": ""
+    },
+    "wikibase_item": "Q113704154",
+    "titles": {
+     "canonical": "Lamine_Yamal",
+     "normalized": "Lamine Yamal",
+     "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Lamine Yamal</span></span>"
+    },
+    "pageid": 71691936,
+    "thumbnail": {
+     "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Lamine_Yamal_France_v_Spain_7.24.26-142.jpg/330px-Lamine_Yamal_France_v_Spain_7.24.26-142.jpg",
+     "width": 330,
+     "height": 495
+    },
+    "originalimage": {
+     "source": "https://upload.wikimedia.org/wikipedia/commons/1/13/Lamine_Yamal_France_v_Spain_7.24.26-142.jpg",
+     "width": 3333,
+     "height": 5000
+    },
+    "lang": "en",
+    "dir": "ltr",
+    "revision": "1365161094",
+    "tid": "d88b5c06-845e-11f1-b723-84a70101f7bf",
+    "timestamp": "2026-07-20T17:17:12Z",
+    "description": "Spanish footballer (born 2007)",
+    "description_source": "local",
+    "content_urls": {
+     "desktop": {
+      "page": "https://en.wikipedia.org/wiki/Lamine_Yamal",
+      "revisions": "https://en.wikipedia.org/wiki/Lamine_Yamal?action=history",
+      "edit": "https://en.wikipedia.org/wiki/Lamine_Yamal?action=edit",
+      "talk": "https://en.wikipedia.org/wiki/Talk:Lamine_Yamal"
+     },
+     "mobile": {
+      "page": "https://en.wikipedia.org/wiki/Lamine_Yamal",
+      "revisions": "https://en.wikipedia.org/wiki/Special:History/Lamine_Yamal",
+      "edit": "https://en.wikipedia.org/wiki/Lamine_Yamal?action=edit",
+      "talk": "https://en.wikipedia.org/wiki/Talk:Lamine_Yamal"
+     }
+    },
+    "extract": "Lamine Yamal Nasraoui Ebana is a Spanish professional footballer who plays as a right winger for the La Liga club Barcelona and the Spain national team. Regarded as one of the best players in the world, he is known for his dribbling and playmaking ability.",
+    "extract_html": "<p><b>Lamine Yamal Nasraoui Ebana</b> is a Spanish professional footballer who plays as a right winger for the La Liga club Barcelona and the Spain national team. Regarded as one of the best players in the world, he is known for his dribbling and playmaking ability.</p>",
+    "normalizedtitle": "Lamine Yamal"
+   },
+   {
+    "views": 766741,
+    "rank": 6,
+    "type": "standard",
+    "title": "Lionel_Messi",
+    "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Lionel Messi</span></span>",
+    "namespace": {
+     "id": 0,
+     "text": ""
+    },
+    "wikibase_item": "Q615",
+    "titles": {
+     "canonical": "Lionel_Messi",
+     "normalized": "Lionel Messi",
+     "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Lionel Messi</span></span>"
+    },
+    "pageid": 2150841,
+    "thumbnail": {
+     "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Leo_Messi_Argentina_v_Egypt_7_July_2026-1.jpg/330px-Leo_Messi_Argentina_v_Egypt_7_July_2026-1.jpg",
+     "width": 330,
+     "height": 495
+    },
+    "originalimage": {
+     "source": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Leo_Messi_Argentina_v_Egypt_7_July_2026-1.jpg",
+     "width": 3333,
+     "height": 5000
+    },
+    "lang": "en",
+    "dir": "ltr",
+    "revision": "1365179125",
+    "tid": "da601a6f-8474-11f1-8fe3-71deec06248e",
+    "timestamp": "2026-07-20T19:54:44Z",
+    "description": "Argentine footballer (born 1987)",
+    "description_source": "local",
+    "content_urls": {
+     "desktop": {
+      "page": "https://en.wikipedia.org/wiki/Lionel_Messi",
+      "revisions": "https://en.wikipedia.org/wiki/Lionel_Messi?action=history",
+      "edit": "https://en.wikipedia.org/wiki/Lionel_Messi?action=edit",
+      "talk": "https://en.wikipedia.org/wiki/Talk:Lionel_Messi"
+     },
+     "mobile": {
+      "page": "https://en.wikipedia.org/wiki/Lionel_Messi",
+      "revisions": "https://en.wikipedia.org/wiki/Special:History/Lionel_Messi",
+      "edit": "https://en.wikipedia.org/wiki/Lionel_Messi?action=edit",
+      "talk": "https://en.wikipedia.org/wiki/Talk:Lionel_Messi"
+     }
+    },
+    "extract": "Lionel Andr\u00e9s \"Leo\" Messi is an Argentine professional footballer who plays as a forward for and captains both Major League Soccer club Inter Miami and the Argentina national team. Widely regarded as one of the greatest players in history, Messi has set numerous records for individual accolades won throughout his professional footballing career, including eight Ballons d'Or, six European Golden Shoes, and being named the world's best player by FIFA eight times. In 2025, he was named the All Time Men's World Best Player by the IFFHS.",
+    "extract_html": "<p><b>Lionel Andr\u00e9s</b> \"<b>Leo</b>\" <b>Messi</b> is an Argentine professional footballer who plays as a forward for and captains both Major League Soccer club Inter Miami and the Argentina national team. Widely regarded as one of the greatest players in history, Messi has set numerous records for individual accolades won throughout his professional footballing career, including eight Ballons d'Or, six European Golden Shoes, and being named the world's best player by FIFA eight times. In 2025, he was named the All Time Men's World Best Player by the IFFHS.</p>",
+    "normalizedtitle": "Lionel Messi"
+   }
+  ]
+ }
+}

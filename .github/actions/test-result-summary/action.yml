@@ -54,6 +54,16 @@ runs:
             return value if isinstance(value, int) else 0
 
 
+        def first_device_and_configuration(summary):
+            value = summary.get("devicesAndConfigurations", {})
+            if isinstance(value, list):
+                first_value = next((item for item in value if isinstance(item, dict)), {})
+                return first_value
+            if isinstance(value, dict):
+                return value
+            return {}
+
+
         if not os.path.exists(result_bundle_path):
             write_summary(
                 "\n".join(
@@ -106,7 +116,7 @@ runs:
         expected_failures = count_value(summary, "expectedFailures")
         outcome = summary.get("result", "unknown")
 
-        device_and_configuration = summary.get("devicesAndConfigurations", {})
+        device_and_configuration = first_device_and_configuration(summary)
         configuration = device_and_configuration.get("testPlanConfiguration", {})
         device = device_and_configuration.get("device", {})
         configuration_name = configuration.get("configurationName")

@@ -11,9 +11,9 @@ permissions:
   contents: read
 
 env:
-  XCODE_VERSION: "26.2"
-  IOS_VERSION: "26.2"
-  SIMULATOR_NAME: "iPhone 16"
+  XCODE_VERSION: "26.5"
+  IOS_VERSION: "26.5"
+  SIMULATOR_NAME: "iPhone 17"
   UI_TEST_CONFIGURATION: "English (Light, E2E)"
   E2E_SMOKE_TEST_LIST: "WikipediaUITests/E2ESmokeTests.txt"
 
@@ -23,7 +23,7 @@ concurrency:
 
 jobs:
   run-e2e-ui-tests:
-    runs-on: macos-latest
+    runs-on: macos-26
     name: Test WikipediaUITests E2E
     steps:
       - name: Verify selected release tag
@@ -44,7 +44,7 @@ jobs:
           echo "Verified GitHub release tag: $SELECTED_REF_NAME"
 
       - name: Check out selected ref
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Ensure UI tests use test-plan appearance and language
         run: scripts/lint-ui-tests.sh

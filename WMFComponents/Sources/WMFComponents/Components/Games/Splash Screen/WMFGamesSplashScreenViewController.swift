@@ -6,7 +6,7 @@ public final class WMFGamesSplashScreenViewController: WMFComponentHostingContro
 
     // MARK: - Properties
 
-    private let viewModel: WMFGamesSplashScreenViewModel
+    public let viewModel: WMFGamesSplashScreenViewModel
 
     // MARK: - Initialization
 

@@ -231,6 +231,9 @@
 "close-tab-confirmation" = "Salvatahgo välilehti?";
 "close-tabs" = "Salbua välilehtet";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:|$1 välilehti|$1 välilehtie}} salvattu.";
+"collect-prize-headline" = "Nenänsydimine menöy sinule! 🛍️";
+"collect-prize-subtitle" = "Pruaznuiče tevon läbipiäzemisty 15%%:n alenduksel Wikipedii-laukas.";
+"collect-prize-title" = "Ota vastah omassas palkindo!";
 "compass-direction" = "č. $1";
 "confirm-donation-history-deletion-subtitle" = "Tämä koskehes vaiku täl laittehel luajittuloi lahjoituksii.";
 "confirm-donation-history-deletion-title" = "Varmenda iäreotto";
@@ -425,6 +428,8 @@
 "editor-keyboard-text-formatting-title" = "Tekstan muodoilu";
 "editor-keyboard-underline-accessibility" = "Alleviivavus";
 "editor-replace-textfield-accessibility" = "Pane sijah";
+"editor-replace-textfield-placeholder" = "Pane sijah tulijal...";
+"editor-replace-type-all" = "Pane kai sijah";
 "editor-replace-type-single" = "Pane sijah";
 "editor-title" = "Redaktor";
 "editor-toolbar-bold-accessibility" = "Sangei tekstu";
@@ -583,9 +588,14 @@
 "find-replace-header-close-accessibility" = "Salbua eččo da pane sijah";
 "find-textfield-accessibility" = "Eči";
 "forgot-password-button-title" = "Tuo järilleh";
+"forgot-password-username-or-email-title" = "Libo";
+"games-announcement-play-button" = "Kižua";
 "history-clear-confirmation-heading" = "Tovengo tahtot ottua iäre kai jälgimäzet kohtehet?";
 "history-clear-delete-all" = "Muga, ota kai iäre!";
 "history-title" = "Histourii";
+"home-feed-modules-in-the-news-title" = "Uudizis";
+"home-feed-modules-on-this-day-subtitle" = "Tänäpäi tapahtunnuzii histouriellizii tapahtumii";
+"home-feed-modules-on-this-day-title" = "Tänäpäi";
 "languages-title" = "Vaihta kieli";
 "main-menu-account-login" = "Kirjuttai";
 "main-menu-nearby" = "Lähäl";

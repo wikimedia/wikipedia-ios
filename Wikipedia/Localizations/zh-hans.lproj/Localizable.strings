@@ -723,6 +723,11 @@
 "history-title" = "历史";
 "home-button-explore-accessibility-label" = "维基百科，返回到探索";
 "home-button-saved-accessibility-label" = "维基百科，返回到已保存";
+"home-feed-for-you-based-on-interests-title" = "根据你的兴趣";
+"home-feed-for-you-continue-reading-subtitle" = "回到您未看完的文章";
+"home-feed-for-you-settings-title" = "模块";
+"home-feed-settings-for-you-modules-subtitle" = "开启或关闭“为您推荐”模块";
+"home-feed-whats-driving-reading-history-title" = "阅读历史";
 "home-more-like-footer" = "更多$1相关条目";
 "home-nearby-footer" = "更多您所在位置附近的地点";
 "home-nearby-location-footer" = "更多在$1附近";

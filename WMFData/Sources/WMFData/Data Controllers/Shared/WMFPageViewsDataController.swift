@@ -3,7 +3,7 @@ import CoreData
 import WidgetKit
 import WMFTestKitchen
 
-public final class WMFPage: Hashable, Equatable {
+public final class WMFPage: Hashable, Equatable, Sendable {
    public let namespaceID: Int
    public let projectID: String
    public let title: String
@@ -85,7 +85,7 @@ public final class WMFPageViewTime: Codable {
     }
 }
 
-public struct WMFPageWithTimestamp {
+public struct WMFPageWithTimestamp: Sendable {
     public let page: WMFPage
     public let timestamp: Date
 }
@@ -121,7 +121,7 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
 
         let coreDataTitle = title.normalizedForCoreData
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
 
         let managedObjectID: NSManagedObjectID? = try await backgroundContext.perform { [weak self] () -> NSManagedObjectID? in
             guard let self else { return nil }
@@ -151,7 +151,7 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
 
     public func addPageViewSeconds(pageViewManagedObjectID: NSManagedObjectID, numberOfSeconds: Double) async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
 
         try await backgroundContext.perform { [weak self] in
             guard let self else { return }
@@ -164,7 +164,7 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
     public func deletePageView(title: String, namespaceID: Int16, project: WMFProject) async throws {
         let coreDataTitle = title.normalizedForCoreData
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
 
         try await backgroundContext.perform { [weak self] in
             guard let self else { return }
@@ -182,7 +182,7 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
 
     public func deleteAllPageViewsAndCategories() async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
 
         try await backgroundContext.perform {
             let categoryFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDCategory")
@@ -201,7 +201,7 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
 
     public func importPageViews(requests: [WMFLegacyPageView]) async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
 
         try await backgroundContext.perform {
             for request in requests {
@@ -345,7 +345,7 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
 
     public func fetchTimelinePages() async throws -> [WMFPageWithTimestamp] {
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
 
         let results: [WMFPageWithTimestamp] = try await backgroundContext.perform {
             let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
@@ -372,267 +372,36 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
 
         return results
     }
-}
 
-// MARK: - Reading Challenge
+    public func fetchRecentlyReadPages(project: WMFProject, minimumSeconds: Int = 60, withinDays: Int = 30) async throws -> [WMFPage] {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        let startDate = Calendar.current.date(byAdding: .day, value: -withinDays, to: Date()) ?? Date()
 
-extension WMFPageViewsDataController {
-
-    public func fetchReadingChallengeState(
-        isEnrolled: Bool,
-        now: Date = Date(),
-        instrument: InstrumentImpl? = nil
-    ) async throws -> ReadingChallengeState {
-
-        if let devStateOverride = WMFDeveloperSettingsDataController.shared.devReadingChallengeState {
-            return devStateOverride
-        }
-
-        let sharedDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
-
-        func sharedDefaultsBool(_ key: WMFUserDefaultsKey) -> Bool {
-            sharedDefaults?.bool(forKey: key.rawValue) ?? false
-        }
-
-        func setSharedDefaultsBool(_ key: WMFUserDefaultsKey, value: Bool) {
-            sharedDefaults?.set(true, forKey: key.rawValue)
-        }
-
-        func sendHeartbeat(elementId: String, actionContext: [String: Any]? = nil) {
-            instrument?.submitInteraction(
-                action: "heartbeat",
-                actionSource: "widget_challenge",
-                elementId: elementId,
-                actionContext: actionContext
+        return try await backgroundContext.perform {
+            let predicate = NSPredicate(
+                format: "timestamp >= %@ && numberOfSeconds >= %d && page.projectID == %@",
+                startDate as CVarArg, minimumSeconds, project.id
             )
-        }
+            let sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+            let pageViews = try self.coreDataStore.fetch(
+                entityType: CDPageView.self,
+                predicate: predicate,
+                fetchLimit: nil,
+                sortDescriptors: sortDescriptors,
+                in: backgroundContext
+            ) ?? []
 
-        let config = ReadingChallengeStateConfig.self
-        let calendar = Calendar.current
-
-        let todayStart = calendar.startOfDay(for: now)
-        let removeDateStart = calendar.startOfDay(for: config.removeDate)
-        let startDateStart = calendar.startOfDay(for: config.startDate)
-        let endDateStart = calendar.startOfDay(for: config.endDate)
-        let oneDayInSeconds = 60 * 60 * 24
-        let maxDateToCompleteStreak = calendar.startOfDay(for: endDateStart.addingTimeInterval(TimeInterval((config.streakGoal * oneDayInSeconds))))
-
-        if todayStart >= removeDateStart {
-            sendHeartbeat(elementId: "challenge_removed")
-            return .challengeRemoved
-        }
-
-        if todayStart < startDateStart {
-            sendHeartbeat(elementId: "not_yet_live")
-            return .notLiveYet
-        }
-
-        guard isEnrolled else {
-            if todayStart > endDateStart {
-                sendHeartbeat(elementId: "challenge_no_streak")
-                return .challengeConcludedNoStreak
+            var seen = Set<String>()
+            var pages: [WMFPage] = []
+            for pageView in pageViews {
+                guard let page = pageView.page,
+                      let projectID = page.projectID,
+                      let title = page.title,
+                      !seen.contains(title) else { continue }
+                seen.insert(title)
+                pages.append(WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title))
             }
-            sendHeartbeat(elementId: "not_enrolled")
-            return .notEnrolled
-        }
-
-        let (streak, hasReadToday, streakStartedAfterEnrollmentCutoff) = try await computeStreak(
-            calendar: calendar,
-            now: now,
-            startDate: config.startDate,
-            endDate: config.endDate
-        )
-
-        let cappedStreak = min(streak, config.streakGoal)
-
-        if sharedDefaultsBool(.readingChallengeUserCompleted) {
-            sendHeartbeat(elementId: "challenge_completed", actionContext: [
-                "streak_count": cappedStreak,
-                "streak_complete": true
-            ])
-            return .challengeCompleted
-        }
-
-        if cappedStreak >= config.streakGoal {
-            setSharedDefaultsBool(.readingChallengeUserCompleted, value: true)
-            sendHeartbeat(elementId: "challenge_completed", actionContext: [
-                "streak_count": cappedStreak,
-                "streak_complete": true
-            ])
-            return .challengeCompleted
-        }
-
-        if todayStart > endDateStart {
-            if streakStartedAfterEnrollmentCutoff {
-                sendHeartbeat(elementId: "challenge_no_streak", actionContext: [
-                    "streak_count": cappedStreak,
-                    "streak_complete": false
-                ])
-                return .challengeConcludedNoStreak
-            }
-
-            if cappedStreak == 0 {
-                let highestStreak = try await computeLongestStreak(calendar: calendar, now: now, startDate: config.startDate)
-                if highestStreak > 1 {
-                    sendHeartbeat(elementId: "challenge_incomplete", actionContext: [
-                        "streak_count": highestStreak,
-                        "streak_complete": false
-                    ])
-                    return .challengeConcludedIncomplete(streak: highestStreak)
-                } else {
-                    sendHeartbeat(elementId: "challenge_no_streak", actionContext: [
-                        "streak_count": 0,
-                        "streak_complete": false
-                    ])
-                    return .challengeConcludedNoStreak
-                }
-            }
-        }
-
-        if todayStart > maxDateToCompleteStreak {
-            if cappedStreak > 1 {
-                sendHeartbeat(elementId: "challenge_incomplete", actionContext: [
-                    "streak_count": cappedStreak,
-                    "streak_complete": false
-                ])
-                return .challengeConcludedIncomplete(streak: cappedStreak)
-            } else {
-                sendHeartbeat(elementId: "challenge_no_streak", actionContext: [
-                    "streak_count": cappedStreak,
-                    "streak_complete": false
-                ])
-                return .challengeConcludedNoStreak
-            }
-        }
-
-        if cappedStreak == 0 {
-            sendHeartbeat(elementId: "enrolled_not_started", actionContext: [
-                "streak_count": 0
-            ])
-            return .enrolledNotStarted
-        }
-
-        if hasReadToday {
-            sendHeartbeat(elementId: "streak_ongoing_read", actionContext: [
-                "streak_count": cappedStreak,
-                "streak_complete": false
-            ])
-            return .streakOngoingRead(streak: cappedStreak)
-        } else {
-            sendHeartbeat(elementId: "streak_ongoing", actionContext: [
-                "streak_count": cappedStreak,
-                "streak_complete": false
-            ])
-            return .streakOngoingNotYetRead(streak: cappedStreak)
-        }
-    }
-
-    private func computeStreak(
-        calendar: Calendar,
-        now: Date,
-        startDate: Date,
-        endDate: Date
-    ) async throws -> (streak: Int, hasReadToday: Bool, streakStartedAfterEnrollmentCutoff: Bool) {
-
-        let backgroundContext = try coreDataStore.newBackgroundContext
-
-        return try await backgroundContext.perform {
-            let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
-            fetchRequest.propertiesToFetch = ["timestamp"]
-            let allViews = try backgroundContext.fetch(fetchRequest)
-
-            let startOfChallengeStart = calendar.startOfDay(for: startDate)
-
-            var daysWithRead = Set<DateComponents>()
-            for view in allViews {
-                guard let ts = view.timestamp else { continue }
-                guard calendar.startOfDay(for: ts) >= startOfChallengeStart else { continue }
-                let comps = calendar.dateComponents([.year, .month, .day], from: ts)
-                daysWithRead.insert(comps)
-            }
-
-            let todayStart = calendar.startOfDay(for: now)
-            let todayComps = calendar.dateComponents([.year, .month, .day], from: todayStart)
-            let hasReadToday = daysWithRead.contains(todayComps)
-
-            var streak = 0
-            var cursor = todayStart
-            var streakStartDate: Date = todayStart
-
-            while true {
-                let cursorComps = calendar.dateComponents([.year, .month, .day], from: cursor)
-
-                if cursor == todayStart {
-                    guard let yesterday = calendar.date(byAdding: .day, value: -1, to: cursor) else { break }
-                    cursor = yesterday
-                    continue
-                }
-
-                if daysWithRead.contains(cursorComps) {
-                    streak += 1
-                    streakStartDate = cursor
-                    guard let prev = calendar.date(byAdding: .day, value: -1, to: cursor) else { break }
-                    cursor = prev
-                } else {
-                    break
-                }
-            }
-
-            if hasReadToday {
-                streak += 1
-                if streak == 1 { streakStartDate = todayStart }
-            }
-
-            let endDateStart = calendar.startOfDay(for: endDate)
-            let streakStartedAfterEnrollmentCutoff = streak > 0 && streakStartDate > endDateStart
-
-            return (streak, hasReadToday, streakStartedAfterEnrollmentCutoff)
-        }
-    }
-
-    private func computeLongestStreak(
-        calendar: Calendar,
-        now: Date,
-        startDate: Date
-    ) async throws -> Int {
-
-        let startOfChallengeStart = calendar.startOfDay(for: startDate)
-        let todayStart = calendar.startOfDay(for: now)
-
-        guard todayStart >= startOfChallengeStart else { return 0 }
-
-        let backgroundContext = try coreDataStore.newBackgroundContext
-
-        return try await backgroundContext.perform {
-            let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
-            fetchRequest.propertiesToFetch = ["timestamp"]
-            let allViews = try backgroundContext.fetch(fetchRequest)
-
-            var daysWithRead = Set<DateComponents>()
-            for view in allViews {
-                guard let ts = view.timestamp else { continue }
-                guard calendar.startOfDay(for: ts) >= startOfChallengeStart else { continue }
-                let comps = calendar.dateComponents([.year, .month, .day], from: ts)
-                daysWithRead.insert(comps)
-            }
-
-            var longestStreak = 0
-            var currentStreak = 0
-            var cursor = startOfChallengeStart
-
-            while cursor <= todayStart {
-                let comps = calendar.dateComponents([.year, .month, .day], from: cursor)
-                if daysWithRead.contains(comps) {
-                    currentStreak += 1
-                    longestStreak = max(longestStreak, currentStreak)
-                } else {
-                    currentStreak = 0
-                }
-                guard let next = calendar.date(byAdding: .day, value: 1, to: cursor) else { break }
-                cursor = next
-            }
-
-            return longestStreak
+            return pages
         }
     }
 }

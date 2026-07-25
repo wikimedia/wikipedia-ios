@@ -10,10 +10,10 @@ permissions:
 
 jobs:
   Tag-Latest-Beta:
-    runs-on: macOS-latest
+    runs-on: macos-26
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Get tags
         run: git fetch --tags origin
       - name: Checkout and pull latest

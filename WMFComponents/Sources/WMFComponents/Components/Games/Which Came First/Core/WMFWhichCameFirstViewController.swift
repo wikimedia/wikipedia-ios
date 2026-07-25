@@ -54,12 +54,16 @@ public final class WMFWhichCameFirstHostingController: WMFComponentHostingContro
         super.viewWillAppear(animated)
         configureNavigationBar()
         viewModel.load()
+        viewModel.onDateChanged = { [weak self] in
+            self?.configureNavigationBar()
+        }
         (self.navigationController as? WMFComponentNavigationController)?.turnOnForcePortrait()
     }
+    
 
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(
-            title: DateFormatter.wmfMonthDayFromDailyGameDate(viewModel.date),
+            title: DateFormatter.wmfMonthDayYearFromDailyGameDate(viewModel.date),
             customView: nil,
             alignment: .centerCompact
         )
@@ -92,7 +96,7 @@ public final class WMFWhichCameFirstHostingController: WMFComponentHostingContro
     }
 
     @objc private func tappedClose() {
-        viewModel.didTapExitDuringPlay?(viewModel.currentIndex + 1)
+        viewModel.didTapExitDuringPlay?(viewModel.currentIndex + 1, viewModel.phase == .complete)
         dismiss(animated: true)
     }
 }

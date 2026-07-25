@@ -25,6 +25,7 @@ public enum WMFAccountLoginError: LocalizedError {
     case wrongPassword(MediaWikiMessage?)
     case wrongToken(MediaWikiMessage?)
     case captchaRequired(String?, MediaWikiMessage?)
+    case hCaptchaRequired(String?, MediaWikiMessage?)
     case authManagerInfoRequired(MediaWikiMessage?, [String: Any])
     case failedToParseAuthManagerInfo(MediaWikiMessage?)
     case invalidSiteURL
@@ -41,6 +42,8 @@ public enum WMFAccountLoginError: LocalizedError {
              .authManagerInfoRequired(let message, _):
             return message?.text
         case .captchaRequired(_, let message):
+            return message?.text
+        case .hCaptchaRequired(_, let message):
             return message?.text
         case .wrongToken:
             return WMFLocalizedString("field-alert-token-invalid", value:"Invalid code", comment:"Alert shown if token is not correct")
@@ -62,6 +65,8 @@ public enum WMFAccountLoginError: LocalizedError {
             return message?.code
         case .captchaRequired(_, let message):
             return message?.code
+        case .hCaptchaRequired(_, let message):
+            return message?.code
         case .cannotExtractLoginStatus:
             return nil
         case .invalidSiteURL:
@@ -81,7 +86,7 @@ public typealias Username = String
 
 public class WMFAccountLoginLogoutFetcher: Fetcher {
     
-    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, emailAuthCode: String?, captchaID: String?, captchaWord: String?, siteURL: URL, reattemptOn401Response: Bool = false, attempt: Int = 0, newModule: String? = nil, success: @escaping (Username) -> Void, failure: @escaping WMFErrorHandler) {
+    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, emailAuthCode: String?, captchaID: String?, captchaWord: String?, hCaptchaToken: String? = nil, siteURL: URL, reattemptOn401Response: Bool = false, attempt: Int = 0, newModule: String? = nil, success: @escaping (Username) -> Void, failure: @escaping WMFErrorHandler) {
         
         let attempt = attempt + 1
 
@@ -112,7 +117,8 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
         if let captchaID = captchaID {
             parameters["captchaId"] = captchaID
         }
-        if let captchaWord = captchaWord {
+        // The hCaptcha token is submitted in the same `captchaWord` field the classic captcha solution uses.
+        if let captchaWord = hCaptchaToken ?? captchaWord {
             parameters["captchaWord"] = captchaWord
         }
         
@@ -158,6 +164,28 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
                         case .success(let authInfo):
                             guard let requests = authInfo["requests"] as? [[String: Any]] else {
                                 failure(WMFAccountLoginError.failedToParseAuthManagerInfo(message))
+                                return
+                            }
+
+                            // If the failure is captcha-related and the server offers an hCaptcha challenge, prompt for hCaptcha.
+                            let hCaptchaRequest = requests.first { request in
+                                guard let id = (request["id"] as? String)?.lowercased(),
+                                      id.contains("captcha"),
+                                      let metadata = request["metadata"] as? [String: Any],
+                                      let type = (metadata["type"] as? String)?.lowercased(),
+                                      type.contains("hcaptcha") else {
+                                    return false
+                                }
+                                return true
+                            }
+
+                            if let hCaptchaRequest,
+                               let messageCode,
+                               messageCode.lowercased().contains("captcha"),
+                               !messageCode.lowercased().contains("error") {
+                                // `metadata.key` is the hCaptcha site key to use for this challenge.
+                                let siteKey = (hCaptchaRequest["metadata"] as? [String: Any])?["key"] as? String
+                                failure(WMFAccountLoginError.hCaptchaRequired(siteKey, message))
                                 return
                             }
 
@@ -227,7 +255,7 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
                        allowedModules.contains("totp"),
                        attempt == 1 {
                         // repeat call once, passing in "newModule=totp" https://phabricator.wikimedia.org/T399654#11133473
-                        login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, emailAuthCode: emailAuthCode, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, attempt: attempt, newModule: "totp", success: success, failure: failure)
+                        login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, emailAuthCode: emailAuthCode, captchaID: captchaID, captchaWord: captchaWord, hCaptchaToken: hCaptchaToken, siteURL: siteURL, attempt: attempt, newModule: "totp", success: success, failure: failure)
                         return
                     }
 

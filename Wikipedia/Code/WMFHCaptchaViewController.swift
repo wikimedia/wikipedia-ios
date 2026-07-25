@@ -35,7 +35,11 @@ class WMFHCaptchaViewController: ThemeableViewController {
     // MARK: - HCaptcha
     var hCaptcha: HCaptcha?
     var captchaWebView: WKWebView?
-    
+
+    /// Site key provided by the server (via authmanagerinfo `metadata.key`) for this challenge.
+    /// When set, it takes precedence over the site key in the remote feature config.
+    var siteKey: String?
+
     var successAction: ((String) -> Void)?
     var errorAction: ((Error) -> Void)?
 
@@ -110,7 +114,7 @@ class WMFHCaptchaViewController: ThemeableViewController {
                       return
                   }
             
-            let apiKey = WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge ? "45205f58-be1c-40f0-b286-07a4498ea3da" : config.apiKey
+            let apiKey = WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge ? "45205f58-be1c-40f0-b286-07a4498ea3da" : (siteKey ?? config.apiKey)
             hCaptcha = try HCaptcha(apiKey: apiKey,
                                      baseURL: baseURL,
                                      jsSrc: jsSrc,

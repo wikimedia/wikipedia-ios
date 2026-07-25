@@ -34,7 +34,7 @@
 "account-creation-captcha-request-account" = "گڼون غوښتنه.";
 "account-creation-captcha-title" = "د کپچا خونديتوب کتنه";
 "account-creation-create-account" = "گڼون مو جوړ کړئ";
-"account-creation-have-account" = "لهٔ مخکې څخه گڼون لرې؟ $1";
+"account-creation-have-account" = "له مخکې څخه گڼون لرې؟ $1";
 "account-creation-log-in" = "ننوتل";
 "account-creation-logging-in" = "په ننوتلو کې دی...";
 "account-creation-missing-fields" = "تاسو بايد کارن‌نوم، پټنوم او پټنوم تاييد وليکئ؛ ترڅو يو گڼون جوړ کړئ.";
@@ -75,7 +75,7 @@
 "action-undo" = "ناکړل";
 "action-unsave" = "ناخوندي‌کول";
 "action-unsaved-accessibility-notification" = "ليکنه ناخوندي‌شوې";
-"action-update" = "اوسمهالول";
+"action-update" = "هم‌مهالول";
 "activity-tab-add-images-subtitle" = "د پوهاوي لوړولو لپاره د ويکيپېډيا ليکنو ته وړانديز شوي انځورونه ورگډ کړئ.";
 "activity-tab-add-images-title" = "انځورونه ورگډول";
 "activity-tab-additional-thoughts" = "کوم زياتي اندونه لرئ؟";
@@ -387,6 +387,7 @@
 "nearby-distance-label-meters" = "$1 متر";
 "nearby-distance-label-miles" = "$1 ميله";
 "page-history-bot-edits" = "روباټ";
+"page-history-graph-accessibility-label" = "د وخت په تېرېدو سره د سمونونو گراف";
 "page-protected-can-not-edit-title" = "دا مخ ژغورل شوی";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 ليکنې|$1 ليکنې}}";
 "potd-description-prefix" = "د $1 د ورځې انځور";

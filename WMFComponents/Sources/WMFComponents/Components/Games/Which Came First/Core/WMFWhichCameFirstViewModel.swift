@@ -92,7 +92,7 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     @Published var showCardB = false
     @Published var progressResults: [Bool?] = []
 
-    public let date: String
+    public private(set) var date: String
     public lazy var localizedStrings: LocalizedStrings = WMFWhichCameFirstViewModel.LocalizedStrings(
         title: WMFLocalizedString("which-came-first-title", value: "Which came first?", comment: "Title prompt shown to the user during the Which Came First game"),
         submitButton: WMFLocalizedString("which-came-first-submit-button", value: "Submit", comment: "Button label to submit the user's selected answer in the Which Came First game"),
@@ -130,13 +130,15 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
     public var onArticleTapToEvent: WMFWhichCameFirstArticlesViewModel.ArticleEventTapAction?
     public var didTapLearnMore: (@MainActor @Sendable () -> Void)?
     public var didTapReportProblem: (@MainActor @Sendable () -> Void)?
+    public var onPlayArchive: (@MainActor @Sendable () -> Void)?
+    public var onDateChanged: (@MainActor @Sendable () -> Void)?
 
     // MARK: - Instrumentation Callbacks
 
     /// Slide becomes visible. Index is 1-based (game_play_1 … game_play_5).
     public var didImpressionSlide: (@MainActor @Sendable (_ slideIndex: Int) -> Void)?
     /// Taps the exit button during gameplay. Index is 1-based.
-    public var didTapExitDuringPlay: (@MainActor @Sendable (_ slideIndex: Int) -> Void)?
+    public var didTapExitDuringPlay: (@MainActor @Sendable (_ slideIndex: Int, _ isComplete: Bool) -> Void)?
     /// Taps Submit on a question. Index is 1-based.
     public var didSubmitAnswer: (@MainActor @Sendable (_ slideIndex: Int) -> Void)?
     /// Last question is answered and the game transitions to complete.
@@ -204,6 +206,33 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
         self.dataController = WMFGamesDataController()
     }
 
+    // MARK: - Archive reload
+
+    /// Reloads the game with a different date, e.g. when the user picks a date
+    /// from the archive. Cancels any in-flight work, resets all state, then
+    /// triggers a fresh load as if the view model were brand-new.
+    public func reload(with newDate: String) {
+        loadTask?.cancel()
+        animationTask?.cancel()
+        date = newDate
+        hasLoaded = false
+        gameState = nil
+        sessionIdentifier = nil
+        currentIndex = 0
+        score = 0
+        progressResults = []
+        selectedOption = nil
+        revealState = nil
+        cardViewModelA = nil
+        cardViewModelB = nil
+        showTitle = false
+        showCardA = false
+        showCardB = false
+        phase = .loading
+        load()
+        onDateChanged?()
+    }
+
     func load() {
         guard !hasLoaded else { return }
         hasLoaded = true
@@ -258,7 +287,6 @@ public final class WMFWhichCameFirstViewModel: ObservableObject, Identifiable {
               let question = currentQuestion,
               let sessionID = sessionIdentifier else { return }
 
-        // Fire before kicking off the async work; index is 1-based to match game_play_1–5
         didSubmitAnswer?(currentIndex + 1)
 
         phase = .revealing

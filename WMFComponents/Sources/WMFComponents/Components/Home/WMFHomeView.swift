@@ -1,4 +1,5 @@
 import SwiftUI
+import WMFData
 
 public struct WMFHomeView: View {
 
@@ -15,60 +16,110 @@ public struct WMFHomeView: View {
         VStack(spacing: 0) {
             HStack {
                 Picker("", selection: $viewModel.selectedTab) {
-                    Text(viewModel.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
                     Text(viewModel.communityTabTitle).tag(WMFHomeViewModel.Tab.community)
+                    Text(viewModel.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
+
                 }
                 .pickerStyle(.segmented)
 
-                Menu {
-                    ForEach(viewModel.languages) { language in
-                        Button {
-                            viewModel.didSelectLanguage?(language.code)
-                        } label: {
-                            if language.code == viewModel.selectedLanguageCode {
-                                Label(language.localizedName, systemImage: "checkmark")
-                            } else {
-                                Text(language.localizedName)
+                if viewModel.shouldShowLanguagePicker {
+                    Menu {
+                        ForEach(viewModel.languages) { language in
+                            Button {
+                                viewModel.didSelectLanguage?(language)
+                            } label: {
+                                if language.languageCode == viewModel.selectedLanguage?.languageCode {
+                                    Label(language.localizedName, systemImage: "checkmark")
+                                } else {
+                                    Text(language.localizedName)
+                                }
                             }
                         }
-                    }
 
-                    Divider()
+                        Divider()
 
-                    Button {
-                        viewModel.didTapEditLanguages?()
+                        Button {
+                            viewModel.didTapEditLanguages?()
+                        } label: {
+                            Label(viewModel.editLanguagesTitle, systemImage: "globe")
+                        }
                     } label: {
-                        Label(viewModel.editLanguagesTitle, systemImage: "globe")
+                        Text(viewModel.languageButtonTitle)
+                            .font(Font(WMFFont.for(.semiboldHeadline)))
+                            .foregroundStyle(Color(uiColor: theme.link))
                     }
-                } label: {
-                    Text(viewModel.languageButtonTitle)
-                        .font(Font(WMFFont.for(.semiboldHeadline)))
-                        .foregroundStyle(Color(uiColor: theme.link))
+                    .accessibilityIdentifier(AccessibilityIdentifiers.Home.languagePickerButton)
                 }
-                .accessibilityIdentifier(AccessibilityIdentifiers.Home.languagePickerButton)
             }
             .padding()
 
-            Spacer()
-
-            // Temporary placeholder content until the Home feed is built out.
-            Text(currentTabTitle)
-                .font(Font(WMFFont.for(.headline)))
-                .foregroundStyle(Color(uiColor: theme.secondaryText))
-
-            Spacer()
+            if viewModel.selectedTab == .forYou {
+                forYouTabContent
+            } else {
+                communityTabContent
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(uiColor: theme.paperBackground))
         .environment(\.colorScheme, theme.preferredColorScheme)
+        .task {
+            viewModel.loadCurrentTabFeedIfNeeded()
+        }
+        .onChange(of: viewModel.selectedTab) { _ in
+            viewModel.loadCurrentTabFeedIfNeeded()
+        }
     }
 
-    private var currentTabTitle: String {
-        switch viewModel.selectedTab {
-        case .forYou:
-            return viewModel.forYouTabTitle
-        case .community:
-            return viewModel.communityTabTitle
+    @ViewBuilder
+    private var forYouTabContent: some View {
+        if let forYouViewModel = viewModel.forYouViewModel {
+            WMFForYouView(
+                viewModel: forYouViewModel,
+                moduleVisibility: viewModel.forYouModuleVisibility,
+                hiddenCardKeys: viewModel.hiddenCardKeySet,
+                onRefresh: { await viewModel.refreshForYouFeed() },
+                onHideModule: { viewModel.hideForYouModule($0) },
+                onHideCard: { viewModel.hideForYouCard($0) },
+                onCustomizeInterests: { viewModel.didTapCustomizeInterests?() }
+            )
+        } else if viewModel.isLoadingForYou {
+            Spacer()
+            ProgressView()
+            Spacer()
+        } else {
+            Spacer()
+            Text(viewModel.forYouTabTitle)
+                .font(Font(WMFFont.for(.headline)))
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
+            Spacer()
+        }
+    }
+
+    @ViewBuilder
+    private var communityTabContent: some View {
+        if let makeEmbeddedViewController = viewModel.makeEmbeddedCommunityViewController {
+            WMFHomeEmbeddedCommunityView(makeViewController: makeEmbeddedViewController)
+        } else if !viewModel.communityPages.isEmpty {
+            WMFCommunityFeedView(
+                pages: viewModel.communityPages,
+                moduleVisibility: viewModel.communityModuleVisibility,
+                hiddenCardKeys: viewModel.hiddenCardKeySet,
+                isLoadingPreviousPage: viewModel.isLoadingCommunityPreviousPage,
+                onHideModule: { viewModel.hideModule($0) },
+                onHideCard: { viewModel.hideCard(key: $0) },
+                onRefresh: { await viewModel.refreshCommunityFeed() },
+                onTapSeePastContent: { viewModel.loadCommunityPreviousPage() }
+            )
+        } else if viewModel.isLoadingCommunity {
+            Spacer()
+            ProgressView()
+            Spacer()
+        } else {
+            Spacer()
+            Text(viewModel.communityTabTitle)
+                .font(Font(WMFFont.for(.headline)))
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
+            Spacer()
         }
     }
 }

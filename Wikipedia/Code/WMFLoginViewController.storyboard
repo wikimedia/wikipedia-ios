@@ -144,6 +144,13 @@
                                                             <action selector="loginButtonTappedWithSender:" destination="mbm-n6-GWW" eventType="touchUpInside" id="hfj-DJ-2AQ"/>
                                                         </connections>
                                                     </button>
+                                                    <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="`" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Hc1-Fp-tv0" userLabel="hCaptcha Fine Print Text View">
+                                                        <rect key="frame" x="0.0" y="463" width="288" height="0.0"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <color key="textColor" systemColor="labelColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    </textView>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="288" id="KRB-WU-5eu"/>
@@ -182,6 +189,7 @@
                         <outlet property="captchaContainer" destination="DZK-nT-oqo" id="huS-0D-XXz"/>
                         <outlet property="createAccountButton" destination="jiW-Cg-oL3" id="Yk9-jI-doe"/>
                         <outlet property="forgotPasswordButton" destination="LDv-H3-IXL" id="qIN-wb-OOS"/>
+                        <outlet property="hcaptchaFinePrintTextView" destination="Hc1-Fp-tv0" id="Hc2-Fp-ou0"/>
                         <outlet property="loginButton" destination="d0a-BA-vwt" id="A3V-ih-aBb"/>
                         <outlet property="passwordAlertLabel" destination="HxZ-Ry-50e" id="rW0-Ht-vIF"/>
                         <outlet property="passwordField" destination="kVb-lx-d6C" id="CMg-WD-j0S"/>

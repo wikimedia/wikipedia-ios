@@ -206,6 +206,7 @@
 "history-title" = "ইতিহাস";
 "home-button-explore-accessibility-label" = "উইকিপিডিয়া, অন্বেষণে ফেরত যান";
 "home-button-saved-accessibility-label" = "উইকিপিডিয়া, সংরক্ষণে ফেরত যান";
+"home-feed-for-you-continue-reading-subtitle" = "আপনার শেষ না করা নিবন্ধগুলোতে ফিরে যান";
 "home-more-like-footer" = "$1 এর মতো আরও";
 "home-nearby-footer" = "আপনার কাছাকাটি আরও স্থান";
 "home-nearby-location-footer" = "$1-এর আরো কাছাকাছি";
@@ -434,6 +435,8 @@
 "welcome-intro-free-encyclopedia-title" = "একটি মুক্ত বিশ্বকোষ";
 "welcome-languages-add-button" = "আরেকটি ভাষা যোগ করুন";
 "welcome-languages-search-title" = "৩০০টি অধিক ভাষায় অন্বেষণ করুন";
+"which-came-first-archive-nav-title" = "সংগ্রহশালা";
+"which-came-first-archive-title" = "কোনটি আগে এসেছে?";
 "wikitext-preview-changes" = "আপনার পরিবর্তনগুলির প্রাকদর্শন উদ্ধার হচ্ছে...";
 "wikitext-preview-link-preview-title" = "লিঙ্ক প্রাকদর্শন";
 "wikitext-preview-save-changes-title" = "পরিবর্তন সংরক্ষণ";

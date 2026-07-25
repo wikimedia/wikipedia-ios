@@ -100,6 +100,32 @@ public actor WMFSavedArticlesDataController {
         }
     }
 
+    public func fetchRecentlySavedArticles(limit: Int = 3) async throws -> [WMFPageWithTimestamp] {
+        guard let coreDataStore else { throw WMFDataControllerError.coreDataStoreUnavailable }
+        let context = try coreDataStore.newBackgroundContext
+
+        return try await context.perform {
+            let sortDescriptor = NSSortDescriptor(key: "savedInfo.savedDate", ascending: false)
+            let predicate = NSPredicate(format: "savedInfo != nil")
+
+            guard let pages: [CDPage] = try coreDataStore.fetch(
+                entityType: CDPage.self,
+                predicate: predicate,
+                fetchLimit: limit,
+                sortDescriptors: [sortDescriptor],
+                in: context
+            ) else { return [] }
+
+            return pages.compactMap { page in
+                guard let projectID = page.projectID,
+                      let title = page.title, !title.isEmpty,
+                      let savedDate = page.savedInfo?.savedDate else { return nil }
+                let wmfPage = WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title)
+                return WMFPageWithTimestamp(page: wmfPage, timestamp: savedDate)
+            }
+        }
+    }
+
     public func fetchTimelinePages() async throws -> [WMFPageWithTimestamp] {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable

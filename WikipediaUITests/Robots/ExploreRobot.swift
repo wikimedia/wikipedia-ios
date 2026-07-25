@@ -130,13 +130,18 @@ extension ExploreRobot {
 
         switch tab {
         case .search:
-            base.assertExists(
-                searchView,
-                timeout: 15,
-                description: "Search view",
-                file: file,
-                line: line
-            )
+            if !searchView.waitForExistence(timeout: 15) {
+                let retryButton = rootTabButton(for: tab)
+                base.assertVisible(retryButton, timeout: 5, description: tab.description, file: file, line: line)
+                base.tapCenter(of: retryButton, file: file, line: line)
+                base.assertExists(
+                    searchView,
+                    timeout: 15,
+                    description: "Search view",
+                    file: file,
+                    line: line
+                )
+            }
         case .places:
             base.assertSelected(button, timeout: 10, description: tab.description, file: file, line: line)
             dismissPlacesLocationPromptIfNeeded(file: file, line: line)

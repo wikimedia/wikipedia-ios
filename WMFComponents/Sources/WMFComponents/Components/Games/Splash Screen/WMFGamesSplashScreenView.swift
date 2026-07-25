@@ -3,7 +3,7 @@ import SwiftUI
 public struct WMFGamesSplashScreenView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @ObservedObject var viewModel: WMFGamesSplashScreenViewModel
+    @ObservedObject public var viewModel: WMFGamesSplashScreenViewModel
 
     public init(viewModel: WMFGamesSplashScreenViewModel) {
         self.viewModel = viewModel

@@ -15,7 +15,27 @@ final class WMFUserDefaultsStoreTests: XCTestCase {
         }
     }
 
-    let userDefaultsStore = WMFUserDefaultsStore()
+    private var defaultsSuiteName: String!
+    private var defaults: UserDefaults!
+    private var userDefaultsStore: WMFUserDefaultsStore!
+
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+
+        defaultsSuiteName = "WMFUserDefaultsStoreTests-\(UUID().uuidString)"
+        defaults = try XCTUnwrap(UserDefaults(suiteName: defaultsSuiteName))
+        defaults.removePersistentDomain(forName: defaultsSuiteName)
+        userDefaultsStore = WMFUserDefaultsStore(defaults: defaults)
+    }
+
+    override func tearDownWithError() throws {
+        defaults?.removePersistentDomain(forName: defaultsSuiteName)
+        userDefaultsStore = nil
+        defaults = nil
+        defaultsSuiteName = nil
+
+        try super.tearDownWithError()
+    }
     
     func testLoadAndSaveSingleKeyString() throws {
         let testStringToSave = "String Test"

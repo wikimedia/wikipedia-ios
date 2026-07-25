@@ -10,6 +10,14 @@ We have a Github Action [workflow](../.github/workflows/localization.yml) that a
 
 Our PR unit tests are run in a GitHub Action workflow named "Run Unit Tests". This kicks off any time a PR is opened or changed against the main branch.
 
+## UI Tests
+
+UI-test workflow details are covered in the [UI-test GitHub Actions mapping](../WikipediaUITests/GITHUB_ACTIONS.md).
+
+In short:
+- `Run UI Tests` is the fixture-backed `WikipediaUITests` lane. It runs on nightly `repository_dispatch` and manual release-tag dispatch using the `English (Light)` configuration from the `UITests` test plan.
+- `Run E2E Tests` is the live-network smoke lane. It runs on PRs targeting `main` and manual release-tag dispatch using the `English (Light, E2E)` configuration and the test identifiers in `WikipediaUITests/E2ESmokeTests.txt`.
+- `Run Full UI Test Plan` is a manual release-tag lane that builds `WikipediaUITests` once and fans out `test-without-building` jobs for every checked-in `UITests.xctestplan` configuration.
 
 #### Localization Tests - Xcode Cloud workaround 
 *Note: These tweaks were needed to get our localization tests to run in Xcode Cloud. We have since moved tests to GitHub Actions, so it's possible these workarounds are no longer needed. We are keeping our steps here for posterity.*

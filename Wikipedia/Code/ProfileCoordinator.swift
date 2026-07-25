@@ -294,7 +294,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
 
     private func login() {
-        let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme)
+        let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme, loggingCategory: .setting)
         loginCoordinator.start()
     }
 

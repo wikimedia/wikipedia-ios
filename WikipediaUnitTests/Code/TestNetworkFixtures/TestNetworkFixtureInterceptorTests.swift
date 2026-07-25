@@ -4,9 +4,14 @@ import Testing
 import WMFData
 
 @Suite(.serialized)
-struct TestNetworkFixtureInterceptorTests {
-    init() {
+final class TestNetworkFixtureInterceptorTests {
+
+    private let fixture = WMFDataTestFixture()
+
+    init() async {
+        await fixture.setUp()
         resetSharedFixtureState()
+        await fixture.resetWMFDataTestState()
     }
 
     @Test
