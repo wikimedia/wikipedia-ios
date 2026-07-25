@@ -2,7 +2,9 @@ import Foundation
 import WMF
 import WMFData
 
-@objc(WMFClientErrorFunnel) public final class ClientErrorFunnel: NSObject {
+// Stateless — no stored properties, and EventPlatformClient.submit handles its
+// own synchronization — so it is safe to use from any thread.
+@objc(WMFClientErrorFunnel) public final class ClientErrorFunnel: NSObject, @unchecked Sendable {
 
     @objc public static let shared = ClientErrorFunnel()
 
