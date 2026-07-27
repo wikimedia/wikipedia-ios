@@ -97,7 +97,7 @@ class DonateCoordinator: Coordinator {
             parameterizedUrl = "https://donate.wikimedia.org/?wmf_medium=WikipediaApp&wmf_campaign=$platform;&wmf_source=$formattedId;&uselang=$language;&app_install_id=$appInstallId;&app_version=$appVersion;"
         }
 
-        let appVersion = Bundle.main.wmf_debugVersion()
+        let appVersion = Bundle.main.wmf_appVersion()
         let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
         
         let finalUrlString = parameterizedUrl
@@ -328,7 +328,7 @@ class DonateCoordinator: Coordinator {
             return nil
         }
 
-        let appVersion = Bundle.main.wmf_debugVersion()
+        let appVersion = Bundle.main.wmf_appVersion()
         let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
 
         let donateDataController = WMFDonateDataController.shared
