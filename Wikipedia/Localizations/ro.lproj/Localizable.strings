@@ -3,6 +3,7 @@
 // Author: ANDROBETA
 // Author: Alesaru
 // Author: Andreyyshore
+// Author: Chemballs
 // Author: Cleinman
 // Author: Dimitrie569
 // Author: Firilacroco
@@ -88,6 +89,15 @@
 "action-update" = "Actualizați";
 "add-articles-to-reading-list" = "Adaugă {{PLURAL:$1|$1 articol|$1 articole}} la lista de citire";
 "announcements-dismiss" = "Respinge";
+"app-onboarding-data-privacy-policy-link" = "politica de confidențialitate";
+"app-onboarding-data-privacy-terms-link" = "termeni de utilizare";
+"app-onboarding-data-privacy-title" = "Date & Confidențialitate";
+"app-onboarding-feed-preference-in-the-news" = "De actualitate";
+"app-onboarding-feed-preference-personalized-option" = "Conținut personalizat";
+"app-onboarding-feed-preference-picture-of-the-day" = "Imaginea zilei";
+"app-onboarding-languages-title" = "Citește în peste 300 de limbi";
+"app-onboarding-page-indicator" = "Pagina $1 din $2";
+"app-onboarding-personalization-title" = "Urmează-ți curiozitatea";
 "app-store-keywords" = "Wikipedia, referință, wiki, enciclopedie, informații, cunoștințe, cercetare, informații, explorați, învățați";
 "app-store-release-notes" = "Complet personalizabile și cel mai ușor de citit Explorare flux. Localizare, îmbunătățiri ale performanței și remedieri ale erorilor.";
 "app-store-short-description" = "Descărcați aplicația Wikipedia pentru a explora locațiile din apropierea dvs., pentru a sincroniza articole pentru a citi offline și a personaliza experiența dvs. de citire.";
@@ -396,6 +406,9 @@
 "history-title" = "Istoric";
 "home-button-explore-accessibility-label" = "Wikipedia, reveniți la Explore";
 "home-button-saved-accessibility-label" = "Wikipedia, reveniți la Salvat";
+"home-feed-interests-deselect-all" = "Deselectează tot";
+"home-feed-interests-header-title" = "Ce te interesează?";
+"home-feed-interests-search-placeholder" = "Caută un articol";
 "home-more-like-footer" = "Mai multe precum $1";
 "home-nearby-footer" = "Mai multe articole din aproMai multe locuri lângă locația dvs.pierea dumneavoastră";
 "home-nearby-location-footer" = "Mai multe locuri de lângă $1";

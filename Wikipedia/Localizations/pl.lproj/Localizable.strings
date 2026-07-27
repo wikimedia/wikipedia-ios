@@ -41,7 +41,7 @@
 
 "about-content-license" = "Licencja";
 "about-content-license-details" = "O ile nie zaznaczono inaczej, treść jest dostępna na licencji $1.";
-"about-content-license-details-share-alike-license" = "Licencja Creative Commons Uznanie autorstwa-Na tych samych warunkach";
+"about-content-license-details-share-alike-license" = "Creative Commons: uznanie autorstwa, na tych samych warunkach";
 "about-contributors" = "Autorzy";
 "about-libraries" = "Użyte biblioteki";
 "about-libraries-complete-list" = "Pełna lista";
@@ -104,6 +104,7 @@
 "action-unsave" = "Niezapisane";
 "action-unsaved-accessibility-notification" = "Artykuł niezapisany";
 "action-update" = "Aktualizuj";
+"activity-tab-email-title" = "Zgłoszenie problemu – karta „Aktywność”";
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 artykuł|$1 artykuły}} do listy do przeczytania";
 "announcements-dismiss" = "Odrzuć";
 "app-store-keywords" = "Wikipedia, referencje, wiki, encyklopedia, informacje, wiedza, badania, informacje, eksploracja, nauka";
@@ -236,8 +237,7 @@
 "edit-summary-choice-fixed-typos" = "Poprawiono literówkę";
 "edit-summary-choice-linked-words" = "Dodane linki";
 "edit-summary-placeholder-text" = "Jak poprawiłeś stronę?";
-// Fuzzy
-"edit-watch-list-learn-more-text" = "Dowiedz się więcej o listach obserwacyjnych";
+"edit-watch-list-learn-more-text" = "Dowiedz się więcej o liście obserwowanych";
 "edit-watch-this-page-text" = "Obserwuj tę stronę";
 "editing-welcome-be-bold-subtitle" = "Bądź odważny, ale nie lekkomyślny w aktualizowaniu artykułów. Nie zadręczaj się błędami: każda poprzednia wersja strony jest zapisywana, więc błędy mogą być łatwo naprawione przez naszą społeczność.";
 "editing-welcome-be-bold-title" = "Twój głos jest ważny";
@@ -293,7 +293,7 @@
 "explore-feed-preferences-customize-explore-feed-action-title" = "Dostosuj kanał Eksploruj";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Ukrywanie typu karty spowoduje, że ten typ karty nie pojawi się w kanale Eksploruj.";
 "explore-feed-preferences-explore-tab" = "Karta Eksploruj";
-"explore-feed-preferences-featured-article-description" = "Dzisiejszy wyróżniony artykuł na Wikipedii";
+"explore-feed-preferences-featured-article-description" = "Dzisiejszy wyróżniony artykuł w Wikipedii";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Brak";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Na wszystkich";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Włączony";
@@ -362,7 +362,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Z Wikipedii";
 "explore-randomizer" = "Losowy artykuł";
 "explore-suggested-edits-footer" = "Dodaj";
-"explore-suggested-edits-image-recs-body" = "Dodaj sugerowane obrazy do artykułów na Wikipedii, aby pomóc czytelnikom w ich zrozumieniu.";
+"explore-suggested-edits-image-recs-body" = "Dodaj sugerowane obrazy do artykułów w Wikipedii, aby pomóc czytelnikom w ich zrozumieniu.";
 "explore-suggested-edits-image-recs-title" = "Dodaj obraz";
 "featured-widget-content-failure-for-date" = "Polecany artykuł nie jest dostępny w tym dniu.";
 "featured-widget-description" = "Odkryj najlepsze artykuły w Wikipedii, wybierane codziennie przez naszą społeczność.";
@@ -405,12 +405,17 @@
 "forgot-password-instructions" = "Wypełnij jedno z poniższych pól, aby uzyskać e-mail z instrukcją, jak zresetować hasło";
 "forgot-password-title" = "Zresetuj hasło";
 "forgot-password-username-or-email-title" = "Lub";
+"games-email-report-subject" = "Zgłoszenie problemu – gry Wikipedii";
 "gan-variants-alert-title" = "Aktualizacje obsługi wariantów Gan";
 "history-clear-confirmation-heading" = "Czy na pewno chcesz usunąć wszystkie swoje ostatnie elementy?";
 "history-clear-delete-all" = "Tak, usuń wszystko";
 "history-title" = "Historia";
 "home-button-explore-accessibility-label" = "Wikipedia, wróć do Odkryj";
 "home-button-saved-accessibility-label" = "Wikipedia, wróć do Zapisane";
+"home-community-tab-title" = "Społeczność";
+"home-feed-settings-community-section-title" = "Społeczność";
+"home-feed-settings-for-you-section-title" = "Dla Ciebie";
+"home-for-you-tab-title" = "Dla Ciebie";
 "home-more-like-footer" = "Więcej jak $1";
 "home-nearby-footer" = "Więcej miejsc w pobliżu Twojej lokalizacji";
 "home-nearby-location-footer" = "Więcej niedaleko";
@@ -428,6 +433,7 @@
 "image-rec-onboarding-item-1-body" = "Zdecyduj, czy sugerowany obraz powinien zostać umieszczony w artykule w Wikipedii.";
 "image-rec-onboarding-learn-more-button" = "Dowiedz się więcej o sugerowanych edycjach";
 "image-rec-survey-option-6" = "Inne";
+"image-recommendations-email-title" = "Zgłoszenie problemu – funkcja „Dodaj obraz”";
 "image-recs-no-title" = "Nie";
 "image-recs-yes-title" = "Tak";
 "in-the-news-sub-title-from-language-wikipedia" = "Z $1 Wikipedii";
@@ -489,7 +495,7 @@
 "main-menu-terms-of-use" = "Warunki użytkowania";
 "main-menu-title" = "Więcej";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
-"more-languages-tooltip-description" = "Szukaj na Wikipedii w ponad 300 językach";
+"more-languages-tooltip-description" = "Szukaj w Wikipedii w ponad 300 językach";
 "more-languages-tooltip-title" = "Dodaj języki";
 "more-menu" = "Więcej";
 "move-articles-to-reading-list" = "Przenieś {{PLURAL:$1|$1 artykuł|$1 artykuły}} do listy do przeczytania";
@@ -582,7 +588,7 @@
 "notifications-center-type-title-user-rights-change" = "Zmiana uprawnień użytkownika";
 "notifications-center-type-title-user-talk-page-messsage" = "Wiadomość na stronie dyskusji";
 "notifications-center-type-title-welcome" = "Witaj";
-"notifications-push-fallback-body-text" = "Nowa aktywność na Wikipedii";
+"notifications-push-fallback-body-text" = "Nowa aktywność w Wikipedii";
 "number-billions" = "$1 mld";
 "number-millions" = "$1 mln";
 "number-thousands" = "$1 tys.";
@@ -798,7 +804,7 @@
 "settings-storage-and-syncing-title" = "Przechowywanie i synchronizacja artykułów";
 "settings-title" = "Ustawienia";
 "share-a-fact-made-with" = "Wykonane za pomocą aplikacji Wikipedia";
-"share-article-name-on-wikipedia" = "\"$1\" na Wikipedii:";
+"share-article-name-on-wikipedia" = "„$1” w Wikipedii:";
 "share-default-format" = "„$1” z „$1”: $3";
 "share-email-format" = "„$1”\n\nz „$2”\n\n$3";
 "share-get-directions-in-maps" = "Uzyskaj wskazówki";
@@ -871,7 +877,7 @@
 "welcome-exploration-places-description" = "Odkrywaj punkty orientacyjne w pobliżu lub szukaj miejsc na całym świecie";
 "welcome-explore-continue-button" = "Rozpocznij";
 "welcome-explore-new-ways-title" = "Nowe metody eksploracji";
-"welcome-explore-tell-me-more-done-button" = "Wszystko jasne";
+"welcome-explore-tell-me-more-done-button" = "Jasne";
 "welcome-intro-free-encyclopedia-description" = "Wikipedia jest tworzona wspólnie przez wolontariuszy i składa się z ponad 40 milionów artykułów w ponad 300 językach.";
 "welcome-intro-free-encyclopedia-more" = "Dowiedz się więcej o Wikipedii";
 "welcome-intro-free-encyclopedia-more-about" = "O Wikipedii";
@@ -887,7 +893,7 @@
 "wikitext-preview-changes" = "Uzyskiwanie podglądu wprowadzonych zmian...";
 "wikitext-preview-link-external-preview-description" = "Ten link prowadzi do zewnętrznej strony internetowej: $1";
 "wikitext-preview-link-external-preview-title" = "Link zewnętrzny";
-"wikitext-preview-link-not-found-preview-description" = "Na Wikipedii nie ma artykułu o dokładnie takiej nazwie";
+"wikitext-preview-link-not-found-preview-description" = "W Wikipedii nie ma artykułu o dokładnie takiej nazwie";
 "wikitext-preview-link-not-found-preview-title" = "Nie znaleziono linku wewnętrznego";
 "wikitext-preview-link-preview-description" = "Ten link prowadzi do '$1'";
 "wikitext-preview-link-preview-title" = "Podgląd linku";
