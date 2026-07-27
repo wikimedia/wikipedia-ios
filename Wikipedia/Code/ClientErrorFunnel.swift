@@ -60,7 +60,14 @@ import WMFData
         }
 
         let http = Event.Http(method: info.method, statusCode: info.statusCode)
-        let event = Event(message: "HTTP \(info.statusCode)", errorClass: nil, errorContext: nil, stackTrace: nil, url: info.url, http: http)
+        let event = Event(
+            message: "HTTP \(info.statusCode)",
+            errorClass: info.source,
+            errorContext: nil,
+            stackTrace: nil,
+            url: info.url,
+            http: http
+        )
         EventPlatformClient.shared.submit(stream: .clientError, event: event, needsMinimal: true)
     }
 }

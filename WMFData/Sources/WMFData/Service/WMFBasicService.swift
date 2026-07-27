@@ -123,7 +123,12 @@ public final class WMFBasicService: WMFService {
             guard httpResponse.isSuccessStatusCode else {
                 if httpResponse.isHTTPError {
                     WMFDataEnvironment.current.httpErrorLogger?(
-                        WMFHTTPErrorInfo(statusCode: httpResponse.statusCode, method: attemptedMethod, url: attemptedURLString)
+                        WMFHTTPErrorInfo(
+                            statusCode: httpResponse.statusCode,
+                            method: attemptedMethod,
+                            url: attemptedURLString,
+                            source: "WMFBasicService"
+                        )
                     )
                 }
                 completion(nil, nil, WMFServiceError.invalidHttpResponse(httpResponse.statusCode))
@@ -191,7 +196,12 @@ public final class WMFBasicService: WMFService {
             guard httpResponse.isSuccessStatusCode else {
                 if httpResponse.isHTTPError {
                     WMFDataEnvironment.current.httpErrorLogger?(
-                        WMFHTTPErrorInfo(statusCode: httpResponse.statusCode, method: attemptedMethod, url: attemptedURLString)
+                        WMFHTTPErrorInfo(
+                            statusCode: httpResponse.statusCode,
+                            method: attemptedMethod,
+                            url: attemptedURLString,
+                            source: "WMFBasicService"
+                        )
                     )
                 }
 

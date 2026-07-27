@@ -17,6 +17,7 @@ final class WMFBasicServiceHTTPErrorLoggerTests {
                     #expect(info.statusCode == 500)
                     #expect(info.method == "GET")
                     #expect(info.url == "http://wikipedia.org")
+                    #expect(info.source == "WMFBasicService")
                     called()
                 }
 
@@ -35,6 +36,7 @@ final class WMFBasicServiceHTTPErrorLoggerTests {
                     #expect(info.statusCode == 500)
                     #expect(info.method == "POST")
                     #expect(info.url == "http://wikipedia.org")
+                    #expect(info.source == "WMFBasicService")
                     called()
                 }
 

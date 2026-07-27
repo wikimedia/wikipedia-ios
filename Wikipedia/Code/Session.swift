@@ -387,7 +387,7 @@ public class Session: NSObject {
 
         if httpResponse.isHTTPError {
             ClientErrorFunnel.shared.logHTTPError(
-                info: WMFHTTPErrorInfo(statusCode: httpResponse.statusCode, method: method, url: response.url?.absoluteString)
+                info: WMFHTTPErrorInfo(statusCode: httpResponse.statusCode, method: method, url: response.url?.absoluteString, source: "Session")
             )
         }
     }
@@ -737,7 +737,8 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
                     info: WMFHTTPErrorInfo(
                         statusCode: httpResponse.statusCode,
                         method: dataTask.originalRequest?.httpMethod,
-                        url: dataTask.originalRequest?.url?.absoluteString
+                        url: dataTask.originalRequest?.url?.absoluteString,
+                        source: "SessionDelegate"
                     )
                 )
             }

@@ -13,11 +13,13 @@ public struct WMFHTTPErrorInfo: Sendable {
     public let statusCode: Int
     public let method: String?
     public let url: String?
+    public let source: String?
 
-    public init(statusCode: Int, method: String?, url: String?) {
+    public init(statusCode: Int, method: String?, url: String?, source: String?) {
         self.statusCode = statusCode
         self.method = method
         self.url = url
+        self.source = source
     }
 }
 
