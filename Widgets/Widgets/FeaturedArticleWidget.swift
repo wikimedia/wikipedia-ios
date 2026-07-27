@@ -29,6 +29,7 @@ struct FeaturedArticleEntry: TimelineEntry {
     var date: Date
     var content: WidgetFeaturedArticle?
     var fetchError: WidgetContentFetcher.FetcherError?
+    var image: UIImage?
 
     // MARK: - Computed Properties
 
@@ -65,10 +66,6 @@ struct FeaturedArticleEntry: TimelineEntry {
         return URL(string: page)
     }
 
-    var imageData: Data? {
-        return content?.thumbnailImageSource?.data
-    }
-
 }
 
 // MARK: - Timeline Provider
@@ -85,7 +82,11 @@ struct FeaturedArticleProvider: TimelineProvider {
             let currentDate = Date()
             switch result {
             case .success(let featuredContent):
-                completion(FeaturedArticleEntry(date: currentDate, content: featuredContent))
+                var entry = FeaturedArticleEntry(date: currentDate, content: featuredContent)
+                if let data = featuredContent.thumbnailImageSource?.data {
+                    entry.image = UIImage.downsampled(from: data, targetSize: context.featuredArticleRenderSize)
+                }
+                completion(entry)
             case .failure(let fetchError):
                 completion(FeaturedArticleEntry(date: currentDate, content: nil, fetchError: fetchError))
             }
@@ -97,7 +98,11 @@ struct FeaturedArticleProvider: TimelineProvider {
             let currentDate = Date()
             switch result {
             case .success(let featuredContent):
-                completion(Timeline(entries: [FeaturedArticleEntry(date: currentDate, content: featuredContent)], policy: .after(currentDate.randomDateShortlyAfterMidnight() ?? currentDate)))
+                var entry = FeaturedArticleEntry(date: currentDate, content: featuredContent)
+                if let data = featuredContent.thumbnailImageSource?.data {
+                    entry.image = UIImage.downsampled(from: data, targetSize: context.featuredArticleRenderSize)
+                }
+                completion(Timeline(entries: [entry], policy: .after(currentDate.randomDateShortlyAfterMidnight() ?? currentDate)))
             case .failure(let fetchError):
                 completion(Timeline(entries: [FeaturedArticleEntry(date: currentDate, content: nil, fetchError: fetchError)], policy: .atEnd))
             }
@@ -132,11 +137,7 @@ struct FeaturedArticleView: View {
     }
 
     var backgroundImage: UIImage? {
-        guard let imageData = entry.imageData else {
-            return nil
-        }
-
-        return UIImage(data: imageData)
+        entry.image
     }
 
     // MARK: - Nested Views
@@ -302,5 +303,20 @@ struct FeaturedArticleOverlayView: View {
             .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 45))
         }
         .foregroundColor(.white)
+    }
+}
+
+extension TimelineProviderContext {
+    var featuredArticleRenderSize: CGSize {
+        let scale = environmentVariants.displayScale?.max() ?? 2
+        let height: CGFloat
+        switch family {
+        case .systemLarge:
+            // In the large family the image only fills the header (height / 2.25)
+            height = displaySize.height / 2.25
+        default:
+            height = displaySize.height
+        }
+        return CGSize(width: displaySize.width * scale, height: height * scale)
     }
 }
