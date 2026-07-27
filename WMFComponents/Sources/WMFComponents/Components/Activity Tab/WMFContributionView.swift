@@ -143,3 +143,4 @@ private struct ContributionBar: View {
         .clipShape(RoundedRectangle(cornerRadius: 3))
     }
 }
+
