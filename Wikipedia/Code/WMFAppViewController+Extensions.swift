@@ -767,8 +767,8 @@ extension WMFAppViewController {
             return Locale.acceptLanguageHeaderForPreferredLanguages
         }
 
-        WMFDataEnvironment.current.httpErrorLogger = { statusCode, urlString in
-            ClientErrorFunnel.shared.logHTTPError(statusCode: statusCode, url: urlString)
+        WMFDataEnvironment.current.httpErrorLogger = { info in
+            ClientErrorFunnel.shared.logHTTPError(info: info)
         }
 
         WMFDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()

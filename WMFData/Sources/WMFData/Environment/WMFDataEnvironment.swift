@@ -9,6 +9,18 @@ public struct WMFAppData {
     }
 }
 
+public struct WMFHTTPErrorInfo: Sendable {
+    public let statusCode: Int
+    public let method: String?
+    public let url: String?
+
+    public init(statusCode: Int, method: String?, url: String?) {
+        self.statusCode = statusCode
+        self.method = method
+        self.url = url
+    }
+}
+
 // MARK: - Concurrency
 //
 // `WMFDataEnvironment` is `@unchecked Sendable` so that `.current` can be read safely
@@ -66,7 +78,7 @@ public final class WMFDataEnvironment: ObservableObject, @unchecked Sendable {
     public var userAgentUtility: (() -> String)?
     public var appInstallIDUtility: (() -> String?)?
     public var acceptLanguageUtility: (() -> String)?
-    public var httpErrorLogger: (@Sendable (_ statusCode: Int, _ url: String?) -> Void)?
+    public var httpErrorLogger: (@Sendable (WMFHTTPErrorInfo) -> Void)?
 
     public internal(set) var userDefaultsStore: WMFKeyValueStore? {
         get { environmentLock.withLock { _userDefaultsStore } }
@@ -125,7 +137,7 @@ public final class WMFDataEnvironment: ObservableObject, @unchecked Sendable {
     fileprivate let userAgentUtility: (() -> String)?
     fileprivate let appInstallIDUtility: (() -> String?)?
     fileprivate let acceptLanguageUtility: (() -> String)?
-    fileprivate let httpErrorLogger: (@Sendable (Int, String?) -> Void)?
+    fileprivate let httpErrorLogger: (@Sendable (WMFHTTPErrorInfo) -> Void)?
     fileprivate let userDefaultsStore: WMFKeyValueStore?
     fileprivate let crossProcessUserDefaultsStore: WMFKeyValueStore?
     fileprivate let sharedCacheStore: WMFKeyValueStore?

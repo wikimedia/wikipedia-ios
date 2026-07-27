@@ -13,9 +13,10 @@ final class WMFBasicServiceHTTPErrorLoggerTests {
     func serverErrorGETCallsHTTPErrorLogger() async {
         await fixture.withConfiguredEnvironment(configure: {}) {
             await confirmation("httpErrorLogger is called for a GET error") { called in
-                WMFDataEnvironment.current.httpErrorLogger = { statusCode, urlString in
-                    #expect(statusCode == 500)
-                    #expect(urlString == "http://wikipedia.org")
+                WMFDataEnvironment.current.httpErrorLogger = { info in
+                    #expect(info.statusCode == 500)
+                    #expect(info.method == "GET")
+                    #expect(info.url == "http://wikipedia.org")
                     called()
                 }
 
@@ -30,9 +31,10 @@ final class WMFBasicServiceHTTPErrorLoggerTests {
     func serverErrorPOSTCallsHTTPErrorLogger() async {
         await fixture.withConfiguredEnvironment(configure: {}) {
             await confirmation("httpErrorLogger is called for a POST error") { called in
-                WMFDataEnvironment.current.httpErrorLogger = { statusCode, urlString in
-                    #expect(statusCode == 500)
-                    #expect(urlString == "http://wikipedia.org")
+                WMFDataEnvironment.current.httpErrorLogger = { info in
+                    #expect(info.statusCode == 500)
+                    #expect(info.method == "POST")
+                    #expect(info.url == "http://wikipedia.org")
                     called()
                 }
 
@@ -47,7 +49,7 @@ final class WMFBasicServiceHTTPErrorLoggerTests {
     func successDoesNotCallHTTPErrorLogger() async {
         await fixture.withConfiguredEnvironment(configure: {}) {
             await confirmation("httpErrorLogger is not called on success", expectedCount: 0) { called in
-                WMFDataEnvironment.current.httpErrorLogger = { _, _ in
+                WMFDataEnvironment.current.httpErrorLogger = { _ in
                     called()
                 }
 

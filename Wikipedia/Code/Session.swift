@@ -370,7 +370,7 @@ public class Session: NSObject {
      Shared response handling for common status codes. Currently logs the user out and removes local credentials if a 401 is received
      and an attempt to re-login with stored credentials fails.
     */
-    private func handleResponse(_ response: URLResponse?, reattemptLoginOn401Response: Bool = true) {
+    private func handleResponse(_ response: URLResponse?, method: String? = nil, reattemptLoginOn401Response: Bool = true) {
         guard let response = response, let httpResponse = response as? HTTPURLResponse else {
             return
         }
@@ -386,7 +386,9 @@ public class Session: NSObject {
         }
 
         if httpResponse.isHTTPError {
-            ClientErrorFunnel.shared.logHTTPError(statusCode: httpResponse.statusCode, url: response.url?.absoluteString)
+            ClientErrorFunnel.shared.logHTTPError(
+                info: WMFHTTPErrorInfo(statusCode: httpResponse.statusCode, method: method, url: response.url?.absoluteString)
+            )
         }
     }
     
@@ -405,7 +407,7 @@ public class Session: NSObject {
      */
     @discardableResult public func jsonDecodableTaskWithDecodableError<T: Decodable, E: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, cachePolicy: URLRequest.CachePolicy? = nil, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
         guard let task = dataTask(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, cachePolicy: cachePolicy, completionHandler: { (data, response, error) in
-            self.handleResponse(response)
+            self.handleResponse(response, method: method.stringValue)
             guard let data = data else {
                 completionHandler(nil, nil, response, error)
                 return
@@ -454,7 +456,7 @@ public class Session: NSObject {
      */
     @discardableResult public func jsonDecodableTask<T: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, headers: [String: String] = [:], cachePolicy: URLRequest.CachePolicy? = nil, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
         guard let task = dataTask(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, headers: headers, cachePolicy: cachePolicy, priority: priority, completionHandler: { (data, response, error) in
-            self.handleResponse(response)
+            self.handleResponse(response, method: method.stringValue)
             guard let data = data else {
                 completionHandler(nil, response, error)
                 return
@@ -481,7 +483,7 @@ public class Session: NSObject {
     @discardableResult public func jsonDecodableTask<T: Decodable>(with urlRequest: URLRequest, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
         
         guard let task = dataTask(with: urlRequest, completionHandler: { (data, response, error) in
-            self.handleResponse(response)
+            self.handleResponse(response, method: urlRequest.httpMethod)
             guard let data = data else {
                 completionHandler(nil, response, error)
                 return
@@ -545,7 +547,7 @@ public class Session: NSObject {
         }
         
         return httpClient.dataTask(with: request, completionHandler: { (data, response, error) in
-            self.handleResponse(response, reattemptLoginOn401Response: reattemptLoginOn401Response)
+            self.handleResponse(response, method: request.httpMethod, reattemptLoginOn401Response: reattemptLoginOn401Response)
             cachedCompletion(data, response, error)
         })
     }
@@ -731,7 +733,13 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         
         if let httpResponse = response as? HTTPURLResponse {
             if httpResponse.isHTTPError {
-                ClientErrorFunnel.shared.logHTTPError(statusCode: httpResponse.statusCode, url: httpResponse.url?.absoluteString)
+                ClientErrorFunnel.shared.logHTTPError(
+                    info: WMFHTTPErrorInfo(
+                        statusCode: httpResponse.statusCode,
+                        method: dataTask.originalRequest?.httpMethod,
+                        url: dataTask.originalRequest?.url?.absoluteString
+                    )
+                )
             }
 
             var shouldCheckPersistentCache = false
