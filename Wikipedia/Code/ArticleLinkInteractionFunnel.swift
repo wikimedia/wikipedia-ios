@@ -46,9 +46,10 @@ public enum ArticleSource: Int {
     case internal_link = 2
     case external_link = 3
     case history = 4
-    case activity = 45 
     case places = 9
+    case widget = 29
     case game = 43
+    case activity = 45
 }
 
 public struct ArticleSourceUserInfoKeys {

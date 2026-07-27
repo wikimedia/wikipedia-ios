@@ -1,12 +1,15 @@
 import CoreData
 
-final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataControllerProtocol {
+// @unchecked: `isEvaluated` is mutable, but instances are confined to the sequential
+// populate flow in WMFYearInReviewDataController (mutated in a loop, then read in a
+// single Core Data perform closure) — see YearInReviewSlideDataControllerProtocol.
+final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataControllerProtocol, @unchecked Sendable {
 
     let id = WMFYearInReviewPersonalizedSlideID.readCount.rawValue
     let year: Int
     var isEvaluated: Bool = false
-    static var containsPersonalizedNetworkData = false
-    static var shouldFreeze = true
+    static let containsPersonalizedNetworkData = false
+    static let shouldFreeze = true
     
     private var readData: WMFYearInReviewReadData?
 

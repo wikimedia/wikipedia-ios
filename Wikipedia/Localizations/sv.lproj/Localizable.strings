@@ -1118,9 +1118,7 @@
 "reading-challenge-not-yet-read-subtitle-quiet" = "En lugn lässtund?";
 "reading-challenge-not-yet-read-subtitle-snooze" = "Innan dagen svävar iväg... finns det fortfarande tid att lära sig något.";
 "reading-challenge-random-button" = "Slumpartikel";
-"reading-challenge-streak-days" = "{{PLURAL:$1|$1 dag|$1 dagar}}";
 "reading-challenge-streak-no-days" = "$1 av 25";
-"reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 av 25 dag|$1 av 25 dagar}}";
 "reading-challenge-subtitle" = "25-dagars läsutmaning";
 "reading-challenge-widget-announcement-body2" = "För att följa din svit med Baby Globe måste du lägga till widgeten Läsutmaning på din startskärm.";
 "reading-challenge-widget-announcement-secondary-button" = "Visa mig hur man gör";

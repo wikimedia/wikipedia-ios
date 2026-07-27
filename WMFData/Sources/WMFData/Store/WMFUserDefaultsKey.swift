@@ -7,6 +7,8 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsArticleTab = "dev-settings-article-tab"
     case developerSettingsForceMaxArticleTabsTo5 = "dev-settings-article-tab-max-5"
     case developerSettingsEnableHomeTab = "dev-settings-enable-home-tab"
+    case developerSettingsEnableHomePhase2 = "dev-settings-enable-home-phase-2"
+    case developerSettingsAlwaysShowNewOnboarding = "dev-settings-always-show-new-onboarding"
     case hasLocallySavedDonations = "donate-history-has-locally-saved-donations"
     case yearInReviewSettingsIsEnabled = "year-in-review-settings-is-enabled-v3"
     case seenYearInReviewFeatureAnnouncement = "year-in-review-feature-announcement-v3"
@@ -42,25 +44,8 @@ public enum WMFUserDefaultsKey: String {
     case openAppOnSearchTab = "open-app-on-search-tab"
     case isSubscribedToEchoNotifications = "is-subscribed-to-echo-notifications"
     case forceHCaptchaChallenge = "force-hcaptcha-challenge"
-    case activityTabReadingChallenge = "activity-tab-reading-challenge"
+
     case allowGestureZoomArticleWebview = "allow-gesture-zoom-article-webview"
-    
-    // Reading challenge widget keys
-    case hasEnrolledInReadingChallenge2026 = "has-enrolled-in-reading-challenge-2026"
-    case hasSeenFullPageReadingChallengeAnnouncement2026 = "has-seen-full-page-reading-challenge-announcement-2026"
-    case readingChallengeUserCompleted = "reading-challenge-user-completed"
-    case readingChallengeStreakReadRandomIndex = "reading-challenge-read-random-index"
-    case readingChallengeStreakReadRandomIndexDate = "reading-challenge-read-random-index-date"
-    case readingChallengeStreakNotReadRandomIndex = "reading-challenge-not-read-random-index"
-    case readingChallengeStreakNotReadRandomIndexDate = "reading-challenge-not-read-random-index-date"
-    case readingChallengeEnrolledNotStartedRandomIndex = "reading-challenge-enrolled-not-started"
-    case readingChallengeEnrolledNotStartedRandomIndexDate = "reading-challenge-enrolled-not-started-date"
-    case readingChallengeWidgetStreakCount = "reading-challenge-widget-streak-count"
-    
-    // Reading challenge widget dev settings
-    case devReadingChallengeOverrideCurrentDate = "dev-reading-challenge-override-current-date"
-    case devReadingChallengeCurrentDate = "dev-reading-challenge-current-date"
-    case devReadingChallengeState = "dev-reading-challenge-state"
 
     // Games announcement
     case hasSeenGamesAnnouncement = "has-seen-games-announcement"
@@ -68,7 +53,7 @@ public enum WMFUserDefaultsKey: String {
 
     // Games dev settings
     case developerSettingsShowGamesV2 = "dev-settings-show-games-v2"
-    
+
     // Logging
     case appInstallID = "wmf-app-install-id"
     case sessionID = "wmf-session-id"
@@ -88,9 +73,18 @@ public enum WMFUserDefaultsKey: String {
     // Home feed: selected language
     case homeSelectedLanguage = "home-selected-language-code"
 
+    // Home feed: initial content preference (community vs personalized)
+    case homeFeedSeeFirst = "home-feed-see-first"
+
     // Home feed: interests
     case homeFeedInterestTopics = "home-feed-interest-topics"
 
     // Home feed: hidden cards (shared across Community and For You tabs)
     case homeFeedHiddenCardKeys = "home-feed-hidden-card-keys"
+    
+    case randomWidgetDailyIndex = "random-widget-daily-index"
+    case randomWidgetDailyDate = "random-widget-daily-date"
+
+    // Onboarding: New app install event
+    case didSendNewInstallOnboardingStartEvent = "did-send-new-install-onboarding-start-event"
 }

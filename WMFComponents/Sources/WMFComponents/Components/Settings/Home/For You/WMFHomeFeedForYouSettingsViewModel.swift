@@ -21,16 +21,14 @@ public final class WMFHomeFeedForYouSettingsViewModel: ObservableObject {
     @Published public var continueReadingIsOn: Bool
 
     public var onToggleModule: ((Module, Bool) -> Void)?
-    public var didTapWhatsDriving: (() -> Void)?
 
     public private(set) var sections: [SettingsSection] = []
 
-    public init(didTapWhatsDriving: (() -> Void)? = nil, homeDataController: WMFHomeDataController = .shared) {
+    public init(homeDataController: WMFHomeDataController = .shared) {
         self.homeDataController = homeDataController
         self.basedOnYourInterestsIsOn = homeDataController.forYouBasedOnInterestsIsOn()
         self.becauseYouReadIsOn = homeDataController.forYouBecauseYouReadIsOn()
         self.continueReadingIsOn = homeDataController.forYouContinueReadingIsOn()
-        self.didTapWhatsDriving = didTapWhatsDriving
         self.onToggleModule = { [weak self] module, isOn in
             guard let self else { return }
             switch module {
@@ -52,16 +50,6 @@ public final class WMFHomeFeedForYouSettingsViewModel: ObservableObject {
             action: nil
         )
 
-        let whatsDriving = SettingsItem(
-            image: nil,
-            color: nil,
-            title: WMFLocalizedString("home-feed-for-you-whats-driving-title", value: "What's driving your feed", comment: "Title for the link row that explains what is driving the user's For You feed."),
-            subtitle: nil,
-            titleStyle: .link,
-            accessory: .none,
-            action: didTapWhatsDriving
-        )
-
         let becauseYouRead = SettingsItem(
             image: nil,
             color: nil,
@@ -81,7 +69,7 @@ public final class WMFHomeFeedForYouSettingsViewModel: ObservableObject {
         )
 
         return [
-            SettingsSection(header: headerText, footer: nil, items: [basedOnYourInterests, whatsDriving, becauseYouRead, continueReading])
+            SettingsSection(header: headerText, footer: nil, items: [basedOnYourInterests, becauseYouRead, continueReading])
         ]
     }
 

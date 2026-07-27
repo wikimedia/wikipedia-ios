@@ -106,9 +106,7 @@ final class HomeFeedSettingsCoordinator: Coordinator {
     }
 
     private func showForYouModulesSettings() {
-        let viewModel = WMFHomeFeedForYouSettingsViewModel(didTapWhatsDriving: { [weak self] in
-            self?.showWhatsDrivingSettings()
-        })
+        let viewModel = WMFHomeFeedForYouSettingsViewModel()
         let forYouSettingsVC = WMFHomeFeedForYouSettingsViewController(viewModel: viewModel)
         activeNavigationController.pushViewController(forYouSettingsVC, animated: true)
     }
@@ -120,7 +118,10 @@ final class HomeFeedSettingsCoordinator: Coordinator {
     private func showInterestsSettings() {
         let language = homeDataController.selectedLanguage() ?? WMFDataEnvironment.current.primaryAppLanguage ?? WMFLanguage(languageCode: "en", languageVariantCode: nil)
         let project = WMFProject.wikipedia(language)
-        let viewModel = WMFHomeFeedInterestsSettingsViewModel(project: project)
+        let searchLanguages = MWKDataStore.shared().languageLinkController.preferredLanguages.map {
+            WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode)
+        }
+        let viewModel = WMFHomeFeedInterestsSettingsViewModel(project: project, searchLanguages: searchLanguages)
         let interestsVC = WMFHomeFeedInterestsSettingsViewController(viewModel: viewModel)
         activeNavigationController.pushViewController(interestsVC, animated: true)
     }

@@ -543,7 +543,9 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             title: CommonStrings.searchTitle,
             showLanguagesTitle: WMFLocalizedString("settings-language-bar", value: "Show languages on search", comment: "Title in Settings for toggling the display the language bar in the search view"),
             openOnSearchTabTitle: WMFLocalizedString("settings-search-open-app-on-search", value: "Open app on Search tab", comment: "Title for setting that allows users to open app on Search tab"),
-            footerText: WMFLocalizedString("settings-search-footer-text", value: "Set the app to open to the Search tab instead of the Explore tab", comment: "Footer text for section that allows users to customize certain Search settings")
+            footerText: WMFDeveloperSettingsDataController.shared.isCommunityFeedMode
+                ? WMFLocalizedString("settings-search-footer-text-home", value: "Set the app to open to the Search tab instead of the Home tab", comment: "Footer text for section that allows users to customize certain Search settings, shown while the Home tab experiment is enabled")
+                : WMFLocalizedString("settings-search-footer-text", value: "Set the app to open to the Search tab instead of the Explore tab", comment: "Footer text for section that allows users to customize certain Search settings")
         )
 
         Task { [weak self] in

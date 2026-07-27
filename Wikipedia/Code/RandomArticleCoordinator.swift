@@ -32,11 +32,9 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
     @MainActor @discardableResult
     func start() -> Bool {
         
-        // We want to push on a particular random article.
         if var articleURL {
-            // assign language variant code if needed (taken from AppVC's processUserActivity method)
             if articleURL.wmf_languageVariantCode == nil {
-                articleURL.wmf_languageVariantCode = dataStore.languageLinkController .swiftCompatiblePreferredLanguageVariantCodeForLanguageCode(articleURL.wmf_languageCode)
+                articleURL.wmf_languageVariantCode = dataStore.languageLinkController.swiftCompatiblePreferredLanguageVariantCodeForLanguageCode(articleURL.wmf_languageCode)
             }
             
             guard let vc = RandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source) else {
@@ -47,7 +45,6 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
             
             Task {
                 await trackArticleTab(articleViewController: vc)
-                
                 Task { @MainActor in
                     if replaceLastViewControllerInNavStack {
                         var viewControllers = navigationController.viewControllers
@@ -59,17 +56,13 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
                 }
             }
             
-        // Push on FirstRandomViewController (which fetches a random article on load) instead
         } else if var siteURL {
-            
-            // assign language variant code if needed (taken from AppVC's processUserActivity method)
             if siteURL.wmf_languageVariantCode == nil {
-                siteURL.wmf_languageVariantCode = dataStore.languageLinkController .swiftCompatiblePreferredLanguageVariantCodeForLanguageCode(siteURL.wmf_languageCode)
+                siteURL.wmf_languageVariantCode = dataStore.languageLinkController.swiftCompatiblePreferredLanguageVariantCodeForLanguageCode(siteURL.wmf_languageCode)
             }
             
-            let vc = FirstRandomViewController(siteURL: siteURL, dataStore: dataStore, theme: theme)
+            let vc = FirstRandomViewController(siteURL: siteURL, dataStore: dataStore, theme: theme, source: source)
             navigationController.pushViewController(vc, animated: animated)
-            
         }
         return true
     }

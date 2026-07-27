@@ -382,8 +382,15 @@ import CoreData
             return
         }
 
-        UIApplication.shared.endBackgroundTask(self.dataPopulationBackgroundTaskID)
+        // Reset the identifier synchronously, then end the task on the main actor.
+        // UIApplication is MainActor-isolated, and this is called from a `defer` in
+        // an async context (which cannot `await`), so hop via a Task. The identifier
+        // is a Sendable value type, so it is safe to capture.
+        let taskID = dataPopulationBackgroundTaskID
         dataPopulationBackgroundTaskID = UIBackgroundTaskIdentifier.invalid
+        Task { @MainActor in
+            UIApplication.shared.endBackgroundTask(taskID)
+        }
     }
 
     @discardableResult
@@ -439,6 +446,11 @@ import CoreData
             }
         }
 
+        // Snapshot the evaluated controllers into a `let` so the @Sendable perform
+        // closure below captures an immutable binding rather than the mutable
+        // `slideDataControllers` var.
+        let evaluatedSlideDataControllers = slideDataControllers.filter { $0.isEvaluated }
+
         // Create new core data slides from evaluated data controllers, save to core data report and return generic report struct
         let report = try await backgroundContext.perform {
             let predicate = NSPredicate(format: "year == %d", year)
@@ -465,7 +477,7 @@ import CoreData
                 }
             }
 
-            for slideDataController in slideDataControllers where slideDataController.isEvaluated {
+            for slideDataController in evaluatedSlideDataControllers {
                 if let cdSlide = try? slideDataController.makeCDSlide(in: backgroundContext) {
                     finalCDSlides.insert(cdSlide)
                 }

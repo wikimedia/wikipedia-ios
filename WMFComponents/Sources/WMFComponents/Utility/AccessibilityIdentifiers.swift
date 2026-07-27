@@ -98,12 +98,29 @@ public enum AccessibilityIdentifiers {
         public static let addLanguagesButton = "App Onboarding Add Languages Button"
         public static let analyticsLearnMoreButton = "App Onboarding Analytics Learn More Button"
         public static let analyticsView = "App Onboarding Analytics View"
+        public static let communityOptionButton = "App Onboarding Community Option Button"
+        public static let dataPrivacyView = "App Onboarding Data Privacy View"
         public static let explorationView = "App Onboarding Exploration View"
+        public static let feedPreferenceView = "App Onboarding Feed Preference View"
         public static let introductionLearnMoreButton = "App Onboarding Introduction Learn More Button"
         public static let introductionView = "App Onboarding Introduction View"
+        public static let introView = "App Onboarding Intro View"
         public static let languagesView = "App Onboarding Languages View"
+        public static let learnMoreLink = "App Onboarding Learn More Link"
+        public static let loadingView = "App Onboarding Loading View"
         public static let nextButton = "App Onboarding Next Button"
+        public static let personalizationIntroView = "App Onboarding Personalization Intro View"
+        public static let personalizedOptionButton = "App Onboarding Personalized Option Button"
+        public static let privacyLinks = "App Onboarding Privacy Links"
         public static let skipButton = "App Onboarding Skip Button"
+    }
+
+    public enum Interests {
+        public static let deselectAllButton = "Interests Deselect All Button"
+        public static let searchCancelButton = "Interests Search Cancel Button"
+        public static let searchField = "Interests Search Field"
+        public static let searchResultRow = "Interests Search Result Row"
+        public static let view = "Interests View"
     }
 
     public enum LanguageSelection {

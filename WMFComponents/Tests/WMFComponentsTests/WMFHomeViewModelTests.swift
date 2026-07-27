@@ -1,4 +1,5 @@
 import XCTest
+import UIKit
 @testable import WMFComponents
 @testable import WMFData
 import WMFDataMocks
@@ -120,6 +121,41 @@ final class WMFHomeViewModelTests: XCTestCase {
         let article = WMFForYouArticle(title: "Octopus", project: project)
         let cardVM = WMFForYouArticleCardViewModel(article: article, headerLabel: "Test")
         XCTAssertEqual(cardVM.hideKey, "for_you_\(project.id)_Octopus")
+    }
+
+    // MARK: - Embedded Community Content
+
+    func testEmbeddedCommunityViewControllerSkipsCommunityFeedLoad() {
+        let (vm, _) = makeViewModel()
+        vm.makeEmbeddedCommunityViewController = { UIViewController() }
+        vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+
+        vm.loadCommunityFeedIfNeeded()
+
+        XCTAssertFalse(vm.isLoadingCommunity)
+        XCTAssertTrue(vm.communityPages.isEmpty)
+    }
+
+    // MARK: - Language Picker Visibility
+
+    func testLanguagePickerHiddenOnCommunityTabWithEmbeddedContent() {
+        let (vm, _) = makeViewModel()
+        vm.makeEmbeddedCommunityViewController = { UIViewController() }
+        vm.selectedTab = .community
+        XCTAssertFalse(vm.shouldShowLanguagePicker)
+    }
+
+    func testLanguagePickerShownOnForYouTabWithEmbeddedContent() {
+        let (vm, _) = makeViewModel()
+        vm.makeEmbeddedCommunityViewController = { UIViewController() }
+        vm.selectedTab = .forYou
+        XCTAssertTrue(vm.shouldShowLanguagePicker)
+    }
+
+    func testLanguagePickerShownOnCommunityTabWithoutEmbeddedContent() {
+        let (vm, _) = makeViewModel()
+        vm.selectedTab = .community
+        XCTAssertTrue(vm.shouldShowLanguagePicker)
     }
 
     // MARK: - Selected Language Clears Feeds

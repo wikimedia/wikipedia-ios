@@ -698,7 +698,7 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
             NotificationCenter.default.post(name: .WMFNavigateToActivity, object: NSUserActivity.wmf_appearanceSettings())
             dismissAnnouncementCell(cell)
         case .readingList:
-            wmf_showLoginViewController(theme: theme)
+            wmf_showLoginViewController(category: .feed, theme: theme)
             LoginFunnel.shared.logLoginStartInFeed()
             dismissAnnouncementCell(cell)
         default:

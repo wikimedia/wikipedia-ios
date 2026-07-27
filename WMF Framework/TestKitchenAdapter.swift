@@ -28,30 +28,26 @@ import CocoaLumberjackSwift
 
         let deviceLanguage = Locale.preferredLanguages.first ?? "en"
 
-        // Release status must be 1 of 3 values: debug, dev or prod
-        
-        #if DEBUG
-        let releaseStatus = "debug"
-        #elseif WMF_STAGING
-        let releaseStatus = "dev"
-        #elseif WMF_EXPERIMENTAL
-        let releaseStatus = "dev"
-        #elseif UITESTS
-        let releaseStatus = "dev"
-        #elseif TEST
-        let releaseStatus = "dev"
-        #elseif WMF_LOCAL
-        let releaseStatus = "dev"
+        // Release status must be 1 of 2 values: dev or prod
+        let releaseStatus: String
+        #if DEBUG || WMF_STAGING || WMF_EXPERIMENTAL || UITESTS || TEST || WMF_LOCAL
+        releaseStatus = "dev"
         #else
-        let releaseStatus = "prod"
+        releaseStatus = Bundle.main.isTestFlight() ? "dev" : "prod"
         #endif
         
-        var appFlavor: String?
-        #if NDEBUG
-        if Bundle.main.isTestFlight() {
-            appFlavor = "TestFlight"
+        let appFlavor: String
+        #if DEBUG || WMF_LOCAL || UITESTS || TEST
+        appFlavor = "devdebug"
+        #elseif WMF_STAGING || WMF_EXPERIMENTAL
+        appFlavor = "alpharelease"
+        #else
+        if !Bundle.main.wmf_isAppStoreBundleIdentifier() {
+            appFlavor = "alpharelease"
+        } else if Bundle.main.isTestFlight() {
+            appFlavor = "betarelease"
         } else {
-            appFlavor = "AppStore"
+            appFlavor = "prodrelease"
         }
         #endif
 

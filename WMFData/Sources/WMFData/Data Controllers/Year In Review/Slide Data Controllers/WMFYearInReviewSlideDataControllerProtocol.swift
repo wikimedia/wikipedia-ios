@@ -1,7 +1,12 @@
 import Foundation
 import CoreData
 
-protocol YearInReviewSlideDataControllerProtocol {
+// Sendable so slide data controllers can cross into the Core Data `perform`
+// closures in WMFYearInReviewDataController. Conformers are classes with a
+// mutable `isEvaluated`, so each conforms via @unchecked Sendable: instances are
+// confined to the sequential populate flow (mutated in a loop, then read once in
+// a single perform closure), so there is no concurrent access in practice.
+protocol YearInReviewSlideDataControllerProtocol: Sendable {
     /// A unique identifier for the slide (e.g., readCount, editCount).
     var id: String { get }
 

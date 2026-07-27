@@ -72,6 +72,8 @@ public class CommonStrings: NSObject {
     @objc public static let exploreTabTitle = WMFLocalizedString("home-title", value: "Explore", comment: "Title for home interface. {{Identical|Explore}}")
     @objc public static let homeTabTitle = WMFLocalizedString("home-tab-title", value: "Home", comment: "Title for the Home tab.")
     @objc public static let homeFeedTitle = WMFLocalizedString("settings-home-feed-title", value: "Home feed", comment: "Title for the Home feed item in Settings.")
+    @objc public static let forYouTabTitle = WMFLocalizedString("home-for-you-tab-title", value: "For You", comment: "Title for the For You segment within the Home tab.")
+    @objc public static let communityFeedTitle = WMFLocalizedString("settings-community-feed-title", value: "Community", comment: "Title for the Community feed settings item in Settings, shown while the Home tab experiment is enabled. {{Identical|Community}}")
     @objc public static let tabsTitle = WMFLocalizedString("tabs-title", value: "Tabs", comment: "Title for tabs")
     @objc public static let savedTabTitle = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab {{Identical|Saved}}")
 
@@ -236,6 +238,7 @@ public class CommonStrings: NSObject {
 
     @objc public static let privacyPolicyURLString = "https://foundation.wikimedia.org/wiki/Policy:Privacy_policy"
     @objc public static let termsOfUseURLString = "https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use"
+    public static let aboutWikipediaURLString = "https://en.wikipedia.org/wiki/Wikipedia:About"
     public static let legalAndSafetyContactUsURLString = "https://foundation.wikimedia.org/wiki/Legal:Wikimedia_Foundation_Legal_and_Safety_Contact_Information"
 
     @objc public static let account = WMFLocalizedString("settings-account", value: "Account", comment: "Title for button and page letting user view their account page.")
@@ -305,6 +308,7 @@ public class CommonStrings: NSObject {
     @objc public static let turnOnExploreTabTitle = WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-title", value: "Turn on the Explore tab?", comment: "Title for alert that allows users to turn on the Explore tab")
     @objc public static let turnOnExploreActionTitle = WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-action-title", value: "Turn on Explore", comment: "Title for action that allows users to turn on the Explore tab")
     @objc public static let customizeExploreFeedTitle = WMFLocalizedString("explore-feed-preferences-customize-explore-feed-action-title", value: "Customize Explore feed", comment: "Title for action that allows users to go to the Explore feed settings screen")
+    @objc public static let customizeCommunityFeedTitle = WMFLocalizedString("explore-feed-preferences-customize-community-feed-action-title", value: "Customize Community feed", comment: "Title for action that allows users to go to the Community feed settings screen")
     public static let customize = WMFLocalizedString("customize-action-title", value: "Customize", comment: "Title for action that allows users to customize their preferences.")
 
     @objc public static let revertedEditTitle = WMFLocalizedString("reverted-edit-title", value: "Reverted edit", comment: "Title for notification informing user that their edit was reverted.")
@@ -906,6 +910,9 @@ public class CommonStrings: NSObject {
     // Reading Challenge widget
     
     public static let collectPrizeTitle = WMFLocalizedString("collect-prize-title", value: "Collect your prize!", comment: "Title for collect prize modal sheet and button")
+    
+    public static let randomButton = WMFLocalizedString("reading-challenge-random-button", value: "Random", comment: "Title for the Random article button on the reading challenge widget.")
+    public static let randomArticleButton = WMFLocalizedString("reading-challenge-random-article-button", value: "Random article", comment: "Button title on the post-challenge randomizer widget for medium size, linking to a random Wikipedia article.")
     
     // Games
     public static let playTodaysGameTitle = WMFLocalizedString("games-wcf-button-play-title", value:"Play today's game", comment: "Button text on Which Came First card in the Explore tab and in the game splash screen, shown when game is not started. Tapping navigates to the Which Came First game.")

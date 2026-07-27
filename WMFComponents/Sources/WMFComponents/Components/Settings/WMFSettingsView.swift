@@ -22,8 +22,7 @@ struct SettingsRow: View {
             }
             VStack(alignment: .leading, spacing: 2) {
                 Text(item.title)
-                    .font(Font(WMFFont.for(item.titleStyle == .link ? .boldSubheadline : .body)))
-                    .foregroundColor(item.titleStyle == .link ? Color(uiColor: theme.link) : nil)
+                    .font(Font(WMFFont.for(.body)))
                 if let subtitle = item.subtitle {
                     Text(subtitle)
                         .font(Font(WMFFont.for(.subheadline)))
