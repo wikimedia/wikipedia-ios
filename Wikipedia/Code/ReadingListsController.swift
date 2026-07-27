@@ -518,7 +518,7 @@ public typealias ReadingListsController = WMFReadingListsController
 
     /// Clears a persisted .needsRemoteDisable flag without performing the remote teardown.
     /// If a past teardown didn't complete, we must not silently re-attempt it on a later
-    /// launch or login (T431140) — the user can turn sync off again via Settings if they still want it.
+    /// launch or login  — the user can turn sync off again via Settings if they still want it.
     @objc public func clearNeedsRemoteDisableSyncState() {
         assert(Thread.isMainThread)
         var state = syncState

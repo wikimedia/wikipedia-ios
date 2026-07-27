@@ -787,7 +787,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         }
     }
 
-    /// Matches Android's disable-sync prompt (T431140): No cancels, only Yes tears down
+    /// Matches Android's disable-sync prompt: No cancels, only Yes tears down
     /// remote reading lists. Local lists and articles are never deleted from this path.
     private func showDisableSyncAlert() {
         guard let settingsNav = settingsNavigationController else {

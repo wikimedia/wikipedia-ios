@@ -180,7 +180,7 @@ class ReadingListsTests: XCTestCase {
     func testDisablingSyncToDeleteRemoteListsDoesNotRequestLocalDataDeletion() {
         let readingListsController = dataStore.readingListsController
 
-        // The disable-sync alert's "Yes" path (T431140)
+        // The disable-sync alert's "Yes" path
         readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: true)
 
         let state = readingListsController.syncState
@@ -205,7 +205,7 @@ class ReadingListsTests: XCTestCase {
 
         dataStore.viewContext.refreshAllObjects()
         XCTAssertFalse(readingListsController.syncState.contains(.needsLocalReset), "The sync operation should have processed the local reset")
-        XCTAssertTrue(readingListsController.syncState.contains(.needsRemoteDisable), "An unfulfilled remote disable is retained by the sync operation — the T431140 stale-flag precondition")
+        XCTAssertTrue(readingListsController.syncState.contains(.needsRemoteDisable), "An unfulfilled remote disable is retained by the sync operation stale-flag precondition")
         XCTAssertEqual(try fetchReadingLists(named: "pending-teardown").count, 1, "Local lists must survive the disable-sync Yes path")
 
         // App launch / logout clears the stale flag so a later sync can't tear down remote lists
