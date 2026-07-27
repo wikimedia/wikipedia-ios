@@ -25,7 +25,11 @@ struct WMFDeveloperSettingsView: View {
                     Text("Clear games persistence")
                 }
             }
-            
+
+            Section(header: Text("Visual Editor")) {
+                Toggle("Enable Visual Editing journey", isOn: $viewModel.enableVisualEditingJourney)
+            }
+
             ForEach(viewModel.formViewModel.sections) { section in
                 if let selectSection = section as? WMFFormSectionSelectViewModel {
                     WMFFormSectionSelectView(viewModel: selectSection)

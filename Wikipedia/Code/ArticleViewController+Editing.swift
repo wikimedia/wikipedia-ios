@@ -23,9 +23,7 @@ extension ArticleViewController {
     }
 
     func showEditorForFullSource() {
-        let editorViewController = EditorViewController(pageURL: articleURL, sectionID: nil, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: nil, editTag: .appFullSource, delegate: self, theme: theme)
-
-        presentEditor(editorViewController: editorViewController)
+        presentEditingFlow(with: nil, selectedTextEditInfo: nil, editTag: .appFullSource)
 
         if let project = WikimediaProject(siteURL: articleURL) {
             EditInteractionFunnel.shared.logArticleDidTapEditSourceButton(project: project)
@@ -34,12 +32,35 @@ extension ArticleViewController {
         EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
 
+    private func presentEditingFlow(with sectionID: Int?, selectedTextEditInfo: SelectedTextEditInfo?, editTag: WMFEditTag) {
+        guard WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney else {
+            presentSourceEditor(sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
+            return
+        }
+
+        // TODO: T431812 - present "Choose how to edit" sheet.
+    }
+
+    private func presentSourceEditor(sectionID: Int?, selectedTextEditInfo: SelectedTextEditInfo?, editTag: WMFEditTag) {
+        let editorViewController = EditorViewController(
+            pageURL: articleURL,
+            sectionID: sectionID,
+            editFlow: .editorPreviewSave,
+            source: .article,
+            dataStore: dataStore,
+            articleSelectedInfo: selectedTextEditInfo,
+            editTag: editTag,
+            delegate: self,
+            theme: theme
+        )
+
+        presentEditor(editorViewController: editorViewController)
+    }
+
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
         let editTag: WMFEditTag = selectedTextEditInfo == nil ?  .appSectionSource : .appSelectSource
 
-        let editorViewController = EditorViewController(pageURL: articleURL, sectionID: id, editFlow: .editorPreviewSave, source: .article, dataStore: dataStore, articleSelectedInfo: selectedTextEditInfo, editTag: editTag, delegate: self, theme: theme)
-
-        presentEditor(editorViewController: editorViewController)
+        presentEditingFlow(with: id, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
     }
 
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource) {

@@ -41,6 +41,13 @@ import WMFData
         }
     }
 
+    @Published public var enableVisualEditingJourney: Bool = WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney = enableVisualEditingJourney
+        }
+    }
+
+
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
 
