@@ -30,7 +30,6 @@ platform :ios do
       get_provisioning_profile(
         app_identifier: bundle_id,
         api_key: api_key,
-        distribution_method: "app-store",
       )
       update_code_signing_settings(
         use_automatic_signing: false,
@@ -75,8 +74,7 @@ platform :ios do
         get_provisioning_profile(
           app_identifier: bundle_id,
           api_key: api_key,
-          distribution_method: "app-store",
-          readonly: true,
+            readonly: true,
         )
         UI.success("#{target} (#{bundle_id}): profile found — #{lane_context[SharedValues::SIGH_UUID]}")
       rescue => e
