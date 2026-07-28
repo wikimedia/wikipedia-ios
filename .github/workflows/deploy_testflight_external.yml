@@ -19,9 +19,7 @@ jobs:
       - name: Compute build number
         id: versioning
         run: |
-          VERSION=$(/usr/libexec/PlistBuddy -c \
-            "Print :CFBundleShortVersionString" \
-            Wikipedia/Wikipedia-Info.plist)
+          VERSION=$(date -u "+%Y.%m.%d")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
           LATEST=$(git tag --list 'betas/*' \
@@ -204,17 +202,33 @@ jobs:
           EOF
 
       # -------------------------------------------------------
-      # 5. Update build number in Info.plist
+      # 5. Update version and build number in Info.plist files
       # -------------------------------------------------------
-      - name: Update build number
+      - name: Update version and build number
         env:
+          VERSION: ${{ steps.versioning.outputs.version }}
           BUILD: ${{ steps.versioning.outputs.build }}
         run: |
-          /usr/libexec/PlistBuddy -c \
-            "Set :CFBundleVersion $BUILD" \
-            Wikipedia/Wikipedia-Info.plist
+          PLISTS=(
+            "WMF Framework/Info.plist"
+            "Wikipedia Stickers/Info.plist"
+            "Wikipedia/Experimental-Info.plist"
+            "Wikipedia/Local-Info.plist"
+            "Wikipedia/Staging-Info.plist"
+            "Wikipedia/Wikipedia-Info.plist"
+            "ContinueReadingWidget/Info.plist"
+            "WikipediaUnitTests/Info.plist"
+            "Widgets/Info.plist"
+            "NotificationServiceExtension/Info.plist"
+          )
 
-          echo "Updated CFBundleVersion to $BUILD"
+          for PLIST in "${PLISTS[@]}"; do
+            /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$PLIST"
+          done
+
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD" "Wikipedia/Wikipedia-Info.plist"
+
+          echo "Updated CFBundleShortVersionString to $VERSION and CFBundleVersion to $BUILD"
 
       # -------------------------------------------------------
       # 6. Build and upload to TestFlight (external)
