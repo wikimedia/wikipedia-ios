@@ -267,7 +267,11 @@ public extension WidgetController {
 
         fetcher.fetchFeaturedContent(forDate: Date(), siteURL: widgetCache.settings.siteURL, languageCode: widgetCache.settings.languageCode, languageVariantCode: widgetCache.settings.languageVariantCode) { result in
             switch result {
-            case .success(let featuredContent):
+            case .success(var featuredContent):
+                if featuredContent.topRead == nil {
+                    // Carry the previous top read over so this save doesn't destroy the top read widget's fallback.
+                    featuredContent.topRead = widgetCache.featuredContent?.topRead
+                }
                 widgetCache.featuredContent = featuredContent
                 self.sharedCache.saveCache(widgetCache)
                 performCompletion(result: .success(featuredContent))
@@ -300,10 +304,14 @@ public extension WidgetController {
             return
         }
 
-        fetchFeaturedContent { result in
+        let cachedTopRead = widgetCache.featuredContent?.topRead
+
+        // Judge the cache by the top read's own date, not its fetch date. A same-day cache
+        // saved without current most-read data must not short-circuit the network.
+        fetchFeaturedContent(useCacheIfAvailable: topReadIsCurrent(cachedTopRead)) { result in
             switch result {
             case .success(var featuredContent):
-                if var topRead = featuredContent.topRead {
+                if var topRead = featuredContent.topRead, self.topReadIsCurrent(topRead) {
                     // Fetch images, if available, for the top four elements
                     let group = DispatchGroup()
                     for (index, element) in topRead.topFourElements.enumerated() {
@@ -334,15 +342,61 @@ public extension WidgetController {
                             performCompletion(result: .failure(.contentFailure))
                         }
                     }
+                } else if var fallbackTopRead = featuredContent.topRead ?? cachedTopRead {
+                    // Serve the most recent top read available instead of leaving the widget empty.
+                    fallbackTopRead.isFromCacheFallback = true
+                    performCompletion(result: .success(fallbackTopRead))
                 } else {
-                    widgetCache.featuredContent = nil
-                    self.sharedCache.saveCache(widgetCache)
                     performCompletion(result: .failure(.contentFailure))
                 }
             case .failure(let error):
-                performCompletion(result: .failure(error))
+                if var fallbackTopRead = cachedTopRead {
+                    fallbackTopRead.isFromCacheFallback = true
+                    performCompletion(result: .success(fallbackTopRead))
+                } else {
+                    performCompletion(result: .failure(error))
+                }
             }
         }
+    }
+
+    /// Most-read data for a feed day is published a few hours after that day begins in UTC.
+    /// Returns the moment the data for the local date's feed should become available
+    /// (randomized within 03:00–03:30 UTC), or nil if that moment has already passed.
+    static func expectedTopReadPublicationDate(after date: Date, calendar: Calendar = .current) -> Date? {
+        guard let utcTimeZone = TimeZone(identifier: "UTC") else {
+            return nil
+        }
+        var utcCalendar = Calendar(identifier: .gregorian)
+        utcCalendar.timeZone = utcTimeZone
+
+        var localGregorianCalendar = Calendar(identifier: .gregorian)
+        localGregorianCalendar.timeZone = calendar.timeZone
+
+        var publicationComponents = localGregorianCalendar.dateComponents([.year, .month, .day], from: date)
+        publicationComponents.hour = 3
+        publicationComponents.minute = .random(in: 0..<30)
+
+        guard let publicationDate = utcCalendar.date(from: publicationComponents), publicationDate > date else {
+            return nil
+        }
+
+        return publicationDate
+    }
+
+    /// A top read is current when it covers the day before the local date, which is the most recent day
+    /// the pageviews pipeline can have published data for.
+    func topReadIsCurrent(_ topRead: WidgetTopRead?, now: Date = Date(), calendar: Calendar = .current) -> Bool {
+        guard let dateString = topRead?.dateString,
+              let yesterday = calendar.date(byAdding: .day, value: -1, to: now) else {
+            return false
+        }
+
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = calendar.timeZone
+        return dateString.hasPrefix(formatter.string(from: yesterday))
     }
 
     // MARK: - Fetch Featured Article Widget Content
