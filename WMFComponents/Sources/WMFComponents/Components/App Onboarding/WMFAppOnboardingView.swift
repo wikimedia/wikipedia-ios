@@ -21,6 +21,9 @@ public struct WMFAppOnboardingView: View {
     /// Bottom inset so scrollable step content isn't covered by the floating toolbar.
     static let toolbarContentInset: CGFloat = 96
 
+    /// Space above the interests step's header. Unlike Settings, onboarding has no navigation so ie needs extra space
+    static let interestsTopContentInset: CGFloat = 32
+
     public var body: some View {
         ZStack(alignment: .bottom) {
             stepContent
@@ -52,7 +55,7 @@ public struct WMFAppOnboardingView: View {
             WMFAppOnboardingPersonalizationIntroView(viewModel: viewModel, theme: theme)
         case .interests:
             VStack(spacing: 0) {
-                WMFHomeFeedInterestsSettingsView(viewModel: viewModel.interestsViewModel, bottomContentInset: Self.toolbarContentInset)
+                WMFHomeFeedInterestsSettingsView(viewModel: viewModel.interestsViewModel, topContentInset: Self.interestsTopContentInset, bottomContentInset: Self.toolbarContentInset)
             }
             .accessibilityElement(children: .contain)
             .accessibilityIdentifier(AccessibilityIdentifiers.Interests.view)

@@ -6,6 +6,10 @@ public struct WMFHomeFeedInterestsSettingsView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @FocusState private var searchIsFocused: Bool
 
+    /// Space above the header. Settings pushes this screen under a navigation bar that already
+    /// provides breathing room; onboarding embeds it with only the safe area above, so that
+    /// surface passes a larger inset.
+    private let topContentInset: CGFloat
     private let bottomContentInset: CGFloat
 
     var theme: WMFTheme { appEnvironment.theme }
@@ -19,8 +23,9 @@ public struct WMFHomeFeedInterestsSettingsView: View {
         min(systemDynamicTypeSize, .accessibility2)
     }
 
-    public init(viewModel: WMFHomeFeedInterestsSettingsViewModel, bottomContentInset: CGFloat = 0) {
+    public init(viewModel: WMFHomeFeedInterestsSettingsViewModel, topContentInset: CGFloat = 12, bottomContentInset: CGFloat = 0) {
         self.viewModel = viewModel
+        self.topContentInset = topContentInset
         self.bottomContentInset = bottomContentInset
     }
 
@@ -29,7 +34,7 @@ public struct WMFHomeFeedInterestsSettingsView: View {
             VStack(alignment: .leading, spacing: 0) {
                 header
                     .padding(.horizontal, 16)
-                    .padding(.top, 12)
+                    .padding(.top, topContentInset)
 
                 searchBar
                     .padding(.horizontal, 16)
