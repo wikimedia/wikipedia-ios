@@ -308,6 +308,7 @@ jobs:
           import urllib.request
           import urllib.parse
           import json
+          import re
           import os
 
           token = os.environ['PHAB_TOKEN']
@@ -318,13 +319,17 @@ jobs:
             print("No Phabricator tasks found, skipping release task update")
             exit(0)
 
+          # Search for any open release task with a date-based version title
+          release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}$')
+
           req = urllib.request.Request(
             'https://phabricator.wikimedia.org/api/maniphest.search',
             headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
             data=urllib.parse.urlencode({
               'api.token': token,
-              'constraints[query]': f'Release {version}',
+              'constraints[query]': 'Release 20',
               'constraints[projects][0]': 'PHID-PROJ-ojylfmfiogxrvnxoiwlp',
+              'constraints[statuses][0]': 'open',
             }).encode()
           )
 
@@ -333,18 +338,21 @@ jobs:
 
           tasks = data.get('result', {}).get('data', [])
           release_task = next(
-            (t for t in tasks if t.get('fields', {}).get('name') == f'Release {version}'),
+            (t for t in tasks if release_pattern.match(t.get('fields', {}).get('name', ''))),
             None
           )
 
           if not release_task:
-            print(f"No release task found for Release {version}, skipping")
+            print("No open release task found, skipping")
             exit(0)
 
           task_phid = release_task['phid']
+          current_title = release_task.get('fields', {}).get('name', '')
           current_description = release_task.get('fields', {}).get('description', {}).get('raw', '')
 
-          import re
+          print(f"Found release task: '{current_title}' -> updating title to 'Release {version}'")
+
+          # Build new included tasks section
           task_ids = []
           for url in task_urls.split(','):
             match = re.search(r'T(\d+)$', url.strip())
@@ -358,21 +366,24 @@ jobs:
           else:
             new_description = current_description.rstrip() + new_section
 
+          # Update task title and description
           req = urllib.request.Request(
             'https://phabricator.wikimedia.org/api/maniphest.edit',
             headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
             data=urllib.parse.urlencode({
               'api.token': token,
               'objectIdentifier': task_phid,
-              'transactions[0][type]': 'description',
-              'transactions[0][value]': new_description,
+              'transactions[0][type]': 'title',
+              'transactions[0][value]': f'Release {version}',
+              'transactions[1][type]': 'description',
+              'transactions[1][value]': new_description,
             }).encode()
           )
 
           with urllib.request.urlopen(req) as resp:
             result = json.loads(resp.read())
             if not result.get('error_code'):
-              print(f"✓ Updated release task for Release {version}")
+              print(f"✓ Updated release task to Release {version}")
             else:
               print(f"✗ Failed to update release task: {result.get('error_info')}")
           EOF
