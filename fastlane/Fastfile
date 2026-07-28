@@ -89,20 +89,18 @@ platform :ios do
   desc "Build and deploy to internal TestFlight testers"
   lane :internal_beta do
     api_key = get_api_key
-    verify_profiles
-    UI.user_error!("Stopping after profile verification — remove this line to enable the full build")
-    # setup_code_signing(api_key)
-    # build_the_app
+    setup_code_signing(api_key)
+    build_the_app
 
-    # what_to_test = File.read(ENV["WHAT_TO_TEST_PATH"]) rescue "See Phabricator tasks for details"
+    what_to_test = File.read(ENV["WHAT_TO_TEST_PATH"]) rescue "See Phabricator tasks for details"
 
-    # upload_to_testflight(
-    #   api_key: api_key,
-    #   distribute_external: false,
-    #   notify_external_testers: false,
-    #   changelog: what_to_test,
-    #   skip_waiting_for_build_processing: true,
-    # )
+    upload_to_testflight(
+      api_key: api_key,
+      distribute_external: false,
+      notify_external_testers: false,
+      changelog: what_to_test,
+      skip_waiting_for_build_processing: true,
+    )
   end
 
   # ----------------------------------------------------------
