@@ -13,61 +13,90 @@ public struct WMFHomeView: View {
     }
 
     public var body: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Picker("", selection: $viewModel.selectedTab) {
-                    Text(viewModel.communityTabTitle).tag(WMFHomeViewModel.Tab.community)
-                    Text(viewModel.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
-
-                }
-                .pickerStyle(.segmented)
-
-                if viewModel.shouldShowLanguagePicker {
-                    Menu {
-                        ForEach(viewModel.languages) { language in
-                            Button {
-                                viewModel.didSelectLanguage?(language)
-                            } label: {
-                                if language.languageCode == viewModel.selectedLanguage?.languageCode {
-                                    Label(language.localizedName, systemImage: "checkmark")
-                                } else {
-                                    Text(language.localizedName)
-                                }
-                            }
-                        }
-
-                        Divider()
-
-                        Button {
-                            viewModel.didTapEditLanguages?()
-                        } label: {
-                            Label(viewModel.editLanguagesTitle, systemImage: "globe")
-                        }
-                    } label: {
-                        Text(viewModel.languageButtonTitle)
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
-                            .foregroundStyle(Color(uiColor: theme.link))
-                    }
-                    .accessibilityIdentifier(AccessibilityIdentifiers.Home.languagePickerButton)
-                }
+        mainContent
+            .environment(\.colorScheme, theme.preferredColorScheme)
+            .task {
+                viewModel.loadCurrentTabFeedIfNeeded()
             }
-            .padding()
+            .onChange(of: viewModel.selectedTab) { _ in
+                viewModel.loadCurrentTabFeedIfNeeded()
+            }
+    }
 
-            if viewModel.selectedTab == .forYou {
+    @ViewBuilder
+    private var mainContent: some View {
+        if viewModel.selectedTab == .forYou {
+            VStack(spacing: 0) {
+                headerBar
                 forYouTabContent
-            } else {
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(uiColor: theme.paperBackground))
+        } else {
+            communitySection
+        }
+    }
+
+    // On iOS 26 the Community feed scrolls edge-to-edge underneath the translucent navigation bar
+    // and a glass segmented-control header (Liquid Glass look). Older iOS keeps the opaque in-flow
+    // layout. The For You tab is handled separately in `mainContent`.
+    @ViewBuilder
+    private var communitySection: some View {
+        if #available(iOS 26.0, *) {
+            communityTabContent
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .safeAreaInset(edge: .top, spacing: 0) {
+                    headerBar
+                        .background(.ultraThinMaterial)
+                }
+        } else {
+            VStack(spacing: 0) {
+                headerBar
                 communityTabContent
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(uiColor: theme.paperBackground))
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(uiColor: theme.paperBackground))
-        .environment(\.colorScheme, theme.preferredColorScheme)
-        .task {
-            viewModel.loadCurrentTabFeedIfNeeded()
+    }
+
+    private var headerBar: some View {
+        HStack {
+            Picker("", selection: $viewModel.selectedTab) {
+                Text(viewModel.communityTabTitle).tag(WMFHomeViewModel.Tab.community)
+                Text(viewModel.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
+            }
+            .pickerStyle(.segmented)
+
+            if viewModel.shouldShowLanguagePicker {
+                Menu {
+                    ForEach(viewModel.languages) { language in
+                        Button {
+                            viewModel.didSelectLanguage?(language)
+                        } label: {
+                            if language.languageCode == viewModel.selectedLanguage?.languageCode {
+                                Label(language.localizedName, systemImage: "checkmark")
+                            } else {
+                                Text(language.localizedName)
+                            }
+                        }
+                    }
+
+                    Divider()
+
+                    Button {
+                        viewModel.didTapEditLanguages?()
+                    } label: {
+                        Label(viewModel.editLanguagesTitle, systemImage: "globe")
+                    }
+                } label: {
+                    Text(viewModel.languageButtonTitle)
+                        .font(Font(WMFFont.for(.semiboldHeadline)))
+                        .foregroundStyle(Color(uiColor: theme.link))
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.Home.languagePickerButton)
+            }
         }
-        .onChange(of: viewModel.selectedTab) { _ in
-            viewModel.loadCurrentTabFeedIfNeeded()
-        }
+        .padding()
     }
 
     @ViewBuilder
