@@ -64,6 +64,28 @@ public extension DateFormatter {
             return wmfMonthDayDateFormatter.string(from: date)
         }
     }
+
+    /// Intended for VoiceOver labels:
+    /// - If the date is today: spelled-out hours and minutes (e.g. "15 hours 40 minutes"),
+    ///   avoiding punctuation like "15:40" which VoiceOver would enunciate character by character.
+    /// - Otherwise: fallbacks to the same month and day rendering used visually,
+    ///   which is already speech-friendly (e.g. "August 22").
+    static func wmfLastReadAccessibilityLabel(for date: Date) -> String {
+        let calendar = Calendar.current
+        if calendar.isDateInToday(date) {
+            let components = calendar.dateComponents([.hour, .minute], from: date)
+            let formatter = DateComponentsFormatter()
+            formatter.unitsStyle = .spellOut
+            formatter.allowedUnits = [.hour, .minute]
+            formatter.zeroFormattingBehavior = .dropLeading
+            if let spelledOut = formatter.string(from: components), !spelledOut.isEmpty {
+                return spelledOut
+            }
+            return wmfShortTimeFormatter.string(from: date)
+        } else {
+            return wmfMonthDayDateFormatter.string(from: date)
+        }
+    }
     
     static let lastEditedDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
