@@ -28,6 +28,11 @@ struct WMFDeveloperSettingsView: View {
 
             Section(header: Text("Visual Editor")) {
                 Toggle("Enable Visual Editing journey", isOn: $viewModel.enableVisualEditingJourney)
+                Button {
+                    viewModel.clearDefaultEditMode()
+                } label: {
+                    Text("Clear default edit mode")
+                }
             }
 
             ForEach(viewModel.formViewModel.sections) { section in

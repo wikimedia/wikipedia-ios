@@ -134,6 +134,13 @@ import WMFData
             try? await WMFDeveloperSettingsDataController.shared.clearGamesPersistence()
         }
     }
+
+    public func clearDefaultEditMode() {
+        WMFSettingsDataController.shared.clearDefaultEditMode()
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Edit Mode preference cleared.")))
+        }
+    }
 }
 
 private final class YirLoginExperimentBindingCoordinator {
