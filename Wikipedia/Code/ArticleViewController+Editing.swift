@@ -33,12 +33,41 @@ extension ArticleViewController {
     }
 
     private func presentEditingFlow(with sectionID: Int?, selectedTextEditInfo: SelectedTextEditInfo?, editTag: WMFEditTag) {
-        guard WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney else {
+        guard WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney, let navigationController else {
             presentSourceEditor(sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
             return
         }
 
-        // TODO: T431812 - present "Choose how to edit" sheet.
+        let settingsDataController = WMFSettingsDataController.shared
+
+        // User previously chose a default via "Don't show this again" — skip the sheet
+        if let defaultMode = settingsDataController.defaultEditMode() {
+            startEditing(mode: defaultMode, sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
+            return
+        }
+
+        let coordinator = ChooseEditorSheetCoordinator(
+            navigationController: navigationController,
+            theme: theme
+        ) { [weak self] mode, dontShowAgain in
+            guard let self else { return }
+
+            let editMode: WMFEditMode = (mode == .visual) ? .visual : .source
+            if dontShowAgain {
+                settingsDataController.setDefaultEditMode(editMode)
+            }
+            self.startEditing(mode: editMode, sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
+        }
+        coordinator.start()
+    }
+
+    private func startEditing(mode: WMFEditMode, sectionID: Int?, selectedTextEditInfo: SelectedTextEditInfo?, editTag: WMFEditTag) {
+        switch mode {
+        case .source:
+            presentSourceEditor(sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
+        case .visual:
+            presentVisualEditorInBrowser(sectionID: sectionID)
+        }
     }
 
     private func presentSourceEditor(sectionID: Int?, selectedTextEditInfo: SelectedTextEditInfo?, editTag: WMFEditTag) {
@@ -55,6 +84,21 @@ extension ArticleViewController {
         )
 
         presentEditor(editorViewController: editorViewController)
+    }
+
+    private func presentVisualEditorInBrowser(sectionID: Int?) {
+        var components = URLComponents(url: articleURL, resolvingAgainstBaseURL: false)
+
+        var queryItems = [
+            URLQueryItem(name: "veaction", value: "edit"),
+            URLQueryItem(name: "returntoapp", value: "1")
+        ]
+
+        if let sectionID {
+            queryItems.append(URLQueryItem(name: "section", value: String(sectionID)))
+        }
+        components?.queryItems = queryItems
+        navigate(to: components?.url, useSafari: true)
     }
 
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
