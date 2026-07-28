@@ -17,18 +17,14 @@ public struct WMFChooseEditorView: View {
                 optionsCard
                 dontShowAgainRow
             }
-            .padding(.horizontal, 16)
-            .padding(.top, 8)
 
             WMFLargeButton(style: .primary, title: viewModel.continueTitle) {
                 viewModel.tappedContinue()
             }
-            .padding(.horizontal, 16)
             .padding(.top, 28)
-            .padding(.bottom, 16)
-
-            Spacer(minLength: 0)
         }
+        .multilineTextAlignment(.leading)
+        .padding(16)
         .background(Color(uiColor: theme.midBackground))
         .environment(\.colorScheme, theme.preferredColorScheme)
     }
@@ -37,6 +33,7 @@ public struct WMFChooseEditorView: View {
         VStack(spacing: 0) {
             optionRow(mode: .visual, title: viewModel.visualEditingTitle, subtitle: viewModel.visualEditingSubtitle, showsExternalLinkIcon: true)
             Divider()
+                .padding(.horizontal, 16)
             optionRow(mode: .source, title: viewModel.sourceEditingTitle, subtitle: viewModel.sourceEditingSubtitle, showsExternalLinkIcon: false)
         }
         .background(
@@ -50,40 +47,35 @@ public struct WMFChooseEditorView: View {
             viewModel.selectedMode = mode
         } label: {
             HStack(alignment: .top, spacing: 12) {
-                VStack(alignment: .leading, spacing: 4) {
-                    HStack(spacing: 6) {
+                VStack(alignment: .leading) {
+                    HStack(spacing: 8) {
                         Text(title)
                             .font(Font(WMFFont.for(.headline)))
-                            .foregroundColor(Color(uiColor: theme.text))
                         if showsExternalLinkIcon, let uiImage = WMFSFSymbolIcon.for(symbol: .arrowUpForward, font: .subheadline) {
                             Image(uiImage: uiImage)
-                                .foregroundColor(Color(uiColor: theme.secondaryText))
                         }
                     }
+                    .foregroundColor(Color(uiColor: theme.text))
 
-
-                    HStack(alignment: .top, spacing: 6) {
+                    HStack(alignment: .top, spacing: 8) {
                         Text(subtitle)
-                            .font(Font(WMFFont.for(.subheadline)))
-                            .foregroundColor(Color(uiColor: theme.secondaryText))
-                            .multilineTextAlignment(.leading)
                             .fixedSize(horizontal: false, vertical: true)
 
                         Spacer(minLength: 8)
 
-                        if let uiImage = WMFSFSymbolIcon.for(symbol: .checkmark, font: .headline) {
-                            Image(uiImage: uiImage)
-                                .foregroundColor(Color(uiColor: theme.link))
-                                .opacity(viewModel.selectedMode == mode ? 1 : 0)
-                                .accessibilityHidden(true)
-                        }
+                        WMFCheckmarkView(isSelected: true, configuration: .init(style: .default))
+                            .opacity(viewModel.selectedMode == mode ? 1 : 0)
+                            .accessibilityHidden(true)
                     }
+                    .font(Font(WMFFont.for(.subheadline)))
+                    .foregroundColor(Color(uiColor: theme.secondaryText))
                 }
             }
             .padding(16)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .accessibilityElement(children: .combine)
         .accessibilityAddTraits(viewModel.selectedMode == mode ? [.isSelected] : [])
     }
 
@@ -91,20 +83,18 @@ public struct WMFChooseEditorView: View {
         Button {
             viewModel.dontShowAgain.toggle()
         } label: {
-            HStack(alignment: .top, spacing: 10) {
-                if let uiImage = WMFSFSymbolIcon.for(symbol: viewModel.dontShowAgain ? .checkmarkSquareFill : .square, font: .headline) {
-                    Image(uiImage: uiImage)
-                        .foregroundColor(Color(uiColor: viewModel.dontShowAgain ? theme.link : theme.secondaryText))
-                }
+            HStack(spacing: 10) {
+                WMFCheckmarkView(isSelected: viewModel.dontShowAgain, configuration: .init(style: .checkbox))
+
                 Text(viewModel.dontShowAgainTitle)
                     .font(Font(WMFFont.for(.footnote)))
                     .foregroundColor(Color(uiColor: theme.secondaryText))
-                    .multilineTextAlignment(.leading)
                     .fixedSize(horizontal: false, vertical: true)
             }
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .accessibilityElement(children: .combine)
         .accessibilityAddTraits(viewModel.dontShowAgain ? [.isSelected] : [])
         .padding(.horizontal, 4)
     }
