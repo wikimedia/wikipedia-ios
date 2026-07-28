@@ -4,7 +4,7 @@ public struct WMFHomeFeedInterestsSettingsView: View {
 
     @ObservedObject var viewModel: WMFHomeFeedInterestsSettingsViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @FocusState private var searchIsFocused: Bool
+    @State private var searchIsFocused: Bool = false
 
     /// Space above the header. Settings pushes this screen under a navigation bar that already
     /// provides breathing room; onboarding embeds it with only the safe area above, so that
@@ -37,7 +37,7 @@ public struct WMFHomeFeedInterestsSettingsView: View {
                     .padding(.top, topContentInset)
 
                 searchBar
-                    .padding(.horizontal, 16)
+                    .padding(.horizontal, 8)
                     .padding(.top, 12)
 
                 if viewModel.isSearchActive {
@@ -120,49 +120,19 @@ public struct WMFHomeFeedInterestsSettingsView: View {
 
     // MARK: - Search
 
+    /// The system search bar, matching the search bars used elsewhere in the app.
     private var searchBar: some View {
-        HStack(spacing: 8) {
-            searchBarContent
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .modifier(WMFInterestsSearchBarBackground(theme: theme))
-
-            if searchIsFocused || viewModel.isSearchActive {
-                Button(viewModel.cancelTitle) {
-                    viewModel.clearSearch()
-                    searchIsFocused = false
-                }
-                .font(Font(WMFFont.for(.body, sized: dynamicTypeSize)))
-                .foregroundStyle(Color(uiColor: theme.link))
-                .accessibilityIdentifier(AccessibilityIdentifiers.Interests.searchCancelButton)
+        WMFSearchBarRepresentable(
+            text: $viewModel.searchTerm,
+            isFocused: $searchIsFocused,
+            placeholder: viewModel.searchPlaceholder,
+            theme: theme,
+            accessibilityIdentifier: AccessibilityIdentifiers.Interests.searchField,
+            onCancel: {
+                viewModel.clearSearch()
+                searchIsFocused = false
             }
-        }
-        .animation(.default, value: searchIsFocused)
-    }
-
-    private var searchBarContent: some View {
-        HStack(spacing: 6) {
-            if let magnifyingGlass = WMFSFSymbolIcon.for(symbol: .magnifyingGlass, compatibleWith: dynamicTypeSize.wmfTraitCollection) {
-                Image(uiImage: magnifyingGlass)
-                    .foregroundStyle(Color(uiColor: theme.secondaryText))
-            }
-            TextField(viewModel.searchPlaceholder, text: $viewModel.searchTerm)
-                .font(Font(WMFFont.for(.body, sized: dynamicTypeSize)))
-                .foregroundStyle(Color(uiColor: theme.text))
-                .autocorrectionDisabled()
-                .textInputAutocapitalization(.never)
-                .focused($searchIsFocused)
-                .accessibilityIdentifier(AccessibilityIdentifiers.Interests.searchField)
-
-            if viewModel.isSearchActive, let clearIcon = WMFSFSymbolIcon.for(symbol: .closeCircleFill, compatibleWith: dynamicTypeSize.wmfTraitCollection) {
-                Button {
-                    viewModel.clearSearch()
-                } label: {
-                    Image(uiImage: clearIcon)
-                        .foregroundStyle(Color(uiColor: theme.secondaryText))
-                }
-            }
-        }
+        )
     }
 
     // Search-view-controller-style language bar: lets the user pick which of their languages to
@@ -242,25 +212,6 @@ public struct WMFHomeFeedInterestsSettingsView: View {
                 .padding(.vertical, 12)
                 .animation(.default, value: viewModel.selectedTopics)
             }
-        }
-    }
-}
-
-/// Capsule background for the interests search bar: liquid glass on iOS 26+,
-/// a filled capsule on earlier versions.
-private struct WMFInterestsSearchBarBackground: ViewModifier {
-    let theme: WMFTheme
-
-    func body(content: Content) -> some View {
-        if #available(iOS 26.0, *) {
-            content
-                .glassEffect(.regular.interactive(), in: Capsule())
-        } else {
-            content
-                .background(
-                    Capsule()
-                        .fill(Color(uiColor: theme.midBackground))
-                )
         }
     }
 }

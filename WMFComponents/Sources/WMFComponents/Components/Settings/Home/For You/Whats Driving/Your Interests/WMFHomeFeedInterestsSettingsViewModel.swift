@@ -16,7 +16,6 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     let headerTitle = WMFLocalizedString("home-feed-interests-header-title", value: "What are you interested in?", comment: "Header title on the interests selection screen, shown before any topics or articles are selected.")
     let deselectAllTitle = WMFLocalizedString("home-feed-interests-deselect-all", value: "Deselect all", comment: "Title of the button on the interests selection screen that clears all selected topics and articles.")
     let searchPlaceholder = WMFLocalizedString("home-feed-interests-search-placeholder", value: "Search for an article", comment: "Placeholder text of the article search bar on the interests selection screen.")
-    let cancelTitle = CommonStrings.cancelActionTitle
     private let selectedCountFormat = WMFLocalizedString("home-feed-interests-selected-count", value: "{{PLURAL:%1$d|%1$d selected|%1$d selected}}", comment: "Header title on the interests selection screen indicating the number of selected topics and articles. %1$d is replaced with the number of selections.")
     private let nonMainspaceToast = WMFLocalizedString("home-feed-interests-non-mainspace-toast", value: "Only articles in the main namespace can be added as interests.", comment: "Toast error message shown when a user tries to add a non-article page (e.g. a talk page) as an interest.")
 
