@@ -37,17 +37,15 @@ public struct WMFHomeView: View {
         }
     }
 
-    // On iOS 26 the Community feed scrolls edge-to-edge underneath the translucent navigation bar
-    // and a glass segmented-control header (Liquid Glass look). Older iOS keeps the opaque in-flow
-    // layout. The For You tab is handled separately in `mainContent`.
     @ViewBuilder
     private var communitySection: some View {
         if #available(iOS 26.0, *) {
             communityTabContent
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ignoresSafeArea(.container, edges: .top)
                 .safeAreaInset(edge: .top, spacing: 0) {
+
                     headerBar
-                        .background(.ultraThinMaterial)
                 }
         } else {
             VStack(spacing: 0) {
