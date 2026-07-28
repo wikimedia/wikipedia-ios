@@ -426,7 +426,8 @@ public extension WidgetController {
             return
         }
 
-        fetchFeaturedContent { result in
+        // A same-day cache saved without a featured article must not short-circuit the network.
+        fetchFeaturedContent(useCacheIfAvailable: widgetCache.featuredContent?.featuredArticle != nil) { result in
             switch result {
             case .success(var featuredContent):
                 if let featuredArticleThumbnailImageSource = featuredContent.featuredArticle?.thumbnailImageSource {
@@ -446,8 +447,7 @@ public extension WidgetController {
                         self.sharedCache.saveCache(widgetCache)
                         performCompletion(result: .success(featureArticle))
                     } else {
-                        widgetCache.featuredContent = nil
-                        self.sharedCache.saveCache(widgetCache)
+                        // Leave the shared cache intact for the other widgets.
                         performCompletion(result: .failure(.contentFailure))
                     }
                 }
@@ -479,7 +479,8 @@ public extension WidgetController {
             return
         }
 
-        fetchFeaturedContent { result in
+        // A same-day cache saved without a picture of the day must not short-circuit the network.
+        fetchFeaturedContent(useCacheIfAvailable: widgetCache.featuredContent?.pictureOfTheDay != nil) { result in
             switch result {
             case .success(var featuredContent):
                 // Portrait images deliver far more pixels for the same requested width;
@@ -520,8 +521,7 @@ public extension WidgetController {
                         }
                     }
                 } else {
-                    widgetCache.featuredContent = nil
-                    self.sharedCache.saveCache(widgetCache)
+                    // Leave the shared cache intact for the other widgets.
                     performCompletion(result: .failure(.contentFailure))
                 }
             case .failure(let error):
