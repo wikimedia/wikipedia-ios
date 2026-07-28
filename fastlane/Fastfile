@@ -24,7 +24,7 @@ platform :ios do
       destination: "generic/platform=iOS",
       archive_path: "build/Wikipedia.xcarchive",
       export_method: "app-store",
-      xcargs: "-authenticationKeyPath #{ENV['APP_STORE_KEY_PATH']} -authenticationKeyID #{ENV['APP_STORE_API_KEY_ID']} -authenticationKeyIssuerID #{ENV['APP_STORE_ISSUER_ID']}",
+      xcargs: "-allowProvisioningUpdates -authenticationKeyPath #{ENV['APP_STORE_KEY_PATH']} -authenticationKeyID #{ENV['APP_STORE_API_KEY_ID']} -authenticationKeyIssuerID #{ENV['APP_STORE_ISSUER_ID']}",
     )
   end
 
