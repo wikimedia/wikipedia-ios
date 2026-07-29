@@ -12,100 +12,111 @@ public struct WMFHomeView: View {
         self.viewModel = viewModel
     }
 
-    private var navBarBottom: CGFloat {
-        let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let window = scene?.windows.first
-        let safeAreaTop = window?.safeAreaInsets.top ?? 0
-        return safeAreaTop + 44
-    }
-
-    private var navTheme: WMFTheme {
-        theme
-    }
-
-    private var isLandscape: Bool {
-        let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        return scene?.interfaceOrientation.isLandscape ?? false
-    }
-
-    private var horizontalPadding: CGFloat {
-        isLandscape ? 120 : 16
+    private var safeAreaTop: CGFloat {
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first?
+            .windows
+            .first(where: \.isKeyWindow)?
+            .safeAreaInsets.top ?? 0
     }
 
     public var body: some View {
-        ZStack(alignment: .top) {
-            if viewModel.selectedTab == .forYou {
-                forYouTabContent
-            } else {
-                communityTabContent
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(uiColor: theme.paperBackground))
-                    .padding(.top, navBarBottom + 52)
+        mainContent
+            .environment(\.colorScheme, theme.preferredColorScheme)
+            .task {
+                viewModel.loadCurrentTabFeedIfNeeded()
             }
+            .onChange(of: viewModel.selectedTab) { _ in
+                viewModel.loadCurrentTabFeedIfNeeded()
+            }
+    }
 
-            HStack(spacing: 8) {
-                WMFForYouTabPicker(
-                    selectedTab: $viewModel.selectedTab,
-                    communityTitle: viewModel.communityTabTitle,
-                    forYouTitle: viewModel.forYouTabTitle,
-                    theme: navTheme
-                )
+    @ViewBuilder
+    private var mainContent: some View {
+        if viewModel.selectedTab == .forYou {
+            ZStack(alignment: .top) {
+                forYouTabContent
+                    .ignoresSafeArea()
+                headerBar
+                    .padding(.top, safeAreaTop + 52)
+            }
+            .ignoresSafeArea()
+        } else {
+            communitySection
+        }
+    }
 
-                Spacer()
+    @ViewBuilder
+    private var communitySection: some View {
+        if #available(iOS 26.0, *) {
+            communityTabContent
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ignoresSafeArea(.container, edges: .top)
+                .safeAreaInset(edge: .top, spacing: 0) {
+                    headerBar
+                }
+        } else {
+            VStack(spacing: 0) {
+                headerBar
+                communityTabContent
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(uiColor: theme.paperBackground))
+        }
+    }
 
-                if viewModel.shouldShowLanguagePicker {
-                    Menu {
-                        ForEach(viewModel.languages) { language in
-                            Button {
-                                viewModel.didSelectLanguage?(language)
-                            } label: {
-                                if language.languageCode == viewModel.selectedLanguage?.languageCode {
-                                    Label(language.localizedName, systemImage: "checkmark")
-                                        .minimumScaleFactor(0.25)
-                                } else {
-                                    Text(language.localizedName)
-                                        .minimumScaleFactor(0.25)
-                                }
+    private var headerBar: some View {
+        HStack(spacing: 8) {
+            WMFForYouTabPicker(
+                selectedTab: $viewModel.selectedTab,
+                communityTitle: viewModel.communityTabTitle,
+                forYouTitle: viewModel.forYouTabTitle,
+                theme: theme
+            )
+
+            Spacer()
+
+            if viewModel.shouldShowLanguagePicker {
+                Menu {
+                    ForEach(viewModel.languages) { language in
+                        Button {
+                            viewModel.didSelectLanguage?(language)
+                        } label: {
+                            if language.languageCode == viewModel.selectedLanguage?.languageCode {
+                                Label(language.localizedName, systemImage: "checkmark")
+                                    .minimumScaleFactor(0.25)
+                            } else {
+                                Text(language.localizedName)
+                                    .minimumScaleFactor(0.25)
                             }
                         }
-                        Divider()
-                        Button {
-                            viewModel.didTapEditLanguages?()
-                        } label: {
-                            Label(viewModel.editLanguagesTitle, systemImage: "globe")
-                        }
-                    } label: {
-                        Text(viewModel.languageButtonTitle)
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
-                            .foregroundStyle(Color(uiColor: navTheme.text))
-                            .dynamicTypeSize(.xSmall ... .accessibility2)
-                            .minimumScaleFactor(0.25)
-                            .lineLimit(1)
-                        Image(systemName: "chevron.up.chevron.down")
-                            .font(.system(size: 12, weight: .semibold))
-                            .foregroundStyle(Color(uiColor: navTheme.text))
                     }
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 8)
-                    .background(.ultraThinMaterial, in: Capsule())
-                    .accessibilityIdentifier(AccessibilityIdentifiers.Home.languagePickerButton)
+                    Divider()
+                    Button {
+                        viewModel.didTapEditLanguages?()
+                    } label: {
+                        Label(viewModel.editLanguagesTitle, systemImage: "globe")
+                    }
+                } label: {
+                    Text(viewModel.languageButtonTitle)
+                        .font(Font(WMFFont.for(.semiboldHeadline)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                        .dynamicTypeSize(.xSmall ... .accessibility2)
+                        .minimumScaleFactor(0.25)
+                        .lineLimit(1)
+                    Image(systemName: "chevron.up.chevron.down")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(Color(uiColor: theme.text))
                 }
+                .padding(.horizontal, 14)
+                .padding(.vertical, 8)
+                .background(.ultraThinMaterial, in: Capsule())
+                .accessibilityIdentifier(AccessibilityIdentifiers.Home.languagePickerButton)
             }
-            .padding(.horizontal, horizontalPadding)
-            .frame(maxWidth: .infinity)
-            .padding(.top, navBarBottom + 8)
-            .background(viewModel.selectedTab == .forYou ? Color.clear : Color(uiColor: theme.paperBackground))
         }
-        .background(viewModel.selectedTab == .forYou ? Color.black : Color(uiColor: theme.paperBackground))
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .ignoresSafeArea()
-        .environment(\.colorScheme, theme.preferredColorScheme)
-        .task {
-            viewModel.loadCurrentTabFeedIfNeeded()
-        }
-        .onChange(of: viewModel.selectedTab) {
-            viewModel.loadCurrentTabFeedIfNeeded()
-        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
     }
 
     // MARK: - Tab Picker
@@ -167,11 +178,11 @@ public struct WMFHomeView: View {
                 Spacer()
                 Text(viewModel.forYouErrorTitle)
                     .font(Font(WMFFont.for(.boldHeadline)))
-                    .foregroundStyle(Color(uiColor: navTheme.text))
+                    .foregroundStyle(Color(uiColor: theme.text))
                     .multilineTextAlignment(.center)
                 Text(viewModel.forYouErrorSubtitle)
                     .font(Font(WMFFont.for(.callout)))
-                    .foregroundStyle(Color(uiColor: navTheme.secondaryText))
+                    .foregroundStyle(Color(uiColor: theme.secondaryText))
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 40)
                 Button {
@@ -182,13 +193,13 @@ public struct WMFHomeView: View {
                         .foregroundStyle(.white)
                         .padding(.horizontal, 24)
                         .padding(.vertical, 12)
-                        .background(Color(uiColor: navTheme.link), in: Capsule())
+                        .background(Color(uiColor: theme.link), in: Capsule())
                 }
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.black)
-            .padding(.top, navBarBottom + 52)
+            .padding(.top, safeAreaTop + 52)
         } else {
             Spacer()
             Text(viewModel.forYouTabTitle)
