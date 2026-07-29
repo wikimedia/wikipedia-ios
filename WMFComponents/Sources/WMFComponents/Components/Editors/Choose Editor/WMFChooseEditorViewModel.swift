@@ -21,10 +21,14 @@ public final class WMFChooseEditorViewModel: ObservableObject {
     @Published var selectedMode: EditMode
     @Published var dontShowAgain: Bool = false
 
-    let didTapContinue: @MainActor (EditMode, _ dontShowAgain: Bool) -> Void
-    let didTapClose: @MainActor () -> Void
+    let didTapContinue: @MainActor @Sendable (EditMode, _ dontShowAgain: Bool) -> Void
+    let didTapClose: @MainActor @Sendable () -> Void
 
-    public init(initialMode: EditMode = .visual, didTapContinue: @escaping @MainActor (EditMode, Bool) -> Void, didTapClose: @escaping @MainActor () -> Void) {
+    public init(
+        initialMode: EditMode = .visual,
+        didTapContinue: @escaping @MainActor @Sendable (EditMode, Bool) -> Void,
+        didTapClose: @escaping @MainActor @Sendable () -> Void
+    ) {
         self.selectedMode = initialMode
         self.didTapContinue = didTapContinue
         self.didTapClose = didTapClose
