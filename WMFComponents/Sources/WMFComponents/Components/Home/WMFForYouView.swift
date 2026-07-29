@@ -50,7 +50,7 @@ public struct WMFForYouView: View {
             emptyState
         } else {
             GeometryReader { geometry in
-                ScrollView(.vertical, showsIndicators: false) {
+                let scrollView = ScrollView(.vertical, showsIndicators: false) {
                     LazyVStack(spacing: 0) {
                         ForEach(visiblePages) { page in
                             let visibleArticles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.hideKey) }
@@ -73,29 +73,13 @@ public struct WMFForYouView: View {
                 }
                 .scrollTargetBehavior(.paging)
                 .refreshable { await viewModel.onRefresh?() }
-                .overlay(alignment: .top) {
-                    LinearGradient(
-                        stops: [
-                            .init(color: .black.opacity(0.3), location: 0),
-                            .init(color: .black.opacity(0), location: 1.0)
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                    .frame(height: 60)
-                    .allowsHitTesting(false)
-                }
-                .overlay(alignment: .bottom) {
-                    LinearGradient(
-                        stops: [
-                            .init(color: .black.opacity(0), location: 0),
-                            .init(color: .black.opacity(0.3), location: 1.0)
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                    .frame(height: 60)
-                    .allowsHitTesting(false)
+
+                if #available(iOS 26, *) {
+                    scrollView
+                        .scrollEdgeEffectStyle(.soft, for: .top)
+                        .scrollEdgeEffectStyle(.soft, for: .bottom)
+                } else {
+                    scrollView
                 }
             }
         }
