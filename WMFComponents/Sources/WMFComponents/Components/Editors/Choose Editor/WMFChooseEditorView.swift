@@ -22,6 +22,8 @@ public struct WMFChooseEditorView: View {
                 viewModel.tappedContinue()
             }
             .padding(.top, 28)
+
+            Spacer(minLength: 0)
         }
         .multilineTextAlignment(.leading)
         .padding(16)
