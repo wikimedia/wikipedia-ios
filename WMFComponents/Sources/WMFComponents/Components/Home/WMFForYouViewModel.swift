@@ -171,6 +171,11 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
     @Published public var sampledColor: Color?
     @Published public var isSaved: Bool = false
 
+    public enum LoadState {
+        case loading, loaded
+    }
+    @Published public var loadState: LoadState = .loading
+
     public func refreshSavedState(isSaved: Bool) {
         self.isSaved = isSaved
     }
@@ -219,10 +224,16 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
         guard loadTask == nil else { return }
         loadTask = Task { [weak self] in
             guard let self else { return }
-            guard let summary = try? await WMFArticleSummaryDataController.shared.fetchArticleSummary(project: project, title: title) else { return }
+            guard let summary = try? await WMFArticleSummaryDataController.shared.fetchArticleSummary(project: project, title: title) else {
+                self.loadState = .loaded
+                return
+            }
             self.description = summary.description
             self.extract = summary.extract
-            guard let thumbnailURL = summary.thumbnailURL else { return }
+            guard let thumbnailURL = summary.thumbnailURL else {
+                self.loadState = .loaded
+                return
+            }
 
             // Upsize the Wikimedia thumbnail URL to get a higher resolution image
             let largeURL: URL = {
@@ -233,7 +244,10 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
                 return URL(string: urlString) ?? thumbnailURL
             }()
 
-            guard let data = try? await WMFImageDataController.shared.fetchImageData(url: largeURL) else { return }
+            guard let data = try? await WMFImageDataController.shared.fetchImageData(url: largeURL) else {
+                self.loadState = .loaded
+                return
+            }
 
             let image = UIImage(data: data)
             self.uiImage = image
@@ -242,6 +256,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
                     self.sampledColor = color
                 }
             }
+            self.loadState = .loaded
         }
     }
 

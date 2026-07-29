@@ -72,8 +72,19 @@ public struct WMFForYouView: View {
                     }
                 }
                 .scrollTargetBehavior(.paging)
-                .refreshable {
-                    await viewModel.onRefresh?()
+                .refreshable { await viewModel.onRefresh?() }
+                .overlay(alignment: .bottom) {
+                    LinearGradient(
+                        stops: [
+                            .init(color: .black.opacity(0), location: 0),
+                            .init(color: .black.opacity(0.6), location: 0.6),
+                            .init(color: .black.opacity(0.9), location: 1.0)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                    .frame(height: 80)
+                    .allowsHitTesting(false)
                 }
             }
         }
@@ -361,7 +372,7 @@ private struct WMFForYouArticleCardView: View {
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height)
                 .clipped()
-                
+
                 // 2. Top gradient — dark fade for nav bar legibility
                 if effectiveVariant != .textFocused {
                     LinearGradient(
@@ -457,12 +468,12 @@ private struct WMFForYouArticleCardView: View {
                         LinearGradient(
                             stops: [
                                 .init(color: .black.opacity(0), location: 0.0),
-                                .init(color: cardColor.opacity(0.2), location: 0.3),
-                                .init(color: cardColor.opacity(0.5), location: 0.5),
-                                .init(color: cardColor.opacity(0.75), location: 0.65),
+                                .init(color: cardColor.opacity(0.3), location: 0.3),
+                                .init(color: cardColor.opacity(0.6), location: 0.5),
+                                .init(color: darkCardColor(cardColor).opacity(0.75), location: 0.65),
                                 .init(color: darkCardColor(cardColor).opacity(0.88), location: 0.78),
                                 .init(color: darkCardColor(cardColor).opacity(0.95), location: 0.88),
-                                .init(color: .black.opacity(0.98), location: 1.0)
+                                .init(color: .black.opacity(1), location: 1.0)
                             ],
                             startPoint: .top,
                             endPoint: .bottom
@@ -477,9 +488,17 @@ private struct WMFForYouArticleCardView: View {
             .contentShape(Rectangle())
             .onTapGesture { onTapCard() }
             .onAppear { viewModel.load() }
+            .overlay {
+                if viewModel.loadState == .loading {
+                    Color.black
+                        .ignoresSafeArea()
+                        .transition(.opacity)
+                }
+            }
+            .animation(.easeOut(duration: 0.2), value: viewModel.loadState == .loading)
         }
     }
-    
+
     private func darkCardColor(_ cardColor: Color) -> Color {
         var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
         UIColor(cardColor).getHue(&h, saturation: &s, brightness: &b, alpha: &a)
