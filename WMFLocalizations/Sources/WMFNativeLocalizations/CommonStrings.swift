@@ -647,7 +647,7 @@ public class CommonStrings: NSObject {
 
     public static let editorTitle = WMFLocalizedString("editor-title", value: "Editor", comment: "Title of editor view.")
 
-    public static let editSource = WMFLocalizedString("editor-edit-source", value: "Edit", comment: "Title for menu option to edit a page.")
+    public static let editSource = WMFLocalizedString("editor-edit-source", value: "Edit source", comment: "Title for menu option to edit the source of a page.")
 
     public static let editPublishedToastTitle = WMFLocalizedString("editor-edit-published", value: "Your edit was published.", comment: "Title for alert informing that the user's new edit was successfully published.")
 

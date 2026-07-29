@@ -482,7 +482,7 @@
 "editing-welcome-set-knowledge-free-subtitle" = "In order to give everyone access to the world’s knowledge, we need you to participate in its creation by reading, editing, and contributing to the topics that matter most to you.";
 "editing-welcome-set-knowledge-free-title" = "Set knowledge free";
 "editor-edit-published" = "Your edit was published.";
-"editor-edit-source" = "Edit";
+"editor-edit-source" = "Edit source";
 "editor-exit-confirmation-body" = "Are you sure you want to leave editing mode without publishing first?";
 "editor-exit-confirmation-message" = "Are you sure you want to discard this edit?";
 "editor-exit-confirmation-title" = "Dismiss the editing mode?";
