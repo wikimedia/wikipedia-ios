@@ -14,11 +14,13 @@ platform :ios do
     )
   end
 
-  # Shared helper: list Development certificate IDs currently on the account.
-  # Used to detect byproduct certs created by automatic signing + -allowProvisioningUpdates
-  # on ephemeral CI runners (see internal_beta).
-  def development_certificate_ids
-    Spaceship::ConnectAPI::Certificate.all(filter: { certificateType: "IOS_DEVELOPMENT" }).map(&:id)
+  # Shared helper: list all certificate IDs currently on the account, regardless
+  # of type. Used to detect byproduct certs created by automatic signing +
+  # -allowProvisioningUpdates on ephemeral CI runners (see internal_beta).
+  # Intentionally unfiltered for now while diagnosing whether the byproduct
+  # cert is the legacy IOS_DEVELOPMENT type or the newer unified DEVELOPMENT type.
+  def all_certificate_ids
+    Spaceship::ConnectAPI::Certificate.all.map(&:id)
   end
 
   # Shared helper: build the app
@@ -41,7 +43,7 @@ platform :ios do
   desc "Build and deploy to internal TestFlight testers"
   lane :internal_beta do
     api_key = get_api_key
-    before_dev_cert_ids = development_certificate_ids
+    before_cert_ids = all_certificate_ids
 
     build_the_app
 
@@ -55,16 +57,18 @@ platform :ios do
       skip_waiting_for_build_processing: true,
     )
 
-    # Automatic signing + -allowProvisioningUpdates creates a new Development
-    # certificate as a byproduct on every run, since GitHub-hosted runners are
-    # ephemeral and never have an existing one locally. Clean up only the
+    # Automatic signing + -allowProvisioningUpdates can create a new
+    # certificate as a byproduct on ephemeral CI runners. Clean up only the
     # cert(s) created by this run so it doesn't eat into the account's
-    # Development certificate quota over time.
-    new_dev_cert_ids = development_certificate_ids - before_dev_cert_ids
-    new_dev_cert_ids.each do |id|
-      cert = Spaceship::ConnectAPI::Certificate.all.find { |c| c.id == id }
+    # certificate quota over time.
+    all_certs_after = Spaceship::ConnectAPI::Certificate.all
+    new_certs = all_certs_after.select { |c| !before_cert_ids.include?(c.id) }
+    if new_certs.empty?
+      UI.message("No new certificates detected during this run.")
+    end
+    new_certs.each do |cert|
       # DRY RUN: not deleting yet, just confirming detection is correct.
-      UI.message("Would delete byproduct Development certificate: #{cert&.display_name}")
+      UI.message("Would delete byproduct certificate: #{cert.display_name} (type: #{cert.certificate_type})")
     end
   end
 
