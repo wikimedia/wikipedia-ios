@@ -840,6 +840,7 @@
 "project-name-wikiversity" = "Wikiversità";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wikizionario";
+"reading-challenge-random-article-button" = "Voce a caso";
 "reading-list-add-hint-title" = "Aggiungere \"$1\" a un elenco di lettura?";
 "reading-list-add-saved-title" = "Voci salvate trovate";
 "reading-list-api-error-generic" = "Un errore inaspettato si è verificato durante la sincronizzazione degli elenchi di lettura.";
