@@ -38,10 +38,10 @@ jobs:
             exit 1
           fi
 
-          # Verify the ref exists
-          if git ls-remote --exit-code --heads "$GITHUB_REPOSITORY" "$APP_REF" >/dev/null 2>&1; then
+          # Verify the ref exists using gh CLI
+          if gh api repos/$GITHUB_REPOSITORY/git/ref/heads/$APP_REF >/dev/null 2>&1; then
             echo "Verified branch: $APP_REF"
-          elif git ls-remote --exit-code --tags "$GITHUB_REPOSITORY" "$APP_REF" >/dev/null 2>&1; then
+          elif gh api repos/$GITHUB_REPOSITORY/git/ref/tags/$APP_REF >/dev/null 2>&1; then
             echo "Verified tag: $APP_REF"
           else
             echo "Branch or tag '$APP_REF' not found in repository."
