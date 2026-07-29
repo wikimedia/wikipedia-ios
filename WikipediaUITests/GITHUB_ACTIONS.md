@@ -31,7 +31,7 @@ The `UITests` test plan selects that target and defines the checked-in configura
 | Run Unit Tests | `.github/workflows/run_unit_tests.yml` | `pull_request` to `main`, `push` to `main`, manual dispatch | `Wikipedia`, `WMFComponents`, `WMFData` matrix | Scheme defaults | Full scheme tests | PR and main-branch unit test signal for app, components, and data layers |
 | Run UI Tests | `.github/workflows/run_ui_tests.yml` | `repository_dispatch` type `nightly-ui-tests`, manual dispatch from a release tag | `WikipediaUITests` | `UITests`, `English (Light)` | Full configuration | Deterministic fixture-backed UI regression signal for nightly and release-tag validation |
 | Run E2E Tests | `.github/workflows/run_e2e_ui_tests.yml` | `pull_request` to `main`, manual dispatch from a release tag | `WikipediaUITests` | `UITests`, `English (Light, E2E)` | Identifiers in `WikipediaUITests/E2ESmokeTests.txt` | Small live-network smoke signal for flows where integration matters |
-| Run Full UI Test Plan | `.github/workflows/run_full_ui_test_plan.yml` | Manual dispatch from a release tag | `WikipediaUITests` | Every checked-in `UITests.xctestplan` configuration | Full selected configuration per matrix job | Release-tag confidence across fixture, E2E, language, RTL, and theme configurations |
+| Run Full UI Test Plan | `.github/workflows/run_full_ui_test_plan.yml` | Manual dispatch against any branch or tag | `WikipediaUITests` | Every checked-in `UITests.xctestplan` configuration | Full selected configuration per matrix job | Full-configuration confidence across fixture, E2E, language, RTL, and theme configurations on any ref before release |
 | Tag Latest Beta | `.github/workflows/tag_latest_beta.yml` | Daily schedule, manual dispatch | None | None | None | Moves `latest_beta`; dispatches nightly fixture-backed UI tests when `main` has advanced |
 | Check PR and App Versions | `.github/workflows/check_versions.yml` | PR opened, reopened, labeled, unlabeled, synchronized | None | None | None | Release-label policy gate, not an XCTest lane |
 
@@ -82,9 +82,9 @@ Use this lane only for a small set of flows where live services are part of the 
 
 ## Run Full UI Test Plan
 
-`Run Full UI Test Plan` is the release-tag confidence lane. It is manual-only.
+`Run Full UI Test Plan` is the full-configuration confidence lane. It is manual-only, and can run against any branch or tag.
 
-The workflow reads the selected tag's `Test Plans/UITests.xctestplan`, derives a matrix from the `configurations` array, builds `WikipediaUITests` once with:
+The workflow reads the selected ref's `Test Plans/UITests.xctestplan`, derives a matrix from the `configurations` array, builds `WikipediaUITests` once with:
 
 ```sh
 xcodebuild build-for-testing \
@@ -133,7 +133,7 @@ Update this document when any of these change:
 
 - `.github/workflows/run_ui_tests.yml`
 - `.github/workflows/run_e2e_ui_tests.yml`
-- `.github/workflows/run_full_ui_test_plan.yml`
+- `.github/workflows/run_full_ui_test_plan.yml` (including input names: `ref` for the branch/tag to test)
 - `.github/actions/prepare-simulator`
 - `.github/actions/test-result-summary`
 - `.github/actions/coverage-summary`

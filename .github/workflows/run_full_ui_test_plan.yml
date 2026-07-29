@@ -3,8 +3,8 @@ name: Run Full UI Test Plan
 on:
   workflow_dispatch:
     inputs:
-      release_tag:
-        description: "GitHub release tag to test"
+      ref:
+        description: "Branch or tag to test (e.g. main, v1.2.3, release-candidate)"
         required: true
         type: string
 
@@ -18,7 +18,7 @@ env:
   SIMULATOR_NAME: "iPhone 17"
 
 concurrency:
-  group: "full-ui-test-plan-${{ inputs.release_tag }}"
+  group: "full-ui-test-plan-${{ inputs.ref }}"
   cancel-in-progress: true
 
 jobs:
@@ -28,10 +28,10 @@ jobs:
     outputs:
       test-configurations: ${{ steps.test-configurations.outputs.matrix }}
     steps:
-      - name: Verify workflow ref and release tag
+      - name: Verify workflow ref and app ref
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ inputs.release_tag }}
+          APP_REF: ${{ inputs.ref }}
           WORKFLOW_REF: ${{ github.ref }}
         run: |
           if [ "$WORKFLOW_REF" != "refs/heads/main" ]; then
@@ -40,23 +40,30 @@ jobs:
             exit 1
           fi
 
-          if [ -z "$RELEASE_TAG" ]; then
-            echo "Full UI test plan runs must provide a release tag."
+          if [ -z "$APP_REF" ]; then
+            echo "Full UI test plan runs must provide a branch or tag."
             exit 1
           fi
 
-          gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null
-          echo "Verified GitHub release tag: $RELEASE_TAG"
+          # Verify the ref exists
+          if git ls-remote --exit-code --heads "$GITHUB_REPOSITORY" "$APP_REF" >/dev/null 2>&1; then
+            echo "Verified branch: $APP_REF"
+          elif git ls-remote --exit-code --tags "$GITHUB_REPOSITORY" "$APP_REF" >/dev/null 2>&1; then
+            echo "Verified tag: $APP_REF"
+          else
+            echo "Branch or tag '$APP_REF' not found in repository."
+            exit 1
+          fi
 
       - name: Check out workflow ref
         uses: actions/checkout@v7
         with:
           ref: main
 
-      - name: Check out app tag
+      - name: Check out app ref
         uses: actions/checkout@v7
         with:
-          ref: refs/tags/${{ inputs.release_tag }}
+          ref: ${{ inputs.ref }}
           path: app
 
       - name: Read UITests test-plan configurations
@@ -126,10 +133,10 @@ jobs:
         with:
           ref: main
 
-      - name: Check out app tag
+      - name: Check out app ref
         uses: actions/checkout@v7
         with:
-          ref: refs/tags/${{ inputs.release_tag }}
+          ref: ${{ inputs.ref }}
           path: app
 
       - name: Select Xcode
