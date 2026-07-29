@@ -73,17 +73,28 @@ public struct WMFForYouView: View {
                 }
                 .scrollTargetBehavior(.paging)
                 .refreshable { await viewModel.onRefresh?() }
-                .overlay(alignment: .bottom) {
+                .overlay(alignment: .top) {
                     LinearGradient(
                         stops: [
-                            .init(color: .black.opacity(0), location: 0),
-                            .init(color: .black.opacity(0.6), location: 0.6),
-                            .init(color: .black.opacity(0.9), location: 1.0)
+                            .init(color: .black.opacity(0.3), location: 0),
+                            .init(color: .black.opacity(0), location: 1.0)
                         ],
                         startPoint: .top,
                         endPoint: .bottom
                     )
-                    .frame(height: 80)
+                    .frame(height: 60)
+                    .allowsHitTesting(false)
+                }
+                .overlay(alignment: .bottom) {
+                    LinearGradient(
+                        stops: [
+                            .init(color: .black.opacity(0), location: 0),
+                            .init(color: .black.opacity(0.3), location: 1.0)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                    .frame(height: 60)
                     .allowsHitTesting(false)
                 }
             }
@@ -289,8 +300,6 @@ private struct WMFForYouArticleCardView: View {
     let onUnsaveCard: () -> Void
     let onShareCard: () -> Void
 
-    @State private var contentHeight: CGFloat = 0
-
     private var windowSafeAreaBottom: CGFloat {
         let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         return scene?.windows.first?.safeAreaInsets.bottom ?? 0
@@ -375,24 +384,8 @@ private struct WMFForYouArticleCardView: View {
                 .frame(width: geometry.size.width, height: geometry.size.height)
                 .clipped()
 
-                // 2. Gradient — image-backed variants only, anchored to card bottom
-                if effectiveVariant != .textFocused {
-                    let gradientHeight = contentHeight + 25 + dotsAndTabBarHeight
-                    LinearGradient(
-                        stops: [
-                            .init(color: .clear, location: 0.0),
-                            .init(color: cardColor.opacity(0.2), location: 0.2),
-                            .init(color: darkCardColor(cardColor).opacity(0.9), location: 0.9),
-                            .init(color: .black, location: 0.9)
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                    .frame(width: geometry.size.width, height: gradientHeight)
-                    .allowsHitTesting(false)
-                }
-
-                // 3. Content
+                // 2. Content — gradient is a .background on the VStack itself,
+                // so it always matches the text height exactly, bleeding 25pt above.
                 switch effectiveVariant {
 
                 // MARK: Variant 3: Text-focused (also used as fallback when no image)
@@ -466,9 +459,17 @@ private struct WMFForYouArticleCardView: View {
                     .padding(.bottom, dotsAndTabBarHeight)
                     .frame(width: geometry.size.width, alignment: .leading)
                     .background {
-                        GeometryReader { g in
-                            Color.clear.onAppear { contentHeight = g.size.height }
-                        }
+                        LinearGradient(
+                            stops: [
+                                .init(color: cardColor.opacity(0), location: 0.0),
+                                .init(color: cardColor.opacity(0.75), location: 0.12),
+                                .init(color: .black, location: 1)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                        .padding(.top, -25)
+                        .allowsHitTesting(false)
                     }
                 }
             }
@@ -486,11 +487,5 @@ private struct WMFForYouArticleCardView: View {
             }
             .animation(.easeOut(duration: 0.2), value: viewModel.loadState == .loading)
         }
-    }
-
-    private func darkCardColor(_ cardColor: Color) -> Color {
-        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-        UIColor(cardColor).getHue(&h, saturation: &s, brightness: &b, alpha: &a)
-        return Color(hue: h, saturation: s, brightness: b * 0.4)
     }
 }

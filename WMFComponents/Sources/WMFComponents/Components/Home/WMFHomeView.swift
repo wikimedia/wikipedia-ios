@@ -20,7 +20,7 @@ public struct WMFHomeView: View {
     }
 
     private var navTheme: WMFTheme {
-        viewModel.selectedTab == .forYou ? .dark : theme
+        theme
     }
 
     private var isLandscape: Bool {
@@ -87,7 +87,7 @@ public struct WMFHomeView: View {
                     }
                     .padding(.horizontal, 14)
                     .padding(.vertical, 8)
-                    .background(Color(uiColor: navTheme.baseBackground), in: RoundedRectangle(cornerRadius: 20))
+                    .background(.ultraThinMaterial, in: Capsule())
                     .accessibilityIdentifier(AccessibilityIdentifiers.Home.languagePickerButton)
                 }
             }
@@ -122,7 +122,7 @@ public struct WMFHomeView: View {
                 tabButton(title: forYouTitle, tab: .forYou)
             }
             .padding(3)
-            .background(Color(uiColor: theme.baseBackground), in: Capsule())
+            .background(.ultraThinMaterial, in: Capsule())
             .dynamicTypeSize(.xSmall ... .large)
         }
 
@@ -143,7 +143,7 @@ public struct WMFHomeView: View {
                         Group {
                             if isSelected {
                                 Capsule()
-                                    .fill(Color(uiColor: theme.midBackground))
+                                    .fill(.ultraThinMaterial)
                             }
                         }
                     )
