@@ -391,7 +391,7 @@ jobs:
           fi
 
           echo "Creating release task for $VERSION..."
-          DESCRIPTION=$'**Release version**:\n**Release branch**:\n**Release tag**:\n**Release SHA1**:\n**App Store Submission Date**:\n**App Store Approval Date**:\n**App Store Release Date**:'
+          DESCRIPTION=$'**Release version**:\n**Release branch**:\n**Release tag**:\n**Release SHA1**:\n**App Store Submission Date**:\n**App Store Release Date**:'
 
           # Wikipedia-iOS-App, WikipediaApp, Release
           curl --header "User-Agent: GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)" \
