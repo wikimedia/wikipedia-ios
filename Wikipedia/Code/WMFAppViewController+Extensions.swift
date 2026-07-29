@@ -647,6 +647,7 @@ extension WMFAppViewController {
             do {
                 WMFDataEnvironment.current.coreDataStore = try await WMFCoreDataStore()
                 await self.migrateSavedArticleInfoWithBackgroundTask()
+                await self.seedMockReadingChallengeCompletion()
             } catch let error {
                 DDLogError("Error setting up WMFCoreDataStore: \(error)")
             }
@@ -1315,5 +1316,119 @@ extension WMFAppViewController {
         )
 
         return controller
+    }
+}
+
+// MARK: - TEMPORARY: mock Reading Challenge completion for update testing
+//
+// Seeds the on-device state a user who completed the 2026 Reading Challenge would have, so that the
+// completion recovery shipping in the next release can be verified on a real device:
+//
+//   1. Install this build (releases/8.2.2) on device with the mode below set to .both,
+//      .legacyWidgetFlagOnly, or .pageViewHistoryOnly. Launch it once.
+//   2. Install the reading-challenge-completion-recovery build over it (do NOT delete the app —
+//      deleting wipes the app group and the page view database, which is the whole point of the test).
+//   3. Confirm `completed-reading-challenge-2026` is true in UserDefaults.standard.
+//
+// Set the mode to .clear and relaunch to reset between runs. Delete this extension and its call in
+// setupWMFDataCoreDataStore before committing anything:
+//
+//   git checkout Wikipedia/Code/WMFAppViewController+Extensions.swift
+
+private enum MockReadingChallengeSeedMode {
+    /// Only the app group boolean the Reading Challenge widget used to write. Exercises recovery signal 1.
+    case legacyWidgetFlagOnly
+    /// Only a 25 day reading streak inside the challenge window. Exercises recovery signal 2 (recompute).
+    case pageViewHistoryOnly
+    case both
+    /// Wipes both signals plus the new recovery flags, for a clean re-run.
+    case clear
+    case off
+}
+
+/// Flip this, run on device, relaunch.
+private let mockReadingChallengeSeedMode: MockReadingChallengeSeedMode = .both
+
+private let mockReadingChallengeSharedGroupID = "group.org.wikimedia.wikipedia"
+
+/// Keys the next release writes. Raw strings because they do not exist in this build.
+private let mockReadingChallengeRecoveredCompletionKey = "completed-reading-challenge-2026"
+private let mockReadingChallengeDidRecoverKey = "did-recover-reading-challenge-2026-completion"
+
+extension WMFAppViewController {
+
+    fileprivate func seedMockReadingChallengeCompletion() async {
+
+        let sharedDefaults = UserDefaults(suiteName: mockReadingChallengeSharedGroupID)
+
+        switch mockReadingChallengeSeedMode {
+        case .off:
+            return
+
+        case .clear:
+            sharedDefaults?.removeObject(forKey: WMFUserDefaultsKey.readingChallengeUserCompleted.rawValue)
+            sharedDefaults?.removeObject(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue)
+            sharedDefaults?.removeObject(forKey: WMFUserDefaultsKey.readingChallengeWidgetStreakCount.rawValue)
+            sharedDefaults?.synchronize()
+            UserDefaults.standard.removeObject(forKey: mockReadingChallengeRecoveredCompletionKey)
+            UserDefaults.standard.removeObject(forKey: mockReadingChallengeDidRecoverKey)
+            DDLogWarn("MOCK: cleared Reading Challenge completion state. Seeded page views are left in reading history — clear history in Settings if you need a truly empty state.")
+            return
+
+        case .legacyWidgetFlagOnly:
+            seedMockReadingChallengeLegacyFlag(in: sharedDefaults)
+
+        case .pageViewHistoryOnly:
+            await seedMockReadingChallengePageViews()
+
+        case .both:
+            seedMockReadingChallengeLegacyFlag(in: sharedDefaults)
+            await seedMockReadingChallengePageViews()
+        }
+    }
+
+    /// Writes exactly what the (now removed) widget timeline provider left behind on completion.
+    private func seedMockReadingChallengeLegacyFlag(in sharedDefaults: UserDefaults?) {
+        sharedDefaults?.set(true, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue)
+        sharedDefaults?.set(true, forKey: WMFUserDefaultsKey.readingChallengeUserCompleted.rawValue)
+        sharedDefaults?.set(ReadingChallengeStateConfig.streakGoal, forKey: WMFUserDefaultsKey.readingChallengeWidgetStreakCount.rawValue)
+        sharedDefaults?.synchronize()
+        DDLogWarn("MOCK: wrote legacy Reading Challenge completion flag to the shared app group.")
+    }
+
+    /// Adds one page view on each of the 25 days ending on the challenge's final day, which is what
+    /// the recovery's streak recomputation looks for. These show up in reading history as expected.
+    private func seedMockReadingChallengePageViews() async {
+
+        guard let dataController = try? WMFPageViewsDataController() else {
+            DDLogError("MOCK: page views data controller unavailable, cannot seed streak.")
+            return
+        }
+
+        let calendar = Calendar.current
+        let streakGoal = ReadingChallengeStateConfig.streakGoal
+
+        // Midday on the last day of the challenge window, counting backwards, so time zones cannot
+        // push a view outside the window.
+        guard let lastDay = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: ReadingChallengeStateConfig.endDate) else {
+            return
+        }
+
+        let language = MWKDataStore.shared().languageLinkController.appLanguage?.languageCode ?? "en"
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: language, languageVariantCode: nil))
+
+        for dayOffset in 0..<streakGoal {
+            guard let timestamp = calendar.date(byAdding: .day, value: -dayOffset, to: lastDay) else {
+                continue
+            }
+
+            do {
+                _ = try await dataController.addPageView(title: "Mock_reading_challenge_day_\(streakGoal - dayOffset)", namespaceID: 0, project: project, previousPageViewObjectID: nil, timestamp: timestamp)
+            } catch let error {
+                DDLogError("MOCK: failed seeding page view for \(timestamp): \(error)")
+            }
+        }
+
+        DDLogWarn("MOCK: seeded a \(streakGoal) day reading streak ending \(lastDay).")
     }
 }
