@@ -16,11 +16,33 @@ platform :ios do
 
   # Shared helper: list all certificate IDs currently on the account, regardless
   # of type. Used to detect byproduct certs created by automatic signing +
-  # -allowProvisioningUpdates on ephemeral CI runners (see internal_beta).
-  # Intentionally unfiltered for now while diagnosing whether the byproduct
-  # cert is the legacy IOS_DEVELOPMENT type or the newer unified DEVELOPMENT type.
+  # -allowProvisioningUpdates on ephemeral CI runners (see cleanup_dev_cert_byproducts).
   def all_certificate_ids
     Spaceship::ConnectAPI::Certificate.all.map(&:id)
+  end
+
+  # Shared helper: delete any certificate created since before_cert_ids was
+  # captured, as long as it's a Development-type cert. Automatic signing +
+  # -allowProvisioningUpdates mints a fresh Development certificate as a
+  # byproduct on every run, since GitHub-hosted runners are ephemeral and
+  # never have an existing one locally - left unchecked this eats into the
+  # account's certificate quota over time. Anything unexpected (e.g. a
+  # Distribution cert created by someone else mid-run) is left alone.
+  def cleanup_dev_cert_byproducts(before_cert_ids)
+    all_certs_after = Spaceship::ConnectAPI::Certificate.all
+    new_certs = all_certs_after.select { |c| !before_cert_ids.include?(c.id) }
+    if new_certs.empty?
+      UI.message("No new certificates detected during this run.")
+    end
+    deletable_types = ["DEVELOPMENT", "IOS_DEVELOPMENT"]
+    new_certs.each do |cert|
+      unless deletable_types.include?(cert.certificate_type)
+        UI.important("Skipping new certificate of unexpected type, not deleting: #{cert.display_name} (type: #{cert.certificate_type})")
+        next
+      end
+      cert.delete!
+      UI.success("Deleted byproduct certificate: #{cert.display_name} (type: #{cert.certificate_type})")
+    end
   end
 
   # Shared helper: build the app
@@ -57,24 +79,7 @@ platform :ios do
       skip_waiting_for_build_processing: true,
     )
 
-    # Automatic signing + -allowProvisioningUpdates can create a new
-    # certificate as a byproduct on ephemeral CI runners. Clean up only the
-    # cert(s) created by this run so it doesn't eat into the account's
-    # certificate quota over time.
-    all_certs_after = Spaceship::ConnectAPI::Certificate.all
-    new_certs = all_certs_after.select { |c| !before_cert_ids.include?(c.id) }
-    if new_certs.empty?
-      UI.message("No new certificates detected during this run.")
-    end
-    deletable_types = ["DEVELOPMENT", "IOS_DEVELOPMENT"]
-    new_certs.each do |cert|
-      unless deletable_types.include?(cert.certificate_type)
-        UI.important("Skipping new certificate of unexpected type, not deleting: #{cert.display_name} (type: #{cert.certificate_type})")
-        next
-      end
-      cert.delete!
-      UI.success("Deleted byproduct certificate: #{cert.display_name} (type: #{cert.certificate_type})")
-    end
+    cleanup_dev_cert_byproducts(before_cert_ids)
   end
 
   # ----------------------------------------------------------
@@ -83,6 +88,8 @@ platform :ios do
   desc "Build and deploy to external TestFlight testers, submit for beta review"
   lane :external_beta do
     api_key = get_api_key
+    before_cert_ids = all_certificate_ids
+
     build_the_app
 
     # Read localized notes from JSON file written by workflow
@@ -108,6 +115,8 @@ platform :ios do
       skip_waiting_for_build_processing: false,
       groups: ["External Testers"],
     )
+
+    cleanup_dev_cert_byproducts(before_cert_ids)
   end
 
   # ----------------------------------------------------------
@@ -116,6 +125,8 @@ platform :ios do
   desc "Build and submit to App Store Review"
   lane :submit_for_review do
     api_key = get_api_key
+    before_cert_ids = all_certificate_ids
+
     build_the_app
 
     should_submit = ENV["SUBMIT_FOR_REVIEW"] == "true"
@@ -129,6 +140,39 @@ platform :ios do
       skip_metadata: false,
       metadata_path: "fastlane/metadata",
     )
+
+    cleanup_dev_cert_byproducts(before_cert_ids)
+  end
+
+  # ----------------------------------------------------------
+  # Workflow 4: Design Review (Experimental app)
+  # ----------------------------------------------------------
+  desc "Build and deploy the Experimental app to internal TestFlight testers"
+  lane :design_review do
+    api_key = get_api_key
+    before_cert_ids = all_certificate_ids
+
+    build_app(
+      project: "Wikipedia.xcodeproj",
+      scheme: "Experimental",
+      configuration: "Experimental",
+      derived_data_path: "build",
+      destination: "generic/platform=iOS",
+      archive_path: "build/Wikipedia-Experimental.xcarchive",
+      export_method: "app-store",
+      xcargs: "-allowProvisioningUpdates -authenticationKeyPath #{ENV['APP_STORE_KEY_PATH']} -authenticationKeyID #{ENV['APP_STORE_API_KEY_ID']} -authenticationKeyIssuerID #{ENV['APP_STORE_ISSUER_ID']}",
+    )
+
+    upload_to_testflight(
+      api_key: api_key,
+      app_identifier: "org.wikimedia.wikipedia.tfalpha",
+      distribute_external: false,
+      notify_external_testers: false,
+      changelog: ENV["WHAT_TO_TEST"],
+      skip_waiting_for_build_processing: true,
+    )
+
+    cleanup_dev_cert_byproducts(before_cert_ids)
   end
 
 end
