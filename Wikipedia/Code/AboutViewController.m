@@ -167,7 +167,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 }
 
 - (void)didTapTitleViewWithGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
-    
+
     self.titleLabelTappedCount += 1;
 
     if (self.titleLabelTappedCount >= 7) {
@@ -262,7 +262,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
         [self.webView wmf_setInnerHTML:twnString ofElementId:divId];
     };
 
-    setDivHTML(@"version", [[NSBundle mainBundle] wmf_versionForCurrentBundleIdentifier]);
+    setDivHTML(@"version", [[NSBundle mainBundle] wmf_appVersion]);
     setDivHTML(@"wikipedia", WMFCommonStringsWrapper.plainWikipediaName);
     setDivHTML(@"contributors_title", WMFLocalizedStringWithDefaultValue(@"about-contributors", nil, nil, @"Contributors", @"Header text for contributors section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations. {{Identical|Contributor}}"));
     setDivHTML(@"contributors_body", self.contributors);
