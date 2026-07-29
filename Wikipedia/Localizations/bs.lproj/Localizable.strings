@@ -716,8 +716,6 @@
 "reading-list-generic-error" = "Došlo je do neočekivane greške prilikom ažuriranja Vaših spiskova za čitanje.";
 "reading-list-keep-button-title" = "Da, sačuvaj članke na uređaju";
 "reading-list-keep-subtitle" = "Postoje članci sinhronizovani s Vašim računom na Wikipediji. Želite li ih zadržati na ovom uređaju nakon što se odjavite?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Isključivanjem sinhronizacije uklonit ćete ove članke s Vašeg računa. Ako ih uklonite sa svog uređaja, nećete ih moći povratiti ponovnim uključivanjem sinhronizacije u budućnosti.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Ne, ukloni članke sa uređaja i mog Wikipedia računa";
 "reading-list-keep-title" = "Zadrži sačuvane članke na uređaju?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Poredaj članke";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Postoji ograničenje od 5000 nerazvrstanih članaka. Razvrstajte svoje postojeće članke na spiskove da biste nastavili sa sinhronizacijom nerazvrstanih članaka.";
@@ -834,11 +832,6 @@
 "settings-search-open-app-on-search" = "Otvori aplikaciju na karticu Pretraga";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Dozvolite Wikimediji da sačuva Vaše sačuvane članke i spiskove za čitanje u Vaša korisnička podešavanja kada se prijavite i sinhronizujete.";
 "settings-storage-and-syncing-enable-sync-title" = "Sinhroniziraj sačuvane članke i spiskove";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Brisanjem sačuvanih članaka uklonit ćete ih sa Vašeg korisničkog računa ako imate uključenu sinhronizaciju kao i sa ovog uređaja. Ne možete poništiti ovu radnju.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Izbriši sve sačuvane članke?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Izbriši";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Brisanjem sačuvanih članaka uklonit ćete ih sa Vašeg korisničkog računa ako imate uključenu sinhronizaciju kao i sa ovog uređaja.\n\nBrisanjem sačuvanih članaka oslobodit ćete oko $1 prostora.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Izbriši sačuvane članke";
 "settings-storage-and-syncing-full-sync" = "Vaš spisak za čitanje će biti sinhroniziran u pozadini";
 "settings-storage-and-syncing-server-sync-footer-text" = "Zatražite ažuriranje svojih sinhronizovanih članaka i spiskova za čitanje.";
 "settings-storage-and-syncing-server-sync-title" = "Ažuriraj sinhronizirane spiskove za čitanje";

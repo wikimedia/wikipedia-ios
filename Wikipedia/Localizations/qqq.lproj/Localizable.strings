@@ -1197,8 +1197,6 @@
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
 "reading-list-keep-button-title" = "Title for button to keep synced articles on device.";
 "reading-list-keep-subtitle" = "Subtitle asking if synced articles should be kept on device after logout.";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Additional subtitle informing user that turning sync off will remove saved articles from their account.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Title for button that removes save articles from device and Wikipedia account.";
 "reading-list-keep-title" = "Title for keeping save articles on device.";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Title for button to sort unsorted articles.";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Subtitle letting the user know that there is a limit of 5000 unsorted articles.";
@@ -1335,13 +1333,12 @@
 "settings-search-footer-text" = "Footer text for section that allows users to customize certain Search settings";
 "settings-search-footer-text-home" = "Footer text for section that allows users to customize certain Search settings, shown while the Home tab experiment is enabled";
 "settings-search-open-app-on-search" = "Title for setting that allows users to open app on Search tab";
+"settings-storage-and-syncing-disable-sync-alert-message" = "Message of the confirmation alert shown when the user turns off reading list syncing";
+"settings-storage-and-syncing-disable-sync-alert-no" = "Button that cancels turning off reading list syncing";
+"settings-storage-and-syncing-disable-sync-alert-title" = "Title of the confirmation alert shown when the user turns off reading list syncing";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "Button that confirms turning off reading list syncing";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Footer text of the settings option that enables saved articles and reading lists syncing";
 "settings-storage-and-syncing-enable-sync-title" = "Title of the settings option that enables saved articles and reading lists syncing";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Message for the alert shown before erasing all saved articles.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Title of the alert shown before erasing all saved article.";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Title of the settings button that enables erasing saved articles";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Footer text of the settings option that enables erasing saved articles. $1 will be replaced with a number and a system provided localized unit indicator for MB or KB.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Title of the settings option that enables erasing saved articles";
 "settings-storage-and-syncing-full-sync" = "Message confirming to the user that their reading lists will be synced in the background";
 "settings-storage-and-syncing-server-sync-footer-text" = "Footer text of the settings button that initiates saved articles and reading lists server sync";
 "settings-storage-and-syncing-server-sync-title" = "Title of the settings button that initiates saved articles and reading lists server sync";

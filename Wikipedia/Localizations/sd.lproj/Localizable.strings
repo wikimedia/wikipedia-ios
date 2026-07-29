@@ -776,7 +776,6 @@
 "reading-list-exists-with-same-name" = "پڙھڻ جي فھرست جو نالو سڳ ئي استعمال ھيٺ آھي";
 "reading-list-generic-error" = "توھان جي پڙھڻ جون فھرستون چاڙھيندي غير متوقع چڪ پيش آئي.";
 "reading-list-keep-button-title" = "ھا، مضمونن کي آلي تي رکو";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "نہ، مضمونن کي منھنجي آلي ۽ وڪيپيڊيا کاتي مان ھٽايو";
 "reading-list-keep-title" = "سانڍيل مضمونن کي آلي تي رکو؟";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "مضمون مرتب ڪريو";
 "reading-list-limit-hit-for-unsorted-articles-title" = "غير مرتب مضمونن لاءِ آخري حد";
@@ -862,9 +861,6 @@
 "settings-primary-language-details" = "ھن فھرست جي پھرين ٻولي ايپ جي شروعاتي ٻولي طور استعمال ڪئي وڃي ٿي.";
 "settings-search-footer-text" = "کوجنا ٽيب بجاءِ ڳولا ٽيب کولڻ لاءِ ايپ کي مرتب ڪريو";
 "settings-search-open-app-on-search" = "ڳولا ٽيب ۾ ايپ کوليو";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "سڀني سانڍيل مضمونن کي مِٽايو؟";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "مِٽايو";
-"settings-storage-and-syncing-erase-saved-articles-title" = "سانڍيل مضمون مِٽايو";
 "settings-storage-and-syncing-show-default-reading-list-title" = "سانڍيل پڙھڻ فھرست ڏيکاريو";
 "settings-title" = "ترتيبون";
 "share-a-fact-made-with" = "وڪيپيڊيا ايپ سان ٺھيل";

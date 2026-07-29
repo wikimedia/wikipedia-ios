@@ -14,6 +14,7 @@
 // Author: Hinaloe
 // Author: Hzy980512
 // Author: Iwai.masaharu
+// Author: Kanato Hinokuma
 // Author: Kanon und wikipedia
 // Author: Kkairri
 // Author: Kokage si
@@ -129,9 +130,6 @@
 "action-update" = "更新";
 "activity-tab-additional-thoughts" = "他に何かご意見はありますか?";
 "activity-tab-neutral" = "どちらともいえない";
-"activity-tab-reading-challenge-card-body" = "ベビー・グローブと一緒に読書記録をつけるには、ホーム画面に「読書チャレンジ」ウィジェットを追加しよう";
-"activity-tab-reading-challenge-card-cta" = "使い方を見る";
-"activity-tab-reading-challenge-card-title" = "25日間閲覧チャレンジ";
 "activity-tab-satisfied" = "満足";
 "activity-tab-survey-title" = "満足度調査";
 "activity-tab-unsatisfied" = "不満";
@@ -201,9 +199,6 @@
 "close-other-tabs" = "他のタブを閉じる";
 "close-tab-confirmation" = "タブを閉じますか?";
 "close-tabs" = "タブを閉じる";
-"collect-prize-button-title" = "ストアで15%% OFFをゲット";
-"collect-prize-headline" = "好奇心旺盛なあなたは最高！🛍️";
-"collect-prize-subtitle" = "チャレンジ達成を記念して、ウィキペディア・ストアで15%%割引";
 "collect-prize-title" = "賞品をゲットしよう！";
 "compass-direction" = "$1時の位置";
 "continue-button-title" = "続ける";
@@ -485,7 +480,7 @@
 "field-alert-captcha-invalid" = "CAPTCHAが無効です";
 "field-alert-password-confirm-mismatch" = "パスワードが一致していません";
 "field-alert-token-invalid" = "無効なコード";
-"field-alert-username-unavailable" = "利用者名は利用できません";
+"field-alert-username-unavailable" = "この利用者名は利用できません";
 "field-backup-token-title" = "バックアップコード";
 "field-captcha-placeholder" = "CAPTCHA テキスト";
 "field-captcha-title" = "上記のテキストを入力してください";
@@ -811,52 +806,7 @@
 "project-name-wikiversity" = "ウィキバーシティ";
 "project-name-wikivoyage" = "ウィキボヤージュ";
 "project-name-wiktionary" = "ウィクショナリー";
-"reading-challenge-announcement-cta" = "チャレンジに参加する";
-"reading-challenge-announcement-item1-subtitle" = "$1から$2までの間、いつでもチャレンジに参加できます。自分のペースで25日連続記録を達成しましょう。";
-"reading-challenge-announcement-item1-title" = "25日間、1日1記事を読もう";
-"reading-challenge-announcement-item2-subtitle" = "チャレンジ開催中に25日連続閲覧記録を達成すると、特別な賞品をゲットできます";
-"reading-challenge-announcement-item2-title" = "賞品をゲット";
-"reading-challenge-announcement-item3-subtitle2" = "ベビー・グローブと一緒に読書記録をつけるには、ホーム画面に「読書チャレンジ」ウィジェットを追加しよう";
-"reading-challenge-announcement-item3-title" = "ウィジェットをインストール";
-"reading-challenge-announcement-secondary-cta" = "さらに詳しく知る";
-"reading-challenge-announcement-subtitle" = "閲覧履歴は安全に保護されます。 閲覧インサイトは、お使いのデバイスにローカル保存されたデータを用いて集計されます。";
-"reading-challenge-announcement-title" = "ウィキペディア誕生25周年を記念して、25日間閲覧チャレンジに参加しよう！";
-"reading-challenge-collect-prize-button-small" = "賞品をゲット";
-"reading-challenge-completed-subtitle" = "25 / 25日";
-"reading-challenge-completed-subtitle-small" = "25 / 25";
-"reading-challenge-completed-title" = "目標達成！";
-"reading-challenge-concluded-title" = "チャレンジ達成しました";
-"reading-challenge-enrolled-not-started-subtitle-article" = "記事をひとつ読むだけで開始できます。";
-"reading-challenge-enrolled-not-started-subtitle-away" = "連続記録も記事をひとつ読めば続いていきます。";
-"reading-challenge-enrolled-not-started-subtitle-somewhere" = "どんな連続記録にも、始まりがあります";
-"reading-challenge-enrolled-not-started-subtitle-towards" = "25日連続達成を目指してさあ始めましょう!";
-"reading-challenge-enrolled-not-started-title-fresh" = "新たなスタート。 連続記録も記事をひとつ読めば続いていきます。";
-"reading-challenge-enrolled-not-started-title-ready" = "準備はいい？閲覧開始！";
-"reading-challenge-enrolled-not-started-title-spin" = "新たな連続記録をスタートさせる？";
-"reading-challenge-enrolled-not-started-title-start" = "閲覧チャレンジを始めよう。";
-"reading-challenge-explore-wikipedia-button" = "ウィキペディアを探検する";
-"reading-challenge-join-button-medium" = "チャレンジに参加する";
-"reading-challenge-join-button-small" = "チャレンジに参加する";
-"reading-challenge-login-message" = "閲覧チャレンジの進捗状況を確認するには、ログインするか、アカウントを作成してください";
-"reading-challenge-login-title" = "ログインしてチャレンジに参加する";
-"reading-challenge-not-enrolled-subtitle" = "25日間チャレンジに参加して、特別な賞品をゲットしましょう。";
-"reading-challenge-not-enrolled-title" = "準備はいい？閲覧開始！";
-"reading-challenge-not-live-yet-subtitle" = "25日間閲覧チャレンジが待っています。";
-"reading-challenge-not-live-yet-title" = "閲覧を始めましょう";
-"reading-challenge-not-yet-read-subtitle-article" = "連続記録も記事をひとつ読めば続いていきます。";
-"reading-challenge-not-yet-read-subtitle-bit" = "ほんの少しの読書でも、目標達成に向けた一歩に。";
-"reading-challenge-not-yet-read-subtitle-curiosity" = "好奇心をくすぐり続けよう。";
-"reading-challenge-not-yet-read-subtitle-drift" = "今日を無為に過ごさないで。連続閲覧記録を更新しましょう。";
-"reading-challenge-not-yet-read-subtitle-jump" = "気軽に読み始めてみてね。";
-"reading-challenge-not-yet-read-subtitle-quiet" = "静かな読書タイムはいかがですか？";
-"reading-challenge-not-yet-read-subtitle-snooze" = "今日が過ぎ去ってしまう前に…\n学びの時間はまだ残っています。";
 "reading-challenge-random-button" = "ランダムに選択";
-"reading-challenge-subtitle" = "25日間閲覧チャレンジ";
-"reading-challenge-widget-announcement-body2" = "ベビー・グローブと一緒に読書記録をつけるには、ホーム画面に「読書チャレンジ」ウィジェットを追加しよう";
-"reading-challenge-widget-announcement-secondary-button" = "使い方を見る";
-"reading-challenge-widget-announcement-title2" = "ホーム画面からウィジェットを追加してください";
-"reading-challenge-widget-description" = "読書チャレンジの進捗を確認する";
-"reading-challenge-widget-display-name" = "読書チャレンジ";
 "reading-list-add-generic-hint-title" = "この記事をあとで読むリストに追加しますか?";
 "reading-list-add-hint-title" = "「$1」をあとで読むリストに保存しますか?";
 "reading-list-add-saved-button-title" = "はい、記事をあとで読むリストに追加します";
@@ -878,8 +828,6 @@
 "reading-list-generic-error" = "あとで読むリストの更新中に予期せぬエラーが発生しました";
 "reading-list-keep-button-title" = "はい、記事をこのデバイスに残します";
 "reading-list-keep-subtitle" = "ウィキペディアアカウントと同期した記事があります。ログアウトした後でもその記事をこのデバイスに残しますか?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "同期をオフにすると、これらの記事は紐付けられたあなたのアカウントからも削除されます。つまり、このデバイスからその記事を削除すると、将来もう一度同期をオンにしても復元はできません。";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "いいえ、デバイス内からもウィキペディアのアカウントからも記事を削除します。";
 "reading-list-keep-title" = "アプリ内の保存した記事を残しますか?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "記事を並べ替え";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "並べ替えしてない記事については5000件の上限があります。既存の記事をリストに並べ替えしてから、並べ替えてない記事の同期を続けてください。";
@@ -999,11 +947,6 @@
 "settings-search-open-app-on-search" = "アプリ起動時に検索タブを表示";
 "settings-storage-and-syncing-enable-sync-footer-text" = "ログインして同期した際に、ウィキメディア財団が、あなたの個人設定に保存した記事とあとで読むリストを保存することを許可する。";
 "settings-storage-and-syncing-enable-sync-title" = "保存した記事とリストの同期";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "同期を有効にしている場合、保存した記事を消去すると、あなたのアカウントからとこのデバイスの両方から消去されます。この操作は取り消せません。";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "保存した記事をすべて削除しますか?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "削除";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "ウィキペディアのアカウントとデバイスの同期が有効になっている場合、保存した記事を削除すると、アカウントの方からも削除されます。\n\n保存した記事を削除することで、容量が$1空きます。";
-"settings-storage-and-syncing-erase-saved-articles-title" = "保存した記事を削除";
 "settings-storage-and-syncing-full-sync" = "あとで読むリストはバックグラウンドで同期されます";
 "settings-storage-and-syncing-server-sync-footer-text" = "同期した記事とあとで読むリストの同期を要求";
 "settings-storage-and-syncing-server-sync-title" = "同期したあとで読むリストを更新";

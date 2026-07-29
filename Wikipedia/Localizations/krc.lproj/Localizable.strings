@@ -876,8 +876,6 @@
 "reading-list-generic-error" = "Окъуу тизмелеригиз джангыртылгъан заманда сакъланмагъан халат болду.";
 "reading-list-keep-button-title" = "Хоу, статьяланы девайсда сакъландыр";
 "reading-list-keep-subtitle" = "Википедия хыйсабыгъызгъа синхронизация болгъан статьяла бардыла. Чыкъгъандан сора аланы бу девайсда тутаргъа излеймисиз?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Синхронизацияны джабыу, бу статьяланы хыйсабыгъыздан къоратырыкъды. Быланы девайсыгъыздан къоратсагъыз, келликде джангыдан синхронизация этиб кери салалмазсыз.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Огъай, статьяланы девайсдан да, Википедия хыйсабымдан да къорат";
 "reading-list-keep-title" = "Сакъланнган статьяла девайсда къаласынмы?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Статьяланы айыр";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "5000 айыралмагъан статья лимит барды. Тилейбиз, айырылмагъан статьяланы синхронизациясын бардыр ючюн болгъан статьяланы тизмелеге айырыгъыз.";
@@ -1000,11 +998,6 @@
 "settings-search-open-app-on-search" = "Излеу салгъычда къошакъны ач";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Кирсегиз эмда синхронизация этсегиз, Википедиягъа, сакъланнган статьяларыгъызны эмда окъуу тизмелеригизни хайырланыучу сайлауларыгъызгъа сакъландырыргъа эркинлик беригиз.";
 "settings-storage-and-syncing-enable-sync-title" = "Сакъланнган статьяланы эмда тизмелени синхронизация эт";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Сакъланнган статьяларыгъызны кетериуу, бу девайсда синхронизация этген хыйсабыгъыздан да кетериуюне джол ачарыкъды. Бу этиулени кери алаллыкъ тюлсюз.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Сакъланнган бютеу статьяла кетерилсинми?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Кетер";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Сакъланнган статьяланы кетерилиую, бу девайсда синхронизация функция джандырылгъан эсе, быланы хайырланыучу хыйсабыгъыздан  кетерир. \n\n\nКетерлиген статьяланы кетериу, $1 джуукъ джер бош этерикди";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Сакъланнган статьяланы кетер";
 "settings-storage-and-syncing-full-sync" = "Окъуу тизмелеригиз фон режимде синхронизация этилликди";
 "settings-storage-and-syncing-server-sync-footer-text" = "Синхронизация этилген статьяла эмда окъуу тизмелеригиз ючюн джангыртыу излегиз.";
 "settings-storage-and-syncing-server-sync-title" = "Синхронизация этилген окъуу тизмелени джангырт";

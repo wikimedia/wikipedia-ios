@@ -592,7 +592,6 @@
 "reading-list-do-not-keep-button-title" = "ទេ។ សូមលុបអត្ថបទពីឧបករណ៍នេះ";
 "reading-list-exists-with-same-name" = "ឈ្មោះបញ្ជីអាននេះមានប្រើហើយ";
 "reading-list-keep-button-title" = "បាទ/ចាស៎។ សូមទុកអត្ថបទនៅលើឧបករណ៍នេះ";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "ទេ។ សូមលុបអត្ថបទពីឧបករណ៍នេះនិងពីគណនីវិគីភីឌារបស់ខ្ញុំ";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "តម្រៀបអត្ថបទ";
 "reading-list-login-or-create-account-button-title" = "កត់ឈ្មោះចូលឬបង្កើតគណនី";
 "reading-list-new-list-description-placeholder" = "ចំណារពន្យល់សង្ខេប(សរសេរក៏បានមិនសរសេរក៏បាន)";
@@ -650,7 +649,6 @@
 "settings-primary-language-details" = "ភាសាលើគេនៅក្នុងបញ្ជីនេះនឹងត្រូវបានប្រើជាភាសាចម្បងសម្រាប់កម្មវិធីនេះ។";
 "settings-search-footer-text" = "កំណត់អោយកម្មវិធីបើកឡើងក្នុងផ្ទាំងស្វែងរក មិនមែនក្នុងផ្ទាំងរុករក";
 "settings-search-open-app-on-search" = "បើកកម្មវិធីឡើងក្នុងផ្ទាំងស្វែងរក";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "លុបចោល";
 "settings-title" = "ការកំណត់";
 "share-a-fact-made-with" = "បង្កើតឡើងដោយប្រើកម្មវិធីវិគីភីឌា";
 "share-article-name-on-wikipedia" = "\"$1\" នៅលើវិគីភីឌា៖";
