@@ -22,10 +22,6 @@ private enum WMFForYouCardVariant {
         Color(uiColor: WMFColor.pink800),
         Color(uiColor: WMFColor.orange800)
     ]
-
-    func backgroundColor(for index: Int) -> Color {
-        Self.textFocusedBackgrounds[index % Self.textFocusedBackgrounds.count]
-    }
 }
 
 // MARK: - For You Feed View
@@ -50,38 +46,43 @@ public struct WMFForYouView: View {
             emptyState
         } else {
             GeometryReader { geometry in
-                let scrollView = ScrollView(.vertical, showsIndicators: false) {
-                    LazyVStack(spacing: 0) {
-                        ForEach(visiblePages) { page in
-                            let visibleArticles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.hideKey) }
-                            if !visibleArticles.isEmpty {
-                                WMFForYouPageView(
-                                    articleViewModels: visibleArticles,
-                                    theme: theme,
-                                    onHideModule: { viewModel.onHideModule?(page.module) },
-                                    onHideCard: { viewModel.onHideCard?($0) },
-                                    onCustomizeInterests: { viewModel.onCustomizeInterests?() },
-                                    onTapCard: { viewModel.onTapCard?($0) },
-                                    onSaveCard: { viewModel.onSaveCard?($0) },
-                                    onShareCard: { viewModel.onShareCard?($0) },
-                                    onUnsaveCard: { viewModel.onUnsaveCard?($0) }
-                                )
-                                .frame(width: geometry.size.width, height: geometry.size.height)
-                            }
-                        }
+                scrollView(geometry: geometry)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func scrollView(geometry: GeometryProxy) -> some View {
+        let base = ScrollView(.vertical, showsIndicators: false) {
+            LazyVStack(spacing: 0) {
+                ForEach(visiblePages) { page in
+                    let visibleArticles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.hideKey) }
+                    if !visibleArticles.isEmpty {
+                        WMFForYouPageView(
+                            articleViewModels: visibleArticles,
+                            theme: theme,
+                            onHideModule: { viewModel.onHideModule?(page.module) },
+                            onHideCard: { viewModel.onHideCard?($0) },
+                            onCustomizeInterests: { viewModel.onCustomizeInterests?() },
+                            onTapCard: { viewModel.onTapCard?($0) },
+                            onSaveCard: { viewModel.onSaveCard?($0) },
+                            onShareCard: { viewModel.onShareCard?($0) },
+                            onUnsaveCard: { viewModel.onUnsaveCard?($0) }
+                        )
+                        .frame(width: geometry.size.width, height: geometry.size.height)
                     }
                 }
-                .scrollTargetBehavior(.paging)
-                .refreshable { await viewModel.onRefresh?() }
-
-                if #available(iOS 26, *) {
-                    scrollView
-                        .scrollEdgeEffectStyle(.soft, for: .top)
-                        .scrollEdgeEffectStyle(.soft, for: .bottom)
-                } else {
-                    scrollView
-                }
             }
+        }
+        .scrollTargetBehavior(.paging)
+        .refreshable { await viewModel.onRefresh?() }
+
+        if #available(iOS 26, *) {
+            base
+                .scrollEdgeEffectStyle(.soft, for: .top)
+                .scrollEdgeEffectStyle(.soft, for: .bottom)
+        } else {
+            base
         }
     }
 
