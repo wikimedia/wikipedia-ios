@@ -14,32 +14,6 @@ platform :ios do
     )
   end
 
-  # Shared helper: download/create Distribution profiles for each target and
-  # switch the project to manual signing with those profiles assigned.
-  # Runs on the ephemeral CI runner only — changes are never committed.
-  def setup_code_signing(api_key)
-    targets = {
-      "Wikipedia"                    => "org.wikimedia.wikipedia",
-      "ContinueReadingWidget"        => "org.wikimedia.wikipedia.ContinueReadingWidget",
-      "WidgetsExtension"             => "org.wikimedia.wikipedia.Widgets",
-      "NotificationServiceExtension" => "org.wikimedia.wikipedia.NotificationServiceExtension",
-      "Wikipedia Stickers"           => "org.wikimedia.wikipedia.WikipediaStickers",
-    }
-
-    targets.each do |target, bundle_id|
-      get_provisioning_profile(
-        app_identifier: bundle_id,
-        api_key: api_key,
-      )
-      update_code_signing_settings(
-        use_automatic_signing: false,
-        code_sign_identity: "Apple Distribution",
-        targets: [target],
-        profile_uuid: lane_context[SharedValues::SIGH_UUID],
-      )
-    end
-  end
-
   # Shared helper: build the app
   def build_the_app
     build_app(
@@ -55,41 +29,11 @@ platform :ios do
   end
 
   # ----------------------------------------------------------
-  # Diagnostic: check which Distribution profiles exist in the portal
-  # ----------------------------------------------------------
-  desc "Check whether App Store Distribution profiles exist for all targets (read-only)"
-  lane :verify_profiles do
-    api_key = get_api_key
-
-    targets = {
-      "Wikipedia"                    => "org.wikimedia.wikipedia",
-      "ContinueReadingWidget"        => "org.wikimedia.wikipedia.ContinueReadingWidget",
-      "WidgetsExtension"             => "org.wikimedia.wikipedia.Widgets",
-      "NotificationServiceExtension" => "org.wikimedia.wikipedia.NotificationServiceExtension",
-      "Wikipedia Stickers"           => "org.wikimedia.wikipedia.WikipediaStickers",
-    }
-
-    targets.each do |target, bundle_id|
-      begin
-        get_provisioning_profile(
-          app_identifier: bundle_id,
-          api_key: api_key,
-            readonly: true,
-        )
-        UI.success("#{target} (#{bundle_id}): profile found — #{lane_context[SharedValues::SIGH_UUID]}")
-      rescue => e
-        UI.error("#{target} (#{bundle_id}): no profile found — #{e.message}")
-      end
-    end
-  end
-
-  # ----------------------------------------------------------
   # Workflow 1: Internal TestFlight
   # ----------------------------------------------------------
   desc "Build and deploy to internal TestFlight testers"
   lane :internal_beta do
     api_key = get_api_key
-    setup_code_signing(api_key)
     build_the_app
 
     what_to_test = File.read(ENV["WHAT_TO_TEST_PATH"]) rescue "See Phabricator tasks for details"
@@ -109,7 +53,6 @@ platform :ios do
   desc "Build and deploy to external TestFlight testers, submit for beta review"
   lane :external_beta do
     api_key = get_api_key
-    setup_code_signing(api_key)
     build_the_app
 
     # Read localized notes from JSON file written by workflow
@@ -143,7 +86,6 @@ platform :ios do
   desc "Build and submit to App Store Review"
   lane :submit_for_review do
     api_key = get_api_key
-    setup_code_signing(api_key)
     build_the_app
 
     should_submit = ENV["SUBMIT_FOR_REVIEW"] == "true"
