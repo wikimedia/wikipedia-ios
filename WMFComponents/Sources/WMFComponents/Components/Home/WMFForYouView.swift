@@ -289,6 +289,8 @@ private struct WMFForYouArticleCardView: View {
     let onUnsaveCard: () -> Void
     let onShareCard: () -> Void
 
+    @State private var contentHeight: CGFloat = 0
+
     private var windowSafeAreaBottom: CGFloat {
         let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         return scene?.windows.first?.safeAreaInsets.bottom ?? 0
@@ -373,22 +375,24 @@ private struct WMFForYouArticleCardView: View {
                 .frame(width: geometry.size.width, height: geometry.size.height)
                 .clipped()
 
-                // 2. Top gradient — dark fade for nav bar legibility
+                // 2. Gradient — image-backed variants only, anchored to card bottom
                 if effectiveVariant != .textFocused {
+                    let gradientHeight = contentHeight + 25 + dotsAndTabBarHeight
                     LinearGradient(
                         stops: [
-                            .init(color: .black.opacity(1), location: 0.00),
-                            .init(color: .black.opacity(0), location: 1.00)
+                            .init(color: .clear, location: 0.0),
+                            .init(color: cardColor.opacity(0.2), location: 0.2),
+                            .init(color: darkCardColor(cardColor).opacity(0.9), location: 0.9),
+                            .init(color: .black, location: 0.9)
                         ],
-                        startPoint: UnitPoint(x: 0.5, y: 0),
-                        endPoint: UnitPoint(x: 0.5, y: 1)
+                        startPoint: .top,
+                        endPoint: .bottom
                     )
-                    .frame(width: geometry.size.width, height: geometry.size.height * 0.35)
-                    .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
+                    .frame(width: geometry.size.width, height: gradientHeight)
                     .allowsHitTesting(false)
                 }
 
-                // 3. Content + per-content bottom gradient
+                // 3. Content
                 switch effectiveVariant {
 
                 // MARK: Variant 3: Text-focused (also used as fallback when no image)
@@ -437,12 +441,9 @@ private struct WMFForYouArticleCardView: View {
 
                         let bodyText: String? = {
                             switch effectiveVariant {
-                            case .balanced:
-                                return viewModel.extract ?? viewModel.description
-                            case .imageFocused:
-                                return viewModel.description
-                            default:
-                                return nil
+                            case .balanced:     return viewModel.extract ?? viewModel.description
+                            case .imageFocused: return viewModel.description
+                            default:            return nil
                             }
                         }()
 
@@ -464,22 +465,10 @@ private struct WMFForYouArticleCardView: View {
                     .padding(.horizontal, 20)
                     .padding(.bottom, dotsAndTabBarHeight)
                     .frame(width: geometry.size.width, alignment: .leading)
-                    .background(alignment: .bottom) {
-                        LinearGradient(
-                            stops: [
-                                .init(color: .black.opacity(0), location: 0.0),
-                                .init(color: cardColor.opacity(0.3), location: 0.3),
-                                .init(color: cardColor.opacity(0.6), location: 0.5),
-                                .init(color: darkCardColor(cardColor).opacity(0.75), location: 0.65),
-                                .init(color: darkCardColor(cardColor).opacity(0.88), location: 0.78),
-                                .init(color: darkCardColor(cardColor).opacity(0.95), location: 0.88),
-                                .init(color: .black.opacity(1), location: 1.0)
-                            ],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                        .frame(width: geometry.size.width, height: geometry.size.height * 0.7)
-                        .allowsHitTesting(false)
+                    .background {
+                        GeometryReader { g in
+                            Color.clear.onAppear { contentHeight = g.size.height }
+                        }
                     }
                 }
             }
