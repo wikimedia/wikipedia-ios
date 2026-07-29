@@ -28,18 +28,11 @@ jobs:
     outputs:
       test-configurations: ${{ steps.test-configurations.outputs.matrix }}
     steps:
-      - name: Verify workflow ref and app ref
+      - name: Verify app ref
         env:
           GH_TOKEN: ${{ github.token }}
           APP_REF: ${{ inputs.ref }}
-          WORKFLOW_REF: ${{ github.ref }}
         run: |
-          if [ "$WORKFLOW_REF" != "refs/heads/main" ]; then
-            echo "Full UI test plan runs must use main from the 'Use workflow from' selector."
-            echo "Selected workflow ref: $WORKFLOW_REF"
-            exit 1
-          fi
-
           if [ -z "$APP_REF" ]; then
             echo "Full UI test plan runs must provide a branch or tag."
             exit 1
