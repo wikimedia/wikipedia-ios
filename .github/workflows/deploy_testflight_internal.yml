@@ -411,6 +411,14 @@ jobs:
 
           print(f"Found release task: '{current_title}' -> updating title to 'Release {version}'")
 
+          # Keep the Release version field in the body in sync with the title
+          current_description = re.sub(
+            r'(\*\*Release version\*\*:).*',
+            rf'\1 {version}',
+            current_description,
+            count=1
+          )
+
           # Build new included tasks section
           task_ids = []
           for url in task_urls.split(','):
