@@ -98,7 +98,7 @@ class DonateCoordinator: Coordinator {
             urlString = urlString.replacingOccurrences(of: "<langcode>", with: languageCode)
         }
 
-        let appVersion = Bundle.main.wmf_debugVersion()
+        let appVersion = Bundle.main.wmf_appVersion()
         let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
         return URL(string: urlString)?.appendingAppVersionAndAppInstallID(appVersion: appVersion, appInstallID: appInstallID)
     }
@@ -320,7 +320,7 @@ class DonateCoordinator: Coordinator {
             return nil
         }
 
-        let appVersion = Bundle.main.wmf_debugVersion()
+        let appVersion = Bundle.main.wmf_appVersion()
         let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
 
         let donateDataController = WMFDonateDataController.shared
