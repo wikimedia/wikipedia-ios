@@ -104,7 +104,7 @@ public final class WMFForYouViewModel: ObservableObject {
             let header = WMFForYouHeaderLabel(
                 symbolName: "clock",
                 prefix: WMFLocalizedString("for-you-header-because-you-read-prefix", value: "Because you read: ", comment: "Prefix for a For You feed card header shown because the user recently read a related article."),
-                boldSuffix: $0.recentlyRead.title
+                boldSuffix: $0.recentlyRead.title.normalize
             )
             return [WMFForYouPageViewModel(module: .becauseYouRead, headerLabel: header, articles: deduplicated($0.articles))]
         } ?? []
@@ -112,7 +112,7 @@ public final class WMFForYouViewModel: ObservableObject {
             let continueHeader = WMFForYouHeaderLabel(
                 symbolName: "doc.text",
                 prefix: WMFLocalizedString("for-you-header-continue-reading-prefix", value: "Continue reading: ", comment: "Prefix for a For You feed card header prompting the user to continue reading an article."),
-                boldSuffix: continueReading.continueReadingArticle.title
+                boldSuffix: continueReading.continueReadingArticle.title.normalize
             )
             let continueCard = WMFForYouArticleCardViewModel(
                 article: continueReading.continueReadingArticle,
@@ -363,5 +363,12 @@ extension UIImage {
             r *= scale; g *= scale; b *= scale
         }
         return (r, g, b)
+    }
+}
+
+
+extension String {
+    public var normalize: String {
+        return self.underscoresToSpaces.precomposedStringWithCanonicalMapping
     }
 }
