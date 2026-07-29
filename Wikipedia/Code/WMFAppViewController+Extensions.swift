@@ -664,9 +664,21 @@ extension WMFAppViewController {
             do {
                 WMFDataEnvironment.current.coreDataStore = try await WMFCoreDataStore()
                 await self.migrateSavedArticleInfoWithBackgroundTask()
+                await self.recoverReadingChallenge2026Completion()
             } catch let error {
                 DDLogError("Error setting up WMFCoreDataStore: \(error)")
             }
+        }
+    }
+
+    /// Determines whether the user completed the (since removed) 2026 Reading Challenge and saves it
+    /// to user defaults. No-ops after it succeeds once. Retries on the next launch if it throws,
+    /// which is why the error is logged rather than surfaced.
+    private func recoverReadingChallenge2026Completion() async {
+        do {
+            try await WMFReadingChallengeCompletionDataController.shared.recoverCompletionIfNeeded()
+        } catch let error {
+            DDLogError("Error recovering 2026 Reading Challenge completion: \(error)")
         }
     }
 
@@ -765,6 +777,10 @@ extension WMFAppViewController {
 
         WMFDataEnvironment.current.acceptLanguageUtility = {
             return Locale.acceptLanguageHeaderForPreferredLanguages
+        }
+
+        WMFDataEnvironment.current.httpErrorLogger = { info in
+            ClientErrorFunnel.shared.logHTTPError(info: info)
         }
 
         WMFDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
