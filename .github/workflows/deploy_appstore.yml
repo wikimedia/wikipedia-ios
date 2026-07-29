@@ -5,9 +5,19 @@ on:
     inputs:
       submit_for_review:
         description: 'Submit to App Store Review after uploading?'
-        required: true
+        required: false
         type: boolean
         default: false
+      existing_build_version:
+        description: 'App version (YYYY.MM.DD) for the existing build number below. Required if existing_build_number is set.'
+        required: false
+        type: string
+        default: ''
+      existing_build_number:
+        description: 'Build number of an existing betas/ build to submit instead of creating a new one (leave blank to build and upload fresh)'
+        required: false
+        type: string
+        default: ''
 
 jobs:
   build-and-upload:
@@ -24,17 +34,30 @@ jobs:
       # -------------------------------------------------------
       - name: Compute build number
         id: versioning
+        env:
+          EXISTING_BUILD_VERSION: ${{ github.event.inputs.existing_build_version }}
+          EXISTING_BUILD_NUMBER: ${{ github.event.inputs.existing_build_number }}
         run: |
-          VERSION=$(date -u "+%Y.%m.%d")
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          if [ -n "$EXISTING_BUILD_NUMBER" ]; then
+            if [ -z "$EXISTING_BUILD_VERSION" ]; then
+              echo "existing_build_version must be set when existing_build_number is provided" >&2
+              exit 1
+            fi
+            echo "version=$EXISTING_BUILD_VERSION" >> $GITHUB_OUTPUT
+            echo "build=$EXISTING_BUILD_NUMBER" >> $GITHUB_OUTPUT
+            echo "Reusing existing build: Version: $EXISTING_BUILD_VERSION, Build: $EXISTING_BUILD_NUMBER"
+          else
+            VERSION=$(date -u "+%Y.%m.%d")
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-          LATEST=$(git tag --list 'betas/*' \
-            | sed 's|betas/||' \
-            | sort -n \
-            | tail -1)
-          BUILD=$(( ${LATEST:-0} + 1 ))
-          echo "build=$BUILD" >> $GITHUB_OUTPUT
-          echo "Version: $VERSION, Build: $BUILD"
+            LATEST=$(git tag --list 'betas/*' \
+              | sed 's|betas/||' \
+              | sort -n \
+              | tail -1)
+            BUILD=$(( ${LATEST:-0} + 1 ))
+            echo "build=$BUILD" >> $GITHUB_OUTPUT
+            echo "Version: $VERSION, Build: $BUILD"
+          fi
 
       # -------------------------------------------------------
       # 2. Fetch "What's New" translations from Google Sheet
@@ -92,6 +115,7 @@ jobs:
       # 3. Update version and build number in Info.plist files
       # -------------------------------------------------------
       - name: Update version and build number
+        if: github.event.inputs.existing_build_number == ''
         env:
           VERSION: ${{ steps.versioning.outputs.version }}
           BUILD: ${{ steps.versioning.outputs.build }}
@@ -136,6 +160,7 @@ jobs:
           APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
           SUBMIT_FOR_REVIEW: ${{ github.event.inputs.submit_for_review }}
           VERSION: ${{ steps.versioning.outputs.version }}
+          EXISTING_BUILD_NUMBER: ${{ github.event.inputs.existing_build_number }}
         run: |
           bundle exec fastlane submit_for_review
 
@@ -143,6 +168,7 @@ jobs:
       # 5. Tag the build
       # -------------------------------------------------------
       - name: Tag build
+        if: github.event.inputs.existing_build_number == ''
         env:
           BUILD: ${{ steps.versioning.outputs.build }}
         run: |
@@ -150,3 +176,103 @@ jobs:
           git config user.email "actions@github.com"
           git tag "betas/$BUILD"
           git push origin "betas/$BUILD"
+
+      # -------------------------------------------------------
+      # 6. Create release branch (frees up main for the next cycle)
+      # -------------------------------------------------------
+      - name: Create release branch
+        env:
+          VERSION: ${{ steps.versioning.outputs.version }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          BRANCH="release-candidate/$VERSION"
+          git checkout -b "$BRANCH"
+          git push origin "$BRANCH"
+          echo "branch=$BRANCH" >> $GITHUB_ENV
+          echo "Created release branch: $BRANCH"
+
+      # -------------------------------------------------------
+      # 7. Update release task with release branch
+      # -------------------------------------------------------
+      - name: Update release task with release branch
+        env:
+          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
+          BRANCH: ${{ env.branch }}
+        run: |
+          python3 << 'EOF'
+          import urllib.request
+          import urllib.parse
+          import json
+          import re
+          import os
+
+          token = os.environ['PHAB_TOKEN']
+          branch = os.environ['BRANCH']
+
+          release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}$')
+
+          def release_branch_value(description):
+            match = re.search(r'\*\*Release branch\*\*:(.*)', description)
+            return match.group(1).strip() if match else ''
+
+          req = urllib.request.Request(
+            'https://phabricator.wikimedia.org/api/maniphest.search',
+            headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
+            data=urllib.parse.urlencode({
+              'api.token': token,
+              'constraints[projects][0]': 'PHID-PROJ-ojylfmfiogxrvnxoiwlp',
+              'constraints[statuses][0]': 'open',
+              'order': 'newest',
+              'limit': '100',
+            }).encode()
+          )
+
+          with urllib.request.urlopen(req) as resp:
+            data = json.loads(resp.read())
+
+          tasks = data.get('result', {}).get('data', [])
+          # The task still tracking main (not yet branch-associated) is the
+          # one this Submit run is graduating into the release branch.
+          release_task = next(
+            (t for t in tasks
+             if release_pattern.match(t.get('fields', {}).get('name', ''))
+             and not release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')))
+            , None
+          )
+
+          if not release_task:
+            print("No open, not-yet-branched release task found, skipping")
+            exit(0)
+
+          task_phid = release_task['phid']
+          current_description = release_task.get('fields', {}).get('description', {}).get('raw', '')
+
+          if '**Release branch**:' in current_description:
+            new_description = re.sub(
+              r'(\*\*Release branch\*\*:).*',
+              rf'\1 {branch}',
+              current_description,
+              count=1
+            )
+          else:
+            new_description = current_description.rstrip() + f"\n\n**Release branch**: {branch}"
+
+          req = urllib.request.Request(
+            'https://phabricator.wikimedia.org/api/maniphest.edit',
+            headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
+            data=urllib.parse.urlencode({
+              'api.token': token,
+              'objectIdentifier': task_phid,
+              'transactions[0][type]': 'description',
+              'transactions[0][value]': new_description,
+            }).encode()
+          )
+
+          with urllib.request.urlopen(req) as resp:
+            result = json.loads(resp.read())
+            if not result.get('error_code'):
+              print(f"✓ Set Release branch to {branch} on release task")
+            else:
+              print(f"✗ Failed to update release task: {result.get('error_info')}")
+          EOF
