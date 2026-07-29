@@ -74,7 +74,7 @@ public struct WMFChooseEditorView: View {
             .padding(16)
             .contentShape(Rectangle())
         }
-        .buttonStyle(.plain)
+        .buttonStyle(ChooseEditorRowButtonStyle())
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(viewModel.selectedMode == mode ? [.isSelected] : [])
     }
@@ -93,10 +93,16 @@ public struct WMFChooseEditorView: View {
             }
             .contentShape(Rectangle())
         }
-        .buttonStyle(.plain)
+        .buttonStyle(ChooseEditorRowButtonStyle())
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(viewModel.dontShowAgain ? [.isSelected] : [])
         .padding(.horizontal, 4)
+    }
+}
+
+private struct ChooseEditorRowButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
     }
 }
 
