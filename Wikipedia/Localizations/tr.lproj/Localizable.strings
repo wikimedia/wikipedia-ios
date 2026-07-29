@@ -34,6 +34,7 @@
 // Author: MuratTheTurkish
 // Author: Nabbegat
 // Author: Nemo bis
+// Author: Nyxomnis
 // Author: Pedian4169
 // Author: Rapsar
 // Author: Sadrettin
@@ -180,9 +181,6 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "Bu etkinlik, okunan, saklanan ve düzenlenen maddelerin kapsamlı bir zaman çizelgesini içerir. Okuma geçmişiniz artık Arama sekmesinde yer almaktadır.";
 "activity-tab-onboarding-third-item-title-updated" = "Okuma geçmişi artık Aramada";
 "activity-tab-read-title" = "Okuma geçmişini görüntüle";
-"activity-tab-reading-challenge-card-body" = "Bebek Küre ile serinizi takip etmek için Ana Ekranınızdan Okuma Mücadelesi widget'ını eklemeniz gerekir.";
-"activity-tab-reading-challenge-card-cta" = "Nasıl yapılacağını göster";
-"activity-tab-reading-challenge-card-title" = "25 günlük okuma mücadelesi";
 "activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Memnunum";
 "activity-tab-saved" = "Bu ay saklanan maddeler";
@@ -211,6 +209,13 @@
 "alert-temporary-account-learn-more" = "Daha fazla bilgi edin.";
 "alt-text-feedback-survey-toast-title" = "Geri bildirim gönderildi";
 "announcements-dismiss" = "Kapat";
+"app-onboarding-data-privacy-body" = "Ücretsiz bilgi hareketine katılmak için kişisel bilgilerinizi vermeniz gerekmediğine inanıyoruz. Bu uygulama için toplanan kullanım verileri anonimdir.";
+"app-onboarding-data-privacy-links-format" = "$1 ve $2 ürünlerimiz hakkında daha fazla bilgi edinin.";
+"app-onboarding-data-privacy-policy-link" = "gizlilik politikası";
+"app-onboarding-data-privacy-terms-link" = "Kullanım şartları";
+"app-onboarding-data-privacy-title" = "Veri ve Gizlilik";
+"app-onboarding-feed-preference-community-option" = "Toplulukla ilgili içerik";
+"app-onboarding-feed-preference-in-the-news" = "Haberlerde";
 "app-store-keywords" = "Vikipedi, referans, viki, ansiklopedi, bilgi, bilgilenme, araştırma, bilme, keşfet, öğren";
 "app-store-release-notes" = "Tamamen özelleştirilebilir beslemeleri keşfedin. Yerelleştirme, performans iyileştirmeleri ve hata düzeltmeleri.";
 "app-store-short-description" = "Size yakın yerler keşfetmek, çevrimdışı maddeler okumak ve okuma deneyiminizi özelleştirmek için Vikipedi uygulamasını indirin.";
@@ -292,9 +297,6 @@
 "close-tab-confirmation" = "Sekme kapatılsın mı?";
 "close-tabs" = "Sekmeleri kapat";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 sekme}} kapatıldı.";
-"collect-prize-button-title" = "Mağazada %%15 indirim kazanın";
-"collect-prize-headline" = "Merak size yakışıyor! 🛍️";
-"collect-prize-subtitle" = "Mücadeleyi tamamlamayı Vikipedi Mağazasında %%15 indirimle kutlayın.";
 "collect-prize-title" = "Ödülünüzü alın!";
 "compass-direction" = "saat $1 yönünde";
 "confirm-donation-history-deletion-subtitle" = "Bu yalnızca bu aygıttan yapılan bağışlar için geçerli olacaktır.";
@@ -725,7 +727,6 @@
 "home-feed-for-you-continue-reading-title" = "Okumaya devam edin";
 "home-feed-for-you-settings-header" = "Bir modülü devre dışı bırakmak, onu \"Size özel\" akışından gizler. Bu modülü istediğiniz zaman buradan yeniden etkinleştirebilirsiniz.";
 "home-feed-for-you-settings-title" = "Modüller";
-"home-feed-for-you-whats-driving-title" = "Akışınızı ne belirliyor";
 "home-feed-interests-settings-empty-message" = "İlgi alanlarınız burada gösterilecektir.";
 "home-feed-interests-settings-title" = "İlgi alanlarınız";
 "home-feed-modules-featured-article-subtitle" = "Seçkin maddeler, editörler tarafından günlük olarak seçilen Vikipedi'nin en kaliteli maddeleridir";
@@ -1150,53 +1151,7 @@
 "project-name-wikiversity" = "Vikiversite";
 "project-name-wikivoyage" = "Vikigezgin";
 "project-name-wiktionary" = "Vikisözlük";
-"reading-challenge-announcement-cta" = "Mücadeleye katıl";
-"reading-challenge-announcement-item1-subtitle" = "Mücadeleye $1 ile $2 arasında istediğiniz zaman katılın, 25 gününüzü kendi zaman çizelgenizde tamamlayın.";
-"reading-challenge-announcement-item1-title" = "25 gün boyunca günde 1 makale okuyun";
-"reading-challenge-announcement-item2-subtitle" = "Mücadele aktifken 25 günlük bir okuma serisi tamamlayarak özel ödüller kazanın.";
-"reading-challenge-announcement-item2-title" = "Ödüller kazanın";
-"reading-challenge-announcement-item3-subtitle2" = "Bebek Küre ile serinizi takip etmek için ana ekranınızdan Okuma Mücadelesi widget'ını eklemeniz gerekir.";
-"reading-challenge-announcement-item3-title" = "Widget'ı yükleyin";
-"reading-challenge-announcement-secondary-cta" = "Daha fazla bilgi";
-"reading-challenge-announcement-subtitle" = "Okuma geçmişiniz korunur. Okuma içgörüleri, cihazınızda yerel olarak depolanan veriler kullanılarak hesaplanır.";
-"reading-challenge-announcement-title" = "Vikipedi'nin 25. doğum gününü 25 günlük okuma mücadelesine katılarak kutlayın!";
-"reading-challenge-collect-prize-button-small" = "Ödülü al";
-"reading-challenge-completed-subtitle" = "25/25 gün";
-"reading-challenge-completed-subtitle-small" = "25/25";
-"reading-challenge-completed-title" = "Başardınız!";
-"reading-challenge-concluded-title" = "Mücadele Sona Erdi";
-"reading-challenge-enrolled-not-started-subtitle-article" = "Başlamak için bir madde okuyun.";
-"reading-challenge-enrolled-not-started-subtitle-away" = "Seriniz sadece bir makale uzakta.";
-"reading-challenge-enrolled-not-started-subtitle-somewhere" = "Her seri bir yerden başlar.";
-"reading-challenge-enrolled-not-started-subtitle-towards" = "25 günlük bir seri için çalışmaya başlayın!";
-"reading-challenge-enrolled-not-started-title-fresh" = "Yeni bir başlangıç.";
-"reading-challenge-enrolled-not-started-title-ready" = "Hazır, başla, oku!";
-"reading-challenge-enrolled-not-started-title-spin" = "Yeni bir seri başlatalım mı?";
-"reading-challenge-enrolled-not-started-title-start" = "Okuma mücadelenizi başlatın.";
-"reading-challenge-explore-wikipedia-button" = "Vikipedi'yi keşfet";
-"reading-challenge-join-button-medium" = "Mücadeleye katıl";
-"reading-challenge-join-button-small" = "Mücadeleye katıl";
-"reading-challenge-login-message" = "Okuma mücadelesindeki ilerlemenizi takip etmek için giriş yapın veya hesap oluşturun.";
-"reading-challenge-login-title" = "Mücadeleye katılmak için giriş yapın";
-"reading-challenge-not-enrolled-subtitle" = "25 günlük mücadeleye katılın ve özel ödüller kazanın.";
-"reading-challenge-not-enrolled-title" = "Hazır, başla, oku!";
-"reading-challenge-not-live-yet-subtitle" = "25 günlük bir okuma mücadelesi yolda.";
-"reading-challenge-not-live-yet-title" = "Okumaya hazır olun";
-"reading-challenge-not-yet-read-subtitle-article" = "Seriniz sadece bir makale uzakta.";
-"reading-challenge-not-yet-read-subtitle-bit" = "Küçük bir okuma bile hedefinize katkıda bulunur.";
-"reading-challenge-not-yet-read-subtitle-curiosity" = "Merakınızı canlı tutun.";
-"reading-challenge-not-yet-read-subtitle-drift" = "Bugünün boşa geçmesine izin vermeyin, okuma seriniz sizi bekliyor.";
-"reading-challenge-not-yet-read-subtitle-jump" = "Bugün istediğiniz zaman biraz okumaya dalın.";
-"reading-challenge-not-yet-read-subtitle-quiet" = "Sessiz bir okuma anı mı?";
-"reading-challenge-not-yet-read-subtitle-snooze" = "Gün uykuya dalmadan önce... bir şeyler öğrenmek için hâlâ vakit var.";
 "reading-challenge-random-button" = "Rastgele";
-"reading-challenge-streak-no-days" = "$1 / 25";
-"reading-challenge-subtitle" = "25 günlük okuma mücadelesi";
-"reading-challenge-widget-announcement-body2" = "Bebek Küre ile serinizi takip etmek için ana ekranınızdan Okuma Mücadelesi widget'ını eklemeniz gerekir.";
-"reading-challenge-widget-announcement-secondary-button" = "Nasıl yapılacağını göster";
-"reading-challenge-widget-announcement-title2" = "Widget'ı eklemek için ana ekranınıza gidin";
-"reading-challenge-widget-description" = "Okuma mücadelesi ilerlemenizi takip edin.";
-"reading-challenge-widget-display-name" = "Okuma Mücadelesi";
 "reading-list-add-generic-hint-title" = "Bu makaleyi bir okuma listesine eklemek istediğinize emin misiniz?";
 "reading-list-add-hint-title" = "“$1” maddesi okuma listesine eklesin mi?";
 "reading-list-add-saved-button-title" = "Evet, bunları okuma listeme ekleye";
