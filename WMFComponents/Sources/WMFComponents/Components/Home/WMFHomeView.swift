@@ -111,7 +111,13 @@ public struct WMFHomeView: View {
                 }
                 .padding(.horizontal, 14)
                 .padding(.vertical, 8)
-                .background(.ultraThinMaterial, in: Capsule())
+                .background {
+                    if #available(iOS 26.0, *) {
+                        Capsule().fill(.clear).glassEffect(in: Capsule())
+                    } else {
+                        Capsule().fill(.ultraThinMaterial)
+                    }
+                }
                 .accessibilityIdentifier(AccessibilityIdentifiers.Home.languagePickerButton)
             }
         }
@@ -133,7 +139,13 @@ public struct WMFHomeView: View {
                 tabButton(title: forYouTitle, tab: .forYou)
             }
             .padding(3)
-            .background(.ultraThinMaterial, in: Capsule())
+            .background {
+                if #available(iOS 26.0, *) {
+                    Capsule().fill(.clear).glassEffect(in: Capsule())
+                } else {
+                    Capsule().fill(.ultraThinMaterial)
+                }
+            }
             .dynamicTypeSize(.xSmall ... .large)
         }
 
@@ -150,14 +162,15 @@ public struct WMFHomeView: View {
                     .minimumScaleFactor(0.25)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
-                    .background(
-                        Group {
-                            if isSelected {
-                                Capsule()
-                                    .fill(.ultraThinMaterial)
+                    .background {
+                        if isSelected {
+                            if #available(iOS 26.0, *) {
+                                Capsule().fill(.clear).glassEffect(.regular.interactive(), in: Capsule())
+                            } else {
+                                Capsule().fill(.ultraThinMaterial)
                             }
                         }
-                    )
+                    }
             }
         }
     }
