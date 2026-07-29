@@ -49,6 +49,10 @@ public enum WMFUserDefaultsKey: String {
     // Home feed: For You dev settings
     case homeFeedForYouColorTest = "home-feed-for-you-color-test"
 
+    // Reading Challenge 2026 (feature removed, see WMFReadingChallengeCompletionDataController)
+    case completedReadingChallenge2026 = "completed-reading-challenge-2026"
+    case didRecoverReadingChallenge2026Completion = "did-recover-reading-challenge-2026-completion"
+
     // Games announcement
     case hasSeenGamesAnnouncement = "has-seen-games-announcement"
     case needsDailyGameFeedRefresh = "needs-daily-game-feed-refresh"
