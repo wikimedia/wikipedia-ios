@@ -66,9 +66,14 @@ platform :ios do
     if new_certs.empty?
       UI.message("No new certificates detected during this run.")
     end
+    deletable_types = ["DEVELOPMENT", "IOS_DEVELOPMENT"]
     new_certs.each do |cert|
-      # DRY RUN: not deleting yet, just confirming detection is correct.
-      UI.message("Would delete byproduct certificate: #{cert.display_name} (type: #{cert.certificate_type})")
+      unless deletable_types.include?(cert.certificate_type)
+        UI.important("Skipping new certificate of unexpected type, not deleting: #{cert.display_name} (type: #{cert.certificate_type})")
+        next
+      end
+      cert.delete!
+      UI.success("Deleted byproduct certificate: #{cert.display_name} (type: #{cert.certificate_type})")
     end
   end
 
