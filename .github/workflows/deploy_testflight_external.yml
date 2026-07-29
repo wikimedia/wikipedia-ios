@@ -2,6 +2,12 @@ name: External TestFlight
 
 on:
   workflow_dispatch:
+    inputs:
+      version_override:
+        description: "Override the version (YYYY.MM.DD) instead of using today's date - e.g. to build a fix under an already-submitted release candidate's version after Apple rejects it. Leave blank to use today's date."
+        required: false
+        type: string
+        default: ''
 
 jobs:
   build-and-upload:
@@ -18,8 +24,10 @@ jobs:
       # -------------------------------------------------------
       - name: Compute build number
         id: versioning
+        env:
+          VERSION_OVERRIDE: ${{ github.event.inputs.version_override }}
         run: |
-          VERSION=$(date -u "+%Y.%m.%d")
+          VERSION="${VERSION_OVERRIDE:-$(date -u "+%Y.%m.%d")}"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
           LATEST=$(git tag --list 'betas/*' \

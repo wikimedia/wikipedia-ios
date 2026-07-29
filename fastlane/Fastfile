@@ -116,18 +116,13 @@ platform :ios do
   desc "Build and submit to App Store Review"
   lane :submit_for_review do
     api_key = get_api_key
-    existing_build_number = ENV["EXISTING_BUILD_NUMBER"]
-    reusing_existing_build = !existing_build_number.to_s.empty?
-
-    build_the_app unless reusing_existing_build
+    build_the_app
 
     should_submit = ENV["SUBMIT_FOR_REVIEW"] == "true"
 
     upload_to_app_store(
       api_key: api_key,
       app_version: ENV["VERSION"],
-      build_number: existing_build_number,
-      skip_binary_upload: reusing_existing_build,
       submit_for_review: should_submit,
       automatic_release: false,
       skip_screenshots: true,
