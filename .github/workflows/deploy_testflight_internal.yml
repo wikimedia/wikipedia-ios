@@ -371,6 +371,10 @@ jobs:
           # Search for any open release task with a date-based version title
           release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}$')
 
+          def release_branch_value(description):
+            match = re.search(r'\*\*Release branch\*\*:(.*)', description)
+            return match.group(1).strip() if match else ''
+
           req = urllib.request.Request(
             'https://phabricator.wikimedia.org/api/maniphest.search',
             headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
@@ -387,13 +391,18 @@ jobs:
             data = json.loads(resp.read())
 
           tasks = data.get('result', {}).get('data', [])
+          # Skip any release task that's already associated with a release
+          # branch (i.e. already past Submit and in Apple's court) - only the
+          # task still tracking main should get updated here.
           release_task = next(
-            (t for t in tasks if release_pattern.match(t.get('fields', {}).get('name', ''))),
-            None
+            (t for t in tasks
+             if release_pattern.match(t.get('fields', {}).get('name', ''))
+             and not release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')))
+            , None
           )
 
           if not release_task:
-            print("No open release task found, skipping")
+            print("No open release task found (or all open ones are already associated with a release branch), skipping")
             exit(0)
 
           task_phid = release_task['phid']
