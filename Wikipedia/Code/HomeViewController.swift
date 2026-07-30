@@ -91,6 +91,8 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
             articleURL.wmf_languageVariantCode = card.project.languageVariantCode
             return dataStore.savedPageList.isAnyVariantSaved(articleURL)
         }
+        
+        apply(theme: theme)
     }
     
     private func unsaveForYouArticle(_ article: WMFForYouArticleCardViewModel) {
@@ -139,15 +141,17 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         configureNavigationBar()
         updateNavigationBarAppearance(for: viewModel.selectedTab)
         reloadLanguages()
+        apply(theme: theme)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateNavigationBarAppearance(for: viewModel.selectedTab)
+        apply(theme: theme)
     }
     
     // MARK: - Navigation Bar Appearance
-
+    
     private func updateNavigationBarAppearance(for tab: WMFHomeViewModel.Tab) {
         guard let navController = navigationController as? WMFComponentNavigationController else { return }
         if tab == .forYou {

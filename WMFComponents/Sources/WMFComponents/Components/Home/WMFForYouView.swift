@@ -53,7 +53,7 @@ public struct WMFForYouView: View {
 
     @ViewBuilder
     private func scrollView(geometry: GeometryProxy) -> some View {
-        let base = ScrollView(.vertical, showsIndicators: false) {
+        ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(spacing: 0) {
                 ForEach(visiblePages) { page in
                     let visibleArticles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.hideKey) }
@@ -76,14 +76,7 @@ public struct WMFForYouView: View {
         }
         .scrollTargetBehavior(.paging)
         .refreshable { await viewModel.onRefresh?() }
-
-        if #available(iOS 26, *) {
-            base
-                .scrollEdgeEffectStyle(.soft, for: .top)
-                .scrollEdgeEffectStyle(.soft, for: .bottom)
-        } else {
-            base
-        }
+        .scrollBounceBehavior(.basedOnSize)
     }
 
     // MARK: - Empty State
@@ -172,7 +165,7 @@ private struct WMFForYouPageView: View {
     let onShareCard: (WMFForYouArticleCardViewModel) -> Void
     let onUnsaveCard: (WMFForYouArticleCardViewModel) -> Void
 
-    @State private var currentPage: Int = 0
+    @State private var currentPage: Int? = 0
 
     private var windowSafeAreaBottom: CGFloat {
         let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
@@ -180,34 +173,39 @@ private struct WMFForYouPageView: View {
     }
 
     var body: some View {
-        TabView(selection: $currentPage) {
-            ForEach(Array(articleViewModels.enumerated()), id: \.element.id) { index, article in
-                let variant = WMFForYouCardVariant.variant(for: index)
-                WMFForYouArticleCardView(
-                    viewModel: article,
-                    variant: variant,
-                    variantIndex: index,
-                    theme: theme,
-                    onHideModule: onHideModule,
-                    onHideCard: { onHideCard(article) },
-                    onCustomizeInterests: onCustomizeInterests,
-                    onTapCard: { onTapCard(article) },
-                    onSaveCard: { onSaveCard(article) },
-                    onUnsaveCard: { onUnsaveCard(article) },
-                    onShareCard: { onShareCard(article) }
-                )
-                .tag(index)
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHStack(spacing: 0) {
+                ForEach(Array(articleViewModels.enumerated()), id: \.element.id) { index, article in
+                    let variant = WMFForYouCardVariant.variant(for: index)
+                    WMFForYouArticleCardView(
+                        viewModel: article,
+                        variant: variant,
+                        variantIndex: index,
+                        theme: theme,
+                        onHideModule: onHideModule,
+                        onHideCard: { onHideCard(article) },
+                        onCustomizeInterests: onCustomizeInterests,
+                        onTapCard: { onTapCard(article) },
+                        onSaveCard: { onSaveCard(article) },
+                        onUnsaveCard: { onUnsaveCard(article) },
+                        onShareCard: { onShareCard(article) }
+                    )
+                    .containerRelativeFrame(.horizontal)
+                    .tag(index)
+                }
             }
+            .scrollTargetLayout()
         }
-        .tabViewStyle(.page(indexDisplayMode: .never))
+        .scrollTargetBehavior(.paging)
+        .scrollPosition(id: $currentPage)
         .overlay(alignment: .bottom) {
             HStack(spacing: 8) {
                 ForEach(0..<articleViewModels.count, id: \.self) { index in
                     Circle()
-                        .fill(index == currentPage ? Color.white : Color.white.opacity(0.4))
+                        .fill(index == (currentPage ?? 0) ? Color.white : Color.white.opacity(0.4))
                         .frame(
-                            width: index == currentPage ? 8 : 7,
-                            height: index == currentPage ? 8 : 7
+                            width: index == (currentPage ?? 0) ? 8 : 7,
+                            height: index == (currentPage ?? 0) ? 8 : 7
                         )
                         .animation(.spring(response: 0.3, dampingFraction: 0.7), value: currentPage)
                 }
@@ -369,8 +367,7 @@ private struct WMFForYouArticleCardView: View {
                 .frame(width: geometry.size.width, height: geometry.size.height)
                 .clipped()
 
-                // 2. Content — gradient is a .background on the VStack itself,
-                // so it always matches the text height exactly, bleeding 25pt above.
+                // 2. Content
                 switch effectiveVariant {
 
                 // MARK: Variant 3: Text-focused (also used as fallback when no image)
