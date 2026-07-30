@@ -174,12 +174,13 @@ jobs:
           echo "Created release branch: $BRANCH"
 
       # -------------------------------------------------------
-      # 7. Update release task with release branch
+      # 7. Update release task with release branch and submission date
       # -------------------------------------------------------
-      - name: Update release task with release branch
+      - name: Update release task with release branch and submission date
         env:
           PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
           BRANCH: ${{ env.branch }}
+          SUBMIT_FOR_REVIEW: ${{ github.event.inputs.submit_for_review }}
         run: |
           python3 << 'EOF'
           import urllib.request
@@ -187,9 +188,11 @@ jobs:
           import json
           import re
           import os
+          from datetime import datetime, timezone
 
           token = os.environ['PHAB_TOKEN']
           branch = os.environ['BRANCH']
+          submit_for_review = os.environ['SUBMIT_FOR_REVIEW'] == 'true'
 
           release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}')
 
@@ -227,105 +230,19 @@ jobs:
             exit(0)
 
           task_phid = release_task['phid']
-          current_description = release_task.get('fields', {}).get('description', {}).get('raw', '')
+          description = release_task.get('fields', {}).get('description', {}).get('raw', '')
 
-          if '**Release branch**:' in current_description:
-            new_description = re.sub(
-              r'(\*\*Release branch\*\*:).*',
-              rf'\1 {branch}',
-              current_description,
-              count=1
-            )
-          else:
-            new_description = current_description.rstrip() + f"\n\n**Release branch**: {branch}"
+          def set_field(description, field, value):
+            pattern = re.compile(rf'(\*\*{re.escape(field)}\*\*:).*')
+            if pattern.search(description):
+              return pattern.sub(rf'\1 {value}', description, count=1)
+            return description.rstrip() + f"\n\n**{field}**: {value}"
 
-          req = urllib.request.Request(
-            'https://phabricator.wikimedia.org/api/maniphest.edit',
-            headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
-            data=urllib.parse.urlencode({
-              'api.token': token,
-              'objectIdentifier': task_phid,
-              'transactions[0][type]': 'description',
-              'transactions[0][value]': new_description,
-            }).encode()
-          )
+          description = set_field(description, 'Release branch', branch)
 
-          with urllib.request.urlopen(req) as resp:
-            result = json.loads(resp.read())
-            if not result.get('error_code'):
-              print(f"✓ Set Release branch to {branch} on release task")
-            else:
-              print(f"✗ Failed to update release task: {result.get('error_info')}")
-          EOF
-
-      # -------------------------------------------------------
-      # 8. Update release task with submission date
-      # -------------------------------------------------------
-      - name: Update release task with submission date
-        if: github.event.inputs.submit_for_review == 'true'
-        env:
-          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
-          BRANCH: ${{ env.branch }}
-        run: |
-          python3 << 'EOF'
-          import urllib.request
-          import urllib.parse
-          import json
-          import re
-          import os
-          from datetime import datetime, timezone
-
-          token = os.environ['PHAB_TOKEN']
-          branch = os.environ['BRANCH']
-          submission_date = datetime.now(timezone.utc).strftime('%Y.%m.%d')
-
-          release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}')
-
-          def release_branch_value(description):
-            match = re.search(r'\*\*Release branch\*\*:(.*)', description)
-            return match.group(1).strip() if match else ''
-
-          req = urllib.request.Request(
-            'https://phabricator.wikimedia.org/api/maniphest.search',
-            headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
-            data=urllib.parse.urlencode({
-              'api.token': token,
-              'constraints[projects][0]': 'PHID-PROJ-ojylfmfiogxrvnxoiwlp',
-              'constraints[statuses][0]': 'open',
-              'order': 'newest',
-              'limit': '100',
-            }).encode()
-          )
-
-          with urllib.request.urlopen(req) as resp:
-            data = json.loads(resp.read())
-
-          tasks = data.get('result', {}).get('data', [])
-          # Look up by exact Release branch match (not "not yet branched") -
-          # the previous step just set this task's Release branch field.
-          release_task = next(
-            (t for t in tasks
-             if release_pattern.match(t.get('fields', {}).get('name', ''))
-             and release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')) == branch)
-            , None
-          )
-
-          if not release_task:
-            print(f"No open release task found with Release branch = {branch}, skipping")
-            exit(0)
-
-          task_phid = release_task['phid']
-          current_description = release_task.get('fields', {}).get('description', {}).get('raw', '')
-
-          if '**App Store Submission Date**:' in current_description:
-            new_description = re.sub(
-              r'(\*\*App Store Submission Date\*\*:).*',
-              rf'\1 {submission_date}',
-              current_description,
-              count=1
-            )
-          else:
-            new_description = current_description.rstrip() + f"\n\n**App Store Submission Date**: {submission_date}"
+          if submit_for_review:
+            submission_date = datetime.now(timezone.utc).strftime('%Y.%m.%d')
+            description = set_field(description, 'App Store Submission Date', submission_date)
 
           req = urllib.request.Request(
             'https://phabricator.wikimedia.org/api/maniphest.edit',
@@ -334,14 +251,14 @@ jobs:
               'api.token': token,
               'objectIdentifier': task_phid,
               'transactions[0][type]': 'description',
-              'transactions[0][value]': new_description,
+              'transactions[0][value]': description,
             }).encode()
           )
 
           with urllib.request.urlopen(req) as resp:
             result = json.loads(resp.read())
             if not result.get('error_code'):
-              print(f"✓ Set App Store Submission Date to {submission_date} on release task")
+              print(f"✓ Updated release task (branch={branch}, submitted={submit_for_review})")
             else:
               print(f"✗ Failed to update release task: {result.get('error_info')}")
           EOF
