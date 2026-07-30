@@ -84,14 +84,16 @@ jobs:
           print(f"Last release tag: {last_release_tag}")
 
           result = subprocess.run(
-            ['git', 'log', '--oneline', '--merges', f'{last_release_tag}..HEAD'],
+            ['git', 'log', '--oneline', f'{last_release_tag}..HEAD'],
             capture_output=True, text=True
           )
           commits = result.stdout.strip().split('\n')
 
           pr_numbers = []
           for commit in commits:
-            match = re.search(r'Merge pull request #(\d+)', commit)
+            # Matches both merge-commit PRs ("Merge pull request #123")
+            # and squash-merge PRs ("Fix campaign modal (#123)")
+            match = re.search(r'Merge pull request #(\d+)', commit) or re.search(r'\(#(\d+)\)\s*$', commit)
             if match:
               pr_numbers.append(match.group(1))
 
@@ -130,14 +132,16 @@ jobs:
           print(f"Last beta tag: {last_beta_tag}")
 
           result = subprocess.run(
-            ['git', 'log', '--oneline', '--merges', f'{last_beta_tag}..HEAD'],
+            ['git', 'log', '--oneline', f'{last_beta_tag}..HEAD'],
             capture_output=True, text=True
           )
           commits = result.stdout.strip().split('\n')
 
           pr_numbers = []
           for commit in commits:
-            match = re.search(r'Merge pull request #(\d+)', commit)
+            # Matches both merge-commit PRs ("Merge pull request #123")
+            # and squash-merge PRs ("Fix campaign modal (#123)")
+            match = re.search(r'Merge pull request #(\d+)', commit) or re.search(r'\(#(\d+)\)\s*$', commit)
             if match:
               pr_numbers.append(match.group(1))
 
