@@ -166,7 +166,7 @@ jobs:
       - name: Open PR for unmerged release branch changes
         if: steps.check_branch.outputs.new_commits != '0'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
           VERSION: ${{ github.event.inputs.version }}
           BRANCH: ${{ steps.check_branch.outputs.branch }}
         run: |
