@@ -4,6 +4,7 @@
 // Author: Aktron
 // Author: Chmee2
 // Author: Clon
+// Author: Comfyquiettree
 // Author: Cvanca
 // Author: Danny B.
 // Author: Djpaulas12
@@ -409,6 +410,9 @@
 "history-title" = "Historie";
 "home-button-explore-accessibility-label" = "Wikipedie, zpět na kanál Objevit";
 "home-button-saved-accessibility-label" = "Wikipedie, zpět na Uložené";
+"home-feed-modules-featured-article-subtitle" = "Doporučené články patří mezi nejkvalitnější články na Wikipedii, které denně vybírají redaktoři";
+"home-feed-modules-on-this-day-subtitle" = "Objevte historické události z tohoto dne";
+"home-feed-modules-picture-of-the-day-subtitle" = "Denní obrázky na Wikimedia Commons, vybrané dobrovolnými přispěvateli";
 "home-more-like-footer" = "Více podobných článku jako $1";
 "home-nearby-footer" = "Více míst z vašeho okolí";
 "home-nearby-location-footer" = "Další místa v okolí $1";

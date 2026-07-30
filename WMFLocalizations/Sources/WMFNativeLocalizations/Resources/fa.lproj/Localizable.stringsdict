@@ -304,6 +304,66 @@
 			<string>%1$d سطر ویرایش نشدند</string>
 		</dict>
 	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>در سال %1$@، داوطلبان %#@v2@ به ویکی‌پدیای انگلیسی اضافه کردند. مجموع تمام کارهای آنها با هم منجر به یک منبع دانش مبتنی بر واقعیت و قابل اعتماد می‌شود که به طور پیوسته در حال بهبود است و به جهان ارائه می‌شود. همه ما دانشی برای به اشتراک گذاشتن داریم، [یاد بگیرید چگونه مشارکت کنید](%3$@).</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>بایت</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ محتوا افزوده شد</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>بایت</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>داوطلبان %#@v1@ در سرتاسر %#@v2@ ویکی‌پدیا اعمال کرده‌اند. بیش از %#@v3@ در ویکی‌پدیای انگلیسی اعمال شده است. در هر ساعت از هر روز، داوطلبان در حال کار بر روی بهبود ویکی‌پدیا هستند.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>تغییر</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>نسخهٔ زبانی مختلف</string>
+		</dict>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>تغییر</string>
+		</dict>
+	</dict>
 	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -316,6 +376,71 @@
 			<string>lld</string>
 			<key>other</key>
 			<string>تغییر</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>در سال %3$@، افراد حدود %#@v1@— حدود %#@v2@!— را صرف مطالعهٔ ویکی‌پدیای انگلیسی کرده‌اند. هرگاه بخواهید دربارهٔ دنیای رو به تغییرمان چیزی بدانید، در یک شرط‌بندی بین دوستانتان پیروز شوید، یا پاسخ سؤال یک کودک را پیدا کنید، ویکی‌پدیا در کنار شماست.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>ساعت</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>سال</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ما %#@v1@ را صرف مطالعه کرده‌ایم</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>ساعت</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>کاربران فعال برنامه امسال %#@v1@ کرده‌اند. افزودن مقالات به فهرست‌های مطالعه به شما این امکان را می‌دهد که حتی در صورت برخط نبودن نیز به مقالات دسترسی داشته باشید. همچنین می‌توانید برای همگام‌سازی فهرست‌های مطالعه در دستگاه‌های مختلف، وارد سامانه شوید.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>مقاله ذخیره</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ما %#@v1@ ذخیره شده داشتیم</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>مقاله</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
