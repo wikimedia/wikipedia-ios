@@ -168,10 +168,15 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           BRANCH="release-candidate/$VERSION"
-          git checkout -b "$BRANCH"
-          git push origin "$BRANCH"
           echo "branch=$BRANCH" >> $GITHUB_ENV
-          echo "Created release branch: $BRANCH"
+
+          if git ls-remote --exit-code --heads origin "$BRANCH" > /dev/null 2>&1; then
+            echo "$BRANCH already exists - this is a re-submission for an existing release, skipping creation"
+          else
+            git checkout -b "$BRANCH"
+            git push origin "$BRANCH"
+            echo "Created release branch: $BRANCH"
+          fi
 
       # -------------------------------------------------------
       # 7. Update release task with release branch and submission date
@@ -216,17 +221,26 @@ jobs:
             data = json.loads(resp.read())
 
           tasks = data.get('result', {}).get('data', [])
-          # The task still tracking main (not yet branch-associated) is the
-          # one this Submit run is graduating into the release branch.
-          release_task = next(
-            (t for t in tasks
-             if release_pattern.match(t.get('fields', {}).get('name', ''))
-             and not release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')))
-            , None
-          )
+
+          def matching_tasks(predicate):
+            return [
+              t for t in tasks
+              if release_pattern.match(t.get('fields', {}).get('name', ''))
+              and predicate(release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')))
+            ]
+
+          # A re-submission (e.g. after Apple rejects and a fix is pushed to
+          # the same release branch, run again with version_override) will
+          # find the branch already created and this task already stamped
+          # with it - match that first. Otherwise fall back to the task
+          # still tracking main, not yet branch-associated, which this run
+          # is graduating into the release branch for the first time.
+          already_branched = matching_tasks(lambda v: v == branch)
+          not_yet_branched = matching_tasks(lambda v: not v)
+          release_task = (already_branched or not_yet_branched or [None])[0]
 
           if not release_task:
-            print("No open, not-yet-branched release task found, skipping")
+            print("No matching open release task found, skipping")
             exit(0)
 
           task_phid = release_task['phid']
