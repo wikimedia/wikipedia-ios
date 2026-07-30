@@ -828,8 +828,6 @@
 "reading-list-generic-error" = "あとで読むリストの更新中に予期せぬエラーが発生しました";
 "reading-list-keep-button-title" = "はい、記事をこのデバイスに残します";
 "reading-list-keep-subtitle" = "ウィキペディアアカウントと同期した記事があります。ログアウトした後でもその記事をこのデバイスに残しますか?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "同期をオフにすると、これらの記事は紐付けられたあなたのアカウントからも削除されます。つまり、このデバイスからその記事を削除すると、将来もう一度同期をオンにしても復元はできません。";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "いいえ、デバイス内からもウィキペディアのアカウントからも記事を削除します。";
 "reading-list-keep-title" = "アプリ内の保存した記事を残しますか?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "記事を並べ替え";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "並べ替えしてない記事については5000件の上限があります。既存の記事をリストに並べ替えしてから、並べ替えてない記事の同期を続けてください。";
@@ -949,11 +947,6 @@
 "settings-search-open-app-on-search" = "アプリ起動時に検索タブを表示";
 "settings-storage-and-syncing-enable-sync-footer-text" = "ログインして同期した際に、ウィキメディア財団が、あなたの個人設定に保存した記事とあとで読むリストを保存することを許可する。";
 "settings-storage-and-syncing-enable-sync-title" = "保存した記事とリストの同期";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "同期を有効にしている場合、保存した記事を消去すると、あなたのアカウントからとこのデバイスの両方から消去されます。この操作は取り消せません。";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "保存した記事をすべて削除しますか?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "削除";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "ウィキペディアのアカウントとデバイスの同期が有効になっている場合、保存した記事を削除すると、アカウントの方からも削除されます。\n\n保存した記事を削除することで、容量が$1空きます。";
-"settings-storage-and-syncing-erase-saved-articles-title" = "保存した記事を削除";
 "settings-storage-and-syncing-full-sync" = "あとで読むリストはバックグラウンドで同期されます";
 "settings-storage-and-syncing-server-sync-footer-text" = "同期した記事とあとで読むリストの同期を要求";
 "settings-storage-and-syncing-server-sync-title" = "同期したあとで読むリストを更新";

@@ -706,8 +706,6 @@
 "reading-list-generic-error" = "Gbɛ ŋmɛ kaŋa kpeɛ la a saŋa na fo naŋ kanna a gama.";
 "reading-list-keep-button-title" = "Ooo, taa a Aatekel taŋgaraa";
 "reading-list-keep-subtitle" = "Aatekel mine peɛle la a Wikipiideɛ toŋ toŋ boma. Fo naŋ boɔrɔ ka fo boŋ a kyɛbe yi ka fooŋ baare?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Leɛrɛ a Aatekel naŋ baŋ iri o la bare. Ka fooŋ iri a bare go koŋ la baŋ nyɛ a bie daare bee bebiri kaŋa.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Aayi, iri a Aatekel yi a taŋgaraa ane n Wikipiideɛ toŋ bone poɔ";
 "reading-list-keep-title" = "Taa a Aatekel na fo naŋ baŋ a taŋgaraa poɔ?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Poɔ Aatekel";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "A ta la 5000 Aatekel yi naŋ ba baŋ. Sɔrɔɔ la baŋ a aatekel velaa a gama poɔ ka fooŋ boɔra Aatekel.";
@@ -808,9 +806,6 @@
 "settings-primary-language-details" = "A Kɔkɔre dɛŋdɛŋ soba la ka ba de ka o e a paramere Kɔkɔre app poɔ.";
 "settings-search-footer-text" = "Maale a app kyɛ yuo a bɔɔbo zie anaŋ seɛ yineŋ";
 "settings-search-open-app-on-search" = "Yuo a app boɔbu zie";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Sãã Aatekel naŋ zaa fo bie?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Sãã";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Sãã Aatekel naŋ biŋ";
 "settings-title" = "Maaloo";
 "share-a-fact-made-with" = "Maale neŋ a Wikipiideɛ app";
 "share-article-name-on-wikipedia" = "\"$1\" a Wikipiideɛ:";

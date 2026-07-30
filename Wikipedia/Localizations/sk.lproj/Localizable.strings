@@ -1213,8 +1213,6 @@
 "reading-list-generic-error" = "Pri aktualizácii vašich zoznamov na prečítanie nastala neočakávaná chyba.";
 "reading-list-keep-button-title" = "Áno, ponechať články na zariadení";
 "reading-list-keep-subtitle" = "Existujú články, ktoré boli synchronizované s vaším účtom na Wikipédii. Chcete ich na tomto zariadení po odhlásení ponechať?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Vypnutím synchronizácie odstránite tieto články z účtu. Pokiaľ ich vymažete zo zariadenia, nebudú obnoviteľné tým, že v budúcnosti znovu zapnete synchronizáciu.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Nie, odstrániť články zo zariadenia a z môjho účtu na Wikipédii";
 "reading-list-keep-title" = "Chcete ponechať uložené články v zariadení?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Zoradiť články";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Existuje limit 5000 nezaradených článkov. Zaraďte, prosím, vaše existujúce články do zoznamov, aby ste umožnili pokračovanie synchronizácie nezaradených článkov.";
@@ -1353,11 +1351,6 @@
 "settings-search-open-app-on-search" = "Otvoriť aplikáciu v karte Vyhľadávanie";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Umožniť Wikimedii uloženie uložených článkov a zoznamov na prečítanie k vašim používateľským nastaveniam pri prihlasovaní a synchronizácii.";
 "settings-storage-and-syncing-enable-sync-title" = "Synchronizovať uložené články a zoznamy";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Vymazanie uložených článkov ich odstráni z vášho používateľského účtu, pokiaľ máte zapnutú synchronizáciu, a z vášho zariadenia. Túto akciu nemôžete vrátiť späť.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Vymazať všetky uložené články?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Vymazať";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Vymazanie uložených článkov ich odstráni z vášho používateľského účtu, pokiaľ máte zapnutú synchronizáciu, a z vášho zariadenia.\n\nVymazanie vašich uložených článkov uvolní asi $1 miesta.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Vymazať uložené články";
 "settings-storage-and-syncing-full-sync" = "Vaše zoznamy na prečítanie budú synchronizované na pozadí";
 "settings-storage-and-syncing-server-sync-footer-text" = "Požiadať o aktualizáciu synchronizovaných článkov a zoznamov na prečítanie.";
 "settings-storage-and-syncing-server-sync-title" = "Aktualizovať synchronizované zoznamy na prečítanie";

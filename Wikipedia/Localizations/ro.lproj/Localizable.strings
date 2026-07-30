@@ -725,8 +725,6 @@
 "reading-list-generic-error" = "A apărut o eroare neașteptată la actualizarea listelor de citire.";
 "reading-list-keep-button-title" = "Da, păstrează articolele pe dispozitiv";
 "reading-list-keep-subtitle" = "Există articole sincronizate cu contul dvs. Wikipedia. Ați dori să le păstrați pe acest dispozitiv după ce vă deconectați?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Dezactivarea sincronizării va elimina aceste articole din cont. Dacă le eliminați de pe dispozitiv, acestea nu vor putea fi recuperate activând din nou sincronizarea în viitor.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Nu, elimina articole din dispozitiv și din contul meu de Wikipedia";
 "reading-list-keep-title" = "Păstrați articolele salvate pe dispozitiv?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sortează articole";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Există o limită de 5000 de articole nesortate. Sortează articolele existente în liste pentru a continua sincronizarea articolelor nesortate.";
@@ -842,11 +840,6 @@
 "settings-search-open-app-on-search" = "Deschideți aplicația din fila Căutare";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permiteți Wikimedia să salveze articolele salvate și listele de citire la preferințele utilizatorului dvs. atunci când vă autentificați și sincronizați.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizați articolele și listele salvate";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Ștergerea articolelor salvate le va elimina din contul dvs. de utilizator dacă ați sincronizarea pornită, precum și de pe acest dispozitiv. Nu puteți anula această acțiune.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Ștergeți toate articolele salvate?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Șterge";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Ștergerea articolelor salvate le va elimina din contul dvs. de utilizator dacă aveți sincronizarea pornită, precum și de pe acest dispozitiv.\n\nȘtergerea articolelor salvate va elibera aproximativ $1 de spațiu.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Ștergeți articolele salvate";
 "settings-storage-and-syncing-full-sync" = "Listele dvs. de citire vor fi sincronizate în fundal";
 "settings-storage-and-syncing-server-sync-footer-text" = "Solicitați o actualizare la articolele dvs. sincronizate și listele de citire.";
 "settings-storage-and-syncing-server-sync-title" = "Actualizați listele de citire sincronizate";

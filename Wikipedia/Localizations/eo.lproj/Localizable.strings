@@ -486,8 +486,6 @@
 "reading-list-generic-error" = "Neatendita eraro okazis dum la ĝisdatigado de viaj legolistoj.";
 "reading-list-keep-button-title" = "Jes, konservi artikolojn sur la aparato";
 "reading-list-keep-subtitle" = "Estas artikoloj sinkronigitaj al via vikipedia konto. Ĉu vi volas konservi ilin sur via aparato post kiam vi elsalutas?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Se vi malŝaltas la sinkronigadon, ĉi tiuj artikoloj estas forigotaj de via konto. Se vi forigas ilin de via aparato, ili ne estos reakireblaj per estonta reŝaltado de la sinkronigo.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Ne, forigu artikolojn de la aparato kaj de mia vikipedia konto";
 "reading-list-keep-title" = "Ĉu konservi konservitajn artikolojn sur la aparato?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordigi artikolojn";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Estas limo de 5000 neordigitaj artikoloj. Bonvolu ordigi viajn ekzistantajn artikolojn en listoj por daŭrigi la sinkronigadon de neordigitaj artikoloj.";
@@ -589,11 +587,6 @@
 "settings-search-open-app-on-search" = "Malfermi la aplikaĵon sur la Serĉa taba folio";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permesi al Vikimedio konservi viajn konservitajn artikolojn kaj legolistojn al viaj uzanto-preferoj kiam vi ensalutas kaj sinkronigas.";
 "settings-storage-and-syncing-enable-sync-title" = "Sinkronigitaj konservitaj artikoloj kaj listoj";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Se vi forigas viajn konservitajn artikolojn, ili estas forigotaj kaj de via uzanto-konto (se vi ŝaltis la sinkronigadon) kaj de ĉi tiu aparato. Vi ne povas malfari ĉi tiun agon.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Ĉu forigi ĉiujn konservitajn artikolojn?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Forigi";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Se vi forigas viajn konservitajn artikolojn, ili estas forigotaj kaj de via uzanto-konto (se vi ŝaltis la sinkronigadon) kaj de ĉi tiu aparato.\n\nForigi viajn konservitajn artikolojn liberigos ĉirkaŭ $1 da spaco.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Forigi konservitajn artikolojn";
 "settings-storage-and-syncing-full-sync" = "Viaj legolistoj estas sinkronigotaj fone";
 "settings-storage-and-syncing-server-sync-footer-text" = "Peti ĝisdatigon de viaj sinkronigitaj artikoloj kaj legolistoj.";
 "settings-storage-and-syncing-server-sync-title" = "Ĝisdatigi la sinkronigitajn legolistojn";

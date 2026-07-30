@@ -1193,8 +1193,6 @@
 "reading-list-generic-error" = "更新您的閱讀清單時發生意外錯誤。";
 "reading-list-keep-button-title" = "是的，保留條目在裝置上";
 "reading-list-keep-subtitle" = "這些條目已同步到您的維基百科帳號，您想要在登出後讓它們保留在您的裝置上嗎？";
-"reading-list-keep-sync-disabled-additional-subtitle" = "停用同步功能將會從您的帳號裡移除這些條目。之後若您有重新啟用同步功能，也不會把從裝置上刪除過的條目給回復。";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "不，從我的維基百科帳號以及裝置上來移除條目";
 "reading-list-keep-title" = "保留在裝置上的已儲存條目？";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "排序條目";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "有 5000 個未排序條目的上限。請排序您現有的條目至清單裡，來繼續未排序條目的同步。";
@@ -1330,11 +1328,6 @@
 "settings-search-open-app-on-search" = "在搜尋分頁開啓應用程式";
 "settings-storage-and-syncing-enable-sync-footer-text" = "當您登入並同步時，允許維基媒體儲存您的已儲存條目與清單至您的使用者偏好設定";
 "settings-storage-and-syncing-enable-sync-title" = "同步已儲存條目與清單";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "若您在此裝置上啟用了同步，您的已儲存條目在抹除時，也會從您的使用者帳號裡移除。另外此操作是無法還原的。";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "抹除所有已儲存條目？";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "抹除";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "若在裝置上您已啟用了同步，抹除您的已儲存條目時，將會從您的使用者帳號裡移除。\n\n抹除您的已儲存條目將會釋放出約 $1 空間。";
-"settings-storage-and-syncing-erase-saved-articles-title" = "抹除已儲存條目";
 "settings-storage-and-syncing-full-sync" = "您的閱讀清單將會在背景執行同步";
 "settings-storage-and-syncing-server-sync-footer-text" = "請求更新至您的已同步條目與閱讀清單";
 "settings-storage-and-syncing-server-sync-title" = "更新已同步閱讀清單";

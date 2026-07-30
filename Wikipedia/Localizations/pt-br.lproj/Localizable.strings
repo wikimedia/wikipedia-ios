@@ -206,7 +206,27 @@
 "alert-temporary-account-learn-more" = "Saiba mais";
 "alt-text-feedback-survey-toast-title" = "Feedback enviado";
 "announcements-dismiss" = "Ignorar";
+"app-onboarding-data-privacy-policy-link" = "politica de privacidade";
+"app-onboarding-data-privacy-terms-link" = "termos de uso";
+"app-onboarding-data-privacy-title" = "Dados e privadade";
+"app-onboarding-feed-preference-community-option" = "Conteúdo relacionado à comunidade";
 "app-onboarding-feed-preference-in-the-news" = "Eventos recentes";
+"app-onboarding-feed-preference-personalized-disabled" = "Você precisa adicionar interesses para ver sugestões de conteúdo personalizadas. Você pode fazer isso nas etapas anteriores ou mais tarde, em Configurações.";
+"app-onboarding-feed-preference-personalized-option" = "Conteúdo personalizado";
+"app-onboarding-feed-preference-picture-of-the-day" = "Imagem do dia";
+"app-onboarding-feed-preference-title" = "O que você gostaria de ver primeiro?";
+"app-onboarding-intro-body" = "A Wikipédia é uma enciclopédia online gratuita com 65 milhões de artigos escritos e mantidos de forma colaborativa em mais de 300 idiomas por uma comunidade de voluntários.";
+"app-onboarding-intro-learn-more" = "Saiba mais sobre a Wikipédia";
+"app-onboarding-intro-title" = "Todo o conhecimento do mundo";
+"app-onboarding-languages-add-edit" = "Adicione ou edite seus idiomas";
+"app-onboarding-languages-notice" = "Identificamos os seguintes idiomas no seu dispositivo:";
+"app-onboarding-languages-primary-label" = "Principal";
+"app-onboarding-languages-title" = "Ler em mais de 300 idiomas";
+"app-onboarding-loading-title" = "Vamos montar seu feed…";
+"app-onboarding-page-indicator" = "Página $1 de $2";
+"app-onboarding-personalization-body-1" = "Selecione os assuntos que lhe interessam e personalizaremos seu feed.";
+"app-onboarding-personalization-body-2" = "Coletamos uma quantidade mínima de dados, que são tornados anônimos.";
+"app-onboarding-personalization-title" = "Siga sua curiosidade";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";
 "app-store-release-notes" = "Totalmente personalizável e mais fácil de ler Explorar o feed. Localização, melhorias de desempenho e correções de bugs.";
 "app-store-short-description" = "Baixe o aplicativo da Wikipédia para explorar lugares próximos a você, sincronizar artigos para ler offline e personalizar sua experiência de leitura.";
@@ -328,6 +348,8 @@
 "close-tabs" = "Fechar guias";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 guia fechada|$1 guias fechadas}}.";
 "collect-prize-title" = "Resgate seu prêmio!";
+"community-detail-back-button-title" = "Voltar ao feed da Comunidade";
+"community-feed-preferences-global-card-footer-text" = "Este cartão não é específico para um idioma; desativá-lo fará com que ele seja removido do seu feed da Comunidade.";
 "compass-direction" = "às $1 horas";
 "confirm-donation-history-deletion-subtitle" = "Isso só se aplicará a doações feitas a partir deste dispositivo.";
 "confirm-donation-history-deletion-title" = "Confirmar exclusão";
@@ -603,6 +625,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Idiomas adicionais podem ser adicionados na página de configurações ‘Meus idiomas’.";
 "explore-feed-preferences-card-hidden-title" = "Cartão ocultado";
 "explore-feed-preferences-continue-reading-description" = "Hiperligação rápida para regressar à leitura de um artigo aberto";
+"explore-feed-preferences-customize-community-feed-action-title" = "Personalizar o feed da comunidade";
 "explore-feed-preferences-customize-explore-feed" = "Personalizar o feed do Explorar";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Personalizar o feed Explorar";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Ocultar um tipo de cartão impedirá que esse tipo de cartão apareça no feed Explorar.";
@@ -683,6 +706,7 @@
 "explore-suggested-edits-image-recs-title" = "Adicionar uma imagem";
 "explore-wikipedia" = "Explora Wikipédia";
 "export-user-data-confirmation-message" = "Compartilhar a sua biblioteca de aplicativos inclui dados sobre as suas listas de leitura, o histórico de leituras, as preferências e o conteúdo do feed Explorar. Este arquivo de dados só deve ser compartilhado com destinatários de confiança e para fins de diagnóstico técnico.";
+"export-user-data-confirmation-message-community" = "O compartilhamento da sua biblioteca de aplicativos inclui dados sobre suas listas de leitura e histórico, preferências e conteúdo do feed da Comunidade. Esse arquivo de dados só deve ser compartilhado com um destinatário de confiança para fins de diagnóstico técnico.";
 "export-user-data-confirmation-title" = "Compartilhar a biblioteca de aplicativos?";
 "export-user-data-generic-error" = "Ocorreu um erro durante a exportação dos seus dados. Tente novamente mais tarde, por favor.";
 "export-user-data-space-error" = "Não tem espaço disponível suficiente no seu dispositivo para exportar os seus dados de usuário. Tente novamente mais tarde, por favor.";
@@ -747,6 +771,9 @@
 "history-title" = "Histórico";
 "home-button-explore-accessibility-label" = "Wikipédia, retornar a Explorar";
 "home-button-saved-accessibility-label" = "Wikipédia, Retornar para Savado";
+"home-community-empty-feed-button-title" = "Personalize o feed";
+"home-community-empty-feed-message" = "Ative os cartões nas configurações do feed para ver o feed da Comunidade.";
+"home-community-empty-feed-title" = "Todos os cartões de feed da Comunidade estão ocultos";
 "home-community-tab-title" = "Comunidade";
 "home-edit-languages-title" = "Acrescentar ou editar idiomas";
 "home-feed-for-you-based-on-interests-subtitle" = "Artigos personalizados de acordo com os temas que você escolheu.";
@@ -757,6 +784,10 @@
 "home-feed-for-you-continue-reading-title" = "Continue lendo";
 "home-feed-for-you-settings-header" = "Desativar um módulo o oculta do seu feed \"Para você\"”. Você pode reativá-lo aqui a qualquer momento.";
 "home-feed-for-you-settings-title" = "Módulos";
+"home-feed-interests-deselect-all" = "Desmarcar todos";
+"home-feed-interests-header-title" = "No que você está interessado?";
+"home-feed-interests-non-mainspace-toast" = "Somente artigos no espaço de nomes principal podem ser adicionados como interesses.";
+"home-feed-interests-search-placeholder" = "Pesquisar um artigo";
 "home-feed-interests-settings-empty-message" = "Seus interesses aparecerão aqui";
 "home-feed-interests-settings-title" = "Seus interesses";
 "home-feed-modules-featured-article-subtitle" = "Os artigos em destaque são alguns dos artigos de maior qualidade da Wikipédia, selecionados diariamente pelos editores";
@@ -940,6 +971,8 @@
 // Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milhas";
+"new-explore-feed-preferences-customize-explore-feed" = "Personalize o feed da Comunidade";
+"new-explore-feed-preferences-customize-explore-feed-footer-text" = "Ocultar um tipo de cartão impedirá que esse tipo de cartão apareça no feed da Comunidade.";
 "new-password-instructions" = "Você efetuou login com uma senha temporária. Para concluir o login, defina uma nova senha aqui.";
 "new-password-title" = "Defina sua senha";
 "new-tab" = "Nova guia";
@@ -1174,6 +1207,7 @@
 "project-name-wikiversity" = "Wikiversidade";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wikcionário";
+"reading-challenge-random-article-button" = "Artigo aleatório";
 "reading-challenge-random-button" = "Aleatório";
 "reading-list-add-generic-hint-title" = "Adicione este artigo a uma lista de leitura?";
 "reading-list-add-hint-title" = "Adicionar “$1” à lista de leitura?";
@@ -1198,8 +1232,6 @@
 "reading-list-generic-error" = "Ocorreu um erro inesperado ao atualizar as suas listas de leitura.";
 "reading-list-keep-button-title" = "Sim, manter os artigos no dispositivo";
 "reading-list-keep-subtitle" = "Existem artigos sincronizados com a sua conta da Wikipédia. Deseja mantê-los neste dispositivo depois de sair?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Ao desativar a sincronização, você removerá esses artigos da sua conta. Se você removê-los do seu dispositivo, eles não serão recuperáveis ativando a sincronização novamente no futuro.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Não, remover artigos do dispositivo e da minha conta da Wikipédia";
 "reading-list-keep-title" = "Mantenha artigos salvados no dispositivo?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordenar artigos";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Existe um número limite de 5000 artigos por ordenar. Para continuar a sincronização de artigos não ordenados, ordene os seus artigos existentes em listas, por favor.";
@@ -1313,6 +1345,7 @@
 "settings-clear-cache-are-you-sure-title" = "Limpar dados em cache?";
 "settings-clear-cache-cancel" = "Cancelar";
 "settings-clear-cache-ok" = "Limpar cache";
+"settings-community-feed-title" = "Comunidade";
 "settings-donate" = "Doar";
 "settings-explore-games-subtitle" = "Jogos diários baseados no conteúdo da Wikipédia";
 "settings-explore-games-title" = "Wikipédia jogos";
@@ -1333,14 +1366,10 @@
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "O primeiro idioma nessa lista é usado como o idioma principal do aplicativo.";
 "settings-search-footer-text" = "Definir o aplicativo para abrir a guia Pesquisar em vez da guia Explorar";
+"settings-search-footer-text-home" = "Configure o aplicativo para abrir na guia “Pesquisar” em vez da guia inicial";
 "settings-search-open-app-on-search" = "Abrir aplicativo na guia \"Pesquisar\"";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que, quando se autenticar e sincronizar, a Wikimedia salve nas suas preferências os artigos salvados e as listas de leitura.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizar artigos e listas salvas";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Ao apagar os seus artigos salvados irá removê-los da sua conta de usuário se ativou a sincronização neste dispositivo. Esta operação não pode ser desfeita.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Apagar todos os artigos salvados?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Apagar";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Se ativou a sincronização a partir deste dispositivo, apagar os seus artigos salvados irá removê-los também da sua conta de usuário.\n\nApagar os seus artigos salvados libertará cerca de $1 de armazenamento.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Apagar artigos salvados";
 "settings-storage-and-syncing-full-sync" = "As suas listas de leitura serão sincronizadas em segundo plano";
 "settings-storage-and-syncing-server-sync-footer-text" = "Pedir uma atualização dos seus artigos e listas de leitura sincronizados.";
 "settings-storage-and-syncing-server-sync-title" = "Atualizar as listas de leitura sincronizadas";

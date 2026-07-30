@@ -689,8 +689,6 @@
 "reading-list-generic-error" = "Wystąpił nieoczekiwany błąd podczas synchronizacji list do czytania.";
 "reading-list-keep-button-title" = "Tak, zachowaj artykuły na urządzeniu";
 "reading-list-keep-subtitle" = "Istnieją artykuły zsynchronizowane z Twoim kontem Wikipedia. Czy chcesz je zachować na tym urządzeniu po wylogowaniu?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Wyłączenie synchronizacji spowoduje usunięcie tych artykułów z konta. Jeśli usuniesz je z urządzenia, nie będzie można ich odzyskać, włączając ponownie synchronizację w przyszłości.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Nie, usuń artykuły z urządzenia i mojego konta w Wikipedii";
 "reading-list-keep-title" = "Zachować na urządzeniu zapisane artykuły?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sortuj artykuły";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Istnieje limit 5000 nieposortowanych artykułów. Posortuj istniejące artykuły na listy, aby kontynuować synchronizowanie nieposortowanych artykułów.";
@@ -792,10 +790,6 @@
 "settings-search-open-app-on-search" = "Otwórz aplikację na karcie Szukaj";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Zezwalaj Wikimedia na zapisywanie zapisanych artykułów i list do czytania zgodnie z preferencjami użytkownika podczas logowania i synchronizacji.";
 "settings-storage-and-syncing-enable-sync-title" = "Synchronizuj zapisane artykuły i listy";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Usunięcie zapisanych artykułów spowoduje usunięcie ich z konta użytkownika, jeśli masz włączoną synchronizację oraz z tego urządzenia. Nie możesz cofnąć tej akcji.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Usunąć wszystkie zapisane artykuły?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Wyczyść";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Usuń zapisane artykuły";
 "settings-storage-and-syncing-full-sync" = "Twoje listy do czytania zostaną zsynchronizowane w tle";
 "settings-storage-and-syncing-server-sync-footer-text" = "Poproś o aktualizację zsynchronizowanych artykułów i list do czytania.";
 "settings-storage-and-syncing-server-sync-title" = "Zaktualizuj zsynchronizowane listy czytania";

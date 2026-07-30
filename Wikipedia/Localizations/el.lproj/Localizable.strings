@@ -435,10 +435,6 @@
 "settings-notifications" = "Ειδοποιήσεις push";
 "settings-notifications-echo-failure-try-again" = "Δοκιμάστε ξανά";
 "settings-primary-language" = "Βασικά";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Σβήσιμο όλων των εισηγμένων λημμάτων;";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Σβήσιμο";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Με το να σβήσετε τα αποθηκευμένα λήμματά σας θα τα αφαιρέσετε από τον λογαριασμό χρήστη σας εάν έχετε τον συγχρονισμό ενεργοποιημένο καθώς και από την συσκευή σας.\n\nΤο σβήσιμο των αποθηκευμένων λημμάτωνν σας θα ελευθερώσει περίπου $1 χώρου.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Σβήσιμο αποθηκευμένων άρθρων";
 "settings-storage-and-syncing-server-sync-title" = "Ενημέρωση συγχρονισμένων λιστών ανάγνωσης";
 "settings-storage-and-syncing-title" = "Αποθήκη λημμάτων και συγχρονισμός";
 "settings-title" = "Ρυθμίσεις";
