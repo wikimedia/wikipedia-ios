@@ -53,6 +53,8 @@ public struct WMFChooseEditorView: View {
                     HStack(spacing: 8) {
                         Text(title)
                             .font(Font(WMFFont.for(.headline)))
+                            .accessibilityAddTraits(viewModel.selectedMode == mode ? [.isSelected] : [])
+
                         if showsExternalLinkIcon, let uiImage = WMFSFSymbolIcon.for(symbol: .arrowUpForward, font: .subheadline) {
                             Image(uiImage: uiImage)
                         }
@@ -78,26 +80,24 @@ public struct WMFChooseEditorView: View {
         }
         .buttonStyle(ChooseEditorRowButtonStyle())
         .accessibilityElement(children: .combine)
-        .accessibilityAddTraits(viewModel.selectedMode == mode ? [.isSelected] : [])
     }
 
     private var dontShowAgainRow: some View {
-        Button {
-            viewModel.dontShowAgain.toggle()
-        } label: {
-            HStack(spacing: 10) {
-                WMFCheckmarkView(isSelected: viewModel.dontShowAgain, configuration: .init(style: .checkbox))
+        HStack(spacing: 10) {
+            WMFCheckmarkView(isSelected: viewModel.dontShowAgain, configuration: .init(style: .checkbox))
+                .accessibilityHidden(true)
 
-                Text(viewModel.dontShowAgainTitle)
-                    .font(Font(WMFFont.for(.footnote)))
-                    .foregroundColor(Color(uiColor: theme.secondaryText))
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            .contentShape(Rectangle())
+            Text(viewModel.dontShowAgainTitle)
+                .font(Font(WMFFont.for(.footnote)))
+                .foregroundColor(Color(uiColor: theme.secondaryText))
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityHint(viewModel.dontShowAgainAccessibilityHint)
+                .accessibilityAddTraits(viewModel.dontShowAgain ? [.isSelected] : [])
         }
-        .buttonStyle(ChooseEditorRowButtonStyle())
-        .accessibilityElement(children: .combine)
-        .accessibilityAddTraits(viewModel.dontShowAgain ? [.isSelected] : [])
+        .contentShape(Rectangle())
+        .onTapGesture {
+            viewModel.dontShowAgain.toggle()
+        }
         .padding(.horizontal, 4)
     }
 }

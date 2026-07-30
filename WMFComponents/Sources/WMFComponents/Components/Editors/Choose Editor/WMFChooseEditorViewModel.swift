@@ -16,6 +16,11 @@ public final class WMFChooseEditorViewModel: ObservableObject {
     let sourceEditingTitle = WMFLocalizedString("choose-editor-source-title", value: "Source editing", comment: "Title of the source editing option in the choose editor sheet")
     let sourceEditingSubtitle = WMFLocalizedString("choose-editor-source-subtitle", value: "Make changes using markup. Stays in the app.", comment: "Subtitle of the source editing option in the choose editor sheet")
     let dontShowAgainTitle = WMFLocalizedString("choose-editor-dont-show-again", value: "Don't show this again. This default can be changed later in Settings.", comment: "Title of checkbox in the choose editor sheet that suppresses the sheet for future edits")
+    let dontShowAgainAccessibilityHint = WMFLocalizedString(
+        "choose-editor-dont-show-hint",
+        value: "Double tap to remember this choice and skip this screen for future edits.",
+        comment: "VoiceOver hint for the don't show again checkbox in the choose editor sheet"
+    )
     let continueTitle = CommonStrings.continueButton
 
     @Published var selectedMode: EditMode

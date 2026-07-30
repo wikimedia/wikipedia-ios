@@ -285,6 +285,7 @@
 "chinese-variants-alert-body" = "Body text of alert used to inform users about Chinese variant support. Please do not translate the newlines (\n) or Chinese characters (简体, 繁體, etc.).";
 "chinese-variants-alert-title" = "Title of alert used to inform users about Chinese variant support.";
 "choose-editor-dont-show-again" = "Title of checkbox in the choose editor sheet that suppresses the sheet for future edits";
+"choose-editor-dont-show-hint" = "VoiceOver hint for the don't show again checkbox in the choose editor sheet";
 "choose-editor-source-subtitle" = "Subtitle of the source editing option in the choose editor sheet";
 "choose-editor-source-title" = "Title of the source editing option in the choose editor sheet";
 "choose-editor-title" = "Title of sheet allowing the user to choose between visual and source editing";
