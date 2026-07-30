@@ -75,10 +75,12 @@
 "activity-tab-add-images-subtitle" = "Setzt virgeschloe Biller a Wikipedia-Artikelen derbäi fir d'Verständnis ze verbesseren.";
 "activity-tab-add-images-title" = "Biller derbäisetzen";
 "activity-tab-additional-thoughts" = "Wëllt Dir nach eppes soen?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 Opruff|$1 Opriff}}";
 "activity-tab-articles-read" = "Artikelen, déi dëse Mount gelies goufen";
 "activity-tab-articles-read-graph-label" = "Artikelen";
 "activity-tab-customize-all-time-impact" = "Gesamtimpakt";
 "activity-tab-customize-editing-insights" = "Ännerungsablécker";
+"activity-tab-customize-empty-state" = "D'Aktivitéitsmoduler sinn desaktivéiert. $1Aktivéiert se$2 fir Aktualiséierungen an dësem Tab ze gesinn.";
 "activity-tab-customize-footer" = "D'Liesablécker ginn op Basis vun Ären App-Sproochen aus den Astellunge generéiert an d'Ännerungsablécker sinn op d'Haaptsprooch vun Ärer App limitéiert. D'Ablécker baséieren op lokalen Donnéeën, mat Ausnam vun den Ännerungen, déi ëffentlech sinn.";
 "activity-tab-customize-last-in-app-donation" = "Leschten Don iwwer d'App";
 "activity-tab-customize-logout-warning" = "Dir musst ageloggt sinn, fir dësen Aktivitéitsabléck z'aktivéieren.";
@@ -88,6 +90,7 @@
 "activity-tab-empty-title" = "Näischt fir ze weisen";
 "activity-tab-impact-all-time-title" = "Gesamtimpakt";
 "activity-tab-impact-best-streak-format" = "{{PLURAL:$1|$1 Dag|$1 Deeg}}";
+"activity-tab-impact-best-streak-label" = "bescht Serie";
 "activity-tab-impact-edits-label" = "Ännerungen";
 "activity-tab-impact-last-edited-label" = "fir d'lescht geännert";
 "activity-tab-impact-recent-activity-title" = "Är rezent Aktivitéit (lescht 30 Deeg)";
@@ -383,7 +386,7 @@
 "editing-welcome-be-bold-title" = "Är Stëmm ass wichteg";
 "editor-edit-published" = "Är Ännerung gouf verëffentlecht.";
 "editor-edit-source" = "Quelltext änneren";
-"editor-exit-confirmation-body" = "Sidd Dir sécher, datt Dir den Ännerungsmodus vun dëser Säit verloosse wëllt ouni virdrun ze verëffentlechen?";
+"editor-exit-confirmation-body" = "Sidd Dir sécher, datt Dir den Ännerungsmodus verloosse wëllt, ouni virdrun ze verëffentlechen?";
 "editor-exit-confirmation-message" = "Sidd Dir sécher, datt Dir dës Ännerung verwerfe wëllt?";
 "editor-find-clear-button-accessibility" = "Sichen eidelmaachen";
 "editor-find-close-button-accessibility" = "Sichen zoumaachen";
@@ -922,7 +925,6 @@
 "reading-list-exists-with-same-name" = "Numm vun der Lieslëscht gëtt scho benotzt";
 "reading-list-generic-error" = "Beim Aktualiséiere vun Äre Lieslëschten ass en onerwaarte Feeler geschitt.";
 "reading-list-keep-button-title" = "Jo, Artikelen um Apparat halen";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Nee, d'Artikele vu mengem Apparat a mengem Wikipedia-Kont ewechhuelen";
 "reading-list-keep-title" = "Gespäichert Artikelen um Apparat halen?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Artikele sortéieren";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Limitt fir net-zortéiert Artikelen";
@@ -1014,9 +1016,8 @@
 "settings-on" = "Un";
 "settings-primary-language" = "Primär";
 "settings-primary-language-details" = "Déi éischt Sprooch an dëser Lëscht gëtt als primär Sprooch fir d'App consideréiert.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "All gespäichert Artikel läschen?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Läschen";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Gespäichert Artikele läschen";
+"settings-storage-and-syncing-disable-sync-alert-no" = "Nee";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "Jo";
 "settings-storage-and-syncing-full-sync" = "Är Lieslëschte ginn am Hannergrond synchroniséiert";
 "settings-storage-and-syncing-server-sync-title" = "Synchroniséiert Lieslëschten aktualiséieren";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Gespäichert Lieslëscht weisen";
@@ -1084,10 +1085,12 @@
 "talk-page-revision-history" = "Historique vun de Versiounen";
 "talk-page-share-button" = "Diskussiounssäit deelen";
 "talk-page-subscribe-to-topic" = "Abonéieren";
+"talk-page-subscribed-alert-subtitle" = "Dir kritt Notifikatiounen iwwer nei Kommentaren zu dësem Sujet.";
 "talk-page-subscribed-alert-title" = "Dir sidd ageschriwwen!";
 "talk-page-title-article-talk" = "Artikeldiskussiounssäit";
 "talk-page-title-user-talk" = "Benotzerdiskussiounssäit";
 "talk-page-unsubscribe-to-topic" = "Ofbestellen";
+"talk-page-unsubscribed-alert-subtitle" = "Dir kritt keng Notifikatioune méi fir nei Kommentaren zu dësem Sujet.";
 "talk-page-unsubscribed-alert-title" = "Dir hutt Iech ofgemellt.";
 "talk-page-user-about" = "Iwwer Benotzerdiskussiounssäiten";
 "talk-page-user-contributions" = "Kontributiounen";

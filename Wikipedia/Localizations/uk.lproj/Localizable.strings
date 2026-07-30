@@ -1220,8 +1220,6 @@
 "reading-list-generic-error" = "Під час оновлення ваших читальних списків сталася непередбачена помилка.";
 "reading-list-keep-button-title" = "Так, зберігайте статті на пристрої";
 "reading-list-keep-subtitle" = "Наявні статті, синхронізовані з вашого облікового запису Вікіпедії. Ви хочете залишити їх на цьому пристрої після виходу із системи?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Вимкнення синхронізації призведе до вилучення цих статей з вашого облікового запису. Якщо ви вилучите їх з вашого пристрою, вони більше не будуть доступні після наступного ввімкнення синхронізації.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Ні, вилучити статті з цього пристрою та з мого облікового запису Вікіпедії";
 "reading-list-keep-title" = "Зберігати збережені статті на пристрої?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Сортувати статті";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Існує ліміт у 5000 невідсортованих статей. Будь ласка, відсортуйте існуючі статті за списками, аби продовжити синхронізацію несортованих статей.";
@@ -1360,11 +1358,6 @@
 "settings-search-open-app-on-search" = "Відкривати додаток на вкладинці «Пошук»";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Дозволити Вікімедіа зберігати статті та читальні списки у ваших користувацьких налаштуваннях.";
 "settings-storage-and-syncing-enable-sync-title" = "Синхронізувати збережені статті та списки";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Вилучення збережених статей призведе до вилучення їх з вашого облікового запису користувача, якщо у вас увімкнена синхронізація, а також з цього пристрою. Ви не зможете скасувати цю дію.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Стерти всі збережені статті?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Стерти";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Вилучення збережених статей призведе до вилучення їх з вашого облікового запису користувача, якщо у вас увімкнена синхронізація, а також з цього пристрою.\n\nВилучення збережених статей вивільнить близько $1 місця.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Стерти збережені статті";
 "settings-storage-and-syncing-full-sync" = "Ваші читальні списки синхронізовуватимуться у фоновому режимі";
 "settings-storage-and-syncing-server-sync-footer-text" = "Створити запит на синхронізацію для оновлення ваших статей і читальних списків.";
 "settings-storage-and-syncing-server-sync-title" = "Оновити синхронізовані читальні списки";

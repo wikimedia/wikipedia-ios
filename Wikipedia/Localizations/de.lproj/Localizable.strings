@@ -1191,8 +1191,6 @@
 "reading-list-generic-error" = "Beim Aktualisieren deiner Leselisten ist ein unerwarteter Fehler aufgetreten.";
 "reading-list-keep-button-title" = "Ja, Artikel auf dem Gerät behalten";
 "reading-list-keep-subtitle" = "Es sind mit deinem Wikipedia-Benutzerkonto synchronisierte Artikel vorhanden. Möchtest du sie nach der Abmeldung auf diesem Gerät behalten?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Das Ausschalten der Synchronisierung entfernt diese Artikel von deinem Benutzerkonto. Falls du sie von deinem Gerät entfernst, werden sie in Zukunft durch das erneute Anschalten der Synchronisierung nicht wiederherstellbar sein.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Nein, Artikel vom Gerät und meinem Wikipedia-Benutzerkonto entfernen";
 "reading-list-keep-title" = "Gespeicherte Artikel auf dem Gerät behalten?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Artikel sortieren";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Es gibt eine Begrenzung von 5000 unsortierten Artikeln. Bitte sortiere deine vorhandenen Artikel in Listen ein, um mit der Synchronisierung deiner unsortierten Artikel fortzufahren.";
@@ -1329,11 +1327,6 @@
 "settings-search-open-app-on-search" = "App mit dem Suchreiter öffnen";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Wikimedia erlauben, deine gespeicherten Artikel und Leselisten in deinen Benutzereinstellungen zu speichern, wenn du dich anmeldest und synchronisierst.";
 "settings-storage-and-syncing-enable-sync-title" = "Gespeicherte Artikel und Listen synchronisieren";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Die Löschung deiner gespeicherten Artikel entfernt sie aus deinem Benutzerkonto – falls die Synchronisierung aktiviert ist – und von diesem Gerät. Du kannst diese Aktion nicht rückgängig machen.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Alle gespeicherten Artikel löschen?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Löschen";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Die Löschung deiner gespeicherten Artikel entfernt sie aus deinem Benutzerkonto – falls die Synchronisierung aktiviert ist – und von diesem Gerät.\n\nDie Löschung deiner gespeicherten Artikel gibt etwa $1 Speicherplatz frei.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Gespeicherte Artikel löschen";
 "settings-storage-and-syncing-full-sync" = "Deine Leselisten werden im Hintergrund synchronisiert";
 "settings-storage-and-syncing-server-sync-footer-text" = "Fordert eine Aktualisierung deiner synchronisierten Artikel und Leselisten an.";
 "settings-storage-and-syncing-server-sync-title" = "Synchronisierte Leselisten aktualisieren";
