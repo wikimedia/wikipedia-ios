@@ -841,7 +841,6 @@
 "reading-list-generic-error" = "เกิดข้อผิดพลาดที่ไม่คาดคิดขณะปรับปรุงรายการอ่านของคุณ";
 "reading-list-keep-button-title" = "ใช่เก็บบทความไว้บนอุปกรณ์";
 "reading-list-keep-subtitle" = "มีบทความที่ซิงค์กับบัญชีวิกิพีเดียของคุณ คุณต้องการเก็บไว้ในอุปกรณ์นี้หลังจากที่คุณออกจากระบบหรือไม่?";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "ไม่ เอาบทความออกจากอุปกรณ์และบัญชีวิกิพีเดียของฉัน";
 "reading-list-keep-title" = "เก็บบทความที่บันทึกไว้บนอุปกรณ์หรือไม่";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "เรียงบทความ";
 "reading-list-list-limit-exceeded-title" = "คุณเกินขีดจำกัดของ {{PLURAL:$1|$1 รายการอ่าน}} ต่อบัญชี";
@@ -944,11 +943,6 @@
 "settings-search-open-app-on-search" = "เปิดแอปบนแท็บค้นหา";
 "settings-storage-and-syncing-enable-sync-footer-text" = "อนุญาตให้วิกิมีเดียบันทึกบทความและรายการอ่านที่คุณบันทึกไว้ตามความต้องการผู้ใช้ของคุณเมื่อคุณเข้าสู่ระบบและซิงค์";
 "settings-storage-and-syncing-enable-sync-title" = "ซิงค์บทความและรายการที่บันทึกไว้";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "การลบบทความที่บันทึกไว้จะเป็นการลบออกจากบัญชีผู้ใช้ของคุณ หากคุณเปิดการซิงค์และออกจากอุปกรณ์นี้ด้วย คุณไม่สามารถยกเลิกการกระทำนี้ได้";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "ลบบทความที่บันทึกไว้ทั้งหมดหรือไม่?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "ลบ";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "การลบบทความที่บันทึกไว้จะเป็นการลบบทความเหล่านั้นออกจากบัญชีผู้ใช้ของคุณ หากคุณเปิดการซิงค์และออกจากอุปกรณ์นี้ด้วย\n\nการลบบทความที่บันทึกไว้จะทำให้พื้นที่ว่างเพิ่มขึ้นประมาณ $1";
-"settings-storage-and-syncing-erase-saved-articles-title" = "ลบบทความที่บันทึกไว้";
 "settings-storage-and-syncing-full-sync" = "รายการอ่านของคุณจะถูกซิงค์ในเบื้องหลัง";
 "settings-storage-and-syncing-server-sync-footer-text" = "ปรับปรุงบทความที่ซิงค์และรายการอ่านของคุณ";
 "settings-storage-and-syncing-server-sync-title" = "ปรับปรุงรายการอ่านที่ซิงค์";

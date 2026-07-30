@@ -1175,8 +1175,6 @@
 "reading-list-generic-error" = "Okuma listeleriniz güncellenirken ederken beklenmeyen bir hata oluştu.";
 "reading-list-keep-button-title" = "Evet, maddeleri cihazda sakla";
 "reading-list-keep-subtitle" = "Vikipedi hesabınıza senkronize edilen makaleler var. Çıkış yaptıktan sonra onları bu cihazda tutmak ister misiniz?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Senkronizasyonu kapatma, bu maddeleri hesabınızdan kaldıracaktır. Bunları cihazınızdan kaldırırsanız gelecekte tekrar senkronizasyonu açarak geri getiremezsiniz.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Hayır, maddeleri hem cihazdan hem Vikipedi hesabımdan kaldır";
 "reading-list-keep-title" = "Kaydedilen maddeleri cihazda saklasın mı?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Maddeleri sırala";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "5000 adet sıralanmamış madde sınırı var. Sıralanmamış maddelerin senkronizasyonuna devam etmek için lütfen mevcut maddelerinizi listelere ayırın.";
@@ -1313,11 +1311,6 @@
 "settings-search-open-app-on-search" = "Arama sekmesinde uygulamayı aç";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Giriş yaptığınızda ve senkronize ettiğinizde Vikipedi'nin kayıtlı maddelerinizi ve okuma listelerinizi kullanıcı tercihlerinize kaydetmesine izin verin.";
 "settings-storage-and-syncing-enable-sync-title" = "Kayıtlı maddeleri ve listeleri senkronize et";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Kaydedilmiş maddelerinizin silinmesi, bu cihazın yanı sıra senkronize ettiğiniz hesabınızdan da silinmesine yol açacaktır. Bu eylemi geri alamazsınız.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Kaydedilen tüm maddeler silinsin mi?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Sil";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Kaydedilen maddelerin silinmesi, bu cihazın yanı sıra açılmış olarak senkronizasyon gerçekleştirdiyseniz bunları kullanıcı hesabınızdan kaldırır.\n\nKaydedilen maddeleri silmek, yaklaşık $1 alan açacaktır.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Kaydedilen maddeleri sil";
 "settings-storage-and-syncing-full-sync" = "Okuma listeleriniz arka planda senkronize edilecek";
 "settings-storage-and-syncing-server-sync-footer-text" = "Senkronize edilen maddeler ve okuma listeleriniz için bir güncelleme isteyin.";
 "settings-storage-and-syncing-server-sync-title" = "Senkronize edilmiş okuma listelerini güncelle";

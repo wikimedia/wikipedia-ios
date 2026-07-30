@@ -583,8 +583,6 @@
 "reading-list-generic-error" = "Ralat yang tidak dijangka berlaku semasa mengemas kini senarai bacaan anda.";
 "reading-list-keep-button-title" = "Ya, simpan rencana pada peranti";
 "reading-list-keep-subtitle" = "Terdapat rencana yang diselaraskan ke akaun Wikipedia anda. Adakah anda ingin menyimpannya pada peranti ini selepas anda log keluar?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Mematikan penyegerakan akan memadamkan rencana ini dari akaun anda. Jika anda memadamnya dari peranti anda, mereka tidak akan dapat dipulihkan dengan menyegerakkan penyegerakan lagi pada masa akan datang.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Tidak, padam rencana dari peranti dan akaun Wikipedia saya";
 "reading-list-keep-title" = "Simpan rencana yang disimpan pada peranti?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Isih rencana";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Terdapat had 5000 rencana tak disortir. Sila sortir rencana anda yang ada dalam senarai untuk meneruskan penyegerakan rencana yang tidak disortir.";
@@ -696,11 +694,6 @@
 "settings-search-open-app-on-search" = "Buka aplikasi pada tab Carian";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Benarkan Wikimedia menyimpan rencana dan senarai bacaan anda yang disimpan ke keutamaan pengguna anda apabila anda log masuk dan penyegerakan.";
 "settings-storage-and-syncing-enable-sync-title" = "Penyegerakan rencana tersimpan dan senarai";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Memadamkan rencana anda yang disimpan akan mengeluarkannya dari akaun pengguna anda jika anda menghidupkan penyegerakan serta dari peranti ini. Anda tidak boleh membatalkan tindakan ini.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Padam semua rencana tersimpan?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Padam";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Memadamkan rencana anda yang disimpan akan mengeluarkannya dari akaun pengguna anda jika anda menghidupkan penyegerakan serta dari peranti ini.\n\nMenghapus rencana tersimpan anda akan membebaskan sekitar $1 ruang.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Padam rencana tersimpan";
 "settings-storage-and-syncing-full-sync" = "Senarai bacaan anda akan diselaraskan di latar belakang";
 "settings-storage-and-syncing-server-sync-footer-text" = "Minta kemas kini ke rencana dan senarai bacaan anda yang disegerakkan.";
 "settings-storage-and-syncing-server-sync-title" = "Kemas kini senarai bacaan yang diselaraskan";

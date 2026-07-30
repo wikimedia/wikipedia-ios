@@ -62,6 +62,10 @@
 "add-articles-to-reading-list" = "مطالعہ دی فہرست وچ $1 شامل کرو";
 "alt-text-feedback-survey-toast-title" = "فیڈبیک جمع تھی ڳئی";
 "announcements-dismiss" = "مکاؤ";
+"app-onboarding-data-privacy-policy-link" = "رازداری پالیسی";
+"app-onboarding-feed-preference-in-the-news" = "خبراں وچ";
+"app-onboarding-feed-preference-picture-of-the-day" = "اڄ دی تصویر";
+"app-onboarding-languages-primary-label" = "ابتدائی";
 "app-store-subtitle" = "مفت انسائیکلوپیڈیا";
 "appearance-settings-expand-tables" = "ٹیبل ودھاؤ";
 "appearance-settings-icon-contributor-title" = "ونگارو";
@@ -401,6 +405,7 @@
 "settings-appearance" = "پڑھݨ ترجیحاں";
 "settings-clear-cache-cancel" = "منسوخ";
 "settings-clear-cache-ok" = "کیشی صاف کرو";
+"settings-community-feed-title" = "برادری";
 "settings-donate" = "عطیہ ݙیوو";
 "settings-help-and-feedback" = "مدد تے ردعمل";
 "settings-my-languages" = "میݙیاں زباناں";
@@ -410,9 +415,8 @@
 "settings-off" = "بند";
 "settings-on" = "آن";
 "settings-primary-language" = "ابتدائی";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "محفوظ تھئے سارے مضمون مٹا ݙیووں؟";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "مٹاؤ";
-"settings-storage-and-syncing-erase-saved-articles-title" = "محفوظ تھئے مضمون مٹاؤ";
+"settings-storage-and-syncing-disable-sync-alert-no" = "کو";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "جیا";
 "settings-temp-account-end-session-confirm" = "لاگ آؤٹ";
 "settings-title" = "ترتیباں";
 "share-article-name-on-wikipedia" = "وکیپیڈیا تے \"$1\":";

@@ -1079,8 +1079,6 @@
 "reading-list-generic-error" = "Se produjo un error inesperado al actualizar tus listas de lectura.";
 "reading-list-keep-button-title" = "Sí, mantener artículos en el dispositivo";
 "reading-list-keep-subtitle" = "Hay artículos sincronizados en tu cuenta Wikipedia. ¿Quieres mantenerlos en este dispositivo después de cerrar sesión?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Desactivar la sincronización borrará estos artículos de tu cuenta. Si los borras de tu dispositivo no los podrás recuperar reactivando la sincronización en el futuro.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "No, borra los artículos del dispositivo y de mi cuenta Wikipedia";
 "reading-list-keep-title" = "¿Mantener artículos guardados en el dispositivo?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordenar artículos";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Hay un límite de 5000 artículos desorganizados. Por favor, organiza tus artículos en listas para continuar la sincronización de artículos desorganizados.";
@@ -1211,11 +1209,6 @@
 "settings-search-open-app-on-search" = "Abrir aplicación en la pestaña de búsqueda";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir a Wikimedia almacenar tus artículos guardados y tus listas de lectura en tus preferencias de usuario cuando inicias sesión y sincronizas.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizar artículos guardados y listas";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "\nBorrar tus artículos guardados los eliminará de tu cuenta de usuario si tienes la sincronización activada así como de este dispositivo.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "\n¿Borrar todos los artículos guardados?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Borrar";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "\nBorrar tus artículos guardados liberará $1 de espacio.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Borrar artículos guardados";
 "settings-storage-and-syncing-full-sync" = "Tus listas de lectura se sincronizarán en segundo plano";
 "settings-storage-and-syncing-server-sync-footer-text" = "\nSolicita una actualización de tus artículos y listas de lectura sincronizados.";
 "settings-storage-and-syncing-server-sync-title" = "Actualizar listas de lectura sincronizadas";

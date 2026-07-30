@@ -1205,8 +1205,6 @@
 "reading-list-generic-error" = "Се појави неочекувана грешка при подновата на вашите списоци за читање.";
 "reading-list-keep-button-title" = "Да, задржи ги статиите на уредот";
 "reading-list-keep-subtitle" = "Има статии усогласени со вашата сметка на Википедија. Дали сакате да ги задржите на овој уред откако ќе се одјавите?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Исклучувајќи го усогласувањето ќе ги отстраните статиите од вашата сметка. Ако ги отстраните од уредот, истите потоа нема да бидат повратливи со повторно вклучување на усогласувањето.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Не, отстрани ги статиите статиите од уредот и мојата сметка на Википедија.";
 "reading-list-keep-title" = "Да ги задржам зачуваните статии на уредот?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Подреди статии";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Може да има највеќе 5000 неподредени статии. Подредете ги постоечките статии во списоци за да продолжите со усогласување на неподредените.";
@@ -1345,11 +1343,6 @@
 "settings-search-open-app-on-search" = "Отворај го прилогот во јазичето Пребарај";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Дозволи Викимедија да зачувува статии и списоци за читање во вашите кориснички нагодувања при најава и усогласување.";
 "settings-storage-and-syncing-enable-sync-title" = "Усогласувај зачувани статии и списоци";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Бришењето на зачуваните статии ќе ги отстрани од вашата корисничка сметка ако го имате вклучено усогласувањето и од овој уред. Дејството е неповратно.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Да ги избришам сите зачувани статии?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Избриши";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Ако ги избришете зачуваните статии, тоа ќе ги отстрани од вашата корисничка сметка ако го имате вклучено усогласувањето и од овој уред.\n\nБришењето на зачуваните статии ќе ослободи околу $1 простор.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Избриши зачувани статии";
 "settings-storage-and-syncing-full-sync" = "Вашите списоци за читање ќе бидат усогласени во позадина";
 "settings-storage-and-syncing-server-sync-footer-text" = "Побарајте поднова на вашите усогласени статии и списоци за читање.";
 "settings-storage-and-syncing-server-sync-title" = "Поднова на усогласени списоци за читање";

@@ -200,6 +200,15 @@
 "alert-temporary-account-learn-more" = "اطلاعات بیشتر";
 "alt-text-feedback-survey-toast-title" = "بازخورد ثبت شد";
 "announcements-dismiss" = "پنهان‌سازی";
+"app-onboarding-data-privacy-policy-link" = "سیاست محرمانگی";
+"app-onboarding-data-privacy-terms-link" = "شرایط استفاده";
+"app-onboarding-data-privacy-title" = "داده‌ها و حریم خصوصی";
+"app-onboarding-feed-preference-community-option" = "محتوای مرتبط با جامعه";
+"app-onboarding-feed-preference-in-the-news" = "از میان خبرها";
+"app-onboarding-feed-preference-personalized-disabled" = "برای مشاهده پیشنهادات محتوای شخصی‌سازی‌شده، باید علایق خود را اضافه کنید. می‌توانید این کار را در مراحل قبلی یا بعداً در تنظیمات انجام دهید.";
+"app-onboarding-feed-preference-personalized-option" = "محتوای شخصی‌سازی‌شده";
+"app-onboarding-feed-preference-picture-of-the-day" = "نگارهٔ روز";
+"app-onboarding-feed-preference-title" = "دوست دارید اول کدام را ببینید؟";
 "app-store-keywords" = "ویکی‌پدیا، منبع، ویکی، دانشنامه، اطلاعات، دانش، پژوهش، اطلاعات، کاوش، یادگیری";
 "app-store-release-notes" = "خوراک بازدید با قابلیت شخصی‌سازی کامل و خواندن آسان‌تر. بومی‌سازی، بهبود عملکرد و رفع مشکلات.";
 "app-store-short-description" = "برای کاوش مکان‌ها در نزدیکی شما، همگام‌سازی مقاله‌ها جهت مطالعه در حالت آفلاین و سفارشی‌سازی تجربهٔ مطالعهٔ خود، نرم‌افزار ویکی‌پدیا را دریافت کنید.";
@@ -1184,8 +1193,6 @@
 "reading-list-generic-error" = "یک خطای غیرمنتظره در هنگام بارگذاری فهرست‌های مطالعهٔ شما رخ داد.";
 "reading-list-keep-button-title" = "بله، مقالات را بر روی دستگاه نگهدار";
 "reading-list-keep-subtitle" = "چند مقاله در حساب ویکی‌پدیای شما همگام‌سازی شده است. آیا می‌خواهید پس از خروج آنها را بر روی این دستگاه نگه دارید؟";
-"reading-list-keep-sync-disabled-additional-subtitle" = "غیرفعال کردن همگام‌سازی، این مقاله‌ها را از حساب شما حذف خواهد کرد. اگر آن‌ها را از دستگاه خود حذف کنید، با فعال کردن دوبارهٔ همگام‌سازی در آینده، قادر به بازیابی آن‌ها نخواهید بود";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "نه، مقاله‌ها را از دستگاه و حساب ویکی‌پدیای من حذف کن";
 "reading-list-keep-title" = "مقاله‌های ذخیره‌شده روی دستگاه نگهداری شوند؟";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "مرتب‌کردن مقالات";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "محدودیت ۵۰۰۰ مقاله مرتب‌نشده وجود دارد. لطفاً مقالاتتان را در فهرست‌ها مرتب کنید تا امکان ادامهٔ همگام‌سازی مقالات مرتب‌نشده فراهم شود.";
@@ -1319,11 +1326,6 @@
 "settings-search-open-app-on-search" = "باز کردن نرم‌افزار در زبانهٔ جستجو";
 "settings-storage-and-syncing-enable-sync-footer-text" = "به ویکی‌مدیا اجازه دهید تا در زمان ورود به حساب و همگام‌سازی، مقاله‌ها و فهرست‌های مطالعه‌ای که ذخیره کرده‌اید را در ترجیحات کاربری شما ذخیره کند.";
 "settings-storage-and-syncing-enable-sync-title" = "همگام‌سازی مقاله‌ها و فهرست‌های ذخیره‌شده";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "در صورتی که همگام‌سازی را فعال کرده باشید، پاک کردن مقاله‌های ذخیره‌شده علاوه بر حذف آن‌ها از این دستگاه، منجر به حذف آن‌ها از حساب کاربری شما نیز خواهد شد. شما قادر به برگرداندن این عمل نخواهید بود.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "همهٔ مقاله‌های ذخیره‌شده پاک شوند؟";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "پاک‌کردن";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "در صورتی که همگام‌سازی را فعال کرده باشید، پاک کردن مقاله‌های ذخیره‌شده علاوه بر حذف آن‌ها از این دستگاه، منجر به حذف آن‌ها از حساب کاربری شما نیز خواهد شد.\n\nپاک کردن مقاله‌های ذخیره شده حدود $1 فضا را خالی خواهد کرد.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "پاک‌کردن مقاله‌های ذخیره‌شده";
 "settings-storage-and-syncing-full-sync" = "فهرست‌های مطالعهٔ شما در پس‌زمینه همگام‌سازی خواهند شد";
 "settings-storage-and-syncing-server-sync-footer-text" = "درخواست یک به‌روزرسانی برای مقاله‌ها و فهرست‌های مطالعهٔ همگام‌سازی شدهٔ شما";
 "settings-storage-and-syncing-server-sync-title" = "به‌روزرسانی فهرست‌های مطالعهٔ همگام‌سازی شده";
@@ -1671,6 +1673,7 @@
 "year-in-review-personalized-date-month-footer-v3" = "ماهی که بیشتر مطالعه کردی";
 "year-in-review-personalized-date-time-footer-v3" = "زمان مورد علاقه برای مطالعه";
 "year-in-review-personalized-date-title-v3" = "شما الگوهای مطالعه واضحی دارید";
+"year-in-review-personalized-donate-title" = "سخاوت شما به رونق ویکی‌پدیا کمک کرد";
 "year-in-review-personalized-editing-title-format-updated" = "شما {{PLURAL:$1|$1 بار}} ویرایش انجام داده‌اید";
 "year-in-review-personalized-location-title-format-updated" = "مقاله‌هایی که می‌خوانید، بیشتر به $1 مربوط هستند.";
 "year-in-review-personalized-most-read-articles-title" = "مقالات برتر شما";
