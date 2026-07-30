@@ -411,8 +411,6 @@
 "reading-list-generic-error" = "Asocedió un error inesperáu al anovar les llistes de llectura.";
 "reading-list-keep-button-title" = "Si, caltener los artículos nel preséu";
 "reading-list-keep-subtitle" = "Hai artículos sincronizaos cola to cuenta de Wikipedia. ¿Quies caltenelos nesti preséu cuando zarres la sesión?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Desactivar la sincronización desaniciará estos artículos de la to cuenta. Si los desanicies del preséu nun van poder recuperase volviendo a activar la sincronización nel futuru.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Non, desaniciar los artículos del preséu y de la mio cuenta de Wikipedia";
 "reading-list-keep-title" = "¿Caltener los artículos guardaos nel preséu?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordenar artículos";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Hai una llende de 5000 artículos ensin ordenar. Ordena los artículos qu'esisten en llistes pa siguir cola sincronización de los artículos ensin lleer.";
@@ -507,11 +505,6 @@
 "settings-primary-language-details" = "La primera llingua d'esta llista emplégase como idioma principal de l'aplicación.";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que Wikimedia almacene los tos artículos y llistes de llectura nes preferencies d'usuariu cuando anicies sesión y sincronices.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizar los artículos guardaos y les llistes";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Al borrar los artículos guardaos van desaniciase de la to cuenta d'usuariu si tienes activada la sincronización, amás de nesti preséu. Esta aición nun puede desfacese.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "¿Borrar tolos artículos guardaos?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Borrar";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Al borrar los artículos guardaos van desaniciase de la to cuenta d'usuariu si tienes activada la sincronización, amás de nesti preséu.\n\n\nBorrar los artículos guardaos lliberará unos $1 d'espaciu.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Borrar los artículos guardaos";
 "settings-storage-and-syncing-full-sync" = "Les llistes de llectura sincronizaránse'n segundu planu";
 "settings-storage-and-syncing-server-sync-footer-text" = "Pidir un anovamientu de los artículos y llistes de llectura sincronizaos.";
 "settings-storage-and-syncing-server-sync-title" = "Actualizar les llistes de llectura sincronizaes";
