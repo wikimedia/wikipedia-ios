@@ -35,7 +35,8 @@ final class ChooseEditorSheetCoordinator: Coordinator {
 
         let isPad = navigationController.traitCollection.userInterfaceIdiom == .pad
 
-        let sheetWidth: CGFloat = isPad ? 360 : navigationController.view.bounds.width
+        let fullWidth = navigationController.view.bounds.width
+        let sheetWidth: CGFloat = fullWidth * (isPad ? 0.6 : 1)
         let contentHeight = sizingController.sizeThatFits(in: CGSize(width: sheetWidth, height: 0)).height
 
         let viewController = WMFChooseEditorViewController(viewModel: viewModel)
