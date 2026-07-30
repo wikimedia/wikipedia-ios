@@ -1131,8 +1131,6 @@
 "reading-list-generic-error" = "حدث خطأ غير متوقع أثناء تحديث قوائم قراءتك.";
 "reading-list-keep-button-title" = "نعم ، احتفظ بالمقالات على الجهاز";
 "reading-list-keep-subtitle" = "هناك مقالات متزامنة مع حساب ويكيبيديا الخاص بك، هل ترغب في الاحتفاظ بها على هذا الجهاز بعد تسجيل الخروج؟";
-"reading-list-keep-sync-disabled-additional-subtitle" = "سيؤدي إيقاف تشغيل المزامنة إلى إزالة هذه المقالات من حسابك، إذا قمت بإزالتها من جهازك، فلن تكون قابلة للاسترداد بتشغيل المزامنة مرة أخرى في المستقبل.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "لا، قم بإزالة المقالات من الجهاز وحساب ويكيبيديا الخاص بي";
 "reading-list-keep-title" = "إبقاء المقالات المحفوظة على الجهاز؟";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "ترتيب المقالات";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "هناك حد 5000 مقالة لم يتم فرزها; يُرجَى فرز مقالاتك الحالية إلى قوائم لمتابعة مزامنة المقالات التي لم يتم فرزها.";
@@ -1269,11 +1267,6 @@
 "settings-search-open-app-on-search" = "افتح التطبيق على تبويب البحث";
 "settings-storage-and-syncing-enable-sync-footer-text" = "السماح لـويكيميديا بحفظ مقالاتك المحفوظة وقوائم القراءة لتفضيلات المستخدم الخاصة بك عند تسجيل الدخول والمزامنة.";
 "settings-storage-and-syncing-enable-sync-title" = "مزامنة المقالات والقوائم المحفوظة";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "سيؤدي حذف مقالاتك المحفوظة إلى إزالتها من حساب المستخدم الخاص بك إذا كانت لديك مزامنة وتم تشغيلها من هذا الجهاز، لا يمكنك التراجع عن هذا الإجراء.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "محو جميع المقالات المحفوظة؟";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "محو";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "سيؤدي حذف مقالاتك المحفوظة إلى إزالتها من حساب المستخدم الخاص بك إذا كانت لديك مزامنة وتم تشغيلها من هذا الجهاز.\n\nسيؤدي محو المقالات المحفوظة إلى تحرير مساحة $1 تقريبا.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "مسح المقالات المحفوظة";
 "settings-storage-and-syncing-full-sync" = "ستتم مزامنة قوائم قراءتك في الخلفية";
 "settings-storage-and-syncing-server-sync-footer-text" = "اطلب تحديثا لمقالاتك وقوائم قراءتك التي تمت مزامنتها.";
 "settings-storage-and-syncing-server-sync-title" = "تحديث قوائم القراءة المتزامنة";

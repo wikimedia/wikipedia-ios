@@ -947,8 +947,6 @@
 "reading-list-generic-error" = "Ocorreu um erro inesperado ao atualizar as suas listas de leitura.";
 "reading-list-keep-button-title" = "Sim, manter os artigos no dispositivo";
 "reading-list-keep-subtitle" = "Existem artigos sincronizados na sua conta da Wikipédia. Deseja mantê-los neste dispositivo depois de terminar a sessão?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Desligar a sincronização removerá estes artigos da sua conta. Se os remover do seu dispositivo, eles não serão recuperáveis voltando a ligar a sincronização no futuro.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Não, remover artigos do dispositivo e da minha conta da Wikipédia";
 "reading-list-keep-title" = "Manter os artigos guardados no dispositivo?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordenar artigos";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Existe um número limite de 5000 artigos por ordenar. Para continuar a sincronização de artigos não ordenados, ordene os seus artigos existentes em listas, por favor.";
@@ -1080,11 +1078,6 @@
 "settings-search-open-app-on-search" = "Abrir aplicação no separador Pesquisar";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que, ao se autenticar e sincronizar, a Wikimedia grave nas suas preferências os artigos guardados e as listas de leitura.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizar os artigos e listas guardados";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Ao limpar os seus artigos guardados irá removê-los da sua conta de utilizador se ativou a sincronização neste dispositivo. Esta operação não pode ser anulada.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Apagar todos os artigos gravados?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Apagar";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Se ativou a sincronização a partir deste dispositivo, apagar os seus artigos guardados irá removê-los também da sua conta de utilizador.\n\nApagar os seus artigos guardados libertará cerca de $1 de armazenamento.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Apagar artigos guardados";
 "settings-storage-and-syncing-full-sync" = "As suas listas de leitura serão sincronizadas em segundo plano";
 "settings-storage-and-syncing-server-sync-footer-text" = "Pedir uma atualização dos seus artigos e listas de leitura sincronizados.";
 "settings-storage-and-syncing-server-sync-title" = "Atualizar as listas de leitura sincronizadas";

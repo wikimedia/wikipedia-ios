@@ -1190,8 +1190,6 @@
 "reading-list-generic-error" = "Oxuma siyahılarınızı sinxronlaşdırarkən gözlənilməz xəta baş verdi.";
 "reading-list-keep-button-title" = "Bəli, məqalələri cihazda saxla";
 "reading-list-keep-subtitle" = "Sizin Vikipediya hesabınızla sinxronlaşdırılmış məqalələr var. Çıxdıqdan sonra onları bu cihazda saxlamaq istəyirsiniz?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Sinxronizasiyanı söndürmək bu məqalələri hesabınızdan siləcək. Onları cihazınızdan silsəniz, gələcəkdə sinxronizasiyanı yenidən yandırdıqda bərpa olunmayacaq.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Xeyr, məqalələri cihazdan və Vikipediya hesabımdan sil";
 "reading-list-keep-title" = "Yadda saxlanmış məqalələr cihazda saxlanılsın?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Məqalələri çeşidlə";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "5000 çeşidlənməmiş məqalə limiti var. Çeşidlənməmiş məqalələrin sinxronizasiyasına davam etmək üçün mövcud məqalələrinizi siyahılara ayırın.";
@@ -1328,13 +1326,12 @@
 "settings-search-footer-text" = "Tətbiqi Araşdır vərəqəsi yerinə Axtarış vərəqəsini açacaq şəkildə təyin edin";
 "settings-search-footer-text-home" = "Tətbiqi Əsas səhifə vərəqəsi yerinə Axtarış vərəqəsini açacaq şəkildə təyin edin";
 "settings-search-open-app-on-search" = "Tətbiqdə Axtarış səhifəsini aç";
+"settings-storage-and-syncing-disable-sync-alert-message" = "Sinxronizasiyanı söndürmək, sinxronlaşdırılmış oxuma siyahılarınızı Vikipediya hesabınızdan və digər cihazlardan siləcək. Siyahılarınız və məqalələriniz bu cihazda qalacaq.";
+"settings-storage-and-syncing-disable-sync-alert-no" = "Xeyr";
+"settings-storage-and-syncing-disable-sync-alert-title" = "Oxuma siyahısı sinxronizasiyası aktiv edilsin?";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "Bəli";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Siz daxil olduğunuz və sinxronizasiya etdiyiniz zaman Vikimediaya saxladığınız məqalələri və oxuma siyahılarınızı istifadəçi nizamlamalarınıza saxlamağa icazə ver.";
 "settings-storage-and-syncing-enable-sync-title" = "Saxlanılan məqalələri və siyahıları sinxronlaşdır";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Sinxronizasiyanı bu cihazdan aktiv etmisinizsə, yadda saxladığınız məqalələrin silinməsi onları istifadəçi hesabınızdan siləcək. Bu əməliyyatı geri qaytara bilməzsiniz.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Bütün saxlanmış məqalələr silinsin?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Sil";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Sinxronizasiyanı aktiv etmisinizsə, yadda saxladığınız məqalələrin silinməsi onları istifadəçi hesabınızdan, eləcə də bu cihazdan siləcək.\n\nYadda saxlanmış məqalələrinizin silinməsi təxminən $1 yer boşaldacaq.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Saxlanmış məqalələri sil";
 "settings-storage-and-syncing-full-sync" = "Oxuma siyahılarınız arxa fonda sinxronlaşdırılacaq";
 "settings-storage-and-syncing-server-sync-footer-text" = "Sinxronlaşdırılmış məqalələrinizə və oxuma siyahılarınıza yeniləmə tələb edin.";
 "settings-storage-and-syncing-server-sync-title" = "Sinxronlaşdırılmış oxuma siyahılarını yeniləyin";

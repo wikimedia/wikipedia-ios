@@ -1237,8 +1237,6 @@
 "reading-list-generic-error" = "Er is een onverwachte fout opgetreden bij het bijwerken van uw leeslijsten.";
 "reading-list-keep-button-title" = "Ja, bewaar de pagina's op dit apparaat";
 "reading-list-keep-subtitle" = "Er zijn pagina's gesynchroniseerd naar uw Wikipedia-account. Wilt u ze op dit apparaat houden nadat u zich hebt afgemeld?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Als u synchronisatie uitschakelt, worden deze pagina's uit uw account verwijderd. Als u ze van uw apparaat verwijdert, kunnen ze niet meer worden hersteld door de synchronisatie in de toekomst opnieuw in te schakelen.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Nee, verwijder de pagina's van mijn apparaat en mijn Wikipedia-account";
 "reading-list-keep-title" = "Opgeslagen pagina's op dit apparaat behouden?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Pagina's sorteren";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Er is een limiet van 5000 ongesorteerde pagina's. Sorteer uw bestaande pagina's in lijsten om door te gaan met het synchroniseren van ongesorteerde pagina's.";
@@ -1377,11 +1375,6 @@
 "settings-search-open-app-on-search" = "App op zoektabblad openen";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Toestaan dat Wikimedia uw opgeslagen pagina's en leeslijsten opslaat naar uw gebruikersvoorkeuren wanneer u aanmeldt en synchroniseert.";
 "settings-storage-and-syncing-enable-sync-title" = "Opgeslagen pagina's en lijsten synchroniseren";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Als u uw opgeslagen pagina's wist, worden ze verwijderd uit uw gebruikersaccount indien u synchroniseren hebt ingeschakeld, en van dit apparaat. U kunt deze handeling niet ongedaan maken.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Alle opgeslagen pagina's wissen?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Wissen";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Als u uw opgeslagen pagina's wist, worden ze uit uw gebruikersaccount verwijderd als u synchroniseren heeft ingeschakeld, en van dit apparaat.\n\nAls u uw opgeslagen pagina's wist, maakt u ongeveer $1 ruimte vrij.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Opgeslagen pagina's wissen";
 "settings-storage-and-syncing-full-sync" = "Uw leeslijsten worden op de achtergrond gesynchroniseerd";
 "settings-storage-and-syncing-server-sync-footer-text" = "Gesynchroniseerde pagina's en leeslijsten bijwerken.";
 "settings-storage-and-syncing-server-sync-title" = "Update gesynchroniseerde leeslijsten";

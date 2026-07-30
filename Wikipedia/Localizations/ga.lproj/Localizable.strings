@@ -1085,8 +1085,6 @@
 "reading-list-generic-error" = "Tharla earráid gan choinne agus do liostaí léitheoireachta á nuashonrú.";
 "reading-list-keep-button-title" = "Sea, coinnigh ailt ar an ngléas";
 "reading-list-keep-subtitle" = "Tá ailt sioncrónaithe le do chuntas Vicipéid. Ar mhaith leat iad a choinneáil ar an ngléas seo tar éis duit logáil amach?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Má mhúchann tú an sioncrónú, bainfear na hairteagail seo de do chuntas. Mura mbainfidh tú iad de do ghléas, ní bheidh tú in ann iad a aisghabháil trí sioncrónú a chasadh air arís sa todhchaí.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Níl, bain ailt den ghléas agus ó mo chuntas Vicipéid";
 "reading-list-keep-title" = "Coinnigh ailt sábháilte ar ghléas?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sórtáil ailt";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Is é 5000 an uasteorainn d'ailt neamhshórtáilte. Sórtáil ar liostaí na hailt atá roghnaithe agat cheana féin, chun go leanfar sioncronú na n-alt neamhshórtáilte.";
@@ -1223,11 +1221,6 @@
 "settings-search-open-app-on-search" = "Oscail aip ar táb Cuardaigh";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Lig do Wikimedia d’ailt agus do liostaí léitheoireachta sábháilte a shábháil i do chuid sainroghanna úsáideora nuair a logálann tú isteach agus a shioncrónaíonn tú.";
 "settings-storage-and-syncing-enable-sync-title" = "Sioncrónaigh ailt agus liostaí sábháilte";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Má scriosann tú d’ailt shábháilte, bainfear iad de do chuntas úsáideora má tá sioncrónú casta air chomh maith leis an ngléas seo. Ní féidir leat an gníomh seo a chealú.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Scrios gach alt sábháilte?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Léirscrios";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Má scriosann tú d’ailt shábháilte, bainfear iad de do chuntas úsáideora má tá sioncrónú casta air, chomh maith leis an ngléas seo.\n\nMá scriosann tú d’ailt shábháilte, saorfar thart ar $1 de spás.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Léirscrios ailt shábháilte";
 "settings-storage-and-syncing-full-sync" = "Déanfar do liostaí léitheoireachta a shioncronú sa chúlra";
 "settings-storage-and-syncing-server-sync-footer-text" = "Iarr nuashonrú ar do chuid alt agus liostaí léitheoireachta sioncronaithe.";
 "settings-storage-and-syncing-server-sync-title" = "Nuashonraigh liostaí léitheoireachta sioncronaithe";

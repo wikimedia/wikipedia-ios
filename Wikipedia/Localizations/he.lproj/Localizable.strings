@@ -1018,8 +1018,6 @@
 "reading-list-generic-error" = "אירעה שגיאה בלתי־צפויה בעת עדכון רשימות הקריאה שלך.";
 "reading-list-keep-button-title" = "כן, לשמור את הערכים במכשיר";
 "reading-list-keep-subtitle" = "יש ערכים שסונכרנו לחשבון הוויקיפדיה שלך. האם ברצונך לשמור אותם במכשיר זה לאחר היציאה מהחשבון?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "כיבוי הסנכרון יגרום להסרת הערכים האלה מהחשבון שלך. לאחר הסרתם מהמכשיר, לא ניתן יהיה לשחזר אותם באמצעות הפעלת הסנכרון מחדש בעתיד.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "לא, להסיר את הערכים מהמכשיר ומחשבון הוויקיפדיה שלי";
 "reading-list-keep-title" = "לשמור את הערכים השמורים במכשיר?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "מיון ערכים";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "ישנה מגבלה של 5000 ערכים שאינם ממוינים. נא למיין את הערכים הקיימים שלך לפי רשימות, כדי שניתן יהיה להמשיך בסנכרון הערכים שאינם ממוינים.";
@@ -1146,11 +1144,6 @@
 "settings-search-open-app-on-search" = "פתיחת היישום בלשונית החיפוש";
 "settings-storage-and-syncing-enable-sync-footer-text" = "מתן אפשרות לוויקימדיה לשמור את הערכים השמורים ואת רשימות הקריאה שלך להעדפות המשתמש שלך בעת הכניסה וסנכרון.";
 "settings-storage-and-syncing-enable-sync-title" = "סנכרון ערכים שמורים ורשימות";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "אם אפשרות הסנכרון מופעלת, מחיקת הערכים השמורים שלך תגרום להסרתם הן מחשבון המשתמש שלך והן ממכשיר זה. לא ניתן לבטל את הפעולה הזאת.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "למחוק את כל הערכים השמורים?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "מחיקה";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "אם אפשרות הסנכרון מופעלת, מחיקת הערכים השמורים שלך תגרום להסרתם הן מחשבון המשתמש שלך וגם מהמכשיר הזה.\n\nמחיקת הערכים השמורים שלך תנקה עד $1 של שטח אחסון.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "מחיקת ערכים שמורים";
 "settings-storage-and-syncing-full-sync" = "רשימות הקריאה שלך יסונכרנו ברקע";
 "settings-storage-and-syncing-server-sync-footer-text" = "בקשת עדכון לערכים ולרשימות הקריאה המסונכרנים שלך.";
 "settings-storage-and-syncing-server-sync-title" = "עדכון רשימות הקריאה שסונכרנו";

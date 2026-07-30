@@ -894,8 +894,6 @@
 "reading-list-exists-with-same-name" = "Namma lea juo anus";
 "reading-list-keep-button-title" = "Juo, doalat artihkkaliid ovttadagas";
 "reading-list-keep-subtitle" = "Don leat vurken artihkkaliid mat leat synkroniserejuvvon iežat Wikipedia-dovddaldagain. Háliidat go dáid doallat báikkálaččat dán ovttadagas maŋŋel go leat čálihuvvon olggos?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Jus leat váldán atnui synkroniserema, de dat artihkkalat sihkkojuvvojit du geavaheaddjidovddaldagas. Jus don sihkut daid iežat ovttadagas maid, de dat eai sáhte ođđasitásahuvvot synkroniserema johtui bidjama bokte boahtteáiggis.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Ii, sihko artihkkaliid ovttadagas ja Wikipedia-dovddaldagas";
 "reading-list-keep-title" = "Doalat vurkejuvvon artihkkaliid ovttadagas?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sirre artihkkaliid";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Lea rádji 5000 sirrekeahtes artihkkaliin. Sirre mat dálá artihkkaliid listtuide vai joatká sirrekeahtes artihkkaliid synkroniseren.";
@@ -1007,11 +1005,6 @@
 "settings-search-open-app-on-search" = "Álggat áppa ohcanleavggas";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Suova Wikimedia vurket daid iežat vurkejuvvon artihkkaliid ja lohkanlisttuid geavaheaddjidovddaldahkii go sisačálihat ja synkroniseret.";
 "settings-storage-and-syncing-enable-sync-title" = "Synkronisere vurkejuvvon artihkkaliid ja listtuid";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Vurkejuvvon artihkkalat sihkkojuvvojit du ovttadagas. Jus leat váldán atnui synkroniserema, de dat maid sihkkojuvvojit du geavaheaddjidovddaldagas. Dán dagu it sáhte gáhtat.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Sihko visot vurkejuvvon artihkkaliid?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Sihko";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Fuomáš ahte vurkejuvvon artihkkaliid sihkkun maid sihkku daid du geavaheaddjidovddaldagas jus don leat váldán synkroniserema atnui.Visot vurkejuvvon artihkkaliid sihkkun luvve sullii $1 vurkensaji.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Gurre vurkejuvvon artihkkaliid";
 "settings-storage-and-syncing-full-sync" = "Lohkanlisttut synkroniserejuvvojit duogážis";
 "settings-storage-and-syncing-server-sync-footer-text" = "Bivdde synkroniserejuvvon artihkkaliid ja lohkanlisttuid ođasmahttima.";
 "settings-storage-and-syncing-server-sync-title" = "Ođasmahte synkroniserejuvvon lohkanlisttuid";
