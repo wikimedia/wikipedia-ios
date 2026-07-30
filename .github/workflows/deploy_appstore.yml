@@ -191,7 +191,7 @@ jobs:
           token = os.environ['PHAB_TOKEN']
           branch = os.environ['BRANCH']
 
-          release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}$')
+          release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}')
 
           def release_branch_value(description):
             match = re.search(r'\*\*Release branch\*\*:(.*)', description)
@@ -279,7 +279,7 @@ jobs:
           branch = os.environ['BRANCH']
           submission_date = datetime.now(timezone.utc).strftime('%Y.%m.%d')
 
-          release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}$')
+          release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}')
 
           def release_branch_value(description):
             match = re.search(r'\*\*Release branch\*\*:(.*)', description)

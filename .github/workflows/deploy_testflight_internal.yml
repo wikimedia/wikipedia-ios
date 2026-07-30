@@ -381,7 +381,7 @@ jobs:
             exit(0)
 
           # Search for any open release task with a date-based version title
-          release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}$')
+          release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}')
 
           def release_branch_value(description):
             match = re.search(r'\*\*Release branch\*\*:(.*)', description)
