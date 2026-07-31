@@ -146,7 +146,9 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
         hasChanges = true
     }
 
-    /// Clears all selected topics and articles, then reloads the grid with random articles.
+    /// Clears all selected topics and articles, unchecking the cards in place. Deliberately
+    /// does not refetch: reloading the grid here read as the whole screen changing under the
+    /// user. The articles on screen stay until the list next reloads (e.g. a topic is tapped).
     func deselectAll() {
         selectedTopics = []
         dataController.setInterestTopics([])
@@ -159,7 +161,6 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
         }
         recountSelectedArticles()
         hasChanges = true
-        fetchRandomArticles()
     }
 
     // MARK: - Search

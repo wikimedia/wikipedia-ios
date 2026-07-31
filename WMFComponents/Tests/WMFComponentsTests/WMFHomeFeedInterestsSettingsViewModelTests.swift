@@ -190,6 +190,20 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
         #expect(dataController.interestTopics().isEmpty)
     }
 
+    @Test
+    func deselectAllKeepsCardsOnScreen() {
+        // Deselecting all should uncheck in place, not swap the grid out from under the user.
+        let viewModel = makeViewModel()
+        let cards = [makeCard(pageid: 1, title: "A"), makeCard(pageid: 2, title: "B")]
+        viewModel.gridViewModels = cards
+        cards.forEach { viewModel.toggleArticleSelection($0) }
+
+        viewModel.deselectAll()
+
+        #expect(viewModel.gridViewModels.map { $0.id } == cards.map { $0.id })
+        #expect(viewModel.gridViewModels.allSatisfy { !$0.isSelected })
+    }
+
     // MARK: - Search
 
     @Test
