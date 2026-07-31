@@ -5,28 +5,36 @@ struct WMFInterestArticleGridView: View {
 
     let viewModels: [WMFInterestArticleCardViewModel]
     let theme: WMFTheme
+    /// Viewport (not content) size, used to pick the column count the way the article tabs
+    /// grid does — more columns on iPad and in landscape.
+    let viewportSize: CGSize
     let onTap: (WMFInterestArticleCardViewModel) -> Void
 
     // At accessibility sizes half-width columns word-break the scaled titles, so the grid
     // collapses to a single full-width column.
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    private var columns: (left: [WMFInterestArticleCardViewModel], right: [WMFInterestArticleCardViewModel]) {
-        var left: [WMFInterestArticleCardViewModel] = []
-        var right: [WMFInterestArticleCardViewModel] = []
-        var leftHeight: CGFloat = 0
-        var rightHeight: CGFloat = 0
+    private var columnCount: Int {
+        WMFCardGridColumns.count(for: viewportSize, isAccessibilitySize: dynamicTypeSize.isAccessibilitySize)
+    }
+
+    /// Distributes cards into `columnCount` masonry columns, each card going to the currently
+    /// shortest column so the columns end up roughly level.
+    private func columns(count: Int) -> [[WMFInterestArticleCardViewModel]] {
+        guard count > 1 else { return [viewModels] }
+
+        var columns: [[WMFInterestArticleCardViewModel]] = Array(repeating: [], count: count)
+        var heights = [CGFloat](repeating: 0, count: count)
 
         for vm in viewModels {
-            if leftHeight <= rightHeight {
-                left.append(vm)
-                leftHeight += estimatedHeight(for: vm)
-            } else {
-                right.append(vm)
-                rightHeight += estimatedHeight(for: vm)
+            var shortest = 0
+            for index in 1..<count where heights[index] < heights[shortest] {
+                shortest = index
             }
+            columns[shortest].append(vm)
+            heights[shortest] += estimatedHeight(for: vm)
         }
-        return (left, right)
+        return columns
     }
 
     private func estimatedHeight(for vm: WMFInterestArticleCardViewModel) -> CGFloat {
@@ -44,15 +52,9 @@ struct WMFInterestArticleGridView: View {
     }
 
     var body: some View {
-        Group {
-            if dynamicTypeSize.isAccessibilitySize {
-                column(viewModels)
-            } else {
-                let cols = columns
-                HStack(alignment: .top, spacing: 12) {
-                    column(cols.left)
-                    column(cols.right)
-                }
+        HStack(alignment: .top, spacing: 12) {
+            ForEach(Array(columns(count: columnCount).enumerated()), id: \.offset) { _, items in
+                column(items)
             }
         }
         .padding(.horizontal, 16)

@@ -30,50 +30,55 @@ public struct WMFHomeFeedInterestsSettingsView: View {
     }
 
     public var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                header
-                    .padding(.horizontal, 16)
-                    .padding(.top, topContentInset)
+        // Viewport size drives the article grid's column count (iPad/landscape get more),
+        // mirroring how the article tabs grid reads its geometry.
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    header
+                        .padding(.horizontal, 16)
+                        .padding(.top, topContentInset)
 
-                searchBar
-                    .padding(.horizontal, 8)
-                    .padding(.top, 12)
+                    searchBar
+                        .padding(.horizontal, 8)
+                        .padding(.top, 12)
 
-                if viewModel.isSearchActive {
-                    languageBar
-                    searchResults
-                } else {
-                    topicChips
-
-                    if viewModel.isFetchingArticles {
-                        ProgressView()
-                            .frame(maxWidth: .infinity)
-                            .padding(.top, 80)
-                    } else if !viewModel.gridViewModels.isEmpty {
-                        WMFInterestArticleGridView(
-                            viewModels: viewModel.gridViewModels,
-                            theme: theme,
-                            onTap: { vm in
-                                viewModel.toggleArticleSelection(vm)
-                            }
-                        )
+                    if viewModel.isSearchActive {
+                        languageBar
+                        searchResults
                     } else {
-                        HStack {
-                            Spacer()
-                            Text(viewModel.emptyMessage)
-                                .font(Font(WMFFont.for(.headline, sized: dynamicTypeSize)))
-                                .foregroundStyle(Color(uiColor: theme.secondaryText))
-                                .multilineTextAlignment(.center)
-                            Spacer()
+                        topicChips
+
+                        if viewModel.isFetchingArticles {
+                            ProgressView()
+                                .frame(maxWidth: .infinity)
+                                .padding(.top, 80)
+                        } else if !viewModel.gridViewModels.isEmpty {
+                            WMFInterestArticleGridView(
+                                viewModels: viewModel.gridViewModels,
+                                theme: theme,
+                                viewportSize: geometry.size,
+                                onTap: { vm in
+                                    viewModel.toggleArticleSelection(vm)
+                                }
+                            )
+                        } else {
+                            HStack {
+                                Spacer()
+                                Text(viewModel.emptyMessage)
+                                    .font(Font(WMFFont.for(.headline, sized: dynamicTypeSize)))
+                                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                                    .multilineTextAlignment(.center)
+                                Spacer()
+                            }
+                            .padding(.top, 80)
                         }
-                        .padding(.top, 80)
                     }
                 }
+                .padding(.bottom, bottomContentInset)
             }
-            .padding(.bottom, bottomContentInset)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(uiColor: theme.paperBackground))
         .environment(\.colorScheme, theme.preferredColorScheme)
         .dynamicTypeSize(...DynamicTypeSize.accessibility2)
