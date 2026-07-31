@@ -21,8 +21,8 @@ public struct WMFOneTimeOnboardingView: View {
                         .foregroundStyle(Color(uiColor: theme.text))
                         .multilineTextAlignment(.center)
                         .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.top, 32)
-                        .padding(.bottom, 32)
+                        .padding(.top, 70)
+                        .padding(.bottom, 36)
                         .padding(.horizontal, 24)
                         .accessibilityAddTraits(.isHeader)
 
@@ -36,10 +36,7 @@ public struct WMFOneTimeOnboardingView: View {
                 }
             }
 
-            Divider()
-                .foregroundStyle(Color(uiColor: theme.border))
-
-            VStack(spacing: 12) {
+            VStack(spacing: 16) {
                 Button {
                     viewModel.onCustomize?()
                 } label: {
@@ -47,10 +44,10 @@ public struct WMFOneTimeOnboardingView: View {
                         .font(Font(WMFFont.for(.boldCallout)))
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
+                        .padding(.vertical, 14)
                         .background(Color(uiColor: theme.link), in: Capsule())
                 }
-                .accessibilityIdentifier(AccessibilityIdentifiers.OneTimeOnboarding.customizeButton)
+                //.accessibilityIdentifier(AccessibilityIdentifiers.OneTimeOnboarding.customizeButton)
 
                 Button {
                     viewModel.onAutoSetup?()
@@ -59,13 +56,12 @@ public struct WMFOneTimeOnboardingView: View {
                         .font(Font(WMFFont.for(.callout)))
                         .foregroundStyle(Color(uiColor: theme.link))
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 8)
+                        .padding(.vertical, 14)
                 }
-                .accessibilityIdentifier(AccessibilityIdentifiers.OneTimeOnboarding.autoSetupButton)
+                //.accessibilityIdentifier(AccessibilityIdentifiers.OneTimeOnboarding.autoSetupButton)
             }
             .padding(.horizontal, 24)
-            .padding(.top, 16)
-            .padding(.bottom, 8)
+            .padding(.vertical, 16)
         }
         .background(Color(uiColor: theme.paperBackground).ignoresSafeArea())
     }
@@ -77,21 +73,30 @@ public struct WMFOneTimeOnboardingView: View {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 24, height: 24)
+                    .frame(width: 22, height: 22)
                     .foregroundStyle(Color(uiColor: theme.link))
                     .accessibilityHidden(true)
             }
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(item.title)
-                    .font(Font(WMFFont.for(.boldSubheadline)))
+                    .font(Font(WMFFont.for(.semiboldSubheadline)))
                     .foregroundStyle(Color(uiColor: theme.text))
                 Text(item.body)
-                    .font(Font(WMFFont.for(.subheadline)))
-                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                    .font(Font(WMFFont.for(.callout)))
+                    .foregroundStyle(Color(uiColor: theme.inputAccessoryButtonTint))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .accessibilityElement(children: .combine)
     }
+}
+
+#Preview("Light") {
+    WMFOneTimeOnboardingView(viewModel: WMFOneTimeOnboardingViewModel())
+}
+
+#Preview("Dark") {
+    WMFOneTimeOnboardingView(viewModel: WMFOneTimeOnboardingViewModel())
+        .preferredColorScheme(.dark)
 }

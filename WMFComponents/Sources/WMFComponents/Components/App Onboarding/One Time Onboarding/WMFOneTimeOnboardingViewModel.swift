@@ -51,7 +51,7 @@ public final class WMFOneTimeOnboardingViewModel: ObservableObject {
             )
         ),
         FeatureItem(
-            symbol: .tabsIcon,
+            symbol: .squareSplit,
             title: WMFLocalizedString(
                 "one-time-onboarding-feature-feed-title",
                 value: "Your feed, two ways",
