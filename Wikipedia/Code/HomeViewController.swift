@@ -40,6 +40,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .black
         view.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.homeButton
 
         edgesForExtendedLayout = .all

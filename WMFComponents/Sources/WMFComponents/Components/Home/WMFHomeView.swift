@@ -63,10 +63,6 @@ public struct WMFHomeView: View {
             .background(Color(uiColor: theme.paperBackground))
         }
     }
-    
-    private var headerTextColor: Color {
-        viewModel.selectedTab == .forYou ? .white : Color(uiColor: theme.text)
-    }
 
     private var headerBar: some View {
         HStack(spacing: 8) {
@@ -110,13 +106,11 @@ public struct WMFHomeView: View {
                 } label: {
                     Text(viewModel.languageButtonTitle)
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
-                        .foregroundStyle(headerTextColor)
                         .dynamicTypeSize(.xSmall ... .large)
                         .minimumScaleFactor(0.25)
                         .lineLimit(1)
                     Image(systemName: "chevron.up.chevron.down")
                         .font(.system(size: 12, weight: .semibold))
-                        .foregroundStyle(headerTextColor)
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
@@ -144,7 +138,6 @@ public struct WMFHomeView: View {
         } label: {
             Text(title)
                 .font(Font(WMFFont.for(.semiboldSubheadline)))
-                .foregroundStyle(headerTextColor)
                 .minimumScaleFactor(0.25)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
@@ -153,7 +146,7 @@ public struct WMFHomeView: View {
                         if #available(iOS 26.0, *) {
                             Capsule().fill(.clear).glassEffect(.regular.interactive(), in: Capsule())
                         } else {
-                            Capsule().fill(.white.opacity(0.25))
+                        
                         }
                     }
                 }

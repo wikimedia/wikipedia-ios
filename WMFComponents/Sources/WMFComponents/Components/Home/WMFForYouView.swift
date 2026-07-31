@@ -48,6 +48,7 @@ public struct WMFForYouView: View {
             GeometryReader { geometry in
                 scrollView(geometry: geometry)
             }
+            .ignoresSafeArea()
         }
     }
 
@@ -366,6 +367,7 @@ private struct WMFForYouArticleCardView: View {
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height)
                 .clipped()
+                .ignoresSafeArea()
 
                 // 2. Content
                 switch effectiveVariant {
@@ -456,13 +458,14 @@ private struct WMFForYouArticleCardView: View {
                 }
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
+            .ignoresSafeArea()
             .clipped()
             .contentShape(Rectangle())
             .onTapGesture { onTapCard() }
             .onAppear { viewModel.load() }
             .overlay {
                 if viewModel.loadState == .loading {
-                    Color.black
+                    Color.clear
                         .ignoresSafeArea()
                         .transition(.opacity)
                 }
