@@ -140,6 +140,7 @@ platform :ios do
       phased_release: true,
       reset_ratings: false,
       force: true,
+      precheck_include_in_app_purchases: false,
       skip_screenshots: true,
       skip_metadata: false,
       metadata_path: "fastlane/metadata",
