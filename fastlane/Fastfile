@@ -137,6 +137,7 @@ platform :ios do
       app_version: ENV["VERSION"],
       submit_for_review: should_submit,
       automatic_release: false,
+      phased_release: true,
       skip_screenshots: true,
       skip_metadata: false,
       metadata_path: "fastlane/metadata",
