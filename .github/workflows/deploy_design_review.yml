@@ -33,6 +33,7 @@ jobs:
 
           LATEST=$(git tag --list 'alphas/*' \
             | sed 's|alphas/||' \
+            | grep -E '^[0-9]+$' \
             | sort -n \
             | tail -1)
           BUILD=$(( ${LATEST:-0} + 1 ))

@@ -61,6 +61,7 @@ if [[ -n "${TAG_PREFIX}" ]]; then
 
     LATEST=$(git tag --list "${TAG_PREFIX}/*" \
         | sed "s|${TAG_PREFIX}/||" \
+        | grep -E '^[0-9]+$' \
         | sort -n \
         | tail -1)
     BUILD=$(( ${LATEST:-0} + 1 ))
