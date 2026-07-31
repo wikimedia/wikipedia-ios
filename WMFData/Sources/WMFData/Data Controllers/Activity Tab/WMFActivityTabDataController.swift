@@ -5,7 +5,16 @@ public actor WMFActivityTabDataController {
     private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
     public var historyDataController: WMFHistoryDataController? = nil
 
-    public init() {}
+    /// Injected only by tests; production callers use the environment's store.
+    private let injectedCoreDataStore: WMFCoreDataStore?
+
+    public init(coreDataStore: WMFCoreDataStore? = nil) {
+        self.injectedCoreDataStore = coreDataStore
+    }
+
+    private func pageViewsDataController() throws -> WMFPageViewsDataController {
+        return try WMFPageViewsDataController(coreDataStore: injectedCoreDataStore ?? WMFDataEnvironment.current.coreDataStore)
+    }
 
     public func setHistoryDataController(_ controller: WMFHistoryDataController) {
         self.historyDataController = controller
@@ -94,7 +103,7 @@ public actor WMFActivityTabDataController {
               let startDate = calendar.date(byAdding: .day, value: -6, to: startOfToday),
               let endDate = calendar.date(byAdding: .day, value: 1, to: startOfToday)?.addingTimeInterval(-1) else { return (0, 0) }
 
-        let dataController = try WMFPageViewsDataController()
+        let dataController = try pageViewsDataController()
 
         let minutesRead = try await dataController.fetchPageViewMinutes(startDate: startDate, endDate: endDate)
 
@@ -111,7 +120,7 @@ public actor WMFActivityTabDataController {
 
         guard let startDate = calendar.date(byAdding: .day, value: -30, to: now) else { return 0 }
 
-        let dataController = try WMFPageViewsDataController()
+        let dataController = try pageViewsDataController()
         let pageCounts = try await dataController.fetchPageViewCounts(startDate: startDate, endDate: now)
 
         let totalReads = pageCounts.reduce(0) { $0 + $1.count }
@@ -123,7 +132,7 @@ public actor WMFActivityTabDataController {
         let calendar = Calendar.current
         let now = Date()
 
-        let dataController = try WMFPageViewsDataController()
+        let dataController = try pageViewsDataController()
         var weeklyCounts: [Int] = []
 
         for week in 0..<4 {
@@ -212,7 +221,7 @@ public actor WMFActivityTabDataController {
     private static let sharedGroupID = "group.org.wikimedia.wikipedia"
 
     public func getMostRecentReadDateTime() async throws -> Date? {
-        let dataController = try WMFPageViewsDataController()
+        let dataController = try pageViewsDataController()
         return try await dataController.fetchMostRecentTime()
     }
 
@@ -359,7 +368,7 @@ public actor WMFActivityTabDataController {
     }
 
     public func fetchTimelineReadArticles() async throws -> [Date: [TimelineItem]] {
-        let dataController = try WMFPageViewsDataController()
+        let dataController = try pageViewsDataController()
         let pageRecords = try await dataController.fetchTimelinePages()
         guard !pageRecords.isEmpty else { return [:] }
 
@@ -410,7 +419,7 @@ public actor WMFActivityTabDataController {
     }
     
     public func deletePageView(title: String, namespaceID: Int16, project: WMFProject) async throws {
-        let dataController = try WMFPageViewsDataController()
+        let dataController = try pageViewsDataController()
         try? await dataController.deletePageView(title: title, namespaceID: namespaceID, project: project)
     }
     
