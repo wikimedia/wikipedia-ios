@@ -86,7 +86,11 @@ class DonateCoordinator: Coordinator {
     private var webViewURL: URL? {
 
         guard let metricsID,
-              let languageCode else {
+              let languageCode,
+              let country = Locale.current.region?.identifier,
+              let appVersion = Bundle.main.wmf_appVersion(),
+              let appInstallID: String = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+        else {
             return nil
         }
 
@@ -96,16 +100,13 @@ class DonateCoordinator: Coordinator {
         } else {
             parameterizedUrl = "https://donate.wikimedia.org/?wmf_medium=WikipediaApp&wmf_campaign=$platform;&wmf_source=$formattedId;&uselang=$language;&app_install_id=$appInstallId;&app_version=$appVersion;"
         }
-
-        let appVersion = Bundle.main.wmf_appVersion()
-        let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
         
         let finalUrlString = parameterizedUrl
                     .replacingOccurrences(of: "$formattedId;", with: metricsID)
-                    .replacingOccurrences(of: "$country;", with: Locale.current.region?.identifier ?? "")
+                    .replacingOccurrences(of: "$country;", with: country)
                     .replacingOccurrences(of: "$language;", with: languageCode)
-                    .replacingOccurrences(of: "$appVersion;", with: appVersion ?? "")
-                    .replacingOccurrences(of: "$appInstallId;", with: appInstallID ?? "")
+                    .replacingOccurrences(of: "$appVersion;", with: appVersion)
+                    .replacingOccurrences(of: "$appInstallId;", with: appInstallID)
                     .replacingOccurrences(of: "$platform;", with: "iOS")
         
         return URL(string: finalUrlString)
