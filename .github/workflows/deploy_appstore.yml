@@ -159,7 +159,7 @@ jobs:
           git push origin "betas/$BUILD"
 
       # -------------------------------------------------------
-      # 6. Create release branch (frees up main for the next cycle)
+      # 6. Create or fast-forward the release branch (frees up main for the next cycle)
       # -------------------------------------------------------
       - name: Create release branch
         env:
@@ -170,13 +170,15 @@ jobs:
           BRANCH="release-candidate/$VERSION"
           echo "branch=$BRANCH" >> $GITHUB_ENV
 
-          if git ls-remote --exit-code --heads origin "$BRANCH" > /dev/null 2>&1; then
-            echo "$BRANCH already exists - this is a re-submission for an existing release, skipping creation"
-          else
-            git checkout -b "$BRANCH"
-            git push origin "$BRANCH"
-            echo "Created release branch: $BRANCH"
-          fi
+          # Creates the branch if it doesn't exist yet, or fast-forwards it
+          # to this run's commit if it does - a re-submission run built from
+          # a newer commit than the branch's current tip shouldn't leave the
+          # branch stuck pointing at the original commit. A non-fast-forward
+          # push (the branch has diverged, e.g. a hotfix landed directly on
+          # it that this run's commit doesn't contain) fails loudly here
+          # rather than silently overwriting or silently doing nothing.
+          git push origin "HEAD:refs/heads/$BRANCH"
+          echo "release-candidate branch is now at: $BRANCH"
 
       # -------------------------------------------------------
       # 7. Update release task with release branch and submission date
