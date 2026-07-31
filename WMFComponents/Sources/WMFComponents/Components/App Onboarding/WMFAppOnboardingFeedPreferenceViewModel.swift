@@ -14,6 +14,16 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
     private let pictureOfTheDayTitle = WMFLocalizedString("app-onboarding-feed-preference-picture-of-the-day", value: "Picture of the day", comment: "Title of the Picture of the Day sample card on the feed preference app onboarding screen.")
     private let inTheNewsTitle = WMFLocalizedString("app-onboarding-feed-preference-in-the-news", value: "In the news", comment: "Title of the In the News sample card on the feed preference app onboarding screen.")
 
+    /// Localized in the *wiki's* language (not the app UI's): it's matched against the story
+    /// HTML, which comes from that wiki. Used to find the article a story marks as pictured.
+    private var picturedText: String {
+        var languageCode: String?
+        if case .wikipedia(let language) = project {
+            languageCode = language.languageCode
+        }
+        return WMFLocalizedString("pictured", languageCode: languageCode, value: "pictured", comment: "Indicates the person or item is pictured (as in a news story).")
+    }
+
     // MARK: - State
 
     @Published public private(set) var selection: WMFHomeFeedSeeFirst = .community
@@ -149,10 +159,13 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
         }
 
         if let news = response.feedResponse.news?.first {
+            // Same rule as the explore feed: the story's "pictured" article when there is one,
+            // otherwise the first link that actually has a thumbnail.
+            let featured = news.featuredArticle(picturedText: picturedText)
             cards.append(WMFAppOnboardingPreviewCardViewModel(
                 title: inTheNewsTitle,
                 description: news.story.map(Self.strippingHTMLTags),
-                imageURLString: news.links?.first?.thumbnail?.source,
+                imageURLString: featured?.thumbnail?.source,
                 topicPill: nil
             ))
         }
