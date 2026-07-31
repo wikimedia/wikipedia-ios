@@ -176,7 +176,7 @@ private struct WMFForYouPageView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 0) {
-                ForEach(Array(articleViewModels.enumerated()), id: \.element.id) { index, article in
+                ForEach(Array(articleViewModels.enumerated()), id: \.offset) { index, article in
                     let variant = WMFForYouCardVariant.variant(for: index)
                     WMFForYouArticleCardView(
                         viewModel: article,
@@ -192,7 +192,7 @@ private struct WMFForYouPageView: View {
                         onShareCard: { onShareCard(article) }
                     )
                     .containerRelativeFrame(.horizontal)
-                    .tag(index)
+                    .tag(index as Int?)
                 }
             }
             .scrollTargetLayout()
