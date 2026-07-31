@@ -174,19 +174,14 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
             cards.append(WMFAppOnboardingPreviewCardViewModel(article: article, topicPill: nil))
         }
 
-        if cards.isEmpty, let becauseYouRead = response.becauseYouReadArticles {
-            cards = becauseYouRead.articles.prefix(3).map {
-                WMFAppOnboardingPreviewCardViewModel(article: $0, topicPill: nil)
-            }
-        }
-
+        // Deliberately no reading-history fallback: the preview must show what the user just
+        // chose. Articles derived from reading history read as random here, so with no
+        // interests the step shows its explanation text instead (see isPersonalizedAvailable).
         return cards
     }
 
     static func personalizedIsAvailable(for response: WMFForYouResponse) -> Bool {
-        let hasInterests = !response.interestTopicRandomArticles.isEmpty || !response.interestPageRelatedArticles.isEmpty
-        let hasReadingHistory = response.becauseYouReadArticles != nil || response.continueReadingArticles != nil
-        return hasInterests || hasReadingHistory
+        return !response.interestTopicRandomArticles.isEmpty || !response.interestPageRelatedArticles.isEmpty
     }
 
     static func strippingHTMLTags(_ html: String) -> String {

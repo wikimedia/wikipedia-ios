@@ -51,7 +51,7 @@ struct WMFAppOnboardingFeedPreferenceView: View {
                 } else {
                     Text(viewModel.personalizedDisabledExplanation)
                         .font(Font(WMFFont.for(.callout, sized: dynamicTypeSize)))
-                        .foregroundStyle(Color(uiColor: theme.secondaryText))
+                        .foregroundStyle(Color(uiColor: theme.text))
                         .padding(.horizontal, 16)
                 }
             }
