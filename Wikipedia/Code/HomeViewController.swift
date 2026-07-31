@@ -83,6 +83,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
             }
         }
 
+        UISegmentedControl.appearance(whenContainedInInstancesOf: [WMFHomeHostingController.self]).backgroundColor = .clear
         reloadLanguages()
         
         viewModel.isArticleSaved = { [weak self] card in

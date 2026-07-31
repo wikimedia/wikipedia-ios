@@ -66,11 +66,14 @@ public struct WMFHomeView: View {
 
     private func headerBar(isForYou: Bool) -> some View {
         HStack(spacing: 8) {
-            HStack(spacing: 2) {
-                tabButton(title: viewModel.communityTabTitle, tab: .community, isForYou: isForYou)
-                tabButton(title: viewModel.forYouTabTitle, tab: .forYou, isForYou: isForYou)
+            Picker("", selection: $viewModel.selectedTab) {
+                Text(viewModel.communityTabTitle).tag(WMFHomeViewModel.Tab.community)
+                Text(viewModel.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
             }
-            .padding(3)
+            .padding(.vertical, 2)
+            .pickerStyle(.segmented)
+            .fixedSize()
+            .dynamicTypeSize(.xSmall ... .large)
             .background {
                 if #available(iOS 26.0, *) {
                     Capsule().fill(.clear).glassEffect(in: Capsule())
@@ -78,7 +81,6 @@ public struct WMFHomeView: View {
                     Capsule().fill(.ultraThinMaterial)
                 }
             }
-            .dynamicTypeSize(.xSmall ... .large)
 
             Spacer()
 
@@ -128,29 +130,6 @@ public struct WMFHomeView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
-    }
-
-    private func tabButton(title: String, tab: WMFHomeViewModel.Tab, isForYou: Bool) -> some View {
-        let isSelected = viewModel.selectedTab == tab
-        return Button {
-            withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
-                viewModel.selectedTab = tab
-            }
-        } label: {
-            Text(title)
-                .font(Font(WMFFont.for(.semiboldSubheadline)))
-                .minimumScaleFactor(0.25)
-                .foregroundStyle(isForYou ? .white : .primary)
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
-                .background {
-                    if isSelected {
-                        if #available(iOS 26.0, *) {
-                            Capsule().fill(.clear).glassEffect(.regular.interactive(), in: Capsule())
-                        }
-                    }
-                }
-        }
     }
 
     // MARK: - For You Tab
