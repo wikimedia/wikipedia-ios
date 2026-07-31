@@ -180,6 +180,9 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     let previousPageViewObjectID: NSManagedObjectID?
     var beganViewingDate: Date?
 
+    /// True only while this article is the one the user is actually looking at. Multiple ArticleViewControllers stay alive at once (navigation stack, other tab bar stacks, article tabs), and they all observe the app-wide active/inactive notifications, so reading time must only accumulate for the on-screen one.
+    var isArticleOnScreen = false
+
     // Article Tabs-related properties
     var coordinator: ArticleTabCoordinating?
     var previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
@@ -481,6 +484,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
         
         presentModalsIfNeeded()
+        isArticleOnScreen = true
         trackBeganViewingDate()
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
@@ -642,6 +646,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         wTipObservationTask = nil
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
+        isArticleOnScreen = false
         persistPageViewedSecondsForWikipediaInReview()
 
         guard #available(iOS 18.0, *),

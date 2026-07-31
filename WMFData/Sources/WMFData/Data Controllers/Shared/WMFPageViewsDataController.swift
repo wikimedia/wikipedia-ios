@@ -108,13 +108,68 @@ public final class WMFLegacyPageView: Codable, @unchecked Sendable {
 
 public final class WMFPageViewsDataController: @unchecked Sendable {
 
-    private let coreDataStore: WMFCoreDataStore
+    /// Upper bound for a single continuous reading interval, and therefore for a plausible `numberOfSeconds` on one page view (a page view represents one opening of an article). Callers that measure reading time clamp to this before persisting; `clampInflatedPageViewSecondsIfNeeded()` applies the same ceiling retroactively.
+    public static let maximumReadingIntervalSeconds: TimeInterval = 60 * 60
 
-    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore) throws {
+    private let coreDataStore: WMFCoreDataStore
+    private let userDefaultsStore: WMFKeyValueStore?
+
+    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore) throws {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
         self.coreDataStore = coreDataStore
+        self.userDefaultsStore = userDefaultsStore
+    }
+
+    /// Whether the one time clamp of inflated `numberOfSeconds` values has already run.
+    public func didClampInflatedPageViewSeconds() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.didClampInflatedPageViewSeconds.rawValue)) ?? false
+    }
+
+    /// Caps any stored `numberOfSeconds` above `maximumReadingIntervalSeconds`, once per install.
+    ///
+    /// Before July 2026, every live `ArticleViewController` — not just the on-screen one — resumed its reading timer whenever the app became active, so page views accumulated the full length of each foreground session once per article held in memory. The reading time that behavior wrote is already on device, and no amount of correct measurement going forward removes it: `fetchPageViewMinutes` keeps summing those rows until they age out of the one year retention window (and Year in Review sums a whole year of them at once).
+    ///
+    /// A page view represents one opening of an article, so a stored value above the ceiling could not have been produced by reading alone. Clamping rather than zeroing keeps plausible history intact and only rewrites values that are implausible on their face.
+    ///
+    /// Known limitation: inflation spread thinly across many page views stays below the ceiling and survives. This reduces the extremes, it does not reconstruct the true totals — that is not recoverable, because the database records no per-interval detail.
+    ///
+    /// Throws without setting the flag if the update fails, so a later launch retries.
+    /// - Returns: The number of page views that were clamped.
+    @discardableResult
+    public func clampInflatedPageViewSecondsIfNeeded() async throws -> Int {
+
+        guard !didClampInflatedPageViewSeconds() else {
+            return 0
+        }
+
+        let ceiling = Int64(Self.maximumReadingIntervalSeconds)
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        let viewContext = try coreDataStore.viewContext
+
+        let clampedCount: Int = try await backgroundContext.perform {
+            let request = NSBatchUpdateRequest(entityName: "CDPageView")
+            request.predicate = NSPredicate(format: "numberOfSeconds > %lld", ceiling)
+            request.propertiesToUpdate = ["numberOfSeconds": ceiling]
+            request.resultType = .updatedObjectIDsResultType
+
+            guard let result = try backgroundContext.execute(request) as? NSBatchUpdateResult,
+                  let objectIDs = result.result as? [NSManagedObjectID] else {
+                return 0
+            }
+
+            // A batch update writes straight to the store, so contexts holding these objects need to be told.
+            if !objectIDs.isEmpty {
+                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: [NSUpdatedObjectsKey: objectIDs], into: [viewContext, backgroundContext])
+            }
+
+            return objectIDs.count
+        }
+
+        try userDefaultsStore?.save(key: WMFUserDefaultsKey.didClampInflatedPageViewSeconds.rawValue, value: true)
+
+        return clampedCount
     }
 
     public func addPageView(title: String, namespaceID: Int16, project: WMFProject, previousPageViewObjectID: NSManagedObjectID?, timestamp: Date? = nil) async throws -> NSManagedObjectID? {

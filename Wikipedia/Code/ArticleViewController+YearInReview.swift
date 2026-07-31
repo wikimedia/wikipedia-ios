@@ -4,7 +4,7 @@ import CocoaLumberjackSwift
 import WidgetKit
 
 extension ArticleViewController {
-    
+
     /// Persists CDPageView values in WMFData database. This will allow us to detect repeat article views, so we can display their most-viewed article in Year in Review
     /// Also begins tracking a viewed date. This is so that we can later save the number of viewed seconds when the user leaves the article view or backgrounds
     func persistPageViewsForWikipediaInReview() {
@@ -39,33 +39,46 @@ extension ArticleViewController {
               let beganViewingDate else {
             return
         }
-        
-        let numberOfSeconds = Date().timeIntervalSince(beganViewingDate)
-        
+
+        // Close out the interval before the async write, not inside it. Otherwise a second call arriving before the write finishes (for example leaving the article and immediately backgrounding the app) still sees a begin date and persists the same interval twice.
+        self.beganViewingDate = nil
+
+        let elapsed = Date().timeIntervalSince(beganViewingDate)
+
+        guard elapsed > 0 else {
+            return
+        }
+
+        // An interval longer than the ceiling is almost certainly one we failed to close — e.g. an iPad window that stayed "active" while the user worked in another app — rather than real reading.
+        let numberOfSeconds = min(elapsed, WMFPageViewsDataController.maximumReadingIntervalSeconds)
+
         Task {
             do {
                 let pageViewsDataController = try WMFPageViewsDataController()
                 try await pageViewsDataController.addPageViewSeconds(pageViewManagedObjectID: pageViewObjectID, numberOfSeconds: numberOfSeconds)
-                
-                self.beganViewingDate = nil
             } catch let error {
                 DDLogError("Error appending viewed seconds: \(error)")
             }
         }
     }
-    
+
     /// Begins tracking a viewed date. This is so that we can later save the number of viewed seconds when the user leaves the article view or backgrounds
     func trackBeganViewingDate() {
-        
+
         guard articleURL.wmf_title != "Main Page" else {
             return
         }
-        
+
+        // Only the article the user is actually looking at should accumulate reading time. Every live ArticleViewController observes UIApplication.didBecomeActiveNotification, so without this the off-screen ones (earlier entries in the navigation stack, other tab bar stacks, other article tabs) each record the full foreground session too, multiplying the reported total by the number of articles held in memory.
+        guard isArticleOnScreen else {
+            return
+        }
+
         guard pageViewObjectID != nil,
               beganViewingDate == nil else {
             return
         }
-        
+
         self.beganViewingDate = Date()
     }
 }

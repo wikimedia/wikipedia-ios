@@ -89,8 +89,9 @@ public actor WMFActivityTabDataController {
         let calendar = Calendar.current
         let now = Date()
 
+        // Today plus the six preceding days, so the window the UI labels as a week is actually seven days wide.
         guard let startOfToday = calendar.startOfDay(for: now) as Date?,
-              let startDate = calendar.date(byAdding: .day, value: -7, to: startOfToday),
+              let startDate = calendar.date(byAdding: .day, value: -6, to: startOfToday),
               let endDate = calendar.date(byAdding: .day, value: 1, to: startOfToday)?.addingTimeInterval(-1) else { return (0, 0) }
 
         let dataController = try WMFPageViewsDataController()
