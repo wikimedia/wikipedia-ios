@@ -9,7 +9,7 @@ on:
         type: boolean
         default: false
       version_override:
-        description: "Override the version (YYYY.MM.DD) instead of using today's date - e.g. to build a fix under an already-submitted release candidate's version after Apple rejects it. Leave blank to use today's date."
+        description: "Override the version (YYYY.MM.DD) instead of using today's date. Set this to continue an existing release cycle instead of starting a new one. Leave blank to use today's date."
         required: false
         type: string
         default: ''
