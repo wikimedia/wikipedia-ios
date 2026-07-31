@@ -197,12 +197,10 @@ public struct WMFHomeFeedInterestsSettingsView: View {
                             let isSelecting = !viewModel.selectedTopics.contains(topic)
                             viewModel.toggleTopic(topic)
                             if isSelecting {
-                                // Selection moves the chip to the front of the row, which can
-                                // land off-screen — follow it after the reorder settles.
+                                // Selection moves the chip into the selected group, which can
+                                // land off-screen — follow it, instantly (see below).
                                 Task { @MainActor in
-                                    withAnimation {
-                                        proxy.scrollTo(topic)
-                                    }
+                                    proxy.scrollTo(topic)
                                 }
                             }
                         }
@@ -210,7 +208,8 @@ public struct WMFHomeFeedInterestsSettingsView: View {
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 12)
-                .animation(.default, value: viewModel.selectedTopics)
+                // Deliberately unanimated: animating the reorder made chips swap places and
+                // the +/checkmark icon slide. Selection should apply instantly (per design).
             }
         }
     }

@@ -113,18 +113,31 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
     }
 
     @Test
-    func orderedTopicsMoveSelectionToFrontAlphabetically() {
+    func orderedTopicsMoveSelectionToFrontInSelectionOrder() {
         let viewModel = makeViewModel()
         viewModel.toggleTopic(.education)
         #expect(viewModel.orderedTopics.first == .education)
 
-        // A later selection that sorts earlier alphabetically goes in front
+        // A later selection lands after the previous one, regardless of alphabetical order
         viewModel.toggleTopic(.architecture)
-        #expect(Array(viewModel.orderedTopics.prefix(2)) == [.architecture, .education])
+        #expect(Array(viewModel.orderedTopics.prefix(2)) == [.education, .architecture])
 
         // Unselected topics keep their default order after the selected group
         let unselected = viewModel.orderedTopics.dropFirst(2)
         #expect(Array(unselected) == viewModel.topics.filter { $0 != .architecture && $0 != .education })
+    }
+
+    @Test
+    func orderedTopicsKeepSelectionOrderAcrossReload() {
+        // Selection order is what the chips row shows, so it has to survive persistence —
+        // a store that deduped or sorted (e.g. via Set) would silently reshuffle the row.
+        let store = WMFMockKeyValueStore()
+        let first = makeViewModel(store: store)
+        first.toggleTopic(.music)
+        first.toggleTopic(.architecture)
+
+        let reloaded = makeViewModel(store: store)
+        #expect(Array(reloaded.orderedTopics.prefix(2)) == [.music, .architecture])
     }
 
     @Test
