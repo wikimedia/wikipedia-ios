@@ -139,6 +139,7 @@ platform :ios do
       automatic_release: false,
       phased_release: true,
       reset_ratings: false,
+      force: true,
       skip_screenshots: true,
       skip_metadata: false,
       metadata_path: "fastlane/metadata",
