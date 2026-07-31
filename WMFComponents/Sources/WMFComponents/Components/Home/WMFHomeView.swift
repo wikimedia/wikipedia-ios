@@ -35,7 +35,7 @@ public struct WMFHomeView: View {
             ZStack(alignment: .top) {
                 forYouTabContent
                     .ignoresSafeArea()
-                headerBar
+                headerBar(isForYou: true)
                     .padding(.top, safeAreaTop + 52)
             }
             .ignoresSafeArea()
@@ -44,7 +44,7 @@ public struct WMFHomeView: View {
             communitySection
         }
     }
-    
+
     @ViewBuilder
     private var communitySection: some View {
         if #available(iOS 26.0, *) {
@@ -52,11 +52,11 @@ public struct WMFHomeView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea(.container, edges: .top)
                 .safeAreaInset(edge: .top, spacing: 0) {
-                    headerBar
+                    headerBar(isForYou: false)
                 }
         } else {
             VStack(spacing: 0) {
-                headerBar
+                headerBar(isForYou: false)
                 communityTabContent
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -64,11 +64,11 @@ public struct WMFHomeView: View {
         }
     }
 
-    private var headerBar: some View {
+    private func headerBar(isForYou: Bool) -> some View {
         HStack(spacing: 8) {
             HStack(spacing: 2) {
-                tabButton(title: viewModel.communityTabTitle, tab: .community)
-                tabButton(title: viewModel.forYouTabTitle, tab: .forYou)
+                tabButton(title: viewModel.communityTabTitle, tab: .community, isForYou: isForYou)
+                tabButton(title: viewModel.forYouTabTitle, tab: .forYou, isForYou: isForYou)
             }
             .padding(3)
             .background {
@@ -108,9 +108,11 @@ public struct WMFHomeView: View {
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
                         .dynamicTypeSize(.xSmall ... .large)
                         .minimumScaleFactor(0.25)
+                        .foregroundStyle(isForYou ? .white : .primary)
                         .lineLimit(1)
                     Image(systemName: "chevron.up.chevron.down")
                         .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(isForYou ? .white : .primary)
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
@@ -128,8 +130,7 @@ public struct WMFHomeView: View {
         .padding(.vertical, 8)
     }
 
-
-    private func tabButton(title: String, tab: WMFHomeViewModel.Tab) -> some View {
+    private func tabButton(title: String, tab: WMFHomeViewModel.Tab, isForYou: Bool) -> some View {
         let isSelected = viewModel.selectedTab == tab
         return Button {
             withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
@@ -139,14 +140,13 @@ public struct WMFHomeView: View {
             Text(title)
                 .font(Font(WMFFont.for(.semiboldSubheadline)))
                 .minimumScaleFactor(0.25)
+                .foregroundStyle(isForYou ? .white : .primary)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
                 .background {
                     if isSelected {
                         if #available(iOS 26.0, *) {
                             Capsule().fill(.clear).glassEffect(.regular.interactive(), in: Capsule())
-                        } else {
-                        
                         }
                     }
                 }
