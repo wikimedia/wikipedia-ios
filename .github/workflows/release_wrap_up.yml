@@ -120,7 +120,11 @@ jobs:
             pattern = re.compile(rf'(\*\*{re.escape(field)}\*\*:).*')
             if pattern.search(description):
               return pattern.sub(rf'\1 {value}', description, count=1)
-            return description.rstrip() + f"\n\n**{field}**: {value}"
+            insertion = f"**{field}**: {value}"
+            if '**Included Tasks:**' in description:
+              before, marker, after = description.partition('**Included Tasks:**')
+              return before.rstrip() + "\n" + insertion + "\n\n" + marker + after
+            return description.rstrip() + f"\n\n{insertion}"
 
           description = set_field(description, 'Release tag', release_tag)
           description = set_field(description, 'Release SHA1', sha)

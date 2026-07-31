@@ -184,6 +184,7 @@ jobs:
       - name: Update release task with release branch and submission date
         env:
           PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
+          VERSION: ${{ steps.versioning.outputs.version }}
           BRANCH: ${{ env.branch }}
           SUBMIT_FOR_REVIEW: ${{ github.event.inputs.submit_for_review }}
         run: |
@@ -196,6 +197,7 @@ jobs:
           from datetime import datetime, timezone
 
           token = os.environ['PHAB_TOKEN']
+          version = os.environ['VERSION']
           branch = os.environ['BRANCH']
           submit_for_review = os.environ['SUBMIT_FOR_REVIEW'] == 'true'
 
@@ -250,8 +252,13 @@ jobs:
             pattern = re.compile(rf'(\*\*{re.escape(field)}\*\*:).*')
             if pattern.search(description):
               return pattern.sub(rf'\1 {value}', description, count=1)
-            return description.rstrip() + f"\n\n**{field}**: {value}"
+            insertion = f"**{field}**: {value}"
+            if '**Included Tasks:**' in description:
+              before, marker, after = description.partition('**Included Tasks:**')
+              return before.rstrip() + "\n" + insertion + "\n\n" + marker + after
+            return description.rstrip() + f"\n\n{insertion}"
 
+          description = set_field(description, 'Release version', version)
           description = set_field(description, 'Release branch', branch)
 
           if submit_for_review:
@@ -264,15 +271,17 @@ jobs:
             data=urllib.parse.urlencode({
               'api.token': token,
               'objectIdentifier': task_phid,
-              'transactions[0][type]': 'description',
-              'transactions[0][value]': description,
+              'transactions[0][type]': 'title',
+              'transactions[0][value]': f'Release {version}',
+              'transactions[1][type]': 'description',
+              'transactions[1][value]': description,
             }).encode()
           )
 
           with urllib.request.urlopen(req) as resp:
             result = json.loads(resp.read())
             if not result.get('error_code'):
-              print(f"✓ Updated release task (branch={branch}, submitted={submit_for_review})")
+              print(f"✓ Updated release task to 'Release {version}' (branch={branch}, submitted={submit_for_review})")
             else:
               print(f"✗ Failed to update release task: {result.get('error_info')}")
           EOF
