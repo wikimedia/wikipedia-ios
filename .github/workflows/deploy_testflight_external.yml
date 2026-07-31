@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version_override:
-        description: "Override the version (YYYY.MM.DD) instead of using today's date. Set this to continue an existing release cycle instead of starting a new one. Leave blank to use today's date."
+        description: "Override the version (YYYY.MM.DD) instead of using today's date - use this to reuse an existing version instead of getting a new one. Leave blank to use today's date."
         required: false
         type: string
         default: ''
