@@ -138,6 +138,7 @@ platform :ios do
       submit_for_review: should_submit,
       automatic_release: false,
       phased_release: true,
+      reset_ratings: false,
       skip_screenshots: true,
       skip_metadata: false,
       metadata_path: "fastlane/metadata",
