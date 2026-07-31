@@ -47,7 +47,7 @@ public struct WMFOneTimeOnboardingView: View {
                         .padding(.vertical, 14)
                         .background(Color(uiColor: theme.link), in: Capsule())
                 }
-                //.accessibilityIdentifier(AccessibilityIdentifiers.OneTimeOnboarding.customizeButton)
+                // .accessibilityIdentifier(AccessibilityIdentifiers.OneTimeOnboarding.customizeButton)
 
                 Button {
                     viewModel.onAutoSetup?()
@@ -58,7 +58,7 @@ public struct WMFOneTimeOnboardingView: View {
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 14)
                 }
-                //.accessibilityIdentifier(AccessibilityIdentifiers.OneTimeOnboarding.autoSetupButton)
+                // .accessibilityIdentifier(AccessibilityIdentifiers.OneTimeOnboarding.autoSetupButton)
             }
             .padding(.horizontal, 24)
             .padding(.vertical, 16)

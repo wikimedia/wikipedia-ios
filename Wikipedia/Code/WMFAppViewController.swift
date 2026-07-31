@@ -1051,6 +1051,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             resumeAndAnnouncementsCompleteGroup.leave()
             self.performTasksThatShouldOccurAfterBecomeActiveAndResume()
             self.showLoggedOutPanelIfNeeded()
+            self.presentOneTimeHomeOnboardingIfNeeded()
             let key = WMFUserDefaultsKey.needsDailyGameFeedRefresh.rawValue
             if UserDefaults.standard.bool(forKey: key) {
                 UserDefaults.standard.removeObject(forKey: key)
@@ -1091,6 +1092,46 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         defaults.wmf_setLocationAuthorized(locationAuthorized)
 
         savedArticlesFetcher?.start()
+    }
+    
+    private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
+    
+    private func presentOneTimeHomeOnboardingIfNeeded() {
+        let defaults = UserDefaults.standard
+        let isNewInstall = defaults.bool(forKey: WMFUserDefaultsKey.didSendNewInstallOnboardingStartEvent.rawValue)
+        let alwaysShow = WMFDeveloperSettingsDataController.shared.alwaysShowNewOnboarding
+        let hasSeen = defaults.bool(forKey: WMFUserDefaultsKey.hasSeenNewHomeOnboarding.rawValue)
+
+       // guard !isNewInstall && (alwaysShow || !hasSeen) else { return }
+
+        defaults.set(false, forKey: WMFUserDefaultsKey.hasSeenNewHomeOnboarding.rawValue)
+
+        let viewModel = WMFOneTimeOnboardingViewModel()
+        let oneTimeVC = WMFComponentHostingController(rootView: WMFOneTimeOnboardingView(viewModel: viewModel))
+        oneTimeVC.modalPresentationStyle = .pageSheet
+
+        viewModel.onCustomize = { [weak self, weak oneTimeVC] in
+            oneTimeVC?.dismiss(animated: true) {
+                guard let self,
+                      let navController = self.viewControllers?[WMFAppTabType.main.rawValue] as? UINavigationController else { return }
+                let coordinator = HomeFeedSettingsCoordinator(
+                    navigationController: navController,
+                    theme: self.theme,
+                    initialView: .root,
+                    presentation: .modal
+                )
+                self.homeFeedSettingsCoordinator = coordinator
+                coordinator.start()
+            }
+        }
+
+        viewModel.onAutoSetup = { [weak oneTimeVC] in
+            oneTimeVC?.dismiss(animated: true)
+        }
+
+        DispatchQueue.main.async {
+            self.present(oneTimeVC, animated: true)
+        }
     }
 
     private func timeBeforeRefreshingExploreFeed() -> TimeInterval {
