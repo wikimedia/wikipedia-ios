@@ -1,6 +1,8 @@
 name: Internal TestFlight
 
 on:
+  schedule:
+    - cron: '0 10 * * *' # run at 10AM UTC
   workflow_dispatch:
     inputs:
       version_override:
