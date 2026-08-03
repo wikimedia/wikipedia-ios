@@ -178,8 +178,7 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --title "Merge $BRANCH back to main" \
-            --body "Release $VERSION shipped with changes on $BRANCH that aren't on main yet (e.g. post-rejection fixes). This PR brings them back." \
-            --label "Release-$VERSION"
+            --body "Release $VERSION shipped with changes on $BRANCH that aren't on main yet (e.g. post-rejection fixes). This PR brings them back. Needs a Release-* label added manually before it can merge (see check_versions.yml)."
           echo "Opened PR to merge $BRANCH into main - branch left in place until it merges"
 
       # -------------------------------------------------------
