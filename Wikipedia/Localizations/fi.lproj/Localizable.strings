@@ -1051,8 +1051,6 @@
 "reading-list-generic-error" = "Odottamaton virhe tapahtui lukulistaasi päivittäessä.";
 "reading-list-keep-button-title" = "Kyllä, säilytä artikkelit laitteessa";
 "reading-list-keep-subtitle" = "Artikkelit on synkronoitu Wikipedia-tunnukseesi. Säilytetäänkö ne tässä laitteessa uloskirjautumisen jälkeen?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Synkronoinnin poistaminen käytöstä poistaa nämä artikkelit tunnukseltasi. Jos poistat ne laitteeltasi, niitä ei voida palauttaa kytkemällä synkronointia takaisin päälle myöhemmin.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Ei, poista artikkelit laitteesta ja Wikipedia-tunnukseltani";
 "reading-list-keep-title" = "Säilytetäänkö tallennetut artikkelit laitteessa?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Lajittele artikkelit";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Lajittelemattomien artikkeleiden maksimimäärä on 5000. Lajittele olemassaolevat artikkelit listoihin jatkaaksesi lajittelemattomien artikkeleiden synkronointia.";
@@ -1180,11 +1178,6 @@
 "settings-search-open-app-on-search" = "Avaa sovellus Haku-näkymään";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Salli Wikimedian tallentaa tallennetut artikkelisi ja lukulistasi käyttäjäasetuksiisi.";
 "settings-storage-and-syncing-enable-sync-title" = "Synkronoi tallennetut artikkelit ja luettelot";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Tallennettujen artikkeleiden tyhjentäminen poistaa ne käyttäjätunnukseltasi, jos sinulla on synkronointi käytössä tällä laitteella. Tätä toimintoa ei voi kumota.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Poistetaanko kaikki tallennetut artikkelit?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Poista";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Tähän laitteeseen ja käyttäjätunnuksellesi tallennetut artikkelit poistetaan, vaikka synkronointi olisi kytketty päälle.\n\nTallennustilaa vapautuu noin $1.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Poista tallennetut artikkelit";
 "settings-storage-and-syncing-full-sync" = "Lukulistasi synkronoidaan taustalla";
 "settings-storage-and-syncing-server-sync-footer-text" = "Päivitä synkronoidut artikkelit ja lukulistat.";
 "settings-storage-and-syncing-server-sync-title" = "Päivitä synkronoidut lukulistat";

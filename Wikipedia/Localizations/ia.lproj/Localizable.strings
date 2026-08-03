@@ -1078,8 +1078,6 @@
 "reading-list-generic-error" = "Un error inexpectate ha occurrite durante le actualisation de tu listas de lectura.";
 "reading-list-keep-button-title" = "Si, mantener articulos sur apparato";
 "reading-list-keep-subtitle" = "Il ha articulos synchronisate con tu conto de Wikipedia. Vole tu mantener los sur iste apparato post clauder session?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Disactivar le synchronisation removera iste articulos de tu conto. Si tu los remove de tu apparato, illos non essera recuperabile si tu reactiva le synchronisation in le futuro.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "No, remover le articulos de mi apparato e de mi conto de Wikiepdia";
 "reading-list-keep-title" = "Mantener articulos salveguardate sur apparato?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordinar articulos";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Il ha un limite de 5000 articulos non ordinate. Per favor ordina tu articulos existente in listas pro continuar le synchronisation de articulos non ordinate.";
@@ -1215,11 +1213,6 @@
 "settings-search-open-app-on-search" = "Aperir application in scheda Cercar";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitter a Wikimedia immagazinar tu articulos salveguardate e listas de lectura in tu preferentias de usator quando tu aperi session e synchronisa.";
 "settings-storage-and-syncing-enable-sync-title" = "Synchronisar articulos salveguardate e listas";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Rader le articulos salveguardate los removera de tu conto de usator si tu ha le synchronisation activate, e de iste apparato. Tu non pote disfacer iste action.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Rader tote le articulos salveguardate?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Rader";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Rader le articulos salveguardate los removera de tu conto de usator si tu ha le synchronisation activate, e de iste apparato.\n\nRader tu articulos salveguardate liberara circa $1 de spatio.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Rader articulos salveguardate";
 "settings-storage-and-syncing-full-sync" = "Tu listas de lectura essera synchronisate in secunde plano";
 "settings-storage-and-syncing-server-sync-footer-text" = "Requestar un actualisation de tu articulos synchronisate e listas de lectura";
 "settings-storage-and-syncing-server-sync-title" = "Actualisar listas de lectura synchronisate";

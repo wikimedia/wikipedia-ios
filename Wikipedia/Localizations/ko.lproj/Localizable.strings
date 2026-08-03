@@ -1216,8 +1216,6 @@
 "reading-list-generic-error" = "읽기 목록을 업데이트하는 동안 예측하지 못한 오류가 발생했습니다.";
 "reading-list-keep-button-title" = "예, 장치에 문서를 보관합니다";
 "reading-list-keep-subtitle" = "위키백과 계정에 동기화된 문서가 있습니다. 로그아웃한 뒤에 이 문서들을 이 장치에 보관하시겠습니까?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "동기화를 끄면 계정에 속한 이 문서들이 제거됩니다. 장치에서 이 문서들을 제거하면 나중에 동기화를 다시 켤 때 복구되지 않습니다.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "아니요, 장치와 내 위키백과 문서에서 문서를 제거합니다";
 "reading-list-keep-title" = "저장된 문서를 장치에 보관할까요?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "문서 정렬";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "500건의 정렬되지 않은 문서 제한이 있습니다. 정렬되지 않은 문서를 계속 정렬하려면 기존 문서들을 목록으로 정렬시켜 주십시오.";
@@ -1354,11 +1352,6 @@
 "settings-search-open-app-on-search" = "검색 탭에서 앱 열기";
 "settings-storage-and-syncing-enable-sync-footer-text" = "로그인하고 동기화할 때 내가 저장한 문서와 읽기 목록을 위키미디어가 환경 설정에 저장할 수 있게 합니다.";
 "settings-storage-and-syncing-enable-sync-title" = "저장된 문서와 목록 동기화";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "저장된 문서를 지우면 동기화를 켤 경우 이 장치뿐 아니라 사용자 계정에서도 문서가 제거됩니다. 이 작업은 취소할 수 없습니다.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "저장된 모든 문서를 삭제할까요?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "삭제";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "동기화가 켜져있는 중에 저장된 문서를 지우면 이 장치뿐 아니라 사용자 계정에서도 제거됩니다.\n\n저장된 문서를 지우면 약 $1의 공간을 확보하게 됩니다.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "저장된 문서 삭제";
 "settings-storage-and-syncing-full-sync" = "읽기 목록이 백그라운드 상태로 동기화됩니다";
 "settings-storage-and-syncing-server-sync-footer-text" = "동기화된 문서와 읽기 목록의 업데이트를 요청합니다.";
 "settings-storage-and-syncing-server-sync-title" = "동기화된 읽기 목록 업데이트";
