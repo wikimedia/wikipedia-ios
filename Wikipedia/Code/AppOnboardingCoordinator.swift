@@ -106,13 +106,12 @@ final class AppOnboardingCoordinator: NSObject {
         if viewModel?.interestsViewModel.hasChanges == true {
             NotificationCenter.default.post(name: WMFNSNotification.forYouInterestsDidChange, object: nil)
         }
-        // The skip path resets the selection to the default before completion
         if let seeFirst = viewModel?.feedPreferenceViewModel.selection {
             WMFHomeDataController.shared.setSeeFirstContent(seeFirst)
         }
-        hostingController?.dismiss(animated: true) { [weak self] in
-            self?.completion()
-        }
+        let hostingController = self.hostingController
+        completion()
+        hostingController?.dismiss(animated: true)
     }
 }
 
