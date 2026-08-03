@@ -21,7 +21,7 @@ public struct WMFAppOnboardingView: View {
     /// Bottom inset so scrollable step content isn't covered by the floating toolbar.
     static let toolbarContentInset: CGFloat = 96
 
-    /// Space above the interests step's header. Unlike Settings, onboarding has no navigation so ie needs extra space
+    /// Space above the interests step's header. Unlike Settings, onboarding has no navigation so it needs extra space.
     static let interestsTopContentInset: CGFloat = 32
 
     public var body: some View {

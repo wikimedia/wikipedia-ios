@@ -348,12 +348,18 @@ private struct WMFNewsStoryCard: View {
 @MainActor
 private final class WMFNewsStoryImageViewModel: ObservableObject {
     @Published var uiImage: UIImage?
+    private var loadTask: Task<Void, Never>?
 
     func load(url: URL) {
-        Task {
+        loadTask?.cancel()
+        loadTask = Task {
             guard let data = try? await WMFImageDataController.shared.fetchImageData(url: url) else { return }
             self.uiImage = UIImage(data: data)
         }
+    }
+
+    deinit {
+        loadTask?.cancel()
     }
 }
 

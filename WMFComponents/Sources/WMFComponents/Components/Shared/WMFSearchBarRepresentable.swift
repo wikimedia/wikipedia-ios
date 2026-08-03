@@ -50,6 +50,7 @@ struct WMFSearchBarRepresentable: UIViewRepresentable {
         Coordinator(self)
     }
 
+    @MainActor
     final class Coordinator: NSObject, UISearchBarDelegate {
 
         var parent: WMFSearchBarRepresentable
