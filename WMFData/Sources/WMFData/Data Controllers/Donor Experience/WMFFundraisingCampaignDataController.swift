@@ -342,7 +342,7 @@ import Foundation
 
                 let actions: [WMFFundraisingCampaignConfig.WMFAsset.WMFAction] = randomAsset.actions.map { action in
                     
-                    guard let urlString = action.urlString?.replacingOccurrences(of: "$platform;", with: "iOS"),
+                    guard let urlString = action.urlString,
                        let url = URL(string: urlString) else {
                         return WMFFundraisingCampaignConfig.WMFAsset.WMFAction(title: action.title, url: nil)
                     }
