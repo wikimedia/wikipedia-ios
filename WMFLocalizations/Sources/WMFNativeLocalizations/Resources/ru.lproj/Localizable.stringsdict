@@ -1089,10 +1089,42 @@
 			<string>байт</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format-updated</key>
+	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Вы редактировали Википедию %#@v1@</string>
+		<string>Редакторы сделали %#@v1@ в официальных приложениях Википедии</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>%1$lld правки</string>
+			<key>one</key>
+			<string>%1$lld правку</string>
+			<key>other</key>
+			<string>%1$lld правок</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-edits-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Википедия редактировалась %#@v1@ в минуту</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d раз</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Википедия доступна на более чем %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1100,9 +1132,41 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d раз</string>
+			<string>%1$d языке</string>
 			<key>other</key>
-			<string>раз</string>
+			<string>%1$d языках</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-viewed-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Пользователи приложения просмотрели статьи Википедии %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld раз</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Вы сделали %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d правки</string>
+			<key>one</key>
+			<string>%1$d правку</string>
+			<key>other</key>
+			<string>%1$d правок</string>
 		</dict>
 	</dict>
 </dict>

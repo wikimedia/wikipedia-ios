@@ -699,7 +699,6 @@
 "reading-list-exists-with-same-name" = "ਪਡ਼੍ਹਨ ਦੀ ਸੂਚੀ ਦਾ ਨਾਂ ਪਹਿਲਾਂ ਤੋਂ ਹੀ ਵਰਤੋਂ ਵਿੱਚ ਹੈ";
 "reading-list-generic-error" = "ਤੁਹਾਡੀ ਪਡ਼੍ਹਨ ਦੀਆਂ ਸੂਚੀਆਂ ਨੂੰ ਨਵਿਆਓਣ ਸਮੇਂ ਅਚਾਨਕ ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ।";
 "reading-list-keep-button-title" = "ਹਾਂ, ਲੇਖਾਂ ਨੂੰ ਜੰਤਰ ਉੱਤੇ ਰੱਖੋ";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "ਨਹੀਂ, ਜੰਤਰ ਅਤੇ ਮੇਰੇ ਵਿਕੀਪੀਡੀਆ ਖਾਤੇ ਤੋਂ ਲੇਖਾਂ ਨੂੰ ਹਟਾਓ";
 "reading-list-keep-title" = "ਕੀ ਸੰਭਾਲੇ ਲੇਖਾਂ ਨੂੰ ਜੰਤਰ ਉੱਤੇ ਰੱਖਣਾ ਹੈ?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "ਲੇਖਾਂ ਨੂੰ ਛਾਂਟੋ";
 "reading-list-login-button-title" = "ਆਪਣੇ ਸੰਭਾਲੇ ਲੇਖਾਂ ਨੂੰ ਸਮਕਾਲੀ ਕਰਨ ਲਈ ਦਾਖ਼ਲ ਹੋਵੋ";
@@ -784,9 +783,6 @@
 "settings-primary-language" = "ਮੁੱਢਲੀ";
 "settings-primary-language-details" = "ਇਸ ਸੂਚੀ ਵਿੱਚ ਪਹਿਲੀ ਭਾਸ਼ਾ ਐਪ ਲਈ ਮੁੱਢਲੀ ਭਾਸ਼ਾ ਵਜੋਂ ਵਰਤੀ ਜਾਂਦੀ ਹੈ।";
 "settings-storage-and-syncing-enable-sync-title" = "ਸੰਭਾਲੇ ਲੇਖ ਅਤੇ ਸੂਚੀਆਂ ਨੂੰ ਸਮਕਾਲੀ ਕਰੋ";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "ਕੀ ਸਾਰੇ ਸੁਰੱਖਿਅਤ ਕੀਤੇ ਲੇਖਾਂ ਨੂੰ ਮਿਟਾਉਣਾ ਹੈ?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "ਮਿਟਾਓ";
-"settings-storage-and-syncing-erase-saved-articles-title" = "ਸੁਰੱਖਿਅਤ ਕੀਤੇ ਲੇਖਾਂ ਨੂੰ ਮਿਟਾਓ";
 "settings-storage-and-syncing-show-default-reading-list-title" = "ਸੰਭਾਲੀ ਗਈ ਪਡ਼੍ਹਨ ਦੀ ਸੂਚੀ ਵਿਖਾਓ";
 "settings-storage-and-syncing-title" = "ਲੇਖ ਦਾ ਭੰਡਾਰ ਅਤੇ ਸਮਕਾਲੀਕਰਨ";
 "settings-title" = "ਮੁਰੰਮਤਾਂ";

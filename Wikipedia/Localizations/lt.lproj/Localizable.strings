@@ -693,8 +693,6 @@
 "reading-list-generic-error" = "Atnaujinant jūsų skaitymo sąrašus įvyko netikėta klaida.";
 "reading-list-keep-button-title" = "Taip, išlaikyti straipsnius įrenginyje";
 "reading-list-keep-subtitle" = "Yra straipsnių, sinchronizuotu su jūsų Vikipedijos paskyra. Ar norėtumėte išlaikyti juos savo įrenginyje atsijungus?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Sinchronizavimo išjungimas pašalins šiuos straipsnius iš jūsų paskyros. Jei pašalinsite juos iš savo įrenginio, jie nebus atstatomi įjungus sinchronizaciją pakartotinai ateityje.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Ne, pašalinti straipsnius iš įrenginio ir mano Vikipedijos paskyros";
 "reading-list-keep-title" = "Išlaikyti išsaugotos straipsnius įrenginyje?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Rūšiuoti straipsnius";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Yra 5000 nerūšiuotų straipsnių limitas. Prašome išrūšiuoti savo egzistuojančius straipsnius į sąrašas, kad toliau būtų sinchronizuojami neišrūšiuoti straipsniai.";
@@ -800,11 +798,6 @@
 "settings-search-footer-text" = "Nustatyti, kad programėlė atsidarytu paieškos skirtuke, o ne Tyrinėjimo skirtuke.";
 "settings-search-open-app-on-search" = "Atidaryti programėlę paieškos skirtuke";
 "settings-storage-and-syncing-enable-sync-title" = "Sinchronizuoti išsaugotos straipsnius ir sąrašus";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Jūsų išsaugotų straipsnių ištrynimas pašalins juos iš jūsų naudotojo paskyros, jei esate įgalinę sinchronizavimą, taip pat ir iš šio įrenginio. Anuliuoti šio veiksmo negalite.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Ištrinti visus išsaugotos straipsnius?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Ištrinti";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Jūsų išsaugotų straipsnių ištrynimas pašalins juos iš jūsų naudotojo paskyros, jei esate įgalinę sinchronizavimą, taip pat ir iš šio įrenginio.\n\nJūsų išsaugotų straipsnių ištrynimas atlaisvins apytiksliai $1 vietos.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Ištrinti išsaugotos straipsnius";
 "settings-storage-and-syncing-full-sync" = "Jūsų skaitymo sąrašai bus sinchronizuojami fone";
 "settings-storage-and-syncing-server-sync-footer-text" = "Prašyti savo sinchronizuojamų straipsnių ir skaitymo sąrašų atnaujinimo.";
 "settings-storage-and-syncing-server-sync-title" = "Atnaujinti sinchronizuojamus skaitymo sąrašus";

@@ -256,15 +256,17 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         case .downloading:
             fallthrough
         case .articleError:
-            if article.error != .none {
-                isAlertButtonHidden = false
-                alertType = .articleError(article.error)
-            } else if !article.isDownloaded {
-                isAlertButtonHidden = false
-                alertType = .downloading
-            } else {
+            // A download error is only relevant while the article isn't downloaded —
+            // a stale error from a failed earlier attempt must not outlive a successful retry.
+            if article.isDownloaded {
                 isAlertButtonHidden = true
                 alertType = nil
+            } else if article.error != .none {
+                isAlertButtonHidden = false
+                alertType = .articleError(article.error)
+            } else {
+                isAlertButtonHidden = false
+                alertType = .downloading
             }
         default:
             break

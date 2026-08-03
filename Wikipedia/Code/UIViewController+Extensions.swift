@@ -7,7 +7,7 @@ import WMFNativeLocalizations
 // MARK: - KeepSavedArticlesTrigger
 
 @objc enum KeepSavedArticlesTrigger: Int {
-    case logout, syncDisabled
+    case logout
 }
 
 // MARK: - UIViewController Reusable alerts
@@ -274,16 +274,8 @@ extension UIViewController {
         }
 
         let keepTitle = WMFLocalizedString("reading-list-keep-button-title", value: "Yes, keep articles on device", comment: "Title for button to keep synced articles on device.")
-        let removeTitle: String
-        let message: String
-
-        if keepSavedArticlesTrigger == .logout {
-            message = CommonStrings.keepSavedArticlesOnDeviceMessage
-            removeTitle = CommonStrings.readingListDoNotKeepSubtitle
-        } else {
-            message = CommonStrings.keepSavedArticlesOnDeviceMessage + "\n\n" + WMFLocalizedString("reading-list-keep-sync-disabled-additional-subtitle", value: "Turning sync off will remove these articles from your account. If you remove them from your device they will not be recoverable by turning sync on again in the future.", comment: "Additional subtitle informing user that turning sync off will remove saved articles from their account.")
-            removeTitle = WMFLocalizedString("reading-list-keep-sync-disabled-remove-article-button-title", value: "No, remove articles from device and my Wikipedia account", comment: "Title for button that removes save articles from device and Wikipedia account.")
-        }
+        let message = CommonStrings.keepSavedArticlesOnDeviceMessage
+        let removeTitle = CommonStrings.readingListDoNotKeepSubtitle
 
         let alert = UIAlertController(
             title: WMFLocalizedString("reading-list-keep-title", value: "Keep saved articles on device?", comment: "Title for keeping save articles on device."),
