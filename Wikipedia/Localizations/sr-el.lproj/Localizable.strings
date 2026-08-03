@@ -730,8 +730,6 @@
 "reading-list-generic-error" = "Došlo je do neočekivane greške pri ažuriranju vaših lista za čitanje.";
 "reading-list-keep-button-title" = "Da, zadrži članke na uređaju";
 "reading-list-keep-subtitle" = "Postoje članci koji su sinhronizovani sa vašim nalogom na Vikipediji. Želite li da ih zadržite na ovom uređaju nakon što se odjavite?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Isključivanjem sinhronizacije, uklonićete ove članke sa svog naloga. Ako ih uklonite sa uređaja, oni se neće moći vratiti kada ponovo uključite sinhronizaciju.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Ne, ukloni članke sa uređaja i mog naloga na Vikipediji";
 "reading-list-keep-title" = "Zadržati sačuvane članke na uređaju?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sortiraj članke";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Možete da imate najviše 5000 nesortiranih članaka. Organizujte postojeće članke po listama da biste ponovo sinhronizovali nesortirane članke.";
@@ -851,11 +849,6 @@
 "settings-search-open-app-on-search" = "Otvori aplikaciju u kartici „Pretraži”";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Dozvolite Vikimediji da čuva članke i liste za čitanje u vašim podešavanjima pri prijavljivanju i sinhronizovanju.";
 "settings-storage-and-syncing-enable-sync-title" = "Sinhronizuj sačuvane članke i liste";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Brisanjem sačuvanih članaka, uklonićete ih sa korisničkog naloga, ako je sinhronizacija uključena i na ovom uređaju. Ova radnja je nepovratna.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Izbrisati sve sačuvane članke?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Izbriši";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Brisanjem sačuvanih članaka, uklonićete ih sa korisničkog naloga, ako je sinhronizacija uključena i na ovom uređaju.\n\nBrisanjem ćete osloboditi oko $1 prostora.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Izbriši sačuvane članke";
 "settings-storage-and-syncing-full-sync" = "Vaše liste za čitanje će se sinhronizovati u pozadini";
 "settings-storage-and-syncing-server-sync-footer-text" = "Zahtevajte ažuriranje sinhronizovanih članaka i lista za čitanje.";
 "settings-storage-and-syncing-server-sync-title" = "Ažuriraj sinhronizovane liste za čitanje";
