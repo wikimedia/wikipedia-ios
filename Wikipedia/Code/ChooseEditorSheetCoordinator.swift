@@ -31,13 +31,14 @@ final class ChooseEditorSheetCoordinator: Coordinator {
         )
 
         let view = WMFChooseEditorView(viewModel: viewModel)
-        let sizingController = UIHostingController(rootView: view)
+        let sizingController = UIHostingController(rootView: view.mainContent)
 
-        let isPad = navigationController.traitCollection.userInterfaceIdiom == .pad
+        let traitCollection = navigationController.traitCollection
+        let isPadRegularWidth = navigationController.traitCollection.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular
 
         let fullWidth = navigationController.view.bounds.width
-        let sheetWidth: CGFloat = fullWidth * (isPad ? 0.6 : 1)
-        let contentHeight = sizingController.sizeThatFits(in: CGSize(width: sheetWidth, height: 0)).height
+        let sheetWidth: CGFloat = fullWidth * (isPadRegularWidth ? 0.6 : 1)
+        let contentHeight = sizingController.sizeThatFits(in: CGSize(width: sheetWidth, height: .greatestFiniteMagnitude)).height
 
         let viewController = WMFChooseEditorViewController(viewModel: viewModel)
         let sheetNavigationController = WMFComponentNavigationController(
@@ -45,8 +46,9 @@ final class ChooseEditorSheetCoordinator: Coordinator {
             modalPresentationStyle: .formSheet
         )
 
-        if isPad {
-            sheetNavigationController.preferredContentSize = CGSize(width: sheetWidth, height: contentHeight)
+        if isPadRegularWidth {
+            let maximumHeight = navigationController.view.bounds.height * 0.8
+            sheetNavigationController.preferredContentSize = CGSize(width: sheetWidth, height: min(contentHeight, maximumHeight))
         } else if let sheet = sheetNavigationController.sheetPresentationController {
             sheet.detents = [.custom(resolver: { context in
                 let navigationBarHeight = sheetNavigationController.navigationBar.frame.height > 0

@@ -12,6 +12,15 @@ public struct WMFChooseEditorView: View {
     }
 
     public var body: some View {
+        ScrollView {
+            mainContent
+        }
+        .multilineTextAlignment(.leading)
+        .background(Color(uiColor: theme.midBackground))
+        .environment(\.colorScheme, theme.preferredColorScheme)
+    }
+
+    public var mainContent: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 20) {
                 optionsCard
@@ -25,10 +34,7 @@ public struct WMFChooseEditorView: View {
 
             Spacer(minLength: 0)
         }
-        .multilineTextAlignment(.leading)
         .padding(16)
-        .background(Color(uiColor: theme.midBackground))
-        .environment(\.colorScheme, theme.preferredColorScheme)
     }
 
     private var optionsCard: some View {
