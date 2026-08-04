@@ -228,6 +228,7 @@
 "article-topic-tv-and-film" = "Televisioun a Filmer";
 "article-topic-video-games" = "Computerspiller";
 "article-topic-women" = "Biografien (Fraen)";
+"article-view-controller-editing-temp-account-created-subtitle" = "Den temporäre Kont $1 gouf no der Verëffentlechung vun Ärer Ännerung ugeluecht. E wäert an 90 Deeg oflafen.";
 "article-view-controller-editing-temp-account-created-title" = "Temporäre Kont ugeluecht";
 "back-button-accessibility-label" = "Zeréck";
 "back-button-popover-title" = "Tippe fir zréckzegoen";
@@ -276,6 +277,7 @@
 "description-edit-publish" = "Beschreiwung verëffentlechen";
 "description-edit-title" = "Beschreiwung änneren";
 "description-edit-warning" = "Probéiert d'Beschreiwunge kuerz ze halen, sou datt Benotzer d'Theema vum Artikel op ee Bléck erkenne kënnen";
+"description-editing-temp-account-created-subtitle" = "Den temporäre Kont $1 gouf no der Verëffentlechung vun Ärer Ännerung ugeluecht. E wäert an 90 Deeg oflafen.";
 "description-help-about-description" = "Artikelbeschreiwunge resüméieren een Artikel, sou datt d'Lieser d'Theema op ee Bléck erkenne kënnen.";
 "description-help-about-title" = "Iwwer";
 "description-help-about-wikidata" = "Iwwer Wikidata";
@@ -718,8 +720,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Kucken ouni ofzespäicheren";
 "nearby-distance-label-feet" = "{{PLURAL:$1|$1 Fouss}}";
 "nearby-distance-label-km" = "$1 km";
-// Fuzzy
-"nearby-distance-label-meters" = "$1 Meter";
+"nearby-distance-label-meters" = "{{PLURAL:$1|$1 Meter}}";
 "nearby-distance-label-miles" = "$1 Meilen";
 "new-password-instructions" = "Dir sidd mat engem temporäre Passwuert ageloggt. Fir d'Aloggen ofzeschléissen, leet een neit Passwuert hei fest.";
 "new-password-title" = "Leet Äert Passwuert fest";
@@ -972,7 +973,7 @@
 "relative-date-seconds-ago-abbreviated" = "viru(n) $1 s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dëst Joer|1=Lescht Joer|Viru(n) $1 Joer}}";
 "return-button-title" = "Zeréck";
-"return-to-article" = "Zréck op den Artikel";
+"return-to-article" = "Zeréck op den Artikel";
 "reverted-edit-title" = "Zréckgesaten Ännerung";
 "save-all-tabs" = "All Tabs späicheren";
 "save-view-temp-account-warning" = "Dir sidd net ageloggt. Soubal Dir eng Ännerung maacht, gëtt en temporäre Kont fir Iech ugeluecht, fir Är Privatsphär ze schützen.";
@@ -1017,6 +1018,7 @@
 "settings-primary-language" = "Primär";
 "settings-primary-language-details" = "Déi éischt Sprooch an dëser Lëscht gëtt als primär Sprooch fir d'App consideréiert.";
 "settings-storage-and-syncing-disable-sync-alert-no" = "Nee";
+"settings-storage-and-syncing-disable-sync-alert-title" = "Synchronisatioun vu Lieslëschten ausschalten?";
 "settings-storage-and-syncing-disable-sync-alert-yes" = "Jo";
 "settings-storage-and-syncing-full-sync" = "Är Lieslëschte ginn am Hannergrond synchroniséiert";
 "settings-storage-and-syncing-server-sync-title" = "Synchroniséiert Lieslëschten aktualiséieren";
@@ -1118,7 +1120,9 @@
 "talk-pages-user-logs" = "Logbicher";
 "talk-pages-view-title" = "Diskussioun";
 "temp-account-edit-sheet-cta-top" = "Loggt Iech an oder maacht e Kont op";
+"temp-account-edit-sheet-subtitle" = "$2Dir benotzt am Moment en temporäre Kont.$3 Ännerungen, déi Dir mam temporäre Kont $1 maacht, ginn net op Äre permanente Kont iwwerdroen, wann Dir Iech aloggt. Fir datt, nieft anere Virdeeler, Är Kontributiounen Ärem Benotzernumm zougeuerdent ginn, loggt Iech an oder leet e Kont un.";
 "temp-account-toast-read-more-title" = "Méi liesen";
+"temp-account-toast-title" = "$1Dir benotzt am Moment en temporäre Kont.$2 Ännerungen, déi Dir mam temporäre Kont...";
 "temp-account-warning-title" = "Dir benotzt en temporäre Kont";
 "temporary-account" = "Temporäre Kont";
 "terms-of-use-title" = "Benotzungskonditiounen";
@@ -1167,6 +1171,7 @@
 "watchlist-change-expiry-option-six-months" = "6 Méint";
 "watchlist-change-expiry-option-three-months" = "3 Méint";
 "watchlist-edit-summary-accessibility" = "Resümmee vun der Ännerung";
+"watchlist-empty-view-button-title" = "Artikele sichen";
 "watchlist-filter" = "Filter";
 "watchlist-filter-automated-contributions-header" = "Automatiséiert Kontributiounen";
 "watchlist-filter-automated-contributions-options-bot" = "Bot";
@@ -1262,6 +1267,9 @@
 "year-in-review-button-title" = "Joresréckbléck";
 "year-in-review-collective-edits" = "Eng Illustratioun vun zwee Wikipedia-Puzzelstécker, allebéid mat engem Deel vun Informatiounen.";
 "year-in-review-contributor-gift-title" = "Neit Symbol vun der App aktivéieren";
+"year-in-review-contributor-slide-subtitle-donor-updated" = "Merci fir Ären Investissement an d'Zukunft vum fräie Wëssen.\n\nÄr Kontributiounen als Donateur op $1 droen dozou bäi, dee Wee a Richtung vun enger Welt voller fräier Informatiounen fräizemaachen, an dofir hutt Dir e personaliséiert Symbol fir Wikipedia-Contributeure fir Äre Startbildschierm fräigeschalt.";
+"year-in-review-contributor-slide-subtitle-editor-and-donor-updated" = "Merci fir Ären Investissement an d'Zukunft vum fräie Wëssen.\n\nÄr Kontributiounen als Donateur an Editeur op $1 droen dozou bäi, dee Wee a Richtung vun enger Welt voller fräier Informatiounen fräizemaachen, an dofir hutt Dir e personaliséiert Symbol fir Wikipedia-Contributeure fir Äre Startbildschierm fräigeschalt.";
+"year-in-review-contributor-slide-subtitle-editor-updated" = "Merci fir Ären Investissement an d'Zukunft vum fräie Wëssen.\n\nÄr Kontributiounen als Editeur op $1 droen dozou bäi, dee Wee a Richtung vun enger Welt voller fräier Informatiounen fräizemaachen, an dofir hutt Dir e personaliséiert Symbol fir Wikipedia-Contributeure fir Äre Startbildschierm fräigeschalt.";
 "year-in-review-contributor-slide-title" = "Neit App-Symbol fir Äre Startbildschierm fräigeschalt";
 "year-in-review-donate-now" = "Maacht elo en Don";
 "year-in-review-feature-announcement-title" = "Entdeckt de Wikipedia-Réckbléck";
@@ -1278,12 +1286,10 @@
 "year-in-review-highlights-subtitle" = "Mir freeën eis op d'nächst Joer!";
 "year-in-review-highlights-title" = "Merci, datt Dir Äert Joer mat Wikipedia verbruecht hutt.";
 "year-in-review-most-read-categories-title" = "Är interessantst Kategorien";
-// Fuzzy
-"year-in-review-non-contributor-slide-title" = "Äert personaliséiert Contributeur-Symbol fräischalten";
+"year-in-review-non-contributor-slide-title" = "Schalt Äert Contributeur-Symbol fir d'nächst Joer fräi!";
 "year-in-review-personalized-date-day-footer-v3" = "Liblingsdag fir ze liesen";
 "year-in-review-personalized-date-time-footer-v3" = "Liblingszäit fir ze liesen";
-// Fuzzy
-"year-in-review-personalized-donate-title" = "Merci fir Är Kontributioun!";
+"year-in-review-personalized-donate-title" = "Är Generositéit hëlleft, fir datt Wikipedia weider floréiert";
 "year-in-review-personalized-editing-title-format-updated" = "Dir hutt {{PLURAL:$1|$1 Mol}} geännert";
 "year-in-review-personalized-most-read-articles-title" = "Är Top-Artikelen";
 "year-in-review-personalized-reading-subtitle-format-v3-updated" = "Domat gehéiert Dir eise Schätzungen no zu den ieweschte(n) **PERCENT** vu Wikipedia-Lieser weltwäit. D'Duerchschnëttspersoun liest {{PLURAL:$1|$1 Artikel|$1 Artikelen}} am Joer.";
