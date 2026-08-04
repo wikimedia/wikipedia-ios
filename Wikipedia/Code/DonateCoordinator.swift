@@ -861,3 +861,27 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
     }
 }
 
+extension URL {
+    func replacingDonateParameters(language: String?, metricsId: String?) -> URL? {
+        
+        guard let appLanguage = language, !appLanguage.isEmpty,
+              let appMetricsID = metricsId, !appMetricsID.isEmpty,
+              let country = Locale.current.region?.identifier, !country.isEmpty,
+              let appVersion = Bundle.main.wmf_appVersion(), !appVersion.isEmpty,
+              let appInstallID: String = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+        else {
+            return nil
+        }
+        
+        let urlString = self.absoluteString
+            .replacingOccurrences(of: "$formattedId;", with: appMetricsID)
+            .replacingOccurrences(of: "$country;", with: country)
+            .replacingOccurrences(of: "$language;", with: appLanguage)
+            .replacingOccurrences(of: "$appVersion;", with: appVersion)
+            .replacingOccurrences(of: "$appInstallId;", with: appInstallID)
+            .replacingOccurrences(of: "$platform;", with: "iOS")
+        
+        return URL(string: urlString)
+    }
+}
+
