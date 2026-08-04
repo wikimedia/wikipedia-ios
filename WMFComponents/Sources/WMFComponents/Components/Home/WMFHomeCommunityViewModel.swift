@@ -71,11 +71,7 @@ public struct WMFHomeCommunityViewModel {
 
         // Localized in the wiki's language, not the app UI's: it is matched against the story
         // HTML, which comes from that wiki.
-        var storyLanguageCode: String?
-        if case .wikipedia(let language) = project {
-            storyLanguageCode = language.languageCode
-        }
-        let picturedText = WMFLocalizedString("pictured", languageCode: storyLanguageCode, value: "pictured", comment: "Indicates the person or item is pictured (as in a news story).")
+        let picturedText = WMFLocalizedString("pictured", languageCode: project.languageCode, value: "pictured", comment: "Indicates the person or item is pictured (as in a news story).")
         let currentYear = Calendar.current.component(.year, from: Date())
 
         self.project = project

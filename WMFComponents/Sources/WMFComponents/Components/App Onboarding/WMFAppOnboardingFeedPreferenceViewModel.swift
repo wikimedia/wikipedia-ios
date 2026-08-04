@@ -17,11 +17,7 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
     /// Localized in the *wiki's* language (not the app UI's): it's matched against the story
     /// HTML, which comes from that wiki. Used to find the article a story marks as pictured.
     private var picturedText: String {
-        var languageCode: String?
-        if case .wikipedia(let language) = project {
-            languageCode = language.languageCode
-        }
-        return WMFLocalizedString("pictured", languageCode: languageCode, value: "pictured", comment: "Indicates the person or item is pictured (as in a news story).")
+        return WMFLocalizedString("pictured", languageCode: project.languageCode, value: "pictured", comment: "Indicates the person or item is pictured (as in a news story).")
     }
 
     // MARK: - State
