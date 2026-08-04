@@ -174,6 +174,14 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
 
+        if #available(iOS 26.0, *) {
+            let transparentAppearance = UINavigationBarAppearance()
+            transparentAppearance.configureWithTransparentBackground()
+            navigationItem.standardAppearance = transparentAppearance
+            navigationItem.scrollEdgeAppearance = transparentAppearance
+            navigationItem.compactAppearance = transparentAppearance
+        }
+
         let logoBarButtonItem = UIBarButtonItem(image: UIImage(named: "W"), style: .plain, target: nil, action: nil)
         logoBarButtonItem.accessibilityLabel = CommonStrings.plainWikipediaName
         navigationItem.leftBarButtonItem = logoBarButtonItem
