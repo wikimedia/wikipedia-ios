@@ -1,5 +1,6 @@
 import Foundation
 import WMFData
+import WMFNativeLocalizations
 
 public enum WMFCommunityModule {
     case featuredArticle
@@ -29,6 +30,9 @@ public struct WMFHomeCommunityViewModel {
 
     public struct NewsItem {
         public let story: String
+        /// Thumbnail of the article the story is illustrated with, chosen the same way the
+        /// explore feed does (see WMFFeedNewsItem.featuredArticle(picturedText:)).
+        public let imageURLString: String?
     }
 
     public struct OnThisDayItem {
@@ -64,6 +68,10 @@ public struct WMFHomeCommunityViewModel {
 
     public init(response: WMFCommunityResponse, project: WMFProject) {
         let projectID = project.id
+
+        // Localized in the wiki's language, not the app UI's: it is matched against the story
+        // HTML, which comes from that wiki.
+        let picturedText = WMFLocalizedString("pictured", languageCode: project.languageCode, value: "pictured", comment: "Indicates the person or item is pictured (as in a news story).")
         let currentYear = Calendar.current.component(.year, from: Date())
 
         self.project = project
@@ -93,7 +101,8 @@ public struct WMFHomeCommunityViewModel {
         self.newsItems = (response.feedResponse.news ?? [])
             .map { item in
                 let story = (try? HtmlUtils.stringFromHTML(item.story ?? "")) ?? item.story ?? ""
-                return NewsItem(story: story)
+                let featured = item.featuredArticle(picturedText: picturedText)
+                return NewsItem(story: story, imageURLString: featured?.thumbnail?.source)
             }
 
         if let onThisDay = response.onThisDay {

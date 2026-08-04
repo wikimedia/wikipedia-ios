@@ -711,7 +711,7 @@
 "field-password-confirm-title" = "تأیید رمز عبور";
 "field-password-placeholder" = "رمز عبور را وارد کنید";
 "field-password-title" = "گذرواژه";
-"field-token-title" = "کد تائید";
+"field-token-title" = "کد تأیید";
 "field-username-placeholder" = "نام کاربریتان را وارد کنید";
 "field-username-title" = "نام کاربری";
 "filter-options-all" = "همه";
@@ -723,9 +723,9 @@
 "find-replace-header-close-accessibility" = "«یافتن و جایگزینی» را ببند";
 "find-textfield-accessibility" = "یافتن";
 "forgot-password-button-title" = "بازنشانی";
-"forgot-password-email-sent" = "ایمیلی حاوی دستورالعمل بازنشانی رمز عبور ارسال شد";
+"forgot-password-email-sent" = "ایمیلی حاوی دستورالعمل بازنشانی گذرواژه ارسال شد";
 "forgot-password-instructions" = "برای دریافت دستورالعمل بازنشانی رمز عبور از طریق ایمیل، یکی از بخش‌های زیر را پر کنید.";
-"forgot-password-title" = "بازنشانی رمز عبور";
+"forgot-password-title" = "بازنشانی گذرواژه";
 "forgot-password-username-or-email-title" = "یا";
 "games-announcement-play-button" = "بازی کن";
 "games-announcement-title" = "«کدام اول اتفاق افتاد؟» را بازی کن.";
@@ -947,7 +947,7 @@
 "notifications-center-applied-project-filters-accessibility-label" = "پالایه‌های پروژه - دارای پالایه‌های اعمال‌شده";
 "notifications-center-badge-button-accessibility-label" = "اعلان‌های دارای نشان خوانده‌نشده";
 "notifications-center-cell-notification-type-accessibility-label-format" = "آگاه‌سازی $1";
-"notifications-center-change-password" = "تغییر رمز عبور";
+"notifications-center-change-password" = "تغییر گذرواژه";
 "notifications-center-checking-for-notifications" = "در حال بررسی اعلان‌ها...";
 "notifications-center-destination-app" = "در برنامه";
 "notifications-center-destination-web" = "روی وب";
