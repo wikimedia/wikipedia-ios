@@ -108,8 +108,8 @@ public final class WMFLegacyPageView: Codable, @unchecked Sendable {
 
 public final class WMFPageViewsDataController: @unchecked Sendable {
 
-    /// Upper bound for a single continuous reading interval, and therefore for a plausible `numberOfSeconds` on one page view (a page view represents one opening of an article). Callers that measure reading time clamp to this before persisting; `clampInflatedPageViewSecondsIfNeeded()` applies the same ceiling retroactively.
-    public static let maximumReadingIntervalSeconds: TimeInterval = 60 * 60
+    /// Ceiling used by `clampInflatedPageViewSecondsIfNeeded()` when cleaning up values written by the pre July 2026 measurement bug. It applies to that one time cleanup only — live measurement is deliberately unbounded, so a genuinely long read is recorded in full.
+    public static let inflatedPageViewSecondsCeiling: TimeInterval = 60 * 60
 
     private let coreDataStore: WMFCoreDataStore
     private let userDefaultsStore: WMFKeyValueStore?
@@ -127,11 +127,13 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.didClampInflatedPageViewSeconds.rawValue)) ?? false
     }
 
-    /// Caps any stored `numberOfSeconds` above `maximumReadingIntervalSeconds`, once per install.
+    /// Caps any stored `numberOfSeconds` above `inflatedPageViewSecondsCeiling`, once per install.
     ///
     /// Before July 2026, every live `ArticleViewController` — not just the on-screen one — resumed its reading timer whenever the app became active, so page views accumulated the full length of each foreground session once per article held in memory. The reading time that behavior wrote is already on device, and no amount of correct measurement going forward removes it: `fetchPageViewMinutes` keeps summing those rows until they age out of the one year retention window (and Year in Review sums a whole year of them at once).
     ///
-    /// A page view represents one opening of an article, so a stored value above the ceiling could not have been produced by reading alone. Clamping rather than zeroing keeps plausible history intact and only rewrites values that are implausible on their face.
+    /// Clamping rather than zeroing keeps plausible history intact and only rewrites the extremes.
+    ///
+    /// Note this ceiling is lower than what live measurement now permits, which is unbounded. That is a deliberate asymmetry: every row this runs against was written by the buggy code, so the cost of trimming a genuine long read among them is a one time loss on data we already know is contaminated, while the benefit is that no user opens the app to an implausible total.
     ///
     /// Known limitation: inflation spread thinly across many page views stays below the ceiling and survives. This reduces the extremes, it does not reconstruct the true totals — that is not recoverable, because the database records no per-interval detail.
     ///
@@ -144,7 +146,7 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
             return 0
         }
 
-        let ceiling = Int64(Self.maximumReadingIntervalSeconds)
+        let ceiling = Int64(Self.inflatedPageViewSecondsCeiling)
         let backgroundContext = try coreDataStore.newBackgroundContext
         let viewContext = try coreDataStore.viewContext
 

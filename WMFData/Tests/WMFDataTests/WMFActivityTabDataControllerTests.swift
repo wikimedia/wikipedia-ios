@@ -44,7 +44,7 @@ struct WMFActivityTabDataControllerTests {
         // confirm the ceiling is per page view rather than a cap on the reported total.
         for title in ["Cat", "Dog"] {
             let objectID = try #require(try await pageViewsDataController.addPageView(title: title, namespaceID: 0, project: enProject, previousPageViewObjectID: nil, timestamp: Date()))
-            try await pageViewsDataController.addPageViewSeconds(pageViewManagedObjectID: objectID, numberOfSeconds: WMFPageViewsDataController.maximumReadingIntervalSeconds)
+            try await pageViewsDataController.addPageViewSeconds(pageViewManagedObjectID: objectID, numberOfSeconds: WMFPageViewsDataController.inflatedPageViewSecondsCeiling)
         }
 
         let dataController = WMFActivityTabDataController(coreDataStore: store)

@@ -13,19 +13,20 @@ import Foundation
 /// notification, so each one recorded the full length of every foreground session. Hence
 /// `appDidBecomeActive(at:)` resumes only when `isOnScreen` is true.
 ///
+/// Intervals are reported at their full length — there is no upper bound. A reader who spends three
+/// hours on one article gets three hours. The known cost is that an interval we fail to close is
+/// reported in full too: an article left on screen with the device kept awake keeps its interval open
+/// until the app is backgrounded or the article is navigated away from. Auto-lock closes it in the
+/// ordinary case (the app never disables the idle timer), so this needs an unusual device setup.
+/// Capping was considered and rejected, because bounding that case also truncates genuine long reads.
+///
 /// Dates are passed in rather than read from a clock so tests can drive them.
 public struct WMFReadingIntervalTracker: Sendable, Equatable {
 
     private var isOnScreen = false
     private var beganViewingDate: Date?
-    private let maximumInterval: TimeInterval
 
-    /// - Parameter maximumInterval: Longest interval that will be reported. Anything longer is
-    ///   assumed to be an interval we failed to close — for example an iPad window that stays
-    ///   active while the user works in another app — rather than real reading, so it is clamped.
-    public init(maximumInterval: TimeInterval = WMFPageViewsDataController.maximumReadingIntervalSeconds) {
-        self.maximumInterval = maximumInterval
-    }
+    public init() {}
 
     /// Whether an interval is currently open. Exposed for tests and diagnostics.
     public var isTracking: Bool {
@@ -63,10 +64,14 @@ public struct WMFReadingIntervalTracker: Sendable, Equatable {
         beganViewingDate = date
     }
 
-    /// Ends the open interval and returns its length, clamped. Clearing the begin date here — rather
-    /// than after the caller finishes persisting — is what stops one interval being recorded twice
-    /// when two closing events arrive together (leaving an article and backgrounding the app in the
-    /// same moment).
+    /// Ends the open interval and returns its length. Clearing the begin date here — rather than after
+    /// the caller finishes persisting — is what stops one interval being recorded twice when two
+    /// closing events arrive together (leaving an article and backgrounding the app in the same
+    /// moment).
+    ///
+    /// A non-positive length is discarded rather than reported. That covers a zero length interval,
+    /// and guards against the device clock moving backwards producing a negative value that would
+    /// subtract from the stored total.
     private mutating func closeInterval(at date: Date) -> TimeInterval? {
         guard let beganViewingDate else { return nil }
 
@@ -75,6 +80,6 @@ public struct WMFReadingIntervalTracker: Sendable, Equatable {
         let elapsed = date.timeIntervalSince(beganViewingDate)
         guard elapsed > 0 else { return nil }
 
-        return min(elapsed, maximumInterval)
+        return elapsed
     }
 }

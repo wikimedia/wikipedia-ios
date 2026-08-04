@@ -63,7 +63,7 @@ struct WMFPageViewsReadingTimeTests {
     func clampInflatedPageViewSecondsClampsOnlyImplausibleValues() async throws {
         let store = try await fixture.makeTemporaryCoreDataStore()
         let dataController = try makeDataController(store)
-        let ceiling = Int64(WMFPageViewsDataController.maximumReadingIntervalSeconds)
+        let ceiling = Int64(WMFPageViewsDataController.inflatedPageViewSecondsCeiling)
 
         let plausibleObjectID = try #require(try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil, timestamp: todayDate.addingTimeInterval(60)))
         let inflatedObjectID = try #require(try await dataController.addPageView(title: "Dog", namespaceID: 0, project: enProject, previousPageViewObjectID: nil, timestamp: todayDate.addingTimeInterval(60)))
@@ -103,7 +103,7 @@ struct WMFPageViewsReadingTimeTests {
         let viewContext = try store.viewContext
         await viewContext.perform {
             let pageView = viewContext.object(with: objectID) as? CDPageView
-            #expect(pageView?.numberOfSeconds ?? 0 > Int64(WMFPageViewsDataController.maximumReadingIntervalSeconds))
+            #expect(pageView?.numberOfSeconds ?? 0 > Int64(WMFPageViewsDataController.inflatedPageViewSecondsCeiling))
         }
     }
 }

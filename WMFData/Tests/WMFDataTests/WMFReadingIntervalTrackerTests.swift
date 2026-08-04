@@ -105,23 +105,27 @@ struct WMFReadingIntervalTrackerTests {
         #expect(tracker.viewWillDisappear(at: date(60)) == 60, "The interval should still start from the first appearance.")
     }
 
-    // MARK: - Clamping
+    // MARK: - No upper bound
 
-    @Test(arguments: [3600 as TimeInterval, 1800, 60])
-    func intervalIsClampedToTheMaximum(maximumInterval: TimeInterval) {
-        var tracker = WMFReadingIntervalTracker(maximumInterval: maximumInterval)
+    /// Reading time is reported at full length. A long read must not be truncated — capping was
+    /// considered and rejected, because bounding a runaway interval also costs genuine long reads.
+    @Test(arguments: [90 * 60 as TimeInterval, 3 * 3600, 8 * 3600])
+    func longIntervalsAreReportedInFull(elapsed: TimeInterval) {
+        var tracker = WMFReadingIntervalTracker()
 
         tracker.viewDidAppear(at: date(0))
-        #expect(tracker.viewWillDisappear(at: date(40 * 3600)) == maximumInterval)
+        #expect(tracker.viewWillDisappear(at: date(elapsed)) == elapsed)
     }
 
+    /// The cleanup ceiling applies to pre-fix stored data only, and must not leak into live
+    /// measurement.
     @Test
-    func defaultMaximumIsOneHour() {
-        #expect(WMFPageViewsDataController.maximumReadingIntervalSeconds == 3600)
-
+    func liveMeasurementIgnoresTheCleanupCeiling() {
+        let ceiling = WMFPageViewsDataController.inflatedPageViewSecondsCeiling
         var tracker = WMFReadingIntervalTracker()
+
         tracker.viewDidAppear(at: date(0))
-        #expect(tracker.viewWillDisappear(at: date(40 * 3600)) == 3600)
+        #expect(tracker.viewWillDisappear(at: date(ceiling * 4)) == ceiling * 4)
     }
 
     /// A zero length interval is not reading time, and a backwards clock (the user changing the
