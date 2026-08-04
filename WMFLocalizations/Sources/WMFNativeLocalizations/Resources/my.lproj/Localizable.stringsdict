@@ -2,6 +2,86 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>activity-tab-amount-article-views</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ကြည့်ရှုနှုန်း</string>
+			<key>other</key>
+			<string>%1$d ကြည့်ရှုနှုန်းများ</string>
+		</dict>
+	</dict>
+	<key>activity-tab-impact-best-streak-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ရက်</string>
+			<key>other</key>
+			<string>%1$d ရက်များ</string>
+		</dict>
+	</dict>
+	<key>activity-tab-you-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>သင် ဒီအပတ်မှာ %#@v1@ကို တည်းဖြတ်ခဲ့သည်။</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d ကြိမ်</string>
+			<key>other</key>
+			<string>%1$d ကြိမ်</string>
+		</dict>
+	</dict>
+	<key>activity-tab-you-read</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ဒီအပတ်မှာ %#@v1@ကို သင်ဖတ်ပြီးပါပြီ။</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d ဆောင်းပါး</string>
+			<key>other</key>
+			<string> %1$d ဆောင်းပါးများ</string>
+		</dict>
+	</dict>
+	<key>activity-tab-you-saved</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>သင် ဒီအပတ်မှာ %#@v1@ကို သိမ်းဆည်းခဲ့သည်။</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d ကြိမ်</string>
+			<key>other</key>
+			<string>%1$d ကြိမ်</string>
+		</dict>
+	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -34,6 +114,38 @@
 			<string>ခု</string>
 		</dict>
 	</dict>
+	<key>diff-paragraph-moved-distance-line</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d လိုင်း</string>
+			<key>other</key>
+			<string>%1$d လိုင်းများ</string>
+		</dict>
+	</dict>
+	<key>diff-paragraph-moved-distance-section</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d အပိုင်း</string>
+			<key>other</key>
+			<string> %1$d အပိုင်းများ</string>
+		</dict>
+	</dict>
 	<key>diff-single-header-editor-number-edits-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -50,6 +162,22 @@
 			<string>%1$d တည်းဖြတ်မှုများ</string>
 		</dict>
 	</dict>
+	<key>home-feed-interests-selected-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ရွေးချယ်ထားသည်</string>
+			<key>other</key>
+			<string> %1$d ရွေးချယ်ထားသည်</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -64,6 +192,100 @@
 			<string>%1$d ခု</string>
 			<key>other</key>
 			<string>%1$d ခု</string>
+		</dict>
+	</dict>
+	<key>nearby-distance-label-feet</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d ပေ</string>
+			<key>other</key>
+			<string>%1$d ပေ</string>
+		</dict>
+	</dict>
+	<key>nearby-distance-label-meters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d မီတာ</string>
+			<key>other</key>
+			<string> %1$d မီတာ</string>
+		</dict>
+	</dict>
+	<key>notifications-center-num-selected-messages-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d မက်ဆေ့ချ်</string>
+			<key>other</key>
+			<string> %1$d မက်ဆေ့ချ်များ</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-projects</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string> %1$d ပရောဂျက်များတွင်</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-projects-plain</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ပရောဂျက်</string>
+			<key>other</key>
+			<string>ပရောဂျက်များ</string>
+		</dict>
+	</dict>
+	<key>notifications-push-talk-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>မက်ဆေ့ချ်အသစ်</string>
+			<key>other</key>
+			<string>မက်ဆေ့ချ်အသစ်များ</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -214,6 +436,24 @@
 			<string>%1$d နာရီအကြာက</string>
 			<key>zero</key>
 			<string>မကြာသေးခင်</string>
+		</dict>
+	</dict>
+	<key>relative-date-min-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d မိနစ်အကြာက</string>
+			<key>other</key>
+			<string>%1$d မိနစ်များအကြာက</string>
+			<key>zero</key>
+			<string>ယခုလေးတင်</string>
 		</dict>
 	</dict>
 	<key>relative-date-minutes-ago</key>

@@ -317,6 +317,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // MARK: - Setup
 
     private func setupControllers() {
+        // Must run before any reading list sync of the session
+        dataStore.readingListsController.clearNeedsRemoteDisableSyncState()
+
         let periodicWorkerController = PeriodicWorkerController(30, initialDelay: 1, leeway: 15)
         periodicWorkerController.delegate = self
         periodicWorkerController.add(dataStore.readingListsController)

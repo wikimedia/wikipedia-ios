@@ -969,8 +969,6 @@
 "reading-list-generic-error" = "သင်ဧ့စာဖတ်ခြင်းစရင်းတိကို အပ်ဒိတ်လုပ်နီစိုင် မမျှော်လင့်ထားရေ အမှားတစ်ခု ဖြစ်ပွားခရေ။";
 "reading-list-keep-button-title" = "ဟုတ်ပါရေ၊ ဆောင်ပါးတိကို စက်ပစ္စည်းထဲ မှတ်ထားပါ";
 "reading-list-keep-subtitle" = "သင်၏ဝီကီးပီးဒီးယားအကောင့်သို့ sync လုပ်ထားရေ ဆောင်းပါးတိ ဟိရေ။ အကောင့်ကထွက်ပါက သင့်စက်ပစ္စည်းထဲမှာ ယင်းရို့ကို ဆက်လက်ထားချင်ပါလား?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "စင့်ခ်လုပ်ခြင်းကို ပိတ်ခြင်းနန့် ဒေဆောင်းပါးတိကို သင့်အကောင့်မှ ဖယ်ယှားပါဖို့။  ယင်းရို့ကို သင့်စက်ဝန်မှ ဖယ်ယှားကေ နောင်မာ စင့်ခ်လုပ်ခြင်းကို ထပ်မံဖွင့်ခြင်းနန့် ၎င်းရို့ကို ပြန်ပနာရဟိနှိုင်ဖို့မဟုတ်ပါ။";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "ဟင့်အင်း၊ မိမိဧ့ ဝီကီပီးဒီးယားအကောင့်နန့် စက်ဝန်မှ ဆောင်းပါးတိကို ဖယ်ယှားလိုက်ပါ";
 "reading-list-keep-title" = "သိမ်းထားတဲ့ဆောင်းပါးတိကို စက်ပစ္စည်းထဲ ဆက်ထားဖို့လာ?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "ဆောင်းပါးတိကို စီလိုက်ပါ";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "ခွဲခြားမထားရေ ဆောင်းပါး 5000 ကန့်သတ်ချက် ဟိပါရေ။  ကျေးဇူးပြုပြီးကေ မခွဲထားရေ ဆောင်းပါးတိကို ထပ်တူပြုခြင်းကို ဆက်ပနာလုပ်ဆောင်ရန် သင့်ဟိပြီးသား ဆောင်းပါးတိကို စာရင်းတိအဖြိုက် စီပါ။";
@@ -1098,11 +1096,6 @@
 "settings-search-open-app-on-search" = "Search တက်ဘ်တွင် အက်ပ်ကိုဖွင့်ပါ";
 "settings-storage-and-syncing-enable-sync-footer-text" = "အကောင့်ဝင်ပြီး စင့်ခ်လုပ်ရအခါမှာ သင်ဧ့သိမ်းဆည်းထားရေ ဆောင်းပါးတိနန့် ဖတ်ရှုခြင်းစာရင်းတိကို ဝီကီးမီဒီယာအား ခွင့်ပြုပါ။";
 "settings-storage-and-syncing-enable-sync-title" = "သိမ်းထားရေ ဆောင်းပါးတိနန့်စာရင်းတိကို sync လုပ်ဖို့";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "သင်သိမ်းဆည်းထားရေ ဆောင်းပါးတိကို ဖျက်ခြင်းနန့် ဒေစက်ဝန်က စင့်ခ်လုပ်ခြင်းကို ဖွင့်ထားကေ ၎င်းရို့ကို သင့်အသုံးပြုသူအကောင့်က ဖယ်ယှားပါဖို့။  ဒေလုပ်ဆောင်ချက်ကို သင်ပြန်ပျင်လို့မရပါ။";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "သိမ်းထားရေ ဆောင်းပါးအားနုန်းကို ဖျက်ဖို့လား?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "ဖျက်";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "သင်သိမ်းဆည်းထားရေ ဆောင်းပါးတိကို ဖျက်ခြင်းနန့် ဒေစက်ဝန်က စင့်ခ်လုပ်ခြင်းကို ဖွင့်ထားကေ ၎င်းရို့ကို သင့်အသုံးပြုသူအကောင့်မှ ဖယ်ယှားပါဖို့။\n\n သင်သိမ်းဆည်းထားရေ ဆောင်းပါးတိကို ဖျက်ခြင်းနန့် နီရာလွတ် $1 ခန့်လွတ်လားပါဖို့။";
-"settings-storage-and-syncing-erase-saved-articles-title" = "သိမ်းထားရေ ဆောင်းပါးတိကို ဖျက်ဖို့";
 "settings-storage-and-syncing-full-sync" = "သင်ဧ့စာဖတ်ခြင်းစာရင်းတိကို နောက်ခံတွင် စင့်ခ်လုပ်ပါဖို့";
 "settings-storage-and-syncing-server-sync-footer-text" = "သင်ဧ့ စင့်ခ်လုပ်ထားရေ ဆောင်းပါးတိနန့် ဖတ်ရှုစာရင်းတိအတွက် အပ်ဒိတ်တစ်ခု တောင်းဆိုပါ။";
 "settings-storage-and-syncing-server-sync-title" = "sync လုပ်ထားရေ စာဖတ်စာရင်းကို မွမ်းမံဖို့";

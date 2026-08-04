@@ -777,11 +777,7 @@
 "project-name-wikiversity" = "Wikiversity";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wiktionary";
-"reading-challenge-announcement-item1-title" = "Đọc 1 bài viết mỗi ngày trong 25 ngày";
-"reading-challenge-announcement-secondary-cta" = "Tìm hiểu thêm";
-"reading-challenge-completed-subtitle" = "25 trên 25 ngày";
 "reading-challenge-random-button" = "Ngẫu nhiên";
-"reading-challenge-streak-no-days" = "$1 trên 25";
 "reading-list-add-generic-hint-title" = "Thêm bài này vào danh sách đọc?";
 "reading-list-add-hint-title" = "Thêm “$1” vào danh sách đọc?";
 "reading-list-add-saved-button-title" = "Có, thêm chúng vào các danh sách đọc của tôi";
@@ -803,8 +799,6 @@
 "reading-list-generic-error" = "Có lỗi bất ngờ đã xảy đến khi cập nhật danh sách đọc của bạn.";
 "reading-list-keep-button-title" = "Có, giữ các bài viết trong danh sách";
 "reading-list-keep-subtitle" = "Tài khoản Wikipedia của bạn có bài viết được đồng bộ hóa. Bạn có muốn giữ chúng trên thiết bị này sau khi đăng xuất?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Việc tắt chức năng đồng bộ hóa sẽ xóa các bài viết này khỏi tài khoản của bạn. Nếu bạn cũng xóa chúng khỏi thiết bị của bạn, mai mốt bạn sẽ không thể khôi phục chúng bằng cách bật lại đồng bộ hóa.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Không, xóa bài khỏi thiết bị và tài khoản Wikipedia của tôi";
 "reading-list-keep-title" = "Giữ các bài viết đã lưu trên thiết bị?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sắp xếp bài viết";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Số bài viết tối đa chưa được phân loại mà bạn có thể lưu là 5.000. Xin hãy xếp các bài viết vào các danh sách đọc để tiếp tục quá trình đồng bộ hóa các bài viết chưa được phân loại.";
@@ -925,11 +919,6 @@
 "settings-search-open-app-on-search" = "Hiện thẻ Tìm kiếm khi mở ứng dụng";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Cho phép Wikimedia lưu bài viết và danh sách đọc của bạn vào tùy chọn khi đăng nhập vào đồng bộ hóa.";
 "settings-storage-and-syncing-enable-sync-title" = "Đồng bộ hóa những bài viết và danh sách đã lưu";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Việc xóa các bài đã lưu của bạn sẽ xóa chúng khỏi tài khoản của bạn, nếu chức năng đồng bộ hóa được kích hoạt, cũng như khỏi thiết bị này. Bạn không thể hoàn tác tác vụ này.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Xóa các bài đã lưu?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Xóa";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Xóa những bài đã lưu sẽ đưa những bài đó ra khỏi tài khoản, nếu bạn đã đồng bộ hóa nó, cũng như khỏi thiết bị này.\n\nXóa những trang được lưu sẽ tiết kiệm vào khoảng $1.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Xóa những bài viết đã được lưu";
 "settings-storage-and-syncing-full-sync" = "Các danh sách đọc của bạn sẽ được đồng bộ hóa trong nền";
 "settings-storage-and-syncing-server-sync-footer-text" = "Yêu cầu nâng cấp những bài viết đã được đồng bộ hóa và danh sách đọc.";
 "settings-storage-and-syncing-server-sync-title" = "Cập nhật các danh sách đọc đã đồng bộ hóa";

@@ -1087,10 +1087,6 @@
 "settings-primary-language-details" = "Det første sprog i denne liste bruges som appens primære sprog.";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Tillad at Wikimedia gemmer dine gemte artikler og læselister til dine brugerpræferencer, når du logger ind for at synkronisere.";
 "settings-storage-and-syncing-enable-sync-title" = "Synkroniser gemte artikler og lister";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Ryd alle gemte artikler?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Slet";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Sletning af dine gemte artikler vil fjerne dem fra din brugerkonto, hvis du har slået synkronisering til såvel som fra denne enhed.\n\nSletning af dine gemte artikler vil frigøre omkring $1 plads.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Slet gemte artikler";
 "settings-storage-and-syncing-full-sync" = "Dine læselister vil blive synkroniseret i baggrunden";
 "settings-storage-and-syncing-server-sync-footer-text" = "Anmod om en opdatering af dine synkroniserede artikler og læselister.";
 "settings-storage-and-syncing-server-sync-title" = "Opdatér synkroniserede læselister";
