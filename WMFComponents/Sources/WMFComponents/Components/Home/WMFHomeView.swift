@@ -12,12 +12,18 @@ public struct WMFHomeView: View {
         self.viewModel = viewModel
     }
 
+    private var safeAreaTop: CGFloat {
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first?
+            .windows
+            .first(where: \.isKeyWindow)?
+            .safeAreaInsets.top ?? 0
+    }
+
     public var body: some View {
         mainContent
-            .environment(\.colorScheme, theme.preferredColorScheme)
-            .task {
-                viewModel.loadCurrentTabFeedIfNeeded()
-            }
+            .task { viewModel.loadCurrentTabFeedIfNeeded() }
             .onChange(of: viewModel.selectedTab) { _ in
                 viewModel.loadCurrentTabFeedIfNeeded()
             }
@@ -26,12 +32,14 @@ public struct WMFHomeView: View {
     @ViewBuilder
     private var mainContent: some View {
         if viewModel.selectedTab == .forYou {
-            VStack(spacing: 0) {
-                headerBar
+            ZStack(alignment: .top) {
                 forYouTabContent
+                    .ignoresSafeArea()
+                headerBar(isForYou: true)
+                    .padding(.top, safeAreaTop + 52)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(uiColor: theme.paperBackground))
+            .ignoresSafeArea()
+            .environment(\.colorScheme, .dark)
         } else {
             communitySection
         }
@@ -44,12 +52,11 @@ public struct WMFHomeView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea(.container, edges: [.top, .bottom])
                 .safeAreaInset(edge: .top, spacing: 0) {
-
-                    headerBar
+                    headerBar(isForYou: false)
                 }
         } else {
             VStack(spacing: 0) {
-                headerBar
+                headerBar(isForYou: false)
                 communityTabContent
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -57,13 +64,25 @@ public struct WMFHomeView: View {
         }
     }
 
-    private var headerBar: some View {
-        HStack {
+    private func headerBar(isForYou: Bool) -> some View {
+        HStack(spacing: 8) {
             Picker("", selection: $viewModel.selectedTab) {
                 Text(viewModel.communityTabTitle).tag(WMFHomeViewModel.Tab.community)
                 Text(viewModel.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
             }
+            .padding(.vertical, 2)
             .pickerStyle(.segmented)
+            .fixedSize()
+            .dynamicTypeSize(.xSmall ... .large)
+            .background {
+                if #available(iOS 26.0, *) {
+                    Capsule().fill(.clear).glassEffect(in: Capsule())
+                } else {
+                    Capsule().fill(.ultraThinMaterial)
+                }
+            }
+
+            Spacer()
 
             if viewModel.shouldShowLanguagePicker {
                 Menu {
@@ -73,14 +92,14 @@ public struct WMFHomeView: View {
                         } label: {
                             if language.languageCode == viewModel.selectedLanguage?.languageCode {
                                 Label(language.localizedName, systemImage: "checkmark")
+                                    .minimumScaleFactor(0.25)
                             } else {
                                 Text(language.localizedName)
+                                    .minimumScaleFactor(0.25)
                             }
                         }
                     }
-
                     Divider()
-
                     Button {
                         viewModel.didTapEditLanguages?()
                     } label: {
@@ -88,31 +107,69 @@ public struct WMFHomeView: View {
                     }
                 } label: {
                     Text(viewModel.languageButtonTitle)
-                        .font(Font(WMFFont.for(.semiboldHeadline)))
-                        .foregroundStyle(Color(uiColor: theme.link))
+                        .font(Font(WMFFont.for(.semiboldSubheadline)))
+                        .dynamicTypeSize(.xSmall ... .large)
+                        .minimumScaleFactor(0.25)
+                        .foregroundStyle(isForYou ? .white : .primary)
+                        .lineLimit(1)
+                    Image(systemName: "chevron.up.chevron.down")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(isForYou ? .white : .primary)
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background {
+                    if #available(iOS 26.0, *) {
+                        Capsule().fill(.clear).glassEffect(in: Capsule())
+                    } else {
+                        Capsule().fill(.ultraThinMaterial)
+                    }
                 }
                 .accessibilityIdentifier(AccessibilityIdentifiers.Home.languagePickerButton)
             }
         }
-        .padding()
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
     }
+
+    // MARK: - For You Tab
 
     @ViewBuilder
     private var forYouTabContent: some View {
         if let forYouViewModel = viewModel.forYouViewModel {
-            WMFForYouView(
-                viewModel: forYouViewModel,
-                moduleVisibility: viewModel.forYouModuleVisibility,
-                hiddenCardKeys: viewModel.hiddenCardKeySet,
-                onRefresh: { await viewModel.refreshForYouFeed() },
-                onHideModule: { viewModel.hideForYouModule($0) },
-                onHideCard: { viewModel.hideForYouCard($0) },
-                onCustomizeInterests: { viewModel.didTapCustomizeInterests?() }
-            )
+            WMFForYouView(viewModel: forYouViewModel)
+                .ignoresSafeArea()
         } else if viewModel.isLoadingForYou {
             Spacer()
             ProgressView()
             Spacer()
+        } else if viewModel.forYouFeedError != nil {
+            VStack(spacing: 16) {
+                Spacer()
+                Text(viewModel.forYouErrorTitle)
+                    .font(Font(WMFFont.for(.boldHeadline)))
+                    .foregroundStyle(Color(uiColor: theme.text))
+                    .multilineTextAlignment(.center)
+                Text(viewModel.forYouErrorSubtitle)
+                    .font(Font(WMFFont.for(.callout)))
+                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+                Button {
+                    viewModel.loadForYouFeedIfNeeded()
+                } label: {
+                    Text(viewModel.forYouErrorRetryTitle)
+                        .font(Font(WMFFont.for(.boldCallout)))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 12)
+                        .background(Color(uiColor: theme.link), in: Capsule())
+                }
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.black)
+            .padding(.top, safeAreaTop + 52)
         } else {
             Spacer()
             Text(viewModel.forYouTabTitle)
@@ -122,6 +179,8 @@ public struct WMFHomeView: View {
         }
     }
 
+    // MARK: - Community Tab
+
     @ViewBuilder
     private var communityTabContent: some View {
         if let makeEmbeddedViewController = viewModel.makeEmbeddedCommunityViewController {
@@ -130,7 +189,7 @@ public struct WMFHomeView: View {
             WMFCommunityFeedView(
                 pages: viewModel.communityPages,
                 moduleVisibility: viewModel.communityModuleVisibility,
-                hiddenCardKeys: viewModel.hiddenCardKeySet,
+                hiddenCardKeys: viewModel.hiddenCardKeys,
                 isLoadingPreviousPage: viewModel.isLoadingCommunityPreviousPage,
                 onHideModule: { viewModel.hideModule($0) },
                 onHideCard: { viewModel.hideCard(key: $0) },

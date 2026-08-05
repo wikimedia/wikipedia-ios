@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 import WMF
 import WMFComponents
 import WMFData
@@ -15,6 +16,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     private let dataStore: MWKDataStore
     let viewModel: WMFHomeViewModel
     private let hostingController: WMFHomeHostingController
+    private var tabObservation: AnyCancellable?
 
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
@@ -38,7 +40,12 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .black
         view.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.homeButton
+
+        edgesForExtendedLayout = .all
+        extendedLayoutIncludesOpaqueBars = true
+
         embedHostingController()
 
         viewModel.didSelectLanguage = { [weak self] language in
@@ -57,13 +64,103 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
                 self?.embeddedExploreViewController() ?? UIViewController()
             }
         }
+        viewModel.didTapForYouCard = { [weak self] article in
+            self?.navigateToForYouArticle(article)
+        }
+        viewModel.didSaveForYouCard = { [weak self] article in
+            self?.saveForYouArticle(article)
+        }
+        viewModel.didShareForYouCard = { [weak self] article in
+            self?.shareForYouArticle(article)
+        }
+        viewModel.didTapUnsaveForYouCard = { [weak self] article in
+            self?.unsaveForYouArticle(article)
+        }
+
+        tabObservation = viewModel.$selectedTab.sink { [weak self] tab in
+            DispatchQueue.main.async {
+                self?.updateNavigationBarAppearance(for: tab)
+            }
+        }
+
+        UISegmentedControl.appearance(whenContainedInInstancesOf: [WMFHomeHostingController.self]).backgroundColor = .clear
         reloadLanguages()
+        
+        viewModel.isArticleSaved = { [weak self] card in
+            guard let self,
+                  let siteURL = card.project.siteURL,
+                  var articleURL = siteURL.wmf_URL(withTitle: card.title) else { return false }
+            articleURL.wmf_languageVariantCode = card.project.languageVariantCode
+            return dataStore.savedPageList.isAnyVariantSaved(articleURL)
+        }
+        
+        apply(theme: theme)
+    }
+    
+    private func unsaveForYouArticle(_ article: WMFForYouArticleCardViewModel) {
+        guard let siteURL = article.project.siteURL,
+              var articleURL = siteURL.wmf_URL(withTitle: article.title) else { return }
+        articleURL.wmf_languageVariantCode = article.project.languageVariantCode
+        dataStore.savedPageList.removeEntry(with: articleURL)
+    }
+    
+    private func navigateToForYouArticle(_ article: WMFForYouArticleCardViewModel) {
+        guard let siteURL = article.project.siteURL,
+              var articleURL = siteURL.wmf_URL(withTitle: article.title) else { return }
+        articleURL.wmf_languageVariantCode = article.project.languageVariantCode
+        let coordinator = ArticleCoordinator(
+            navigationController: navigationController ?? UINavigationController(),
+            articleURL: articleURL,
+            dataStore: dataStore,
+            theme: theme,
+            source: .undefined,
+            tabConfig: .appendArticleAndAssignCurrentTab
+        )
+        coordinator.start()
     }
 
+    private func saveForYouArticle(_ article: WMFForYouArticleCardViewModel) {
+        guard let siteURL = article.project.siteURL,
+              var articleURL = siteURL.wmf_URL(withTitle: article.title) else { return }
+        articleURL.wmf_languageVariantCode = article.project.languageVariantCode
+        dataStore.savedPageList.addSavedPage(with: articleURL)
+    }
+
+    private func shareForYouArticle(_ article: WMFForYouArticleCardViewModel) {
+        guard let siteURL = article.project.siteURL,
+              var articleURL = siteURL.wmf_URL(withTitle: article.title) else { return }
+        articleURL.wmf_languageVariantCode = article.project.languageVariantCode
+        let activityVC = UIActivityViewController(activityItems: [articleURL], applicationActivities: nil)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            activityVC.popoverPresentationController?.sourceView = view
+            activityVC.popoverPresentationController?.sourceRect = view.bounds
+        }
+        present(activityVC, animated: true)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
+        updateNavigationBarAppearance(for: viewModel.selectedTab)
         reloadLanguages()
+        apply(theme: theme)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateNavigationBarAppearance(for: viewModel.selectedTab)
+        apply(theme: theme)
+    }
+    
+    // MARK: - Navigation Bar Appearance
+    
+    private func updateNavigationBarAppearance(for tab: WMFHomeViewModel.Tab) {
+        guard let navController = navigationController as? WMFComponentNavigationController else { return }
+        if tab == .forYou {
+            navController.setTransparentAppearance(true)
+        } else {
+            navController.setTransparentAppearance(false)
+        }
     }
 
     // MARK: - Languages
@@ -96,12 +193,11 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     }
 
     // MARK: - What's Driving (test deep-link)
-
-    // TODO: Temporary. Presents "What's driving your feed" modally to test the settings entry point. You can delete if you're working on implementing the feed.
+    
     private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
     private func presentWhatsDrivingTest() {
         guard let navigationController else { return }
-        let coordinator = HomeFeedSettingsCoordinator(navigationController: navigationController, theme: theme, initialView: .modalFromFeed, presentation: .modal)
+        let coordinator = HomeFeedSettingsCoordinator(navigationController: navigationController, theme: theme, initialView: .interests, presentation: .modal)
         homeFeedSettingsCoordinator = coordinator
         coordinator.start()
     }
@@ -127,6 +223,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     private func embedHostingController() {
         addChild(hostingController)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        hostingController.view.backgroundColor = .clear
         view.addSubview(hostingController.view)
         NSLayoutConstraint.activate([
             hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),

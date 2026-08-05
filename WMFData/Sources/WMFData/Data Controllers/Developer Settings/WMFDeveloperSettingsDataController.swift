@@ -18,6 +18,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     private var sharedCacheStore: WMFKeyValueStore?
     private var featureConfig: WMFFeatureConfigResponse?
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.developerSettings.rawValue
+    
     private let cacheFeatureConfigFileName = "AppsFeatureConfig"
 
     public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
@@ -39,6 +40,11 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     // MARK: - Local Settings
 
     private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
+    
+    public var isUsingColorTestForYou: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeFeedForYouColorTest.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedForYouColorTest.rawValue, value: newValue) }
+    }
     
     public var developerSettingsEnableDeveloperMode: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableDeveloperMode.rawValue)) ?? false }
