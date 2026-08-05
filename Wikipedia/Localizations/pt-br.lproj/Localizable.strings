@@ -206,6 +206,8 @@
 "alert-temporary-account-learn-more" = "Saiba mais";
 "alt-text-feedback-survey-toast-title" = "Feedback enviado";
 "announcements-dismiss" = "Ignorar";
+"app-onboarding-data-privacy-body" = "Acreditamos que você não deve ter que fornecer informações pessoais para participar do movimento pelo conhecimento livre. Os dados de uso coletados para este aplicativo são anônimos.";
+"app-onboarding-data-privacy-links-format" = "Saiba mais sobre nossas notas de $1 e $2";
 "app-onboarding-data-privacy-policy-link" = "politica de privacidade";
 "app-onboarding-data-privacy-terms-link" = "termos de uso";
 "app-onboarding-data-privacy-title" = "Dados e privadade";
@@ -788,6 +790,7 @@
 "home-feed-interests-header-title" = "No que você está interessado?";
 "home-feed-interests-non-mainspace-toast" = "Somente artigos no espaço de nomes principal podem ser adicionados como interesses.";
 "home-feed-interests-search-placeholder" = "Pesquisar um artigo";
+"home-feed-interests-selected-count" = "{{PLURAL:$1|$1 selecionado|$1 selecionados}}";
 "home-feed-interests-settings-empty-message" = "Seus interesses aparecerão aqui";
 "home-feed-interests-settings-title" = "Seus interesses";
 "home-feed-modules-featured-article-subtitle" = "Os artigos em destaque são alguns dos artigos de maior qualidade da Wikipédia, selecionados diariamente pelos editores";
@@ -1368,6 +1371,10 @@
 "settings-search-footer-text" = "Definir o aplicativo para abrir a guia Pesquisar em vez da guia Explorar";
 "settings-search-footer-text-home" = "Configure o aplicativo para abrir na guia “Pesquisar” em vez da guia inicial";
 "settings-search-open-app-on-search" = "Abrir aplicativo na guia \"Pesquisar\"";
+"settings-storage-and-syncing-disable-sync-alert-message" = "Desativar a sincronização excluirá suas listas de leitura sincronizadas da sua conta da Wikipédia e de outros dispositivos. Suas listas e artigos permanecerão neste dispositivo.";
+"settings-storage-and-syncing-disable-sync-alert-no" = "Não";
+"settings-storage-and-syncing-disable-sync-alert-title" = "Desativar a sincronização da lista de leitura?";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "Sim";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que, quando se autenticar e sincronizar, a Wikimedia salve nas suas preferências os artigos salvados e as listas de leitura.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizar artigos e listas salvas";
 "settings-storage-and-syncing-full-sync" = "As suas listas de leitura serão sincronizadas em segundo plano";

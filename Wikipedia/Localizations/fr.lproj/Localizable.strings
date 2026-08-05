@@ -35,6 +35,7 @@
 // Author: Melimeli
 // Author: Momo50WM
 // Author: Méthodes Bulebe Hangi
+// Author: NClara
 // Author: Nemo bis
 // Author: Nharateh
 // Author: Niridya
@@ -1306,6 +1307,9 @@
 "settings-primary-language-details" = "La première langue dans cette liste est utilisée comme langue principale de votre application.";
 "settings-search-footer-text" = "Configurez l’application pour qu’elle s’ouvre sur l’onglet Rechercher plutôt que sur l’onglet Découvrir";
 "settings-search-open-app-on-search" = "Ouvrir l’application dans l’onglet Rechercher";
+"settings-storage-and-syncing-disable-sync-alert-message" = "La désactivation de la synchronisation supprimera vos listes de lecture synchronisées de votre compte Wikipédia et de vos autres appareils. Vos listes et articles resteront sur cet appareil.";
+"settings-storage-and-syncing-disable-sync-alert-no" = "Non";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "Oui";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Autorisez Wikimedia à enregistrer vos articles sauvegardés et vos listes de lecture dans vos préférences utilisateur lorsque vous vous connectez et activez la synchronisation.";
 "settings-storage-and-syncing-enable-sync-title" = "Synchroniser les articles enregistrés et les listes";
 "settings-storage-and-syncing-full-sync" = "Vos listes de lecture seront synchronisées en tâche de fond";

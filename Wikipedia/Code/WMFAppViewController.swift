@@ -1581,11 +1581,18 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             return
         }
 
-        let coordinator = AppOnboardingCoordinator(presentingViewController: self, dataStore: dataStore, theme: theme) { [weak self] in
-            self?.setDidShowOnboarding()
-            self?.appOnboardingCoordinator = nil
-            completion(true)
-        }
+        let coordinator = AppOnboardingCoordinator(
+            presentingViewController: self,
+            dataStore: dataStore,
+            theme: theme,
+            willDismiss: { [weak self] in
+                self?.loadMainUI()
+            },
+            completion: { [weak self] in
+                self?.setDidShowOnboarding()
+                self?.appOnboardingCoordinator = nil
+                completion(true)
+            })
         appOnboardingCoordinator = coordinator
         hideSplashView()
         coordinator.start()

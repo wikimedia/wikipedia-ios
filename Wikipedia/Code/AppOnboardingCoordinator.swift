@@ -12,15 +12,17 @@ final class AppOnboardingCoordinator: NSObject {
     private weak var presentingViewController: UIViewController?
     private let dataStore: MWKDataStore
     private let theme: Theme
+    private let willDismiss: () -> Void
     private let completion: () -> Void
 
     private var viewModel: WMFAppOnboardingViewModel?
     private(set) var hostingController: WMFAppOnboardingHostingController?
 
-    init(presentingViewController: UIViewController, dataStore: MWKDataStore, theme: Theme, completion: @escaping () -> Void) {
+    init(presentingViewController: UIViewController, dataStore: MWKDataStore, theme: Theme, willDismiss: @escaping () -> Void, completion: @escaping () -> Void) {
         self.presentingViewController = presentingViewController
         self.dataStore = dataStore
         self.theme = theme
+        self.willDismiss = willDismiss
         self.completion = completion
     }
 
@@ -150,10 +152,12 @@ final class AppOnboardingCoordinator: NSObject {
         if viewModel?.interestsViewModel.hasChanges == true {
             NotificationCenter.default.post(name: WMFNSNotification.forYouInterestsDidChange, object: nil)
         }
-        // The skip path resets the selection to the default before completion
         if let seeFirst = viewModel?.feedPreferenceViewModel.selection {
             WMFHomeDataController.shared.setSeeFirstContent(seeFirst)
         }
+        // Build the app's UI while onboarding still covers the screen
+        willDismiss()
+
         hostingController?.dismiss(animated: true) { [weak self] in
             self?.completion()
         }
