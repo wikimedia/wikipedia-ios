@@ -1,11 +1,17 @@
 import Foundation
 import Combine
 
-public actor WMFSettingsDataController: ObservableObject {
+public enum WMFEditMode: String {
+    case visual
+    case source
+}
 
+public actor WMFSettingsDataController: ObservableObject {
     public static let shared = WMFSettingsDataController()
 
-    nonisolated(unsafe) private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+    nonisolated private var userDefaultsStore: WMFKeyValueStore? {
+        WMFDataEnvironment.current.userDefaultsStore
+    }
 
     private var yirDataController: WMFYearInReviewDataController?
     let donationDataController: WMFDonateDataController?
@@ -110,4 +116,16 @@ public actor WMFSettingsDataController: ObservableObject {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue, value: newValue)
     }
 
+    public nonisolated func defaultEditMode() -> WMFEditMode? {
+        guard let raw: String = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.defaultEditMode.rawValue)) ?? nil else { return nil }
+        return WMFEditMode(rawValue: raw)
+    }
+
+    public nonisolated func setDefaultEditMode(_ newValue: WMFEditMode) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.defaultEditMode.rawValue, value: newValue.rawValue)
+    }
+
+    public nonisolated func clearDefaultEditMode() {
+        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.defaultEditMode.rawValue)
+    }
 }
