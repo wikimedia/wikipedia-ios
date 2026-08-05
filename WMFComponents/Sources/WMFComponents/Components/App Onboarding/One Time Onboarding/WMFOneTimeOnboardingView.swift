@@ -40,10 +40,12 @@ public struct WMFOneTimeOnboardingView: View {
                 WMFLargeButton(style: .primary, title: viewModel.customizeButtonTitle) {
                     viewModel.onCustomize?()
                 }
+                .minimumScaleFactor(0.4)
 
                 WMFLargeButton(style: .quiet, title: viewModel.autoSetupButtonTitle) {
                     viewModel.onAutoSetup?()
                 }
+                .minimumScaleFactor(0.4)
             }
             .padding(.horizontal, 24)
             .padding(.vertical, 16)
