@@ -100,11 +100,14 @@ struct WMFAppOnboardingFeedPreferenceViewModelTests {
     }
 
     @Test
-    func personalizedAvailableWithReadingHistoryOnly() {
+    func personalizedUnavailableWithReadingHistoryOnly() {
+        // Reading history isn't something the user chose here, so it can't stand in for
+        // interests — the step shows its explanation text instead.
         let response = makeForYouResponse(
-            becauseYouRead: WMFForYouBecauseYouReadArticles(recentlyRead: makeArticle("Read"), articles: [makeArticle("A")])
+            becauseYouRead: WMFForYouBecauseYouReadArticles(recentlyRead: makeArticle("Read"), articles: [makeArticle("A")]),
+            continueReading: nil
         )
-        #expect(WMFAppOnboardingFeedPreferenceViewModel.personalizedIsAvailable(for: response) == true)
+        #expect(WMFAppOnboardingFeedPreferenceViewModel.personalizedIsAvailable(for: response) == false)
     }
 
     @Test
@@ -132,7 +135,9 @@ struct WMFAppOnboardingFeedPreferenceViewModelTests {
     }
 
     @Test
-    func personalizedCardsFallBackToReadingHistoryWithoutPills() {
+    func personalizedCardsIgnoreReadingHistory() {
+        // Without chosen interests there are no cards at all — reading-history articles read
+        // as random in this preview, so they must not fill in.
         let response = makeForYouResponse(
             becauseYouRead: WMFForYouBecauseYouReadArticles(
                 recentlyRead: makeArticle("Read"),
@@ -141,8 +146,7 @@ struct WMFAppOnboardingFeedPreferenceViewModelTests {
         )
 
         let cards = WMFAppOnboardingFeedPreferenceViewModel.buildPersonalizedCards(from: response)
-        #expect(cards.count == 3)
-        #expect(cards.allSatisfy { $0.topicPill == nil })
+        #expect(cards.isEmpty)
     }
 
     @Test
