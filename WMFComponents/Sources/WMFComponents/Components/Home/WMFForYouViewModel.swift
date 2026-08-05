@@ -191,6 +191,14 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
     }
     @Published public var loadState: LoadState = .loading
 
+    /// Whether this article has an image to show.
+    public enum ImageAvailability {
+        case unknown /// The summary has not arrived yet, so we do not know.
+        case available
+        case unavailable
+    }
+    @Published public var imageAvailability: ImageAvailability = .unknown
+
     public func refreshSavedState(isSaved: Bool) {
         self.isSaved = isSaved
     }
@@ -240,15 +248,21 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
         loadTask = Task { [weak self] in
             guard let self else { return }
             guard let summary = try? await WMFArticleSummaryDataController.shared.fetchArticleSummary(project: project, title: title) else {
+                self.imageAvailability = .unavailable
                 self.loadState = .loaded
                 return
             }
             self.description = summary.description
             self.extract = summary.extract
             guard let thumbnailURL = summary.thumbnailURL else {
+                self.imageAvailability = .unavailable
                 self.loadState = .loaded
                 return
             }
+
+            // The article has an image, so let the card settle on its image design now. The image
+            // itself arrives later, and only a failed download changes the design after this.
+            self.imageAvailability = .available
 
             // Upsize the Wikimedia thumbnail URL to get a higher resolution image
             let largeURL: URL = {
@@ -260,6 +274,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
             }()
 
             guard let data = try? await WMFImageDataController.shared.fetchImageData(url: largeURL) else {
+                self.imageAvailability = .unavailable
                 self.loadState = .loaded
                 return
             }

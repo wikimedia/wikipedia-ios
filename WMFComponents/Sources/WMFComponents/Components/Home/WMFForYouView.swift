@@ -302,8 +302,12 @@ private struct WMFForYouArticleCardView: View {
     }
 
     /// If the assigned variant requires an image but none is available, fall back to textFocused.
+    ///
+    /// This reads `imageAvailability` rather than `uiImage`, because `uiImage` is nil for every
+    /// card until its download finishes. Checking `uiImage` made every image card start as a text
+    /// card and then change design mid-swipe. Only a genuinely missing or failed image falls back.
     private var effectiveVariant: WMFForYouCardVariant {
-        if variant != .textFocused && viewModel.uiImage == nil {
+        if variant != .textFocused && viewModel.imageAvailability == .unavailable {
             return .textFocused
         }
         return variant
