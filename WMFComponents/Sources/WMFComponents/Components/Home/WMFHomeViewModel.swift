@@ -17,6 +17,8 @@ public final class WMFHomeViewModel: ObservableObject {
     public var didShareForYouCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var isArticleSaved: ((WMFForYouArticleCardViewModel) -> Bool)?
 
+    public var didInteractWithForYouFeed: (() -> Void)?
+
     public enum Tab: Int, CaseIterable {
         case forYou
         case community
@@ -87,6 +89,7 @@ public final class WMFHomeViewModel: ObservableObject {
         forYouViewModel.onSaveCard = { [weak self] in self?.didSaveForYouCard?($0) }
         forYouViewModel.onShareCard = { [weak self] in self?.didShareForYouCard?($0) }
         forYouViewModel.onUnsaveCard = { [weak self] in self?.didTapUnsaveForYouCard?($0) }
+        forYouViewModel.onUserInteraction = { [weak self] in self?.didInteractWithForYouFeed?() }
     }
 
     // MARK: - For You
@@ -99,10 +102,15 @@ public final class WMFHomeViewModel: ObservableObject {
         )
     }
 
+
     public func refreshSavedStates() {
+        refreshSavedStates(where: { _ in true })
+    }
+
+    public func refreshSavedStates(where matches: (WMFForYouArticleCardViewModel) -> Bool) {
         guard let isArticleSaved else { return }
         forYouViewModel?.pages.forEach { page in
-            page.articleViewModels.forEach { card in
+            for card in page.articleViewModels where matches(card) {
                 card.refreshSavedState(isSaved: isArticleSaved(card))
             }
         }

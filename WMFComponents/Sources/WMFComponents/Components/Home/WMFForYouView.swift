@@ -33,6 +33,8 @@ public struct WMFForYouView: View {
 
     var theme: WMFTheme { appEnvironment.theme }
 
+    @State private var hasReportedCurrentDrag = false
+
     public init(viewModel: WMFForYouViewModel) {
         self.viewModel = viewModel
     }
@@ -78,6 +80,16 @@ public struct WMFForYouView: View {
         .scrollTargetBehavior(.paging)
         .refreshable { await viewModel.onRefresh?() }
         .scrollBounceBehavior(.basedOnSize)
+        // Observe so we can dismiss the reading list toast
+        .simultaneousGesture(
+            DragGesture(minimumDistance: 8)
+                .onChanged { _ in
+                    guard !hasReportedCurrentDrag else { return }
+                    hasReportedCurrentDrag = true
+                    viewModel.onUserInteraction?()
+                }
+                .onEnded { _ in hasReportedCurrentDrag = false }
+        )
     }
 
     // MARK: - Empty State

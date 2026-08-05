@@ -46,6 +46,14 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         edgesForExtendedLayout = .all
         extendedLayoutIncludesOpaqueBars = true
 
+        // Assigned before the hosting controller is embedded: embedding runs the SwiftUI `task`,
+        // which loads the feed and refreshes saved state. If this closure is still nil at that
+        // point, every card reads as unsaved.
+        viewModel.isArticleSaved = { [weak self] card in
+            guard let self, let articleURL = Self.articleURL(for: card) else { return false }
+            return dataStore.savedPageList.isAnyVariantSaved(articleURL)
+        }
+
         embedHostingController()
 
         viewModel.didSelectLanguage = { [weak self] language in
@@ -76,6 +84,11 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         viewModel.didTapUnsaveForYouCard = { [weak self] article in
             self?.unsaveForYouArticle(article)
         }
+        viewModel.didInteractWithForYouFeed = {
+            // The reading list toast sits over the bottom of a card, so get it out of the way as
+            // soon as the user swipes. Posting with no toast on screen is a no-op.
+            NotificationCenter.default.post(name: NSNotification.dismissReadingListToast, object: nil)
+        }
 
         tabObservation = viewModel.$selectedTab.sink { [weak self] tab in
             DispatchQueue.main.async {
@@ -85,29 +98,42 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
         UISegmentedControl.appearance(whenContainedInInstancesOf: [WMFHomeHostingController.self]).backgroundColor = .clear
         reloadLanguages()
-        
-        viewModel.isArticleSaved = { [weak self] card in
-            guard let self,
-                  let siteURL = card.project.siteURL,
-                  var articleURL = siteURL.wmf_URL(withTitle: card.title) else { return false }
-            articleURL.wmf_languageVariantCode = card.project.languageVariantCode
-            return dataStore.savedPageList.isAnyVariantSaved(articleURL)
-        }
-        
+
+        // Saved state can change anywhere - inside the article, in a reading list, or from a sync -
+        // so follow the same notification the legacy feed uses instead of reading it only once.
+        NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+
         apply(theme: theme)
+    }
+
+    /// The article URL a For You card points at. Cards carry a `WMFProject` and a title, so the
+    /// translation to a legacy article URL happens here on the app side.
+    private static func articleURL(for card: WMFForYouArticleCardViewModel) -> URL? {
+        guard let siteURL = card.project.siteURL,
+              var articleURL = siteURL.wmf_URL(withTitle: card.title) else { return nil }
+        articleURL.wmf_languageVariantCode = card.project.languageVariantCode
+        return articleURL
+    }
+
+    @objc private func articleDidChange(_ note: Notification) {
+        guard let article = note.object as? WMFArticle,
+              article.hasChangedValuesForCurrentEventThatAffectSavedState,
+              let changedKey = article.inMemoryKey else { return }
+
+        // Only refresh the card for the article that actually changed. Matching on the in-memory
+        // key is how the rest of the app identifies an article, and it handles language variants.
+        viewModel.refreshSavedStates { card in
+            Self.articleURL(for: card)?.wmf_inMemoryKey == changedKey
+        }
     }
     
     private func unsaveForYouArticle(_ article: WMFForYouArticleCardViewModel) {
-        guard let siteURL = article.project.siteURL,
-              var articleURL = siteURL.wmf_URL(withTitle: article.title) else { return }
-        articleURL.wmf_languageVariantCode = article.project.languageVariantCode
+        guard let articleURL = Self.articleURL(for: article) else { return }
         dataStore.savedPageList.removeEntry(with: articleURL)
     }
-    
+
     private func navigateToForYouArticle(_ article: WMFForYouArticleCardViewModel) {
-        guard let siteURL = article.project.siteURL,
-              var articleURL = siteURL.wmf_URL(withTitle: article.title) else { return }
-        articleURL.wmf_languageVariantCode = article.project.languageVariantCode
+        guard let articleURL = Self.articleURL(for: article) else { return }
         let coordinator = ArticleCoordinator(
             navigationController: navigationController ?? UINavigationController(),
             articleURL: articleURL,
@@ -120,16 +146,12 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     }
 
     private func saveForYouArticle(_ article: WMFForYouArticleCardViewModel) {
-        guard let siteURL = article.project.siteURL,
-              var articleURL = siteURL.wmf_URL(withTitle: article.title) else { return }
-        articleURL.wmf_languageVariantCode = article.project.languageVariantCode
+        guard let articleURL = Self.articleURL(for: article) else { return }
         dataStore.savedPageList.addSavedPage(with: articleURL)
     }
 
     private func shareForYouArticle(_ article: WMFForYouArticleCardViewModel) {
-        guard let siteURL = article.project.siteURL,
-              var articleURL = siteURL.wmf_URL(withTitle: article.title) else { return }
-        articleURL.wmf_languageVariantCode = article.project.languageVariantCode
+        guard let articleURL = Self.articleURL(for: article) else { return }
         let activityVC = UIActivityViewController(activityItems: [articleURL], applicationActivities: nil)
         if UIDevice.current.userInterfaceIdiom == .pad {
             activityVC.popoverPresentationController?.sourceView = view
@@ -143,6 +165,11 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         configureNavigationBar()
         updateNavigationBarAppearance(for: viewModel.selectedTab)
         reloadLanguages()
+
+        // The notification does not always arrive for changes made by a background sync, so also
+        // reconcile whenever the feed comes back on screen.
+        viewModel.refreshSavedStates()
+
         apply(theme: theme)
     }
 
