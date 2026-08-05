@@ -1,4 +1,5 @@
 import Foundation
+import CoreData
 import Testing
 import WMFDataTestSupport
 @testable import WMFData
@@ -12,6 +13,10 @@ struct WMFPageViewsReadingTimeTests {
     private let fixture = WMFDataTestFixture()
     private let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
     private let dayInSeconds = TimeInterval(60 * 60 * 24)
+
+    /// The cleanup is date bounded, so every test that expects it to run must pin `now` inside the
+    /// window. Otherwise these tests would pass until August 31st 2026 and fail from then on.
+    private let beforeCutoff = WMFPageViewsDataController.inflatedPageViewSecondsCleanupCutoff.addingTimeInterval(-1)
 
     private var todayDate: Date {
         return Calendar.current.startOfDay(for: Date())
@@ -72,16 +77,59 @@ struct WMFPageViewsReadingTimeTests {
         try await dataController.addPageViewSeconds(pageViewManagedObjectID: plausibleObjectID, numberOfSeconds: 600)
         try await dataController.addPageViewSeconds(pageViewManagedObjectID: inflatedObjectID, numberOfSeconds: 40 * 60 * 60)
 
-        let clampedCount = try await dataController.clampInflatedPageViewSecondsIfNeeded()
+        let clampedCount = try await dataController.clampInflatedPageViewSecondsIfNeeded(now: beforeCutoff)
         #expect(clampedCount == 1, "Only the implausible page view should be clamped.")
 
-        let viewContext = try store.viewContext
-        await viewContext.perform {
-            let plausible = viewContext.object(with: plausibleObjectID) as? CDPageView
-            let inflated = viewContext.object(with: inflatedObjectID) as? CDPageView
-            #expect(plausible?.numberOfSeconds == 600, "Plausible reading time should be left alone.")
-            #expect(inflated?.numberOfSeconds == ceiling, "Inflated reading time should be capped at the ceiling.")
-        }
+        let plausibleSeconds = try #require(try await storedSeconds(for: plausibleObjectID, in: store))
+        let inflatedSeconds = try #require(try await storedSeconds(for: inflatedObjectID, in: store))
+
+        #expect(plausibleSeconds == Int64(600), "Plausible reading time should be left alone.")
+        #expect(inflatedSeconds == ceiling, "Inflated reading time should be capped at the ceiling.")
+    }
+
+    /// The ceiling is only safe to apply to rows the buggy code wrote. After the cutoff, a device
+    /// reaching this build for the first time would otherwise trim a genuine long read.
+    @Test
+    func clampInflatedPageViewSecondsDoesNothingAfterTheCutoff() async throws {
+        let store = try await fixture.makeTemporaryCoreDataStore()
+        let dataController = try makeDataController(store)
+
+        let objectID = try #require(try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil, timestamp: todayDate.addingTimeInterval(60)))
+        try await dataController.addPageViewSeconds(pageViewManagedObjectID: objectID, numberOfSeconds: 3 * 60 * 60)
+
+        let afterCutoff = WMFPageViewsDataController.inflatedPageViewSecondsCleanupCutoff.addingTimeInterval(1)
+        let clampedCount = try await dataController.clampInflatedPageViewSecondsIfNeeded(now: afterCutoff)
+
+        #expect(clampedCount == 0)
+        #expect(dataController.didClampInflatedPageViewSeconds() == false, "The cutoff must not consume the one time flag.")
+
+        let seconds = try #require(try await storedSeconds(for: objectID, in: store))
+        #expect(seconds == Int64(3 * 60 * 60), "A three hour read after the cutoff must survive intact.")
+    }
+
+    @Test
+    func clampInflatedPageViewSecondsRunsBeforeTheCutoff() async throws {
+        let store = try await fixture.makeTemporaryCoreDataStore()
+        let dataController = try makeDataController(store)
+
+        let objectID = try #require(try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil, timestamp: todayDate.addingTimeInterval(60)))
+        try await dataController.addPageViewSeconds(pageViewManagedObjectID: objectID, numberOfSeconds: 40 * 60 * 60)
+
+        #expect(try await dataController.clampInflatedPageViewSecondsIfNeeded(now: beforeCutoff) == 1)
+    }
+
+    @Test
+    func cleanupCutoffIsAugust31st2026() throws {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = try #require(TimeZone(secondsFromGMT: 0))
+
+        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: WMFPageViewsDataController.inflatedPageViewSecondsCleanupCutoff)
+
+        #expect(components.year == 2026)
+        #expect(components.month == 8)
+        #expect(components.day == 31)
+        #expect(components.hour == 0)
+        #expect(components.minute == 0)
     }
 
     @Test
@@ -93,17 +141,24 @@ struct WMFPageViewsReadingTimeTests {
         try await dataController.addPageViewSeconds(pageViewManagedObjectID: objectID, numberOfSeconds: 40 * 60 * 60)
 
         #expect(dataController.didClampInflatedPageViewSeconds() == false)
-        #expect(try await dataController.clampInflatedPageViewSecondsIfNeeded() == 1)
+        #expect(try await dataController.clampInflatedPageViewSecondsIfNeeded(now: beforeCutoff) == 1)
         #expect(dataController.didClampInflatedPageViewSeconds())
 
         // A legitimately long total accumulated after the migration must survive.
         try await dataController.addPageViewSeconds(pageViewManagedObjectID: objectID, numberOfSeconds: 40 * 60 * 60)
-        #expect(try await dataController.clampInflatedPageViewSecondsIfNeeded() == 0, "The migration should not run a second time.")
+        #expect(try await dataController.clampInflatedPageViewSecondsIfNeeded(now: beforeCutoff) == 0, "The migration should not run a second time.")
 
+        let seconds = try #require(try await storedSeconds(for: objectID, in: store))
+        #expect(seconds > Int64(WMFPageViewsDataController.inflatedPageViewSecondsCeiling))
+    }
+
+    /// Reads `numberOfSeconds` out of Core Data and returns it. Assertions belong outside the
+    /// `perform` closure — `#expect` inside one is not attributed to the running test, so a failure
+    /// is reported against «unknown» instead of failing the test that caused it.
+    private func storedSeconds(for objectID: NSManagedObjectID, in store: WMFCoreDataStore) async throws -> Int64? {
         let viewContext = try store.viewContext
-        await viewContext.perform {
-            let pageView = viewContext.object(with: objectID) as? CDPageView
-            #expect(pageView?.numberOfSeconds ?? 0 > Int64(WMFPageViewsDataController.inflatedPageViewSecondsCeiling))
+        return await viewContext.perform {
+            return (viewContext.object(with: objectID) as? CDPageView)?.numberOfSeconds
         }
     }
 }

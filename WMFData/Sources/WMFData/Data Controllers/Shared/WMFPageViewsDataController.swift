@@ -111,6 +111,23 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
     /// Ceiling used by `clampInflatedPageViewSecondsIfNeeded()` when cleaning up values written by the pre July 2026 measurement bug. It applies to that one time cleanup only — live measurement is deliberately unbounded, so a genuinely long read is recorded in full.
     public static let inflatedPageViewSecondsCeiling: TimeInterval = 60 * 60
 
+    /// After this date the cleanup never runs, whatever the user defaults flag says.
+    ///
+    /// The flag alone bounds the cleanup to once per install, but not to the release window. Without a date bound, a device that first runs this build long after release — a fresh install, or a launch where Core Data was not ready the first few times — could apply the ceiling to reading time that the fixed code recorded correctly, and trim a genuine long read.
+    ///
+    /// Set shortly after the expected release so real upgrades are covered.
+    public static let inflatedPageViewSecondsCleanupCutoff: Date = {
+        var components = DateComponents()
+        components.year = 2026
+        components.month = 8
+        components.day = 31
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0) ?? .current
+
+        // 2026-08-31T00:00:00Z
+        return calendar.date(from: components) ?? Date(timeIntervalSince1970: 1_788_134_400)
+    }()
+
     private let coreDataStore: WMFCoreDataStore
     private let userDefaultsStore: WMFKeyValueStore?
 
@@ -137,10 +154,18 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
     ///
     /// Known limitation: inflation spread thinly across many page views stays below the ceiling and survives. This reduces the extremes, it does not reconstruct the true totals — that is not recoverable, because the database records no per-interval detail.
     ///
+    /// Bounded twice: to once per install by the user defaults flag, and to before `inflatedPageViewSecondsCleanupCutoff` by date. The date bound matters because the ceiling is only safe to apply to rows the buggy code wrote — see that property.
+    ///
     /// Throws without setting the flag if the update fails, so a later launch retries.
+    /// - Parameter now: The current date. Injected by tests only.
     /// - Returns: The number of page views that were clamped.
     @discardableResult
-    public func clampInflatedPageViewSecondsIfNeeded() async throws -> Int {
+    public func clampInflatedPageViewSecondsIfNeeded(now: Date = Date()) async throws -> Int {
+
+        // Checked before the flag: this needs no store read, and after the cutoff the answer never changes.
+        guard now < Self.inflatedPageViewSecondsCleanupCutoff else {
+            return 0
+        }
 
         guard !didClampInflatedPageViewSeconds() else {
             return 0
