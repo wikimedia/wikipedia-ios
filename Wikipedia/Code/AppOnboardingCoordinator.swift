@@ -66,6 +66,50 @@ final class AppOnboardingCoordinator: NSObject {
         presentingViewController?.present(hostingController, animated: false)
     }
 
+
+    func startCondensed() {
+        let language = preferredWMFLanguages().first ?? WMFDataEnvironment.current.primaryAppLanguage ?? WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        let project = WMFProject.wikipedia(language)
+
+        Task {
+            try? await WMFHomeDataController.shared.fetchCommunity(project: project)
+        }
+
+        let interestsViewModel = WMFHomeFeedInterestsSettingsViewModel(project: project, searchLanguages: preferredWMFLanguages())
+        let feedPreferenceViewModel = WMFAppOnboardingFeedPreferenceViewModel(project: project)
+
+        let viewModel = WMFAppOnboardingViewModel(
+            languages: preferredLanguageItems(),
+            interestsViewModel: interestsViewModel,
+            feedPreferenceViewModel: feedPreferenceViewModel,
+            didTapLearnMoreAboutWikipedia: { [weak self] in
+                self?.presentWebView(urlString: CommonStrings.aboutWikipediaURLString)
+            },
+            didTapPrivacyPolicy: { [weak self] in
+                self?.presentWebView(urlString: CommonStrings.privacyPolicyURLString)
+            },
+            didTapTermsOfUse: { [weak self] in
+                self?.presentWebView(urlString: CommonStrings.termsOfUseURLString)
+            },
+            didTapAddLanguages: { [weak self] in
+                self?.presentPreferredLanguages()
+            },
+            onCompletion: { [weak self] in
+                self?.finish()
+            }
+        )
+
+        viewModel.jumpToStep(.interests)
+
+        self.viewModel = viewModel
+
+        let hostingController = WMFAppOnboardingHostingController(viewModel: viewModel)
+        hostingController.modalPresentationStyle = .overFullScreen
+        hostingController.modalPresentationCapturesStatusBarAppearance = true
+        self.hostingController = hostingController
+        presentingViewController?.present(hostingController, animated: true)
+    }
+
     // MARK: - Languages
 
     private func preferredLanguageItems() -> [WMFAppOnboardingViewModel.LanguageItem] {
@@ -118,13 +162,10 @@ final class AppOnboardingCoordinator: NSObject {
 
 extension AppOnboardingCoordinator: WMFPreferredLanguagesViewControllerDelegate {
     nonisolated func languagesController(_ controller: WMFPreferredLanguagesViewController, didUpdatePreferredLanguages languages: [MWKLanguageLink]) {
-        // UIKit invokes this delegate on the main thread
         MainActor.assumeIsolated {
             viewModel?.updateLanguages(preferredLanguageItems())
             viewModel?.interestsViewModel.updateSearchLanguages(preferredWMFLanguages())
 
-            // Follow the (possibly new) primary language for topic/article suggestions
-            // and feed previews, and re-warm the community cache for it
             if let primary = preferredWMFLanguages().first {
                 let project = WMFProject.wikipedia(primary)
                 viewModel?.interestsViewModel.updateProject(project)

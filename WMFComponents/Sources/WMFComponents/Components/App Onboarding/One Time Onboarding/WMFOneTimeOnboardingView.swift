@@ -37,28 +37,13 @@ public struct WMFOneTimeOnboardingView: View {
             }
 
             VStack(spacing: 16) {
-                Button {
+                WMFLargeButton(style: .primary, title: viewModel.customizeButtonTitle) {
                     viewModel.onCustomize?()
-                } label: {
-                    Text(viewModel.customizeButtonTitle)
-                        .font(Font(WMFFont.for(.boldCallout)))
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(Color(uiColor: theme.link), in: Capsule())
                 }
-                // .accessibilityIdentifier(AccessibilityIdentifiers.OneTimeOnboarding.customizeButton)
 
-                Button {
+                WMFLargeButton(style: .quiet, title: viewModel.autoSetupButtonTitle) {
                     viewModel.onAutoSetup?()
-                } label: {
-                    Text(viewModel.autoSetupButtonTitle)
-                        .font(Font(WMFFont.for(.callout)))
-                        .foregroundStyle(Color(uiColor: theme.link))
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
                 }
-                // .accessibilityIdentifier(AccessibilityIdentifiers.OneTimeOnboarding.autoSetupButton)
             }
             .padding(.horizontal, 24)
             .padding(.vertical, 16)

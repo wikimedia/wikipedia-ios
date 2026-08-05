@@ -1102,9 +1102,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         let alwaysShow = WMFDeveloperSettingsDataController.shared.alwaysShowNewOnboarding
         let hasSeen = defaults.bool(forKey: WMFUserDefaultsKey.hasSeenNewHomeOnboarding.rawValue)
 
-       // guard !isNewInstall && (alwaysShow || !hasSeen) else { return }
+        guard !isNewInstall && (alwaysShow || !hasSeen) else { return }
 
-        defaults.set(false, forKey: WMFUserDefaultsKey.hasSeenNewHomeOnboarding.rawValue)
+        defaults.set(true, forKey: WMFUserDefaultsKey.hasSeenNewHomeOnboarding.rawValue)
 
         let viewModel = WMFOneTimeOnboardingViewModel()
         let oneTimeVC = WMFComponentHostingController(rootView: WMFOneTimeOnboardingView(viewModel: viewModel))
@@ -1112,20 +1112,29 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         viewModel.onCustomize = { [weak self, weak oneTimeVC] in
             oneTimeVC?.dismiss(animated: true) {
-                guard let self,
-                      let navController = self.viewControllers?[WMFAppTabType.main.rawValue] as? UINavigationController else { return }
-                let coordinator = HomeFeedSettingsCoordinator(
-                    navigationController: navController,
+                guard let self else { return }
+                let coordinator = AppOnboardingCoordinator(
+                    presentingViewController: self,
+                    dataStore: self.dataStore,
                     theme: self.theme,
-                    initialView: .root,
-                    presentation: .modal
+                    completion: { [weak self] in
+                        if let homeViewModel = self?.homeCoordinator?.homeViewController?.viewModel {
+                            homeViewModel.selectedTab = WMFHomeDataController.shared.seeFirstContent() == .personalized ? .forYou : .community
+                        }
+                        self?.appOnboardingCoordinator = nil
+                    }
                 )
-                self.homeFeedSettingsCoordinator = coordinator
-                coordinator.start()
+                self.appOnboardingCoordinator = coordinator
+                coordinator.startCondensed()
             }
         }
 
-        viewModel.onAutoSetup = { [weak oneTimeVC] in
+        viewModel.onAutoSetup = { [weak self, weak oneTimeVC] in
+            WMFHomeDataController.shared.setSeeFirstContent(.community)
+            if let homeViewModel = self?.homeCoordinator?.homeViewController?.viewModel {
+                homeViewModel.selectedTab = .community
+                homeViewModel.loadForYouFeedIfNeeded()
+            }
             oneTimeVC?.dismiss(animated: true)
         }
 
