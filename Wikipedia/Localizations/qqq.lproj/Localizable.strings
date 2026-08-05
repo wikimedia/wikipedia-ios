@@ -284,6 +284,13 @@
 "cc-zero" = "Name of the CC Zero license - https://creativecommons.org/publicdomain/zero/1.0";
 "chinese-variants-alert-body" = "Body text of alert used to inform users about Chinese variant support. Please do not translate the newlines (\n) or Chinese characters (简体, 繁體, etc.).";
 "chinese-variants-alert-title" = "Title of alert used to inform users about Chinese variant support.";
+"choose-editor-dont-show-again" = "Title of checkbox in the choose editor sheet that suppresses the sheet for future edits";
+"choose-editor-dont-show-hint" = "VoiceOver hint for the don't show again checkbox in the choose editor sheet";
+"choose-editor-source-subtitle" = "Subtitle of the source editing option in the choose editor sheet";
+"choose-editor-source-title" = "Title of the source editing option in the choose editor sheet";
+"choose-editor-title" = "Title of sheet allowing the user to choose between visual and source editing";
+"choose-editor-visual-subtitle" = "Subtitle of the visual editing option in the choose editor sheet";
+"choose-editor-visual-title" = "Title of the visual editing option in the choose editor sheet";
 "clear-title-accessibility-label" = "Accessibility label title for action that clears text";
 "clearing-cache-complete" = "Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.";
 "clearing-cache-error" = "Title of banner that appears when a user taps clear cache button in Settings and an error occurs during the clearing of cache.";

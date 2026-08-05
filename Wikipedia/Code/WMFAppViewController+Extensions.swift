@@ -871,6 +871,7 @@ extension WMFAppViewController {
 
     @objc func appEnvironmentTraitCollectionIsDifferentThanTraitCollection(_ traitCollection: UITraitCollection) -> Bool {
         return WMFAppEnvironment.current.traitCollection.hasDifferentColorAppearance(comparedTo: traitCollection)
+        || WMFAppEnvironment.current.traitCollection.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory
     }
 
 }
