@@ -109,7 +109,7 @@ struct WMFReadingIntervalTrackerTests {
 
     /// Reading time is reported at full length. A long read must not be truncated — capping was
     /// considered and rejected, because bounding a runaway interval also costs genuine long reads.
-    @Test(arguments: [90 * 60 as TimeInterval, 3 * 3600, 8 * 3600])
+    @Test(arguments: [90 * 60, 3 * 3600, 8 * 3600] as [TimeInterval])
     func longIntervalsAreReportedInFull(elapsed: TimeInterval) {
         var tracker = WMFReadingIntervalTracker()
 
@@ -130,7 +130,7 @@ struct WMFReadingIntervalTrackerTests {
 
     /// A zero length interval is not reading time, and a backwards clock (the user changing the
     /// device time) must not produce a negative value that would subtract from the stored total.
-    @Test(arguments: [0 as TimeInterval, -60, -86400])
+    @Test(arguments: [0, -60, -86400] as [TimeInterval])
     func nonAdvancingClockReportsNothing(offset: TimeInterval) {
         var tracker = WMFReadingIntervalTracker()
 
