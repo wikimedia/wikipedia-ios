@@ -909,8 +909,6 @@
 "reading-list-generic-error" = "En uventet feil oppsto under oppdatering av leselistene dine.";
 "reading-list-keep-button-title" = "Ja, behold artiklene på enheten";
 "reading-list-keep-subtitle" = "Du har lagret artikler som er synkronisert med Wikipedia-kontoen din. Ønsker du å beholde disse lokalt på denne enheten etter at du har logget ut?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Hvis du slår av synkronisering, vil disse artiklene bli fjernet fra kontoen din. Hvis du også fjerner dem fra enheten din, vil de ikke kunne gjenopprettes ved å slå synkronisering på igjen i fremtiden.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Nei, fjern artiklene fra enheten og fra Wikipedia-kontoen";
 "reading-list-keep-title" = "Behold lagrede artikler på enheten?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sorter artikler";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Det er en grense på 5000 usorterte artikler. Vennligst sorter eksisterende artikler i lister for å fortsette synkroniseringen av usorterte artikler.";
@@ -1029,11 +1027,6 @@
 "settings-search-open-app-on-search" = "Start appen i søkefanen";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Tillat at Wikimedia lagrer de lagrede artiklene og leselistene dine i brukerkontoen din når du logger inn og synkroniserer.";
 "settings-storage-and-syncing-enable-sync-title" = "Synkroniser lagrede artikler og lister";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Lagrede artikler vil bli fjernet fra enheten din. Hvis du har aktivert synkronisering vil de også bli fjernet fra brukerkontoen din. Handlingen kan ikke angres.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Fjern alle lagrede artikler?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Fjern";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Merk at fjerning av lagrede artikler også vil fjerne dem fra brukerkontoen din hvis du har aktivert synkronisering.\n\nFjerning av lagrede artikler vil frigjøre rundt $1 med lagringsplass.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Fjern lagrede artikler";
 "settings-storage-and-syncing-full-sync" = "Leselistene vil bli synkronisert i bakgrunnen";
 "settings-storage-and-syncing-server-sync-footer-text" = "Be om en oppdatering av synkroniserte artikler og leselister.";
 "settings-storage-and-syncing-server-sync-title" = "Oppdater synkroniserte leselister";

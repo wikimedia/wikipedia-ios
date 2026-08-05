@@ -9,6 +9,20 @@ public struct WMFAppData {
     }
 }
 
+public struct WMFHTTPErrorInfo: Sendable {
+    public let statusCode: Int
+    public let method: String?
+    public let url: String?
+    public let source: String?
+
+    public init(statusCode: Int, method: String?, url: String?, source: String?) {
+        self.statusCode = statusCode
+        self.method = method
+        self.url = url
+        self.source = source
+    }
+}
+
 // MARK: - Concurrency
 //
 // `WMFDataEnvironment` is `@unchecked Sendable` so that `.current` can be read safely
@@ -66,6 +80,7 @@ public final class WMFDataEnvironment: ObservableObject, @unchecked Sendable {
     public var userAgentUtility: (() -> String)?
     public var appInstallIDUtility: (() -> String?)?
     public var acceptLanguageUtility: (() -> String)?
+    public var httpErrorLogger: (@Sendable (WMFHTTPErrorInfo) -> Void)?
 
     public internal(set) var userDefaultsStore: WMFKeyValueStore? {
         get { environmentLock.withLock { _userDefaultsStore } }
@@ -124,6 +139,7 @@ public final class WMFDataEnvironment: ObservableObject, @unchecked Sendable {
     fileprivate let userAgentUtility: (() -> String)?
     fileprivate let appInstallIDUtility: (() -> String?)?
     fileprivate let acceptLanguageUtility: (() -> String)?
+    fileprivate let httpErrorLogger: (@Sendable (WMFHTTPErrorInfo) -> Void)?
     fileprivate let userDefaultsStore: WMFKeyValueStore?
     fileprivate let crossProcessUserDefaultsStore: WMFKeyValueStore?
     fileprivate let sharedCacheStore: WMFKeyValueStore?
@@ -143,6 +159,7 @@ public final class WMFDataEnvironment: ObservableObject, @unchecked Sendable {
             userAgentUtility: userAgentUtility,
             appInstallIDUtility: appInstallIDUtility,
             acceptLanguageUtility: acceptLanguageUtility,
+            httpErrorLogger: httpErrorLogger,
             userDefaultsStore: userDefaultsStore,
             crossProcessUserDefaultsStore: crossProcessUserDefaultsStore,
             sharedCacheStore: sharedCacheStore,
@@ -160,6 +177,7 @@ public final class WMFDataEnvironment: ObservableObject, @unchecked Sendable {
         userAgentUtility = snapshot.userAgentUtility
         appInstallIDUtility = snapshot.appInstallIDUtility
         acceptLanguageUtility = snapshot.acceptLanguageUtility
+        httpErrorLogger = snapshot.httpErrorLogger
         userDefaultsStore = snapshot.userDefaultsStore
         crossProcessUserDefaultsStore = snapshot.crossProcessUserDefaultsStore
         sharedCacheStore = snapshot.sharedCacheStore

@@ -413,12 +413,16 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
             }
         }
 
-        // 3. Check article download state (only if no sync errors)
+        // 3. Check article download state (only if no sync errors).
+        // A download error is only relevant while the article isn't downloaded —
+        // a stale error from a failed earlier attempt must not outlive a successful retry.
         switch alertType {
         case .none, .downloading, .articleError:
-            if article.error != .none {
+            if article.isDownloaded {
+                return .none
+            } else if article.error != .none {
                 return .articleError(article.error.localizedDescription)
-            } else if !article.isDownloaded {
+            } else {
                 return .downloading
             }
         default:

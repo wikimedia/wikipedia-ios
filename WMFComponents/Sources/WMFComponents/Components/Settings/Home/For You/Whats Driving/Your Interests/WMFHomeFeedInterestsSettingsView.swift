@@ -4,8 +4,12 @@ public struct WMFHomeFeedInterestsSettingsView: View {
 
     @ObservedObject var viewModel: WMFHomeFeedInterestsSettingsViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @FocusState private var searchIsFocused: Bool
+    @State private var searchIsFocused: Bool = false
 
+    /// Space above the header. Settings pushes this screen under a navigation bar that already
+    /// provides breathing room; onboarding embeds it with only the safe area above, so that
+    /// surface passes a larger inset.
+    private let topContentInset: CGFloat
     private let bottomContentInset: CGFloat
 
     var theme: WMFTheme { appEnvironment.theme }
@@ -19,56 +23,62 @@ public struct WMFHomeFeedInterestsSettingsView: View {
         min(systemDynamicTypeSize, .accessibility2)
     }
 
-    public init(viewModel: WMFHomeFeedInterestsSettingsViewModel, bottomContentInset: CGFloat = 0) {
+    public init(viewModel: WMFHomeFeedInterestsSettingsViewModel, topContentInset: CGFloat = 12, bottomContentInset: CGFloat = 0) {
         self.viewModel = viewModel
+        self.topContentInset = topContentInset
         self.bottomContentInset = bottomContentInset
     }
 
     public var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                header
-                    .padding(.horizontal, 16)
-                    .padding(.top, 12)
+        // Viewport size drives the article grid's column count (iPad/landscape get more),
+        // mirroring how the article tabs grid reads its geometry.
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    header
+                        .padding(.horizontal, 16)
+                        .padding(.top, topContentInset)
 
-                searchBar
-                    .padding(.horizontal, 16)
-                    .padding(.top, 12)
+                    searchBar
+                        .padding(.horizontal, 8)
+                        .padding(.top, 12)
 
-                if viewModel.isSearchActive {
-                    languageBar
-                    searchResults
-                } else {
-                    topicChips
-
-                    if viewModel.isFetchingArticles {
-                        ProgressView()
-                            .frame(maxWidth: .infinity)
-                            .padding(.top, 80)
-                    } else if !viewModel.gridViewModels.isEmpty {
-                        WMFInterestArticleGridView(
-                            viewModels: viewModel.gridViewModels,
-                            theme: theme,
-                            onTap: { vm in
-                                viewModel.toggleArticleSelection(vm)
-                            }
-                        )
+                    if viewModel.isSearchActive {
+                        languageBar
+                        searchResults
                     } else {
-                        HStack {
-                            Spacer()
-                            Text(viewModel.emptyMessage)
-                                .font(Font(WMFFont.for(.headline, sized: dynamicTypeSize)))
-                                .foregroundStyle(Color(uiColor: theme.secondaryText))
-                                .multilineTextAlignment(.center)
-                            Spacer()
+                        topicChips
+
+                        if viewModel.isFetchingArticles {
+                            ProgressView()
+                                .frame(maxWidth: .infinity)
+                                .padding(.top, 80)
+                        } else if !viewModel.gridViewModels.isEmpty {
+                            WMFInterestArticleGridView(
+                                viewModels: viewModel.gridViewModels,
+                                theme: theme,
+                                viewportSize: geometry.size,
+                                onTap: { vm in
+                                    viewModel.toggleArticleSelection(vm)
+                                }
+                            )
+                        } else {
+                            HStack {
+                                Spacer()
+                                Text(viewModel.emptyMessage)
+                                    .font(Font(WMFFont.for(.headline, sized: dynamicTypeSize)))
+                                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                                    .multilineTextAlignment(.center)
+                                Spacer()
+                            }
+                            .padding(.top, 80)
                         }
-                        .padding(.top, 80)
                     }
                 }
+                .padding(.bottom, bottomContentInset)
             }
-            .padding(.bottom, bottomContentInset)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(uiColor: theme.paperBackground))
         .environment(\.colorScheme, theme.preferredColorScheme)
         .dynamicTypeSize(...DynamicTypeSize.accessibility2)
@@ -115,49 +125,19 @@ public struct WMFHomeFeedInterestsSettingsView: View {
 
     // MARK: - Search
 
+    /// The system search bar, matching the search bars used elsewhere in the app.
     private var searchBar: some View {
-        HStack(spacing: 8) {
-            searchBarContent
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .modifier(WMFInterestsSearchBarBackground(theme: theme))
-
-            if searchIsFocused || viewModel.isSearchActive {
-                Button(viewModel.cancelTitle) {
-                    viewModel.clearSearch()
-                    searchIsFocused = false
-                }
-                .font(Font(WMFFont.for(.body, sized: dynamicTypeSize)))
-                .foregroundStyle(Color(uiColor: theme.link))
-                .accessibilityIdentifier(AccessibilityIdentifiers.Interests.searchCancelButton)
+        WMFSearchBarRepresentable(
+            text: $viewModel.searchTerm,
+            isFocused: $searchIsFocused,
+            placeholder: viewModel.searchPlaceholder,
+            theme: theme,
+            accessibilityIdentifier: AccessibilityIdentifiers.Interests.searchField,
+            onCancel: {
+                viewModel.clearSearch()
+                searchIsFocused = false
             }
-        }
-        .animation(.default, value: searchIsFocused)
-    }
-
-    private var searchBarContent: some View {
-        HStack(spacing: 6) {
-            if let magnifyingGlass = WMFSFSymbolIcon.for(symbol: .magnifyingGlass, compatibleWith: dynamicTypeSize.wmfTraitCollection) {
-                Image(uiImage: magnifyingGlass)
-                    .foregroundStyle(Color(uiColor: theme.secondaryText))
-            }
-            TextField(viewModel.searchPlaceholder, text: $viewModel.searchTerm)
-                .font(Font(WMFFont.for(.body, sized: dynamicTypeSize)))
-                .foregroundStyle(Color(uiColor: theme.text))
-                .autocorrectionDisabled()
-                .textInputAutocapitalization(.never)
-                .focused($searchIsFocused)
-                .accessibilityIdentifier(AccessibilityIdentifiers.Interests.searchField)
-
-            if viewModel.isSearchActive, let clearIcon = WMFSFSymbolIcon.for(symbol: .closeCircleFill, compatibleWith: dynamicTypeSize.wmfTraitCollection) {
-                Button {
-                    viewModel.clearSearch()
-                } label: {
-                    Image(uiImage: clearIcon)
-                        .foregroundStyle(Color(uiColor: theme.secondaryText))
-                }
-            }
-        }
+        )
     }
 
     // Search-view-controller-style language bar: lets the user pick which of their languages to
@@ -222,12 +202,10 @@ public struct WMFHomeFeedInterestsSettingsView: View {
                             let isSelecting = !viewModel.selectedTopics.contains(topic)
                             viewModel.toggleTopic(topic)
                             if isSelecting {
-                                // Selection moves the chip to the front of the row, which can
-                                // land off-screen — follow it after the reorder settles.
+                                // Selection moves the chip into the selected group, which can
+                                // land off-screen — follow it, instantly (see below).
                                 Task { @MainActor in
-                                    withAnimation {
-                                        proxy.scrollTo(topic)
-                                    }
+                                    proxy.scrollTo(topic)
                                 }
                             }
                         }
@@ -235,27 +213,9 @@ public struct WMFHomeFeedInterestsSettingsView: View {
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 12)
-                .animation(.default, value: viewModel.selectedTopics)
+                // Deliberately unanimated: animating the reorder made chips swap places and
+                // the +/checkmark icon slide. Selection should apply instantly (per design).
             }
-        }
-    }
-}
-
-/// Capsule background for the interests search bar: liquid glass on iOS 26+,
-/// a filled capsule on earlier versions.
-private struct WMFInterestsSearchBarBackground: ViewModifier {
-    let theme: WMFTheme
-
-    func body(content: Content) -> some View {
-        if #available(iOS 26.0, *) {
-            content
-                .glassEffect(.regular.interactive(), in: Capsule())
-        } else {
-            content
-                .background(
-                    Capsule()
-                        .fill(Color(uiColor: theme.midBackground))
-                )
         }
     }
 }

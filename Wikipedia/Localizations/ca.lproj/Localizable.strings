@@ -807,8 +807,6 @@
 "reading-list-generic-error" = "S'ha produït un error inesperat mentre s'actualitzaven les llistes de lectura.";
 "reading-list-keep-button-title" = "Sí, conserva els articles en el dispositiu";
 "reading-list-keep-subtitle" = "Hi ha articles sincronitzats al vostre compte de Viquipèdia. Voleu conservar-los en aquest dispositiu quan finalitzeu la sessió?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Desactivar la sincronització suprimirà aquest articles del vostre compte. Si els suprimiu del vostre dispositiu, no els podreu recuperar activant la sincronització de nou més endavant.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "No, suprimeix els articles del dispositiu i del meu compte de Viquipèdia";
 "reading-list-keep-title" = "Voleu mantenir els articles desats al dispositiu?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordena els articles";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Hi ha un límit de 5000 articles no ordenats. Ordeneu els vostres articles actuals en llistes per continuar amb la sincronització d'articles no ordenats.";
@@ -928,11 +926,6 @@
 "settings-search-open-app-on-search" = "Obre l'aplicació en la pestanya de cerca";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permet a Wikimedia desar els articles desats i les llistes de lectures a les vostres preferències d'usuari quan inicieu una sessió i sincronitzeu.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronitza tots els articles desats i llistes";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Esborrar els articles desats els suprimirà del vostre compte d'usuari si teniu activada la sincronització també en aquest dispositiu. No podeu desfer aquesta acció.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Voleu esborrar tots els articles desats?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Esborra";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Esborrar els articles desats els suprimirà del vostre compte d'usuari si teniu la sincronització activada també en aquest dispositiu.\n\nEsborrar els articles desats alliberarà aproximadament $1 d'espai.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Esborra els articles desats";
 "settings-storage-and-syncing-full-sync" = "Les llistes de lectures se sincronitzaran en segon pla";
 "settings-storage-and-syncing-server-sync-footer-text" = "Sol·licita una actualització dels vostres articles sincronitzats i llistes de lectura.";
 "settings-storage-and-syncing-server-sync-title" = "Actualitza les llistes de lectura sincronitzades";

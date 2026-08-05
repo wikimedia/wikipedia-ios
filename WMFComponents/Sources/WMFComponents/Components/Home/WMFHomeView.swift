@@ -50,7 +50,7 @@ public struct WMFHomeView: View {
         if #available(iOS 26.0, *) {
             communityTabContent
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .ignoresSafeArea(.container, edges: .top)
+                .ignoresSafeArea(.container, edges: [.top, .bottom])
                 .safeAreaInset(edge: .top, spacing: 0) {
                     headerBar(isForYou: false)
                 }
