@@ -42,6 +42,8 @@ public struct WMFHomeView: View {
             .environment(\.colorScheme, .dark)
         } else {
             communitySection
+
+                .environment(\.colorScheme, theme.preferredColorScheme)
         }
     }
 
@@ -54,6 +56,7 @@ public struct WMFHomeView: View {
                 .safeAreaInset(edge: .top, spacing: 0) {
                     headerBar(isForYou: false)
                 }
+                .background(Color(uiColor: theme.paperBackground).ignoresSafeArea())
         } else {
             VStack(spacing: 0) {
                 headerBar(isForYou: false)
