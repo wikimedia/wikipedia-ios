@@ -183,7 +183,7 @@ extension NewOnboardingRobot {
 extension NewOnboardingRobot {
     @discardableResult
     func searchInterests(for term: String, file: StaticString = #filePath, line: UInt = #line) -> Self {
-        let searchField = base.app.textFields[AccessibilityIdentifiers.Interests.searchField]
+        let searchField = base.app.searchFields[AccessibilityIdentifiers.Interests.searchField]
         base.assertExists(searchField, timeout: 10, file: file, line: line)
         searchField.tap()
         searchField.typeText(term)

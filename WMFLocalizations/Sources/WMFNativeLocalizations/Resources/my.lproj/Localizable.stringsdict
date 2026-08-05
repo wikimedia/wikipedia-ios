@@ -526,5 +526,53 @@
 			<string>ခု</string>
 		</dict>
 	</dict>
+	<key>year-in-review-base-editors-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>တရားဝင် ဝီကီပီဒီယားအက်ပ်များတွင် အယ်ဒီတာများက %#@v1@ ပြုလုပ်ခဲ့သည်</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string> %1$lld တည်းဖြတ်မှု</string>
+			<key>other</key>
+			<string> %1$lld တည်းဖြတ်မှုများ</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-edits-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ဝီကီပီးဒီးယားကို တစ်မိနစ်လျှင် %#@v1@ ဖြင့် တည်းဖြတ်ခဲ့သည်</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ကြိမ်</string>
+			<key>other</key>
+			<string>%1$d ကြိမ်များ</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ဝီကီပီးဒီးယားကို %#@v1@ ထက်ပို၍ ရရှိနိုင်ပါသည်</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ဘာသာစကား</string>
+			<key>other</key>
+			<string>%1$d ဘာသာစကားများ</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

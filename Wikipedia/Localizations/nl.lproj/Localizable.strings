@@ -1373,6 +1373,10 @@
 "settings-search-footer-text" = "Stelt de app zo in dat het zoektabblad geopend wordt in plaatst van het verkennen-tabblad.";
 "settings-search-footer-text-home" = "Stel de app zo in dat deze opent in het tabblad Zoeken in plaats van het tabblad Startscherm";
 "settings-search-open-app-on-search" = "App op zoektabblad openen";
+"settings-storage-and-syncing-disable-sync-alert-message" = "Als u de synchronisatie uitschakelt, worden uw gesynchroniseerde leeslijsten verwijderd van uw Wikipedia-account en van andere apparaten. Uw lijsten en pagina's blijven wel op dit apparaat staan.";
+"settings-storage-and-syncing-disable-sync-alert-no" = "Nee";
+"settings-storage-and-syncing-disable-sync-alert-title" = "Leeslijstsynchronisatie uitschakelen?";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "Ja";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Toestaan dat Wikimedia uw opgeslagen pagina's en leeslijsten opslaat naar uw gebruikersvoorkeuren wanneer u aanmeldt en synchroniseert.";
 "settings-storage-and-syncing-enable-sync-title" = "Opgeslagen pagina's en lijsten synchroniseren";
 "settings-storage-and-syncing-full-sync" = "Uw leeslijsten worden op de achtergrond gesynchroniseerd";
