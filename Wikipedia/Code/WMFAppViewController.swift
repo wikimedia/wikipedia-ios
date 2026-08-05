@@ -1097,6 +1097,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
     
     private func presentOneTimeHomeOnboardingIfNeeded() {
+        // Make sure it's on the home tab and doesn't have any modals/etc
+        guard selectedIndex == WMFAppTabType.main.rawValue else { return }
+        guard let homeNav = viewControllers?[WMFAppTabType.main.rawValue] as? UINavigationController,
+              homeNav.viewControllers.count == 1 else { return }
+        guard presentedViewController == nil else { return }
+        
         let defaults = UserDefaults.standard
         let isNewInstall = defaults.bool(forKey: WMFUserDefaultsKey.didSendNewInstallOnboardingStartEvent.rawValue)
         let alwaysShow = WMFDeveloperSettingsDataController.shared.alwaysShowNewOnboarding
