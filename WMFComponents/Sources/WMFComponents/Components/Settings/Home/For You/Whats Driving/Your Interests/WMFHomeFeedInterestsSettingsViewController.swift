@@ -25,10 +25,13 @@ public final class WMFHomeFeedInterestsSettingsViewController: WMFComponentHosti
 
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        guard isMovingFromParent || isBeingDismissed else { return }
-        if viewModel.hasChanges {
-            NotificationCenter.default.post(name: WMFNSNotification.forYouInterestsDidChange, object: nil)
-        }
+
+        let isLeavingForGood = isMovingFromParent
+            || isBeingDismissed
+            || navigationController?.isBeingDismissed == true
+
+        guard isLeavingForGood, viewModel.hasChanges else { return }
+        NotificationCenter.default.post(name: WMFNSNotification.forYouInterestsDidChange, object: nil)
     }
 
     private func configureNavigationBar() {
