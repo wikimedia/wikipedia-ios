@@ -283,7 +283,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         navigationItem.backButtonDisplayMode = .generic
         
-        registerForTraitChanges([UITraitUserInterfaceStyle.self]) { [weak self] (_: WMFAppViewController, _: UITraitCollection) in
+        registerForTraitChanges([UITraitUserInterfaceStyle.self, UITraitPreferredContentSizeCategory.self]) { [weak self] (_: WMFAppViewController, _: UITraitCollection) in
             self?.debounceTraitCollectionThemeUpdate()
         }
     }
