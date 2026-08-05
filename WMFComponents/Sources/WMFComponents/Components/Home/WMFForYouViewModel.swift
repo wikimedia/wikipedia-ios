@@ -249,9 +249,11 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
                 return
             }
 
-            let image = UIImage(data: data)
-            self.uiImage = image
-            if let image, let color = image.accessibleSampledColor() {
+            self.uiImage = UIImage(data: data)
+
+            // Sample off the main actor. The pixel loop is far too expensive to run while the
+            // user is swiping between cards, and the image is on screen before it finishes.
+            if let color = await WMFForYouImageColorSampler.shared.sampledColor(from: data) {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     self.sampledColor = color
                 }
@@ -266,6 +268,24 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
 }
 
 // MARK: - WCAG color sampling
+
+/// Runs the card background colour sampling away from the main actor.
+///
+/// This is an actor rather than a `nonisolated` function for two reasons. First, an actor is
+/// guaranteed never to run on the main actor, so the work cannot drift back onto the main thread
+/// if the package's concurrency defaults change later. Second, it serialises the sampling: several
+/// cards can scroll in at once, and we do not want each of them looping over a large image at the
+/// same time.
+actor WMFForYouImageColorSampler {
+
+    static let shared = WMFForYouImageColorSampler()
+
+    /// Takes image `Data` instead of a `UIImage` because `UIImage` is not `Sendable` and so cannot
+    /// be handed to another concurrency domain. The image is decoded here instead.
+    func sampledColor(from imageData: Data) -> Color? {
+        return UIImage(data: imageData)?.accessibleSampledColor()
+    }
+}
 
 extension UIImage {
     func accessibleSampledColor() -> Color? {
