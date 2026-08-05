@@ -150,11 +150,21 @@ public final class WMFForYouPageViewModel: ObservableObject, Identifiable {
         self.articleViewModels = articles.map {
             WMFForYouArticleCardViewModel(article: $0, headerLabel: headerLabel)
         }
+        Self.assignCardIndexes(to: articleViewModels)
     }
 
     public init(module: WMFForYouModule, articleViewModels: [WMFForYouArticleCardViewModel]) {
         self.module = module
         self.articleViewModels = articleViewModels
+        Self.assignCardIndexes(to: articleViewModels)
+    }
+
+    /// Fixes each card's position in the carousel at build time. Both initialisers go through here
+    /// so a card's design never depends on which other cards happen to be hidden.
+    private static func assignCardIndexes(to cards: [WMFForYouArticleCardViewModel]) {
+        for (index, card) in cards.enumerated() {
+            card.cardIndex = index
+        }
     }
 }
 
@@ -170,6 +180,11 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
     @Published public var uiImage: UIImage?
     @Published public var sampledColor: Color?
     @Published public var isSaved: Bool = false
+
+    /// Position of this card in its carousel, fixed once by `WMFForYouPageViewModel` when the page
+    /// is built. The card design is chosen from this, so it must not follow the live filtered
+    /// position - otherwise hiding one card re-styles every card after it.
+    public fileprivate(set) var cardIndex: Int = 0
 
     public enum LoadState {
         case loading, loaded

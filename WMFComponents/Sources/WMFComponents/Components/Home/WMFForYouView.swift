@@ -166,7 +166,15 @@ private struct WMFForYouPageView: View {
     let onShareCard: (WMFForYouArticleCardViewModel) -> Void
     let onUnsaveCard: (WMFForYouArticleCardViewModel) -> Void
 
-    @State private var currentPage: Int? = 0
+    /// Identified by `hideKey` rather than by position, so that a card keeps its identity when an
+    /// earlier card in the carousel is hidden.
+    @State private var currentPage: String?
+
+    /// `scrollPosition` only writes to `currentPage` once the user scrolls, so fall back to the
+    /// first card to keep the page dots correct on first appearance.
+    private var currentPageKey: String? {
+        currentPage ?? articleViewModels.first?.hideKey
+    }
 
     private var windowSafeAreaBottom: CGFloat {
         let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
@@ -176,12 +184,12 @@ private struct WMFForYouPageView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 0) {
-                ForEach(Array(articleViewModels.enumerated()), id: \.offset) { index, article in
-                    let variant = WMFForYouCardVariant.variant(for: index)
+                ForEach(articleViewModels, id: \.hideKey) { article in
+                    let variant = WMFForYouCardVariant.variant(for: article.cardIndex)
                     WMFForYouArticleCardView(
                         viewModel: article,
                         variant: variant,
-                        variantIndex: index,
+                        variantIndex: article.cardIndex,
                         theme: theme,
                         onHideModule: onHideModule,
                         onHideCard: { onHideCard(article) },
@@ -192,7 +200,6 @@ private struct WMFForYouPageView: View {
                         onShareCard: { onShareCard(article) }
                     )
                     .containerRelativeFrame(.horizontal)
-                    .tag(index as Int?)
                 }
             }
             .scrollTargetLayout()
@@ -201,14 +208,15 @@ private struct WMFForYouPageView: View {
         .scrollPosition(id: $currentPage)
         .overlay(alignment: .bottom) {
             HStack(spacing: 8) {
-                ForEach(0..<articleViewModels.count, id: \.self) { index in
+                ForEach(articleViewModels, id: \.hideKey) { article in
+                    let isCurrent = article.hideKey == currentPageKey
                     Circle()
-                        .fill(index == (currentPage ?? 0) ? Color.white : Color.white.opacity(0.4))
+                        .fill(isCurrent ? Color.white : Color.white.opacity(0.4))
                         .frame(
-                            width: index == (currentPage ?? 0) ? 8 : 7,
-                            height: index == (currentPage ?? 0) ? 8 : 7
+                            width: isCurrent ? 8 : 7,
+                            height: isCurrent ? 8 : 7
                         )
-                        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: currentPage)
+                        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: currentPageKey)
                 }
             }
             .padding(.vertical, 20)
