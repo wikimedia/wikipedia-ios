@@ -4,10 +4,6 @@ import UIKit
 import WMFData
 import WMFNativeLocalizations
 
-extension WMFLanguage: Identifiable {
-    public var id: String { [languageCode, languageVariantCode].compactMap { $0 }.joined(separator: "-") }
-}
-
 @MainActor
 public final class WMFHomeViewModel: ObservableObject {
 
