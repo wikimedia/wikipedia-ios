@@ -92,4 +92,8 @@ public enum WMFUserDefaultsKey: String {
 
     // Onboarding: New app install event
     case didSendNewInstallOnboardingStartEvent = "did-send-new-install-onboarding-start-event"
+
+    // Article View Controller: Enable visual editor
+    case developerSettingsEnableVisualEditingJourney = "dev-settings-enable-visual-editing-journey"
+    case defaultEditMode = "default-edit-mode"
 }
