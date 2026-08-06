@@ -143,9 +143,8 @@ public struct WMFHomeView: View {
             WMFForYouView(viewModel: forYouViewModel)
                 .ignoresSafeArea()
         } else if viewModel.isLoadingForYou {
-            Spacer()
             ProgressView()
-            Spacer()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else if viewModel.forYouFeedError != nil {
             VStack(spacing: 16) {
                 Spacer()
@@ -174,11 +173,10 @@ public struct WMFHomeView: View {
             .background(Color.black)
             .padding(.top, safeAreaTop + 52)
         } else {
-            Spacer()
             Text(viewModel.forYouTabTitle)
                 .font(Font(WMFFont.for(.headline)))
                 .foregroundStyle(Color(uiColor: theme.secondaryText))
-            Spacer()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 
