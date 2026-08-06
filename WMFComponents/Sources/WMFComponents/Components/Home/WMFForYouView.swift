@@ -103,43 +103,32 @@ public struct WMFForYouView: View {
     // MARK: - Empty State
 
     private var emptyState: some View {
-        let forYouTheme = WMFTheme.forYou
+        // The shared empty state component, given the For You palette so it stays dark while the
+        // app is on a light theme, and a nil image size so the SF Symbol keeps its own size.
+        let emptyViewModel = WMFEmptyViewModel(
+            localizedStrings: WMFEmptyViewModel.LocalizedStrings(
+                title: viewModel.emptyTitle,
+                subtitle: viewModel.emptySubtitle,
+                titleFilter: nil,
+                buttonTitle: viewModel.emptyButtonTitle,
+                attributedFilterString: nil
+            ),
+            image: WMFSFSymbolIcon.for(symbol: .sparkles, font: .xxlTitleBold),
+            imageColor: WMFTheme.forYou.secondaryText,
+            numberOfFilters: nil,
+            imageSize: nil
+        )
 
-        return VStack(spacing: 0) {
-            Spacer()
-
-            Image(uiImage: WMFSFSymbolIcon.for(symbol: .sparkles, font: .xxlTitleBold) ?? UIImage())
-                .foregroundStyle(Color(uiColor: forYouTheme.secondaryText))
-                .padding(.bottom, 16)
-
-            Text(viewModel.emptyTitle)
-                .font(Font(WMFFont.for(.boldTitle3)))
-                .foregroundStyle(Color(uiColor: forYouTheme.text))
-                .multilineTextAlignment(.center)
-                .padding(.bottom, 8)
-
-            Text(viewModel.emptySubtitle)
-                .font(Font(WMFFont.for(.callout)))
-                .foregroundStyle(Color(uiColor: forYouTheme.secondaryText))
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 40)
-                .padding(.bottom, 24)
-
-            Button {
-                viewModel.onCustomizeInterests?()
-            } label: {
-                Text(viewModel.emptyButtonTitle)
-                    .font(Font(WMFFont.for(.boldCallout)))
-                    .foregroundStyle(.white)
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 12)
-                    .background(Color(uiColor: forYouTheme.link), in: Capsule())
-            }
-
-            Spacer()
-        }
+        return WMFEmptyView(
+            viewModel: emptyViewModel,
+            type: .noItems,
+            isScrollable: false,
+            theme: .forYou,
+            mainAction: { viewModel.onCustomizeInterests?() },
+            usesCompactButton: true
+        )
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(uiColor: forYouTheme.paperBackground))
+        .background(Color(uiColor: WMFTheme.forYou.paperBackground))
     }
 }
 

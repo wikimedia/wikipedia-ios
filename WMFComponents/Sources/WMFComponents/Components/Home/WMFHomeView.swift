@@ -153,32 +153,29 @@ public struct WMFHomeView: View {
             ProgressView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else if viewModel.forYouFeedError != nil {
-            VStack(spacing: 16) {
-                Spacer()
-                Text(viewModel.forYouErrorTitle)
-                    .font(Font(WMFFont.for(.boldHeadline)))
-                    .foregroundStyle(Color(uiColor: WMFTheme.forYou.text))
-                    .multilineTextAlignment(.center)
-                Text(viewModel.forYouErrorSubtitle)
-                    .font(Font(WMFFont.for(.callout)))
-                    .foregroundStyle(Color(uiColor: WMFTheme.forYou.secondaryText))
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 40)
-                Button {
-                    viewModel.loadForYouFeedIfNeeded()
-                } label: {
-                    Text(viewModel.forYouErrorRetryTitle)
-                        .font(Font(WMFFont.for(.boldCallout)))
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 24)
-                        .padding(.vertical, 12)
-                        .background(Color(uiColor: WMFTheme.forYou.link), in: Capsule())
-                }
-                Spacer()
-            }
+            let errorViewModel = WMFEmptyViewModel(
+                localizedStrings: WMFEmptyViewModel.LocalizedStrings(
+                    title: viewModel.forYouErrorTitle,
+                    subtitle: viewModel.forYouErrorSubtitle,
+                    titleFilter: nil,
+                    buttonTitle: viewModel.forYouErrorRetryTitle,
+                    attributedFilterString: nil
+                ),
+                image: nil,
+                imageColor: nil,
+                numberOfFilters: nil
+            )
+
+            WMFEmptyView(
+                viewModel: errorViewModel,
+                type: .noItems,
+                isScrollable: false,
+                theme: .forYou,
+                mainAction: { viewModel.loadForYouFeedIfNeeded() },
+                usesCompactButton: true
+            )
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(uiColor: WMFTheme.forYou.paperBackground))
-            .padding(.top, safeAreaTop + 52)
         } else {
             Text(viewModel.forYouTabTitle)
                 .font(Font(WMFFont.for(.headline)))
