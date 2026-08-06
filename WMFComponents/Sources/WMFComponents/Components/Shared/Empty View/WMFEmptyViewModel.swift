@@ -23,11 +23,19 @@ public class WMFEmptyViewModel: ObservableObject {
     var imageColor: UIColor?
     @Published var numberOfFilters: Int?
 
-    public init(localizedStrings: LocalizedStrings, image: UIImage?, imageColor: UIColor?, numberOfFilters: Int?) {
+    /// The size to draw `image` at.
+    ///
+    /// Defaults to the illustration size these states were designed around. Pass nil to draw the
+    /// image at its natural size, which is what an SF Symbol needs: stretching a symbol to the
+    /// illustration frame distorts it.
+    var imageSize: CGSize?
+
+    public init(localizedStrings: LocalizedStrings, image: UIImage?, imageColor: UIColor?, numberOfFilters: Int?, imageSize: CGSize? = CGSize(width: 132, height: 118)) {
         self.localizedStrings = localizedStrings
         self.image = image
         self.imageColor = imageColor
         self.numberOfFilters = numberOfFilters
+        self.imageSize = imageSize
     }
 
     func filterString(localizedStrings: LocalizedStrings) -> AttributedString? {
