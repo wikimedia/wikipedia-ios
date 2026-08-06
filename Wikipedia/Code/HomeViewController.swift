@@ -1,5 +1,4 @@
 import UIKit
-import Combine
 import WMF
 import WMFComponents
 import WMFData
@@ -16,7 +15,6 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     private let dataStore: MWKDataStore
     let viewModel: WMFHomeViewModel
     private let hostingController: WMFHomeHostingController
-    private var tabObservation: AnyCancellable?
 
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
@@ -90,10 +88,8 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
             NotificationCenter.default.post(name: NSNotification.dismissReadingListToast, object: nil)
         }
 
-        tabObservation = viewModel.$selectedTab.sink { [weak self] tab in
-            DispatchQueue.main.async {
-                self?.updateNavigationBarAppearance(for: tab)
-            }
+        viewModel.didChangeTab = { [weak self] tab in
+            self?.updateNavigationBarAppearance(for: tab)
         }
 
         UISegmentedControl.appearance(whenContainedInInstancesOf: [WMFHomeHostingController.self]).backgroundColor = .clear
