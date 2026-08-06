@@ -21,16 +21,30 @@ public enum WMFUserFetcherError: LocalizedError {
     @objc public let name: String
     @objc public let groups: [String]
     @objc public let editCount: UInt64
+    @objc public let globalEditCount: UInt64
     @objc public let isBlocked: Bool
     @objc public let authState: AuthState
     @objc public let registrationDateString: String?
-    init(userID: Int, globalUserID: Int, name: String, groups: [String], editCount: UInt64, isBlocked: Bool, isIP: Bool, isTemp: Bool, registrationDateString: String?) {
+
+    init(
+        userID: Int,
+        globalUserID: Int,
+        name: String,
+        groups: [String],
+        editCount: UInt64,
+        globalEditCount: UInt64,
+        isBlocked: Bool,
+        isIP: Bool,
+        isTemp: Bool,
+        registrationDateString: String?
+    ) {
         assert(!(isTemp && isIP), "Invalid values. A user cannot both be IP and Temp.")
         self.userID = userID
         self.globalUserID = globalUserID
         self.name = name
         self.groups = groups
         self.editCount = editCount
+        self.globalEditCount = globalEditCount
         self.isBlocked = isBlocked
         if isIP {
             self.authState = .ip
@@ -49,6 +63,7 @@ public class WMFCurrentUserFetcher: Fetcher {
             "action": "query",
             "meta": "userinfo|globaluserinfo",
             "uiprop": "groups|blockinfo|editcount|registrationdate",
+            "guiprop": "editcount",
             "format": "json"
         ]
         
@@ -73,6 +88,7 @@ public class WMFCurrentUserFetcher: Fetcher {
             let isTemp = userinfo["temp"] != nil
             
             let editCount = userinfo["editcount"] as? UInt64 ?? 0
+            let globalEditCount = globalUserInfo["editcount"] as? UInt64 ?? 0
             let registrationDateString = userinfo["registrationdate"] as? String
             
             var isBlocked = false
@@ -84,7 +100,20 @@ public class WMFCurrentUserFetcher: Fetcher {
             }
             
             let groups = userinfo["groups"] as? [String] ?? []
-            success(WMFCurrentUser.init(userID: userID, globalUserID: globalUserID, name: userName, groups: groups, editCount: editCount, isBlocked: isBlocked, isIP: isIP, isTemp: isTemp, registrationDateString: registrationDateString))
+            success(
+                WMFCurrentUser.init(
+                    userID: userID,
+                    globalUserID: globalUserID,
+                    name: userName,
+                    groups: groups,
+                    editCount: editCount,
+                    globalEditCount: globalEditCount,
+                    isBlocked: isBlocked,
+                    isIP: isIP,
+                    isTemp: isTemp,
+                    registrationDateString: registrationDateString
+                )
+            )
         }
     }
 }
