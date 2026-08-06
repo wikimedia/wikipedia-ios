@@ -139,28 +139,40 @@ private struct WMFForYouHeaderLabelView: View {
     let headerLabel: WMFForYouHeaderLabel
 
     var body: some View {
-        if let symbol = headerLabel.symbol,
-           let symbolImage = WMFSFSymbolIcon.for(symbol: symbol, font: .caption1) {
-            let icon = Text(Image(uiImage: symbolImage))
-                .font(Font(WMFFont.for(.caption1)))
-            let prefix = Text(" " + headerLabel.prefix)
-                .font(Font(WMFFont.for(.caption1)))
-            let suffix = Text(headerLabel.boldSuffix)
-                .font(Font(WMFFont.for(.boldCaption1)))
-            (icon + prefix + suffix)
-                .foregroundStyle(.white.opacity(0.8))
-                .lineLimit(2)
-                .minimumScaleFactor(0.35)
-        } else {
-            let prefix = Text(headerLabel.prefix)
-                .font(Font(WMFFont.for(.caption1)))
-            let suffix = Text(headerLabel.boldSuffix)
-                .font(Font(WMFFont.for(.boldCaption1)))
-            (prefix + suffix)
-                .foregroundStyle(.white.opacity(0.8))
-                .lineLimit(2)
-                .minimumScaleFactor(0.35)
+        HStack(alignment: .firstTextBaseline, spacing: 4) {
+            if let symbol = headerLabel.symbol,
+               let image = WMFSFSymbolIcon.for(symbol: symbol, font: .caption1) {
+                Image(uiImage: image)
+            }
+            Text(attributedLabel)
         }
+        .foregroundStyle(.white.opacity(0.8))
+        .lineLimit(2)
+        .minimumScaleFactor(0.35)
+    }
+
+    private var attributedLabel: AttributedString {
+        let regularFont = Font(WMFFont.for(.caption1))
+        let boldFont = Font(WMFFont.for(.boldCaption1))
+
+        var highlight = AttributedString(headerLabel.highlight)
+        highlight.font = boldFont
+
+        let placeholder = headerLabel.format.contains("%1$@") ? "%1$@" : "%@"
+        let parts = headerLabel.format.components(separatedBy: placeholder)
+
+        guard parts.count == 2 else {
+            var whole = AttributedString(String.localizedStringWithFormat(headerLabel.format, headerLabel.highlight))
+            whole.font = regularFont
+            return whole
+        }
+
+        var leading = AttributedString(parts[0])
+        leading.font = regularFont
+        var trailing = AttributedString(parts[1])
+        trailing.font = regularFont
+
+        return leading + highlight + trailing
     }
 }
 
@@ -443,7 +455,7 @@ private struct WMFForYouArticleCardView: View {
                             menu: { miniCardMenu }
                         )
 
-                        if !viewModel.headerLabel.prefix.isEmpty {
+                        if !viewModel.headerLabel.format.isEmpty {
                             Spacer().frame(height: 16)
                             WMFForYouHeaderLabelView(headerLabel: viewModel.headerLabel)
                         }
@@ -482,7 +494,7 @@ private struct WMFForYouArticleCardView: View {
                                 .lineLimit(effectiveVariant == .imageFocused ? 2 : 5)
                         }
 
-                        if !viewModel.headerLabel.prefix.isEmpty {
+                        if !viewModel.headerLabel.format.isEmpty {
                             Spacer().frame(height: 16)
                             WMFForYouHeaderLabelView(headerLabel: viewModel.headerLabel)
                                 .shadow(color: cardColor.opacity(0.8), radius: 4)

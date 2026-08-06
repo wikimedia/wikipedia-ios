@@ -35,15 +35,14 @@ public struct WMFForYouModuleVisibility {
 // MARK: - Header label
 
 public struct WMFForYouHeaderLabel {
-    /// Typed rather than a raw SF Symbol name, so every icon in the app stays visible in one place.
     public let symbol: WMFSFSymbolIcon?
-    public let prefix: String
-    public let boldSuffix: String
+    public let format: String
+    public let highlight: String
 
-    public init(symbol: WMFSFSymbolIcon? = nil, prefix: String, boldSuffix: String) {
+    public init(symbol: WMFSFSymbolIcon? = nil, format: String, highlight: String) {
         self.symbol = symbol
-        self.prefix = prefix
-        self.boldSuffix = boldSuffix
+        self.format = format
+        self.highlight = highlight
     }
 }
 
@@ -90,31 +89,31 @@ public final class WMFForYouViewModel: ObservableObject {
 
         let topicPages = response.interestTopicRandomArticles.map {
             let header = WMFForYouHeaderLabel(
-                prefix: WMFLocalizedString("for-you-header-interest-topic-prefix", value: "Because of your interest: ", comment: "Prefix for a For You feed card header based on an interest topic."),
-                boldSuffix: $0.topic.displayName
+                format: WMFLocalizedString("for-you-header-interest", value: "Because of your interest: %1$@", comment: "Header on a For You feed card explaining it was chosen from one of the user's interests. %1$@ is replaced with the interest name."),
+                highlight: $0.topic.displayName
             )
             return WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: deduplicated($0.articles))
         }
         let relatedPages = response.interestPageRelatedArticles.map {
             let header = WMFForYouHeaderLabel(
-                prefix: WMFLocalizedString("for-you-header-interest-article-prefix", value: "Because of your interest: ", comment: "Prefix for a For You feed card header based on an article the user has shown interest in."),
-                boldSuffix: $0.pageInterest.title
+                format: WMFLocalizedString("for-you-header-interest", value: "Because of your interest: %1$@", comment: "Header on a For You feed card explaining it was chosen from one of the user's interests. %1$@ is replaced with the interest name."),
+                highlight: $0.pageInterest.title
             )
             return WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: deduplicated($0.articles))
         }
         let becauseYouReadPage: [WMFForYouPageViewModel] = response.becauseYouReadArticles.map {
             let header = WMFForYouHeaderLabel(
                 symbol: .clock,
-                prefix: WMFLocalizedString("for-you-header-because-you-read-prefix", value: "Because you read: ", comment: "Prefix for a For You feed card header shown because the user recently read a related article."),
-                boldSuffix: $0.recentlyRead.title.normalize
+                format: WMFLocalizedString("for-you-header-because-you-read", value: "Because you read: %1$@", comment: "Header on a For You feed card shown because the user recently read a related article. %1$@ is replaced with the article title."),
+                highlight: $0.recentlyRead.title.normalize
             )
             return [WMFForYouPageViewModel(module: .becauseYouRead, headerLabel: header, articles: deduplicated($0.articles))]
         } ?? []
         let continueReadingPage: [WMFForYouPageViewModel] = response.continueReadingArticles.map { continueReading in
             let continueHeader = WMFForYouHeaderLabel(
                 symbol: .docText,
-                prefix: WMFLocalizedString("for-you-header-continue-reading-prefix", value: "Continue reading: ", comment: "Prefix for a For You feed card header prompting the user to continue reading an article."),
-                boldSuffix: continueReading.continueReadingArticle.title.normalize
+                format: WMFLocalizedString("for-you-header-continue-reading", value: "Continue reading: %1$@", comment: "Header on a For You feed card prompting the user to continue reading an article. %1$@ is replaced with the article title."),
+                highlight: continueReading.continueReadingArticle.title.normalize
             )
             let continueCard = WMFForYouArticleCardViewModel(
                 article: continueReading.continueReadingArticle,
@@ -124,8 +123,8 @@ public final class WMFForYouViewModel: ObservableObject {
             let savedCards = deduplicated(continueReading.savedArticles).map {
                 let savedHeader = WMFForYouHeaderLabel(
                     symbol: .bookmarkFill,
-                    prefix: WMFLocalizedString("for-you-header-saved-article-prefix", value: "From your reading list: ", comment: "Prefix for a For You feed card header showing a saved article."),
-                    boldSuffix: $0.title
+                    format: WMFLocalizedString("for-you-header-saved-article", value: "From your reading list: %1$@", comment: "Header on a For You feed card showing an article from the user's reading list. %1$@ is replaced with the article title."),
+                    highlight: $0.title.normalize
                 )
                 return WMFForYouArticleCardViewModel(article: $0, headerLabel: savedHeader)
             }

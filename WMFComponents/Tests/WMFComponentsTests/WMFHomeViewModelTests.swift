@@ -15,7 +15,7 @@ final class WMFHomeViewModelTests: XCTestCase {
 
     private func makeForYouCardViewModel() -> WMFForYouArticleCardViewModel {
         let article = WMFForYouArticle(title: "Octopus", project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
-        let header = WMFForYouHeaderLabel(prefix: "Test", boldSuffix: "")
+        let header = WMFForYouHeaderLabel(format: "Test %1$@", highlight: "")
         return WMFForYouArticleCardViewModel(article: article, headerLabel: header)
     }
 
@@ -134,7 +134,7 @@ final class WMFHomeViewModelTests: XCTestCase {
         let language = WMFLanguage(languageCode: "en", languageVariantCode: nil)
         let project = WMFProject.wikipedia(language)
         let article = WMFForYouArticle(title: "Octopus", project: project)
-        let header = WMFForYouHeaderLabel(prefix: "Test", boldSuffix: "")
+        let header = WMFForYouHeaderLabel(format: "Test %1$@", highlight: "")
         let cardVM = WMFForYouArticleCardViewModel(article: article, headerLabel: header)
         XCTAssertEqual(cardVM.hideKey, "for_you_\(project.id)_Octopus")
     }

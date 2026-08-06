@@ -706,11 +706,10 @@
 "for-you-error-retry" = "Try again";
 "for-you-error-subtitle" = "Connect to the Internet and try again.";
 "for-you-error-title" = "No internet connection";
-"for-you-header-because-you-read-prefix" = "Because you read: ";
-"for-you-header-continue-reading-prefix" = "Continue reading: ";
-"for-you-header-interest-article-prefix" = "Because of your interest: ";
-"for-you-header-interest-topic-prefix" = "Because of your interest: ";
-"for-you-header-saved-article-prefix" = "From your reading list: ";
+"for-you-header-because-you-read" = "Because you read: $1";
+"for-you-header-continue-reading" = "Continue reading: $1";
+"for-you-header-interest" = "Because of your interest: $1";
+"for-you-header-saved-article" = "From your reading list: $1";
 "for-you-menu-customize-interests" = "Customize interests";
 "for-you-mini-card-label" = "Mini card";
 "forgot-password-button-title" = "Reset";

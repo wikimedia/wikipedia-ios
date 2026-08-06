@@ -706,11 +706,10 @@
 "for-you-error-retry" = "Button on the For You error state that retries loading the feed.";
 "for-you-error-subtitle" = "Subtitle shown on the For You tab when content cannot be loaded due to a network error.";
 "for-you-error-title" = "Title shown on the For You tab when content cannot be loaded due to a network error.";
-"for-you-header-because-you-read-prefix" = "Prefix for a For You feed card header shown because the user recently read a related article.";
-"for-you-header-continue-reading-prefix" = "Prefix for a For You feed card header prompting the user to continue reading an article.";
-"for-you-header-interest-article-prefix" = "Prefix for a For You feed card header based on an article the user has shown interest in.";
-"for-you-header-interest-topic-prefix" = "Prefix for a For You feed card header based on an interest topic.";
-"for-you-header-saved-article-prefix" = "Prefix for a For You feed card header showing a saved article.";
+"for-you-header-because-you-read" = "Header on a For You feed card shown because the user recently read a related article. $1 is replaced with the article title.";
+"for-you-header-continue-reading" = "Header on a For You feed card prompting the user to continue reading an article. $1 is replaced with the article title.";
+"for-you-header-interest" = "Header on a For You feed card explaining it was chosen from one of the user's interests. $1 is replaced with the interest name.";
+"for-you-header-saved-article" = "Header on a For You feed card showing an article from the user's reading list. $1 is replaced with the article title.";
 "for-you-menu-customize-interests" = "Menu action to open the interests customization screen from a For You feed card.";
 "for-you-mini-card-label" = "Small label displayed above the title on the mini card variant of the For You feed card.";
 "forgot-password-button-title" = "Title for reset password button {{Identical|Reset}}";
