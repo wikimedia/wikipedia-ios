@@ -35,12 +35,13 @@ public struct WMFForYouModuleVisibility {
 // MARK: - Header label
 
 public struct WMFForYouHeaderLabel {
-    public let symbolName: String?
+    /// Typed rather than a raw SF Symbol name, so every icon in the app stays visible in one place.
+    public let symbol: WMFSFSymbolIcon?
     public let prefix: String
     public let boldSuffix: String
 
-    public init(symbolName: String? = nil, prefix: String, boldSuffix: String) {
-        self.symbolName = symbolName
+    public init(symbol: WMFSFSymbolIcon? = nil, prefix: String, boldSuffix: String) {
+        self.symbol = symbol
         self.prefix = prefix
         self.boldSuffix = boldSuffix
     }
@@ -103,7 +104,7 @@ public final class WMFForYouViewModel: ObservableObject {
         }
         let becauseYouReadPage: [WMFForYouPageViewModel] = response.becauseYouReadArticles.map {
             let header = WMFForYouHeaderLabel(
-                symbolName: "clock",
+                symbol: .clock,
                 prefix: WMFLocalizedString("for-you-header-because-you-read-prefix", value: "Because you read: ", comment: "Prefix for a For You feed card header shown because the user recently read a related article."),
                 boldSuffix: $0.recentlyRead.title.normalize
             )
@@ -111,7 +112,7 @@ public final class WMFForYouViewModel: ObservableObject {
         } ?? []
         let continueReadingPage: [WMFForYouPageViewModel] = response.continueReadingArticles.map { continueReading in
             let continueHeader = WMFForYouHeaderLabel(
-                symbolName: "doc.text",
+                symbol: .docText,
                 prefix: WMFLocalizedString("for-you-header-continue-reading-prefix", value: "Continue reading: ", comment: "Prefix for a For You feed card header prompting the user to continue reading an article."),
                 boldSuffix: continueReading.continueReadingArticle.title.normalize
             )
@@ -122,7 +123,7 @@ public final class WMFForYouViewModel: ObservableObject {
             seenTitles.insert(makeKey(continueReading.continueReadingArticle))
             let savedCards = deduplicated(continueReading.savedArticles).map {
                 let savedHeader = WMFForYouHeaderLabel(
-                    symbolName: "bookmark.fill",
+                    symbol: .bookmarkFill,
                     prefix: WMFLocalizedString("for-you-header-saved-article-prefix", value: "From your reading list: ", comment: "Prefix for a For You feed card header showing a saved article."),
                     boldSuffix: $0.title
                 )
@@ -227,10 +228,12 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
     }
 
     public var hideCardTitle: String {
-        CommonStrings.hideCardTitle
+        WMFHomeLocalizedStrings.hideCard
     }
 
-    public let hideModuleTitle = WMFLocalizedString("for-you-menu-hide-module", value: "Hide module", comment: "Menu action to hide the entire For You feed module that contains this card.")
+    public var hideModuleTitle: String {
+        WMFHomeLocalizedStrings.hideModule
+    }
 
     public let customizeInterestsTitle = WMFLocalizedString("for-you-menu-customize-interests", value: "Customize interests", comment: "Menu action to open the interests customization screen from a For You feed card.")
 

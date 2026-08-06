@@ -94,8 +94,12 @@ public struct WMFHomeView: View {
                             viewModel.didSelectLanguage?(language)
                         } label: {
                             if language.languageCode == viewModel.selectedLanguage?.languageCode {
-                                Label(language.localizedName, systemImage: "checkmark")
-                                    .minimumScaleFactor(0.25)
+                                Label {
+                                    Text(language.localizedName)
+                                } icon: {
+                                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .checkmark) ?? UIImage())
+                                }
+                                .minimumScaleFactor(0.25)
                             } else {
                                 Text(language.localizedName)
                                     .minimumScaleFactor(0.25)
@@ -106,7 +110,11 @@ public struct WMFHomeView: View {
                     Button {
                         viewModel.didTapEditLanguages?()
                     } label: {
-                        Label(viewModel.editLanguagesTitle, systemImage: "globe")
+                        Label {
+                            Text(viewModel.editLanguagesTitle)
+                        } icon: {
+                            Image(uiImage: WMFSFSymbolIcon.for(symbol: .globe) ?? UIImage())
+                        }
                     }
                 } label: {
                     Text(viewModel.languageButtonTitle)
@@ -115,8 +123,7 @@ public struct WMFHomeView: View {
                         .minimumScaleFactor(0.25)
                         .foregroundStyle(isForYou ? .white : .primary)
                         .lineLimit(1)
-                    Image(systemName: "chevron.up.chevron.down")
-                        .font(.system(size: 12, weight: .semibold))
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronUpChevronDown, font: .boldCaption1) ?? UIImage())
                         .foregroundStyle(isForYou ? .white : .primary)
                 }
                 .padding(.horizontal, 16)

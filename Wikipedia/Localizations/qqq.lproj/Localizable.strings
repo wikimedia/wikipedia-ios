@@ -712,7 +712,6 @@
 "for-you-header-interest-topic-prefix" = "Prefix for a For You feed card header based on an interest topic.";
 "for-you-header-saved-article-prefix" = "Prefix for a For You feed card header showing a saved article.";
 "for-you-menu-customize-interests" = "Menu action to open the interests customization screen from a For You feed card.";
-"for-you-menu-hide-module" = "Menu action to hide the entire For You feed module that contains this card.";
 "for-you-mini-card-label" = "Small label displayed above the title on the mini card variant of the For You feed card.";
 "forgot-password-button-title" = "Title for reset password button {{Identical|Reset}}";
 "forgot-password-email-sent" = "Alert text shown when password reset email is sent";
@@ -739,6 +738,7 @@
 "home-community-empty-feed-button-title" = "Title of the button shown in the Home tab Community segment when every feed card is hidden. It opens the feed settings.";
 "home-community-empty-feed-message" = "Message shown in the Home tab Community segment when the user has hidden every feed card.";
 "home-community-empty-feed-title" = "Title shown in the Home tab Community segment when the user has hidden every feed card.";
+"home-community-see-past-content" = "Button at the bottom of the Community feed that loads content from previous days.";
 "home-community-tab-title" = "Title for the Community segment within the Home tab.";
 "home-edit-languages-title" = "Title for the option at the bottom of the Home language menu that opens the languages settings screen.";
 "home-feed-for-you-based-on-interests-subtitle" = "Subtitle describing the Based on your interests module.";
@@ -785,6 +785,7 @@
 "home-feed-whats-driving-your-interests-subtitle" = "Subtitle for the Your interests row.";
 "home-feed-whats-driving-your-interests-title" = "Title for the Your interests row on the What's driving your feed screen.";
 "home-for-you-tab-title" = "Title for the For You segment within the Home tab.";
+"home-menu-hide-module" = "Menu action to hide the whole Home feed module that contains this card.";
 "home-more-like-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
 "home-nearby-footer" = "Footer for presenting user option to see longer list of nearby articles.";
 "home-nearby-location-footer" = "Footer for presenting user option to see longer list of articles nearby a specific location. $1 will be replaced with the name of the location";

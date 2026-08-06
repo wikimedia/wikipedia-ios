@@ -98,8 +98,7 @@ public struct WMFForYouView: View {
         VStack(spacing: 0) {
             Spacer()
 
-            Image(systemName: "sparkles")
-                .font(.system(size: 48, weight: .light))
+            Image(uiImage: WMFSFSymbolIcon.for(symbol: .sparkles, font: .xxlTitleBold) ?? UIImage())
                 .foregroundStyle(Color(uiColor: theme.secondaryText))
                 .padding(.bottom, 16)
 
@@ -140,8 +139,9 @@ private struct WMFForYouHeaderLabelView: View {
     let headerLabel: WMFForYouHeaderLabel
 
     var body: some View {
-        if let symbolName = headerLabel.symbolName {
-            let icon = Text(Image(systemName: symbolName))
+        if let symbol = headerLabel.symbol,
+           let symbolImage = WMFSFSymbolIcon.for(symbol: symbol, font: .caption1) {
+            let icon = Text(Image(uiImage: symbolImage))
                 .font(Font(WMFFont.for(.caption1)))
             let prefix = Text(" " + headerLabel.prefix)
                 .font(Font(WMFFont.for(.caption1)))
@@ -239,12 +239,12 @@ private struct WMFForYouPageView: View {
 
 // MARK: - Mini Card (Variant 3)
 
-private struct WMFForYouMiniCard: View {
+private struct WMFForYouMiniCard<Menu: View>: View {
     let label: String
     let title: String
     let description: String?
     let uiImage: UIImage?
-    let onMenu: () -> Void
+    @ViewBuilder let menu: () -> Menu
 
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
@@ -277,11 +277,7 @@ private struct WMFForYouMiniCard: View {
                     .frame(width: 56, height: 56)
             }
 
-            Button(action: onMenu) {
-                Image(systemName: "ellipsis")
-                    .foregroundStyle(.white)
-                    .padding(8)
-            }
+            menu()
         }
         .padding(16)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
@@ -334,7 +330,8 @@ private struct WMFForYouArticleCardView: View {
         }
     }
 
-    private var menuView: some View {
+    @ViewBuilder
+    private func overflowMenu<MenuLabel: View>(@ViewBuilder label: @escaping () -> MenuLabel) -> some View {
         Menu {
             Button {
                 viewModel.toggleSaved()
@@ -344,29 +341,60 @@ private struct WMFForYouArticleCardView: View {
                     onUnsaveCard()
                 }
             } label: {
-                Label(
-                    viewModel.isSaved ? viewModel.unsaveTitle : viewModel.saveTitle,
-                    systemImage: viewModel.isSaved ? "bookmark.fill" : "bookmark"
-                )
+                Label {
+                    Text(viewModel.isSaved ? viewModel.unsaveTitle : viewModel.saveTitle)
+                } icon: {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: viewModel.isSaved ? .bookmarkFill : .bookmark) ?? UIImage())
+                }
             }
             Button { onShareCard() } label: {
-                Label(viewModel.shareTitle, systemImage: "square.and.arrow.up")
+                Label {
+                    Text(viewModel.shareTitle)
+                } icon: {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .squareAndArrowUp) ?? UIImage())
+                }
             }
             Button(role: .destructive, action: onHideCard) {
-                Label(viewModel.hideCardTitle, systemImage: "eye.slash")
+                Label {
+                    Text(viewModel.hideCardTitle)
+                } icon: {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .eyeSlash) ?? UIImage())
+                }
             }
             Button(role: .destructive, action: onHideModule) {
-                Label(viewModel.hideModuleTitle, systemImage: "xmark.circle")
+                Label {
+                    Text(viewModel.hideModuleTitle)
+                } icon: {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .xmarkCircle) ?? UIImage())
+                }
             }
             Button(action: onCustomizeInterests) {
-                Label(viewModel.customizeInterestsTitle, systemImage: "slider.horizontal.3")
+                Label {
+                    Text(viewModel.customizeInterestsTitle)
+                } icon: {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .sliderHorizontal3) ?? UIImage())
+                }
             }
         } label: {
-            Image(systemName: "ellipsis")
+            label()
+        }
+    }
+
+    private var floatingMenu: some View {
+        overflowMenu {
+            Image(uiImage: WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage())
                 .foregroundStyle(.white)
                 .shadow(radius: 2)
                 .padding(12)
                 .background(.ultraThinMaterial, in: Circle())
+        }
+    }
+
+    private var miniCardMenu: some View {
+        overflowMenu {
+            Image(uiImage: WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage())
+                .foregroundStyle(.white)
+                .padding(8)
         }
     }
 
@@ -399,14 +427,11 @@ private struct WMFForYouArticleCardView: View {
                 // MARK: Variant 3: Text-focused (also used as fallback when no image)
                 case .textFocused:
                     VStack(alignment: .leading, spacing: 0) {
-                        HStack(alignment: .top, spacing: 12) {
-                            Text(viewModel.extract ?? viewModel.title)
-                                .font(Font(WMFFont.for(.georgiaTitle1)))
-                                .foregroundStyle(.white)
-                                .lineLimit(8)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            menuView
-                        }
+                        Text(viewModel.extract ?? viewModel.title)
+                            .font(Font(WMFFont.for(.georgiaTitle1)))
+                            .foregroundStyle(.white)
+                            .lineLimit(8)
+                            .frame(maxWidth: .infinity, alignment: .leading)
 
                         Spacer().frame(height: 16)
 
@@ -415,7 +440,7 @@ private struct WMFForYouArticleCardView: View {
                             title: viewModel.title,
                             description: viewModel.description,
                             uiImage: viewModel.uiImage,
-                            onMenu: onSaveCard
+                            menu: { miniCardMenu }
                         )
 
                         if !viewModel.headerLabel.prefix.isEmpty {
@@ -437,7 +462,7 @@ private struct WMFForYouArticleCardView: View {
                                 .shadow(color: cardColor.opacity(0.8), radius: 4)
                                 .lineLimit(effectiveVariant == .imageFocused ? 1 : 3)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            menuView
+                            floatingMenu
                         }
 
                         let bodyText: String? = {
