@@ -252,7 +252,6 @@ private struct WMFForYouPageView: View {
 // MARK: - Mini Card (Variant 3)
 
 private struct WMFForYouMiniCard<Menu: View>: View {
-    let label: String
     let title: String
     let description: String?
     let uiImage: UIImage?
@@ -261,9 +260,6 @@ private struct WMFForYouMiniCard<Menu: View>: View {
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
             VStack(alignment: .leading, spacing: 2) {
-                Text(label)
-                    .font(Font(WMFFont.for(.boldCaption1)))
-                    .foregroundStyle(.white.opacity(0.5))
                 Text(title)
                     .font(Font(WMFFont.for(.boldSubheadline)))
                     .foregroundStyle(.white)
@@ -448,7 +444,6 @@ private struct WMFForYouArticleCardView: View {
                         Spacer().frame(height: 16)
 
                         WMFForYouMiniCard(
-                            label: viewModel.miniCardLabel,
                             title: viewModel.title,
                             description: viewModel.description,
                             uiImage: viewModel.uiImage,

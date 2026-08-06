@@ -711,7 +711,6 @@
 "for-you-header-interest" = "Because of your interest: $1";
 "for-you-header-saved-article" = "From your reading list: $1";
 "for-you-menu-customize-interests" = "Customize interests";
-"for-you-mini-card-label" = "Mini card";
 "forgot-password-button-title" = "Reset";
 "forgot-password-email-sent" = "An email with password reset instructions was sent";
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";

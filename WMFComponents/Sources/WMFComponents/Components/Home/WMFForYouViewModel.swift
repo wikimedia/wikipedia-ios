@@ -236,8 +236,6 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
 
     public let customizeInterestsTitle = WMFLocalizedString("for-you-menu-customize-interests", value: "Customize interests", comment: "Menu action to open the interests customization screen from a For You feed card.")
 
-    public let miniCardLabel = WMFLocalizedString("for-you-mini-card-label", value: "Mini card", comment: "Small label displayed above the title on the mini card variant of the For You feed card.")
-
     public init(article: WMFForYouArticle, headerLabel: WMFForYouHeaderLabel) {
         self.headerLabel = headerLabel
         self.title = article.title
