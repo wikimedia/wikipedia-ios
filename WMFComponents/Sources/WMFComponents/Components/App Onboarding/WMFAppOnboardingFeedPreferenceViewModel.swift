@@ -14,6 +14,12 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
     private let pictureOfTheDayTitle = WMFLocalizedString("app-onboarding-feed-preference-picture-of-the-day", value: "Picture of the day", comment: "Title of the Picture of the Day sample card on the feed preference app onboarding screen.")
     private let inTheNewsTitle = WMFLocalizedString("app-onboarding-feed-preference-in-the-news", value: "In the news", comment: "Title of the In the News sample card on the feed preference app onboarding screen.")
 
+    /// Localized in the *wiki's* language (not the app UI's): it's matched against the story
+    /// HTML, which comes from that wiki. Used to find the article a story marks as pictured.
+    private var picturedText: String {
+        return WMFLocalizedString("pictured", languageCode: project.languageCode, value: "pictured", comment: "Indicates the person or item is pictured (as in a news story).")
+    }
+
     // MARK: - State
 
     @Published public private(set) var selection: WMFHomeFeedSeeFirst = .community
@@ -149,10 +155,13 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
         }
 
         if let news = response.feedResponse.news?.first {
+            // Same rule as the explore feed: the story's "pictured" article when there is one,
+            // otherwise the first link that actually has a thumbnail.
+            let featured = news.featuredArticle(picturedText: picturedText)
             cards.append(WMFAppOnboardingPreviewCardViewModel(
                 title: inTheNewsTitle,
                 description: news.story.map(Self.strippingHTMLTags),
-                imageURLString: news.links?.first?.thumbnail?.source,
+                imageURLString: featured?.thumbnail?.source,
                 topicPill: nil
             ))
         }
@@ -174,19 +183,14 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
             cards.append(WMFAppOnboardingPreviewCardViewModel(article: article, topicPill: nil))
         }
 
-        if cards.isEmpty, let becauseYouRead = response.becauseYouReadArticles {
-            cards = becauseYouRead.articles.prefix(3).map {
-                WMFAppOnboardingPreviewCardViewModel(article: $0, topicPill: nil)
-            }
-        }
-
+        // Deliberately no reading-history fallback: the preview must show what the user just
+        // chose. Articles derived from reading history read as random here, so with no
+        // interests the step shows its explanation text instead (see isPersonalizedAvailable).
         return cards
     }
 
     static func personalizedIsAvailable(for response: WMFForYouResponse) -> Bool {
-        let hasInterests = !response.interestTopicRandomArticles.isEmpty || !response.interestPageRelatedArticles.isEmpty
-        let hasReadingHistory = response.becauseYouReadArticles != nil || response.continueReadingArticles != nil
-        return hasInterests || hasReadingHistory
+        return !response.interestTopicRandomArticles.isEmpty || !response.interestPageRelatedArticles.isEmpty
     }
 
     static func strippingHTMLTags(_ html: String) -> String {
