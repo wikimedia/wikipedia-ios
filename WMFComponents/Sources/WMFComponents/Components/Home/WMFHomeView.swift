@@ -157,11 +157,11 @@ public struct WMFHomeView: View {
                 Spacer()
                 Text(viewModel.forYouErrorTitle)
                     .font(Font(WMFFont.for(.boldHeadline)))
-                    .foregroundStyle(Color(uiColor: theme.text))
+                    .foregroundStyle(Color(uiColor: WMFTheme.forYou.text))
                     .multilineTextAlignment(.center)
                 Text(viewModel.forYouErrorSubtitle)
                     .font(Font(WMFFont.for(.callout)))
-                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                    .foregroundStyle(Color(uiColor: WMFTheme.forYou.secondaryText))
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 40)
                 Button {
@@ -172,17 +172,17 @@ public struct WMFHomeView: View {
                         .foregroundStyle(.white)
                         .padding(.horizontal, 24)
                         .padding(.vertical, 12)
-                        .background(Color(uiColor: theme.link), in: Capsule())
+                        .background(Color(uiColor: WMFTheme.forYou.link), in: Capsule())
                 }
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.black)
+            .background(Color(uiColor: WMFTheme.forYou.paperBackground))
             .padding(.top, safeAreaTop + 52)
         } else {
             Text(viewModel.forYouTabTitle)
                 .font(Font(WMFFont.for(.headline)))
-                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                .foregroundStyle(Color(uiColor: WMFTheme.forYou.secondaryText))
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }

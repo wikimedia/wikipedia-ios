@@ -39,8 +39,19 @@ public struct WMFForYouView: View {
         self.viewModel = viewModel
     }
 
-    private var visiblePages: [WMFForYouPageViewModel] {
-        viewModel.pages.filter { viewModel.moduleVisibility.isVisible($0.module) }
+    private struct VisiblePage: Identifiable {
+        let page: WMFForYouPageViewModel
+        let articles: [WMFForYouArticleCardViewModel]
+        var id: UUID { page.id }
+    }
+    
+    private var visiblePages: [VisiblePage] {
+        viewModel.pages.compactMap { page in
+            guard viewModel.moduleVisibility.isVisible(page.module) else { return nil }
+            let articles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.hideKey) }
+            guard !articles.isEmpty else { return nil }
+            return VisiblePage(page: page, articles: articles)
+        }
     }
 
     public var body: some View {
@@ -58,22 +69,19 @@ public struct WMFForYouView: View {
     private func scrollView(geometry: GeometryProxy) -> some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(spacing: 0) {
-                ForEach(visiblePages) { page in
-                    let visibleArticles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.hideKey) }
-                    if !visibleArticles.isEmpty {
-                        WMFForYouPageView(
-                            articleViewModels: visibleArticles,
-                            theme: theme,
-                            onHideModule: { viewModel.onHideModule?(page.module) },
-                            onHideCard: { viewModel.onHideCard?($0) },
-                            onCustomizeInterests: { viewModel.onCustomizeInterests?() },
-                            onTapCard: { viewModel.onTapCard?($0) },
-                            onSaveCard: { viewModel.onSaveCard?($0) },
-                            onShareCard: { viewModel.onShareCard?($0) },
-                            onUnsaveCard: { viewModel.onUnsaveCard?($0) }
-                        )
-                        .frame(width: geometry.size.width, height: geometry.size.height)
-                    }
+                ForEach(visiblePages) { visiblePage in
+                    WMFForYouPageView(
+                        articleViewModels: visiblePage.articles,
+                        theme: theme,
+                        onHideModule: { viewModel.onHideModule?(visiblePage.page.module) },
+                        onHideCard: { viewModel.onHideCard?($0) },
+                        onCustomizeInterests: { viewModel.onCustomizeInterests?() },
+                        onTapCard: { viewModel.onTapCard?($0) },
+                        onSaveCard: { viewModel.onSaveCard?($0) },
+                        onShareCard: { viewModel.onShareCard?($0) },
+                        onUnsaveCard: { viewModel.onUnsaveCard?($0) }
+                    )
+                    .frame(width: geometry.size.width, height: geometry.size.height)
                 }
             }
         }
@@ -95,22 +103,24 @@ public struct WMFForYouView: View {
     // MARK: - Empty State
 
     private var emptyState: some View {
-        VStack(spacing: 0) {
+        let forYouTheme = WMFTheme.forYou
+
+        return VStack(spacing: 0) {
             Spacer()
 
             Image(uiImage: WMFSFSymbolIcon.for(symbol: .sparkles, font: .xxlTitleBold) ?? UIImage())
-                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                .foregroundStyle(Color(uiColor: forYouTheme.secondaryText))
                 .padding(.bottom, 16)
 
             Text(viewModel.emptyTitle)
                 .font(Font(WMFFont.for(.boldTitle3)))
-                .foregroundStyle(Color(uiColor: theme.text))
+                .foregroundStyle(Color(uiColor: forYouTheme.text))
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 8)
 
             Text(viewModel.emptySubtitle)
                 .font(Font(WMFFont.for(.callout)))
-                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                .foregroundStyle(Color(uiColor: forYouTheme.secondaryText))
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
                 .padding(.bottom, 24)
@@ -123,13 +133,13 @@ public struct WMFForYouView: View {
                     .foregroundStyle(.white)
                     .padding(.horizontal, 24)
                     .padding(.vertical, 12)
-                    .background(Color(uiColor: theme.link), in: Capsule())
+                    .background(Color(uiColor: forYouTheme.link), in: Capsule())
             }
 
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(uiColor: theme.paperBackground))
+        .background(Color(uiColor: forYouTheme.paperBackground))
     }
 }
 
