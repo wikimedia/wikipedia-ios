@@ -41,12 +41,6 @@ import WMFData
         }
     }
 
-    @Published public var isUsingColorTestForYou: Bool = WMFDeveloperSettingsDataController.shared.isUsingColorTestForYou {
-        didSet {
-            WMFDeveloperSettingsDataController.shared.isUsingColorTestForYou = isUsingColorTestForYou
-        }
-    }
-  
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
 

@@ -52,7 +52,6 @@ public final class WMFHomeViewModel: ObservableObject {
         featuredArticle: true, topRead: true, inTheNews: true, onThisDay: true, pictureOfDay: true
     )
     @Published public var hiddenCardKeys: Set<String> = []
-    @Published public var isUsingColorTestForYou: Bool = WMFDeveloperSettingsDataController.shared.isUsingColorTestForYou
 
     let dataController: WMFHomeDataController
 
@@ -136,15 +135,6 @@ public final class WMFHomeViewModel: ObservableObject {
     }
 
     public func refreshForYouFeed() async {
-        isUsingColorTestForYou = WMFDeveloperSettingsDataController.shared.isUsingColorTestForYou
-
-        if isUsingColorTestForYou {
-            forYouViewModel = WMFForYouViewModel(response: .colorTest)
-            forYouFeedError = nil
-            refreshSavedStates()
-            return
-        }
-
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
         do {
@@ -170,15 +160,7 @@ public final class WMFHomeViewModel: ObservableObject {
         guard forYouViewModel == nil, !isLoadingForYou else { return }
         forYouFeedError = nil
         isLoadingForYou = true
-        isUsingColorTestForYou = WMFDeveloperSettingsDataController.shared.isUsingColorTestForYou
         hiddenCardKeys = Set(dataController.hiddenCardKeys())
-
-        if isUsingColorTestForYou {
-            forYouViewModel = WMFForYouViewModel(response: .colorTest)
-            refreshSavedStates()
-            isLoadingForYou = false
-            return
-        }
 
         guard let language = selectedLanguage else {
             isLoadingForYou = false
