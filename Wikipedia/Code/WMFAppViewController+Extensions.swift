@@ -1278,7 +1278,7 @@ extension WMFAppViewController {
         let tempUsername = dataStore.authenticationManager.authStateTemporaryUsername
         let isTempAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled &&
                             dataStore.authenticationManager.authStateIsTemporary
-        let language = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
+        let language = dataStore.languageLinkController.appLanguage?.contentLanguageCode.uppercased() ?? String()
 
         let localizedStrings = WMFSettingsViewModel.LocalizedStrings(
             settingTitle: CommonStrings.settingsTitle,
