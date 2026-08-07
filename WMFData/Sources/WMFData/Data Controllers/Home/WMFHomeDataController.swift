@@ -196,7 +196,12 @@ public final actor WMFHomeDataController {
             for topic in topics {
                 group.addTask {
                     let articles = try await self.fetchArticles(for: topic, project: project)
-                    let mapped = articles.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
+                    let mapped = articles
+                        .shuffled()
+                        .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
+                        .sorted { $0.thumbnail != nil && $1.thumbnail == nil }
+                        .prefix(4)
+                        .map { WMFForYouArticle(title: $0.title, project: project) }
                     return WMFForYouInterestTopicRandomArticles(topic: topic, articles: mapped)
                 }
             }

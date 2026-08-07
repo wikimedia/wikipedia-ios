@@ -97,6 +97,7 @@ struct WMFRandomArticlesQuery: Decodable, Sendable {
 public struct WMFRandomArticle: Decodable, Sendable {
     public let pageid: Int
     public let title: String
+    public let index: Int?
     public let displayTitle: String?
     public let variantTitles: WMFRandomArticleVariantTitles?
     public let description: String?
@@ -106,6 +107,7 @@ public struct WMFRandomArticle: Decodable, Sendable {
     enum CodingKeys: String, CodingKey {
         case pageid
         case title
+        case index
         case displayTitle = "displaytitle"
         case variantTitles = "varianttitles"
         case description
