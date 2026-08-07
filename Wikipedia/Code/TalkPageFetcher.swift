@@ -186,13 +186,13 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    func postReply(talkPageTitle: String, siteURL: URL, commentId: String, comment: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func postReply(talkPageTitle: String, siteURL: URL, commentId: String, comment: String, hCaptchaToken: String? = nil, forceShowCaptcha: Bool = false, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let title = talkPageTitle.denormalizedPageTitle else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
-        
-        let params = ["action": "discussiontoolsedit",
+
+        var params = ["action": "discussiontoolsedit",
                       "paction": "addcomment",
                       "page": title,
                       "matags": WMFEditTag.appTalkReply.rawValue,
@@ -200,54 +200,84 @@ class TalkPageFetcher: Fetcher {
                       "formatversion" : "2",
                       "commentid": commentId,
                       "wikitext": comment
-                      
         ]
-        
+
+        addHCaptchaParams(to: &params, hCaptchaToken: hCaptchaToken, forceShowCaptcha: forceShowCaptcha)
+
         performTokenizedMediaWikiAPIPOST(to: siteURL, with: params, reattemptLoginOn401Response: false) { result, httpResponse, error in
             self.evaluateResponse(error, result, completion: completion)
         }
     }
-    
-    func postTopic(talkPageTitle: String, siteURL: URL, topicTitle: String, topicBody: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        
+
+    func postTopic(talkPageTitle: String, siteURL: URL, topicTitle: String, topicBody: String, hCaptchaToken: String? = nil, forceShowCaptcha: Bool = false, completion: @escaping (Result<Void, Error>) -> Void) {
+
         guard let title = talkPageTitle.denormalizedPageTitle else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
-        
-        let params = ["action": "discussiontoolsedit",
+
+        var params = ["action": "discussiontoolsedit",
                       "paction": "addtopic",
                       "page": title,
                       "matags": WMFEditTag.appTalkTopic.rawValue,
                       "format": "json",
                       "formatversion" : "2",
                       "sectiontitle": topicTitle,
-                      "wikitext": topicBody        ]
-        
+                      "wikitext": topicBody
+        ]
+
+        addHCaptchaParams(to: &params, hCaptchaToken: hCaptchaToken, forceShowCaptcha: forceShowCaptcha)
+
         performTokenizedMediaWikiAPIPOST(to: siteURL, with: params, reattemptLoginOn401Response: false) { result, httpResponse, error in
             self.evaluateResponse(error, result, completion: completion)
         }
     }
-    
-    fileprivate func evaluateResponse(_ error: Error?, _ result: [String : Any]?, completion: @escaping (Result<Void, Error>) -> Void) {
+
+    /// Token must be lowercase `captchaword` — the only form `discussiontoolsedit` forwards.
+    private func addHCaptchaParams(to params: inout [String: String], hCaptchaToken: String?, forceShowCaptcha: Bool) {
+        guard let hCaptchaToken else {
+            return
+        }
+        params["captchaword"] = hCaptchaToken
+        if forceShowCaptcha {
+            params["wgConfirmEditForceShowCaptcha"] = "1"
+        }
+    }
+
+    func evaluateResponse(_ error: Error?, _ result: [String : Any]?, completion: @escaping (Result<Void, Error>) -> Void) {
         if let error = error {
             completion(.failure(error))
             return
         }
-        
+
         if let resultError = result?["error"] as? [String: Any],
            let info = resultError["info"] as? String {
             completion(.failure(RequestError.api(info)))
             return
         }
-        
+
+        // A "success" without newrevid published nothing.
         guard let discussionToolsEdit = result?["discussiontoolsedit"] as? [String: Any],
               let discussionToolsEditResult = discussionToolsEdit["result"] as? String,
-              discussionToolsEditResult == "success" else {
+              discussionToolsEditResult == "success",
+              let newRevID = discussionToolsEdit["newrevid"] as? Int,
+              newRevID > 0 else {
+
+            if let discussionToolsEdit = result?["discussiontoolsedit"] as? [String: Any],
+               let edit = discussionToolsEdit["edit"] as? [String: Any],
+               let captcha = edit["captcha"] as? [String: Any],
+               let type = captcha["type"] as? String,
+               type == "hcaptcha" {
+                let siteKey = captcha["key"] as? String
+                let forceShowCaptcha = (captcha["error"] as? String) == "forceshowcaptcha"
+                completion(.failure(TalkPageDataController.TalkPageError.hCaptchaRequired(siteKey: siteKey, forceShowCaptcha: forceShowCaptcha)))
+                return
+            }
+
             completion(.failure(RequestError.unexpectedResponse))
             return
         }
-        
+
         completion(.success(()))
     }
     
