@@ -76,66 +76,95 @@ public final class WMFForYouViewModel: ObservableObject {
     ) {
         self.moduleVisibility = moduleVisibility
         self.hiddenCardKeys = hiddenCardKeys
+        self.pages = Self.makePages(from: response)
+    }
 
-        var seenTitles: Set<String> = []
+    // MARK: - Building the feed
 
-        func makeKey(_ article: WMFForYouArticle) -> String {
-            "\(article.project.id)_\(article.title)"
+    /// Builds the feed's pages, in the order they are shown.
+
+    private static func makePages(from response: WMFForYouResponse) -> [WMFForYouPageViewModel] {
+        var deduplicator = ArticleDeduplicator()
+
+        let interestPages = makeInterestPages(from: response, deduplicator: &deduplicator)
+        let becauseYouReadPages = makeBecauseYouReadPages(from: response, deduplicator: &deduplicator)
+        let continueReadingPages = makeContinueReadingPages(from: response, deduplicator: &deduplicator)
+
+        // The first few interest pages open the feed; the rest follow the other modules.
+        let leadingInterestPages = Array(interestPages.prefix(maxLeadingInterestPages))
+        let trailingInterestPages = Array(interestPages.dropFirst(maxLeadingInterestPages))
+
+        return leadingInterestPages + becauseYouReadPages + continueReadingPages + trailingInterestPages
+    }
+
+    private static let maxLeadingInterestPages = 3
+
+    private static func makeInterestPages(from response: WMFForYouResponse, deduplicator: inout ArticleDeduplicator) -> [WMFForYouPageViewModel] {
+        let interestFormat = WMFLocalizedString("for-you-header-interest", value: "Because of your interest: %1$@", comment: "Header on a For You feed card explaining it was chosen from one of the user's interests. %1$@ is replaced with the interest name.")
+
+        var pages: [WMFForYouPageViewModel] = []
+
+        for topicArticles in response.interestTopicRandomArticles {
+            let header = WMFForYouHeaderLabel(format: interestFormat, highlight: topicArticles.topic.displayName)
+            pages.append(WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: deduplicator.removingDuplicates(from: topicArticles.articles)))
         }
 
-        func deduplicated(_ articles: [WMFForYouArticle]) -> [WMFForYouArticle] {
-            articles.filter { seenTitles.insert(makeKey($0)).inserted }
+        for relatedArticles in response.interestPageRelatedArticles {
+            let header = WMFForYouHeaderLabel(format: interestFormat, highlight: relatedArticles.pageInterest.title)
+            pages.append(WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: deduplicator.removingDuplicates(from: relatedArticles.articles)))
         }
 
-        let topicPages = response.interestTopicRandomArticles.map {
-            let header = WMFForYouHeaderLabel(
-                format: WMFLocalizedString("for-you-header-interest", value: "Because of your interest: %1$@", comment: "Header on a For You feed card explaining it was chosen from one of the user's interests. %1$@ is replaced with the interest name."),
-                highlight: $0.topic.displayName
-            )
-            return WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: deduplicated($0.articles))
-        }
-        let relatedPages = response.interestPageRelatedArticles.map {
-            let header = WMFForYouHeaderLabel(
-                format: WMFLocalizedString("for-you-header-interest", value: "Because of your interest: %1$@", comment: "Header on a For You feed card explaining it was chosen from one of the user's interests. %1$@ is replaced with the interest name."),
-                highlight: $0.pageInterest.title
-            )
-            return WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: deduplicated($0.articles))
-        }
-        let becauseYouReadPage: [WMFForYouPageViewModel] = response.becauseYouReadArticles.map {
-            let header = WMFForYouHeaderLabel(
-                symbol: .clock,
-                format: WMFLocalizedString("for-you-header-because-you-read", value: "Because you read: %1$@", comment: "Header on a For You feed card shown because the user recently read a related article. %1$@ is replaced with the article title."),
-                highlight: $0.recentlyRead.title.normalize
-            )
-            return [WMFForYouPageViewModel(module: .becauseYouRead, headerLabel: header, articles: deduplicated($0.articles))]
-        } ?? []
-        let continueReadingPage: [WMFForYouPageViewModel] = response.continueReadingArticles.map { continueReading in
-            let continueHeader = WMFForYouHeaderLabel(
-                symbol: .docText,
-                format: WMFLocalizedString("for-you-header-continue-reading", value: "Continue reading: %1$@", comment: "Header on a For You feed card prompting the user to continue reading an article. %1$@ is replaced with the article title."),
-                highlight: continueReading.continueReadingArticle.title.normalize
-            )
-            let continueCard = WMFForYouArticleCardViewModel(
-                article: continueReading.continueReadingArticle,
-                headerLabel: continueHeader
-            )
-            seenTitles.insert(makeKey(continueReading.continueReadingArticle))
-            let savedCards = deduplicated(continueReading.savedArticles).map {
-                let savedHeader = WMFForYouHeaderLabel(
-                    symbol: .bookmarkFill,
-                    format: WMFLocalizedString("for-you-header-saved-article", value: "From your reading list: %1$@", comment: "Header on a For You feed card showing an article from the user's reading list. %1$@ is replaced with the article title."),
-                    highlight: $0.title.normalize
-                )
-                return WMFForYouArticleCardViewModel(article: $0, headerLabel: savedHeader)
-            }
-            return [WMFForYouPageViewModel(module: .continueReading, articleViewModels: [continueCard] + savedCards)]
-        } ?? []
+        return pages
+    }
 
-        let allInterestPages = topicPages + relatedPages
-        let firstInterests = Array(allInterestPages.prefix(3))
-        let remainingInterests = Array(allInterestPages.dropFirst(3))
+    private static func makeBecauseYouReadPages(from response: WMFForYouResponse, deduplicator: inout ArticleDeduplicator) -> [WMFForYouPageViewModel] {
+        guard let becauseYouRead = response.becauseYouReadArticles else { return [] }
 
-        self.pages = firstInterests + becauseYouReadPage + continueReadingPage + remainingInterests
+        let header = WMFForYouHeaderLabel(
+            symbol: .clock,
+            format: WMFLocalizedString("for-you-header-because-you-read", value: "Because you read: %1$@", comment: "Header on a For You feed card shown because the user recently read a related article. %1$@ is replaced with the article title."),
+            highlight: becauseYouRead.recentlyRead.title.normalize
+        )
+
+        return [WMFForYouPageViewModel(module: .becauseYouRead, headerLabel: header, articles: deduplicator.removingDuplicates(from: becauseYouRead.articles))]
+    }
+
+    private static func makeContinueReadingPages(from response: WMFForYouResponse, deduplicator: inout ArticleDeduplicator) -> [WMFForYouPageViewModel] {
+        guard let continueReading = response.continueReadingArticles else { return [] }
+
+        let continueHeader = WMFForYouHeaderLabel(
+            symbol: .docText,
+            format: WMFLocalizedString("for-you-header-continue-reading", value: "Continue reading: %1$@", comment: "Header on a For You feed card prompting the user to continue reading an article. %1$@ is replaced with the article title."),
+            highlight: continueReading.continueReadingArticle.title.normalize
+        )
+        let continueCard = WMFForYouArticleCardViewModel(article: continueReading.continueReadingArticle, headerLabel: continueHeader)
+        deduplicator.markUsed(continueReading.continueReadingArticle)
+
+        let savedFormat = WMFLocalizedString("for-you-header-saved-article", value: "From your reading list: %1$@", comment: "Header on a For You feed card showing an article from the user's reading list. %1$@ is replaced with the article title.")
+        let savedCards = deduplicator.removingDuplicates(from: continueReading.savedArticles).map { article in
+            let header = WMFForYouHeaderLabel(symbol: .bookmarkFill, format: savedFormat, highlight: article.title.normalize)
+            return WMFForYouArticleCardViewModel(article: article, headerLabel: header)
+        }
+
+        return [WMFForYouPageViewModel(module: .continueReading, articleViewModels: [continueCard] + savedCards)]
+    }
+}
+
+/// Keeps an article from appearing more than once in the feed, whichever module it came from.
+private struct ArticleDeduplicator {
+
+    private var seenKeys: Set<String> = []
+
+    mutating func removingDuplicates(from articles: [WMFForYouArticle]) -> [WMFForYouArticle] {
+        articles.filter { seenKeys.insert(key(for: $0)).inserted }
+    }
+
+    mutating func markUsed(_ article: WMFForYouArticle) {
+        seenKeys.insert(key(for: article))
+    }
+
+    private func key(for article: WMFForYouArticle) -> String {
+        "\(article.project.id)_\(article.title)"
     }
 }
 
