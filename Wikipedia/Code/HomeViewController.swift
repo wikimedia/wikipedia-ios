@@ -61,7 +61,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
             self?.presentLanguagesViewController()
         }
         viewModel.didTapCustomizeInterests = { [weak self] in
-            self?.presentWhatsDrivingTest()
+            self?.presentInterestsSettings()
         }
         // While the reworked community feed (home phase 2) is in development, the Community segment
         // hosts the legacy Explore feed. With phase 2 enabled, the new community feed renders instead.
@@ -215,10 +215,13 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         present(navVC, animated: true)
     }
 
-    // MARK: - What's Driving (test deep-link)
-    
+    // MARK: - Interests
+
     private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
-    private func presentWhatsDrivingTest() {
+
+    /// Opens the interests screen modally, from the "Customize interests" menu action on a card and
+    /// from the button on the empty feed.
+    private func presentInterestsSettings() {
         guard let navigationController else { return }
         let coordinator = HomeFeedSettingsCoordinator(navigationController: navigationController, theme: theme, initialView: .interests, presentation: .modal)
         homeFeedSettingsCoordinator = coordinator
