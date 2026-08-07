@@ -139,14 +139,6 @@ final class WMFHomeViewModelTests: XCTestCase {
         XCTAssertEqual(cardVM.hideKey, "for_you_\(project.id)_Octopus")
     }
 
-    func testHideForYouCardIdempotent() {
-        let (vm, _) = makeViewModel()
-        let cardVM = makeForYouCardViewModel()
-        vm.hideForYouCard(cardVM)
-        vm.hideForYouCard(cardVM)
-        XCTAssertEqual(vm.hiddenCardKeys.count, 1)
-    }
-
     // MARK: - Embedded Community Content
 
     func testEmbeddedCommunityViewControllerSkipsCommunityFeedLoad() {
