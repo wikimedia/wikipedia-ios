@@ -111,7 +111,7 @@
 "account-request-vanishing" = "Удалить учётную запись";
 "account-talk-page-title" = "Ваша страница обсуждения";
 "account-talk-preferences-auto-sign-discussions" = "Автоматическая подпись в обсуждениях";
-"account-talk-preferences-auto-sign-discussions-setting-explanation" = "При обсуждениях будет автоматически использоваться та подпись, которая задана вами в настройках Википедии в разделе «Подпись»";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "При обсуждениях будет использоваться та подпись, которая задана вами в настройках Википедии в разделе «Подпись»";
 "account-talk-preferences-title" = "Настройки страницы обсуждения";
 "action-add-to" = "Добавить в…";
 "action-add-to-reading-list" = "Добавить в список для чтения";
@@ -777,8 +777,8 @@
 "games-announcement-message" = "Появилась новая викторина, основанная на материалах Википедии. Угадайте, какое событие произошло в истории раньше другого.";
 "games-announcement-play-button" = "Сыграть";
 "games-announcement-title" = "Сыграть в «Что было раньше?»";
-"games-email-report-body-encountered" = "Мной обнаружена проблема в работе функции «Игры Википедии»:";
-"games-email-report-subject" = "Сообщить о проблеме — Игры Википедии";
+"games-email-report-body-encountered" = "Мной обнаружена проблема в работе функции «Викторины» (Wikipedia Games):";
+"games-email-report-subject" = "Сообщить о проблеме — Викторины";
 "games-wcf-button-play-title" = "Сыграть в викторину дня";
 "games-wcf-explore-button-review-title" = "Узнать результат";
 "games-wcf-explore-complete-subtitle" = "Ваш сегодняшний результат: $1 из $2. Следующая викторина через $3.";
@@ -1338,7 +1338,7 @@
 "settings-community-feed-title" = "Сообщество";
 "settings-donate" = "Пожертвовать";
 "settings-explore-games-subtitle" = "Ежедневные игры по материалам Википедии";
-"settings-explore-games-title" = "Игры Википедии";
+"settings-explore-games-title" = "Викторины";
 "settings-help-and-feedback" = "Помощь и обратная связь";
 "settings-language-bar" = "Показывать языки при поиске";
 "settings-languages-feed-customization" = "Можно указать языки, на которых будет отображаться информация в вашей Ленте.";
@@ -1531,6 +1531,7 @@
 "watchlist-edit-summary-accessibility" = "Описание изменений";
 "watchlist-empty-view-button-title" = "Искать статьи";
 "watchlist-empty-view-filter-title" = "У вас нет элементов в Списке наблюдения";
+"watchlist-empty-view-title" = "Статьи, добавляемые вами в список наблюдения, отображаются здесь";
 "watchlist-expiration-title" = "Установить срок действия";
 "watchlist-filter" = "Фильтр";
 "watchlist-filter-activity-header" = "Активность в списке наблюдения";
