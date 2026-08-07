@@ -1,4 +1,4 @@
-name: Tag Latest Beta
+name: Tag Latest Beta # used to kick off nightly builds through Xcode Cloud
 
 on:
   schedule:

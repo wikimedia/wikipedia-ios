@@ -1,12 +1,290 @@
 name: App Store Submission
- 
+
 on:
   workflow_dispatch:
- 
+    inputs:
+      submit_for_review:
+        description: 'Submit to App Store Review after uploading?'
+        required: false
+        type: boolean
+        default: false
+      version_override:
+        description: "Override the version (YYYY.MM.DD) instead of using today's date - use this to reuse an existing version instead of getting a new one. Leave blank to use today's date."
+        required: false
+        type: string
+        default: ''
+
 jobs:
   build-and-upload:
     runs-on: macos-26
+
     steps:
       - uses: actions/checkout@v7
-      - run: echo "hello world"
- 
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # -------------------------------------------------------
+      # 1. Compute build number
+      # -------------------------------------------------------
+      - name: Compute build number
+        id: versioning
+        env:
+          VERSION_OVERRIDE: ${{ github.event.inputs.version_override }}
+        run: |
+          VERSION="${VERSION_OVERRIDE:-$(date -u "+%Y.%m.%d")}"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+          LATEST=$(git tag --list 'betas/*' \
+            | sed 's|betas/||' \
+            | grep -E '^[0-9]+$' \
+            | sort -n \
+            | tail -1)
+          BUILD=$(( ${LATEST:-0} + 1 ))
+          echo "build=$BUILD" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION, Build: $BUILD"
+
+      # -------------------------------------------------------
+      # 2. Fetch "What's New" translations from Google Sheet
+      # -------------------------------------------------------
+      - name: Fetch release notes translations
+        run: |
+          python3 << 'EOF'
+          import urllib.request
+          import csv
+          import os
+          from io import StringIO
+
+          SHEET_ID = "16pac3mausm9_ExRKuywfMlnsz2INKcQHu1e23q0XYrk"
+          RELEASE_NOTES_GID = "583738222"
+          RELEASE_NOTES_FALLBACK_GID = "1133737241"
+
+          def fetch_tab(gid):
+            url = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&gid={gid}"
+            with urllib.request.urlopen(url) as resp:
+              return list(csv.DictReader(StringIO(resp.read().decode('utf-8'))))
+
+          primary_rows = fetch_tab(RELEASE_NOTES_GID)
+
+          # Check if en-US has content in primary tab
+          en_us_notes = next(
+            (row.get('Notes', '').strip() for row in primary_rows
+             if row.get('App Store Connect Code', '').strip() == 'en-US'),
+            ''
+          )
+
+          # If en-US is empty, use entire fallback tab instead
+          if not en_us_notes:
+            print("en-US is empty in primary tab, using entire fallback tab")
+            rows = fetch_tab(RELEASE_NOTES_FALLBACK_GID)
+          else:
+            print("en-US has content, using primary tab")
+            rows = primary_rows
+
+          for row in rows:
+            code = row.get('App Store Connect Code', '').strip()
+            notes = row.get('Notes', '').strip()
+
+            if not code or not notes:
+              print(f"Skipping {code} — no notes")
+              continue
+
+            os.makedirs(f'fastlane/metadata/{code}', exist_ok=True)
+            with open(f'fastlane/metadata/{code}/release_notes.txt', 'w') as f:
+              f.write(notes)
+
+            print(f"✓ {code}")
+          EOF
+
+      # -------------------------------------------------------
+      # 3. Update version and build number in Info.plist files
+      # -------------------------------------------------------
+      - name: Update version and build number
+        env:
+          VERSION: ${{ steps.versioning.outputs.version }}
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          PLISTS=(
+            "WMF Framework/Info.plist"
+            "Wikipedia Stickers/Info.plist"
+            "Wikipedia/Experimental-Info.plist"
+            "Wikipedia/Local-Info.plist"
+            "Wikipedia/Staging-Info.plist"
+            "Wikipedia/Wikipedia-Info.plist"
+            "ContinueReadingWidget/Info.plist"
+            "WikipediaUnitTests/Info.plist"
+            "Widgets/Info.plist"
+            "NotificationServiceExtension/Info.plist"
+          )
+
+          for PLIST in "${PLISTS[@]}"; do
+            /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$PLIST"
+          done
+
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD" "Wikipedia/Wikipedia-Info.plist"
+
+          echo "Updated CFBundleShortVersionString to $VERSION and CFBundleVersion to $BUILD"
+
+      # -------------------------------------------------------
+      # 4. Build and submit to App Store
+      # -------------------------------------------------------
+      - name: Install fastlane
+        run: bundle install
+
+      - name: Write App Store API Key
+        run: |
+          mkdir -p ~/.appstore
+          echo "${{ secrets.APP_STORE_API_KEY }}" > ~/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8
+          echo "APP_STORE_KEY_PATH=$HOME/.appstore/AuthKey_${{ secrets.APP_STORE_KEY_ID }}.p8" >> $GITHUB_ENV
+
+      - name: Build and submit to App Store
+        env:
+          APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
+          APP_STORE_API_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
+          APP_STORE_API_KEY: ${{ secrets.APP_STORE_API_KEY }}
+          SUBMIT_FOR_REVIEW: ${{ github.event.inputs.submit_for_review }}
+          VERSION: ${{ steps.versioning.outputs.version }}
+        run: |
+          bundle exec fastlane submit_for_review
+
+      # -------------------------------------------------------
+      # 5. Tag the build
+      # -------------------------------------------------------
+      - name: Tag build
+        env:
+          BUILD: ${{ steps.versioning.outputs.build }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git tag "betas/$BUILD"
+          git push origin "betas/$BUILD"
+
+      # -------------------------------------------------------
+      # 6. Create or fast-forward the release branch (frees up main for the next cycle)
+      # -------------------------------------------------------
+      - name: Create release branch
+        env:
+          VERSION: ${{ steps.versioning.outputs.version }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          BRANCH="release-candidate/$VERSION"
+          echo "branch=$BRANCH" >> $GITHUB_ENV
+
+          # Creates the branch if it doesn't exist yet, or fast-forwards it
+          # to this run's commit if it does - a re-submission run built from
+          # a newer commit than the branch's current tip shouldn't leave the
+          # branch stuck pointing at the original commit. A non-fast-forward
+          # push (the branch has diverged, e.g. a hotfix landed directly on
+          # it that this run's commit doesn't contain) fails loudly here
+          # rather than silently overwriting or silently doing nothing.
+          git push origin "HEAD:refs/heads/$BRANCH"
+          echo "release-candidate branch is now at: $BRANCH"
+
+      # -------------------------------------------------------
+      # 7. Update release task with release branch and submission date
+      # -------------------------------------------------------
+      - name: Update release task with release branch and submission date
+        env:
+          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
+          VERSION: ${{ steps.versioning.outputs.version }}
+          BRANCH: ${{ env.branch }}
+          SUBMIT_FOR_REVIEW: ${{ github.event.inputs.submit_for_review }}
+        run: |
+          python3 << 'EOF'
+          import urllib.request
+          import urllib.parse
+          import json
+          import re
+          import os
+          from datetime import datetime, timezone
+
+          token = os.environ['PHAB_TOKEN']
+          version = os.environ['VERSION']
+          branch = os.environ['BRANCH']
+          submit_for_review = os.environ['SUBMIT_FOR_REVIEW'] == 'true'
+
+          release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}')
+
+          def release_branch_value(description):
+            match = re.search(r'\*\*Release branch\*\*:(.*)', description)
+            return match.group(1).strip() if match else ''
+
+          req = urllib.request.Request(
+            'https://phabricator.wikimedia.org/api/maniphest.search',
+            headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
+            data=urllib.parse.urlencode({
+              'api.token': token,
+              'constraints[projects][0]': 'PHID-PROJ-ojylfmfiogxrvnxoiwlp',
+              'constraints[statuses][0]': 'open',
+              'order': 'newest',
+              'limit': '100',
+            }).encode()
+          )
+
+          with urllib.request.urlopen(req) as resp:
+            data = json.loads(resp.read())
+
+          tasks = data.get('result', {}).get('data', [])
+
+          def matching_tasks(predicate):
+            return [
+              t for t in tasks
+              if release_pattern.match(t.get('fields', {}).get('name', ''))
+              and predicate(release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')))
+            ]
+
+          # A re-submission (e.g. after Apple rejects and a fix is pushed to
+          # the same release branch, run again with version_override) will
+          # find the branch already created and this task already stamped
+          # with it - match that first. Otherwise fall back to the task
+          # still tracking main, not yet branch-associated, which this run
+          # is graduating into the release branch for the first time.
+          already_branched = matching_tasks(lambda v: v == branch)
+          not_yet_branched = matching_tasks(lambda v: not v)
+          release_task = (already_branched or not_yet_branched or [None])[0]
+
+          if not release_task:
+            print("No matching open release task found, skipping")
+            exit(0)
+
+          task_phid = release_task['phid']
+          description = release_task.get('fields', {}).get('description', {}).get('raw', '')
+
+          def set_field(description, field, value):
+            pattern = re.compile(rf'(\*\*{re.escape(field)}\*\*:).*')
+            if pattern.search(description):
+              return pattern.sub(rf'\1 {value}', description, count=1)
+            insertion = f"**{field}**: {value}"
+            if '**Included Tasks:**' in description:
+              before, marker, after = description.partition('**Included Tasks:**')
+              return before.rstrip() + "\n" + insertion + "\n\n" + marker + after
+            return description.rstrip() + f"\n\n{insertion}"
+
+          description = set_field(description, 'Release version', version)
+          description = set_field(description, 'Release branch', branch)
+
+          if submit_for_review:
+            submission_date = datetime.now(timezone.utc).strftime('%Y.%m.%d')
+            description = set_field(description, 'App Store Submission Date', submission_date)
+
+          req = urllib.request.Request(
+            'https://phabricator.wikimedia.org/api/maniphest.edit',
+            headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
+            data=urllib.parse.urlencode({
+              'api.token': token,
+              'objectIdentifier': task_phid,
+              'transactions[0][type]': 'title',
+              'transactions[0][value]': f'Release {version}',
+              'transactions[1][type]': 'description',
+              'transactions[1][value]': description,
+            }).encode()
+          )
+
+          with urllib.request.urlopen(req) as resp:
+            result = json.loads(resp.read())
+            if not result.get('error_code'):
+              print(f"✓ Updated release task to 'Release {version}' (branch={branch}, submitted={submit_for_review})")
+            else:
+              print(f"✗ Failed to update release task: {result.get('error_info')}")
+          EOF
