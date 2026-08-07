@@ -42,6 +42,7 @@ private enum WMFForYouCardMetrics {
         dotsBottomInset(safeAreaBottom: safeAreaBottom) + dotsVerticalPadding + dotDiameter + dotsVerticalPadding
     }
 
+    @MainActor
     static var windowSafeAreaBottom: CGFloat {
         UIApplication.shared.connectedScenes
             .compactMap { $0 as? UIWindowScene }
@@ -171,35 +172,28 @@ private struct WMFForYouHeaderLabelView: View {
                let image = WMFSFSymbolIcon.for(symbol: symbol, font: .caption1) {
                 Image(uiImage: image)
             }
-            Text(attributedLabel)
+            label
         }
         .foregroundStyle(.white.opacity(0.8))
         .lineLimit(2)
         .minimumScaleFactor(0.35)
     }
 
-    private var attributedLabel: AttributedString {
+    private var label: Text {
         let regularFont = Font(WMFFont.for(.caption1))
         let boldFont = Font(WMFFont.for(.boldCaption1))
-
-        var highlight = AttributedString(headerLabel.highlight)
-        highlight.font = boldFont
 
         let placeholder = headerLabel.format.contains("%1$@") ? "%1$@" : "%@"
         let parts = headerLabel.format.components(separatedBy: placeholder)
 
         guard parts.count == 2 else {
-            var whole = AttributedString(String.localizedStringWithFormat(headerLabel.format, headerLabel.highlight))
-            whole.font = regularFont
-            return whole
+            return Text(String.localizedStringWithFormat(headerLabel.format, headerLabel.highlight))
+                .font(regularFont)
         }
 
-        var leading = AttributedString(parts[0])
-        leading.font = regularFont
-        var trailing = AttributedString(parts[1])
-        trailing.font = regularFont
-
-        return leading + highlight + trailing
+        return Text(parts[0]).font(regularFont)
+            + Text(headerLabel.highlight).font(boldFont)
+            + Text(parts[1]).font(regularFont)
     }
 }
 

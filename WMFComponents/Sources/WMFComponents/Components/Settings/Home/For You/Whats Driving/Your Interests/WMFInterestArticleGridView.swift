@@ -15,7 +15,7 @@ struct WMFInterestArticleGridView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private var columnCount: Int {
-        WMFCardGridColumns.count(for: viewportSize, isAccessibilitySize: dynamicTypeSize.isAccessibilitySize)
+        WMFCardGridColumns.count(for: viewportSize, isAccessibilitySize: dynamicTypeSize.isAccessibilitySize, idiom: UIDevice.current.userInterfaceIdiom)
     }
 
     /// Distributes cards into `columnCount` masonry columns, each card going to the currently
