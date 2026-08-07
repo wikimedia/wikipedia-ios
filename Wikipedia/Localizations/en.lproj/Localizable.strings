@@ -706,14 +706,11 @@
 "for-you-error-retry" = "Try again";
 "for-you-error-subtitle" = "Connect to the Internet and try again.";
 "for-you-error-title" = "No internet connection";
-"for-you-header-because-you-read-prefix" = "Because you read: ";
-"for-you-header-continue-reading-prefix" = "Continue reading: ";
-"for-you-header-interest-article-prefix" = "Because of your interest: ";
-"for-you-header-interest-topic-prefix" = "Because of your interest: ";
-"for-you-header-saved-article-prefix" = "From your reading list: ";
+"for-you-header-because-you-read" = "Because you read: $1";
+"for-you-header-continue-reading" = "Continue reading: $1";
+"for-you-header-interest" = "Because of your interest: $1";
+"for-you-header-saved-article" = "From your reading list: $1";
 "for-you-menu-customize-interests" = "Customize interests";
-"for-you-menu-hide-module" = "Hide module";
-"for-you-mini-card-label" = "Mini card";
 "forgot-password-button-title" = "Reset";
 "forgot-password-email-sent" = "An email with password reset instructions was sent";
 "forgot-password-instructions" = "Fill in one of the fields below to receive password reset instructions via email";
@@ -739,6 +736,7 @@
 "home-community-empty-feed-button-title" = "Customize the feed";
 "home-community-empty-feed-message" = "Turn on cards in the feed settings to see the Community feed.";
 "home-community-empty-feed-title" = "All Community feed cards are hidden";
+"home-community-see-past-content" = "See past community content";
 "home-community-tab-title" = "Community";
 "home-edit-languages-title" = "Add or edit languages";
 "home-feed-for-you-based-on-interests-subtitle" = "Articles tailored to the topics you chose.";
@@ -785,6 +783,7 @@
 "home-feed-whats-driving-your-interests-subtitle" = "Edit your topics of interest";
 "home-feed-whats-driving-your-interests-title" = "Your interests";
 "home-for-you-tab-title" = "For You";
+"home-menu-hide-module" = "Hide module";
 "home-more-like-footer" = "More like $1";
 "home-nearby-footer" = "More places near your location";
 "home-nearby-location-footer" = "More nearby $1";

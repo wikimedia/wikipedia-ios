@@ -24,7 +24,7 @@ public struct WMFHomeView: View {
     public var body: some View {
         mainContent
             .task { viewModel.loadCurrentTabFeedIfNeeded() }
-            .onChange(of: viewModel.selectedTab) { _ in
+            .onChange(of: viewModel.selectedTab) {
                 viewModel.loadCurrentTabFeedIfNeeded()
             }
     }
@@ -94,8 +94,12 @@ public struct WMFHomeView: View {
                             viewModel.didSelectLanguage?(language)
                         } label: {
                             if language.languageCode == viewModel.selectedLanguage?.languageCode {
-                                Label(language.localizedName, systemImage: "checkmark")
-                                    .minimumScaleFactor(0.25)
+                                Label {
+                                    Text(language.localizedName)
+                                } icon: {
+                                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .checkmark) ?? UIImage())
+                                }
+                                .minimumScaleFactor(0.25)
                             } else {
                                 Text(language.localizedName)
                                     .minimumScaleFactor(0.25)
@@ -106,7 +110,11 @@ public struct WMFHomeView: View {
                     Button {
                         viewModel.didTapEditLanguages?()
                     } label: {
-                        Label(viewModel.editLanguagesTitle, systemImage: "globe")
+                        Label {
+                            Text(viewModel.editLanguagesTitle)
+                        } icon: {
+                            Image(uiImage: WMFSFSymbolIcon.for(symbol: .globe) ?? UIImage())
+                        }
                     }
                 } label: {
                     Text(viewModel.languageButtonTitle)
@@ -115,8 +123,7 @@ public struct WMFHomeView: View {
                         .minimumScaleFactor(0.25)
                         .foregroundStyle(isForYou ? .white : .primary)
                         .lineLimit(1)
-                    Image(systemName: "chevron.up.chevron.down")
-                        .font(.system(size: 12, weight: .semibold))
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronUpChevronDown, font: .boldCaption1) ?? UIImage())
                         .foregroundStyle(isForYou ? .white : .primary)
                 }
                 .padding(.horizontal, 16)
@@ -143,42 +150,37 @@ public struct WMFHomeView: View {
             WMFForYouView(viewModel: forYouViewModel)
                 .ignoresSafeArea()
         } else if viewModel.isLoadingForYou {
-            Spacer()
             ProgressView()
-            Spacer()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else if viewModel.forYouFeedError != nil {
-            VStack(spacing: 16) {
-                Spacer()
-                Text(viewModel.forYouErrorTitle)
-                    .font(Font(WMFFont.for(.boldHeadline)))
-                    .foregroundStyle(Color(uiColor: theme.text))
-                    .multilineTextAlignment(.center)
-                Text(viewModel.forYouErrorSubtitle)
-                    .font(Font(WMFFont.for(.callout)))
-                    .foregroundStyle(Color(uiColor: theme.secondaryText))
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 40)
-                Button {
-                    viewModel.loadForYouFeedIfNeeded()
-                } label: {
-                    Text(viewModel.forYouErrorRetryTitle)
-                        .font(Font(WMFFont.for(.boldCallout)))
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 24)
-                        .padding(.vertical, 12)
-                        .background(Color(uiColor: theme.link), in: Capsule())
-                }
-                Spacer()
-            }
+            let errorViewModel = WMFEmptyViewModel(
+                localizedStrings: WMFEmptyViewModel.LocalizedStrings(
+                    title: viewModel.forYouErrorTitle,
+                    subtitle: viewModel.forYouErrorSubtitle,
+                    titleFilter: nil,
+                    buttonTitle: viewModel.forYouErrorRetryTitle,
+                    attributedFilterString: nil
+                ),
+                image: nil,
+                imageColor: nil,
+                numberOfFilters: nil
+            )
+
+            WMFEmptyView(
+                viewModel: errorViewModel,
+                type: .noItems,
+                isScrollable: false,
+                theme: .forYou,
+                mainAction: { viewModel.loadForYouFeedIfNeeded() },
+                usesCompactButton: true
+            )
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.black)
-            .padding(.top, safeAreaTop + 52)
+            .background(Color(uiColor: WMFTheme.forYou.paperBackground))
         } else {
-            Spacer()
             Text(viewModel.forYouTabTitle)
                 .font(Font(WMFFont.for(.headline)))
-                .foregroundStyle(Color(uiColor: theme.secondaryText))
-            Spacer()
+                .foregroundStyle(Color(uiColor: WMFTheme.forYou.secondaryText))
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 

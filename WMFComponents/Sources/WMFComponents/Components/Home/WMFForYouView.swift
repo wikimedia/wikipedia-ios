@@ -24,6 +24,35 @@ private enum WMFForYouCardVariant {
     ]
 }
 
+// MARK: - Card Metrics
+
+/// Where the page dots sit, and how much room a card must leave clear beneath its content.
+private enum WMFForYouCardMetrics {
+
+    static let tabBarHeight: CGFloat = 49
+    static let dotsBottomGap: CGFloat = 12
+    static let dotsVerticalPadding: CGFloat = 20
+    static let dotDiameter: CGFloat = 8
+
+    static func dotsBottomInset(safeAreaBottom: CGFloat) -> CGFloat {
+        safeAreaBottom + tabBarHeight + dotsBottomGap
+    }
+
+    static func contentBottomInset(safeAreaBottom: CGFloat) -> CGFloat {
+        dotsBottomInset(safeAreaBottom: safeAreaBottom) + dotsVerticalPadding + dotDiameter + dotsVerticalPadding
+    }
+
+    @MainActor
+    static var windowSafeAreaBottom: CGFloat {
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first?
+            .windows
+            .first(where: \.isKeyWindow)?
+            .safeAreaInsets.bottom ?? 0
+    }
+}
+
 // MARK: - For You Feed View
 
 public struct WMFForYouView: View {
@@ -39,8 +68,19 @@ public struct WMFForYouView: View {
         self.viewModel = viewModel
     }
 
-    private var visiblePages: [WMFForYouPageViewModel] {
-        viewModel.pages.filter { viewModel.moduleVisibility.isVisible($0.module) }
+    private struct VisiblePage: Identifiable {
+        let page: WMFForYouPageViewModel
+        let articles: [WMFForYouArticleCardViewModel]
+        var id: UUID { page.id }
+    }
+    
+    private var visiblePages: [VisiblePage] {
+        viewModel.pages.compactMap { page in
+            guard viewModel.moduleVisibility.isVisible(page.module) else { return nil }
+            let articles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.hideKey) }
+            guard !articles.isEmpty else { return nil }
+            return VisiblePage(page: page, articles: articles)
+        }
     }
 
     public var body: some View {
@@ -58,22 +98,19 @@ public struct WMFForYouView: View {
     private func scrollView(geometry: GeometryProxy) -> some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(spacing: 0) {
-                ForEach(visiblePages) { page in
-                    let visibleArticles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.hideKey) }
-                    if !visibleArticles.isEmpty {
-                        WMFForYouPageView(
-                            articleViewModels: visibleArticles,
-                            theme: theme,
-                            onHideModule: { viewModel.onHideModule?(page.module) },
-                            onHideCard: { viewModel.onHideCard?($0) },
-                            onCustomizeInterests: { viewModel.onCustomizeInterests?() },
-                            onTapCard: { viewModel.onTapCard?($0) },
-                            onSaveCard: { viewModel.onSaveCard?($0) },
-                            onShareCard: { viewModel.onShareCard?($0) },
-                            onUnsaveCard: { viewModel.onUnsaveCard?($0) }
-                        )
-                        .frame(width: geometry.size.width, height: geometry.size.height)
-                    }
+                ForEach(visiblePages) { visiblePage in
+                    WMFForYouPageView(
+                        articleViewModels: visiblePage.articles,
+                        theme: theme,
+                        onHideModule: { viewModel.onHideModule?(visiblePage.page.module) },
+                        onHideCard: { viewModel.onHideCard?($0) },
+                        onCustomizeInterests: { viewModel.onCustomizeInterests?() },
+                        onTapCard: { viewModel.onTapCard?($0) },
+                        onSaveCard: { viewModel.onSaveCard?($0) },
+                        onShareCard: { viewModel.onShareCard?($0) },
+                        onUnsaveCard: { viewModel.onUnsaveCard?($0) }
+                    )
+                    .frame(width: geometry.size.width, height: geometry.size.height)
                 }
             }
         }
@@ -95,42 +132,32 @@ public struct WMFForYouView: View {
     // MARK: - Empty State
 
     private var emptyState: some View {
-        VStack(spacing: 0) {
-            Spacer()
+        // The shared empty state component, given the For You palette so it stays dark while the
+        // app is on a light theme, and a nil image size so the SF Symbol keeps its own size.
+        let emptyViewModel = WMFEmptyViewModel(
+            localizedStrings: WMFEmptyViewModel.LocalizedStrings(
+                title: viewModel.emptyTitle,
+                subtitle: viewModel.emptySubtitle,
+                titleFilter: nil,
+                buttonTitle: viewModel.emptyButtonTitle,
+                attributedFilterString: nil
+            ),
+            image: WMFSFSymbolIcon.for(symbol: .sparkles, font: .xxlTitleBold),
+            imageColor: WMFTheme.forYou.secondaryText,
+            numberOfFilters: nil,
+            imageSize: nil
+        )
 
-            Image(systemName: "sparkles")
-                .font(.system(size: 48, weight: .light))
-                .foregroundStyle(Color(uiColor: theme.secondaryText))
-                .padding(.bottom, 16)
-
-            Text(viewModel.emptyTitle)
-                .font(Font(WMFFont.for(.boldTitle3)))
-                .foregroundStyle(Color(uiColor: theme.text))
-                .multilineTextAlignment(.center)
-                .padding(.bottom, 8)
-
-            Text(viewModel.emptySubtitle)
-                .font(Font(WMFFont.for(.callout)))
-                .foregroundStyle(Color(uiColor: theme.secondaryText))
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 40)
-                .padding(.bottom, 24)
-
-            Button {
-                viewModel.onCustomizeInterests?()
-            } label: {
-                Text(viewModel.emptyButtonTitle)
-                    .font(Font(WMFFont.for(.boldCallout)))
-                    .foregroundStyle(.white)
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 12)
-                    .background(Color(uiColor: theme.link), in: Capsule())
-            }
-
-            Spacer()
-        }
+        return WMFEmptyView(
+            viewModel: emptyViewModel,
+            type: .noItems,
+            isScrollable: false,
+            theme: .forYou,
+            mainAction: { viewModel.onCustomizeInterests?() },
+            usesCompactButton: true
+        )
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(uiColor: theme.paperBackground))
+        .background(Color(uiColor: WMFTheme.forYou.paperBackground))
     }
 }
 
@@ -140,27 +167,33 @@ private struct WMFForYouHeaderLabelView: View {
     let headerLabel: WMFForYouHeaderLabel
 
     var body: some View {
-        if let symbolName = headerLabel.symbolName {
-            let icon = Text(Image(systemName: symbolName))
-                .font(Font(WMFFont.for(.caption1)))
-            let prefix = Text(" " + headerLabel.prefix)
-                .font(Font(WMFFont.for(.caption1)))
-            let suffix = Text(headerLabel.boldSuffix)
-                .font(Font(WMFFont.for(.boldCaption1)))
-            (icon + prefix + suffix)
-                .foregroundStyle(.white.opacity(0.8))
-                .lineLimit(2)
-                .minimumScaleFactor(0.35)
-        } else {
-            let prefix = Text(headerLabel.prefix)
-                .font(Font(WMFFont.for(.caption1)))
-            let suffix = Text(headerLabel.boldSuffix)
-                .font(Font(WMFFont.for(.boldCaption1)))
-            (prefix + suffix)
-                .foregroundStyle(.white.opacity(0.8))
-                .lineLimit(2)
-                .minimumScaleFactor(0.35)
+        HStack(alignment: .firstTextBaseline, spacing: 4) {
+            if let symbol = headerLabel.symbol,
+               let image = WMFSFSymbolIcon.for(symbol: symbol, font: .caption1) {
+                Image(uiImage: image)
+            }
+            label
         }
+        .foregroundStyle(.white.opacity(0.8))
+        .lineLimit(2)
+        .minimumScaleFactor(0.35)
+    }
+
+    private var label: Text {
+        let regularFont = Font(WMFFont.for(.caption1))
+        let boldFont = Font(WMFFont.for(.boldCaption1))
+
+        let placeholder = headerLabel.format.contains("%1$@") ? "%1$@" : "%@"
+        let parts = headerLabel.format.components(separatedBy: placeholder)
+
+        guard parts.count == 2 else {
+            return Text(String.localizedStringWithFormat(headerLabel.format, headerLabel.highlight))
+                .font(regularFont)
+        }
+
+        return Text(parts[0]).font(regularFont)
+            + Text(headerLabel.highlight).font(boldFont)
+            + Text(parts[1]).font(regularFont)
     }
 }
 
@@ -186,11 +219,6 @@ private struct WMFForYouPageView: View {
     /// first card to keep the page dots correct on first appearance.
     private var currentPageKey: String? {
         currentPage ?? articleViewModels.first?.hideKey
-    }
-
-    private var windowSafeAreaBottom: CGFloat {
-        let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        return scene?.windows.first?.safeAreaInsets.bottom ?? 0
     }
 
     var body: some View {
@@ -225,33 +253,29 @@ private struct WMFForYouPageView: View {
                     Circle()
                         .fill(isCurrent ? Color.white : Color.white.opacity(0.4))
                         .frame(
-                            width: isCurrent ? 8 : 7,
-                            height: isCurrent ? 8 : 7
+                            width: isCurrent ? WMFForYouCardMetrics.dotDiameter : WMFForYouCardMetrics.dotDiameter - 1,
+                            height: isCurrent ? WMFForYouCardMetrics.dotDiameter : WMFForYouCardMetrics.dotDiameter - 1
                         )
                         .animation(.spring(response: 0.3, dampingFraction: 0.7), value: currentPageKey)
                 }
             }
-            .padding(.vertical, 20)
-            .padding(.bottom, windowSafeAreaBottom + 49 + 12)
+            .padding(.vertical, WMFForYouCardMetrics.dotsVerticalPadding)
+            .padding(.bottom, WMFForYouCardMetrics.dotsBottomInset(safeAreaBottom: WMFForYouCardMetrics.windowSafeAreaBottom))
         }
     }
 }
 
 // MARK: - Mini Card (Variant 3)
 
-private struct WMFForYouMiniCard: View {
-    let label: String
+private struct WMFForYouMiniCard<Menu: View>: View {
     let title: String
     let description: String?
     let uiImage: UIImage?
-    let onMenu: () -> Void
+    @ViewBuilder let menu: () -> Menu
 
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
             VStack(alignment: .leading, spacing: 2) {
-                Text(label)
-                    .font(Font(WMFFont.for(.boldCaption1)))
-                    .foregroundStyle(.white.opacity(0.5))
                 Text(title)
                     .font(Font(WMFFont.for(.boldSubheadline)))
                     .foregroundStyle(.white)
@@ -277,11 +301,7 @@ private struct WMFForYouMiniCard: View {
                     .frame(width: 56, height: 56)
             }
 
-            Button(action: onMenu) {
-                Image(systemName: "ellipsis")
-                    .foregroundStyle(.white)
-                    .padding(8)
-            }
+            menu()
         }
         .padding(16)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
@@ -304,15 +324,6 @@ private struct WMFForYouArticleCardView: View {
     let onUnsaveCard: () -> Void
     let onShareCard: () -> Void
 
-    private var windowSafeAreaBottom: CGFloat {
-        let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        return scene?.windows.first?.safeAreaInsets.bottom ?? 0
-    }
-
-    private var dotsAndTabBarHeight: CGFloat {
-        windowSafeAreaBottom + 49 + 12 + 20 + 8 + 20
-    }
-
     /// If the assigned variant requires an image but none is available, fall back to textFocused.
     ///
     /// This reads `imageAvailability` rather than `uiImage`, because `uiImage` is nil for every
@@ -334,7 +345,8 @@ private struct WMFForYouArticleCardView: View {
         }
     }
 
-    private var menuView: some View {
+    @ViewBuilder
+    private func overflowMenu<MenuLabel: View>(@ViewBuilder label: @escaping () -> MenuLabel) -> some View {
         Menu {
             Button {
                 viewModel.toggleSaved()
@@ -344,29 +356,60 @@ private struct WMFForYouArticleCardView: View {
                     onUnsaveCard()
                 }
             } label: {
-                Label(
-                    viewModel.isSaved ? viewModel.unsaveTitle : viewModel.saveTitle,
-                    systemImage: viewModel.isSaved ? "bookmark.fill" : "bookmark"
-                )
+                Label {
+                    Text(viewModel.isSaved ? viewModel.unsaveTitle : viewModel.saveTitle)
+                } icon: {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: viewModel.isSaved ? .bookmarkFill : .bookmark) ?? UIImage())
+                }
             }
             Button { onShareCard() } label: {
-                Label(viewModel.shareTitle, systemImage: "square.and.arrow.up")
+                Label {
+                    Text(viewModel.shareTitle)
+                } icon: {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .squareAndArrowUp) ?? UIImage())
+                }
             }
             Button(role: .destructive, action: onHideCard) {
-                Label(viewModel.hideCardTitle, systemImage: "eye.slash")
+                Label {
+                    Text(viewModel.hideCardTitle)
+                } icon: {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .eyeSlash) ?? UIImage())
+                }
             }
             Button(role: .destructive, action: onHideModule) {
-                Label(viewModel.hideModuleTitle, systemImage: "xmark.circle")
+                Label {
+                    Text(viewModel.hideModuleTitle)
+                } icon: {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .xmarkCircle) ?? UIImage())
+                }
             }
             Button(action: onCustomizeInterests) {
-                Label(viewModel.customizeInterestsTitle, systemImage: "slider.horizontal.3")
+                Label {
+                    Text(viewModel.customizeInterestsTitle)
+                } icon: {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .sliderHorizontal3) ?? UIImage())
+                }
             }
         } label: {
-            Image(systemName: "ellipsis")
+            label()
+        }
+    }
+
+    private var floatingMenu: some View {
+        overflowMenu {
+            Image(uiImage: WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage())
                 .foregroundStyle(.white)
                 .shadow(radius: 2)
                 .padding(12)
                 .background(.ultraThinMaterial, in: Circle())
+        }
+    }
+
+    private var miniCardMenu: some View {
+        overflowMenu {
+            Image(uiImage: WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage())
+                .foregroundStyle(.white)
+                .padding(8)
         }
     }
 
@@ -399,32 +442,28 @@ private struct WMFForYouArticleCardView: View {
                 // MARK: Variant 3: Text-focused (also used as fallback when no image)
                 case .textFocused:
                     VStack(alignment: .leading, spacing: 0) {
-                        HStack(alignment: .top, spacing: 12) {
-                            Text(viewModel.extract ?? viewModel.title)
-                                .font(Font(WMFFont.for(.georgiaTitle1)))
-                                .foregroundStyle(.white)
-                                .lineLimit(8)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            menuView
-                        }
+                        Text(viewModel.extract ?? viewModel.title)
+                            .font(Font(WMFFont.for(.georgiaTitle1)))
+                            .foregroundStyle(.white)
+                            .lineLimit(8)
+                            .frame(maxWidth: .infinity, alignment: .leading)
 
                         Spacer().frame(height: 16)
 
                         WMFForYouMiniCard(
-                            label: viewModel.miniCardLabel,
                             title: viewModel.title,
                             description: viewModel.description,
                             uiImage: viewModel.uiImage,
-                            onMenu: onSaveCard
+                            menu: { miniCardMenu }
                         )
 
-                        if !viewModel.headerLabel.prefix.isEmpty {
+                        if !viewModel.headerLabel.format.isEmpty {
                             Spacer().frame(height: 16)
                             WMFForYouHeaderLabelView(headerLabel: viewModel.headerLabel)
                         }
                     }
                     .padding(.horizontal, 20)
-                    .padding(.bottom, dotsAndTabBarHeight)
+                    .padding(.bottom, WMFForYouCardMetrics.contentBottomInset(safeAreaBottom: WMFForYouCardMetrics.windowSafeAreaBottom))
                     .frame(width: geometry.size.width, alignment: .leading)
 
                 // MARK: Variant 1 & 2: Image-backed
@@ -437,7 +476,7 @@ private struct WMFForYouArticleCardView: View {
                                 .shadow(color: cardColor.opacity(0.8), radius: 4)
                                 .lineLimit(effectiveVariant == .imageFocused ? 1 : 3)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            menuView
+                            floatingMenu
                         }
 
                         let bodyText: String? = {
@@ -457,14 +496,14 @@ private struct WMFForYouArticleCardView: View {
                                 .lineLimit(effectiveVariant == .imageFocused ? 2 : 5)
                         }
 
-                        if !viewModel.headerLabel.prefix.isEmpty {
+                        if !viewModel.headerLabel.format.isEmpty {
                             Spacer().frame(height: 16)
                             WMFForYouHeaderLabelView(headerLabel: viewModel.headerLabel)
                                 .shadow(color: cardColor.opacity(0.8), radius: 4)
                         }
                     }
                     .padding(.horizontal, 20)
-                    .padding(.bottom, dotsAndTabBarHeight)
+                    .padding(.bottom, WMFForYouCardMetrics.contentBottomInset(safeAreaBottom: WMFForYouCardMetrics.windowSafeAreaBottom))
                     .frame(width: geometry.size.width, alignment: .leading)
                     .background {
                         LinearGradient(
@@ -487,13 +526,7 @@ private struct WMFForYouArticleCardView: View {
             .contentShape(Rectangle())
             .onTapGesture { onTapCard() }
             .onAppear { viewModel.load() }
-            .overlay {
-                if viewModel.loadState == .loading {
-                    Color.clear
-                        .ignoresSafeArea()
-                        .transition(.opacity)
-                }
-            }
+            // Fades the photograph and its sampled colour in when the card finishes loading.
             .animation(.easeOut(duration: 0.2), value: viewModel.loadState == .loading)
         }
     }

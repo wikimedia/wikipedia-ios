@@ -15,6 +15,8 @@ public final class WMFHomeViewModel: ObservableObject {
 
     public var didInteractWithForYouFeed: (() -> Void)?
 
+    public var didChangeTab: (@MainActor @Sendable (Tab) -> Void)?
+
     public enum Tab: Int, CaseIterable {
         case forYou
         case community
@@ -28,7 +30,12 @@ public final class WMFHomeViewModel: ObservableObject {
     let forYouErrorSubtitle = WMFLocalizedString("for-you-error-subtitle", value: "Connect to the Internet and try again.", comment: "Subtitle shown on the For You tab when content cannot be loaded due to a network error.")
     let forYouErrorRetryTitle = WMFLocalizedString("for-you-error-retry", value: "Try again", comment: "Button on the For You error state that retries loading the feed.")
 
-    @Published public var selectedTab: Tab = .community
+    @Published public var selectedTab: Tab = .community {
+        didSet {
+            guard selectedTab != oldValue else { return }
+            didChangeTab?(selectedTab)
+        }
+    }
     @Published public var languages: [WMFLanguage]
     @Published public var selectedLanguage: WMFLanguage? {
         didSet {
@@ -52,7 +59,6 @@ public final class WMFHomeViewModel: ObservableObject {
         featuredArticle: true, topRead: true, inTheNews: true, onThisDay: true, pictureOfDay: true
     )
     @Published public var hiddenCardKeys: Set<String> = []
-    @Published public var isUsingColorTestForYou: Bool = WMFDeveloperSettingsDataController.shared.isUsingColorTestForYou
 
     let dataController: WMFHomeDataController
 
@@ -136,15 +142,6 @@ public final class WMFHomeViewModel: ObservableObject {
     }
 
     public func refreshForYouFeed() async {
-        isUsingColorTestForYou = WMFDeveloperSettingsDataController.shared.isUsingColorTestForYou
-
-        if isUsingColorTestForYou {
-            forYouViewModel = WMFForYouViewModel(response: .colorTest)
-            forYouFeedError = nil
-            refreshSavedStates()
-            return
-        }
-
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
         do {
@@ -170,15 +167,7 @@ public final class WMFHomeViewModel: ObservableObject {
         guard forYouViewModel == nil, !isLoadingForYou else { return }
         forYouFeedError = nil
         isLoadingForYou = true
-        isUsingColorTestForYou = WMFDeveloperSettingsDataController.shared.isUsingColorTestForYou
         hiddenCardKeys = Set(dataController.hiddenCardKeys())
-
-        if isUsingColorTestForYou {
-            forYouViewModel = WMFForYouViewModel(response: .colorTest)
-            refreshSavedStates()
-            isLoadingForYou = false
-            return
-        }
 
         guard let language = selectedLanguage else {
             isLoadingForYou = false

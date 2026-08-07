@@ -41,11 +41,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
     
-    public var isUsingColorTestForYou: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeFeedForYouColorTest.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedForYouColorTest.rawValue, value: newValue) }
-    }
-    
     public var developerSettingsEnableDeveloperMode: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableDeveloperMode.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableDeveloperMode.rawValue, value: newValue) }

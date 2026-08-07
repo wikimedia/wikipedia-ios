@@ -1,5 +1,4 @@
 import UIKit
-import Combine
 import WMF
 import WMFComponents
 import WMFData
@@ -16,7 +15,6 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     private let dataStore: MWKDataStore
     let viewModel: WMFHomeViewModel
     private let hostingController: WMFHomeHostingController
-    private var tabObservation: AnyCancellable?
 
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
@@ -63,7 +61,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
             self?.presentLanguagesViewController()
         }
         viewModel.didTapCustomizeInterests = { [weak self] in
-            self?.presentWhatsDrivingTest()
+            self?.presentInterestsSettings()
         }
         // While the reworked community feed (home phase 2) is in development, the Community segment
         // hosts the legacy Explore feed. With phase 2 enabled, the new community feed renders instead.
@@ -90,10 +88,8 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
             NotificationCenter.default.post(name: NSNotification.dismissReadingListToast, object: nil)
         }
 
-        tabObservation = viewModel.$selectedTab.sink { [weak self] tab in
-            DispatchQueue.main.async {
-                self?.updateNavigationBarAppearance(for: tab)
-            }
+        viewModel.didChangeTab = { [weak self] tab in
+            self?.updateNavigationBarAppearance(for: tab)
         }
 
         UISegmentedControl.appearance(whenContainedInInstancesOf: [WMFHomeHostingController.self]).backgroundColor = .clear
@@ -219,10 +215,13 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         present(navVC, animated: true)
     }
 
-    // MARK: - What's Driving (test deep-link)
-    
+    // MARK: - Interests
+
     private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
-    private func presentWhatsDrivingTest() {
+
+    /// Opens the interests screen modally, from the "Customize interests" menu action on a card and
+    /// from the button on the empty feed.
+    private func presentInterestsSettings() {
         guard let navigationController else { return }
         let coordinator = HomeFeedSettingsCoordinator(navigationController: navigationController, theme: theme, initialView: .interests, presentation: .modal)
         homeFeedSettingsCoordinator = coordinator

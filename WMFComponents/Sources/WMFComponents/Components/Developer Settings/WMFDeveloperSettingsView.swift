@@ -25,11 +25,6 @@ struct WMFDeveloperSettingsView: View {
                     Text("Clear games persistence")
                 }
             }
-
-            Section(header: Text("For You")) {
-                Toggle("Use color test data", isOn: $viewModel.isUsingColorTestForYou)
-            }
-            
             ForEach(viewModel.formViewModel.sections) { section in
                 if let selectSection = section as? WMFFormSectionSelectViewModel {
                     WMFFormSectionSelectView(viewModel: selectSection)
