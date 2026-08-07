@@ -58,7 +58,7 @@ public final class EditAttemptFunnel {
         let resolvedProject = project ?? WikimediaProject(siteURL: pageURL)
         let currentUser = MWKDataStore.shared().authenticationManager.permanentUser(siteURL: pageURL)
         let userId = currentUser?.userID ?? 0
-        let editCount = Int(currentUser?.globalEditCount ?? 0)
+        let editCount = Int(currentUser?.editCount ?? 0)
 
         let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
 
