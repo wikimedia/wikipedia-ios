@@ -176,7 +176,7 @@ final class WMFHomeViewModelTests: XCTestCase {
 
     // MARK: - Selected Language Clears Feeds
 
-    func testChangingLanguageClearsForYouFeed() {
+    func testChangingLanguageResetsTheForYouFeed() {
         let (vm, _) = makeViewModel()
         let english = WMFLanguage(languageCode: "en", languageVariantCode: nil)
         let spanish = WMFLanguage(languageCode: "es", languageVariantCode: nil)
@@ -188,11 +188,13 @@ final class WMFHomeViewModelTests: XCTestCase {
             becauseYouReadArticles: nil,
             continueReadingArticles: nil
         ))
+        vm.forYouFeedError = URLError(.notConnectedToInternet)
         XCTAssertNotNil(vm.forYouViewModel)
 
         vm.selectedLanguage = spanish
 
         XCTAssertNil(vm.forYouViewModel)
+        XCTAssertNil(vm.forYouFeedError, "The error described the previous language's fetch, so it must not stay on screen while the new one is loaded")
         XCTAssertTrue(vm.communityPages.isEmpty)
     }
 
@@ -223,17 +225,4 @@ final class WMFHomeViewModelTests: XCTestCase {
         XCTAssertNotNil(vm.forYouViewModel)
     }
 
-    func testChangingLanguageClearsForYouFeedError() {
-        let (vm, _) = makeViewModel()
-        let english = WMFLanguage(languageCode: "en", languageVariantCode: nil)
-        let spanish = WMFLanguage(languageCode: "es", languageVariantCode: nil)
-
-        vm.selectedLanguage = english
-        vm.forYouFeedError = URLError(.notConnectedToInternet)
-        XCTAssertNotNil(vm.forYouFeedError)
-
-        vm.selectedLanguage = spanish
-
-        XCTAssertNil(vm.forYouFeedError)
-    }
 }
