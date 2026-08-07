@@ -24,6 +24,34 @@ private enum WMFForYouCardVariant {
     ]
 }
 
+// MARK: - Card Metrics
+
+/// Where the page dots sit, and how much room a card must leave clear beneath its content.
+private enum WMFForYouCardMetrics {
+
+    static let tabBarHeight: CGFloat = 49
+    static let dotsBottomGap: CGFloat = 12
+    static let dotsVerticalPadding: CGFloat = 20
+    static let dotDiameter: CGFloat = 8
+
+    static func dotsBottomInset(safeAreaBottom: CGFloat) -> CGFloat {
+        safeAreaBottom + tabBarHeight + dotsBottomGap
+    }
+
+    static func contentBottomInset(safeAreaBottom: CGFloat) -> CGFloat {
+        dotsBottomInset(safeAreaBottom: safeAreaBottom) + dotsVerticalPadding + dotDiameter + dotsVerticalPadding
+    }
+
+    static var windowSafeAreaBottom: CGFloat {
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first?
+            .windows
+            .first(where: \.isKeyWindow)?
+            .safeAreaInsets.bottom ?? 0
+    }
+}
+
 // MARK: - For You Feed View
 
 public struct WMFForYouView: View {
@@ -199,11 +227,6 @@ private struct WMFForYouPageView: View {
         currentPage ?? articleViewModels.first?.hideKey
     }
 
-    private var windowSafeAreaBottom: CGFloat {
-        let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        return scene?.windows.first?.safeAreaInsets.bottom ?? 0
-    }
-
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 0) {
@@ -236,14 +259,14 @@ private struct WMFForYouPageView: View {
                     Circle()
                         .fill(isCurrent ? Color.white : Color.white.opacity(0.4))
                         .frame(
-                            width: isCurrent ? 8 : 7,
-                            height: isCurrent ? 8 : 7
+                            width: isCurrent ? WMFForYouCardMetrics.dotDiameter : WMFForYouCardMetrics.dotDiameter - 1,
+                            height: isCurrent ? WMFForYouCardMetrics.dotDiameter : WMFForYouCardMetrics.dotDiameter - 1
                         )
                         .animation(.spring(response: 0.3, dampingFraction: 0.7), value: currentPageKey)
                 }
             }
-            .padding(.vertical, 20)
-            .padding(.bottom, windowSafeAreaBottom + 49 + 12)
+            .padding(.vertical, WMFForYouCardMetrics.dotsVerticalPadding)
+            .padding(.bottom, WMFForYouCardMetrics.dotsBottomInset(safeAreaBottom: WMFForYouCardMetrics.windowSafeAreaBottom))
         }
     }
 }
@@ -306,15 +329,6 @@ private struct WMFForYouArticleCardView: View {
     let onSaveCard: () -> Void
     let onUnsaveCard: () -> Void
     let onShareCard: () -> Void
-
-    private var windowSafeAreaBottom: CGFloat {
-        let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        return scene?.windows.first?.safeAreaInsets.bottom ?? 0
-    }
-
-    private var dotsAndTabBarHeight: CGFloat {
-        windowSafeAreaBottom + 49 + 12 + 20 + 8 + 20
-    }
 
     /// If the assigned variant requires an image but none is available, fall back to textFocused.
     ///
@@ -455,7 +469,7 @@ private struct WMFForYouArticleCardView: View {
                         }
                     }
                     .padding(.horizontal, 20)
-                    .padding(.bottom, dotsAndTabBarHeight)
+                    .padding(.bottom, WMFForYouCardMetrics.contentBottomInset(safeAreaBottom: WMFForYouCardMetrics.windowSafeAreaBottom))
                     .frame(width: geometry.size.width, alignment: .leading)
 
                 // MARK: Variant 1 & 2: Image-backed
@@ -495,7 +509,7 @@ private struct WMFForYouArticleCardView: View {
                         }
                     }
                     .padding(.horizontal, 20)
-                    .padding(.bottom, dotsAndTabBarHeight)
+                    .padding(.bottom, WMFForYouCardMetrics.contentBottomInset(safeAreaBottom: WMFForYouCardMetrics.windowSafeAreaBottom))
                     .frame(width: geometry.size.width, alignment: .leading)
                     .background {
                         LinearGradient(
@@ -518,13 +532,7 @@ private struct WMFForYouArticleCardView: View {
             .contentShape(Rectangle())
             .onTapGesture { onTapCard() }
             .onAppear { viewModel.load() }
-            .overlay {
-                if viewModel.loadState == .loading {
-                    Color.clear
-                        .ignoresSafeArea()
-                        .transition(.opacity)
-                }
-            }
+            // Fades the photograph and its sampled colour in when the card finishes loading.
             .animation(.easeOut(duration: 0.2), value: viewModel.loadState == .loading)
         }
     }
