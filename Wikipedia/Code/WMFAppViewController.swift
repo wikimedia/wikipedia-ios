@@ -1051,6 +1051,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             resumeAndAnnouncementsCompleteGroup.leave()
             self.performTasksThatShouldOccurAfterBecomeActiveAndResume()
             self.showLoggedOutPanelIfNeeded()
+            self.presentOneTimeHomeOnboardingIfNeeded()
             let key = WMFUserDefaultsKey.needsDailyGameFeedRefresh.rawValue
             if UserDefaults.standard.bool(forKey: key) {
                 UserDefaults.standard.removeObject(forKey: key)
@@ -1091,6 +1092,64 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         defaults.wmf_setLocationAuthorized(locationAuthorized)
 
         savedArticlesFetcher?.start()
+    }
+    
+    private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
+    
+    private func presentOneTimeHomeOnboardingIfNeeded() {
+        // Make sure it's on the home tab and doesn't have any modals/etc
+        guard selectedIndex == WMFAppTabType.main.rawValue else { return }
+        guard let homeNav = viewControllers?[WMFAppTabType.main.rawValue] as? UINavigationController,
+              homeNav.viewControllers.count == 1 else { return }
+        guard presentedViewController == nil else { return }
+        
+        let defaults = UserDefaults.standard
+        let isNewInstall = defaults.bool(forKey: WMFUserDefaultsKey.didSendNewInstallOnboardingStartEvent.rawValue)
+        let alwaysShow = WMFDeveloperSettingsDataController.shared.alwaysShowNewOnboarding
+        let hasSeen = defaults.bool(forKey: WMFUserDefaultsKey.hasSeenNewHomeOnboarding.rawValue)
+
+        guard !isNewInstall && (alwaysShow || !hasSeen) else { return }
+
+        defaults.set(true, forKey: WMFUserDefaultsKey.hasSeenNewHomeOnboarding.rawValue)
+
+        let viewModel = WMFOneTimeOnboardingViewModel()
+        let oneTimeVC = WMFComponentHostingController(rootView: WMFOneTimeOnboardingView(viewModel: viewModel))
+        oneTimeVC.modalPresentationStyle = .pageSheet
+
+        viewModel.onCustomize = { [weak self, weak oneTimeVC] in
+            oneTimeVC?.dismiss(animated: true) {
+                guard let self else { return }
+                let coordinator = AppOnboardingCoordinator(
+                    presentingViewController: self,
+                    dataStore: self.dataStore,
+                    theme: self.theme,
+                    willDismiss: { [weak self] in
+                        self?.loadMainUI()
+                    },
+                    completion: { [weak self] in
+                        if let homeViewModel = self?.homeCoordinator?.homeViewController?.viewModel {
+                            homeViewModel.selectedTab = WMFHomeDataController.shared.seeFirstContent() == .personalized ? .forYou : .community
+                        }
+                        self?.appOnboardingCoordinator = nil
+                    }
+                )
+                self.appOnboardingCoordinator = coordinator
+                coordinator.startCondensed()
+            }
+        }
+
+        viewModel.onAutoSetup = { [weak self, weak oneTimeVC] in
+            WMFHomeDataController.shared.setSeeFirstContent(.community)
+            if let homeViewModel = self?.homeCoordinator?.homeViewController?.viewModel {
+                homeViewModel.selectedTab = .community
+                homeViewModel.loadForYouFeedIfNeeded()
+            }
+            oneTimeVC?.dismiss(animated: true)
+        }
+
+        DispatchQueue.main.async {
+            self.present(oneTimeVC, animated: true)
+        }
     }
 
     private func timeBeforeRefreshingExploreFeed() -> TimeInterval {

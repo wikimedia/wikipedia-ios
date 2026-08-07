@@ -58,6 +58,7 @@ public enum WMFSFSymbolIcon {
     case checkmarkCircleFill
     case checkmarkSquareFill
     case square
+    case squareSplit
     case star
     case starSquare
     case starFill
@@ -440,6 +441,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "clock.arrow.trianglehead.2.counterclockwise.rotate.90", withConfiguration: configuration)
         case .starSquare:
             image = UIImage(systemName: "star.square.on.square", withConfiguration: configuration)
+        case .squareSplit:
+            image = UIImage(systemName: "square.split.2x1", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
