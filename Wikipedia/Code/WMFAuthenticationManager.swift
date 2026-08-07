@@ -265,19 +265,8 @@ import WMFTestKitchen
                         guard !(error is URLError) else {
                             // Connection error, assume login would have been successful
                             
-                            let user = WMFCurrentUser(
-                                userID: 0,
-                                globalUserID: 0,
-                                name: userName,
-                                groups: [],
-                                editCount: 0,
-                                globalEditCount: 0,
-                                isBlocked: false,
-                                isIP: false,
-                                isTemp: false,
-                                registrationDateString: nil
-                            )
-
+                            let user = WMFCurrentUser(userID: 0, globalUserID: 0, name: userName, groups: [], editCount: 0, isBlocked: false, isIP: false, isTemp: false, registrationDateString: nil)
+                            
                             if let host = siteURL.host {
                                 self.currentUserCache[host] = user
                             }
@@ -347,19 +336,8 @@ import WMFTestKitchen
                 guard !(error is URLError) else {
                     // If connection error, assume login would have been successful
                     
-                    let user = WMFCurrentUser(
-                        userID: 0,
-                        globalUserID: 0,
-                        name: userName,
-                        groups: [],
-                        editCount: 0,
-                        globalEditCount: 0,
-                        isBlocked: false,
-                        isIP: false,
-                        isTemp: false,
-                        registrationDateString: nil
-                    )
-
+                    let user = WMFCurrentUser(userID: 0, globalUserID: 0, name: userName, groups: [], editCount: 0, isBlocked: false, isIP: false, isTemp: false, registrationDateString: nil)
+                    
                     if let host = siteURL.host {
                         self.currentUserCache[host] = user
                     }
