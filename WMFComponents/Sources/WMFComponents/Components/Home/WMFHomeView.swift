@@ -24,7 +24,7 @@ public struct WMFHomeView: View {
     public var body: some View {
         mainContent
             .task { viewModel.loadCurrentTabFeedIfNeeded() }
-            .onChange(of: viewModel.selectedTab) { _ in
+            .onChange(of: viewModel.selectedTab) {
                 viewModel.loadCurrentTabFeedIfNeeded()
             }
     }
