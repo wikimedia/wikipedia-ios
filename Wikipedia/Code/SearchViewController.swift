@@ -455,7 +455,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         Task {
             do {
                 let dc = try WMFPageViewsDataController()
-                try await dc.deleteAllPageViewsAndCategories()
+                try await dc.deleteAllPageViewsCategoriesAndTopics()
             } catch {
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
             }
