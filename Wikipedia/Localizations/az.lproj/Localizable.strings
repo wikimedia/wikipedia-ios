@@ -296,6 +296,13 @@
 "cancel" = "Ləğv et";
 "chinese-variants-alert-body" = "Vikipediya proqramı indi tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı Çin variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarmağı və redaktə etməyi asanlaşdırır:\n\n简体 Çincə, Sadələşdirilmiş (zh-hans)\n香港繁體 Ənənəvi Honq Konq (zh-hk)\n澳門繁體 Makao Ənənəvi (zh-mo)\n大马简体 Malayziya Sadələşdirilmiş (zh-my)\n新加坡简体 Sadələşdirilmiş Sinqapur (zh-sg)\n臺灣正體 Ənənəvi Tayvan (zh-tw)";
 "chinese-variants-alert-title" = "Çin variantı dəstəyi üçün yeniləmələr";
+"choose-editor-dont-show-again" = "Bunu bir daha göstərmə. Bu standart parametr daha sonra Parametrlərdə dəyişdirilə bilər.";
+"choose-editor-dont-show-hint" = "Bu seçimi yadda saxlamaq və gələcək düzəlişlər üçün bu ekranı keçmək üçün iki dəfə toxunun.";
+"choose-editor-source-subtitle" = "İşarələmədən istifadə edərək dəyişikliklər edin. Tətbiqdə qalır.";
+"choose-editor-source-title" = "Mənbə kodunun redaktəsi";
+"choose-editor-title" = "Necə redaktə edəcəyinizi seçin";
+"choose-editor-visual-subtitle" = "Gördüyünüz səhifədə birbaşa dəyişikliklər edin. Brauzerinizdə açılır.";
+"choose-editor-visual-title" = "Vizual redaktə";
 "clear-title-accessibility-label" = "Təmizlə";
 "clearing-cache-complete" = "Keşin təmizlənməsi tamamlandı.";
 "clearing-cache-error" = "Keşi təmizləmə xətası.";
