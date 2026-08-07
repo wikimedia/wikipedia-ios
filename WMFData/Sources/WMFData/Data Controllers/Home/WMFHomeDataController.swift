@@ -234,7 +234,10 @@ public final actor WMFHomeDataController {
     private func fetchForYouBecauseYouReadArticles(project: WMFProject) async throws -> WMFForYouBecauseYouReadArticles? {
         guard let pageViewsDataController else { return nil }
         // T427675:  Ensure freshness: instead of just taking the last article read, for every new explore day, take all articles that were read for 1+ minutes in the last month and randomly pick one as the seed
-        let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60, mainNamespaceOnly: true)
+        var pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60, mainNamespaceOnly: true)
+        if pages.isEmpty {
+            pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 10, mainNamespaceOnly: true)
+        }
         guard let recentlyRead = pages.randomElement() else { return nil }
         let related = try await relatedPagesDataController.fetchRelatedPages(title: recentlyRead.title, project: project, filterDisambiguationPages: true)
         let mapped = related.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
