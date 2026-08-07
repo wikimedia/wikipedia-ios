@@ -220,7 +220,7 @@ public final actor WMFHomeDataController {
         return try await withThrowingTaskGroup(of: WMFForYouInterestPageRelatedArticles.self) { group in
             for interest in selected {
                 group.addTask {
-                    let related = try await self.relatedPagesDataController.fetchRelatedPages(title: interest.title, project: project)
+                    let related = try await self.relatedPagesDataController.fetchRelatedPages(title: interest.title, project: project, filterDisambiguationPages: true)
                     let mapped = related.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
                     return WMFForYouInterestPageRelatedArticles(pageInterest: WMFForYouArticle(title: interest.title, project: project), articles: mapped)
                 }
@@ -233,9 +233,13 @@ public final actor WMFHomeDataController {
 
     private func fetchForYouBecauseYouReadArticles(project: WMFProject) async throws -> WMFForYouBecauseYouReadArticles? {
         guard let pageViewsDataController else { return nil }
-        let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 10)
+        // T427675:  Ensure freshness: instead of just taking the last article read, for every new explore day, take all articles that were read for 1+ minutes in the last month and randomly pick one as the seed
+        var pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60, mainNamespaceOnly: true)
+        if pages.isEmpty {
+            pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 10, mainNamespaceOnly: true)
+        }
         guard let recentlyRead = pages.randomElement() else { return nil }
-        let related = try await relatedPagesDataController.fetchRelatedPages(title: recentlyRead.title, project: project)
+        let related = try await relatedPagesDataController.fetchRelatedPages(title: recentlyRead.title, project: project, filterDisambiguationPages: true)
         let mapped = related.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
         return WMFForYouBecauseYouReadArticles(
             recentlyRead: WMFForYouArticle(title: recentlyRead.title, project: project),
@@ -245,7 +249,7 @@ public final actor WMFHomeDataController {
 
     private func fetchForYouContinueReading(project: WMFProject) async throws -> WMFForYouContinueReading? {
         guard let pageViewsDataController else { return nil }
-        let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60)
+        let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60, mainNamespaceOnly: true)
         guard let continueReadingArticle = pages.randomElement() else { return nil }
         let saved = try await savedArticlesDataController.fetchRecentlySavedArticles(limit: 3)
         let mapped = saved.compactMap { item -> WMFForYouArticle? in

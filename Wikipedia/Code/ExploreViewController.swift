@@ -402,7 +402,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let fetchRequest: NSFetchRequest<WMFContentGroup> = WMFContentGroup.fetchRequest()
         let today = NSDate().wmf_midnightUTCDateFromLocal as Date
         let oldestDate = Calendar.current.date(byAdding: .day, value: -WMFExploreFeedMaximumNumberOfDays, to: today) ?? today
-        fetchRequest.predicate = NSPredicate(format: "isVisible == YES && (placement == NULL || placement == %@) && midnightUTCDate >= %@", "feed", oldestDate as NSDate)
+        
+        if isEmbeddedInHomeTab {
+            // Remove because you read / related articles
+            fetchRequest.predicate = NSPredicate(format: "isVisible == YES && (placement == NULL || placement == %@) && midnightUTCDate >= %@ && contentGroupKindInteger != %@", "feed", oldestDate as NSDate, NSNumber(value: 3))
+        } else {
+            fetchRequest.predicate = NSPredicate(format: "isVisible == YES && (placement == NULL || placement == %@) && midnightUTCDate >= %@", "feed", oldestDate as NSDate)
+        }
+        
+        // fetchRequest.predicate = NSPredicate(format: "isVisible == YES && (placement == NULL || placement == %@) && midnightUTCDate >= %@", "feed", oldestDate as NSDate)
         fetchRequest.sortDescriptors = dataStore.feedContentController.exploreFeedSortDescriptors()
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: "midnightUTCDate", cacheName: nil)
         fetchedResultsController = frc

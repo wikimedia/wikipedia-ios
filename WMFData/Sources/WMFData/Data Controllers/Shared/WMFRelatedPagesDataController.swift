@@ -33,16 +33,21 @@ public actor WMFRelatedPagesDataController {
             let description: String?
             let thumbnail: Thumbnail?
             let extract: String?
+            let pageprops: PageProps?
 
             struct Thumbnail: Codable {
                 let source: String?
+            }
+
+            struct PageProps: Codable {
+                let disambiguation: String?
             }
         }
     }
 
     // MARK: - Public API
 
-    public func fetchRelatedPages(title: String, project: WMFProject) async throws -> [WMFRelatedPage] {
+    public func fetchRelatedPages(title: String, project: WMFProject, filterDisambiguationPages: Bool = false) async throws -> [WMFRelatedPage] {
         guard let service else {
             throw WMFDataControllerError.basicServiceUnavailable
         }
@@ -60,7 +65,8 @@ public actor WMFRelatedPagesDataController {
             "gsrnamespace": "0",
             "gsrlimit": "20",
             "gsrqiprofile": "classic_noboostlinks",
-            "prop": "pageimages|description|info|extracts",
+            "prop": "pageimages|description|info|extracts|pageprops",
+            "ppprop": "mainpage|disambiguation",
             "piprop": "thumbnail",
             "pithumbsize": "160",
             "pilimit": "20",
@@ -89,7 +95,10 @@ public actor WMFRelatedPagesDataController {
             return []
         }
 
-        return pages.map { page in
+        return pages.filter { page in
+            guard filterDisambiguationPages else { return true }
+            return page.pageprops?.disambiguation == nil
+        }.map { page in
             let thumbnailURL = page.thumbnail?.source.flatMap { URL(string: $0) }
             return WMFRelatedPage(
                 pageid: page.pageid,
