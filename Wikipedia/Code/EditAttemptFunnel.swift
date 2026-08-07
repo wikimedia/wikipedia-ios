@@ -56,7 +56,11 @@ public final class EditAttemptFunnel {
         let platform = UIDevice.current.userInterfaceIdiom == .pad ? "tablet" : "phone"
 
         let resolvedProject = project ?? WikimediaProject(siteURL: pageURL)
-        let currentUser = MWKDataStore.shared().authenticationManager.permanentUser(siteURL: pageURL)
+        let authenticationManager = MWKDataStore.shared().authenticationManager
+        let currentUser = authenticationManager.permanentUser(siteURL: pageURL)
+        if currentUser == nil {
+            authenticationManager.hydrateUserCacheIfNeeded(siteURL: pageURL)
+        }
         let userId = currentUser?.userID ?? 0
         let editCount = Int(currentUser?.editCount ?? 0)
 
