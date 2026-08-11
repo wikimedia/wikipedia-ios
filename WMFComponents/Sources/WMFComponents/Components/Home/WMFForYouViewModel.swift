@@ -73,6 +73,18 @@ public final class WMFForYouViewModel: ObservableObject {
     public let emptySubtitle = WMFLocalizedString("for-you-empty-subtitle", value: "Add interests to get personalized article recommendations.", comment: "Subtitle shown on the For You tab empty state encouraging the user to add interests.")
     public let emptyButtonTitle = WMFLocalizedString("for-you-empty-button", value: "Choose your interests", comment: "Button on the For You empty state that opens the interests customization screen.")
 
+    // MARK: - Position in the feed
+    private(set) var lastViewedModuleID: UUID?
+    private(set) var lastViewedCardKey: String?
+
+    func rememberViewedModule(_ moduleID: UUID?) {
+        lastViewedModuleID = moduleID
+    }
+
+    func rememberViewedCard(_ cardKey: String?) {
+        lastViewedCardKey = cardKey
+    }
+
     public init(
         response: WMFForYouResponse,
         moduleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(basedOnInterests: true, becauseYouRead: true, continueReading: true),
@@ -84,8 +96,6 @@ public final class WMFForYouViewModel: ObservableObject {
     }
 
     // MARK: - Building the feed
-
-    /// Builds the feed's pages, in the order they are shown.
 
     private static func makePages(from response: WMFForYouResponse) -> [WMFForYouPageViewModel] {
         var deduplicator = ArticleDeduplicator()

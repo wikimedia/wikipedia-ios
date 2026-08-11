@@ -64,6 +64,9 @@ public struct WMFForYouView: View {
 
     @State private var hasReportedCurrentDrag = false
 
+    /// The module on screen. Mirrored to the view model, which outlives this view.
+    @State private var currentModuleID: UUID?
+
     public init(viewModel: WMFForYouViewModel) {
         self.viewModel = viewModel
     }
@@ -81,6 +84,17 @@ public struct WMFForYouView: View {
             guard !articles.isEmpty else { return nil }
             return VisiblePage(page: page, articles: articles)
         }
+    }
+
+    /// Puts the user back on the module they looked at last.
+    ///
+    /// The module must still be in the feed: the user can hide a module, or hide all the cards of a
+    /// module, while the view is away.
+    private func restoreModulePosition() {
+        guard let lastViewedModuleID = viewModel.lastViewedModuleID,
+              visiblePages.contains(where: { $0.id == lastViewedModuleID }) else { return }
+
+        currentModuleID = lastViewedModuleID
     }
 
     public var body: some View {
@@ -108,11 +122,19 @@ public struct WMFForYouView: View {
                         onTapCard: { viewModel.onTapCard?($0) },
                         onSaveCard: { viewModel.onSaveCard?($0) },
                         onShareCard: { viewModel.onShareCard?($0) },
-                        onUnsaveCard: { viewModel.onUnsaveCard?($0) }
+                        onUnsaveCard: { viewModel.onUnsaveCard?($0) },
+                        lastViewedCardKey: viewModel.lastViewedCardKey,
+                        onViewCard: { viewModel.rememberViewedCard($0) }
                     )
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 }
             }
+            .scrollTargetLayout()
+        }
+        .scrollPosition(id: $currentModuleID)
+        .onAppear { restoreModulePosition() }
+        .onChange(of: currentModuleID) { _, moduleID in
+            viewModel.rememberViewedModule(moduleID)
         }
         .scrollTargetBehavior(.paging)
         .refreshable { await viewModel.onRefresh?() }
@@ -210,6 +232,12 @@ private struct WMFForYouPageView: View {
     let onSaveCard: (WMFForYouArticleCardViewModel) -> Void
     let onShareCard: (WMFForYouArticleCardViewModel) -> Void
     let onUnsaveCard: (WMFForYouArticleCardViewModel) -> Void
+    /// The card the user looked at last, anywhere in the feed. It can be a card of a different
+    /// module, in which case this carousel starts at its first card.
+    let lastViewedCardKey: String?
+
+    /// Reports the card on screen, so the view model can put the user back here later.
+    let onViewCard: (String?) -> Void
 
     /// Identified by `cardUniqueKey` rather than by position, so that a card keeps its identity when an
     /// earlier card in the carousel is hidden.
@@ -246,6 +274,17 @@ private struct WMFForYouPageView: View {
         }
         .scrollTargetBehavior(.paging)
         .scrollPosition(id: $currentPage)
+        .onAppear {
+            // The card must be one of this carousel's cards. This rejects a card of a different
+            // module, and also a card that the user hid while the view was away.
+            guard let lastViewedCardKey,
+                  articleViewModels.contains(where: { $0.cardUniqueKey == lastViewedCardKey }) else { return }
+
+            currentPage = lastViewedCardKey
+        }
+        .onChange(of: currentPage) { _, cardKey in
+            onViewCard(cardKey)
+        }
         .overlay(alignment: .bottom) {
             HStack(spacing: 8) {
                 ForEach(articleViewModels, id: \.cardUniqueKey) { article in
