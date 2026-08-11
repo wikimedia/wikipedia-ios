@@ -664,9 +664,21 @@ extension WMFAppViewController {
             do {
                 WMFDataEnvironment.current.coreDataStore = try await WMFCoreDataStore()
                 await self.migrateSavedArticleInfoWithBackgroundTask()
+                await self.recoverReadingChallenge2026Completion()
             } catch let error {
                 DDLogError("Error setting up WMFCoreDataStore: \(error)")
             }
+        }
+    }
+
+    /// Determines whether the user completed the (since removed) 2026 Reading Challenge and saves it
+    /// to user defaults. No-ops after it succeeds once. Retries on the next launch if it throws,
+    /// which is why the error is logged rather than surfaced.
+    private func recoverReadingChallenge2026Completion() async {
+        do {
+            try await WMFReadingChallengeCompletionDataController.shared.recoverCompletionIfNeeded()
+        } catch let error {
+            DDLogError("Error recovering 2026 Reading Challenge completion: \(error)")
         }
     }
 
@@ -767,6 +779,10 @@ extension WMFAppViewController {
             return Locale.acceptLanguageHeaderForPreferredLanguages
         }
 
+        WMFDataEnvironment.current.httpErrorLogger = { info in
+            ClientErrorFunnel.shared.logHTTPError(info: info)
+        }
+
         WMFDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
 
         let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
@@ -830,6 +846,16 @@ extension WMFAppViewController {
             } catch {
                 DDLogError("Error pruning WMFData database: \(error)")
             }
+
+            do {
+                let pageViewsDataController = try WMFPageViewsDataController()
+                let clampedCount = try await pageViewsDataController.clampInflatedPageViewSecondsIfNeeded()
+                if clampedCount > 0 {
+                    DDLogInfo("Clamped inflated reading time on \(clampedCount) page views.")
+                }
+            } catch {
+                DDLogError("Error clamping inflated page view seconds: \(error)")
+            }
         }
     }
 
@@ -855,6 +881,7 @@ extension WMFAppViewController {
 
     @objc func appEnvironmentTraitCollectionIsDifferentThanTraitCollection(_ traitCollection: UITraitCollection) -> Bool {
         return WMFAppEnvironment.current.traitCollection.hasDifferentColorAppearance(comparedTo: traitCollection)
+        || WMFAppEnvironment.current.traitCollection.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory
     }
 
 }

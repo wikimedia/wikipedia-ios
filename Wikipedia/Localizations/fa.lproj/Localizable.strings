@@ -173,8 +173,6 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "فعالیت شامل یک جدول زمانی جامع از مقالات خوانده‌شده، ذخیره‌شده و ویرایش‌شده است. تاریخچهٔ مطالعه شما اکنون در زبانهٔ جستجو قرار دارد.";
 "activity-tab-onboarding-third-item-title-updated" = "تاریخچهٔ مطالعه اکنون در جستجو است";
 "activity-tab-read-title" = "مشاهدهٔ تاریخچهٔ مطالعه";
-"activity-tab-reading-challenge-card-cta" = "به من نشان بده چگونه";
-"activity-tab-reading-challenge-card-title" = "چالش مطالعهٔ ۲۵ روزه";
 "activity-tab-satisfied" = "راضی";
 "activity-tab-saved" = "مقاله‌های ذخیره‌شده در این ماه";
 "activity-tab-start-editing" = "شروع ویرایش";
@@ -202,6 +200,15 @@
 "alert-temporary-account-learn-more" = "اطلاعات بیشتر";
 "alt-text-feedback-survey-toast-title" = "بازخورد ثبت شد";
 "announcements-dismiss" = "پنهان‌سازی";
+"app-onboarding-data-privacy-policy-link" = "سیاست محرمانگی";
+"app-onboarding-data-privacy-terms-link" = "شرایط استفاده";
+"app-onboarding-data-privacy-title" = "داده‌ها و حریم خصوصی";
+"app-onboarding-feed-preference-community-option" = "محتوای مرتبط با جامعه";
+"app-onboarding-feed-preference-in-the-news" = "از میان خبرها";
+"app-onboarding-feed-preference-personalized-disabled" = "برای مشاهده پیشنهادات محتوای شخصی‌سازی‌شده، باید علایق خود را اضافه کنید. می‌توانید این کار را در مراحل قبلی یا بعداً در تنظیمات انجام دهید.";
+"app-onboarding-feed-preference-personalized-option" = "محتوای شخصی‌سازی‌شده";
+"app-onboarding-feed-preference-picture-of-the-day" = "نگارهٔ روز";
+"app-onboarding-feed-preference-title" = "دوست دارید اول کدام را ببینید؟";
 "app-store-keywords" = "ویکی‌پدیا، منبع، ویکی، دانشنامه، اطلاعات، دانش، پژوهش، اطلاعات، کاوش، یادگیری";
 "app-store-release-notes" = "خوراک بازدید با قابلیت شخصی‌سازی کامل و خواندن آسان‌تر. بومی‌سازی، بهبود عملکرد و رفع مشکلات.";
 "app-store-short-description" = "برای کاوش مکان‌ها در نزدیکی شما، همگام‌سازی مقاله‌ها جهت مطالعه در حالت آفلاین و سفارشی‌سازی تجربهٔ مطالعهٔ خود، نرم‌افزار ویکی‌پدیا را دریافت کنید.";
@@ -319,9 +326,6 @@
 "close-tab-confirmation" = "بستن زبانه؟";
 "close-tabs" = "بستن زبانه‌ها";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|زبانه}} بسته شد.";
-"collect-prize-button-title" = "از فروشگاه ۱۵٪ تخفیف بگیرید";
-"collect-prize-headline" = "کنجکاوی بهت میاد! 🛍️";
-"collect-prize-subtitle" = "با ۱۵٪ تخفیف در فروشگاه ویکی‌پدیا، اتمام چالش را جشن بگیرید.";
 "collect-prize-title" = "جایزه‌ات را جمع کن!";
 "compass-direction" = "در ساعت $1";
 "confirm-donation-history-deletion-subtitle" = "این فقط بر کمک‌های اعطا شده از روی همین دستگاه اعمال می‌شود.";
@@ -707,7 +711,7 @@
 "field-password-confirm-title" = "تأیید رمز عبور";
 "field-password-placeholder" = "رمز عبور را وارد کنید";
 "field-password-title" = "گذرواژه";
-"field-token-title" = "کد تائید";
+"field-token-title" = "کد تأیید";
 "field-username-placeholder" = "نام کاربریتان را وارد کنید";
 "field-username-title" = "نام کاربری";
 "filter-options-all" = "همه";
@@ -719,9 +723,9 @@
 "find-replace-header-close-accessibility" = "«یافتن و جایگزینی» را ببند";
 "find-textfield-accessibility" = "یافتن";
 "forgot-password-button-title" = "بازنشانی";
-"forgot-password-email-sent" = "ایمیلی حاوی دستورالعمل بازنشانی رمز عبور ارسال شد";
+"forgot-password-email-sent" = "ایمیلی حاوی دستورالعمل بازنشانی گذرواژه ارسال شد";
 "forgot-password-instructions" = "برای دریافت دستورالعمل بازنشانی رمز عبور از طریق ایمیل، یکی از بخش‌های زیر را پر کنید.";
-"forgot-password-title" = "بازنشانی رمز عبور";
+"forgot-password-title" = "بازنشانی گذرواژه";
 "forgot-password-username-or-email-title" = "یا";
 "games-announcement-play-button" = "بازی کن";
 "games-announcement-title" = "«کدام اول اتفاق افتاد؟» را بازی کن.";
@@ -737,15 +741,22 @@
 "history-title" = "تاریخچه";
 "home-button-explore-accessibility-label" = "ویکی‌پدیا، بازگشت به بازدید";
 "home-button-saved-accessibility-label" = "ویکی‌پدیا، بازگشت به ذخیره‌شده‌ها";
+"home-community-empty-feed-button-title" = "شخصی‌سازی محتوا";
+"home-community-empty-feed-message" = "برای مشاهدهٔ محتوای جامعه، کارت‌ها را در تنظیمات محتوا فعال کنید.";
+"home-community-empty-feed-title" = "تمام کارت‌های محتوای جامعه پنهان شده‌اند";
 "home-community-tab-title" = "جامعه";
 "home-edit-languages-title" = "افزودن یا ویرایش زبان‌ها";
+"home-feed-for-you-based-on-interests-subtitle" = "مقالات متناسب با موضوعاتی انتخاب کرده‌اید";
 "home-feed-for-you-based-on-interests-title" = "بر اساس علایق شما";
 "home-feed-for-you-because-you-read-subtitle" = "پیشنهادات بر اساس مقالهٔ اخیر از تاریخچهٔ شما";
 "home-feed-for-you-because-you-read-title" = "چون شما مطالعه کرده‌اید";
 "home-feed-for-you-continue-reading-subtitle" = "به مقالاتی که تمام نکرده‌اید، برگردید";
 "home-feed-for-you-continue-reading-title" = "ادامهٔ مطالعه";
 "home-feed-for-you-settings-title" = "پودمان‌ها";
-"home-feed-for-you-whats-driving-title" = "چه چیزی محتوای شما را هدایت می‌کند؟";
+"home-feed-interests-deselect-all" = "عدم انتخاب همه";
+"home-feed-interests-header-title" = "به چه چیزهایی علاقه دارید؟";
+"home-feed-interests-non-mainspace-toast" = "فقط مقالات موجود در فضای‌نام اصلی می‌توانند به عنوان علاقه‌مندی اضافه شوند.";
+"home-feed-interests-search-placeholder" = "جستجوی یک مقاله";
 "home-feed-interests-settings-empty-message" = "علایق شما اینجا نمایش داده می‌شود";
 "home-feed-interests-settings-title" = "علایق شما";
 "home-feed-modules-featured-article-subtitle" = "مقالات برگزیده، برخی از باکیفیت‌ترین مقالات ویکی‌پدیا هستند که روزانه توسط ویرایشگران انتخاب می‌شوند.";
@@ -819,8 +830,7 @@
 "image-rec-tooltip-3-body" = "تصمیم بگیرید که آیا تصویر در درک بهتر موضوع به افراد کمک خواهد کرد یا خیر.";
 "image-rec-tooltip-3-title" = "تصمیم بگیرید";
 "image-rec-view-article" = "مشاهدهٔ مقاله";
-// Fuzzy
-"image-recommendations-email-first-line" = "من در ویژگی ویرایش‌های پیشنهاد افزودن تصویر با یک مشکل مواجه شدم:";
+"image-recommendations-email-first-line" = "من در ویژگی «افزودن تصویر» ویرایش‌های پیشنهادی با یک مشکل مواجه شدم:";
 "image-recommendations-email-title" = "گزارش اشکال - ویژگی افزودن تصویر";
 "image-recs-no-title" = "خیر";
 "image-recs-not-sure-title" = "مطمئن نیستم";
@@ -861,7 +871,7 @@
 "insert-media-image-type-setting-frame" = "قاب";
 "insert-media-image-type-setting-frameless" = "بدون قاب";
 "insert-media-image-type-setting-thumbnail" = "بندانگشتی";
-"insert-media-image-type-settings-footer-title" = "می ةوانید مشخص کنید که آیتم رسانه چگونه در صفحه نمایش داده شود. این مورد برای حالت بندانگشتی است که شامل همه موارد و همه صفحات می‌شود.";
+"insert-media-image-type-settings-footer-title" = "می توانید مشخص کنید که آیتم رسانه چگونه در صفحه نمایش داده شود. این مورد برای حالت بندانگشتی است که شامل همه موارد و همه صفحات می‌شود.";
 "insert-media-image-type-settings-title" = "نوع تصویر";
 "insert-media-media-settings-title" = "تنظیمات رسانه";
 "insert-media-title" = "درج رسانه";
@@ -903,23 +913,15 @@
 "main-menu-title" = "بیشتر";
 "main-menu-zero-faq" = "پرسش‌های رایج ویکی‌پدیا صفر";
 "main-page" = "صفحهٔ اصلی";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-subtitle-updated" = "در سال ۲۰۲۴، داوطلبان ۴٬۱۰۴٬۸۵۲٬۹۶۹ بایت محتوا به ویکی‌پدیای انگلیسی افزوده‌اند. مجموع تمام کارهای آنان به تولید یک منبع دانش رو به بهبود، حقیقت‌محور و قابل اعتماد منجر شده است که آن را به جهان بخشیده‌اند. همهٔ ما دانشی برای به اشتراک گذاشتن داریم، [نحوهٔ مشارکت را بیاموزید]($1).";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title-updated" = "۴ میلیارد بایت محتوا افزوده شد";
-// Fuzzy
-"microsite-yir-english-edits-slide-subtitle-updated" = "داوطلبان ۹۸٬۲۲۲٬۴۰۷ تغییر در سرتاسر ۳۰۰ نسخهٔ زبانی مختلف ویکی‌پدیا اعمال کرده‌اند. بیش از ۳۷ میلیون تغییر در ویکی‌پدیای انگلیسی اعمال شده است. در هر ساعت از هر روز، داوطلبان در حال کار بر روی بهبود ویکی‌پدیا هستند.";
+"microsite-yir-english-edits-bytes-slide-subtitle-updated" = "در سال $1، داوطلبان {{PLURAL:$2|بایت}} به ویکی‌پدیای انگلیسی اضافه کردند. مجموع تمام کارهای آنها با هم منجر به یک منبع دانش مبتنی بر واقعیت و قابل اعتماد می‌شود که به طور پیوسته در حال بهبود است و به جهان ارائه می‌شود. همه ما دانشی برای به اشتراک گذاشتن داریم، [یاد بگیرید چگونه مشارکت کنید]($3).";
+"microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|بایت}} محتوا افزوده شد";
+"microsite-yir-english-edits-slide-subtitle-updated" = "داوطلبان {{PLURAL:$1|تغییر}} در سرتاسر {{PLURAL:$2|نسخهٔ زبانی مختلف}} ویکی‌پدیا اعمال کرده‌اند. بیش از {{PLURAL:$3|تغییر}} در ویکی‌پدیای انگلیسی اعمال شده است. در هر ساعت از هر روز، داوطلبان در حال کار بر روی بهبود ویکی‌پدیا هستند.";
 "microsite-yir-english-edits-slide-title-updated" = "ویرایشگران امسال {{PLURAL:$1|تغییر}} اعمال کردند";
-// Fuzzy
-"microsite-yir-english-reading-slide-subtitle-updated" = "در سال ۲۰۲۴، افراد حدود ۲٫۹ میلیارد ساعت—۳۳۱٬۰۰۰ سال!— را صرف مطالعهٔ ویکی‌پدیای انگلیسی کرده‌اند. هرگاه بخواهید دربارهٔ دنیای رو به تغییرمان چیزی بدانید، در یک شرط‌بندی بین دوستانتان پیروز شوید، یا پاسخ سؤال یک کودک را پیدا کنید، ویکی‌پدیا در کنار شماست.";
-// Fuzzy
-"microsite-yir-english-reading-slide-title-updated" = "ما ۲٫۹ میلیارد ساعت را صرف مطالعه کرده‌ایم";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-subtitle-updated" = "کاربران فعال نرم‌افزار iOS بیش از ۶۲٫۲ میلیون فهرست مطالعه داشته‌اند. افزودن مقاله‌ها به فهرست‌های مطالعه این امکان را به شما می‌دهد که حتی در صورت برخط نبودن به مقاله‌ها دسترسی داشته باشید. همچنین می‌توانید برای همگام‌سازی فهرست‌های مطالعه در تمام دستگاه‌های خود، به سامانه وارد شوید.";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-title-updated" = "ما بیش از ۶۲٫۲ میلیون فهرست مطالعه داشته‌ایم";
-// Fuzzy
-"microsite-yir-english-top-read-slide-subtitle-updated" = "۵ مقالهٔ زیر، مقاله‌های پربازدید ویکی‌پدیای انگلیسی بوده‌اند:\n\n۱. $1\n۲. $2\n۳. $3\n۴. $4\n۵. $5\nدر $6پست وبلاگی اختصاصی ما$7 در این مورد بیشتر بخوانید.";
+"microsite-yir-english-reading-slide-subtitle-updated" = "در سال $3، افراد حدود {{PLURAL:$1|ساعت}}— حدود {{PLURAL:$2|سال}}!— را صرف مطالعهٔ ویکی‌پدیای انگلیسی کرده‌اند. هرگاه بخواهید دربارهٔ دنیای رو به تغییرمان چیزی بدانید، در یک شرط‌بندی بین دوستانتان پیروز شوید، یا پاسخ سؤال یک کودک را پیدا کنید، ویکی‌پدیا در کنار شماست.";
+"microsite-yir-english-reading-slide-title-updated" = "ما {{PLURAL:$1|ساعت}} را صرف مطالعه کرده‌ایم";
+"microsite-yir-english-saved-reading-slide-subtitle-updated" = "کاربران فعال برنامه امسال {{PLURAL:$1|مقاله ذخیره}} کرده‌اند. افزودن مقالات به فهرست‌های مطالعه به شما این امکان را می‌دهد که حتی در صورت برخط نبودن نیز به مقالات دسترسی داشته باشید. همچنین می‌توانید برای همگام‌سازی فهرست‌های مطالعه در دستگاه‌های مختلف، وارد سامانه شوید.";
+"microsite-yir-english-saved-reading-slide-title-updated" = "ما {{PLURAL:$1|مقاله}} ذخیره شده داشتیم";
+"microsite-yir-english-top-read-slide-subtitle-updated" = "وقتی مردم می‌خواهند درباره دنیای ما اطلاعات کسب کنند، به ویکی‌پدیا مراجعه می‌کنند. ۵ مقالهٔ زیر، مقاله‌های پربازدید ویکی‌پدیای انگلیسی بوده‌اند:\n\n۱. $1\n۲. $2\n۳. $3\n۴. $4\n۵. $5\n\nدر $6پست وبلاگی اختصاصی ما$7 در این مورد بیشتر بخوانید.";
 "microsite-yir-english-top-read-slide-title" = "پرخواننده‌ترین مقالات ویکی‌پدیای انگلیسی";
 "more-languages-tooltip-description" = "جستجو در ویکی‌پدیا به بیش از ۳۰۰ زبان";
 "more-languages-tooltip-title" = "افزودن زبان";
@@ -931,6 +933,7 @@
 // Fuzzy
 "nearby-distance-label-meters" = "$1 متر";
 "nearby-distance-label-miles" = "$1 مایل";
+"new-explore-feed-preferences-customize-explore-feed" = "شخصی‌سازی محتوای جامعه";
 "new-password-instructions" = "با رمز عبور موقت به سامانه وارد شدید. برای تکمیل ورود، رمز عبور جدید انتخاب کنید.";
 "new-password-title" = "تنظیم رمز عبورتان";
 "new-tab" = "زبانهٔ جدید";
@@ -944,7 +947,7 @@
 "notifications-center-applied-project-filters-accessibility-label" = "پالایه‌های پروژه - دارای پالایه‌های اعمال‌شده";
 "notifications-center-badge-button-accessibility-label" = "اعلان‌های دارای نشان خوانده‌نشده";
 "notifications-center-cell-notification-type-accessibility-label-format" = "آگاه‌سازی $1";
-"notifications-center-change-password" = "تغییر رمز عبور";
+"notifications-center-change-password" = "تغییر گذرواژه";
 "notifications-center-checking-for-notifications" = "در حال بررسی اعلان‌ها...";
 "notifications-center-destination-app" = "در برنامه";
 "notifications-center-destination-web" = "روی وب";
@@ -1165,38 +1168,8 @@
 "project-name-wikiversity" = "ویکی‌دانشگاه";
 "project-name-wikivoyage" = "ویکی‌سفر";
 "project-name-wiktionary" = "ویکی‌واژه";
-"reading-challenge-announcement-cta" = "به چالش بپیوندید";
-"reading-challenge-announcement-item1-subtitle" = "بین $1 و $2 به این چالش بپیوندید و ۲۵ روز را طبق جدول زمانی خودتان تکمیل کنید.";
-"reading-challenge-announcement-item1-title" = "به مدت ۲۵ روز، روزی ۱ مقاله بخوانید";
-"reading-challenge-announcement-item2-title" = "جوایز را ببرید";
-"reading-challenge-announcement-item3-title" = "ابزار را نصب کنید";
-"reading-challenge-announcement-secondary-cta" = "اطلاعات بیشتر";
-"reading-challenge-announcement-subtitle" = "سابقهٔ مطالعه شما محافظت می‌شود. بینش‌های مطالعه با استفاده از داده‌های ذخیره شده محلی در دستگاه شما محاسبه می‌شود.";
-"reading-challenge-announcement-title" = "با پیوستن به چالش ۲۵ روزه مطالعه، ۲۵‌امین سالگرد ویکی‌پدیا را جشن بگیرید!";
-"reading-challenge-collect-prize-button-small" = "جمع‌آوری جایزه";
-"reading-challenge-completed-subtitle" = "۲۵ از ۲۵ روز";
-"reading-challenge-completed-subtitle-small" = "۲۵ از ۲۵";
-"reading-challenge-completed-title" = "تو انجامش دادی!";
-"reading-challenge-concluded-title" = "چالش به پایان رسید";
-"reading-challenge-enrolled-not-started-subtitle-article" = "برای شروع، یک مقاله بخوانید.";
-"reading-challenge-enrolled-not-started-subtitle-away" = "فقط یک مقاله با روند خودتان فاصله دارید.";
-"reading-challenge-enrolled-not-started-subtitle-somewhere" = "هر روندی از جایی شروع می‌شود.";
-"reading-challenge-enrolled-not-started-subtitle-towards" = "برای رسیدن به یک روند ۲۵ روزه تلاش کنید!";
-"reading-challenge-enrolled-not-started-title-fresh" = "یک شروع تازه.";
-"reading-challenge-enrolled-not-started-title-ready" = "آماده، تنظیم، مطالعه!";
-"reading-challenge-enrolled-not-started-title-spin" = "یک روند جدید را آغاز کنیم؟";
-"reading-challenge-enrolled-not-started-title-start" = "چالش مطالعهٔ خود را شروع کنید.";
-"reading-challenge-explore-wikipedia-button" = "کاوش ویکی‌پدیا";
-"reading-challenge-join-button-medium" = "به چالش بپیوندید";
-"reading-challenge-join-button-small" = "به چالش بپیوندید";
-"reading-challenge-login-message" = "برای پیگیری پیشرفت خود در چالش مطالعه، وارد شوید یا یک حساب ایجاد کنید.";
-"reading-challenge-login-title" = "برای شرکت در چالش وارد شوید";
-"reading-challenge-not-enrolled-title" = "آماده، تنظیم، مطالعه!";
-"reading-challenge-not-yet-read-subtitle-curiosity" = "کنجکاوی خود را ادامه دهید.";
+"reading-challenge-random-article-button" = "مقالهٔ تصادفی";
 "reading-challenge-random-button" = "تصادفی";
-"reading-challenge-subtitle" = "چالش مطالعهٔ ۲۵ روزه";
-"reading-challenge-widget-announcement-secondary-button" = "به‌ من نشان بده چگونه";
-"reading-challenge-widget-display-name" = "چالش مطالعه";
 "reading-list-add-generic-hint-title" = "افزودن این مقاله به فهرست مطالعه؟";
 "reading-list-add-hint-title" = "«$1» به یک فهرست مطالعه افزوده شود؟";
 "reading-list-add-saved-button-title" = "بله، اینها را به فهرست‌های مطالعهٔ من بیفزا";
@@ -1220,8 +1193,6 @@
 "reading-list-generic-error" = "یک خطای غیرمنتظره در هنگام بارگذاری فهرست‌های مطالعهٔ شما رخ داد.";
 "reading-list-keep-button-title" = "بله، مقالات را بر روی دستگاه نگهدار";
 "reading-list-keep-subtitle" = "چند مقاله در حساب ویکی‌پدیای شما همگام‌سازی شده است. آیا می‌خواهید پس از خروج آنها را بر روی این دستگاه نگه دارید؟";
-"reading-list-keep-sync-disabled-additional-subtitle" = "غیرفعال کردن همگام‌سازی، این مقاله‌ها را از حساب شما حذف خواهد کرد. اگر آن‌ها را از دستگاه خود حذف کنید، با فعال کردن دوبارهٔ همگام‌سازی در آینده، قادر به بازیابی آن‌ها نخواهید بود";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "نه، مقاله‌ها را از دستگاه و حساب ویکی‌پدیای من حذف کن";
 "reading-list-keep-title" = "مقاله‌های ذخیره‌شده روی دستگاه نگهداری شوند؟";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "مرتب‌کردن مقالات";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "محدودیت ۵۰۰۰ مقاله مرتب‌نشده وجود دارد. لطفاً مقالاتتان را در فهرست‌ها مرتب کنید تا امکان ادامهٔ همگام‌سازی مقالات مرتب‌نشده فراهم شود.";
@@ -1331,6 +1302,7 @@
 "settings-clear-cache-are-you-sure-title" = "داده‌‌های گرفته‌شده پاک‌شوند؟";
 "settings-clear-cache-cancel" = "لغو";
 "settings-clear-cache-ok" = "پاک‌سازی حافظهٔ نهان";
+"settings-community-feed-title" = "جامعه";
 "settings-donate" = "کمک مالی";
 "settings-explore-games-subtitle" = "بازی های روزانه مبتنی بر محتوای ویکی‌پدیا";
 "settings-explore-games-title" = "بازی‌های ویکی‌پدیا";
@@ -1354,11 +1326,6 @@
 "settings-search-open-app-on-search" = "باز کردن نرم‌افزار در زبانهٔ جستجو";
 "settings-storage-and-syncing-enable-sync-footer-text" = "به ویکی‌مدیا اجازه دهید تا در زمان ورود به حساب و همگام‌سازی، مقاله‌ها و فهرست‌های مطالعه‌ای که ذخیره کرده‌اید را در ترجیحات کاربری شما ذخیره کند.";
 "settings-storage-and-syncing-enable-sync-title" = "همگام‌سازی مقاله‌ها و فهرست‌های ذخیره‌شده";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "در صورتی که همگام‌سازی را فعال کرده باشید، پاک کردن مقاله‌های ذخیره‌شده علاوه بر حذف آن‌ها از این دستگاه، منجر به حذف آن‌ها از حساب کاربری شما نیز خواهد شد. شما قادر به برگرداندن این عمل نخواهید بود.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "همهٔ مقاله‌های ذخیره‌شده پاک شوند؟";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "پاک‌کردن";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "در صورتی که همگام‌سازی را فعال کرده باشید، پاک کردن مقاله‌های ذخیره‌شده علاوه بر حذف آن‌ها از این دستگاه، منجر به حذف آن‌ها از حساب کاربری شما نیز خواهد شد.\n\nپاک کردن مقاله‌های ذخیره شده حدود $1 فضا را خالی خواهد کرد.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "پاک‌کردن مقاله‌های ذخیره‌شده";
 "settings-storage-and-syncing-full-sync" = "فهرست‌های مطالعهٔ شما در پس‌زمینه همگام‌سازی خواهند شد";
 "settings-storage-and-syncing-server-sync-footer-text" = "درخواست یک به‌روزرسانی برای مقاله‌ها و فهرست‌های مطالعهٔ همگام‌سازی شدهٔ شما";
 "settings-storage-and-syncing-server-sync-title" = "به‌روزرسانی فهرست‌های مطالعهٔ همگام‌سازی شده";
@@ -1667,6 +1634,8 @@
 "year-in-review-base-editors-title-updated" = "ویرایشگران برنامه‌های رسمی ویکی‌پدیا {{PLURAL:$1|ویرایش}} انجام دادند";
 "year-in-review-base-reading-title-updated" = "ویکی‌پدیا در بیش از {{PLURAL:$1|$1 زبان}} در دسترس بوده است";
 "year-in-review-button-title" = "مرور سال";
+"year-in-review-contributor-gift-title" = "فعال‌سازی نشان جدید برنامه";
+"year-in-review-contributor-slide-subtitle-donor-updated" = "از سرمایه‌گذاری شما در آینده‌ی دانش رایگان متشکریم.\n\nکمک‌های شما به عنوان یک اهداکننده در سال $1، راه را برای دنیایی از اطلاعات رایگان هموار می‌کند و در نتیجه، شما یک نشان مشارکت‌کننده‌ی سفارشی برای ویکی‌پدیا در صفحه اصلی خود باز کرده‌اید.";
 "year-in-review-day-friday" = "جمعه‌ها";
 "year-in-review-day-monday" = "دوشنبه‌ها";
 "year-in-review-day-saturday" = "شنبه‌ها";
@@ -1704,6 +1673,7 @@
 "year-in-review-personalized-date-month-footer-v3" = "ماهی که بیشتر مطالعه کردی";
 "year-in-review-personalized-date-time-footer-v3" = "زمان مورد علاقه برای مطالعه";
 "year-in-review-personalized-date-title-v3" = "شما الگوهای مطالعه واضحی دارید";
+"year-in-review-personalized-donate-title" = "سخاوت شما به رونق ویکی‌پدیا کمک کرد";
 "year-in-review-personalized-editing-title-format-updated" = "شما {{PLURAL:$1|$1 بار}} ویرایش انجام داده‌اید";
 "year-in-review-personalized-location-title-format-updated" = "مقاله‌هایی که می‌خوانید، بیشتر به $1 مربوط هستند.";
 "year-in-review-personalized-most-read-articles-title" = "مقالات برتر شما";

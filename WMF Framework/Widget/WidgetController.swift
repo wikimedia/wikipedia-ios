@@ -175,7 +175,14 @@ public final class WidgetController: NSObject {
                 return
             }
             let openFiles = self.openFilePaths()
-            let openSqliteFile = openFiles.first(where: { $0.hasSuffix(".sqlite") })
+
+            // Only Core Data stores in the shared app container matter here.
+            let containerPath = FileManager.default.wmf_containerURL().resolvingSymlinksInPath().path
+            let containerPathPrefix = containerPath.hasSuffix("/") ? containerPath : (containerPath + "/")
+            let openSqliteFile = openFiles.first(where: {
+                let resolvedPath = URL(fileURLWithPath: $0).resolvingSymlinksInPath().path
+                return resolvedPath.hasPrefix(containerPathPrefix) && resolvedPath.hasSuffix(".sqlite")
+            })
             assert(openSqliteFile == nil, "There should be no open sqlite files (which in our case are Core Data persistent stores) in the shared app container after the data store is released. The widget still has a lock on these files: \(openFiles)")
             #endif
         }
@@ -212,7 +219,7 @@ public extension WidgetController {
         return widgetCache.settings.siteURL
     }
 
-    static var potdSmallImageWidth: Int { ImageUtils.ImageWidth.w960.rawValue }
+    static var potdSmallImageWidth: Int { ImageUtils.ImageWidth.w500.rawValue }
     static var potdMediumImageWidth: Int { ImageUtils.ImageWidth.w960.rawValue }
     static var potdLargeImageWidth: Int { ImageUtils.ImageWidth.w1280.rawValue }
 
@@ -443,6 +450,12 @@ public extension WidgetController {
                     imageSource.source = WMFChangeImageSourceURLSizePrefix(imageSource.source, standardWidth)
                     fetcher.fetchImageDataFrom(imageSource: imageSource) { imageResult in
                         featuredContent.pictureOfTheDay?.originalImageSource?.data = try? imageResult.get()
+
+                        // Record which size variant the data corresponds to so the cached-data
+                        // fast-path above can match on later requests. The cache is day-scoped,
+                        // but a single day sees many provider invocations (instances x families
+                        // x snapshot/timeline), only the first needs the network.
+                        featuredContent.pictureOfTheDay?.originalImageSource?.source = imageSource.source
                         widgetCache.featuredContent = featuredContent
                         self.sharedCache.saveCache(widgetCache)
 

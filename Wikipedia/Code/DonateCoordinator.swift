@@ -85,22 +85,16 @@ class DonateCoordinator: Coordinator {
 
     private var webViewURL: URL? {
 
-        guard let metricsID,
-              let languageCode else {
-            return nil
-        }
-
-        var urlString: String
+        var url: URL?
+        
         if case .articleCampaignModal(_, _, let articleCampaignDonateURL) = source {
-            urlString = articleCampaignDonateURL.absoluteString
+            url = articleCampaignDonateURL.replacingDonateParameters(language: languageCode, metricsId: metricsID)
         } else {
-            urlString = "https://donate.wikimedia.org/?wmf_medium=WikipediaApp&wmf_campaign=iOS&wmf_source=\(metricsID)&uselang=<langcode>"
-            urlString = urlString.replacingOccurrences(of: "<langcode>", with: languageCode)
+            url = URL(string:"https://donate.wikimedia.org/?wmf_medium=WikipediaApp&wmf_campaign=$platform;&wmf_source=$formattedId;&uselang=$language;&app_install_id=$appInstallId;&app_version=$appVersion;")?
+                .replacingDonateParameters(language: languageCode, metricsId: metricsID)
         }
-
-        let appVersion = Bundle.main.wmf_debugVersion()
-        let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
-        return URL(string: urlString)?.appendingAppVersionAndAppInstallID(appVersion: appVersion, appInstallID: appInstallID)
+        
+        return url
     }
 
     // MARK: Lifecycle
@@ -320,7 +314,7 @@ class DonateCoordinator: Coordinator {
             return nil
         }
 
-        let appVersion = Bundle.main.wmf_debugVersion()
+        let appVersion = Bundle.main.wmf_appVersion()
         let appInstallID: String? = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
 
         let donateDataController = WMFDonateDataController.shared
@@ -852,26 +846,27 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
     }
 }
 
-// MARK: URL Extensions
-
-fileprivate extension URL {
-    func appendingAppVersionAndAppInstallID(appVersion: String?, appInstallID: String?) -> URL {
-
-        guard let appVersion,
-              let appInstallID,
-              var components = URLComponents(url: self, resolvingAgainstBaseURL: false),
-        var queryItems = components.queryItems else {
-            return self
+extension URL {
+    func replacingDonateParameters(language: String?, metricsId: String?) -> URL? {
+        
+        guard let appLanguage = language, !appLanguage.isEmpty,
+              let appMetricsID = metricsId, !appMetricsID.isEmpty,
+              let country = Locale.current.region?.identifier, !country.isEmpty,
+              let appVersion = Bundle.main.wmf_appVersion(), !appVersion.isEmpty,
+              let appInstallID: String = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+        else {
+            return nil
         }
-
-        queryItems.append(URLQueryItem(name: "app_version", value: appVersion))
-        queryItems.append(URLQueryItem(name: "app_install_id", value: appInstallID))
-        components.queryItems = queryItems
-
-        guard let url = components.url else {
-            return self
-        }
-
-        return url
+        
+        let urlString = self.absoluteString
+            .replacingOccurrences(of: "$formattedId;", with: appMetricsID)
+            .replacingOccurrences(of: "$country;", with: country)
+            .replacingOccurrences(of: "$language;", with: appLanguage)
+            .replacingOccurrences(of: "$appVersion;", with: appVersion)
+            .replacingOccurrences(of: "$appInstallId;", with: appInstallID)
+            .replacingOccurrences(of: "$platform;", with: "iOS")
+        
+        return URL(string: urlString)
     }
 }
+

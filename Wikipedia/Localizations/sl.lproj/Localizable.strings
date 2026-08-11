@@ -844,8 +844,6 @@
 "reading-list-generic-error" = "Pri posodabljanju vaših bralnih seznamov je prišlo do nepričakovane napake.";
 "reading-list-keep-button-title" = "Da, ohrani članke v napravi";
 "reading-list-keep-subtitle" = "Z vašim računom v Wikipediji so sinhronizirani nekateri članki. Ali jih želite obdržati v tej napravi po odjavi?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Če izklopite sinhroniziranje, boste te članke odstranili iz svojega računa. Če jih odstranite iz naprave, jih v prihodnosti ne bo mogoče obnoviti s ponovnim vklopom sinhroniziranja.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Ne, odstrani članke iz naprave in mojega računa v Wikipediji";
 "reading-list-keep-title" = "Ali želite shranjene članke ohraniti v napravi?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Razvrsti članke";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Število nerazvrščenih člankov je omejeno na 5000. Razvrstite svoje obstoječe članke v sezname, da nadaljujete sinhroniziranje nerazvrščenih člankov.";
@@ -965,11 +963,6 @@
 "settings-search-open-app-on-search" = "Odpri aplikacijo na zavihku Iskanje";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Dovolite Wikimedii, da shrani vaše shranjene članke in bralne sezname v vaše uporabniške nastavitve, ko se prijavite in sinhronizirate.";
 "settings-storage-and-syncing-enable-sync-title" = "Sinhroniziranje shranjenih člankov in seznamov";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Ob izbrisu shranjenih člankov bodo ti odstranjeni iz vašega uporabniškega računa, če imate vklopljeno sinhronizacijo, in iz te naprave. Tega dejanja ne morete razveljaviti.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Želite izbrisati vse shranjene članke?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Izbriši";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Če boste izbrisali shranjene članke, jih boste odstranili tako iz vašega uporabniškega računa, če imate vklopljeno sinhronizacijo, kot tudi iz te naprave.\n\nČe boste izbrisali shranjene članke, boste sprostili približno $1 prostora.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Izbriši shranjene članke";
 "settings-storage-and-syncing-full-sync" = "Vaši bralni seznami se bodo sinhronizirali v ozadju";
 "settings-storage-and-syncing-server-sync-footer-text" = "Zahtevajte posodobitev vaših sinhroniziranih člankov in bralnih seznamov.";
 "settings-storage-and-syncing-server-sync-title" = "Posodobi sinhronizirane bralne sezname";

@@ -40,6 +40,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
 
+    /// When true, Explore is embedded as a child of the Home tab (Community segment) and must not
+    /// configure or reset the shared navigation bar — the Home view controller owns it.
+    @objc public var isEmbeddedInHomeTab: Bool = false
+
+    /// Shown when embedded in the Home tab and the user has hidden every feed card. Created lazily
+    /// on first need. Temporary phase 1 UI — remove with the community feed rework.
+    private var embeddedEmptyFeedView: EmbeddedCommunityEmptyFeedView?
+
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
 
     private var yirDataController: WMFYearInReviewDataController? {
@@ -179,6 +187,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         isGranularUpdatingEnabled = true
         restoreScrollPositionIfNeeded()
         configureNavigationBar()
+        updateEmbeddedEmptyStateIfNeeded()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
@@ -201,7 +210,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         dataStore.feedContentController.dismissCollapsedContentGroups()
         stopMonitoringReachability()
         isGranularUpdatingEnabled = false
-        resetNavBarAppearance()
+
+        if !isEmbeddedInHomeTab {
+            resetNavBarAppearance()
+        }
+
         hasLoggedSuggestedEditsCardImpression = false
     }
 
@@ -219,7 +232,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK: Navigation Bar
 
     private func configureNavigationBar() {
-        
+
+        guard !isEmbeddedInHomeTab else { return }
+
         let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: nil, alignment: .hidden)
         
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
@@ -705,6 +720,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         yirCoordinator?.theme = theme
         profileCoordinator?.theme = theme
+        embeddedEmptyFeedView?.apply(theme: theme)
 
         updateProfileButton()
         themeNavigationBarLeadingTitleView()
@@ -903,6 +919,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     func collectionViewUpdater<T: NSFetchRequestResult>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
+
+        updateEmbeddedEmptyStateIfNeeded()
 
         guard needsReloadVisibleCells else {
             return
@@ -1385,6 +1403,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
                 self.collectionView.collectionViewLayout.invalidateLayout()
             }
             self.indexPathsForCollapsedCellsThatCanReappear = []
+            self.updateEmbeddedEmptyStateIfNeeded()
         }
     }
 
@@ -1465,7 +1484,8 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         let hideThisCardHidesAll = group.contentGroupKind.isGlobal && group.contentGroupKind.isNonDateBased
 
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let customizeExploreFeed = UIAlertAction(title: CommonStrings.customizeExploreFeedTitle, style: .default) { (_) in
+        let customizeTitle = WMFDeveloperSettingsDataController.shared.isCommunityFeedMode ? CommonStrings.customizeCommunityFeedTitle : CommonStrings.customizeExploreFeedTitle
+        let customizeExploreFeed = UIAlertAction(title: customizeTitle, style: .default) { (_) in
             let exploreFeedSettingsViewController = ExploreFeedSettingsViewController()
             exploreFeedSettingsViewController.showCloseButton = true
             exploreFeedSettingsViewController.dataStore = self.dataStore
@@ -1960,5 +1980,110 @@ extension ExploreViewController: LogoutCoordinatorDelegate {
 extension ExploreViewController: YearInReviewBadgeDelegate {
     func updateYIRBadgeVisibility() {
         updateProfileButton()
+    }
+}
+
+// MARK: - Embedded Community Empty State
+
+extension ExploreViewController {
+
+    /// When embedded in the Home tab's Community segment, the feed cannot be turned off — hiding
+    /// every card empties it instead. Shows an empty state with a shortcut to the feed settings.
+    func updateEmbeddedEmptyStateIfNeeded() {
+        guard isEmbeddedInHomeTab, isViewLoaded, fetchedResultsController != nil else {
+            return
+        }
+
+        let allCardsHidden = dataStore.feedContentController.countOfVisibleContentGroupKinds == 0
+        guard allCardsHidden && numberOfSectionsInExploreFeed == 0 else {
+            embeddedEmptyFeedView?.isHidden = true
+            return
+        }
+
+        let emptyView: EmbeddedCommunityEmptyFeedView
+        if let embeddedEmptyFeedView {
+            emptyView = embeddedEmptyFeedView
+        } else {
+            emptyView = EmbeddedCommunityEmptyFeedView()
+            emptyView.translatesAutoresizingMaskIntoConstraints = false
+            emptyView.didTapCustomize = { [weak self] in
+                self?.showEmbeddedFeedSettings()
+            }
+            view.addSubview(emptyView)
+            NSLayoutConstraint.activate([
+                emptyView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                emptyView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ])
+            embeddedEmptyFeedView = emptyView
+        }
+        emptyView.apply(theme: theme)
+        emptyView.isHidden = false
+    }
+
+    private func showEmbeddedFeedSettings() {
+        let feedSettingsVC = ExploreFeedSettingsViewController()
+        feedSettingsVC.dataStore = dataStore
+        feedSettingsVC.apply(theme: theme)
+        navigationController?.pushViewController(feedSettingsVC, animated: true)
+    }
+}
+
+/// Empty state for the feed while it is embedded in the Home tab's Community segment and every feed
+/// card is hidden. Temporary phase 1 UI — remove with the community feed rework.
+private final class EmbeddedCommunityEmptyFeedView: UIView, Themeable {
+
+    var didTapCustomize: (() -> Void)?
+
+    private let titleLabel = UILabel()
+    private let messageLabel = UILabel()
+    private let customizeButton = UIButton(type: .system)
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        titleLabel.text = WMFLocalizedString("home-community-empty-feed-title", value: "All Community feed cards are hidden", comment: "Title shown in the Home tab Community segment when the user has hidden every feed card.")
+        titleLabel.font = WMFFont.for(.boldTitle3, compatibleWith: traitCollection)
+        titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 0
+
+        messageLabel.text = WMFLocalizedString("home-community-empty-feed-message", value: "Turn on cards in the feed settings to see the Community feed.", comment: "Message shown in the Home tab Community segment when the user has hidden every feed card.")
+        messageLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
+        messageLabel.textAlignment = .center
+        messageLabel.numberOfLines = 0
+
+        customizeButton.setTitle(WMFLocalizedString("home-community-empty-feed-button-title", value: "Customize the feed", comment: "Title of the button shown in the Home tab Community segment when every feed card is hidden. It opens the feed settings."), for: .normal)
+        customizeButton.titleLabel?.font = WMFFont.for(.semiboldHeadline, compatibleWith: traitCollection)
+        customizeButton.addTarget(self, action: #selector(customizeButtonTapped), for: .touchUpInside)
+
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, messageLabel, customizeButton])
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.spacing = 12
+        stackView.setCustomSpacing(24, after: messageLabel)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(stackView)
+
+        NSLayoutConstraint.activate([
+            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            stackView.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor)
+        ])
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    @objc private func customizeButtonTapped() {
+        didTapCustomize?()
+    }
+
+    func apply(theme: Theme) {
+        backgroundColor = theme.colors.paperBackground
+        titleLabel.textColor = theme.colors.primaryText
+        messageLabel.textColor = theme.colors.secondaryText
+        customizeButton.tintColor = theme.colors.link
     }
 }
