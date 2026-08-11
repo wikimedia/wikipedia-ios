@@ -564,6 +564,7 @@ private struct WMFForYouArticleCardView: View {
             .frame(width: geometry.size.width, height: geometry.size.height)
             .ignoresSafeArea()
             .clipped()
+            .environment(\.layoutDirection, viewModel.project.isRTL ? .rightToLeft : .leftToRight)
             .contentShape(Rectangle())
             .onTapGesture { onTapCard() }
             .onAppear { viewModel.load() }
