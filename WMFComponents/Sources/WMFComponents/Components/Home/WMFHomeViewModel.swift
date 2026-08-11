@@ -282,7 +282,7 @@ public final class WMFHomeViewModel: ObservableObject {
         guard !hiddenCardKeys.contains(key) else { return }
         dataController.hideCard(key: key)
         withAnimation {
-            hiddenCardKeys.insert(key)
+            _ = hiddenCardKeys.insert(key)
         }
     }
 
