@@ -77,7 +77,7 @@ public struct WMFForYouView: View {
     private var visiblePages: [VisiblePage] {
         viewModel.pages.compactMap { page in
             guard viewModel.moduleVisibility.isVisible(page.module) else { return nil }
-            let articles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.hideKey) }
+            let articles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.cardUniqueKey) }
             guard !articles.isEmpty else { return nil }
             return VisiblePage(page: page, articles: articles)
         }
@@ -211,20 +211,20 @@ private struct WMFForYouPageView: View {
     let onShareCard: (WMFForYouArticleCardViewModel) -> Void
     let onUnsaveCard: (WMFForYouArticleCardViewModel) -> Void
 
-    /// Identified by `hideKey` rather than by position, so that a card keeps its identity when an
+    /// Identified by `cardUniqueKey` rather than by position, so that a card keeps its identity when an
     /// earlier card in the carousel is hidden.
     @State private var currentPage: String?
 
     /// `scrollPosition` only writes to `currentPage` once the user scrolls, so fall back to the
     /// first card to keep the page dots correct on first appearance.
     private var currentPageKey: String? {
-        currentPage ?? articleViewModels.first?.hideKey
+        currentPage ?? articleViewModels.first?.cardUniqueKey
     }
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 0) {
-                ForEach(articleViewModels, id: \.hideKey) { article in
+                ForEach(articleViewModels, id: \.cardUniqueKey) { article in
                     let variant = WMFForYouCardVariant.variant(for: article.cardIndex)
                     WMFForYouArticleCardView(
                         viewModel: article,
@@ -248,8 +248,8 @@ private struct WMFForYouPageView: View {
         .scrollPosition(id: $currentPage)
         .overlay(alignment: .bottom) {
             HStack(spacing: 8) {
-                ForEach(articleViewModels, id: \.hideKey) { article in
-                    let isCurrent = article.hideKey == currentPageKey
+                ForEach(articleViewModels, id: \.cardUniqueKey) { article in
+                    let isCurrent = article.cardUniqueKey == currentPageKey
                     Circle()
                         .fill(isCurrent ? Color.white : Color.white.opacity(0.4))
                         .frame(

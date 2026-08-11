@@ -257,7 +257,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
 
     private var loadTask: Task<Void, Never>?
 
-    public let hideKey: String
+    public let cardUniqueKey: String
 
     // MARK: - Localized strings
 

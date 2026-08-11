@@ -126,8 +126,8 @@ final class WMFHomeViewModelTests: XCTestCase {
         let (vm, controller) = makeViewModel()
         let cardVM = makeForYouCardViewModel()
         vm.hideForYouCard(cardVM)
-        XCTAssertTrue(vm.hiddenCardKeys.contains(cardVM.hideKey))
-        XCTAssertTrue(controller.isCardHidden(key: cardVM.hideKey))
+        XCTAssertTrue(vm.hiddenCardKeys.contains(cardVM.cardUniqueKey))
+        XCTAssertTrue(controller.isCardHidden(key: cardVM.cardUniqueKey))
     }
 
     func testForYouHideKeyFormat() {
@@ -136,7 +136,37 @@ final class WMFHomeViewModelTests: XCTestCase {
         let article = WMFForYouArticle(title: "Octopus", project: project)
         let header = WMFForYouHeaderLabel(format: "Test %1$@", highlight: "")
         let cardVM = WMFForYouArticleCardViewModel(article: article, headerLabel: header)
-        XCTAssertEqual(cardVM.hideKey, "for_you_\(project.id)_Octopus")
+        XCTAssertEqual(cardVM.cardUniqueKey, "for_you_\(project.id)_Octopus")
+    }
+
+    func testHidingACardReachesTheForYouFeed() {
+        let (vm, _) = makeViewModel()
+        vm.forYouViewModel = WMFForYouViewModel(response: WMFForYouResponse(
+            interestTopicRandomArticles: [],
+            interestPageRelatedArticles: [],
+            becauseYouReadArticles: nil,
+            continueReadingArticles: nil
+        ))
+
+        vm.hideCard(key: "featured_article_Octopus")
+
+        XCTAssertTrue(vm.forYouViewModel?.hiddenCardKeys.contains("featured_article_Octopus") ?? false,
+                      "The For You view model mirrors the hidden keys, and its view reads from that mirror")
+    }
+
+    func testAForYouFeedAttachedLaterStartsFromTheHiddenKeysAlreadySet() {
+        let (vm, _) = makeViewModel()
+        vm.hideCard(key: "card_hidden_before_the_feed_loaded")
+
+        vm.forYouViewModel = WMFForYouViewModel(response: WMFForYouResponse(
+            interestTopicRandomArticles: [],
+            interestPageRelatedArticles: [],
+            becauseYouReadArticles: nil,
+            continueReadingArticles: nil
+        ))
+
+        XCTAssertTrue(vm.forYouViewModel?.hiddenCardKeys.contains("card_hidden_before_the_feed_loaded") ?? false,
+                      "A feed that loads after a card was hidden must not show it again")
     }
 
     // MARK: - Embedded Community Content

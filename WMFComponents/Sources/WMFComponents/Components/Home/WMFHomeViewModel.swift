@@ -58,7 +58,12 @@ public final class WMFHomeViewModel: ObservableObject {
     @Published public var communityModuleVisibility: WMFCommunityModuleVisibility = WMFCommunityModuleVisibility(
         featuredArticle: true, topRead: true, inTheNews: true, onThisDay: true, pictureOfDay: true
     )
-    @Published public var hiddenCardKeys: Set<String> = []
+
+    @Published public var hiddenCardKeys: Set<String> = [] {
+        didSet {
+            forYouViewModel?.hiddenCardKeys = hiddenCardKeys
+        }
+    }
 
     let dataController: WMFHomeDataController
 
@@ -75,11 +80,8 @@ public final class WMFHomeViewModel: ObservableObject {
 
     private func configureForYouViewModel() {
         guard let forYouViewModel else { return }
-        forYouViewModel.moduleVisibility = WMFForYouModuleVisibility(
-            basedOnInterests: dataController.forYouBasedOnInterestsIsOn(),
-            becauseYouRead: dataController.forYouBecauseYouReadIsOn(),
-            continueReading: dataController.forYouContinueReadingIsOn()
-        )
+
+        refreshForYouModuleVisibility()
         forYouViewModel.hiddenCardKeys = hiddenCardKeys
         forYouViewModel.onRefresh = { [weak self] in await self?.refreshForYouFeed() }
         forYouViewModel.onHideModule = { [weak self] in self?.hideForYouModule($0) }
@@ -133,12 +135,7 @@ public final class WMFHomeViewModel: ObservableObject {
     }
 
     public func hideForYouCard(_ card: WMFForYouArticleCardViewModel) {
-        guard !hiddenCardKeys.contains(card.hideKey) else { return }
-        dataController.hideCard(key: card.hideKey)
-        withAnimation {
-            hiddenCardKeys.insert(card.hideKey)
-            forYouViewModel?.hiddenCardKeys.insert(card.hideKey)
-        }
+        hideCard(key: card.cardUniqueKey)
     }
 
     public func refreshForYouFeed() async {
@@ -234,12 +231,12 @@ public final class WMFHomeViewModel: ObservableObject {
         )
     }
 
+    /// Hides one card in either feed. The key identifies it in both.
     public func hideCard(key: String) {
         guard !hiddenCardKeys.contains(key) else { return }
         dataController.hideCard(key: key)
         withAnimation {
             hiddenCardKeys.insert(key)
-            forYouViewModel?.hiddenCardKeys.insert(key)
         }
     }
 
