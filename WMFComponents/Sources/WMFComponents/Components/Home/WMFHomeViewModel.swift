@@ -40,18 +40,27 @@ public final class WMFHomeViewModel: ObservableObject {
     @Published public var selectedLanguage: WMFLanguage? {
         didSet {
             guard let newValue = selectedLanguage, newValue.id != oldValue?.id else { return }
-            forYouViewModel = nil
-            forYouFeedError = nil
-            communityPages = []
+            discardLoadedFeeds()
             loadCurrentTabFeedIfNeeded()
         }
     }
     @Published public var forYouViewModel: WMFForYouViewModel? {
-        didSet { configureForYouViewModel() }
+        didSet {
+            configureForYouViewModel()
+            if forYouViewModel != nil {
+                feedDay = Date()
+            }
+        }
     }
     @Published public var forYouFeedError: Error?
     @Published public var isLoadingForYou: Bool = false
-    @Published public var communityPages: [WMFHomeCommunityViewModel] = []
+    @Published public var communityPages: [WMFHomeCommunityViewModel] = [] {
+        didSet {
+            if !communityPages.isEmpty {
+                feedDay = Date()
+            }
+        }
+    }
     @Published public var communityFeedError: Error?
     @Published public var isLoadingCommunity: Bool = false
     @Published public var isLoadingCommunityPreviousPage: Bool = false
@@ -66,6 +75,8 @@ public final class WMFHomeViewModel: ObservableObject {
     }
 
     let dataController: WMFHomeDataController
+
+    private var feedDay: Date?
 
     public var didSelectLanguage: ((WMFLanguage) -> Void)?
     public var didTapEditLanguages: (() -> Void)?
@@ -158,6 +169,23 @@ public final class WMFHomeViewModel: ObservableObject {
         case .community:
             loadCommunityFeedIfNeeded()
         }
+    }
+
+    // MARK: - Daily refresh
+
+    public func refreshFeedsIfDayChanged(now: Date = Date()) {
+        guard let feedDay, !Calendar.current.isDate(feedDay, inSameDayAs: now) else { return }
+
+        discardLoadedFeeds()
+        loadCurrentTabFeedIfNeeded()
+    }
+
+    private func discardLoadedFeeds() {
+        feedDay = nil
+        forYouViewModel = nil
+        forYouFeedError = nil
+        communityPages = []
+        communityFeedError = nil
     }
 
     public func loadForYouFeedIfNeeded() {

@@ -255,4 +255,62 @@ final class WMFHomeViewModelTests: XCTestCase {
         XCTAssertNotNil(vm.forYouViewModel)
     }
 
+    // MARK: - Daily refresh
+
+    private func makeForYouViewModel() -> WMFForYouViewModel {
+        WMFForYouViewModel(response: WMFForYouResponse(
+            interestTopicRandomArticles: [],
+            interestPageRelatedArticles: [],
+            becauseYouReadArticles: nil,
+            continueReadingArticles: nil
+        ))
+    }
+
+    /// Noon of today, which is always in the same calendar day as the moment a feed loads in a test.
+    private var laterToday: Date {
+        Calendar.current.startOfDay(for: Date()).addingTimeInterval(12 * 60 * 60)
+    }
+
+    private var tomorrow: Date {
+        Calendar.current.date(byAdding: .day, value: 1, to: Date()) ?? Date()
+    }
+
+    func testFeedIsDiscardedWhenTheDayChanges() {
+        let (vm, _) = makeViewModel()
+        vm.forYouViewModel = makeForYouViewModel()
+
+        vm.refreshFeedsIfDayChanged(now: tomorrow)
+
+        XCTAssertNil(vm.forYouViewModel)
+    }
+
+    func testFeedIsKeptWithinTheSameDay() {
+        let (vm, _) = makeViewModel()
+        vm.forYouViewModel = makeForYouViewModel()
+
+        vm.refreshFeedsIfDayChanged(now: laterToday)
+
+        XCTAssertNotNil(vm.forYouViewModel)
+    }
+
+    func testDayChangeDoesNothingWhenNoFeedIsLoaded() {
+        let (vm, _) = makeViewModel()
+
+        vm.refreshFeedsIfDayChanged(now: tomorrow)
+
+        XCTAssertNil(vm.forYouViewModel)
+        XCTAssertFalse(vm.isLoadingForYou)
+        XCTAssertFalse(vm.isLoadingCommunity)
+    }
+
+    func testDayChangeClearsAnEarlierError() {
+        let (vm, _) = makeViewModel()
+        vm.forYouViewModel = makeForYouViewModel()
+        vm.forYouFeedError = NSError(domain: "test", code: 1)
+
+        vm.refreshFeedsIfDayChanged(now: tomorrow)
+
+        XCTAssertNil(vm.forYouFeedError)
+    }
+
 }

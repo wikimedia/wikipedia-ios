@@ -94,12 +94,15 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
         UISegmentedControl.appearance(whenContainedInInstancesOf: [WMFHomeHostingController.self]).backgroundColor = .clear
         reloadLanguages()
-
-        // Saved state can change anywhere - inside the article, in a reading list, or from a sync -
-        // so follow the same notification the legacy feed uses instead of reading it only once.
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dayMayHaveChanged), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dayMayHaveChanged), name: UIApplication.significantTimeChangeNotification, object: nil)
 
         apply(theme: theme)
+    }
+
+    @objc private func dayMayHaveChanged() {
+        viewModel.refreshFeedsIfDayChanged()
     }
 
     /// The article URL a For You card points at. Cards carry a `WMFProject` and a title, so the
