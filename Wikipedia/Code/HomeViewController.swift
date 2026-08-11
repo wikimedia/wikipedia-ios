@@ -174,16 +174,19 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         updateNavigationBarAppearance(for: viewModel.selectedTab)
         apply(theme: theme)
     }
-    
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        updateNavigationBarAppearance(for: .community)
+    }
+
     // MARK: - Navigation Bar Appearance
-    
+
+    /// Makes the navigation bar transparent over For You, where the cards run full bleed behind it, pre iOS 26.
     private func updateNavigationBarAppearance(for tab: WMFHomeViewModel.Tab) {
         guard let navController = navigationController as? WMFComponentNavigationController else { return }
-        if tab == .forYou {
-            navController.setTransparentAppearance(true)
-        } else {
-            navController.setTransparentAppearance(false)
-        }
+        navController.setTransparentAppearance(tab == .forYou)
     }
 
     // MARK: - Languages
