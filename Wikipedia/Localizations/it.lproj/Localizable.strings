@@ -270,6 +270,7 @@
 "cc-zero" = "Creative Commons CC0";
 "chinese-variants-alert-body" = "L'app di Wikipedia ora supporta le seguenti varianti cinesi come lingua primaria o secondario all'interno dell'applicazione, semplificando la lettura, la ricerca e la modifica nelle diverse varianti:\n\n简体 Cinese semplificato (zh-hans)\n香港繁體 Tradizionale di Hong Kong (zh-hk)\n澳門繁體 Tradizionale di Macao (zh-mo)\n大马简体 Malesia semplificato (zh-my)\n新加坡简体 Singapore semplificato (zh-sg)\n臺灣正體 Taiwanese tradizionale (zh-tw)";
 "chinese-variants-alert-title" = "Aggiorna al supporto della variante cinese";
+"choose-editor-title" = "Scegli come modificare";
 "clear-title-accessibility-label" = "Pulisci";
 "clearing-cache-complete" = "Cancellazione della cache completata.";
 "clearing-cache-in-progress" = "Cancellazione della cache in corso.";

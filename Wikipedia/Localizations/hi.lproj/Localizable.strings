@@ -434,6 +434,8 @@
 "settings-on" = "चालू";
 "settings-primary-language" = "प्राथमिक";
 "settings-primary-language-details" = "इस सूची में पहली भाषा का उपयोग ऐप के लिए प्राथमिक भाषा के रूप में किया जाता है।";
+"settings-storage-and-syncing-disable-sync-alert-no" = "नहीं";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "हाँ";
 "settings-title" = "सेटिंग्स";
 "share-a-fact-made-with" = "विकिपीडिया एप के साथ बनाया गया";
 "share-article-name-on-wikipedia" = "विकिपीडिया पर \" $1 \" :";

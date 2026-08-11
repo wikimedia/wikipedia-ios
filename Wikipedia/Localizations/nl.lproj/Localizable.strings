@@ -330,6 +330,13 @@
 "cc-zero" = "Creative Commons CC0";
 "chinese-variants-alert-body" = "De Wikipedia-app ondersteunt nu de volgende Chinese varianten als primaire of secundaire taal binnen de app, waardoor het gemakkelijker wordt om de door u gewenste varianten te lezen, zoeken en bewerken:\n\n简体 Chinees, vereenvoudigd (zh-hans)\n香港繁體 Hong Kong Traditioneel (zh-hk)\n澳門繁體 Macau Traditioneel (zh-mo)\n大马简体 Maleisië Vereenvoudigd (zh-my)\n新加坡简体 Singapore Vereenvoudigd (zh-sg)\n臺灣正體 Taiwanees traditioneel (zh-tw)";
 "chinese-variants-alert-title" = "Updates voor ondersteuning van Chinese varianten";
+"choose-editor-dont-show-again" = "Niet meer weergeven. Deze standaardinstelling kan later in de instellingen worden gewijzigd.";
+"choose-editor-dont-show-hint" = "Dubbeltik om deze keuze te onthouden en dit scherm over te slaan bij toekomstige bewerkingen.";
+"choose-editor-source-subtitle" = "Breng wijzigingen aan met behulp van markup. Deze blijven behouden in de app.";
+"choose-editor-source-title" = "Wikicode bewerken";
+"choose-editor-title" = "Kies hoe u wilt bewerken";
+"choose-editor-visual-subtitle" = "Breng direct wijzigingen aan op de pagina die u ziet. Opent in uw browser.";
+"choose-editor-visual-title" = "Visueel bewerken";
 "clear-title-accessibility-label" = "Wissen";
 "clearing-cache-complete" = "Cache wissen voltooid.";
 "clearing-cache-error" = "Fout bij het wissen van de cache.";
@@ -1373,6 +1380,10 @@
 "settings-search-footer-text" = "Stelt de app zo in dat het zoektabblad geopend wordt in plaatst van het verkennen-tabblad.";
 "settings-search-footer-text-home" = "Stel de app zo in dat deze opent in het tabblad Zoeken in plaats van het tabblad Startscherm";
 "settings-search-open-app-on-search" = "App op zoektabblad openen";
+"settings-storage-and-syncing-disable-sync-alert-message" = "Als u de synchronisatie uitschakelt, worden uw gesynchroniseerde leeslijsten verwijderd van uw Wikipedia-account en van andere apparaten. Uw lijsten en pagina's blijven wel op dit apparaat staan.";
+"settings-storage-and-syncing-disable-sync-alert-no" = "Nee";
+"settings-storage-and-syncing-disable-sync-alert-title" = "Leeslijstsynchronisatie uitschakelen?";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "Ja";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Toestaan dat Wikimedia uw opgeslagen pagina's en leeslijsten opslaat naar uw gebruikersvoorkeuren wanneer u aanmeldt en synchroniseert.";
 "settings-storage-and-syncing-enable-sync-title" = "Opgeslagen pagina's en lijsten synchroniseren";
 "settings-storage-and-syncing-full-sync" = "Uw leeslijsten worden op de achtergrond gesynchroniseerd";

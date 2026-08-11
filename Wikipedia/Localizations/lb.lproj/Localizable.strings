@@ -18,6 +18,9 @@
 "about-libraries-complete-list" = "Komplett Lëscht";
 "about-libraries-license" = "Lizenz";
 "about-libraries-licenses-title" = "Mir appreciéieren Open Source Software $1";
+"about-places-maps-license" = "Kaartelizenz vu „Plazen“";
+"about-places-maps-license-details" = "„Plazen“ benotzt Kaarte vun Apple Maps. $1.";
+"about-places-maps-license-details-link-text" = "Kuckt wgl. hei fir Detailer iwwer d'Lizenz";
 "about-product-of" = "E Produkt vun der $1 mat der Hëllef vu Fräiwëllege wéi Iech";
 "about-repositories-app-source-license" = "Quellcode disponibel ënner enger $1.";
 "about-repositories-app-source-license-mit" = "MIT-Lizenz";
@@ -42,6 +45,8 @@
 "account-group-title" = "Äre Benotzerkont";
 "account-request-vanishing" = "Kont opléisen";
 "account-talk-page-title" = "Är Diskussiounssäit";
+"account-talk-preferences-auto-sign-discussions" = "Diskussiounen automatesch ënnerschreiwen";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "Beim automateschen Ënnerschreiwe vun Diskussioune gëtt d'Ënnerschrëft benotzt, déi an den Ënnerschrëftastellungen definéiert ass";
 "account-talk-preferences-title" = "Diskussiounssäitenastellungen";
 "action-add-to" = "Derbäisetzen op...";
 "action-add-to-reading-list" = "Op d'Lieslëscht setzen";
@@ -161,6 +166,7 @@
 "app-onboarding-personalization-body-2" = "Mir sammele minimal Donnéeën, déi anonymiséiert sinn.";
 "app-onboarding-personalization-title" = "Gitt Ärem Virwëtz no";
 "app-store-keywords" = "Wikipedia, Referenz, Wiki, Enzyklopedie, Info, Wëssen, Fuerschung, Informatioun, Entdecken, Léieren";
+"app-store-short-description" = "Luet d'Wikipedia-App erof, fir Plazen an Ärer Géigend z'entdecken, Artikelen ze synchroniséieren, sou datt Dir se offline liese kënnt, a fir Äert Lieserliefnes unzepassen.";
 "app-store-subtitle" = "Déi fräi Enzyklopedie";
 "appearance-settings-expand-tables" = "Tabellen opklappen";
 "appearance-settings-icon-contributor-title" = "Contributeur";
@@ -228,6 +234,7 @@
 "article-topic-tv-and-film" = "Televisioun a Filmer";
 "article-topic-video-games" = "Computerspiller";
 "article-topic-women" = "Biografien (Fraen)";
+"article-view-controller-editing-temp-account-created-subtitle" = "Den temporäre Kont $1 gouf no der Verëffentlechung vun Ärer Ännerung ugeluecht. E wäert an 90 Deeg oflafen.";
 "article-view-controller-editing-temp-account-created-title" = "Temporäre Kont ugeluecht";
 "back-button-accessibility-label" = "Zeréck";
 "back-button-popover-title" = "Tippe fir zréckzegoen";
@@ -276,6 +283,7 @@
 "description-edit-publish" = "Beschreiwung verëffentlechen";
 "description-edit-title" = "Beschreiwung änneren";
 "description-edit-warning" = "Probéiert d'Beschreiwunge kuerz ze halen, sou datt Benotzer d'Theema vum Artikel op ee Bléck erkenne kënnen";
+"description-editing-temp-account-created-subtitle" = "Den temporäre Kont $1 gouf no der Verëffentlechung vun Ärer Ännerung ugeluecht. E wäert an 90 Deeg oflafen.";
 "description-help-about-description" = "Artikelbeschreiwunge resüméieren een Artikel, sou datt d'Lieser d'Theema op ee Bléck erkenne kënnen.";
 "description-help-about-title" = "Iwwer";
 "description-help-about-wikidata" = "Iwwer Wikidata";
@@ -394,6 +402,7 @@
 "editor-find-previous-button-accessibility" = "Viregt Sichresultat";
 "editor-find-textfield-accessibility" = "Sichen";
 "editor-keyboard-bold-accessibility" = "Fett";
+"editor-keyboard-comment-accessibility" = "Kommentar";
 "editor-keyboard-heading-button" = "Iwwerschrëft";
 "editor-keyboard-indent-decrease-accessibility" = "Indentéierung verklengeren";
 "editor-keyboard-indent-increase-accessibility" = "Indentéierung vergréisseren";
@@ -443,7 +452,7 @@
 "error-generic-recovery-suggestion" = "Probéiert wgl. méi spéit nach eng Kéier";
 "error-unknown" = "En onbekannte Feeler ass geschitt";
 "explore-another-random" = "En aneren zoufällegen Artikel";
-"explore-because-you-read" = "Well Dir liest";
+"explore-because-you-read" = "Well Dir dat gelies hutt";
 "explore-continue-reading-heading" = "Virufuere mat Liesen";
 "explore-detail-back-button-title" = "Zréck op den Entdecke-Feed";
 "explore-enable-location-title" = "Entdeckt Artikelen an der aktueller Noperschaft.";
@@ -462,6 +471,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Un";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Fir $1 un";
 "explore-feed-preferences-feed-cards-hidden-title" = "All $1 Kaarte si verstoppt";
+"explore-feed-preferences-games-title" = "„Spiller“-Kaart weisen";
 "explore-feed-preferences-global-card-footer-text" = "Dës Kaart ass net sproochspezifesch, wann Dir dës Kaart ausmaacht, gëtt se aus Ärem Entdecke-Feed erausgeholl.";
 "explore-feed-preferences-global-cards-description" = "Net-sproochespezifesch Kaarten";
 "explore-feed-preferences-global-cards-subtitle" = "Net sproochspezifesch";
@@ -472,9 +482,23 @@
 "explore-feed-preferences-languages-footer-text" = "Wann Dir all d'Kaarte vum Entdecke-Feed fir all Sprooche verstoppt, gëtt den Entdecken-Tab desaktivéiert.";
 "explore-feed-preferences-on-this-day-description" = "Evenementer an der Vergaangenheet op dësem Dag";
 "explore-feed-preferences-places-description" = "Wikipedia-Artikel an Ärer Géigend";
+"explore-feed-preferences-randomizer-description" = "Zoufälleg Artikele fir ze liese generéieren";
 "explore-feed-preferences-related-pages-description" = "Virschléi op basis vum Lieshistorique";
+"explore-feed-preferences-show-games-footer-text" = "Wann Dir d'Kaart „Spiller“ desaktivéiert, da gëtt d'Kaart fir all disponibel Sprooch desaktivéiert.";
+"explore-feed-preferences-show-news-footer-text" = "Wann Dir d'Kaart „An den Neiegkeeten“ desaktivéiert, da gëtt d'Kaart fir all déi disponibel Sproochen desaktivéiert.";
+"explore-feed-preferences-show-news-title" = "Kaart „An den Neiegkeeten“ weisen";
+"explore-feed-preferences-show-on-this-day-footer-text" = "Wann Dir d'Kaart „Op dësem Dag“ desaktivéiert, da gëtt d'Kaart fir all déi disponibel Sproochen desaktivéiert.";
+"explore-feed-preferences-show-on-this-day-title" = "Kaart „Op dësem Dag“ weisen";
+"explore-feed-preferences-show-picture-of-the-day-title" = "Kaart „Bild vum Dag“ weisen";
+"explore-feed-preferences-show-places-footer-text" = "Wann Dir d'Kaart „Plazen“desaktivéiert, da gëtt d'Kaart fir all déi disponibel Sproochen desaktivéiert.";
+"explore-feed-preferences-show-places-title" = "Kaart „Plazen“ weisen";
+"explore-feed-preferences-show-randomizer-footer-text" = "Wann Dir d'Kaart „Zoufallsgenerator“ desaktivéiert, da gëtt d'Kaart fir all disponibel Sprooch desaktivéiert.";
+"explore-feed-preferences-show-randomizer-title" = "Kaart „Zoufallsgenerator“ weisen";
+"explore-feed-preferences-show-related-pages-title" = "Kaart „Well Dir dat gelies hutt“ weisen";
+"explore-feed-preferences-show-top-read-footer-text" = "Wann Dir d'Kaart „Am dackste gelies“ desaktivéiert, da gëtt d'Kaart fir all déi disponibel Sproochen desaktivéiert.";
+"explore-feed-preferences-show-top-read-title" = "Kaart „Am dackste gelies“ weisen";
 "explore-feed-preferences-suggested-edits-description" = "Virschléi fir Inhalt op Wikipedia derbäizesetzen";
-"explore-feed-preferences-suggested-edits-title" = "Kaart fir Ännerungsvirschléi weisen";
+"explore-feed-preferences-suggested-edits-title" = "Kaart „Ännerungsvirschléi“ weisen";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Entdecke-Feed desaktivéieren";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Wann Dir all d'Kaarte vum Entdecke-Feed verstoppt, gëtt den Entdecken-Tab desaktivéiert an duerch en Astellungen-Tab ersat";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Entdecke-Feed desaktivéieren?";
@@ -566,6 +590,7 @@
 "home-edit-languages-title" = "Sproochen derbäisetzen oder änneren";
 "home-feed-for-you-based-on-interests-title" = "Op Basis vun Ären Interessen";
 "home-feed-for-you-because-you-read-subtitle" = "Virschléi op Basis vun engem rezenten Artikel aus Ärem Historique";
+"home-feed-for-you-because-you-read-title" = "Well Dir dat gelies hutt";
 "home-feed-for-you-continue-reading-subtitle" = "Gitt zeréck op Artikelen, déi Dir net fäerdeg gelies hutt";
 "home-feed-for-you-continue-reading-title" = "Viruliesen";
 "home-feed-for-you-settings-header" = "Wann Dir e Modul desaktivéiert, da gëtt et an Ärem „Fir Iech“-Feed verstoppt. Dir kënnt zu all Moment erëm hei reaktivéieren.";
@@ -578,6 +603,7 @@
 "home-feed-interests-settings-empty-message" = "Är Interesse kommen heihinner stoen";
 "home-feed-interests-settings-title" = "Är Interessen";
 "home-feed-modules-in-the-news-subtitle" = "Artikelen, déi substanziell aktualiséiert goufen, fir rezent oder aktuell Evenementer vun allgemengem Interessi erëmzeginn";
+"home-feed-modules-in-the-news-title" = "An den Neiegkeeten";
 "home-feed-modules-on-this-day-subtitle" = "Entdeckt historesch Evenementer op dësem Dag";
 "home-feed-modules-on-this-day-title" = "Op dësem Dag";
 "home-feed-modules-picture-of-the-day-subtitle" = "Deeglech Biller op Wikimedia Commons, erausgesicht vu fräiwëllege Participanten";
@@ -718,8 +744,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Kucken ouni ofzespäicheren";
 "nearby-distance-label-feet" = "{{PLURAL:$1|$1 Fouss}}";
 "nearby-distance-label-km" = "$1 km";
-// Fuzzy
-"nearby-distance-label-meters" = "$1 Meter";
+"nearby-distance-label-meters" = "{{PLURAL:$1|$1 Meter}}";
 "nearby-distance-label-miles" = "$1 Meilen";
 "new-password-instructions" = "Dir sidd mat engem temporäre Passwuert ageloggt. Fir d'Aloggen ofzeschléissen, leet een neit Passwuert hei fest.";
 "new-password-title" = "Leet Äert Passwuert fest";
@@ -817,6 +842,9 @@
 "number-thousands" = "$1 D";
 "on-this-day-detail-header-date-range" = "vu(n) $1 bis $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|een historescht Evenement|$1 historesch Evenementer}}";
+"on-this-day-footer" = "Weider historesch Evenementer op dësem Dag";
+"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 weidert historescht Evenement|$1 weider historesch Evenementer}} op dësem Dag";
+"on-this-day-language-does-not-support-error" = "Är primär Wikipedia-Sprooch ënnerstëtzt „Op dësem Dag“ net. Dir kënnt Är primär Wikipedia-Sprooch am Astellungsmenü vun Ärer App aktualiséieren.";
 "on-this-day-no-internet-error" = "Keng Donnéeën disponibel";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 vu Wikipedia op $2";
 "on-this-day-title" = "Op dësem Dag";
@@ -827,7 +855,7 @@
 "page-history-logged-in-edits" = "ageloggt";
 "page-history-minor-edits" = "kleng Ännerungen";
 "page-history-revision-author-accessibility-label" = "Auteur: $1";
-"page-history-revision-comment-accessibility-label" = "Bemierkung $1";
+"page-history-revision-comment-accessibility-label" = "Kommentar $1";
 "page-history-revision-history-title" = "Historique vun de Versiounen";
 "page-history-revision-minor-edit-accessibility-label" = "Kleng Ännerung";
 "page-history-revision-size-diff-addition" = "({{PLURAL:$1|1 Byte|$1 Byte}}) derbäigesat";
@@ -857,8 +885,10 @@
 "places-accessibility-show-as-list" = "Als Lëscht weisen";
 "places-accessibility-show-as-map" = "Als Kaart weisen";
 "places-accessibility-show-more" = "Méi Artikele weisen";
+"places-empty-search-description" = "Entdeckt Stied, Länner, Kontinenter, natierlech Formatiounen, Naturgebidder, historesch Evenementer, Gebaier an nach villes méi.";
 "places-empty-search-title" = "No Wikipedia-Artikele mat geographesche Plaze sichen";
 "places-enable-location-action-button-title" = "Standuert aktivéieren";
+"places-enable-location-description" = "Den Zougrëff op Äre Standuert ass just disponibel, wann d'App oder eng vun hire Funktiounen op Ärem Schierm visibel ass.";
 "places-enable-location-title" = "Entdeckt Artikelen aus Ärem Ëmfeld duerch d'Aschalte vun der Lokalisatioun";
 "places-filter-articles-action-sheet-title" = "Artikele filteren";
 "places-filter-button-title" = "Filteren";
@@ -871,6 +901,7 @@
 "places-location-enabled" = "Geolokalisatioun aktivéiert";
 "places-map-title" = "Kaart";
 "places-no-saved-articles-have-location" = "Kee vun Äre gespäicherten Artikelen huet Lokalisatiouns-Informatiounen";
+"places-search-articles-that-match" = "$1, déi op „$2“ passen";
 "places-search-default-text" = "Plaze sichen";
 "places-search-did-you-mean" = "Mengt Dir $1?";
 "places-search-recently-searched-header" = "Rezent gesicht";
@@ -957,6 +988,7 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Däischtere Modus";
 "reading-themes-controls-accessibility-light-theme-button" = "Helle Modus";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-Modus";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Ervirhiewe vun der Syntax";
 "reference-title" = "Referenz: $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Haut|1=Gëschter|Viru(n) $1 Deeg}}";
 "relative-date-hours-abbreviated" = "$1 h";
@@ -972,7 +1004,7 @@
 "relative-date-seconds-ago-abbreviated" = "viru(n) $1 s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dëst Joer|1=Lescht Joer|Viru(n) $1 Joer}}";
 "return-button-title" = "Zeréck";
-"return-to-article" = "Zréck op den Artikel";
+"return-to-article" = "Zeréck op den Artikel";
 "reverted-edit-title" = "Zréckgesaten Ännerung";
 "save-all-tabs" = "All Tabs späicheren";
 "save-view-temp-account-warning" = "Dir sidd net ageloggt. Soubal Dir eng Ännerung maacht, gëtt en temporäre Kont fir Iech ugeluecht, fir Är Privatsphär ze schützen.";
@@ -981,6 +1013,7 @@
 "saved-default-reading-list-tag" = "Dës Lëscht kann net geläscht ginn";
 "saved-pages-image-download-error" = "D'Biller fir dës gespäichert Säit konnten net erofgeluede ginn.";
 "saved-pages-progress-syncing" = "Erofluede vum Artikel ass am Gaang …";
+"saved-reading-lists-search-placeholder" = "Lieslëschten duerchsichen";
 "saved-reading-lists-title" = "Lieslëschten";
 "saved-search-default-text" = "An de gespäicherten Artikele sichen";
 "saved-title" = "Gespäichert";
@@ -1017,6 +1050,7 @@
 "settings-primary-language" = "Primär";
 "settings-primary-language-details" = "Déi éischt Sprooch an dëser Lëscht gëtt als primär Sprooch fir d'App consideréiert.";
 "settings-storage-and-syncing-disable-sync-alert-no" = "Nee";
+"settings-storage-and-syncing-disable-sync-alert-title" = "Synchronisatioun vu Lieslëschten ausschalten?";
 "settings-storage-and-syncing-disable-sync-alert-yes" = "Jo";
 "settings-storage-and-syncing-full-sync" = "Är Lieslëschte ginn am Hannergrond synchroniséiert";
 "settings-storage-and-syncing-server-sync-title" = "Synchroniséiert Lieslëschten aktualiséieren";
@@ -1029,7 +1063,7 @@
 "share-article-name-on-wikipedia" = "\"$1\" op Wikipedia:";
 "share-default-format" = "\"$1\" vu(n) \"$2\": $3";
 "share-email-format" = "\"$1\"\n\nvu(n) \"$2\"\n\n$3";
-"share-get-directions-in-maps" = "Richtunge kréien";
+"share-get-directions-in-maps" = "Navigéieren";
 "share-menu-item" = "Deelen...";
 "share-message-format" = "\"$1\" $2";
 "share-on-twitter-sign-off" = "iwwer Wikipedia";
@@ -1118,7 +1152,9 @@
 "talk-pages-user-logs" = "Logbicher";
 "talk-pages-view-title" = "Diskussioun";
 "temp-account-edit-sheet-cta-top" = "Loggt Iech an oder maacht e Kont op";
+"temp-account-edit-sheet-subtitle" = "$2Dir benotzt am Moment en temporäre Kont.$3 Ännerungen, déi Dir mam temporäre Kont $1 maacht, ginn net op Äre permanente Kont iwwerdroen, wann Dir Iech aloggt. Fir datt, nieft anere Virdeeler, Är Kontributiounen Ärem Benotzernumm zougeuerdent ginn, loggt Iech an oder leet e Kont un.";
 "temp-account-toast-read-more-title" = "Méi liesen";
+"temp-account-toast-title" = "$1Dir benotzt am Moment en temporäre Kont.$2 Ännerungen, déi Dir mam temporäre Kont...";
 "temp-account-warning-title" = "Dir benotzt en temporäre Kont";
 "temporary-account" = "Temporäre Kont";
 "terms-of-use-title" = "Benotzungskonditiounen";
@@ -1167,6 +1203,7 @@
 "watchlist-change-expiry-option-six-months" = "6 Méint";
 "watchlist-change-expiry-option-three-months" = "3 Méint";
 "watchlist-edit-summary-accessibility" = "Resümmee vun der Ännerung";
+"watchlist-empty-view-button-title" = "Artikele sichen";
 "watchlist-filter" = "Filter";
 "watchlist-filter-automated-contributions-header" = "Automatiséiert Kontributiounen";
 "watchlist-filter-automated-contributions-options-bot" = "Bot";
@@ -1200,6 +1237,7 @@
 "welcome-data-privacy-title" = "Donnéeën & Privatsphär";
 "welcome-exploration-explore-feed-title" = "Entdecke-Feed";
 "welcome-exploration-on-this-day-title" = "Op dësem Dag";
+"welcome-exploration-places-description" = "Entdeckt Kuckeswäertes an Ärer Géigend oder sicht no Plazen op der ganzer Welt";
 "welcome-explore-continue-button" = "Fir unzefänken";
 "welcome-explore-new-ways-title" = "Nei Manéiere fir z'entdecken";
 "welcome-explore-tell-me-more-done-button" = "Verstan";
@@ -1262,6 +1300,9 @@
 "year-in-review-button-title" = "Joresréckbléck";
 "year-in-review-collective-edits" = "Eng Illustratioun vun zwee Wikipedia-Puzzelstécker, allebéid mat engem Deel vun Informatiounen.";
 "year-in-review-contributor-gift-title" = "Neit Symbol vun der App aktivéieren";
+"year-in-review-contributor-slide-subtitle-donor-updated" = "Merci fir Ären Investissement an d'Zukunft vum fräie Wëssen.\n\nÄr Kontributiounen als Donateur op $1 droen dozou bäi, dee Wee a Richtung vun enger Welt voller fräier Informatiounen fräizemaachen, an dofir hutt Dir e personaliséiert Symbol fir Wikipedia-Contributeure fir Äre Startbildschierm fräigeschalt.";
+"year-in-review-contributor-slide-subtitle-editor-and-donor-updated" = "Merci fir Ären Investissement an d'Zukunft vum fräie Wëssen.\n\nÄr Kontributiounen als Donateur an Editeur op $1 droen dozou bäi, dee Wee a Richtung vun enger Welt voller fräier Informatiounen fräizemaachen, an dofir hutt Dir e personaliséiert Symbol fir Wikipedia-Contributeure fir Äre Startbildschierm fräigeschalt.";
+"year-in-review-contributor-slide-subtitle-editor-updated" = "Merci fir Ären Investissement an d'Zukunft vum fräie Wëssen.\n\nÄr Kontributiounen als Editeur op $1 droen dozou bäi, dee Wee a Richtung vun enger Welt voller fräier Informatiounen fräizemaachen, an dofir hutt Dir e personaliséiert Symbol fir Wikipedia-Contributeure fir Äre Startbildschierm fräigeschalt.";
 "year-in-review-contributor-slide-title" = "Neit App-Symbol fir Äre Startbildschierm fräigeschalt";
 "year-in-review-donate-now" = "Maacht elo en Don";
 "year-in-review-feature-announcement-title" = "Entdeckt de Wikipedia-Réckbléck";
@@ -1278,12 +1319,10 @@
 "year-in-review-highlights-subtitle" = "Mir freeën eis op d'nächst Joer!";
 "year-in-review-highlights-title" = "Merci, datt Dir Äert Joer mat Wikipedia verbruecht hutt.";
 "year-in-review-most-read-categories-title" = "Är interessantst Kategorien";
-// Fuzzy
-"year-in-review-non-contributor-slide-title" = "Äert personaliséiert Contributeur-Symbol fräischalten";
+"year-in-review-non-contributor-slide-title" = "Schalt Äert Contributeur-Symbol fir d'nächst Joer fräi!";
 "year-in-review-personalized-date-day-footer-v3" = "Liblingsdag fir ze liesen";
 "year-in-review-personalized-date-time-footer-v3" = "Liblingszäit fir ze liesen";
-// Fuzzy
-"year-in-review-personalized-donate-title" = "Merci fir Är Kontributioun!";
+"year-in-review-personalized-donate-title" = "Är Generositéit hëlleft, fir datt Wikipedia weider floréiert";
 "year-in-review-personalized-editing-title-format-updated" = "Dir hutt {{PLURAL:$1|$1 Mol}} geännert";
 "year-in-review-personalized-most-read-articles-title" = "Är Top-Artikelen";
 "year-in-review-personalized-reading-subtitle-format-v3-updated" = "Domat gehéiert Dir eise Schätzungen no zu den ieweschte(n) **PERCENT** vu Wikipedia-Lieser weltwäit. D'Duerchschnëttspersoun liest {{PLURAL:$1|$1 Artikel|$1 Artikelen}} am Joer.";
