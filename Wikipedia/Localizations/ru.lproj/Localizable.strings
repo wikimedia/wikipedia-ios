@@ -1380,8 +1380,8 @@
 "share-open-in-maps" = "Открыть в Картах";
 "share-social-format" = "«$1» в Википедии: $2";
 "share-social-mention-format" = "«$1» в Википедии: $2";
-"sort-by-recently-added-action" = "Недавно добавленный";
-"sort-by-title-action" = "Заголовок";
+"sort-by-recently-added-action" = "По дате добавления";
+"sort-by-title-action" = "По названию";
 "suggested-edits-title" = "Предложенные правки";
 "survey-instructions" = "Выберите один или несколько вариантов";
 "survey-other-placeholder" = "Другое";
@@ -1457,6 +1457,7 @@
 "talk-pages-comment-added-alert-title" = "Ваш комментарий был добавлен";
 "talk-pages-compose-close-confirmation-keep" = "Продолжить редактирование";
 "talk-pages-edit-source" = "Править код";
+"talk-pages-empty-view-body-article" = "Страницы обсуждения — это место, где люди обсуждают, как сделать содержимое Википедии максимально качественным. **Начните с добавления новой темы для обсуждения**, чтобы присоединиться к сообществу википедистов и сотрудничать с ними.";
 "talk-pages-empty-view-button-article-add-topic" = "Добавить новую тему";
 "talk-pages-empty-view-button-user-start-discussion" = "Начать обсуждение";
 "talk-pages-empty-view-header-article" = "Разговор начинается здесь";
@@ -1531,6 +1532,7 @@
 "watchlist-edit-summary-accessibility" = "Описание изменений";
 "watchlist-empty-view-button-title" = "Искать статьи";
 "watchlist-empty-view-filter-title" = "У вас нет элементов в Списке наблюдения";
+"watchlist-empty-view-subtitle" = "Отслеживайте изменения в статьях, которые вам интересны. Для этого в меню статьи (···) выберите команду «Следить».";
 "watchlist-empty-view-title" = "Статьи, добавляемые вами в список наблюдения, отображаются здесь";
 "watchlist-expiration-title" = "Установить срок действия";
 "watchlist-filter" = "Фильтр";
@@ -1560,6 +1562,7 @@
 "watchlist-onboarding-title" = "Представляем ваш список наблюдения";
 "watchlist-removed" = "Удалено из вашего списка наблюдения";
 "watchlist-thanks-success" = "Ваше «Спасибо» было отправлено участнику $1";
+"watchlist-track-subtitle" = "«Список наблюдения» — это инструмент, позволяющий отслеживать изменения, вносимые в интересующие вас страницы или статьи.";
 "watchlist-updates-title" = "Просмотр обновлений";
 "watchlist-user-button-thank" = "Поблагодарить";
 "watchlist-user-button-user-contributions" = "Вклад участника";
