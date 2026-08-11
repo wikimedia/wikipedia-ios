@@ -303,6 +303,49 @@ final class WMFHomeViewModelTests: XCTestCase {
         XCTAssertFalse(vm.isLoadingCommunity)
     }
 
+    // MARK: - Refresh indicator
+
+    func testRefreshIndicatorStartsOff() {
+        let (vm, _) = makeViewModel()
+
+        XCTAssertFalse(vm.isRefreshingForYou)
+    }
+
+    /// The indicator must still be on when the refresh returns, and must go off after the minimum
+    /// time. A refresh replaces the For You view model, which removes the view that started the
+    /// refresh, so the indicator must not depend on the task of that view.
+    ///
+    /// With no Core Data store the fetch fails immediately, which makes the timing exact and keeps
+    /// the test off the network.
+    func testRefreshIndicatorStaysOnAfterTheRefreshReturns() async {
+        let (vm, _) = makeViewModel()
+        let store = WMFDataEnvironment.current.coreDataStore
+        WMFDataEnvironment.current.coreDataStore = nil
+        defer { WMFDataEnvironment.current.coreDataStore = store }
+
+        vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+
+        let start = Date()
+        await vm.refreshForYouFeed(minimumIndicatorDuration: 0.2)
+
+        XCTAssertTrue(vm.isRefreshingForYou)
+
+        await vm.refreshIndicatorTask?.value
+
+        XCTAssertGreaterThanOrEqual(Date().timeIntervalSince(start), 0.2)
+        XCTAssertFalse(vm.isRefreshingForYou)
+    }
+
+    /// With no language there is nothing to fetch, so the indicator must not appear at all.
+    func testRefreshWithNoLanguageDoesNotShowTheIndicator() async {
+        let (vm, _) = makeViewModel()
+        vm.selectedLanguage = nil
+
+        await vm.refreshForYouFeed(minimumIndicatorDuration: 0.2)
+
+        XCTAssertFalse(vm.isRefreshingForYou)
+    }
+
     func testDayChangeClearsAnEarlierError() {
         let (vm, _) = makeViewModel()
         vm.forYouViewModel = makeForYouViewModel()

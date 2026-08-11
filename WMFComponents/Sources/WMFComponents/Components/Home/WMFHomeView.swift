@@ -21,8 +21,25 @@ public struct WMFHomeView: View {
             .safeAreaInsets.top ?? 0
     }
 
+    private var headerBarTopInset: CGFloat { safeAreaTop + 52 }
+    private var refreshIndicatorTopInset: CGFloat { headerBarTopInset + 60 }
+
+    @ViewBuilder
+    private var refreshIndicator: some View {
+        if viewModel.isRefreshingForYou {
+            ProgressView()
+                .progressViewStyle(.circular)
+                .tint(.white)
+                .padding(10)
+                .background(Circle().fill(.ultraThinMaterial))
+                .accessibilityLabel(viewModel.forYouRefreshingAccessibilityLabel)
+                .transition(.opacity)
+        }
+    }
+
     public var body: some View {
         mainContent
+            .animation(.easeInOut(duration: 0.2), value: viewModel.isRefreshingForYou)
             .task { viewModel.loadCurrentTabFeedIfNeeded() }
             .onChange(of: viewModel.selectedTab) {
                 viewModel.loadCurrentTabFeedIfNeeded()
@@ -36,7 +53,9 @@ public struct WMFHomeView: View {
                 forYouTabContent
                     .ignoresSafeArea()
                 headerBar(isForYou: true)
-                    .padding(.top, safeAreaTop + 52)
+                    .padding(.top, headerBarTopInset)
+                refreshIndicator
+                    .padding(.top, refreshIndicatorTopInset)
             }
             .ignoresSafeArea()
             .environment(\.colorScheme, .dark)

@@ -711,6 +711,7 @@
 "for-you-header-interest" = "Header on a For You feed card explaining it was chosen from one of the user's interests. $1 is replaced with the interest name.";
 "for-you-header-saved-article" = "Header on a For You feed card showing an article from the user's reading list. $1 is replaced with the article title.";
 "for-you-menu-customize-interests" = "Menu action to open the interests customization screen from a For You feed card.";
+"for-you-refreshing-accessibility-label" = "Accessibility label for the loading indicator shown while the For You feed refreshes after a pull to refresh.";
 "forgot-password-button-title" = "Title for reset password button {{Identical|Reset}}";
 "forgot-password-email-sent" = "Alert text shown when password reset email is sent";
 "forgot-password-instructions" = "Instructions for resetting password";

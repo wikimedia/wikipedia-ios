@@ -29,6 +29,7 @@ public final class WMFHomeViewModel: ObservableObject {
     let forYouErrorTitle = WMFLocalizedString("for-you-error-title", value: "No internet connection", comment: "Title shown on the For You tab when content cannot be loaded due to a network error.")
     let forYouErrorSubtitle = WMFLocalizedString("for-you-error-subtitle", value: "Connect to the Internet and try again.", comment: "Subtitle shown on the For You tab when content cannot be loaded due to a network error.")
     let forYouErrorRetryTitle = WMFLocalizedString("for-you-error-retry", value: "Try again", comment: "Button on the For You error state that retries loading the feed.")
+    let forYouRefreshingAccessibilityLabel = WMFLocalizedString("for-you-refreshing-accessibility-label", value: "Loading new content", comment: "Accessibility label for the loading indicator shown while the For You feed refreshes after a pull to refresh.")
 
     @Published public var selectedTab: Tab = .community {
         didSet {
@@ -54,6 +55,7 @@ public final class WMFHomeViewModel: ObservableObject {
     }
     @Published public var forYouFeedError: Error?
     @Published public var isLoadingForYou: Bool = false
+    @Published public private(set) var isRefreshingForYou: Bool = false
     @Published public var communityPages: [WMFHomeCommunityViewModel] = [] {
         didSet {
             if !communityPages.isEmpty {
@@ -75,6 +77,9 @@ public final class WMFHomeViewModel: ObservableObject {
     }
 
     let dataController: WMFHomeDataController
+
+    /// Holds the refresh indicator on for its minimum time. Kept so that a second refresh can stop it.
+    private(set) var refreshIndicatorTask: Task<Void, Never>?
 
     private var feedDay: Date?
 
@@ -149,9 +154,14 @@ public final class WMFHomeViewModel: ObservableObject {
         hideCard(key: card.cardUniqueKey)
     }
 
-    public func refreshForYouFeed() async {
+    public func refreshForYouFeed(minimumIndicatorDuration: TimeInterval = 1) async {
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
+
+        refreshIndicatorTask?.cancel()
+        isRefreshingForYou = true
+        let start = Date()
+
         do {
             let response = try await dataController.fetchForYou(project: project, forceFetch: true)
             self.forYouViewModel = WMFForYouViewModel(response: response)
@@ -159,6 +169,14 @@ public final class WMFHomeViewModel: ObservableObject {
             self.refreshSavedStates()
         } catch {
             self.forYouFeedError = error
+        }
+
+        let remaining = minimumIndicatorDuration - Date().timeIntervalSince(start)
+        refreshIndicatorTask = Task { [weak self] in
+            if remaining > 0 {
+                try? await Task.sleep(nanoseconds: UInt64(remaining * 1_000_000_000))
+            }
+            self?.isRefreshingForYou = false
         }
     }
 
