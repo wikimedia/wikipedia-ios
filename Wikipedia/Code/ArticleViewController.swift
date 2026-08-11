@@ -178,7 +178,9 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     // Properties related to tracking number of seconds this article is viewed.
     var pageViewObjectID: NSManagedObjectID?
     let previousPageViewObjectID: NSManagedObjectID?
-    var beganViewingDate: Date?
+
+    /// Owns the rules for when this article is accumulating reading time. See WMFReadingIntervalTracker — in particular, multiple ArticleViewControllers stay alive at once (navigation stack, other tab bar stacks, article tabs) and all observe the app-wide active notification, so only the on-screen one may resume.
+    var readingIntervalTracker = WMFReadingIntervalTracker()
 
     // Article Tabs-related properties
     var coordinator: ArticleTabCoordinating?
@@ -481,7 +483,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
         
         presentModalsIfNeeded()
-        trackBeganViewingDate()
+        trackArticleDidAppear()
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
 
@@ -642,7 +644,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         wTipObservationTask = nil
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
-        persistPageViewedSecondsForWikipediaInReview()
+        trackArticleWillDisappear()
 
         guard #available(iOS 18.0, *),
               UIDevice.current.userInterfaceIdiom == .pad else {
@@ -1421,12 +1423,12 @@ private extension ArticleViewController {
     @objc func applicationWillResignActive(_ notification: Notification) {
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
-        persistPageViewedSecondsForWikipediaInReview()
+        trackAppWillResignActive()
     }
 
     @objc func applicationDidBecomeActive(_ notification: Notification) {
         startSignificantlyViewedTimer()
-        trackBeganViewingDate()
+        trackAppDidBecomeActive()
     }
 
     @objc func coreDataStoreSetup(_ notification: Notification) {

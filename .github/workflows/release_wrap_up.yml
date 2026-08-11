@@ -1,12 +1,193 @@
 name: Release Wrap Up
- 
+
 on:
   workflow_dispatch:
- 
+    inputs:
+      version:
+        description: 'Release version (YYYY.MM.DD) that was approved and released'
+        required: true
+        type: string
+      beta_build_number:
+        description: 'Build number of the betas/ build that was approved and released'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
-  build-and-upload:
+  wrap-up:
     runs-on: macos-26
+
     steps:
       - uses: actions/checkout@v7
-      - run: echo "hello world"
- 
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # -------------------------------------------------------
+      # 1. Resolve the commit that was released
+      # -------------------------------------------------------
+      - name: Resolve released commit
+        id: resolve
+        env:
+          BETA_BUILD_NUMBER: ${{ github.event.inputs.beta_build_number }}
+        run: |
+          SHA=$(git rev-parse "refs/tags/betas/$BETA_BUILD_NUMBER")
+          echo "sha=$SHA" >> $GITHUB_OUTPUT
+          echo "Released commit: $SHA (betas/$BETA_BUILD_NUMBER)"
+
+      # -------------------------------------------------------
+      # 2. Create release tag
+      # -------------------------------------------------------
+      - name: Create release tag
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+          SHA: ${{ steps.resolve.outputs.sha }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git tag "releases/$VERSION" "$SHA"
+          git push origin "releases/$VERSION"
+          echo "Created releases/$VERSION at $SHA"
+
+      # -------------------------------------------------------
+      # 3. Create GitHub Release
+      # -------------------------------------------------------
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ github.event.inputs.version }}
+          BUILD: ${{ github.event.inputs.beta_build_number }}
+        run: |
+          gh release create "releases/$VERSION" \
+            --title "Release $VERSION" \
+            --notes "Wikipedia iOS $VERSION ($BUILD)"
+
+      # -------------------------------------------------------
+      # 4. Update release task with final info
+      # -------------------------------------------------------
+      - name: Update release task with final info
+        env:
+          PHAB_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
+          VERSION: ${{ github.event.inputs.version }}
+          SHA: ${{ steps.resolve.outputs.sha }}
+        run: |
+          python3 << 'EOF'
+          import urllib.request
+          import urllib.parse
+          import json
+          import re
+          import os
+          from datetime import datetime, timezone
+
+          token = os.environ['PHAB_TOKEN']
+          version = os.environ['VERSION']
+          sha = os.environ['SHA']
+          release_tag = f"releases/{version}"
+          release_date = datetime.now(timezone.utc).strftime('%Y.%m.%d')
+
+          req = urllib.request.Request(
+            'https://phabricator.wikimedia.org/api/maniphest.search',
+            headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
+            data=urllib.parse.urlencode({
+              'api.token': token,
+              'constraints[projects][0]': 'PHID-PROJ-ojylfmfiogxrvnxoiwlp',
+              'constraints[statuses][0]': 'open',
+              'order': 'newest',
+              'limit': '100',
+            }).encode()
+          )
+
+          with urllib.request.urlopen(req) as resp:
+            data = json.loads(resp.read())
+
+          tasks = data.get('result', {}).get('data', [])
+          release_task = next(
+            (t for t in tasks if t.get('fields', {}).get('name', '') == f"Release {version}"),
+            None
+          )
+
+          if not release_task:
+            print(f"No open task titled 'Release {version}' found, skipping")
+            exit(0)
+
+          task_phid = release_task['phid']
+          description = release_task.get('fields', {}).get('description', {}).get('raw', '')
+
+          def set_field(description, field, value):
+            pattern = re.compile(rf'(\*\*{re.escape(field)}\*\*:).*')
+            if pattern.search(description):
+              return pattern.sub(rf'\1 {value}', description, count=1)
+            insertion = f"**{field}**: {value}"
+            if '**Included Tasks:**' in description:
+              before, marker, after = description.partition('**Included Tasks:**')
+              return before.rstrip() + "\n" + insertion + "\n\n" + marker + after
+            return description.rstrip() + f"\n\n{insertion}"
+
+          description = set_field(description, 'Release tag', release_tag)
+          description = set_field(description, 'Release SHA1', sha)
+          description = set_field(description, 'App Store Release Date', release_date)
+
+          req = urllib.request.Request(
+            'https://phabricator.wikimedia.org/api/maniphest.edit',
+            headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
+            data=urllib.parse.urlencode({
+              'api.token': token,
+              'objectIdentifier': task_phid,
+              'transactions[0][type]': 'description',
+              'transactions[0][value]': description,
+            }).encode()
+          )
+
+          with urllib.request.urlopen(req) as resp:
+            result = json.loads(resp.read())
+            if not result.get('error_code'):
+              print(f"✓ Updated release task with tag {release_tag}, SHA {sha}, release date {release_date}")
+            else:
+              print(f"✗ Failed to update release task: {result.get('error_info')}")
+          EOF
+
+      # -------------------------------------------------------
+      # 5. Check release branch for unmerged changes
+      # -------------------------------------------------------
+      - name: Check release branch for unmerged changes
+        id: check_branch
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+        run: |
+          BRANCH="release-candidate/$VERSION"
+          git fetch origin main "$BRANCH"
+          NEW_COMMITS=$(git rev-list "origin/main..origin/$BRANCH" | wc -l | tr -d ' ')
+          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+          echo "new_commits=$NEW_COMMITS" >> $GITHUB_OUTPUT
+          echo "$BRANCH has $NEW_COMMITS commit(s) not on main"
+
+      # -------------------------------------------------------
+      # 6. Open a PR for any changes not yet on main
+      # -------------------------------------------------------
+      - name: Open PR for unmerged release branch changes
+        if: steps.check_branch.outputs.new_commits != '0'
+        env:
+          GH_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
+          VERSION: ${{ github.event.inputs.version }}
+          BRANCH: ${{ steps.check_branch.outputs.branch }}
+        run: |
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "Merge $BRANCH back to main" \
+            --body "Release $VERSION shipped with changes on $BRANCH that aren't on main yet (e.g. post-rejection fixes). This PR brings them back. Needs a Release-* label added manually before it can merge (see check_versions.yml)."
+          echo "Opened PR to merge $BRANCH into main - branch left in place until it merges"
+
+      # -------------------------------------------------------
+      # 7. Delete release branch (only if nothing to merge back)
+      # -------------------------------------------------------
+      - name: Delete release branch
+        if: steps.check_branch.outputs.new_commits == '0'
+        env:
+          BRANCH: ${{ steps.check_branch.outputs.branch }}
+        run: |
+          git push origin --delete "$BRANCH"
+          echo "Deleted $BRANCH"

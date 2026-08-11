@@ -14,6 +14,37 @@ platform :ios do
     )
   end
 
+  # Shared helper: list all certificate IDs currently on the account, regardless
+  # of type. Used to detect byproduct certs created by automatic signing +
+  # -allowProvisioningUpdates on ephemeral CI runners (see cleanup_dev_cert_byproducts).
+  def all_certificate_ids
+    Spaceship::ConnectAPI::Certificate.all.map(&:id)
+  end
+
+  # Shared helper: delete any certificate created since before_cert_ids was
+  # captured, as long as it's a Development-type cert. Automatic signing +
+  # -allowProvisioningUpdates mints a fresh Development certificate as a
+  # byproduct on every run, since GitHub-hosted runners are ephemeral and
+  # never have an existing one locally - left unchecked this eats into the
+  # account's certificate quota over time. Anything unexpected (e.g. a
+  # Distribution cert created by someone else mid-run) is left alone.
+  def cleanup_dev_cert_byproducts(before_cert_ids)
+    all_certs_after = Spaceship::ConnectAPI::Certificate.all
+    new_certs = all_certs_after.select { |c| !before_cert_ids.include?(c.id) }
+    if new_certs.empty?
+      UI.message("No new certificates detected during this run.")
+    end
+    deletable_types = ["DEVELOPMENT", "IOS_DEVELOPMENT"]
+    new_certs.each do |cert|
+      unless deletable_types.include?(cert.certificate_type)
+        UI.important("Skipping new certificate of unexpected type, not deleting: #{cert.display_name} (type: #{cert.certificate_type})")
+        next
+      end
+      cert.delete!
+      UI.success("Deleted byproduct certificate: #{cert.display_name} (type: #{cert.certificate_type})")
+    end
+  end
+
   # Shared helper: build the app
   def build_the_app
     build_app(
@@ -24,6 +55,7 @@ platform :ios do
       destination: "generic/platform=iOS",
       archive_path: "build/Wikipedia.xcarchive",
       export_method: "app-store",
+      include_symbols: true,
       xcargs: "-allowProvisioningUpdates -authenticationKeyPath #{ENV['APP_STORE_KEY_PATH']} -authenticationKeyID #{ENV['APP_STORE_API_KEY_ID']} -authenticationKeyIssuerID #{ENV['APP_STORE_ISSUER_ID']}",
     )
   end
@@ -34,6 +66,8 @@ platform :ios do
   desc "Build and deploy to internal TestFlight testers"
   lane :internal_beta do
     api_key = get_api_key
+    before_cert_ids = all_certificate_ids
+
     build_the_app
 
     what_to_test = File.read(ENV["WHAT_TO_TEST_PATH"]) rescue "See Phabricator tasks for details"
@@ -45,6 +79,106 @@ platform :ios do
       changelog: what_to_test,
       skip_waiting_for_build_processing: true,
     )
+
+    cleanup_dev_cert_byproducts(before_cert_ids)
+  end
+
+  # ----------------------------------------------------------
+  # Workflow 2: External TestFlight
+  # ----------------------------------------------------------
+  desc "Build and deploy to external TestFlight testers, submit for beta review"
+  lane :external_beta do
+    api_key = get_api_key
+    before_cert_ids = all_certificate_ids
+
+    build_the_app
+
+    # Read localized notes from JSON file written by workflow
+    localized_notes = JSON.parse(File.read("/tmp/what_to_test.json")) rescue {}
+
+    # Build localized_build_info hash
+    localized_build_info = localized_notes.transform_values do |notes|
+      { whats_new: notes }
+    end
+
+    # Ensure there's always a default
+    unless localized_build_info.key?("default")
+      default_notes = localized_notes["en-US"] || "See release notes for details"
+      localized_build_info["default"] = { whats_new: default_notes }
+    end
+
+    upload_to_testflight(
+      api_key: api_key,
+      distribute_external: true,
+      notify_external_testers: true,
+      localized_build_info: localized_build_info,
+      submit_beta_review: true,
+      skip_waiting_for_build_processing: false,
+      groups: ["External Testers"],
+    )
+
+    cleanup_dev_cert_byproducts(before_cert_ids)
+  end
+
+  # ----------------------------------------------------------
+  # Workflow 3: App Store submission
+  # ----------------------------------------------------------
+  desc "Build and submit to App Store Review"
+  lane :submit_for_review do
+    api_key = get_api_key
+    before_cert_ids = all_certificate_ids
+
+    build_the_app
+
+    should_submit = ENV["SUBMIT_FOR_REVIEW"] == "true"
+
+    upload_to_app_store(
+      api_key: api_key,
+      app_version: ENV["VERSION"],
+      submit_for_review: should_submit,
+      automatic_release: false,
+      phased_release: true,
+      reset_ratings: false,
+      force: true,
+      precheck_include_in_app_purchases: false,
+      skip_screenshots: true,
+      skip_metadata: false,
+      metadata_path: "fastlane/metadata",
+    )
+
+    cleanup_dev_cert_byproducts(before_cert_ids)
+  end
+
+  # ----------------------------------------------------------
+  # Workflow 4: Design Review (Experimental app)
+  # ----------------------------------------------------------
+  desc "Build and deploy the Experimental app to internal TestFlight testers"
+  lane :design_review do
+    api_key = get_api_key
+    before_cert_ids = all_certificate_ids
+
+    build_app(
+      project: "Wikipedia.xcodeproj",
+      scheme: "Experimental",
+      configuration: "Experimental",
+      derived_data_path: "build",
+      destination: "generic/platform=iOS",
+      archive_path: "build/Wikipedia-Experimental.xcarchive",
+      export_method: "app-store",
+      include_symbols: true,
+      xcargs: "-allowProvisioningUpdates -authenticationKeyPath #{ENV['APP_STORE_KEY_PATH']} -authenticationKeyID #{ENV['APP_STORE_API_KEY_ID']} -authenticationKeyIssuerID #{ENV['APP_STORE_ISSUER_ID']}",
+    )
+
+    upload_to_testflight(
+      api_key: api_key,
+      app_identifier: "org.wikimedia.wikipedia.tfalpha",
+      distribute_external: false,
+      notify_external_testers: false,
+      changelog: ENV["WHAT_TO_TEST"],
+      skip_waiting_for_build_processing: true,
+    )
+
+    cleanup_dev_cert_byproducts(before_cert_ids)
   end
 
 end
