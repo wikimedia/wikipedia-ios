@@ -733,6 +733,7 @@
 "history-title" = "Title of the history screen shown on history tab {{Identical|History}}";
 "home-button-explore-accessibility-label" = "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
 "home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.";
+"home-card-more-options-accessibility-label" = "Accessibility label for the three dot button on a Home feed card, which opens a menu of actions for that card.";
 "home-community-empty-feed-button-title" = "Title of the button shown in the Home tab Community segment when every feed card is hidden. It opens the feed settings.";
 "home-community-empty-feed-message" = "Message shown in the Home tab Community segment when the user has hidden every feed card.";
 "home-community-empty-feed-title" = "Title shown in the Home tab Community segment when the user has hidden every feed card.";

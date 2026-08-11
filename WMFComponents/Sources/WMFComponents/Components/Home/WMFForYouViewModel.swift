@@ -44,6 +44,10 @@ public struct WMFForYouHeaderLabel {
         self.format = format
         self.highlight = highlight
     }
+
+    public var accessibilityText: String {
+        String.localizedStringWithFormat(format, highlight)
+    }
 }
 
 // MARK: - View models
@@ -228,6 +232,20 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
         case unavailable
     }
     @Published public var imageAvailability: ImageAvailability = .unknown
+
+    public var accessibilityLabel: String {
+        var parts: [String] = []
+        if !headerLabel.format.isEmpty {
+            parts.append(headerLabel.accessibilityText)
+        }
+        parts.append(title)
+        if let extract, !extract.isEmpty {
+            parts.append(extract)
+        } else if let description, !description.isEmpty {
+            parts.append(description)
+        }
+        return parts.joined(separator: ", ")
+    }
 
     public func refreshSavedState(isSaved: Bool) {
         self.isSaved = isSaved

@@ -261,6 +261,7 @@ private struct WMFForYouPageView: View {
             }
             .padding(.vertical, WMFForYouCardMetrics.dotsVerticalPadding)
             .padding(.bottom, WMFForYouCardMetrics.dotsBottomInset(safeAreaBottom: WMFForYouCardMetrics.windowSafeAreaBottom))
+            .accessibilityHidden(true)
         }
     }
 }
@@ -393,6 +394,7 @@ private struct WMFForYouArticleCardView: View {
         } label: {
             label()
         }
+        .accessibilityLabel(WMFHomeLocalizedStrings.moreOptions)
     }
 
     private var floatingMenu: some View {
@@ -526,6 +528,22 @@ private struct WMFForYouArticleCardView: View {
             .contentShape(Rectangle())
             .onTapGesture { onTapCard() }
             .onAppear { viewModel.load() }
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(.isButton)
+            .accessibilityLabel(viewModel.accessibilityLabel)
+            .accessibilityAction { onTapCard() }
+            .accessibilityAction(named: Text(viewModel.isSaved ? viewModel.unsaveTitle : viewModel.saveTitle)) {
+                viewModel.toggleSaved()
+                if viewModel.isSaved {
+                    onSaveCard()
+                } else {
+                    onUnsaveCard()
+                }
+            }
+            .accessibilityAction(named: Text(viewModel.shareTitle)) { onShareCard() }
+            .accessibilityAction(named: Text(viewModel.hideCardTitle)) { onHideCard() }
+            .accessibilityAction(named: Text(viewModel.hideModuleTitle)) { onHideModule() }
+            .accessibilityAction(named: Text(viewModel.customizeInterestsTitle)) { onCustomizeInterests() }
             // Fades the photograph and its sampled colour in when the card finishes loading.
             .animation(.easeOut(duration: 0.2), value: viewModel.loadState == .loading)
         }
