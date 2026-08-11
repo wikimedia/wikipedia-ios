@@ -611,7 +611,7 @@
 "page-history-revision-size-diff-subtraction" = "Usunięto {{PLURAL:$1|1 bajt|$1 bajty|$1 bajtów}}";
 "page-history-revisions-comparison-warning" = "Wybrane moga być tylko dwie wersje";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edycja|$1 edycji}} od $2";
-"page-location" = "Zobacz na mapie";
+"page-location" = "Zobacz na mapie";
 "page-protected-can-not-edit" = "Nie masz uprawnień do edytowania tej strony";
 "page-protected-can-not-edit-title" = "Ta strona jest zabezpieczona";
 "page-similar-titles" = "Podobne strony";

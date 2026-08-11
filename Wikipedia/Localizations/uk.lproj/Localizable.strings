@@ -312,6 +312,13 @@
 "cc-zero" = "Creative Commons CC0";
 "chinese-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти китайської мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\n简体 китайська, спрощена (zh-hans)\n香港繁體 гонконзька традиційна (zh-hk)\n澳門繁體 макауська традиційна (zh-mo)\n大马简体 малайзійська спрощена (zh-my)\n新加坡简体 сінгапурська спрощена (zh-sg)\n臺灣正體 тайванська традиційна (zh-tw)";
 "chinese-variants-alert-title" = "Оновлення щодо підтримки варіантів китайської";
+"choose-editor-dont-show-again" = "Більше не показувати. Це значення за замовчуванням можна змінити пізніше в налаштуваннях.";
+"choose-editor-dont-show-hint" = "Двічі торкніться, щоб запам'ятати цей вибір і пропустити цей екран для подальших редагувань.";
+"choose-editor-source-subtitle" = "Вносити зміни за допомогою розмітки. Залишаючись в додатку.";
+"choose-editor-source-title" = "Редагування коду";
+"choose-editor-title" = "Виберіть спосіб редагування";
+"choose-editor-visual-subtitle" = "Вносити зміни безпосередньо на сторінці, яку ви бачите. Відкриється у вашому браузері.";
+"choose-editor-visual-title" = "Візуальне редагування";
 "clear-title-accessibility-label" = "Очистити";
 "clearing-cache-complete" = "Очищення кешу завершено.";
 "clearing-cache-error" = "Помилка очищення кешу.";
@@ -1239,7 +1246,7 @@
 "reading-list-sync-disabled-panel-title" = "Синхронізація вимкнена";
 "reading-list-sync-enable-button-title" = "Увімкнути синхронізацію";
 "reading-list-sync-enable-subtitle" = "Ваші збережені статті та читальні списки тепер можуть бути збережені на вашому обліковому запису у Вікіпедії та синхронізовані між додатками Вікіпедії.";
-"reading-list-sync-enable-title" = "Увімкнути синхронізацію читальних списків?";
+"reading-list-sync-enable-title" = "Увімкнути синхронізацію списків читання?";
 "reading-list-sync-enabled-panel-message" = "Синхронізація читальних списків була увімкнена для цього облікового запису. Ви можете вимкнути її в налаштуваннях.";
 "reading-list-sync-enabled-panel-title" = "Синхронізація цього облікового запису ввімкнена";
 "reading-list-unable-to-add-entry" = "Під час додавання запису до вашого читального списку сталася непередбачена помилка. Будь ласка, повторіть спробу пізніше.";
@@ -1356,6 +1363,10 @@
 "settings-search-footer-text" = "Відкривати після запуску вкладинку «Пошук» замість стрічки";
 "settings-search-footer-text-home" = "Відкривати після запуску вкладинку «Пошук» замість стрічки";
 "settings-search-open-app-on-search" = "Відкривати додаток на вкладинці «Пошук»";
+"settings-storage-and-syncing-disable-sync-alert-message" = "Вимкнення синхронізації вилучить ваші синхронізовані списки читання з вашого облікового запису Вікіпедії та з інших пристроїв. Ваші списки та статті залишаться на цьому пристрої.";
+"settings-storage-and-syncing-disable-sync-alert-no" = "Ні";
+"settings-storage-and-syncing-disable-sync-alert-title" = "Вимкнути синхронізацію списків читання?";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "Так";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Дозволити Вікімедіа зберігати статті та читальні списки у ваших користувацьких налаштуваннях.";
 "settings-storage-and-syncing-enable-sync-title" = "Синхронізувати збережені статті та списки";
 "settings-storage-and-syncing-full-sync" = "Ваші читальні списки синхронізовуватимуться у фоновому режимі";

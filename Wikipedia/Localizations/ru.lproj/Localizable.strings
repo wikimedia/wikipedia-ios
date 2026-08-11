@@ -111,7 +111,7 @@
 "account-request-vanishing" = "Удалить учётную запись";
 "account-talk-page-title" = "Ваша страница обсуждения";
 "account-talk-preferences-auto-sign-discussions" = "Автоматическая подпись в обсуждениях";
-"account-talk-preferences-auto-sign-discussions-setting-explanation" = "При обсуждениях будет автоматически использоваться та подпись, которая задана вами в настройках Википедии в разделе «Подпись»";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "При обсуждениях будет использоваться та подпись, которая задана вами в настройках Википедии в разделе «Подпись»";
 "account-talk-preferences-title" = "Настройки страницы обсуждения";
 "action-add-to" = "Добавить в…";
 "action-add-to-reading-list" = "Добавить в список для чтения";
@@ -158,9 +158,17 @@
 "activity-tab-customize-time-spent-reading" = "Время за чтением";
 "activity-tab-customize-timeline-of-behavior" = "Хронология активности";
 "activity-tab-email-fifth-line" = "[Скриншоты или ссылки]";
+"activity-tab-email-first-line" = "I have encountered a problem with Activity Tab Feature:";
+"activity-tab-email-fourth-line" = "[Опишите предлагаемое решение]";
+"activity-tab-email-second-line" = "- [Опишите конкретную проблему]";
+"activity-tab-email-third-line" = "The behavior I would like to see is:";
+"activity-tab-email-title" = "Сообщить о проблеме — вкладка «Активность»";
 "activity-tab-empty-subtitle" = "Начните читать или править статьи, чтобы сформировать свою историю";
 "activity-tab-empty-title" = "Нет данных для отображения";
 "activity-tab-generic-no-edits" = "На этой неделе вы не вносили правки. Начните прямо сейчас и отслеживайте свой вклад.";
+"activity-tab-history-callout-body" = "Просмотрите или очистите историю чтения на вкладке **Поиск**.";
+"activity-tab-history-callout-body-loggedout" = "Найти и очистить историю прочтения можно на **вкладке «Поиск»**. Регистрация не требуется.";
+"activity-tab-hitory-callout-close" = "Закрыть карточку с уведомлением об истории";
 "activity-tab-hours-minutes-read" = "$1 ч $2 мин";
 "activity-tab-hours-on-wikipedia-ios" = "В ВИКИПЕДИИ ДЛЯ iOS";
 "activity-tab-impact-all-time-title" = "Эффективность за все время";
@@ -175,6 +183,7 @@
 "activity-tab-impact-views-day" = "День";
 "activity-tab-impact-views-title" = "Просмотры статей с вашими правками";
 "activity-tab-impact-views-views" = "Просмотры";
+"activity-tab-log-in-or-create-account" = "Войдите в систему или создайте учётную запись, чтобы увидеть больше активности в редактировании и чтении.";
 "activity-tab-logged-out-subtitle" = "Войдите в систему или создайте аккаунт, чтобы просмотреть свою активность в приложении Википедии.";
 "activity-tab-logged-out-title" = "Посмотреть больше данных о чтении и редактировании";
 "activity-tab-menu-clear-history" = "Очистить историю чтения";
@@ -191,13 +200,16 @@
 "activity-tab-onboarding-second-item-subtitle" = "Узнайте больше о вашем вкладе и объёме знаний, которыми вы поделились.";
 "activity-tab-onboarding-second-item-title" = "Обзор эффективности";
 "activity-tab-onboarding-third-item-subtitle-updated" = "В разделе «Активность» отображается подробная хронология чтения, сохранения и правок статей. Ваша история чтения отныне доступна на вкладке «Поиск».";
+"activity-tab-onboarding-third-item-title-updated" = "История чтения теперь отображается в «Поиске»";
 "activity-tab-read-title" = "Просмотреть историю чтения";
 "activity-tab-satisfied" = "Доволен";
 "activity-tab-saved" = "Сохранено в этом месяце";
 "activity-tab-start-editing" = "Начать редактирование";
-"activity-tab-survey-title" = "Опрос об удовлетворенности";
+"activity-tab-survey-subtitle" = "Помогите улучшить «Активность». Вы удовлетворены этой функцией?";
+"activity-tab-survey-title" = "Опрос об удовлетворённости";
 "activity-tab-time-spent-reading" = "Время за чтением на этой неделе";
 "activity-tab-title" = "Активность";
+"activity-tab-top-categories" = "Самые популярные категории в этом месяце";
 "activity-tab-total-edits" = "Общее число правок по всем проектам";
 "activity-tab-unsatisfied" = "Неудовлетворен(а)";
 "activity-tab-usernames-reading-title" = "$1: чтение";
@@ -234,6 +246,7 @@
 "app-onboarding-languages-notice" = "Мы обнаружили следующие языки на вашем устройстве:";
 "app-onboarding-languages-primary-label" = "Основной";
 "app-onboarding-languages-title" = "Читайте на более чем 300 языках";
+"app-onboarding-loading-title" = "Давайте построим вашу ленту…";
 "app-onboarding-page-indicator" = "Страница $1 из $2";
 "app-onboarding-personalization-body-1" = "Выберите интересные вам темы, и мы персонализируем вашу ленту.";
 "app-onboarding-personalization-title" = "Следуйте за своим любопытством";
@@ -262,6 +275,7 @@
 "article-languages-yours" = "Ваши языки";
 "article-read-more-title" = "Подробнее";
 "article-reference-view-title" = "Примечание $1";
+"article-return-button-accessibility-title" = "Вернуться к: $1";
 "article-revision-history" = "История версий статьи";
 "article-save-error-not-enough-space" = "Не хватает места на вашем устройстве, чтобы сохранить эту статью";
 "article-share" = "Поделиться";
@@ -357,6 +371,7 @@
 "close-tabs" = "Закрыть вкладки";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 вкладка|$1 вкладки|$1 вкладок}} закрыто.";
 "collect-prize-title" = "Заберите свой приз!";
+"community-detail-back-button-title" = "Вернуться к ленте «Сообщество»";
 "compass-direction" = "на $1 часов";
 "confirm-donation-history-deletion-subtitle" = "Это будет применяться только к пожертвованиям, сделанным с этого устройства.";
 "confirm-donation-history-deletion-title" = "Подтвердите удаление";
@@ -631,6 +646,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Дополнительные языки могут быть добавлены в разделе настроек «Мои языки».";
 "explore-feed-preferences-card-hidden-title" = "Карточка скрыта";
 "explore-feed-preferences-continue-reading-description" = "Быстрая ссылка назад к чтению открытой статьи";
+"explore-feed-preferences-customize-community-feed-action-title" = "Настроить ленту «Сообщество»";
 "explore-feed-preferences-customize-explore-feed" = "Настроить ленту";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Настроить ленту";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Скрытие карточки приведёт к тому, что она не будет показана в ленте.";
@@ -761,8 +777,8 @@
 "games-announcement-message" = "Появилась новая викторина, основанная на материалах Википедии. Угадайте, какое событие произошло в истории раньше другого.";
 "games-announcement-play-button" = "Сыграть";
 "games-announcement-title" = "Сыграть в «Что было раньше?»";
-"games-email-report-body-encountered" = "Мной обнаружена проблема в работе функции «Игры Википедии»:";
-"games-email-report-subject" = "Сообщить о проблеме — Игры Википедии";
+"games-email-report-body-encountered" = "Мной обнаружена проблема в работе функции «Викторины» (Wikipedia Games):";
+"games-email-report-subject" = "Сообщить о проблеме — Викторины";
 "games-wcf-button-play-title" = "Сыграть в викторину дня";
 "games-wcf-explore-button-review-title" = "Узнать результат";
 "games-wcf-explore-complete-subtitle" = "Ваш сегодняшний результат: $1 из $2. Следующая викторина через $3.";
@@ -776,6 +792,7 @@
 "home-button-explore-accessibility-label" = "Вернуться к ленте";
 "home-button-saved-accessibility-label" = "Википедия, вернуться к Сохранённым";
 "home-community-empty-feed-button-title" = "Настроить ленту";
+"home-community-empty-feed-title" = "Все карточки ленты «Сообщество» скрыты.";
 "home-community-tab-title" = "Сообщество";
 "home-edit-languages-title" = "Добавить или изменить языки";
 "home-feed-for-you-based-on-interests-title" = "На основе ваших интересов";
@@ -787,10 +804,13 @@
 "home-feed-for-you-settings-title" = "Модули";
 "home-feed-interests-deselect-all" = "Отменить выбор";
 "home-feed-interests-header-title" = "Что вас интересует?";
+"home-feed-interests-non-mainspace-toast" = "Только статьи из основного пространства имён могут быть добавлены в качестве интересов.";
 "home-feed-interests-search-placeholder" = "Поиск статьи";
+"home-feed-interests-settings-empty-message" = "Ваши интересы отобразятся здесь";
 "home-feed-interests-settings-title" = "Ваши интересы";
 "home-feed-modules-featured-article-title" = "Избранная статья";
 "home-feed-modules-in-the-news-title" = "В новостях";
+"home-feed-modules-on-this-day-subtitle" = "Узнайте об исторических событиях, произошедших в этот день";
 "home-feed-modules-on-this-day-title" = "В этот день";
 "home-feed-modules-picture-of-the-day-subtitle" = "Ежедневные изображения с Викисклада, отобранные участниками сообщества";
 "home-feed-modules-picture-of-the-day-title" = "Изображение дня";
@@ -800,8 +820,13 @@
 "home-feed-settings-community-section-title" = "Сообщество";
 "home-feed-settings-for-you-section-title" = "Для вас";
 "home-feed-settings-modules-title" = "Модули";
+"home-feed-settings-whats-driving-title" = "Что формирует вашу ленту";
 "home-feed-whats-driving-languages-title" = "Языки";
+"home-feed-whats-driving-reading-history-subtitle" = "Просмотрите недавно прочитанные статьи";
 "home-feed-whats-driving-reading-history-title" = "История чтения";
+"home-feed-whats-driving-settings-header" = "Эти темы и статьи формируют вашу ленту «Для вас». Удалите неактуальные интересы или добавьте новые.";
+"home-feed-whats-driving-settings-title" = "Что формирует вашу ленту";
+"home-feed-whats-driving-your-interests-title" = "Ваши интересы";
 "home-for-you-tab-title" = "Для вас";
 "home-more-like-footer" = "Ещё статей, похожих на $1";
 "home-nearby-footer" = "Больше мест вблизи";
@@ -1166,6 +1191,7 @@
 "profile-button-accessibility-hint" = "Переход к просмотру профиля.";
 "profile-button-accessibility-label" = "Профиль";
 "profile-page-join-title" = "Войдите / Присоединитесь к Википедии";
+"profile-year-in-review-login-title" = "Войдите в систему, чтобы получить доступ к Обзору года";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Викиучебник";
 "project-name-wikidata" = "Викиданные";
@@ -1312,7 +1338,7 @@
 "settings-community-feed-title" = "Сообщество";
 "settings-donate" = "Пожертвовать";
 "settings-explore-games-subtitle" = "Ежедневные игры по материалам Википедии";
-"settings-explore-games-title" = "Игры Википедии";
+"settings-explore-games-title" = "Викторины";
 "settings-help-and-feedback" = "Помощь и обратная связь";
 "settings-language-bar" = "Показывать языки при поиске";
 "settings-languages-feed-customization" = "Можно указать языки, на которых будет отображаться информация в вашей Ленте.";
@@ -1329,6 +1355,8 @@
 "settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения.";
 "settings-search-footer-text" = "Открывать при запуске приложения вкладку «Поиск» вместо вкладки «Лента»";
 "settings-search-open-app-on-search" = "Открыть приложение на вкладке «Поиск»";
+"settings-storage-and-syncing-disable-sync-alert-no" = "Нет";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "Да";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Разрешить Фонду Викимедиа сохранять статьи и списки для чтения в ваших пользовательских настройках.";
 "settings-storage-and-syncing-enable-sync-title" = "Синхронизировать сохранённые статьи и списки";
 "settings-storage-and-syncing-full-sync" = "Ваши списки для чтения будут синхронизированы в фоновом режиме";
@@ -1503,6 +1531,7 @@
 "watchlist-edit-summary-accessibility" = "Описание изменений";
 "watchlist-empty-view-button-title" = "Искать статьи";
 "watchlist-empty-view-filter-title" = "У вас нет элементов в Списке наблюдения";
+"watchlist-empty-view-title" = "Статьи, добавляемые вами в список наблюдения, отображаются здесь";
 "watchlist-expiration-title" = "Установить срок действия";
 "watchlist-filter" = "Фильтр";
 "watchlist-filter-activity-header" = "Активность в списке наблюдения";
