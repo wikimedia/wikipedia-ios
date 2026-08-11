@@ -21,6 +21,9 @@ public struct WMFHomeView: View {
             .safeAreaInsets.top ?? 0
     }
 
+
+    private static let tabSwitcherCornerRadius: CGFloat = 8
+
     private var headerBarTopInset: CGFloat { safeAreaTop + 52 }
     private var refreshIndicatorTopInset: CGFloat { headerBarTopInset + 60 }
 
@@ -100,7 +103,8 @@ public struct WMFHomeView: View {
                 if #available(iOS 26.0, *) {
                     Capsule().fill(.clear).glassEffect(in: Capsule())
                 } else {
-                    Capsule().fill(.ultraThinMaterial)
+                    RoundedRectangle(cornerRadius: Self.tabSwitcherCornerRadius, style: .continuous)
+                        .fill(.ultraThinMaterial)
                 }
             }
 

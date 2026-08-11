@@ -89,7 +89,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         }
 
         viewModel.didChangeTab = { [weak self] tab in
-            self?.updateNavigationBarAppearance(for: tab)
+            self?.updateChromeAppearance(for: tab)
         }
 
         UISegmentedControl.appearance(whenContainedInInstancesOf: [WMFHomeHostingController.self]).backgroundColor = .clear
@@ -162,7 +162,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
-        updateNavigationBarAppearance(for: viewModel.selectedTab)
+        updateChromeAppearance(for: viewModel.selectedTab)
         reloadLanguages()
 
         // The notification does not always arrive for changes made by a background sync, so also
@@ -174,22 +174,31 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateNavigationBarAppearance(for: viewModel.selectedTab)
+        updateChromeAppearance(for: viewModel.selectedTab)
         apply(theme: theme)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        updateNavigationBarAppearance(for: .community)
+        updateChromeAppearance(for: .community)
     }
 
-    // MARK: - Navigation Bar Appearance
+    // MARK: - Chrome Appearance
 
-    /// Makes the navigation bar transparent over For You, where the cards run full bleed behind it, pre iOS 26.
+    private func updateChromeAppearance(for tab: WMFHomeViewModel.Tab) {
+        updateNavigationBarAppearance(for: tab)
+        updateTabBarAppearance(for: tab)
+    }
+
     private func updateNavigationBarAppearance(for tab: WMFHomeViewModel.Tab) {
         guard let navController = navigationController as? WMFComponentNavigationController else { return }
         navController.setTransparentAppearance(tab == .forYou)
+    }
+
+    private func updateTabBarAppearance(for tab: WMFHomeViewModel.Tab) {
+        guard #unavailable(iOS 26.0), let tabBar = tabBarController?.tabBar else { return }
+        tabBar.apply(theme: tab == .forYou ? .black : theme)
     }
 
     // MARK: - Languages
@@ -348,6 +357,8 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         if #unavailable(iOS 26.0) {
             navigationItem.leftBarButtonItem?.tintColor = theme.colors.logoTintColor
         }
+
+        updateChromeAppearance(for: viewModel.selectedTab)
     }
 }
 
