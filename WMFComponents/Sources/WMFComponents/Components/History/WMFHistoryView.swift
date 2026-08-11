@@ -25,6 +25,7 @@ public struct WMFHistoryView: View {
         return Text(viewModel.headerTextForSection(section))
             .font(Font(WMFFont.for(.boldHeadline)))
             .foregroundStyle(Color(uiColor: theme.text))
+            .accessibilityAddTraits(.isHeader)
     }
 
     private func emptyView() -> some View {

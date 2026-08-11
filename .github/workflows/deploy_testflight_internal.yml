@@ -1,7 +1,15 @@
 name: Internal TestFlight
 
 on:
+  schedule:
+    - cron: '0 10 * * *' # run at 10AM UTC
   workflow_dispatch:
+    inputs:
+      version_override:
+        description: "Override the version (YYYY.MM.DD) instead of using today's date - use this to reuse an existing version instead of getting a new one. Leave blank to use today's date."
+        required: false
+        type: string
+        default: ''
 
 jobs:
   build-and-upload:
@@ -18,14 +26,15 @@ jobs:
       # -------------------------------------------------------
       - name: Compute build number
         id: versioning
+        env:
+          VERSION_OVERRIDE: ${{ github.event.inputs.version_override }}
         run: |
-          VERSION=$(/usr/libexec/PlistBuddy -c \
-            "Print :CFBundleShortVersionString" \
-            Wikipedia/Wikipedia-Info.plist)
+          VERSION="${VERSION_OVERRIDE:-$(date -u "+%Y.%m.%d")}"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
           LATEST=$(git tag --list 'betas/*' \
             | sed 's|betas/||' \
+            | grep -E '^[0-9]+$' \
             | sort -n \
             | tail -1)
           BUILD=$(( ${LATEST:-0} + 1 ))
@@ -78,14 +87,16 @@ jobs:
           print(f"Last release tag: {last_release_tag}")
 
           result = subprocess.run(
-            ['git', 'log', '--oneline', '--merges', f'{last_release_tag}..HEAD'],
+            ['git', 'log', '--oneline', f'{last_release_tag}..HEAD'],
             capture_output=True, text=True
           )
           commits = result.stdout.strip().split('\n')
 
           pr_numbers = []
           for commit in commits:
-            match = re.search(r'Merge pull request #(\d+)', commit)
+            # Matches both merge-commit PRs ("Merge pull request #123")
+            # and squash-merge PRs ("Fix campaign modal (#123)")
+            match = re.search(r'Merge pull request #(\d+)', commit) or re.search(r'\(#(\d+)\)\s*$', commit)
             if match:
               pr_numbers.append(match.group(1))
 
@@ -124,14 +135,16 @@ jobs:
           print(f"Last beta tag: {last_beta_tag}")
 
           result = subprocess.run(
-            ['git', 'log', '--oneline', '--merges', f'{last_beta_tag}..HEAD'],
+            ['git', 'log', '--oneline', f'{last_beta_tag}..HEAD'],
             capture_output=True, text=True
           )
           commits = result.stdout.strip().split('\n')
 
           pr_numbers = []
           for commit in commits:
-            match = re.search(r'Merge pull request #(\d+)', commit)
+            # Matches both merge-commit PRs ("Merge pull request #123")
+            # and squash-merge PRs ("Fix campaign modal (#123)")
+            match = re.search(r'Merge pull request #(\d+)', commit) or re.search(r'\(#(\d+)\)\s*$', commit)
             if match:
               pr_numbers.append(match.group(1))
 
@@ -246,18 +259,34 @@ jobs:
           cat /tmp/what_to_test.txt
 
       # -------------------------------------------------------
-      # 7. Update build number in Info.plist
+      # 7. Update version and build number in Info.plist files
       # -------------------------------------------------------
-      - name: Update build number
+      - name: Update version and build number
         if: steps.duplicate_check.outputs.skip != 'true'
         env:
+          VERSION: ${{ steps.versioning.outputs.version }}
           BUILD: ${{ steps.versioning.outputs.build }}
         run: |
-          /usr/libexec/PlistBuddy -c \
-            "Set :CFBundleVersion $BUILD" \
-            Wikipedia/Wikipedia-Info.plist
+          PLISTS=(
+            "WMF Framework/Info.plist"
+            "Wikipedia Stickers/Info.plist"
+            "Wikipedia/Experimental-Info.plist"
+            "Wikipedia/Local-Info.plist"
+            "Wikipedia/Staging-Info.plist"
+            "Wikipedia/Wikipedia-Info.plist"
+            "ContinueReadingWidget/Info.plist"
+            "WikipediaUnitTests/Info.plist"
+            "Widgets/Info.plist"
+            "NotificationServiceExtension/Info.plist"
+          )
 
-          echo "Updated CFBundleVersion to $BUILD"
+          for PLIST in "${PLISTS[@]}"; do
+            /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$PLIST"
+          done
+
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD" "Wikipedia/Wikipedia-Info.plist"
+
+          echo "Updated CFBundleShortVersionString to $VERSION and CFBundleVersion to $BUILD"
 
       # -------------------------------------------------------
       # 8. Build and upload to TestFlight (internal)
@@ -343,6 +372,7 @@ jobs:
           import urllib.request
           import urllib.parse
           import json
+          import re
           import os
 
           token = os.environ['PHAB_TOKEN']
@@ -353,14 +383,22 @@ jobs:
             print("No Phabricator tasks found, skipping release task update")
             exit(0)
 
-          # Search for release task
+          # Search for any open release task with a date-based version title
+          release_pattern = re.compile(r'^Release \d{4}\.\d{2}\.\d{2}')
+
+          def release_branch_value(description):
+            match = re.search(r'\*\*Release branch\*\*:(.*)', description)
+            return match.group(1).strip() if match else ''
+
           req = urllib.request.Request(
             'https://phabricator.wikimedia.org/api/maniphest.search',
             headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
             data=urllib.parse.urlencode({
               'api.token': token,
-              'constraints[query]': f'Release {version}',
               'constraints[projects][0]': 'PHID-PROJ-ojylfmfiogxrvnxoiwlp',
+              'constraints[statuses][0]': 'open',
+              'order': 'newest',
+              'limit': '100',
             }).encode()
           )
 
@@ -368,20 +406,41 @@ jobs:
             data = json.loads(resp.read())
 
           tasks = data.get('result', {}).get('data', [])
+          # Skip any release task that's already associated with a release
+          # branch (i.e. already past Submit and in Apple's court) - only the
+          # task still tracking main should get updated here.
           release_task = next(
-            (t for t in tasks if t.get('fields', {}).get('name') == f'Release {version}'),
-            None
+            (t for t in tasks
+             if release_pattern.match(t.get('fields', {}).get('name', ''))
+             and not release_branch_value(t.get('fields', {}).get('description', {}).get('raw', '')))
+            , None
           )
 
           if not release_task:
-            print(f"No release task found for Release {version}, skipping")
+            print("No open release task found (or all open ones are already associated with a release branch), skipping")
             exit(0)
 
           task_phid = release_task['phid']
+          current_title = release_task.get('fields', {}).get('name', '')
           current_description = release_task.get('fields', {}).get('description', {}).get('raw', '')
 
+          print(f"Found release task: '{current_title}' -> updating title to 'Release {version}'")
+
+          # Keep the Release version field in the body in sync with the title
+          current_description = re.sub(
+            r'(\*\*Release version\*\*:).*',
+            rf'\1 {version}',
+            current_description,
+            count=1
+          )
+
           # Build new included tasks section
-          task_list = '\n'.join(task_urls.split(','))
+          task_ids = []
+          for url in task_urls.split(','):
+            match = re.search(r'T(\d+)$', url.strip())
+            if match:
+              task_ids.append(f"{{{match.group(0)}}}")
+          task_list = '\n'.join(task_ids)
           new_section = f"\n\n**Included Tasks:**\n{task_list}"
 
           # Replace existing section or append
@@ -390,22 +449,24 @@ jobs:
           else:
             new_description = current_description.rstrip() + new_section
 
-          # Update task description
+          # Update task title and description
           req = urllib.request.Request(
             'https://phabricator.wikimedia.org/api/maniphest.edit',
             headers={'User-Agent': 'GitHubPRBot/1.0 (https://phabricator.wikimedia.org/p/GitHubPRBot)'},
             data=urllib.parse.urlencode({
               'api.token': token,
               'objectIdentifier': task_phid,
-              'transactions[0][type]': 'description',
-              'transactions[0][value]': new_description,
+              'transactions[0][type]': 'title',
+              'transactions[0][value]': f'Release {version}',
+              'transactions[1][type]': 'description',
+              'transactions[1][value]': new_description,
             }).encode()
           )
 
           with urllib.request.urlopen(req) as resp:
             result = json.loads(resp.read())
             if not result.get('error_code'):
-              print(f"✓ Updated release task for Release {version}")
+              print(f"✓ Updated release task to Release {version}")
             else:
               print(f"✗ Failed to update release task: {result.get('error_info')}")
           EOF

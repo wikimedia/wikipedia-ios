@@ -35,6 +35,7 @@
 // Author: Melimeli
 // Author: Momo50WM
 // Author: Méthodes Bulebe Hangi
+// Author: NClara
 // Author: Nemo bis
 // Author: Nharateh
 // Author: Niridya
@@ -193,9 +194,6 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "L'activité comprend un historique complet des articles lus, enregistrés et modifiés. Votre historique de lecture se trouve désormais dans l'onglet Recherche.";
 "activity-tab-onboarding-third-item-title-updated" = "L’historique de lecture est désormais dans Recherche.";
 "activity-tab-read-title" = "Voir l'historique des lectures";
-"activity-tab-reading-challenge-card-body" = "Pour suivre votre série de progression quodienne avec Baby Globe, vous devez ajouter le widget Défi de lecture depuis votre écran d'accueil.";
-"activity-tab-reading-challenge-card-cta" = "Montre-moi comment faire";
-"activity-tab-reading-challenge-card-title" = "Défi de lecture de 25 jours";
 "activity-tab-satisfied" = "Satisfait";
 "activity-tab-saved" = "Articles enregistrés ce mois-ci";
 "activity-tab-start-editing" = "Commencer à modifier";
@@ -304,9 +302,6 @@
 "close-tab-confirmation" = "Fermer l'onglet ?";
 "close-tabs" = "Fermer les onglets";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 onglet fermé|$1 onglets fermés}}.";
-"collect-prize-button-title" = "Bénéficiez de 15%% de réduction à la boutique";
-"collect-prize-headline" = "La curiosité vous va à merveille ! 🛍️";
-"collect-prize-subtitle" = "Fêtez la réussite de ce défi en bénéficiant de 15%% de réduction à la boutique Wikipédia";
 "collect-prize-title" = "Venez récupérer votre prix!";
 "compass-direction" = "à $1 heures";
 "confirm-donation-history-deletion-subtitle" = "Ceci ne s’appliquera qu’aux dons effectués à partir de cet appareil.";
@@ -737,7 +732,6 @@
 "home-feed-for-you-continue-reading-title" = "Continuer à lire";
 "home-feed-for-you-settings-header" = "Désactiver un module le masque dans votre flux « Pour vous ». Vous pouvez le réactiver ici à tout moment.";
 "home-feed-for-you-settings-title" = "Modules";
-"home-feed-for-you-whats-driving-title" = "Qu'est-ce qui influence votre flux ?";
 "home-feed-interests-settings-empty-message" = "Vos centres d'intérêt s'afficheront ici.";
 "home-feed-interests-settings-title" = "Vos centres d'intérêt";
 "home-feed-modules-featured-article-subtitle" = "Les articles mis en avant sont parmi les articles de la plus haute qualité sur Wikipédia, sélectionnés quotidiennement par les contributeurs.";
@@ -1155,53 +1149,7 @@
 "project-name-wikiversity" = "Wikiversité";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wiktionnaire";
-"reading-challenge-announcement-cta" = "Participer au défi";
-"reading-challenge-announcement-item1-subtitle" = "Participez au défi à tout moment entre le $1 et le $2, et complétez les 25 jours à votre rythme.";
-"reading-challenge-announcement-item1-title" = "Lisez un article par jour et ce, pendant 25 jours";
-"reading-challenge-announcement-item2-subtitle" = "Terminez une série de 25 jours de lecture pendant la durée du défi pour gagner des prix spéciaux";
-"reading-challenge-announcement-item2-title" = "Des prix à gagner";
-"reading-challenge-announcement-item3-subtitle2" = "Pour suivre votre série de progression quodienne avec Baby Globe, vous devez ajouter le widget Défi de lecture depuis votre écran d'accueil.";
-"reading-challenge-announcement-item3-title" = "Installez le widget";
-"reading-challenge-announcement-secondary-cta" = "En savoir plus";
-"reading-challenge-announcement-subtitle" = "Votre historique de lecture est protégée. Vos statistiques sont calculées à partir des données stockées localement sur votre appareil.";
-"reading-challenge-announcement-title" = "Célébrez le 25e anniversaire de Wikipédia en participant au défi de lecture de 25 jours !";
-"reading-challenge-collect-prize-button-small" = "Obtenir le prix";
-"reading-challenge-completed-subtitle" = "25 jours sur 25";
-"reading-challenge-completed-subtitle-small" = "25 sur 25";
-"reading-challenge-completed-title" = "Vous avez réussi !";
-"reading-challenge-concluded-title" = "Le défi est terminé";
-"reading-challenge-enrolled-not-started-subtitle-article" = "Lisez un article pour vous lancer.";
-"reading-challenge-enrolled-not-started-subtitle-away" = "Il ne vous manque plus qu'un article pour finaliser la série.";
-"reading-challenge-enrolled-not-started-subtitle-somewhere" = "Toute progression commence quelque part";
-"reading-challenge-enrolled-not-started-subtitle-towards" = "Lancez-vous pour atteindre une série de 25 jours consécutifs!";
-"reading-challenge-enrolled-not-started-title-fresh" = "Un nouveau départ.";
-"reading-challenge-enrolled-not-started-title-ready" = "À vos marques, prêts, lisez !";
-"reading-challenge-enrolled-not-started-title-spin" = "Envie de démarrer une nouvelle série?";
-"reading-challenge-enrolled-not-started-title-start" = "Commencer le défi de lecture.";
-"reading-challenge-explore-wikipedia-button" = "Explorer Wikipédia";
-"reading-challenge-join-button-medium" = "Participer au défi";
-"reading-challenge-join-button-small" = "Participer au défi";
-"reading-challenge-login-message" = "Connectez-vous ou créez un compte pour suivre votre progression dans le défi de lecture.";
-"reading-challenge-login-title" = "Connectez-vous pour participer au défi";
-"reading-challenge-not-enrolled-subtitle" = "Relevez le défi de 25 jours et débloquez des prix spéciaux.";
-"reading-challenge-not-enrolled-title" = "À vos marques, prêts, lisez !";
-"reading-challenge-not-live-yet-subtitle" = "Un défi de lecture de 25 jours vous attend.";
-"reading-challenge-not-live-yet-title" = "Préparez-vous à lire";
-"reading-challenge-not-yet-read-subtitle-article" = "Il ne vous manque plus qu'un article pour finaliser la série.";
-"reading-challenge-not-yet-read-subtitle-bit" = "Chaque effort compte pour atteindre votre objectif.";
-"reading-challenge-not-yet-read-subtitle-curiosity" = "Nourrissez votre curiosité.";
-"reading-challenge-not-yet-read-subtitle-drift" = "Ne laissez pas cette journée vous filer entre les mains, votre série de lecture vous attend.";
-"reading-challenge-not-yet-read-subtitle-jump" = "Prenez un moment pour lire aujourd’hui.";
-"reading-challenge-not-yet-read-subtitle-quiet" = "Envie d'un moment de lecture au calme ?";
-"reading-challenge-not-yet-read-subtitle-snooze" = "Avant que la journée ne s'achève…\nIl est encore temps d'apprendre quelque chose.";
 "reading-challenge-random-button" = "Au hasard";
-"reading-challenge-streak-no-days" = "$1 sur 25";
-"reading-challenge-subtitle" = "Défi de lecture de 25 jours";
-"reading-challenge-widget-announcement-body2" = "Pour suivre votre série de progression quodienne avec Baby Globe, vous devez ajouter le widget Défi de lecture depuis votre écran d'accueil.";
-"reading-challenge-widget-announcement-secondary-button" = "Montre-moi comment faire";
-"reading-challenge-widget-announcement-title2" = "Rendez-vous sur votre écran d'accueil pour ajouter le widget";
-"reading-challenge-widget-description" = "Suivez vos progrès dans le cadre du défi lecture";
-"reading-challenge-widget-display-name" = "Défi de lecture";
 "reading-list-add-generic-hint-title" = "Ajouter cet article à une liste de lecture ?";
 "reading-list-add-hint-title" = "Ajouter « $1 » à une liste de lecture ?";
 "reading-list-add-saved-button-title" = "Oui, les ajouter à mes listes de lecture";
@@ -1225,8 +1173,6 @@
 "reading-list-generic-error" = "Une erreur inattendue s’est produite lors de la mise à jour de vos listes de lecture.";
 "reading-list-keep-button-title" = "Oui, conserver les articles dans l’appareil";
 "reading-list-keep-subtitle" = "Des articles sont synchronisés avec votre compte Wikipédia. Souhaitez-vous les conserver sur cet appareil après votre déconnexion ?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Désactiver la synchronisation supprimera ces articles de votre compte. Si vous les enlevez de votre appareil, ils ne seront plus récupérables en réactivant la synchronisation plus tard.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Non, supprimer les articles de l’appareil et de mon compte Wikipédia";
 "reading-list-keep-title" = "Conserver les articles enregistrés dans l’appareil ?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Trier les articles";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Il existe une limite de 5 000 articles non triés. Veuillez trier vos articles existants dans des listes pour continuer à synchroniser les articles non triés.";
@@ -1361,13 +1307,11 @@
 "settings-primary-language-details" = "La première langue dans cette liste est utilisée comme langue principale de votre application.";
 "settings-search-footer-text" = "Configurez l’application pour qu’elle s’ouvre sur l’onglet Rechercher plutôt que sur l’onglet Découvrir";
 "settings-search-open-app-on-search" = "Ouvrir l’application dans l’onglet Rechercher";
+"settings-storage-and-syncing-disable-sync-alert-message" = "La désactivation de la synchronisation supprimera vos listes de lecture synchronisées de votre compte Wikipédia et de vos autres appareils. Vos listes et articles resteront sur cet appareil.";
+"settings-storage-and-syncing-disable-sync-alert-no" = "Non";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "Oui";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Autorisez Wikimedia à enregistrer vos articles sauvegardés et vos listes de lecture dans vos préférences utilisateur lorsque vous vous connectez et activez la synchronisation.";
 "settings-storage-and-syncing-enable-sync-title" = "Synchroniser les articles enregistrés et les listes";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "L’effacement de vos articles enregistrés les supprimera de votre compte utilisateur si vous avez la synchronisation activée, tout comme de cet appareil. Vous ne pourrez pas annuler cette action.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Effacer tous les articles enregistrés ?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Effacer";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Effacer vos articles enregistrés les supprimera de votre compte utilisateur si vous avez activé la synchronisation, et de cet appareil.\n\nEffacer vos articles enregistrés libérera environ $1 d’espace.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Effacer les articles enregistrés";
 "settings-storage-and-syncing-full-sync" = "Vos listes de lecture seront synchronisées en tâche de fond";
 "settings-storage-and-syncing-server-sync-footer-text" = "Demander une mise à jour de vos articles et de vos listes de lecture synchronisés.";
 "settings-storage-and-syncing-server-sync-title" = "Mise à jour des listes de lecture synchronisées";

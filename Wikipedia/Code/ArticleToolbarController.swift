@@ -123,11 +123,15 @@ class ArticleToolbarController: Themeable {
     }
     
     private func createMoreMenu(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil, nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil) -> UIMenu {
-        var actions: [UIAction] = []
+        var actions: [UIMenuElement] = []
 
-        let image = WMFIcon.pencil
-        actions.append(UIAction(title: CommonStrings.editSource, image: image, handler: { [weak self] _ in self?.tappedEditArticle() }))
+        let editElement = UIDeferredMenuElement.uncached { [weak self] completion in
+            let title = WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney ? CommonStrings.editContextMenuTitle : CommonStrings.editSource
+            let action = UIAction(title: title, image: WMFIcon.pencil, handler: { [weak self] _ in self?.tappedEditArticle() })
+            completion([action])
+        }
 
+        actions.append(editElement)
         actions.append(UIAction(title: CommonStrings.articleRevisionHistory, image: UIImage(named: "edit-history"), handler: { [weak self] _ in self?.tappedRevisionHistory() }))
 
         actions.append(UIAction(title: CommonStrings.articleTalkPage, image: UIImage(systemName: "bubble.left.and.bubble.right"), handler: { [weak self] _ in self?.tappedArticleTalkPage() }))
