@@ -7,6 +7,7 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsArticleTab = "dev-settings-article-tab"
     case developerSettingsForceMaxArticleTabsTo5 = "dev-settings-article-tab-max-5"
     case developerSettingsEnableHomeTab = "dev-settings-enable-home-tab"
+    case developerSettingsEnableHomePhase2 = "dev-settings-enable-home-phase-2"
     case developerSettingsAlwaysShowNewOnboarding = "dev-settings-always-show-new-onboarding"
     case hasLocallySavedDonations = "donate-history-has-locally-saved-donations"
     case yearInReviewSettingsIsEnabled = "year-in-review-settings-is-enabled-v3"
@@ -37,6 +38,7 @@ public enum WMFUserDefaultsKey: String {
     case activityTabIsReadingInsightsOn = "activity-tab-reading-insights"
     case activityTabIsEditingInsightsOn = "activity-tab-editing-insights"
     case activityTabIsTimelineOfBehaviorOn = "activity-tab-timeline-of-behavior"
+    case didClampInflatedPageViewSeconds = "did-clamp-inflated-page-view-seconds"
     case autoSignTalkPageDiscussions = "auto-sign-talk-page-discussions"
     case didMigrateAutoSignTalkPageDiscussions = "did-migrate-auto-sign-talk-page-discussions"
     case showSearchLanguageBar = "show-search-language-bar"
@@ -45,6 +47,10 @@ public enum WMFUserDefaultsKey: String {
     case forceHCaptchaChallenge = "force-hcaptcha-challenge"
 
     case allowGestureZoomArticleWebview = "allow-gesture-zoom-article-webview"
+
+    // Reading Challenge 2026 (feature removed, see WMFReadingChallengeCompletionDataController)
+    case completedReadingChallenge2026 = "completed-reading-challenge-2026"
+    case didRecoverReadingChallenge2026Completion = "did-recover-reading-challenge-2026-completion"
 
     // Games announcement
     case hasSeenGamesAnnouncement = "has-seen-games-announcement"
@@ -86,4 +92,8 @@ public enum WMFUserDefaultsKey: String {
 
     // Onboarding: New app install event
     case didSendNewInstallOnboardingStartEvent = "did-send-new-install-onboarding-start-event"
+
+    // Article View Controller: Enable visual editor
+    case developerSettingsEnableVisualEditingJourney = "dev-settings-enable-visual-editing-journey"
+    case defaultEditMode = "default-edit-mode"
 }

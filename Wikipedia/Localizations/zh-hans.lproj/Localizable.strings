@@ -1135,8 +1135,6 @@
 "reading-list-generic-error" = "更新您的阅读列表时发生意外错误。";
 "reading-list-keep-button-title" = "是，将条目保留到设备";
 "reading-list-keep-subtitle" = "这些是同步到您维基百科账号的条目。您是否希望在退出后，在此设备上保留它们？";
-"reading-list-keep-sync-disabled-additional-subtitle" = "关闭同步将从您的账号移除这些条目。如果您从您的设备移除它们，它们将不会因为今后再次打开同步而恢复。";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "否，从设备和我的维基百科账号移除条目";
 "reading-list-keep-title" = "是否在设备上保留已保存的条目？";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "排序条目";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "限制5000个未分类条目。请将您的现有条目排序成列表以继续同步未分类条目。";
@@ -1269,11 +1267,6 @@
 "settings-search-open-app-on-search" = "打开应用时显示搜索标签页";
 "settings-storage-and-syncing-enable-sync-footer-text" = "当您登录并同步时，允许维基媒体储存您保存的条目及阅读列表至您的用户参数设置。";
 "settings-storage-and-syncing-enable-sync-title" = "同步保存的条目和列表";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "如果您启用了从此设备同步，那么清空您保存的条目将从您的用户账号中移除它们。您不能撤销这一操作。";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "是否清空所有保存的条目？";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "清空";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "如果您在此设备上启用了同步，清空您保存的条目将从您的用户账号中移除。\n\n清空您保存的条目将腾出约$1空间。";
-"settings-storage-and-syncing-erase-saved-articles-title" = "清空保存的条目";
 "settings-storage-and-syncing-full-sync" = "您的阅读列表将在后台同步";
 "settings-storage-and-syncing-server-sync-footer-text" = "请求更新您同步的条目和阅读列表。";
 "settings-storage-and-syncing-server-sync-title" = "更新同步的阅读列表";

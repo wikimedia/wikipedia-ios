@@ -11,8 +11,9 @@ public class WMFFeatureAnnouncementViewModel {
     let backgroundImage: UIImage?
     public var primaryButtonAction: (() -> Void)
     public var closeButtonAction: (() -> Void)?
+    public var contentHeightChanged: ((CGFloat) -> Void)?
     
-    public init(title: String, body: String, primaryButtonTitle: String, image: UIImage? = nil, backgroundImage: UIImage? = nil, gifName: String? = nil, altText: String? = nil, primaryButtonAction: @escaping () -> Void, closeButtonAction: (() -> Void)? = nil) {
+    public init(title: String, body: String, primaryButtonTitle: String, image: UIImage? = nil, backgroundImage: UIImage? = nil, gifName: String? = nil, altText: String? = nil, primaryButtonAction: @escaping () -> Void, closeButtonAction: (() -> Void)? = nil, contentHeightChanged: ((CGFloat) -> Void)? = nil) {
         self.title = title
         self.body = body
         self.primaryButtonTitle = primaryButtonTitle
@@ -22,5 +23,6 @@ public class WMFFeatureAnnouncementViewModel {
         self.closeButtonAction = closeButtonAction
         self.gifName = gifName
         self.altText = altText
+        self.contentHeightChanged = nil
     }
 }

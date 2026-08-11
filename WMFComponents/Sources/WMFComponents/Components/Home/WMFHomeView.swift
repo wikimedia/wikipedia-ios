@@ -13,15 +13,59 @@ public struct WMFHomeView: View {
     }
 
     public var body: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Picker("", selection: $viewModel.selectedTab) {
-                    Text(viewModel.communityTabTitle).tag(WMFHomeViewModel.Tab.community)
-                    Text(viewModel.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
+        mainContent
+            .environment(\.colorScheme, theme.preferredColorScheme)
+            .task {
+                viewModel.loadCurrentTabFeedIfNeeded()
+            }
+            .onChange(of: viewModel.selectedTab) { _ in
+                viewModel.loadCurrentTabFeedIfNeeded()
+            }
+    }
 
+    @ViewBuilder
+    private var mainContent: some View {
+        if viewModel.selectedTab == .forYou {
+            VStack(spacing: 0) {
+                headerBar
+                forYouTabContent
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(uiColor: theme.paperBackground))
+        } else {
+            communitySection
+        }
+    }
+
+    @ViewBuilder
+    private var communitySection: some View {
+        if #available(iOS 26.0, *) {
+            communityTabContent
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ignoresSafeArea(.container, edges: [.top, .bottom])
+                .safeAreaInset(edge: .top, spacing: 0) {
+
+                    headerBar
                 }
-                .pickerStyle(.segmented)
+        } else {
+            VStack(spacing: 0) {
+                headerBar
+                communityTabContent
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(uiColor: theme.paperBackground))
+        }
+    }
 
+    private var headerBar: some View {
+        HStack {
+            Picker("", selection: $viewModel.selectedTab) {
+                Text(viewModel.communityTabTitle).tag(WMFHomeViewModel.Tab.community)
+                Text(viewModel.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
+            }
+            .pickerStyle(.segmented)
+
+            if viewModel.shouldShowLanguagePicker {
                 Menu {
                     ForEach(viewModel.languages) { language in
                         Button {
@@ -49,23 +93,8 @@ public struct WMFHomeView: View {
                 }
                 .accessibilityIdentifier(AccessibilityIdentifiers.Home.languagePickerButton)
             }
-            .padding()
-
-            if viewModel.selectedTab == .forYou {
-                forYouTabContent
-            } else {
-                communityTabContent
-            }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(uiColor: theme.paperBackground))
-        .environment(\.colorScheme, theme.preferredColorScheme)
-        .task {
-            viewModel.loadCurrentTabFeedIfNeeded()
-        }
-        .onChange(of: viewModel.selectedTab) { _ in
-            viewModel.loadCurrentTabFeedIfNeeded()
-        }
+        .padding()
     }
 
     @ViewBuilder
@@ -95,7 +124,9 @@ public struct WMFHomeView: View {
 
     @ViewBuilder
     private var communityTabContent: some View {
-        if !viewModel.communityPages.isEmpty {
+        if let makeEmbeddedViewController = viewModel.makeEmbeddedCommunityViewController {
+            WMFHomeEmbeddedCommunityView(makeViewController: makeEmbeddedViewController)
+        } else if !viewModel.communityPages.isEmpty {
             WMFCommunityFeedView(
                 pages: viewModel.communityPages,
                 moduleVisibility: viewModel.communityModuleVisibility,

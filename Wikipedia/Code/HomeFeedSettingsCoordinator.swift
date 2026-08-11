@@ -106,9 +106,7 @@ final class HomeFeedSettingsCoordinator: Coordinator {
     }
 
     private func showForYouModulesSettings() {
-        let viewModel = WMFHomeFeedForYouSettingsViewModel(didTapWhatsDriving: { [weak self] in
-            self?.showWhatsDrivingSettings()
-        })
+        let viewModel = WMFHomeFeedForYouSettingsViewModel()
         let forYouSettingsVC = WMFHomeFeedForYouSettingsViewController(viewModel: viewModel)
         activeNavigationController.pushViewController(forYouSettingsVC, animated: true)
     }

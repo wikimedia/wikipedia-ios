@@ -28,6 +28,10 @@ final class TopReadData {
 
     static let shared = TopReadData()
 
+    /// Row thumbnails render as ~70pt squares; 240px covers 3x displays and stays
+    /// under WidgetKit's archival size cap, which the raw API thumbs can exceed.
+    private static let rowImageTargetSize = CGSize(width: 240, height: 240)
+
     var placeholder: TopReadEntry {
         return TopReadEntry(isPlaceholder: true, date: Date())
     }
@@ -62,7 +66,7 @@ final class TopReadData {
                     let viewCounts: [NSNumber] = rankedElement.viewHistory?.compactMap { NSNumber(value: $0.views) } ?? [NSNumber(value: rankedElement.views)]
                     var image: UIImage?
                     if let imageData = rankedElement.thumbnailImageSource?.data {
-                        image = UIImage(data: imageData)
+                        image = UIImage.downsampled(from: imageData, targetSize: Self.rowImageTargetSize)
                     }
 
                     let displayElement = TopReadEntry.RankedElement(title: title, description: description, articleURL: url, image: image, viewCounts: viewCounts)

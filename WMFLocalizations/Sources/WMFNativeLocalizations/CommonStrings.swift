@@ -72,6 +72,8 @@ public class CommonStrings: NSObject {
     @objc public static let exploreTabTitle = WMFLocalizedString("home-title", value: "Explore", comment: "Title for home interface. {{Identical|Explore}}")
     @objc public static let homeTabTitle = WMFLocalizedString("home-tab-title", value: "Home", comment: "Title for the Home tab.")
     @objc public static let homeFeedTitle = WMFLocalizedString("settings-home-feed-title", value: "Home feed", comment: "Title for the Home feed item in Settings.")
+    @objc public static let forYouTabTitle = WMFLocalizedString("home-for-you-tab-title", value: "For You", comment: "Title for the For You segment within the Home tab.")
+    @objc public static let communityFeedTitle = WMFLocalizedString("settings-community-feed-title", value: "Community", comment: "Title for the Community feed settings item in Settings, shown while the Home tab experiment is enabled. {{Identical|Community}}")
     @objc public static let tabsTitle = WMFLocalizedString("tabs-title", value: "Tabs", comment: "Title for tabs")
     @objc public static let savedTabTitle = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab {{Identical|Saved}}")
 
@@ -283,7 +285,6 @@ public class CommonStrings: NSObject {
 
     @objc public static let readingListsEntryLimitReachedFormat = WMFLocalizedString("reading-list-entry-limit-reached", value: "{{PLURAL:%1$d|Article|Articles}} cannot be added to this list. You have reached the limit of %2$d articles per reading list for %3$@", comment: "Informs the user that adding the selected articles to their reading list would put them over the limit. %1$d will be replaced with the number of articles the user is trying to add. %2$d will be replaced with the maximum number of articles allowed per list. %3$@ will be replaced with the name of the list.")
     @objc public static let readingListsListLimitReachedFormat = WMFLocalizedString("reading-list-list-limit-reached", value: "You have reached the limit of %1$d reading lists per account", comment: "Informs the user that they have reached the allowed limit of reading lists per account. %1$d will be replaced with the maximum number of allowed reading lists")
-     @objc public static let eraseAllSavedArticles = WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-title", value: "Erase saved articles", comment: "Title of the settings option that enables erasing saved articles")
 
     @objc public static let keepSavedArticlesOnDeviceMessage = WMFLocalizedString("reading-list-keep-subtitle", value: "There are articles synced to your Wikipedia account. Would you like to keep them on this device after you log out?", comment: "Subtitle asking if synced articles should be kept on device after logout.")
 
@@ -306,6 +307,7 @@ public class CommonStrings: NSObject {
     @objc public static let turnOnExploreTabTitle = WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-title", value: "Turn on the Explore tab?", comment: "Title for alert that allows users to turn on the Explore tab")
     @objc public static let turnOnExploreActionTitle = WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-action-title", value: "Turn on Explore", comment: "Title for action that allows users to turn on the Explore tab")
     @objc public static let customizeExploreFeedTitle = WMFLocalizedString("explore-feed-preferences-customize-explore-feed-action-title", value: "Customize Explore feed", comment: "Title for action that allows users to go to the Explore feed settings screen")
+    @objc public static let customizeCommunityFeedTitle = WMFLocalizedString("explore-feed-preferences-customize-community-feed-action-title", value: "Customize Community feed", comment: "Title for action that allows users to go to the Community feed settings screen")
     public static let customize = WMFLocalizedString("customize-action-title", value: "Customize", comment: "Title for action that allows users to customize their preferences.")
 
     @objc public static let revertedEditTitle = WMFLocalizedString("reverted-edit-title", value: "Reverted edit", comment: "Title for notification informing user that their edit was reverted.")

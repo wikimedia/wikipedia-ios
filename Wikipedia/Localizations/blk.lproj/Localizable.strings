@@ -420,9 +420,6 @@
 // Fuzzy
 "settings-notifications" = "ဖေႏသေချက်ဖုံႏ";
 "settings-primary-language" = "အထျ့ꩻ";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "အီႏယားကုဲင်လို့ထိုꩻသွူ ကသဲမ်ခါꩻဒါႏရောမ်ဖြုဲင်ꩻဖိုင်ႏနဲ့?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "ယားကုဲင်";
-"settings-storage-and-syncing-erase-saved-articles-title" = "ယားကုဲင် ကသဲမ်ခါꩻဒါႏရောမ်ဖြုဲင်ꩻဖိုင်ႏ";
 "settings-title" = "အဖျင်အဆင်ဖိုင်ႏ";
 "share-a-fact-made-with" = "မာꩻထူႏတောမ်ႏ ဝီခီပီးဒီးယား အဲပ်";
 "share-article-name-on-wikipedia" = "\"$1\" အဝ်ႏဝီခီပီးဒီးယားကို:";
