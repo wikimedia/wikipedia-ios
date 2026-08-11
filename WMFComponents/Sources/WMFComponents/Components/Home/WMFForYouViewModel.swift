@@ -309,15 +309,16 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
                 return
             }
 
-            self.uiImage = UIImage(data: data)
+            // Sample before showing anything, off the main actor: the pixel work is far too
+            // expensive to run while the user is swiping.
+            let color = await WMFImageColorSampler.shared.sampledColor(from: data)
 
-            // Sample off the main actor. The pixel loop is far too expensive to run while the
-            // user is swiping between cards, and the image is on screen before it finishes.
-            if let color = await WMFImageColorSampler.shared.sampledColor(from: data) {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    self.sampledColor = color
-                }
-            }
+            // The photograph, its colour and the loaded flag land in one update, so the card
+            // appears complete. Showing the image first put it on screen against a black gradient
+            // that then turned coloured, which reads as a flash. The card view fades the whole
+            // change in off `loadState`.
+            self.uiImage = UIImage(data: data)
+            self.sampledColor = color
             self.loadState = .loaded
         }
     }

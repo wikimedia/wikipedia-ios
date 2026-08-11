@@ -2,16 +2,6 @@ import SwiftUI
 import UIKit
 
 /// Picks a background colour from a photograph that white text stays readable on.
-///
-/// Kept here rather than inline in a feature so the colour rules live in one place and can be unit
-/// tested. Not an extension on `UIImage`: this is one opinionated algorithm, not a general
-/// capability of images, and offering it as `someImage.sampledColor()` would invite callers to
-/// expect "the average colour" and get something quite different.
-///
-/// An actor for two reasons. First, an actor never runs on the main actor, so the pixel work cannot
-/// drift back onto the main thread if the package's concurrency defaults change later. Second, it
-/// serialises the sampling: several cards can scroll in at once, and we do not want each of them
-/// walking a large image at the same time.
 actor WMFImageColorSampler {
 
     static let shared = WMFImageColorSampler()
@@ -19,20 +9,12 @@ actor WMFImageColorSampler {
     // MARK: - Tuning
 
     /// Contrast the resulting colour must reach against white text.
-    ///
-    /// Slightly stricter than WCAG AA for large text, which asks for 4.5:1.
     private static let whiteTextContrastTarget: CGFloat = 5
 
     /// Ceiling for the brightest channel, so a vivid hue cannot overpower the photograph.
-    ///
-    /// Deliberately high enough for the sampled hue to read: the point of the feature is that the
-    /// card takes its colour from the image. A low cap makes every card look the same near-black.
     private static let maxBrightness: CGFloat = 0.55
 
     /// Read one pixel in every `samplingStride` x `samplingStride` block rather than all of them.
-    ///
-    /// Averaged over hundreds of thousands of pixels this is indistinguishable from reading every
-    /// one, and it keeps the cost of covering the whole image low.
     private static let samplingStride = 2
 
     private static let darkeningStep: CGFloat = 0.95
@@ -47,14 +29,52 @@ actor WMFImageColorSampler {
         return Self.sampledColor(from: image)
     }
 
-    // MARK: - The algorithm
-    //
-    // Static and self-contained so it can be exercised directly from tests without an actor hop.
+    // MARK: - Image sampling algorithm
 
-    /// The whole image is sampled, not a crop of it: the colour should represent the article's
-    /// photograph rather than only the part behind the text.
     static func sampledColor(from image: UIImage) -> Color? {
-        guard let cgImage = image.cgImage else { return nil }
+        guard let cgImage = image.cgImage, let totals = pixelTotals(of: cgImage), totals.count > 0 else {
+            return nil
+        }
+
+        var r: CGFloat
+        var g: CGFloat
+        var b: CGFloat
+
+        if totals.weight > 0 {
+            r = totals.weightedR / totals.weight
+            g = totals.weightedG / totals.weight
+            b = totals.weightedB / totals.weight
+        } else {
+            // Nothing colourful at all - greyscale, or fully transparent. Fall back to a plain
+            // average, halved, so these images settle on a neutral dark rather than an invented hue.
+            let pixelCount = CGFloat(totals.count)
+            r = (totals.plainR / pixelCount) * 0.5
+            g = (totals.plainG / pixelCount) * 0.5
+            b = (totals.plainB / pixelCount) * 0.5
+        }
+
+        (r, g, b) = darkenToMeetContrast(r: r, g: g, b: b, targetRatio: whiteTextContrastTarget)
+        return Color(red: r, green: g, blue: b)
+    }
+
+    /// What one pass over the image collected.
+    private struct PixelTotals {
+        /// Sums weighted by how colourful each pixel is.
+        var weightedR: CGFloat = 0
+        var weightedG: CGFloat = 0
+        var weightedB: CGFloat = 0
+        var weight: CGFloat = 0
+
+        /// Unweighted sums, used only when nothing in the image is colourful.
+        var plainR: CGFloat = 0
+        var plainG: CGFloat = 0
+        var plainB: CGFloat = 0
+
+        var count = 0
+    }
+
+    /// Draws the image into a pixel buffer and walks it once.
+    private static func pixelTotals(of cgImage: CGImage) -> PixelTotals? {
         let width = cgImage.width
         let height = cgImage.height
         guard width > 0, height > 0 else { return nil }
@@ -63,77 +83,52 @@ actor WMFImageColorSampler {
         let bytesPerRow = bytesPerPixel * width
         var rawData = [UInt8](repeating: 0, count: height * bytesPerRow)
 
-        guard let context = CGContext(
-            data: &rawData,
-            width: width,
-            height: height,
-            bitsPerComponent: 8,
-            bytesPerRow: bytesPerRow,
-            space: CGColorSpaceCreateDeviceRGB(),
-            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
-        ) else { return nil }
+        return rawData.withUnsafeMutableBytes { buffer -> PixelTotals? in
+            guard let baseAddress = buffer.baseAddress else { return nil }
 
-        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
+            guard let context = CGContext(
+                data: baseAddress,
+                width: width,
+                height: height,
+                bitsPerComponent: 8,
+                bytesPerRow: bytesPerRow,
+                space: CGColorSpaceCreateDeviceRGB(),
+                bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+            ) else { return nil }
 
-        // Colourful pixels count for more than dull ones, so a small vivid area beats a large flat
-        // one. Squaring the saturation sharpens that preference.
-        var weightedR: CGFloat = 0
-        var weightedG: CGFloat = 0
-        var weightedB: CGFloat = 0
-        var totalWeight: CGFloat = 0
+            context.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
 
-        var totalR: CGFloat = 0
-        var totalG: CGFloat = 0
-        var totalB: CGFloat = 0
-        var sampledPixelCount = 0
+            // Colourful pixels count for more than dull ones, so a small vivid area beats a large
+            // flat one. Squaring the saturation sharpens that preference.
+            var totals = PixelTotals()
+            let step = samplingStride * bytesPerPixel
 
-        let step = samplingStride * bytesPerPixel
+            for y in stride(from: 0, to: height, by: samplingStride) {
+                let rowStart = y * bytesPerRow
+                for i in stride(from: rowStart, to: rowStart + bytesPerRow, by: step) {
+                    let r = CGFloat(buffer[i]) / 255
+                    let g = CGFloat(buffer[i + 1]) / 255
+                    let b = CGFloat(buffer[i + 2]) / 255
 
-        for y in stride(from: 0, to: height, by: samplingStride) {
-            let rowStart = y * bytesPerRow
-            for i in stride(from: rowStart, to: rowStart + bytesPerRow, by: step) {
-                let r = CGFloat(rawData[i]) / 255
-                let g = CGFloat(rawData[i + 1]) / 255
-                let b = CGFloat(rawData[i + 2]) / 255
+                    let maxC = max(r, g, b)
+                    let minC = min(r, g, b)
+                    let saturation = maxC == 0 ? 0 : (maxC - minC) / maxC
+                    let weight = saturation * saturation
 
-                let maxC = max(r, g, b)
-                let minC = min(r, g, b)
-                let saturation = maxC == 0 ? 0 : (maxC - minC) / maxC
-                let weight = saturation * saturation
+                    totals.weightedR += r * weight
+                    totals.weightedG += g * weight
+                    totals.weightedB += b * weight
+                    totals.weight += weight
 
-                weightedR += r * weight
-                weightedG += g * weight
-                weightedB += b * weight
-                totalWeight += weight
-
-                totalR += r
-                totalG += g
-                totalB += b
-                sampledPixelCount += 1
+                    totals.plainR += r
+                    totals.plainG += g
+                    totals.plainB += b
+                    totals.count += 1
+                }
             }
+
+            return totals
         }
-
-        guard sampledPixelCount > 0 else { return nil }
-
-        var r: CGFloat
-        var g: CGFloat
-        var b: CGFloat
-
-        if totalWeight > 0 {
-            r = weightedR / totalWeight
-            g = weightedG / totalWeight
-            b = weightedB / totalWeight
-        } else {
-            // Nothing colourful at all - greyscale, or fully transparent. Fall back to a plain
-            // average, halved, so these images settle on a neutral dark rather than an invented hue.
-            let pixelCount = CGFloat(sampledPixelCount)
-            r = (totalR / pixelCount) * 0.5
-            g = (totalG / pixelCount) * 0.5
-            b = (totalB / pixelCount) * 0.5
-        }
-
-        (r, g, b) = darkenToMeetContrast(r: r, g: g, b: b, targetRatio: whiteTextContrastTarget)
-        return Color(red: r, green: g, blue: b)
     }
 
     /// Darkens a sampled colour until white text is readable on it.
