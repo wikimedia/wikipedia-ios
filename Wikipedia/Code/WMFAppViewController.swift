@@ -1102,15 +1102,15 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         guard let homeNav = viewControllers?[WMFAppTabType.main.rawValue] as? UINavigationController,
               homeNav.viewControllers.count == 1 else { return }
         guard presentedViewController == nil else { return }
-        
-        let defaults = UserDefaults.standard
-        let isNewInstall = defaults.bool(forKey: WMFUserDefaultsKey.didSendNewInstallOnboardingStartEvent.rawValue)
-        let alwaysShow = WMFDeveloperSettingsDataController.shared.alwaysShowNewOnboarding
-        let hasSeen = defaults.bool(forKey: WMFUserDefaultsKey.hasSeenNewHomeOnboarding.rawValue)
 
+        let isNewInstall = WMFHomeDataController.shared.didSendNewInstallOnboardingStartEvent()
+        let hasSeen = WMFHomeDataController.shared.hasSeenNewHomeOnboarding()
+        let alwaysShow = WMFDeveloperSettingsDataController.shared.alwaysShowNewOnboarding
+        guard WMFDeveloperSettingsDataController.shared.enableHomeTab || WMFDeveloperSettingsDataController.shared.enableHomePhase2 else { return }
+        
         guard !isNewInstall && (alwaysShow || !hasSeen) else { return }
 
-        defaults.set(true, forKey: WMFUserDefaultsKey.hasSeenNewHomeOnboarding.rawValue)
+        WMFHomeDataController.shared.setHasSeenNewHomeOnboarding(true)
 
         let viewModel = WMFOneTimeOnboardingViewModel()
         let oneTimeVC = WMFComponentHostingController(rootView: WMFOneTimeOnboardingView(viewModel: viewModel))
