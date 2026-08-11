@@ -287,8 +287,21 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
         self.headerLabel = headerLabel
         self.title = article.title
         self.project = article.project
-        self.description = article.title
-        self.hideKey = "for_you_\(article.project.id)_\(article.title)"
+        self.cardUniqueKey = "for_you_\(article.project.id)_\(article.title)"
+    }
+
+    /// Rewrites a Commons thumbnail URL to ask for a wider rendering.
+    ///
+    /// Thumbnail URLs carry their width as a path component - `.../640px-Example.jpg` - so the size
+    /// is changed by swapping that number. Returns nil when the URL has no such component, which
+    /// means it is already the original file and cannot be scaled up.
+    private static func upsizedThumbnailURL(from thumbnailURL: URL) -> URL? {
+        var urlString = thumbnailURL.absoluteString
+        guard let range = urlString.range(of: #"/\d+px-"#, options: .regularExpression) else {
+            return nil
+        }
+        urlString.replaceSubrange(range, with: "/\(ImageUtils.leadImageWidth())px-")
+        return URL(string: urlString)
     }
 
     public func load() {
@@ -312,16 +325,15 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
             // itself arrives later, and only a failed download changes the design after this.
             self.imageAvailability = .available
 
-            // Upsize the Wikimedia thumbnail URL to get a higher resolution image
-            let largeURL: URL = {
-                var urlString = thumbnailURL.absoluteString
-                if let range = urlString.range(of: #"/\d+px-"#, options: .regularExpression) {
-                    urlString.replaceSubrange(range, with: "/1280px-")
-                }
-                return URL(string: urlString) ?? thumbnailURL
-            }()
-
-            guard let data = try? await WMFImageDataController.shared.fetchImageData(url: largeURL) else {
+            // Ask for a bigger rendering than the summary's thumbnail, which is far too small for
+            // a full screen card. Falls back to the thumbnail if the larger one is unavailable:
+            let data: Data
+            if let largeURL = Self.upsizedThumbnailURL(from: thumbnailURL),
+               let largeData = try? await WMFImageDataController.shared.fetchImageData(url: largeURL) {
+                data = largeData
+            } else if let originalData = try? await WMFImageDataController.shared.fetchImageData(url: thumbnailURL) {
+                data = originalData
+            } else {
                 self.imageAvailability = .unavailable
                 self.loadState = .loaded
                 return
