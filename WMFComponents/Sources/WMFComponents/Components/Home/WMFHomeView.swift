@@ -21,8 +21,28 @@ public struct WMFHomeView: View {
             .safeAreaInsets.top ?? 0
     }
 
+
+    private static let tabSwitcherCornerRadius: CGFloat = 8
+
+    private var headerBarTopInset: CGFloat { safeAreaTop + 52 }
+    private var refreshIndicatorTopInset: CGFloat { headerBarTopInset + 60 }
+
+    @ViewBuilder
+    private var refreshIndicator: some View {
+        if viewModel.isRefreshingForYou {
+            ProgressView()
+                .progressViewStyle(.circular)
+                .tint(Color(uiColor: WMFColor.white))
+                .padding(10)
+                .background(Circle().fill(.ultraThinMaterial))
+                .accessibilityLabel(viewModel.forYouRefreshingAccessibilityLabel)
+                .transition(.opacity)
+        }
+    }
+
     public var body: some View {
         mainContent
+            .animation(.easeInOut(duration: 0.2), value: viewModel.isRefreshingForYou)
             .task { viewModel.loadCurrentTabFeedIfNeeded() }
             .onChange(of: viewModel.selectedTab) {
                 viewModel.loadCurrentTabFeedIfNeeded()
@@ -36,7 +56,9 @@ public struct WMFHomeView: View {
                 forYouTabContent
                     .ignoresSafeArea()
                 headerBar(isForYou: true)
-                    .padding(.top, safeAreaTop + 52)
+                    .padding(.top, headerBarTopInset)
+                refreshIndicator
+                    .padding(.top, refreshIndicatorTopInset)
             }
             .ignoresSafeArea()
             .environment(\.colorScheme, .dark)
@@ -81,7 +103,8 @@ public struct WMFHomeView: View {
                 if #available(iOS 26.0, *) {
                     Capsule().fill(.clear).glassEffect(in: Capsule())
                 } else {
-                    Capsule().fill(.ultraThinMaterial)
+                    RoundedRectangle(cornerRadius: Self.tabSwitcherCornerRadius, style: .continuous)
+                        .fill(.ultraThinMaterial)
                 }
             }
 
@@ -121,10 +144,10 @@ public struct WMFHomeView: View {
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
                         .dynamicTypeSize(.xSmall ... .large)
                         .minimumScaleFactor(0.25)
-                        .foregroundStyle(isForYou ? .white : .primary)
+                        .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
                         .lineLimit(1)
                     Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronUpChevronDown, font: .boldCaption1) ?? UIImage())
-                        .foregroundStyle(isForYou ? .white : .primary)
+                        .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)

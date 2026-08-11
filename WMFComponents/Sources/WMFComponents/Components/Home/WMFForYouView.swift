@@ -64,6 +64,9 @@ public struct WMFForYouView: View {
 
     @State private var hasReportedCurrentDrag = false
 
+    /// The module on screen. Mirrored to the view model, which outlives this view.
+    @State private var currentModuleID: UUID?
+
     public init(viewModel: WMFForYouViewModel) {
         self.viewModel = viewModel
     }
@@ -77,10 +80,21 @@ public struct WMFForYouView: View {
     private var visiblePages: [VisiblePage] {
         viewModel.pages.compactMap { page in
             guard viewModel.moduleVisibility.isVisible(page.module) else { return nil }
-            let articles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.hideKey) }
+            let articles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.cardUniqueKey) }
             guard !articles.isEmpty else { return nil }
             return VisiblePage(page: page, articles: articles)
         }
+    }
+
+    /// Puts the user back on the module they looked at last.
+    ///
+    /// The module must still be in the feed: the user can hide a module, or hide all the cards of a
+    /// module, while the view is away.
+    private func restoreModulePosition() {
+        guard let lastViewedModuleID = viewModel.lastViewedModuleID,
+              visiblePages.contains(where: { $0.id == lastViewedModuleID }) else { return }
+
+        currentModuleID = lastViewedModuleID
     }
 
     public var body: some View {
@@ -108,11 +122,19 @@ public struct WMFForYouView: View {
                         onTapCard: { viewModel.onTapCard?($0) },
                         onSaveCard: { viewModel.onSaveCard?($0) },
                         onShareCard: { viewModel.onShareCard?($0) },
-                        onUnsaveCard: { viewModel.onUnsaveCard?($0) }
+                        onUnsaveCard: { viewModel.onUnsaveCard?($0) },
+                        lastViewedCardKey: viewModel.lastViewedCardKey,
+                        onViewCard: { viewModel.rememberViewedCard($0) }
                     )
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 }
             }
+            .scrollTargetLayout()
+        }
+        .scrollPosition(id: $currentModuleID)
+        .onAppear { restoreModulePosition() }
+        .onChange(of: currentModuleID) { _, moduleID in
+            viewModel.rememberViewedModule(moduleID)
         }
         .scrollTargetBehavior(.paging)
         .refreshable { await viewModel.onRefresh?() }
@@ -174,7 +196,7 @@ private struct WMFForYouHeaderLabelView: View {
             }
             label
         }
-        .foregroundStyle(.white.opacity(0.8))
+        .foregroundStyle(Color(uiColor: WMFColor.white).opacity(0.8))
         .lineLimit(2)
         .minimumScaleFactor(0.35)
     }
@@ -210,21 +232,27 @@ private struct WMFForYouPageView: View {
     let onSaveCard: (WMFForYouArticleCardViewModel) -> Void
     let onShareCard: (WMFForYouArticleCardViewModel) -> Void
     let onUnsaveCard: (WMFForYouArticleCardViewModel) -> Void
+    /// The card the user looked at last, anywhere in the feed. It can be a card of a different
+    /// module, in which case this carousel starts at its first card.
+    let lastViewedCardKey: String?
 
-    /// Identified by `hideKey` rather than by position, so that a card keeps its identity when an
+    /// Reports the card on screen, so the view model can put the user back here later.
+    let onViewCard: (String?) -> Void
+
+    /// Identified by `cardUniqueKey` rather than by position, so that a card keeps its identity when an
     /// earlier card in the carousel is hidden.
     @State private var currentPage: String?
 
     /// `scrollPosition` only writes to `currentPage` once the user scrolls, so fall back to the
     /// first card to keep the page dots correct on first appearance.
     private var currentPageKey: String? {
-        currentPage ?? articleViewModels.first?.hideKey
+        currentPage ?? articleViewModels.first?.cardUniqueKey
     }
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 0) {
-                ForEach(articleViewModels, id: \.hideKey) { article in
+                ForEach(articleViewModels, id: \.cardUniqueKey) { article in
                     let variant = WMFForYouCardVariant.variant(for: article.cardIndex)
                     WMFForYouArticleCardView(
                         viewModel: article,
@@ -246,12 +274,23 @@ private struct WMFForYouPageView: View {
         }
         .scrollTargetBehavior(.paging)
         .scrollPosition(id: $currentPage)
+        .onAppear {
+            // The card must be one of this carousel's cards. This rejects a card of a different
+            // module, and also a card that the user hid while the view was away.
+            guard let lastViewedCardKey,
+                  articleViewModels.contains(where: { $0.cardUniqueKey == lastViewedCardKey }) else { return }
+
+            currentPage = lastViewedCardKey
+        }
+        .onChange(of: currentPage) { _, cardKey in
+            onViewCard(cardKey)
+        }
         .overlay(alignment: .bottom) {
             HStack(spacing: 8) {
-                ForEach(articleViewModels, id: \.hideKey) { article in
-                    let isCurrent = article.hideKey == currentPageKey
+                ForEach(articleViewModels, id: \.cardUniqueKey) { article in
+                    let isCurrent = article.cardUniqueKey == currentPageKey
                     Circle()
-                        .fill(isCurrent ? Color.white : Color.white.opacity(0.4))
+                        .fill(isCurrent ? Color(uiColor: WMFColor.white) : Color(uiColor: WMFColor.white).opacity(0.4))
                         .frame(
                             width: isCurrent ? WMFForYouCardMetrics.dotDiameter : WMFForYouCardMetrics.dotDiameter - 1,
                             height: isCurrent ? WMFForYouCardMetrics.dotDiameter : WMFForYouCardMetrics.dotDiameter - 1
@@ -261,6 +300,7 @@ private struct WMFForYouPageView: View {
             }
             .padding(.vertical, WMFForYouCardMetrics.dotsVerticalPadding)
             .padding(.bottom, WMFForYouCardMetrics.dotsBottomInset(safeAreaBottom: WMFForYouCardMetrics.windowSafeAreaBottom))
+            .accessibilityHidden(true)
         }
     }
 }
@@ -278,12 +318,12 @@ private struct WMFForYouMiniCard<Menu: View>: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(Font(WMFFont.for(.boldSubheadline)))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(Color(uiColor: WMFColor.white))
                     .lineLimit(1)
                 if let description {
                     Text(description)
                         .font(Font(WMFFont.for(.caption1)))
-                        .foregroundStyle(.white.opacity(0.8))
+                        .foregroundStyle(Color(uiColor: WMFColor.white).opacity(0.8))
                         .lineLimit(2)
                 }
             }
@@ -297,7 +337,7 @@ private struct WMFForYouMiniCard<Menu: View>: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             } else {
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(.white.opacity(0.15))
+                    .fill(Color(uiColor: WMFColor.white).opacity(0.15))
                     .frame(width: 56, height: 56)
             }
 
@@ -341,7 +381,7 @@ private struct WMFForYouArticleCardView: View {
         case .textFocused:
             return WMFForYouCardVariant.textFocusedBackgrounds[variantIndex % WMFForYouCardVariant.textFocusedBackgrounds.count]
         default:
-            return viewModel.sampledColor ?? Color.black
+            return viewModel.sampledColor ?? Color(uiColor: WMFColor.black)
         }
     }
 
@@ -393,12 +433,13 @@ private struct WMFForYouArticleCardView: View {
         } label: {
             label()
         }
+        .accessibilityLabel(WMFHomeLocalizedStrings.moreOptions)
     }
 
     private var floatingMenu: some View {
         overflowMenu {
             Image(uiImage: WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage())
-                .foregroundStyle(.white)
+                .foregroundStyle(Color(uiColor: WMFColor.white))
                 .shadow(radius: 2)
                 .padding(12)
                 .background(.ultraThinMaterial, in: Circle())
@@ -408,7 +449,7 @@ private struct WMFForYouArticleCardView: View {
     private var miniCardMenu: some View {
         overflowMenu {
             Image(uiImage: WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage())
-                .foregroundStyle(.white)
+                .foregroundStyle(Color(uiColor: WMFColor.white))
                 .padding(8)
         }
     }
@@ -444,7 +485,7 @@ private struct WMFForYouArticleCardView: View {
                     VStack(alignment: .leading, spacing: 0) {
                         Text(viewModel.extract ?? viewModel.title)
                             .font(Font(WMFFont.for(.georgiaTitle1)))
-                            .foregroundStyle(.white)
+                            .foregroundStyle(Color(uiColor: WMFColor.white))
                             .lineLimit(8)
                             .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -472,7 +513,7 @@ private struct WMFForYouArticleCardView: View {
                         HStack(alignment: .top, spacing: 12) {
                             Text(viewModel.title)
                                 .font(Font(WMFFont.for(.georgiaTitle1)))
-                                .foregroundStyle(.white)
+                                .foregroundStyle(Color(uiColor: WMFColor.white))
                                 .shadow(color: cardColor.opacity(0.8), radius: 4)
                                 .lineLimit(effectiveVariant == .imageFocused ? 1 : 3)
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -491,7 +532,7 @@ private struct WMFForYouArticleCardView: View {
                             Spacer().frame(height: 12)
                             Text(bodyText)
                                 .font(Font(WMFFont.for(.body)))
-                                .foregroundStyle(.white.opacity(0.9))
+                                .foregroundStyle(Color(uiColor: WMFColor.white).opacity(0.9))
                                 .shadow(color: cardColor.opacity(0.8), radius: 4)
                                 .lineLimit(effectiveVariant == .imageFocused ? 2 : 5)
                         }
@@ -510,7 +551,7 @@ private struct WMFForYouArticleCardView: View {
                             stops: [
                                 .init(color: cardColor.opacity(0), location: 0.0),
                                 .init(color: cardColor.opacity(0.75), location: 0.12),
-                                .init(color: .black, location: 1)
+                                .init(color: Color(uiColor: WMFColor.black), location: 1)
                             ],
                             startPoint: .top,
                             endPoint: .bottom
@@ -526,6 +567,22 @@ private struct WMFForYouArticleCardView: View {
             .contentShape(Rectangle())
             .onTapGesture { onTapCard() }
             .onAppear { viewModel.load() }
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(.isButton)
+            .accessibilityLabel(viewModel.accessibilityLabel)
+            .accessibilityAction { onTapCard() }
+            .accessibilityAction(named: Text(viewModel.isSaved ? viewModel.unsaveTitle : viewModel.saveTitle)) {
+                viewModel.toggleSaved()
+                if viewModel.isSaved {
+                    onSaveCard()
+                } else {
+                    onUnsaveCard()
+                }
+            }
+            .accessibilityAction(named: Text(viewModel.shareTitle)) { onShareCard() }
+            .accessibilityAction(named: Text(viewModel.hideCardTitle)) { onHideCard() }
+            .accessibilityAction(named: Text(viewModel.hideModuleTitle)) { onHideModule() }
+            .accessibilityAction(named: Text(viewModel.customizeInterestsTitle)) { onCustomizeInterests() }
             // Fades the photograph and its sampled colour in when the card finishes loading.
             .animation(.easeOut(duration: 0.2), value: viewModel.loadState == .loading)
         }
