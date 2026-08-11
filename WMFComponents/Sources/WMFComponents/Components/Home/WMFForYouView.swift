@@ -196,7 +196,7 @@ private struct WMFForYouHeaderLabelView: View {
             }
             label
         }
-        .foregroundStyle(.white.opacity(0.8))
+        .foregroundStyle(Color(uiColor: WMFColor.white).opacity(0.8))
         .lineLimit(2)
         .minimumScaleFactor(0.35)
     }
@@ -290,7 +290,7 @@ private struct WMFForYouPageView: View {
                 ForEach(articleViewModels, id: \.cardUniqueKey) { article in
                     let isCurrent = article.cardUniqueKey == currentPageKey
                     Circle()
-                        .fill(isCurrent ? Color.white : Color.white.opacity(0.4))
+                        .fill(isCurrent ? Color(uiColor: WMFColor.white) : Color(uiColor: WMFColor.white).opacity(0.4))
                         .frame(
                             width: isCurrent ? WMFForYouCardMetrics.dotDiameter : WMFForYouCardMetrics.dotDiameter - 1,
                             height: isCurrent ? WMFForYouCardMetrics.dotDiameter : WMFForYouCardMetrics.dotDiameter - 1
@@ -318,12 +318,12 @@ private struct WMFForYouMiniCard<Menu: View>: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(Font(WMFFont.for(.boldSubheadline)))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(Color(uiColor: WMFColor.white))
                     .lineLimit(1)
                 if let description {
                     Text(description)
                         .font(Font(WMFFont.for(.caption1)))
-                        .foregroundStyle(.white.opacity(0.8))
+                        .foregroundStyle(Color(uiColor: WMFColor.white).opacity(0.8))
                         .lineLimit(2)
                 }
             }
@@ -337,7 +337,7 @@ private struct WMFForYouMiniCard<Menu: View>: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             } else {
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(.white.opacity(0.15))
+                    .fill(Color(uiColor: WMFColor.white).opacity(0.15))
                     .frame(width: 56, height: 56)
             }
 
@@ -381,7 +381,7 @@ private struct WMFForYouArticleCardView: View {
         case .textFocused:
             return WMFForYouCardVariant.textFocusedBackgrounds[variantIndex % WMFForYouCardVariant.textFocusedBackgrounds.count]
         default:
-            return viewModel.sampledColor ?? Color.black
+            return viewModel.sampledColor ?? Color(uiColor: WMFColor.black)
         }
     }
 
@@ -439,7 +439,7 @@ private struct WMFForYouArticleCardView: View {
     private var floatingMenu: some View {
         overflowMenu {
             Image(uiImage: WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage())
-                .foregroundStyle(.white)
+                .foregroundStyle(Color(uiColor: WMFColor.white))
                 .shadow(radius: 2)
                 .padding(12)
                 .background(.ultraThinMaterial, in: Circle())
@@ -449,7 +449,7 @@ private struct WMFForYouArticleCardView: View {
     private var miniCardMenu: some View {
         overflowMenu {
             Image(uiImage: WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage())
-                .foregroundStyle(.white)
+                .foregroundStyle(Color(uiColor: WMFColor.white))
                 .padding(8)
         }
     }
@@ -485,7 +485,7 @@ private struct WMFForYouArticleCardView: View {
                     VStack(alignment: .leading, spacing: 0) {
                         Text(viewModel.extract ?? viewModel.title)
                             .font(Font(WMFFont.for(.georgiaTitle1)))
-                            .foregroundStyle(.white)
+                            .foregroundStyle(Color(uiColor: WMFColor.white))
                             .lineLimit(8)
                             .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -513,7 +513,7 @@ private struct WMFForYouArticleCardView: View {
                         HStack(alignment: .top, spacing: 12) {
                             Text(viewModel.title)
                                 .font(Font(WMFFont.for(.georgiaTitle1)))
-                                .foregroundStyle(.white)
+                                .foregroundStyle(Color(uiColor: WMFColor.white))
                                 .shadow(color: cardColor.opacity(0.8), radius: 4)
                                 .lineLimit(effectiveVariant == .imageFocused ? 1 : 3)
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -532,7 +532,7 @@ private struct WMFForYouArticleCardView: View {
                             Spacer().frame(height: 12)
                             Text(bodyText)
                                 .font(Font(WMFFont.for(.body)))
-                                .foregroundStyle(.white.opacity(0.9))
+                                .foregroundStyle(Color(uiColor: WMFColor.white).opacity(0.9))
                                 .shadow(color: cardColor.opacity(0.8), radius: 4)
                                 .lineLimit(effectiveVariant == .imageFocused ? 2 : 5)
                         }
@@ -551,7 +551,7 @@ private struct WMFForYouArticleCardView: View {
                             stops: [
                                 .init(color: cardColor.opacity(0), location: 0.0),
                                 .init(color: cardColor.opacity(0.75), location: 0.12),
-                                .init(color: .black, location: 1)
+                                .init(color: Color(uiColor: WMFColor.black), location: 1)
                             ],
                             startPoint: .top,
                             endPoint: .bottom

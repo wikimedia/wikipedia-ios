@@ -32,7 +32,7 @@ public struct WMFHomeView: View {
         if viewModel.isRefreshingForYou {
             ProgressView()
                 .progressViewStyle(.circular)
-                .tint(.white)
+                .tint(Color(uiColor: WMFColor.white))
                 .padding(10)
                 .background(Circle().fill(.ultraThinMaterial))
                 .accessibilityLabel(viewModel.forYouRefreshingAccessibilityLabel)
@@ -144,10 +144,10 @@ public struct WMFHomeView: View {
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
                         .dynamicTypeSize(.xSmall ... .large)
                         .minimumScaleFactor(0.25)
-                        .foregroundStyle(isForYou ? .white : .primary)
+                        .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
                         .lineLimit(1)
                     Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronUpChevronDown, font: .boldCaption1) ?? UIImage())
-                        .foregroundStyle(isForYou ? .white : .primary)
+                        .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
