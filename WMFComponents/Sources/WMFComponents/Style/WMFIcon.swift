@@ -53,7 +53,7 @@ public enum WMFIcon {
 }
 
 public enum WMFSFSymbolIcon {
-    
+    case arrowUpForward
     case checkmark
     case checkmarkCircleFill
     case checkmarkSquareFill
@@ -203,6 +203,8 @@ public enum WMFSFSymbolIcon {
 
         var image: UIImage?
         switch symbol {
+        case .arrowUpForward:
+            image = UIImage(systemName: "arrow.up.forward.app", withConfiguration: configuration)
         case .checkmark:
             image = UIImage(systemName: "checkmark", withConfiguration: configuration)
         case .checkmarkCircleFill:

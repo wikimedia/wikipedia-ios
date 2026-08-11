@@ -151,6 +151,11 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         gamesDataController.resetAnnouncementSeen()
     }
 
+    public var enableVisualEditingJourney: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue, value: newValue) }
+    }
+
     // MARK: - Reading Challenge Forced States
 
     private var sharedDefaults: UserDefaults? { UserDefaults(suiteName: "group.org.wikimedia.wikipedia") }

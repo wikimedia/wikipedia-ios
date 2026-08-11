@@ -99,6 +99,7 @@
 "activity-tab-empty-subtitle" = "د خپل پېښليک جوړولو لپاره لوستل او سمول پيل کړئ";
 "activity-tab-empty-title" = "ښودلو لپاره څه نشته";
 "activity-tab-generic-no-edits" = "تاسو دا اوونۍ هېڅ ترميم نه دی کړی. د خپلو ونډو څارولو لپاره همدا اوس پيل کړئ.";
+"activity-tab-hitory-callout-close" = "د پېښليک خبرونې کارت تړل";
 "activity-tab-hours-minutes-read" = "$1hگړۍ $2دقيقې";
 "activity-tab-hours-on-wikipedia-ios" = "په ويکي‌پېډيا آی‌او‌اېس";
 "activity-tab-impact-all-time-title" = "ټول مهاله اغېز";

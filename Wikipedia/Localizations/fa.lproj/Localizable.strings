@@ -312,6 +312,9 @@
 "cc-zero" = "Creative Commons CC0";
 "chinese-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان چینی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n简体 Chinese, Simplified (zh-hans)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)";
 "chinese-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان چینی";
+"choose-editor-source-title" = "ویرایش مبدأ";
+"choose-editor-title" = "نحوه ویرایش را انتخاب کنید";
+"choose-editor-visual-title" = "ویرایش دیداری";
 "clear-title-accessibility-label" = "پاک‌کردن";
 "clearing-cache-complete" = "پاکسازی کاشه کامل شد.";
 "clearing-cache-error" = "خطای پاکسازی حافظهٔ نهان.";
@@ -327,6 +330,7 @@
 "close-tabs" = "بستن زبانه‌ها";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|زبانه}} بسته شد.";
 "collect-prize-title" = "جایزه‌ات را جمع کن!";
+"community-detail-back-button-title" = "بازگشت به محتوای جامعه";
 "compass-direction" = "در ساعت $1";
 "confirm-donation-history-deletion-subtitle" = "این فقط بر کمک‌های اعطا شده از روی همین دستگاه اعمال می‌شود.";
 "confirm-donation-history-deletion-title" = "تأیید حذف";
@@ -871,7 +875,7 @@
 "insert-media-image-type-setting-frame" = "قاب";
 "insert-media-image-type-setting-frameless" = "بدون قاب";
 "insert-media-image-type-setting-thumbnail" = "بندانگشتی";
-"insert-media-image-type-settings-footer-title" = "می ةوانید مشخص کنید که آیتم رسانه چگونه در صفحه نمایش داده شود. این مورد برای حالت بندانگشتی است که شامل همه موارد و همه صفحات می‌شود.";
+"insert-media-image-type-settings-footer-title" = "می توانید مشخص کنید که آیتم رسانه چگونه در صفحه نمایش داده شود. این مورد برای حالت بندانگشتی است که شامل همه موارد و همه صفحات می‌شود.";
 "insert-media-image-type-settings-title" = "نوع تصویر";
 "insert-media-media-settings-title" = "تنظیمات رسانه";
 "insert-media-title" = "درج رسانه";
