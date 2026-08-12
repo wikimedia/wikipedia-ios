@@ -263,7 +263,7 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
 
     // NOTE: fetchLinkedPageViews() is intentionally left uncovered here. Exercising it with a
     // linked Start -> Middle -> End chain (built via addPageView's previousPageViewObjectID)
-    // crashes the test runner, which looks like a latent issue in the relationship walk rather
-    // than a test problem. Tracking that separately rather than shipping a crashing test.
+    // crashes the test runner when the returned managed objects are accessed off their context's
+    // queue. The relationship walk itself completes successfully; track the API issue separately.
 
 }
