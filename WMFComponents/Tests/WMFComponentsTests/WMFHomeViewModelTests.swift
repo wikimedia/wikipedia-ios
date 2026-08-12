@@ -1,11 +1,20 @@
 import XCTest
 import UIKit
+import WMFDataTestSupport
 @testable import WMFComponents
 @testable import WMFData
 import WMFDataMocks
 
 @MainActor
 final class WMFHomeViewModelTests: XCTestCase {
+
+    private let fixture = WMFDataTestFixture()
+
+    /// Takes the Core Data store away, so that a fetch stops immediately. Thus a test that must not
+    /// use the network gets an exact time.
+    private func removeCoreDataStore() async {
+        WMFDataEnvironment.current.coreDataStore = nil
+    }
 
     private func makeViewModel() -> (WMFHomeViewModel, WMFHomeDataController) {
         let controller = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
@@ -316,24 +325,23 @@ final class WMFHomeViewModelTests: XCTestCase {
     /// refresh, so the indicator must not depend on the task of that view.
     ///
     /// With no Core Data store the fetch fails immediately, which makes the timing exact and keeps
-    /// the test off the network.
+    /// the test off the network. The fixture holds the global state and puts the environment back,
+    /// so this change cannot reach the other tests.
     func testRefreshIndicatorStaysOnAfterTheRefreshReturns() async {
-        let (vm, _) = makeViewModel()
-        let store = WMFDataEnvironment.current.coreDataStore
-        WMFDataEnvironment.current.coreDataStore = nil
-        defer { WMFDataEnvironment.current.coreDataStore = store }
+        await fixture.withConfiguredEnvironment(configure: removeCoreDataStore) {
+            let (vm, _) = makeViewModel()
+            vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
 
-        vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+            let start = Date()
+            await vm.refreshForYouFeed(minimumIndicatorDuration: 0.2)
 
-        let start = Date()
-        await vm.refreshForYouFeed(minimumIndicatorDuration: 0.2)
+            XCTAssertTrue(vm.isRefreshingForYou)
 
-        XCTAssertTrue(vm.isRefreshingForYou)
+            await vm.refreshIndicatorTask?.value
 
-        await vm.refreshIndicatorTask?.value
-
-        XCTAssertGreaterThanOrEqual(Date().timeIntervalSince(start), 0.2)
-        XCTAssertFalse(vm.isRefreshingForYou)
+            XCTAssertGreaterThanOrEqual(Date().timeIntervalSince(start), 0.2)
+            XCTAssertFalse(vm.isRefreshingForYou)
+        }
     }
 
     /// With no language there is nothing to fetch, so the indicator must not appear at all.
