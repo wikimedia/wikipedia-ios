@@ -18,8 +18,6 @@ extension ArticleViewController {
         if let project = WikimediaProject(siteURL: articleURL) {
             EditInteractionFunnel.shared.logArticleDidTapEditSectionButton(project: project)
         }
-
-        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
 
     func showEditorForFullSource() {
@@ -105,6 +103,7 @@ extension ArticleViewController {
         let editTag: WMFEditTag = selectedTextEditInfo == nil ?  .appSectionSource : .appSelectSource
 
         presentEditingFlow(with: id, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
+        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
 
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource) {
