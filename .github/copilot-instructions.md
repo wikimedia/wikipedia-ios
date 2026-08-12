@@ -449,13 +449,58 @@ Rules:
 - Pre-existing diagnostics in files you did not touch are the burn-down's job, not yours. You are not required to fix them, but do not add to them. If you touch a file that already has some, leave it no worse.
 - Do not change `swiftLanguageModes` in either `Package.swift` as part of unrelated work. The flip is a deliberate, standalone change — the `.v5` pin and its comment stay until then.
 
-To verify a change is clean, do not just read the build result — check the diagnostics for the files you touched:
+### Verifying compliance — required on every change
+
+You must actually run a strict-concurrency check on every change that adds or modifies Swift code, and report what it returned. This is not optional and does not scale with how small the change looks. Reading the code and concluding it "looks Sendable-clean" is not verification, and neither is a green `xcodebuild` — in `.v5` mode a violation is a warning, so the build succeeds either way.
+
+The check depends on which layer you touched, because package targets and app-project targets are configured differently.
+
+**Package code (WMFData, WMFComponents): flip the language mode locally.**
+
+Under `.v6` violations become errors, so they cannot hide in a long log. This is the authoritative check.
 
 ```
-xcodebuild -scheme WMFData -project Wikipedia.xcodeproj -destination "platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5" build 2>&1 | grep -iE "warning:.*(concurrency|sendable|actor-isolated|data race|main actor)"
+# 1. flip the pin
+sed -i '' 's/swiftLanguageModes: \[\.v5\]/swiftLanguageModes: [.v6]/' WMFData/Package.swift
+
+# 2. build and read the errors
+xcodebuild -scheme WMFData -project Wikipedia.xcodeproj \
+  -destination "platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5" \
+  build > /tmp/v6.log 2>&1; grep -E "error:" /tmp/v6.log
+
+# 3. ALWAYS revert — never commit the .v6 pin
+git checkout WMFData/Package.swift
 ```
 
-For a stronger check, temporarily set the package's `swiftLanguageModes` to `[.v6]` locally, build, confirm your files are error-free, then revert the pin before committing.
+Compare against the known baseline rather than expecting zero. As of this writing:
+
+- **WMFData — 2 errors**, both in `Sources/WMFData/Service/WMFBasicService.swift` (non-`Sendable` `completion` captured in a `@Sendable` closure).
+- **WMFComponents — 16 errors**, concentrated in `Environment/WMFAppEnvironment.swift`, `Extensions/DateFormatter+Extensions.swift`, `Style/WMFTheme.swift`, `Utility/WMFCardGridColumns.swift`, and `Components/Editors/.../WMFEditorInputView.swift` — mostly nonisolated global mutable state (`static` formatters and themes) and main-actor conformance crossings.
+
+Those belong to the burn-down. Any error beyond that baseline, or any error naming a file you touched, is yours to fix before merge. If these counts no longer match what you see, the burn-down has moved — trust the build, and update these numbers.
+
+Two things to know about this check: a `.v6` build stops at the first failing module, so errors in one place can mask others — re-run after each fix until you reach the baseline. And if you leave the pin flipped, you will hand in a `Package.swift` change that flips the whole project to Swift 6; verify with `git status` that it is reverted.
+
+**App-side code (Wikipedia / Experimental / Staging targets, WMF Framework): pass the flag on the command line.**
+
+These are Xcode project targets, so `swiftLanguageModes` does not apply to them. `Configurations/SwiftConcurrency.xcconfig` holds the staged migration flags, deliberately all commented out so the file changes no build behavior — do **not** uncomment them for a routine change. Override on the command line instead, which edits nothing and leaves nothing to revert:
+
+```
+xcodebuild -scheme Wikipedia -project Wikipedia.xcodeproj \
+  -destination "platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5" \
+  SWIFT_STRICT_CONCURRENCY=complete build > /tmp/strict.log 2>&1
+
+grep -E "error:|warning:.*(Sendable|actor-isolated|main actor|data race)" /tmp/strict.log
+```
+
+Judge this one by the diagnostics for your files, not by the exit code. Two caveats, both currently true:
+
+- This build **fails today on a pre-existing error** — `WMF Framework/ColumnarCollectionViewLayoutInfo.swift:17`, a main-actor-isolated call from a synchronous nonisolated context. That failure is not yours and it aborts the build, which means targets after it never compile and your coverage is incomplete. For package code, rely on the `.v6` check above instead.
+- It reports on the order of **1400** concurrency warnings across the app and both packages, because it re-compiles the packages under `complete` too. Do not try to read that list. Filter it to the files your change touched.
+
+**Check every layer your change reaches.** A violation you introduce can surface only downstream: change a public WMFData API or shared model and the diagnostic may appear in WMFComponents or app-side, not in WMFData. Touched `WMFData/Sources` → check the `WMFData` package, then the consumers. Touched `WMFComponents/Sources` → check the `WMFComponents` package, then app-side. Touched app targets or `WMF Framework` → check the `Wikipedia` scheme.
+
+**Report the result concretely.** Name the scheme, the mode you ran it in, and the diagnostics for your files — for example, "`.v6` build of WMFData: 0 errors in changed files, the 2 known `WMFBasicService` errors unchanged." If you could not run a check, say which one and why. Never describe an unverified change as Swift 6 compliant.
 
 ### General Rules
 
