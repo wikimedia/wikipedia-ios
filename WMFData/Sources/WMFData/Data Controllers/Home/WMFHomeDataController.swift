@@ -196,7 +196,7 @@ public final actor WMFHomeDataController {
             for topic in topics {
                 group.addTask {
                     let articles = try await self.fetchArticles(for: topic, project: project)
-                    let mapped = await self.assignCardSlots(articles.shuffled())
+                    let mapped = await self.assignCardSlots(articles)
                         .map { WMFForYouArticle(title: $0.title, project: project) }
                     return WMFForYouInterestTopicRandomArticles(topic: topic, articles: mapped)
                 }
@@ -233,6 +233,26 @@ public final actor WMFHomeDataController {
             for try await item in group { results.append(item) }
             return results
         }
+    }
+    
+    private func assignCardSlots(_ articles: [WMFRelatedPagesDataController.WMFRelatedPage]) -> [WMFRelatedPagesDataController.WMFRelatedPage] {
+        let withThumbnail = articles.filter { $0.thumbnailURL != nil }
+        let withoutThumbnail = articles.filter { $0.thumbnailURL == nil }
+
+        var imageQueue = withThumbnail.makeIterator()
+        var textQueue = withoutThumbnail.makeIterator()
+
+        func next(preferImage: Bool) -> WMFRelatedPagesDataController.WMFRelatedPage? {
+            preferImage ? (imageQueue.next() ?? textQueue.next())
+                        : (textQueue.next() ?? imageQueue.next())
+        }
+
+        return [
+            next(preferImage: true),
+            next(preferImage: true),
+            next(preferImage: false),
+            next(preferImage: true)
+        ].compactMap { $0 }
     }
     
     private func assignCardSlots(_ articles: [WMFRandomArticle]) -> [WMFRandomArticle] {

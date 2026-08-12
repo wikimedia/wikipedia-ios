@@ -40,6 +40,7 @@ public actor WMFRelatedPagesDataController {
             }
 
             struct PageProps: Codable {
+                let mainpage: String?
                 let disambiguation: String?
             }
         }
@@ -96,6 +97,7 @@ public actor WMFRelatedPagesDataController {
         }
 
         return pages.filter { page in
+            guard page.pageprops?.mainpage == nil else { return false }
             guard filterDisambiguationPages else { return true }
             return page.pageprops?.disambiguation == nil
         }.map { page in
