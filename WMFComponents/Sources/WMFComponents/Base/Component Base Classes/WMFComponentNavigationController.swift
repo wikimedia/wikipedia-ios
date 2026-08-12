@@ -42,6 +42,13 @@ open class WMFComponentNavigationController: UINavigationController {
         triggerNavigationBarRender()
     }
     
+    private var shouldUseTransparentAppearance: Bool = false
+
+    public func setTransparentAppearance(_ transparent: Bool) {
+        shouldUseTransparentAppearance = transparent
+        setBarAppearance(customLargeTitleFont: customLargeTitleFont)
+    }
+    
     // HACK: Forces liquid glass bar button items to re-render with correct appearance.
     // Without this, buttons render incorrectly until a layout event occurs (e.g. keyboard appearing).
     public func triggerNavigationBarRender() {
@@ -117,6 +124,17 @@ open class WMFComponentNavigationController: UINavigationController {
     private var customLargeTitleFont: UIFont?
 
     func setBarAppearance(customLargeTitleFont: UIFont?) {
+        guard !shouldUseTransparentAppearance else {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithTransparentBackground()
+            navigationBar.standardAppearance = appearance
+            navigationBar.scrollEdgeAppearance = appearance
+            navigationBar.compactAppearance = appearance
+            if #available(iOS 18.0, *) {
+                navigationBar.compactScrollEdgeAppearance = appearance
+            }
+            return
+        }
         if #available(iOS 26.0, *) {
             applySystemGlassAppearance(customLargeTitleFont: customLargeTitleFont)
         } else {

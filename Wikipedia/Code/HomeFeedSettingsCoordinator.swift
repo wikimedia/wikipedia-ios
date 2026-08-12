@@ -12,6 +12,8 @@ final class HomeFeedSettingsCoordinator: Coordinator {
         case root
         /// Deep-links straight to "What's driving your feed" (e.g. from a button in the feed).
         case modalFromFeed
+        /// Direct to interests
+        case interests
     }
 
     enum Presentation {
@@ -60,6 +62,9 @@ final class HomeFeedSettingsCoordinator: Coordinator {
         case .modalFromFeed:
             let closeButtonHandler: (() -> Void)? = presentation == .modal ? { [weak self] in self?.dismissModal() } : nil
             initialViewController = makeWhatsDrivingViewController(closeButtonHandler: closeButtonHandler)
+        case .interests:
+            let closeButtonHandler: (() -> Void)? = presentation == .modal ? { [weak self] in self?.dismissModal() } : nil
+            initialViewController = makeInterestsViewController(closeButtonHandler: closeButtonHandler)
         }
 
         switch presentation {
@@ -72,6 +77,16 @@ final class HomeFeedSettingsCoordinator: Coordinator {
             navigationController.present(modalNav, animated: true)
         }
         return true
+    }
+    
+    private func makeInterestsViewController(closeButtonHandler: (() -> Void)? = nil) -> WMFHomeFeedInterestsSettingsViewController {
+        let language = homeDataController.selectedLanguage() ?? WMFDataEnvironment.current.primaryAppLanguage ?? WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        let project = WMFProject.wikipedia(language)
+        let searchLanguages = MWKDataStore.shared().languageLinkController.preferredLanguages.map {
+            WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode)
+        }
+        let viewModel = WMFHomeFeedInterestsSettingsViewModel(project: project, searchLanguages: searchLanguages)
+        return WMFHomeFeedInterestsSettingsViewController(viewModel: viewModel, closeButtonHandler: closeButtonHandler)
     }
 
     // MARK: - View controller factories
