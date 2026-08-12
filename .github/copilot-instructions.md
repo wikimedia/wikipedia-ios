@@ -405,7 +405,7 @@ WMFData:
 xcodebuild \
       -scheme WMFData \
       -project Wikipedia.xcodeproj \
-       -destination "platform=iOS Simulator,name=iPhone 16,OS=18.6" \
+       -destination "platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5" \
       build | xcbeautify
 ```
 
@@ -414,7 +414,7 @@ WMFComponents:
 xcodebuild \
       -scheme WMFData \
       -project Wikipedia.xcodeproj \
-       -destination "platform=iOS Simulator,name=iPhone 16,OS=18.6" \
+       -destination "platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5" \
       build | xcbeautify
 ```
 
@@ -424,7 +424,7 @@ App-side:
 xcodebuild \
       -scheme Wikipedia \
       -project Wikipedia.xcodeproj \
-      -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.6' \
+      -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' \
       build | xcbeautify
 ```
 
@@ -435,6 +435,27 @@ To run unit tests, use the same commands but add "test" after xcodebuild, e.g. `
 ## Swift 6 Strict Concurrency
 
 All new code must comply with Swift 6 strict concurrency. The following rules apply across WMFData, WMFComponents, and app-side code.
+
+### New code must not introduce new Swift 6 diagnostics
+
+The project has **not** flipped to Swift 6 language mode yet. `WMFData/Package.swift` and `WMFComponents/Package.swift` are explicitly pinned to `swiftLanguageModes: [.v5]` while we finish the strict-concurrency burn-down, so today a Swift 6 violation compiles as a **warning** and the build still goes green.
+
+Do not read that green build as permission. Any new Swift 6 concurrency diagnostic introduced by a change is a **PR blocker** — it must be fixed before merge, not deferred to the flip. A passing `xcodebuild` is necessary but not sufficient evidence that a change is ready.
+
+Rules:
+
+- Code you add or modify must produce **zero** Swift 6 concurrency diagnostics. Fix them at the source (correct isolation, `Sendable` models, actor boundaries) rather than working around them.
+- Never silence a diagnostic to clear the warning. `@preconcurrency`, `nonisolated(unsafe)`, `@unchecked Sendable`, and gratuitous `MainActor.assumeIsolated` are not fixes — they hide the problem the flip will surface. Use them only when there is no alternative (usually a legacy Obj-C boundary) and leave a comment explaining why.
+- Pre-existing diagnostics in files you did not touch are the burn-down's job, not yours. You are not required to fix them, but do not add to them. If you touch a file that already has some, leave it no worse.
+- Do not change `swiftLanguageModes` in either `Package.swift` as part of unrelated work. The flip is a deliberate, standalone change — the `.v5` pin and its comment stay until then.
+
+To verify a change is clean, do not just read the build result — check the diagnostics for the files you touched:
+
+```
+xcodebuild -scheme WMFData -project Wikipedia.xcodeproj -destination "platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5" build 2>&1 | grep -iE "warning:.*(concurrency|sendable|actor-isolated|data race|main actor)"
+```
+
+For a stronger check, temporarily set the package's `swiftLanguageModes` to `[.v6]` locally, build, confirm your files are error-free, then revert the pin before committing.
 
 ### General Rules
 
