@@ -196,10 +196,7 @@ public final actor WMFHomeDataController {
             for topic in topics {
                 group.addTask {
                     let articles = try await self.fetchArticles(for: topic, project: project)
-                    let mapped = articles
-                        .shuffled()
-                        .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
-                        .sorted { $0.thumbnail != nil && $1.thumbnail == nil }
+                    let mapped = await self.sortedByThumbnailPriority(articles.shuffled())
                         .prefix(4)
                         .map { WMFForYouArticle(title: $0.title, project: project) }
                     return WMFForYouInterestTopicRandomArticles(topic: topic, articles: mapped)
@@ -209,6 +206,14 @@ public final actor WMFHomeDataController {
             for try await item in group { results.append(item) }
             return results
         }
+    }
+    
+    /// Sorts articles so that those with thumbnails come first, using the decoded
+    /// `index` field as a stable tiebreaker within each group.
+    private func sortedByThumbnailPriority(_ articles: [WMFRandomArticle]) -> [WMFRandomArticle] {
+        return articles
+            .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
+            .sorted { $0.thumbnail != nil && $1.thumbnail == nil }
     }
 
     private func fetchForYouInterestPageRelatedArticles(project: WMFProject) async throws -> [WMFForYouInterestPageRelatedArticles] {
