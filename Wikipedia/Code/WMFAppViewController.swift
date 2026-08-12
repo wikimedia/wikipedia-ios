@@ -41,7 +41,6 @@ public let WMFLanguageVariantAlertsLibraryVersion = "WMFLanguageVariantAlertsLib
 // MARK: - WMFAppViewController
 
 final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
-
     // MARK: - Public properties
 
     private(set) var theme: Theme = Theme.standard
@@ -1051,6 +1050,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             resumeAndAnnouncementsCompleteGroup.leave()
             self.performTasksThatShouldOccurAfterBecomeActiveAndResume()
             self.showLoggedOutPanelIfNeeded()
+            self.presentOneTimeHomeOnboardingIfNeeded()
             let key = WMFUserDefaultsKey.needsDailyGameFeedRefresh.rawValue
             if UserDefaults.standard.bool(forKey: key) {
                 UserDefaults.standard.removeObject(forKey: key)
@@ -1091,6 +1091,112 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         defaults.wmf_setLocationAuthorized(locationAuthorized)
 
         savedArticlesFetcher?.start()
+    }
+    
+    private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
+    
+    private var oneTimeOnboardingViewController: WMFOnboardingViewController?
+    
+    private func presentOneTimeHomeOnboardingIfNeeded() {
+        guard selectedIndex == WMFAppTabType.main.rawValue else { return }
+        guard let homeNav = viewControllers?[WMFAppTabType.main.rawValue] as? UINavigationController,
+              homeNav.viewControllers.count == 1 else { return }
+        guard presentedViewController == nil else { return }
+
+        // An existing user is one who has already completed ANY prior onboarding flow.
+        // New installs will not have this key set yet; they see full app onboarding instead.
+        let isExistingUser = UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding)
+        let hasSeen = WMFHomeDataController.shared.hasSeenNewHomeOnboarding()
+        let alwaysShow = WMFDeveloperSettingsDataController.shared.alwaysShowNewOnboarding
+        guard WMFDeveloperSettingsDataController.shared.enableHomeTab || WMFDeveloperSettingsDataController.shared.enableHomePhase2 else { return }
+        guard isExistingUser && (alwaysShow || !hasSeen) else { return }
+
+        WMFHomeDataController.shared.setHasSeenNewHomeOnboarding(true)
+
+        let viewModel = WMFOnboardingViewModel(
+            title: WMFLocalizedString(
+                "one-time-onboarding-title",
+                value: "Explore is now Home, with a new look",
+                comment: "Title of the one-time onboarding sheet shown to existing users after the Explore tab is renamed to Home."
+            ),
+            cells: [
+                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
+                    icon: WMFSFSymbolIcon.for(symbol: .house),
+                    title: WMFLocalizedString(
+                        "one-time-onboarding-feature-name-title",
+                        value: "A new name",
+                        comment: "Title of the 'A new name' feature item on the one-time onboarding sheet."
+                    ),
+                    subtitle: WMFLocalizedString(
+                        "one-time-onboarding-feature-name-body",
+                        value: "The Explore feed is now Home, in the same spot as before.",
+                        comment: "Description of the 'A new name' feature item on the one-time onboarding sheet."
+                    ),
+                    tintBlue: true
+                ),
+                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
+                    icon: WMFSFSymbolIcon.for(symbol: .squareSplit),
+                    title: WMFLocalizedString(
+                        "one-time-onboarding-feature-feed-title",
+                        value: "Your feed, two ways",
+                        comment: "Title of the 'Your feed, two ways' feature item on the one-time onboarding sheet."
+                    ),
+                    subtitle: WMFLocalizedString(
+                        "one-time-onboarding-feature-feed-body",
+                        value: "Discover articles personalized to your interests in For You, or browse Wikipedia's best editorial content in Community.",
+                        comment: "Description of the 'Your feed, two ways' feature item on the one-time onboarding sheet."
+                    ),
+                    tintBlue: true
+                ),
+                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
+                    icon: WMFSFSymbolIcon.for(symbol: .sliderHorizontal3),
+                    title: WMFLocalizedString(
+                        "one-time-onboarding-feature-control-title",
+                        value: "Stay in control",
+                        comment: "Title of the 'Stay in control' feature item on the one-time onboarding sheet."
+                    ),
+                    subtitle: WMFLocalizedString(
+                        "one-time-onboarding-feature-control-body",
+                        value: "Every recommendation tells you exactly why it's there. You can update your preferences anytime in Settings.",
+                        comment: "Description of the 'Stay in control' feature item on the one-time onboarding sheet."
+                    ),
+                    tintBlue: true
+                ),
+                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
+                    icon: WMFSFSymbolIcon.for(symbol: .globeAmericas),
+                    title: WMFLocalizedString(
+                        "one-time-onboarding-feature-languages-title",
+                        value: "Every language, fully personalized",
+                        comment: "Title of the 'Every language, fully personalized' feature item on the one-time onboarding sheet."
+                    ),
+                    subtitle: WMFLocalizedString(
+                        "one-time-onboarding-feature-languages-body",
+                        value: "Reading in multiple languages? Each one gets its own experience. Just switch and your new feed is ready.",
+                        comment: "Description of the 'Every language, fully personalized' feature item on the one-time onboarding sheet."
+                    ),
+                    tintBlue: true
+                )
+            ],
+            primaryButtonTitle: WMFLocalizedString(
+                "one-time-onboarding-customize-button",
+                value: "Customize my feed",
+                comment: "Primary button on the one-time onboarding sheet that opens the feed customization flow."
+            ),
+            secondaryButtonTitle: WMFLocalizedString(
+                "one-time-onboarding-auto-setup-button",
+                value: "Set it up for me",
+                comment: "Secondary button on the one-time onboarding sheet that automatically configures the feed without customization."
+            )
+        )
+
+        let onboardingVC = WMFOnboardingViewController(viewModel: viewModel)
+        onboardingVC.modalPresentationStyle = .pageSheet
+        onboardingVC.delegate = self
+        oneTimeOnboardingViewController = onboardingVC
+
+        DispatchQueue.main.async {
+            self.present(onboardingVC, animated: true)
+        }
     }
 
     private func timeBeforeRefreshingExploreFeed() -> TimeInterval {
@@ -2226,5 +2332,44 @@ extension WMFAppViewController {
         }
         let navVC = WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .overFullScreen, customBarBackgroundColor: nil)
         present(navVC, animated: true, completion: nil)
+    }
+}
+
+// MARK: - WMFOnboardingViewDelegate (one-time home onboarding)
+
+extension WMFAppViewController: WMFOnboardingViewDelegate {
+
+    func onboardingViewDidClickPrimaryButton() {
+        oneTimeOnboardingViewController?.dismiss(animated: true) { [weak self] in
+            guard let self else { return }
+            self.oneTimeOnboardingViewController = nil
+            let coordinator = AppOnboardingCoordinator(
+                presentingViewController: self,
+                dataStore: self.dataStore,
+                theme: self.theme,
+                willDismiss: { [weak self] in
+                    self?.loadMainUI()
+                },
+                completion: { [weak self] in
+                    if let homeViewModel = self?.homeCoordinator?.homeViewController?.viewModel {
+                        homeViewModel.selectedTab = WMFHomeDataController.shared.seeFirstContent() == .personalized ? .forYou : .community
+                    }
+                    self?.appOnboardingCoordinator = nil
+                }
+            )
+            self.appOnboardingCoordinator = coordinator
+            coordinator.startCondensed()
+        }
+    }
+
+    func onboardingViewDidClickSecondaryButton() {
+        WMFHomeDataController.shared.setSeeFirstContent(.community)
+        if let homeViewModel = homeCoordinator?.homeViewController?.viewModel {
+            homeViewModel.selectedTab = .community
+            homeViewModel.loadForYouFeedIfNeeded()
+        }
+        oneTimeOnboardingViewController?.dismiss(animated: true) { [weak self] in
+            self?.oneTimeOnboardingViewController = nil
+        }
     }
 }
