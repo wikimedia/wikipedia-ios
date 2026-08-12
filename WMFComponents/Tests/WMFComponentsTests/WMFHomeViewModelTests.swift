@@ -10,6 +10,12 @@ final class WMFHomeViewModelTests: XCTestCase {
 
     private let fixture = WMFDataTestFixture()
 
+    /// Takes the Core Data store away, so that a fetch stops immediately. Thus a test that must not
+    /// use the network gets an exact time.
+    private func removeCoreDataStore() async {
+        WMFDataEnvironment.current.coreDataStore = nil
+    }
+
     private func makeViewModel() -> (WMFHomeViewModel, WMFHomeDataController) {
         let controller = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
         let vm = WMFHomeViewModel(dataController: controller)
@@ -81,6 +87,30 @@ final class WMFHomeViewModelTests: XCTestCase {
             XCTAssertFalse(controller.communityOnThisDayIsOn())
         }
     }
+
+    /// The indicator must still be on when the refresh returns, and must go off after the minimum
+    /// time. A refresh replaces the For You view model, which removes the view that started the
+    /// refresh, so the indicator must not depend on the task of that view.
+    ///
+    /// With no Core Data store the fetch fails immediately, which makes the timing exact and keeps
+    /// the test off the network. The fixture holds the global state and puts the environment back,
+    /// so this change cannot reach the other tests.
+    func testRefreshIndicatorStaysOnAfterTheRefreshReturns() async {
+        await fixture.withConfiguredEnvironment(configure: removeCoreDataStore) {
+            let (vm, _) = makeViewModel()
+            vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+
+            let start = Date()
+            await vm.refreshForYouFeed(minimumIndicatorDuration: 0.2)
+
+            XCTAssertTrue(vm.isRefreshingForYou)
+
+            await vm.refreshIndicatorTask?.value
+
+            XCTAssertGreaterThanOrEqual(Date().timeIntervalSince(start), 0.2)
+            XCTAssertFalse(vm.isRefreshingForYou)
+		}
+	}
 
     func testHideCommunityPictureOfDay() async throws {
         await fixture.withConfiguredEnvironment(configure: {}) {
