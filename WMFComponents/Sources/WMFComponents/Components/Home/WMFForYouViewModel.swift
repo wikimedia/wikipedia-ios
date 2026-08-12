@@ -44,6 +44,10 @@ public struct WMFForYouHeaderLabel {
         self.format = format
         self.highlight = highlight
     }
+
+    public var accessibilityText: String {
+        String.localizedStringWithFormat(format, highlight)
+    }
 }
 
 // MARK: - View models
@@ -69,6 +73,18 @@ public final class WMFForYouViewModel: ObservableObject {
     public let emptySubtitle = WMFLocalizedString("for-you-empty-subtitle", value: "Add interests to get personalized article recommendations.", comment: "Subtitle shown on the For You tab empty state encouraging the user to add interests.")
     public let emptyButtonTitle = WMFLocalizedString("for-you-empty-button", value: "Choose your interests", comment: "Button on the For You empty state that opens the interests customization screen.")
 
+    // MARK: - Position in the feed
+    private(set) var lastViewedModuleID: UUID?
+    private(set) var lastViewedCardKey: String?
+
+    func rememberViewedModule(_ moduleID: UUID?) {
+        lastViewedModuleID = moduleID
+    }
+
+    func rememberViewedCard(_ cardKey: String?) {
+        lastViewedCardKey = cardKey
+    }
+
     public init(
         response: WMFForYouResponse,
         moduleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(basedOnInterests: true, becauseYouRead: true, continueReading: true),
@@ -80,8 +96,6 @@ public final class WMFForYouViewModel: ObservableObject {
     }
 
     // MARK: - Building the feed
-
-    /// Builds the feed's pages, in the order they are shown.
 
     private static func makePages(from response: WMFForYouResponse) -> [WMFForYouPageViewModel] {
         var deduplicator = ArticleDeduplicator()
@@ -229,6 +243,20 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
     }
     @Published public var imageAvailability: ImageAvailability = .unknown
 
+    public var accessibilityLabel: String {
+        var parts: [String] = []
+        if !headerLabel.format.isEmpty {
+            parts.append(headerLabel.accessibilityText)
+        }
+        parts.append(title)
+        if let extract, !extract.isEmpty {
+            parts.append(extract)
+        } else if let description, !description.isEmpty {
+            parts.append(description)
+        }
+        return parts.joined(separator: ", ")
+    }
+
     public func refreshSavedState(isSaved: Bool) {
         self.isSaved = isSaved
     }
@@ -239,7 +267,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
 
     private var loadTask: Task<Void, Never>?
 
-    public let hideKey: String
+    public let cardUniqueKey: String
 
     // MARK: - Localized strings
 
@@ -269,8 +297,21 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
         self.headerLabel = headerLabel
         self.title = article.title
         self.project = article.project
-        self.description = article.title
-        self.hideKey = "for_you_\(article.project.id)_\(article.title)"
+        self.cardUniqueKey = "for_you_\(article.project.id)_\(article.title)"
+    }
+
+    /// Rewrites a Commons thumbnail URL to ask for a wider rendering.
+    ///
+    /// Thumbnail URLs carry their width as a path component - `.../640px-Example.jpg` - so the size
+    /// is changed by swapping that number. Returns nil when the URL has no such component, which
+    /// means it is already the original file and cannot be scaled up.
+    private static func upsizedThumbnailURL(from thumbnailURL: URL) -> URL? {
+        var urlString = thumbnailURL.absoluteString
+        guard let range = urlString.range(of: #"/\d+px-"#, options: .regularExpression) else {
+            return nil
+        }
+        urlString.replaceSubrange(range, with: "/\(ImageUtils.leadImageWidth())px-")
+        return URL(string: urlString)
     }
 
     public func load() {
@@ -294,30 +335,30 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
             // itself arrives later, and only a failed download changes the design after this.
             self.imageAvailability = .available
 
-            // Upsize the Wikimedia thumbnail URL to get a higher resolution image
-            let largeURL: URL = {
-                var urlString = thumbnailURL.absoluteString
-                if let range = urlString.range(of: #"/\d+px-"#, options: .regularExpression) {
-                    urlString.replaceSubrange(range, with: "/1280px-")
-                }
-                return URL(string: urlString) ?? thumbnailURL
-            }()
-
-            guard let data = try? await WMFImageDataController.shared.fetchImageData(url: largeURL) else {
+            // Ask for a bigger rendering than the summary's thumbnail, which is far too small for
+            // a full screen card. Falls back to the thumbnail if the larger one is unavailable:
+            let data: Data
+            if let largeURL = Self.upsizedThumbnailURL(from: thumbnailURL),
+               let largeData = try? await WMFImageDataController.shared.fetchImageData(url: largeURL) {
+                data = largeData
+            } else if let originalData = try? await WMFImageDataController.shared.fetchImageData(url: thumbnailURL) {
+                data = originalData
+            } else {
                 self.imageAvailability = .unavailable
                 self.loadState = .loaded
                 return
             }
 
-            self.uiImage = UIImage(data: data)
+            // Sample before showing anything, off the main actor: the pixel work is far too
+            // expensive to run while the user is swiping.
+            let color = await WMFImageColorSampler.shared.sampledColor(from: data)
 
-            // Sample off the main actor. The pixel loop is far too expensive to run while the
-            // user is swiping between cards, and the image is on screen before it finishes.
-            if let color = await WMFForYouImageColorSampler.shared.sampledColor(from: data) {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    self.sampledColor = color
-                }
-            }
+            // The photograph, its colour and the loaded flag land in one update, so the card
+            // appears complete. Showing the image first put it on screen against a black gradient
+            // that then turned coloured, which reads as a flash. The card view fades the whole
+            // change in off `loadState`.
+            self.uiImage = UIImage(data: data)
+            self.sampledColor = color
             self.loadState = .loaded
         }
     }
@@ -326,123 +367,3 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
         loadTask?.cancel()
     }
 }
-
-// MARK: - WCAG color sampling
-
-/// Runs the card background colour sampling away from the main actor.
-///
-/// This is an actor rather than a `nonisolated` function for two reasons. First, an actor is
-/// guaranteed never to run on the main actor, so the work cannot drift back onto the main thread
-/// if the package's concurrency defaults change later. Second, it serialises the sampling: several
-/// cards can scroll in at once, and we do not want each of them looping over a large image at the
-/// same time.
-actor WMFForYouImageColorSampler {
-
-    static let shared = WMFForYouImageColorSampler()
-
-    /// Takes image `Data` instead of a `UIImage` because `UIImage` is not `Sendable` and so cannot
-    /// be handed to another concurrency domain. The image is decoded here instead.
-    func sampledColor(from imageData: Data) -> Color? {
-        return UIImage(data: imageData)?.accessibleSampledColor()
-    }
-}
-
-extension UIImage {
-    func accessibleSampledColor() -> Color? {
-        guard let cgImage else { return nil }
-        let width = cgImage.width
-        let height = cgImage.height
-        guard width > 0, height > 0 else { return nil }
-
-        let sampleStartY = (height * 2) / 3
-        let sampleHeight = height - sampleStartY
-
-        guard let cropped = cgImage.cropping(
-            to: CGRect(x: 0, y: sampleStartY, width: width, height: sampleHeight)
-        ) else { return nil }
-
-        let bytesPerPixel = 4
-        let bytesPerRow = bytesPerPixel * width
-        var rawData = [UInt8](repeating: 0, count: sampleHeight * bytesPerRow)
-
-        guard let context = CGContext(
-            data: &rawData,
-            width: width,
-            height: sampleHeight,
-            bitsPerComponent: 8,
-            bytesPerRow: bytesPerRow,
-            space: CGColorSpaceCreateDeviceRGB(),
-            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
-        ) else { return nil }
-
-        context.draw(cropped, in: CGRect(x: 0, y: 0, width: width, height: sampleHeight))
-
-        var weightedR: CGFloat = 0
-        var weightedG: CGFloat = 0
-        var weightedB: CGFloat = 0
-        var totalWeight: CGFloat = 0
-
-        for i in stride(from: 0, to: rawData.count, by: bytesPerPixel) {
-            let r = CGFloat(rawData[i]) / 255
-            let g = CGFloat(rawData[i + 1]) / 255
-            let b = CGFloat(rawData[i + 2]) / 255
-
-            let maxC = max(r, g, b)
-            let minC = min(r, g, b)
-            let saturation = maxC == 0 ? 0 : (maxC - minC) / maxC
-
-            let weight = saturation * saturation
-
-            weightedR += r * weight
-            weightedG += g * weight
-            weightedB += b * weight
-            totalWeight += weight
-        }
-
-        guard totalWeight > 0 else {
-            var totalR: CGFloat = 0, totalG: CGFloat = 0, totalB: CGFloat = 0
-            let pixelCount = CGFloat(width * sampleHeight)
-            for i in stride(from: 0, to: rawData.count, by: bytesPerPixel) {
-                totalR += CGFloat(rawData[i])
-                totalG += CGFloat(rawData[i + 1])
-                totalB += CGFloat(rawData[i + 2])
-            }
-            let r = (totalR / pixelCount / 255) * 0.5
-            let g = (totalG / pixelCount / 255) * 0.5
-            let b = (totalB / pixelCount / 255) * 0.5
-            let (dr, dg, db) = darkenToMeetContrast(r: r, g: g, b: b, targetRatio: 5)
-            return Color(red: dr, green: dg, blue: db)
-        }
-
-        var r = weightedR / totalWeight
-        var g = weightedG / totalWeight
-        var b = weightedB / totalWeight
-
-        (r, g, b) = darkenToMeetContrast(r: r, g: g, b: b, targetRatio: 5)
-        return Color(red: r, green: g, blue: b)
-    }
-
-    private func darkenToMeetContrast(r: CGFloat, g: CGFloat, b: CGFloat, targetRatio: CGFloat) -> (CGFloat, CGFloat, CGFloat) {
-        var r = r, g = g, b = b
-        func linearize(_ c: CGFloat) -> CGFloat {
-            c <= 0.03928 ? c / 12.92 : pow((c + 0.055) / 1.055, 2.4)
-        }
-        func luminance(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) -> CGFloat {
-            0.2126 * linearize(r) + 0.7152 * linearize(g) + 0.0722 * linearize(b)
-        }
-        func contrastAgainstWhite(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) -> CGFloat {
-            (1.05) / (luminance(r, g, b) + 0.05)
-        }
-        while contrastAgainstWhite(r, g, b) < targetRatio {
-            r *= 0.95; g *= 0.95; b *= 0.95
-        }
-        // Clamp brightness so light/desaturated images always produce a dark usable gradient
-        let maxComponent = max(r, g, b)
-        if maxComponent > 0.25 {
-            let scale = 0.25 / maxComponent
-            r *= scale; g *= scale; b *= scale
-        }
-        return (r, g, b)
-    }
-}
-

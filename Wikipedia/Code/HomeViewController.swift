@@ -89,17 +89,20 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         }
 
         viewModel.didChangeTab = { [weak self] tab in
-            self?.updateNavigationBarAppearance(for: tab)
+            self?.updateChromeAppearance(for: tab)
         }
 
         UISegmentedControl.appearance(whenContainedInInstancesOf: [WMFHomeHostingController.self]).backgroundColor = .clear
         reloadLanguages()
-
-        // Saved state can change anywhere - inside the article, in a reading list, or from a sync -
-        // so follow the same notification the legacy feed uses instead of reading it only once.
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dayMayHaveChanged), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dayMayHaveChanged), name: UIApplication.significantTimeChangeNotification, object: nil)
 
         apply(theme: theme)
+    }
+
+    @objc private func dayMayHaveChanged() {
+        viewModel.refreshFeedsIfDayChanged()
     }
 
     /// The article URL a For You card points at. Cards carry a `WMFProject` and a title, so the
@@ -159,7 +162,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
-        updateNavigationBarAppearance(for: viewModel.selectedTab)
+        updateChromeAppearance(for: viewModel.selectedTab)
         reloadLanguages()
 
         // The notification does not always arrive for changes made by a background sync, so also
@@ -171,19 +174,31 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateNavigationBarAppearance(for: viewModel.selectedTab)
+        updateChromeAppearance(for: viewModel.selectedTab)
         apply(theme: theme)
     }
-    
-    // MARK: - Navigation Bar Appearance
-    
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        updateChromeAppearance(for: .community)
+    }
+
+    // MARK: - Chrome Appearance
+
+    private func updateChromeAppearance(for tab: WMFHomeViewModel.Tab) {
+        updateNavigationBarAppearance(for: tab)
+        updateTabBarAppearance(for: tab)
+    }
+
     private func updateNavigationBarAppearance(for tab: WMFHomeViewModel.Tab) {
         guard let navController = navigationController as? WMFComponentNavigationController else { return }
-        if tab == .forYou {
-            navController.setTransparentAppearance(true)
-        } else {
-            navController.setTransparentAppearance(false)
-        }
+        navController.setTransparentAppearance(tab == .forYou)
+    }
+
+    private func updateTabBarAppearance(for tab: WMFHomeViewModel.Tab) {
+        guard #unavailable(iOS 26.0), let tabBar = tabBarController?.tabBar else { return }
+        tabBar.apply(theme: tab == .forYou ? .black : theme)
     }
 
     // MARK: - Languages
@@ -342,6 +357,8 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         if #unavailable(iOS 26.0) {
             navigationItem.leftBarButtonItem?.tintColor = theme.colors.logoTintColor
         }
+
+        updateChromeAppearance(for: viewModel.selectedTab)
     }
 }
 

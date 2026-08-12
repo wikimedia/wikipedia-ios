@@ -110,8 +110,6 @@ final public class WMFSettingsViewModel: ObservableObject {
 
     let URLTerms = "https://foundation.wikimedia.org/wiki/Terms_of_Use/en"
 
-    let URLDonation = "https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=appmenu&app_version=<app-version>&uselang=<langcode>"
-
     let localizedStrings: LocalizedStrings
     private var username: String?
     private var tempUsername: String?

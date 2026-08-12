@@ -38,6 +38,7 @@ public enum WMFUserDefaultsKey: String {
     case activityTabIsReadingInsightsOn = "activity-tab-reading-insights"
     case activityTabIsEditingInsightsOn = "activity-tab-editing-insights"
     case activityTabIsTimelineOfBehaviorOn = "activity-tab-timeline-of-behavior"
+    case didClampInflatedPageViewSeconds = "did-clamp-inflated-page-view-seconds"
     case autoSignTalkPageDiscussions = "auto-sign-talk-page-discussions"
     case didMigrateAutoSignTalkPageDiscussions = "did-migrate-auto-sign-talk-page-discussions"
     case showSearchLanguageBar = "show-search-language-bar"
@@ -90,4 +91,8 @@ public enum WMFUserDefaultsKey: String {
 
     // Onboarding: New app install event
     case didSendNewInstallOnboardingStartEvent = "did-send-new-install-onboarding-start-event"
+
+    // Article View Controller: Enable visual editor
+    case developerSettingsEnableVisualEditingJourney = "dev-settings-enable-visual-editing-journey"
+    case defaultEditMode = "default-edit-mode"
 }

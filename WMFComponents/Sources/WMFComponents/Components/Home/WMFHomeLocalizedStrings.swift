@@ -12,5 +12,8 @@ enum WMFHomeLocalizedStrings {
         CommonStrings.hideCardTitle
     }
 
+    /// Spoken label for the three-dot button
+    static let moreOptions = WMFLocalizedString("home-card-more-options-accessibility-label", value: "More options", comment: "Accessibility label for the three dot button on a Home feed card, which opens a menu of actions for that card.")
+
     static let hideModule = WMFLocalizedString("home-menu-hide-module", value: "Hide module", comment: "Menu action to hide the whole Home feed module that contains this card.")
 }
