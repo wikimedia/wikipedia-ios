@@ -148,6 +148,12 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
             onCompletion()
         }
     }
+    
+    /// Sets the initial step without side effects. Only valid to call before the view appears.
+    public func jumpToStep(_ step: Step) {
+        guard let index = steps.firstIndex(of: step) else { return }
+        currentStepIndex = index
+    }
 
     /// Skips the remaining steps and completes onboarding. Skipping applies the default
     /// feed preference regardless of any selection made on the feed preference step.

@@ -1089,6 +1089,17 @@
 "on-this-day-no-internet-error" = "error message shown when device is not connected to internet";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "Subtext beneath the 'On this day' header when describing the date and which specific Wikipedia. $1 will be substituted with the date. $2 will be replaced with the language - for example, 'June 8th from English Wikipedia'";
 "on-this-day-title" = "Title for the 'On this day' feed section";
+"one-time-onboarding-auto-setup-button" = "Secondary button on the one-time onboarding sheet that automatically configures the feed without customization.";
+"one-time-onboarding-customize-button" = "Primary button on the one-time onboarding sheet that opens the feed customization flow.";
+"one-time-onboarding-feature-control-body" = "Description of the 'Stay in control' feature item on the one-time onboarding sheet.";
+"one-time-onboarding-feature-control-title" = "Title of the 'Stay in control' feature item on the one-time onboarding sheet.";
+"one-time-onboarding-feature-feed-body" = "Description of the 'Your feed, two ways' feature item on the one-time onboarding sheet.";
+"one-time-onboarding-feature-feed-title" = "Title of the 'Your feed, two ways' feature item on the one-time onboarding sheet.";
+"one-time-onboarding-feature-languages-body" = "Description of the 'Every language, fully personalized' feature item on the one-time onboarding sheet.";
+"one-time-onboarding-feature-languages-title" = "Title of the 'Every language, fully personalized' feature item on the one-time onboarding sheet.";
+"one-time-onboarding-feature-name-body" = "Description of the 'A new name' feature item on the one-time onboarding sheet.";
+"one-time-onboarding-feature-name-title" = "Title of the 'A new name' feature item on the one-time onboarding sheet.";
+"one-time-onboarding-title" = "Title of the one-time onboarding sheet shown to existing users after the Explore tab is renamed to Home.";
 "open-article" = "Open article title";
 "original-tab-button-popover-description" = "Description for popover explaining the 'W' icon may be tapped to return to the original tab.";
 "page-history-bot-edits" = "Text for view that shows many edits were made by bots";

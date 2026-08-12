@@ -1089,6 +1089,17 @@
 "on-this-day-no-internet-error" = "No data available";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 from $2 Wikipedia";
 "on-this-day-title" = "On this day";
+"one-time-onboarding-auto-setup-button" = "Set it up for me";
+"one-time-onboarding-customize-button" = "Customize my feed";
+"one-time-onboarding-feature-control-body" = "Every recommendation tells you exactly why it's there. You can update your preferences anytime in Settings.";
+"one-time-onboarding-feature-control-title" = "Stay in control";
+"one-time-onboarding-feature-feed-body" = "Discover articles personalized to your interests in For You, or browse Wikipedia's best editorial content in Community.";
+"one-time-onboarding-feature-feed-title" = "Your feed, two ways";
+"one-time-onboarding-feature-languages-body" = "Reading in multiple languages? Each one gets its own experience. Just switch and your new feed is ready.";
+"one-time-onboarding-feature-languages-title" = "Every language, fully personalized";
+"one-time-onboarding-feature-name-body" = "The Explore feed is now Home, in the same spot as before.";
+"one-time-onboarding-feature-name-title" = "A new name";
+"one-time-onboarding-title" = "Explore is now Home, with a new look";
 "open-article" = "Open article";
 "original-tab-button-popover-description" = "Tap on the 'W' to return to the tab you started from";
 "page-history-bot-edits" = "bot";

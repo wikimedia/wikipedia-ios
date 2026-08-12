@@ -32,6 +32,24 @@ public final actor WMFHomeDataController {
         self.savedArticlesDataController = savedArticlesDataController
         self.onThisDayDataController = onThisDayDataController
     }
+    
+    // MARK: - Settings: New Install Onboarding
+
+    public nonisolated func didSendNewInstallOnboardingStartEvent() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.didSendNewInstallOnboardingStartEvent.rawValue)) ?? false
+    }
+
+    public nonisolated func setDidSendNewInstallOnboardingStartEvent(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.didSendNewInstallOnboardingStartEvent.rawValue, value: newValue)
+    }
+
+    public nonisolated func hasSeenNewHomeOnboarding() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenNewHomeOnboarding.rawValue)) ?? false
+    }
+
+    public nonisolated func setHasSeenNewHomeOnboarding(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenNewHomeOnboarding.rawValue, value: newValue)
+    }
 
     // MARK: - Settings: Selected Language
 
