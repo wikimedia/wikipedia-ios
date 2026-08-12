@@ -196,8 +196,7 @@ public final actor WMFHomeDataController {
             for topic in topics {
                 group.addTask {
                     let articles = try await self.fetchArticles(for: topic, project: project)
-                    let mapped = await self.sortedByThumbnailPriority(articles.shuffled())
-                        .prefix(4)
+                    let mapped = await self.assignCardSlots(articles.shuffled())
                         .map { WMFForYouArticle(title: $0.title, project: project) }
                     return WMFForYouInterestTopicRandomArticles(topic: topic, articles: mapped)
                 }
@@ -234,6 +233,32 @@ public final actor WMFHomeDataController {
             for try await item in group { results.append(item) }
             return results
         }
+    }
+    
+    private func assignCardSlots(_ articles: [WMFRandomArticle]) -> [WMFRandomArticle] {
+        let withThumbnail = articles.filter { $0.thumbnail != nil }
+            .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
+        let withoutThumbnail = articles.filter { $0.thumbnail == nil }
+            .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
+
+        // Slot layout: 0 = image, 1 = image, 2 = text, 3 = image
+        var imageQueue = withThumbnail.makeIterator()
+        var textQueue = withoutThumbnail.makeIterator()
+
+        func next(preferImage: Bool) -> WMFRandomArticle? {
+            if preferImage {
+                return imageQueue.next() ?? textQueue.next()
+            } else {
+                return textQueue.next() ?? imageQueue.next()
+            }
+        }
+
+        return [
+            next(preferImage: true),   // slot 0 — image
+            next(preferImage: true),   // slot 1 — image
+            next(preferImage: false),  // slot 2 — text
+            next(preferImage: true)   // slot 3 — image
+        ].compactMap { $0 }
     }
 
     private func fetchForYouBecauseYouReadArticles(project: WMFProject) async throws -> WMFForYouBecauseYouReadArticles? {
