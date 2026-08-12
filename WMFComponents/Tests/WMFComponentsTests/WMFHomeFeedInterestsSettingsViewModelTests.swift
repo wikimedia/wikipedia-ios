@@ -1,4 +1,5 @@
 import Testing
+import Foundation
 @testable import WMFComponents
 @testable import WMFData
 @testable import WMFDataMocks
@@ -322,6 +323,66 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
 
         viewModel.clearSearch()
         #expect(viewModel.searchRows.isEmpty)
+    }
+
+    // MARK: - Saved interests
+
+    /// Saved articles must survive a language change. They are stored per project, so fetching them
+    /// per project meant anything picked in another language silently disappeared from the screen.
+    @Test
+    func savedArticlesLoadWhateverLanguageTheyWerePickedIn() async throws {
+        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
+        let interests = try WMFPageInterestDataController(coreDataStore: store)
+
+        try await interests.addPageInterest(title: "English_Article", project: project)
+        try await interests.addPageInterest(title: "Artigo", project: WMFProject.wikipedia(spanishLanguage))
+
+        // Only the current project is offered as a search language, so a per-project fetch would
+        // find the English one and miss the Spanish one.
+        let viewModel = WMFHomeFeedInterestsSettingsViewModel(
+            dataController: WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore()),
+            pageInterestDataController: interests,
+            searchDataController: WMFArticleSearchDataController(basicService: WMFMockBasicService(jsonResourceName: "article-prefix-search-get")),
+            project: project,
+            searchLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)]
+        )
+
+        let deadline = ContinuousClock.now.advanced(by: .seconds(10))
+        while viewModel.gridViewModels.count < 2 && ContinuousClock.now < deadline {
+            try await Task.sleep(for: .milliseconds(50))
+        }
+
+        let titles = Set(viewModel.gridViewModels.map { $0.title })
+        #expect(titles.contains("English Article"))
+        #expect(titles.contains("Artigo"))
+    }
+
+    /// Restored cards must come back already ticked, otherwise a reload drops them: the grid rebuild
+    /// keeps only the cards that are selected.
+    @Test
+    func savedArticlesComeBackSelected() async throws {
+        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
+        let interests = try WMFPageInterestDataController(coreDataStore: store)
+        try await interests.addPageInterest(title: "Saved_One", project: project)
+
+        let viewModel = WMFHomeFeedInterestsSettingsViewModel(
+            dataController: WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore()),
+            pageInterestDataController: interests,
+            searchDataController: WMFArticleSearchDataController(basicService: WMFMockBasicService(jsonResourceName: "article-prefix-search-get")),
+            project: project,
+            searchLanguages: []
+        )
+
+        let deadline = ContinuousClock.now.advanced(by: .seconds(10))
+        while viewModel.gridViewModels.isEmpty && ContinuousClock.now < deadline {
+            try await Task.sleep(for: .milliseconds(50))
+        }
+
+        let restored = viewModel.gridViewModels.first { $0.title == "Saved One" }
+        #expect(restored?.isSelected == true)
+        #expect(viewModel.selectedArticleCount >= 1)
     }
 
     // MARK: - Grid cap

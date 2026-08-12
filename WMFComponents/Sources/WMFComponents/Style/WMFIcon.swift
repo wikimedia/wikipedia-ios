@@ -175,6 +175,11 @@ public enum WMFSFSymbolIcon {
     case house
     case sliderHorizontal3
     case clockArrowCounterclockwise
+    case sparkles
+    case xmarkCircle
+    case docText
+    case chevronUpChevronDown
+    case globe
 
     public var name: String? {
         switch self {
@@ -441,6 +446,16 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "clock.arrow.trianglehead.2.counterclockwise.rotate.90", withConfiguration: configuration)
         case .starSquare:
             image = UIImage(systemName: "star.square.on.square", withConfiguration: configuration)
+        case .sparkles:
+            image = UIImage(systemName: "sparkles", withConfiguration: configuration)
+        case .xmarkCircle:
+            image = UIImage(systemName: "xmark.circle", withConfiguration: configuration)
+        case .docText:
+            image = UIImage(systemName: "doc.text", withConfiguration: configuration)
+        case .chevronUpChevronDown:
+            image = UIImage(systemName: "chevron.up.chevron.down", withConfiguration: configuration)
+        case .globe:
+            image = UIImage(systemName: "globe", withConfiguration: configuration)
         case .squareSplit:
             image = UIImage(systemName: "square.split.2x1", withConfiguration: configuration)
         }
