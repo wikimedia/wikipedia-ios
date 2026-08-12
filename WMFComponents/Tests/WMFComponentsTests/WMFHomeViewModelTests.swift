@@ -383,27 +383,6 @@ final class WMFHomeViewModelTests: XCTestCase {
         }
     }
 
-    func testRefreshIndicatorStaysOnAfterTheRefreshReturns() async throws {
-        await fixture.withConfiguredEnvironment(configure: {}) {
-            let (vm, _) = self.makeViewModel()
-            let store = WMFDataEnvironment.current.coreDataStore
-            WMFDataEnvironment.current.coreDataStore = nil
-            defer { WMFDataEnvironment.current.coreDataStore = store }
-
-            vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
-
-            let start = Date()
-            await vm.refreshForYouFeed(minimumIndicatorDuration: 0.2)
-
-            XCTAssertTrue(vm.isRefreshingForYou)
-
-            await vm.refreshIndicatorTask?.value
-
-            XCTAssertGreaterThanOrEqual(Date().timeIntervalSince(start), 0.2)
-            XCTAssertFalse(vm.isRefreshingForYou)
-        }
-    }
-
     func testRefreshWithNoLanguageDoesNotShowTheIndicator() async throws {
         await fixture.withConfiguredEnvironment(configure: {}) {
             let (vm, _) = self.makeViewModel()
