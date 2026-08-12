@@ -846,6 +846,16 @@ extension WMFAppViewController {
             } catch {
                 DDLogError("Error pruning WMFData database: \(error)")
             }
+
+            do {
+                let pageViewsDataController = try WMFPageViewsDataController()
+                let clampedCount = try await pageViewsDataController.clampInflatedPageViewSecondsIfNeeded()
+                if clampedCount > 0 {
+                    DDLogInfo("Clamped inflated reading time on \(clampedCount) page views.")
+                }
+            } catch {
+                DDLogError("Error clamping inflated page view seconds: \(error)")
+            }
         }
     }
 
