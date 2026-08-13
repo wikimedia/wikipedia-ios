@@ -90,6 +90,7 @@ extension ArticleViewController {
         var components = URLComponents(url: articleURL, resolvingAgainstBaseURL: false)
 
         var queryItems = [
+            URLQueryItem(name: "useformat", value: "mobile"),
             URLQueryItem(name: "veaction", value: "edit"),
             URLQueryItem(name: "returntoapp", value: "1")
         ]
