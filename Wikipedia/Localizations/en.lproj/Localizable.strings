@@ -714,9 +714,9 @@
 "for-you-error-subtitle" = "Connect to the Internet and try again.";
 "for-you-error-title" = "No internet connection";
 "for-you-header-because-you-read" = "Because you read: $1";
-"for-you-header-continue-reading" = "Continue reading: $1";
+"for-you-header-continue-reading" = "Continue reading";
 "for-you-header-interest" = "Because of your interest: $1";
-"for-you-header-saved-article" = "From your reading list: $1";
+"for-you-header-saved-article" = "From your reading list";
 "for-you-menu-customize-interests" = "Customize interests";
 "for-you-refreshing-accessibility-label" = "Loading new content";
 "forgot-password-button-title" = "Reset";

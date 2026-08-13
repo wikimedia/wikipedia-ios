@@ -147,15 +147,15 @@ public final class WMFForYouViewModel: ObservableObject {
         guard let continueReading = response.continueReadingArticles else { return [] }
 
         let continueHeader = WMFForYouHeaderLabel(
-            symbol: .docText,
-            format: WMFLocalizedString("for-you-header-continue-reading", value: "Continue reading: %1$@", comment: "Header on a For You feed card prompting the user to continue reading an article. %1$@ is replaced with the article title."),
+            symbol: .newspaper,
+            format: WMFLocalizedString("for-you-header-continue-reading", value: "Continue reading", comment: "Header on a For You feed card prompting the user to continue reading an article."),
             highlight: continueReading.continueReadingArticle.title.normalizedForDisplay
         )
         let continueCard = WMFForYouArticleCardViewModel(article: continueReading.continueReadingArticle, headerLabel: continueHeader)
         deduplicator.markUsed(continueReading.continueReadingArticle)
 
-        let savedFormat = WMFLocalizedString("for-you-header-saved-article", value: "From your reading list: %1$@", comment: "Header on a For You feed card showing an article from the user's reading list. %1$@ is replaced with the article title.")
-        let savedCards = deduplicator.removingDuplicates(from: continueReading.savedArticles).map { article in
+        let savedFormat = WMFLocalizedString("for-you-header-saved-article", value: "From your reading list", comment: "Header on a For You feed card showing an article from the user's reading list.")
+        let savedCards = deduplicator.removingDuplicates(from: continueReading.fromReadingListArticles).map { article in
             let header = WMFForYouHeaderLabel(symbol: .bookmarkFill, format: savedFormat, highlight: article.title.normalizedForDisplay)
             return WMFForYouArticleCardViewModel(article: article, headerLabel: header)
         }
