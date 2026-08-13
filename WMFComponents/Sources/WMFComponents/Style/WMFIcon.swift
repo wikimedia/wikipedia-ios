@@ -58,6 +58,7 @@ public enum WMFSFSymbolIcon {
     case checkmarkCircleFill
     case checkmarkSquareFill
     case square
+    case squareSplit
     case star
     case starSquare
     case starFill
@@ -455,6 +456,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "chevron.up.chevron.down", withConfiguration: configuration)
         case .globe:
             image = UIImage(systemName: "globe", withConfiguration: configuration)
+        case .squareSplit:
+            image = UIImage(systemName: "square.split.2x1", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
