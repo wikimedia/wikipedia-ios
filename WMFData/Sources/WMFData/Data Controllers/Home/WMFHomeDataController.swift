@@ -263,11 +263,9 @@ public final actor WMFHomeDataController {
         guard let pageViewsDataController else { return nil }
         let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60)
         guard let continueReadingArticle = pages.randomElement() else { return nil }
-        let saved = try await savedArticlesDataController.fetchRecentlySavedArticles(limit: 3)
-        let mapped = saved.compactMap { item -> WMFForYouArticle? in
-            guard let proj = WMFProject(id: item.page.projectID) else { return nil }
-            return WMFForYouArticle(title: item.page.title, project: proj)
-        }
+        let related = try await relatedPagesDataController.fetchRelatedPages(title: continueReadingArticle.title, project: project)
+        let mapped = assignRelatedPageCardSlots(related)
+            .map { WMFForYouArticle(title: $0.title, project: project) }
         return WMFForYouContinueReading(
             continueReadingArticle: WMFForYouArticle(title: continueReadingArticle.title, project: project),
             savedArticles: mapped
