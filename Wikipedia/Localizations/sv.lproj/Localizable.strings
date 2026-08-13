@@ -1354,6 +1354,10 @@
 "settings-search-footer-text" = "Låt appen öppna sökfliken istället för utforskarfliken";
 "settings-search-footer-text-home" = "Låt appen öppna sökfliken istället för hemfliken";
 "settings-search-open-app-on-search" = "Öppna appen på sökfliken";
+"settings-storage-and-syncing-disable-sync-alert-message" = "Om du inaktiverar synkroniseringen raderas dina synkroniserade läslistor från ditt Wikipedia-konto och andra enheter. Dina listor och artiklar kommer att finnas kvar på denna enhet.";
+"settings-storage-and-syncing-disable-sync-alert-no" = "Nej";
+"settings-storage-and-syncing-disable-sync-alert-title" = "Inaktivera synkronisering av läslistor?";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "Ja";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Tillåt Wikimedia att spara dina sparade artiklar och läslistor till dina användarinställningar när du loggar in och synkroniserar.";
 "settings-storage-and-syncing-enable-sync-title" = "Synkronisera sparade artiklar och listor";
 "settings-storage-and-syncing-full-sync" = "Dina läslistor kommer att synkroniseras i bakgrunden";

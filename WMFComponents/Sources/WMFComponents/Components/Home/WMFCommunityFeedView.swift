@@ -1,5 +1,6 @@
 import SwiftUI
 import WMFData
+import WMFNativeLocalizations
 
 // MARK: - Community Feed View
 
@@ -17,6 +18,8 @@ struct WMFCommunityFeedView: View {
     let onHideCard: (String) -> Void
     let onRefresh: () async -> Void
     let onTapSeePastContent: () -> Void
+
+    private let seePastContentTitle = WMFLocalizedString("home-community-see-past-content", value: "See past community content", comment: "Button at the bottom of the Community feed that loads content from previous days.")
 
     var body: some View {
         List {
@@ -57,7 +60,7 @@ struct WMFCommunityFeedView: View {
                         .listRowBackground(Color(uiColor: theme.paperBackground))
                 } else {
                     Button(action: onTapSeePastContent) {
-                        Text("See past community content")
+                        Text(seePastContentTitle)
                             .font(Font(WMFFont.for(.semiboldHeadline)))
                             .foregroundStyle(Color(uiColor: theme.link))
                             .frame(maxWidth: .infinity)
@@ -210,16 +213,24 @@ struct WMFCommunityFeedView: View {
                 Button(role: .destructive) {
                     if let hideKey { onHideCard(hideKey) }
                 } label: {
-                    Label("Hide this card", systemImage: "eye.slash")
+                    Label {
+                        Text(WMFHomeLocalizedStrings.hideCard)
+                    } icon: {
+                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .eyeSlash) ?? UIImage())
+                    }
                 }
                 .disabled(hideKey == nil)
                 Button(role: .destructive) {
                     onHideModule(module)
                 } label: {
-                    Label("Hide module", systemImage: "xmark.circle")
+                    Label {
+                        Text(WMFHomeLocalizedStrings.hideModule)
+                    } icon: {
+                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .xmarkCircle) ?? UIImage())
+                    }
                 }
             } label: {
-                Image(systemName: "ellipsis")
+                Image(uiImage: WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage())
                     .foregroundStyle(Color(uiColor: theme.secondaryText))
             }
         }
