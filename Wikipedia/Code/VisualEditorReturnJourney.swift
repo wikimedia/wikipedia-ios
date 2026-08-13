@@ -20,6 +20,7 @@ struct VisualEditorReturnJourney {
     private static let visualEditorActionQueryItemName = "veaction"
     private static let returnToAppQueryItemName = "returntoapp"
     private static let sectionQueryItemName = "section"
+    private static let useFormatQueryItemName = "useformat"
 
     init?(url: URL) {
         guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false),
@@ -58,7 +59,8 @@ struct VisualEditorReturnJourney {
             Self.revisionQueryItemName,
             Self.visualEditorActionQueryItemName,
             Self.returnToAppQueryItemName,
-            Self.sectionQueryItemName
+            Self.sectionQueryItemName,
+            Self.useFormatQueryItemName
         ]
 
         let remainingQueryItems = queryItems.filter { !visualEditorQueryItemNames.contains($0.name) }

@@ -59,7 +59,7 @@ final class VisualEditorReturnJourneyTests: XCTestCase {
     }
 
     func testMidEditReturnThroughNativeAppBanner() throws {
-        let journey = try XCTUnwrap(returnJourney(for: "https://en.wikipedia.org/wiki/Cat?veaction=edit&returntoapp=1&section=2"))
+        let journey = try XCTUnwrap(returnJourney(for: "https://en.wikipedia.org/wiki/Cat?useformat=mobile&veaction=edit&returntoapp=1&section=2"))
         XCTAssertFalse(journey.saved)
         XCTAssertNil(journey.revisionID)
         XCTAssertEqual(journey.articleURL.absoluteString, "https://en.wikipedia.org/wiki/Cat")
