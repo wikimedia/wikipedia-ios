@@ -4,12 +4,18 @@ import UIKit
 import WMFData
 import WMFNativeLocalizations
 
-extension WMFLanguage: Identifiable {
-    public var id: String { [languageCode, languageVariantCode].compactMap { $0 }.joined(separator: "-") }
-}
-
 @MainActor
 public final class WMFHomeViewModel: ObservableObject {
+
+    public var didTapForYouCard: ((WMFForYouArticleCardViewModel) -> Void)?
+    public var didSaveForYouCard: ((WMFForYouArticleCardViewModel) -> Void)?
+    public var didTapUnsaveForYouCard: ((WMFForYouArticleCardViewModel) -> Void)?
+    public var didShareForYouCard: ((WMFForYouArticleCardViewModel) -> Void)?
+    public var isArticleSaved: ((WMFForYouArticleCardViewModel) -> Bool)?
+
+    public var didInteractWithForYouFeed: (() -> Void)?
+
+    public var didChangeTab: (@MainActor @Sendable (Tab) -> Void)?
 
     public enum Tab: Int, CaseIterable {
         case forYou
@@ -19,33 +25,63 @@ public final class WMFHomeViewModel: ObservableObject {
     let forYouTabTitle = CommonStrings.forYouTabTitle
     let communityTabTitle = WMFLocalizedString("home-community-tab-title", value: "Community", comment: "Title for the Community segment within the Home tab.")
     let editLanguagesTitle = WMFLocalizedString("home-edit-languages-title", value: "Add or edit languages", comment: "Title for the option at the bottom of the Home language menu that opens the languages settings screen.")
+    
+    let forYouErrorTitle = WMFLocalizedString("for-you-error-title", value: "No internet connection", comment: "Title shown on the For You tab when content cannot be loaded due to a network error.")
+    let forYouErrorSubtitle = WMFLocalizedString("for-you-error-subtitle", value: "Connect to the Internet and try again.", comment: "Subtitle shown on the For You tab when content cannot be loaded due to a network error.")
+    let forYouErrorRetryTitle = WMFLocalizedString("for-you-error-retry", value: "Try again", comment: "Button on the For You error state that retries loading the feed.")
+    let forYouRefreshingAccessibilityLabel = WMFLocalizedString("for-you-refreshing-accessibility-label", value: "Loading new content", comment: "Accessibility label for the loading indicator shown while the For You feed refreshes after a pull to refresh.")
 
-    @Published public var selectedTab: Tab = .community
+    @Published public var selectedTab: Tab = .community {
+        didSet {
+            guard selectedTab != oldValue else { return }
+            didChangeTab?(selectedTab)
+        }
+    }
     @Published public var languages: [WMFLanguage]
     @Published public var selectedLanguage: WMFLanguage? {
         didSet {
             guard let newValue = selectedLanguage, newValue.id != oldValue?.id else { return }
-            forYouViewModel = nil
-            communityPages = []
+            discardLoadedFeeds()
             loadCurrentTabFeedIfNeeded()
         }
     }
-    @Published public var forYouViewModel: WMFForYouViewModel?
+    @Published public var forYouViewModel: WMFForYouViewModel? {
+        didSet {
+            configureForYouViewModel()
+            if forYouViewModel != nil {
+                feedDay = Date()
+            }
+        }
+    }
+    @Published public var forYouFeedError: Error?
     @Published public var isLoadingForYou: Bool = false
-    @Published public var forYouModuleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(
-        basedOnInterests: true, becauseYouRead: true, continueReading: true
-    )
-    @Published public var communityPages: [WMFHomeCommunityViewModel] = []
+    @Published public private(set) var isRefreshingForYou: Bool = false
+    @Published public var communityPages: [WMFHomeCommunityViewModel] = [] {
+        didSet {
+            if !communityPages.isEmpty {
+                feedDay = Date()
+            }
+        }
+    }
     @Published public var communityFeedError: Error?
     @Published public var isLoadingCommunity: Bool = false
     @Published public var isLoadingCommunityPreviousPage: Bool = false
     @Published public var communityModuleVisibility: WMFCommunityModuleVisibility = WMFCommunityModuleVisibility(
         featuredArticle: true, topRead: true, inTheNews: true, onThisDay: true, pictureOfDay: true
     )
-    @Published public var hiddenCardKeys: [String] = []
-    public var hiddenCardKeySet: Set<String> { Set(hiddenCardKeys) }
+
+    @Published public var hiddenCardKeys: Set<String> = [] {
+        didSet {
+            forYouViewModel?.hiddenCardKeys = hiddenCardKeys
+        }
+    }
 
     let dataController: WMFHomeDataController
+
+    /// Holds the refresh indicator on for its minimum time. Kept so that a second refresh can stop it.
+    private(set) var refreshIndicatorTask: Task<Void, Never>?
+
+    private var feedDay: Date?
 
     public var didSelectLanguage: ((WMFLanguage) -> Void)?
     public var didTapEditLanguages: (() -> Void)?
@@ -56,12 +92,48 @@ public final class WMFHomeViewModel: ObservableObject {
     /// community feed rework ships.
     public var makeEmbeddedCommunityViewController: (() -> UIViewController)?
 
+    // MARK: - For You view model configuration
+
+    private func configureForYouViewModel() {
+        guard let forYouViewModel else { return }
+
+        refreshForYouModuleVisibility()
+        forYouViewModel.hiddenCardKeys = hiddenCardKeys
+        forYouViewModel.onRefresh = { [weak self] in await self?.refreshForYouFeed() }
+        forYouViewModel.onHideModule = { [weak self] in self?.hideForYouModule($0) }
+        forYouViewModel.onHideCard = { [weak self] card in
+            self?.hideForYouCard(card)
+        }
+        forYouViewModel.onCustomizeInterests = { [weak self] in self?.didTapCustomizeInterests?() }
+        forYouViewModel.onTapCard = { [weak self] in self?.didTapForYouCard?($0) }
+        forYouViewModel.onSaveCard = { [weak self] in self?.didSaveForYouCard?($0) }
+        forYouViewModel.onShareCard = { [weak self] in self?.didShareForYouCard?($0) }
+        forYouViewModel.onUnsaveCard = { [weak self] in self?.didTapUnsaveForYouCard?($0) }
+        forYouViewModel.onUserInteraction = { [weak self] in self?.didInteractWithForYouFeed?() }
+    }
+
+    // MARK: - For You
+
     public func refreshForYouModuleVisibility() {
-        forYouModuleVisibility = WMFForYouModuleVisibility(
+        forYouViewModel?.moduleVisibility = WMFForYouModuleVisibility(
             basedOnInterests: dataController.forYouBasedOnInterestsIsOn(),
             becauseYouRead: dataController.forYouBecauseYouReadIsOn(),
             continueReading: dataController.forYouContinueReadingIsOn()
         )
+    }
+
+
+    public func refreshSavedStates() {
+        refreshSavedStates(where: { _ in true })
+    }
+
+    public func refreshSavedStates(where matches: (WMFForYouArticleCardViewModel) -> Bool) {
+        guard let isArticleSaved else { return }
+        forYouViewModel?.pages.forEach { page in
+            for card in page.articleViewModels where matches(card) {
+                card.refreshSavedState(isSaved: isArticleSaved(card))
+            }
+        }
     }
 
     public func hideForYouModule(_ module: WMFForYouModule) {
@@ -79,21 +151,32 @@ public final class WMFHomeViewModel: ObservableObject {
     }
 
     public func hideForYouCard(_ card: WMFForYouArticleCardViewModel) {
-        guard !hiddenCardKeys.contains(card.hideKey) else { return }
-        dataController.hideCard(key: card.hideKey)
-        withAnimation {
-            hiddenCardKeys.append(card.hideKey)
-        }
+        hideCard(key: card.cardUniqueKey)
     }
 
-    public func refreshForYouFeed() async {
+    public func refreshForYouFeed(minimumIndicatorDuration: TimeInterval = 1) async {
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
+
+        refreshIndicatorTask?.cancel()
+        isRefreshingForYou = true
+        let start = Date()
+
         do {
             let response = try await dataController.fetchForYou(project: project, forceFetch: true)
             self.forYouViewModel = WMFForYouViewModel(response: response)
+            self.forYouFeedError = nil
+            self.refreshSavedStates()
         } catch {
-            // TODO: surface error
+            self.forYouFeedError = error
+        }
+
+        let remaining = minimumIndicatorDuration - Date().timeIntervalSince(start)
+        refreshIndicatorTask = Task { [weak self] in
+            if remaining > 0 {
+                try? await Task.sleep(nanoseconds: UInt64(remaining * 1_000_000_000))
+            }
+            self?.isRefreshingForYou = false
         }
     }
 
@@ -106,23 +189,47 @@ public final class WMFHomeViewModel: ObservableObject {
         }
     }
 
+    // MARK: - Daily refresh
+
+    public func refreshFeedsIfDayChanged(now: Date = Date()) {
+        guard let feedDay, !Calendar.current.isDate(feedDay, inSameDayAs: now) else { return }
+
+        discardLoadedFeeds()
+        loadCurrentTabFeedIfNeeded()
+    }
+
+    private func discardLoadedFeeds() {
+        feedDay = nil
+        forYouViewModel = nil
+        forYouFeedError = nil
+        communityPages = []
+        communityFeedError = nil
+    }
+
     public func loadForYouFeedIfNeeded() {
         guard forYouViewModel == nil, !isLoadingForYou else { return }
-        guard let language = selectedLanguage else { return }
-        let project = WMFProject.wikipedia(language)
+        forYouFeedError = nil
         isLoadingForYou = true
-        refreshForYouModuleVisibility()
-        hiddenCardKeys = dataController.hiddenCardKeys()
+        hiddenCardKeys = Set(dataController.hiddenCardKeys())
+
+        guard let language = selectedLanguage else {
+            isLoadingForYou = false
+            return
+        }
+        let project = WMFProject.wikipedia(language)
         Task {
             do {
                 let response = try await dataController.fetchForYou(project: project)
                 self.forYouViewModel = WMFForYouViewModel(response: response)
+                self.refreshSavedStates()
             } catch {
-                // TODO: surface error
+                self.forYouFeedError = error
             }
             self.isLoadingForYou = false
         }
     }
+
+    // MARK: - Community
 
     public func refreshCommunityFeed() async {
         guard let language = selectedLanguage else { return }
@@ -148,7 +255,7 @@ public final class WMFHomeViewModel: ObservableObject {
             onThisDay: dataController.communityOnThisDayIsOn(),
             pictureOfDay: dataController.communityPictureOfTheDayIsOn()
         )
-        hiddenCardKeys = dataController.hiddenCardKeys()
+        hiddenCardKeys = Set(dataController.hiddenCardKeys())
         Task {
             do {
                 let response = try await dataController.fetchCommunity(project: project)
@@ -170,11 +277,12 @@ public final class WMFHomeViewModel: ObservableObject {
         )
     }
 
+    /// Hides one card in either feed. The key identifies it in both.
     public func hideCard(key: String) {
         guard !hiddenCardKeys.contains(key) else { return }
         dataController.hideCard(key: key)
         withAnimation {
-            hiddenCardKeys.append(key)
+            _ = hiddenCardKeys.insert(key)
         }
     }
 
@@ -216,6 +324,8 @@ public final class WMFHomeViewModel: ObservableObject {
         }
     }
 
+    // MARK: - Init
+
     public init(dataController: WMFHomeDataController = .shared, languages: [WMFLanguage] = [], selectedLanguage: WMFLanguage? = nil, didSelectLanguage: ((WMFLanguage) -> Void)? = nil, didTapEditLanguages: (() -> Void)? = nil) {
         self.dataController = dataController
         self.languages = languages
@@ -229,6 +339,8 @@ public final class WMFHomeViewModel: ObservableObject {
         NotificationCenter.default.addObserver(self, selector: #selector(handleForYouVisibilityChange), name: WMFNSNotification.forYouModuleVisibilityDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleForYouInterestsDidChange), name: WMFNSNotification.forYouInterestsDidChange, object: nil)
     }
+
+    // MARK: - Notification handlers
 
     @objc private func handleVisibilityChange() {
         refreshCommunityModuleVisibility()
@@ -247,7 +359,8 @@ public final class WMFHomeViewModel: ObservableObject {
         Task { await refreshForYouFeed() }
     }
 
-    /// The short code shown on the language menu button (e.g. "EN").
+    // MARK: - Helpers
+
     var languageButtonTitle: String {
         selectedLanguage?.languageCode.uppercased() ?? ""
     }
