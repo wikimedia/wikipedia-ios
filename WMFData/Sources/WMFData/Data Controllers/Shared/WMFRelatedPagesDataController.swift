@@ -20,14 +20,14 @@ public actor WMFRelatedPagesDataController {
 
     // MARK: - Response Models
 
-    private struct Response: Codable {
+    private struct Response: Codable, Sendable {
         let query: Query?
 
-        struct Query: Codable {
+        struct Query: Codable, Sendable {
             let pages: [Page]?
         }
 
-        struct Page: Codable {
+        struct Page: Codable, Sendable {
             let pageid: Int
             let title: String
             let description: String?
@@ -35,11 +35,11 @@ public actor WMFRelatedPagesDataController {
             let extract: String?
             let pageprops: PageProps?
 
-            struct Thumbnail: Codable {
+            struct Thumbnail: Codable, Sendable {
                 let source: String?
             }
 
-            struct PageProps: Codable {
+            struct PageProps: Codable, Sendable {
                 let mainpage: String?
                 let disambiguation: String?
             }
@@ -97,9 +97,8 @@ public actor WMFRelatedPagesDataController {
         }
 
         return pages.filter { page in
-            guard page.pageprops?.mainpage == nil else { return false }
             guard filterDisambiguationPages else { return true }
-            return page.pageprops?.disambiguation == nil
+            return page.pageprops?.disambiguation == nil && page.pageprops?.mainpage == nil
         }.map { page in
             let thumbnailURL = page.thumbnail?.source.flatMap { URL(string: $0) }
             return WMFRelatedPage(
