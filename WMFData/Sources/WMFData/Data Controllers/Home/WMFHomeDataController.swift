@@ -234,7 +234,7 @@ public final actor WMFHomeDataController {
         return try await withThrowingTaskGroup(of: WMFForYouInterestPageRelatedArticles.self) { group in
             for interest in selected {
                 group.addTask {
-                    let related = try await self.relatedPagesDataController.fetchRelatedPages(title: interest.title, project: project, filterDisambiguationPages: true)
+                    let related = try await self.relatedPagesDataController.fetchRelatedPages(title: interest.title, project: project)
                     let mapped = related.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
                     return WMFForYouInterestPageRelatedArticles(pageInterest: WMFForYouArticle(title: interest.title, project: project), articles: mapped)
                 }
@@ -299,7 +299,7 @@ public final actor WMFHomeDataController {
             pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 10, mainNamespaceOnly: true)
         }
         guard let recentlyRead = pages.randomElement() else { return nil }
-        let related = try await relatedPagesDataController.fetchRelatedPages(title: recentlyRead.title, project: project, filterDisambiguationPages: true)
+        let related = try await relatedPagesDataController.fetchRelatedPages(title: recentlyRead.title, project: project)
         let mapped = related.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
         return WMFForYouBecauseYouReadArticles(
             recentlyRead: WMFForYouArticle(title: recentlyRead.title, project: project),

@@ -48,7 +48,7 @@ public actor WMFRelatedPagesDataController {
 
     // MARK: - Public API
 
-    public func fetchRelatedPages(title: String, project: WMFProject, filterDisambiguationPages: Bool = false) async throws -> [WMFRelatedPage] {
+    public func fetchRelatedPages(title: String, project: WMFProject) async throws -> [WMFRelatedPage] {
         guard let service else {
             throw WMFDataControllerError.basicServiceUnavailable
         }
@@ -97,7 +97,6 @@ public actor WMFRelatedPagesDataController {
         }
 
         return pages.filter { page in
-            guard filterDisambiguationPages else { return true }
             return page.pageprops?.disambiguation == nil && page.pageprops?.mainpage == nil
         }.map { page in
             let thumbnailURL = page.thumbnail?.source.flatMap { URL(string: $0) }
