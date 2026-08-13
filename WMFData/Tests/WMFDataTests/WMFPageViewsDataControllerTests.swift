@@ -122,7 +122,7 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         }
         
         // Then delete page view
-        try await dataController.deleteAllPageViewsAndCategories()
+        try await dataController.deleteAllPageViewsCategoriesAndTopics()
         
         // Fetch, confirm page view was deleted
         try await store.viewContext.perform {

@@ -260,13 +260,21 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
 
         let categoriesDataController = try WMFCategoriesDataController(coreDataStore: self.coreDataStore)
         try await categoriesDataController.deleteEmptyCategories()
+
+        let topicsDataController = try WMFPageTopicsDataController(coreDataStore: self.coreDataStore)
+        try await topicsDataController.deleteTopics(title: title, namespaceID: namespaceID, project: project)
     }
 
-    public func deleteAllPageViewsAndCategories() async throws {
+    public func deleteAllPageViewsCategoriesAndTopics() async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
         backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
 
         try await backgroundContext.perform {
+            let topicFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageTopic")
+            let batchTopicDeleteRequest = NSBatchDeleteRequest(fetchRequest: topicFetchRequest)
+            batchTopicDeleteRequest.resultType = .resultTypeObjectIDs
+            _ = try backgroundContext.execute(batchTopicDeleteRequest) as? NSBatchDeleteResult
+
             let categoryFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDCategory")
             let batchCategoryDeleteRequest = NSBatchDeleteRequest(fetchRequest: categoryFetchRequest)
             batchCategoryDeleteRequest.resultType = .resultTypeObjectIDs
