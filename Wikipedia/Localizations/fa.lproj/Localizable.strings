@@ -312,6 +312,9 @@
 "cc-zero" = "Creative Commons CC0";
 "chinese-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان چینی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n简体 Chinese, Simplified (zh-hans)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)";
 "chinese-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان چینی";
+"choose-editor-source-title" = "ویرایش مبدأ";
+"choose-editor-title" = "نحوه ویرایش را انتخاب کنید";
+"choose-editor-visual-title" = "ویرایش دیداری";
 "clear-title-accessibility-label" = "پاک‌کردن";
 "clearing-cache-complete" = "پاکسازی کاشه کامل شد.";
 "clearing-cache-error" = "خطای پاکسازی حافظهٔ نهان.";
@@ -327,6 +330,7 @@
 "close-tabs" = "بستن زبانه‌ها";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|زبانه}} بسته شد.";
 "collect-prize-title" = "جایزه‌ات را جمع کن!";
+"community-detail-back-button-title" = "بازگشت به محتوای جامعه";
 "compass-direction" = "در ساعت $1";
 "confirm-donation-history-deletion-subtitle" = "این فقط بر کمک‌های اعطا شده از روی همین دستگاه اعمال می‌شود.";
 "confirm-donation-history-deletion-title" = "تأیید حذف";
@@ -711,7 +715,7 @@
 "field-password-confirm-title" = "تأیید رمز عبور";
 "field-password-placeholder" = "رمز عبور را وارد کنید";
 "field-password-title" = "گذرواژه";
-"field-token-title" = "کد تائید";
+"field-token-title" = "کد تأیید";
 "field-username-placeholder" = "نام کاربریتان را وارد کنید";
 "field-username-title" = "نام کاربری";
 "filter-options-all" = "همه";
@@ -723,9 +727,9 @@
 "find-replace-header-close-accessibility" = "«یافتن و جایگزینی» را ببند";
 "find-textfield-accessibility" = "یافتن";
 "forgot-password-button-title" = "بازنشانی";
-"forgot-password-email-sent" = "ایمیلی حاوی دستورالعمل بازنشانی رمز عبور ارسال شد";
+"forgot-password-email-sent" = "ایمیلی حاوی دستورالعمل بازنشانی گذرواژه ارسال شد";
 "forgot-password-instructions" = "برای دریافت دستورالعمل بازنشانی رمز عبور از طریق ایمیل، یکی از بخش‌های زیر را پر کنید.";
-"forgot-password-title" = "بازنشانی رمز عبور";
+"forgot-password-title" = "بازنشانی گذرواژه";
 "forgot-password-username-or-email-title" = "یا";
 "games-announcement-play-button" = "بازی کن";
 "games-announcement-title" = "«کدام اول اتفاق افتاد؟» را بازی کن.";
@@ -871,7 +875,7 @@
 "insert-media-image-type-setting-frame" = "قاب";
 "insert-media-image-type-setting-frameless" = "بدون قاب";
 "insert-media-image-type-setting-thumbnail" = "بندانگشتی";
-"insert-media-image-type-settings-footer-title" = "می ةوانید مشخص کنید که آیتم رسانه چگونه در صفحه نمایش داده شود. این مورد برای حالت بندانگشتی است که شامل همه موارد و همه صفحات می‌شود.";
+"insert-media-image-type-settings-footer-title" = "می توانید مشخص کنید که آیتم رسانه چگونه در صفحه نمایش داده شود. این مورد برای حالت بندانگشتی است که شامل همه موارد و همه صفحات می‌شود.";
 "insert-media-image-type-settings-title" = "نوع تصویر";
 "insert-media-media-settings-title" = "تنظیمات رسانه";
 "insert-media-title" = "درج رسانه";
@@ -947,7 +951,7 @@
 "notifications-center-applied-project-filters-accessibility-label" = "پالایه‌های پروژه - دارای پالایه‌های اعمال‌شده";
 "notifications-center-badge-button-accessibility-label" = "اعلان‌های دارای نشان خوانده‌نشده";
 "notifications-center-cell-notification-type-accessibility-label-format" = "آگاه‌سازی $1";
-"notifications-center-change-password" = "تغییر رمز عبور";
+"notifications-center-change-password" = "تغییر گذرواژه";
 "notifications-center-checking-for-notifications" = "در حال بررسی اعلان‌ها...";
 "notifications-center-destination-app" = "در برنامه";
 "notifications-center-destination-web" = "روی وب";

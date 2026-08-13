@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Aceman444
 // Author: Hromoslav
+// Author: KormiSK
 // Author: Kusavica
 // Author: Larsimore
 // Author: Lexected
@@ -306,6 +307,13 @@
 "cc-zero" = "Creative Commons CC0";
 "chinese-variants-alert-body" = "Wikipédia teraz podporuje aj tieto čínske varianty ako primárny a sekundárny jazyk aplikácie:\n\n简体 Chinese, Simplified (zh-hans)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)";
 "chinese-variants-alert-title" = "Aktualizácie podpory čínskych variánt";
+"choose-editor-dont-show-again" = "Už znovu nezobrazovať. Toto sa dá neskôr zmeniť v nastaveniach.";
+"choose-editor-dont-show-hint" = "Dvojitým klepnutím si túto voľbu uložíte a preskočíte túto obrazovku pri ďalších úpravách.";
+"choose-editor-source-subtitle" = "Vykonajte zmeny pomocou značiek. Zostane v aplikácii.";
+"choose-editor-source-title" = "Upraviť zdrojový kód";
+"choose-editor-title" = "Vyberte spôsob úpravy";
+"choose-editor-visual-subtitle" = "Vykonajte zmeny priamo na zobrazenej stránke. Otvorí sa vo Vašom prehliadači.";
+"choose-editor-visual-title" = "Upraviť vizuálne";
 "clear-title-accessibility-label" = "Vyčistiť";
 "clearing-cache-complete" = "Úplné vyčištenie cache.";
 "clearing-cache-error" = "Chyba pri mazaní vyrovnávacej pamäte.";
@@ -1349,6 +1357,10 @@
 "settings-search-footer-text" = "Otvárať aplikáciu v karte Vyhľadávanie namiesto kanálu Objaviť";
 "settings-search-footer-text-home" = "Nastaviť aplikáciu tak, aby sa otvárala na karte Hľadať namiesto karty Domov";
 "settings-search-open-app-on-search" = "Otvoriť aplikáciu v karte Vyhľadávanie";
+"settings-storage-and-syncing-disable-sync-alert-message" = "Vypnutím synchronizácie sa vymažú Vaše synchronizované zoznamy na čítanie z Vášho účtu vo Wikipédii a z iných zariadení. Vaše zoznamy a články zostanú v tomto zariadení.";
+"settings-storage-and-syncing-disable-sync-alert-no" = "Nie";
+"settings-storage-and-syncing-disable-sync-alert-title" = "Vypnúť synchronizáciu zoznamu na čítanie?";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "Áno";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Umožniť Wikimedii uloženie uložených článkov a zoznamov na prečítanie k vašim používateľským nastaveniam pri prihlasovaní a synchronizácii.";
 "settings-storage-and-syncing-enable-sync-title" = "Synchronizovať uložené články a zoznamy";
 "settings-storage-and-syncing-full-sync" = "Vaše zoznamy na prečítanie budú synchronizované na pozadí";
