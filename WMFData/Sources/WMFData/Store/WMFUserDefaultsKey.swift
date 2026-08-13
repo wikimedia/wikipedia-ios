@@ -91,6 +91,7 @@ public enum WMFUserDefaultsKey: String {
 
     // Onboarding: New app install event
     case didSendNewInstallOnboardingStartEvent = "did-send-new-install-onboarding-start-event"
+    case hasSeenNewHomeOnboarding = "has-seen-new-home-onboarding"
 
     // Article View Controller: Enable visual editor
     case developerSettingsEnableVisualEditingJourney = "dev-settings-enable-visual-editing-journey"

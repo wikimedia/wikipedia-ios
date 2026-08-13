@@ -32,6 +32,24 @@ public final actor WMFHomeDataController {
         self.savedArticlesDataController = savedArticlesDataController
         self.onThisDayDataController = onThisDayDataController
     }
+    
+    // MARK: - Settings: New Install Onboarding
+
+    public nonisolated func didSendNewInstallOnboardingStartEvent() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.didSendNewInstallOnboardingStartEvent.rawValue)) ?? false
+    }
+
+    public nonisolated func setDidSendNewInstallOnboardingStartEvent(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.didSendNewInstallOnboardingStartEvent.rawValue, value: newValue)
+    }
+
+    public nonisolated func hasSeenNewHomeOnboarding() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenNewHomeOnboarding.rawValue)) ?? false
+    }
+
+    public nonisolated func setHasSeenNewHomeOnboarding(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenNewHomeOnboarding.rawValue, value: newValue)
+    }
 
     // MARK: - Settings: Selected Language
 
@@ -206,14 +224,6 @@ public final actor WMFHomeDataController {
             return results
         }
     }
-    
-    /// Sorts articles so that those with thumbnails come first, using the decoded
-    /// `index` field as a stable tiebreaker within each group.
-    private func sortedByThumbnailPriority(_ articles: [WMFRandomArticle]) -> [WMFRandomArticle] {
-        return articles
-            .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
-            .sorted { $0.thumbnail != nil && $1.thumbnail == nil }
-    }
 
     private func fetchForYouInterestPageRelatedArticles(project: WMFProject) async throws -> [WMFForYouInterestPageRelatedArticles] {
         guard let pageInterestDataController else { return [] }
@@ -312,6 +322,32 @@ public final actor WMFHomeDataController {
         )
     }
 
+    // MARK: - Card slot assignment
+    
+    internal func assignRandomArticleCardSlots(_ articles: [WMFRandomArticle]) -> [WMFRandomArticle] {
+        let withThumbnail = articles.filter { $0.thumbnail != nil }
+            .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
+        let withoutThumbnail = articles.filter { $0.thumbnail == nil }
+            .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
+
+        var imageQueue = withThumbnail.makeIterator()
+        var textQueue = withoutThumbnail.makeIterator()
+
+        return (0..<4).compactMap { _ in imageQueue.next() ?? textQueue.next() }
+    }
+
+    internal func assignRelatedPageCardSlots(_ articles: [WMFRelatedPagesDataController.WMFRelatedPage]) -> [WMFRelatedPagesDataController.WMFRelatedPage] {
+        let withThumbnail = articles.filter { $0.thumbnailURL != nil }
+        let withoutThumbnail = articles.filter { $0.thumbnailURL == nil }
+
+        var imageQueue = withThumbnail.makeIterator()
+        var textQueue = withoutThumbnail.makeIterator()
+
+        return (0..<4).compactMap { _ in imageQueue.next() ?? textQueue.next() }
+    }
+
+    // MARK: - Fetching articles by topic
+
     /// Fetches random articles for display when no interest topics have been selected.
     public func fetchRandomArticles(project: WMFProject) async throws -> [WMFRandomArticle] {
         return try await WMFRandomDataController.shared.fetchRandomArticles(project: project)
@@ -364,6 +400,8 @@ public final actor WMFHomeDataController {
         }
         return response.query?.pages ?? []
     }
+
+    // MARK: - Community
 
     /// Fetches the Home feed "Community" data for the given date.
     /// Pass `Date()` (the default) to fetch today's data. The first-page response is cached per project per day.
