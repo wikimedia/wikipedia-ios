@@ -3,8 +3,7 @@ import CoreData
 
 /// Persists the topics an article belongs to, keyed on the same `CDPage` that reading history hangs off of,
 /// so that topics can be aggregated over a period of reading history.
-// @unchecked Sendable: coreDataStore is an immutable let; all mutations go through backgroundContext.perform { }
-public final class WMFPageTopicsDataController: @unchecked Sendable {
+public final class WMFPageTopicsDataController: Sendable {
 
     /// Maximum number of topics persisted for a single article.
     static let maximumTopicsPerPage = 5
