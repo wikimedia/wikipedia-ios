@@ -26,7 +26,7 @@ public final class WMFEditingPreferencesSettingsViewModel: ObservableObject {
 }
 
 enum WMFEditingPreferencesCopy {
-    static let title = WMFLocalizedString("settings-editing-preferences-title", value: "Editing Preferences", comment: "Title of the editing preferences settings screen, where users pick between visual and source editing.")
+    static let title = WMFLocalizedString("settings-editing-preferences-title", value: "Editing preference", comment: "Title of the editing preferences settings screen, where users pick between visual and source editing.")
 
     /// Short form used as the value on the Settings row, where the full title does not fit.
     static let visualShortTitle = WMFLocalizedString("settings-editing-preferences-visual-short", value: "Visual", comment: "Short name of the visual editing mode, shown as the current value of the editing preferences row in Settings")
