@@ -1,6 +1,7 @@
 import WMF
 import WMFNativeLocalizations
 import WMFData
+import CocoaLumberjackSwift
 
 extension ArticleViewController: ArticleWebMessageHandling {
     
@@ -9,8 +10,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
         switch action {
         case .setup:
             handlePCSDidFinishInitialSetup()
-        case .finalSetup:
-            handlePCSDidFinishFinalSetup()
+        case .finalSetup(let topics):
+            handlePCSDidFinishFinalSetup(topics: topics)
         case .unknown(let href):
             fallthrough
         case .link(let href, _, _):
@@ -74,16 +75,43 @@ extension ArticleViewController: ArticleWebMessageHandling {
         initialSetupCompletion = nil
     }
     
-    @objc func handlePCSDidFinishFinalSetup() {
+    func handlePCSDidFinishFinalSetup(topics: [WMFPageTopic]) {
         assignScrollStateFromArticleFlagsIfNecessary()
         articleLoadWaitGroup?.leave()
         addToHistory()
         persistPageViewsForWikipediaInReview()
+        saveTopics(topics)
         loadMediaWikiInfoAndUpdateToolbar()
         syncCachedResourcesIfNeeded()
         messagingController.updateDarkModeMainPageIfNeeded(articleURL: articleURL, theme: theme)
     }
-    
+
+    /// Persists the topics the Page Content Service reported for this article, so that reading history can later be grouped by topic.
+    private func saveTopics(_ topics: [WMFPageTopic]) {
+
+        guard !topics.isEmpty else {
+            return
+        }
+
+        // Keyed to the same page as the page view recorded above, so Main Page is skipped here too.
+        guard let title = articleURL.wmf_title,
+              title != "Main Page",
+              let namespace = articleURL.namespace,
+              let siteURL = articleURL.wmf_site,
+              let project = WikimediaProject(siteURL: siteURL)?.wmfProject else {
+            return
+        }
+
+        Task {
+            do {
+                let dataController = try WMFPageTopicsDataController()
+                try await dataController.savePageTopics(title: title, namespaceID: Int16(namespace.rawValue), project: project, topics: topics)
+            } catch let error {
+                DDLogError("Error saving article topics: \(error)")
+            }
+        }
+    }
+
     func handleFooterItem(type: PageContentService.Footer.Menu.Item, payload: Any?) {
         switch type {
         case .talkPage:

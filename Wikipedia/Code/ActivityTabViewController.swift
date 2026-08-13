@@ -482,7 +482,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         Task {
             do {
                 let dataController = try WMFPageViewsDataController()
-                try await dataController.deleteAllPageViewsAndCategories()
+                try await dataController.deleteAllPageViewsCategoriesAndTopics()
                 viewModel.fetchData()
             } catch {
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
