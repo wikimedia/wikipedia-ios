@@ -456,6 +456,7 @@ public final actor WMFHomeDataController {
             "redirects": "",
             "converttitles": "",
             "prop": "description|pageimages|pageprops|info|extracts",
+            "ppprop": "mainpage|disambiguation",
             "exchars": "500",
             "exintro": "1",
             "explaintext": "1",
@@ -476,7 +477,11 @@ public final actor WMFHomeDataController {
                 continuation.resume(with: result)
             }
         }
-        return response.query?.pages ?? []
+        // A disambiguation page only lists other pages with a similar name, and the main page is not
+        // an article. Neither is good content for a suggestion.
+        return (response.query?.pages ?? []).filter { page in
+            return page.pageprops?.disambiguation == nil && page.pageprops?.mainpage == nil
+        }
     }
 
     // MARK: - Community
