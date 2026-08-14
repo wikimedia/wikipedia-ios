@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-public enum WMFEditMode: String {
+public enum WMFEditMode: String, Sendable {
     case visual
     case source
 }
@@ -116,16 +116,35 @@ public actor WMFSettingsDataController: ObservableObject {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue, value: newValue)
     }
 
-    public nonisolated func defaultEditMode() -> WMFEditMode? {
-        guard let raw: String = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.defaultEditMode.rawValue)) ?? nil else { return nil }
-        return WMFEditMode(rawValue: raw)
+    // MARK: - Editing Preferences
+
+    /// The editing mode the user prefers. Written both from the choose editor sheet and from the
+    /// editing preferences settings screen. Users who have never picked one get visual editing.
+    public nonisolated func defaultEditMode() -> WMFEditMode {
+        guard let raw: String = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.defaultEditMode.rawValue)) ?? nil,
+              let mode = WMFEditMode(rawValue: raw) else {
+            return .visual
+        }
+        return mode
     }
 
     public nonisolated func setDefaultEditMode(_ newValue: WMFEditMode) {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.defaultEditMode.rawValue, value: newValue.rawValue)
     }
 
+    /// Whether the choose editor sheet should be skipped in favor of going straight to `defaultEditMode()`.
+    /// Only the sheet's "Don't show this again" checkbox turns this on — changing the mode in settings does not.
+    public nonisolated func skipChooseEditorSheet() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.skipChooseEditorSheet.rawValue)) ?? false
+    }
+
+    public nonisolated func setSkipChooseEditorSheet(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.skipChooseEditorSheet.rawValue, value: newValue)
+    }
+
+    /// Resets both editing preferences, so the sheet shows again and the mode falls back to visual.
     public nonisolated func clearDefaultEditMode() {
         try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.defaultEditMode.rawValue)
+        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.skipChooseEditorSheet.rawValue)
     }
 }

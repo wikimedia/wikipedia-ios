@@ -135,7 +135,7 @@ import WMFData
     public func clearDefaultEditMode() {
         WMFSettingsDataController.shared.clearDefaultEditMode()
         Task { @MainActor in
-            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Edit Mode preference cleared.")))
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Editing preferences cleared. The choose editor sheet will show again.")))
         }
     }
 }

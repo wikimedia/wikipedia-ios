@@ -10,9 +10,9 @@ final class WMFSettingsDataControllerEditModeTests {
     private let fixture = WMFDataTestFixture()
 
     @Test
-    func defaultEditModeIsNilInitially() async throws {
+    func defaultEditModeIsVisualInitially() async throws {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            #expect(WMFSettingsDataController.shared.defaultEditMode() == nil)
+            #expect(WMFSettingsDataController.shared.defaultEditMode() == .visual)
         }
     }
 
@@ -28,11 +28,43 @@ final class WMFSettingsDataControllerEditModeTests {
     }
 
     @Test
-    func clearDefaultEditMode() async throws {
+    func skipChooseEditorSheetIsFalseInitially() async throws {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            WMFSettingsDataController.shared.setDefaultEditMode(.visual)
+            #expect(WMFSettingsDataController.shared.skipChooseEditorSheet() == false)
+        }
+    }
+
+    @Test
+    func setAndLoadSkipChooseEditorSheet() async throws {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFSettingsDataController.shared.setSkipChooseEditorSheet(true)
+            #expect(WMFSettingsDataController.shared.skipChooseEditorSheet() == true)
+
+            WMFSettingsDataController.shared.setSkipChooseEditorSheet(false)
+            #expect(WMFSettingsDataController.shared.skipChooseEditorSheet() == false)
+        }
+    }
+
+    /// The editing preferences screen writes the mode without ever suppressing the sheet — only the
+    /// sheet's own checkbox does that.
+    @Test
+    func settingModeDoesNotSuppressSheet() async throws {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFSettingsDataController.shared.setDefaultEditMode(.source)
+            #expect(WMFSettingsDataController.shared.skipChooseEditorSheet() == false)
+        }
+    }
+
+    @Test
+    func clearDefaultEditModeResetsBothPreferences() async throws {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFSettingsDataController.shared.setDefaultEditMode(.source)
+            WMFSettingsDataController.shared.setSkipChooseEditorSheet(true)
+
             WMFSettingsDataController.shared.clearDefaultEditMode()
-            #expect(WMFSettingsDataController.shared.defaultEditMode() == nil)
+
+            #expect(WMFSettingsDataController.shared.defaultEditMode() == .visual)
+            #expect(WMFSettingsDataController.shared.skipChooseEditorSheet() == false)
         }
     }
 

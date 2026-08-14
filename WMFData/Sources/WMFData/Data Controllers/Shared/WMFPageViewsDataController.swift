@@ -260,13 +260,21 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
 
         let categoriesDataController = try WMFCategoriesDataController(coreDataStore: self.coreDataStore)
         try await categoriesDataController.deleteEmptyCategories()
+
+        let topicsDataController = try WMFPageTopicsDataController(coreDataStore: self.coreDataStore)
+        try await topicsDataController.deleteTopics(title: title, namespaceID: namespaceID, project: project)
     }
 
-    public func deleteAllPageViewsAndCategories() async throws {
+    public func deleteAllPageViewsCategoriesAndTopics() async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
         backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
 
         try await backgroundContext.perform {
+            let topicFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageTopic")
+            let batchTopicDeleteRequest = NSBatchDeleteRequest(fetchRequest: topicFetchRequest)
+            batchTopicDeleteRequest.resultType = .resultTypeObjectIDs
+            _ = try backgroundContext.execute(batchTopicDeleteRequest) as? NSBatchDeleteResult
+
             let categoryFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDCategory")
             let batchCategoryDeleteRequest = NSBatchDeleteRequest(fetchRequest: categoryFetchRequest)
             batchCategoryDeleteRequest.resultType = .resultTypeObjectIDs
@@ -455,13 +463,16 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         return results
     }
 
-    public func fetchRecentlyReadPages(project: WMFProject, minimumSeconds: Int = 60, withinDays: Int = 30) async throws -> [WMFPage] {
+    public func fetchRecentlyReadPages(project: WMFProject, minimumSeconds: Int = 60, withinDays: Int = 30, mainNamespaceOnly: Bool = false) async throws -> [WMFPage] {
         let backgroundContext = try coreDataStore.newBackgroundContext
         let startDate = Calendar.current.date(byAdding: .day, value: -withinDays, to: Date()) ?? Date()
 
         return try await backgroundContext.perform {
+            let predicateFormat = mainNamespaceOnly
+                ? "timestamp >= %@ && numberOfSeconds >= %d && page.projectID == %@ && page.namespaceID == 0"
+                : "timestamp >= %@ && numberOfSeconds >= %d && page.projectID == %@"
             let predicate = NSPredicate(
-                format: "timestamp >= %@ && numberOfSeconds >= %d && page.projectID == %@",
+                format: predicateFormat,
                 startDate as CVarArg, minimumSeconds, project.id
             )
             let sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]

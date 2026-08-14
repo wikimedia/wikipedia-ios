@@ -1339,6 +1339,9 @@
 "settings-clear-cache-ok" = "Confirm action to clear cached data";
 "settings-community-feed-title" = "Title for the Community feed settings item in Settings, shown while the Home tab experiment is enabled. {{Identical|Community}}";
 "settings-donate" = "Link to donate";
+"settings-editing-preferences-source-short" = "Short name of the source editing mode, shown as the current value of the editing preferences row in Settings";
+"settings-editing-preferences-title" = "Title of the editing preferences settings screen, where users pick between visual and source editing.";
+"settings-editing-preferences-visual-short" = "Short name of the visual editing mode, shown as the current value of the editing preferences row in Settings";
 "settings-explore-games-subtitle" = "Subtitle for Games section in Explore settings";
 "settings-explore-games-title" = "Title for Games section in Explore settings";
 "settings-help-and-feedback" = "Title for showing a screen that displays the FAQ and allows users to submit bug reports";
