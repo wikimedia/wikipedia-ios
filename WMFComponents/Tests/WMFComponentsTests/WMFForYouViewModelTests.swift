@@ -12,6 +12,10 @@ final class WMFForYouViewModelTests: XCTestCase {
         WMFForYouArticle(title: title, project: project)
     }
 
+    private func articleInterestPage(_ interest: String, _ titles: [String]) -> WMFForYouInterestPageRelatedArticles {
+        WMFForYouInterestPageRelatedArticles(pageInterest: article(interest), articles: titles.map(article))
+    }
+
     private func interestPage(_ topic: WMFArticleTopic, _ titles: [String]) -> WMFForYouInterestTopicRandomArticles {
         WMFForYouInterestTopicRandomArticles(topic: topic, articles: titles.map(article))
     }
@@ -46,6 +50,47 @@ final class WMFForYouViewModelTests: XCTestCase {
             .continueReading,
             .basedOnInterests, .basedOnInterests
         ])
+    }
+
+    /// The pages at the start of the feed must be able to come from an article interest, and not
+    /// only from a topic interest. The two kinds go one after the other.
+    @MainActor
+    func testTheStartOfTheFeedMixesTopicInterestsAndArticleInterests() {
+        let response = WMFForYouResponse(
+            interestTopicRandomArticles: [
+                interestPage(.architecture, ["A1"]),
+                interestPage(.biology, ["A2"])
+            ],
+            interestPageRelatedArticles: [
+                articleInterestPage("Octopus", ["B1"]),
+                articleInterestPage("Squid", ["B2"])
+            ],
+            becauseYouReadArticles: nil,
+            continueReadingArticles: nil
+        )
+
+        let viewModel = WMFForYouViewModel(response: response)
+        let highlights = viewModel.pages.compactMap { $0.articleViewModels.first?.headerLabel.highlight }
+
+        XCTAssertEqual(highlights.count, 4)
+        XCTAssertEqual(highlights[1], "Octopus", "An article interest must be able to come second")
+        XCTAssertEqual(highlights[3], "Squid")
+    }
+
+    /// Every interest of the user gets a page. The feed does not stop at a fixed number.
+    @MainActor
+    func testEveryInterestGetsAPage() {
+        let topics: [WMFArticleTopic] = [.architecture, .biography, .biology, .history, .mathematics, .music, .physics]
+        let response = WMFForYouResponse(
+            interestTopicRandomArticles: topics.map { interestPage($0, ["A"]) },
+            interestPageRelatedArticles: [],
+            becauseYouReadArticles: nil,
+            continueReadingArticles: nil
+        )
+
+        let viewModel = WMFForYouViewModel(response: response)
+
+        XCTAssertEqual(viewModel.pages.count, topics.count)
     }
 
     @MainActor
