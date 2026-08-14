@@ -463,13 +463,16 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         return results
     }
 
-    public func fetchRecentlyReadPages(project: WMFProject, minimumSeconds: Int = 60, withinDays: Int = 30) async throws -> [WMFPage] {
+    public func fetchRecentlyReadPages(project: WMFProject, minimumSeconds: Int = 60, withinDays: Int = 30, mainNamespaceOnly: Bool = false) async throws -> [WMFPage] {
         let backgroundContext = try coreDataStore.newBackgroundContext
         let startDate = Calendar.current.date(byAdding: .day, value: -withinDays, to: Date()) ?? Date()
 
         return try await backgroundContext.perform {
+            let predicateFormat = mainNamespaceOnly
+                ? "timestamp >= %@ && numberOfSeconds >= %d && page.projectID == %@ && page.namespaceID == 0"
+                : "timestamp >= %@ && numberOfSeconds >= %d && page.projectID == %@"
             let predicate = NSPredicate(
-                format: "timestamp >= %@ && numberOfSeconds >= %d && page.projectID == %@",
+                format: predicateFormat,
                 startDate as CVarArg, minimumSeconds, project.id
             )
             let sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
