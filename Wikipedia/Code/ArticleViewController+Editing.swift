@@ -37,24 +37,25 @@ extension ArticleViewController {
         }
 
         let settingsDataController = WMFSettingsDataController.shared
+        let preferredMode = settingsDataController.defaultEditMode()
 
-        // User previously chose a default via "Don't show this again" — skip the sheet
-        if let defaultMode = settingsDataController.defaultEditMode() {
-            startEditing(mode: defaultMode, sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
+        if settingsDataController.skipChooseEditorSheet() {
+            startEditing(mode: preferredMode, sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
             return
         }
 
         let coordinator = ChooseEditorSheetCoordinator(
             navigationController: navigationController,
-            theme: theme
+            theme: theme,
+            initialMode: preferredMode
         ) { [weak self] mode, dontShowAgain in
             guard let self else { return }
 
-            let editMode: WMFEditMode = (mode == .visual) ? .visual : .source
+            settingsDataController.setDefaultEditMode(mode)
             if dontShowAgain {
-                settingsDataController.setDefaultEditMode(editMode)
+                settingsDataController.setSkipChooseEditorSheet(true)
             }
-            self.startEditing(mode: editMode, sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
+            self.startEditing(mode: mode, sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
         }
         coordinator.start()
     }
