@@ -214,7 +214,8 @@ public final actor WMFHomeDataController {
             for topic in topics {
                 group.addTask {
                     let articles = try await self.fetchArticles(for: topic, project: project)
-                    let mapped = articles.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
+                    let mapped = await self.assignCardSlots(articles)
+                        .map { WMFForYouArticle(title: $0.title, project: project) }
                     return WMFForYouInterestTopicRandomArticles(topic: topic, articles: mapped)
                 }
             }
@@ -243,10 +244,60 @@ public final actor WMFHomeDataController {
             return results
         }
     }
+    
+    private func assignCardSlots(_ articles: [WMFRelatedPagesDataController.WMFRelatedPage]) -> [WMFRelatedPagesDataController.WMFRelatedPage] {
+        let withThumbnail = articles.filter { $0.thumbnailURL != nil }
+        let withoutThumbnail = articles.filter { $0.thumbnailURL == nil }
+
+        var imageQueue = withThumbnail.makeIterator()
+        var textQueue = withoutThumbnail.makeIterator()
+
+        func next(preferImage: Bool) -> WMFRelatedPagesDataController.WMFRelatedPage? {
+            preferImage ? (imageQueue.next() ?? textQueue.next())
+                        : (textQueue.next() ?? imageQueue.next())
+        }
+
+        return [
+            next(preferImage: true),
+            next(preferImage: true),
+            next(preferImage: false),
+            next(preferImage: true)
+        ].compactMap { $0 }
+    }
+    
+    private func assignCardSlots(_ articles: [WMFRandomArticle]) -> [WMFRandomArticle] {
+        let withThumbnail = articles.filter { $0.thumbnail != nil }
+            .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
+        let withoutThumbnail = articles.filter { $0.thumbnail == nil }
+            .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
+
+        // Slot layout: 0 = image, 1 = image, 2 = text, 3 = image
+        var imageQueue = withThumbnail.makeIterator()
+        var textQueue = withoutThumbnail.makeIterator()
+
+        func next(preferImage: Bool) -> WMFRandomArticle? {
+            if preferImage {
+                return imageQueue.next() ?? textQueue.next()
+            } else {
+                return textQueue.next() ?? imageQueue.next()
+            }
+        }
+
+        return [
+            next(preferImage: true),   // slot 0 — image
+            next(preferImage: true),   // slot 1 — image
+            next(preferImage: false),  // slot 2 — text
+            next(preferImage: true)   // slot 3 — image
+        ].compactMap { $0 }
+    }
 
     private func fetchForYouBecauseYouReadArticles(project: WMFProject) async throws -> WMFForYouBecauseYouReadArticles? {
         guard let pageViewsDataController else { return nil }
-        let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 10)
+        // T427675:  Ensure freshness: instead of just taking the last article read, for every new explore day, take all articles that were read for 1+ minutes in the last month and randomly pick one as the seed
+        var pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60, mainNamespaceOnly: true)
+        if pages.isEmpty {
+            pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 10, mainNamespaceOnly: true)
+        }
         guard let recentlyRead = pages.randomElement() else { return nil }
         let related = try await relatedPagesDataController.fetchRelatedPages(title: recentlyRead.title, project: project)
         let mapped = related.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
@@ -258,18 +309,42 @@ public final actor WMFHomeDataController {
 
     private func fetchForYouContinueReading(project: WMFProject) async throws -> WMFForYouContinueReading? {
         guard let pageViewsDataController else { return nil }
-        let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60)
+        let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60, mainNamespaceOnly: true)
         guard let continueReadingArticle = pages.randomElement() else { return nil }
-        let saved = try await savedArticlesDataController.fetchRecentlySavedArticles(limit: 3)
-        let mapped = saved.compactMap { item -> WMFForYouArticle? in
-            guard let proj = WMFProject(id: item.page.projectID) else { return nil }
-            return WMFForYouArticle(title: item.page.title, project: proj)
-        }
+        let related = try await relatedPagesDataController.fetchRelatedPages(title: continueReadingArticle.title, project: project)
+        let mapped = assignRelatedPageCardSlots(related)
+            .map { WMFForYouArticle(title: $0.title, project: project) }
         return WMFForYouContinueReading(
             continueReadingArticle: WMFForYouArticle(title: continueReadingArticle.title, project: project),
             savedArticles: mapped
         )
     }
+
+    // MARK: - Card slot assignment
+    
+    internal func assignRandomArticleCardSlots(_ articles: [WMFRandomArticle]) -> [WMFRandomArticle] {
+        let withThumbnail = articles.filter { $0.thumbnail != nil }
+            .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
+        let withoutThumbnail = articles.filter { $0.thumbnail == nil }
+            .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
+
+        var imageQueue = withThumbnail.makeIterator()
+        var textQueue = withoutThumbnail.makeIterator()
+
+        return (0..<4).compactMap { _ in imageQueue.next() ?? textQueue.next() }
+    }
+
+    internal func assignRelatedPageCardSlots(_ articles: [WMFRelatedPagesDataController.WMFRelatedPage]) -> [WMFRelatedPagesDataController.WMFRelatedPage] {
+        let withThumbnail = articles.filter { $0.thumbnailURL != nil }
+        let withoutThumbnail = articles.filter { $0.thumbnailURL == nil }
+
+        var imageQueue = withThumbnail.makeIterator()
+        var textQueue = withoutThumbnail.makeIterator()
+
+        return (0..<4).compactMap { _ in imageQueue.next() ?? textQueue.next() }
+    }
+
+    // MARK: - Fetching articles by topic
 
     /// Fetches random articles for display when no interest topics have been selected.
     public func fetchRandomArticles(project: WMFProject) async throws -> [WMFRandomArticle] {
@@ -323,6 +398,8 @@ public final actor WMFHomeDataController {
         }
         return response.query?.pages ?? []
     }
+
+    // MARK: - Community
 
     /// Fetches the Home feed "Community" data for the given date.
     /// Pass `Date()` (the default) to fetch today's data. The first-page response is cached per project per day.

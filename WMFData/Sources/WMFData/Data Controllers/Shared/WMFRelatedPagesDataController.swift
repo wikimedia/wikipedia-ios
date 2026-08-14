@@ -20,22 +20,28 @@ public actor WMFRelatedPagesDataController {
 
     // MARK: - Response Models
 
-    private struct Response: Codable {
+    private struct Response: Codable, Sendable {
         let query: Query?
 
-        struct Query: Codable {
+        struct Query: Codable, Sendable {
             let pages: [Page]?
         }
 
-        struct Page: Codable {
+        struct Page: Codable, Sendable {
             let pageid: Int
             let title: String
             let description: String?
             let thumbnail: Thumbnail?
             let extract: String?
+            let pageprops: PageProps?
 
-            struct Thumbnail: Codable {
+            struct Thumbnail: Codable, Sendable {
                 let source: String?
+            }
+
+            struct PageProps: Codable, Sendable {
+                let mainpage: String?
+                let disambiguation: String?
             }
         }
     }
@@ -60,7 +66,8 @@ public actor WMFRelatedPagesDataController {
             "gsrnamespace": "0",
             "gsrlimit": "20",
             "gsrqiprofile": "classic_noboostlinks",
-            "prop": "pageimages|description|info|extracts",
+            "prop": "pageimages|description|info|extracts|pageprops",
+            "ppprop": "mainpage|disambiguation",
             "piprop": "thumbnail",
             "pithumbsize": "160",
             "pilimit": "20",
@@ -89,7 +96,9 @@ public actor WMFRelatedPagesDataController {
             return []
         }
 
-        return pages.map { page in
+        return pages.filter { page in
+            return page.pageprops?.disambiguation == nil && page.pageprops?.mainpage == nil
+        }.map { page in
             let thumbnailURL = page.thumbnail?.source.flatMap { URL(string: $0) }
             return WMFRelatedPage(
                 pageid: page.pageid,
