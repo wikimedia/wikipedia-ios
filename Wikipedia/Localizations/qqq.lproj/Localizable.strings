@@ -714,7 +714,6 @@
 "for-you-error-subtitle" = "Subtitle shown on the For You tab when content cannot be loaded due to a network error.";
 "for-you-error-title" = "Title shown on the For You tab when content cannot be loaded due to a network error.";
 "for-you-header-because-you-read" = "Header on a For You feed card shown because the user recently read a related article. $1 is replaced with the article title.";
-"for-you-header-continue-reading" = "Header on a For You feed card prompting the user to continue reading an article.";
 "for-you-header-interest" = "Header on a For You feed card explaining it was chosen from one of the user's interests. $1 is replaced with the interest name.";
 "for-you-header-saved-article" = "Header on a For You feed card showing an article from the user's reading list.";
 "for-you-menu-customize-interests" = "Menu action to open the interests customization screen from a For You feed card.";
@@ -753,7 +752,6 @@
 "home-feed-for-you-because-you-read-subtitle" = "Subtitle describing the Because you read module.";
 "home-feed-for-you-because-you-read-title" = "Title for the Because you read module toggle.";
 "home-feed-for-you-continue-reading-subtitle" = "Subtitle describing the Continue reading module.";
-"home-feed-for-you-continue-reading-title" = "Title for the Continue reading module toggle.";
 "home-feed-for-you-settings-header" = "Header text describing what turning For You feed modules on or off does.";
 "home-feed-for-you-settings-title" = "Navigation bar title for the For You modules settings screen.";
 "home-feed-interests-deselect-all" = "Title of the button on the interests selection screen that clears all selected topics and articles.";

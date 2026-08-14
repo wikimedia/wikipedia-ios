@@ -309,10 +309,7 @@ public final actor WMFHomeDataController {
 
     private func fetchForYouContinueReading(project: WMFProject) async throws -> WMFForYouContinueReading? {
         guard let pageViewsDataController else { return nil }
-        var pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60, mainNamespaceOnly: true)
-        if pages.isEmpty {
-            pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 10, mainNamespaceOnly: true)
-        }
+        let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60, mainNamespaceOnly: true)
         guard let seed = pages.randomElement() else { return nil }
         let saved = try await savedArticlesDataController.fetchRecentlySavedArticles(limit: 3)
         let fromReadingList = saved.compactMap { item -> WMFForYouArticle? in

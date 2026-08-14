@@ -148,7 +148,7 @@ public final class WMFForYouViewModel: ObservableObject {
 
         let continueHeader = WMFForYouHeaderLabel(
             symbol: .newspaper,
-            format: WMFLocalizedString("for-you-header-continue-reading", value: "Continue reading", comment: "Header on a For You feed card prompting the user to continue reading an article."),
+            format: CommonStrings.continueReadingTitle,
             highlight: continueReading.continueReadingArticle.title.normalizedForDisplay
         )
         let continueCard = WMFForYouArticleCardViewModel(article: continueReading.continueReadingArticle, headerLabel: continueHeader)
@@ -295,7 +295,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
 
     public init(article: WMFForYouArticle, headerLabel: WMFForYouHeaderLabel) {
         self.headerLabel = headerLabel
-        self.title = article.title
+        self.title = article.title.normalizedForDisplay
         self.project = article.project
         self.cardUniqueKey = "for_you_\(article.project.id)_\(article.title)"
     }

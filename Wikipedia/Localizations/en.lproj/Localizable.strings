@@ -714,7 +714,6 @@
 "for-you-error-subtitle" = "Connect to the Internet and try again.";
 "for-you-error-title" = "No internet connection";
 "for-you-header-because-you-read" = "Because you read: $1";
-"for-you-header-continue-reading" = "Continue reading";
 "for-you-header-interest" = "Because of your interest: $1";
 "for-you-header-saved-article" = "From your reading list";
 "for-you-menu-customize-interests" = "Customize interests";
@@ -753,7 +752,6 @@
 "home-feed-for-you-because-you-read-subtitle" = "Suggestions based on a recent article from your history";
 "home-feed-for-you-because-you-read-title" = "Because you read";
 "home-feed-for-you-continue-reading-subtitle" = "Jump back into articles you didn't finish";
-"home-feed-for-you-continue-reading-title" = "Continue reading";
 "home-feed-for-you-settings-header" = "Turning off a module hides it from your \"For you\" feed. You can re-enable it here at any time.";
 "home-feed-for-you-settings-title" = "Modules";
 "home-feed-interests-deselect-all" = "Deselect all";
