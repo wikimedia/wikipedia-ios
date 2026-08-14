@@ -97,4 +97,5 @@ public enum WMFUserDefaultsKey: String {
     // Article View Controller: Enable visual editor
     case developerSettingsEnableVisualEditingJourney = "dev-settings-enable-visual-editing-journey"
     case defaultEditMode = "default-edit-mode"
+    case skipChooseEditorSheet = "skip-choose-editor-sheet"
 }
