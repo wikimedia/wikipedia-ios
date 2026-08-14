@@ -69,8 +69,7 @@ public final class WMFForYouViewModel: ObservableObject {
     public var onUnsaveCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onUserInteraction: (() -> Void)?
 
-    /// Called with a card that the user really sees on the screen, and not with a card that the app
-    /// only loaded into the feed.
+    /// Called with a card that the user really sees on the screen.
     public var onShowCard: ((WMFForYouArticleCardViewModel) -> Void)?
 
     public let emptyTitle = WMFLocalizedString("for-you-empty-title", value: "Nothing here yet", comment: "Title shown on the For You tab when there is no content to display.")
@@ -117,12 +116,7 @@ public final class WMFForYouViewModel: ObservableObject {
 
     private static let maxLeadingInterestPages = 3
 
-    /// Builds one page for each interest of the user, from the topics and from the articles.
-    ///
-    /// The two kinds are mixed one after the other. Thus the pages at the start of the feed can come
-    /// from a topic or from an article, and not only from a topic. The data controller gives both
-    /// lists in a random order, and it keeps that order for the full day, thus the feed does not
-    /// change while the user looks at it.
+    /// Builds one page for each interest, and mixes the topics and the articles one after the other.
     private static func makeInterestPages(from response: WMFForYouResponse, deduplicator: inout ArticleDeduplicator) -> [WMFForYouPageViewModel] {
         let interestFormat = WMFLocalizedString("for-you-header-interest", value: "Because of your interest: %1$@", comment: "Header on a For You feed card explaining it was chosen from one of the user's interests. %1$@ is replaced with the interest name.")
 
@@ -142,8 +136,7 @@ public final class WMFForYouViewModel: ObservableObject {
         return interleaved(topicPages, articlePages)
     }
 
-    /// Puts the pages of two lists one after the other, and keeps the pages that stay at the end of
-    /// the longer list.
+    /// Puts the pages of two lists one after the other.
     private static func interleaved(_ first: [WMFForYouPageViewModel], _ second: [WMFForYouPageViewModel]) -> [WMFForYouPageViewModel] {
         var pages: [WMFForYouPageViewModel] = []
 

@@ -140,8 +140,7 @@ public struct WMFRandomArticle: Decodable, Sendable {
     }
 }
 
-/// The API sends a key with an empty value when the page has that property, and sends no key at all
-/// when it does not.
+/// The API sends a key with an empty value when the page has that property, and no key when it does not.
 public struct WMFRandomArticlePageProps: Decodable, Sendable {
     public let mainpage: String?
     public let disambiguation: String?

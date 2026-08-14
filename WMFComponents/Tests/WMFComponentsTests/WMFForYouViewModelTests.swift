@@ -52,8 +52,7 @@ final class WMFForYouViewModelTests: XCTestCase {
         ])
     }
 
-    /// The pages at the start of the feed must be able to come from an article interest, and not
-    /// only from a topic interest. The two kinds go one after the other.
+    /// The pages at the start of the feed can come from an article interest, and not only a topic.
     @MainActor
     func testTheStartOfTheFeedMixesTopicInterestsAndArticleInterests() {
         let response = WMFForYouResponse(

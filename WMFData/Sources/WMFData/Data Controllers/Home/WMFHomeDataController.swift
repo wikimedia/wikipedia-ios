@@ -160,16 +160,12 @@ public final actor WMFHomeDataController {
         "\(project.id)_\(title.normalizedForDisplay)"
     }
 
-    /// Records that the user saw this article on the screen.
-    ///
-    /// Call this only when a card is on the screen. Do not call it when the app only loads a card
-    /// into the feed, because the user did not see that card.
+    /// Records that the user saw this article. Call this only when a card is on the screen.
     public nonisolated func recordSeenArticle(title: String, project: WMFProject, date: Date = Date()) {
         var seen = storedSeenArticles()
         seen[seenArticleKey(title: title, project: project)] = date
 
-        // Remove the articles that are too old to suppress, then the oldest of the others if there
-        // are too many. Thus the list cannot grow without a limit.
+        // Remove the articles that are too old, then the oldest of the others, so the list has a limit.
         seen = Self.removingExpired(seen, now: date)
         if seen.count > Self.maxSeenArticles {
             let newest = seen.sorted { $0.value > $1.value }.prefix(Self.maxSeenArticles)
@@ -261,12 +257,7 @@ public final actor WMFHomeDataController {
         return response
     }
 
-    /// The titles that must never be a suggestion in the feed.
-    ///
-    /// These are the articles that the user selected as an interest, and the main page of the
-    /// project. The user already knows the articles that they selected, and the main page is not an
-    /// article. The titles use the same format as the titles from the API, thus a comparison of two
-    /// titles is correct.
+    /// The titles that must never be a suggestion: the articles of the user, and the articles they saw.
     private func excludedSuggestionTitles(project: WMFProject) async -> Set<String> {
         var titles: Set<String> = []
 
@@ -275,13 +266,20 @@ public final actor WMFHomeDataController {
             titles.formUnion(interests.map { $0.title.normalizedForDisplay })
         }
 
-        // The articles that the user saw on the screen in the last days. A new article is better
-        // than an article that the user saw already, even if the article has a high rank.
+        // A new article is better than an article that the user saw in the last days.
         titles.formUnion(seenArticleTitles(project: project))
 
         return titles
     }
 
+
+    /// Puts the articles that the app can suggest first, so that a module never becomes empty.
+    private nonisolated func candidatesPreferringNotExcluded(_ articles: [WMFRelatedPagesDataController.WMFRelatedPage], excluding excluded: Set<String>) -> [WMFRelatedPagesDataController.WMFRelatedPage] {
+        let allowed = articles.filter { !excluded.contains($0.title.normalizedForDisplay) }
+        let rest = articles.filter { excluded.contains($0.title.normalizedForDisplay) }
+
+        return allowed.shuffled() + rest.shuffled()
+    }
 
     private func fetchForYouInterestTopicRandomArticles(project: WMFProject, excluding excluded: Set<String>) async throws -> [WMFForYouInterestTopicRandomArticles] {
         let topics = interestTopics().shuffled()
@@ -292,7 +290,9 @@ public final actor WMFHomeDataController {
                 group.addTask {
                     let articles = try await self.fetchArticles(for: topic, project: project)
                     let allowed = articles.filter { !excluded.contains($0.title.normalizedForDisplay) }
-                    let mapped = await self.assignCardSlots(allowed)
+                    // The topic search gives a new random group each time, thus this is only a safety net.
+                    let candidates = allowed.count >= 4 ? allowed : articles
+                    let mapped = await self.assignCardSlots(candidates)
                         .map { WMFForYouArticle(title: $0.title, project: project) }
                     return WMFForYouInterestTopicRandomArticles(topic: topic, articles: mapped)
                 }
@@ -313,8 +313,8 @@ public final actor WMFHomeDataController {
             for interest in selected {
                 group.addTask {
                     let related = try await self.relatedPagesDataController.fetchRelatedPages(title: interest.title, project: project)
-                    let allowed = related.filter { !excluded.contains($0.title.normalizedForDisplay) }
-                    let mapped = allowed.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
+                    let candidates = self.candidatesPreferringNotExcluded(related, excluding: excluded)
+                    let mapped = candidates.prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
                     return WMFForYouInterestPageRelatedArticles(pageInterest: WMFForYouArticle(title: interest.title, project: project), articles: mapped)
                 }
             }
@@ -379,8 +379,8 @@ public final actor WMFHomeDataController {
         }
         guard let recentlyRead = pages.randomElement() else { return nil }
         let related = try await relatedPagesDataController.fetchRelatedPages(title: recentlyRead.title, project: project)
-        let allowed = related.filter { !excluded.contains($0.title.normalizedForDisplay) }
-        let mapped = allowed.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
+        let candidates = candidatesPreferringNotExcluded(related, excluding: excluded)
+        let mapped = candidates.prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
         return WMFForYouBecauseYouReadArticles(
             recentlyRead: WMFForYouArticle(title: recentlyRead.title, project: project),
             articles: mapped
@@ -477,8 +477,7 @@ public final actor WMFHomeDataController {
                 continuation.resume(with: result)
             }
         }
-        // A disambiguation page only lists other pages with a similar name, and the main page is not
-        // an article. Neither is good content for a suggestion.
+        // A disambiguation page and the main page are not good content for a suggestion.
         return (response.query?.pages ?? []).filter { page in
             return page.pageprops?.disambiguation == nil && page.pageprops?.mainpage == nil
         }

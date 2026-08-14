@@ -86,11 +86,7 @@ public struct WMFForYouView: View {
         }
     }
 
-    /// The module that fills the screen now.
-    ///
-    /// A lazy stack builds the module before and the module after the module on the screen, thus the
-    /// app cannot use the appearance of a module to know that the user sees it. The vertical scroll
-    /// gives the correct answer. Before the first scroll the user sees the first module.
+    /// The module that fills the screen. A lazy stack also builds the modules near it, thus only the scroll gives the correct answer.
     private var moduleOnScreen: VisiblePage? {
         if let currentModuleID, let page = visiblePages.first(where: { $0.id == currentModuleID }) {
             return page
@@ -250,8 +246,7 @@ private struct WMFForYouPageView: View {
     /// module, in which case this carousel starts at its first card.
     let lastViewedCardKey: String?
 
-    /// True when this module fills the screen. A module that the lazy stack built in advance is not
-    /// on the screen, and the cards of that module are not seen by the user.
+    /// True when this module fills the screen.
     let isOnScreen: Bool
 
     /// Reports the card on screen, so the view model can put the user back here later.

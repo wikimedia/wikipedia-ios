@@ -86,6 +86,23 @@ final class WMFHomeDataControllerTests: XCTestCase {
         XCTAssertEqual(returnedTitles, ["Cat", "Dog", "Fish"])
     }
 
+    /// The API sends the same related articles for 24 hours, thus the module must not become empty.
+    func testAPageInterestGroupKeepsItsArticlesWhenTheUserSawThemAll() async throws {
+        try await seedPageInterests(["Cat"], project: enProject)
+        let controller = makeForYouController(topics: [])
+
+        // Every article of the related pages fixture is now an article that the user saw.
+        for title in ["Trap–neuter–return", "Purr", "Feral cat"] {
+            controller.recordSeenArticle(title: title, project: enProject)
+        }
+
+        let response = try await controller.fetchForYou(project: enProject)
+
+        XCTAssertEqual(response.interestPageRelatedArticles.count, 1)
+        XCTAssertFalse(response.interestPageRelatedArticles[0].articles.isEmpty,
+                       "A group with all its articles seen must still show articles")
+    }
+
     /// Every article interest of the user gets a group, as for the topics.
     func testFetchForYouReturnsOneGroupPerPageInterestWhenThereAreMany() async throws {
         let titles = ["Cat", "Dog", "Fish", "Bird", "Lizard", "Snake", "Frog"]
@@ -235,8 +252,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
         XCTAssertEqual(returnedTopics, Set(topics))
     }
 
-    /// Every topic of the user gets a group. There is no limit of five, so a user with many
-    /// interests sees all of them.
+    /// Every topic of the user gets a group. There is no limit of five.
     func testFetchForYouReturnsOneGroupPerTopicWhenThereAreManyTopics() async throws {
         let topics: [WMFArticleTopic] = [.history, .biology, .music, .films, .sports, .physics, .technology]
         let controller = makeForYouController(topics: topics)
