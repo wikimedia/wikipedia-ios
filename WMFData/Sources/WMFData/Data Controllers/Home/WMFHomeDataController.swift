@@ -189,7 +189,7 @@ public final actor WMFHomeDataController {
     }
 
     private func fetchForYouInterestTopicRandomArticles(project: WMFProject) async throws -> [WMFForYouInterestTopicRandomArticles] {
-        let topics = interestTopics().shuffled().prefix(5)
+        let topics = interestTopics().shuffled()
         guard !topics.isEmpty else { return [] }
 
         return try await withThrowingTaskGroup(of: WMFForYouInterestTopicRandomArticles.self) { group in
@@ -209,7 +209,7 @@ public final actor WMFHomeDataController {
     private func fetchForYouInterestPageRelatedArticles(project: WMFProject) async throws -> [WMFForYouInterestPageRelatedArticles] {
         guard let pageInterestDataController else { return [] }
         let interests = try await pageInterestDataController.fetchPageInterests(project: project)
-        let selected = interests.shuffled().prefix(5)
+        let selected = interests.shuffled()
         guard !selected.isEmpty else { return [] }
 
         return try await withThrowingTaskGroup(of: WMFForYouInterestPageRelatedArticles.self) { group in
