@@ -1,11 +1,13 @@
-import XCTest
+import Testing
+import Foundation
 @testable import WMFComponents
 @testable import WMFData
-import WMFDataMocks
+@testable import WMFDataMocks
 
 /// Covers the rule that an article the user saw does not come back into the feed for some days.
 @MainActor
-final class WMFHomeSeenArticlesTests: XCTestCase {
+@Suite
+struct WMFHomeSeenArticlesTests {
 
     private let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
     private let otherProject = WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil))
@@ -14,54 +16,56 @@ final class WMFHomeSeenArticlesTests: XCTestCase {
         WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
     }
 
-    func testAnArticleThatWasNotSeenIsNotSuppressed() {
-        let controller = makeController()
-
-        XCTAssertTrue(controller.seenArticleTitles(project: project).isEmpty)
+    private func date(daysAgo days: Int) -> Date {
+        Calendar.current.date(byAdding: .day, value: -days, to: Date()) ?? Date()
     }
 
-    func testASeenArticleIsSuppressed() {
+    @Test
+    func anArticleThatWasNotSeenIsNotSuppressed() {
+        let controller = makeController()
+
+        #expect(controller.seenArticleTitles(project: project).isEmpty)
+    }
+
+    @Test
+    func aSeenArticleIsSuppressed() {
         let controller = makeController()
 
         controller.recordSeenArticle(title: "Octopus", project: project)
 
-        XCTAssertTrue(controller.seenArticleTitles(project: project).contains("Octopus"))
+        #expect(controller.seenArticleTitles(project: project).contains("Octopus"))
     }
 
     /// The stored title uses spaces, so a title that arrives with underscores matches the same article.
-    func testTitlesWithUnderscoresMatchTitlesWithSpaces() {
+    @Test
+    func titlesWithUnderscoresMatchTitlesWithSpaces() {
         let controller = makeController()
 
         controller.recordSeenArticle(title: "Giant_squid", project: project)
 
-        XCTAssertTrue(controller.seenArticleTitles(project: project).contains("Giant squid"))
+        #expect(controller.seenArticleTitles(project: project).contains("Giant squid"))
     }
 
-    func testAnArticleSeenInOneProjectDoesNotAffectAnotherProject() {
+    @Test
+    func anArticleSeenInOneProjectDoesNotAffectAnotherProject() {
         let controller = makeController()
 
         controller.recordSeenArticle(title: "Octopus", project: project)
 
-        XCTAssertTrue(controller.seenArticleTitles(project: project).contains("Octopus"))
-        XCTAssertFalse(controller.seenArticleTitles(project: otherProject).contains("Octopus"))
+        #expect(controller.seenArticleTitles(project: project).contains("Octopus"))
+        #expect(!controller.seenArticleTitles(project: otherProject).contains("Octopus"))
     }
 
-    /// After the suppression period the article can come back into the feed.
-    func testAnArticleComesBackAfterTheSuppressionPeriod() {
+    /// One day inside the period keeps the article away, and one day outside it lets the article come back.
+    @Test(arguments: [
+        (WMFHomeDataController.seenArticleSuppressionDays - 1, true),
+        (WMFHomeDataController.seenArticleSuppressionDays + 1, false)
+    ])
+    func anArticleIsSuppressedOnlyInsideTheSuppressionPeriod(daysAgo: Int, isSuppressed: Bool) {
         let controller = makeController()
-        let longAgo = Calendar.current.date(byAdding: .day, value: -(WMFHomeDataController.seenArticleSuppressionDays + 1), to: Date()) ?? Date()
 
-        controller.recordSeenArticle(title: "Octopus", project: project, date: longAgo)
+        controller.recordSeenArticle(title: "Octopus", project: project, date: date(daysAgo: daysAgo))
 
-        XCTAssertFalse(controller.seenArticleTitles(project: project).contains("Octopus"))
-    }
-
-    func testAnArticleSeenInsideThePeriodStaysSuppressed() {
-        let controller = makeController()
-        let recently = Calendar.current.date(byAdding: .day, value: -(WMFHomeDataController.seenArticleSuppressionDays - 1), to: Date()) ?? Date()
-
-        controller.recordSeenArticle(title: "Octopus", project: project, date: recently)
-
-        XCTAssertTrue(controller.seenArticleTitles(project: project).contains("Octopus"))
+        #expect(controller.seenArticleTitles(project: project).contains("Octopus") == isSuppressed)
     }
 }
