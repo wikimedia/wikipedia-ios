@@ -1442,7 +1442,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         return abs(resignActiveDate.timeIntervalSinceNow) >= wmfTimeBeforeShowingExploreScreenOnLaunch
     }
 
-    private func visibleArticleViewController() -> ArticleViewController? {
+    func visibleArticleViewController() -> ArticleViewController? {
         guard let topVC = currentTabNavigationController?.topViewController else { return nil }
         return topVC as? ArticleViewController
     }
