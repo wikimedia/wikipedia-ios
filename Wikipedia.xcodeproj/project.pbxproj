@@ -487,7 +487,9 @@
 		6747118925072D1500287951 /* IconTitleBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747118725072D1500287951 /* IconTitleBadge.swift */; };
 		6747118A25072D1500287951 /* IconTitleBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747118725072D1500287951 /* IconTitleBadge.swift */; };
 		674DF84C2E84250900F58603 /* HCaptcha in Frameworks */ = {isa = PBXBuildFile; productRef = 674DF84B2E84250900F58603 /* HCaptcha */; };
+		EA51B0820000000000000B13 /* WMFVisualEditorKit in Frameworks */ = {isa = PBXBuildFile; productRef = EA51B0820000000000000B03 /* WMFVisualEditorKit */; };
 		674DF84E2E84251500F58603 /* HCaptcha in Frameworks */ = {isa = PBXBuildFile; productRef = 674DF84D2E84251500F58603 /* HCaptcha */; };
+		EA51B0820000000000000B12 /* WMFVisualEditorKit in Frameworks */ = {isa = PBXBuildFile; productRef = EA51B0820000000000000B02 /* WMFVisualEditorKit */; };
 		674E8AB92382DEFF0053D206 /* DiffTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E8AB82382DEFF0053D206 /* DiffTransformer.swift */; };
 		674E8ABA2382DF020053D206 /* DiffTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E8AB82382DEFF0053D206 /* DiffTransformer.swift */; };
 		674E8ABB2382DF030053D206 /* DiffTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E8AB82382DEFF0053D206 /* DiffTransformer.swift */; };
@@ -680,6 +682,7 @@
 		6798332A22C3F2940073CE6F /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */; };
 		6798332B22C3F2950073CE6F /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */; };
 		679B89ED2E7DFC8B009902BE /* HCaptcha in Frameworks */ = {isa = PBXBuildFile; productRef = 679B89EC2E7DFC8B009902BE /* HCaptcha */; };
+		EA51B0820000000000000B11 /* WMFVisualEditorKit in Frameworks */ = {isa = PBXBuildFile; productRef = EA51B0820000000000000B01 /* WMFVisualEditorKit */; };
 		679B89EF2E7DFF7E009902BE /* WMFHCaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679B89EE2E7DFF79009902BE /* WMFHCaptchaViewController.swift */; };
 		679B89F02E7DFF7E009902BE /* WMFHCaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679B89EE2E7DFF79009902BE /* WMFHCaptchaViewController.swift */; };
 		679B89F12E7DFF7E009902BE /* WMFHCaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679B89EE2E7DFF79009902BE /* WMFHCaptchaViewController.swift */; };
@@ -1396,8 +1399,11 @@
 		8386BDF62386D735007EE89D /* ViewController+URLHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */; };
 		8386BDF72386D735007EE89D /* ViewController+URLHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */; };
 		8386BDFB2386D754007EE89D /* SinglePageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */; };
+		EA51B0820000000000000B21 /* NativeVisualEditorPlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA51B0820000000000000B20 /* NativeVisualEditorPlaygroundViewController.swift */; };
 		8386BDFC2386D754007EE89D /* SinglePageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */; };
+		EA51B0820000000000000B22 /* NativeVisualEditorPlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA51B0820000000000000B20 /* NativeVisualEditorPlaygroundViewController.swift */; };
 		8386BDFD2386D754007EE89D /* SinglePageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */; };
+		EA51B0820000000000000B23 /* NativeVisualEditorPlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA51B0820000000000000B20 /* NativeVisualEditorPlaygroundViewController.swift */; };
 		838790B32858009000067B1D /* TalkPageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838790B22858009000067B1D /* TalkPageFetcher.swift */; };
 		8387CE8824C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8387CE8724C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift */; };
 		8387CE8F24C99C2600439D93 /* WMFMTLModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 8387CE8D24C99C2600439D93 /* WMFMTLModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3280,6 +3286,7 @@
 		678F511823A4B92000CE5357 /* ArticleCacheDBWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleCacheDBWriter.swift; path = ../Wikipedia/Code/ArticleCacheDBWriter.swift; sourceTree = "<group>"; };
 		679471DA275F245000621071 /* NotificationsCenterInboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterInboxView.swift; sourceTree = "<group>"; };
 		679603952C5D434D009606C4 /* WMFData */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WMFData; sourceTree = "<group>"; };
+		EA51B0820000000000000B00 /* WMFVisualEditorKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WMFVisualEditorKit; sourceTree = "<group>"; };
 		679603962C5D48AC009606C4 /* WMFComponents */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WMFComponents; sourceTree = "<group>"; };
 		6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkOnlyTextView.swift; sourceTree = "<group>"; };
 		6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
@@ -3617,6 +3624,7 @@
 		8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+URLHandling.swift"; sourceTree = "<group>"; };
 		8386BDF02386D3E1007EE89D /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
 		8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePageWebViewController.swift; sourceTree = "<group>"; };
+		EA51B0820000000000000B20 /* NativeVisualEditorPlaygroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeVisualEditorPlaygroundViewController.swift; sourceTree = "<group>"; };
 		838790B22858009000067B1D /* TalkPageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageFetcher.swift; sourceTree = "<group>"; };
 		8387CE8624C8C6CF00439D93 /* Wikipedia 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 4.xcdatamodel"; sourceTree = "<group>"; };
 		8387CE8724C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFSecureUnarchiveFromDataTransformer.swift; sourceTree = "<group>"; };
@@ -4438,6 +4446,7 @@
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
 				D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */,
 				679B89ED2E7DFC8B009902BE /* HCaptcha in Frameworks */,
+				EA51B0820000000000000B11 /* WMFVisualEditorKit in Frameworks */,
 				D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */,
 				D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */,
 				041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */,
@@ -4479,6 +4488,7 @@
 				D8CE262B1E698E2400DAE2E0 /* CoreData.framework in Frameworks */,
 				D8CE262E1E698E2400DAE2E0 /* CoreGraphics.framework in Frameworks */,
 				674DF84C2E84250900F58603 /* HCaptcha in Frameworks */,
+				EA51B0820000000000000B13 /* WMFVisualEditorKit in Frameworks */,
 				D8CE26321E698E2400DAE2E0 /* UIKit.framework in Frameworks */,
 				D8CE26351E698E2400DAE2E0 /* Foundation.framework in Frameworks */,
 				D8CE26361E698E2400DAE2E0 /* MapKit.framework in Frameworks */,
@@ -4495,6 +4505,7 @@
 				D8EC3F2D1E9BDA35006712EB /* CoreData.framework in Frameworks */,
 				D8EC3F301E9BDA35006712EB /* CoreGraphics.framework in Frameworks */,
 				674DF84E2E84251500F58603 /* HCaptcha in Frameworks */,
+				EA51B0820000000000000B12 /* WMFVisualEditorKit in Frameworks */,
 				D8EC3F341E9BDA35006712EB /* UIKit.framework in Frameworks */,
 				D8EC3F361E9BDA35006712EB /* Foundation.framework in Frameworks */,
 				D8EC3F371E9BDA35006712EB /* MapKit.framework in Frameworks */,
@@ -5988,6 +5999,7 @@
 				673A37352F620F4300222070 /* WMFTestKitchen */,
 				679603962C5D48AC009606C4 /* WMFComponents */,
 				679603952C5D434D009606C4 /* WMFData */,
+				EA51B0820000000000000B00 /* WMFVisualEditorKit */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -7482,6 +7494,7 @@
 				8368BB8324129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift */,
 				83F1096D23D0E787003F3E9E /* RandomArticleViewController.swift */,
 				8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */,
+				EA51B0820000000000000B20 /* NativeVisualEditorPlaygroundViewController.swift */,
 				677799B82BEED047007272C1 /* ColumnarCollectionViewController.swift */,
 				8367A27E20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift */,
 				8382F8D220D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift */,
@@ -8392,6 +8405,7 @@
 			name = Wikipedia;
 			packageProductDependencies = (
 				679B89EC2E7DFC8B009902BE /* HCaptcha */,
+				EA51B0820000000000000B01 /* WMFVisualEditorKit */,
 			);
 			productName = "Wikipedia-iOS";
 			productReference = D4991435181D51DE00E6073C /* Wikipedia.app */;
@@ -8492,6 +8506,7 @@
 			name = Experimental;
 			packageProductDependencies = (
 				674DF84B2E84250900F58603 /* HCaptcha */,
+				EA51B0820000000000000B03 /* WMFVisualEditorKit */,
 			);
 			productName = "Wikipedia-iOS";
 			productReference = D8CE26AF1E698E2400DAE2E0 /* Experimental.app */;
@@ -8519,6 +8534,7 @@
 			name = Staging;
 			packageProductDependencies = (
 				674DF84D2E84251500F58603 /* HCaptcha */,
+				EA51B0820000000000000B02 /* WMFVisualEditorKit */,
 			);
 			productName = "Wikipedia-iOS";
 			productReference = D8EC3FB41E9BDA35006712EB /* Staging.app */;
@@ -9895,6 +9911,7 @@
 				67E466FA241BED770014149B /* EditHistoryCompareFunnel.swift in Sources */,
 				8386BDF62386D735007EE89D /* ViewController+URLHandling.swift in Sources */,
 				8386BDFB2386D754007EE89D /* SinglePageWebViewController.swift in Sources */,
+				EA51B0820000000000000B21 /* NativeVisualEditorPlaygroundViewController.swift in Sources */,
 				00BCB72226DEEB1C002C3F72 /* RoundedImageView.swift in Sources */,
 				37D535962FE47D920023824C /* WMFWhichCameFirstArchiveViewController.swift in Sources */,
 				B0D4916F21F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
@@ -10712,6 +10729,7 @@
 				009B835F298091CD00AABEA3 /* EditNoticesView.swift in Sources */,
 				D8E6FF6D24056AC300686272 /* ArticleViewController+ContextMenu.swift in Sources */,
 				8386BDFC2386D754007EE89D /* SinglePageWebViewController.swift in Sources */,
+				EA51B0820000000000000B22 /* NativeVisualEditorPlaygroundViewController.swift in Sources */,
 				D8CE258F1E698E2400DAE2E0 /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				67A0699F2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */,
 				67D468782FA94600006DD42F /* WMFAppViewController.swift in Sources */,
@@ -11259,6 +11277,7 @@
 				D8EC3E851E9BDA35006712EB /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */,
 				D8E6FF6E24056AC300686272 /* ArticleViewController+ContextMenu.swift in Sources */,
 				8386BDFD2386D754007EE89D /* SinglePageWebViewController.swift in Sources */,
+				EA51B0820000000000000B23 /* NativeVisualEditorPlaygroundViewController.swift in Sources */,
 				009B835E298091CD00AABEA3 /* EditNoticesView.swift in Sources */,
 				D8EC3E8B1E9BDA35006712EB /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				D8EC3E8C1E9BDA35006712EB /* TableOfContentsCell.swift in Sources */,
@@ -16024,6 +16043,18 @@
 		679603982C5D48CC009606C4 /* WMFComponents */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WMFComponents;
+		};
+		EA51B0820000000000000B01 /* WMFVisualEditorKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WMFVisualEditorKit;
+		};
+		EA51B0820000000000000B02 /* WMFVisualEditorKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WMFVisualEditorKit;
+		};
+		EA51B0820000000000000B03 /* WMFVisualEditorKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WMFVisualEditorKit;
 		};
 		679B89EC2E7DFC8B009902BE /* HCaptcha */ = {
 			isa = XCSwiftPackageProductDependency;

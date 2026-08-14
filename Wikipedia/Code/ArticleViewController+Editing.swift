@@ -33,7 +33,14 @@ extension ArticleViewController {
     }
 
     private func presentEditingFlow(with sectionID: Int?, selectedTextEditInfo: SelectedTextEditInfo?, editTag: WMFEditTag) {
-        guard WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney, let navigationController else {
+        // Spike: in debug builds the visual option is always offered, so the native
+        // VE playground is reachable without enabling developer settings first.
+#if DEBUG
+        let visualEditingJourneyEnabled = true
+#else
+        let visualEditingJourneyEnabled = WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney
+#endif
+        guard visualEditingJourneyEnabled, let navigationController else {
             presentSourceEditor(sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
             return
         }
@@ -66,7 +73,7 @@ extension ArticleViewController {
         case .source:
             presentSourceEditor(sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
         case .visual:
-            presentVisualEditorInBrowser(sectionID: sectionID)
+            presentNativeVisualEditorPlayground()
         }
     }
 
@@ -86,19 +93,25 @@ extension ArticleViewController {
         presentEditor(editorViewController: editorViewController)
     }
 
-    private func presentVisualEditorInBrowser(sectionID: Int?) {
-        var components = URLComponents(url: articleURL, resolvingAgainstBaseURL: false)
-
-        var queryItems = [
-            URLQueryItem(name: "veaction", value: "edit"),
-            URLQueryItem(name: "returntoapp", value: "1")
-        ]
-
-        if let sectionID {
-            queryItems.append(URLQueryItem(name: "section", value: String(sectionID)))
-        }
-        components?.queryItems = queryItems
-        navigate(to: components?.url, useSafari: true)
+    // Spike (native VE engine): the visual option routes to the native playground,
+    // which renders and edits the article via WMFVisualEditorKit's linear model
+    // and publishes through the existing native save flow — no web view.
+    private func presentNativeVisualEditorPlayground() {
+        let playgroundViewController = NativeVisualEditorPlaygroundViewController(articleURL: articleURL, theme: theme, didPublish: { [weak self] newRevisionID in
+            guard let self else {
+                return
+            }
+            self.dismiss(animated: true) {
+                WMFToastManager.sharedInstance.showRichToast(
+                    CommonStrings.editPublishedToastTitle,
+                    image: UIImage(systemName: "checkmark.circle.fill"),
+                    dismissPreviousToasts: true
+                )
+            }
+            self.waitForNewContentAndRefresh(newRevisionID)
+        })
+        let navigationController = WMFComponentNavigationController(rootViewController: playgroundViewController, modalPresentationStyle: .overFullScreen)
+        present(navigationController, animated: true)
     }
 
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
