@@ -220,7 +220,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
         try await seedSavedArticles(["Article1", "Article2", "Article3", "Article4"], project: enProject)
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)
-        XCTAssertEqual(response.continueReadingArticles?.savedArticles.count, 3)
+        XCTAssertEqual(response.continueReadingArticles?.fromReadingListArticles.count, 3)
     }
 
     func testFetchForYouReturnsOneGroupPerTopicWhenFewerThanFive() async throws {
