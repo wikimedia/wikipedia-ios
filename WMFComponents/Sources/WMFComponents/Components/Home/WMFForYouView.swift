@@ -86,6 +86,18 @@ public struct WMFForYouView: View {
         }
     }
 
+    /// The module that fills the screen now.
+    ///
+    /// A lazy stack builds the module before and the module after the module on the screen, thus the
+    /// app cannot use the appearance of a module to know that the user sees it. The vertical scroll
+    /// gives the correct answer. Before the first scroll the user sees the first module.
+    private var moduleOnScreen: VisiblePage? {
+        if let currentModuleID, let page = visiblePages.first(where: { $0.id == currentModuleID }) {
+            return page
+        }
+        return visiblePages.first
+    }
+
     /// Puts the user back on the module they looked at last.
     ///
     /// The module must still be in the feed: the user can hide a module, or hide all the cards of a
@@ -124,7 +136,9 @@ public struct WMFForYouView: View {
                         onShareCard: { viewModel.onShareCard?($0) },
                         onUnsaveCard: { viewModel.onUnsaveCard?($0) },
                         lastViewedCardKey: viewModel.lastViewedCardKey,
-                        onViewCard: { viewModel.rememberViewedCard($0) }
+                        isOnScreen: visiblePage.id == moduleOnScreen?.id,
+                        onViewCard: { viewModel.rememberViewedCard($0) },
+                        onShowCard: { viewModel.onShowCard?($0) }
                     )
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 }
@@ -236,8 +250,15 @@ private struct WMFForYouPageView: View {
     /// module, in which case this carousel starts at its first card.
     let lastViewedCardKey: String?
 
+    /// True when this module fills the screen. A module that the lazy stack built in advance is not
+    /// on the screen, and the cards of that module are not seen by the user.
+    let isOnScreen: Bool
+
     /// Reports the card on screen, so the view model can put the user back here later.
     let onViewCard: (String?) -> Void
+
+    /// Reports a card that the user really sees.
+    let onShowCard: (WMFForYouArticleCardViewModel) -> Void
 
     /// Identified by `cardUniqueKey` rather than by position, so that a card keeps its identity when an
     /// earlier card in the carousel is hidden.
@@ -247,6 +268,14 @@ private struct WMFForYouPageView: View {
     /// first card to keep the page dots correct on first appearance.
     private var currentPageKey: String? {
         currentPage ?? articleViewModels.first?.cardUniqueKey
+    }
+
+    /// Reports the card that the user sees, if this module is the module on the screen.
+    private func reportCardOnScreen() {
+        guard isOnScreen,
+              let card = articleViewModels.first(where: { $0.cardUniqueKey == currentPageKey }) else { return }
+
+        onShowCard(card)
     }
 
     var body: some View {
@@ -284,6 +313,13 @@ private struct WMFForYouPageView: View {
         }
         .onChange(of: currentPage) { _, cardKey in
             onViewCard(cardKey)
+            reportCardOnScreen()
+        }
+        .onChange(of: isOnScreen) { _, _ in
+            reportCardOnScreen()
+        }
+        .onAppear {
+            reportCardOnScreen()
         }
         .overlay(alignment: .bottom) {
             HStack(spacing: 8) {

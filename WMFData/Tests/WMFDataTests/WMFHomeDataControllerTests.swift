@@ -86,11 +86,14 @@ final class WMFHomeDataControllerTests: XCTestCase {
         XCTAssertEqual(returnedTitles, ["Cat", "Dog", "Fish"])
     }
 
-    func testFetchForYouCapsAtFivePageInterests() async throws {
-        try await seedPageInterests(["Cat", "Dog", "Fish", "Bird", "Lizard", "Snake", "Frog"], project: enProject)
+    /// Every article interest of the user gets a group, as for the topics.
+    func testFetchForYouReturnsOneGroupPerPageInterestWhenThereAreMany() async throws {
+        let titles = ["Cat", "Dog", "Fish", "Bird", "Lizard", "Snake", "Frog"]
+        try await seedPageInterests(titles, project: enProject)
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)
-        XCTAssertEqual(response.interestPageRelatedArticles.count, 5)
+        XCTAssertEqual(response.interestPageRelatedArticles.count, titles.count)
+        XCTAssertEqual(Set(response.interestPageRelatedArticles.map { $0.pageInterest.title }), Set(titles))
     }
 
     func testFetchForYouCapsAtFourRelatedArticlesPerPageInterest() async throws {
@@ -232,11 +235,14 @@ final class WMFHomeDataControllerTests: XCTestCase {
         XCTAssertEqual(returnedTopics, Set(topics))
     }
 
-    func testFetchForYouCapsAtFiveTopics() async throws {
+    /// Every topic of the user gets a group. There is no limit of five, so a user with many
+    /// interests sees all of them.
+    func testFetchForYouReturnsOneGroupPerTopicWhenThereAreManyTopics() async throws {
         let topics: [WMFArticleTopic] = [.history, .biology, .music, .films, .sports, .physics, .technology]
         let controller = makeForYouController(topics: topics)
         let response = try await controller.fetchForYou(project: enProject)
-        XCTAssertEqual(response.interestTopicRandomArticles.count, 5)
+        XCTAssertEqual(response.interestTopicRandomArticles.count, topics.count)
+        XCTAssertEqual(Set(response.interestTopicRandomArticles.map { $0.topic }), Set(topics))
     }
 
     func testFetchForYouCapsAtFourArticlesPerTopic() async throws {

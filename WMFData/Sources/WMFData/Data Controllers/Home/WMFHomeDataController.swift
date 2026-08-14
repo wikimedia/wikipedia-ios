@@ -130,6 +130,59 @@ public final actor WMFHomeDataController {
         NotificationCenter.default.post(name: WMFNSNotification.forYouModuleVisibilityDidChange, object: nil)
     }
 
+    // MARK: - Seen Articles
+
+    /// How long an article that the user saw stays out of the feed.
+    public static let seenArticleSuppressionDays = 30
+
+    /// The largest number of seen articles that the app keeps. The oldest go away first.
+    private static let maxSeenArticles = 1000
+
+    private nonisolated func seenArticleKey(title: String, project: WMFProject) -> String {
+        "\(project.id)_\(title.normalizedForDisplay)"
+    }
+
+    /// Records that the user saw this article on the screen.
+    ///
+    /// Call this only when a card is on the screen. Do not call it when the app only loads a card
+    /// into the feed, because the user did not see that card.
+    public nonisolated func recordSeenArticle(title: String, project: WMFProject, date: Date = Date()) {
+        var seen = storedSeenArticles()
+        seen[seenArticleKey(title: title, project: project)] = date
+
+        // Remove the articles that are too old to suppress, then the oldest of the others if there
+        // are too many. Thus the list cannot grow without a limit.
+        seen = Self.removingExpired(seen, now: date)
+        if seen.count > Self.maxSeenArticles {
+            let newest = seen.sorted { $0.value > $1.value }.prefix(Self.maxSeenArticles)
+            seen = Dictionary(uniqueKeysWithValues: newest.map { ($0.key, $0.value) })
+        }
+
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedSeenArticles.rawValue, value: seen)
+    }
+
+    /// The titles of the articles that the user saw in the suppression period, for one project.
+    public nonisolated func seenArticleTitles(project: WMFProject, now: Date = Date()) -> Set<String> {
+        let seen = Self.removingExpired(storedSeenArticles(), now: now)
+        let prefix = "\(project.id)_"
+
+        return Set(seen.keys.compactMap { key in
+            guard key.hasPrefix(prefix) else { return nil }
+            return String(key.dropFirst(prefix.count))
+        })
+    }
+
+    private nonisolated func storedSeenArticles() -> [String: Date] {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeFeedSeenArticles.rawValue)) ?? [:]
+    }
+
+    private nonisolated static func removingExpired(_ seen: [String: Date], now: Date) -> [String: Date] {
+        guard let oldest = Calendar.current.date(byAdding: .day, value: -seenArticleSuppressionDays, to: now) else {
+            return seen
+        }
+        return seen.filter { $0.value > oldest }
+    }
+
     // MARK: - Settings: Hidden Cards
 
     private static let maxHiddenCardKeys = 100
@@ -174,9 +227,11 @@ public final actor WMFHomeDataController {
             return cached
         }
 
-        async let interestTopicRandomArticles = fetchForYouInterestTopicRandomArticles(project: project)
-        async let interestPageRelatedArticles = fetchForYouInterestPageRelatedArticles(project: project)
-        async let becauseYouReadArticles = fetchForYouBecauseYouReadArticles(project: project)
+        let excluded = await excludedSuggestionTitles(project: project)
+
+        async let interestTopicRandomArticles = fetchForYouInterestTopicRandomArticles(project: project, excluding: excluded)
+        async let interestPageRelatedArticles = fetchForYouInterestPageRelatedArticles(project: project, excluding: excluded)
+        async let becauseYouReadArticles = fetchForYouBecauseYouReadArticles(project: project, excluding: excluded)
         async let continueReading = fetchForYouContinueReading(project: project)
         let response = try await WMFForYouResponse(
             interestTopicRandomArticles: interestTopicRandomArticles,
@@ -188,7 +243,29 @@ public final actor WMFHomeDataController {
         return response
     }
 
-    private func fetchForYouInterestTopicRandomArticles(project: WMFProject) async throws -> [WMFForYouInterestTopicRandomArticles] {
+    /// The titles that must never be a suggestion in the feed.
+    ///
+    /// These are the articles that the user selected as an interest, and the main page of the
+    /// project. The user already knows the articles that they selected, and the main page is not an
+    /// article. The titles use the same format as the titles from the API, thus a comparison of two
+    /// titles is correct.
+    private func excludedSuggestionTitles(project: WMFProject) async -> Set<String> {
+        var titles: Set<String> = []
+
+        if let pageInterestDataController,
+           let interests = try? await pageInterestDataController.fetchPageInterests(project: project) {
+            titles.formUnion(interests.map { $0.title.normalizedForDisplay })
+        }
+
+        // The articles that the user saw on the screen in the last days. A new article is better
+        // than an article that the user saw already, even if the article has a high rank.
+        titles.formUnion(seenArticleTitles(project: project))
+
+        return titles
+    }
+
+
+    private func fetchForYouInterestTopicRandomArticles(project: WMFProject, excluding excluded: Set<String>) async throws -> [WMFForYouInterestTopicRandomArticles] {
         let topics = interestTopics().shuffled()
         guard !topics.isEmpty else { return [] }
 
@@ -196,7 +273,8 @@ public final actor WMFHomeDataController {
             for topic in topics {
                 group.addTask {
                     let articles = try await self.fetchArticles(for: topic, project: project)
-                    let mapped = articles.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
+                    let allowed = articles.filter { !excluded.contains($0.title.normalizedForDisplay) }
+                    let mapped = allowed.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
                     return WMFForYouInterestTopicRandomArticles(topic: topic, articles: mapped)
                 }
             }
@@ -206,7 +284,7 @@ public final actor WMFHomeDataController {
         }
     }
 
-    private func fetchForYouInterestPageRelatedArticles(project: WMFProject) async throws -> [WMFForYouInterestPageRelatedArticles] {
+    private func fetchForYouInterestPageRelatedArticles(project: WMFProject, excluding excluded: Set<String>) async throws -> [WMFForYouInterestPageRelatedArticles] {
         guard let pageInterestDataController else { return [] }
         let interests = try await pageInterestDataController.fetchPageInterests(project: project)
         let selected = interests.shuffled()
@@ -216,7 +294,8 @@ public final actor WMFHomeDataController {
             for interest in selected {
                 group.addTask {
                     let related = try await self.relatedPagesDataController.fetchRelatedPages(title: interest.title, project: project)
-                    let mapped = related.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
+                    let allowed = related.filter { !excluded.contains($0.title.normalizedForDisplay) }
+                    let mapped = allowed.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
                     return WMFForYouInterestPageRelatedArticles(pageInterest: WMFForYouArticle(title: interest.title, project: project), articles: mapped)
                 }
             }
@@ -226,12 +305,13 @@ public final actor WMFHomeDataController {
         }
     }
 
-    private func fetchForYouBecauseYouReadArticles(project: WMFProject) async throws -> WMFForYouBecauseYouReadArticles? {
+    private func fetchForYouBecauseYouReadArticles(project: WMFProject, excluding excluded: Set<String>) async throws -> WMFForYouBecauseYouReadArticles? {
         guard let pageViewsDataController else { return nil }
         let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 10)
         guard let recentlyRead = pages.randomElement() else { return nil }
         let related = try await relatedPagesDataController.fetchRelatedPages(title: recentlyRead.title, project: project)
-        let mapped = related.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
+        let allowed = related.filter { !excluded.contains($0.title.normalizedForDisplay) }
+        let mapped = allowed.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
         return WMFForYouBecauseYouReadArticles(
             recentlyRead: WMFForYouArticle(title: recentlyRead.title, project: project),
             articles: mapped
