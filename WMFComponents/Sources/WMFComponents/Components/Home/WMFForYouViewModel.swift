@@ -69,6 +69,9 @@ public final class WMFForYouViewModel: ObservableObject {
     public var onUnsaveCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onUserInteraction: (() -> Void)?
 
+    /// Called with a card that the user really sees on the screen.
+    public var onShowCard: ((WMFForYouArticleCardViewModel) -> Void)?
+
     public let emptyTitle = WMFLocalizedString("for-you-empty-title", value: "Nothing here yet", comment: "Title shown on the For You tab when there is no content to display.")
     public let emptySubtitle = WMFLocalizedString("for-you-empty-subtitle", value: "Add interests to get personalized article recommendations.", comment: "Subtitle shown on the For You tab empty state encouraging the user to add interests.")
     public let emptyButtonTitle = WMFLocalizedString("for-you-empty-button", value: "Choose your interests", comment: "Button on the For You empty state that opens the interests customization screen.")
@@ -113,19 +116,37 @@ public final class WMFForYouViewModel: ObservableObject {
 
     private static let maxLeadingInterestPages = 3
 
+    /// Builds one page for each interest, and mixes the topics and the articles one after the other.
     private static func makeInterestPages(from response: WMFForYouResponse, deduplicator: inout ArticleDeduplicator) -> [WMFForYouPageViewModel] {
         let interestFormat = WMFLocalizedString("for-you-header-interest", value: "Because of your interest: %1$@", comment: "Header on a For You feed card explaining it was chosen from one of the user's interests. %1$@ is replaced with the interest name.")
 
-        var pages: [WMFForYouPageViewModel] = []
+        var topicPages: [WMFForYouPageViewModel] = []
+        var articlePages: [WMFForYouPageViewModel] = []
 
         for topicArticles in response.interestTopicRandomArticles {
             let header = WMFForYouHeaderLabel(format: interestFormat, highlight: topicArticles.topic.displayName)
-            pages.append(WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: deduplicator.removingDuplicates(from: topicArticles.articles)))
+            topicPages.append(WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: deduplicator.removingDuplicates(from: topicArticles.articles)))
         }
 
         for relatedArticles in response.interestPageRelatedArticles {
             let header = WMFForYouHeaderLabel(format: interestFormat, highlight: relatedArticles.pageInterest.title.normalizedForDisplay)
-            pages.append(WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: deduplicator.removingDuplicates(from: relatedArticles.articles)))
+            articlePages.append(WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: deduplicator.removingDuplicates(from: relatedArticles.articles)))
+        }
+
+        return interleaved(topicPages, articlePages)
+    }
+
+    /// Puts the pages of two lists one after the other.
+    private static func interleaved(_ first: [WMFForYouPageViewModel], _ second: [WMFForYouPageViewModel]) -> [WMFForYouPageViewModel] {
+        var pages: [WMFForYouPageViewModel] = []
+
+        for index in 0..<max(first.count, second.count) {
+            if index < first.count {
+                pages.append(first[index])
+            }
+            if index < second.count {
+                pages.append(second[index])
+            }
         }
 
         return pages
