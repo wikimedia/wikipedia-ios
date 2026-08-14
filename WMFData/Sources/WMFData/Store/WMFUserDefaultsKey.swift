@@ -85,6 +85,7 @@ public enum WMFUserDefaultsKey: String {
 
     // Home feed: hidden cards (shared across Community and For You tabs)
     case homeFeedHiddenCardKeys = "home-feed-hidden-card-keys"
+    case homeFeedSeenArticles = "home-feed-seen-articles"
     
     case randomWidgetDailyIndex = "random-widget-daily-index"
     case randomWidgetDailyDate = "random-widget-daily-date"

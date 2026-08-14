@@ -110,6 +110,10 @@ public final class WMFHomeViewModel: ObservableObject {
         forYouViewModel.onShareCard = { [weak self] in self?.didShareForYouCard?($0) }
         forYouViewModel.onUnsaveCard = { [weak self] in self?.didTapUnsaveForYouCard?($0) }
         forYouViewModel.onUserInteraction = { [weak self] in self?.didInteractWithForYouFeed?() }
+        forYouViewModel.onShowCard = { [weak self] card in
+            // The user saw this card, thus the feed does not suggest the article again for some days.
+            self?.dataController.recordSeenArticle(title: card.title, project: card.project)
+        }
     }
 
     // MARK: - For You
