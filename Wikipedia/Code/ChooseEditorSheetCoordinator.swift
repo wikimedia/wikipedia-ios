@@ -8,6 +8,7 @@ final class ChooseEditorSheetCoordinator: Coordinator {
 
     var navigationController: UINavigationController
     private let theme: Theme
+    private let initialMode: WMFEditMode
     private let didChoose: (WMFEditMode, _ dontShowAgain: Bool) -> Void
 
     private weak var sheetNavigationController: WMFComponentNavigationController?
@@ -15,16 +16,19 @@ final class ChooseEditorSheetCoordinator: Coordinator {
     init(
         navigationController: UINavigationController,
         theme: Theme,
+        initialMode: WMFEditMode,
         didChoose: @escaping (WMFEditMode, Bool) -> Void
     ) {
         self.navigationController = navigationController
         self.theme = theme
+        self.initialMode = initialMode
         self.didChoose = didChoose
     }
 
     @discardableResult
     func start() -> Bool {
         let viewModel = WMFChooseEditorViewModel(
+            initialMode: initialMode,
             didTapContinue: { mode, dontShowAgain in
                 self.sheetNavigationController?.dismiss(animated: true) {
                     self.didChoose(mode, dontShowAgain)
