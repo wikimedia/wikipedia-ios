@@ -97,15 +97,37 @@ struct WMFRandomArticlesQuery: Decodable, Sendable {
 public struct WMFRandomArticle: Decodable, Sendable {
     public let pageid: Int
     public let title: String
+    public let index: Int?
     public let displayTitle: String?
     public let variantTitles: WMFRandomArticleVariantTitles?
     public let description: String?
     public let extract: String?
     public let thumbnail: WMFRandomArticleThumbnail?
 
+    public init(
+        pageid: Int,
+        title: String,
+        index: Int? = nil,
+        displayTitle: String? = nil,
+        variantTitles: WMFRandomArticleVariantTitles? = nil,
+        description: String? = nil,
+        extract: String? = nil,
+        thumbnail: WMFRandomArticleThumbnail? = nil
+    ) {
+        self.pageid = pageid
+        self.title = title
+        self.index = index
+        self.displayTitle = displayTitle
+        self.variantTitles = variantTitles
+        self.description = description
+        self.extract = extract
+        self.thumbnail = thumbnail
+    }
+
     enum CodingKeys: String, CodingKey {
         case pageid
         case title
+        case index
         case displayTitle = "displaytitle"
         case variantTitles = "varianttitles"
         case description
