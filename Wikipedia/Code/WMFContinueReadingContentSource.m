@@ -1,6 +1,7 @@
 #import <WMF/WMFContinueReadingContentSource.h>
 #import <WMF/MWKDataStore.h>
 #import <WMF/WMF-Swift.h>
+@import WMFData;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,23 +35,26 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
 
     [moc performBlock:^{
-        NSURL *lastRead = [moc wmf_openArticleURL] ?: moc.mostRecentlyReadArticle.URL;
-
-        if (!lastRead) {
-            completion();
-            return;
-        }
-
-        // Continue Reading belongs to the For You feed when the Home tab is enabled.
-        // Hide Community's Continue Reading
-        // Eventually will use A/B
-        BOOL homeEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"dev-settings-enable-home-tab"];
-        BOOL homePhase2Enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"dev-settings-enable-home-phase-2"];
-        if (homeEnabled || homePhase2Enabled) {
+        // Check Home flags before the lastRead guard so that stale Continue Reading
+        // groups are removed even when the user has no reading history.
+        // Read through WMFDeveloperSettingsDataController so the JSON-encoded Data
+        // values stored by WMFUserDefaultsStore are decoded correctly — NSUserDefaults
+        // boolForKey: returns NO for those.
+        WMFDeveloperSettingsDataController *devSettings = WMFDeveloperSettingsDataController.shared;
+        if (devSettings.enableHomeTab || devSettings.enableHomePhase2) {
             NSArray<WMFContentGroup *> *existingGroups = [moc contentGroupsOfKind:WMFContentGroupKindContinueReading];
             for (WMFContentGroup *group in existingGroups) {
                 [moc removeContentGroup:group];
             }
+            if (completion) {
+                completion();
+            }
+            return;
+        }
+
+        NSURL *lastRead = [moc wmf_openArticleURL] ?: moc.mostRecentlyReadArticle.URL;
+
+        if (!lastRead) {
             if (completion) {
                 completion();
             }
