@@ -406,7 +406,7 @@ extension WMFAppViewController: WMFWatchlistDelegate {
             let performThanks = {
                 let diffThanker = DiffThanker()
                 diffThanker.thank(siteURL: siteURL, rev: Int(revisionID), completion: { result in
-                    DispatchQueue.main.async {
+                    Task { @MainActor in
                         switch result {
                         case .success:
                             let successfulThanks = WMFLocalizedString("watchlist-thanks-success", value: "Your ‘Thanks’ was sent to %@", comment: "Message displayed in a toast on successful thanking of user in Watchlist view. %@ is replaced with the user being thanked.")
