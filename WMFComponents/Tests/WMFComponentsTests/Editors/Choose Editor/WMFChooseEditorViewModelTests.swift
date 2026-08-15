@@ -1,4 +1,5 @@
 import XCTest
+import WMFData
 @testable import WMFComponents
 
 @MainActor
@@ -16,7 +17,7 @@ final class WMFChooseEditorViewModelTests: XCTestCase {
     }
 
     func testTappedContinuePassesSelectionAndCheckboxState() {
-        var receivedMode: WMFChooseEditorViewModel.EditMode?
+        var receivedMode: WMFEditMode?
         var receivedDontShowAgain: Bool?
         let viewModel = WMFChooseEditorViewModel(didTapContinue: { mode, dontShowAgain in
             receivedMode = mode
