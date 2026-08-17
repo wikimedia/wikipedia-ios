@@ -1116,8 +1116,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         let isExistingUser = UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding)
         let hasSeenNewOnboarding = WMFHomeDataController.shared.didSendNewInstallOnboardingStartEvent()
         let hasSeen = WMFHomeDataController.shared.hasSeenNewHomeOnboarding()
-        let alwaysShow = WMFDeveloperSettingsDataController.shared.alwaysShowNewOnboarding
-        guard WMFDeveloperSettingsDataController.shared.enableHomeTab || WMFDeveloperSettingsDataController.shared.enableHomePhase2 else { return } //todo grey
+        guard WMFDeveloperSettingsDataController.shared.enableHomeTab || WMFDeveloperSettingsDataController.shared.enableHomePhase2 else { return } // todo grey
         // Show only to existing users who did NOT go through the new install onboarding
         guard isExistingUser && !hasSeenNewOnboarding && !hasSeen else { return }
 
@@ -1629,9 +1628,8 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     private func presentOnboardingIfNeeded(completion: @escaping (Bool) -> Void) {
         let developerSettings = WMFDeveloperSettingsDataController.shared
-        let forceNewOnboarding = developerSettings.enableHomeTab && developerSettings.alwaysShowNewOnboarding
 
-        guard shouldShowOnboarding() || forceNewOnboarding else {
+        guard shouldShowOnboarding() else {
             completion(false)
             return
         }
