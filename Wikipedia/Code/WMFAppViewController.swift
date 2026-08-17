@@ -335,6 +335,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     private func loadMainUI() {
         guard !uiIsLoaded else { return }
+
+        let homeTabAssignment = WMFHomeDataController.shared.persistedHomeTabAssignment()
+        if homeTabAssignment == .groupB && !WMFDeveloperSettingsDataController.shared.enableHomeTab {
+            WMFDeveloperSettingsDataController.shared.enableHomeTab = true
+        }
         configureTabController()
 
         tabBar.tintAdjustmentMode = .normal
@@ -1031,6 +1036,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     private func finishResumingApp() {
+        Task {
+            try? await WMFHomeDataController.shared.assignHomeTabExperimentIfNeeded()
+        }
         let resumeAndAnnouncementsCompleteGroup = WMFTaskGroup()
         resumeAndAnnouncementsCompleteGroup.enter()
         dataStore.authenticationManager.attemptLogin {

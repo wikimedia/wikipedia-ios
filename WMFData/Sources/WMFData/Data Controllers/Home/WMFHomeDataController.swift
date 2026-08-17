@@ -1,6 +1,16 @@
 import Foundation
 
 public final actor WMFHomeDataController {
+    
+    public enum CustomError: Error {
+        case missingExperimentsDataController
+        case unexpectedAssignment
+    }
+
+    public enum HomeTabExperimentAssignment {
+        case control
+        case groupB
+    }
 
     private let feedDataController: any WMFFeedDataControlling
     private let basicService: WMFService?
@@ -24,13 +34,62 @@ public final actor WMFHomeDataController {
 
     public static let shared = WMFHomeDataController()
 
-    public init(feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared, basicService: WMFService? = WMFDataEnvironment.current.basicService, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, relatedPagesDataController: WMFRelatedPagesDataController = WMFRelatedPagesDataController.shared, savedArticlesDataController: WMFSavedArticlesDataController = WMFSavedArticlesDataController.shared, onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared) {
+    nonisolated(unsafe) private let experimentsDataController: WMFExperimentsDataController?
+    private var assignmentCache: HomeTabExperimentAssignment?
+
+    public init(
+        feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared,
+        basicService: WMFService? = WMFDataEnvironment.current.basicService,
+        userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore,
+        relatedPagesDataController: WMFRelatedPagesDataController = WMFRelatedPagesDataController.shared,
+        savedArticlesDataController: WMFSavedArticlesDataController = WMFSavedArticlesDataController.shared,
+        onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared,
+        experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore
+    ) {
         self.feedDataController = feedDataController
         self.basicService = basicService
         self.userDefaultsStore = userDefaultsStore
         self.relatedPagesDataController = relatedPagesDataController
         self.savedArticlesDataController = savedArticlesDataController
         self.onThisDayDataController = onThisDayDataController
+        if let experimentStore {
+            self.experimentsDataController = WMFExperimentsDataController(store: experimentStore)
+        } else {
+            self.experimentsDataController = nil
+        }
+    }
+    
+    /// Returns the persisted bucket for the home tab experiment, or nil if none has been assigned yet.
+    /// Safe to call from any synchronous context.
+    public nonisolated func persistedHomeTabAssignment() -> HomeTabExperimentAssignment? {
+        guard let experimentsDataController else { return nil }
+        switch experimentsDataController.bucketForExperiment(.homeTab) {
+        case .homeTabControl: return .control
+        case .homeTabGroupB: return .groupB
+        default: return nil
+        }
+    }
+
+    @discardableResult
+    public func assignHomeTabExperimentIfNeeded() throws -> HomeTabExperimentAssignment {
+        guard let experimentsDataController else {
+            throw CustomError.missingExperimentsDataController
+        }
+
+        let bucketValue = try experimentsDataController.determineBucketForExperiment(.homeTab, withPercentage: 50)
+
+        let assignment: HomeTabExperimentAssignment
+        switch bucketValue {
+        case .homeTabControl:
+            assignment = .control
+        case .homeTabGroupB:
+            assignment = .groupB
+        default:
+            throw CustomError.unexpectedAssignment
+        }
+
+        self.assignmentCache = assignment
+        return assignment
     }
     
     // MARK: - Settings: New Install Onboarding
@@ -271,7 +330,6 @@ public final actor WMFHomeDataController {
 
         return titles
     }
-
 
     /// Puts the articles that the app can suggest first, so that a module never becomes empty.
     private nonisolated func candidatesPreferringNotExcluded(_ articles: [WMFRelatedPagesDataController.WMFRelatedPage], excluding excluded: Set<String>) -> [WMFRelatedPagesDataController.WMFRelatedPage] {

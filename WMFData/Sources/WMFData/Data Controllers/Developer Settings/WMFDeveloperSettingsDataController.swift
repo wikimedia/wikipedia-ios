@@ -8,6 +8,8 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     var showYiR2025: Bool { get }
     var enableYiRLoginExperimentControl: Bool { get }
     var enableYiRLoginExperimentB: Bool { get }
+    var enableHomeTabExperimentControl: Bool { get }
+    var enableHomeTabExperimentGroupB: Bool { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
@@ -81,7 +83,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiR2025.rawValue, value: newValue) }
     }
 
-    public var enableHomeTab: Bool {
+    @objc public var enableHomeTab: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableHomeTab.rawValue)) ?? false }
         set {
             let oldValue = enableHomeTab
@@ -95,7 +97,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     /// Gates home feed work that ships after the initial Home tab experiment: the reworked community
     /// feed (replacing the embedded legacy Explore feed) and its settings. Only has an effect when
     /// `enableHomeTab` is also true.
-    public var enableHomePhase2: Bool {
+    @objc public var enableHomePhase2: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableHomePhase2.rawValue)) ?? false }
         set {
             let oldValue = enableHomePhase2
@@ -127,6 +129,16 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     public var enableYiRLoginExperimentB: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue, value: newValue) }
+    }
+
+    public var enableHomeTabExperimentControl: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsHomeTabExperimentControl.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsHomeTabExperimentControl.rawValue, value: newValue) }
+    }
+
+    public var enableHomeTabExperimentGroupB: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsHomeTabExperimentGroupB.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsHomeTabExperimentGroupB.rawValue, value: newValue) }
     }
 
     public var forceHCaptchaChallenge: Bool {

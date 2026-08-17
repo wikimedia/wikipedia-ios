@@ -27,6 +27,8 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsShowYiR2025 = "dev-settings-yir-show-v3"
     case developerSettingsYiRV3LoginExperimentControl = "dev-settings-yir-login-experiment-control"
     case developerSettingsYiRV3LoginExperimentB = "dev-settings-yir-login-experiment-b"
+    case developerSettingsHomeTabExperimentControl = "dev-settings-home-tab-experiment-control"
+    case developerSettingsHomeTabExperimentGroupB = "dev-settings-home-tab-experiment-group-b"
     case yearInReviewNewIcon2025 = "year-in-review-new-icon-2025"
     case qualifiesForIcon2025 = "qualifies-for-icon-2025"
     case userHasHiddenArticleSuggestionsTabs = "user-has-hidden-article-suggestions"
