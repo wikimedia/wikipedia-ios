@@ -1114,11 +1114,10 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         // An existing user is one who has already completed ANY prior onboarding flow.
         // New installs will not have this key set yet; they see full app onboarding instead.
         let isExistingUser = UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding)
-        let hasSeenFullNewOnboarding = WMFHomeDataController.shared.didSendNewInstallOnboardingStartEvent()
         let hasSeenOneTimeOnboarding = WMFHomeDataController.shared.hasSeenOneTimeOnboarding()
         guard WMFDeveloperSettingsDataController.shared.enableHomeTab || WMFDeveloperSettingsDataController.shared.enableHomePhase2 else { return } // todo grey
         // Show only to existing users who did NOT go through the new install onboarding
-        guard isExistingUser && !hasSeenFullNewOnboarding && !hasSeenOneTimeOnboarding else { return }
+        guard isExistingUser && !hasSeenOneTimeOnboarding else { return }
 
         let viewModel = WMFOnboardingViewModel(
             title: WMFLocalizedString(
