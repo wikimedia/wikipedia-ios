@@ -47,7 +47,6 @@ public enum WMFUserDefaultsKey: String {
     case forceHCaptchaChallenge = "force-hcaptcha-challenge"
 
     case allowGestureZoomArticleWebview = "allow-gesture-zoom-article-webview"
-
     // Reading Challenge 2026 (feature removed, see WMFReadingChallengeCompletionDataController)
     case completedReadingChallenge2026 = "completed-reading-challenge-2026"
     case didRecoverReadingChallenge2026Completion = "did-recover-reading-challenge-2026-completion"
@@ -86,14 +85,17 @@ public enum WMFUserDefaultsKey: String {
 
     // Home feed: hidden cards (shared across Community and For You tabs)
     case homeFeedHiddenCardKeys = "home-feed-hidden-card-keys"
+    case homeFeedSeenArticles = "home-feed-seen-articles"
     
     case randomWidgetDailyIndex = "random-widget-daily-index"
     case randomWidgetDailyDate = "random-widget-daily-date"
 
     // Onboarding: New app install event
     case didSendNewInstallOnboardingStartEvent = "did-send-new-install-onboarding-start-event"
+    case hasSeenNewHomeOnboarding = "has-seen-new-home-onboarding"
 
     // Article View Controller: Enable visual editor
     case developerSettingsEnableVisualEditingJourney = "dev-settings-enable-visual-editing-journey"
     case defaultEditMode = "default-edit-mode"
+    case skipChooseEditorSheet = "skip-choose-editor-sheet"
 }

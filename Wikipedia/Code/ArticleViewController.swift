@@ -47,6 +47,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     /// Also prioritize pulling data from cache (without revision/etag validation) so the user sees the article as quickly as possible
     var isRestoringState: Bool = false
 
+    /// When set before the initial load, article content is fetched at this specific revision
+    /// (e.g. displaying a freshly published edit when returning from the web Visual Editor)
+    var initialLoadRevisionID: UInt64?
+
     /// Called when initial load starts
     @objc public var loadCompletion: (() -> Void)?
 
@@ -670,7 +674,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         setupPageContentServiceJavaScriptInterface {
             let cachePolicy: WMFCachePolicy? = self.isRestoringState ? .foundation(.returnCacheDataElseLoad) : nil
-            self.loadPage(cachePolicy: cachePolicy, revisionID: nil)
+            self.loadPage(cachePolicy: cachePolicy, revisionID: self.initialLoadRevisionID)
         }
     }
 
@@ -719,7 +723,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
 
         let needsCategories = !isMainPage
-        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: self.dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: needsCategories) else {
+        let authenticationManager = self.dataStore.authenticationManager
+        let isPermanent = authenticationManager.authStateIsPermanent
+        let needsUserInfo = isPermanent && authenticationManager.permanentUser(siteURL: siteURL) == nil
+        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: isPermanent, needsRollbackRights: false, needsCategories: needsCategories, needsUserInfo: needsUserInfo) else {
             self.needsWatchButton = false
             self.needsUnwatchHalfButton = false
             self.needsUnwatchFullButton = false
@@ -735,6 +742,22 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             case .success(let info):
 
                 DispatchQueue.main.async {
+                    // Seed the user cache with this wiki's user info, so EditAttemptStep events carry the correct per-wiki user_id and edit count without an extra fetch.
+                    if let userInfo = info.userInfo {
+                        let user = WMFCurrentUser(
+                            userID: userInfo.userID,
+                            globalUserID: userInfo.globalUserID ?? 0,
+                            name: userInfo.name,
+                            groups: userInfo.groups,
+                            editCount: userInfo.editCount,
+                            isBlocked: userInfo.isBlocked,
+                            isIP: userInfo.isIP,
+                            isTemp: userInfo.isTemp,
+                            registrationDateString: userInfo.registrationDateString
+                        )
+                        self.dataStore.authenticationManager.seedUserCacheIfNeeded(user: user, siteURL: siteURL)
+                    }
+
                     self.needsWatchButton = !info.watched
                     self.needsUnwatchHalfButton = info.watched && info.watchlistExpiry != nil
                     self.needsUnwatchFullButton = info.watched && info.watchlistExpiry == nil
