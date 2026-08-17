@@ -402,30 +402,6 @@ public final actor WMFHomeDataController {
         )
     }
 
-    // MARK: - Card slot assignment
-    
-    internal func assignRandomArticleCardSlots(_ articles: [WMFRandomArticle]) -> [WMFRandomArticle] {
-        let withThumbnail = articles.filter { $0.thumbnail != nil }
-            .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
-        let withoutThumbnail = articles.filter { $0.thumbnail == nil }
-            .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
-
-        var imageQueue = withThumbnail.makeIterator()
-        var textQueue = withoutThumbnail.makeIterator()
-
-        return (0..<4).compactMap { _ in imageQueue.next() ?? textQueue.next() }
-    }
-
-    internal func assignRelatedPageCardSlots(_ articles: [WMFRelatedPagesDataController.WMFRelatedPage]) -> [WMFRelatedPagesDataController.WMFRelatedPage] {
-        let withThumbnail = articles.filter { $0.thumbnailURL != nil }
-        let withoutThumbnail = articles.filter { $0.thumbnailURL == nil }
-
-        var imageQueue = withThumbnail.makeIterator()
-        var textQueue = withoutThumbnail.makeIterator()
-
-        return (0..<4).compactMap { _ in imageQueue.next() ?? textQueue.next() }
-    }
-
     // MARK: - Fetching articles by topic
 
     /// Fetches random articles for display when no interest topics have been selected.
