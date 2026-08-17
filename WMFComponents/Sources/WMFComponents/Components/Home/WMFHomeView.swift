@@ -98,14 +98,6 @@ public struct WMFHomeView: View {
             .padding(.vertical, 2)
             .pickerStyle(.segmented)
             .fixedSize()
-            .background {
-                if #available(iOS 26.0, *) {
-                    Capsule().fill(.clear).glassEffect(in: Capsule())
-                } else {
-                    RoundedRectangle(cornerRadius: Self.tabSwitcherCornerRadius, style: .continuous)
-                        .fill(.ultraThinMaterial)
-                }
-            }
 
             Spacer()
 
