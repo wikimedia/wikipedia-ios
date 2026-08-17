@@ -455,38 +455,23 @@ public final actor WMFHomeDataController {
     private func fetchForYouContinueReading(project: WMFProject) async throws -> WMFForYouContinueReading? {
         guard let pageViewsDataController else { return nil }
         let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60, mainNamespaceOnly: true)
-        guard let continueReadingArticle = pages.randomElement() else { return nil }
-        let related = try await relatedPagesDataController.fetchRelatedPages(title: continueReadingArticle.title, project: project)
-        let mapped = assignRelatedPageCardSlots(related)
-            .map { WMFForYouArticle(title: $0.title, project: project) }
-        return WMFForYouContinueReading(
-            continueReadingArticle: WMFForYouArticle(title: continueReadingArticle.title, project: project),
-            savedArticles: mapped
-        )
-    }
-
-    // MARK: - Card slot assignment
-    
-    internal func assignRandomArticleCardSlots(_ articles: [WMFRandomArticle]) -> [WMFRandomArticle] {
-        let withThumbnail = articles.filter { $0.thumbnail != nil }
-            .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
-        let withoutThumbnail = articles.filter { $0.thumbnail == nil }
-            .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
-
-        var imageQueue = withThumbnail.makeIterator()
-        var textQueue = withoutThumbnail.makeIterator()
-
-        return (0..<4).compactMap { _ in imageQueue.next() ?? textQueue.next() }
-    }
-
-    internal func assignRelatedPageCardSlots(_ articles: [WMFRelatedPagesDataController.WMFRelatedPage]) -> [WMFRelatedPagesDataController.WMFRelatedPage] {
-        let withThumbnail = articles.filter { $0.thumbnailURL != nil }
-        let withoutThumbnail = articles.filter { $0.thumbnailURL == nil }
-
-        var imageQueue = withThumbnail.makeIterator()
-        var textQueue = withoutThumbnail.makeIterator()
-
-        return (0..<4).compactMap { _ in imageQueue.next() ?? textQueue.next() }
+        let saved = try await savedArticlesDataController.fetchRecentlySavedArticles(limit: 3)
+        let fromReadingList = saved.compactMap { item -> WMFForYouArticle? in
+            guard let itemProject = WMFProject(id: item.page.projectID),
+                  itemProject.languageCode == project.languageCode else { return nil }
+            return WMFForYouArticle(title: item.page.title, project: itemProject)
+        }
+        if let seed = pages.randomElement() {
+            return WMFForYouContinueReading(
+                continueReadingArticle: WMFForYouArticle(title: seed.title, project: project),
+                fromReadingListArticles: fromReadingList
+            )
+        } else {
+            return WMFForYouContinueReading(
+                continueReadingArticle: nil,
+                fromReadingListArticles: fromReadingList
+            )
+        }
     }
 
     // MARK: - Fetching articles by topic
@@ -676,8 +661,8 @@ public struct WMFForYouBecauseYouReadArticles: Codable, Sendable {
 }
 
 public struct WMFForYouContinueReading: Codable, Sendable {
-    public let continueReadingArticle: WMFForYouArticle
-    public let savedArticles: [WMFForYouArticle]
+    public let continueReadingArticle: WMFForYouArticle?
+    public let fromReadingListArticles: [WMFForYouArticle]
 }
 
 public struct WMFForYouResponse: Codable, Sendable {

@@ -214,7 +214,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
     func testFetchForYouContinueReadingIsNilWhenNoPageViewsExist() async throws {
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)
-        XCTAssertNil(response.continueReadingArticles)
+        XCTAssertNil(response.continueReadingArticles?.continueReadingArticle)
     }
 
     func testFetchForYouContinueReadingIsNilWhenPageViewsUnderSixtySeconds() async throws {
@@ -224,7 +224,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
         }
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)
-        XCTAssertNil(response.continueReadingArticles)
+        XCTAssertNil(response.continueReadingArticles?.continueReadingArticle)
     }
 
     func testFetchForYouContinueReadingIsPopulatedWhenPageViewQualifies() async throws {
@@ -232,7 +232,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)
         XCTAssertNotNil(response.continueReadingArticles)
-        XCTAssertEqual(response.continueReadingArticles?.continueReadingArticle.title, "Cat")
+        XCTAssertEqual(response.continueReadingArticles?.continueReadingArticle?.title, "Cat")
     }
 
     func testFetchForYouContinueReadingCapsAtThreeSavedArticles() async throws {
@@ -240,7 +240,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
         try await seedSavedArticles(["Article1", "Article2", "Article3", "Article4"], project: enProject)
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)
-        XCTAssertEqual(response.continueReadingArticles?.savedArticles.count, 3)
+        XCTAssertEqual(response.continueReadingArticles?.fromReadingListArticles.count, 3)
     }
 
     func testFetchForYouReturnsOneGroupPerTopicWhenFewerThanFive() async throws {
@@ -443,86 +443,6 @@ final class WMFHomeDataControllerTests: XCTestCase {
         } catch WMFDataControllerError.basicServiceUnavailable {
             // expected
         }
-    }
-
-    func testRandomArticleSlots_textSlotFallsBackToImageWhenNoTextArticles() async {
-        let articles = (0..<4).map { makeRandomArticle(title: "\($0)", index: $0, hasThumbnail: true) }
-        let controller = makeForYouController(topics: [])
-        let result = await controller.assignRandomArticleCardSlots(articles)
-        XCTAssertEqual(result.count, 4)
-        XCTAssertNotNil(result[safe: 2]?.thumbnail, "slot 2 falls back to image when no text articles available")
-    }
-
-    func testRandomArticleSlots_imageSlotFallsBackToTextWhenNoImageArticles() async {
-        let articles = (0..<4).map { makeRandomArticle(title: "\($0)", index: $0, hasThumbnail: false) }
-        let controller = makeForYouController(topics: [])
-        let result = await controller.assignRandomArticleCardSlots(articles)
-        XCTAssertEqual(result.count, 4)
-    }
-
-    func testRandomArticleSlots_fewerThanFourDoesNotCrash() async {
-        let articles = (0..<2).map { makeRandomArticle(title: "\($0)", index: $0, hasThumbnail: true) }
-        let controller = makeForYouController(topics: [])
-        let result = await controller.assignRandomArticleCardSlots(articles)
-        XCTAssertEqual(result.count, 2)
-    }
-
-    func testRandomArticleSlots_emptyInput() async {
-        let controller = makeForYouController(topics: [])
-        let result = await controller.assignRandomArticleCardSlots([WMFRandomArticle]())
-        XCTAssertTrue(result.isEmpty)
-    }
-
-    func testRandomArticleSlots_indexUsedAsTiebreakerWithinImageGroup() async {
-        let img2 = makeRandomArticle(title: "img2", index: 2, hasThumbnail: true)
-        let img0 = makeRandomArticle(title: "img0", index: 0, hasThumbnail: true)
-        let txt1 = makeRandomArticle(title: "txt1", index: 1, hasThumbnail: false)
-        let txt3 = makeRandomArticle(title: "txt3", index: 3, hasThumbnail: false)
-        let controller = makeForYouController(topics: [])
-        let result = await controller.assignRandomArticleCardSlots([img2, img0, txt1, txt3])
-        XCTAssertEqual(result[safe: 0]?.title, "img0")
-        XCTAssertEqual(result[safe: 1]?.title, "img2")
-        XCTAssertEqual(result[safe: 2]?.title, "txt1")
-    }
-
-    // MARK: - assignRelatedPageCardSlots
-
-    func testRandomArticleSlots_imageInSlot3WhenExactlyThreeThumbnails() async {
-        let img0 = makeRandomArticle(title: "A", index: 0, hasThumbnail: true)
-        let img1 = makeRandomArticle(title: "B", index: 1, hasThumbnail: true)
-        let img2 = makeRandomArticle(title: "C", index: 2, hasThumbnail: true)
-        let txt  = makeRandomArticle(title: "D", index: 3, hasThumbnail: false)
-        let controller = makeForYouController(topics: [])
-        let result = await controller.assignRandomArticleCardSlots([img0, img1, img2, txt])
-        XCTAssertNotNil(result[safe: 0]?.thumbnail, "slot 0 should be image")
-        XCTAssertNotNil(result[safe: 1]?.thumbnail, "slot 1 should be image")
-        XCTAssertNotNil(result[safe: 2]?.thumbnail, "slot 2 should be image")
-        XCTAssertNil(result[safe: 3]?.thumbnail,    "slot 3 falls back to text when images exhausted")
-    }
-
-    func testRelatedPageSlots_imageInSlot3WhenExactlyThreeThumbnails() async {
-        let img0 = makeRelatedPage(title: "A", hasThumbnail: true)
-        let img1 = makeRelatedPage(title: "B", hasThumbnail: true)
-        let img2 = makeRelatedPage(title: "C", hasThumbnail: true)
-        let txt  = makeRelatedPage(title: "D", hasThumbnail: false)
-        let controller = makeForYouController(topics: [])
-        let result = await controller.assignRelatedPageCardSlots([img0, img1, img2, txt])
-        XCTAssertNotNil(result[safe: 0]?.thumbnailURL, "slot 0 should be image")
-        XCTAssertNotNil(result[safe: 1]?.thumbnailURL, "slot 1 should be image")
-        XCTAssertNotNil(result[safe: 2]?.thumbnailURL, "slot 2 should be image")
-        XCTAssertNil(result[safe: 3]?.thumbnailURL,    "slot 3 falls back to text when images exhausted")
-    }
-
-    func testRelatedPageSlots_emptyInput() async {
-        let controller = makeForYouController(topics: [])
-        let result = await controller.assignRelatedPageCardSlots([WMFRelatedPagesDataController.WMFRelatedPage]())
-        XCTAssertTrue(result.isEmpty)
-    }
-
-    func testRelatedPageSlots_fewerThanFourDoesNotCrash() async {
-        let controller = makeForYouController(topics: [])
-        let result = await controller.assignRelatedPageCardSlots([makeRelatedPage(title: "A", hasThumbnail: true)])
-        XCTAssertEqual(result.count, 1)
     }
 
     // MARK: - Helpers
