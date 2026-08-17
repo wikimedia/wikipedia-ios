@@ -109,12 +109,12 @@ public final actor WMFHomeDataController {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.didSendNewInstallOnboardingStartEvent.rawValue, value: newValue)
     }
 
-    public nonisolated func hasSeenNewHomeOnboarding() -> Bool {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenNewHomeOnboarding.rawValue)) ?? false
+    public nonisolated func hasSeenOneTimeOnboarding() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenOneTimeOnboardingHome.rawValue)) ?? false
     }
 
-    public nonisolated func setHasSeenNewHomeOnboarding(_ newValue: Bool) {
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenNewHomeOnboarding.rawValue, value: newValue)
+    public nonisolated func setHasSeenOneTimeOnboarding(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenOneTimeOnboardingHome.rawValue, value: newValue)
     }
 
     // MARK: - Settings: Selected Language
