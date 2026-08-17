@@ -255,6 +255,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         let vc = ExploreViewController()
         vc.dataStore = dataStore
         vc.isEmbeddedInHomeTab = true
+        vc.additionalSafeAreaInsets = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
         vc.notificationsCenterPresentationDelegate = tabBarController as? NotificationsCenterPresentationDelegate
         vc.apply(theme: theme)
         _embeddedExploreViewController = vc

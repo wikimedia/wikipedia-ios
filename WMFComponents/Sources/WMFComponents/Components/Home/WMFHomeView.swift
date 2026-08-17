@@ -98,7 +98,6 @@ public struct WMFHomeView: View {
             .padding(.vertical, 2)
             .pickerStyle(.segmented)
             .fixedSize()
-            .dynamicTypeSize(.xSmall ... .large)
             .background {
                 if #available(iOS 26.0, *) {
                     Capsule().fill(.clear).glassEffect(in: Capsule())
@@ -162,7 +161,7 @@ public struct WMFHomeView: View {
             }
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 8)
+        .padding(.vertical, 16)
     }
 
     // MARK: - For You Tab
