@@ -614,8 +614,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     private func presentYearInReviewAnnouncementOrFundraisingOrGamesIfNeeded() {
-        listenForTooltips()
-        
+        if !WMFDeveloperSettingsDataController.shared.enableHomeTab {
+            listenForTooltips()
+        }
+
         if needsYearInReviewAnnouncement() {
             willDisplayYearInReviewModal = true
             updateProfileButton()
