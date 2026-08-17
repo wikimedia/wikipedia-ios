@@ -214,7 +214,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
     func testFetchForYouContinueReadingIsNilWhenNoPageViewsExist() async throws {
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)
-        XCTAssertNil(response.continueReadingArticles)
+        XCTAssertNil(response.continueReadingArticles?.continueReadingArticle)
     }
 
     func testFetchForYouContinueReadingIsNilWhenPageViewsUnderSixtySeconds() async throws {
@@ -224,7 +224,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
         }
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)
-        XCTAssertNil(response.continueReadingArticles)
+        XCTAssertNil(response.continueReadingArticles?.continueReadingArticle)
     }
 
     func testFetchForYouContinueReadingIsPopulatedWhenPageViewQualifies() async throws {
@@ -232,7 +232,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)
         XCTAssertNotNil(response.continueReadingArticles)
-        XCTAssertEqual(response.continueReadingArticles?.continueReadingArticle.title, "Cat")
+        XCTAssertEqual(response.continueReadingArticles?.continueReadingArticle?.title, "Cat")
     }
 
     func testFetchForYouContinueReadingCapsAtThreeSavedArticles() async throws {
