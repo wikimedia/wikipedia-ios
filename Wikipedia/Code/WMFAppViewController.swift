@@ -336,10 +336,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private func loadMainUI() {
         guard !uiIsLoaded else { return }
 
-        let homeTabAssignment = WMFHomeDataController.shared.persistedHomeTabAssignment()
-        if homeTabAssignment == .groupB && !WMFDeveloperSettingsDataController.shared.enableHomeTab {
-            WMFDeveloperSettingsDataController.shared.enableHomeTab = true
-        }
         configureTabController()
 
         tabBar.tintAdjustmentMode = .normal
@@ -956,6 +952,13 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // resumeApp: should be called once and only once for every launch from a fully terminated state.
     // It should only be called when the app is active and being shown to the user.
     private func resumeApp(_ completion: (() -> Void)?) {
+        // Assign and apply the home tab experiment before onboarding decisions are made,
+        // so that presentOnboardingIfNeeded and loadMainUI both see the correct flag.
+        let homeTabAssignment = WMFHomeDataController.shared.persistedHomeTabAssignment()
+        if homeTabAssignment == .groupB && !WMFDeveloperSettingsDataController.shared.enableHomeTab {
+            WMFDeveloperSettingsDataController.shared.enableHomeTab = true
+        }
+        
         presentOnboardingIfNeeded { didShowOnboarding in
             self.loadMainUI()
             let done: () -> Void = {
@@ -1036,9 +1039,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     private func finishResumingApp() {
-        Task {
-            try? await WMFHomeDataController.shared.assignHomeTabExperimentIfNeeded()
-        }
         let resumeAndAnnouncementsCompleteGroup = WMFTaskGroup()
         resumeAndAnnouncementsCompleteGroup.enter()
         dataStore.authenticationManager.attemptLogin {
@@ -1114,10 +1114,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         // An existing user is one who has already completed ANY prior onboarding flow.
         // New installs will not have this key set yet; they see full app onboarding instead.
         let isExistingUser = UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding)
+        let hasSeenNewOnboarding = WMFHomeDataController.shared.didSendNewInstallOnboardingStartEvent()
         let hasSeen = WMFHomeDataController.shared.hasSeenNewHomeOnboarding()
         let alwaysShow = WMFDeveloperSettingsDataController.shared.alwaysShowNewOnboarding
-        guard WMFDeveloperSettingsDataController.shared.enableHomeTab || WMFDeveloperSettingsDataController.shared.enableHomePhase2 else { return }
-        guard isExistingUser && (alwaysShow || !hasSeen) else { return }
+        guard WMFDeveloperSettingsDataController.shared.enableHomeTab || WMFDeveloperSettingsDataController.shared.enableHomePhase2 else { return } //todo grey
+        // Show only to existing users who did NOT go through the new install onboarding
+        guard isExistingUser && !hasSeenNewOnboarding && !hasSeen else { return }
 
         WMFHomeDataController.shared.setHasSeenNewHomeOnboarding(true)
 
@@ -1648,6 +1650,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             },
             completion: { [weak self] in
                 self?.setDidShowOnboarding()
+                WMFHomeDataController.shared.setDidSendNewInstallOnboardingStartEvent(true)
                 self?.appOnboardingCoordinator = nil
                 completion(true)
             })

@@ -61,12 +61,19 @@ public final actor WMFHomeDataController {
     
     /// Returns the persisted bucket for the home tab experiment, or nil if none has been assigned yet.
     /// Safe to call from any synchronous context.
-    public nonisolated func persistedHomeTabAssignment() -> HomeTabExperimentAssignment? {
-        guard let experimentsDataController else { return nil }
-        switch experimentsDataController.bucketForExperiment(.homeTab) {
-        case .homeTabControl: return .control
-        case .homeTabGroupB: return .groupB
-        default: return nil
+    public nonisolated func persistedHomeTabAssignment() -> HomeTabExperimentAssignment {
+        guard let experimentsDataController else { return .control }
+
+        // determineBucketForExperiment is idempotent — returns the existing bucket
+        // on subsequent calls with the same percentage, so this is safe to call on every launch.
+        let bucket = try? experimentsDataController.determineBucketForExperiment(.homeTab, withPercentage: 50)
+        switch bucket {
+        case .homeTabGroupB:
+            print("[HomeTab] persistedHomeTabAssignment: groupB")
+            return .groupB
+        default:
+            print("[HomeTab] persistedHomeTabAssignment: control")
+            return .control
         }
     }
 
