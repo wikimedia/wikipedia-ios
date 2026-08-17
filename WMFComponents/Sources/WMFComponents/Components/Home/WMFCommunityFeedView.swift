@@ -21,10 +21,26 @@ struct WMFCommunityFeedView: View {
 
     private let seePastContentTitle = WMFLocalizedString("home-community-see-past-content", value: "See past community content", comment: "Button at the bottom of the Community feed that loads content from previous days.")
 
+    var scrollToTopRequestID: Int = 0
+
+    private static func dayAnchorID(_ index: Int) -> String { "community-day-\(index)" }
+
     var body: some View {
+        ScrollViewReader { proxy in
+            feedList
+                .onChange(of: scrollToTopRequestID) { _, _ in
+                    withAnimation {
+                        proxy.scrollTo(Self.dayAnchorID(0), anchor: .top)
+                    }
+                }
+        }
+    }
+
+    private var feedList: some View {
         List {
-            ForEach(Array(pages.enumerated()), id: \.offset) { _, page in
+            ForEach(Array(pages.enumerated()), id: \.offset) { index, page in
                 dateSection(page.date)
+                    .id(Self.dayAnchorID(index))
                 if moduleVisibility.featuredArticle,
                    let tfa = page.featuredArticle,
                    !hiddenCardKeys.contains(page.featuredArticleHideKey ?? "") {

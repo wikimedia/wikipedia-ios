@@ -170,7 +170,7 @@ public struct WMFHomeView: View {
     @ViewBuilder
     private var forYouTabContent: some View {
         if let forYouViewModel = viewModel.forYouViewModel {
-            WMFForYouView(viewModel: forYouViewModel)
+            WMFForYouView(viewModel: forYouViewModel, scrollToTopRequestID: viewModel.forYouScrollToTopRequestID)
                 .ignoresSafeArea()
         } else if viewModel.isLoadingForYou {
             ProgressView()
@@ -222,7 +222,8 @@ public struct WMFHomeView: View {
                 onHideModule: { viewModel.hideModule($0) },
                 onHideCard: { viewModel.hideCard(key: $0) },
                 onRefresh: { await viewModel.refreshCommunityFeed() },
-                onTapSeePastContent: { viewModel.loadCommunityPreviousPage() }
+                onTapSeePastContent: { viewModel.loadCommunityPreviousPage() },
+                scrollToTopRequestID: viewModel.communityScrollToTopRequestID
             )
         } else if viewModel.isLoadingCommunity {
             Spacer()
