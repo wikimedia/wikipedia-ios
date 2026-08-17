@@ -39,24 +39,25 @@ extension ArticleViewController {
         }
 
         let settingsDataController = WMFSettingsDataController.shared
+        let preferredMode = settingsDataController.defaultEditMode()
 
-        // User previously chose a default via "Don't show this again" — skip the sheet
-        if let defaultMode = settingsDataController.defaultEditMode() {
-            startEditing(mode: defaultMode, sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
+        if settingsDataController.skipChooseEditorSheet() {
+            startEditing(mode: preferredMode, sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
             return
         }
 
         let coordinator = ChooseEditorSheetCoordinator(
             navigationController: navigationController,
-            theme: theme
+            theme: theme,
+            initialMode: preferredMode
         ) { [weak self] mode, dontShowAgain in
             guard let self else { return }
 
-            let editMode: WMFEditMode = (mode == .visual) ? .visual : .source
+            settingsDataController.setDefaultEditMode(mode)
             if dontShowAgain {
-                settingsDataController.setDefaultEditMode(editMode)
+                settingsDataController.setSkipChooseEditorSheet(true)
             }
-            self.startEditing(mode: editMode, sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
+            self.startEditing(mode: mode, sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
         }
         coordinator.start()
     }
@@ -90,8 +91,10 @@ extension ArticleViewController {
         var components = URLComponents(url: articleURL, resolvingAgainstBaseURL: false)
 
         var queryItems = [
-            URLQueryItem(name: "veaction", value: "edit"),
-            URLQueryItem(name: "returntoapp", value: "1")
+            URLQueryItem(name: "useformat", value: "mobile"),
+            URLQueryItem(name: "veaction", value: "edit")
+            // TODO: Restore URLQueryItem(name: "returntoapp", value: "1") once the web's tap-to-return
+            // banner replaces the automatic redirect it currently triggers
         ]
 
         if let sectionID {

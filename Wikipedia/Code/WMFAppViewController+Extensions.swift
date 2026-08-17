@@ -59,7 +59,44 @@ extension WMFAppViewController {
             articleSource = .external_link
         }
 
+        if let returnJourney = VisualEditorReturnJourney(url: linkURL) {
+            return processVisualEditorReturnJourney(returnJourney, navigationController: navigationController, articleSource: articleSource)
+        }
+
+        // Any other article deep link (e.g. Safari's native app banner): if the linked article
+        // is already on screen, bring the app to the foreground instead of pushing a duplicate
+        if LinkCoordinator.destination(for: linkURL) == .article,
+           let articleViewController = visibleArticleViewController(),
+           let visibleArticleKey = articleViewController.articleURL.wmf_databaseKey,
+           let incomingArticleKey = linkURL.wmf_databaseKey,
+           visibleArticleKey == incomingArticleKey {
+            if let fragment = linkURL.fragment?.removingPercentEncoding, !fragment.isEmpty {
+                articleViewController.scroll(to: fragment, animated: true)
+            }
+            return true
+        }
+
         let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: linkURL, dataStore: dataStore, theme: theme, articleSource: articleSource, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
+        return linkCoordinator.start()
+    }
+
+    /// Handles the redirect back into the app after a web Visual Editor session (T434236).
+    /// If the same article is already on screen, refreshes it in place instead of pushing a duplicate.
+    private func processVisualEditorReturnJourney(_ returnJourney: VisualEditorReturnJourney, navigationController: UINavigationController, articleSource: ArticleSource) -> Bool {
+
+        if let articleViewController = visibleArticleViewController(),
+           let visibleArticleKey = articleViewController.articleURL.wmf_databaseKey,
+           let incomingArticleKey = returnJourney.articleURL.wmf_databaseKey,
+           visibleArticleKey == incomingArticleKey {
+            if returnJourney.saved {
+                articleViewController.waitForNewContentAndRefresh(returnJourney.revisionID)
+            }
+            // saved == false: the edit was abandoned, leave the article as-is
+            return true
+        }
+
+        // The user is continuing their journey, so append to the current tab rather than opening a new one
+        let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: returnJourney.articleURL, dataStore: dataStore, theme: theme, articleSource: articleSource, tabConfig: .appendArticleAndAssignCurrentTab, revisionID: returnJourney.revisionID)
         return linkCoordinator.start()
     }
 
@@ -845,6 +882,16 @@ extension WMFAppViewController {
                 try await coreDataStore?.performDatabaseHousekeeping()
             } catch {
                 DDLogError("Error pruning WMFData database: \(error)")
+            }
+
+            do {
+                let pageViewsDataController = try WMFPageViewsDataController()
+                let clampedCount = try await pageViewsDataController.clampInflatedPageViewSecondsIfNeeded()
+                if clampedCount > 0 {
+                    DDLogInfo("Clamped inflated reading time on \(clampedCount) page views.")
+                }
+            } catch {
+                DDLogError("Error clamping inflated page view seconds: \(error)")
             }
         }
     }

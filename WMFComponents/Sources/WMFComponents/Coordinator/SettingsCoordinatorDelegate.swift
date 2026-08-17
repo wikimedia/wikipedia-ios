@@ -20,6 +20,7 @@ public enum SettingsAction {
     case notifications
     case readingPreferences
     case articleSyncing
+    case editingPreferences
     case databasePopulation
     case clearCachedData
     case privacyPolicy

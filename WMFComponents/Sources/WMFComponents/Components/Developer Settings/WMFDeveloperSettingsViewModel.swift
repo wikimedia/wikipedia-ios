@@ -51,7 +51,6 @@ import WMFData
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
 
-        // Form Items
         let doNotPostImageRecommendationsEditItem = WMFFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
         let sendAnalyticsToWMFLabsItem = WMFFormItemSelectViewModel(title: localizedStrings.sendAnalyticsToWMFLabs, isSelected: WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs)
         let bypassDonationItem = WMFFormItemSelectViewModel(title: localizedStrings.bypassDonation, isSelected: WMFDeveloperSettingsDataController.shared.bypassDonation)
@@ -81,8 +80,6 @@ import WMFData
                 allowGestureZoomArticleWebview
             ], selectType: .multi)
         ])
-
-        // Individual Toggle Bindings
 
         doNotPostImageRecommendationsEditItem.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit = isSelected }
@@ -138,7 +135,7 @@ import WMFData
     public func clearDefaultEditMode() {
         WMFSettingsDataController.shared.clearDefaultEditMode()
         Task { @MainActor in
-            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Edit Mode preference cleared.")))
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Editing preferences cleared. The choose editor sheet will show again.")))
         }
     }
 }

@@ -273,23 +273,15 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     }
 
     private func loadSavedInterests() async {
-        var projects: [WMFProject] = [project]
-        for language in searchLanguages {
-            let languageProject = WMFProject.wikipedia(language)
-            if !projects.contains(languageProject) {
-                projects.append(languageProject)
-            }
-        }
+        let interests = (try? await pageInterestDataController?.fetchAllPageInterests()) ?? []
 
         var cards: [WMFInterestArticleCardViewModel] = []
         var seenIDs = Set<String>()
-        for interestsProject in projects {
-            let interests = (try? await pageInterestDataController?.fetchPageInterests(project: interestsProject)) ?? []
-            for interest in interests where !seenIDs.contains(interest.title) {
-                seenIDs.insert(interest.title)
-                cards.append(WMFInterestArticleCardViewModel(pageInterest: interest, project: interestsProject))
-            }
+        for interest in interests where !seenIDs.contains(interest.title) {
+            seenIDs.insert(interest.title)
+            cards.append(WMFInterestArticleCardViewModel(pageInterest: interest, project: interest.project ?? project))
         }
+
         gridViewModels = cards
         recountSelectedArticles()
     }
