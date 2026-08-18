@@ -59,4 +59,14 @@ open class WMFComponentHostingController<HostedView: View>: UIHostingController<
         setNeedsStatusBarAppearanceUpdate()
     }
 
+    // Explicitly nonisolated (matching UIHostingController's own deinit) rather than
+    // the isolated deinit this class would implicitly get under the module's default
+    // MainActor isolation. Works around a swift-frontend 6.3.3 crash: the SIL
+    // performance inliner segfaults optimizing the implicit isolated deinit of this
+    // generic class in Test configuration builds (-O + default CMO + coverage).
+    // The stored properties released here (cancellables) are safe to release from
+    // any thread. Revisit when the toolchain fixes the inliner crash.
+    nonisolated deinit {
+    }
+
 }

@@ -740,6 +740,7 @@
 "history-clear-delete-all" = "Button text for confirming delete all action";
 "history-title" = "Title of the history screen shown on history tab {{Identical|History}}";
 "home-button-explore-accessibility-label" = "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
+"home-button-home-accessibility-label" = "Accessibility label for the 'W' logo in the navigation bar of an article that the user opened from the Home tab. It tells the user that a tap on the logo goes back to the Home tab. \"Home\" is the same as {{msg-wikimedia|Wikipedia-ios-home-tab-title}}.";
 "home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.";
 "home-card-more-options-accessibility-label" = "Accessibility label for the three dot button on a Home feed card, which opens a menu of actions for that card.";
 "home-community-empty-feed-button-title" = "Title of the button shown in the Home tab Community segment when every feed card is hidden. It opens the feed settings.";
@@ -799,6 +800,7 @@
 "home-news-footer" = "Footer for presenting user option to see longer list of news stories.";
 "home-reading-list-prompt" = "Description on feed card that describes reading lists.";
 "home-tab-title" = "Title for the Home tab.";
+"home-tab-title-accessibility-label" = "Accessibility label for the 'W' logo in the navigation bar of the Home tab. It tells the user that a tap on the logo scrolls to the top of the feed that is on screen. \"Home\" is the same as {{msg-wikimedia|Wikipedia-ios-home-tab-title}}.";
 "home-themes-action-title" = "Action on the feed card that describes the theme feature. Takes the user to manage theme preferences.";
 "home-themes-prompt" = "Description on feed card that describes how to adjust reading preferences.";
 "home-title" = "Title for home interface. {{Identical|Explore}}";

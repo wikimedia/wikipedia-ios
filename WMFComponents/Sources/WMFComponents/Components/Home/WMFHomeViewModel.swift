@@ -76,6 +76,18 @@ public final class WMFHomeViewModel: ObservableObject {
         }
     }
 
+    @Published public private(set) var forYouScrollToTopRequestID: Int = 0
+    @Published public private(set) var communityScrollToTopRequestID: Int = 0
+
+    public func scrollSelectedFeedToTop() {
+        switch selectedTab {
+        case .forYou:
+            forYouScrollToTopRequestID += 1
+        case .community:
+            communityScrollToTopRequestID += 1
+        }
+    }
+
     let dataController: WMFHomeDataController
 
     /// Holds the refresh indicator on for its minimum time. Kept so that a second refresh can stop it.
