@@ -57,6 +57,34 @@ final class WMFEditingPreferencesSettingsViewModelTests {
     }
 
     @Test
+    func selectingCallsDidSelectMode() async throws {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            var selectedModes: [WMFEditMode] = []
+            let viewModel = WMFEditingPreferencesSettingsViewModel(didSelectMode: { mode in
+                selectedModes.append(mode)
+            })
+
+            viewModel.select(.source)
+            #expect(selectedModes == [.source])
+        }
+    }
+
+    /// Instrumentation only fires on an actual change — reselecting the current mode must not log.
+    @Test
+    func selectingTheAlreadySelectedModeDoesNotCallDidSelectMode() async throws {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            var selectedModes: [WMFEditMode] = []
+            let viewModel = WMFEditingPreferencesSettingsViewModel(didSelectMode: { mode in
+                selectedModes.append(mode)
+            })
+
+            #expect(viewModel.selectedMode == .visual)
+            viewModel.select(.visual)
+            #expect(selectedModes.isEmpty)
+        }
+    }
+
+    @Test
     func selectingTheAlreadySelectedModeIsANoop() async throws {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let viewModel = WMFEditingPreferencesSettingsViewModel()

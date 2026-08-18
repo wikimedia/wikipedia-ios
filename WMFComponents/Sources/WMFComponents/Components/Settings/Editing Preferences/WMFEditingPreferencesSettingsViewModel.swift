@@ -10,9 +10,11 @@ public final class WMFEditingPreferencesSettingsViewModel: ObservableObject {
     @Published private(set) var selectedMode: WMFEditMode
 
     private let dataController: WMFSettingsDataController
+    private let didSelectMode: ((WMFEditMode) -> Void)?
 
-    public init(dataController: WMFSettingsDataController = WMFSettingsDataController.shared) {
+    public init(dataController: WMFSettingsDataController = WMFSettingsDataController.shared, didSelectMode: ((WMFEditMode) -> Void)? = nil) {
         self.dataController = dataController
+        self.didSelectMode = didSelectMode
         self.selectedMode = dataController.defaultEditMode()
     }
 
@@ -22,6 +24,7 @@ public final class WMFEditingPreferencesSettingsViewModel: ObservableObject {
         guard mode != selectedMode else { return }
         selectedMode = mode
         dataController.setDefaultEditMode(mode)
+        didSelectMode?(mode)
     }
 }
 

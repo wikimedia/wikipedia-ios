@@ -1,13 +1,14 @@
 import UIKit
 import SwiftUI
+import WMFData
 import WMFNativeLocalizations
 
 public final class WMFEditingPreferencesSettingsViewController: WMFComponentHostingController<WMFEditingPreferencesSettingsView>, WMFNavigationBarConfiguring {
 
     private let viewModel: WMFEditingPreferencesSettingsViewModel
 
-    public init() {
-        let viewModel = WMFEditingPreferencesSettingsViewModel()
+    public init(didSelectMode: ((WMFEditMode) -> Void)? = nil) {
+        let viewModel = WMFEditingPreferencesSettingsViewModel(didSelectMode: didSelectMode)
         self.viewModel = viewModel
         super.init(rootView: WMFEditingPreferencesSettingsView(viewModel: viewModel))
     }
