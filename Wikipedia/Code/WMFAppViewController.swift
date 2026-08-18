@@ -955,6 +955,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         // Assign and apply the home tab experiment before onboarding decisions are made,
         // so that presentOnboardingIfNeeded and loadMainUI both see the correct flag.
         let homeTabAssignment = WMFHomeDataController.shared.persistedHomeTabAssignment()
+        // todo grey add instrumentation
         if homeTabAssignment == .groupB && !WMFDeveloperSettingsDataController.shared.enableHomeTab {
             WMFDeveloperSettingsDataController.shared.enableHomeTab = true
         }
@@ -1115,7 +1116,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         // New installs will not have this key set yet; they see full app onboarding instead.
         let isExistingUser = UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding)
         let hasSeenOneTimeOnboarding = WMFHomeDataController.shared.hasSeenOneTimeOnboarding()
-        guard WMFDeveloperSettingsDataController.shared.enableHomeTab || WMFDeveloperSettingsDataController.shared.enableHomePhase2 else { return } // todo grey
         // Show only to existing users who did NOT go through the new install onboarding
         guard isExistingUser && !hasSeenOneTimeOnboarding else { return }
 
