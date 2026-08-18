@@ -390,7 +390,7 @@ public final actor WMFHomeDataController {
     private func fetchForYouContinueReading(project: WMFProject) async throws -> WMFForYouContinueReading? {
         guard let pageViewsDataController else { return nil }
         let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60, mainNamespaceOnly: true)
-        let saved = try await savedArticlesDataController.fetchRecentlySavedArticles(limit: 3)
+        let saved = try await savedArticlesDataController.fetchRecentlySavedArticles(limit: 3, projectID: project.id)
         let fromReadingList = saved.compactMap { item -> WMFForYouArticle? in
             guard let itemProject = WMFProject(id: item.page.projectID),
                   itemProject.languageCode == project.languageCode else { return nil }

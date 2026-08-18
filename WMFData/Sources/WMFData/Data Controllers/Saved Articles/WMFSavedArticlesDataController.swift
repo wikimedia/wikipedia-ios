@@ -100,13 +100,19 @@ public actor WMFSavedArticlesDataController {
         }
     }
 
-    public func fetchRecentlySavedArticles(limit: Int = 3) async throws -> [WMFPageWithTimestamp] {
+    public func fetchRecentlySavedArticles(limit: Int = 3, projectID: String? = nil) async throws -> [WMFPageWithTimestamp] {
         guard let coreDataStore else { throw WMFDataControllerError.coreDataStoreUnavailable }
         let context = try coreDataStore.newBackgroundContext
 
         return try await context.perform {
             let sortDescriptor = NSSortDescriptor(key: "savedInfo.savedDate", ascending: false)
-            let predicate = NSPredicate(format: "savedInfo != nil")
+
+            let predicate: NSPredicate
+            if let projectID {
+                predicate = NSPredicate(format: "savedInfo != nil AND projectID BEGINSWITH %@", projectID)
+            } else {
+                predicate = NSPredicate(format: "savedInfo != nil")
+            }
 
             guard let pages: [CDPage] = try coreDataStore.fetch(
                 entityType: CDPage.self,
