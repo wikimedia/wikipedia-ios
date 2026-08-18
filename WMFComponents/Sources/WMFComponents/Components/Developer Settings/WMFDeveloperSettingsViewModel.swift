@@ -60,12 +60,10 @@ import WMFData
         let showYiR2025 = WMFFormItemSelectViewModel(title: "Show Year in Review 2025", isSelected: WMFDeveloperSettingsDataController.shared.showYiR2025)
         let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
         let allowGestureZoomArticleWebview = WMFFormItemSelectViewModel(title: "Allow pinch to zoom when reading articles", isSelected: WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview)
-        let enableHomeTab = WMFFormItemSelectViewModel(title: "Enable Home Tab (Group B)", isSelected: WMFDeveloperSettingsDataController.shared.enableHomeTab)
         let enableHomePhase2 = WMFFormItemSelectViewModel(title: "Enable Home Phase 2", isSelected: WMFDeveloperSettingsDataController.shared.enableHomePhase2)
 
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
-                enableHomeTab,
                 enableHomePhase2,
                 doNotPostImageRecommendationsEditItem,
                 sendAnalyticsToWMFLabsItem,
@@ -109,10 +107,6 @@ import WMFData
 
         allowGestureZoomArticleWebview.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview = isSelected }
-            .store(in: &subscribers)
-
-        enableHomeTab.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableHomeTab = isSelected }
             .store(in: &subscribers)
 
         enableHomePhase2.$isSelected
