@@ -1,5 +1,6 @@
 import WMFComponents
 import WMF
+import WMFData
 import WMFNativeLocalizations
 
 class TalkPageReplyComposeContentView: SetupView {
@@ -127,6 +128,9 @@ class TalkPageReplyComposeContentView: SetupView {
     private let wikiHasTempAccounts: Bool?
     private let tappedIPTempButtonAction: () -> Void
 
+    // Localized "protected by hCaptcha" notice (HTML), appended to the fine print once fetched.
+    private var hCaptchaFinePrintHTML: String?
+
     // MARK: Lifecycle
 
     init(commentViewModel: TalkPageCellCommentViewModel, theme: Theme, linkDelegate: TalkPageTextViewLinkHandling, authenticationManager: WMFAuthenticationManager?, wikiHasTempAccounts: Bool?, tappedIPTempButtonAction: @escaping () -> Void) {
@@ -155,6 +159,7 @@ class TalkPageReplyComposeContentView: SetupView {
         setupPlaceholderLabel()
         updateFonts()
         apply(theme: theme)
+        fetchHCaptchaFinePrint()
 
         guard let semanticContentAttribute = commentViewModel.cellViewModel?.viewModel?.semanticContentAttribute else {
             return
@@ -382,7 +387,32 @@ class TalkPageReplyComposeContentView: SetupView {
             "</a>"
         )
 
-        return NSAttributedString.attributedStringFromHtml(substitutedString, styles: styles)
+        let attributedString = NSMutableAttributedString(attributedString: NSAttributedString.attributedStringFromHtml(substitutedString, styles: styles))
+
+        if let hCaptchaFinePrintHTML, !hCaptchaFinePrintHTML.isEmpty {
+            attributedString.append(NSAttributedString(string: "\n"))
+            attributedString.append(NSAttributedString.attributedStringFromHtml(hCaptchaFinePrintHTML, styles: styles))
+        }
+
+        return attributedString
+    }
+
+    /// Fetches the localized "protected by hCaptcha" notice and appends it to the fine print.
+    /// Best-effort: a failed fetch leaves the existing Terms/license text unchanged.
+    private func fetchHCaptchaFinePrint() {
+        guard let talkPageURL = commentViewModel.talkPageURL else {
+            return
+        }
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: talkPageURL.wmf_languageCode ?? "en", languageVariantCode: talkPageURL.wmf_languageVariantCode))
+        Task { [weak self] in
+            let html = try? await MessagesDataController().fetchMessages(keys: ["hcaptcha-privacy-policy"], parseLinks: true, project: project).first?.content
+            guard let html, !html.isEmpty else { return }
+            await MainActor.run { [weak self] in
+                guard let self else { return }
+                self.hCaptchaFinePrintHTML = html
+                self.finePrintTextView.attributedText = self.licenseTitleTextViewAttributedString
+            }
+        }
     }
 
     private var styles: HtmlUtils.Styles {
