@@ -34,7 +34,8 @@ import Foundation
 
     @objc public static let shared = WMFHomeDataController()
 
-    nonisolated(unsafe) private let experimentsDataController: WMFExperimentsDataController?
+    // Assigned once in init from a local WMFExperimentsDataController; immutable after.
+    nonisolated private let homeTabAssignment: HomeTabExperimentAssignment
 
     public init(
         feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared,
@@ -51,31 +52,26 @@ import Foundation
         self.relatedPagesDataController = relatedPagesDataController
         self.savedArticlesDataController = savedArticlesDataController
         self.onThisDayDataController = onThisDayDataController
+
         if let experimentStore {
-            self.experimentsDataController = WMFExperimentsDataController(store: experimentStore)
+            let controller = WMFExperimentsDataController(store: experimentStore)
+            let bucket = try? controller.determineBucketForExperiment(.homeTab, withPercentage: 50)
+            homeTabAssignment = bucket == .homeTabGroupB ? .groupB : .control
         } else {
-            self.experimentsDataController = nil
+            homeTabAssignment = .control
         }
     }
-    
+
     @objc public nonisolated var isHomeTabGroupB: Bool {
-        persistedHomeTabAssignment() == .groupB
+        homeTabAssignment == .groupB
     }
-    
-    /// Returns the persisted bucket for the home tab experiment, or nil if none has been assigned yet.
+
+    /// Returns the persisted bucket for the home tab experiment.
     /// Safe to call from any synchronous context.
     public nonisolated func persistedHomeTabAssignment() -> HomeTabExperimentAssignment {
-        guard let experimentsDataController else { return .control }
-
-        let bucket = try? experimentsDataController.determineBucketForExperiment(.homeTab, withPercentage: 50)
-        switch bucket {
-        case .homeTabGroupB:
-            return .groupB
-        default:
-            return .control
-        }
+        homeTabAssignment
     }
-    
+
     // MARK: - Settings: New Install Onboarding
 
     public nonisolated func didSendNewInstallOnboardingStartEvent() -> Bool {
