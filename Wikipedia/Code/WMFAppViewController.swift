@@ -1107,6 +1107,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         guard let homeNav = viewControllers?[WMFAppTabType.main.rawValue] as? UINavigationController,
               homeNav.viewControllers.count == 1 else { return }
         guard presentedViewController == nil else { return }
+        guard WMFHomeDataController.shared.isHomeTabGroupB else { return }
 
         let isExistingUser = UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding)
         let hasSeenNewOnboarding = WMFHomeDataController.shared.didSendNewInstallOnboardingStartEvent()
