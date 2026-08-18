@@ -1442,7 +1442,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         return abs(resignActiveDate.timeIntervalSinceNow) >= wmfTimeBeforeShowingExploreScreenOnLaunch
     }
 
-    private func visibleArticleViewController() -> ArticleViewController? {
+    func visibleArticleViewController() -> ArticleViewController? {
         guard let topVC = currentTabNavigationController?.topViewController else { return nil }
         return topVC as? ArticleViewController
     }
@@ -1794,7 +1794,11 @@ extension WMFAppViewController: UITabBarControllerDelegate {
         if viewController == tabBarController.selectedViewController {
             switch tabBarController.selectedIndex {
             case WMFAppTabType.main.rawValue:
-                exploreViewController.scrollToTop()
+                if let homeViewController = homeCoordinator?.homeViewController {
+                    homeViewController.scrollSelectedFeedToTop()
+                } else {
+                    exploreViewController.scrollToTop()
+                }
             case WMFAppTabType.search.rawValue:
                 searchTabViewController.makeSearchBarBecomeFirstResponder()
             default:
@@ -1825,7 +1829,9 @@ extension WMFAppViewController: UITabBarControllerDelegate {
     private func updateActiveTitleAccessibilityButton(_ viewController: UIViewController) {
         guard let vc = viewController as? ArticleViewController else { return }
         if selectedIndex == WMFAppTabType.main.rawValue {
-            vc.navigationItem.titleView?.accessibilityLabel = WMFLocalizedString("home-button-explore-accessibility-label", value: "Wikipedia, return to Explore", comment: "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.")
+            vc.navigationItem.titleView?.accessibilityLabel = homeCoordinator != nil
+                ? CommonStrings.homeReturnToHomeAccessibilityLabel
+                : WMFLocalizedString("home-button-explore-accessibility-label", value: "Wikipedia, return to Explore", comment: "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.")
         } else if selectedIndex == WMFAppTabType.saved.rawValue {
             vc.navigationItem.titleView?.accessibilityLabel = WMFLocalizedString("home-button-saved-accessibility-label", value: "Wikipedia, return to Saved", comment: "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.")
         }

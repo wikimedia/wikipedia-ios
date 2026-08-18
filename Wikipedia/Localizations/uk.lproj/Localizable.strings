@@ -735,6 +735,18 @@
 "find-replace-header" = "Пошук та заміна";
 "find-replace-header-close-accessibility" = "Закрити діалог пошуку та заміни";
 "find-textfield-accessibility" = "Пошук";
+"for-you-empty-button" = "Виберіть свої інтереси";
+"for-you-empty-subtitle" = "Додайте інтереси, щоб отримувати персоналізовані рекомендації статей.";
+"for-you-empty-title" = "Тут ще нічого немає";
+"for-you-error-retry" = "Спробуйте ще раз";
+"for-you-error-subtitle" = "Підключіться до інтернету та спробуйте ще раз.";
+"for-you-error-title" = "Немає з'єднання з інтернетом";
+"for-you-header-because-you-read" = "Оскільки Ви читали: $1";
+"for-you-header-continue-reading" = "Продовжити читання: $1";
+"for-you-header-interest" = "Тому що у вас є інтерес: $1";
+"for-you-header-saved-article" = "З вашого списку читання: $1";
+"for-you-menu-customize-interests" = "Налаштувати інтереси";
+"for-you-refreshing-accessibility-label" = "Завантаження нового вмісту";
 "forgot-password-button-title" = "Скинути";
 "forgot-password-email-sent" = "Електронний лист з інструкціями щодо скидання пароля надіслано";
 "forgot-password-instructions" = "Заповніть одне з полів нижче, щоб отримати на скриньку електронної пошти інструкції щодо скидання пароля";
@@ -757,9 +769,11 @@
 "history-title" = "Історія";
 "home-button-explore-accessibility-label" = "Вікіпедіє, повернутися до стрічки";
 "home-button-saved-accessibility-label" = "Вікіпедіє, повернутися до Збереженого";
+"home-card-more-options-accessibility-label" = "Більше опцій";
 "home-community-empty-feed-button-title" = "Налаштувати стрічку";
 "home-community-empty-feed-message" = "Увімкніть картки в налаштуваннях стрічки, щоб побачити стрічку спільноти.";
 "home-community-empty-feed-title" = "Усі картки стрічки спільноти приховані";
+"home-community-see-past-content" = "Переглянути давніший контент спільноти";
 "home-community-tab-title" = "Спільнота";
 "home-edit-languages-title" = "Додати або редагувати мови";
 "home-feed-for-you-based-on-interests-subtitle" = "Статті, адаптовані до обраних вами тем.";
@@ -806,6 +820,7 @@
 "home-feed-whats-driving-your-interests-subtitle" = "Редагуйте теми ваших зацікавлень";
 "home-feed-whats-driving-your-interests-title" = "Ваші інтереси";
 "home-for-you-tab-title" = "Для вас";
+"home-menu-hide-module" = "Приховати модуль";
 "home-more-like-footer" = "Більше схожого на $1";
 "home-nearby-footer" = "Більше місць поблизу";
 "home-nearby-location-footer" = "Більше поблизу $1";
@@ -955,8 +970,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Перегляд";
 "nearby-distance-label-feet" = "{{PLURAL:$1|$1 фут|$1 фути|$1 футів}}";
 "nearby-distance-label-km" = "$1 км";
-// Fuzzy
-"nearby-distance-label-meters" = "$1 м";
+"nearby-distance-label-meters" = "{{PLURAL:$1|$1 метр|$1 метри|$1 метрів}}";
 "nearby-distance-label-miles" = "$1 миль";
 "new-explore-feed-preferences-customize-explore-feed" = "Налаштуйте стрічку спільноти";
 "new-explore-feed-preferences-customize-explore-feed-footer-text" = "Якщо приховати тип карток, то він не відображатиметься у стрічці спільноти.";
@@ -1103,6 +1117,17 @@
 "on-this-day-no-internet-error" = "Немає доступних даних";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 у Вікіпедії мовою «$2»";
 "on-this-day-title" = "Цього дня";
+"one-time-onboarding-auto-setup-button" = "Налаштуйте це для мене";
+"one-time-onboarding-customize-button" = "Налаштувати мою стрічку";
+"one-time-onboarding-feature-control-body" = "У кожній рекомендації чітко пояснюється, чому вона там є. Ви можете будь-коли оновити свої побажання в налаштуваннях.";
+"one-time-onboarding-feature-control-title" = "Контролюйте ситуацію";
+"one-time-onboarding-feature-feed-body" = "Відкрийте для себе статті, персоналізовані відповідно до ваших інтересів, у розділі «Для вас» або перегляньте найкращий контент Вікіпедії у розділі «Спільнота».";
+"one-time-onboarding-feature-feed-title" = "Ваша стрічка, два шляхи";
+"one-time-onboarding-feature-languages-body" = "Читаєте кількома мовами? Кожна з них дає інший досвід. Просто перемкніться, і ваша нова стрічка готова.";
+"one-time-onboarding-feature-languages-title" = "Кожна мова, повністю персоналізована";
+"one-time-onboarding-feature-name-body" = "Стрічка «Дослідити» тепер називається «Головна», і розташована у тому самому місці.";
+"one-time-onboarding-feature-name-title" = "Нова назва";
+"one-time-onboarding-title" = "Стрічка «Дослідити» тепер називається «Головна» і має новий вигляд";
 "open-article" = "Відкрити статтю";
 "original-tab-button-popover-description" = "Натисніть «W», аби повернутися до вкладинки, з якої ви почали";
 "page-history-bot-edits" = "бот";
@@ -1342,6 +1367,9 @@
 "settings-clear-cache-ok" = "Очистити кеш";
 "settings-community-feed-title" = "Спільнота";
 "settings-donate" = "Пожертвувати";
+"settings-editing-preferences-source-short" = "Джерело";
+"settings-editing-preferences-title" = "Налаштування редагування";
+"settings-editing-preferences-visual-short" = "Візуальний";
 "settings-explore-games-subtitle" = "Щоденні ігри на основі контенту Вікіпедії";
 "settings-explore-games-title" = "Ігри Вікіпедії";
 "settings-help-and-feedback" = "Допомога та зворотний зв'язок";

@@ -53,9 +53,17 @@ class WMFFindAndReplaceView: WMFComponentView {
     
     // MARK: - Lifecycle
     
-    override func awakeFromNib() {
+    // UIKit declares awakeFromNib nonisolated, so the override must match. Nib
+    // loading of UI objects happens on the main thread, so it is safe to assume
+    // main-actor isolation for the UI setup.
+    nonisolated override func awakeFromNib() {
         super.awakeFromNib()
-        
+        MainActor.assumeIsolated {
+            setupFromNib()
+        }
+    }
+
+    private func setupFromNib() {
         maximumContentSizeCategory = .accessibilityLarge
 
         closeButton.setImage(WMFSFSymbolIcon.for(symbol: .close), for: .normal)
