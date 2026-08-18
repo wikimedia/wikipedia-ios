@@ -164,6 +164,7 @@ public class Configuration: NSObject {
         public static let metaWiki = "meta.wikimedia.org"
         public static let wikimediafoundation = "wikimediafoundation.org"
         public static let uploads = "upload.wikimedia.org"
+        public static let thumbs = "thumb.wikimedia.org"
         public static let wikibooks = "wikibooks.org"
         public static let wiktionary = "wiktionary.org"
         public static let wikiquote = "wikiquote.org"

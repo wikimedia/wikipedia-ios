@@ -59,7 +59,44 @@ extension WMFAppViewController {
             articleSource = .external_link
         }
 
+        if let returnJourney = VisualEditorReturnJourney(url: linkURL) {
+            return processVisualEditorReturnJourney(returnJourney, navigationController: navigationController, articleSource: articleSource)
+        }
+
+        // Any other article deep link (e.g. Safari's native app banner): if the linked article
+        // is already on screen, bring the app to the foreground instead of pushing a duplicate
+        if LinkCoordinator.destination(for: linkURL) == .article,
+           let articleViewController = visibleArticleViewController(),
+           let visibleArticleKey = articleViewController.articleURL.wmf_databaseKey,
+           let incomingArticleKey = linkURL.wmf_databaseKey,
+           visibleArticleKey == incomingArticleKey {
+            if let fragment = linkURL.fragment?.removingPercentEncoding, !fragment.isEmpty {
+                articleViewController.scroll(to: fragment, animated: true)
+            }
+            return true
+        }
+
         let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: linkURL, dataStore: dataStore, theme: theme, articleSource: articleSource, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
+        return linkCoordinator.start()
+    }
+
+    /// Handles the redirect back into the app after a web Visual Editor session (T434236).
+    /// If the same article is already on screen, refreshes it in place instead of pushing a duplicate.
+    private func processVisualEditorReturnJourney(_ returnJourney: VisualEditorReturnJourney, navigationController: UINavigationController, articleSource: ArticleSource) -> Bool {
+
+        if let articleViewController = visibleArticleViewController(),
+           let visibleArticleKey = articleViewController.articleURL.wmf_databaseKey,
+           let incomingArticleKey = returnJourney.articleURL.wmf_databaseKey,
+           visibleArticleKey == incomingArticleKey {
+            if returnJourney.saved {
+                articleViewController.waitForNewContentAndRefresh(returnJourney.revisionID)
+            }
+            // saved == false: the edit was abandoned, leave the article as-is
+            return true
+        }
+
+        // The user is continuing their journey, so append to the current tab rather than opening a new one
+        let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: returnJourney.articleURL, dataStore: dataStore, theme: theme, articleSource: articleSource, tabConfig: .appendArticleAndAssignCurrentTab, revisionID: returnJourney.revisionID)
         return linkCoordinator.start()
     }
 
@@ -369,13 +406,15 @@ extension WMFAppViewController: WMFWatchlistDelegate {
             let performThanks = {
                 let diffThanker = DiffThanker()
                 diffThanker.thank(siteURL: siteURL, rev: Int(revisionID), completion: { result in
-                    switch result {
-                    case .success:
-                        let successfulThanks = WMFLocalizedString("watchlist-thanks-success", value: "Your ‘Thanks’ was sent to %@", comment: "Message displayed in a toast on successful thanking of user in Watchlist view. %@ is replaced with the user being thanked.")
-                        let successMessage = String.localizedStringWithFormat(successfulThanks, username)
-                        WMFToastManager.sharedInstance.showRichToast(successMessage, subtitle: nil, image: UIImage(named: "watchlist-thanks-checkmark"), dismissPreviousToasts: true)
-                    case .failure(let failure):
-                        WMFToastManager.sharedInstance.showRichToast(failure.localizedDescription, subtitle: nil, image: nil, dismissPreviousToasts: true)
+                    Task { @MainActor in
+                        switch result {
+                        case .success:
+                            let successfulThanks = WMFLocalizedString("watchlist-thanks-success", value: "Your ‘Thanks’ was sent to %@", comment: "Message displayed in a toast on successful thanking of user in Watchlist view. %@ is replaced with the user being thanked.")
+                            let successMessage = String.localizedStringWithFormat(successfulThanks, username)
+                            WMFToastManager.sharedInstance.showRichToast(successMessage, subtitle: nil, image: UIImage(named: "watchlist-thanks-checkmark"), dismissPreviousToasts: true)
+                        case .failure(let failure):
+                            WMFToastManager.sharedInstance.showRichToast(failure.localizedDescription, subtitle: nil, image: nil, dismissPreviousToasts: true)
+                        }
                     }
                 })
             }

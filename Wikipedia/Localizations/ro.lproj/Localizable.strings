@@ -19,6 +19,7 @@
 // Author: Rapiteanu
 // Author: SZ475
 // Author: Strainu
+// Author: TiberiuFr25
 // Author: Valentin JJ.
 // Author: WebSourceContentRO
 
@@ -87,6 +88,8 @@
 "action-unsave" = "Nu salva";
 "action-unsaved-accessibility-notification" = "Articol nesalvat";
 "action-update" = "Actualizați";
+"activity-tab-customize-footer" = "Informațiile despre lectură se bazează pe limbile aplicației din setări, iar informațiile despre editare sunt limitate la limba principală a aplicației. Informațiile utilizează date locale, cu excepția editărilor, care sunt publice.";
+"activity-tab-customize-reading-insights" = "Informații despre lectură";
 "add-articles-to-reading-list" = "Adaugă {{PLURAL:$1|$1 articol|$1 articole}} la lista de citire";
 "announcements-dismiss" = "Respinge";
 "app-onboarding-data-privacy-policy-link" = "politica de confidențialitate";
@@ -325,6 +328,7 @@
 "explore-feed-preferences-show-related-pages-title" = "Arată cardul Pentru că ai citit";
 "explore-feed-preferences-show-top-read-footer-text" = "Dezactivarea cardului Cele mai citite va opri cardul în toate limbile disponibile.";
 "explore-feed-preferences-show-top-read-title" = "Afișează cardul Cele mai citite";
+"explore-feed-preferences-suggested-edits-title" = "Arată cardul Modificări sugerate";
 "explore-feed-preferences-top-read-description" = "Cele mai citite articole zilnic";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Dezactivați fluxul Explorează";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Ascunderea tuturor cardurilor de fluxuri Explore va dezactiva fila Explore și o va înlocui cu o filă Setări";
@@ -422,6 +426,8 @@
 "icon-shortcut-random-title" = "Articol aleatoriu";
 "icon-shortcut-search-title" = "Căutare în Wikipedia";
 "image-gallery-unknown-owner" = "Autor necunoscut.";
+"image-rec-onboarding-learn-more-button" = "Află mai multe despre modificările sugerate";
+"image-recommendations-email-first-line" = "Am întâmpinat o problemă cu funcția Modificări sugerate când adăugam o imagine:";
 "in-the-news-sub-title-from-language-wikipedia" = "De la $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "De la Wikipedia";
 "in-the-news-title" = "Știri";
@@ -861,6 +867,7 @@
 "share-social-mention-format" = "“$1” via Wikipedia: $2";
 "sort-by-recently-added-action" = "Adaugat recent";
 "sort-by-title-action" = "Titlu";
+"suggested-edits-title" = "Modificări sugerate";
 "table-of-contents-button-label" = "Cuprins";
 "table-of-contents-close-accessibility-hint" = "Închide";
 "table-of-contents-close-accessibility-label" = "Închide cuprinsul";
@@ -987,3 +994,5 @@
 "wikitext-upload-save-anonymously-warning" = "Modificările vor fi atribuite adresei IP a dispozitivului dumneavoastră. Dacă recurgeți la $1 veți beneficia de mai multă confidențialitate.";
 "wikitext-upload-save-terms-name" = "Termeni de utilizare";
 "year-in-review-donate-now" = "Donați acum";
+"year-in-review-feature-explore-body-personalized-updated" = "Vezi informații despre articolele pe care le citești în aplicația Wikipedia și despre modificările pe care le-ai făcut în 2024. Istoricul lecturii tale rămâne protejat. Informațiile despre lectură sunt calculate folosind date stocate local pe dispozitiv.";
+"year-in-review-feature-explore-footer-v3" = "Istoricul lecturii tale rămâne protejat. Informațiile despre lectură sunt calculate folosind datele stocate local pe dispozitivul tău.";
