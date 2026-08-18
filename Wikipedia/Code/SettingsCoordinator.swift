@@ -161,6 +161,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             showReadingPreferences()
         case .articleSyncing:
             showArticleSyncing()
+        case .editingPreferences:
+            showEditingPreferences()
         case .databasePopulation:
             tappedDatabasePopulation()
         case .clearCachedData:
@@ -713,6 +715,13 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         let appearanceSettingsVC = AppearanceSettingsViewController()
         appearanceSettingsVC.apply(theme: currentTheme)
         settingsNav.pushViewController(appearanceSettingsVC, animated: true)
+    }
+
+    private func showEditingPreferences() {
+        guard let settingsNavigation = settingsNavigationController else { return }
+
+        let viewController = WMFEditingPreferencesSettingsViewController()
+        settingsNavigation.pushViewController(viewController, animated: true)
     }
 
     // MARK: - Article Syncing
