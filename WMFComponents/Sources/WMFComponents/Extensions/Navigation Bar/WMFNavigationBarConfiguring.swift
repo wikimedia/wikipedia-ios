@@ -330,7 +330,10 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     }
     
     var currentProfileBarButtonItem: UIBarButtonItem? {
-        return navigationItem.rightBarButtonItems?.filter { $0.accessibilityIdentifier == profileButtonAccessibilityID }.first
+        let groupedItems = navigationItem.trailingItemGroups.flatMap { $0.barButtonItems }
+        let items = (navigationItem.rightBarButtonItems ?? []) + groupedItems
+
+        return items.first { $0.accessibilityIdentifier == profileButtonAccessibilityID }
     }
     
     /// Call from UIViewController when theme changes, or when badge needs to change
@@ -338,8 +341,8 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     ///     - from appEnvironmentDidChange() if WMFComponents
     ///     - whenever badge logic changes (YiR or unread notifications)
     ///     - Parameter needsBadge: true if red dot needs to be applied to profile button, false if not
-    func updateNavigationBarProfileButton(needsBadge: Bool, needsBadgeLabel: String, noBadgeLabel: String) {
-        let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: needsBadge)
+    func updateNavigationBarProfileButton(needsBadge: Bool, needsBadgeLabel: String, noBadgeLabel: String, theme: WMFTheme = WMFAppEnvironment.current.theme) {
+        let image = profileButtonImage(theme: theme, needsBadge: needsBadge)
         if let currentProfileBarButtonItem {
             currentProfileBarButtonItem.image = image
             currentProfileBarButtonItem.accessibilityLabel = needsBadge ? needsBadgeLabel : noBadgeLabel
@@ -350,7 +353,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         let paletteColors: [UIColor]
         
         if needsBadge {
-            paletteColors = [theme.destructive, UIColor.label]
+            paletteColors = [theme.destructive, theme.text]
         } else {
             paletteColors = [theme.text]
         }
