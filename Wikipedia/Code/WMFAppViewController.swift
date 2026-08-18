@@ -358,7 +358,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         self.delegate = self
 
         let nav1: WMFComponentNavigationController
-        if WMFDeveloperSettingsDataController.shared.enableHomeTab {
+        if WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB {
             let coordinator = HomeCoordinator(theme: theme, dataStore: dataStore)
             let homeViewController = coordinator.makeHomeViewController()
             nav1 = rootNavigationController(with: homeViewController)
@@ -936,7 +936,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         // default can't set this flag directly — write it through the data controller instead.
         // The flag persists across launches, so apply the argument in both directions.
         if UserDefaults.standard.object(forKey: wmfEnableHomeTabForTesting) != nil {
-            WMFDeveloperSettingsDataController.shared.enableHomeTab = UserDefaults.standard.bool(forKey: wmfEnableHomeTabForTesting)
+            WMFDeveloperSettingsDataController.shared.enableHomePhase2 = UserDefaults.standard.bool(forKey: wmfEnableHomeTabForTesting)
         }
     }
 
@@ -956,9 +956,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         // so that presentOnboardingIfNeeded and loadMainUI both see the correct flag.
         let homeTabAssignment = WMFHomeDataController.shared.persistedHomeTabAssignment()
         // todo grey add instrumentation
-        if homeTabAssignment == .groupB && !WMFDeveloperSettingsDataController.shared.enableHomeTab {
-            WMFDeveloperSettingsDataController.shared.enableHomeTab = true
-        }
         
         presentOnboardingIfNeeded { didShowOnboarding in
             self.loadMainUI()
@@ -1631,7 +1628,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             return
         }
 
-        guard developerSettings.enableHomeTab else {
+        guard WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB else {
             presentLegacyOnboarding(completion: completion)
             return
         }

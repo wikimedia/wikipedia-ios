@@ -41,7 +41,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         // values stored by WMFUserDefaultsStore are decoded correctly — NSUserDefaults
         // boolForKey: returns NO for those.
         WMFDeveloperSettingsDataController *devSettings = WMFDeveloperSettingsDataController.shared;
-        if (devSettings.enableHomeTab || devSettings.enableHomePhase2) {
+        if (WMFHomeDataController.shared.isHomeTabGroupB || devSettings.enableHomePhase2) {
             NSArray<WMFContentGroup *> *existingGroups = [moc contentGroupsOfKind:WMFContentGroupKindContinueReading];
             for (WMFContentGroup *group in existingGroups) {
                 [moc removeContentGroup:group];

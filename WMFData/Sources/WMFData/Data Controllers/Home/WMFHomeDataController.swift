@@ -1,6 +1,6 @@
 import Foundation
 
-public final actor WMFHomeDataController {
+@objc public final actor WMFHomeDataController {
     
     public enum CustomError: Error {
         case missingExperimentsDataController
@@ -32,7 +32,7 @@ public final actor WMFHomeDataController {
     // Dates for which feed data has been fetched per project, in descending order (most recent first).
     private var communityFetchedDates: [WMFProject: [Date]] = [:]
 
-    public static let shared = WMFHomeDataController()
+    @objc public static let shared = WMFHomeDataController()
 
     nonisolated(unsafe) private let experimentsDataController: WMFExperimentsDataController?
     private var assignmentCache: HomeTabExperimentAssignment?
@@ -59,20 +59,20 @@ public final actor WMFHomeDataController {
         }
     }
     
+    @objc public nonisolated var isHomeTabGroupB: Bool {
+        persistedHomeTabAssignment() == .groupB
+    }
+    
     /// Returns the persisted bucket for the home tab experiment, or nil if none has been assigned yet.
     /// Safe to call from any synchronous context.
     public nonisolated func persistedHomeTabAssignment() -> HomeTabExperimentAssignment {
         guard let experimentsDataController else { return .control }
 
-        // determineBucketForExperiment is idempotent — returns the existing bucket
-        // on subsequent calls with the same percentage, so this is safe to call on every launch.
         let bucket = try? experimentsDataController.determineBucketForExperiment(.homeTab, withPercentage: 50)
         switch bucket {
         case .homeTabGroupB:
-            print("[HomeTab] persistedHomeTabAssignment: groupB")
             return .groupB
         default:
-            print("[HomeTab] persistedHomeTabAssignment: control")
             return .control
         }
     }

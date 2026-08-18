@@ -4,12 +4,9 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var enableMoreDynamicTabsV2GroupC: Bool { get }
     var forceMaxArticleTabsTo5: Bool { get }
-    var enableHomeTab: Bool { get }
     var showYiR2025: Bool { get }
     var enableYiRLoginExperimentControl: Bool { get }
     var enableYiRLoginExperimentB: Bool { get }
-    var enableHomeTabExperimentControl: Bool { get }
-    var enableHomeTabExperimentGroupB: Bool { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
@@ -83,17 +80,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiR2025.rawValue, value: newValue) }
     }
 
-    @objc public var enableHomeTab: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableHomeTab.rawValue)) ?? false }
-        set {
-            let oldValue = enableHomeTab
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableHomeTab.rawValue, value: newValue)
-            if oldValue != newValue {
-                NotificationCenter.default.post(name: WMFNSNotification.enableHomeTabDidChange, object: nil)
-            }
-        }
-    }
-
     /// Gates home feed work that ships after the initial Home tab experiment: the reworked community
     /// feed (replacing the embedded legacy Explore feed) and its settings. Only has an effect when
     /// `enableHomeTab` is also true.
@@ -111,7 +97,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     /// True while the legacy Explore feed backs the Home tab's Community segment (home tab on, phase 2
     /// off). In this mode the feed is presented as the "Community feed" throughout the UI.
     public var isCommunityFeedMode: Bool {
-        enableHomeTab && !enableHomePhase2
+        !enableHomePhase2
     }
 
     /// Debugging convenience: when true (and the home tab is enabled), the new app onboarding
@@ -125,16 +111,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     public var enableYiRLoginExperimentB: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue, value: newValue) }
-    }
-
-    public var enableHomeTabExperimentControl: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsHomeTabExperimentControl.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsHomeTabExperimentControl.rawValue, value: newValue) }
-    }
-
-    public var enableHomeTabExperimentGroupB: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsHomeTabExperimentGroupB.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsHomeTabExperimentGroupB.rawValue, value: newValue) }
     }
 
     public var forceHCaptchaChallenge: Bool {
