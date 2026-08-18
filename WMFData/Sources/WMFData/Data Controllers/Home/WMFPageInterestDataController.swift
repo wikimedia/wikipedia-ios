@@ -63,7 +63,7 @@ public final class WMFPageInterestDataController: @unchecked Sendable {
     public func addPageInterest(title: String, project: WMFProject) async throws {
         let coreDataTitle = title.normalizedForCoreData
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
 
         try await backgroundContext.perform { [weak self] in
             guard let self else { return }
@@ -96,7 +96,7 @@ public final class WMFPageInterestDataController: @unchecked Sendable {
     public func removePageInterest(title: String, project: WMFProject) async throws {
         let coreDataTitle = title.normalizedForCoreData
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
 
         try await backgroundContext.perform { [weak self] in
             guard let self else { return }

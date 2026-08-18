@@ -7,6 +7,10 @@ public class WMFProfileHostingController<HostedView: View>: WMFComponentHostingC
         self.viewModel = viewModel
         super.init(rootView: rootView)
     }
+
+    // Toolchain workaround: see the nonisolated deinit note in WMFComponentHostingController.
+    nonisolated deinit {
+    }
     
     @MainActor public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
