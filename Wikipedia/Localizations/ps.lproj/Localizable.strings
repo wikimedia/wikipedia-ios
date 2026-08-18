@@ -409,6 +409,9 @@
 "search-recent-clear-delete-all" = "ټول ړنگول";
 "search-recent-title" = "تازه پلټل شوي";
 "search-title" = "پلټل";
+"settings-editing-preferences-source-short" = "سرچينه";
+"settings-editing-preferences-title" = "غوره‌توب سمول";
+"settings-editing-preferences-visual-short" = "ليدنيز";
 "settings-my-languages" = "زما ژبې";
 "settings-title" = "اوڼنې";
 "share-article-name-on-wikipedia" = "\"$1\" په ويکيپېډيا کې:";
