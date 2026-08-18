@@ -7,7 +7,7 @@ public final class WMFEditingPreferencesSettingsViewController: WMFComponentHost
 
     private let viewModel: WMFEditingPreferencesSettingsViewModel
 
-    public init(didSelectMode: ((WMFEditMode) -> Void)? = nil) {
+    public init(didSelectMode: (@MainActor @Sendable (WMFEditMode) -> Void)? = nil) {
         let viewModel = WMFEditingPreferencesSettingsViewModel(didSelectMode: didSelectMode)
         self.viewModel = viewModel
         super.init(rootView: WMFEditingPreferencesSettingsView(viewModel: viewModel))

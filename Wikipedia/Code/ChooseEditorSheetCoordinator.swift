@@ -91,8 +91,9 @@ final class ChooseEditorSheetCoordinator: NSObject, Coordinator {
         self.sheetNavigationController = sheetNavigationController
         sheetNavigationController.presentationController?.delegate = self
         let presenter = navigationController.visibleViewController ?? navigationController
-        presenter.present(sheetNavigationController, animated: true)
-        editingInstrument.submitInteraction(action: "impression", actionSource: "edit_choice_select")
+        presenter.present(sheetNavigationController, animated: true) {
+            self.editingInstrument.submitInteraction(action: "impression", actionSource: "edit_choice_select")
+        }
         return true
     }
 }

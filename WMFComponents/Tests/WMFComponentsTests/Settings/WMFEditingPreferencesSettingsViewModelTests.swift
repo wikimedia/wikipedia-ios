@@ -10,6 +10,7 @@ import WMFDataTestSupport
 final class WMFEditingPreferencesSettingsViewModelTests {
 
     private let fixture = WMFDataTestFixture()
+    private var capturedModes: [WMFEditMode] = []
 
     private func configureEnvironment() async {
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
@@ -59,13 +60,12 @@ final class WMFEditingPreferencesSettingsViewModelTests {
     @Test
     func selectingCallsDidSelectMode() async throws {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            var selectedModes: [WMFEditMode] = []
             let viewModel = WMFEditingPreferencesSettingsViewModel(didSelectMode: { mode in
-                selectedModes.append(mode)
+                self.capturedModes.append(mode)
             })
 
             viewModel.select(.source)
-            #expect(selectedModes == [.source])
+            #expect(capturedModes == [.source])
         }
     }
 
@@ -73,14 +73,13 @@ final class WMFEditingPreferencesSettingsViewModelTests {
     @Test
     func selectingTheAlreadySelectedModeDoesNotCallDidSelectMode() async throws {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            var selectedModes: [WMFEditMode] = []
             let viewModel = WMFEditingPreferencesSettingsViewModel(didSelectMode: { mode in
-                selectedModes.append(mode)
+                self.capturedModes.append(mode)
             })
 
             #expect(viewModel.selectedMode == .visual)
             viewModel.select(.visual)
-            #expect(selectedModes.isEmpty)
+            #expect(capturedModes.isEmpty)
         }
     }
 
