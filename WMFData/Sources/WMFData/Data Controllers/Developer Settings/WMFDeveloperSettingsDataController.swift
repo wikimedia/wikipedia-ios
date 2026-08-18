@@ -97,7 +97,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     /// True while the legacy Explore feed backs the Home tab's Community segment (home tab on, phase 2
     /// off). In this mode the feed is presented as the "Community feed" throughout the UI.
     public var isCommunityFeedMode: Bool {
-        !enableHomePhase2
+        WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB && !enableHomePhase2
     }
 
     /// Debugging convenience: when true (and the home tab is enabled), the new app onboarding

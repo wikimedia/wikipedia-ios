@@ -35,7 +35,6 @@ import Foundation
     @objc public static let shared = WMFHomeDataController()
 
     nonisolated(unsafe) private let experimentsDataController: WMFExperimentsDataController?
-    private var assignmentCache: HomeTabExperimentAssignment?
 
     public init(
         feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared,
@@ -75,28 +74,6 @@ import Foundation
         default:
             return .control
         }
-    }
-
-    @discardableResult
-    public func assignHomeTabExperimentIfNeeded() throws -> HomeTabExperimentAssignment {
-        guard let experimentsDataController else {
-            throw CustomError.missingExperimentsDataController
-        }
-
-        let bucketValue = try experimentsDataController.determineBucketForExperiment(.homeTab, withPercentage: 50)
-
-        let assignment: HomeTabExperimentAssignment
-        switch bucketValue {
-        case .homeTabControl:
-            assignment = .control
-        case .homeTabGroupB:
-            assignment = .groupB
-        default:
-            throw CustomError.unexpectedAssignment
-        }
-
-        self.assignmentCache = assignment
-        return assignment
     }
     
     // MARK: - Settings: New Install Onboarding
