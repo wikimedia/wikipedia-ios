@@ -569,6 +569,16 @@
 "find-replace-header" = "Sichen an Ersetzen";
 "find-replace-header-close-accessibility" = "Sichen an Ersetzen zoumaachen";
 "find-textfield-accessibility" = "Sichen";
+"for-you-empty-button" = "Wielt Är Interessen";
+"for-you-empty-title" = "Nach näischt hei";
+"for-you-error-retry" = "Nach eng Kéier probéieren";
+"for-you-error-subtitle" = "Verbannt Iech mam Internet a probéiert nach eng Kéier.";
+"for-you-error-title" = "Keng Internetverbindung";
+"for-you-header-because-you-read" = "Well Dir gelies hutt: $1";
+"for-you-header-interest" = "Wéinst Ärem Interesse: $1";
+"for-you-header-saved-article" = "Vun Ärer Lieslëscht: $1";
+"for-you-menu-customize-interests" = "Interessen upassen";
+"for-you-refreshing-accessibility-label" = "Neien Inhalt gëtt gelueden";
 "forgot-password-button-title" = "Zerécksetzen";
 "forgot-password-email-sent" = "Eng E-Mail mat Instruktioune wéi d'Passwuert zréckgesat gi kann, gouf gschéckt";
 "forgot-password-title" = "Passwuert zerécksetzen";
@@ -585,7 +595,9 @@
 "history-title" = "Versiounen";
 "home-button-explore-accessibility-label" = "Wikipedia, zeréck bei d'Entdecken";
 "home-button-saved-accessibility-label" = "Wikipedia, zréck op Gespäichert";
+"home-card-more-options-accessibility-label" = "Méi Optiounen";
 "home-community-empty-feed-button-title" = "De Feed upassen";
+"home-community-see-past-content" = "Kuckt de virege Communautéitscontenu";
 "home-community-tab-title" = "Communautéit";
 "home-edit-languages-title" = "Sproochen derbäisetzen oder änneren";
 "home-feed-for-you-based-on-interests-title" = "Op Basis vun Ären Interessen";
@@ -629,6 +641,7 @@
 "home-feed-whats-driving-your-interests-subtitle" = "Ännert d'Theemen, déi Iech interesséieren";
 "home-feed-whats-driving-your-interests-title" = "Är Interessen";
 "home-for-you-tab-title" = "Fir Iech";
+"home-menu-hide-module" = "Modul verstoppen";
 "home-more-like-footer" = "Méi wéi $1";
 "home-nearby-footer" = "Méi aus der Géigend, wou Dir elo sidd";
 "home-nearby-location-footer" = "Méi nobäi vun $1";
@@ -735,6 +748,7 @@
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-page" = "Haaptsäit";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|$1 Byte}} derbäigesat";
+"microsite-yir-english-saved-reading-slide-title-updated" = "Mir haten {{PLURAL:$1|$1 gespäicherten Artikel|$1 gespäichert Artikelen}}";
 "microsite-yir-english-top-read-slide-subtitle-updated" = "Wann d'Leit eppes iwwer d'Welt gewuer gi wëllen, da ginn se Wikipedia. Déi 5 meeschtbesicht Artikelen op der Wikipedia op Englesch waren:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nLiest méi an $6eisem Blogantrag$7.";
 "microsite-yir-english-top-read-slide-title" = "Déi meeschtgelies Artikelen op der Wikipedia op Englesch";
 "more-languages-tooltip-description" = "Op Wikipedia a méi wéi 300 Sprooche sichen";
@@ -848,6 +862,14 @@
 "on-this-day-no-internet-error" = "Keng Donnéeën disponibel";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 vu Wikipedia op $2";
 "on-this-day-title" = "Op dësem Dag";
+"one-time-onboarding-customize-button" = "Mäi Feed upassen";
+"one-time-onboarding-feature-control-title" = "Behaalt alles am Grëff";
+"one-time-onboarding-feature-feed-body" = "Entdeckt ënner „Fir Iech“ Artikelen, déi op Är Interessen ugepasst sinn, oder gitt duerch de beschte redaktionelle Contenu vu Wikipedia ënner „Communautéit“.";
+"one-time-onboarding-feature-feed-title" = "Äre Feed, zwee Weeër";
+"one-time-onboarding-feature-languages-title" = "All Sprooch, komplett personaliséiert";
+"one-time-onboarding-feature-name-body" = "Den „Entdecken“-Feed heescht elo „Start“, op där selwechter Plaz ewéi virdrun.";
+"one-time-onboarding-feature-name-title" = "En neien Numm";
+"one-time-onboarding-title" = "„Entdecken“ ass elo „Start“, mat engem neie Look";
 "open-article" = "Artikel opmaachen";
 "page-history-bot-edits" = "Bot";
 "page-history-compare-title" = "Vergläichen";
@@ -1039,6 +1061,9 @@
 "settings-clear-cache-ok" = "Tëschespäicher eidelmaachen";
 "settings-community-feed-title" = "Communautéit";
 "settings-donate" = "Spenden";
+"settings-editing-preferences-source-short" = "Quell";
+"settings-editing-preferences-title" = "Ännerungsastellungen";
+"settings-editing-preferences-visual-short" = "Visuell";
 "settings-explore-games-title" = "Wikipedia-Spiller";
 "settings-help-and-feedback" = "Hëllef a Feedback";
 "settings-language-bar" = "Sprooche beim Siche weisen";
@@ -1307,6 +1332,7 @@
 "year-in-review-donate-now" = "Maacht elo en Don";
 "year-in-review-feature-announcement-title" = "Entdeckt de Wikipedia-Réckbléck";
 "year-in-review-feature-announcement-title-personalized" = "Entdeckt Äre Wikipedia-Joresréckbléck";
+"year-in-review-highlights-articles-read" = "Artikele gelies";
 "year-in-review-highlights-articles-viewed" = "Zuel vun de gekuckten Artikelen";
 "year-in-review-highlights-button-title" = "Highlights deelen";
 "year-in-review-highlights-categories" = "Kategorien, déi mech interesséiert hunn";
@@ -1336,5 +1362,6 @@
 "year-in-review-survey-unsatisfied" = "Onzefridden";
 "year-in-review-survey-very-satisfied" = "Ganz zefridden";
 "year-in-review-survey-very-unsatisfied" = "Ganz onzefridden";
+"year-in-review-wikipedia-w-accessibility-label" = "Wikipedia-W-Logo";
 "year-in-review-wmf-logo-accessibility-label" = "Logo vun der Wikimedia Foundation";
 "yesterday-title" = "Gëschter";

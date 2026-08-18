@@ -382,6 +382,7 @@
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 вкладка|$1 вкладки|$1 вкладок}} закрыто.";
 "collect-prize-title" = "Заберите свой приз!";
 "community-detail-back-button-title" = "Вернуться к ленте «Сообщество»";
+"community-feed-preferences-global-card-footer-text" = "Эта карточка не привязана к языку, поэтому выключение приведёт к скрытию карточки из ленты сообщества на всех языках.";
 "compass-direction" = "на $1 часов";
 "confirm-donation-history-deletion-subtitle" = "Это будет применяться только к пожертвованиям, сделанным с этого устройства.";
 "confirm-donation-history-deletion-title" = "Подтвердите удаление";
@@ -711,7 +712,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Включить «Ленту»";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Вкладка «Настройки» будет заменена вкладкой «Лента». Вы можете вызвать настройки, нажав сверху на иконку с шестерёнкой";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Включить «Ленту»?";
-"explore-games-title" = "Игры";
+"explore-games-title" = "Викторины";
 "explore-hide-card-prompt" = "Скрыть эту карточку";
 "explore-main-page-description" = "Заглавная страница проектов Викимедиа";
 "explore-main-page-heading" = "Сегодня в Википедии";
@@ -779,6 +780,8 @@
 "find-replace-header" = "Поиск и замена";
 "find-replace-header-close-accessibility" = "Закрыть диалог поиска и замены";
 "find-textfield-accessibility" = "Найти";
+"for-you-header-continue-reading" = "Продолжить чтение: $1";
+"for-you-header-saved-article" = "Из вашего списка для чтения: $1";
 "forgot-password-button-title" = "Сбросить";
 "forgot-password-email-sent" = "Письмо с инструкциями по сбросу пароля было отправлено";
 "forgot-password-instructions" = "Заполните одно из полей ниже, чтобы получить инструкции сброса пароля по электронной почте";
@@ -1020,7 +1023,7 @@
 "notifications-center-filters-types-section-title" = "Типы уведомлений";
 "notifications-center-go-to-article" = "Статья";
 "notifications-center-go-to-article-talk-format" = "Страница обсуждения $1";
-"notifications-center-go-to-diff" = "Разн.";
+"notifications-center-go-to-diff" = "Различия";
 "notifications-center-go-to-user-page" = "Страница $1";
 "notifications-center-go-to-wikidata-item" = "Элемент Викиданных";
 "notifications-center-go-to-your-talk-page" = "Ваша страница обсуждения";
@@ -1353,7 +1356,7 @@
 "settings-clear-cache-ok" = "Очистить кэш";
 "settings-community-feed-title" = "Сообщество";
 "settings-donate" = "Пожертвовать";
-"settings-explore-games-subtitle" = "Ежедневные игры по материалам Википедии";
+"settings-explore-games-subtitle" = "Ежедневные викторины по материалам Википедии";
 "settings-explore-games-title" = "Викторины";
 "settings-help-and-feedback" = "Помощь и обратная связь";
 "settings-language-bar" = "Показывать языки при поиске";
