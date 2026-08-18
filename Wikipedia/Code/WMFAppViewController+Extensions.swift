@@ -406,13 +406,15 @@ extension WMFAppViewController: WMFWatchlistDelegate {
             let performThanks = {
                 let diffThanker = DiffThanker()
                 diffThanker.thank(siteURL: siteURL, rev: Int(revisionID), completion: { result in
-                    switch result {
-                    case .success:
-                        let successfulThanks = WMFLocalizedString("watchlist-thanks-success", value: "Your ‘Thanks’ was sent to %@", comment: "Message displayed in a toast on successful thanking of user in Watchlist view. %@ is replaced with the user being thanked.")
-                        let successMessage = String.localizedStringWithFormat(successfulThanks, username)
-                        WMFToastManager.sharedInstance.showRichToast(successMessage, subtitle: nil, image: UIImage(named: "watchlist-thanks-checkmark"), dismissPreviousToasts: true)
-                    case .failure(let failure):
-                        WMFToastManager.sharedInstance.showRichToast(failure.localizedDescription, subtitle: nil, image: nil, dismissPreviousToasts: true)
+                    Task { @MainActor in
+                        switch result {
+                        case .success:
+                            let successfulThanks = WMFLocalizedString("watchlist-thanks-success", value: "Your ‘Thanks’ was sent to %@", comment: "Message displayed in a toast on successful thanking of user in Watchlist view. %@ is replaced with the user being thanked.")
+                            let successMessage = String.localizedStringWithFormat(successfulThanks, username)
+                            WMFToastManager.sharedInstance.showRichToast(successMessage, subtitle: nil, image: UIImage(named: "watchlist-thanks-checkmark"), dismissPreviousToasts: true)
+                        case .failure(let failure):
+                            WMFToastManager.sharedInstance.showRichToast(failure.localizedDescription, subtitle: nil, image: nil, dismissPreviousToasts: true)
+                        }
                     }
                 })
             }

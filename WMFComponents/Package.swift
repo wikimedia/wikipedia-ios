@@ -1,4 +1,4 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 6.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -33,6 +33,12 @@ let package = Package(
             path: "Sources/WMFComponents",
             resources: [
                 .process("Resources")
+            ],
+            swiftSettings: [
+                // WMFComponents is a UI module: default every declaration to MainActor
+                // isolation (Swift 6.2 "approachable concurrency"), marking only true
+                // background code `nonisolated`. Language mode stays v5 (warnings-only).
+                .defaultIsolation(MainActor.self)
             ]
         ),
         .testTarget(
