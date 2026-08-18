@@ -320,12 +320,25 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
             navigationItem.compactAppearance = transparentAppearance
         }
 
-        let logoBarButtonItem = UIBarButtonItem(image: UIImage(named: "W"), style: .plain, target: nil, action: nil)
-        logoBarButtonItem.accessibilityLabel = CommonStrings.plainWikipediaName
+        let logoBarButtonItem = UIBarButtonItem(image: UIImage(named: "W"), style: .plain, target: self, action: #selector(userDidTapLogo))
+        logoBarButtonItem.accessibilityLabel = CommonStrings.homeScrollToTopAccessibilityLabel
         navigationItem.leftBarButtonItem = logoBarButtonItem
         if #unavailable(iOS 26.0) {
             logoBarButtonItem.tintColor = theme.colors.logoTintColor
         }
+    }
+
+    @objc func userDidTapLogo() {
+        scrollSelectedFeedToTop()
+    }
+
+    func scrollSelectedFeedToTop() {
+        if viewModel.selectedTab == .community, let embeddedExploreViewController = _embeddedExploreViewController {
+            embeddedExploreViewController.scrollToTop()
+            return
+        }
+
+        viewModel.scrollSelectedFeedToTop()
     }
 
     @objc func userDidTapTabs() {

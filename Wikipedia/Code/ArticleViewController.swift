@@ -47,6 +47,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     /// Also prioritize pulling data from cache (without revision/etag validation) so the user sees the article as quickly as possible
     var isRestoringState: Bool = false
 
+    /// When set before the initial load, article content is fetched at this specific revision
+    /// (e.g. displaying a freshly published edit when returning from the web Visual Editor)
+    var initialLoadRevisionID: UInt64?
+
     /// Called when initial load starts
     @objc public var loadCompletion: (() -> Void)?
 
@@ -610,8 +614,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     private func presentYearInReviewAnnouncementOrFundraisingOrGamesIfNeeded() {
-        listenForTooltips()
-        
+        if !WMFDeveloperSettingsDataController.shared.enableHomeTab {
+            listenForTooltips()
+        }
+
         if needsYearInReviewAnnouncement() {
             willDisplayYearInReviewModal = true
             updateProfileButton()
@@ -670,7 +676,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         setupPageContentServiceJavaScriptInterface {
             let cachePolicy: WMFCachePolicy? = self.isRestoringState ? .foundation(.returnCacheDataElseLoad) : nil
-            self.loadPage(cachePolicy: cachePolicy, revisionID: nil)
+            self.loadPage(cachePolicy: cachePolicy, revisionID: self.initialLoadRevisionID)
         }
     }
 
