@@ -21,12 +21,17 @@ jobs:
         # Task IDs referenced at the start of a line, either as a "Bug: T123" trailer
         # or as a phabricator.wikimedia.org URL (optionally behind the "**Phabricator:**"
         # label from the PR template).
+        #
+        # `|| true`: a body with no task reference is normal, not an error. It is
+        # harmless under the default `bash -e {0}` shell, but required if this step
+        # ever gains an explicit `shell: bash`, which adds `-o pipefail` and would
+        # otherwise fail the step on grep's no-match exit 1.
         task_ids() {
           printf '%s' "$1" \
             | tr -d '\r' \
             | grep -oEi "(^Bug:[[:space:]]*T[0-9]+)|(^([*]*phabricator[*]*:[*]*[[:space:]]*)?https://phabricator\.wikimedia\.org/T[0-9]+)" \
             | grep -oEi "T[0-9]+" \
-            | sort -u
+            | sort -u || true
         }
 
         case "$ACTION" in
