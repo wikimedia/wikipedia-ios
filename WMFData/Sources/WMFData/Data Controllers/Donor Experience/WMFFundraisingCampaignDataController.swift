@@ -230,6 +230,14 @@ import Foundation
     
     // MARK: - Development
 
+    /// Clears the persisted "maybe later" / permanently hidden prompt state so the campaign banner
+    /// can present again. Orchestrated by WMFDeveloperSettingsDataController for the developer
+    /// settings screen; lives here because the prompt state cache is private to this controller.
+    public func clearPromptState() {
+        promptState = nil
+        try? sharedCacheStore?.remove(key: cacheDirectoryName, cachePromptStateFileName)
+    }
+
     /// Only reachable via the "Force Fundraising Campaign Banner" developer setting. Reads the raw
     /// cached config (saved unfiltered by fetchConfig) and returns the first asset, ignoring country,
     /// date window, and prompt state, falling back to any language if the wiki has no asset.
