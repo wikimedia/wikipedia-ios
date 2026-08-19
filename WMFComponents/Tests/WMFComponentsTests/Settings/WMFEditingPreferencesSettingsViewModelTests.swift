@@ -10,6 +10,7 @@ import WMFDataTestSupport
 final class WMFEditingPreferencesSettingsViewModelTests {
 
     private let fixture = WMFDataTestFixture()
+    private var capturedModes: [WMFEditMode] = []
 
     private func configureEnvironment() async {
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
@@ -53,6 +54,32 @@ final class WMFEditingPreferencesSettingsViewModelTests {
             viewModel.select(.source)
 
             #expect(WMFSettingsDataController.shared.skipChooseEditorSheet() == false)
+        }
+    }
+
+    @Test
+    func selectingCallsDidSelectMode() async throws {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let viewModel = WMFEditingPreferencesSettingsViewModel(didSelectMode: { mode in
+                self.capturedModes.append(mode)
+            })
+
+            viewModel.select(.source)
+            #expect(capturedModes == [.source])
+        }
+    }
+
+    /// Instrumentation only fires on an actual change — reselecting the current mode must not log.
+    @Test
+    func selectingTheAlreadySelectedModeDoesNotCallDidSelectMode() async throws {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let viewModel = WMFEditingPreferencesSettingsViewModel(didSelectMode: { mode in
+                self.capturedModes.append(mode)
+            })
+
+            #expect(viewModel.selectedMode == .visual)
+            viewModel.select(.visual)
+            #expect(capturedModes.isEmpty)
         }
     }
 
