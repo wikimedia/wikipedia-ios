@@ -75,8 +75,11 @@ public struct WMFForYouView: View {
     /// The module on screen. Mirrored to the view model, which outlives this view.
     @State private var currentModuleID: UUID?
 
-    public init(viewModel: WMFForYouViewModel) {
+    let scrollToTopRequestID: Int
+
+    public init(viewModel: WMFForYouViewModel, scrollToTopRequestID: Int = 0) {
         self.viewModel = viewModel
+        self.scrollToTopRequestID = scrollToTopRequestID
     }
 
     private struct VisiblePage: Identifiable {
@@ -111,6 +114,14 @@ public struct WMFForYouView: View {
               visiblePages.contains(where: { $0.id == lastViewedModuleID }) else { return }
 
         currentModuleID = lastViewedModuleID
+    }
+
+    private func scrollToFirstModule() {
+        guard let firstModuleID = visiblePages.first?.id, currentModuleID != firstModuleID else { return }
+
+        withAnimation {
+            currentModuleID = firstModuleID
+        }
     }
 
     public var body: some View {
@@ -153,6 +164,9 @@ public struct WMFForYouView: View {
         .onAppear { restoreModulePosition() }
         .onChange(of: currentModuleID) { _, moduleID in
             viewModel.rememberViewedModule(moduleID)
+        }
+        .onChange(of: scrollToTopRequestID) { _, _ in
+            scrollToFirstModule()
         }
         .scrollTargetBehavior(.paging)
         .refreshable { await viewModel.onRefresh?() }

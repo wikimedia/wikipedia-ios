@@ -18,8 +18,6 @@ extension ArticleViewController {
         if let project = WikimediaProject(siteURL: articleURL) {
             EditInteractionFunnel.shared.logArticleDidTapEditSectionButton(project: project)
         }
-
-        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
 
     func showEditorForFullSource() {
@@ -49,16 +47,21 @@ extension ArticleViewController {
         let coordinator = ChooseEditorSheetCoordinator(
             navigationController: navigationController,
             theme: theme,
-            initialMode: preferredMode
-        ) { [weak self] mode, dontShowAgain in
-            guard let self else { return }
+            initialMode: preferredMode,
+            didChoose: { [weak self] mode, dontShowAgain in
+                guard let self else { return }
 
-            settingsDataController.setDefaultEditMode(mode)
-            if dontShowAgain {
-                settingsDataController.setSkipChooseEditorSheet(true)
+                settingsDataController.setDefaultEditMode(mode)
+                if dontShowAgain {
+                    settingsDataController.setSkipChooseEditorSheet(true)
+                }
+                self.startEditing(mode: mode, sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
+            },
+            didClose: { [weak self] in
+                guard let self else { return }
+                EditAttemptFunnel.shared.logAbort(pageURL: self.articleURL)
             }
-            self.startEditing(mode: mode, sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
-        }
+        )
         coordinator.start()
     }
 
@@ -108,6 +111,7 @@ extension ArticleViewController {
         let editTag: WMFEditTag = selectedTextEditInfo == nil ?  .appSectionSource : .appSelectSource
 
         presentEditingFlow(with: id, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
+        EditAttemptFunnel.shared.logInit(pageURL: articleURL)
     }
 
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource) {
