@@ -163,8 +163,7 @@ private struct WMFAppOnboardingPreviewCardView: View {
                 if viewModel.uiImage == nil, let pill = viewModel.topicPill {
                     topicPillView(pill)
                 }
-                Text(viewModel.title)
-                    .font(Font(WMFFont.for(.semiboldHeadline, sized: dynamicTypeSize)))
+                WMFHtmlText(html: viewModel.title, styles: semiboldHeadlineStyle)
                     .foregroundStyle(Color(uiColor: theme.text))
                     .lineLimit(2)
                 if let description = viewModel.description {
@@ -187,6 +186,10 @@ private struct WMFAppOnboardingPreviewCardView: View {
         .onAppear {
             viewModel.loadImageIfNeeded()
         }
+    }
+    
+    private var semiboldHeadlineStyle: HtmlUtils.Styles {
+        return HtmlUtils.Styles(font: WMFFont.for(.semiboldHeadline), boldFont: WMFFont.for(.boldHeadline), italicsFont: WMFFont.for(.semiboldItalicHeadline), boldItalicsFont: WMFFont.for(.semiboldItalicHeadline), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
 
     private func topicPillView(_ text: String) -> some View {
