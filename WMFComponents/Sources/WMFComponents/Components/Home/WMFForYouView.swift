@@ -33,6 +33,7 @@ private enum WMFForYouCardMetrics {
     static let dotsBottomGap: CGFloat = 12
     static let dotsVerticalPadding: CGFloat = 20
     static let dotDiameter: CGFloat = 8
+    static let miniCardImageSide: CGFloat = 56
 
     static func dotsBottomInset(safeAreaBottom: CGFloat) -> CGFloat {
         safeAreaBottom + tabBarHeight + dotsBottomGap
@@ -342,6 +343,7 @@ private struct WMFForYouMiniCard<Menu: View>: View {
     let title: String
     let description: String?
     let uiImage: UIImage?
+    let imageAvailability: WMFForYouArticleCardViewModel.ImageAvailability
     @ViewBuilder let menu: () -> Menu
 
     var body: some View {
@@ -364,16 +366,18 @@ private struct WMFForYouMiniCard<Menu: View>: View {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 56, height: 56)
+                    .frame(width: WMFForYouCardMetrics.miniCardImageSide, height: WMFForYouCardMetrics.miniCardImageSide)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
-            } else {
+            } else if imageAvailability != .unavailable {
+
                 RoundedRectangle(cornerRadius: 8)
                     .fill(Color(uiColor: WMFColor.white).opacity(0.15))
-                    .frame(width: 56, height: 56)
+                    .frame(width: WMFForYouCardMetrics.miniCardImageSide, height: WMFForYouCardMetrics.miniCardImageSide)
             }
 
             menu()
         }
+        .frame(minHeight: WMFForYouCardMetrics.miniCardImageSide)
         .padding(16)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
     }
@@ -526,6 +530,7 @@ private struct WMFForYouArticleCardView: View {
                             title: viewModel.title,
                             description: viewModel.description,
                             uiImage: viewModel.uiImage,
+                            imageAvailability: viewModel.imageAvailability,
                             menu: { miniCardMenu }
                         )
 
