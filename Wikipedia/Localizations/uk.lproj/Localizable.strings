@@ -1829,3 +1829,121 @@
 "year-in-review-wmf-logo-accessibility-label" = "Логотип Фонду Вікімедіа";
 "yesterday-title" = "Учора";
 "zero-edits-to-articles" = "0 нещодавніх редагувань статей";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Архітектура";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Мистецтво";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Комікси та аніме";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Розваги";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Мода";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Література";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Музика";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Виконавче мистецтво";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Спорт";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "Телебачення й фільми";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Відеоігри";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Біографії (усі)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Біографії (жінки)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Бізнес та економіка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Освіта";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Їжа й напої";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Історія";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Військова справа та бойові дії";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Філософія та релігія";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Політика й правління";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Суспільство";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Транспорт";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Біологія";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Хімія";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Комп'ютери та інтернет";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Земля й довкілля";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Інженерія";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Наука загалом";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Математика";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Медицина і здоров'я";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Фізика";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Технології";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Африка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Азія";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Центральна Америка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Європа";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Північна Америка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Океанія";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Південна Америка";

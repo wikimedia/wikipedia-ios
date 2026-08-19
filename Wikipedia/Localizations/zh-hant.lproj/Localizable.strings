@@ -1751,3 +1751,121 @@
 "year-in-review-wmf-logo-accessibility-label" = "維基媒體基金會標誌";
 "yesterday-title" = "昨日";
 "zero-edits-to-articles" = "最近對條目做出 0 次編輯";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "建築";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "藝術";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "漫畫與動畫";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "娛樂";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "時尚";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "文獻";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "音樂";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "表演藝術";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "體育";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "電視與電影";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "電子遊戲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "傳記（所有）";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "傳記（女性）";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "商業與經濟";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "教育";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "食物與飲料";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "歷史";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "軍事與戰爭";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "哲學與宗教";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "政治與政府";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "社會";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "運輸";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "生物";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "化學";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "電腦與網際網路";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "地球與環境";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "工程";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "一般科學";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "數學";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "醫學與健康";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "物理";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "技術";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "非洲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "亞洲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "中美洲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "歐洲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "北美洲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "大洋洲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "南美洲";

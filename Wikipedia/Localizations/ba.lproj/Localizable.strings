@@ -564,3 +564,121 @@
 "wikitext-upload-save" = "Һаҡлана";
 "wikitext-upload-save-anonymously-warning" = "Төҙәтеүҙәр һеҙҙең ҡоролмағыҙҙың IP-адресы менән билдәләнәсәк. Әгәр һеҙ $1 икән, юғарыраҡ кимәлдәге йәшеренлек алығыҙ";
 "wikitext-upload-save-terms-name" = "Ҡулланыу шарттары";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Архитектура";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Сәнғәт";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Комикстар һәм аниме";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Күңел асыу";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Мода";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Әҙәбиәт";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Музыка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Башҡарыу сәнғәте";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Спорт";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "Телевидение һәм кино";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Видеоуйындар";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Биография (барыһы)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Биография (ҡатын-ҡыҙҙар)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Бизнес һәм иҡтисад";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Мәғариф";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Аҙыҡ-түлек һәм эсемлек";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Тарих";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Хәрби көстәр һәм хәрби эш";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Фәлсәфә һәм дин";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Сәйәсәт һәм хөкүмәт";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Йәмғиәт";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Транспорт";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Биология";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Химия";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Компьютерҙар һәм интернет";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Ер һәм тирә-яҡ мөхит";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Инженерлыҡ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Дөйөм фән";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Математика";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Медицина һәм һаулыҡ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Физика";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Технология";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Африка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Азия";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Үҙәк Америка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Европа";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Төньяҡ Америка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Океания";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Көньяҡ Америка";

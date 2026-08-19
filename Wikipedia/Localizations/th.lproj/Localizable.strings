@@ -1296,3 +1296,121 @@
 "year-in-review-time-night" = "ช่วงดึก";
 "year-in-review-wikipedia-w-accessibility-label" = "โลโก้ w ของวิกิพีเดีย";
 "year-in-review-wmf-logo-accessibility-label" = "โลโก้มูลนิธิวิกิมีเดีย";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "สถาปัตยกรรม";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "ศิลปะ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "การ์ตูนและอนิเมะ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "บันเทิง";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "แฟชั่น";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "วรรณกรรม";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "ดนตรี";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "ศิลปะการแสดง";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "กีฬา";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "โทรทัศน์และภาพยนตร์";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "วิดีโอเกม";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "ชีวประวัติ (ทั้งหมด)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "ชีวประวัติ (ผู้หญิง)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "ธุรกิจและเศรษฐศาสตร์";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "การศึกษา";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "อาหารและเครื่องดื่ม";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "ประวัติศาสตร์";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "การทหารและสงคราม";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "ปรัชญาและศาสนา";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "การเมืองการปกครอง";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "สังคม";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "การขนส่ง";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "ชีววิทยา";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "เคมี";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "คอมพิวเตอร์และอินเทอร์เน็ต";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "โลกและสิ่งแวดล้อม";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "วิศวกรรมศาสตร์";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "วิทยาศาสตร์ทั่วไป";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "คณิตศาสตร์";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "การแพทย์และสุขภาพ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "ฟิสิกส์";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "เทคโนโลยี";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "ทวีปแอฟริกา";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "ทวีปเอเชีย";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "ทวีปอเมริกากลาง";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "ทวีปยุโรป";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "ทวีปอเมริกาเหนือ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "โอเชียเนีย";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "ทวีปอเมริกาใต้";
