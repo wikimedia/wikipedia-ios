@@ -518,7 +518,7 @@ private struct WMFForYouArticleCardView: View {
                 // MARK: Variant 3: Text-focused (also used as fallback when no image)
                 case .textFocused:
                     VStack(alignment: .leading, spacing: 0) {
-                        Text(viewModel.extract ?? viewModel.title)
+                        Text(viewModel.extract ?? viewModel.displayTitle)
                             .font(Font(WMFFont.for(.georgiaTitle1)))
                             .foregroundStyle(Color(uiColor: WMFColor.white))
                             .lineLimit(8)
@@ -527,7 +527,7 @@ private struct WMFForYouArticleCardView: View {
                         Spacer().frame(height: 16)
 
                         WMFForYouMiniCard(
-                            title: viewModel.title,
+                            title: viewModel.displayTitle,
                             description: viewModel.description,
                             uiImage: viewModel.uiImage,
                             imageAvailability: viewModel.imageAvailability,
@@ -547,7 +547,7 @@ private struct WMFForYouArticleCardView: View {
                 default:
                     VStack(alignment: .leading, spacing: 0) {
                         HStack(alignment: .top, spacing: 12) {
-                            Text(viewModel.title)
+                            Text(viewModel.displayTitle)
                                 .font(Font(WMFFont.for(.georgiaTitle1)))
                                 .foregroundStyle(Color(uiColor: WMFColor.white))
                                 .shadow(color: cardColor.opacity(0.8), radius: 4)
