@@ -6,6 +6,9 @@ public struct WMFHomeView: View {
     @ObservedObject var viewModel: WMFHomeViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
+    /// Where the header bar ends, so that a For You card can keep its content below it.
+    @State private var headerBottom: CGFloat = 0
+
     var theme: WMFTheme { appEnvironment.theme }
 
     public init(viewModel: WMFHomeViewModel) {
@@ -55,13 +58,23 @@ public struct WMFHomeView: View {
             ZStack(alignment: .top) {
                 forYouTabContent
                     .ignoresSafeArea()
+                    .environment(\.forYouHeaderBottom, headerBottom)
                 headerBar(isForYou: true)
                     .padding(.top, headerBarTopInset)
+                    .background {
+                        GeometryReader { proxy in
+                            Color.clear.preference(
+                                key: WMFForYouHeaderBottomKey.self,
+                                value: proxy.frame(in: .global).maxY
+                            )
+                        }
+                    }
                 refreshIndicator
                     .padding(.top, refreshIndicatorTopInset)
             }
             .ignoresSafeArea()
             .environment(\.colorScheme, .dark)
+            .onPreferenceChange(WMFForYouHeaderBottomKey.self) { headerBottom = $0 }
         } else {
             communitySection
 

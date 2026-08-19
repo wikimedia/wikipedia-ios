@@ -35,6 +35,9 @@ private enum WMFForYouCardMetrics {
     static let dotDiameter: CGFloat = 8
     static let miniCardImageSide: CGFloat = 56
 
+    /// The smallest space between the header bar and the content of a card.
+    static let contentTopGap: CGFloat = 24
+
     static func dotsBottomInset(safeAreaBottom: CGFloat) -> CGFloat {
         safeAreaBottom + tabBarHeight + dotsBottomGap
     }
@@ -51,6 +54,10 @@ private enum WMFForYouCardMetrics {
             .windows
             .first(where: \.isKeyWindow)?
             .safeAreaInsets.bottom ?? 0
+    }
+
+    static func contentTopInset(headerBottom: CGFloat, cardTop: CGFloat) -> CGFloat {
+        max(contentTopGap, headerBottom - cardTop + contentTopGap)
     }
 }
 
@@ -388,6 +395,7 @@ private struct WMFForYouMiniCard<Menu: View>: View {
 private struct WMFForYouArticleCardView: View {
 
     @ObservedObject var viewModel: WMFForYouArticleCardViewModel
+    @Environment(\.forYouHeaderBottom) private var headerBottom: CGFloat
     let variant: WMFForYouCardVariant
     let variantIndex: Int
     let theme: WMFTheme
@@ -518,6 +526,7 @@ private struct WMFForYouArticleCardView: View {
                 // MARK: Variant 3: Text-focused (also used as fallback when no image)
                 case .textFocused:
                     VStack(alignment: .leading, spacing: 0) {
+                        Spacer(minLength: 0)
                         Text(viewModel.extract ?? viewModel.displayTitle)
                             .font(Font(WMFFont.for(.georgiaTitle1)))
                             .foregroundStyle(Color(uiColor: WMFColor.white))
@@ -540,8 +549,12 @@ private struct WMFForYouArticleCardView: View {
                         }
                     }
                     .padding(.horizontal, 20)
+                    .padding(.top, WMFForYouCardMetrics.contentTopInset(
+                        headerBottom: headerBottom,
+                        cardTop: geometry.frame(in: .global).minY
+                    ))
                     .padding(.bottom, WMFForYouCardMetrics.contentBottomInset(safeAreaBottom: WMFForYouCardMetrics.windowSafeAreaBottom))
-                    .frame(width: geometry.size.width, alignment: .leading)
+                    .frame(width: geometry.size.width, height: geometry.size.height, alignment: .leading)
 
                 // MARK: Variant 1 & 2: Image-backed
                 default:
@@ -623,5 +636,28 @@ private struct WMFForYouArticleCardView: View {
             // Fades the photograph and its sampled colour in when the card finishes loading.
             .animation(.easeOut(duration: 0.2), value: viewModel.loadState == .loading)
         }
+    }
+}
+
+// MARK: - Where the header bar ends
+
+/// The lowest point of the header bar, in the coordinates of the window.
+/// so `WMFHomeView` knows if it needs to limit the text in text-based cards in smaller iPhones
+struct WMFForYouHeaderBottomKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
+}
+
+private struct WMFForYouHeaderBottomEnvironmentKey: EnvironmentKey {
+    static let defaultValue: CGFloat = 0
+}
+
+extension EnvironmentValues {
+    var forYouHeaderBottom: CGFloat {
+        get { self[WMFForYouHeaderBottomEnvironmentKey.self] }
+        set { self[WMFForYouHeaderBottomEnvironmentKey.self] = newValue }
     }
 }
