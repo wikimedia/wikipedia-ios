@@ -29,7 +29,7 @@
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain"/>
                                     <connections>
-                                        <action selector="tappedClose" destination="-2" eventType="touchUpInside" id="tXs-ce-RTB"/>
+                                        <action selector="tappedClose" destination="iN0-l3-epB" eventType="touchUpInside" id="tXs-ce-RTB"/>
                                     </connections>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="orf-Wj-fTQ" userLabel="Modern Text field container">
@@ -43,7 +43,8 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES" smartQuotesType="no"/>
                                             <connections>
-                                                <action selector="textFieldDidChange:" destination="-2" eventType="editingChanged" id="VX4-Yz-hW9"/>
+                                                <action selector="textFieldDidChange:" destination="iN0-l3-epB" eventType="editingChanged" id="VX4-Yz-hW9"/>
+                                                <outlet property="delegate" destination="iN0-l3-epB" id="mDf-2t-fip"/>
                                             </connections>
                                         </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="869-GX-fWf" userLabel="Modern Current Match Label">
@@ -59,7 +60,7 @@
                                             </constraints>
                                             <state key="normal" image="clear-mini"/>
                                             <connections>
-                                                <action selector="tappedFindClear" destination="-2" eventType="touchUpInside" id="mXM-t4-UGN"/>
+                                                <action selector="tappedFindClear" destination="iN0-l3-epB" eventType="touchUpInside" id="mXM-t4-UGN"/>
                                             </connections>
                                         </button>
                                     </subviews>

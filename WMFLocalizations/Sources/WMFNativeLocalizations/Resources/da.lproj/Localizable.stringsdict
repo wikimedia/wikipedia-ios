@@ -114,6 +114,54 @@
 			<string>artikler</string>
 		</dict>
 	</dict>
+	<key>close-all-tabs-confirmation-subtitle-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Vil du lukke %#@v1@? Denne handling kan ikke fortrydes.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d fane</string>
+			<key>other</key>
+			<string>%1$d faner</string>
+		</dict>
+	</dict>
+	<key>close-all-tabs-confirmation-title-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Luk %#@v1@?</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d fane</string>
+			<key>other</key>
+			<string>%1$d faner</string>
+		</dict>
+	</dict>
+	<key>closed-all-tabs-confirmation-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ lukket.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d fane</string>
+			<key>other</key>
+			<string>%1$d faner</string>
+		</dict>
+	</dict>
 	<key>diff-change-paragraph-lines-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -282,6 +330,22 @@
 			<string> %1$d linjer uredigeret</string>
 		</dict>
 	</dict>
+	<key>home-feed-interests-selected-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d valgt</string>
+			<key>other</key>
+			<string>%1$d valgte</string>
+		</dict>
+	</dict>
 	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -431,6 +495,22 @@
 			<string>%1$d filter</string>
 			<key>other</key>
 			<string>%1$d filtre</string>
+		</dict>
+	</dict>
+	<key>notifications-center-num-selected-messages-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d besked</string>
+			<key>other</key>
+			<string>%1$d beskeder</string>
 		</dict>
 	</dict>
 	<key>notifications-center-status-in-projects</key>

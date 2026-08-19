@@ -4,6 +4,7 @@
 // Author: Aktron
 // Author: Chmee2
 // Author: Clon
+// Author: Comfyquiettree
 // Author: Cvanca
 // Author: Danny B.
 // Author: Djpaulas12
@@ -409,6 +410,9 @@
 "history-title" = "Historie";
 "home-button-explore-accessibility-label" = "Wikipedie, zpět na kanál Objevit";
 "home-button-saved-accessibility-label" = "Wikipedie, zpět na Uložené";
+"home-feed-modules-featured-article-subtitle" = "Doporučené články patří mezi nejkvalitnější články na Wikipedii, které denně vybírají redaktoři";
+"home-feed-modules-on-this-day-subtitle" = "Objevte historické události z tohoto dne";
+"home-feed-modules-picture-of-the-day-subtitle" = "Denní obrázky na Wikimedia Commons, vybrané dobrovolnými přispěvateli";
 "home-more-like-footer" = "Více podobných článku jako $1";
 "home-nearby-footer" = "Více míst z vašeho okolí";
 "home-nearby-location-footer" = "Další místa v okolí $1";
@@ -623,8 +627,6 @@
 "reading-list-generic-error" = "Nastala neočekávaná chyba při aktualizaci vašich seznamu k přečtení.";
 "reading-list-keep-button-title" = "Ano, zanechat články v zařízení";
 "reading-list-keep-subtitle" = "Existují články, které byly synchronizovány do vašeho účtu na Wikipedii. Chcete je na tomto zařízení po odhlášení ponechat?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Vypnutím synchronizace odstraníte tyto články z účtu. Pokud je odeberete ze zařízení, nebudou obnovitelná tím, že v budoucnu znovu zapnete synchronizaci.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Ne, odstranit články ze zařízení a z mého účtu na Wikipedii";
 "reading-list-keep-title" = "Ponechat uložené články na zařízení?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Seřazené články";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Existuje limit 5000 nezařazených článků. Zařaďte prosím vaše existující články do seznamů, abyste umožnili pokračování synchronizování nezařazených článků.";
@@ -733,11 +735,6 @@
 "settings-search-open-app-on-search" = "Otevírat aplikaci v kartě Hledání";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Umožnit Wikimedii uložení uložených článků a seznamů k přečtení podle vašich uživatelských předvoleb při přihlašování a synchronizaci.";
 "settings-storage-and-syncing-enable-sync-title" = "Synchronizovat uložené články a seznamy";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Smazání uložených článků je odebere z uživatelského účtu, pokud jste zapnuli synchronizaci, stejně jako z tohoto zařízení. Tuto akci nemůžete vrátit zpět.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Smazat všechny uložené články?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Vymazat";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Smazání uložených článků je odebere z uživatelského účtu, pokud jste zapnuli synchronizaci, stejně jako z tohoto zařízení.\n\nVymazání uložených článků uvolní asi $1 místa.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Vymazat uložené články";
 "settings-storage-and-syncing-full-sync" = "Vaše seznamy k přečtení budou synchronizovány na pozadí";
 "settings-storage-and-syncing-server-sync-footer-text" = "Požádat o aktualizaci synchronizovaných článků a seznamů k přečtení.";
 "settings-storage-and-syncing-server-sync-title" = "Aktualizovat synchronizované seznamy k přečtení";

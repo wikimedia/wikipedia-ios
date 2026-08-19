@@ -270,6 +270,7 @@
 "cc-zero" = "Creative Commons CC0";
 "chinese-variants-alert-body" = "L'app di Wikipedia ora supporta le seguenti varianti cinesi come lingua primaria o secondario all'interno dell'applicazione, semplificando la lettura, la ricerca e la modifica nelle diverse varianti:\n\n简体 Cinese semplificato (zh-hans)\n香港繁體 Tradizionale di Hong Kong (zh-hk)\n澳門繁體 Tradizionale di Macao (zh-mo)\n大马简体 Malesia semplificato (zh-my)\n新加坡简体 Singapore semplificato (zh-sg)\n臺灣正體 Taiwanese tradizionale (zh-tw)";
 "chinese-variants-alert-title" = "Aggiorna al supporto della variante cinese";
+"choose-editor-title" = "Scegli come modificare";
 "clear-title-accessibility-label" = "Pulisci";
 "clearing-cache-complete" = "Cancellazione della cache completata.";
 "clearing-cache-in-progress" = "Cancellazione della cache in corso.";
@@ -840,6 +841,7 @@
 "project-name-wikiversity" = "Wikiversità";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wikizionario";
+"reading-challenge-random-article-button" = "Voce a caso";
 "reading-list-add-hint-title" = "Aggiungere \"$1\" a un elenco di lettura?";
 "reading-list-add-saved-title" = "Voci salvate trovate";
 "reading-list-api-error-generic" = "Un errore inaspettato si è verificato durante la sincronizzazione degli elenchi di lettura.";
@@ -932,11 +934,10 @@
 "settings-on" = "On";
 "settings-primary-language" = "Primaria";
 "settings-primary-language-details" = "La prima lingua in questo elenco è utilizzata come lingua principale per l'applicazione.";
+"settings-storage-and-syncing-disable-sync-alert-no" = "No";
+"settings-storage-and-syncing-disable-sync-alert-title" = "Disattivare la sincronizzazione degli elenchi di lettura?";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "Sì";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permetti a Wikipedia di conservare le tue voci salvate e i tuoi elenchi di lettura nelle tue preferenze utente quando ti colleghi e sincronizzi";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Cancellare tutte le voci salvate?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Cancella";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Cancellando le tue voci salvate li rimuoverai dal tuo account se hai l'account sincronizzato con questo dispositivo.\n\nCancellando le tue voci salvate guadagnerai $1 di spazio.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Cancella le voci salvate";
 "settings-storage-and-syncing-server-sync-footer-text" = "Richiedi un aggiornamento alle tue voci sincronizzate e degli elenchi di lettura.";
 "settings-storage-and-syncing-server-sync-title" = "Aggiorna elenchi di lettura sincronizzati";
 "settings-temp-account-end-session-confirm" = "Esci";

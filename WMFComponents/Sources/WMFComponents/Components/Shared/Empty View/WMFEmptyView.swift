@@ -14,6 +14,24 @@ public struct WMFEmptyView: View {
     var type: WMFEmptyViewStateType
     let isScrollable: Bool
 
+    /// Overrides the app theme. The For You feed is always dark whatever theme the app is set to,
+    /// so it passes its own palette rather than following `WMFAppEnvironment`.
+    var theme: WMFTheme?
+
+    /// An alternative to `delegate.emptyViewDidTapMainAction`, for SwiftUI callers that cannot be a
+    /// delegate because they are value types.
+    var mainAction: (() -> Void)?
+
+    /// Draws the action button hugging its title instead of filling the width.
+    ///
+    /// Defaults to false, so the existing empty states keep the full width button they were
+    /// designed around.
+    var usesCompactButton: Bool = false
+
+    private var resolvedTheme: WMFTheme {
+        theme ?? appEnvironment.theme
+    }
+
     var foregroundColor: Color? {
         if let imageColor = viewModel.imageColor {
             return Color(uiColor: imageColor)
@@ -33,7 +51,7 @@ public struct WMFEmptyView: View {
     private var scrollableContent: some View {
         GeometryReader { geometry in
             ZStack {
-                Color(appEnvironment.theme.midBackground)
+                Color(resolvedTheme.midBackground)
                     .ignoresSafeArea()
                 ScrollView {
                     content
@@ -48,15 +66,20 @@ public struct WMFEmptyView: View {
         VStack {
             Spacer()
             if let image = viewModel.image {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 132, height: 118)
-                    .foregroundColor(foregroundColor)
+                if let imageSize = viewModel.imageSize {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: imageSize.width, height: imageSize.height)
+                        .foregroundColor(foregroundColor)
+                } else {
+                    Image(uiImage: image)
+                        .foregroundColor(foregroundColor)
+                }
             }
             Text(viewModel.localizedStrings.title)
                 .font(Font(WMFFont.for(.boldCallout)))
-                .foregroundColor(Color(appEnvironment.theme.text))
+                .foregroundColor(Color(resolvedTheme.text))
                 .padding([.top], 12)
                 .padding([.bottom], 8)
                 .multilineTextAlignment(.center)
@@ -66,13 +89,19 @@ public struct WMFEmptyView: View {
             } else {
                 Text(viewModel.localizedStrings.subtitle)
                     .font(Font(WMFFont.for(.subheadline)))
-                    .foregroundColor(Color(appEnvironment.theme.secondaryText))
+                    .foregroundColor(Color(resolvedTheme.secondaryText))
                     .multilineTextAlignment(.center)
             }
             if let buttonTitle = viewModel.localizedStrings.buttonTitle,
                type == .noItems {
-                WMFLargeButton(style: .primary, title: buttonTitle, action: delegate?.emptyViewDidTapMainAction)
-                    .padding(EdgeInsets(top: 8, leading: 8, bottom: 0, trailing: 8))
+                let buttonAction = mainAction ?? delegate?.emptyViewDidTapMainAction
+                if usesCompactButton {
+                    WMFSmallButton(configuration: .init(style: .primary), title: buttonTitle, action: buttonAction)
+                        .padding(EdgeInsets(top: 8, leading: 8, bottom: 0, trailing: 8))
+                } else {
+                    WMFLargeButton(style: .primary, title: buttonTitle, action: buttonAction)
+                        .padding(EdgeInsets(top: 8, leading: 8, bottom: 0, trailing: 8))
+                }
             }
             Spacer()
         }

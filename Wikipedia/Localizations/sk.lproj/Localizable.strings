@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Aceman444
 // Author: Hromoslav
+// Author: KormiSK
 // Author: Kusavica
 // Author: Larsimore
 // Author: Lexected
@@ -149,9 +150,6 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "Aktivita obsahuje ucelenú časovú os prečítaných, uložených a upravených článkov. Vaša história čítania sa teraz nachádza na karte Hľadať.";
 "activity-tab-onboarding-third-item-title-updated" = "História čítania je teraz v Hľadaní";
 "activity-tab-read-title" = "Zobraziť históriu čítania";
-"activity-tab-reading-challenge-card-body" = "Na sledovanie svojej série s Baby Globe si musíte z domovskej obrazovky pridať widget Čitateľská výzva.";
-"activity-tab-reading-challenge-card-cta" = "Ukážte mi ako";
-"activity-tab-reading-challenge-card-title" = "25-dňová čitateľská výzva";
 "activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Spokojný";
 "activity-tab-saved" = "Články uložené tento mesiac";
@@ -180,6 +178,29 @@
 "alert-temporary-account-learn-more" = "Dalšie informácie.";
 "alt-text-feedback-survey-toast-title" = "Spätná väzba bola odoslaná";
 "announcements-dismiss" = "Zrušiť";
+"app-onboarding-data-privacy-body" = "Veríme, že na zapojenie sa do hnutia slobodných vedomostí by ste nemali musieť poskytovať osobné údaje. Údaje o používaní zbierané pre túto aplikáciu sú anonymné.";
+"app-onboarding-data-privacy-links-format" = "Získajte viac informácií o našich $1 a $2";
+"app-onboarding-data-privacy-policy-link" = "zásady ochrany súkromia";
+"app-onboarding-data-privacy-terms-link" = "podmienky používania";
+"app-onboarding-data-privacy-title" = "Údaje a súkromie";
+"app-onboarding-feed-preference-community-option" = "Obsah súvisiaci s komunitou";
+"app-onboarding-feed-preference-in-the-news" = "V správach";
+"app-onboarding-feed-preference-personalized-disabled" = "Ak chcete vidieť prispôsobené návrhy obsahu, musíte pridať záujmy. Môžete to urobiť v predchádzajúcich krokoch alebo neskôr v Nastaveniach.";
+"app-onboarding-feed-preference-personalized-option" = "Personalizovaný obsah";
+"app-onboarding-feed-preference-picture-of-the-day" = "Obrázok dňa";
+"app-onboarding-feed-preference-title" = "Čo by ste chceli vidieť ako prvé?";
+"app-onboarding-intro-body" = "Wikipédia je slobodná online encyklopédia so 65 miliónmi článkov, ktoré spoločne píše a udržiava komunita dobrovoľníkov vo viac než 300 jazykoch.";
+"app-onboarding-intro-learn-more" = "Ďalšie informácie o Wikipédii";
+"app-onboarding-intro-title" = "Všetky vedomosti sveta";
+"app-onboarding-languages-add-edit" = "Pridať alebo upraviť jazyky";
+"app-onboarding-languages-notice" = "Vo vašom zariadení sme si všimli tieto jazyky:";
+"app-onboarding-languages-primary-label" = "Primárny";
+"app-onboarding-languages-title" = "Čítajte vo viac než 300 jazykoch";
+"app-onboarding-loading-title" = "Vytvorme si váš feed…";
+"app-onboarding-page-indicator" = "Strana $1 z $2";
+"app-onboarding-personalization-body-1" = "Vyberte si témy, ktoré vás zaujímajú, a my vám prispôsobíme váš kanál.";
+"app-onboarding-personalization-body-2" = "Zhromažďujeme minimálne množstvo údajov, ktoré sú anonymizované.";
+"app-onboarding-personalization-title" = "Nasledujte svoju zvedavosť";
 "app-store-keywords" = "Wikipédia, referencie, wiki, encyklopédia, informácie, vedomosti, výskum, informácie, objaviť, učenie";
 "app-store-release-notes" = "Plne prispôsobiteľné a jednoduchšie čítanie zdroja informácií. Lokalizácia, vylepšenie výkonu a opravy chýb.";
 "app-store-short-description" = "Stiahnite si aplikáciu Wikipédie pre objavovanie miest v blízkosti vás, na sťahovanie článkov do vášho zariadenia a prispôsobenie čítania článkov.";
@@ -286,6 +307,13 @@
 "cc-zero" = "Creative Commons CC0";
 "chinese-variants-alert-body" = "Wikipédia teraz podporuje aj tieto čínske varianty ako primárny a sekundárny jazyk aplikácie:\n\n简体 Chinese, Simplified (zh-hans)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)";
 "chinese-variants-alert-title" = "Aktualizácie podpory čínskych variánt";
+"choose-editor-dont-show-again" = "Už znovu nezobrazovať. Toto sa dá neskôr zmeniť v nastaveniach.";
+"choose-editor-dont-show-hint" = "Dvojitým klepnutím si túto voľbu uložíte a preskočíte túto obrazovku pri ďalších úpravách.";
+"choose-editor-source-subtitle" = "Vykonajte zmeny pomocou značiek. Zostane v aplikácii.";
+"choose-editor-source-title" = "Upraviť zdrojový kód";
+"choose-editor-title" = "Vyberte spôsob úpravy";
+"choose-editor-visual-subtitle" = "Vykonajte zmeny priamo na zobrazenej stránke. Otvorí sa vo Vašom prehliadači.";
+"choose-editor-visual-title" = "Upraviť vizuálne";
 "clear-title-accessibility-label" = "Vyčistiť";
 "clearing-cache-complete" = "Úplné vyčištenie cache.";
 "clearing-cache-error" = "Chyba pri mazaní vyrovnávacej pamäte.";
@@ -300,10 +328,9 @@
 "close-tab-confirmation" = "Zatvoriť kartu?";
 "close-tabs" = "Zavrieť karty";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 karta bola zatvorená|$1 karty boli zatvorené|$1 kariet bolo zatvorených}}.";
-"collect-prize-button-title" = "Získajte 15%% zľavu v obchode";
-"collect-prize-headline" = "Zvedavosť vám pristane! 🛍️";
-"collect-prize-subtitle" = "Oslávte dokončenie výzvy 15%% zľavou v obchode Wikipedia Store.";
 "collect-prize-title" = "Vyzdvihnite si svoju odmenu!";
+"community-detail-back-button-title" = "Späť do kanála Komunita";
+"community-feed-preferences-global-card-footer-text" = "Táto karta nie je špecifická pre jazyk; jej vypnutím ju odstránite z vášho kanála Komunita.";
 "compass-direction" = "na $1. hodine";
 "confirm-donation-history-deletion-subtitle" = "Vzťahuje sa to len na dary uskutočnené z tohto zariadenia.";
 "confirm-donation-history-deletion-title" = "Potvrdiť vymazanie";
@@ -579,6 +606,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Ďalšie jazyky sa dajú pridať na obrazovke „Moje jazyky“.";
 "explore-feed-preferences-card-hidden-title" = "Karta bola skrytá";
 "explore-feed-preferences-continue-reading-description" = "Rýchly odkaz späť na čítanie otvoreného článku";
+"explore-feed-preferences-customize-community-feed-action-title" = "Prispôsobenie kanála Komunita";
 "explore-feed-preferences-customize-explore-feed" = "Prispôsobenie kanála Objaviť";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Prispôsobenie kanála Objaviť";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Skrytím typu karty sa tieto karty prestanú zobrazovať v kanále Objaviť.";
@@ -659,6 +687,7 @@
 "explore-suggested-edits-image-recs-title" = "Pridať obrázok";
 "explore-wikipedia" = "Objavovať Wikipédiu";
 "export-user-data-confirmation-message" = "Zdieľanie knižnice aplikácie zahŕňa údaje o vašich zoznamoch na prečítanie a histórii, nastaveniach a obsahu kanála Objaviť. Tento súbor s údajmi by ste mali zdieľať len s dôveryhodným príjemcom na účely technickej diagnostiky.";
+"export-user-data-confirmation-message-community" = "Zdieľanie knižnice aplikácie zahŕňa údaje o vašich zoznamoch na prečítanie a histórii, predvoľbách a obsahu kanála Komunita. Tento údajový súbor by ste mali zdieľať iba s dôveryhodným príjemcom na účely technickej diagnostiky.";
 "export-user-data-confirmation-title" = "Zdieľať knižnicu aplikácie?";
 "export-user-data-generic-error" = "Pri exportovaní vašich údajov nastala chyba. Skúste to prosím neskôr.";
 "export-user-data-space-error" = "V zariadení nemáte dosť miesta na export vašich používateľských údajov. Skúste to prosím neskôr.";
@@ -723,6 +752,9 @@
 "history-title" = "História";
 "home-button-explore-accessibility-label" = "Wikipédie, späť na Objaviť";
 "home-button-saved-accessibility-label" = "Wikipédia, späť na Uložené";
+"home-community-empty-feed-button-title" = "Prispôsobiť kanál";
+"home-community-empty-feed-message" = "Ak chcete vidieť kanál Komunita, zapnite karty v nastaveniach kanála.";
+"home-community-empty-feed-title" = "Všetky karty kanála Komunita sú skryté";
 "home-community-tab-title" = "Komunita";
 "home-edit-languages-title" = "Pridať alebo upraviť jazyky";
 "home-feed-for-you-based-on-interests-subtitle" = "Články prispôsobené témam, ktoré ste si vybrali.";
@@ -733,7 +765,11 @@
 "home-feed-for-you-continue-reading-title" = "Pokračovať v čítaní";
 "home-feed-for-you-settings-header" = "Vypnutím modulu ho skryjete z kanála „Pre vás“. Kedykoľvek ho tu môžete znova zapnúť.";
 "home-feed-for-you-settings-title" = "Moduly";
-"home-feed-for-you-whats-driving-title" = "Čo formuje váš kanál";
+"home-feed-interests-deselect-all" = "Zrušiť celý výber";
+"home-feed-interests-header-title" = "Čo vás zaujíma?";
+"home-feed-interests-non-mainspace-toast" = "Ako záujmy je možné pridať iba články v hlavnom mennom priestore.";
+"home-feed-interests-search-placeholder" = "Vyhľadať článok";
+"home-feed-interests-selected-count" = "{{PLURAL:$1|$1 vybraté|$1 vybratých}}";
 "home-feed-interests-settings-empty-message" = "Tu sa zobrazia vaše záujmy";
 "home-feed-interests-settings-title" = "Vaše záujmy";
 "home-feed-modules-featured-article-subtitle" = "Odporúčané články patria k najkvalitnejším článkom na Wikipédii, redaktori ich vyberajú každý deň";
@@ -916,6 +952,8 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "{{PLURAL:$1|$1 meter|$1 metre|$1 metrov}}";
 "nearby-distance-label-miles" = "$1 míľ";
+"new-explore-feed-preferences-customize-explore-feed" = "Prispôsobenie kanála Komunita";
+"new-explore-feed-preferences-customize-explore-feed-footer-text" = "Skrytím typu karty zabránite tomu, aby sa tento typ karty zobrazoval v kanáli Komunita.";
 "new-password-instructions" = "Ste prihlásení s dočasným heslom. Ak chcete dokončiť prihlásenie, nastavte si tu nové heslo.";
 "new-password-title" = "Nastavte si heslo";
 "new-tab" = "Nová karta";
@@ -1158,53 +1196,8 @@
 "project-name-wikiversity" = "Wikiverzita";
 "project-name-wikivoyage" = "Wikicesty";
 "project-name-wiktionary" = "Wikislovník";
-"reading-challenge-announcement-cta" = "Zapojiť sa do výzvy";
-"reading-challenge-announcement-item1-subtitle" = "Do výzvy sa môžete zapojiť kedykoľvek medzi $1 a $2 a svojich 25 dní si rozvrhnete podľa seba.";
-"reading-challenge-announcement-item1-title" = "Čítajte 1 článok denne po dobu 25 dní";
-"reading-challenge-announcement-item2-subtitle" = "Dosiahnite 25-dňovú sériu čítania počas trvania výzvy a vyhrajte špeciálne ceny.";
-"reading-challenge-announcement-item2-title" = "Vyhrajte ceny";
-"reading-challenge-announcement-item3-subtitle2" = "Na sledovanie svojej série s Baby Globe si musíte z domovskej obrazovky pridať widget Čitateľská výzva.";
-"reading-challenge-announcement-item3-title" = "Nainštalujte si widget";
-"reading-challenge-announcement-secondary-cta" = "Zistiť viac";
-"reading-challenge-announcement-subtitle" = "Vaša história čítania zostáva chránená. Prehľady o čítaní sa počítajú z údajov uložených lokálne vo vašom zariadení.";
-"reading-challenge-announcement-title" = "Oslávte 25. narodeniny Wikipédie zapojením sa do 25-dňovej čitateľskej výzvy!";
-"reading-challenge-collect-prize-button-small" = "Získať cenu";
-"reading-challenge-completed-subtitle" = "25 z 25 dní";
-"reading-challenge-completed-subtitle-small" = "25 z 25";
-"reading-challenge-completed-title" = "Dokázali ste to!";
-"reading-challenge-concluded-title" = "Výzva sa skončila";
-"reading-challenge-enrolled-not-started-subtitle-article" = "Na začatie stačí prečítať jeden článok.";
-"reading-challenge-enrolled-not-started-subtitle-away" = "K vašej sérii vás delí jediný článok.";
-"reading-challenge-enrolled-not-started-subtitle-somewhere" = "Každá séria niekde začína.";
-"reading-challenge-enrolled-not-started-subtitle-towards" = "Začnite pracovať na 25-dňovej sérii!";
-"reading-challenge-enrolled-not-started-title-fresh" = "Čerstvý začiatok.";
-"reading-challenge-enrolled-not-started-title-ready" = "Pripraviť sa, pozor, čítať!";
-"reading-challenge-enrolled-not-started-title-spin" = "Rozbehnete novú sériu?";
-"reading-challenge-enrolled-not-started-title-start" = "Začnite svoju čitateľskú výzvu.";
-"reading-challenge-explore-wikipedia-button" = "Objavovať Wikipédiu";
-"reading-challenge-join-button-medium" = "Zapojiť sa do výzvy";
-"reading-challenge-join-button-small" = "Zapojiť sa";
-"reading-challenge-login-message" = "Prihláste sa alebo si vytvorte účet, aby ste mohli sledovať svoj postup v čitateľskej výzve.";
-"reading-challenge-login-title" = "Prihláste sa a zapojte sa do výzvy";
-"reading-challenge-not-enrolled-subtitle" = "Zapojte sa do 25-dňovej výzvy a odomknite špeciálne ceny.";
-"reading-challenge-not-enrolled-title" = "Pripraviť sa, pozor, čítať!";
-"reading-challenge-not-live-yet-subtitle" = "25-dňová čitateľská výzva je na ceste.";
-"reading-challenge-not-live-yet-title" = "Pripravte sa na čítanie";
-"reading-challenge-not-yet-read-subtitle-article" = "K vašej sérii vás delí jediný článok.";
-"reading-challenge-not-yet-read-subtitle-bit" = "Aj kúsok čítania sa vám počíta do cieľa.";
-"reading-challenge-not-yet-read-subtitle-curiosity" = "Udržte svoju zvedavosť v chode.";
-"reading-challenge-not-yet-read-subtitle-drift" = "Nenechajte dnešok len tak uplynúť, vaša séria čítania čaká.";
-"reading-challenge-not-yet-read-subtitle-jump" = "Pustite sa dnes do čítania kedykoľvek počas dňa.";
-"reading-challenge-not-yet-read-subtitle-quiet" = "Chvíľka pokojného čítania?";
-"reading-challenge-not-yet-read-subtitle-snooze" = "Kým deň celkom nezaspí... stále je čas niečo sa naučiť.";
+"reading-challenge-random-article-button" = "Náhodný článok";
 "reading-challenge-random-button" = "Náhodný";
-"reading-challenge-streak-no-days" = "$1 z 25";
-"reading-challenge-subtitle" = "25-dňová čitateľská výzva";
-"reading-challenge-widget-announcement-body2" = "Na sledovanie svojej série s Baby Globe si musíte z domovskej obrazovky pridať widget Čitateľská výzva.";
-"reading-challenge-widget-announcement-secondary-button" = "Ukážte mi ako";
-"reading-challenge-widget-announcement-title2" = "Prejdite na domovskú obrazovku a pridajte si widget";
-"reading-challenge-widget-description" = "Sledujte svoj postup v čitateľskej výzve.";
-"reading-challenge-widget-display-name" = "Čitateľská výzva";
 "reading-list-add-generic-hint-title" = "Pridať tento článok do zoznamu na prečítanie?";
 "reading-list-add-hint-title" = "Pridať „$1“ do zoznamu na prečítanie?";
 "reading-list-add-saved-button-title" = "Áno, chcem ich pridať do svojich zoznamov";
@@ -1228,8 +1221,6 @@
 "reading-list-generic-error" = "Pri aktualizácii vašich zoznamov na prečítanie nastala neočakávaná chyba.";
 "reading-list-keep-button-title" = "Áno, ponechať články na zariadení";
 "reading-list-keep-subtitle" = "Existujú články, ktoré boli synchronizované s vaším účtom na Wikipédii. Chcete ich na tomto zariadení po odhlásení ponechať?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Vypnutím synchronizácie odstránite tieto články z účtu. Pokiaľ ich vymažete zo zariadenia, nebudú obnoviteľné tým, že v budúcnosti znovu zapnete synchronizáciu.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Nie, odstrániť články zo zariadenia a z môjho účtu na Wikipédii";
 "reading-list-keep-title" = "Chcete ponechať uložené články v zariadení?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Zoradiť články";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Existuje limit 5000 nezaradených článkov. Zaraďte, prosím, vaše existujúce články do zoznamov, aby ste umožnili pokračovanie synchronizácie nezaradených článkov.";
@@ -1343,6 +1334,7 @@
 "settings-clear-cache-are-you-sure-title" = "Naozaj chcete vyčistiť údaje vo vyrovnávacej pamäti?";
 "settings-clear-cache-cancel" = "Zrušiť";
 "settings-clear-cache-ok" = "Vyčistiť vyrovnávaciu pamäť";
+"settings-community-feed-title" = "Komunita";
 "settings-donate" = "Darovať";
 "settings-explore-games-subtitle" = "Denné hry založené na obsahu Wikipédie";
 "settings-explore-games-title" = "Hry Wikipédie";
@@ -1363,14 +1355,14 @@
 "settings-primary-language" = "Primárny";
 "settings-primary-language-details" = "Prvý jazyk v zozname bude použitý ako primárny jazyk pre aplikáciu.";
 "settings-search-footer-text" = "Otvárať aplikáciu v karte Vyhľadávanie namiesto kanálu Objaviť";
+"settings-search-footer-text-home" = "Nastaviť aplikáciu tak, aby sa otvárala na karte Hľadať namiesto karty Domov";
 "settings-search-open-app-on-search" = "Otvoriť aplikáciu v karte Vyhľadávanie";
+"settings-storage-and-syncing-disable-sync-alert-message" = "Vypnutím synchronizácie sa vymažú Vaše synchronizované zoznamy na čítanie z Vášho účtu vo Wikipédii a z iných zariadení. Vaše zoznamy a články zostanú v tomto zariadení.";
+"settings-storage-and-syncing-disable-sync-alert-no" = "Nie";
+"settings-storage-and-syncing-disable-sync-alert-title" = "Vypnúť synchronizáciu zoznamu na čítanie?";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "Áno";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Umožniť Wikimedii uloženie uložených článkov a zoznamov na prečítanie k vašim používateľským nastaveniam pri prihlasovaní a synchronizácii.";
 "settings-storage-and-syncing-enable-sync-title" = "Synchronizovať uložené články a zoznamy";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Vymazanie uložených článkov ich odstráni z vášho používateľského účtu, pokiaľ máte zapnutú synchronizáciu, a z vášho zariadenia. Túto akciu nemôžete vrátiť späť.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Vymazať všetky uložené články?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Vymazať";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Vymazanie uložených článkov ich odstráni z vášho používateľského účtu, pokiaľ máte zapnutú synchronizáciu, a z vášho zariadenia.\n\nVymazanie vašich uložených článkov uvolní asi $1 miesta.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Vymazať uložené články";
 "settings-storage-and-syncing-full-sync" = "Vaše zoznamy na prečítanie budú synchronizované na pozadí";
 "settings-storage-and-syncing-server-sync-footer-text" = "Požiadať o aktualizáciu synchronizovaných článkov a zoznamov na prečítanie.";
 "settings-storage-and-syncing-server-sync-title" = "Aktualizovať synchronizované zoznamy na prečítanie";

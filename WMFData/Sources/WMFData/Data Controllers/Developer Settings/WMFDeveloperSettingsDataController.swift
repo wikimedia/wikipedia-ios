@@ -18,6 +18,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     private var sharedCacheStore: WMFKeyValueStore?
     private var featureConfig: WMFFeatureConfigResponse?
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.developerSettings.rawValue
+    
     private let cacheFeatureConfigFileName = "AppsFeatureConfig"
 
     public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
@@ -74,7 +75,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue, value: newValue) }
     }
-
 
     public var showYiR2025: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiR2025.rawValue)) ?? false }
@@ -148,6 +148,11 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         let gamesDataController = WMFGamesDataController()
         try await gamesDataController.clearAllSessions()
         gamesDataController.resetAnnouncementSeen()
+    }
+
+    public var enableVisualEditingJourney: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue, value: newValue) }
     }
 
     // MARK: - Reading Challenge Forced States

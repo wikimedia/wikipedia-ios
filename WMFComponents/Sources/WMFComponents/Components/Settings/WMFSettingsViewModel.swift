@@ -110,8 +110,6 @@ final public class WMFSettingsViewModel: ObservableObject {
 
     let URLTerms = "https://foundation.wikimedia.org/wiki/Terms_of_Use/en"
 
-    let URLDonation = "https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=appmenu&app_version=<app-version>&uselang=<langcode>"
-
     let localizedStrings: LocalizedStrings
     private var username: String?
     private var tempUsername: String?
@@ -269,6 +267,13 @@ final public class WMFSettingsViewModel: ObservableObject {
                         title: existing.title, subtitle: existing.subtitle,
                         accessory: .chevron(label: readingPreferenceTheme),
                         action: existing.action)
+
+                } else if title == WMFEditingPreferencesCopy.title {
+                    sections[sectionIndex].items[itemIndex] = SettingsItem(
+                        image: existing.image, color: existing.color,
+                        title: existing.title, subtitle: existing.subtitle,
+                        accessory: .chevron(label: WMFSettingsDataController.shared.defaultEditMode().localizedShortTitle),
+                        action: existing.action)
                 }
             }
         }
@@ -333,16 +338,32 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.coordinatorDelegate?.handleSettingsAction(.clearCachedData)
         })
 
-        var section = SettingsSection(header: nil, footer: nil, items: [myLanguages, search] + feedItems + [pushNotifications, readingPrefs, articleStorage, clearCache])
+        var mainItems: [SettingsItem] = [pushNotifications, readingPrefs, articleStorage]
+
+        if WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney {
+            mainItems.append(editingPreferencesItem())
+        }
+
+        var section = SettingsSection(header: nil, footer: nil, items: [myLanguages, search] + feedItems + mainItems + [clearCache])
 
         if await dataController.shouldShowYiRSettingsItem() {
             section.items.insert(yearInReview, at: 2 + feedItems.count)
         }
 
 #if DEBUG
-        section.items.insert(dangerZone, at: 6 + feedItems.count)
+        // Anchored to Clear cached data rather than a fixed offset, since the rows above it are conditional.
+        let clearCacheIndex = section.items.firstIndex { $0.title == localizedStrings.clearCacheTitle } ?? section.items.count
+        section.items.insert(dangerZone, at: clearCacheIndex)
 #endif
         return section
+    }
+
+    /// Only shown while the visual editing journey is in development. The value reflects the mode the
+    /// user last picked, either here or in the choose editor sheet.
+    private func editingPreferencesItem() -> SettingsItem {
+        SettingsItem(image: WMFSFSymbolIcon.for(symbol: .pencil), color: WMFColor.green600, title: WMFEditingPreferencesCopy.title, subtitle: nil, accessory: .chevron(label: WMFSettingsDataController.shared.defaultEditMode().localizedShortTitle), action: {
+            self.coordinatorDelegate?.handleSettingsAction(.editingPreferences)
+        })
     }
 
     private func getTermsSection() async -> SettingsSection {

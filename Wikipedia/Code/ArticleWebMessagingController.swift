@@ -1,5 +1,6 @@
 import Foundation
 import CocoaLumberjackSwift
+import WMFData
 
 protocol ArticleWebMessageHandling: AnyObject {
     func didReceive(action: ArticleWebMessagingController.Action)
@@ -213,11 +214,23 @@ struct ReferenceBackLink {
     }
 }
 
+extension WMFPageTopic {
+    init?(scriptMessageDict: [String: Any]) {
+        guard
+            let topic = scriptMessageDict["topic"] as? String,
+            let score = scriptMessageDict["score"] as? Double
+        else {
+            return nil
+        }
+        self.init(topic: topic, score: score)
+    }
+}
+
 extension ArticleWebMessagingController: WKScriptMessageHandler {
     /// Actions represent events from the web page
     enum Action {
         case setup
-        case finalSetup
+        case finalSetup(topics: [WMFPageTopic])
         case image(src: String, href: String, width: Int?, height: Int?)
         case link(href: String, text: String?, title: String?)
         case reference(selectedIndex: Int, group: [WMFLegacyReference])
@@ -258,7 +271,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             case .setup:
                 return .setup
             case .finalSetup:
-                return .finalSetup
+                return getFinalSetupAction(with: data)
             case .image:
                 return getImageAction(with: data)
             case .reference:
@@ -285,6 +298,14 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
                 return getScrollToAnchorAction(with: data)
             }
         }
+        func getFinalSetupAction(with data: [String: Any]?) -> Action? {
+            // Topics are absent from earlier versions of the Page Content Service, which we treat the
+            // same as an article with no topic data.
+            let topicDictionaries = data?["topics"] as? [[String: Any]] ?? []
+            let topics = topicDictionaries.compactMap { WMFPageTopic(scriptMessageDict: $0) }
+            return Action.finalSetup(topics: topics)
+        }
+
         func getLeadImageAction(with data: [String: Any]?) -> Action? {
             // Send back a lead image event even if it's empty - we need to handle this case
             let leadImage = data?["leadImage"] as? [String: Any]

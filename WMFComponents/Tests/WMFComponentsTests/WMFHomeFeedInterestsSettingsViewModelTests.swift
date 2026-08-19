@@ -1,4 +1,5 @@
 import Testing
+import Foundation
 @testable import WMFComponents
 @testable import WMFData
 @testable import WMFDataMocks
@@ -113,18 +114,31 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
     }
 
     @Test
-    func orderedTopicsMoveSelectionToFrontAlphabetically() {
+    func orderedTopicsMoveSelectionToFrontInSelectionOrder() {
         let viewModel = makeViewModel()
         viewModel.toggleTopic(.education)
         #expect(viewModel.orderedTopics.first == .education)
 
-        // A later selection that sorts earlier alphabetically goes in front
+        // A later selection lands after the previous one, regardless of alphabetical order
         viewModel.toggleTopic(.architecture)
-        #expect(Array(viewModel.orderedTopics.prefix(2)) == [.architecture, .education])
+        #expect(Array(viewModel.orderedTopics.prefix(2)) == [.education, .architecture])
 
         // Unselected topics keep their default order after the selected group
         let unselected = viewModel.orderedTopics.dropFirst(2)
         #expect(Array(unselected) == viewModel.topics.filter { $0 != .architecture && $0 != .education })
+    }
+
+    @Test
+    func orderedTopicsKeepSelectionOrderAcrossReload() {
+        // Selection order is what the chips row shows, so it has to survive persistence —
+        // a store that deduped or sorted (e.g. via Set) would silently reshuffle the row.
+        let store = WMFMockKeyValueStore()
+        let first = makeViewModel(store: store)
+        first.toggleTopic(.music)
+        first.toggleTopic(.architecture)
+
+        let reloaded = makeViewModel(store: store)
+        #expect(Array(reloaded.orderedTopics.prefix(2)) == [.music, .architecture])
     }
 
     @Test
@@ -175,6 +189,20 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
         // Topics cleared in persistence too
         let dataController = WMFHomeDataController(userDefaultsStore: store)
         #expect(dataController.interestTopics().isEmpty)
+    }
+
+    @Test
+    func deselectAllKeepsCardsOnScreen() {
+        // Deselecting all should uncheck in place, not swap the grid out from under the user.
+        let viewModel = makeViewModel()
+        let cards = [makeCard(pageid: 1, title: "A"), makeCard(pageid: 2, title: "B")]
+        viewModel.gridViewModels = cards
+        cards.forEach { viewModel.toggleArticleSelection($0) }
+
+        viewModel.deselectAll()
+
+        #expect(viewModel.gridViewModels.map { $0.id } == cards.map { $0.id })
+        #expect(viewModel.gridViewModels.allSatisfy { !$0.isSelected })
     }
 
     // MARK: - Search
@@ -295,6 +323,66 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
 
         viewModel.clearSearch()
         #expect(viewModel.searchRows.isEmpty)
+    }
+
+    // MARK: - Saved interests
+
+    /// Saved articles must survive a language change. They are stored per project, so fetching them
+    /// per project meant anything picked in another language silently disappeared from the screen.
+    @Test
+    func savedArticlesLoadWhateverLanguageTheyWerePickedIn() async throws {
+        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
+        let interests = try WMFPageInterestDataController(coreDataStore: store)
+
+        try await interests.addPageInterest(title: "English_Article", project: project)
+        try await interests.addPageInterest(title: "Artigo", project: WMFProject.wikipedia(spanishLanguage))
+
+        // Only the current project is offered as a search language, so a per-project fetch would
+        // find the English one and miss the Spanish one.
+        let viewModel = WMFHomeFeedInterestsSettingsViewModel(
+            dataController: WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore()),
+            pageInterestDataController: interests,
+            searchDataController: WMFArticleSearchDataController(basicService: WMFMockBasicService(jsonResourceName: "article-prefix-search-get")),
+            project: project,
+            searchLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)]
+        )
+
+        let deadline = ContinuousClock.now.advanced(by: .seconds(10))
+        while viewModel.gridViewModels.count < 2 && ContinuousClock.now < deadline {
+            try await Task.sleep(for: .milliseconds(50))
+        }
+
+        let titles = Set(viewModel.gridViewModels.map { $0.title })
+        #expect(titles.contains("English Article"))
+        #expect(titles.contains("Artigo"))
+    }
+
+    /// Restored cards must come back already ticked, otherwise a reload drops them: the grid rebuild
+    /// keeps only the cards that are selected.
+    @Test
+    func savedArticlesComeBackSelected() async throws {
+        let temporaryDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
+        let interests = try WMFPageInterestDataController(coreDataStore: store)
+        try await interests.addPageInterest(title: "Saved_One", project: project)
+
+        let viewModel = WMFHomeFeedInterestsSettingsViewModel(
+            dataController: WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore()),
+            pageInterestDataController: interests,
+            searchDataController: WMFArticleSearchDataController(basicService: WMFMockBasicService(jsonResourceName: "article-prefix-search-get")),
+            project: project,
+            searchLanguages: []
+        )
+
+        let deadline = ContinuousClock.now.advanced(by: .seconds(10))
+        while viewModel.gridViewModels.isEmpty && ContinuousClock.now < deadline {
+            try await Task.sleep(for: .milliseconds(50))
+        }
+
+        let restored = viewModel.gridViewModels.first { $0.title == "Saved One" }
+        #expect(restored?.isSelected == true)
+        #expect(viewModel.selectedArticleCount >= 1)
     }
 
     // MARK: - Grid cap

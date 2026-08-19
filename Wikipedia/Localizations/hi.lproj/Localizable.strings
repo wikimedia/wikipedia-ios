@@ -263,6 +263,7 @@
 "field-username-placeholder" = "सदस्य नाम डालें";
 "field-username-title" = "सदस्यनाम";
 "find-infolabel-number-matches" = "$1/$2";
+"for-you-error-retry" = "पुनः प्रयास करें";
 "forgot-password-button-title" = "रिसेट";
 "forgot-password-email-sent" = "पासवर्ड रिसेट निर्देशों के साथ एक ईमेल भेज दिया गया है";
 "forgot-password-instructions" = "ईमेल द्वारा पासवर्ड रिसेट निर्देश प्राप्त करने के लिए नीचे दी गईं फ़ील्ड्स में से एक को भरें";
@@ -273,6 +274,7 @@
 "history-title" = "इतिहास";
 "home-button-explore-accessibility-label" = "विकिपीडिया, खोज पर लौटें";
 "home-button-saved-accessibility-label" = "विकिपीडिया, सहेजे गए पर लौटें";
+"home-card-more-options-accessibility-label" = "अधिक विकल्प";
 "home-more-like-footer" = "$1 के समान";
 "home-nearby-footer" = "आपके स्थान के आस-पास के और स्थान";
 "home-nearby-location-footer" = "$1 के निकट और अधिक";
@@ -350,6 +352,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटना|$1 ऐतिहासिक घटनाओं}}";
 "on-this-day-footer" = "इस दिन की अधिक ऐतिहासिक घटनाएं";
 "on-this-day-title" = "आज के दिन";
+"one-time-onboarding-feature-name-title" = "एक नया नाम";
 "page-protected-can-not-edit" = "इस पेज को सम्पादित करने के लिए आपके पास अधिकार नहीं हैं";
 "page-protected-can-not-edit-title" = "यह पृष्ठ सुरक्षित है";
 "pictured" = "चित्रित";
@@ -434,6 +437,8 @@
 "settings-on" = "चालू";
 "settings-primary-language" = "प्राथमिक";
 "settings-primary-language-details" = "इस सूची में पहली भाषा का उपयोग ऐप के लिए प्राथमिक भाषा के रूप में किया जाता है।";
+"settings-storage-and-syncing-disable-sync-alert-no" = "नहीं";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "हाँ";
 "settings-title" = "सेटिंग्स";
 "share-a-fact-made-with" = "विकिपीडिया एप के साथ बनाया गया";
 "share-article-name-on-wikipedia" = "विकिपीडिया पर \" $1 \" :";

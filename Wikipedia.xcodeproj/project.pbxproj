@@ -376,6 +376,10 @@
 		41FCAA3621C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */; };
 		41FCAA3721C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */; };
 		41FCAA3821C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */; };
+		5246C841302BCB8D008DC290 /* WikidataFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5246C840302BCB8D008DC290 /* WikidataFetcherTests.swift */; };
+		524A86D4301801AE006FA07A /* ChooseEditorSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524A86D3301801AE006FA07A /* ChooseEditorSheetCoordinator.swift */; };
+		524A86D5301801AE006FA07A /* ChooseEditorSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524A86D3301801AE006FA07A /* ChooseEditorSheetCoordinator.swift */; };
+		524A86D6301801AE006FA07A /* ChooseEditorSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524A86D3301801AE006FA07A /* ChooseEditorSheetCoordinator.swift */; };
 		533AB8AE259792A9003A43D9 /* wikipedia-language-variants.json in Resources */ = {isa = PBXBuildFile; fileRef = 533AB8AD259792A9003A43D9 /* wikipedia-language-variants.json */; };
 		535F16D625CE11A300875AAD /* MWKDataStore+LanguageVariantMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F16D525CE11A300875AAD /* MWKDataStore+LanguageVariantMigration.swift */; };
 		53A575FA2602C845009835E6 /* WMFAppViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A575F92602C845009835E6 /* WMFAppViewController+Extensions.swift */; };
@@ -498,6 +502,9 @@
 		675826782D68D10B002B0EE7 /* LinkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826772D68D108002B0EE7 /* LinkCoordinator.swift */; };
 		675826792D68D10B002B0EE7 /* LinkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826772D68D108002B0EE7 /* LinkCoordinator.swift */; };
 		6758267A2D68D10B002B0EE7 /* LinkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826772D68D108002B0EE7 /* LinkCoordinator.swift */; };
+		E319AC54A5FC45F79CBE9EEA /* VisualEditorReturnJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205753DD2B61458DA0A0971D /* VisualEditorReturnJourney.swift */; };
+		A4FC3D151A834C1599B44FEF /* VisualEditorReturnJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205753DD2B61458DA0A0971D /* VisualEditorReturnJourney.swift */; };
+		CDC9E2BAE50D4C8880EEDEC3 /* VisualEditorReturnJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205753DD2B61458DA0A0971D /* VisualEditorReturnJourney.swift */; };
 		675826802D68F543002B0EE7 /* MWKLanguageLinkController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6758267F2D68F543002B0EE7 /* MWKLanguageLinkController+Extensions.swift */; };
 		675826822D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */; };
 		675826832D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */; };
@@ -878,7 +885,6 @@
 		67E0691B223B32F1008550AC /* FocusNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E0691A223B32F1008550AC /* FocusNavigationView.swift */; };
 		67E2E4982504E2130070F12D /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E2E4932504E1C70070F12D /* TimelineView.swift */; };
 		67E32CAF2F5BE381009AA52D /* AppOnboardingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E32CAE2F5BE381009AA52D /* AppOnboardingUITests.swift */; };
-		AB0NB0B260E0E9F600ABCD12 /* NewAppOnboardingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0NB0B160E0E9F600ABCD11 /* NewAppOnboardingUITests.swift */; };
 		67E466FA241BED770014149B /* EditHistoryCompareFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E466F9241BED770014149B /* EditHistoryCompareFunnel.swift */; };
 		67E466FB241BED800014149B /* EditHistoryCompareFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E466F9241BED770014149B /* EditHistoryCompareFunnel.swift */; };
 		67E466FC241BED800014149B /* EditHistoryCompareFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E466F9241BED770014149B /* EditHistoryCompareFunnel.swift */; };
@@ -1495,6 +1501,7 @@
 		83B5DF9B29F6C7E300F8329D /* EditAttemptFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B5DF9829F6C7E300F8329D /* EditAttemptFunnel.swift */; };
 		83B87ECC1F71431F00F342F1 /* ArticleCollectionViewCell+ListDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B87EC61F713BC200F342F1 /* ArticleCollectionViewCell+ListDisplay.swift */; };
 		83BBBE5623F56F9400AD0994 /* LocaleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BBBE5523F56F9400AD0994 /* LocaleTests.swift */; };
+		77C367D052E2441FA4BA9479 /* VisualEditorReturnJourneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CC0C9EA6734DCA8BB96684 /* VisualEditorReturnJourneyTests.swift */; };
 		83C0656B23D23220001821BC /* TableOfContentsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C0656A23D23220001821BC /* TableOfContentsItem.swift */; };
 		83C0656C23D23220001821BC /* TableOfContentsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C0656A23D23220001821BC /* TableOfContentsItem.swift */; };
 		83C0656D23D23220001821BC /* TableOfContentsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C0656A23D23220001821BC /* TableOfContentsItem.swift */; };
@@ -1603,6 +1610,7 @@
 		AB0NB0A260E0E9F600ABCD02 /* AppOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0NB0A160E0E9F600ABCD01 /* AppOnboardingCoordinator.swift */; };
 		AB0NB0A360E0E9F600ABCD03 /* AppOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0NB0A160E0E9F600ABCD01 /* AppOnboardingCoordinator.swift */; };
 		AB0NB0A460E0E9F600ABCD04 /* AppOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0NB0A160E0E9F600ABCD01 /* AppOnboardingCoordinator.swift */; };
+		AB0NB0B260E0E9F600ABCD12 /* NewAppOnboardingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0NB0B160E0E9F600ABCD11 /* NewAppOnboardingUITests.swift */; };
 		AD82B5762FC0D83F00F310B2 /* ArticlePreviewingDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD82B5752FC0D83F00F310B2 /* ArticlePreviewingDelegateMock.swift */; };
 		B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
 		B0016CB921354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0016CB821354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift */; };
@@ -2622,6 +2630,7 @@
 		F1A700000000000000000010 /* TestHTTPClientProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000011 /* TestHTTPClientProfile.swift */; };
 		F1A700000000000000000012 /* TestHTTPClientProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000011 /* TestHTTPClientProfile.swift */; };
 		F1A700000000000000000013 /* TestNetworkFixtureURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000014 /* TestNetworkFixtureURLSession.swift */; };
+		FA71B2C400000001000000AA /* SavedArticlesFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C400000002000000AA /* SavedArticlesFetcherTests.swift */; };
 		FACE0000000000000000FE02 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
 		FACE0000000000000000FE03 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
 		FACE0000000000000000FE04 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
@@ -3138,6 +3147,8 @@
 		37D535952FE47D8B0023824C /* WMFWhichCameFirstArchiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFWhichCameFirstArchiveViewController.swift; sourceTree = "<group>"; };
 		37FAFB342E45382000EEFEC5 /* DidYouKnowCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DidYouKnowCache.swift; sourceTree = "<group>"; };
 		41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListEntryCollectionViewController.swift; sourceTree = "<group>"; };
+		5246C840302BCB8D008DC290 /* WikidataFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikidataFetcherTests.swift; sourceTree = "<group>"; };
+		524A86D3301801AE006FA07A /* ChooseEditorSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseEditorSheetCoordinator.swift; sourceTree = "<group>"; };
 		533AB8AD259792A9003A43D9 /* wikipedia-language-variants.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wikipedia-language-variants.json"; sourceTree = "<group>"; };
 		53478DE425AF8CB900F31DC2 /* Wikipedia 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 5.xcdatamodel"; sourceTree = "<group>"; };
 		535F16D525CE11A300875AAD /* MWKDataStore+LanguageVariantMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWKDataStore+LanguageVariantMigration.swift"; sourceTree = "<group>"; };
@@ -3197,6 +3208,7 @@
 		67563DA12EFAF69400042C53 /* WMFLocalizations */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WMFLocalizations; sourceTree = "<group>"; };
 		675826732D68CEB8002B0EE7 /* ArticleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCoordinator.swift; sourceTree = "<group>"; };
 		675826772D68D108002B0EE7 /* LinkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCoordinator.swift; sourceTree = "<group>"; };
+		205753DD2B61458DA0A0971D /* VisualEditorReturnJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEditorReturnJourney.swift; sourceTree = "<group>"; };
 		6758267F2D68F543002B0EE7 /* MWKLanguageLinkController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWKLanguageLinkController+Extensions.swift"; sourceTree = "<group>"; };
 		675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomArticleCoordinator.swift; sourceTree = "<group>"; };
 		675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaWikiFetcher.swift; sourceTree = "<group>"; };
@@ -3382,7 +3394,6 @@
 		67E0691A223B32F1008550AC /* FocusNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNavigationView.swift; sourceTree = "<group>"; };
 		67E2E4932504E1C70070F12D /* TimelineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		67E32CAE2F5BE381009AA52D /* AppOnboardingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOnboardingUITests.swift; sourceTree = "<group>"; };
-		AB0NB0B160E0E9F600ABCD11 /* NewAppOnboardingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAppOnboardingUITests.swift; sourceTree = "<group>"; };
 		67E466F9241BED770014149B /* EditHistoryCompareFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHistoryCompareFunnel.swift; sourceTree = "<group>"; };
 		67E50B2A27EAD3AD00ABA159 /* NotificationsCenterDetailViewModel+ImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterDetailViewModel+ImageExtensions.swift"; sourceTree = "<group>"; };
 		67E5A1E629E6ED3400BADF20 /* WMFTestConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFTestConstants.h; sourceTree = "<group>"; };
@@ -3663,6 +3674,7 @@
 		83B5DF9829F6C7E300F8329D /* EditAttemptFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAttemptFunnel.swift; sourceTree = "<group>"; };
 		83B87EC61F713BC200F342F1 /* ArticleCollectionViewCell+ListDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleCollectionViewCell+ListDisplay.swift"; sourceTree = "<group>"; };
 		83BBBE5523F56F9400AD0994 /* LocaleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleTests.swift; sourceTree = "<group>"; };
+		77CC0C9EA6734DCA8BB96684 /* VisualEditorReturnJourneyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEditorReturnJourneyTests.swift; sourceTree = "<group>"; };
 		83C0656A23D23220001821BC /* TableOfContentsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableOfContentsItem.swift; sourceTree = "<group>"; };
 		83C06881292EC85700DF1403 /* TalkPageFormattingToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageFormattingToolbarView.swift; sourceTree = "<group>"; };
 		83C06886292EE5C600DF1403 /* TalkPageFormattingToolbarViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageFormattingToolbarViewDelegate.swift; sourceTree = "<group>"; };
@@ -3717,6 +3729,7 @@
 		A7B292122DF1CF9D001C213F /* SearchWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWidget.swift; sourceTree = "<group>"; };
 		AA001000AA001000AA001000 /* RandomWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomWidget.swift; sourceTree = "<group>"; };
 		AB0NB0A160E0E9F600ABCD01 /* AppOnboardingCoordinator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppOnboardingCoordinator.swift; sourceTree = "<group>"; };
+		AB0NB0B160E0E9F600ABCD11 /* NewAppOnboardingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAppOnboardingUITests.swift; sourceTree = "<group>"; };
 		AD82B5752FC0D83F00F310B2 /* ArticlePreviewingDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePreviewingDelegateMock.swift; sourceTree = "<group>"; };
 		B00050131C52D73800515F70 /* UIApplication+RTL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+RTL.swift"; sourceTree = "<group>"; };
 		B0016CB821354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLayoutSafeMultiLineButton.swift; sourceTree = "<group>"; };
@@ -4330,6 +4343,7 @@
 		F1A700000000000000000008 /* TestNetworkFixtureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkFixtureStore.swift; sourceTree = "<group>"; };
 		F1A700000000000000000011 /* TestHTTPClientProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHTTPClientProfile.swift; sourceTree = "<group>"; };
 		F1A700000000000000000014 /* TestNetworkFixtureURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkFixtureURLSession.swift; sourceTree = "<group>"; };
+		FA71B2C400000002000000AA /* SavedArticlesFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesFetcherTests.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE01 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE05 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE11 /* HomeFeedSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedSettingsCoordinator.swift; sourceTree = "<group>"; };
@@ -5679,6 +5693,7 @@
 		671DF9D625F2B57B0011799E /* Article Description Tests */ = {
 			isa = PBXGroup;
 			children = (
+				5246C840302BCB8D008DC290 /* WikidataFetcherTests.swift */,
 				671DF9D725F2B59A0011799E /* ShortDescriptionControllerTests.swift */,
 			);
 			path = "Article Description Tests";
@@ -6331,6 +6346,7 @@
 		83796B012C9C6F6000E55C69 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				524A86D3301801AE006FA07A /* ChooseEditorSheetCoordinator.swift */,
 				837172E32F9BDF2F0040F83E /* WhichCameFirstCoordinator.swift */,
 				675C97132F297EAC00830CEF /* SavedAllArticlesCoordinator.swift */,
 				37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */,
@@ -6341,6 +6357,7 @@
 				FACE0000000000000000FE01 /* HomeCoordinator.swift */,
 				FACE0000000000000000FE11 /* HomeFeedSettingsCoordinator.swift */,
 				675826772D68D108002B0EE7 /* LinkCoordinator.swift */,
+				205753DD2B61458DA0A0971D /* VisualEditorReturnJourney.swift */,
 				3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */,
 				830795262C9DE91900E453BD /* LoginCoordinator.swift */,
 				830795222C9DB3BA00E453BD /* LogoutCoordinatorDelegate.swift */,
@@ -7285,6 +7302,7 @@
 				D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */,
 				D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */,
 				83BBBE5523F56F9400AD0994 /* LocaleTests.swift */,
+				77CC0C9EA6734DCA8BB96684 /* VisualEditorReturnJourneyTests.swift */,
 				D84649AC1D4514F7009DB4A0 /* WMFTaskGroupTests.m */,
 				B0E809041C0D18A00065EBC0 /* CircularBitwiseRotationTests.m */,
 				B0E809081C0D18BC0065EBC0 /* NSString+WMFHTMLParsingTests.m */,
@@ -7310,6 +7328,7 @@
 				D8800CB01E2FF5B70035D2DB /* QuadKeyTests.swift */,
 				B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */,
 				830ECAD51FBDE77F0080B1EF /* ReadingListsTests.swift */,
+				FA71B2C400000002000000AA /* SavedArticlesFetcherTests.swift */,
 				B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */,
 				D8396D1A22CF7052005625D8 /* WMFArticleTests.swift */,
 				8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */,
@@ -9423,6 +9442,7 @@
 				D8EC64031D007B1F00C286EE /* WMFLinkParsingTests.m in Sources */,
 				B0E809131C0D19090065EBC0 /* WMFDateFormatterTests.m in Sources */,
 				83BBBE5623F56F9400AD0994 /* LocaleTests.swift in Sources */,
+				77C367D052E2441FA4BA9479 /* VisualEditorReturnJourneyTests.swift in Sources */,
 				B39427451E71F79700D3146D /* NSSetBlocksKitTest.m in Sources */,
 				B0E808B91C0D17160065EBC0 /* WMFHTTPHangingProtocol.m in Sources */,
 				BC52D0F71C207D3300F625A9 /* TWNStringsTests.m in Sources */,
@@ -9437,6 +9457,7 @@
 				D8396D1B22CF7052005625D8 /* WMFArticleTests.swift in Sources */,
 				B0E8090D1C0D18E70065EBC0 /* WMFImageURLParsingTests.m in Sources */,
 				67C6F77827E2E78800B9C864 /* NotificationsCenterCellViewModelThanksTests.swift in Sources */,
+				5246C841302BCB8D008DC290 /* WikidataFetcherTests.swift in Sources */,
 				AD82B5762FC0D83F00F310B2 /* ArticlePreviewingDelegateMock.swift in Sources */,
 				67E5A1E829E6ED3400BADF20 /* WMFTestConstants.m in Sources */,
 				A452F9F924081A5500D8ED09 /* MockCLHeading.swift in Sources */,
@@ -9447,6 +9468,7 @@
 				67C6F77A27E2E78800B9C864 /* NotificationsCenterCellViewModelEditRevertedTests.swift in Sources */,
 				B0E8086D1C0D15170065EBC0 /* WMFCodingStyle.m in Sources */,
 				830ECAD61FBDE77F0080B1EF /* ReadingListsTests.swift in Sources */,
+				FA71B2C400000001000000AA /* SavedArticlesFetcherTests.swift in Sources */,
 				67C6F74E27E2919B00B9C864 /* RemoteNotificationsModelController+TestExtensions.swift in Sources */,
 				D8800CB11E2FF5B70035D2DB /* QuadKeyTests.swift in Sources */,
 				8386BDE723857F87007EE89D /* URLParsingAndRoutingTests.swift in Sources */,
@@ -9650,6 +9672,7 @@
 				7A4B333C2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				D8CB32AD1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
 				00CB6898288B0CD3002EBB0A /* TalkPageHeaderView.swift in Sources */,
+				524A86D5301801AE006FA07A /* ChooseEditorSheetCoordinator.swift in Sources */,
 				67D468792FA94600006DD42F /* WMFAppViewController.swift in Sources */,
 				83E52BBF1F682E3E0045E776 /* LicenseView.swift in Sources */,
 				671AC2562226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift in Sources */,
@@ -9979,6 +10002,7 @@
 				83F1095F23D09F80003F3E9E /* ArticleViewController+Tooltips.swift in Sources */,
 				67FBE335297056EB00A2E4AD /* TalkPageArchivesFetcher.swift in Sources */,
 				675826782D68D10B002B0EE7 /* LinkCoordinator.swift in Sources */,
+				E319AC54A5FC45F79CBE9EEA /* VisualEditorReturnJourney.swift in Sources */,
 				D8E6FF6C24056AC300686272 /* ArticleViewController+ContextMenu.swift in Sources */,
 				7A2432BE1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				7A0DE50020CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
@@ -10561,6 +10585,7 @@
 				D8CE252E1E698E2400DAE2E0 /* WMFArticleRevisionFetcher.m in Sources */,
 				00E75B5F27EB874A00A45B78 /* NotificationsCenterDetailViewController.swift in Sources */,
 				675826792D68D10B002B0EE7 /* LinkCoordinator.swift in Sources */,
+				A4FC3D151A834C1599B44FEF /* VisualEditorReturnJourney.swift in Sources */,
 				D8CE252F1E698E2400DAE2E0 /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				83C0656C23D23220001821BC /* TableOfContentsItem.swift in Sources */,
 				D8CE25351E698E2400DAE2E0 /* WMFTwoFactorPasswordViewController.swift in Sources */,
@@ -10781,6 +10806,7 @@
 				B010E1A91E723E3600CFE1CD /* WMFAuthLinkLabel.swift in Sources */,
 				B01E3AFA21F986750015B715 /* PreviewWebViewContainer.swift in Sources */,
 				D8421B54203CC8420040F50B /* DatabasePopulationHostingController.swift in Sources */,
+				524A86D6301801AE006FA07A /* ChooseEditorSheetCoordinator.swift in Sources */,
 				83B024AB2C9C8E40006EAEFA /* UserPageCoordinator.swift in Sources */,
 				BAA0D91D1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */,
 				D8CE25C61E698E2400DAE2E0 /* WMFWelcomeAnalyticsViewController.swift in Sources */,
@@ -11109,6 +11135,7 @@
 				6798332B22C3F2950073CE6F /* UITextView+Extensions.swift in Sources */,
 				7A5A0545225FBE0500BBEAC1 /* InsertMediaSearchResultCollectionViewCell.swift in Sources */,
 				6758267A2D68D10B002B0EE7 /* LinkCoordinator.swift in Sources */,
+				CDC9E2BAE50D4C8880EEDEC3 /* VisualEditorReturnJourney.swift in Sources */,
 				D8EC3E1E1E9BDA35006712EB /* WMFChangePasswordViewController.swift in Sources */,
 				00E75B5E27EB874A00A45B78 /* NotificationsCenterDetailViewController.swift in Sources */,
 				83C0656D23D23220001821BC /* TableOfContentsItem.swift in Sources */,
@@ -11330,6 +11357,7 @@
 				BAA0D91E1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */,
 				B01E3AFB21F986750015B715 /* PreviewWebViewContainer.swift in Sources */,
 				83B024AA2C9C8E40006EAEFA /* UserPageCoordinator.swift in Sources */,
+				524A86D4301801AE006FA07A /* ChooseEditorSheetCoordinator.swift in Sources */,
 				D8421B55203CC8420040F50B /* DatabasePopulationHostingController.swift in Sources */,
 				B0CD9DE91F70997400051843 /* WMFWelcomeLanguagesAnimationView.swift in Sources */,
 				6780D76E2832908E00265F10 /* Notification+NotificationsCenter.swift in Sources */,
@@ -11955,7 +11983,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -11985,7 +12012,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -12011,7 +12038,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -12109,7 +12135,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -12143,7 +12168,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -12255,7 +12279,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -12290,7 +12313,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -12324,7 +12346,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -12357,7 +12378,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -12398,7 +12418,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -12425,7 +12444,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -13206,7 +13224,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				ENABLE_MODULE_VERIFIER = YES;
@@ -13245,7 +13262,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -13427,7 +13444,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -13460,7 +13476,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -13615,7 +13631,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -13638,7 +13653,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -13659,7 +13673,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -13681,7 +13694,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -13702,7 +13715,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -13723,7 +13735,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -13744,7 +13755,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -13837,7 +13847,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -13870,7 +13879,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -13902,7 +13910,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -13933,7 +13940,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -13973,7 +13979,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -14005,7 +14010,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -14160,7 +14164,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -14202,7 +14205,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -14242,7 +14244,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -14383,7 +14384,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -14422,7 +14422,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -14463,7 +14462,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -14760,7 +14758,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -14795,7 +14792,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -14828,7 +14824,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -14869,7 +14864,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -15008,7 +15002,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -15041,7 +15034,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -15072,7 +15064,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -15112,7 +15103,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -15395,7 +15385,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_TESTABILITY = YES;
@@ -15427,7 +15416,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -15466,7 +15454,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -15500,7 +15488,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -15534,7 +15521,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -15576,7 +15562,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_TESTABILITY = YES;
@@ -15607,7 +15592,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -15639,7 +15623,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -15678,7 +15661,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -15712,7 +15695,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -15746,7 +15728,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
@@ -15780,7 +15761,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = AKK7J2GV64;

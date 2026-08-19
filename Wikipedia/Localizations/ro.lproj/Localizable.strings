@@ -3,6 +3,7 @@
 // Author: ANDROBETA
 // Author: Alesaru
 // Author: Andreyyshore
+// Author: Chemballs
 // Author: Cleinman
 // Author: Dimitrie569
 // Author: Firilacroco
@@ -18,6 +19,7 @@
 // Author: Rapiteanu
 // Author: SZ475
 // Author: Strainu
+// Author: TiberiuFr25
 // Author: Valentin JJ.
 // Author: WebSourceContentRO
 
@@ -86,8 +88,19 @@
 "action-unsave" = "Nu salva";
 "action-unsaved-accessibility-notification" = "Articol nesalvat";
 "action-update" = "Actualizați";
+"activity-tab-customize-footer" = "Informațiile despre lectură se bazează pe limbile aplicației din setări, iar informațiile despre editare sunt limitate la limba principală a aplicației. Informațiile utilizează date locale, cu excepția editărilor, care sunt publice.";
+"activity-tab-customize-reading-insights" = "Informații despre lectură";
 "add-articles-to-reading-list" = "Adaugă {{PLURAL:$1|$1 articol|$1 articole}} la lista de citire";
 "announcements-dismiss" = "Respinge";
+"app-onboarding-data-privacy-policy-link" = "politica de confidențialitate";
+"app-onboarding-data-privacy-terms-link" = "termeni de utilizare";
+"app-onboarding-data-privacy-title" = "Date & Confidențialitate";
+"app-onboarding-feed-preference-in-the-news" = "De actualitate";
+"app-onboarding-feed-preference-personalized-option" = "Conținut personalizat";
+"app-onboarding-feed-preference-picture-of-the-day" = "Imaginea zilei";
+"app-onboarding-languages-title" = "Citește în peste 300 de limbi";
+"app-onboarding-page-indicator" = "Pagina $1 din $2";
+"app-onboarding-personalization-title" = "Urmează-ți curiozitatea";
 "app-store-keywords" = "Wikipedia, referință, wiki, enciclopedie, informații, cunoștințe, cercetare, informații, explorați, învățați";
 "app-store-release-notes" = "Complet personalizabile și cel mai ușor de citit Explorare flux. Localizare, îmbunătățiri ale performanței și remedieri ale erorilor.";
 "app-store-short-description" = "Descărcați aplicația Wikipedia pentru a explora locațiile din apropierea dvs., pentru a sincroniza articole pentru a citi offline și a personaliza experiența dvs. de citire.";
@@ -315,6 +328,7 @@
 "explore-feed-preferences-show-related-pages-title" = "Arată cardul Pentru că ai citit";
 "explore-feed-preferences-show-top-read-footer-text" = "Dezactivarea cardului Cele mai citite va opri cardul în toate limbile disponibile.";
 "explore-feed-preferences-show-top-read-title" = "Afișează cardul Cele mai citite";
+"explore-feed-preferences-suggested-edits-title" = "Arată cardul Modificări sugerate";
 "explore-feed-preferences-top-read-description" = "Cele mai citite articole zilnic";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Dezactivați fluxul Explorează";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Ascunderea tuturor cardurilor de fluxuri Explore va dezactiva fila Explore și o va înlocui cu o filă Setări";
@@ -396,6 +410,9 @@
 "history-title" = "Istoric";
 "home-button-explore-accessibility-label" = "Wikipedia, reveniți la Explore";
 "home-button-saved-accessibility-label" = "Wikipedia, reveniți la Salvat";
+"home-feed-interests-deselect-all" = "Deselectează tot";
+"home-feed-interests-header-title" = "Ce te interesează?";
+"home-feed-interests-search-placeholder" = "Caută un articol";
 "home-more-like-footer" = "Mai multe precum $1";
 "home-nearby-footer" = "Mai multe articole din aproMai multe locuri lângă locația dvs.pierea dumneavoastră";
 "home-nearby-location-footer" = "Mai multe locuri de lângă $1";
@@ -409,6 +426,8 @@
 "icon-shortcut-random-title" = "Articol aleatoriu";
 "icon-shortcut-search-title" = "Căutare în Wikipedia";
 "image-gallery-unknown-owner" = "Autor necunoscut.";
+"image-rec-onboarding-learn-more-button" = "Află mai multe despre modificările sugerate";
+"image-recommendations-email-first-line" = "Am întâmpinat o problemă cu funcția Modificări sugerate când adăugam o imagine:";
 "in-the-news-sub-title-from-language-wikipedia" = "De la $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "De la Wikipedia";
 "in-the-news-title" = "Știri";
@@ -712,8 +731,6 @@
 "reading-list-generic-error" = "A apărut o eroare neașteptată la actualizarea listelor de citire.";
 "reading-list-keep-button-title" = "Da, păstrează articolele pe dispozitiv";
 "reading-list-keep-subtitle" = "Există articole sincronizate cu contul dvs. Wikipedia. Ați dori să le păstrați pe acest dispozitiv după ce vă deconectați?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Dezactivarea sincronizării va elimina aceste articole din cont. Dacă le eliminați de pe dispozitiv, acestea nu vor putea fi recuperate activând din nou sincronizarea în viitor.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Nu, elimina articole din dispozitiv și din contul meu de Wikipedia";
 "reading-list-keep-title" = "Păstrați articolele salvate pe dispozitiv?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sortează articole";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Există o limită de 5000 de articole nesortate. Sortează articolele existente în liste pentru a continua sincronizarea articolelor nesortate.";
@@ -829,11 +846,6 @@
 "settings-search-open-app-on-search" = "Deschideți aplicația din fila Căutare";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permiteți Wikimedia să salveze articolele salvate și listele de citire la preferințele utilizatorului dvs. atunci când vă autentificați și sincronizați.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizați articolele și listele salvate";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Ștergerea articolelor salvate le va elimina din contul dvs. de utilizator dacă ați sincronizarea pornită, precum și de pe acest dispozitiv. Nu puteți anula această acțiune.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Ștergeți toate articolele salvate?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Șterge";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Ștergerea articolelor salvate le va elimina din contul dvs. de utilizator dacă aveți sincronizarea pornită, precum și de pe acest dispozitiv.\n\nȘtergerea articolelor salvate va elibera aproximativ $1 de spațiu.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Ștergeți articolele salvate";
 "settings-storage-and-syncing-full-sync" = "Listele dvs. de citire vor fi sincronizate în fundal";
 "settings-storage-and-syncing-server-sync-footer-text" = "Solicitați o actualizare la articolele dvs. sincronizate și listele de citire.";
 "settings-storage-and-syncing-server-sync-title" = "Actualizați listele de citire sincronizate";
@@ -855,6 +867,7 @@
 "share-social-mention-format" = "“$1” via Wikipedia: $2";
 "sort-by-recently-added-action" = "Adaugat recent";
 "sort-by-title-action" = "Titlu";
+"suggested-edits-title" = "Modificări sugerate";
 "table-of-contents-button-label" = "Cuprins";
 "table-of-contents-close-accessibility-hint" = "Închide";
 "table-of-contents-close-accessibility-label" = "Închide cuprinsul";
@@ -981,3 +994,5 @@
 "wikitext-upload-save-anonymously-warning" = "Modificările vor fi atribuite adresei IP a dispozitivului dumneavoastră. Dacă recurgeți la $1 veți beneficia de mai multă confidențialitate.";
 "wikitext-upload-save-terms-name" = "Termeni de utilizare";
 "year-in-review-donate-now" = "Donați acum";
+"year-in-review-feature-explore-body-personalized-updated" = "Vezi informații despre articolele pe care le citești în aplicația Wikipedia și despre modificările pe care le-ai făcut în 2024. Istoricul lecturii tale rămâne protejat. Informațiile despre lectură sunt calculate folosind date stocate local pe dispozitiv.";
+"year-in-review-feature-explore-footer-v3" = "Istoricul lecturii tale rămâne protejat. Informațiile despre lectură sunt calculate folosind datele stocate local pe dispozitivul tău.";

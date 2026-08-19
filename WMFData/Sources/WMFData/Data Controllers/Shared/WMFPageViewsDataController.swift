@@ -108,13 +108,95 @@ public final class WMFLegacyPageView: Codable, @unchecked Sendable {
 
 public final class WMFPageViewsDataController: @unchecked Sendable {
 
-    private let coreDataStore: WMFCoreDataStore
+    /// Ceiling used by `clampInflatedPageViewSecondsIfNeeded()` when cleaning up values written by the pre July 2026 measurement bug. It applies to that one time cleanup only — live measurement is deliberately unbounded, so a genuinely long read is recorded in full.
+    public static let inflatedPageViewSecondsCeiling: TimeInterval = 60 * 60
 
-    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore) throws {
+    /// After this date the cleanup never runs, whatever the user defaults flag says.
+    ///
+    /// The flag alone bounds the cleanup to once per install, but not to the release window. Without a date bound, a device that first runs this build long after release — a fresh install, or a launch where Core Data was not ready the first few times — could apply the ceiling to reading time that the fixed code recorded correctly, and trim a genuine long read.
+    ///
+    /// Set shortly after the expected release so real upgrades are covered.
+    public static let inflatedPageViewSecondsCleanupCutoff: Date = {
+        var components = DateComponents()
+        components.year = 2026
+        components.month = 8
+        components.day = 31
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0) ?? .current
+
+        // 2026-08-31T00:00:00Z
+        return calendar.date(from: components) ?? Date(timeIntervalSince1970: 1_788_134_400)
+    }()
+
+    private let coreDataStore: WMFCoreDataStore
+    private let userDefaultsStore: WMFKeyValueStore?
+
+    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore) throws {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
         self.coreDataStore = coreDataStore
+        self.userDefaultsStore = userDefaultsStore
+    }
+
+    /// Whether the one time clamp of inflated `numberOfSeconds` values has already run.
+    public func didClampInflatedPageViewSeconds() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.didClampInflatedPageViewSeconds.rawValue)) ?? false
+    }
+
+    /// Caps any stored `numberOfSeconds` above `inflatedPageViewSecondsCeiling`, once per install.
+    ///
+    /// Before July 2026, every live `ArticleViewController` — not just the on-screen one — resumed its reading timer whenever the app became active, so page views accumulated the full length of each foreground session once per article held in memory. The reading time that behavior wrote is already on device, and no amount of correct measurement going forward removes it: `fetchPageViewMinutes` keeps summing those rows until they age out of the one year retention window (and Year in Review sums a whole year of them at once).
+    ///
+    /// Clamping rather than zeroing keeps plausible history intact and only rewrites the extremes.
+    ///
+    /// Note this ceiling is lower than what live measurement now permits, which is unbounded. That is a deliberate asymmetry: every row this runs against was written by the buggy code, so the cost of trimming a genuine long read among them is a one time loss on data we already know is contaminated, while the benefit is that no user opens the app to an implausible total.
+    ///
+    /// Known limitation: inflation spread thinly across many page views stays below the ceiling and survives. This reduces the extremes, it does not reconstruct the true totals — that is not recoverable, because the database records no per-interval detail.
+    ///
+    /// Bounded twice: to once per install by the user defaults flag, and to before `inflatedPageViewSecondsCleanupCutoff` by date. The date bound matters because the ceiling is only safe to apply to rows the buggy code wrote — see that property.
+    ///
+    /// Throws without setting the flag if the update fails, so a later launch retries.
+    /// - Parameter now: The current date. Injected by tests only.
+    /// - Returns: The number of page views that were clamped.
+    @discardableResult
+    public func clampInflatedPageViewSecondsIfNeeded(now: Date = Date()) async throws -> Int {
+
+        // Checked before the flag: this needs no store read, and after the cutoff the answer never changes.
+        guard now < Self.inflatedPageViewSecondsCleanupCutoff else {
+            return 0
+        }
+
+        guard !didClampInflatedPageViewSeconds() else {
+            return 0
+        }
+
+        let ceiling = Int64(Self.inflatedPageViewSecondsCeiling)
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        let viewContext = try coreDataStore.viewContext
+
+        let clampedCount: Int = try await backgroundContext.perform {
+            let request = NSBatchUpdateRequest(entityName: "CDPageView")
+            request.predicate = NSPredicate(format: "numberOfSeconds > %lld", ceiling)
+            request.propertiesToUpdate = ["numberOfSeconds": ceiling]
+            request.resultType = .updatedObjectIDsResultType
+
+            guard let result = try backgroundContext.execute(request) as? NSBatchUpdateResult,
+                  let objectIDs = result.result as? [NSManagedObjectID] else {
+                return 0
+            }
+
+            // A batch update writes straight to the store, so contexts holding these objects need to be told.
+            if !objectIDs.isEmpty {
+                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: [NSUpdatedObjectsKey: objectIDs], into: [viewContext, backgroundContext])
+            }
+
+            return objectIDs.count
+        }
+
+        try userDefaultsStore?.save(key: WMFUserDefaultsKey.didClampInflatedPageViewSeconds.rawValue, value: true)
+
+        return clampedCount
     }
 
     public func addPageView(title: String, namespaceID: Int16, project: WMFProject, previousPageViewObjectID: NSManagedObjectID?, timestamp: Date? = nil) async throws -> NSManagedObjectID? {
@@ -178,13 +260,21 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
 
         let categoriesDataController = try WMFCategoriesDataController(coreDataStore: self.coreDataStore)
         try await categoriesDataController.deleteEmptyCategories()
+
+        let topicsDataController = try WMFPageTopicsDataController(coreDataStore: self.coreDataStore)
+        try await topicsDataController.deleteTopics(title: title, namespaceID: namespaceID, project: project)
     }
 
-    public func deleteAllPageViewsAndCategories() async throws {
+    public func deleteAllPageViewsCategoriesAndTopics() async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
         backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
 
         try await backgroundContext.perform {
+            let topicFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageTopic")
+            let batchTopicDeleteRequest = NSBatchDeleteRequest(fetchRequest: topicFetchRequest)
+            batchTopicDeleteRequest.resultType = .resultTypeObjectIDs
+            _ = try backgroundContext.execute(batchTopicDeleteRequest) as? NSBatchDeleteResult
+
             let categoryFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDCategory")
             let batchCategoryDeleteRequest = NSBatchDeleteRequest(fetchRequest: categoryFetchRequest)
             batchCategoryDeleteRequest.resultType = .resultTypeObjectIDs
@@ -373,13 +463,16 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         return results
     }
 
-    public func fetchRecentlyReadPages(project: WMFProject, minimumSeconds: Int = 60, withinDays: Int = 30) async throws -> [WMFPage] {
+    public func fetchRecentlyReadPages(project: WMFProject, minimumSeconds: Int = 60, withinDays: Int = 30, mainNamespaceOnly: Bool = false) async throws -> [WMFPage] {
         let backgroundContext = try coreDataStore.newBackgroundContext
         let startDate = Calendar.current.date(byAdding: .day, value: -withinDays, to: Date()) ?? Date()
 
         return try await backgroundContext.perform {
+            let predicateFormat = mainNamespaceOnly
+                ? "timestamp >= %@ && numberOfSeconds >= %d && page.projectID == %@ && page.namespaceID == 0"
+                : "timestamp >= %@ && numberOfSeconds >= %d && page.projectID == %@"
             let predicate = NSPredicate(
-                format: "timestamp >= %@ && numberOfSeconds >= %d && page.projectID == %@",
+                format: predicateFormat,
                 startDate as CVarArg, minimumSeconds, project.id
             )
             let sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]

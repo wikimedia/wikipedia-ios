@@ -730,8 +730,6 @@
 "reading-list-generic-error" = "Óvænt villa kom upp við að uppfæra leslistana þína.";
 "reading-list-keep-button-title" = "Já, halda greinum á tæki";
 "reading-list-keep-subtitle" = "Það eru greinar sem samstilltar hafa verið við Wikipedia-aðganginn þinn. Myndirðu vilja halda þeim á þessu tæki eftir að þú skráir þig út?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Að slökkva á samstillingu mun fjarlægja þessar greinar af notandaaðgangnum þínum. Ef þú fjarlægir þær af tækinu þínu, verður ekki hægt að endurheimta þær síðar með því að virkja aftur samstillingu.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Nei, eyða greinum af tæki og af Wikipedia-aðgangnum mínum";
 "reading-list-keep-title" = "Halda vistuðum greinum á tæki?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Raða greinum";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Það eru takmörk upp á 5000 óraðaðar greinar. Raðaðu greinunum sem þú ert með í lista til að geta haldið áfram samstillingu óraðaðra greina.";
@@ -847,11 +845,6 @@
 "settings-search-open-app-on-search" = "Opna forritið á leitarflipa";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Leyfa Wikimedia að vista vistaðar greinar og leslista í notandaaðganginn þinn þegar þú skráir þig inn og samstillir.";
 "settings-storage-and-syncing-enable-sync-title" = "Samstilla vistaðar greinar og lista";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Hreinsun vistaðra greina mun fjarlægja þær af notandaaðgangnum þínum ef þú ert einnig með samstillingu virka af þessu tæki. Þú getur ekki afturkallað þessa aðgerð.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Hreinsa allar vistaðar greinar?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Hreinsa";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Hreinsun vistaðra greina mun fjarlægja þær af notandaaðgangnum þínum ef þú ert einnig með samstillingu virka af þessu tæki. Hreinsun vistaðra greina mun losa um það bil $1 af plássi.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Hreinsa vistaðar greinar";
 "settings-storage-and-syncing-full-sync" = "Leslistarnir verða samstilltir í bakgrunnsferli";
 "settings-storage-and-syncing-server-sync-footer-text" = "Biðja um uppfærslu á samstilltum greinum og leslistum.";
 "settings-storage-and-syncing-server-sync-title" = "Uppfæra samstillta leslista";

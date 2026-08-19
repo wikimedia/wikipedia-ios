@@ -231,8 +231,6 @@
 "close-tab-confirmation" = "Salvatahgo välilehti?";
 "close-tabs" = "Salbua välilehtet";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:|$1 välilehti|$1 välilehtie}} salvattu.";
-"collect-prize-headline" = "Nenänsydimine menöy sinule! 🛍️";
-"collect-prize-subtitle" = "Pruaznuiče tevon läbipiäzemisty 15%%:n alenduksel Wikipedii-laukas.";
 "collect-prize-title" = "Ota vastah omassas palkindo!";
 "compass-direction" = "č. $1";
 "confirm-donation-history-deletion-subtitle" = "Tämä koskehes vaiku täl laittehel luajittuloi lahjoituksii.";

@@ -58,5 +58,8 @@ public enum WMFColor {
     public static let matchReplacedBackground = UIColor(0xD0E4fC)
     
     public static let successGreen = UIColor(0x14866D)
-
+    
+    public static let purple800 = UIColor(0x534FA3)
+    public static let pink800 = UIColor(0x82456A)
+    public static let orange800 = UIColor(0x8E4424)
 }

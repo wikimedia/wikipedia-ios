@@ -36,10 +36,34 @@ public final class WMFPageInterestDataController: @unchecked Sendable {
         }
     }
 
+    public func fetchAllPageInterests() async throws -> [WMFPageInterest] {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform { [weak self] () -> [WMFPageInterest] in
+            guard let self else { return [] }
+            let sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+            let interests = try self.coreDataStore.fetch(
+                entityType: CDPageInterest.self,
+                predicate: nil,
+                fetchLimit: nil,
+                sortDescriptors: sortDescriptors,
+                in: backgroundContext
+            ) ?? []
+
+            return interests.compactMap { interest in
+                guard let page = interest.page,
+                      let title = page.title,
+                      let projectID = page.projectID,
+                      let timestamp = interest.timestamp else { return nil }
+                return WMFPageInterest(title: title, timestamp: timestamp, project: WMFProject(id: projectID))
+            }
+        }
+    }
+
     public func addPageInterest(title: String, project: WMFProject) async throws {
         let coreDataTitle = title.normalizedForCoreData
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
 
         try await backgroundContext.perform { [weak self] in
             guard let self else { return }
@@ -72,7 +96,7 @@ public final class WMFPageInterestDataController: @unchecked Sendable {
     public func removePageInterest(title: String, project: WMFProject) async throws {
         let coreDataTitle = title.normalizedForCoreData
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
 
         try await backgroundContext.perform { [weak self] in
             guard let self else { return }
