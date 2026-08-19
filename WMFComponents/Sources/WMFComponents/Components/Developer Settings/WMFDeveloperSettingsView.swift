@@ -35,6 +35,14 @@ struct WMFDeveloperSettingsView: View {
                 }
             }
 
+            Section {
+                Toggle("Force Fundraising Campaign Banner", isOn: $viewModel.forceFundraisingCampaignBanner)
+            } header: {
+                Text("Fundraising")
+            } footer: {
+                Text("Force ignores country and language settings. Only works if there is an active campaign.")
+            }
+
             ForEach(viewModel.formViewModel.sections) { section in
                 if let selectSection = section as? WMFFormSectionSelectViewModel {
                     WMFFormSectionSelectView(viewModel: selectSection)
