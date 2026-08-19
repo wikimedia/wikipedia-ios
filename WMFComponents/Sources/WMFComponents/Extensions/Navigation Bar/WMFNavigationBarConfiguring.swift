@@ -353,13 +353,20 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         let paletteColors: [UIColor]
         
         if needsBadge {
-            paletteColors = [theme.destructive, theme.text]
+            paletteColors = [theme.destructive, badgedProfileGlyphColor(theme: theme)]
         } else {
             paletteColors = [theme.text]
         }
         
         let symbol = WMFSFSymbolIcon.for(symbol: needsBadge ? .personCropCircleBadge : .personCropCircle, paletteColors: paletteColors)
         return symbol
+    }
+
+    private func badgedProfileGlyphColor(theme: WMFTheme) -> UIColor {
+        if #available(iOS 26.0, *) {
+            return UIColor.label
+        }
+        return theme.text
     }
 
     func profileButtonAccessibilityStrings(config: WMFNavigationBarProfileButtonConfig) -> String {
