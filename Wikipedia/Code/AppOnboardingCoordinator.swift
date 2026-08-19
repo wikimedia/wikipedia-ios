@@ -3,6 +3,7 @@ import WMF
 import WMFComponents
 import WMFData
 import WMFNativeLocalizations
+import WMFTestKitchen
 
 /// Presents the app-launch onboarding flow and handles its app-side navigation
 /// (web views, the preferred languages editor) and completion.
@@ -17,6 +18,8 @@ final class AppOnboardingCoordinator: NSObject {
 
     private var viewModel: WMFAppOnboardingViewModel?
     private(set) var hostingController: WMFAppOnboardingHostingController?
+    
+    private var homeFeedInstrument: InstrumentImpl?
 
     init(presentingViewController: UIViewController, dataStore: MWKDataStore, theme: Theme, willDismiss: @escaping () -> Void, completion: @escaping () -> Void) {
         self.presentingViewController = presentingViewController
@@ -36,9 +39,22 @@ final class AppOnboardingCoordinator: NSObject {
         Task {
             try? await WMFHomeDataController.shared.fetchCommunity(project: project)
         }
-        let interestsViewModel = WMFHomeFeedInterestsSettingsViewModel(project: project, searchLanguages: preferredWMFLanguages())
-        let feedPreferenceViewModel = WMFAppOnboardingFeedPreferenceViewModel(project: project)
 
+        let interestsViewModel = WMFHomeFeedInterestsSettingsViewModel(
+            project: project,
+            searchLanguages: preferredWMFLanguages(),
+            logDidTapTopic: { [weak self] in
+                self?.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "topic_select")
+            },
+            logDidTapArticle: { [weak self] in
+                self?.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "article_select")
+            },
+            logDidTapDeselectAll: { [weak self] in
+                self?.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "deselect_all")
+            }
+        )
+        let feedPreferenceViewModel = WMFAppOnboardingFeedPreferenceViewModel(project: project)
+        
         let viewModel = WMFAppOnboardingViewModel(
             languages: preferredLanguageItems(),
             interestsViewModel: interestsViewModel,
@@ -57,6 +73,57 @@ final class AppOnboardingCoordinator: NSObject {
             },
             onCompletion: { [weak self] in
                 self?.finish()
+            },
+            logImpression: { [weak self] step in
+                
+                guard let self else { return }
+                switch step {
+                case .personalizationIntro:
+                    self.homeFeedInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed")
+                    self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_entry")
+                case .interests:
+                    self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_customize")
+                case .feedPreference, .loading:
+                    //todo
+                    break
+                case .intro, .languages, .dataPrivacy:
+                    //todo
+                    break
+                }
+            },
+            logSkip: { [weak self] step in
+                
+                guard let self else { return }
+                switch step {
+                case .personalizationIntro:
+                    self.homeFeedInstrument?.startFunnel(name: "feed_customize").submitInteraction(action: "click", actionSource: "feed_entry", elementId: "skip_button")
+                case .interests:
+                    self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "skip_button")
+                case .feedPreference, .loading:
+                    //todo
+                    break
+                case .intro, .languages, .dataPrivacy:
+                    //todo
+                    break
+                }
+                
+                
+            },
+            logNext: { [weak self] step in
+                
+                guard let self else { return }
+                switch step {
+                case .personalizationIntro:
+                    self.homeFeedInstrument?.startFunnel(name: "feed_customize").submitInteraction(action: "click", actionSource: "feed_entry", elementId: "next_button")
+                case .interests:
+                    self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "next_button")
+                case .feedPreference, .loading:
+                    //todo
+                    break
+                case .intro, .languages, .dataPrivacy:
+                    //todo
+                    break
+                }
             }
         )
         self.viewModel = viewModel
@@ -69,7 +136,7 @@ final class AppOnboardingCoordinator: NSObject {
     }
 
 
-    func startCondensed() {
+    func startCondensed(instrument: InstrumentImpl) {
         let language = preferredWMFLanguages().first ?? WMFDataEnvironment.current.primaryAppLanguage ?? WMFLanguage(languageCode: "en", languageVariantCode: nil)
         let project = WMFProject.wikipedia(language)
 
@@ -77,7 +144,19 @@ final class AppOnboardingCoordinator: NSObject {
             try? await WMFHomeDataController.shared.fetchCommunity(project: project)
         }
 
-        let interestsViewModel = WMFHomeFeedInterestsSettingsViewModel(project: project, searchLanguages: preferredWMFLanguages())
+        let interestsViewModel = WMFHomeFeedInterestsSettingsViewModel(
+            project: project,
+            searchLanguages: preferredWMFLanguages(),
+            logDidTapTopic: {
+                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "topic_select")
+            },
+            logDidTapArticle: {
+                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "article_select")
+            },
+            logDidTapDeselectAll: {
+                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "deselect_all")
+            }
+        )
         let feedPreferenceViewModel = WMFAppOnboardingFeedPreferenceViewModel(project: project)
 
         let viewModel = WMFAppOnboardingViewModel(
@@ -98,6 +177,46 @@ final class AppOnboardingCoordinator: NSObject {
             },
             onCompletion: { [weak self] in
                 self?.finish()
+            },
+            logImpression: { step in
+                switch step {
+                case .personalizationIntro:
+                    assertionFailure("Condensed flow should not see personalization intro.")
+                case .interests:
+                    instrument.submitInteraction(action: "impression", actionSource: "feed_customize")
+                case .feedPreference, .loading:
+                    //todo
+                    break
+                case .intro, .languages, .dataPrivacy:
+                    assertionFailure("Condensed flow should not see intro, languages, or data privacy.")
+                }
+            },
+            logSkip: { step in
+                switch step {
+                case .personalizationIntro:
+                    assertionFailure("Condensed flow should not see personalization intro.")
+                case .interests:
+                    instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "skip_button")
+                case .feedPreference, .loading:
+                    //todo
+                    break
+                case .intro, .languages, .dataPrivacy:
+                    assertionFailure("Condensed flow should not see intro, languages, or data privacy.")
+                }
+            },
+            logNext: { step in
+                
+                 switch step {
+                 case .personalizationIntro:
+                     assertionFailure("Condensed flow should not see personalization intro.")
+                 case .interests:
+                     instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "next_button")
+                 case .feedPreference, .loading:
+                     //todo
+                     break
+                 case .intro, .languages, .dataPrivacy:
+                     assertionFailure("Condensed flow should not see intro, languages, or data privacy.")
+                 }
             }
         )
 

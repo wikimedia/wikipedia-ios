@@ -238,7 +238,9 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     /// from the button on the empty feed.
     private func presentInterestsSettings() {
         guard let navigationController else { return }
-        let coordinator = HomeFeedSettingsCoordinator(navigationController: navigationController, theme: theme, initialView: .interests, presentation: .modal)
+        let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").startFunnel(name: "feed_customize")
+        instrument.submitInteraction(action: "click", actionSource: "feed_empty", elementId: "customize_feed")
+        let coordinator = HomeFeedSettingsCoordinator(navigationController: navigationController, theme: theme, initialView: .interests(instrument), presentation: .modal)
         homeFeedSettingsCoordinator = coordinator
         coordinator.start()
     }

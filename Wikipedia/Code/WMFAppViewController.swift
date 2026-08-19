@@ -1195,7 +1195,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         oneTimeOnboardingViewController = onboardingVC
 
         DispatchQueue.main.async {
-            self.present(onboardingVC, animated: true)
+            self.present(onboardingVC, animated: true) {
+                TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "impression", actionSource: "feed_announce")
+            }
         }
     }
 
@@ -2346,6 +2348,10 @@ extension WMFAppViewController {
 extension WMFAppViewController: WMFOnboardingViewDelegate {
 
     func onboardingViewDidClickPrimaryButton() {
+        
+        let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").startFunnel(name: "feed_customize")
+        instrument.submitInteraction(action: "click", actionSource: "feed_announce", elementId: "customize_feed")
+        
         oneTimeOnboardingViewController?.dismiss(animated: true) { [weak self] in
             guard let self else { return }
             self.oneTimeOnboardingViewController = nil
@@ -2364,11 +2370,13 @@ extension WMFAppViewController: WMFOnboardingViewDelegate {
                 }
             )
             self.appOnboardingCoordinator = coordinator
-            coordinator.startCondensed()
+            coordinator.startCondensed(instrument: instrument)
         }
     }
 
     func onboardingViewDidClickSecondaryButton() {
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "feed_announce", elementId: "accept_default")
+        
         WMFHomeDataController.shared.setSeeFirstContent(.community)
         if let homeViewModel = homeCoordinator?.homeViewController?.viewModel {
             homeViewModel.selectedTab = .community
