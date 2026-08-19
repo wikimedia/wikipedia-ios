@@ -132,6 +132,13 @@ import WMFData
             .store(in: &subscribers)
     }
 
+    public func clearFundraisingCampaignPersistence() {
+        WMFDeveloperSettingsDataController.shared.clearFundraisingCampaignPersistence()
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Fundraising state cleared. The campaign banner can show again.")))
+        }
+    }
+
     public func clearGamesPersistence() {
         Task {
             try? await WMFDeveloperSettingsDataController.shared.clearGamesPersistence()

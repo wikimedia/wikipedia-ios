@@ -158,6 +158,14 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         gamesDataController.resetAnnouncementSeen()
     }
 
+    /// Resets everything that can suppress the fundraising campaign banner: the "maybe later" /
+    /// permanently hidden prompt state and the local donation history (which hides the banner
+    /// for 250 days after a donation).
+    public func clearFundraisingCampaignPersistence() {
+        WMFFundraisingCampaignDataController.shared.clearPromptState()
+        WMFDonateDataController.shared.deleteLocalDonationHistory()
+    }
+
     public var enableVisualEditingJourney: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue, value: newValue) }
