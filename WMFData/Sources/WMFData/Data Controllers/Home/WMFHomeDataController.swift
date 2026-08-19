@@ -352,7 +352,8 @@ import Foundation
                 group.addTask {
                     let related = try await self.relatedPagesDataController.fetchRelatedPages(title: interest.title, project: project)
                     let candidates = self.candidatesPreferringNotExcluded(related, excluding: excluded)
-                    let mapped = candidates.prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
+                    let slotted = await self.assignCardSlots(Array(candidates.prefix(8)))
+                    let mapped = slotted.map { WMFForYouArticle(title: $0.title, project: project) }
                     return WMFForYouInterestPageRelatedArticles(pageInterest: WMFForYouArticle(title: interest.title, project: project), articles: mapped)
                 }
             }
@@ -418,7 +419,8 @@ import Foundation
         guard let recentlyRead = pages.randomElement() else { return nil }
         let related = try await relatedPagesDataController.fetchRelatedPages(title: recentlyRead.title, project: project)
         let candidates = candidatesPreferringNotExcluded(related, excluding: excluded)
-        let mapped = candidates.prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
+        let slotted = assignCardSlots(Array(candidates.prefix(8)))
+        let mapped = slotted.map { WMFForYouArticle(title: $0.title, project: project) }
         return WMFForYouBecauseYouReadArticles(
             recentlyRead: WMFForYouArticle(title: recentlyRead.title, project: project),
             articles: mapped
