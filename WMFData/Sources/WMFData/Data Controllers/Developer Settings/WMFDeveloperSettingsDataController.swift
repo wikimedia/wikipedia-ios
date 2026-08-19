@@ -113,6 +113,14 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue, value: newValue) }
     }
 
+    /// Debugging convenience: when true, the fundraising campaign banner ignores country,
+    /// date window, prompt state (maybe later / hidden), opt-out, and donation history gates,
+    /// so it presents on every article view as long as any campaign config exists remotely.
+    public var forceFundraisingCampaignBanner: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceFundraisingCampaignBanner.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceFundraisingCampaignBanner.rawValue, value: newValue) }
+    }
+
     public var forceHCaptchaChallenge: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue, value: newValue) }

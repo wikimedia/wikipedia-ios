@@ -17,6 +17,7 @@ extension ArticleViewController {
         }
 
         let fundraisingDataController = WMFFundraisingCampaignDataController.shared
+        let isForcingBannerForDevelopment = WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner
 
         Task {
             let isOptedIn = await fundraisingDataController.isOptedIn(project: wmfProject)
@@ -33,13 +34,7 @@ extension ArticleViewController {
                 }
             }
 
-            guard isOptedIn else {
-                willDisplayCampaignModal = false
-                onNothingShown?()
-                return
-            }
-
-            guard !userDonatedWithinLast250Days() else {
+            guard (isOptedIn && !userDonatedWithinLast250Days()) || isForcingBannerForDevelopment else {
                 willDisplayCampaignModal = false
                 onNothingShown?()
                 return
