@@ -166,6 +166,7 @@ private struct WMFAppOnboardingPreviewCardView: View {
                 WMFHtmlText(html: viewModel.title, styles: semiboldHeadlineStyle)
                     .foregroundStyle(Color(uiColor: theme.text))
                     .lineLimit(2)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 if let description = viewModel.description {
                     Text(description)
                         .font(Font(WMFFont.for(.callout, sized: dynamicTypeSize)))
