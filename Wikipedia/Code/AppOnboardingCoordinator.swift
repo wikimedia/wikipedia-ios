@@ -20,6 +20,7 @@ final class AppOnboardingCoordinator: NSObject {
     private(set) var hostingController: WMFAppOnboardingHostingController?
     
     private var homeFeedInstrument: InstrumentImpl?
+    private var onboardingInstrument: InstrumentImpl?
 
     init(presentingViewController: UIViewController, dataStore: MWKDataStore, theme: Theme, willDismiss: @escaping () -> Void, completion: @escaping () -> Void) {
         self.presentingViewController = presentingViewController
@@ -75,12 +76,15 @@ final class AppOnboardingCoordinator: NSObject {
                 self?.presentWebView(urlString: CommonStrings.aboutWikipediaURLString)
             },
             didTapPrivacyPolicy: { [weak self] in
+                self?.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_privacy", elementId: "privacy_policy")
                 self?.presentWebView(urlString: CommonStrings.privacyPolicyURLString)
             },
             didTapTermsOfUse: { [weak self] in
+                self?.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_privacy", elementId: "terms_of_use")
                 self?.presentWebView(urlString: CommonStrings.termsOfUseURLString)
             },
             didTapAddLanguages: { [weak self] in
+                self?.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_language", elementId: "add_language_button")
                 self?.presentPreferredLanguages()
             },
             onCompletion: { [weak self] in
@@ -100,10 +104,13 @@ final class AppOnboardingCoordinator: NSObject {
                     break
                 case .loading:
                     self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_loading")
-                    break
-                case .intro, .languages, .dataPrivacy:
-                    //todo
-                    break
+                case .intro:
+                    self.onboardingInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-onboarding")
+                    self.onboardingInstrument?.submitInteraction(action: "impression", actionSource: "onboarding_welcome")
+                case .dataPrivacy:
+                    self.onboardingInstrument?.submitInteraction(action: "impression", actionSource: "onboarding_privacy")
+                case .languages:
+                    self.onboardingInstrument?.submitInteraction(action: "impression", actionSource: "onboarding_language")
                 }
             },
             logSkip: { [weak self] step in
@@ -118,11 +125,13 @@ final class AppOnboardingCoordinator: NSObject {
                     let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
                     self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "skip_button")
                 case .loading:
-                    //todo
-                    break
-                case .intro, .languages, .dataPrivacy:
-                    //todo
-                    break
+                    assertionFailure("Loading view does not have a skip button")
+                case .intro:
+                    assertionFailure("Intro view does not have a skip button")
+                case .dataPrivacy:
+                    assertionFailure("Data privacy view does not have a skip button")
+                case .languages:
+                    assertionFailure("Languages view does not have a skip button")
                 }
                 
                 
@@ -139,11 +148,14 @@ final class AppOnboardingCoordinator: NSObject {
                     let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
                     self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "next_button")
                 case .loading:
-                    //todo
-                    break
-                case .intro, .languages, .dataPrivacy:
-                    //todo
-                    break
+                    assertionFailure("Loading view does not have a skip button")
+                case .intro:
+                    self.onboardingInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-onboarding")
+                    self.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_welcome", elementId: "next_button")
+                case .dataPrivacy:
+                    self.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_privacy", elementId: "next_button")
+                case .languages:
+                    self.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_language", elementId: "next_button")
                 }
             }
         )
@@ -196,17 +208,17 @@ final class AppOnboardingCoordinator: NSObject {
             languages: preferredLanguageItems(),
             interestsViewModel: interestsViewModel,
             feedPreferenceViewModel: feedPreferenceViewModel,
-            didTapLearnMoreAboutWikipedia: { [weak self] in
-                self?.presentWebView(urlString: CommonStrings.aboutWikipediaURLString)
+            didTapLearnMoreAboutWikipedia: {
+                assertionFailure("Condensed flow should not see intro vuew (where this link is available).")
             },
-            didTapPrivacyPolicy: { [weak self] in
-                self?.presentWebView(urlString: CommonStrings.privacyPolicyURLString)
+            didTapPrivacyPolicy: {
+                assertionFailure("Condensed flow should not see privacy view (where this link is available).")
             },
-            didTapTermsOfUse: { [weak self] in
-                self?.presentWebView(urlString: CommonStrings.termsOfUseURLString)
+            didTapTermsOfUse: {
+                assertionFailure("Condensed flow should not see privacy view (where this link is available).")
             },
-            didTapAddLanguages: { [weak self] in
-                self?.presentPreferredLanguages()
+            didTapAddLanguages: {
+                assertionFailure("Condensed flow should not see languages view (where this link is available).")
             },
             onCompletion: { [weak self] in
                 self?.finish()
@@ -237,8 +249,7 @@ final class AppOnboardingCoordinator: NSObject {
                     let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
                     instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "skip_button")
                 case .loading:
-                    //todo
-                    break
+                    assertionFailure("Loading view does not have a skip button")
                 case .intro, .languages, .dataPrivacy:
                     assertionFailure("Condensed flow should not see intro, languages, or data privacy.")
                 }
@@ -254,8 +265,7 @@ final class AppOnboardingCoordinator: NSObject {
                      let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
                      instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "next_button")
                  case .loading:
-                     //todo
-                     break
+                     assertionFailure("Loading view does not have a next button")
                  case .intro, .languages, .dataPrivacy:
                      assertionFailure("Condensed flow should not see intro, languages, or data privacy.")
                  }
