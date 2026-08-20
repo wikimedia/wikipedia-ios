@@ -53,6 +53,12 @@ import WMFData
         }
     }
 
+    @Published public var enableDonationReminder: Bool = WMFDeveloperSettingsDataController.shared.enableDonationReminder {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.enableDonationReminder = enableDonationReminder
+        }
+    }
+
 
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
