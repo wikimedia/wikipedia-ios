@@ -163,7 +163,7 @@ private struct WMFAppOnboardingPreviewCardView: View {
                 if viewModel.uiImage == nil, let pill = viewModel.topicPill {
                     topicPillView(pill)
                 }
-                WMFHtmlText(html: viewModel.title, styles: semiboldHeadlineStyle)
+                WMFHtmlText(html: viewModel.displayTitle, styles: semiboldHeadlineStyle)
                     .foregroundStyle(Color(uiColor: theme.text))
                     .lineLimit(2)
                     .frame(maxWidth: .infinity, alignment: .leading)
