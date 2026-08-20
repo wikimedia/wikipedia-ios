@@ -7,6 +7,7 @@
 // Author: Arifin.wijaya
 // Author: ArlandGa
 // Author: BaconSenpai
+// Author: Bayahiu
 // Author: Beeyan
 // Author: Bennylin
 // Author: Bramadiarya
@@ -1215,8 +1216,8 @@
 "year-in-review-base-reading-title-updated" = "Wikipedia tersedia dalam lebih dari {{PLURAL:$1|$1 bahasa}}";
 "year-in-review-button-title" = "Tinjauan Tahunan";
 "year-in-review-contributor-slide-title" = "Ikon aplikasi baru tersedia untuk layar beranda Anda";
-"year-in-review-donate" = "Menyumbang";
-"year-in-review-donate-now" = "Menyumbang sekarang";
+"year-in-review-donate" = "Sumbangi";
+"year-in-review-donate-now" = "Sumbangi sekarang";
 "year-in-review-feature-announcement-title-personalized" = "Jelajahi Tinjauan Tahunan Wikipedia Anda";
 "year-in-review-highlights-edit-frequency" = "Seberapa sering Wikipedia disunting";
 "year-in-review-highlights-english-articles" = "Artikel yang paling dibaca di Wikipedia bahasa Inggris";

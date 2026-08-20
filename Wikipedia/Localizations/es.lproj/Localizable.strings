@@ -163,7 +163,11 @@
 "activity-tab-customize-time-spent-reading" = "Tiempo dedicado a la lectura";
 "activity-tab-customize-timeline-of-behavior" = "Cronología del comportamiento";
 "activity-tab-email-fifth-line" = "[Capturas de pantallas o Enlaces]";
+"activity-tab-email-first-line" = "Hubo un problema con la función de pestaña de actividad:";
+"activity-tab-email-fourth-line" = "[Describa la solución a proponer]";
 "activity-tab-email-second-line" = "- [Describe un problema específico]";
+"activity-tab-email-third-line" = "El comportamiento que me gustaría ver es:";
+"activity-tab-email-title" = "Informe de probemas - Pestaña de actividad";
 "activity-tab-generic-no-edits" = "No has editado esta semana. Comienza ahora a hacer un seguimiento de tus contribuciones.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-impact-thanks-label" = "agredicimentos";
@@ -666,6 +670,8 @@
 "forgot-password-instructions" = "Rellena uno de los campos abajo para recibir instrucciones de restablecimiento de la contraseña vía email";
 "forgot-password-title" = "Restablecer contraseña";
 "forgot-password-username-or-email-title" = "O";
+"games-email-report-body-encountered" = "Encontré un problema con la función Wikipedia juegos:";
+"games-email-report-subject" = "Informe de problemas - Wikipedia juegos";
 "gan-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del gan siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, simplificado (gan-hans)\n贛語 繁體 Gan, tradicional (gan-hant)";
 "gan-variants-alert-title" = "Actualizaciones a soporte de variantes del gan";
 "history-clear-confirmation-heading" = "¿Confirmas que quieres borrar todos los elementos recientes?";
