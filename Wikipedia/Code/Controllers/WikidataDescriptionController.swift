@@ -34,16 +34,22 @@ class WikidataDescriptionController: ArticleDescriptionControlling {
         }
     }
     
+    /// URL of the Wikidata entity page. Edit analytics use this URL because the edit creates its revision on wikidatawiki, not on the article's wiki.
+    var loggingPageURL: URL? {
+        return WMFProject.wikidata.siteURL?.wmf_URL(withTitle: wikiDataID)
+    }
+
     func publishDescription(_ description: String, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         let editTag: WMFEditTag = editType == .add ? .appDescriptionAdd : .appDescriptionChange
 
-        fetcher.publish(newWikidataDescription: description, from: descriptionSource, forWikidataID: wikiDataID, languageCode: articleLanguageCode, editTags: [editTag]) { (error) in
-            if let error = error {
+        fetcher.publish(newWikidataDescription: description, from: descriptionSource, forWikidataID: wikiDataID, languageCode: articleLanguageCode, editTags: [editTag]) { (result) in
+            switch result {
+            case .failure(let error):
                 completion(.failure(error))
-                return
+            case .success(let newRevisionID):
+                completion(.success(ArticleDescriptionPublishResult(newRevisionID: newRevisionID, newDescription: description)))
             }
-            completion(.success(ArticleDescriptionPublishResult(newRevisionID: nil, newDescription: description)))
         }
     }
 
