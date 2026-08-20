@@ -18,13 +18,14 @@ public final class WMFHomeViewModel: ObservableObject {
     public var didChangeTab: (@MainActor @Sendable (Tab) -> Void)?
     
     let logDidTapLanguagePicker: (String?) -> Void
-    var lastLoggedImpressionCardKey: String?
+    private var lastLoggedImpressionCardKey: String?
     public var logCardImpression: ((String, Int) -> Void)?
     public var logCardDidTapShare: ((String, String) -> Void)?
     public var logCardDidToggleSave: ((String, String) -> Void)?
     public var logCardDidTapHideCard: ((String, String) -> Void)?
     public var logCardDidTapHideModule: ((String, String) -> Void)?
     public var logDidTapCustomizeInterests: ((String, String) -> Void)?
+    public var logEmptyViewImpression: (() -> Void)?
 
     public enum Tab: Int, CaseIterable {
         case forYou
@@ -154,6 +155,11 @@ public final class WMFHomeViewModel: ObservableObject {
             self?.logCardDidToggleSave?($0.module.loggingId, "article_save")
             self?.didSaveForYouCard?($0)
         }
+        
+        forYouViewModel.onEmptyViewAppearance = { [weak self] in
+            self?.logEmptyViewImpression?()
+        }
+        
         forYouViewModel.onUserInteraction = { [weak self] in self?.didInteractWithForYouFeed?() }
         forYouViewModel.onShowCard = { [weak self] card in
             

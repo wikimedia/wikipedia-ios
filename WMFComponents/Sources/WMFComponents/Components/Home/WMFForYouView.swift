@@ -119,6 +119,9 @@ public struct WMFForYouView: View {
     public var body: some View {
         if visiblePages.isEmpty {
             emptyState
+                .onAppear {
+                    viewModel.onEmptyViewAppearance?()
+                }
         } else {
             GeometryReader { geometry in
                 scrollView(geometry: geometry)

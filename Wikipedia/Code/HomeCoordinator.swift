@@ -109,6 +109,12 @@ final class HomeCoordinator: NSObject, Coordinator {
             self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: elementId, mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
             
         }
+        
+        viewModel.logEmptyViewImpression = { [weak self] in
+            guard let self else { return }
+            
+            self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "EmptyForYouCard", mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+        }
 
         let vc = HomeViewController(dataStore: dataStore, theme: theme, viewModel: viewModel, homeCoordinator: self)
         vc.title = CommonStrings.homeTabTitle
