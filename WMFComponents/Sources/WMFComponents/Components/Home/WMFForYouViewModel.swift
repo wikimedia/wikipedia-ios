@@ -68,9 +68,9 @@ public final class WMFForYouViewModel: ObservableObject {
     @Published public var hiddenCardKeys: Set<String>
 
     public var onRefresh: (() async -> Void)?
-    public var onHideModule: ((WMFForYouModule) -> Void)?
+    public var onHideModule: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onHideCard: ((WMFForYouArticleCardViewModel) -> Void)?
-    public var onCustomizeInterests: (() -> Void)?
+    public var onCustomizeInterests: ((WMFForYouArticleCardViewModel?) -> Void)?
     public var onTapCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onSaveCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onShareCard: ((WMFForYouArticleCardViewModel) -> Void)?

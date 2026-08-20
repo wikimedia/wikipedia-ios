@@ -20,6 +20,11 @@ public final class WMFHomeViewModel: ObservableObject {
     let logDidTapLanguagePicker: (String?) -> Void
     var lastLoggedImpressionCardKey: String?
     public var logCardImpression: ((String, Int) -> Void)?
+    public var logCardDidTapShare: ((String, String) -> Void)?
+    public var logCardDidToggleSave: ((String, String) -> Void)?
+    public var logCardDidTapHideCard: ((String, String) -> Void)?
+    public var logCardDidTapHideModule: ((String, String) -> Void)?
+    public var logCardDidTapCustomizeInterests: ((String, String) -> Void)?
 
     public enum Tab: Int, CaseIterable {
         case forYou
@@ -116,15 +121,38 @@ public final class WMFHomeViewModel: ObservableObject {
         refreshForYouModuleVisibility()
         forYouViewModel.hiddenCardKeys = hiddenCardKeys
         forYouViewModel.onRefresh = { [weak self] in await self?.refreshForYouFeed() }
-        forYouViewModel.onHideModule = { [weak self] in self?.hideForYouModule($0) }
+        forYouViewModel.onHideModule = { [weak self] in
+            self?.logCardDidTapHideModule?($0.module.loggingId, "module_hide")
+            self?.hideForYouModule($0.module)
+        }
         forYouViewModel.onHideCard = { [weak self] card in
+            self?.logCardDidTapHideCard?(card.module.loggingId, "card_hide")
             self?.hideForYouCard(card)
         }
-        forYouViewModel.onCustomizeInterests = { [weak self] in self?.didTapCustomizeInterests?() }
-        forYouViewModel.onTapCard = { [weak self] in self?.didTapForYouCard?($0) }
-        forYouViewModel.onSaveCard = { [weak self] in self?.didSaveForYouCard?($0) }
-        forYouViewModel.onShareCard = { [weak self] in self?.didShareForYouCard?($0) }
-        forYouViewModel.onUnsaveCard = { [weak self] in self?.didTapUnsaveForYouCard?($0) }
+        forYouViewModel.onCustomizeInterests = { [weak self] in
+            
+            if let loggingId = $0?.module.loggingId {
+                self?.logCardDidTapCustomizeInterests?(loggingId, "feed_customize")
+            }
+            
+            self?.didTapCustomizeInterests?()
+        }
+        forYouViewModel.onTapCard = { [weak self] in
+            // todo: logCardDidTapArticle
+            self?.didTapForYouCard?($0)
+        }
+        forYouViewModel.onSaveCard = { [weak self] in
+            self?.logCardDidToggleSave?($0.module.loggingId, "article_save")
+            self?.didSaveForYouCard?($0)
+        }
+        forYouViewModel.onShareCard = { [weak self] in
+            self?.logCardDidTapShare?($0.module.loggingId, "article_share")
+            self?.didShareForYouCard?($0)
+        }
+        forYouViewModel.onUnsaveCard = { [weak self] in
+            self?.logCardDidToggleSave?($0.module.loggingId, "article_save")
+            self?.didSaveForYouCard?($0)
+        }
         forYouViewModel.onUserInteraction = { [weak self] in self?.didInteractWithForYouFeed?() }
         forYouViewModel.onShowCard = { [weak self] card in
             

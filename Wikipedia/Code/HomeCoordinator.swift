@@ -66,10 +66,47 @@ final class HomeCoordinator: NSObject, Coordinator {
             
             guard let self else { return }
             
-            let language = viewModel.selectedLanguage
-            let database = WikimediaProject(wmfProject: WMFProject.wikipedia(language ?? WMFLanguage(languageCode: "en", languageVariantCode: nil))).notificationsApiWikiIdentifier
+            self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: module, actionContext: ["index": cardIndex], mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
             
-            self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: module, actionContext: ["index": cardIndex], mediawikiDatabase: database)
+        }
+        
+        viewModel.logCardDidTapShare = { [weak self] module, elementId in
+            
+            guard let self else { return }
+            
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: elementId, mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+            
+        }
+        
+        viewModel.logCardDidToggleSave = { [weak self] module, elementId in
+            
+            guard let self else { return }
+            
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: elementId, mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+            
+        }
+        
+        viewModel.logCardDidTapHideCard = { [weak self] module, elementId in
+            
+            guard let self else { return }
+            
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: elementId, mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+            
+        }
+        
+        viewModel.logCardDidTapHideModule = { [weak self] module, elementId in
+            
+            guard let self else { return }
+            
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: elementId, mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+            
+        }
+        
+        viewModel.logCardDidTapCustomizeInterests = { [weak self] module, elementId in
+            
+            guard let self else { return }
+            
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: elementId, mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
             
         }
 
@@ -81,6 +118,11 @@ final class HomeCoordinator: NSObject, Coordinator {
 
         homeViewController = vc
         return vc
+    }
+    
+    private func mediawikiDatabase(forViewModel: WMFHomeViewModel) -> String {
+        let language = forViewModel.selectedLanguage
+        return WikimediaProject(wmfProject: WMFProject.wikipedia(language ?? WMFLanguage(languageCode: "en", languageVariantCode: nil))).notificationsApiWikiIdentifier
     }
     
     func startFunnelIfNeeded() {
