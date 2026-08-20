@@ -3,6 +3,7 @@ import WMF
 import WMFComponents
 import WMFData
 import WMFNativeLocalizations
+import WMFTestKitchen
 
 @MainActor
 final class HomeCoordinator: NSObject, Coordinator {
@@ -48,7 +49,15 @@ final class HomeCoordinator: NSObject, Coordinator {
     }
 
     func makeHomeViewController() -> HomeViewController {
-        let viewModel = WMFHomeViewModel()
+        let viewModel = WMFHomeViewModel(
+            logDidTapLanguagePicker: { languageCode in
+                var actionContext: [String: String]? = nil
+                if let languageCode {
+                    actionContext = ["lang_code": languageCode]
+                }
+                TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "language_menu", elementId: "language_change", actionContext: actionContext)
+            }
+        )
 
         let vc = HomeViewController(dataStore: dataStore, theme: theme, viewModel: viewModel)
         vc.title = CommonStrings.homeTabTitle
