@@ -6,6 +6,11 @@ import WMFNativeLocalizations
 
 // MARK: - Module types and visibility
 
+public enum WMFForYouCustomizeInterestsSource {
+    case card(WMFForYouArticleCardViewModel)
+    case emptyFeed
+}
+
 public enum WMFForYouModule {
     case basedOnInterests
     case becauseYouRead
@@ -70,7 +75,7 @@ public final class WMFForYouViewModel: ObservableObject {
     public var onRefresh: (() async -> Void)?
     public var onHideModule: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onHideCard: ((WMFForYouArticleCardViewModel) -> Void)?
-    public var onCustomizeInterests: ((WMFForYouArticleCardViewModel?) -> Void)?
+    public var onCustomizeInterests: ((WMFForYouCustomizeInterestsSource) -> Void)?
     public var onTapCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onSaveCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onShareCard: ((WMFForYouArticleCardViewModel) -> Void)?

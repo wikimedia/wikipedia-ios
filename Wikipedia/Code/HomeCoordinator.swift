@@ -102,7 +102,7 @@ final class HomeCoordinator: NSObject, Coordinator {
             
         }
         
-        viewModel.logCardDidTapCustomizeInterests = { [weak self] module, elementId in
+        viewModel.logDidTapCustomizeInterests = { [weak self] module, elementId in
             
             guard let self else { return }
             

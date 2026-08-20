@@ -24,7 +24,7 @@ public final class WMFHomeViewModel: ObservableObject {
     public var logCardDidToggleSave: ((String, String) -> Void)?
     public var logCardDidTapHideCard: ((String, String) -> Void)?
     public var logCardDidTapHideModule: ((String, String) -> Void)?
-    public var logCardDidTapCustomizeInterests: ((String, String) -> Void)?
+    public var logDidTapCustomizeInterests: ((String, String) -> Void)?
 
     public enum Tab: Int, CaseIterable {
         case forYou
@@ -129,12 +129,13 @@ public final class WMFHomeViewModel: ObservableObject {
             self?.logCardDidTapHideCard?(card.module.loggingId, "card_hide")
             self?.hideForYouCard(card)
         }
-        forYouViewModel.onCustomizeInterests = { [weak self] in
-            
-            if let loggingId = $0?.module.loggingId {
-                self?.logCardDidTapCustomizeInterests?(loggingId, "feed_customize")
+        forYouViewModel.onCustomizeInterests = { [weak self] source in
+            switch source {
+            case .card(let card):
+                self?.logDidTapCustomizeInterests?(card.module.loggingId, "feed_customize")
+            case .emptyFeed:
+                self?.logDidTapCustomizeInterests?("feed_empty", "customize_feed")
             }
-            
             self?.didTapCustomizeInterests?()
         }
         forYouViewModel.onTapCard = { [weak self] in

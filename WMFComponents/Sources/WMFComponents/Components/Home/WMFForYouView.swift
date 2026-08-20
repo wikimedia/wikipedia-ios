@@ -137,7 +137,7 @@ public struct WMFForYouView: View {
                         theme: theme,
                         onHideModule: { viewModel.onHideModule?($0) },
                         onHideCard: { viewModel.onHideCard?($0) },
-                        onCustomizeInterests: { viewModel.onCustomizeInterests?($0) },
+                        onCustomizeInterests: { viewModel.onCustomizeInterests?(.card($0)) },
                         onTapCard: { viewModel.onTapCard?($0) },
                         onSaveCard: { viewModel.onSaveCard?($0) },
                         onShareCard: { viewModel.onShareCard?($0) },
@@ -199,7 +199,7 @@ public struct WMFForYouView: View {
             type: .noItems,
             isScrollable: false,
             theme: .forYou,
-            mainAction: { viewModel.onCustomizeInterests?(nil) },
+            mainAction: { viewModel.onCustomizeInterests?(.emptyFeed) },
             usesCompactButton: true
         )
         .frame(maxWidth: .infinity, maxHeight: .infinity)
