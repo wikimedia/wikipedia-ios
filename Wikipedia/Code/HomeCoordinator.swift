@@ -66,7 +66,7 @@ final class HomeCoordinator: NSObject, Coordinator {
             
             guard let self else { return }
             
-            self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: module, actionContext: ["index": cardIndex], mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: module, actionContext: ["index": cardIndex], mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
             
         }
         
@@ -74,7 +74,7 @@ final class HomeCoordinator: NSObject, Coordinator {
             
             guard let self else { return }
             
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_share", mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_share", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
             
         }
         
@@ -82,7 +82,7 @@ final class HomeCoordinator: NSObject, Coordinator {
             
             guard let self else { return }
             
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_save", mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_save", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
             
         }
         
@@ -90,7 +90,7 @@ final class HomeCoordinator: NSObject, Coordinator {
             
             guard let self else { return }
             
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "card_hide", mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "card_hide", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
             
         }
         
@@ -98,7 +98,7 @@ final class HomeCoordinator: NSObject, Coordinator {
             
             guard let self else { return }
             
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "module_hide", mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "module_hide", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
             
         }
         
@@ -106,22 +106,24 @@ final class HomeCoordinator: NSObject, Coordinator {
             
             guard let self else { return }
             
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: elementId, mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: elementId, mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
             
         }
         
         viewModel.logEmptyViewImpression = { [weak self] in
             guard let self else { return }
             
-            self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "EmptyForYouCard", mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "EmptyForYouCard", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
         }
         
         viewModel.logCardDidTapArticle = { [weak self] module, articleTitle in
             
             guard let self else { return }
             
-            //todo: page object.
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_open", mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+            let project = currentProject(forViewModel: viewModel)
+            let pageData = TestKitchenAdapter.getPageData(title: articleTitle, project: project)
+            
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_open", mediawikiDatabase: self.mediawikiDatabase(for: viewModel), pageData: pageData)
         }
 
         let vc = HomeViewController(dataStore: dataStore, theme: theme, viewModel: viewModel, homeCoordinator: self)
@@ -134,9 +136,13 @@ final class HomeCoordinator: NSObject, Coordinator {
         return vc
     }
     
-    private func mediawikiDatabase(forViewModel: WMFHomeViewModel) -> String {
+    private func currentProject(forViewModel: WMFHomeViewModel) -> WMFProject {
         let language = forViewModel.selectedLanguage
-        return WikimediaProject(wmfProject: WMFProject.wikipedia(language ?? WMFLanguage(languageCode: "en", languageVariantCode: nil))).notificationsApiWikiIdentifier
+        return WMFProject.wikipedia(language ?? WMFDataEnvironment.current.primaryAppLanguage ?? WMFLanguage(languageCode: "en", languageVariantCode: nil))
+    }
+    
+    private func mediawikiDatabase(for viewModel: WMFHomeViewModel) -> String {
+        return WikimediaProject(wmfProject: currentProject(forViewModel: viewModel)).notificationsApiWikiIdentifier
     }
     
     func startFunnelIfNeeded() {
