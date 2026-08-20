@@ -47,6 +47,7 @@ public enum WMFUserDefaultsKey: String {
     case forceHCaptchaChallenge = "force-hcaptcha-challenge"
     case developerSettingsForceFundraisingCampaignBanner = "dev-settings-force-fundraising-campaign-banner"
     case developerSettingsEnableDonationReminder = "dev-settings-enable-donation-reminder"
+    case donationReminder = "donation-reminder"
 
     case allowGestureZoomArticleWebview = "allow-gesture-zoom-article-webview"
     // Reading Challenge 2026 (feature removed, see WMFReadingChallengeCompletionDataController)
