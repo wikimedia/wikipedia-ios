@@ -141,7 +141,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
             articleURL: articleURL,
             dataStore: dataStore,
             theme: theme,
-            source: .undefined,
+            source: .homeFeedForYou,
             tabConfig: .appendArticleAndAssignCurrentTab
         )
         coordinator.start()

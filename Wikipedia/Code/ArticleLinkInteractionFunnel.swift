@@ -50,6 +50,7 @@ public enum ArticleSource: Int {
     case widget = 29
     case game = 43
     case activity = 45
+    case homeFeedForYou = 46
 }
 
 public struct ArticleSourceUserInfoKeys {
