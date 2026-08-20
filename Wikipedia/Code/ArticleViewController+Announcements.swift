@@ -105,8 +105,6 @@ extension ArticleViewController {
 
         }, maybeLaterButtonTapHandler: { _, _ in
             DonateFunnel.shared.logFundraisingCampaignModalDidTapMaybeLater(project: project, metricsID: asset.metricsID)
-            dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
-            self.donateDidSetMaybeLater(metricsID: asset.metricsID)
         }, alreadyDonatedButtonTapHandler: { _, _ in
             DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, metricsID: asset.metricsID)
             self.donateAlreadyDonated()
@@ -119,7 +117,18 @@ extension ArticleViewController {
             case .close:
                 DonateFunnel.shared.logFundraisingCampaignModalDidTapClose(project: project, metricsID: asset.metricsID)
                 dataController.markAssetAsPermanentlyHidden(asset: asset)
-            case .donate, .maybeLater, .alreadyDonated, .other:
+            case .maybeLater:
+                if WMFDeveloperSettingsDataController.shared.enableDonationReminder,
+                   let navigationController = self.navigationController {
+                    dataController.markAssetAsPermanentlyHidden(asset: asset)
+                    let coordinator = DonationReminderSetupCoordinator(navigationController: navigationController, currencyCode: asset.currencyCode, theme: self.theme)
+                    self.donationReminderSetupCoordinator = coordinator
+                    coordinator.start()
+                } else {
+                    dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
+                    self.donateDidSetMaybeLater(metricsID: asset.metricsID)
+                }
+            case .donate, .alreadyDonated, .other:
                 break
             }
         })
