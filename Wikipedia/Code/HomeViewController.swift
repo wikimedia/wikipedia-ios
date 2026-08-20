@@ -136,12 +136,21 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     private func navigateToForYouArticle(_ article: WMFForYouArticleCardViewModel) {
         guard let articleURL = Self.articleURL(for: article) else { return }
+        let source: ArticleSource
+        switch article.module {
+        case .basedOnInterests:
+            source = .homeFeedForYouInterestCard
+        case .becauseYouRead:
+            source = .homeFeedForYouBecauseYouReadCard
+        case .continueReading:
+            source = .homeFeedForYouContinueReadingCard
+        }
         let coordinator = ArticleCoordinator(
             navigationController: navigationController ?? UINavigationController(),
             articleURL: articleURL,
             dataStore: dataStore,
             theme: theme,
-            source: .homeFeedForYou,
+            source: source,
             tabConfig: .appendArticleAndAssignCurrentTab
         )
         coordinator.start()
