@@ -190,39 +190,34 @@ final class WMFWhichCameFirstResultsViewModelTests: XCTestCase {
         XCTAssertNil(viewModel.onLogIn)
     }
 
-    // MARK: - LocalizedStrings: scoreLabel
+    // MARK: - scoreLabel
 
     func testScoreLabelFormatsCorrectly() {
-        let strings = WMFWhichCameFirstResultsViewModel.LocalizedStrings()
-        let label = strings.scoreLabel(4, of: 5)
+        let label = makeViewModel().scoreLabel(4, of: 5)
         XCTAssertTrue(label.contains("4"))
         XCTAssertTrue(label.contains("5"))
     }
 
     func testScoreLabelZeroScore() {
-        let strings = WMFWhichCameFirstResultsViewModel.LocalizedStrings()
-        let label = strings.scoreLabel(0, of: 5)
+        let label = makeViewModel().scoreLabel(0, of: 5)
         XCTAssertTrue(label.contains("0"))
         XCTAssertTrue(label.contains("5"))
     }
 
     func testScoreLabelPerfectScore() {
-        let strings = WMFWhichCameFirstResultsViewModel.LocalizedStrings()
-        let label = strings.scoreLabel(5, of: 5)
+        let label = makeViewModel().scoreLabel(5, of: 5)
         XCTAssertTrue(label.contains("5"))
     }
 
-    // MARK: - LocalizedStrings: countdownLabel
+    // MARK: - countdownLabel
 
     func testCountdownLabelContainsCountdownString() {
-        let strings = WMFWhichCameFirstResultsViewModel.LocalizedStrings()
-        let label = strings.countdownLabel(from: "01:23:45")
+        let label = makeViewModel().countdownLabel(from: "01:23:45")
         XCTAssertTrue(label.contains("01:23:45"))
     }
 
     func testCountdownLabelWithZeroTime() {
-        let strings = WMFWhichCameFirstResultsViewModel.LocalizedStrings()
-        let label = strings.countdownLabel(from: "00:00:00")
+        let label = makeViewModel().countdownLabel(from: "00:00:00")
         XCTAssertTrue(label.contains("00:00:00"))
     }
 }
