@@ -754,6 +754,7 @@
 "history-clear-delete-all" = "Да, избриши ги сите";
 "history-title" = "Историја";
 "home-button-explore-accessibility-label" = "Википедија, назад на Истражете";
+"home-button-home-accessibility-label" = "Википедија, назад на Почетна";
 "home-button-saved-accessibility-label" = "Википедија, назад на Зачувано";
 "home-card-more-options-accessibility-label" = "Повеќе можности";
 "home-community-empty-feed-button-title" = "Прилагоди го тековникот";
@@ -813,6 +814,7 @@
 "home-news-footer" = "Уште тековни настани";
 "home-reading-list-prompt" = "Зачуваните статии сега можат да се организираат во списоци за читање усогласени низ сите уреди. Најавете се и дозволете зачувување на списоци во вашите нагодувања.";
 "home-tab-title" = "Почетна";
+"home-tab-title-accessibility-label" = "Википедија, пролизгајте најгоре до Почетна";
 "home-themes-action-title" = "Упр. со поставки";
 "home-themes-prompt" = "Прилагодете ги поставките за читање (вкл. големина и тема на текстот) од статискиот алатник во вашите нагодувања за поудобно читање.";
 "home-title" = "Истражете";

@@ -780,6 +780,8 @@
 "find-replace-header" = "Поиск и замена";
 "find-replace-header-close-accessibility" = "Закрыть диалог поиска и замены";
 "find-textfield-accessibility" = "Найти";
+"for-you-error-retry" = "Попробовать ещё раз";
+"for-you-error-title" = "Нет подключения к интернету";
 "for-you-header-continue-reading" = "Продолжить чтение: $1";
 "for-you-header-saved-article" = "Из вашего списка для чтения: $1";
 "forgot-password-button-title" = "Сбросить";
@@ -1344,6 +1346,7 @@
 "search-recent-title" = "Недавно искали";
 "search-result-redirected-from" = "Перенаправлено с: $1";
 "search-title" = "Поиск";
+"search-widget-description" = "Быстрый доступ к поиску в Википедии.";
 "search-widget-wikipedia-title" = "Википедия";
 "serbian-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты сербского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Обновления поддержки вариантов Сербского";
@@ -1640,6 +1643,7 @@
 "which-came-first-log-in-stats-title" = "Войдите, чтобы просмотреть игровую статистику.";
 "which-came-first-next-button" = "Далее";
 "which-came-first-next-game-time" = "Следующая викторина через $1";
+"which-came-first-nice-work" = "Отличная работа! Заходите завтра за новой игрой.";
 "which-came-first-perfect-score" = "Отличный результат!";
 "which-came-first-play-archive-button" = "Сыграть из архива";
 "which-came-first-retry-button" = "Повторить";
@@ -1696,16 +1700,21 @@
 "year-in-review-donate" = "Пожертвовать";
 "year-in-review-donate-now" = "Сделать пожертвование сейчас";
 "year-in-review-finish" = "Завершить";
+"year-in-review-highlights-categories" = "Категории, которые меня заинтересовали";
 "year-in-review-highlights-collective-time-spent" = "Часы, проведенные за чтением";
 "year-in-review-highlights-created-lists" = "Количество создаваемых списков для чтения";
 "year-in-review-highlights-english-articles" = "Самые читаемые статьи Википедии на английском языке";
+"year-in-review-highlights-favorite-day" = "Любимый день для чтения";
 "year-in-review-highlights-number-app-editors" = "Правки через приложение";
+"year-in-review-highlights-personalized-articles" = "Статьи, которые я читал больше всего";
+"year-in-review-highlights-reading-time" = "Минут чтения";
 "year-in-review-highlights-share-logo-caption" = "Логотип Википедии";
 "year-in-review-highlights-subtitle" = "Мы с нетерпением ждём следующего года!";
 "year-in-review-non-contributor-slide-title" = "Откройте награду за вклад в следующем году!";
 "year-in-review-personalized-donate-title" = "Ваша щедрость помогла Википедии процветать";
 "year-in-review-personalized-editing-subtitle-1" = "Спасибо вам за то, что вы являетесь одним из редакторов-волонтеров, вносящих свой вклад в проекты Фонда Викимедиа по всему миру.";
 "year-in-review-personalized-editing-title-format-updated" = "Вы сделали {{PLURAL:$1|$1 правку|$1 правки|$1 правок}}";
+"year-in-review-personalized-most-read-articles-title" = "Ваши самые читаемые статьи";
 "year-in-review-survey-additional-thoughts" = "Есть ли у вас какие-нибудь дополнительные мысли?";
 "year-in-review-survey-neutral" = "Воздержусь";
 "year-in-review-survey-satisfied" = "Доволен";

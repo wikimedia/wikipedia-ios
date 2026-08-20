@@ -620,7 +620,7 @@
 "explore-feed-preferences-global-cards-description" = "کارت‌هایی که مختص زبان خاصی نیستند";
 "explore-feed-preferences-global-cards-subtitle" = "به زبان خاصی اختصاص ندارد";
 "explore-feed-preferences-global-cards-title" = "کارت‌های سراسری";
-"explore-feed-preferences-hide-card-action-title" = "مخفی کردن این کارت";
+"explore-feed-preferences-hide-card-action-title" = "پنهان‌کردن این کارت";
 "explore-feed-preferences-hide-feed-cards-action-title" = "مخفی کردن همه کارت‌های $1";
 "explore-feed-preferences-in-the-news-description" = "مقاله‌های پیرامون رویدادهای کنونی";
 "explore-feed-preferences-languages-footer-text" = "نهفتن همهٔ کارت‌های خوراک بازدید در تمام زبان‌های انتخابی شما، زبانهٔ بازدید را غیرفعال خواهد کرد.";
@@ -711,7 +711,7 @@
 "field-new-password-confirm-placeholder" = "از نو نوشتن رمز عبور جدید";
 "field-new-password-confirm-title" = "تأیید رمز عبور جدید";
 "field-new-password-placeholder" = "رمز عبور جدید را وارد کنید";
-"field-new-password-title" = "رمز عبور جدید";
+"field-new-password-title" = "گذرواژهٔ جدید";
 "field-password-confirm-placeholder" = "رمز عبور را دوباره وارد کنید";
 "field-password-confirm-title" = "تأیید رمز عبور";
 "field-password-placeholder" = "رمز عبور را وارد کنید";
@@ -727,6 +727,9 @@
 "find-replace-header" = "یافتن و جایگزینی";
 "find-replace-header-close-accessibility" = "«یافتن و جایگزینی» را ببند";
 "find-textfield-accessibility" = "یافتن";
+"for-you-empty-button" = "علایق خود را انتخاب کنید";
+"for-you-menu-customize-interests" = "سفارشی‌سازی علایق";
+"for-you-refreshing-accessibility-label" = "بارگذاری محتوای جدید";
 "forgot-password-button-title" = "بازنشانی";
 "forgot-password-email-sent" = "ایمیلی حاوی دستورالعمل بازنشانی گذرواژه ارسال شد";
 "forgot-password-instructions" = "برای دریافت دستورالعمل بازنشانی رمز عبور از طریق ایمیل، یکی از بخش‌های زیر را پر کنید.";
@@ -746,9 +749,11 @@
 "history-title" = "تاریخچه";
 "home-button-explore-accessibility-label" = "ویکی‌پدیا، بازگشت به بازدید";
 "home-button-saved-accessibility-label" = "ویکی‌پدیا، بازگشت به ذخیره‌شده‌ها";
+"home-card-more-options-accessibility-label" = "گزینه‌های بیشتر";
 "home-community-empty-feed-button-title" = "شخصی‌سازی محتوا";
 "home-community-empty-feed-message" = "برای مشاهدهٔ محتوای جامعه، کارت‌ها را در تنظیمات محتوا فعال کنید.";
 "home-community-empty-feed-title" = "تمام کارت‌های محتوای جامعه پنهان شده‌اند";
+"home-community-see-past-content" = "مشاهدهٔ محتوای گذشته جامعه";
 "home-community-tab-title" = "جامعه";
 "home-edit-languages-title" = "افزودن یا ویرایش زبان‌ها";
 "home-feed-for-you-based-on-interests-subtitle" = "مقالات متناسب با موضوعاتی انتخاب کرده‌اید";
@@ -790,6 +795,7 @@
 "home-feed-whats-driving-your-interests-subtitle" = "موضوعات علایق خود را ویرایش کنید";
 "home-feed-whats-driving-your-interests-title" = "علایق شما";
 "home-for-you-tab-title" = "برای شما";
+"home-menu-hide-module" = "نهفتن پودمان";
 "home-more-like-footer" = "موارد بیشتر شبیه $1";
 "home-nearby-footer" = "مکان‌های بیشتر در نزدیکی موقعیت شما";
 "home-nearby-location-footer" = "موارد بیشتر نزدیک به $1";
@@ -1082,6 +1088,7 @@
 "on-this-day-no-internet-error" = "هیچ داده‌ای در دسترس نیست";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 از ویکی‌پدیای $2";
 "on-this-day-title" = "در این روز";
+"one-time-onboarding-customize-button" = "سفارشی‌سازی محتوایتان";
 "open-article" = "گشودن مقاله";
 "original-tab-button-popover-description" = "برای بازگشت به زبانه‌ای که از آن شروع کردید، نماد W را لمس کنید";
 "page-history-bot-edits" = "ربات";
@@ -1309,6 +1316,9 @@
 "settings-clear-cache-ok" = "پاک‌سازی حافظهٔ نهان";
 "settings-community-feed-title" = "جامعه";
 "settings-donate" = "کمک مالی";
+"settings-editing-preferences-source-short" = "مبدأ";
+"settings-editing-preferences-title" = "ترجیحات ویرایش";
+"settings-editing-preferences-visual-short" = "دیداری";
 "settings-explore-games-subtitle" = "بازی های روزانه مبتنی بر محتوای ویکی‌پدیا";
 "settings-explore-games-title" = "بازی‌های ویکی‌پدیا";
 "settings-help-and-feedback" = "کمک و بازخورد";
@@ -1576,7 +1586,7 @@
 "welcome-intro-free-encyclopedia-more-about" = "دربارهٔ ویکی‌پدیا";
 "welcome-intro-free-encyclopedia-more-description" = "ویکی‌پدیا یک پروژهٔ جهانی برای ایجاد دانشنامه‌های آزاد به همهٔ زبان‌های دنیا است. تقریباً هر فردی که به اینترنت دسترسی دارد، آزاد است که با افزودن اطلاعات بی‌طرف و مستند، در این امر مشارکت کند.";
 "welcome-intro-free-encyclopedia-title" = "دانشنامهٔ آزاد";
-"welcome-languages-add-button" = "افزدون زبانی دیگر";
+"welcome-languages-add-button" = "افزودن زبانی دیگر";
 "welcome-languages-add-or-edit-button" = "افزودن یا ویرایش زبان‌های ترجیحی";
 "welcome-languages-description" = "این زبان‌ها را روی دستگاه شما یافتیم:";
 "welcome-languages-search-title" = "جستجو در بیش از ۳۰۰ زبان";
