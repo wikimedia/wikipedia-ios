@@ -70,35 +70,35 @@ final class HomeCoordinator: NSObject, Coordinator {
             
         }
         
-        viewModel.logCardDidTapShare = { [weak self] module, elementId in
+        viewModel.logCardDidTapShare = { [weak self] module in
             
             guard let self else { return }
             
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: elementId, mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_share", mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
             
         }
         
-        viewModel.logCardDidToggleSave = { [weak self] module, elementId in
+        viewModel.logCardDidToggleSave = { [weak self] module in
             
             guard let self else { return }
             
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: elementId, mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_save", mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
             
         }
         
-        viewModel.logCardDidTapHideCard = { [weak self] module, elementId in
+        viewModel.logCardDidTapHideCard = { [weak self] module in
             
             guard let self else { return }
             
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: elementId, mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "card_hide", mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
             
         }
         
-        viewModel.logCardDidTapHideModule = { [weak self] module, elementId in
+        viewModel.logCardDidTapHideModule = { [weak self] module in
             
             guard let self else { return }
             
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: elementId, mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "module_hide", mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
             
         }
         
@@ -114,6 +114,14 @@ final class HomeCoordinator: NSObject, Coordinator {
             guard let self else { return }
             
             self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "EmptyForYouCard", mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
+        }
+        
+        viewModel.logCardDidTapArticle = { [weak self] module, articleTitle in
+            
+            guard let self else { return }
+            
+            //todo: page object.
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_open", mediawikiDatabase: self.mediawikiDatabase(forViewModel: viewModel))
         }
 
         let vc = HomeViewController(dataStore: dataStore, theme: theme, viewModel: viewModel, homeCoordinator: self)
