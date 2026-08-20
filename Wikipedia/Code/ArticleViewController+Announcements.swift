@@ -74,7 +74,7 @@ extension ArticleViewController {
 
         let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date())
 
-        wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { [weak self] button, viewController in
+        wmf_showFundraisingAnnouncement(theme: theme, asset: asset, showMaybeLater: shouldShowMaybeLater, donateButtonTapHandler: { [weak self] button, viewController in
 
             guard let self else {
                 return
@@ -105,33 +105,26 @@ extension ArticleViewController {
 
             dataController.markAssetAsPermanentlyHidden(asset: asset)
 
-        }, secondaryButtonTapHandler: { _, _ in
+        }, maybeLaterButtonTapHandler: { _, _ in
             DonateFunnel.shared.logFundraisingCampaignModalDidTapMaybeLater(project: project, metricsID: asset.metricsID)
-
-            if shouldShowMaybeLater {
-                dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
-                self.donateDidSetMaybeLater(metricsID: asset.metricsID)
-            } else {
-                DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, metricsID: asset.metricsID)
-                self.donateAlreadyDonated()
-                dataController.markAssetAsPermanentlyHidden(asset: asset)
-            }
-
-        }, optionalButtonTapHandler: { _, _ in
+            dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
+            self.donateDidSetMaybeLater(metricsID: asset.metricsID)
+        }, alreadyDonatedButtonTapHandler: { _, _ in
             DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, metricsID: asset.metricsID)
             self.donateAlreadyDonated()
             dataController.markAssetAsPermanentlyHidden(asset: asset)
-
         }, footerLinkAction: { url in
             DonateFunnel.shared.logFundraisingCampaignModalDidTapDonorPolicy(project: project, metricsID: asset.metricsID)
             self.navigate(to: url, useSafari: true)
-        }, traceableDismissHandler: { action in
-
-            if action == .tappedClose {
+        }, dismissHandler: { action in
+            switch action {
+            case .close:
                 DonateFunnel.shared.logFundraisingCampaignModalDidTapClose(project: project, metricsID: asset.metricsID)
                 dataController.markAssetAsPermanentlyHidden(asset: asset)
+            case .donate, .maybeLater, .alreadyDonated, .other:
+                break
             }
-        }, showMaybeLater: shouldShowMaybeLater)
+        })
     }
 
     func donateDidSetMaybeLater(metricsID: String) {
