@@ -22,6 +22,8 @@ final class HomeCoordinator: NSObject, Coordinator {
     let dataStore: MWKDataStore
 
     private(set) weak var homeViewController: HomeViewController?
+    
+    private var homeFeedInstrument: InstrumentImpl?
 
     init(theme: Theme, dataStore: MWKDataStore) {
         self.theme = theme
@@ -55,11 +57,23 @@ final class HomeCoordinator: NSObject, Coordinator {
                 if let languageCode {
                     actionContext = ["lang_code": languageCode]
                 }
+                // Note: purposefully not leaning on homeFeedInstrument property here, as the deck doesn't specify that.
                 TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "language_menu", elementId: "language_change", actionContext: actionContext)
             }
         )
+        
+        viewModel.logCardImpression = { [weak self] module, cardIndex in
+            
+            guard let self else { return }
+            
+            let language = viewModel.selectedLanguage
+            let database = WikimediaProject(wmfProject: WMFProject.wikipedia(language ?? WMFLanguage(languageCode: "en", languageVariantCode: nil))).notificationsApiWikiIdentifier
+            
+            self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: module, actionContext: ["index": cardIndex], mediawikiDatabase: database)
+            
+        }
 
-        let vc = HomeViewController(dataStore: dataStore, theme: theme, viewModel: viewModel)
+        let vc = HomeViewController(dataStore: dataStore, theme: theme, viewModel: viewModel, homeCoordinator: self)
         vc.title = CommonStrings.homeTabTitle
         vc.tabBarItem.image = WMFSFSymbolIcon.for(symbol: .house)
         vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.homeButton
@@ -67,5 +81,17 @@ final class HomeCoordinator: NSObject, Coordinator {
 
         homeViewController = vc
         return vc
+    }
+    
+    func startFunnelIfNeeded() {
+        
+        guard homeFeedInstrument == nil else { return }
+        
+        self.homeFeedInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").startFunnel(name: "home_feed")
+    }
+    
+    func stopFunnelIfNeeded() {
+        homeFeedInstrument?.stopFunnel()
+        homeFeedInstrument = nil
     }
 }

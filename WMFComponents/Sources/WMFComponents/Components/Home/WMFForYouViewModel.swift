@@ -10,6 +10,14 @@ public enum WMFForYouModule {
     case basedOnInterests
     case becauseYouRead
     case continueReading
+    
+    public var loggingId: String {
+        switch self {
+        case .basedOnInterests: return "BasedOnInterestCard"
+        case .becauseYouRead: return "BecauseYouReadCard"
+        case .continueReading: return "ContinueReadingCard"
+        }
+    }
 }
 
 public struct WMFForYouModuleVisibility {
@@ -172,13 +180,13 @@ public final class WMFForYouViewModel: ObservableObject {
             format: WMFLocalizedString("for-you-header-continue-reading", value: "Continue reading: %1$@", comment: "Header on a For You feed card prompting the user to continue reading an article. %1$@ is replaced with the article title."),
             highlight: continueReading.continueReadingArticle.title.normalizedForDisplay
         )
-        let continueCard = WMFForYouArticleCardViewModel(article: continueReading.continueReadingArticle, headerLabel: continueHeader)
+        let continueCard = WMFForYouArticleCardViewModel(article: continueReading.continueReadingArticle, headerLabel: continueHeader, module: .continueReading)
         deduplicator.markUsed(continueReading.continueReadingArticle)
 
         let savedFormat = WMFLocalizedString("for-you-header-saved-article", value: "From your reading list: %1$@", comment: "Header on a For You feed card showing an article from the user's reading list. %1$@ is replaced with the article title.")
         let savedCards = deduplicator.removingDuplicates(from: continueReading.savedArticles).map { article in
             let header = WMFForYouHeaderLabel(symbol: .bookmarkFill, format: savedFormat, highlight: article.title.normalizedForDisplay)
-            return WMFForYouArticleCardViewModel(article: article, headerLabel: header)
+            return WMFForYouArticleCardViewModel(article: article, headerLabel: header, module: .continueReading)
         }
 
         return [WMFForYouPageViewModel(module: .continueReading, articleViewModels: [continueCard] + savedCards)]
@@ -213,7 +221,7 @@ public final class WMFForYouPageViewModel: ObservableObject, Identifiable {
     public init(module: WMFForYouModule, headerLabel: WMFForYouHeaderLabel, articles: [WMFForYouArticle]) {
         self.module = module
         self.articleViewModels = articles.map {
-            WMFForYouArticleCardViewModel(article: $0, headerLabel: headerLabel)
+            WMFForYouArticleCardViewModel(article: $0, headerLabel: headerLabel, module: module)
         }
         Self.assignCardIndexes(to: articleViewModels)
     }
@@ -240,6 +248,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
     public let headerLabel: WMFForYouHeaderLabel
     public let title: String
     public let project: WMFProject
+    public let module: WMFForYouModule
     @Published public var description: String?
     @Published public var extract: String?
     @Published public var uiImage: UIImage?
@@ -314,11 +323,12 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
 
     public let customizeInterestsTitle = WMFLocalizedString("for-you-menu-customize-interests", value: "Customize interests", comment: "Menu action to open the interests customization screen from a For You feed card.")
 
-    public init(article: WMFForYouArticle, headerLabel: WMFForYouHeaderLabel) {
+    public init(article: WMFForYouArticle, headerLabel: WMFForYouHeaderLabel, module: WMFForYouModule) {
         self.headerLabel = headerLabel
         self.title = article.title
         self.project = article.project
         self.cardUniqueKey = "for_you_\(article.project.id)_\(article.title)"
+        self.module = module
     }
 
     /// Rewrites a Commons thumbnail URL to ask for a wider rendering.

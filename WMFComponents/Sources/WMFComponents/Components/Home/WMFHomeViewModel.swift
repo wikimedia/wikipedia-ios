@@ -18,6 +18,8 @@ public final class WMFHomeViewModel: ObservableObject {
     public var didChangeTab: (@MainActor @Sendable (Tab) -> Void)?
     
     let logDidTapLanguagePicker: (String?) -> Void
+    var lastLoggedImpressionCardKey: String?
+    public var logCardImpression: ((String, Int) -> Void)?
 
     public enum Tab: Int, CaseIterable {
         case forYou
@@ -125,6 +127,12 @@ public final class WMFHomeViewModel: ObservableObject {
         forYouViewModel.onUnsaveCard = { [weak self] in self?.didTapUnsaveForYouCard?($0) }
         forYouViewModel.onUserInteraction = { [weak self] in self?.didInteractWithForYouFeed?() }
         forYouViewModel.onShowCard = { [weak self] card in
+            
+            // checking lastLoggedImpressionCardKey prevents duplicate impression events
+            guard card.cardUniqueKey != self?.lastLoggedImpressionCardKey else { return }
+            self?.logCardImpression?(card.module.loggingId, card.cardIndex)
+            self?.lastLoggedImpressionCardKey = card.cardUniqueKey
+            
             // The user saw this card, thus the feed does not suggest the article again for some days.
             self?.dataController.recordSeenArticle(title: card.title, project: card.project)
         }

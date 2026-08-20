@@ -21,12 +21,15 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     }
 
     private let homeDataController = WMFHomeDataController.shared
+    
+    private weak var homeCoordinator: HomeCoordinator?
 
-    init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFHomeViewModel) {
+    init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFHomeViewModel, homeCoordinator: HomeCoordinator) {
         self.dataStore = dataStore
         self.theme = theme
         self.viewModel = viewModel
         self.hostingController = WMFHomeHostingController(rootView: WMFHomeView(viewModel: viewModel))
+        self.homeCoordinator = homeCoordinator
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -161,6 +164,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        homeCoordinator?.startFunnelIfNeeded()
         configureNavigationBar()
         updateChromeAppearance(for: viewModel.selectedTab)
         reloadLanguages()
@@ -180,6 +184,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        homeCoordinator?.stopFunnelIfNeeded()
 
         updateChromeAppearance(for: .community)
     }
