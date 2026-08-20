@@ -35,6 +35,10 @@ private enum WMFForYouCardMetrics {
     static let dotDiameter: CGFloat = 8
     static let miniCardImageSide: CGFloat = 56
 
+    /// How far above the text the gradient starts to appear. The rise finishes at the first line,
+    /// thus every line of text sits on the full strength of the gradient.
+    static let gradientFadeHeight: CGFloat = 25
+
     /// The smallest space between the header bar and the content of a card.
     static let contentTopGap: CGFloat = 24
 
@@ -433,6 +437,33 @@ private struct WMFForYouArticleCardView: View {
         return variant
     }
 
+    /// The gradient behind the text of an image-backed card.
+    ///
+    /// The rise from clear to full strength happens above the first line of text, not across it.
+    /// Before, the rise took the first eighth of the block, thus the photograph showed through the
+    /// title and white text could fall below the AA contrast ratio - the more text, the longer the
+    /// rise, and the worse the result.
+    private var textGradient: some View {
+        GeometryReader { block in
+            let fadeHeight = WMFForYouCardMetrics.gradientFadeHeight
+            let totalHeight = block.size.height + fadeHeight
+            let stop = WMFContrast.stop(for: cardColor)
+
+            LinearGradient(
+                stops: [
+                    .init(color: stop.color.opacity(0), location: 0),
+                    .init(color: stop.color.opacity(stop.opacity), location: fadeHeight / totalHeight),
+                    .init(color: Color(uiColor: WMFColor.black), location: 1)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .frame(width: block.size.width, height: totalHeight)
+            .offset(y: -fadeHeight)
+        }
+        .allowsHitTesting(false)
+    }
+
     private var cardColor: Color {
         switch effectiveVariant {
         case .textFocused:
@@ -610,17 +641,7 @@ private struct WMFForYouArticleCardView: View {
                     .padding(.bottom, WMFForYouCardMetrics.contentBottomInset(safeAreaBottom: WMFForYouCardMetrics.windowSafeAreaBottom))
                     .frame(width: geometry.size.width, alignment: .leading)
                     .background {
-                        LinearGradient(
-                            stops: [
-                                .init(color: cardColor.opacity(0), location: 0.0),
-                                .init(color: cardColor.opacity(0.75), location: 0.12),
-                                .init(color: Color(uiColor: WMFColor.black), location: 1)
-                            ],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                        .padding(.top, -25)
-                        .allowsHitTesting(false)
+                        textGradient
                     }
                 }
             }
