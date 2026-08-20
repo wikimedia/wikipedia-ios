@@ -190,10 +190,76 @@ final class WMFFundraisingCampaignDataControllerTests {
         }
     }
 
+    // MARK: - Force Fundraising Campaign Banner developer setting
+
+    @Test
+    func forceBannerDeveloperSettingIgnoresCountryAndDateFilters() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner = true
+            let invalidCountry = "US"
+            let invalidDate = try invalidDate()
+
+            try await controller.fetchConfig(countryCode: invalidCountry, currentDate: invalidDate)
+
+            let asset = try #require(controller.loadActiveCampaignAsset(countryCode: invalidCountry, wmfProject: enProject, currentDate: invalidDate))
+            #expect(asset.id == "NL_2023_11")
+        }
+    }
+
+    @Test
+    func forceBannerDeveloperSettingFallsBackToAnyLanguageAsset() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner = true
+            let germanProject = WMFProject.wikipedia(WMFLanguage(languageCode: "de", languageVariantCode: nil))
+            let validDate = try validFirstDayDate()
+
+            try await controller.fetchConfig(countryCode: "NL", currentDate: validDate)
+
+            #expect(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: germanProject, currentDate: validDate) != nil)
+        }
+    }
+
+    @Test
+    func forceBannerDeveloperSettingIgnoresPromptState() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner = true
+            let validDate = try validFirstDayDate()
+
+            try await controller.fetchConfig(countryCode: "NL", currentDate: validDate)
+            let asset = try #require(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: nlProject, currentDate: validDate))
+
+            controller.markAssetAsPermanentlyHidden(asset: asset)
+
+            #expect(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: nlProject, currentDate: validDate) != nil)
+        }
+    }
+
+    // MARK: - Clear fundraising campaign persistence developer action
+
+    @Test
+    func clearFundraisingCampaignPersistenceClearsPromptStateAndDonationHistory() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let validDate = try validFirstDayDate()
+            try await controller.fetchConfig(countryCode: "NL", currentDate: validDate)
+            let asset = try #require(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: nlProject, currentDate: validDate))
+            controller.markAssetAsPermanentlyHidden(asset: asset)
+            #expect(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: nlProject, currentDate: validDate) == nil)
+
+            _ = WMFDonateDataController.shared.saveLocalDonationHistory(type: .oneTime, amount: 5, currencyCode: "EUR", isNative: true)
+            #expect(WMFDonateDataController.shared.loadLocalDonationHistory(startDate: nil, endDate: nil)?.isEmpty == false)
+
+            WMFDeveloperSettingsDataController.shared.clearFundraisingCampaignPersistence()
+
+            #expect(controller.loadActiveCampaignAsset(countryCode: "NL", wmfProject: nlProject, currentDate: validDate) != nil)
+            #expect(WMFDonateDataController.shared.loadLocalDonationHistory(startDate: nil, endDate: nil) == nil)
+        }
+    }
+
     private func configureEnvironment() async {
         WMFDataEnvironment.current.basicService = WMFFundraisingCampaignRequestMockService()
         WMFDataEnvironment.current.serviceEnvironment = .staging
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
     }
 
     private func validFirstDayDate() throws -> Date {
