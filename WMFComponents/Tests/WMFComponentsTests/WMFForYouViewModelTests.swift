@@ -39,7 +39,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             ],
             interestPageRelatedArticles: [],
             becauseYouReadArticles: WMFForYouBecauseYouReadArticles(recentlyRead: article("Read"), articles: [article("B1")]),
-            continueReadingArticles: WMFForYouContinueReading(continueReadingArticle: article("C1"), savedArticles: [])
+            continueReadingArticles: WMFForYouContinueReading(continueReadingArticle: article("C1"), fromReadingListArticles: [])
         )
 
         let viewModel = WMFForYouViewModel(response: response)
@@ -145,7 +145,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             becauseYouReadArticles: nil,
             continueReadingArticles: WMFForYouContinueReading(
                 continueReadingArticle: article("Current"),
-                savedArticles: [article("Current"), article("Saved")]
+                fromReadingListArticles: [article("Current"), article("Saved")]
             )
         )
 
@@ -244,7 +244,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             ],
             interestPageRelatedArticles: [],
             becauseYouReadArticles: WMFForYouBecauseYouReadArticles(recentlyRead: article("Read"), articles: [article("Shared"), article("C1")]),
-            continueReadingArticles: WMFForYouContinueReading(continueReadingArticle: article("Continue"), savedArticles: [article("Shared"), article("D1")])
+            continueReadingArticles: WMFForYouContinueReading(continueReadingArticle: article("Continue"), fromReadingListArticles: [article("Shared"), article("D1")])
         )
 
         let keys = cardKeys(of: WMFForYouViewModel(response: response))
@@ -262,7 +262,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             interestTopicRandomArticles: [interestPage(.biology, ["Shared", "A2"])],
             interestPageRelatedArticles: [],
             becauseYouReadArticles: nil,
-            continueReadingArticles: WMFForYouContinueReading(continueReadingArticle: article("Shared"), savedArticles: [])
+            continueReadingArticles: WMFForYouContinueReading(continueReadingArticle: article("Shared"), fromReadingListArticles: [])
         )
 
         let keys = cardKeys(of: WMFForYouViewModel(response: response))

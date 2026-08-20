@@ -159,7 +159,7 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
 
         if let featured = response.feedResponse.todaysFeaturedArticle {
             cards.append(WMFAppOnboardingPreviewCardViewModel(
-                title: featured.normalizedTitle ?? featured.title ?? "",
+                displayTitle: featured.displayTitle ?? featured.normalizedTitle ?? featured.title ?? "",
                 description: featured.description,
                 imageURLString: featured.thumbnail?.source,
                 topicPill: nil
@@ -168,7 +168,7 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
 
         if let pictureOfDay = response.feedResponse.image {
             cards.append(WMFAppOnboardingPreviewCardViewModel(
-                title: pictureOfTheDayTitle,
+                displayTitle: pictureOfTheDayTitle,
                 description: pictureOfDay.description?.text,
                 imageURLString: pictureOfDay.thumbnail?.source ?? pictureOfDay.image?.source,
                 topicPill: nil
@@ -180,7 +180,7 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
             // otherwise the first link that actually has a thumbnail.
             let featured = news.featuredArticle(picturedText: picturedText)
             cards.append(WMFAppOnboardingPreviewCardViewModel(
-                title: inTheNewsTitle,
+                displayTitle: inTheNewsTitle,
                 description: news.story.map(Self.strippingHTMLTags),
                 imageURLString: featured?.thumbnail?.source,
                 topicPill: nil
@@ -224,8 +224,9 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
 final class WMFAppOnboardingPreviewCardViewModel: ObservableObject, Identifiable {
 
     let id = UUID()
-    let title: String
     let topicPill: String?
+
+    @Published var displayTitle: String
     @Published var description: String?
     @Published var uiImage: UIImage?
 
@@ -235,8 +236,8 @@ final class WMFAppOnboardingPreviewCardViewModel: ObservableObject, Identifiable
     private var imageTask: Task<Void, Never>?
 
     /// Community cards arrive with all content up front.
-    init(title: String, description: String?, imageURLString: String?, topicPill: String?) {
-        self.title = title
+    init(displayTitle: String, description: String?, imageURLString: String?, topicPill: String?) {
+        self.displayTitle = displayTitle
         self.description = description
         self.imageURL = imageURLString.flatMap { URL(string: $0) }
         self.topicPill = topicPill
@@ -245,19 +246,20 @@ final class WMFAppOnboardingPreviewCardViewModel: ObservableObject, Identifiable
 
     /// Personalized cards carry only a title and hydrate description/image from the article summary.
     init(article: WMFForYouArticle, topicPill: String?) {
-        self.title = article.title.underscoresToSpaces
+        self.displayTitle = article.title.underscoresToSpaces
         self.description = nil
         self.imageURL = nil
         self.topicPill = topicPill
         self.summaryFetchInfo = (article.title, article.project)
     }
 
-    /// Fetches the description and thumbnail URL from the article summary. Awaited before
-    /// the personalized row is revealed, so its cards appear with their text in place.
+    /// Fetches the display title, description, and thumbnail URL from the article summary.
+    /// Awaited before the personalized row is revealed, so its cards appear with their text in place.
     func loadSummaryIfNeeded() async {
         guard !didLoadSummary, let info = summaryFetchInfo else { return }
         didLoadSummary = true
         guard let summary = try? await WMFArticleSummaryDataController.shared.fetchArticleSummary(project: info.project, title: info.title.spacesToUnderscores) else { return }
+        displayTitle = summary.displayTitle
         description = summary.description
         imageURL = summary.thumbnailURL
     }

@@ -22,6 +22,8 @@ protocol ArticleDescriptionControlling {
     var descriptionSource: ArticleDescriptionSource { get }
     var article: WMFArticle { get }
     var articleLanguageCode: String { get }
+    /// URL that identifies the edited page for edit analytics. Return nil to use the article URL.
+    var loggingPageURL: URL? { get }
     func publishDescription(_ description: String, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void)
     func currentDescription(completion: @escaping (String?, MediaWikiAPIDisplayError?) -> Void)
     func learnMoreViewControllerWithTheme(_ theme: Theme) -> UIViewController?
@@ -29,6 +31,7 @@ protocol ArticleDescriptionControlling {
 }
 
 extension ArticleDescriptionControlling {
+    var loggingPageURL: URL? { return nil }
     var articleDisplayTitle: String? { return article.displayTitle }
     var descriptionMaxLength: Int { return 90 }
     

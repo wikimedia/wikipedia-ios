@@ -65,7 +65,7 @@ public final class WMFHomeFeedForYouSettingsViewModel: ObservableObject {
         let continueReading = SettingsItem(
             image: nil,
             color: nil,
-            title: WMFLocalizedString("home-feed-for-you-continue-reading-title", value: "Continue reading", comment: "Title for the Continue reading module toggle."),
+            title: CommonStrings.continueReadingTitle,
             subtitle: WMFLocalizedString("home-feed-for-you-continue-reading-subtitle", value: "Jump back into articles you didn't finish", comment: "Subtitle describing the Continue reading module."),
             accessory: .toggle(binding(for: .continueReading)),
             action: nil

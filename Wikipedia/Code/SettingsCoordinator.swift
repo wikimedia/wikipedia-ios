@@ -723,7 +723,16 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     private func showEditingPreferences() {
         guard let settingsNavigation = settingsNavigationController else { return }
 
-        let viewController = WMFEditingPreferencesSettingsViewController()
+        let editingInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-editing")
+        editingInstrument.submitInteraction(action: "click", actionSource: "settings", elementId: "editing_method")
+
+        let viewController = WMFEditingPreferencesSettingsViewController(didSelectMode: { mode in
+            editingInstrument.submitInteraction(
+                action: "click",
+                actionSource: "settings",
+                elementId: mode == .visual ? "visual_editing" : "source_editing"
+            )
+        })
         settingsNavigation.pushViewController(viewController, animated: true)
     }
 
