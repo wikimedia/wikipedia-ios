@@ -78,12 +78,18 @@ final class HomeCoordinator: NSObject, Coordinator {
             
         }
         
-        viewModel.logCardDidToggleSave = { [weak self] module in
-            
+        viewModel.logCardDidSave = { [weak self] card in
             guard let self else { return }
-            
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_save", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
-            
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: card.module.loggingId, elementId: "article_save", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            let articleURL = card.project.siteURL?.wmf_URL(withTitle: card.title)
+            ReadingListsFunnel.shared.logSave(category: .article, label: nil, articleURL: articleURL)
+        }
+
+        viewModel.logCardDidUnsave = { [weak self] card in
+            guard let self else { return }
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: card.module.loggingId, elementId: "article_save", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            let articleURL = card.project.siteURL?.wmf_URL(withTitle: card.title)
+            ReadingListsFunnel.shared.logUnsave(category: .article, label: nil, articleURL: articleURL)
         }
         
         viewModel.logCardDidTapHideCard = { [weak self] module in

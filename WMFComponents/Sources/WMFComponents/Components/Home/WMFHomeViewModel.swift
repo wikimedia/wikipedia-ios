@@ -21,7 +21,8 @@ public final class WMFHomeViewModel: ObservableObject {
     private var lastLoggedImpressionCardKey: String?
     public var logCardImpression: ((String, Int) -> Void)?
     public var logCardDidTapShare: ((String) -> Void)?
-    public var logCardDidToggleSave: ((String) -> Void)?
+    public var logCardDidSave: ((WMFForYouArticleCardViewModel) -> Void)?
+    public var logCardDidUnsave: ((WMFForYouArticleCardViewModel) -> Void)?
     public var logCardDidTapHideCard: ((String) -> Void)?
     public var logCardDidTapHideModule: ((String) -> Void)?
     public var logDidTapCustomizeInterests: ((String, String) -> Void)?
@@ -145,7 +146,7 @@ public final class WMFHomeViewModel: ObservableObject {
             self?.didTapForYouCard?($0)
         }
         forYouViewModel.onSaveCard = { [weak self] in
-            self?.logCardDidToggleSave?($0.module.loggingId)
+            self?.logCardDidSave?($0)
             self?.didSaveForYouCard?($0)
         }
         forYouViewModel.onShareCard = { [weak self] in
@@ -153,8 +154,8 @@ public final class WMFHomeViewModel: ObservableObject {
             self?.didShareForYouCard?($0)
         }
         forYouViewModel.onUnsaveCard = { [weak self] in
-            self?.logCardDidToggleSave?($0.module.loggingId)
-            self?.didSaveForYouCard?($0)
+            self?.logCardDidUnsave?($0)
+            self?.didTapUnsaveForYouCard?($0)
         }
         
         forYouViewModel.onEmptyViewAppearance = { [weak self] in
