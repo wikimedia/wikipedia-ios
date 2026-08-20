@@ -1,0 +1,80 @@
+import Foundation
+import Testing
+import WMFDataTestSupport
+@testable import WMFData
+@testable import WMFDataMocks
+
+@Suite(.serialized)
+final class WMFDonationReminderDataControllerTests {
+
+    private let fixture = WMFDataTestFixture()
+    private let controller = WMFDonationReminderDataController.shared
+
+    @Test
+    func saveAndLoadArticleBasedReminder() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let createdDate = Date(timeIntervalSince1970: 1_755_600_000)
+            let reminder = WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 2, currencyCode: "EUR", createdDate: createdDate, isEnabled: true)
+
+            controller.saveReminder(reminder)
+
+            let loadedReminder = try #require(controller.loadReminder())
+            #expect(loadedReminder == reminder)
+            #expect(loadedReminder.trigger == .articlesRead(count: 5))
+            #expect(loadedReminder.amount == 2)
+            #expect(loadedReminder.currencyCode == "EUR")
+            #expect(loadedReminder.isEnabled == true)
+        }
+    }
+
+    @Test
+    func saveAndLoadTimeBasedReminder() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let createdDate = Date(timeIntervalSince1970: 1_755_600_000)
+            let reminder = WMFDonationReminder(trigger: .timeElapsed(days: 14), amount: 10.50, currencyCode: "EUR", createdDate: createdDate, isEnabled: true)
+
+            controller.saveReminder(reminder)
+
+            let loadedReminder = try #require(controller.loadReminder())
+            #expect(loadedReminder.trigger == .timeElapsed(days: 14))
+            #expect(loadedReminder.amount == Decimal(string: "10.50"))
+        }
+    }
+
+    @Test
+    func saveOverwritesPreviousReminder() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let createdDate = Date(timeIntervalSince1970: 1_755_600_000)
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 2, currencyCode: "EUR", createdDate: createdDate, isEnabled: true))
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 20), amount: 5, currencyCode: "EUR", createdDate: createdDate, isEnabled: false))
+
+            let loadedReminder = try #require(controller.loadReminder())
+            #expect(loadedReminder.trigger == .articlesRead(count: 20))
+            #expect(loadedReminder.amount == 5)
+            #expect(loadedReminder.isEnabled == false)
+        }
+    }
+
+    @Test
+    func loadWithoutSavedReminderReturnsNil() async {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            #expect(controller.loadReminder() == nil)
+        }
+    }
+
+    @Test
+    func clearRemovesSavedReminder() async {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let createdDate = Date(timeIntervalSince1970: 1_755_600_000)
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 10), amount: 1, currencyCode: "EUR", createdDate: createdDate, isEnabled: true))
+
+            controller.clearReminder()
+
+            #expect(controller.loadReminder() == nil)
+        }
+    }
+
+    private func configureEnvironment() async {
+        WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
+    }
+}
