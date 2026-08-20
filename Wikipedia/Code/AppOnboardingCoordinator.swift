@@ -53,7 +53,19 @@ final class AppOnboardingCoordinator: NSObject {
                 self?.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "deselect_all")
             }
         )
-        let feedPreferenceViewModel = WMFAppOnboardingFeedPreferenceViewModel(project: project)
+        let feedPreferenceViewModel = WMFAppOnboardingFeedPreferenceViewModel(
+            project: project,
+            logImpression: { [weak self] noInterests in
+                let actionSubtype: String? = noInterests ? "no_interests" : nil
+                self?.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_order_customize", actionSubtype: actionSubtype)
+            },
+            logDidTapCommunity: { [weak self] in
+                self?.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", elementId: "community_first")
+            },
+            logDidTapPersonalized: { [weak self] in
+                self?.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", elementId: "for_you_first")
+            }
+        )
         
         let viewModel = WMFAppOnboardingViewModel(
             languages: preferredLanguageItems(),
@@ -83,8 +95,11 @@ final class AppOnboardingCoordinator: NSObject {
                     self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_entry")
                 case .interests:
                     self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_customize")
-                case .feedPreference, .loading:
-                    //todo
+                case .feedPreference:
+                    // handling it in child view model so that we can capture "no interests" subtype. The "no interests" data is not available from this hook, the child view model has to load the data first.
+                    break
+                case .loading:
+                    self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_loading")
                     break
                 case .intro, .languages, .dataPrivacy:
                     //todo
@@ -99,7 +114,10 @@ final class AppOnboardingCoordinator: NSObject {
                     self.homeFeedInstrument?.startFunnel(name: "feed_customize").submitInteraction(action: "click", actionSource: "feed_entry", elementId: "skip_button")
                 case .interests:
                     self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "skip_button")
-                case .feedPreference, .loading:
+                case .feedPreference:
+                    let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
+                    self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "skip_button")
+                case .loading:
                     //todo
                     break
                 case .intro, .languages, .dataPrivacy:
@@ -117,7 +135,10 @@ final class AppOnboardingCoordinator: NSObject {
                     self.homeFeedInstrument?.startFunnel(name: "feed_customize").submitInteraction(action: "click", actionSource: "feed_entry", elementId: "next_button")
                 case .interests:
                     self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "next_button")
-                case .feedPreference, .loading:
+                case .feedPreference:
+                    let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
+                    self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "next_button")
+                case .loading:
                     //todo
                     break
                 case .intro, .languages, .dataPrivacy:
@@ -157,7 +178,19 @@ final class AppOnboardingCoordinator: NSObject {
                 instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "deselect_all")
             }
         )
-        let feedPreferenceViewModel = WMFAppOnboardingFeedPreferenceViewModel(project: project)
+        let feedPreferenceViewModel = WMFAppOnboardingFeedPreferenceViewModel(
+            project: project,
+            logImpression: { noInterests in
+                let actionSubtype: String? = noInterests ? "no_interests" : nil
+                instrument.submitInteraction(action: "impression", actionSource: "feed_order_customize", actionSubtype: actionSubtype)
+            },
+            logDidTapCommunity: {
+                instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", elementId: "community_first")
+            },
+            logDidTapPersonalized: {
+                instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", elementId: "for_you_first")
+            }
+        )
 
         let viewModel = WMFAppOnboardingViewModel(
             languages: preferredLanguageItems(),
@@ -184,8 +217,11 @@ final class AppOnboardingCoordinator: NSObject {
                     assertionFailure("Condensed flow should not see personalization intro.")
                 case .interests:
                     instrument.submitInteraction(action: "impression", actionSource: "feed_customize")
-                case .feedPreference, .loading:
-                    //todo
+                case .feedPreference:
+                    // handling it in child view model so that we can capture "no interests" subtype.  The "no interests" data is not available from this hook, the child view model has to load the data first.
+                    break
+                case .loading:
+                    instrument.submitInteraction(action: "impression", actionSource: "feed_loading")
                     break
                 case .intro, .languages, .dataPrivacy:
                     assertionFailure("Condensed flow should not see intro, languages, or data privacy.")
@@ -197,7 +233,10 @@ final class AppOnboardingCoordinator: NSObject {
                     assertionFailure("Condensed flow should not see personalization intro.")
                 case .interests:
                     instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "skip_button")
-                case .feedPreference, .loading:
+                case .feedPreference:
+                    let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
+                    instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "skip_button")
+                case .loading:
                     //todo
                     break
                 case .intro, .languages, .dataPrivacy:
@@ -211,7 +250,10 @@ final class AppOnboardingCoordinator: NSObject {
                      assertionFailure("Condensed flow should not see personalization intro.")
                  case .interests:
                      instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "next_button")
-                 case .feedPreference, .loading:
+                 case .feedPreference:
+                     let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
+                     instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "next_button")
+                 case .loading:
                      //todo
                      break
                  case .intro, .languages, .dataPrivacy:

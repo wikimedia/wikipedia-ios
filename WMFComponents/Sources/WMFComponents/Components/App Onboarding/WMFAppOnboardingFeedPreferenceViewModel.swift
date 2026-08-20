@@ -25,7 +25,7 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
     @Published public private(set) var selection: WMFHomeFeedSeeFirst = .community
     @Published private(set) var communityCards: [WMFAppOnboardingPreviewCardViewModel] = []
     @Published private(set) var personalizedCards: [WMFAppOnboardingPreviewCardViewModel] = []
-    @Published private(set) var isPersonalizedAvailable: Bool = true
+    @Published public private(set) var isPersonalizedAvailable: Bool = true
     @Published var isCommunityLoading: Bool = false
     @Published var isPersonalizedLoading: Bool = false
 
@@ -34,10 +34,23 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
     private var communityTask: Task<Void, Never>?
     private var personalizedTask: Task<Void, Never>?
     private var hasLoaded = false
+    
+    // MARK: - App-side actions
+    let logImpression: (Bool) -> Void
+    let logDidTapCommunity: () -> Void
+    let logDidTapPersonalized: () -> Void
 
-    public init(dataController: WMFHomeDataController = WMFHomeDataController.shared, project: WMFProject) {
+    public init(
+        dataController: WMFHomeDataController = WMFHomeDataController.shared,
+        project: WMFProject,
+        logImpression: @escaping (Bool) -> Void,
+        logDidTapCommunity: @escaping () -> Void,
+        logDidTapPersonalized: @escaping () -> Void) {
         self.dataController = dataController
         self.project = project
+        self.logImpression = logImpression
+        self.logDidTapCommunity = logDidTapCommunity
+        self.logDidTapPersonalized = logDidTapPersonalized
     }
 
     // MARK: - Intents
@@ -50,6 +63,12 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
 
     func select(_ newSelection: WMFHomeFeedSeeFirst) {
         guard newSelection != .personalized || isPersonalizedSelectable else { return }
+        switch newSelection {
+        case .community:
+            logDidTapCommunity()
+        case .personalized:
+            logDidTapPersonalized()
+        }
         selection = newSelection
     }
 
@@ -114,9 +133,11 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
                 }
                 self.personalizedCards = cards
                 self.isPersonalizedAvailable = Self.personalizedIsAvailable(for: forYou)
+                logImpression(!isPersonalizedAvailable)
             } else {
                 self.personalizedCards = []
                 self.isPersonalizedAvailable = !dataController.interestTopics().isEmpty
+                logImpression(!isPersonalizedAvailable)
             }
 
             if !self.isPersonalizedAvailable && self.selection == .personalized {
