@@ -1,4 +1,5 @@
 import UIKit
+import CoreLocation
 import WMF
 import WMFData
 import WMFComponents
@@ -333,6 +334,13 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         self.backgroundFetcherController = backgroundFetcherController
     }
 
+    /// When `true` the app always opens on the Places tab, regardless of the user's default-tab
+    /// setting and of any article that was open when the app was last backgrounded.
+    ///
+    /// Set to `false` to restore upstream Wikipedia behaviour (Explore, Search or Settings
+    /// depending on the user's preference, plus navigation-stack restoration).
+    static let launchesIntoPlacesTab = true
+
     private func loadMainUI() {
         guard !uiIsLoaded else { return }
         configureTabController()
@@ -409,12 +417,18 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         updateUserInterfaceStyleOfNavigationControllersForCurrentTheme()
 
-        let shouldOpenOnSearch = shouldOpenAppOnSearchTab()
-        if shouldOpenOnSearch && selectedIndex != WMFAppTabType.search.rawValue {
-            selectedIndex = WMFAppTabType.search.rawValue
-            searchTabViewController.makeSearchBarBecomeFirstResponder()
-        } else if selectedIndex != WMFAppTabType.main.rawValue {
-            selectedIndex = WMFAppTabType.main.rawValue
+        if WMFAppViewController.launchesIntoPlacesTab {
+            if selectedIndex != WMFAppTabType.places.rawValue {
+                selectedIndex = WMFAppTabType.places.rawValue
+            }
+        } else {
+            let shouldOpenOnSearch = shouldOpenAppOnSearchTab()
+            if shouldOpenOnSearch && selectedIndex != WMFAppTabType.search.rawValue {
+                selectedIndex = WMFAppTabType.search.rawValue
+                searchTabViewController.makeSearchBarBecomeFirstResponder()
+            } else if selectedIndex != WMFAppTabType.main.rawValue {
+                selectedIndex = WMFAppTabType.main.rawValue
+            }
         }
     }
 
@@ -1006,6 +1020,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                 self.processShortcutItem(shortcutItem) { _ in
                     done()
                 }
+            } else if WMFAppViewController.launchesIntoPlacesTab {
+                // No deep link and no notification: still land on Places rather than restoring
+                // the previously open article or showing Explore.
+                self.hideSplashView()
+                self.showPlaces(animated: false)
+                done()
             } else if UserDefaults.standard.shouldRestoreNavigationStackOnResume {
                 self.navigationStateController.restoreLastArticle(for: self, in: self.dataStore.viewContext, with: self.theme) {
                     self.hideSplashView()
@@ -1288,6 +1308,24 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         }
     }
 
+    /// Returns the map coordinate a calling app asked the Places tab to show, if any.
+    ///
+    /// The coordinate arrives in the activity's `userInfo` after `wikipedia://places` has been
+    /// parsed (see `NSUserActivity+WMFExtensions`). Invalid coordinates are rejected here so
+    /// the Places tab falls back to its normal behaviour.
+    static func requestedPlacesCoordinate(for activity: NSUserActivity) -> CLLocationCoordinate2D? {
+        guard let userInfo = activity.userInfo,
+              let latitude = (userInfo[WMFPlacesActivityLatitudeKey] as? NSNumber)?.doubleValue,
+              let longitude = (userInfo[WMFPlacesActivityLongitudeKey] as? NSNumber)?.doubleValue else {
+            return nil
+        }
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        guard CLLocationCoordinate2DIsValid(coordinate) else {
+            return nil
+        }
+        return coordinate
+    }
+
     @objc private func navigateToActivityNotification(_ note: Notification) {
         guard let activity = note.object as? NSUserActivity else { return }
         processUserActivity(activity, animated: true) {}
@@ -1318,7 +1356,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             dismissPresentedViewControllers()
             selectedIndex = WMFAppTabType.places.rawValue
             currentTabNavigationController?.popToRootViewController(animated: animated)
-            if let articleURL = activity.wmf_linkURL() {
+            if let coordinate = WMFAppViewController.requestedPlacesCoordinate(for: activity) {
+                // A calling app asked for a specific location, e.g.
+                // wikipedia://places?latitude=52.3547&longitude=4.8339&name=Amsterdam
+                placesViewController.updateViewModeToMap()
+                placesViewController.showLocation(latitude: coordinate.latitude, longitude: coordinate.longitude, name: activity.userInfo?[WMFPlacesActivityLocationNameKey] as? String)
+            } else if let articleURL = activity.wmf_linkURL() {
                 placesViewController.updateViewModeToMap()
                 placesViewController.showArticleURL(articleURL)
             }
@@ -1731,6 +1774,13 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         selectedIndex = WMFAppTabType.places.rawValue
         currentTabNavigationController?.popToRootViewController(animated: false)
         placesViewController.showNearbyArticles()
+    }
+
+    /// Selects the Places tab without forcing a search around the device's current location.
+    private func showPlaces(animated: Bool) {
+        dismissPresentedViewControllers()
+        selectedIndex = WMFAppTabType.places.rawValue
+        currentTabNavigationController?.popToRootViewController(animated: animated)
     }
 
     // MARK: - App config

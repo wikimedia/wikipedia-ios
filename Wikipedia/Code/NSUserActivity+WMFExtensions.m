@@ -3,8 +3,49 @@
 
 @import CoreSpotlight;
 @import MobileCoreServices;
+@import CoreLocation;
 
 NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotification";
+
+NSString *const WMFPlacesActivityLatitudeKey = @"WMFPlacesLatitude";
+NSString *const WMFPlacesActivityLongitudeKey = @"WMFPlacesLongitude";
+NSString *const WMFPlacesActivityLocationNameKey = @"WMFPlacesLocationName";
+
+// Query item names accepted for the latitude of a `wikipedia://places` deep link.
+static NSArray<NSString *> *WMFPlacesLatitudeQueryItemNames(void) {
+    return @[@"latitude", @"lat"];
+}
+
+// Query item names accepted for the longitude of a `wikipedia://places` deep link.
+static NSArray<NSString *> *WMFPlacesLongitudeQueryItemNames(void) {
+    return @[@"longitude", @"lon", @"lng", @"long"];
+}
+
+// Query item names accepted for the display name of a `wikipedia://places` deep link.
+static NSArray<NSString *> *WMFPlacesNameQueryItemNames(void) {
+    return @[@"name", @"title"];
+}
+
+// Parses a coordinate component in a locale independent way. Deep link values always use a
+// dot as the decimal separator, so parsing with the user's locale (which may use a comma)
+// would silently misread them.
+static NSNumber *_Nullable WMFDegreesFromQueryValue(NSString *_Nullable value) {
+    NSString *trimmed = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (trimmed.length == 0) {
+        return nil;
+    }
+
+    static NSNumberFormatter *formatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formatter = [[NSNumberFormatter alloc] init];
+        formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        formatter.numberStyle = NSNumberFormatterDecimalStyle;
+        formatter.usesGroupingSeparator = NO;
+    });
+
+    return [formatter numberFromString:trimmed];
+}
 
 // Use to suppress "User-facing text should use localized string macro" Analyzer warning
 // where appropriate.
@@ -62,16 +103,69 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
 + (instancetype)wmf_placesActivityWithURL:(NSURL *)activityURL {
     NSURLComponents *components = [NSURLComponents componentsWithURL:activityURL resolvingAgainstBaseURL:NO];
     NSURL *articleURL = nil;
+    NSString *latitudeValue = nil;
+    NSString *longitudeValue = nil;
+    NSString *nameValue = nil;
+
     for (NSURLQueryItem *item in components.queryItems) {
+        NSString *name = [item.name lowercaseString];
         if ([item.name isEqualToString:@"WMFArticleURL"]) {
-            NSString *articleURLString = item.value;
-            articleURL = [NSURL URLWithString:articleURLString];
-            break;
+            articleURL = [NSURL URLWithString:item.value];
+        } else if (latitudeValue == nil && [WMFPlacesLatitudeQueryItemNames() containsObject:name]) {
+            latitudeValue = item.value;
+        } else if (longitudeValue == nil && [WMFPlacesLongitudeQueryItemNames() containsObject:name]) {
+            longitudeValue = item.value;
+        } else if (nameValue == nil && [WMFPlacesNameQueryItemNames() containsObject:name]) {
+            nameValue = item.value;
         }
     }
+
+    NSNumber *latitude = WMFDegreesFromQueryValue(latitudeValue);
+    NSNumber *longitude = WMFDegreesFromQueryValue(longitudeValue);
+
+    if (latitude != nil && longitude != nil) {
+        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
+        if (CLLocationCoordinate2DIsValid(coordinate)) {
+            NSUserActivity *activity = [self wmf_placesActivityWithLatitude:coordinate.latitude longitude:coordinate.longitude name:nameValue];
+            activity.webpageURL = articleURL;
+            return activity;
+        }
+    }
+
     NSUserActivity *activity = [self wmf_pageActivityWithName:@"Places"];
     activity.webpageURL = articleURL;
     return activity;
+}
+
++ (instancetype)wmf_placesActivityWithLatitude:(double)latitude longitude:(double)longitude name:(NSString *)name {
+    NSUserActivity *activity = [self wmf_pageActivityWithName:@"Places"];
+
+    NSMutableDictionary *userInfo = [activity.userInfo mutableCopy] ?: [NSMutableDictionary dictionary];
+    userInfo[WMFPlacesActivityLatitudeKey] = @(latitude);
+    userInfo[WMFPlacesActivityLongitudeKey] = @(longitude);
+    if (name.length > 0) {
+        userInfo[WMFPlacesActivityLocationNameKey] = name;
+    }
+    activity.userInfo = userInfo;
+
+    return activity;
+}
+
++ (NSURL *)wmf_placesURLWithLatitude:(double)latitude longitude:(double)longitude name:(NSString *)name {
+    NSURLComponents *components = [[NSURLComponents alloc] init];
+    components.scheme = @"wikipedia";
+    components.host = @"places";
+
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray arrayWithObjects:
+                                                                      [NSURLQueryItem queryItemWithName:@"latitude" value:[NSString stringWithFormat:@"%f", latitude]],
+                                                                      [NSURLQueryItem queryItemWithName:@"longitude" value:[NSString stringWithFormat:@"%f", longitude]],
+                                                                      nil];
+    if (name.length > 0) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"name" value:name]];
+    }
+    components.queryItems = queryItems;
+
+    return components.URL;
 }
 
 + (BOOL)wmf_isExploreFeedEnabled {

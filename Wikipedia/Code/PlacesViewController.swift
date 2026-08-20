@@ -2100,6 +2100,56 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult, siteURL: articleURL.wmf_site)
     }
 
+    // Default radius, in meters, of the map region shown for a caller-supplied location.
+    static let defaultRequestedLocationRadius: CLLocationDistance = 10000
+
+    // Centers the map on an explicit coordinate supplied by another app (via
+    // `wikipedia://places?latitude=…&longitude=…`) and searches for the top articles around it.
+    //
+    // This deliberately takes precedence over the device's current location: any pending
+    // "pan to the user's location" work is cancelled so the requested location is not
+    // overwritten when Core Location delivers its first fix.
+    //
+    // - Parameters:
+    //   - latitude: Latitude in degrees.
+    //   - longitude: Longitude in degrees.
+    //   - name: Optional human readable name, shown in the search bar.
+    //   - radius: Radius of the visible map region, in meters.
+    // - Returns: `false` when the coordinate is not valid, in which case nothing changes.
+    @discardableResult
+    public func showLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees, name: String?, radius: CLLocationDistance = PlacesViewController.defaultRequestedLocationRadius) -> Bool {
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        guard CLLocationCoordinate2DIsValid(coordinate), view != nil else { // force view instantiation
+            return false
+        }
+
+        // The caller-supplied location wins over the device location.
+        panMapToNextLocationUpdate = false
+        performDefaultSearchOnNextMapRegionUpdate = false
+
+        let region = [coordinate].wmf_boundingRegion(with: radius > 0 ? radius : PlacesViewController.defaultRequestedLocationRadius)
+        currentSearchRegion = region
+        mapRegion = region
+
+        let description = name?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let localizedDescription = (description?.isEmpty == false) ? description : PlacesViewController.coordinateDescription(for: coordinate)
+
+        currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: localizedDescription, searchResult: nil)
+
+        return true
+    }
+
+    /// A locale-aware "52.355, 4.834" style description used when the caller does not name the location.
+    static func coordinateDescription(for coordinate: CLLocationCoordinate2D) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 3
+        formatter.minimumFractionDigits = 3
+        let latitude = formatter.string(from: NSNumber(value: coordinate.latitude)) ?? "\(coordinate.latitude)"
+        let longitude = formatter.string(from: NSNumber(value: coordinate.longitude)) ?? "\(coordinate.longitude)"
+        return "\(latitude), \(longitude)"
+    }
+
     fileprivate func searchForFirstSearchSuggestion() {
         if !searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection].isEmpty {
             currentSearch = searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection][0]

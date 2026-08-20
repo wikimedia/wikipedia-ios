@@ -7,12 +7,6 @@ class DiffListViewController: ThemeableViewController {
     
     fileprivate static let headerReuseIdentifier = "DiffHeaderView"
     fileprivate static let headerExtendedReuseIdentifier = "DiffHeaderExtendedView"
-
-    enum Section: Int, CaseIterable {
-        case header
-        case extendedHeader
-        case items
-    }
     
     enum ListUpdateType {
         case itemExpandUpdate(indexPath: IndexPath) // tapped context cell to expand
@@ -250,38 +244,40 @@ private extension DiffListViewController {
 extension DiffListViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return Section.allCases.count
+        return 3
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == Section.items.rawValue {
+        
+        if section == 0 || section == 1 {
+            return 0
+        } else {
             return dataSource.count
         }
-        return 0
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 
-        switch Section(rawValue: indexPath.section) {
-        case .header:
+        if indexPath.section == 0 {
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Self.headerReuseIdentifier, for: indexPath) as? DiffHeaderView else {
                 return UICollectionReusableView()
             }
-
+            
             headerView.configure(with: diffHeaderViewModel, tappedHeaderTitleAction: tappedHeaderTitleAction, theme: theme)
             return headerView
-        case .extendedHeader:
+        } else if indexPath.section == 1 {
             guard let headerExtendedView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Self.headerExtendedReuseIdentifier, for: indexPath) as? DiffHeaderExtendedView else {
                 return UICollectionReusableView()
             }
-
+            
             headerExtendedView.update(diffHeaderViewModel, theme: theme)
             headerExtendedView.tappedHeaderUsernameAction = tappedHeaderUsernameAction
             return headerExtendedView
-        default:
+        } else {
             return UICollectionReusableView()
         }
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -316,27 +312,30 @@ extension DiffListViewController: UICollectionViewDataSource {
 extension DiffListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-
-        switch Section(rawValue: section) {
-        case .header:
+        
+        guard section == 0 || section == 1 else {
+            return .zero
+        }
+        
+        if section == 0 {
             let headerView = DiffHeaderContentView()
             headerView.configure(with: diffHeaderViewModel, tappedHeaderTitleAction: tappedHeaderTitleAction, theme: theme)
             let size =  headerView.systemLayoutSizeFitting(CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height),
                                                       withHorizontalFittingPriority: .required, // Width is fixed
                                                       verticalFittingPriority: .fittingSizeLevel) // Height can be as large as needed
             return size
-        case .extendedHeader:
+        } else if section == 1 {
             let headerExtendedView = DiffHeaderExtendedView()
             headerExtendedView.update(diffHeaderViewModel, theme: theme)
             headerExtendedView.tappedHeaderUsernameAction = tappedHeaderUsernameAction
-
+            
             let size =  headerExtendedView.systemLayoutSizeFitting(CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height),
                                                       withHorizontalFittingPriority: .required, // Width is fixed
                                                       verticalFittingPriority: .fittingSizeLevel) // Height can be as large as needed
             return size
-        default:
-            return .zero
         }
+        
+        return .zero
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -406,7 +405,7 @@ extension DiffListViewController: DiffListChangeCellDelegate {
         if let indexOfOtherMoveCell = indexOfOtherMoveCell,
             let changeItemToScrollTo = changeItemToScrollTo {
 
-            let indexPathOfOtherMoveCell = IndexPath(item: indexOfOtherMoveCell, section: Section.items.rawValue)
+            let indexPathOfOtherMoveCell = IndexPath(item: indexOfOtherMoveCell, section: 0)
             let visibleIndexPaths = collectionView.indexPathsForVisibleItems
             
             if visibleIndexPaths.contains(indexPathOfOtherMoveCell) { // cell already configured, skip straight to detecting offset needed to get top of *item* on screen.
@@ -417,7 +416,7 @@ extension DiffListViewController: DiffListChangeCellDelegate {
                 // avoids weird bouncing when scrolling up if we choose the index path below
                 let indexAfterIndexOfOtherMoveCell = indexOfOtherMoveCell + 1
                 let indexToScrollTo = moveDirection == .down ? indexOfOtherMoveCell : ((dataSource.count) > indexAfterIndexOfOtherMoveCell) ? indexAfterIndexOfOtherMoveCell : indexOfOtherMoveCell
-                let indexPathToScrollTo = IndexPath(item: indexToScrollTo, section: Section.items.rawValue)
+                let indexPathToScrollTo = IndexPath(item: indexToScrollTo, section: 0)
                 
                 // first scroll to cell, scrollViewDidEndAnimation will then scroll to item
                 scrollDidFinishInfo = (indexPathOfOtherMoveCell, changeItemToScrollTo)
