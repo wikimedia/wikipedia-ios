@@ -138,16 +138,34 @@ final class HomeFeedSettingsCoordinator: Coordinator {
     }
 
     private func showForYouModulesSettings() {
-        let viewModel = WMFHomeFeedForYouSettingsViewModel()
+        let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed")
+        instrument.submitInteraction(action: "click", actionSource: "settings", elementId: "feed_modules_for_you")
+        
+        let viewModel = WMFHomeFeedForYouSettingsViewModel(
+            logToggleModule: { module, isOn in
+                let action = isOn ? "enable" : "disable"
+                let elementId: String
+                switch module {
+                case .basedOnYourInterests: elementId = "INTERESTS"
+                case .becauseYouRead: elementId = "BECAUSE_READ"
+                case .continueReading: elementId = "CONTINUE"
+                }
+                instrument.submitInteraction(action: action, actionSource: "settings", actionSubtype: "feed_for_you", elementId: elementId)
+            }
+        )
         let forYouSettingsVC = WMFHomeFeedForYouSettingsViewController(viewModel: viewModel)
         activeNavigationController.pushViewController(forYouSettingsVC, animated: true)
     }
 
     private func showWhatsDrivingSettings() {
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "feed_data_info")
         activeNavigationController.pushViewController(makeWhatsDrivingViewController(), animated: true)
     }
 
     private func showInterestsSettings() {
+        
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "customize_feed")
+        
         let language = homeDataController.selectedLanguage() ?? WMFDataEnvironment.current.primaryAppLanguage ?? WMFLanguage(languageCode: "en", languageVariantCode: nil)
         let project = WMFProject.wikipedia(language)
         let searchLanguages = MWKDataStore.shared().languageLinkController.preferredLanguages.map {
@@ -177,6 +195,7 @@ final class HomeFeedSettingsCoordinator: Coordinator {
 
     private func switchToSearchTab() {
         // `AppDelegate` is compiled out of test builds (replaced by `MockAppDelegate`), so any reference to it must be guarded in test builds
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "reading_history")
 #if !TEST
         guard let appViewController = (UIApplication.shared.delegate as? AppDelegate)?.appViewController else {
             return
@@ -186,6 +205,7 @@ final class HomeFeedSettingsCoordinator: Coordinator {
     }
 
     private func showLanguages() {
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "languages")
         let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
         languagesVC.showExploreFeedCustomizationSettings = true
         languagesVC.apply(currentTheme)
