@@ -108,6 +108,41 @@ import CocoaLumberjackSwift
         )
     }
 
+    // MARK: - PageData helpers
+
+    /// Builds page context from an article URL alone. `id`, `revision_id`, and `wikidata_qid` are
+    /// unavailable at this point and are omitted; use `getPageData(articleURL:articleSummary:)` when
+    /// a summary is in hand.
+    public static func getPageData(articleURL: URL?) -> PageData? {
+        guard let articleURL else { return nil }
+        return PageData(
+            title: articleURL.wmf_titleWithUnderscores,
+            contentLanguage: articleURL.wmf_languageCode
+        )
+    }
+
+    /// Builds page context from an article URL and its summary response. Populates `id`,
+    /// `revision_id`, `wikidata_qid`, and `namespace` fields when available.
+    public static func getPageData(articleURL: URL?, articleSummary: ArticleSummary?) -> PageData? {
+        guard let articleURL else { return nil }
+        let title = articleSummary?.title ?? articleURL.wmf_titleWithUnderscores
+        let contentLanguage = articleURL.wmf_languageCode
+        let id = articleSummary?.id.flatMap { Int(exactly: $0) }
+        let revisionId = articleSummary?.revision.flatMap { Int64($0) }
+        let wikidataQid = articleSummary?.wikidataID
+        let namespaceId = articleSummary?.namespace?.id
+        let namespaceName = articleSummary?.namespace?.text
+        return PageData(
+            id: id,
+            title: title,
+            namespaceId: namespaceId,
+            namespaceName: namespaceName,
+            revisionId: revisionId,
+            wikidataQid: wikidataQid,
+            contentLanguage: contentLanguage
+        )
+    }
+
     // MARK: - EventSender
 
     public func sendEvents(_ events: [Event]) {
