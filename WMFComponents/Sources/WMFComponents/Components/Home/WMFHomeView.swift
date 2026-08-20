@@ -150,7 +150,11 @@ public struct WMFHomeView: View {
                         .minimumScaleFactor(0.25)
                         .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
                         .lineLimit(1)
-                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronUpChevronDown, font: .boldCaption1) ?? UIImage())
+                    Image(uiImage: WMFSFSymbolIcon.for(
+                        symbol: .chevronUpChevronDown,
+                        font: .boldCaption1,
+                        compatibleWith: .wmfCappedForSFSymbols
+                    ) ?? UIImage())
                         .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
                 }
                 .padding(.horizontal, 16)
