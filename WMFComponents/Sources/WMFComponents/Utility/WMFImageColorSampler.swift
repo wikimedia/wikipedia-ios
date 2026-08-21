@@ -17,9 +17,6 @@ actor WMFImageColorSampler {
     /// Read one pixel in every `samplingStride` x `samplingStride` block rather than all of them.
     private static let samplingStride = 2
 
-    private static let darkeningStep: CGFloat = 0.95
-    private static let maxDarkeningSteps = 200
-
     // MARK: - Public
 
     /// Takes image `Data` rather than a `UIImage` because `UIImage` is not `Sendable` and so cannot
@@ -143,16 +140,8 @@ actor WMFImageColorSampler {
     ///
     /// The cap only ever scales down, so it cannot undo rule 1.
     static func darkenToMeetContrast(r: CGFloat, g: CGFloat, b: CGFloat, targetRatio: CGFloat) -> (CGFloat, CGFloat, CGFloat) {
-        var r = r, g = g, b = b
-
-        // Bounded: darkening always raises contrast towards its 21:1 ceiling, so this terminates
-        // for any reachable target. The limit only guards against a target above that ceiling.
-        var iterations = 0
-        while contrastAgainstWhite(r: r, g: g, b: b) < targetRatio && iterations < maxDarkeningSteps {
-            r *= darkeningStep
-            g *= darkeningStep
-            b *= darkeningStep
-            iterations += 1
+        var (r, g, b) = WMFContrast.darkened(red: r, green: g, blue: b) { red, green, blue in
+            WMFContrast.ratioAgainstWhite(red: red, green: green, blue: blue) >= targetRatio
         }
 
         let maxComponent = max(r, g, b)
@@ -166,16 +155,8 @@ actor WMFImageColorSampler {
         return (r, g, b)
     }
 
-    /// WCAG contrast ratio of a colour against white.
+    /// WCAG contrast ratio of a colour against white. See `WMFContrast`.
     static func contrastAgainstWhite(r: CGFloat, g: CGFloat, b: CGFloat) -> CGFloat {
-        1.05 / (relativeLuminance(r: r, g: g, b: b) + 0.05)
-    }
-
-    /// WCAG relative luminance.
-    private static func relativeLuminance(r: CGFloat, g: CGFloat, b: CGFloat) -> CGFloat {
-        func linearize(_ c: CGFloat) -> CGFloat {
-            c <= 0.03928 ? c / 12.92 : pow((c + 0.055) / 1.055, 2.4)
-        }
-        return 0.2126 * linearize(r) + 0.7152 * linearize(g) + 0.0722 * linearize(b)
+        WMFContrast.ratioAgainstWhite(red: r, green: g, blue: b)
     }
 }

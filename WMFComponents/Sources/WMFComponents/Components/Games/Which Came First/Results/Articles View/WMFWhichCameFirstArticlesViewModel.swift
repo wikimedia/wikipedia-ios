@@ -78,50 +78,22 @@ public final class WMFWhichCameFirstArticleItemViewModel: ObservableObject, Iden
 /// coordinator so that article URLs can be constructed using WMF framework helpers.
 @MainActor
 public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
-
-    public struct LocalizedStrings {
-        public let sectionTitle: String
-        public let openArticleTitle: String
-        public let openInNewTabTitle: String
-        public let openInBackgroundTabTitle: String
-        public let saveForLaterTitle: String
-        public let unsaveTitle: String
-        public let shareArticleTitle: String
-        public let articleTapAccessibility: String
-        // VoiceOver helpers
-        public let openArticleRelatedEventHint: String
-        public let articleSavedAccessibility: String
-
-        public init(
-            sectionTitle: String = WMFLocalizedString("which-came-first-articles-section-title", value: "Articles from today's game", comment: "Section title for the article cards shown after completing the Which Came First game"),
-            openArticleTitle: String = CommonStrings.articleTabsOpen,
-            openInNewTabTitle: String = CommonStrings.articleTabsOpenInNewTab,
-            openInBackgroundTabTitle: String = CommonStrings.articleTabsOpenInBackgroundTab,
-            saveForLaterTitle: String = CommonStrings.saveTitle,
-            unsaveTitle: String = CommonStrings.shortUnsaveTitle,
-            shareArticleTitle: String = CommonStrings.shortShareTitle,
-            articleTapAccessibility: String = CommonStrings.articleTabsOpen,
-            openArticleHint: String = WMFLocalizedString("which-came-first-article-card-open-hint", value: "Opens event related to this article ", comment: "VoiceOver hint for an article card in the Which Came First game results screen. Describes the outcome of tapping the card."),
-            articleSavedAccessibility: String = CommonStrings.savedTitle
-        ) {
-            self.sectionTitle = sectionTitle
-            self.openArticleTitle = openArticleTitle
-            self.openInNewTabTitle = openInNewTabTitle
-            self.openInBackgroundTabTitle = openInBackgroundTabTitle
-            self.saveForLaterTitle = saveForLaterTitle
-            self.unsaveTitle = unsaveTitle
-            self.shareArticleTitle = shareArticleTitle
-            self.articleTapAccessibility = articleTapAccessibility
-            self.openArticleRelatedEventHint = openArticleHint
-            self.articleSavedAccessibility = articleSavedAccessibility
-        }
-    }
-
+    
+    let sectionTitle = WMFLocalizedString("which-came-first-articles-section-title", value: "Articles from today's game", comment: "Section title for the article cards shown after completing the Which Came First game")
+    let openArticleTitle = CommonStrings.articleTabsOpen
+    let openInNewTabTitle = CommonStrings.articleTabsOpenInNewTab
+    let openInBackgroundTabTitle = CommonStrings.articleTabsOpenInBackgroundTab
+    let saveForLaterTitle  = CommonStrings.saveTitle
+    let unsaveTitle = CommonStrings.shortUnsaveTitle
+    let shareArticleTitle = CommonStrings.shortShareTitle
+    let articleTapAccessibility = CommonStrings.articleTabsOpen
+    let openArticleHint = WMFLocalizedString("which-came-first-article-card-open-hint", value: "Opens event related to this article ", comment: "VoiceOver hint for an article card in the Which Came First game results screen. Describes the outcome of tapping the card.")
+    let articleSavedAccessibility = CommonStrings.savedTitle
+    
     public typealias ArticleTapAction = (URL) -> Void
     public typealias ArticleShareAction = (URL) -> Void
     public typealias ArticleEventTapAction = (URL) -> Void
 
-    public let localizedStrings: LocalizedStrings
 
     @Published public var articleItems: [WMFWhichCameFirstArticleItemViewModel]
 
@@ -135,7 +107,6 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
 
     public init(
         articleItems: [WMFWhichCameFirstArticleItemViewModel],
-        localizedStrings: LocalizedStrings = LocalizedStrings(),
         onCheckSavedState: ((URL) -> Bool)? = nil,
         didTapArticle: ArticleTapAction? = nil,
         didTapOpenInNewTab: ArticleTapAction? = nil,
@@ -146,7 +117,6 @@ public final class WMFWhichCameFirstArticlesViewModel: ObservableObject {
         didTapArticleToEvent: ArticleEventTapAction? = nil
     ) {
         self.articleItems = articleItems
-        self.localizedStrings = localizedStrings
         self.didTapArticle = didTapArticle
         self.didTapOpenInNewTab = didTapOpenInNewTab
         self.didTapOpenInBackgroundTab = didTapOpenInBackgroundTab
