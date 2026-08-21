@@ -1,12 +1,6 @@
 import Foundation
 
 @objc public final actor WMFHomeDataController {
-    
-    public enum CustomError: Error {
-        case missingExperimentsDataController
-        case unexpectedAssignment
-    }
-
     public enum HomeTabExperimentAssignment {
         case control
         case groupB

@@ -1198,8 +1198,8 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         DispatchQueue.main.async {
             self.present(onboardingVC, animated: true)
+            WMFHomeDataController.shared.setHasSeenOneTimeOnboarding(true)
         }
-        WMFHomeDataController.shared.setHasSeenOneTimeOnboarding(true)
     }
 
     private func timeBeforeRefreshingExploreFeed() -> TimeInterval {
