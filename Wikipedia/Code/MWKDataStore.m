@@ -916,6 +916,9 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
                                  [taskGroup leave];
                              });
                          }];
+    // Fire and forget. This fetch must not delay the combined completion.
+    [[WMFFundraisingCampaignDataController sharedInstance] fetchConfigWithCountryCode:[[NSLocale currentLocale] countryCode] currentDate:[NSDate now]];
+
     // Remote Feature config
     [taskGroup enter];
     [[WMFDeveloperSettingsDataController shared] fetchFeatureConfigWithCompletion:^(NSError *_Nullable error) {

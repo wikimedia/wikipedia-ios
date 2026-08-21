@@ -34,7 +34,9 @@ extension ArticleViewController {
                 }
             }
 
-            guard (isOptedIn && !userDonatedWithinLast250Days()) || isForcingBannerForDevelopment else {
+            let isFirstAppSession = UserDefaults.standard.wmf_appResignActiveDate() == nil
+
+            guard (isOptedIn && !userDonatedWithinLast250Days() && !isFirstAppSession) || isForcingBannerForDevelopment else {
                 willDisplayCampaignModal = false
                 onNothingShown?()
                 return
