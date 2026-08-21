@@ -22,7 +22,7 @@ public struct WMFDonationReminder: Codable, Equatable, Sendable {
     }
 }
 
-public final class WMFDonationReminderDataController: Sendable {
+public final class WMFDonationReminderDataController {
 
     public static let shared = WMFDonationReminderDataController()
 
