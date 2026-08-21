@@ -116,7 +116,7 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
         guard customAmount > 0, customAmount < configuration.minimumAmount else {
             return nil
         }
-        let formatter = NumberFormatter.wmfShortCurrencyFormatter
+        let formatter = NumberFormatter.wmfCurrencyFormatter
         formatter.currencyCode = configuration.currencyCode
         let minimumString = formatter.string(from: configuration.minimumAmount as NSNumber) ?? "\(configuration.minimumAmount)"
         return String.localizedStringWithFormat(localizedStrings.minimumAmountErrorFormat, minimumString, configuration.currencyCode)
