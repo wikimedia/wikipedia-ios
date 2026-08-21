@@ -22,6 +22,7 @@ import WMFData
     }
 }
 
+@MainActor
 @objc public class WMFDeveloperSettingsViewModel: NSObject, ObservableObject {
 
     let localizedStrings: WMFDeveloperSettingsLocalizedStrings
@@ -50,6 +51,12 @@ import WMFData
     @Published public var forceFundraisingCampaignBanner: Bool = WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner = forceFundraisingCampaignBanner
+        }
+    }
+
+    @Published public var enableDonationReminder: Bool = WMFDeveloperSettingsDataController.shared.enableDonationReminder {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.enableDonationReminder = enableDonationReminder
         }
     }
 
