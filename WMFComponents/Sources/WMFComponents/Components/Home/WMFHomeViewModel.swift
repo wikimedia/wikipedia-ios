@@ -17,7 +17,7 @@ public final class WMFHomeViewModel: ObservableObject {
 
     public var didChangeTab: (@MainActor @Sendable (Tab) -> Void)?
     
-    let logDidTapLanguagePicker: (String?) -> Void
+    public var logDidTapLanguagePicker: (@MainActor @Sendable (String?) -> Void)?
     private var lastLoggedImpressionCardKey: String?
     public var logCardImpression: (@MainActor @Sendable (String, Int) -> Void)?
     public var logCardDidTapShare: (@MainActor @Sendable (String) -> Void)?
@@ -389,13 +389,12 @@ public final class WMFHomeViewModel: ObservableObject {
 
     // MARK: - Init
 
-    public init(dataController: WMFHomeDataController = .shared, languages: [WMFLanguage] = [], selectedLanguage: WMFLanguage? = nil, didSelectLanguage: ((WMFLanguage) -> Void)? = nil, didTapEditLanguages: (() -> Void)? = nil, logDidTapLanguagePicker: @escaping (String?) -> Void) {
+    public init(dataController: WMFHomeDataController = .shared, languages: [WMFLanguage] = [], selectedLanguage: WMFLanguage? = nil, didSelectLanguage: ((WMFLanguage) -> Void)? = nil, didTapEditLanguages: (() -> Void)? = nil) {
         self.dataController = dataController
         self.languages = languages
         self.selectedLanguage = selectedLanguage
         self.didSelectLanguage = didSelectLanguage
         self.didTapEditLanguages = didTapEditLanguages
-        self.logDidTapLanguagePicker = logDidTapLanguagePicker
         self.selectedTab = dataController.seeFirstContent() == .personalized ? .forYou : .community
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleVisibilityChange), name: WMFNSNotification.communityModuleVisibilityDidChange, object: nil)

@@ -51,16 +51,17 @@ final class HomeCoordinator: NSObject, Coordinator {
     }
 
     func makeHomeViewController() -> HomeViewController {
-        let viewModel = WMFHomeViewModel(
-            logDidTapLanguagePicker: { languageCode in
-                var actionContext: [String: String]? = nil
-                if let languageCode {
-                    actionContext = ["lang_code": languageCode]
-                }
-                // Note: purposefully not leaning on homeFeedInstrument property here, as the deck doesn't specify that.
-                TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "language_menu", elementId: "language_change", actionContext: actionContext)
+        let viewModel = WMFHomeViewModel()
+        
+        viewModel.logDidTapLanguagePicker = { [weak self, weak viewModel] languageCode in
+            guard let self, let viewModel else { return }
+            var actionContext: [String: String]? = nil
+            if let languageCode {
+                actionContext = ["lang_code": languageCode]
             }
-        )
+            // Note: purposefully not leaning on homeFeedInstrument property here, as the deck doesn't specify that.
+            TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "language_menu", elementId: "language_change", actionContext: actionContext, mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+        }
         
         viewModel.logCardImpression = { [weak self, weak viewModel] module, cardIndex in
             guard let self, let viewModel else { return }
