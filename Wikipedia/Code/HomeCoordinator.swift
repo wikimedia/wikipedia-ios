@@ -81,7 +81,7 @@ final class HomeCoordinator: NSObject, Coordinator {
 
         viewModel.logCardDidUnsave = { [weak self, weak viewModel] card in
             guard let self, let viewModel else { return }
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: card.module.loggingId, elementId: "article_save", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: card.module.loggingId, elementId: "article_unsave", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
             let articleURL = card.project.siteURL?.wmf_URL(withTitle: card.title)
             ReadingListsFunnel.shared.logUnsave(category: .article, label: nil, articleURL: articleURL)
         }
