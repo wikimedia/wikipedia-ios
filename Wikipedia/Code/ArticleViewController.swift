@@ -468,6 +468,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
     }
 
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        calculateTopSafeAreaOverlayHeight()
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableOfContentsController.setup(with: traitCollection)
@@ -1141,6 +1146,9 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         themeNavigationBarCustomCenteredTitleView()
         themeTopSafeAreaOverlay()
+        if #available(iOS 26.0, *) {
+            topSafeAreaOverlayView?.backgroundColor = theme.colors.paperBackground
+        }
         
         if let toolbar = navigationController?.toolbar {
             if #unavailable(iOS 26.0) {
