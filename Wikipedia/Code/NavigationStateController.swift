@@ -68,7 +68,7 @@ final class NavigationStateController: NSObject {
         return moc.navigationState?.viewControllers.compactMap { $0.info?.articleKey }
     }
     
-    private func pushOrPresent(_ viewController: UIViewController & Themeable, navigationController: UINavigationController, presentation: Presentation, animated: Bool = false) {
+    @MainActor private func pushOrPresent(_ viewController: UIViewController & Themeable, navigationController: UINavigationController, presentation: Presentation, animated: Bool = false) {
         viewController.apply(theme: theme)
         switch presentation {
         case .push:

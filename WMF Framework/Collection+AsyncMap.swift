@@ -26,10 +26,12 @@ public extension Sequence {
 }
 
 public extension Collection {
-    func asyncMap<R>(_ block: (Element, @escaping (R) -> Void) -> Void, completion:  @escaping ([R]) -> Void) {
+    func asyncMap<R>(_ block: (Element, @escaping @Sendable (R) -> Void) -> Void, completion:  @escaping ([R]) -> Void) {
         let group = DispatchGroup()
         let semaphore = DispatchSemaphore(value: 1)
-        var results = [R?](repeating: nil, count: count)
+        // nonisolated(unsafe): every read/write below is serialized by `semaphore`,
+        // and the final read happens after the group drains.
+        nonisolated(unsafe) var results = [R?](repeating: nil, count: count)
         for (index, object) in self.enumerated() {
             group.enter()
             block(object, { result in
@@ -66,7 +68,7 @@ public extension Collection {
         }
     }
     
-    func asyncForEach(_ block: (Element, @escaping () -> Void) -> Void, completion:  @escaping () -> Void) {
+    func asyncForEach(_ block: (Element, @escaping @Sendable () -> Void) -> Void, completion:  @escaping () -> Void) {
         let group = DispatchGroup()
         for object in self {
             group.enter()

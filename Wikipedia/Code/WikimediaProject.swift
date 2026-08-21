@@ -1,7 +1,7 @@
 import Foundation
 import WMFData
 
-public enum WikimediaProject: Hashable {
+public enum WikimediaProject: Hashable, Sendable {
     public typealias LanguageCode = String
     public typealias LocalizedLanguageName = String
     public typealias LanguageVariantCode = String

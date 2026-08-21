@@ -1,7 +1,9 @@
 import Foundation
 
 @objc(WMFEventPlatformClientWorker)
-public class EventPlatformClientWorker: NSObject {
+// @unchecked Sendable: NSObject subclass whose only stored state is two immutable
+// references to Sendable singletons.
+public final class EventPlatformClientWorker: NSObject, @unchecked Sendable {
     
     let client = EventPlatformClient.shared
     
@@ -13,7 +15,7 @@ public class EventPlatformClientWorker: NSObject {
 // MARK: PeriodicWorker
 
 extension EventPlatformClientWorker: PeriodicWorker {
-    public func doPeriodicWork(_ completion: @escaping () -> Void) {
+    public func doPeriodicWork(_ completion: @escaping @Sendable () -> Void) {
         guard let storageManager = self.client.storageManager else {
             return
         }
@@ -26,7 +28,7 @@ extension EventPlatformClientWorker: PeriodicWorker {
 // MARK: BackgroundFetcher
 
 extension EventPlatformClientWorker: BackgroundFetcher {
-    public func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
+    public func performBackgroundFetch(_ completion: @escaping @Sendable (UIBackgroundFetchResult) -> Void) {
         doPeriodicWork {
             completion(.noData)
         }

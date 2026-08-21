@@ -17,6 +17,8 @@ fileprivate var indexOfCurrentFontSize: Int {
     return index
 }
 
+// MainActor: presents and themes popover view controllers.
+@MainActor
 protocol ReadingThemesControlsPresenting: UIPopoverPresentationControllerDelegate {
     var readingThemesControlsViewController: ReadingThemesControlsViewController { get }
     var readingThemesControlsToolbarItem: UIBarButtonItem { get }

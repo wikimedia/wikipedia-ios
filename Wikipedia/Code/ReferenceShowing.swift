@@ -1,5 +1,7 @@
 import Foundation
 
+// MainActor: presents and themes reference page view controllers.
+@MainActor
 protocol ReferenceShowing: ArticleScrolling {
     var webView: WKWebView { get }
     var articleURL: URL { get }

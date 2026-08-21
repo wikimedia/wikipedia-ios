@@ -1,6 +1,6 @@
 import Foundation
 
-public struct PushNotificationsSettings: Codable {
+public struct PushNotificationsSettings: Codable, Sendable {
 
     // MARK: - Properties
 

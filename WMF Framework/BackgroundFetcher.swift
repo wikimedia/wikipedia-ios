@@ -1,7 +1,8 @@
 import Foundation
 
 @objc(WMFBackgroundFetcher) public protocol BackgroundFetcher: NSObjectProtocol {
-    func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void)
+    // Completion is @Sendable: fetchers finish on their own queues.
+    func performBackgroundFetch(_ completion: @escaping @Sendable (UIBackgroundFetchResult) -> Void)
 }
 
 @objc(WMFBackgroundFetcherController) public class BackgroundFetcherController: WorkerController {
@@ -11,7 +12,7 @@ import Foundation
         fetchers.append(worker)
     }
     
-    @objc public func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
+    @objc public func performBackgroundFetch(_ completion: @escaping @Sendable (UIBackgroundFetchResult) -> Void) {
         let identifier = UUID().uuidString
         delegate?.workerControllerWillStart(self, workWithIdentifier: identifier)
         fetchers.asyncMap({ (fetcher, completion) in

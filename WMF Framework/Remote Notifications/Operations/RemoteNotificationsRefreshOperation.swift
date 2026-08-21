@@ -5,21 +5,19 @@ class RemoteNotificationsRefreshOperation: RemoteNotificationsPagingOperation, @
     override func shouldContinueToPage(lastNotification: RemoteNotificationsAPIController.NotificationsResult.Notification) -> Bool {
         
         let backgroundContext = self.modelController.newBackgroundContext()
-        var shouldContinueToPage = true
-        backgroundContext.performAndWait {
-            
+        let lastNotificationKey = lastNotification.key
+        // The SDK's generic performAndWait runs the block inline on the context's
+        // queue and returns its value, so no captured var crosses a @Sendable boundary.
+        return backgroundContext.performAndWait {
+
             // Is last (i.e. most recent) notification already in the database? If so, don't continue to page.
             let fetchRequest = RemoteNotification.fetchRequest()
             fetchRequest.fetchLimit = 1
-            let predicate = NSPredicate(format: "key == %@", lastNotification.key)
+            let predicate = NSPredicate(format: "key == %@", lastNotificationKey)
             fetchRequest.predicate = predicate
-            
+
             let result = try? backgroundContext.fetch(fetchRequest)
-            if result?.first != nil {
-                shouldContinueToPage = false
-            }
+            return result?.first == nil
         }
-        
-        return shouldContinueToPage
     }
 }

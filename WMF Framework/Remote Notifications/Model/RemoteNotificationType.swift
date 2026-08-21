@@ -136,7 +136,7 @@ public extension RemoteNotificationType {
     typealias Priority = (interruptionLevel: UNNotificationInterruptionLevel, relevanceScore: Double)
 
     /// Multiple notifications coalesced into a single alert
-    static var bulkPriority: Priority = (.passive, 0.2)
+    static let bulkPriority: Priority = (.passive, 0.2)
 
     var priority: Priority {
         switch self {

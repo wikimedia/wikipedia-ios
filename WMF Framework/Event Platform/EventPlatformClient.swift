@@ -54,7 +54,10 @@ import WMFTestKitchen
  * - `app_session_id`: the ID of the session at the time of the event when it was
  *   originally submitted
  */
-@objc public class EventPlatformClient: NSObject, SamplingControllerDelegate {
+// @unchecked Sendable: must stay an NSObject subclass for Obj-C callers, so it
+// cannot be an actor. All mutable state is confined to the serial `queue` /
+// `encodeQueue` (see the doc comments on inputBuffer and streamConfigurations).
+@objc public final class EventPlatformClient: NSObject, SamplingControllerDelegate, @unchecked Sendable {
 
 
     // MARK: - Properties
@@ -118,7 +121,7 @@ import WMFTestKitchen
      *  correspond to the `$id` of a schema in
      * [this repository](https://gerrit.wikimedia.org/g/schemas/event/secondary/).
      */
-    public enum Stream: String, Codable {
+    public enum Stream: String, Codable, Sendable {
         case editHistoryCompare = "ios.edit_history_compare"
         case remoteNotificationsInteraction = "ios.notification_interaction"
         case talkPagesInteraction = "ios.talk_page_interaction"
@@ -225,7 +228,7 @@ import WMFTestKitchen
     /**
      * An individual stream's configuration.
      */
-    struct StreamConfiguration: Codable {
+    struct StreamConfiguration: Codable, Sendable {
         let destination_event_service: String?
         let sampling: Sampling?
         struct Sampling: Codable {
@@ -678,7 +681,7 @@ import WMFTestKitchen
      *   1st preferred language – in which case use
      *   `MWKLanguageLinkController.sharedInstance().appLanguage.siteURL().host`
      */
-    public func submit<E: EventInterface>(stream: Stream, event: E, domain: String? = nil, needsMinimal: Bool = false, completion: (() -> Void)? = nil) {
+    public func submit<E: EventInterface>(stream: Stream, event: E, domain: String? = nil, needsMinimal: Bool = false, completion: (@Sendable () -> Void)? = nil) {
         let date = Date() // Record the date synchronously so there's no delay
         encodeQueue.async {
             self._submit(stream: stream, event: event, date: date, domain: domain, needsMinimal: needsMinimal)
@@ -849,7 +852,8 @@ private extension EventPlatformClient {
  * Protocol for event data.
  * Currently only requires conformance to Codable.
  */
-public protocol EventInterface: Codable {
+// Sendable: events are value-type payloads handed across the client's queues.
+public protocol EventInterface: Codable, Sendable {
     /**
      * Defines which schema this event conforms to.
      * Check the documentation for `EPC.Schema` for more information.

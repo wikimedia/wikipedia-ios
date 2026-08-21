@@ -13,7 +13,10 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     }
 }
 
-@objc public final class RemoteNotificationsController: NSObject {
+// @unchecked Sendable: stored state is immutable references plus the model/
+// operations controllers, which are created once during setup before concurrent
+// use begins; loading state lives on the operations controller (main-confined).
+@objc public final class RemoteNotificationsController: NSObject, @unchecked Sendable {
     private let apiController: RemoteNotificationsAPIController
     private let refreshDeadlineController = RemoteNotificationsRefreshDeadlineController()
     private let languageLinkController: MWKLanguageLinkController
@@ -123,7 +126,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     /// - Parameters:
     ///   - force: Flag to force an API call, otherwise this will exit early if it's been less than 30 seconds since the last load attempt.
     ///   - completion: Completion block called once refresh attempt is complete.
-    public func loadNotifications(force: Bool, completion: ((Result<Void, Error>) -> Void)? = nil) {
+    public func loadNotifications(force: Bool, completion: (@Sendable (Result<Void, Error>) -> Void)? = nil) {
         
         guard let operationsController = operationsController else {
             completion?(.failure(RemoteNotificationsControllerError.databaseUnavailable))
@@ -173,7 +176,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     /// - Parameters:
     ///   - identifierGroups: Set of IdentifierGroup objects to identify the correct notification.
     ///   - shouldMarkRead: Boolean for marking as read or unread.
-    public func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: ((Result<Void, Error>) -> Void)? = nil) {
+    public func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: (@Sendable (Result<Void, Error>) -> Void)? = nil) {
         
         guard let operationsController = operationsController else {
             completion?(.failure(RemoteNotificationsControllerError.databaseUnavailable))
@@ -191,7 +194,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     
     
     /// Asks server to mark all notifications as read for projects that contain local unread notifications. Errors are not returned. Updates local database on a backgroundContext.
-    public func markAllAsRead(completion: ((Result<Void, Error>) -> Void)? = nil) {
+    public func markAllAsRead(completion: (@Sendable (Result<Void, Error>) -> Void)? = nil) {
         
         guard let operationsController = operationsController else {
             completion?(.failure(RemoteNotificationsControllerError.databaseUnavailable))
@@ -244,12 +247,12 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     ///   - fetchLimit: Number of notifications to fetch. Defaults to 50.
     ///   - fetchOffset: Offset for fetching notifications. Use when fetching later pages of data
     /// - Returns: Array of RemoteNotifications
-    public func fetchNotifications(fetchLimit: Int = 50, fetchOffset: Int = 0, completion: @escaping (Result<[RemoteNotification], Error>) -> Void) {
+    public func fetchNotifications(fetchLimit: Int = 50, fetchOffset: Int = 0, completion: @escaping @Sendable (Result<[RemoteNotification], Error>) -> Void) {
         guard let modelController = modelController else {
             return completion(.failure(RemoteNotificationsControllerError.databaseUnavailable))
         }
         
-        let fetchFromDatabase: () -> Void = { [weak self] in
+        let fetchFromDatabase: @Sendable () -> Void = { [weak self] in
             guard let self = self else {
                 return
             }
@@ -557,7 +560,7 @@ public struct RemoteNotificationsFilterState: Equatable {
         return headerText
     }
 
-    public static var detailDescriptionHighlightDelineator = "**"
+    public static let detailDescriptionHighlightDelineator = "**"
 
     public func detailDescription(totalProjectCount: Int, showingProjectCount: Int) -> String? {
         // Generic templates

@@ -6,7 +6,9 @@ protocol SamplingControllerDelegate: AnyObject {
     var sessionID: String { get }
 }
 
-class SamplingController: NSObject {
+// @unchecked Sendable: mutable state (samplingCache) is confined to the serial
+// `queue` per the doc comment; the weak delegate is assigned once during setup.
+final class SamplingController: NSObject, @unchecked Sendable {
 
     /**
      * Serial dispatch queue that enables working with properties in a thread-safe

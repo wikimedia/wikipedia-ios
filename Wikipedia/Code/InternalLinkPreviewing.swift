@@ -1,6 +1,8 @@
 import Foundation
 import WMFNativeLocalizations
 
+// MainActor: builds and themes preview view controllers.
+@MainActor
 protocol InternalLinkPreviewing: ThemeableViewController { }
 
 extension InternalLinkPreviewing {

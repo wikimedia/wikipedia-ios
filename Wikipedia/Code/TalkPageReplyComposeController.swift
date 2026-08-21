@@ -10,6 +10,8 @@ protocol TalkPageReplyComposeDelegate: AnyObject {
 }
 
 /// Class for coordinating talk page reply compose views
+// MainActor: manages the reply compose container view hierarchy.
+@MainActor
 class TalkPageReplyComposeController {
     
     enum ActionSheetStrings {

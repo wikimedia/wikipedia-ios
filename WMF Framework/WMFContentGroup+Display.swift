@@ -12,6 +12,9 @@ extension WMFFeedDisplayType {
 }
 
 extension WMFContentGroup {
+    // MainActor: display logic — takes a UITraitCollection and reads UIScreen.main;
+    // callers are feed UI on the view context.
+    @MainActor
     public func imageURLsCompatibleWithTraitCollection(_ traitCollection: UITraitCollection, dataStore: MWKDataStore, viewSize: CGSize? = nil) -> Set<URL>? {
         switch contentGroupKind {
         case .pictureOfTheDay:
