@@ -120,7 +120,20 @@ extension ArticleViewController {
                 DonateFunnel.shared.logFundraisingCampaignModalDidTapClose(project: project, metricsID: asset.metricsID)
                 dataController.markAssetAsPermanentlyHidden(asset: asset)
             case .maybeLater:
-                if WMFDeveloperSettingsDataController.shared.enableDonationReminder,
+                let experimentAssignment: WMFDonationReminderDataController.ExperimentAssignment?
+                if WMFDeveloperSettingsDataController.shared.enableDonationReminder {
+                    experimentAssignment = try? WMFDonationReminderDataController.shared.assignExperimentIfNeeded()
+                    #if DEBUG
+                    if let experimentAssignment {
+                        self.showDebugExperimentAssignmentToast(experimentAssignment)
+                    }
+                    #endif
+                } else {
+                    experimentAssignment = nil
+                }
+
+                if let experimentAssignment,
+                   experimentAssignment != .control,
                    let navigationController = self.navigationController {
                     let coordinator = DonationReminderSetupCoordinator(navigationController: navigationController, currencyCode: asset.currencyCode, theme: self.theme)
                     self.donationReminderSetupCoordinator = coordinator
@@ -134,6 +147,14 @@ extension ArticleViewController {
             }
         })
     }
+
+    #if DEBUG
+    private func showDebugExperimentAssignmentToast(_ experimentAssignment: WMFDonationReminderDataController.ExperimentAssignment) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            WMFToastManager.sharedInstance.showRichToast("[Debug] Experiment group: \(experimentAssignment.rawValue)", dismissPreviousToasts: false)
+        }
+    }
+    #endif
 
     func donateDidSetMaybeLater(metricsID: String) {
 
