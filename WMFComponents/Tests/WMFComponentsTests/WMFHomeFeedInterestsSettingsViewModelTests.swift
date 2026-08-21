@@ -353,7 +353,7 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
             try await Task.sleep(for: .milliseconds(50))
         }
 
-        let titles = Set(viewModel.gridViewModels.map { $0.title })
+        let titles = Set(viewModel.gridViewModels.map { $0.displayTitle })
         #expect(titles.contains("English Article"))
         #expect(titles.contains("Artigo"))
     }
@@ -380,7 +380,7 @@ struct WMFHomeFeedInterestsSettingsViewModelTests {
             try await Task.sleep(for: .milliseconds(50))
         }
 
-        let restored = viewModel.gridViewModels.first { $0.title == "Saved One" }
+        let restored = viewModel.gridViewModels.first { $0.displayTitle == "Saved One" }
         #expect(restored?.isSelected == true)
         #expect(viewModel.selectedArticleCount >= 1)
     }
