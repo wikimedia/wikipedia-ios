@@ -1109,11 +1109,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         guard presentedViewController == nil else { return }
         guard WMFHomeDataController.shared.isHomeTabGroupB else { return }
 
-        let isExistingUser = UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding)
-        let hasSeenNewOnboarding = WMFHomeDataController.shared.didSendNewInstallOnboardingStartEvent()
+        let hasSeenLegacyOnboarding = WMFHomeDataController.shared.hasSeenLegacyOnboarding()
+        let hasSeenNewOnboarding = WMFHomeDataController.shared.hasSeenUpdatedHomeOnboarding()
         let hasSeenOneTimeOnboarding = WMFHomeDataController.shared.hasSeenOneTimeOnboarding()
 
-        guard isExistingUser && !hasSeenOneTimeOnboarding && !hasSeenNewOnboarding else { return }
+        guard hasSeenLegacyOnboarding && !hasSeenOneTimeOnboarding && !hasSeenNewOnboarding else { return }
 
         let viewModel = WMFOnboardingViewModel(
             title: WMFLocalizedString(
@@ -1621,8 +1621,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     private func presentOnboardingIfNeeded(completion: @escaping (Bool) -> Void) {
-        let developerSettings = WMFDeveloperSettingsDataController.shared
-
         guard shouldShowOnboarding() else {
             completion(false)
             return
@@ -1630,9 +1628,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         guard WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB else {
             presentLegacyOnboarding(completion: completion)
+            WMFHomeDataController.shared.setHasSeenLegacyOnboarding(true)
             return
         }
 
+        // new onboarding
         let coordinator = AppOnboardingCoordinator(
             presentingViewController: self,
             dataStore: dataStore,
@@ -1642,7 +1642,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             },
             completion: { [weak self] in
                 self?.setDidShowOnboarding()
-                WMFHomeDataController.shared.setDidSendNewInstallOnboardingStartEvent(true)
+                WMFHomeDataController.shared.setHasSeenUpdatedHomeOnboarding(true)
                 self?.appOnboardingCoordinator = nil
                 completion(true)
             })
