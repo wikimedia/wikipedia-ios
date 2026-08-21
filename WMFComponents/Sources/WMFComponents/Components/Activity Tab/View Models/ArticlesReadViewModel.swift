@@ -8,23 +8,27 @@ public final class ArticlesReadViewModel: ObservableObject {
     @Published public var minutesRead: Int = 0
     @Published public var totalArticlesRead: Int = 0
     @Published public var dateTimeLastRead: String = ""
+    @Published public var dateTimeLastReadAccessibilityLabel: String = ""
     @Published public var weeklyReads: [Int] = []
     @Published public var topCategories: [String] = []
     @Published public var usernamesReading: String = ""
 
     private let dataController: WMFActivityTabDataController
     private let dateFormatter: (Date) -> String
+    private let dateAccessibilityFormatter: (Date) -> String
     private let makeUsernamesReading: (String) -> String
     private let noUsernameReading: String
 
     public init(
         dataController: WMFActivityTabDataController = .shared,
         dateFormatter: @escaping (Date) -> String,
+        dateAccessibilityFormatter: ((Date) -> String)? = nil,
         makeUsernamesReading: @escaping (String) -> String,
         noUsernameReading: String
     ) {
         self.dataController = dataController
-        self.dateFormatter = dateFormatter
+        self.dateFormatter = dateFormatterWMFActivityTabView
+        self.dateAccessibilityFormatter = dateAccessibilityFormatter ?? dateFormatter
         self.makeUsernamesReading = makeUsernamesReading
         self.noUsernameReading = noUsernameReading
     }
@@ -51,6 +55,7 @@ public final class ArticlesReadViewModel: ObservableObject {
             self.minutesRead = m
             self.totalArticlesRead = totalRead
             self.dateTimeLastRead = self.dateFormatter(lastDate)
+            self.dateTimeLastReadAccessibilityLabel = self.dateAccessibilityFormatter(lastDate)
             self.weeklyReads = weeklyReads
             self.topCategories = categories
     }
