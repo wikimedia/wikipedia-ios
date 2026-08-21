@@ -335,6 +335,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     private func loadMainUI() {
         guard !uiIsLoaded else { return }
+
         configureTabController()
 
         tabBar.tintAdjustmentMode = .normal
@@ -357,7 +358,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         self.delegate = self
 
         let nav1: WMFComponentNavigationController
-        if WMFDeveloperSettingsDataController.shared.enableHomeTab {
+        if WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB {
             let coordinator = HomeCoordinator(theme: theme, dataStore: dataStore)
             let homeViewController = coordinator.makeHomeViewController()
             nav1 = rootNavigationController(with: homeViewController)
@@ -935,7 +936,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         // default can't set this flag directly — write it through the data controller instead.
         // The flag persists across launches, so apply the argument in both directions.
         if UserDefaults.standard.object(forKey: wmfEnableHomeTabForTesting) != nil {
-            WMFDeveloperSettingsDataController.shared.enableHomeTab = UserDefaults.standard.bool(forKey: wmfEnableHomeTabForTesting)
+            WMFDeveloperSettingsDataController.shared.enableHomePhase2 = UserDefaults.standard.bool(forKey: wmfEnableHomeTabForTesting)
         }
     }
 
@@ -951,6 +952,10 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // resumeApp: should be called once and only once for every launch from a fully terminated state.
     // It should only be called when the app is active and being shown to the user.
     private func resumeApp(_ completion: (() -> Void)?) {
+        // Assign and apply the home tab experiment before onboarding decisions are made,
+        // so that presentOnboardingIfNeeded and loadMainUI both see the correct flag.
+        _ = WMFHomeDataController.shared.persistedHomeTabAssignment()
+        
         presentOnboardingIfNeeded { didShowOnboarding in
             self.loadMainUI()
             let done: () -> Void = {
@@ -1102,16 +1107,14 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         guard let homeNav = viewControllers?[WMFAppTabType.main.rawValue] as? UINavigationController,
               homeNav.viewControllers.count == 1 else { return }
         guard presentedViewController == nil else { return }
+        guard WMFHomeDataController.shared.isHomeTabGroupB else { return }
 
-        // An existing user is one who has already completed ANY prior onboarding flow.
-        // New installs will not have this key set yet; they see full app onboarding instead.
         let isExistingUser = UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding)
-        let hasSeen = WMFHomeDataController.shared.hasSeenNewHomeOnboarding()
-        let alwaysShow = WMFDeveloperSettingsDataController.shared.alwaysShowNewOnboarding
-        guard WMFDeveloperSettingsDataController.shared.enableHomeTab || WMFDeveloperSettingsDataController.shared.enableHomePhase2 else { return }
-        guard isExistingUser && (alwaysShow || !hasSeen) else { return }
+        // check did see onboarding but NOT new onboarding, make sure they haven't seen one time onboarding yet
+        let hasSeenNewOnboarding = WMFHomeDataController.shared.hasSeenUpdatedHomeOnboarding()
+        let hasSeenOneTimeOnboarding = WMFHomeDataController.shared.hasSeenOneTimeOnboarding()
 
-        WMFHomeDataController.shared.setHasSeenNewHomeOnboarding(true)
+        guard isExistingUser && !hasSeenOneTimeOnboarding && !hasSeenNewOnboarding else { return }
 
         let viewModel = WMFOnboardingViewModel(
             title: WMFLocalizedString(
@@ -1195,7 +1198,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         oneTimeOnboardingViewController = onboardingVC
 
         DispatchQueue.main.async {
-            self.present(onboardingVC, animated: true)
+              self.present(onboardingVC, animated: true) {
+                      WMFHomeDataController.shared.setHasSeenOneTimeOnboarding(true)
+              }
         }
     }
 
@@ -1618,19 +1623,17 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     private func presentOnboardingIfNeeded(completion: @escaping (Bool) -> Void) {
-        let developerSettings = WMFDeveloperSettingsDataController.shared
-        let forceNewOnboarding = developerSettings.enableHomeTab && developerSettings.alwaysShowNewOnboarding
-
-        guard shouldShowOnboarding() || forceNewOnboarding else {
+        guard shouldShowOnboarding() else {
             completion(false)
             return
         }
 
-        guard developerSettings.enableHomeTab else {
+        guard WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB else {
             presentLegacyOnboarding(completion: completion)
             return
         }
 
+        // new onboarding
         let coordinator = AppOnboardingCoordinator(
             presentingViewController: self,
             dataStore: dataStore,
@@ -1640,6 +1643,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             },
             completion: { [weak self] in
                 self?.setDidShowOnboarding()
+                WMFHomeDataController.shared.setHasSeenUpdatedHomeOnboarding(true)
                 self?.appOnboardingCoordinator = nil
                 completion(true)
             })

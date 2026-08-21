@@ -1,6 +1,10 @@
 import Foundation
 
-public final actor WMFHomeDataController {
+@objc public final actor WMFHomeDataController {
+    public enum HomeTabExperimentAssignment {
+        case control
+        case groupB
+    }
 
     private let feedDataController: any WMFFeedDataControlling
     private let basicService: WMFService?
@@ -22,17 +26,46 @@ public final actor WMFHomeDataController {
     // Dates for which feed data has been fetched per project, in descending order (most recent first).
     private var communityFetchedDates: [WMFProject: [Date]] = [:]
 
-    public static let shared = WMFHomeDataController()
+    @objc public static let shared = WMFHomeDataController()
 
-    public init(feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared, basicService: WMFService? = WMFDataEnvironment.current.basicService, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, relatedPagesDataController: WMFRelatedPagesDataController = WMFRelatedPagesDataController.shared, savedArticlesDataController: WMFSavedArticlesDataController = WMFSavedArticlesDataController.shared, onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared) {
+    // Assigned once in init from a local WMFExperimentsDataController; immutable after.
+    nonisolated private let homeTabAssignment: HomeTabExperimentAssignment
+
+    public init(
+        feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared,
+        basicService: WMFService? = WMFDataEnvironment.current.basicService,
+        userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore,
+        relatedPagesDataController: WMFRelatedPagesDataController = WMFRelatedPagesDataController.shared,
+        savedArticlesDataController: WMFSavedArticlesDataController = WMFSavedArticlesDataController.shared,
+        onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared,
+        experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore
+    ) {
         self.feedDataController = feedDataController
         self.basicService = basicService
         self.userDefaultsStore = userDefaultsStore
         self.relatedPagesDataController = relatedPagesDataController
         self.savedArticlesDataController = savedArticlesDataController
         self.onThisDayDataController = onThisDayDataController
+
+        if let experimentStore {
+            let controller = WMFExperimentsDataController(store: experimentStore)
+            let bucket = try? controller.determineBucketForExperiment(.homeTab, withPercentage: 50)
+            homeTabAssignment = bucket == .homeTabGroupB ? .groupB : .control
+        } else {
+            homeTabAssignment = .control
+        }
     }
-    
+
+    @objc public nonisolated var isHomeTabGroupB: Bool {
+        homeTabAssignment == .groupB
+    }
+
+    /// Returns the persisted bucket for the home tab experiment.
+    /// Safe to call from any synchronous context.
+    public nonisolated func persistedHomeTabAssignment() -> HomeTabExperimentAssignment {
+        homeTabAssignment
+    }
+
     // MARK: - Settings: New Install Onboarding
 
     public nonisolated func didSendNewInstallOnboardingStartEvent() -> Bool {
@@ -42,13 +75,21 @@ public final actor WMFHomeDataController {
     public nonisolated func setDidSendNewInstallOnboardingStartEvent(_ newValue: Bool) {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.didSendNewInstallOnboardingStartEvent.rawValue, value: newValue)
     }
-
-    public nonisolated func hasSeenNewHomeOnboarding() -> Bool {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenNewHomeOnboarding.rawValue)) ?? false
+    
+    public nonisolated func hasSeenUpdatedHomeOnboarding() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenUpdatedHomeOnboarding.rawValue)) ?? false
     }
 
-    public nonisolated func setHasSeenNewHomeOnboarding(_ newValue: Bool) {
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenNewHomeOnboarding.rawValue, value: newValue)
+    public nonisolated func setHasSeenUpdatedHomeOnboarding(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenUpdatedHomeOnboarding.rawValue, value: newValue)
+    }
+
+    public nonisolated func hasSeenOneTimeOnboarding() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenOneTimeOnboardingHome.rawValue)) ?? false
+    }
+
+    public nonisolated func setHasSeenOneTimeOnboarding(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenOneTimeOnboardingHome.rawValue, value: newValue)
     }
 
     // MARK: - Settings: Selected Language
@@ -271,7 +312,6 @@ public final actor WMFHomeDataController {
 
         return titles
     }
-
 
     /// Puts the articles that the app can suggest first, so that a module never becomes empty.
     private nonisolated func candidatesPreferringNotExcluded(_ articles: [WMFRelatedPagesDataController.WMFRelatedPage], excluding excluded: Set<String>) -> [WMFRelatedPagesDataController.WMFRelatedPage] {
