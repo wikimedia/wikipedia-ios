@@ -22,6 +22,7 @@ import WMFData
     }
 }
 
+@MainActor
 @objc public class WMFDeveloperSettingsViewModel: NSObject, ObservableObject {
 
     let localizedStrings: WMFDeveloperSettingsLocalizedStrings
