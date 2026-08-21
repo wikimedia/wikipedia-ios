@@ -76,20 +76,12 @@ import Foundation
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.didSendNewInstallOnboardingStartEvent.rawValue, value: newValue)
     }
     
-    public nonisolated func hasSeenLegacyOnboarding() -> Bool {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenLegacyOnboarding.rawValue)) ?? false
-    }
-
-    public nonisolated func setHasSeenLegacyOnboarding(_ newValue: Bool) {
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenLegacyOnboarding.rawValue, value: newValue)
-    }
-    
     public nonisolated func hasSeenUpdatedHomeOnboarding() -> Bool {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenLegacyOnboarding.rawValue)) ?? false
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenUpdatedHomeOnboarding.rawValue)) ?? false
     }
 
     public nonisolated func setHasSeenUpdatedHomeOnboarding(_ newValue: Bool) {
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenLegacyOnboarding.rawValue, value: newValue)
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenUpdatedHomeOnboarding.rawValue, value: newValue)
     }
 
     public nonisolated func hasSeenOneTimeOnboarding() -> Bool {

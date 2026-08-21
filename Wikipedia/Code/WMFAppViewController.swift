@@ -1110,12 +1110,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         guard WMFHomeDataController.shared.isHomeTabGroupB else { return }
 
         let isExistingUser = UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding)
-        // New user default, rely on old one initially (above) - check did see onboarding but NOT new onboarding, make sure they haven't seen one time onboarding yet
-        let hasSeenLegacyOnboarding = WMFHomeDataController.shared.hasSeenLegacyOnboarding()
+        // check did see onboarding but NOT new onboarding, make sure they haven't seen one time onboarding yet
         let hasSeenNewOnboarding = WMFHomeDataController.shared.hasSeenUpdatedHomeOnboarding()
         let hasSeenOneTimeOnboarding = WMFHomeDataController.shared.hasSeenOneTimeOnboarding()
 
-        guard (hasSeenLegacyOnboarding || isExistingUser) && !hasSeenOneTimeOnboarding && !hasSeenNewOnboarding else { return }
+        guard isExistingUser && !hasSeenOneTimeOnboarding && !hasSeenNewOnboarding else { return }
 
         let viewModel = WMFOnboardingViewModel(
             title: WMFLocalizedString(

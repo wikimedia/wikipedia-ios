@@ -25,8 +25,6 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsShowYiR2025 = "dev-settings-yir-show-v3"
     case developerSettingsYiRV3LoginExperimentControl = "dev-settings-yir-login-experiment-control"
     case developerSettingsYiRV3LoginExperimentB = "dev-settings-yir-login-experiment-b"
-    case developerSettingsHomeTabExperimentControl = "dev-settings-home-tab-experiment-control"
-    case developerSettingsHomeTabExperimentGroupB = "dev-settings-home-tab-experiment-group-b"
     case yearInReviewNewIcon2025 = "year-in-review-new-icon-2025"
     case qualifiesForIcon2025 = "qualifies-for-icon-2025"
     case userHasHiddenArticleSuggestionsTabs = "user-has-hidden-article-suggestions"
@@ -93,7 +91,6 @@ public enum WMFUserDefaultsKey: String {
     // Onboarding: New app install event
     case didSendNewInstallOnboardingStartEvent = "did-send-new-install-onboarding-start-event"
     case hasSeenOneTimeOnboardingHome = "has-seen-one-time-home-onboarding"
-    case hasSeenLegacyOnboarding = "has-seen-legacy-onboarding"
     case hasSeenUpdatedHomeOnboarding = "has-seen-updated-home-onboarding"
 
     // Article View Controller: Enable visual editor
