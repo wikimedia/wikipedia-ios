@@ -53,7 +53,7 @@ public class WMFImageRecommendationsDataController {
     
     // MARK: - PUT Send Feedback
     
-    public func sendFeedback(project: WMFProject, pageTitle: String, editRevId: UInt64?, fileName: String, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func sendFeedback(project: WMFProject, pageTitle: String, editRevId: UInt64?, fileName: String, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
 
         guard let service else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
@@ -80,7 +80,7 @@ public class WMFImageRecommendationsDataController {
 
         let request = WMFMediaWikiServiceRequest(url: url, method: .PUT, backend: .mediaWikiREST, tokenType: .csrf, parameters: parameters as [String : Any])
         
-        let completion: (Result<[String: Any]?, Error>) -> Void = { result in
+        let completion: @Sendable (Result<[String: Any]?, Error>) -> Void = { result in
             switch result {
             case .success:
                 completion(.success(()))

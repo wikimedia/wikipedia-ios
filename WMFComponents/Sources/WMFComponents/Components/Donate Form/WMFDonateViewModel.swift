@@ -533,25 +533,29 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         let dataController = WMFDonateDataController.shared
         dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, metricsID: metricsID, appVersion: appVersion, appInstallID: appInstallID) { result in
 
-            switch result {
-            case .success:
-                self.saveDonationToLocalHistory(with: dataController, recurring: recurring, currencyCode: self.currencyCode)
-            case .failure(let error):
-                // Only log errors, don't show to user since we are assuming success.
-                if let dataControllerError = error as? WMFDonateDataControllerError {
-                    switch dataControllerError {
-                    case .paymentsWikiResponseError:
+            // The data controller calls back off-main; hop to the main actor before
+            // touching view model state.
+            Task { @MainActor in
+                switch result {
+                case .success:
+                    self.saveDonationToLocalHistory(with: dataController, recurring: recurring, currencyCode: self.currencyCode)
+                case .failure(let error):
+                    // Only log errors, don't show to user since we are assuming success.
+                    if let dataControllerError = error as? WMFDonateDataControllerError {
+                        switch dataControllerError {
+                        case .paymentsWikiResponseError:
+                            self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
+                        }
+                    } else {
                         self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
                     }
-                } else {
-                    self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
                 }
-            }
 
-            // Always end the background task
-            if self.submitPaymentBackgroundTask != .invalid {
-                application.endBackgroundTask(self.submitPaymentBackgroundTask)
-                self.submitPaymentBackgroundTask = .invalid
+                // Always end the background task
+                if self.submitPaymentBackgroundTask != .invalid {
+                    application.endBackgroundTask(self.submitPaymentBackgroundTask)
+                    self.submitPaymentBackgroundTask = .invalid
+                }
             }
         }
 
