@@ -118,6 +118,7 @@ public struct WMFHomeView: View {
                 Menu {
                     ForEach(viewModel.languages) { language in
                         Button {
+                            viewModel.logDidTapLanguagePicker(viewModel.selectedLanguage?.languageCode) // todo: confirm this placement is okay
                             viewModel.didSelectLanguage?(language)
                         } label: {
                             if language.languageCode == viewModel.selectedLanguage?.languageCode {
@@ -135,6 +136,7 @@ public struct WMFHomeView: View {
                     }
                     Divider()
                     Button {
+                        viewModel.logDidTapLanguagePicker(viewModel.selectedLanguage?.languageCode) // todo: confirm this placement is okay
                         viewModel.didTapEditLanguages?()
                     } label: {
                         Label {
@@ -144,18 +146,16 @@ public struct WMFHomeView: View {
                         }
                     }
                 } label: {
-                    Text(viewModel.languageButtonTitle)
-                        .font(Font(WMFFont.for(.semiboldSubheadline)))
-                        .dynamicTypeSize(.xSmall ... .large)
-                        .minimumScaleFactor(0.25)
-                        .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
-                        .lineLimit(1)
-                    Image(uiImage: WMFSFSymbolIcon.for(
-                        symbol: .chevronUpChevronDown,
-                        font: .boldCaption1,
-                        compatibleWith: .wmfCappedForSFSymbols
-                    ) ?? UIImage())
-                        .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
+                    HStack {
+                        Text(viewModel.languageButtonTitle)
+                            .font(Font(WMFFont.for(.semiboldSubheadline)))
+                            .dynamicTypeSize(.xSmall ... .large)
+                            .minimumScaleFactor(0.25)
+                            .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
+                            .lineLimit(1)
+                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronUpChevronDown, font: .boldCaption1, compatibleWith: .wmfCappedForSFSymbols) ?? UIImage())
+                            .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
+                    }
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)

@@ -22,6 +22,8 @@ public class Event: Encodable {
     public var funnelEntryToken: String?
     public var funnelEventSequencePosition: Int?
 
+    public var pageData: PageData?
+
     // Non-encoded properties
     var clientData: ClientData = ClientData()
     var interactionData: InteractionData = InteractionData()
@@ -67,6 +69,7 @@ public class Event: Encodable {
         self.actionSubtype = interactionData.actionSubtype
         self.elementId = interactionData.elementId
         self.elementFriendlyName = interactionData.elementFriendlyName
+        self.pageData = interactionData.pageData
     }
 
     // MARK: - Encodable
@@ -88,6 +91,7 @@ public class Event: Encodable {
         case funnelName = "funnel_name"
         case funnelEntryToken = "funnel_entry_token"
         case funnelEventSequencePosition = "funnel_event_sequence_position"
+        case pageData = "page"
     }
 
     // MARK: - Nested types

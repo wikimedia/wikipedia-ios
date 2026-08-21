@@ -21,12 +21,15 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     }
 
     private let homeDataController = WMFHomeDataController.shared
+    
+    private weak var homeCoordinator: HomeCoordinator?
 
-    init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFHomeViewModel) {
+    init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFHomeViewModel, homeCoordinator: HomeCoordinator) {
         self.dataStore = dataStore
         self.theme = theme
         self.viewModel = viewModel
         self.hostingController = WMFHomeHostingController(rootView: WMFHomeView(viewModel: viewModel))
+        self.homeCoordinator = homeCoordinator
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -133,12 +136,21 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     private func navigateToForYouArticle(_ article: WMFForYouArticleCardViewModel) {
         guard let articleURL = Self.articleURL(for: article) else { return }
+        let source: ArticleSource
+        switch article.module {
+        case .basedOnInterests:
+            source = .homeFeedForYouInterestCard
+        case .becauseYouRead:
+            source = .homeFeedForYouBecauseYouReadCard
+        case .continueReading:
+            source = .homeFeedForYouContinueReadingCard
+        }
         let coordinator = ArticleCoordinator(
             navigationController: navigationController ?? UINavigationController(),
             articleURL: articleURL,
             dataStore: dataStore,
             theme: theme,
-            source: .undefined,
+            source: source,
             tabConfig: .appendArticleAndAssignCurrentTab
         )
         coordinator.start()
@@ -161,6 +173,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        homeCoordinator?.startFunnelIfNeeded()
         configureNavigationBar()
         updateChromeAppearance(for: viewModel.selectedTab)
         reloadLanguages()
@@ -180,6 +193,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        homeCoordinator?.stopFunnelIfNeeded()
 
         updateChromeAppearance(for: .community)
     }
@@ -248,7 +262,8 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     /// from the button on the empty feed.
     private func presentInterestsSettings() {
         guard let navigationController else { return }
-        let coordinator = HomeFeedSettingsCoordinator(navigationController: navigationController, theme: theme, initialView: .interests, presentation: .modal)
+        let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").startFunnel(name: "feed_customize")
+        let coordinator = HomeFeedSettingsCoordinator(navigationController: navigationController, theme: theme, initialView: .interests(instrument), presentation: .modal)
         homeFeedSettingsCoordinator = coordinator
         coordinator.start()
     }

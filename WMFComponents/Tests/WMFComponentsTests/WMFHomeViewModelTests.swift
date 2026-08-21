@@ -18,14 +18,14 @@ final class WMFHomeViewModelTests: XCTestCase {
 
     private func makeViewModel() -> (WMFHomeViewModel, WMFHomeDataController) {
         let controller = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
-        let vm = WMFHomeViewModel(dataController: controller)
+        let vm = WMFHomeViewModel(dataController: controller, logDidTapLanguagePicker: {_ in })
         return (vm, controller)
     }
 
     private func makeForYouCardViewModel() -> WMFForYouArticleCardViewModel {
         let article = WMFForYouArticle(title: "Octopus", project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
         let header = WMFForYouHeaderLabel(format: "Test %1$@", highlight: "")
-        return WMFForYouArticleCardViewModel(article: article, headerLabel: header)
+        return WMFForYouArticleCardViewModel(article: article, headerLabel: header, module: .continueReading)
     }
 
     // MARK: - Hide Community Module
@@ -144,7 +144,7 @@ final class WMFHomeViewModelTests: XCTestCase {
         let project = WMFProject.wikipedia(language)
         let article = WMFForYouArticle(title: "Octopus", project: project)
         let header = WMFForYouHeaderLabel(format: "Test %1$@", highlight: "")
-        let cardVM = WMFForYouArticleCardViewModel(article: article, headerLabel: header)
+        let cardVM = WMFForYouArticleCardViewModel(article: article, headerLabel: header, module: .basedOnInterests)
         XCTAssertEqual(cardVM.cardUniqueKey, "for_you_\(project.id)_Octopus")
     }
 
@@ -362,6 +362,120 @@ final class WMFHomeViewModelTests: XCTestCase {
         vm.refreshFeedsIfDayChanged(now: tomorrow)
 
         XCTAssertNil(vm.forYouFeedError)
+    }
+
+    // MARK: - Logging helpers
+
+    private func makeCard(title: String, module: WMFForYouModule) -> WMFForYouArticleCardViewModel {
+        let article = WMFForYouArticle(title: title, project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
+        let header = WMFForYouHeaderLabel(format: "Test %1$@", highlight: "")
+        return WMFForYouArticleCardViewModel(article: article, headerLabel: header, module: module)
+    }
+
+    // MARK: - Impression deduplication
+
+    func testCardImpressionFiresOnFirstShow() {
+        let (vm, _) = makeViewModel()
+        var impressions: [(String, Int)] = []
+        vm.logCardImpression = { impressions.append(($0, $1)) }
+        vm.forYouViewModel = makeForYouViewModel()
+
+        let card = makeCard(title: "Octopus", module: .becauseYouRead)
+        vm.forYouViewModel?.onShowCard?(card)
+
+        XCTAssertEqual(impressions.count, 1)
+        XCTAssertEqual(impressions.first?.0, "BecauseYouReadCard")
+        XCTAssertEqual(impressions.first?.1, card.cardIndex)
+    }
+
+    func testCardImpressionDeduplicatesRepeatedShows() {
+        let (vm, _) = makeViewModel()
+        var impressionCount = 0
+        vm.logCardImpression = { _, _ in impressionCount += 1 }
+        vm.forYouViewModel = makeForYouViewModel()
+
+        let card = makeCard(title: "Octopus", module: .becauseYouRead)
+        vm.forYouViewModel?.onShowCard?(card)
+        vm.forYouViewModel?.onShowCard?(card)
+        vm.forYouViewModel?.onShowCard?(card)
+
+        XCTAssertEqual(impressionCount, 1, "The same card appearing multiple times must log only one impression")
+    }
+
+    func testCardImpressionFiresAgainForDifferentCard() {
+        let (vm, _) = makeViewModel()
+        var impressionCount = 0
+        vm.logCardImpression = { _, _ in impressionCount += 1 }
+        vm.forYouViewModel = makeForYouViewModel()
+
+        let card1 = makeCard(title: "Octopus", module: .becauseYouRead)
+        let card2 = makeCard(title: "Squid", module: .becauseYouRead)
+        vm.forYouViewModel?.onShowCard?(card1)
+        vm.forYouViewModel?.onShowCard?(card1)
+        vm.forYouViewModel?.onShowCard?(card2)
+
+        XCTAssertEqual(impressionCount, 2, "A new card must log a fresh impression even after a duplicate was suppressed")
+    }
+
+    // MARK: - Save / unsave routing
+
+    func testSaveCardCallsLogCardDidSave() {
+        let (vm, _) = makeViewModel()
+        var savedCard: WMFForYouArticleCardViewModel?
+        var unsavedCard: WMFForYouArticleCardViewModel?
+        vm.logCardDidSave = { savedCard = $0 }
+        vm.logCardDidUnsave = { unsavedCard = $0 }
+        vm.forYouViewModel = makeForYouViewModel()
+
+        let card = makeForYouCardViewModel()
+        vm.forYouViewModel?.onSaveCard?(card)
+
+        XCTAssertTrue(savedCard === card)
+        XCTAssertNil(unsavedCard, "Saving must not trigger the unsave callback")
+    }
+
+    func testUnsaveCardCallsLogCardDidUnsave() {
+        let (vm, _) = makeViewModel()
+        var savedCard: WMFForYouArticleCardViewModel?
+        var unsavedCard: WMFForYouArticleCardViewModel?
+        vm.logCardDidSave = { savedCard = $0 }
+        vm.logCardDidUnsave = { unsavedCard = $0 }
+        vm.forYouViewModel = makeForYouViewModel()
+
+        let card = makeForYouCardViewModel()
+        vm.forYouViewModel?.onUnsaveCard?(card)
+
+        XCTAssertTrue(unsavedCard === card)
+        XCTAssertNil(savedCard, "Unsaving must not trigger the save callback")
+    }
+
+    // MARK: - Customize interests routing
+
+    func testCustomizeInterestsFromCardPassesModuleLoggingId() {
+        let (vm, _) = makeViewModel()
+        var capturedActionSource: String?
+        var capturedElementId: String?
+        vm.logDidTapCustomizeInterests = { capturedActionSource = $0; capturedElementId = $1 }
+        vm.forYouViewModel = makeForYouViewModel()
+
+        let card = makeCard(title: "Octopus", module: .becauseYouRead)
+        vm.forYouViewModel?.onCustomizeInterests?(.card(card))
+
+        XCTAssertEqual(capturedActionSource, "BecauseYouReadCard")
+        XCTAssertEqual(capturedElementId, "feed_customize")
+    }
+
+    func testCustomizeInterestsFromEmptyFeedPassesEmptySource() {
+        let (vm, _) = makeViewModel()
+        var capturedActionSource: String?
+        var capturedElementId: String?
+        vm.logDidTapCustomizeInterests = { capturedActionSource = $0; capturedElementId = $1 }
+        vm.forYouViewModel = makeForYouViewModel()
+
+        vm.forYouViewModel?.onCustomizeInterests?(.emptyFeed)
+
+        XCTAssertEqual(capturedActionSource, "feed_empty")
+        XCTAssertEqual(capturedElementId, "customize_feed")
     }
 
 }
