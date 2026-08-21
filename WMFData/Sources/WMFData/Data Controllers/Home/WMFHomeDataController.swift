@@ -1,4 +1,5 @@
 import Foundation
+import WMFTestKitchen
 
 @objc public final actor WMFHomeDataController {
     public enum HomeTabExperimentAssignment {
@@ -38,7 +39,8 @@ import Foundation
         relatedPagesDataController: WMFRelatedPagesDataController = WMFRelatedPagesDataController.shared,
         savedArticlesDataController: WMFSavedArticlesDataController = WMFSavedArticlesDataController.shared,
         onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared,
-        experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore
+        experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore,
+        testKitchenClient: TestKitchenClient? = WMFDataEnvironment.current.testKitchenClient
     ) {
         self.feedDataController = feedDataController
         self.basicService = basicService
@@ -54,6 +56,13 @@ import Foundation
         } else {
             homeTabAssignment = .control
         }
+
+        let assigned = homeTabAssignment == .groupB ? "treatment" : "control"
+        testKitchenClient?.getInstrument(name: "apps-home-feed")
+            .submitInteraction(
+                action: "experiment_exposure",
+                experimentData: ExperimentData(enrolled: "ios-home-feed", assigned: assigned)
+            )
     }
 
     @objc public nonisolated var isHomeTabGroupB: Bool {
