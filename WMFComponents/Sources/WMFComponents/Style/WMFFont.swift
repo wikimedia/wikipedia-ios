@@ -1,7 +1,10 @@
 import UIKit
 import SwiftUI
 
-public enum WMFFont {
+/// nonisolated: a stateless factory over UIFont/UIFontMetrics, which are
+/// thread-safe; the module's default MainActor isolation would otherwise
+/// needlessly restrict callers in packages without default isolation.
+nonisolated public enum WMFFont {
 
     case body
     case boldBody
@@ -58,7 +61,14 @@ public enum WMFFont {
     case helveticaBodyBold
     case helveticaCaption1
 
-    public static func `for`(_ font: WMFFont, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection) -> UIFont {
+    /// Convenience that defaults to the app environment's trait collection, which
+    /// is main-actor state.
+    @MainActor
+    public static func `for`(_ font: WMFFont) -> UIFont {
+        return `for`(font, compatibleWith: WMFAppEnvironment.current.traitCollection)
+    }
+
+    public static func `for`(_ font: WMFFont, compatibleWith traitCollection: UITraitCollection) -> UIFont {
 
         switch font {
         case .body:

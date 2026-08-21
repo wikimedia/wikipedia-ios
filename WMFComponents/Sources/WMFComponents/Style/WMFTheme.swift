@@ -2,7 +2,10 @@ import UIKit
 import SwiftUI
 import PassKit
 
-public struct WMFTheme: Equatable {
+/// nonisolated: immutable theme presets built from Sendable UIKit values; the
+/// module's default MainActor isolation would otherwise needlessly restrict
+/// callers in packages without default isolation (e.g. WMF Framework's Theme).
+nonisolated public struct WMFTheme: Equatable, Sendable {
 
     public let name: String
     public let userInterfaceStyle: UIUserInterfaceStyle

@@ -2,7 +2,10 @@ import UIKit
 import SwiftUI
 
 /// Color definitions from Wikimedia Style Guide
-public enum WMFColor {
+/// nonisolated: these are immutable UIColor constants (UIColor is Sendable); the
+/// module's default MainActor isolation would otherwise needlessly restrict callers
+/// in packages without default isolation (e.g. WMF Framework's Theme).
+nonisolated public enum WMFColor {
 
     public static let black = UIColor.black
     public static let white = UIColor.white
