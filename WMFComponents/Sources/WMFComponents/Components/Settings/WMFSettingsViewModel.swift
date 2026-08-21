@@ -289,7 +289,7 @@ final public class WMFSettingsViewModel: ObservableObject {
         })
 
         var feedItems: [SettingsItem] = []
-        if WMFDeveloperSettingsDataController.shared.enableHomeTab {
+        if WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB {
             if WMFDeveloperSettingsDataController.shared.enableHomePhase2 {
                 // Phase 2: the reworked community feed ships inside the Home tab, so a single Home
                 // feed row covers customization for both segments.
