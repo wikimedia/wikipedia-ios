@@ -38,6 +38,12 @@ struct WMFDeveloperSettingsView: View {
             Section {
                 Toggle("Enable Donation Reminder", isOn: $viewModel.enableDonationReminder)
                 Toggle("Force Fundraising Campaign Banner", isOn: $viewModel.forceFundraisingCampaignBanner)
+                Picker("Force Reminder Experiment Group", selection: $viewModel.forceDonationReminderExperimentAssignment) {
+                    Text("Off").tag(WMFDonationReminderDataController.ExperimentAssignment?.none)
+                    Text("Control (A)").tag(WMFDonationReminderDataController.ExperimentAssignment?.some(.control))
+                    Text("Group B").tag(WMFDonationReminderDataController.ExperimentAssignment?.some(.groupB))
+                    Text("Group C").tag(WMFDonationReminderDataController.ExperimentAssignment?.some(.groupC))
+                }
                 Button {
                     viewModel.clearFundraisingCampaignPersistence()
                 } label: {
@@ -46,7 +52,7 @@ struct WMFDeveloperSettingsView: View {
             } header: {
                 Text("Fundraising")
             } footer: {
-                Text("Force ignores country and language settings. Only works if there is an active campaign. Clear resets \"maybe later\" / \"already donated\" and the local donation history so the banner can show again without the force toggle.")
+                Text("Force ignores country and language settings. Only works if there is an active campaign. Clear resets \"maybe later\" / \"already donated\", the local donation history, the saved donation reminder, and the experiment bucket, so the banner can show again and the next Maybe Later re-rolls the A/B/C assignment. Force Reminder Experiment Group overrides the persisted A/B/C bucket at read time; switching it back to Off restores the persisted bucket.")
             }
 
             ForEach(viewModel.formViewModel.sections) { section in
