@@ -2,9 +2,9 @@ name: Strict Concurrency Check
 
 # Swift 6 migration guard.
 #
-# This workflow builds the leaf Swift packages with SWIFT_STRICT_CONCURRENCY=complete
+# This workflow builds the migration targets with SWIFT_STRICT_CONCURRENCY=complete
 # and reports the number of concurrency warnings per scheme. Every one of these
-# warnings becomes a hard ERROR once the package flips to Swift 6 language mode, so
+# warnings becomes a hard ERROR once the target flips to Swift 6 language mode, so
 # this is the burn-down metric for the migration (see the Swift 6.2 migration plan).
 #
 # Schemes still burning down their backlog are report-only.
@@ -12,7 +12,10 @@ name: Strict Concurrency Check
 # the job then fails if ANY concurrency warning appears in that scheme's own sources.
 # WMFComponents reached zero via default MainActor isolation. WMFData reached zero
 # via Sendable services/models and lock-isolated singleton state (started at ~127).
-# Both are gated. Next up: WMF Framework and the app targets.
+# Both are gated. WMF (the legacy WMF Framework target) is report-only while its
+# burn-down runs (it could not even build under complete checking before the
+# burn-down began; the first measurable count was ~517, ~224 after the first
+# pass). The app targets follow it.
 
 on:
   pull_request:
@@ -43,8 +46,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Leaf-first migration order. Add WMF / Wikipedia here as they begin their burn-down.
-        scheme: ["WMFData", "WMFComponents"]
+        # Leaf-first migration order. Add Wikipedia here when it begins its burn-down.
+        # WMF (WMF Framework) is report-only while its backlog burns down.
+        scheme: ["WMFData", "WMFComponents", "WMF"]
 
     name: Strict concurrency (${{ matrix.scheme }})
     steps:
@@ -87,16 +91,25 @@ jobs:
           fi
 
           # Count concurrency-related warnings in this scheme's OWN sources only.
-          # A scheme's build also compiles its package dependencies (e.g. building
+          # A scheme's build also compiles its dependencies (e.g. building
           # WMFComponents recompiles WMFData), whose warnings must not be attributed
           # to this scheme. The pattern matches the strict-concurrency diagnostic
           # vocabulary; plain warnings (deprecations etc.) are not counted.
+          #
+          # Each scheme's sources live under a different path shape: SPM packages
+          # use <Package>/Sources, while the WMF framework target compiles from
+          # "WMF Framework/" (vendored Third Party code is excluded from its count).
+          case "${SCHEME}" in
+            WMF) SOURCE_PATH="WMF Framework/" ;;
+            *)   SOURCE_PATH="${SCHEME}/Sources" ;;
+          esac
           CONCURRENCY_PATTERN='[Ss]endable|concurren|actor|isolat|data race|main actor|nonisolated'
           # Grep once; every stage tolerates zero matches. (The job runs under
           # bash -e with pipefail, so an unguarded empty grep pipeline would
           # fail the step exactly when a gated scheme is clean.)
           MATCHES=$(grep "warning:" "${SCHEME}_strict.log" \
-            | grep "${SCHEME}/Sources" \
+            | grep "${SOURCE_PATH}" \
+            | grep -v "WMF Framework/Third Party" \
             | grep -iE "${CONCURRENCY_PATTERN}" || true)
           if [ -n "${MATCHES}" ]; then
             COUNT=$(printf '%s\n' "${MATCHES}" | wc -l | tr -d ' ')
