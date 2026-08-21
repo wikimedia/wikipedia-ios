@@ -280,4 +280,12 @@ final class WMFForYouViewModelTests: XCTestCase {
 
         XCTAssertNil(newViewModel.lastViewedModuleID)
     }
+
+    // MARK: - Module logging IDs
+
+    func testModuleLoggingIds() {
+        XCTAssertEqual(WMFForYouModule.basedOnInterests.loggingId, "BasedOnInterestCard")
+        XCTAssertEqual(WMFForYouModule.becauseYouRead.loggingId, "BecauseYouReadCard")
+        XCTAssertEqual(WMFForYouModule.continueReading.loggingId, "ContinueReadingCard")
+    }
 }
