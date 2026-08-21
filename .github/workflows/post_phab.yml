@@ -18,9 +18,12 @@ jobs:
         BODY_CHANGES: ${{ toJSON(github.event.changes.body) }}
         PHAB_API_TOKEN: ${{ secrets.PHAB_BOT_API_KEY }}
       run: |
-        # Task IDs referenced at the start of a line, either as a "Bug: T123" trailer
-        # or as a phabricator.wikimedia.org URL (optionally behind the "**Phabricator:**"
-        # label from the PR template).
+        # Task IDs referenced at the start of a line, in either shape:
+        #   - a "Bug:" or "Phabricator:" label, optionally markdown-bolded, followed by
+        #     a bare T123 or a phabricator.wikimedia.org URL
+        #   - a bare phabricator.wikimedia.org URL with no label
+        # A bare "T123" with neither a label nor a URL deliberately does NOT match --
+        # that would be too loose to be safe in prose.
         #
         # The match is case-insensitive, so IDs are upper-cased before `sort -u` and
         # before the added-task diff below -- otherwise "T123" and "t123" count as two
@@ -34,7 +37,7 @@ jobs:
         task_ids() {
           printf '%s' "$1" \
             | tr -d '\r' \
-            | grep -oEi "(^Bug:[[:space:]]*T[0-9]+)|(^([*]*phabricator[*]*:[*]*[[:space:]]*)?https://phabricator\.wikimedia\.org/T[0-9]+)" \
+            | grep -oEi "(^[*]*(bug|phabricator)[*]*:[*]*[[:space:]]*(https://phabricator\.wikimedia\.org/)?T[0-9]+)|(^https://phabricator\.wikimedia\.org/T[0-9]+)" \
             | grep -oEi "T[0-9]+" \
             | tr '[:lower:]' '[:upper:]' \
             | sort -u || true
