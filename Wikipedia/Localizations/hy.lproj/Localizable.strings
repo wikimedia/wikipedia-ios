@@ -202,3 +202,121 @@
 "year-in-review-donate" = "Նվիրաբերել";
 "year-in-review-finish" = "Վերջացնել";
 "yesterday-title" = "Երեկ";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Ճարտարապետություն";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Արվեստ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Կոմիքսներ և անիմե";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Entertainment";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Նորաձևություն";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Գրականություն";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Երաժշտություն";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Performing arts";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Սպորտ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "Հեռուստատեսություն և ֆիլմ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Վիդեո խաղեր";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Կենսագրություն (բոլոր)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Կենսագրություն (կանայք)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Բիզնես և տնտեսագիտություն";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Կրթություն";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Ուտելիք և խմիչք";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Պատմություն";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Military and warfare";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Փիլիսոփայություն և կրոն";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Քաղաքականություն և կառավարություն";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Հասարակություն";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Փոխադրում";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Կենսաբանություն";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Քիմիա";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Համակարգիչներ և ինտերնետ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Երկիր և շրջակա միջավայր";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Ճարտարագիտություն";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Ընդհանուր գիտություն";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Մաթեմատիկա";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Բժշկություն և առողջություն";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Ֆիզիկա";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Տեխնոլոգիա";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Աֆրիկա";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Ասիա";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Կենտրոնական Ամերիկա";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Եվրոպա";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Հյուսիսային Ամերիկա";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Օվկիանիա";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Հարավային Ամերիկա";

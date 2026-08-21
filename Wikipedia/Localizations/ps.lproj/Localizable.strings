@@ -468,3 +468,121 @@
 "year-in-review-time-night" = "شپه";
 "year-in-review-wikipedia-w-accessibility-label" = "ويکي‌پېډيا له نښان سره";
 "year-in-review-wmf-logo-accessibility-label" = "ويکي‌رسنۍ بنسټ نښان";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "ودانيز";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "هنر";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "خندني او کارتوني";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "ساتېری";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "سينگار";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "ادبيات";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "موسيقي";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "ننداريز هنرونه";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "سپورت";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "تلوېزيون او فيلم";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "ويډيويي لوبې";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "ژوندليک (ټول)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "ژوندليک (ښځې)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "سوداگري او وټپوهنه";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "زده کړې";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "خواړه او څښاک";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "پېښليک";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "پوځي او جنگي";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "پلسپه او دينونه";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "سياست او حکومتولي";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "ټولنه";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "لېږد";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "ژونپوهنه";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "کېميا";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "کمپيوټرونه او اېنټرنېټ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "ځمکه او چاپېريال";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "انجينري";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "ټولگړی ساينس";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "شمېرپوهنه";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "درمل او روغتيا";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "پنځپوهنه";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "تېکنالوژي";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "افريقا";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "اسيا";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "منځنۍ امريکا";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "اروپا";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "شمالي امريکا";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "اوقيانوسيه";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "سوېلي امريکا";

@@ -227,3 +227,121 @@
 // Fuzzy
 "wikitext-upload-save" = "Ӏалашъеш ю...";
 "wikitext-upload-save-terms-name" = "Лелоран статус";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Архитектура";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Исбаьхьалла";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Комиксаш а, аниме а";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Самукъадаккхар";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Мода";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Литература";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Музыка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Музыка, театр, хелхарш";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Спорт";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "ТВ а, кино а";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Видеоловзаргаш";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Биографи (йерриге)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Биографии (зудчунна)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Бизнес а, экономика а";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Дешар";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Даар а, маларш а";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Истори";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Герзан ницкъаш а, тӀеман гӀуллакх а";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Философи а, дин а";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Политика а, правительствош а";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Йукъаралла";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Транспорт";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Биологи";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Хими";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Компьютерш а, интернет а";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Дуьненах Ӏилманаш а, экологи а";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Инженери";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Йукъара Ӏилма";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Математика";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Медицина а, могушалла а";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Физика";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Технологи";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Африка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Ази";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Йуккъера Америка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Европа";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Къилбаседа Америка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Австрали а, Океани а";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Къилба Америка";
