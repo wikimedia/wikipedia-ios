@@ -1,13 +1,13 @@
 import Foundation
 
-public struct WMFFeatureConfigResponse: Codable {
+public struct WMFFeatureConfigResponse: Codable, Sendable {
     
-    public struct Common: Codable {
+    public struct Common: Codable, Sendable {
         public let yir: [YearInReview]
         
-        public struct YearInReview: Codable {
+        public struct YearInReview: Codable, Sendable {
             
-            public struct TopReadPercentage: Codable {
+            public struct TopReadPercentage: Codable, Sendable {
                 public let identifier: String
                 public let min: Int
                 public let max: Int?
@@ -103,10 +103,10 @@ public struct WMFFeatureConfigResponse: Codable {
         }
     }
     
-    public struct IOS: Codable {
+    public struct IOS: Codable, Sendable {
         public let hCaptcha: HCaptcha?
         
-        public struct HCaptcha: Codable {
+        public struct HCaptcha: Codable, Sendable {
             public let baseURL: String
             public let jsSrc: String
             public let endpoint: String
