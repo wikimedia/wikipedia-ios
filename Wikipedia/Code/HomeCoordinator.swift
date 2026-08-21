@@ -62,73 +62,54 @@ final class HomeCoordinator: NSObject, Coordinator {
             }
         )
         
-        viewModel.logCardImpression = { [weak self] module, cardIndex in
-            
-            guard let self else { return }
-            
+        viewModel.logCardImpression = { [weak self, weak viewModel] module, cardIndex in
+            guard let self, let viewModel else { return }
             self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: module, actionContext: ["index": cardIndex], mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
-            
         }
-        
-        viewModel.logCardDidTapShare = { [weak self] module in
-            
-            guard let self else { return }
-            
+
+        viewModel.logCardDidTapShare = { [weak self, weak viewModel] module in
+            guard let self, let viewModel else { return }
             self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_share", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
-            
         }
-        
-        viewModel.logCardDidSave = { [weak self] card in
-            guard let self else { return }
+
+        viewModel.logCardDidSave = { [weak self, weak viewModel] card in
+            guard let self, let viewModel else { return }
             self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: card.module.loggingId, elementId: "article_save", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
             let articleURL = card.project.siteURL?.wmf_URL(withTitle: card.title)
             ReadingListsFunnel.shared.logSave(category: .article, label: nil, articleURL: articleURL)
         }
 
-        viewModel.logCardDidUnsave = { [weak self] card in
-            guard let self else { return }
+        viewModel.logCardDidUnsave = { [weak self, weak viewModel] card in
+            guard let self, let viewModel else { return }
             self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: card.module.loggingId, elementId: "article_save", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
             let articleURL = card.project.siteURL?.wmf_URL(withTitle: card.title)
             ReadingListsFunnel.shared.logUnsave(category: .article, label: nil, articleURL: articleURL)
         }
-        
-        viewModel.logCardDidTapHideCard = { [weak self] module in
-            
-            guard let self else { return }
-            
+
+        viewModel.logCardDidTapHideCard = { [weak self, weak viewModel] module in
+            guard let self, let viewModel else { return }
             self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "card_hide", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
-            
         }
-        
-        viewModel.logCardDidTapHideModule = { [weak self] module in
-            
-            guard let self else { return }
-            
+
+        viewModel.logCardDidTapHideModule = { [weak self, weak viewModel] module in
+            guard let self, let viewModel else { return }
             self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "module_hide", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
-            
         }
-        
-        viewModel.logDidTapCustomizeInterests = { [weak self] module, elementId in
-            
-            guard let self else { return }
-            
+
+        viewModel.logDidTapCustomizeInterests = { [weak self, weak viewModel] module, elementId in
+            guard let self, let viewModel else { return }
             self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: elementId, mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
-            
         }
-        
-        viewModel.logEmptyViewImpression = { [weak self] in
-            guard let self else { return }
-            
+
+        viewModel.logEmptyViewImpression = { [weak self, weak viewModel] in
+            guard let self, let viewModel else { return }
             self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "EmptyForYouCard", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
         }
-        
-        viewModel.logCardDidTapArticle = { [weak self] module, articleTitle in
-            
-            guard let self else { return }
-            
-            let project = currentProject(forViewModel: viewModel)
+
+        viewModel.logCardDidTapArticle = { [weak self, weak viewModel] module, articleTitle in
+            guard let self, let viewModel else { return }
+            let project = self.currentProject(forViewModel: viewModel)
             let pageData = TestKitchenAdapter.getPageData(title: articleTitle, project: project)
-            
             self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_open", mediawikiDatabase: self.mediawikiDatabase(for: viewModel), pageData: pageData)
         }
 
