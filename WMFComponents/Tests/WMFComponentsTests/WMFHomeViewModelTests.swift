@@ -18,7 +18,7 @@ final class WMFHomeViewModelTests: XCTestCase {
 
     private func makeViewModel() -> (WMFHomeViewModel, WMFHomeDataController) {
         let controller = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
-        let vm = WMFHomeViewModel(dataController: controller, logDidTapLanguagePicker: {_ in })
+        let vm = WMFHomeViewModel(dataController: controller)
         return (vm, controller)
     }
 
