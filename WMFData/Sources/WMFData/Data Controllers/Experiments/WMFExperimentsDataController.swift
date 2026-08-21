@@ -21,6 +21,7 @@ final class WMFExperimentsDataController {
         case moreDynamicTabsV2
         case yirLoginPrompt
         case homeTab
+        case donationReminder
 
         var config: ExperimentConfig {
             switch self {
@@ -30,28 +31,35 @@ final class WMFExperimentsDataController {
                 return WMFExperimentsDataController.yirLoginPromptConfig
             case .homeTab:
                 return WMFExperimentsDataController.homeTabConfig
+            case .donationReminder:
+                return WMFExperimentsDataController.donationReminderConfig
             }
         }
     }
-    
+
     public enum PercentageFileName: String {
         case moreDynamicTabsPercent
         case yirLoginPromptPercent
         case homeTabPercent
+        case donationReminderPercent
     }
-    
+
     enum BucketFileName: String {
         case moreDynamicTabsV2Bucket
         case yirLoginPromptBucket
         case homeTabBucket
+        case donationReminderBucket
     }
-    
+
     public enum BucketValue: String {
         case moreDynamicTabsV2GroupC = "MoreDynamicTabsV2_GroupC"
         case yirLoginPromptControl = "YirLoginPrompt_Control"
         case yirLoginPromptGroupB = "YirLoginPrompt_GroupB"
         case homeTabControl = "HomeTab_Control"
         case homeTabGroupB = "HomeTab_GroupB"
+        case donationReminderControl = "DonationReminder_Control"
+        case donationReminderGroupB = "DonationReminder_GroupB"
+        case donationReminderGroupC = "DonationReminder_GroupC"
     }
     
     // MARK: Properties
@@ -63,6 +71,8 @@ final class WMFExperimentsDataController {
     private static let yirLoginPromptConfig = ExperimentConfig(experiment: .yirLoginPrompt, percentageFileName: .yirLoginPromptPercent, bucketFileName: .yirLoginPromptBucket, bucketValueControl: .yirLoginPromptControl, bucketValueTest: .yirLoginPromptGroupB, bucketValueTest2: nil)
 
     private static let homeTabConfig = ExperimentConfig(experiment: .homeTab, percentageFileName: .homeTabPercent, bucketFileName: .homeTabBucket, bucketValueControl: .homeTabControl, bucketValueTest: .homeTabGroupB, bucketValueTest2: nil)
+
+    private static let donationReminderConfig = ExperimentConfig(experiment: .donationReminder, percentageFileName: .donationReminderPercent, bucketFileName: .donationReminderBucket, bucketValueControl: .donationReminderControl, bucketValueTest: .donationReminderGroupB, bucketValueTest2: .donationReminderGroupC)
 
     private let store: WMFKeyValueStore
     
@@ -115,6 +125,15 @@ final class WMFExperimentsDataController {
                     bucket = .homeTabControl
                 } else {
                     bucket = .homeTabGroupB
+                }
+
+            case .donationReminder:
+                if randomInt <= percentage {
+                    bucket = .donationReminderControl
+                } else if randomInt <= percentage * 2 {
+                    bucket = .donationReminderGroupB
+                } else {
+                    bucket = .donationReminderGroupC
                 }
             }
         }
