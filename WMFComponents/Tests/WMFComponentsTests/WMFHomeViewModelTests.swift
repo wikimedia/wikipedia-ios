@@ -18,14 +18,14 @@ final class WMFHomeViewModelTests: XCTestCase {
 
     private func makeViewModel() -> (WMFHomeViewModel, WMFHomeDataController) {
         let controller = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
-        let vm = WMFHomeViewModel(dataController: controller)
+        let vm = WMFHomeViewModel(dataController: controller, logDidTapLanguagePicker: {_ in })
         return (vm, controller)
     }
 
     private func makeForYouCardViewModel() -> WMFForYouArticleCardViewModel {
         let article = WMFForYouArticle(title: "Octopus", project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
         let header = WMFForYouHeaderLabel(format: "Test %1$@", highlight: "")
-        return WMFForYouArticleCardViewModel(article: article, headerLabel: header)
+        return WMFForYouArticleCardViewModel(article: article, headerLabel: header, module: .continueReading)
     }
 
     // MARK: - Hide Community Module
@@ -144,7 +144,7 @@ final class WMFHomeViewModelTests: XCTestCase {
         let project = WMFProject.wikipedia(language)
         let article = WMFForYouArticle(title: "Octopus", project: project)
         let header = WMFForYouHeaderLabel(format: "Test %1$@", highlight: "")
-        let cardVM = WMFForYouArticleCardViewModel(article: article, headerLabel: header)
+        let cardVM = WMFForYouArticleCardViewModel(article: article, headerLabel: header, module: .basedOnInterests)
         XCTAssertEqual(cardVM.cardUniqueKey, "for_you_\(project.id)_Octopus")
     }
 

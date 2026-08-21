@@ -167,7 +167,7 @@ final class WMFForYouViewModelTests: XCTestCase {
     func testCardAccessibilityLabelReadsWhyThenWhat() {
         let article = WMFForYouArticle(title: "Octopus", project: project)
         let header = WMFForYouHeaderLabel(format: "Because of your interest: %1$@", highlight: "Biology")
-        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header)
+        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header, module: .basedOnInterests)
         card.extract = "An octopus is a soft-bodied mollusc."
 
         XCTAssertEqual(card.accessibilityLabel, "Because of your interest: Biology, Octopus, An octopus is a soft-bodied mollusc.")
@@ -177,7 +177,7 @@ final class WMFForYouViewModelTests: XCTestCase {
     func testCardAccessibilityLabelFallsBackToTheDescription() {
         let article = WMFForYouArticle(title: "Octopus", project: project)
         let header = WMFForYouHeaderLabel(format: "Because you read: %1$@", highlight: "Squid")
-        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header)
+        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header, module: .becauseYouRead)
         card.description = "Marine animal"
         card.extract = nil
 

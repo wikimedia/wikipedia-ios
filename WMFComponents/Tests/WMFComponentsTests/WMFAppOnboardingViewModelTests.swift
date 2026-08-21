@@ -23,8 +23,8 @@ struct WMFAppOnboardingViewModelTests {
             userDefaultsStore: WMFMockKeyValueStore(),
             onThisDayDataController: WMFOnThisDayDataController(basicService: WMFMockBasicService())
         )
-        let interestsViewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, project: project)
-        let feedPreferenceViewModel = WMFAppOnboardingFeedPreferenceViewModel(dataController: dataController, project: project)
+        let interestsViewModel = WMFHomeFeedInterestsSettingsViewModel(dataController: dataController, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
+        let feedPreferenceViewModel = WMFAppOnboardingFeedPreferenceViewModel(dataController: dataController, project: project, logImpression: { _ in }, logDidTapCommunity: {}, logDidTapPersonalized: {})
         return WMFAppOnboardingViewModel(
             languages: languages,
             interestsViewModel: interestsViewModel,
@@ -33,7 +33,10 @@ struct WMFAppOnboardingViewModelTests {
             didTapPrivacyPolicy: {},
             didTapTermsOfUse: {},
             didTapAddLanguages: {},
-            onCompletion: { completionBox.completed = true }
+            onCompletion: { completionBox.completed = true },
+            logImpression: { _ in },
+            logSkip: { _ in },
+            logNext: {_ in }
         )
     }
 
