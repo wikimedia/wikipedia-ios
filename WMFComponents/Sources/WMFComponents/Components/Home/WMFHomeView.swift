@@ -118,7 +118,6 @@ public struct WMFHomeView: View {
                 Menu {
                     ForEach(viewModel.languages) { language in
                         Button {
-                            viewModel.logDidTapLanguagePicker(viewModel.selectedLanguage?.languageCode) // todo: confirm this placement is okay
                             viewModel.didSelectLanguage?(language)
                         } label: {
                             if language.languageCode == viewModel.selectedLanguage?.languageCode {
@@ -136,7 +135,6 @@ public struct WMFHomeView: View {
                     }
                     Divider()
                     Button {
-                        viewModel.logDidTapLanguagePicker(viewModel.selectedLanguage?.languageCode) // todo: confirm this placement is okay
                         viewModel.didTapEditLanguages?()
                     } label: {
                         Label {
