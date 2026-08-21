@@ -35,8 +35,9 @@ extension ArticleViewController {
             }
 
             let isFirstAppSession = UserDefaults.standard.wmf_appResignActiveDate() == nil
+            let hasDonationReminderOutcome = WMFDeveloperSettingsDataController.shared.enableDonationReminder && WMFDonationReminderDataController.shared.loadReminder() != nil
 
-            guard (isOptedIn && !userDonatedWithinLast250Days() && !isFirstAppSession) || isForcingBannerForDevelopment else {
+            guard (isOptedIn && !userDonatedWithinLast250Days() && !isFirstAppSession && !hasDonationReminderOutcome) || isForcingBannerForDevelopment else {
                 willDisplayCampaignModal = false
                 onNothingShown?()
                 return
@@ -122,7 +123,6 @@ extension ArticleViewController {
             case .maybeLater:
                 if WMFDeveloperSettingsDataController.shared.enableDonationReminder,
                    let navigationController = self.navigationController {
-                    dataController.markAssetAsPermanentlyHidden(asset: asset)
                     let coordinator = DonationReminderSetupCoordinator(navigationController: navigationController, currencyCode: asset.currencyCode, theme: self.theme)
                     self.donationReminderSetupCoordinator = coordinator
                     coordinator.start()
