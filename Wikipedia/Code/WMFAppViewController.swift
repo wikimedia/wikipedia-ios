@@ -1199,8 +1199,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         oneTimeOnboardingViewController = onboardingVC
 
         DispatchQueue.main.async {
-            self.present(onboardingVC, animated: true)
-            WMFHomeDataController.shared.setHasSeenOneTimeOnboarding(true)
+              self.present(onboardingVC, animated: true) {
+                      WMFHomeDataController.shared.setHasSeenOneTimeOnboarding(true)
+              }
         }
     }
 
