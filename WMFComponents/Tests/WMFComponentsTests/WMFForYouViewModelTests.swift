@@ -190,8 +190,8 @@ final class WMFForYouViewModelTests: XCTestCase {
         let header = WMFForYouHeaderLabel(format: "Because you read: %1$@", highlight: "Octopus")
         let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header)
 
-        XCTAssertEqual(card.displayTitle, "Giant squid", "A reader must never see the database form of a title")
-        XCTAssertEqual(card.title, "Giant_squid", "The summary request and the card key still need the database form")
+        XCTAssertEqual(card.title, "Giant squid", "A reader must never see the database form of a title")
+        XCTAssertTrue(card.cardUniqueKey.hasSuffix("Giant_squid"), "The card key keeps the database form, thus a hidden card stays matched")
     }
 
     @MainActor

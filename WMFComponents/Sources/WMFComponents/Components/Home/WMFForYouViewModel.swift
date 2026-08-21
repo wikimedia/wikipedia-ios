@@ -272,16 +272,12 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
     }
     @Published public var imageAvailability: ImageAvailability = .unknown
 
-    public var displayTitle: String {
-        title.normalizedForDisplay
-    }
-
     public var accessibilityLabel: String {
         var parts: [String] = []
         if !headerLabel.format.isEmpty {
             parts.append(headerLabel.accessibilityText)
         }
-        parts.append(displayTitle)
+        parts.append(title)
         if let extract, !extract.isEmpty {
             parts.append(extract)
         } else if let description, !description.isEmpty {

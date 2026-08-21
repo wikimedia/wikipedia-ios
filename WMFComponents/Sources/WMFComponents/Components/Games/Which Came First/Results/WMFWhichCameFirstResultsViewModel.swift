@@ -44,8 +44,7 @@ public final class WMFWhichCameFirstResultsViewModel: ObservableObject {
     public var onPlayArchive: (@MainActor @Sendable () -> Void)?
 
     // The timer is made and used only on the main actor, thus the property needs no escape from
-    // isolation. `nonisolated(unsafe)` let the cancellable be released from an isolated deinit,
-    // which crashed the test runner on every construction of this view model.
+    // isolation.
     private var timerCancellable: AnyCancellable?
 
     public init(
