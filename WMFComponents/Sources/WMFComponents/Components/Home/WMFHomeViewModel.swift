@@ -19,15 +19,15 @@ public final class WMFHomeViewModel: ObservableObject {
     
     let logDidTapLanguagePicker: (String?) -> Void
     private var lastLoggedImpressionCardKey: String?
-    public var logCardImpression: ((String, Int) -> Void)?
-    public var logCardDidTapShare: ((String) -> Void)?
-    public var logCardDidSave: ((WMFForYouArticleCardViewModel) -> Void)?
-    public var logCardDidUnsave: ((WMFForYouArticleCardViewModel) -> Void)?
-    public var logCardDidTapHideCard: ((String) -> Void)?
-    public var logCardDidTapHideModule: ((String) -> Void)?
-    public var logDidTapCustomizeInterests: ((String, String) -> Void)?
-    public var logEmptyViewImpression: (() -> Void)?
-    public var logCardDidTapArticle: ((String, String) -> Void)?
+    public var logCardImpression: (@MainActor @Sendable (String, Int) -> Void)?
+    public var logCardDidTapShare: (@MainActor @Sendable (String) -> Void)?
+    public var logCardDidSave: (@MainActor @Sendable (WMFForYouArticleCardViewModel) -> Void)?
+    public var logCardDidUnsave: (@MainActor @Sendable (WMFForYouArticleCardViewModel) -> Void)?
+    public var logCardDidTapHideCard: (@MainActor @Sendable (String) -> Void)?
+    public var logCardDidTapHideModule: (@MainActor @Sendable (String) -> Void)?
+    public var logDidTapCustomizeInterests: (@MainActor @Sendable (String, String) -> Void)?
+    public var logEmptyViewImpression: (@MainActor @Sendable () -> Void)?
+    public var logCardDidTapArticle: (@MainActor @Sendable (String, String) -> Void)?
 
     public enum Tab: Int, CaseIterable {
         case forYou
