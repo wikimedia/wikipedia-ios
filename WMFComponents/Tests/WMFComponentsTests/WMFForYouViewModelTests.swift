@@ -184,6 +184,26 @@ final class WMFForYouViewModelTests: XCTestCase {
         XCTAssertEqual(card.accessibilityLabel, "Because you read: Squid, Octopus, Marine animal")
     }
 
+    @MainActor
+    func testCardTitleShownToTheReaderHasNoUnderscores() {
+        let article = WMFForYouArticle(title: "Giant_squid", project: project)
+        let header = WMFForYouHeaderLabel(format: "Because you read: %1$@", highlight: "Octopus")
+        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header)
+
+        XCTAssertEqual(card.title, "Giant squid", "A reader must never see the database form of a title")
+        XCTAssertTrue(card.cardUniqueKey.hasSuffix("Giant_squid"), "The card key keeps the database form, thus a hidden card stays matched")
+    }
+
+    @MainActor
+    func testCardAccessibilityLabelReadsTheTitleWithNoUnderscores() {
+        let article = WMFForYouArticle(title: "Giant_squid", project: project)
+        let header = WMFForYouHeaderLabel(format: "Because you read: %1$@", highlight: "Octopus")
+        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header)
+        card.description = "Marine animal"
+
+        XCTAssertEqual(card.accessibilityLabel, "Because you read: Octopus, Giant squid, Marine animal")
+    }
+
     // MARK: - Position in the feed
 
     @MainActor

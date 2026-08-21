@@ -25,7 +25,9 @@ public enum WMFForYouModule {
     }
 }
 
-public struct WMFForYouModuleVisibility {
+/// A default argument runs in the context of the caller, which is not the main actor. This type
+/// only carries three flags, thus it needs no isolation.
+public nonisolated struct WMFForYouModuleVisibility {
     public var basedOnInterests: Bool
     public var becauseYouRead: Bool
     public var continueReading: Bool

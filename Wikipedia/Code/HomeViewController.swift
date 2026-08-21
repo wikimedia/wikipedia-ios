@@ -202,7 +202,17 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     private func updateChromeAppearance(for tab: WMFHomeViewModel.Tab) {
         updateNavigationBarAppearance(for: tab)
+        updateNavigationBarItemsAppearance(for: tab)
         updateTabBarAppearance(for: tab)
+    }
+
+    private func updateNavigationBarItemsAppearance(for tab: WMFHomeViewModel.Tab) {
+        guard #unavailable(iOS 26.0) else { return }
+
+        let isForYou = tab == .forYou
+        navigationController?.navigationBar.tintColor = isForYou ? WMFTheme.black.navigationBarTintColor : WMFAppEnvironment.current.theme.navigationBarTintColor
+        navigationItem.leftBarButtonItem?.tintColor = isForYou ? Theme.black.colors.logoTintColor : theme.colors.logoTintColor
+        updateProfileButton()
     }
 
     private func updateNavigationBarAppearance(for tab: WMFHomeViewModel.Tab) {
@@ -270,6 +280,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         let vc = ExploreViewController()
         vc.dataStore = dataStore
         vc.isEmbeddedInHomeTab = true
+        vc.additionalSafeAreaInsets = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
         vc.notificationsCenterPresentationDelegate = tabBarController as? NotificationsCenterPresentationDelegate
         vc.apply(theme: theme)
         _embeddedExploreViewController = vc
@@ -371,7 +382,16 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     func updateProfileButton() {
         let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
-        updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
+        updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle, theme: navigationBarItemsTheme)
+    }
+
+    /// The theme for the buttons of the navigation bar. For You is always dark, and before iOS 26 the
+    /// buttons do not get that from the theme of the app.
+    private var navigationBarItemsTheme: WMFTheme {
+        guard #unavailable(iOS 26.0), viewModel.selectedTab == .forYou else {
+            return WMFAppEnvironment.current.theme
+        }
+        return WMFTheme.black
     }
 
     // MARK: - Themeable

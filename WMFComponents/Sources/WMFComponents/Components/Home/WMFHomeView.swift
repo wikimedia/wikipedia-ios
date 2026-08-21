@@ -6,6 +6,9 @@ public struct WMFHomeView: View {
     @ObservedObject var viewModel: WMFHomeViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
+    /// Where the header bar ends, so that a For You card can keep its content below it.
+    @State private var headerBottom: CGFloat = 0
+
     var theme: WMFTheme { appEnvironment.theme }
 
     public init(viewModel: WMFHomeViewModel) {
@@ -55,13 +58,23 @@ public struct WMFHomeView: View {
             ZStack(alignment: .top) {
                 forYouTabContent
                     .ignoresSafeArea()
+                    .environment(\.forYouHeaderBottom, headerBottom)
                 headerBar(isForYou: true)
                     .padding(.top, headerBarTopInset)
+                    .background {
+                        GeometryReader { proxy in
+                            Color.clear.preference(
+                                key: WMFForYouHeaderBottomKey.self,
+                                value: proxy.frame(in: .global).maxY
+                            )
+                        }
+                    }
                 refreshIndicator
                     .padding(.top, refreshIndicatorTopInset)
             }
             .ignoresSafeArea()
             .environment(\.colorScheme, .dark)
+            .onPreferenceChange(WMFForYouHeaderBottomKey.self) { headerBottom = $0 }
         } else {
             communitySection
 
@@ -98,15 +111,6 @@ public struct WMFHomeView: View {
             .padding(.vertical, 2)
             .pickerStyle(.segmented)
             .fixedSize()
-            .dynamicTypeSize(.xSmall ... .large)
-            .background {
-                if #available(iOS 26.0, *) {
-                    Capsule().fill(.clear).glassEffect(in: Capsule())
-                } else {
-                    RoundedRectangle(cornerRadius: Self.tabSwitcherCornerRadius, style: .continuous)
-                        .fill(.ultraThinMaterial)
-                }
-            }
 
             Spacer()
 
@@ -149,7 +153,7 @@ public struct WMFHomeView: View {
                             .minimumScaleFactor(0.25)
                             .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
                             .lineLimit(1)
-                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronUpChevronDown, font: .boldCaption1) ?? UIImage())
+                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronUpChevronDown, font: .boldCaption1, compatibleWith: .wmfCappedForSFSymbols) ?? UIImage())
                             .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
                     }
                 }
@@ -166,7 +170,7 @@ public struct WMFHomeView: View {
             }
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 8)
+        .padding(.vertical, 16)
     }
 
     // MARK: - For You Tab
