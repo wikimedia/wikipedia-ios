@@ -180,6 +180,7 @@ public enum WMFSFSymbolIcon {
     case docText
     case chevronUpChevronDown
     case globe
+    case newspaper
 
     public var name: String? {
         switch self {
@@ -458,6 +459,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "globe", withConfiguration: configuration)
         case .squareSplit:
             image = UIImage(systemName: "square.split.2x1", withConfiguration: configuration)
+        case .newspaper:
+            image = UIImage(systemName: "newspaper", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

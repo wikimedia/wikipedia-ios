@@ -82,6 +82,30 @@ final class WMFInterestsPersistenceRoundTripTests {
         }
     }
 
+    /// The wiki italicizes some article titles, so the search result's display title arrives as
+    /// markup. Persisting that instead of the canonical title left the interest unresolvable —
+    /// its summary and related-pages lookups 404, so its card showed no image or description.
+    @Test
+    func searchResultWithAMarkedUpDisplayTitlePersistsTheCanonicalTitle() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let store = try #require(WMFDataEnvironment.current.coreDataStore)
+            let pageInterest = try WMFPageInterestDataController(coreDataStore: store)
+            let home = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
+
+            let vm = WMFHomeFeedInterestsSettingsViewModel(dataController: home, pageInterestDataController: pageInterest, project: project)
+            let result = WMFArticleSearchResult(pageID: 18586452, namespace: 0, title: "The Macomber Affair", displayTitle: "<i>The Macomber Affair</i>", description: "1947 film by Zoltan Korda", index: 1, thumbnail: nil)
+            #expect(vm.addSearchResult(result))
+
+            try await waitFor {
+                let interests = (try? self.syncFetch(pageInterest)) ?? []
+                return !interests.isEmpty
+            }
+
+            let interests = try self.syncFetch(pageInterest)
+            #expect(interests.map { $0.title } == ["The_Macomber_Affair"])
+        }
+    }
+
     private nonisolated func syncFetch(_ controller: WMFPageInterestDataController) throws -> [WMFPageInterest] {
         let semaphore = DispatchSemaphore(value: 0)
         var result: [WMFPageInterest] = []

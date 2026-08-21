@@ -39,7 +39,7 @@ struct WMFInterestArticleGridView: View {
 
     private func estimatedHeight(for vm: WMFInterestArticleCardViewModel) -> CGFloat {
         let imageHeight: CGFloat = vm.thumbnailURL != nil ? 100 : 0
-        let titleLines = max(1, Int(ceil(Double(vm.title.count) / 18.0)))
+        let titleLines = max(1, Int(ceil(Double(vm.displayTitle.removingHTML.count) / 18.0)))
         let titleHeight = CGFloat(titleLines) * 20
         let descriptionHeight: CGFloat
         if let desc = vm.description {
@@ -103,7 +103,7 @@ private struct WMFInterestArticleCardView: View {
             // text rather than below its descender space.
             HStack(alignment: .lastTextBaseline, spacing: 4) {
                 VStack(alignment: .leading, spacing: 4) {
-                    WMFHtmlText(html: viewModel.title, styles: HtmlUtils.Styles(font: WMFFont.for(.semiboldHeadline, sized: dynamicTypeSize), boldFont: WMFFont.for(.boldHeadline, sized: dynamicTypeSize), italicsFont: WMFFont.for(.semiboldHeadline, sized: dynamicTypeSize), boldItalicsFont: WMFFont.for(.boldHeadline, sized: dynamicTypeSize), color: theme.text, linkColor: theme.link, lineSpacing: 1))
+                    WMFHtmlText(html: viewModel.displayTitle, styles: HtmlUtils.Styles(font: WMFFont.for(.semiboldHeadline, sized: dynamicTypeSize), boldFont: WMFFont.for(.boldHeadline, sized: dynamicTypeSize), italicsFont: WMFFont.for(.semiboldHeadline, sized: dynamicTypeSize), boldItalicsFont: WMFFont.for(.boldHeadline, sized: dynamicTypeSize), color: theme.text, linkColor: theme.link, lineSpacing: 1))
                     if let description = viewModel.description {
                         Text(description)
                             .font(Font(WMFFont.for(.callout, sized: dynamicTypeSize)))
@@ -145,7 +145,7 @@ private struct WMFInterestArticleCardView: View {
     }
 
     private var accessibilityLabel: String {
-        [viewModel.title.wmf_strippingHTMLForAccessibility, viewModel.description]
+        [viewModel.displayTitle.removingHTML, viewModel.description]
             .compactMap { $0 }
             .filter { !$0.isEmpty }
             .joined(separator: ", ")
