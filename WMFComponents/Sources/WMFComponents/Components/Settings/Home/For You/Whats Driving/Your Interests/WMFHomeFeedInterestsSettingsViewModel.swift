@@ -254,7 +254,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
                 let results = try await searchDataController.search(term: term, project: .wikipedia(language))
                 guard !Task.isCancelled else { return }
                 self.searchRows = results.map { result in
-                    let alreadySelected = self.gridViewModels.contains { $0.id == result.title && $0.isSelected }
+                    let alreadySelected = self.gridViewModels.contains { $0.id == result.title.normalizedForCoreData && $0.isSelected }
                     let card = WMFInterestArticleCardViewModel(searchResult: result, project: .wikipedia(language), isSelected: alreadySelected)
                     return SearchRow(id: result.pageID, result: result, card: card)
                 }
@@ -277,9 +277,10 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
 
         var cards: [WMFInterestArticleCardViewModel] = []
         var seenIDs = Set<String>()
-        for interest in interests where !seenIDs.contains(interest.title) {
-            seenIDs.insert(interest.title)
-            cards.append(WMFInterestArticleCardViewModel(pageInterest: interest, project: interest.project ?? project))
+        for interest in interests {
+            let card = WMFInterestArticleCardViewModel(pageInterest: interest, project: interest.project ?? project)
+            guard seenIDs.insert(card.id).inserted else { continue }
+            cards.append(card)
         }
 
         gridViewModels = cards
@@ -293,7 +294,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
         let savedIDs = Set(savedVMs.map { $0.id })
         let remainingSlots = max(0, Self.maxGridArticles - savedVMs.count)
         let randomVMs = articles
-            .filter { !savedIDs.contains($0.title) }
+            .filter { !savedIDs.contains($0.title.normalizedForCoreData) }
             .prefix(remainingSlots)
             .map { WMFInterestArticleCardViewModel(article: $0, project: project) }
         gridViewModels = savedVMs + randomVMs
