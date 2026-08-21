@@ -444,6 +444,131 @@ final class WMFHomeDataControllerTests: XCTestCase {
             // expected
         }
     }
+    
+    // MARK: - Experiment assignment
+
+    func testPersistredHomeTabAssignmentReturnsControlWhenNoExperimentStore() {
+        let controller = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            experimentStore: nil
+        )
+        XCTAssertEqual(controller.persistedHomeTabAssignment(), .control)
+    }
+
+    func testIsHomeTabGroupBIsFalseWhenControlAssigned() {
+        let controller = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            experimentStore: nil
+        )
+        XCTAssertFalse(controller.isHomeTabGroupB)
+    }
+
+    func testPersistredHomeTabAssignmentIsStableAcrossMultipleCalls() {
+        let store = WMFMockKeyValueStore()
+        let controller = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            experimentStore: store
+        )
+        let first = controller.persistedHomeTabAssignment()
+        let second = controller.persistedHomeTabAssignment()
+        XCTAssertEqual(first, second)
+    }
+
+    func testPersistredHomeTabAssignmentIsStableAcrossNewControllerInstancesWithSameStore() {
+        // Two controllers sharing the same store must land in the same bucket,
+        // because determineBucketForExperiment persists the result.
+        let store = WMFMockKeyValueStore()
+        let first = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            experimentStore: store
+        )
+        let second = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            experimentStore: store
+        )
+        XCTAssertEqual(first.persistedHomeTabAssignment(), second.persistedHomeTabAssignment())
+    }
+
+    // MARK: - One-time onboarding state
+
+    func testHasSeenOneTimeOnboardingDefaultsToFalse() {
+        let controller = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: WMFMockKeyValueStore()
+        )
+        XCTAssertFalse(controller.hasSeenOneTimeOnboarding())
+    }
+
+    func testSetHasSeenOneTimeOnboardingPersists() {
+        let store = WMFMockKeyValueStore()
+        let controller = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: store
+        )
+        controller.setHasSeenOneTimeOnboarding(true)
+        XCTAssertTrue(controller.hasSeenOneTimeOnboarding())
+    }
+
+    func testSetHasSeenOneTimeOnboardingCanBeReset() {
+        let store = WMFMockKeyValueStore()
+        let controller = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: store
+        )
+        controller.setHasSeenOneTimeOnboarding(true)
+        controller.setHasSeenOneTimeOnboarding(false)
+        XCTAssertFalse(controller.hasSeenOneTimeOnboarding())
+    }
+
+    func testHasSeenOneTimeOnboardingIsIsolatedByStore() {
+        let storeA = WMFMockKeyValueStore()
+        let storeB = WMFMockKeyValueStore()
+        let controllerA = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: storeA
+        )
+        let controllerB = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: storeB
+        )
+        controllerA.setHasSeenOneTimeOnboarding(true)
+        XCTAssertFalse(controllerB.hasSeenOneTimeOnboarding())
+    }
+
+    // MARK: - New install onboarding start event
+
+    func testDidSendNewInstallOnboardingStartEventDefaultsToFalse() {
+        let controller = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: WMFMockKeyValueStore()
+        )
+        XCTAssertFalse(controller.didSendNewInstallOnboardingStartEvent())
+    }
+
+    func testSetDidSendNewInstallOnboardingStartEventPersists() {
+        let store = WMFMockKeyValueStore()
+        let controller = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: store
+        )
+        controller.setDidSendNewInstallOnboardingStartEvent(true)
+        XCTAssertTrue(controller.didSendNewInstallOnboardingStartEvent())
+    }
+
+    func testDidSendNewInstallOnboardingStartEventIsIsolatedByStore() {
+        let storeA = WMFMockKeyValueStore()
+        let storeB = WMFMockKeyValueStore()
+        let controllerA = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: storeA
+        )
+        let controllerB = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: storeB
+        )
+        controllerA.setDidSendNewInstallOnboardingStartEvent(true)
+        XCTAssertFalse(controllerB.didSendNewInstallOnboardingStartEvent())
+    }
 
     // MARK: - Helpers
 
