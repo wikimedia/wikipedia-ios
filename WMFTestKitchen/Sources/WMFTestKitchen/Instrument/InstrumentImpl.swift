@@ -20,7 +20,8 @@ public class InstrumentImpl {
         elementFriendlyName: String? = nil,
         actionContext: [String: Any]? = nil,
         mediawikiDatabase: String? = nil, // Adds custom mediawiki > database value for event, otherwise defaults to primary app language wiki.
-        pageData: PageData? = nil
+        pageData: PageData? = nil,
+        experimentData: ExperimentData? = nil
     ) -> InstrumentImpl {
 
         var actionContextFinal: [String: String] = [:]
@@ -50,7 +51,8 @@ public class InstrumentImpl {
                 elementId: elementId,
                 elementFriendlyName: elementFriendlyName,
                 mediawikiDatabase: mediawikiDatabase,
-                pageData: pageData
+                pageData: pageData,
+                experimentData: experimentData
             )
         )
 
