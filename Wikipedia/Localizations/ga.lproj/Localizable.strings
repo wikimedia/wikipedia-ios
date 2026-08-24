@@ -723,8 +723,8 @@
 "for-you-error-subtitle" = "Ceangail leis an Idirlíon agus déan iarracht arís.";
 "for-you-error-title" = "Gan nasc idirlín";
 "for-you-header-because-you-read" = "Mar gheall gur léigh tú: $1";
-"for-you-header-continue-reading" = "Lean ort ag léamh: $1";
 "for-you-header-interest" = "Mar gheall ar do spéis: $1";
+// Fuzzy
 "for-you-header-saved-article" = "Ó do liosta léitheoireachta: $1";
 "for-you-menu-customize-interests" = "Saincheap leasanna";
 "for-you-refreshing-accessibility-label" = "Ábhar nua á lódáil";
@@ -749,6 +749,7 @@
 "history-clear-delete-all" = "Tá, scrios uile";
 "history-title" = "Stair";
 "home-button-explore-accessibility-label" = "Vicipéid, siar go Taiscéal";
+"home-button-home-accessibility-label" = "Vicipéid, fill ar ais go dtí an Baile";
 "home-button-saved-accessibility-label" = "Vicipéid, siar go Sábháilte";
 "home-card-more-options-accessibility-label" = "Tuilleadh roghanna";
 "home-community-empty-feed-button-title" = "Saincheap an fotha";
@@ -762,7 +763,6 @@
 "home-feed-for-you-because-you-read-subtitle" = "Moltaí bunaithe ar alt le déanaí ó do stair";
 "home-feed-for-you-because-you-read-title" = "Mar gheall gur léigh tú";
 "home-feed-for-you-continue-reading-subtitle" = "Léim ar ais chuig ailt nár chríochnaigh tú";
-"home-feed-for-you-continue-reading-title" = "Lean ort ag léamh";
 "home-feed-for-you-settings-header" = "Má mhúchann tú modúl, cuirtear i bhfolach é ó do bheatha \"Duit féin\". Is féidir leat é a athchumasú anseo am ar bith.";
 "home-feed-for-you-settings-title" = "Modúil";
 "home-feed-interests-deselect-all" = "Díroghnaigh gach rud";
@@ -808,6 +808,7 @@
 "home-news-footer" = "Tuilleadh cúrsaí reatha";
 "home-reading-list-prompt" = "Anois is féidir do chuid alt sábháilte a eagrú ar liostaí léitheoireachta agus a shioncrónú thar gléasanna. Logáil isteach le ceadú go sábhálfar do chuid liostaí léitheoireachta i do sainroghanna úsáideora.";
 "home-tab-title" = "Baile";
+"home-tab-title-accessibility-label" = "Vicipéid, scrollaigh go barr an Bhaile";
 "home-themes-action-title" = "Bainistigh sainroghanna";
 "home-themes-prompt" = "Coigeartaigh do chuid sainroghanna Léitheoireachta, lena n-áirítear méid an téacs agus an téama, ón mbarra uirlisí alt nó i do shocruithe úsáideora le haghaidh eispéireas léitheoireachta níos compordaí.";
 "home-title" = "Taiscéal";
