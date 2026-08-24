@@ -782,7 +782,7 @@
 "find-textfield-accessibility" = "Найти";
 "for-you-error-retry" = "Попробовать ещё раз";
 "for-you-error-title" = "Нет подключения к интернету";
-"for-you-header-continue-reading" = "Продолжить чтение: $1";
+// Fuzzy
 "for-you-header-saved-article" = "Из вашего списка для чтения: $1";
 "forgot-password-button-title" = "Сбросить";
 "forgot-password-email-sent" = "Письмо с инструкциями по сбросу пароля было отправлено";
@@ -814,7 +814,6 @@
 "home-feed-for-you-because-you-read-subtitle" = "Предложения, основанные на недавней статье из вашей истории.";
 "home-feed-for-you-because-you-read-title" = "На основе прочитанного";
 "home-feed-for-you-continue-reading-subtitle" = "Вернитесь к статьям, которые вы не дочитали.";
-"home-feed-for-you-continue-reading-title" = "Продолжить чтение";
 "home-feed-for-you-settings-header" = "Если отключить модуль, он перестанет отображаться в вашей ленте «Для вас». Вы можете в любой момент снова включить его здесь.";
 "home-feed-for-you-settings-title" = "Модули";
 "home-feed-interests-deselect-all" = "Отменить выбор";

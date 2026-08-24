@@ -760,9 +760,8 @@
 "for-you-error-subtitle" = "Maak verbinding met internet en probeer het opnieuw.";
 "for-you-error-title" = "Geen internetverbinding";
 "for-you-header-because-you-read" = "Omdat uw dit gelezen hebt: $1";
-"for-you-header-continue-reading" = "Verder lezen: $1";
 "for-you-header-interest" = "Vanwege uw interesse: $1";
-"for-you-header-saved-article" = "Uit uw leeslijst: $1";
+"for-you-header-saved-article" = "Uit uw leeslijst";
 "for-you-menu-customize-interests" = "Interesses aanpassen";
 "for-you-refreshing-accessibility-label" = "Nieuwe inhoud laden";
 "forgot-password-button-title" = "Opnieuw instellen";
@@ -786,6 +785,7 @@
 "history-clear-delete-all" = "Ja, alles verwijderen";
 "history-title" = "Geschiedenis";
 "home-button-explore-accessibility-label" = "Wikipedia, terug om te verkennen";
+"home-button-home-accessibility-label" = "Wikipedia, terug naar de startpagina";
 "home-button-saved-accessibility-label" = "Wikipedia, terug naar opgslagen";
 "home-card-more-options-accessibility-label" = "Meer opties";
 "home-community-empty-feed-button-title" = "Feed bewerken";
@@ -799,7 +799,6 @@
 "home-feed-for-you-because-you-read-subtitle" = "Suggesties gebaseerd op een recente pagina uit uw geschiedenis";
 "home-feed-for-you-because-you-read-title" = "Omdat u hebt gelezen";
 "home-feed-for-you-continue-reading-subtitle" = "Verder gaan met pagina's die u niet hebt uitgelezen";
-"home-feed-for-you-continue-reading-title" = "Verder lezen";
 "home-feed-for-you-settings-header" = "Als u een module uitschakelt, wordt deze niet meer weergegeven in de 'Voor u'-feed. U kunt de module hier op elk gewenst moment weer inschakelen.";
 "home-feed-for-you-settings-title" = "Modules";
 "home-feed-interests-deselect-all" = "Alles deselecteren";
@@ -845,6 +844,7 @@
 "home-news-footer" = "Meer in het nieuws";
 "home-reading-list-prompt" = "Uw opgeslagen pagina's kunnen nu in leeslijsten worden ingedeeld en tussen apparaten worden gesynchroniseerd. Meld u aan om uw leeslijsten in uw gebruikersvoorkeuren te laten opslaan.";
 "home-tab-title" = "Startpagina";
+"home-tab-title-accessibility-label" = "Wikipedia, scrol naar bovenaan de startpagina";
 "home-themes-action-title" = "Voorkeuren beheren";
 "home-themes-prompt" = "Pas uw leesvoorkeuren aan, inclusief de tekstgrootte en het thema in de paginawerkbalk of in uw gebruikersinstellingen voor een comfortabelere leeservaring.";
 "home-title" = "Verkennen";
