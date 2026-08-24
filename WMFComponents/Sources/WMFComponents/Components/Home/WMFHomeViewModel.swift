@@ -37,12 +37,7 @@ public final class WMFHomeViewModel: ObservableObject {
     let forYouTabTitle = CommonStrings.forYouTabTitle
     let communityTabTitle = WMFLocalizedString("home-community-tab-title", value: "Community", comment: "Title for the Community segment within the Home tab.")
     let editLanguagesTitle = WMFLocalizedString("home-edit-languages-title", value: "Add or edit languages", comment: "Title for the option at the bottom of the Home language menu that opens the languages settings screen.")
-    
-    // New keys rather than new values on the old ones: the copy changed meaning, and the old keys are
-    // already translated as "All Community feed cards are hidden", which would show for those languages.
-    let communityEmptyFeedTitle = WMFLocalizedString("home-community-empty-feed-nothing-here-title", value: "Nothing here yet.", comment: "Title shown in the Home tab Community segment when the reader has turned off every feed module.")
-    let communityEmptyFeedSubtitle = WMFLocalizedString("home-community-empty-feed-turn-on-modules-message", value: "Turn on modules to see community content.", comment: "Message shown in the Home tab Community segment when the reader has turned off every feed module.")
-    let communityEmptyFeedButtonTitle = WMFLocalizedString("home-community-empty-feed-settings-button-title", value: "Go to settings", comment: "Title of the button shown in the Home tab Community segment when every feed module is off. It opens the Community feed settings.")
+    let communityEmptyFeedSubtitle = WMFLocalizedString("home-community-empty-feed-turn-on-modules-message", value: "Turn on modules to see community content", comment: "Message shown in the Home tab Community segment when the reader has turned off every feed module.")
 
     let forYouErrorTitle = WMFLocalizedString("for-you-error-title", value: "No internet connection", comment: "Title shown on the For You tab when content cannot be loaded due to a network error.")
     let forYouErrorSubtitle = WMFLocalizedString("for-you-error-subtitle", value: "Connect to the Internet and try again.", comment: "Subtitle shown on the For You tab when content cannot be loaded due to a network error.")
@@ -117,6 +112,9 @@ public final class WMFHomeViewModel: ObservableObject {
     public var didTapEditLanguages: (() -> Void)?
     public var didTapCustomizeInterests: (() -> Void)?
 
+    /// Opens the root "Customize the home feed" settings, from the For You empty state.
+    public var didTapCustomizeHomeFeed: (@MainActor @Sendable () -> Void)?
+
     /// Temporary: when set (app-side), the Community tab hosts this legacy view controller instead of
     /// the native SwiftUI community feed, and the community feed fetch is skipped. Remove once the
     /// community feed rework ships.
@@ -149,10 +147,13 @@ public final class WMFHomeViewModel: ObservableObject {
             switch source {
             case .card(let card):
                 self?.logDidTapCustomizeInterests?(card.module.loggingId, "feed_customize")
+                self?.didTapCustomizeInterests?()
             case .emptyFeed:
+                // From the empty feed the reader may need to turn modules back on as well as add
+                // interests, so this one opens the root settings screen rather than interests.
                 self?.logDidTapCustomizeInterests?("feed_empty", "customize_feed")
+                self?.didTapCustomizeHomeFeed?()
             }
-            self?.didTapCustomizeInterests?()
         }
         forYouViewModel.onTapCard = { [weak self] in
             self?.logCardDidTapArticle?($0.module.loggingId, $0.title)

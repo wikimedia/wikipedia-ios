@@ -88,9 +88,7 @@ public final class WMFForYouViewModel: ObservableObject {
     /// Called with a card that the user really sees on the screen.
     public var onShowCard: ((WMFForYouArticleCardViewModel) -> Void)?
 
-    public let emptyTitle = WMFLocalizedString("for-you-empty-title", value: "Nothing here yet", comment: "Title shown on the For You tab when there is no content to display.")
-    public let emptySubtitle = WMFLocalizedString("for-you-empty-subtitle", value: "Add interests to get personalized article recommendations.", comment: "Subtitle shown on the For You tab empty state encouraging the user to add interests.")
-    public let emptyButtonTitle = WMFLocalizedString("for-you-empty-button", value: "Choose your interests", comment: "Button on the For You empty state that opens the interests customization screen.")
+    public let emptySubtitle = WMFLocalizedString("for-you-empty-subtitle-interests-or-modules", value: "Add interests or turn on modules to get personalized article recommendations", comment: "Subtitle shown on the For You tab empty state, encouraging the reader to add interests or turn modules back on.")
 
     // MARK: - Position in the feed
     private(set) var lastViewedModuleID: UUID?

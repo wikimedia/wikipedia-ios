@@ -66,6 +66,9 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         viewModel.didTapCustomizeInterests = { [weak self] in
             self?.presentInterestsSettings()
         }
+        viewModel.didTapCustomizeHomeFeed = { [weak self] in
+            self?.presentHomeFeedSettings()
+        }
         // While the reworked community feed (home phase 2) is in development, the Community segment
         // hosts the legacy Explore feed. With phase 2 enabled, the new community feed renders instead.
         if !WMFDeveloperSettingsDataController.shared.enableHomePhase2 {
@@ -263,6 +266,17 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     /// Opens the interests screen modally, from the "Customize interests" menu action on a card and
     /// from the button on the empty feed.
+    /// Opens the root "Customize the home feed" screen, from the For You empty state's button.
+    ///
+    /// Pushed rather than presented: the coordinator only gives its modal a close button for the
+    /// deep-linked screens, so presenting the root modally leaves no way back out of it.
+    private func presentHomeFeedSettings() {
+        guard let navigationController else { return }
+        let coordinator = HomeFeedSettingsCoordinator(navigationController: navigationController, theme: theme, initialView: .root, presentation: .push)
+        homeFeedSettingsCoordinator = coordinator
+        coordinator.start()
+    }
+
     private func presentInterestsSettings() {
         guard let navigationController else { return }
         let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").startFunnel(name: "feed_customize")

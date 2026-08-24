@@ -707,8 +707,7 @@
 "find-replace-header" = "Find and replace";
 "find-replace-header-close-accessibility" = "Close find and replace";
 "find-textfield-accessibility" = "Find";
-"for-you-empty-button" = "Choose your interests";
-"for-you-empty-subtitle" = "Add interests to get personalized article recommendations.";
+"for-you-empty-subtitle-interests-or-modules" = "Add interests or turn on modules to get personalized article recommendations";
 "for-you-empty-title" = "Nothing here yet";
 "for-you-error-retry" = "Try again";
 "for-you-error-subtitle" = "Connect to the Internet and try again.";
@@ -742,12 +741,11 @@
 "home-button-home-accessibility-label" = "Wikipedia, return to Home";
 "home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
 "home-card-more-options-accessibility-label" = "More options";
-"home-community-empty-feed-nothing-here-title" = "Nothing here yet.";
-"home-community-empty-feed-settings-button-title" = "Go to settings";
-"home-community-empty-feed-turn-on-modules-message" = "Turn on modules to see community content.";
+"home-community-empty-feed-turn-on-modules-message" = "Turn on modules to see community content";
 "home-community-see-past-content" = "See past community content";
 "home-community-tab-title" = "Community";
 "home-edit-languages-title" = "Add or edit languages";
+"home-empty-go-to-settings-button" = "Go to settings";
 "home-feed-for-you-based-on-interests-subtitle" = "Articles tailored to the topics you chose.";
 "home-feed-for-you-based-on-interests-title" = "Based on your interests";
 "home-feed-for-you-because-you-read-subtitle" = "Suggestions based on a recent article from your history";

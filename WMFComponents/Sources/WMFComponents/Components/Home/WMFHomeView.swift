@@ -256,27 +256,10 @@ public struct WMFHomeView: View {
     /// fitting size — SwiftUI sizes a representable to that instead of filling the tab, which collapsed
     /// the feed into a narrow column.
     private var embeddedCommunityEmptyView: some View {
-        let emptyViewModel = WMFEmptyViewModel(
-            localizedStrings: WMFEmptyViewModel.LocalizedStrings(
-                title: viewModel.communityEmptyFeedTitle,
-                subtitle: viewModel.communityEmptyFeedSubtitle,
-                titleFilter: nil,
-                buttonTitle: viewModel.communityEmptyFeedButtonTitle,
-                attributedFilterString: nil
-            ),
-            image: WMFSFSymbolIcon.for(symbol: .eyeSlash, font: .xxlTitleBold),
-            imageColor: theme.secondaryText,
-            numberOfFilters: nil,
-            // nil keeps the SF Symbol at its natural size — the illustration frame distorts it.
-            imageSize: nil
+        WMFHomeEmptyStateView(
+            subtitle: viewModel.communityEmptyFeedSubtitle,
+            theme: theme,
+            action: { viewModel.didTapCustomizeCommunityFeed?() }
         )
-
-        return WMFEmptyView(
-            viewModel: emptyViewModel,
-            type: .noItems,
-            isScrollable: true,
-            mainAction: { viewModel.didTapCustomizeCommunityFeed?() }
-        )
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
