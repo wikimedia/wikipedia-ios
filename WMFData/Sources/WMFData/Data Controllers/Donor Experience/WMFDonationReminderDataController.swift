@@ -84,6 +84,16 @@ public final class WMFDonationReminderDataController {
 
     public static let shared = WMFDonationReminderDataController()
 
+    public static let experimentPresetAmounts: [Decimal] = [1, 3, 5]
+
+    #if DEBUG
+    public static let minimumSecondsForArticleRead = 1
+    #else
+    public static let minimumSecondsForArticleRead = 5
+    #endif
+
+    private static let maximumIgnoredReminderImpressions = 2
+
     private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
     private var experimentStore: WMFKeyValueStore? { WMFDataEnvironment.current.sharedCacheStore }
 
@@ -103,6 +113,65 @@ public final class WMFDonationReminderDataController {
 
     public func clearReminder() {
         try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.donationReminder.rawValue)
+    }
+
+    // MARK: - Follow-up Reminder Cycle
+
+    public func articlesReadInCurrentCycle(currentDate: Date = Date()) async throws -> Int {
+        guard let reminder = loadReminder() else {
+            return 0
+        }
+
+        let pageViewsDataController = try WMFPageViewsDataController()
+        return try await pageViewsDataController.fetchPageViewsCount(startDate: reminder.currentCycleStartDate, endDate: currentDate, minimumDurationSeconds: Self.minimumSecondsForArticleRead)
+    }
+
+    public func shouldShowFollowUpReminder(currentDate: Date = Date()) async throws -> Bool {
+        guard WMFDeveloperSettingsDataController.shared.enableDonationReminder,
+              let reminder = loadReminder(),
+              reminder.isEnabled,
+              case .articlesRead(count: let articlesReadGoal) = reminder.trigger else {
+            return false
+        }
+
+        if let lastReminderShownDate = reminder.lastReminderShownDate,
+           Calendar.current.isDate(lastReminderShownDate, inSameDayAs: currentDate),
+           !WMFDeveloperSettingsDataController.shared.bypassDonationReminderDailyLimit {
+            return false
+        }
+
+        if reminder.timesReminderShown == 1 {
+            return true
+        }
+
+        let articlesRead = try await articlesReadInCurrentCycle(currentDate: currentDate)
+        return articlesRead >= articlesReadGoal
+    }
+
+    public func recordFollowUpReminderShown(currentDate: Date = Date()) {
+        guard var reminder = loadReminder() else {
+            return
+        }
+
+        if reminder.timesReminderShown == 1 {
+            reminder.progress?.timesReminderShown = 2
+            reminder.progress?.lastReminderShownDate = currentDate
+        } else {
+            reminder.progress = WMFDonationReminder.Progress(currentCycleStartDate: currentDate, timesReminderShown: 1, lastReminderShownDate: currentDate, goalReachedCount: reminder.goalReachedCount + 1)
+        }
+
+        saveReminder(reminder)
+    }
+
+    public func recordFollowUpReminderNotNow(currentDate: Date = Date()) {
+        guard var reminder = loadReminder(),
+              var progress = reminder.progress else {
+            return
+        }
+
+        progress.timesReminderShown = Self.maximumIgnoredReminderImpressions
+        reminder.progress = progress
+        saveReminder(reminder)
     }
 
     // MARK: - Experiment Assignment
