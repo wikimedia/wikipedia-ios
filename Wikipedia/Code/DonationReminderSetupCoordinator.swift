@@ -34,7 +34,8 @@ final class DonationReminderSetupCoordinator: Coordinator {
     }
 
     private func showAboutExperiment() {
-        guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/Android/Customizable_Donation_Reminder_Experiment#Experiment_%232") else {
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage,
+              let url = WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "Team", "Android", "Customizable Donation Reminder Experiment"], section: "Experiment #2", language: appLanguage) else {
             return
         }
         let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
