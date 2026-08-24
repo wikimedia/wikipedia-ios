@@ -263,6 +263,7 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
 
         let topicsDataController = try WMFPageTopicsDataController(coreDataStore: self.coreDataStore)
         try await topicsDataController.deleteTopics(title: title, namespaceID: namespaceID, project: project)
+        NotificationCenter.default.post(name: WMFNSNotification.pageViewHistoryDidChange, object: project)
     }
 
     public func deleteAllPageViewsCategoriesAndTopics() async throws {
@@ -287,6 +288,7 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
 
             backgroundContext.refreshAllObjects()
         }
+        NotificationCenter.default.post(name: WMFNSNotification.pageViewHistoryDidChange, object: nil)
     }
 
     public func importPageViews(requests: [WMFLegacyPageView]) async throws {

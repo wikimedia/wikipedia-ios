@@ -63,6 +63,24 @@ import WMFTestKitchen
                 action: "experiment_exposure",
                 experimentData: ExperimentData(enrolled: "ios-home-feed", assigned: assigned)
             )
+        
+        NotificationCenter.default.addObserver(
+            forName: WMFNSNotification.pageViewHistoryDidChange,
+            object: nil,
+            queue: nil
+        ) { [weak self] notification in
+            guard let self else { return }
+            Task {
+                await self.invalidateForYouCache(project: notification.object as? WMFProject)
+            }
+        }
+    }
+    
+    private func invalidateForYouCache(project: WMFProject?) {
+        guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
+        let target = project ?? selectedLanguage().map { WMFProject.wikipedia($0) }
+        guard let target else { return }
+        try? store.remove(key: forYouCacheKey(for: target))
     }
 
     @objc public nonisolated var isHomeTabGroupB: Bool {
