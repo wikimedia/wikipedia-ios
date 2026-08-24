@@ -87,7 +87,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ein</string>
+			<string>Einen</string>
 			<key>other</key>
 			<string>%1$d</string>
 		</dict>
