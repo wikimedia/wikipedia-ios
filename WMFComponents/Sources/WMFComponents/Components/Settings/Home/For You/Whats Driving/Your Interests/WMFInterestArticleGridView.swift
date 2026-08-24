@@ -83,6 +83,10 @@ private struct WMFInterestArticleCardView: View {
 
     @ObservedObject var viewModel: WMFInterestArticleCardViewModel
     let theme: WMFTheme
+    
+    private var subheadlineStyles: HtmlUtils.Styles {
+        return HtmlUtils.Styles(font: WMFFont.for(.boldSubheadline), boldFont: WMFFont.for(.boldSubheadline), italicsFont: WMFFont.for(.boldItalicSubheadline), boldItalicsFont: WMFFont.for(.boldItalicSubheadline), color: theme.text, linkColor: theme.link, lineSpacing: 1)
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -103,7 +107,7 @@ private struct WMFInterestArticleCardView: View {
             // text rather than below its descender space.
             HStack(alignment: .lastTextBaseline, spacing: 4) {
                 VStack(alignment: .leading, spacing: 4) {
-                    WMFHtmlText(html: viewModel.displayTitle, styles: HtmlUtils.Styles(font: WMFFont.for(.semiboldHeadline, sized: dynamicTypeSize), boldFont: WMFFont.for(.boldHeadline, sized: dynamicTypeSize), italicsFont: WMFFont.for(.semiboldHeadline, sized: dynamicTypeSize), boldItalicsFont: WMFFont.for(.boldHeadline, sized: dynamicTypeSize), color: theme.text, linkColor: theme.link, lineSpacing: 1))
+                    WMFHtmlText(html: viewModel.displayTitle, styles: subheadlineStyles)
                     if let description = viewModel.description {
                         Text(description)
                             .font(Font(WMFFont.for(.callout, sized: dynamicTypeSize)))
