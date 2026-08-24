@@ -223,7 +223,21 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     private func updateNavigationBarAppearance(for tab: WMFHomeViewModel.Tab) {
         guard let navController = navigationController as? WMFComponentNavigationController else { return }
-        navController.setTransparentAppearance(tab == .forYou)
+        if tab == .forYou, #unavailable(iOS 26.0) {
+            navController.setTransparentAppearance(false)
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = Theme.black.colors.chromeBackground
+            appearance.shadowColor = .clear
+            navController.navigationBar.standardAppearance = appearance
+            navController.navigationBar.scrollEdgeAppearance = appearance
+            navController.navigationBar.compactAppearance = appearance
+            if #available(iOS 18.0, *) {
+                navController.navigationBar.compactScrollEdgeAppearance = appearance
+            }
+        } else {
+            navController.setTransparentAppearance(tab == .forYou)
+        }
     }
 
     private func updateTabBarAppearance(for tab: WMFHomeViewModel.Tab) {
