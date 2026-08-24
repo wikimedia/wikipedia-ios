@@ -733,8 +733,8 @@
 "for-you-error-subtitle" = "Forbind til internettet og prøv igen.";
 "for-you-error-title" = "Ingen internetforbindelse";
 "for-you-header-because-you-read" = "Fordi du læser: $1";
-"for-you-header-continue-reading" = "Fortsæt med at læse: $1";
 "for-you-header-interest" = "Af grund af din interesse: $1";
+// Fuzzy
 "for-you-header-saved-article" = "Fra din læseliste: $1";
 "for-you-menu-customize-interests" = "Tilpas interesser";
 "for-you-refreshing-accessibility-label" = "Indlæser nyt indhold";
@@ -772,7 +772,6 @@
 "home-feed-for-you-because-you-read-subtitle" = "Forslag baseret på en nylig artikel fra din historie";
 "home-feed-for-you-because-you-read-title" = "Fordi du læste";
 "home-feed-for-you-continue-reading-subtitle" = "Spring tilbage til artikler, du ikke blev færdig med";
-"home-feed-for-you-continue-reading-title" = "Fortsæt læsning";
 "home-feed-for-you-settings-header" = "Hvis du deaktiverer et modul, skjules det fra dit \"Til dig\"-feed. Du kan til enhver tid genaktivere det her.";
 "home-feed-for-you-settings-title" = "Moduler";
 "home-feed-interests-deselect-all" = "Fravælg alle";

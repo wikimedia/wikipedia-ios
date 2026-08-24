@@ -21,14 +21,16 @@ public final class WMFHomeFeedForYouSettingsViewModel: ObservableObject {
     @Published public var continueReadingIsOn: Bool
 
     public var onToggleModule: ((Module, Bool) -> Void)?
+    private let logToggleModule: ((Module, Bool) -> Void)
 
     public private(set) var sections: [SettingsSection] = []
 
-    public init(homeDataController: WMFHomeDataController = .shared) {
+    public init(homeDataController: WMFHomeDataController = .shared, logToggleModule: @escaping (Module, Bool) -> Void) {
         self.homeDataController = homeDataController
         self.basedOnYourInterestsIsOn = homeDataController.forYouBasedOnInterestsIsOn()
         self.becauseYouReadIsOn = homeDataController.forYouBecauseYouReadIsOn()
         self.continueReadingIsOn = homeDataController.forYouContinueReadingIsOn()
+        self.logToggleModule = logToggleModule
         self.onToggleModule = { [weak self] module, isOn in
             guard let self else { return }
             switch module {
@@ -36,6 +38,7 @@ public final class WMFHomeFeedForYouSettingsViewModel: ObservableObject {
             case .becauseYouRead: self.homeDataController.setForYouBecauseYouReadIsOn(isOn)
             case .continueReading: self.homeDataController.setForYouContinueReadingIsOn(isOn)
             }
+            self.logToggleModule(module, isOn)
         }
         self.sections = buildSections()
     }

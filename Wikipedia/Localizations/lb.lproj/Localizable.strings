@@ -576,7 +576,7 @@
 "for-you-error-title" = "Keng Internetverbindung";
 "for-you-header-because-you-read" = "Well Dir gelies hutt: $1";
 "for-you-header-interest" = "Wéinst Ärem Interesse: $1";
-"for-you-header-saved-article" = "Vun Ärer Lieslëscht: $1";
+"for-you-header-saved-article" = "Vun Ärer Lieslëscht";
 "for-you-menu-customize-interests" = "Interessen upassen";
 "for-you-refreshing-accessibility-label" = "Neien Inhalt gëtt gelueden";
 "forgot-password-button-title" = "Zerécksetzen";
@@ -604,7 +604,6 @@
 "home-feed-for-you-because-you-read-subtitle" = "Virschléi op Basis vun engem rezenten Artikel aus Ärem Historique";
 "home-feed-for-you-because-you-read-title" = "Well Dir dat gelies hutt";
 "home-feed-for-you-continue-reading-subtitle" = "Gitt zeréck op Artikelen, déi Dir net fäerdeg gelies hutt";
-"home-feed-for-you-continue-reading-title" = "Viruliesen";
 "home-feed-for-you-settings-header" = "Wann Dir e Modul desaktivéiert, da gëtt et an Ärem „Fir Iech“-Feed verstoppt. Dir kënnt zu all Moment erëm hei reaktivéieren.";
 "home-feed-for-you-settings-title" = "Moduler";
 "home-feed-interests-deselect-all" = "Auswiel ophiewen";

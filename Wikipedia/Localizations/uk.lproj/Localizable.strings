@@ -742,8 +742,8 @@
 "for-you-error-subtitle" = "Підключіться до інтернету та спробуйте ще раз.";
 "for-you-error-title" = "Немає з'єднання з інтернетом";
 "for-you-header-because-you-read" = "Оскільки Ви читали: $1";
-"for-you-header-continue-reading" = "Продовжити читання: $1";
 "for-you-header-interest" = "Тому що у вас є інтерес: $1";
+// Fuzzy
 "for-you-header-saved-article" = "З вашого списку читання: $1";
 "for-you-menu-customize-interests" = "Налаштувати інтереси";
 "for-you-refreshing-accessibility-label" = "Завантаження нового вмісту";
@@ -781,7 +781,6 @@
 "home-feed-for-you-because-you-read-subtitle" = "Пропозиції на основі недавньої статті з вашої історії";
 "home-feed-for-you-because-you-read-title" = "Оскільки ви читали";
 "home-feed-for-you-continue-reading-subtitle" = "Поверніться до статей, які ви не дочитали до кінця";
-"home-feed-for-you-continue-reading-title" = "Продовжити читання";
 "home-feed-for-you-settings-header" = "Вимкнення модуля приховує його у вашій стрічці «Для вас». Ви можете будь-коли знову ввімкнути його тут.";
 "home-feed-for-you-settings-title" = "Модулі";
 "home-feed-interests-deselect-all" = "Скасувати вибір усіх";
