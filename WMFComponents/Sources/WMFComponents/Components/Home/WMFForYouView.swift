@@ -193,8 +193,6 @@ public struct WMFForYouView: View {
     // MARK: - Empty State
 
     private var emptyState: some View {
-        // Shared with the Community segment's empty state, given the For You palette so it stays dark
-        // while the app is on a light theme.
         WMFHomeEmptyStateView(
             subtitle: viewModel.emptySubtitle,
             theme: .forYou,

@@ -1,12 +1,10 @@
 extension WMFContentGroupKind {
 
-    /// The card kinds the Community feed settings screen lets the reader turn on and off, in the
-    /// order the screen lists them.
+    /// The card kinds that the Community feed settings screen can turn on and off, in the screen order.
     ///
-    /// Also the set the Home tab's Community segment checks to decide whether every card is hidden,
-    /// so the two stay in step. The global kinds that screen leaves out (continue reading, related
-    /// pages, suggested edits) are deliberately absent: they are on by default and not the reader's
-    /// to turn off here.
+    /// The Home tab's Community segment reads the same list to find if all the cards are hidden. The
+    /// list does not include continue reading, related pages and suggested edits. That screen does not
+    /// show those kinds, and they stay on.
     static let communityFeedCardKinds: [WMFContentGroupKind] = [.news, .onThisDay, .featuredArticle, .dailyGame, .topRead, .location, .random, .pictureOfTheDay]
 
     var isInFeed: Bool {

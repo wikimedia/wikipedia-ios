@@ -234,8 +234,6 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController, 
         let suggestedEdits = FeedCard(contentGroupKind: .suggestedEdits, displayType: displayType)
 
         if isCommunityMode {
-            // Ordered by WMFContentGroupKind.communityFeedCardKinds, which the Home tab's Community
-            // segment also reads to tell whether the reader has hidden every card.
             feedCards = WMFContentGroupKind.communityFeedCardKinds.map { FeedCard(contentGroupKind: $0, displayType: displayType) }
         } else {
             feedCards = [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]

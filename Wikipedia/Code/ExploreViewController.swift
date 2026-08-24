@@ -44,11 +44,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     /// configure or reset the shared navigation bar — the Home view controller owns it.
     @objc public var isEmbeddedInHomeTab: Bool = false
 
-    /// Reports whether the feed, embedded in the Home tab, has nothing left to show because every
-    /// Community card is hidden. The Home tab renders that empty state itself: constraint-driven
-    /// content pinned to this view controller's root view gives the root an Auto Layout fitting size,
-    /// and SwiftUI then sizes the embedded feed to that fitting size instead of letting it fill the
-    /// tab — which collapsed the feed into a narrow, overflowing column.
+    /// Tells the Home tab when all the Community cards are hidden and the feed has nothing to show.
+    ///
+    /// The Home tab shows the empty state. Do not show it here. Auto Layout content in this root view
+    /// gives the root a fitting size, and SwiftUI then makes the embedded feed as small as that size.
     var onEmbeddedEmptyStateChange: ((Bool) -> Void)?
 
     private var isEmbeddedFeedEmpty = false
@@ -1999,8 +1998,8 @@ extension ExploreViewController: YearInReviewBadgeDelegate {
 
 extension ExploreViewController {
 
-    /// When embedded in the Home tab's Community segment, the feed cannot be turned off — hiding
-    /// every card empties it instead. Hands that state to the Home tab, which shows the empty state.
+    /// The reader cannot turn off the feed in the Home tab. If the reader hides all the cards, the
+    /// feed becomes empty. This method tells the Home tab, which then shows the empty state.
     func updateEmbeddedEmptyStateIfNeeded() {
         guard isEmbeddedInHomeTab, isViewLoaded, fetchedResultsController != nil else {
             return
@@ -2013,30 +2012,28 @@ extension ExploreViewController {
         isEmbeddedFeedEmpty = isEmpty
 
         if isEmpty {
-            // The empty state replaces the feed, so any leftover "Card hidden / Undo" placeholder is
-            // no longer reachable — clear it rather than leaving an undo behind.
+            // The empty state hides the "Card hidden / Undo" placeholder. The reader cannot use the
+            // undo, so remove the placeholder.
             dataStore.feedContentController.dismissCollapsedContentGroups()
         }
 
-        // Deferred a turn: this runs from view appearance and from feed updates, and publishing the
-        // change synchronously would mutate the Home view's state in the middle of a SwiftUI update.
+        // Send the change on the next turn. This method can run during a SwiftUI update, and a state
+        // change during the update is not permitted.
         Task { [weak self] in
             self?.onEmbeddedEmptyStateChange?(isEmpty)
         }
     }
 
-    /// True when every card kind the Community feed settings screen offers is turned off.
+    /// True when all the card kinds of the Community feed settings screen are off.
     ///
-    /// Deliberately not `countOfVisibleContentGroupKinds`: that count includes the global kinds the
-    /// Community settings screen does not list (continue reading, related pages, suggested edits),
-    /// which stay on by default, so it never reaches zero and the empty state never appeared.
+    /// Do not use `countOfVisibleContentGroupKinds`. That count also includes three global kinds that
+    /// the screen does not show. Those kinds stay on, so the count never becomes zero.
     private var allCommunityFeedCardsHidden: Bool {
         !WMFContentGroupKind.communityFeedCardKinds.contains { $0.isInFeed }
     }
 
-    /// True when the feed holds nothing but the "Card hidden / Undo" placeholders left behind by
-    /// hiding cards. Hiding the last card kind leaves one of those, and it would otherwise sit alone
-    /// on an empty feed with the empty state suppressed behind it.
+    /// True when only "Card hidden / Undo" placeholders are left in the feed. When the reader hides
+    /// the last card kind, one placeholder stays.
     private var onlyHiddenCardPlaceholdersRemain: Bool {
         for section in 0..<numberOfSectionsInExploreFeed {
             guard let group = group(at: IndexPath(item: 0, section: section)) else {

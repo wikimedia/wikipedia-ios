@@ -266,10 +266,10 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     /// Opens the interests screen modally, from the "Customize interests" menu action on a card and
     /// from the button on the empty feed.
-    /// Opens the root "Customize the home feed" screen, from the For You empty state's button.
+    /// Opens the "Customize the home feed" screen from the For You empty state.
     ///
-    /// Pushed rather than presented: the coordinator only gives its modal a close button for the
-    /// deep-linked screens, so presenting the root modally leaves no way back out of it.
+    /// This method pushes the screen. The coordinator adds a close button only to the deep-linked
+    /// screens, so a modal root screen gives the reader no way to close it.
     private func presentHomeFeedSettings() {
         guard let navigationController else { return }
         let coordinator = HomeFeedSettingsCoordinator(navigationController: navigationController, theme: theme, initialView: .root, presentation: .push)
@@ -307,8 +307,8 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         return vc
     }
 
-    /// Opens the legacy feed settings from the Community segment's empty state. Temporary phase 1 UI —
-    /// remove with the community feed rework.
+    /// Opens the feed settings from the Community empty state. Temporary: remove this method with the
+    /// community feed rework.
     private func pushCommunityFeedSettings() {
         let feedSettingsVC = ExploreFeedSettingsViewController()
         feedSettingsVC.dataStore = dataStore

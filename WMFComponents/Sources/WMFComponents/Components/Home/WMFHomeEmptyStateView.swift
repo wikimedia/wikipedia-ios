@@ -1,19 +1,14 @@
 import SwiftUI
 import WMFNativeLocalizations
 
-/// The Home tab's empty state, shared by both segments so they stay identical in everything but their
-/// copy and where their button leads.
+/// The empty state of the Home tab. The Community segment and the For You segment both use it.
 ///
-/// The palette is passed in rather than read from the environment: For You stays dark whatever theme
-/// the app is set to, while Community follows the app.
+/// The caller gives the palette. The For You segment stays dark when the app uses a light theme.
 struct WMFHomeEmptyStateView: View {
 
-    /// Both segments show the same title, so it stays here on the shared view — and keeps the key the
-    /// For You empty state already ships translated rather than duplicating the English under a new one.
+    /// The two segments show the same title. This key is already translated, so both segments use it.
     private let title = WMFLocalizedString("for-you-empty-title", value: "Nothing here yet", comment: "Title shown on the Home tab's For You or Community segment when there is no content to display.")
 
-    /// Both segments send the reader to settings, so the button title is shared too. Only the subtitle
-    /// and the destination differ between them.
     private let buttonTitle = WMFLocalizedString("home-empty-go-to-settings-button", value: "Go to settings", comment: "Button on the Home tab's For You or Community empty state. It opens the feed settings.")
 
     let subtitle: String
@@ -32,13 +27,12 @@ struct WMFHomeEmptyStateView: View {
             image: WMFSFSymbolIcon.for(symbol: .sparkles, font: .xxlTitleBold),
             imageColor: theme.secondaryText,
             numberOfFilters: nil,
-            // nil keeps the SF Symbol at its natural size — the illustration frame distorts it.
+            // A nil size keeps the SF Symbol at its natural size. The default size distorts it.
             imageSize: nil
         )
 
-        // Not the scrollable variant: it paints its own midBackground, which is gray700 on the For You
-        // palette and would show as a grey panel behind that feed. The padding it would have added
-        // comes from here instead, so the text keeps a readable measure.
+        // Do not use the scrollable variant. It draws its own midBackground. That color is gray700 in
+        // the For You palette and shows as a grey panel. This view draws the background and the padding.
         return WMFEmptyView(
             viewModel: viewModel,
             type: .noItems,

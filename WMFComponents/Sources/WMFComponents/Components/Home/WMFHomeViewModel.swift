@@ -112,7 +112,7 @@ public final class WMFHomeViewModel: ObservableObject {
     public var didTapEditLanguages: (() -> Void)?
     public var didTapCustomizeInterests: (() -> Void)?
 
-    /// Opens the root "Customize the home feed" settings, from the For You empty state.
+    /// Opens the "Customize the home feed" screen from the For You empty state.
     public var didTapCustomizeHomeFeed: (@MainActor @Sendable () -> Void)?
 
     /// Temporary: when set (app-side), the Community tab hosts this legacy view controller instead of
@@ -120,8 +120,7 @@ public final class WMFHomeViewModel: ObservableObject {
     /// community feed rework ships.
     public var makeEmbeddedCommunityViewController: (() -> UIViewController)?
 
-    /// True when the embedded legacy feed has nothing to show because every Community card is hidden.
-    /// The Community tab then renders the empty state itself rather than hosting the empty feed.
+    /// True when all the Community cards are hidden and the embedded feed has nothing to show.
     @Published public var isEmbeddedCommunityFeedEmpty: Bool = false
 
     /// Opens the Community feed settings from that empty state.
@@ -149,8 +148,7 @@ public final class WMFHomeViewModel: ObservableObject {
                 self?.logDidTapCustomizeInterests?(card.module.loggingId, "feed_customize")
                 self?.didTapCustomizeInterests?()
             case .emptyFeed:
-                // From the empty feed the reader may need to turn modules back on as well as add
-                // interests, so this one opens the root settings screen rather than interests.
+                // From the empty feed the reader can also turn on modules. Open the root screen.
                 self?.logDidTapCustomizeInterests?("feed_empty", "customize_feed")
                 self?.didTapCustomizeHomeFeed?()
             }

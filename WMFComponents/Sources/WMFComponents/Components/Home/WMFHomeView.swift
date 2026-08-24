@@ -251,10 +251,10 @@ public struct WMFHomeView: View {
         }
     }
 
-    /// Shown in place of the embedded legacy feed once every Community card is hidden. Rendered here
-    /// rather than inside the embedded view controller, whose root view would then carry an Auto Layout
-    /// fitting size — SwiftUI sizes a representable to that instead of filling the tab, which collapsed
-    /// the feed into a narrow column.
+    /// Replaces the embedded feed when all the Community cards are hidden.
+    ///
+    /// The embedded view controller does not show this. Auto Layout content in its root view gives the
+    /// root a fitting size, and SwiftUI then makes the embedded feed as small as that size.
     private var embeddedCommunityEmptyView: some View {
         WMFHomeEmptyStateView(
             subtitle: viewModel.communityEmptyFeedSubtitle,
