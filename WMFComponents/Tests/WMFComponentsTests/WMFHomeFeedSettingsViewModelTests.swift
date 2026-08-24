@@ -86,7 +86,7 @@ final class WMFHomeFeedForYouSettingsViewModelTests: XCTestCase {
     }
 
     func testTogglesDefaultToOn() {
-        let vm = WMFHomeFeedForYouSettingsViewModel(homeDataController: makeController())
+        let vm = WMFHomeFeedForYouSettingsViewModel(homeDataController: makeController(), logToggleModule: { _, _ in })
         XCTAssertTrue(vm.basedOnYourInterestsIsOn)
         XCTAssertTrue(vm.becauseYouReadIsOn)
         XCTAssertTrue(vm.continueReadingIsOn)
@@ -94,7 +94,7 @@ final class WMFHomeFeedForYouSettingsViewModelTests: XCTestCase {
 
     func testTogglingBindingPersistsThroughDataController() {
         let controller = makeController()
-        let vm = WMFHomeFeedForYouSettingsViewModel(homeDataController: controller)
+        let vm = WMFHomeFeedForYouSettingsViewModel(homeDataController: controller, logToggleModule: { _, _ in })
 
         let bindings = toggleBindings(vm.sections)
         // Three toggles (the "What's driving your feed" link row has no toggle).
@@ -106,7 +106,7 @@ final class WMFHomeFeedForYouSettingsViewModelTests: XCTestCase {
         XCTAssertFalse(controller.forYouBasedOnInterestsIsOn())
 
         // A fresh view model backed by the same controller reads the persisted value.
-        let vm2 = WMFHomeFeedForYouSettingsViewModel(homeDataController: controller)
+        let vm2 = WMFHomeFeedForYouSettingsViewModel(homeDataController: controller, logToggleModule: { _, _ in })
         XCTAssertFalse(vm2.basedOnYourInterestsIsOn)
         XCTAssertTrue(vm2.becauseYouReadIsOn)
         XCTAssertTrue(vm2.continueReadingIsOn)
@@ -116,7 +116,7 @@ final class WMFHomeFeedForYouSettingsViewModelTests: XCTestCase {
         let controller = makeController()
         controller.setForYouContinueReadingIsOn(false)
 
-        let vm = WMFHomeFeedForYouSettingsViewModel(homeDataController: controller)
+        let vm = WMFHomeFeedForYouSettingsViewModel(homeDataController: controller, logToggleModule: { _, _ in })
         XCTAssertFalse(vm.continueReadingIsOn)
         XCTAssertTrue(vm.basedOnYourInterestsIsOn)
     }

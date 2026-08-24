@@ -34,7 +34,7 @@ final class WMFInterestsPersistenceRoundTripTests {
             let home = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
 
             // First instance (onboarding): select an article
-            let vm1 = WMFHomeFeedInterestsSettingsViewModel(dataController: home, pageInterestDataController: pageInterest, project: project)
+            let vm1 = WMFHomeFeedInterestsSettingsViewModel(dataController: home, pageInterestDataController: pageInterest, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
             let card = WMFInterestArticleCardViewModel(article: WMFRandomArticle(pageid: 1, title: "Candace_Oviatt", displayTitle: "Candace Oviatt", variantTitles: nil, description: nil, extract: nil, thumbnail: nil), project: project)
             vm1.gridViewModels = [card]
             vm1.toggleArticleSelection(card)
@@ -49,7 +49,7 @@ final class WMFInterestsPersistenceRoundTripTests {
             // Second instance (settings): should load the saved article, selected
             let pageInterest2 = try WMFPageInterestDataController(coreDataStore: store)
             let home2 = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
-            let vm2 = WMFHomeFeedInterestsSettingsViewModel(dataController: home2, pageInterestDataController: pageInterest2, project: project)
+            let vm2 = WMFHomeFeedInterestsSettingsViewModel(dataController: home2, pageInterestDataController: pageInterest2, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
 
             try await waitFor {
                 vm2.gridViewModels.contains { $0.isSelected }
@@ -69,7 +69,7 @@ final class WMFInterestsPersistenceRoundTripTests {
             let home = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
 
             // nil controller injected; env store is set, so lazy resolution should succeed on use
-            let vm = WMFHomeFeedInterestsSettingsViewModel(dataController: home, pageInterestDataController: nil, project: project)
+            let vm = WMFHomeFeedInterestsSettingsViewModel(dataController: home, pageInterestDataController: nil, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
             let card = WMFInterestArticleCardViewModel(article: WMFRandomArticle(pageid: 2, title: "Marie_Curie", displayTitle: "Marie Curie", variantTitles: nil, description: nil, extract: nil, thumbnail: nil), project: project)
             vm.gridViewModels = [card]
             vm.toggleArticleSelection(card)
@@ -92,7 +92,7 @@ final class WMFInterestsPersistenceRoundTripTests {
             let pageInterest = try WMFPageInterestDataController(coreDataStore: store)
             let home = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
 
-            let vm = WMFHomeFeedInterestsSettingsViewModel(dataController: home, pageInterestDataController: pageInterest, project: project)
+            let vm = WMFHomeFeedInterestsSettingsViewModel(dataController: home, pageInterestDataController: pageInterest, project: project, logDidTapTopic: {}, logDidTapArticle: {}, logDidTapDeselectAll: {})
             let result = WMFArticleSearchResult(pageID: 18586452, namespace: 0, title: "The Macomber Affair", displayTitle: "<i>The Macomber Affair</i>", description: "1947 film by Zoltan Korda", index: 1, thumbnail: nil)
             #expect(vm.addSearchResult(result))
 

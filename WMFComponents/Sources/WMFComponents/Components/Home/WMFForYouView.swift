@@ -131,6 +131,9 @@ public struct WMFForYouView: View {
     public var body: some View {
         if visiblePages.isEmpty {
             emptyState
+                .onAppear {
+                    viewModel.onEmptyViewAppearance?()
+                }
         } else {
             GeometryReader { geometry in
                 scrollView(geometry: geometry)
@@ -147,9 +150,9 @@ public struct WMFForYouView: View {
                     WMFForYouPageView(
                         articleViewModels: visiblePage.articles,
                         theme: theme,
-                        onHideModule: { viewModel.onHideModule?(visiblePage.page.module) },
+                        onHideModule: { viewModel.onHideModule?($0) },
                         onHideCard: { viewModel.onHideCard?($0) },
-                        onCustomizeInterests: { viewModel.onCustomizeInterests?() },
+                        onCustomizeInterests: { viewModel.onCustomizeInterests?(.card($0)) },
                         onTapCard: { viewModel.onTapCard?($0) },
                         onSaveCard: { viewModel.onSaveCard?($0) },
                         onShareCard: { viewModel.onShareCard?($0) },
@@ -211,7 +214,7 @@ public struct WMFForYouView: View {
             type: .noItems,
             isScrollable: false,
             theme: .forYou,
-            mainAction: { viewModel.onCustomizeInterests?() },
+            mainAction: { viewModel.onCustomizeInterests?(.emptyFeed) },
             usesCompactButton: true
         )
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -261,9 +264,9 @@ private struct WMFForYouPageView: View {
 
     let articleViewModels: [WMFForYouArticleCardViewModel]
     let theme: WMFTheme
-    let onHideModule: () -> Void
+    let onHideModule: (WMFForYouArticleCardViewModel) -> Void
     let onHideCard: (WMFForYouArticleCardViewModel) -> Void
-    let onCustomizeInterests: () -> Void
+    let onCustomizeInterests: (WMFForYouArticleCardViewModel) -> Void
     let onTapCard: (WMFForYouArticleCardViewModel) -> Void
     let onSaveCard: (WMFForYouArticleCardViewModel) -> Void
     let onShareCard: (WMFForYouArticleCardViewModel) -> Void
@@ -309,9 +312,9 @@ private struct WMFForYouPageView: View {
                         variant: variant,
                         variantIndex: article.cardIndex,
                         theme: theme,
-                        onHideModule: onHideModule,
+                        onHideModule: { onHideModule(article) },
                         onHideCard: { onHideCard(article) },
-                        onCustomizeInterests: onCustomizeInterests,
+                        onCustomizeInterests: { onCustomizeInterests(article) },
                         onTapCard: { onTapCard(article) },
                         onSaveCard: { onSaveCard(article) },
                         onUnsaveCard: { onUnsaveCard(article) },
