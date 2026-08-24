@@ -167,7 +167,7 @@ final class WMFForYouViewModelTests: XCTestCase {
     func testCardAccessibilityLabelReadsWhyThenWhat() {
         let article = WMFForYouArticle(title: "Octopus", project: project)
         let header = WMFForYouHeaderLabel(format: "Because of your interest: %1$@", highlight: "Biology")
-        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header)
+        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header, module: .basedOnInterests)
         card.extract = "An octopus is a soft-bodied mollusc."
 
         XCTAssertEqual(card.accessibilityLabel, "Because of your interest: Biology, Octopus, An octopus is a soft-bodied mollusc.")
@@ -177,11 +177,31 @@ final class WMFForYouViewModelTests: XCTestCase {
     func testCardAccessibilityLabelFallsBackToTheDescription() {
         let article = WMFForYouArticle(title: "Octopus", project: project)
         let header = WMFForYouHeaderLabel(format: "Because you read: %1$@", highlight: "Squid")
-        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header)
+        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header, module: .becauseYouRead)
         card.description = "Marine animal"
         card.extract = nil
 
         XCTAssertEqual(card.accessibilityLabel, "Because you read: Squid, Octopus, Marine animal")
+    }
+
+    @MainActor
+    func testCardTitleShownToTheReaderHasNoUnderscores() {
+        let article = WMFForYouArticle(title: "Giant_squid", project: project)
+        let header = WMFForYouHeaderLabel(format: "Because you read: %1$@", highlight: "Octopus")
+        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header, module: .basedOnInterests)
+
+        XCTAssertEqual(card.title, "Giant squid", "A reader must never see the database form of a title")
+        XCTAssertTrue(card.cardUniqueKey.hasSuffix("Giant_squid"), "The card key keeps the database form, thus a hidden card stays matched")
+    }
+
+    @MainActor
+    func testCardAccessibilityLabelReadsTheTitleWithNoUnderscores() {
+        let article = WMFForYouArticle(title: "Giant_squid", project: project)
+        let header = WMFForYouHeaderLabel(format: "Because you read: %1$@", highlight: "Octopus")
+        let card = WMFForYouArticleCardViewModel(article: article, headerLabel: header, module: .basedOnInterests)
+        card.description = "Marine animal"
+
+        XCTAssertEqual(card.accessibilityLabel, "Because you read: Octopus, Giant squid, Marine animal")
     }
 
     // MARK: - Position in the feed
@@ -279,5 +299,13 @@ final class WMFForYouViewModelTests: XCTestCase {
         let newViewModel = twoModuleViewModel()
 
         XCTAssertNil(newViewModel.lastViewedModuleID)
+    }
+
+    // MARK: - Module logging IDs
+
+    func testModuleLoggingIds() {
+        XCTAssertEqual(WMFForYouModule.basedOnInterests.loggingId, "BasedOnInterestCard")
+        XCTAssertEqual(WMFForYouModule.becauseYouRead.loggingId, "BecauseYouReadCard")
+        XCTAssertEqual(WMFForYouModule.continueReading.loggingId, "ContinueReadingCard")
     }
 }

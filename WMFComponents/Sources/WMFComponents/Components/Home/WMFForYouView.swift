@@ -33,6 +33,14 @@ private enum WMFForYouCardMetrics {
     static let dotsBottomGap: CGFloat = 12
     static let dotsVerticalPadding: CGFloat = 20
     static let dotDiameter: CGFloat = 8
+    static let miniCardImageSide: CGFloat = 56
+
+    /// How far above the text the gradient starts to appear. The rise finishes at the first line,
+    /// thus every line of text sits on the full strength of the gradient.
+    static let gradientFadeHeight: CGFloat = 25
+
+    /// The smallest space between the header bar and the content of a card.
+    static let contentTopGap: CGFloat = 24
 
     static func dotsBottomInset(safeAreaBottom: CGFloat) -> CGFloat {
         safeAreaBottom + tabBarHeight + dotsBottomGap
@@ -50,6 +58,10 @@ private enum WMFForYouCardMetrics {
             .windows
             .first(where: \.isKeyWindow)?
             .safeAreaInsets.bottom ?? 0
+    }
+
+    static func contentTopInset(headerBottom: CGFloat, cardTop: CGFloat) -> CGFloat {
+        max(contentTopGap, headerBottom - cardTop + contentTopGap)
     }
 }
 
@@ -119,6 +131,9 @@ public struct WMFForYouView: View {
     public var body: some View {
         if visiblePages.isEmpty {
             emptyState
+                .onAppear {
+                    viewModel.onEmptyViewAppearance?()
+                }
         } else {
             GeometryReader { geometry in
                 scrollView(geometry: geometry)
@@ -135,9 +150,9 @@ public struct WMFForYouView: View {
                     WMFForYouPageView(
                         articleViewModels: visiblePage.articles,
                         theme: theme,
-                        onHideModule: { viewModel.onHideModule?(visiblePage.page.module) },
+                        onHideModule: { viewModel.onHideModule?($0) },
                         onHideCard: { viewModel.onHideCard?($0) },
-                        onCustomizeInterests: { viewModel.onCustomizeInterests?() },
+                        onCustomizeInterests: { viewModel.onCustomizeInterests?(.card($0)) },
                         onTapCard: { viewModel.onTapCard?($0) },
                         onSaveCard: { viewModel.onSaveCard?($0) },
                         onShareCard: { viewModel.onShareCard?($0) },
@@ -199,7 +214,7 @@ public struct WMFForYouView: View {
             type: .noItems,
             isScrollable: false,
             theme: .forYou,
-            mainAction: { viewModel.onCustomizeInterests?() },
+            mainAction: { viewModel.onCustomizeInterests?(.emptyFeed) },
             usesCompactButton: true
         )
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -249,9 +264,9 @@ private struct WMFForYouPageView: View {
 
     let articleViewModels: [WMFForYouArticleCardViewModel]
     let theme: WMFTheme
-    let onHideModule: () -> Void
+    let onHideModule: (WMFForYouArticleCardViewModel) -> Void
     let onHideCard: (WMFForYouArticleCardViewModel) -> Void
-    let onCustomizeInterests: () -> Void
+    let onCustomizeInterests: (WMFForYouArticleCardViewModel) -> Void
     let onTapCard: (WMFForYouArticleCardViewModel) -> Void
     let onSaveCard: (WMFForYouArticleCardViewModel) -> Void
     let onShareCard: (WMFForYouArticleCardViewModel) -> Void
@@ -297,9 +312,9 @@ private struct WMFForYouPageView: View {
                         variant: variant,
                         variantIndex: article.cardIndex,
                         theme: theme,
-                        onHideModule: onHideModule,
+                        onHideModule: { onHideModule(article) },
                         onHideCard: { onHideCard(article) },
-                        onCustomizeInterests: onCustomizeInterests,
+                        onCustomizeInterests: { onCustomizeInterests(article) },
                         onTapCard: { onTapCard(article) },
                         onSaveCard: { onSaveCard(article) },
                         onUnsaveCard: { onUnsaveCard(article) },
@@ -356,6 +371,7 @@ private struct WMFForYouMiniCard<Menu: View>: View {
     let title: String
     let description: String?
     let uiImage: UIImage?
+    let imageAvailability: WMFForYouArticleCardViewModel.ImageAvailability
     @ViewBuilder let menu: () -> Menu
 
     var body: some View {
@@ -378,16 +394,18 @@ private struct WMFForYouMiniCard<Menu: View>: View {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 56, height: 56)
+                    .frame(width: WMFForYouCardMetrics.miniCardImageSide, height: WMFForYouCardMetrics.miniCardImageSide)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
-            } else {
+            } else if imageAvailability != .unavailable {
+
                 RoundedRectangle(cornerRadius: 8)
                     .fill(Color(uiColor: WMFColor.white).opacity(0.15))
-                    .frame(width: 56, height: 56)
+                    .frame(width: WMFForYouCardMetrics.miniCardImageSide, height: WMFForYouCardMetrics.miniCardImageSide)
             }
 
             menu()
         }
+        .frame(minHeight: WMFForYouCardMetrics.miniCardImageSide)
         .padding(16)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
     }
@@ -398,6 +416,7 @@ private struct WMFForYouMiniCard<Menu: View>: View {
 private struct WMFForYouArticleCardView: View {
 
     @ObservedObject var viewModel: WMFForYouArticleCardViewModel
+    @Environment(\.forYouHeaderBottom) private var headerBottom: CGFloat
     let variant: WMFForYouCardVariant
     let variantIndex: Int
     let theme: WMFTheme
@@ -419,6 +438,33 @@ private struct WMFForYouArticleCardView: View {
             return .textFocused
         }
         return variant
+    }
+
+    /// The gradient behind the text of an image-backed card.
+    ///
+    /// The rise from clear to full strength happens above the first line of text, not across it.
+    /// Before, the rise took the first eighth of the block, thus the photograph showed through the
+    /// title and white text could fall below the AA contrast ratio - the more text, the longer the
+    /// rise, and the worse the result.
+    private var textGradient: some View {
+        GeometryReader { block in
+            let fadeHeight = WMFForYouCardMetrics.gradientFadeHeight
+            let totalHeight = block.size.height + fadeHeight
+            let stop = WMFContrast.stop(for: cardColor)
+
+            LinearGradient(
+                stops: [
+                    .init(color: stop.color.opacity(0), location: 0),
+                    .init(color: stop.color.opacity(stop.opacity), location: fadeHeight / totalHeight),
+                    .init(color: Color(uiColor: WMFColor.black), location: 1)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .frame(width: block.size.width, height: totalHeight)
+            .offset(y: -fadeHeight)
+        }
+        .allowsHitTesting(false)
     }
 
     private var cardColor: Color {
@@ -528,6 +574,7 @@ private struct WMFForYouArticleCardView: View {
                 // MARK: Variant 3: Text-focused (also used as fallback when no image)
                 case .textFocused:
                     VStack(alignment: .leading, spacing: 0) {
+                        Spacer(minLength: 0)
                         Text(viewModel.extract ?? viewModel.title)
                             .font(Font(WMFFont.for(.georgiaTitle1)))
                             .foregroundStyle(Color(uiColor: WMFColor.white))
@@ -540,6 +587,7 @@ private struct WMFForYouArticleCardView: View {
                             title: viewModel.title,
                             description: viewModel.description,
                             uiImage: viewModel.uiImage,
+                            imageAvailability: viewModel.imageAvailability,
                             menu: { miniCardMenu }
                         )
 
@@ -549,8 +597,12 @@ private struct WMFForYouArticleCardView: View {
                         }
                     }
                     .padding(.horizontal, 20)
+                    .padding(.top, WMFForYouCardMetrics.contentTopInset(
+                        headerBottom: headerBottom,
+                        cardTop: geometry.frame(in: .global).minY
+                    ))
                     .padding(.bottom, WMFForYouCardMetrics.contentBottomInset(safeAreaBottom: WMFForYouCardMetrics.windowSafeAreaBottom))
-                    .frame(width: geometry.size.width, alignment: .leading)
+                    .frame(width: geometry.size.width, height: geometry.size.height, alignment: .leading)
 
                 // MARK: Variant 1 & 2: Image-backed
                 default:
@@ -592,17 +644,7 @@ private struct WMFForYouArticleCardView: View {
                     .padding(.bottom, WMFForYouCardMetrics.contentBottomInset(safeAreaBottom: WMFForYouCardMetrics.windowSafeAreaBottom))
                     .frame(width: geometry.size.width, alignment: .leading)
                     .background {
-                        LinearGradient(
-                            stops: [
-                                .init(color: cardColor.opacity(0), location: 0.0),
-                                .init(color: cardColor.opacity(0.75), location: 0.12),
-                                .init(color: Color(uiColor: WMFColor.black), location: 1)
-                            ],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                        .padding(.top, -25)
-                        .allowsHitTesting(false)
+                        textGradient
                     }
                 }
             }
@@ -632,5 +674,28 @@ private struct WMFForYouArticleCardView: View {
             // Fades the photograph and its sampled colour in when the card finishes loading.
             .animation(.easeOut(duration: 0.2), value: viewModel.loadState == .loading)
         }
+    }
+}
+
+// MARK: - Where the header bar ends
+
+/// The lowest point of the header bar, in the coordinates of the window.
+/// so `WMFHomeView` knows if it needs to limit the text in text-based cards in smaller iPhones
+struct WMFForYouHeaderBottomKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
+}
+
+private struct WMFForYouHeaderBottomEnvironmentKey: EnvironmentKey {
+    static let defaultValue: CGFloat = 0
+}
+
+extension EnvironmentValues {
+    var forYouHeaderBottom: CGFloat {
+        get { self[WMFForYouHeaderBottomEnvironmentKey.self] }
+        set { self[WMFForYouHeaderBottomEnvironmentKey.self] = newValue }
     }
 }

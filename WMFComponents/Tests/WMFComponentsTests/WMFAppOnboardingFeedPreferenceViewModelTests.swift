@@ -13,7 +13,7 @@ struct WMFAppOnboardingFeedPreferenceViewModelTests {
 
     private func makeViewModel() -> WMFAppOnboardingFeedPreferenceViewModel {
         let dataController = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
-        return WMFAppOnboardingFeedPreferenceViewModel(dataController: dataController, project: project)
+        return WMFAppOnboardingFeedPreferenceViewModel(dataController: dataController, project: project, logImpression: {_ in }, logDidTapCommunity: {}, logDidTapPersonalized: {})
     }
 
     private func makeArticle(_ title: String) -> WMFForYouArticle {
@@ -129,7 +129,7 @@ struct WMFAppOnboardingFeedPreferenceViewModelTests {
 
         let cards = WMFAppOnboardingFeedPreferenceViewModel.buildPersonalizedCards(from: response)
         #expect(cards.count == 3)
-        #expect(cards[0].title == "Music article")
+        #expect(cards[0].displayTitle == "Music article")
         #expect(cards[0].topicPill == WMFArticleTopic.music.displayName)
         #expect(cards.allSatisfy { $0.topicPill != nil })
     }
@@ -163,7 +163,7 @@ struct WMFAppOnboardingFeedPreferenceViewModelTests {
         let cards = WMFAppOnboardingFeedPreferenceViewModel.buildPersonalizedCards(from: response)
         #expect(cards.count == 2)
         #expect(cards[0].topicPill == WMFArticleTopic.music.displayName)
-        #expect(cards[1].title == "Related article")
+        #expect(cards[1].displayTitle == "Related article")
         #expect(cards[1].topicPill == nil)
     }
 
@@ -174,6 +174,27 @@ struct WMFAppOnboardingFeedPreferenceViewModelTests {
     }
 
     // MARK: - Community cards
+
+    @Test
+    func featuredArticleCardKeepsItsMarkedUpDisplayTitle() throws {
+        // The wiki italicizes film and book titles, and the card renders HTML, so the markup has
+        // to survive rather than being flattened to the normalized title.
+        let json = """
+        {
+            "tfa": {
+                "title": "The_Macomber_Affair",
+                "normalizedtitle": "The Macomber Affair",
+                "displaytitle": "<i>The Macomber Affair</i>"
+            }
+        }
+        """
+        let feedResponse = try JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(json.utf8))
+        let response = WMFCommunityResponse(date: Date(), feedResponse: feedResponse, onThisDay: nil)
+
+        let cards = makeViewModel().buildCommunityCards(from: response)
+
+        #expect(cards.first?.displayTitle == "<i>The Macomber Affair</i>")
+    }
 
     @Test
     func communityCardsBuildFromFeedResponse() throws {
@@ -205,7 +226,7 @@ struct WMFAppOnboardingFeedPreferenceViewModelTests {
         let cards = viewModel.buildCommunityCards(from: response)
 
         #expect(cards.count == 3)
-        #expect(cards[0].title == "Featured Article")
+        #expect(cards[0].displayTitle == "Featured Article")
         #expect(cards[0].description == "A featured thing")
         #expect(cards[1].description == "A pretty picture")
         // News story HTML is stripped

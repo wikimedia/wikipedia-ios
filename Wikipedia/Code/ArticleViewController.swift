@@ -614,7 +614,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     private func presentYearInReviewAnnouncementOrFundraisingOrGamesIfNeeded() {
-        if !WMFDeveloperSettingsDataController.shared.enableHomeTab {
+        if WMFHomeDataController.shared.persistedHomeTabAssignment() != .groupB {
             listenForTooltips()
         }
 

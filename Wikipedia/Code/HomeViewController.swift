@@ -21,12 +21,15 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     }
 
     private let homeDataController = WMFHomeDataController.shared
+    
+    private weak var homeCoordinator: HomeCoordinator?
 
-    init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFHomeViewModel) {
+    init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFHomeViewModel, homeCoordinator: HomeCoordinator) {
         self.dataStore = dataStore
         self.theme = theme
         self.viewModel = viewModel
         self.hostingController = WMFHomeHostingController(rootView: WMFHomeView(viewModel: viewModel))
+        self.homeCoordinator = homeCoordinator
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -133,12 +136,21 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     private func navigateToForYouArticle(_ article: WMFForYouArticleCardViewModel) {
         guard let articleURL = Self.articleURL(for: article) else { return }
+        let source: ArticleSource
+        switch article.module {
+        case .basedOnInterests:
+            source = .homeFeedForYouInterestCard
+        case .becauseYouRead:
+            source = .homeFeedForYouBecauseYouReadCard
+        case .continueReading:
+            source = .homeFeedForYouContinueReadingCard
+        }
         let coordinator = ArticleCoordinator(
             navigationController: navigationController ?? UINavigationController(),
             articleURL: articleURL,
             dataStore: dataStore,
             theme: theme,
-            source: .undefined,
+            source: source,
             tabConfig: .appendArticleAndAssignCurrentTab
         )
         coordinator.start()
@@ -161,6 +173,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        homeCoordinator?.startFunnelIfNeeded()
         configureNavigationBar()
         updateChromeAppearance(for: viewModel.selectedTab)
         reloadLanguages()
@@ -180,6 +193,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        homeCoordinator?.stopFunnelIfNeeded()
 
         updateChromeAppearance(for: .community)
     }
@@ -188,7 +202,17 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     private func updateChromeAppearance(for tab: WMFHomeViewModel.Tab) {
         updateNavigationBarAppearance(for: tab)
+        updateNavigationBarItemsAppearance(for: tab)
         updateTabBarAppearance(for: tab)
+    }
+
+    private func updateNavigationBarItemsAppearance(for tab: WMFHomeViewModel.Tab) {
+        guard #unavailable(iOS 26.0) else { return }
+
+        let isForYou = tab == .forYou
+        navigationController?.navigationBar.tintColor = isForYou ? WMFTheme.black.navigationBarTintColor : WMFAppEnvironment.current.theme.navigationBarTintColor
+        navigationItem.leftBarButtonItem?.tintColor = isForYou ? Theme.black.colors.logoTintColor : theme.colors.logoTintColor
+        updateProfileButton()
     }
 
     private func updateNavigationBarAppearance(for tab: WMFHomeViewModel.Tab) {
@@ -238,7 +262,8 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     /// from the button on the empty feed.
     private func presentInterestsSettings() {
         guard let navigationController else { return }
-        let coordinator = HomeFeedSettingsCoordinator(navigationController: navigationController, theme: theme, initialView: .interests, presentation: .modal)
+        let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").startFunnel(name: "feed_customize")
+        let coordinator = HomeFeedSettingsCoordinator(navigationController: navigationController, theme: theme, initialView: .interests(instrument), presentation: .modal)
         homeFeedSettingsCoordinator = coordinator
         coordinator.start()
     }
@@ -255,6 +280,7 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         let vc = ExploreViewController()
         vc.dataStore = dataStore
         vc.isEmbeddedInHomeTab = true
+        vc.additionalSafeAreaInsets = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
         vc.notificationsCenterPresentationDelegate = tabBarController as? NotificationsCenterPresentationDelegate
         vc.apply(theme: theme)
         _embeddedExploreViewController = vc
@@ -356,7 +382,16 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     func updateProfileButton() {
         let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
-        updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
+        updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle, theme: navigationBarItemsTheme)
+    }
+
+    /// The theme for the buttons of the navigation bar. For You is always dark, and before iOS 26 the
+    /// buttons do not get that from the theme of the app.
+    private var navigationBarItemsTheme: WMFTheme {
+        guard #unavailable(iOS 26.0), viewModel.selectedTab == .forYou else {
+            return WMFAppEnvironment.current.theme
+        }
+        return WMFTheme.black
     }
 
     // MARK: - Themeable

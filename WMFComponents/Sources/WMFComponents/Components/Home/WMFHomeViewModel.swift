@@ -16,6 +16,18 @@ public final class WMFHomeViewModel: ObservableObject {
     public var didInteractWithForYouFeed: (() -> Void)?
 
     public var didChangeTab: (@MainActor @Sendable (Tab) -> Void)?
+    
+    public var logDidTapLanguagePicker: (@MainActor @Sendable (String?) -> Void)?
+    private var lastLoggedImpressionCardKey: String?
+    public var logCardImpression: (@MainActor @Sendable (String, Int) -> Void)?
+    public var logCardDidTapShare: (@MainActor @Sendable (String) -> Void)?
+    public var logCardDidSave: (@MainActor @Sendable (WMFForYouArticleCardViewModel) -> Void)?
+    public var logCardDidUnsave: (@MainActor @Sendable (WMFForYouArticleCardViewModel) -> Void)?
+    public var logCardDidTapHideCard: (@MainActor @Sendable (String) -> Void)?
+    public var logCardDidTapHideModule: (@MainActor @Sendable (String) -> Void)?
+    public var logDidTapCustomizeInterests: (@MainActor @Sendable (String, String) -> Void)?
+    public var logEmptyViewImpression: (@MainActor @Sendable () -> Void)?
+    public var logCardDidTapArticle: (@MainActor @Sendable (String, String) -> Void)?
 
     public enum Tab: Int, CaseIterable {
         case forYou
@@ -112,17 +124,52 @@ public final class WMFHomeViewModel: ObservableObject {
         refreshForYouModuleVisibility()
         forYouViewModel.hiddenCardKeys = hiddenCardKeys
         forYouViewModel.onRefresh = { [weak self] in await self?.refreshForYouFeed() }
-        forYouViewModel.onHideModule = { [weak self] in self?.hideForYouModule($0) }
+        forYouViewModel.onHideModule = { [weak self] in
+            self?.logCardDidTapHideModule?($0.module.loggingId)
+            self?.hideForYouModule($0.module)
+        }
         forYouViewModel.onHideCard = { [weak self] card in
+            self?.logCardDidTapHideCard?(card.module.loggingId)
             self?.hideForYouCard(card)
         }
-        forYouViewModel.onCustomizeInterests = { [weak self] in self?.didTapCustomizeInterests?() }
-        forYouViewModel.onTapCard = { [weak self] in self?.didTapForYouCard?($0) }
-        forYouViewModel.onSaveCard = { [weak self] in self?.didSaveForYouCard?($0) }
-        forYouViewModel.onShareCard = { [weak self] in self?.didShareForYouCard?($0) }
-        forYouViewModel.onUnsaveCard = { [weak self] in self?.didTapUnsaveForYouCard?($0) }
+        forYouViewModel.onCustomizeInterests = { [weak self] source in
+            switch source {
+            case .card(let card):
+                self?.logDidTapCustomizeInterests?(card.module.loggingId, "feed_customize")
+            case .emptyFeed:
+                self?.logDidTapCustomizeInterests?("feed_empty", "customize_feed")
+            }
+            self?.didTapCustomizeInterests?()
+        }
+        forYouViewModel.onTapCard = { [weak self] in
+            self?.logCardDidTapArticle?($0.module.loggingId, $0.title)
+            self?.didTapForYouCard?($0)
+        }
+        forYouViewModel.onSaveCard = { [weak self] in
+            self?.logCardDidSave?($0)
+            self?.didSaveForYouCard?($0)
+        }
+        forYouViewModel.onShareCard = { [weak self] in
+            self?.logCardDidTapShare?($0.module.loggingId)
+            self?.didShareForYouCard?($0)
+        }
+        forYouViewModel.onUnsaveCard = { [weak self] in
+            self?.logCardDidUnsave?($0)
+            self?.didTapUnsaveForYouCard?($0)
+        }
+        
+        forYouViewModel.onEmptyViewAppearance = { [weak self] in
+            self?.logEmptyViewImpression?()
+        }
+        
         forYouViewModel.onUserInteraction = { [weak self] in self?.didInteractWithForYouFeed?() }
         forYouViewModel.onShowCard = { [weak self] card in
+            
+            // checking lastLoggedImpressionCardKey prevents duplicate impression events
+            guard card.cardUniqueKey != self?.lastLoggedImpressionCardKey else { return }
+            self?.logCardImpression?(card.module.loggingId, card.cardIndex)
+            self?.lastLoggedImpressionCardKey = card.cardUniqueKey
+            
             // The user saw this card, thus the feed does not suggest the article again for some days.
             self?.dataController.recordSeenArticle(title: card.title, project: card.project)
         }

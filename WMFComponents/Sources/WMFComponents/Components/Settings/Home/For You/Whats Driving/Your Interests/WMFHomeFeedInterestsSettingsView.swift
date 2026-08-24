@@ -255,7 +255,7 @@ private struct WMFInterestSearchResultRow: View {
             .clipShape(RoundedRectangle(cornerRadius: 6))
 
             VStack(alignment: .leading, spacing: 2) {
-                WMFHtmlText(html: card.title, styles: HtmlUtils.Styles(font: WMFFont.for(.subheadline, sized: dynamicTypeSize), boldFont: WMFFont.for(.boldSubheadline, sized: dynamicTypeSize), italicsFont: WMFFont.for(.italicSubheadline, sized: dynamicTypeSize), boldItalicsFont: WMFFont.for(.italicSubheadline, sized: dynamicTypeSize), color: theme.text, linkColor: theme.link, lineSpacing: 1))
+                WMFHtmlText(html: card.displayTitle, styles: HtmlUtils.Styles(font: WMFFont.for(.subheadline, sized: dynamicTypeSize), boldFont: WMFFont.for(.boldSubheadline, sized: dynamicTypeSize), italicsFont: WMFFont.for(.italicSubheadline, sized: dynamicTypeSize), boldItalicsFont: WMFFont.for(.italicSubheadline, sized: dynamicTypeSize), color: theme.text, linkColor: theme.link, lineSpacing: 1))
                 if let description = card.description {
                     Text(description)
                         .font(Font(WMFFont.for(.caption1, sized: dynamicTypeSize)))
@@ -287,7 +287,7 @@ private struct WMFInterestSearchResultRow: View {
     }
 
     private var accessibilityLabel: String {
-        [card.title.wmf_strippingHTMLForAccessibility, card.description]
+        [card.displayTitle.removingHTML, card.description]
             .compactMap { $0 }
             .filter { !$0.isEmpty }
             .joined(separator: ", ")
@@ -353,9 +353,3 @@ private struct LanguageChipView: View {
     }
 }
 
-extension String {
-    /// Strips simple HTML tags so display titles (which may contain markup) read cleanly in VoiceOver.
-    var wmf_strippingHTMLForAccessibility: String {
-        replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
-    }
-}
