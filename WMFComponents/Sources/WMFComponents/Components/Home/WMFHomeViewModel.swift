@@ -38,6 +38,12 @@ public final class WMFHomeViewModel: ObservableObject {
     let communityTabTitle = WMFLocalizedString("home-community-tab-title", value: "Community", comment: "Title for the Community segment within the Home tab.")
     let editLanguagesTitle = WMFLocalizedString("home-edit-languages-title", value: "Add or edit languages", comment: "Title for the option at the bottom of the Home language menu that opens the languages settings screen.")
     
+    // New keys rather than new values on the old ones: the copy changed meaning, and the old keys are
+    // already translated as "All Community feed cards are hidden", which would show for those languages.
+    let communityEmptyFeedTitle = WMFLocalizedString("home-community-empty-feed-nothing-here-title", value: "Nothing here yet.", comment: "Title shown in the Home tab Community segment when the reader has turned off every feed module.")
+    let communityEmptyFeedSubtitle = WMFLocalizedString("home-community-empty-feed-turn-on-modules-message", value: "Turn on modules to see community content.", comment: "Message shown in the Home tab Community segment when the reader has turned off every feed module.")
+    let communityEmptyFeedButtonTitle = WMFLocalizedString("home-community-empty-feed-settings-button-title", value: "Go to settings", comment: "Title of the button shown in the Home tab Community segment when every feed module is off. It opens the Community feed settings.")
+
     let forYouErrorTitle = WMFLocalizedString("for-you-error-title", value: "No internet connection", comment: "Title shown on the For You tab when content cannot be loaded due to a network error.")
     let forYouErrorSubtitle = WMFLocalizedString("for-you-error-subtitle", value: "Connect to the Internet and try again.", comment: "Subtitle shown on the For You tab when content cannot be loaded due to a network error.")
     let forYouErrorRetryTitle = WMFLocalizedString("for-you-error-retry", value: "Try again", comment: "Button on the For You error state that retries loading the feed.")
@@ -115,6 +121,13 @@ public final class WMFHomeViewModel: ObservableObject {
     /// the native SwiftUI community feed, and the community feed fetch is skipped. Remove once the
     /// community feed rework ships.
     public var makeEmbeddedCommunityViewController: (() -> UIViewController)?
+
+    /// True when the embedded legacy feed has nothing to show because every Community card is hidden.
+    /// The Community tab then renders the empty state itself rather than hosting the empty feed.
+    @Published public var isEmbeddedCommunityFeedEmpty: Bool = false
+
+    /// Opens the Community feed settings from that empty state.
+    public var didTapCustomizeCommunityFeed: (@MainActor @Sendable () -> Void)?
 
     // MARK: - For You view model configuration
 

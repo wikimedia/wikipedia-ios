@@ -72,6 +72,9 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
             viewModel.makeEmbeddedCommunityViewController = { [weak self] in
                 self?.embeddedExploreViewController() ?? UIViewController()
             }
+            viewModel.didTapCustomizeCommunityFeed = { [weak self] in
+                self?.pushCommunityFeedSettings()
+            }
         }
         viewModel.didTapForYouCard = { [weak self] article in
             self?.navigateToForYouArticle(article)
@@ -282,9 +285,21 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         vc.isEmbeddedInHomeTab = true
         vc.additionalSafeAreaInsets = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
         vc.notificationsCenterPresentationDelegate = tabBarController as? NotificationsCenterPresentationDelegate
+        vc.onEmbeddedEmptyStateChange = { [weak self] isEmpty in
+            self?.viewModel.isEmbeddedCommunityFeedEmpty = isEmpty
+        }
         vc.apply(theme: theme)
         _embeddedExploreViewController = vc
         return vc
+    }
+
+    /// Opens the legacy feed settings from the Community segment's empty state. Temporary phase 1 UI —
+    /// remove with the community feed rework.
+    private func pushCommunityFeedSettings() {
+        let feedSettingsVC = ExploreFeedSettingsViewController()
+        feedSettingsVC.dataStore = dataStore
+        feedSettingsVC.apply(theme: theme)
+        navigationController?.pushViewController(feedSettingsVC, animated: true)
     }
 
     private func embedHostingController() {

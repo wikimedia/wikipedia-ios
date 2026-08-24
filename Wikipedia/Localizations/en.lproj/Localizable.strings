@@ -742,9 +742,9 @@
 "home-button-home-accessibility-label" = "Wikipedia, return to Home";
 "home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
 "home-card-more-options-accessibility-label" = "More options";
-"home-community-empty-feed-button-title" = "Customize the feed";
-"home-community-empty-feed-message" = "Turn on cards in the feed settings to see the Community feed.";
-"home-community-empty-feed-title" = "All Community feed cards are hidden";
+"home-community-empty-feed-nothing-here-title" = "Nothing here yet.";
+"home-community-empty-feed-settings-button-title" = "Go to settings";
+"home-community-empty-feed-turn-on-modules-message" = "Turn on modules to see community content.";
 "home-community-see-past-content" = "See past community content";
 "home-community-tab-title" = "Community";
 "home-edit-languages-title" = "Add or edit languages";

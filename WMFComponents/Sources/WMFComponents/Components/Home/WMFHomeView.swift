@@ -221,7 +221,11 @@ public struct WMFHomeView: View {
     @ViewBuilder
     private var communityTabContent: some View {
         if let makeEmbeddedViewController = viewModel.makeEmbeddedCommunityViewController {
-            WMFHomeEmbeddedCommunityView(makeViewController: makeEmbeddedViewController)
+            if viewModel.isEmbeddedCommunityFeedEmpty {
+                embeddedCommunityEmptyView
+            } else {
+                WMFHomeEmbeddedCommunityView(makeViewController: makeEmbeddedViewController)
+            }
         } else if !viewModel.communityPages.isEmpty {
             WMFCommunityFeedView(
                 pages: viewModel.communityPages,
@@ -245,5 +249,34 @@ public struct WMFHomeView: View {
                 .foregroundStyle(Color(uiColor: theme.secondaryText))
             Spacer()
         }
+    }
+
+    /// Shown in place of the embedded legacy feed once every Community card is hidden. Rendered here
+    /// rather than inside the embedded view controller, whose root view would then carry an Auto Layout
+    /// fitting size — SwiftUI sizes a representable to that instead of filling the tab, which collapsed
+    /// the feed into a narrow column.
+    private var embeddedCommunityEmptyView: some View {
+        let emptyViewModel = WMFEmptyViewModel(
+            localizedStrings: WMFEmptyViewModel.LocalizedStrings(
+                title: viewModel.communityEmptyFeedTitle,
+                subtitle: viewModel.communityEmptyFeedSubtitle,
+                titleFilter: nil,
+                buttonTitle: viewModel.communityEmptyFeedButtonTitle,
+                attributedFilterString: nil
+            ),
+            image: WMFSFSymbolIcon.for(symbol: .eyeSlash, font: .xxlTitleBold),
+            imageColor: theme.secondaryText,
+            numberOfFilters: nil,
+            // nil keeps the SF Symbol at its natural size — the illustration frame distorts it.
+            imageSize: nil
+        )
+
+        return WMFEmptyView(
+            viewModel: emptyViewModel,
+            type: .noItems,
+            isScrollable: true,
+            mainAction: { viewModel.didTapCustomizeCommunityFeed?() }
+        )
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

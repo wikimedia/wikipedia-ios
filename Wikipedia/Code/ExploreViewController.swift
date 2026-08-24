@@ -44,9 +44,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     /// configure or reset the shared navigation bar — the Home view controller owns it.
     @objc public var isEmbeddedInHomeTab: Bool = false
 
-    /// Shown when embedded in the Home tab and the user has hidden every feed card. Created lazily
-    /// on first need. Temporary phase 1 UI — remove with the community feed rework.
-    private var embeddedEmptyFeedView: EmbeddedCommunityEmptyFeedView?
+    /// Reports whether the feed, embedded in the Home tab, has nothing left to show because every
+    /// Community card is hidden. The Home tab renders that empty state itself: constraint-driven
+    /// content pinned to this view controller's root view gives the root an Auto Layout fitting size,
+    /// and SwiftUI then sizes the embedded feed to that fitting size instead of letting it fill the
+    /// tab — which collapsed the feed into a narrow, overflowing column.
+    var onEmbeddedEmptyStateChange: ((Bool) -> Void)?
+
+    private var isEmbeddedFeedEmpty = false
 
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
 
@@ -728,7 +733,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         yirCoordinator?.theme = theme
         profileCoordinator?.theme = theme
-        embeddedEmptyFeedView?.apply(theme: theme)
 
         updateProfileButton()
         themeNavigationBarLeadingTitleView()
@@ -1996,102 +2000,52 @@ extension ExploreViewController: YearInReviewBadgeDelegate {
 extension ExploreViewController {
 
     /// When embedded in the Home tab's Community segment, the feed cannot be turned off — hiding
-    /// every card empties it instead. Shows an empty state with a shortcut to the feed settings.
+    /// every card empties it instead. Hands that state to the Home tab, which shows the empty state.
     func updateEmbeddedEmptyStateIfNeeded() {
         guard isEmbeddedInHomeTab, isViewLoaded, fetchedResultsController != nil else {
             return
         }
 
-        let allCardsHidden = dataStore.feedContentController.countOfVisibleContentGroupKinds == 0
-        guard allCardsHidden && numberOfSectionsInExploreFeed == 0 else {
-            embeddedEmptyFeedView?.isHidden = true
+        let isEmpty = allCommunityFeedCardsHidden && onlyHiddenCardPlaceholdersRemain
+        guard isEmpty != isEmbeddedFeedEmpty else {
             return
         }
+        isEmbeddedFeedEmpty = isEmpty
 
-        let emptyView: EmbeddedCommunityEmptyFeedView
-        if let embeddedEmptyFeedView {
-            emptyView = embeddedEmptyFeedView
-        } else {
-            emptyView = EmbeddedCommunityEmptyFeedView()
-            emptyView.translatesAutoresizingMaskIntoConstraints = false
-            emptyView.didTapCustomize = { [weak self] in
-                self?.showEmbeddedFeedSettings()
-            }
-            view.addSubview(emptyView)
-            NSLayoutConstraint.activate([
-                emptyView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                emptyView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            ])
-            embeddedEmptyFeedView = emptyView
+        if isEmpty {
+            // The empty state replaces the feed, so any leftover "Card hidden / Undo" placeholder is
+            // no longer reachable — clear it rather than leaving an undo behind.
+            dataStore.feedContentController.dismissCollapsedContentGroups()
         }
-        emptyView.apply(theme: theme)
-        emptyView.isHidden = false
+
+        // Deferred a turn: this runs from view appearance and from feed updates, and publishing the
+        // change synchronously would mutate the Home view's state in the middle of a SwiftUI update.
+        Task { [weak self] in
+            self?.onEmbeddedEmptyStateChange?(isEmpty)
+        }
     }
 
-    private func showEmbeddedFeedSettings() {
-        let feedSettingsVC = ExploreFeedSettingsViewController()
-        feedSettingsVC.dataStore = dataStore
-        feedSettingsVC.apply(theme: theme)
-        navigationController?.pushViewController(feedSettingsVC, animated: true)
-    }
-}
-
-/// Empty state for the feed while it is embedded in the Home tab's Community segment and every feed
-/// card is hidden. Temporary phase 1 UI — remove with the community feed rework.
-private final class EmbeddedCommunityEmptyFeedView: UIView, Themeable {
-
-    var didTapCustomize: (() -> Void)?
-
-    private let titleLabel = UILabel()
-    private let messageLabel = UILabel()
-    private let customizeButton = UIButton(type: .system)
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        titleLabel.text = WMFLocalizedString("home-community-empty-feed-title", value: "All Community feed cards are hidden", comment: "Title shown in the Home tab Community segment when the user has hidden every feed card.")
-        titleLabel.font = WMFFont.for(.boldTitle3, compatibleWith: traitCollection)
-        titleLabel.textAlignment = .center
-        titleLabel.numberOfLines = 0
-
-        messageLabel.text = WMFLocalizedString("home-community-empty-feed-message", value: "Turn on cards in the feed settings to see the Community feed.", comment: "Message shown in the Home tab Community segment when the user has hidden every feed card.")
-        messageLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
-        messageLabel.textAlignment = .center
-        messageLabel.numberOfLines = 0
-
-        customizeButton.setTitle(WMFLocalizedString("home-community-empty-feed-button-title", value: "Customize the feed", comment: "Title of the button shown in the Home tab Community segment when every feed card is hidden. It opens the feed settings."), for: .normal)
-        customizeButton.titleLabel?.font = WMFFont.for(.semiboldHeadline, compatibleWith: traitCollection)
-        customizeButton.addTarget(self, action: #selector(customizeButtonTapped), for: .touchUpInside)
-
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, messageLabel, customizeButton])
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.spacing = 12
-        stackView.setCustomSpacing(24, after: messageLabel)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(stackView)
-
-        NSLayoutConstraint.activate([
-            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor)
-        ])
+    /// True when every card kind the Community feed settings screen offers is turned off.
+    ///
+    /// Deliberately not `countOfVisibleContentGroupKinds`: that count includes the global kinds the
+    /// Community settings screen does not list (continue reading, related pages, suggested edits),
+    /// which stay on by default, so it never reaches zero and the empty state never appeared.
+    private var allCommunityFeedCardsHidden: Bool {
+        !WMFContentGroupKind.communityFeedCardKinds.contains { $0.isInFeed }
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    @objc private func customizeButtonTapped() {
-        didTapCustomize?()
-    }
-
-    func apply(theme: Theme) {
-        backgroundColor = theme.colors.paperBackground
-        titleLabel.textColor = theme.colors.primaryText
-        messageLabel.textColor = theme.colors.secondaryText
-        customizeButton.tintColor = theme.colors.link
+    /// True when the feed holds nothing but the "Card hidden / Undo" placeholders left behind by
+    /// hiding cards. Hiding the last card kind leaves one of those, and it would otherwise sit alone
+    /// on an empty feed with the empty state suppressed behind it.
+    private var onlyHiddenCardPlaceholdersRemain: Bool {
+        for section in 0..<numberOfSectionsInExploreFeed {
+            guard let group = group(at: IndexPath(item: 0, section: section)) else {
+                continue
+            }
+            if group.undoType == .none {
+                return false
+            }
+        }
+        return true
     }
 }

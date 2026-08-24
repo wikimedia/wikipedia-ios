@@ -742,9 +742,9 @@
 "home-button-home-accessibility-label" = "Accessibility label for the 'W' logo in the navigation bar of an article that the user opened from the Home tab. It tells the user that a tap on the logo goes back to the Home tab. \"Home\" is the same as {{msg-wikimedia|Wikipedia-ios-home-tab-title}}.";
 "home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.";
 "home-card-more-options-accessibility-label" = "Accessibility label for the three dot button on a Home feed card, which opens a menu of actions for that card.";
-"home-community-empty-feed-button-title" = "Title of the button shown in the Home tab Community segment when every feed card is hidden. It opens the feed settings.";
-"home-community-empty-feed-message" = "Message shown in the Home tab Community segment when the user has hidden every feed card.";
-"home-community-empty-feed-title" = "Title shown in the Home tab Community segment when the user has hidden every feed card.";
+"home-community-empty-feed-nothing-here-title" = "Title shown in the Home tab Community segment when the reader has turned off every feed module.";
+"home-community-empty-feed-settings-button-title" = "Title of the button shown in the Home tab Community segment when every feed module is off. It opens the Community feed settings.";
+"home-community-empty-feed-turn-on-modules-message" = "Message shown in the Home tab Community segment when the reader has turned off every feed module.";
 "home-community-see-past-content" = "Button at the bottom of the Community feed that loads content from previous days.";
 "home-community-tab-title" = "Title for the Community segment within the Home tab.";
 "home-edit-languages-title" = "Title for the option at the bottom of the Home language menu that opens the languages settings screen.";
