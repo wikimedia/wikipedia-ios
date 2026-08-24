@@ -267,7 +267,7 @@ private struct WMFGlassEffectModifier: ViewModifier {
         if #available(iOS 26.0, *) {
             content.glassEffect()
         } else {
-            content
+            content.background(RoundedRectangle(cornerRadius: 9).fill(.ultraThinMaterial))
         }
     }
 }
