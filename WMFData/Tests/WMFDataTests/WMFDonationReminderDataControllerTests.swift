@@ -75,16 +75,37 @@ final class WMFDonationReminderDataControllerTests {
     }
 
     @Test
-    func reminderSavedWithoutProgressDecodesWithCreatedDateAsCycleStart() async throws {
-        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let createdDate = Date(timeIntervalSince1970: 1_755_600_000)
-            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 3, currencyCode: "EUR", createdDate: createdDate, isEnabled: true))
+    func reminderPayloadWithoutProgressDecodesWithCreatedDateAsCycleStart() throws {
+        let createdDate = Date(timeIntervalSince1970: 1_755_600_000)
+        let reminderBeforeProgressExisted = WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 3, currencyCode: "EUR", createdDate: createdDate, isEnabled: true)
 
-            let reminder = try #require(controller.loadReminder())
-            #expect(reminder.progress == nil)
-            #expect(reminder.currentCycleStartDate == createdDate)
-            #expect(reminder.timesReminderShown == 0)
-        }
+        let legacyPayload = try JSONEncoder().encode(reminderBeforeProgressExisted)
+        let legacyJSON = try #require(String(data: legacyPayload, encoding: .utf8))
+        #expect(legacyJSON.contains("progress") == false)
+
+        let reminder = try JSONDecoder().decode(WMFDonationReminder.self, from: legacyPayload)
+        #expect(reminder.progress == nil)
+        #expect(reminder.currentCycleStartDate == createdDate)
+        #expect(reminder.timesReminderShown == 0)
+        #expect(reminder.goalReachedCount == 0)
+    }
+
+    @Test
+    func progressPayloadWithoutGoalReachedCountDecodesToZero() throws {
+        let cycleStartDate = Date(timeIntervalSince1970: 1_755_600_000)
+        let progress = WMFDonationReminder.Progress(currentCycleStartDate: cycleStartDate, timesReminderShown: 1, goalReachedCount: 7)
+        let reminder = WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 3, currencyCode: "EUR", createdDate: cycleStartDate, isEnabled: true, progress: progress)
+
+        var reminderJSON = try #require(try JSONSerialization.jsonObject(with: JSONEncoder().encode(reminder)) as? [String: Any])
+        var progressJSON = try #require(reminderJSON["progress"] as? [String: Any])
+        progressJSON.removeValue(forKey: "goalReachedCount")
+        reminderJSON["progress"] = progressJSON
+        let legacyPayload = try JSONSerialization.data(withJSONObject: reminderJSON)
+
+        let decodedReminder = try JSONDecoder().decode(WMFDonationReminder.self, from: legacyPayload)
+        #expect(decodedReminder.goalReachedCount == 0)
+        #expect(decodedReminder.timesReminderShown == 1)
+        #expect(decodedReminder.progress?.currentCycleStartDate == cycleStartDate)
     }
 
     private func configureEnvironment() async {
