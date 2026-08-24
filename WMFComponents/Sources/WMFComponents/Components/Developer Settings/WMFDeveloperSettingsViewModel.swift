@@ -66,6 +66,12 @@ import WMFData
         }
     }
 
+    @Published public var bypassDonationReminderDailyLimit: Bool = WMFDeveloperSettingsDataController.shared.bypassDonationReminderDailyLimit {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.bypassDonationReminderDailyLimit = bypassDonationReminderDailyLimit
+        }
+    }
+
 
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings

@@ -37,6 +37,7 @@ struct WMFDeveloperSettingsView: View {
 
             Section {
                 Toggle("Enable Donation Reminder", isOn: $viewModel.enableDonationReminder)
+                Toggle("Bypass Reminder Daily Limit", isOn: $viewModel.bypassDonationReminderDailyLimit)
                 Toggle("Force Fundraising Campaign Banner", isOn: $viewModel.forceFundraisingCampaignBanner)
                 Picker("Force Reminder Experiment Group", selection: $viewModel.forceDonationReminderExperimentAssignment) {
                     Text("Off").tag(WMFDonationReminderDataController.ExperimentAssignment?.none)
