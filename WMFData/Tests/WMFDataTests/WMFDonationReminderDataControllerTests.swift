@@ -74,6 +74,19 @@ final class WMFDonationReminderDataControllerTests {
         }
     }
 
+    @Test
+    func reminderSavedWithoutProgressDecodesWithCreatedDateAsCycleStart() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let createdDate = Date(timeIntervalSince1970: 1_755_600_000)
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 3, currencyCode: "EUR", createdDate: createdDate, isEnabled: true))
+
+            let reminder = try #require(controller.loadReminder())
+            #expect(reminder.progress == nil)
+            #expect(reminder.currentCycleStartDate == createdDate)
+            #expect(reminder.timesReminderShown == 0)
+        }
+    }
+
     private func configureEnvironment() async {
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
     }
