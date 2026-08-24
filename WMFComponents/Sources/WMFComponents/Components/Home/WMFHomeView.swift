@@ -61,6 +61,7 @@ public struct WMFHomeView: View {
                     .environment(\.forYouHeaderBottom, headerBottom)
                     .environment(\.colorScheme, .dark)
                 headerBar(isForYou: true)
+                    .modifier(WMFLegacyDarkHeaderModifier())
                     .padding(.top, headerBarTopInset)
                     .background {
                         GeometryReader { proxy in
@@ -247,6 +248,16 @@ public struct WMFHomeView: View {
                 .font(Font(WMFFont.for(.headline)))
                 .foregroundStyle(Color(uiColor: theme.secondaryText))
             Spacer()
+        }
+    }
+}
+
+private struct WMFLegacyDarkHeaderModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content
+        } else {
+            content.environment(\.colorScheme, .dark)
         }
     }
 }
