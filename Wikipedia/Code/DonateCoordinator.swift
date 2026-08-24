@@ -198,7 +198,13 @@ class DonateCoordinator: Coordinator {
         let title = WMFLocalizedString("donate-payment-method-prompt-title", value: "Donate with Apple Pay?", comment: "Title of prompt to user asking which payment method they want to donate with.")
         let message = WMFLocalizedString("donate-payment-method-prompt-message", value: "Donate with Apple Pay or choose other payment method.", comment: "Message of prompt to user asking which payment method they want to donate with.")
 
-        let applePayButtonTitle = WMFLocalizedString("donate-payment-method-prompt-apple-pay-button-title", value: "Donate with Apple Pay", comment: "Title of Apple Pay button choice in donate payment method prompt.")
+        let applePayButtonTitle: String
+        switch source {
+        case .donationReminderArticle:
+            applePayButtonTitle = WMFLocalizedString("donation-reminder-payment-different-amount-button-title", value: "Donate a different amount with Apple Pay", comment: "Title of the payment prompt choice that opens the donate form without the pledged amount, shown from the donation reminder card.")
+        default:
+            applePayButtonTitle = WMFLocalizedString("donate-payment-method-prompt-apple-pay-button-title", value: "Donate with Apple Pay", comment: "Title of Apple Pay button choice in donate payment method prompt.")
+        }
         let otherButtonTitle = WMFLocalizedString("donate-payment-method-prompt-other-button-title", value: "Other payment method", comment: "Title of Other payment method button choice in donate payment method prompt.")
 
         let cancelButtonTitle = CommonStrings.cancelActionTitle
@@ -237,6 +243,25 @@ class DonateCoordinator: Coordinator {
             }
         }))
 
+        var pledgeAction: UIAlertAction?
+        if case .donationReminderArticle(_, let pledgeAmount, let currencyCode) = source,
+           currencyCode == Locale.current.currency?.identifier {
+            let amountFormatter = NumberFormatter.wmfCurrencyFormatter
+            amountFormatter.currencyCode = currencyCode
+            let formattedPledgeAmount = amountFormatter.string(from: pledgeAmount as NSNumber) ?? "\(pledgeAmount)"
+
+            let pledgeButtonTitleFormat = WMFLocalizedString("donation-reminder-payment-pledge-button-title", value: "Donate %1$@ with Apple Pay", comment: "Title of the payment prompt choice that opens the donate form with the pledged amount preselected, shown from the donation reminder card. %1$@ is the pledged amount. ")
+            let pledgeButtonTitle = String.localizedStringWithFormat(pledgeButtonTitleFormat, formattedPledgeAmount)
+
+            let action = UIAlertAction(title: pledgeButtonTitle, style: .default, handler: { [weak self] _ in
+                guard let self else { return }
+
+                donateViewModel.preselectAmount(pledgeAmount)
+                self.navigateToNativeDonateForm(donateViewModel: donateViewModel)
+            })
+            alert.addAction(action)
+            pledgeAction = action
+        }
 
         let applePayAction = UIAlertAction(title: applePayButtonTitle, style: .default, handler: { [weak self] action in
             guard let self else {
@@ -309,7 +334,7 @@ class DonateCoordinator: Coordinator {
             navigateToOtherPaymentMethod()
         }))
 
-        alert.preferredAction = applePayAction
+        alert.preferredAction = pledgeAction ?? applePayAction
         alert.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
 
         alert.popoverPresentationController?.sourceView = navigationController.view
@@ -409,8 +434,18 @@ class DonateCoordinator: Coordinator {
 
         let localizedStrings = WMFDonateViewModel.LocalizedStrings(title: donate, cancelTitle: cancel, transactionFeeOptInTextFormat: transactionFeeFormat, monthlyRecurringText: monthlyRecurring, emailOptInText: emailOptIn, maximumErrorText: maximum, minimumErrorText: minimum, genericErrorTextFormat: genericErrorFormat, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, appleFinePrint: appleFinePrint, wikimediaFinePrint1: wikimediaFinePrint1, wikimediaFinePrint2: wikimediaFinePrint2, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityMonthlyRecurringHint: accessibilityMonthlyRecurringHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
 
+        var presetAmountsOverride: [Decimal]?
+        if case .donationReminderArticle(_, _, let pledgeCurrencyCode) = source,
+           pledgeCurrencyCode == currencyCode,
+           let configAmounts = donateConfig.currencyAmountPresets[currencyCode] {
+            var mergedAmounts = WMFDonationReminderDataController.experimentPresetAmounts
+            for amount in configAmounts.dropFirst(mergedAmounts.count) where !mergedAmounts.contains(amount) {
+                mergedAmounts.append(amount)
+            }
+            presetAmountsOverride = mergedAmounts
+        }
 
-        guard let viewModel = WMFDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, metricsID: metricsID, appVersion: appVersion, appInstallID: appInstallID, coordinatorDelegate: self, loggingDelegate: self) else {
+        guard let viewModel = WMFDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, metricsID: metricsID, appVersion: appVersion, appInstallID: appInstallID, coordinatorDelegate: self, loggingDelegate: self, presetAmountsOverride: presetAmountsOverride) else {
             return nil
         }
 
