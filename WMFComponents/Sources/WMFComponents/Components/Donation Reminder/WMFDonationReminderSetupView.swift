@@ -103,7 +103,7 @@ struct WMFDonationReminderSetupView: View {
                         .padding()
                         .frame(maxWidth: 240)
                         .presentationCompactAdaptation(.popover)
-                        .presentationBackground(.thickMaterial)
+                        .presentationBackground(Color(theme.popoverBackground))
                 }
             }
 
