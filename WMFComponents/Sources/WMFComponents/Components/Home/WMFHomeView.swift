@@ -59,6 +59,7 @@ public struct WMFHomeView: View {
                 forYouTabContent
                     .ignoresSafeArea()
                     .environment(\.forYouHeaderBottom, headerBottom)
+                    .environment(\.colorScheme, .dark)
                 headerBar(isForYou: true)
                     .padding(.top, headerBarTopInset)
                     .background {
@@ -73,11 +74,9 @@ public struct WMFHomeView: View {
                     .padding(.top, refreshIndicatorTopInset)
             }
             .ignoresSafeArea()
-            .environment(\.colorScheme, .dark)
             .onPreferenceChange(WMFForYouHeaderBottomKey.self) { headerBottom = $0 }
         } else {
             communitySection
-
                 .environment(\.colorScheme, theme.preferredColorScheme)
         }
     }
@@ -101,73 +100,80 @@ public struct WMFHomeView: View {
             .background(Color(uiColor: theme.paperBackground))
         }
     }
-
+    
     private func headerBar(isForYou: Bool) -> some View {
         HStack(spacing: 8) {
-            Picker("", selection: $viewModel.selectedTab) {
-                Text(viewModel.communityTabTitle).tag(WMFHomeViewModel.Tab.community)
-                Text(viewModel.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
+            if #available(iOS 26.0, *) {
+                Picker("", selection: $viewModel.selectedTab) {
+                    Text(viewModel.communityTabTitle).tag(WMFHomeViewModel.Tab.community)
+                    Text(viewModel.forYouTabTitle).tag(WMFHomeViewModel.Tab.forYou)
+                }
+                .glassEffect()
+                .padding(.vertical, 2)
+                .pickerStyle(.segmented)
+                .fixedSize()
+            } else {
+                // Fallback on earlier versions
             }
-            .padding(.vertical, 2)
-            .pickerStyle(.segmented)
-            .fixedSize()
 
             Spacer()
 
             if viewModel.shouldShowLanguagePicker {
-                Menu {
-                    ForEach(viewModel.languages) { language in
-                        Button {
-                            if language.languageCode != viewModel.selectedLanguage?.languageCode {
-                                viewModel.logDidTapLanguagePicker?(language.languageCode)
-                            }
-                            viewModel.didSelectLanguage?(language)
-                        } label: {
-                            if language.languageCode == viewModel.selectedLanguage?.languageCode {
-                                Label {
-                                    Text(language.localizedName)
-                                } icon: {
-                                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .checkmark) ?? UIImage())
+                if #available(iOS 26.0, *) {
+                    Menu {
+                        ForEach(viewModel.languages) { language in
+                            Button {
+                                if language.languageCode != viewModel.selectedLanguage?.languageCode {
+                                    viewModel.logDidTapLanguagePicker?(language.languageCode)
                                 }
-                                .minimumScaleFactor(0.25)
-                            } else {
-                                Text(language.localizedName)
+                                viewModel.didSelectLanguage?(language)
+                            } label: {
+                                if language.languageCode == viewModel.selectedLanguage?.languageCode {
+                                    Label {
+                                        Text(language.localizedName)
+                                    } icon: {
+                                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .checkmark) ?? UIImage())
+                                    }
                                     .minimumScaleFactor(0.25)
+                                } else {
+                                    Text(language.localizedName)
+                                        .minimumScaleFactor(0.25)
+                                }
+                            }
+                            .tint(.primary)
+                        }
+                        Divider()
+                        Button {
+                            viewModel.didTapEditLanguages?()
+                        } label: {
+                            Label {
+                                Text(viewModel.editLanguagesTitle)
+                            } icon: {
+                                Image(uiImage: WMFSFSymbolIcon.for(symbol: .globe) ?? UIImage())
                             }
                         }
-                    }
-                    Divider()
-                    Button {
-                        viewModel.didTapEditLanguages?()
+                        .tint(.primary)
                     } label: {
-                        Label {
-                            Text(viewModel.editLanguagesTitle)
-                        } icon: {
-                            Image(uiImage: WMFSFSymbolIcon.for(symbol: .globe) ?? UIImage())
+                        HStack {
+                            Text(viewModel.languageButtonTitle)
+                                .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                .dynamicTypeSize(.xSmall ... .large)
+                                .minimumScaleFactor(0.25)
+                                // .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
+                                .lineLimit(1)
+                            Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronUpChevronDown, font: .boldCaption1, compatibleWith: .wmfCappedForSFSymbols) ?? UIImage())
+                                // .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
                         }
+                        .tint(.primary)
                     }
-                } label: {
-                    HStack {
-                        Text(viewModel.languageButtonTitle)
-                            .font(Font(WMFFont.for(.semiboldSubheadline)))
-                            .dynamicTypeSize(.xSmall ... .large)
-                            .minimumScaleFactor(0.25)
-                            .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
-                            .lineLimit(1)
-                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronUpChevronDown, font: .boldCaption1, compatibleWith: .wmfCappedForSFSymbols) ?? UIImage())
-                            .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
-                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .tint(.primary)
+                    .glassEffect()
+                    .accessibilityIdentifier(AccessibilityIdentifiers.Home.languagePickerButton)
+                } else {
+                    // Fallback on earlier versions
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
-                .background {
-                    if #available(iOS 26.0, *) {
-                        Capsule().fill(.clear).glassEffect(in: Capsule())
-                    } else {
-                        Capsule().fill(.ultraThinMaterial)
-                    }
-                }
-                .accessibilityIdentifier(AccessibilityIdentifiers.Home.languagePickerButton)
             }
         }
         .padding(.horizontal, 16)
