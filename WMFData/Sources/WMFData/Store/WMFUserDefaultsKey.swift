@@ -45,6 +45,7 @@ public enum WMFUserDefaultsKey: String {
     case forceHCaptchaChallenge = "force-hcaptcha-challenge"
     case developerSettingsForceFundraisingCampaignBanner = "dev-settings-force-fundraising-campaign-banner"
     case developerSettingsEnableDonationReminder = "dev-settings-enable-donation-reminder"
+    case developerSettingsForceDonationReminderExperimentAssignment = "dev-settings-force-donation-reminder-experiment-assignment"
     case donationReminder = "donation-reminder"
 
     case allowGestureZoomArticleWebview = "allow-gesture-zoom-article-webview"

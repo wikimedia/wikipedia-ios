@@ -143,17 +143,37 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     }
 
     /// Resets everything that can suppress the fundraising campaign banner: the "maybe later" /
-    /// permanently hidden prompt state and the local donation history (which hides the banner
-    /// for 250 days after a donation).
+    /// permanently hidden prompt state, the local donation history, the saved donation reminder, and the persisted donation
+    /// reminder experiment bucket.
     public func clearFundraisingCampaignPersistence() {
         WMFFundraisingCampaignDataController.shared.clearPromptState()
         WMFDonateDataController.shared.deleteLocalDonationHistory()
+        WMFDonationReminderDataController.shared.clearReminder()
+        WMFDonationReminderDataController.shared.clearExperimentAssignment()
     }
 
     /// Feature flag for the Donation Reminder experiment
     public var enableDonationReminder: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableDonationReminder.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableDonationReminder.rawValue, value: newValue) }
+    }
+
+    /// Debugging convenience: overrides the persisted donation reminder experiment bucket at read
+    /// time without re-rolling it. Nil means no override.
+    public var forceDonationReminderExperimentAssignment: WMFDonationReminderDataController.ExperimentAssignment? {
+        get {
+            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceDonationReminderExperimentAssignment.rawValue) else {
+                return nil
+            }
+            return WMFDonationReminderDataController.ExperimentAssignment(rawValue: rawValue)
+        }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceDonationReminderExperimentAssignment.rawValue, value: newValue.rawValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceDonationReminderExperimentAssignment.rawValue)
+            }
+        }
     }
 
     public var enableVisualEditingJourney: Bool {
