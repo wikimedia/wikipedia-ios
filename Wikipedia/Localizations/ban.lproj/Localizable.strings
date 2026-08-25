@@ -450,3 +450,121 @@
 "welcome-languages-description" = "Iraga sampun nemuin basa puniki ring piranti ragané:";
 "welcome-languages-search-title" = "Rereh ring langkung 300 basa";
 "wikitext-preview-link-external-preview-description" = "Pranala puniki nuju situs wéb jaba: $1";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Arsitéktur";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Seni";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Komik lan animé";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Balih-balihan";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Gaya panganggé";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Literatur";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Musik";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Seni balih-balihan";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Olahraga";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "Tipi lan pilem";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Pelaliyanan vidéo";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Biograpi (makasami)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Biograpi (luh)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Bisnis lan ékonomi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Pandidikan";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Panganan lan ineman";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Babad";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Militér lan yuda";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Tatwa lan agama";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Politik lan pameréntahan";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Sosial";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Transportasi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Biologi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Kimia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Komputer lan internét";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Gumi lan palemahan";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Undagi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Sains umum";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Matematika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Médis lan kakénakan";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Fisika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Téknologi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Afrika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Asia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Amérika Tengah";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Éropa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Amérika Kaja";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Oséania";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Amérika Kelod";

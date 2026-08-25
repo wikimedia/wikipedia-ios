@@ -266,3 +266,121 @@
 "welcome-languages-search-title" = "300 dan ortiq tillarda qidirish";
 "wikitext-upload-save" = "Saqlanmoqda...";
 "wikitext-upload-save-terms-name" = "Foydalanish shartlari";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Arxitektura";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Sanʼat";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Komiks va anime";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Koʻngilochar";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Moda";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Adabiyot";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Musiqa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Performing arts";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Sport";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "TV va film";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Videooʻyinlar";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Shaxsiyatlar (barchasi)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Shaxsiyatlar (ayollar)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Biznes va iqtisod";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Taʼlim";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Oziq-ovqat va ichimliklar";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Tarix";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Qurolli kuchlar va harbiy ishlar";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Falsafa va din";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Siyosat va hukumat";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Jamiyat";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Transport";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Biologiya";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "KImyo";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Kompyuter va internet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Yer va atrof-muhit";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Muhandislik";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Umumiy fan";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Matematika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Tibbiyot va sogʻlik";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Fizika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Texnologiya";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Afrika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Osiyo";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Markaziy Amerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Yevropa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Shimoliy Amerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Okeaniya";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Janubiy Amerika";

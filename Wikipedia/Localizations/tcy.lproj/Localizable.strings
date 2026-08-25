@@ -183,3 +183,121 @@
 "wikitext-upload-save" = "ಓರಿಪವೊಂತುಂಡು...";
 "wikitext-upload-save-terms-name" = "ಬಳಕೆದ ನಿಬಂದೊಲು";
 "year-in-review-donate" = "ದಾನೊ";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Architecture";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Art";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Comics and anime";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "ಮನೋರಂಜನೆ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Fashion";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "ಸಾಹಿತ್ಯ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "ಸಂಗೀತ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Performing arts";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "ಕ್ರೀಡೆಗಳು";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "ಟಿವಿ ಹಾಗೂ ಚಲನಚಿತ್ರ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Video games";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Biography (all)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Biography (women)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "ವಾಣಿಜ್ಯ ಹಾಗೂ ಅರ್ಥಶಾಸ್ತ್ರ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "ಶಿಕ್ಷಣ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "ತಿಂಡಿ ಹಾಗೂ ಪಾನೀಯ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "ಇತಿಹಾಸ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Military and warfare";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "ತತ್ವಶಾಸ್ತ್ರ ಹಾಗೂ ಧರ್ಮ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "ರಾಜಕೀಯ ಹಾಗೂ ಸರ್ಕಾರ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "ಸಮಾಜ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "ಸಾರಿಗೆ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "ಜೀವಶಾಸ್ತ್ರ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "ರಸಾಯನಶಾಸ್ತ್ರ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "ಗಣಕಯಂತ್ರಗಳು ಹಾಗೂ ಅಂತರಜಾಲ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "ಭೂಮಿ ಹಾಗೂ ಪರಿಸರ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Engineering";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "General science";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "ಗಣಿತ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "ಔಷಧ ಹಾಗೂ ಆರೋಗ್ಯ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "ಭೌತಶಾಸ್ತ್ರ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Technology";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "ಆಫ್ರಿಕಾ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "ಏಷ್ಯಾ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "ಮಧ್ಯ ಅಮೇರಿಕ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "ಯುರೋಪ್";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "ಉತ್ತರ ಅಮೇರಿಕ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "ಓಷಿಯಾನಿಯ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "ದಕ್ಷಿಣ ಅಮೇರಿಕ";
