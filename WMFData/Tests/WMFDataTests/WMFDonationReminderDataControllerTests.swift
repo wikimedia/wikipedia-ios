@@ -108,7 +108,89 @@ final class WMFDonationReminderDataControllerTests {
         #expect(decodedReminder.progress?.currentCycleStartDate == cycleStartDate)
     }
 
+    @Test
+    func experimentAssignmentIsNilBeforeAssignment() async {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            #expect(controller.experimentAssignment == nil)
+        }
+    }
+
+    @Test
+    func assignExperimentPersistsAssignment() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let assignment = try controller.assignExperimentIfNeeded()
+
+            #expect(controller.experimentAssignment == assignment)
+
+            let repeatedAssignment = try controller.assignExperimentIfNeeded()
+            #expect(repeatedAssignment == assignment)
+        }
+    }
+
+    @Test
+    func assignExperimentProducesAllThreeGroups() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let experimentStore = try #require(WMFDataEnvironment.current.sharedCacheStore)
+            let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
+
+            var seenAssignments = Set<WMFDonationReminderDataController.ExperimentAssignment>()
+            for _ in 1...200 {
+                try experimentsDataController.resetExperiment(.donationReminder)
+                seenAssignments.insert(try controller.assignExperimentIfNeeded())
+                if seenAssignments.count == 3 {
+                    break
+                }
+            }
+
+            #expect(seenAssignments == [.control, .groupB, .groupC])
+        }
+    }
+
+    @Test
+    func clearExperimentAssignmentAllowsANewRoll() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try controller.assignExperimentIfNeeded()
+            #expect(controller.experimentAssignment != nil)
+
+            controller.clearExperimentAssignment()
+
+            #expect(controller.experimentAssignment == nil)
+        }
+    }
+
+    @Test
+    func clearFundraisingCampaignPersistenceClearsReminderAndAssignment() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let createdDate = Date(timeIntervalSince1970: 1_755_600_000)
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 3, currencyCode: "EUR", createdDate: createdDate, isEnabled: true))
+            try controller.assignExperimentIfNeeded()
+
+            WMFDeveloperSettingsDataController.shared.clearFundraisingCampaignPersistence()
+
+            #expect(controller.loadReminder() == nil)
+            #expect(controller.experimentAssignment == nil)
+        }
+    }
+
+    @Test
+    func developerSettingsForceOverridesAssignmentAtReadTimeOnly() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let persistedAssignment = try controller.assignExperimentIfNeeded()
+
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .groupC
+            #expect(controller.experimentAssignment == .groupC)
+            #expect(try controller.assignExperimentIfNeeded() == .groupC)
+
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .control
+            #expect(controller.experimentAssignment == .control)
+
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = nil
+            #expect(controller.experimentAssignment == persistedAssignment)
+        }
+    }
+
     private func configureEnvironment() async {
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
     }
 }
