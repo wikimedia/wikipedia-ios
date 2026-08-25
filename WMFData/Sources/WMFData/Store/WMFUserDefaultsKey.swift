@@ -6,9 +6,7 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsSendAnalyticsToWMFLabs = "dev-settings-send-analytics-to-wmflabs"
     case developerSettingsArticleTab = "dev-settings-article-tab"
     case developerSettingsForceMaxArticleTabsTo5 = "dev-settings-article-tab-max-5"
-    case developerSettingsEnableHomeTab = "dev-settings-enable-home-tab"
     case developerSettingsEnableHomePhase2 = "dev-settings-enable-home-phase-2"
-    case developerSettingsAlwaysShowNewOnboarding = "dev-settings-always-show-new-onboarding"
     case hasLocallySavedDonations = "donate-history-has-locally-saved-donations"
     case yearInReviewSettingsIsEnabled = "year-in-review-settings-is-enabled-v3"
     case seenYearInReviewFeatureAnnouncement = "year-in-review-feature-announcement-v3"
@@ -95,7 +93,8 @@ public enum WMFUserDefaultsKey: String {
 
     // Onboarding: New app install event
     case didSendNewInstallOnboardingStartEvent = "did-send-new-install-onboarding-start-event"
-    case hasSeenNewHomeOnboarding = "has-seen-new-home-onboarding"
+    case hasSeenOneTimeOnboardingHome = "has-seen-one-time-home-onboarding"
+    case hasSeenUpdatedHomeOnboarding = "has-seen-updated-home-onboarding"
 
     // Article View Controller: Enable visual editor
     case developerSettingsEnableVisualEditingJourney = "dev-settings-enable-visual-editing-journey"

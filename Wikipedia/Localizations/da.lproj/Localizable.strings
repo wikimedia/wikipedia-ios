@@ -733,8 +733,8 @@
 "for-you-error-subtitle" = "Forbind til internettet og prøv igen.";
 "for-you-error-title" = "Ingen internetforbindelse";
 "for-you-header-because-you-read" = "Fordi du læser: $1";
-"for-you-header-continue-reading" = "Fortsæt med at læse: $1";
 "for-you-header-interest" = "Af grund af din interesse: $1";
+// Fuzzy
 "for-you-header-saved-article" = "Fra din læseliste: $1";
 "for-you-menu-customize-interests" = "Tilpas interesser";
 "for-you-refreshing-accessibility-label" = "Indlæser nyt indhold";
@@ -772,7 +772,6 @@
 "home-feed-for-you-because-you-read-subtitle" = "Forslag baseret på en nylig artikel fra din historie";
 "home-feed-for-you-because-you-read-title" = "Fordi du læste";
 "home-feed-for-you-continue-reading-subtitle" = "Spring tilbage til artikler, du ikke blev færdig med";
-"home-feed-for-you-continue-reading-title" = "Fortsæt læsning";
 "home-feed-for-you-settings-header" = "Hvis du deaktiverer et modul, skjules det fra dit \"Til dig\"-feed. Du kan til enhver tid genaktivere det her.";
 "home-feed-for-you-settings-title" = "Moduler";
 "home-feed-interests-deselect-all" = "Fravælg alle";
@@ -1632,3 +1631,121 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Wikipedia w-logo";
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Foundation logo";
 "yesterday-title" = "I går";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Arkitektur";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Kunst";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Tegneserier og anime";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Underholdning";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Mode";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Litteratur";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Musik";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Scenekunst";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Sport";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "TV og film";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Videospil";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Biografi (alle)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Biografi (kvinder)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Forretning og økonomi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Uddannelse";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Mad og drikke";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Historie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Militære og krigsførelse";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofi og religion";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Politik og regering";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Samfund";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Transport";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Biologi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Kemi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Computere og internet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Jord og miljø";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Ingeniørfag";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Generel videnskab";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Matematik";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Medicin og helse";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Fysik";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Teknologi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Afrika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Asien";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Centralamerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Europa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Nordamerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Oceanien";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Sydamerika";

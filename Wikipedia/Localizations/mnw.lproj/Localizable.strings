@@ -725,3 +725,121 @@
 "wikitext-upload-save-anonymously-or-login" = "ပလေဝ်ဒါန်ဂှ် တြးပတိတ် ပ္ဍဲ IP address မၞး။ ယဝ်ရ မၞး $1Log in$2 မၞး ကြက်ကလိဂွံ အခေါင်ပုဂ္ဂလိကဂၠိုင်ရ။";
 "wikitext-upload-save-anonymously-warning" = "ပလေဝ်ဒါန်ဂှ် တြးပတိတ် ပ္ဍဲ IP address device မၞး. ယဝ်ရ မၞး $1 မ္ဂး မၞး သကလိဂွံ အခေါင်ပုဂ္ဂလိ ဂၠိုင်ရ၊၊";
 "wikitext-upload-save-terms-name" = "Terms of Use";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "ဗိသုကာ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "အနုပညာ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "ကာတွန်းနှင့်ရုပ်ပြ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "ဖြေဖျော်ရေး";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "ဖက်ရှင်";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "စာပေ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "ဂီတ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "သရုပ်ဆောင်အနုပညာများ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "အားကစား";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "တီဗွီနှင့်ရုပ်ရှင်";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "ဗွီဒီယိုဂိမ်းများ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "အတ္ထုပတ္တိ (အကုန်လုံး)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "အတ္ထုပတ္တိ (အမျိုးသမီး)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "လုပ်ငန်းနှင့် စီးပွားရေး";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "ပညာရေး";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "အစားအသောက်";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "သမိုင်း";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "စစ်ရေးနှင့်စစ်ပွဲ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "ဒဿနိကနှင့်ဘာသာရေး";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "နိုင်ငံရေးနှင့်အစိုးရ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "လူမှုအသိုင်းအဝိုင်း";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "ပို့ဆောင်ရေး";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "ဇီဝဗေဒ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "ဓာတုဗေဒ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "ကွန်ပျူတာနှင့်အင်တာနက်";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "ကမ္ဘာမြေနှင့် သဘာဝပတ်ဝန်းကျင်";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "အင်ဂျင်နီယာဘာသာရပ်";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "အထွေထွေသိပ္ပံ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "သင်္ချာ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "ဆေးပညာနှင့်ကျန်းမာရေး";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "ရူပဗေဒ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "နည်းပညာ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "အာဖရိက";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "အာရှ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "ဗဟိုအမေရိက";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "ဥရောပ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "မြောက်အမေရိက";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "အိုရှန်းနီးယား";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "တောင်အမေရိက";

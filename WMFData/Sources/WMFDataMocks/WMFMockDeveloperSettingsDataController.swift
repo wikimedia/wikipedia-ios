@@ -15,6 +15,8 @@ final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataCont
     var showYiR2025: Bool { return true }
     var enableYiRLoginExperimentControl: Bool { return false }
     var enableYiRLoginExperimentB: Bool { return false }
+    var enableHomeTabExperimentControl: Bool { return false }
+    var enableHomeTabExperimentGroupB: Bool { return false }
     func transitionToEnrolledStateIfForced() {}
 
     private let featureConfig: WMFData.WMFFeatureConfigResponse

@@ -725,8 +725,8 @@
 "for-you-error-subtitle" = "İnternetə qoşulun və yenidən cəhd edin.";
 "for-you-error-title" = "İnternet bağlantısı yoxdur";
 "for-you-header-because-you-read" = "$1 oxuduğunuz üçün";
-"for-you-header-continue-reading" = "$1 oxumağa davam edin";
 "for-you-header-interest" = "$1 ilə olan marağınıza görə";
+// Fuzzy
 "for-you-header-saved-article" = "$1 oxuma siyahınızdan";
 "for-you-menu-customize-interests" = "Maraqlarınızı fərdiləşdirin";
 "for-you-refreshing-accessibility-label" = "Yeni məzmun yüklənir";
@@ -764,7 +764,6 @@
 "home-feed-for-you-because-you-read-subtitle" = "Tarixçənizdəki son məqaləyə əsaslanan təkliflər";
 "home-feed-for-you-because-you-read-title" = "Oxuduğunuz üçün";
 "home-feed-for-you-continue-reading-subtitle" = "Bitirmədiyiniz məqalələrə qayıdın";
-"home-feed-for-you-continue-reading-title" = "Oxumağa davam et";
 "home-feed-for-you-settings-header" = "Modulu söndürmək onu \"Sizin üçün\" lentinizdən gizlədir. Onu istənilən vaxt burada yenidən aktivləşdirə bilərsiniz.";
 "home-feed-for-you-settings-title" = "Modullar";
 "home-feed-interests-deselect-all" = "Bütün seçimləri ləğv et";
@@ -1800,3 +1799,121 @@
 "year-in-review-wmf-logo-accessibility-label" = "Vikimedia Fondunun loqosu";
 "yesterday-title" = "Dünən";
 "zero-edits-to-articles" = "Bu yaxınlarda məqalələrə 0 düzəliş";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Memarlıq";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "İncəsənət";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Komiks və anime";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Əyləncə";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Dəb";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Ədəbiyyat";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Musiqi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Səhnə sənəti";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "İdman";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "Televiziya və film";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Video oyunlar";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Bioqrafiya (hamısı)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Bioqrafiya (qadın)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Biznes və iqtisadiyyat";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Təhsil";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Qida və içki";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Tarix";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Hərbi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Fəlsəfə və din";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Siyasət və hökumət";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Cəmiyyət";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Nəqliyyat";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Biologiya";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Kimya";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Kompüterlər və internet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Dünya və ətraf mühit";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Mühəndislik";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Elm";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Riyaziyyat";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Tibb";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Fizika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Texnologiya";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Afrika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Asiya";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Mərkəzi Amerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Avropa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Şimali Amerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Okeaniya";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Cənubi Amerika";

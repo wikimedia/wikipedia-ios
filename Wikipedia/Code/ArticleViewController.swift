@@ -172,6 +172,9 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     // Coordinator used to navigate a user to the donate form from campaign modal
     var donateCoordinator: DonateCoordinator?
 
+    // Coordinator used to navigate a user to the donation reminder setup screen from campaign modal
+    var donationReminderSetupCoordinator: DonationReminderSetupCoordinator?
+
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
     var topSafeAreaOverlayView: UIView?
 
@@ -614,7 +617,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     private func presentYearInReviewAnnouncementOrFundraisingOrGamesIfNeeded() {
-        if !WMFDeveloperSettingsDataController.shared.enableHomeTab {
+        if WMFHomeDataController.shared.persistedHomeTabAssignment() != .groupB {
             listenForTooltips()
         }
 

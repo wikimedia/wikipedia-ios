@@ -6,6 +6,9 @@ public struct WMFHomeView: View {
     @ObservedObject var viewModel: WMFHomeViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
+    /// Where the header bar ends, so that a For You card can keep its content below it.
+    @State private var headerBottom: CGFloat = 0
+
     var theme: WMFTheme { appEnvironment.theme }
 
     public init(viewModel: WMFHomeViewModel) {
@@ -55,16 +58,26 @@ public struct WMFHomeView: View {
             ZStack(alignment: .top) {
                 forYouTabContent
                     .ignoresSafeArea()
+                    .environment(\.forYouHeaderBottom, headerBottom)
+                    .environment(\.colorScheme, .dark)
                 headerBar(isForYou: true)
+                    .modifier(WMFLegacyDarkHeaderModifier())
                     .padding(.top, headerBarTopInset)
+                    .background {
+                        GeometryReader { proxy in
+                            Color.clear.preference(
+                                key: WMFForYouHeaderBottomKey.self,
+                                value: proxy.frame(in: .global).maxY
+                            )
+                        }
+                    }
                 refreshIndicator
                     .padding(.top, refreshIndicatorTopInset)
             }
             .ignoresSafeArea()
-            .environment(\.colorScheme, .dark)
+            .onPreferenceChange(WMFForYouHeaderBottomKey.self) { headerBottom = $0 }
         } else {
             communitySection
-
                 .environment(\.colorScheme, theme.preferredColorScheme)
         }
     }
@@ -88,7 +101,7 @@ public struct WMFHomeView: View {
             .background(Color(uiColor: theme.paperBackground))
         }
     }
-
+    
     private func headerBar(isForYou: Bool) -> some View {
         HStack(spacing: 8) {
             Picker("", selection: $viewModel.selectedTab) {
@@ -98,22 +111,17 @@ public struct WMFHomeView: View {
             .padding(.vertical, 2)
             .pickerStyle(.segmented)
             .fixedSize()
-            .dynamicTypeSize(.xSmall ... .large)
-            .background {
-                if #available(iOS 26.0, *) {
-                    Capsule().fill(.clear).glassEffect(in: Capsule())
-                } else {
-                    RoundedRectangle(cornerRadius: Self.tabSwitcherCornerRadius, style: .continuous)
-                        .fill(.ultraThinMaterial)
-                }
-            }
-
+            .modifier(WMFGlassEffectModifier())
+            
             Spacer()
-
+            
             if viewModel.shouldShowLanguagePicker {
                 Menu {
                     ForEach(viewModel.languages) { language in
                         Button {
+                            if language.languageCode != viewModel.selectedLanguage?.languageCode {
+                                viewModel.logDidTapLanguagePicker?(language.languageCode)
+                            }
                             viewModel.didSelectLanguage?(language)
                         } label: {
                             if language.languageCode == viewModel.selectedLanguage?.languageCode {
@@ -128,6 +136,7 @@ public struct WMFHomeView: View {
                                     .minimumScaleFactor(0.25)
                             }
                         }
+                        .tint(.primary)
                     }
                     Divider()
                     Button {
@@ -139,30 +148,34 @@ public struct WMFHomeView: View {
                             Image(uiImage: WMFSFSymbolIcon.for(symbol: .globe) ?? UIImage())
                         }
                     }
+                    .tint(.primary)
                 } label: {
-                    Text(viewModel.languageButtonTitle)
-                        .font(Font(WMFFont.for(.semiboldSubheadline)))
-                        .dynamicTypeSize(.xSmall ... .large)
-                        .minimumScaleFactor(0.25)
-                        .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
-                        .lineLimit(1)
-                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronUpChevronDown, font: .boldCaption1) ?? UIImage())
-                        .foregroundStyle(isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text))
+                    HStack {
+                        Text(viewModel.languageButtonTitle)
+                            .font(Font(WMFFont.for(.semiboldSubheadline)))
+                            .dynamicTypeSize(.xSmall ... .large)
+                            .minimumScaleFactor(0.25)
+                            .foregroundStyle(languageButtonForeground(isForYou: isForYou))
+                            .lineLimit(1)
+                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronUpChevronDown, font: .boldCaption1, compatibleWith: .wmfCappedForSFSymbols) ?? UIImage())
+                            .foregroundStyle(languageButtonForeground(isForYou: isForYou))
+                    }
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
-                .background {
-                    if #available(iOS 26.0, *) {
-                        Capsule().fill(.clear).glassEffect(in: Capsule())
-                    } else {
-                        Capsule().fill(.ultraThinMaterial)
-                    }
-                }
+                .modifier(WMFLanguageButtonContainerModifier())
                 .accessibilityIdentifier(AccessibilityIdentifiers.Home.languagePickerButton)
             }
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 8)
+        .padding(.vertical, 16)
+    }
+
+    private func languageButtonForeground(isForYou: Bool) -> Color {
+        if #available(iOS 26.0, *) {
+            return .primary
+        }
+        return isForYou ? Color(uiColor: WMFColor.white) : Color(uiColor: theme.text)
     }
 
     // MARK: - For You Tab
@@ -212,7 +225,11 @@ public struct WMFHomeView: View {
     @ViewBuilder
     private var communityTabContent: some View {
         if let makeEmbeddedViewController = viewModel.makeEmbeddedCommunityViewController {
-            WMFHomeEmbeddedCommunityView(makeViewController: makeEmbeddedViewController)
+            if viewModel.isEmbeddedCommunityFeedEmpty {
+                embeddedCommunityEmptyView
+            } else {
+                WMFHomeEmbeddedCommunityView(makeViewController: makeEmbeddedViewController)
+            }
         } else if !viewModel.communityPages.isEmpty {
             WMFCommunityFeedView(
                 pages: viewModel.communityPages,
@@ -235,6 +252,51 @@ public struct WMFHomeView: View {
                 .font(Font(WMFFont.for(.headline)))
                 .foregroundStyle(Color(uiColor: theme.secondaryText))
             Spacer()
+        }
+    }
+
+    /// Replaces the embedded feed when all the Community cards are hidden.
+    ///
+    /// The embedded view controller does not show this. Auto Layout content in its root view gives the
+    /// root a fitting size, and SwiftUI then makes the embedded feed as small as that size.
+    private var embeddedCommunityEmptyView: some View {
+        WMFHomeEmptyStateView(
+            subtitle: viewModel.communityEmptyFeedSubtitle,
+            theme: theme,
+            action: { viewModel.didTapCustomizeCommunityFeed?() }
+        )
+    }
+}
+
+private struct WMFLegacyDarkHeaderModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content
+        } else {
+            content.environment(\.colorScheme, .dark)
+        }
+    }
+}
+
+private struct WMFGlassEffectModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content.glassEffect()
+        } else {
+            content.background(RoundedRectangle(cornerRadius: 9).fill(.ultraThinMaterial))
+        }
+    }
+}
+
+private struct WMFLanguageButtonContainerModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content
+                .tint(.primary)
+                .glassEffect()
+        } else {
+            content
+                .background(Capsule().fill(.ultraThinMaterial))
         }
     }
 }

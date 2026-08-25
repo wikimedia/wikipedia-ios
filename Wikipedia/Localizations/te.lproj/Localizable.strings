@@ -792,3 +792,121 @@
 "year-in-review-time-midday" = "మధ్యాహ్నం";
 "year-in-review-time-morning" = "ఉదయం";
 "year-in-review-time-night" = "రాత్రి";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "ఆర్కిటెక్చరు";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "కళ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "కామిక్స్, యానిమె";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "వినోదం";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "ఫ్యాషన్";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "సాహిత్యం";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "సంగీతం";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "ప్రదర్శక కళలు";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "క్రీడలు";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "టీవీ, సినిమా";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "వీడియో గేమ్స్";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "జీవిత చరిత్ర (అన్నీ)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "జీవిత చరిత్ర (మహిళలు)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "వ్యాపారం, వాణిజ్యం";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "విద్య";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "ఆహార పానీయాలు";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "చరిత్ర";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "సైన్యం, యుద్ధం";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "తత్వం, మతం";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "రాజకీయాలు, ప్రభుత్వం";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "సమాజం";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "రవాణా";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "బయాలజీ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "రసాయనశాస్త్రం";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "కంప్యూటర్లు, అంతర్జాలం";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "భూమి, పర్యావరణం";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "ఇంజనీరింగు";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "జనరల్ సైన్సు";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "గణితం";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "వైద్యం, ఆరోగ్యం";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "భౌతికశాస్త్రం";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "టెక్నాలజీ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "ఆఫ్రికా";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "ఆసియా";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "మధ్య అమెరికా";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "ఐరోపా";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "ఉత్తర అమెరికా";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "ఓషియానియా";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "దక్షిణ అమెరికా";

@@ -730,6 +730,18 @@
 "find-replace-header" = "Nájsť a nahradiť";
 "find-replace-header-close-accessibility" = "Zavrieť vyhľadávanie a nahradiť";
 "find-textfield-accessibility" = "Nájsť";
+"for-you-empty-button" = "Vyberte si svoje záujmy";
+"for-you-empty-subtitle" = "Pridajte si záujmy a získate prispôsobené odporúčania článkov.";
+"for-you-empty-title" = "Zatiaľ tu nič nie je";
+"for-you-error-retry" = "Skúsiť znova";
+"for-you-error-subtitle" = "Pripojte sa na internet a skúste to znova.";
+"for-you-error-title" = "Žiadne pripojenie na internet";
+"for-you-header-because-you-read" = "Pretože ste čítali: $1";
+"for-you-header-interest" = "Na základe vášho záujmu: $1";
+// Fuzzy
+"for-you-header-saved-article" = "Z vášho zoznamu na prečítanie: $1";
+"for-you-menu-customize-interests" = "Prispôsobiť záujmy";
+"for-you-refreshing-accessibility-label" = "Načítava sa nový obsah";
 "forgot-password-button-title" = "Obnoviť";
 "forgot-password-email-sent" = "Poslali sme vám e-mail s inštrukciami na obnovu hesla";
 "forgot-password-instructions" = "Ak chcete dostať inštrukcie na obnovenie hesla e-mailom, vyplňte jedno z polí nižšie";
@@ -751,10 +763,13 @@
 "history-clear-delete-all" = "Áno, vymazať všetko";
 "history-title" = "História";
 "home-button-explore-accessibility-label" = "Wikipédie, späť na Objaviť";
+"home-button-home-accessibility-label" = "Wikipédia, späť na Domov";
 "home-button-saved-accessibility-label" = "Wikipédia, späť na Uložené";
+"home-card-more-options-accessibility-label" = "Ďalšie možnosti";
 "home-community-empty-feed-button-title" = "Prispôsobiť kanál";
 "home-community-empty-feed-message" = "Ak chcete vidieť kanál Komunita, zapnite karty v nastaveniach kanála.";
 "home-community-empty-feed-title" = "Všetky karty kanála Komunita sú skryté";
+"home-community-see-past-content" = "Zobraziť starší obsah komunity";
 "home-community-tab-title" = "Komunita";
 "home-edit-languages-title" = "Pridať alebo upraviť jazyky";
 "home-feed-for-you-based-on-interests-subtitle" = "Články prispôsobené témam, ktoré ste si vybrali.";
@@ -762,7 +777,6 @@
 "home-feed-for-you-because-you-read-subtitle" = "Návrhy na základe nedávneho článku z vašej histórie";
 "home-feed-for-you-because-you-read-title" = "Pretože ste čítali";
 "home-feed-for-you-continue-reading-subtitle" = "Vráťte sa k článkom, ktoré ste nedočítali";
-"home-feed-for-you-continue-reading-title" = "Pokračovať v čítaní";
 "home-feed-for-you-settings-header" = "Vypnutím modulu ho skryjete z kanála „Pre vás“. Kedykoľvek ho tu môžete znova zapnúť.";
 "home-feed-for-you-settings-title" = "Moduly";
 "home-feed-interests-deselect-all" = "Zrušiť celý výber";
@@ -801,12 +815,14 @@
 "home-feed-whats-driving-your-interests-subtitle" = "Upravte svoje témy záujmu";
 "home-feed-whats-driving-your-interests-title" = "Vaše záujmy";
 "home-for-you-tab-title" = "Pre vás";
+"home-menu-hide-module" = "Skryť modul";
 "home-more-like-footer" = "Viac článkov ako $1";
 "home-nearby-footer" = "Viac miest z vášho okolia";
 "home-nearby-location-footer" = "Ďalšie miesta v okolí $1";
 "home-news-footer" = "Viac aktuálnych udalostí";
 "home-reading-list-prompt" = "Vaše uložené články môžu byť teraz organizované do zoznamov na prečítanie a synchronizované naprieč zariadeniami. Prihláste sa, aby ste povolili ukladanie zoznamov na prečítanie do vašich používateľských nastavení.";
 "home-tab-title" = "Domov";
+"home-tab-title-accessibility-label" = "Wikipédia, prejsť na začiatok kanála Domov";
 "home-themes-action-title" = "Spravujte nastavenia";
 "home-themes-prompt" = "Upravte si Nastavenia čítania, vrátane veľkosti textu a motívu z panelu nástrojov článkov alebo z používateľských nastavení pre pohodlnejšie čítanie.";
 "home-title" = "Objaviť";
@@ -1097,6 +1113,17 @@
 "on-this-day-no-internet-error" = "Žiadne dostupné údaje";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipédie v jazyku $2";
 "on-this-day-title" = "Dnes";
+"one-time-onboarding-auto-setup-button" = "Nastaviť za mňa";
+"one-time-onboarding-customize-button" = "Prispôsobiť môj kanál";
+"one-time-onboarding-feature-control-body" = "Pri každom odporúčaní sa dozviete presne, prečo sa zobrazuje. Svoje predvoľby môžete kedykoľvek zmeniť v Nastaveniach.";
+"one-time-onboarding-feature-control-title" = "Majte to pod kontrolou";
+"one-time-onboarding-feature-feed-body" = "V kanáli Pre vás objavujte články prispôsobené vašim záujmom alebo si v kanáli Komunita prezerajte to najlepšie z redakčného obsahu Wikipédie.";
+"one-time-onboarding-feature-feed-title" = "Váš kanál dvoma spôsobmi";
+"one-time-onboarding-feature-languages-body" = "Čítate vo viacerých jazykoch? Každý z nich má vlastné prostredie. Stačí prepnúť a váš nový kanál je pripravený.";
+"one-time-onboarding-feature-languages-title" = "Každý jazyk plne prispôsobený";
+"one-time-onboarding-feature-name-body" = "Kanál Objaviť sa teraz volá Domov a nájdete ho na rovnakom mieste ako predtým.";
+"one-time-onboarding-feature-name-title" = "Nový názov";
+"one-time-onboarding-title" = "Objaviť je teraz Domov a má nový vzhľad";
 "open-article" = "Otvoriť článok";
 "original-tab-button-popover-description" = "Ťuknutím na W sa vrátite na kartu, z ktorej ste začali";
 "page-history-bot-edits" = "bot";
@@ -1336,6 +1363,9 @@
 "settings-clear-cache-ok" = "Vyčistiť vyrovnávaciu pamäť";
 "settings-community-feed-title" = "Komunita";
 "settings-donate" = "Darovať";
+"settings-editing-preferences-source-short" = "Zdrojový kód";
+"settings-editing-preferences-title" = "Predvoľba úprav";
+"settings-editing-preferences-visual-short" = "Vizuálne";
 "settings-explore-games-subtitle" = "Denné hry založené na obsahu Wikipédie";
 "settings-explore-games-title" = "Hry Wikipédie";
 "settings-help-and-feedback" = "Pomoc a spätná väzba";
@@ -1795,3 +1825,121 @@
 "year-in-review-wmf-logo-accessibility-label" = "Logo Nadácie Wikimédia";
 "yesterday-title" = "Včera";
 "zero-edits-to-articles" = "0 nedávnych úprav článkov";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Architektúra";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Umenie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Komiksy a anime";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Zábava";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Móda";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Literatúra";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Hudba";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Múzické umenie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Šport";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "TV a film";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Videohry";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Biografia (všetko)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Biografia (ženy)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Biznis a ekonomika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Vzdelávanie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Jedlá a nápoje";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "História";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Armáda a vojna";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filozofia a náboženstvo";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Politika a vláda";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Spoločnosť";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Doprava";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Biológia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Chémia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Počítače a internet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Zem a životné prostredie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Inžinierstvo";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Všeobecná veda";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Matematika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Medicína a zdravie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Fyzika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Technológia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Afrika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Ázia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Stredná Amerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Európa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Severná Amerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Oceánia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Južná Amerika";

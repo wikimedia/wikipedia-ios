@@ -16,6 +16,18 @@ public final class WMFHomeViewModel: ObservableObject {
     public var didInteractWithForYouFeed: (() -> Void)?
 
     public var didChangeTab: (@MainActor @Sendable (Tab) -> Void)?
+    
+    public var logDidTapLanguagePicker: (@MainActor @Sendable (String?) -> Void)?
+    private var lastLoggedImpressionCardKey: String?
+    public var logCardImpression: (@MainActor @Sendable (String, Int) -> Void)?
+    public var logCardDidTapShare: (@MainActor @Sendable (String) -> Void)?
+    public var logCardDidSave: (@MainActor @Sendable (WMFForYouArticleCardViewModel) -> Void)?
+    public var logCardDidUnsave: (@MainActor @Sendable (WMFForYouArticleCardViewModel) -> Void)?
+    public var logCardDidTapHideCard: (@MainActor @Sendable (String) -> Void)?
+    public var logCardDidTapHideModule: (@MainActor @Sendable (String) -> Void)?
+    public var logDidTapCustomizeInterests: (@MainActor @Sendable (String, String) -> Void)?
+    public var logEmptyViewImpression: (@MainActor @Sendable () -> Void)?
+    public var logCardDidTapArticle: (@MainActor @Sendable (String, String) -> Void)?
 
     public enum Tab: Int, CaseIterable {
         case forYou
@@ -25,7 +37,8 @@ public final class WMFHomeViewModel: ObservableObject {
     let forYouTabTitle = CommonStrings.forYouTabTitle
     let communityTabTitle = WMFLocalizedString("home-community-tab-title", value: "Community", comment: "Title for the Community segment within the Home tab.")
     let editLanguagesTitle = WMFLocalizedString("home-edit-languages-title", value: "Add or edit languages", comment: "Title for the option at the bottom of the Home language menu that opens the languages settings screen.")
-    
+    let communityEmptyFeedSubtitle = WMFLocalizedString("home-community-empty-feed-turn-on-modules-message", value: "Turn on modules to see community content", comment: "Message shown in the Home tab Community segment when the reader has turned off every feed module.")
+
     let forYouErrorTitle = WMFLocalizedString("for-you-error-title", value: "No internet connection", comment: "Title shown on the For You tab when content cannot be loaded due to a network error.")
     let forYouErrorSubtitle = WMFLocalizedString("for-you-error-subtitle", value: "Connect to the Internet and try again.", comment: "Subtitle shown on the For You tab when content cannot be loaded due to a network error.")
     let forYouErrorRetryTitle = WMFLocalizedString("for-you-error-retry", value: "Try again", comment: "Button on the For You error state that retries loading the feed.")
@@ -99,10 +112,19 @@ public final class WMFHomeViewModel: ObservableObject {
     public var didTapEditLanguages: (() -> Void)?
     public var didTapCustomizeInterests: (() -> Void)?
 
+    /// Opens the "Customize the home feed" screen from the For You empty state.
+    public var didTapCustomizeHomeFeed: (@MainActor @Sendable () -> Void)?
+
     /// Temporary: when set (app-side), the Community tab hosts this legacy view controller instead of
     /// the native SwiftUI community feed, and the community feed fetch is skipped. Remove once the
     /// community feed rework ships.
     public var makeEmbeddedCommunityViewController: (() -> UIViewController)?
+
+    /// True when all the Community cards are hidden and the embedded feed has nothing to show.
+    @Published public var isEmbeddedCommunityFeedEmpty: Bool = false
+
+    /// Opens the Community feed settings from that empty state.
+    public var didTapCustomizeCommunityFeed: (@MainActor @Sendable () -> Void)?
 
     // MARK: - For You view model configuration
 
@@ -112,17 +134,54 @@ public final class WMFHomeViewModel: ObservableObject {
         refreshForYouModuleVisibility()
         forYouViewModel.hiddenCardKeys = hiddenCardKeys
         forYouViewModel.onRefresh = { [weak self] in await self?.refreshForYouFeed() }
-        forYouViewModel.onHideModule = { [weak self] in self?.hideForYouModule($0) }
+        forYouViewModel.onHideModule = { [weak self] in
+            self?.logCardDidTapHideModule?($0.module.loggingId)
+            self?.hideForYouModule($0.module)
+        }
         forYouViewModel.onHideCard = { [weak self] card in
+            self?.logCardDidTapHideCard?(card.module.loggingId)
             self?.hideForYouCard(card)
         }
-        forYouViewModel.onCustomizeInterests = { [weak self] in self?.didTapCustomizeInterests?() }
-        forYouViewModel.onTapCard = { [weak self] in self?.didTapForYouCard?($0) }
-        forYouViewModel.onSaveCard = { [weak self] in self?.didSaveForYouCard?($0) }
-        forYouViewModel.onShareCard = { [weak self] in self?.didShareForYouCard?($0) }
-        forYouViewModel.onUnsaveCard = { [weak self] in self?.didTapUnsaveForYouCard?($0) }
+        forYouViewModel.onCustomizeInterests = { [weak self] source in
+            switch source {
+            case .card(let card):
+                self?.logDidTapCustomizeInterests?(card.module.loggingId, "feed_customize")
+                self?.didTapCustomizeInterests?()
+            case .emptyFeed:
+                // From the empty feed the reader can also turn on modules. Open the root screen.
+                self?.logDidTapCustomizeInterests?("feed_empty", "customize_feed")
+                self?.didTapCustomizeHomeFeed?()
+            }
+        }
+        forYouViewModel.onTapCard = { [weak self] in
+            self?.logCardDidTapArticle?($0.module.loggingId, $0.title)
+            self?.didTapForYouCard?($0)
+        }
+        forYouViewModel.onSaveCard = { [weak self] in
+            self?.logCardDidSave?($0)
+            self?.didSaveForYouCard?($0)
+        }
+        forYouViewModel.onShareCard = { [weak self] in
+            self?.logCardDidTapShare?($0.module.loggingId)
+            self?.didShareForYouCard?($0)
+        }
+        forYouViewModel.onUnsaveCard = { [weak self] in
+            self?.logCardDidUnsave?($0)
+            self?.didTapUnsaveForYouCard?($0)
+        }
+        
+        forYouViewModel.onEmptyViewAppearance = { [weak self] in
+            self?.logEmptyViewImpression?()
+        }
+        
         forYouViewModel.onUserInteraction = { [weak self] in self?.didInteractWithForYouFeed?() }
         forYouViewModel.onShowCard = { [weak self] card in
+            
+            // checking lastLoggedImpressionCardKey prevents duplicate impression events
+            guard card.cardUniqueKey != self?.lastLoggedImpressionCardKey else { return }
+            self?.logCardImpression?(card.module.loggingId, card.cardIndex)
+            self?.lastLoggedImpressionCardKey = card.cardUniqueKey
+            
             // The user saw this card, thus the feed does not suggest the article again for some days.
             self?.dataController.recordSeenArticle(title: card.title, project: card.project)
         }

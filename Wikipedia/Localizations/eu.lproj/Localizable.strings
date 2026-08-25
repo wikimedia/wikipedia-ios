@@ -500,3 +500,121 @@
 "wikitext-upload-save" = "Argitaratzen...";
 "wikitext-upload-save-anonymously-warning" = "Aldaketak zure gailuko IP helbideari egotziko zaizkio. Zuk $1 egiten baduzu, pribautasun gehiago edukiko duzu.";
 "wikitext-upload-save-terms-name" = "Erabilera Baldintzak";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Arkitektura";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Artea";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Komikak eta animea";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Entretenimendua";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Moda";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Literatura";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Musika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Antzerkia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Kirola";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "Telebista eta zinema";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Bideo-jokoak";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Biografiak (guztiak)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Biografiak (emakumeak)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Negozioak eta ekonomia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Hezkuntza";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Janaria eta edaria";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Historia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Gerrak eta militarrak";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofia eta erlijioa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Politika eta gobernua";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Gizartea";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Garraioa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Biologia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Kimika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Ordenagailuak eta Internet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Lurra eta ingurumena";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Ingeniaritza";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Zientzia orokorra";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Matematika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Medikuntza eta osasuna";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Fisika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Teknologia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Afrika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Asia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Erdialdeko Amerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Europa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Ipar Amerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Ozeania";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Hego Amerika";

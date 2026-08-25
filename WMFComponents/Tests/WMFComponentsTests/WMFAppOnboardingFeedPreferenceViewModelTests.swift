@@ -13,7 +13,7 @@ struct WMFAppOnboardingFeedPreferenceViewModelTests {
 
     private func makeViewModel() -> WMFAppOnboardingFeedPreferenceViewModel {
         let dataController = WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore())
-        return WMFAppOnboardingFeedPreferenceViewModel(dataController: dataController, project: project)
+        return WMFAppOnboardingFeedPreferenceViewModel(dataController: dataController, project: project, logImpression: {_ in }, logDidTapCommunity: {}, logDidTapPersonalized: {})
     }
 
     private func makeArticle(_ title: String) -> WMFForYouArticle {

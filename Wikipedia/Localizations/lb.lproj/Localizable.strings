@@ -576,7 +576,7 @@
 "for-you-error-title" = "Keng Internetverbindung";
 "for-you-header-because-you-read" = "Well Dir gelies hutt: $1";
 "for-you-header-interest" = "Wéinst Ärem Interesse: $1";
-"for-you-header-saved-article" = "Vun Ärer Lieslëscht: $1";
+"for-you-header-saved-article" = "Vun Ärer Lieslëscht";
 "for-you-menu-customize-interests" = "Interessen upassen";
 "for-you-refreshing-accessibility-label" = "Neien Inhalt gëtt gelueden";
 "forgot-password-button-title" = "Zerécksetzen";
@@ -604,7 +604,6 @@
 "home-feed-for-you-because-you-read-subtitle" = "Virschléi op Basis vun engem rezenten Artikel aus Ärem Historique";
 "home-feed-for-you-because-you-read-title" = "Well Dir dat gelies hutt";
 "home-feed-for-you-continue-reading-subtitle" = "Gitt zeréck op Artikelen, déi Dir net fäerdeg gelies hutt";
-"home-feed-for-you-continue-reading-title" = "Viruliesen";
 "home-feed-for-you-settings-header" = "Wann Dir e Modul desaktivéiert, da gëtt et an Ärem „Fir Iech“-Feed verstoppt. Dir kënnt zu all Moment erëm hei reaktivéieren.";
 "home-feed-for-you-settings-title" = "Moduler";
 "home-feed-interests-deselect-all" = "Auswiel ophiewen";
@@ -1365,3 +1364,121 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Wikipedia-W-Logo";
 "year-in-review-wmf-logo-accessibility-label" = "Logo vun der Wikimedia Foundation";
 "yesterday-title" = "Gëschter";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Architektur";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Konscht";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Comics an Anime";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Ënnerhalung";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Moud";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Literatur";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Musek";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Darstellende Kunst";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Sport";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "Televisioun a Filmer";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Computerspiller";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Biografien (all)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Biografien (Fraen)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Geschäft an Ekonomie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Educatioun";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Iessen a Gedrénks";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Geschicht";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Militär a Krich";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Philosophie a Relioun";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Politik a Regierung";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Gesellschaft";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Transport";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Biologie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Chimie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Computer an Internet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Äerd an Ëmwelt";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Ingenieurswiesen";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Allgemeng Wëssenschaft";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Mathematik";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Medezin a Gesondheet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Physik";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Technologie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Afrika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Asien";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Mëttelamerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Europa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Nordamerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Ozeanien";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Südamerika";

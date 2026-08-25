@@ -728,9 +728,8 @@
 "for-you-error-subtitle" = "Поврзете се со семрежјето и обидете се пак.";
 "for-you-error-title" = "Не сте поврзани со семрежјето";
 "for-you-header-because-you-read" = "Бидајќи читавте: $1";
-"for-you-header-continue-reading" = "Продолжете со читање: $1";
 "for-you-header-interest" = "Бидејќи ве интересира: $1";
-"for-you-header-saved-article" = "Од вашиот список на читање: $1";
+"for-you-header-saved-article" = "Од вашиот список на читање";
 "for-you-menu-customize-interests" = "Прилагоди интереси";
 "for-you-refreshing-accessibility-label" = "Вчитување на нова содржина";
 "forgot-password-button-title" = "Задај нова";
@@ -768,7 +767,6 @@
 "home-feed-for-you-because-you-read-subtitle" = "Предлози според скорешна статија од вашата историја";
 "home-feed-for-you-because-you-read-title" = "Бидејќи читавте";
 "home-feed-for-you-continue-reading-subtitle" = "Вратете се на статијата што не ја довршивте";
-"home-feed-for-you-continue-reading-title" = "Продолжете со читање";
 "home-feed-for-you-settings-header" = "Ако исклучите модул, тој ќе се скрие од вашиот тековник „За вас“. Можете повторно да го вклучите тука во било кое време.";
 "home-feed-for-you-settings-title" = "Модули";
 "home-feed-interests-deselect-all" = "Одизбери сè";
@@ -1817,3 +1815,121 @@
 "year-in-review-wmf-logo-accessibility-label" = "Лого на Фондацијата Викимедија";
 "yesterday-title" = "Вчера";
 "zero-edits-to-articles" = "0 уредувања на статии во последно време";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Архитектура";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Уметност";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Стрипови и аниме";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Разонода";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Мода";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Книжевност";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Музика";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Сценски уметности";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Спорт";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "Телевизија и филмови";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Видеоигри";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Биографија (сите)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Биографија (жени)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Деловност и економија";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Образование";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Храна и пијалаци";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Историја";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Војска и војување";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Филозофија и религија";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Политика и управување";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Општество";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Превоз и сообраќај";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Биологија";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Хемија";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Сметачи и семрежје";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Земја и животна средина";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Инженерство";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Општа наука";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Математика";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Медицина и здравје";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Физика";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Технологија";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Африка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Азија";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Средна Америка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Европа";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Северна Америка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Океанија";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Јужна Америка";

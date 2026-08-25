@@ -263,3 +263,121 @@
 "wikitext-upload-save" = "প্ৰকাশ কৰি থকা হৈছে...";
 "wikitext-upload-save-anonymously-warning" = "সম্পাদনাসমূহ আপোনাৰ আই পি ঠিকনাত আৰোপ কৰা হ'ব। যদি আপুনি $1 কৰে তেন্তে আপুনি অধিক গোপনীয়তা লাভ কৰিব।";
 "wikitext-upload-save-terms-name" = "ব্যৱহাৰৰ চৰ্তাৱলী";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "স্থাপত্য";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "কলা";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "কমিক্‌ছ আৰু এনিমে";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "মনোৰঞ্জন";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "ফেশ্বন";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "সাহিত্য";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "সংগীত";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "পৰিবেশ্য কলা";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "ক্ৰীড়া";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "টিভি আৰু চলচ্চিত্ৰ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "ভিডিঅ' গেম";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "জীৱনী (সকলো)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "জীৱনী (নাৰী)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "ব্যৱসায় আৰু অৰ্থনীতি";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "শিক্ষা";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "খাদ্য আৰু পানীয়";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "ইতিহাস";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "সামৰিক আৰু যুদ্ধ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "দৰ্শন আৰু ধৰ্ম";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "ৰাজনীতি আৰু চৰকাৰ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "সমাজ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "পৰিবহন";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "জীৱবিজ্ঞান";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "ৰসায়ন বিজ্ঞান";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "কম্পিউটাৰ আৰু ইণ্টাৰনেট";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "পৃথিৱী আৰু পৰিৱেশ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "অভিযান্ত্ৰিক বিদ্যা";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "সাধাৰণ বিজ্ঞান";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "গণিত";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "চিকিৎসা আৰু স্বাস্থ্য";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "পদাৰ্থ বিজ্ঞান";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "প্ৰযুক্তি";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "আফ্ৰিকা";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "এছিয়া";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "মধ্য আমেৰিকা";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "ইউৰোপ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "উত্তৰ আমেৰিকা";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "ওচেনিয়া";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "দক্ষিণ আমেৰিকা";
