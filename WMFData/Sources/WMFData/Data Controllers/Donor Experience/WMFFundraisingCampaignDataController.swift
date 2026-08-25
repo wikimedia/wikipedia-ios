@@ -132,7 +132,7 @@ import Foundation
         }
     }
 
-    /// Fetches the apps campaign configuration data at https://donate.wikimedia.org/w/index.php?title=MediaWiki:AppsCampaignConfig.json and caches the response. Valid assets can be loaded with loadActiveCampaignAsset
+    /// Fetches the apps campaign configuration data (MediaWiki:AppsCampaignConfig.json, from donate.wikimedia.org, or from test.wikipedia.org when the Use Test Wiki Donate Configs developer setting is on) and caches the response. Valid assets can be loaded with loadActiveCampaignAsset
     /// - Parameters:
     ///   - countryCode: Country code of the user. Can use Locale.current.regionCode
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.

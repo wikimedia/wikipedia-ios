@@ -58,6 +58,40 @@ final class WMFDeveloperSettingsDataControllerTests {
         }
     }
 
+    @Test
+    func useTestWikiDonateConfigsRoutesTheConfigFetches() async {
+        await fixture.withConfiguredEnvironment(configure: configureRequestRecordingEnvironment) {
+            WMFDeveloperSettingsDataController.shared.useTestWikiDonateConfigs = true
+
+            WMFFundraisingCampaignDataController.shared.fetchConfig(countryCode: "NL", currentDate: Date()) { _ in }
+            WMFDonateDataController.shared.fetchConfigs(for: "NL") { _ in }
+
+            let hosts = requestRecordingService.requestedURLs.compactMap { $0.host }
+            #expect(hosts.contains("test.wikipedia.org"))
+            #expect(hosts.filter { $0 == "test.wikipedia.org" }.count == 2)
+            #expect(hosts.contains("payments.wikimedia.org"))
+            #expect(hosts.contains("donate.wikimedia.org") == false)
+
+            requestRecordingService.requestedURLs = []
+            WMFDeveloperSettingsDataController.shared.useTestWikiDonateConfigs = false
+
+            WMFFundraisingCampaignDataController.shared.fetchConfig(countryCode: "NL", currentDate: Date()) { _ in }
+            WMFDonateDataController.shared.fetchConfigs(for: "NL") { _ in }
+
+            let productionHosts = requestRecordingService.requestedURLs.compactMap { $0.host }
+            #expect(productionHosts.filter { $0 == "donate.wikimedia.org" }.count == 2)
+            #expect(productionHosts.contains("test.wikipedia.org") == false)
+        }
+    }
+
+    private let requestRecordingService = WMFRequestRecordingMockService()
+
+    private func configureRequestRecordingEnvironment() async {
+        WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.basicService = requestRecordingService
+    }
+
     private func configureUserDefaultsEnvironment() async {
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
     }
@@ -125,6 +159,43 @@ private extension WMFDeveloperSettingsDataController {
                     continuation.resume(returning: ())
                 }
             }
+        }
+    }
+}
+
+private final class WMFRequestRecordingMockService: WMFService {
+
+    private enum RecordingError: Error {
+        case stubbedFailure
+    }
+
+    var requestedURLs: [URL] = []
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+        record(request)
+        completion(.failure(RecordingError.stubbedFailure))
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+        record(request)
+        completion(.failure(RecordingError.stubbedFailure))
+    }
+
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        record(request)
+        completion(.failure(RecordingError.stubbedFailure))
+    }
+
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        record(request)
+        completion(.failure(RecordingError.stubbedFailure))
+    }
+
+    func clearCachedData() {}
+
+    private func record<R: WMFServiceRequest>(_ request: R) {
+        if let url = request.url {
+            requestedURLs.append(url)
         }
     }
 }
