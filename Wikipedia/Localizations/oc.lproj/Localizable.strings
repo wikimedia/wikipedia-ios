@@ -185,3 +185,121 @@
 "welcome-languages-add-button" = "Apondre una autra lenga";
 "wikitext-upload-save" = "Publicacion en cors…";
 "wikitext-upload-save-terms-name" = "Condicions d'utilizacion";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Arquitectura";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Art";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Banda dessenhada e dessenh animat";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Divertiments";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Mòda";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Literatura";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Musica";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Espectacle viu";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Espòrts";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "TV e films";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Videojòcs";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Biografia (totas)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Biografia (femna)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Comèrci e economia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Educacion";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Manjars e bevendas";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Istòria";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Armada e guèrra";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofia e religion";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Politica e govèrns";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Societat";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Transpòrt";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Biologia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Quimia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Ordinadors e internet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Tèrra e mitan ambient";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Sciénças de l'engenhaire";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Sciéncia generala";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Matematicas";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Medecina e santat";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Fisica";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Tecnologia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Africa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Asia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "America Centrala";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Euròpa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "America del Nòrd";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Oceanía";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "America del Sud";

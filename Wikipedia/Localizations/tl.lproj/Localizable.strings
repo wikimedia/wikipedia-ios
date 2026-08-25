@@ -118,3 +118,121 @@
 "wikitext-upload-result-unknown" = "Hindi matukoy ang kinalabasan ng pagkarga ng wikitext";
 "wikitext-upload-save" = "Itinatala...";
 "wikitext-upload-save-terms-name" = "Mga tuntunin sa paggamit";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Architecture";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Art";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Comics and anime";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Entertainment";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Fashion";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Literature";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Music";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Performing arts";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Sports";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "TV and film";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Video games";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Biography (all)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Biography (women)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Business and economics";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Education";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Food and drink";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "History";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Military and warfare";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Philosophy and religion";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Politics and government";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Society";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Transportation";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Biology";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Chemistry";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Computers and internet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Earth and environment";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Engineering";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "General science";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Mathematics";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Medicine and health";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Physics";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Technology";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Africa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Asia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Central America";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Europe";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "North America";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Oceania";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "South America";

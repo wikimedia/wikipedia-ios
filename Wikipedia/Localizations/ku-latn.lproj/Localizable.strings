@@ -81,3 +81,121 @@
 "wikitext-preview-save-changes-title" = "Guherandinan tomar bike";
 "wikitext-upload-save" = "Tê weşandin...";
 "wikitext-upload-save-terms-name" = "Mercên Bikaranînê";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Mîmarî";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Huner";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Xêzeroman û anîme";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Entertainment";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Moda";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Edebiyat";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Muzîk";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Performing arts";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Spor";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "Fîlm û rêzefîlm";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Lîstikên vîdeoyê";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Biyografî (hemû)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Biyografî (jin)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Bazirganî û ekonomî";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Tehsîl";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Xwarin û vexwarin";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Tarîx";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Eskeriye û şer";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Felsefe û dîn";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Siyaset û hikûmet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Civak";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Veguhastin";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Biyolojî";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Kîmya";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Komputer û înternet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Cîhan û jîngeh";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Mihendisî";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Zanista giştî";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Matematîk";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Tib û sihet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Fizîk";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Teknolojî";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Afrîka";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Asya";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Amerîkaya Merkezî";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Ewropa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Amerîkaya Bakur";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Okyanûsya";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Amerîkaya Başûr";

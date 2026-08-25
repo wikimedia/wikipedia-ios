@@ -1732,3 +1732,121 @@
 "year-in-review-wmf-logo-accessibility-label" = "Логотип Фонда Викимедиа";
 "yesterday-title" = "Вчера";
 "zero-edits-to-articles" = "Нет правок за последнее время";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Архитектура";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Искусство";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Комиксы и аниме";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Развлечения";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Мода";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Литература";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Музыка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Исполнительские искусства";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Спорт";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "Телевидение и кино";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Видеоигры";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Биографии (все)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Биографии (женщины)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Бизнес и экономика";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Образование";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Еда и напитки";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "История";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Вооружённые силы и военное дело";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Философия и религия";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Политика и правительства";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Общество";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Транспорт";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Биология";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Химия";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Компьютеры и интернет";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Земля и окружающая среда";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Инженерия";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Общая наука";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Математика";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Медицина и здоровье";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Физика";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Технологии";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Африка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Азия";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Центральная Америка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Европа";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Северная Америка";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Океания";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Южная Америка";

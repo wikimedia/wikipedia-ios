@@ -495,3 +495,121 @@
 "wikitext-upload-save" = "Γίνεται δημοσίευση...";
 "wikitext-upload-save-anonymously-warning" = "Οι επεξεργασίες θα αποδοθούν στην διεύθυνση IP της συσκευής σας. Αν $1, θα έχετε περισσότερη ιδιωτικότητα.";
 "wikitext-upload-save-terms-name" = "Όροι χρήσης";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Αρχιτεκτονική";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Τέχνη";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Κόμικ και άνιμε";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Ψυχαγωγία";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Μόδα";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Λογοτεχνία";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Μουσική";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Παραστατικές τέχνες";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Αθλητισμός";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "Τηλεόραση και ταινίες";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Βιντεοπαιχνίδια";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Βιογραφίες (όλες)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Βιογραφίες (γυναίκες)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Επιχειρήσεις και οικονομικά";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Εκπαίδευση";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Τρόφιμα και ποτά";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Ιστορία";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Στρατός και πόλεμος";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Φιλοσοφία και θρησκεία";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Πολιτικά και κυβέρνηση";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Κοινωνία";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Μεταφορές";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Βιολογία";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Χημεία";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Υπολογιστές και διαδίκτυο";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Γη και περιβάλλον";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Μηχανική";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Γενική επιστήμη";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Μαθηματικά";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Ιατρική και υγεία";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Φυσική";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Τεχνολογία";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Αφρική";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Ασία";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Κεντρική Αμερική";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Ευρώπη";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Βόρεια Αμερική";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Ωκεανία";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Νότια Αμερική";
