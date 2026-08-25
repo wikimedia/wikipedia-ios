@@ -728,9 +728,8 @@
 "for-you-error-subtitle" = "Поврзете се со семрежјето и обидете се пак.";
 "for-you-error-title" = "Не сте поврзани со семрежјето";
 "for-you-header-because-you-read" = "Бидајќи читавте: $1";
-"for-you-header-continue-reading" = "Продолжете со читање: $1";
 "for-you-header-interest" = "Бидејќи ве интересира: $1";
-"for-you-header-saved-article" = "Од вашиот список на читање: $1";
+"for-you-header-saved-article" = "Од вашиот список на читање";
 "for-you-menu-customize-interests" = "Прилагоди интереси";
 "for-you-refreshing-accessibility-label" = "Вчитување на нова содржина";
 "forgot-password-button-title" = "Задај нова";
@@ -768,7 +767,6 @@
 "home-feed-for-you-because-you-read-subtitle" = "Предлози според скорешна статија од вашата историја";
 "home-feed-for-you-because-you-read-title" = "Бидејќи читавте";
 "home-feed-for-you-continue-reading-subtitle" = "Вратете се на статијата што не ја довршивте";
-"home-feed-for-you-continue-reading-title" = "Продолжете со читање";
 "home-feed-for-you-settings-header" = "Ако исклучите модул, тој ќе се скрие од вашиот тековник „За вас“. Можете повторно да го вклучите тука во било кое време.";
 "home-feed-for-you-settings-title" = "Модули";
 "home-feed-interests-deselect-all" = "Одизбери сè";

@@ -725,8 +725,8 @@
 "for-you-error-subtitle" = "İnternetə qoşulun və yenidən cəhd edin.";
 "for-you-error-title" = "İnternet bağlantısı yoxdur";
 "for-you-header-because-you-read" = "$1 oxuduğunuz üçün";
-"for-you-header-continue-reading" = "$1 oxumağa davam edin";
 "for-you-header-interest" = "$1 ilə olan marağınıza görə";
+// Fuzzy
 "for-you-header-saved-article" = "$1 oxuma siyahınızdan";
 "for-you-menu-customize-interests" = "Maraqlarınızı fərdiləşdirin";
 "for-you-refreshing-accessibility-label" = "Yeni məzmun yüklənir";
@@ -764,7 +764,6 @@
 "home-feed-for-you-because-you-read-subtitle" = "Tarixçənizdəki son məqaləyə əsaslanan təkliflər";
 "home-feed-for-you-because-you-read-title" = "Oxuduğunuz üçün";
 "home-feed-for-you-continue-reading-subtitle" = "Bitirmədiyiniz məqalələrə qayıdın";
-"home-feed-for-you-continue-reading-title" = "Oxumağa davam et";
 "home-feed-for-you-settings-header" = "Modulu söndürmək onu \"Sizin üçün\" lentinizdən gizlədir. Onu istənilən vaxt burada yenidən aktivləşdirə bilərsiniz.";
 "home-feed-for-you-settings-title" = "Modullar";
 "home-feed-interests-deselect-all" = "Bütün seçimləri ləğv et";
