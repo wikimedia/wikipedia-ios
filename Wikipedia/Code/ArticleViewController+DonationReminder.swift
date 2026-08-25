@@ -127,7 +127,7 @@ private struct DonationReminderCardConfiguration {
     }
 
     private static func pledgeAmountString(reminder: WMFDonationReminder) -> String {
-        let amountFormatter = NumberFormatter.wmfShortCurrencyFormatter
+        let amountFormatter = NumberFormatter.wmfCurrencyFormatter
         amountFormatter.currencyCode = reminder.currencyCode
         return amountFormatter.string(from: reminder.amount as NSNumber) ?? "\(reminder.amount)"
     }
