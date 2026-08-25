@@ -7,18 +7,65 @@ public struct WMFDonationReminder: Codable, Equatable, Sendable {
         case timeElapsed(days: Int)
     }
 
+    public struct Progress: Codable, Equatable, Sendable {
+        public var currentCycleStartDate: Date
+        public var timesReminderShown: Int
+        public var lastReminderShownDate: Date?
+        public var goalReachedCount: Int
+
+        private enum CodingKeys: String, CodingKey {
+            case currentCycleStartDate
+            case timesReminderShown
+            case lastReminderShownDate
+            case goalReachedCount
+        }
+
+        public init(currentCycleStartDate: Date, timesReminderShown: Int, lastReminderShownDate: Date? = nil, goalReachedCount: Int = 0) {
+            self.currentCycleStartDate = currentCycleStartDate
+            self.timesReminderShown = timesReminderShown
+            self.lastReminderShownDate = lastReminderShownDate
+            self.goalReachedCount = goalReachedCount
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            currentCycleStartDate = try container.decode(Date.self, forKey: .currentCycleStartDate)
+            timesReminderShown = try container.decode(Int.self, forKey: .timesReminderShown)
+            lastReminderShownDate = try container.decodeIfPresent(Date.self, forKey: .lastReminderShownDate)
+            goalReachedCount = try container.decodeIfPresent(Int.self, forKey: .goalReachedCount) ?? 0
+        }
+    }
+
     public let trigger: Trigger
     public let amount: Decimal
     public let currencyCode: String
     public let createdDate: Date
     public var isEnabled: Bool
+    public var progress: Progress?
 
-    public init(trigger: Trigger, amount: Decimal, currencyCode: String, createdDate: Date, isEnabled: Bool) {
+    public init(trigger: Trigger, amount: Decimal, currencyCode: String, createdDate: Date, isEnabled: Bool, progress: Progress? = nil) {
         self.trigger = trigger
         self.amount = amount
         self.currencyCode = currencyCode
         self.createdDate = createdDate
         self.isEnabled = isEnabled
+        self.progress = progress
+    }
+
+    public var currentCycleStartDate: Date {
+        progress?.currentCycleStartDate ?? createdDate
+    }
+
+    public var timesReminderShown: Int {
+        progress?.timesReminderShown ?? 0
+    }
+
+    public var lastReminderShownDate: Date? {
+        progress?.lastReminderShownDate
+    }
+
+    public var goalReachedCount: Int {
+        progress?.goalReachedCount ?? 0
     }
 }
 
