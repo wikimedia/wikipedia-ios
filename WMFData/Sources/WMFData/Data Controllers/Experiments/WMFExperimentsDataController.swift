@@ -87,7 +87,8 @@ final class WMFExperimentsDataController {
         let maybeOldPercentage = percentageForExperiment(experiment)
         let maybeOldBucket = bucketForExperiment(experiment)
         
-        if let oldPercentage = maybeOldPercentage,
+        if forceValue == nil,
+           let oldPercentage = maybeOldPercentage,
            let oldBucket = maybeOldBucket,
            oldPercentage == percentage {
             return oldBucket

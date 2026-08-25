@@ -936,7 +936,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         // default can't set this flag directly — write it through the data controller instead.
         // The flag persists across launches, so apply the argument in both directions.
         if UserDefaults.standard.object(forKey: wmfEnableHomeTabForTesting) != nil {
-            WMFDeveloperSettingsDataController.shared.enableHomePhase2 = UserDefaults.standard.bool(forKey: wmfEnableHomeTabForTesting)
+                let enableHomeTab = UserDefaults.standard.bool(forKey: wmfEnableHomeTabForTesting)
+                WMFDeveloperSettingsDataController.shared.enableHomePhase2 = enableHomeTab
+                WMFHomeDataController.forceExperimentAssignment(enableHomeTab ? .groupB : .control)
         }
     }
 
