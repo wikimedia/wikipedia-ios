@@ -1504,3 +1504,121 @@
 "year-in-review-wmf-logo-accessibility-label" = "סמל קרן ויקימדיה";
 "yesterday-title" = "אתמול";
 "zero-edits-to-articles" = "0 עריכות של ערכים לאחרונה";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "אדריכלות";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "אומנות";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "קומיקס ואנימה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "בידור";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "אופנה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "ספרות";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "מוזיקה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "אומנויות הבמה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "ספורט";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "טלוויזיה וקולנוע";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "משחקי מחשב";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "ביוגרפיה (הכול)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "ביוגרפיה (נשים)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "עסקים וכלכלה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "חינוך";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "אוכל ושתייה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "היסטוריה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "צבא ולוחמה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "פילוסופיה ודת";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "פוליטיקה וממשל";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "חברה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "תחבורה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "ביולוגיה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "כימיה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "מחשבים ואינטרנט";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "כדור הארץ וסביבה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "הנדסה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "מדע כללי";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "מתמטיקה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "רפואה ובריאות";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "פיזיקה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "טכנולוגיה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "אפריקה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "אסיה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "מרכז אמריקה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "אירופה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "צפון אמריקה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "אוקיאניה";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "דרום אמריקה";

@@ -1825,3 +1825,121 @@
 "year-in-review-wmf-logo-accessibility-label" = "Logo Nadácie Wikimédia";
 "yesterday-title" = "Včera";
 "zero-edits-to-articles" = "0 nedávnych úprav článkov";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Architektúra";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Umenie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Komiksy a anime";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Zábava";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Móda";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Literatúra";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Hudba";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Múzické umenie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Šport";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "TV a film";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Videohry";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Biografia (všetko)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Biografia (ženy)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Biznis a ekonomika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Vzdelávanie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Jedlá a nápoje";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "História";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Armáda a vojna";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filozofia a náboženstvo";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Politika a vláda";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Spoločnosť";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Doprava";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Biológia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Chémia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Počítače a internet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Zem a životné prostredie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Inžinierstvo";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Všeobecná veda";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Matematika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Medicína a zdravie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Fyzika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Technológia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Afrika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Ázia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Stredná Amerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Európa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Severná Amerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Oceánia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Južná Amerika";

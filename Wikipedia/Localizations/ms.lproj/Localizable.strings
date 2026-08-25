@@ -780,3 +780,121 @@
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan diatribusikan kepada alamat IP peranti anda. Jika anda $1, anda akan dapat lebih banyak privasi.";
 "wikitext-upload-save-terms-name" = "Syarat-Syarat Penggunaan";
 "year-in-review-donate" = "Derma";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Seni bina";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Seni";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Komik dan anime";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Hiburan";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Fesyen";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Kesusasteraan";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Muzik";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Seni persembahan";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Sukan";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "TV dan filem";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Permainan video";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Biografi (semua)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Biografi (wanita)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Perniagaan dan ekonomi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Pendidikan";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Makanan dan minuman";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Sejarah";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Ketenteraan dan peperangan";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Falsafah dan agama";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Politik dan kerajaan";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Masyarakat";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Pengangkutan";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Biologi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Kimia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Komputer dan internet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Bumi dan alam sekitar";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Kejuruteraan";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Sains umum";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Matematik";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Perubatan dan kesihatan";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Fizik";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Teknologi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Afrika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Asia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Amerika Tengah";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Eropah";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Amerika Utara";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Oceania";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Amerika Selatan";

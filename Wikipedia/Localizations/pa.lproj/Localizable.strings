@@ -1019,3 +1019,121 @@
 "year-in-review-survey-unsatisfied" = "ਅਸੰਤੁਸ਼ਟ";
 "year-in-review-survey-very-satisfied" = "ਬਹੁਤ ਸੰਤੁਸ਼ਟ";
 "year-in-review-survey-very-unsatisfied" = "ਬਹੁਤ ਅਸੰਤੁਸ਼ਟ";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "ਆਰਕੀਟੈਕਚਰ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "ਕਲਾ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "ਕਾਮਿਕਸ ਅਤੇ ਐਨੀਮੇ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "ਮਨੋਰੰਜਨ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "ਫੈਸ਼ਨ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "ਸਾਹਿਤ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "ਸੰਗੀਤ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "ਪ੍ਰਦਰਸ਼ਨ ਕਲਾਵਾਂ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "ਖੇਡਾਂ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "ਟੀਵੀ ਅਤੇ ਫ਼ਿਲਮ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "ਵੀਡੀਓ ਖੇਡਾਂ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "ਜੀਵਨੀ (ਸਾਰੇ)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "ਜੀਵਨੀ (ਔਰਤਾਂ)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "ਵਪਾਰ ਅਤੇ ਅਰਥ ਸ਼ਾਸਤਰ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "ਸਿੱਖਿਆ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "ਭੋਜਨ ਅਤੇ ਪੀਣ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "ਇਤਿਹਾਸ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "ਫੌਜੀ ਅਤੇ ਯੁੱਧ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "ਫ਼ਲਸਫ਼ਾ ਅਤੇ ਧਰਮ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "ਸਿਆਸਤ ਅਤੇ ਸਰਕਾਰ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "ਸਮਾਜ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "ਆਵਾਜਾਈ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "ਜੀਵ ਵਿਗਿਆਨ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "ਅਰਕ ਵਿਗਿਆਨ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "ਕੰਪਿਊਟਰ ਅਤੇ ਇੰਟਰਨੈੱਟ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "ਧਰਤੀ ਅਤੇ ਵਾਤਾਵਰਣ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "ਇੰਜੀਨੀਅਰਿੰਗ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "ਆਮ ਵਿਗਿਆਨ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "ਹਿਸਾਬ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "ਦਵਾਈ ਅਤੇ ਸਿਹਤ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "ਭੌਤਿਕ ਵਿਗਿਆਨ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "ਤਕਨਾਲੋਜੀ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "ਅਫ਼ਰੀਕਾ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "ਏਸ਼ੀਆ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "ਮੱਧ ਅਮਰੀਕਾ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "ਯੂਰਪ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "ਉੱਤਰੀ ਅਮਰੀਕਾ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "ਓਸ਼ੇਨੀਆ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "ਦੱਖਣੀ ਅਮਰੀਕਾ";

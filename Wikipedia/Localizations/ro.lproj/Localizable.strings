@@ -996,3 +996,121 @@
 "year-in-review-donate-now" = "Donați acum";
 "year-in-review-feature-explore-body-personalized-updated" = "Vezi informații despre articolele pe care le citești în aplicația Wikipedia și despre modificările pe care le-ai făcut în 2024. Istoricul lecturii tale rămâne protejat. Informațiile despre lectură sunt calculate folosind date stocate local pe dispozitiv.";
 "year-in-review-feature-explore-footer-v3" = "Istoricul lecturii tale rămâne protejat. Informațiile despre lectură sunt calculate folosind datele stocate local pe dispozitivul tău.";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Arhitectură";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Artă";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Benzi desenate și anime";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Divertisment";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Modă";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Literatură";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Muzică";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Artele spectacolului";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Sport";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "TV și film";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Jocuri video";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Biografie (tot)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Biografie (femei)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Afaceri și economie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Educație";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Mâncare și băutură";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Istorie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Militărie și război";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filozofie și religie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Politică și guvernare";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Societate";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Transport";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Biologie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Chimie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Computere și internet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Pământ și mediu";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Inginerie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Știință generală";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Matematică";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Medicină și sănătate";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Fizică";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Tehnologie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Africa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Asia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "America Centrală";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Europa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "America de Nord";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Oceania";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "America de Sud";
