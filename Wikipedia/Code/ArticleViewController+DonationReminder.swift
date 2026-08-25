@@ -6,13 +6,7 @@ import WMFNativeLocalizations
 extension ArticleViewController {
     func showDonationReminderCardIfNeeded() {
         Task {
-            guard let shouldShow = try? await WMFDonationReminderDataController.shared.shouldShowFollowUpReminder(),
-                  shouldShow
-            else { return }
-
-            WMFDonationReminderDataController.shared.recordFollowUpReminderShown()
-
-            guard let reminder = WMFDonationReminderDataController.shared.loadReminder(),
+            guard let reminder = try? await WMFDonationReminderDataController.shared.claimFollowUpReminderImpression(),
                   case .articlesRead(count: let articlesReadGoal) = reminder.trigger
             else { return }
 
@@ -25,6 +19,11 @@ extension ArticleViewController {
 
             messagingController.injectDonationReminderCard(cardHTML: Self.donationReminderCardHTML(configuration: configuration)) { _ in }
         }
+    }
+
+    func removeDonationReminderCardIfDisabled() {
+        guard !WMFDeveloperSettingsDataController.shared.enableDonationReminder else { return }
+        messagingController.removeDonationReminderCard()
     }
 
     func handleDonationReminderLinkIfNeeded(href: String) -> Bool {

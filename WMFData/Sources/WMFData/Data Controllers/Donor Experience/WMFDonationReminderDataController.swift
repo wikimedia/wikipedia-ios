@@ -99,7 +99,7 @@ public final class WMFDonationReminderDataController {
 
     private static let experimentGroupPercentage = 33
 
-    private let assignmentLock = NSLock()
+    private let stateLock = NSLock()
 
     private init() {}
 
@@ -134,9 +134,7 @@ public final class WMFDonationReminderDataController {
             return false
         }
 
-        if let lastReminderShownDate = reminder.lastReminderShownDate,
-           Calendar.current.isDate(lastReminderShownDate, inSameDayAs: currentDate),
-           !WMFDeveloperSettingsDataController.shared.bypassDonationReminderDailyLimit {
+        guard passesDailyLimit(reminder: reminder, currentDate: currentDate) else {
             return false
         }
 
@@ -148,19 +146,57 @@ public final class WMFDonationReminderDataController {
         return articlesRead >= articlesReadGoal
     }
 
+    public func claimFollowUpReminderImpression(currentDate: Date = Date()) async throws -> WMFDonationReminder? {
+        guard try await shouldShowFollowUpReminder(currentDate: currentDate) else {
+            return nil
+        }
+
+        return claimValidatedImpression(currentDate: currentDate)
+    }
+
+    private func claimValidatedImpression(currentDate: Date) -> WMFDonationReminder? {
+        stateLock.lock()
+        defer { stateLock.unlock() }
+
+        guard var reminder = loadReminder(),
+              reminder.isEnabled,
+              passesDailyLimit(reminder: reminder, currentDate: currentDate) else {
+            return nil
+        }
+
+        applyReminderShown(to: &reminder, currentDate: currentDate)
+        saveReminder(reminder)
+        return reminder
+    }
+
     public func recordFollowUpReminderShown(currentDate: Date = Date()) {
+        stateLock.lock()
+        defer { stateLock.unlock() }
+
         guard var reminder = loadReminder() else {
             return
         }
 
+        applyReminderShown(to: &reminder, currentDate: currentDate)
+        saveReminder(reminder)
+    }
+
+    private func passesDailyLimit(reminder: WMFDonationReminder, currentDate: Date) -> Bool {
+        guard let lastReminderShownDate = reminder.lastReminderShownDate,
+              Calendar.current.isDate(lastReminderShownDate, inSameDayAs: currentDate) else {
+            return true
+        }
+
+        return WMFDeveloperSettingsDataController.shared.bypassDonationReminderDailyLimit
+    }
+
+    private func applyReminderShown(to reminder: inout WMFDonationReminder, currentDate: Date) {
         if reminder.timesReminderShown == 1 {
             reminder.progress?.timesReminderShown = 2
             reminder.progress?.lastReminderShownDate = currentDate
         } else {
             reminder.progress = WMFDonationReminder.Progress(currentCycleStartDate: currentDate, timesReminderShown: 1, lastReminderShownDate: currentDate, goalReachedCount: reminder.goalReachedCount + 1)
         }
-
-        saveReminder(reminder)
     }
 
     public func recordFollowUpReminderNotNow(currentDate: Date = Date()) {
@@ -191,8 +227,8 @@ public final class WMFDonationReminderDataController {
             throw ExperimentError.missingExperimentStore
         }
 
-        assignmentLock.lock()
-        defer { assignmentLock.unlock() }
+        stateLock.lock()
+        defer { stateLock.unlock() }
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
         let bucketValue = try experimentsDataController.determineBucketForExperiment(.donationReminder, withPercentage: Self.experimentGroupPercentage)

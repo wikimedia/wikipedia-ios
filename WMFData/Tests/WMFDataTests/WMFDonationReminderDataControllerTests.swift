@@ -224,6 +224,58 @@ final class WMFDonationReminderDataControllerTests {
     }
 
     @Test
+    func claimRecordsTheImpressionAndReturnsTheUpdatedReminder() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironmentWithCoreData) {
+            let createdDate = Date(timeIntervalSince1970: 1_755_600_000)
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 1), amount: 3, currencyCode: "EUR", createdDate: createdDate, isEnabled: true))
+            WMFDeveloperSettingsDataController.shared.enableDonationReminder = true
+
+            try await addQualifyingPageView(title: "First", timestamp: createdDate.addingTimeInterval(100))
+
+            let claimedDate = createdDate.addingTimeInterval(1_000)
+            let claimedReminder = try #require(try await controller.claimFollowUpReminderImpression(currentDate: claimedDate))
+            #expect(claimedReminder.timesReminderShown == 1)
+            #expect(claimedReminder.goalReachedCount == 1)
+            #expect(claimedReminder.currentCycleStartDate == claimedDate)
+            #expect(controller.loadReminder() == claimedReminder)
+        }
+    }
+
+    @Test
+    func claimReturnsNilWhenAnImpressionWasAlreadyClaimedTheSameDay() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironmentWithCoreData) {
+            let createdDate = Date(timeIntervalSince1970: 1_755_600_000)
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 1), amount: 3, currencyCode: "EUR", createdDate: createdDate, isEnabled: true))
+            WMFDeveloperSettingsDataController.shared.enableDonationReminder = true
+
+            try await addQualifyingPageView(title: "First", timestamp: createdDate.addingTimeInterval(100))
+
+            let claimedDate = createdDate.addingTimeInterval(1_000)
+            let firstClaim = try await controller.claimFollowUpReminderImpression(currentDate: claimedDate)
+            #expect(firstClaim != nil)
+
+            let secondClaim = try await controller.claimFollowUpReminderImpression(currentDate: claimedDate.addingTimeInterval(100))
+            #expect(secondClaim == nil)
+            #expect(controller.loadReminder()?.timesReminderShown == 1)
+        }
+    }
+
+    @Test
+    func claimReturnsNilWhenTheFeatureFlagIsDisabled() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironmentWithCoreData) {
+            let createdDate = Date(timeIntervalSince1970: 1_755_600_000)
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 1), amount: 3, currencyCode: "EUR", createdDate: createdDate, isEnabled: true))
+            WMFDeveloperSettingsDataController.shared.enableDonationReminder = false
+
+            try await addQualifyingPageView(title: "First", timestamp: createdDate.addingTimeInterval(100))
+
+            let claim = try await controller.claimFollowUpReminderImpression(currentDate: createdDate.addingTimeInterval(1_000))
+            #expect(claim == nil)
+            #expect(controller.loadReminder()?.timesReminderShown == 0)
+        }
+    }
+
+    @Test
     func reminderPayloadWithoutProgressDecodesWithCreatedDateAsCycleStart() throws {
         let createdDate = Date(timeIntervalSince1970: 1_755_600_000)
         let reminderBeforeProgressExisted = WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 3, currencyCode: "EUR", createdDate: createdDate, isEnabled: true)
