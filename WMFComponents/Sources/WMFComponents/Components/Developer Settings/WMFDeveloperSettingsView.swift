@@ -37,6 +37,7 @@ struct WMFDeveloperSettingsView: View {
 
             Section {
                 Toggle("Force Fundraising Campaign Banner", isOn: $viewModel.forceFundraisingCampaignBanner)
+                Toggle("Use Test Wiki Donate Configs", isOn: $viewModel.useTestWikiDonateConfigs)
                 Button {
                     viewModel.clearFundraisingCampaignPersistence()
                 } label: {
@@ -45,7 +46,7 @@ struct WMFDeveloperSettingsView: View {
             } header: {
                 Text("Fundraising")
             } footer: {
-                Text("Force ignores country and language settings. Only works if there is an active campaign. Clear resets \"maybe later\" / \"already donated\" and the local donation history so the banner can show again without the force toggle.")
+                Text("Force ignores country and language settings. Only works if there is an active campaign. Clear resets \"maybe later\" / \"already donated\" and the local donation history so the banner can show again without the force toggle. Use Test Wiki fetches the donate and campaign configs from test.wikipedia.org instead of donate.wikimedia.org; background and foreground the app to refetch after toggling.")
             }
 
             ForEach(viewModel.formViewModel.sections) { section in

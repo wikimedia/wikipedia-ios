@@ -43,6 +43,25 @@ final class WMFDeveloperSettingsDataControllerTests {
         }
     }
 
+    @Test
+    func useTestWikiDonateConfigsSwitchesTheDonateConfigsEnvironment() async {
+        await fixture.withConfiguredEnvironment(configure: configureUserDefaultsEnvironment) {
+            let controller = WMFDeveloperSettingsDataController.shared
+
+            #expect(controller.donateConfigsServiceEnvironment == WMFDataEnvironment.current.serviceEnvironment)
+
+            controller.useTestWikiDonateConfigs = true
+
+            #expect(controller.donateConfigsServiceEnvironment == .staging)
+            #expect(URL.donateConfigURL(environment: controller.donateConfigsServiceEnvironment)?.host == "test.wikipedia.org")
+            #expect(URL.fundraisingCampaignConfigURL(environment: controller.donateConfigsServiceEnvironment)?.host == "test.wikipedia.org")
+        }
+    }
+
+    private func configureUserDefaultsEnvironment() async {
+        WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
+    }
+
     private func configureEnvironment() async {
         WMFDataEnvironment.current.basicService = WMFFeatureConfigRequestMockService()
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()

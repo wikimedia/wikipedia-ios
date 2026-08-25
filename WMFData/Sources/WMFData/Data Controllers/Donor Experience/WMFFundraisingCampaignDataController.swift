@@ -143,7 +143,8 @@ import Foundation
             return
         }
         
-        guard let url = URL.fundraisingCampaignConfigURL() else {
+        guard let url = URL.fundraisingCampaignConfigURL(environment: WMFDeveloperSettingsDataController.shared.donateConfigsServiceEnvironment)
+        else {
             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }

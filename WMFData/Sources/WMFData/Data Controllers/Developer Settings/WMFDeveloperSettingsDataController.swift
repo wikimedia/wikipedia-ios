@@ -121,6 +121,17 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceFundraisingCampaignBanner.rawValue, value: newValue) }
     }
 
+    /// Debugging convenience: fetches the donate and fundraising campaign configs from Test Wiki
+    /// instead of Donate wiki, so unpublished campaigns can be tested without the Staging scheme.
+    public var useTestWikiDonateConfigs: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsUseTestWikiDonateConfigs.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsUseTestWikiDonateConfigs.rawValue, value: newValue) }
+    }
+
+    public var donateConfigsServiceEnvironment: WMFServiceEnvironment {
+        useTestWikiDonateConfigs ? .staging : WMFDataEnvironment.current.serviceEnvironment
+    }
+
     public var forceHCaptchaChallenge: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue, value: newValue) }

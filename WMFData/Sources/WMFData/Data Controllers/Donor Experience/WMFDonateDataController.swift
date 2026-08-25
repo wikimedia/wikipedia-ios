@@ -88,7 +88,8 @@ import Contacts
         let group = DispatchGroup()
         
         guard let paymentMethodsURL = URL.paymentMethodsAPIURL(),
-              let donateConfigURL = URL.donateConfigURL() else {
+              let donateConfigURL = URL.donateConfigURL(environment: WMFDeveloperSettingsDataController.shared.donateConfigsServiceEnvironment)
+        else {
             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
