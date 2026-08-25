@@ -136,6 +136,9 @@ public enum WMFSFSymbolIcon {
     case textPage
     case leave
     case gear
+    case booksVerticalFill
+    case creditCard
+    case flask
     case gearShape
     case calendar
     case calendarExclamation
@@ -363,6 +366,12 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "rectangle.portrait.and.arrow.right", withConfiguration: configuration)
         case .gear:
             image = UIImage(systemName: "gear", withConfiguration: configuration)
+        case .booksVerticalFill:
+            image = UIImage(systemName: "books.vertical.fill", withConfiguration: configuration)
+        case .creditCard:
+            image = UIImage(systemName: "creditcard", withConfiguration: configuration)
+        case .flask:
+            image = UIImage(systemName: "flask", withConfiguration: configuration)
         case .gearShape:
             image = UIImage(systemName: "gearshape", withConfiguration: configuration)
         case .heartFilled:

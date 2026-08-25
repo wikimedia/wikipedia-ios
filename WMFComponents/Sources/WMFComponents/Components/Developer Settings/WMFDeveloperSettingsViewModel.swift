@@ -22,6 +22,7 @@ import WMFData
     }
 }
 
+@MainActor
 @objc public class WMFDeveloperSettingsViewModel: NSObject, ObservableObject {
 
     let localizedStrings: WMFDeveloperSettingsLocalizedStrings
@@ -56,6 +57,12 @@ import WMFData
     @Published public var useTestWikiDonateConfigs: Bool = WMFDeveloperSettingsDataController.shared.useTestWikiDonateConfigs {
         didSet {
             WMFDeveloperSettingsDataController.shared.useTestWikiDonateConfigs = useTestWikiDonateConfigs
+        }
+    }
+
+    @Published public var enableDonationReminder: Bool = WMFDeveloperSettingsDataController.shared.enableDonationReminder {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.enableDonationReminder = enableDonationReminder
         }
     }
 

@@ -36,6 +36,7 @@ struct WMFDeveloperSettingsView: View {
             }
 
             Section {
+                Toggle("Enable Donation Reminder", isOn: $viewModel.enableDonationReminder)
                 Toggle("Force Fundraising Campaign Banner", isOn: $viewModel.forceFundraisingCampaignBanner)
                 Toggle("Use Test Wiki Donate Configs", isOn: $viewModel.useTestWikiDonateConfigs)
                 Button {

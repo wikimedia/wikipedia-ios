@@ -1794,3 +1794,121 @@
 "year-in-review-wmf-logo-accessibility-label" = "위키미디어 재단 로고";
 "yesterday-title" = "어제";
 "zero-edits-to-articles" = "최근 문서 편집 수 0회";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "건축";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "미술";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "문화와 애니메이션";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "엔터테인먼트";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "패션";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "문학";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "음악";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "행위예술";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "스포츠";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "TV와 영화";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "비디오 게임";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "전기문 (전부)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "전기문 (여성)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "상업과 경제";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "교육";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "음식 및 음료";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "역사";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "군사와 전쟁";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "철학과 종교";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "정치와 정부";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "사회";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "교통";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "생물학";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "화학";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "컴퓨터와 인터넷";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "지구와 환경";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "공학";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "일반 과학";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "수학";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "의료와 보건";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "물리학";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "기술";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "아프리카";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "아시아";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "중앙아메리카";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "유럽";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "북아메리카";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "오세아니아";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "남아메리카";

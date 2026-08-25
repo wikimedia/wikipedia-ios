@@ -91,3 +91,121 @@
 "table-of-contents-heading" = "Përmbajtja";
 "wikitext-preview-changes" = "Duke marrë një parapamje të ndryshimeve tuaja...";
 "wikitext-upload-save" = "Duke publikuar...";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Arkitekturë";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Art";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Comics and anime";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Argëtim";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Modë";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Letërsi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Muzikë";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Arte interpretuese";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Sport";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "TV dhe film";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Video lojëra";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Biografi (të gjitha)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Biografi (gra)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Biznes dhe ekonomi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Edukim";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Ushqim dhe pije";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Histori";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Ushtri dhe luftë";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filozofi dhe fe";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Politikë dhe qeveri";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Shoqëri";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Transport";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Biologji";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Kimi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Kompjutera dhe internet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Toka dhe mjedisi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Inxhinieri";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Shkencë e përgjithshme";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Matematikë";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Mjekësi dhe shëndet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Fizikë";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Teknologji";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Afrikë";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Azi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Amerikë Qendrore";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Evropë";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Amerikë e Veriut";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Oqeani";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Amerikë e Jugut";

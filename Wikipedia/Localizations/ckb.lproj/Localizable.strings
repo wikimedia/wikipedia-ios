@@ -552,3 +552,121 @@
 "wikitext-upload-save" = "بڵاوکردنەوە...";
 "wikitext-upload-save-anonymously-warning" = "دەستکارییەکان دەدرێنە پاڵ ناونیشانی ئای پییەکەی مۆبایلەکەت. ئەگەر $1 ئای پییەکەت دەشاردرێتەوە.";
 "wikitext-upload-save-terms-name" = "مەرجەکانی بەکارھێنان";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "نژیاروانی";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "ھونەر";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "کۆمیک و ئەنیمێ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "سەرگەرمی";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "مۆدە و جلوبەرگ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "وێژە";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "مۆسیقا";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "ھونەرە بەرجەستەکراوەکان";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "وەرزش";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "فیلم و تەلەڤیزیۆن";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "کایە ڤیدیۆیییەکان";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "ژیاننامە (ھەموو)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "ژیاننامە (ژنان)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "بازرگانی و ئابوورناسی";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "پەروەردە";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "خواردن و خواردنەوە";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "مێژوو";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "شەڕ و سەربازی";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "فەلسەفە و ئایین";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "سیاسەت و حکوومەت";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "کۆمەڵگە";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "گواستنەوە";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "ژینناسی";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "کیمیا";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "کۆمپیوتەر و ئینتەرنێت";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "زەوی و ژینگە";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "ئەندازیاری";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "زانستی گشتی";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "ماتماتیک";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "پزیشکی و تەندروستی";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "فیزیک";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "تەکنۆلۆژیا";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "ئەفریقا";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "ئاسیا";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "ئەمریکای ناوەندی";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "ئەورووپا";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "ئەمریکای باکوور";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "ئۆقیانووس";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "ئەمریکای باشوور";

@@ -161,6 +161,12 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         WMFDonateDataController.shared.deleteLocalDonationHistory()
     }
 
+    /// Feature flag for the Donation Reminder experiment
+    public var enableDonationReminder: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableDonationReminder.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableDonationReminder.rawValue, value: newValue) }
+    }
+
     public var enableVisualEditingJourney: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue, value: newValue) }

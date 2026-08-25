@@ -1081,3 +1081,121 @@
 "year-in-review-donate-now" = "Quyên góp ngay";
 "year-in-review-personalized-edit-views-subtitle-format-updated" = "Độc giả trên khắp thế giới trân trọng những đóng góp của bạn. Trong 2 tháng qua, các bài viết mà bạn đã chỉnh sửa đã nhận được {{PLURAL:$1|$1 lượt xem}}. Nhờ có những biên tập viên như bạn, Wikipedia đang không ngừng cải thiện và trở thành nguồn tri thức dựa trên thực tế đáng tin cậy cho toàn thế giới.";
 "yesterday-title" = "Hôm qua";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Kiến trúc";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Nghệ thuật";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Truyện tranh và phim hoạt hình";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Giải trí";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Thời trang";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Văn học";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Âm nhạc";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Nghệ thuật biểu diễn";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Thể thao";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "TV và phim";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Trò chơi điện tử";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Tiểu sử (tất cả)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Tiểu sử (phụ nữ)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Kinh doanh và kinh tế";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Giáo dục";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Đồ ăn uống";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Lịch sử";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Quân sự và chiến tranh";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Triết học và tôn giáo";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Chính trị và chính phủ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Xã hội";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Vận tải";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Sinh học";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Hóa học";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Máy tính và internet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Trái Đất và môi trường";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Kỹ thuật";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Khoa học chung";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Toán học";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Y học và sức khỏe";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Vật lý";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Công nghệ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Châu Phi";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Châu Á";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Trung Mỹ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Châu Âu";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Bắc Mỹ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Châu Đại Dương";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Nam Mỹ";

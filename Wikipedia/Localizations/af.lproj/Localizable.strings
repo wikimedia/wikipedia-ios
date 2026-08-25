@@ -241,3 +241,121 @@
 "wikitext-upload-save" = "Publiseer…";
 "wikitext-upload-save-anonymously-warning" = "Wysigings sal toegeskryf word aan die IP-adres van u toestel. Indien u $1 sal u meer privaatheid geniet.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaardes";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Argitektuur";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Kuns";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Strokiesprente en anime";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Vermaak";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Mode";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Letterkunde";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Musiek";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Uitvoerende kunste";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Sport";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "Televisie en film";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Videospeletjies";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Biografie (ál)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Biografie (vroue)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Besigheid en ekonomie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Onderwys";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Kos en drank";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Geskiedenis";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Militêre en oorlogvoering";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofie en religie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Politiek en regering";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Samelewing";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Vervoer";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Biologie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Chemie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Rekenaars en internet";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Die aarde en die omgewing";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Ingenieurswese";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Algemene wetenskap";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Wiskunde";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Geneeskunde en gesondheid";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Fisika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Tegnologie";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Afrika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Asië";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Sentraal-Amerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Europa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Noord-Amerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Oseanië";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Suid-Amerika";
