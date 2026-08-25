@@ -968,3 +968,121 @@
 "wikitext-upload-save-anonymously-or-login" = "Keitimai bus priskirti jūsų įrenginio IP adresui. Jeigu $1prisijungsite$2, turėsite daugiau privatumo.";
 "wikitext-upload-save-anonymously-warning" = "Keitimai bus priskirti jūsų įrenginio IP adresui. Jeigu $1, turėsite daugiau privatumo.";
 "wikitext-upload-save-terms-name" = "Naudojimo sąlygos";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "Architektūra";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "Menas";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Komiksai ir anime";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "Pramogos";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "Mada";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "Literatūra";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "Muzika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Scenos menai";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "Sportas";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "Televizija ir filmai";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "Kompiuteriniai žaidimai";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "Biografija (visi)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "Biografija (moterys)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "Verslas ir ekonomika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "Švietimas";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "Maistas ir gėrimai";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "Istorija";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "Kariuomenė ir karas";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofija ir religija";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "Politika ir valdžia";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "Visuomenė";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "Transportas";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "Biologija";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "Chemija";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "Kompiuteriai ir internetas";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "Žemė ir aplinka";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Inžinerija";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "Bendrasis mokslas";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "Matematika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "Medicina ir sveikata";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "Fizika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "Technologijos";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "Afrika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "Azija";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "Centrinė Amerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "Europa";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "Šiaurės Amerika";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "Okeanija";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "Pietų Amerika";

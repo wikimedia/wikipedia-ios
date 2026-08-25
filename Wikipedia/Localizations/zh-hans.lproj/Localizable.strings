@@ -1655,3 +1655,121 @@
 "year-in-review-wmf-logo-accessibility-label" = "维基媒体基金会标志";
 "yesterday-title" = "昨日";
 "zero-edits-to-articles" = "最近对条目进行了 0 次编辑";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "建筑";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "艺术";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "漫画和动漫";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "娱乐";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "时尚";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "文学";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "音乐";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "表演艺术";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "体育";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "影视";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "电子游戏";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "传记（全部）";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "传记（女性）";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "商业与经济";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "教育";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "饮食";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "历史";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "军事与战争";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "哲学与宗教";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "政治与政府";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "社会";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "交通运输";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "生物";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "化学";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "计算机与互联网";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "地球与环境";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "工程";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "科学通论";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "数学";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "医药与健康";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "物理";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "技术";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "非洲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "亚洲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "中美洲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "欧洲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "北美洲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "大洋洲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "南美洲";

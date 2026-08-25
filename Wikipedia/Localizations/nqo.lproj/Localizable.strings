@@ -611,3 +611,121 @@
 "search-recent-empty" = "ߒ߬ߒ߫߸ ߞߐ߯ߟߊ߫ ߢߌߣߌ߲ߠߌ߲ ߘߐߙߐ߲߫ ߡߎߣߎ߲߬";
 "search-recent-title" = "ߢߌߣߌ߲ߣߌ߲߫ ߠߊߓߊ߲";
 "talk-pages-view-title" = "ߞߎߡߊߢߐ߲߯ߦߊ";
+
+
+/* Article topic label */
+"wikimedia-articletopics-topic-architecture" = "ߟߐ߬ߟߌ߬ߦߊ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-art" = "ߞߎ߬ߛߊ߲߬ߧߊ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-comics-and-anime" = "Comics and anime";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-entertainment" = "ߛߎ߮ߓߍ߬-ߛߎ߮ߓߍ߬";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-fashion" = "ߡߊ߬ߗߋ߲߰ߧߊ߬ߟߌ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-literature" = "ߡߟߋߞߎߦߊ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-music" = "ߘߐ߲߬ߞߟߌ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-performing-arts" = "Performing arts";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-sports" = "ߝߊ߬ߘߌ߬ߡߊ߬ߞߟߏ ߟߎ߫";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-tv-and-film" = "ߖߌ߬ߦߊ߬ߞߊ߲ ߣߌ߫ ߖߌ߬ߦߊ߬ߝߟߍ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-video-games" = "ߖߌ߬ߦߊ߬ߖߟߎ߫ ߕߏߟߏ߲ ߠߎ߬";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biography" = "ߞߊ߲߬ߛߓߍߟߌ (ߓߍ߯)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-women" = "ߞߊ߲߬ߛߓߍߟߌ (ߡߏ߬ߛߏ)";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-business-and-economics" = "ߖߎ߬ߟߊ߬ߦߊ ߣߌ߫ ߡߊ߬ߞߐ߬ߙߐ߲߬ߞߐ߬ߙߐ߲߬ߠߌ߲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-education" = "ߟߊ߬ߞߟߏ߬ߞߟߏ߬ߟߌ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-food-and-drink" = "ߛߎ߬ߡߊ߲ ߣߌ߫ ߡߌ߲߬ߝߋ߲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-history" = "ߘߐ߬ߝߐ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-military-and-warfare" = "ߣߊ߲߬ߕߌ߮ ߣߌ߫ ߞߍ߬ߟߍ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-philosophy-and-religion" = "ߥߘߋ߬ߥߘߋ߬ߟߌ ߣߌ߫ ߘߌ߯ߣߊ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-politics-and-government" = "ߓߘߍ߬ߓߘߍ߬ߟߌ ߣߌ߫ ߞߎ߲߬ߠߊ߬ߛߌ߮";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-society" = "ߞߏߟߊߘߍ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-transportation" = "ߡߊ߬ߘߏ߬ߣߌ߲߬ߠߌ߲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-biology" = "ߣߌߡߊߞߊߙߊ߲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-chemistry" = "ߖߎ߲ߛߊ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-computers-and-internet" = "ߕߟߋ߬ߓߊ߮ ߣߌ߫ ߓߟߐߟߐ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-earth-and-environment" = "ߘߎ߱ ߣߌ߫ ߓߐ߰ߝߍ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-engineering" = "Engineering";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-general-science" = "General science";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-mathematics" = "ߘߡߊ߬ߟߐ߲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-medicine-and-health" = "ߘߊ߲ߘߊߟߌ ߣߌ߫ ߞߍ߲ߘߍߦߊ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-physics" = "ߘߐ߬ߞߏ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-technology" = "ߛߋߒߞߏߟߊߘߐߦߊ";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-africa" = "ߊߝߙߌߞߌ߬";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-asia" = "ߊߖ߭ߌ߫";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-central-america" = "ߊߡߍߙߌߞߌ߬ ߕߊ߲ߓߊ߲";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-europe" = "ߋߙߐߔߎ߬";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-north-america" = "ߊߡߍߙߌߞߌ߬ ߞߐ߬ߘߎ߮";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-oceania" = "ߏߛߌߦߊߣߌ߫";
+
+/* Article topic label */
+"wikimedia-articletopics-topic-south-america" = "ߊߡߍߙߌߞߌ߬ ߥߙߏ߬ߘߎ߮";
