@@ -35,6 +35,19 @@ struct WMFDeveloperSettingsView: View {
                 }
             }
 
+            Section {
+                Toggle("Force Fundraising Campaign Banner", isOn: $viewModel.forceFundraisingCampaignBanner)
+                Button {
+                    viewModel.clearFundraisingCampaignPersistence()
+                } label: {
+                    Text("Clear banner prompt state and donation history")
+                }
+            } header: {
+                Text("Fundraising")
+            } footer: {
+                Text("Force ignores country and language settings. Only works if there is an active campaign. Clear resets \"maybe later\" / \"already donated\" and the local donation history so the banner can show again without the force toggle.")
+            }
+
             ForEach(viewModel.formViewModel.sections) { section in
                 if let selectSection = section as? WMFFormSectionSelectViewModel {
                     WMFFormSectionSelectView(viewModel: selectSection)
