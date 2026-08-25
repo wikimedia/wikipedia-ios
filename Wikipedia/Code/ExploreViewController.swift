@@ -2076,7 +2076,11 @@ private final class EmbeddedCommunityEmptyFeedView: UIView, Themeable {
         NSLayoutConstraint.activate([
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             stackView.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor)
+            stackView.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
+            // A vertically-stacked `.center` alignment leaves the multiline labels without a
+            // definite width, so they collapse to one character per line. Match the stack width.
+            titleLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor),
+            messageLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor)
         ])
     }
 

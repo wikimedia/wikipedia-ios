@@ -790,6 +790,9 @@
 "home-feed-whats-driving-settings-title" = "Navigation bar title for the What's driving your feed settings screen.";
 "home-feed-whats-driving-your-interests-subtitle" = "Subtitle for the Your interests row.";
 "home-feed-whats-driving-your-interests-title" = "Title for the Your interests row on the What's driving your feed screen.";
+"home-for-you-card-position-accessibility-value" = "Accessibility value spoken for a For You card, giving its place in the module. $1 is replaced with the card's position and $2 with the number of cards in the module, e.g. \"2 of 4\".";
+"home-for-you-next-module-accessibility-action" = "Accessibility action on a For You card that moves to the next module in the feed. It is the VoiceOver equivalent of swiping up.";
+"home-for-you-previous-module-accessibility-action" = "Accessibility action on a For You card that moves to the previous module in the feed. It is the VoiceOver equivalent of swiping down.";
 "home-for-you-tab-title" = "Title for the For You segment within the Home tab.";
 "home-menu-hide-module" = "Menu action to hide the whole Home feed module that contains this card.";
 "home-more-like-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
