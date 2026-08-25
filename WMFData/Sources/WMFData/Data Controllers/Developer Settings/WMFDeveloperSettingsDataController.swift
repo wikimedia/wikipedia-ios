@@ -143,7 +143,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     }
 
     /// Resets everything that can suppress the fundraising campaign banner: the "maybe later" /
-    /// permanently hidden prompt state, the local donation history,, the saved donation reminder, and the persisted donation
+    /// permanently hidden prompt state, the local donation history, the saved donation reminder, and the persisted donation
     /// reminder experiment bucket.
     public func clearFundraisingCampaignPersistence() {
         WMFFundraisingCampaignDataController.shared.clearPromptState()

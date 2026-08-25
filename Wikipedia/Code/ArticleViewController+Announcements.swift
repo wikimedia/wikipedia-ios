@@ -151,7 +151,8 @@ extension ArticleViewController {
 
     #if DEBUG
     private func showDebugExperimentAssignmentToast(_ experimentAssignment: WMFDonationReminderDataController.ExperimentAssignment) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        Task { @MainActor in
+            try? await Task.sleep(for: .seconds(1.5))
             WMFToastManager.sharedInstance.showRichToast("[Debug] Experiment group: \(experimentAssignment.rawValue)", dismissPreviousToasts: false)
         }
     }

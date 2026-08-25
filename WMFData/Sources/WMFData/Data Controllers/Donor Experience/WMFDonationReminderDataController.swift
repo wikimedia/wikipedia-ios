@@ -42,6 +42,8 @@ public final class WMFDonationReminderDataController {
 
     private static let experimentGroupPercentage = 33
 
+    private let assignmentLock = NSLock()
+
     private init() {}
 
     public func saveReminder(_ reminder: WMFDonationReminder) {
@@ -72,6 +74,9 @@ public final class WMFDonationReminderDataController {
         guard let experimentStore else {
             throw ExperimentError.missingExperimentStore
         }
+
+        assignmentLock.lock()
+        defer { assignmentLock.unlock() }
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
         let bucketValue = try experimentsDataController.determineBucketForExperiment(.donationReminder, withPercentage: Self.experimentGroupPercentage)

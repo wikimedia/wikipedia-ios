@@ -87,7 +87,7 @@ final class WMFExperimentsDataController {
     // this will only generate a new bucket as needed (i.e. if the percentage is different than the last time bucket was generated)
     // forceValue: optional forcing of bucket assignment (i.e. developer settings menu assignments)
     @discardableResult
-    func determineBucketForExperiment(_ experiment: Experiment, withPercentage percentage: Int, forceValue: BucketValue? = nil) throws -> BucketValue {
+    func determineBucketForExperiment(_ experiment: Experiment, withPercentage percentage: Int, forceValue: BucketValue? = nil, randomIntProvider: () -> Int = { Int.random(in: 1...100) }) throws -> BucketValue {
         
         guard percentage >= 0 && percentage <= 100 else {
             throw ExperimentError.invalidPercentage
@@ -104,7 +104,7 @@ final class WMFExperimentsDataController {
         }
         
         // otherwise generate new bucket
-        let randomInt = Int.random(in: 1...100)
+        let randomInt = randomIntProvider()
         let bucket: BucketValue
         
         if let forceValue = forceValue {
