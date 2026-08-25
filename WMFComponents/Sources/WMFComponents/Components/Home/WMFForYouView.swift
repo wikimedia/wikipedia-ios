@@ -240,32 +240,11 @@ public struct WMFForYouView: View {
     // MARK: - Empty State
 
     private var emptyState: some View {
-        // The shared empty state component, given the For You palette so it stays dark while the
-        // app is on a light theme, and a nil image size so the SF Symbol keeps its own size.
-        let emptyViewModel = WMFEmptyViewModel(
-            localizedStrings: WMFEmptyViewModel.LocalizedStrings(
-                title: viewModel.emptyTitle,
-                subtitle: viewModel.emptySubtitle,
-                titleFilter: nil,
-                buttonTitle: viewModel.emptyButtonTitle,
-                attributedFilterString: nil
-            ),
-            image: WMFSFSymbolIcon.for(symbol: .sparkles, font: .xxlTitleBold),
-            imageColor: WMFTheme.forYou.secondaryText,
-            numberOfFilters: nil,
-            imageSize: nil
-        )
-
-        return WMFEmptyView(
-            viewModel: emptyViewModel,
-            type: .noItems,
-            isScrollable: false,
+        WMFHomeEmptyStateView(
+            subtitle: viewModel.emptySubtitle,
             theme: .forYou,
-            mainAction: { viewModel.onCustomizeInterests?(.emptyFeed) },
-            usesCompactButton: true
+            action: { viewModel.onCustomizeInterests?(.emptyFeed) }
         )
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(uiColor: WMFTheme.forYou.paperBackground))
     }
 }
 

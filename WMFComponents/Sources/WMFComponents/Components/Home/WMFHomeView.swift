@@ -225,7 +225,11 @@ public struct WMFHomeView: View {
     @ViewBuilder
     private var communityTabContent: some View {
         if let makeEmbeddedViewController = viewModel.makeEmbeddedCommunityViewController {
-            WMFHomeEmbeddedCommunityView(makeViewController: makeEmbeddedViewController)
+            if viewModel.isEmbeddedCommunityFeedEmpty {
+                embeddedCommunityEmptyView
+            } else {
+                WMFHomeEmbeddedCommunityView(makeViewController: makeEmbeddedViewController)
+            }
         } else if !viewModel.communityPages.isEmpty {
             WMFCommunityFeedView(
                 pages: viewModel.communityPages,
@@ -249,6 +253,18 @@ public struct WMFHomeView: View {
                 .foregroundStyle(Color(uiColor: theme.secondaryText))
             Spacer()
         }
+    }
+
+    /// Replaces the embedded feed when all the Community cards are hidden.
+    ///
+    /// The embedded view controller does not show this. Auto Layout content in its root view gives the
+    /// root a fitting size, and SwiftUI then makes the embedded feed as small as that size.
+    private var embeddedCommunityEmptyView: some View {
+        WMFHomeEmptyStateView(
+            subtitle: viewModel.communityEmptyFeedSubtitle,
+            theme: theme,
+            action: { viewModel.didTapCustomizeCommunityFeed?() }
+        )
     }
 }
 
