@@ -46,6 +46,7 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsForceFundraisingCampaignBanner = "dev-settings-force-fundraising-campaign-banner"
     case developerSettingsUseTestWikiDonateConfigs = "dev-settings-use-test-wiki-donate-configs"
     case developerSettingsEnableDonationReminder = "dev-settings-enable-donation-reminder"
+    case developerSettingsForceDonationReminderExperimentAssignment = "dev-settings-force-donation-reminder-experiment-assignment"
     case donationReminder = "donation-reminder"
 
     case allowGestureZoomArticleWebview = "allow-gesture-zoom-article-webview"
