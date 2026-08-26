@@ -359,7 +359,7 @@ import WMFTestKitchen
 
         warmedTopicWaiters[key] = []
         do {
-            let articles = try await fetchArticles(for: topic, project: project)
+            let articles = try await fetchArticlesFromNetwork(for: topic, project: project)
             warmedTopicArticles[key] = WarmedTopicArticles(date: Date(), articles: articles)
             resumeWarmedTopicWaiters(key: key, with: .success(articles))
             return articles
@@ -596,8 +596,12 @@ import WMFTestKitchen
         return try await WMFRandomDataController.shared.fetchRandomArticles(project: project)
     }
 
-    /// Fetches articles matching a specific interest topic.
+    /// Fetches articles matching a specific interest topic, reading from the warm cache when available.
     public func fetchArticles(for topic: WMFArticleTopic, project: WMFProject) async throws -> [WMFRandomArticle] {
+        return try await warmedOrFetchedTopicArticles(for: topic, project: project)
+    }
+
+    private func fetchArticlesFromNetwork(for topic: WMFArticleTopic, project: WMFProject) async throws -> [WMFRandomArticle] {
         let topicID = topic.rawValue
         guard let service = basicService else {
             throw WMFDataControllerError.basicServiceUnavailable
