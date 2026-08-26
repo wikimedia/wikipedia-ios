@@ -749,6 +749,9 @@
 "home-feed-whats-driving-settings-title" = "What's driving your feed";
 "home-feed-whats-driving-your-interests-subtitle" = "Edit your topics of interest";
 "home-feed-whats-driving-your-interests-title" = "Your interests";
+"home-for-you-card-position-accessibility-value" = "$1 of $2";
+"home-for-you-next-module-accessibility-action" = "Next module";
+"home-for-you-previous-module-accessibility-action" = "Previous module";
 "home-for-you-tab-title" = "For You";
 "home-menu-hide-module" = "Hide module";
 "home-more-like-footer" = "More like $1";
