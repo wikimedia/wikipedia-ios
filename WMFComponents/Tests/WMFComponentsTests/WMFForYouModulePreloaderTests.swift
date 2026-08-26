@@ -3,11 +3,11 @@ import Foundation
 @testable import WMFComponents
 @testable import WMFData
 
-/// The prefetcher has one promise: the module that the reader opens next is already fetched, with
-/// the same cache keys that the card view models use. The prefetcher does not fetch more of the feed.
+/// The preloader has one promise: the module that the reader opens next is already fetched, with
+/// the same cache keys that the card view models use. The preloader does not fetch more of the feed.
 @MainActor
 @Suite
-struct WMFForYouFeedPrefetcherTests {
+struct WMFForYouModulePreloaderTests {
 
     private let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
 
@@ -17,31 +17,31 @@ struct WMFForYouFeedPrefetcherTests {
         return WMFForYouPageViewModel(module: .basedOnInterests, headerLabel: header, articles: articles)
     }
 
-    private func makePrefetcher() -> (WMFForYouFeedPrefetcher, MockArticleSummaryDataController) {
+    private func makePreloader() -> (WMFForYouModulePreloader, MockArticleSummaryDataController) {
         let summaryController = MockArticleSummaryDataController()
-        let prefetcher = WMFForYouFeedPrefetcher(summaryDataController: summaryController, prefetchesImages: false)
-        return (prefetcher, summaryController)
+        let preloader = WMFForYouModulePreloader(summaryDataController: summaryController, preloadsImages: false)
+        return (preloader, summaryController)
     }
 
     // MARK: - Initial modules
 
     @Test
-    func initialPrefetchCoversExactlyTheFirstTwoModules() async {
-        let (prefetcher, summaryController) = makePrefetcher()
+    func initialPreloadCoversExactlyTheFirstTwoModules() async {
+        let (preloader, summaryController) = makePreloader()
         let pages = [page("Biology", ["A1", "A2"]), page("History", ["B1"]), page("Music", ["C1"])]
 
-        prefetcher.prefetchInitialModules(in: pages)
-        await prefetcher.waitForAllPrefetchTasks()
+        preloader.preloadInitialModules(in: pages)
+        await preloader.waitForAllPreloadTasks()
 
         #expect(await summaryController.requestedTitles.sorted() == ["A1", "A2", "B1"])
     }
 
     @Test
-    func aFeedWithOneModulePrefetchesJustThatModule() async {
-        let (prefetcher, summaryController) = makePrefetcher()
+    func aFeedWithOneModulePreloadsJustThatModule() async {
+        let (preloader, summaryController) = makePreloader()
 
-        prefetcher.prefetchInitialModules(in: [page("Biology", ["A1"])])
-        await prefetcher.waitForAllPrefetchTasks()
+        preloader.preloadInitialModules(in: [page("Biology", ["A1"])])
+        await preloader.waitForAllPreloadTasks()
 
         #expect(await summaryController.requestedTitles == ["A1"])
     }
@@ -49,34 +49,34 @@ struct WMFForYouFeedPrefetcherTests {
     // MARK: - The next module
 
     @Test
-    func settlingOnAModulePrefetchesTheOneAfterIt() async {
-        let (prefetcher, summaryController) = makePrefetcher()
+    func settlingOnAModulePreloadsTheOneAfterIt() async {
+        let (preloader, summaryController) = makePreloader()
         let pages = [page("Biology", ["A1"]), page("History", ["B1"]), page("Music", ["C1"])]
 
-        prefetcher.prefetchModule(after: pages[1].id, in: pages)
-        await prefetcher.waitForAllPrefetchTasks()
+        preloader.preloadModule(after: pages[1].id, in: pages)
+        await preloader.waitForAllPreloadTasks()
 
         #expect(await summaryController.requestedTitles == ["C1"])
     }
 
     @Test
-    func theLastModuleHasNothingAfterItToPrefetch() async {
-        let (prefetcher, summaryController) = makePrefetcher()
+    func theLastModuleHasNothingAfterItToPreload() async {
+        let (preloader, summaryController) = makePreloader()
         let pages = [page("Biology", ["A1"]), page("History", ["B1"])]
 
-        prefetcher.prefetchModule(after: pages[1].id, in: pages)
-        await prefetcher.waitForAllPrefetchTasks()
+        preloader.preloadModule(after: pages[1].id, in: pages)
+        await preloader.waitForAllPreloadTasks()
 
         #expect(await summaryController.requestedTitles.isEmpty)
     }
 
     @Test
-    func anUnknownModuleTriggersNoPrefetch() async {
-        let (prefetcher, summaryController) = makePrefetcher()
+    func anUnknownModuleTriggersNoPreload() async {
+        let (preloader, summaryController) = makePreloader()
 
-        prefetcher.prefetchModule(after: UUID(), in: [page("Biology", ["A1"])])
-        prefetcher.prefetchModule(after: nil, in: [page("Biology", ["A1"])])
-        await prefetcher.waitForAllPrefetchTasks()
+        preloader.preloadModule(after: UUID(), in: [page("Biology", ["A1"])])
+        preloader.preloadModule(after: nil, in: [page("Biology", ["A1"])])
+        await preloader.waitForAllPreloadTasks()
 
         #expect(await summaryController.requestedTitles.isEmpty)
     }
@@ -85,13 +85,13 @@ struct WMFForYouFeedPrefetcherTests {
 
     @Test
     func aModuleIsFetchedOnlyOnceAcrossRepeatedTriggers() async {
-        let (prefetcher, summaryController) = makePrefetcher()
+        let (preloader, summaryController) = makePreloader()
         let pages = [page("Biology", ["A1"]), page("History", ["B1"])]
 
-        prefetcher.prefetchInitialModules(in: pages)
-        prefetcher.prefetchModule(after: pages[0].id, in: pages)
-        prefetcher.prefetchModule(after: pages[0].id, in: pages)
-        await prefetcher.waitForAllPrefetchTasks()
+        preloader.preloadInitialModules(in: pages)
+        preloader.preloadModule(after: pages[0].id, in: pages)
+        preloader.preloadModule(after: pages[0].id, in: pages)
+        await preloader.waitForAllPreloadTasks()
 
         #expect(await summaryController.requestedTitles.sorted() == ["A1", "B1"])
     }
@@ -100,29 +100,29 @@ struct WMFForYouFeedPrefetcherTests {
 
     @Test
     func hiddenCardsAreNotFetched() async {
-        let (prefetcher, summaryController) = makePrefetcher()
+        let (preloader, summaryController) = makePreloader()
         let pages = [page("Biology", ["A1", "A2"])]
         let hiddenKey = pages[0].articleViewModels[0].cardUniqueKey
 
-        prefetcher.prefetchInitialModules(in: pages, hiddenCardKeys: [hiddenKey])
-        await prefetcher.waitForAllPrefetchTasks()
+        preloader.preloadInitialModules(in: pages, hiddenCardKeys: [hiddenKey])
+        await preloader.waitForAllPreloadTasks()
 
         #expect(await summaryController.requestedTitles == ["A2"])
     }
 
     // MARK: - Cache keys
 
-    /// The summary cache uses the exact title string as its key. The prefetcher must send the
+    /// The summary cache uses the exact title string as its key. The preloader must send the
     /// card's title with no changes. That title is the display form, with underscores replaced.
     /// A different spelling fills a cache entry that the card does not read.
     @Test
     func titlesAreFetchedExactlyAsTheCardWillFetchThem() async {
-        let (prefetcher, summaryController) = makePrefetcher()
+        let (preloader, summaryController) = makePreloader()
         let pages = [page("Biology", ["Giant_squid"])]
         let cardTitle = pages[0].articleViewModels[0].title
 
-        prefetcher.prefetchInitialModules(in: pages)
-        await prefetcher.waitForAllPrefetchTasks()
+        preloader.preloadInitialModules(in: pages)
+        await preloader.waitForAllPreloadTasks()
 
         #expect(cardTitle == "Giant squid")
         #expect(await summaryController.requestedTitles == [cardTitle])
@@ -132,7 +132,7 @@ struct WMFForYouFeedPrefetcherTests {
 // MARK: - Mocks
 
 /// Records each summary request. The feed view model tests also use this mock, because those
-/// tests must not let the prefetcher send requests to the network singleton.
+/// tests must not let the preloader send requests to the network singleton.
 actor MockArticleSummaryDataController: WMFArticleSummaryDataControlling {
 
     private(set) var requestedTitles: [String] = []
@@ -143,9 +143,9 @@ actor MockArticleSummaryDataController: WMFArticleSummaryDataControlling {
     }
 }
 
-extension WMFForYouFeedPrefetcher {
-    /// A prefetcher for tests that do not examine the prefetch itself.
-    static func makeMocked() -> WMFForYouFeedPrefetcher {
-        WMFForYouFeedPrefetcher(summaryDataController: MockArticleSummaryDataController(), prefetchesImages: false)
+extension WMFForYouModulePreloader {
+    /// A preloader for tests that do not examine the preload itself.
+    static func makeMocked() -> WMFForYouModulePreloader {
+        WMFForYouModulePreloader(summaryDataController: MockArticleSummaryDataController(), preloadsImages: false)
     }
 }

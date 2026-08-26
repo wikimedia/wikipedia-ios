@@ -96,19 +96,19 @@ public final class WMFForYouViewModel: ObservableObject {
 
     func rememberViewedModule(_ moduleID: UUID?) {
         lastViewedModuleID = moduleID
-        prefetcher.prefetchModule(after: moduleID, in: prefetchablePages, hiddenCardKeys: hiddenCardKeys)
+        preloader.preloadModule(after: moduleID, in: preloadablePages, hiddenCardKeys: hiddenCardKeys)
     }
 
     func rememberViewedCard(_ cardKey: String?) {
         lastViewedCardKey = cardKey
     }
 
-    private let prefetcher: WMFForYouFeedPrefetcher
+    private let preloader: WMFForYouModulePreloader
 
-    /// The pages that the view shows, in the same sequence. The prefetcher must find the next
+    /// The pages that the view shows, in the same sequence. The preloader must find the next
     /// module in this list, because `pages` also contains hidden modules. This filter is the same
     /// as `visiblePages` in the view.
-    private var prefetchablePages: [WMFForYouPageViewModel] {
+    private var preloadablePages: [WMFForYouPageViewModel] {
         pages.filter { page in
             guard moduleVisibility.isVisible(page.module) else { return false }
             return page.articleViewModels.contains { !hiddenCardKeys.contains($0.cardUniqueKey) }
@@ -120,23 +120,23 @@ public final class WMFForYouViewModel: ObservableObject {
         moduleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(basedOnInterests: true, becauseYouRead: true, continueReading: true),
         hiddenCardKeys: Set<String> = []
     ) {
-        self.init(response: response, moduleVisibility: moduleVisibility, hiddenCardKeys: hiddenCardKeys, prefetcher: WMFForYouFeedPrefetcher())
+        self.init(response: response, moduleVisibility: moduleVisibility, hiddenCardKeys: hiddenCardKeys, preloader: WMFForYouModulePreloader())
     }
 
-    /// Internal so that a test can give a prefetcher that uses mocks. The default prefetcher
+    /// Internal so that a test can give a preloader that uses mocks. The default preloader
     /// starts network requests when the feed is built.
     init(
         response: WMFForYouResponse,
         moduleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(basedOnInterests: true, becauseYouRead: true, continueReading: true),
         hiddenCardKeys: Set<String> = [],
-        prefetcher: WMFForYouFeedPrefetcher
+        preloader: WMFForYouModulePreloader
     ) {
         self.moduleVisibility = moduleVisibility
         self.hiddenCardKeys = hiddenCardKeys
-        self.prefetcher = prefetcher
+        self.preloader = preloader
         self.pages = Self.makePages(from: response)
 
-        prefetcher.prefetchInitialModules(in: prefetchablePages, hiddenCardKeys: hiddenCardKeys)
+        preloader.preloadInitialModules(in: preloadablePages, hiddenCardKeys: hiddenCardKeys)
     }
 
     // MARK: - Building the feed
