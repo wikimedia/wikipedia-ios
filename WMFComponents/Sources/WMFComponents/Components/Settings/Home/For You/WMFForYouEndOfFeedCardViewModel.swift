@@ -13,10 +13,9 @@ public final class WMFForYouEndOfFeedViewModel: ObservableObject, Identifiable {
     /// Identity of the end of feed page in the vertical paging layout, alongside the module page IDs.
     public let id = UUID()
 
-    /// Sent as `actionSource` on this card's events, following the pattern of
-    /// `WMFForYouModule.loggingId` ("BasedOnInterestCard") and the empty state ("EmptyForYouCard").
-    /// Confirm the exact value against the analytics spec before release.
-    public static let loggingId = "EndOfFeedCard"
+    /// Sent as `actionSource` on this card's events. Per the instrumentation spec, both the end of
+    /// feed card and its empty feed variant log as the empty feed.
+    public static let loggingId = "feed_empty"
 
     // MARK: - Localized strings
 

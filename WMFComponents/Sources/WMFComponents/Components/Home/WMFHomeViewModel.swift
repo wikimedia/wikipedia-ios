@@ -176,7 +176,7 @@ public final class WMFHomeViewModel: ObservableObject {
             self?.logEmptyViewImpression?()
         }
         forYouViewModel.endOfFeedViewModel.onTapAddInterests = { [weak self] in
-            self?.logDidTapCustomizeInterests?(WMFForYouEndOfFeedViewModel.loggingId, "add_interests")
+            self?.logDidTapCustomizeInterests?(WMFForYouEndOfFeedViewModel.loggingId, "customize_feed")
             self?.didTapCustomizeInterests?()
         }
         forYouViewModel.endOfFeedViewModel.onTapCommunity = { [weak self] in

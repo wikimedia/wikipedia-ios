@@ -113,15 +113,18 @@ final class HomeCoordinator: NSObject, Coordinator {
             let pageData = TestKitchenAdapter.getPageData(title: articleTitle, project: project)
             self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_open", mediawikiDatabase: self.mediawikiDatabase(for: viewModel), pageData: pageData)
         }
-
+        
         viewModel.logEndOfFeedImpression = { [weak self, weak viewModel] in
             guard let self, let viewModel else { return }
+            // The home_feed funnel attaches time_spent_ms to this event; per the spec, the funnel
+            // ends when the reader reaches the end of the feed. Submit first, then stop.
             self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: WMFForYouEndOfFeedViewModel.loggingId, mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.stopFunnel()
         }
 
         viewModel.logEndOfFeedDidTapCommunity = { [weak self, weak viewModel] in
             guard let self, let viewModel else { return }
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: WMFForYouEndOfFeedViewModel.loggingId, elementId: "community_open", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: WMFForYouEndOfFeedViewModel.loggingId, elementId: "community_feed", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
         }
 
         let vc = HomeViewController(dataStore: dataStore, theme: theme, viewModel: viewModel, homeCoordinator: self)
