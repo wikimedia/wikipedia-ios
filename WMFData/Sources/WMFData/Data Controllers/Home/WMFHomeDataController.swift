@@ -49,11 +49,7 @@ import WMFTestKitchen
         self.savedArticlesDataController = savedArticlesDataController
         self.onThisDayDataController = onThisDayDataController
 
-        // TEMP TESTING: force the home tab experiment group. Remove before merging.
-        let forceHomeTabGroupB = true
-        if forceHomeTabGroupB {
-            homeTabAssignment = .groupB
-        } else if let experimentStore {
+        if let experimentStore {
             let controller = WMFExperimentsDataController(store: experimentStore)
             let bucket = try? controller.determineBucketForExperiment(.homeTab, withPercentage: 50)
             homeTabAssignment = bucket == .homeTabGroupB ? .groupB : .control
