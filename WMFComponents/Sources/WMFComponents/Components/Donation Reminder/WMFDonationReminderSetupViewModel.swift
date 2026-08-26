@@ -94,10 +94,10 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     @Published var customAmountHasFocus: Bool = false
     @Published var isShowingTriggerGroupDetail: Bool = false
 
-    public var didConfirmReminder: ((WMFDonationReminder) -> Void)?
-    public var didTapAboutExperiment: (() -> Void)?
-    public var didTapNoThanks: (() -> Void)?
-    public var didTapReportProblem: (() -> Void)?
+    public var didConfirmReminder: (@MainActor @Sendable (WMFDonationReminder) -> Void)?
+    public var didTapAboutExperiment: (@MainActor @Sendable () -> Void)?
+    public var didTapNoThanks: (@MainActor @Sendable () -> Void)?
+    public var didTapReportProblem: (@MainActor @Sendable () -> Void)?
 
     // MARK: - Lifecycle
 
