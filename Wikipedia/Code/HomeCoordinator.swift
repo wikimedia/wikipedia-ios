@@ -114,6 +114,16 @@ final class HomeCoordinator: NSObject, Coordinator {
             self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_open", mediawikiDatabase: self.mediawikiDatabase(for: viewModel), pageData: pageData)
         }
 
+        viewModel.logEndOfFeedImpression = { [weak self, weak viewModel] in
+            guard let self, let viewModel else { return }
+            self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: WMFForYouEndOfFeedViewModel.loggingId, mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+        }
+
+        viewModel.logEndOfFeedDidTapCommunity = { [weak self, weak viewModel] in
+            guard let self, let viewModel else { return }
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: WMFForYouEndOfFeedViewModel.loggingId, elementId: "community_open", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+        }
+
         let vc = HomeViewController(dataStore: dataStore, theme: theme, viewModel: viewModel, homeCoordinator: self)
         vc.title = CommonStrings.homeTabTitle
         vc.tabBarItem.image = WMFSFSymbolIcon.for(symbol: .house)
