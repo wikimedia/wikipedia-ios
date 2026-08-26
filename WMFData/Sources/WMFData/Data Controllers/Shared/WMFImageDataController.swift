@@ -7,16 +7,24 @@ public actor WMFImageDataController {
     private var basicService: WMFService?
     private var mediaWikiService: WMFService?
     private let imageCache = NSCache<NSURL, NSData>()
-    
+    private var inFlightTasks: [URL: Task<Data, Error>] = [:]
+
     public init(basicService: WMFService? = WMFDataEnvironment.current.basicService, mediaWikiService: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
         self.basicService = basicService
         self.mediaWikiService = mediaWikiService
+        imageCache.totalCostLimit = 50_000_000
     }
-    
+
     public func fetchImageData(url: URL) async throws -> Data {
 
         if let cachedData = imageCache.object(forKey: url as NSURL) {
             return cachedData as Data
+        }
+
+        // Merge concurrent requests for the same URL. A prefetch and an on-screen request
+        // must share one download.
+        if let inFlightTask = inFlightTasks[url] {
+            return try await inFlightTask.value
         }
 
         guard let basicService else {
@@ -26,16 +34,26 @@ public actor WMFImageDataController {
         let request = WMFBasicServiceRequest(url: url, method: .GET, acceptType: .none)
 
         // The service is still completion-based; bridge it to async via a continuation.
-        // The cache write happens after the await, back on the actor, so `imageCache`
-        // stays actor-isolated and no nonisolated/Sendable workaround is needed.
-        let data: Data = try await withCheckedThrowingContinuation { continuation in
-            basicService.perform(request: request) { result in
-                continuation.resume(with: result)
+        let task = Task<Data, Error> {
+            try await withCheckedThrowingContinuation { continuation in
+                basicService.perform(request: request) { result in
+                    continuation.resume(with: result)
+                }
             }
         }
+        inFlightTasks[url] = task
 
-        imageCache.setObject(data as NSData, forKey: url as NSURL)
-        return data
+        // The cache write happens after the await, back on the actor, so `imageCache`
+        // stays actor-isolated and no nonisolated/Sendable workaround is needed.
+        do {
+            let data = try await task.value
+            inFlightTasks[url] = nil
+            imageCache.setObject(data as NSData, forKey: url as NSURL, cost: data.count)
+            return data
+        } catch {
+            inFlightTasks[url] = nil
+            throw error
+        }
     }
 
     public func fetchImageInfo(title: String, thumbnailWidth: UInt, project: WMFProject, completion: @escaping (Result<WMFImageInfo, Error>) -> Void) {
@@ -82,6 +100,7 @@ public actor WMFImageDataController {
         basicService = WMFDataEnvironment.current.basicService
         mediaWikiService = WMFDataEnvironment.current.mediaWikiService
         imageCache.removeAllObjects()
+        inFlightTasks = [:]
     }
 }
 

@@ -96,20 +96,47 @@ public final class WMFForYouViewModel: ObservableObject {
 
     func rememberViewedModule(_ moduleID: UUID?) {
         lastViewedModuleID = moduleID
+        prefetcher.prefetchModule(after: moduleID, in: prefetchablePages, hiddenCardKeys: hiddenCardKeys)
     }
 
     func rememberViewedCard(_ cardKey: String?) {
         lastViewedCardKey = cardKey
     }
 
-    public init(
+    private let prefetcher: WMFForYouFeedPrefetcher
+
+    /// The pages that the view shows, in the same sequence. The prefetcher must find the next
+    /// module in this list, because `pages` also contains hidden modules. This filter is the same
+    /// as `visiblePages` in the view.
+    private var prefetchablePages: [WMFForYouPageViewModel] {
+        pages.filter { page in
+            guard moduleVisibility.isVisible(page.module) else { return false }
+            return page.articleViewModels.contains { !hiddenCardKeys.contains($0.cardUniqueKey) }
+        }
+    }
+
+    public convenience init(
         response: WMFForYouResponse,
         moduleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(basedOnInterests: true, becauseYouRead: true, continueReading: true),
         hiddenCardKeys: Set<String> = []
     ) {
+        self.init(response: response, moduleVisibility: moduleVisibility, hiddenCardKeys: hiddenCardKeys, prefetcher: WMFForYouFeedPrefetcher())
+    }
+
+    /// Internal so that a test can give a prefetcher that uses mocks. The default prefetcher
+    /// starts network requests when the feed is built.
+    init(
+        response: WMFForYouResponse,
+        moduleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(basedOnInterests: true, becauseYouRead: true, continueReading: true),
+        hiddenCardKeys: Set<String> = [],
+        prefetcher: WMFForYouFeedPrefetcher
+    ) {
         self.moduleVisibility = moduleVisibility
         self.hiddenCardKeys = hiddenCardKeys
+        self.prefetcher = prefetcher
         self.pages = Self.makePages(from: response)
+
+        prefetcher.prefetchInitialModules(in: prefetchablePages, hiddenCardKeys: hiddenCardKeys)
     }
 
     // MARK: - Building the feed
@@ -348,7 +375,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
     /// Thumbnail URLs carry their width as a path component - `.../640px-Example.jpg` - so the size
     /// is changed by swapping that number. Returns nil when the URL has no such component, which
     /// means it is already the original file and cannot be scaled up.
-    private static func upsizedThumbnailURL(from thumbnailURL: URL) -> URL? {
+    static func upsizedThumbnailURL(from thumbnailURL: URL) -> URL? {
         var urlString = thumbnailURL.absoluteString
         guard let range = urlString.range(of: #"/\d+px-"#, options: .regularExpression) else {
             return nil
