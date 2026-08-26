@@ -37,6 +37,14 @@ public final class WMFForYouEndOfFeedViewModel: ObservableObject, Identifiable {
 
     /// The underlined, tappable part of the community sentence.
     let communityLinkText = WMFLocalizedString("for-you-end-of-feed-community-link", value: "community", comment: "Tappable link text within the community suggestion on the card at the end of the For You feed. It switches the reader to the Community tab.")
+    
+    let emptyTitle = WMFLocalizedString("for-you-empty-feed-title", value: "Your feed is empty for now", comment: "Heading on the For You feed empty state, shown when there is no personalized content yet.")
+
+    let emptySubtitle = WMFLocalizedString("for-you-empty-feed-subtitle", value: "Your \"For you\" feed will populate with personalized articles as you explore.", comment: "Message on the For You feed empty state, explaining the feed fills with personalized articles as the reader uses the app.")
+
+    let waysToGetStartedTitle = WMFLocalizedString("for-you-empty-feed-ways-to-get-started", value: "Ways to get started:", comment: "Label above the list of suggested actions on the For You feed empty state.")
+
+    let emptyAddInterestsLinkText = WMFLocalizedString("for-you-empty-feed-add-interests-link", value: "some interests", comment: "Tappable link text within the add interests suggestion on the For You feed empty state. It opens the interests settings screen.")
 
     // MARK: - Actions
 

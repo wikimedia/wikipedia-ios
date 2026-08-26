@@ -6,11 +6,24 @@ import SwiftUI
 /// tab switcher, language menu, notification bell) stays on top of it the same way it does over
 /// article cards. It deliberately has no three dot menu, no page dots and no reason label.
 ///
+/// The same layout also serves as the feed's empty state (`variant: .emptyFeed`) when there is no
+/// personalized content at all, with its own illustration and copy.
+///
 /// Requires `WMFForYouCardMetrics` in WMFForYouView.swift to be internal rather than private,
 /// so the card leaves the same room for the tab bar as every other page.
 struct WMFForYouEndOfFeedCardView: View {
 
+    /// Which copy and illustration the card shows. The layout is the same for both.
+    enum Variant {
+        /// The reader swiped through every module of today's feed.
+        case endOfFeed
+        /// The feed has no personalized content at all (no interests, no reading history).
+        case emptyFeed
+    }
+
     @ObservedObject var viewModel: WMFForYouEndOfFeedViewModel
+
+    let variant: Variant
 
     /// The For You palette, which stays dark whatever theme the app uses (`WMFTheme.forYou`).
     let theme: WMFTheme
@@ -18,47 +31,86 @@ struct WMFForYouEndOfFeedCardView: View {
     /// Where the header bar ends, so the content never slides under the chrome.
     @Environment(\.forYouHeaderBottom) private var headerBottom: CGFloat
 
+    private var gifName: String {
+        switch variant {
+        case .endOfFeed: return "onboarding_puzzle"
+        case .emptyFeed: return "empty_feed"
+        }
+    }
+
+    private var title: String {
+        switch variant {
+        case .endOfFeed: return viewModel.title
+        case .emptyFeed: return viewModel.emptyTitle
+        }
+    }
+
+    private var subtitle: String {
+        switch variant {
+        case .endOfFeed: return viewModel.subtitle
+        case .emptyFeed: return viewModel.emptySubtitle
+        }
+    }
+
+    private var waysTitle: String {
+        switch variant {
+        case .endOfFeed: return viewModel.waysToKeepLearningTitle
+        case .emptyFeed: return viewModel.waysToGetStartedTitle
+        }
+    }
+
+    private var addInterestsLinkText: String {
+        switch variant {
+        case .endOfFeed: return viewModel.addInterestsLinkText
+        case .emptyFeed: return viewModel.emptyAddInterestsLinkText
+        }
+    }
+    
+    @ViewBuilder
+    private var illustration: some View {
+        switch variant {
+        case .endOfFeed:
+            WMFGIFImageView("onboarding_puzzle")
+        case .emptyFeed:
+            if let uiImage = UIImage(named: "empty_feed", in: Bundle.module, compatibleWith: nil) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+            }
+        }
+    }
+
     var body: some View {
         GeometryReader { geometry in
-            VStack(alignment: .leading, spacing: 0) {
-                Spacer(minLength: 0)
-
-                WMFGIFImageView("comp")
-                    .frame(height: 200)
+            VStack(alignment: .leading, spacing: 32) {
+                illustration
                     .frame(maxWidth: .infinity)
+                    .frame(height: variant == .endOfFeed ? 175 : 105)
                     .accessibilityHidden(true)
 
-                Spacer(minLength: 32)
+                VStack(alignment: .leading, spacing: 16) {
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text(title)
+                            .font(Font(WMFFont.for(.georgiaTitle1)))
+                            .foregroundStyle(Color(uiColor: theme.text))
+                            .frame(maxWidth: .infinity, alignment: .leading)
 
-                VStack(alignment: .leading, spacing: 0) {
-                    Text(viewModel.title)
-                        .font(Font(WMFFont.for(.georgiaTitle1)))
-                        .foregroundStyle(Color(uiColor: theme.text))
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        Text(subtitle)
+                            .font(Font(WMFFont.for(.body)))
+                            .foregroundStyle(Color(uiColor: theme.text))
+                            .frame(maxWidth: .infinity, alignment: .leading)
 
-                    Spacer().frame(height: 16)
+                        Text(waysTitle)
+                            .font(Font(WMFFont.for(.semiboldHeadline)))
+                            .foregroundStyle(Color(uiColor: theme.text))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .accessibilityElement(children: .combine)
 
-                    Text(viewModel.subtitle)
-                        .font(Font(WMFFont.for(.body)))
-                        .foregroundStyle(Color(uiColor: theme.text))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-
-                    Spacer().frame(height: 24)
-
-                    Text(viewModel.waysToKeepLearningTitle)
-                        .font(Font(WMFFont.for(.boldBody)))
-                        .foregroundStyle(Color(uiColor: theme.text))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                .accessibilityElement(children: .combine)
-
-                Spacer().frame(height: 20)
-
-                VStack(alignment: .leading, spacing: 20) {
                     linkRow(
                         symbol: .sliderHorizontal3,
                         format: viewModel.addInterestsFormat,
-                        linkText: viewModel.addInterestsLinkText,
+                        linkText: addInterestsLinkText,
                         action: { viewModel.onTapAddInterests?() }
                     )
                     linkRow(
@@ -75,13 +127,13 @@ struct WMFForYouEndOfFeedCardView: View {
                 cardTop: geometry.frame(in: .global).minY
             ))
             .padding(.bottom, WMFForYouCardMetrics.contentBottomInset(safeAreaBottom: WMFForYouCardMetrics.windowSafeAreaBottom))
-            .frame(width: geometry.size.width, height: geometry.size.height, alignment: .leading)
+            .frame(width: geometry.size.width, height: geometry.size.height, alignment: .bottomLeading)
             .background(Color(uiColor: WMFColor.green800))
             .ignoresSafeArea()
         }
     }
 
-    /// One "Ways to keep learning" row: an icon and a sentence with an underlined tappable phrase.
+    /// One suggested action row: an icon and a sentence with an underlined tappable phrase.
     ///
     /// The format carries a `%1$@` placeholder and the link text fills it, the same split
     /// `WMFForYouHeaderLabelView` uses. Keeping them as two localized strings lets translators
@@ -89,7 +141,7 @@ struct WMFForYouEndOfFeedCardView: View {
     @ViewBuilder
     private func linkRow(symbol: WMFSFSymbolIcon, format: String, linkText: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            HStack(alignment: .firstTextBaseline, spacing: 12) {
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
                 if let image = WMFSFSymbolIcon.for(symbol: symbol, font: .body) {
                     Image(uiImage: image)
                 }
@@ -114,4 +166,20 @@ struct WMFForYouEndOfFeedCardView: View {
             + Text(linkText).font(font).underline()
             + Text(parts[1]).font(font)
     }
+}
+
+#Preview("End of feed") {
+    WMFForYouEndOfFeedCardView(
+        viewModel: WMFForYouEndOfFeedViewModel(),
+        variant: .endOfFeed,
+        theme: .forYou
+    )
+}
+
+#Preview("Empty feed") {
+    WMFForYouEndOfFeedCardView(
+        viewModel: WMFForYouEndOfFeedViewModel(),
+        variant: .emptyFeed,
+        theme: .forYou
+    )
 }

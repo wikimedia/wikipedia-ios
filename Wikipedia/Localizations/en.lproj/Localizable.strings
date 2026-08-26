@@ -668,6 +668,10 @@
 "find-replace-header" = "Find and replace";
 "find-replace-header-close-accessibility" = "Close find and replace";
 "find-textfield-accessibility" = "Find";
+"for-you-empty-feed-add-interests-link" = "some interests";
+"for-you-empty-feed-subtitle" = "Your \"For you\" feed will populate with personalized articles as you explore.";
+"for-you-empty-feed-title" = "Your feed is empty for now";
+"for-you-empty-feed-ways-to-get-started" = "Ways to get started:";
 "for-you-empty-subtitle-interests-or-modules" = "Add interests or turn on modules to get personalized article recommendations";
 "for-you-empty-title" = "Nothing here yet";
 "for-you-end-of-feed-add-interests-format" = "Add $1";

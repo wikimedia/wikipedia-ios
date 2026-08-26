@@ -179,9 +179,15 @@ public struct WMFForYouView: View {
                 // ships. When content exists but every module is off or every card is hidden, the
                 // settings empty state below shows instead.
                 GeometryReader { geometry in
-                    endOfFeedPage
-                        .frame(width: geometry.size.width, height: geometry.size.height)
+                    GeometryReader { geometry in
+                        ScrollView {
+                            endOfFeedPage(variant: .emptyFeed)
+                                .frame(width: geometry.size.width, height: geometry.size.height)
+                        }
+                        .scrollBounceBehavior(.basedOnSize)
                         .onAppear { viewModel.endOfFeedViewModel.reportShownIfNeeded() }
+                    }
+                    .ignoresSafeArea()
                 }
                 .ignoresSafeArea()
             } else {
@@ -226,7 +232,7 @@ public struct WMFForYouView: View {
                     )
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 }
-                endOfFeedPage
+                endOfFeedPage(variant: .endOfFeed)
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .id(viewModel.endOfFeedViewModel.id)
             }
@@ -282,8 +288,8 @@ public struct WMFForYouView: View {
         withAnimation { currentModuleID = firstID }
     }
 
-    private var endOfFeedPage: some View {
-        WMFForYouEndOfFeedCardView(viewModel: viewModel.endOfFeedViewModel, theme: .forYou)
+    private func endOfFeedPage(variant: WMFForYouEndOfFeedCardView.Variant) -> some View {
+        WMFForYouEndOfFeedCardView(viewModel: viewModel.endOfFeedViewModel, variant: variant, theme: .forYou)
     }
 
     private var isEndOfFeedOnScreen: Bool {
