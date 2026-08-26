@@ -1353,7 +1353,6 @@ extension WMFAppViewController {
             rateTheAppTitle: CommonStrings.rateTheAppTitle,
             helpTitle: CommonStrings.helpAndfeedbackTitle,
             aboutTitle: CommonStrings.aboutTitle,
-            clearDonationHistoryTitle: CommonStrings.deleteDonationHistory,
             safetyTitle: CommonStrings.legalAndSafety
         )
 
