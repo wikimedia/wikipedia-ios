@@ -71,6 +71,29 @@ final class WMFHomeDataControllerTests: XCTestCase {
         }
     }
 
+    /// The search response carries a description and a thumbnail for each article. The mapping
+    /// must keep them, so a card can show its content without a summary fetch.
+    func testFetchForYouKeepsTheSearchMetadataOnTopicArticles() async throws {
+        let controller = makeForYouController(topics: [.biology])
+        let response = try await controller.fetchForYou(project: enProject)
+
+        let articles = response.interestTopicRandomArticles.first?.articles ?? []
+        XCTAssertFalse(articles.isEmpty)
+        XCTAssertTrue(articles.contains { $0.description != nil }, "The description from the search response must survive the mapping")
+        XCTAssertTrue(articles.contains { $0.thumbnailURL != nil }, "The thumbnail from the search response must survive the mapping")
+    }
+
+    func testFetchForYouKeepsTheSearchMetadataOnPageInterestArticles() async throws {
+        try await seedPageInterests(["Cat"], project: enProject)
+        let controller = makeForYouController(topics: [])
+        let response = try await controller.fetchForYou(project: enProject)
+
+        let articles = response.interestPageRelatedArticles.first?.articles ?? []
+        XCTAssertFalse(articles.isEmpty)
+        XCTAssertTrue(articles.contains { $0.description != nil }, "The description from the search response must survive the mapping")
+        XCTAssertTrue(articles.contains { $0.thumbnailURL != nil }, "The thumbnail from the search response must survive the mapping")
+    }
+
     func testFetchForYouReturnsEmptyPageInterestArticlesWhenNoPageInterestsSaved() async throws {
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)

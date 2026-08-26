@@ -22,6 +22,15 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     let topics: [WMFArticleTopic] = WMFArticleTopic.allCases
     @Published var selectedTopics: [WMFArticleTopic] = []
     public private(set) var hasChanges: Bool = false
+
+    /// Fires after each change to the selected topics or articles. Onboarding uses this to start
+    /// the For You fetch while the user is still on this screen.
+    var onSelectionChanged: (() -> Void)?
+
+    private func noteChanges() {
+        hasChanges = true
+        onSelectionChanged?()
+    }
     @Published var gridViewModels: [WMFInterestArticleCardViewModel] = []
     @Published var isFetchingArticles: Bool = false
     @Published private(set) var selectedArticleCount: Int = 0
@@ -138,7 +147,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
             selectedTopics.append(topic)
         }
         dataController.setInterestTopics(selectedTopics)
-        hasChanges = true
+        noteChanges()
 
         if selectedTopics.isEmpty {
             fetchRandomArticles()
@@ -160,7 +169,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
             Task { try? await pageInterestDataController?.addPageInterest(title: vm.title, project: cardProject) }
         }
         recountSelectedArticles()
-        hasChanges = true
+        noteChanges()
     }
 
     /// Clears all selected topics and articles, unchecking the cards in place. Deliberately
@@ -178,7 +187,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
             Task { try? await pageInterestDataController?.removePageInterest(title: cardTitle, project: cardProject) }
         }
         recountSelectedArticles()
-        hasChanges = true
+        noteChanges()
     }
 
     // MARK: - Search
@@ -239,7 +248,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
             Task { try? await pageInterestDataController?.addPageInterest(title: cardTitle, project: resultProject) }
         }
         recountSelectedArticles()
-        hasChanges = true
+        noteChanges()
         clearSearch()
         return true
     }
