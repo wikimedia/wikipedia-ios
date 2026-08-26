@@ -328,16 +328,22 @@ import WMFTestKitchen
     public func warmForYouArticles(project: WMFProject) async {
         let topics = interestTopics()
         let interests = (try? await pageInterestDataController?.fetchPageInterests(project: project)) ?? []
+        await warmForYouArticles(project: project, topics: topics, pageTitles: interests.map { $0.title })
+    }
 
+    /// Warm-up that accepts an explicit page-interest list, avoiding a Core Data read.
+    /// Use this when the caller already holds the current in-memory state and the Core Data
+    /// write may not have completed yet (e.g. immediately after toggling an article card).
+    public func warmForYouArticles(project: WMFProject, topics: [WMFArticleTopic], pageTitles: [String]) async {
         await withTaskGroup(of: Void.self) { group in
             for topic in topics {
                 group.addTask {
                     _ = try? await self.warmedOrFetchedTopicArticles(for: topic, project: project)
                 }
             }
-            for interest in interests {
+            for title in pageTitles {
                 group.addTask {
-                    _ = try? await self.warmedOrFetchedRelatedPages(title: interest.title, project: project)
+                    _ = try? await self.warmedOrFetchedRelatedPages(title: title, project: project)
                 }
             }
         }
