@@ -81,11 +81,6 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
         selection = .community
     }
 
-    /// Starts the article downloads for the current interests while the user is still on the
-    /// interests step. The data controller keeps the results in a short-lived cache, and the
-    /// For You fetch in `loadIfNeeded()` reads from that cache. Because of this, the work runs
-    /// during the selection, and the fetch after the Next tap is almost immediate. Repeated
-    /// calls are cheap: each interest is downloaded one time.
     func interestsDidChange() {
         guard !hasLoaded else { return }
         warmUpTask = Task { [weak self] in
@@ -135,10 +130,6 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
             self.isCommunityLoading = false
         }
 
-        // Force fetch: the user just chose interests in the previous step, so any cached
-        // For You response predates them. The forced fetch refreshes the shared cache,
-        // keeping the Home feed consistent with this preview. It is fast: the article groups
-        // were downloaded during the selection (see `interestsDidChange`).
         personalizedTask = Task { [weak self] in
             guard let self else { return }
             if let forYou = try? await dataController.fetchForYou(project: project, forceFetch: true) {
@@ -232,8 +223,6 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
         let topicPill: String?
     }
 
-    /// The articles that the personalized row shows: one for each of the first three interest
-    /// groups. Topic interests (with a topic pill) come first, then article interests.
     static func personalizedPreviewSelections(from response: WMFForYouResponse) -> [PersonalizedPreviewSelection] {
         var selections: [PersonalizedPreviewSelection] = []
 
@@ -295,9 +284,6 @@ final class WMFAppOnboardingPreviewCardViewModel: ObservableObject, Identifiable
         self.summaryDataController = nil
     }
 
-    /// Personalized cards start from the metadata in the article itself, when the search response
-    /// carried it. A summary fetch is then not necessary, and the card is complete immediately.
-    /// Articles from local sources carry no metadata; those cards hydrate from the article summary.
     init(article: WMFForYouArticle, topicPill: String?, summaryDataController: WMFArticleSummaryDataControlling & Sendable = WMFArticleSummaryDataController.shared) {
         self.displayTitle = article.title.underscoresToSpaces
         self.description = article.description
@@ -308,10 +294,6 @@ final class WMFAppOnboardingPreviewCardViewModel: ObservableObject, Identifiable
         self.didLoadSummary = article.description != nil || article.thumbnailURL != nil
     }
 
-    /// Fetches the display title, description, and thumbnail URL from the article summary.
-    /// Awaited before the personalized row is revealed, so its cards appear with their text in place.
-    /// The title goes out in the display form. The summary cache uses the title string as its key,
-    /// and both the onboarding warm-up and the For You cards use the display form.
     func loadSummaryIfNeeded() async {
         guard !didLoadSummary, let info = summaryFetchInfo, let summaryDataController else { return }
         didLoadSummary = true

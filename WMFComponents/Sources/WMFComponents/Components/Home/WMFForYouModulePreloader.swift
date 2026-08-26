@@ -1,19 +1,10 @@
 import Foundation
 import WMFData
 
-/// Loads the data for the module that comes after the one on the screen. The cards of that module
-/// then show complete when they appear.
-///
-/// The preloader loads only the next module, not the full feed. A full preload uses too much of
-/// the reader's data. The preloader fetches through the same singletons as the card. Because of
-/// this, the card's own `load()` gets its data from the cache. The two data controllers also merge
-/// equal requests that are in flight. A card that appears during a preload shares the download.
+/// Loads the data for the module that comes after the one on the screen.
 @MainActor
 final class WMFForYouModulePreloader {
-
-    /// The data that a preload needs from a card. This is a Sendable copy, made before the
-    /// fan-out. The title must stay exactly equal to the title in the card view model. The summary
-    /// cache uses the title string as its key. A different spelling makes the card's fetch a miss.
+    
     private nonisolated struct CardInput: Sendable {
         let project: WMFProject
         let title: String
@@ -21,8 +12,6 @@ final class WMFForYouModulePreloader {
 
     private let summaryDataController: WMFArticleSummaryDataControlling & Sendable
 
-    /// If true, the preload also loads the image and its sampled colour. This costs up to four
-    /// 1280px downloads for each module. The flag makes a revert a one-line change.
     private let preloadsImages: Bool
 
     private var preloadedPageIDs: Set<UUID> = []
@@ -36,16 +25,10 @@ final class WMFForYouModulePreloader {
         self.preloadsImages = preloadsImages
     }
 
-    /// Loads the first two modules when the feed is built. The first module has a lazy carousel,
-    /// and only its leading cards load on appearance. The second module then shows complete cards
-    /// on the first swipe.
     func preloadInitialModules(in pages: [WMFForYouPageViewModel], hiddenCardKeys: Set<String> = []) {
         preload(pages: Array(pages.prefix(2)), hiddenCardKeys: hiddenCardKeys)
     }
 
-    /// Loads the module that comes after the module with the given ID. The `pages` array must
-    /// contain only the modules that the view shows. If it contains hidden modules, the preload
-    /// can load a module that the reader does not see.
     func preloadModule(after moduleID: UUID?, in pages: [WMFForYouPageViewModel], hiddenCardKeys: Set<String> = []) {
         guard let moduleID,
               let index = pages.firstIndex(where: { $0.id == moduleID }),

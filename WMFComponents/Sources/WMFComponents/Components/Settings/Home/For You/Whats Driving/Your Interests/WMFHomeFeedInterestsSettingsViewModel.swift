@@ -23,8 +23,6 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     @Published var selectedTopics: [WMFArticleTopic] = []
     public private(set) var hasChanges: Bool = false
 
-    /// Fires after each change to the selected topics or articles. Onboarding uses this to start
-    /// the For You fetch while the user is still on this screen.
     var onSelectionChanged: (() -> Void)?
 
     private func noteChanges() {

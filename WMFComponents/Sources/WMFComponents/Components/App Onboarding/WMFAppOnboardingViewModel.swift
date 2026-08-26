@@ -115,9 +115,6 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
         self.logSkip = logSkip
         self.logNext = logNext
 
-        // Each interests change starts a background For You fetch. The multi-second fetch then
-        // runs while the user makes their selection, and the feed preference step reuses the
-        // result instead of a fetch from zero.
         interestsViewModel.onSelectionChanged = { [weak feedPreferenceViewModel] in
             feedPreferenceViewModel?.interestsDidChange()
         }

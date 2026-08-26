@@ -18,16 +18,10 @@ actor WMFImageColorSampler {
     /// Read one pixel in every `samplingStride` x `samplingStride` block rather than all of them.
     private static let samplingStride = 2
 
-    /// The maximum length of the longest side of the decoded image. ImageIO scales the full image
-    /// down in proportion. It does not crop. Because of this, each part of the photograph has an
-    /// effect on the colour. A 1280px card image decodes to approximately 16K pixels, not 1.6M.
+    /// The maximum length of the longest side of the decoded image.
     private static let samplingMaxPixelSize = 128
 
-    /// The number of sampled colours that the actor keeps. A prefetch can then supply the colour
-    /// for a card that appears soon after. The keys are the image `Data` values. Their bytes are
-    /// shared with the image cache, so the cost is only the dictionary overhead.
     private static let colorCacheLimit = 24
-
     private var colorCache: [Data: Color] = [:]
     private var colorCacheInsertionOrder: [Data] = []
 
@@ -53,8 +47,6 @@ actor WMFImageColorSampler {
         return color
     }
 
-    /// Decodes image data at a decreased size. For a JPEG, ImageIO decodes at the small resolution
-    /// directly. This is much faster than a full decode and a scale operation after it.
     private static func downsampledCGImage(from imageData: Data) -> CGImage? {
         let sourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
         guard let source = CGImageSourceCreateWithData(imageData as CFData, sourceOptions) else {

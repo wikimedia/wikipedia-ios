@@ -105,9 +105,6 @@ public final class WMFForYouViewModel: ObservableObject {
 
     private let preloader: WMFForYouModulePreloader
 
-    /// The pages that the view shows, in the same sequence. The preloader must find the next
-    /// module in this list, because `pages` also contains hidden modules. This filter is the same
-    /// as `visiblePages` in the view.
     private var preloadablePages: [WMFForYouPageViewModel] {
         pages.filter { page in
             guard moduleVisibility.isVisible(page.module) else { return false }
@@ -123,8 +120,6 @@ public final class WMFForYouViewModel: ObservableObject {
         self.init(response: response, moduleVisibility: moduleVisibility, hiddenCardKeys: hiddenCardKeys, preloader: WMFForYouModulePreloader())
     }
 
-    /// Internal so that a test can give a preloader that uses mocks. The default preloader
-    /// starts network requests when the feed is built.
     init(
         response: WMFForYouResponse,
         moduleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(basedOnInterests: true, becauseYouRead: true, continueReading: true),
