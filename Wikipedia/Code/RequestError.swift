@@ -32,3 +32,34 @@ public enum RequestError: LocalizedError {
         return .api(code)
     }
 }
+
+extension RequestError: CustomNSError {
+
+    public var errorCode: Int {
+        switch self {
+        case .http(let statusCode):
+            return statusCode
+        case .api:
+            return 1
+        case .unknown:
+            return 2
+        case .invalidParameters:
+            return 3
+        case .unexpectedResponse:
+            return 4
+        case .notModified:
+            return 5
+        case .noNewData:
+            return 6
+        case .unauthenticated:
+            return 7
+        }
+    }
+
+    public var errorUserInfo: [String: Any] {
+        guard let errorDescription else {
+            return [:]
+        }
+        return [NSLocalizedDescriptionKey: errorDescription]
+    }
+}
