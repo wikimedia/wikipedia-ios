@@ -27,6 +27,7 @@ struct SettingsRow: View {
                     Text(subtitle)
                         .font(Font(WMFFont.for(.subheadline)))
                         .foregroundColor(Color(uiColor: theme.secondaryText))
+                        .lineLimit(2)
                 }
             }
             Spacer()
