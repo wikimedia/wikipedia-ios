@@ -46,6 +46,7 @@ public struct WMFHomeView: View {
     public var body: some View {
         mainContent
             .animation(.easeInOut(duration: 0.2), value: viewModel.isRefreshingForYou)
+            .ignoresSafeArea(.keyboard)
             .task { viewModel.loadCurrentTabFeedIfNeeded() }
             .onChange(of: viewModel.selectedTab) {
                 viewModel.loadCurrentTabFeedIfNeeded()
