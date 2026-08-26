@@ -407,7 +407,8 @@
 "donate-transaction-fee-opt-in-text" = "I’ll generously add $1 to cover the transaction fees so you can keep 100%% of my donation.";
 "donate-wikimedia-fine-print-1" = "We do not sell or trade your information to anyone. By donating, you agree to share your personal information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers pursuant to our [donor policy]($1). Wikimedia Foundation and its service providers are located in the United States and in other countries whose privacy laws may not be equivalent to your own. For more information please read our [donor policy]($1).";
 "donate-wikimedia-fine-print-2" = "For recurring donors, fixed monthly payments will be debited by the Wikimedia Foundation on the monthly anniversary of the first donation, until such time as you notify us to discontinue them. Donations initiated on the 29, 30, or 31 of the month will recur on the last day of the month for shorter months, as close to the original date as possible. For questions, please contact donate@wikimedia.org.";
-"donation-reminder-setup-about-button-title" = "About this experiment";
+"donation-reminder-email-report-body" = "I have encountered a problem with the donation reminders feature:";
+"donation-reminder-email-report-subject" = "Issue Report - Donation Reminders";
 "donation-reminder-setup-amount-accessibility-hint" = "Double tap to select donation amount";
 "donation-reminder-setup-amount-group-title" = "Remind me to donate";
 "donation-reminder-setup-confirm-button-title" = "Confirm reminder";
@@ -421,6 +422,7 @@
 "donation-reminder-setup-trigger-group-detail-articles" = "Article count is stored locally on your device.";
 "donation-reminder-setup-trigger-group-title-articles" = "Whenever I read";
 "donation-reminder-setup-trigger-unit-articles" = "Articles";
+"donation-reminder-setup-update-button-title" = "Update reminder";
 "duplicate-tab" = "Duplicate tab";
 "edit-link-display-text-title" = "Display text";
 "edit-link-link-target-title" = "Link target";
