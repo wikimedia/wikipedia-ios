@@ -27,7 +27,7 @@ public final class ArticlesReadViewModel: ObservableObject {
         noUsernameReading: String
     ) {
         self.dataController = dataController
-        self.dateFormatter = dateFormatterWMFActivityTabView
+        self.dateFormatter = dateFormatter
         self.dateAccessibilityFormatter = dateAccessibilityFormatter ?? dateFormatter
         self.makeUsernamesReading = makeUsernamesReading
         self.noUsernameReading = noUsernameReading
