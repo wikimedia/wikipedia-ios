@@ -131,8 +131,10 @@ struct WMFForYouModulePreloaderTests {
 
 // MARK: - Mocks
 
-/// Records each summary request. The feed view model tests also use this mock, because those
-/// tests must not let the preloader send requests to the network singleton.
+/// Records each summary request. The feed view model tests and the onboarding tests also use
+/// this mock, because those tests must not let the preloader send requests to the network
+/// singleton. The `thumbnailURL` must stay nil: a thumbnail makes the preloader fetch the image
+/// through the real image controller, and the tests then reach the network.
 actor MockArticleSummaryDataController: WMFArticleSummaryDataControlling {
 
     private(set) var requestedTitles: [String] = []
@@ -140,12 +142,5 @@ actor MockArticleSummaryDataController: WMFArticleSummaryDataControlling {
     func fetchArticleSummary(project: WMFProject, title: String) async throws -> WMFArticleSummary {
         requestedTitles.append(title)
         return WMFArticleSummary(displayTitle: title, description: "A description", extractHtml: "", thumbnailURL: nil, extract: "An extract")
-    }
-}
-
-extension WMFForYouModulePreloader {
-    /// A preloader for tests that do not examine the preload itself.
-    static func makeMocked() -> WMFForYouModulePreloader {
-        WMFForYouModulePreloader(summaryDataController: MockArticleSummaryDataController(), preloadsImages: false)
     }
 }

@@ -42,7 +42,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             continueReadingArticles: WMFForYouContinueReading(continueReadingArticle: article("C1"), fromReadingListArticles: [])
         )
 
-        let viewModel = WMFForYouViewModel(response: response, preloader: .makeMocked())
+        let viewModel = WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController())
 
         XCTAssertEqual(viewModel.pages.map { $0.module }, [
             .basedOnInterests, .basedOnInterests, .basedOnInterests,
@@ -68,7 +68,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             continueReadingArticles: nil
         )
 
-        let viewModel = WMFForYouViewModel(response: response, preloader: .makeMocked())
+        let viewModel = WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController())
         let highlights = viewModel.pages.compactMap { $0.articleViewModels.first?.headerLabel.highlight }
 
         XCTAssertEqual(highlights.count, 4)
@@ -87,7 +87,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             continueReadingArticles: nil
         )
 
-        let viewModel = WMFForYouViewModel(response: response, preloader: .makeMocked())
+        let viewModel = WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController())
 
         XCTAssertEqual(viewModel.pages.count, topics.count)
     }
@@ -101,7 +101,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             continueReadingArticles: nil
         )
 
-        let viewModel = WMFForYouViewModel(response: response, preloader: .makeMocked())
+        let viewModel = WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController())
 
         XCTAssertEqual(viewModel.pages.map { $0.module }, [.basedOnInterests])
     }
@@ -117,7 +117,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             continueReadingArticles: nil
         )
 
-        let viewModel = WMFForYouViewModel(response: response, preloader: .makeMocked())
+        let viewModel = WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController())
 
         XCTAssertEqual(titles(of: viewModel.pages[0]), ["Shared", "OnlyInterest"])
         XCTAssertEqual(titles(of: viewModel.pages[1]), ["OnlyBecauseYouRead"], "The interest page is built first, so it keeps the shared article")
@@ -132,7 +132,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             continueReadingArticles: nil
         )
 
-        let viewModel = WMFForYouViewModel(response: response, preloader: .makeMocked())
+        let viewModel = WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController())
 
         XCTAssertEqual(titles(of: viewModel.pages[0]), ["Dup", "Other"])
     }
@@ -149,7 +149,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             )
         )
 
-        let viewModel = WMFForYouViewModel(response: response, preloader: .makeMocked())
+        let viewModel = WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController())
 
         XCTAssertEqual(titles(of: viewModel.pages[0]), ["Current", "Saved"])
     }
@@ -216,7 +216,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             interestPageRelatedArticles: [],
             becauseYouReadArticles: nil,
             continueReadingArticles: nil
-        ), preloader: .makeMocked())
+        ), summaryDataController: MockArticleSummaryDataController())
     }
 
     @MainActor
@@ -267,7 +267,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             continueReadingArticles: WMFForYouContinueReading(continueReadingArticle: article("Continue"), fromReadingListArticles: [article("Shared"), article("D1")])
         )
 
-        let keys = cardKeys(of: WMFForYouViewModel(response: response, preloader: .makeMocked()))
+        let keys = cardKeys(of: WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController()))
 
         XCTAssertEqual(keys.count, Set(keys).count)
     }
@@ -285,7 +285,7 @@ final class WMFForYouViewModelTests: XCTestCase {
             continueReadingArticles: WMFForYouContinueReading(continueReadingArticle: article("Shared"), fromReadingListArticles: [])
         )
 
-        let keys = cardKeys(of: WMFForYouViewModel(response: response, preloader: .makeMocked()))
+        let keys = cardKeys(of: WMFForYouViewModel(response: response, summaryDataController: MockArticleSummaryDataController()))
 
         XCTAssertEqual(keys.count - Set(keys).count, 1)
     }

@@ -112,23 +112,17 @@ public final class WMFForYouViewModel: ObservableObject {
         }
     }
 
-    public convenience init(
-        response: WMFForYouResponse,
-        moduleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(basedOnInterests: true, becauseYouRead: true, continueReading: true),
-        hiddenCardKeys: Set<String> = []
-    ) {
-        self.init(response: response, moduleVisibility: moduleVisibility, hiddenCardKeys: hiddenCardKeys, preloader: WMFForYouModulePreloader())
-    }
-
-    init(
+    /// The preloader starts network requests when the feed is built, so tests must give a mocked
+    /// `summaryDataController`.
+    public init(
         response: WMFForYouResponse,
         moduleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(basedOnInterests: true, becauseYouRead: true, continueReading: true),
         hiddenCardKeys: Set<String> = [],
-        preloader: WMFForYouModulePreloader
+        summaryDataController: WMFArticleSummaryDataControlling & Sendable = WMFArticleSummaryDataController.shared
     ) {
         self.moduleVisibility = moduleVisibility
         self.hiddenCardKeys = hiddenCardKeys
-        self.preloader = preloader
+        self.preloader = WMFForYouModulePreloader(summaryDataController: summaryDataController)
         self.pages = Self.makePages(from: response)
 
         preloader.preloadInitialModules(in: preloadablePages, hiddenCardKeys: hiddenCardKeys)
