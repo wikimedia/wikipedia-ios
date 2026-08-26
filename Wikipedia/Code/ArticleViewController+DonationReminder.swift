@@ -21,9 +21,10 @@ extension ArticleViewController {
         }
     }
 
-    func removeDonationReminderCardIfDisabled() {
-        guard !WMFDeveloperSettingsDataController.shared.enableDonationReminder else { return }
-        messagingController.removeDonationReminderCard()
+    func removeDonationReminderCardIfNeeded() {
+        if !WMFDeveloperSettingsDataController.shared.enableDonationReminder || WMFDonationReminderDataController.shared.isFollowUpReminderWindowClosed {
+            messagingController.removeDonationReminderCard()
+        }
     }
 
     func handleDonationReminderLinkIfNeeded(href: String) -> Bool {
@@ -43,11 +44,10 @@ extension ArticleViewController {
     private func didTapDonationReminderDonate() {
         guard let reminder = WMFDonationReminderDataController.shared.loadReminder() else { return }
 
+        WMFDonationReminderDataController.shared.closeFollowUpReminderWindow()
+
         messagingController.fetchDonationReminderDonateButtonRect { [weak self] buttonRect in
-            guard let self,
-                  let navigationController = self.navigationController else {
-                return
-            }
+            guard let self, let navigationController else { return }
 
             let globalRect: CGRect
             if let buttonRect {
@@ -69,7 +69,7 @@ extension ArticleViewController {
               case .articlesRead(count: let articlesReadGoal) = reminder.trigger
         else { return }
 
-        WMFDonationReminderDataController.shared.recordFollowUpReminderNotNow()
+        WMFDonationReminderDataController.shared.closeFollowUpReminderWindow()
 
         let toastFormat = WMFLocalizedString("donation-reminder-card-not-now-toast", value: "We will remind you again after you’ve read %1$@ articles.", comment: "Toast shown after the user dismisses the in-article donation reminder card. %1$@ is the number of articles until the next reminder.")
         let toastTitle = String.localizedStringWithFormat(toastFormat, "\(articlesReadGoal)")

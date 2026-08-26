@@ -482,6 +482,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     var isFirstAppearance = true
     var needsTabsIconImpressonOnCancel = false
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -490,7 +491,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
         
         presentModalsIfNeeded()
-        removeDonationReminderCardIfDisabled()
+        removeDonationReminderCardIfNeeded()
         trackArticleDidAppear()
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
