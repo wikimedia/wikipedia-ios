@@ -407,12 +407,13 @@
 "donate-transaction-fee-opt-in-text" = "Transaction fee checkbox on donate form. Checking it adds transaction fee to donation amount. Parameters: * $1 - transaction fee amount. Please leave %% unchanged for proper formatting.";
 "donate-wikimedia-fine-print-1" = "Wikimedia data policy fine print displayed on donation form for Apple Pay. Do not translate donor policy url. $1 is replaced by the localized donor policy link.";
 "donate-wikimedia-fine-print-2" = "Recurring donor fine print displayed on donation form for Apple Pay. Do not translate email.";
-"donation-reminder-card-body" = "Body of the in-article donation reminder card. $1 is the date the user set up the reminder, $2 is the number of articles read, $3 is the pledged donation amount.";
+"donation-reminder-card-articles" = "Number of articles read, inserted into the donation reminder card copy and toast. $1 is the number of articles.";
+"donation-reminder-card-body" = "Body of the in-article donation reminder card. $1 is the date the user set up the reminder, $2 is the number of articles read together with the word articles (for example, '5 articles'), $3 is the pledged donation amount.";
 "donation-reminder-card-donate" = "Title of the donate button on the in-article donation reminder card.";
-"donation-reminder-card-heading" = "Heading of the in-article donation reminder card the first time the user reaches their reading goal. $1 is the number of articles read, $2 is the pledged donation amount.";
+"donation-reminder-card-heading" = "Heading of the in-article donation reminder card the first time the user reaches their reading goal. $1 is the number of articles read together with the word articles (for example, '5 articles'), $2 is the pledged donation amount.";
 "donation-reminder-card-not-now" = "Title of the dismiss link on the in-article donation reminder card.";
-"donation-reminder-card-not-now-toast" = "Toast shown after the user dismisses the in-article donation reminder card. $1 is the number of articles until the next reminder.";
-"donation-reminder-card-subsequent-heading" = "Heading of the in-article donation reminder card when the user reaches their reading goal again. $1 is the number of articles read.";
+"donation-reminder-card-not-now-toast" = "Toast shown after the user dismisses the in-article donation reminder card. $1 is the number of articles until the next reminder, together with the word articles (for example, '5 articles').";
+"donation-reminder-card-subsequent-heading" = "Heading of the in-article donation reminder card when the user reaches their reading goal again. $1 is the number of articles read together with the word articles (for example, '5 articles').";
 "donation-reminder-setup-about-button-title" = "Title of the link to more information about the donation reminder experiment.";
 "donation-reminder-setup-amount-accessibility-hint" = "Accessibility hint on the donation amount buttons of the reminder setup screen.";
 "donation-reminder-setup-amount-group-title" = "Title of the donation amount selection group on the reminder setup screen.";
