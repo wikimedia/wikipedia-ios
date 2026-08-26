@@ -136,7 +136,13 @@ extension ArticleViewController {
                 if let experimentAssignment,
                    experimentAssignment != .control,
                    let navigationController = self.navigationController {
-                    let coordinator = DonationReminderSetupCoordinator(navigationController: navigationController, currencyCode: asset.currencyCode, theme: self.theme)
+                    let coordinator = DonationReminderSetupCoordinator(
+                        navigationController: navigationController,
+                        currencyCode: asset.currencyCode,
+                        theme: self.theme,
+                        origin: .banner,
+                        experimentEndDate: asset.endDate
+                    )
                     self.donationReminderSetupCoordinator = coordinator
                     coordinator.start()
                 } else {

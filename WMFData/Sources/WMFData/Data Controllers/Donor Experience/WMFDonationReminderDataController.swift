@@ -43,13 +43,24 @@ public struct WMFDonationReminder: Codable, Equatable, Sendable {
     public var isEnabled: Bool
     public var progress: Progress?
 
-    public init(trigger: Trigger, amount: Decimal, currencyCode: String, createdDate: Date, isEnabled: Bool, progress: Progress? = nil) {
+    public var experimentEndDate: Date?
+
+    public init(
+        trigger: Trigger,
+        amount: Decimal,
+        currencyCode: String,
+        createdDate: Date,
+        isEnabled: Bool,
+        progress: Progress? = nil,
+        experimentEndDate: Date? = nil
+    ) {
         self.trigger = trigger
         self.amount = amount
         self.currencyCode = currencyCode
         self.createdDate = createdDate
         self.isEnabled = isEnabled
         self.progress = progress
+        self.experimentEndDate = experimentEndDate
     }
 
     public var currentCycleStartDate: Date {
@@ -66,6 +77,13 @@ public struct WMFDonationReminder: Codable, Equatable, Sendable {
 
     public var goalReachedCount: Int {
         progress?.goalReachedCount ?? 0
+    }
+
+    public func isExpired(currentDate: Date = Date()) -> Bool {
+        guard let experimentEndDate else {
+            return false
+        }
+        return currentDate > experimentEndDate
     }
 }
 
@@ -103,6 +121,25 @@ public final class WMFDonationReminderDataController {
 
     public func clearReminder() {
         try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.donationReminder.rawValue)
+    }
+
+    public func isReminderSettingsEntryAvailable(currentDate: Date = Date()) -> Bool {
+        guard WMFDeveloperSettingsDataController.shared.enableDonationReminder else {
+            return false
+        }
+
+        switch experimentAssignment {
+        case .groupB, .groupC:
+            break
+        default:
+            return false
+        }
+
+        guard let reminder = loadReminder() else {
+            return false
+        }
+
+        return !reminder.isExpired(currentDate: currentDate)
     }
 
     // MARK: - Experiment Assignment

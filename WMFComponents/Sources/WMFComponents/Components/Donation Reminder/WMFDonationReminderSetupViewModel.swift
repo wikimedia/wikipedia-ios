@@ -8,6 +8,17 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
 
     // MARK: - Nested Types
 
+    public enum Origin {
+        case banner
+        case settings
+    }
+
+    private struct Selection {
+        let triggerOptionIdentifier: String
+        let presetAmount: Decimal?
+        let customAmount: Decimal
+    }
+
     public struct TriggerOption: Identifiable, Equatable {
         public let id: String
         public let label: String
@@ -42,7 +53,11 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
         let reminderToggleTitle = WMFLocalizedString("donation-reminder-setup-toggle-title", value: "Donation reminders", comment: "Title of the toggle that enables donation reminders on the reminder setup screen.")
         let amountGroupTitle = WMFLocalizedString("donation-reminder-setup-amount-group-title", value: "Remind me to donate", comment: "Title of the donation amount selection group on the reminder setup screen.")
         let confirmButtonTitle = WMFLocalizedString("donation-reminder-setup-confirm-button-title", value: "Confirm reminder", comment: "Title of the button that saves the configured donation reminder.")
-        let aboutExperimentButtonTitle = WMFLocalizedString("donation-reminder-setup-about-button-title", value: "About this experiment", comment: "Title of the link to more information about the donation reminder experiment.")
+        let updateButtonTitle = WMFLocalizedString("donation-reminder-setup-update-button-title", value: "Update reminder", comment: "Title of the button that saves changes to an existing donation reminder, on the setup screen opened from settings.")
+        let noThanksButtonTitle = CommonStrings.noThanksTitle
+        let learnMoreButtonTitle = CommonStrings.learnMoreTitle()
+        let problemWithFeatureButtonTitle = CommonStrings.problemWithFeatureTitle
+        let moreButtonAccessibilityLabel = CommonStrings.moreButton
         let keyboardDoneButtonTitle = CommonStrings.doneTitle
         let amountButtonAccessibilityHint = WMFLocalizedString("donation-reminder-setup-amount-accessibility-hint", value: "Double tap to select donation amount", comment: "Accessibility hint on the donation amount buttons of the reminder setup screen.")
         let customAmountAccessibilityHint = WMFLocalizedString("donation-reminder-setup-custom-amount-accessibility-hint", value: "Enter custom donation amount", comment: "Accessibility hint on the custom donation amount text field of the reminder setup screen.")
@@ -55,18 +70,21 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
 
     let localizedStrings = LocalizedStrings()
     let configuration: Configuration
+    let origin: Origin
+    private let experimentEndDate: Date?
+    private let initialReminder: WMFDonationReminder?
 
     @Published var isReminderEnabled: Bool = true {
         didSet {
-            guard oldValue != isReminderEnabled else {
-                return
+            guard oldValue != isReminderEnabled else { return }
+
+            if var savedReminder = WMFDonationReminderDataController.shared.loadReminder() {
+                savedReminder.isEnabled = isReminderEnabled
+                WMFDonationReminderDataController.shared.saveReminder(savedReminder)
             }
 
             if isReminderEnabled {
-                WMFDonationReminderDataController.shared.clearReminder()
-            } else if let trigger = (selectedTriggerOption ?? configuration.triggerOptions.first)?.trigger {
-                let optOutReminder = WMFDonationReminder(trigger: trigger, amount: finalAmount, currencyCode: configuration.currencyCode, createdDate: Date(), isEnabled: false)
-                WMFDonationReminderDataController.shared.saveReminder(optOutReminder)
+                resetSelectionsToInitialReminder()
             }
         }
     }
@@ -78,13 +96,70 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
 
     public var didConfirmReminder: ((WMFDonationReminder) -> Void)?
     public var didTapAboutExperiment: (() -> Void)?
+    public var didTapNoThanks: (() -> Void)?
+    public var didTapReportProblem: (() -> Void)?
 
     // MARK: - Lifecycle
 
-    public init(configuration: Configuration) {
+    public init(configuration: Configuration, origin: Origin, experimentEndDate: Date? = nil) {
         self.configuration = configuration
-        self.selectedTriggerOptionIdentifier = configuration.defaultTriggerOptionIdentifier
-        self.selectedPresetAmount = configuration.defaultAmount
+        self.origin = origin
+
+        let savedReminder = WMFDonationReminderDataController.shared.loadReminder()
+        self.experimentEndDate = experimentEndDate ?? savedReminder?.experimentEndDate
+        self.initialReminder = savedReminder
+
+        switch origin {
+        case .banner:
+            self.selectedTriggerOptionIdentifier = configuration.defaultTriggerOptionIdentifier
+            self.selectedPresetAmount = configuration.defaultAmount
+        case .settings:
+            let selection = Self.selection(for: savedReminder, configuration: configuration)
+            self.selectedTriggerOptionIdentifier = selection.triggerOptionIdentifier
+            self.selectedPresetAmount = selection.presetAmount
+            self.customAmount = selection.customAmount
+
+            self.isReminderEnabled = savedReminder?.isEnabled ?? false
+        }
+    }
+
+    private static func selection(
+        for reminder: WMFDonationReminder?,
+        configuration: Configuration
+    ) -> Selection {
+        let triggerOptionIdentifier = configuration.triggerOptions.first { $0.trigger == reminder?.trigger }?.id
+        ?? configuration.defaultTriggerOptionIdentifier
+
+        guard let savedAmount = reminder?.amount else {
+            return Selection(triggerOptionIdentifier: triggerOptionIdentifier, presetAmount: configuration.defaultAmount, customAmount: 0)
+        }
+
+        if configuration.presetAmounts.contains(savedAmount) {
+            return Selection(triggerOptionIdentifier: triggerOptionIdentifier, presetAmount: savedAmount, customAmount: 0)
+        }
+        return Selection(triggerOptionIdentifier: triggerOptionIdentifier, presetAmount: nil, customAmount: savedAmount)
+    }
+
+    private func resetSelectionsToInitialReminder() {
+        let selection = Self.selection(for: initialReminder, configuration: configuration)
+        selectedTriggerOptionIdentifier = selection.triggerOptionIdentifier
+        selectedPresetAmount = selection.presetAmount
+        customAmount = selection.customAmount
+        customAmountHasFocus = false
+    }
+
+    var primaryButtonTitle: String {
+        origin == .settings ? localizedStrings.updateButtonTitle : localizedStrings.confirmButtonTitle
+    }
+
+    var hasPendingChanges: Bool {
+        guard origin == .settings, let initialReminder else { return true }
+
+        return selectedTriggerOption?.trigger != initialReminder.trigger || finalAmount != initialReminder.amount || isReminderEnabled != initialReminder.isEnabled
+    }
+
+    var isConfirmButtonEnabled: Bool {
+        canConfirm && hasPendingChanges
     }
 
     // MARK: - Selection
@@ -94,9 +169,8 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     }
 
     var finalAmount: Decimal {
-        if customAmount > 0 {
-            return customAmount
-        }
+        if customAmount > 0 { return customAmount }
+
         return selectedPresetAmount ?? 0
     }
 
@@ -137,11 +211,28 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     // MARK: - Actions
 
     func confirm() {
-        guard let selectedTriggerOption, canConfirm, isReminderEnabled else {
-            return
+        guard let selectedTriggerOption, isConfirmButtonEnabled, isReminderEnabled else { return }
+
+        let createdDate: Date
+        let progress: WMFDonationReminder.Progress?
+        switch origin {
+        case .banner:
+            createdDate = Date()
+            progress = nil
+        case .settings:
+            createdDate = WMFDonationReminderDataController.shared.loadReminder()?.createdDate ?? Date()
+            progress = WMFDonationReminder.Progress(currentCycleStartDate: Date(), timesReminderShown: 0)
         }
 
-        let reminder = WMFDonationReminder(trigger: selectedTriggerOption.trigger, amount: finalAmount, currencyCode: configuration.currencyCode, createdDate: Date(), isEnabled: true)
+        let reminder = WMFDonationReminder(
+            trigger: selectedTriggerOption.trigger,
+            amount: finalAmount,
+            currencyCode: configuration.currencyCode,
+            createdDate: createdDate,
+            isEnabled: true,
+            progress: progress,
+            experimentEndDate: experimentEndDate
+        )
         WMFDonationReminderDataController.shared.saveReminder(reminder)
 
         let formatter = NumberFormatter.wmfCurrencyFormatter
@@ -151,6 +242,22 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
         WMFToastPresenter.shared.show(WMFToastConfig(title: toastTitle, icon: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill)))
 
         didConfirmReminder?(reminder)
+    }
+
+    func declineReminder() {
+        guard let trigger = (selectedTriggerOption ?? configuration.triggerOptions.first)?.trigger else { return }
+
+        let optOutReminder = WMFDonationReminder(
+            trigger: trigger,
+            amount: finalAmount,
+            currencyCode: configuration.currencyCode,
+            createdDate: Date(),
+            isEnabled: false,
+            experimentEndDate: experimentEndDate
+        )
+        WMFDonationReminderDataController.shared.saveReminder(optOutReminder)
+
+        didTapNoThanks?()
     }
 
     // MARK: - Experiment Configuration
