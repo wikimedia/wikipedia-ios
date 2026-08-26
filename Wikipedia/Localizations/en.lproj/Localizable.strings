@@ -1313,8 +1313,12 @@
 "settings-clear-cache-are-you-sure-title" = "Clear cached data?";
 "settings-clear-cache-cancel" = "Cancel";
 "settings-clear-cache-ok" = "Clear cache";
+"settings-clear-donation-history" = "Clear donation history";
 "settings-community-feed-title" = "Community";
 "settings-donate" = "Donate";
+"settings-donation-reminders-subtitle" = "Wikipedia will remind you to donate $1 every $2 articles you read.";
+"settings-donation-reminders-title" = "Donation reminders";
+"settings-donations-header" = "Donations";
 "settings-editing-preferences-source-short" = "Source";
 "settings-editing-preferences-title" = "Editing preference";
 "settings-editing-preferences-visual-short" = "Visual";
