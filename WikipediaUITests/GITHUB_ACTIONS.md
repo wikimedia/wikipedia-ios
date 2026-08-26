@@ -4,7 +4,7 @@ This document maps the GitHub Actions workflows to the Xcode schemes, test targe
 
 ## Shared CI Shape
 
-UI Test workflows run on `macos-latest`, select Xcode `26.2`, prepare an `iPhone 16` simulator running iOS `26.2`, and build from `Wikipedia.xcodeproj`.
+UI Test workflows run on `macos-26`, select Xcode `26.5`, prepare an `iPhone 17` simulator running iOS `26.5`, and build from `Wikipedia.xcodeproj`.
 
 The UI-test suite itself is one Xcode test target:
 
@@ -29,20 +29,18 @@ The `UITests` test plan selects that target and defines the checked-in configura
 | Workflow | File | Triggers | Scheme | Test plan/configuration | Test selection | Why it exists |
 | --- | --- | --- | --- | --- | --- | --- |
 | Run Unit Tests | `.github/workflows/run_unit_tests.yml` | `pull_request` to `main`, `push` to `main`, manual dispatch | `Wikipedia`, `WMFComponents`, `WMFData` matrix | Scheme defaults | Full scheme tests | PR and main-branch unit test signal for app, components, and data layers |
-| Run UI Tests | `.github/workflows/run_ui_tests.yml` | `repository_dispatch` type `nightly-ui-tests`, manual dispatch from a release tag | `WikipediaUITests` | `UITests`, `English (Light)` | Full configuration | Deterministic fixture-backed UI regression signal for nightly and release-tag validation |
-| Run E2E Tests | `.github/workflows/run_e2e_ui_tests.yml` | `pull_request` to `main`, manual dispatch from a release tag | `WikipediaUITests` | `UITests`, `English (Light, E2E)` | Identifiers in `WikipediaUITests/E2ESmokeTests.txt` | Small live-network smoke signal for flows where integration matters |
-| Run Full UI Test Plan | `.github/workflows/run_full_ui_test_plan.yml` | Manual dispatch from a release tag | `WikipediaUITests` | Every checked-in `UITests.xctestplan` configuration | Full selected configuration per matrix job | Release-tag confidence across fixture, E2E, language, RTL, and theme configurations |
-| Tag Latest Beta | `.github/workflows/tag_latest_beta.yml` | Daily schedule, manual dispatch | None | None | None | Moves `latest_beta`; dispatches nightly fixture-backed UI tests when `main` has advanced |
+| Run UI Tests | `.github/workflows/run_ui_tests.yml` | `push` to `betas/*` tags, manual dispatch from any tag | `WikipediaUITests` | `UITests`, `English (Light)` | Full configuration | Deterministic fixture-backed UI regression signal on every beta and any tag |
+| Run E2E Tests | `.github/workflows/run_e2e_ui_tests.yml` | `pull_request` to `main`, manual dispatch from any tag | `WikipediaUITests` | `UITests`, `English (Light, E2E)` | Identifiers in `WikipediaUITests/E2ESmokeTests.txt` | Small live-network smoke signal for flows where integration matters |
+| Run Full UI Test Plan | `.github/workflows/run_full_ui_test_plan.yml` | Manual dispatch from any tag | `WikipediaUITests` | Every checked-in `UITests.xctestplan` configuration | Full selected configuration per matrix job | Tag confidence across fixture, E2E, language, RTL, and theme configurations |
+
 | Check PR and App Versions | `.github/workflows/check_versions.yml` | PR opened, reopened, labeled, unlabeled, synchronized | None | None | None | Release-label policy gate, not an XCTest lane |
 
 ## Run UI Tests
 
 `Run UI Tests` is the fixture-backed UI-test lane. It runs when:
 
-- `tag_latest_beta.yml` emits a `nightly-ui-tests` repository dispatch after moving `latest_beta`;
-- an engineer manually dispatches the workflow from a GitHub release tag.
-
-Manual runs verify that the selected ref is a release tag. Nightly dispatch checks out `github.event.client_payload.ref`, which is currently `latest_beta`.
+- a `betas/*` tag is pushed — the workflow checks out that tag automatically;
+- an engineer manually dispatches the workflow, supplying any tag name as input.
 
 This workflow runs:
 
@@ -60,7 +58,7 @@ Use this lane for deterministic UI regression coverage that should not depend on
 
 ## Run E2E Tests
 
-`Run E2E Tests` is the live-network smoke lane. It currently runs on PRs targeting `main` and can also be manually dispatched from a release tag.
+`Run E2E Tests` is the live-network smoke lane. It currently runs on PRs targeting `main` and can also be manually dispatched from any tag.
 
 This workflow selects:
 
@@ -82,7 +80,7 @@ Use this lane only for a small set of flows where live services are part of the 
 
 ## Run Full UI Test Plan
 
-`Run Full UI Test Plan` is the release-tag confidence lane. It is manual-only.
+`Run Full UI Test Plan` is the full-matrix confidence lane. It is manual-only, accepting any tag as input.
 
 The workflow reads the selected tag's `Test Plans/UITests.xctestplan`, derives a matrix from the `configurations` array, builds `WikipediaUITests` once with:
 

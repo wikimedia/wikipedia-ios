@@ -16,7 +16,7 @@ This guide walks through adding a `WikipediaUITests` test from setup through val
 3. Select the Xcode installation that should build and run tests. If the app is installed at the workflow-style path, use:
 
    ```sh
-   sudo xcode-select -switch /Applications/Xcode_26.2.app
+   sudo xcode-select -switch /Applications/Xcode_26.5.app
    ```
 
    If you installed the standard App Store app, use:
@@ -25,7 +25,7 @@ This guide walks through adding a `WikipediaUITests` test from setup through val
    sudo xcode-select -switch /Applications/Xcode.app
    ```
 
-4. Install the iOS Simulator runtime used by the workflow if it is not already installed. Open Xcode, go to Settings > Components or Settings > Platforms, and install iOS `26.2`. Confirm that Xcode sees the runtime and an `iPhone 16` simulator:
+4. Install the iOS Simulator runtime used by the workflow if it is not already installed. Open Xcode, go to Settings > Components or Settings > Platforms, and install iOS `26.5`. Confirm that Xcode sees the runtime and an `iPhone 16` simulator:
 
    ```sh
    xcrun simctl list runtimes
@@ -190,7 +190,7 @@ xcodebuild test \
   -testPlan UITests \
   -only-test-configuration "English (Light)" \
   -only-testing:WikipediaUITests/<ClassName>/<testMethod> \
-  -destination "platform=iOS Simulator,name=iPhone 16" \
+  -destination "platform=iOS Simulator,name=iPhone 17" \
   -resultBundlePath /tmp/<case-name>/result.xcresult
 ```
 
@@ -203,7 +203,7 @@ xcodebuild test \
   -testPlan UITests \
   -only-test-configuration "English (Light, E2E)" \
   -only-testing:WikipediaUITests/<ClassName>/<testMethod> \
-  -destination "platform=iOS Simulator,name=iPhone 16" \
+  -destination "platform=iOS Simulator,name=iPhone 17" \
   -resultBundlePath /tmp/<case-name>/e2e-result.xcresult
 ```
 
