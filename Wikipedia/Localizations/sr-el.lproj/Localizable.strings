@@ -1056,6 +1056,45 @@
 "widget-onthisday-description" = "Šta se desilo na današnji dan.";
 "widget-onthisday-placeholder-article-snippet" = "Slobodna onlajn enciklopedija koju svako može uređivati";
 "widget-onthisday-placeholder-event-snippet" = "Vikipedija, slobodna enciklopedija, ide onlajn.";
+"wikimedia-articletopics-topic-africa" = "Afrika";
+"wikimedia-articletopics-topic-architecture" = "Arhitektura";
+"wikimedia-articletopics-topic-art" = "Umetnost";
+"wikimedia-articletopics-topic-asia" = "Azija";
+"wikimedia-articletopics-topic-biography" = "Biografija (sve)";
+"wikimedia-articletopics-topic-biology" = "Biologija";
+"wikimedia-articletopics-topic-business-and-economics" = "Poslovanje i privreda";
+"wikimedia-articletopics-topic-central-america" = "Srednja Amerika";
+"wikimedia-articletopics-topic-chemistry" = "Hemija";
+"wikimedia-articletopics-topic-comics-and-anime" = "Stripovi i anime";
+"wikimedia-articletopics-topic-computers-and-internet" = "Računari i internet";
+"wikimedia-articletopics-topic-earth-and-environment" = "Zemlja i životna sredina";
+"wikimedia-articletopics-topic-education" = "Obrazovanje";
+"wikimedia-articletopics-topic-engineering" = "Inženjerstvo";
+"wikimedia-articletopics-topic-entertainment" = "Zabava";
+"wikimedia-articletopics-topic-europe" = "Evropa";
+"wikimedia-articletopics-topic-fashion" = "Moda";
+"wikimedia-articletopics-topic-food-and-drink" = "Hrana i piće";
+"wikimedia-articletopics-topic-general-science" = "Opšta nauka";
+"wikimedia-articletopics-topic-history" = "Istorija";
+"wikimedia-articletopics-topic-literature" = "Književnost";
+"wikimedia-articletopics-topic-mathematics" = "Matematika";
+"wikimedia-articletopics-topic-medicine-and-health" = "Medicina i zdravlje";
+"wikimedia-articletopics-topic-military-and-warfare" = "Vojska i ratovanje";
+"wikimedia-articletopics-topic-music" = "Muzika";
+"wikimedia-articletopics-topic-north-america" = "Severna Amerika";
+"wikimedia-articletopics-topic-oceania" = "Okeanija";
+"wikimedia-articletopics-topic-performing-arts" = "Scenska umetnost";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filozofija i veroispovest";
+"wikimedia-articletopics-topic-physics" = "Fizika";
+"wikimedia-articletopics-topic-politics-and-government" = "Politika i vlada";
+"wikimedia-articletopics-topic-society" = "Društvo";
+"wikimedia-articletopics-topic-south-america" = "Južna Amerika";
+"wikimedia-articletopics-topic-sports" = "Sport";
+"wikimedia-articletopics-topic-technology" = "Tehnologija";
+"wikimedia-articletopics-topic-transportation" = "Prevoz";
+"wikimedia-articletopics-topic-tv-and-film" = "TV i film";
+"wikimedia-articletopics-topic-video-games" = "Video-igre";
+"wikimedia-articletopics-topic-women" = "Biografija (žene)";
 "wikitext-preview-changes" = "Preuzimanje pregleda vaših promena…";
 "wikitext-preview-link-external-preview-description" = "Ova veza vodi do spoljašnjeg veb-sajta: $1";
 "wikitext-preview-link-external-preview-title" = "Spoljašnja veza";
@@ -1071,121 +1110,3 @@
 "wikitext-upload-save-anonymously-or-login" = "Izmene će biti pripisane IP adresi vašeg uređaja. Ako se $1prijavite$2, imaćete više privatnosti.";
 "wikitext-upload-save-anonymously-warning" = "Izmene će biti pripisane IP adresi vašeg uređaja. Ako se prijavite, imaćete više privatnosti.";
 "wikitext-upload-save-terms-name" = "uslove korišćenja";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Arhitektura";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Umetnost";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Stripovi i anime";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Zabava";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Moda";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Književnost";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Muzika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Scenska umetnost";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Sport";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "TV i film";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Video-igre";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Biografija (sve)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Biografija (žene)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Poslovanje i privreda";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Obrazovanje";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Hrana i piće";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Istorija";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Vojska i ratovanje";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Filozofija i veroispovest";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Politika i vlada";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Društvo";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Prevoz";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Biologija";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Hemija";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Računari i internet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Zemlja i životna sredina";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Inženjerstvo";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Opšta nauka";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Matematika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Medicina i zdravlje";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Fizika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Tehnologija";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Afrika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Azija";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Srednja Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Evropa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Severna Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Okeanija";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Južna Amerika";
