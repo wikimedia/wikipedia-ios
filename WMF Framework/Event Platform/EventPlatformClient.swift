@@ -944,33 +944,55 @@ import WMFTestKitchen
             
             let data = try encoder.encode(eventPayload)
 
-            guard let streamConfigs = streamConfigurations else {
-                appendEventToInputBuffer(data: data, stream: stream)
-                return
-            }
-            guard let config = streamConfigs[stream] else {
-                DDLogError("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
-                return
-            }
-            guard samplingController.inSample(stream: stream, config: config) else {
-                DDLogWarn("EPC: Stream '\(stream.rawValue)' is not in sample")
-                return
-            }
-
-            #if DEBUG
-            // Convert to loose dictionary so we can sort keys and print that way.
-            if let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                let printablePayload = PrintableEventPayload(payload: dict)
-                DDLogDebug("\n\n📊EPC: Scheduling event to be sent to \(config.destination_event_service):")
-                DDLogDebug("\(printablePayload)")
-            }
-            #endif
-
-            storageManager.push(data: data, stream: stream)
+            _submitPreEncoded(data: data, stream: stream)
         } catch let error {
             DDLogError("EPC: \(error.localizedDescription)")
         }
 
+    }
+
+    /**
+     * Submit an already-encoded event payload according to the given stream's configuration.
+     *
+     * This is the single point where every event — including pre-encoded ones from
+     * TestKitchen — is buffered (while stream configs are unavailable), checked against
+     * the stream's sampling configuration, and persisted for sending.
+     */
+    func submitPreEncoded(data: Data, stream: Stream) {
+        encodeQueue.async {
+            self._submitPreEncoded(data: data, stream: stream)
+        }
+    }
+
+    /// Private, synchronous version of `submitPreEncoded`.
+    private func _submitPreEncoded(data: Data, stream: Stream) {
+        guard let storageManager = self.storageManager else {
+            return
+        }
+
+        guard let streamConfigs = streamConfigurations else {
+            appendEventToInputBuffer(data: data, stream: stream)
+            return
+        }
+        guard let config = streamConfigs[stream] else {
+            DDLogError("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
+            return
+        }
+        guard samplingController.inSample(stream: stream, config: config) else {
+            DDLogWarn("EPC: Stream '\(stream.rawValue)' is not in sample")
+            return
+        }
+
+        #if DEBUG
+        // Convert to loose dictionary so we can sort keys and print that way.
+        if let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+            let printablePayload = PrintableEventPayload(payload: dict)
+            DDLogDebug("\n\n📊EPC: Scheduling event to be sent to \(config.destination_event_service):")
+            DDLogDebug("\(printablePayload)")
+        }
+        #endif
+
+        storageManager.push(data: data, stream: stream)
     }
 }
 
