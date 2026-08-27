@@ -81,11 +81,11 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
         selection = .community
     }
 
-    func interestsDidChange() {
+    func interestsDidChange(topics: [WMFArticleTopic], selectedArticleTitles: [String]) {
         guard !hasLoaded else { return }
         warmUpTask = Task { [weak self] in
             guard let self else { return }
-            await dataController.warmForYouArticles(project: project)
+            await dataController.warmForYouArticles(project: project, topics: topics, pageTitles: selectedArticleTitles)
         }
     }
 

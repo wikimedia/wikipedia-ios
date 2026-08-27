@@ -23,11 +23,12 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     @Published var selectedTopics: [WMFArticleTopic] = []
     public private(set) var hasChanges: Bool = false
 
-    var onSelectionChanged: (() -> Void)?
+    var onSelectionChanged: ((_ topics: [WMFArticleTopic], _ selectedArticleTitles: [String]) -> Void)?
 
     private func noteChanges() {
         hasChanges = true
-        onSelectionChanged?()
+        let titles = gridViewModels.filter { $0.isSelected }.map { $0.title.normalizedForCoreData }
+        onSelectionChanged?(selectedTopics, titles)
     }
     @Published var gridViewModels: [WMFInterestArticleCardViewModel] = []
     @Published var isFetchingArticles: Bool = false

@@ -338,8 +338,8 @@ import WMFTestKitchen
         return hash
     }
 
-    private nonisolated func dailyTopicSeeds(project: WMFProject) -> [WMFArticleTopic] {
-        Array(dailySeedOrder(interestTopics(), project: project, key: { $0.rawValue }).prefix(Self.maxDailyTopicSeeds))
+    private nonisolated func dailyTopicSeeds(from topics: [WMFArticleTopic], project: WMFProject) -> [WMFArticleTopic] {
+        Array(dailySeedOrder(topics, project: project, key: { $0.rawValue }).prefix(Self.maxDailyTopicSeeds))
     }
 
     private nonisolated func dailyPageInterestSeeds(_ interests: [WMFPageInterest], project: WMFProject) -> [WMFPageInterest] {
@@ -367,21 +367,29 @@ import WMFTestKitchen
     /// is ready almost immediately. Repeated calls are cheap: a fresh group is not fetched again,
     /// and equal requests in flight share one download.
     public func warmForYouArticles(project: WMFProject) async {
+        let topics = interestTopics()
+        let interests = (try? await pageInterestDataController?.fetchPageInterests(project: project)) ?? []
+        await warmForYouArticles(project: project, topics: topics, pageTitles: interests.map { $0.title })
+    }
+
+    /// Warm-up that accepts an explicit page-interest list, avoiding a Core Data read.
+    /// Use this when the caller already holds the current in-memory state and the Core Data
+    /// write may not have completed yet (e.g. immediately after toggling an article card).
+    public func warmForYouArticles(project: WMFProject, topics: [WMFArticleTopic], pageTitles: [String]) async {
         // Warm only the seeds of the day, never every interest: the seed selection is what
         // bounds the network cost, and the fetch computes the same selection.
-        let topics = dailyTopicSeeds(project: project)
-        let allInterests = (try? await pageInterestDataController?.fetchPageInterests(project: project)) ?? []
-        let interests = dailyPageInterestSeeds(allInterests, project: project)
+        let seedTopics = dailyTopicSeeds(from: topics, project: project)
+        let seedTitles = Array(dailySeedOrder(pageTitles, project: project, key: { $0 }).prefix(Self.maxDailyPageInterestSeeds))
 
         await withTaskGroup(of: Void.self) { group in
-            for topic in topics {
+            for topic in seedTopics {
                 group.addTask {
                     _ = try? await self.warmedOrFetchedTopicArticles(for: topic, project: project)
                 }
             }
-            for interest in interests {
+            for title in seedTitles {
                 group.addTask {
-                    _ = try? await self.warmedOrFetchedRelatedPages(title: interest.title, project: project)
+                    _ = try? await self.warmedOrFetchedRelatedPages(title: title, project: project)
                 }
             }
         }
@@ -403,7 +411,7 @@ import WMFTestKitchen
 
         warmedTopicWaiters[key] = []
         do {
-            let articles = try await fetchArticles(for: topic, project: project)
+            let articles = try await fetchArticlesFromNetwork(for: topic, project: project)
             warmedTopicArticles[key] = WarmedTopicArticles(date: Date(), articles: articles)
             resumeWarmedTopicWaiters(key: key, with: .success(articles))
             return articles
@@ -504,7 +512,7 @@ import WMFTestKitchen
     }
 
     private func fetchForYouInterestTopicRandomArticles(project: WMFProject, excluding excluded: Set<String>) async throws -> [WMFForYouInterestTopicRandomArticles] {
-        let topics = dailyTopicSeeds(project: project)
+        let topics = dailyTopicSeeds(from: interestTopics(), project: project)
         guard !topics.isEmpty else { return [] }
 
         return try await withThrowingTaskGroup(of: WMFForYouInterestTopicRandomArticles.self) { group in
@@ -640,8 +648,12 @@ import WMFTestKitchen
         return try await WMFRandomDataController.shared.fetchRandomArticles(project: project)
     }
 
-    /// Fetches articles matching a specific interest topic.
+    /// Fetches articles matching a specific interest topic, reading from the warm cache when available.
     public func fetchArticles(for topic: WMFArticleTopic, project: WMFProject) async throws -> [WMFRandomArticle] {
+        return try await warmedOrFetchedTopicArticles(for: topic, project: project)
+    }
+
+    private func fetchArticlesFromNetwork(for topic: WMFArticleTopic, project: WMFProject) async throws -> [WMFRandomArticle] {
         let topicID = topic.rawValue
         guard let service = basicService else {
             throw WMFDataControllerError.basicServiceUnavailable

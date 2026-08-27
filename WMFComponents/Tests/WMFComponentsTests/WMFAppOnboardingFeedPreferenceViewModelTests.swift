@@ -338,7 +338,7 @@ final class WMFAppOnboardingFeedPreferenceWarmUpTests {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let (viewModel, service, summaryController) = makeCountingViewModel()
 
-            viewModel.interestsDidChange()
+            viewModel.interestsDidChange(topics: [.biology], selectedArticleTitles: [])
             await viewModel.waitForWarmUp()
             #expect(service.decodableGETCallCount == 1)
 
@@ -359,9 +359,9 @@ final class WMFAppOnboardingFeedPreferenceWarmUpTests {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let (viewModel, service, _) = makeCountingViewModel()
 
-            viewModel.interestsDidChange()
+            viewModel.interestsDidChange(topics: [.biology], selectedArticleTitles: [])
             await viewModel.waitForWarmUp()
-            viewModel.interestsDidChange()
+            viewModel.interestsDidChange(topics: [.biology], selectedArticleTitles: [])
             await viewModel.waitForWarmUp()
 
             #expect(service.decodableGETCallCount == 1, "A fresh warmed group must not be fetched again")
@@ -386,7 +386,7 @@ final class WMFAppOnboardingFeedPreferenceWarmUpTests {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironmentWithoutCoreDataStore) {
             let (viewModel, _, _) = makeCountingViewModel()
 
-            viewModel.interestsDidChange()
+            viewModel.interestsDidChange(topics: [.biology], selectedArticleTitles: [])
             await viewModel.waitForWarmUp()
             viewModel.loadIfNeeded()
             await viewModel.waitForLoadTasks()
