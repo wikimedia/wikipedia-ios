@@ -222,8 +222,6 @@ public struct WMFForYouView: View {
                         onShowCard: { viewModel.onShowCard?($0) },
                         focusedCardKey: $focusedCardKey,
                         canGoToPreviousModule: index > 0,
-                        // The end of feed card follows the last module, so every module has a next stop.
-                        canGoToNextModule: true,
                         onGoToPreviousModule: { moveModule(by: -1) },
                         onGoToNextModule: { moveModule(by: 1) }
                     )
@@ -372,7 +370,6 @@ private struct WMFForYouPageView: View {
     /// Offered only where there is somewhere to go, so the rotor does not list a dead action on the
     /// first and last modules.
     let canGoToPreviousModule: Bool
-    let canGoToNextModule: Bool
     let onGoToPreviousModule: () -> Void
     let onGoToNextModule: () -> Void
 
@@ -428,9 +425,7 @@ private struct WMFForYouPageView: View {
             .accessibilityFocused($focusedCardKey, equals: article.cardUniqueKey)
             .accessibilityValue(Text(positionValue(for: article)))
             .accessibilityActions {
-                if canGoToNextModule {
-                    Button(WMFHomeLocalizedStrings.nextModule) { onGoToNextModule() }
-                }
+                Button(WMFHomeLocalizedStrings.nextModule) { onGoToNextModule() }
                 if canGoToPreviousModule {
                     Button(WMFHomeLocalizedStrings.previousModule) { onGoToPreviousModule() }
                 }

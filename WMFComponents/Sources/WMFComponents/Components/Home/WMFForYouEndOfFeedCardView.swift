@@ -21,7 +21,7 @@ struct WMFForYouEndOfFeedCardView: View {
         case emptyFeed
     }
 
-    @ObservedObject var viewModel: WMFForYouEndOfFeedViewModel
+    @ObservedObject var viewModel: WMFForYouEndOfFeedCardViewModel
 
     let variant: Variant
 
@@ -30,13 +30,6 @@ struct WMFForYouEndOfFeedCardView: View {
 
     /// Where the header bar ends, so the content never slides under the chrome.
     @Environment(\.forYouHeaderBottom) private var headerBottom: CGFloat
-
-    private var gifName: String {
-        switch variant {
-        case .endOfFeed: return "onboarding_puzzle"
-        case .emptyFeed: return "empty_feed"
-        }
-    }
 
     private var title: String {
         switch variant {
@@ -170,7 +163,7 @@ struct WMFForYouEndOfFeedCardView: View {
 
 #Preview("End of feed") {
     WMFForYouEndOfFeedCardView(
-        viewModel: WMFForYouEndOfFeedViewModel(),
+        viewModel: WMFForYouEndOfFeedCardViewModel(),
         variant: .endOfFeed,
         theme: .forYou
     )
@@ -178,7 +171,7 @@ struct WMFForYouEndOfFeedCardView: View {
 
 #Preview("Empty feed") {
     WMFForYouEndOfFeedCardView(
-        viewModel: WMFForYouEndOfFeedViewModel(),
+        viewModel: WMFForYouEndOfFeedCardViewModel(),
         variant: .emptyFeed,
         theme: .forYou
     )

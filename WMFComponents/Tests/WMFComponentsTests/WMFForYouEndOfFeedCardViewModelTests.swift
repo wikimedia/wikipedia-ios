@@ -44,7 +44,7 @@ final class WMFForYouEndOfFeedCardViewModelTests: XCTestCase {
     /// The impression ends the home_feed funnel, so it must fire exactly once however often the
     /// reader lands back on the card within the same feed.
     func testImpressionReportsOnlyOnce() {
-        let endOfFeed = WMFForYouEndOfFeedViewModel()
+        let endOfFeed = WMFForYouEndOfFeedCardViewModel()
         var impressions = 0
         endOfFeed.onShow = { impressions += 1 }
 
@@ -136,7 +136,7 @@ final class WMFForYouEndOfFeedCardViewModelTests: XCTestCase {
         homeViewModel.forYouViewModel?.endOfFeedViewModel.onTapAddInterests?()
 
         XCTAssertTrue(didOpenInterests)
-        XCTAssertEqual(loggedSource, WMFForYouEndOfFeedViewModel.loggingId)
+        XCTAssertEqual(loggedSource, WMFForYouEndOfFeedCardViewModel.loggingId)
         XCTAssertEqual(loggedElement, "customize_feed")
     }
 

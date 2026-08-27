@@ -84,7 +84,7 @@ public final class WMFForYouViewModel: ObservableObject {
     public var onUnsaveCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onUserInteraction: (() -> Void)?
     public var onEmptyViewAppearance: (() -> Void)?
-    public let endOfFeedViewModel = WMFForYouEndOfFeedViewModel()
+    public let endOfFeedViewModel = WMFForYouEndOfFeedCardViewModel()
 
     /// Called with a card that the user really sees on the screen.
     public var onShowCard: ((WMFForYouArticleCardViewModel) -> Void)?

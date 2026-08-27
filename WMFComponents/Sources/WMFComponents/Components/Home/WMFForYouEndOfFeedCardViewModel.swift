@@ -8,7 +8,7 @@ import WMFNativeLocalizations
 /// has no personalized content at all (no interests and no reading history). It is not shown when
 /// the reader has content but turned every module off - that case keeps the settings empty state.
 @MainActor
-public final class WMFForYouEndOfFeedViewModel: ObservableObject, Identifiable {
+public final class WMFForYouEndOfFeedCardViewModel: ObservableObject, Identifiable {
 
     /// Identity of the end of feed page in the vertical paging layout, alongside the module page IDs.
     public let id = UUID()
