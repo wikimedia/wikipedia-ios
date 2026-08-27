@@ -10,9 +10,13 @@ public enum RequestError: LocalizedError {
     case api(String)
     
     public var errorDescription: String? {
+        let serverResponse = WMFLocalizedString("fetcher-error-unexpected-response", value: "The app received an unexpected response from the server. Please try again later.", comment: "Error shown to the user for unexpected server responses.")
+    
         switch self {
         case .unexpectedResponse:
-            return WMFLocalizedString("fetcher-error-unexpected-response", value: "The app received an unexpected response from the server. Please try again later.", comment: "Error shown to the user for unexpected server responses.")
+            return serverResponse
+        case .http(let code):
+            return serverResponse + " httpStatusCode: \(code)"
         default:
             return CommonStrings.genericErrorDescription
         }
