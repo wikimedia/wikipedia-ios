@@ -29,8 +29,8 @@ import WMFTestKitchen
 
     @objc public static let shared = WMFHomeDataController()
 
-    // Assigned once in init from a local WMFExperimentsDataController; immutable after.
-    nonisolated private let homeTabAssignment: HomeTabExperimentAssignment
+    // Written once by assignExperiment() on the main thread at launch, before any concurrent reads.
+    nonisolated(unsafe) private var homeTabAssignment: HomeTabExperimentAssignment = .control
 
     public init(
         feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared,
@@ -38,9 +38,7 @@ import WMFTestKitchen
         userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore,
         relatedPagesDataController: WMFRelatedPagesDataController = WMFRelatedPagesDataController.shared,
         savedArticlesDataController: WMFSavedArticlesDataController = WMFSavedArticlesDataController.shared,
-        onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared,
-        experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore,
-        testKitchenClient: TestKitchenClient? = WMFDataEnvironment.current.testKitchenClient
+        onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared
     ) {
         self.feedDataController = feedDataController
         self.basicService = basicService
@@ -48,21 +46,6 @@ import WMFTestKitchen
         self.relatedPagesDataController = relatedPagesDataController
         self.savedArticlesDataController = savedArticlesDataController
         self.onThisDayDataController = onThisDayDataController
-
-        if let experimentStore {
-            let controller = WMFExperimentsDataController(store: experimentStore)
-            let bucket = try? controller.determineBucketForExperiment(.homeTab, withPercentage: 50)
-            homeTabAssignment = bucket == .homeTabGroupB ? .groupB : .control
-        } else {
-            homeTabAssignment = .control
-        }
-
-        let assigned = homeTabAssignment == .groupB ? "treatment" : "control"
-        testKitchenClient?.getInstrument(name: "apps-home-feed")
-            .submitInteraction(
-                action: "experiment_exposure",
-                experimentData: ExperimentData(enrolled: "ios-home-feed", assigned: assigned)
-            )
         
         NotificationCenter.default.addObserver(
             forName: WMFNSNotification.pageViewHistoryDidChange,
@@ -76,6 +59,21 @@ import WMFTestKitchen
         }
     }
     
+    public nonisolated func assignExperiment() {
+        guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
+        let controller = WMFExperimentsDataController(store: store)
+        let bucket = try? controller.determineBucketForExperiment(.homeTab, withPercentage: 50)
+        homeTabAssignment = bucket == .homeTabGroupB ? .groupB : .control
+    }
+
+    public nonisolated func logExperimentExposure() {
+        WMFDataEnvironment.current.testKitchenClient?.getInstrument(name: "apps-home-feed")
+            .submitInteraction(
+                action: "experiment_exposure",
+                experimentData: experimentData
+            )
+    }
+
     private func invalidateForYouCache(project: WMFProject?) {
         guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
         let target = project ?? selectedLanguage().map { WMFProject.wikipedia($0) }
