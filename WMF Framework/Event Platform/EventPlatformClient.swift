@@ -273,10 +273,25 @@ import WMFTestKitchen
 
     // MARK: - Methods
 
+    /// On-disk copy of the last stream configuration response, shared across processes via
+    /// the app-group container so widget/extension processes never need to fetch it.
+    private struct CachedStreamConfigResponse: Codable {
+        let fetchDate: Date
+        let data: Data
+    }
+
+    /// How long a cached stream configuration response stays fresh enough to skip the
+    /// per-launch network refresh. Config changes deploy on a roughly daily cadence.
+    private static let streamConfigCacheMaxAge: TimeInterval = 60 * 60 * 24
+
+    private static var streamConfigCache: SharedContainerCache {
+        SharedContainerCache(fileName: SharedContainerCacheCommonNames.streamConfigCache)
+    }
+
     public override init() {
         self.storageManager = StorageManager.shared
         self.samplingController = SamplingController()
-        
+
         super.init()
 
         self.samplingController.delegate = self
@@ -286,7 +301,27 @@ import WMFTestKitchen
             return
         }
 
-        self.fetchStreamConfiguration(retries: 10, retryDelay: 30)
+        let cachedResponse: CachedStreamConfigResponse? = Self.streamConfigCache.loadCache()
+        if let cachedResponse {
+            DDLogDebug("EPC: Loading stream configs from shared cache (fetched \(cachedResponse.fetchDate))")
+            self.loadStreamConfiguration(cachedResponse.data)
+        }
+
+        guard !Bundle.main.isAppExtension else {
+            /// Extensions rely on the cache the main app maintains. A widget process is
+            /// short-lived and about to be suspended — a retrying fetch of the
+            /// rate-limited streamconfigs MediaWiki API there is wasted traffic.
+            return
+        }
+
+        if let cachedResponse {
+            let cacheAge = Date().timeIntervalSince(cachedResponse.fetchDate)
+            if cacheAge >= 0 && cacheAge < Self.streamConfigCacheMaxAge {
+                return
+            }
+        }
+
+        self.fetchStreamConfiguration(retries: 2, retryDelay: 30)
     }
 
 
@@ -313,7 +348,7 @@ import WMFTestKitchen
                 return
             }
 
-            self.loadStreamConfiguration(data)
+            self.loadStreamConfiguration(data, persistToSharedCache: true)
         })
     }
 
@@ -335,7 +370,7 @@ import WMFTestKitchen
      * }
      * ```
      */
-    private func loadStreamConfiguration(_ data: Data) {
+    private func loadStreamConfiguration(_ data: Data, persistToSharedCache: Bool = false) {
         #if DEBUG
         if String.init(data: data, encoding: String.Encoding.utf8) != nil {
             DDLogDebug("EPC: Downloaded stream configs (line break here to read raw configs)")
@@ -350,6 +385,12 @@ import WMFTestKitchen
         }
         do {
             let json = try JSONDecoder().decode(StreamConfigurationsJSON.self, from: data)
+
+            /// Persist only network responses that decoded successfully, so a bad payload
+            /// can never poison the cross-process cache. Cache replays never re-persist.
+            if persistToSharedCache {
+                Self.streamConfigCache.saveCache(CachedStreamConfigResponse(fetchDate: Date(), data: data))
+            }
 
             // Make them available to any newly logged events before flushing
             // buffer (this is set using serial queue but asynchronously)
