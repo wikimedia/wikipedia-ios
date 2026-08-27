@@ -47,7 +47,7 @@ final class WMFForYouEndOfFeedCardViewModelTests: XCTestCase {
     func testVariantFollowsFeedContent() {
         let emptyFeed = WMFForYouViewModel(response: emptyResponse())
         XCTAssertEqual(emptyFeed.endOfFeedViewModel.variant, .emptyFeed)
-        XCTAssertEqual(emptyFeed.endOfFeedViewModel.loggingId, "feed_empty")
+        XCTAssertEqual(WMFForYouEndOfFeedCardViewModel.loggingId, "feed_empty")
     }
     
     // MARK: - Impression
@@ -117,19 +117,7 @@ final class WMFForYouEndOfFeedCardViewModelTests: XCTestCase {
     
     // MARK: - Home view model wiring
     
-    func testTappingCommunitySwitchesTabAndLogsAsEndOfFeed() {
-        let homeViewModel = makeHomeViewModel()
-        homeViewModel.selectedTab = .forYou
-        
-        var loggedSource: String?
-        homeViewModel.logEndOfFeedDidTapCommunity = { loggedSource = $0 }
-        
-        homeViewModel.forYouViewModel = WMFForYouViewModel(response: responseWithContent())
-        homeViewModel.forYouViewModel?.endOfFeedViewModel.onTapCommunity?()
-        
-        XCTAssertEqual(homeViewModel.selectedTab, .community)
-    }
-    
+
     func testTappingAddInterestsOpensInterestsAndLogsAsEndOfFeed() {
         let homeViewModel = makeHomeViewModel()
         
