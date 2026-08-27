@@ -66,6 +66,10 @@ import WMFTestKitchen
         homeTabAssignment = bucket == .homeTabGroupB ? .groupB : .control
     }
 
+    public nonisolated var experimentData: ExperimentData {
+        ExperimentData(enrolled: "ios-home-feed", assigned: homeTabAssignment == .groupB ? "treatment" : "control")
+    }
+
     public nonisolated func logExperimentExposure() {
         WMFDataEnvironment.current.testKitchenClient?.getInstrument(name: "apps-home-feed")
             .submitInteraction(
