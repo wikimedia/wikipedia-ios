@@ -830,7 +830,15 @@ extension WMFAppViewController {
         WMFDataEnvironment.current.testKitchenClient = TestKitchenAdapter.shared.client
 
         evaluateAppInstallAndSessionIDs()
-        
+
+        // Warn level on purpose: the default log threshold (WMFLogging.h) is
+        // warning, and this line must reach the log file that ships with the
+        // "Export user data" package so errors in Logstash can be correlated
+        // with an exported log through the same install ID.
+        if let appInstallID: String = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue) {
+            DDLogWarn("App install ID: \(appInstallID)")
+        }
+
         #if TEST || UITEST
             TestNetworkFixtureInterceptor.configureBasicServiceIfNeeded()
         #endif
@@ -850,7 +858,7 @@ extension WMFAppViewController {
         
         let store = WMFDataEnvironment.current.crossProcessUserDefaultsStore
         let appInstallID: String? = try? store?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
-        let sessionID: String? = try? store?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+        let sessionID: String? = try? store?.load(key: WMFUserDefaultsKey.sessionID.rawValue)
         
         if legacyAppInstallID == nil && appInstallID == nil {
             // This is likely a fresh install! Generate a new app install ID
