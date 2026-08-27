@@ -516,8 +516,6 @@ final class WMFHomeDataControllerTests: XCTestCase {
         let controller = WMFHomeDataController(
             feedDataController: WMFMockFeedDataController(response: stubResponse)
         )
-        WMFDataEnvironment.current.sharedCacheStore = nil
-        controller.assignExperiment()
         XCTAssertEqual(controller.persistedHomeTabAssignment(), .control)
     }
 
@@ -525,8 +523,6 @@ final class WMFHomeDataControllerTests: XCTestCase {
         let controller = WMFHomeDataController(
             feedDataController: WMFMockFeedDataController(response: stubResponse)
         )
-        WMFDataEnvironment.current.sharedCacheStore = nil
-        controller.assignExperiment()
         XCTAssertFalse(controller.isHomeTabGroupB)
     }
 
