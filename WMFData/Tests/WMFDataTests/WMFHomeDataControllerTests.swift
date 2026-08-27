@@ -514,43 +514,43 @@ final class WMFHomeDataControllerTests: XCTestCase {
 
     func testPersistredHomeTabAssignmentReturnsControlWhenNoExperimentStore() {
         let controller = WMFHomeDataController(
-            feedDataController: WMFMockFeedDataController(response: stubResponse),
-            experimentStore: nil
+            feedDataController: WMFMockFeedDataController(response: stubResponse)
         )
+        WMFDataEnvironment.current.sharedCacheStore = nil
+        controller.assignExperiment()
         XCTAssertEqual(controller.persistedHomeTabAssignment(), .control)
     }
 
     func testIsHomeTabGroupBIsFalseWhenControlAssigned() {
         let controller = WMFHomeDataController(
-            feedDataController: WMFMockFeedDataController(response: stubResponse),
-            experimentStore: nil
+            feedDataController: WMFMockFeedDataController(response: stubResponse)
         )
+        WMFDataEnvironment.current.sharedCacheStore = nil
+        controller.assignExperiment()
         XCTAssertFalse(controller.isHomeTabGroupB)
     }
 
     func testPersistredHomeTabAssignmentIsStableAcrossMultipleCalls() {
-        let store = WMFMockKeyValueStore()
         let controller = WMFHomeDataController(
-            feedDataController: WMFMockFeedDataController(response: stubResponse),
-            experimentStore: store
+            feedDataController: WMFMockFeedDataController(response: stubResponse)
         )
+        controller.assignExperiment()
         let first = controller.persistedHomeTabAssignment()
         let second = controller.persistedHomeTabAssignment()
         XCTAssertEqual(first, second)
     }
 
     func testPersistredHomeTabAssignmentIsStableAcrossNewControllerInstancesWithSameStore() {
-        // Two controllers sharing the same store must land in the same bucket,
+        // Two controllers sharing the same store (set in setUp) must land in the same bucket,
         // because determineBucketForExperiment persists the result.
-        let store = WMFMockKeyValueStore()
         let first = WMFHomeDataController(
-            feedDataController: WMFMockFeedDataController(response: stubResponse),
-            experimentStore: store
+            feedDataController: WMFMockFeedDataController(response: stubResponse)
         )
+        first.assignExperiment()
         let second = WMFHomeDataController(
-            feedDataController: WMFMockFeedDataController(response: stubResponse),
-            experimentStore: store
+            feedDataController: WMFMockFeedDataController(response: stubResponse)
         )
+        second.assignExperiment()
         XCTAssertEqual(first.persistedHomeTabAssignment(), second.persistedHomeTabAssignment())
     }
 
