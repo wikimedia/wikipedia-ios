@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import Combine
 import WMFData
 
@@ -112,6 +113,17 @@ import WMFData
         enableHomePhase2.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableHomePhase2 = isSelected }
             .store(in: &subscribers)
+    }
+
+    public var appInstallID: String? {
+        try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+    }
+
+    @MainActor
+    public func copyAppInstallID() {
+        guard let appInstallID else { return }
+        UIPasteboard.general.string = appInstallID
+        WMFToastPresenter.shared.show(WMFToastConfig(title: .init("App install ID copied")))
     }
 
     public func clearGamesPersistence() {
