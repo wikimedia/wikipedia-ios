@@ -401,6 +401,107 @@ import WMFTestKitchen
      * completion handler so the process stays alive until the network round-trip finishes.
      */
     public func flushStoredEvents(completion: (() -> Void)? = nil) {
+        postStoredEvents(hasty: false, completion: completion)
+    }
+
+    /**
+     * Flush the queue of outgoing requests in a first-in-first-out,
+     * fire-and-forget fashion
+     */
+    func postAllScheduled(_ completion: (() -> Void)? = nil) {
+        #if DEBUG
+        postStoredEvents(hasty: false, completion: completion)
+        #else
+        postStoredEvents(hasty: true, completion: completion)
+        #endif
+    }
+
+    /// The destination intake service for an event, resolved from its stream's configuration.
+    enum EventDestination {
+        case analytics
+        case logging
+    }
+
+    /// One outgoing intake request: up to `batchChunkSize` events bound for the same destination.
+    struct EventBatch {
+        let destination: EventDestination
+        let events: [PersistedEvent]
+    }
+
+    /// Maximum number of events sent in a single intake POST. Payloads run 0.5–2 KB per
+    /// event, so 50 keeps request bodies well under EventGate's limits.
+    static let batchChunkSize = 50
+
+    /**
+     * Groups events by destination intake service and splits each group into chunks of at
+     * most `chunkSize`, preserving the events' relative order within each destination.
+     * With no stream configurations, every event resolves to the analytics intake.
+     */
+    static func makeBatches(events: [PersistedEvent], configs: [Stream: StreamConfiguration]?, chunkSize: Int) -> [EventBatch] {
+        guard !events.isEmpty else {
+            return []
+        }
+        let size = max(1, chunkSize)
+
+        var grouped: [EventDestination: [PersistedEvent]] = [:]
+        var destinationsInOrder: [EventDestination] = []
+        for event in events {
+            let destination: EventDestination = configs?[event.stream]?.destination_event_service == "eventgate-logging-external" ? .logging : .analytics
+            if grouped[destination] == nil {
+                destinationsInOrder.append(destination)
+            }
+            grouped[destination, default: []].append(event)
+        }
+
+        var batches: [EventBatch] = []
+        for destination in destinationsInOrder {
+            guard let destinationEvents = grouped[destination] else {
+                continue
+            }
+            var start = 0
+            while start < destinationEvents.count {
+                let end = min(start + size, destinationEvents.count)
+                batches.append(EventBatch(destination: destination, events: Array(destinationEvents[start..<end])))
+                start = end
+            }
+        }
+        return batches
+    }
+
+    /**
+     * Joins already-encoded event objects into a JSON array body without re-decoding them.
+     * Every stored blob is a complete JSON object produced by JSONEncoder, and JSON is
+     * whitespace-tolerant, so pretty-printed DEBUG blobs concatenate correctly too.
+     */
+    static func encodeBatchBody(_ datas: [Data]) -> Data {
+        var body = Data("[".utf8)
+        for (index, data) in datas.enumerated() {
+            if index > 0 {
+                body.append(UInt8(ascii: ","))
+            }
+            body.append(data)
+        }
+        body.append(UInt8(ascii: "]"))
+        return body
+    }
+
+    private static func intakeURI(for destination: EventDestination, hasty: Bool) -> URL {
+        var uri: URL
+        switch destination {
+        case .analytics:
+            uri = analyticsEventIntakeURI
+        case .logging:
+            uri = loggingEventIntakeURI
+        }
+        if hasty {
+            uri.append(queryItems: [URLQueryItem(name: "hasty", value: "true")])
+        }
+        return uri
+    }
+
+    /// Shared send path for `flushStoredEvents` and `postAllScheduled`: pops all pending
+    /// events and sends one POST per destination-sized batch instead of one per event.
+    private func postStoredEvents(hasty: Bool, completion: (() -> Void)?) {
         guard let storageManager = self.storageManager else {
             completion?()
             return
@@ -412,82 +513,39 @@ import WMFTestKitchen
             return
         }
 
-        let group = DispatchGroup()
-
-        for event in events {
-            group.enter()
-            
-            var uri = EventPlatformClient.analyticsEventIntakeURI
-            if streamConfigurations?[event.stream]?.destination_event_service == "eventgate-logging-external" {
-                uri = EventPlatformClient.loggingEventIntakeURI
-            }
-            
-            httpPost(url: uri, body: event.data) { [weak storageManager] result in
-                defer { group.leave() }
-                switch result {
-                case .success:
-                    storageManager?.markPurgeable(event: event)
-                case .failure(let error):
-                    switch error {
-                    case .networkingLibraryError:
-                        break // leave in store to retry
-                    default:
-                        storageManager?.markPurgeable(event: event)
-                    }
-                }
-            }
-        }
-
-        group.notify(queue: queue) {
-            completion?()
-        }
-    }
-
-    /**
-     * Flush the queue of outgoing requests in a first-in-first-out,
-     * fire-and-forget fashion
-     */
-    func postAllScheduled(_ completion: (() -> Void)? = nil) {
-        guard let storageManager = self.storageManager else {
-            completion?()
-            return
-        }
-
-        let events = storageManager.popAll()
-        if events.count == 0 {
-            completion?()
-            return
-        }
-
         DDLogDebug("EPC: Processing all scheduled requests")
+        let batches = Self.makeBatches(events: events, configs: streamConfigurations, chunkSize: Self.batchChunkSize)
         let group = DispatchGroup()
-        for event in events {
+        for batch in batches {
             group.enter()
 
-            var uri = EventPlatformClient.analyticsEventIntakeURI
-            if streamConfigurations?[event.stream]?.destination_event_service == "eventgate-logging-external" {
-                uri = EventPlatformClient.loggingEventIntakeURI
-            }
-            
-            #if !DEBUG
-            uri.append(queryItems: [URLQueryItem(name: "hasty", value: "true")])
-            #endif
-
-            httpPost(url: uri, body: event.data) { result in
+            let uri = Self.intakeURI(for: batch.destination, hasty: hasty)
+            httpPost(url: uri, body: Self.encodeBatchBody(batch.events.map(\.data))) { result in
                 switch result {
                 case .success:
-                    storageManager.markPurgeable(event: event)
-                    break
+                    for event in batch.events {
+                        storageManager.markPurgeable(event: event)
+                    }
                 case .failure(let error):
                     switch error {
                     case .networkingLibraryError:
                         /// Leave unmarked to retry on networking library failure
                         break
+                    case .unexpectedResponse(let statusCode) where statusCode == 207:
+                        /// Partial success: the server ingested the valid events and rejected
+                        /// the rest. Rejected (schema-invalid) events would never become valid,
+                        /// so the whole batch is done — matching the legacy per-event behavior
+                        /// of dropping server-rejected events.
+                        DDLogError("EPC: The analytics service reported partial failure (207) for a batch of \(batch.events.count) events. Invalid events were dropped by the server.")
+                        for event in batch.events {
+                            storageManager.markPurgeable(event: event)
+                        }
                     default:
-                        /// Give up on events rejected by the server
-                        DDLogError("EPC: The analytics service failed to process an event. A response code of 400 could indicate that the event didn't conform to provided schema. Check the error for more information.: \(error)")
-                        storageManager.markPurgeable(event: event)
-                        break
+                        /// The array as a whole was rejected — possibly poisoned by a single
+                        /// malformed blob. Retry the events individually, once, so one bad
+                        /// event only loses itself.
+                        DDLogError("EPC: A batch of \(batch.events.count) events was rejected (\(error)). Retrying events individually.")
+                        self.postIndividually(batch.events, uri: uri, group: group, storageManager: storageManager)
                     }
                 }
                 group.leave()
@@ -497,7 +555,32 @@ import WMFTestKitchen
             completion?()
         }
     }
-    
+
+    /// One-pass fallback used when a whole batch is rejected: the legacy per-event send,
+    /// purging on any server response and retaining only on networking errors.
+    private func postIndividually(_ events: [PersistedEvent], uri: URL, group: DispatchGroup, storageManager: StorageManager) {
+        for event in events {
+            group.enter()
+            httpPost(url: uri, body: event.data) { result in
+                switch result {
+                case .success:
+                    storageManager.markPurgeable(event: event)
+                case .failure(let error):
+                    switch error {
+                    case .networkingLibraryError:
+                        /// Leave unmarked to retry on networking library failure
+                        break
+                    default:
+                        /// Give up on events rejected by the server
+                        DDLogError("EPC: The analytics service failed to process an event. A response code of 400 could indicate that the event didn't conform to provided schema. Check the error for more information.: \(error)")
+                        storageManager.markPurgeable(event: event)
+                    }
+                }
+                group.leave()
+            }
+        }
+    }
+
     /// Codable struct of additional metadata, embedded in the structure of EventBody and MinimalEventBody.
     struct Meta: Codable {
         let stream: Stream
@@ -796,7 +879,7 @@ private extension EventPlatformClient {
     enum PostEventError: Error {
         case networkingLibraryError(_ error: Error)
         case missingResponse
-        case unexepectedResponse(_ httpCode: Int)
+        case unexpectedResponse(_ httpCode: Int)
     }
     
     /**
@@ -821,7 +904,7 @@ private extension EventPlatformClient {
                 return
             }
             guard httpResponse.statusCode == 201 || httpResponse.statusCode == 202 else {
-                fail(PostEventError.unexepectedResponse(httpResponse.statusCode))
+                fail(PostEventError.unexpectedResponse(httpResponse.statusCode))
                 return
             }
             completion(.success(()))
