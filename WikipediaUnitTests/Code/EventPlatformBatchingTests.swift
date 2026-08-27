@@ -105,4 +105,52 @@ final class EventPlatformBatchingTests: XCTestCase {
         let array = try XCTUnwrap(try JSONSerialization.jsonObject(with: body) as? [[String: Int]])
         XCTAssertEqual(array, [["a": 1]])
     }
+
+    // MARK: - disposition(for:)
+
+    private enum FakeError: Error {
+        case network
+    }
+
+    func testDispositionTruthTable() {
+        XCTAssertEqual(EventPlatformClient.disposition(for: .success(())), .purge)
+        XCTAssertEqual(EventPlatformClient.disposition(for: .failure(.networkingLibraryError(FakeError.network))), .retain)
+        XCTAssertEqual(EventPlatformClient.disposition(for: .failure(.unexpectedResponse(207))), .purge)
+        XCTAssertEqual(EventPlatformClient.disposition(for: .failure(.unexpectedResponse(400))), .retryIndividually)
+        XCTAssertEqual(EventPlatformClient.disposition(for: .failure(.missingResponse)), .retryIndividually)
+        XCTAssertEqual(EventPlatformClient.disposition(for: .failure(.retryableServerError(statusCode: 429, retryAfter: 60))), .retainAndBackoff(60))
+        XCTAssertEqual(EventPlatformClient.disposition(for: .failure(.retryableServerError(statusCode: 503, retryAfter: nil))), .retainAndBackoff(EventPlatformClient.defaultBackoffInterval))
+    }
+
+    func testDispositionClampsExcessiveRetryAfter() {
+        let disposition = EventPlatformClient.disposition(for: .failure(.retryableServerError(statusCode: 429, retryAfter: 86400)))
+        XCTAssertEqual(disposition, .retainAndBackoff(EventPlatformClient.maximumBackoffInterval))
+    }
+
+    // MARK: - Retry-After parsing
+
+    func testRetryAfterParsesDeltaSeconds() {
+        XCTAssertEqual(EventPlatformClient.retryAfterInterval(fromHeaderValue: "120"), 120)
+        XCTAssertEqual(EventPlatformClient.retryAfterInterval(fromHeaderValue: " 5 "), 5)
+        XCTAssertEqual(EventPlatformClient.retryAfterInterval(fromHeaderValue: "0"), 0)
+    }
+
+    func testRetryAfterParsesHTTPDate() throws {
+        let now = try XCTUnwrap(ISO8601DateFormatter().date(from: "2026-08-27T12:00:00Z"))
+        let interval = EventPlatformClient.retryAfterInterval(fromHeaderValue: "Wed, 27 Aug 2026 12:01:00 GMT", now: now)
+        XCTAssertEqual(interval, 60)
+    }
+
+    func testRetryAfterHTTPDateInThePastClampsToZero() throws {
+        let now = try XCTUnwrap(ISO8601DateFormatter().date(from: "2026-08-27T12:00:00Z"))
+        let interval = EventPlatformClient.retryAfterInterval(fromHeaderValue: "Wed, 27 Aug 2026 11:00:00 GMT", now: now)
+        XCTAssertEqual(interval, 0)
+    }
+
+    func testRetryAfterRejectsGarbage() {
+        XCTAssertNil(EventPlatformClient.retryAfterInterval(fromHeaderValue: nil))
+        XCTAssertNil(EventPlatformClient.retryAfterInterval(fromHeaderValue: ""))
+        XCTAssertNil(EventPlatformClient.retryAfterInterval(fromHeaderValue: "soon"))
+        XCTAssertNil(EventPlatformClient.retryAfterInterval(fromHeaderValue: "-30"))
+    }
 }

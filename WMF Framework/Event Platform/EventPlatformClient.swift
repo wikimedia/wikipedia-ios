@@ -540,10 +540,107 @@ import WMFTestKitchen
         return uri
     }
 
+    /// PostEventError describes the possible failure cases when POSTing an event
+    enum PostEventError: Error {
+        case networkingLibraryError(_ error: Error)
+        case missingResponse
+        case unexpectedResponse(_ httpCode: Int)
+        /// The server is throttling (429) or failing (5xx); the request may succeed later.
+        case retryableServerError(statusCode: Int, retryAfter: TimeInterval?)
+    }
+
+    /// What to do with a batch's events after the server (or the networking library) answers.
+    enum BatchDisposition: Equatable {
+        /// Mark every event in the batch purgeable — delivered, or dropped by the server.
+        case purge
+        /// Leave the events stored to retry on a later flush.
+        case retain
+        /// Leave the events stored and suppress all flushing for the given interval.
+        case retainAndBackoff(TimeInterval)
+        /// The array as a whole was rejected — re-send the events individually, once.
+        case retryIndividually
+    }
+
+    /// Backoff applied when a retryable server error carries no usable Retry-After header.
+    static let defaultBackoffInterval: TimeInterval = 300
+
+    /// Upper bound on any server-requested backoff, so a hostile or buggy header
+    /// cannot stall analytics delivery indefinitely.
+    static let maximumBackoffInterval: TimeInterval = 3600
+
+    static func disposition(for result: Result<Void, PostEventError>) -> BatchDisposition {
+        switch result {
+        case .success:
+            return .purge
+        case .failure(let error):
+            switch error {
+            case .networkingLibraryError:
+                return .retain
+            case .retryableServerError(_, let retryAfter):
+                return .retainAndBackoff(min(retryAfter ?? defaultBackoffInterval, maximumBackoffInterval))
+            case .unexpectedResponse(let statusCode) where statusCode == 207:
+                /// Partial success: the server ingested the valid events and rejected the
+                /// rest. Rejected (schema-invalid) events would never become valid, so the
+                /// whole batch is done — matching the legacy per-event behavior of
+                /// dropping server-rejected events.
+                return .purge
+            case .unexpectedResponse, .missingResponse:
+                return .retryIndividually
+            }
+        }
+    }
+
+    /**
+     * Parses an HTTP `Retry-After` header value, which is either a non-negative
+     * delta in seconds or an HTTP-date.
+     */
+    static func retryAfterInterval(fromHeaderValue value: String?, now: Date = Date()) -> TimeInterval? {
+        guard let value = value?.trimmingCharacters(in: .whitespaces), !value.isEmpty else {
+            return nil
+        }
+        if let seconds = TimeInterval(value) {
+            return seconds >= 0 ? seconds : nil
+        }
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'"
+        if let date = formatter.date(from: value) {
+            return max(0, date.timeIntervalSince(now))
+        }
+        return nil
+    }
+
+    /**
+     * The earliest date another intake request may be sent, set when the server asks us
+     * to back off (429, or a 5xx). In-memory only: the worker retries every 30 seconds,
+     * so a backoff lost to a relaunch costs at most one extra request.
+     */
+    private var nextPermittedSendDate: Date? {
+        get {
+            queue.sync {
+                return _nextPermittedSendDate
+            }
+        }
+        set {
+            queue.async {
+                self._nextPermittedSendDate = newValue
+            }
+        }
+    }
+    private var _nextPermittedSendDate: Date? = nil
+
     /// Shared send path for `flushStoredEvents` and `postAllScheduled`: pops all pending
     /// events and sends one POST per destination-sized batch instead of one per event.
+    /// Batches go out sequentially so a server backoff stops the rest of the flush.
     private func postStoredEvents(hasty: Bool, completion: (() -> Void)?) {
         guard let storageManager = self.storageManager else {
+            completion?()
+            return
+        }
+
+        if let nextPermittedSendDate = self.nextPermittedSendDate, Date() < nextPermittedSendDate {
+            DDLogDebug("EPC: Suppressing flush until \(nextPermittedSendDate) as requested by the server")
             completion?()
             return
         }
@@ -556,50 +653,59 @@ import WMFTestKitchen
 
         DDLogDebug("EPC: Processing all scheduled requests")
         let batches = Self.makeBatches(events: events, configs: streamConfigurations, chunkSize: Self.batchChunkSize)
-        let group = DispatchGroup()
-        for batch in batches {
-            group.enter()
+        sendBatches(batches, startingAt: 0, hasty: hasty, storageManager: storageManager, completion: completion)
+    }
 
-            let uri = Self.intakeURI(for: batch.destination, hasty: hasty)
-            httpPost(url: uri, body: Self.encodeBatchBody(batch.events.map(\.data))) { result in
-                switch result {
-                case .success:
-                    for event in batch.events {
-                        storageManager.markPurgeable(event: event)
-                    }
-                case .failure(let error):
-                    switch error {
-                    case .networkingLibraryError:
-                        /// Leave unmarked to retry on networking library failure
-                        break
-                    case .unexpectedResponse(let statusCode) where statusCode == 207:
-                        /// Partial success: the server ingested the valid events and rejected
-                        /// the rest. Rejected (schema-invalid) events would never become valid,
-                        /// so the whole batch is done — matching the legacy per-event behavior
-                        /// of dropping server-rejected events.
-                        DDLogError("EPC: The analytics service reported partial failure (207) for a batch of \(batch.events.count) events. Invalid events were dropped by the server.")
-                        for event in batch.events {
-                            storageManager.markPurgeable(event: event)
-                        }
-                    default:
-                        /// The array as a whole was rejected — possibly poisoned by a single
-                        /// malformed blob. Retry the events individually, once, so one bad
-                        /// event only loses itself.
-                        DDLogError("EPC: A batch of \(batch.events.count) events was rejected (\(error)). Retrying events individually.")
-                        self.postIndividually(batch.events, uri: uri, group: group, storageManager: storageManager)
-                    }
-                }
-                group.leave()
+    private func sendBatches(_ batches: [EventBatch], startingAt index: Int, hasty: Bool, storageManager: StorageManager, completion: (() -> Void)?) {
+        guard index < batches.count else {
+            queue.async {
+                completion?()
             }
+            return
         }
-        group.notify(queue: queue) {
-            completion?()
+
+        let batch = batches[index]
+        let uri = Self.intakeURI(for: batch.destination, hasty: hasty)
+        let continueWithNextBatch = {
+            self.sendBatches(batches, startingAt: index + 1, hasty: hasty, storageManager: storageManager, completion: completion)
+        }
+
+        httpPost(url: uri, body: Self.encodeBatchBody(batch.events.map(\.data))) { result in
+            switch Self.disposition(for: result) {
+            case .purge:
+                if case .failure = result {
+                    DDLogError("EPC: The analytics service reported partial failure (207) for a batch of \(batch.events.count) events. Invalid events were dropped by the server.")
+                }
+                for event in batch.events {
+                    storageManager.markPurgeable(event: event)
+                }
+                continueWithNextBatch()
+            case .retain:
+                /// Leave unmarked to retry on networking library failure
+                continueWithNextBatch()
+            case .retainAndBackoff(let interval):
+                /// The server is throttling or failing; keep the events stored and stop
+                /// flushing (including the remaining batches) until the window passes.
+                DDLogWarn("EPC: The analytics service asked us to back off (\(result)). Suppressing event sends for \(Int(interval))s.")
+                self.nextPermittedSendDate = Date().addingTimeInterval(interval)
+                self.queue.async {
+                    completion?()
+                }
+            case .retryIndividually:
+                /// The array as a whole was rejected — possibly poisoned by a single
+                /// malformed blob. Retry the events individually, once, so one bad
+                /// event only loses itself.
+                DDLogError("EPC: A batch of \(batch.events.count) events was rejected (\(result)). Retrying events individually.")
+                self.postIndividually(batch.events, uri: uri, storageManager: storageManager, completion: continueWithNextBatch)
+            }
         }
     }
 
     /// One-pass fallback used when a whole batch is rejected: the legacy per-event send,
-    /// purging on any server response and retaining only on networking errors.
-    private func postIndividually(_ events: [PersistedEvent], uri: URL, group: DispatchGroup, storageManager: StorageManager) {
+    /// purging on definitive server responses and retaining on networking errors and
+    /// retryable server errors.
+    private func postIndividually(_ events: [PersistedEvent], uri: URL, storageManager: StorageManager, completion: @escaping () -> Void) {
+        let group = DispatchGroup()
         for event in events {
             group.enter()
             httpPost(url: uri, body: event.data) { result in
@@ -608,8 +714,8 @@ import WMFTestKitchen
                     storageManager.markPurgeable(event: event)
                 case .failure(let error):
                     switch error {
-                    case .networkingLibraryError:
-                        /// Leave unmarked to retry on networking library failure
+                    case .networkingLibraryError, .retryableServerError:
+                        /// Leave unmarked to retry on a later flush
                         break
                     default:
                         /// Give up on events rejected by the server
@@ -619,6 +725,9 @@ import WMFTestKitchen
                 }
                 group.leave()
             }
+        }
+        group.notify(queue: DispatchQueue.global(qos: .utility)) {
+            completion()
         }
     }
 
@@ -916,13 +1025,7 @@ private extension EventPlatformClient {
 // MARK: NetworkIntegration
 
 private extension EventPlatformClient {
-    /// PostEventError describes the possible failure cases when POSTing an event
-    enum PostEventError: Error {
-        case networkingLibraryError(_ error: Error)
-        case missingResponse
-        case unexpectedResponse(_ httpCode: Int)
-    }
-    
+
     /**
      * HTTP POST
      * - Parameter body: Body of the POST request
@@ -945,7 +1048,13 @@ private extension EventPlatformClient {
                 return
             }
             guard httpResponse.statusCode == 201 || httpResponse.statusCode == 202 else {
-                fail(PostEventError.unexpectedResponse(httpResponse.statusCode))
+                let statusCode = httpResponse.statusCode
+                if statusCode == 429 || (500...599).contains(statusCode) {
+                    let retryAfter = EventPlatformClient.retryAfterInterval(fromHeaderValue: httpResponse.value(forHTTPHeaderField: "Retry-After"))
+                    fail(PostEventError.retryableServerError(statusCode: statusCode, retryAfter: retryAfter))
+                } else {
+                    fail(PostEventError.unexpectedResponse(statusCode))
+                }
                 return
             }
             completion(.success(()))
