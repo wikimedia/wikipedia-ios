@@ -273,10 +273,25 @@ import WMFTestKitchen
 
     // MARK: - Methods
 
+    /// On-disk copy of the last stream configuration response, shared across processes via
+    /// the app-group container so widget/extension processes never need to fetch it.
+    private struct CachedStreamConfigResponse: Codable {
+        let fetchDate: Date
+        let data: Data
+    }
+
+    /// How long a cached stream configuration response stays fresh enough to skip the
+    /// per-launch network refresh. Config changes deploy on a roughly daily cadence.
+    private static let streamConfigCacheMaxAge: TimeInterval = 60 * 60 * 24
+
+    private static var streamConfigCache: SharedContainerCache {
+        SharedContainerCache(fileName: SharedContainerCacheCommonNames.streamConfigCache)
+    }
+
     public override init() {
         self.storageManager = StorageManager.shared
         self.samplingController = SamplingController()
-        
+
         super.init()
 
         self.samplingController.delegate = self
@@ -286,7 +301,27 @@ import WMFTestKitchen
             return
         }
 
-        self.fetchStreamConfiguration(retries: 10, retryDelay: 30)
+        let cachedResponse: CachedStreamConfigResponse? = Self.streamConfigCache.loadCache()
+        if let cachedResponse {
+            DDLogDebug("EPC: Loading stream configs from shared cache (fetched \(cachedResponse.fetchDate))")
+            self.loadStreamConfiguration(cachedResponse.data)
+        }
+
+        guard !Bundle.main.isAppExtension else {
+            /// Extensions rely on the cache the main app maintains. A widget process is
+            /// short-lived and about to be suspended — a retrying fetch of the
+            /// rate-limited streamconfigs MediaWiki API there is wasted traffic.
+            return
+        }
+
+        if let cachedResponse {
+            let cacheAge = Date().timeIntervalSince(cachedResponse.fetchDate)
+            if cacheAge >= 0 && cacheAge < Self.streamConfigCacheMaxAge {
+                return
+            }
+        }
+
+        self.fetchStreamConfiguration(retries: 2, retryDelay: 30)
     }
 
 
@@ -313,7 +348,7 @@ import WMFTestKitchen
                 return
             }
 
-            self.loadStreamConfiguration(data)
+            self.loadStreamConfiguration(data, persistToSharedCache: true)
         })
     }
 
@@ -335,7 +370,7 @@ import WMFTestKitchen
      * }
      * ```
      */
-    private func loadStreamConfiguration(_ data: Data) {
+    private func loadStreamConfiguration(_ data: Data, persistToSharedCache: Bool = false) {
         #if DEBUG
         if String.init(data: data, encoding: String.Encoding.utf8) != nil {
             DDLogDebug("EPC: Downloaded stream configs (line break here to read raw configs)")
@@ -350,6 +385,12 @@ import WMFTestKitchen
         }
         do {
             let json = try JSONDecoder().decode(StreamConfigurationsJSON.self, from: data)
+
+            /// Persist only network responses that decoded successfully, so a bad payload
+            /// can never poison the cross-process cache. Cache replays never re-persist.
+            if persistToSharedCache {
+                Self.streamConfigCache.saveCache(CachedStreamConfigResponse(fetchDate: Date(), data: data))
+            }
 
             // Make them available to any newly logged events before flushing
             // buffer (this is set using serial queue but asynchronously)
@@ -401,7 +442,205 @@ import WMFTestKitchen
      * completion handler so the process stays alive until the network round-trip finishes.
      */
     public func flushStoredEvents(completion: (() -> Void)? = nil) {
+        postStoredEvents(hasty: false, completion: completion)
+    }
+
+    /**
+     * Flush the queue of outgoing requests in a first-in-first-out,
+     * fire-and-forget fashion
+     */
+    func postAllScheduled(_ completion: (() -> Void)? = nil) {
+        #if DEBUG
+        postStoredEvents(hasty: false, completion: completion)
+        #else
+        postStoredEvents(hasty: true, completion: completion)
+        #endif
+    }
+
+    /// The destination intake service for an event, resolved from its stream's configuration.
+    enum EventDestination {
+        case analytics
+        case logging
+    }
+
+    /// One outgoing intake request: up to `batchChunkSize` events bound for the same destination.
+    struct EventBatch {
+        let destination: EventDestination
+        let events: [PersistedEvent]
+    }
+
+    /// Maximum number of events sent in a single intake POST. Payloads run 0.5–2 KB per
+    /// event, so 50 keeps request bodies well under EventGate's limits.
+    static let batchChunkSize = 50
+
+    /**
+     * Groups events by destination intake service and splits each group into chunks of at
+     * most `chunkSize`, preserving the events' relative order within each destination.
+     * With no stream configurations, every event resolves to the analytics intake.
+     */
+    static func makeBatches(events: [PersistedEvent], configs: [Stream: StreamConfiguration]?, chunkSize: Int) -> [EventBatch] {
+        guard !events.isEmpty else {
+            return []
+        }
+        let size = max(1, chunkSize)
+
+        var grouped: [EventDestination: [PersistedEvent]] = [:]
+        var destinationsInOrder: [EventDestination] = []
+        for event in events {
+            let destination: EventDestination = configs?[event.stream]?.destination_event_service == "eventgate-logging-external" ? .logging : .analytics
+            if grouped[destination] == nil {
+                destinationsInOrder.append(destination)
+            }
+            grouped[destination, default: []].append(event)
+        }
+
+        var batches: [EventBatch] = []
+        for destination in destinationsInOrder {
+            guard let destinationEvents = grouped[destination] else {
+                continue
+            }
+            var start = 0
+            while start < destinationEvents.count {
+                let end = min(start + size, destinationEvents.count)
+                batches.append(EventBatch(destination: destination, events: Array(destinationEvents[start..<end])))
+                start = end
+            }
+        }
+        return batches
+    }
+
+    /**
+     * Joins already-encoded event objects into a JSON array body without re-decoding them.
+     * Every stored blob is a complete JSON object produced by JSONEncoder, and JSON is
+     * whitespace-tolerant, so pretty-printed DEBUG blobs concatenate correctly too.
+     */
+    static func encodeBatchBody(_ datas: [Data]) -> Data {
+        var body = Data("[".utf8)
+        for (index, data) in datas.enumerated() {
+            if index > 0 {
+                body.append(UInt8(ascii: ","))
+            }
+            body.append(data)
+        }
+        body.append(UInt8(ascii: "]"))
+        return body
+    }
+
+    private static func intakeURI(for destination: EventDestination, hasty: Bool) -> URL {
+        var uri: URL
+        switch destination {
+        case .analytics:
+            uri = analyticsEventIntakeURI
+        case .logging:
+            uri = loggingEventIntakeURI
+        }
+        if hasty {
+            uri.append(queryItems: [URLQueryItem(name: "hasty", value: "true")])
+        }
+        return uri
+    }
+
+    /// PostEventError describes the possible failure cases when POSTing an event
+    enum PostEventError: Error {
+        case networkingLibraryError(_ error: Error)
+        case missingResponse
+        case unexpectedResponse(_ httpCode: Int)
+        /// The server is throttling (429) or failing (5xx); the request may succeed later.
+        case retryableServerError(statusCode: Int, retryAfter: TimeInterval?)
+    }
+
+    /// What to do with a batch's events after the server (or the networking library) answers.
+    enum BatchDisposition: Equatable {
+        /// Mark every event in the batch purgeable — delivered, or dropped by the server.
+        case purge
+        /// Leave the events stored to retry on a later flush.
+        case retain
+        /// Leave the events stored and suppress all flushing for the given interval.
+        case retainAndBackoff(TimeInterval)
+        /// The array as a whole was rejected — re-send the events individually, once.
+        case retryIndividually
+    }
+
+    /// Backoff applied when a retryable server error carries no usable Retry-After header.
+    static let defaultBackoffInterval: TimeInterval = 300
+
+    /// Upper bound on any server-requested backoff, so a hostile or buggy header
+    /// cannot stall analytics delivery indefinitely.
+    static let maximumBackoffInterval: TimeInterval = 3600
+
+    static func disposition(for result: Result<Void, PostEventError>) -> BatchDisposition {
+        switch result {
+        case .success:
+            return .purge
+        case .failure(let error):
+            switch error {
+            case .networkingLibraryError:
+                return .retain
+            case .retryableServerError(_, let retryAfter):
+                return .retainAndBackoff(min(retryAfter ?? defaultBackoffInterval, maximumBackoffInterval))
+            case .unexpectedResponse(let statusCode) where statusCode == 207:
+                /// Partial success: the server ingested the valid events and rejected the
+                /// rest. Rejected (schema-invalid) events would never become valid, so the
+                /// whole batch is done — matching the legacy per-event behavior of
+                /// dropping server-rejected events.
+                return .purge
+            case .unexpectedResponse, .missingResponse:
+                return .retryIndividually
+            }
+        }
+    }
+
+    /**
+     * Parses an HTTP `Retry-After` header value, which is either a non-negative
+     * delta in seconds or an HTTP-date.
+     */
+    static func retryAfterInterval(fromHeaderValue value: String?, now: Date = Date()) -> TimeInterval? {
+        guard let value = value?.trimmingCharacters(in: .whitespaces), !value.isEmpty else {
+            return nil
+        }
+        if let seconds = TimeInterval(value) {
+            return seconds >= 0 ? seconds : nil
+        }
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'"
+        if let date = formatter.date(from: value) {
+            return max(0, date.timeIntervalSince(now))
+        }
+        return nil
+    }
+
+    /**
+     * The earliest date another intake request may be sent, set when the server asks us
+     * to back off (429, or a 5xx). In-memory only: the worker retries every 30 seconds,
+     * so a backoff lost to a relaunch costs at most one extra request.
+     */
+    private var nextPermittedSendDate: Date? {
+        get {
+            queue.sync {
+                return _nextPermittedSendDate
+            }
+        }
+        set {
+            queue.async {
+                self._nextPermittedSendDate = newValue
+            }
+        }
+    }
+    private var _nextPermittedSendDate: Date? = nil
+
+    /// Shared send path for `flushStoredEvents` and `postAllScheduled`: pops all pending
+    /// events and sends one POST per destination-sized batch instead of one per event.
+    /// Batches go out sequentially so a server backoff stops the rest of the flush.
+    private func postStoredEvents(hasty: Bool, completion: (() -> Void)?) {
         guard let storageManager = self.storageManager else {
+            completion?()
+            return
+        }
+
+        if let nextPermittedSendDate = self.nextPermittedSendDate, Date() < nextPermittedSendDate {
+            DDLogDebug("EPC: Suppressing flush until \(nextPermittedSendDate) as requested by the server")
             completion?()
             return
         }
@@ -412,92 +651,90 @@ import WMFTestKitchen
             return
         }
 
-        let group = DispatchGroup()
+        DDLogDebug("EPC: Processing all scheduled requests")
+        let batches = Self.makeBatches(events: events, configs: streamConfigurations, chunkSize: Self.batchChunkSize)
+        WMFEventLoggingDiagnosticsDataController.shared.recordFlush(posts: batches.count, events: events.count)
+        sendBatches(batches, startingAt: 0, hasty: hasty, storageManager: storageManager, completion: completion)
+    }
 
-        for event in events {
-            group.enter()
-            
-            var uri = EventPlatformClient.analyticsEventIntakeURI
-            if streamConfigurations?[event.stream]?.destination_event_service == "eventgate-logging-external" {
-                uri = EventPlatformClient.loggingEventIntakeURI
+    private func sendBatches(_ batches: [EventBatch], startingAt index: Int, hasty: Bool, storageManager: StorageManager, completion: (() -> Void)?) {
+        guard index < batches.count else {
+            queue.async {
+                completion?()
             }
-            
-            httpPost(url: uri, body: event.data) { [weak storageManager] result in
-                defer { group.leave() }
-                switch result {
-                case .success:
-                    storageManager?.markPurgeable(event: event)
-                case .failure(let error):
-                    switch error {
-                    case .networkingLibraryError:
-                        break // leave in store to retry
-                    default:
-                        storageManager?.markPurgeable(event: event)
-                    }
-                }
-            }
+            return
         }
 
-        group.notify(queue: queue) {
-            completion?()
+        let batch = batches[index]
+        let uri = Self.intakeURI(for: batch.destination, hasty: hasty)
+        let continueWithNextBatch = {
+            self.sendBatches(batches, startingAt: index + 1, hasty: hasty, storageManager: storageManager, completion: completion)
+        }
+
+        httpPost(url: uri, body: Self.encodeBatchBody(batch.events.map(\.data))) { result in
+            switch Self.disposition(for: result) {
+            case .purge:
+                if case .failure = result {
+                    DDLogError("EPC: The analytics service reported partial failure (207) for a batch of \(batch.events.count) events. Invalid events were dropped by the server.")
+                    /// Upper bound: a 207 body identifies the rejected subset, but we don't parse it.
+                    WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .serverRejected, count: batch.events.count)
+                }
+                for event in batch.events {
+                    storageManager.markPurgeable(event: event)
+                }
+                continueWithNextBatch()
+            case .retain:
+                /// Leave unmarked to retry on networking library failure
+                continueWithNextBatch()
+            case .retainAndBackoff(let interval):
+                /// The server is throttling or failing; keep the events stored and stop
+                /// flushing (including the remaining batches) until the window passes.
+                DDLogWarn("EPC: The analytics service asked us to back off (\(result)). Suppressing event sends for \(Int(interval))s.")
+                self.nextPermittedSendDate = Date().addingTimeInterval(interval)
+                self.queue.async {
+                    completion?()
+                }
+            case .retryIndividually:
+                /// The array as a whole was rejected — possibly poisoned by a single
+                /// malformed blob. Retry the events individually, once, so one bad
+                /// event only loses itself.
+                DDLogError("EPC: A batch of \(batch.events.count) events was rejected (\(result)). Retrying events individually.")
+                self.postIndividually(batch.events, uri: uri, storageManager: storageManager, completion: continueWithNextBatch)
+            }
         }
     }
 
-    /**
-     * Flush the queue of outgoing requests in a first-in-first-out,
-     * fire-and-forget fashion
-     */
-    func postAllScheduled(_ completion: (() -> Void)? = nil) {
-        guard let storageManager = self.storageManager else {
-            completion?()
-            return
-        }
-
-        let events = storageManager.popAll()
-        if events.count == 0 {
-            completion?()
-            return
-        }
-
-        DDLogDebug("EPC: Processing all scheduled requests")
+    /// One-pass fallback used when a whole batch is rejected: the legacy per-event send,
+    /// purging on definitive server responses and retaining on networking errors and
+    /// retryable server errors.
+    private func postIndividually(_ events: [PersistedEvent], uri: URL, storageManager: StorageManager, completion: @escaping () -> Void) {
         let group = DispatchGroup()
         for event in events {
             group.enter()
-
-            var uri = EventPlatformClient.analyticsEventIntakeURI
-            if streamConfigurations?[event.stream]?.destination_event_service == "eventgate-logging-external" {
-                uri = EventPlatformClient.loggingEventIntakeURI
-            }
-            
-            #if !DEBUG
-            uri.append(queryItems: [URLQueryItem(name: "hasty", value: "true")])
-            #endif
-
             httpPost(url: uri, body: event.data) { result in
                 switch result {
                 case .success:
                     storageManager.markPurgeable(event: event)
-                    break
                 case .failure(let error):
                     switch error {
-                    case .networkingLibraryError:
-                        /// Leave unmarked to retry on networking library failure
+                    case .networkingLibraryError, .retryableServerError:
+                        /// Leave unmarked to retry on a later flush
                         break
                     default:
                         /// Give up on events rejected by the server
                         DDLogError("EPC: The analytics service failed to process an event. A response code of 400 could indicate that the event didn't conform to provided schema. Check the error for more information.: \(error)")
+                        WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .serverRejected)
                         storageManager.markPurgeable(event: event)
-                        break
                     }
                 }
                 group.leave()
             }
         }
-        group.notify(queue: queue) {
-            completion?()
+        group.notify(queue: DispatchQueue.global(qos: .utility)) {
+            completion()
         }
     }
-    
+
     /// Codable struct of additional metadata, embedded in the structure of EventBody and MinimalEventBody.
     struct Meta: Codable {
         let stream: Stream
@@ -711,33 +948,57 @@ import WMFTestKitchen
             
             let data = try encoder.encode(eventPayload)
 
-            guard let streamConfigs = streamConfigurations else {
-                appendEventToInputBuffer(data: data, stream: stream)
-                return
-            }
-            guard let config = streamConfigs[stream] else {
-                DDLogError("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
-                return
-            }
-            guard samplingController.inSample(stream: stream, config: config) else {
-                DDLogWarn("EPC: Stream '\(stream.rawValue)' is not in sample")
-                return
-            }
-
-            #if DEBUG
-            // Convert to loose dictionary so we can sort keys and print that way.
-            if let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                let printablePayload = PrintableEventPayload(payload: dict)
-                DDLogDebug("\n\n📊EPC: Scheduling event to be sent to \(config.destination_event_service):")
-                DDLogDebug("\(printablePayload)")
-            }
-            #endif
-
-            storageManager.push(data: data, stream: stream)
+            _submitPreEncoded(data: data, stream: stream)
         } catch let error {
             DDLogError("EPC: \(error.localizedDescription)")
         }
 
+    }
+
+    /**
+     * Submit an already-encoded event payload according to the given stream's configuration.
+     *
+     * This is the single point where every event — including pre-encoded ones from
+     * TestKitchen — is buffered (while stream configs are unavailable), checked against
+     * the stream's sampling configuration, and persisted for sending.
+     */
+    func submitPreEncoded(data: Data, stream: Stream) {
+        encodeQueue.async {
+            self._submitPreEncoded(data: data, stream: stream)
+        }
+    }
+
+    /// Private, synchronous version of `submitPreEncoded`.
+    private func _submitPreEncoded(data: Data, stream: Stream) {
+        guard let storageManager = self.storageManager else {
+            return
+        }
+
+        guard let streamConfigs = streamConfigurations else {
+            appendEventToInputBuffer(data: data, stream: stream)
+            return
+        }
+        guard let config = streamConfigs[stream] else {
+            DDLogError("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
+            WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .unconfiguredStream)
+            return
+        }
+        guard samplingController.inSample(stream: stream, config: config) else {
+            DDLogWarn("EPC: Stream '\(stream.rawValue)' is not in sample")
+            WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .notInSample)
+            return
+        }
+
+        #if DEBUG
+        // Convert to loose dictionary so we can sort keys and print that way.
+        if let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+            let printablePayload = PrintableEventPayload(payload: dict)
+            DDLogDebug("\n\n📊EPC: Scheduling event to be sent to \(config.destination_event_service):")
+            DDLogDebug("\(printablePayload)")
+        }
+        #endif
+
+        storageManager.push(data: data, stream: stream)
     }
 }
 
@@ -769,6 +1030,7 @@ private extension EventPlatformClient {
              */
             if self.inputBuffer.count == self.inbutBufferLimit {
                 _ = self.inputBuffer.remove(at: 0)
+                WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .inputBufferOverflow)
             }
             self.inputBuffer.append((data, stream))
         }
@@ -792,13 +1054,7 @@ private extension EventPlatformClient {
 // MARK: NetworkIntegration
 
 private extension EventPlatformClient {
-    /// PostEventError describes the possible failure cases when POSTing an event
-    enum PostEventError: Error {
-        case networkingLibraryError(_ error: Error)
-        case missingResponse
-        case unexepectedResponse(_ httpCode: Int)
-    }
-    
+
     /**
      * HTTP POST
      * - Parameter body: Body of the POST request
@@ -821,7 +1077,13 @@ private extension EventPlatformClient {
                 return
             }
             guard httpResponse.statusCode == 201 || httpResponse.statusCode == 202 else {
-                fail(PostEventError.unexepectedResponse(httpResponse.statusCode))
+                let statusCode = httpResponse.statusCode
+                if statusCode == 429 || (500...599).contains(statusCode) {
+                    let retryAfter = EventPlatformClient.retryAfterInterval(fromHeaderValue: httpResponse.value(forHTTPHeaderField: "Retry-After"))
+                    fail(PostEventError.retryableServerError(statusCode: statusCode, retryAfter: retryAfter))
+                } else {
+                    fail(PostEventError.unexpectedResponse(statusCode))
+                }
                 return
             }
             completion(.success(()))

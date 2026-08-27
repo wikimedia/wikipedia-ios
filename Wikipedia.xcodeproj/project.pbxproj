@@ -695,6 +695,8 @@
 		679E6FA72C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679E6FA52C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift */; };
 		679E6FA82C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679E6FA52C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift */; };
 		679F0AAD24574AD400EF4A6A /* ArticleViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */; };
+		A7E1B47C2E4C000000000002 /* EventPlatformBatchingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E1B47C2E4C000000000001 /* EventPlatformBatchingTests.swift */; };
+		A7E1B47C2E4C000000000004 /* ClientErrorFunnelThrottleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E1B47C2E4C000000000003 /* ClientErrorFunnelThrottleTests.swift */; };
 		679F0AAF24574AD400EF4A6A /* MockSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F0AAE24574AD400EF4A6A /* MockSchemeHandler.swift */; };
 		67A0699E2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
 		67A0699F2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
@@ -3297,6 +3299,8 @@
 		679DEF002F621D8E00B21570 /* TestKitchenLogAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKitchenLogAdapter.swift; sourceTree = "<group>"; };
 		679E6FA52C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFBarButtonItemPopoverMessageViewController+Extensions.swift"; sourceTree = "<group>"; };
 		679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTests.swift; sourceTree = "<group>"; };
+		A7E1B47C2E4C000000000001 /* EventPlatformBatchingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPlatformBatchingTests.swift; sourceTree = "<group>"; };
+		A7E1B47C2E4C000000000003 /* ClientErrorFunnelThrottleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientErrorFunnelThrottleTests.swift; sourceTree = "<group>"; };
 		679F0AAE24574AD400EF4A6A /* MockSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSchemeHandler.swift; sourceTree = "<group>"; };
 		67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ProfileButton.swift"; sourceTree = "<group>"; };
 		67A417DF2FBFD9E100C0DE01 /* ArticleImageGalleryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleImageGalleryUITests.swift; sourceTree = "<group>"; };
@@ -5887,6 +5891,8 @@
 			children = (
 				D17F65B649B1404086AB3BE8 /* ArticlePeekPreviewViewControllerTests.swift */,
 				679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */,
+				A7E1B47C2E4C000000000001 /* EventPlatformBatchingTests.swift */,
+				A7E1B47C2E4C000000000003 /* ClientErrorFunnelThrottleTests.swift */,
 				AD82B5752FC0D83F00F310B2 /* ArticlePreviewingDelegateMock.swift */,
 				679F0AAE24574AD400EF4A6A /* MockSchemeHandler.swift */,
 			);
@@ -9400,6 +9406,8 @@
 				B0D530EB1CE151C10078BAED /* CodeFileLocationTests.m in Sources */,
 				E446C3D95A844026889BE43A /* ArticlePeekPreviewViewControllerTests.swift in Sources */,
 				679F0AAD24574AD400EF4A6A /* ArticleViewControllerTests.swift in Sources */,
+				A7E1B47C2E4C000000000002 /* EventPlatformBatchingTests.swift in Sources */,
+				A7E1B47C2E4C000000000004 /* ClientErrorFunnelThrottleTests.swift in Sources */,
 				679F0AAF24574AD400EF4A6A /* MockSchemeHandler.swift in Sources */,
 				D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */,
 				D8A3C8F22FBB000100E6073C /* UserDefaultsThemeTests.swift in Sources */,

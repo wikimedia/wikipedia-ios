@@ -59,6 +59,7 @@ public enum WMFUserDefaultsKey: String {
     // Logging
     case appInstallID = "wmf-app-install-id"
     case sessionID = "wmf-session-id"
+    case eventLoggingDiagnostics = "event-logging-diagnostics"
 
     // Home feed: Community modules
     case homeFeedCommunityFeaturedArticleIsOn = "home-feed-community-featured-article-is-on"
