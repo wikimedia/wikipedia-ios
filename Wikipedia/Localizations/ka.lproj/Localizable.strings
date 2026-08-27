@@ -169,6 +169,24 @@
 "two-factor-login-with-regular-code" = "გამოიყენეთ დადასტურების კოდი";
 "welcome-explore-continue-button" = "დაწყება";
 "welcome-explore-tell-me-more-done-button" = "მიღება";
+"wikimedia-articletopics-topic-art" = "ხელოვნება";
+"wikimedia-articletopics-topic-asia" = "აზია";
+"wikimedia-articletopics-topic-central-america" = "ცენტრალური აზია";
+"wikimedia-articletopics-topic-education" = "განათლება";
+"wikimedia-articletopics-topic-europe" = "ევროპა";
+"wikimedia-articletopics-topic-fashion" = "მოდა";
+"wikimedia-articletopics-topic-food-and-drink" = "საკვები და სასმელი";
+"wikimedia-articletopics-topic-general-science" = "ზოგადი მეცნიერება";
+"wikimedia-articletopics-topic-music" = "მუსიკა";
+"wikimedia-articletopics-topic-north-america" = "ჩრდილოეთი ამერიკა";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "ფილოსოფია და რელიგია";
+"wikimedia-articletopics-topic-physics" = "ფიზიკა";
+"wikimedia-articletopics-topic-politics-and-government" = "პოლიტიკა და მთავრობა";
+"wikimedia-articletopics-topic-society" = "საზოგადოება";
+"wikimedia-articletopics-topic-south-america" = "სამხრეთი ამერიკა";
+"wikimedia-articletopics-topic-technology" = "ტექნოლოგიები";
+"wikimedia-articletopics-topic-transportation" = "ტრანსპორტი";
+"wikimedia-articletopics-topic-tv-and-film" = "ტელევიზია და კინო";
 "wikitext-preview-changes" = "თქვენი ცვლილებების წინასწარი გადახედვის ჩვენება...";
 "wikitext-upload-captcha-error" = "CAPTCHA-ს დადასტურების შეცდომა.";
 "wikitext-upload-captcha-needed" = "საჭიროა CAPTCHA-ს დადასტურება.";
@@ -176,121 +194,3 @@
 "wikitext-upload-save" = "გამოქვეყნება...";
 "wikitext-upload-save-anonymously-warning" = "რედაქტორებს მიენიჭებათ თქვენი მოწყობილობის IP მისამართი. თუ თქვენ $1, იქნებით ინფორმაციულად უფრო დაცული.";
 "wikitext-upload-save-terms-name" = "გამოყენების პირობები";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "არქიტექტურა";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "ხელოვნება";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "კომიქსები და ანიმე";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "გართობა";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "მოდა";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "ლიტერატურა";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "მუსიკა";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "მუსიკა, თეატრი, ცეკვა";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "სპორტი";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "ტელევიზია და კინო";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "ვიდეოთამაშები";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "ბიოგრაფია (ყველა)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "ბიოგრაფია (ქალები)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "ბიზნესი და ეკონომიკა";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "განათლება";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "საკვები და სასმელი";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "ისტორია";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "შეიარაღებული ძალები და საბრძოლო მოქმედებები";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "ფილოსოფია და რელიგია";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "პოლიტიკა და მთავრობა";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "საზოგადოება";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "ტრანსპორტი";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "ბიოლოგია";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "ქიმია";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "კომპიუტერები და ინტერნეტი";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "დედამიწა და გარემო";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "ინჟინერია";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "ზოგადი მეცნიერება";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "მათემატიკა";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "მედიცინა და ჯანმრთელობა";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "ფიზიკა";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "ტექნოლოგიები";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "აფრიკა";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "აზია";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "ცენტრალური აზია";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "ევროპა";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "ჩრდილოეთი ამერიკა";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "ავსტრალია და ოკეანეთი";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "სამხრეთი ამერიკა";

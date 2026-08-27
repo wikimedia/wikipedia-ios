@@ -250,45 +250,6 @@
 "article-tabs-open-new-tab" = "Otvoriť na novej karte";
 "article-talk-page" = "Článok rozhovory";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Ovládače čítacích tém";
-"article-topic-africa" = "Afrika";
-"article-topic-architecture" = "Architektúra";
-"article-topic-art" = "Umenie";
-"article-topic-asia" = "Ázia";
-"article-topic-biography" = "Životopisy (všetky)";
-"article-topic-biology" = "Biológia";
-"article-topic-business-and-economics" = "Obchod a ekonomika";
-"article-topic-central-america" = "Stredná Amerika";
-"article-topic-chemistry" = "Chémia";
-"article-topic-comics-and-anime" = "Komiksy a anime";
-"article-topic-computers-and-internet" = "Počítače a internet";
-"article-topic-earth-and-environment" = "Zem a životné prostredie";
-"article-topic-education" = "Vzdelávanie";
-"article-topic-engineering" = "Inžinierstvo";
-"article-topic-entertainment" = "Zábava";
-"article-topic-europe" = "Európa";
-"article-topic-fashion" = "Móda";
-"article-topic-food-and-drink" = "Jedlo a nápoje";
-"article-topic-general-science" = "Všeobecná veda";
-"article-topic-history" = "Dejiny";
-"article-topic-literature" = "Literatúra";
-"article-topic-mathematics" = "Matematika";
-"article-topic-medicine-and-health" = "Medicína a zdravie";
-"article-topic-military-and-warfare" = "Armáda a vojenstvo";
-"article-topic-music" = "Hudba";
-"article-topic-north-america" = "Severná Amerika";
-"article-topic-oceania" = "Oceánia";
-"article-topic-performing-arts" = "Scénické umenie";
-"article-topic-philosophy-and-religion" = "Filozofia a náboženstvo";
-"article-topic-physics" = "Fyzika";
-"article-topic-politics-and-government" = "Politika a vláda";
-"article-topic-society" = "Spoločnosť";
-"article-topic-south-america" = "Južná Amerika";
-"article-topic-sports" = "Šport";
-"article-topic-technology" = "Technológia";
-"article-topic-transportation" = "Doprava";
-"article-topic-tv-and-film" = "Televízia a film";
-"article-topic-video-games" = "Videohry";
-"article-topic-women" = "Životopisy (ženy)";
 "article-view-controller-editing-temp-account-created-subtitle" = "Po uverejnení vašej úpravy bol vytvorený dočasný účet $1. Vyprší o 90 dní.";
 "article-view-controller-editing-temp-account-created-title" = "Dočasný účet bol vytvorený";
 "back-button-accessibility-label" = "Späť";
@@ -730,8 +691,6 @@
 "find-replace-header" = "Nájsť a nahradiť";
 "find-replace-header-close-accessibility" = "Zavrieť vyhľadávanie a nahradiť";
 "find-textfield-accessibility" = "Nájsť";
-"for-you-empty-button" = "Vyberte si svoje záujmy";
-"for-you-empty-subtitle" = "Pridajte si záujmy a získate prispôsobené odporúčania článkov.";
 "for-you-empty-title" = "Zatiaľ tu nič nie je";
 "for-you-error-retry" = "Skúsiť znova";
 "for-you-error-subtitle" = "Pripojte sa na internet a skúste to znova.";
@@ -766,9 +725,6 @@
 "home-button-home-accessibility-label" = "Wikipédia, späť na Domov";
 "home-button-saved-accessibility-label" = "Wikipédia, späť na Uložené";
 "home-card-more-options-accessibility-label" = "Ďalšie možnosti";
-"home-community-empty-feed-button-title" = "Prispôsobiť kanál";
-"home-community-empty-feed-message" = "Ak chcete vidieť kanál Komunita, zapnite karty v nastaveniach kanála.";
-"home-community-empty-feed-title" = "Všetky karty kanála Komunita sú skryté";
 "home-community-see-past-content" = "Zobraziť starší obsah komunity";
 "home-community-tab-title" = "Komunita";
 "home-edit-languages-title" = "Pridať alebo upraviť jazyky";
@@ -1700,6 +1656,45 @@
 "widget-onthisday-description" = "Objavte čo sa v histórii stalo v tento deň.";
 "widget-onthisday-placeholder-article-snippet" = "Voľná online encyklopédia, ktorú môže upravovať každý";
 "widget-onthisday-placeholder-event-snippet" = "Wikipédia ide online.";
+"wikimedia-articletopics-topic-africa" = "Afrika";
+"wikimedia-articletopics-topic-architecture" = "Architektúra";
+"wikimedia-articletopics-topic-art" = "Umenie";
+"wikimedia-articletopics-topic-asia" = "Ázia";
+"wikimedia-articletopics-topic-biography" = "Biografia (všetko)";
+"wikimedia-articletopics-topic-biology" = "Biológia";
+"wikimedia-articletopics-topic-business-and-economics" = "Biznis a ekonomika";
+"wikimedia-articletopics-topic-central-america" = "Stredná Amerika";
+"wikimedia-articletopics-topic-chemistry" = "Chémia";
+"wikimedia-articletopics-topic-comics-and-anime" = "Komiksy a anime";
+"wikimedia-articletopics-topic-computers-and-internet" = "Počítače a internet";
+"wikimedia-articletopics-topic-earth-and-environment" = "Zem a životné prostredie";
+"wikimedia-articletopics-topic-education" = "Vzdelávanie";
+"wikimedia-articletopics-topic-engineering" = "Inžinierstvo";
+"wikimedia-articletopics-topic-entertainment" = "Zábava";
+"wikimedia-articletopics-topic-europe" = "Európa";
+"wikimedia-articletopics-topic-fashion" = "Móda";
+"wikimedia-articletopics-topic-food-and-drink" = "Jedlá a nápoje";
+"wikimedia-articletopics-topic-general-science" = "Všeobecná veda";
+"wikimedia-articletopics-topic-history" = "História";
+"wikimedia-articletopics-topic-literature" = "Literatúra";
+"wikimedia-articletopics-topic-mathematics" = "Matematika";
+"wikimedia-articletopics-topic-medicine-and-health" = "Medicína a zdravie";
+"wikimedia-articletopics-topic-military-and-warfare" = "Armáda a vojna";
+"wikimedia-articletopics-topic-music" = "Hudba";
+"wikimedia-articletopics-topic-north-america" = "Severná Amerika";
+"wikimedia-articletopics-topic-oceania" = "Oceánia";
+"wikimedia-articletopics-topic-performing-arts" = "Múzické umenie";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filozofia a náboženstvo";
+"wikimedia-articletopics-topic-physics" = "Fyzika";
+"wikimedia-articletopics-topic-politics-and-government" = "Politika a vláda";
+"wikimedia-articletopics-topic-society" = "Spoločnosť";
+"wikimedia-articletopics-topic-south-america" = "Južná Amerika";
+"wikimedia-articletopics-topic-sports" = "Šport";
+"wikimedia-articletopics-topic-technology" = "Technológia";
+"wikimedia-articletopics-topic-transportation" = "Doprava";
+"wikimedia-articletopics-topic-tv-and-film" = "TV a film";
+"wikimedia-articletopics-topic-video-games" = "Videohry";
+"wikimedia-articletopics-topic-women" = "Biografia (ženy)";
 "wikitext-preview-changes" = "Načítava sa ukážka vykonaných zmien...";
 "wikitext-preview-link-external-preview-description" = "Tento odkaz vedie na externú webovú stránku: $1";
 "wikitext-preview-link-external-preview-title" = "Externý odkaz";
@@ -1825,121 +1820,3 @@
 "year-in-review-wmf-logo-accessibility-label" = "Logo Nadácie Wikimédia";
 "yesterday-title" = "Včera";
 "zero-edits-to-articles" = "0 nedávnych úprav článkov";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Architektúra";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Umenie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Komiksy a anime";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Zábava";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Móda";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Literatúra";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Hudba";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Múzické umenie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Šport";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "TV a film";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Videohry";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Biografia (všetko)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Biografia (ženy)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Biznis a ekonomika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Vzdelávanie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Jedlá a nápoje";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "História";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Armáda a vojna";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Filozofia a náboženstvo";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Politika a vláda";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Spoločnosť";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Doprava";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Biológia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Chémia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Počítače a internet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Zem a životné prostredie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Inžinierstvo";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Všeobecná veda";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Matematika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Medicína a zdravie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Fyzika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Technológia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Afrika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Ázia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Stredná Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Európa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Severná Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Oceánia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Južná Amerika";
