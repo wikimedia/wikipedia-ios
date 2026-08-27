@@ -179,15 +179,12 @@ public struct WMFForYouView: View {
                 // ships. When content exists but every module is off or every card is hidden, the
                 // settings empty state below shows instead.
                 GeometryReader { geometry in
-                    GeometryReader { geometry in
-                        ScrollView {
-                            endOfFeedPage(variant: .emptyFeed)
-                                .frame(width: geometry.size.width, height: geometry.size.height)
-                        }
-                        .scrollBounceBehavior(.basedOnSize)
-                        .onAppear { viewModel.endOfFeedViewModel.reportShownIfNeeded() }
+                    ScrollView {
+                        endOfFeedPage(variant: .emptyFeed)
+                            .frame(width: geometry.size.width, height: geometry.size.height)
                     }
-                    .ignoresSafeArea()
+                    .scrollBounceBehavior(.basedOnSize)
+                    .onAppear { viewModel.endOfFeedViewModel.reportShownIfNeeded() }
                 }
                 .ignoresSafeArea()
             } else {
@@ -279,13 +276,13 @@ public struct WMFForYouView: View {
         )
     }
 
-    /// Loops the feed back to the first module when the user keeps dragging up past the end of
-    /// feed card. Paging stops there on its own, so the extra upward drag is the loop signal.
     private func loopToFirstModuleIfNeeded(translation: CGSize) {
-        guard isEndOfFeedOnScreen,
-              translation.height < -60,
-              let firstID = visiblePages.first?.id else { return }
-        withAnimation { currentModuleID = firstID }
+        guard isEndOfFeedOnScreen, translation.height < -60 else { return }
+        Task { @MainActor in
+            try? await Task.sleep(for: .milliseconds(450))
+            guard isEndOfFeedOnScreen, let firstID = visiblePages.first?.id else { return }
+            withAnimation { currentModuleID = firstID }
+        }
     }
 
     private func endOfFeedPage(variant: WMFForYouEndOfFeedCardView.Variant) -> some View {
