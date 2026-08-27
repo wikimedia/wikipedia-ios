@@ -13,17 +13,9 @@ import SwiftUI
 /// so the card leaves the same room for the tab bar as every other page.
 struct WMFForYouEndOfFeedCardView: View {
 
-    /// Which copy and illustration the card shows. The layout is the same for both.
-    enum Variant {
-        /// The reader swiped through every module of today's feed.
-        case endOfFeed
-        /// The feed has no personalized content at all (no interests, no reading history).
-        case emptyFeed
-    }
-
     @ObservedObject var viewModel: WMFForYouEndOfFeedCardViewModel
 
-    let variant: Variant
+    private var variant: WMFForYouEndOfFeedCardViewModel.Variant { viewModel.variant }
 
     /// The For You palette, which stays dark whatever theme the app uses (`WMFTheme.forYou`).
     let theme: WMFTheme
@@ -159,20 +151,4 @@ struct WMFForYouEndOfFeedCardView: View {
             + Text(linkText).font(font).underline()
             + Text(parts[1]).font(font)
     }
-}
-
-#Preview("End of feed") {
-    WMFForYouEndOfFeedCardView(
-        viewModel: WMFForYouEndOfFeedCardViewModel(),
-        variant: .endOfFeed,
-        theme: .forYou
-    )
-}
-
-#Preview("Empty feed") {
-    WMFForYouEndOfFeedCardView(
-        viewModel: WMFForYouEndOfFeedCardViewModel(),
-        variant: .emptyFeed,
-        theme: .forYou
-    )
 }

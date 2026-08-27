@@ -3,9 +3,9 @@ import XCTest
 @testable import WMFData
 import WMFDataMocks
 
-/// Covers the end of feed card: its once-per-feed impression, the inputs the feed view uses to
-/// decide between the end of feed empty state and the settings empty state, and the wiring of its
-/// actions through `WMFHomeViewModel`.
+/// Covers the end of feed card: its variant and analytics identity, its once-per-feed impression,
+/// the inputs the feed view uses to decide between the end of feed empty state and the settings
+/// empty state, and the wiring of its actions through `WMFHomeViewModel`.
 @MainActor
 final class WMFForYouEndOfFeedCardViewModelTests: XCTestCase {
 
@@ -37,6 +37,21 @@ final class WMFForYouEndOfFeedCardViewModelTests: XCTestCase {
 
     private func makeHomeViewModel() -> WMFHomeViewModel {
         WMFHomeViewModel(dataController: WMFHomeDataController(userDefaultsStore: WMFMockKeyValueStore()))
+    }
+
+    // MARK: - Variant
+
+    /// The feed decides the card's variant once, when it is built: a feed with no pages at all uses
+    /// the card as its empty state; otherwise the card is the last page of the feed. The variant
+    /// carries the analytics identity, so the two states can be told apart in the data.
+    func testVariantFollowsFeedContent() {
+        let emptyFeed = WMFForYouViewModel(response: emptyResponse())
+        XCTAssertEqual(emptyFeed.endOfFeedViewModel.variant, .emptyFeed)
+        XCTAssertEqual(emptyFeed.endOfFeedViewModel.loggingId, "feed_empty")
+
+        let fullFeed = WMFForYouViewModel(response: responseWithContent())
+        XCTAssertEqual(fullFeed.endOfFeedViewModel.variant, .endOfFeed)
+        XCTAssertEqual(fullFeed.endOfFeedViewModel.loggingId, "end_of_feed")
     }
 
     // MARK: - Impression
@@ -106,21 +121,21 @@ final class WMFForYouEndOfFeedCardViewModelTests: XCTestCase {
 
     // MARK: - Home view model wiring
 
-    func testTappingCommunitySwitchesTabAndLogs() {
+    func testTappingCommunitySwitchesTabAndLogsAsEndOfFeed() {
         let homeViewModel = makeHomeViewModel()
         homeViewModel.selectedTab = .forYou
 
-        var didLog = false
-        homeViewModel.logEndOfFeedDidTapCommunity = { didLog = true }
+        var loggedSource: String?
+        homeViewModel.logEndOfFeedDidTapCommunity = { loggedSource = $0 }
 
         homeViewModel.forYouViewModel = WMFForYouViewModel(response: responseWithContent())
         homeViewModel.forYouViewModel?.endOfFeedViewModel.onTapCommunity?()
 
         XCTAssertEqual(homeViewModel.selectedTab, .community)
-        XCTAssertTrue(didLog)
+        XCTAssertEqual(loggedSource, "end_of_feed")
     }
 
-    func testTappingAddInterestsOpensInterestsAndLogsAsEmptyFeed() {
+    func testTappingAddInterestsOpensInterestsAndLogsAsEndOfFeed() {
         let homeViewModel = makeHomeViewModel()
 
         var loggedSource: String?
@@ -136,20 +151,33 @@ final class WMFForYouEndOfFeedCardViewModelTests: XCTestCase {
         homeViewModel.forYouViewModel?.endOfFeedViewModel.onTapAddInterests?()
 
         XCTAssertTrue(didOpenInterests)
-        XCTAssertEqual(loggedSource, WMFForYouEndOfFeedCardViewModel.loggingId)
+        XCTAssertEqual(loggedSource, "end_of_feed")
         XCTAssertEqual(loggedElement, "customize_feed")
     }
 
-    func testImpressionReachesTheLogClosure() {
+    /// The same tap on the empty feed variant must log as the empty feed.
+    func testTappingAddInterestsOnEmptyFeedLogsAsEmptyFeed() {
         let homeViewModel = makeHomeViewModel()
 
-        var impressions = 0
-        homeViewModel.logEndOfFeedImpression = { impressions += 1 }
+        var loggedSource: String?
+        homeViewModel.logDidTapCustomizeInterests = { source, _ in loggedSource = source }
+
+        homeViewModel.forYouViewModel = WMFForYouViewModel(response: emptyResponse())
+        homeViewModel.forYouViewModel?.endOfFeedViewModel.onTapAddInterests?()
+
+        XCTAssertEqual(loggedSource, "feed_empty")
+    }
+
+    func testImpressionReachesTheLogClosureWithTheVariantSource() {
+        let homeViewModel = makeHomeViewModel()
+
+        var loggedSources: [String] = []
+        homeViewModel.logEndOfFeedImpression = { loggedSources.append($0) }
 
         homeViewModel.forYouViewModel = WMFForYouViewModel(response: responseWithContent())
         homeViewModel.forYouViewModel?.endOfFeedViewModel.reportShownIfNeeded()
         homeViewModel.forYouViewModel?.endOfFeedViewModel.reportShownIfNeeded()
 
-        XCTAssertEqual(impressions, 1)
+        XCTAssertEqual(loggedSources, ["end_of_feed"])
     }
 }

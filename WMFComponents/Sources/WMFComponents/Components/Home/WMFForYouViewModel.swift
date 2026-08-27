@@ -127,6 +127,7 @@ public final class WMFForYouViewModel: ObservableObject {
         self.pages = Self.makePages(from: response)
 
         preloader.preloadInitialModules(in: preloadablePages, hiddenCardKeys: hiddenCardKeys)
+        endOfFeedViewModel.variant = pages.isEmpty ? .emptyFeed : .endOfFeed
     }
 
     // MARK: - Building the feed

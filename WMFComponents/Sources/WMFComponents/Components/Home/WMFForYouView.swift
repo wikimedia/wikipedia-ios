@@ -180,7 +180,7 @@ public struct WMFForYouView: View {
                 // settings empty state below shows instead.
                 GeometryReader { geometry in
                     ScrollView {
-                        endOfFeedPage(variant: .emptyFeed)
+                        endOfFeedPage
                             .frame(width: geometry.size.width, height: geometry.size.height)
                     }
                     .scrollBounceBehavior(.basedOnSize)
@@ -227,7 +227,7 @@ public struct WMFForYouView: View {
                     )
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 }
-                endOfFeedPage(variant: .endOfFeed)
+                endOfFeedPage
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .id(viewModel.endOfFeedViewModel.id)
             }
@@ -283,8 +283,8 @@ public struct WMFForYouView: View {
         }
     }
 
-    private func endOfFeedPage(variant: WMFForYouEndOfFeedCardView.Variant) -> some View {
-        WMFForYouEndOfFeedCardView(viewModel: viewModel.endOfFeedViewModel, variant: variant, theme: .forYou)
+    private var endOfFeedPage: some View {
+        WMFForYouEndOfFeedCardView(viewModel: viewModel.endOfFeedViewModel, theme: .forYou)
     }
 
     private var isEndOfFeedOnScreen: Bool {
@@ -368,7 +368,7 @@ private struct WMFForYouPageView: View {
     @AccessibilityFocusState.Binding var focusedCardKey: String?
 
     /// Offered only where there is somewhere to go, so the rotor does not list a dead action on the
-    /// first and last modules.
+    /// first and last modules. Last module will always allow for going up to the start again.
     let canGoToPreviousModule: Bool
     let onGoToPreviousModule: () -> Void
     let onGoToNextModule: () -> Void

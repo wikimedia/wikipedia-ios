@@ -28,8 +28,8 @@ public final class WMFHomeViewModel: ObservableObject {
     public var logDidTapCustomizeInterests: (@MainActor @Sendable (String, String) -> Void)?
     public var logEmptyViewImpression: (@MainActor @Sendable () -> Void)?
     public var logCardDidTapArticle: (@MainActor @Sendable (String, String) -> Void)?
-    public var logEndOfFeedImpression: (@MainActor @Sendable () -> Void)?
-    public var logEndOfFeedDidTapCommunity: (@MainActor @Sendable () -> Void)?
+    public var logEndOfFeedImpression: (@MainActor @Sendable (String) -> Void)?
+    public var logEndOfFeedDidTapCommunity: (@MainActor @Sendable (String) -> Void)?
 
     public enum Tab: Int, CaseIterable {
         case forYou
@@ -175,16 +175,20 @@ public final class WMFHomeViewModel: ObservableObject {
         forYouViewModel.onEmptyViewAppearance = { [weak self] in
             self?.logEmptyViewImpression?()
         }
-        forYouViewModel.endOfFeedViewModel.onTapAddInterests = { [weak self] in
-            self?.logDidTapCustomizeInterests?(WMFForYouEndOfFeedCardViewModel.loggingId, "customize_feed")
+        let endOfFeed = forYouViewModel.endOfFeedViewModel
+        endOfFeed.onTapAddInterests = { [weak self, weak endOfFeed] in
+            guard let endOfFeed else { return }
+            self?.logDidTapCustomizeInterests?(endOfFeed.loggingId, "customize_feed")
             self?.didTapCustomizeInterests?()
         }
-        forYouViewModel.endOfFeedViewModel.onTapCommunity = { [weak self] in
-            self?.logEndOfFeedDidTapCommunity?()
+        endOfFeed.onTapCommunity = { [weak self, weak endOfFeed] in
+            guard let endOfFeed else { return }
+            self?.logEndOfFeedDidTapCommunity?(endOfFeed.loggingId)
             self?.selectedTab = .community
         }
-        forYouViewModel.endOfFeedViewModel.onShow = { [weak self] in
-            self?.logEndOfFeedImpression?()
+        endOfFeed.onShow = { [weak self, weak endOfFeed] in
+            guard let endOfFeed else { return }
+            self?.logEndOfFeedImpression?(endOfFeed.loggingId)
         }
         
         forYouViewModel.onUserInteraction = { [weak self] in self?.didInteractWithForYouFeed?() }
