@@ -28,8 +28,13 @@ final class DonationReminderSetupCoordinator: Coordinator {
 
     @discardableResult
     func start() -> Bool {
-        let minimumAmount = WMFDonateDataController.shared.loadConfigs().donateConfig?.currencyMinimumDonation[currencyCode] ?? 1
-        let configuration = WMFDonationReminderSetupViewModel.experimentConfiguration(currencyCode: currencyCode, minimumAmount: minimumAmount)
+        let donateConfig = WMFDonateDataController.shared.loadConfigs().donateConfig
+        let minimumAmount = donateConfig?.currencyMinimumDonation[currencyCode] ?? 1
+        var maximumAmount = donateConfig?.getMaxAmount(for: currencyCode)
+        if maximumAmount?.isZero == true {
+            maximumAmount = nil
+        }
+        let configuration = WMFDonationReminderSetupViewModel.experimentConfiguration(currencyCode: currencyCode, minimumAmount: minimumAmount, maximumAmount: maximumAmount)
         let viewModel = WMFDonationReminderSetupViewModel(configuration: configuration, origin: origin, experimentEndDate: experimentEndDate)
 
         viewModel.didConfirmReminder = { [weak self] _ in

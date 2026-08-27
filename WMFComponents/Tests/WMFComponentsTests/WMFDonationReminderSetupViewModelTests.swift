@@ -128,6 +128,51 @@ final class WMFDonationReminderSetupViewModelTests {
     }
 
     @Test
+    func customAmountAboveMaximumShowsErrorAndBlocksConfirm() async {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let configuration = WMFDonationReminderSetupViewModel.experimentConfiguration(currencyCode: "EUR", minimumAmount: 1, maximumAmount: 25_000)
+            let viewModel = WMFDonationReminderSetupViewModel(configuration: configuration, origin: .banner)
+
+            viewModel.customAmount = 30_000
+            viewModel.customAmountDidChange()
+
+            #expect(viewModel.customAmountErrorText != nil)
+            #expect(viewModel.canConfirm == false)
+
+            viewModel.confirm()
+
+            #expect(WMFDonationReminderDataController.shared.loadReminder() == nil)
+        }
+    }
+
+    @Test
+    func customAmountAtMaximumHasNoErrorAndCanConfirm() async {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let configuration = WMFDonationReminderSetupViewModel.experimentConfiguration(currencyCode: "EUR", minimumAmount: 1, maximumAmount: 25_000)
+            let viewModel = WMFDonationReminderSetupViewModel(configuration: configuration, origin: .banner)
+
+            viewModel.customAmount = 25_000
+            viewModel.customAmountDidChange()
+
+            #expect(viewModel.customAmountErrorText == nil)
+            #expect(viewModel.canConfirm)
+        }
+    }
+
+    @Test
+    func customAmountWithoutConfiguredMaximumHasNoUpperLimit() async {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let viewModel = makeViewModel()
+
+            viewModel.customAmount = 1_000_000
+            viewModel.customAmountDidChange()
+
+            #expect(viewModel.customAmountErrorText == nil)
+            #expect(viewModel.canConfirm)
+        }
+    }
+
+    @Test
     func customAmountAtMinimumHasNoErrorAndCanConfirm() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let viewModel = makeViewModel()

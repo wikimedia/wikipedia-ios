@@ -38,6 +38,7 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
         let presetAmounts: [Decimal]
         let currencyCode: String
         let minimumAmount: Decimal
+        let maximumAmount: Decimal?
         let defaultTriggerOptionIdentifier: String
         let defaultAmount: Decimal
     }
@@ -62,8 +63,9 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
         let amountButtonAccessibilityHint = WMFLocalizedString("donation-reminder-setup-amount-accessibility-hint", value: "Double tap to select donation amount", comment: "Accessibility hint on the donation amount buttons of the reminder setup screen.")
         let customAmountAccessibilityHint = WMFLocalizedString("donation-reminder-setup-custom-amount-accessibility-hint", value: "Enter custom donation amount", comment: "Accessibility hint on the custom donation amount text field of the reminder setup screen.")
         let triggerDetailAccessibilityLabel = WMFLocalizedString("donation-reminder-setup-trigger-detail-accessibility-label", value: "More information", comment: "Accessibility label of the info button next to the reminder trigger group title on the reminder setup screen.")
-        // Same key and value as the donate form's minimum error, so existing translations apply.
+        // Same keys and values as the donate form's errors, so existing translations apply.
         let minimumAmountErrorFormat = WMFLocalizedString("donate-minimum-error-text", value: "Please select an amount (minimum %1$@ %2$@).", comment: "Error text displayed when user enters donation amount below the allowed minimum. Parameters: * %1$@ - the minimum amount allowed, %2$@ - the currency code. (For example, '$1 USD')")
+        let maximumAmountErrorFormat = WMFLocalizedString("donate-maximum-error-text", value: "We cannot accept donations greater than %1$@ %2$@ through our website. Please contact our major gifts staff at benefactors@wikimedia.org.", comment: "Error text displayed when user enters donation amount above the maximum. Parameters: * %1$@ - the currency code, %2$@ - the maximum donation amount allowed. (For example, 'USD $25,000')")
     }
 
     // MARK: - Properties
@@ -179,21 +181,38 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
             return false
         }
         // Preset amounts are sanctioned by the experiment and always confirmable; the
-        // currency minimum only polices the freeform custom amount.
+        // currency limits only police the freeform custom amount.
         if let selectedPresetAmount {
             return selectedPresetAmount > 0
         }
-        return customAmount >= configuration.minimumAmount
+        guard customAmount >= configuration.minimumAmount else {
+            return false
+        }
+        if let maximumAmount = configuration.maximumAmount {
+            return customAmount <= maximumAmount
+        }
+        return true
     }
 
     var customAmountErrorText: String? {
-        guard customAmount > 0, customAmount < configuration.minimumAmount else {
+        guard customAmount > 0 else {
             return nil
         }
+
         let formatter = NumberFormatter.wmfCurrencyFormatter
         formatter.currencyCode = configuration.currencyCode
-        let minimumString = formatter.string(from: configuration.minimumAmount as NSNumber) ?? "\(configuration.minimumAmount)"
-        return String.localizedStringWithFormat(localizedStrings.minimumAmountErrorFormat, minimumString, configuration.currencyCode)
+
+        if customAmount < configuration.minimumAmount {
+            let minimumString = formatter.string(from: configuration.minimumAmount as NSNumber) ?? "\(configuration.minimumAmount)"
+            return String.localizedStringWithFormat(localizedStrings.minimumAmountErrorFormat, minimumString, configuration.currencyCode)
+        }
+
+        if let maximumAmount = configuration.maximumAmount, customAmount > maximumAmount {
+            let maximumString = formatter.string(from: maximumAmount as NSNumber) ?? "\(maximumAmount)"
+            return String.localizedStringWithFormat(localizedStrings.maximumAmountErrorFormat, maximumString, configuration.currencyCode)
+        }
+
+        return nil
     }
 
     func selectPresetAmount(_ amount: Decimal) {
@@ -262,7 +281,7 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
 
     // MARK: - Experiment Configuration
 
-    public static func experimentConfiguration(currencyCode: String, minimumAmount: Decimal = 1) -> Configuration {
+    public static func experimentConfiguration(currencyCode: String, minimumAmount: Decimal = 1, maximumAmount: Decimal? = nil) -> Configuration {
 
         let triggerOptions = [
             TriggerOption(id: "articles-5", label: "5", trigger: .articlesRead(count: 5)),
@@ -275,6 +294,7 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
             presetAmounts: [1, 3, 5],
             currencyCode: currencyCode,
             minimumAmount: minimumAmount,
+            maximumAmount: maximumAmount,
             defaultTriggerOptionIdentifier: "articles-5",
             defaultAmount: 1
         )
