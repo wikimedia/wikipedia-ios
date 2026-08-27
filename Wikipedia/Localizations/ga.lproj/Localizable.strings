@@ -236,45 +236,6 @@
 "article-tabs-open-new-tab" = "Oscail i gcluaisín nua";
 "article-talk-page" = "Leathanach plé an ailt";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Rialuithe Léitheoireachta Téamaí";
-"article-topic-africa" = "An Afraic";
-"article-topic-architecture" = "Ailtireacht";
-"article-topic-art" = "Ealaín";
-"article-topic-asia" = "An Áise";
-"article-topic-biography" = "Beathaisnéis (uile)";
-"article-topic-biology" = "Bitheolaíocht";
-"article-topic-business-and-economics" = "Gnó agus eacnamaíocht";
-"article-topic-central-america" = "Meiriceá Láir";
-"article-topic-chemistry" = "Ceimic";
-"article-topic-comics-and-anime" = "Greannáin agus anime";
-"article-topic-computers-and-internet" = "Ríomhairí agus an t-idirlíon";
-"article-topic-earth-and-environment" = "Domhan agus an comhshaol";
-"article-topic-education" = "Oideachas";
-"article-topic-engineering" = "Innealtóireacht";
-"article-topic-entertainment" = "Siamsaíocht";
-"article-topic-europe" = "An Eoraip";
-"article-topic-fashion" = "Faisean";
-"article-topic-food-and-drink" = "Bia agus deoch";
-"article-topic-general-science" = "Eolaíocht ghinearálta";
-"article-topic-history" = "Stair";
-"article-topic-literature" = "Litríocht";
-"article-topic-mathematics" = "Matamaitic";
-"article-topic-medicine-and-health" = "Leigheas agus sláinte";
-"article-topic-military-and-warfare" = "Míleata agus cogaíocht";
-"article-topic-music" = "Míleata agus cogaíocht";
-"article-topic-north-america" = "Meiriceá Thuaidh";
-"article-topic-oceania" = "Aigéine";
-"article-topic-performing-arts" = "Na healaíona taibhithe";
-"article-topic-philosophy-and-religion" = "Fealsúnacht agus reiligiún";
-"article-topic-physics" = "Fisic";
-"article-topic-politics-and-government" = "Polaitíocht agus rialtas";
-"article-topic-society" = "Cumann";
-"article-topic-south-america" = "Meiriceá Theas";
-"article-topic-sports" = "Spóirt";
-"article-topic-technology" = "Teicneolaíocht";
-"article-topic-transportation" = "Iompar";
-"article-topic-tv-and-film" = "Teilifís agus scannáin";
-"article-topic-video-games" = "Cluichí físeáin";
-"article-topic-women" = "Beathaisnéis (mná)";
 "article-view-controller-editing-temp-account-created-subtitle" = "Cruthaíodh an cuntas sealadach $1 tar éis d’eagarthóireacht a fhoilsiú. Rachaidh sé in éag i gceann 90 lá.";
 "article-view-controller-editing-temp-account-created-title" = "Cruthaíodh cuntas sealadach";
 "back-button-accessibility-label" = "Siar";
@@ -716,8 +677,6 @@
 "find-replace-header" = "Aimsigh agus athchuir";
 "find-replace-header-close-accessibility" = "Dún aimsigh agus athchuir";
 "find-textfield-accessibility" = "Aimsigh";
-"for-you-empty-button" = "Roghnaigh do leasanna";
-"for-you-empty-subtitle" = "Cuir leasanna leis chun moltaí pearsantaithe alt a fháil.";
 "for-you-empty-title" = "Níl aon rud anseo fós";
 "for-you-error-retry" = "Déan iarracht arís";
 "for-you-error-subtitle" = "Ceangail leis an Idirlíon agus déan iarracht arís.";
@@ -752,9 +711,6 @@
 "home-button-home-accessibility-label" = "Vicipéid, fill ar ais go dtí an Baile";
 "home-button-saved-accessibility-label" = "Vicipéid, siar go Sábháilte";
 "home-card-more-options-accessibility-label" = "Tuilleadh roghanna";
-"home-community-empty-feed-button-title" = "Saincheap an fotha";
-"home-community-empty-feed-message" = "Cas cártaí ar siúl sna socruithe beatha chun beatha an Phobail a fheiceáil.";
-"home-community-empty-feed-title" = "Tá gach cárta beatha Pobail i bhfolach";
 "home-community-see-past-content" = "Féach ar ábhar pobail san am atá thart";
 "home-community-tab-title" = "Pobal";
 "home-edit-languages-title" = "Cuir teangacha leis nó cuir iad in eagar";
@@ -1686,6 +1642,45 @@
 "widget-onthisday-description" = "Scrúdaigh cad a tharla ar an lá seo sa stair.";
 "widget-onthisday-placeholder-article-snippet" = "Ciclipéid ar líne saor in aisce ar féidir le duine ar bith a chur in eagar";
 "widget-onthisday-placeholder-event-snippet" = "Tá Vicipéid, ciclipéid ábhar vicí saor in aisce, ar líne.";
+"wikimedia-articletopics-topic-africa" = "An Afraic";
+"wikimedia-articletopics-topic-architecture" = "Ailtireacht";
+"wikimedia-articletopics-topic-art" = "Ealaín";
+"wikimedia-articletopics-topic-asia" = "Asia";
+"wikimedia-articletopics-topic-biography" = "Beathaisnéis (uile)";
+"wikimedia-articletopics-topic-biology" = "Bitheolaíocht";
+"wikimedia-articletopics-topic-business-and-economics" = "Gnó agus eacnamaíocht";
+"wikimedia-articletopics-topic-central-america" = "Central America";
+"wikimedia-articletopics-topic-chemistry" = "Ceimic";
+"wikimedia-articletopics-topic-comics-and-anime" = "Greannáin agus anime";
+"wikimedia-articletopics-topic-computers-and-internet" = "Ríomhairí agus an t-idirlíon";
+"wikimedia-articletopics-topic-earth-and-environment" = "Domhan agus an comhshaol";
+"wikimedia-articletopics-topic-education" = "Oideachas";
+"wikimedia-articletopics-topic-engineering" = "Innealtóireacht";
+"wikimedia-articletopics-topic-entertainment" = "Entertainment";
+"wikimedia-articletopics-topic-europe" = "Europe";
+"wikimedia-articletopics-topic-fashion" = "Fashion";
+"wikimedia-articletopics-topic-food-and-drink" = "Bia agus deoch";
+"wikimedia-articletopics-topic-general-science" = "General science";
+"wikimedia-articletopics-topic-history" = "History";
+"wikimedia-articletopics-topic-literature" = "Literature";
+"wikimedia-articletopics-topic-mathematics" = "Matamaitic";
+"wikimedia-articletopics-topic-medicine-and-health" = "Leigheas agus sláinte";
+"wikimedia-articletopics-topic-military-and-warfare" = "Míleata agus cogaíocht";
+"wikimedia-articletopics-topic-music" = "Míleata agus cogaíocht";
+"wikimedia-articletopics-topic-north-america" = "North America";
+"wikimedia-articletopics-topic-oceania" = "Oceania";
+"wikimedia-articletopics-topic-performing-arts" = "Na healaíona taibhithe";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Philosophy and religion";
+"wikimedia-articletopics-topic-physics" = "Fisic";
+"wikimedia-articletopics-topic-politics-and-government" = "Polaitíocht agus rialtas";
+"wikimedia-articletopics-topic-society" = "Society";
+"wikimedia-articletopics-topic-south-america" = "Meiriceá Theas";
+"wikimedia-articletopics-topic-sports" = "Spóirt";
+"wikimedia-articletopics-topic-technology" = "Teicneolaíocht";
+"wikimedia-articletopics-topic-transportation" = "Iompar";
+"wikimedia-articletopics-topic-tv-and-film" = "Teilifís agus scannáin";
+"wikimedia-articletopics-topic-video-games" = "Cluichí físeáin";
+"wikimedia-articletopics-topic-women" = "Beathaisnéis (mná)";
 "wikitext-preview-changes" = "Ag aisghabháil réamhamharc ar do chuid athruithe...";
 "wikitext-preview-link-external-preview-description" = "Treoraíonn an nasc seo chuig suíomh gréasáin seachtrach: $1";
 "wikitext-preview-link-external-preview-title" = "Nasc seachtrach";
@@ -1811,121 +1806,3 @@
 "year-in-review-wmf-logo-accessibility-label" = "Lógó Fhondúireacht Wikimedia";
 "yesterday-title" = "Inné";
 "zero-edits-to-articles" = "0 eagarthóireacht ar ailt le déanaí";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Architecture";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Art";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Comics and anime";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Entertainment";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Fashion";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Literature";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Music";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Performing arts";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Sports";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "TV and film";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Video games";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Biography (all)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Biography (women)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Business and economics";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Education";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Food and drink";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "History";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Military and warfare";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Philosophy and religion";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Politics and government";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Society";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Transportation";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Biology";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Chemistry";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Computers and internet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Earth and environment";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Engineering";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "General science";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Mathematics";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Medicine and health";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Physics";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Technology";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Africa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Asia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Central America";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Europe";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "North America";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Oceania";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "South America";
