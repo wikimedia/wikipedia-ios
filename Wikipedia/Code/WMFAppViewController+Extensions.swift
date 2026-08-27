@@ -858,7 +858,7 @@ extension WMFAppViewController {
         
         let store = WMFDataEnvironment.current.crossProcessUserDefaultsStore
         let appInstallID: String? = try? store?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
-        let sessionID: String? = try? store?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+        let sessionID: String? = try? store?.load(key: WMFUserDefaultsKey.sessionID.rawValue)
         
         if legacyAppInstallID == nil && appInstallID == nil {
             // This is likely a fresh install! Generate a new app install ID
