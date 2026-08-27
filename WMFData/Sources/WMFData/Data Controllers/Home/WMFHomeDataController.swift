@@ -305,6 +305,47 @@ import WMFTestKitchen
     /// feed gets new random articles.
     private static let warmedArticlesLifetime: TimeInterval = 5 * 60
 
+    // MARK: - Daily seed interests
+
+    /// How many interests seed the feed on one day, for each kind. The user can select an
+    /// unbounded number of article interests, and each seed costs one network request when the
+    /// feed loads. The caps bound that cost, and match the Android app: up to 5 topics and up to
+    /// 5 article interests each day.
+    private static let maxDailyTopicSeeds = 5
+    private static let maxDailyPageInterestSeeds = 5
+
+    /// Orders items for one calendar day, the same way on every call. The order comes from a
+    /// stable hash of the day, the project, and the item key. Because of this, the warm-up and
+    /// the fetch select the same seeds, the selection is random across users and items, and a
+    /// new day gives a fresh selection. Swift's `Hasher` cannot do this: it has a new random
+    /// seed on each launch.
+    private nonisolated func dailySeedOrder<Item>(_ items: [Item], project: WMFProject, key: (Item) -> String) -> [Item] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let day = formatter.string(from: Date())
+        return items.sorted {
+            Self.stableHash("\(day).\(project.id).\(key($0))") < Self.stableHash("\(day).\(project.id).\(key($1))")
+        }
+    }
+
+    /// FNV-1a. Stable across launches and devices.
+    private nonisolated static func stableHash(_ string: String) -> UInt64 {
+        var hash: UInt64 = 0xcbf29ce484222325
+        for byte in string.utf8 {
+            hash ^= UInt64(byte)
+            hash = hash &* 0x100000001b3
+        }
+        return hash
+    }
+
+    private nonisolated func dailyTopicSeeds(project: WMFProject) -> [WMFArticleTopic] {
+        Array(dailySeedOrder(interestTopics(), project: project, key: { $0.rawValue }).prefix(Self.maxDailyTopicSeeds))
+    }
+
+    private nonisolated func dailyPageInterestSeeds(_ interests: [WMFPageInterest], project: WMFProject) -> [WMFPageInterest] {
+        Array(dailySeedOrder(interests, project: project, key: { $0.title }).prefix(Self.maxDailyPageInterestSeeds))
+    }
+
     private struct WarmedTopicArticles {
         let date: Date
         let articles: [WMFRandomArticle]
@@ -326,8 +367,11 @@ import WMFTestKitchen
     /// is ready almost immediately. Repeated calls are cheap: a fresh group is not fetched again,
     /// and equal requests in flight share one download.
     public func warmForYouArticles(project: WMFProject) async {
-        let topics = interestTopics()
-        let interests = (try? await pageInterestDataController?.fetchPageInterests(project: project)) ?? []
+        // Warm only the seeds of the day, never every interest: the seed selection is what
+        // bounds the network cost, and the fetch computes the same selection.
+        let topics = dailyTopicSeeds(project: project)
+        let allInterests = (try? await pageInterestDataController?.fetchPageInterests(project: project)) ?? []
+        let interests = dailyPageInterestSeeds(allInterests, project: project)
 
         await withTaskGroup(of: Void.self) { group in
             for topic in topics {
@@ -460,7 +504,7 @@ import WMFTestKitchen
     }
 
     private func fetchForYouInterestTopicRandomArticles(project: WMFProject, excluding excluded: Set<String>) async throws -> [WMFForYouInterestTopicRandomArticles] {
-        let topics = interestTopics().shuffled()
+        let topics = dailyTopicSeeds(project: project)
         guard !topics.isEmpty else { return [] }
 
         return try await withThrowingTaskGroup(of: WMFForYouInterestTopicRandomArticles.self) { group in
@@ -484,7 +528,7 @@ import WMFTestKitchen
     private func fetchForYouInterestPageRelatedArticles(project: WMFProject, excluding excluded: Set<String>) async throws -> [WMFForYouInterestPageRelatedArticles] {
         guard let pageInterestDataController else { return [] }
         let interests = try await pageInterestDataController.fetchPageInterests(project: project)
-        let selected = interests.shuffled()
+        let selected = dailyPageInterestSeeds(interests, project: project)
         guard !selected.isEmpty else { return [] }
 
         return try await withThrowingTaskGroup(of: WMFForYouInterestPageRelatedArticles.self) { group in
