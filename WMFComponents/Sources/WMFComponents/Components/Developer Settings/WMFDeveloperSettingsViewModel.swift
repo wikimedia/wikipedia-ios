@@ -119,12 +119,11 @@ import WMFData
         try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
     }
 
+    @MainActor
     public func copyAppInstallID() {
         guard let appInstallID else { return }
         UIPasteboard.general.string = appInstallID
-        Task { @MainActor in
-            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("App install ID copied")))
-        }
+        WMFToastPresenter.shared.show(WMFToastConfig(title: .init("App install ID copied")))
     }
 
     public func clearGamesPersistence() {
