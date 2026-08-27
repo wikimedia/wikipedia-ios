@@ -24,12 +24,7 @@ public final class WMFForYouEndOfFeedCardViewModel: ObservableObject, Identifiab
     public var variant: Variant = .endOfFeed
 
     /// Sent as `actionSource` on this card's events.
-    public var loggingId: String {
-        switch variant {
-        case .endOfFeed: return "end_of_feed"
-        case .emptyFeed: return "feed_empty"
-        }
-    }
+    public static var loggingId = "feed_empty"
 
     // MARK: - Localized strings
 
