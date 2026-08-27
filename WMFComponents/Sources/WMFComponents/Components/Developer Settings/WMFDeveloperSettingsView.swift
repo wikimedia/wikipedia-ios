@@ -35,6 +35,16 @@ struct WMFDeveloperSettingsView: View {
                 }
             }
 
+            Section(header: Text("Event Logging")) {
+                Text(viewModel.eventLoggingDiagnosticsText)
+                    .font(.footnote.monospaced())
+                Button {
+                    viewModel.resetEventLoggingDiagnostics()
+                } label: {
+                    Text("Reset counters")
+                }
+            }
+
             ForEach(viewModel.formViewModel.sections) { section in
                 if let selectSection = section as? WMFFormSectionSelectViewModel {
                     WMFFormSectionSelectView(viewModel: selectSection)
@@ -44,5 +54,8 @@ struct WMFDeveloperSettingsView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .listBackgroundColor(Color(theme.baseBackground))
+        .onAppear {
+            viewModel.refreshEventLoggingDiagnostics()
+        }
     }
 }

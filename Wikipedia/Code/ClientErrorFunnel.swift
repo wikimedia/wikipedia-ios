@@ -102,6 +102,7 @@ struct ClientErrorThrottle {
 
     func logEvent(message: String?) {
         guard throttle.withLock({ $0.shouldLog(errorClass: "message", urlString: nil, statusCode: nil) }) else {
+            WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .errorThrottled)
             return
         }
 
@@ -127,6 +128,7 @@ struct ClientErrorThrottle {
         }
 
         guard throttle.withLock({ $0.shouldLog(errorClass: info.source, urlString: info.url, statusCode: info.statusCode) }) else {
+            WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .errorThrottled)
             return
         }
 

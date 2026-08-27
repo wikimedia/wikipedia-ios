@@ -653,6 +653,7 @@ import WMFTestKitchen
 
         DDLogDebug("EPC: Processing all scheduled requests")
         let batches = Self.makeBatches(events: events, configs: streamConfigurations, chunkSize: Self.batchChunkSize)
+        WMFEventLoggingDiagnosticsDataController.shared.recordFlush(posts: batches.count, events: events.count)
         sendBatches(batches, startingAt: 0, hasty: hasty, storageManager: storageManager, completion: completion)
     }
 
@@ -675,6 +676,8 @@ import WMFTestKitchen
             case .purge:
                 if case .failure = result {
                     DDLogError("EPC: The analytics service reported partial failure (207) for a batch of \(batch.events.count) events. Invalid events were dropped by the server.")
+                    /// Upper bound: a 207 body identifies the rejected subset, but we don't parse it.
+                    WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .serverRejected, count: batch.events.count)
                 }
                 for event in batch.events {
                     storageManager.markPurgeable(event: event)
@@ -720,6 +723,7 @@ import WMFTestKitchen
                     default:
                         /// Give up on events rejected by the server
                         DDLogError("EPC: The analytics service failed to process an event. A response code of 400 could indicate that the event didn't conform to provided schema. Check the error for more information.: \(error)")
+                        WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .serverRejected)
                         storageManager.markPurgeable(event: event)
                     }
                 }
@@ -976,10 +980,12 @@ import WMFTestKitchen
         }
         guard let config = streamConfigs[stream] else {
             DDLogError("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
+            WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .unconfiguredStream)
             return
         }
         guard samplingController.inSample(stream: stream, config: config) else {
             DDLogWarn("EPC: Stream '\(stream.rawValue)' is not in sample")
+            WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .notInSample)
             return
         }
 
@@ -1024,6 +1030,7 @@ private extension EventPlatformClient {
              */
             if self.inputBuffer.count == self.inbutBufferLimit {
                 _ = self.inputBuffer.remove(at: 0)
+                WMFEventLoggingDiagnosticsDataController.shared.recordDrop(reason: .inputBufferOverflow)
             }
             self.inputBuffer.append((data, stream))
         }

@@ -114,6 +114,32 @@ import WMFData
             .store(in: &subscribers)
     }
 
+    @Published public var eventLoggingDiagnosticsText: String = ""
+
+    public func refreshEventLoggingDiagnostics() {
+        let diagnostics = WMFEventLoggingDiagnosticsDataController.shared.snapshot()
+
+        var lines: [String] = [
+            "Flushes: \(diagnostics.flushCount)",
+            "POST requests: \(diagnostics.postCount)",
+            "Events sent: \(diagnostics.eventsSentCount)",
+            "Events in last flush: \(diagnostics.eventsInLastFlush)"
+        ]
+        if let lastFlushDate = diagnostics.lastFlushDate {
+            lines.append("Last flush: \(lastFlushDate.formatted(date: .omitted, time: .standard))")
+        }
+        if !diagnostics.dropCounts.isEmpty {
+            let drops = diagnostics.dropCounts.sorted { $0.key < $1.key }.map { "\($0.key): \($0.value)" }
+            lines.append("Drops — " + drops.joined(separator: ", "))
+        }
+        eventLoggingDiagnosticsText = lines.joined(separator: "\n")
+    }
+
+    public func resetEventLoggingDiagnostics() {
+        WMFEventLoggingDiagnosticsDataController.shared.reset()
+        refreshEventLoggingDiagnostics()
+    }
+
     public func clearGamesPersistence() {
         Task {
             try? await WMFDeveloperSettingsDataController.shared.clearGamesPersistence()
