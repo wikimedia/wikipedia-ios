@@ -70,36 +70,36 @@ final class HomeCoordinator: NSObject, Coordinator {
 
         viewModel.logCardDidTapShare = { [weak self, weak viewModel] module in
             guard let self, let viewModel else { return }
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_share", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, actionSubtype: "feed_overflow", elementId: "article_share", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
         }
 
         viewModel.logCardDidSave = { [weak self, weak viewModel] card in
             guard let self, let viewModel else { return }
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: card.module.loggingId, elementId: "article_save", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: card.module.loggingId, actionSubtype: "feed_overflow", elementId: "article_save", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
             let articleURL = card.project.siteURL?.wmf_URL(withTitle: card.title)
             ReadingListsFunnel.shared.logSave(category: .article, label: nil, articleURL: articleURL)
         }
 
         viewModel.logCardDidUnsave = { [weak self, weak viewModel] card in
             guard let self, let viewModel else { return }
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: card.module.loggingId, elementId: "article_unsave", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: card.module.loggingId, actionSubtype: "feed_overflow", elementId: "article_unsave", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
             let articleURL = card.project.siteURL?.wmf_URL(withTitle: card.title)
             ReadingListsFunnel.shared.logUnsave(category: .article, label: nil, articleURL: articleURL)
         }
 
         viewModel.logCardDidTapHideCard = { [weak self, weak viewModel] module in
             guard let self, let viewModel else { return }
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "card_hide", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, actionSubtype: "feed_overflow", elementId: "card_hide", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
         }
 
         viewModel.logCardDidTapHideModule = { [weak self, weak viewModel] module in
             guard let self, let viewModel else { return }
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "module_hide", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, actionSubtype: "feed_overflow", elementId: "module_hide", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
         }
 
         viewModel.logDidTapCustomizeInterests = { [weak self, weak viewModel] module, elementId in
             guard let self, let viewModel else { return }
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: elementId, mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, actionSubtype: "feed_overflow", elementId: elementId, mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
         }
 
         viewModel.logEmptyViewImpression = { [weak self, weak viewModel] in
