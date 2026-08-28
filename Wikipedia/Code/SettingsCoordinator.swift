@@ -592,7 +592,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     private func showHomeFeedSettings() {
         
-        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "home_feed_enter")
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "home_feed_enter", experimentData: WMFHomeDataController.shared.experimentData)
         
         guard let settingsNav = settingsNavigationController else {
             return
