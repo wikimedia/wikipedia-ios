@@ -671,6 +671,22 @@
 "welcome-intro-free-encyclopedia-more-about" = "Diwar-benn Wikipedia";
 "welcome-intro-free-encyclopedia-title" = "An Holloueziadur digor";
 "welcome-languages-add-button" = "Ouzhpennañ ur yezh all";
+"wikimedia-articletopics-topic-africa" = "Afrika";
+"wikimedia-articletopics-topic-architecture" = "Savouriezh";
+"wikimedia-articletopics-topic-art" = "Arzh";
+"wikimedia-articletopics-topic-central-america" = "Kreizamerika";
+"wikimedia-articletopics-topic-comics-and-anime" = "Bannoù-treset hag tresadennoù-bev";
+"wikimedia-articletopics-topic-education" = "Deskadurezh";
+"wikimedia-articletopics-topic-engineering" = "Ijinouriezh";
+"wikimedia-articletopics-topic-europe" = "Europa";
+"wikimedia-articletopics-topic-fashion" = "Giz";
+"wikimedia-articletopics-topic-general-science" = "Skiant hollek";
+"wikimedia-articletopics-topic-history" = "Istor";
+"wikimedia-articletopics-topic-music" = "Sonerezh";
+"wikimedia-articletopics-topic-oceania" = "Oseania";
+"wikimedia-articletopics-topic-south-america" = "Suamerika";
+"wikimedia-articletopics-topic-technology" = "Teknologiezh";
+"wikimedia-articletopics-topic-tv-and-film" = "Skinwel ha film";
 "wikitext-preview-changes" = "Adtapout an alberz eus ho kemmoù";
 "wikitext-preview-link-external-preview-title" = "Liamm diavaez";
 "wikitext-preview-link-preview-title" = "Rakwel al liamm";
@@ -681,121 +697,3 @@
 "wikitext-upload-save" = "Oc'h embann...";
 "wikitext-upload-save-anonymously-warning" = "Ar c'hemmoù a vo roet da chomlec'h IP hoc'h ardivink. M'ho peus $1 ho po muioc'h a zegasadennoù e kuzhut.";
 "wikitext-upload-save-terms-name" = "Termenoù implijout";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Savouriezh";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Arzh";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Bannoù-treset hag tresadennoù-bev";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Diduamant";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Giz";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Lennegezh";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Sonerezh";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Arzoù ar c'hoariva";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Sportoù";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "Skinwel ha film";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "C'hoarioù video";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Buhezskrid (an holl)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Buhezskrid (maouezi)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Kenwerzh hag ekonomiezh";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Deskadurezh";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Boued hag evajoù";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Istor";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Arme ha brezel";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Prederouriezh ha relijion";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Politikerezh ha gouarnamant";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Kevredigezh";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Treuzdougen";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Bevoniezh";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Kimiezh";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Urzhiataerioù ha Kenrouedad";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Douar hag endro";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Ijinouriezh";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Skiant hollek";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Jedoniezh";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Mezegiezh ha yec'hed";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Fizik";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Teknologiezh";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Afrika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Azia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Kreizamerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Europa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Norzhamerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Oseania";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Suamerika";

@@ -17,6 +17,21 @@ struct WMFDeveloperSettingsView: View {
                 Toggle("Enable Developer Mode", isOn: $viewModel.enableDeveloperMode)
             }
 
+            Section(header: Text("App install ID"), footer: Text("Tap to copy. Use it to find this install's errors in Logstash.")) {
+                Button {
+                    viewModel.copyAppInstallID()
+                } label: {
+                    HStack {
+                        Text(viewModel.appInstallID ?? "Unavailable")
+                            .font(Font(WMFFont.for(.callout)))
+                        Spacer()
+                        if let copyIcon = WMFSFSymbolIcon.for(symbol: .docOnDoc) {
+                            Image(uiImage: copyIcon)
+                        }
+                    }
+                }
+            }
+
             Section(header: Text("Games")) {
                 Toggle("Show Games Version 2", isOn: $viewModel.showGamesV2)
                 Button {
@@ -37,6 +52,7 @@ struct WMFDeveloperSettingsView: View {
 
             Section {
                 Toggle("Enable Donation Reminder", isOn: $viewModel.enableDonationReminder)
+                Toggle("Bypass Reminder Daily Limit", isOn: $viewModel.bypassDonationReminderDailyLimit)
                 Toggle("Force Fundraising Campaign Banner", isOn: $viewModel.forceFundraisingCampaignBanner)
                 Picker("Force Reminder Experiment Group", selection: $viewModel.forceDonationReminderExperimentAssignment) {
                     Text("Off").tag(WMFDonationReminderDataController.ExperimentAssignment?.none)

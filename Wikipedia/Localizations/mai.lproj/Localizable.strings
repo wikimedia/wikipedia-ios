@@ -61,127 +61,24 @@
 "search-recent-title" = "हाल के खोजसभ ...";
 "settings-my-languages" = "हमर भाषासभ";
 "table-of-contents-heading" = "विषय-सूची";
+"wikimedia-articletopics-topic-asia" = "एशिया";
+"wikimedia-articletopics-topic-central-america" = "केंद्रीय अमेरिका";
+"wikimedia-articletopics-topic-education" = "शिक्षा";
+"wikimedia-articletopics-topic-entertainment" = "मनोरंजन";
+"wikimedia-articletopics-topic-fashion" = "फैशन";
+"wikimedia-articletopics-topic-food-and-drink" = "खान-पान";
+"wikimedia-articletopics-topic-history" = "इतिहास";
+"wikimedia-articletopics-topic-music" = "संगीत";
+"wikimedia-articletopics-topic-north-america" = "उत्तरी अमेरिका";
+"wikimedia-articletopics-topic-oceania" = "ओशिआनिया";
+"wikimedia-articletopics-topic-physics" = "भौतिकी";
+"wikimedia-articletopics-topic-society" = "समाज";
+"wikimedia-articletopics-topic-south-america" = "दक्षिणी अमरीका";
+"wikimedia-articletopics-topic-tv-and-film" = "टीवी और फिल्म";
+"wikimedia-articletopics-topic-video-games" = "वीडियो गेम";
 "wikitext-preview-changes" = "आहाँकें परिवर्तनसभ पूर्वावलोकन निकालइत ...";
 "wikitext-upload-captcha-error" = "केप्चा प्रमाणिकरणमे त्रुटि।";
 "wikitext-upload-captcha-needed" = "केप्चा प्रमाणिकरण चाही ।";
 // Fuzzy
 "wikitext-upload-save" = "आहाँ के सम्पादन सुरक्षित भ्यरहल अछि...";
 "wikitext-upload-save-terms-name" = "उपयोग कऽ शर्त सभ";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "वास्तुकला";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "कला";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "कॉमिक्स और ऐनिमे";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "मनोरंजन";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "फैशन";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "साहित्य";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "संगीत";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "कला प्रदर्शन";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "खेल";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "टीवी और फिल्म";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "वीडियो गेम";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "जीवनी (सभी)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "जीवनी (महिला)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "व्यापार और अर्थशास्त्र";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "शिक्षा";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "खान-पान";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "इतिहास";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "सैन्य और युद्ध";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "दर्शन और धर्म";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "राजनीति और सरकार";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "समाज";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "परिवहन";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "जीवविज्ञान";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "रसायन विज्ञान";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "कंप्यूटर्स और इंटरनेट";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "पृथ्वी और पर्यावरण";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "अभियांत्रिकी";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "सामान्य विज्ञान";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "गणित";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "चिकित्सा और स्वास्थ्य";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "भौतिकी";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "प्रौद्योगिकी";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "अफ्रीका";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "एशिया";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "केंद्रीय अमेरिका";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "यूरोप";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "उत्तरी अमेरिका";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "ओशिआनिया";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "दक्षिणी अमरीका";

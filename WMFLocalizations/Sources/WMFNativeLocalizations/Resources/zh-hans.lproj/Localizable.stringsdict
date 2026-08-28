@@ -5,7 +5,7 @@
 	<key>activity-tab-amount-article-views</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ 次浏览</string>
+		<string>%1$#@v1@ 次浏览</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -19,7 +19,7 @@
 	<key>activity-tab-impact-best-streak-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -33,7 +33,7 @@
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您本周已编辑%#@v1@次。</string>
+		<string>您本周已编辑%1$#@v1@次。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -47,7 +47,7 @@
 	<key>activity-tab-you-read</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您本周已阅读%#@v1@篇条目。</string>
+		<string>您本周已阅读%1$#@v1@篇条目。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -61,7 +61,7 @@
 	<key>activity-tab-you-saved</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您本周已保存%#@v1@篇条目。</string>
+		<string>您本周已保存%1$#@v1@篇条目。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -75,7 +75,7 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>添加%#@v1@到阅读列表</string>
+		<string>添加%1$#@v1@到阅读列表</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -89,7 +89,7 @@
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@已删除</string>
+		<string>%1$#@v1@已删除</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -105,7 +105,7 @@
 	<key>close-all-tabs-confirmation-subtitle-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您是否要关闭 %#@v1@ 个标签页？此操作无法取消。</string>
+		<string>您是否要关闭 %1$#@v1@ 个标签页？此操作无法取消。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -119,7 +119,7 @@
 	<key>close-all-tabs-confirmation-title-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>关闭 %#@v1@ 个标签页？</string>
+		<string>关闭 %1$#@v1@ 个标签页？</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -133,7 +133,7 @@
 	<key>closed-all-tabs-confirmation-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>已关闭 %#@v1@ 个标签页。</string>
+		<string>已关闭 %1$#@v1@ 个标签页。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -147,7 +147,7 @@
 	<key>diff-change-paragraph-lines-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>段落向下移动%#@v1@。转到新位置。</string>
+		<string>段落向下移动%1$#@v1@。转到新位置。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -161,7 +161,7 @@
 	<key>diff-change-paragraph-lines-moved-up</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>段落已上移%#@v1@。转到新位置。</string>
+		<string>段落已上移%1$#@v1@。转到新位置。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -175,7 +175,7 @@
 	<key>diff-change-paragraph-sections-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>段落向下移动%#@v1@。转到新位置。</string>
+		<string>段落向下移动%1$#@v1@。转到新位置。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -189,7 +189,7 @@
 	<key>diff-change-paragraph-sections-moved-up</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>段落已上移%#@v1@。转到新位置。</string>
+		<string>段落已上移%1$#@v1@。转到新位置。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -203,7 +203,7 @@
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -219,7 +219,7 @@
 	<key>diff-paragraph-moved-distance-section</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -235,7 +235,7 @@
 	<key>diff-single-header-editor-number-edits-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -251,7 +251,7 @@
 	<key>diff-single-header-subtitle-bytes-added</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -267,7 +267,7 @@
 	<key>diff-single-header-subtitle-bytes-removed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -283,7 +283,7 @@
 	<key>diff-unedited-lines-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -299,7 +299,7 @@
 	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>在%1$@年，志愿者们为英文维基百科增添了%#@v2@字节的内容。他们众志成城，共同铸就了一个日臻完善、以事实为依据且可靠的全球知识资源库。其实我们每个人都有知识可以分享，[快来学习如何参与。](%3$@)</string>
+		<string>在%1$@年，志愿者们为英文维基百科增添了%2$#@v2@字节的内容。他们众志成城，共同铸就了一个日臻完善、以事实为依据且可靠的全球知识资源库。其实我们每个人都有知识可以分享，[快来学习如何参与。](%3$@)</string>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -313,7 +313,7 @@
 	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>增加了%#@v1@字节</string>
+		<string>增加了%1$#@v1@字节</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -327,7 +327,7 @@
 	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>志愿者们在超过 %#@v2@ 种不同语言版本的维基百科上共完成了 %#@v1@ 次修改。其中，英文维基百科的修改次数就超过了 %#@v3@ 次。每一天的每一个小时，都有志愿者在努力完善维基百科。</string>
+		<string>志愿者们在超过 %2$#@v2@ 种不同语言版本的维基百科上共完成了 %1$#@v1@ 次修改。其中，英文维基百科的修改次数就超过了 %3$#@v3@ 次。每一天的每一个小时，都有志愿者在努力完善维基百科。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -359,7 +359,7 @@
 	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>编辑者们今年做出了 %#@v1@ 次修改</string>
+		<string>编辑者们今年做出了 %1$#@v1@ 次修改</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -373,7 +373,7 @@
 	<key>microsite-yir-english-reading-slide-subtitle-short-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>人们大约花了%#@v1@——相当于%#@v2@！——阅读英文维基百科的时间在%3$@年。</string>
+		<string>人们大约花了%1$#@v1@——相当于%2$#@v2@！——阅读英文维基百科的时间在%3$@年。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -396,7 +396,7 @@
 	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>在 %3$@ 年，人们花费了大约 %#@v1@ 小时（相当于 %#@v2@ 年！）阅读英文维基百科。无论是想要了解这个不断变化的世界，赢得朋友之间的打赌，还是回答一个好奇孩子的问题，维基百科都能随时为你提供帮助。</string>
+		<string>在 %3$@ 年，人们花费了大约 %1$#@v1@ 小时（相当于 %2$#@v2@ 年！）阅读英文维基百科。无论是想要了解这个不断变化的世界，赢得朋友之间的打赌，还是回答一个好奇孩子的问题，维基百科都能随时为你提供帮助。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -419,7 +419,7 @@
 	<key>microsite-yir-english-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>大家花了 %#@v1@ 小时阅读维基百科</string>
+		<string>大家花了 %1$#@v1@ 小时阅读维基百科</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -433,7 +433,7 @@
 	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>活跃的应用程序用户今年保存了 %#@v1@ 篇条目。将条目加入阅读清单，即使在离线状态下也能随时查看。此外，登录后还能在不同设备上同步阅读清单。</string>
+		<string>活跃的应用程序用户今年保存了 %1$#@v1@ 篇条目。将条目加入阅读清单，即使在离线状态下也能随时查看。此外，登录后还能在不同设备上同步阅读清单。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -447,7 +447,7 @@
 	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>我们拥有 %#@v1@ 篇已保存条目</string>
+		<string>我们拥有 %1$#@v1@ 篇已保存条目</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -461,7 +461,7 @@
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>移动%#@v1@至阅读列表</string>
+		<string>移动%1$#@v1@至阅读列表</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -475,7 +475,7 @@
 	<key>notifications-center-empty-state-num-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -489,7 +489,7 @@
 	<key>notifications-center-mark-all-as-read-confirmation-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您确定要将您所有的 %#@v1@ 标记为已读？这会将您所有设备上的通知都标记为已读。</string>
+		<string>您确定要将您所有的 %1$#@v1@ 标记为已读？这会将您所有设备上的通知都标记为已读。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -503,7 +503,7 @@
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -517,7 +517,7 @@
 	<key>notifications-center-status-in-projects</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -531,7 +531,7 @@
 	<key>notifications-center-status-in-projects-plain</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -545,7 +545,7 @@
 	<key>notifications-center-status-in-types</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -559,7 +559,7 @@
 	<key>notifications-push-talk-body-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%2$@上有%#@v1@</string>
+		<string>%2$@上有%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -573,7 +573,7 @@
 	<key>notifications-push-talk-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -587,7 +587,7 @@
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -601,7 +601,7 @@
 	<key>on-this-day-footer-showing-event-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@发生在今天</string>
+		<string>%1$#@v1@发生在今天</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -615,7 +615,7 @@
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>已添加%#@v1@</string>
+		<string>已添加%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -631,7 +631,7 @@
 	<key>page-history-revision-size-diff-subtraction</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>已删除%#@v1@</string>
+		<string>已删除%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -647,7 +647,7 @@
 	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>自%2$@年起共%#@v1@</string>
+		<string>自%2$@年起共%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -661,7 +661,7 @@
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -675,7 +675,7 @@
 	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您已超过每账号%#@v1@的限制。</string>
+		<string>您已超过每账号%1$#@v1@的限制。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -689,7 +689,7 @@
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@不能添加到此列表。您已超过每个%3$@的阅读列表%2$d个条目限制</string>
+		<string>%1$#@v1@不能添加到此列表。您已超过每个%3$@的阅读列表%2$d个条目限制</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -703,7 +703,7 @@
 	<key>reading-list-list-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您已超过每账号%#@v1@的限制。</string>
+		<string>您已超过每账号%1$#@v1@的限制。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -717,7 +717,7 @@
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -736,7 +736,7 @@
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>是否删除%#@v1@？</string>
+		<string>是否删除%1$#@v1@？</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -750,7 +750,7 @@
 	<key>reading-lists-large-sync-completed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@和%#@v2@已从您的账号同步</string>
+		<string>%1$#@v1@和%2$#@v2@已从您的账号同步</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -773,7 +773,7 @@
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -791,7 +791,7 @@
 	<key>relative-date-hours-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -807,7 +807,7 @@
 	<key>relative-date-hrs-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -823,7 +823,7 @@
 	<key>relative-date-min-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -839,7 +839,7 @@
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -855,7 +855,7 @@
 	<key>relative-date-months-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -873,7 +873,7 @@
 	<key>relative-date-years-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -891,7 +891,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>取消保存%#@v1@条目将从所有相关阅读列表中移除</string>
+		<string>取消保存%1$#@v1@条目将从所有相关阅读列表中移除</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -907,7 +907,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>取消保存%#@v1@？</string>
+		<string>取消保存%1$#@v1@？</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -921,7 +921,7 @@
 	<key>tabs-navbar-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ 个标签页</string>
+		<string>%1$#@v1@ 个标签页</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -935,7 +935,7 @@
 	<key>talk-page-active-users-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -949,7 +949,7 @@
 	<key>talk-page-replies-count-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -963,7 +963,7 @@
 	<key>watchlist-byte-change</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -977,7 +977,7 @@
 	<key>watchlist-number-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>修改 [ %#@v1@](wikipedia://watchlist/filter) 以查看更多监视列表项目</string>
+		<string>修改 [ %1$#@v1@](wikipedia://watchlist/filter) 以查看更多监视列表项目</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -991,7 +991,7 @@
 	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>维基百科官方应用程序上的编辑者做出了超过 %#@v1@ 次编辑</string>
+		<string>维基百科官方应用程序上的编辑者做出了超过 %1$#@v1@ 次编辑</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1005,7 +1005,7 @@
 	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>维基百科每分钟被编辑 %#@v1@ 次</string>
+		<string>维基百科每分钟被编辑 %1$#@v1@ 次</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1019,7 +1019,7 @@
 	<key>year-in-review-base-reading-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>维基百科拥有超过 %#@v1@ 篇文章，涵盖超过 %#@v2@ 种活跃语言。您与数百万人一起扩展知识，探索多样化的主题。</string>
+		<string>维基百科拥有超过 %1$#@v1@ 篇文章，涵盖超过 %2$#@v2@ 种活跃语言。您与数百万人一起扩展知识，探索多样化的主题。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1042,7 +1042,7 @@
 	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>维基百科提供超过 %#@v1@ 种语言版本</string>
+		<string>维基百科提供超过 %1$#@v1@ 种语言版本</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1056,7 +1056,7 @@
 	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>应用程序用户拥有 %#@v1@ 篇已保存条目</string>
+		<string>应用程序用户拥有 %1$#@v1@ 篇已保存条目</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1070,7 +1070,7 @@
 	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>应用程序用户浏览了 %#@v1@ 次维基百科条目</string>
+		<string>应用程序用户浏览了 %1$#@v1@ 次维基百科条目</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1084,7 +1084,7 @@
 	<key>year-in-review-highlights-edit-frequency-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>每分钟 %#@v1@ 次</string>
+		<string>每分钟 %1$#@v1@ 次</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1098,7 +1098,7 @@
 	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>全世界的读者感谢您做出的贡献。在过去 2 个月中，您编辑过的条目共获得了 %#@v1@ 次浏览。正因为有像您这样的编辑者，维基百科才能不断改进，成为基于事实的、可靠的全球知识资源库。</string>
+		<string>全世界的读者感谢您做出的贡献。在过去 2 个月中，您编辑过的条目共获得了 %1$#@v1@ 次浏览。正因为有像您这样的编辑者，维基百科才能不断改进，成为基于事实的、可靠的全球知识资源库。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1112,7 +1112,7 @@
 	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您的编辑最近已被浏览超过 %#@v1@ 次。</string>
+		<string>您的编辑最近已被浏览超过 %1$#@v1@ 次。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1126,7 +1126,7 @@
 	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>像您这样的志愿者在维基百科的 %#@v2@ 上做出了 %#@v1@。</string>
+		<string>像您这样的志愿者在维基百科的 %2$#@v2@ 上做出了 %1$#@v1@。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1149,7 +1149,7 @@
 	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您作出了 %#@v1@ 次编辑</string>
+		<string>您作出了 %1$#@v1@ 次编辑</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1163,7 +1163,7 @@
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您保存了%#@v1@</string>
+		<string>您保存了%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
