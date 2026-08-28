@@ -413,9 +413,10 @@
 "donation-reminder-card-not-now" = "Title of the dismiss link on the in-article donation reminder card.";
 "donation-reminder-card-not-now-toast" = "Toast shown after the user dismisses the in-article donation reminder card. $1 is the number of articles until the next reminder.";
 "donation-reminder-card-subsequent-heading" = "Heading of the in-article donation reminder card when the user reaches their reading goal again. $1 is the number of articles read.";
+"donation-reminder-email-report-body" = "First line of the pre-filled issue report email body for the donation reminders feature.";
+"donation-reminder-email-report-subject" = "Subject of the pre-filled issue report email for the donation reminders feature.";
 "donation-reminder-payment-different-amount-button-title" = "Title of the payment prompt choice that opens the donate form without the pledged amount, shown from the donation reminder card.";
 "donation-reminder-payment-pledge-button-title" = "Title of the payment prompt choice that opens the donate form with the pledged amount preselected, shown from the donation reminder card. $1 is the pledged amount.";
-"donation-reminder-setup-about-button-title" = "Title of the link to more information about the donation reminder experiment.";
 "donation-reminder-setup-amount-accessibility-hint" = "Accessibility hint on the donation amount buttons of the reminder setup screen.";
 "donation-reminder-setup-amount-group-title" = "Title of the donation amount selection group on the reminder setup screen.";
 "donation-reminder-setup-confirm-button-title" = "Title of the button that saves the configured donation reminder.";
@@ -429,6 +430,7 @@
 "donation-reminder-setup-trigger-group-detail-articles" = "Explanation shown when tapping the info button next to the article count selection group.";
 "donation-reminder-setup-trigger-group-title-articles" = "Title of the article count selection group on the reminder setup screen.";
 "donation-reminder-setup-trigger-unit-articles" = "Unit label displayed next to the article count buttons on the reminder setup screen.";
+"donation-reminder-setup-update-button-title" = "Title of the button that saves changes to an existing donation reminder, on the setup screen opened from settings.";
 "duplicate-tab" = "Action to duplicate the current tab.";
 "edit-link-display-text-title" = "Title for the display text label";
 "edit-link-link-target-title" = "Title for the link target label";
