@@ -90,6 +90,7 @@ struct WMFForYouEndOfFeedCardView: View {
                             .foregroundStyle(Color(uiColor: theme.text))
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
+                    .minimumScaleFactor(0.3)
                     .accessibilityElement(children: .combine)
 
                     linkRow(
@@ -98,12 +99,14 @@ struct WMFForYouEndOfFeedCardView: View {
                         linkText: addInterestsLinkText,
                         action: { viewModel.onTapAddInterests?() }
                     )
+                    .minimumScaleFactor(0.3)
                     linkRow(
                         symbol: .person2Fill,
                         format: viewModel.communityFormat,
                         linkText: viewModel.communityLinkText,
                         action: { viewModel.onTapCommunity?() }
                     )
+                    .minimumScaleFactor(0.3)
                 }
             }
             .padding(.horizontal, 20)
