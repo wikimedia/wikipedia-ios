@@ -87,7 +87,7 @@ public struct WMFEmptyView: View {
                type == .filter {
                 WMFEmptyViewFilterView(delegate: delegate, attributedString: attributedString)
             } else {
-                Text(viewModel.localizedStrings.subtitle)
+                WMFHtmlText(html: viewModel.localizedStrings.subtitle, styles: subheadlineStyles)
                     .font(Font(WMFFont.for(.subheadline)))
                     .foregroundColor(Color(resolvedTheme.secondaryText))
                     .multilineTextAlignment(.center)
@@ -110,6 +110,9 @@ public struct WMFEmptyView: View {
         }
     }
 
+    private var subheadlineStyles: HtmlUtils.Styles {
+        return HtmlUtils.Styles(font: WMFFont.for(.subheadline), boldFont: WMFFont.for(.boldSubheadline), italicsFont: WMFFont.for(.italicSubheadline), boldItalicsFont: WMFFont.for(.boldItalicSubheadline), color: resolvedTheme.text, linkColor: resolvedTheme.link, lineSpacing: 1)
+    }
 }
 
 struct WMFEmptyViewFilterView: View {
