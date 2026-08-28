@@ -1617,6 +1617,45 @@
 "widget-onthisday-description" = "Tarihte bu günde neler olduğunu keşfedin.";
 "widget-onthisday-placeholder-article-snippet" = "Herkesin düzenleyebileceği özgür çevrimiçi ansiklopedi";
 "widget-onthisday-placeholder-event-snippet" = "Özgür bir wiki içerik ansiklopedisi olan Vikipedi, çevrimiçi oluyor.";
+"wikimedia-articletopics-topic-africa" = "Afrika";
+"wikimedia-articletopics-topic-architecture" = "Mimari";
+"wikimedia-articletopics-topic-art" = "Sanat";
+"wikimedia-articletopics-topic-asia" = "Asya";
+"wikimedia-articletopics-topic-biography" = "Biyografi (tümü)";
+"wikimedia-articletopics-topic-biology" = "Biyoloji";
+"wikimedia-articletopics-topic-business-and-economics" = "İş ve ekonomi";
+"wikimedia-articletopics-topic-central-america" = "Orta Amerika";
+"wikimedia-articletopics-topic-chemistry" = "Kimya";
+"wikimedia-articletopics-topic-comics-and-anime" = "Çizgi roman ve anime";
+"wikimedia-articletopics-topic-computers-and-internet" = "Bilgisayarlar ve internet";
+"wikimedia-articletopics-topic-earth-and-environment" = "Dünya ve çevre";
+"wikimedia-articletopics-topic-education" = "Eğitim";
+"wikimedia-articletopics-topic-engineering" = "Mühendislik";
+"wikimedia-articletopics-topic-entertainment" = "Eğlence";
+"wikimedia-articletopics-topic-europe" = "Avrupa";
+"wikimedia-articletopics-topic-fashion" = "Moda";
+"wikimedia-articletopics-topic-food-and-drink" = "Yiyecek ve içecek";
+"wikimedia-articletopics-topic-general-science" = "Genel bilim";
+"wikimedia-articletopics-topic-history" = "Tarih";
+"wikimedia-articletopics-topic-literature" = "Edebiyat";
+"wikimedia-articletopics-topic-mathematics" = "Matematik";
+"wikimedia-articletopics-topic-medicine-and-health" = "Tıp ve sağlık";
+"wikimedia-articletopics-topic-military-and-warfare" = "Askerlik ve savaş";
+"wikimedia-articletopics-topic-music" = "Müzik";
+"wikimedia-articletopics-topic-north-america" = "Kuzey Amerika";
+"wikimedia-articletopics-topic-oceania" = "Okyanusya";
+"wikimedia-articletopics-topic-performing-arts" = "Performans sanatları";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Felsefe ve din";
+"wikimedia-articletopics-topic-physics" = "Fizik";
+"wikimedia-articletopics-topic-politics-and-government" = "Siyaset ve hükûmet";
+"wikimedia-articletopics-topic-society" = "Toplum";
+"wikimedia-articletopics-topic-south-america" = "Güney Amerika";
+"wikimedia-articletopics-topic-sports" = "Spor";
+"wikimedia-articletopics-topic-technology" = "Teknoloji";
+"wikimedia-articletopics-topic-transportation" = "Ulaşım";
+"wikimedia-articletopics-topic-tv-and-film" = "Televizyon ve film";
+"wikimedia-articletopics-topic-video-games" = "Video oyunları";
+"wikimedia-articletopics-topic-women" = "Biyografi (kadın)";
 "wikitext-preview-changes" = "Değişikliklerinizin ön izlemesi getiriliyor...";
 "wikitext-preview-link-external-preview-description" = "Bu bağlantı harici bir web sitesine yönlendirir: $1";
 "wikitext-preview-link-external-preview-title" = "Dış bağlantı";
@@ -1742,121 +1781,3 @@
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Vakfı logosu";
 "yesterday-title" = "Dün";
 "zero-edits-to-articles" = "Yakın zamanda maddelere 0 düzenleme";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Mimari";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Sanat";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Çizgi roman ve anime";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Eğlence";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Moda";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Edebiyat";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Müzik";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Performans sanatları";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Spor";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "Televizyon ve film";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Video oyunları";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Biyografi (tümü)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Biyografi (kadın)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "İş ve ekonomi";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Eğitim";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Yiyecek ve içecek";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Tarih";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Askerlik ve savaş";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Felsefe ve din";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Siyaset ve hükûmet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Toplum";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Ulaşım";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Biyoloji";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Kimya";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Bilgisayarlar ve internet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Dünya ve çevre";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Mühendislik";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Genel bilim";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Matematik";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Tıp ve sağlık";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Fizik";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Teknoloji";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Afrika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Asya";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Orta Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Avrupa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Kuzey Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Okyanusya";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Güney Amerika";
