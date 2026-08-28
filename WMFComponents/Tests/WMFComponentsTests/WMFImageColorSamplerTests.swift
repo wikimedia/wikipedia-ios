@@ -99,6 +99,52 @@ struct WMFImageColorSamplerTests {
         #expect(WMFImageColorSampler.contrastAgainstWhite(r: r, g: g, b: b) >= contrastTarget - 0.01)
     }
 
+    // MARK: - Sampling from data (the downsampled path)
+
+    /// Card images arrive as 1280px data. The sampler decodes them at a decreased size. The
+    /// decrease is a scale of the full image, not a crop. A colour away from the centre must
+    /// stay in the result.
+    @Test
+    func aLargeImageSampledFromDataKeepsItsHue() async throws {
+        let data = try #require(image(.red, size: CGSize(width: 400, height: 400)).pngData())
+
+        let sampled = try #require(await WMFImageColorSampler.shared.sampledColor(from: data))
+        let (r, g, b) = components(of: sampled)
+
+        #expect(r > g && r > b, "A red image must give a red card")
+        #expect(WMFImageColorSampler.contrastAgainstWhite(r: r, g: g, b: b) >= contrastTarget - 0.01)
+    }
+
+    @Test
+    func aVividEdgeOfALargeImageStillInfluencesTheColour() async throws {
+        // A blue strip at the bottom edge of a large grey image. A crop to the centre loses the
+        // strip. A proportional scale keeps it.
+        let size = CGSize(width: 600, height: 400)
+        let composed = UIGraphicsImageRenderer(size: size).image { context in
+            UIColor.lightGray.setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+            UIColor.blue.setFill()
+            context.fill(CGRect(x: 0, y: 340, width: 600, height: 60))
+        }
+        let data = try #require(composed.pngData())
+
+        let sampled = try #require(await WMFImageColorSampler.shared.sampledColor(from: data))
+        let (r, g, b) = components(of: sampled)
+
+        #expect(b > r && b > g, "The vivid strip at the edge should set the colour")
+    }
+
+    @Test
+    func theSameDataSamplesToTheSameColourTwice() async throws {
+        let data = try #require(image(.red, size: CGSize(width: 200, height: 200)).pngData())
+
+        let first = try #require(await WMFImageColorSampler.shared.sampledColor(from: data))
+        // The colour cache supplies the second result. The two colours must be equal.
+        let second = try #require(await WMFImageColorSampler.shared.sampledColor(from: data))
+
+        #expect(components(of: first) == components(of: second))
+    }
+
     @Test
     func aSmallVividAreaBeatsALargeDullOne() throws {
         // Mostly light grey with a strip of vivid blue: the weighting is meant to favour the blue.

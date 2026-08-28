@@ -21,9 +21,10 @@ extension ArticleViewController {
         }
     }
 
-    func removeDonationReminderCardIfDisabled() {
-        guard !WMFDeveloperSettingsDataController.shared.enableDonationReminder else { return }
-        messagingController.removeDonationReminderCard()
+    func removeDonationReminderCardIfNeeded() {
+        if !WMFDeveloperSettingsDataController.shared.enableDonationReminder || WMFDonationReminderDataController.shared.isFollowUpReminderWindowClosed {
+            messagingController.removeDonationReminderCard()
+        }
     }
 
     func handleDonationReminderLinkIfNeeded(href: String) -> Bool {
@@ -43,11 +44,10 @@ extension ArticleViewController {
     private func didTapDonationReminderDonate() {
         guard let reminder = WMFDonationReminderDataController.shared.loadReminder() else { return }
 
+        WMFDonationReminderDataController.shared.closeFollowUpReminderWindow()
+
         messagingController.fetchDonationReminderDonateButtonRect { [weak self] buttonRect in
-            guard let self,
-                  let navigationController = self.navigationController else {
-                return
-            }
+            guard let self, let navigationController else { return }
 
             let globalRect: CGRect
             if let buttonRect {
@@ -69,10 +69,10 @@ extension ArticleViewController {
               case .articlesRead(count: let articlesReadGoal) = reminder.trigger
         else { return }
 
-        WMFDonationReminderDataController.shared.recordFollowUpReminderNotNow()
+        WMFDonationReminderDataController.shared.closeFollowUpReminderWindow()
 
-        let toastFormat = WMFLocalizedString("donation-reminder-card-not-now-toast", value: "We will remind you again after you’ve read %1$@ articles.", comment: "Toast shown after the user dismisses the in-article donation reminder card. %1$@ is the number of articles until the next reminder.")
-        let toastTitle = String.localizedStringWithFormat(toastFormat, "\(articlesReadGoal)")
+        let toastFormat = WMFLocalizedString("donation-reminder-card-not-now-toast", value: "We will remind you again after you’ve read {{PLURAL:%1$d|%1$d article|%1$d articles}}.", comment: "Toast shown after the user dismisses the in-article donation reminder card. %1$d is the number of articles until the next reminder.")
+        let toastTitle = String.localizedStringWithFormat(toastFormat, articlesReadGoal)
         WMFToastManager.sharedInstance.showRichToast(toastTitle, subtitle: nil, image: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill), duration: nil, dismissPreviousToasts: true)
     }
 
@@ -98,23 +98,23 @@ private struct DonationReminderCardConfiguration {
 
     static func firstMilestone(reminder: WMFDonationReminder, articlesReadGoal: Int) -> DonationReminderCardConfiguration {
         let amountString = pledgeAmountString(reminder: reminder)
-        let headingFormat = WMFLocalizedString("donation-reminder-card-heading", value: "You’ve read %1$@ articles since you pledged %2$@!", comment: "Heading of the in-article donation reminder card the first time the user reaches their reading goal. %1$@ is the number of articles read, %2$@ is the pledged donation amount.")
-        let heading = String.localizedStringWithFormat(headingFormat, "\(articlesReadGoal)", amountString)
+        let headingFormat = WMFLocalizedString("donation-reminder-card-heading", value: "You’ve read {{PLURAL:%1$d|%1$d article|%1$d articles}} since you pledged %2$@!", comment: "Heading of the in-article donation reminder card the first time the user reaches their reading goal. %1$d is the number of articles read, %2$@ is the pledged donation amount.")
+        let heading = String.localizedStringWithFormat(headingFormat, articlesReadGoal, amountString)
 
         return DonationReminderCardConfiguration(heading: heading, body: body(reminder: reminder, articlesReadGoal: articlesReadGoal), primaryActionTitle: donateTitle, secondaryActionTitle: notNowTitle)
     }
 
     static func subsequentMilestone(reminder: WMFDonationReminder, articlesReadGoal: Int) -> DonationReminderCardConfiguration {
-        let headingFormat = WMFLocalizedString("donation-reminder-card-subsequent-heading", value: "You’ve read another %1$@ articles!", comment: "Heading of the in-article donation reminder card when the user reaches their reading goal again. %1$@ is the number of articles read.")
-        let heading = String.localizedStringWithFormat(headingFormat, "\(articlesReadGoal)")
+        let headingFormat = WMFLocalizedString("donation-reminder-card-subsequent-heading", value: "You’ve read another {{PLURAL:%1$d|%1$d article|%1$d articles}}!", comment: "Heading of the in-article donation reminder card when the user reaches their reading goal again. %1$d is the number of articles read.")
+        let heading = String.localizedStringWithFormat(headingFormat, articlesReadGoal)
 
         return DonationReminderCardConfiguration(heading: heading, body: body(reminder: reminder, articlesReadGoal: articlesReadGoal), primaryActionTitle: donateTitle, secondaryActionTitle: notNowTitle)
     }
 
     private static func body(reminder: WMFDonationReminder, articlesReadGoal: Int) -> String {
         let dateString = DateFormatter.localizedString(from: reminder.createdDate, dateStyle: .long, timeStyle: .none)
-        let bodyFormat = WMFLocalizedString("donation-reminder-card-body", value: "On %1$@, you asked us to remind you to donate after reading %2$@ articles. If Wikipedia has provided you with %3$@ of knowledge, please join the 2%% of readers who give and complete your pledge today.", comment: "Body of the in-article donation reminder card. %1$@ is the date the user set up the reminder, %2$@ is the number of articles read, %3$@ is the pledged donation amount.")
-        return String.localizedStringWithFormat(bodyFormat, dateString, "\(articlesReadGoal)", pledgeAmountString(reminder: reminder))
+        let bodyFormat = WMFLocalizedString("donation-reminder-card-body", value: "On %1$@, you asked us to remind you to donate after reading {{PLURAL:%2$d|%2$d article|%2$d articles}}. If Wikipedia has provided you with %3$@ of knowledge, please join the 2%% of readers who give and complete your pledge today.", comment: "Body of the in-article donation reminder card. %1$@ is the date the user set up the reminder, %2$d is the number of articles read, %3$@ is the pledged donation amount.")
+        return String.localizedStringWithFormat(bodyFormat, dateString, articlesReadGoal, pledgeAmountString(reminder: reminder))
     }
 
     private static var donateTitle: String {

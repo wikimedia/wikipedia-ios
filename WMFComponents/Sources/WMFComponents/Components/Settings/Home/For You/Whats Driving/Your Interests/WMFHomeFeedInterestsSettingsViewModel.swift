@@ -22,6 +22,14 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
     let topics: [WMFArticleTopic] = WMFArticleTopic.allCases
     @Published var selectedTopics: [WMFArticleTopic] = []
     public private(set) var hasChanges: Bool = false
+
+    var onSelectionChanged: ((_ topics: [WMFArticleTopic], _ selectedArticleTitles: [String]) -> Void)?
+
+    private func noteChanges() {
+        hasChanges = true
+        let titles = gridViewModels.filter { $0.isSelected }.map { $0.title.normalizedForCoreData }
+        onSelectionChanged?(selectedTopics, titles)
+    }
     @Published var gridViewModels: [WMFInterestArticleCardViewModel] = []
     @Published var isFetchingArticles: Bool = false
     @Published private(set) var selectedArticleCount: Int = 0
@@ -138,7 +146,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
             selectedTopics.append(topic)
         }
         dataController.setInterestTopics(selectedTopics)
-        hasChanges = true
+        noteChanges()
 
         if selectedTopics.isEmpty {
             fetchRandomArticles()
@@ -160,7 +168,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
             Task { try? await pageInterestDataController?.addPageInterest(title: vm.title, project: cardProject) }
         }
         recountSelectedArticles()
-        hasChanges = true
+        noteChanges()
     }
 
     /// Clears all selected topics and articles, unchecking the cards in place. Deliberately
@@ -178,7 +186,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
             Task { try? await pageInterestDataController?.removePageInterest(title: cardTitle, project: cardProject) }
         }
         recountSelectedArticles()
-        hasChanges = true
+        noteChanges()
     }
 
     // MARK: - Search
@@ -239,7 +247,7 @@ public final class WMFHomeFeedInterestsSettingsViewModel: ObservableObject {
             Task { try? await pageInterestDataController?.addPageInterest(title: cardTitle, project: resultProject) }
         }
         recountSelectedArticles()
-        hasChanges = true
+        noteChanges()
         clearSearch()
         return true
     }

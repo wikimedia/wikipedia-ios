@@ -5,7 +5,7 @@
 	<key>activity-tab-amount-article-views</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -21,7 +21,7 @@
 	<key>activity-tab-impact-best-streak-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -37,7 +37,7 @@
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tento týždeň ste urobili %#@v1@.</string>
+		<string>Tento týždeň ste urobili %1$#@v1@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -53,7 +53,7 @@
 	<key>activity-tab-you-read</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tento týždeň ste prečítali %#@v1@.</string>
+		<string>Tento týždeň ste prečítali %1$#@v1@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -69,7 +69,7 @@
 	<key>activity-tab-you-saved</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tento týždeň ste uložili %#@v1@.</string>
+		<string>Tento týždeň ste uložili %1$#@v1@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -85,7 +85,7 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Pridať %#@v1@ k zoznamu na prečítanie</string>
+		<string>Pridať %1$#@v1@ k zoznamu na prečítanie</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -101,7 +101,7 @@
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -117,7 +117,7 @@
 	<key>close-all-tabs-confirmation-subtitle-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Chcete zatvoriť %#@v1@? Túto akciu nie je možné vrátiť späť.</string>
+		<string>Chcete zatvoriť %1$#@v1@? Túto akciu nie je možné vrátiť späť.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -133,7 +133,7 @@
 	<key>close-all-tabs-confirmation-title-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Zatvoriť %#@v1@?</string>
+		<string>Zatvoriť %1$#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -149,7 +149,7 @@
 	<key>closed-all-tabs-confirmation-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@.</string>
+		<string>%1$#@v1@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -165,7 +165,7 @@
 	<key>diff-change-paragraph-lines-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Odsek bol posunutý nadol %#@v1@. Prejdite na nové miesto.</string>
+		<string>Odsek bol posunutý nadol %1$#@v1@. Prejdite na nové miesto.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -181,7 +181,7 @@
 	<key>diff-change-paragraph-lines-moved-up</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Odsek sa posunul nahor %#@v1@. Prejdite na nové miesto.</string>
+		<string>Odsek sa posunul nahor %1$#@v1@. Prejdite na nové miesto.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -197,7 +197,7 @@
 	<key>diff-change-paragraph-sections-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Odsek bol presunutý nadol o %#@v1@. Prejsť na nové umiestnenie.</string>
+		<string>Odsek bol presunutý nadol o %1$#@v1@. Prejsť na nové umiestnenie.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -215,7 +215,7 @@
 	<key>diff-change-paragraph-sections-moved-up</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Odsek bol presunutý nahor o %#@v1@. Prejsť na nové umiestnenie.</string>
+		<string>Odsek bol presunutý nahor o %1$#@v1@. Prejsť na nové umiestnenie.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -233,7 +233,7 @@
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -249,7 +249,7 @@
 	<key>diff-paragraph-moved-distance-section</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -265,7 +265,7 @@
 	<key>diff-single-header-editor-number-edits-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -281,7 +281,7 @@
 	<key>diff-single-header-subtitle-bytes-added</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -297,7 +297,7 @@
 	<key>diff-single-header-subtitle-bytes-removed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -313,7 +313,7 @@
 	<key>diff-unedited-lines-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -329,7 +329,7 @@
 	<key>home-feed-interests-selected-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -345,7 +345,7 @@
 	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>V roku %1$@ dobrovoľníci pridali do anglickej Wikipédie %#@v2@. Súhrn všetkej ich spoločnej práce vedie k neustále sa zlepšujúcemu, na faktoch založenému a spoľahlivému zdroju vedomostí, ktorý dávajú svetu. Každý z nás má vedomosti, o ktoré sa môže podeliť, [zistite, ako sa zapojiť](%3$@).</string>
+		<string>V roku %1$@ dobrovoľníci pridali do anglickej Wikipédie %2$#@v2@. Súhrn všetkej ich spoločnej práce vedie k neustále sa zlepšujúcemu, na faktoch založenému a spoľahlivému zdroju vedomostí, ktorý dávajú svetu. Každý z nás má vedomosti, o ktoré sa môže podeliť, [zistite, ako sa zapojiť](%3$@).</string>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -361,7 +361,7 @@
 	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Pridaných %#@v1@</string>
+		<string>Pridaných %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -377,7 +377,7 @@
 	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dobrovoľníci urobili %#@v1@ vo viac než %#@v2@ Wikipédie. Na anglickej Wikipédii %#@v3@. Každú hodinu každého dňa dobrovoľníci pracujú na vylepšovaní Wikipédie.</string>
+		<string>Dobrovoľníci urobili %1$#@v1@ vo viac než %2$#@v2@ Wikipédie. Na anglickej Wikipédii %3$#@v3@. Každú hodinu každého dňa dobrovoľníci pracujú na vylepšovaní Wikipédie.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -415,7 +415,7 @@
 	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Redaktori tento rok urobili %#@v1@</string>
+		<string>Redaktori tento rok urobili %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -431,7 +431,7 @@
 	<key>microsite-yir-english-reading-slide-subtitle-short-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ľudia strávili čítaním anglickej Wikipédie v roku %3$@ odhadom %#@v1@ – približne %#@v2@!</string>
+		<string>Ľudia strávili čítaním anglickej Wikipédie v roku %3$@ odhadom %1$#@v1@ – približne %2$#@v2@!</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -458,7 +458,7 @@
 	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ľudia strávili čítaním anglickej Wikipédie v roku %3$@ odhadom %#@v1@ – približne %#@v2@! Wikipédia je tu vždy, keď sa chcete dozvedieť o našom meniacom sa svete, vyhrať stávku medzi priateľmi alebo odpovedať na otázku zvedavého dieťaťa.</string>
+		<string>Ľudia strávili čítaním anglickej Wikipédie v roku %3$@ odhadom %1$#@v1@ – približne %2$#@v2@! Wikipédia je tu vždy, keď sa chcete dozvedieť o našom meniacom sa svete, vyhrať stávku medzi priateľmi alebo odpovedať na otázku zvedavého dieťaťa.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -485,7 +485,7 @@
 	<key>microsite-yir-english-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Čítaním sme strávili %#@v1@</string>
+		<string>Čítaním sme strávili %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -501,7 +501,7 @@
 	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Aktívni používatelia aplikácie mali tento rok %#@v1@. Pridávanie článkov do zoznamov na prečítanie vám umožňuje pristupovať k článkom aj offline. Po prihlásení si môžete zoznamy na prečítanie synchronizovať medzi zariadeniami.</string>
+		<string>Aktívni používatelia aplikácie mali tento rok %1$#@v1@. Pridávanie článkov do zoznamov na prečítanie vám umožňuje pristupovať k článkom aj offline. Po prihlásení si môžete zoznamy na prečítanie synchronizovať medzi zariadeniami.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -517,7 +517,7 @@
 	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Mali sme %#@v1@</string>
+		<string>Mali sme %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -533,7 +533,7 @@
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Pridať %#@v1@ do zoznamu na prečítanie</string>
+		<string>Pridať %1$#@v1@ do zoznamu na prečítanie</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -549,7 +549,7 @@
 	<key>nearby-distance-label-feet</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -565,7 +565,7 @@
 	<key>nearby-distance-label-meters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -581,7 +581,7 @@
 	<key>notifications-center-empty-state-num-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -597,7 +597,7 @@
 	<key>notifications-center-mark-all-as-read-confirmation-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ste si istý/á, že chcete označiť %#@v1@ ako prečítanú/é?</string>
+		<string>Ste si istý/á, že chcete označiť %1$#@v1@ ako prečítanú/é?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -613,7 +613,7 @@
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -629,7 +629,7 @@
 	<key>notifications-center-status-in-projects</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -645,7 +645,7 @@
 	<key>notifications-center-status-in-projects-plain</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -661,7 +661,7 @@
 	<key>notifications-center-status-in-types</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -677,7 +677,7 @@
 	<key>notifications-push-talk-body-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ na %2$@</string>
+		<string>%1$#@v1@ na %2$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -693,7 +693,7 @@
 	<key>notifications-push-talk-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -709,7 +709,7 @@
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -725,7 +725,7 @@
 	<key>on-this-day-footer-showing-event-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -741,7 +741,7 @@
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@))</string>
+		<string>%1$#@v1@))</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -757,7 +757,7 @@
 	<key>page-history-revision-size-diff-subtraction</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -773,7 +773,7 @@
 	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ od %2$@</string>
+		<string>%1$#@v1@ od %2$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -789,7 +789,7 @@
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -805,7 +805,7 @@
 	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Prekročili ste maximálny limit %#@v1@ na účet.</string>
+		<string>Prekročili ste maximálny limit %1$#@v1@ na účet.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -821,7 +821,7 @@
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ nemožno do tohto zoznamu pridať. Dosiahli ste limit %2$d článkov pre zoznam na prečítanie %3$@</string>
+		<string>%1$#@v1@ nemožno do tohto zoznamu pridať. Dosiahli ste limit %2$d článkov pre zoznam na prečítanie %3$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -837,7 +837,7 @@
 	<key>reading-list-list-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Prekročili ste maximálny limit %#@v1@ na účet.</string>
+		<string>Prekročili ste maximálny limit %1$#@v1@ na účet.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -853,7 +853,7 @@
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -869,7 +869,7 @@
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Táto akcia nemôže byť zrušená. Akékoľvek články uložené len do %#@v1@ nebudú uložené.</string>
+		<string>Táto akcia nemôže byť zrušená. Akékoľvek články uložené len do %1$#@v1@ nebudú uložené.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -885,7 +885,7 @@
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Odstrániť %#@v1@?</string>
+		<string>Odstrániť %1$#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -901,7 +901,7 @@
 	<key>reading-lists-large-sync-completed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Synchronizácia %#@v1@ a %#@v2@ z vášho účtu bola úspešná.</string>
+		<string>Synchronizácia %1$#@v1@ a %2$#@v2@ z vášho účtu bola úspešná.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -928,7 +928,7 @@
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -946,7 +946,7 @@
 	<key>relative-date-hours-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -964,7 +964,7 @@
 	<key>relative-date-hrs-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -982,7 +982,7 @@
 	<key>relative-date-min-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1000,7 +1000,7 @@
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1018,7 +1018,7 @@
 	<key>relative-date-months-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1036,7 +1036,7 @@
 	<key>relative-date-years-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1054,7 +1054,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Zrušenie uloženia %#@v1@ zo všetkých zoznamov na prečítanie, v ktorých sa nachádza</string>
+		<string>Zrušenie uloženia %1$#@v1@ zo všetkých zoznamov na prečítanie, v ktorých sa nachádza</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1070,7 +1070,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Zrušiť uloženie %#@v1@?</string>
+		<string>Zrušiť uloženie %1$#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1086,7 +1086,7 @@
 	<key>tabs-navbar-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1102,7 +1102,7 @@
 	<key>talk-page-active-users-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1118,7 +1118,7 @@
 	<key>talk-page-replies-count-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1134,7 +1134,7 @@
 	<key>watchlist-byte-change</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1150,7 +1150,7 @@
 	<key>watchlist-number-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Upravte [%#@v1@](wikipedia://watchlist/filter) a uvidíte viac položiek zoznamu sledovaných</string>
+		<string>Upravte [%1$#@v1@](wikipedia://watchlist/filter) a uvidíte viac položiek zoznamu sledovaných</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1166,7 +1166,7 @@
 	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Redaktori v oficiálnych aplikáciách Wikipédie urobili %#@v1@</string>
+		<string>Redaktori v oficiálnych aplikáciách Wikipédie urobili %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1182,7 +1182,7 @@
 	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Wikipédia bola upravená %#@v1@ za minútu</string>
+		<string>Wikipédia bola upravená %1$#@v1@ za minútu</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1196,7 +1196,7 @@
 	<key>year-in-review-base-reading-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Wikipédia mala %#@v1@ vo viac než %#@v2@. Pridali ste sa k miliónom ľudí pri rozširovaní vedomostí a objavovaní rozmanitých tém.</string>
+		<string>Wikipédia mala %1$#@v1@ vo viac než %2$#@v2@. Pridali ste sa k miliónom ľudí pri rozširovaní vedomostí a objavovaní rozmanitých tém.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1223,7 +1223,7 @@
 	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Wikipédia bola dostupná vo viac než %#@v1@</string>
+		<string>Wikipédia bola dostupná vo viac než %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1239,7 +1239,7 @@
 	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Používatelia aplikácie mali %#@v1@</string>
+		<string>Používatelia aplikácie mali %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1255,7 +1255,7 @@
 	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Používatelia aplikácie si zobrazili články Wikipédie %#@v1@</string>
+		<string>Používatelia aplikácie si zobrazili články Wikipédie %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1269,7 +1269,7 @@
 	<key>year-in-review-highlights-edit-frequency-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ za minútu</string>
+		<string>%1$#@v1@ za minútu</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1283,7 +1283,7 @@
 	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Čitatelia na celom svete si vážia vaše príspevky. Za posledné 2 mesiace získali články, ktoré ste upravili, %#@v1@. Vďaka redaktorom, ako ste vy, je Wikipédia neustále sa zlepšujúcim, na faktoch založeným a spoľahlivým zdrojom vedomostí pre svet.</string>
+		<string>Čitatelia na celom svete si vážia vaše príspevky. Za posledné 2 mesiace získali články, ktoré ste upravili, %1$#@v1@. Vďaka redaktorom, ako ste vy, je Wikipédia neustále sa zlepšujúcim, na faktoch založeným a spoľahlivým zdrojom vedomostí pre svet.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1299,7 +1299,7 @@
 	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vaše úpravy boli nedávno zobrazené viac než %#@v1@</string>
+		<string>Vaše úpravy boli nedávno zobrazené viac než %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1313,7 +1313,7 @@
 	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dobrovoľníci ako vy urobili %#@v1@ v %#@v2@ Wikipédie.</string>
+		<string>Dobrovoľníci ako vy urobili %1$#@v1@ v %2$#@v2@ Wikipédie.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1340,7 +1340,7 @@
 	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Upravovali ste %#@v1@</string>
+		<string>Upravovali ste %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1354,7 +1354,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Odhadujeme, že vás to radí medzi top **PERCENT** čitateľov Wikipédie na svete. Priemerný človek prečíta %#@v1@ za rok.</string>
+		<string>Odhadujeme, že vás to radí medzi top **PERCENT** čitateľov Wikipédie na svete. Priemerný človek prečíta %1$#@v1@ za rok.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1370,7 +1370,7 @@
 	<key>year-in-review-personalized-reading-title-v3-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>V roku %3$@ ste strávili %#@v1@ čítaním %#@v2@</string>
+		<string>V roku %3$@ ste strávili %1$#@v1@ čítaním %2$#@v2@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1399,7 +1399,7 @@
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Medzi tieto články patrili %1$@, %2$@ a %3$@. Každý uložený článok odráža vaše záujmy a pomáha budovať osobnú databázu vedomostí na Wikipédii.
 
-Aktívni používatelia aplikácie mali tento rok %#@v4@.</string>
+Aktívni používatelia aplikácie mali tento rok %4$#@v4@.</string>
 		<key>v4</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1415,7 +1415,7 @@ Aktívni používatelia aplikácie mali tento rok %#@v4@.</string>
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Uložili ste %#@v1@</string>
+		<string>Uložili ste %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

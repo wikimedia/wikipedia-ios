@@ -199,7 +199,7 @@ public final class WMFDonationReminderDataController {
         }
     }
 
-    public func recordFollowUpReminderNotNow(currentDate: Date = Date()) {
+    public func closeFollowUpReminderWindow() {
         guard var reminder = loadReminder(),
               var progress = reminder.progress else {
             return
@@ -208,6 +208,12 @@ public final class WMFDonationReminderDataController {
         progress.timesReminderShown = Self.maximumIgnoredReminderImpressions
         reminder.progress = progress
         saveReminder(reminder)
+    }
+
+    public var isFollowUpReminderWindowClosed: Bool {
+        guard let reminder = loadReminder() else { return false }
+
+        return reminder.timesReminderShown >= Self.maximumIgnoredReminderImpressions
     }
 
     // MARK: - Experiment Assignment

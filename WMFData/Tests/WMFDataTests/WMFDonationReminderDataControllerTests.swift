@@ -192,7 +192,9 @@ final class WMFDonationReminderDataControllerTests {
 
             let firstShownDate = createdDate.addingTimeInterval(1_000)
             controller.recordFollowUpReminderShown(currentDate: firstShownDate)
-            controller.recordFollowUpReminderNotNow(currentDate: firstShownDate.addingTimeInterval(100))
+            #expect(controller.isFollowUpReminderWindowClosed == false)
+            controller.closeFollowUpReminderWindow()
+            #expect(controller.isFollowUpReminderWindowClosed == true)
 
             let reminder = try #require(controller.loadReminder())
             #expect(reminder.timesReminderShown == 2)
