@@ -413,6 +413,8 @@
 "donation-reminder-card-not-now" = "Not now";
 "donation-reminder-card-not-now-toast" = "We will remind you again after you’ve read {{PLURAL:$1|$1 article|$1 articles}}.";
 "donation-reminder-card-subsequent-heading" = "You’ve read another {{PLURAL:$1|$1 article|$1 articles}}!";
+"donation-reminder-payment-different-amount-button-title" = "Donate a different amount with Apple Pay";
+"donation-reminder-payment-pledge-button-title" = "Donate $1 with Apple Pay";
 "donation-reminder-setup-about-button-title" = "About this experiment";
 "donation-reminder-setup-amount-accessibility-hint" = "Double tap to select donation amount";
 "donation-reminder-setup-amount-group-title" = "Remind me to donate";
