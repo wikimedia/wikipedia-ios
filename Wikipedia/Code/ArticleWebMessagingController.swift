@@ -200,6 +200,70 @@ class ArticleWebMessagingController: NSObject {
         let js = "window.wmf.findInPage.removeSearchTermHighlights()"
         webView?.evaluateJavaScript(js)
     }
+
+    func injectDonationReminderCard(cardHTML: String, completion: @escaping (Bool) -> Void) {
+        let sanitizedCardHTML = cardHTML.sanitizedForJavaScriptTemplateLiterals
+        let js = """
+            (function() {
+                if (document.getElementById('wmf-donation-reminder-card')) {
+                    return true;
+                }
+                var pcs = document.getElementById('pcs');
+                if (!pcs) {
+                    return false;
+                }
+                var headers = pcs.getElementsByTagName('header');
+                if (headers.length === 0) {
+                    return false;
+                }
+                headers[0].insertAdjacentHTML('beforebegin', `\(sanitizedCardHTML)`);
+                return true;
+            })();
+        """
+        webView?.evaluateJavaScript(js) { result, error in
+            DispatchQueue.main.async {
+                guard error == nil else {
+                    completion(false)
+                    return
+                }
+                completion((result as? Bool) ?? false)
+            }
+        }
+    }
+
+    func fetchDonationReminderDonateButtonRect(completion: @escaping (CGRect?) -> Void) {
+        let js = """
+            (function() {
+                var button = document.querySelector('#wmf-donation-reminder-card .wmf-donation-reminder-card-donate');
+                if (!button) {
+                    return null;
+                }
+                var rect = button.getBoundingClientRect();
+                return [rect.left + window.scrollX, rect.top + window.scrollY, rect.width, rect.height];
+            })();
+        """
+        webView?.evaluateJavaScript(js) { result, _ in
+            DispatchQueue.main.async {
+                guard let values = result as? [Double], values.count == 4 else {
+                    completion(nil)
+                    return
+                }
+                completion(CGRect(x: values[0], y: values[1], width: values[2], height: values[3]))
+            }
+        }
+    }
+
+    func removeDonationReminderCard() {
+        let js = """
+            (function() {
+                var card = document.getElementById('wmf-donation-reminder-card');
+                if (card) {
+                    card.remove();
+                }
+            })();
+        """
+        webView?.evaluateJavaScript(js)
+    }
 }
 
 struct ReferenceBackLink {
