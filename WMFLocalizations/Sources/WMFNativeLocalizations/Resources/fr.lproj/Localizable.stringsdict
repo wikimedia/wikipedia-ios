@@ -5,7 +5,7 @@
 	<key>activity-tab-amount-article-views</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -21,7 +21,7 @@
 	<key>activity-tab-impact-best-streak-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -37,7 +37,7 @@
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vous avez édité %#@v1@ cette semaine.</string>
+		<string>Vous avez édité %1$#@v1@ cette semaine.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -51,7 +51,7 @@
 	<key>activity-tab-you-read</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vous avez lu %#@v1@ cette semaine.</string>
+		<string>Vous avez lu %1$#@v1@ cette semaine.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -67,7 +67,7 @@
 	<key>activity-tab-you-saved</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vous avez enregistré %1$d article%#@v1@</string>
+		<string>Vous avez enregistré %1$d article%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -83,7 +83,7 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ajouter %1$d article%#@v1@ à la liste de lecture</string>
+		<string>Ajouter %1$d article%1$#@v1@ à la liste de lecture</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -99,7 +99,7 @@
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -115,7 +115,7 @@
 	<key>close-all-tabs-confirmation-subtitle-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Voulez-vous fermer %#@v1@ ? Cette action est irréversible.</string>
+		<string>Voulez-vous fermer %1$#@v1@ ? Cette action est irréversible.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -131,7 +131,7 @@
 	<key>close-all-tabs-confirmation-title-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Fermer %#@v1@ ?</string>
+		<string>Fermer %1$#@v1@ ?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -147,7 +147,7 @@
 	<key>closed-all-tabs-confirmation-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@.</string>
+		<string>%1$#@v1@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -163,7 +163,7 @@
 	<key>diff-change-paragraph-lines-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Paragraphe déplacé vers le bas %#@v1@. Aller au nouvel emplacement.</string>
+		<string>Paragraphe déplacé vers le bas %1$#@v1@. Aller au nouvel emplacement.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -181,7 +181,7 @@
 	<key>diff-change-paragraph-lines-moved-up</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Paragraphe déplacé vers le haut %#@v1@. Aller au nouvel emplacement.</string>
+		<string>Paragraphe déplacé vers le haut %1$#@v1@. Aller au nouvel emplacement.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -199,7 +199,7 @@
 	<key>diff-change-paragraph-sections-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Paragraphe déplacé vers le bas %#@v1@. Aller au nouvel emplacement.</string>
+		<string>Paragraphe déplacé vers le bas %1$#@v1@. Aller au nouvel emplacement.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -217,7 +217,7 @@
 	<key>diff-change-paragraph-sections-moved-up</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Paragraphe déplacé vers le haut %#@v1@. Aller au nouvel emplacement.</string>
+		<string>Paragraphe déplacé vers le haut %1$#@v1@. Aller au nouvel emplacement.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -235,7 +235,7 @@
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -251,7 +251,7 @@
 	<key>diff-paragraph-moved-distance-section</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -267,7 +267,7 @@
 	<key>diff-single-header-editor-number-edits-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d modification%#@v1@</string>
+		<string>%1$d modification%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -283,7 +283,7 @@
 	<key>diff-single-header-subtitle-bytes-added</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -299,7 +299,7 @@
 	<key>diff-single-header-subtitle-bytes-removed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -315,7 +315,7 @@
 	<key>diff-unedited-lines-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -331,7 +331,7 @@
 	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>En %1$@, les bénévoles ont ajouté %#@v2@ à Wikipédia en anglais. L’ensemble de leur travail constitue une ressource de connaissance fiable, factuelle et en constante amélioration qu’ils offrent au monde entier. Nous avons tous des connaissances à partager : [apprenez comment participer](%3$@).</string>
+		<string>En %1$@, les bénévoles ont ajouté %2$#@v2@ à Wikipédia en anglais. L’ensemble de leur travail constitue une ressource de connaissance fiable, factuelle et en constante amélioration qu’ils offrent au monde entier. Nous avons tous des connaissances à partager : [apprenez comment participer](%3$@).</string>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -347,7 +347,7 @@
 	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -363,7 +363,7 @@
 	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Les bénévoles ont effectué %#@v1@ dans plus de %#@v2@ de Wikipédia. %#@v3@ ont été apportées à Wikipédia en anglais. Chaque heure de chaque jour, des bénévoles travaillent à l’amélioration de Wikipédia.</string>
+		<string>Les bénévoles ont effectué %1$#@v1@ dans plus de %2$#@v2@ de Wikipédia. %3$#@v3@ ont été apportées à Wikipédia en anglais. Chaque heure de chaque jour, des bénévoles travaillent à l’amélioration de Wikipédia.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -401,7 +401,7 @@
 	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Les contributeur·rices ont effectué %#@v1@ cette année.</string>
+		<string>Les contributeur·rices ont effectué %1$#@v1@ cette année.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -417,7 +417,7 @@
 	<key>microsite-yir-english-reading-slide-subtitle-short-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Les utilisateur·rices ont passé environ %#@v1@ — soit près de %#@v2@ ! — à lire Wikipédia en anglais en %3$@.</string>
+		<string>Les utilisateur·rices ont passé environ %1$#@v1@ — soit près de %2$#@v2@ ! — à lire Wikipédia en anglais en %3$@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -444,7 +444,7 @@
 	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Les utilisateur·rices ont passé environ %#@v1@ — soit près de %#@v2@ ! — à lire Wikipédia en anglais en %3$@. Wikipédia est là quand vous souhaitez en apprendre davantage sur notre monde en évolution, gagner un pari entre ami·es ou répondre à la question d’un·e enfant curieux·se.</string>
+		<string>Les utilisateur·rices ont passé environ %1$#@v1@ — soit près de %2$#@v2@ ! — à lire Wikipédia en anglais en %3$@. Wikipédia est là quand vous souhaitez en apprendre davantage sur notre monde en évolution, gagner un pari entre ami·es ou répondre à la question d’un·e enfant curieux·se.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -471,7 +471,7 @@
 	<key>microsite-yir-english-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Nous avons passé %#@v1@ à lire.</string>
+		<string>Nous avons passé %1$#@v1@ à lire.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -487,7 +487,7 @@
 	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Les utilisateur·rices actif·ves ont enregistré %#@v1@ cette année. Ajouter des articles à des listes de lecture vous permet d’y accéder même hors ligne. Vous pouvez aussi vous connecter pour synchroniser vos listes de lecture sur tous vos appareils.</string>
+		<string>Les utilisateur·rices actif·ves ont enregistré %1$#@v1@ cette année. Ajouter des articles à des listes de lecture vous permet d’y accéder même hors ligne. Vous pouvez aussi vous connecter pour synchroniser vos listes de lecture sur tous vos appareils.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -503,7 +503,7 @@
 	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vous avez enregistré %#@v1@.</string>
+		<string>Vous avez enregistré %1$#@v1@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -519,7 +519,7 @@
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Placer %#@v1@ dans la liste de lecture</string>
+		<string>Placer %1$#@v1@ dans la liste de lecture</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -535,7 +535,7 @@
 	<key>nearby-distance-label-feet</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -551,7 +551,7 @@
 	<key>notifications-center-empty-state-num-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -567,7 +567,7 @@
 	<key>notifications-center-mark-all-as-read-confirmation-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Êtes-vous sûr de vouloir marquer %#@v1@ de vos notifications comme lus ? Vos notifications seront marquées comme lues sur tous vos appareils.</string>
+		<string>Êtes-vous sûr de vouloir marquer %1$#@v1@ de vos notifications comme lus ? Vos notifications seront marquées comme lues sur tous vos appareils.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -583,7 +583,7 @@
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -599,7 +599,7 @@
 	<key>notifications-center-status-in-projects</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -615,7 +615,7 @@
 	<key>notifications-center-status-in-projects-plain</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -631,7 +631,7 @@
 	<key>notifications-center-status-in-types</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -647,7 +647,7 @@
 	<key>notifications-push-talk-body-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ sur %2$@</string>
+		<string>%1$#@v1@ sur %2$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -663,7 +663,7 @@
 	<key>notifications-push-talk-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -679,7 +679,7 @@
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -695,7 +695,7 @@
 	<key>on-this-day-footer-showing-event-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ ce jour-ci</string>
+		<string>%1$#@v1@ ce jour-ci</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -711,7 +711,7 @@
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -727,7 +727,7 @@
 	<key>page-history-revision-size-diff-subtraction</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -743,7 +743,7 @@
 	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d modification%#@v1@ depuis %2$@</string>
+		<string>%1$d modification%1$#@v1@ depuis %2$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -759,7 +759,7 @@
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -775,7 +775,7 @@
 	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vous avez dépassé la limite de %#@v1@ par compte.</string>
+		<string>Vous avez dépassé la limite de %1$#@v1@ par compte.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -791,7 +791,7 @@
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ à cette liste. Vous avez atteint la limite de %2$d articles par liste de lecture pour %3$@.</string>
+		<string>%1$#@v1@ à cette liste. Vous avez atteint la limite de %2$d articles par liste de lecture pour %3$@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -807,7 +807,7 @@
 	<key>reading-list-list-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vous avez atteint la limite de %#@v1@ par compte.</string>
+		<string>Vous avez atteint la limite de %1$#@v1@ par compte.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -823,7 +823,7 @@
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -839,7 +839,7 @@
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Cette action ne peut pas être annulée. Tout article enregistré uniquement dans %#@v1@ ne sera pas enregistré.</string>
+		<string>Cette action ne peut pas être annulée. Tout article enregistré uniquement dans %1$#@v1@ ne sera pas enregistré.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -855,7 +855,7 @@
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Supprimer %#@v1@ ?</string>
+		<string>Supprimer %1$#@v1@ ?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -871,7 +871,7 @@
 	<key>reading-lists-large-sync-completed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ et %#@v2@ synchronisés depuis votre compte</string>
+		<string>%1$#@v1@ et %2$#@v2@ synchronisés depuis votre compte</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -898,7 +898,7 @@
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -916,7 +916,7 @@
 	<key>relative-date-hours-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -934,7 +934,7 @@
 	<key>relative-date-hrs-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -952,7 +952,7 @@
 	<key>relative-date-min-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -970,7 +970,7 @@
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -988,7 +988,7 @@
 	<key>relative-date-months-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1006,7 +1006,7 @@
 	<key>relative-date-years-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1024,7 +1024,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ne plus sauvegarder %#@v1@ les supprimera de toutes les listes de lecture associées.</string>
+		<string>Ne plus sauvegarder %1$#@v1@ les supprimera de toutes les listes de lecture associées.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1040,7 +1040,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Retirer %#@v1@ ?</string>
+		<string>Retirer %1$#@v1@ ?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1056,7 +1056,7 @@
 	<key>tabs-navbar-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1072,7 +1072,7 @@
 	<key>talk-page-active-users-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d utilisateur%#@v1@ actif%#@v1@</string>
+		<string>%1$d utilisateur%1$#@v1@ actif%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1088,7 +1088,7 @@
 	<key>talk-page-replies-count-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d réponse%#@v1@</string>
+		<string>%1$d réponse%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1104,7 +1104,7 @@
 	<key>watchlist-byte-change</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1120,7 +1120,7 @@
 	<key>watchlist-number-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Modifier [%#@v1@](wikipedia://watchlist/filter) pour voir plus d’éléments de la liste de suivi</string>
+		<string>Modifier [%1$#@v1@](wikipedia://watchlist/filter) pour voir plus d’éléments de la liste de suivi</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1136,7 +1136,7 @@
 	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Les contributeur·rices sur les applications officielles de Wikipédia ont effectué %#@v1@.</string>
+		<string>Les contributeur·rices sur les applications officielles de Wikipédia ont effectué %1$#@v1@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1152,7 +1152,7 @@
 	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Wikipédia a été modifiée %#@v1@ par minute.</string>
+		<string>Wikipédia a été modifiée %1$#@v1@ par minute.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1166,7 +1166,7 @@
 	<key>year-in-review-base-reading-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Wikipédia comptait %#@v1@ dans plus de %#@v2@. Vous avez rejoint des millions de personnes pour élargir le savoir et explorer des sujets variés.</string>
+		<string>Wikipédia comptait %1$#@v1@ dans plus de %2$#@v2@. Vous avez rejoint des millions de personnes pour élargir le savoir et explorer des sujets variés.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1193,7 +1193,7 @@
 	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Wikipédia était disponible dans plus de %#@v1@.</string>
+		<string>Wikipédia était disponible dans plus de %1$#@v1@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1209,7 +1209,7 @@
 	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Les utilisateur·rices de l’application ont enregistré %#@v1@.</string>
+		<string>Les utilisateur·rices de l’application ont enregistré %1$#@v1@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1225,7 +1225,7 @@
 	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Les utilisateur·rices de l’application ont consulté des articles de Wikipédia %#@v1@.</string>
+		<string>Les utilisateur·rices de l’application ont consulté des articles de Wikipédia %1$#@v1@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1239,7 +1239,7 @@
 	<key>year-in-review-highlights-edit-frequency-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ par minute</string>
+		<string>%1$#@v1@ par minute</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1253,7 +1253,7 @@
 	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Les lecteur·rices du monde entier apprécient vos contributions. Au cours des deux derniers mois, les articles que vous avez modifiés ont reçu %#@v1@ au total. Grâce à des contributeur·rices comme vous, Wikipédia est une ressource de connaissance fiable, factuelle et en constante amélioration pour le monde entier.</string>
+		<string>Les lecteur·rices du monde entier apprécient vos contributions. Au cours des deux derniers mois, les articles que vous avez modifiés ont reçu %1$#@v1@ au total. Grâce à des contributeur·rices comme vous, Wikipédia est une ressource de connaissance fiable, factuelle et en constante amélioration pour le monde entier.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1269,7 +1269,7 @@
 	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vos modifications ont été consultées plus de %#@v1@ récemment.</string>
+		<string>Vos modifications ont été consultées plus de %1$#@v1@ récemment.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1283,7 +1283,7 @@
 	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Des bénévoles comme vous ont effectué %#@v1@ dans %#@v2@ de Wikipédia.</string>
+		<string>Des bénévoles comme vous ont effectué %1$#@v1@ dans %2$#@v2@ de Wikipédia.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1310,7 +1310,7 @@
 	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vous avez modifié %#@v1@.</string>
+		<string>Vous avez modifié %1$#@v1@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1326,7 +1326,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Nous estimons que cela vous place parmi les **PERCENT** premiers·ères lecteur·rices de Wikipédia dans le monde. En moyenne, une personne lit %#@v1@ par an.</string>
+		<string>Nous estimons que cela vous place parmi les **PERCENT** premiers·ères lecteur·rices de Wikipédia dans le monde. En moyenne, une personne lit %1$#@v1@ par an.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1342,7 +1342,7 @@
 	<key>year-in-review-personalized-reading-title-v3-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vous avez passé %#@v1@ à lire %#@v2@ en %3$@.</string>
+		<string>Vous avez passé %1$#@v1@ à lire %2$#@v2@ en %3$@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1369,7 +1369,7 @@
 	<key>year-in-review-personalized-saved-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ces articles incluaient %1$@, %2$@ et %3$@. Chaque article enregistré reflète vos centres d’intérêt et contribue à construire une base de connaissances personnalisée sur Wikipédia. Les utilisateur·rices actif·ves ont enregistré %#@v4@ cette année.</string>
+		<string>Ces articles incluaient %1$@, %2$@ et %3$@. Chaque article enregistré reflète vos centres d’intérêt et contribue à construire une base de connaissances personnalisée sur Wikipédia. Les utilisateur·rices actif·ves ont enregistré %4$#@v4@ cette année.</string>
 		<key>v4</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1385,7 +1385,7 @@
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vous avez enregistré %1$d article%#@v1@</string>
+		<string>Vous avez enregistré %1$d article%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
