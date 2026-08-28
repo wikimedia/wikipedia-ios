@@ -5,7 +5,7 @@
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਤੁਸੀਂ ਇਸ ਹਫ਼ਤੇ %#@v1@ ਸੰਪਾਦਨ ਕੀਤਾ ਹੈ।</string>
+		<string>ਤੁਸੀਂ ਇਸ ਹਫ਼ਤੇ %1$#@v1@ ਸੰਪਾਦਨ ਕੀਤਾ ਹੈ।</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -19,7 +19,7 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ ਪੜ੍ਹਨ ਦੀ ਸੂਚੀ ਵਿੱਚ ਜੋੜੋ</string>
+		<string>%1$#@v1@ ਪੜ੍ਹਨ ਦੀ ਸੂਚੀ ਵਿੱਚ ਜੋੜੋ</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -33,7 +33,7 @@
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ ਮਿਟਾਏ ਗਏ</string>
+		<string>%1$#@v1@ ਮਿਟਾਏ ਗਏ</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -49,7 +49,7 @@
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -65,7 +65,7 @@
 	<key>diff-paragraph-moved-distance-section</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -79,7 +79,7 @@
 	<key>diff-single-header-editor-number-edits-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -95,7 +95,7 @@
 	<key>diff-single-header-subtitle-bytes-added</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -111,7 +111,7 @@
 	<key>diff-single-header-subtitle-bytes-removed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -127,7 +127,7 @@
 	<key>diff-unedited-lines-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -143,7 +143,7 @@
 	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ ਜੋੜੇ ਗਏ</string>
+		<string>%1$#@v1@ ਜੋੜੇ ਗਏ</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -159,7 +159,7 @@
 	<key>nearby-distance-label-feet</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -173,7 +173,7 @@
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -189,7 +189,7 @@
 	<key>notifications-center-status-in-projects</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -203,7 +203,7 @@
 	<key>notifications-center-status-in-projects-plain</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -217,7 +217,7 @@
 	<key>notifications-center-status-in-types</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -231,7 +231,7 @@
 	<key>notifications-push-talk-body-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%2$@ 'ਤੇ %#@v1@</string>
+		<string>%2$@ 'ਤੇ %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -247,7 +247,7 @@
 	<key>notifications-push-talk-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -263,7 +263,7 @@
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -279,7 +279,7 @@
 	<key>on-this-day-footer-showing-event-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਇਸ ਦਿਨ ਦੀਆਂ %#@v1@</string>
+		<string>ਇਸ ਦਿਨ ਦੀਆਂ %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -295,7 +295,7 @@
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>(%#@v1@) ਜੋੜਿਆ</string>
+		<string>(%1$#@v1@) ਜੋੜਿਆ</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -311,7 +311,7 @@
 	<key>page-history-revision-size-diff-subtraction</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>(%#@v1@) ਹਟਾਇਆ</string>
+		<string>(%1$#@v1@) ਹਟਾਇਆ</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -327,7 +327,7 @@
 	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%2$@ ਤੋਂ ਬਾਅਦ %#@v1@</string>
+		<string>%2$@ ਤੋਂ ਬਾਅਦ %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -343,7 +343,7 @@
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -357,7 +357,7 @@
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -373,7 +373,7 @@
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਮਿਟਾਓ %#@v1@?</string>
+		<string>ਮਿਟਾਓ %1$#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -389,7 +389,7 @@
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -405,7 +405,7 @@
 	<key>relative-date-hours-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -423,7 +423,7 @@
 	<key>relative-date-hrs-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -441,7 +441,7 @@
 	<key>relative-date-min-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -459,7 +459,7 @@
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -477,7 +477,7 @@
 	<key>relative-date-months-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -495,7 +495,7 @@
 	<key>relative-date-years-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -511,7 +511,7 @@
 	<key>talk-page-active-users-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -525,7 +525,7 @@
 	<key>talk-page-replies-count-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -539,7 +539,7 @@
 	<key>watchlist-byte-change</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>(%#@v1@)</string>
+		<string>(%1$#@v1@)</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -555,7 +555,7 @@
 	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਅਧਿਕਾਰਤ ਵਿਕੀਪੀਡੀਆ ਐਪ ਉੱਤੇ ਸੋਧਕਾਂ ਨੇ %#@v1@</string>
+		<string>ਅਧਿਕਾਰਤ ਵਿਕੀਪੀਡੀਆ ਐਪ ਉੱਤੇ ਸੋਧਕਾਂ ਨੇ %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -571,7 +571,7 @@
 	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਵਿਕੀਪੀਡੀਆ ਨੂੰ %#@v1@ ਪ੍ਰਤੀ ਮਿੰਟ ਸੋਧਿਆ ਗਿਆ ਸੀ</string>
+		<string>ਵਿਕੀਪੀਡੀਆ ਨੂੰ %1$#@v1@ ਪ੍ਰਤੀ ਮਿੰਟ ਸੋਧਿਆ ਗਿਆ ਸੀ</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -585,7 +585,7 @@
 	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਵਿਕੀਪੀਡੀਆ %#@v1@ ਤੋਂ ਵੱਧ ਵਿੱਚ ਉਪਲਬਧ ਸੀ।</string>
+		<string>ਵਿਕੀਪੀਡੀਆ %1$#@v1@ ਤੋਂ ਵੱਧ ਵਿੱਚ ਉਪਲਬਧ ਸੀ।</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -601,7 +601,7 @@
 	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਐਪ ਵਰਤੋਂਕਾਰਾਂ ਕੋਲ %#@v1@</string>
+		<string>ਐਪ ਵਰਤੋਂਕਾਰਾਂ ਕੋਲ %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -617,7 +617,7 @@
 	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਐਪ ਵਰਤੋਂਕਾਰਾਂ ਨੇ %#@v1@ ਵਿਕੀਪੀਡੀਆ ਲੇਖ ਦੇਖੇ।</string>
+		<string>ਐਪ ਵਰਤੋਂਕਾਰਾਂ ਨੇ %1$#@v1@ ਵਿਕੀਪੀਡੀਆ ਲੇਖ ਦੇਖੇ।</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -631,7 +631,7 @@
 	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਦੁਨੀਆ ਭਰ ਦੇ ਪਾਠਕ ਤੁਹਾਡੇ ਯੋਗਦਾਨ ਦੀ ਸ਼ਲਾਘਾ ਕਰਦੇ ਹਨ। ਪਿਛਲੇ 2 ਮਹੀਨਿਆਂ ਵਿੱਚ, ਤੁਹਾਡੇ ਵੱਲੋਂ ਸੋਧੇ ਲੇਖਾਂ ਨੂੰ %#@v1@ ਵਾਰ ਦੇਖਿਆ ਗਿਆ ਸੀ।। ਤੁਹਾਡੇ ਵਰਗੇ ਸੋਧਕਾਂ ਦਾ ਧੰਨਵਾਦ, ਵਿਕੀਪੀਡੀਆ ਦੁਨੀਆ ਲਈ ਇੱਕ ਨਿਰੰਤਰ ਸੁਧਾਰ, ਤੱਥ-ਅਧਾਰਤ ਅਤੇ ਭਰੋਸੇਯੋਗ ਗਿਆਨ ਸਰੋਤ ਹੈ।</string>
+		<string>ਦੁਨੀਆ ਭਰ ਦੇ ਪਾਠਕ ਤੁਹਾਡੇ ਯੋਗਦਾਨ ਦੀ ਸ਼ਲਾਘਾ ਕਰਦੇ ਹਨ। ਪਿਛਲੇ 2 ਮਹੀਨਿਆਂ ਵਿੱਚ, ਤੁਹਾਡੇ ਵੱਲੋਂ ਸੋਧੇ ਲੇਖਾਂ ਨੂੰ %1$#@v1@ ਵਾਰ ਦੇਖਿਆ ਗਿਆ ਸੀ।। ਤੁਹਾਡੇ ਵਰਗੇ ਸੋਧਕਾਂ ਦਾ ਧੰਨਵਾਦ, ਵਿਕੀਪੀਡੀਆ ਦੁਨੀਆ ਲਈ ਇੱਕ ਨਿਰੰਤਰ ਸੁਧਾਰ, ਤੱਥ-ਅਧਾਰਤ ਅਤੇ ਭਰੋਸੇਯੋਗ ਗਿਆਨ ਸਰੋਤ ਹੈ।</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -647,7 +647,7 @@
 	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਤੁਹਾਡੇ ਸੋਧਾਂ ਨੂੰ ਹਾਲ ਹੀ ਵਿੱਚ %#@v1@ ਤੋਂ ਵੱਧ ਵਾਰ ਵੇਖਿਆ ਗਿਆ ਸੀ</string>
+		<string>ਤੁਹਾਡੇ ਸੋਧਾਂ ਨੂੰ ਹਾਲ ਹੀ ਵਿੱਚ %1$#@v1@ ਤੋਂ ਵੱਧ ਵਾਰ ਵੇਖਿਆ ਗਿਆ ਸੀ</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -661,7 +661,7 @@
 	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਤੁਸੀਂ %#@v1@ ਸੋਧਿਆ ਹੈ</string>
+		<string>ਤੁਸੀਂ %1$#@v1@ ਸੋਧਿਆ ਹੈ</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -675,7 +675,7 @@
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਤੁਸੀਂ %#@v1@</string>
+		<string>ਤੁਸੀਂ %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

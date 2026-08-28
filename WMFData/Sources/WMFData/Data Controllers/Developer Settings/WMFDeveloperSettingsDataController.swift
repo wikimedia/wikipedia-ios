@@ -176,6 +176,13 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
+    /// Debugging convenience: skips the follow-up reminder's once-per-day limit so we can see
+    /// repeat impressions without changing the device date.
+    public var bypassDonationReminderDailyLimit: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsBypassDonationReminderDailyLimit.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsBypassDonationReminderDailyLimit.rawValue, value: newValue) }
+    }
+
     public var enableVisualEditingJourney: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue, value: newValue) }
