@@ -1324,8 +1324,12 @@
 "settings-clear-cache-are-you-sure-title" = "Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.";
 "settings-clear-cache-cancel" = "Cancel action to clear cached data {{Identical|Cancel}}";
 "settings-clear-cache-ok" = "Confirm action to clear cached data";
+"settings-clear-donation-history" = "Title of the row on the settings screen that deletes the locally saved donation history.";
 "settings-community-feed-title" = "Title for the Community feed settings item in Settings, shown while the Home tab experiment is enabled. {{Identical|Community}}";
 "settings-donate" = "Link to donate";
+"settings-donation-reminders-subtitle" = "Subtitle of the donation reminders row on the settings screen. $1 is the donation amount, $2 is the number of articles.";
+"settings-donation-reminders-title" = "Title of the donation reminders row on the settings screen.";
+"settings-donations-header" = "Header of the donations section on the settings screen.";
 "settings-editing-preferences-source-short" = "Short name of the source editing mode, shown as the current value of the editing preferences row in Settings";
 "settings-editing-preferences-title" = "Title of the editing preferences settings screen, where users pick between visual and source editing.";
 "settings-editing-preferences-visual-short" = "Short name of the visual editing mode, shown as the current value of the editing preferences row in Settings";
