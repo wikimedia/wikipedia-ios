@@ -387,7 +387,6 @@
 "settings-notifications-echo-failure-try-again" = "पुन प्रयास गर्नुहोस";
 "settings-primary-language" = "प्राथमिक";
 "settings-search-open-app-on-search" = "खोजी ट्याबमा एप खोल्नुहोस्";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "मेट्नुहोस्";
 "settings-title" = "मेरो अभिरुचिहरू";
 // Fuzzy
 "share-article-name-on-wikipedia" = "@Wikipedia मा \"$1\" :";
@@ -441,6 +440,16 @@
 "welcome-intro-free-encyclopedia-more-about" = "विकिपिडियाको बारेमा";
 "welcome-intro-free-encyclopedia-title" = "एक स्वतन्त्र विश्वकोष";
 "welcome-languages-add-button" = "अर्को भाषा थप्नुहोस्";
+"wikimedia-articletopics-topic-art" = "कला";
+"wikimedia-articletopics-topic-education" = "शिक्षा";
+"wikimedia-articletopics-topic-engineering" = "इन्जिनियरिङ";
+"wikimedia-articletopics-topic-europe" = "युरोप";
+"wikimedia-articletopics-topic-food-and-drink" = "खानपान";
+"wikimedia-articletopics-topic-music" = "सङ्गीत";
+"wikimedia-articletopics-topic-north-america" = "उत्तर अमेरिका";
+"wikimedia-articletopics-topic-oceania" = "ओशिनिया";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "दर्शन र धर्म";
+"wikimedia-articletopics-topic-politics-and-government" = "राजनीति र सरकार";
 "wikitext-preview-link-external-preview-title" = "बाह्य कडीहरू";
 "wikitext-preview-link-preview-title" = "लिङ्क पूर्वावलोकन";
 "wikitext-preview-save-changes-title" = "परिवर्तन प्रकाशित गर्नुहोस्";

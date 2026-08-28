@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import Combine
 import WMFData
 
@@ -41,10 +42,16 @@ import WMFData
         }
     }
 
+    @Published public var enableVisualEditingJourney: Bool = WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney = enableVisualEditingJourney
+        }
+    }
+
+
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
 
-        // Form Items
         let doNotPostImageRecommendationsEditItem = WMFFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
         let sendAnalyticsToWMFLabsItem = WMFFormItemSelectViewModel(title: localizedStrings.sendAnalyticsToWMFLabs, isSelected: WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs)
         let bypassDonationItem = WMFFormItemSelectViewModel(title: localizedStrings.bypassDonation, isSelected: WMFDeveloperSettingsDataController.shared.bypassDonation)
@@ -54,15 +61,11 @@ import WMFData
         let showYiR2025 = WMFFormItemSelectViewModel(title: "Show Year in Review 2025", isSelected: WMFDeveloperSettingsDataController.shared.showYiR2025)
         let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
         let allowGestureZoomArticleWebview = WMFFormItemSelectViewModel(title: "Allow pinch to zoom when reading articles", isSelected: WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview)
-        let enableHomeTab = WMFFormItemSelectViewModel(title: "Enable Home Tab", isSelected: WMFDeveloperSettingsDataController.shared.enableHomeTab)
         let enableHomePhase2 = WMFFormItemSelectViewModel(title: "Enable Home Phase 2", isSelected: WMFDeveloperSettingsDataController.shared.enableHomePhase2)
-        let alwaysShowNewOnboarding = WMFFormItemSelectViewModel(title: "Always Show New Onboarding", isSelected: WMFDeveloperSettingsDataController.shared.alwaysShowNewOnboarding)
 
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
-                enableHomeTab,
                 enableHomePhase2,
-                alwaysShowNewOnboarding,
                 doNotPostImageRecommendationsEditItem,
                 sendAnalyticsToWMFLabsItem,
                 bypassDonationItem,
@@ -74,8 +77,6 @@ import WMFData
                 allowGestureZoomArticleWebview
             ], selectType: .multi)
         ])
-
-        // Individual Toggle Bindings
 
         doNotPostImageRecommendationsEditItem.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit = isSelected }
@@ -109,22 +110,32 @@ import WMFData
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview = isSelected }
             .store(in: &subscribers)
 
-        enableHomeTab.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableHomeTab = isSelected }
-            .store(in: &subscribers)
-
         enableHomePhase2.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableHomePhase2 = isSelected }
             .store(in: &subscribers)
+    }
 
-        alwaysShowNewOnboarding.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.alwaysShowNewOnboarding = isSelected }
-            .store(in: &subscribers)
+    public var appInstallID: String? {
+        try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+    }
+
+    @MainActor
+    public func copyAppInstallID() {
+        guard let appInstallID else { return }
+        UIPasteboard.general.string = appInstallID
+        WMFToastPresenter.shared.show(WMFToastConfig(title: .init("App install ID copied")))
     }
 
     public func clearGamesPersistence() {
         Task {
             try? await WMFDeveloperSettingsDataController.shared.clearGamesPersistence()
+        }
+    }
+
+    public func clearDefaultEditMode() {
+        WMFSettingsDataController.shared.clearDefaultEditMode()
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Editing preferences cleared. The choose editor sheet will show again.")))
         }
     }
 }

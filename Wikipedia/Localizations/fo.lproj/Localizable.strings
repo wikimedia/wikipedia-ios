@@ -63,6 +63,16 @@
 // Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" á @Wikipedia:";
 "table-of-contents-close-accessibility-hint" = "Lat aftur";
+"wikimedia-articletopics-topic-africa" = "Africa";
+"wikimedia-articletopics-topic-asia" = "Asia";
+"wikimedia-articletopics-topic-comics-and-anime" = "Comics and anime";
+"wikimedia-articletopics-topic-europe" = "Europe";
+"wikimedia-articletopics-topic-history" = "History";
+"wikimedia-articletopics-topic-music" = "Music";
+"wikimedia-articletopics-topic-north-america" = "North America";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Philosophy and religion";
+"wikimedia-articletopics-topic-tv-and-film" = "TV and film";
+"wikimedia-articletopics-topic-video-games" = "Video games";
 "wikitext-preview-changes" = "Heintar undansýning av tínum broytingum...";
 "wikitext-upload-captcha-error" = "CAPTCHA váttanarfeilur.";
 "wikitext-upload-captcha-needed" = "CAPTCHA váttan krevst.";

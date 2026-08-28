@@ -2,6 +2,7 @@ import UIKit
 import WMF
 import WMFComponents
 import WMFData
+import WMFTestKitchen
 
 @MainActor
 final class HomeFeedSettingsCoordinator: Coordinator {
@@ -12,6 +13,8 @@ final class HomeFeedSettingsCoordinator: Coordinator {
         case root
         /// Deep-links straight to "What's driving your feed" (e.g. from a button in the feed).
         case modalFromFeed
+        /// Direct to interests. Pass along instrument to keep a particular funnel tracking.
+        case interests(InstrumentImpl?)
     }
 
     enum Presentation {
@@ -60,6 +63,9 @@ final class HomeFeedSettingsCoordinator: Coordinator {
         case .modalFromFeed:
             let closeButtonHandler: (() -> Void)? = presentation == .modal ? { [weak self] in self?.dismissModal() } : nil
             initialViewController = makeWhatsDrivingViewController(closeButtonHandler: closeButtonHandler)
+        case .interests(let instrument):
+            let closeButtonHandler: (() -> Void)? = presentation == .modal ? { [weak self] in self?.dismissModal() } : nil
+            initialViewController = makeInterestsViewController(instrument: instrument, closeButtonHandler: closeButtonHandler)
         }
 
         switch presentation {
@@ -72,6 +78,32 @@ final class HomeFeedSettingsCoordinator: Coordinator {
             navigationController.present(modalNav, animated: true)
         }
         return true
+    }
+    
+    private func makeInterestsViewController(instrument: InstrumentImpl?, closeButtonHandler: (() -> Void)? = nil) -> WMFHomeFeedInterestsSettingsViewController {
+        let language = homeDataController.selectedLanguage() ?? WMFDataEnvironment.current.primaryAppLanguage ?? WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        let project = WMFProject.wikipedia(language)
+        let searchLanguages = MWKDataStore.shared().languageLinkController.preferredLanguages.map {
+            WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode)
+        }
+        let resolvedInstrument = instrument ?? TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").startFunnel(name: "feed_customize")
+        let viewModel = WMFHomeFeedInterestsSettingsViewModel(
+            project: project,
+            searchLanguages: searchLanguages,
+            logImpressionIfNeeded: {
+                resolvedInstrument.submitInteraction(action: "impression", actionSource: "feed_customize", experimentData: WMFHomeDataController.shared.experimentData)
+            },
+            logDidTapTopic: {
+                resolvedInstrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "topic_select", experimentData: WMFHomeDataController.shared.experimentData)
+            },
+            logDidTapArticle: {
+                resolvedInstrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "article_select", experimentData: WMFHomeDataController.shared.experimentData)
+            },
+            logDidTapDeselectAll: {
+                resolvedInstrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "deselect_all", experimentData: WMFHomeDataController.shared.experimentData)
+            }
+        )
+        return WMFHomeFeedInterestsSettingsViewController(viewModel: viewModel, closeButtonHandler: closeButtonHandler)
     }
 
     // MARK: - View controller factories
@@ -106,28 +138,64 @@ final class HomeFeedSettingsCoordinator: Coordinator {
     }
 
     private func showForYouModulesSettings() {
-        let viewModel = WMFHomeFeedForYouSettingsViewModel()
+        let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed")
+        instrument.submitInteraction(action: "click", actionSource: "settings", elementId: "feed_modules_for_you", experimentData: WMFHomeDataController.shared.experimentData)
+        
+        let viewModel = WMFHomeFeedForYouSettingsViewModel(
+            logToggleModule: { module, isOn in
+                let action = isOn ? "enable" : "disable"
+                let elementId: String
+                switch module {
+                case .basedOnYourInterests: elementId = "INTERESTS"
+                case .becauseYouRead: elementId = "BECAUSE_READ"
+                case .continueReading: elementId = "CONTINUE"
+                }
+                instrument.submitInteraction(action: action, actionSource: "settings", actionSubtype: "feed_for_you", elementId: elementId, experimentData: WMFHomeDataController.shared.experimentData)
+            }
+        )
         let forYouSettingsVC = WMFHomeFeedForYouSettingsViewController(viewModel: viewModel)
         activeNavigationController.pushViewController(forYouSettingsVC, animated: true)
     }
 
     private func showWhatsDrivingSettings() {
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "feed_data_info", experimentData: WMFHomeDataController.shared.experimentData)
         activeNavigationController.pushViewController(makeWhatsDrivingViewController(), animated: true)
     }
 
     private func showInterestsSettings() {
+        
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "customize_feed", experimentData: WMFHomeDataController.shared.experimentData)
+        
         let language = homeDataController.selectedLanguage() ?? WMFDataEnvironment.current.primaryAppLanguage ?? WMFLanguage(languageCode: "en", languageVariantCode: nil)
         let project = WMFProject.wikipedia(language)
         let searchLanguages = MWKDataStore.shared().languageLinkController.preferredLanguages.map {
             WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode)
         }
-        let viewModel = WMFHomeFeedInterestsSettingsViewModel(project: project, searchLanguages: searchLanguages)
+        let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").startFunnel(name: "feed_customize")
+        let viewModel = WMFHomeFeedInterestsSettingsViewModel(
+            project: project,
+            searchLanguages: searchLanguages,
+            logImpressionIfNeeded: {
+                instrument.submitInteraction(action: "impression", actionSource: "feed_customize", experimentData: WMFHomeDataController.shared.experimentData)
+            },
+            logDidTapTopic: {
+                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "topic_select", experimentData: WMFHomeDataController.shared.experimentData)
+            },
+            logDidTapArticle: {
+                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "article_select", experimentData: WMFHomeDataController.shared.experimentData)
+            },
+            logDidTapDeselectAll: {
+                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "deselect_all", experimentData: WMFHomeDataController.shared.experimentData)
+            }
+        
+        )
         let interestsVC = WMFHomeFeedInterestsSettingsViewController(viewModel: viewModel)
         activeNavigationController.pushViewController(interestsVC, animated: true)
     }
 
     private func switchToSearchTab() {
         // `AppDelegate` is compiled out of test builds (replaced by `MockAppDelegate`), so any reference to it must be guarded in test builds
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "reading_history", experimentData: WMFHomeDataController.shared.experimentData)
 #if !TEST
         guard let appViewController = (UIApplication.shared.delegate as? AppDelegate)?.appViewController else {
             return
@@ -137,6 +205,7 @@ final class HomeFeedSettingsCoordinator: Coordinator {
     }
 
     private func showLanguages() {
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "languages", experimentData: WMFHomeDataController.shared.experimentData)
         let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
         languagesVC.showExploreFeedCustomizationSettings = true
         languagesVC.apply(currentTheme)

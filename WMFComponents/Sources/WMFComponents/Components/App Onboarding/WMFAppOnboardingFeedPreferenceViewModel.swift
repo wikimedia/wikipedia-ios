@@ -14,24 +14,47 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
     private let pictureOfTheDayTitle = WMFLocalizedString("app-onboarding-feed-preference-picture-of-the-day", value: "Picture of the day", comment: "Title of the Picture of the Day sample card on the feed preference app onboarding screen.")
     private let inTheNewsTitle = WMFLocalizedString("app-onboarding-feed-preference-in-the-news", value: "In the news", comment: "Title of the In the News sample card on the feed preference app onboarding screen.")
 
+    /// Localized in the *wiki's* language (not the app UI's): it's matched against the story
+    /// HTML, which comes from that wiki. Used to find the article a story marks as pictured.
+    private var picturedText: String {
+        return WMFLocalizedString("pictured", languageCode: project.languageCode, value: "pictured", comment: "Indicates the person or item is pictured (as in a news story).")
+    }
+
     // MARK: - State
 
     @Published public private(set) var selection: WMFHomeFeedSeeFirst = .community
     @Published private(set) var communityCards: [WMFAppOnboardingPreviewCardViewModel] = []
     @Published private(set) var personalizedCards: [WMFAppOnboardingPreviewCardViewModel] = []
-    @Published private(set) var isPersonalizedAvailable: Bool = true
+    @Published public private(set) var isPersonalizedAvailable: Bool = true
     @Published var isCommunityLoading: Bool = false
     @Published var isPersonalizedLoading: Bool = false
 
     private let dataController: WMFHomeDataController
+    private let summaryDataController: WMFArticleSummaryDataControlling & Sendable
     private(set) var project: WMFProject
     private var communityTask: Task<Void, Never>?
     private var personalizedTask: Task<Void, Never>?
+    private var warmUpTask: Task<Void, Never>?
     private var hasLoaded = false
 
-    public init(dataController: WMFHomeDataController = WMFHomeDataController.shared, project: WMFProject) {
+    // MARK: - App-side actions
+    let logImpression: (Bool) -> Void
+    let logDidTapCommunity: () -> Void
+    let logDidTapPersonalized: () -> Void
+
+    public init(
+        dataController: WMFHomeDataController = WMFHomeDataController.shared,
+        summaryDataController: WMFArticleSummaryDataControlling & Sendable = WMFArticleSummaryDataController.shared,
+        project: WMFProject,
+        logImpression: @escaping (Bool) -> Void,
+        logDidTapCommunity: @escaping () -> Void,
+        logDidTapPersonalized: @escaping () -> Void) {
         self.dataController = dataController
+        self.summaryDataController = summaryDataController
         self.project = project
+        self.logImpression = logImpression
+        self.logDidTapCommunity = logDidTapCommunity
+        self.logDidTapPersonalized = logDidTapPersonalized
     }
 
     // MARK: - Intents
@@ -44,12 +67,26 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
 
     func select(_ newSelection: WMFHomeFeedSeeFirst) {
         guard newSelection != .personalized || isPersonalizedSelectable else { return }
+        switch newSelection {
+        case .community:
+            logDidTapCommunity()
+        case .personalized:
+            logDidTapPersonalized()
+        }
         selection = newSelection
     }
 
     /// Skipping onboarding applies the default preference regardless of the current selection.
     public func resetSelectionToDefault() {
         selection = .community
+    }
+
+    func interestsDidChange(topics: [WMFArticleTopic], selectedArticleTitles: [String]) {
+        guard !hasLoaded else { return }
+        warmUpTask = Task { [weak self] in
+            guard let self else { return }
+            await dataController.warmForYouArticles(project: project, topics: topics, pageTitles: selectedArticleTitles)
+        }
     }
 
     /// Called when the user changes their primary app language during onboarding. The previews
@@ -93,13 +130,10 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
             self.isCommunityLoading = false
         }
 
-        // Force fetch: the user just chose interests in the previous step, so any cached
-        // For You response predates them. The forced fetch refreshes the shared cache,
-        // keeping the Home feed consistent with this preview.
         personalizedTask = Task { [weak self] in
             guard let self else { return }
             if let forYou = try? await dataController.fetchForYou(project: project, forceFetch: true) {
-                let cards = Self.buildPersonalizedCards(from: forYou)
+                let cards = Self.buildPersonalizedCards(from: forYou, summaryDataController: summaryDataController)
                 // Hydrate descriptions before revealing the row, so cards appear fully formed
                 await withTaskGroup(of: Void.self) { group in
                     for card in cards {
@@ -107,10 +141,17 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
                     }
                 }
                 self.personalizedCards = cards
+                // Start the image downloads now, not on card appearance. When the speculative
+                // fetch already put the images in the cache, the cards render complete.
+                for card in cards {
+                    card.loadImageIfNeeded()
+                }
                 self.isPersonalizedAvailable = Self.personalizedIsAvailable(for: forYou)
+                logImpression(!isPersonalizedAvailable)
             } else {
                 self.personalizedCards = []
                 self.isPersonalizedAvailable = !dataController.interestTopics().isEmpty
+                logImpression(!isPersonalizedAvailable)
             }
 
             if !self.isPersonalizedAvailable && self.selection == .personalized {
@@ -123,6 +164,20 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
     deinit {
         communityTask?.cancel()
         personalizedTask?.cancel()
+        warmUpTask?.cancel()
+    }
+
+    // MARK: - Test hooks
+
+    /// Lets a test wait until the warm-up is complete.
+    func waitForWarmUp() async {
+        await warmUpTask?.value
+    }
+
+    /// Lets a test wait until both preview rows are loaded.
+    func waitForLoadTasks() async {
+        await communityTask?.value
+        await personalizedTask?.value
     }
 
     // MARK: - Card building (internal for unit testing)
@@ -132,7 +187,7 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
 
         if let featured = response.feedResponse.todaysFeaturedArticle {
             cards.append(WMFAppOnboardingPreviewCardViewModel(
-                title: featured.normalizedTitle ?? featured.title ?? "",
+                displayTitle: featured.displayTitle ?? featured.normalizedTitle ?? featured.title ?? "",
                 description: featured.description,
                 imageURLString: featured.thumbnail?.source,
                 topicPill: nil
@@ -141,7 +196,7 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
 
         if let pictureOfDay = response.feedResponse.image {
             cards.append(WMFAppOnboardingPreviewCardViewModel(
-                title: pictureOfTheDayTitle,
+                displayTitle: pictureOfTheDayTitle,
                 description: pictureOfDay.description?.text,
                 imageURLString: pictureOfDay.thumbnail?.source ?? pictureOfDay.image?.source,
                 topicPill: nil
@@ -149,10 +204,13 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
         }
 
         if let news = response.feedResponse.news?.first {
+            // Same rule as the explore feed: the story's "pictured" article when there is one,
+            // otherwise the first link that actually has a thumbnail.
+            let featured = news.featuredArticle(picturedText: picturedText)
             cards.append(WMFAppOnboardingPreviewCardViewModel(
-                title: inTheNewsTitle,
+                displayTitle: inTheNewsTitle,
                 description: news.story.map(Self.strippingHTMLTags),
-                imageURLString: news.links?.first?.thumbnail?.source,
+                imageURLString: featured?.thumbnail?.source,
                 topicPill: nil
             ))
         }
@@ -160,33 +218,38 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
         return cards
     }
 
-    static func buildPersonalizedCards(from response: WMFForYouResponse) -> [WMFAppOnboardingPreviewCardViewModel] {
-        var cards: [WMFAppOnboardingPreviewCardViewModel] = []
-
-        // Interests chosen in the previous step: topic interests (with a topic pill) first,
-        // then article interests (no topic to show)
-        for group in response.interestTopicRandomArticles where cards.count < 3 {
-            guard let article = group.articles.first else { continue }
-            cards.append(WMFAppOnboardingPreviewCardViewModel(article: article, topicPill: group.topic.displayName))
-        }
-        for group in response.interestPageRelatedArticles where cards.count < 3 {
-            guard let article = group.articles.first ?? Optional(group.pageInterest) else { continue }
-            cards.append(WMFAppOnboardingPreviewCardViewModel(article: article, topicPill: nil))
-        }
-
-        if cards.isEmpty, let becauseYouRead = response.becauseYouReadArticles {
-            cards = becauseYouRead.articles.prefix(3).map {
-                WMFAppOnboardingPreviewCardViewModel(article: $0, topicPill: nil)
-            }
-        }
-
-        return cards
+    struct PersonalizedPreviewSelection {
+        let article: WMFForYouArticle
+        let topicPill: String?
     }
 
+    static func personalizedPreviewSelections(from response: WMFForYouResponse) -> [PersonalizedPreviewSelection] {
+        var selections: [PersonalizedPreviewSelection] = []
+
+        for group in response.interestTopicRandomArticles where selections.count < 3 {
+            guard let article = group.articles.first else { continue }
+            selections.append(PersonalizedPreviewSelection(article: article, topicPill: group.topic.displayName))
+        }
+        for group in response.interestPageRelatedArticles where selections.count < 3 {
+            guard let article = group.articles.first ?? Optional(group.pageInterest) else { continue }
+            selections.append(PersonalizedPreviewSelection(article: article, topicPill: nil))
+        }
+
+        // Deliberately no reading-history fallback: the preview must show what the user just
+        // chose. Articles derived from reading history read as random here, so with no
+        // interests the step shows its explanation text instead (see isPersonalizedAvailable).
+        return selections
+    }
+
+    static func buildPersonalizedCards(from response: WMFForYouResponse, summaryDataController: WMFArticleSummaryDataControlling & Sendable = WMFArticleSummaryDataController.shared) -> [WMFAppOnboardingPreviewCardViewModel] {
+        personalizedPreviewSelections(from: response).map {
+            WMFAppOnboardingPreviewCardViewModel(article: $0.article, topicPill: $0.topicPill, summaryDataController: summaryDataController)
+        }
+    }
+
+
     static func personalizedIsAvailable(for response: WMFForYouResponse) -> Bool {
-        let hasInterests = !response.interestTopicRandomArticles.isEmpty || !response.interestPageRelatedArticles.isEmpty
-        let hasReadingHistory = response.becauseYouReadArticles != nil || response.continueReadingArticles != nil
-        return hasInterests || hasReadingHistory
+        return !response.interestTopicRandomArticles.isEmpty || !response.interestPageRelatedArticles.isEmpty
     }
 
     static func strippingHTMLTags(_ html: String) -> String {
@@ -199,40 +262,43 @@ public final class WMFAppOnboardingFeedPreferenceViewModel: ObservableObject {
 final class WMFAppOnboardingPreviewCardViewModel: ObservableObject, Identifiable {
 
     let id = UUID()
-    let title: String
     let topicPill: String?
+
+    @Published var displayTitle: String
     @Published var description: String?
     @Published var uiImage: UIImage?
 
     private var imageURL: URL?
     private let summaryFetchInfo: (title: String, project: WMFProject)?
+    private let summaryDataController: (WMFArticleSummaryDataControlling & Sendable)?
     private var didLoadSummary = false
     private var imageTask: Task<Void, Never>?
 
     /// Community cards arrive with all content up front.
-    init(title: String, description: String?, imageURLString: String?, topicPill: String?) {
-        self.title = title
+    init(displayTitle: String, description: String?, imageURLString: String?, topicPill: String?) {
+        self.displayTitle = displayTitle
         self.description = description
         self.imageURL = imageURLString.flatMap { URL(string: $0) }
         self.topicPill = topicPill
         self.summaryFetchInfo = nil
+        self.summaryDataController = nil
     }
 
-    /// Personalized cards carry only a title and hydrate description/image from the article summary.
-    init(article: WMFForYouArticle, topicPill: String?) {
-        self.title = article.title.underscoresToSpaces
-        self.description = nil
-        self.imageURL = nil
+    init(article: WMFForYouArticle, topicPill: String?, summaryDataController: WMFArticleSummaryDataControlling & Sendable = WMFArticleSummaryDataController.shared) {
+        self.displayTitle = article.title.underscoresToSpaces
+        self.description = article.description
+        self.imageURL = article.thumbnailURL
         self.topicPill = topicPill
         self.summaryFetchInfo = (article.title, article.project)
+        self.summaryDataController = summaryDataController
+        self.didLoadSummary = article.description != nil || article.thumbnailURL != nil
     }
 
-    /// Fetches the description and thumbnail URL from the article summary. Awaited before
-    /// the personalized row is revealed, so its cards appear with their text in place.
     func loadSummaryIfNeeded() async {
-        guard !didLoadSummary, let info = summaryFetchInfo else { return }
+        guard !didLoadSummary, let info = summaryFetchInfo, let summaryDataController else { return }
         didLoadSummary = true
-        guard let summary = try? await WMFArticleSummaryDataController.shared.fetchArticleSummary(project: info.project, title: info.title.spacesToUnderscores) else { return }
+        guard let summary = try? await summaryDataController.fetchArticleSummary(project: info.project, title: info.title.normalizedForDisplay) else { return }
+        displayTitle = summary.displayTitle
         description = summary.description
         imageURL = summary.thumbnailURL
     }

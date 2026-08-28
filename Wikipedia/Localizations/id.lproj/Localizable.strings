@@ -7,6 +7,7 @@
 // Author: Arifin.wijaya
 // Author: ArlandGa
 // Author: BaconSenpai
+// Author: Bayahiu
 // Author: Beeyan
 // Author: Bennylin
 // Author: Bramadiarya
@@ -862,8 +863,6 @@
 "reading-list-generic-error" = "Terjadi kesalahan tak terduga saat memperbarui daftar bacaan Anda.";
 "reading-list-keep-button-title" = "Ya, simpan artikel di perangkat";
 "reading-list-keep-subtitle" = "Ada artikel yang disinkronkan ke akun Wikipedia Anda. Apakah Anda ingin menyimpannya di perangkat ini setelah keluar log?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Mematikan sinkronisasi akan menghapus artikel ini dari akun Anda. Jika Anda menghapusnya dari perangkat, mereka tidak akan dapat dipulihkan dengan mengaktifkan sinkronisasi lagi di masa mendatang.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Tidak, hapus artikel dari perangkat dan akun Wikipedia saya";
 "reading-list-keep-title" = "Simpan artikel tersimpan di perangkat?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Urutkan artikel";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Ada batas 5.000 artikel yang tidak diurutkan. Silakan urutkan artikel Anda yang ada ke dalam daftar untuk melanjutkan sinkronisasi artikel yang tidak diurutkan.";
@@ -985,11 +984,6 @@
 "settings-search-open-app-on-search" = "Buka aplikasi di tab Pencarian";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Izinkan Wikimedia untuk menyimpan artikel tersimpan Anda dan daftar bacaan ke preferensi pengguna Anda ketika Anda masuk log dan sinkronisasi.";
 "settings-storage-and-syncing-enable-sync-title" = "Sinkronisasi artikel tersimpan dan daftar";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Menghapus artikel tersimpan Anda akan menghapusnya dari akun pengguna Anda jika Anda telah mengaktifkan sinkronisasi serta dari perangkat ini. Anda tidak dapat membatalkan tindakan ini.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Hapus semua artikel tersimpan?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Hapus";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Menghapus artikel tersimpan Anda akan menghapusnya dari akun pengguna Anda jika Anda telah menyalakan sinkronisasi serta dari perangkat ini.\n\nMenghapus artikel yang Anda simpan akan membebaskan ruang sekitar $1.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Hapus artikel tersimpan";
 "settings-storage-and-syncing-full-sync" = "Daftar bacaan Anda akan disinkronkan di latar belakang";
 "settings-storage-and-syncing-server-sync-footer-text" = "Minta pemutakhiran ke artikel yang disinkronkan dan daftar bacaan Anda.";
 "settings-storage-and-syncing-server-sync-title" = "Perbarui daftar bacaan yang disinkronkan";
@@ -1203,6 +1197,19 @@
 "widget-onthisday-description" = "Jelajahi apa yang terjadi pada hari ini dalam sejarah.";
 "widget-onthisday-placeholder-article-snippet" = "Ensiklopedia online gratis yang bisa disunting oleh siapapun.";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, sebuah ensiklopedia wiki gratis, dirilis.";
+"wikimedia-articletopics-topic-africa" = "Afrika";
+"wikimedia-articletopics-topic-art" = "Seni";
+"wikimedia-articletopics-topic-central-america" = "Amerika Tengah";
+"wikimedia-articletopics-topic-education" = "Pendidikan";
+"wikimedia-articletopics-topic-food-and-drink" = "Makanan dan minuman";
+"wikimedia-articletopics-topic-general-science" = "Ilmu pengetahuan umum";
+"wikimedia-articletopics-topic-history" = "Sejarah";
+"wikimedia-articletopics-topic-music" = "Musik";
+"wikimedia-articletopics-topic-north-america" = "Amerika Utara";
+"wikimedia-articletopics-topic-oceania" = "Oseania";
+"wikimedia-articletopics-topic-physics" = "Fisika";
+"wikimedia-articletopics-topic-technology" = "Teknologi";
+"wikimedia-articletopics-topic-video-games" = "Permainan video";
 "wikitext-preview-changes" = "Mengambil pratayang perubahan Anda...";
 "wikitext-preview-link-external-preview-description" = "Pranala ini mengarah ke situs web eksternal: $1";
 "wikitext-preview-link-external-preview-title" = "Pranala luar";
@@ -1222,8 +1229,8 @@
 "year-in-review-base-reading-title-updated" = "Wikipedia tersedia dalam lebih dari {{PLURAL:$1|$1 bahasa}}";
 "year-in-review-button-title" = "Tinjauan Tahunan";
 "year-in-review-contributor-slide-title" = "Ikon aplikasi baru tersedia untuk layar beranda Anda";
-"year-in-review-donate" = "Menyumbang";
-"year-in-review-donate-now" = "Menyumbang sekarang";
+"year-in-review-donate" = "Sumbangi";
+"year-in-review-donate-now" = "Sumbangi sekarang";
 "year-in-review-feature-announcement-title-personalized" = "Jelajahi Tinjauan Tahunan Wikipedia Anda";
 "year-in-review-highlights-edit-frequency" = "Seberapa sering Wikipedia disunting";
 "year-in-review-highlights-english-articles" = "Artikel yang paling dibaca di Wikipedia bahasa Inggris";

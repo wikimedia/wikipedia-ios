@@ -5,33 +5,41 @@ struct WMFInterestArticleGridView: View {
 
     let viewModels: [WMFInterestArticleCardViewModel]
     let theme: WMFTheme
+    /// Viewport (not content) size, used to pick the column count the way the article tabs
+    /// grid does — more columns on iPad and in landscape.
+    let viewportSize: CGSize
     let onTap: (WMFInterestArticleCardViewModel) -> Void
 
     // At accessibility sizes half-width columns word-break the scaled titles, so the grid
     // collapses to a single full-width column.
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    private var columns: (left: [WMFInterestArticleCardViewModel], right: [WMFInterestArticleCardViewModel]) {
-        var left: [WMFInterestArticleCardViewModel] = []
-        var right: [WMFInterestArticleCardViewModel] = []
-        var leftHeight: CGFloat = 0
-        var rightHeight: CGFloat = 0
+    private var columnCount: Int {
+        WMFCardGridColumns.count(for: viewportSize, isAccessibilitySize: dynamicTypeSize.isAccessibilitySize, idiom: UIDevice.current.userInterfaceIdiom)
+    }
+
+    /// Distributes cards into `columnCount` masonry columns, each card going to the currently
+    /// shortest column so the columns end up roughly level.
+    private func columns(count: Int) -> [[WMFInterestArticleCardViewModel]] {
+        guard count > 1 else { return [viewModels] }
+
+        var columns: [[WMFInterestArticleCardViewModel]] = Array(repeating: [], count: count)
+        var heights = [CGFloat](repeating: 0, count: count)
 
         for vm in viewModels {
-            if leftHeight <= rightHeight {
-                left.append(vm)
-                leftHeight += estimatedHeight(for: vm)
-            } else {
-                right.append(vm)
-                rightHeight += estimatedHeight(for: vm)
+            var shortest = 0
+            for index in 1..<count where heights[index] < heights[shortest] {
+                shortest = index
             }
+            columns[shortest].append(vm)
+            heights[shortest] += estimatedHeight(for: vm)
         }
-        return (left, right)
+        return columns
     }
 
     private func estimatedHeight(for vm: WMFInterestArticleCardViewModel) -> CGFloat {
         let imageHeight: CGFloat = vm.thumbnailURL != nil ? 100 : 0
-        let titleLines = max(1, Int(ceil(Double(vm.title.count) / 18.0)))
+        let titleLines = max(1, Int(ceil(Double(vm.displayTitle.removingHTML.count) / 18.0)))
         let titleHeight = CGFloat(titleLines) * 20
         let descriptionHeight: CGFloat
         if let desc = vm.description {
@@ -44,15 +52,9 @@ struct WMFInterestArticleGridView: View {
     }
 
     var body: some View {
-        Group {
-            if dynamicTypeSize.isAccessibilitySize {
-                column(viewModels)
-            } else {
-                let cols = columns
-                HStack(alignment: .top, spacing: 12) {
-                    column(cols.left)
-                    column(cols.right)
-                }
+        HStack(alignment: .top, spacing: 12) {
+            ForEach(Array(columns(count: columnCount).enumerated()), id: \.offset) { _, items in
+                column(items)
             }
         }
         .padding(.horizontal, 16)
@@ -81,6 +83,10 @@ private struct WMFInterestArticleCardView: View {
 
     @ObservedObject var viewModel: WMFInterestArticleCardViewModel
     let theme: WMFTheme
+    
+    private var subheadlineStyles: HtmlUtils.Styles {
+        return HtmlUtils.Styles(font: WMFFont.for(.boldSubheadline), boldFont: WMFFont.for(.boldSubheadline), italicsFont: WMFFont.for(.boldItalicSubheadline), boldItalicsFont: WMFFont.for(.boldItalicSubheadline), color: theme.text, linkColor: theme.link, lineSpacing: 1)
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -97,17 +103,23 @@ private struct WMFInterestArticleCardView: View {
                     .clipped()
                     .contentShape(Rectangle())
             }
-            VStack(alignment: .leading, spacing: 4) {
-                WMFHtmlText(html: viewModel.title, styles: HtmlUtils.Styles(font: WMFFont.for(.semiboldHeadline, sized: dynamicTypeSize), boldFont: WMFFont.for(.boldHeadline, sized: dynamicTypeSize), italicsFont: WMFFont.for(.semiboldHeadline, sized: dynamicTypeSize), boldItalicsFont: WMFFont.for(.boldHeadline, sized: dynamicTypeSize), color: theme.text, linkColor: theme.link, lineSpacing: 1))
-                if let description = viewModel.description {
-                    Text(description)
-                        .font(Font(WMFFont.for(.callout, sized: dynamicTypeSize)))
-                        .foregroundStyle(Color(uiColor: theme.secondaryText))
-                        .fixedSize(horizontal: false, vertical: true)
+            // Baseline (not frame-bottom) alignment so the checkmark sits on the last line of
+            // text rather than below its descender space.
+            HStack(alignment: .lastTextBaseline, spacing: 4) {
+                VStack(alignment: .leading, spacing: 4) {
+                    WMFHtmlText(html: viewModel.displayTitle, styles: subheadlineStyles)
+                    if let description = viewModel.description {
+                        Text(description)
+                            .font(Font(WMFFont.for(.callout, sized: dynamicTypeSize)))
+                            .foregroundStyle(Color(uiColor: theme.secondaryText))
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+                checkmark
             }
             .padding(8)
-            .frame(maxWidth: .infinity, alignment: .leading)
             .background(viewModel.isSelected ? Color(uiColor: theme.addition) : Color.clear)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -117,13 +129,6 @@ private struct WMFInterestArticleCardView: View {
             RoundedRectangle(cornerRadius: 16)
                 .strokeBorder(Color(uiColor: theme.newBorder), lineWidth: 1)
         )
-        .overlay(alignment: .bottomTrailing) {
-            if viewModel.isSelected, let checkmark = WMFSFSymbolIcon.for(symbol: .checkmark, font: .subheadline, compatibleWith: dynamicTypeSize.wmfTraitCollection) {
-                Image(uiImage: checkmark)
-                    .foregroundStyle(Color(uiColor: theme.link))
-                    .padding(8)
-            }
-        }
         .onAppear {
             viewModel.loadIfNeeded()
         }
@@ -132,8 +137,19 @@ private struct WMFInterestArticleCardView: View {
         .accessibilityAddTraits(viewModel.isSelected ? [.isButton, .isSelected] : .isButton)
     }
 
+    /// Always laid out — only its visibility changes — so the title/description are sized
+    /// around it (long titles used to run underneath) and selecting doesn't reflow the card.
+    @ViewBuilder
+    private var checkmark: some View {
+        if let image = WMFSFSymbolIcon.for(symbol: .checkmark, font: .subheadline, compatibleWith: dynamicTypeSize.wmfTraitCollection) {
+            Image(uiImage: image)
+                .foregroundStyle(Color(uiColor: theme.link))
+                .opacity(viewModel.isSelected ? 1 : 0)
+        }
+    }
+
     private var accessibilityLabel: String {
-        [viewModel.title.wmf_strippingHTMLForAccessibility, viewModel.description]
+        [viewModel.displayTitle.removingHTML, viewModel.description]
             .compactMap { $0 }
             .filter { !$0.isEmpty }
             .joined(separator: ", ")

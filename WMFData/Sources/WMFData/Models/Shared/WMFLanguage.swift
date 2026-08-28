@@ -1,14 +1,20 @@
 import Foundation
 
-public struct WMFLanguage: Equatable, Codable, Sendable {
+public struct WMFLanguage: Equatable, Codable, Sendable, Identifiable {
     public let languageCode: String
     public let languageVariantCode: String?
-    
+
     public init(languageCode: String, languageVariantCode: String?) {
         self.languageCode = languageCode
         self.languageVariantCode = languageVariantCode
     }
-    
+
+    /// Uniquely identifies the language including its variant, so that for example `zh-hans` and
+    /// `zh-hant` are distinct. Computed, so it is not part of the `Codable` representation.
+    public var id: String {
+        [languageCode, languageVariantCode].compactMap { $0 }.joined(separator: "-")
+    }
+
     public var localizedName: String {
         Locale.current.localizedString(forLanguageCode: languageCode) ?? languageCode
     }

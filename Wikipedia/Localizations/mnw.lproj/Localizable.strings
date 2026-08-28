@@ -529,8 +529,6 @@
 "reading-list-generic-error" = "အဃော မတၟိဗဟဵုပတိုန် စရင်လိက်ပရေင်မၞးဂှ် အရာမဗၠေတ် မဟွံစၟဳလဝ်မွဲ မံက်ဂတဝ်ကၠုင်၊၊";
 "reading-list-keep-button-title" = "ယွံ၊ စွံ လိက်ပရေင်တအ် ပ္ဍဲ device";
 "reading-list-keep-subtitle" = "လိက်ပရေင် ကချဳဓရာင်ပၠောပ်ဒၟံင် ပ္ဍဲအကံက် ဝဳကဳပဳဒဳယာ မၞး၊၊ မၞးမိက်ဂွံ စွံလဝ် လိက်တအ် ပ္ဍဲ device မၞး ကြဴနူ မၞးမတိတ်ဟာ？";
-"reading-list-keep-sync-disabled-additional-subtitle" = "ကၟာတ် ကချဳဓရာင်မ္ဂး လိက်ပရေင် နူကဵု အကံက်မၞးဂှ် ကၠေအ်အာရောင်၊၊ ယဝ်ရ မၞးပတိတ်ထောအ် လိက်တအ် နူ device မၞးမ္ဂး မၞး ကလေင်ဂၠာဲကေတ် ဍေဟ်တအ်ပၠန် ဟွံဂွံရ၊၊";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "ဟအှ်ေ၊ ပတိတ်ထောအ် လိက်ပရေင်တအ် နူdevice ကေုာံ အကံက် ဝဳကဳပဳဒဳယာ အဲညိ၊၊";
 "reading-list-keep-title" = "ဂိုင်စွံ လိက်ပရေင်တအ် ပ္ဍဲ ကဵု device?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "ပြေင်စွံ လိက်ပရေင်";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "လိက်ပရေင် မဟွံပြေင်စွံတအ်ဂှ် အခေါင်နွံ ၅၀၀၀ ဓဝ်ရ၊၊ ပဂုန်တုဲ ပြေင်စွံ လိက်ပရေင်မၞး မၞုံဒၟံင်တအ် အပ္ဍဲ စရင် သွက်ဂွံပချဳဓရာင် လိက်ပရေင် ဟွံပြေင်စွံလဝ် ဏီတအ်၊၊";
@@ -639,11 +637,6 @@
 "settings-search-open-app-on-search" = "ပံက် app ပ္ဍဲ ဒၞာဲတေပ် ဂၠာဲ";
 "settings-storage-and-syncing-enable-sync-footer-text" = "ကဵုအခေါင် ကုဝဳကဳမဳဒဳယာ သွက်ဂွံ ဂိုင်သိပ် လိက်ပရေင်မဂိုင်သိပ်လဝ် ကေုာံ စရင် လိက်ဗွဟ်မၞး ပ္ဍဲဒၞာဲ မၞိဟ်မသုင်စောဲမဒးဂၞပ် ကာလ မၞးလုပ်လံက်အေန် ကေုာံ ကချဳဓရာင်၊၊";
 "settings-storage-and-syncing-enable-sync-title" = "ကချဳဓရာင် လိက်ပရေင်မဂိုင်သိပ် ကေုာံ စရင်ဂမၠိုင်";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as from this device. You cannot undo this action.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "ပၠေအ်ထောအ် လိက်ပရေင်မဂိုင်သိပ် ဖအိုတ်ဟာ？";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "ပၠေအ်ထောအ်";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "မပၠေအ် လိက်ပရေင်မဂိုင်သိပ်ဂှ် ဒၞာဲၜိုတ် $1 ဂှ် သၠးကၠုင်ရောင်၊၊";
-"settings-storage-and-syncing-erase-saved-articles-title" = "ပၠေအ်ထောအ် လိက်ပရေင်မဂိုင်သိပ်";
 "settings-storage-and-syncing-full-sync" = "စရင် လိက်ဗွဟ် မၞး ကချဳဓရာင် ပ္ဍဲလက္ကရဴရောင်";
 "settings-storage-and-syncing-server-sync-footer-text" = "သွက်ဂွံ ပခိုဟ်လဟဵု လိက်ပရေင်ကချဳဓရာင် ကေုာံ စရင်လိက်ဗွဟ်ဂှ် အာတ်မိက်ဒၟံင်ရ၊၊";
 "settings-storage-and-syncing-server-sync-title" = "ပခိုဟ်လဟဵု ကချဳဓရာင် စရင်လိက်ဗွဟ်";
@@ -717,6 +710,16 @@
 "welcome-languages-description" = "ပ္ဍဲ device မၞးဂှ် ပိုယ်ဂွံဆဵုကေတ် အရေဝ်ဘာသာ အတိုင် ဗွဲသၟဝ်ဝွံရ";
 // Fuzzy
 "welcome-languages-search-title" = "ဂၠာဲ နကဵုအရေဝ်ဘာသာ ဗဒဲါ ၃၀၀";
+"wikimedia-articletopics-topic-art" = "အနုပညာ";
+"wikimedia-articletopics-topic-education" = "ပညာရေး";
+"wikimedia-articletopics-topic-food-and-drink" = "အစားအသောက်";
+"wikimedia-articletopics-topic-literature" = "စာပေ";
+"wikimedia-articletopics-topic-music" = "ဂီတ";
+"wikimedia-articletopics-topic-oceania" = "အိုရှန်းနီးယား";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "ဒဿနိကနှင့်ဘာသာရေး";
+"wikimedia-articletopics-topic-physics" = "ရူပဗေဒ";
+"wikimedia-articletopics-topic-politics-and-government" = "နိုင်ငံရေးနှင့်အစိုးရ";
+"wikimedia-articletopics-topic-tv-and-film" = "တီဗွီနှင့်ရုပ်ရှင်";
 "wikitext-preview-changes" = "ကလေင်ကေတ်ဒၟံင် နမူနာ အရာမၞးမပလေဝ်လဝ် ...";
 "wikitext-preview-link-external-preview-description" = "လေန်ဏအ်ဂှ် ပလံင်ဏာ မုက်လိက် ဝေပ်သာက်မၞး: $1";
 "wikitext-preview-link-external-preview-title" = "လေန်မ္ၚး";

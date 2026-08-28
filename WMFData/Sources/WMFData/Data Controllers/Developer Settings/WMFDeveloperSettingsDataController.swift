@@ -4,7 +4,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var enableMoreDynamicTabsV2GroupC: Bool { get }
     var forceMaxArticleTabsTo5: Bool { get }
-    var enableHomeTab: Bool { get }
     var showYiR2025: Bool { get }
     var enableYiRLoginExperimentControl: Bool { get }
     var enableYiRLoginExperimentB: Bool { get }
@@ -18,6 +17,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     private var sharedCacheStore: WMFKeyValueStore?
     private var featureConfig: WMFFeatureConfigResponse?
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.developerSettings.rawValue
+    
     private let cacheFeatureConfigFileName = "AppsFeatureConfig"
 
     public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
@@ -75,27 +75,15 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue, value: newValue) }
     }
 
-
     public var showYiR2025: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiR2025.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiR2025.rawValue, value: newValue) }
     }
 
-    public var enableHomeTab: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableHomeTab.rawValue)) ?? false }
-        set {
-            let oldValue = enableHomeTab
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableHomeTab.rawValue, value: newValue)
-            if oldValue != newValue {
-                NotificationCenter.default.post(name: WMFNSNotification.enableHomeTabDidChange, object: nil)
-            }
-        }
-    }
-
     /// Gates home feed work that ships after the initial Home tab experiment: the reworked community
     /// feed (replacing the embedded legacy Explore feed) and its settings. Only has an effect when
     /// `enableHomeTab` is also true.
-    public var enableHomePhase2: Bool {
+    @objc public var enableHomePhase2: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableHomePhase2.rawValue)) ?? false }
         set {
             let oldValue = enableHomePhase2
@@ -109,15 +97,11 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     /// True while the legacy Explore feed backs the Home tab's Community segment (home tab on, phase 2
     /// off). In this mode the feed is presented as the "Community feed" throughout the UI.
     public var isCommunityFeedMode: Bool {
-        enableHomeTab && !enableHomePhase2
+        WMFHomeDataController.shared.persistedHomeTabAssignment() == .groupB && !enableHomePhase2
     }
 
     /// Debugging convenience: when true (and the home tab is enabled), the new app onboarding
     /// presents on every launch, ignoring the persisted "did show onboarding" flag.
-    public var alwaysShowNewOnboarding: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsAlwaysShowNewOnboarding.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsAlwaysShowNewOnboarding.rawValue, value: newValue) }
-    }
 
     public var enableYiRLoginExperimentControl: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue)) ?? false }
@@ -148,6 +132,11 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         let gamesDataController = WMFGamesDataController()
         try await gamesDataController.clearAllSessions()
         gamesDataController.resetAnnouncementSeen()
+    }
+
+    public var enableVisualEditingJourney: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue, value: newValue) }
     }
 
     // MARK: - Reading Challenge Forced States

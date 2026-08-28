@@ -12,15 +12,18 @@ public final class WMFArticleDataController {
         let needsWatchedStatus: Bool
         let needsRollbackRights: Bool
         let needsCategories: Bool
-        
-        public init(needsWatchedStatus: Bool, needsRollbackRights: Bool, needsCategories: Bool) throws {
+        let needsUserInfo: Bool
+
+        public init(needsWatchedStatus: Bool, needsRollbackRights: Bool, needsCategories: Bool, needsUserInfo: Bool = false) throws {
             self.needsWatchedStatus = needsWatchedStatus
             self.needsRollbackRights = needsRollbackRights
             self.needsCategories = needsCategories
-            
+            self.needsUserInfo = needsUserInfo
+
             guard needsWatchedStatus == true ||
                     needsRollbackRights == true ||
-                    needsCategories == true else {
+                    needsCategories == true ||
+                    needsUserInfo == true else {
                 throw WMFServiceError.invalidRequest
             }
         }
@@ -44,22 +47,49 @@ public final class WMFArticleDataController {
             }
 
             struct UserInfo: Codable {
+                let id: Int?
                 let name: String
-                let rights: [String]
+                let anon: Bool?
+                let temp: Bool?
+                let rights: [String]?
+                let groups: [String]?
+                let editcount: UInt64?
+                let blockid: UInt64?
+                let blockpartial: Bool?
+                let registrationdate: String?
+            }
+
+            struct GlobalUserInfo: Codable {
+                let id: Int?
             }
 
             let pages: [Page]
             let userinfo: UserInfo?
+            let globaluserinfo: GlobalUserInfo?
         }
 
         let query: Query
     }
-    
+
+    /// Info about the current user on the article's wiki, as returned with the article info request.
+    public struct WMFArticleUserInfo {
+        public let userID: Int
+        public let globalUserID: Int?
+        public let name: String
+        public let groups: [String]
+        public let editCount: UInt64
+        public let isBlocked: Bool
+        public let isIP: Bool
+        public let isTemp: Bool
+        public let registrationDateString: String?
+    }
+
     public struct WMFArticleInfoResponse {
         public let watched: Bool
         public let watchlistExpiry: Date?
         public let userHasRollbackRights: Bool?
         public let categories: [String]
+        public let userInfo: WMFArticleUserInfo?
     }
 
     
@@ -102,7 +132,10 @@ public final class WMFArticleDataController {
             parameters["cllimit"] = "500"
         }
 
-        if request.needsRollbackRights {
+        if request.needsUserInfo {
+            parameters["meta"] = "userinfo|globaluserinfo"
+            parameters["uiprop"] = "rights|groups|blockinfo|editcount|registrationdate"
+        } else if request.needsRollbackRights {
             parameters["meta"] = "userinfo"
             parameters["uiprop"] = "rights"
         }
@@ -123,7 +156,7 @@ public final class WMFArticleDataController {
                 }
 
                 let watched = firstPage.watched ?? false
-                let userHasRollbackRights = response.query.userinfo?.rights.contains("rollback")
+                let userHasRollbackRights = response.query.userinfo?.rights?.contains("rollback")
                  
                 var watchlistExpiry: Date? = nil
                 if let watchlistExpiryString = firstPage.watchlistexpiry {
@@ -137,7 +170,24 @@ public final class WMFArticleDataController {
                     }
                  }
 
-                 let status = WMFArticleInfoResponse(watched: watched, watchlistExpiry: watchlistExpiry, userHasRollbackRights: userHasRollbackRights, categories: categoryTitles)
+                 var articleUserInfo: WMFArticleUserInfo? = nil
+                 if let userinfo = response.query.userinfo, let userID = userinfo.id {
+                     let blockPartial = userinfo.blockpartial ?? false
+                     let isBlocked = userinfo.blockid != nil && !blockPartial
+                     articleUserInfo = WMFArticleUserInfo(
+                         userID: userID,
+                         globalUserID: response.query.globaluserinfo?.id,
+                         name: userinfo.name,
+                         groups: userinfo.groups ?? [],
+                         editCount: userinfo.editcount ?? 0,
+                         isBlocked: isBlocked,
+                         isIP: userinfo.anon ?? false,
+                         isTemp: userinfo.temp ?? false,
+                         registrationDateString: userinfo.registrationdate
+                     )
+                 }
+
+                 let status = WMFArticleInfoResponse(watched: watched, watchlistExpiry: watchlistExpiry, userHasRollbackRights: userHasRollbackRights, categories: categoryTitles, userInfo: articleUserInfo)
                  completion(.success(status))
              case .failure(let error):
                  completion(.failure(WMFDataControllerError.serviceError(error)))

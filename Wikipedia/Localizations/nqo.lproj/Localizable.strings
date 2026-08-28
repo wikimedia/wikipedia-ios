@@ -573,8 +573,6 @@
 "reading-list-generic-error" = "ߝߟߌ߬ ߡߊߟߐ߲ߓߊߟߌ ߘߏ߫ ߓߘߊ߫ ߓߌ߬ߟߴߊ߬ ߘߐ߫ ߞߵߊ߬ ߕߘߍ߬ ߌ ߟߊ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߫ ߛߙߍߘߍ ߟߊߞߎߘߦߊ ߦߴߌ ߘߐ߫";
 "reading-list-keep-button-title" = "ߞߏߛߓߍ߫߸ ߞߎߡߘߊ ߟߎ߬ ߟߊߡߙߊ߬ ߞߍߟߊ߲ ߞߣߐ߫";
 "reading-list-keep-subtitle" = "ߞߎߡߘߊ ߘߏ߫ ߟߎ߫ ߕߎ߬ߡߊ߬ߢߐ߲߰ߦߊ߬ߣߍ߲߫ ߦߴߌ ߟߊ߫ ߥߞߌߔߋߘߌߦߊ ߖߊ߬ߕߋ߬ߘߊ ߟߊ߫.ߊ߬ ߞߊߘߴߌ ߢߍ߫ ߞߵߊ߬ߟߎ߫ ߡߙߊ߬ߣߍ߲ ߕߏ߫ ߞߍߟߊ߲ ߣߌ߲߬ ߞߣߐ߫ ߌ ߜߊ߲߬ߞߎ߲߬ߣߍ߲ ߓߐ ߞߐ ߘߐ߫؟";
-"reading-list-keep-sync-disabled-additional-subtitle" = "ߕߎ߬ߡߊ߬ߢߐ߲߰ߦߊ߬ߟߌ ߓߐߒߠߊߟߌ ߘߌߣߊ߬ ߞߎߡߘߊ ߏ߬ ߟߎ߫ ߖߏ߰ߛߴߌ ߟߊ߫ ߖߊ߬ߕߋ߬ߘߊ ߟߊ߫߸ ߊ߬ߟߎ߫ ߘߏ߲߬ ߕߍߣߊ߬ ߟߊߛߐ߬ߘߐ߲߬ ߠߊ߫ ߕߎ߬ߡߊ߬ߢߐ߲߰ߦߊ߬ߟߌ ߓߌ߬ߟߊ ߞߐ ߘߴߊ߬ ߟߊ߫ ߞߐߝߍ߬.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "ߊ߬ߦߌ߬߸ ߞߎߡߘߊ ߟߎ߬ ߖߏ߰ߛߌ߬ ߒ ߠߊ߫ ߞߍߟߊ߲ ߣߌ߫ ߥߞߌߔߋߘߌߦߊ ߖߊ߬ߕߋ߬ߘߊ ߟߎ߫ ߟߊ߫";
 "reading-list-keep-title" = "ߞߊ߬ ߞߎߡߘߊ߫ ߟߊߡߙߊ߬ߣߍ߲ ߡߙߊ߬ߣߍ߲ ߕߏ߫ ߞߍߟߊ߲ ߞߣߐ߫؟";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "ߞߎߡߘߊ ߟߎ߬ ߢߣߊߕߐ߬ߡߐ߲߫";
 "reading-list-login-button-title" = "ߌ ߜߊ߲߬ߞߎ߲߫ ߞߵߌ ߟߊ߫ ߞߎߡߘߊ߫ ߟߊߞߎ߲߬ߘߎ߬ߣߍ߲ ߠߎ߬ ߕߎ߬ߡߊ߬ߢߐ߲߰ߦߊ߫";
@@ -613,3 +611,16 @@
 "search-recent-empty" = "ߒ߬ߒ߫߸ ߞߐ߯ߟߊ߫ ߢߌߣߌ߲ߠߌ߲ ߘߐߙߐ߲߫ ߡߎߣߎ߲߬";
 "search-recent-title" = "ߢߌߣߌ߲ߣߌ߲߫ ߠߊߓߊ߲";
 "talk-pages-view-title" = "ߞߎߡߊߢߐ߲߯ߦߊ";
+"wikimedia-articletopics-topic-asia" = "ߊߖ߭ߌ߫";
+"wikimedia-articletopics-topic-central-america" = "ߊߡߍߙߌߞߌ߬ ߕߊ߲ߓߊ߲";
+"wikimedia-articletopics-topic-europe" = "ߋߙߐߔߎ߬";
+"wikimedia-articletopics-topic-food-and-drink" = "ߛߎ߬ߡߊ߲ ߣߌ߫ ߡߌ߲߬ߝߋ߲";
+"wikimedia-articletopics-topic-general-science" = "General science";
+"wikimedia-articletopics-topic-history" = "ߘߐ߬ߝߐ";
+"wikimedia-articletopics-topic-music" = "ߘߐ߲߬ߞߟߌ";
+"wikimedia-articletopics-topic-north-america" = "ߊߡߍߙߌߞߌ߬ ߞߐ߬ߘߎ߮";
+"wikimedia-articletopics-topic-oceania" = "ߏߛߌߦߊߣߌ߫";
+"wikimedia-articletopics-topic-physics" = "ߘߐ߬ߞߏ";
+"wikimedia-articletopics-topic-politics-and-government" = "ߓߘߍ߬ߓߘߍ߬ߟߌ ߣߌ߫ ߞߎ߲߬ߠߊ߬ߛߌ߮";
+"wikimedia-articletopics-topic-technology" = "ߛߋߒߞߏߟߊߘߐߦߊ";
+"wikimedia-articletopics-topic-video-games" = "ߖߌ߬ߦߊ߬ߖߟߎ߫ ߕߏߟߏ߲ ߠߎ߬";

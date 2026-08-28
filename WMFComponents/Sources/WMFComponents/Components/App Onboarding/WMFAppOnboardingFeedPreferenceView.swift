@@ -51,7 +51,7 @@ struct WMFAppOnboardingFeedPreferenceView: View {
                 } else {
                     Text(viewModel.personalizedDisabledExplanation)
                         .font(Font(WMFFont.for(.callout, sized: dynamicTypeSize)))
-                        .foregroundStyle(Color(uiColor: theme.secondaryText))
+                        .foregroundStyle(Color(uiColor: theme.text))
                         .padding(.horizontal, 16)
                 }
             }
@@ -163,10 +163,9 @@ private struct WMFAppOnboardingPreviewCardView: View {
                 if viewModel.uiImage == nil, let pill = viewModel.topicPill {
                     topicPillView(pill)
                 }
-                Text(viewModel.title)
-                    .font(Font(WMFFont.for(.semiboldHeadline, sized: dynamicTypeSize)))
+                WMFHtmlText(html: viewModel.displayTitle, styles: semiboldHeadlineStyle, lineLimit: 2)
                     .foregroundStyle(Color(uiColor: theme.text))
-                    .lineLimit(2)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 if let description = viewModel.description {
                     Text(description)
                         .font(Font(WMFFont.for(.callout, sized: dynamicTypeSize)))
@@ -187,6 +186,10 @@ private struct WMFAppOnboardingPreviewCardView: View {
         .onAppear {
             viewModel.loadImageIfNeeded()
         }
+    }
+    
+    private var semiboldHeadlineStyle: HtmlUtils.Styles {
+        return HtmlUtils.Styles(font: WMFFont.for(.semiboldHeadline), boldFont: WMFFont.for(.boldHeadline), italicsFont: WMFFont.for(.semiboldItalicHeadline), boldItalicsFont: WMFFont.for(.semiboldItalicHeadline), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
 
     private func topicPillView(_ text: String) -> some View {

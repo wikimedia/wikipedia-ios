@@ -1,6 +1,11 @@
 import Foundation
+import WMFTestKitchen
 
-public final actor WMFHomeDataController {
+@objc public final actor WMFHomeDataController {
+    public enum HomeTabExperimentAssignment {
+        case control
+        case groupB
+    }
 
     private let feedDataController: any WMFFeedDataControlling
     private let basicService: WMFService?
@@ -22,15 +27,98 @@ public final actor WMFHomeDataController {
     // Dates for which feed data has been fetched per project, in descending order (most recent first).
     private var communityFetchedDates: [WMFProject: [Date]] = [:]
 
-    public static let shared = WMFHomeDataController()
+    @objc public static let shared = WMFHomeDataController()
 
-    public init(feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared, basicService: WMFService? = WMFDataEnvironment.current.basicService, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, relatedPagesDataController: WMFRelatedPagesDataController = WMFRelatedPagesDataController.shared, savedArticlesDataController: WMFSavedArticlesDataController = WMFSavedArticlesDataController.shared, onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared) {
+    // Written once by assignExperiment() on the main thread at launch, before any concurrent reads.
+    nonisolated(unsafe) private var homeTabAssignment: HomeTabExperimentAssignment = .control
+
+    public init(
+        feedDataController: any WMFFeedDataControlling = WMFFeedDataController.shared,
+        basicService: WMFService? = WMFDataEnvironment.current.basicService,
+        userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore,
+        relatedPagesDataController: WMFRelatedPagesDataController = WMFRelatedPagesDataController.shared,
+        savedArticlesDataController: WMFSavedArticlesDataController = WMFSavedArticlesDataController.shared,
+        onThisDayDataController: WMFOnThisDayDataController = WMFOnThisDayDataController.shared
+    ) {
         self.feedDataController = feedDataController
         self.basicService = basicService
         self.userDefaultsStore = userDefaultsStore
         self.relatedPagesDataController = relatedPagesDataController
         self.savedArticlesDataController = savedArticlesDataController
         self.onThisDayDataController = onThisDayDataController
+        
+        NotificationCenter.default.addObserver(
+            forName: WMFNSNotification.pageViewHistoryDidChange,
+            object: nil,
+            queue: nil
+        ) { [weak self] notification in
+            guard let self else { return }
+            Task {
+                await self.invalidateForYouCache(project: notification.object as? WMFProject)
+            }
+        }
+    }
+    
+    public nonisolated func assignExperiment() {
+        guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
+        let controller = WMFExperimentsDataController(store: store)
+        let bucket = try? controller.determineBucketForExperiment(.homeTab, withPercentage: 50)
+        homeTabAssignment = bucket == .homeTabGroupB ? .groupB : .control
+    }
+
+    public nonisolated var experimentData: ExperimentData {
+        ExperimentData(enrolled: "ios-home-feed", assigned: homeTabAssignment == .groupB ? "treatment" : "control")
+    }
+
+    public nonisolated func logExperimentExposure() {
+        WMFDataEnvironment.current.testKitchenClient?.getInstrument(name: "apps-home-feed")
+            .submitInteraction(
+                action: "experiment_exposure",
+                experimentData: experimentData
+            )
+    }
+
+    private func invalidateForYouCache(project: WMFProject?) {
+        guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
+        let target = project ?? selectedLanguage().map { WMFProject.wikipedia($0) }
+        guard let target else { return }
+        try? store.remove(key: forYouCacheKey(for: target))
+    }
+
+    @objc public nonisolated var isHomeTabGroupB: Bool {
+        homeTabAssignment == .groupB
+    }
+
+    /// Returns the persisted bucket for the home tab experiment.
+    /// Safe to call from any synchronous context.
+    public nonisolated func persistedHomeTabAssignment() -> HomeTabExperimentAssignment {
+        homeTabAssignment
+    }
+
+    // MARK: - Settings: New Install Onboarding
+
+    public nonisolated func didSendNewInstallOnboardingStartEvent() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.didSendNewInstallOnboardingStartEvent.rawValue)) ?? false
+    }
+
+    public nonisolated func setDidSendNewInstallOnboardingStartEvent(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.didSendNewInstallOnboardingStartEvent.rawValue, value: newValue)
+    }
+    
+    public nonisolated func hasSeenUpdatedHomeOnboarding() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenUpdatedHomeOnboarding.rawValue)) ?? false
+    }
+
+    public nonisolated func setHasSeenUpdatedHomeOnboarding(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenUpdatedHomeOnboarding.rawValue, value: newValue)
+    }
+
+    public nonisolated func hasSeenOneTimeOnboarding() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenOneTimeOnboardingHome.rawValue)) ?? false
+    }
+
+    public nonisolated func setHasSeenOneTimeOnboarding(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenOneTimeOnboardingHome.rawValue, value: newValue)
     }
 
     // MARK: - Settings: Selected Language
@@ -130,6 +218,55 @@ public final actor WMFHomeDataController {
         NotificationCenter.default.post(name: WMFNSNotification.forYouModuleVisibilityDidChange, object: nil)
     }
 
+    // MARK: - Seen Articles
+
+    /// How long an article that the user saw stays out of the feed.
+    public static let seenArticleSuppressionDays = 30
+
+    /// The largest number of seen articles that the app keeps. The oldest go away first.
+    private static let maxSeenArticles = 1000
+
+    private nonisolated func seenArticleKey(title: String, project: WMFProject) -> String {
+        "\(project.id)_\(title.normalizedForDisplay)"
+    }
+
+    /// Records that the user saw this article. Call this only when a card is on the screen.
+    public nonisolated func recordSeenArticle(title: String, project: WMFProject, date: Date = Date()) {
+        var seen = storedSeenArticles()
+        seen[seenArticleKey(title: title, project: project)] = date
+
+        // Remove the articles that are too old, then the oldest of the others, so the list has a limit.
+        seen = Self.removingExpired(seen, now: date)
+        if seen.count > Self.maxSeenArticles {
+            let newest = seen.sorted { $0.value > $1.value }.prefix(Self.maxSeenArticles)
+            seen = Dictionary(uniqueKeysWithValues: newest.map { ($0.key, $0.value) })
+        }
+
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedSeenArticles.rawValue, value: seen)
+    }
+
+    /// The titles of the articles that the user saw in the suppression period, for one project.
+    public nonisolated func seenArticleTitles(project: WMFProject, now: Date = Date()) -> Set<String> {
+        let seen = Self.removingExpired(storedSeenArticles(), now: now)
+        let prefix = "\(project.id)_"
+
+        return Set(seen.keys.compactMap { key in
+            guard key.hasPrefix(prefix) else { return nil }
+            return String(key.dropFirst(prefix.count))
+        })
+    }
+
+    private nonisolated func storedSeenArticles() -> [String: Date] {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.homeFeedSeenArticles.rawValue)) ?? [:]
+    }
+
+    private nonisolated static func removingExpired(_ seen: [String: Date], now: Date) -> [String: Date] {
+        guard let oldest = Calendar.current.date(byAdding: .day, value: -seenArticleSuppressionDays, to: now) else {
+            return seen
+        }
+        return seen.filter { $0.value > oldest }
+    }
+
     // MARK: - Settings: Hidden Cards
 
     private static let maxHiddenCardKeys = 100
@@ -163,6 +300,169 @@ public final actor WMFHomeDataController {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.homeFeedInterestTopics.rawValue, value: topics.map { $0.rawValue })
     }
 
+    // MARK: - Warm-up for the For You fetch
+
+    /// How long a warmed article group stays valid. The window covers the time between an
+    /// interest selection and the fetch that uses it. It is short, so a later refresh of the
+    /// feed gets new random articles.
+    private static let warmedArticlesLifetime: TimeInterval = 5 * 60
+
+    // MARK: - Daily seed interests
+
+    /// How many interests seed the feed on one day, for each kind. The user can select an
+    /// unbounded number of article interests, and each seed costs one network request when the
+    /// feed loads. The caps bound that cost, and match the Android app: up to 5 topics and up to
+    /// 5 article interests each day.
+    private static let maxDailyTopicSeeds = 5
+    private static let maxDailyPageInterestSeeds = 5
+
+    /// Orders items for one calendar day, the same way on every call. The order comes from a
+    /// stable hash of the day, the project, and the item key. Because of this, the warm-up and
+    /// the fetch select the same seeds, the selection is random across users and items, and a
+    /// new day gives a fresh selection. Swift's `Hasher` cannot do this: it has a new random
+    /// seed on each launch.
+    private nonisolated func dailySeedOrder<Item>(_ items: [Item], project: WMFProject, key: (Item) -> String) -> [Item] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let day = formatter.string(from: Date())
+        return items.sorted {
+            Self.stableHash("\(day).\(project.id).\(key($0))") < Self.stableHash("\(day).\(project.id).\(key($1))")
+        }
+    }
+
+    /// FNV-1a. Stable across launches and devices.
+    private nonisolated static func stableHash(_ string: String) -> UInt64 {
+        var hash: UInt64 = 0xcbf29ce484222325
+        for byte in string.utf8 {
+            hash ^= UInt64(byte)
+            hash = hash &* 0x100000001b3
+        }
+        return hash
+    }
+
+    private nonisolated func dailyTopicSeeds(from topics: [WMFArticleTopic], project: WMFProject) -> [WMFArticleTopic] {
+        Array(dailySeedOrder(topics, project: project, key: { $0.rawValue }).prefix(Self.maxDailyTopicSeeds))
+    }
+
+    private nonisolated func dailyPageInterestSeeds(_ interests: [WMFPageInterest], project: WMFProject) -> [WMFPageInterest] {
+        Array(dailySeedOrder(interests, project: project, key: { $0.title }).prefix(Self.maxDailyPageInterestSeeds))
+    }
+
+    private struct WarmedTopicArticles {
+        let date: Date
+        let articles: [WMFRandomArticle]
+    }
+
+    private struct WarmedRelatedPages {
+        let date: Date
+        let pages: [WMFRelatedPagesDataController.WMFRelatedPage]
+    }
+
+    private var warmedTopicArticles: [String: WarmedTopicArticles] = [:]
+    private var warmedTopicWaiters: [String: [CheckedContinuation<[WMFRandomArticle], Error>]] = [:]
+    private var warmedRelatedPages: [String: WarmedRelatedPages] = [:]
+    private var warmedRelatedWaiters: [String: [CheckedContinuation<[WMFRelatedPagesDataController.WMFRelatedPage], Error>]] = [:]
+
+    /// Fetches the article groups for the current interests into a short-lived cache. Call this
+    /// after each interest change, while the user is still on the selection screen. The next
+    /// `fetchForYou` then reads the groups from the cache instead of the network, so the feed
+    /// is ready almost immediately. Repeated calls are cheap: a fresh group is not fetched again,
+    /// and equal requests in flight share one download.
+    public func warmForYouArticles(project: WMFProject) async {
+        let topics = interestTopics()
+        let interests = (try? await pageInterestDataController?.fetchPageInterests(project: project)) ?? []
+        await warmForYouArticles(project: project, topics: topics, pageTitles: interests.map { $0.title })
+    }
+
+    /// Warm-up that accepts an explicit page-interest list, avoiding a Core Data read.
+    /// Use this when the caller already holds the current in-memory state and the Core Data
+    /// write may not have completed yet (e.g. immediately after toggling an article card).
+    public func warmForYouArticles(project: WMFProject, topics: [WMFArticleTopic], pageTitles: [String]) async {
+        // Warm only the seeds of the day, never every interest: the seed selection is what
+        // bounds the network cost, and the fetch computes the same selection.
+        let seedTopics = dailyTopicSeeds(from: topics, project: project)
+        let seedTitles = Array(dailySeedOrder(pageTitles, project: project, key: { $0 }).prefix(Self.maxDailyPageInterestSeeds))
+
+        await withTaskGroup(of: Void.self) { group in
+            for topic in seedTopics {
+                group.addTask {
+                    _ = try? await self.warmedOrFetchedTopicArticles(for: topic, project: project)
+                }
+            }
+            for title in seedTitles {
+                group.addTask {
+                    _ = try? await self.warmedOrFetchedRelatedPages(title: title, project: project)
+                }
+            }
+        }
+    }
+
+    private func warmedOrFetchedTopicArticles(for topic: WMFArticleTopic, project: WMFProject) async throws -> [WMFRandomArticle] {
+        let key = "\(topic.rawValue).\(project.id)"
+        if let warmed = warmedTopicArticles[key], Date().timeIntervalSince(warmed.date) < Self.warmedArticlesLifetime {
+            return warmed.articles
+        }
+
+        // Merge concurrent requests for the same group: the warm-up and a fetch that follows it
+        // quickly must share one download.
+        if warmedTopicWaiters[key] != nil {
+            return try await withCheckedThrowingContinuation { continuation in
+                warmedTopicWaiters[key]?.append(continuation)
+            }
+        }
+
+        warmedTopicWaiters[key] = []
+        do {
+            let articles = try await fetchArticlesFromNetwork(for: topic, project: project)
+            warmedTopicArticles[key] = WarmedTopicArticles(date: Date(), articles: articles)
+            resumeWarmedTopicWaiters(key: key, with: .success(articles))
+            return articles
+        } catch {
+            resumeWarmedTopicWaiters(key: key, with: .failure(error))
+            throw error
+        }
+    }
+
+    private func resumeWarmedTopicWaiters(key: String, with result: Result<[WMFRandomArticle], Error>) {
+        let waiters = warmedTopicWaiters[key] ?? []
+        warmedTopicWaiters[key] = nil
+        for waiter in waiters {
+            waiter.resume(with: result)
+        }
+    }
+
+    private func warmedOrFetchedRelatedPages(title: String, project: WMFProject) async throws -> [WMFRelatedPagesDataController.WMFRelatedPage] {
+        let key = "\(title).\(project.id)"
+        if let warmed = warmedRelatedPages[key], Date().timeIntervalSince(warmed.date) < Self.warmedArticlesLifetime {
+            return warmed.pages
+        }
+
+        if warmedRelatedWaiters[key] != nil {
+            return try await withCheckedThrowingContinuation { continuation in
+                warmedRelatedWaiters[key]?.append(continuation)
+            }
+        }
+
+        warmedRelatedWaiters[key] = []
+        do {
+            let pages = try await relatedPagesDataController.fetchRelatedPages(title: title, project: project)
+            warmedRelatedPages[key] = WarmedRelatedPages(date: Date(), pages: pages)
+            resumeWarmedRelatedWaiters(key: key, with: .success(pages))
+            return pages
+        } catch {
+            resumeWarmedRelatedWaiters(key: key, with: .failure(error))
+            throw error
+        }
+    }
+
+    private func resumeWarmedRelatedWaiters(key: String, with result: Result<[WMFRelatedPagesDataController.WMFRelatedPage], Error>) {
+        let waiters = warmedRelatedWaiters[key] ?? []
+        warmedRelatedWaiters[key] = nil
+        for waiter in waiters {
+            waiter.resume(with: result)
+        }
+    }
+
     // MARK: - Public API
 
     public func fetchForYou(project: WMFProject, forceFetch: Bool = false) async throws -> WMFForYouResponse {
@@ -174,9 +474,11 @@ public final actor WMFHomeDataController {
             return cached
         }
 
-        async let interestTopicRandomArticles = fetchForYouInterestTopicRandomArticles(project: project)
-        async let interestPageRelatedArticles = fetchForYouInterestPageRelatedArticles(project: project)
-        async let becauseYouReadArticles = fetchForYouBecauseYouReadArticles(project: project)
+        let excluded = await excludedSuggestionTitles(project: project)
+
+        async let interestTopicRandomArticles = fetchForYouInterestTopicRandomArticles(project: project, excluding: excluded)
+        async let interestPageRelatedArticles = fetchForYouInterestPageRelatedArticles(project: project, excluding: excluded)
+        async let becauseYouReadArticles = fetchForYouBecauseYouReadArticles(project: project, excluding: excluded)
         async let continueReading = fetchForYouContinueReading(project: project)
         let response = try await WMFForYouResponse(
             interestTopicRandomArticles: interestTopicRandomArticles,
@@ -188,15 +490,42 @@ public final actor WMFHomeDataController {
         return response
     }
 
-    private func fetchForYouInterestTopicRandomArticles(project: WMFProject) async throws -> [WMFForYouInterestTopicRandomArticles] {
-        let topics = interestTopics().shuffled().prefix(5)
+    /// The titles that must never be a suggestion: the articles of the user, and the articles they saw.
+    private func excludedSuggestionTitles(project: WMFProject) async -> Set<String> {
+        var titles: Set<String> = []
+
+        if let pageInterestDataController,
+           let interests = try? await pageInterestDataController.fetchPageInterests(project: project) {
+            titles.formUnion(interests.map { $0.title.normalizedForDisplay })
+        }
+
+        // A new article is better than an article that the user saw in the last days.
+        titles.formUnion(seenArticleTitles(project: project))
+
+        return titles
+    }
+
+    /// Puts the articles that the app can suggest first, so that a module never becomes empty.
+    private nonisolated func candidatesPreferringNotExcluded(_ articles: [WMFRelatedPagesDataController.WMFRelatedPage], excluding excluded: Set<String>) -> [WMFRelatedPagesDataController.WMFRelatedPage] {
+        let allowed = articles.filter { !excluded.contains($0.title.normalizedForDisplay) }
+        let rest = articles.filter { excluded.contains($0.title.normalizedForDisplay) }
+
+        return allowed.shuffled() + rest.shuffled()
+    }
+
+    private func fetchForYouInterestTopicRandomArticles(project: WMFProject, excluding excluded: Set<String>) async throws -> [WMFForYouInterestTopicRandomArticles] {
+        let topics = dailyTopicSeeds(from: interestTopics(), project: project)
         guard !topics.isEmpty else { return [] }
 
         return try await withThrowingTaskGroup(of: WMFForYouInterestTopicRandomArticles.self) { group in
             for topic in topics {
                 group.addTask {
-                    let articles = try await self.fetchArticles(for: topic, project: project)
-                    let mapped = articles.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
+                    let articles = try await self.warmedOrFetchedTopicArticles(for: topic, project: project)
+                    let allowed = articles.filter { !excluded.contains($0.title.normalizedForDisplay) }
+                    // The topic search gives a new random group each time, thus this is only a safety net.
+                    let candidates = allowed.count >= 4 ? allowed : articles
+                    let mapped = await self.assignCardSlots(candidates)
+                        .map { WMFForYouArticle(title: $0.title, project: project, description: $0.description, thumbnailURL: $0.thumbnail?.url) }
                     return WMFForYouInterestTopicRandomArticles(topic: topic, articles: mapped)
                 }
             }
@@ -206,17 +535,19 @@ public final actor WMFHomeDataController {
         }
     }
 
-    private func fetchForYouInterestPageRelatedArticles(project: WMFProject) async throws -> [WMFForYouInterestPageRelatedArticles] {
+    private func fetchForYouInterestPageRelatedArticles(project: WMFProject, excluding excluded: Set<String>) async throws -> [WMFForYouInterestPageRelatedArticles] {
         guard let pageInterestDataController else { return [] }
         let interests = try await pageInterestDataController.fetchPageInterests(project: project)
-        let selected = interests.shuffled().prefix(5)
+        let selected = dailyPageInterestSeeds(interests, project: project)
         guard !selected.isEmpty else { return [] }
 
         return try await withThrowingTaskGroup(of: WMFForYouInterestPageRelatedArticles.self) { group in
             for interest in selected {
                 group.addTask {
-                    let related = try await self.relatedPagesDataController.fetchRelatedPages(title: interest.title, project: project)
-                    let mapped = related.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
+                    let related = try await self.warmedOrFetchedRelatedPages(title: interest.title, project: project)
+                    let candidates = self.candidatesPreferringNotExcluded(related, excluding: excluded)
+                    let slotted = await self.assignCardSlots(Array(candidates.prefix(8)))
+                    let mapped = slotted.map { WMFForYouArticle(title: $0.title, project: project, description: $0.description, thumbnailURL: $0.thumbnailURL) }
                     return WMFForYouInterestPageRelatedArticles(pageInterest: WMFForYouArticle(title: interest.title, project: project), articles: mapped)
                 }
             }
@@ -225,13 +556,65 @@ public final actor WMFHomeDataController {
             return results
         }
     }
+    
+    private func assignCardSlots(_ articles: [WMFRelatedPagesDataController.WMFRelatedPage]) -> [WMFRelatedPagesDataController.WMFRelatedPage] {
+        let withThumbnail = articles.filter { $0.thumbnailURL != nil }
+        let withoutThumbnail = articles.filter { $0.thumbnailURL == nil }
 
-    private func fetchForYouBecauseYouReadArticles(project: WMFProject) async throws -> WMFForYouBecauseYouReadArticles? {
+        var imageQueue = withThumbnail.makeIterator()
+        var textQueue = withoutThumbnail.makeIterator()
+
+        func next(preferImage: Bool) -> WMFRelatedPagesDataController.WMFRelatedPage? {
+            preferImage ? (imageQueue.next() ?? textQueue.next())
+                        : (textQueue.next() ?? imageQueue.next())
+        }
+
+        return [
+            next(preferImage: true),
+            next(preferImage: true),
+            next(preferImage: false),
+            next(preferImage: true)
+        ].compactMap { $0 }
+    }
+    
+    private func assignCardSlots(_ articles: [WMFRandomArticle]) -> [WMFRandomArticle] {
+        let withThumbnail = articles.filter { $0.thumbnail != nil }
+            .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
+        let withoutThumbnail = articles.filter { $0.thumbnail == nil }
+            .sorted { ($0.index ?? Int.max) < ($1.index ?? Int.max) }
+
+        // Slot layout: 0 = image, 1 = image, 2 = text, 3 = image
+        var imageQueue = withThumbnail.makeIterator()
+        var textQueue = withoutThumbnail.makeIterator()
+
+        func next(preferImage: Bool) -> WMFRandomArticle? {
+            if preferImage {
+                return imageQueue.next() ?? textQueue.next()
+            } else {
+                return textQueue.next() ?? imageQueue.next()
+            }
+        }
+
+        return [
+            next(preferImage: true),   // slot 0 — image
+            next(preferImage: true),   // slot 1 — image
+            next(preferImage: false),  // slot 2 — text
+            next(preferImage: true)   // slot 3 — image
+        ].compactMap { $0 }
+    }
+
+    private func fetchForYouBecauseYouReadArticles(project: WMFProject, excluding excluded: Set<String>) async throws -> WMFForYouBecauseYouReadArticles? {
         guard let pageViewsDataController else { return nil }
-        let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 10)
+        // T427675:  Ensure freshness: instead of just taking the last article read, for every new explore day, take all articles that were read for 1+ minutes in the last month and randomly pick one as the seed
+        var pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60, mainNamespaceOnly: true)
+        if pages.isEmpty {
+            pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 10, mainNamespaceOnly: true)
+        }
         guard let recentlyRead = pages.randomElement() else { return nil }
         let related = try await relatedPagesDataController.fetchRelatedPages(title: recentlyRead.title, project: project)
-        let mapped = related.shuffled().prefix(4).map { WMFForYouArticle(title: $0.title, project: project) }
+        let candidates = candidatesPreferringNotExcluded(related, excluding: excluded)
+        let slotted = assignCardSlots(Array(candidates.prefix(8)))
+        let mapped = slotted.map { WMFForYouArticle(title: $0.title, project: project, description: $0.description, thumbnailURL: $0.thumbnailURL) }
         return WMFForYouBecauseYouReadArticles(
             recentlyRead: WMFForYouArticle(title: recentlyRead.title, project: project),
             articles: mapped
@@ -240,26 +623,39 @@ public final actor WMFHomeDataController {
 
     private func fetchForYouContinueReading(project: WMFProject) async throws -> WMFForYouContinueReading? {
         guard let pageViewsDataController else { return nil }
-        let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60)
-        guard let continueReadingArticle = pages.randomElement() else { return nil }
-        let saved = try await savedArticlesDataController.fetchRecentlySavedArticles(limit: 3)
-        let mapped = saved.compactMap { item -> WMFForYouArticle? in
-            guard let proj = WMFProject(id: item.page.projectID) else { return nil }
-            return WMFForYouArticle(title: item.page.title, project: proj)
+        let pages = try await pageViewsDataController.fetchRecentlyReadPages(project: project, minimumSeconds: 60, mainNamespaceOnly: true)
+        let saved = try await savedArticlesDataController.fetchRecentlySavedArticles(limit: 3, project: project)
+        let fromReadingList = saved.compactMap { item -> WMFForYouArticle? in
+            guard let itemProject = WMFProject(id: item.page.projectID),
+                  itemProject.languageCode == project.languageCode else { return nil }
+            return WMFForYouArticle(title: item.page.title, project: itemProject)
         }
-        return WMFForYouContinueReading(
-            continueReadingArticle: WMFForYouArticle(title: continueReadingArticle.title, project: project),
-            savedArticles: mapped
-        )
+        if let seed = pages.randomElement() {
+            return WMFForYouContinueReading(
+                continueReadingArticle: WMFForYouArticle(title: seed.title, project: project),
+                fromReadingListArticles: fromReadingList
+            )
+        } else {
+            return WMFForYouContinueReading(
+                continueReadingArticle: nil,
+                fromReadingListArticles: fromReadingList
+            )
+        }
     }
+
+    // MARK: - Fetching articles by topic
 
     /// Fetches random articles for display when no interest topics have been selected.
     public func fetchRandomArticles(project: WMFProject) async throws -> [WMFRandomArticle] {
         return try await WMFRandomDataController.shared.fetchRandomArticles(project: project)
     }
 
-    /// Fetches articles matching a specific interest topic.
+    /// Fetches articles matching a specific interest topic, reading from the warm cache when available.
     public func fetchArticles(for topic: WMFArticleTopic, project: WMFProject) async throws -> [WMFRandomArticle] {
+        return try await warmedOrFetchedTopicArticles(for: topic, project: project)
+    }
+
+    private func fetchArticlesFromNetwork(for topic: WMFArticleTopic, project: WMFProject) async throws -> [WMFRandomArticle] {
         let topicID = topic.rawValue
         guard let service = basicService else {
             throw WMFDataControllerError.basicServiceUnavailable
@@ -283,6 +679,7 @@ public final actor WMFHomeDataController {
             "redirects": "",
             "converttitles": "",
             "prop": "description|pageimages|pageprops|info|extracts",
+            "ppprop": "mainpage|disambiguation",
             "exchars": "500",
             "exintro": "1",
             "explaintext": "1",
@@ -303,8 +700,13 @@ public final actor WMFHomeDataController {
                 continuation.resume(with: result)
             }
         }
-        return response.query?.pages ?? []
+        // A disambiguation page and the main page are not good content for a suggestion.
+        return (response.query?.pages ?? []).filter { page in
+            return page.pageprops?.disambiguation == nil && page.pageprops?.mainpage == nil
+        }
     }
+
+    // MARK: - Community
 
     /// Fetches the Home feed "Community" data for the given date.
     /// Pass `Date()` (the default) to fetch today's data. The first-page response is cached per project per day.
@@ -414,6 +816,20 @@ public struct WMFCommunityResponse: Codable, Sendable {
 public struct WMFForYouArticle: Codable, Sendable {
     public let title: String
     public let project: WMFProject
+
+    /// The description and the thumbnail from the search response that suggested the article.
+    /// The response carries them anyway, so callers can show a card without a summary fetch.
+    /// They are nil for articles from local sources, and in responses cached before these
+    /// fields existed.
+    public let description: String?
+    public let thumbnailURL: URL?
+
+    public init(title: String, project: WMFProject, description: String? = nil, thumbnailURL: URL? = nil) {
+        self.title = title
+        self.project = project
+        self.description = description
+        self.thumbnailURL = thumbnailURL
+    }
 }
 
 public struct WMFForYouInterestTopicRandomArticles: Codable, Sendable {
@@ -432,8 +848,8 @@ public struct WMFForYouBecauseYouReadArticles: Codable, Sendable {
 }
 
 public struct WMFForYouContinueReading: Codable, Sendable {
-    public let continueReadingArticle: WMFForYouArticle
-    public let savedArticles: [WMFForYouArticle]
+    public let continueReadingArticle: WMFForYouArticle?
+    public let fromReadingListArticles: [WMFForYouArticle]
 }
 
 public struct WMFForYouResponse: Codable, Sendable {

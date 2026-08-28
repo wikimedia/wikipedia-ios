@@ -332,7 +332,6 @@
 "settings-notifications" = "Wara-wara";
 "settings-primary-language" = "Pokok";
 "settings-primary-language-details" = "Basa kapisan ing pratélan iki kaanggo minangka basa pokok tumrap aplikasiné.";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Busek";
 "settings-title" = "Setèlan";
 "share-a-fact-made-with" = "Digawé nganggo aplikasi Wikipédia";
 // Fuzzy
@@ -378,6 +377,18 @@
 "welcome-languages-description" = "Basa-basa ing ngisor iki ana ing pirantiné panjenengan:";
 // Fuzzy
 "welcome-languages-search-title" = "Golèk ing mèh 300 basa";
+"wikimedia-articletopics-topic-central-america" = "Amerika Tengah";
+"wikimedia-articletopics-topic-education" = "Pendidikan";
+"wikimedia-articletopics-topic-entertainment" = "Hiburan";
+"wikimedia-articletopics-topic-food-and-drink" = "Makanan dan minuman";
+"wikimedia-articletopics-topic-general-science" = "Ilmu pengetahuan umum";
+"wikimedia-articletopics-topic-history" = "Sejarah";
+"wikimedia-articletopics-topic-literature" = "Sastra";
+"wikimedia-articletopics-topic-music" = "Musik";
+"wikimedia-articletopics-topic-north-america" = "Amerika Utara";
+"wikimedia-articletopics-topic-physics" = "Fisika";
+"wikimedia-articletopics-topic-society" = "Masyarakat";
+"wikimedia-articletopics-topic-tv-and-film" = "Televisi dan film";
 "wikitext-preview-changes" = "Njupuk pratuduh owah-owahanmu ...";
 "wikitext-preview-link-preview-description" = "Pranala iki ngener '$1'";
 "wikitext-preview-link-preview-title" = "Pratuduhé pranala";

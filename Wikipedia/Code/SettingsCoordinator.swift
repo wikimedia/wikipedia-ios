@@ -27,6 +27,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     private let dataController: WMFSettingsDataController
     private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
     @MainActor private weak var settingsViewModel: WMFSettingsViewModel?
+    @MainActor private weak var storageAndSyncingViewModel: WMFStorageAndSyncingSettingsViewModel?
     @MainActor private var pushNotificationsViewModel: WMFPushNotificationsSettingsViewModel?
     private let languagesDelegateBridge = SettingsLanguagesDelegateBridge()
 
@@ -160,6 +161,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             showReadingPreferences()
         case .articleSyncing:
             showArticleSyncing()
+        case .editingPreferences:
+            showEditingPreferences()
         case .databasePopulation:
             tappedDatabasePopulation()
         case .clearCachedData:
@@ -588,6 +591,9 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     }
 
     private func showHomeFeedSettings() {
+        
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "home_feed_enter", experimentData: WMFHomeDataController.shared.experimentData)
+        
         guard let settingsNav = settingsNavigationController else {
             return
         }
@@ -714,6 +720,22 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         settingsNav.pushViewController(appearanceSettingsVC, animated: true)
     }
 
+    private func showEditingPreferences() {
+        guard let settingsNavigation = settingsNavigationController else { return }
+
+        let editingInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-editing")
+        editingInstrument.submitInteraction(action: "click", actionSource: "settings", elementId: "editing_method")
+
+        let viewController = WMFEditingPreferencesSettingsViewController(didSelectMode: { mode in
+            editingInstrument.submitInteraction(
+                action: "click",
+                actionSource: "settings",
+                elementId: mode == .visual ? "visual_editing" : "source_editing"
+            )
+        })
+        settingsNavigation.pushViewController(viewController, animated: true)
+    }
+
     // MARK: - Article Syncing
 
     private func showArticleSyncing() {
@@ -727,14 +749,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             syncSavedArticlesFooter: WMFLocalizedString("settings-storage-and-syncing-enable-sync-footer-text", value: "Allow Wikimedia to save your saved articles and reading lists to your user preferences when you login and sync.", comment: "Footer text of the settings option that enables saved articles and reading lists syncing"),
             showSavedReadingListTitle: WMFLocalizedString("settings-storage-and-syncing-show-default-reading-list-title", value: "Show Saved reading list", comment: "Title of the settings option that enables showing the default reading list"),
             showSavedReadingListFooter: WMFLocalizedString("settings-storage-and-syncing-show-default-reading-list-footer-text", value: "Show the Saved (eg. default) reading list as a separate list in your reading lists view. This list appears on Android devices.", comment: "Footer text of the settings option that enables showing the default reading list"),
-            eraseSavedArticlesTitle: CommonStrings.eraseAllSavedArticles,
-            eraseSavedArticlesButtonTitle: WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-button-title", value: "Erase", comment: "Title of the settings button that enables erasing saved articles"),
-            eraseSavedArticlesFooterFormat: WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-footer-text", value: "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as from this device.\n\nErasing your saved articles will free up about %1$@ of space.", comment: "Footer text of the settings option that enables erasing saved articles. %1$@ will be replaced with a number and a system provided localized unit indicator for MB or KB."),
             syncWithServerTitle: WMFLocalizedString("settings-storage-and-syncing-server-sync-title", value: "Update synced reading lists", comment: "Title of the settings button that initiates saved articles and reading lists server sync"),
-            syncWithServerFooter: WMFLocalizedString("settings-storage-and-syncing-server-sync-footer-text", value: "Request an update to your synced articles and reading lists.", comment: "Footer text of the settings button that initiates saved articles and reading lists server sync"),
-            eraseAlertTitle: WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-alert-title", value: "Erase all saved articles?", comment: "Title of the alert shown before erasing all saved article."),
-            eraseAlertMessage: WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-alert-message", value: "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as from this device. You cannot undo this action.", comment: "Message for the alert shown before erasing all saved articles."),
-            syncAlertMessage: WMFLocalizedString("settings-storage-and-syncing-full-sync", value: "Your reading lists will be synced in the background", comment: "Message confirming to the user that their reading lists will be synced in the background")
+            syncWithServerFooter: WMFLocalizedString("settings-storage-and-syncing-server-sync-footer-text", value: "Request an update to your synced articles and reading lists.", comment: "Footer text of the settings button that initiates saved articles and reading lists server sync")
         )
 
         let viewModel = WMFStorageAndSyncingSettingsViewModel(
@@ -745,21 +761,15 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             onToggleShowSavedList: { [weak self] isOn in
                 self?.dataStore.readingListsController.isDefaultListEnabled = isOn
             },
-            onEraseArticles: { [weak self] in
-                self?.showEraseArticlesAlert()
-            },
             onSyncWithServer: { [weak self] in
                 self?.handleSyncWithServer()
             }
         )
+        storageAndSyncingViewModel = viewModel
 
         // Update initial state
         viewModel.updateSyncStatus(dataStore.readingListsController.isSyncEnabled)
         viewModel.updateShowSavedList(dataStore.readingListsController.isDefaultListEnabled)
-
-        let cacheSize = CacheController.totalCacheSizeInBytes
-        let dataSizeString = ByteCountFormatter.string(fromByteCount: cacheSize, countStyle: .file)
-        viewModel.updateCacheSize(dataSizeString)
 
         let rootView = WMFStorageAndSyncingSettingsView(viewModel: viewModel)
         let hostingController = UIHostingController(rootView: rootView)
@@ -773,60 +783,55 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         if !isPermanent && isOn {
             // User needs to log in first
             guard let settingsNav = settingsNavigationController else {
-            return
-        }
-
-            let dismissHandler = {
-                // Revert toggle if dismissed
+                return
             }
 
-            let loginSuccessCompletion = {
-                self.dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+            let dismissHandler: () -> Void = { [weak self] in
+                self?.storageAndSyncingViewModel?.updateSyncStatus(false)
+            }
+
+            let loginSuccessCompletion = { [weak self] in
+                self?.dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                self?.storageAndSyncingViewModel?.updateSyncStatus(true)
                 SettingsFunnel.shared.logSyncEnabledInSettings()
             }
 
             settingsNav.wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: dismissHandler, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: dismissHandler)
         } else if isPermanent {
-            let setSyncEnabled = {
-                self.dataStore.readingListsController.setSyncEnabled(isOn, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: !isOn)
-                if isOn {
-                    SettingsFunnel.shared.logSyncEnabledInSettings()
-                } else {
-                    SettingsFunnel.shared.logSyncDisabledInSettings()
-                }
-            }
-
-            if !isOn {
-                guard let settingsNav = settingsNavigationController else {
-            return
-        }
-                settingsNav.wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .syncDisabled, theme: theme, authInstrument: nil) {
-                    setSyncEnabled()
-                }
+            if isOn {
+                dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                storageAndSyncingViewModel?.updateSyncStatus(true)
+                SettingsFunnel.shared.logSyncEnabledInSettings()
             } else {
-                setSyncEnabled()
+                showDisableSyncAlert()
             }
         }
     }
 
-    private func showEraseArticlesAlert() {
+    /// Matches Android's disable-sync prompt: No cancels, only Yes tears down
+    /// remote reading lists. Local lists and articles are never deleted from this path.
+    private func showDisableSyncAlert() {
         guard let settingsNav = settingsNavigationController else {
             return
         }
 
         let alert = UIAlertController(
-            title: WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-alert-title", value: "Erase all saved articles?", comment: "Title of the alert shown before erasing all saved article."),
-            message: WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-alert-message", value: "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as from this device. You cannot undo this action.", comment: "Message for the alert shown before erasing all saved articles."),
+            title: WMFLocalizedString("settings-storage-and-syncing-disable-sync-alert-title", value: "Turn off reading list syncing?", comment: "Title of the confirmation alert shown when the user turns off reading list syncing"),
+            message: WMFLocalizedString("settings-storage-and-syncing-disable-sync-alert-message", value: "Turning off syncing will delete your synced reading lists from your Wikipedia account and from other devices. Your lists and articles will remain on this device.", comment: "Message of the confirmation alert shown when the user turns off reading list syncing"),
             preferredStyle: .alert
         )
 
-        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
-        let erase = UIAlertAction(title: CommonStrings.eraseAllSavedArticles, style: .destructive) { _ in
-            self.dataStore.readingListsController.eraseAllSavedArticlesAndReadingLists()
+        let no = UIAlertAction(title: WMFLocalizedString("settings-storage-and-syncing-disable-sync-alert-no", value: "No", comment: "Button that cancels turning off reading list syncing"), style: .cancel) { [weak self] _ in
+            self?.storageAndSyncingViewModel?.updateSyncStatus(true)
+        }
+        let yes = UIAlertAction(title: WMFLocalizedString("settings-storage-and-syncing-disable-sync-alert-yes", value: "Yes", comment: "Button that confirms turning off reading list syncing"), style: .destructive) { [weak self] _ in
+            self?.dataStore.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: true)
+            self?.storageAndSyncingViewModel?.updateSyncStatus(false)
+            SettingsFunnel.shared.logSyncDisabledInSettings()
         }
 
-        alert.addAction(cancel)
-        alert.addAction(erase)
+        alert.addAction(no)
+        alert.addAction(yes)
         settingsNav.present(alert, animated: true)
     }
 

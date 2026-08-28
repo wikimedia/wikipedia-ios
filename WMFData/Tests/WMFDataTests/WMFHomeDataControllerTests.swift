@@ -71,6 +71,29 @@ final class WMFHomeDataControllerTests: XCTestCase {
         }
     }
 
+    /// The search response carries a description and a thumbnail for each article. The mapping
+    /// must keep them, so a card can show its content without a summary fetch.
+    func testFetchForYouKeepsTheSearchMetadataOnTopicArticles() async throws {
+        let controller = makeForYouController(topics: [.biology])
+        let response = try await controller.fetchForYou(project: enProject)
+
+        let articles = response.interestTopicRandomArticles.first?.articles ?? []
+        XCTAssertFalse(articles.isEmpty)
+        XCTAssertTrue(articles.contains { $0.description != nil }, "The description from the search response must survive the mapping")
+        XCTAssertTrue(articles.contains { $0.thumbnailURL != nil }, "The thumbnail from the search response must survive the mapping")
+    }
+
+    func testFetchForYouKeepsTheSearchMetadataOnPageInterestArticles() async throws {
+        try await seedPageInterests(["Cat"], project: enProject)
+        let controller = makeForYouController(topics: [])
+        let response = try await controller.fetchForYou(project: enProject)
+
+        let articles = response.interestPageRelatedArticles.first?.articles ?? []
+        XCTAssertFalse(articles.isEmpty)
+        XCTAssertTrue(articles.contains { $0.description != nil }, "The description from the search response must survive the mapping")
+        XCTAssertTrue(articles.contains { $0.thumbnailURL != nil }, "The thumbnail from the search response must survive the mapping")
+    }
+
     func testFetchForYouReturnsEmptyPageInterestArticlesWhenNoPageInterestsSaved() async throws {
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)
@@ -86,11 +109,73 @@ final class WMFHomeDataControllerTests: XCTestCase {
         XCTAssertEqual(returnedTitles, ["Cat", "Dog", "Fish"])
     }
 
-    func testFetchForYouCapsAtFivePageInterests() async throws {
-        try await seedPageInterests(["Cat", "Dog", "Fish", "Bird", "Lizard", "Snake", "Frog"], project: enProject)
+    /// The API sends the same related articles for 24 hours, thus the module must not become empty.
+    func testAPageInterestGroupKeepsItsArticlesWhenTheUserSawThemAll() async throws {
+        try await seedPageInterests(["Cat"], project: enProject)
+        let controller = makeForYouController(topics: [])
+
+        // Every article of the related pages fixture is now an article that the user saw.
+        for title in ["Trap–neuter–return", "Purr", "Feral cat"] {
+            controller.recordSeenArticle(title: title, project: enProject)
+        }
+
+        let response = try await controller.fetchForYou(project: enProject)
+
+        XCTAssertEqual(response.interestPageRelatedArticles.count, 1)
+        XCTAssertFalse(response.interestPageRelatedArticles[0].articles.isEmpty,
+                       "A group with all its articles seen must still show articles")
+    }
+
+    /// The user can select an unbounded number of article interests, and each one costs a network
+    /// request when the feed loads. The day's seed selection caps that at five.
+    func testFetchForYouCapsThePageInterestSeedsAtFive() async throws {
+        let titles = ["Cat", "Dog", "Fish", "Bird", "Lizard", "Snake", "Frog"]
+        try await seedPageInterests(titles, project: enProject)
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)
         XCTAssertEqual(response.interestPageRelatedArticles.count, 5)
+        XCTAssertTrue(Set(response.interestPageRelatedArticles.map { $0.pageInterest.title }).isSubset(of: Set(titles)))
+    }
+
+    func testFetchForYouCapsTheTopicSeedsAtFive() async throws {
+        let topics: [WMFArticleTopic] = [.architecture, .visualArts, .biology, .biography, .history, .mathematics, .music, .physics]
+        let controller = makeForYouController(topics: topics)
+        let response = try await controller.fetchForYou(project: enProject)
+        XCTAssertEqual(response.interestTopicRandomArticles.count, 5)
+        XCTAssertTrue(Set(response.interestTopicRandomArticles.map { $0.topic }).isSubset(of: Set(topics)))
+    }
+
+    /// The seed selection must not change during the day: the warm-up, the fetch, and a repeated
+    /// fetch must all work with the same seeds, or the caches miss.
+    func testTheDailySeedSelectionIsStableWithinOneDay() async throws {
+        let titles = ["Cat", "Dog", "Fish", "Bird", "Lizard", "Snake", "Frog"]
+        try await seedPageInterests(titles, project: enProject)
+        let topics: [WMFArticleTopic] = [.architecture, .visualArts, .biology, .biography, .history, .mathematics, .music, .physics]
+        let controller = makeForYouController(topics: topics)
+
+        let first = try await controller.fetchForYou(project: enProject, forceFetch: true)
+        let second = try await controller.fetchForYou(project: enProject, forceFetch: true)
+
+        // Sets, not arrays: the groups arrive in completion order, which varies between fetches.
+        XCTAssertEqual(Set(first.interestTopicRandomArticles.map { $0.topic }), Set(second.interestTopicRandomArticles.map { $0.topic }))
+        XCTAssertEqual(Set(first.interestPageRelatedArticles.map { $0.pageInterest.title }), Set(second.interestPageRelatedArticles.map { $0.pageInterest.title }))
+    }
+
+    /// The warm-up must download only the seeds of the day. A warm-up of every interest would
+    /// have the same unbounded cost that the seed cap removes from the fetch.
+    func testTheWarmUpDownloadsOnlyTheDailySeeds() async throws {
+        let titles = ["Cat", "Dog", "Fish", "Bird", "Lizard", "Snake", "Frog"]
+        try await seedPageInterests(titles, project: enProject)
+        let relatedService = CountingMockService(jsonResourceName: "related-pages-get")
+        let controller = makeForYouController(topics: [], relatedPagesDataController: WMFRelatedPagesDataController(basicService: relatedService))
+
+        await controller.warmForYouArticles(project: enProject)
+
+        XCTAssertEqual(relatedService.decodableGETCallCount, 5)
+
+        // The fetch reuses the warmed seeds, so no further download is necessary.
+        _ = try await controller.fetchForYou(project: enProject, forceFetch: true)
+        XCTAssertEqual(relatedService.decodableGETCallCount, 5)
     }
 
     func testFetchForYouCapsAtFourRelatedArticlesPerPageInterest() async throws {
@@ -194,7 +279,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
     func testFetchForYouContinueReadingIsNilWhenNoPageViewsExist() async throws {
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)
-        XCTAssertNil(response.continueReadingArticles)
+        XCTAssertNil(response.continueReadingArticles?.continueReadingArticle)
     }
 
     func testFetchForYouContinueReadingIsNilWhenPageViewsUnderSixtySeconds() async throws {
@@ -204,7 +289,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
         }
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)
-        XCTAssertNil(response.continueReadingArticles)
+        XCTAssertNil(response.continueReadingArticles?.continueReadingArticle)
     }
 
     func testFetchForYouContinueReadingIsPopulatedWhenPageViewQualifies() async throws {
@@ -212,7 +297,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)
         XCTAssertNotNil(response.continueReadingArticles)
-        XCTAssertEqual(response.continueReadingArticles?.continueReadingArticle.title, "Cat")
+        XCTAssertEqual(response.continueReadingArticles?.continueReadingArticle?.title, "Cat")
     }
 
     func testFetchForYouContinueReadingCapsAtThreeSavedArticles() async throws {
@@ -220,7 +305,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
         try await seedSavedArticles(["Article1", "Article2", "Article3", "Article4"], project: enProject)
         let controller = makeForYouController(topics: [])
         let response = try await controller.fetchForYou(project: enProject)
-        XCTAssertEqual(response.continueReadingArticles?.savedArticles.count, 3)
+        XCTAssertEqual(response.continueReadingArticles?.fromReadingListArticles.count, 3)
     }
 
     func testFetchForYouReturnsOneGroupPerTopicWhenFewerThanFive() async throws {
@@ -232,11 +317,13 @@ final class WMFHomeDataControllerTests: XCTestCase {
         XCTAssertEqual(returnedTopics, Set(topics))
     }
 
-    func testFetchForYouCapsAtFiveTopics() async throws {
-        let topics: [WMFArticleTopic] = [.history, .biology, .music, .films, .sports, .physics, .technology]
+    /// Every topic of the user gets a group, up to the daily seed cap.
+    func testFetchForYouReturnsOneGroupPerTopicUnderTheSeedCap() async throws {
+        let topics: [WMFArticleTopic] = [.history, .biology, .music, .films]
         let controller = makeForYouController(topics: topics)
         let response = try await controller.fetchForYou(project: enProject)
-        XCTAssertEqual(response.interestTopicRandomArticles.count, 5)
+        XCTAssertEqual(response.interestTopicRandomArticles.count, topics.count)
+        XCTAssertEqual(Set(response.interestTopicRandomArticles.map { $0.topic }), Set(topics))
     }
 
     func testFetchForYouCapsAtFourArticlesPerTopic() async throws {
@@ -419,7 +506,189 @@ final class WMFHomeDataControllerTests: XCTestCase {
             _ = try await noServiceController.fetchForYou(project: esProject)
             XCTFail("Expected basicServiceUnavailable error")
         } catch WMFDataControllerError.basicServiceUnavailable {
-            // expected — es project cache miss triggers network call which fails
+            // expected
         }
     }
+    
+    // MARK: - Experiment assignment
+
+    func testPersistredHomeTabAssignmentReturnsControlWhenNoExperimentStore() {
+        let controller = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse)
+        )
+        XCTAssertEqual(controller.persistedHomeTabAssignment(), .control)
+    }
+
+    func testIsHomeTabGroupBIsFalseWhenControlAssigned() {
+        let controller = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse)
+        )
+        XCTAssertFalse(controller.isHomeTabGroupB)
+    }
+
+    func testPersistredHomeTabAssignmentIsStableAcrossMultipleCalls() {
+        let controller = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse)
+        )
+        controller.assignExperiment()
+        let first = controller.persistedHomeTabAssignment()
+        let second = controller.persistedHomeTabAssignment()
+        XCTAssertEqual(first, second)
+    }
+
+    func testPersistredHomeTabAssignmentIsStableAcrossNewControllerInstancesWithSameStore() {
+        // Two controllers sharing the same store (set in setUp) must land in the same bucket,
+        // because determineBucketForExperiment persists the result.
+        let first = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse)
+        )
+        first.assignExperiment()
+        let second = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse)
+        )
+        second.assignExperiment()
+        XCTAssertEqual(first.persistedHomeTabAssignment(), second.persistedHomeTabAssignment())
+    }
+
+    // MARK: - One-time onboarding state
+
+    func testHasSeenOneTimeOnboardingDefaultsToFalse() {
+        let controller = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: WMFMockKeyValueStore()
+        )
+        XCTAssertFalse(controller.hasSeenOneTimeOnboarding())
+    }
+
+    func testSetHasSeenOneTimeOnboardingPersists() {
+        let store = WMFMockKeyValueStore()
+        let controller = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: store
+        )
+        controller.setHasSeenOneTimeOnboarding(true)
+        XCTAssertTrue(controller.hasSeenOneTimeOnboarding())
+    }
+
+    func testSetHasSeenOneTimeOnboardingCanBeReset() {
+        let store = WMFMockKeyValueStore()
+        let controller = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: store
+        )
+        controller.setHasSeenOneTimeOnboarding(true)
+        controller.setHasSeenOneTimeOnboarding(false)
+        XCTAssertFalse(controller.hasSeenOneTimeOnboarding())
+    }
+
+    func testHasSeenOneTimeOnboardingIsIsolatedByStore() {
+        let storeA = WMFMockKeyValueStore()
+        let storeB = WMFMockKeyValueStore()
+        let controllerA = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: storeA
+        )
+        let controllerB = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: storeB
+        )
+        controllerA.setHasSeenOneTimeOnboarding(true)
+        XCTAssertFalse(controllerB.hasSeenOneTimeOnboarding())
+    }
+
+    // MARK: - New install onboarding start event
+
+    func testDidSendNewInstallOnboardingStartEventDefaultsToFalse() {
+        let controller = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: WMFMockKeyValueStore()
+        )
+        XCTAssertFalse(controller.didSendNewInstallOnboardingStartEvent())
+    }
+
+    func testSetDidSendNewInstallOnboardingStartEventPersists() {
+        let store = WMFMockKeyValueStore()
+        let controller = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: store
+        )
+        controller.setDidSendNewInstallOnboardingStartEvent(true)
+        XCTAssertTrue(controller.didSendNewInstallOnboardingStartEvent())
+    }
+
+    func testDidSendNewInstallOnboardingStartEventIsIsolatedByStore() {
+        let storeA = WMFMockKeyValueStore()
+        let storeB = WMFMockKeyValueStore()
+        let controllerA = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: storeA
+        )
+        let controllerB = WMFHomeDataController(
+            feedDataController: WMFMockFeedDataController(response: stubResponse),
+            userDefaultsStore: storeB
+        )
+        controllerA.setDidSendNewInstallOnboardingStartEvent(true)
+        XCTAssertFalse(controllerB.didSendNewInstallOnboardingStartEvent())
+    }
+
+    // MARK: - Helpers
+
+    private func makeRandomArticle(title: String, index: Int, hasThumbnail: Bool) -> WMFRandomArticle {
+        WMFRandomArticle(
+            pageid: index,
+            title: title,
+            index: index,
+            thumbnail: hasThumbnail ? WMFRandomArticleThumbnail(source: "https://en.wikipedia.org/\(title).jpg", width: nil, height: nil) : nil
+        )
+    }
+
+    private func makeRelatedPage(title: String, hasThumbnail: Bool) -> WMFRelatedPagesDataController.WMFRelatedPage {
+        WMFRelatedPagesDataController.WMFRelatedPage(
+            pageid: title.hashValue,
+            title: title,
+            description: nil,
+            thumbnailURL: hasThumbnail ? URL(string: "https://example.com/\(title).jpg") : nil,
+            extract: nil
+        )
+    }
+}
+
+private extension Array {
+    subscript(safe index: Int) -> Element? {
+        indices.contains(index) ? self[index] : nil
+    }
+}
+
+/// Counts the requests that reach the service. The responses come from the standard mock.
+private final class CountingMockService: WMFService, @unchecked Sendable {
+    private let wrapped: WMFMockBasicService
+    private let lock = NSLock()
+    private var _decodableGETCallCount = 0
+
+    init(jsonResourceName: String) {
+        wrapped = WMFMockBasicService(jsonResourceName: jsonResourceName)
+    }
+
+    var decodableGETCallCount: Int {
+        lock.withLock { _decodableGETCallCount }
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
+        wrapped.perform(request: request, completion: completion)
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+        wrapped.perform(request: request, completion: completion)
+    }
+
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        lock.withLock { _decodableGETCallCount += 1 }
+        wrapped.performDecodableGET(request: request, completion: completion)
+    }
+
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        wrapped.performDecodablePOST(request: request, completion: completion)
+    }
+
+    func clearCachedData() {}
 }

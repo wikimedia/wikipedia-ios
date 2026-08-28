@@ -476,8 +476,6 @@
 "reading-list-generic-error" = "Houbo un erro inesperado ó actualizar as súas listas de lectura.";
 "reading-list-keep-button-title" = "Si, mantener os artigos no dispositivo";
 "reading-list-keep-subtitle" = "Hai artigos sincronizados na súa conta de Wikipedia. Quere mantelos neste dispositivo despois de desconectarse da súa conta?";
-"reading-list-keep-sync-disabled-additional-subtitle" = "Desactivar a sincronización fará eliminar estes artigos da sua conta. Se os elimina do seu dispositivo, eles non serán recuperábeis voltando a activar a sincronización no futuro.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Non, eliminar artigos do dispositivo e da miña conta da Wikipedia";
 "reading-list-keep-title" = "Manter os artigos gardados no dispositivo?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordenar artigos";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Hai un límite de 5000 artigos para ordenar. Por favor, ordene os seus artigos existentes en listas para continuar a sincronización dos artigos sen ordenar.";
@@ -580,11 +578,6 @@
 "settings-search-open-app-on-search" = "Abrir aplicación na pestana de procura";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que, cando se autenticar e sincronizar, a Wikimedia garde nas súas preferencias os artigos gardados e as listaxes de lectura.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizar os artigos e as listas gardadas";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Ó borrar os seus artigos gardados iso eliminaraos da súa conta de usuario se ten activada a sincronización neste dispositivo. Non pode desfacer esta acción.";
-"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Borrar tódolos artigos gardados?";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Borrar";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Se activou a sincronización a partir deste dispositivo, borrar os seus artigos gardados irá eliminalos tamén da súa conta de usuario.\n\nBorrando os seus artigos gardados liberará preto de $1 de almacenamento.";
-"settings-storage-and-syncing-erase-saved-articles-title" = "Borrar artigos gardados";
 "settings-storage-and-syncing-full-sync" = "As súas listaxes de lectura serán sincronizadas en segundo plano";
 "settings-storage-and-syncing-server-sync-footer-text" = "Pedir una atualización dos seus artigos e listaxes de lectura sincronizados.";
 "settings-storage-and-syncing-server-sync-title" = "Actualizar as listas de lectura sincronizadas";
@@ -649,6 +642,16 @@
 "welcome-languages-add-or-edit-button" = "Engadir ou modificar as linguas preferidas";
 "welcome-languages-description" = "Atopamos as seguintes linguaxes no seu dispositivoː";
 "welcome-languages-search-title" = "Procurar en máis de 300 linguas";
+"wikimedia-articletopics-topic-asia" = "Asia";
+"wikimedia-articletopics-topic-entertainment" = "Entretemento";
+"wikimedia-articletopics-topic-food-and-drink" = "Comida e bebida";
+"wikimedia-articletopics-topic-literature" = "Literatura";
+"wikimedia-articletopics-topic-music" = "Música";
+"wikimedia-articletopics-topic-north-america" = "Norteamérica";
+"wikimedia-articletopics-topic-oceania" = "Oceanía";
+"wikimedia-articletopics-topic-physics" = "Física";
+"wikimedia-articletopics-topic-politics-and-government" = "Política e goberno";
+"wikimedia-articletopics-topic-tv-and-film" = "Televisión e cine";
 "wikitext-preview-changes" = "Xenerando previsualización dos teus cambios…";
 "wikitext-preview-link-external-preview-description" = "Esta ligazón leva a un sitio web externoː $1";
 "wikitext-preview-link-external-preview-title" = "Ligazón externa";

@@ -234,6 +234,9 @@ extension ArticleRobot {
             file: file,
             line: line
         )
+
+        textField.typeText("\n")
+        base.waitForElementToDisappear(base.app.keyboards.firstMatch, timeout: 10, file: file, line: line)
         return self
     }
 
