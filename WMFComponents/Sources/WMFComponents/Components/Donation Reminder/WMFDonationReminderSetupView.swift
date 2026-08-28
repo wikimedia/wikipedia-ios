@@ -14,10 +14,12 @@ struct WMFDonationReminderSetupView: View {
             ScrollViewReader { scrollProxy in
                 scrollContent(scrollProxy: scrollProxy)
             }
-            footerButtons
-                .padding(.horizontal)
-                .padding(.top, 12)
-                .padding(.bottom, 8)
+            if viewModel.isReminderEnabled || viewModel.origin == .banner {
+                footerButtons
+                    .padding(.horizontal)
+                    .padding(.top, 12)
+                    .padding(.bottom, 8)
+            }
         }
         .animation(.default, value: viewModel.isReminderEnabled)
         .background(Color(theme.paperBackground))
@@ -34,7 +36,9 @@ struct WMFDonationReminderSetupView: View {
                     WMFBetaBadge()
                 }
                 header
-                reminderToggle
+                if viewModel.origin == .settings {
+                    reminderToggle
+                }
                 if viewModel.isReminderEnabled {
                     VStack(alignment: .leading, spacing: 24) {
                         triggerGroup
@@ -171,17 +175,19 @@ struct WMFDonationReminderSetupView: View {
     private var footerButtons: some View {
         VStack(spacing: 12) {
             if viewModel.isReminderEnabled {
-                WMFLargeButton(style: .primary, title: viewModel.localizedStrings.confirmButtonTitle) {
+                WMFLargeButton(style: .primary, title: viewModel.primaryButtonTitle) {
                     viewModel.confirm()
                 }
-                .disabled(!viewModel.canConfirm)
-                .opacity(viewModel.canConfirm ? 1 : 0.5)
+                .disabled(!viewModel.isConfirmButtonEnabled)
+                .opacity(viewModel.isConfirmButtonEnabled ? 1 : 0.5)
             }
 
-            WMFSmallButton(configuration: WMFSmallButton.Configuration(style: .quiet), title: viewModel.localizedStrings.aboutExperimentButtonTitle) {
-                viewModel.didTapAboutExperiment?()
+            if viewModel.origin == .banner {
+                WMFSmallButton(configuration: WMFSmallButton.Configuration(style: .quiet), title: viewModel.localizedStrings.noThanksButtonTitle) {
+                    viewModel.declineReminder()
+                }
+                .frame(maxWidth: .infinity)
             }
-            .frame(maxWidth: .infinity)
         }
     }
 }

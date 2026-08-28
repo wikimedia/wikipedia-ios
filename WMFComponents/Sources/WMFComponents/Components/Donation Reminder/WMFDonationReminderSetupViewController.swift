@@ -39,6 +39,38 @@ public final class WMFDonationReminderSetupViewController: WMFCanvasViewControll
 
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .centerCompact)
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(
+            titleConfig: titleConfig,
+            closeButtonConfig: nil,
+            profileButtonConfig: nil,
+            tabsButtonConfig: nil,
+            searchBarConfig: nil,
+            hideNavigationBarOnScroll: false
+        )
+        navigationItem.rightBarButtonItem = moreBarButtonItem
+    }
+
+    private lazy var moreBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsis), primaryAction: nil, menu: overflowMenu)
+        button.accessibilityLabel = viewModel.localizedStrings.moreButtonAccessibilityLabel
+        return button
+    }()
+
+    private var overflowMenu: UIMenu {
+        let learnMoreAction = UIAction(
+            title: viewModel.localizedStrings.learnMoreButtonTitle,
+            image: WMFSFSymbolIcon.for(symbol: .infoCircle)
+        ) { [weak self] _ in
+            self?.viewModel.didTapAboutExperiment?()
+        }
+
+        let reportProblemAction = UIAction(
+            title: viewModel.localizedStrings.problemWithFeatureButtonTitle,
+            image: WMFSFSymbolIcon.for(symbol: .flag)
+        ) { [weak self] _ in
+            self?.viewModel.didTapReportProblem?()
+        }
+
+        return UIMenu(title: String(), options: .displayInline, children: [learnMoreAction, reportProblemAction])
     }
 }
