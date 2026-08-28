@@ -7,13 +7,15 @@ import WMFNativeLocalizations
 struct WMFHomeEmptyStateView: View {
 
     /// The two segments show the same title. This key is already translated, so both segments use it.
-    private let title = WMFLocalizedString("for-you-empty-title", value: "Nothing here yet", comment: "Title shown on the Home tab's For You or Community segment when there is no content to display.")
+    private let title = WMFLocalizedString("home-empty-feed-title", value: "Your feed is empty", comment: "Title shown on the Home tab's For You or Community segment when the reader has turned off every feed module for it in settings.")
 
-    private let buttonTitle = WMFLocalizedString("home-empty-go-to-settings-button", value: "Go to settings", comment: "Button on the Home tab's For You or Community empty state. It opens the feed settings.")
+    private let buttonTitle = WMFLocalizedString("home-empty-feed-manage-modules-button", value: "Manage modules", comment: "Button on the Home tab's For You or Community empty state. It opens the modules screen of the feed settings.")
 
     let subtitle: String
     let theme: WMFTheme
     let action: () -> Void
+    
+    var uiImage = UIImage(named: "empty_feed", in: Bundle.module, compatibleWith: nil)
 
     var body: some View {
         let viewModel = WMFEmptyViewModel(
@@ -24,7 +26,9 @@ struct WMFHomeEmptyStateView: View {
                 buttonTitle: buttonTitle,
                 attributedFilterString: nil
             ),
-            image: WMFSFSymbolIcon.for(symbol: .sparkles, font: .xxlTitleBold),
+            // Placeholder until design defines the empty feed asset (the mock shows the
+            // document-with-magnifying-glass illustration).
+            image: uiImage,
             imageColor: theme.secondaryText,
             numberOfFilters: nil,
             // A nil size keeps the SF Symbol at its natural size. The default size distorts it.

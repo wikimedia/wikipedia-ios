@@ -88,7 +88,10 @@ public final class WMFForYouViewModel: ObservableObject {
     /// Called with a card that the user really sees on the screen.
     public var onShowCard: ((WMFForYouArticleCardViewModel) -> Void)?
 
-    public let emptySubtitle = WMFLocalizedString("for-you-empty-subtitle-interests-or-modules", value: "Add interests or turn on modules to get personalized article recommendations", comment: "Subtitle shown on the For You tab empty state, encouraging the reader to add interests or turn modules back on.")
+    var emptySubtitle: String {
+        let format = WMFLocalizedString("home-empty-for-you-feed-subtitle", value: "Turn on the %1$@“For you”%2$@ modules to start seeing content based on your preferences.", comment: "Message shown on the Home tab's For You segment when the reader has turned off every For You module in settings. “For you” matches the segment name. %1$@ and %2$@ are opening and closing bold.")
+        return String.localizedStringWithFormat(format, "<b>", "</b>")
+    }
 
     // MARK: - Position in the feed
     private(set) var lastViewedModuleID: UUID?
