@@ -954,8 +954,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private func resumeApp(_ completion: (() -> Void)?) {
         // Assign and apply the home tab experiment before onboarding decisions are made,
         // so that presentOnboardingIfNeeded and loadMainUI both see the correct flag.
-        _ = WMFHomeDataController.shared.persistedHomeTabAssignment()
-        
+        WMFHomeDataController.shared.assignExperiment()
+        WMFHomeDataController.shared.logExperimentExposure()
+
         presentOnboardingIfNeeded { didShowOnboarding in
             self.loadMainUI()
             let done: () -> Void = {
