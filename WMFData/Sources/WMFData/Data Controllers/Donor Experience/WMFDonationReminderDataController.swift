@@ -167,6 +167,7 @@ public final class WMFDonationReminderDataController {
         guard WMFDeveloperSettingsDataController.shared.enableDonationReminder,
               let reminder = loadReminder(),
               reminder.isEnabled,
+              !reminder.isExpired(currentDate: currentDate),
               case .articlesRead(count: let articlesReadGoal) = reminder.trigger else {
             return false
         }

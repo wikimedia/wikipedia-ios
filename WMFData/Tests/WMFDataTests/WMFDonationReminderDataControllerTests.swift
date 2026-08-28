@@ -488,6 +488,21 @@ final class WMFDonationReminderDataControllerTests {
         }
     }
 
+    @Test
+    func followUpReminderStopsAfterExperimentEndDate() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironmentWithCoreData) {
+            WMFDeveloperSettingsDataController.shared.enableDonationReminder = true
+            let endDate = Date(timeIntervalSince1970: 1_800_000_000)
+            let progress = WMFDonationReminder.Progress(currentCycleStartDate: Date(timeIntervalSince1970: 1_799_000_000), timesReminderShown: 1)
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 1, currencyCode: "EUR", createdDate: Date(timeIntervalSince1970: 1_700_000_000), isEnabled: true, progress: progress, experimentEndDate: endDate))
+
+            let showsBeforeEndDate = try await controller.shouldShowFollowUpReminder(currentDate: endDate.addingTimeInterval(-86_400))
+            let showsAfterEndDate = try await controller.shouldShowFollowUpReminder(currentDate: endDate.addingTimeInterval(86_400))
+            #expect(showsBeforeEndDate)
+            #expect(showsAfterEndDate == false)
+        }
+    }
+
     private func addQualifyingPageView(title: String, timestamp: Date) async throws {
         try await addPageView(title: title, timestamp: timestamp, numberOfSeconds: Double(WMFDonationReminderDataController.minimumSecondsForArticleRead))
     }
