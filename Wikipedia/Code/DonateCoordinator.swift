@@ -25,6 +25,7 @@ class DonateCoordinator: Coordinator {
         case settingsProfile
         case exploreProfile
         case articleProfile(ArticleURL)
+        case donationReminderArticle(ArticleURL, pledgeAmount: Decimal, currencyCode: String)
         case yearInReview(slideLoggingID: String)
         case placesProfile
         case savedProfile
@@ -61,7 +62,7 @@ class DonateCoordinator: Coordinator {
             }
 
             return wikimediaProject
-        case .articleProfile(let articleURL):
+        case .articleProfile(let articleURL), .donationReminderArticle(let articleURL, _, _):
             guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
                 return nil
             }
@@ -121,6 +122,13 @@ class DonateCoordinator: Coordinator {
             }
 
             return "\(languageCode)\(countryCode)_appmenu_iOS"
+        case .donationReminderArticle:
+            guard let languageCode,
+                  let countryCode = Locale.current.region?.identifier else {
+                return nil
+            }
+
+            return "\(languageCode)\(countryCode)_appmenu_reminder_iOS"
         case .activityTabProfile:
             guard let languageCode,
                   let countryCode = Locale.current.region?.identifier else {
@@ -224,8 +232,11 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logSearchProfileDonateCancel(metricsID: metricsID)
             case .activityTabProfile:
                 DonateFunnel.shared.logActivityProfileDonateCancel(metricsID: metricsID)
+            case .donationReminderArticle:
+                break
             }
         }))
+
 
         let applePayAction = UIAlertAction(title: applePayButtonTitle, style: .default, handler: { [weak self] action in
             guard let self else {
@@ -256,6 +267,8 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logSearchProfileDonateApplePay(metricsID: metricsID)
             case .activityTabProfile:
                 DonateFunnel.shared.logActivityProfileDonateApplePay(metricsID: metricsID)
+            case .donationReminderArticle:
+                break
             }
             self.navigateToNativeDonateForm(donateViewModel: donateViewModel)
         })
@@ -290,6 +303,8 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logSearchProfileDonateWebPay(metricsID: metricsID)
             case .activityTabProfile:
                 DonateFunnel.shared.logActivityProfileDonateWebPay(metricsID: metricsID)
+            case .donationReminderArticle:
+                break
             }
             navigateToOtherPaymentMethod()
         }))
@@ -394,6 +409,7 @@ class DonateCoordinator: Coordinator {
 
         let localizedStrings = WMFDonateViewModel.LocalizedStrings(title: donate, cancelTitle: cancel, transactionFeeOptInTextFormat: transactionFeeFormat, monthlyRecurringText: monthlyRecurring, emailOptInText: emailOptIn, maximumErrorText: maximum, minimumErrorText: minimum, genericErrorTextFormat: genericErrorFormat, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, appleFinePrint: appleFinePrint, wikimediaFinePrint1: wikimediaFinePrint1, wikimediaFinePrint2: wikimediaFinePrint2, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityMonthlyRecurringHint: accessibilityMonthlyRecurringHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
 
+
         guard let viewModel = WMFDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, metricsID: metricsID, appVersion: appVersion, appInstallID: appInstallID, coordinatorDelegate: self, loggingDelegate: self) else {
             return nil
         }
@@ -429,7 +445,7 @@ class DonateCoordinator: Coordinator {
 
         let completeButtonTitle: String
         switch source {
-        case .articleCampaignModal, .articleProfile:
+        case .articleCampaignModal, .articleProfile, .donationReminderArticle:
             completeButtonTitle = CommonStrings.returnToArticle
         case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .searchProfile, .activityTabProfile:
             completeButtonTitle = CommonStrings.returnButtonTitle
@@ -726,6 +742,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .activityTabProfile:
             DonateFunnel.shared.logActivityProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+        case .donationReminderArticle:
+            break
         }
     }
 
@@ -799,6 +817,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: wikimediaProject, metricsID: metricsID)
         case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .searchProfile, .activityTabProfile:
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton(metricsID: metricsID)
+        case .donationReminderArticle:
+            break
         }
     }
 
@@ -841,6 +861,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
                 DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .activityTabProfile:
                 DonateFunnel.shared.logActivityProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+            case .donationReminderArticle:
+                break
             }
         }
     }

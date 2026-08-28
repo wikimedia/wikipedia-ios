@@ -172,6 +172,9 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     // Coordinator used to navigate a user to the donate form from campaign modal
     var donateCoordinator: DonateCoordinator?
 
+    // Coordinator used to navigate a user to the donation reminder setup screen from campaign modal
+    var donationReminderSetupCoordinator: DonationReminderSetupCoordinator?
+
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
     var topSafeAreaOverlayView: UIView?
 
@@ -479,6 +482,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     var isFirstAppearance = true
     var needsTabsIconImpressonOnCancel = false
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -487,6 +491,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
         
         presentModalsIfNeeded()
+        removeDonationReminderCardIfNeeded()
         trackArticleDidAppear()
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
@@ -1264,6 +1269,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     // MARK: Overrideable functionality
 
     internal func handleLink(with href: String) {
+        guard !handleDonationReminderLinkIfNeeded(href: href) else { return }
 
         guard let resolvedURL = articleURL.resolvingRelativeWikiHref(href) else {
             showGenericError()

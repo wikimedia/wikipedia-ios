@@ -43,6 +43,11 @@ public enum WMFUserDefaultsKey: String {
     case openAppOnSearchTab = "open-app-on-search-tab"
     case isSubscribedToEchoNotifications = "is-subscribed-to-echo-notifications"
     case forceHCaptchaChallenge = "force-hcaptcha-challenge"
+    case developerSettingsForceFundraisingCampaignBanner = "dev-settings-force-fundraising-campaign-banner"
+    case developerSettingsEnableDonationReminder = "dev-settings-enable-donation-reminder"
+    case developerSettingsForceDonationReminderExperimentAssignment = "dev-settings-force-donation-reminder-experiment-assignment"
+    case developerSettingsBypassDonationReminderDailyLimit = "dev-settings-bypass-donation-reminder-daily-limit"
+    case donationReminder = "donation-reminder"
 
     case allowGestureZoomArticleWebview = "allow-gesture-zoom-article-webview"
     // Reading Challenge 2026 (feature removed, see WMFReadingChallengeCompletionDataController)

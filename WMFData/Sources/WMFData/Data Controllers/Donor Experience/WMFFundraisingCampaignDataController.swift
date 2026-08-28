@@ -31,6 +31,10 @@ import Foundation
     private let cacheConfigFileName = "AppsCampaignConfig"
     private let cachePromptStateFileName = "WMFFundraisingCampaignPromptState"
 
+    private var isForcingBannerForDevelopment: Bool {
+        WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner
+    }
+
     // MARK: - Lifecycle
     
     private init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, mediaWikiService: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
@@ -97,7 +101,11 @@ import Foundation
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
     /// - Returns: WMFAsset containing information to display in campaign modal.
     public func loadActiveCampaignAsset(countryCode: String, wmfProject: WMFProject, currentDate: Date) -> WMFFundraisingCampaignConfig.WMFAsset? {
-        
+
+        guard !isForcingBannerForDevelopment else {
+            return forcedCampaignAssetForDevelopment(countryCode: countryCode, wmfProject: wmfProject, currentDate: currentDate)
+        }
+
         guard activeCountryConfigs.isEmpty else {
             
             // re-filter activeCountryConfigs in case campaigns have ended
@@ -220,6 +228,38 @@ import Foundation
         mediaWikiService.perform(request: request, completion: completion)
     }
     
+    // MARK: - Development
+
+    /// Clears the persisted "maybe later" / permanently hidden prompt state so the campaign banner
+    /// can present again. Orchestrated by WMFDeveloperSettingsDataController for the developer
+    /// settings screen; lives here because the prompt state cache is private to this controller.
+    public func clearPromptState() {
+        promptState = nil
+        try? sharedCacheStore?.remove(key: cacheDirectoryName, cachePromptStateFileName)
+    }
+
+    /// Only reachable via the "Force Fundraising Campaign Banner" developer setting. Reads the raw
+    /// cached config (saved unfiltered by fetchConfig) and returns the first asset, ignoring country,
+    /// date window, and prompt state, falling back to any language if the wiki has no asset.
+    private func forcedCampaignAssetForDevelopment(countryCode: String, wmfProject: WMFProject, currentDate: Date) -> WMFFundraisingCampaignConfig.WMFAsset? {
+
+        guard let cachedResult: WMFFundraisingCampaignConfigResponse = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheConfigFileName) else {
+            return nil
+        }
+
+        let configs = activeCountryConfigs(from: cachedResult, countryCode: countryCode, currentDate: currentDate, ignoringCountryAndDateFilters: true)
+
+        if let languageCode = wmfProject.languageCode {
+            for config in configs {
+                if let asset = config.assets[languageCode] {
+                    return asset
+                }
+            }
+        }
+
+        return configs.first?.assets.values.first
+    }
+
     // MARK: - Testing
 
     @_spi(Testing) public func reset() {
@@ -238,7 +278,7 @@ import Foundation
         guard let asset = activeLanguageSpecificAsset(languageCode: languageCode, languageVariantCode: languageVariantCode) else {
             return nil
         }
-        
+
         let validateAsset: ((WMFFundraisingCampaignConfig.WMFAsset, WMFFundraisingCampaignPromptState) -> WMFFundraisingCampaignConfig.WMFAsset?) = { asset, promptState in
             guard promptState.campaignID == asset.id else {
                 return asset
@@ -284,7 +324,7 @@ import Foundation
                 return languageVariantCodeAsset
             }
         }
-        
+
         return nil
     }
     
@@ -301,30 +341,30 @@ import Foundation
             guard (firstAsset.startDate...firstAsset.endDate).contains(currentDate) else {
                 return
             }
-            
+
             configs.append(config)
         }
         
         return configs
     }
     
-    private func activeCountryConfigs(from response: WMFFundraisingCampaignConfigResponse, countryCode: String, currentDate: Date) -> [WMFFundraisingCampaignConfig] {
-        
+    private func activeCountryConfigs(from response: WMFFundraisingCampaignConfigResponse, countryCode: String, currentDate: Date, ignoringCountryAndDateFilters: Bool = false) -> [WMFFundraisingCampaignConfig] {
+
         var configs: [WMFFundraisingCampaignConfig] = []
-        
+
         response.configs.forEach({ config in
-            
-            guard config.countryCodes.contains(countryCode) else {
+
+            guard config.countryCodes.contains(countryCode) || ignoringCountryAndDateFilters else {
                 return
             }
-            
+
             let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
             guard let startDate = dateFormatter.date(from: config.startTimeString),
                   let endDate = dateFormatter.date(from: config.endTimeString) else {
                 return
             }
-            
-            guard (startDate...endDate).contains(currentDate) else {
+
+            guard (startDate...endDate).contains(currentDate) || ignoringCountryAndDateFilters else {
                 return
             }
             
