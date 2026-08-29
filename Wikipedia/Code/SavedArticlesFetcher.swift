@@ -50,6 +50,9 @@ final class SavedArticlesFetcher: NSObject {
         unobserveSavedPages()
     }
 
+    // gap between finishing one saved article and starting the next
+    static let interArticleDelayMilliseconds = 250
+
     static let defaultRateLimitCooldown: TimeInterval = 60
     // ceiling on a server-supplied Retry-After, so downloading resumes within a session
     static let maximumRateLimitCooldown: TimeInterval = 600
@@ -208,7 +211,7 @@ private extension SavedArticlesFetcher {
         }
         
         let updateAgain = {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Self.interArticleDelayMilliseconds)) {
                 self.isUpdating = false
                 self.endBackgroundTask()
                 self.update()

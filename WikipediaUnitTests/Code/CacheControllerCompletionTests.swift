@@ -20,10 +20,10 @@ final class CacheControllerCompletionTests: XCTestCase {
         super.tearDown()
     }
 
-    private func makeController(shouldDownloadVariant: Bool = true) -> CacheController {
+    private func makeController(shouldDownloadVariant: Bool = true, throttle: CacheRequestThrottle = CacheRequestThrottle()) -> CacheController {
         let dbWriter = FakeCacheDBWriter(context: context, fetcher: fetcher, shouldDownload: shouldDownloadVariant)
         let fileWriter = CacheFileWriter(fetcher: fetcher)
-        return CacheController(dbWriter: dbWriter, fileWriter: fileWriter)
+        return CacheController(dbWriter: dbWriter, fileWriter: fileWriter, throttle: throttle)
     }
 
     private func requests(_ count: Int) -> [URLRequest] {
@@ -116,6 +116,21 @@ final class CacheControllerCompletionTests: XCTestCase {
         }
     }
 
+    func testThrottleBoundsConcurrentRequestsForOneGroup() throws {
+        fetcher.completionDelay = { _ in 0.05 }
+        let controller = makeController(throttle: CacheRequestThrottle(maxConcurrentRequestsPerGroup: 3))
+
+        let result = try XCTUnwrap(runFinishDBAdd(controller: controller, groupKey: "bounded", result: .success(requests(12))))
+
+        XCTAssertLessThanOrEqual(fetcher.peakConcurrentRequests, 3, "The throttle should cap in-flight requests per group")
+        switch result {
+        case .success(let uniqueKeys):
+            XCTAssertEqual(Set(uniqueKeys).count, 12, "Queued requests should still all run")
+        case .failure(let error):
+            XCTFail("Expected success, got \(error)")
+        }
+    }
+
     func testGroupCompletionForwardsDBWriterFailure() throws {
         let controller = makeController()
 
@@ -138,7 +153,22 @@ private final class FakeCacheFetcher: Fetcher, CacheFetching {
     var completionDelay: (Int) -> TimeInterval = { _ in 0 }
     var shouldFail = false
 
+    private(set) var peakConcurrentRequests = 0
+    private var inFlight = 0
+
     private let queue = DispatchQueue(label: "FakeCacheFetcher", attributes: .concurrent)
+    private let countingQueue = DispatchQueue(label: "FakeCacheFetcher.counting")
+
+    private func requestStarted() {
+        countingQueue.sync {
+            inFlight += 1
+            peakConcurrentRequests = max(peakConcurrentRequests, inFlight)
+        }
+    }
+
+    private func requestFinished() {
+        countingQueue.sync { inFlight -= 1 }
+    }
 
     private func index(for urlRequest: URLRequest) -> Int {
         Int(urlRequest.url?.lastPathComponent ?? "") ?? 0
@@ -152,7 +182,11 @@ private final class FakeCacheFetcher: Fetcher, CacheFetching {
     func dataForURLRequest(_ urlRequest: URLRequest, completion: @escaping DataCompletion) -> URLSessionTask? {
         let delay = completionDelay(index(for: urlRequest))
         let shouldFail = self.shouldFail
-        queue.asyncAfter(deadline: .now() + delay) {
+        requestStarted()
+        queue.asyncAfter(deadline: .now() + delay) { [weak self] in
+            defer {
+                self?.requestFinished()
+            }
             guard !shouldFail,
                   let url = urlRequest.url,
                   let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "HTTP/1.1", headerFields: nil) else {
@@ -225,5 +259,107 @@ private final class FakeCacheDBWriter: CacheDBWriting {
 
     func markDownloaded(urlRequest: URLRequest, response: HTTPURLResponse?, completion: @escaping (CacheDBWritingResult) -> Void) {
         completion(.success)
+    }
+}
+
+
+final class CacheRequestThrottleTests: XCTestCase {
+
+    private final class ConcurrencyRecorder {
+        private let queue = DispatchQueue(label: "ConcurrencyRecorder")
+        private var current = 0
+        private(set) var peak = 0
+
+        func started() {
+            queue.sync {
+                current += 1
+                peak = max(peak, current)
+            }
+        }
+
+        func finished() {
+            queue.sync { current -= 1 }
+        }
+
+        var peakValue: Int {
+            queue.sync { peak }
+        }
+    }
+
+    func testNeverExceedsTheBoundAndStillRunsEverything() {
+        let throttle = CacheRequestThrottle(maxConcurrentRequestsPerGroup: 4)
+        let recorder = ConcurrencyRecorder()
+        let workQueue = DispatchQueue(label: "work", attributes: .concurrent)
+        let allDone = expectation(description: "all work runs")
+        allDone.expectedFulfillmentCount = 30
+
+        for _ in 0..<30 {
+            throttle.enqueue(groupKey: "group") { done in
+                recorder.started()
+                workQueue.asyncAfter(deadline: .now() + 0.01) {
+                    recorder.finished()
+                    allDone.fulfill()
+                    done()
+                }
+            }
+        }
+
+        wait(for: [allDone], timeout: 20)
+        XCTAssertLessThanOrEqual(recorder.peakValue, 4)
+    }
+
+    func testReleasingASlotTwiceDoesNotWidenTheBound() {
+        let throttle = CacheRequestThrottle(maxConcurrentRequestsPerGroup: 2)
+        let recorder = ConcurrencyRecorder()
+        let workQueue = DispatchQueue(label: "work", attributes: .concurrent)
+        let allDone = expectation(description: "all work runs")
+        allDone.expectedFulfillmentCount = 12
+
+        for _ in 0..<12 {
+            throttle.enqueue(groupKey: "group") { done in
+                recorder.started()
+                workQueue.asyncAfter(deadline: .now() + 0.01) {
+                    recorder.finished()
+                    allDone.fulfill()
+                    done()
+                    done()
+                }
+            }
+        }
+
+        wait(for: [allDone], timeout: 20)
+        XCTAssertLessThanOrEqual(recorder.peakValue, 2)
+    }
+
+    func testGroupsHaveIndependentBudgets() {
+        let throttle = CacheRequestThrottle(maxConcurrentRequestsPerGroup: 1)
+        let firstStarted = expectation(description: "first group starts")
+        let secondStarted = expectation(description: "second group starts")
+
+        throttle.enqueue(groupKey: "a") { _ in firstStarted.fulfill() }
+        throttle.enqueue(groupKey: "b") { _ in secondStarted.fulfill() }
+
+        wait(for: [firstStarted, secondStarted], timeout: 10)
+        XCTAssertEqual(throttle.inFlightCount(for: "a"), 1)
+        XCTAssertEqual(throttle.inFlightCount(for: "b"), 1)
+    }
+
+    func testWorkBeyondTheBoundWaitsForASlot() {
+        let throttle = CacheRequestThrottle(maxConcurrentRequestsPerGroup: 1)
+        let firstStarted = expectation(description: "first starts")
+        let secondStarted = expectation(description: "second starts once a slot frees")
+
+        var release: (() -> Void)?
+        throttle.enqueue(groupKey: "group") { done in
+            release = done
+            firstStarted.fulfill()
+        }
+        wait(for: [firstStarted], timeout: 10)
+
+        throttle.enqueue(groupKey: "group") { _ in secondStarted.fulfill() }
+        XCTAssertEqual(throttle.inFlightCount(for: "group"), 1, "The second piece of work should be waiting, not running")
+
+        release?()
+        wait(for: [secondStarted], timeout: 10)
     }
 }

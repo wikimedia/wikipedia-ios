@@ -143,10 +143,14 @@ public class CacheController {
 
     // serialises the finishDBAdd result arrays, which are appended to from concurrent callbacks
     private let resultsQueue = DispatchQueue(label: "org.wikimedia.cache.controller.results")
-    
-    init(dbWriter: CacheDBWriting, fileWriter: CacheFileWriter) {
+
+    // shared with the other cache controller so one article's budget covers its resources and images together
+    let throttle: CacheRequestThrottle
+
+    init(dbWriter: CacheDBWriting, fileWriter: CacheFileWriter, throttle: CacheRequestThrottle = CacheRequestThrottle()) {
         self.dbWriter = dbWriter
         self.fileWriter = fileWriter
+        self.throttle = throttle
     }
 
     public func add(url: URL, groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
@@ -230,48 +234,60 @@ public class CacheController {
                     continue
                 }
 
-                fileWriter.add(groupKey: groupKey, urlRequest: urlRequest) { [weak self] (result) in
+                throttle.enqueue(groupKey: groupKey) { [weak self] done in
 
                     guard let self = self else {
+                        done()
                         group.leave()
                         return
                     }
 
-                    switch result {
-                    case .success(let response, let data):
+                    self.fileWriter.add(groupKey: groupKey, urlRequest: urlRequest) { [weak self] (result) in
 
-                        self.dbWriter.markDownloaded(urlRequest: urlRequest, response: response) { (result) in
+                        guard let self = self else {
+                            done()
+                            group.leave()
+                            return
+                        }
+
+                        switch result {
+                        case .success(let response, let data):
+
+                            self.dbWriter.markDownloaded(urlRequest: urlRequest, response: response) { (result) in
+
+                                defer {
+                                    done()
+                                    group.leave()
+                                }
+
+                                let individualResult: FinalIndividualResult
+
+                                switch result {
+                                case .success:
+                                    resultsQueue.sync { successfulKeys.append(uniqueKey) }
+                                    individualResult = FinalIndividualResult.success(uniqueKey: uniqueKey)
+
+                                case .failure(let error):
+                                    resultsQueue.sync { failedKeys.append((uniqueKey, error)) }
+                                    individualResult = FinalIndividualResult.failure(error: error)
+                                }
+
+                                self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
+                            }
+
+                            self.finishFileSave(data: data, mimeType: response.mimeType, uniqueKey: uniqueKey, url: url)
+
+                        case .failure(let error):
 
                             defer {
+                                done()
                                 group.leave()
                             }
 
-                            let individualResult: FinalIndividualResult
-
-                            switch result {
-                            case .success:
-                                resultsQueue.sync { successfulKeys.append(uniqueKey) }
-                                individualResult = FinalIndividualResult.success(uniqueKey: uniqueKey)
-
-                            case .failure(let error):
-                                resultsQueue.sync { failedKeys.append((uniqueKey, error)) }
-                                individualResult = FinalIndividualResult.failure(error: error)
-                            }
-
+                            resultsQueue.sync { failedKeys.append((uniqueKey, error)) }
+                            let individualResult = FinalIndividualResult.failure(error: error)
                             self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                         }
-
-                        self.finishFileSave(data: data, mimeType: response.mimeType, uniqueKey: uniqueKey, url: url)
-
-                    case .failure(let error):
-
-                        defer {
-                            group.leave()
-                        }
-
-                        resultsQueue.sync { failedKeys.append((uniqueKey, error)) }
-                        let individualResult = FinalIndividualResult.failure(error: error)
-                        self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                     }
                 }
             }
