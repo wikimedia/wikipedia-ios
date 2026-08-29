@@ -2631,6 +2631,7 @@
 		F1A700000000000000000012 /* TestHTTPClientProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000011 /* TestHTTPClientProfile.swift */; };
 		F1A700000000000000000013 /* TestNetworkFixtureURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000014 /* TestNetworkFixtureURLSession.swift */; };
 		FA71B2C400000001000000AA /* SavedArticlesFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C400000002000000AA /* SavedArticlesFetcherTests.swift */; };
+		FA71B2C400000003000000AA /* CacheControllerCompletionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C400000004000000AA /* CacheControllerCompletionTests.swift */; };
 		FACE0000000000000000FE02 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
 		FACE0000000000000000FE03 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
 		FACE0000000000000000FE04 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
@@ -4344,6 +4345,7 @@
 		F1A700000000000000000011 /* TestHTTPClientProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHTTPClientProfile.swift; sourceTree = "<group>"; };
 		F1A700000000000000000014 /* TestNetworkFixtureURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkFixtureURLSession.swift; sourceTree = "<group>"; };
 		FA71B2C400000002000000AA /* SavedArticlesFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesFetcherTests.swift; sourceTree = "<group>"; };
+		FA71B2C400000004000000AA /* CacheControllerCompletionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheControllerCompletionTests.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE01 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE05 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE11 /* HomeFeedSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedSettingsCoordinator.swift; sourceTree = "<group>"; };
@@ -7329,6 +7331,7 @@
 				B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */,
 				830ECAD51FBDE77F0080B1EF /* ReadingListsTests.swift */,
 				FA71B2C400000002000000AA /* SavedArticlesFetcherTests.swift */,
+				FA71B2C400000004000000AA /* CacheControllerCompletionTests.swift */,
 				B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */,
 				D8396D1A22CF7052005625D8 /* WMFArticleTests.swift */,
 				8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */,
@@ -9469,6 +9472,7 @@
 				B0E8086D1C0D15170065EBC0 /* WMFCodingStyle.m in Sources */,
 				830ECAD61FBDE77F0080B1EF /* ReadingListsTests.swift in Sources */,
 				FA71B2C400000001000000AA /* SavedArticlesFetcherTests.swift in Sources */,
+				FA71B2C400000003000000AA /* CacheControllerCompletionTests.swift in Sources */,
 				67C6F74E27E2919B00B9C864 /* RemoteNotificationsModelController+TestExtensions.swift in Sources */,
 				D8800CB11E2FF5B70035D2DB /* QuadKeyTests.swift in Sources */,
 				8386BDE723857F87007EE89D /* URLParsingAndRoutingTests.swift in Sources */,
