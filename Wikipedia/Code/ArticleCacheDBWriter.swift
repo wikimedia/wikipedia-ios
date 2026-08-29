@@ -169,6 +169,13 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
                 completion(nil)
                 return
             }
+
+            // note, Session.jsonDictionaryTask only special-cases 304, so a 429 arrives here looking like a success carrying an error body
+            if let statusCode = response?.statusCode, !HTTPStatusCode.isSuccessful(statusCode) {
+                completion(RequestError.from(code: statusCode, response: response))
+                return
+            }
+
             self.storeImageInfo(from: result, response: response, requestedTitles: batch, requestsByTitle: requestsByTitle) { error in
                 if let error = error {
                     completion(error)

@@ -75,6 +75,16 @@ class SavedArticlesFetcherTests: XCTestCase {
         XCTAssertNil(article.downloadRetryDate)
     }
 
+    func testBareRateLimitDoesNotFlagArticle() throws {
+        let article = try makeSavedArticle()
+
+        fetcher.handleFailure(with: article, error: RequestError.rateLimited(retryAfter: 30))
+
+        XCTAssertEqual(article.error, .none)
+        XCTAssertEqual(article.downloadAttemptCount, 0)
+        XCTAssertNil(article.downloadRetryDate)
+    }
+
     func testRateLimitWrappedInSyncErrorDoesNotFlagArticle() throws {
         let article = try makeSavedArticle()
 
