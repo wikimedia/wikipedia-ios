@@ -50,6 +50,14 @@ final class SavedArticlesFetcher: NSObject {
         unobserveSavedPages()
     }
 
+    /// Gap between finishing one saved article and starting the next.
+    ///
+    /// Concurrency within an article is bounded by `CacheRequestThrottle`, and articles
+    /// are already processed one at a time, so this is a modest extra spacing rather
+    /// than the main control. Worth revisiting against measured request rates —
+    /// raising it slows a large list's first sync in direct proportion.
+    static let interArticleDelayMilliseconds = 250
+
     static let defaultRateLimitCooldown: TimeInterval = 60
     /// Ceiling on a server-supplied Retry-After. Wikimedia's limiter can name a very
     /// long window; downloading should resume within a session rather than parking
@@ -214,7 +222,7 @@ private extension SavedArticlesFetcher {
         }
         
         let updateAgain = {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Self.interArticleDelayMilliseconds)) {
                 self.isUpdating = false
                 self.endBackgroundTask()
                 self.update()

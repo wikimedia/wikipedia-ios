@@ -37,13 +37,13 @@ public final class ImageCacheController: CacheController {
     private let imageFetcher: ImageFetcher
     fileprivate let memoryCache: NSCache<NSString, Image>
     
-    init(moc: NSManagedObjectContext, session: Session, configuration: Configuration) {
+    init(moc: NSManagedObjectContext, session: Session, configuration: Configuration, throttle: CacheRequestThrottle = CacheRequestThrottle()) {
         self.imageFetcher = ImageFetcher(session: session, configuration: configuration)
         memoryCache = NSCache<NSString, Image>()
         memoryCache.totalCostLimit = 10000000 // pixel count
         let fileWriter = CacheFileWriter(fetcher: imageFetcher)
         let dbWriter = ImageCacheDBWriter(imageFetcher: imageFetcher, cacheBackgroundContext: moc)
-        super.init(dbWriter: dbWriter, fileWriter: fileWriter)
+        super.init(dbWriter: dbWriter, fileWriter: fileWriter, throttle: throttle)
     }
     
     struct FetchResult {

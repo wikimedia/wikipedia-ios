@@ -12,8 +12,12 @@ public final class PermanentCacheController: NSObject {
     /// - Parameter configuration: the configuration to utilize for configuring requests
     /// - Parameter preferredLanguageDelegate: the preferredLanguageDelegate to utilize for determining the user's preferred languages
     @objc public init(moc: NSManagedObjectContext, session: Session, configuration: Configuration, preferredLanguageDelegate: WMFPreferredLanguageInfoProvider) {
-        imageCache = ImageCacheController(moc: moc, session: session, configuration: configuration)
-        articleCache = ArticleCacheController(moc: moc, imageCacheController: imageCache, session: session, configuration: configuration, preferredLanguageDelegate: preferredLanguageDelegate)
+        // One throttle for both controllers: a single article's download fans out
+        // through the article cache and the image cache at the same time under one
+        // group key, so they have to share a budget for it to mean anything.
+        let throttle = CacheRequestThrottle()
+        imageCache = ImageCacheController(moc: moc, session: session, configuration: configuration, throttle: throttle)
+        articleCache = ArticleCacheController(moc: moc, imageCacheController: imageCache, session: session, configuration: configuration, preferredLanguageDelegate: preferredLanguageDelegate, throttle: throttle)
         urlCache = PermanentlyPersistableURLCache(moc: moc)
         managedObjectContext = moc
         super.init()
