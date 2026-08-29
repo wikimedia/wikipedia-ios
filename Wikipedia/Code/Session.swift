@@ -609,6 +609,7 @@ extension Session {
 
 enum SessionPermanentCacheError: Error {
     case unexpectedURLCacheType
+    case missingPermanentCache
 }
 
 extension Session {
@@ -669,8 +670,17 @@ extension Session {
     }
     
     func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
-        
-        permanentCache?.urlCache.cacheResponse(httpUrlResponse: httpUrlResponse, content: content, urlRequest: urlRequest, success: success, failure: failure)
+
+        // Optional-chaining here would discard both closures when the permanent cache
+        // is gone, leaving CacheFileWriter.add's completion uncalled — which strands
+        // the DispatchGroup in finishDBAdd and, once requests are throttled, would
+        // permanently stall the download queue. Fail explicitly instead.
+        guard let permanentCache = permanentCache else {
+            failure(SessionPermanentCacheError.missingPermanentCache)
+            return
+        }
+
+        permanentCache.urlCache.cacheResponse(httpUrlResponse: httpUrlResponse, content: content, urlRequest: urlRequest, success: success, failure: failure)
     }
     
     func uniqueFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {
