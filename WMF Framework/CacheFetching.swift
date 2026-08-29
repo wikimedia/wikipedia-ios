@@ -1,4 +1,6 @@
 import Foundation
+import CocoaLumberjackSwift
+import WMFData
 
 public struct CacheFetchingResult {
     let data: Data
@@ -38,8 +40,45 @@ public protocol CacheFetching {
     func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
+/// Reports HTTP failures on the permanent-cache download path.
+///
+/// The rest of the networking stack already reports them — `Session.handleResponse`
+/// for the JSON task methods, `SessionDelegate` for the delegate-driven tasks the
+/// SchemeHandler uses — but neither covers this path: `Session.dataTask(with:completionHandler:)`
+/// doesn't call `handleResponse`, and its completion-handler task suppresses the
+/// data-delegate callbacks. Without this, every saved-article resource download is
+/// invisible in instrumentation, rate limits included.
+enum CacheFetchingHTTPErrorLogger {
+
+    /// Distinguishes these events from the "Session" and "SessionDelegate" sources
+    /// already in the stream, so download-driven throttling can be told apart from
+    /// throttling while reading an article.
+    static let source = "CacheFetching"
+
+    static func logIfNeeded(httpResponse: HTTPURLResponse, urlRequest: URLRequest) {
+        // Deliberately narrower than `isHTTPError`: this path sees routine 404s for
+        // resources an article no longer references, and logging those would swamp
+        // the stream. Rate limits and server errors are the ones worth acting on.
+        let statusCode = httpResponse.statusCode
+        guard statusCode == RequestError.rateLimitedStatusCode || (500...599).contains(statusCode) else {
+            return
+        }
+
+        DDLogError("CacheFetching: HTTP \(statusCode) for \(urlRequest.url?.absoluteString ?? "unknown URL")")
+
+        ClientErrorFunnel.shared.logHTTPError(
+            info: WMFHTTPErrorInfo(
+                statusCode: statusCode,
+                method: urlRequest.httpMethod,
+                url: urlRequest.url?.absoluteString,
+                source: source
+            )
+        )
+    }
+}
+
 extension CacheFetching where Self:Fetcher {
-    
+
     @discardableResult public func dataForURLRequest(_ urlRequest: URLRequest, completion: @escaping DataCompletion) -> URLSessionTask? {
         
         let task = session.dataTask(with: urlRequest) { (data, urlResponse, error) in
@@ -53,8 +92,13 @@ extension CacheFetching where Self:Fetcher {
                 return
             }
             
+            // Carry the status code rather than flattening every non-200 into
+            // .unexpectedResponse. SavedArticlesFetcher needs to tell a rate limit
+            // (429) apart from an ordinary failure so it can pause globally instead
+            // of branding the article and escalating its backoff.
             if let httpResponse = unwrappedResponse as? HTTPURLResponse, httpResponse.statusCode != 200 {
-                completion(.failure(RequestError.unexpectedResponse))
+                CacheFetchingHTTPErrorLogger.logIfNeeded(httpResponse: httpResponse, urlRequest: urlRequest)
+                completion(.failure(RequestError.from(code: httpResponse.statusCode, response: httpResponse)))
                 return
             }
             
