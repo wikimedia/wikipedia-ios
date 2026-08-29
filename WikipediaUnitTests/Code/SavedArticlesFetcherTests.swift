@@ -79,6 +79,18 @@ class SavedArticlesFetcherTests: XCTestCase {
         XCTAssertNil(article.downloadRetryDate)
     }
 
+    func testBareRateLimitDoesNotFlagArticle() throws {
+        // The batched image-info fetch reports a 429 as a bare RequestError, not
+        // wrapped by the cache layer, because it does not go through CacheFileWriter.
+        let article = try makeSavedArticle()
+
+        fetcher.handleFailure(with: article, error: RequestError.rateLimited(retryAfter: 30))
+
+        XCTAssertEqual(article.error, .none)
+        XCTAssertEqual(article.downloadAttemptCount, 0)
+        XCTAssertNil(article.downloadRetryDate)
+    }
+
     func testRateLimitWrappedInSyncErrorDoesNotFlagArticle() throws {
         let article = try makeSavedArticle()
 

@@ -182,6 +182,18 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
                 completion(nil)
                 return
             }
+
+            // Session.jsonDictionaryTask only special-cases 304 — every other status
+            // falls through to JSON parsing with a nil error, so a 429 would arrive
+            // here looking like a successful response carrying MediaWiki's error body.
+            // Recover the status code so a rate limit on this path is still a rate
+            // limit by the time SavedArticlesFetcher sees it, rather than a generic
+            // failure that brands the article and escalates its backoff.
+            if let statusCode = response?.statusCode, !HTTPStatusCode.isSuccessful(statusCode) {
+                completion(RequestError.from(code: statusCode, response: response))
+                return
+            }
+
             self.storeImageInfo(from: result, response: response, requestedTitles: batch, requestsByTitle: requestsByTitle) { error in
                 if let error = error {
                     completion(error)
