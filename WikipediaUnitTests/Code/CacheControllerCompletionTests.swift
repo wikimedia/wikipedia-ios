@@ -388,3 +388,118 @@ final class CacheRequestThrottleTests: XCTestCase {
         wait(for: [secondStarted], timeout: 10)
     }
 }
+
+/// Covers splitting a batched `imageinfo` response into the per-title bodies the
+/// offline gallery reads back. A key mismatch here fails silently — captions just
+/// stop appearing offline — so the title mapping is tested directly.
+final class ImageInfoResponseSplitterTests: XCTestCase {
+
+    private func page(id: String, title: String, description: String) -> [String: Any] {
+        [
+            "pageid": Int(id) ?? 0,
+            "title": title,
+            "imageinfo": [[
+                "url": "https://upload.wikimedia.org/\(title).jpg",
+                "extmetadata": ["ImageDescription": ["value": description]]
+            ]]
+        ]
+    }
+
+    private func response(pages: [String: Any], normalized: [[String: String]]? = nil) -> [String: Any] {
+        var query: [String: Any] = ["pages": pages]
+        if let normalized = normalized {
+            query["normalized"] = normalized
+        }
+        return ["query": query]
+    }
+
+    func testSplitsOneBodyPerRequestedTitle() throws {
+        let batch = response(pages: [
+            "1": page(id: "1", title: "File:A.jpg", description: "a"),
+            "2": page(id: "2", title: "File:B.jpg", description: "b")
+        ])
+
+        let result = try ImageInfoResponseSplitter.split(response: batch, requestedTitles: ["File:A.jpg", "File:B.jpg"])
+
+        XCTAssertEqual(Set(result.bodiesByRequestedTitle.keys), ["File:A.jpg", "File:B.jpg"])
+        XCTAssertTrue(result.missingTitles.isEmpty)
+    }
+
+    func testEachBodyKeepsTheShapeTheReadPathParses() throws {
+        let batch = response(pages: [
+            "1": page(id: "1", title: "File:A.jpg", description: "a"),
+            "2": page(id: "2", title: "File:B.jpg", description: "b")
+        ])
+
+        let result = try ImageInfoResponseSplitter.split(response: batch, requestedTitles: ["File:A.jpg"])
+        let body = try XCTUnwrap(result.bodiesByRequestedTitle["File:A.jpg"])
+        let parsed = try XCTUnwrap(JSONSerialization.jsonObject(with: body) as? [String: Any])
+
+        // MWKImageInfoFetcher.responseObjectForJSON: reads exactly query.pages.
+        let pages = try XCTUnwrap((parsed["query"] as? [String: Any])?["pages"] as? [String: Any])
+        XCTAssertEqual(pages.count, 1, "A split body should carry only its own page")
+        let onlyPage = try XCTUnwrap(pages["1"] as? [String: Any])
+        XCTAssertEqual(onlyPage["title"] as? String, "File:A.jpg")
+    }
+
+    func testMapsTitlesTheAPINormalised() throws {
+        // The API rewrites underscores to spaces and reports it in query.normalized.
+        let batch = response(
+            pages: ["7": page(id: "7", title: "File:Some Image.jpg", description: "x")],
+            normalized: [["from": "File:Some_Image.jpg", "to": "File:Some Image.jpg"]]
+        )
+
+        let result = try ImageInfoResponseSplitter.split(response: batch, requestedTitles: ["File:Some_Image.jpg"])
+
+        XCTAssertNotNil(result.bodiesByRequestedTitle["File:Some_Image.jpg"], "The body should be keyed by the title we asked for, not the normalised one")
+        XCTAssertTrue(result.missingTitles.isEmpty)
+    }
+
+    func testUnderscoreAndSpaceFormsMatchWithoutANormalisedSection() throws {
+        let batch = response(pages: ["7": page(id: "7", title: "File:Some Image.jpg", description: "x")])
+
+        let result = try ImageInfoResponseSplitter.split(response: batch, requestedTitles: ["File:Some_Image.jpg"])
+
+        XCTAssertNotNil(result.bodiesByRequestedTitle["File:Some_Image.jpg"])
+    }
+
+    func testReportsTitlesWithNoPage() throws {
+        let batch = response(pages: ["1": page(id: "1", title: "File:A.jpg", description: "a")])
+
+        let result = try ImageInfoResponseSplitter.split(response: batch, requestedTitles: ["File:A.jpg", "File:Gone.jpg"])
+
+        XCTAssertEqual(result.missingTitles, ["File:Gone.jpg"])
+        XCTAssertNil(result.bodiesByRequestedTitle["File:Gone.jpg"])
+    }
+
+    func testThrowsOnAResponseWithNoPages() {
+        XCTAssertThrowsError(try ImageInfoResponseSplitter.split(response: ["query": [:]], requestedTitles: ["File:A.jpg"]))
+    }
+
+    func testDropsHeadersThatDescribeTheBatch() throws {
+        let url = try XCTUnwrap(URL(string: "https://en.wikipedia.org/w/api.php"))
+        let response = try XCTUnwrap(HTTPURLResponse(
+            url: url,
+            statusCode: 200,
+            httpVersion: "HTTP/1.1",
+            headerFields: [
+                "Etag": "\"batch-etag\"",
+                "Content-Length": "4096",
+                "Content-Type": "application/json"
+            ]
+        ))
+
+        let fields = ImageInfoResponseSplitter.perTitleHeaderFields(from: response)
+
+        // Etag belongs to the batch URL and is read back into If-None-Match;
+        // Content-Length describes the batch body.
+        XCTAssertNil(fields.first { $0.key.lowercased() == "etag" })
+        XCTAssertNil(fields.first { $0.key.lowercased() == "content-length" })
+        XCTAssertEqual(fields["Content-Type"], "application/json")
+    }
+
+    func testBatchSizeIsWithinTheAPILimit() {
+        XCTAssertLessThanOrEqual(ArticleCacheDBWriter.imageInfoBatchSize, 50, "MWKImageInfoFetcher asserts at most 50 titles per request")
+        XCTAssertGreaterThan(ArticleCacheDBWriter.imageInfoBatchSize, 1, "A batch of one would be no better than the per-image requests this replaces")
+    }
+}

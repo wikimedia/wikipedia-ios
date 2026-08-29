@@ -57,6 +57,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSURL *)galleryInfoURLForImageTitles: (NSArray *)imageTitles fromSiteURL: (NSURL *)siteURL;
 
+/**
+ * Fetch the raw imageinfo API response for a batch of image page titles.
+ *
+ * Unlike the other fetch methods this hands back the undigested response, so a caller
+ * can split it into one cached entry per title. That is what lets the offline download
+ * make one request per batch rather than one per image.
+ *
+ * Uses the same query parameters as @c galleryInfoURLForImageTitles:fromSiteURL:, so
+ * each page in the response carries exactly what a single-title request would have
+ * returned for that title.
+ *
+ * @param imageTitles One or more page titles, at most 50 (the API's limit).
+ */
+- (nullable NSURLSessionTask *)fetchBatchedGalleryInfoJSONForImageTitles:(NSArray<NSString *> *)imageTitles
+                                                             fromSiteURL:(NSURL *)siteURL
+                                                                 success:(void (^)(NSDictionary<NSString *, id> *result, NSHTTPURLResponse *_Nullable response))success
+                                                                 failure:(void (^)(NSError *error))failure
+    NS_SWIFT_NAME(fetchBatchedGalleryInfoJSON(forImageTitles:fromSiteURL:success:failure:));
+
 - (nullable NSURLRequest *)urlRequestForFromURL: (NSURL *)url;
 
 @property (weak, nonatomic) id<WMFPreferredLanguageInfoProvider> preferredLanguageDelegate;

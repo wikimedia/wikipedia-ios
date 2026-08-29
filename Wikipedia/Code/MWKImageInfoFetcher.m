@@ -182,6 +182,42 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
     return nil;
 }
 
+- (nullable NSURLSessionTask *)fetchBatchedGalleryInfoJSONForImageTitles:(NSArray<NSString *> *)imageTitles
+                                                             fromSiteURL:(NSURL *)siteURL
+                                                                 success:(void (^)(NSDictionary<NSString *, id> *result, NSHTTPURLResponse *_Nullable response))success
+                                                                 failure:(void (^)(NSError *error))failure {
+    NSParameterAssert([imageTitles count]);
+    NSAssert([imageTitles count] <= 50, @"Only 50 titles can be queried at a time.");
+    NSParameterAssert(siteURL);
+
+    NSDictionary *params = [self queryParametersForTitles:imageTitles
+                                              fromSiteURL:siteURL
+                                           thumbnailWidth:[NSNumber numberWithInteger:[ImageUtils articleImageWidth]]
+                                          extmetadataKeys:[MWKImageInfoFetcher galleryExtMetadataKeys]
+                                         metadataLanguage:siteURL.wmf_languageCode
+                                             useGenerator:NO];
+
+    NSURL *url = [self.configuration mediaWikiAPIURLForURL:siteURL withQueryParameters:params];
+    NSURLRequest *urlRequest = url ? [self urlRequestForFromURL:url] : nil;
+    if (!urlRequest) {
+        failure([WMFFetcher invalidParametersError]);
+        return nil;
+    }
+
+    return [self performMediaWikiAPIGETForURLRequest:urlRequest
+                                   completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
+                                       if (error) {
+                                           failure(error);
+                                           return;
+                                       }
+                                       if (!result) {
+                                           failure([WMFFetcher unexpectedResponseError]);
+                                           return;
+                                       }
+                                       success(result, response);
+                                   }];
+}
+
 - (NSDictionary *)queryParametersForTitles:(NSArray *)titles
      fromSiteURL:(NSURL *)siteURL
   thumbnailWidth:(NSNumber *)thumbnailWidth

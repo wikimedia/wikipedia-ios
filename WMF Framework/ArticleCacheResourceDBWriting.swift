@@ -3,7 +3,23 @@ import Foundation
 struct ImageAndResourceURLs {
     let offlineResourcesURLs: [URL]
     let mediaListURLs: [URL]
-    let imageInfoURLs: [URL]
+    /// Image metadata URLs paired with the title each one is for.
+    ///
+    /// The title is kept alongside the URL because the offline download fetches this
+    /// metadata in batches but has to store the result under each single-title URL —
+    /// see `ImageInfoResponseSplitter`.
+    let imageInfo: [ImageInfoURL]
+}
+
+struct ImageInfoURL {
+    let title: String
+    let url: URL
+}
+
+extension ImageAndResourceURLs {
+    var imageInfoURLs: [URL] {
+        imageInfo.map { $0.url }
+    }
 }
 
 enum ImageAndResourceResult {
@@ -135,7 +151,7 @@ extension ArticleCacheResourceDBWriting {
         
         var mobileHtmlOfflineResourceURLs: [URL] = []
         var mediaListURLs: [URL] = []
-        var imageInfoURLs: [URL] = []
+        var imageInfo: [ImageInfoURL] = []
         
         var mediaListError: Error?
         var mobileHtmlOfflineResourceError: Error?
@@ -172,11 +188,15 @@ extension ArticleCacheResourceDBWriting {
                 
                 let imageTitles = items.map { $0.imageTitle }
                 let dedupedTitles = Set(imageTitles)
-                
+
                 // add imageInfoFetcher's urls for deduped titles (for captions/licensing info in gallery)
+                //
+                // These stay single-title URLs even though the download fetches them in
+                // batches: the permanent cache is keyed by the literal request URL, and
+                // the gallery asks for one title at a time.
                 for title in dedupedTitles {
                     if let imageInfoURL = self.imageInfoFetcher.galleryInfoURL(forImageTitles: [title], fromSiteURL: articleURL) {
-                        imageInfoURLs.append(imageInfoURL)
+                        imageInfo.append(ImageInfoURL(title: title, url: imageInfoURL))
                     }
                 }
                 
@@ -199,7 +219,7 @@ extension ArticleCacheResourceDBWriting {
                 return
             }
             
-            let result = ImageAndResourceURLs(offlineResourcesURLs: mobileHtmlOfflineResourceURLs, mediaListURLs: mediaListURLs, imageInfoURLs: imageInfoURLs)
+            let result = ImageAndResourceURLs(offlineResourcesURLs: mobileHtmlOfflineResourceURLs, mediaListURLs: mediaListURLs, imageInfo: imageInfo)
             completion(.success(result))
         }
     }

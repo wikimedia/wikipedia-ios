@@ -1,4 +1,5 @@
 import Foundation
+import CocoaLumberjackSwift
 
 public enum ArticleCacheDBWriterError: Error {
     case unableToDetermineDatabaseKey
@@ -81,15 +82,22 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
                 }
                 
                 // append image info URLRequests
-                for url in urls.imageInfoURLs {
-                    guard let urlRequest = self.imageInfoFetcher.urlRequestFor(from: url) else {
+                //
+                // These are registered as cache items like everything else, but they are
+                // NOT returned to the cache controller to download one by one — an
+                // image-heavy article would issue one api.php call per image. They are
+                // fetched in batches below and stored per title instead.
+                var imageInfoRequestsByTitle: [(title: String, urlRequest: URLRequest)] = []
+                for imageInfo in urls.imageInfo {
+                    guard let urlRequest = self.imageInfoFetcher.urlRequestFor(from: imageInfo.url) else {
                         completion(.failure(ArticleCacheDBWriterError.failureMakingRequestFromMustHaveResource))
                         return
                     }
-                    
+
                     mustHaveURLRequests.append(urlRequest)
+                    imageInfoRequestsByTitle.append((imageInfo.title, urlRequest))
                 }
-                
+
                 // send image urls straight to imageController to deal with
                 self.imageController.add(urls: urls.mediaListURLs, groupKey: groupKey, individualCompletion: { (result) in
                     
@@ -101,8 +109,23 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
                 self.cacheURLs(groupKey: groupKey, mustHaveURLRequests: mustHaveURLRequests, niceToHaveURLRequests: []) { (result) in
                     switch result {
                     case .success:
-                        let result = CacheDBWritingResultWithURLRequests.success(mustHaveURLRequests)
-                        completion(result)
+                        // Everything except the image info, which the batched fetch below
+                        // downloads and stores itself.
+                        let imageInfoRequestURLs = Set(imageInfoRequestsByTitle.compactMap { $0.urlRequest.url })
+                        let remainingRequests = mustHaveURLRequests.filter { request in
+                            guard let url = request.url else {
+                                return true
+                            }
+                            return !imageInfoRequestURLs.contains(url)
+                        }
+
+                        self.cacheImageInfoInBatches(titledRequests: imageInfoRequestsByTitle, siteURL: url) { error in
+                            if let error = error {
+                                completion(.failure(error))
+                                return
+                            }
+                            completion(.success(remainingRequests))
+                        }
                     case .failure(let error):
                         let result = CacheDBWritingResultWithURLRequests.failure(error)
                         completion(result)
@@ -116,6 +139,117 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
         }
     }
     
+    /// Titles per `action=query&prop=imageinfo` call.
+    ///
+    /// The API allows 50; a smaller batch keeps any single failure from costing a whole
+    /// article's metadata and keeps each response small enough to split cheaply.
+    static let imageInfoBatchSize = 10
+
+    /// Fetches image metadata in batches and stores one cache entry per title.
+    ///
+    /// Batches run one at a time rather than all at once. Firing every chunk together
+    /// would put one concurrent api.php call per ten images in flight, which undercuts
+    /// the point of batching for an image-heavy article; these are also outside the
+    /// per-article throttle, since the throttle lives on the cache controller.
+    ///
+    /// Calls back with the first error encountered, or nil if every batch stored.
+    private func cacheImageInfoInBatches(titledRequests: [(title: String, urlRequest: URLRequest)], siteURL: URL, completion: @escaping (Error?) -> Void) {
+
+        guard !titledRequests.isEmpty else {
+            completion(nil)
+            return
+        }
+
+        var requestsByTitle: [String: URLRequest] = [:]
+        for titledRequest in titledRequests {
+            requestsByTitle[titledRequest.title] = titledRequest.urlRequest
+        }
+
+        let batches = titledRequests.map { $0.title }.chunked(into: Self.imageInfoBatchSize)
+        fetchImageInfoBatches(batches, index: 0, siteURL: siteURL, requestsByTitle: requestsByTitle, completion: completion)
+    }
+
+    private func fetchImageInfoBatches(_ batches: [[String]], index: Int, siteURL: URL, requestsByTitle: [String: URLRequest], completion: @escaping (Error?) -> Void) {
+
+        guard index < batches.count else {
+            completion(nil)
+            return
+        }
+
+        let batch = batches[index]
+        imageInfoFetcher.fetchBatchedGalleryInfoJSON(forImageTitles: batch, fromSiteURL: siteURL, success: { [weak self] (result, response) in
+            guard let self = self else {
+                completion(nil)
+                return
+            }
+            self.storeImageInfo(from: result, response: response, requestedTitles: batch, requestsByTitle: requestsByTitle) { error in
+                if let error = error {
+                    completion(error)
+                    return
+                }
+                self.fetchImageInfoBatches(batches, index: index + 1, siteURL: siteURL, requestsByTitle: requestsByTitle, completion: completion)
+            }
+        }, failure: { error in
+            completion(error)
+        })
+    }
+
+    /// Splits one batched response and writes a cache entry per requested title,
+    /// keyed by the single-title URL the gallery will later ask for.
+    private func storeImageInfo(from result: [String: Any], response: HTTPURLResponse?, requestedTitles: [String], requestsByTitle: [String: URLRequest], completion: @escaping (Error?) -> Void) {
+
+        let split: ImageInfoResponseSplitter.SplitResult
+        do {
+            split = try ImageInfoResponseSplitter.split(response: result, requestedTitles: requestedTitles)
+        } catch let error {
+            completion(error)
+            return
+        }
+
+        if !split.missingTitles.isEmpty {
+            // The API answering "no such page" is a legitimate answer, not a download
+            // failure — a deleted or renamed file. Those entries simply stay uncached,
+            // and the gallery falls back to fetching them online.
+            DDLogDebug("No image info returned for: \(split.missingTitles)")
+        }
+
+        let headerFields = ImageInfoResponseSplitter.perTitleHeaderFields(from: response)
+        let statusCode = response?.statusCode ?? 200
+
+        let group = DispatchGroup()
+        let errorQueue = DispatchQueue(label: "org.wikimedia.cache.imageInfoStore")
+        var firstError: Error?
+
+        for (title, body) in split.bodiesByRequestedTitle {
+            guard let urlRequest = requestsByTitle[title],
+                  let url = urlRequest.url,
+                  let perTitleResponse = HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/1.1", headerFields: headerFields) else {
+                continue
+            }
+
+            group.enter()
+            articleFetcher.cacheResponse(httpUrlResponse: perTitleResponse, content: .data(body), urlRequest: urlRequest, success: { [weak self] in
+                guard let self = self else {
+                    group.leave()
+                    return
+                }
+                self.markDownloaded(urlRequest: urlRequest, response: perTitleResponse) { markResult in
+                    if case .failure(let error) = markResult {
+                        errorQueue.sync { firstError = firstError ?? error }
+                    }
+                    group.leave()
+                }
+            }, failure: { error in
+                errorQueue.sync { firstError = firstError ?? error }
+                group.leave()
+            })
+        }
+
+        group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+            completion(errorQueue.sync { firstError })
+        }
+    }
+
     func markDownloaded(urlRequest: URLRequest, response: HTTPURLResponse?, completion: @escaping (CacheDBWritingResult) -> Void) {
         
         guard let itemKey = fetcher.itemKeyForURLRequest(urlRequest) else {
