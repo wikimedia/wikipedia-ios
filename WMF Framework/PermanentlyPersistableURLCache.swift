@@ -699,6 +699,37 @@ public extension HTTPURLResponse {
     static let etagHeaderKey = "Etag"
     static let varyHeaderKey = "Vary"
     static let acceptLanguageHeaderValue = "Accept-Language"
+    static let retryAfterHeaderKey = "Retry-After"
+
+    /// The Retry-After header as an interval from now, handling both delta-seconds and an HTTP-date.
+    var retryAfterInterval: TimeInterval? {
+        // note, value(forHTTPHeaderField:) is case insensitive, unlike allHeaderFields - HTTP/2 lowercases header names
+        guard let value = value(forHTTPHeaderField: HTTPURLResponse.retryAfterHeaderKey)?
+            .trimmingCharacters(in: .whitespaces), !value.isEmpty else {
+            return nil
+        }
+
+        if let seconds = TimeInterval(value) {
+            return max(0, seconds)
+        }
+
+        guard let date = DateFormatter.wmf_httpDateFormatter.date(from: value) else {
+            return nil
+        }
+
+        return max(0, date.timeIntervalSinceNow)
+    }
+}
+
+public extension DateFormatter {
+    /// IMF-fixdate, the preferred HTTP-date format (RFC 9110).
+    static let wmf_httpDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
+        return formatter
+    }()
 }
 
 public extension URLRequest {

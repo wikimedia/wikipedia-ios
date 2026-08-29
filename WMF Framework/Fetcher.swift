@@ -399,11 +399,21 @@ open class Fetcher: NSObject {
             defer {
                  self.untrack(taskFor: key)
             }
+            let httpResponse = response as? HTTPURLResponse
             guard let result = result else {
-                completionHandler(.failure(error ?? RequestError.unexpectedResponse), response as? HTTPURLResponse)
+                // note, Session.jsonDecodableTask reports a non-200 as (nil, response, nil), so recover the status code here
+                let resolvedError: Error
+                if let error = error {
+                    resolvedError = error
+                } else if let statusCode = httpResponse?.statusCode, !HTTPStatusCode.isSuccessful(statusCode) {
+                    resolvedError = RequestError.from(code: statusCode, response: httpResponse)
+                } else {
+                    resolvedError = RequestError.unexpectedResponse
+                }
+                completionHandler(.failure(resolvedError), httpResponse)
                 return
             }
-            completionHandler(.success(result), response as? HTTPURLResponse)
+            completionHandler(.success(result), httpResponse)
         }
         
         track(task: task, for: key)

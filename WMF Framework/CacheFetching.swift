@@ -1,4 +1,6 @@
 import Foundation
+import CocoaLumberjackSwift
+import WMFData
 
 public struct CacheFetchingResult {
     let data: Data
@@ -38,8 +40,33 @@ public protocol CacheFetching {
     func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
+// note, Session.handleResponse and SessionDelegate don't cover this path, so HTTP failures here are otherwise unlogged
+enum CacheFetchingHTTPErrorLogger {
+
+    static let source = "CacheFetching"
+
+    static func logIfNeeded(httpResponse: HTTPURLResponse, urlRequest: URLRequest) {
+        // 404s are routine here for resources an article no longer references, so only log rate limits and server errors
+        let statusCode = httpResponse.statusCode
+        guard statusCode == RequestError.rateLimitedStatusCode || (500...599).contains(statusCode) else {
+            return
+        }
+
+        DDLogError("CacheFetching: HTTP \(statusCode) for \(urlRequest.url?.absoluteString ?? "unknown URL")")
+
+        ClientErrorFunnel.shared.logHTTPError(
+            info: WMFHTTPErrorInfo(
+                statusCode: statusCode,
+                method: urlRequest.httpMethod,
+                url: urlRequest.url?.absoluteString,
+                source: source
+            )
+        )
+    }
+}
+
 extension CacheFetching where Self:Fetcher {
-    
+
     @discardableResult public func dataForURLRequest(_ urlRequest: URLRequest, completion: @escaping DataCompletion) -> URLSessionTask? {
         
         let task = session.dataTask(with: urlRequest) { (data, urlResponse, error) in
@@ -53,8 +80,10 @@ extension CacheFetching where Self:Fetcher {
                 return
             }
             
+            // note, the status code is carried through so SavedArticlesFetcher can tell a 429 from an ordinary failure
             if let httpResponse = unwrappedResponse as? HTTPURLResponse, httpResponse.statusCode != 200 {
-                completion(.failure(RequestError.unexpectedResponse))
+                CacheFetchingHTTPErrorLogger.logIfNeeded(httpResponse: httpResponse, urlRequest: urlRequest)
+                completion(.failure(RequestError.from(code: httpResponse.statusCode, response: httpResponse)))
                 return
             }
             
