@@ -7,6 +7,16 @@ public enum CacheControllerError: Error {
     case atLeastOneItemFailedInSync(Error)
 }
 
+enum CacheFailureSelection {
+    // note, this path routinely sees 404s, so a rate limit must win or the global pause never fires
+    static func representativeError(from failures: [(CacheController.UniqueKey, Error)]) -> Error? {
+        let rateLimited = failures.first { failure in
+            (failure.1 as? RequestError)?.httpStatusCode == RequestError.rateLimitedStatusCode
+        }
+        return rateLimited?.1 ?? failures.first?.1
+    }
+}
+
 public class CacheController {
     
     #if TEST
@@ -294,7 +304,7 @@ public class CacheController {
 
             group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                 let groupResult: FinalGroupResult = resultsQueue.sync { () -> FinalGroupResult in
-                    if let error = failedKeys.first?.1 {
+                    if let error = CacheFailureSelection.representativeError(from: failedKeys) {
                         return FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter(error))
                     }
                     return FinalGroupResult.success(uniqueKeys: successfulKeys)

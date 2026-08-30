@@ -57,6 +57,12 @@ final class CacheControllerCompletionTests: XCTestCase {
         )
 
         wait(for: [expectation], timeout: timeout)
+
+        // give a duplicate a chance to land before asserting - without this the "fires
+        // exactly once" tests cannot fail on a double fire, which is the point of them
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        XCTAssertEqual(callCount, 1, "The group completion must fire exactly once")
+
         return groupResult
     }
 
@@ -184,15 +190,16 @@ private final class FakeCacheFetcher: Fetcher, CacheFetching {
         let shouldFail = self.shouldFail
         requestStarted()
         queue.asyncAfter(deadline: .now() + delay) { [weak self] in
-            defer {
-                self?.requestFinished()
-            }
+            // note, the slot is released inside completion's chain, so this must decrement
+            // first or the next request starts before the count drops
             guard !shouldFail,
                   let url = urlRequest.url,
                   let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "HTTP/1.1", headerFields: nil) else {
+                self?.requestFinished()
                 completion(.failure(CacheFetchingError.missingURLResponse))
                 return
             }
+            self?.requestFinished()
             completion(.success(CacheFetchingResult(data: Data("body".utf8), response: response)))
         }
         return nil

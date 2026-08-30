@@ -120,7 +120,7 @@ public final class ArticleCacheController: CacheController {
                 
                 group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                     let result: FinalGroupResult = syncResultsQueue.sync { () -> FinalGroupResult in
-                        if let error = failedAddKeys.first?.1 ?? failedRemoveKeys.first?.1 {
+                        if let error = CacheFailureSelection.representativeError(from: failedAddKeys + failedRemoveKeys) {
                             return .failure(error: CacheControllerError.atLeastOneItemFailedInSync(error))
                         }
                         return .success(uniqueKeys: successfulAddKeys + successfulRemoveKeys)
