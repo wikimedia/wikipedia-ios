@@ -9,20 +9,31 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     var enableYiRLoginExperimentB: Bool { get }
 }
 
-@objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
+// @unchecked Sendable: must stay an NSObject subclass for Obj-C callers, so it
+// cannot be an actor. All mutable state lives in WMFLockIsolated boxes below;
+// everything else is immutable or delegates to the (Sendable) environment stores.
+@objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling, @unchecked Sendable {
 
     @objc public static let shared = WMFDeveloperSettingsDataController()
 
     private let service: WMFService?
-    private var sharedCacheStore: WMFKeyValueStore?
-    private var featureConfig: WMFFeatureConfigResponse?
+    private let _sharedCacheStore: WMFLockIsolated<WMFKeyValueStore?>
+    private var sharedCacheStore: WMFKeyValueStore? {
+        get { _sharedCacheStore.value }
+        set { _sharedCacheStore.value = newValue }
+    }
+    private let _featureConfig = WMFLockIsolated<WMFFeatureConfigResponse?>(nil)
+    private var featureConfig: WMFFeatureConfigResponse? {
+        get { _featureConfig.value }
+        set { _featureConfig.value = newValue }
+    }
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.developerSettings.rawValue
     
     private let cacheFeatureConfigFileName = "AppsFeatureConfig"
 
     public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
         self.service = service
-        self.sharedCacheStore = sharedCacheStore
+        self._sharedCacheStore = WMFLockIsolated(sharedCacheStore)
         super.init()
         NotificationCenter.default.addObserver(forName: WMFNSNotification.coreDataStoreSetup, object: nil, queue: nil) { [weak self] _ in
             guard let self else { return }
@@ -213,7 +224,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         return featureConfig
     }
 
-    @objc public func fetchFeatureConfig(completion: @escaping (Error?) -> Void) {
+    @objc public func fetchFeatureConfig(completion: @escaping @Sendable (Error?) -> Void) {
         guard let service else {
             completion(WMFDataControllerError.basicServiceUnavailable)
             return

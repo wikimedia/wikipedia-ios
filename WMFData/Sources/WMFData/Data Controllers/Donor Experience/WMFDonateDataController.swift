@@ -1,15 +1,33 @@
 import Foundation
 import Contacts
 
-@objc final public class WMFDonateDataController: NSObject {
-    
+// @unchecked Sendable: must stay an NSObject subclass for Obj-C callers, so it
+// cannot be an actor. All mutable state lives in WMFLockIsolated boxes below.
+@objc final public class WMFDonateDataController: NSObject, @unchecked Sendable {
+
     // MARK: - Properties
-    
-    var service: WMFService?
-    var sharedCacheStore: WMFKeyValueStore?
-    
-    private var donateConfig: WMFDonateConfig?
-    private var paymentMethods: WMFPaymentMethods?
+
+    private let _service: WMFLockIsolated<WMFService?>
+    var service: WMFService? {
+        get { _service.value }
+        set { _service.value = newValue }
+    }
+    private let _sharedCacheStore: WMFLockIsolated<WMFKeyValueStore?>
+    var sharedCacheStore: WMFKeyValueStore? {
+        get { _sharedCacheStore.value }
+        set { _sharedCacheStore.value = newValue }
+    }
+
+    private let _donateConfig = WMFLockIsolated<WMFDonateConfig?>(nil)
+    private var donateConfig: WMFDonateConfig? {
+        get { _donateConfig.value }
+        set { _donateConfig.value = newValue }
+    }
+    private let _paymentMethods = WMFLockIsolated<WMFPaymentMethods?>(nil)
+    private var paymentMethods: WMFPaymentMethods? {
+        get { _paymentMethods.value }
+        set { _paymentMethods.value = newValue }
+    }
     
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheDonateConfigContainerFileName = "AppsDonationConfig"
@@ -32,9 +50,9 @@ import Contacts
     public static let shared = WMFDonateDataController()
     
     public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
-       self.service = service
-        self.sharedCacheStore = sharedCacheStore
-   }
+        self._service = WMFLockIsolated(service)
+        self._sharedCacheStore = WMFLockIsolated(sharedCacheStore)
+    }
     
     // MARK: - Public
     
@@ -67,7 +85,7 @@ import Contacts
         return (self.donateConfig, self.paymentMethods)
     }
     
-    @objc public func fetchConfigsForCountryCode(_ countryCode: String, completion: @escaping (Error?) -> Void) {
+    @objc public func fetchConfigsForCountryCode(_ countryCode: String, completion: @escaping @Sendable (Error?) -> Void) {
         fetchConfigs(for: countryCode) { result in
             switch result {
             case .success:
@@ -78,7 +96,7 @@ import Contacts
         }
     }
     
-    public func fetchConfigs(for countryCode: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func fetchConfigs(for countryCode: String, completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
         
         guard let service else {
             completion(.failure(WMFDataControllerError.basicServiceUnavailable))
@@ -103,43 +121,44 @@ import Contacts
             "action": "raw"
         ]
         
-        var errors: [Error] = []
-        
-        var donateConfig: WMFDonateConfig?
-        var paymentMethods: WMFPaymentMethods?
-        
+        // Aggregated behind a lock: both service callbacks land on URLSession's queue
+        // concurrently with each other.
+        let fetchState = WMFLockIsolated<(donateConfig: WMFDonateConfig?, paymentMethods: WMFPaymentMethods?, errors: [Error])>((nil, nil, []))
+
         group.enter()
         let paymentMethodsRequest = WMFBasicServiceRequest(url: paymentMethodsURL, method: .GET, parameters: paymentMethodParameters, acceptType: .json)
         service.performDecodableGET(request: paymentMethodsRequest) { (result: Result<WMFPaymentMethods, Error>) in
             defer {
                 group.leave()
             }
-            
+
             switch result {
             case .success(let response):
-                paymentMethods = response
+                fetchState.withLock { $0.paymentMethods = response }
             case .failure(let error):
-                errors.append(error)
+                fetchState.withLock { $0.errors.append(error) }
             }
         }
-        
+
         group.enter()
         let donateConfigRequest = WMFBasicServiceRequest(url: donateConfigURL, method: .GET, parameters: donateConfigParameters, acceptType: .json)
         service.performDecodableGET(request: donateConfigRequest) { (result: Result<WMFDonateConfigResponse, Error>) in
-            
+
             defer {
                 group.leave()
             }
-            
+
             switch result {
             case .success(let response):
-                donateConfig = response.config
+                fetchState.withLock { $0.donateConfig = response.config }
             case .failure(let error):
-                errors.append(error)
+                fetchState.withLock { $0.errors.append(error) }
             }
         }
-        
+
         group.notify(queue: .main) {
+
+            let (donateConfig, paymentMethods, errors) = fetchState.value
 
             if let firstError = errors.first {
                 self.donateConfig = nil
@@ -148,8 +167,8 @@ import Contacts
                 return
             }
             
-            guard var donateConfig,
-                var paymentMethods else {
+            guard var donateConfig = donateConfig,
+                  var paymentMethods = paymentMethods else {
                 self.donateConfig = nil
                 self.paymentMethods = nil
                 completion(.failure(WMFServiceError.unexpectedResponse))
@@ -169,7 +188,7 @@ import Contacts
         }
     }
     
-    public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, metricsID: String?, appVersion: String?, appInstallID: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, metricsID: String?, appVersion: String?, appInstallID: String?, completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
 
         guard !WMFDeveloperSettingsDataController.shared.bypassDonation else {
             completion(.success(()))
