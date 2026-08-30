@@ -3,7 +3,19 @@ import Foundation
 struct ImageAndResourceURLs {
     let offlineResourcesURLs: [URL]
     let mediaListURLs: [URL]
-    let imageInfoURLs: [URL]
+    // titles are kept alongside the URLs because the download fetches in batches but stores per single-title URL
+    let imageInfo: [ImageInfoURL]
+}
+
+struct ImageInfoURL {
+    let title: String
+    let url: URL
+}
+
+extension ImageAndResourceURLs {
+    var imageInfoURLs: [URL] {
+        imageInfo.map { $0.url }
+    }
 }
 
 enum ImageAndResourceResult {
@@ -135,7 +147,7 @@ extension ArticleCacheResourceDBWriting {
         
         var mobileHtmlOfflineResourceURLs: [URL] = []
         var mediaListURLs: [URL] = []
-        var imageInfoURLs: [URL] = []
+        var imageInfo: [ImageInfoURL] = []
         
         var mediaListError: Error?
         var mobileHtmlOfflineResourceError: Error?
@@ -172,11 +184,11 @@ extension ArticleCacheResourceDBWriting {
                 
                 let imageTitles = items.map { $0.imageTitle }
                 let dedupedTitles = Set(imageTitles)
-                
+
                 // add imageInfoFetcher's urls for deduped titles (for captions/licensing info in gallery)
                 for title in dedupedTitles {
                     if let imageInfoURL = self.imageInfoFetcher.galleryInfoURL(forImageTitles: [title], fromSiteURL: articleURL) {
-                        imageInfoURLs.append(imageInfoURL)
+                        imageInfo.append(ImageInfoURL(title: title, url: imageInfoURL))
                     }
                 }
                 
@@ -199,7 +211,7 @@ extension ArticleCacheResourceDBWriting {
                 return
             }
             
-            let result = ImageAndResourceURLs(offlineResourcesURLs: mobileHtmlOfflineResourceURLs, mediaListURLs: mediaListURLs, imageInfoURLs: imageInfoURLs)
+            let result = ImageAndResourceURLs(offlineResourcesURLs: mobileHtmlOfflineResourceURLs, mediaListURLs: mediaListURLs, imageInfo: imageInfo)
             completion(.success(result))
         }
     }
