@@ -450,7 +450,7 @@ final class ImageInfoResponseSplitterTests: XCTestCase {
     }
 
     func testThrowsOnAResponseWithNoPages() {
-        XCTAssertThrowsError(try ImageInfoResponseSplitter.split(response: ["query": [:]], requestedTitles: ["File:A.jpg"]))
+        XCTAssertThrowsError(try ImageInfoResponseSplitter.split(response: ["query": [String: Any]()], requestedTitles: ["File:A.jpg"]))
     }
 
     func testDropsHeadersThatDescribeTheBatch() throws {

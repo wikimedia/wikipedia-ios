@@ -172,20 +172,37 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
 
             // note, Session.jsonDictionaryTask only special-cases 304, so a 429 arrives here looking like a success carrying an error body
             if let statusCode = response?.statusCode, !HTTPStatusCode.isSuccessful(statusCode) {
-                completion(RequestError.from(code: statusCode, response: response))
+                self.continueAfterImageInfoFailure(RequestError.from(code: statusCode, response: response), batches: batches, index: index, siteURL: siteURL, requestsByTitle: requestsByTitle, completion: completion)
                 return
             }
 
             self.storeImageInfo(from: result, response: response, requestedTitles: batch, requestsByTitle: requestsByTitle) { error in
                 if let error = error {
-                    completion(error)
+                    self.continueAfterImageInfoFailure(error, batches: batches, index: index, siteURL: siteURL, requestsByTitle: requestsByTitle, completion: completion)
                     return
                 }
                 self.fetchImageInfoBatches(batches, index: index + 1, siteURL: siteURL, requestsByTitle: requestsByTitle, completion: completion)
             }
-        }, failure: { error in
-            completion(error)
+        }, failure: { [weak self] error in
+            guard let self = self else {
+                completion(nil)
+                return
+            }
+            self.continueAfterImageInfoFailure(error, batches: batches, index: index, siteURL: siteURL, requestsByTitle: requestsByTitle, completion: completion)
         })
+    }
+
+    // note, only a rate limit fails the article - any other metadata failure leaves those captions
+    // uncached rather than costing the whole download, which is what the caller retries
+    private func continueAfterImageInfoFailure(_ error: Error, batches: [[String]], index: Int, siteURL: URL, requestsByTitle: [String: URLRequest], completion: @escaping (Error?) -> Void) {
+
+        if let requestError = error as? RequestError, requestError.httpStatusCode == RequestError.rateLimitedStatusCode {
+            completion(error)
+            return
+        }
+
+        DDLogWarn("Image info batch failed, leaving those entries uncached: \(error)")
+        fetchImageInfoBatches(batches, index: index + 1, siteURL: siteURL, requestsByTitle: requestsByTitle, completion: completion)
     }
 
     /// Splits one batched response and writes a cache entry per title, keyed by the URL the gallery will ask for.
