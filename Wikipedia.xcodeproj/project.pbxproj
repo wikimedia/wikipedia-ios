@@ -839,6 +839,7 @@
 		67D9D1F82970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D9D1F52970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift */; };
 		67DA31882720957B0035D40F /* RemoteNotificationsPagingOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DA31872720957A0035D40F /* RemoteNotificationsPagingOperation.swift */; };
 		67DAEDA123CD1BC9003AA208 /* CacheGatekeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDA023CD1BC9003AA208 /* CacheGatekeeper.swift */; };
+		FA71B2C400000005000000AA /* CacheRequestThrottle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C400000006000000AA /* CacheRequestThrottle.swift */; };
 		67DAEDA323CE24DA003AA208 /* SavedArticlesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDA223CE24DA003AA208 /* SavedArticlesFetcher.swift */; };
 		67DAEDA423CE24DA003AA208 /* SavedArticlesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDA223CE24DA003AA208 /* SavedArticlesFetcher.swift */; };
 		67DAEDA523CE24DA003AA208 /* SavedArticlesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDA223CE24DA003AA208 /* SavedArticlesFetcher.swift */; };
@@ -2631,6 +2632,7 @@
 		F1A700000000000000000012 /* TestHTTPClientProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000011 /* TestHTTPClientProfile.swift */; };
 		F1A700000000000000000013 /* TestNetworkFixtureURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A700000000000000000014 /* TestNetworkFixtureURLSession.swift */; };
 		FA71B2C400000001000000AA /* SavedArticlesFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C400000002000000AA /* SavedArticlesFetcherTests.swift */; };
+		FA71B2C400000003000000AA /* CacheControllerCompletionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C400000004000000AA /* CacheControllerCompletionTests.swift */; };
 		FACE0000000000000000FE02 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
 		FACE0000000000000000FE03 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
 		FACE0000000000000000FE04 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
@@ -3371,6 +3373,7 @@
 		67D9D1F52970D8BE00BFCD4F /* BackgroundHighlightingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundHighlightingButtonStyle.swift; sourceTree = "<group>"; };
 		67DA31872720957A0035D40F /* RemoteNotificationsPagingOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsPagingOperation.swift; sourceTree = "<group>"; };
 		67DAEDA023CD1BC9003AA208 /* CacheGatekeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheGatekeeper.swift; sourceTree = "<group>"; };
+		FA71B2C400000006000000AA /* CacheRequestThrottle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheRequestThrottle.swift; sourceTree = "<group>"; };
 		67DAEDA223CE24DA003AA208 /* SavedArticlesFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesFetcher.swift; sourceTree = "<group>"; };
 		67DAEDD827E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterDetailViewModel+TextExtensions.swift"; sourceTree = "<group>"; };
 		67DAEDDD27E8FB5F005CF9B6 /* NotificationsCenterDetailViewModelWelcomeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailViewModelWelcomeTests.swift; sourceTree = "<group>"; };
@@ -4344,6 +4347,7 @@
 		F1A700000000000000000011 /* TestHTTPClientProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHTTPClientProfile.swift; sourceTree = "<group>"; };
 		F1A700000000000000000014 /* TestNetworkFixtureURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNetworkFixtureURLSession.swift; sourceTree = "<group>"; };
 		FA71B2C400000002000000AA /* SavedArticlesFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesFetcherTests.swift; sourceTree = "<group>"; };
+		FA71B2C400000004000000AA /* CacheControllerCompletionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheControllerCompletionTests.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE01 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE05 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE11 /* HomeFeedSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedSettingsCoordinator.swift; sourceTree = "<group>"; };
@@ -5838,6 +5842,7 @@
 				6773B1FD240F02E40022A70E /* PermanentlyPersistableURLCache.swift */,
 				678C7C2923BE67F0001AC4D5 /* CacheController.swift */,
 				67DAEDA023CD1BC9003AA208 /* CacheGatekeeper.swift */,
+				FA71B2C400000006000000AA /* CacheRequestThrottle.swift */,
 				678C7C2D23BE705C001AC4D5 /* CacheDBWriting.swift */,
 				678C7C2F23BE7319001AC4D5 /* CacheDBWriterHelper.swift */,
 				678C7C3323BE75F9001AC4D5 /* CacheFileWriterHelper.swift */,
@@ -7329,6 +7334,7 @@
 				B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */,
 				830ECAD51FBDE77F0080B1EF /* ReadingListsTests.swift */,
 				FA71B2C400000002000000AA /* SavedArticlesFetcherTests.swift */,
+				FA71B2C400000004000000AA /* CacheControllerCompletionTests.swift */,
 				B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */,
 				D8396D1A22CF7052005625D8 /* WMFArticleTests.swift */,
 				8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */,
@@ -9469,6 +9475,7 @@
 				B0E8086D1C0D15170065EBC0 /* WMFCodingStyle.m in Sources */,
 				830ECAD61FBDE77F0080B1EF /* ReadingListsTests.swift in Sources */,
 				FA71B2C400000001000000AA /* SavedArticlesFetcherTests.swift in Sources */,
+				FA71B2C400000003000000AA /* CacheControllerCompletionTests.swift in Sources */,
 				67C6F74E27E2919B00B9C864 /* RemoteNotificationsModelController+TestExtensions.swift in Sources */,
 				D8800CB11E2FF5B70035D2DB /* QuadKeyTests.swift in Sources */,
 				8386BDE723857F87007EE89D /* URLParsingAndRoutingTests.swift in Sources */,
@@ -10321,6 +10328,7 @@
 				83CDC7D425122A1700A2F8A1 /* PermanentCacheController.swift in Sources */,
 				0E87683B1DDE00D600B8CACD /* WMFAnnouncementsFetcher.m in Sources */,
 				67DAEDA123CD1BC9003AA208 /* CacheGatekeeper.swift in Sources */,
+				FA71B2C400000005000000AA /* CacheRequestThrottle.swift in Sources */,
 				D881B1131E32874500D33F62 /* WMFArticle+QuadKey.swift in Sources */,
 				00669500265DA01000E23AE4 /* WidgetContentFetcher.swift in Sources */,
 				0015712C27D92F6B00F1EB26 /* RetryBlockTask.swift in Sources */,

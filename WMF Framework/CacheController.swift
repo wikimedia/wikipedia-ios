@@ -7,6 +7,16 @@ public enum CacheControllerError: Error {
     case atLeastOneItemFailedInSync(Error)
 }
 
+enum CacheFailureSelection {
+    // note, this path routinely sees 404s, so a rate limit must win or the global pause never fires
+    static func representativeError(from failures: [(CacheController.UniqueKey, Error)]) -> Error? {
+        let rateLimited = failures.first { failure in
+            (failure.1 as? RequestError)?.httpStatusCode == RequestError.rateLimitedStatusCode
+        }
+        return rateLimited?.1 ?? failures.first?.1
+    }
+}
+
 public class CacheController {
     
     #if TEST
@@ -140,10 +150,17 @@ public class CacheController {
     let dbWriter: CacheDBWriting
     let fileWriter: CacheFileWriter
     let gatekeeper = CacheGatekeeper()
-    
-    init(dbWriter: CacheDBWriting, fileWriter: CacheFileWriter) {
+
+    // serialises the finishDBAdd result arrays, which are appended to from concurrent callbacks
+    private let resultsQueue = DispatchQueue(label: "org.wikimedia.cache.controller.results")
+
+    // shared with the other cache controller so one article's budget covers its resources and images together
+    let throttle: CacheRequestThrottle
+
+    init(dbWriter: CacheDBWriting, fileWriter: CacheFileWriter, throttle: CacheRequestThrottle = CacheRequestThrottle()) {
         self.dbWriter = dbWriter
         self.fileWriter = fileWriter
+        self.throttle = throttle
     }
 
     public func add(url: URL, groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
@@ -196,8 +213,13 @@ public class CacheController {
 
             var successfulKeys: [CacheController.UniqueKey] = []
             var failedKeys: [(CacheController.UniqueKey, Error)] = []
+            let resultsQueue = self.resultsQueue
 
             let group = DispatchGroup()
+
+            // note, holding the group open across the loop stops it reaching zero before every request is issued, and lets the empty case complete
+            group.enter()
+
             for urlRequest in urlRequests {
 
                 guard let uniqueKey = fileWriter.uniqueFileNameForURLRequest(urlRequest),
@@ -222,60 +244,75 @@ public class CacheController {
                     continue
                 }
 
-                fileWriter.add(groupKey: groupKey, urlRequest: urlRequest) { [weak self] (result) in
+                throttle.enqueue(groupKey: groupKey) { [weak self] done in
 
                     guard let self = self else {
+                        done()
+                        group.leave()
                         return
                     }
 
-                    switch result {
-                    case .success(let response, let data):
+                    self.fileWriter.add(groupKey: groupKey, urlRequest: urlRequest) { [weak self] (result) in
 
-                        self.dbWriter.markDownloaded(urlRequest: urlRequest, response: response) { (result) in
+                        guard let self = self else {
+                            done()
+                            group.leave()
+                            return
+                        }
+
+                        switch result {
+                        case .success(let response, let data):
+
+                            self.dbWriter.markDownloaded(urlRequest: urlRequest, response: response) { (result) in
+
+                                defer {
+                                    done()
+                                    group.leave()
+                                }
+
+                                let individualResult: FinalIndividualResult
+
+                                switch result {
+                                case .success:
+                                    resultsQueue.sync { successfulKeys.append(uniqueKey) }
+                                    individualResult = FinalIndividualResult.success(uniqueKey: uniqueKey)
+
+                                case .failure(let error):
+                                    resultsQueue.sync { failedKeys.append((uniqueKey, error)) }
+                                    individualResult = FinalIndividualResult.failure(error: error)
+                                }
+
+                                self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
+                            }
+
+                            self.finishFileSave(data: data, mimeType: response.mimeType, uniqueKey: uniqueKey, url: url)
+
+                        case .failure(let error):
 
                             defer {
+                                done()
                                 group.leave()
                             }
 
-                            let individualResult: FinalIndividualResult
-
-                            switch result {
-                            case .success:
-                                successfulKeys.append(uniqueKey)
-                                individualResult = FinalIndividualResult.success(uniqueKey: uniqueKey)
-
-                            case .failure(let error):
-                                failedKeys.append((uniqueKey, error))
-                                individualResult = FinalIndividualResult.failure(error: error)
-                            }
-
+                            resultsQueue.sync { failedKeys.append((uniqueKey, error)) }
+                            let individualResult = FinalIndividualResult.failure(error: error)
                             self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                         }
-
-                        self.finishFileSave(data: data, mimeType: response.mimeType, uniqueKey: uniqueKey, url: url)
-
-                    case .failure(let error):
-
-                        defer {
-                            group.leave()
-                        }
-
-                        failedKeys.append((uniqueKey, error))
-                        let individualResult = FinalIndividualResult.failure(error: error)
-                        self.gatekeeper.runAndRemoveIndividualCompletions(uniqueKey: uniqueKey, individualResult: individualResult)
                     }
-                }
-
-                group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                    let groupResult: FinalGroupResult
-                    if let error = failedKeys.first?.1 {
-                        groupResult = FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter(error))
-                    } else {
-                        groupResult = FinalGroupResult.success(uniqueKeys: successfulKeys)
-                    }
-                    groupCompleteBlock(groupResult)
                 }
             }
+
+            group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+                let groupResult: FinalGroupResult = resultsQueue.sync { () -> FinalGroupResult in
+                    if let error = CacheFailureSelection.representativeError(from: failedKeys) {
+                        return FinalGroupResult.failure(error: CacheControllerError.atLeastOneItemFailedInFileWriter(error))
+                    }
+                    return FinalGroupResult.success(uniqueKeys: successfulKeys)
+                }
+                groupCompleteBlock(groupResult)
+            }
+
+            group.leave()
 
         case .failure(let error):
             let groupResult = FinalGroupResult.failure(error: error)

@@ -2,14 +2,14 @@ import Foundation
 
 public final class ArticleCacheController: CacheController {
     
-    init(moc: NSManagedObjectContext, imageCacheController: ImageCacheController, session: Session, configuration: Configuration, preferredLanguageDelegate: WMFPreferredLanguageInfoProvider) {
+    init(moc: NSManagedObjectContext, imageCacheController: ImageCacheController, session: Session, configuration: Configuration, preferredLanguageDelegate: WMFPreferredLanguageInfoProvider, throttle: CacheRequestThrottle = CacheRequestThrottle()) {
         let articleFetcher = ArticleFetcher(session: session, configuration: configuration)
         let imageInfoFetcher = MWKImageInfoFetcher(session: session, configuration: configuration)
         imageInfoFetcher.preferredLanguageDelegate = preferredLanguageDelegate
         let cacheFileWriter = CacheFileWriter(fetcher: articleFetcher)
-        
+
         let articleDBWriter = ArticleCacheDBWriter(articleFetcher: articleFetcher, cacheBackgroundContext: moc, imageController: imageCacheController, imageInfoFetcher: imageInfoFetcher)
-        super.init(dbWriter: articleDBWriter, fileWriter: cacheFileWriter)
+        super.init(dbWriter: articleDBWriter, fileWriter: cacheFileWriter, throttle: throttle)
     }
 
     enum ArticleCacheControllerError: Error {
@@ -29,45 +29,54 @@ public final class ArticleCacheController: CacheController {
             case .success(let syncResult):
             
                 let group = DispatchGroup()
-                
+
                 var successfulAddKeys: [CacheController.UniqueKey] = []
                 var failedAddKeys: [(CacheController.UniqueKey, Error)] = []
                 var successfulRemoveKeys: [CacheController.UniqueKey] = []
                 var failedRemoveKeys: [(CacheController.UniqueKey, Error)] = []
+
+                // serialises the result arrays, which are appended to from concurrent callbacks
+                let syncResultsQueue = DispatchQueue(label: "org.wikimedia.cache.article.syncResults")
                 
                 // add new urls in file system
                 for urlRequest in syncResult.addURLRequests {
-                    
+
                     guard let uniqueKey = self.fileWriter.uniqueFileNameForURLRequest(urlRequest), urlRequest.url != nil else {
                         continue
                     }
-                    
+
                     group.enter()
-                    
-                    self.fileWriter.add(groupKey: groupKey, urlRequest: urlRequest) { (fileWriterResult) in
-                        switch fileWriterResult {
-                        case .success(let response, _):
-                            
-                            self.dbWriter.markDownloaded(urlRequest: urlRequest, response: response) { (dbWriterResult) in
-                            
+
+                    // note, this runs in the foreground on every open of a saved article, competing with the WebView's own loads
+                    self.throttle.enqueue(groupKey: groupKey) { done in
+
+                        self.fileWriter.add(groupKey: groupKey, urlRequest: urlRequest) { (fileWriterResult) in
+                            switch fileWriterResult {
+                            case .success(let response, _):
+
+                                self.dbWriter.markDownloaded(urlRequest: urlRequest, response: response) { (dbWriterResult) in
+
+                                    defer {
+                                        done()
+                                        group.leave()
+                                    }
+
+                                    switch dbWriterResult {
+                                    case .success:
+                                        syncResultsQueue.sync { successfulAddKeys.append(uniqueKey) }
+                                    case .failure(let error):
+                                        syncResultsQueue.sync { failedAddKeys.append((uniqueKey, error)) }
+                                    }
+                                }
+                            case .failure(let error):
+
                                 defer {
+                                    done()
                                     group.leave()
                                 }
-                                    
-                                switch dbWriterResult {
-                                case .success:
-                                    successfulAddKeys.append(uniqueKey)
-                                case .failure(let error):
-                                    failedAddKeys.append((uniqueKey, error))
-                                }
+
+                                syncResultsQueue.sync { failedAddKeys.append((uniqueKey, error)) }
                             }
-                        case .failure(let error):
-                            
-                            defer {
-                                group.leave()
-                            }
-                            
-                            failedAddKeys.append((uniqueKey, error))
                         }
                     }
                 }
@@ -94,29 +103,29 @@ public final class ArticleCacheController: CacheController {
                                 
                                 switch dbWriterResult {
                                 case .success:
-                                    successfulRemoveKeys.append(uniqueKey)
+                                    syncResultsQueue.sync { successfulRemoveKeys.append(uniqueKey) }
                                 case .failure(let error):
-                                    failedRemoveKeys.append((uniqueKey, error))
+                                    syncResultsQueue.sync { failedRemoveKeys.append((uniqueKey, error)) }
                                 }
                             }
                         case .failure(let error):
                             defer {
                                 group.leave()
                             }
-                            
-                            failedRemoveKeys.append((uniqueKey, error))
+
+                            syncResultsQueue.sync { failedRemoveKeys.append((uniqueKey, error)) }
                         }
                     }
                 }
                 
                 group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                    if let error = failedAddKeys.first?.1 ?? failedRemoveKeys.first?.1 {
-                        groupCompletion(.failure(error: CacheControllerError.atLeastOneItemFailedInSync(error)))
-                        return
+                    let result: FinalGroupResult = syncResultsQueue.sync { () -> FinalGroupResult in
+                        if let error = CacheFailureSelection.representativeError(from: failedAddKeys + failedRemoveKeys) {
+                            return .failure(error: CacheControllerError.atLeastOneItemFailedInSync(error))
+                        }
+                        return .success(uniqueKeys: successfulAddKeys + successfulRemoveKeys)
                     }
-                    
-                    let successKeys = successfulAddKeys + successfulRemoveKeys
-                    groupCompletion(.success(uniqueKeys: successKeys))
+                    groupCompletion(result)
                 }
                 
             case .failure(let error):

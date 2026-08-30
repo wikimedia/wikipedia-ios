@@ -609,6 +609,7 @@ extension Session {
 
 enum SessionPermanentCacheError: Error {
     case unexpectedURLCacheType
+    case missingPermanentCache
 }
 
 extension Session {
@@ -669,8 +670,14 @@ extension Session {
     }
     
     func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
-        
-        permanentCache?.urlCache.cacheResponse(httpUrlResponse: httpUrlResponse, content: content, urlRequest: urlRequest, success: success, failure: failure)
+
+        // note, optional chaining here would discard both closures, leaving CacheFileWriter.add's completion uncalled
+        guard let permanentCache = permanentCache else {
+            failure(SessionPermanentCacheError.missingPermanentCache)
+            return
+        }
+
+        permanentCache.urlCache.cacheResponse(httpUrlResponse: httpUrlResponse, content: content, urlRequest: urlRequest, success: success, failure: failure)
     }
     
     func uniqueFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {
