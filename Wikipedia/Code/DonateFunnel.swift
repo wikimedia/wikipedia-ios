@@ -70,6 +70,7 @@ import WMFData
         case yirOffClick = "yir_off_click"
         case iconActivateClick = "icon_activate_click"
         case iconDeactivateClick = "icon_deactivate_click"
+        case groupAssigned = "group_assigned"
     }
     
     private struct Event: EventInterface {
@@ -549,5 +550,17 @@ import WMFData
     
     func logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: String, slideLoggingID: String) {
         logEvent(activeInterface: .wikiYiR, action: .successToastProfile, actionData: ["campaign_id": metricsID])
+    }
+
+    // MARK: - Donation Reminder
+
+    func logDonationReminderGroupAssigned(_ assignment: WMFDonationReminderDataController.ExperimentAssignment, project: WikimediaProject) {
+        let group: String
+        switch assignment {
+        case .control: group = "ios_remind_a"
+        case .groupB: group = "ios_remind_b"
+        case .groupC: group = "ios_remind_c"
+        }
+        logEvent(activeInterface: .articleBanner, action: .groupAssigned, actionData: ["group": group], project: project)
     }
 }

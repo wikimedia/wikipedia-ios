@@ -71,11 +71,12 @@ extension ArticleViewController {
 
         if WMFDeveloperSettingsDataController.shared.enableDonationReminder {
             let experimentAssignment = try? WMFDonationReminderDataController.shared.assignExperimentIfNeeded(campaignID: asset.id, campaignCurrencyCode: asset.currencyCode)
-            #if DEBUG
             if let experimentAssignment {
+                DonateFunnel.shared.logDonationReminderGroupAssigned(experimentAssignment, project: project)
+                #if DEBUG
                 showDebugExperimentAssignmentToast(experimentAssignment)
+                #endif
             }
-            #endif
         }
 
         DonateFunnel.shared.logFundraisingCampaignModalImpression(project: project, metricsID: asset.metricsID)
