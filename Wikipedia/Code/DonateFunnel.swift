@@ -23,6 +23,7 @@ import WMFData
         case searchProfile = "search_profile"
         case activityProfile = "activity_profile"
         case wikiYiR = "wiki_yir"
+        case maybeLaterToast = "maybe_later_toast"
     }
     
     private enum Action: String {
@@ -553,6 +554,14 @@ import WMFData
     }
 
     // MARK: - Donation Reminder
+
+    func logDonationReminderCampaignModalDidTapDonate(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleBanner, action: .donateStartClick, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logDonationReminderMaybeLaterToastImpression(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .maybeLaterToast, action: .impression, actionData: ["campaign_id": metricsID], project: project)
+    }
 
     func logDonationReminderGroupAssigned(_ assignment: WMFDonationReminderDataController.ExperimentAssignment, project: WikimediaProject) {
         let group: String

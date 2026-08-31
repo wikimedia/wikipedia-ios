@@ -91,7 +91,11 @@ extension ArticleViewController {
                 return
             }
 
-            DonateFunnel.shared.logFundraisingCampaignModalDidTapDonate(project: project, metricsID: asset.metricsID)
+            if WMFDeveloperSettingsDataController.shared.enableDonationReminder {
+                DonateFunnel.shared.logDonationReminderCampaignModalDidTapDonate(project: project, metricsID: asset.metricsID)
+            } else {
+                DonateFunnel.shared.logFundraisingCampaignModalDidTapDonate(project: project, metricsID: asset.metricsID)
+            }
 
             guard let navigationController = self.navigationController,
             let globalPoint = button.superview?.convert(button.frame.origin, to: navigationController.view),
@@ -175,7 +179,11 @@ extension ArticleViewController {
             let title = WMFLocalizedString("donate-later-title", value: "We will remind you again tomorrow.", comment: "Title for toast shown when user clicks remind me later on fundraising banner")
 
             if let project {
-                DonateFunnel.shared.logArticleDidSeeReminderToast(project: project, metricsID: metricsID)
+                if WMFDeveloperSettingsDataController.shared.enableDonationReminder {
+                    DonateFunnel.shared.logDonationReminderMaybeLaterToastImpression(project: project, metricsID: metricsID)
+                } else {
+                    DonateFunnel.shared.logArticleDidSeeReminderToast(project: project, metricsID: metricsID)
+                }
             }
 
             WMFToastManager.sharedInstance.showRichToast(title, subtitle: nil, image: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill), duration: nil, dismissPreviousToasts: true)
