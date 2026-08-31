@@ -45,7 +45,7 @@ final class WMFDeveloperSettingsDataControllerTests {
 
     @Test
     func useTestWikiDonateConfigsSwitchesTheDonateConfigsEnvironment() async {
-        await fixture.withConfiguredEnvironment(configure: configureUserDefaultsEnvironment) {
+        await fixture.withConfiguredEnvironment(configure: configureRequestRecordingEnvironment) {
             let controller = WMFDeveloperSettingsDataController.shared
 
             #expect(controller.donateConfigsServiceEnvironment == WMFDataEnvironment.current.serviceEnvironment)
@@ -62,6 +62,7 @@ final class WMFDeveloperSettingsDataControllerTests {
     func useTestWikiDonateConfigsRoutesTheConfigFetches() async {
         await fixture.withConfiguredEnvironment(configure: configureRequestRecordingEnvironment) {
             WMFDeveloperSettingsDataController.shared.useTestWikiDonateConfigs = true
+            requestRecordingService.requestedURLs = []
 
             WMFFundraisingCampaignDataController.shared.fetchConfig(countryCode: "NL", currentDate: Date()) { _ in }
             WMFDonateDataController.shared.fetchConfigs(for: "NL") { _ in }
@@ -72,8 +73,8 @@ final class WMFDeveloperSettingsDataControllerTests {
             #expect(hosts.contains("payments.wikimedia.org"))
             #expect(hosts.contains("donate.wikimedia.org") == false)
 
-            requestRecordingService.requestedURLs = []
             WMFDeveloperSettingsDataController.shared.useTestWikiDonateConfigs = false
+            requestRecordingService.requestedURLs = []
 
             WMFFundraisingCampaignDataController.shared.fetchConfig(countryCode: "NL", currentDate: Date()) { _ in }
             WMFDonateDataController.shared.fetchConfigs(for: "NL") { _ in }
@@ -84,16 +85,49 @@ final class WMFDeveloperSettingsDataControllerTests {
         }
     }
 
+    @Test
+    func togglingUseTestWikiDonateConfigsRefetchesTheCampaignConfig() async {
+        await fixture.withConfiguredEnvironment(configure: configureRequestRecordingEnvironment) {
+            WMFDeveloperSettingsDataController.shared.useTestWikiDonateConfigs = true
+
+            let campaignConfigURLs = requestRecordingService.requestedURLs.filter { $0.path == "/wiki/MediaWiki:AppsCampaignConfig.json" }
+            #expect(campaignConfigURLs.count == 1)
+            #expect(campaignConfigURLs.first?.host == "test.wikipedia.org")
+
+            requestRecordingService.requestedURLs = []
+            WMFDeveloperSettingsDataController.shared.useTestWikiDonateConfigs = false
+
+            let productionCampaignConfigURLs = requestRecordingService.requestedURLs.filter { $0.path == "/wiki/MediaWiki:AppsCampaignConfig.json" }
+            #expect(productionCampaignConfigURLs.count == 1)
+            #expect(productionCampaignConfigURLs.first?.host == "donate.wikimedia.org")
+        }
+    }
+
+    @Test
+    func togglingUseTestWikiDonateConfigsClearsTheCachedConfigs() async {
+        await fixture.withConfiguredEnvironment(configure: configureRequestRecordingEnvironment) {
+            let sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
+            try? sharedCacheStore?.save(key: "Donor Experience", "AppsCampaignConfig", value: "cached")
+            try? sharedCacheStore?.save(key: "Donor Experience", "AppsDonationConfig", value: "cached")
+            try? sharedCacheStore?.save(key: "Donor Experience", "PaymentMethods", value: "cached")
+
+            WMFDeveloperSettingsDataController.shared.useTestWikiDonateConfigs = true
+
+            let campaignConfig: String? = try? sharedCacheStore?.load(key: "Donor Experience", "AppsCampaignConfig")
+            let donateConfig: String? = try? sharedCacheStore?.load(key: "Donor Experience", "AppsDonationConfig")
+            let paymentMethods: String? = try? sharedCacheStore?.load(key: "Donor Experience", "PaymentMethods")
+            #expect(campaignConfig == nil)
+            #expect(donateConfig == nil)
+            #expect(paymentMethods == nil)
+        }
+    }
+
     private let requestRecordingService = WMFRequestRecordingMockService()
 
     private func configureRequestRecordingEnvironment() async {
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.basicService = requestRecordingService
-    }
-
-    private func configureUserDefaultsEnvironment() async {
-        WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
     }
 
     private func configureEnvironment() async {

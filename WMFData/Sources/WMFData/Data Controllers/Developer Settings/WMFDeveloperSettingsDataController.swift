@@ -125,7 +125,22 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     /// instead of Donate wiki, so unpublished campaigns can be tested without the Staging scheme.
     public var useTestWikiDonateConfigs: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsUseTestWikiDonateConfigs.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsUseTestWikiDonateConfigs.rawValue, value: newValue) }
+        set {
+            let oldValue = useTestWikiDonateConfigs
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsUseTestWikiDonateConfigs.rawValue, value: newValue)
+            if oldValue != newValue {
+                refetchDonateConfigs()
+            }
+        }
+    }
+
+    private func refetchDonateConfigs() {
+        WMFDonateDataController.shared.clearConfigCache()
+        WMFFundraisingCampaignDataController.shared.clearConfigCache()
+        guard let countryCode = Locale.current.region?.identifier else {
+            return
+        }
+        WMFFundraisingCampaignDataController.shared.fetchConfig(countryCode: countryCode, currentDate: Date())
     }
 
     public var donateConfigsServiceEnvironment: WMFServiceEnvironment {

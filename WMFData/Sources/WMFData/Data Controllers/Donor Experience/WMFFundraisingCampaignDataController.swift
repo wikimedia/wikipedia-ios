@@ -239,6 +239,11 @@ import Foundation
         try? sharedCacheStore?.remove(key: cacheDirectoryName, cachePromptStateFileName)
     }
 
+    public func clearConfigCache() {
+        activeCountryConfigs = []
+        try? sharedCacheStore?.remove(key: cacheDirectoryName, cacheConfigFileName)
+    }
+
     /// Only reachable via the "Force Fundraising Campaign Banner" developer setting. Reads the raw
     /// cached config (saved unfiltered by fetchConfig) and returns the first asset, ignoring country,
     /// date window, and prompt state, falling back to any language if the wiki has no asset.

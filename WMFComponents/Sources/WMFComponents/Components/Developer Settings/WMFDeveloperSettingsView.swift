@@ -53,7 +53,7 @@ struct WMFDeveloperSettingsView: View {
             } header: {
                 Text("Fundraising")
             } footer: {
-                Text("Force ignores country and language settings. Only works if there is an active campaign. Clear resets \"maybe later\" / \"already donated\", the local donation history, the saved donation reminder, and the experiment bucket, so the banner can show again and the next Maybe Later re-rolls the A/B/C assignment. Force Reminder Experiment Group overrides the persisted A/B/C bucket at read time; switching it back to Off restores the persisted bucket. Use Test Wiki fetches the donate and campaign configs from test.wikipedia.org instead of donate.wikimedia.org; background and foreground the app to refetch after toggling.")
+                Text("Force ignores country and language settings. Only works if there is an active campaign. Clear resets \"maybe later\" / \"already donated\", the local donation history, the saved donation reminder, and the experiment bucket, so the banner can show again and the next Maybe Later re-rolls the A/B/C assignment. Force Reminder Experiment Group overrides the persisted A/B/C bucket at read time; switching it back to Off restores the persisted bucket. Use Test Wiki fetches the donate and campaign configs from test.wikipedia.org instead of donate.wikimedia.org; toggling clears the cached configs and refetches immediately.")
             }
 
             ForEach(viewModel.formViewModel.sections) { section in
