@@ -240,6 +240,9 @@ public final class WMFDonationReminderDataController {
     }
 
     public func closeFollowUpReminderWindow() {
+        stateLock.lock()
+        defer { stateLock.unlock() }
+
         guard var reminder = loadReminder(),
               var progress = reminder.progress else {
             return

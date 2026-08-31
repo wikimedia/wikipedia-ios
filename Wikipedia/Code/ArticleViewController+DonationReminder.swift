@@ -65,11 +65,10 @@ extension ArticleViewController {
 
             let donateCoordinator = DonateCoordinator(navigationController: navigationController, source: .donationReminderArticle(self.articleURL, pledgeAmount: reminder.amount, currencyCode: reminder.currencyCode), dataStore: self.dataStore, theme: self.theme, navigationStyle: .push, setLoadingBlock: { _ in }, getDonateButtonGlobalRect: { globalRect })
             self.donateCoordinator = donateCoordinator
-            self.isShowingDonateFlowFromDonationReminderCard = true
             donateCoordinator.didCancelPaymentMethodPrompt = { [weak self] in
                 self?.isShowingDonateFlowFromDonationReminderCard = false
             }
-            donateCoordinator.start()
+            self.isShowingDonateFlowFromDonationReminderCard = donateCoordinator.start()
         }
     }
 

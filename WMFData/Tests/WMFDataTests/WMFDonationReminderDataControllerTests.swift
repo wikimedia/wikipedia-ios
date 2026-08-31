@@ -342,6 +342,24 @@ final class WMFDonationReminderDataControllerTests {
     }
 
     @Test
+    func progressPayloadWithoutIsWindowClosedDecodesToFalse() throws {
+        let cycleStartDate = Date(timeIntervalSince1970: 1_755_600_000)
+        let progress = WMFDonationReminder.Progress(currentCycleStartDate: cycleStartDate, timesReminderShown: 2, isWindowClosed: true)
+        let reminder = WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 3, currencyCode: "EUR", createdDate: cycleStartDate, isEnabled: true, progress: progress)
+
+        var reminderJSON = try #require(try JSONSerialization.jsonObject(with: JSONEncoder().encode(reminder)) as? [String: Any])
+        var progressJSON = try #require(reminderJSON["progress"] as? [String: Any])
+        progressJSON.removeValue(forKey: "isWindowClosed")
+        reminderJSON["progress"] = progressJSON
+        let legacyPayload = try JSONSerialization.data(withJSONObject: reminderJSON)
+
+        let decodedReminder = try JSONDecoder().decode(WMFDonationReminder.self, from: legacyPayload)
+        #expect(decodedReminder.progress?.isWindowClosed == false)
+        #expect(decodedReminder.timesReminderShown == 2)
+        #expect(decodedReminder.progress?.currentCycleStartDate == cycleStartDate)
+    }
+
+    @Test
     func experimentAssignmentIsNilBeforeAssignment() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             #expect(controller.experimentAssignment == nil)
