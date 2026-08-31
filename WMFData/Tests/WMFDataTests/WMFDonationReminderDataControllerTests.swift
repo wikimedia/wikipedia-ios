@@ -183,6 +183,36 @@ final class WMFDonationReminderDataControllerTests {
     }
 
     @Test
+    func impressionLimitDoesNotCloseTheWindow() async {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let createdDate = Date(timeIntervalSince1970: 1_755_600_000)
+            let secondDay = createdDate.addingTimeInterval(100_000)
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 1), amount: 3, currencyCode: "EUR", createdDate: createdDate, isEnabled: true))
+
+            controller.recordFollowUpReminderShown(currentDate: createdDate.addingTimeInterval(1_000))
+            controller.recordFollowUpReminderShown(currentDate: secondDay)
+
+            #expect(controller.loadReminder()?.timesReminderShown == 2)
+            #expect(controller.isFollowUpReminderWindowClosed == false)
+        }
+    }
+
+    @Test
+    func aNewCycleReopensTheWindow() async {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let createdDate = Date(timeIntervalSince1970: 1_755_600_000)
+            let progress = WMFDonationReminder.Progress(currentCycleStartDate: createdDate, timesReminderShown: 2, isWindowClosed: true)
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 1), amount: 3, currencyCode: "EUR", createdDate: createdDate, isEnabled: true, progress: progress))
+            #expect(controller.isFollowUpReminderWindowClosed == true)
+
+            controller.recordFollowUpReminderShown(currentDate: createdDate.addingTimeInterval(100_000))
+
+            #expect(controller.loadReminder()?.timesReminderShown == 1)
+            #expect(controller.isFollowUpReminderWindowClosed == false)
+        }
+    }
+
+    @Test
     func notNowClosesTheWindowUntilTheNextGoal() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironmentWithCoreData) {
             let createdDate = Date(timeIntervalSince1970: 1_755_600_000)

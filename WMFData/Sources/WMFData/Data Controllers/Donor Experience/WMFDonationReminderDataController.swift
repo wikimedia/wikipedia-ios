@@ -12,19 +12,22 @@ public struct WMFDonationReminder: Codable, Equatable, Sendable {
         public var timesReminderShown: Int
         public var lastReminderShownDate: Date?
         public var goalReachedCount: Int
+        public var isWindowClosed: Bool
 
         private enum CodingKeys: String, CodingKey {
             case currentCycleStartDate
             case timesReminderShown
             case lastReminderShownDate
             case goalReachedCount
+            case isWindowClosed
         }
 
-        public init(currentCycleStartDate: Date, timesReminderShown: Int, lastReminderShownDate: Date? = nil, goalReachedCount: Int = 0) {
+        public init(currentCycleStartDate: Date, timesReminderShown: Int, lastReminderShownDate: Date? = nil, goalReachedCount: Int = 0, isWindowClosed: Bool = false) {
             self.currentCycleStartDate = currentCycleStartDate
             self.timesReminderShown = timesReminderShown
             self.lastReminderShownDate = lastReminderShownDate
             self.goalReachedCount = goalReachedCount
+            self.isWindowClosed = isWindowClosed
         }
 
         public init(from decoder: Decoder) throws {
@@ -33,6 +36,7 @@ public struct WMFDonationReminder: Codable, Equatable, Sendable {
             timesReminderShown = try container.decode(Int.self, forKey: .timesReminderShown)
             lastReminderShownDate = try container.decodeIfPresent(Date.self, forKey: .lastReminderShownDate)
             goalReachedCount = try container.decodeIfPresent(Int.self, forKey: .goalReachedCount) ?? 0
+            isWindowClosed = try container.decodeIfPresent(Bool.self, forKey: .isWindowClosed) ?? false
         }
     }
 
@@ -244,6 +248,7 @@ public final class WMFDonationReminderDataController {
         }
 
         progress.timesReminderShown = Self.maximumIgnoredReminderImpressions
+        progress.isWindowClosed = true
         reminder.progress = progress
         saveReminder(reminder)
     }
@@ -251,7 +256,7 @@ public final class WMFDonationReminderDataController {
     public var isFollowUpReminderWindowClosed: Bool {
         guard let reminder = loadReminder() else { return false }
 
-        return reminder.timesReminderShown >= Self.maximumIgnoredReminderImpressions
+        return reminder.progress?.isWindowClosed ?? false
     }
 
     // MARK: - Experiment Assignment
