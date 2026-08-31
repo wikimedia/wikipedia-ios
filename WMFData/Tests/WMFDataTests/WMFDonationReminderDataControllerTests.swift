@@ -473,63 +473,32 @@ final class WMFDonationReminderDataControllerTests {
     }
 
     @Test
-    func settingsEntryFollowsExperimentEndDate() async {
+    func settingsEntryStopsAtReminderEndDate() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDeveloperSettingsDataController.shared.enableDonationReminder = true
             WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .groupC
-            let endDate = Date(timeIntervalSince1970: 1_800_000_000)
-            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 1, currencyCode: "EUR", createdDate: Date(timeIntervalSince1970: 1_700_000_000), isEnabled: true, experimentEndDate: endDate))
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 1, currencyCode: "EUR", createdDate: Date(timeIntervalSince1970: 1_700_000_000), isEnabled: true))
 
+            let endDate = WMFDonationReminderDataController.reminderEndDate
             #expect(controller.isReminderSettingsEntryAvailable(currentDate: endDate.addingTimeInterval(-86_400)))
-            #expect(controller.isReminderSettingsEntryAvailable(currentDate: endDate.addingTimeInterval(86_400)) == false)
+            #expect(controller.isReminderSettingsEntryAvailable(currentDate: endDate) == false)
 
             WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = nil
         }
     }
 
     @Test
-    func reminderExpiryFollowsExperimentEndDate() async {
-        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let endDate = Date(timeIntervalSince1970: 1_800_000_000)
-            let reminder = WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 1, currencyCode: "EUR", createdDate: Date(timeIntervalSince1970: 1_700_000_000), isEnabled: true, experimentEndDate: endDate)
-
-            #expect(reminder.isExpired(currentDate: endDate.addingTimeInterval(-86_400)) == false)
-            #expect(reminder.isExpired(currentDate: endDate.addingTimeInterval(86_400)))
-        }
-    }
-
-    @Test
-    func reminderWithoutEndDateNeverExpires() async {
-        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let reminder = WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 1, currencyCode: "EUR", createdDate: Date(), isEnabled: true)
-
-            #expect(reminder.isExpired(currentDate: .distantFuture) == false)
-        }
-    }
-
-    @Test
-    func experimentEndDateSurvivesSaveAndLoad() async throws {
-        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let endDate = Date(timeIntervalSince1970: 1_800_000_000)
-            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 1, currencyCode: "EUR", createdDate: Date(), isEnabled: true, experimentEndDate: endDate))
-
-            let loadedReminder = try #require(controller.loadReminder())
-            #expect(loadedReminder.experimentEndDate == endDate)
-        }
-    }
-
-    @Test
-    func followUpReminderStopsAfterExperimentEndDate() async throws {
+    func followUpReminderStopsAtReminderEndDate() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironmentWithCoreData) {
             WMFDeveloperSettingsDataController.shared.enableDonationReminder = true
-            let endDate = Date(timeIntervalSince1970: 1_800_000_000)
-            let progress = WMFDonationReminder.Progress(currentCycleStartDate: Date(timeIntervalSince1970: 1_799_000_000), timesReminderShown: 1)
-            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 1, currencyCode: "EUR", createdDate: Date(timeIntervalSince1970: 1_700_000_000), isEnabled: true, progress: progress, experimentEndDate: endDate))
+            let endDate = WMFDonationReminderDataController.reminderEndDate
+            let progress = WMFDonationReminder.Progress(currentCycleStartDate: endDate.addingTimeInterval(-172_800), timesReminderShown: 1)
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 1, currencyCode: "EUR", createdDate: endDate.addingTimeInterval(-864_000), isEnabled: true, progress: progress))
 
             let showsBeforeEndDate = try await controller.shouldShowFollowUpReminder(currentDate: endDate.addingTimeInterval(-86_400))
-            let showsAfterEndDate = try await controller.shouldShowFollowUpReminder(currentDate: endDate.addingTimeInterval(86_400))
+            let showsAtEndDate = try await controller.shouldShowFollowUpReminder(currentDate: endDate)
             #expect(showsBeforeEndDate)
-            #expect(showsAfterEndDate == false)
+            #expect(showsAtEndDate == false)
         }
     }
 

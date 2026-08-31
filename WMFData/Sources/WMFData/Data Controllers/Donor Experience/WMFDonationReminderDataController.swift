@@ -47,16 +47,13 @@ public struct WMFDonationReminder: Codable, Equatable, Sendable {
     public var isEnabled: Bool
     public var progress: Progress?
 
-    public var experimentEndDate: Date?
-
     public init(
         trigger: Trigger,
         amount: Decimal,
         currencyCode: String,
         createdDate: Date,
         isEnabled: Bool,
-        progress: Progress? = nil,
-        experimentEndDate: Date? = nil
+        progress: Progress? = nil
     ) {
         self.trigger = trigger
         self.amount = amount
@@ -64,7 +61,6 @@ public struct WMFDonationReminder: Codable, Equatable, Sendable {
         self.createdDate = createdDate
         self.isEnabled = isEnabled
         self.progress = progress
-        self.experimentEndDate = experimentEndDate
     }
 
     public var currentCycleStartDate: Date {
@@ -81,13 +77,6 @@ public struct WMFDonationReminder: Codable, Equatable, Sendable {
 
     public var goalReachedCount: Int {
         progress?.goalReachedCount ?? 0
-    }
-
-    public func isExpired(currentDate: Date = Date()) -> Bool {
-        guard let experimentEndDate else {
-            return false
-        }
-        return currentDate > experimentEndDate
     }
 }
 
@@ -107,6 +96,15 @@ public final class WMFDonationReminderDataController {
     public static let shared = WMFDonationReminderDataController()
 
     public static let experimentPresetAmounts: [Decimal] = [1, 3, 5]
+
+    // The reminders outlive the remote campaign end date. The experiment plan sets these fixed dates.
+    public static let reminderEndDate: Date = {
+        Calendar(identifier: .gregorian).date(from: DateComponents(year: 2026, month: 11, day: 9)) ?? .distantFuture
+    }()
+
+    public static let wrapUpEndDate: Date = {
+        Calendar(identifier: .gregorian).date(from: DateComponents(year: 2026, month: 11, day: 15)) ?? .distantFuture
+    }()
 
     #if DEBUG
     public static let minimumSecondsForArticleRead = 1
@@ -149,11 +147,11 @@ public final class WMFDonationReminderDataController {
             return false
         }
 
-        guard let reminder = loadReminder() else {
+        guard loadReminder() != nil else {
             return false
         }
 
-        return !reminder.isExpired(currentDate: currentDate)
+        return currentDate < Self.reminderEndDate
     }
 
     // MARK: - Follow-up Reminder Cycle
@@ -171,7 +169,7 @@ public final class WMFDonationReminderDataController {
         guard WMFDeveloperSettingsDataController.shared.enableDonationReminder,
               let reminder = loadReminder(),
               reminder.isEnabled,
-              !reminder.isExpired(currentDate: currentDate),
+              currentDate < Self.reminderEndDate,
               case .articlesRead(count: let articlesReadGoal) = reminder.trigger else {
             return false
         }
