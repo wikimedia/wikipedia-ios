@@ -88,7 +88,8 @@ import Contacts
         let group = DispatchGroup()
         
         guard let paymentMethodsURL = URL.paymentMethodsAPIURL(),
-              let donateConfigURL = URL.donateConfigURL() else {
+              let donateConfigURL = URL.donateConfigURL(environment: WMFDeveloperSettingsDataController.shared.donateConfigsServiceEnvironment)
+        else {
             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
@@ -169,6 +170,13 @@ import Contacts
         }
     }
     
+    public func clearConfigCache() {
+        donateConfig = nil
+        paymentMethods = nil
+        try? sharedCacheStore?.remove(key: cacheDirectoryName, cacheDonateConfigContainerFileName)
+        try? sharedCacheStore?.remove(key: cacheDirectoryName, cachePaymentMethodsResponseFileName)
+    }
+
     public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, metricsID: String?, appVersion: String?, appInstallID: String?, completion: @escaping (Result<Void, Error>) -> Void) {
 
         guard !WMFDeveloperSettingsDataController.shared.bypassDonation else {
