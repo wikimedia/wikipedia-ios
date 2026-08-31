@@ -240,45 +240,6 @@
 "article-tabs-open-new-tab" = "Yeni vərəqədə aç";
 "article-talk-page" = "Məqalənin müzakirə səhifəsi";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Oxuma temaları parametrləri";
-"article-topic-africa" = "Afrika";
-"article-topic-architecture" = "Memarlıq";
-"article-topic-art" = "İncəsənət";
-"article-topic-asia" = "Asiya";
-"article-topic-biography" = "Bioqrafiya (hamısı)";
-"article-topic-biology" = "Biologiya";
-"article-topic-business-and-economics" = "Biznes və iqtisadiyyat";
-"article-topic-central-america" = "Mərkəzi Amerika";
-"article-topic-chemistry" = "Kimya";
-"article-topic-comics-and-anime" = "Komiks və anime";
-"article-topic-computers-and-internet" = "Kompüterlər və internet";
-"article-topic-earth-and-environment" = "Dünya və ətraf mühit";
-"article-topic-education" = "Təhsil";
-"article-topic-engineering" = "Mühəndislik";
-"article-topic-entertainment" = "Əyləncə";
-"article-topic-europe" = "Avropa";
-"article-topic-fashion" = "Dəb";
-"article-topic-food-and-drink" = "Qida və içki";
-"article-topic-general-science" = "Elm";
-"article-topic-history" = "Tarix";
-"article-topic-literature" = "Ədəbiyyat";
-"article-topic-mathematics" = "Riyaziyyat";
-"article-topic-medicine-and-health" = "Tibb və sağlamlıq";
-"article-topic-military-and-warfare" = "Hərbi və müharibə";
-"article-topic-music" = "Musiqi";
-"article-topic-north-america" = "Şimali Amerika";
-"article-topic-oceania" = "Okeaniya";
-"article-topic-performing-arts" = "Səhnə sənəti";
-"article-topic-philosophy-and-religion" = "Fəlsəfə və din";
-"article-topic-physics" = "Fizika";
-"article-topic-politics-and-government" = "Siyasət və hökumət";
-"article-topic-society" = "Cəmiyyət";
-"article-topic-south-america" = "Cənubi Amerika";
-"article-topic-sports" = "İdman";
-"article-topic-technology" = "Texnologiya";
-"article-topic-transportation" = "Nəqliyyat";
-"article-topic-tv-and-film" = "Televiziya və film";
-"article-topic-video-games" = "Videooyunlar";
-"article-topic-women" = "Bioqrafiya (qadınlar)";
 "article-view-controller-editing-temp-account-created-subtitle" = "Redaktəniz yayımlandıqdan sonra $1 müvəqqəti hesabı yaradıldı. Onun müddəti 90 gün sonra başa çatacaq.";
 "article-view-controller-editing-temp-account-created-title" = "Müvəqqəti hesab yaradıldı";
 "back-button-accessibility-label" = "Geri";
@@ -718,8 +679,6 @@
 "find-replace-header" = "Tap və əvəzlə";
 "find-replace-header-close-accessibility" = "Tap və dəyişdiri bağla";
 "find-textfield-accessibility" = "Tap";
-"for-you-empty-button" = "Maraqlarınızı seçin";
-"for-you-empty-subtitle" = "Fərdiləşdirilmiş məqalə tövsiyələri almaq üçün maraqlarınızı əlavə edin.";
 "for-you-empty-title" = "Hələlik burada heç nə yoxdur";
 "for-you-error-retry" = "Yenidən cəhd et";
 "for-you-error-subtitle" = "İnternetə qoşulun və yenidən cəhd edin.";
@@ -753,9 +712,6 @@
 "home-button-explore-accessibility-label" = "Vikipediya, Kəşf et səhifəsinə qayıt";
 "home-button-saved-accessibility-label" = "Vikipediya, Saxlanmışlara qayıt";
 "home-card-more-options-accessibility-label" = "Daha çox seçim";
-"home-community-empty-feed-button-title" = "Lenti fərdiləşdir";
-"home-community-empty-feed-message" = "İcma lentini görmək üçün lent parametrlərində kartları aktivləşdirin.";
-"home-community-empty-feed-title" = "Bütün İcma lent kartları gizlidir";
 "home-community-see-past-content" = "Keçmiş icma məzmununa bax";
 "home-community-tab-title" = "İcma";
 "home-edit-languages-title" = "Dil əlavə et və ya redaktə et";
@@ -1674,6 +1630,45 @@
 "widget-onthisday-description" = "Tarixdə bu gündə nə baş verdiyinə baxın.";
 "widget-onthisday-placeholder-article-snippet" = "Hər kəsin redaktə edə biləcəyi azad onlayn ensiklopediya";
 "widget-onthisday-placeholder-event-snippet" = "Pulsuz viki məzmun ensiklopediyası olan Vikipedia elan edilir.";
+"wikimedia-articletopics-topic-africa" = "Afrika";
+"wikimedia-articletopics-topic-architecture" = "Memarlıq";
+"wikimedia-articletopics-topic-art" = "İncəsənət";
+"wikimedia-articletopics-topic-asia" = "Asiya";
+"wikimedia-articletopics-topic-biography" = "Bioqrafiya (hamısı)";
+"wikimedia-articletopics-topic-biology" = "Biologiya";
+"wikimedia-articletopics-topic-business-and-economics" = "Biznes və iqtisadiyyat";
+"wikimedia-articletopics-topic-central-america" = "Mərkəzi Amerika";
+"wikimedia-articletopics-topic-chemistry" = "Kimya";
+"wikimedia-articletopics-topic-comics-and-anime" = "Komiks və anime";
+"wikimedia-articletopics-topic-computers-and-internet" = "Kompüterlər və internet";
+"wikimedia-articletopics-topic-earth-and-environment" = "Dünya və ətraf mühit";
+"wikimedia-articletopics-topic-education" = "Təhsil";
+"wikimedia-articletopics-topic-engineering" = "Mühəndislik";
+"wikimedia-articletopics-topic-entertainment" = "Əyləncə";
+"wikimedia-articletopics-topic-europe" = "Avropa";
+"wikimedia-articletopics-topic-fashion" = "Dəb";
+"wikimedia-articletopics-topic-food-and-drink" = "Qida və içki";
+"wikimedia-articletopics-topic-general-science" = "Elm";
+"wikimedia-articletopics-topic-history" = "Tarix";
+"wikimedia-articletopics-topic-literature" = "Ədəbiyyat";
+"wikimedia-articletopics-topic-mathematics" = "Riyaziyyat";
+"wikimedia-articletopics-topic-medicine-and-health" = "Tibb";
+"wikimedia-articletopics-topic-military-and-warfare" = "Hərbi";
+"wikimedia-articletopics-topic-music" = "Musiqi";
+"wikimedia-articletopics-topic-north-america" = "Şimali Amerika";
+"wikimedia-articletopics-topic-oceania" = "Okeaniya";
+"wikimedia-articletopics-topic-performing-arts" = "Səhnə sənəti";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Fəlsəfə və din";
+"wikimedia-articletopics-topic-physics" = "Fizika";
+"wikimedia-articletopics-topic-politics-and-government" = "Siyasət və hökumət";
+"wikimedia-articletopics-topic-society" = "Cəmiyyət";
+"wikimedia-articletopics-topic-south-america" = "Cənubi Amerika";
+"wikimedia-articletopics-topic-sports" = "İdman";
+"wikimedia-articletopics-topic-technology" = "Texnologiya";
+"wikimedia-articletopics-topic-transportation" = "Nəqliyyat";
+"wikimedia-articletopics-topic-tv-and-film" = "Televiziya və film";
+"wikimedia-articletopics-topic-video-games" = "Video oyunlar";
+"wikimedia-articletopics-topic-women" = "Bioqrafiya (qadın)";
 "wikitext-preview-changes" = "Dəyişikliklərinizin önizləməsi alınır...";
 "wikitext-preview-link-external-preview-description" = "Bu keçid xarici veb-sayta aparır: $1";
 "wikitext-preview-link-external-preview-title" = "Xarici keçid";
@@ -1799,121 +1794,3 @@
 "year-in-review-wmf-logo-accessibility-label" = "Vikimedia Fondunun loqosu";
 "yesterday-title" = "Dünən";
 "zero-edits-to-articles" = "Bu yaxınlarda məqalələrə 0 düzəliş";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Memarlıq";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "İncəsənət";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Komiks və anime";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Əyləncə";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Dəb";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Ədəbiyyat";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Musiqi";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Səhnə sənəti";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "İdman";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "Televiziya və film";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Video oyunlar";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Bioqrafiya (hamısı)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Bioqrafiya (qadın)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Biznes və iqtisadiyyat";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Təhsil";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Qida və içki";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Tarix";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Hərbi";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Fəlsəfə və din";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Siyasət və hökumət";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Cəmiyyət";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Nəqliyyat";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Biologiya";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Kimya";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Kompüterlər və internet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Dünya və ətraf mühit";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Mühəndislik";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Elm";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Riyaziyyat";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Tibb";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Fizika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Texnologiya";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Afrika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Asiya";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Mərkəzi Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Avropa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Şimali Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Okeaniya";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Cənubi Amerika";

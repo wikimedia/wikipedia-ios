@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import Combine
 import WMFData
 
@@ -22,6 +23,7 @@ import WMFData
     }
 }
 
+@MainActor
 @objc public class WMFDeveloperSettingsViewModel: NSObject, ObservableObject {
 
     let localizedStrings: WMFDeveloperSettingsLocalizedStrings
@@ -44,6 +46,30 @@ import WMFData
     @Published public var enableVisualEditingJourney: Bool = WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney {
         didSet {
             WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney = enableVisualEditingJourney
+        }
+    }
+
+    @Published public var forceFundraisingCampaignBanner: Bool = WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner = forceFundraisingCampaignBanner
+        }
+    }
+
+    @Published public var enableDonationReminder: Bool = WMFDeveloperSettingsDataController.shared.enableDonationReminder {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.enableDonationReminder = enableDonationReminder
+        }
+    }
+
+    @Published public var forceDonationReminderExperimentAssignment: WMFDonationReminderDataController.ExperimentAssignment? = WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = forceDonationReminderExperimentAssignment
+        }
+    }
+
+    @Published public var bypassDonationReminderDailyLimit: Bool = WMFDeveloperSettingsDataController.shared.bypassDonationReminderDailyLimit {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.bypassDonationReminderDailyLimit = bypassDonationReminderDailyLimit
         }
     }
 
@@ -112,6 +138,24 @@ import WMFData
         enableHomePhase2.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableHomePhase2 = isSelected }
             .store(in: &subscribers)
+    }
+
+    public var appInstallID: String? {
+        try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+    }
+
+    @MainActor
+    public func copyAppInstallID() {
+        guard let appInstallID else { return }
+        UIPasteboard.general.string = appInstallID
+        WMFToastPresenter.shared.show(WMFToastConfig(title: .init("App install ID copied")))
+    }
+
+    public func clearFundraisingCampaignPersistence() {
+        WMFDeveloperSettingsDataController.shared.clearFundraisingCampaignPersistence()
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Fundraising state cleared. The campaign banner can show again.")))
+        }
     }
 
     public func clearGamesPersistence() {

@@ -91,16 +91,16 @@ final class HomeFeedSettingsCoordinator: Coordinator {
             project: project,
             searchLanguages: searchLanguages,
             logImpressionIfNeeded: {
-                resolvedInstrument.submitInteraction(action: "impression", actionSource: "feed_customize")
+                resolvedInstrument.submitInteraction(action: "impression", actionSource: "feed_customize", experimentData: WMFHomeDataController.shared.experimentData)
             },
             logDidTapTopic: {
-                resolvedInstrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "topic_select")
+                resolvedInstrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "topic_select", experimentData: WMFHomeDataController.shared.experimentData)
             },
             logDidTapArticle: {
-                resolvedInstrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "article_select")
+                resolvedInstrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "article_select", experimentData: WMFHomeDataController.shared.experimentData)
             },
             logDidTapDeselectAll: {
-                resolvedInstrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "deselect_all")
+                resolvedInstrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "deselect_all", experimentData: WMFHomeDataController.shared.experimentData)
             }
         )
         return WMFHomeFeedInterestsSettingsViewController(viewModel: viewModel, closeButtonHandler: closeButtonHandler)
@@ -139,7 +139,7 @@ final class HomeFeedSettingsCoordinator: Coordinator {
 
     private func showForYouModulesSettings() {
         let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed")
-        instrument.submitInteraction(action: "click", actionSource: "settings", elementId: "feed_modules_for_you")
+        instrument.submitInteraction(action: "click", actionSource: "settings", elementId: "feed_modules_for_you", experimentData: WMFHomeDataController.shared.experimentData)
         
         let viewModel = WMFHomeFeedForYouSettingsViewModel(
             logToggleModule: { module, isOn in
@@ -150,7 +150,7 @@ final class HomeFeedSettingsCoordinator: Coordinator {
                 case .becauseYouRead: elementId = "BECAUSE_READ"
                 case .continueReading: elementId = "CONTINUE"
                 }
-                instrument.submitInteraction(action: action, actionSource: "settings", actionSubtype: "feed_for_you", elementId: elementId)
+                instrument.submitInteraction(action: action, actionSource: "settings", actionSubtype: "feed_for_you", elementId: elementId, experimentData: WMFHomeDataController.shared.experimentData)
             }
         )
         let forYouSettingsVC = WMFHomeFeedForYouSettingsViewController(viewModel: viewModel)
@@ -158,13 +158,13 @@ final class HomeFeedSettingsCoordinator: Coordinator {
     }
 
     private func showWhatsDrivingSettings() {
-        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "feed_data_info")
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "feed_data_info", experimentData: WMFHomeDataController.shared.experimentData)
         activeNavigationController.pushViewController(makeWhatsDrivingViewController(), animated: true)
     }
 
     private func showInterestsSettings() {
         
-        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "customize_feed")
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "customize_feed", experimentData: WMFHomeDataController.shared.experimentData)
         
         let language = homeDataController.selectedLanguage() ?? WMFDataEnvironment.current.primaryAppLanguage ?? WMFLanguage(languageCode: "en", languageVariantCode: nil)
         let project = WMFProject.wikipedia(language)
@@ -176,16 +176,16 @@ final class HomeFeedSettingsCoordinator: Coordinator {
             project: project,
             searchLanguages: searchLanguages,
             logImpressionIfNeeded: {
-                instrument.submitInteraction(action: "impression", actionSource: "feed_customize")
+                instrument.submitInteraction(action: "impression", actionSource: "feed_customize", experimentData: WMFHomeDataController.shared.experimentData)
             },
             logDidTapTopic: {
-                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "topic_select")
+                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "topic_select", experimentData: WMFHomeDataController.shared.experimentData)
             },
             logDidTapArticle: {
-                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "article_select")
+                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "article_select", experimentData: WMFHomeDataController.shared.experimentData)
             },
             logDidTapDeselectAll: {
-                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "deselect_all")
+                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "deselect_all", experimentData: WMFHomeDataController.shared.experimentData)
             }
         
         )
@@ -195,7 +195,7 @@ final class HomeFeedSettingsCoordinator: Coordinator {
 
     private func switchToSearchTab() {
         // `AppDelegate` is compiled out of test builds (replaced by `MockAppDelegate`), so any reference to it must be guarded in test builds
-        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "reading_history")
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "reading_history", experimentData: WMFHomeDataController.shared.experimentData)
 #if !TEST
         guard let appViewController = (UIApplication.shared.delegate as? AppDelegate)?.appViewController else {
             return
@@ -205,7 +205,7 @@ final class HomeFeedSettingsCoordinator: Coordinator {
     }
 
     private func showLanguages() {
-        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "languages")
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "settings", elementId: "languages", experimentData: WMFHomeDataController.shared.experimentData)
         let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
         languagesVC.showExploreFeedCustomizationSettings = true
         languagesVC.apply(currentTheme)
