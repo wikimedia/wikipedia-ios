@@ -33,6 +33,21 @@ extension ArticleViewController {
         }
     }
 
+    /// The prompt is suppressed on an article reached from a deep link, which the modal chain
+    /// already screens out before it reaches here.
+    func presentEvergreenAccountCreationPromptIfNeeded() {
+        guard let navigationController else { return }
+
+        let coordinator = EvergreenAccountCreationCoordinator(
+            navigationController: navigationController,
+            theme: theme,
+            dataStore: dataStore,
+            context: .article(isFromDeepLink: articleViewSource == .external_link)
+        )
+        evergreenAccountCreationCoordinator = coordinator
+        coordinator.start()
+    }
+
     // MARK: - Reading time
 
     /// The rules for when reading time accumulates live in WMFReadingIntervalTracker, so they can be
