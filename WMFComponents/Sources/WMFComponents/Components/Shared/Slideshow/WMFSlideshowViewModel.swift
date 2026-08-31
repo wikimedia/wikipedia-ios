@@ -69,9 +69,6 @@ public final class WMFSlideshowViewModel: ObservableObject {
     @Published public var slides: [Slide]
     @Published public var currentSlideID: String?
 
-    /// Overrides the app theme, for a caller that draws its own palette rather than following `WMFAppEnvironment`.
-    public var theme: WMFTheme?
-
     public var showsCloseButton: Bool
     public var closeAction: (() -> Void)?
     public var primaryAction: (() -> Void)?
@@ -86,7 +83,6 @@ public final class WMFSlideshowViewModel: ObservableObject {
         localizedStrings: LocalizedStrings,
         slides: [Slide],
         currentSlideID: String? = nil,
-        theme: WMFTheme? = nil,
         showsCloseButton: Bool = true,
         closeAction: (() -> Void)? = nil,
         primaryAction: (() -> Void)? = nil,
@@ -96,7 +92,6 @@ public final class WMFSlideshowViewModel: ObservableObject {
         self.localizedStrings = localizedStrings
         self.slides = slides
         self.currentSlideID = currentSlideID ?? slides.first?.id
-        self.theme = theme
         self.showsCloseButton = showsCloseButton
         self.closeAction = closeAction
         self.primaryAction = primaryAction

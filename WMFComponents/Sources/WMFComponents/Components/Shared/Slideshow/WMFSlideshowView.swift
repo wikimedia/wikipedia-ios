@@ -44,7 +44,7 @@ public struct WMFSlideshowView: View {
     // MARK: - Derived Values
 
     private var theme: WMFTheme {
-        viewModel.theme ?? appEnvironment.theme
+        appEnvironment.theme
     }
 
     private var resolvedDynamicTypeSize: DynamicTypeSize {
@@ -108,7 +108,7 @@ public struct WMFSlideshowView: View {
                     header
 
                     ForEach(viewModel.slides) { slide in
-                        WMFSlideView(slide: slide, theme: viewModel.theme, fillsAvailableHeight: false)
+                        WMFSlideView(slide: slide, fillsAvailableHeight: false)
                             .padding(.horizontal, horizontalPadding)
                     }
                 }
@@ -143,7 +143,7 @@ public struct WMFSlideshowView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: Metrics.slideSpacing) {
                 ForEach(viewModel.slides) { slide in
-                    WMFSlideView(slide: slide, theme: viewModel.theme)
+                    WMFSlideView(slide: slide)
                         .containerRelativeFrame(.horizontal) { length, _ in
                             slideWidth(forContainerLength: length)
                         }
