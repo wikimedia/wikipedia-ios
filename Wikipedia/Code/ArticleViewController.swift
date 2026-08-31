@@ -175,6 +175,8 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     // Coordinator used to navigate a user to the donation reminder setup screen from campaign modal
     var donationReminderSetupCoordinator: DonationReminderSetupCoordinator?
 
+    var isShowingDonateFlowFromDonationReminderCard = false
+
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
     var topSafeAreaOverlayView: UIView?
 
@@ -663,6 +665,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
 
         self.tabBarController?.setTabBarHidden(false, animated: true)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        removeDonationReminderCardAfterNavigationAway()
     }
 
     // MARK: Article load

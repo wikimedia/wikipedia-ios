@@ -50,6 +50,7 @@ class DonateCoordinator: Coordinator {
 
     private let getDonateButtonGlobalRect: (() -> CGRect)
     private let donateSuccessAction: (() -> Void)?
+    var didCancelPaymentMethodPrompt: (@MainActor @Sendable () -> Void)?
 
     private let dataStore: MWKDataStore
     private let theme: Theme
@@ -212,6 +213,8 @@ class DonateCoordinator: Coordinator {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
 
         alert.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: { action in
+            self.didCancelPaymentMethodPrompt?()
+
             switch self.source {
             case .exploreProfile:
                 DonateFunnel.shared.logExploreProfileDonateCancel(metricsID: metricsID)
