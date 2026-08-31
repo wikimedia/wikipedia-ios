@@ -70,12 +70,12 @@ public final class WMFSlideshowViewModel: ObservableObject {
     @Published public var currentSlideID: String?
 
     public var showsCloseButton: Bool
-    public var closeAction: (() -> Void)?
-    public var primaryAction: (() -> Void)?
-    public var secondaryAction: (() -> Void)?
+    public var closeAction: (@MainActor @Sendable () -> Void)?
+    public var primaryAction: (@MainActor @Sendable () -> Void)?
+    public var secondaryAction: (@MainActor @Sendable () -> Void)?
 
     /// Called with each slide as it comes on screen, including the first one, for impression logging.
-    public var didShowSlide: ((Slide) -> Void)?
+    public var didShowSlide: (@MainActor @Sendable (Slide) -> Void)?
 
     // MARK: - Lifecycle
 
@@ -84,10 +84,10 @@ public final class WMFSlideshowViewModel: ObservableObject {
         slides: [Slide],
         currentSlideID: String? = nil,
         showsCloseButton: Bool = true,
-        closeAction: (() -> Void)? = nil,
-        primaryAction: (() -> Void)? = nil,
-        secondaryAction: (() -> Void)? = nil,
-        didShowSlide: ((Slide) -> Void)? = nil
+        closeAction: (@MainActor @Sendable () -> Void)? = nil,
+        primaryAction: (@MainActor @Sendable () -> Void)? = nil,
+        secondaryAction: (@MainActor @Sendable () -> Void)? = nil,
+        didShowSlide: (@MainActor @Sendable (Slide) -> Void)? = nil
     ) {
         self.localizedStrings = localizedStrings
         self.slides = slides
