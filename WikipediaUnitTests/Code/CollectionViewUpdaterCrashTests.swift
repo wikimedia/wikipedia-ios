@@ -142,6 +142,36 @@ final class CollectionViewUpdaterCrashTests: XCTestCase, CollectionViewUpdaterDe
         assertCollectionViewMatchesFetchedResults()
     }
 
+    // Scenario C: same two-cycle mechanism as scenario A, but cycle 2 inserts an
+    // item into an existing section instead of deleting one. The insert index is
+    // valid, so the delete validation does not fire. The item count after the
+    // update does not reconcile with the count before, so UIKit throws the
+    // generic invalid batch update assertion instead.
+    func testTwoChangeCyclesWithInsertInSameRunLoopPassMustNotThrow() throws {
+        for daysAgo in 1...2 {
+            for siteURL in siteURLs {
+                makeContentGroup(daysAgo: daysAgo, siteURL: siteURL)
+            }
+        }
+        dataStore.viewContext.processPendingChanges()
+        setupCollectionViewAndUpdater()
+        XCTAssertEqual(collectionView.numberOfSections, 2)
+
+        // Cycle 1: backfill 10 older day-sections, which takes the reloadData path.
+        for daysAgo in 3...12 {
+            makeContentGroup(daysAgo: daysAgo, siteURL: siteURLs[0])
+        }
+        dataStore.viewContext.processPendingChanges()
+        print("REPRO after cycle 1: frc sections = [\(sectionCountsDescription())], collectionView.numberOfSections not queried yet")
+
+        // Cycle 2, same run loop pass: add a group to an existing day-section.
+        makeContentGroup(daysAgo: 1, siteURL: URL(string: "https://de.wikipedia.org")!)
+        dataStore.viewContext.processPendingChanges()
+
+        print("REPRO after cycle 2: frc sections = [\(sectionCountsDescription())], collectionView sections = \(collectionView.numberOfSections)")
+        assertCollectionViewMatchesFetchedResults()
+    }
+
     // Scenario B (control): a single change cycle with the daily-rollover shape:
     // new day section inserted at the top, an item deleted elsewhere, an item updated.
     // The FRC change set is internally consistent, so this must not throw.
