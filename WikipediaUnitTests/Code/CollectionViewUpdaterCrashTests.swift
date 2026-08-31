@@ -20,7 +20,7 @@ final class CollectionViewUpdaterCrashTests: XCTestCase, CollectionViewUpdaterDe
 
     private var dataStore: MWKDataStore!
     private var window: UIWindow!
-    private var collectionView: UICollectionView!
+    private var collectionView: CallCountingCollectionView!
     private var fetchedResultsControllerDataSource: FetchedResultsCollectionViewDataSource!
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
     private var updater: CollectionViewUpdater<WMFContentGroup>!
@@ -56,11 +56,12 @@ final class CollectionViewUpdaterCrashTests: XCTestCase, CollectionViewUpdaterDe
         return group
     }
 
+    @MainActor
     private func setupCollectionViewAndUpdater() {
         window = UIWindow(frame: CGRect(x: 0, y: 0, width: 390, height: 844))
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 390, height: 100)
-        collectionView = UICollectionView(frame: window.bounds, collectionViewLayout: layout)
+        collectionView = CallCountingCollectionView(frame: window.bounds, collectionViewLayout: layout)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         window.addSubview(collectionView)
         window.makeKeyAndVisible()
@@ -82,6 +83,7 @@ final class CollectionViewUpdaterCrashTests: XCTestCase, CollectionViewUpdaterDe
         updater.delegate = self
         updater.performFetch()
         collectionView.layoutIfNeeded()
+        collectionView.resetCallCounts()
     }
 
     private func sectionCountsDescription() -> String {
@@ -89,6 +91,7 @@ final class CollectionViewUpdaterCrashTests: XCTestCase, CollectionViewUpdaterDe
         return sections.map { "\($0.numberOfObjects)" }.joined(separator: ",")
     }
 
+    @MainActor
     private func assertCollectionViewMatchesFetchedResults(file: StaticString = #filePath, line: UInt = #line) {
         collectionView.layoutIfNeeded()
         let sections = fetchedResultsController.sections ?? []
@@ -114,6 +117,7 @@ final class CollectionViewUpdaterCrashTests: XCTestCase, CollectionViewUpdaterDe
     // Cycle 2 deletes one item. The updater's guards compare section counts only,
     // and they match, so it calls performBatchUpdates with a delete the collection
     // view has already absorbed through the pending reload.
+    @MainActor
     func testTwoChangeCyclesInSameRunLoopPassMustNotThrow() throws {
         // Seed: 2 day-sections with 3 groups each.
         for daysAgo in 1...2 {
@@ -140,6 +144,8 @@ final class CollectionViewUpdaterCrashTests: XCTestCase, CollectionViewUpdaterDe
 
         print("REPRO after cycle 2: frc sections = [\(sectionCountsDescription())], collectionView sections = \(collectionView.numberOfSections)")
         assertCollectionViewMatchesFetchedResults()
+        XCTAssertEqual(collectionView.performBatchUpdatesCallCount, 0, "cycle 2 must not reach the granular path")
+        XCTAssertEqual(collectionView.reloadDataCallCount, 2, "both cycles must fall back to reloadData")
     }
 
     // Scenario C: same two-cycle mechanism as scenario A, but cycle 2 inserts an
@@ -147,6 +153,7 @@ final class CollectionViewUpdaterCrashTests: XCTestCase, CollectionViewUpdaterDe
     // valid, so the delete validation does not fire. The item count after the
     // update does not reconcile with the count before, so UIKit throws the
     // generic invalid batch update assertion instead.
+    @MainActor
     func testTwoChangeCyclesWithInsertInSameRunLoopPassMustNotThrow() throws {
         for daysAgo in 1...2 {
             for siteURL in siteURLs {
@@ -170,11 +177,14 @@ final class CollectionViewUpdaterCrashTests: XCTestCase, CollectionViewUpdaterDe
 
         print("REPRO after cycle 2: frc sections = [\(sectionCountsDescription())], collectionView sections = \(collectionView.numberOfSections)")
         assertCollectionViewMatchesFetchedResults()
+        XCTAssertEqual(collectionView.performBatchUpdatesCallCount, 0, "cycle 2 must not reach the granular path")
+        XCTAssertEqual(collectionView.reloadDataCallCount, 2, "both cycles must fall back to reloadData")
     }
 
     // Scenario B (control): a single change cycle with the daily-rollover shape:
     // new day section inserted at the top, an item deleted elsewhere, an item updated.
     // The FRC change set is internally consistent, so this must not throw.
+    @MainActor
     func testSingleRolloverChangeCycleMustNotThrow() throws {
         for daysAgo in 1...3 {
             for siteURL in siteURLs {
@@ -197,6 +207,32 @@ final class CollectionViewUpdaterCrashTests: XCTestCase, CollectionViewUpdaterDe
 
         print("REPRO control: frc sections = [\(sectionCountsDescription())], collectionView sections = \(collectionView.numberOfSections)")
         assertCollectionViewMatchesFetchedResults()
+        // The fix must not turn every update into a reloadData(). A single consistent
+        // cycle must still animate through the granular path.
+        XCTAssertEqual(collectionView.performBatchUpdatesCallCount, 1, "a single consistent cycle must use granular updates")
+        XCTAssertEqual(collectionView.reloadDataCallCount, 0, "a single consistent cycle must not fall back to reloadData")
+    }
+}
+
+// Records which update path the updater took, so the tests can tell a granular
+// batch update apart from a reloadData() fallback.
+private final class CallCountingCollectionView: UICollectionView {
+    private(set) var reloadDataCallCount = 0
+    private(set) var performBatchUpdatesCallCount = 0
+
+    func resetCallCounts() {
+        reloadDataCallCount = 0
+        performBatchUpdatesCallCount = 0
+    }
+
+    override func reloadData() {
+        reloadDataCallCount += 1
+        super.reloadData()
+    }
+
+    override func performBatchUpdates(_ updates: (() -> Void)?, completion: ((Bool) -> Void)?) {
+        performBatchUpdatesCallCount += 1
+        super.performBatchUpdates(updates, completion: completion)
     }
 }
 
