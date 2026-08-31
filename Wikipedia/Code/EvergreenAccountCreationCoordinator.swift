@@ -121,15 +121,28 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
     }
 
     private func presentAccountCreation() {
-        guard let accountCreationViewController = WMFAccountCreationViewController.wmf_initialViewControllerFromClassStoryboard() else {
-            return
+        let loginCoordinator = LoginCoordinator(
+            navigationController: navigationController,
+            theme: theme,
+            loggingCategory: loggingCategory,
+            startsOnAccountCreation: true
+        )
+
+        // No success blocks: the account creation screen's own default dismissal offers reading list
+        // sync, which is one of the things this prompt sells.
+        loginCoordinator.start()
+    }
+
+    /// Attributes the login funnel to the surface the prompt was shown on.
+    private var loggingCategory: EventCategoryMEP {
+        switch context {
+        case .home:
+            return .feed
+        case .saved:
+            return .saved
+        case .article:
+            return .article
         }
-
-        accountCreationViewController.apply(theme: theme)
-        let accountCreationNavigationController = WMFComponentNavigationController(rootViewController: accountCreationViewController, modalPresentationStyle: .overFullScreen)
-
-        let presenter = navigationController.presentedViewController ?? navigationController
-        presenter.present(accountCreationNavigationController, animated: true)
     }
 
     // MARK: - Content
