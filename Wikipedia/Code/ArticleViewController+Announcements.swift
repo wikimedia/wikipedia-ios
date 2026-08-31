@@ -69,6 +69,15 @@ extension ArticleViewController {
 
     private func showNewDonateExperienceCampaignModal(asset: WMFFundraisingCampaignConfig.WMFAsset, project: WikimediaProject) {
 
+        if WMFDeveloperSettingsDataController.shared.enableDonationReminder {
+            let experimentAssignment = try? WMFDonationReminderDataController.shared.assignExperimentIfNeeded(campaignID: asset.id, campaignCurrencyCode: asset.currencyCode)
+            #if DEBUG
+            if let experimentAssignment {
+                showDebugExperimentAssignmentToast(experimentAssignment)
+            }
+            #endif
+        }
+
         DonateFunnel.shared.logFundraisingCampaignModalImpression(project: project, metricsID: asset.metricsID)
 
         let dataController = WMFFundraisingCampaignDataController.shared
@@ -123,16 +132,7 @@ extension ArticleViewController {
             case .maybeLater:
                 let experimentAssignment: WMFDonationReminderDataController.ExperimentAssignment?
                 if WMFDeveloperSettingsDataController.shared.enableDonationReminder {
-                    experimentAssignment = try? WMFDonationReminderDataController.shared.assignExperimentIfNeeded(
-                        campaignID: asset.id,
-                        campaignCurrencyCode: asset.currencyCode
-                    )
-
-                    #if DEBUG
-                    if let experimentAssignment {
-                        self.showDebugExperimentAssignmentToast(experimentAssignment)
-                    }
-                    #endif
+                    experimentAssignment = WMFDonationReminderDataController.shared.experimentAssignment
                 } else {
                     experimentAssignment = nil
                 }
