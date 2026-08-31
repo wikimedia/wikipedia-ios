@@ -1388,3 +1388,40 @@ extension WMFAppViewController {
         return controller
     }
 }
+
+// MARK: - Evergreen Account Creation
+
+extension WMFAppViewController {
+
+    /// Starts the prompt's session, then records the app open the session was launched by.
+    ///
+    /// `startSession` only weighs days before today, so it does not matter that the open being
+    /// recorded here belongs to the session it is deciding about.
+    @objc func startEvergreenAccountCreationSession() {
+        Task {
+            await WMFEvergreenAccountCreationDataController.shared.startSession()
+            recordEvergreenAccountCreationAppOpenIfNeeded()
+        }
+    }
+
+    /// App opens are proxied by an impression of one of the main tabs, or of an article view.
+    @objc func recordEvergreenAccountCreationAppOpenIfNeeded() {
+        guard isViewingEligibleMainTab else { return }
+
+        Task {
+            await WMFEvergreenAccountCreationDataController.shared.recordAppOpen()
+        }
+    }
+
+    /// Settings can take the first tab's place for some readers, and is not one of the main tabs.
+    private var isViewingEligibleMainTab: Bool {
+        guard let rootViewController = currentTabNavigationController?.viewControllers.first else { return false }
+
+        return rootViewController is HomeViewController
+            || rootViewController is ExploreViewController
+            || rootViewController is PlacesViewController
+            || rootViewController is SavedViewController
+            || rootViewController is WMFActivityTabViewController
+            || rootViewController is SearchViewController
+    }
+}

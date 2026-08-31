@@ -26,6 +26,13 @@ extension ArticleViewController {
         }
     }
     
+    /// An article view is one of the app open proxies the evergreen account creation prompt counts.
+    func recordEvergreenAccountCreationAppOpen() {
+        Task {
+            await WMFEvergreenAccountCreationDataController.shared.recordAppOpen()
+        }
+    }
+
     // MARK: - Reading time
 
     /// The rules for when reading time accumulates live in WMFReadingIntervalTracker, so they can be

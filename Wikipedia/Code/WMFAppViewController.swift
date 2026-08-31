@@ -463,6 +463,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // so these tasks are held until both items complete.
     @objc func performTasksThatShouldOccurAfterBecomeActiveAndResume() {
         SessionsFunnel.shared.appDidBecomeActive()
+        startEvergreenAccountCreationSession()
         checkRemoteAppConfigIfNecessary()
         updatePrimaryWikiHasTempAccountsStatusIfNecessary()
         periodicWorkerController?.start()
@@ -1787,6 +1788,7 @@ extension WMFAppViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         wmf_hideKeyboard()
         logDidSelectViewController(viewController)
+        recordEvergreenAccountCreationAppOpenIfNeeded()
     }
 
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {

@@ -80,6 +80,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         articleLoadWaitGroup?.leave()
         addToHistory()
         persistPageViewsForWikipediaInReview()
+        recordEvergreenAccountCreationAppOpen()
         saveTopics(topics)
         loadMediaWikiInfoAndUpdateToolbar()
         syncCachedResourcesIfNeeded()
