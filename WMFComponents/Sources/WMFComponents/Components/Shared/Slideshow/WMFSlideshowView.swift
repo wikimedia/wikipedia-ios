@@ -8,8 +8,8 @@ public struct WMFSlideshowView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFSlideshowViewModel
 
-    var primaryAction: (() -> Void)?
-    var secondaryAction: (() -> Void)?
+    var primaryAction: (@MainActor @Sendable () -> Void)?
+    var secondaryAction: (@MainActor @Sendable () -> Void)?
 
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -180,18 +180,14 @@ public struct WMFSlideshowView: View {
 
     private var buttons: some View {
         VStack(spacing: buttonSpacing) {
-            WMFLargeButton(
-                style: .primary,
-                title: viewModel.localizedStrings.primaryButtonTitle,
-                action: viewModel.primaryAction ?? primaryAction
-            )
+            WMFLargeButton(style: .primary, title: viewModel.localizedStrings.primaryButtonTitle) {
+                tappedPrimary()
+            }
 
             if let secondaryButtonTitle = viewModel.localizedStrings.secondaryButtonTitle {
-                WMFSmallButton(
-                    configuration: .init(style: .quiet),
-                    title: secondaryButtonTitle,
-                    action: viewModel.secondaryAction ?? secondaryAction
-                )
+                WMFSmallButton(configuration: .init(style: .quiet), title: secondaryButtonTitle) {
+                    tappedSecondary()
+                }
             }
         }
         .frame(maxWidth: .infinity)
@@ -199,6 +195,16 @@ public struct WMFSlideshowView: View {
         .padding(.top, Metrics.buttonAreaTopPadding)
         .padding(.bottom, Metrics.bottomPadding)
         .background(Color(uiColor: theme.paperBackground).ignoresSafeArea())
+    }
+
+    // MARK: - Actions
+
+    private func tappedPrimary() {
+        (viewModel.primaryAction ?? primaryAction)?()
+    }
+
+    private func tappedSecondary() {
+        (viewModel.secondaryAction ?? secondaryAction)?()
     }
 
     // MARK: - Logging
