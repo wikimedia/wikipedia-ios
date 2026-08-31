@@ -59,7 +59,17 @@ import WMFTestKitchen
         }
     }
     
+    // TEMP TESTING: forces every install into the home tab experiment's group B so the Home
+    // tab is guaranteed to appear. Remove before merging - this also makes the apps-home-feed
+    // exposure event report `assigned: "treatment"` on every launch.
+    private static let forceHomeTabGroupB = true
+
     public nonisolated func assignExperiment() {
+        if Self.forceHomeTabGroupB {
+            homeTabAssignment = .groupB
+            return
+        }
+
         guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
         let controller = WMFExperimentsDataController(store: store)
         let bucket = try? controller.determineBucketForExperiment(.homeTab, withPercentage: 50)
