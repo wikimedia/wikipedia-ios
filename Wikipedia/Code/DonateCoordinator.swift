@@ -199,11 +199,17 @@ class DonateCoordinator: Coordinator {
         let title = WMFLocalizedString("donate-payment-method-prompt-title", value: "Donate with Apple Pay?", comment: "Title of prompt to user asking which payment method they want to donate with.")
         let message = WMFLocalizedString("donate-payment-method-prompt-message", value: "Donate with Apple Pay or choose other payment method.", comment: "Message of prompt to user asking which payment method they want to donate with.")
 
+        let showsPledgeOption: Bool
+        if case .donationReminderArticle(_, _, let pledgeCurrencyCode) = source {
+            showsPledgeOption = pledgeCurrencyCode == Locale.current.currency?.identifier
+        } else {
+            showsPledgeOption = false
+        }
+
         let applePayButtonTitle: String
-        switch source {
-        case .donationReminderArticle:
+        if showsPledgeOption {
             applePayButtonTitle = WMFLocalizedString("donation-reminder-payment-different-amount-button-title", value: "Donate a different amount with Apple Pay", comment: "Title of the payment prompt choice that opens the donate form without the pledged amount, shown from the donation reminder card.")
-        default:
+        } else {
             applePayButtonTitle = WMFLocalizedString("donate-payment-method-prompt-apple-pay-button-title", value: "Donate with Apple Pay", comment: "Title of Apple Pay button choice in donate payment method prompt.")
         }
         let otherButtonTitle = WMFLocalizedString("donate-payment-method-prompt-other-button-title", value: "Other payment method", comment: "Title of Other payment method button choice in donate payment method prompt.")
@@ -247,8 +253,8 @@ class DonateCoordinator: Coordinator {
         }))
 
         var pledgeAction: UIAlertAction?
-        if case .donationReminderArticle(_, let pledgeAmount, let currencyCode) = source,
-           currencyCode == Locale.current.currency?.identifier {
+        if showsPledgeOption,
+           case .donationReminderArticle(_, let pledgeAmount, let currencyCode) = source {
             let amountFormatter = NumberFormatter.wmfCurrencyFormatter
             amountFormatter.currencyCode = currencyCode
             let formattedPledgeAmount = amountFormatter.string(from: pledgeAmount as NSNumber) ?? "\(pledgeAmount)"
