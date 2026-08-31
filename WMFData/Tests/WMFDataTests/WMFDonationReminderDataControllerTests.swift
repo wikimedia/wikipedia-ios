@@ -516,6 +516,20 @@ final class WMFDonationReminderDataControllerTests {
         }
     }
 
+    @Test
+    func completedDonationClosesFollowUpReminderWindow() async {
+        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let progress = WMFDonationReminder.Progress(currentCycleStartDate: Date(), timesReminderShown: 1, lastReminderShownDate: Date())
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 1, currencyCode: "EUR", createdDate: Date(), isEnabled: true, progress: progress))
+            #expect(controller.isFollowUpReminderWindowClosed == false)
+
+            let donateDataController = WMFDonateDataController(service: nil, sharedCacheStore: WMFMockKeyValueStore())
+            _ = donateDataController.saveLocalDonationHistory(type: .oneTime, amount: 1, currencyCode: "EUR", isNative: true)
+
+            #expect(controller.isFollowUpReminderWindowClosed)
+        }
+    }
+
     private func configureEnvironment() async {
         WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()

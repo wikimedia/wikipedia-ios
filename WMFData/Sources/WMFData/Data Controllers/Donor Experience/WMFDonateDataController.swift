@@ -281,6 +281,9 @@ import Contacts
         }
 
         hasLocallySavedDonations = true
+
+        WMFDonationReminderDataController.shared.closeFollowUpReminderWindow()
+
         return try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
 
     }

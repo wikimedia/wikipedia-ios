@@ -44,8 +44,6 @@ extension ArticleViewController {
     private func didTapDonationReminderDonate() {
         guard let reminder = WMFDonationReminderDataController.shared.loadReminder() else { return }
 
-        WMFDonationReminderDataController.shared.closeFollowUpReminderWindow()
-
         messagingController.fetchDonationReminderDonateButtonRect { [weak self] buttonRect in
             guard let self, let navigationController else { return }
 
