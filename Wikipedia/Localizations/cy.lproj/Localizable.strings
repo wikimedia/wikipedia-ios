@@ -782,6 +782,20 @@
 "welcome-languages-search-title" = "Chwilio mewn dros 300 iaith";
 "widget-onthisday-placeholder-article-snippet" = "Gwyddoniadur rhydd ar-lein y gall unrhyw un olygu";
 "widget-onthisday-placeholder-event-snippet" = "Mae Wicipedia, y gwyddoniadur rhydd, yn mynd ar-lein.";
+"wikimedia-articletopics-topic-africa" = "Affrica";
+"wikimedia-articletopics-topic-art" = "Celf";
+"wikimedia-articletopics-topic-asia" = "Asia";
+"wikimedia-articletopics-topic-central-america" = "Canolbarth America";
+"wikimedia-articletopics-topic-education" = "Addysg";
+"wikimedia-articletopics-topic-europe" = "Ewrop";
+"wikimedia-articletopics-topic-food-and-drink" = "Bwyd a diod";
+"wikimedia-articletopics-topic-general-science" = "Gwyddoniaeth gyffredinol";
+"wikimedia-articletopics-topic-history" = "Hanes";
+"wikimedia-articletopics-topic-literature" = "Llenyddiaeth";
+"wikimedia-articletopics-topic-music" = "Cerddoriaeth";
+"wikimedia-articletopics-topic-north-america" = "Gogledd America";
+"wikimedia-articletopics-topic-oceania" = "Oceania";
+"wikimedia-articletopics-topic-tv-and-film" = "Teledu a ffilm";
 "wikitext-preview-link-external-preview-title" = "Dolen allanol";
 "wikitext-preview-link-not-found-preview-title" = "Dim dolen mewnol";
 "wikitext-preview-link-preview-description" = "Mae'r ddolen hon yn arwain at '$1'";
@@ -812,121 +826,3 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Logo W Wicipedia";
 "year-in-review-wmf-logo-accessibility-label" = "Logo Sefydliad Wicimedia";
 "yesterday-title" = "Ddoe";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Pensaernïaeth";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Celf";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Comics ac anime";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Adloniant";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Ffasiwn";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Llenyddiaeth";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Cerddoriaeth";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Celfyddydau perfformio";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Chwaraeon";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "Teledu a ffilm";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Gemau fideo";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Bywgraffiad (pawb)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Bywgraffiad (menywod)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Busnes ac economeg";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Addysg";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Bwyd a diod";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Hanes";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Milwrol a rhyfela";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Athroniaeth a chrefydd";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Gwleidyddiaeth a llywodraeth";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Cymdeithas";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Cludiant";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Bioleg";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Cemeg";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Cyfrifiaduron a rhyngrwyd";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Y ddaear a'r amgylchedd";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Peirianneg";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Gwyddoniaeth gyffredinol";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Mathemateg";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Meddygaeth ac iechyd";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Ffiseg";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Technoleg";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Affrica";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Asia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Canolbarth America";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Ewrop";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Gogledd America";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Oceania";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "De America";

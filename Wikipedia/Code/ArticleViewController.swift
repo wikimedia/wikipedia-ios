@@ -482,6 +482,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     var isFirstAppearance = true
     var needsTabsIconImpressonOnCancel = false
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -490,6 +491,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
         
         presentModalsIfNeeded()
+        removeDonationReminderCardIfNeeded()
         trackArticleDidAppear()
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
@@ -1267,6 +1269,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     // MARK: Overrideable functionality
 
     internal func handleLink(with href: String) {
+        guard !handleDonationReminderLinkIfNeeded(href: href) else { return }
 
         guard let resolvedURL = articleURL.resolvingRelativeWikiHref(href) else {
             showGenericError()

@@ -5,7 +5,7 @@
 	<key>activity-tab-amount-article-views</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -21,7 +21,7 @@
 	<key>activity-tab-impact-best-streak-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -37,7 +37,7 @@
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dir hutt dës Woch %#@v1@ gemaach.</string>
+		<string>Dir hutt dës Woch %1$#@v1@ gemaach.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -53,7 +53,7 @@
 	<key>activity-tab-you-read</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dir hutt dës Woch %#@v1@ gelies.</string>
+		<string>Dir hutt dës Woch %1$#@v1@ gelies.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -69,7 +69,7 @@
 	<key>activity-tab-you-saved</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dir hutt dës Woch %#@v1@ gespäichert.</string>
+		<string>Dir hutt dës Woch %1$#@v1@ gespäichert.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -85,7 +85,7 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ op d'Lieslëscht derbäisetzen</string>
+		<string>%1$#@v1@ op d'Lieslëscht derbäisetzen</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -101,7 +101,7 @@
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ geläscht</string>
+		<string>%1$#@v1@ geläscht</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -117,7 +117,7 @@
 	<key>close-all-tabs-confirmation-subtitle-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Wëllt Dir %#@v1@ zoumaachen? Dës Aktioun kann net réckgängeg gemaach ginn.</string>
+		<string>Wëllt Dir %1$#@v1@ zoumaachen? Dës Aktioun kann net réckgängeg gemaach ginn.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -133,7 +133,7 @@
 	<key>close-all-tabs-confirmation-title-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ zoumaachen?</string>
+		<string>%1$#@v1@ zoumaachen?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -149,7 +149,7 @@
 	<key>closed-all-tabs-confirmation-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ zougemaach.</string>
+		<string>%1$#@v1@ zougemaach.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -165,7 +165,7 @@
 	<key>diff-change-paragraph-lines-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Abschnitt %#@v1@ no ënne geréckelt. Op déi nei Positioun goen.</string>
+		<string>Abschnitt %1$#@v1@ no ënne geréckelt. Op déi nei Positioun goen.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -183,7 +183,7 @@
 	<key>diff-change-paragraph-lines-moved-up</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Abschnitt %#@v1@ erop geréckelt. Op déi nei Positioun goen.</string>
+		<string>Abschnitt %1$#@v1@ erop geréckelt. Op déi nei Positioun goen.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -201,7 +201,7 @@
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -217,7 +217,7 @@
 	<key>diff-paragraph-moved-distance-section</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -233,7 +233,7 @@
 	<key>diff-single-header-editor-number-edits-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -249,7 +249,7 @@
 	<key>diff-single-header-subtitle-bytes-added</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -263,7 +263,7 @@
 	<key>diff-single-header-subtitle-bytes-removed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -277,7 +277,7 @@
 	<key>diff-unedited-lines-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -293,7 +293,7 @@
 	<key>home-feed-interests-selected-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -307,7 +307,7 @@
 	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ derbäigesat</string>
+		<string>%1$#@v1@ derbäigesat</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -321,7 +321,7 @@
 	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Mir haten %#@v1@</string>
+		<string>Mir haten %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -337,7 +337,7 @@
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ op d'Lieslëscht réckelen</string>
+		<string>%1$#@v1@ op d'Lieslëscht réckelen</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -353,7 +353,7 @@
 	<key>nearby-distance-label-feet</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -367,7 +367,7 @@
 	<key>nearby-distance-label-meters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -381,7 +381,7 @@
 	<key>notifications-center-empty-state-num-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -397,7 +397,7 @@
 	<key>notifications-center-mark-all-as-read-confirmation-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Sidd Dir sécher, datt Dir %#@v1@ vun Ären Notifikatiounen als gelies markéiere wëllt? Är Notifikatioune ginn op all Ären Apparater als gelies markéiert.</string>
+		<string>Sidd Dir sécher, datt Dir %1$#@v1@ vun Ären Notifikatiounen als gelies markéiere wëllt? Är Notifikatioune ginn op all Ären Apparater als gelies markéiert.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -413,7 +413,7 @@
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -429,7 +429,7 @@
 	<key>notifications-center-status-in-projects</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -445,7 +445,7 @@
 	<key>notifications-center-status-in-projects-plain</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -461,7 +461,7 @@
 	<key>notifications-center-status-in-types</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -477,7 +477,7 @@
 	<key>notifications-push-talk-body-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ op %2$@</string>
+		<string>%1$#@v1@ op %2$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -493,7 +493,7 @@
 	<key>notifications-push-talk-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -509,7 +509,7 @@
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -525,7 +525,7 @@
 	<key>on-this-day-footer-showing-event-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ op dësem Dag</string>
+		<string>%1$#@v1@ op dësem Dag</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -541,7 +541,7 @@
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>(%#@v1@) derbäigesat</string>
+		<string>(%1$#@v1@) derbäigesat</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -557,7 +557,7 @@
 	<key>page-history-revision-size-diff-subtraction</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ ewechgeholl</string>
+		<string>%1$#@v1@ ewechgeholl</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -571,7 +571,7 @@
 	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ zanter %2$@</string>
+		<string>%1$#@v1@ zanter %2$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -587,7 +587,7 @@
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -603,7 +603,7 @@
 	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dir hutt d'Limitt %#@v1@ pro Kont iwwerschratt.</string>
+		<string>Dir hutt d'Limitt %1$#@v1@ pro Kont iwwerschratt.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -619,7 +619,7 @@
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ net op dës Lëscht gesat ginn. Dir hutt d'Limitt vu(n) %2$d Artikele pro Lieslëscht fir %3$@ erreecht.</string>
+		<string>%1$#@v1@ net op dës Lëscht gesat ginn. Dir hutt d'Limitt vu(n) %2$d Artikele pro Lieslëscht fir %3$@ erreecht.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -635,7 +635,7 @@
 	<key>reading-list-list-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dir hutt d'Limitt %#@v1@ pro Kont iwwerschratt.</string>
+		<string>Dir hutt d'Limitt %1$#@v1@ pro Kont iwwerschratt.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -651,7 +651,7 @@
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -667,7 +667,7 @@
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ läschen?</string>
+		<string>%1$#@v1@ läschen?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -683,7 +683,7 @@
 	<key>reading-lists-large-sync-completed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ a(n) %#@v2@ vun Ärem Benotzerkont synchroniséiert</string>
+		<string>%1$#@v1@ a(n) %2$#@v2@ vun Ärem Benotzerkont synchroniséiert</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -710,7 +710,7 @@
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -728,7 +728,7 @@
 	<key>relative-date-hours-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -746,7 +746,7 @@
 	<key>relative-date-hrs-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -764,7 +764,7 @@
 	<key>relative-date-min-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -782,7 +782,7 @@
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -800,7 +800,7 @@
 	<key>relative-date-months-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -818,7 +818,7 @@
 	<key>relative-date-years-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -836,7 +836,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ läschen?</string>
+		<string>%1$#@v1@ läschen?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -852,7 +852,7 @@
 	<key>tabs-navbar-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -868,7 +868,7 @@
 	<key>talk-page-active-users-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -884,7 +884,7 @@
 	<key>talk-page-replies-count-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -900,7 +900,7 @@
 	<key>watchlist-byte-change</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>(%#@v1@)</string>
+		<string>(%1$#@v1@)</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -916,7 +916,7 @@
 	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>D'Wikipedia gouf %#@v1@ pro Minutt geännert</string>
+		<string>D'Wikipedia gouf %1$#@v1@ pro Minutt geännert</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -930,7 +930,7 @@
 	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Wikipedia war a méi wéi %#@v1@ disponibel</string>
+		<string>Wikipedia war a méi wéi %1$#@v1@ disponibel</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -946,7 +946,7 @@
 	<key>year-in-review-highlights-edit-frequency-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ pro Minutt</string>
+		<string>%1$#@v1@ pro Minutt</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -960,7 +960,7 @@
 	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dir hutt %#@v1@ geännert</string>
+		<string>Dir hutt %1$#@v1@ geännert</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -974,7 +974,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Domat gehéiert Dir eise Schätzungen no zu den ieweschte(n) **PERCENT** vu Wikipedia-Lieser weltwäit. D'Duerchschnëttspersoun liest %#@v1@ am Joer.</string>
+		<string>Domat gehéiert Dir eise Schätzungen no zu den ieweschte(n) **PERCENT** vu Wikipedia-Lieser weltwäit. D'Duerchschnëttspersoun liest %1$#@v1@ am Joer.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -990,7 +990,7 @@
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dir hutt %#@v1@ gespäichert</string>
+		<string>Dir hutt %1$#@v1@ gespäichert</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

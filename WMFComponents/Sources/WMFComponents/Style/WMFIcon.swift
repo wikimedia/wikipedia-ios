@@ -181,6 +181,7 @@ public enum WMFSFSymbolIcon {
     case sparkles
     case xmarkCircle
     case docText
+    case docOnDoc
     case chevronUpChevronDown
     case globe
     case newspaper
@@ -462,6 +463,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "xmark.circle", withConfiguration: configuration)
         case .docText:
             image = UIImage(systemName: "doc.text", withConfiguration: configuration)
+        case .docOnDoc:
+            image = UIImage(systemName: "doc.on.doc", withConfiguration: configuration)
         case .chevronUpChevronDown:
             image = UIImage(systemName: "chevron.up.chevron.down", withConfiguration: configuration)
         case .globe:
