@@ -27,6 +27,7 @@ import WMFData
         case reminderConfig = "reminder_config"
         case reminderOverflow = "reminder_overflow"
         case globalSetting = "global_setting"
+        case reminderMilestone = "reminder_milestone"
     }
     
     private enum Action: String {
@@ -83,6 +84,7 @@ import WMFData
         case reminderDisable = "reminder_disable"
         case donationReminderClick = "donation_reminder_click"
         case clearDonationHistClick = "clear_donation_hist_click"
+        case notNowClick = "notnow_click"
     }
     
     private struct Event: EventInterface {
@@ -584,6 +586,18 @@ import WMFData
 
     func logDonationReminderMaybeLaterToastImpression(project: WikimediaProject, metricsID: String) {
         logEvent(activeInterface: .maybeLaterToast, action: .impression, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logDonationReminderMilestoneImpression(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .reminderMilestone, action: .impression, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logDonationReminderMilestoneDidTapDonate(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .reminderMilestone, action: .donateStartClick, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logDonationReminderMilestoneDidTapNotNow(project: WikimediaProject) {
+        logEvent(activeInterface: .reminderMilestone, action: .notNowClick, project: project)
     }
 
     func logSettingsDidTapDonationReminders() {
