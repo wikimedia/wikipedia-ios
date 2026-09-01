@@ -116,8 +116,6 @@ public final class WMFDonationReminderDataController {
 
     private static let maximumIgnoredReminderImpressions = 2
 
-    private static let experimentCurrencyCodeKey = "donation-reminder-experiment-currency"
-
     private var userDefaultsStore: WMFKeyValueStore? { WMFDataEnvironment.current.userDefaultsStore }
     private var experimentStore: WMFKeyValueStore? { WMFDataEnvironment.current.sharedCacheStore }
 
@@ -263,7 +261,7 @@ public final class WMFDonationReminderDataController {
     // MARK: - Experiment Assignment
 
     public func clearExperimentAssignment() {
-        try? userDefaultsStore?.remove(key: Self.experimentCurrencyCodeKey)
+        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.donationReminderExperimentCurrency.rawValue)
 
         guard let experimentStore else {
             return
@@ -296,14 +294,14 @@ public final class WMFDonationReminderDataController {
 
         let resolvedAssignment = forcedAssignment ?? assignment
         if resolvedAssignment != .control {
-            try? userDefaultsStore?.save(key: Self.experimentCurrencyCodeKey, value: campaignCurrencyCode)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.donationReminderExperimentCurrency.rawValue, value: campaignCurrencyCode)
         }
 
         return resolvedAssignment
     }
 
     public var experimentCurrencyCode: String? {
-        try? userDefaultsStore?.load(key: Self.experimentCurrencyCodeKey)
+        try? userDefaultsStore?.load(key: WMFUserDefaultsKey.donationReminderExperimentCurrency.rawValue)
     }
 
     public var reminderSetupCurrencyCode: String? {
