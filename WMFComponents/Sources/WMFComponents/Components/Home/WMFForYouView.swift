@@ -65,6 +65,32 @@ private enum WMFForYouCardMetrics {
     }
 }
 
+// MARK: - Feed visibility
+
+extension WMFForYouViewModel {
+
+    /// The modules the feed can show, each with the cards the user has not hidden. A module whose
+    /// cards are all hidden does not appear.
+    ///
+    /// This is the one definition of what the feed shows. `WMFForYouView` builds its pages from
+    /// it, and `WMFHomeView` reads `isFeedEmpty` to decide between the feed chrome and the empty
+    /// state, so the two can never disagree about whether the feed is empty.
+    var visibleArticlesByPage: [(page: WMFForYouPageViewModel, articles: [WMFForYouArticleCardViewModel])] {
+        pages.compactMap { page in
+            guard moduleVisibility.isVisible(page.module) else { return nil }
+            let articles = page.articleViewModels.filter { !hiddenCardKeys.contains($0.cardUniqueKey) }
+            guard !articles.isEmpty else { return nil }
+            return (page, articles)
+        }
+    }
+
+    /// True when the feed has nothing to show: every module is off, hidden, or fully hidden
+    /// card by card.
+    var isFeedEmpty: Bool {
+        visibleArticlesByPage.isEmpty
+    }
+}
+
 // MARK: - For You Feed View
 
 public struct WMFForYouView: View {
@@ -97,12 +123,7 @@ public struct WMFForYouView: View {
     }
     
     private var visiblePages: [VisiblePage] {
-        viewModel.pages.compactMap { page in
-            guard viewModel.moduleVisibility.isVisible(page.module) else { return nil }
-            let articles = page.articleViewModels.filter { !viewModel.hiddenCardKeys.contains($0.cardUniqueKey) }
-            guard !articles.isEmpty else { return nil }
-            return VisiblePage(page: page, articles: articles)
-        }
+        viewModel.visibleArticlesByPage.map { VisiblePage(page: $0.page, articles: $0.articles) }
     }
 
     /// The module that fills the screen. A lazy stack also builds the modules near it, thus only the scroll gives the correct answer.
@@ -158,18 +179,14 @@ public struct WMFForYouView: View {
         }
     }
 
+    // The empty state lives in `WMFHomeView` with the other empty states of the tab, where it
+    // gets the safe-area-respecting chrome. `WMFHomeView` swaps this view out the moment
+    // `isFeedEmpty` turns true, so the pageless scroll view below is never what the user sees.
     public var body: some View {
-        if visiblePages.isEmpty {
-            emptyState
-                .onAppear {
-                    viewModel.onEmptyViewAppearance?()
-                }
-        } else {
-            GeometryReader { geometry in
-                scrollView(geometry: geometry)
-            }
-            .ignoresSafeArea()
+        GeometryReader { geometry in
+            scrollView(geometry: geometry)
         }
+        .ignoresSafeArea()
     }
 
     @ViewBuilder
@@ -234,16 +251,6 @@ public struct WMFForYouView: View {
                     viewModel.onUserInteraction?()
                 }
                 .onEnded { _ in hasReportedCurrentDrag = false }
-        )
-    }
-
-    // MARK: - Empty State
-
-    private var emptyState: some View {
-        WMFHomeEmptyStateView(
-            subtitle: viewModel.emptySubtitle,
-            theme: .forYou,
-            action: { viewModel.onCustomizeInterests?(.emptyFeed) }
         )
     }
 }
