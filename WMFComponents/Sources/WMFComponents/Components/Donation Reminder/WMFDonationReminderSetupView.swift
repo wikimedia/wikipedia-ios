@@ -130,6 +130,7 @@ struct WMFDonationReminderSetupView: View {
                 WMFSelectablePillButton(label: triggerOption.label, isSelected: viewModel.selectedTriggerOptionIdentifier == triggerOption.id) {
                     viewModel.selectedTriggerOptionIdentifier = triggerOption.id
                 }
+                .accessibilityLabel("\(triggerOption.label) \(viewModel.localizedStrings.triggerUnitLabel)")
             }
         }
     }
@@ -192,11 +193,15 @@ struct WMFDonationReminderSetupView: View {
     private var footerButtons: some View {
         VStack(spacing: 12) {
             if viewModel.isReminderEnabled {
-                WMFLargeButton(style: .primary, title: viewModel.primaryButtonTitle) {
+                WMFLargeButton(
+                    style: .primary,
+                    title: viewModel.primaryButtonTitle,
+                    forceBackgroundColor: viewModel.isConfirmButtonEnabled ? nil : theme.baseBackground,
+                    forceForegroundColor: viewModel.isConfirmButtonEnabled ? nil : theme.secondaryText
+                ) {
                     viewModel.confirm()
                 }
                 .disabled(!viewModel.isConfirmButtonEnabled)
-                .opacity(viewModel.isConfirmButtonEnabled ? 1 : 0.5)
             }
 
             if viewModel.origin == .banner {
