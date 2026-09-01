@@ -24,6 +24,7 @@ import WMFData
         case activityProfile = "activity_profile"
         case wikiYiR = "wiki_yir"
         case maybeLaterToast = "maybe_later_toast"
+        case reminderConfig = "reminder_config"
     }
     
     private enum Action: String {
@@ -554,6 +555,10 @@ import WMFData
     }
 
     // MARK: - Donation Reminder
+
+    func logDonationReminderSetupFormDidAppear(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .reminderConfig, action: .impression, actionData: ["campaign_id": metricsID], project: project)
+    }
 
     func logDonationReminderCampaignModalDidTapDonate(project: WikimediaProject, metricsID: String) {
         logEvent(activeInterface: .articleBanner, action: .donateStartClick, actionData: ["campaign_id": metricsID], project: project)

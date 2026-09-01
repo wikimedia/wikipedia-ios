@@ -31,6 +31,12 @@ public final class WMFDonationReminderSetupViewController: WMFCanvasViewControll
         addComponent(hostingViewController, pinToEdges: true)
     }
 
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        viewModel.logSetupFormDidAppear?()
+    }
+
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 

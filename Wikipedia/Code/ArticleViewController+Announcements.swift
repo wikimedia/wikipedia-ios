@@ -157,7 +157,9 @@ extension ArticleViewController {
                         navigationController: navigationController,
                         currencyCode: asset.currencyCode,
                         theme: self.theme,
-                        origin: .banner
+                        origin: .banner,
+                        metricsID: asset.metricsID,
+                        project: project
                     )
                     self.donationReminderSetupCoordinator = coordinator
                     coordinator.start()
