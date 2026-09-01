@@ -149,7 +149,7 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     }
 
     var primaryButtonTitle: String {
-        origin == .settings ? localizedStrings.updateButtonTitle : localizedStrings.confirmButtonTitle
+        initialReminder == nil ? localizedStrings.confirmButtonTitle : localizedStrings.updateButtonTitle
     }
 
     var hasPendingChanges: Bool {
