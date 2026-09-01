@@ -40,8 +40,8 @@ final class DonationReminderSetupCoordinator: Coordinator {
         let configuration = WMFDonationReminderSetupViewModel.experimentConfiguration(currencyCode: currencyCode, minimumAmount: minimumAmount, maximumAmount: maximumAmount)
         let viewModel = WMFDonationReminderSetupViewModel(configuration: configuration, origin: origin)
         
-        let project = self.project
-        let metricsID = self.metricsID
+        let project = self.project ?? resolvedProject()
+        let metricsID = self.metricsID ?? resolvedMetricsID()
 
         viewModel.logSetupFormDidAppear = {
             guard let project, let metricsID else { return }
@@ -87,6 +87,24 @@ final class DonationReminderSetupCoordinator: Coordinator {
         let viewController = WMFDonationReminderSetupViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
         return true
+    }
+
+    private func resolvedProject() -> WikimediaProject? {
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else { return nil }
+        return WikimediaProject(wmfProject: .wikipedia(appLanguage))
+    }
+
+    private func resolvedMetricsID() -> String? {
+        guard let assignment = WMFDonationReminderDataController.shared.experimentAssignment,
+              let countryCode = Locale.current.region?.identifier,
+              let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else { return nil }
+        let suffix: String
+        switch assignment {
+        case .control: suffix = "remindA"
+        case .groupB: suffix = "remindB"
+        case .groupC: suffix = "remindC"
+        }
+        return "\(appLanguage.languageCode)\(countryCode)_\(WMFDonationReminderDataController.experimentCampaignID)_\(suffix)_iOS"
     }
 
     private func showAboutExperiment() {
