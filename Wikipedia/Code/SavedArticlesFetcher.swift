@@ -50,13 +50,31 @@ final class SavedArticlesFetcher: NSObject {
         unobserveSavedPages()
     }
 
-    private static let rateLimitCooldown: TimeInterval = 60
+    static let defaultRateLimitCooldown: TimeInterval = 60
+    // ceiling on a server-supplied Retry-After, so downloading resumes within a session
+    static let maximumRateLimitCooldown: TimeInterval = 600
 
-    func stopAndRestartAfterRateLimitCooldown() {
+    // spread, so devices throttled in the same window don't all come back at once
+    static let rateLimitCooldownJitter: ClosedRange<Double> = 1.0...1.5
+
+    // internal for unit testing
+    static func rateLimitCooldown(retryAfter: TimeInterval?, jitter: Double) -> TimeInterval {
+        let base: TimeInterval
+        if let retryAfter = retryAfter, retryAfter > 0 {
+            base = min(retryAfter, maximumRateLimitCooldown)
+        } else {
+            base = defaultRateLimitCooldown
+        }
+        return base * jitter
+    }
+
+    func stopAndRestartAfterRateLimitCooldown(retryAfter: TimeInterval? = nil) {
         assert(Thread.isMainThread)
         stop()
+        let cooldown = Self.rateLimitCooldown(retryAfter: retryAfter, jitter: Double.random(in: Self.rateLimitCooldownJitter))
+        DDLogWarn("SavedArticlesFetcher: rate limited (HTTP 429), pausing saved article downloads for \(Int(cooldown))s")
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(restartAfterRateLimitCooldown), object: nil)
-        perform(#selector(restartAfterRateLimitCooldown), with: nil, afterDelay: Self.rateLimitCooldown)
+        perform(#selector(restartAfterRateLimitCooldown), with: nil, afterDelay: cooldown)
     }
 
     @objc private func restartAfterRateLimitCooldown() {
@@ -329,11 +347,12 @@ extension SavedArticlesFetcher {
             }
         }
         DDLogError("SavedArticlesFetcher: failed to download article \(article.key ?? "unknown"): \(underlyingError)")
-        if let requestError = underlyingError as? RequestError, case .http(429) = requestError {
+        if let requestError = underlyingError as? RequestError,
+           requestError.httpStatusCode == RequestError.rateLimitedStatusCode {
             // Rate limited — a global condition, not this article's fault. Pause all
             // downloading and retry the article as-is when the fetcher restarts,
             // instead of branding it with an error and escalating its backoff.
-            stopAndRestartAfterRateLimitCooldown()
+            stopAndRestartAfterRateLimitCooldown(retryAfter: requestError.retryAfterInterval)
             return
         }
         if underlyingError is RequestError {
