@@ -2,6 +2,7 @@ import UIKit
 import WMFComponents
 import WMFData
 import WMFNativeLocalizations
+import WMFTestKitchen
 
 /// Presents the evergreen account creation prompt to logged-out readers who have become
 /// account-ready, and reports what they did with it back to WMFData.
@@ -25,6 +26,14 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
     private var dataController: WMFEvergreenAccountCreationDataController {
         WMFEvergreenAccountCreationDataController.shared
     }
+
+    /// Matches Android's instrumentation for this prompt, so the two platforms are comparable:
+    /// the `apps-authentication` instrument, a `create_account_encourage` funnel, an impression on
+    /// presentation, and a click per button.
+    private lazy var instrument: InstrumentImpl = {
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
+            .startFunnel(name: "create_account_encourage")
+    }()
 
     // MARK: - Lifecycle
 
@@ -73,12 +82,15 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
             localizedStrings: localizedStrings,
             slides: slides(for: slideData),
             closeAction: { [weak self] in
+                self?.instrument.submitInteraction(action: "click", elementId: "close")
                 self?.finish(with: .dismissed)
             },
             primaryAction: { [weak self] in
+                self?.instrument.submitInteraction(action: "click", elementId: "create_account")
                 self?.finishAndCreateAccount()
             },
             secondaryAction: { [weak self] in
+                self?.instrument.submitInteraction(action: "click", elementId: "maybe_later")
                 self?.finish(with: .tappedMaybeLater)
             }
         )
@@ -92,7 +104,10 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
         self.promptNavigationController = promptNavigationController
 
         presenter.present(promptNavigationController, animated: true) { [weak self] in
-            Task { await self?.dataController.recordImpression() }
+            guard let self else { return }
+
+            self.instrument.submitInteraction(action: "impression")
+            Task { await self.dataController.recordImpression() }
         }
     }
 
