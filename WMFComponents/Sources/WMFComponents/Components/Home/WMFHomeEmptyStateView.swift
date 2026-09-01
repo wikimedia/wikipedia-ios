@@ -14,8 +14,8 @@ struct WMFHomeEmptyStateView: View {
     let subtitle: String
     let theme: WMFTheme
     let action: () -> Void
-    
-    var uiImage = UIImage(named: "empty_feed", in: Bundle.module, compatibleWith: nil)
+
+    private let uiImage = UIImage(named: "empty_feed", in: Bundle.module, compatibleWith: nil)
 
     var body: some View {
         let viewModel = WMFEmptyViewModel(
@@ -26,12 +26,10 @@ struct WMFHomeEmptyStateView: View {
                 buttonTitle: buttonTitle,
                 attributedFilterString: nil
             ),
-            // Placeholder until design defines the empty feed asset (the mock shows the
-            // document-with-magnifying-glass illustration).
             image: uiImage,
             imageColor: theme.secondaryText,
             numberOfFilters: nil,
-            // A nil size keeps the SF Symbol at its natural size. The default size distorts it.
+            // A nil size keeps the illustration at its natural size. The default size distorts it.
             imageSize: nil
         )
 
