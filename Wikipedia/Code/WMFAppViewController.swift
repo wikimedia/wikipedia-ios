@@ -1061,7 +1061,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             self.performTasksThatShouldOccurAfterBecomeActiveAndResume()
             self.showLoggedOutPanelIfNeeded()
             self.presentOneTimeHomeOnboardingIfNeeded()
-            self.presentEvergreenAccountCreationPromptIfNeeded()
             let key = WMFUserDefaultsKey.needsDailyGameFeedRefresh.rawValue
             if UserDefaults.standard.bool(forKey: key) {
                 UserDefaults.standard.removeObject(forKey: key)

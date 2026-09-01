@@ -1399,8 +1399,18 @@ extension WMFAppViewController {
     /// recorded here belongs to the session it is deciding about.
     @objc func startEvergreenAccountCreationSession() {
         Task {
-            await WMFEvergreenAccountCreationDataController.shared.startSession()
-            recordEvergreenAccountCreationAppOpenIfNeeded()
+            let dataController = WMFEvergreenAccountCreationDataController.shared
+            await dataController.startSession()
+
+            // Ordered deliberately: this session's app open has to be recorded before eligibility is
+            // weighed, or a reader crossing the "two more app open days" line is passed over until
+            // their next launch. Prompts presented synchronously by the resume have already taken the
+            // screen by the time these awaits resolve, so this one still yields to them.
+            if isViewingEligibleMainTab {
+                await dataController.recordAppOpen()
+            }
+
+            presentEvergreenAccountCreationPromptIfNeeded()
         }
     }
 
