@@ -773,7 +773,6 @@
 "home-nearby-footer" = "Footer for presenting user option to see longer list of nearby articles.";
 "home-nearby-location-footer" = "Footer for presenting user option to see longer list of articles nearby a specific location. $1 will be replaced with the name of the location";
 "home-news-footer" = "Footer for presenting user option to see longer list of news stories.";
-"home-reading-list-prompt" = "Description on feed card that describes reading lists.";
 "home-tab-title" = "Title for the Home tab.";
 "home-tab-title-accessibility-label" = "Accessibility label for the 'W' logo in the navigation bar of the Home tab. It tells the user that a tap on the logo scrolls to the top of the feed that is on screen. \"Home\" is the same as {{msg-wikimedia|Wikipedia-ios-home-tab-title}}.";
 "home-themes-action-title" = "Action on the feed card that describes the theme feature. Takes the user to manage theme preferences.";
@@ -1208,11 +1207,7 @@
 "reading-list-list-limit-exceeded-message" = "Informs the user that the reading list and its articles will not be synced until the number of lists is decreased. $1 will be replaced with the maximimum number of allowed lists.";
 "reading-list-list-limit-exceeded-title" = "Informs the user that they have reached the allowed limit of reading lists per account. $1 will be replaced with the maximum number of allowed lists";
 "reading-list-list-limit-reached" = "Informs the user that they have reached the allowed limit of reading lists per account. $1 will be replaced with the maximum number of allowed reading lists";
-"reading-list-login-button-title" = "Title for button to login to sync saved articles and reading lists.";
 "reading-list-login-or-create-account-button-title" = "Title for button to login or create account.";
-"reading-list-login-or-create-account-title" = "Title for syncing saved articles.";
-"reading-list-login-subtitle" = "Subtitle explaining that saved articles and reading lists can be synced across Wikipedia apps.";
-"reading-list-login-title" = "Title for syncing save articles.";
 "reading-list-name-user-created-annotation" = "Annotation added to a conflicting reading list name";
 "reading-list-new-list-description-placeholder" = "Placeholder text appearing in text field for entering new list description";
 "reading-list-new-list-name-placeholder" = "Placeholder text appearing in text field for entering new list name";
