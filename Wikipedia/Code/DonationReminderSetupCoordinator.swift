@@ -68,6 +68,11 @@ final class DonationReminderSetupCoordinator: Coordinator {
             DonateFunnel.shared.logDonationReminderDidTapNoThanks(project: project)
         }
 
+        viewModel.logDidToggleReminder = { isEnabled in
+            guard let project else { return }
+            DonateFunnel.shared.logDonationReminderDidToggle(isEnabled: isEnabled, project: project)
+        }
+
         viewModel.didConfirmReminder = { [weak self] _ in
             self?.navigationController.popViewController(animated: true)
         }

@@ -79,6 +79,8 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
         didSet {
             guard oldValue != isReminderEnabled else { return }
 
+            logDidToggleReminder?(isReminderEnabled)
+
             if var savedReminder = WMFDonationReminderDataController.shared.loadReminder() {
                 savedReminder.isEnabled = isReminderEnabled
                 WMFDonationReminderDataController.shared.saveReminder(savedReminder)
@@ -100,6 +102,7 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     public var logDidTapReportProblem: (@MainActor @Sendable () -> Void)?
     public var logDidTapConfirm: (@MainActor @Sendable (_ milestoneDefault: Bool, _ readFreq: Int, _ donateAmount: Decimal) -> Void)?
     public var logDidTapNoThanks: (@MainActor @Sendable () -> Void)?
+    public var logDidToggleReminder: (@MainActor @Sendable (_ isEnabled: Bool) -> Void)?
 
     public var didConfirmReminder: (@MainActor @Sendable (WMFDonationReminder) -> Void)?
     public var didTapAboutExperiment: (@MainActor @Sendable () -> Void)?

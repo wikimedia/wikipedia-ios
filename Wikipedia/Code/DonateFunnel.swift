@@ -78,6 +78,8 @@ import WMFData
         case overflowProblemClick = "overflow_problem_click"
         case reminderConfirmClick = "reminder_confirm_click"
         case noThanksClick = "nothanks_click"
+        case reminderEnable = "reminder_enable"
+        case reminderDisable = "reminder_disable"
     }
     
     private struct Event: EventInterface {
@@ -579,6 +581,10 @@ import WMFData
 
     func logDonationReminderMaybeLaterToastImpression(project: WikimediaProject, metricsID: String) {
         logEvent(activeInterface: .maybeLaterToast, action: .impression, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logDonationReminderDidToggle(isEnabled: Bool, project: WikimediaProject) {
+        logEvent(activeInterface: .reminderConfig, action: isEnabled ? .reminderEnable : .reminderDisable, project: project)
     }
 
     func logDonationReminderDidTapNoThanks(project: WikimediaProject) {
