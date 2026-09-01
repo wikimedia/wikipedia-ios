@@ -56,7 +56,7 @@ struct WMFEvergreenAccountCreationDataControllerTests {
         await dataController.startSession()
 
         #expect(await dataController.isAccountReady() == false)
-        #expect(await dataController.shouldShowPrompt(in: .home, isLoggedIn: false, isAnotherPromptVisible: false) == false)
+        #expect(await dataController.shouldShowPrompt(in: .home, hasPermanentAccount: false, isAnotherPromptVisible: false) == false)
     }
 
     @Test
@@ -100,11 +100,11 @@ struct WMFEvergreenAccountCreationDataControllerTests {
         await dataController.recordAppOpen(date: day(0))
         await dataController.recordAppOpen(date: day(9))
 
-        #expect(await dataController.shouldShowPrompt(in: .home, isLoggedIn: false, isAnotherPromptVisible: false) == false, "The qualifying session must not show the prompt.")
+        #expect(await dataController.shouldShowPrompt(in: .home, hasPermanentAccount: false, isAnotherPromptVisible: false) == false, "The qualifying session must not show the prompt.")
 
         await dataController.startSession()
 
-        #expect(await dataController.shouldShowPrompt(in: .home, isLoggedIn: false, isAnotherPromptVisible: false))
+        #expect(await dataController.shouldShowPrompt(in: .home, hasPermanentAccount: false, isAnotherPromptVisible: false))
     }
 
     /// The session that qualified the reader must not show the prompt, whichever order the app
@@ -160,23 +160,32 @@ struct WMFEvergreenAccountCreationDataControllerTests {
     func promptShowsOnHomeSavedAndInternallyLinkedArticles() async throws {
         let dataController = await makeAccountReadyController()
 
-        #expect(await dataController.shouldShowPrompt(in: .home, isLoggedIn: false, isAnotherPromptVisible: false))
-        #expect(await dataController.shouldShowPrompt(in: .saved, isLoggedIn: false, isAnotherPromptVisible: false))
-        #expect(await dataController.shouldShowPrompt(in: .article(isFromDeepLink: false), isLoggedIn: false, isAnotherPromptVisible: false))
+        #expect(await dataController.shouldShowPrompt(in: .home, hasPermanentAccount: false, isAnotherPromptVisible: false))
+        #expect(await dataController.shouldShowPrompt(in: .saved, hasPermanentAccount: false, isAnotherPromptVisible: false))
+        #expect(await dataController.shouldShowPrompt(in: .article(isFromDeepLink: false), hasPermanentAccount: false, isAnotherPromptVisible: false))
     }
 
     @Test
     func promptIsSuppressedOnArticlesReachedFromADeepLink() async throws {
         let dataController = await makeAccountReadyController()
 
-        #expect(await dataController.shouldShowPrompt(in: .article(isFromDeepLink: true), isLoggedIn: false, isAnotherPromptVisible: false) == false)
+        #expect(await dataController.shouldShowPrompt(in: .article(isFromDeepLink: true), hasPermanentAccount: false, isAnotherPromptVisible: false) == false)
     }
 
     @Test
-    func promptIsSuppressedForLoggedInReaders() async throws {
+    func promptIsSuppressedForReadersWithAPermanentAccount() async throws {
         let dataController = await makeAccountReadyController()
 
-        #expect(await dataController.shouldShowPrompt(in: .home, isLoggedIn: true, isAnotherPromptVisible: false) == false)
+        #expect(await dataController.shouldShowPrompt(in: .home, hasPermanentAccount: true, isAnotherPromptVisible: false) == false)
+    }
+
+    /// A temporary account has nothing to sync yet, so those readers are still shown the prompt. The
+    /// app passes `authStateIsPermanent`, which is false for them.
+    @Test
+    func promptShowsForReadersOnATemporaryAccount() async throws {
+        let dataController = await makeAccountReadyController()
+
+        #expect(await dataController.shouldShowPrompt(in: .home, hasPermanentAccount: false, isAnotherPromptVisible: false))
     }
 
     /// This prompt ranks below every other tooltip and prompt, and never shares the screen with one.
@@ -184,7 +193,7 @@ struct WMFEvergreenAccountCreationDataControllerTests {
     func promptIsSuppressedWhileAnotherPromptIsVisible() async throws {
         let dataController = await makeAccountReadyController()
 
-        #expect(await dataController.shouldShowPrompt(in: .home, isLoggedIn: false, isAnotherPromptVisible: true) == false)
+        #expect(await dataController.shouldShowPrompt(in: .home, hasPermanentAccount: false, isAnotherPromptVisible: true) == false)
     }
 
     // MARK: - Impression Cap
@@ -202,7 +211,7 @@ struct WMFEvergreenAccountCreationDataControllerTests {
         }
         await dataController.startSession()
 
-        #expect(await dataController.shouldShowPrompt(in: .home, isLoggedIn: false, isAnotherPromptVisible: false) == false)
+        #expect(await dataController.shouldShowPrompt(in: .home, hasPermanentAccount: false, isAnotherPromptVisible: false) == false)
     }
 
     @Test
@@ -215,7 +224,7 @@ struct WMFEvergreenAccountCreationDataControllerTests {
         await dataController.recordAppOpen(date: day(16))
         await dataController.startSession()
 
-        #expect(await dataController.shouldShowPrompt(in: .home, isLoggedIn: false, isAnotherPromptVisible: false) == false)
+        #expect(await dataController.shouldShowPrompt(in: .home, hasPermanentAccount: false, isAnotherPromptVisible: false) == false)
     }
 
     /// "Maybe later" buys a second impression, but only after two more app open days.
@@ -226,13 +235,13 @@ struct WMFEvergreenAccountCreationDataControllerTests {
         await dataController.recordImpression()
         await dataController.recordOutcome(.tappedMaybeLater)
 
-        #expect(await dataController.shouldShowPrompt(in: .home, isLoggedIn: false, isAnotherPromptVisible: false) == false, "Same day as the first impression.")
+        #expect(await dataController.shouldShowPrompt(in: .home, hasPermanentAccount: false, isAnotherPromptVisible: false) == false, "Same day as the first impression.")
 
         await dataController.recordAppOpen(date: day(15))
-        #expect(await dataController.shouldShowPrompt(in: .home, isLoggedIn: false, isAnotherPromptVisible: false) == false, "One more app open day is not two.")
+        #expect(await dataController.shouldShowPrompt(in: .home, hasPermanentAccount: false, isAnotherPromptVisible: false) == false, "One more app open day is not two.")
 
         await dataController.recordAppOpen(date: day(16))
-        #expect(await dataController.shouldShowPrompt(in: .home, isLoggedIn: false, isAnotherPromptVisible: false), "Two more app open days, so the second impression is due.")
+        #expect(await dataController.shouldShowPrompt(in: .home, hasPermanentAccount: false, isAnotherPromptVisible: false), "Two more app open days, so the second impression is due.")
     }
 
     @Test
@@ -252,7 +261,7 @@ struct WMFEvergreenAccountCreationDataControllerTests {
         }
         await dataController.startSession()
 
-        #expect(await dataController.shouldShowPrompt(in: .home, isLoggedIn: false, isAnotherPromptVisible: false) == false, "Two impressions is the maximum.")
+        #expect(await dataController.shouldShowPrompt(in: .home, hasPermanentAccount: false, isAnotherPromptVisible: false) == false, "Two impressions is the maximum.")
     }
 
     // MARK: - Existing Readers
@@ -275,7 +284,7 @@ struct WMFEvergreenAccountCreationDataControllerTests {
             await dataController.startSession()
 
             #expect(await dataController.isAccountReady())
-            #expect(await dataController.shouldShowPrompt(in: .home, isLoggedIn: false, isAnotherPromptVisible: false), "These readers see the prompt now, not a session later.")
+            #expect(await dataController.shouldShowPrompt(in: .home, hasPermanentAccount: false, isAnotherPromptVisible: false), "These readers see the prompt now, not a session later.")
         })
     }
 
@@ -384,7 +393,7 @@ struct WMFEvergreenAccountCreationDataControllerTests {
         await laterDataController.recordAppOpen(date: day(48))
         await laterDataController.startSession()
 
-        #expect(await laterDataController.shouldShowPrompt(in: .home, isLoggedIn: false, isAnotherPromptVisible: false) == false)
+        #expect(await laterDataController.shouldShowPrompt(in: .home, hasPermanentAccount: false, isAnotherPromptVisible: false) == false)
     }
 
     // MARK: - Slide Data

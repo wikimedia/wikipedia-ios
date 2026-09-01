@@ -155,11 +155,13 @@ public actor WMFEvergreenAccountCreationDataController {
 
     /// - Parameters:
     ///   - context: The surface about to show the prompt.
-    ///   - isLoggedIn: Login state, which lives outside WMFData.
+    ///   - hasPermanentAccount: Whether the reader is logged in to a real account, which lives
+    ///     outside WMFData. A temporary account does not count: those readers have nothing to sync
+    ///     yet, so the prompt is still for them.
     ///   - isAnotherPromptVisible: Whether a tooltip or prompt is already on screen. This prompt
     ///     ranks below all of them and never shares the screen with one.
-    public func shouldShowPrompt(in context: PresentationContext, isLoggedIn: Bool, isAnotherPromptVisible: Bool) -> Bool {
-        guard !isLoggedIn,
+    public func shouldShowPrompt(in context: PresentationContext, hasPermanentAccount: Bool, isAnotherPromptVisible: Bool) -> Bool {
+        guard !hasPermanentAccount,
               !isAnotherPromptVisible,
               context.allowsPrompt else {
             return false

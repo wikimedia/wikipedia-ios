@@ -51,7 +51,8 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
 
         guard await dataController.shouldShowPrompt(
             in: context,
-            isLoggedIn: dataStore.authenticationManager.authStateIsPermanent,
+            // Only a permanent account is excluded. A temporary account still sees the prompt.
+            hasPermanentAccount: dataStore.authenticationManager.authStateIsPermanent,
             isAnotherPromptVisible: presenter.presentedViewController != nil
         ) else {
             return false
