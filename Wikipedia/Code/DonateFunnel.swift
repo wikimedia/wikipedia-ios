@@ -81,6 +81,8 @@ import WMFData
         case noThanksClick = "nothanks_click"
         case reminderEnable = "reminder_enable"
         case reminderDisable = "reminder_disable"
+        case donationReminderClick = "donation_reminder_click"
+        case clearDonationHistClick = "clear_donation_hist_click"
     }
     
     private struct Event: EventInterface {
@@ -582,6 +584,14 @@ import WMFData
 
     func logDonationReminderMaybeLaterToastImpression(project: WikimediaProject, metricsID: String) {
         logEvent(activeInterface: .maybeLaterToast, action: .impression, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logSettingsDidTapDonationReminders() {
+        logEvent(activeInterface: .globalSetting, action: .donationReminderClick)
+    }
+
+    func logSettingsDidTapClearDonationHistory() {
+        logEvent(activeInterface: .globalSetting, action: .clearDonationHistClick)
     }
 
     func logDonationReminderDidToggle(isEnabled: Bool, project: WikimediaProject, fromSettings: Bool = false) {

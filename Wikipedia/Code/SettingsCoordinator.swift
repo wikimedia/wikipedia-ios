@@ -361,6 +361,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     // MARK: - Donation Reminders
 
     private func showDonationReminderSetup() {
+        DonateFunnel.shared.logSettingsDidTapDonationReminders()
+
         guard let settingsNav = settingsNavigationController,
               let currencyCode = WMFDonationReminderDataController.shared.reminderSetupCurrencyCode
         else { return }
@@ -378,6 +380,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     // MARK: - Donation History
 
     private func clearDonationHistory() {
+        DonateFunnel.shared.logSettingsDidTapClearDonationHistory()
+
         let alertController = UIAlertController(title: CommonStrings.confirmDeletionTitle, message: CommonStrings.confirmDeletionSubtitle, preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: CommonStrings.deleteActionTitle, style: .destructive) { _ in
             Task {
