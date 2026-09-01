@@ -111,17 +111,34 @@ struct WMFDonationReminderSetupView: View {
                 }
             }
 
-            HStack(spacing: 12) {
-                ForEach(viewModel.configuration.triggerOptions) { triggerOption in
-                    WMFSelectablePillButton(label: triggerOption.label, isSelected: viewModel.selectedTriggerOptionIdentifier == triggerOption.id) {
-                        viewModel.selectedTriggerOptionIdentifier = triggerOption.id
-                    }
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 12) {
+                    triggerOptionButtons
+                    triggerUnitLabel
                 }
-                Text(viewModel.localizedStrings.triggerUnitLabel)
-                    .font(Font(WMFFont.for(.callout)))
-                    .foregroundColor(Color(theme.text))
+                VStack(alignment: .leading, spacing: 12) {
+                    triggerOptionButtons
+                    triggerUnitLabel
+                }
             }
         }
+    }
+
+    private var triggerOptionButtons: some View {
+        HStack(spacing: 12) {
+            ForEach(viewModel.configuration.triggerOptions) { triggerOption in
+                WMFSelectablePillButton(label: triggerOption.label, isSelected: viewModel.selectedTriggerOptionIdentifier == triggerOption.id) {
+                    viewModel.selectedTriggerOptionIdentifier = triggerOption.id
+                }
+            }
+        }
+    }
+
+    private var triggerUnitLabel: some View {
+        Text(viewModel.localizedStrings.triggerUnitLabel)
+            .font(Font(WMFFont.for(.callout)))
+            .foregroundColor(Color(theme.text))
+            .fixedSize(horizontal: true, vertical: false)
     }
 
     private var amountGroup: some View {
@@ -191,4 +208,3 @@ struct WMFDonationReminderSetupView: View {
         }
     }
 }
-
