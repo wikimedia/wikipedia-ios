@@ -98,6 +98,8 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     public var logSetupFormDidAppear: (@MainActor @Sendable () -> Void)?
     public var logDidTapLearnMore: (@MainActor @Sendable () -> Void)?
     public var logDidTapReportProblem: (@MainActor @Sendable () -> Void)?
+    public var logDidTapConfirm: (@MainActor @Sendable (_ milestoneDefault: Bool, _ readFreq: Int, _ donateAmount: Decimal) -> Void)?
+    public var logDidTapNoThanks: (@MainActor @Sendable () -> Void)?
 
     public var didConfirmReminder: (@MainActor @Sendable (WMFDonationReminder) -> Void)?
     public var didTapAboutExperiment: (@MainActor @Sendable () -> Void)?
@@ -234,6 +236,11 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     func confirm() {
         guard let selectedTriggerOption, isConfirmButtonEnabled, isReminderEnabled else { return }
 
+        if case .articlesRead(let count) = selectedTriggerOption.trigger {
+            let isDefault = selectedTriggerOptionIdentifier == configuration.defaultTriggerOptionIdentifier && finalAmount == configuration.defaultAmount
+            logDidTapConfirm?(isDefault, count, finalAmount)
+        }
+
         let createdDate: Date
         let progress: WMFDonationReminder.Progress?
         switch origin {
@@ -265,6 +272,8 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     }
 
     func declineReminder() {
+        logDidTapNoThanks?()
+
         guard let trigger = (selectedTriggerOption ?? configuration.triggerOptions.first)?.trigger else { return }
 
         let optOutReminder = WMFDonationReminder(

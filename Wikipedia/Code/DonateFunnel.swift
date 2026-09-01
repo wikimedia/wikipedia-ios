@@ -76,6 +76,8 @@ import WMFData
         case groupAssigned = "group_assigned"
         case overflowLearnMoreClick = "overflow_learn_more_click"
         case overflowProblemClick = "overflow_problem_click"
+        case reminderConfirmClick = "reminder_confirm_click"
+        case noThanksClick = "nothanks_click"
     }
     
     private struct Event: EventInterface {
@@ -577,6 +579,18 @@ import WMFData
 
     func logDonationReminderMaybeLaterToastImpression(project: WikimediaProject, metricsID: String) {
         logEvent(activeInterface: .maybeLaterToast, action: .impression, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logDonationReminderDidTapNoThanks(project: WikimediaProject) {
+        logEvent(activeInterface: .reminderConfig, action: .noThanksClick, project: project)
+    }
+
+    func logDonationReminderDidTapConfirm(project: WikimediaProject, milestoneDefault: Bool, readFreq: Int, donateAmount: Decimal) {
+        logEvent(activeInterface: .reminderConfig, action: .reminderConfirmClick, actionData: [
+            "milestone_default": milestoneDefault ? "true" : "false",
+            "read_freq": "\(readFreq)",
+            "donate_amount": "\(donateAmount)"
+        ], project: project)
     }
 
     func logDonationReminderGroupAssigned(_ assignment: WMFDonationReminderDataController.ExperimentAssignment, project: WikimediaProject) {
