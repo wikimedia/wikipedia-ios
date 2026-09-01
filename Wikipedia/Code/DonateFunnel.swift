@@ -25,6 +25,7 @@ import WMFData
         case wikiYiR = "wiki_yir"
         case maybeLaterToast = "maybe_later_toast"
         case reminderConfig = "reminder_config"
+        case reminderOverflow = "reminder_overflow"
     }
     
     private enum Action: String {
@@ -73,6 +74,8 @@ import WMFData
         case iconActivateClick = "icon_activate_click"
         case iconDeactivateClick = "icon_deactivate_click"
         case groupAssigned = "group_assigned"
+        case overflowLearnMoreClick = "overflow_learn_more_click"
+        case overflowProblemClick = "overflow_problem_click"
     }
     
     private struct Event: EventInterface {
@@ -558,6 +561,14 @@ import WMFData
 
     func logDonationReminderSetupFormDidAppear(project: WikimediaProject, metricsID: String) {
         logEvent(activeInterface: .reminderConfig, action: .impression, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logDonationReminderDidTapLearnMore(project: WikimediaProject) {
+        logEvent(activeInterface: .reminderOverflow, action: .overflowLearnMoreClick, project: project)
+    }
+
+    func logDonationReminderDidTapReportProblem(project: WikimediaProject) {
+        logEvent(activeInterface: .reminderOverflow, action: .overflowProblemClick, project: project)
     }
 
     func logDonationReminderCampaignModalDidTapDonate(project: WikimediaProject, metricsID: String) {

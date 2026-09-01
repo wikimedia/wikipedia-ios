@@ -45,6 +45,14 @@ final class DonationReminderSetupCoordinator: Coordinator {
             DonateFunnel.shared.logDonationReminderSetupFormDidAppear(project: project, metricsID: metricsID)
         }
 
+        viewModel.logDidTapLearnMore = {
+            DonateFunnel.shared.logDonationReminderDidTapLearnMore(project: project)
+        }
+
+        viewModel.logDidTapReportProblem = {
+            DonateFunnel.shared.logDonationReminderDidTapReportProblem(project: project)
+        }
+
         viewModel.didConfirmReminder = { [weak self] _ in
             self?.navigationController.popViewController(animated: true)
         }

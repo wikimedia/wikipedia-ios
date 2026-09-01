@@ -96,6 +96,8 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     @Published var isShowingTriggerGroupDetail: Bool = false
 
     public var logSetupFormDidAppear: (@MainActor @Sendable () -> Void)?
+    public var logDidTapLearnMore: (@MainActor @Sendable () -> Void)?
+    public var logDidTapReportProblem: (@MainActor @Sendable () -> Void)?
 
     public var didConfirmReminder: (@MainActor @Sendable (WMFDonationReminder) -> Void)?
     public var didTapAboutExperiment: (@MainActor @Sendable () -> Void)?

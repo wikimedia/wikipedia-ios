@@ -67,6 +67,7 @@ public final class WMFDonationReminderSetupViewController: WMFCanvasViewControll
             title: viewModel.localizedStrings.learnMoreButtonTitle,
             image: WMFSFSymbolIcon.for(symbol: .infoCircle)
         ) { [weak self] _ in
+            self?.viewModel.logDidTapLearnMore?()
             self?.viewModel.didTapAboutExperiment?()
         }
 
@@ -74,6 +75,7 @@ public final class WMFDonationReminderSetupViewController: WMFCanvasViewControll
             title: viewModel.localizedStrings.problemWithFeatureButtonTitle,
             image: WMFSFSymbolIcon.for(symbol: .flag)
         ) { [weak self] _ in
+            self?.viewModel.logDidTapReportProblem?()
             self?.viewModel.didTapReportProblem?()
         }
 
