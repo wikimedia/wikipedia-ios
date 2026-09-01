@@ -22,6 +22,7 @@ class DonateCoordinator: Coordinator {
 
     enum Source {
         case articleCampaignModal(ArticleURL, MetricsID, DonateURL)
+        case donationReminder(ArticleURL, campaignID: String, assignment: WMFDonationReminderDataController.ExperimentAssignment, DonateURL)
         case settingsProfile
         case exploreProfile
         case articleProfile(ArticleURL)
@@ -63,7 +64,7 @@ class DonateCoordinator: Coordinator {
             }
 
             return wikimediaProject
-        case .articleProfile(let articleURL), .donationReminderArticle(let articleURL, _, _):
+        case .articleProfile(let articleURL), .donationReminderArticle(let articleURL, _, _), .donationReminder(let articleURL, _, _, _):
             guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
                 return nil
             }
@@ -91,6 +92,8 @@ class DonateCoordinator: Coordinator {
         
         if case .articleCampaignModal(_, _, let articleCampaignDonateURL) = source {
             url = articleCampaignDonateURL.replacingDonateParameters(language: languageCode, metricsId: metricsID)
+        } else if case .donationReminder(_, _, _, let donationReminderDonateURL) = source {
+            url = donationReminderDonateURL.replacingDonateParameters(language: languageCode, metricsId: metricsID)
         } else {
             url = URL(string:"https://donate.wikimedia.org/?wmf_medium=WikipediaApp&wmf_campaign=$platform;&wmf_source=$formattedId;&uselang=$language;&app_install_id=$appInstallId;&app_version=$appVersion;")?
                 .replacingDonateParameters(language: languageCode, metricsId: metricsID)
@@ -116,6 +119,18 @@ class DonateCoordinator: Coordinator {
         switch donateSource {
         case .articleCampaignModal(_, let metricsID, _):
             return metricsID
+        case .donationReminder(_, let campaignID, let assignment, _):
+            guard let languageCode,
+                  let countryCode = Locale.current.region?.identifier else {
+                return nil
+            }
+            let suffix: String
+            switch assignment {
+            case .control: suffix = "remindA"
+            case .groupB: suffix = "remindB"
+            case .groupC: suffix = "remindC"
+            }
+            return "\(languageCode)\(countryCode)_\(campaignID)_\(suffix)_iOS"
         case .articleProfile, .exploreProfile, .settingsProfile, .placesProfile, .savedProfile, .searchProfile:
             guard let languageCode,
                   let countryCode = Locale.current.region?.identifier else {
@@ -231,7 +246,7 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logArticleProfileDonateCancel(project: project, metricsID: metricsID)
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDonateCancel(metricsID: metricsID)
-            case .articleCampaignModal:
+            case .articleCampaignModal, .donationReminder:
                guard let project = self.wikimediaProject else {
                    return
                }
@@ -286,7 +301,7 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logArticleProfileDonateApplePay(project: project, metricsID: metricsID)
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDonateApplePay(metricsID: metricsID)
-            case .articleCampaignModal:
+            case .articleCampaignModal, .donationReminder:
                 guard let project = wikimediaProject else {
                    return
                }
@@ -322,7 +337,7 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logArticleProfileDonateWebPay(project: project, metricsID: metricsID)
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDonateWebPay(metricsID: metricsID)
-            case .articleCampaignModal:
+            case .articleCampaignModal, .donationReminder:
                 guard let project = wikimediaProject else {
                     return
                 }
@@ -489,7 +504,7 @@ class DonateCoordinator: Coordinator {
 
         let completeButtonTitle: String
         switch source {
-        case .articleCampaignModal, .articleProfile, .donationReminderArticle:
+        case .articleCampaignModal, .donationReminder, .articleProfile, .donationReminderArticle:
             completeButtonTitle = CommonStrings.returnToArticle
         case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .searchProfile, .activityTabProfile:
             completeButtonTitle = CommonStrings.returnButtonTitle
@@ -772,7 +787,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             }
         case .settingsProfile:
             DonateFunnel.shared.logExploreOptOutProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
-        case .articleCampaignModal:
+        case .articleCampaignModal, .donationReminder:
             if let wikimediaProject = self.wikimediaProject {
                 DonateFunnel.shared.logArticleCampaignDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
             }
@@ -846,7 +861,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
         }
 
         switch source {
-        case .articleCampaignModal:
+        case .articleCampaignModal, .donationReminder:
 
             guard let wikimediaProject else {
                 return
@@ -879,7 +894,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             }
 
             switch self.source {
-            case .articleCampaignModal:
+            case .articleCampaignModal, .donationReminder:
                 guard let wikimediaProject else {
                     return
                 }

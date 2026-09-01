@@ -107,7 +107,15 @@ extension ArticleViewController {
 
             let getDonateButtonGlobalRect: () -> CGRect = { globalRect }
 
-            let donateCoordinator = DonateCoordinator(navigationController: navigationController, source: .articleCampaignModal(articleURL, asset.metricsID, donateURL), dataStore: dataStore, theme: theme, navigationStyle: .dismissThenPush, setLoadingBlock: { isLoading in
+            let donateSource: DonateCoordinator.Source
+            if WMFDeveloperSettingsDataController.shared.enableDonationReminder,
+               let assignment = WMFDonationReminderDataController.shared.experimentAssignment {
+                donateSource = .donationReminder(articleURL, campaignID: asset.id, assignment: assignment, donateURL)
+            } else {
+                donateSource = .articleCampaignModal(articleURL, asset.metricsID, donateURL)
+            }
+
+            let donateCoordinator = DonateCoordinator(navigationController: navigationController, source: donateSource, dataStore: dataStore, theme: theme, navigationStyle: .dismissThenPush, setLoadingBlock: { isLoading in
                 guard let fundraisingPanelVC = viewController as? FundraisingAnnouncementPanelViewController else {
                     return
                 }
