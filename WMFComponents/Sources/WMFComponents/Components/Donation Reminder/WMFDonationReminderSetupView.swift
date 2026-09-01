@@ -82,7 +82,7 @@ struct WMFDonationReminderSetupView: View {
     private var triggerGroup: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 6) {
-                if let booksImage = WMFSFSymbolIcon.for(symbol: .booksVerticalFill, font: WMFFont.subheadline) {
+                if let booksImage = WMFSFSymbolIcon.for(symbol: .booksVertical, font: WMFFont.subheadline) {
                     Image(uiImage: booksImage)
                         .foregroundColor(Color(theme.secondaryText))
                 }
