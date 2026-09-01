@@ -255,7 +255,7 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
         formatter.currencyCode = configuration.currencyCode
         let formattedAmount = formatter.string(from: finalAmount as NSNumber) ?? "\(finalAmount)"
         let toastTitle = String.localizedStringWithFormat(localizedStrings.confirmationToastFormat, formattedAmount, selectedTriggerOption.label)
-        WMFToastPresenter.shared.show(WMFToastConfig(title: toastTitle, icon: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill)))
+        WMFToastPresenter.shared.show(WMFToastConfig(title: toastTitle))
 
         didConfirmReminder?(reminder)
     }

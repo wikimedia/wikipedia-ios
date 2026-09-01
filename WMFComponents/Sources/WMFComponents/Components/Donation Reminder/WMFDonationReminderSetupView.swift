@@ -60,7 +60,7 @@ struct WMFDonationReminderSetupView: View {
     }
 
     private var header: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 24) {
             Text(viewModel.localizedStrings.subtitle)
                 .font(Font(WMFFont.for(.subheadline)))
                 .foregroundColor(Color(theme.text))
