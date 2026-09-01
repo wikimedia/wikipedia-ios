@@ -411,7 +411,8 @@
 "donation-reminder-card-donate" = "Title of the donate button on the in-article donation reminder card.";
 "donation-reminder-card-heading" = "Heading of the in-article donation reminder card the first time the user reaches their reading goal. $1 is the number of articles read, $2 is the pledged donation amount.";
 "donation-reminder-card-not-now" = "Title of the dismiss link on the in-article donation reminder card.";
-"donation-reminder-card-not-now-toast" = "Toast shown after the user dismisses the in-article donation reminder card. $1 is the number of articles until the next reminder.";
+"donation-reminder-card-not-now-toast-modify" = "Title of the toast button that opens the donation reminder settings, shown after the user dismisses the in-article donation reminder card.";
+"donation-reminder-card-not-now-toast-settings" = "Toast shown after the user dismisses the in-article donation reminder card.";
 "donation-reminder-card-subsequent-heading" = "Heading of the in-article donation reminder card when the user reaches their reading goal again. $1 is the number of articles read.";
 "donation-reminder-email-report-body" = "First line of the pre-filled issue report email body for the donation reminders feature.";
 "donation-reminder-email-report-subject" = "Subject of the pre-filled issue report email for the donation reminders feature.";
