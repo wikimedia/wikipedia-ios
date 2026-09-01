@@ -136,7 +136,7 @@ public enum WMFSFSymbolIcon {
     case textPage
     case leave
     case gear
-    case booksVerticalFill
+    case booksVertical
     case creditCard
     case flask
     case gearShape
@@ -367,8 +367,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "rectangle.portrait.and.arrow.right", withConfiguration: configuration)
         case .gear:
             image = UIImage(systemName: "gear", withConfiguration: configuration)
-        case .booksVerticalFill:
-            image = UIImage(systemName: "books.vertical.fill", withConfiguration: configuration)
+        case .booksVertical:
+            image = UIImage(systemName: "books.vertical", withConfiguration: configuration)
         case .creditCard:
             image = UIImage(systemName: "creditcard", withConfiguration: configuration)
         case .flask:
