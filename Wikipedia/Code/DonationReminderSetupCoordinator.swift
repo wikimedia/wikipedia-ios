@@ -10,16 +10,16 @@ final class DonationReminderSetupCoordinator: Coordinator {
     private let currencyCode: String
     private let theme: Theme
     private let origin: WMFDonationReminderSetupViewModel.Origin
-    private let metricsID: String
-    private let project: WikimediaProject
+    private let metricsID: String?
+    private let project: WikimediaProject?
 
     init(
         navigationController: UINavigationController,
         currencyCode: String,
         theme: Theme,
         origin: WMFDonationReminderSetupViewModel.Origin,
-        metricsID: String,
-        project: WikimediaProject
+        metricsID: String? = nil,
+        project: WikimediaProject? = nil
     ) {
         self.navigationController = navigationController
         self.currencyCode = currencyCode
@@ -39,25 +39,32 @@ final class DonationReminderSetupCoordinator: Coordinator {
         }
         let configuration = WMFDonationReminderSetupViewModel.experimentConfiguration(currencyCode: currencyCode, minimumAmount: minimumAmount, maximumAmount: maximumAmount)
         let viewModel = WMFDonationReminderSetupViewModel(configuration: configuration, origin: origin)
+        
+        let project = self.project
+        let metricsID = self.metricsID
 
-        viewModel.logSetupFormDidAppear = { [weak self] in
-            guard let self else { return }
+        viewModel.logSetupFormDidAppear = {
+            guard let project, let metricsID else { return }
             DonateFunnel.shared.logDonationReminderSetupFormDidAppear(project: project, metricsID: metricsID)
         }
 
         viewModel.logDidTapLearnMore = {
+            guard let project else { return }
             DonateFunnel.shared.logDonationReminderDidTapLearnMore(project: project)
         }
 
         viewModel.logDidTapReportProblem = {
+            guard let project else { return }
             DonateFunnel.shared.logDonationReminderDidTapReportProblem(project: project)
         }
 
         viewModel.logDidTapConfirm = { milestoneDefault, readFreq, donateAmount in
+            guard let project else { return }
             DonateFunnel.shared.logDonationReminderDidTapConfirm(project: project, milestoneDefault: milestoneDefault, readFreq: readFreq, donateAmount: donateAmount)
         }
 
         viewModel.logDidTapNoThanks = {
+            guard let project else { return }
             DonateFunnel.shared.logDonationReminderDidTapNoThanks(project: project)
         }
 
