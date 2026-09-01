@@ -42,10 +42,11 @@ final class DonationReminderSetupCoordinator: Coordinator {
         
         let project = self.project ?? resolvedProject()
         let metricsID = self.metricsID ?? resolvedMetricsID()
+        let fromSettings = origin == .settings
 
         viewModel.logSetupFormDidAppear = {
             guard let project, let metricsID else { return }
-            DonateFunnel.shared.logDonationReminderSetupFormDidAppear(project: project, metricsID: metricsID)
+            DonateFunnel.shared.logDonationReminderSetupFormDidAppear(project: project, metricsID: metricsID, fromSettings: fromSettings)
         }
 
         viewModel.logDidTapLearnMore = {
@@ -60,17 +61,17 @@ final class DonationReminderSetupCoordinator: Coordinator {
 
         viewModel.logDidTapConfirm = { milestoneDefault, readFreq, donateAmount in
             guard let project else { return }
-            DonateFunnel.shared.logDonationReminderDidTapConfirm(project: project, milestoneDefault: milestoneDefault, readFreq: readFreq, donateAmount: donateAmount)
+            DonateFunnel.shared.logDonationReminderDidTapConfirm(project: project, milestoneDefault: milestoneDefault, readFreq: readFreq, donateAmount: donateAmount, fromSettings: fromSettings)
         }
 
         viewModel.logDidTapNoThanks = {
             guard let project else { return }
-            DonateFunnel.shared.logDonationReminderDidTapNoThanks(project: project)
+            DonateFunnel.shared.logDonationReminderDidTapNoThanks(project: project, fromSettings: fromSettings)
         }
 
         viewModel.logDidToggleReminder = { isEnabled in
             guard let project else { return }
-            DonateFunnel.shared.logDonationReminderDidToggle(isEnabled: isEnabled, project: project)
+            DonateFunnel.shared.logDonationReminderDidToggle(isEnabled: isEnabled, project: project, fromSettings: fromSettings)
         }
 
         viewModel.didConfirmReminder = { [weak self] _ in
