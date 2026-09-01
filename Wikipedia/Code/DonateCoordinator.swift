@@ -282,6 +282,12 @@ class DonateCoordinator: Coordinator {
             let action = UIAlertAction(title: pledgeButtonTitle, style: .default, handler: { [weak self] _ in
                 guard let self else { return }
 
+                if let project = self.wikimediaProject,
+                   let assignment = WMFDonationReminderDataController.shared.experimentAssignment,
+                   let milestoneMetricsID = DonateCoordinator.donationReminderMetricsID(languageCode: self.languageCode, campaignID: WMFDonationReminderDataController.experimentCampaignID, assignment: assignment) {
+                    DonateFunnel.shared.logDonationReminderMilestoneDidTapApplePay(project: project, metricsID: milestoneMetricsID)
+                }
+
                 donateViewModel.preselectAmount(pledgeAmount)
                 self.navigateToNativeDonateForm(donateViewModel: donateViewModel)
             })
@@ -319,7 +325,15 @@ class DonateCoordinator: Coordinator {
             case .activityTabProfile:
                 DonateFunnel.shared.logActivityProfileDonateApplePay(metricsID: metricsID)
             case .donationReminderArticle:
-                break
+                if let project = self.wikimediaProject,
+                   let assignment = WMFDonationReminderDataController.shared.experimentAssignment,
+                   let milestoneMetricsID = DonateCoordinator.donationReminderMetricsID(languageCode: self.languageCode, campaignID: WMFDonationReminderDataController.experimentCampaignID, assignment: assignment) {
+                    if showsPledgeOption {
+                        DonateFunnel.shared.logDonationReminderMilestoneDidTapOtherApplePay(project: project, metricsID: milestoneMetricsID)
+                    } else {
+                        DonateFunnel.shared.logDonationReminderMilestoneDidTapApplePay(project: project, metricsID: milestoneMetricsID)
+                    }
+                }
             }
             self.navigateToNativeDonateForm(donateViewModel: donateViewModel)
         })
@@ -355,7 +369,11 @@ class DonateCoordinator: Coordinator {
             case .activityTabProfile:
                 DonateFunnel.shared.logActivityProfileDonateWebPay(metricsID: metricsID)
             case .donationReminderArticle:
-                break
+                if let project = self.wikimediaProject,
+                   let assignment = WMFDonationReminderDataController.shared.experimentAssignment,
+                   let milestoneMetricsID = DonateCoordinator.donationReminderMetricsID(languageCode: self.languageCode, campaignID: WMFDonationReminderDataController.experimentCampaignID, assignment: assignment) {
+                    DonateFunnel.shared.logDonationReminderMilestoneDidTapOtherMethod(project: project, metricsID: milestoneMetricsID)
+                }
             }
             navigateToOtherPaymentMethod()
         }))
