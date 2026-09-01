@@ -223,7 +223,7 @@ public struct WMFForYouView: View {
     private var swipeOnboardingOverlay: some View {
         ZStack {
             Rectangle()
-                .fill(Color(uiColor: WMFColor.black).opacity(0.4))
+                .fill(Color(uiColor: WMFColor.black).opacity(0.42))
                 .ignoresSafeArea()
             Image("swipe_gestures", bundle: .module)
         }
