@@ -115,22 +115,24 @@ class DonateCoordinator: Coordinator {
         self.donateSuccessAction = donateSuccessAction
     }
 
+    static func donationReminderMetricsID(languageCode: String?, campaignID: String, assignment: WMFDonationReminderDataController.ExperimentAssignment) -> String? {
+        guard let languageCode,
+              let countryCode = Locale.current.region?.identifier else { return nil }
+        let suffix: String
+        switch assignment {
+        case .control: suffix = "remindA"
+        case .groupB: suffix = "remindB"
+        case .groupC: suffix = "remindC"
+        }
+        return "\(languageCode)\(countryCode)_\(campaignID)_\(suffix)_iOS"
+    }
+
     static func metricsID(for donateSource: Source, languageCode: String?) -> String? {
         switch donateSource {
         case .articleCampaignModal(_, let metricsID, _):
             return metricsID
         case .donationReminder(_, let campaignID, let assignment, _):
-            guard let languageCode,
-                  let countryCode = Locale.current.region?.identifier else {
-                return nil
-            }
-            let suffix: String
-            switch assignment {
-            case .control: suffix = "remindA"
-            case .groupB: suffix = "remindB"
-            case .groupC: suffix = "remindC"
-            }
-            return "\(languageCode)\(countryCode)_\(campaignID)_\(suffix)_iOS"
+            return donationReminderMetricsID(languageCode: languageCode, campaignID: campaignID, assignment: assignment)
         case .articleProfile, .exploreProfile, .settingsProfile, .placesProfile, .savedProfile, .searchProfile:
             guard let languageCode,
                   let countryCode = Locale.current.region?.identifier else {

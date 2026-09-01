@@ -96,15 +96,12 @@ final class DonationReminderSetupCoordinator: Coordinator {
 
     private func resolvedMetricsID() -> String? {
         guard let assignment = WMFDonationReminderDataController.shared.experimentAssignment,
-              let countryCode = Locale.current.region?.identifier,
               let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else { return nil }
-        let suffix: String
-        switch assignment {
-        case .control: suffix = "remindA"
-        case .groupB: suffix = "remindB"
-        case .groupC: suffix = "remindC"
-        }
-        return "\(appLanguage.languageCode)\(countryCode)_\(WMFDonationReminderDataController.experimentCampaignID)_\(suffix)_iOS"
+        return DonateCoordinator.donationReminderMetricsID(
+            languageCode: appLanguage.languageCode,
+            campaignID: WMFDonationReminderDataController.experimentCampaignID,
+            assignment: assignment
+        )
     }
 
     private func showAboutExperiment() {
