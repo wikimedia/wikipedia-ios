@@ -129,9 +129,18 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
             startsOnAccountCreation: true
         )
 
-        // No success blocks: the account creation screen's own default dismissal offers reading list
-        // sync, which is one of the things this prompt sells.
+        loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
+            self?.enableReadingListSyncAndDismissAccountCreation()
+        }
+
         loginCoordinator.start()
+    }
+
+    /// Replaces the account creation screen's default dismissal, which asks "Turn on reading list
+    /// syncing?" and turns it on by default
+    private func enableReadingListSyncAndDismissAccountCreation() {
+        dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+        navigationController.presentedViewController?.dismiss(animated: true)
     }
 
     /// Attributes the login funnel to the surface the prompt was shown on.
