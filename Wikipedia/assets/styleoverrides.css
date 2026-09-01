@@ -111,8 +111,13 @@ body {
 
 /* DONATION REMINDER CARD STYLES */
 
+#wmf-donation-reminder-card-container {
+    padding: 8px 0 0 0 !important;
+    margin: 0 !important;
+}
+
 #wmf-donation-reminder-card {
-    margin: 16px 0;
+    margin: 0 0 16px 0 !important;
     padding: 16px;
     border: 1px solid #eaecf0;
     border-radius: 12px;

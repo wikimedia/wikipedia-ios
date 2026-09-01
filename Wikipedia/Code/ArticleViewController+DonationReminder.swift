@@ -97,12 +97,14 @@ extension ArticleViewController {
 
     private static func donationReminderCardHTML(configuration: DonationReminderCardConfiguration) -> String {
         return """
-            <div id='wmf-donation-reminder-card'>
-                <p class='wmf-donation-reminder-card-heading'>\(configuration.heading.donationReminderHTMLEscaped)</p>
-                <p class='wmf-donation-reminder-card-body'>\(configuration.body.donationReminderHTMLEscaped)</p>
-                <div class='wmf-donation-reminder-card-actions'>
-                    <a class='wmf-donation-reminder-card-donate' href='#wmf-donation-reminder-donate'>\(configuration.primaryActionTitle.donationReminderHTMLEscaped)</a>
-                    <a class='wmf-donation-reminder-card-not-now' href='#wmf-donation-reminder-not-now'>\(configuration.secondaryActionTitle.donationReminderHTMLEscaped)</a>
+            <div id='wmf-donation-reminder-card-container'>
+                <div id='wmf-donation-reminder-card'>
+                    <p class='wmf-donation-reminder-card-heading'>\(configuration.heading.donationReminderHTMLEscaped)</p>
+                    <p class='wmf-donation-reminder-card-body'>\(configuration.body.donationReminderHTMLEscaped)</p>
+                    <div class='wmf-donation-reminder-card-actions'>
+                        <a class='wmf-donation-reminder-card-donate' href='#wmf-donation-reminder-donate'>\(configuration.primaryActionTitle.donationReminderHTMLEscaped)</a>
+                        <a class='wmf-donation-reminder-card-not-now' href='#wmf-donation-reminder-not-now'>\(configuration.secondaryActionTitle.donationReminderHTMLEscaped)</a>
+                    </div>
                 </div>
             </div>
         """
