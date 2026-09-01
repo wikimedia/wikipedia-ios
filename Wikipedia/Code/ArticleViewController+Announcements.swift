@@ -17,6 +17,7 @@ extension ArticleViewController {
         }
 
         let fundraisingDataController = WMFFundraisingCampaignDataController.shared
+        let isForcingBannerForDevelopment = WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner
 
         Task {
             let isOptedIn = await fundraisingDataController.isOptedIn(project: wmfProject)
@@ -33,13 +34,10 @@ extension ArticleViewController {
                 }
             }
 
-            guard isOptedIn else {
-                willDisplayCampaignModal = false
-                onNothingShown?()
-                return
-            }
+            let isFirstAppSession = UserDefaults.standard.wmf_appResignActiveDate() == nil
+            let hasDonationReminderOutcome = WMFDeveloperSettingsDataController.shared.enableDonationReminder && WMFDonationReminderDataController.shared.loadReminder() != nil
 
-            guard !userDonatedWithinLast250Days() else {
+            guard (isOptedIn && !userDonatedWithinLast250Days() && !isFirstAppSession && !hasDonationReminderOutcome) || isForcingBannerForDevelopment else {
                 willDisplayCampaignModal = false
                 onNothingShown?()
                 return
@@ -77,7 +75,7 @@ extension ArticleViewController {
 
         let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date())
 
-        wmf_showFundraisingAnnouncement(theme: theme, asset: asset, primaryButtonTapHandler: { [weak self] button, viewController in
+        wmf_showFundraisingAnnouncement(theme: theme, asset: asset, showMaybeLater: shouldShowMaybeLater, donateButtonTapHandler: { [weak self] button, viewController in
 
             guard let self else {
                 return
@@ -108,34 +106,62 @@ extension ArticleViewController {
 
             dataController.markAssetAsPermanentlyHidden(asset: asset)
 
-        }, secondaryButtonTapHandler: { _, _ in
+        }, maybeLaterButtonTapHandler: { _, _ in
             DonateFunnel.shared.logFundraisingCampaignModalDidTapMaybeLater(project: project, metricsID: asset.metricsID)
-
-            if shouldShowMaybeLater {
-                dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
-                self.donateDidSetMaybeLater(metricsID: asset.metricsID)
-            } else {
-                DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, metricsID: asset.metricsID)
-                self.donateAlreadyDonated()
-                dataController.markAssetAsPermanentlyHidden(asset: asset)
-            }
-
-        }, optionalButtonTapHandler: { _, _ in
+        }, alreadyDonatedButtonTapHandler: { _, _ in
             DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, metricsID: asset.metricsID)
             self.donateAlreadyDonated()
             dataController.markAssetAsPermanentlyHidden(asset: asset)
-
         }, footerLinkAction: { url in
             DonateFunnel.shared.logFundraisingCampaignModalDidTapDonorPolicy(project: project, metricsID: asset.metricsID)
             self.navigate(to: url, useSafari: true)
-        }, traceableDismissHandler: { action in
-
-            if action == .tappedClose {
+        }, dismissHandler: { action in
+            switch action {
+            case .close:
                 DonateFunnel.shared.logFundraisingCampaignModalDidTapClose(project: project, metricsID: asset.metricsID)
                 dataController.markAssetAsPermanentlyHidden(asset: asset)
+            case .maybeLater:
+                let experimentAssignment: WMFDonationReminderDataController.ExperimentAssignment?
+                if WMFDeveloperSettingsDataController.shared.enableDonationReminder {
+                    experimentAssignment = try? WMFDonationReminderDataController.shared.assignExperimentIfNeeded()
+                    #if DEBUG
+                    if let experimentAssignment {
+                        self.showDebugExperimentAssignmentToast(experimentAssignment)
+                    }
+                    #endif
+                } else {
+                    experimentAssignment = nil
+                }
+
+                if let experimentAssignment,
+                   experimentAssignment != .control,
+                   let navigationController = self.navigationController {
+                    let coordinator = DonationReminderSetupCoordinator(
+                        navigationController: navigationController,
+                        currencyCode: asset.currencyCode,
+                        theme: self.theme,
+                        origin: .banner
+                    )
+                    self.donationReminderSetupCoordinator = coordinator
+                    coordinator.start()
+                } else {
+                    dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
+                    self.donateDidSetMaybeLater(metricsID: asset.metricsID)
+                }
+            case .donate, .alreadyDonated, .other:
+                break
             }
-        }, showMaybeLater: shouldShowMaybeLater)
+        })
     }
+
+    #if DEBUG
+    private func showDebugExperimentAssignmentToast(_ experimentAssignment: WMFDonationReminderDataController.ExperimentAssignment) {
+        Task { @MainActor in
+            try? await Task.sleep(for: .seconds(1.5))
+            WMFToastManager.sharedInstance.showRichToast("[Debug] Experiment group: \(experimentAssignment.rawValue)", dismissPreviousToasts: false)
+        }
+    }
+    #endif
 
     func donateDidSetMaybeLater(metricsID: String) {
 

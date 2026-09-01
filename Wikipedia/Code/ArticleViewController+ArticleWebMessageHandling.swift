@@ -85,6 +85,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         loadMediaWikiInfoAndUpdateToolbar()
         syncCachedResourcesIfNeeded()
         messagingController.updateDarkModeMainPageIfNeeded(articleURL: articleURL, theme: theme)
+        showDonationReminderCardIfNeeded()
     }
 
     /// Persists the topics the Page Content Service reported for this article, so that reading history can later be grouped by topic.
