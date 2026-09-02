@@ -58,6 +58,15 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
     func startIfEligible() async -> Bool {
         let presenter = navigationController.presentedViewController ?? navigationController
 
+        guard await dataController.shouldShowPrompt(
+            in: context,
+            // Only a permanent account is excluded. A temporary account still sees the prompt.
+            hasPermanentAccount: dataStore.authenticationManager.authStateIsPermanent,
+            isAnotherPromptVisible: presenter.presentedViewController != nil
+        ) else {
+            return false
+        }
+
         let slideData = await dataController.slideData()
 
         // Eligibility and the slide numbers are both awaited, so re-check that the screen is still
