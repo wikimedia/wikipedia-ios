@@ -1,7 +1,7 @@
 import Foundation
 
 /// Parses the URL the web Visual Editor uses to hand the user back to the app after publishing or abandoning an edit, e.g.
-/// `wikipedia://en.wikipedia.org/wiki/Cat?saved=true&revision=12345`.
+/// `wikipedia://en.wikipedia.org/wiki/Cat?saved=true&revision=12345&appinstallid=6789`.
 /// Also recognizes a return mid-edit through Safari's native app banner, where the
 /// incoming URL is the editing URL itself (`?veaction=edit&returntoapp=1`).
 struct VisualEditorReturnJourney {
