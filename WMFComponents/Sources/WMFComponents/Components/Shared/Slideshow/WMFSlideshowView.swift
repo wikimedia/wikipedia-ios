@@ -224,29 +224,29 @@ private extension WMFSlideshowViewModel {
         let slides: [Slide] = [
             .init(
                 id: "year-in-review",
-                image: WMFSFSymbolIcon.for(symbol: .clock, font: .xxlTitleBold),
-                backgroundColor: WMFColor.beige300,
+                illustration: .gif(name: "clock_2"),
+                backgroundColor: WMFColor.yellow100,
                 title: "See your [X] reading days come together in Year in Review",
                 subtitle: "Once a year, your reading days come back as a look at where the year took you, ready to share."
             ),
             .init(
                 id: "saved",
-                image: WMFSFSymbolIcon.for(symbol: .bookmarkFill, font: .xxlTitleBold),
-                backgroundColor: WMFColor.green100,
+                illustration: .gif(name: "puzzle_2"),
+                backgroundColor: WMFColor.green200,
                 title: "Sync your [X] saved articles",
                 subtitle: "Log in to your Wikipedia account to allow your saved articles to be synced across devices."
             ),
             .init(
                 id: "activity",
-                image: WMFSFSymbolIcon.for(symbol: .globeAmericas, font: .xxlTitleBold),
-                backgroundColor: WMFColor.blue100,
+                illustration: .gif(name: "puzzle_3"),
+                backgroundColor: WMFColor.blue200,
                 title: "Revisit your [X] recent reads with Activity",
                 subtitle: "See your reading time, explored topics, and the reach of your contributions in the Activity tab."
             ),
             .init(
                 id: "edits",
-                image: WMFSFSymbolIcon.for(symbol: .pencil, font: .xxlTitleBold),
-                backgroundColor: WMFColor.green100,
+                illustration: .asset(name: "puzzle_duo"),
+                backgroundColor: WMFColor.lime200,
                 title: "Get credit for your edits",
                 subtitle: "Build a track record you can be proud of, with contributions across Wikimedia projects credited to your account."
             )

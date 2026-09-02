@@ -256,12 +256,11 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
             )
         }
 
-        // Placeholder illustrations. The real artwork replaces these when the slides are designed.
         return [
             WMFSlideshowViewModel.Slide(
                 id: "year-in-review",
-                image: WMFSFSymbolIcon.for(symbol: .clock, font: .xxlTitleBold),
-                backgroundColor: WMFColor.beige300,
+                illustration: .gif(name: "clock_2"),
+                backgroundColor: WMFColor.yellow100,
                 title: yearInReviewTitle,
                 subtitle: WMFLocalizedString(
                     "evergreen-account-creation-year-in-review-body",
@@ -271,8 +270,8 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
             ),
             WMFSlideshowViewModel.Slide(
                 id: "saved",
-                image: WMFSFSymbolIcon.for(symbol: .bookmarkFill, font: .xxlTitleBold),
-                backgroundColor: WMFColor.green100,
+                illustration: .gif(name: "puzzle_2"),
+                backgroundColor: WMFColor.green200,
                 title: savedTitle,
                 subtitle: WMFLocalizedString(
                     "evergreen-account-creation-saved-body",
@@ -282,8 +281,8 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
             ),
             WMFSlideshowViewModel.Slide(
                 id: "activity",
-                image: WMFSFSymbolIcon.for(symbol: .globeAmericas, font: .xxlTitleBold),
-                backgroundColor: WMFColor.blue100,
+                illustration: .gif(name: "puzzle_3"),
+                backgroundColor: WMFColor.blue200,
                 title: activityTitle,
                 subtitle: WMFLocalizedString(
                     "evergreen-account-creation-activity-body",
@@ -293,8 +292,8 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
             ),
             WMFSlideshowViewModel.Slide(
                 id: "edits",
-                image: WMFSFSymbolIcon.for(symbol: .pencil, font: .xxlTitleBold),
-                backgroundColor: WMFColor.green100,
+                illustration: .asset(name: "puzzle_duo"),
+                backgroundColor: WMFColor.lime200,
                 title: WMFLocalizedString(
                     "evergreen-account-creation-edits-title",
                     value: "Get credit for your edits",
