@@ -1225,6 +1225,17 @@
 "widget-onthisday-description" = "Тарихде бу кюнде не болгъанын аула";
 "widget-onthisday-placeholder-article-snippet" = "Хар ким да тюзетирча эркин онлайн энциклопедия";
 "widget-onthisday-placeholder-event-snippet" = "Эркин вики контент энциклопедия болгъан Википедия онлайн болады.";
+"wikimedia-articletopics-topic-africa" = "Африка";
+"wikimedia-articletopics-topic-art" = "Санат";
+"wikimedia-articletopics-topic-asia" = "Азия";
+"wikimedia-articletopics-topic-education" = "Окъуу";
+"wikimedia-articletopics-topic-entertainment" = "Кёз ачыу";
+"wikimedia-articletopics-topic-fashion" = "Мода";
+"wikimedia-articletopics-topic-general-science" = "Тамал илму";
+"wikimedia-articletopics-topic-music" = "Музыка";
+"wikimedia-articletopics-topic-north-america" = "Шимал Америка";
+"wikimedia-articletopics-topic-physics" = "Физика";
+"wikimedia-articletopics-topic-south-america" = "Къыбыла Америка";
 "wikitext-preview-changes" = "Тюрлениулеригигзни ал къарауму алына турады...";
 "wikitext-preview-link-external-preview-description" = "Бу джибериу тыш вебсайтха джоллайды: $1";
 "wikitext-preview-link-external-preview-title" = "Тыш джибериу";

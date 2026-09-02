@@ -88,9 +88,7 @@ public final class WMFForYouViewModel: ObservableObject {
     /// Called with a card that the user really sees on the screen.
     public var onShowCard: ((WMFForYouArticleCardViewModel) -> Void)?
 
-    public let emptyTitle = WMFLocalizedString("for-you-empty-title", value: "Nothing here yet", comment: "Title shown on the For You tab when there is no content to display.")
-    public let emptySubtitle = WMFLocalizedString("for-you-empty-subtitle", value: "Add interests to get personalized article recommendations.", comment: "Subtitle shown on the For You tab empty state encouraging the user to add interests.")
-    public let emptyButtonTitle = WMFLocalizedString("for-you-empty-button", value: "Choose your interests", comment: "Button on the For You empty state that opens the interests customization screen.")
+    public let emptySubtitle = WMFLocalizedString("for-you-empty-subtitle-interests-or-modules", value: "Add interests or turn on modules to get personalized article recommendations", comment: "Subtitle shown on the For You tab empty state, encouraging the reader to add interests or turn modules back on.")
 
     // MARK: - Position in the feed
     private(set) var lastViewedModuleID: UUID?
@@ -98,20 +96,36 @@ public final class WMFForYouViewModel: ObservableObject {
 
     func rememberViewedModule(_ moduleID: UUID?) {
         lastViewedModuleID = moduleID
+        preloader.preloadModule(after: moduleID, in: preloadablePages, hiddenCardKeys: hiddenCardKeys)
     }
 
     func rememberViewedCard(_ cardKey: String?) {
         lastViewedCardKey = cardKey
     }
 
+    private let preloader: WMFForYouModulePreloader
+
+    private var preloadablePages: [WMFForYouPageViewModel] {
+        pages.filter { page in
+            guard moduleVisibility.isVisible(page.module) else { return false }
+            return page.articleViewModels.contains { !hiddenCardKeys.contains($0.cardUniqueKey) }
+        }
+    }
+
+    /// The preloader starts network requests when the feed is built, so tests must give a mocked
+    /// `summaryDataController`.
     public init(
         response: WMFForYouResponse,
         moduleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(basedOnInterests: true, becauseYouRead: true, continueReading: true),
-        hiddenCardKeys: Set<String> = []
+        hiddenCardKeys: Set<String> = [],
+        summaryDataController: WMFArticleSummaryDataControlling & Sendable = WMFArticleSummaryDataController.shared
     ) {
         self.moduleVisibility = moduleVisibility
         self.hiddenCardKeys = hiddenCardKeys
+        self.preloader = WMFForYouModulePreloader(summaryDataController: summaryDataController)
         self.pages = Self.makePages(from: response)
+
+        preloader.preloadInitialModules(in: preloadablePages, hiddenCardKeys: hiddenCardKeys)
     }
 
     // MARK: - Building the feed
@@ -350,7 +364,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
     /// Thumbnail URLs carry their width as a path component - `.../640px-Example.jpg` - so the size
     /// is changed by swapping that number. Returns nil when the URL has no such component, which
     /// means it is already the original file and cannot be scaled up.
-    private static func upsizedThumbnailURL(from thumbnailURL: URL) -> URL? {
+    static func upsizedThumbnailURL(from thumbnailURL: URL) -> URL? {
         var urlString = thumbnailURL.absoluteString
         guard let range = urlString.range(of: #"/\d+px-"#, options: .regularExpression) else {
             return nil

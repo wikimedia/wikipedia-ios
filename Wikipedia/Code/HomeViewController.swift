@@ -66,11 +66,17 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         viewModel.didTapCustomizeInterests = { [weak self] in
             self?.presentInterestsSettings()
         }
+        viewModel.didTapCustomizeHomeFeed = { [weak self] in
+            self?.presentHomeFeedSettings()
+        }
         // While the reworked community feed (home phase 2) is in development, the Community segment
         // hosts the legacy Explore feed. With phase 2 enabled, the new community feed renders instead.
         if !WMFDeveloperSettingsDataController.shared.enableHomePhase2 {
             viewModel.makeEmbeddedCommunityViewController = { [weak self] in
                 self?.embeddedExploreViewController() ?? UIViewController()
+            }
+            viewModel.didTapCustomizeCommunityFeed = { [weak self] in
+                self?.pushCommunityFeedSettings()
             }
         }
         viewModel.didTapForYouCard = { [weak self] article in
@@ -217,7 +223,21 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     private func updateNavigationBarAppearance(for tab: WMFHomeViewModel.Tab) {
         guard let navController = navigationController as? WMFComponentNavigationController else { return }
-        navController.setTransparentAppearance(tab == .forYou)
+        if tab == .forYou, #unavailable(iOS 26.0) {
+            navController.setTransparentAppearance(false)
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = Theme.black.colors.chromeBackground
+            appearance.shadowColor = .clear
+            navController.navigationBar.standardAppearance = appearance
+            navController.navigationBar.scrollEdgeAppearance = appearance
+            navController.navigationBar.compactAppearance = appearance
+            if #available(iOS 18.0, *) {
+                navController.navigationBar.compactScrollEdgeAppearance = appearance
+            }
+        } else {
+            navController.setTransparentAppearance(tab == .forYou)
+        }
     }
 
     private func updateTabBarAppearance(for tab: WMFHomeViewModel.Tab) {
@@ -260,6 +280,17 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
 
     /// Opens the interests screen modally, from the "Customize interests" menu action on a card and
     /// from the button on the empty feed.
+    /// Opens the "Customize the home feed" screen from the For You empty state.
+    ///
+    /// This method pushes the screen. The coordinator adds a close button only to the deep-linked
+    /// screens, so a modal root screen gives the reader no way to close it.
+    private func presentHomeFeedSettings() {
+        guard let navigationController else { return }
+        let coordinator = HomeFeedSettingsCoordinator(navigationController: navigationController, theme: theme, initialView: .root, presentation: .push)
+        homeFeedSettingsCoordinator = coordinator
+        coordinator.start()
+    }
+
     private func presentInterestsSettings() {
         guard let navigationController else { return }
         let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").startFunnel(name: "feed_customize")
@@ -282,9 +313,21 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         vc.isEmbeddedInHomeTab = true
         vc.additionalSafeAreaInsets = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
         vc.notificationsCenterPresentationDelegate = tabBarController as? NotificationsCenterPresentationDelegate
+        vc.onEmbeddedEmptyStateChange = { [weak self] isEmpty in
+            self?.viewModel.isEmbeddedCommunityFeedEmpty = isEmpty
+        }
         vc.apply(theme: theme)
         _embeddedExploreViewController = vc
         return vc
+    }
+
+    /// Opens the feed settings from the Community empty state. Temporary: remove this method with the
+    /// community feed rework.
+    private func pushCommunityFeedSettings() {
+        let feedSettingsVC = ExploreFeedSettingsViewController()
+        feedSettingsVC.dataStore = dataStore
+        feedSettingsVC.apply(theme: theme)
+        navigationController?.pushViewController(feedSettingsVC, animated: true)
     }
 
     private func embedHostingController() {

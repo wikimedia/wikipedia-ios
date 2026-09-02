@@ -216,6 +216,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Тахана|1=Селхана|$1 де хьалха}}";
 "settings-clear-cache-cancel" = "ДӀадаккхар";
 "settings-help-and-feedback" = "ЗӀе";
+"settings-legal-sefaty-title" = "Бакъонан а, кхерамзаллин а контакташ";
 "share-default-format" = "«$1» «$2» чуьра: $3";
 "share-email-format" = "«$1»\n\n«$2» чуьра \n\n$3";
 "share-menu-item" = "Йекъа...";
@@ -224,6 +225,20 @@
 // Fuzzy
 "share-social-mention-format" = "«$1» Википеди чохь: $2";
 "table-of-contents-heading" = "Чулацам";
+"wikimedia-articletopics-topic-asia" = "Ази";
+"wikimedia-articletopics-topic-central-america" = "Йуккъера Америка";
+"wikimedia-articletopics-topic-education" = "Дешар";
+"wikimedia-articletopics-topic-europe" = "Европа";
+"wikimedia-articletopics-topic-food-and-drink" = "Даар а, маларш а";
+"wikimedia-articletopics-topic-general-science" = "Йукъара Ӏилма";
+"wikimedia-articletopics-topic-history" = "Истори";
+"wikimedia-articletopics-topic-music" = "Музыка";
+"wikimedia-articletopics-topic-north-america" = "Къилбаседа Америка";
+"wikimedia-articletopics-topic-oceania" = "Австрали а, Океани а";
+"wikimedia-articletopics-topic-society" = "Йукъаралла";
+"wikimedia-articletopics-topic-south-america" = "Къилба Америка";
+"wikimedia-articletopics-topic-transportation" = "Транспорт";
+"wikimedia-articletopics-topic-tv-and-film" = "ТВ а, кино а";
 // Fuzzy
 "wikitext-upload-save" = "Ӏалашъеш ю...";
 "wikitext-upload-save-terms-name" = "Лелоран статус";

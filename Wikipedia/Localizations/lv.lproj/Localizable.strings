@@ -213,6 +213,17 @@
 "welcome-intro-free-encyclopedia-more-about" = "Par Vikipēdiju";
 "welcome-intro-free-encyclopedia-title" = "Brīvā enciklopēdija";
 "welcome-languages-add-button" = "Pievienot citu valodu";
+"wikimedia-articletopics-topic-asia" = "Āzija";
+"wikimedia-articletopics-topic-central-america" = "Centrālamerika";
+"wikimedia-articletopics-topic-entertainment" = "Izklaide";
+"wikimedia-articletopics-topic-general-science" = "Vispārīgā zinātne";
+"wikimedia-articletopics-topic-history" = "Vēsture";
+"wikimedia-articletopics-topic-literature" = "Literatūra";
+"wikimedia-articletopics-topic-music" = "Mūzika";
+"wikimedia-articletopics-topic-north-america" = "Ziemeļamerika";
+"wikimedia-articletopics-topic-oceania" = "Okeānija";
+"wikimedia-articletopics-topic-physics" = "Fizika";
+"wikimedia-articletopics-topic-society" = "Sabiedrība";
 "wikitext-preview-link-preview-title" = "Saites pirmskats";
 // Fuzzy
 "wikitext-preview-save-changes-title" = "Saglabāt veiktās izmaiņas";

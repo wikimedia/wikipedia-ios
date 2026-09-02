@@ -642,6 +642,16 @@
 "welcome-languages-add-or-edit-button" = "Engadir ou modificar as linguas preferidas";
 "welcome-languages-description" = "Atopamos as seguintes linguaxes no seu dispositivoː";
 "welcome-languages-search-title" = "Procurar en máis de 300 linguas";
+"wikimedia-articletopics-topic-asia" = "Asia";
+"wikimedia-articletopics-topic-entertainment" = "Entretemento";
+"wikimedia-articletopics-topic-food-and-drink" = "Comida e bebida";
+"wikimedia-articletopics-topic-literature" = "Literatura";
+"wikimedia-articletopics-topic-music" = "Música";
+"wikimedia-articletopics-topic-north-america" = "Norteamérica";
+"wikimedia-articletopics-topic-oceania" = "Oceanía";
+"wikimedia-articletopics-topic-physics" = "Física";
+"wikimedia-articletopics-topic-politics-and-government" = "Política e goberno";
+"wikimedia-articletopics-topic-tv-and-film" = "Televisión e cine";
 "wikitext-preview-changes" = "Xenerando previsualización dos teus cambios…";
 "wikitext-preview-link-external-preview-description" = "Esta ligazón leva a un sitio web externoː $1";
 "wikitext-preview-link-external-preview-title" = "Ligazón externa";

@@ -725,6 +725,17 @@
 "widget-onthisday-description" = "ស្វែងយល់ពីអ្វីដែលបានកើតឡើងនៅថ្ងៃនេះក្នុងប្រវត្តិសាស្ត្រ។";
 "widget-onthisday-placeholder-article-snippet" = "សព្វវចនាធិប្បាយអនឡាញឥតគិតថ្លៃដែលមនុស្សគ្រប់គ្នាអាចកែប្រែបាន។";
 "widget-onthisday-placeholder-event-snippet" = "វិគីភីឌាជាសព្វវចនាធិប្បាយឥតគិតថ្លៃ ដំណើរការលើអ៊ីនធើណិត។";
+"wikimedia-articletopics-topic-africa" = "Africa";
+"wikimedia-articletopics-topic-asia" = "Asia";
+"wikimedia-articletopics-topic-entertainment" = "Entertainment";
+"wikimedia-articletopics-topic-general-science" = "General science";
+"wikimedia-articletopics-topic-literature" = "Literature";
+"wikimedia-articletopics-topic-music" = "Music";
+"wikimedia-articletopics-topic-north-america" = "North America";
+"wikimedia-articletopics-topic-physics" = "Physics";
+"wikimedia-articletopics-topic-south-america" = "South America";
+"wikimedia-articletopics-topic-tv-and-film" = "TV and film";
+"wikimedia-articletopics-topic-video-games" = "Video games";
 "wikitext-preview-link-not-found-preview-description" = "វិគីភីឌាគ្មានអត្ថបទដែលមានចំណងជើងនេះទេ";
 "wikitext-preview-link-preview-description" = "តំណភ្ជាប់នេះនាំទៅកាន់$1";
 "wikitext-preview-link-preview-title" = "មើលតំណភ្ជាប់មុន";

@@ -1392,6 +1392,17 @@
 "widget-onthisday-description" = "גלו מה קרה ביום הזה בהיסטוריה.";
 "widget-onthisday-placeholder-article-snippet" = "האנציקלופדיה החופשית המקוונת שכולם יכולים לערוך";
 "widget-onthisday-placeholder-event-snippet" = "ויקיפדיה, אנציקלופדיית תוכן הוויקי החופשית, יוצאת לרשת.";
+"wikimedia-articletopics-topic-central-america" = "מרכז אמריקה";
+"wikimedia-articletopics-topic-entertainment" = "בידור";
+"wikimedia-articletopics-topic-food-and-drink" = "אוכל ושתייה";
+"wikimedia-articletopics-topic-general-science" = "מדע כללי";
+"wikimedia-articletopics-topic-history" = "היסטוריה";
+"wikimedia-articletopics-topic-literature" = "ספרות";
+"wikimedia-articletopics-topic-music" = "מוזיקה";
+"wikimedia-articletopics-topic-north-america" = "צפון אמריקה";
+"wikimedia-articletopics-topic-oceania" = "אוקיאניה";
+"wikimedia-articletopics-topic-technology" = "טכנולוגיה";
+"wikimedia-articletopics-topic-tv-and-film" = "טלוויזיה וקולנוע";
 "wikitext-preview-changes" = "אחזור תצוגה מקדימה של השינויים שלך...";
 "wikitext-preview-link-external-preview-description" = "קישור זה מוביל לאתר חיצוני: $1";
 "wikitext-preview-link-external-preview-title" = "קישור חיצוני";

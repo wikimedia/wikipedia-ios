@@ -79,6 +79,10 @@ public struct WMFForYouView: View {
     /// The module on screen. Mirrored to the view model, which outlives this view.
     @State private var currentModuleID: UUID?
 
+    /// The card VoiceOver is reading. Set when a module action moves the feed, so focus follows the
+    /// scroll instead of staying on the card the user left behind.
+    @AccessibilityFocusState private var focusedCardKey: String?
+
     let scrollToTopRequestID: Int
 
     public init(viewModel: WMFForYouViewModel, scrollToTopRequestID: Int = 0) {
@@ -120,6 +124,32 @@ public struct WMFForYouView: View {
         currentModuleID = lastViewedModuleID
     }
 
+    /// Moves the feed one module up or down, the way a vertical swipe does for a sighted user.
+    ///
+    /// VoiceOver spends its left/right flicks on the cards inside a module, so without this there is
+    /// no gesture left to reach the next module.
+    private func moveModule(by offset: Int) {
+        let pages = visiblePages
+        guard let currentID = currentModuleID ?? pages.first?.id,
+              let index = pages.firstIndex(where: { $0.id == currentID }) else { return }
+
+        let targetIndex = index + offset
+        guard pages.indices.contains(targetIndex) else { return }
+
+        let targetPage = pages[targetIndex]
+        withAnimation {
+            currentModuleID = targetPage.id
+        }
+
+        // The stack builds modules lazily, so the target's cards cannot take focus until the scroll
+        // has settled. Without this hop VoiceOver keeps reading the card the user just left.
+        guard let firstCardKey = targetPage.articles.first?.cardUniqueKey else { return }
+        Task { @MainActor in
+            try? await Task.sleep(for: .milliseconds(400))
+            focusedCardKey = firstCardKey
+        }
+    }
+
     private func scrollToFirstModule() {
         guard let firstModuleID = visiblePages.first?.id, currentModuleID != firstModuleID else { return }
 
@@ -146,7 +176,7 @@ public struct WMFForYouView: View {
     private func scrollView(geometry: GeometryProxy) -> some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(spacing: 0) {
-                ForEach(visiblePages) { visiblePage in
+                ForEach(Array(visiblePages.enumerated()), id: \.element.id) { index, visiblePage in
                     WMFForYouPageView(
                         articleViewModels: visiblePage.articles,
                         theme: theme,
@@ -160,7 +190,12 @@ public struct WMFForYouView: View {
                         lastViewedCardKey: viewModel.lastViewedCardKey,
                         isOnScreen: visiblePage.id == moduleOnScreen?.id,
                         onViewCard: { viewModel.rememberViewedCard($0) },
-                        onShowCard: { viewModel.onShowCard?($0) }
+                        onShowCard: { viewModel.onShowCard?($0) },
+                        focusedCardKey: $focusedCardKey,
+                        canGoToPreviousModule: index > 0,
+                        canGoToNextModule: index < visiblePages.count - 1,
+                        onGoToPreviousModule: { moveModule(by: -1) },
+                        onGoToNextModule: { moveModule(by: 1) }
                     )
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 }
@@ -176,6 +211,18 @@ public struct WMFForYouView: View {
             scrollToFirstModule()
         }
         .scrollTargetBehavior(.paging)
+        // VoiceOver's three-finger swipe. It only reaches the vertical scroll view when focus is not
+        // inside a card's carousel, so the per-card actions below remain the dependable route.
+        .accessibilityScrollAction { edge in
+            switch edge {
+            case .bottom:
+                moveModule(by: 1)
+            case .top:
+                moveModule(by: -1)
+            case .leading, .trailing:
+                break
+            }
+        }
         .refreshable { await viewModel.onRefresh?() }
         .scrollBounceBehavior(.basedOnSize)
         // Observe so we can dismiss the reading list toast
@@ -193,32 +240,11 @@ public struct WMFForYouView: View {
     // MARK: - Empty State
 
     private var emptyState: some View {
-        // The shared empty state component, given the For You palette so it stays dark while the
-        // app is on a light theme, and a nil image size so the SF Symbol keeps its own size.
-        let emptyViewModel = WMFEmptyViewModel(
-            localizedStrings: WMFEmptyViewModel.LocalizedStrings(
-                title: viewModel.emptyTitle,
-                subtitle: viewModel.emptySubtitle,
-                titleFilter: nil,
-                buttonTitle: viewModel.emptyButtonTitle,
-                attributedFilterString: nil
-            ),
-            image: WMFSFSymbolIcon.for(symbol: .sparkles, font: .xxlTitleBold),
-            imageColor: WMFTheme.forYou.secondaryText,
-            numberOfFilters: nil,
-            imageSize: nil
-        )
-
-        return WMFEmptyView(
-            viewModel: emptyViewModel,
-            type: .noItems,
-            isScrollable: false,
+        WMFHomeEmptyStateView(
+            subtitle: viewModel.emptySubtitle,
             theme: .forYou,
-            mainAction: { viewModel.onCustomizeInterests?(.emptyFeed) },
-            usesCompactButton: true
+            action: { viewModel.onCustomizeInterests?(.emptyFeed) }
         )
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(uiColor: WMFTheme.forYou.paperBackground))
     }
 }
 
@@ -284,9 +310,21 @@ private struct WMFForYouPageView: View {
     /// Reports a card that the user really sees.
     let onShowCard: (WMFForYouArticleCardViewModel) -> Void
 
+    /// Owned by the feed, so a module action can move VoiceOver onto the module it scrolled to.
+    @AccessibilityFocusState.Binding var focusedCardKey: String?
+
+    /// Offered only where there is somewhere to go, so the rotor does not list a dead action on the
+    /// first and last modules.
+    let canGoToPreviousModule: Bool
+    let canGoToNextModule: Bool
+    let onGoToPreviousModule: () -> Void
+    let onGoToNextModule: () -> Void
+
     /// Identified by `cardUniqueKey` rather than by position, so that a card keeps its identity when an
     /// earlier card in the carousel is hidden.
     @State private var currentPage: String?
+
+    @Environment(\.accessibilityVoiceOverEnabled) private var isVoiceOverRunning
 
     /// `scrollPosition` only writes to `currentPage` once the user scrolls, so fall back to the
     /// first card to keep the page dots correct on first appearance.
@@ -302,28 +340,78 @@ private struct WMFForYouPageView: View {
         onShowCard(card)
     }
 
-    var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: 0) {
-                ForEach(articleViewModels, id: \.cardUniqueKey) { article in
-                    let variant = WMFForYouCardVariant.variant(for: article.cardIndex)
-                    WMFForYouArticleCardView(
-                        viewModel: article,
-                        variant: variant,
-                        variantIndex: article.cardIndex,
-                        theme: theme,
-                        onHideModule: { onHideModule(article) },
-                        onHideCard: { onHideCard(article) },
-                        onCustomizeInterests: { onCustomizeInterests(article) },
-                        onTapCard: { onTapCard(article) },
-                        onSaveCard: { onSaveCard(article) },
-                        onUnsaveCard: { onUnsaveCard(article) },
-                        onShareCard: { onShareCard(article) }
-                    )
-                    .containerRelativeFrame(.horizontal)
+    /// Read after the card's title, so someone swiping through a module knows where they are.
+    ///
+    /// Derived here rather than from `ForEach(Array(...enumerated()))`: enumerating makes each
+    /// element a tuple, `scrollPosition` then fails to track the carousel, and the page dots stay
+    /// on the first card. Counting the filtered array also keeps the total right when a card is
+    /// hidden, which `cardIndex` does not.
+    private func positionValue(for article: WMFForYouArticleCardViewModel) -> String {
+        let position = (articleViewModels.firstIndex { $0.cardUniqueKey == article.cardUniqueKey } ?? 0) + 1
+        return WMFHomeLocalizedStrings.cardPosition(position, of: articleViewModels.count)
+    }
+
+    @ViewBuilder
+    private var cards: some View {
+        ForEach(articleViewModels, id: \.cardUniqueKey) { article in
+            let variant = WMFForYouCardVariant.variant(for: article.cardIndex)
+            WMFForYouArticleCardView(
+                viewModel: article,
+                variant: variant,
+                variantIndex: article.cardIndex,
+                theme: theme,
+                onHideModule: { onHideModule(article) },
+                onHideCard: { onHideCard(article) },
+                onCustomizeInterests: { onCustomizeInterests(article) },
+                onTapCard: { onTapCard(article) },
+                onSaveCard: { onSaveCard(article) },
+                onUnsaveCard: { onUnsaveCard(article) },
+                onShareCard: { onShareCard(article) }
+            )
+            .containerRelativeFrame(.horizontal)
+            .accessibilityFocused($focusedCardKey, equals: article.cardUniqueKey)
+            .accessibilityValue(Text(positionValue(for: article)))
+            .accessibilityActions {
+                if canGoToNextModule {
+                    Button(WMFHomeLocalizedStrings.nextModule) { onGoToNextModule() }
+                }
+                if canGoToPreviousModule {
+                    Button(WMFHomeLocalizedStrings.previousModule) { onGoToPreviousModule() }
                 }
             }
-            .scrollTargetLayout()
+        }
+    }
+
+    var body: some View {
+        // Two whole carousels rather than one carousel with a conditional stack inside it:
+        // `scrollPosition` reads the layout marked by `scrollTargetLayout`, and it stops reporting
+        // when a conditional sits between the scroll view and that layout, which leaves the page
+        // dots stuck on the first card.
+        if isVoiceOverRunning {
+            // A lazy stack keeps only the card on screen and its neighbour, and VoiceOver can only
+            // move to a card that exists: from the third card of four the flick finds nothing built
+            // and leaves the module. Modules hold a handful of cards, so building them all while
+            // VoiceOver runs costs little and makes every card reachable.
+            carousel {
+                HStack(spacing: 0) {
+                    cards
+                }
+                .scrollTargetLayout()
+            }
+        } else {
+            carousel {
+                LazyHStack(spacing: 0) {
+                    cards
+                }
+                .scrollTargetLayout()
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func carousel<Content: View>(@ViewBuilder content: () -> Content) -> some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            content()
         }
         .scrollTargetBehavior(.paging)
         .scrollPosition(id: $currentPage)
@@ -338,6 +426,18 @@ private struct WMFForYouPageView: View {
         .onChange(of: currentPage) { _, cardKey in
             onViewCard(cardKey)
             reportCardOnScreen()
+        }
+        // A VoiceOver flick moves focus, which is not the same as the carousel settling on a page.
+        // Drive the scroll from focus so the dots, the resume-here card, and the impression logging
+        // all describe the card actually being read.
+        .onChange(of: focusedCardKey) { _, cardKey in
+            guard let cardKey,
+                  currentPage != cardKey,
+                  articleViewModels.contains(where: { $0.cardUniqueKey == cardKey }) else { return }
+
+            withAnimation {
+                currentPage = cardKey
+            }
         }
         .onChange(of: isOnScreen) { _, _ in
             reportCardOnScreen()

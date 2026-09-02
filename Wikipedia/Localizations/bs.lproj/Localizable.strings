@@ -919,6 +919,17 @@
 "widget-onthisday-description" = "Istraži šta se dogodilo na današnji dan u historiji.";
 "widget-onthisday-placeholder-article-snippet" = "Slobodna online enciklopedija koju svako može uređivati";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, slobodna enciklopedija wiki sadržaja, postaje dostupna na internetu.";
+"wikimedia-articletopics-topic-africa" = "Afrika";
+"wikimedia-articletopics-topic-central-america" = "Srednja Amerika";
+"wikimedia-articletopics-topic-engineering" = "Inženjerstvo";
+"wikimedia-articletopics-topic-food-and-drink" = "Hrana i piće";
+"wikimedia-articletopics-topic-history" = "Historija";
+"wikimedia-articletopics-topic-medicine-and-health" = "Medicina i zdravlje";
+"wikimedia-articletopics-topic-music" = "Muzika";
+"wikimedia-articletopics-topic-north-america" = "Sjeverna Amerika";
+"wikimedia-articletopics-topic-physics" = "Fizika";
+"wikimedia-articletopics-topic-technology" = "Tehnologija";
+"wikimedia-articletopics-topic-tv-and-film" = "Televizija i filmovi";
 "wikitext-preview-changes" = "Ispisujem pregled izmjena koje ste napravili...";
 "wikitext-preview-link-external-preview-description" = "Ovaj link vodi ka vanjskom veb-sajtu: $1";
 "wikitext-preview-link-external-preview-title" = "Vanjski link";

@@ -1255,6 +1255,16 @@
 "widget-onthisday-description" = "Finn ut hva som skjedde på denne datoen i historien.";
 "widget-onthisday-placeholder-article-snippet" = "Fritt nettleksikon som alle kan redigere";
 "widget-onthisday-placeholder-event-snippet" = "Det frie nettleksikonet Wikipedia blir lansert.";
+"wikimedia-articletopics-topic-central-america" = "Sentral-Amerika";
+"wikimedia-articletopics-topic-europe" = "Europa";
+"wikimedia-articletopics-topic-fashion" = "Mote";
+"wikimedia-articletopics-topic-food-and-drink" = "Mat og drikke";
+"wikimedia-articletopics-topic-general-science" = "Generell vitenskap";
+"wikimedia-articletopics-topic-history" = "Historie";
+"wikimedia-articletopics-topic-music" = "Musikk";
+"wikimedia-articletopics-topic-north-america" = "Nord-Amerika";
+"wikimedia-articletopics-topic-oceania" = "Oseania";
+"wikimedia-articletopics-topic-physics" = "Fysikk";
 "wikitext-preview-changes" = "Laster forhåndsvisning av endringene dine…";
 "wikitext-preview-link-external-preview-description" = "Denne lenka leder til et eksternt nettsted: $1";
 "wikitext-preview-link-external-preview-title" = "Ekstern lenke";

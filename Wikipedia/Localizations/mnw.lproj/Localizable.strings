@@ -710,6 +710,16 @@
 "welcome-languages-description" = "ပ္ဍဲ device မၞးဂှ် ပိုယ်ဂွံဆဵုကေတ် အရေဝ်ဘာသာ အတိုင် ဗွဲသၟဝ်ဝွံရ";
 // Fuzzy
 "welcome-languages-search-title" = "ဂၠာဲ နကဵုအရေဝ်ဘာသာ ဗဒဲါ ၃၀၀";
+"wikimedia-articletopics-topic-art" = "အနုပညာ";
+"wikimedia-articletopics-topic-education" = "ပညာရေး";
+"wikimedia-articletopics-topic-food-and-drink" = "အစားအသောက်";
+"wikimedia-articletopics-topic-literature" = "စာပေ";
+"wikimedia-articletopics-topic-music" = "ဂီတ";
+"wikimedia-articletopics-topic-oceania" = "အိုရှန်းနီးယား";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "ဒဿနိကနှင့်ဘာသာရေး";
+"wikimedia-articletopics-topic-physics" = "ရူပဗေဒ";
+"wikimedia-articletopics-topic-politics-and-government" = "နိုင်ငံရေးနှင့်အစိုးရ";
+"wikimedia-articletopics-topic-tv-and-film" = "တီဗွီနှင့်ရုပ်ရှင်";
 "wikitext-preview-changes" = "ကလေင်ကေတ်ဒၟံင် နမူနာ အရာမၞးမပလေဝ်လဝ် ...";
 "wikitext-preview-link-external-preview-description" = "လေန်ဏအ်ဂှ် ပလံင်ဏာ မုက်လိက် ဝေပ်သာက်မၞး: $1";
 "wikitext-preview-link-external-preview-title" = "လေန်မ္ၚး";
