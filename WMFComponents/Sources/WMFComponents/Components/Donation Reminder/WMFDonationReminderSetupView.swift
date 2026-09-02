@@ -60,7 +60,7 @@ struct WMFDonationReminderSetupView: View {
     }
 
     private var header: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 24) {
             Text(viewModel.localizedStrings.subtitle)
                 .font(Font(WMFFont.for(.subheadline)))
                 .foregroundColor(Color(theme.text))
@@ -82,7 +82,7 @@ struct WMFDonationReminderSetupView: View {
     private var triggerGroup: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 6) {
-                if let booksImage = WMFSFSymbolIcon.for(symbol: .booksVerticalFill, font: WMFFont.subheadline) {
+                if let booksImage = WMFSFSymbolIcon.for(symbol: .booksVertical, font: WMFFont.subheadline) {
                     Image(uiImage: booksImage)
                         .foregroundColor(Color(theme.secondaryText))
                 }
@@ -111,17 +111,35 @@ struct WMFDonationReminderSetupView: View {
                 }
             }
 
-            HStack(spacing: 12) {
-                ForEach(viewModel.configuration.triggerOptions) { triggerOption in
-                    WMFSelectablePillButton(label: triggerOption.label, isSelected: viewModel.selectedTriggerOptionIdentifier == triggerOption.id) {
-                        viewModel.selectedTriggerOptionIdentifier = triggerOption.id
-                    }
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 12) {
+                    triggerOptionButtons
+                    triggerUnitLabel
                 }
-                Text(viewModel.localizedStrings.triggerUnitLabel)
-                    .font(Font(WMFFont.for(.callout)))
-                    .foregroundColor(Color(theme.text))
+                VStack(alignment: .leading, spacing: 12) {
+                    triggerOptionButtons
+                    triggerUnitLabel
+                }
             }
         }
+    }
+
+    private var triggerOptionButtons: some View {
+        HStack(spacing: 12) {
+            ForEach(viewModel.configuration.triggerOptions) { triggerOption in
+                WMFSelectablePillButton(label: triggerOption.label, isSelected: viewModel.selectedTriggerOptionIdentifier == triggerOption.id) {
+                    viewModel.selectedTriggerOptionIdentifier = triggerOption.id
+                }
+                .accessibilityLabel("\(triggerOption.label) \(viewModel.localizedStrings.triggerUnitLabel)")
+            }
+        }
+    }
+
+    private var triggerUnitLabel: some View {
+        Text(viewModel.localizedStrings.triggerUnitLabel)
+            .font(Font(WMFFont.for(.callout)))
+            .foregroundColor(Color(theme.text))
+            .fixedSize(horizontal: true, vertical: false)
     }
 
     private var amountGroup: some View {
@@ -175,11 +193,15 @@ struct WMFDonationReminderSetupView: View {
     private var footerButtons: some View {
         VStack(spacing: 12) {
             if viewModel.isReminderEnabled {
-                WMFLargeButton(style: .primary, title: viewModel.primaryButtonTitle) {
+                WMFLargeButton(
+                    style: .primary,
+                    title: viewModel.primaryButtonTitle,
+                    forceBackgroundColor: viewModel.isConfirmButtonEnabled ? nil : theme.baseBackground,
+                    forceForegroundColor: viewModel.isConfirmButtonEnabled ? nil : theme.secondaryText
+                ) {
                     viewModel.confirm()
                 }
                 .disabled(!viewModel.isConfirmButtonEnabled)
-                .opacity(viewModel.isConfirmButtonEnabled ? 1 : 0.5)
             }
 
             if viewModel.origin == .banner {
@@ -191,4 +213,3 @@ struct WMFDonationReminderSetupView: View {
         }
     }
 }
-

@@ -22,9 +22,18 @@ extension ArticleViewController {
     }
 
     func removeDonationReminderCardIfNeeded() {
+        isShowingDonateFlowFromDonationReminderCard = false
+
         if !WMFDeveloperSettingsDataController.shared.enableDonationReminder || WMFDonationReminderDataController.shared.isFollowUpReminderWindowClosed {
             messagingController.removeDonationReminderCard()
         }
+    }
+
+    func removeDonationReminderCardAfterNavigationAway() {
+        guard !isShowingDonateFlowFromDonationReminderCard else {
+            return
+        }
+        messagingController.removeDonationReminderCard()
     }
 
     func handleDonationReminderLinkIfNeeded(href: String) -> Bool {
@@ -44,8 +53,6 @@ extension ArticleViewController {
     private func didTapDonationReminderDonate() {
         guard let reminder = WMFDonationReminderDataController.shared.loadReminder() else { return }
 
-        WMFDonationReminderDataController.shared.closeFollowUpReminderWindow()
-
         messagingController.fetchDonationReminderDonateButtonRect { [weak self] buttonRect in
             guard let self, let navigationController else { return }
 
@@ -58,22 +65,34 @@ extension ArticleViewController {
 
             let donateCoordinator = DonateCoordinator(navigationController: navigationController, source: .donationReminderArticle(self.articleURL, pledgeAmount: reminder.amount, currencyCode: reminder.currencyCode), dataStore: self.dataStore, theme: self.theme, navigationStyle: .push, setLoadingBlock: { _ in }, getDonateButtonGlobalRect: { globalRect })
             self.donateCoordinator = donateCoordinator
-            donateCoordinator.start()
+            donateCoordinator.didCancelPaymentMethodPrompt = { [weak self] in
+                self?.isShowingDonateFlowFromDonationReminderCard = false
+            }
+            self.isShowingDonateFlowFromDonationReminderCard = donateCoordinator.start()
         }
     }
 
     private func didTapDonationReminderNotNow() {
         messagingController.removeDonationReminderCard()
 
-        guard let reminder = WMFDonationReminderDataController.shared.loadReminder(),
-              case .articlesRead(count: let articlesReadGoal) = reminder.trigger
-        else { return }
+        guard let reminder = WMFDonationReminderDataController.shared.loadReminder() else { return }
 
         WMFDonationReminderDataController.shared.closeFollowUpReminderWindow()
 
-        let toastFormat = WMFLocalizedString("donation-reminder-card-not-now-toast", value: "We will remind you again after you’ve read {{PLURAL:%1$d|%1$d article|%1$d articles}}.", comment: "Toast shown after the user dismisses the in-article donation reminder card. %1$d is the number of articles until the next reminder.")
-        let toastTitle = String.localizedStringWithFormat(toastFormat, articlesReadGoal)
-        WMFToastManager.sharedInstance.showRichToast(toastTitle, subtitle: nil, image: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill), duration: nil, dismissPreviousToasts: true)
+        let toastTitle = WMFLocalizedString("donation-reminder-card-not-now-toast-settings", value: "Donation reminders can be modified anytime in Settings.", comment: "Toast shown after the user dismisses the in-article donation reminder card.")
+        let modifyButtonTitle = WMFLocalizedString("donation-reminder-card-not-now-toast-modify", value: "Modify", comment: "Title of the toast button that opens the donation reminder settings, shown after the user dismisses the in-article donation reminder card.")
+
+        WMFToastManager.sharedInstance.showRichToast(toastTitle, subtitle: nil, buttonTitle: modifyButtonTitle, image: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill), duration: nil, dismissPreviousToasts: true, buttonCallBack: { [weak self] in
+            self?.showDonationReminderSettings(currencyCode: reminder.currencyCode)
+        })
+    }
+
+    private func showDonationReminderSettings(currencyCode: String) {
+        guard let navigationController else { return }
+
+        let coordinator = DonationReminderSetupCoordinator(navigationController: navigationController, currencyCode: currencyCode, theme: theme, origin: .settings)
+        donationReminderSetupCoordinator = coordinator
+        coordinator.start()
     }
 
     private static func donationReminderCardHTML(configuration: DonationReminderCardConfiguration) -> String {

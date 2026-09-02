@@ -73,7 +73,6 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     let localizedStrings = LocalizedStrings()
     let configuration: Configuration
     let origin: Origin
-    private let experimentEndDate: Date?
     private let initialReminder: WMFDonationReminder?
 
     @Published var isReminderEnabled: Bool = true {
@@ -103,12 +102,11 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
 
     // MARK: - Lifecycle
 
-    public init(configuration: Configuration, origin: Origin, experimentEndDate: Date? = nil) {
+    public init(configuration: Configuration, origin: Origin) {
         self.configuration = configuration
         self.origin = origin
 
         let savedReminder = WMFDonationReminderDataController.shared.loadReminder()
-        self.experimentEndDate = experimentEndDate ?? savedReminder?.experimentEndDate
         self.initialReminder = savedReminder
 
         switch origin {
@@ -151,7 +149,7 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     }
 
     var primaryButtonTitle: String {
-        origin == .settings ? localizedStrings.updateButtonTitle : localizedStrings.confirmButtonTitle
+        initialReminder == nil ? localizedStrings.confirmButtonTitle : localizedStrings.updateButtonTitle
     }
 
     var hasPendingChanges: Bool {
@@ -249,8 +247,7 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
             currencyCode: configuration.currencyCode,
             createdDate: createdDate,
             isEnabled: true,
-            progress: progress,
-            experimentEndDate: experimentEndDate
+            progress: progress
         )
         WMFDonationReminderDataController.shared.saveReminder(reminder)
 
@@ -258,7 +255,7 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
         formatter.currencyCode = configuration.currencyCode
         let formattedAmount = formatter.string(from: finalAmount as NSNumber) ?? "\(finalAmount)"
         let toastTitle = String.localizedStringWithFormat(localizedStrings.confirmationToastFormat, formattedAmount, selectedTriggerOption.label)
-        WMFToastPresenter.shared.show(WMFToastConfig(title: toastTitle, icon: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill)))
+        WMFToastPresenter.shared.show(WMFToastConfig(title: toastTitle))
 
         didConfirmReminder?(reminder)
     }
@@ -271,8 +268,7 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
             amount: finalAmount,
             currencyCode: configuration.currencyCode,
             createdDate: Date(),
-            isEnabled: false,
-            experimentEndDate: experimentEndDate
+            isEnabled: false
         )
         WMFDonationReminderDataController.shared.saveReminder(optOutReminder)
 

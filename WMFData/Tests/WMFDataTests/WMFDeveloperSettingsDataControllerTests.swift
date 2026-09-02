@@ -43,6 +43,93 @@ final class WMFDeveloperSettingsDataControllerTests {
         }
     }
 
+    @Test
+    func useTestWikiDonateConfigsSwitchesTheDonateConfigsEnvironment() async {
+        await fixture.withConfiguredEnvironment(configure: configureRequestRecordingEnvironment) {
+            let controller = WMFDeveloperSettingsDataController.shared
+
+            #expect(controller.donateConfigsServiceEnvironment == WMFDataEnvironment.current.serviceEnvironment)
+
+            controller.useTestWikiDonateConfigs = true
+
+            #expect(controller.donateConfigsServiceEnvironment == .staging)
+            #expect(URL.donateConfigURL(environment: controller.donateConfigsServiceEnvironment)?.host == "test.wikipedia.org")
+            #expect(URL.fundraisingCampaignConfigURL(environment: controller.donateConfigsServiceEnvironment)?.host == "test.wikipedia.org")
+        }
+    }
+
+    @Test
+    func useTestWikiDonateConfigsRoutesTheConfigFetches() async {
+        await fixture.withConfiguredEnvironment(configure: configureRequestRecordingEnvironment) {
+            WMFDeveloperSettingsDataController.shared.useTestWikiDonateConfigs = true
+            requestRecordingService.requestedURLs = []
+
+            WMFFundraisingCampaignDataController.shared.fetchConfig(countryCode: "NL", currentDate: Date()) { _ in }
+            WMFDonateDataController.shared.fetchConfigs(for: "NL") { _ in }
+
+            let hosts = requestRecordingService.requestedURLs.compactMap { $0.host }
+            #expect(hosts.contains("test.wikipedia.org"))
+            #expect(hosts.filter { $0 == "test.wikipedia.org" }.count == 2)
+            #expect(hosts.contains("payments.wikimedia.org"))
+            #expect(hosts.contains("donate.wikimedia.org") == false)
+
+            WMFDeveloperSettingsDataController.shared.useTestWikiDonateConfigs = false
+            requestRecordingService.requestedURLs = []
+
+            WMFFundraisingCampaignDataController.shared.fetchConfig(countryCode: "NL", currentDate: Date()) { _ in }
+            WMFDonateDataController.shared.fetchConfigs(for: "NL") { _ in }
+
+            let productionHosts = requestRecordingService.requestedURLs.compactMap { $0.host }
+            #expect(productionHosts.filter { $0 == "donate.wikimedia.org" }.count == 2)
+            #expect(productionHosts.contains("test.wikipedia.org") == false)
+        }
+    }
+
+    @Test
+    func togglingUseTestWikiDonateConfigsRefetchesTheCampaignConfig() async {
+        await fixture.withConfiguredEnvironment(configure: configureRequestRecordingEnvironment) {
+            WMFDeveloperSettingsDataController.shared.useTestWikiDonateConfigs = true
+
+            let campaignConfigURLs = requestRecordingService.requestedURLs.filter { $0.path == "/wiki/MediaWiki:AppsCampaignConfig.json" }
+            #expect(campaignConfigURLs.count == 1)
+            #expect(campaignConfigURLs.first?.host == "test.wikipedia.org")
+
+            requestRecordingService.requestedURLs = []
+            WMFDeveloperSettingsDataController.shared.useTestWikiDonateConfigs = false
+
+            let productionCampaignConfigURLs = requestRecordingService.requestedURLs.filter { $0.path == "/wiki/MediaWiki:AppsCampaignConfig.json" }
+            #expect(productionCampaignConfigURLs.count == 1)
+            #expect(productionCampaignConfigURLs.first?.host == "donate.wikimedia.org")
+        }
+    }
+
+    @Test
+    func togglingUseTestWikiDonateConfigsClearsTheCachedConfigs() async {
+        await fixture.withConfiguredEnvironment(configure: configureRequestRecordingEnvironment) {
+            let sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
+            try? sharedCacheStore?.save(key: "Donor Experience", "AppsCampaignConfig", value: "cached")
+            try? sharedCacheStore?.save(key: "Donor Experience", "AppsDonationConfig", value: "cached")
+            try? sharedCacheStore?.save(key: "Donor Experience", "PaymentMethods", value: "cached")
+
+            WMFDeveloperSettingsDataController.shared.useTestWikiDonateConfigs = true
+
+            let campaignConfig: String? = try? sharedCacheStore?.load(key: "Donor Experience", "AppsCampaignConfig")
+            let donateConfig: String? = try? sharedCacheStore?.load(key: "Donor Experience", "AppsDonationConfig")
+            let paymentMethods: String? = try? sharedCacheStore?.load(key: "Donor Experience", "PaymentMethods")
+            #expect(campaignConfig == nil)
+            #expect(donateConfig == nil)
+            #expect(paymentMethods == nil)
+        }
+    }
+
+    private let requestRecordingService = WMFRequestRecordingMockService()
+
+    private func configureRequestRecordingEnvironment() async {
+        WMFDataEnvironment.current.userDefaultsStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.basicService = requestRecordingService
+    }
+
     private func configureEnvironment() async {
         WMFDataEnvironment.current.basicService = WMFFeatureConfigRequestMockService()
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
@@ -106,6 +193,43 @@ private extension WMFDeveloperSettingsDataController {
                     continuation.resume(returning: ())
                 }
             }
+        }
+    }
+}
+
+private final class WMFRequestRecordingMockService: WMFService {
+
+    private enum RecordingError: Error {
+        case stubbedFailure
+    }
+
+    var requestedURLs: [URL] = []
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
+        record(request)
+        completion(.failure(RecordingError.stubbedFailure))
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+        record(request)
+        completion(.failure(RecordingError.stubbedFailure))
+    }
+
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        record(request)
+        completion(.failure(RecordingError.stubbedFailure))
+    }
+
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+        record(request)
+        completion(.failure(RecordingError.stubbedFailure))
+    }
+
+    func clearCachedData() {}
+
+    private func record<R: WMFServiceRequest>(_ request: R) {
+        if let url = request.url {
+            requestedURLs.append(url)
         }
     }
 }

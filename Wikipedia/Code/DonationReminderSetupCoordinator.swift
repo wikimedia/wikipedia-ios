@@ -10,20 +10,17 @@ final class DonationReminderSetupCoordinator: Coordinator {
     private let currencyCode: String
     private let theme: Theme
     private let origin: WMFDonationReminderSetupViewModel.Origin
-    private let experimentEndDate: Date?
 
     init(
         navigationController: UINavigationController,
         currencyCode: String,
         theme: Theme,
-        origin: WMFDonationReminderSetupViewModel.Origin,
-        experimentEndDate: Date? = nil
+        origin: WMFDonationReminderSetupViewModel.Origin
     ) {
         self.navigationController = navigationController
         self.currencyCode = currencyCode
         self.theme = theme
         self.origin = origin
-        self.experimentEndDate = experimentEndDate
     }
 
     @discardableResult
@@ -35,7 +32,7 @@ final class DonationReminderSetupCoordinator: Coordinator {
             maximumAmount = nil
         }
         let configuration = WMFDonationReminderSetupViewModel.experimentConfiguration(currencyCode: currencyCode, minimumAmount: minimumAmount, maximumAmount: maximumAmount)
-        let viewModel = WMFDonationReminderSetupViewModel(configuration: configuration, origin: origin, experimentEndDate: experimentEndDate)
+        let viewModel = WMFDonationReminderSetupViewModel(configuration: configuration, origin: origin)
 
         viewModel.didConfirmReminder = { [weak self] _ in
             self?.navigationController.popViewController(animated: true)

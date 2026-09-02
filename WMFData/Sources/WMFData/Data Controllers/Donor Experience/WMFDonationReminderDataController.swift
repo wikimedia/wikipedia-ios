@@ -12,19 +12,22 @@ public struct WMFDonationReminder: Codable, Equatable, Sendable {
         public var timesReminderShown: Int
         public var lastReminderShownDate: Date?
         public var goalReachedCount: Int
+        public var isWindowClosed: Bool
 
         private enum CodingKeys: String, CodingKey {
             case currentCycleStartDate
             case timesReminderShown
             case lastReminderShownDate
             case goalReachedCount
+            case isWindowClosed
         }
 
-        public init(currentCycleStartDate: Date, timesReminderShown: Int, lastReminderShownDate: Date? = nil, goalReachedCount: Int = 0) {
+        public init(currentCycleStartDate: Date, timesReminderShown: Int, lastReminderShownDate: Date? = nil, goalReachedCount: Int = 0, isWindowClosed: Bool = false) {
             self.currentCycleStartDate = currentCycleStartDate
             self.timesReminderShown = timesReminderShown
             self.lastReminderShownDate = lastReminderShownDate
             self.goalReachedCount = goalReachedCount
+            self.isWindowClosed = isWindowClosed
         }
 
         public init(from decoder: Decoder) throws {
@@ -33,6 +36,7 @@ public struct WMFDonationReminder: Codable, Equatable, Sendable {
             timesReminderShown = try container.decode(Int.self, forKey: .timesReminderShown)
             lastReminderShownDate = try container.decodeIfPresent(Date.self, forKey: .lastReminderShownDate)
             goalReachedCount = try container.decodeIfPresent(Int.self, forKey: .goalReachedCount) ?? 0
+            isWindowClosed = try container.decodeIfPresent(Bool.self, forKey: .isWindowClosed) ?? false
         }
     }
 
@@ -43,16 +47,13 @@ public struct WMFDonationReminder: Codable, Equatable, Sendable {
     public var isEnabled: Bool
     public var progress: Progress?
 
-    public var experimentEndDate: Date?
-
     public init(
         trigger: Trigger,
         amount: Decimal,
         currencyCode: String,
         createdDate: Date,
         isEnabled: Bool,
-        progress: Progress? = nil,
-        experimentEndDate: Date? = nil
+        progress: Progress? = nil
     ) {
         self.trigger = trigger
         self.amount = amount
@@ -60,7 +61,6 @@ public struct WMFDonationReminder: Codable, Equatable, Sendable {
         self.createdDate = createdDate
         self.isEnabled = isEnabled
         self.progress = progress
-        self.experimentEndDate = experimentEndDate
     }
 
     public var currentCycleStartDate: Date {
@@ -77,13 +77,6 @@ public struct WMFDonationReminder: Codable, Equatable, Sendable {
 
     public var goalReachedCount: Int {
         progress?.goalReachedCount ?? 0
-    }
-
-    public func isExpired(currentDate: Date = Date()) -> Bool {
-        guard let experimentEndDate else {
-            return false
-        }
-        return currentDate > experimentEndDate
     }
 }
 
@@ -102,7 +95,18 @@ public final class WMFDonationReminderDataController {
 
     public static let shared = WMFDonationReminderDataController()
 
+    public static let experimentCampaignID = "NL_2026_08"
+
     public static let experimentPresetAmounts: [Decimal] = [1, 3, 5]
+
+    // The reminders outlive the remote campaign end date. The experiment plan sets these fixed dates.
+    public static let reminderEndDate: Date = {
+        Calendar(identifier: .gregorian).date(from: DateComponents(year: 2026, month: 11, day: 9)) ?? .distantFuture
+    }()
+
+    public static let wrapUpEndDate: Date = {
+        Calendar(identifier: .gregorian).date(from: DateComponents(year: 2026, month: 11, day: 15)) ?? .distantFuture
+    }()
 
     #if DEBUG
     public static let minimumSecondsForArticleRead = 1
@@ -145,11 +149,7 @@ public final class WMFDonationReminderDataController {
             return false
         }
 
-        guard let reminder = loadReminder() else {
-            return false
-        }
-
-        return !reminder.isExpired(currentDate: currentDate)
+        return currentDate < Self.reminderEndDate
     }
 
     // MARK: - Follow-up Reminder Cycle
@@ -167,7 +167,7 @@ public final class WMFDonationReminderDataController {
         guard WMFDeveloperSettingsDataController.shared.enableDonationReminder,
               let reminder = loadReminder(),
               reminder.isEnabled,
-              !reminder.isExpired(currentDate: currentDate),
+              currentDate < Self.reminderEndDate,
               case .articlesRead(count: let articlesReadGoal) = reminder.trigger else {
             return false
         }
@@ -238,12 +238,16 @@ public final class WMFDonationReminderDataController {
     }
 
     public func closeFollowUpReminderWindow() {
+        stateLock.lock()
+        defer { stateLock.unlock() }
+
         guard var reminder = loadReminder(),
               var progress = reminder.progress else {
             return
         }
 
         progress.timesReminderShown = Self.maximumIgnoredReminderImpressions
+        progress.isWindowClosed = true
         reminder.progress = progress
         saveReminder(reminder)
     }
@@ -251,12 +255,14 @@ public final class WMFDonationReminderDataController {
     public var isFollowUpReminderWindowClosed: Bool {
         guard let reminder = loadReminder() else { return false }
 
-        return reminder.timesReminderShown >= Self.maximumIgnoredReminderImpressions
+        return reminder.progress?.isWindowClosed ?? false
     }
 
     // MARK: - Experiment Assignment
 
     public func clearExperimentAssignment() {
+        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.donationReminderExperimentCurrency.rawValue)
+
         guard let experimentStore else {
             return
         }
@@ -266,13 +272,18 @@ public final class WMFDonationReminderDataController {
     }
 
     @discardableResult
-    public func assignExperimentIfNeeded() throws -> ExperimentAssignment {
+    public func assignExperimentIfNeeded(campaignID: String, campaignCurrencyCode: String) throws -> ExperimentAssignment? {
         guard let experimentStore else {
             throw ExperimentError.missingExperimentStore
         }
 
         stateLock.lock()
         defer { stateLock.unlock() }
+
+        let forcedAssignment = developerSettingsForcedAssignment
+        guard campaignID == Self.experimentCampaignID || forcedAssignment != nil else {
+            return nil
+        }
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
         let bucketValue = try experimentsDataController.determineBucketForExperiment(.donationReminder, withPercentage: Self.experimentGroupPercentage)
@@ -281,7 +292,20 @@ public final class WMFDonationReminderDataController {
             throw ExperimentError.unexpectedBucketValue
         }
 
-        return developerSettingsForcedAssignment ?? assignment
+        let resolvedAssignment = forcedAssignment ?? assignment
+        if resolvedAssignment != .control {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.donationReminderExperimentCurrency.rawValue, value: campaignCurrencyCode)
+        }
+
+        return resolvedAssignment
+    }
+
+    public var experimentCurrencyCode: String? {
+        try? userDefaultsStore?.load(key: WMFUserDefaultsKey.donationReminderExperimentCurrency.rawValue)
+    }
+
+    public var reminderSetupCurrencyCode: String? {
+        loadReminder()?.currencyCode ?? experimentCurrencyCode ?? Locale.current.currency?.identifier
     }
 
     public var experimentAssignment: ExperimentAssignment? {

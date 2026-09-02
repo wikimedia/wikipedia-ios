@@ -10,11 +10,10 @@ final class WMFDonationReminderSetupViewModelTests {
 
     private let fixture = WMFDataTestFixture()
 
-    private func makeViewModel(origin: WMFDonationReminderSetupViewModel.Origin = .banner, experimentEndDate: Date? = nil) -> WMFDonationReminderSetupViewModel {
+    private func makeViewModel(origin: WMFDonationReminderSetupViewModel.Origin = .banner) -> WMFDonationReminderSetupViewModel {
         WMFDonationReminderSetupViewModel(
             configuration: WMFDonationReminderSetupViewModel.experimentConfiguration(currencyCode: "EUR"),
-            origin: origin,
-            experimentEndDate: experimentEndDate
+            origin: origin
         )
     }
 
@@ -273,23 +272,10 @@ final class WMFDonationReminderSetupViewModelTests {
     }
 
     @Test
-    func bannerConfirmStoresExperimentEndDate() async {
-        await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let endDate = Date(timeIntervalSince1970: 2_000_000_000)
-            let viewModel = makeViewModel(origin: .banner, experimentEndDate: endDate)
-
-            viewModel.confirm()
-
-            #expect(WMFDonationReminderDataController.shared.loadReminder()?.experimentEndDate == endDate)
-        }
-    }
-
-    @Test
-    func settingsConfirmPreservesCreatedDateAndEndDate() async {
+    func settingsConfirmPreservesCreatedDate() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let createdDate = Date(timeIntervalSince1970: 1_700_000_000)
-            let endDate = Date(timeIntervalSince1970: 2_000_000_000)
-            let existingReminder = WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 1, currencyCode: "EUR", createdDate: createdDate, isEnabled: true, experimentEndDate: endDate)
+            let existingReminder = WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 1, currencyCode: "EUR", createdDate: createdDate, isEnabled: true)
             WMFDonationReminderDataController.shared.saveReminder(existingReminder)
 
             let testStartDate = Date()
@@ -300,7 +286,6 @@ final class WMFDonationReminderSetupViewModelTests {
             let savedReminder = WMFDonationReminderDataController.shared.loadReminder()
             #expect(savedReminder?.trigger == .articlesRead(count: 10))
             #expect(savedReminder?.createdDate == createdDate)
-            #expect(savedReminder?.experimentEndDate == endDate)
             let cycleStartDate = savedReminder?.currentCycleStartDate ?? .distantPast
             #expect(cycleStartDate >= testStartDate)
             #expect(savedReminder?.timesReminderShown == 0)
@@ -377,21 +362,25 @@ final class WMFDonationReminderSetupViewModelTests {
     }
 
     @Test
-    func primaryButtonTitleFollowsOrigin() async {
+    func primaryButtonTitleFollowsSavedReminder() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let bannerViewModel = makeViewModel(origin: .banner)
-            let settingsViewModel = makeViewModel(origin: .settings)
+            let settingsWithoutReminderViewModel = makeViewModel(origin: .settings)
 
             #expect(bannerViewModel.primaryButtonTitle == bannerViewModel.localizedStrings.confirmButtonTitle)
-            #expect(settingsViewModel.primaryButtonTitle == settingsViewModel.localizedStrings.updateButtonTitle)
+            #expect(settingsWithoutReminderViewModel.primaryButtonTitle == settingsWithoutReminderViewModel.localizedStrings.confirmButtonTitle)
+
+            WMFDonationReminderDataController.shared.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 1, currencyCode: "EUR", createdDate: Date(), isEnabled: true))
+            let settingsWithReminderViewModel = makeViewModel(origin: .settings)
+
+            #expect(settingsWithReminderViewModel.primaryButtonTitle == settingsWithReminderViewModel.localizedStrings.updateButtonTitle)
         }
     }
 
     @Test
-    func declineSavesDisabledReminderWithEndDateAndNotifies() async {
+    func declineSavesDisabledReminderAndNotifies() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let endDate = Date(timeIntervalSince1970: 2_000_000_000)
-            let viewModel = makeViewModel(origin: .banner, experimentEndDate: endDate)
+            let viewModel = makeViewModel(origin: .banner)
             var didNotify = false
             viewModel.didTapNoThanks = {
                 didNotify = true
@@ -401,7 +390,6 @@ final class WMFDonationReminderSetupViewModelTests {
 
             let savedReminder = WMFDonationReminderDataController.shared.loadReminder()
             #expect(savedReminder?.isEnabled == false)
-            #expect(savedReminder?.experimentEndDate == endDate)
             #expect(didNotify)
         }
     }

@@ -411,7 +411,8 @@
 "donation-reminder-card-donate" = "Yes, donate now";
 "donation-reminder-card-heading" = "You’ve read {{PLURAL:$1|$1 article|$1 articles}} since you pledged $2!";
 "donation-reminder-card-not-now" = "Not now";
-"donation-reminder-card-not-now-toast" = "We will remind you again after you’ve read {{PLURAL:$1|$1 article|$1 articles}}.";
+"donation-reminder-card-not-now-toast-modify" = "Modify";
+"donation-reminder-card-not-now-toast-settings" = "Donation reminders can be modified anytime in Settings.";
 "donation-reminder-card-subsequent-heading" = "You’ve read another {{PLURAL:$1|$1 article|$1 articles}}!";
 "donation-reminder-email-report-body" = "I have encountered a problem with the donation reminders feature:";
 "donation-reminder-email-report-subject" = "Issue Report - Donation Reminders";
