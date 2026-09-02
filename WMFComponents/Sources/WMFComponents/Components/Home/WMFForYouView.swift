@@ -27,7 +27,7 @@ private enum WMFForYouCardVariant {
 // MARK: - Card Metrics
 
 /// Where the page dots sit, and how much room a card must leave clear beneath its content.
-private enum WMFForYouCardMetrics {
+public enum WMFForYouCardMetrics {
 
     static let tabBarHeight: CGFloat = 49
     static let dotsBottomGap: CGFloat = 12
@@ -128,10 +128,19 @@ public struct WMFForYouView: View {
         }
     }
 
+    /// Every stop of the vertical paging stack, in order: the module pages, then the end of feed card.
+    private var scrollableIDs: [UUID] {
+        visiblePages.map(\.id) + [viewModel.endOfFeedViewModel.id]
+    }
+
     /// The module that fills the screen. A lazy stack also builds the modules near it, thus only the scroll gives the correct answer.
+    ///
+    /// Nil while the end of feed card is on screen: falling back to the first page there would mark
+    /// it `isOnScreen` and log a false impression for a card the user is not looking at.
     private var moduleOnScreen: VisiblePage? {
-        if let currentModuleID, let page = visiblePages.first(where: { $0.id == currentModuleID }) {
-            return page
+        if let currentModuleID {
+            if currentModuleID == viewModel.endOfFeedViewModel.id { return nil }
+            if let page = visiblePages.first(where: { $0.id == currentModuleID }) { return page }
         }
         return visiblePages.first
     }
@@ -139,34 +148,38 @@ public struct WMFForYouView: View {
     /// Puts the user back on the module they looked at last.
     ///
     /// The module must still be in the feed: the user can hide a module, or hide all the cards of a
-    /// module, while the view is away.
+    /// module, while the view is away. The end of feed card is always in the feed, so it always
+    /// restores.
     private func restoreModulePosition() {
         guard let lastViewedModuleID = viewModel.lastViewedModuleID,
-              visiblePages.contains(where: { $0.id == lastViewedModuleID }) else { return }
+              lastViewedModuleID == viewModel.endOfFeedViewModel.id || visiblePages.contains(where: { $0.id == lastViewedModuleID }) else { return }
 
         currentModuleID = lastViewedModuleID
     }
 
-    /// Moves the feed one module up or down, the way a vertical swipe does for a sighted user.
+    /// Moves the feed one page up or down, the way a vertical swipe does for a sighted user. The
+    /// end of feed card counts as the last page, so VoiceOver can reach it and leave it.
     ///
     /// VoiceOver spends its left/right flicks on the cards inside a module, so without this there is
     /// no gesture left to reach the next module.
     private func moveModule(by offset: Int) {
-        let pages = visiblePages
-        guard let currentID = currentModuleID ?? pages.first?.id,
-              let index = pages.firstIndex(where: { $0.id == currentID }) else { return }
+        let ids = scrollableIDs
+        guard let currentID = currentModuleID ?? ids.first,
+              let index = ids.firstIndex(of: currentID) else { return }
 
         let targetIndex = index + offset
-        guard pages.indices.contains(targetIndex) else { return }
+        guard ids.indices.contains(targetIndex) else { return }
 
-        let targetPage = pages[targetIndex]
+        let targetID = ids[targetIndex]
         withAnimation {
-            currentModuleID = targetPage.id
+            currentModuleID = targetID
         }
 
         // The stack builds modules lazily, so the target's cards cannot take focus until the scroll
-        // has settled. Without this hop VoiceOver keeps reading the card the user just left.
-        guard let firstCardKey = targetPage.articles.first?.cardUniqueKey else { return }
+        // has settled. Without this hop VoiceOver keeps reading the card the user just left. The
+        // end of feed card has no carousel, so it needs no hop.
+        guard let targetPage = visiblePages.first(where: { $0.id == targetID }),
+              let firstCardKey = targetPage.articles.first?.cardUniqueKey else { return }
         Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(400))
             focusedCardKey = firstCardKey
@@ -259,10 +272,26 @@ public struct WMFForYouView: View {
 
     public var body: some View {
         if visiblePages.isEmpty {
-            emptyState
-                .onAppear {
-                    viewModel.onEmptyViewAppearance?()
+            if viewModel.pages.isEmpty {
+                // No personalized content is available at all (no interests, no reading history):
+                // the end of feed card doubles as the empty state until the Random article module
+                // ships. When content exists but every module is off or every card is hidden, the
+                // settings empty state below shows instead.
+                GeometryReader { geometry in
+                    ScrollView {
+                        endOfFeedPage
+                            .frame(width: geometry.size.width, height: geometry.size.height)
+                    }
+                    .scrollBounceBehavior(.basedOnSize)
+                    .onAppear { viewModel.endOfFeedViewModel.reportShownIfNeeded() }
                 }
+                .ignoresSafeArea()
+            } else {
+                emptyState
+                    .onAppear {
+                        viewModel.onEmptyViewAppearance?()
+                    }
+            }
         } else {
             GeometryReader { geometry in
                 scrollView(geometry: geometry)
@@ -292,13 +321,15 @@ public struct WMFForYouView: View {
                         onShowCard: { viewModel.onShowCard?($0) },
                         focusedCardKey: $focusedCardKey,
                         canGoToPreviousModule: index > 0,
-                        canGoToNextModule: index < visiblePages.count - 1,
                         onGoToPreviousModule: { moveModule(by: -1) },
                         onGoToNextModule: { moveModule(by: 1) },
                         swipeOnboardingCardStep: swipeOnboardingCardStep
                     )
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 }
+                endOfFeedPage
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .id(viewModel.endOfFeedViewModel.id)
             }
             .scrollTargetLayout()
         }
@@ -309,6 +340,9 @@ public struct WMFForYouView: View {
         }
         .onChange(of: currentModuleID) { _, moduleID in
             viewModel.rememberViewedModule(moduleID)
+            if moduleID == viewModel.endOfFeedViewModel.id {
+                viewModel.endOfFeedViewModel.reportShownIfNeeded()
+            }
         }
         .onChange(of: scrollToTopRequestID) { _, _ in
             scrollToFirstModule()
@@ -336,13 +370,33 @@ public struct WMFForYouView: View {
                     hasReportedCurrentDrag = true
                     viewModel.onUserInteraction?()
                 }
-                .onEnded { _ in hasReportedCurrentDrag = false }
+                .onEnded { value in
+                    hasReportedCurrentDrag = false
+                    loopToFirstModuleIfNeeded(translation: value.translation)
+                }
         )
         .overlay {
             if isShowingSwipeOnboarding {
                 swipeOnboardingOverlay
             }
         }
+    }
+
+    private func loopToFirstModuleIfNeeded(translation: CGSize) {
+        guard isEndOfFeedOnScreen, translation.height < -60 else { return }
+        Task { @MainActor in
+            try? await Task.sleep(for: .milliseconds(450))
+            guard isEndOfFeedOnScreen, let firstID = visiblePages.first?.id else { return }
+            withAnimation { currentModuleID = firstID }
+        }
+    }
+
+    private var endOfFeedPage: some View {
+        WMFForYouEndOfFeedCardView(viewModel: viewModel.endOfFeedViewModel, theme: .forYou)
+    }
+
+    private var isEndOfFeedOnScreen: Bool {
+        currentModuleID == viewModel.endOfFeedViewModel.id
     }
 
     // MARK: - Empty State
@@ -422,9 +476,8 @@ private struct WMFForYouPageView: View {
     @AccessibilityFocusState.Binding var focusedCardKey: String?
 
     /// Offered only where there is somewhere to go, so the rotor does not list a dead action on the
-    /// first and last modules.
+    /// first and last modules. Last module will always allow for going up to the start again.
     let canGoToPreviousModule: Bool
-    let canGoToNextModule: Bool
     let onGoToPreviousModule: () -> Void
     let onGoToNextModule: () -> Void
 
@@ -498,9 +551,7 @@ private struct WMFForYouPageView: View {
             .accessibilityFocused($focusedCardKey, equals: article.cardUniqueKey)
             .accessibilityValue(Text(positionValue(for: article)))
             .accessibilityActions {
-                if canGoToNextModule {
-                    Button(WMFHomeLocalizedStrings.nextModule) { onGoToNextModule() }
-                }
+                Button(WMFHomeLocalizedStrings.nextModule) { onGoToNextModule() }
                 if canGoToPreviousModule {
                     Button(WMFHomeLocalizedStrings.previousModule) { onGoToPreviousModule() }
                 }
