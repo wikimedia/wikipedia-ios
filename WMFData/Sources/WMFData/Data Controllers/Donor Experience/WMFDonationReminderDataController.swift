@@ -291,8 +291,7 @@ public final class WMFDonationReminderDataController {
     }
 
     private func availableWrapUpCard(currentDate: Date) -> WrapUpCard? {
-        guard WMFDeveloperSettingsDataController.shared.enableDonationReminder,
-              !hasSeenWrapUpCard,
+        guard !hasSeenWrapUpCard,
               isWithinWrapUpPeriod(currentDate: currentDate)
         else {
             return nil
