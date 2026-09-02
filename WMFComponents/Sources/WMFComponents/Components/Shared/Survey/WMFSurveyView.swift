@@ -48,27 +48,7 @@ public struct WMFSurveyView: View {
 
     public var body: some View {
         NavigationView {
-            VStack(alignment: .leading, spacing: 0) {
-                VStack(alignment: .leading, spacing: 8) {
-                    if let heading = viewModel.localizedStrings.heading {
-                        Text(heading)
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
-                            .foregroundColor(Color(theme.text))
-                    }
-                    Text(viewModel.localizedStrings.subtitle)
-                        .font(Font(WMFFont.for(.callout)))
-                        .foregroundColor(Color(theme.secondaryText))
-                    if let instructions = viewModel.localizedStrings.instructions {
-                        Text(instructions)
-                            .font(Font(WMFFont.for(.italicCallout)))
-                            .foregroundColor(Color(theme.secondaryText))
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 16)
-                .padding(.top, 24)
-
-                List {
+            List {
                 Section {
                     ForEach(viewModel.options) { optionViewModel in
                         HStack {
@@ -99,6 +79,27 @@ public struct WMFSurveyView: View {
                     }
                     .listRowBackground(Color(theme.paperBackground))
                     .listRowSeparatorTint(Color(theme.newBorder))
+                } header: {
+                    VStack(alignment: .leading, spacing: 8) {
+                        if let heading = viewModel.localizedStrings.heading {
+                            Text(heading)
+                                .font(Font(WMFFont.for(.semiboldHeadline)))
+                                .foregroundColor(Color(theme.text))
+                        }
+                        Text(viewModel.localizedStrings.subtitle)
+                            .font(Font(WMFFont.for(.callout)))
+                            .foregroundColor(Color(theme.secondaryText))
+                        if let instructions = viewModel.localizedStrings.instructions {
+                            Text(instructions)
+                                .font(Font(WMFFont.for(.italicCallout)))
+                                .foregroundColor(Color(theme.secondaryText))
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .textCase(nil)
+                    .listRowInsets(EdgeInsets())
+                    .padding(.top, 24)
+                    .padding(.bottom, 24)
                 }
                 .listSectionSeparator(.hidden)
 
@@ -134,9 +135,8 @@ public struct WMFSurveyView: View {
                 .listCustomSectionSpacing(16)
                 .listRowSeparator(.hidden)
             }
-                .listBackgroundColor(Color(theme.baseBackground))
-                .listStyle(.insetGrouped)
-            }
+            .listBackgroundColor(Color(theme.baseBackground))
+            .listStyle(.insetGrouped)
             .background(Color(theme.baseBackground))
             .navigationTitle(viewModel.localizedStrings.title)
             .navigationBarTitleDisplayMode(.inline)
