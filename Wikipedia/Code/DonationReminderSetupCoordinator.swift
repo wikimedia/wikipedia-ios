@@ -10,23 +10,41 @@ final class DonationReminderSetupCoordinator: Coordinator {
     private let currencyCode: String
     private let theme: Theme
     private let origin: WMFDonationReminderSetupViewModel.Origin
-    private let metricsID: String?
-    private let project: WikimediaProject?
+    
+    private lazy var campaignAsset: WMFFundraisingCampaignConfig.WMFAsset? = {
+        return WMFDonationReminderDataController.shared.loadCampaignAsset()
+    }()
+    
+    private lazy var project: WikimediaProject? = {
+        if let languageCode = campaignAsset?.languageCode {
+            let wmfProject = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: nil))
+            return WikimediaProject(wmfProject: wmfProject)
+        }
+        
+        return nil
+    }()
+    
+    private var metricsID: String? {
+        guard let campaignAsset else {
+            return nil
+        }
+        
+        let originalMetricsID = campaignAsset.metricsID
+        let resolvedMetricsID = DonateCoordinator.donationReminderMetricsID(originalMetricsID: originalMetricsID)
+        
+        return resolvedMetricsID
+    }
 
     init(
         navigationController: UINavigationController,
         currencyCode: String,
         theme: Theme,
-        origin: WMFDonationReminderSetupViewModel.Origin,
-        metricsID: String? = nil,
-        project: WikimediaProject? = nil
+        origin: WMFDonationReminderSetupViewModel.Origin
     ) {
         self.navigationController = navigationController
         self.currencyCode = currencyCode
         self.theme = theme
         self.origin = origin
-        self.metricsID = metricsID
-        self.project = project
     }
 
     @discardableResult
@@ -40,36 +58,41 @@ final class DonationReminderSetupCoordinator: Coordinator {
         let configuration = WMFDonationReminderSetupViewModel.experimentConfiguration(currencyCode: currencyCode, minimumAmount: minimumAmount, maximumAmount: maximumAmount)
         let viewModel = WMFDonationReminderSetupViewModel(configuration: configuration, origin: origin)
         
-        let project = self.project ?? resolvedProject()
-        let metricsID = self.metricsID ?? resolvedMetricsID()
         let fromSettings = origin == .settings
 
-        viewModel.logSetupFormDidAppear = {
+        viewModel.logSetupFormDidAppear = { [weak self] in
+            guard let self else { return }
             guard let project, let metricsID else { return }
             DonateFunnel.shared.logDonationReminderSetupFormDidAppear(project: project, metricsID: metricsID, fromSettings: fromSettings)
         }
 
-        viewModel.logDidTapLearnMore = {
+        viewModel.logDidTapLearnMore = { [weak self] in
+            guard let self else { return }
             guard let project else { return }
             DonateFunnel.shared.logDonationReminderDidTapLearnMore(project: project)
         }
 
-        viewModel.logDidTapReportProblem = {
+        viewModel.logDidTapReportProblem = { [weak self] in
+            guard let self else { return }
             guard let project else { return }
             DonateFunnel.shared.logDonationReminderDidTapReportProblem(project: project)
         }
 
-        viewModel.logDidTapConfirm = { milestoneDefault, readFreq, donateAmount in
+        viewModel.logDidTapConfirm = { [weak self] milestoneDefault, readFreq, donateAmount in
+            
+            guard let self else { return }
             guard let project else { return }
             DonateFunnel.shared.logDonationReminderDidTapConfirm(project: project, milestoneDefault: milestoneDefault, readFreq: readFreq, donateAmount: donateAmount, fromSettings: fromSettings)
         }
 
-        viewModel.logDidTapNoThanks = {
+        viewModel.logDidTapNoThanks = { [weak self] in
+            guard let self else { return }
             guard let project else { return }
             DonateFunnel.shared.logDonationReminderDidTapNoThanks(project: project, fromSettings: fromSettings)
         }
 
-        viewModel.logDidToggleReminder = { isEnabled in
+        viewModel.logDidToggleReminder = { [weak self] isEnabled in
+            guard let self else { return }
             guard let project else { return }
             DonateFunnel.shared.logDonationReminderDidToggle(isEnabled: isEnabled, project: project, fromSettings: fromSettings)
         }
@@ -93,21 +116,6 @@ final class DonationReminderSetupCoordinator: Coordinator {
         let viewController = WMFDonationReminderSetupViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
         return true
-    }
-
-    private func resolvedProject() -> WikimediaProject? {
-        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else { return nil }
-        return WikimediaProject(wmfProject: .wikipedia(appLanguage))
-    }
-
-    private func resolvedMetricsID() -> String? {
-        guard let assignment = WMFDonationReminderDataController.shared.experimentAssignment,
-              let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else { return nil }
-        return DonateCoordinator.donationReminderMetricsID(
-            languageCode: appLanguage.languageCode,
-            campaignID: WMFDonationReminderDataController.experimentCampaignID,
-            assignment: assignment
-        )
     }
 
     private func showAboutExperiment() {

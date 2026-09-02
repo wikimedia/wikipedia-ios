@@ -19,8 +19,9 @@ extension ArticleViewController {
 
             messagingController.injectDonationReminderCard(cardHTML: Self.donationReminderCardHTML(configuration: configuration)) { _ in }
 
+            let source = DonateCoordinator.Source.donationReminderArticle(articleURL, pledgeAmount: reminder.amount, currencyCode: reminder.currencyCode)
             if let project = WikimediaProject(siteURL: self.articleURL),
-               let metricsID = self.donationReminderMilestoneMetricsID() {
+               let metricsID = DonateCoordinator.metricsID(for: source, languageCode: articleURL.wmf_languageCode) {
                 DonateFunnel.shared.logDonationReminderMilestoneImpression(project: project, metricsID: metricsID)
             }
         }
@@ -57,9 +58,10 @@ extension ArticleViewController {
 
     private func didTapDonationReminderDonate() {
         guard let reminder = WMFDonationReminderDataController.shared.loadReminder() else { return }
+        let source = DonateCoordinator.Source.donationReminderArticle(articleURL, pledgeAmount: reminder.amount, currencyCode: reminder.currencyCode)
 
         if let project = WikimediaProject(siteURL: articleURL),
-           let metricsID = donationReminderMilestoneMetricsID() {
+           let metricsID = DonateCoordinator.metricsID(for: source, languageCode: articleURL.wmf_languageCode) {
             DonateFunnel.shared.logDonationReminderMilestoneDidTapDonate(project: project, metricsID: metricsID)
         }
 
@@ -99,15 +101,6 @@ extension ArticleViewController {
         WMFToastManager.sharedInstance.showRichToast(toastTitle, subtitle: nil, buttonTitle: modifyButtonTitle, image: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill), duration: nil, dismissPreviousToasts: true, buttonCallBack: { [weak self] in
             self?.showDonationReminderSettings(currencyCode: reminder.currencyCode)
         })
-    }
-
-    private func donationReminderMilestoneMetricsID() -> String? {
-        guard let assignment = WMFDonationReminderDataController.shared.experimentAssignment else { return nil }
-        return DonateCoordinator.donationReminderMetricsID(
-            languageCode: articleURL.wmf_languageCode,
-            campaignID: WMFDonationReminderDataController.experimentCampaignID,
-            assignment: assignment
-        )
     }
 
     private func showDonationReminderSettings(currencyCode: String) {

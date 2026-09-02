@@ -128,9 +128,17 @@ public final class WMFDonationReminderDataController {
     public func saveReminder(_ reminder: WMFDonationReminder) {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.donationReminder.rawValue, value: reminder)
     }
+    
+    public func saveCampaignAsset(_ asset: WMFFundraisingCampaignConfig.WMFAsset) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.donationReminderCampaignAsset.rawValue, value: asset)
+    }
 
     public func loadReminder() -> WMFDonationReminder? {
         return try? userDefaultsStore?.load(key: WMFUserDefaultsKey.donationReminder.rawValue)
+    }
+    
+    public func loadCampaignAsset() -> WMFFundraisingCampaignConfig.WMFAsset? {
+        return try? userDefaultsStore?.load(key: WMFUserDefaultsKey.donationReminderCampaignAsset.rawValue)
     }
 
     public func clearReminder() {
