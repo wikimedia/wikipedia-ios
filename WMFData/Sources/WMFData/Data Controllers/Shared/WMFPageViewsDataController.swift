@@ -334,6 +334,16 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         return results
     }
 
+    public func fetchPageViewsCount(startDate: Date, endDate: Date, minimumDurationSeconds: Int = 0) async throws -> Int {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform {
+            let request = NSFetchRequest<CDPageView>(entityName: "CDPageView")
+            request.predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@ && numberOfSeconds >= %lld", startDate as CVarArg, endDate as CVarArg, Int64(minimumDurationSeconds))
+            return try backgroundContext.count(for: request)
+        }
+    }
+
     public func fetchPageViewMinutes(startDate: Date, endDate: Date) async throws -> Int {
         let backgroundContext = try coreDataStore.newBackgroundContext
 

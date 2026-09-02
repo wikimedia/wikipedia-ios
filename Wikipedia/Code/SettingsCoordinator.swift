@@ -26,6 +26,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     private let dataController: WMFSettingsDataController
     private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
+    private var donationReminderSetupCoordinator: DonationReminderSetupCoordinator?
     @MainActor private weak var settingsViewModel: WMFSettingsViewModel?
     @MainActor private weak var storageAndSyncingViewModel: WMFStorageAndSyncingSettingsViewModel?
     @MainActor private var pushNotificationsViewModel: WMFPushNotificationsSettingsViewModel?
@@ -104,7 +105,6 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             rateTheAppTitle: CommonStrings.rateTheAppTitle,
             helpTitle: CommonStrings.helpAndfeedbackTitle,
             aboutTitle: CommonStrings.aboutTitle,
-            clearDonationHistoryTitle: CommonStrings.deleteDonationHistory,
             safetyTitle: CommonStrings.legalAndSafety)
     }
 
@@ -179,6 +179,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             tappedAbout()
         case .deleteDonationHistory:
             clearDonationHistory()
+        case .donationReminders:
+            showDonationReminderSetup()
         case .legalAndSafety:
             tappedExternalLink(with: CommonStrings.legalAndSafetyContactUsURLString)
         }
@@ -354,6 +356,23 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         guard let vc = HelpViewController(dataStore: self.dataStore, theme: self.theme),
               let settingsNav = settingsNavigationController else { return }
         settingsNav.pushViewController(vc, animated: true)
+    }
+
+    // MARK: - Donation Reminders
+
+    private func showDonationReminderSetup() {
+        guard let settingsNav = settingsNavigationController,
+              let currencyCode = WMFDonationReminderDataController.shared.reminderSetupCurrencyCode
+        else { return }
+
+        let coordinator = DonationReminderSetupCoordinator(
+            navigationController: settingsNav,
+            currencyCode: currencyCode,
+            theme: theme,
+            origin: .settings
+        )
+        donationReminderSetupCoordinator = coordinator
+        coordinator.start()
     }
 
     // MARK: - Donation History
