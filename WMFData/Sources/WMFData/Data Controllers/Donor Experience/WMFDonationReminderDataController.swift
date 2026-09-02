@@ -95,6 +95,8 @@ public final class WMFDonationReminderDataController {
 
     public static let shared = WMFDonationReminderDataController()
 
+    public static let experimentCampaignID = "NL_2026_08"
+
     public static let experimentPresetAmounts: [Decimal] = [1, 3, 5]
 
     // The reminders outlive the remote campaign end date. The experiment plan sets these fixed dates.
@@ -144,10 +146,6 @@ public final class WMFDonationReminderDataController {
         case .groupB, .groupC:
             break
         default:
-            return false
-        }
-
-        guard loadReminder() != nil else {
             return false
         }
 
@@ -263,6 +261,8 @@ public final class WMFDonationReminderDataController {
     // MARK: - Experiment Assignment
 
     public func clearExperimentAssignment() {
+        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.donationReminderExperimentCurrency.rawValue)
+
         guard let experimentStore else {
             return
         }
@@ -272,13 +272,18 @@ public final class WMFDonationReminderDataController {
     }
 
     @discardableResult
-    public func assignExperimentIfNeeded() throws -> ExperimentAssignment {
+    public func assignExperimentIfNeeded(campaignID: String, campaignCurrencyCode: String) throws -> ExperimentAssignment? {
         guard let experimentStore else {
             throw ExperimentError.missingExperimentStore
         }
 
         stateLock.lock()
         defer { stateLock.unlock() }
+
+        let forcedAssignment = developerSettingsForcedAssignment
+        guard campaignID == Self.experimentCampaignID || forcedAssignment != nil else {
+            return nil
+        }
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
         let bucketValue = try experimentsDataController.determineBucketForExperiment(.donationReminder, withPercentage: Self.experimentGroupPercentage)
@@ -287,7 +292,20 @@ public final class WMFDonationReminderDataController {
             throw ExperimentError.unexpectedBucketValue
         }
 
-        return developerSettingsForcedAssignment ?? assignment
+        let resolvedAssignment = forcedAssignment ?? assignment
+        if resolvedAssignment != .control {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.donationReminderExperimentCurrency.rawValue, value: campaignCurrencyCode)
+        }
+
+        return resolvedAssignment
+    }
+
+    public var experimentCurrencyCode: String? {
+        try? userDefaultsStore?.load(key: WMFUserDefaultsKey.donationReminderExperimentCurrency.rawValue)
+    }
+
+    public var reminderSetupCurrencyCode: String? {
+        loadReminder()?.currencyCode ?? experimentCurrencyCode ?? Locale.current.currency?.identifier
     }
 
     public var experimentAssignment: ExperimentAssignment? {

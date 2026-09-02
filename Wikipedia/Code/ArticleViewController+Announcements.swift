@@ -123,7 +123,11 @@ extension ArticleViewController {
             case .maybeLater:
                 let experimentAssignment: WMFDonationReminderDataController.ExperimentAssignment?
                 if WMFDeveloperSettingsDataController.shared.enableDonationReminder {
-                    experimentAssignment = try? WMFDonationReminderDataController.shared.assignExperimentIfNeeded()
+                    experimentAssignment = try? WMFDonationReminderDataController.shared.assignExperimentIfNeeded(
+                        campaignID: asset.id,
+                        campaignCurrencyCode: asset.currencyCode
+                    )
+
                     #if DEBUG
                     if let experimentAssignment {
                         self.showDebugExperimentAssignmentToast(experimentAssignment)

@@ -362,13 +362,18 @@ final class WMFDonationReminderSetupViewModelTests {
     }
 
     @Test
-    func primaryButtonTitleFollowsOrigin() async {
+    func primaryButtonTitleFollowsSavedReminder() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let bannerViewModel = makeViewModel(origin: .banner)
-            let settingsViewModel = makeViewModel(origin: .settings)
+            let settingsWithoutReminderViewModel = makeViewModel(origin: .settings)
 
             #expect(bannerViewModel.primaryButtonTitle == bannerViewModel.localizedStrings.confirmButtonTitle)
-            #expect(settingsViewModel.primaryButtonTitle == settingsViewModel.localizedStrings.updateButtonTitle)
+            #expect(settingsWithoutReminderViewModel.primaryButtonTitle == settingsWithoutReminderViewModel.localizedStrings.confirmButtonTitle)
+
+            WMFDonationReminderDataController.shared.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 1, currencyCode: "EUR", createdDate: Date(), isEnabled: true))
+            let settingsWithReminderViewModel = makeViewModel(origin: .settings)
+
+            #expect(settingsWithReminderViewModel.primaryButtonTitle == settingsWithReminderViewModel.localizedStrings.updateButtonTitle)
         }
     }
 
