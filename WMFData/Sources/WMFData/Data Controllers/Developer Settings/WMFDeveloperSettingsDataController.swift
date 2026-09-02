@@ -226,6 +226,23 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsBypassDonationReminderDailyLimit.rawValue, value: newValue) }
     }
 
+    /// Debugging convenience: overrides the date that the fundraising features treat as today, so we
+    /// can test the campaign and reminder date windows.
+    public var fundraisingOverriddenCurrentDate: Date? {
+        get { try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsFundraisingOverriddenCurrentDate.rawValue) }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsFundraisingOverriddenCurrentDate.rawValue, value: newValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsFundraisingOverriddenCurrentDate.rawValue)
+            }
+        }
+    }
+
+    public var fundraisingCurrentDate: Date {
+        fundraisingOverriddenCurrentDate ?? Date()
+    }
+
     public var enableVisualEditingJourney: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue, value: newValue) }
