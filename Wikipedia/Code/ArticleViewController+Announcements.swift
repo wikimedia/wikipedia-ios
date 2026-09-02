@@ -41,8 +41,10 @@ extension ArticleViewController {
                     return
                 }
                 
+                let neededAssignment = WMFDonationReminderDataController.shared.needsExperimentAssignment
+                
                 let experimentAssignment = try? WMFDonationReminderDataController.shared.assignExperimentIfNeeded(campaignID: activeCampaignAsset.id, campaignCurrencyCode: activeCampaignAsset.currencyCode)
-                if let experimentAssignment {
+                if let experimentAssignment, neededAssignment {
                     DonateFunnel.shared.logDonationReminderGroupAssigned(experimentAssignment, project: wikimediaProject)
                     #if DEBUG
                     showDebugExperimentAssignmentToast(experimentAssignment)

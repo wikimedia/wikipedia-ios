@@ -11,6 +11,7 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     public enum Origin {
         case banner
         case settings
+        case notNowToast
     }
 
     private struct Selection {
@@ -122,7 +123,7 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
         case .banner:
             self.selectedTriggerOptionIdentifier = configuration.defaultTriggerOptionIdentifier
             self.selectedPresetAmount = configuration.defaultAmount
-        case .settings:
+        case .settings, .notNowToast:
             let selection = Self.selection(for: savedReminder, configuration: configuration)
             self.selectedTriggerOptionIdentifier = selection.triggerOptionIdentifier
             self.selectedPresetAmount = selection.presetAmount
@@ -162,7 +163,13 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     }
 
     var hasPendingChanges: Bool {
-        guard origin == .settings, let initialReminder else { return true }
+        switch origin {
+        case .banner:
+            return true
+        case .settings, .notNowToast:
+            break
+        }
+        guard let initialReminder else { return true }
 
         return selectedTriggerOption?.trigger != initialReminder.trigger || finalAmount != initialReminder.amount || isReminderEnabled != initialReminder.isEnabled
     }
@@ -250,7 +257,7 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
         case .banner:
             createdDate = Date()
             progress = nil
-        case .settings:
+        case .settings, .notNowToast:
             createdDate = WMFDonationReminderDataController.shared.loadReminder()?.createdDate ?? Date()
             progress = WMFDonationReminder.Progress(currentCycleStartDate: Date(), timesReminderShown: 0)
         }

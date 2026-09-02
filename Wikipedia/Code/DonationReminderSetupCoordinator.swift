@@ -63,7 +63,8 @@ final class DonationReminderSetupCoordinator: Coordinator {
         viewModel.logSetupFormDidAppear = { [weak self] in
             guard let self else { return }
             guard let project, let metricsID else { return }
-            DonateFunnel.shared.logDonationReminderSetupFormDidAppear(project: project, metricsID: metricsID, fromSettings: fromSettings)
+            
+            DonateFunnel.shared.logDonationReminderSetupFormDidAppear(project: project, metricsID: metricsID, origin: self.origin.funnelOrigin)
         }
 
         viewModel.logDidTapLearnMore = { [weak self] in
@@ -82,19 +83,19 @@ final class DonationReminderSetupCoordinator: Coordinator {
             
             guard let self else { return }
             guard let project else { return }
-            DonateFunnel.shared.logDonationReminderDidTapConfirm(project: project, milestoneDefault: milestoneDefault, readFreq: readFreq, donateAmount: donateAmount, fromSettings: fromSettings)
+            DonateFunnel.shared.logDonationReminderDidTapConfirm(project: project, milestoneDefault: milestoneDefault, readFreq: readFreq, donateAmount: donateAmount, origin: self.origin.funnelOrigin)
         }
 
         viewModel.logDidTapNoThanks = { [weak self] in
             guard let self else { return }
             guard let project else { return }
-            DonateFunnel.shared.logDonationReminderDidTapNoThanks(project: project, fromSettings: fromSettings)
+            DonateFunnel.shared.logDonationReminderDidTapNoThanks(project: project, origin: self.origin.funnelOrigin)
         }
 
         viewModel.logDidToggleReminder = { [weak self] isEnabled in
             guard let self else { return }
             guard let project else { return }
-            DonateFunnel.shared.logDonationReminderDidToggle(isEnabled: isEnabled, project: project, fromSettings: fromSettings)
+            DonateFunnel.shared.logDonationReminderDidToggle(isEnabled: isEnabled, project: project, origin: self.origin.funnelOrigin)
         }
 
         viewModel.didConfirmReminder = { [weak self] _ in
@@ -151,5 +152,15 @@ final class DonationReminderSetupCoordinator: Coordinator {
             return
         }
         UIApplication.shared.open(mailtoURL)
+    }
+}
+
+private extension WMFDonationReminderSetupViewModel.Origin {
+    var funnelOrigin: DonateFunnel.DonationReminderSetupOrigin {
+        switch self {
+        case .banner: return .banner
+        case .notNowToast: return .notNowToast
+        case .settings: return .settings
+        }
     }
 }

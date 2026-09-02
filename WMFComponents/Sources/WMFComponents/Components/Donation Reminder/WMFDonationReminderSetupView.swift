@@ -36,7 +36,7 @@ struct WMFDonationReminderSetupView: View {
                     WMFBetaBadge()
                 }
                 header
-                if viewModel.origin == .settings {
+                if viewModel.origin == .settings || viewModel.origin == .notNowToast {
                     reminderToggle
                 }
                 if viewModel.isReminderEnabled {

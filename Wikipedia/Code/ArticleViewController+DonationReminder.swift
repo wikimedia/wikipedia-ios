@@ -85,9 +85,10 @@ extension ArticleViewController {
     }
 
     private func didTapDonationReminderNotNow() {
-        if let project = WikimediaProject(siteURL: articleURL) {
-            DonateFunnel.shared.logDonationReminderMilestoneDidTapNotNow(project: project)
-        }
+        
+        guard let project = WikimediaProject(siteURL: articleURL) else { return }
+        
+        DonateFunnel.shared.logDonationReminderMilestoneDidTapNotNow(project: project)
 
         messagingController.removeDonationReminderCard()
 
@@ -99,14 +100,15 @@ extension ArticleViewController {
         let modifyButtonTitle = WMFLocalizedString("donation-reminder-card-not-now-toast-modify", value: "Modify", comment: "Title of the toast button that opens the donation reminder settings, shown after the user dismisses the in-article donation reminder card.")
 
         WMFToastManager.sharedInstance.showRichToast(toastTitle, subtitle: nil, buttonTitle: modifyButtonTitle, image: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill), duration: nil, dismissPreviousToasts: true, buttonCallBack: { [weak self] in
-            self?.showDonationReminderSettings(currencyCode: reminder.currencyCode)
+            DonateFunnel.shared.logDonationReminderMilestoneDidTapNotNowToastSettings(project: project)
+            self?.showDonationReminderSettings(currencyCode: reminder.currencyCode, origin: .notNowToast)
         })
     }
 
-    private func showDonationReminderSettings(currencyCode: String) {
+    private func showDonationReminderSettings(currencyCode: String, origin: WMFDonationReminderSetupViewModel.Origin) {
         guard let navigationController else { return }
 
-        let coordinator = DonationReminderSetupCoordinator(navigationController: navigationController, currencyCode: currencyCode, theme: theme, origin: .settings)
+        let coordinator = DonationReminderSetupCoordinator(navigationController: navigationController, currencyCode: currencyCode, theme: theme, origin: origin)
         donationReminderSetupCoordinator = coordinator
         coordinator.start()
     }
