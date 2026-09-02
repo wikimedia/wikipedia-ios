@@ -281,7 +281,7 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
             ),
             WMFSlideshowViewModel.Slide(
                 id: "activity",
-                illustration: .gif(name: "puzzle_3"),
+                illustration: .gif(name: "onboarding_puzzle"),
                 backgroundColor: WMFColor.blue200,
                 title: activityTitle,
                 subtitle: WMFLocalizedString(

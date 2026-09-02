@@ -238,7 +238,7 @@ private extension WMFSlideshowViewModel {
             ),
             .init(
                 id: "activity",
-                illustration: .gif(name: "puzzle_3"),
+                illustration: .gif(name: "onboarding_puzzle"),
                 backgroundColor: WMFColor.blue200,
                 title: "Revisit your [X] recent reads with Activity",
                 subtitle: "See your reading time, explored topics, and the reach of your contributions in the Activity tab."
