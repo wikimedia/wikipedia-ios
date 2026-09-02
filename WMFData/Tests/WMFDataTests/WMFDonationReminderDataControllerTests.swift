@@ -369,12 +369,94 @@ final class WMFDonationReminderDataControllerTests {
     @Test
     func assignExperimentPersistsAssignment() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let assignment = try controller.assignExperimentIfNeeded()
+            let assignment = try assignExperiment()
 
             #expect(controller.experimentAssignment == assignment)
 
-            let repeatedAssignment = try controller.assignExperimentIfNeeded()
+            let repeatedAssignment = try assignExperiment()
             #expect(repeatedAssignment == assignment)
+        }
+    }
+
+    @Test
+    func assignExperimentReturnsNilForAnotherCampaign() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let assignment = try controller.assignExperimentIfNeeded(campaignID: "BR_2026_08", campaignCurrencyCode: "BRL")
+
+            #expect(assignment == nil)
+            #expect(controller.experimentAssignment == nil)
+            #expect(controller.experimentCurrencyCode == nil)
+        }
+    }
+
+    @Test
+    func assignExperimentSavesTheCampaignCurrencyForTreatmentGroups() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .groupB
+
+            let assignment = try assignExperiment(campaignCurrencyCode: "EUR")
+
+            #expect(assignment == .groupB)
+            #expect(controller.experimentCurrencyCode == "EUR")
+
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = nil
+        }
+    }
+
+    @Test
+    func assignExperimentDoesNotSaveTheCampaignCurrencyForControl() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .control
+
+            let assignment = try assignExperiment(campaignCurrencyCode: "EUR")
+
+            #expect(assignment == .control)
+            #expect(controller.experimentCurrencyCode == nil)
+
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = nil
+        }
+    }
+
+    @Test
+    func forcedAssignmentBypassesTheCampaignGate() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .groupC
+
+            let assignment = try controller.assignExperimentIfNeeded(campaignID: "BR_2026_08", campaignCurrencyCode: "BRL")
+
+            #expect(assignment == .groupC)
+            #expect(controller.experimentCurrencyCode == "BRL")
+
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = nil
+        }
+    }
+
+    @Test
+    func reminderSetupCurrencyPrefersThePledgeOverTheExperimentCurrency() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .groupB
+            try assignExperiment(campaignCurrencyCode: "EUR")
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = nil
+
+            #expect(controller.reminderSetupCurrencyCode == "EUR")
+
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 1, currencyCode: "USD", createdDate: Date(), isEnabled: true))
+
+            #expect(controller.reminderSetupCurrencyCode == "USD")
+        }
+    }
+
+    @Test
+    func clearExperimentAssignmentClearsTheCampaignCurrency() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .groupB
+            try assignExperiment(campaignCurrencyCode: "EUR")
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = nil
+            #expect(controller.experimentCurrencyCode == "EUR")
+
+            controller.clearExperimentAssignment()
+
+            #expect(controller.experimentCurrencyCode == nil)
         }
     }
 
@@ -387,7 +469,7 @@ final class WMFDonationReminderDataControllerTests {
             var seenAssignments = Set<WMFDonationReminderDataController.ExperimentAssignment>()
             for _ in 1...200 {
                 try experimentsDataController.resetExperiment(.donationReminder)
-                seenAssignments.insert(try controller.assignExperimentIfNeeded())
+                seenAssignments.insert(try assignExperiment())
                 if seenAssignments.count == 3 {
                     break
                 }
@@ -400,7 +482,7 @@ final class WMFDonationReminderDataControllerTests {
     @Test
     func clearExperimentAssignmentAllowsANewRoll() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            try controller.assignExperimentIfNeeded()
+            try assignExperiment()
             #expect(controller.experimentAssignment != nil)
 
             controller.clearExperimentAssignment()
@@ -414,23 +496,24 @@ final class WMFDonationReminderDataControllerTests {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let createdDate = Date(timeIntervalSince1970: 1_755_600_000)
             controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 3, currencyCode: "EUR", createdDate: createdDate, isEnabled: true))
-            try controller.assignExperimentIfNeeded()
+            try assignExperiment()
 
             WMFDeveloperSettingsDataController.shared.clearFundraisingCampaignPersistence()
 
             #expect(controller.loadReminder() == nil)
             #expect(controller.experimentAssignment == nil)
+            #expect(controller.experimentCurrencyCode == nil)
         }
     }
 
     @Test
     func developerSettingsForceOverridesAssignmentAtReadTimeOnly() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            let persistedAssignment = try controller.assignExperimentIfNeeded()
+            let persistedAssignment = try assignExperiment()
 
             WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .groupC
             #expect(controller.experimentAssignment == .groupC)
-            #expect(try controller.assignExperimentIfNeeded() == .groupC)
+            #expect(try assignExperiment() == .groupC)
 
             WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .control
             #expect(controller.experimentAssignment == .control)
@@ -466,12 +549,12 @@ final class WMFDonationReminderDataControllerTests {
     }
 
     @Test
-    func settingsEntryUnavailableWithoutSavedReminder() async {
+    func settingsEntryAvailableWithoutSavedReminder() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDeveloperSettingsDataController.shared.enableDonationReminder = true
             WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .groupB
 
-            #expect(controller.isReminderSettingsEntryAvailable() == false)
+            #expect(controller.isReminderSettingsEntryAvailable())
 
             WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = nil
         }
@@ -518,6 +601,11 @@ final class WMFDonationReminderDataControllerTests {
             #expect(showsBeforeEndDate)
             #expect(showsAtEndDate == false)
         }
+    }
+
+    @discardableResult
+    private func assignExperiment(campaignID: String = WMFDonationReminderDataController.experimentCampaignID, campaignCurrencyCode: String = "EUR") throws -> WMFDonationReminderDataController.ExperimentAssignment {
+        try #require(try controller.assignExperimentIfNeeded(campaignID: campaignID, campaignCurrencyCode: campaignCurrencyCode))
     }
 
     private func addQualifyingPageView(title: String, timestamp: Date) async throws {

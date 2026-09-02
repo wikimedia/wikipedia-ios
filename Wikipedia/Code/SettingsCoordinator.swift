@@ -362,12 +362,12 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     private func showDonationReminderSetup() {
         guard let settingsNav = settingsNavigationController,
-              let savedReminder = WMFDonationReminderDataController.shared.loadReminder()
+              let currencyCode = WMFDonationReminderDataController.shared.reminderSetupCurrencyCode
         else { return }
 
         let coordinator = DonationReminderSetupCoordinator(
             navigationController: settingsNav,
-            currencyCode: savedReminder.currencyCode,
+            currencyCode: currencyCode,
             theme: theme,
             origin: .settings
         )
