@@ -207,7 +207,6 @@ final class WMFDonationReminderDataControllerTests {
     @Test
     func wrapUpCardIsTheFeedbackSurveyForGroupBInsideTheWindow() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            WMFDeveloperSettingsDataController.shared.enableDonationReminder = true
             let insideWindowDate = WMFDonationReminderDataController.reminderEndDate.addingTimeInterval(3_600)
             let beforeWindowDate = WMFDonationReminderDataController.reminderEndDate.addingTimeInterval(-3_600)
             let atWindowEndDate = WMFDonationReminderDataController.wrapUpEndDate
@@ -230,7 +229,6 @@ final class WMFDonationReminderDataControllerTests {
     @Test
     func wrapUpCardIsTheRecurringPromptForGroupCWithAnEnabledReminder() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            WMFDeveloperSettingsDataController.shared.enableDonationReminder = true
             WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .groupC
             let insideWindowDate = WMFDonationReminderDataController.reminderEndDate.addingTimeInterval(3_600)
 
@@ -249,7 +247,6 @@ final class WMFDonationReminderDataControllerTests {
     @Test
     func wrapUpCardImpressionClaimsOnlyOnce() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            WMFDeveloperSettingsDataController.shared.enableDonationReminder = true
             WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .groupB
             let insideWindowDate = WMFDonationReminderDataController.reminderEndDate.addingTimeInterval(3_600)
 
@@ -268,7 +265,6 @@ final class WMFDonationReminderDataControllerTests {
     @Test
     func overriddenCurrentDateControlsTheWrapUpWindow() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
-            WMFDeveloperSettingsDataController.shared.enableDonationReminder = true
             WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .groupB
 
             WMFDeveloperSettingsDataController.shared.fundraisingOverriddenCurrentDate = WMFDonationReminderDataController.reminderEndDate.addingTimeInterval(-3_600)
