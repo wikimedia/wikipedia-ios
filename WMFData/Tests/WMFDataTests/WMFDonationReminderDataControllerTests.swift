@@ -564,6 +564,28 @@ final class WMFDonationReminderDataControllerTests {
         try #require(try controller.assignExperimentIfNeeded(campaignID: campaignID, campaignCurrencyCode: campaignCurrencyCode))
     }
 
+    @Test
+    func overriddenCurrentDateWinsTheReminderEndGate() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .groupB
+            let progress = WMFDonationReminder.Progress(currentCycleStartDate: Date(timeIntervalSince1970: 1_755_600_000), timesReminderShown: 1)
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 1, currencyCode: "EUR", createdDate: Date(timeIntervalSince1970: 1_700_000_000), isEnabled: true, progress: progress))
+            let beforeEndDate = WMFDonationReminderDataController.reminderEndDate.addingTimeInterval(-86_400)
+
+            let showsWithoutOverride = try await controller.shouldShowFollowUpReminder(currentDate: beforeEndDate)
+            #expect(controller.isReminderSettingsEntryAvailable(currentDate: beforeEndDate))
+            #expect(showsWithoutOverride)
+
+            WMFDeveloperSettingsDataController.shared.fundraisingOverriddenCurrentDate = WMFDonationReminderDataController.reminderEndDate
+            let showsWithOverride = try await controller.shouldShowFollowUpReminder(currentDate: beforeEndDate)
+            #expect(controller.isReminderSettingsEntryAvailable(currentDate: beforeEndDate) == false)
+            #expect(showsWithOverride == false)
+
+            WMFDeveloperSettingsDataController.shared.fundraisingOverriddenCurrentDate = nil
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = nil
+        }
+    }
+
     private func addQualifyingPageView(title: String, timestamp: Date) async throws {
         try await addPageView(title: title, timestamp: timestamp, numberOfSeconds: Double(WMFDonationReminderDataController.minimumSecondsForArticleRead))
     }

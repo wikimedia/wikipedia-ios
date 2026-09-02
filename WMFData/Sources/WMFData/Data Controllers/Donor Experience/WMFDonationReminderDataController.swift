@@ -145,7 +145,7 @@ public final class WMFDonationReminderDataController {
             return false
         }
 
-        return currentDate < Self.reminderEndDate
+        return (WMFDeveloperSettingsDataController.shared.fundraisingOverriddenCurrentDate ?? currentDate) < Self.reminderEndDate
     }
 
     // MARK: - Follow-up Reminder Cycle
@@ -162,8 +162,9 @@ public final class WMFDonationReminderDataController {
     public func shouldShowFollowUpReminder(currentDate: Date = Date()) async throws -> Bool {
         guard let reminder = loadReminder(),
               reminder.isEnabled,
-              currentDate < Self.reminderEndDate,
-              case .articlesRead(count: let articlesReadGoal) = reminder.trigger else {
+              (WMFDeveloperSettingsDataController.shared.fundraisingOverriddenCurrentDate ?? currentDate) < Self.reminderEndDate,
+              case .articlesRead(count: let articlesReadGoal) = reminder.trigger
+        else {
             return false
         }
 
