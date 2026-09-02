@@ -20,6 +20,11 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
 
     private weak var promptNavigationController: WMFComponentNavigationController?
 
+    // TEMP — VoiceOver testing. Shows the prompt on every Home/Explore open, ignoring eligibility,
+    // the impression cap and the finished state. To remove: delete this property and the
+    // `if !Self.alwaysShowForVoiceOverTesting` wrapper in `startIfEligible()`.
+    private static let alwaysShowForVoiceOverTesting = true
+
     /// The close button and the presentation delegate can both land here, so the first outcome wins.
     private var didRecordOutcome = false
 
@@ -58,13 +63,15 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
     func startIfEligible() async -> Bool {
         let presenter = navigationController.presentedViewController ?? navigationController
 
-        guard await dataController.shouldShowPrompt(
-            in: context,
-            // Only a permanent account is excluded. A temporary account still sees the prompt.
-            hasPermanentAccount: dataStore.authenticationManager.authStateIsPermanent,
-            isAnotherPromptVisible: presenter.presentedViewController != nil
-        ) else {
-            return false
+        if !Self.alwaysShowForVoiceOverTesting { // TEMP
+            guard await dataController.shouldShowPrompt(
+                in: context,
+                // Only a permanent account is excluded. A temporary account still sees the prompt.
+                hasPermanentAccount: dataStore.authenticationManager.authStateIsPermanent,
+                isAnotherPromptVisible: presenter.presentedViewController != nil
+            ) else {
+                return false
+            }
         }
 
         let slideData = await dataController.slideData()
