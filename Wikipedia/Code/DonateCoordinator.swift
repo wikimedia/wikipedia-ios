@@ -156,9 +156,9 @@ class DonateCoordinator: Coordinator {
         switch donateSource {
         case .articleCampaignModal(_, let metricsID, _):
             return metricsID
-        case .donationReminderCampaignModal(let articleURL, let metricsID, let donateURL):
+        case .donationReminderCampaignModal(_, let metricsID, _):
             return donationReminderMetricsID(originalMetricsID: metricsID)
-        case .donationReminderArticle(let articleURL, let pledgeAmount, let currencyCode):
+        case .donationReminderArticle:
             
             // Need to pull up the orignal campaign information from persistence
             guard let campaignAsset = WMFDonationReminderDataController.shared.loadCampaignAsset() else {
