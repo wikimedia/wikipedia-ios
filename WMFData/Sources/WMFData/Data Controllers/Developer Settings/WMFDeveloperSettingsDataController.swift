@@ -113,6 +113,40 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue, value: newValue) }
     }
 
+    /// Debugging convenience: when true, the fundraising campaign banner ignores country,
+    /// date window, prompt state (maybe later / hidden), opt-out, and donation history gates,
+    /// so it presents on every article view as long as any campaign config exists remotely.
+    public var forceFundraisingCampaignBanner: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceFundraisingCampaignBanner.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceFundraisingCampaignBanner.rawValue, value: newValue) }
+    }
+
+    /// Debugging convenience: fetches the donate and fundraising campaign configs from Test Wiki
+    /// instead of Donate wiki, so unpublished campaigns can be tested without the Staging scheme.
+    public var useTestWikiDonateConfigs: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsUseTestWikiDonateConfigs.rawValue)) ?? false }
+        set {
+            let oldValue = useTestWikiDonateConfigs
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsUseTestWikiDonateConfigs.rawValue, value: newValue)
+            if oldValue != newValue {
+                refetchDonateConfigs()
+            }
+        }
+    }
+
+    private func refetchDonateConfigs() {
+        WMFDonateDataController.shared.clearConfigCache()
+        WMFFundraisingCampaignDataController.shared.clearConfigCache()
+        guard let countryCode = Locale.current.region?.identifier else {
+            return
+        }
+        WMFFundraisingCampaignDataController.shared.fetchConfig(countryCode: countryCode, currentDate: Date())
+    }
+
+    public var donateConfigsServiceEnvironment: WMFServiceEnvironment {
+        useTestWikiDonateConfigs ? .staging : WMFDataEnvironment.current.serviceEnvironment
+    }
+
     public var forceHCaptchaChallenge: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue, value: newValue) }
@@ -132,6 +166,47 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         let gamesDataController = WMFGamesDataController()
         try await gamesDataController.clearAllSessions()
         gamesDataController.resetAnnouncementSeen()
+    }
+
+    /// Resets everything that can suppress the fundraising campaign banner: the "maybe later" /
+    /// permanently hidden prompt state, the local donation history, the saved donation reminder, and the persisted donation
+    /// reminder experiment bucket.
+    public func clearFundraisingCampaignPersistence() {
+        WMFFundraisingCampaignDataController.shared.clearPromptState()
+        WMFDonateDataController.shared.deleteLocalDonationHistory()
+        WMFDonationReminderDataController.shared.clearReminder()
+        WMFDonationReminderDataController.shared.clearExperimentAssignment()
+    }
+
+    /// Feature flag for the Donation Reminder experiment
+    public var enableDonationReminder: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableDonationReminder.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableDonationReminder.rawValue, value: newValue) }
+    }
+
+    /// Debugging convenience: overrides the persisted donation reminder experiment bucket at read
+    /// time without re-rolling it. Nil means no override.
+    public var forceDonationReminderExperimentAssignment: WMFDonationReminderDataController.ExperimentAssignment? {
+        get {
+            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceDonationReminderExperimentAssignment.rawValue) else {
+                return nil
+            }
+            return WMFDonationReminderDataController.ExperimentAssignment(rawValue: rawValue)
+        }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceDonationReminderExperimentAssignment.rawValue, value: newValue.rawValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceDonationReminderExperimentAssignment.rawValue)
+            }
+        }
+    }
+
+    /// Debugging convenience: skips the follow-up reminder's once-per-day limit so we can see
+    /// repeat impressions without changing the device date.
+    public var bypassDonationReminderDailyLimit: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsBypassDonationReminderDailyLimit.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsBypassDonationReminderDailyLimit.rawValue, value: newValue) }
     }
 
     public var enableVisualEditingJourney: Bool {

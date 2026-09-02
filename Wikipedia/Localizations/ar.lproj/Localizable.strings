@@ -1567,6 +1567,45 @@
 "widget-onthisday-description" = "اكتشف ما الذي حصل في مثل هذا اليوم.";
 "widget-onthisday-placeholder-article-snippet" = "الموسوعة الحرة التي يمكن للجميع تحريرها";
 "widget-onthisday-placeholder-event-snippet" = "ويكيبيديا الموسوعة حرة المحتوى المتوفرة على الإنترنت.";
+"wikimedia-articletopics-topic-africa" = "إفريقيا";
+"wikimedia-articletopics-topic-architecture" = "هندسة معمارية";
+"wikimedia-articletopics-topic-art" = "فنون";
+"wikimedia-articletopics-topic-asia" = "آسيا";
+"wikimedia-articletopics-topic-biography" = "سيرة ذاتية (الكل)";
+"wikimedia-articletopics-topic-biology" = "علم الأحياء";
+"wikimedia-articletopics-topic-business-and-economics" = "تجارة واقتصاد";
+"wikimedia-articletopics-topic-central-america" = "أمريكا الوسطى";
+"wikimedia-articletopics-topic-chemistry" = "كيمياء";
+"wikimedia-articletopics-topic-comics-and-anime" = "رسوم متحركة وأنمي";
+"wikimedia-articletopics-topic-computers-and-internet" = "حاسوب وإنترنت";
+"wikimedia-articletopics-topic-earth-and-environment" = "الأرض والبيئة";
+"wikimedia-articletopics-topic-education" = "تعليم";
+"wikimedia-articletopics-topic-engineering" = "هندسة";
+"wikimedia-articletopics-topic-entertainment" = "ترفيه";
+"wikimedia-articletopics-topic-europe" = "أوروبا";
+"wikimedia-articletopics-topic-fashion" = "موضة";
+"wikimedia-articletopics-topic-food-and-drink" = "أكلات وشراب";
+"wikimedia-articletopics-topic-general-science" = "علوم عامة";
+"wikimedia-articletopics-topic-history" = "تاريخ";
+"wikimedia-articletopics-topic-literature" = "أدب";
+"wikimedia-articletopics-topic-mathematics" = "رياضيات";
+"wikimedia-articletopics-topic-medicine-and-health" = "طب وصحة";
+"wikimedia-articletopics-topic-military-and-warfare" = "قوات مسلحة وحروب";
+"wikimedia-articletopics-topic-music" = "موسيقى";
+"wikimedia-articletopics-topic-north-america" = "أمريكا الشمالية";
+"wikimedia-articletopics-topic-oceania" = "أوقيانوسيا";
+"wikimedia-articletopics-topic-performing-arts" = "فنون تمثيلية";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "فلسفات وأديان";
+"wikimedia-articletopics-topic-physics" = "فيزياء";
+"wikimedia-articletopics-topic-politics-and-government" = "سياسات وحكومات";
+"wikimedia-articletopics-topic-society" = "علم اجتماع";
+"wikimedia-articletopics-topic-south-america" = "أمريكا الجنوبية";
+"wikimedia-articletopics-topic-sports" = "رياضة";
+"wikimedia-articletopics-topic-technology" = "تقانة";
+"wikimedia-articletopics-topic-transportation" = "نقل";
+"wikimedia-articletopics-topic-tv-and-film" = "تلفاز وأفلام";
+"wikimedia-articletopics-topic-video-games" = "ألعاب فيديو";
+"wikimedia-articletopics-topic-women" = "سيرة ذاتية (نساء)";
 "wikitext-preview-changes" = "جار جلب عرض التغييرات التي قمت بها...";
 "wikitext-preview-link-external-preview-description" = "هذا الرابط يؤدي إلى موقع خارجي: $1";
 "wikitext-preview-link-external-preview-title" = "وصلة خارجية";
@@ -1692,121 +1731,3 @@
 "year-in-review-wmf-logo-accessibility-label" = "شعار مؤسسة ويكيميديا";
 "yesterday-title" = "أمس";
 "zero-edits-to-articles" = "0 تعديل على المقالات مؤخرًا.";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "هندسة معمارية";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "فنون";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "رسوم متحركة وأنمي";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "ترفيه";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "موضة";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "أدب";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "موسيقى";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "فنون تمثيلية";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "رياضة";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "تلفاز وأفلام";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "ألعاب فيديو";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "سيرة ذاتية (الكل)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "سيرة ذاتية (نساء)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "تجارة واقتصاد";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "تعليم";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "أكلات وشراب";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "تاريخ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "قوات مسلحة وحروب";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "فلسفات وأديان";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "سياسات وحكومات";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "علم اجتماع";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "نقل";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "علم الأحياء";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "كيمياء";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "حاسوب وإنترنت";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "الأرض والبيئة";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "هندسة";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "علوم عامة";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "رياضيات";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "طب وصحة";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "فيزياء";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "تقانة";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "إفريقيا";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "آسيا";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "أمريكا الوسطى";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "أوروبا";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "أمريكا الشمالية";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "أوقيانوسيا";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "أمريكا الجنوبية";

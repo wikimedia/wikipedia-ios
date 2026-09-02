@@ -5,7 +5,7 @@
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -21,7 +21,7 @@
 	<key>diff-paragraph-moved-distance-section</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -37,7 +37,7 @@
 	<key>diff-single-header-editor-number-edits-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -53,7 +53,7 @@
 	<key>diff-single-header-subtitle-bytes-added</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -69,7 +69,7 @@
 	<key>diff-single-header-subtitle-bytes-removed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -85,7 +85,7 @@
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Perkelti %#@v1@ į skaitinių sąrašą</string>
+		<string>Perkelti %1$#@v1@ į skaitinių sąrašą</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -101,7 +101,7 @@
 	<key>notifications-center-empty-state-num-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -117,7 +117,7 @@
 	<key>notifications-center-mark-all-as-read-confirmation-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ar tikrai norite pažymėti %#@v1@? Jūsų pranešimai bus pažymėti kaip skaityti visuose jūsų įrenginiuose.</string>
+		<string>Ar tikrai norite pažymėti %1$#@v1@? Jūsų pranešimai bus pažymėti kaip skaityti visuose jūsų įrenginiuose.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -133,7 +133,7 @@
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -149,7 +149,7 @@
 	<key>notifications-center-status-in-projects</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -163,7 +163,7 @@
 	<key>notifications-center-status-in-projects-plain</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -177,7 +177,7 @@
 	<key>notifications-center-status-in-types</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -191,7 +191,7 @@
 	<key>notifications-push-talk-body-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ %2$@</string>
+		<string>%1$#@v1@ %2$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -207,7 +207,7 @@
 	<key>notifications-push-talk-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -223,7 +223,7 @@
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -239,7 +239,7 @@
 	<key>on-this-day-footer-showing-event-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ šią dieną</string>
+		<string>%1$#@v1@ šią dieną</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -255,7 +255,7 @@
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Pridėta %#@v1@</string>
+		<string>Pridėta %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -271,7 +271,7 @@
 	<key>page-history-revision-size-diff-subtraction</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Pašalinta %#@v1@</string>
+		<string>Pašalinta %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -287,7 +287,7 @@
 	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ nuo %2$@</string>
+		<string>%1$#@v1@ nuo %2$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -303,7 +303,7 @@
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -319,7 +319,7 @@
 	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Viršijote %#@v1@ limitą vienai paskyrai.</string>
+		<string>Viršijote %1$#@v1@ limitą vienai paskyrai.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -335,7 +335,7 @@
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ į šį sąrašą. Pasiekėte %2$d straipsnių limitą vienam skaitymo sąrašui %3$@</string>
+		<string>%1$#@v1@ į šį sąrašą. Pasiekėte %2$d straipsnių limitą vienam skaitymo sąrašui %3$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -351,7 +351,7 @@
 	<key>reading-list-list-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Viršijote %#@v1@ limitą vienai paskyrai.</string>
+		<string>Viršijote %1$#@v1@ limitą vienai paskyrai.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -367,7 +367,7 @@
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -383,7 +383,7 @@
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ištrinti %#@v1@?</string>
+		<string>Ištrinti %1$#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -399,7 +399,7 @@
 	<key>reading-lists-large-sync-completed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ ir %#@v2@ sinchronizuoti iš jūsų paskyros</string>
+		<string>%1$#@v1@ ir %2$#@v2@ sinchronizuoti iš jūsų paskyros</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -426,7 +426,7 @@
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -444,7 +444,7 @@
 	<key>relative-date-hours-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -462,7 +462,7 @@
 	<key>relative-date-hrs-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -478,7 +478,7 @@
 	<key>relative-date-min-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -494,7 +494,7 @@
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -512,7 +512,7 @@
 	<key>relative-date-months-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -528,7 +528,7 @@
 	<key>relative-date-years-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -546,7 +546,7 @@
 	<key>talk-page-active-users-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -562,7 +562,7 @@
 	<key>talk-page-replies-count-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

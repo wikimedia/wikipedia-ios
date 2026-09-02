@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import ImageIO
 
 /// Picks a background colour from a photograph that white text stays readable on.
 actor WMFImageColorSampler {
@@ -17,19 +18,57 @@ actor WMFImageColorSampler {
     /// Read one pixel in every `samplingStride` x `samplingStride` block rather than all of them.
     private static let samplingStride = 2
 
+    /// The maximum length of the longest side of the decoded image.
+    private static let samplingMaxPixelSize = 128
+
+    private static let colorCacheLimit = 24
+    private var colorCache: [Data: Color] = [:]
+    private var colorCacheInsertionOrder: [Data] = []
+
     // MARK: - Public
 
     /// Takes image `Data` rather than a `UIImage` because `UIImage` is not `Sendable` and so cannot
     /// be handed to another concurrency domain. The image is decoded here instead.
     func sampledColor(from imageData: Data) -> Color? {
-        guard let image = UIImage(data: imageData) else { return nil }
-        return Self.sampledColor(from: image)
+        if let cachedColor = colorCache[imageData] {
+            return cachedColor
+        }
+
+        guard let cgImage = Self.downsampledCGImage(from: imageData) else { return nil }
+        guard let color = Self.sampledColor(from: cgImage) else { return nil }
+
+        colorCache[imageData] = color
+        colorCacheInsertionOrder.append(imageData)
+        if colorCacheInsertionOrder.count > Self.colorCacheLimit {
+            let oldestKey = colorCacheInsertionOrder.removeFirst()
+            colorCache[oldestKey] = nil
+        }
+
+        return color
+    }
+
+    private static func downsampledCGImage(from imageData: Data) -> CGImage? {
+        let sourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
+        guard let source = CGImageSourceCreateWithData(imageData as CFData, sourceOptions) else {
+            return nil
+        }
+        let thumbnailOptions = [
+            kCGImageSourceCreateThumbnailFromImageAlways: true,
+            kCGImageSourceCreateThumbnailWithTransform: true,
+            kCGImageSourceThumbnailMaxPixelSize: samplingMaxPixelSize
+        ] as [CFString: Any] as CFDictionary
+        return CGImageSourceCreateThumbnailAtIndex(source, 0, thumbnailOptions)
     }
 
     // MARK: - Image sampling algorithm
 
     static func sampledColor(from image: UIImage) -> Color? {
-        guard let cgImage = image.cgImage, let totals = pixelTotals(of: cgImage), totals.count > 0 else {
+        guard let cgImage = image.cgImage else { return nil }
+        return sampledColor(from: cgImage)
+    }
+
+    static func sampledColor(from cgImage: CGImage) -> Color? {
+        guard let totals = pixelTotals(of: cgImage), totals.count > 0 else {
             return nil
         }
 

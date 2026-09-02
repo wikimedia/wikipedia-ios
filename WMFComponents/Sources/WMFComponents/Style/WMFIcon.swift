@@ -136,6 +136,9 @@ public enum WMFSFSymbolIcon {
     case textPage
     case leave
     case gear
+    case booksVertical
+    case creditCard
+    case flask
     case gearShape
     case calendar
     case calendarExclamation
@@ -178,6 +181,7 @@ public enum WMFSFSymbolIcon {
     case sparkles
     case xmarkCircle
     case docText
+    case docOnDoc
     case chevronUpChevronDown
     case globe
     case newspaper
@@ -363,6 +367,12 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "rectangle.portrait.and.arrow.right", withConfiguration: configuration)
         case .gear:
             image = UIImage(systemName: "gear", withConfiguration: configuration)
+        case .booksVertical:
+            image = UIImage(systemName: "books.vertical", withConfiguration: configuration)
+        case .creditCard:
+            image = UIImage(systemName: "creditcard", withConfiguration: configuration)
+        case .flask:
+            image = UIImage(systemName: "flask", withConfiguration: configuration)
         case .gearShape:
             image = UIImage(systemName: "gearshape", withConfiguration: configuration)
         case .heartFilled:
@@ -453,6 +463,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "xmark.circle", withConfiguration: configuration)
         case .docText:
             image = UIImage(systemName: "doc.text", withConfiguration: configuration)
+        case .docOnDoc:
+            image = UIImage(systemName: "doc.on.doc", withConfiguration: configuration)
         case .chevronUpChevronDown:
             image = UIImage(systemName: "chevron.up.chevron.down", withConfiguration: configuration)
         case .globe:

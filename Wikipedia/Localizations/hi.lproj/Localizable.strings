@@ -122,8 +122,6 @@
 "article-save-error-not-enough-space" = "इस लेख को सहेजने के लिए आपके डिवाइस पर पर्याप्त जगह नहीं है";
 "article-share" = "साझा करें";
 "article-toolbar-reading-themes-controls-toolbar-item" = "विषय नियंत्रण पढ़ रहा";
-"article-topic-entertainment" = "मनोरंजन";
-"article-topic-sports" = "खेल";
 "back-button-accessibility-label" = "पीछे";
 "back-button-popover-title" = "वापस जाने के लिए टैप करें";
 "button-go-back" = "वापस जाएँ";
@@ -500,6 +498,25 @@
 "welcome-languages-add-or-edit-button" = "पसंदीदा भाषाओं को जोड़ें या संपादित करें";
 "welcome-languages-description" = "हमें आपकी डिवाइस पर निम्न भाषाएँ मिली हैं:";
 "welcome-languages-search-title" = "300 से अधिक भाषाओं में खोजें";
+"wikimedia-articletopics-topic-africa" = "अफ्रीका";
+"wikimedia-articletopics-topic-art" = "कला";
+"wikimedia-articletopics-topic-asia" = "एशिया";
+"wikimedia-articletopics-topic-central-america" = "केंद्रीय अमेरिका";
+"wikimedia-articletopics-topic-education" = "शिक्षा";
+"wikimedia-articletopics-topic-entertainment" = "मनोरंजन";
+"wikimedia-articletopics-topic-europe" = "यूरोप";
+"wikimedia-articletopics-topic-fashion" = "फैशन";
+"wikimedia-articletopics-topic-food-and-drink" = "खान-पान";
+"wikimedia-articletopics-topic-history" = "इतिहास";
+"wikimedia-articletopics-topic-music" = "संगीत";
+"wikimedia-articletopics-topic-north-america" = "उत्तरी अमेरिका";
+"wikimedia-articletopics-topic-politics-and-government" = "राजनीति और सरकार";
+"wikimedia-articletopics-topic-society" = "समाज";
+"wikimedia-articletopics-topic-south-america" = "दक्षिणी अमरीका";
+"wikimedia-articletopics-topic-sports" = "खेल";
+"wikimedia-articletopics-topic-technology" = "प्रौद्योगिकी";
+"wikimedia-articletopics-topic-tv-and-film" = "टीवी और फिल्म";
+"wikimedia-articletopics-topic-video-games" = "वीडियो गेम";
 "wikitext-preview-changes" = "आपके बदलावों का प्रीव्यू लाया जा रहा है...";
 "wikitext-preview-link-preview-description" = "यह लिंक $1 पर ले जाता है";
 "wikitext-preview-link-preview-title" = "लिंक प्रीव्यू";
@@ -510,121 +527,3 @@
 "wikitext-upload-save-anonymously-warning" = "आपकी डिवाइस के आईपी एड्रेस को सम्पादनों श्रेय दिया जायेगा। अगर आप $1 चुनते हैं तो अधिक गोपनीयता प्राप्त होगी।";
 "wikitext-upload-save-terms-name" = "उपयोग की शर्तें";
 "year-in-review-donate" = "दान करें";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "वास्तुकला";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "कला";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "कॉमिक्स और ऐनिमे";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "मनोरंजन";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "फैशन";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "साहित्य";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "संगीत";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "कला प्रदर्शन";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "खेल";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "टीवी और फिल्म";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "वीडियो गेम";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "जीवनी (सभी)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "जीवनी (महिला)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "व्यापार और अर्थशास्त्र";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "शिक्षा";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "खान-पान";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "इतिहास";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "सैन्य और युद्ध";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "दर्शन और धर्म";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "राजनीति और सरकार";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "समाज";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "परिवहन";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "जीवविज्ञान";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "रसायन विज्ञान";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "कंप्यूटर्स और इंटरनेट";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "पृथ्वी और पर्यावरण";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "अभियांत्रिकी";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "सामान्य विज्ञान";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "गणित";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "चिकित्सा और स्वास्थ्य";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "भौतिकी";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "प्रौद्योगिकी";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "अफ्रीका";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "एशिया";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "केंद्रीय अमेरिका";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "यूरोप";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "उत्तरी अमेरिका";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "ओशिआनिया";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "दक्षिणी अमरीका";
