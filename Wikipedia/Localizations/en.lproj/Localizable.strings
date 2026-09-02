@@ -694,6 +694,17 @@
 "find-replace-header" = "Find and replace";
 "find-replace-header-close-accessibility" = "Close find and replace";
 "find-textfield-accessibility" = "Find";
+"for-you-empty-feed-add-interests-link" = "some interests";
+"for-you-empty-feed-subtitle" = "Your \"For you\" feed will populate with personalized articles as you explore.";
+"for-you-empty-feed-title" = "Your feed is empty for now";
+"for-you-empty-feed-ways-to-get-started" = "Ways to get started:";
+"for-you-end-of-feed-add-interests-format" = "Add $1";
+"for-you-end-of-feed-add-interests-link" = "new interests";
+"for-you-end-of-feed-community-format" = "See what's happening in $1";
+"for-you-end-of-feed-community-link" = "community";
+"for-you-end-of-feed-subtitle" = "Come back tomorrow to find fresh new articles customized for you.";
+"for-you-end-of-feed-title" = "That's it for today!";
+"for-you-end-of-feed-ways-to-keep-learning" = "Ways to keep learning:";
 "for-you-error-retry" = "Try again";
 "for-you-error-subtitle" = "Connect to the Internet and try again.";
 "for-you-error-title" = "No internet connection";

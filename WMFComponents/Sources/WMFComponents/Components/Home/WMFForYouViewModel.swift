@@ -84,6 +84,7 @@ public final class WMFForYouViewModel: ObservableObject {
     public var onUnsaveCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onUserInteraction: (() -> Void)?
     public var onEmptyViewAppearance: (() -> Void)?
+    public let endOfFeedViewModel = WMFForYouEndOfFeedCardViewModel()
 
     /// Called with a card that the user really sees on the screen.
     public var onShowCard: ((WMFForYouArticleCardViewModel) -> Void)?
@@ -129,6 +130,7 @@ public final class WMFForYouViewModel: ObservableObject {
         self.pages = Self.makePages(from: response)
 
         preloader.preloadInitialModules(in: preloadablePages, hiddenCardKeys: hiddenCardKeys)
+        endOfFeedViewModel.variant = pages.isEmpty ? .emptyFeed : .endOfFeed
     }
 
     // MARK: - Building the feed

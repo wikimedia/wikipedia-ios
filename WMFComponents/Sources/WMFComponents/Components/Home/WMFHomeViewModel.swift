@@ -28,6 +28,8 @@ public final class WMFHomeViewModel: ObservableObject {
     public var logDidTapCustomizeInterests: (@MainActor @Sendable (String, String) -> Void)?
     public var logEmptyViewImpression: (@MainActor @Sendable () -> Void)?
     public var logCardDidTapArticle: (@MainActor @Sendable (String, String) -> Void)?
+    public var logEndOfFeedImpression: (@MainActor @Sendable () -> Void)?
+    public var logEndOfFeedDidTapCommunity: (@MainActor @Sendable () -> Void)?
 
     public enum Tab: Int, CaseIterable {
         case forYou
@@ -174,6 +176,17 @@ public final class WMFHomeViewModel: ObservableObject {
         
         forYouViewModel.onEmptyViewAppearance = { [weak self] in
             self?.logEmptyViewImpression?()
+        }
+        forYouViewModel.endOfFeedViewModel.onTapAddInterests = { [weak self] in
+            self?.logDidTapCustomizeInterests?(WMFForYouEndOfFeedCardViewModel.loggingId, "customize_feed")
+            self?.didTapCustomizeInterests?()
+        }
+        forYouViewModel.endOfFeedViewModel.onTapCommunity = { [weak self] in
+            self?.logEndOfFeedDidTapCommunity?()
+            self?.selectedTab = .community
+        }
+        forYouViewModel.endOfFeedViewModel.onShow = { [weak self] in
+            self?.logEndOfFeedImpression?()
         }
         
         forYouViewModel.onUserInteraction = { [weak self] in self?.didInteractWithForYouFeed?() }
