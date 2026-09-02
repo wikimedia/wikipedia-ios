@@ -17,6 +17,10 @@ public enum EventCategoryMEP: String, Codable {
     case diff
     case unknown
     case yir
+
+    /// The evergreen account creation prompt, so account creations that start there are
+    /// distinguishable from any other creation begun on the same screen.
+    case encourage
     case widgetChallenge = "widget_challenge"
     case game
 }

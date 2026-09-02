@@ -158,16 +158,11 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
         navigationController.presentedViewController?.dismiss(animated: true)
     }
 
-    /// Attributes the login funnel to the surface the prompt was shown on.
+    /// Carried through to the account creation form, which reports it as `invoke_source` on its own
+    /// `impression` and `success` events. That is how an account created from this prompt is told
+    /// apart from any other account created on that form.
     private var loggingCategory: EventCategoryMEP {
-        switch context {
-        case .home:
-            return .feed
-        case .saved:
-            return .saved
-        case .article:
-            return .article
-        }
+        return .encourage
     }
 
     // MARK: - Content
