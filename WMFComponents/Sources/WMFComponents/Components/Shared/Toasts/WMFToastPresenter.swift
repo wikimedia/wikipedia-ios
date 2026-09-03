@@ -33,7 +33,7 @@ public final class WMFToastPresenter {
     private var cancellables = Set<AnyCancellable>()
 
     private var currentCard: WMFToastCardView?
-    private var dismissWorkItem: DispatchWorkItem?
+    private var dismissTask: Task<Void, Never>?
     private var dismissAction: ((DismissEvent) -> Void)?
 
     // MARK: - Lifecycle
@@ -75,8 +75,8 @@ public final class WMFToastPresenter {
             return
         }
 
-        dismissWorkItem?.cancel()
-        dismissWorkItem = nil
+        dismissTask?.cancel()
+        dismissTask = nil
         self.dismissAction = dismissAction
 
         let card = WMFToastCardView(config: config)
@@ -203,24 +203,23 @@ public final class WMFToastPresenter {
     // MARK: - Dismiss
 
     private func scheduleDismiss(after duration: TimeInterval?, for card: WMFToastCardView) {
-        dismissWorkItem?.cancel()
-        dismissWorkItem = nil
+        dismissTask?.cancel()
+        dismissTask = nil
 
         guard let duration, duration > 0 else { return }
 
-        let workItem = DispatchWorkItem { [weak self, weak card] in
-            guard let self, let card else { return }
+        dismissTask = Task { [weak self, weak card] in
+            try? await Task.sleep(for: .seconds(duration))
+            guard !Task.isCancelled, let self, let card else { return }
             self.dismiss(card, event: .durationExpired)
         }
-        dismissWorkItem = workItem
-        DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: workItem)
     }
 
     private func dismiss(_ card: WMFToastCardView, event: DismissEvent) {
         guard currentCard === card else { return }
 
-        dismissWorkItem?.cancel()
-        dismissWorkItem = nil
+        dismissTask?.cancel()
+        dismissTask = nil
         currentCard = nil
 
         let action = dismissAction
