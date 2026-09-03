@@ -49,7 +49,7 @@ extension ArticleViewController {
                     #endif
                 }
 
-                if WMFDonationReminderDataController.shared.experimentAssignment != nil {
+                if experimentAssignment != nil {
                     donateSource = .donationReminderCampaignModal(articleURL, activeCampaignAsset.metricsID, donateURL)
                 }
             }
