@@ -67,7 +67,7 @@ extension ArticleViewController {
             }
 
             let isFirstAppSession = UserDefaults.standard.wmf_appResignActiveDate() == nil
-            let hasDonationReminderOutcome = WMFDeveloperSettingsDataController.shared.enableDonationReminder && WMFDonationReminderDataController.shared.loadReminder() != nil
+            let hasDonationReminderOutcome = WMFDonationReminderDataController.shared.loadReminder() != nil && Date() < WMFDonationReminderDataController.reminderEndDate
 
             guard (isOptedIn && !userDonatedWithinLast250Days() && !isFirstAppSession && !hasDonationReminderOutcome) || isForcingBannerForDevelopment else {
                 willDisplayCampaignModal = false
