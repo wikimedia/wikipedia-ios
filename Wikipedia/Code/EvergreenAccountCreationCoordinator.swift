@@ -23,6 +23,11 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
     /// The close button and the presentation delegate can both land here, so the first outcome wins.
     private var didRecordOutcome = false
 
+    // TEMP - DESIGN REVIEW BRANCH ONLY, DO NOT MERGE.
+    // Shows the prompt on every launch, tab switch and article, and records nothing, so the slides
+    // can be reopened as often as needed.
+    private static let alwaysShowForDesignReview = true
+
     private var dataController: WMFEvergreenAccountCreationDataController {
         WMFEvergreenAccountCreationDataController.shared
     }
@@ -56,13 +61,15 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
     func startIfEligible() async {
         let presenter = navigationController.presentedViewController ?? navigationController
 
-        guard await dataController.shouldShowPrompt(
-            in: context,
-            // Only a permanent account is excluded. A temporary account still sees the prompt.
-            hasPermanentAccount: dataStore.authenticationManager.authStateIsPermanent,
-            isAnotherPromptVisible: presenter.presentedViewController != nil
-        ) else {
-            return
+        if !Self.alwaysShowForDesignReview {
+            guard await dataController.shouldShowPrompt(
+                in: context,
+                // Only a permanent account is excluded. A temporary account still sees the prompt.
+                hasPermanentAccount: dataStore.authenticationManager.authStateIsPermanent,
+                isAnotherPromptVisible: presenter.presentedViewController != nil
+            ) else {
+                return
+            }
         }
 
         let slideData = await dataController.slideData()
@@ -104,6 +111,8 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
             guard let self else { return }
 
             self.instrument.submitInteraction(action: "impression")
+
+            guard !Self.alwaysShowForDesignReview else { return }
             Task { await self.dataController.recordImpression() }
         }
     }
@@ -117,7 +126,10 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
         }
 
         didRecordOutcome = true
-        Task { await dataController.recordOutcome(outcome) }
+
+        if !Self.alwaysShowForDesignReview {
+            Task { await dataController.recordOutcome(outcome) }
+        }
 
         guard let promptNavigationController else {
             completion?()
