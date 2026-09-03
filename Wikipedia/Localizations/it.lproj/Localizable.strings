@@ -505,6 +505,15 @@
 "find-infolabel-number-matches" = "$1 / $2";
 "find-replace-header" = "Trova e sostituisci";
 "find-textfield-accessibility" = "Trova";
+"for-you-empty-feed-add-interests-link" = "alcuni interessi";
+"for-you-empty-feed-title" = "Il tuo feed è vuoto per ora";
+"for-you-empty-feed-ways-to-get-started" = "Modi per iniziare:";
+"for-you-end-of-feed-add-interests-format" = "Aggiungi $1";
+"for-you-end-of-feed-add-interests-link" = "nuovi interessi";
+"for-you-end-of-feed-community-format" = "Scopri cosa sta succedendo nella $1";
+"for-you-end-of-feed-community-link" = "comunità";
+"for-you-end-of-feed-title" = "Per oggi è tutto!";
+"for-you-end-of-feed-ways-to-keep-learning" = "Modi per continuare a imparare:";
 "forgot-password-button-title" = "Reimposta";
 "forgot-password-email-sent" = "Una email è stata inviata con le istruzioni per la reimpostazione della password";
 "forgot-password-title" = "Reimposta password";

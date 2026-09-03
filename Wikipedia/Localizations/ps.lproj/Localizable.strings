@@ -381,8 +381,7 @@
 "main-menu-title" = "نور";
 "main-page" = "لومړی مخ";
 "navbar-title-mode-edit-wikitext-preview" = "مخليدنه";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 گام";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 گام|$1 گامه}}";
 "nearby-distance-label-km" = "$1 کیلومتر";
 // Fuzzy
 "nearby-distance-label-meters" = "$1 متر";
