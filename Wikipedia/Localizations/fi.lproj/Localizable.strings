@@ -619,6 +619,8 @@
 "find-replace-header" = "Etsi ja korvaa";
 "find-replace-header-close-accessibility" = "Sulje etsi ja korvaa";
 "find-textfield-accessibility" = "Etsi";
+"for-you-empty-subtitle-interests-or-modules" = "Saat mukautettuja artikkelisuosituksia lisäämällä itseäsi kiinnostavia aiheita tai ottamalla moduuleja käyttöön";
+"for-you-header-saved-article" = "Lukulistaltasi";
 "forgot-password-button-title" = "Palauta";
 "forgot-password-email-sent" = "Sähköposti salasanan palautusohjeiden kanssa lähetetty.";
 "forgot-password-instructions" = "Saat ohjeet salasanan palauttamiseen sähköpostitse täytettyäsi yhden alla olevista kentistä";
@@ -632,8 +634,10 @@
 "history-title" = "Historia";
 "home-button-explore-accessibility-label" = "Wikipedia, palaa Tutki-sivulle";
 "home-button-saved-accessibility-label" = "Wikipedia, palaa Tallennettu-sivulle";
+"home-community-empty-feed-turn-on-modules-message" = "Näytä yhteisön tuottama sisältö ottamalla moduuleja käyttöön";
 "home-community-tab-title" = "Yhteisö";
 "home-edit-languages-title" = "Lisää tai muokkaa kieliä";
+"home-empty-go-to-settings-button" = "Siirry asetuksiin";
 "home-feed-for-you-based-on-interests-subtitle" = "Valitsemiisi aiheisiin mukautettuja artikkeleita.";
 "home-feed-for-you-based-on-interests-title" = "Kiinnostuksenkohteidesi perusteella";
 "home-feed-for-you-because-you-read-subtitle" = "Hiljattain lukemaasi artikkeliin perustuvia ehdotuksia";
@@ -671,6 +675,8 @@
 "home-feed-whats-driving-settings-title" = "Mihin syötteesi perustuu";
 "home-feed-whats-driving-your-interests-subtitle" = "Muokkaa kiinnostuksenkohteitasi";
 "home-feed-whats-driving-your-interests-title" = "Kiinnostuksenkohteesi";
+"home-for-you-next-module-accessibility-action" = "Seuraava moduuli";
+"home-for-you-previous-module-accessibility-action" = "Edellinen moduuli";
 "home-for-you-tab-title" = "Sinulle";
 "home-more-like-footer" = "Vastaavia artikkeleita kuin $1";
 "home-nearby-footer" = "Lisää lähelläsi olevia paikkoja";

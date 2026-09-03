@@ -36,6 +36,7 @@
 // Author: Shbib Al-Subaie
 // Author: Sonic N800
 // Author: Tarawneh
+// Author: ToadetteEdit1
 // Author: Tsevener
 // Author: XIDME
 // Author: Zinou2go
@@ -210,6 +211,9 @@
 "alert-temporary-account-learn-more" = "معرفة المزيد.";
 "alt-text-feedback-survey-toast-title" = "تم إرسال الملحوظات.";
 "announcements-dismiss" = "تجاهل";
+"app-onboarding-feed-preference-in-the-news" = "في الأخبار";
+"app-onboarding-feed-preference-personalized-disabled" = "يجب عليك إضافة اهتماماتك لعرض اقتراحات المحتوى المخصصة. يمكنك فعل ذلك في الخطوات السابقة أو لاحقًا في الإعدادات.";
+"app-onboarding-feed-preference-picture-of-the-day" = "صورة اليوم";
 "app-store-keywords" = "ويكيبيديا، مرجع، ويكي، موسوعة، معلومة، معرفة، بحث، معلومات، استكشاف، تعلم";
 "app-store-release-notes" = "قابلة للتخصيص بالكامل وسهلة لقراءة موجز الاستكشاف، الترجمة وتحسينات الأداء وإصلاحات الأخطاء.";
 "app-store-short-description" = "قم بتنزيل تطبيق Wikipedia لاستكشاف الأماكن القريبة منك، ومزامنة المقالات للقراءة في وضع عدم الاتصال وتخصيص تجربة قراءتك.";
@@ -713,13 +717,44 @@
 "home-button-saved-accessibility-label" = "ويكيبيديا، ارجع إلى المحفوظة";
 "home-community-tab-title" = "مجتمع";
 "home-edit-languages-title" = "إضافة أو تعديل اللغات";
+"home-feed-for-you-settings-title" = "الوحدات";
+"home-feed-interests-deselect-all" = "أزل اختيار الكل";
+"home-feed-interests-header-title" = "ما الذي يثير اهتمامك؟";
+"home-feed-interests-non-mainspace-toast" = "لا يمكن إضافة سوى المقالات الموجودة في النطاق الرئيسي كاهتمامات.";
+"home-feed-interests-search-placeholder" = "ابحث عن مقالة";
+"home-feed-interests-settings-empty-message" = "ستظهر اهتماماتك هنا";
+"home-feed-interests-settings-title" = "اهتماماتك";
+"home-feed-modules-featured-article-subtitle" = "المقالات المختارة هي بعض من أفضل المقالات جودةً على ويكيبيديا، ويختار المحررين مقالة واحدة يوميًا.";
+"home-feed-modules-featured-article-title" = "مقالة مختارة";
+"home-feed-modules-in-the-news-subtitle" = "مقالات التي حُدثت بشكل كبير لتعكس الأحداث الأخيرة أو الجارية ذات الاهتمام الواسع";
+"home-feed-modules-in-the-news-title" = "في الأخبار";
+"home-feed-modules-on-this-day-subtitle" = "اكتشف الأحداث التاريخية التي وقعت في هذا اليوم";
+"home-feed-modules-on-this-day-title" = "في هذا اليوم";
+"home-feed-modules-picture-of-the-day-subtitle" = "صور يومية على ويكيميديا كومنز، يختارها المساهمون المتطوعون";
+"home-feed-modules-picture-of-the-day-title" = "صورة اليوم";
+"home-feed-modules-settings-title" = "الوحدات";
+"home-feed-modules-top-read-subtitle" = "ما هي المواضيع الرائجة اليوم على ويكيبيديا؟";
+"home-feed-modules-top-read-title" = "الأكثر قراءة";
+"home-feed-settings-community-modules-subtitle" = "تشغيل أو إيقاف وحدات 'المجتمع'";
+"home-feed-settings-community-section-title" = "المجتمع";
+"home-feed-settings-for-you-modules-subtitle" = "تشغيل أو إيقاف وحدات 'لك'";
+"home-feed-settings-for-you-section-title" = "لك";
+"home-feed-settings-modules-title" = "الوحدات";
+"home-feed-whats-driving-languages-title" = "اللغات";
+"home-feed-whats-driving-reading-history-subtitle" = "تصفح المقالات التي قرأتها مؤخراً";
+"home-feed-whats-driving-reading-history-title" = "تاريخ القراءة";
+"home-feed-whats-driving-your-interests-title" = "اهتماماتك";
+"home-for-you-next-module-accessibility-action" = "الوحدة التالية";
+"home-for-you-previous-module-accessibility-action" = "الوحدة السابقة";
 "home-for-you-tab-title" = "لك";
+"home-menu-hide-module" = "أخف الوحدة";
 "home-more-like-footer" = "المزيد مثل $1";
 "home-nearby-footer" = "المزيد من الأماكن بالقرب من موقعك";
 "home-nearby-location-footer" = "المزيد بالقرب من $1";
 "home-news-footer" = "المزيد من الأحداث الجارية";
 "home-reading-list-prompt" = "يمكن الآن تنظيم مقالاتك المحفوظة في قوائم القراءة والمزامنة عبر الأجهزة، قم بتسجيل الدخول للسماح بحفظ قوائم قراءتك في تفضيلات المستخدم الخاصة بك.";
 "home-tab-title" = "بيت";
+"home-tab-title-accessibility-label" = "ويكيبيديا، انتقل إلى أعلى الصفحة الرئيسية";
 "home-themes-action-title" = "إدارة التفضيلات";
 "home-themes-prompt" = "اضبط تفضيلات قراءتك بما في ذلك حجم النص والمظهر من شريط أدوات المقالة أو في إعدادات المستخدم لتجربة قراءة أكثر راحة.";
 "home-title" = "استكشف";
@@ -1008,6 +1043,7 @@
 "on-this-day-no-internet-error" = "لا بيانات متوافرة";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 من ويكيبيديا $2";
 "on-this-day-title" = "في هذا اليوم";
+"one-time-onboarding-feature-name-title" = "اسم جديد";
 "open-article" = "افتح المقال";
 "original-tab-button-popover-description" = "انقر على \"ص\" للعودة إلى علامة التبويب التي بدأت منها";
 "page-history-bot-edits" = "بوت";
@@ -1107,6 +1143,7 @@
 "project-name-wikiversity" = "ويكي الجامعة";
 "project-name-wikivoyage" = "ويكي الرحلات";
 "project-name-wiktionary" = "ويكاموس";
+"reading-challenge-random-article-button" = "مقالة عشوائية";
 "reading-challenge-random-button" = "عشوائي";
 "reading-list-add-generic-hint-title" = "إضافة هذه المقالة لقائمة قراءة؟";
 "reading-list-add-hint-title" = "أضف \"$ 1\" إلى قائمة قراءة؟";
@@ -1244,7 +1281,11 @@
 "settings-clear-cache-are-you-sure-title" = "مسح المحتوى المخزن؟";
 "settings-clear-cache-cancel" = "إلغاء";
 "settings-clear-cache-ok" = "مسح المخزون";
+"settings-community-feed-title" = "المجتمع";
 "settings-donate" = "تبرع";
+"settings-editing-preferences-source-short" = "المصدر";
+"settings-editing-preferences-title" = "تفضيلات التحرير";
+"settings-editing-preferences-visual-short" = "مرئي";
 "settings-explore-games-subtitle" = "ألعاب يومية مستوحاة من محتوى ويكيبيديا";
 "settings-explore-games-title" = "ألعاب ويكيبيديا";
 "settings-help-and-feedback" = "المساعدة والآراء والملاحظات";
@@ -1265,6 +1306,8 @@
 "settings-primary-language-details" = "اللغة الأولى في هذه القائمة هي اللغة الأساسية للتطبيق";
 "settings-search-footer-text" = "عيِّن التطبيق لفتحه على علامة التبويب بحث بدلا من علامة التبويب استكشاف";
 "settings-search-open-app-on-search" = "افتح التطبيق على تبويب البحث";
+"settings-storage-and-syncing-disable-sync-alert-no" = "لا";
+"settings-storage-and-syncing-disable-sync-alert-yes" = "نعم";
 "settings-storage-and-syncing-enable-sync-footer-text" = "السماح لـويكيميديا بحفظ مقالاتك المحفوظة وقوائم القراءة لتفضيلات المستخدم الخاصة بك عند تسجيل الدخول والمزامنة.";
 "settings-storage-and-syncing-enable-sync-title" = "مزامنة المقالات والقوائم المحفوظة";
 "settings-storage-and-syncing-full-sync" = "ستتم مزامنة قوائم قراءتك في الخلفية";
@@ -1528,6 +1571,10 @@
 "welcome-languages-search-title" = "ابحث في ما يقارب 300 لغة";
 "welcome-privacy-subtitle" = "نعتقد أنه لا ينبغي عليك تقديم معلومات شخصية للمشاركة في حركة المعرفة الحرة. بيانات الاستخدام التي يتم جمعها لهذا التطبيق مجهولة.";
 "welcome-privacy-terms-button-text" = "تعرف على المزيد حول سياسة الخصوصية وشروط الاستخدام الخاصة بنا";
+"which-came-first-archive-day-score-a11y" = "النتيجة: $1 من أصل خمسة";
+"which-came-first-archive-nav-title" = "الأرشيف";
+"which-came-first-archive-subtitle" = "العب الألعاب منذ يونيو 2024.";
+"which-came-first-archive-title" = "أيهما جاء أولاً؟";
 "which-came-first-article-card-open-hint" = "يفتح حدثًا متعلقًا بهذه المقالة";
 "which-came-first-articles-section-title" = "مقالات من مباراة اليوم";
 "which-came-first-average-score-label" = "متوسط الدرجات";
