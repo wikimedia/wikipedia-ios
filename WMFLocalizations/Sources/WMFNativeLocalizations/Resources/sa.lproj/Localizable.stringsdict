@@ -378,6 +378,54 @@
 			<string>%1$d articles</string>
 		</dict>
 	</dict>
+	<key>evergreen-account-creation-activity-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Revisit your %1$#@v1@ with Activity</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d recent read</string>
+			<key>other</key>
+			<string>%1$d recent reads</string>
+		</dict>
+	</dict>
+	<key>evergreen-account-creation-saved-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Sync your %1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d saved article</string>
+			<key>other</key>
+			<string>%1$d saved articles</string>
+		</dict>
+	</dict>
+	<key>evergreen-account-creation-year-in-review-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>See your %1$#@v1@ come together in Year in Review</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d reading day</string>
+			<key>other</key>
+			<string>%1$d reading days</string>
+		</dict>
+	</dict>
 	<key>home-feed-interests-selected-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
