@@ -213,45 +213,6 @@
 "article-tabs-open-background-tab" = "Apri nella scheda in background";
 "article-tabs-open-new-tab" = "Apri in una nuova scheda";
 "article-talk-page" = "Pagina di discussione della voce";
-"article-topic-africa" = "Africa";
-"article-topic-architecture" = "Architettura";
-"article-topic-art" = "Arte";
-"article-topic-asia" = "Asia";
-"article-topic-biography" = "Biografie (tutte)";
-"article-topic-biology" = "Biologia";
-"article-topic-business-and-economics" = "Business ed economia";
-"article-topic-central-america" = "America centrale";
-"article-topic-chemistry" = "Chimica";
-"article-topic-comics-and-anime" = "Fumetti e anime";
-"article-topic-computers-and-internet" = "Computer ed internet";
-"article-topic-earth-and-environment" = "Terra e ambiente";
-"article-topic-education" = "Istruzione";
-"article-topic-engineering" = "Ingegneria";
-"article-topic-entertainment" = "Divertimento";
-"article-topic-europe" = "Europa";
-"article-topic-fashion" = "Moda";
-"article-topic-food-and-drink" = "Cibi e bevande";
-"article-topic-general-science" = "Scienza generale";
-"article-topic-history" = "Storia";
-"article-topic-literature" = "Letteratura";
-"article-topic-mathematics" = "Matematica";
-"article-topic-medicine-and-health" = "Medicina e salute";
-"article-topic-military-and-warfare" = "Militare e guerra";
-"article-topic-music" = "Musica";
-"article-topic-north-america" = "Nord America";
-"article-topic-oceania" = "Oceania";
-"article-topic-performing-arts" = "Arti dello spettacolo";
-"article-topic-philosophy-and-religion" = "Filosofia e religione";
-"article-topic-physics" = "Fisica";
-"article-topic-politics-and-government" = "Politica e governo";
-"article-topic-society" = "Società";
-"article-topic-south-america" = "Sud America";
-"article-topic-sports" = "Sport";
-"article-topic-technology" = "Tecnologia";
-"article-topic-transportation" = "Trasporti";
-"article-topic-tv-and-film" = "TV e film";
-"article-topic-video-games" = "Videogiochi";
-"article-topic-women" = "Biografie (donne)";
 "article-view-controller-editing-temp-account-created-subtitle" = "L'account temporaneo $1 è stato creato dopo la pubblicazione della tua modifica. Scadrà tra 90 giorni.";
 "article-view-controller-editing-temp-account-created-title" = "Utenza temporanea creata";
 "back-button-accessibility-label" = "Indietro";
@@ -558,10 +519,13 @@
 "home-button-saved-accessibility-label" = "Wikipedia, ritorna alle pagine salvate";
 "home-community-tab-title" = "Comunità";
 "home-edit-languages-title" = "Aggiungi o modifica lingue";
+"home-empty-go-to-settings-button" = "Vai alle impostazioni";
 "home-feed-for-you-based-on-interests-title" = "In base ai tuoi interessi";
 "home-feed-for-you-settings-title" = "Moduli";
 "home-feed-settings-community-section-title" = "Comunità";
 "home-feed-whats-driving-your-interests-title" = "I tuoi interessi";
+"home-for-you-card-position-accessibility-value" = "$1 di $2";
+"home-for-you-previous-module-accessibility-action" = "Modulo precedente";
 "home-for-you-tab-title" = "Per te";
 "home-more-like-footer" = "Altro come $1";
 "home-nearby-footer" = "Altri luoghi vicini alla tua posizione";
@@ -1142,6 +1106,45 @@
 "widget-onthisday-description" = "Scopri cosa è successo in questo giorno nella storia.";
 "widget-onthisday-placeholder-article-snippet" = "Enciclopedia online gratuita che chiunque può modificare";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, un'enciclopedia gratuita di contenuti wiki, va online.";
+"wikimedia-articletopics-topic-africa" = "Africa";
+"wikimedia-articletopics-topic-architecture" = "Architettura";
+"wikimedia-articletopics-topic-art" = "Arte";
+"wikimedia-articletopics-topic-asia" = "Asia";
+"wikimedia-articletopics-topic-biography" = "Biografie (tutte)";
+"wikimedia-articletopics-topic-biology" = "Biologia";
+"wikimedia-articletopics-topic-business-and-economics" = "Business ed economia";
+"wikimedia-articletopics-topic-central-america" = "America centrale";
+"wikimedia-articletopics-topic-chemistry" = "Chimica";
+"wikimedia-articletopics-topic-comics-and-anime" = "Fumetti e anime";
+"wikimedia-articletopics-topic-computers-and-internet" = "Computer ed internet";
+"wikimedia-articletopics-topic-earth-and-environment" = "Terra e ambiente";
+"wikimedia-articletopics-topic-education" = "Istruzione";
+"wikimedia-articletopics-topic-engineering" = "Ingegneria";
+"wikimedia-articletopics-topic-entertainment" = "Divertimento";
+"wikimedia-articletopics-topic-europe" = "Europa";
+"wikimedia-articletopics-topic-fashion" = "Moda";
+"wikimedia-articletopics-topic-food-and-drink" = "Cibi e bevande";
+"wikimedia-articletopics-topic-general-science" = "Scienza generale";
+"wikimedia-articletopics-topic-history" = "Storia";
+"wikimedia-articletopics-topic-literature" = "Letteratura";
+"wikimedia-articletopics-topic-mathematics" = "Matematica";
+"wikimedia-articletopics-topic-medicine-and-health" = "Medicina e salute";
+"wikimedia-articletopics-topic-military-and-warfare" = "Militare e guerra";
+"wikimedia-articletopics-topic-music" = "Musica";
+"wikimedia-articletopics-topic-north-america" = "Nord America";
+"wikimedia-articletopics-topic-oceania" = "Oceania";
+"wikimedia-articletopics-topic-performing-arts" = "Arti dello spettacolo";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofia e religione";
+"wikimedia-articletopics-topic-physics" = "Fisica";
+"wikimedia-articletopics-topic-politics-and-government" = "Politica e governo";
+"wikimedia-articletopics-topic-society" = "Società";
+"wikimedia-articletopics-topic-south-america" = "Sud America";
+"wikimedia-articletopics-topic-sports" = "Sport";
+"wikimedia-articletopics-topic-technology" = "Tecnologia";
+"wikimedia-articletopics-topic-transportation" = "Trasporti";
+"wikimedia-articletopics-topic-tv-and-film" = "TV e film";
+"wikimedia-articletopics-topic-video-games" = "Videogiochi";
+"wikimedia-articletopics-topic-women" = "Biografie (donne)";
 "wikitext-preview-changes" = "Recupero anteprima delle tue modifiche...";
 "wikitext-preview-link-external-preview-description" = "Questo collegamento porta a un sito esterno: $1";
 "wikitext-preview-link-external-preview-title" = "Collegamento esterno";
@@ -1221,121 +1224,3 @@
 "year-in-review-wmf-logo-accessibility-label" = "Logo della Wikimedia Foundation";
 "yesterday-title" = "Ieri";
 "zero-edits-to-articles" = "0 modifiche recenti alle voci";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Architettura";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Arte";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Fumetti e anime";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Divertimento";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Moda";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Letteratura";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Musica";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Arti dello spettacolo";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Sport";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "TV e film";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Videogiochi";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Biografie (tutte)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Biografie (donne)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Business ed economia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Istruzione";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Cibi e bevande";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Storia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Militare e guerra";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofia e religione";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Politica e governo";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Società";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Trasporti";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Biologia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Chimica";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Computer ed internet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Terra e ambiente";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Ingegneria";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Scienza generale";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Matematica";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Medicina e salute";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Fisica";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Tecnologia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Africa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Asia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "America centrale";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Europa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Nord America";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Oceania";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Sud America";

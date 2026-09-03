@@ -1225,6 +1225,17 @@
 "widget-onthisday-description" = "Тарихде бу кюнде не болгъанын аула";
 "widget-onthisday-placeholder-article-snippet" = "Хар ким да тюзетирча эркин онлайн энциклопедия";
 "widget-onthisday-placeholder-event-snippet" = "Эркин вики контент энциклопедия болгъан Википедия онлайн болады.";
+"wikimedia-articletopics-topic-africa" = "Африка";
+"wikimedia-articletopics-topic-art" = "Санат";
+"wikimedia-articletopics-topic-asia" = "Азия";
+"wikimedia-articletopics-topic-education" = "Окъуу";
+"wikimedia-articletopics-topic-entertainment" = "Кёз ачыу";
+"wikimedia-articletopics-topic-fashion" = "Мода";
+"wikimedia-articletopics-topic-general-science" = "Тамал илму";
+"wikimedia-articletopics-topic-music" = "Музыка";
+"wikimedia-articletopics-topic-north-america" = "Шимал Америка";
+"wikimedia-articletopics-topic-physics" = "Физика";
+"wikimedia-articletopics-topic-south-america" = "Къыбыла Америка";
 "wikitext-preview-changes" = "Тюрлениулеригигзни ал къарауму алына турады...";
 "wikitext-preview-link-external-preview-description" = "Бу джибериу тыш вебсайтха джоллайды: $1";
 "wikitext-preview-link-external-preview-title" = "Тыш джибериу";
@@ -1241,121 +1252,3 @@
 "wikitext-upload-save-anonymously-warning" = "Тюрлениуле девайсыгъызны IP-адреси бла басмаланыр. $1 эсегиз, аслам ташалыкъгъа ие болургъа болукъсуз.";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Тюрлениулени басмалаб $1Хайырланыу Шартланы$2 къабыл этер эмда къошумугъузну $3CC BY-SA 4.0$4 Лицензиясы эмда $5GFDL$6 тамалында басмалау кери алынмаз шекелде къабыл этерсиз. Creative Commons лицензия бла, джибериуню неда URL джетерли болгъанын къабыл этериксиз.";
 "wikitext-upload-save-terms-name" = "Хайырланыу Шартла";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Архитектура";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Санат";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Комиксле эмда аниме";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Кёз ачыу";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Мода";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Адабият";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Музыка";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Сахна санатла";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Спорт";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "ТВ эмда кино";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Видео оюнла";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Биография (барысы)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Биография (тиширыу)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Бизнес эмда экономика";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Окъуу";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Ашарыкъ эмда ичерик";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Тарих";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Сауутлу кючле эмда аскер иш";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Философия эмда дин";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Политика эмда правительство";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Джамагъат";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Улоу";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Биология";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Химия";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Компьютерле эмда интернет";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Джер эмда тёгереги";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Инженерлик";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Тамал илму";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Математика";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Медицина эмда саулукъ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Физика";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Технология";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Африка";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Азия";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Ара Америка";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Европа";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Шимал Америка";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Океания";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Къыбыла Америка";

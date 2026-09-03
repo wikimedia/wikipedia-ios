@@ -25,7 +25,7 @@ struct SettingsRow: View {
                     .font(Font(WMFFont.for(.body)))
                 if let subtitle = item.subtitle {
                     Text(subtitle)
-                        .font(Font(WMFFont.for(.subheadline)))
+                        .font(Font(WMFFont.for(.footnote)))
                         .foregroundColor(Color(uiColor: theme.secondaryText))
                 }
             }

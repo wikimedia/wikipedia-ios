@@ -34,6 +34,7 @@ public enum WMFColor {
     public static let green100 = UIColor(0xD5FDF4)
     public static let green100alpha = UIColor(0x00AF89, alpha: 0.05)
     public static let green600alpha = UIColor(0x00AF89, alpha: 0.2)
+    public static let green800 = UIColor(0x196551)
     public static let yellow600 = UIColor(0xFFCC33)
     public static let beige400 = UIColor(0xE1DAD1)
     public static let beige300 = UIColor(0xF0E6D6)

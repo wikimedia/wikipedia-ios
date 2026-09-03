@@ -273,49 +273,11 @@
 "article-tabs-open-new-tab" = "In nieuw tabblad openen";
 "article-talk-page" = "Overlegpagina";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Instellingen leesthema's";
-"article-topic-africa" = "Afrika";
-"article-topic-architecture" = "Architectuur";
-"article-topic-art" = "Kunst";
-"article-topic-asia" = "Azië";
-"article-topic-biography" = "Biografie (alle)";
-"article-topic-biology" = "Biologie";
-"article-topic-business-and-economics" = "Bedrijven en economie";
-"article-topic-central-america" = "Centraal-Amerika";
-"article-topic-chemistry" = "Scheikunde";
-"article-topic-comics-and-anime" = "Strips en anime";
-"article-topic-computers-and-internet" = "Computers en internet";
-"article-topic-earth-and-environment" = "Aarde en milieu";
-"article-topic-education" = "Onderwijs";
-"article-topic-engineering" = "Techniek";
-"article-topic-entertainment" = "Entertainment";
-"article-topic-europe" = "Europa";
-"article-topic-fashion" = "Mode";
-"article-topic-food-and-drink" = "Eten en drinken";
-"article-topic-general-science" = "Algemene wetenschap";
-"article-topic-history" = "Geschiedenis";
-"article-topic-literature" = "Literatuur";
-"article-topic-mathematics" = "Wiskunde";
-"article-topic-medicine-and-health" = "Geneeskunde en gezondheid";
-"article-topic-military-and-warfare" = "Strijdkrachten en oorlogvoering";
-"article-topic-music" = "Muziek";
-"article-topic-north-america" = "Noord-Amerika";
-"article-topic-oceania" = "Oceanië";
-"article-topic-performing-arts" = "Podiumkunsten";
-"article-topic-philosophy-and-religion" = "Filosofie en religie";
-"article-topic-physics" = "Natuurkunde";
-"article-topic-politics-and-government" = "Politiek en overheid";
-"article-topic-society" = "Maatschappij";
-"article-topic-south-america" = "Zuid-Amerika";
-"article-topic-sports" = "Sport";
-"article-topic-technology" = "Technologie";
-"article-topic-transportation" = "Vervoer";
-"article-topic-tv-and-film" = "Televisie en film";
-"article-topic-video-games" = "Computerspellen";
-"article-topic-women" = "Biografie (vrouwen)";
 "article-view-controller-editing-temp-account-created-subtitle" = "Het tijdelijke account $1 is aangemaakt nadat uw bewerking is gepubliceerd. Het verloopt over 90 dagen.";
 "article-view-controller-editing-temp-account-created-title" = "Tijdelijk account aangemaakt";
 "back-button-accessibility-label" = "Terug";
 "back-button-popover-title" = "Tik om terug te keren";
+"beta-badge-label" = "Beta";
 "button-go-back" = "Teruggaan";
 "button-next" = "Volgende";
 "button-ok" = "OK";
@@ -491,6 +453,29 @@
 "donate-transaction-fee-opt-in-text" = "Ik betaal graag $1 extra voor de transactiekosten, zodat jullie 100%% van mijn donatie kunnen gebruiken.";
 "donate-wikimedia-fine-print-1" = "Wij verkopen of verhandelen uw gegevens aan niemand. Door te doneren gaat u ermee akkoord uw persoonlijke gegevens te delen met de Wikimedia Foundation, de non-profitorganisatie die Wikipedia en andere Wikimedia-projecten host, en haar dienstverleners, in overeenstemming met ons [donateursbeleid]($1). De Wikimedia Foundation en haar dienstverleners zijn gevestigd in de Verenigde Staten en in andere landen waarvan de privacywetten mogelijk niet gelijkwaardig zijn aan die van u. Lees ons [donateursbeleid]($1) voor meer informatie.";
 "donate-wikimedia-fine-print-2" = "Als u een periodieke donateur bent, schrijft de Wikimedia Foundation elke maand een bedrag af op dezelfde dag waarop de eerste donatie werd verricht, totdat u aangeeft dat u de donatie wilt stopzetten. Donaties die voor het eerst zijn verricht op de 29e, 30e of 31e van de maand worden in de kortere maanden op de laatste dag van de maand afgeschreven, zo dicht mogelijk bij de oorspronkelijke datum. Voor vragen kunt u terecht op donate@wikimedia.org.";
+"donation-reminder-card-body" = "Op $1 stelde je een donatieherinnering in na {{PLURAL:$2|$2 artikel|$2 artikelen}}. Als Wikipedia je ter waarde van $3 aan kennis heeft gebracht, sluit je dan aan bij de 2%% lezers die doneren en doe vandaag je donatie.";
+"donation-reminder-card-donate" = "Ja, nu doneren";
+"donation-reminder-card-heading" = "Sinds je donatiebevestiging van $2 heb je {{PLURAL:$1|$1 artikel|$1 artikelen}} gelezen.";
+"donation-reminder-card-not-now" = "Niet nu";
+"donation-reminder-card-not-now-toast-modify" = "Aanpassen";
+"donation-reminder-card-not-now-toast-settings" = "Donatieherinneringen kun je op elk moment aanpassen in Instellingen.";
+"donation-reminder-card-subsequent-heading" = "{{PLURAL:$1|Je hebt weer $1 artikel gelezen!|Je hebt weer $1 artikelen gelezen!}}";
+"donation-reminder-email-report-body" = "Ik heb een probleem ervaren met de functie Donatieherinneringen:";
+"donation-reminder-email-report-subject" = "Probleem melden – donatieherinneringen";
+"donation-reminder-payment-different-amount-button-title" = "Een ander bedrag doneren met Apple Pay";
+"donation-reminder-payment-pledge-button-title" = "Doneer $1 met Apple Pay";
+"donation-reminder-setup-amount-group-title" = "Herinner me eraan om te doneren";
+"donation-reminder-setup-confirm-button-title" = "Herinnering bevestigen";
+"donation-reminder-setup-info" = "Donaties gaan naar de Wikimedia Foundation en gelieerde organisaties, de trotse host van Wikipedia en zustersites.";
+"donation-reminder-setup-subtitle-articles" = "Dankzij jouw vrijgevigheid kan Wikipedia blijven groeien. Stel een herinnering in om te doneren na een bepaald aantal gelezen artikelen.";
+"donation-reminder-setup-title" = "Op welk moment wil je een herinnering ontvangen?";
+"donation-reminder-setup-toast-articles" = "Nadat je $2 artikelen hebt gelezen, ontvang je een herinnering om $1 te doneren zolang deze test loopt.";
+"donation-reminder-setup-toggle-title" = "Donatieherinneringen";
+"donation-reminder-setup-trigger-detail-accessibility-label" = "Meer informatie";
+"donation-reminder-setup-trigger-group-detail-articles" = "Aantal gelezen artikelen wordt lokaal op je apparaat opgeslagen.";
+"donation-reminder-setup-trigger-group-title-articles" = "Na elke";
+"donation-reminder-setup-trigger-unit-articles" = "gelezen artikelen";
+"donation-reminder-setup-update-button-title" = "Herinnering aanpassen";
 "duplicate-tab" = "Tabblad dupliceren";
 "edit-link-display-text-title" = "Weergavetekst";
 "edit-link-link-target-title" = "Koppelingsdoel";
@@ -753,8 +738,7 @@
 "find-replace-header" = "Zoeken en vervangen";
 "find-replace-header-close-accessibility" = "Zoeken en vervangen sluiten";
 "find-textfield-accessibility" = "Zoeken";
-"for-you-empty-button" = "Kies uw interesses";
-"for-you-empty-subtitle" = "Voeg interesses toe om gepersonaliseerde leesaanbevelingen te ontvangen.";
+"for-you-empty-subtitle-interests-or-modules" = "Voeg interesses toe of activeer modules om persoonlijke pagina-aanbevelingen te krijgen";
 "for-you-empty-title" = "Hier is nog niets";
 "for-you-error-retry" = "Probeer het opnieuw";
 "for-you-error-subtitle" = "Maak verbinding met internet en probeer het opnieuw.";
@@ -788,12 +772,11 @@
 "home-button-home-accessibility-label" = "Wikipedia, terug naar de startpagina";
 "home-button-saved-accessibility-label" = "Wikipedia, terug naar opgslagen";
 "home-card-more-options-accessibility-label" = "Meer opties";
-"home-community-empty-feed-button-title" = "Feed bewerken";
-"home-community-empty-feed-message" = "Schakel kaarten in bij de feedinstellingen om de Gemeenschapsfeed te bekijken.";
-"home-community-empty-feed-title" = "Alle Gemeenschapsfeedkaarten zijn verborgen";
+"home-community-empty-feed-turn-on-modules-message" = "Schakel modules in om gemeenschapsinhoud te zien";
 "home-community-see-past-content" = "Eerdere gemeenschapsinhoud bekijken";
 "home-community-tab-title" = "Gemeenschap";
 "home-edit-languages-title" = "Talen toevoegen of bewerken";
+"home-empty-go-to-settings-button" = "Naar de instellingen";
 "home-feed-for-you-based-on-interests-subtitle" = "Pagina's die zijn afgestemd op de onderwerpen die u hebt gekozen.";
 "home-feed-for-you-based-on-interests-title" = "Op basis van uw interesses";
 "home-feed-for-you-because-you-read-subtitle" = "Suggesties gebaseerd op een recente pagina uit uw geschiedenis";
@@ -836,6 +819,9 @@
 "home-feed-whats-driving-settings-title" = "Wat is de drijvende kracht achter uw feed?";
 "home-feed-whats-driving-your-interests-subtitle" = "Bewerk de onderwerpen waarin u geïnteresseerd bent";
 "home-feed-whats-driving-your-interests-title" = "Uw interesses";
+"home-for-you-card-position-accessibility-value" = "$1 van $2";
+"home-for-you-next-module-accessibility-action" = "Volgende module";
+"home-for-you-previous-module-accessibility-action" = "Vorige module";
 "home-for-you-tab-title" = "Voor u";
 "home-menu-hide-module" = "Module verbergen";
 "home-more-like-footer" = "Vergelijkbaar met $1";
@@ -1230,10 +1216,10 @@
 "profile-button-badge-accessibility-label" = "Profiel met aanduiding ongelezen berichten";
 "profile-page-donate-subtext" = "Of steun Wikipedia met een donatie, zodat het gratis en voor iedereen ter wereld toegankelijk blijft.";
 "profile-page-join-subtext" = "Maak een Wikipedia-account aan om uw bijdragen bij te houden, pagina's offline op te slaan en te synchroniseren op verschillende apparaten.";
-"profile-page-join-title" = "Inloggen/Lid worden van Wikipedia";
+"profile-page-join-title" = "Aanmelden/registreren bij Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Meld u aan of maak een account aan om volgend jaar een verbeterd jaaroverzicht te krijgen";
 "profile-year-in-review-login-subtitle" = "Meld u aan of maak een account aan om het jaaroverzicht te bekijken en in aanmerking te komen voor meer gepersonaliseerde inzichten.";
-"profile-year-in-review-login-title" = "Log in voor toegang tot het jaaroverzicht";
+"profile-year-in-review-login-title" = "Aanmelden voor toegang tot het jaaroverzicht";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -1383,8 +1369,12 @@
 "settings-clear-cache-are-you-sure-title" = "Cache legen?";
 "settings-clear-cache-cancel" = "Annuleren";
 "settings-clear-cache-ok" = "Cache wissen";
+"settings-clear-donation-history" = "Donatiegeschiedenis wissen";
 "settings-community-feed-title" = "Gemeenschap";
 "settings-donate" = "Doneren";
+"settings-donation-reminders-subtitle" = "Wikipedia herinnert je er na elke $2 gelezen artikelen aan om $1 te doneren.";
+"settings-donation-reminders-title" = "Donatieherinneringen";
+"settings-donations-header" = "Donaties";
 "settings-editing-preferences-source-short" = "Bron";
 "settings-editing-preferences-title" = "Bewerkingsvoorkeur";
 "settings-editing-preferences-visual-short" = "Visueel";
@@ -1571,7 +1561,7 @@
 "top-read-widget-title" = "Meest gelezen";
 "try-now-title" = "Probeer nu";
 "tutorial-title" = "Snelcursus";
-"two-factor-email-login-continue" = "Doorgaan met inloggen";
+"two-factor-email-login-continue" = "Doorgaan met aanmelden";
 "two-factor-email-login-instructions" = "Voer e-mailverificatiecode in";
 "two-factor-login-continue" = "Doorgaan met aanmelden";
 "two-factor-login-instructions" = "Tweetrapsauthenticatiecode invullen";
@@ -1722,6 +1712,45 @@
 "widget-onthisday-description" = "Ontdek wat er op deze dag in de geschiedenis is gebeurd.";
 "widget-onthisday-placeholder-article-snippet" = "Vrije internetencyclopedie die iedereen kan bewerken";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, een vrije encyclopedie met wiki-inhoud, gaat online.";
+"wikimedia-articletopics-topic-africa" = "Afrika";
+"wikimedia-articletopics-topic-architecture" = "Architectuur";
+"wikimedia-articletopics-topic-art" = "Kunst";
+"wikimedia-articletopics-topic-asia" = "Azië";
+"wikimedia-articletopics-topic-biography" = "Biografie (alle)";
+"wikimedia-articletopics-topic-biology" = "Biologie";
+"wikimedia-articletopics-topic-business-and-economics" = "Bedrijven en economie";
+"wikimedia-articletopics-topic-central-america" = "Centraal-Amerika";
+"wikimedia-articletopics-topic-chemistry" = "Scheikunde";
+"wikimedia-articletopics-topic-comics-and-anime" = "Strips en anime";
+"wikimedia-articletopics-topic-computers-and-internet" = "Computers en internet";
+"wikimedia-articletopics-topic-earth-and-environment" = "Aarde en milieu";
+"wikimedia-articletopics-topic-education" = "Onderwijs";
+"wikimedia-articletopics-topic-engineering" = "Techniek";
+"wikimedia-articletopics-topic-entertainment" = "Entertainment";
+"wikimedia-articletopics-topic-europe" = "Europa";
+"wikimedia-articletopics-topic-fashion" = "Mode";
+"wikimedia-articletopics-topic-food-and-drink" = "Eten en drinken";
+"wikimedia-articletopics-topic-general-science" = "Algemene wetenschap";
+"wikimedia-articletopics-topic-history" = "Geschiedenis";
+"wikimedia-articletopics-topic-literature" = "Literatuur";
+"wikimedia-articletopics-topic-mathematics" = "Wiskunde";
+"wikimedia-articletopics-topic-medicine-and-health" = "Geneeskunde en gezondheid";
+"wikimedia-articletopics-topic-military-and-warfare" = "Strijdkrachten en oorlogvoering";
+"wikimedia-articletopics-topic-music" = "Muziek";
+"wikimedia-articletopics-topic-north-america" = "Noord-Amerika";
+"wikimedia-articletopics-topic-oceania" = "Oceanië";
+"wikimedia-articletopics-topic-performing-arts" = "Podiumkunsten";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofie en religie";
+"wikimedia-articletopics-topic-physics" = "Natuurkunde";
+"wikimedia-articletopics-topic-politics-and-government" = "Politiek en overheid";
+"wikimedia-articletopics-topic-society" = "Maatschappij";
+"wikimedia-articletopics-topic-south-america" = "Zuid-Amerika";
+"wikimedia-articletopics-topic-sports" = "Sport";
+"wikimedia-articletopics-topic-technology" = "Technologie";
+"wikimedia-articletopics-topic-transportation" = "Vervoer";
+"wikimedia-articletopics-topic-tv-and-film" = "Televisie en film";
+"wikimedia-articletopics-topic-video-games" = "Computerspellen";
+"wikimedia-articletopics-topic-women" = "Biografie (vrouwen)";
 "wikitext-preview-changes" = "Voorvertoning van uw wijzigingen aan het ophalen...";
 "wikitext-preview-link-external-preview-description" = "Deze koppeling leidt naar een externe website: $1";
 "wikitext-preview-link-external-preview-title" = "Uitwendige koppeling";
@@ -1847,121 +1876,3 @@
 "year-in-review-wmf-logo-accessibility-label" = "Logo van de Wikimedia Foundation";
 "yesterday-title" = "Gisteren";
 "zero-edits-to-articles" = "Geen recente bewerkingen van pagina's";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Architectuur";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Kunst";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Strip en anime";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Entertainment";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Mode";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Literatuur";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Muziek";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Podiumkunsten";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Sport";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "Televisie en film";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Computerspellen";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Biografie (alle)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Biografie (vrouwen)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Bedrijven en economie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Onderwijs";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Eten en drinken";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Geschiedenis";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Strijdkrachten en oorlogvoering";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofie en religie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Politiek en overheid";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Maatschappij";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Vervoer";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Biologie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Scheikunde";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Computers en internet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Aarde en milieu";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Techniek";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Algemene wetenschap";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Wiskunde";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Geneeskunde en gezondheid";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Natuurkunde";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Technologie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Afrika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Azië";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Centraal-Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Europa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Noord-Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Oceanië";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Zuid-Amerika";

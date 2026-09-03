@@ -956,8 +956,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private func resumeApp(_ completion: (() -> Void)?) {
         // Assign and apply the home tab experiment before onboarding decisions are made,
         // so that presentOnboardingIfNeeded and loadMainUI both see the correct flag.
-        _ = WMFHomeDataController.shared.persistedHomeTabAssignment()
-        
+        WMFHomeDataController.shared.assignExperiment()
+        WMFHomeDataController.shared.logExperimentExposure()
+
         presentOnboardingIfNeeded { didShowOnboarding in
             self.loadMainUI()
             let done: () -> Void = {
@@ -1201,7 +1202,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         DispatchQueue.main.async {
               self.present(onboardingVC, animated: true) {
-                  TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "impression", actionSource: "feed_announce")
+                  TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "impression", actionSource: "feed_announce", experimentData: WMFHomeDataController.shared.experimentData)
                   WMFHomeDataController.shared.setHasSeenOneTimeOnboarding(true)
               }
         }
@@ -2355,7 +2356,7 @@ extension WMFAppViewController: WMFOnboardingViewDelegate {
     func onboardingViewDidClickPrimaryButton() {
         
         let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").startFunnel(name: "feed_customize")
-        instrument.submitInteraction(action: "click", actionSource: "feed_announce", elementId: "customize_feed")
+        instrument.submitInteraction(action: "click", actionSource: "feed_announce", elementId: "customize_feed", experimentData: WMFHomeDataController.shared.experimentData)
         
         oneTimeOnboardingViewController?.dismiss(animated: true) { [weak self] in
             guard let self else { return }
@@ -2380,7 +2381,7 @@ extension WMFAppViewController: WMFOnboardingViewDelegate {
     }
 
     func onboardingViewDidClickSecondaryButton() {
-        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "feed_announce", elementId: "accept_default")
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "feed_announce", elementId: "accept_default", experimentData: WMFHomeDataController.shared.experimentData)
         
         WMFHomeDataController.shared.setSeeFirstContent(.community)
         if let homeViewModel = homeCoordinator?.homeViewController?.viewModel {
