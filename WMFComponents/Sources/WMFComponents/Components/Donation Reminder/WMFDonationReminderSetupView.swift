@@ -9,7 +9,12 @@ struct WMFDonationReminderSetupView: View {
 
     private let customAmountErrorIdentifier = "custom-amount-error"
 
-    @ScaledMetric private var triggerDetailPopoverWidth: CGFloat = 240
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @ScaledMetric private var scaledTriggerDetailPopoverWidth: CGFloat = 240
+
+    private var triggerDetailPopoverWidth: CGFloat {
+        horizontalSizeClass == .regular ? scaledTriggerDetailPopoverWidth : 240
+    }
 
     var body: some View {
         VStack(spacing: 0) {
