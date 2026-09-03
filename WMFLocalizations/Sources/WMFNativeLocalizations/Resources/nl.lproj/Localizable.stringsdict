@@ -330,6 +330,54 @@
 			<string>%1$d niet bewerkte regels</string>
 		</dict>
 	</dict>
+	<key>donation-reminder-card-body</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Op %1$@ vroeg u ons u eraan te herinneren te doneren na het lezen van %2$#@v2@. Als Wikipedia u %3$@ aan kennis heeft verschaft, sluit u dan aan bij de 2% van de lezers die doneren en voltooi uw donatie vandaag nog.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>één pagina</string>
+			<key>other</key>
+			<string>%2$d pagina's</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-heading</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>U hebt %1$#@v1@ gelezen sinds u %2$@ hebt gedoneerd!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>één pagina</string>
+			<key>other</key>
+			<string>%1$d pagina's</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-subsequent-heading</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>U hebt nog eens %1$#@v1@ gelezen!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>één pagina</string>
+			<key>other</key>
+			<string>%1$d pagina's</string>
+		</dict>
+	</dict>
 	<key>home-feed-interests-selected-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

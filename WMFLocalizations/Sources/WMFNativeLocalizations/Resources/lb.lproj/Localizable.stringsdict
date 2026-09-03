@@ -290,6 +290,22 @@
 			<string>%1$d Zeilen net geännert</string>
 		</dict>
 	</dict>
+	<key>donation-reminder-card-subsequent-heading</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Dir hutt %1$#@v1@ gelies!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d weideren Artikel</string>
+			<key>other</key>
+			<string>%1$d weider Artikele</string>
+		</dict>
+	</dict>
 	<key>home-feed-interests-selected-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
