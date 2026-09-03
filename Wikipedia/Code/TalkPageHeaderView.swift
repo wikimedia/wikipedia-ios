@@ -341,7 +341,7 @@ final class TalkPageHeaderView: UICollectionReusableView {
         }
         
         if let leadImageURL = viewModel.leadImageURL {
-            imageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
+            imageView.wmf_setImage(with: leadImageURL, detectFaces: true, failure: { (error) in
                 DDLogWarn("Failure loading talk page header image: \(error)")
             }, success: {
                 // no-op

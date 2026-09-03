@@ -2,8 +2,6 @@
 #import <WMF/UIImageView+WMFImageFetching.h>
 #import "UIImageView+WMFContentOffset.h"
 #import "UIImage+WMFNormalization.h"
-#import <WMF/CIDetector+WMFFaceDetection.h>
-#import <WMF/WMFFaceDetectionCache.h>
 #import <WMF/WMF-Swift.h>
 
 static const char *const MWKURLAssociationKey = "MWKURL";
@@ -68,15 +66,15 @@ static const char *const MWKTokenToCancelAssociationKey = "MWKTokenToCancel";
     return [[UIImageView faceDetectionCache] faceBoundsForURL:[self imageURLForFaceDetection]];
 }
 
-- (void)wmf_getFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
+- (void)wmf_getFaceBoundsInImage:(UIImage *)image failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
     NSURL *faceDetectionURL = [self imageURLForFaceDetection];
     self.wmf_faceDetectionImageURLToCancel = faceDetectionURL;
-    [[UIImageView faceDetectionCache] detectFaceBoundsInImage:image onGPU:onGPU URL:faceDetectionURL failure:failure success:success];
+    [[UIImageView faceDetectionCache] detectFaceBoundsInImage:image URL:faceDetectionURL failure:failure success:success];
 }
 
 #pragma mark - Set Image
 
-- (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+- (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     NSAssert([NSThread isMainThread], @"Interaction with a UIImageView should only happen on the main thread");
 
     NSURL *imageURL = [self wmf_imageURLToFetch];
@@ -89,7 +87,7 @@ static const char *const MWKTokenToCancelAssociationKey = "MWKTokenToCancel";
     if (memoryCachedImage) {
         self.wmf_imageURLToCancel = nil;
         self.wmf_imageTokenToCancel = nil;
-        [self wmf_setImage:memoryCachedImage.staticImage animatedImage:memoryCachedImage.animatedImage detectFaces:detectFaces onGPU:onGPU animated:NO failure:failure success:success];
+        [self wmf_setImage:memoryCachedImage.staticImage animatedImage:memoryCachedImage.animatedImage detectFaces:detectFaces animated:NO failure:failure success:success];
         return;
     }
 
@@ -112,7 +110,7 @@ static const char *const MWKTokenToCancelAssociationKey = "MWKTokenToCancel";
                                                                               if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
                                                                                   failure([WMFFetcher cancelledError]);
                                                                               } else {
-                                                                                  [self wmf_setImage:download.image.staticImage animatedImage:download.image.animatedImage detectFaces:detectFaces onGPU:onGPU animated:download.originRawValue != [WMFImageDownload imageOriginMemory] failure:failure success:success];
+                                                                                  [self wmf_setImage:download.image.staticImage animatedImage:download.image.animatedImage detectFaces:detectFaces animated:download.originRawValue != [WMFImageDownload imageOriginMemory] failure:failure success:success];
                                                                               }
                                                                           });
                                                                       }];
@@ -121,7 +119,6 @@ static const char *const MWKTokenToCancelAssociationKey = "MWKTokenToCancel";
 - (void)wmf_setImage:(UIImage *)image
        animatedImage:(nullable FLAnimatedImage *)animatedImage
          detectFaces:(BOOL)detectFaces
-               onGPU:(BOOL)onGPU
             animated:(BOOL)animated
              failure:(WMFErrorHandler)failure
              success:(WMFSuccessHandler)success {
@@ -139,7 +136,6 @@ static const char *const MWKTokenToCancelAssociationKey = "MWKTokenToCancel";
 
     NSURL *imageURL = [self wmf_imageURLToFetch];
     [self wmf_getFaceBoundsInImage:image
-                             onGPU:onGPU
                            failure:^(NSError * _Nonnull error) {
                                dispatch_async(dispatch_get_main_queue(), ^{
                                    if (failure) {
