@@ -932,7 +932,7 @@
  
     By doing this in -awakeFromFetch, the propagation does not happen until the values for the instance is faulted in. It also ensures that propagation happens once per fetch. Note that values set when an object is initilized or a property is set are expected to already have the language variant correctly set on itself or subelements.
  
-    The serialized objects are expected to be of type NSURL, WMFMTLModel subclasses, or collections of those types.
+    The serialized objects are expected to be of type NSURL, the feed bridge classes, or collections of those types.
  */
 
 @implementation WMFContentGroup (LanguageVariantPropagation)

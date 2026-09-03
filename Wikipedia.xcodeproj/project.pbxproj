@@ -37,41 +37,6 @@
 		0042806D25E6E395004945B3 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042804125E6E395004945B3 /* FLAnimatedImageView.m */; };
 		0042806E25E6E395004945B3 /* FLAnimatedImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042804225E6E395004945B3 /* FLAnimatedImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0042806F25E6E395004945B3 /* FLAnimatedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042804325E6E395004945B3 /* FLAnimatedImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0042807125E6E395004945B3 /* NSValueTransformer+MTLPredefinedTransformerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042804625E6E395004945B3 /* NSValueTransformer+MTLPredefinedTransformerAdditions.m */; };
-		0042807225E6E395004945B3 /* NSError+MTLModelException.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042804725E6E395004945B3 /* NSError+MTLModelException.m */; };
-		0042807325E6E395004945B3 /* NSDictionary+MTLJSONKeyPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042804825E6E395004945B3 /* NSDictionary+MTLJSONKeyPath.h */; };
-		0042807425E6E395004945B3 /* MTLEXTRuntimeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042804B25E6E395004945B3 /* MTLEXTRuntimeExtensions.h */; };
-		0042807525E6E395004945B3 /* MTLEXTScope.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042804C25E6E395004945B3 /* MTLEXTScope.h */; };
-		0042807625E6E395004945B3 /* MTLMetamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042804D25E6E395004945B3 /* MTLMetamacros.h */; };
-		0042807725E6E395004945B3 /* MTLEXTKeyPathCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042804E25E6E395004945B3 /* MTLEXTKeyPathCoding.h */; };
-		0042807825E6E395004945B3 /* MTLEXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042804F25E6E395004945B3 /* MTLEXTScope.m */; };
-		0042807925E6E395004945B3 /* MTLEXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042805025E6E395004945B3 /* MTLEXTRuntimeExtensions.m */; };
-		0042807A25E6E395004945B3 /* MTLJSONAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042805125E6E395004945B3 /* MTLJSONAdapter.m */; };
-		0042807B25E6E395004945B3 /* MTLModel+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042805225E6E395004945B3 /* MTLModel+NSCoding.m */; };
-		0042807C25E6E395004945B3 /* NSObject+MTLComparisonAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042805425E6E395004945B3 /* NSObject+MTLComparisonAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0042807D25E6E395004945B3 /* MTLValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042805525E6E395004945B3 /* MTLValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0042807E25E6E395004945B3 /* MTLTransformerErrorHandling.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042805625E6E395004945B3 /* MTLTransformerErrorHandling.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0042807F25E6E395004945B3 /* NSValueTransformer+MTLInversionAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042805725E6E395004945B3 /* NSValueTransformer+MTLInversionAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0042808025E6E395004945B3 /* NSDictionary+MTLManipulationAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042805825E6E395004945B3 /* NSDictionary+MTLManipulationAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0042808125E6E395004945B3 /* Mantle.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042805925E6E395004945B3 /* Mantle.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0042808225E6E395004945B3 /* NSValueTransformer+MTLPredefinedTransformerAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042805A25E6E395004945B3 /* NSValueTransformer+MTLPredefinedTransformerAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0042808325E6E395004945B3 /* MTLJSONAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042805B25E6E395004945B3 /* MTLJSONAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0042808425E6E395004945B3 /* MTLModel+NSCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042805C25E6E395004945B3 /* MTLModel+NSCoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0042808525E6E395004945B3 /* MTLModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042805D25E6E395004945B3 /* MTLModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0042808625E6E395004945B3 /* NSDictionary+MTLMappingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042805E25E6E395004945B3 /* NSDictionary+MTLMappingAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0042808725E6E395004945B3 /* NSArray+MTLManipulationAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042805F25E6E395004945B3 /* NSArray+MTLManipulationAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0042808825E6E395004945B3 /* NSArray+MTLManipulationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042806025E6E395004945B3 /* NSArray+MTLManipulationAdditions.m */; };
-		0042808925E6E395004945B3 /* MTLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042806125E6E395004945B3 /* MTLModel.m */; };
-		0042808A25E6E395004945B3 /* NSDictionary+MTLMappingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042806225E6E395004945B3 /* NSDictionary+MTLMappingAdditions.m */; };
-		0042808B25E6E395004945B3 /* MTLReflection.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042806325E6E395004945B3 /* MTLReflection.h */; };
-		0042808C25E6E395004945B3 /* NSError+MTLModelException.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042806425E6E395004945B3 /* NSError+MTLModelException.h */; };
-		0042808D25E6E395004945B3 /* MTLValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042806525E6E395004945B3 /* MTLValueTransformer.m */; };
-		0042808E25E6E395004945B3 /* NSObject+MTLComparisonAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042806625E6E395004945B3 /* NSObject+MTLComparisonAdditions.m */; };
-		0042808F25E6E395004945B3 /* NSDictionary+MTLJSONKeyPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042806725E6E395004945B3 /* NSDictionary+MTLJSONKeyPath.m */; };
-		0042809025E6E395004945B3 /* NSValueTransformer+MTLInversionAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042806825E6E395004945B3 /* NSValueTransformer+MTLInversionAdditions.m */; };
-		0042809125E6E395004945B3 /* MTLTransformerErrorHandling.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042806925E6E395004945B3 /* MTLTransformerErrorHandling.m */; };
-		0042809225E6E395004945B3 /* MTLReflection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042806A25E6E395004945B3 /* MTLReflection.m */; };
-		0042809325E6E395004945B3 /* NSDictionary+MTLManipulationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042806B25E6E395004945B3 /* NSDictionary+MTLManipulationAdditions.m */; };
 		0042811525E6E841004945B3 /* NYTPhotoViewer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 004280F825E6E841004945B3 /* NYTPhotoViewer.bundle */; };
 		0042811625E6E841004945B3 /* NYTPhotoViewer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 004280F825E6E841004945B3 /* NYTPhotoViewer.bundle */; };
 		0042811725E6E841004945B3 /* NYTPhotoViewer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 004280F825E6E841004945B3 /* NYTPhotoViewer.bundle */; };
@@ -1398,8 +1363,6 @@
 		8386BDFD2386D754007EE89D /* SinglePageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */; };
 		838790B32858009000067B1D /* TalkPageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838790B22858009000067B1D /* TalkPageFetcher.swift */; };
 		8387CE8824C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8387CE8724C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift */; };
-		8387CE8F24C99C2600439D93 /* WMFMTLModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 8387CE8D24C99C2600439D93 /* WMFMTLModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8387CE9024C99C2600439D93 /* WMFMTLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8387CE8E24C99C2600439D93 /* WMFMTLModel.m */; };
 		838BE32F2F9A8E0E000F6F62 /* URL+WidgetSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838BE32E2F9A8E0E000F6F62 /* URL+WidgetSource.swift */; };
 		83927D7B1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */; };
 		83927D7C1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */; };
@@ -1811,7 +1774,6 @@
 		B0E8054D1C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805091C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m */; };
 		B0E8054E1C0CE0DC0065EBC0 /* UIScrollView+WMFContentOffsetUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8050B1C0CE0DC0065EBC0 /* UIScrollView+WMFContentOffsetUtils.m */; };
 		B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */; };
-		B0E806331C0CE7680065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062A1C0CE7670065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m */; };
 		B0E8065C1C0CE84B0065EBC0 /* WikiTextSectionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */; };
 		B0E8066B1C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806621C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m */; };
 		B0E806951C0CEA7B0065EBC0 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806931C0CEA7B0065EBC0 /* AboutViewController.m */; };
@@ -2225,7 +2187,6 @@
 		D8CE25901E698E2400DAE2E0 /* TableOfContentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E803721C0CD9C10065EBC0 /* TableOfContentsCell.swift */; };
 		D8CE25931E698E2400DAE2E0 /* WMFSettingsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */; };
 		D8CE25951E698E2400DAE2E0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805091C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m */; };
-		D8CE25961E698E2400DAE2E0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062A1C0CE7670065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m */; };
 		D8CE259C1E698E2400DAE2E0 /* TableOfContentsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84692DE1D5E1E3F000A7058 /* TableOfContentsHeader.swift */; };
 		D8CE259F1E698E2400DAE2E0 /* UIViewController+WMFScrollToTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE489021D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift */; };
 		D8CE25A51E698E2400DAE2E0 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */; };
@@ -2416,7 +2377,6 @@
 		D8EC3E8C1E9BDA35006712EB /* TableOfContentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E803721C0CD9C10065EBC0 /* TableOfContentsCell.swift */; };
 		D8EC3E8E1E9BDA35006712EB /* WMFSettingsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */; };
 		D8EC3E901E9BDA35006712EB /* UIScrollView+ScrollSubviewToLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805091C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m */; };
-		D8EC3E911E9BDA35006712EB /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062A1C0CE7670065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m */; };
 		D8EC3E971E9BDA35006712EB /* TableOfContentsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84692DE1D5E1E3F000A7058 /* TableOfContentsHeader.swift */; };
 		D8EC3E9A1E9BDA35006712EB /* UIViewController+WMFScrollToTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE489021D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift */; };
 		D8EC3E9C1E9BDA35006712EB /* WMFAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027FD271E678F5C005644A9 /* WMFAuthButton.swift */; };
@@ -2900,41 +2860,6 @@
 		0042804225E6E395004945B3 /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
 		0042804325E6E395004945B3 /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImageView.h; sourceTree = "<group>"; };
 		0042804425E6E395004945B3 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		0042804625E6E395004945B3 /* NSValueTransformer+MTLPredefinedTransformerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValueTransformer+MTLPredefinedTransformerAdditions.m"; sourceTree = "<group>"; };
-		0042804725E6E395004945B3 /* NSError+MTLModelException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+MTLModelException.m"; sourceTree = "<group>"; };
-		0042804825E6E395004945B3 /* NSDictionary+MTLJSONKeyPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+MTLJSONKeyPath.h"; sourceTree = "<group>"; };
-		0042804B25E6E395004945B3 /* MTLEXTRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLEXTRuntimeExtensions.h; sourceTree = "<group>"; };
-		0042804C25E6E395004945B3 /* MTLEXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLEXTScope.h; sourceTree = "<group>"; };
-		0042804D25E6E395004945B3 /* MTLMetamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLMetamacros.h; sourceTree = "<group>"; };
-		0042804E25E6E395004945B3 /* MTLEXTKeyPathCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLEXTKeyPathCoding.h; sourceTree = "<group>"; };
-		0042804F25E6E395004945B3 /* MTLEXTScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLEXTScope.m; sourceTree = "<group>"; };
-		0042805025E6E395004945B3 /* MTLEXTRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLEXTRuntimeExtensions.m; sourceTree = "<group>"; };
-		0042805125E6E395004945B3 /* MTLJSONAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLJSONAdapter.m; sourceTree = "<group>"; };
-		0042805225E6E395004945B3 /* MTLModel+NSCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MTLModel+NSCoding.m"; sourceTree = "<group>"; };
-		0042805425E6E395004945B3 /* NSObject+MTLComparisonAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MTLComparisonAdditions.h"; sourceTree = "<group>"; };
-		0042805525E6E395004945B3 /* MTLValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLValueTransformer.h; sourceTree = "<group>"; };
-		0042805625E6E395004945B3 /* MTLTransformerErrorHandling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLTransformerErrorHandling.h; sourceTree = "<group>"; };
-		0042805725E6E395004945B3 /* NSValueTransformer+MTLInversionAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValueTransformer+MTLInversionAdditions.h"; sourceTree = "<group>"; };
-		0042805825E6E395004945B3 /* NSDictionary+MTLManipulationAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+MTLManipulationAdditions.h"; sourceTree = "<group>"; };
-		0042805925E6E395004945B3 /* Mantle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mantle.h; sourceTree = "<group>"; };
-		0042805A25E6E395004945B3 /* NSValueTransformer+MTLPredefinedTransformerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValueTransformer+MTLPredefinedTransformerAdditions.h"; sourceTree = "<group>"; };
-		0042805B25E6E395004945B3 /* MTLJSONAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLJSONAdapter.h; sourceTree = "<group>"; };
-		0042805C25E6E395004945B3 /* MTLModel+NSCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MTLModel+NSCoding.h"; sourceTree = "<group>"; };
-		0042805D25E6E395004945B3 /* MTLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLModel.h; sourceTree = "<group>"; };
-		0042805E25E6E395004945B3 /* NSDictionary+MTLMappingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+MTLMappingAdditions.h"; sourceTree = "<group>"; };
-		0042805F25E6E395004945B3 /* NSArray+MTLManipulationAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MTLManipulationAdditions.h"; sourceTree = "<group>"; };
-		0042806025E6E395004945B3 /* NSArray+MTLManipulationAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MTLManipulationAdditions.m"; sourceTree = "<group>"; };
-		0042806125E6E395004945B3 /* MTLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLModel.m; sourceTree = "<group>"; };
-		0042806225E6E395004945B3 /* NSDictionary+MTLMappingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+MTLMappingAdditions.m"; sourceTree = "<group>"; };
-		0042806325E6E395004945B3 /* MTLReflection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLReflection.h; sourceTree = "<group>"; };
-		0042806425E6E395004945B3 /* NSError+MTLModelException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+MTLModelException.h"; sourceTree = "<group>"; };
-		0042806525E6E395004945B3 /* MTLValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLValueTransformer.m; sourceTree = "<group>"; };
-		0042806625E6E395004945B3 /* NSObject+MTLComparisonAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MTLComparisonAdditions.m"; sourceTree = "<group>"; };
-		0042806725E6E395004945B3 /* NSDictionary+MTLJSONKeyPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+MTLJSONKeyPath.m"; sourceTree = "<group>"; };
-		0042806825E6E395004945B3 /* NSValueTransformer+MTLInversionAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValueTransformer+MTLInversionAdditions.m"; sourceTree = "<group>"; };
-		0042806925E6E395004945B3 /* MTLTransformerErrorHandling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLTransformerErrorHandling.m; sourceTree = "<group>"; };
-		0042806A25E6E395004945B3 /* MTLReflection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLReflection.m; sourceTree = "<group>"; };
-		0042806B25E6E395004945B3 /* NSDictionary+MTLManipulationAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+MTLManipulationAdditions.m"; sourceTree = "<group>"; };
 		004280F825E6E841004945B3 /* NYTPhotoViewer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NYTPhotoViewer.bundle; sourceTree = "<group>"; };
 		004280F925E6E841004945B3 /* NYTPhotoDismissalInteractionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYTPhotoDismissalInteractionController.h; sourceTree = "<group>"; };
 		004280FA25E6E841004945B3 /* NYTPhotosOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYTPhotosOverlayView.m; sourceTree = "<group>"; };
@@ -3597,8 +3522,6 @@
 		838790B22858009000067B1D /* TalkPageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageFetcher.swift; sourceTree = "<group>"; };
 		8387CE8624C8C6CF00439D93 /* Wikipedia 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 4.xcdatamodel"; sourceTree = "<group>"; };
 		8387CE8724C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFSecureUnarchiveFromDataTransformer.swift; sourceTree = "<group>"; };
-		8387CE8D24C99C2600439D93 /* WMFMTLModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFMTLModel.h; sourceTree = "<group>"; };
-		8387CE8E24C99C2600439D93 /* WMFMTLModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFMTLModel.m; sourceTree = "<group>"; };
 		838BE32E2F9A8E0E000F6F62 /* URL+WidgetSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+WidgetSource.swift"; sourceTree = "<group>"; };
 		83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisambiguationPagesViewController.swift; sourceTree = "<group>"; };
 		83927D801F705B7B00051890 /* SearchResultsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsListViewController.swift; sourceTree = "<group>"; };
@@ -3894,8 +3817,6 @@
 		B0E805D01C0CE5420065EBC0 /* WMFFaceDetectionCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFFaceDetectionCache.m; path = Wikipedia/Code/WMFFaceDetectionCache.m; sourceTree = SOURCE_ROOT; };
 		B0E805D51C0CE59B0065EBC0 /* UIImageView+WMFImageFetching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+WMFImageFetching.h"; path = "Wikipedia/Code/UIImageView+WMFImageFetching.h"; sourceTree = SOURCE_ROOT; };
 		B0E805D61C0CE59B0065EBC0 /* UIImageView+WMFImageFetching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+WMFImageFetching.m"; path = "Wikipedia/Code/UIImageView+WMFImageFetching.m"; sourceTree = SOURCE_ROOT; };
-		B0E806291C0CE7670065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MTLValueTransformer+WMFNumericValueTransformer.h"; path = "Wikipedia/Code/MTLValueTransformer+WMFNumericValueTransformer.h"; sourceTree = SOURCE_ROOT; };
-		B0E8062A1C0CE7670065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MTLValueTransformer+WMFNumericValueTransformer.m"; path = "Wikipedia/Code/MTLValueTransformer+WMFNumericValueTransformer.m"; sourceTree = SOURCE_ROOT; };
 		B0E806561C0CE84B0065EBC0 /* WikiTextSectionUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WikiTextSectionUploader.h; path = Wikipedia/Code/WikiTextSectionUploader.h; sourceTree = SOURCE_ROOT; };
 		B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WikiTextSectionUploader.m; path = Wikipedia/Code/WikiTextSectionUploader.m; sourceTree = SOURCE_ROOT; };
 		B0E8065F1C0CE9030065EBC0 /* MWKImageInfoFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKImageInfoFetcher.h; path = Wikipedia/Code/MWKImageInfoFetcher.h; sourceTree = SOURCE_ROOT; };
@@ -4528,72 +4449,6 @@
 			path = FLAnimatedImage;
 			sourceTree = "<group>";
 		};
-		0042804525E6E395004945B3 /* Mantle */ = {
-			isa = PBXGroup;
-			children = (
-				0042804625E6E395004945B3 /* NSValueTransformer+MTLPredefinedTransformerAdditions.m */,
-				0042804725E6E395004945B3 /* NSError+MTLModelException.m */,
-				0042804825E6E395004945B3 /* NSDictionary+MTLJSONKeyPath.h */,
-				0042804925E6E395004945B3 /* extobjc */,
-				0042805125E6E395004945B3 /* MTLJSONAdapter.m */,
-				0042805225E6E395004945B3 /* MTLModel+NSCoding.m */,
-				0042805325E6E395004945B3 /* include */,
-				0042806025E6E395004945B3 /* NSArray+MTLManipulationAdditions.m */,
-				0042806125E6E395004945B3 /* MTLModel.m */,
-				0042806225E6E395004945B3 /* NSDictionary+MTLMappingAdditions.m */,
-				0042806325E6E395004945B3 /* MTLReflection.h */,
-				0042806425E6E395004945B3 /* NSError+MTLModelException.h */,
-				0042806525E6E395004945B3 /* MTLValueTransformer.m */,
-				0042806625E6E395004945B3 /* NSObject+MTLComparisonAdditions.m */,
-				0042806725E6E395004945B3 /* NSDictionary+MTLJSONKeyPath.m */,
-				0042806825E6E395004945B3 /* NSValueTransformer+MTLInversionAdditions.m */,
-				0042806925E6E395004945B3 /* MTLTransformerErrorHandling.m */,
-				0042806A25E6E395004945B3 /* MTLReflection.m */,
-				0042806B25E6E395004945B3 /* NSDictionary+MTLManipulationAdditions.m */,
-			);
-			path = Mantle;
-			sourceTree = "<group>";
-		};
-		0042804925E6E395004945B3 /* extobjc */ = {
-			isa = PBXGroup;
-			children = (
-				0042804A25E6E395004945B3 /* include */,
-				0042804F25E6E395004945B3 /* MTLEXTScope.m */,
-				0042805025E6E395004945B3 /* MTLEXTRuntimeExtensions.m */,
-			);
-			path = extobjc;
-			sourceTree = "<group>";
-		};
-		0042804A25E6E395004945B3 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				0042804B25E6E395004945B3 /* MTLEXTRuntimeExtensions.h */,
-				0042804C25E6E395004945B3 /* MTLEXTScope.h */,
-				0042804D25E6E395004945B3 /* MTLMetamacros.h */,
-				0042804E25E6E395004945B3 /* MTLEXTKeyPathCoding.h */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		0042805325E6E395004945B3 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				0042805425E6E395004945B3 /* NSObject+MTLComparisonAdditions.h */,
-				0042805525E6E395004945B3 /* MTLValueTransformer.h */,
-				0042805625E6E395004945B3 /* MTLTransformerErrorHandling.h */,
-				0042805725E6E395004945B3 /* NSValueTransformer+MTLInversionAdditions.h */,
-				0042805825E6E395004945B3 /* NSDictionary+MTLManipulationAdditions.h */,
-				0042805925E6E395004945B3 /* Mantle.h */,
-				0042805A25E6E395004945B3 /* NSValueTransformer+MTLPredefinedTransformerAdditions.h */,
-				0042805B25E6E395004945B3 /* MTLJSONAdapter.h */,
-				0042805C25E6E395004945B3 /* MTLModel+NSCoding.h */,
-				0042805D25E6E395004945B3 /* MTLModel.h */,
-				0042805E25E6E395004945B3 /* NSDictionary+MTLMappingAdditions.h */,
-				0042805F25E6E395004945B3 /* NSArray+MTLManipulationAdditions.h */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
 		004280F725E6E841004945B3 /* NYTPhotoViewer */ = {
 			isa = PBXGroup;
 			children = (
@@ -4989,8 +4844,6 @@
 		0E19B9AC1DA7DBE300239F3A /* Feed Models */ = {
 			isa = PBXGroup;
 			children = (
-				8387CE8D24C99C2600439D93 /* WMFMTLModel.h */,
-				8387CE8E24C99C2600439D93 /* WMFMTLModel.m */,
 				B0B423781F0211A000D3DC4C /* WMFFeedArticlePreview+DescriptionOrSnippet.swift */,
 				D837B5A91F0D0D1600DCB9CD /* WMFFeedOnThisDayEvent+LocalizedDates.swift */,
 			);
@@ -6781,8 +6634,6 @@
 		BC45D56E1C32E97B007C72F3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				B0E806291C0CE7670065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.h */,
-				B0E8062A1C0CE7670065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -7895,7 +7746,6 @@
 			isa = PBXGroup;
 			children = (
 				0042803E25E6E395004945B3 /* FLAnimatedImage */,
-				0042804525E6E395004945B3 /* Mantle */,
 				D8D551411DF1A33D00B90177 /* EXTScope.h */,
 				D8D551421DF1A33D00B90177 /* EXTScope.m */,
 				D8D551431DF1A33D00B90177 /* metamacros.h */,
@@ -8048,19 +7898,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0042807D25E6E395004945B3 /* MTLValueTransformer.h in Headers */,
-				0042808525E6E395004945B3 /* MTLModel.h in Headers */,
-				0042807C25E6E395004945B3 /* NSObject+MTLComparisonAdditions.h in Headers */,
 				0042806F25E6E395004945B3 /* FLAnimatedImageView.h in Headers */,
-				0042807E25E6E395004945B3 /* MTLTransformerErrorHandling.h in Headers */,
-				0042808725E6E395004945B3 /* NSArray+MTLManipulationAdditions.h in Headers */,
-				0042808325E6E395004945B3 /* MTLJSONAdapter.h in Headers */,
-				0042808025E6E395004945B3 /* NSDictionary+MTLManipulationAdditions.h in Headers */,
-				0042808225E6E395004945B3 /* NSValueTransformer+MTLPredefinedTransformerAdditions.h in Headers */,
-				0042808625E6E395004945B3 /* NSDictionary+MTLMappingAdditions.h in Headers */,
-				0042807F25E6E395004945B3 /* NSValueTransformer+MTLInversionAdditions.h in Headers */,
-				0042808425E6E395004945B3 /* MTLModel+NSCoding.h in Headers */,
-				0042808125E6E395004945B3 /* Mantle.h in Headers */,
 				0042806E25E6E395004945B3 /* FLAnimatedImage.h in Headers */,
 				D8FA19011E1BDA5B009675C3 /* UIView+WMFDefaultNib.h in Headers */,
 				D844485E1DDCE4E500425630 /* WMFContentGroup+Extensions.h in Headers */,
@@ -8147,7 +7985,6 @@
 				D8FA18B91E1BD891009675C3 /* NSDate+WMFRelativeDate.h in Headers */,
 				D844D9C31D6CB7D40042D692 /* MWKImageInfo.h in Headers */,
 				D84448281DDB632100425630 /* WMFArticle+CoreDataClass.h in Headers */,
-				8387CE8F24C99C2600439D93 /* WMFMTLModel.h in Headers */,
 				D81930DA1E9F97B200554B19 /* WMFExploreFeedContentController.h in Headers */,
 				D844DA041D6CC4C90042D692 /* MWKLanguageLinkController.h in Headers */,
 				D844D99C1D6CB6170042D692 /* NSString+WMFExtras.h in Headers */,
@@ -8161,13 +7998,6 @@
 				D84B224F1DAFD14D007C44AA /* WMFFaceDetectionCache.h in Headers */,
 				83222DB11F8E554800338BE5 /* WMFContent+CoreDataProperties.h in Headers */,
 				D844D9B71D6CB7940042D692 /* MWKRecentSearchList.h in Headers */,
-				0042807625E6E395004945B3 /* MTLMetamacros.h in Headers */,
-				0042807325E6E395004945B3 /* NSDictionary+MTLJSONKeyPath.h in Headers */,
-				0042808C25E6E395004945B3 /* NSError+MTLModelException.h in Headers */,
-				0042807425E6E395004945B3 /* MTLEXTRuntimeExtensions.h in Headers */,
-				0042807525E6E395004945B3 /* MTLEXTScope.h in Headers */,
-				0042808B25E6E395004945B3 /* MTLReflection.h in Headers */,
-				0042807725E6E395004945B3 /* MTLEXTKeyPathCoding.h in Headers */,
 				D8FA18BD1E1BD891009675C3 /* NSFileManager+WMFExtendedFileAttributes.h in Headers */,
 				D8FA18B01E1BD891009675C3 /* NSBundle+WMFInfoUtils.h in Headers */,
 				83A933462514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.h in Headers */,
@@ -9711,7 +9541,6 @@
 				67A5E657236775C3007749FB /* GlobalUserInfoFetcher.swift in Sources */,
 				83B01F9023DB41BE001185F4 /* ArticleViewController+Sharing.swift in Sources */,
 				B0E8054D1C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
-				B0E806331C0CE7680065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
 				0042812125E6E841004945B3 /* NSBundle+NYTPhotoViewer.m in Sources */,
 				679471DB275F245000621071 /* NotificationsCenterInboxView.swift in Sources */,
 				D84692E01D5E1E3F000A7058 /* TableOfContentsHeader.swift in Sources */,
@@ -9935,9 +9764,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6779D45A2400822B002840CA /* MWKImageInfoFetcher.h in Sources */,
-				0042807125E6E395004945B3 /* NSValueTransformer+MTLPredefinedTransformerAdditions.m in Sources */,
 				8341A345299ACD8C00016535 /* MEPEventProviding.swift in Sources */,
-				0042809325E6E395004945B3 /* NSDictionary+MTLManipulationAdditions.m in Sources */,
 				67A486872BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift in Sources */,
 				D844D9C01D6CB7BA0042D692 /* MWKDataStore.m in Sources */,
 				D844482B1DDB632100425630 /* WMFArticle+CoreDataProperties.m in Sources */,
@@ -9965,7 +9792,6 @@
 				D84C36411F3245CD00895FA1 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D84448591DDCE49D00425630 /* WMFContentGroup+CoreDataClass.m in Sources */,
 				67A6F13A23BFEA0400736539 /* ImageFetcher.swift in Sources */,
-				0042808825E6E395004945B3 /* NSArray+MTLManipulationAdditions.m in Sources */,
 				D8CC94DA217897FB007293E7 /* NSManagedObject+Extensions.swift in Sources */,
 				831937E723E1CE80006A9FF3 /* String+LinkParsing.swift in Sources */,
 				67DA31882720957B0035D40F /* RemoteNotificationsPagingOperation.swift in Sources */,
@@ -9988,7 +9814,6 @@
 				D8FA18F81E1BDA4C009675C3 /* WMFArticlePreviewViewController.swift in Sources */,
 				67E2E4982504E2130070F12D /* TimelineView.swift in Sources */,
 				7A0312F72153C4990095C953 /* RemoteNotificationsModelController.swift in Sources */,
-				0042807A25E6E395004945B3 /* MTLJSONAdapter.m in Sources */,
 				D80A792A1F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.m in Sources */,
 				D8543231218879D000E895B5 /* Configuration.swift in Sources */,
 				D8FA18AC1E1BD874009675C3 /* EXTScope.m in Sources */,
@@ -10000,7 +9825,6 @@
 				D8BD63BF1EA7E28700BBC082 /* SummaryExtensions.swift in Sources */,
 				D84C36391F3241ED00895FA1 /* WMFGradientView.m in Sources */,
 				83ACAA9E24E6D94C003B3035 /* MWKSearchResult+PageNamespace.swift in Sources */,
-				0042809125E6E395004945B3 /* MTLTransformerErrorHandling.m in Sources */,
 				67D6C0202405B3D2005709B1 /* CacheGroup+CoreDataClass.swift in Sources */,
 				7A5357AB215552E7007998DC /* RemoteNotificationsOperation.swift in Sources */,
 				D84C361E1F32404700895FA1 /* NewsCollectionViewCell.swift in Sources */,
@@ -10008,7 +9832,6 @@
 				00A988082829D92B006D800B /* PushNotificationContentIdentifier.swift in Sources */,
 				D844D9F61D6CC0440042D692 /* Cancellable.swift in Sources */,
 				7A3AD05B20ADB1DF00C92E04 /* WMFCurrentUserFetcher.swift in Sources */,
-				0042807825E6E395004945B3 /* MTLEXTScope.m in Sources */,
 				D8635AE8216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift in Sources */,
 				D8181FA52188DC1400FDEC59 /* String+Domains.swift in Sources */,
 				8386BDED2386C269007EE89D /* WikipediaURLTranslations.swift in Sources */,
@@ -10086,7 +9909,6 @@
 				0E728D321DAEE8FF0074EB4B /* WMFContinueReadingContentSource.m in Sources */,
 				D8FA18F91E1BDA4C009675C3 /* UIView+WMFDefaultNib.m in Sources */,
 				D84C361D1F32404700895FA1 /* SideScrollingCollectionViewCell.swift in Sources */,
-				0042809225E6E395004945B3 /* MTLReflection.m in Sources */,
 				67D6C0212405B3D2005709B1 /* CacheGroup+CoreDataProperties.swift in Sources */,
 				535F16D625CE11A300875AAD /* MWKDataStore+LanguageVariantMigration.swift in Sources */,
 				83ACAAA224E6E38A003B3035 /* Wikipedia.swift in Sources */,
@@ -10095,7 +9917,6 @@
 				D844D9C21D6CB7D20042D692 /* MWKImageInfo.m in Sources */,
 				67D6C01D2405A4FB005709B1 /* CacheItem+CoreDataProperties.swift in Sources */,
 				D82CA32F2020E87D005C2D5C /* ReadingListsOperation.swift in Sources */,
-				0042809025E6E395004945B3 /* NSValueTransformer+MTLInversionAdditions.m in Sources */,
 				8359BAC721E4C9C1009B5E6C /* Fetcher.swift in Sources */,
 				D8FA18D31E1BD891009675C3 /* WMFTaskGroup.m in Sources */,
 				D801C93D1EB9404A001FA294 /* WMFLocalization.m in Sources */,
@@ -10151,7 +9972,6 @@
 				6761AEEF2706249300E47BAD /* PushNotificationsCache.swift in Sources */,
 				675A3D6B2A21600100F9B653 /* MediaWikiFetcher.swift in Sources */,
 				D8F36F031EEEBA130087D4DD /* Licenses.swift in Sources */,
-				0042807925E6E395004945B3 /* MTLEXTRuntimeExtensions.m in Sources */,
 				D844D9981D6CB5CD0042D692 /* WikipediaAppUtils.m in Sources */,
 				7A45AB8020AB2A4C006A92F5 /* Dictionary+Equality.swift in Sources */,
 				D84C363C1F32428A00895FA1 /* CircledRankView.swift in Sources */,
@@ -10185,7 +10005,6 @@
 				D84C35F31F323CD100895FA1 /* ArticleFullWidthImageCollectionViewCell.swift in Sources */,
 				83222DB41F8E554800338BE5 /* WMFContent+CoreDataProperties.m in Sources */,
 				006694FE265D9F3A00E23AE4 /* WidgetCache.swift in Sources */,
-				0042808F25E6E395004945B3 /* NSDictionary+MTLJSONKeyPath.m in Sources */,
 				67FF9C6B28076ADA000963D1 /* NSError+Utilities.swift in Sources */,
 				83E9A2121F56FE5E006EB091 /* FakeProgressController.swift in Sources */,
 				00D9B10129C8D34D008A01E0 /* WidgetFeaturedArticle.swift in Sources */,
@@ -10239,7 +10058,6 @@
 				8320332322B906A0004A9EDA /* NavigationState.swift in Sources */,
 				83222DB31F8E554800338BE5 /* WMFContent+CoreDataClass.m in Sources */,
 				7A06020E20EAAF5A00FBB71D /* ExploreFeedPreferencesUpdateCoordinator.swift in Sources */,
-				0042808A25E6E395004945B3 /* NSDictionary+MTLMappingAdditions.m in Sources */,
 				00D9B10529C8E5E0008A01E0 /* WidgetOnThisDayElement.swift in Sources */,
 				D8726D431EBA052900A107D0 /* WMFLocalizationWrapper.swift in Sources */,
 				67F2CD742FABE41B00ABF73A /* ClientErrorFunnel.swift in Sources */,
@@ -10256,7 +10074,6 @@
 				D8FA18F61E1BDA3F009675C3 /* WMFFontWrapper.swift in Sources */,
 				7A3AD05920ADB1BD00C92E04 /* WMFAuthLoginInfoFetcher.swift in Sources */,
 				67BEFFDE28AEDF5200606B38 /* WikimediaProject.swift in Sources */,
-				0042808E25E6E395004945B3 /* NSObject+MTLComparisonAdditions.m in Sources */,
 				6713519D277285B7006C07D9 /* RemoteNotificationsRefreshDeadlineController.swift in Sources */,
 				830177FC1FBF3EF70005681C /* NSManagedObjectContext+WMFUtilities.swift in Sources */,
 				8380754520DE627E000D222C /* WMFContentGroup+Display.swift in Sources */,
@@ -10266,10 +10083,8 @@
 				6773B2042411DCF50022A70E /* ArticleCacheResourceDBWriting.swift in Sources */,
 				D8FA18D11E1BD891009675C3 /* WMFMath.m in Sources */,
 				678F512B23A7EE6600CE5357 /* ArticleFetcher.swift in Sources */,
-				0042808925E6E395004945B3 /* MTLModel.m in Sources */,
 				67A82D202D0239550068B363 /* MWKSavedPageList+Extensions.swift in Sources */,
 				6785FCC92A66D8DB0078FAF2 /* WMFCleanLevel.swift in Sources */,
-				0042807B25E6E395004945B3 /* MTLModel+NSCoding.m in Sources */,
 				D8FA18B41E1BD891009675C3 /* NSCalendar+WMFCommonCalendars.m in Sources */,
 				B085536C2399E368002100F8 /* UIAccessibility+Grouping.swift in Sources */,
 				83DB0A5E23EEDE4400DA5F58 /* LegacyArticle.swift in Sources */,
@@ -10283,7 +10098,6 @@
 				D844D9A71D6CB7280042D692 /* MWKList.m in Sources */,
 				8380753B20DC7D04000D222C /* ColumnarCollectionViewLayoutMetrics.swift in Sources */,
 				D82CA3332020E8D8005C2D5C /* ReadingListsSyncOperation.swift in Sources */,
-				8387CE9024C99C2600439D93 /* WMFMTLModel.m in Sources */,
 				007B5FC526FA40F100180FF8 /* RemoteNotificationType.swift in Sources */,
 				6761AEF52707BE4200E47BAD /* RemoteNotificationsRefreshOperation.swift in Sources */,
 				7AD5D453223874F600C01164 /* RelatedSearchFetcher.swift in Sources */,
@@ -10291,7 +10105,6 @@
 				8386BDF12386D3E1007EE89D /* RequestError.swift in Sources */,
 				67540CA924D221E3008B2894 /* LocationManagerFactory.swift in Sources */,
 				D844D9F31D6CC0220042D692 /* MWKLicense.m in Sources */,
-				0042808D25E6E395004945B3 /* MTLValueTransformer.m in Sources */,
 				D85BD2471F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.m in Sources */,
 				836944DC1F572452007BD6DA /* ThemeableTextField.swift in Sources */,
 				D82972951E4361C60061550A /* WMFKeyValue+CoreDataProperties.m in Sources */,
@@ -10304,7 +10117,6 @@
 				D8FA18AF1E1BD891009675C3 /* NSNumberFormatter+WMFExtras.swift in Sources */,
 				D844DA091D6CC4D40042D692 /* MWKLanguageFilter.m in Sources */,
 				836CB7A229DF45F10058A454 /* UserSession.swift in Sources */,
-				0042807225E6E395004945B3 /* NSError+MTLModelException.m in Sources */,
 				7A03130321542F5C0095C953 /* RemoteNotificationsOperationsController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -10639,7 +10451,6 @@
 				7AB209FA22FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */,
 				6782DBBC2343B861003FA21B /* DiffListViewController.swift in Sources */,
 				8307951F2C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */,
-				D8CE25961E698E2400DAE2E0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
 				7AF6F76722395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
 				67B278F12D47CEF300E2DF8A /* ArticleLinkInteractionFunnel.swift in Sources */,
 				83C06895292EEF4A00DF1403 /* TalkPageTopicComposeViewController+TalkPageFormattingToolbar.swift in Sources */,
@@ -11181,7 +10992,6 @@
 				D8EC3E901E9BDA35006712EB /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				00D280F8247EFFFE006BEE23 /* Date+Extensions.swift in Sources */,
 				007CCF1226D5BF1300D5EA7C /* NotificationsCenterPresentationDelegate.swift in Sources */,
-				D8EC3E911E9BDA35006712EB /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
 				7AB209FB22FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */,
 				8319C8B02F3BE2B80027EE24 /* SettingsTabViewController.swift in Sources */,
 				6782DBBD2343B861003FA21B /* DiffListViewController.swift in Sources */,
