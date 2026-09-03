@@ -29,20 +29,18 @@ extension ArticleViewController {
             }
             
             guard let donateURL =  activeCampaignAsset.actions[0].url else {
+                willDisplayCampaignModal = false
+                onNothingShown?()
                 return
             }
-            
+
             var donateSource: DonateCoordinator.Source = .articleCampaignModal(articleURL, activeCampaignAsset.metricsID, donateURL)
-            
+
             // Setup donation reminder experiment if needed
-            if WMFDeveloperSettingsDataController.shared.enableDonationReminder {
-                
-                guard activeCampaignAsset.id == WMFDonationReminderDataController.experimentCampaignID else {
-                    return
-                }
-                
+            if activeCampaignAsset.id == WMFDonationReminderDataController.experimentCampaignID {
+
                 let neededAssignment = WMFDonationReminderDataController.shared.needsExperimentAssignment
-                
+
                 let experimentAssignment = try? WMFDonationReminderDataController.shared.assignExperimentIfNeeded(campaignID: activeCampaignAsset.id, campaignCurrencyCode: activeCampaignAsset.currencyCode)
                 if let experimentAssignment, neededAssignment {
                     DonateFunnel.shared.logDonationReminderGroupAssigned(experimentAssignment, project: wikimediaProject)
@@ -50,14 +48,15 @@ extension ArticleViewController {
                     showDebugExperimentAssignmentToast(experimentAssignment)
                     #endif
                 }
-                
-                if WMFDeveloperSettingsDataController.shared.enableDonationReminder,
-                   activeCampaignAsset.id == WMFDonationReminderDataController.experimentCampaignID {
+
+                if WMFDonationReminderDataController.shared.experimentAssignment != nil {
                     donateSource = .donationReminderCampaignModal(articleURL, activeCampaignAsset.metricsID, donateURL)
                 }
             }
-            
+
             guard let metricsID = DonateCoordinator.metricsID(for: donateSource, languageCode: nil) else {
+                willDisplayCampaignModal = false
+                onNothingShown?()
                 return
             }
 
