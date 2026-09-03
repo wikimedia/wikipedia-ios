@@ -81,7 +81,7 @@ The current lane split is:
 | --- | --- | --- | --- |
 | Fixture UI | `English (Light)` and other localized fixture configurations | `fixture-strict` | Deterministic UI regression coverage |
 | E2E smoke | `English (Light, E2E)` | `e2e` | Small live-network smoke coverage |
-| Full plan | Every configuration in `Test Plans/UITests.xctestplan` | Per configuration | Release-tag confidence across language, theme, and E2E coverage |
+| Full plan | Every configuration in `Test Plans/UITests.xctestplan` | Per configuration | Branch confidence across language, theme, and E2E coverage |
 
 ## Add The Test
 

@@ -29,9 +29,9 @@ The `UITests` test plan selects that target and defines the checked-in configura
 | Workflow | File | Triggers | Scheme | Test plan/configuration | Test selection | Why it exists |
 | --- | --- | --- | --- | --- | --- | --- |
 | Run Unit Tests | `.github/workflows/run_unit_tests.yml` | `pull_request` to `main`, `push` to `main`, manual dispatch | `Wikipedia`, `WMFComponents`, `WMFData` matrix | Scheme defaults | Full scheme tests | PR and main-branch unit test signal for app, components, and data layers |
-| Run UI Tests | `.github/workflows/run_ui_tests.yml` | `push` to `betas/*` tags, manual dispatch from any tag | `WikipediaUITests` | `UITests`, `English (Light)` | Full configuration | Deterministic fixture-backed UI regression signal on every beta and any tag |
-| Run E2E Tests | `.github/workflows/run_e2e_ui_tests.yml` | `pull_request` to `main`, manual dispatch from any tag | `WikipediaUITests` | `UITests`, `English (Light, E2E)` | Identifiers in `WikipediaUITests/E2ESmokeTests.txt` | Small live-network smoke signal for flows where integration matters |
-| Run Full UI Test Plan | `.github/workflows/run_full_ui_test_plan.yml` | Manual dispatch from any tag | `WikipediaUITests` | Every checked-in `UITests.xctestplan` configuration | Full selected configuration per matrix job | Tag confidence across fixture, E2E, language, RTL, and theme configurations |
+| Run UI Tests | `.github/workflows/run_ui_tests.yml` | Nightly cron (02:00 UTC against `main`), manual dispatch from any branch | `WikipediaUITests` | `UITests`, `English (Light)` | Full configuration | Deterministic fixture-backed UI regression signal on a nightly cadence |
+| Run E2E Tests | `.github/workflows/run_e2e_ui_tests.yml` | `pull_request` to `main`, manual dispatch from any branch | `WikipediaUITests` | `UITests`, `English (Light, E2E)` | Identifiers in `WikipediaUITests/E2ESmokeTests.txt` | Small live-network smoke signal for flows where integration matters |
+| Run Full UI Test Plan | `.github/workflows/run_full_ui_test_plan.yml` | Manual dispatch from any branch | `WikipediaUITests` | Every checked-in `UITests.xctestplan` configuration | Full selected configuration per matrix job | Branch confidence across fixture, E2E, language, RTL, and theme configurations |
 
 | Check PR and App Versions | `.github/workflows/check_versions.yml` | PR opened, reopened, labeled, unlabeled, synchronized | None | None | None | Release-label policy gate, not an XCTest lane |
 
@@ -39,8 +39,8 @@ The `UITests` test plan selects that target and defines the checked-in configura
 
 `Run UI Tests` is the fixture-backed UI-test lane. It runs when:
 
-- a `betas/*` tag is pushed — the workflow checks out that tag automatically;
-- an engineer manually dispatches the workflow, supplying any tag name as input.
+- the nightly cron fires at 02:00 UTC — the workflow checks out `main` automatically;
+- an engineer manually dispatches the workflow from any branch.
 
 This workflow runs:
 
@@ -58,7 +58,7 @@ Use this lane for deterministic UI regression coverage that should not depend on
 
 ## Run E2E Tests
 
-`Run E2E Tests` is the live-network smoke lane. It currently runs on PRs targeting `main` and can also be manually dispatched from any tag.
+`Run E2E Tests` is the live-network smoke lane. It currently runs on PRs targeting `main` and can also be manually dispatched from any branch.
 
 This workflow selects:
 
@@ -80,9 +80,9 @@ Use this lane only for a small set of flows where live services are part of the 
 
 ## Run Full UI Test Plan
 
-`Run Full UI Test Plan` is the full-matrix confidence lane. It is manual-only, accepting any tag as input.
+`Run Full UI Test Plan` is the full-matrix confidence lane. It is manual-only, dispatched from any branch.
 
-The workflow reads the selected tag's `Test Plans/UITests.xctestplan`, derives a matrix from the `configurations` array, builds `WikipediaUITests` once with:
+The workflow reads `Test Plans/UITests.xctestplan` from the selected branch, derives a matrix from the `configurations` array, builds `WikipediaUITests` once with:
 
 ```sh
 xcodebuild build-for-testing \
