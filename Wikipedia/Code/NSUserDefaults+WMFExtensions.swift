@@ -16,7 +16,6 @@ let WMFIsAutomaticTableOpeningEnabled = "WMFIsAutomaticTableOpeningEnabled"
 let WMFDidShowThemeCardInFeed = "WMFDidShowThemeCardInFeed"
 let WMFDidShowReadingListCardInFeed = "WMFDidShowReadingListCardInFeed"
 let WMFDidShowEnableReadingListSyncPanelKey = "WMFDidShowEnableReadingListSyncPanelKey"
-let WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey = "WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey"
 let WMFDidShowThankRevisionAuthorEducationPanelKey = "WMFDidShowThankRevisionAuthorEducationPanelKey"
 let WMFDidShowLimitHitForUnsortedArticlesPanel = "WMFDidShowLimitHitForUnsortedArticlesPanel"
 let WMFDidShowSyncDisabledPanel = "WMFDidShowSyncDisabledPanel"
@@ -301,14 +300,6 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
     
     @objc func wmf_didShowEnableReadingListSyncPanel() -> Bool {
         return self.bool(forKey: WMFDidShowEnableReadingListSyncPanelKey)
-    }
-    
-    @objc func wmf_setDidShowLoginToSyncSavedArticlesToReadingListPanel(_ didShow: Bool) {
-        self.set(didShow, forKey: WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey)
-    }
-    
-    @objc func wmf_didShowLoginToSyncSavedArticlesToReadingListPanel() -> Bool {
-        return self.bool(forKey: WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey)
     }
 
     @objc func wmf_setDidShowThankRevisionAuthorEducationPanel(_ didShow: Bool) {

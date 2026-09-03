@@ -819,7 +819,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
                 SettingsFunnel.shared.logSyncEnabledInSettings()
             }
 
-            settingsNav.wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: dismissHandler, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: dismissHandler)
+            settingsNav.wmf_showLoginViewController(category: .setting, theme: theme, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: dismissHandler)
         } else if isPermanent {
             if isOn {
                 dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
@@ -876,7 +876,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
                 self.dataStore.readingListsController.fullSync({})
                 self.showSyncAlert()
             }
-            settingsNav.wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: nil, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: nil)
+
+            settingsNav.wmf_showLoginViewController(category: .setting, theme: theme, loginSuccessCompletion: loginSuccessCompletion)
         } else {
             // Logged in but sync not enabled
             settingsNav.wmf_showEnableReadingListSyncPanel(theme: theme, oncePerLogin: false, didNotPresentPanelCompletion: nil) {
