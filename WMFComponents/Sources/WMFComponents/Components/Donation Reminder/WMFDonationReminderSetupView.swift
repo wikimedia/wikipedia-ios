@@ -9,6 +9,8 @@ struct WMFDonationReminderSetupView: View {
 
     private let customAmountErrorIdentifier = "custom-amount-error"
 
+    @ScaledMetric private var triggerDetailPopoverWidth: CGFloat = 240
+
     var body: some View {
         VStack(spacing: 0) {
             ScrollViewReader { scrollProxy in
@@ -105,7 +107,7 @@ struct WMFDonationReminderSetupView: View {
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
                         .padding()
-                        .frame(maxWidth: 240)
+                        .frame(width: triggerDetailPopoverWidth)
                         .presentationCompactAdaptation(.popover)
                         .presentationBackground(Color(theme.popoverBackground))
                 }
