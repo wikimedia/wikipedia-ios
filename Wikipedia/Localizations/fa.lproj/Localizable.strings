@@ -688,6 +688,7 @@
 "find-replace-header" = "یافتن و جایگزینی";
 "find-replace-header-close-accessibility" = "«یافتن و جایگزینی» را ببند";
 "find-textfield-accessibility" = "یافتن";
+"for-you-error-retry" = "تلاش دوباره";
 "for-you-menu-customize-interests" = "سفارشی‌سازی علایق";
 "for-you-refreshing-accessibility-label" = "بارگذاری محتوای جدید";
 "forgot-password-button-title" = "بازنشانی";
@@ -713,6 +714,7 @@
 "home-community-see-past-content" = "مشاهدهٔ محتوای گذشته جامعه";
 "home-community-tab-title" = "جامعه";
 "home-edit-languages-title" = "افزودن یا ویرایش زبان‌ها";
+"home-empty-go-to-settings-button" = "رفتن به تنظیمات";
 "home-feed-for-you-based-on-interests-subtitle" = "مقالات متناسب با موضوعاتی انتخاب کرده‌اید";
 "home-feed-for-you-based-on-interests-title" = "بر اساس علایق شما";
 "home-feed-for-you-because-you-read-subtitle" = "پیشنهادات بر اساس مقالهٔ اخیر از تاریخچهٔ شما";
@@ -750,6 +752,9 @@
 "home-feed-whats-driving-settings-title" = "چه چیزی محتوای شما را هدایت می‌کند؟";
 "home-feed-whats-driving-your-interests-subtitle" = "موضوعات علایق خود را ویرایش کنید";
 "home-feed-whats-driving-your-interests-title" = "علایق شما";
+"home-for-you-card-position-accessibility-value" = "$1 از $2";
+"home-for-you-next-module-accessibility-action" = "پودمان بعدی";
+"home-for-you-previous-module-accessibility-action" = "پودمان قبلی";
 "home-for-you-tab-title" = "برای شما";
 "home-menu-hide-module" = "نهفتن پودمان";
 "home-more-like-footer" = "موارد بیشتر شبیه $1";
@@ -1045,6 +1050,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 از ویکی‌پدیای $2";
 "on-this-day-title" = "در این روز";
 "one-time-onboarding-customize-button" = "سفارشی‌سازی محتوایتان";
+"one-time-onboarding-feature-name-title" = "یک نام جدید";
 "open-article" = "گشودن مقاله";
 "original-tab-button-popover-description" = "برای بازگشت به زبانه‌ای که از آن شروع کردید، نماد W را لمس کنید";
 "page-history-bot-edits" = "ربات";

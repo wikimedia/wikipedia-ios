@@ -761,7 +761,7 @@
 "on-this-day-language-does-not-support-error" = "Bahasa Wikipedia utama Anda tidak mendukung Pada hari ini. Anda dapat mengganti bahasa Wikipedia utama Anda di menu Pengaturan pada aplikasi.";
 "on-this-day-no-internet-error" = "Tidak ada data yang tersedia";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 dari Wikipedia $2";
-"on-this-day-title" = "Pada hari ini";
+"on-this-day-title" = "Hari ini dalam sejarah";
 "original-tab-button-popover-description" = "Ketuk 'W' untuk kembali ke tab yang Anda mulai dari";
 // Fuzzy
 "page-history-bot-edits" = "suntingan bot";

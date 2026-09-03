@@ -200,6 +200,7 @@
 "article-view-controller-editing-temp-account-created-title" = "Temporäre Kont ugeluecht";
 "back-button-accessibility-label" = "Zeréck";
 "back-button-popover-title" = "Tippe fir zréckzegoen";
+"beta-badge-label" = "Beta";
 "button-go-back" = "Zeréck goen";
 "button-next" = "Weider";
 "button-ok" = "OK";
@@ -312,7 +313,7 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 Zeil net geännert|$1 Zeilen net geännert}}";
 "diff-user-button-accessibility-text" = "Duebel tippe fir de Menü opzemaachen";
 "dim-images" = "Biller dimmen";
-"donate-accessibility-amount-button-hint" = "Duebel tippe fir de Betrag vum Don ze wielen.";
+"donate-accessibility-amount-button-hint" = "Duebel tippen, fir de Betrag vum Don ze wielen.";
 "donate-accessibility-donate-hint-format" = "Duebel tippe fir $1 un d'Wikimedia Foundation ze spenden.";
 "donate-accessibility-email-opt-in-hint" = "Duebel tippe fir der Wikimedia Foundation z'erlaben Iech E-Mailen ze schécken.";
 "donate-email-opt-in-text" = "Jo, d'Wikimedia Foundation däerf mir heiansdo eng E-Mail schécken.";
@@ -331,6 +332,17 @@
 "donate-success-subtitle" = "Är Generositéit bedeit eis vill.";
 "donate-success-title" = "Merci!";
 "donate-title" = "Wielt ee Betrag";
+"donation-reminder-card-not-now" = "Net elo";
+"donation-reminder-card-subsequent-heading" = "Dir hutt {{PLURAL:$1|$1 weideren Artikel|$1 weider Artikele}} gelies!";
+"donation-reminder-payment-different-amount-button-title" = "En Don vun engem anere Betrag mat Apple Pay maachen";
+"donation-reminder-setup-amount-accessibility-hint" = "Duebel tippen, fir de Betrag vum Don ze wielen";
+"donation-reminder-setup-confirm-button-title" = "Erënnerung confirméieren";
+"donation-reminder-setup-title" = "Wéi solle mir Iech erënneren?";
+"donation-reminder-setup-toggle-title" = "Donerënnerungen";
+"donation-reminder-setup-trigger-detail-accessibility-label" = "Méi Informatiounen";
+"donation-reminder-setup-trigger-group-detail-articles" = "D'Artikelzuel ass lokal op Ärem Apparat gespäichert.";
+"donation-reminder-setup-trigger-unit-articles" = "Artikelen";
+"donation-reminder-setup-update-button-title" = "Erënnerung aktualiséieren";
 "edit-link-display-text-title" = "Text weisen";
 "edit-link-link-target-title" = "Linkzil";
 "edit-link-remove-link-title" = "Link ewechhuelen";
@@ -1020,8 +1032,11 @@
 "settings-clear-cache-are-you-sure-title" = "Tëschegespäichert Date läschen?";
 "settings-clear-cache-cancel" = "Ofbriechen";
 "settings-clear-cache-ok" = "Tëschespäicher eidelmaachen";
+"settings-clear-donation-history" = "Donhistorique läschen";
 "settings-community-feed-title" = "Communautéit";
 "settings-donate" = "Spenden";
+"settings-donation-reminders-title" = "Donerënnerungen";
+"settings-donations-header" = "Donen";
 "settings-editing-preferences-source-short" = "Quell";
 "settings-editing-preferences-title" = "Ännerungsastellungen";
 "settings-editing-preferences-visual-short" = "Visuell";
