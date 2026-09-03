@@ -1,0 +1,23 @@
+{
+  "batchcomplete": true,
+  "query": {
+    "pages": [
+      {
+        "pageid": 6678,
+        "ns": 0,
+        "title": "Cat",
+        "revisions": [
+          {
+            "revid": 233192,
+            "parentid": 0,
+            "minor": false,
+            "user": "Conversion script",
+            "timestamp": "2001-10-31T22:03:49Z",
+            "size": 2412,
+            "parsedcomment": "Automated conversion"
+          }
+        ]
+      }
+    ]
+  }
+}
