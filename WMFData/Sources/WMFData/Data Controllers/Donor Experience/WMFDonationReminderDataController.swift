@@ -95,7 +95,7 @@ public final class WMFDonationReminderDataController {
 
     public static let shared = WMFDonationReminderDataController()
 
-    public static let experimentCampaignID = "NL_2026_08"
+    public static let experimentCampaignID = "NL_2026_09"
 
     public static let experimentPresetAmounts: [Decimal] = [1, 3, 5]
 
