@@ -1,6 +1,7 @@
 // Messages for Tulu (ತುಳು)
 // Exported from translatewiki.net
 // Author: BHARATHESHA ALASANDEMAJALU
+// Author: Bharathesha Alasandemajalu
 // Author: ChiK
 // Author: Chidananda Kampa
 // Author: Lokesha kunchadka
@@ -55,6 +56,8 @@
 "confirmed-donation-history-deletion" = "ಸ್ಥಳೀಯ ಇತಿಹಾಸೊನು ದೆತ್ತ್ ಪಾಡ್ದೆರ್";
 "description-published-button-title" = "ಆಂಡ್";
 "donate-history-delete" = "ಸ್ಥಳೀಯ ದಾನ ಇತಿಹಾಸೊನು ಮಾಜಾವೊಡು";
+"donation-reminder-card-body" = "$1 ತಾನಿ, {{PLURAL:$2|$2 ಲೇಕನ|$2 ಲೇಕನೊಲೆನ್}} ಓದಿನ ಬೊಕ್ಕ ದಾನ ಮಲ್ಪೆರೆ ನೆಂಪು ಮಲ್ಪೆರೆ ಈರ್ ಕೇಂಡರ್. ವಿಕಿಪೀಡಿಯ ಈರೆಗ್ $3 ಮೌಲ್ಯೊದ ಜ್ಞಾನೊನು ಕೊರ್ತ್ಂಡ, ದಾನ ಮಲ್ಪುನ 2%% ಓದುಗೆರೆ ಒಟ್ಟುಗು ಸೇರ್ದ್ ಈರೆನ ಸಂಕಲ್ಪೊನು ಇನಿಯೇ ಮಲ್ಪುಲೆ.";
+"donation-reminder-setup-amount-accessibility-hint" = "ದಾನೊ ದರ್ಮೊ ದುಡ್ಡುನ್ ಆಯ್ಕೆ ಮಲ್ಪೆರೆ ರಡ್ಡ್ ಸರ್ತಿ ಒತ್ತುಲೆ";
 // Fuzzy
 "edit-link-title" = "ಕೊಂಡಿ";
 "edit-menu-item" = "ಸಂಪೊಲಿಪುಲೆ";
@@ -159,7 +162,10 @@
 "search-recent-title" = "ಇನ್ಚಿಪ ನಡ್ನವು";
 "search-result-redirected-from" = "$1 ರ್ದ್ ಪಿರ ನಿರ್ದೇಸನೊ";
 "search-title" = "ನಾಡ್ಲೆ";
+"settings-clear-donation-history" = "ದಾನೊದ ಇತಿಯಾಸೊನು ದೆತ್ತ್ ಪಾಡ್ಲೆ";
 "settings-donate" = "ದಾನೊ";
+"settings-donation-reminders-subtitle" = "ಈರ್ ಓದುನ ಪ್ರತಿ $2 ಲೇಕನೊಲೆಗ್ $1 ದಾನ ಮಲ್ಪೆರೆ ವಿಕಿಪೀಡಿಯ ಈರೆಗ್ ನೆಂಪು ಮಲ್ಪುಂಡು";
+"settings-donations-header" = "ದಾನೊ ದರ್ಮೊ";
 "settings-language-bar" = "ನಾಡುನಾ ಬಾಸೆಲೆನ್ ತೋಜಾಲೆ";
 "settings-my-languages" = "ಯೆನ್ನ ಬಾಸೆಳು";
 // Fuzzy
