@@ -25,9 +25,6 @@ public struct WMFSavedAllArticlesView: View {
         .background(Color(uiColor: appEnvironment.theme.paperBackground))
         .onAppear {
             viewModel.loadArticles()
-            if viewModel.state == .data {
-                viewModel.didShowDataStateOnAppearance?()
-            }
         }
     }
     
