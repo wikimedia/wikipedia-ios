@@ -184,6 +184,9 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     internal var articleViewSource: ArticleSource
 
+    /// Held while the evergreen account creation prompt is on screen, since it owns its outcome reporting.
+    var evergreenAccountCreationCoordinator: EvergreenAccountCreationCoordinator?
+
     // Properties related to tracking number of seconds this article is viewed.
     var pageViewObjectID: NSManagedObjectID?
     let previousPageViewObjectID: NSManagedObjectID?
@@ -554,7 +557,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         Task { [weak self] in
             guard let self else { return }
-            guard await gamesDataController.shouldShowGamesAnnouncement(date: todayDateString) else { return }
+            guard await gamesDataController.shouldShowGamesAnnouncement(date: todayDateString) else {
+                // Nothing else wanted the screen, so the lowest priority prompt gets its turn.
+                self.presentEvergreenAccountCreationPromptIfNeeded()
+                return
+            }
             // Safety net: bail if something unexpected appeared (e.g. background login/2FA).
             guard self.presentedViewController == nil else { return }
             self.presentGamesAnnouncementAlert(gamesDataController: gamesDataController)
