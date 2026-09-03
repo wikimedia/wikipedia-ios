@@ -21,6 +21,7 @@ public final class WMFToastPresenter {
     private enum Layout {
         static let horizontalMargin: CGFloat = 16
         static let bottomMargin: CGFloat = 24
+        static let keyboardMargin: CGFloat = 16
         static let iPadMaxWidth: CGFloat = 400
         static let offScreenTranslation: CGFloat = 200
     }
@@ -35,17 +36,12 @@ public final class WMFToastPresenter {
     private var dismissWorkItem: DispatchWorkItem?
     private var dismissAction: ((DismissEvent) -> Void)?
 
-    private var currentKeyboardHeight: CGFloat = 0
-
     // MARK: - Lifecycle
 
     private init() {
         WMFAppEnvironment.publisher
             .sink { [weak self] _ in self?.currentCard?.applyTheme() }
             .store(in: &cancellables)
-
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIWindow.keyboardWillHideNotification, object: nil)
     }
 
     // MARK: - Public API
@@ -150,17 +146,23 @@ public final class WMFToastPresenter {
     private func activateConstraints(for card: UIView, in window: UIWindow) {
         let safeArea = window.safeAreaLayoutGuide
 
-        // Sit above the keyboard when it is up. Otherwise sit above the tab bar or toolbar.
-        // When there is no bar, sit on the bottom of the safe area.
-        let toolbarOffset = currentKeyboardHeight > 0
-            ? currentKeyboardHeight
-            : window.rootViewController?.visibleToolbarHeightAboveSafeArea() ?? 0
+        // Sit above the tab bar or toolbar. When there is no bar, sit on the bottom of the safe area.
+        let toolbarOffset = window.rootViewController?.visibleToolbarHeightAboveSafeArea() ?? 0
         let bottomConstant = toolbarOffset > 0 ? -(Layout.bottomMargin + toolbarOffset) : 0
+        let restingBottom = card.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: bottomConstant)
+        restingBottom.priority = .defaultHigh
+
+        // Stay above the keyboard. The keyboard layout guide follows the keyboard, so the
+        // card moves with it. When the keyboard is hidden, the guide sits on the bottom edge
+        // of the window and this constraint has no effect on the resting position.
+        window.keyboardLayoutGuide.usesBottomSafeArea = false
+        let aboveKeyboard = card.bottomAnchor.constraint(lessThanOrEqualTo: window.keyboardLayoutGuide.topAnchor, constant: -Layout.keyboardMargin)
 
         NSLayoutConstraint.activate([
             card.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: Layout.horizontalMargin),
             card.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -Layout.horizontalMargin),
-            card.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: bottomConstant)
+            restingBottom,
+            aboveKeyboard
         ])
 
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -169,19 +171,6 @@ public final class WMFToastPresenter {
                 card.centerXAnchor.constraint(equalTo: window.centerXAnchor)
             ])
         }
-    }
-
-    // MARK: - Keyboard
-
-    @objc private func keyboardWillChangeFrame(_ notification: Notification) {
-        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
-              let window = keyWindow() else { return }
-
-        currentKeyboardHeight = max(0, window.bounds.height - keyboardFrame.minY)
-    }
-
-    @objc private func keyboardWillHide(_ notification: Notification) {
-        currentKeyboardHeight = 0
     }
 
     // MARK: - Gestures
