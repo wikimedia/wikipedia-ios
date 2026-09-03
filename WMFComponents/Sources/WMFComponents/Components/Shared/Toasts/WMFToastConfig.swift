@@ -6,7 +6,6 @@ public struct WMFToastConfig {
     let icon: UIImage?
     let duration: TimeInterval?
     let buttonTitle: String?
-    let canBeDismissed: Bool
     let tapAction: (() -> Void)?
     let buttonAction: (() -> Void)?
 
@@ -16,7 +15,6 @@ public struct WMFToastConfig {
         icon: UIImage? = nil,
         duration: TimeInterval? = 2,
         buttonTitle: String? = nil,
-        canBeDismissed: Bool = true,
         tapAction: (() -> Void)? = nil,
         buttonAction: (() -> Void)? = nil
     ) {
@@ -25,7 +23,6 @@ public struct WMFToastConfig {
         self.icon = icon
         self.duration = duration
         self.buttonTitle = buttonTitle
-        self.canBeDismissed = canBeDismissed
         self.tapAction = tapAction
         self.buttonAction = buttonAction
     }

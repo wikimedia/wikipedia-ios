@@ -5,7 +5,6 @@ import WMFComponents
 final class WMFToastManager: NSObject {
 
     @objc static let sharedInstance = WMFToastManager()
-    var theme = Theme.standard
 
     // MARK: - Public API
 
@@ -45,14 +44,5 @@ final class WMFToastManager: NSObject {
 
     private func dismissCurrentToast(completion: @escaping () -> Void) {
         WMFToastPresenter.shared.dismissCurrentToast(completion: completion)
-    }
-}
-
-extension WMFToastManager: Themeable {
-
-    nonisolated public func apply(theme: Theme) {
-        Task { @MainActor in
-            self.theme = theme
-        }
     }
 }

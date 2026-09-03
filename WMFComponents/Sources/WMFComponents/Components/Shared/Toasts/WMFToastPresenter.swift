@@ -358,20 +358,3 @@ extension UIViewController {
         return 0
     }
 }
-
-// MARK: - Top View Controller Helpers
-
-extension UIViewController {
-    func topMostViewController() -> UIViewController {
-        if let presented = self.presentedViewController {
-            return presented.topMostViewController()
-        }
-        if let nav = self as? UINavigationController, let top = nav.topViewController {
-            return top.topMostViewController()
-        }
-        if let tab = self as? UITabBarController, let selected = tab.selectedViewController {
-            return selected.topMostViewController()
-        }
-        return self
-    }
-}

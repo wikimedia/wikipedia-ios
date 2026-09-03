@@ -8,7 +8,6 @@ public struct WMFReadingListToastConfig: Sendable {
 
     public let duration: TimeInterval?
     public let buttonTitle: String?
-    public let canBeDismissed: Bool
 
     public let tapAction: (@Sendable () -> Void)?
     public let buttonAction: (@Sendable () -> Void)?
@@ -18,7 +17,6 @@ public struct WMFReadingListToastConfig: Sendable {
         icon: UIImage? = nil,
         duration: TimeInterval? = 13,
         buttonTitle: String? = nil,
-        canBeDismissed: Bool = true,
         tapAction: (@Sendable () -> Void)? = nil,
         buttonAction: (@Sendable () -> Void)? = nil
     ) {
@@ -26,7 +24,6 @@ public struct WMFReadingListToastConfig: Sendable {
         self.icon = icon
         self.duration = duration
         self.buttonTitle = buttonTitle
-        self.canBeDismissed = canBeDismissed
         self.tapAction = tapAction
         self.buttonAction = buttonAction
     }
