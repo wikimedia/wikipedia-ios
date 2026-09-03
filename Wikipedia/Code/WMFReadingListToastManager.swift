@@ -200,20 +200,11 @@ import WMFNativeLocalizations
         presenter.present(nav, animated: true)
     }
 
-    private nonisolated func loadImageOffMain(from url: URL) async -> UIImage? {
-        if url.isFileURL {
-            return await Task(priority: .userInitiated) {
-                guard let data = try? Data(contentsOf: url) else { return nil }
-                return UIImage(data: data)
-            }.value
-        } else {
-            do {
-                let (data, _) = try await URLSession.shared.data(from: url)
-                return UIImage(data: data)
-            } catch {
-                return nil
-            }
-        }
+    /// Loads the thumbnail through the shared image cache. The article view has
+    /// usually loaded the same image, so this call rarely goes to the network.
+    private func loadThumbnail(from url: URL) async -> UIImage? {
+        guard let data = try? await WMFImageDataController.shared.fetchImageData(url: url) else { return nil }
+        return UIImage(data: data)
     }
 }
 
@@ -236,7 +227,7 @@ extension WMFReadingListToastManager: @preconcurrency AddArticlesToReadingListDe
 
             Task { [weak self] in
                 guard let self else { return }
-                let image = await self.loadImageOffMain(from: imageURL)
+                let image = await self.loadThumbnail(from: imageURL)
                 self.showConfirmationToast(readingList: readingList, image: image)
             }
         }
