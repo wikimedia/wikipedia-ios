@@ -61,6 +61,12 @@ import WMFData
         }
     }
 
+    @Published public var useHardcodedPaymentMethods: Bool = WMFDeveloperSettingsDataController.shared.useHardcodedPaymentMethods {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.useHardcodedPaymentMethods = useHardcodedPaymentMethods
+        }
+    }
+
     @Published public var enableDonationReminder: Bool = WMFDeveloperSettingsDataController.shared.enableDonationReminder {
         didSet {
             WMFDeveloperSettingsDataController.shared.enableDonationReminder = enableDonationReminder
