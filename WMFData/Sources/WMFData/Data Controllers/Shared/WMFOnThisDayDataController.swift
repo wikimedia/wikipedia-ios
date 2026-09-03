@@ -142,20 +142,32 @@ public struct WMFOnThisDayEvent: Codable, Sendable {
 /// Summarised Wikipedia article attached to an event.
 public struct WMFOnThisDayPage: Codable, Sendable {
     public let title: String
+    /// The title with spaces instead of underscores.
+    public let normalizedTitle: String?
+    /// The display title. It can contain HTML.
+    public let displayTitle: String?
+    /// The language code of the wiki.
+    public let lang: String?
     /// Short description of the article, if available.
     public let description: String?
     /// Short plain-text extract of the article.
     public let extract: String?
     /// Thumbnail image metadata, if available.
     public let thumbnail: WMFOnThisDayThumbnail?
+    /// The original image behind the thumbnail, if available.
+    public let originalImage: WMFOnThisDayThumbnail?
     /// Canonical and mobile URLs for the article.
     public let contentUrls: WMFOnThisDayContentURLs?
 
     enum CodingKeys: String, CodingKey {
         case title
+        case normalizedTitle = "normalizedtitle"
+        case displayTitle = "displaytitle"
+        case lang
         case description
         case extract
         case thumbnail
+        case originalImage = "originalimage"
         case contentUrls = "content_urls"
     }
 
@@ -166,10 +178,28 @@ public struct WMFOnThisDayPage: Codable, Sendable {
         thumbnail: WMFOnThisDayThumbnail?,
         contentUrls: WMFOnThisDayContentURLs?
     ) {
+        self.init(title: title, normalizedTitle: nil, displayTitle: nil, lang: nil, description: description, extract: extract, thumbnail: thumbnail, originalImage: nil, contentUrls: contentUrls)
+    }
+
+    public init(
+        title: String,
+        normalizedTitle: String?,
+        displayTitle: String?,
+        lang: String?,
+        description: String?,
+        extract: String?,
+        thumbnail: WMFOnThisDayThumbnail?,
+        originalImage: WMFOnThisDayThumbnail?,
+        contentUrls: WMFOnThisDayContentURLs?
+    ) {
         self.title = title
+        self.normalizedTitle = normalizedTitle
+        self.displayTitle = displayTitle
+        self.lang = lang
         self.description = description
         self.extract = extract
         self.thumbnail = thumbnail
+        self.originalImage = originalImage
         self.contentUrls = contentUrls
     }
 }

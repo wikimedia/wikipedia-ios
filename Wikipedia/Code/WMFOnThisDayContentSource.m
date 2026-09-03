@@ -1,13 +1,11 @@
 #import <WMF/WMFOnThisDayContentSource.h>
-#import <WMF/WMFOnThisDayEventsFetcher.h>
 #import <WMF/NSCalendar+WMFCommonCalendars.h>
 #import <WMF/WMFContentGroup+Extensions.h>
 #import <WMF/WMFTaskGroup.h>
 #import <WMF/EXTScope.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
 #import <WMF/WMFArticle+Extensions.h>
-#import <WMF/WMFFeedOnThisDayEvent.h>
-#import <WMF/WMFFeedArticlePreview.h>
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super init];
     if (self) {
         self.siteURL = siteURL;
-        self.fetcher = [[WMFOnThisDayEventsFetcher alloc] initWithSession:session configuration:configuration];
+        self.fetcher = [[WMFOnThisDayEventsFetcher alloc] init];
     }
     return self;
 }

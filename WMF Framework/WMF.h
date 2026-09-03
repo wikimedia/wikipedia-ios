@@ -80,14 +80,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFAnnouncementsContentSource.h>
 #import <WMF/WMFSuggestedEditsContentSource.h>
 
-#import <WMF/WMFFeedContentFetcher.h>
-#import <WMF/WMFFeedDayResponse.h>
-#import <WMF/WMFFeedTopReadResponse.h>
-#import <WMF/WMFFeedArticlePreview.h>
-#import <WMF/WMFFeedImage.h>
-#import <WMF/WMFFeedNewsStory.h>
-#import <WMF/WMFFeedOnThisDayEvent.h>
-#import <WMF/WMFOnThisDayEventsFetcher.h>
 
 #import <WMF/CLLocation+WMFBearing.h>
 #import <WMF/NSString+WMFDistance.h>
@@ -113,7 +105,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFFeedContentDisplaying.h>
 #import <WMF/WMFContentGroup+WMFFeedContentDisplaying.h>
 #import <WMF/WMFLegacyFetcher.h>
-#import <WMF/WMFLegacySerializer.h>
 #import <WMF/MWKImageInfoFetcher.h>
 
 //Deprecated
