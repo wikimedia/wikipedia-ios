@@ -18,6 +18,12 @@ extension ArticleViewController {
             }
 
             messagingController.injectDonationReminderCard(cardHTML: Self.donationReminderCardHTML(configuration: configuration)) { _ in }
+
+            let source = DonateCoordinator.Source.donationReminderArticle(articleURL, pledgeAmount: reminder.amount, currencyCode: reminder.currencyCode)
+            if let project = WikimediaProject(siteURL: self.articleURL),
+               let metricsID = DonateCoordinator.metricsID(for: source, languageCode: articleURL.wmf_languageCode) {
+                DonateFunnel.shared.logDonationReminderMilestoneImpression(project: project, metricsID: metricsID)
+            }
         }
     }
 
@@ -52,6 +58,12 @@ extension ArticleViewController {
 
     private func didTapDonationReminderDonate() {
         guard let reminder = WMFDonationReminderDataController.shared.loadReminder() else { return }
+        let source = DonateCoordinator.Source.donationReminderArticle(articleURL, pledgeAmount: reminder.amount, currencyCode: reminder.currencyCode)
+
+        if let project = WikimediaProject(siteURL: articleURL),
+           let metricsID = DonateCoordinator.metricsID(for: source, languageCode: articleURL.wmf_languageCode) {
+            DonateFunnel.shared.logDonationReminderMilestoneDidTapDonate(project: project, metricsID: metricsID)
+        }
 
         messagingController.fetchDonationReminderDonateButtonRect { [weak self] buttonRect in
             guard let self, let navigationController else { return }
@@ -73,6 +85,11 @@ extension ArticleViewController {
     }
 
     private func didTapDonationReminderNotNow() {
+        
+        guard let project = WikimediaProject(siteURL: articleURL) else { return }
+        
+        DonateFunnel.shared.logDonationReminderMilestoneDidTapNotNow(project: project)
+
         messagingController.removeDonationReminderCard()
 
         guard let reminder = WMFDonationReminderDataController.shared.loadReminder() else { return }
@@ -83,14 +100,16 @@ extension ArticleViewController {
         let modifyButtonTitle = WMFLocalizedString("donation-reminder-card-not-now-toast-modify", value: "Modify", comment: "Title of the toast button that opens the donation reminder settings, shown after the user dismisses the in-article donation reminder card.")
 
         WMFToastManager.sharedInstance.showRichToast(toastTitle, buttonTitle: modifyButtonTitle, dismissPreviousToasts: true, buttonCallBack: { [weak self] in
-            self?.showDonationReminderSettings(currencyCode: reminder.currencyCode)
+            guard let self else { return }
+            DonateFunnel.shared.logDonationReminderMilestoneDidTapNotNowToastSettings(project: project)
+            self.showDonationReminderSettings(currencyCode: reminder.currencyCode, origin: .notNowToast(self.articleURL))
         })
     }
 
-    private func showDonationReminderSettings(currencyCode: String) {
+    private func showDonationReminderSettings(currencyCode: String, origin: WMFDonationReminderSetupViewModel.Origin) {
         guard let navigationController else { return }
 
-        let coordinator = DonationReminderSetupCoordinator(navigationController: navigationController, currencyCode: currencyCode, theme: theme, origin: .settings)
+        let coordinator = DonationReminderSetupCoordinator(navigationController: navigationController, currencyCode: currencyCode, theme: theme, origin: origin)
         donationReminderSetupCoordinator = coordinator
         coordinator.start()
     }

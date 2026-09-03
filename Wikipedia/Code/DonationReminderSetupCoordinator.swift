@@ -10,6 +10,53 @@ final class DonationReminderSetupCoordinator: Coordinator {
     private let currencyCode: String
     private let theme: Theme
     private let origin: WMFDonationReminderSetupViewModel.Origin
+    
+    private lazy var languageCode: String? = {
+        let languageCode: String?
+        switch origin {
+        case .banner(let articleURL),
+                .notNowToast(let articleURL):
+            languageCode = articleURL.wmf_languageCode
+        case .settings:
+            return nil
+        }
+        
+        return languageCode
+    }()
+    
+    private lazy var project: WikimediaProject? = {
+        switch origin {
+        case .banner, .notNowToast:
+            guard let languageCode else {
+                return nil
+            }
+            return WikimediaProject(wmfProject: WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageCode)))
+        case .settings:
+            return nil
+        }
+        
+    }()
+    
+    private var metricsID: String? {
+        
+        switch origin {
+        case .banner, .notNowToast:
+            guard let countryCode = Locale.current.region?.identifier,
+                  let languageCode else {
+                return nil
+            }
+            
+            // donation reminder metrics IDs need appmenu
+            let originalMetricsID = "\(languageCode)\(countryCode)_appmenu_iOS"
+            let resolvedMetricsID = DonateCoordinator.donationReminderMetricsID(originalMetricsID: originalMetricsID)
+            
+            return resolvedMetricsID
+        case .settings:
+            return nil
+        }
+        
+
+    }
 
     init(
         navigationController: UINavigationController,
@@ -33,6 +80,38 @@ final class DonationReminderSetupCoordinator: Coordinator {
         }
         let configuration = WMFDonationReminderSetupViewModel.experimentConfiguration(currencyCode: currencyCode, minimumAmount: minimumAmount, maximumAmount: maximumAmount)
         let viewModel = WMFDonationReminderSetupViewModel(configuration: configuration, origin: origin)
+        
+        viewModel.logSetupFormDidAppear = { [weak self] in
+            guard let self else { return }
+            
+            DonateFunnel.shared.logDonationReminderSetupFormDidAppear(project: project, metricsID: metricsID, origin: self.origin.funnelOrigin)
+        }
+
+        viewModel.logDidTapLearnMore = { [weak self] in
+            guard let self else { return }
+            DonateFunnel.shared.logDonationReminderDidTapLearnMore(project: project)
+        }
+
+        viewModel.logDidTapReportProblem = { [weak self] in
+            guard let self else { return }
+            DonateFunnel.shared.logDonationReminderDidTapReportProblem(project: project)
+        }
+
+        viewModel.logDidTapConfirm = { [weak self] milestoneDefault, readFreq, donateAmount in
+            
+            guard let self else { return }
+            DonateFunnel.shared.logDonationReminderDidTapConfirm(project: project, milestoneDefault: milestoneDefault, readFreq: readFreq, donateAmount: donateAmount, origin: self.origin.funnelOrigin)
+        }
+
+        viewModel.logDidTapNoThanks = { [weak self] in
+            guard let self else { return }
+            DonateFunnel.shared.logDonationReminderDidTapNoThanks(project: project, origin: self.origin.funnelOrigin)
+        }
+
+        viewModel.logDidToggleReminder = { [weak self] isEnabled in
+            guard let self else { return }
+            DonateFunnel.shared.logDonationReminderDidToggle(isEnabled: isEnabled, project: project, origin: self.origin.funnelOrigin)
+        }
 
         viewModel.didConfirmReminder = { [weak self] _ in
             self?.navigationController.popViewController(animated: true)
@@ -88,5 +167,15 @@ final class DonationReminderSetupCoordinator: Coordinator {
             return
         }
         UIApplication.shared.open(mailtoURL)
+    }
+}
+
+private extension WMFDonationReminderSetupViewModel.Origin {
+    var funnelOrigin: DonateFunnel.DonationReminderSetupOrigin {
+        switch self {
+        case .banner: return .banner
+        case .notNowToast: return .notNowToast
+        case .settings: return .settings
+        }
     }
 }

@@ -324,6 +324,21 @@ public final class WMFDonationReminderDataController {
 
         return ExperimentAssignment(bucketValue: bucketValue)
     }
+    
+    // True if underlying store is missing an assignment. False if not.
+    // Used to prevent excessive assignment logging when banners appear
+    public var needsExperimentAssignment: Bool {
+        guard let experimentStore else {
+            return true
+        }
+
+        let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
+        guard let bucketValue = experimentsDataController.bucketForExperiment(.donationReminder) else {
+            return true
+        }
+        
+        return ExperimentAssignment(bucketValue: bucketValue) == nil
+    }
 
     // Overrides assignment at read time only, so the persisted bucket survives
     // turning the developer setting back off.
