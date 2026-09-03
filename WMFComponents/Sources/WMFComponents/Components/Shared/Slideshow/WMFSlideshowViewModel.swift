@@ -33,29 +33,31 @@ public final class WMFSlideshowViewModel: ObservableObject {
 
     public struct Slide: Identifiable {
 
+        public enum Illustration {
+            case image(UIImage)
+            case asset(name: String)
+            case gif(name: String)
+        }
+
         /// The default is unique per instance, so pass a stable value when the slides are rebuilt
         /// while on screen, otherwise the carousel loses its place.
         public let id: String
-
-        public var image: UIImage?
-
-        /// The card's text color is derived from this tint, so one pastel reads in either theme.
-        public var backgroundColor: UIColor?
-
+        public var illustration: Illustration?
+        public var backgroundColor: UIColor
         public var title: String
         public var subtitle: String?
         public var accessibilityIdentifier: String?
 
         public init(
             id: String = UUID().uuidString,
-            image: UIImage? = nil,
-            backgroundColor: UIColor? = nil,
+            illustration: Illustration? = nil,
+            backgroundColor: UIColor,
             title: String,
             subtitle: String? = nil,
             accessibilityIdentifier: String? = nil
         ) {
             self.id = id
-            self.image = image
+            self.illustration = illustration
             self.backgroundColor = backgroundColor
             self.title = title
             self.subtitle = subtitle
