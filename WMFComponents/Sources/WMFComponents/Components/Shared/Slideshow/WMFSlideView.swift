@@ -1,80 +1,88 @@
 import SwiftUI
 
+/// A slideshow card. Deliberately theme independent: the tint and the text keep the same colors in
+/// light, sepia, dark and black, because the artwork they sit with is a single fixed illustration.
 struct WMFSlideView: View {
 
     // MARK: - Properties
 
-    @ObservedObject var appEnvironment = WMFAppEnvironment.current
-
     let slide: WMFSlideshowViewModel.Slide
-    var theme: WMFTheme?
 
     var fillsAvailableHeight: Bool = true
 
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private enum Metrics {
-        static let cornerRadius: CGFloat = 12
+        static let cornerRadius: CGFloat = 16
         static let contentPadding: CGFloat = 16
-        static let textSpacing: CGFloat = 4
-        static let imageBottomSpacing: CGFloat = 16
+        static let textSpacing: CGFloat = 10
+        static let illustrationBottomSpacing: CGFloat = 16
+
+        /// Keeps the artwork close to its designed size on a card that is taller than the design's
+        /// 417pt, rather than letting it grow into whatever space the text leaves.
+        static let illustrationMaxHeight: CGFloat = 240
     }
 
-    private var resolvedTheme: WMFTheme {
-        theme ?? appEnvironment.theme
-    }
-
-    private var backgroundUIColor: UIColor {
-        slide.backgroundColor ?? resolvedTheme.midBackground
-    }
-// TEMP code to be fixed
-    private var cardTheme: WMFTheme {
-        let resolved = backgroundUIColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: resolvedTheme.userInterfaceStyle))
-
-        return resolved.wmfIsLight ? .light : .dark
-    }
-
-    private var showsImage: Bool {
-        slide.image != nil && !dynamicTypeSize.isAccessibilitySize
+    /// The illustration is the card's whole visual identity, so it is the first thing to go when
+    /// scaled-up text needs the room.
+    private var showsIllustration: Bool {
+        slide.illustration != nil && !dynamicTypeSize.isAccessibilitySize
     }
 
     // MARK: - Body
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            if let image = slide.image, showsImage {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(minHeight: 0, maxHeight: fillsAvailableHeight ? .infinity : nil)
+            if let illustration = slide.illustration, showsIllustration {
+                illustrationView(illustration)
+                    // Shrinks to nothing before the text is squeezed, on a short card.
+                    .frame(minHeight: 0, maxHeight: Metrics.illustrationMaxHeight)
                     .frame(maxWidth: .infinity)
-                    .foregroundStyle(Color(uiColor: cardTheme.text))
-                    .padding(.bottom, Metrics.imageBottomSpacing)
+                    .padding(.bottom, Metrics.illustrationBottomSpacing)
                     .accessibilityHidden(true)
             }
 
             text
         }
         .padding(Metrics.contentPadding)
-        .frame(maxWidth: .infinity, maxHeight: fillsAvailableHeight ? .infinity : nil, alignment: .bottom)
+        .frame(maxWidth: .infinity, maxHeight: fillsAvailableHeight ? .infinity : nil, alignment: .top)
         .background(
             RoundedRectangle(cornerRadius: Metrics.cornerRadius, style: .continuous)
-                .fill(Color(uiColor: backgroundUIColor))
+                .fill(Color(uiColor: slide.backgroundColor))
         )
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier(slide.accessibilityIdentifier ?? "")
     }
 
+    @ViewBuilder
+    private func illustrationView(_ illustration: WMFSlideshowViewModel.Slide.Illustration) -> some View {
+        switch illustration {
+        case .image(let image):
+            Image(uiImage: image)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .foregroundStyle(Color(uiColor: WMFColor.gray700))
+        case .asset(let name):
+            if let image = UIImage(named: name, in: .module, with: nil) {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
+        case .gif(let name):
+            WMFGIFImageView(name)
+        }
+    }
+
     private var text: some View {
         VStack(alignment: .leading, spacing: Metrics.textSpacing) {
             Text(slide.title)
-                .font(Font(WMFFont.for(.boldCallout, sized: dynamicTypeSize)))
-                .foregroundStyle(Color(uiColor: cardTheme.text))
+                .font(Font(WMFFont.for(.semiboldTitle3, sized: dynamicTypeSize)))
+                .foregroundStyle(Color(uiColor: WMFColor.gray700))
 
             if let subtitle = slide.subtitle {
                 Text(subtitle)
-                    .font(Font(WMFFont.for(.subheadline, sized: dynamicTypeSize)))
-                    .foregroundStyle(Color(uiColor: cardTheme.secondaryText))
+                    .font(Font(WMFFont.for(.body, sized: dynamicTypeSize)))
+                    .foregroundStyle(Color(uiColor: WMFColor.gray700))
             }
         }
         .multilineTextAlignment(.leading)
@@ -86,26 +94,12 @@ struct WMFSlideView: View {
 #Preview("Slide") {
     WMFSlideView(
         slide: .init(
-            image: WMFSFSymbolIcon.for(symbol: .clock, font: .xxlTitleBold),
-            backgroundColor: WMFColor.beige300,
+            illustration: .gif(name: "clock_2"),
+            backgroundColor: WMFColor.yellow100,
             title: "See your [X] reading days come together in Year in Review",
             subtitle: "Once a year, your reading days come back as a look at where the year took you, ready to share."
         )
     )
-    .frame(width: 320, height: 420)
+    .frame(width: 320, height: 417)
     .padding()
-}
-
-private extension UIColor {
-
-    var wmfIsLight: Bool {
-        var red: CGFloat = 0
-        var green: CGFloat = 0
-        var blue: CGFloat = 0
-        var alpha: CGFloat = 0
-
-        guard getRed(&red, green: &green, blue: &blue, alpha: &alpha) else { return true }
-
-        return (0.299 * red + 0.587 * green + 0.114 * blue) > 0.6
-    }
 }
