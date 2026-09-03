@@ -1,6 +1,6 @@
 #import <WMF/WMFContentGroup+Extensions.h>
 #import <WMF/WMFContent+CoreDataProperties.h>
-#import "WMFAnnouncement.h"
+#import <WMF/WMF-Swift.h>
 @import UIKit;
 #import <WMF/NSURL+WMFLinkParsing.h>
 #import <WMF/NSURLComponents+WMFLinkParsing.h>

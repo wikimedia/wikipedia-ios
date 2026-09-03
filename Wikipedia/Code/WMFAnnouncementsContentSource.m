@@ -1,6 +1,4 @@
 #import "WMFAnnouncementsContentSource.h"
-#import "WMFAnnouncementsFetcher.h"
-#import "WMFAnnouncement.h"
 #import <WMF/WMF-Swift.h>
 
 @interface WMFAnnouncementsContentSource ()
@@ -20,7 +18,7 @@
     if (self) {
         self.siteURL = siteURL;
         self.userDataStore = userDataStore;
-        self.fetcher = [[WMFAnnouncementsFetcher alloc] initWithSession:userDataStore.session configuration:userDataStore.configuration];
+        self.fetcher = [[WMFAnnouncementsFetcher alloc] init];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userWasLoggedIn:)
                                                      name:[WMFAuthenticationManager didLogInNotification]
