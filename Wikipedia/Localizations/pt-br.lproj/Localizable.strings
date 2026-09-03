@@ -282,6 +282,7 @@
 "article-view-controller-editing-temp-account-created-title" = "Conta temporária criada";
 "back-button-accessibility-label" = "Voltar";
 "back-button-popover-title" = "Tocar para voltar atrás";
+"beta-badge-label" = "Beta";
 "button-go-back" = "Voltar";
 "button-next" = "Próximo";
 "button-ok" = "OK";
@@ -454,6 +455,7 @@
 "donate-transaction-fee-opt-in-text" = "Gostaria de acrescentar $1 para cobrir as taxas operacionais para que vocês possam receber 100%% da minha doação.";
 "donate-wikimedia-fine-print-1" = "Não vendemos nem trocamos suas informações com ninguém. Ao doar, você concorda em compartilhar suas informações pessoais com a Fundação Wikimedia, a organização sem fins lucrativos que hospeda a Wikipédia e outros projetos Wikimedia, e seus provedores de serviços, de acordo com nossa [política de doadores(as)]($1). A Fundação Wikimedia e seus provedores de serviços estão localizados nos Estados Unidos e em outros países cujas leis de privacidade podem não ser equivalentes às suas. Para mais informações, leia nossa [política de doadores(as)]($1).";
 "donate-wikimedia-fine-print-2" = "Para doadores recorrentes, pagamentos mensais fixos serão debitados pela Fundação Wikimedia na data mensal de aniversário da primeira doação, até que você nos notifique para interrompê-los. Doações iniciadas nos dias 29, 30 ou 31 do mês serão recorrentes no último dia do mês para meses mais curtos, o mais próximo possível da data original. Em caso de dúvidas, entre em contato com donate@wikimedia.org.";
+"donation-reminder-setup-trigger-unit-articles" = "Artigos";
 "duplicate-tab" = "Duplicar guia";
 "edit-link-display-text-title" = "Mostrar texto";
 "edit-link-link-target-title" = "Destino do link";
@@ -1335,6 +1337,7 @@
 "settings-clear-cache-ok" = "Limpar cache";
 "settings-community-feed-title" = "Comunidade";
 "settings-donate" = "Doar";
+"settings-donations-header" = "Doações";
 "settings-editing-preferences-source-short" = "Fonte";
 "settings-editing-preferences-title" = "Preferências de edição";
 "settings-editing-preferences-visual-short" = "Visual";

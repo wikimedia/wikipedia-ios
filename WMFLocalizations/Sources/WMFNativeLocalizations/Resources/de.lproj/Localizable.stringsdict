@@ -322,6 +322,52 @@
 			<string>Zeilen</string>
 		</dict>
 	</dict>
+	<key>donation-reminder-card-body</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Am %1$@ hast du uns gebeten, dich nach dem Lesen von %2$#@v2@ ans Spenden zu erinnern. Wenn dir Wikipedia Wissen im Wert von %3$@ gebracht hat, schließe dich den 2 %% der Leser an, die spenden, und löse dein Versprechen heute ein.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d Artikel</string>
+			<key>other</key>
+			<string>%2$d Artikeln</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-heading</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du hast %1$#@v1@ gelesen, seit du %2$@ zugesagt hast!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d Artikel</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-subsequent-heading</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du hast %1$#@v1@ gelesen!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d weiteren Artikel</string>
+			<key>other</key>
+			<string>%1$d weitere Artikel</string>
+		</dict>
+	</dict>
 	<key>home-feed-interests-selected-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

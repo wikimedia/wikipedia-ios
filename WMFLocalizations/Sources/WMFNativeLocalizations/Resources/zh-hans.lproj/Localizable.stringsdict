@@ -296,6 +296,62 @@
 			<string>%1$d行未被编辑</string>
 		</dict>
 	</dict>
+	<key>donation-reminder-card-body</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>您捐赠%1$@后，要求我们在您阅读完%2$#@v2@后提醒您捐赠。如果维基百科为您提供了价值%3$@的知识，请加入捐赠者的行列，成为2%的捐赠者，并立即完成您的捐赠承诺。</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d篇条目</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-heading</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>自从您捐赠了%2$@以来，您已经阅读了%1$#@v1@！</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d篇条目</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-subsequent-heading</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>您已阅读其它%1$#@v1@！</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d篇条目</string>
+		</dict>
+	</dict>
+	<key>home-feed-interests-selected-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>已选择%1$d个</string>
+		</dict>
+	</dict>
 	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -470,6 +526,20 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d个条目</string>
+		</dict>
+	</dict>
+	<key>nearby-distance-label-feet</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d英尺</string>
 		</dict>
 	</dict>
 	<key>notifications-center-empty-state-num-filters</key>
@@ -1158,6 +1228,59 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>我们估计这使您跻身全球维基百科读者前**PERCENT**。平均每人每年阅读了%1$#@v1@篇文章。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string></string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-title-v3-format-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>您花费了%1$#@v1@阅读了%2$#@v2@，共计%3$@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d分钟</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d篇条目</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format-v3-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>这些条目包括%1$@、 %2$@和%3$@。每篇已保存的条目都反映了您的兴趣，并有助于在维基百科上构建个性化的知识库。
+
+今年，活跃的应用用户已保存了%4$#@v4@。</string>
+		<key>v4</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%4$lld篇条目</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

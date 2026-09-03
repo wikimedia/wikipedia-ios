@@ -235,10 +235,10 @@
 "app-onboarding-data-privacy-policy-link" = "политике конфиденциальности";
 "app-onboarding-data-privacy-terms-link" = "условиях использования";
 "app-onboarding-data-privacy-title" = "Данные и конфиденциальность";
-"app-onboarding-feed-preference-community-option" = "Контент, связанный с сообществом";
+"app-onboarding-feed-preference-community-option" = "Предложения от сообщества Википедии";
 "app-onboarding-feed-preference-in-the-news" = "В новостях";
 "app-onboarding-feed-preference-personalized-disabled" = "Добавьте свои интересы, чтобы получать персональные рекомендации. Это можно сделать на предыдущих шагах или позже в настройках.";
-"app-onboarding-feed-preference-personalized-option" = "Персонализированный контент";
+"app-onboarding-feed-preference-personalized-option" = "Предложения на основе личных интересов";
 "app-onboarding-feed-preference-picture-of-the-day" = "Изображение дня";
 "app-onboarding-feed-preference-title" = "Что бы вы хотели видеть в первую очередь?";
 "app-onboarding-intro-body" = "Википедия — это свободная онлайн-энциклопедия, содержащая 65 миллионов статей, созданных и поддерживаемых на более чем 300 языках сообществом из волонтёров.";
@@ -251,7 +251,7 @@
 "app-onboarding-loading-title" = "Давайте построим вашу ленту…";
 "app-onboarding-page-indicator" = "Страница $1 из $2";
 "app-onboarding-personalization-body-1" = "Выберите интересные вам темы, и мы персонализируем вашу ленту.";
-"app-onboarding-personalization-body-2" = "Мы собираем минимальный анонимных данных.";
+"app-onboarding-personalization-body-2" = "Мы собираем минимальный объём анонимных данных.";
 "app-onboarding-personalization-title" = "Следуйте за своим любопытством";
 "app-store-keywords" = "Википедия, статья, вики, энциклопедия, инфо, знание, прочитать, информация, чтение, определение";
 "app-store-release-notes" = "Лента в приложении теперь сделана полностью настраиваемой и лёгкой в использовании. Были улучшены сообщения локализации, а также повышена производительность приложения и, традиционно, исправлены некоторые ошибки.";
@@ -306,6 +306,7 @@
 "article-view-controller-editing-temp-account-created-title" = "Временная учётная запись создана";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Нажмите, чтобы вернуться назад";
+"beta-badge-label" = "Бета-версия";
 "button-go-back" = "Назад";
 "button-next" = "Далее";
 "button-ok" = "OK";
@@ -480,6 +481,8 @@
 "donate-transaction-fee-opt-in-text" = "Я по щедроте души добавлю $1 для покрытия комиссии за транзакцию, чтобы вы могли сохранить 100%% моего пожертвования.";
 "donate-wikimedia-fine-print-1" = "Мы не продаём информацию о вас и ни с кем ею не обмениваемся. Делая пожертвование, вы соглашаетесь поделиться своими персональными данными с Фондом Викимедиа — некоммерческой организацией, которая обеспечивает работоспособность Википедии и других проектов Викимедиа, а также с её поставщиками услуг в соответствии с нашей [политикой конфиденциальности доноров]($1). Фонд Викимедиа и его поставщики услуг расположены в США и других странах, законодательство которых может отличаться от принятого в вашей стране. Подробнее об этом см. в нашей [политике конфиденциальности доноров]($1).";
 "donate-wikimedia-fine-print-2" = "Фиксированные ежемесячные платежи будут списываться Фондом Викимедиа с наших постоянных доноров по истечении каждого очередного месяца с даты первого пожертвования до тех пор, пока вы не уведомите нас о прекращении поддержки. Пожертвования, инициированные 29-го, 30-го или 31-го числа месяца, будут списываться в последний день более коротких месяцев, как можно ближе к первоначальной дате. Все вопросы о пожертвованиях можно направлять по адресу donate@wikimedia.org.";
+"donation-reminder-card-not-now" = "Не сейчас";
+"donation-reminder-setup-trigger-unit-articles" = "Статьи";
 "duplicate-tab" = "Дублировать вкладку";
 "edit-link-display-text-title" = "Показать текст";
 "edit-link-link-target-title" = "Адрес ссылки";
@@ -618,9 +621,9 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Дополнительные языки могут быть добавлены в разделе настроек «Мои языки».";
 "explore-feed-preferences-card-hidden-title" = "Карточка скрыта";
 "explore-feed-preferences-continue-reading-description" = "Быстрая ссылка назад к чтению открытой статьи";
-"explore-feed-preferences-customize-community-feed-action-title" = "Настроить ленту «Сообщество»";
-"explore-feed-preferences-customize-explore-feed" = "Настроить ленту";
-"explore-feed-preferences-customize-explore-feed-action-title" = "Настроить ленту";
+"explore-feed-preferences-customize-community-feed-action-title" = "Настройка ленты «Сообщество»";
+"explore-feed-preferences-customize-explore-feed" = "Настройка ленты";
+"explore-feed-preferences-customize-explore-feed-action-title" = "Настройка ленты";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Скрытие карточки приведёт к тому, что она не будет показана в ленте.";
 "explore-feed-preferences-explore-tab" = "Вкладка «Лента»";
 "explore-feed-preferences-featured-article-description" = "Избранная статья дня в Википедии";
@@ -741,10 +744,15 @@
 "find-replace-header" = "Поиск и замена";
 "find-replace-header-close-accessibility" = "Закрыть диалог поиска и замены";
 "find-textfield-accessibility" = "Найти";
+"for-you-empty-subtitle-interests-or-modules" = "Добавьте интересующие вас темы или включите модули, чтобы получать персонализированные рекомендации по статьям.";
+"for-you-empty-title" = "Здесь пока ничего нет";
 "for-you-error-retry" = "Попробовать ещё раз";
+"for-you-error-subtitle" = "Подключитесь к интернету и попробуйте снова.";
 "for-you-error-title" = "Нет подключения к интернету";
-// Fuzzy
-"for-you-header-saved-article" = "Из вашего списка для чтения: $1";
+"for-you-header-because-you-read" = "Потому что вы читали: $1";
+"for-you-header-interest" = "Потому что вам интересно: $1";
+"for-you-header-saved-article" = "Из вашего списка для чтения";
+"for-you-menu-customize-interests" = "Настройка интересов";
 "forgot-password-button-title" = "Сбросить";
 "forgot-password-email-sent" = "Письмо с инструкциями по сбросу пароля было отправлено";
 "forgot-password-instructions" = "Заполните одно из полей ниже, чтобы получить инструкции сброса пароля по электронной почте";
@@ -769,6 +777,8 @@
 "home-button-saved-accessibility-label" = "Википедия, вернуться к Сохранённым";
 "home-community-tab-title" = "Сообщество";
 "home-edit-languages-title" = "Добавить или изменить языки";
+"home-empty-go-to-settings-button" = "К настройкам";
+"home-feed-for-you-based-on-interests-subtitle" = "Статьи на темы, которые вы выбрали.";
 "home-feed-for-you-based-on-interests-title" = "На основе ваших интересов";
 "home-feed-for-you-because-you-read-subtitle" = "Предложения, основанные на недавней статье из вашей истории.";
 "home-feed-for-you-because-you-read-title" = "На основе прочитанного";
@@ -779,6 +789,7 @@
 "home-feed-interests-header-title" = "Что вас интересует?";
 "home-feed-interests-non-mainspace-toast" = "Только статьи из основного пространства имён могут быть добавлены в качестве интересов.";
 "home-feed-interests-search-placeholder" = "Поиск статьи";
+"home-feed-interests-selected-count" = "{{PLURAL:$1|$1 выбрано}}";
 "home-feed-interests-settings-empty-message" = "Ваши интересы отобразятся здесь";
 "home-feed-interests-settings-title" = "Ваши интересы";
 "home-feed-modules-featured-article-subtitle" = "Избранные статьи — это некоторые наиболее качественные статьи Википедии, ежедневно отбираемые редакторами";
@@ -793,8 +804,10 @@
 "home-feed-modules-top-read-subtitle" = "Популярное в Википедии за день";
 "home-feed-modules-top-read-title" = "Самые читаемые";
 "home-feed-settings-community-section-title" = "Сообщество";
+"home-feed-settings-for-you-modules-subtitle" = "Включить или выключить модули раздела «Для вас»";
 "home-feed-settings-for-you-section-title" = "Для вас";
 "home-feed-settings-modules-title" = "Модули";
+"home-feed-settings-title" = "Настройка ленты «Для вас»";
 "home-feed-settings-whats-driving-subtitle" = "Темы и статьи, формирующие ваш контент";
 "home-feed-settings-whats-driving-title" = "Что формирует вашу ленту";
 "home-feed-whats-driving-languages-subtitle" = "Выберите предпочитаемые языки";
@@ -946,6 +959,8 @@
 // Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 мил.";
+"new-explore-feed-preferences-customize-explore-feed" = "Настройка ленты «Сообщество»";
+"new-explore-feed-preferences-customize-explore-feed-footer-text" = "Скрытие карточки определённого типа приведёт к тому, что она не будет отображаться в ленте.";
 "new-password-instructions" = "Вы представились с помощью временного пароля.\nДля завершения входа необходимо задать новый пароль:";
 "new-password-title" = "Установите пароль";
 "new-tab" = "Новая вкладка";
@@ -1089,6 +1104,7 @@
 "on-this-day-no-internet-error" = "Нет доступных данных";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в Википедии: $2 раздел";
 "on-this-day-title" = "В этот день…";
+"one-time-onboarding-customize-button" = "Настройка моей ленты";
 "open-article" = "Открыть статью";
 "original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";
 "page-history-bot-edits" = "бот";
@@ -1169,6 +1185,8 @@
 "problem-with-feature-title" = "Сообщить о проблеме";
 "profile-button-accessibility-hint" = "Переход к просмотру профиля.";
 "profile-button-accessibility-label" = "Профиль";
+"profile-page-donate-subtext" = "Поддержите Википедию пожертвованием, чтобы она оставалась бесплатной и доступной для всех во всем мире.";
+"profile-page-join-subtext" = "Зарегистрируйтесь в Википедии, чтобы отслеживать свой вклад в энциклопедию, сохранять статьи для чтения в автономном режиме и синхронизировать их между устройствами.";
 "profile-page-join-title" = "Войдите / Присоединитесь к Википедии";
 "profile-year-in-review-login-title" = "Войдите в систему, чтобы получить доступ к Обзору года";
 "project-name-mediawiki" = "MediaWiki";
@@ -1321,7 +1339,7 @@
 "settings-explore-games-title" = "Викторины";
 "settings-help-and-feedback" = "Помощь и обратная связь";
 "settings-language-bar" = "Показывать языки при поиске";
-"settings-languages-feed-customization" = "Можно указать языки, на которых будет отображаться информация в вашей Ленте.";
+"settings-languages-feed-customization" = "Можно указать языки, на которых будет отображаться информация в вашей ленте.";
 "settings-legal-sefaty-title" = "Контакты по вопросам права и безопасности";
 "settings-my-languages" = "Мои языки";
 "settings-notifications" = "Пуш-уведомления";
@@ -1334,6 +1352,7 @@
 "settings-primary-language" = "Основной";
 "settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения.";
 "settings-search-footer-text" = "Открывать при запуске приложения вкладку «Поиск» вместо вкладки «Лента»";
+"settings-search-footer-text-home" = "Открывать при запуске приложения вкладку «Поиск» вместо вкладки «Главная»";
 "settings-search-open-app-on-search" = "Открыть приложение на вкладке «Поиск»";
 "settings-storage-and-syncing-disable-sync-alert-no" = "Нет";
 "settings-storage-and-syncing-disable-sync-alert-title" = "Отключить синхронизацию списков для чтения?";
@@ -1516,6 +1535,7 @@
 "watchlist-change-expiry-option-three-months" = "3 месяца";
 "watchlist-change-expiry-subtitle" = "Выберите период времени в списке наблюдения";
 "watchlist-change-expiry-title" = "Срок действия списка наблюдения";
+"watchlist-diff-action-button-title" = "К различиям";
 "watchlist-edit-summary-accessibility" = "Описание изменений";
 "watchlist-empty-view-button-title" = "Искать статьи";
 "watchlist-empty-view-filter-title" = "У вас нет элементов в Списке наблюдения";
