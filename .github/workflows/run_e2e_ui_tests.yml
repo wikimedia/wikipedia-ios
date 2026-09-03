@@ -5,11 +5,6 @@ on:
     branches:
       - 'main'
   workflow_dispatch:
-    inputs:
-      tag:
-        description: "Tag to test against"
-        required: true
-        type: string
 
 permissions:
   actions: read
@@ -34,7 +29,7 @@ jobs:
       - name: Check out selected ref
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && format('refs/tags/{0}', inputs.tag) || github.ref }}
+          ref: ${{ github.ref }}
 
       - name: Ensure UI tests use test-plan appearance and language
         run: scripts/lint-ui-tests.sh

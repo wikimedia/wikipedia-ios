@@ -2,14 +2,9 @@ name: Run UI Tests
 
 on:
   workflow_dispatch:
-    inputs:
-      tag:
-        description: "Tag to test against"
-        required: true
-        type: string
-  push:
-    tags:
-      - 'betas/*'
+  schedule:
+    # Runs at 02:00 UTC every day
+    - cron: '0 2 * * *'
 
 permissions:
   actions: read
@@ -33,7 +28,7 @@ jobs:
       - name: Check out selected ref
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && format('refs/tags/{0}', inputs.tag) || github.ref }}
+          ref: ${{ github.ref }}
 
       - name: Ensure UI tests use test-plan appearance and language
         run: scripts/lint-ui-tests.sh
