@@ -138,10 +138,6 @@ public final class WMFDonationReminderDataController {
     }
 
     public func isReminderSettingsEntryAvailable(currentDate: Date = Date()) -> Bool {
-        guard WMFDeveloperSettingsDataController.shared.enableDonationReminder else {
-            return false
-        }
-
         switch experimentAssignment {
         case .groupB, .groupC:
             break
@@ -164,8 +160,7 @@ public final class WMFDonationReminderDataController {
     }
 
     public func shouldShowFollowUpReminder(currentDate: Date = Date()) async throws -> Bool {
-        guard WMFDeveloperSettingsDataController.shared.enableDonationReminder,
-              let reminder = loadReminder(),
+        guard let reminder = loadReminder(),
               reminder.isEnabled,
               currentDate < Self.reminderEndDate,
               case .articlesRead(count: let articlesReadGoal) = reminder.trigger else {

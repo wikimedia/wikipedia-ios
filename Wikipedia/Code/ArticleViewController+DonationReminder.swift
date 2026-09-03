@@ -30,7 +30,7 @@ extension ArticleViewController {
     func removeDonationReminderCardIfNeeded() {
         isShowingDonateFlowFromDonationReminderCard = false
 
-        if !WMFDeveloperSettingsDataController.shared.enableDonationReminder || WMFDonationReminderDataController.shared.isFollowUpReminderWindowClosed {
+        if WMFDonationReminderDataController.shared.isFollowUpReminderWindowClosed {
             messagingController.removeDonationReminderCard()
         }
     }
