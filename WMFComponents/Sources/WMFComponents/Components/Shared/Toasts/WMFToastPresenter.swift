@@ -194,9 +194,10 @@ public final class WMFToastPresenter {
     private func activateConstraints(for card: UIView, in window: UIWindow) {
         let safeArea = window.safeAreaLayoutGuide
 
-        // Sit above the tab bar or toolbar. When there is no bar, sit on the bottom of the safe area.
+        // Sit above the tab bar with a margin. When there is no tab bar, keep the same
+        // margin from the bottom of the safe area, so the card does not touch the edge.
         let toolbarOffset = window.rootViewController?.visibleToolbarHeightAboveSafeArea() ?? 0
-        let bottomConstant = toolbarOffset > 0 ? -(Layout.bottomMargin + toolbarOffset) : 0
+        let bottomConstant = -(Layout.bottomMargin + toolbarOffset)
         let restingBottom = card.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: bottomConstant)
         restingBottom.priority = .defaultHigh
 
