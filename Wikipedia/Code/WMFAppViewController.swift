@@ -1214,7 +1214,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     private func timeBeforeRefreshingExploreFeed() -> TimeInterval {
         var timeInterval: TimeInterval = 2 * 60 * 60
-        let key = WMFFeedDayResponse.wmfFeedDayResponseMaxAgeKey()
+        let key = WMFFeedDayResponse.maxAgeKey()
         if let value = dataStore.viewContext.wmf_numberValue(forKey: key) {
             timeInterval = value.doubleValue
         }

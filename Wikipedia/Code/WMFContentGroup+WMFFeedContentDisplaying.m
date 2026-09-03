@@ -1,5 +1,4 @@
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
-#import "WMFFeedNewsStory.h"
 #import "WMFContentGroup+Extensions.h"
 #import <WMF/WMF-Swift.h>
 

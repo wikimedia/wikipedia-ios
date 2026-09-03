@@ -24,7 +24,10 @@ public final class WidgetContentFetcher {
     // MARK: - Public - Featured Content
 
     public func fetchFeaturedContent(forDate date: Date, siteURL: URL, languageCode: String, languageVariantCode: String? = nil, completion: @escaping (FeaturedContentResult) -> Void) {
-        var featuredURL = WMFFeedContentFetcher.feedContentURL(forSiteURL: siteURL, on: date, configuration: .current)
+        guard var featuredURL = WMFFeedContentFetcher.feedContentURL(forSiteURL: siteURL, on: date, configuration: .current) else {
+            completion(.failure(.urlFailure))
+            return
+        }
         featuredURL.wmf_languageVariantCode = languageVariantCode
 
         let task = session.dataTask(with: featuredURL) { data, _, error in
