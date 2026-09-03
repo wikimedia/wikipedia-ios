@@ -6,7 +6,7 @@ import WMFData
    
     @objc static let shared = DonateFunnel()
     
-    private enum ActiveInterface: String {
+    fileprivate enum ActiveInterface: String {
         case setting = "setting"
         case articleBanner = "article_banner"
         case article = "article"
@@ -23,6 +23,11 @@ import WMFData
         case searchProfile = "search_profile"
         case activityProfile = "activity_profile"
         case wikiYiR = "wiki_yir"
+        case maybeLaterToast = "maybe_later_toast"
+        case reminderConfig = "reminder_config"
+        case reminderOverflow = "reminder_overflow"
+        case globalSetting = "global_setting"
+        case reminderMilestone = "reminder_milestone"
     }
     
     private enum Action: String {
@@ -70,6 +75,18 @@ import WMFData
         case yirOffClick = "yir_off_click"
         case iconActivateClick = "icon_activate_click"
         case iconDeactivateClick = "icon_deactivate_click"
+        case groupAssigned = "group_assigned"
+        case overflowLearnMoreClick = "overflow_learn_more_click"
+        case overflowProblemClick = "overflow_problem_click"
+        case reminderConfirmClick = "reminder_confirm_click"
+        case noThanksClick = "nothanks_click"
+        case reminderEnable = "reminder_enable"
+        case reminderDisable = "reminder_disable"
+        case donationReminderClick = "donation_reminder_click"
+        case clearDonationHistClick = "clear_donation_hist_click"
+        case notNowClick = "notnow_click"
+        case otherApplePayClick = "other_applepay_click"
+        case otherMethodClick = "other_method_click"
     }
     
     private struct Event: EventInterface {
@@ -549,5 +566,108 @@ import WMFData
     
     func logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: String, slideLoggingID: String) {
         logEvent(activeInterface: .wikiYiR, action: .successToastProfile, actionData: ["campaign_id": metricsID])
+    }
+
+    // MARK: - Donation Reminder
+    
+    enum DonationReminderSetupOrigin {
+        case banner
+        case settings
+        case notNowToast
+        
+        fileprivate var activeInterface: ActiveInterface {
+            switch self {
+            case .banner, .notNowToast:
+                return .reminderConfig
+            case .settings:
+                return .globalSetting
+            }
+        }
+    }
+
+    func logDonationReminderSetupFormDidAppear(project: WikimediaProject?, metricsID: String?, origin: DonationReminderSetupOrigin) {
+        var actionData: [String: String]?
+        if let metricsID {
+            actionData = ["campaign_id": metricsID]
+        }
+        logEvent(activeInterface: origin.activeInterface, action: .impression, actionData: actionData, project: project)
+    }
+
+    func logDonationReminderDidTapLearnMore(project: WikimediaProject?) {
+        logEvent(activeInterface: .reminderOverflow, action: .overflowLearnMoreClick, project: project)
+    }
+
+    func logDonationReminderDidTapReportProblem(project: WikimediaProject?) {
+        logEvent(activeInterface: .reminderOverflow, action: .overflowProblemClick, project: project)
+    }
+
+    func logDonationReminderCampaignModalDidTapDonate(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .articleBanner, action: .donateStartClick, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logDonationReminderMaybeLaterToastImpression(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .maybeLaterToast, action: .impression, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logDonationReminderMilestoneImpression(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .reminderMilestone, action: .impression, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logDonationReminderMilestoneDidTapDonate(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .reminderMilestone, action: .donateStartClick, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logDonationReminderMilestoneDidTapNotNow(project: WikimediaProject) {
+        logEvent(activeInterface: .reminderMilestone, action: .notNowClick, project: project)
+    }
+    
+    func logDonationReminderMilestoneDidTapNotNowToastSettings(project: WikimediaProject) {
+        logEvent(activeInterface: .reminderMilestone, action: .settingClick, project: project)
+    }
+
+    func logDonationReminderMilestoneDidTapApplePay(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .reminderMilestone, action: .applePayClick, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logDonationReminderMilestoneDidTapOtherApplePay(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .reminderMilestone, action: .otherApplePayClick, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logDonationReminderMilestoneDidTapOtherMethod(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .reminderMilestone, action: .otherMethodClick, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logSettingsDidTapDonationReminders() {
+        logEvent(activeInterface: .globalSetting, action: .donationReminderClick)
+    }
+
+    func logSettingsDidTapClearDonationHistory() {
+        logEvent(activeInterface: .globalSetting, action: .clearDonationHistClick)
+    }
+
+    func logDonationReminderDidToggle(isEnabled: Bool, project: WikimediaProject?, origin: DonationReminderSetupOrigin) {
+        logEvent(activeInterface: origin.activeInterface, action: isEnabled ? .reminderEnable : .reminderDisable, project: project)
+    }
+
+    func logDonationReminderDidTapNoThanks(project: WikimediaProject?, origin: DonationReminderSetupOrigin) {
+        logEvent(activeInterface: origin.activeInterface, action: .noThanksClick, project: project)
+    }
+
+    func logDonationReminderDidTapConfirm(project: WikimediaProject?, milestoneDefault: Bool, readFreq: Int, donateAmount: Decimal, origin: DonationReminderSetupOrigin) {
+        logEvent(activeInterface: origin.activeInterface, action: .reminderConfirmClick, actionData: [
+            "milestone_default": milestoneDefault ? "true" : "false",
+            "read_freq": "\(readFreq)",
+            "donate_amount": "\(donateAmount)"
+        ], project: project)
+    }
+
+    func logDonationReminderGroupAssigned(_ assignment: WMFDonationReminderDataController.ExperimentAssignment, project: WikimediaProject) {
+        let group: String
+        switch assignment {
+        case .control: group = "ios_remind_a"
+        case .groupB: group = "ios_remind_b"
+        case .groupC: group = "ios_remind_c"
+        }
+        logEvent(activeInterface: .articleBanner, action: .groupAssigned, actionData: ["group": group], project: project)
     }
 }

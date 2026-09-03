@@ -2,11 +2,6 @@ name: Run Full UI Test Plan
 
 on:
   workflow_dispatch:
-    inputs:
-      release_tag:
-        description: "GitHub release tag to test"
-        required: true
-        type: string
 
 permissions:
   actions: read
@@ -18,7 +13,7 @@ env:
   SIMULATOR_NAME: "iPhone 17"
 
 concurrency:
-  group: "full-ui-test-plan-${{ inputs.release_tag }}"
+  group: "full-ui-test-plan-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
@@ -28,40 +23,11 @@ jobs:
     outputs:
       test-configurations: ${{ steps.test-configurations.outputs.matrix }}
     steps:
-      - name: Verify workflow ref and release tag
-        env:
-          GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ inputs.release_tag }}
-          WORKFLOW_REF: ${{ github.ref }}
-        run: |
-          if [ "$WORKFLOW_REF" != "refs/heads/main" ]; then
-            echo "Full UI test plan runs must use main from the 'Use workflow from' selector."
-            echo "Selected workflow ref: $WORKFLOW_REF"
-            exit 1
-          fi
-
-          if [ -z "$RELEASE_TAG" ]; then
-            echo "Full UI test plan runs must provide a release tag."
-            exit 1
-          fi
-
-          gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null
-          echo "Verified GitHub release tag: $RELEASE_TAG"
-
-      - name: Check out workflow ref
+      - name: Check out selected ref
         uses: actions/checkout@v7
-        with:
-          ref: main
-
-      - name: Check out app tag
-        uses: actions/checkout@v7
-        with:
-          ref: refs/tags/${{ inputs.release_tag }}
-          path: app
 
       - name: Read UITests test-plan configurations
         id: test-configurations
-        working-directory: app
         run: |
           matrix="$(jq -c '{include: [.configurations[] | {
             id: (.name | ascii_downcase | gsub("[^a-z0-9]+"; "-") | gsub("^-+|-+$"; "")),
@@ -82,7 +48,6 @@ jobs:
           simulator-name: ${{ env.SIMULATOR_NAME }}
 
       - name: Build WikipediaUITests
-        working-directory: app
         run: |
           echo "Building WikipediaUITests on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
           xcodebuild build-for-testing \
@@ -98,7 +63,6 @@ jobs:
           fi
 
       - name: Archive WikipediaUITests test products
-        working-directory: app
         run: |
           tar -czf WikipediaUITests.xctestproducts.tar.gz WikipediaUITests.xctestproducts
 
@@ -106,7 +70,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: WikipediaUITests-xctestproducts
-          path: app/WikipediaUITests.xctestproducts.tar.gz
+          path: WikipediaUITests.xctestproducts.tar.gz
           if-no-files-found: error
 
   test-uitests-configuration:
@@ -121,16 +85,8 @@ jobs:
       RESULT_BUNDLE_PATH: WikipediaUITests_${{ matrix.id }}_TestResults
       COVERAGE_JSON_PATH: WikipediaUITests_${{ matrix.id }}_coverage.json
     steps:
-      - name: Check out workflow ref
+      - name: Check out selected ref
         uses: actions/checkout@v7
-        with:
-          ref: main
-
-      - name: Check out app tag
-        uses: actions/checkout@v7
-        with:
-          ref: refs/tags/${{ inputs.release_tag }}
-          path: app
 
       - name: Select Xcode
         run: |
@@ -140,10 +96,8 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: WikipediaUITests-xctestproducts
-          path: app
 
       - name: Unarchive WikipediaUITests test products
-        working-directory: app
         run: |
           tar -xzf WikipediaUITests.xctestproducts.tar.gz
 
@@ -155,7 +109,6 @@ jobs:
           simulator-name: ${{ env.SIMULATOR_NAME }}
 
       - name: Run WikipediaUITests
-        working-directory: app
         run: |
           echo "Running WikipediaUITests ${UI_TEST_CONFIGURATION} on ${SIMULATOR_NAME} iOS ${IOS_VERSION} with Xcode ${XCODE_VERSION}"
           xcodebuild test-without-building \
@@ -173,7 +126,7 @@ jobs:
         if: always()
         uses: ./.github/actions/test-result-summary
         with:
-          result-bundle-path: app/${{ env.RESULT_BUNDLE_PATH }}.xcresult
+          result-bundle-path: ${{ env.RESULT_BUNDLE_PATH }}.xcresult
           title: WikipediaUITests ${{ matrix.configuration }}
 
       - name: Upload full UI test result bundle
@@ -181,7 +134,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: WikipediaUITests-FullTestPlan-${{ matrix.id }}-TestResults
-          path: app/${{ env.RESULT_BUNDLE_PATH }}.xcresult
+          path: ${{ env.RESULT_BUNDLE_PATH }}.xcresult
           if-no-files-found: ignore
 
       - name: Coverage summary
@@ -189,7 +142,7 @@ jobs:
         uses: ./.github/actions/coverage-summary
         with:
           artifact-name: WikipediaUITests-FullTestPlan-${{ matrix.id }}-coverage
-          coverage-json-path: app/${{ env.COVERAGE_JSON_PATH }}
-          result-bundle-path: app/${{ env.RESULT_BUNDLE_PATH }}.xcresult
+          coverage-json-path: ${{ env.COVERAGE_JSON_PATH }}
+          result-bundle-path: ${{ env.RESULT_BUNDLE_PATH }}.xcresult
           scheme: WikipediaUITests
           workflow-file: run_full_ui_test_plan.yml

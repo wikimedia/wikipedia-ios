@@ -27,10 +27,43 @@ extension ArticleViewController {
                 onNothingShown?()
                 return
             }
+            
+            guard let donateURL =  activeCampaignAsset.actions[0].url else {
+                return
+            }
+            
+            var donateSource: DonateCoordinator.Source = .articleCampaignModal(articleURL, activeCampaignAsset.metricsID, donateURL)
+            
+            // Setup donation reminder experiment if needed
+            if WMFDeveloperSettingsDataController.shared.enableDonationReminder {
+                
+                guard activeCampaignAsset.id == WMFDonationReminderDataController.experimentCampaignID else {
+                    return
+                }
+                
+                let neededAssignment = WMFDonationReminderDataController.shared.needsExperimentAssignment
+                
+                let experimentAssignment = try? WMFDonationReminderDataController.shared.assignExperimentIfNeeded(campaignID: activeCampaignAsset.id, campaignCurrencyCode: activeCampaignAsset.currencyCode)
+                if let experimentAssignment, neededAssignment {
+                    DonateFunnel.shared.logDonationReminderGroupAssigned(experimentAssignment, project: wikimediaProject)
+                    #if DEBUG
+                    showDebugExperimentAssignmentToast(experimentAssignment)
+                    #endif
+                }
+                
+                if WMFDeveloperSettingsDataController.shared.enableDonationReminder,
+                   activeCampaignAsset.id == WMFDonationReminderDataController.experimentCampaignID {
+                    donateSource = .donationReminderCampaignModal(articleURL, activeCampaignAsset.metricsID, donateURL)
+                }
+            }
+            
+            guard let metricsID = DonateCoordinator.metricsID(for: donateSource, languageCode: nil) else {
+                return
+            }
 
             if !isOptedIn {
                 if let project {
-                    DonateFunnel.shared.logHiddenBanner(project: project, metricsID: activeCampaignAsset.metricsID)
+                    DonateFunnel.shared.logHiddenBanner(project: project, metricsID: metricsID)
                 }
             }
 
@@ -46,7 +79,7 @@ extension ArticleViewController {
 
             willDisplayCampaignModal = true
 
-            showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, project: wikimediaProject)
+            showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, source: donateSource, project: wikimediaProject)
         }
     }
 
@@ -67,9 +100,13 @@ extension ArticleViewController {
         return false
     }
 
-    private func showNewDonateExperienceCampaignModal(asset: WMFFundraisingCampaignConfig.WMFAsset, project: WikimediaProject) {
+    private func showNewDonateExperienceCampaignModal(asset: WMFFundraisingCampaignConfig.WMFAsset, source: DonateCoordinator.Source, project: WikimediaProject) {
 
-        DonateFunnel.shared.logFundraisingCampaignModalImpression(project: project, metricsID: asset.metricsID)
+        guard let metricsID = DonateCoordinator.metricsID(for: source, languageCode: nil) else {
+            return
+        }
+
+        DonateFunnel.shared.logFundraisingCampaignModalImpression(project: project, metricsID: metricsID)
 
         let dataController = WMFFundraisingCampaignDataController.shared
 
@@ -81,11 +118,14 @@ extension ArticleViewController {
                 return
             }
 
-            DonateFunnel.shared.logFundraisingCampaignModalDidTapDonate(project: project, metricsID: asset.metricsID)
+            if WMFDeveloperSettingsDataController.shared.enableDonationReminder {
+                DonateFunnel.shared.logDonationReminderCampaignModalDidTapDonate(project: project, metricsID: metricsID)
+            } else {
+                DonateFunnel.shared.logFundraisingCampaignModalDidTapDonate(project: project, metricsID: metricsID)
+            }
 
             guard let navigationController = self.navigationController,
-            let globalPoint = button.superview?.convert(button.frame.origin, to: navigationController.view),
-            let donateURL =  asset.actions[0].url else {
+                  let globalPoint = button.superview?.convert(button.frame.origin, to: navigationController.view) else {
                 return
             }
 
@@ -93,7 +133,7 @@ extension ArticleViewController {
 
             let getDonateButtonGlobalRect: () -> CGRect = { globalRect }
 
-            let donateCoordinator = DonateCoordinator(navigationController: navigationController, source: .articleCampaignModal(articleURL, asset.metricsID, donateURL), dataStore: dataStore, theme: theme, navigationStyle: .dismissThenPush, setLoadingBlock: { isLoading in
+            let donateCoordinator = DonateCoordinator(navigationController: navigationController, source: source, dataStore: dataStore, theme: theme, navigationStyle: .dismissThenPush, setLoadingBlock: { isLoading in
                 guard let fundraisingPanelVC = viewController as? FundraisingAnnouncementPanelViewController else {
                     return
                 }
@@ -107,32 +147,23 @@ extension ArticleViewController {
             dataController.markAssetAsPermanentlyHidden(asset: asset)
 
         }, maybeLaterButtonTapHandler: { _, _ in
-            DonateFunnel.shared.logFundraisingCampaignModalDidTapMaybeLater(project: project, metricsID: asset.metricsID)
+            DonateFunnel.shared.logFundraisingCampaignModalDidTapMaybeLater(project: project, metricsID: metricsID)
         }, alreadyDonatedButtonTapHandler: { _, _ in
-            DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, metricsID: asset.metricsID)
+            DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, metricsID: metricsID)
             self.donateAlreadyDonated()
             dataController.markAssetAsPermanentlyHidden(asset: asset)
         }, footerLinkAction: { url in
-            DonateFunnel.shared.logFundraisingCampaignModalDidTapDonorPolicy(project: project, metricsID: asset.metricsID)
+            DonateFunnel.shared.logFundraisingCampaignModalDidTapDonorPolicy(project: project, metricsID: metricsID)
             self.navigate(to: url, useSafari: true)
         }, dismissHandler: { action in
             switch action {
             case .close:
-                DonateFunnel.shared.logFundraisingCampaignModalDidTapClose(project: project, metricsID: asset.metricsID)
+                DonateFunnel.shared.logFundraisingCampaignModalDidTapClose(project: project, metricsID: metricsID)
                 dataController.markAssetAsPermanentlyHidden(asset: asset)
             case .maybeLater:
                 let experimentAssignment: WMFDonationReminderDataController.ExperimentAssignment?
                 if WMFDeveloperSettingsDataController.shared.enableDonationReminder {
-                    experimentAssignment = try? WMFDonationReminderDataController.shared.assignExperimentIfNeeded(
-                        campaignID: asset.id,
-                        campaignCurrencyCode: asset.currencyCode
-                    )
-
-                    #if DEBUG
-                    if let experimentAssignment {
-                        self.showDebugExperimentAssignmentToast(experimentAssignment)
-                    }
-                    #endif
+                    experimentAssignment = WMFDonationReminderDataController.shared.experimentAssignment
                 } else {
                     experimentAssignment = nil
                 }
@@ -144,13 +175,13 @@ extension ArticleViewController {
                         navigationController: navigationController,
                         currencyCode: asset.currencyCode,
                         theme: self.theme,
-                        origin: .banner
+                        origin: .banner(self.articleURL)
                     )
                     self.donationReminderSetupCoordinator = coordinator
                     coordinator.start()
                 } else {
                     dataController.markAssetAsMaybeLater(asset: asset, currentDate: Date())
-                    self.donateDidSetMaybeLater(metricsID: asset.metricsID)
+                    self.donateDidSetMaybeLater(metricsID: metricsID)
                 }
             case .donate, .alreadyDonated, .other:
                 break
@@ -174,7 +205,11 @@ extension ArticleViewController {
             let title = WMFLocalizedString("donate-later-title", value: "We will remind you again tomorrow.", comment: "Title for toast shown when user clicks remind me later on fundraising banner")
 
             if let project {
-                DonateFunnel.shared.logArticleDidSeeReminderToast(project: project, metricsID: metricsID)
+                if WMFDeveloperSettingsDataController.shared.enableDonationReminder {
+                    DonateFunnel.shared.logDonationReminderMaybeLaterToastImpression(project: project, metricsID: metricsID)
+                } else {
+                    DonateFunnel.shared.logArticleDidSeeReminderToast(project: project, metricsID: metricsID)
+                }
             }
 
             WMFToastManager.sharedInstance.showRichToast(title, duration: nil, dismissPreviousToasts: true)

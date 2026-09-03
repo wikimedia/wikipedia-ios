@@ -31,6 +31,12 @@ public final class WMFDonationReminderSetupViewController: WMFCanvasViewControll
         addComponent(hostingViewController, pinToEdges: true)
     }
 
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        viewModel.logSetupFormDidAppear?()
+    }
+
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -61,6 +67,7 @@ public final class WMFDonationReminderSetupViewController: WMFCanvasViewControll
             title: viewModel.localizedStrings.learnMoreButtonTitle,
             image: WMFSFSymbolIcon.for(symbol: .infoCircle)
         ) { [weak self] _ in
+            self?.viewModel.logDidTapLearnMore?()
             self?.viewModel.didTapAboutExperiment?()
         }
 
@@ -68,6 +75,7 @@ public final class WMFDonationReminderSetupViewController: WMFCanvasViewControll
             title: viewModel.localizedStrings.problemWithFeatureButtonTitle,
             image: WMFSFSymbolIcon.for(symbol: .flag)
         ) { [weak self] _ in
+            self?.viewModel.logDidTapReportProblem?()
             self?.viewModel.didTapReportProblem?()
         }
 

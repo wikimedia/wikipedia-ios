@@ -59,6 +59,16 @@ import WMFTestKitchen
         }
     }
     
+    /// Forces the persisted experiment bucket before the shared singleton is initialized.
+    /// Must be called before the first access to `WMFHomeDataController.shared`.
+    /// Used in UITesting
+    public static func forceExperimentAssignment(_ assignment: HomeTabExperimentAssignment) {
+        guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
+        let controller = WMFExperimentsDataController(store: store)
+        let forceValue: WMFExperimentsDataController.BucketValue = assignment == .groupB ? .homeTabGroupB : .homeTabControl
+        _ = try? controller.determineBucketForExperiment(.homeTab, withPercentage: 50, forceValue: forceValue)
+    }
+    
     public nonisolated func assignExperiment() {
         guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
         let controller = WMFExperimentsDataController(store: store)
