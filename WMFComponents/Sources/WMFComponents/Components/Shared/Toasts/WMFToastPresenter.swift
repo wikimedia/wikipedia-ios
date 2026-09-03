@@ -76,6 +76,7 @@ public final class WMFToastPresenter {
             currentCard.configure(with: config)
             self.dismissAction = dismissAction
             scheduleDismiss(after: config.duration, for: currentCard)
+            announce(config)
             return
         }
 
@@ -113,6 +114,7 @@ public final class WMFToastPresenter {
         showAnimator?.startAnimation()
 
         scheduleDismiss(after: config.duration, for: card)
+        announce(config)
     }
 
     /// Closes the current toast with an animation.
@@ -133,6 +135,15 @@ public final class WMFToastPresenter {
             }
         }
         dismiss(card, event: .outsideEvent)
+    }
+
+    // MARK: - Accessibility
+
+    /// Reads the toast text to VoiceOver users. The card is not in the focus order, so
+    /// VoiceOver does not tell the user about it on its own.
+    private func announce(_ config: WMFToastConfig) {
+        let text = [config.title, config.subtitle].compactMap { $0 }.joined(separator: ". ")
+        UIAccessibility.post(notification: .announcement, argument: text)
     }
 
     // MARK: - Animation
