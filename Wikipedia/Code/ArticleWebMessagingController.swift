@@ -256,7 +256,7 @@ class ArticleWebMessagingController: NSObject {
     func removeDonationReminderCard() {
         let js = """
             (function() {
-                var card = document.getElementById('wmf-donation-reminder-card');
+                var card = document.getElementById('wmf-donation-reminder-card-container') || document.getElementById('wmf-donation-reminder-card');
                 if (card) {
                     card.remove();
                 }

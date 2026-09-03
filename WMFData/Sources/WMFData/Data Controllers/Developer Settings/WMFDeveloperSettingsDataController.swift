@@ -134,6 +134,29 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
+    /// Debugging convenience: skips the getPaymentMethods API call and uses a hardcoded
+    /// Apple Pay response, so the native donate form works when the payments API rate limits the device.
+    public var useHardcodedPaymentMethods: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsUseHardcodedPaymentMethods.rawValue)) ?? false }
+        set {
+            let oldValue = useHardcodedPaymentMethods
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsUseHardcodedPaymentMethods.rawValue, value: newValue)
+            if oldValue != newValue {
+                refetchDonateConfigs()
+            }
+        }
+    }
+
+    public var hardcodedPaymentMethodsOverride: WMFPaymentMethods? {
+        guard useHardcodedPaymentMethods,
+              let fileURL = Bundle.module.url(forResource: "donate-hardcoded-payment-methods", withExtension: "json"),
+              let data = try? Data(contentsOf: fileURL) else {
+            return nil
+        }
+
+        return try? JSONDecoder().decode(WMFPaymentMethods.self, from: data)
+    }
+
     private func refetchDonateConfigs() {
         WMFDonateDataController.shared.clearConfigCache()
         WMFFundraisingCampaignDataController.shared.clearConfigCache()

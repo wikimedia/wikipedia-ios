@@ -52,10 +52,8 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
         return true
     }
 
-    /// Presents the prompt only if the reader is eligible right now. Returns whether it presented,
-    /// so a caller sequencing prompts knows whether the screen is taken.
-    @discardableResult
-    func startIfEligible() async -> Bool {
+    /// Presents the prompt only if the reader is eligible right now.
+    func startIfEligible() async {
         let presenter = navigationController.presentedViewController ?? navigationController
 
         guard await dataController.shouldShowPrompt(
@@ -64,17 +62,16 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
             hasPermanentAccount: dataStore.authenticationManager.authStateIsPermanent,
             isAnotherPromptVisible: presenter.presentedViewController != nil
         ) else {
-            return false
+            return
         }
 
         let slideData = await dataController.slideData()
 
         // Eligibility and the slide numbers are both awaited, so re-check that the screen is still
         // free before taking it.
-        guard presenter.presentedViewController == nil else { return false }
+        guard presenter.presentedViewController == nil else { return }
 
         present(slideData: slideData, from: presenter)
-        return true
     }
 
     private func present(slideData: WMFEvergreenAccountCreationDataController.SlideData, from presenter: UIViewController) {

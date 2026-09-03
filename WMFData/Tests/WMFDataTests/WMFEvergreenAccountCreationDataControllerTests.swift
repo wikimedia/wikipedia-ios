@@ -35,10 +35,15 @@ struct WMFEvergreenAccountCreationDataControllerTests {
     /// the second, then the following session.
     private func makeAccountReadyController(userDefaultsStore: WMFKeyValueStore = WMFMockKeyValueStore()) async -> WMFEvergreenAccountCreationDataController {
         let dataController = makeController(userDefaultsStore: userDefaultsStore)
-        await dataController.startSession()
+        await dataController.startSession(date: day(0))
         await dataController.recordAppOpen(date: day(0))
         await dataController.recordAppOpen(date: day(8))
-        await dataController.startSession()
+        await dataController.startSession(date: day(9))
+
+        // Asserted here so that a test expecting the prompt to be suppressed cannot pass on a
+        // reader who was never eligible to begin with.
+        #expect(await dataController.isAccountReady(), "The tests built on this reader are only meaningful once they are account ready.")
+
         return dataController
     }
 

@@ -110,17 +110,22 @@ import Contacts
         var paymentMethods: WMFPaymentMethods?
         
         group.enter()
-        let paymentMethodsRequest = WMFBasicServiceRequest(url: paymentMethodsURL, method: .GET, parameters: paymentMethodParameters, acceptType: .json)
-        service.performDecodableGET(request: paymentMethodsRequest) { (result: Result<WMFPaymentMethods, Error>) in
-            defer {
-                group.leave()
-            }
-            
-            switch result {
-            case .success(let response):
-                paymentMethods = response
-            case .failure(let error):
-                errors.append(error)
+        if let paymentMethodsOverride = WMFDeveloperSettingsDataController.shared.hardcodedPaymentMethodsOverride {
+            paymentMethods = paymentMethodsOverride
+            group.leave()
+        } else {
+            let paymentMethodsRequest = WMFBasicServiceRequest(url: paymentMethodsURL, method: .GET, parameters: paymentMethodParameters, acceptType: .json)
+            service.performDecodableGET(request: paymentMethodsRequest) { (result: Result<WMFPaymentMethods, Error>) in
+                defer {
+                    group.leave()
+                }
+
+                switch result {
+                case .success(let response):
+                    paymentMethods = response
+                case .failure(let error):
+                    errors.append(error)
+                }
             }
         }
         

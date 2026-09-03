@@ -82,7 +82,7 @@ extension ArticleViewController {
         let toastTitle = WMFLocalizedString("donation-reminder-card-not-now-toast-settings", value: "Donation reminders can be modified anytime in Settings.", comment: "Toast shown after the user dismisses the in-article donation reminder card.")
         let modifyButtonTitle = WMFLocalizedString("donation-reminder-card-not-now-toast-modify", value: "Modify", comment: "Title of the toast button that opens the donation reminder settings, shown after the user dismisses the in-article donation reminder card.")
 
-        WMFToastManager.sharedInstance.showRichToast(toastTitle, subtitle: nil, buttonTitle: modifyButtonTitle, image: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill), duration: nil, dismissPreviousToasts: true, buttonCallBack: { [weak self] in
+        WMFToastManager.sharedInstance.showRichToast(toastTitle, buttonTitle: modifyButtonTitle, dismissPreviousToasts: true, buttonCallBack: { [weak self] in
             self?.showDonationReminderSettings(currencyCode: reminder.currencyCode)
         })
     }
@@ -97,12 +97,14 @@ extension ArticleViewController {
 
     private static func donationReminderCardHTML(configuration: DonationReminderCardConfiguration) -> String {
         return """
-            <div id='wmf-donation-reminder-card'>
-                <p class='wmf-donation-reminder-card-heading'>\(configuration.heading.donationReminderHTMLEscaped)</p>
-                <p class='wmf-donation-reminder-card-body'>\(configuration.body.donationReminderHTMLEscaped)</p>
-                <div class='wmf-donation-reminder-card-actions'>
-                    <a class='wmf-donation-reminder-card-donate' href='#wmf-donation-reminder-donate'>\(configuration.primaryActionTitle.donationReminderHTMLEscaped)</a>
-                    <a class='wmf-donation-reminder-card-not-now' href='#wmf-donation-reminder-not-now'>\(configuration.secondaryActionTitle.donationReminderHTMLEscaped)</a>
+            <div id='wmf-donation-reminder-card-container'>
+                <div id='wmf-donation-reminder-card'>
+                    <p class='wmf-donation-reminder-card-heading'>\(configuration.heading.donationReminderHTMLEscaped)</p>
+                    <p class='wmf-donation-reminder-card-body'>\(configuration.body.donationReminderHTMLEscaped)</p>
+                    <div class='wmf-donation-reminder-card-actions'>
+                        <a class='wmf-donation-reminder-card-donate' href='#wmf-donation-reminder-donate'>\(configuration.primaryActionTitle.donationReminderHTMLEscaped)</a>
+                        <a class='wmf-donation-reminder-card-not-now' href='#wmf-donation-reminder-not-now'>\(configuration.secondaryActionTitle.donationReminderHTMLEscaped)</a>
+                    </div>
                 </div>
             </div>
         """
