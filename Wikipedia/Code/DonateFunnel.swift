@@ -586,15 +586,19 @@ import WMFData
         }
     }
 
-    func logDonationReminderSetupFormDidAppear(project: WikimediaProject, metricsID: String, origin: DonationReminderSetupOrigin) {
-        logEvent(activeInterface: origin.activeInterface, action: .impression, actionData: ["campaign_id": metricsID], project: project)
+    func logDonationReminderSetupFormDidAppear(project: WikimediaProject?, metricsID: String?, origin: DonationReminderSetupOrigin) {
+        var actionData: [String: String]?
+        if let metricsID {
+            actionData = ["campaign_id": metricsID]
+        }
+        logEvent(activeInterface: origin.activeInterface, action: .impression, actionData: actionData, project: project)
     }
 
-    func logDonationReminderDidTapLearnMore(project: WikimediaProject) {
+    func logDonationReminderDidTapLearnMore(project: WikimediaProject?) {
         logEvent(activeInterface: .reminderOverflow, action: .overflowLearnMoreClick, project: project)
     }
 
-    func logDonationReminderDidTapReportProblem(project: WikimediaProject) {
+    func logDonationReminderDidTapReportProblem(project: WikimediaProject?) {
         logEvent(activeInterface: .reminderOverflow, action: .overflowProblemClick, project: project)
     }
 
@@ -642,15 +646,15 @@ import WMFData
         logEvent(activeInterface: .globalSetting, action: .clearDonationHistClick)
     }
 
-    func logDonationReminderDidToggle(isEnabled: Bool, project: WikimediaProject, origin: DonationReminderSetupOrigin) {
+    func logDonationReminderDidToggle(isEnabled: Bool, project: WikimediaProject?, origin: DonationReminderSetupOrigin) {
         logEvent(activeInterface: origin.activeInterface, action: isEnabled ? .reminderEnable : .reminderDisable, project: project)
     }
 
-    func logDonationReminderDidTapNoThanks(project: WikimediaProject, origin: DonationReminderSetupOrigin) {
+    func logDonationReminderDidTapNoThanks(project: WikimediaProject?, origin: DonationReminderSetupOrigin) {
         logEvent(activeInterface: origin.activeInterface, action: .noThanksClick, project: project)
     }
 
-    func logDonationReminderDidTapConfirm(project: WikimediaProject, milestoneDefault: Bool, readFreq: Int, donateAmount: Decimal, origin: DonationReminderSetupOrigin) {
+    func logDonationReminderDidTapConfirm(project: WikimediaProject?, milestoneDefault: Bool, readFreq: Int, donateAmount: Decimal, origin: DonationReminderSetupOrigin) {
         logEvent(activeInterface: origin.activeInterface, action: .reminderConfirmClick, actionData: [
             "milestone_default": milestoneDefault ? "true" : "false",
             "read_freq": "\(readFreq)",

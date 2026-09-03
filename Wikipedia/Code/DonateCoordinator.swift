@@ -96,26 +96,10 @@ class DonateCoordinator: Coordinator {
             url = articleCampaignDonateURL.replacingDonateParameters(language: languageCode, metricsId: metricsID)
         } else if case .donationReminderCampaignModal(_, _, let donationReminderCampaignDonateURL) = source {
             url = donationReminderCampaignDonateURL.replacingDonateParameters(language: languageCode, metricsId: metricsID)
-        } else if case .donationReminderArticle = source {
-            
-            // Need to pull up the orignal campaign information from persistence
-            guard let campaignAsset = WMFDonationReminderDataController.shared.loadCampaignAsset() else {
-                return nil
-            }
-            
-            let donateAction = campaignAsset.actions.first { action in
-                if let url = action.url,
-                   url.absoluteString.contains("donate") {
-                    return true
-                }
-                return false
-            }
-            
-            guard let donateURL = donateAction?.url else {
-                return nil
-            }
+        } else if case .donationReminderArticle(let articleURL, _, _) = source {
+            let donateURL = URL(string:"https://donate.wikimedia.org/?wmf_medium=WikipediaApp&wmf_campaign=$platform;&wmf_source=$formattedId;&uselang=$language;&app_install_id=$appInstallId;&app_version=$appVersion;")
 
-            url = donateURL.replacingDonateParameters(language: languageCode, metricsId: metricsID)
+            url = donateURL?.replacingDonateParameters(language: languageCode, metricsId: metricsID)
             
         } else {
             url = URL(string:"https://donate.wikimedia.org/?wmf_medium=WikipediaApp&wmf_campaign=$platform;&wmf_source=$formattedId;&uselang=$language;&app_install_id=$appInstallId;&app_version=$appVersion;")?
@@ -158,14 +142,15 @@ class DonateCoordinator: Coordinator {
             return metricsID
         case .donationReminderCampaignModal(_, let metricsID, _):
             return donationReminderMetricsID(originalMetricsID: metricsID)
-        case .donationReminderArticle:
+        case .donationReminderArticle(let articleURL, _, _):
             
-            // Need to pull up the orignal campaign information from persistence
-            guard let campaignAsset = WMFDonationReminderDataController.shared.loadCampaignAsset() else {
+            guard let languageCode = articleURL.wmf_languageCode,
+                  let countryCode = Locale.current.region?.identifier else {
                 return nil
             }
             
-            let originalMetricsID = campaignAsset.metricsID
+            // donation reminder metrics IDs need appmenu
+            let originalMetricsID = "\(languageCode)\(countryCode)_appmenu_iOS"
             let resolvedMetricsID = Self.donationReminderMetricsID(originalMetricsID: originalMetricsID)
             
             return resolvedMetricsID

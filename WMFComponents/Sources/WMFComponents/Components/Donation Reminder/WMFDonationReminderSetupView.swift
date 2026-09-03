@@ -14,7 +14,7 @@ struct WMFDonationReminderSetupView: View {
             ScrollViewReader { scrollProxy in
                 scrollContent(scrollProxy: scrollProxy)
             }
-            if viewModel.isReminderEnabled || viewModel.origin == .banner {
+            if viewModel.isReminderEnabled || viewModel.origin.isBanner {
                 footerButtons
                     .padding(.horizontal)
                     .padding(.top, 12)
@@ -36,7 +36,7 @@ struct WMFDonationReminderSetupView: View {
                     WMFBetaBadge()
                 }
                 header
-                if viewModel.origin == .settings || viewModel.origin == .notNowToast {
+                if viewModel.origin.needsToggle {
                     reminderToggle
                 }
                 if viewModel.isReminderEnabled {
@@ -204,7 +204,7 @@ struct WMFDonationReminderSetupView: View {
                 .disabled(!viewModel.isConfirmButtonEnabled)
             }
 
-            if viewModel.origin == .banner {
+            if viewModel.origin.isBanner {
                 WMFSmallButton(configuration: WMFSmallButton.Configuration(style: .quiet), title: viewModel.localizedStrings.noThanksButtonTitle) {
                     viewModel.declineReminder()
                 }

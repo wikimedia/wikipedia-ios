@@ -51,9 +51,6 @@ extension ArticleViewController {
                     #endif
                 }
                 
-                // Need to persist campaign asset for future logging & donation url routing in the donation reminder
-                WMFDonationReminderDataController.shared.saveCampaignAsset(activeCampaignAsset)
-                
                 if WMFDeveloperSettingsDataController.shared.enableDonationReminder,
                    activeCampaignAsset.id == WMFDonationReminderDataController.experimentCampaignID {
                     donateSource = .donationReminderCampaignModal(articleURL, activeCampaignAsset.metricsID, donateURL)
@@ -178,7 +175,7 @@ extension ArticleViewController {
                         navigationController: navigationController,
                         currencyCode: asset.currencyCode,
                         theme: self.theme,
-                        origin: .banner
+                        origin: .banner(self.articleURL)
                     )
                     self.donationReminderSetupCoordinator = coordinator
                     coordinator.start()

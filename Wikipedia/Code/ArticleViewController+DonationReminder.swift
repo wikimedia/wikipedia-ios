@@ -100,8 +100,9 @@ extension ArticleViewController {
         let modifyButtonTitle = WMFLocalizedString("donation-reminder-card-not-now-toast-modify", value: "Modify", comment: "Title of the toast button that opens the donation reminder settings, shown after the user dismisses the in-article donation reminder card.")
 
         WMFToastManager.sharedInstance.showRichToast(toastTitle, subtitle: nil, buttonTitle: modifyButtonTitle, image: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill), duration: nil, dismissPreviousToasts: true, buttonCallBack: { [weak self] in
+            guard let self else { return }
             DonateFunnel.shared.logDonationReminderMilestoneDidTapNotNowToastSettings(project: project)
-            self?.showDonationReminderSettings(currencyCode: reminder.currencyCode, origin: .notNowToast)
+            self.showDonationReminderSettings(currencyCode: reminder.currencyCode, origin: .notNowToast(self.articleURL))
         })
     }
 

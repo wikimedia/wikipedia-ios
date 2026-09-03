@@ -175,7 +175,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         WMFFundraisingCampaignDataController.shared.clearPromptState()
         WMFDonateDataController.shared.deleteLocalDonationHistory()
         WMFDonationReminderDataController.shared.clearReminder()
-        WMFDonationReminderDataController.shared.clearCampaignAsset()
         WMFDonationReminderDataController.shared.clearExperimentAssignment()
     }
 

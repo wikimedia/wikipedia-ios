@@ -9,9 +9,20 @@ public final class WMFDonationReminderSetupViewModel: ObservableObject {
     // MARK: - Nested Types
 
     public enum Origin {
-        case banner
+        case banner(URL)
         case settings
-        case notNowToast
+        case notNowToast(URL)
+        
+        var isBanner: Bool {
+            if case .banner = self { return true }
+            return false
+        }
+        
+        var needsToggle: Bool {
+            if case .settings = self { return true }
+            if case .notNowToast = self { return true }
+            return false
+        }
     }
 
     private struct Selection {
