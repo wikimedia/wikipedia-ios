@@ -26,6 +26,14 @@ public final class WMFToastPresenter {
         static let offScreenTranslation: CGFloat = 200
     }
 
+    private enum Animation {
+        static let showDuration: TimeInterval = 0.35
+        static let dismissDuration: TimeInterval = 0.25
+        static let snapBackDuration: TimeInterval = 0.2
+        static let springDamping: CGFloat = 0.85
+        static let springVelocity: CGFloat = 0.6
+    }
+
     // MARK: - Properties
 
     public static let shared = WMFToastPresenter()
@@ -33,6 +41,7 @@ public final class WMFToastPresenter {
     private var cancellables = Set<AnyCancellable>()
 
     private var currentCard: WMFToastCardView?
+    private var showAnimator: UIViewPropertyAnimator?
     private var dismissTask: Task<Void, Never>?
     private var dismissAction: ((DismissEvent) -> Void)?
 
@@ -88,7 +97,7 @@ public final class WMFToastPresenter {
 
         // Start off screen and invisible before the view joins the hierarchy.
         // This prevents a flash on the first frame.
-        card.transform = CGAffineTransform(translationX: 0, y: Layout.offScreenTranslation)
+        card.transform = reduceMotion ? .identity : CGAffineTransform(translationX: 0, y: Layout.offScreenTranslation)
         card.alpha = 0
 
         window.addSubview(card)
@@ -99,17 +108,9 @@ public final class WMFToastPresenter {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         card.addGestureRecognizer(panGesture)
 
-        UIView.animate(
-            withDuration: 0.35,
-            delay: 0,
-            usingSpringWithDamping: 0.85,
-            initialSpringVelocity: 0.6,
-            options: [.curveEaseOut],
-            animations: {
-                card.transform = .identity
-                card.alpha = 1
-            }
-        )
+        showAnimator?.stopAnimation(true)
+        showAnimator = makeShowAnimator(for: card)
+        showAnimator?.startAnimation()
 
         scheduleDismiss(after: config.duration, for: card)
     }
@@ -132,6 +133,42 @@ public final class WMFToastPresenter {
             }
         }
         dismiss(card, event: .outsideEvent)
+    }
+
+    // MARK: - Animation
+
+    /// True when the user asked the system to reduce motion. The presenter then fades the card in place.
+    private var reduceMotion: Bool {
+        UIAccessibility.isReduceMotionEnabled
+    }
+
+    private func makeShowAnimator(for card: UIView) -> UIViewPropertyAnimator {
+        if reduceMotion {
+            return UIViewPropertyAnimator(duration: Animation.dismissDuration, curve: .easeOut) {
+                card.alpha = 1
+            }
+        }
+
+        let spring = UISpringTimingParameters(
+            dampingRatio: Animation.springDamping,
+            initialVelocity: CGVector(dx: 0, dy: Animation.springVelocity)
+        )
+        let animator = UIViewPropertyAnimator(duration: Animation.showDuration, timingParameters: spring)
+        animator.addAnimations {
+            card.transform = .identity
+            card.alpha = 1
+        }
+        return animator
+    }
+
+    /// Stops the show animation and puts the card at its resting position.
+    /// Call this before a gesture takes control of the card.
+    private func finishShowAnimation(for card: UIView) {
+        guard let showAnimator, showAnimator.isRunning else { return }
+        showAnimator.stopAnimation(true)
+        self.showAnimator = nil
+        card.transform = .identity
+        card.alpha = 1
     }
 
     // MARK: - Layout
@@ -180,6 +217,8 @@ public final class WMFToastPresenter {
         let translation = gesture.translation(in: card.superview)
 
         switch gesture.state {
+        case .began:
+            finishShowAnimation(for: card)
         case .changed:
             if translation.y > 0 {
                 card.transform = CGAffineTransform(translationX: 0, y: translation.y)
@@ -191,9 +230,10 @@ public final class WMFToastPresenter {
             if shouldDismiss {
                 dismiss(card, event: .swipedDown)
             } else {
-                UIView.animate(withDuration: 0.2) {
+                let snapBack = UIViewPropertyAnimator(duration: Animation.snapBackDuration, curve: .easeOut) {
                     card.transform = .identity
                 }
+                snapBack.startAnimation()
             }
         default:
             break
@@ -225,21 +265,22 @@ public final class WMFToastPresenter {
         let action = dismissAction
         dismissAction = nil
 
-        let translationY = card.frame.height + 50
+        finishShowAnimation(for: card)
 
-        UIView.animate(
-            withDuration: 0.25,
-            delay: 0,
-            options: [.curveEaseIn],
-            animations: {
+        let translationY = card.frame.height + 50
+        let fadeOnly = reduceMotion
+
+        let animator = UIViewPropertyAnimator(duration: Animation.dismissDuration, curve: .easeIn) {
+            if !fadeOnly {
                 card.transform = CGAffineTransform(translationX: 0, y: translationY)
-                card.alpha = 0
-            },
-            completion: { _ in
-                card.removeFromSuperview()
-                action?(event)
             }
-        )
+            card.alpha = 0
+        }
+        animator.addCompletion { _ in
+            card.removeFromSuperview()
+            action?(event)
+        }
+        animator.startAnimation()
     }
 }
 
