@@ -95,7 +95,7 @@ public final class WMFDonationReminderDataController {
 
     public static let shared = WMFDonationReminderDataController()
 
-    public static let experimentCampaignID = "NL_2026_08"
+    public static let experimentCampaignID = "NL_2026_09"
 
     public static let experimentPresetAmounts: [Decimal] = [1, 3, 5]
 
@@ -138,10 +138,6 @@ public final class WMFDonationReminderDataController {
     }
 
     public func isReminderSettingsEntryAvailable(currentDate: Date = Date()) -> Bool {
-        guard WMFDeveloperSettingsDataController.shared.enableDonationReminder else {
-            return false
-        }
-
         switch experimentAssignment {
         case .groupB, .groupC:
             break
@@ -164,8 +160,7 @@ public final class WMFDonationReminderDataController {
     }
 
     public func shouldShowFollowUpReminder(currentDate: Date = Date()) async throws -> Bool {
-        guard WMFDeveloperSettingsDataController.shared.enableDonationReminder,
-              let reminder = loadReminder(),
+        guard let reminder = loadReminder(),
               reminder.isEnabled,
               currentDate < Self.reminderEndDate,
               case .articlesRead(count: let articlesReadGoal) = reminder.trigger else {

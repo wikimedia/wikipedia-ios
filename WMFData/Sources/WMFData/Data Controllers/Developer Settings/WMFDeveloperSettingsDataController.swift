@@ -201,12 +201,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         WMFDonationReminderDataController.shared.clearExperimentAssignment()
     }
 
-    /// Feature flag for the Donation Reminder experiment
-    public var enableDonationReminder: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableDonationReminder.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableDonationReminder.rawValue, value: newValue) }
-    }
-
     /// Debugging convenience: overrides the persisted donation reminder experiment bucket at read
     /// time without re-rolling it. Nil means no override.
     public var forceDonationReminderExperimentAssignment: WMFDonationReminderDataController.ExperimentAssignment? {

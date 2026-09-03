@@ -67,12 +67,6 @@ import WMFData
         }
     }
 
-    @Published public var enableDonationReminder: Bool = WMFDeveloperSettingsDataController.shared.enableDonationReminder {
-        didSet {
-            WMFDeveloperSettingsDataController.shared.enableDonationReminder = enableDonationReminder
-        }
-    }
-
     @Published public var forceDonationReminderExperimentAssignment: WMFDonationReminderDataController.ExperimentAssignment? = WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = forceDonationReminderExperimentAssignment
