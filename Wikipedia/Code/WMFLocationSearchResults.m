@@ -1,5 +1,5 @@
 #import <WMF/WMFLocationSearchResults.h>
-#import <WMF/MWKLocationSearchResult.h>
+#import <WMF/WMF-Swift.h>
 #import <WMF/WMFComparison.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
 
@@ -20,7 +20,7 @@
         self.searchSiteURL = url;
         self.region = region;
         self.searchTerm = searchTerm;
-        self.results = [results sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:WMF_SAFE_KEYPATH([MWKLocationSearchResult new], distanceFromQueryCoordinates) ascending:YES]]];
+        self.results = [results sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"distanceFromQueryCoordinates" ascending:YES]]];
         ;
     }
     return self;

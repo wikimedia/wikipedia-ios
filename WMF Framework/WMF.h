@@ -98,12 +98,8 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/NSString+WMFDistance.h>
 #import <WMF/CLLocation+WMFComparison.h>
 
-#import <WMF/MWKLocationSearchResult.h>
 #import <WMF/WMFLocationSearchResults.h>
-#import <WMF/WMFLocationSearchFetcher.h>
-#import <WMF/MWKLocationSearchResult.h>
 
-#import <WMF/MWKSearchResult.h>
 
 #import <WMF/WMFArticle+Extensions.h>
 #import <WMF/WMFContentGroup+Extensions.h>

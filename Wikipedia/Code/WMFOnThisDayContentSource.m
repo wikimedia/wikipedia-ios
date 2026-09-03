@@ -4,7 +4,6 @@
 #import <WMF/WMFContentGroup+Extensions.h>
 #import <WMF/WMFTaskGroup.h>
 #import <WMF/EXTScope.h>
-#import <WMF/MWKSearchResult.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
 #import <WMF/WMFArticle+Extensions.h>
 #import <WMF/WMFFeedOnThisDayEvent.h>

@@ -1,6 +1,5 @@
 #import <WMF/WMFRelatedPagesContentSource.h>
 #import <WMF/MWKDataStore.h>
-#import <WMF/MWKSearchResult.h>
 #import <WMF/WMF-Swift.h>
 @import WMFData;
 
