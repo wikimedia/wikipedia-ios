@@ -3,7 +3,6 @@
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 
 #import "NSString+FormattedAttributedString.h"
-#import "WMFPageHistoryRevision.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFGradientView.h"
 
@@ -24,9 +23,6 @@
 
 // Model
 #import "MWKLicense.h"
-#import "WMFArticleRevisionFetcher.h"
-#import "WMFRevisionQueryResults.h"
-#import "WMFArticleRevision.h"
 #import "MWKLanguageLinkFetcher.h"
 
 // View Controllers

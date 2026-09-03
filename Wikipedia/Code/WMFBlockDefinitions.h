@@ -7,14 +7,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class MWKSearchResult;
 @class WMFSearchResults;
-@class HistoryFetchResults;
 @class CLPlacemark;
 
 typedef void (^WMFProgressHandler)(CGFloat progress);
 typedef void (^WMFErrorHandler)(NSError *error);
 typedef void (^WMFMWKSearchResultHandler)(MWKSearchResult *result);
 typedef void (^WMFSearchResultsHandler)(WMFSearchResults *results);
-typedef void (^WMFHistoryFetchResultsHandler)(HistoryFetchResults *results);
 typedef void (^WMFArrayOfNumbersHandler)(NSArray<NSNumber *> *_Nonnull results);
 typedef void (^WMFPlacemarkHandler)(CLPlacemark *result);
 
