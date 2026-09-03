@@ -17,7 +17,7 @@ public struct WMFBetaBadge: View {
             Text(betaLabel)
                 .font(Font(WMFFont.for(.caption1)))
         }
-        .foregroundColor(Color(appEnvironment.theme.secondaryText))
+        .foregroundColor(Color(appEnvironment.theme.text))
         .padding(.horizontal, 8)
         .padding(.vertical, 4)
         .background(Capsule().stroke(Color(appEnvironment.theme.baseBackground), lineWidth: 1))

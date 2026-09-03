@@ -136,7 +136,7 @@ public enum WMFSFSymbolIcon {
     case textPage
     case leave
     case gear
-    case booksVerticalFill
+    case booksVertical
     case creditCard
     case flask
     case gearShape
@@ -185,6 +185,7 @@ public enum WMFSFSymbolIcon {
     case chevronUpChevronDown
     case globe
     case newspaper
+    case person2Fill
 
     public var name: String? {
         switch self {
@@ -367,8 +368,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "rectangle.portrait.and.arrow.right", withConfiguration: configuration)
         case .gear:
             image = UIImage(systemName: "gear", withConfiguration: configuration)
-        case .booksVerticalFill:
-            image = UIImage(systemName: "books.vertical.fill", withConfiguration: configuration)
+        case .booksVertical:
+            image = UIImage(systemName: "books.vertical", withConfiguration: configuration)
         case .creditCard:
             image = UIImage(systemName: "creditcard", withConfiguration: configuration)
         case .flask:
@@ -473,6 +474,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "square.split.2x1", withConfiguration: configuration)
         case .newspaper:
             image = UIImage(systemName: "newspaper", withConfiguration: configuration)
+        case .person2Fill:
+            image = UIImage(systemName: "person.2.fill", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
