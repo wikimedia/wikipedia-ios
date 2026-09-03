@@ -41,11 +41,6 @@ import WMFNativeLocalizations
         WMFToastPresenter.shared.dismissCurrentToast()
     }
 
-    /// Closes the toast at once. Call this before the keyboard appears.
-    func dismissToastImmediately() {
-        WMFToastPresenter.shared.dismissCurrentToast()
-    }
-
     /// Shows or closes the toast for the save state of the article.
     @objc func toggle(presenter: UIViewController, article: WMFArticle, theme: Theme) {
         self.presenter = presenter
