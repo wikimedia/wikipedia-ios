@@ -85,8 +85,7 @@ import WMFData
         case donationReminderClick = "donation_reminder_click"
         case clearDonationHistClick = "clear_donation_hist_click"
         case notNowClick = "notnow_click"
-        case apayClick = "apay_click"
-        case otherApayClick = "other_apay_click"
+        case otherApplePayClick = "other_applepay_click"
         case otherMethodClick = "other_method_click"
     }
     
@@ -627,11 +626,11 @@ import WMFData
     }
 
     func logDonationReminderMilestoneDidTapApplePay(project: WikimediaProject, metricsID: String) {
-        logEvent(activeInterface: .reminderMilestone, action: .apayClick, actionData: ["campaign_id": metricsID], project: project)
+        logEvent(activeInterface: .reminderMilestone, action: .applePayClick, actionData: ["campaign_id": metricsID], project: project)
     }
 
     func logDonationReminderMilestoneDidTapOtherApplePay(project: WikimediaProject, metricsID: String) {
-        logEvent(activeInterface: .reminderMilestone, action: .otherApayClick, actionData: ["campaign_id": metricsID], project: project)
+        logEvent(activeInterface: .reminderMilestone, action: .otherApplePayClick, actionData: ["campaign_id": metricsID], project: project)
     }
 
     func logDonationReminderMilestoneDidTapOtherMethod(project: WikimediaProject, metricsID: String) {
