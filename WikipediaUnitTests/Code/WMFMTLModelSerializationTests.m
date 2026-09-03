@@ -1,6 +1,4 @@
 #import <XCTest/XCTest.h>
-#import "MWKSearchResult.h"
-#import "WMFSearchResults.h"
 #import "WMFMTLModel.h"
 #import "WMFLegacySerializer.h"
 #import "WMFFeedDayResponse.h"
@@ -11,42 +9,6 @@
 @end
 
 @implementation WMFMTLModelSerializationTests
-
-- (void)testResultsAndRedirectsAreNonnullForZeroResultResponse {
-    id noResultJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"NoSearchResultsWithSuggestion"];
-    NSDictionary *query = noResultJSON[@"query"];
-    NSError *mantleError = nil;
-    WMFSearchResults *searchResults = [MTLJSONAdapter modelOfClass:[WMFSearchResults class] fromJSONDictionary:query languageVariantCode: nil error:&mantleError];
-    XCTAssertNil(mantleError);
-    XCTAssertEqual(searchResults.results.count, 0);
-    XCTAssertEqual(searchResults.redirectMappings.count, 0);
-    XCTAssertEqualObjects(searchResults.searchSuggestion, [noResultJSON valueForKeyPath:@"query.searchinfo.suggestion"]);
-}
-
-- (void)testSerializesPrefixResultsInOrderOfIndex {
-    NSString *fixtureName = @"BarackSearch";
-    NSDictionary *resultJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureName][@"query"];
-
-    NSArray<NSDictionary *> *resultJSONObjects = [resultJSON[@"pages"] allValues];
-
-    NSError *mantleError = nil;
-    WMFSearchResults *searchResults = [MTLJSONAdapter modelOfClass:[WMFSearchResults class] fromJSONDictionary:resultJSON languageVariantCode: nil error:&mantleError];
-    XCTAssertNil(mantleError);
-    XCTAssertEqual(searchResults.results.count, resultJSONObjects.count);
-
-    XCTAssertNotNil(searchResults, @"Failed to serialize search results from 'BarackSearch' fixture; %@", mantleError);
-
-    NSSortDescriptor *indexSortDescriptor =
-        [NSSortDescriptor sortDescriptorWithKey:WMF_SAFE_KEYPATH(MWKSearchResult.new, index)
-                                      ascending:YES];
-
-    XCTAssert([searchResults.results isEqual:[searchResults.results sortedArrayUsingDescriptors:@[indexSortDescriptor]]]);
-
-    XCTAssert(searchResults.searchSuggestion == nil);
-
-    XCTAssertEqual([searchResults redirectMappings].count, [resultJSON[@"redirects"] count]);
-}
-
 
 #pragma mark - Language Variant Propagation Testing
 
@@ -108,29 +70,6 @@
         [self assertKeyPaths:keyPaths ofObject:responseObject resolvesToURLWithLanguageVariantCode:nilLanguageVariantCode];
     }
 }
-
-// Note, this also implicitly tests the subelement type WMFSearchResult
-- (void)testSearchResultsLanguageVariantPropagation {
-    NSString *fixtureName = @"BarackSearch";
-    NSDictionary *resultJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureName][@"query"];
-    NSString *languageVariantCode = @"zh-hans";
-    
-    NSError *mantleError = nil;
-    WMFSearchResults *responseObject = [MTLJSONAdapter modelOfClass:[WMFSearchResults class] fromJSONDictionary:resultJSON languageVariantCode:languageVariantCode error:&mantleError];
-    XCTAssertNil(mantleError);
-    
-    NSArray<NSString *> *keyPaths = @[
-        @"results.thumbnailURL"
-    ];
-    
-    [self assertKeyPaths:keyPaths ofObject:responseObject resolvesToURLWithLanguageVariantCode:languageVariantCode];
-    
-    // Test propagation and comparison of nil value
-    NSString *nilLanguageVariantCode = nil;
-    [responseObject propagateLanguageVariantCode:nilLanguageVariantCode];
-    [self assertKeyPaths:keyPaths ofObject:responseObject resolvesToURLWithLanguageVariantCode:nilLanguageVariantCode];
-}
-
 
 #pragma mark - Language Variant Propagation Testing Support Methods
 

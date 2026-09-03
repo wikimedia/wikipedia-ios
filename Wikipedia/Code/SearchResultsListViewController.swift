@@ -67,7 +67,7 @@ class SearchResultsListViewController: ArticleCollectionViewController {
     }
 
     func redirectMappingForSearchResult(_ result: MWKSearchResult) -> MWKSearchRedirectMapping? {
-        return resultsInfo?.redirectMappings?.filter({ (mapping) -> Bool in
+        return resultsInfo?.redirectMappings.filter({ (mapping) -> Bool in
             return result.displayTitle == mapping.redirectToTitle
         }).first
     }

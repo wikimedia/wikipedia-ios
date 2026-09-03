@@ -8,9 +8,6 @@
 
 #import "UIScrollView+ScrollSubviewToLocation.h"
 
-#import "WMFSearchResults.h"
-#import "MWKSearchRedirectMapping.h"
-#import "WMFSearchFetcher.h"
 
 #import "WMFArticleTextActivitySource.h"
 
