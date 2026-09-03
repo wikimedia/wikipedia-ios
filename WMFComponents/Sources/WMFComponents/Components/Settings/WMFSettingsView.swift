@@ -104,6 +104,7 @@ public struct WMFSettingsView: View {
                 }
             }
             .scrollContentBackground(.hidden)
+            .ignoresSafeArea(.keyboard)
         }
         .environment(\.colorScheme, theme.preferredColorScheme)
     }
