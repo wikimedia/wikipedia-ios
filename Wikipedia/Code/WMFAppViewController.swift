@@ -59,6 +59,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var _settingsViewController: SettingsTabViewController?
     private var _exploreViewController: ExploreViewController?
     private var homeCoordinator: HomeCoordinator?
+
+    /// Held while the evergreen account creation prompt is on screen, since it owns its outcome reporting.
+    var evergreenAccountCreationCoordinator: EvergreenAccountCreationCoordinator?
     private var _searchTabViewController: SearchViewController?
     private var _savedViewController: SavedViewController?
     private var _placesViewController: PlacesViewController?
@@ -463,6 +466,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // so these tasks are held until both items complete.
     @objc func performTasksThatShouldOccurAfterBecomeActiveAndResume() {
         SessionsFunnel.shared.appDidBecomeActive()
+        startEvergreenAccountCreationSession()
         checkRemoteAppConfigIfNecessary()
         updatePrimaryWikiHasTempAccountsStatusIfNecessary()
         periodicWorkerController?.start()
@@ -1789,6 +1793,8 @@ extension WMFAppViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         wmf_hideKeyboard()
         logDidSelectViewController(viewController)
+        recordEvergreenAccountCreationAppOpenIfNeeded()
+        presentEvergreenAccountCreationPromptIfNeeded()
     }
 
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
