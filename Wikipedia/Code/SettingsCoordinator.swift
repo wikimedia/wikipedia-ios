@@ -207,9 +207,9 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         let navigationStateController = NavigationStateController(dataStore: dataStore)
         let excludedArticleKeys = databaseHousekeeper.articleKeysToPreserve(in: dataStore, navigationStateController: navigationStateController)
 
-        var cleanupError: Error? = nil
-
         self.dataStore.performBackgroundCoreDataOperation { moc in
+            var cleanupError: Error?
+
             do {
                 try databaseHousekeeper.performHousekeeping(on: moc, excludedArticleKeys: excludedArticleKeys, cleanupLevel: .high)
 
@@ -217,23 +217,24 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
                 cleanupError = error
                 DDLogError("Error on cleanup: \(error)")
             }
-        }
 
-        SharedContainerCacheHousekeeping.deleteStaleCachedItems(
-            in: SharedContainerCacheCommonNames.talkPageCache,
-            cleanupLevel: .high
-        )
-        SharedContainerCacheHousekeeping.deleteStaleCachedItems(
-            in: SharedContainerCacheCommonNames.didYouKnowCache,
-            cleanupLevel: .high
-        )
+            // These functions read and delete files. Keep them off the main thread.
+            SharedContainerCacheHousekeeping.deleteStaleCachedItems(
+                in: SharedContainerCacheCommonNames.talkPageCache,
+                cleanupLevel: .high
+            )
+            SharedContainerCacheHousekeeping.deleteStaleCachedItems(
+                in: SharedContainerCacheCommonNames.didYouKnowCache,
+                cleanupLevel: .high
+            )
 
-        Task {
-            try await Task.sleep(nanoseconds: 1_000_000_000)
-            if cleanupError != nil {
-                self.showClearCacheErrorBanner()
+            // Show the result after the work ends. A delay is not a signal of completion.
+            Task { @MainActor [weak self] in
+                if cleanupError != nil {
+                    self?.showClearCacheErrorBanner()
+                }
+                self?.showClearCacheComplete()
             }
-            self.showClearCacheComplete()
         }
     }
 
