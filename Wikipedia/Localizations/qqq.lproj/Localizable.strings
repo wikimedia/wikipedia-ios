@@ -269,7 +269,7 @@
 "closed-all-tabs-confirmation-with-value" = "Confirmation title of deleting all tabs. $1 is the number of tabs deleted.";
 "collect-prize-title" = "Title for collect prize modal sheet and button";
 "community-detail-back-button-title" = "Title for button that allows users to exit detail view and return to the Community feed.";
-"community-feed-disclaimer" = "Disclaimer string in community feced";
+"community-feed-disclaimer" = "Disclaimer shown at the top of the Community feed, explaining that everything below it was chosen by and is about the Wikimedia community of volunteer editors.";
 "community-feed-preferences-global-card-footer-text" = "Text describing the effects of turning off a global card";
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
 "confirm-donation-history-deletion-subtitle" = "Subtitle for confirm local donation history deletion alert";
@@ -756,8 +756,14 @@
 "home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.";
 "home-card-more-options-accessibility-label" = "Accessibility label for the three dot button on a Home feed card, which opens a menu of actions for that card.";
 "home-community-empty-feed-turn-on-modules-message" = "Message shown in the Home tab Community segment when the reader has turned off every feed module.";
+"home-community-featured-article-subtitle" = "Subtitle for the Featured Article section in the Community feed. Explains that the article was selected by volunteer editors and is featured on the main page of the selected language Wikipedia today.";
+"home-community-featured-article-title" = "Section header in the Community feed. Labels the article that volunteer editors featured on the main page of the selected language Wikipedia today.";
+"home-community-in-the-news-title" = "Section header in the Community feed. Labels current news stories that link to related Wikipedia articles.";
+"home-community-on-this-day-title" = "Section header in the Community feed. Labels a list of historical events that happened on today's calendar date.";
+"home-community-picture-of-the-day-title" = "Section header in the Community feed. Labels the image selected as picture of the day on Wikimedia Commons.";
 "home-community-see-past-content" = "Button at the bottom of the Community feed that loads content from previous days.";
 "home-community-tab-title" = "Title for the Community segment within the Home tab.";
+"home-community-top-read-title" = "Section header in the Community feed. Labels a list of the most read articles on the selected language Wikipedia.";
 "home-edit-languages-title" = "Title for the option at the bottom of the Home language menu that opens the languages settings screen.";
 "home-empty-go-to-settings-button" = "Button on the Home tab's For You or Community empty state. It opens the feed settings.";
 "home-feed-for-you-based-on-interests-subtitle" = "Subtitle describing the Based on your interests module.";

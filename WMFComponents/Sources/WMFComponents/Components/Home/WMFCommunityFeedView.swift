@@ -20,19 +20,18 @@ struct WMFCommunityFeedView: View {
     let onRefresh: () async -> Void
     let onTapSeePastContent: () -> Void
 
-    private let seePastContentTitle = WMFLocalizedString("home-community-see-past-content", value: "See past community content", comment: "Button at the bottom of the Community feed that loads content from previous days.")
-
     var scrollToTopRequestID: Int = 0
+
+    private static let disclaimerAnchorID = "community-disclaimer"
 
     private static func dayAnchorID(_ index: Int) -> String { "community-day-\(index)" }
 
     var body: some View {
         ScrollViewReader { proxy in
-            disclaimer
             feedList
                 .onChange(of: scrollToTopRequestID) { _, _ in
                     withAnimation {
-                        proxy.scrollTo(Self.dayAnchorID(0), anchor: .top)
+                        proxy.scrollTo(Self.disclaimerAnchorID, anchor: .top)
                     }
                 }
         }
@@ -57,13 +56,21 @@ struct WMFCommunityFeedView: View {
                 .fill(Color(uiColor: theme.midBackground))
         )
         .padding(.horizontal, 16)
-        .padding(.vertical, 24)
+        .padding(.top, 24)
         .accessibilityElement(children: .combine)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private var feedList: some View {
         List {
+            Section {
+                disclaimer
+                    .id(Self.disclaimerAnchorID)
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color(uiColor: theme.paperBackground))
+            }
+
             ForEach(Array(pages.enumerated()), id: \.offset) { index, page in
                 dateSection(page.date)
                     .id(Self.dayAnchorID(index))
@@ -102,7 +109,7 @@ struct WMFCommunityFeedView: View {
                         .listRowBackground(Color(uiColor: theme.paperBackground))
                 } else {
                     Button(action: onTapSeePastContent) {
-                        Text(seePastContentTitle)
+                        Text(viewModel.seePastContentTitle)
                             .font(Font(WMFFont.for(.semiboldHeadline)))
                             .foregroundStyle(Color(uiColor: theme.link))
                             .frame(maxWidth: .infinity)
@@ -114,6 +121,9 @@ struct WMFCommunityFeedView: View {
             }
         }
         .listStyle(.plain)
+        .listSectionSpacing(0)
+        .environment(\.defaultMinListRowHeight, 0)
+        .contentMargins(.top, 0, for: .scrollContent)
         .background(Color(uiColor: theme.paperBackground))
         .refreshable {
             await onRefresh()
@@ -125,10 +135,10 @@ struct WMFCommunityFeedView: View {
     private func dateSection(_ dateString: String) -> some View {
         Section {
             Text(dateString)
-                .font(Font(WMFFont.for(.boldTitle1)))
+                .font(Font(WMFFont.for(.subheadline)))
                 .foregroundStyle(Color(uiColor: theme.text))
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.vertical, 12)
+                .padding(.top, 24)
                 .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color(uiColor: theme.paperBackground))
@@ -139,12 +149,11 @@ struct WMFCommunityFeedView: View {
 
     private func featuredArticleSection(_ article: WMFFeedArticle, hideKey: String?) -> some View {
         Section {
+            sectionHeader(viewModel.featuredArticleTitle, subtitle: viewModel.featuredArticleSubtitle, module: .featuredArticle, hideKey: hideKey)
             WMFFeaturedArticleCard(article: article, theme: theme)
-                .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 8, trailing: 16))
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color(uiColor: theme.paperBackground))
-        } header: {
-            sectionHeader("Featured Article", module: .featuredArticle, hideKey: hideKey)
         }
     }
 
@@ -152,6 +161,7 @@ struct WMFCommunityFeedView: View {
 
     private func topReadSection(_ items: [WMFHomeCommunityViewModel.TopReadItem], hideKey: String) -> some View {
         Section {
+            sectionHeader(viewModel.topReadTitle, module: .topRead, hideKey: hideKey)
             ForEach(Array(items.enumerated()), id: \.offset) { _, item in
                 WMFAsyncPageRow(viewModel: WMFAsyncPageRowViewModel(
                     id: item.title,
@@ -162,8 +172,6 @@ struct WMFCommunityFeedView: View {
                 .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
                 .listRowBackground(Color(uiColor: theme.paperBackground))
             }
-        } header: {
-            sectionHeader("Top read", module: .topRead, hideKey: hideKey)
         }
     }
 
@@ -171,6 +179,7 @@ struct WMFCommunityFeedView: View {
 
     private func inTheNewsSection(_ items: [WMFHomeCommunityViewModel.NewsItem], hideKey: String) -> some View {
         Section {
+            sectionHeader(viewModel.inTheNewsTitle, module: .inTheNews, hideKey: hideKey)
             TabView {
                 ForEach(Array(items.enumerated()), id: \.offset) { _, item in
                     WMFNewsStoryCard(story: item.story, imageURLString: item.imageURLString, theme: theme)
@@ -183,8 +192,6 @@ struct WMFCommunityFeedView: View {
             .listRowInsets(EdgeInsets())
             .listRowSeparator(.hidden)
             .listRowBackground(Color(uiColor: theme.paperBackground))
-        } header: {
-            sectionHeader("In the news", module: .inTheNews, hideKey: hideKey)
         }
     }
 
@@ -192,6 +199,7 @@ struct WMFCommunityFeedView: View {
 
     private func onThisDaySection(_ items: [WMFHomeCommunityViewModel.OnThisDayItem], hideKey: String) -> some View {
         Section {
+            sectionHeader(viewModel.onThisDayTitle, module: .onThisDay, hideKey: hideKey)
             ForEach(Array(items.enumerated()), id: \.offset) { _, item in
                 VStack(alignment: .leading, spacing: 6) {
                     Text("\(item.year)")
@@ -225,8 +233,6 @@ struct WMFCommunityFeedView: View {
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color(uiColor: theme.paperBackground))
             }
-        } header: {
-            sectionHeader("On this day", module: .onThisDay, hideKey: hideKey)
         }
     }
 
@@ -234,22 +240,28 @@ struct WMFCommunityFeedView: View {
 
     private func pictureOfTheDaySection(_ imageSource: WMFFeedImageSource, hideKey: String?) -> some View {
         Section {
+            sectionHeader(viewModel.pictureOfTheDayTitle, module: .pictureOfDay, hideKey: hideKey)
             WMFPictureOfTheDayCard(imageSource: imageSource, theme: theme)
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color(uiColor: theme.paperBackground))
-        } header: {
-            sectionHeader("Picture of the day", module: .pictureOfDay, hideKey: hideKey)
         }
     }
 
     // MARK: - Section Header
 
-    private func sectionHeader(_ title: String, module: WMFCommunityModule, hideKey: String?) -> some View {
-        HStack {
-            Text(title)
-                .font(Font(WMFFont.for(.boldTitle3)))
-                .foregroundStyle(Color(uiColor: theme.text))
+    private func sectionHeader(_ title: String, subtitle: String? = nil, module: WMFCommunityModule, hideKey: String?) -> some View {
+        HStack(alignment: .top) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(title)
+                    .font(Font(WMFFont.for(.boldTitle3)))
+                    .foregroundStyle(Color(uiColor: theme.text))
+                if let subtitle {
+                    Text(subtitle)
+                        .font(Font(WMFFont.for(.body)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                }
+            }
             Spacer()
             Menu {
                 Button(role: .destructive) {
@@ -273,7 +285,12 @@ struct WMFCommunityFeedView: View {
                 }
             } label: {
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage())
-                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                    .foregroundStyle(Color(uiColor: theme.paperBackground))
+                    .frame(width: 29, height: 29)
+                    .background(
+                        Circle()
+                            .fill(Color(uiColor: theme.inputAccessoryButtonTint))
+                    )
             }
         }
         .padding(.horizontal, 16)
@@ -282,7 +299,8 @@ struct WMFCommunityFeedView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(uiColor: theme.paperBackground))
         .listRowInsets(EdgeInsets())
-        .textCase(nil)
+        .listRowSeparator(.hidden)
+        .listRowBackground(Color(uiColor: theme.paperBackground))
     }
 }
 

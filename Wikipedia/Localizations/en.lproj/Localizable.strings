@@ -756,8 +756,14 @@
 "home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
 "home-card-more-options-accessibility-label" = "More options";
 "home-community-empty-feed-turn-on-modules-message" = "Turn on modules to see community content";
+"home-community-featured-article-subtitle" = "Featured articles are some of the best articles on Wikipedia, selected daily by editors";
+"home-community-featured-article-title" = "Featured Article";
+"home-community-in-the-news-title" = "In the news";
+"home-community-on-this-day-title" = "On this day";
+"home-community-picture-of-the-day-title" = "Picture of the day";
 "home-community-see-past-content" = "See past community content";
 "home-community-tab-title" = "Community";
+"home-community-top-read-title" = "Top read";
 "home-edit-languages-title" = "Add or edit languages";
 "home-empty-go-to-settings-button" = "Go to settings";
 "home-feed-for-you-based-on-interests-subtitle" = "Articles tailored to the topics you chose.";
