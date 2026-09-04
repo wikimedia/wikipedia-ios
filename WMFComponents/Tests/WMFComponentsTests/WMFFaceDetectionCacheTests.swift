@@ -1,5 +1,6 @@
 import Testing
 import UIKit
+import Vision
 @testable import WMFComponents
 
 /// The face rects behind the image crops. The coordinate flip and the size-variant cache key are the parts that must not regress.
@@ -12,6 +13,16 @@ struct WMFFaceDetectionCacheTests {
     private let smallVariantURL = URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Example.jpg/320px-Example.jpg")!
     private let largeVariantURL = URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Example.jpg/640px-Example.jpg")!
     private let fullImageURL = URL(string: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Example.jpg")!
+
+    // MARK: - Request revision
+
+    /// Revision 1 is the legacy FaceCore detector that crashed the app. The pin must stay, and the framework must still support revision 3.
+    @Test
+    func requestPinsTheMachineLearningRevision() {
+        let request = WMFFaceDetector.makeFaceRectanglesRequest()
+        #expect(request.revision == VNDetectFaceRectanglesRequestRevision3)
+        #expect(VNDetectFaceRectanglesRequest.supportedRevisions.contains(VNDetectFaceRectanglesRequestRevision3))
+    }
 
     // MARK: - Coordinate conversion
 

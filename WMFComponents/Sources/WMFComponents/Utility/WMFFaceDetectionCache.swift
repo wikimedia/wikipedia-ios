@@ -144,7 +144,19 @@ public final class WMFFaceDetectionCache {
 }
 
 /// Runs Vision face detection off the main actor. The actor runs one request at a time.
-private actor WMFFaceDetector {
+actor WMFFaceDetector {
+
+    /// Makes a face detection request that is pinned to revision 3.
+    ///
+    /// Revision 3 uses the machine learning detector. Revision 1 uses the legacy FaceCore detector, which
+    /// crashed the app in libfaceCore.dylib. Apple deprecated revision 1 in iOS 16, but the framework still
+    /// supports it, so the pin stops a change of the default revision from selecting it again.
+    /// `WMFFaceDetectionCacheTests` checks that the framework still supports revision 3.
+    nonisolated static func makeFaceRectanglesRequest() -> VNDetectFaceRectanglesRequest {
+        let request = VNDetectFaceRectanglesRequest()
+        request.revision = VNDetectFaceRectanglesRequestRevision3
+        return request
+    }
 
     func unitFaceBounds(in image: UIImage) throws -> [CGRect] {
         let orientation = CGImagePropertyOrientation(image.imageOrientation)
@@ -157,7 +169,7 @@ private actor WMFFaceDetector {
             return []
         }
 
-        let request = VNDetectFaceRectanglesRequest()
+        let request = Self.makeFaceRectanglesRequest()
         try handler.perform([request])
 
         let observations = request.results ?? []
