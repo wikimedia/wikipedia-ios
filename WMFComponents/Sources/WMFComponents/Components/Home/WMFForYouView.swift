@@ -232,9 +232,9 @@ public struct WMFForYouView: View {
                     )
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 }
-                endOfFeedPage
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-                    .id(viewModel.endOfFeedViewModel.id)
+//                endOfFeedPage
+//                    .frame(width: geometry.size.width, height: geometry.size.height)
+//                    .id(viewModel.endOfFeedViewModel.id)
             }
             .scrollTargetLayout()
         }
