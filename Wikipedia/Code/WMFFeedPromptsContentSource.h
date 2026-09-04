@@ -3,7 +3,7 @@
 @class MWKDataStore;
 @class WMFFundraisingCampaignDataController;
 
-@interface WMFAnnouncementsContentSource : NSObject <WMFContentSource, WMFOptionalNewContentSource>
+@interface WMFFeedPromptsContentSource : NSObject <WMFContentSource, WMFOptionalNewContentSource>
 
 @property (readonly, nonatomic, strong) NSURL *siteURL;
 

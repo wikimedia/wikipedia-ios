@@ -269,8 +269,8 @@
 		0E8380651D64989F0076EDE4 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E8380641D64989F0076EDE4 /* NotificationCenter.framework */; };
 		0E83806C1D64989F0076EDE4 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E83806A1D64989F0076EDE4 /* MainInterface.storyboard */; };
 		0E8380701D64989F0076EDE4 /* ContinueReadingWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0E8380631D64989F0076EDE4 /* ContinueReadingWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		0E8768361DDE002C00B8CACD /* WMFAnnouncementsContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E8768341DDE002C00B8CACD /* WMFAnnouncementsContentSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0E8768371DDE002C00B8CACD /* WMFAnnouncementsContentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8768351DDE002C00B8CACD /* WMFAnnouncementsContentSource.m */; };
+		0E8768361DDE002C00B8CACD /* WMFFeedPromptsContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E8768341DDE002C00B8CACD /* WMFFeedPromptsContentSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0E8768371DDE002C00B8CACD /* WMFFeedPromptsContentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8768351DDE002C00B8CACD /* WMFFeedPromptsContentSource.m */; };
 		0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */; };
 		0E9B9E331CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9B9E301CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m */; };
 		0EBCA7481C176389004F1FD9 /* WMFToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7471C176389004F1FD9 /* WMFToastManager.swift */; };
@@ -660,7 +660,7 @@
 		67A069A02D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
 		67A18A162FAD100100000001 /* WMFComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 67A18A172FAD100100000001 /* WMFComponents */; };
 		67A417DE2FBFD9E100C0DE01 /* ArticleImageGalleryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A417DF2FBFD9E100C0DE01 /* ArticleImageGalleryUITests.swift */; };
-		67A486872BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */; };
+		67A486872BEAE0D6001D3FF9 /* WMFFeedPromptsContentSource+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486862BEAE0D6001D3FF9 /* WMFFeedPromptsContentSource+Extensions.swift */; };
 		67A486A42BEBF3C5001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
 		67A486A52BEBF40F001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
 		67A486A82BEC009F001D3FF9 /* MagicWordUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A72BEC009F001D3FF9 /* MagicWordUtils.swift */; };
@@ -2984,8 +2984,8 @@
 		0E83806B1D64989F0076EDE4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		0E83806D1D64989F0076EDE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E8380781D649DE10076EDE4 /* ContinueReadingWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ContinueReadingWidget.entitlements; sourceTree = "<group>"; };
-		0E8768341DDE002C00B8CACD /* WMFAnnouncementsContentSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFAnnouncementsContentSource.h; sourceTree = "<group>"; };
-		0E8768351DDE002C00B8CACD /* WMFAnnouncementsContentSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WMFAnnouncementsContentSource.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		0E8768341DDE002C00B8CACD /* WMFFeedPromptsContentSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFFeedPromptsContentSource.h; sourceTree = "<group>"; };
+		0E8768351DDE002C00B8CACD /* WMFFeedPromptsContentSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WMFFeedPromptsContentSource.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0E9880601DA2C7CF0058D7F2 /* WMFNearbyContentSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNearbyContentSource.h; sourceTree = "<group>"; };
 		0E9880611DA2C7CF0058D7F2 /* WMFNearbyContentSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNearbyContentSource.m; sourceTree = "<group>"; };
 		0E9880631DA303070058D7F2 /* WMFContinueReadingContentSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFContinueReadingContentSource.h; sourceTree = "<group>"; };
@@ -3191,7 +3191,7 @@
 		679F0AAE24574AD400EF4A6A /* MockSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSchemeHandler.swift; sourceTree = "<group>"; };
 		67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ProfileButton.swift"; sourceTree = "<group>"; };
 		67A417DF2FBFD9E100C0DE01 /* ArticleImageGalleryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleImageGalleryUITests.swift; sourceTree = "<group>"; };
-		67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFAnnouncementsContentSource+Extensions.swift"; sourceTree = "<group>"; };
+		67A486862BEAE0D6001D3FF9 /* WMFFeedPromptsContentSource+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFFeedPromptsContentSource+Extensions.swift"; sourceTree = "<group>"; };
 		67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicWord.swift; sourceTree = "<group>"; };
 		67A486A72BEC009F001D3FF9 /* MagicWordUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicWordUtils.swift; sourceTree = "<group>"; };
 		67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUserInfoFetcher.swift; sourceTree = "<group>"; };
@@ -5069,9 +5069,9 @@
 				0E19B9B11DA80C4900239F3A /* WMFFeedContentSource.m */,
 				0E19B9B41DAC574E00239F3A /* WMFRandomContentSource.h */,
 				0E19B9B51DAC574E00239F3A /* WMFRandomContentSource.m */,
-				0E8768341DDE002C00B8CACD /* WMFAnnouncementsContentSource.h */,
-				0E8768351DDE002C00B8CACD /* WMFAnnouncementsContentSource.m */,
-				67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */,
+				0E8768341DDE002C00B8CACD /* WMFFeedPromptsContentSource.h */,
+				0E8768351DDE002C00B8CACD /* WMFFeedPromptsContentSource.m */,
+				67A486862BEAE0D6001D3FF9 /* WMFFeedPromptsContentSource+Extensions.swift */,
 				B0B4234E1EF32D2700D3DC4C /* WMFOnThisDayContentSource.h */,
 				B0B4234F1EF32D2700D3DC4C /* WMFOnThisDayContentSource.m */,
 				675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */,
@@ -7985,7 +7985,7 @@
 				D8FA18EC1E1BD8C4009675C3 /* WMFBlockDefinitions.h in Headers */,
 				D844482A1DDB632100425630 /* WMFArticle+CoreDataProperties.h in Headers */,
 				6779D45D24008654002840CA /* MWKImageInfoFetcher.h in Headers */,
-				0E8768361DDE002C00B8CACD /* WMFAnnouncementsContentSource.h in Headers */,
+				0E8768361DDE002C00B8CACD /* WMFFeedPromptsContentSource.h in Headers */,
 				D84B224F1DAFD14D007C44AA /* WMFFaceDetectionCache.h in Headers */,
 				83222DB11F8E554800338BE5 /* WMFContent+CoreDataProperties.h in Headers */,
 				D844D9B71D6CB7940042D692 /* MWKRecentSearchList.h in Headers */,
@@ -9756,7 +9756,7 @@
 			files = (
 				6779D45A2400822B002840CA /* MWKImageInfoFetcher.h in Sources */,
 				8341A345299ACD8C00016535 /* MEPEventProviding.swift in Sources */,
-				67A486872BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift in Sources */,
+				67A486872BEAE0D6001D3FF9 /* WMFFeedPromptsContentSource+Extensions.swift in Sources */,
 				D844D9C01D6CB7BA0042D692 /* MWKDataStore.m in Sources */,
 				D844482B1DDB632100425630 /* WMFArticle+CoreDataProperties.m in Sources */,
 				837E619B2510E47400C67494 /* ArticleSummary.swift in Sources */,
@@ -9916,7 +9916,7 @@
 				D8619BA41FBB10240045C8BC /* ReadingList+CoreDataClass.swift in Sources */,
 				83AA6A8C2EB5253D001A8EEC /* WMFArticle+Migration.swift in Sources */,
 				D8E892252176124F00587F61 /* PeriodicWorker.swift in Sources */,
-				0E8768371DDE002C00B8CACD /* WMFAnnouncementsContentSource.m in Sources */,
+				0E8768371DDE002C00B8CACD /* WMFFeedPromptsContentSource.m in Sources */,
 				835463622C3C8E8100AA0643 /* RelatedResponse.swift in Sources */,
 				83A6D44325100BEE00F9F909 /* Bundle+IsAppExtension.swift in Sources */,
 				7AE5248D21383D9C00CDC817 /* WikidataFetcher.swift in Sources */,
