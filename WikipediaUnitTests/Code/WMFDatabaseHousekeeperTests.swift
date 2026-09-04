@@ -2,6 +2,28 @@ import XCTest
 import WMF
 
 class WMFDatabaseHousekeeperTests: XCTestCase {
+
+    override func tearDown() {
+        UserDefaults.standard.wmf_lastDatabaseHousekeepingDate = nil
+    }
+
+    // MARK: - Throttle
+
+    func testHousekeepingRunsWhenItNeverRan() {
+        UserDefaults.standard.wmf_lastDatabaseHousekeepingDate = nil
+        XCTAssertTrue(UserDefaults.standard.wmf_shouldPerformDatabaseHousekeeping)
+    }
+
+    func testHousekeepingDoesNotRunAgainImmediately() {
+        UserDefaults.standard.wmf_lastDatabaseHousekeepingDate = Date()
+        XCTAssertFalse(UserDefaults.standard.wmf_shouldPerformDatabaseHousekeeping)
+    }
+
+    func testHousekeepingRunsAgainAfterTheInterval() {
+        UserDefaults.standard.wmf_lastDatabaseHousekeepingDate = Date(timeIntervalSinceNow: -WMFDatabaseHousekeepingInterval - 1)
+        XCTAssertTrue(UserDefaults.standard.wmf_shouldPerformDatabaseHousekeeping)
+    }
+
     
     func testDaysBefore() {        
         let formatter = DateFormatter()
