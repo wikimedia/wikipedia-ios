@@ -68,18 +68,10 @@ struct WMFForYouEndOfFeedCardView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .leading, spacing: 32) {
-                // The text keeps its place at the bottom of the card and the illustration sits in
-                // the middle of whatever room is left above it. On a phone there is none, the
-                // spacers collapse, and the layout is the stack it was before. On an iPad the
-                // illustration no longer hangs off the bottom with the screen empty above it.
-                Spacer(minLength: 0)
-
                 illustration
                     .frame(maxWidth: .infinity, alignment: .center)
                     .frame(height: variant == .endOfFeed ? 175 : 105)
                     .accessibilityHidden(true)
-
-                Spacer(minLength: 0)
 
                 VStack(alignment: .leading, spacing: 16) {
                     VStack(alignment: .leading, spacing: 16) {
@@ -98,6 +90,7 @@ struct WMFForYouEndOfFeedCardView: View {
                             .foregroundStyle(Color(uiColor: theme.text))
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
+                    .minimumScaleFactor(0.25)
                     .accessibilityElement(children: .combine)
 
                     linkRow(
@@ -106,28 +99,38 @@ struct WMFForYouEndOfFeedCardView: View {
                         linkText: addInterestsLinkText,
                         action: { viewModel.onTapAddInterests?() }
                     )
+                    .minimumScaleFactor(0.3)
                     linkRow(
                         symbol: .person2Fill,
                         format: viewModel.communityFormat,
                         linkText: viewModel.communityLinkText,
                         action: { viewModel.onTapCommunity?() }
                     )
+                    .minimumScaleFactor(0.3)
                 }
-                // The minimum scale factors above make this text compressible, so the spacers
-                // would otherwise take the room and shrink it. This asks for its natural height
-                // first and leaves the spacers whatever is left.
+                // Two lines for every one of them: the title, the three sentences and both link
+                // rows. Applied to the stack so it reaches each `Text` inside it.
+                .lineLimit(2)
+                // Asks for its natural height first, so a stack that is briefly short of room
+                // during a scroll does not squeeze the words.
                 .layoutPriority(1)
             }
-            // Without this the stack keeps its natural height and the spacers have nothing to
-            // expand into.
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            // The card is one fixed page of a paging feed, so it cannot grow or scroll to fit the
+            // largest text sizes. Capping here keeps every word on screen at its own size rather
+            // than shrinking all of it to fit. Roughly twice the default: body runs 17pt at
+            // `.large` and 33pt at `.accessibility2`.
+            .dynamicTypeSize(...DynamicTypeSize.accessibility2)
             .padding(.horizontal, 20)
             .padding(.top, WMFForYouCardMetrics.contentTopInset(
                 headerBottom: headerBottom,
                 cardTop: geometry.frame(in: .global).minY
             ))
             .padding(.bottom, WMFForYouCardMetrics.contentBottomInset(safeAreaBottom: WMFForYouCardMetrics.windowSafeAreaBottom))
-            .frame(width: geometry.size.width, height: geometry.size.height, alignment: .bottomLeading)
+            // `.leading` centres the block down the card and keeps it against the leading edge.
+            // The two insets are inside the block, so it settles between the header bar and the
+            // tab bar rather than in the middle of the screen.
+            .frame(width: geometry.size.width, height: geometry.size.height, alignment: .leading)
             .background(Color(uiColor: WMFColor.green800))
             .ignoresSafeArea()
         }
