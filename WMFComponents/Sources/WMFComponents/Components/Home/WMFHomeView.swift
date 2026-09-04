@@ -56,31 +56,90 @@ public struct WMFHomeView: View {
     @ViewBuilder
     private var mainContent: some View {
         if viewModel.selectedTab == .forYou {
-            ZStack(alignment: .top) {
-                forYouTabContent
-                    .ignoresSafeArea()
-                    .environment(\.forYouHeaderBottom, headerBottom)
-                    .environment(\.colorScheme, .dark)
-                headerBar(isForYou: true)
-                    .modifier(WMFLegacyDarkHeaderModifier())
-                    .padding(.top, headerBarTopInset)
-                    .background {
-                        GeometryReader { proxy in
-                            Color.clear.preference(
-                                key: WMFForYouHeaderBottomKey.self,
-                                value: proxy.frame(in: .global).maxY
-                            )
-                        }
-                    }
-                refreshIndicator
-                    .padding(.top, refreshIndicatorTopInset)
+            if let forYouViewModel = viewModel.forYouViewModel {
+                WMFHomeForYouSection(forYouViewModel: forYouViewModel) {
+                    forYouFeedContent
+                } emptyState: {
+                    forYouEmptyFeedContent(forYouViewModel: forYouViewModel)
+                }
+            } else {
+                // Loading, error, and placeholder: there is no feed view model yet.
+                forYouStateChrome {
+                    forYouTabContent
+                }
             }
-            .ignoresSafeArea()
-            .onPreferenceChange(WMFForYouHeaderBottomKey.self) { headerBottom = $0 }
         } else {
             communitySection
                 .environment(\.colorScheme, theme.preferredColorScheme)
         }
+    }
+
+    // MARK: - For You Tab: containers
+
+    /// The feed, drawn under every edge, with the header floating over the cards.
+    private var forYouFeedContent: some View {
+        ZStack(alignment: .top) {
+            forYouTabContent
+                .ignoresSafeArea()
+                .environment(\.forYouHeaderBottom, headerBottom)
+                .environment(\.colorScheme, .dark)
+            headerBar(isForYou: true)
+                .modifier(WMFLegacyDarkHeaderModifier())
+                .padding(.top, headerBarTopInset)
+                .background {
+                    GeometryReader { proxy in
+                        Color.clear.preference(
+                            key: WMFForYouHeaderBottomKey.self,
+                            value: proxy.frame(in: .global).maxY
+                        )
+                    }
+                }
+            refreshIndicator
+                .padding(.top, refreshIndicatorTopInset)
+        }
+        .ignoresSafeArea()
+        .onPreferenceChange(WMFForYouHeaderBottomKey.self) { headerBottom = $0 }
+    }
+
+    /// The chrome shared by every non-feed state of the For You tab: loading, error, placeholder,
+    /// and the all-modules-hidden empty state.
+    ///
+    /// Like the Community empty state, these respect the safe areas: they end with a button, and
+    /// under an ignored bottom edge the button could never scroll clear of the tab bar. Only the
+    /// background draws under the edges. The header comes in as a safe area inset, the way the
+    /// Community section places it, rather than with the feed's manual inset.
+    private func forYouStateChrome<Content: View>(@ViewBuilder content: () -> Content) -> some View {
+        content()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .safeAreaInset(edge: .top, spacing: 0) {
+                headerBar(isForYou: true)
+                    .modifier(WMFLegacyDarkHeaderModifier())
+            }
+            .background(Color(uiColor: WMFTheme.forYou.paperBackground).ignoresSafeArea())
+            .environment(\.colorScheme, .dark)
+    }
+
+    /// The empty state for a feed whose modules are all off or hidden. It lived inside
+    /// `WMFForYouView` before; it sits here now so every empty state of the tab shares
+    /// `forYouStateChrome` and none of them ends up under the tab bar.
+    private func forYouEmptyFeedContent(forYouViewModel: WMFForYouViewModel) -> some View {
+        forYouStateChrome {
+            WMFHomeEmptyStateView(
+                subtitle: forYouViewModel.emptySubtitle,
+                theme: .forYou,
+                action: { forYouViewModel.onCustomizeInterests?(.emptyFeed) }
+            )
+            .onAppear {
+                forYouViewModel.onEmptyViewAppearance?()
+            }
+        }
+    }
+
+    /// The edges the Community section draws under. The feed draws under the tab bar for the
+    /// full-bleed reading experience, but the empty state respects every edge: it ends with the
+    /// customize button, and under an ignored edge the button can never scroll clear of the bar.
+    private var communityIgnoredSafeAreaEdges: Edge.Set {
+        viewModel.isEmbeddedCommunityFeedEmpty ? [] : [.top, .bottom]
     }
 
     @ViewBuilder
@@ -88,7 +147,7 @@ public struct WMFHomeView: View {
         if #available(iOS 26.0, *) {
             communityTabContent
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .ignoresSafeArea(.container, edges: [.top, .bottom])
+                .ignoresSafeArea(.container, edges: communityIgnoredSafeAreaEdges)
                 .safeAreaInset(edge: .top, spacing: 0) {
                     headerBar(isForYou: false)
                 }
@@ -266,6 +325,26 @@ public struct WMFHomeView: View {
             theme: theme,
             action: { viewModel.didTapCustomizeCommunityFeed?() }
         )
+    }
+}
+
+/// Chooses between the For You feed and its empty state.
+///
+/// A view of its own because the choice depends on `WMFForYouViewModel`, which `WMFHomeView` does
+/// not observe: `WMFHomeView` observes only the home view model, so without this wrapper, hiding
+/// the last card would not swap the feed for the empty state until something else redrew the
+/// screen.
+private struct WMFHomeForYouSection<Feed: View, EmptyState: View>: View {
+    @ObservedObject var forYouViewModel: WMFForYouViewModel
+    @ViewBuilder let feed: () -> Feed
+    @ViewBuilder let emptyState: () -> EmptyState
+
+    var body: some View {
+        if forYouViewModel.isFeedEmpty {
+            emptyState()
+        } else {
+            feed()
+        }
     }
 }
 
