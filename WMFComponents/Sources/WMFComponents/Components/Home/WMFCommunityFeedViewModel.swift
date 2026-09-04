@@ -1,5 +1,6 @@
 import Combine
 import Foundation
+import SwiftUI
 import UIKit
 import WMFData
 import WMFNativeLocalizations
@@ -19,7 +20,6 @@ public final class WMFCommunityFeedViewModel: ObservableObject, Identifiable {
     public let seePastContentTitle = WMFLocalizedString("home-community-see-past-content", value: "See past community content", comment: "Button at the bottom of the Community feed that loads content from previous days.")
 
     public let featuredArticleTitle = WMFLocalizedString("home-community-featured-article-title", value: "Featured Article", comment: "Section header in the Community feed. Labels the article that volunteer editors featured on the main page of the selected language Wikipedia today.")
-    public let featuredArticleSubtitle = WMFLocalizedString("home-community-featured-article-subtitle", value: "Featured articles are some of the best articles on Wikipedia, selected daily by editors", comment: "Subtitle for the Featured Article section in the Community feed. Explains that the article was selected by volunteer editors and is featured on the main page of the selected language Wikipedia today.")
 
     public let topReadTitle = WMFLocalizedString("home-community-top-read-title", value: "Top read", comment: "Section header in the Community feed. Labels a list of the most read articles on the selected language Wikipedia.")
 
@@ -36,11 +36,33 @@ public final class WMFCommunityFeedViewModel: ObservableObject, Identifiable {
 final class WMFFeaturedArticleImageViewModel: ObservableObject {
     @Published var uiImage: UIImage?
 
+    /// The colour the card sits on, taken from the image itself.
+    @Published var sampledColor: Color?
+
+    private var loadTask: Task<Void, Never>?
+
     func load(url: URL) {
-        Task {
+        // A row is reused as the list scrolls, so onAppear fires more than once for the same card.
+        guard loadTask == nil else { return }
+
+        loadTask = Task { [weak self] in
             guard let data = try? await WMFImageDataController.shared.fetchImageData(url: url) else { return }
+
+            // Sampled off the main actor before anything is shown: the pixel work is too expensive
+            // to run while the user is scrolling.
+            let color = await WMFImageColorSampler.shared.sampledColor(from: data)
+
+            guard let self else { return }
+
+            // Image and colour land together, so the card never appears against one colour and
+            // then changes to another.
             self.uiImage = UIImage(data: data)
+            self.sampledColor = color
         }
+    }
+
+    deinit {
+        loadTask?.cancel()
     }
 }
 

@@ -357,6 +357,28 @@ public final class WMFHomeViewModel: ObservableObject {
             self.isLoadingCommunity = false
         }
     }
+    
+    // MARK: - Community card actions
+
+    public var didSaveCommunityArticle: ((WMFFeedArticle) -> Void)?
+    public var didTapUnsaveCommunityArticle: ((WMFFeedArticle) -> Void)?
+    public var didShareCommunityArticle: ((WMFFeedArticle) -> Void)?
+
+    /// Answers whether the article is already in the reading list, so a second tap unsaves rather
+    /// than saving again.
+    public var isCommunityArticleSaved: ((WMFFeedArticle) -> Bool)?
+
+    public func saveFeaturedArticle(_ article: WMFFeedArticle) {
+        if isCommunityArticleSaved?(article) == true {
+            didTapUnsaveCommunityArticle?(article)
+        } else {
+            didSaveCommunityArticle?(article)
+        }
+    }
+
+    public func shareFeaturedArticle(_ article: WMFFeedArticle) {
+        didShareCommunityArticle?(article)
+    }
 
     public func refreshCommunityModuleVisibility() {
         communityModuleVisibility = WMFCommunityModuleVisibility(

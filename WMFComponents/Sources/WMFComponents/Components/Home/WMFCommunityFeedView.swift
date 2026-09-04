@@ -22,6 +22,10 @@ struct WMFCommunityFeedView: View {
 
     var scrollToTopRequestID: Int = 0
 
+    /// Nil until the host wires them up. The buttons stay hidden while they are.
+    var onSaveFeaturedArticle: ((WMFFeedArticle) -> Void)?
+    var onShareFeaturedArticle: ((WMFFeedArticle) -> Void)?
+
     private static let disclaimerAnchorID = "community-disclaimer"
 
     private static func dayAnchorID(_ index: Int) -> String { "community-day-\(index)" }
@@ -149,9 +153,14 @@ struct WMFCommunityFeedView: View {
 
     private func featuredArticleSection(_ article: WMFFeedArticle, hideKey: String?) -> some View {
         Section {
-            sectionHeader(viewModel.featuredArticleTitle, subtitle: viewModel.featuredArticleSubtitle, module: .featuredArticle, hideKey: hideKey)
-            WMFFeaturedArticleCard(article: article, theme: theme)
-                .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 8, trailing: 16))
+            sectionHeader(viewModel.featuredArticleTitle, module: .featuredArticle, hideKey: hideKey)
+            WMFFeaturedArticleCard(
+                article: article,
+                theme: theme,
+                onSave: onSaveFeaturedArticle.map { save in { save(article) } },
+                onShare: onShareFeaturedArticle.map { share in { share(article) } }
+            )
+                .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color(uiColor: theme.paperBackground))
         }
@@ -250,18 +259,11 @@ struct WMFCommunityFeedView: View {
 
     // MARK: - Section Header
 
-    private func sectionHeader(_ title: String, subtitle: String? = nil, module: WMFCommunityModule, hideKey: String?) -> some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: 8) {
-                Text(title)
-                    .font(Font(WMFFont.for(.boldTitle3)))
-                    .foregroundStyle(Color(uiColor: theme.text))
-                if let subtitle {
-                    Text(subtitle)
-                        .font(Font(WMFFont.for(.body)))
-                        .foregroundStyle(Color(uiColor: theme.text))
-                }
-            }
+    private func sectionHeader(_ title: String, module: WMFCommunityModule, hideKey: String?) -> some View {
+        HStack {
+            Text(title)
+                .font(Font(WMFFont.for(.boldTitle3)))
+                .foregroundStyle(Color(uiColor: theme.text))
             Spacer()
             Menu {
                 Button(role: .destructive) {
@@ -284,7 +286,7 @@ struct WMFCommunityFeedView: View {
                     }
                 }
             } label: {
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage())
+                Image(uiImage: WMFSFSymbolIcon.for(symbol: .ellipsis, font: .title2, compatibleWith: .wmfCappedForSFSymbols) ?? UIImage())
                     .foregroundStyle(Color(uiColor: theme.paperBackground))
                     .frame(width: 29, height: 29)
                     .background(
@@ -306,54 +308,161 @@ struct WMFCommunityFeedView: View {
 
 // MARK: - Featured Article Card
 
+/// Glass on iOS 26, a frosted circle before it. The button is a square frame, so the default
+/// capsule shape of `glassEffect()` renders as a circle without asking for one.
+private struct WMFFeaturedArticleActionButtonModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content
+                .tint(.primary)
+                .glassEffect()
+        } else {
+            content
+                .background(.ultraThinMaterial, in: Circle())
+        }
+    }
+}
+
 private struct WMFFeaturedArticleCard: View {
 
     let article: WMFFeedArticle
     let theme: WMFTheme
+    var onSave: (() -> Void)?
+    var onShare: (() -> Void)?
 
     @StateObject private var imageViewModel = WMFFeaturedArticleImageViewModel()
 
+    private static let cornerRadius: CGFloat = 12
+    private static let imageHeight: CGFloat = 240
+
+    /// How far up the image the fade into the card colour reaches.
+    private static let imageFadeHeight: CGFloat = 90
+    private static let actionButtonSide: CGFloat = 44
+    private static let ruleWidth: CGFloat = 88
+    private static let ruleHeight: CGFloat = 2
+
+    /// Falls back to a theme colour until the image has been sampled, or when there is no image.
+    private var cardColor: Color {
+        imageViewModel.sampledColor ?? Color(uiColor: theme.midBackground)
+    }
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            if let uiImage = imageViewModel.uiImage {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 200)
-                    .clipped()
-                    .cornerRadius(8)
+        VStack(alignment: .leading, spacing: 0) {
+            imageHeader
+            textBlock
+        }
+        .background(cardColor)
+        .clipShape(RoundedRectangle(cornerRadius: Self.cornerRadius, style: .continuous))
+        // Above the clip and outside the image's own modifiers, so nothing drawn by the card sits
+        // over the buttons or takes their touches.
+        .overlay(alignment: .topTrailing) {
+            actionButtons
+        }
+        .animation(.easeOut(duration: 0.2), value: imageViewModel.sampledColor)
+        .onAppear {
+            if let urlString = article.originalImage?.source ?? article.thumbnail?.source,
+               let url = URL(string: urlString) {
+                imageViewModel.load(url: url)
             }
+        }
+    }
+
+    // MARK: - Image
+
+    @ViewBuilder
+    private var imageHeader: some View {
+        if let uiImage = imageViewModel.uiImage {
+            Color.clear
+                .frame(maxWidth: .infinity)
+                .frame(height: Self.imageHeight)
+                .overlay(
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFill()
+                )
+                .clipped()
+                .overlay(alignment: .bottom) {
+                    // Carries the photograph into the block of colour below it.
+                    LinearGradient(
+                        colors: [cardColor.opacity(0), cardColor],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                    .frame(height: Self.imageFadeHeight)
+                }
+                // Decoration only: it takes no touches, and the buttons that sit over it are not
+                // part of it, so they keep their own VoiceOver labels.
+                .allowsHitTesting(false)
+                .accessibilityHidden(true)
+        }
+    }
+
+    @ViewBuilder
+    private var actionButtons: some View {
+        if onSave != nil || onShare != nil {
+            HStack(spacing: 12) {
+                if let onSave {
+                    actionButton(symbol: .bookmark, label: CommonStrings.shortSaveTitle, action: onSave)
+                }
+                if let onShare {
+                    actionButton(symbol: .squareAndArrowUp, label: CommonStrings.shortShareTitle, action: onShare)
+                }
+            }
+            .padding(16)
+        }
+    }
+
+    private func actionButton(symbol: WMFSFSymbolIcon, label: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(uiImage: WMFSFSymbolIcon.for(symbol: symbol, font: .title2, compatibleWith: .wmfCappedForSFSymbols) ?? UIImage())
+                .foregroundStyle(Color(uiColor: theme.text))
+                .frame(width: Self.actionButtonSide, height: Self.actionButtonSide)
+                .modifier(WMFFeaturedArticleActionButtonModifier())
+                // The glyph is small and the rest of the frame is empty, which takes no touches.
+                .contentShape(Circle())
+        }
+        // Without a style the row of a List takes the tap instead of the button.
+        .buttonStyle(.plain)
+        .accessibilityLabel(label)
+    }
+
+    // MARK: - Text
+
+    private var textBlock: some View {
+        VStack(alignment: .leading, spacing: 8) {
             WMFHtmlText(
                 html: article.displayTitle ?? article.title ?? "",
                 styles: HtmlUtils.Styles(
-                    font: WMFFont.for(.boldTitle3),
-                    boldFont: WMFFont.for(.boldTitle3),
-                    italicsFont: WMFFont.for(.italicGeorgiaTitle3),
-                    boldItalicsFont: WMFFont.for(.italicGeorgiaTitle3),
-                    color: theme.text,
-                    linkColor: theme.link,
+                    font: WMFFont.for(.georgiaTitle1),
+                    boldFont: WMFFont.for(.georgiaTitle1),
+                    italicsFont: WMFFont.for(.italicGeorgiaTitle1),
+                    boldItalicsFont: WMFFont.for(.italicGeorgiaTitle1),
+                    color: WMFColor.white,
+                    linkColor: WMFColor.white,
                     lineSpacing: 0
                 )
             )
             if let description = article.description {
                 Text(description)
                     .font(Font(WMFFont.for(.subheadline)))
-                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                    .foregroundStyle(Color(uiColor: WMFColor.white))
             }
+            Rectangle()
+                .fill(Color(uiColor: WMFColor.white))
+                .frame(width: Self.ruleWidth, height: Self.ruleHeight)
+                .padding(.vertical, 8)
+                .accessibilityHidden(true)
             if let extract = article.extract {
                 Text(extract)
                     .font(Font(WMFFont.for(.callout)))
-                    .foregroundStyle(Color(uiColor: theme.text))
-                    .lineLimit(4)
+                    .foregroundStyle(Color(uiColor: WMFColor.white))
+                    .lineLimit(3)
             }
         }
-        .onAppear {
-            if let urlString = article.thumbnail?.source ?? article.originalImage?.source,
-               let url = URL(string: urlString) {
-                imageViewModel.load(url: url)
-            }
-        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 20)
+        .padding(.top, 4)
+        .padding(.bottom, 24)
     }
 }
 

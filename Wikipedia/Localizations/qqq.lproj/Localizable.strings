@@ -756,7 +756,6 @@
 "home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.";
 "home-card-more-options-accessibility-label" = "Accessibility label for the three dot button on a Home feed card, which opens a menu of actions for that card.";
 "home-community-empty-feed-turn-on-modules-message" = "Message shown in the Home tab Community segment when the reader has turned off every feed module.";
-"home-community-featured-article-subtitle" = "Subtitle for the Featured Article section in the Community feed. Explains that the article was selected by volunteer editors and is featured on the main page of the selected language Wikipedia today.";
 "home-community-featured-article-title" = "Section header in the Community feed. Labels the article that volunteer editors featured on the main page of the selected language Wikipedia today.";
 "home-community-in-the-news-title" = "Section header in the Community feed. Labels current news stories that link to related Wikipedia articles.";
 "home-community-on-this-day-title" = "Section header in the Community feed. Labels a list of historical events that happened on today's calendar date.";

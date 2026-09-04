@@ -242,6 +242,8 @@ public struct WMFHomeView: View {
                 onRefresh: { await viewModel.refreshCommunityFeed() },
                 onTapSeePastContent: { viewModel.loadCommunityPreviousPage() },
                 scrollToTopRequestID: viewModel.communityScrollToTopRequestID,
+                onSaveFeaturedArticle: { viewModel.saveFeaturedArticle($0) },
+                onShareFeaturedArticle: { viewModel.shareFeaturedArticle($0) }
             )
         } else if viewModel.isLoadingCommunity {
             Spacer()
