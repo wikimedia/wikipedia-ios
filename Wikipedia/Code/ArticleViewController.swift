@@ -411,6 +411,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         defaultUpdateBlock()
 
         updateLeadImageMargins()
+        updateLeadImageZoomTransform()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -1395,6 +1396,36 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
     }
 
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        updateLeadImageZoomTransform()
+    }
+
+    /// Scales the lead image, rendered outside the web view, to match the web view's zoom
+    ///
+    /// Scale about the content origin so the image stays edge-aligned with the
+    /// zoomed contents of the web view
+    func updateLeadImageZoomTransform() {
+        guard WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview,
+              WMFDeveloperSettingsDataController.shared.alsoZoomLeadImageWithArticleWebview else {
+            return
+        }
+
+        let scale = webView.scrollView.zoomScale
+        guard scale != 1 else {
+            leadImageContainerView.transform = .identity
+            return
+        }
+        let baseSize = leadImageContainerView.bounds.size
+        guard baseSize.width > 0, baseSize.height > 0 else {
+            return
+        }
+        // Scaling happens about the center; translate to keep the top-left at the content origin.
+        let dx = baseSize.width * (scale - 1) / 2
+        let dy = baseSize.height * (scale - 1) / 2
+        leadImageContainerView.transform = CGAffineTransform(translationX: dx, y: dy)
+            .scaledBy(x: scale, y: scale)
+    }
+
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         updateTableOfContentsHighlight()
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -1560,17 +1591,48 @@ private extension ArticleViewController {
         webView.customUserAgent = WikipediaAppUtils.versionedUserAgent()
     }
 
+    /// The constraints that position the lead image container within the web view's scroll view.
+    private var leadImageContainerPositioningConstraints: [NSLayoutConstraint] {
+        guard WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview,
+              WMFDeveloperSettingsDataController.shared.alsoZoomLeadImageWithArticleWebview else {
+            return [
+                leadImageContainerView.topAnchor.constraint(equalTo: webView.scrollView.topAnchor),
+                leadImageContainerView.leadingAnchor.constraint(equalTo: webView.leadingAnchor),
+                leadImageContainerView.trailingAnchor.constraint(equalTo: webView.trailingAnchor)
+            ]
+        }
+
+        // Pin to the content layout guide, not the web view's frame anchors — frame-anchor
+        // constraints re-resolve against contentOffset during pinch-zooming, causing jitter.
+        let contentGuide = webView.scrollView.contentLayoutGuide
+        return [
+            leadImageContainerView.topAnchor.constraint(equalTo: contentGuide.topAnchor),
+            leadImageContainerView.leadingAnchor.constraint(equalTo: contentGuide.leadingAnchor),
+            // Width rather than a trailing pin: the content guide's trailing edge tracks the
+            // zoomed content width, which would stretch the container.
+            leadImageContainerView.widthAnchor.constraint(equalTo: webView.widthAnchor)
+        ]
+    }
+
     /// Adds the lead image view to the web view's scroll view and configures the associated constraints
     func setupLeadImageView() {
         webView.scrollView.addSubview(leadImageContainerView)
 
-        let leadingConstraint =  leadImageContainerView.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
-        let trailingConstraint =  webView.trailingAnchor.constraint(equalTo: leadImageContainerView.trailingAnchor)
-        let topConstraint = webView.scrollView.topAnchor.constraint(equalTo: leadImageContainerView.topAnchor)
+        var constraints = leadImageContainerPositioningConstraints
+
         let imageTopConstraint = leadImageView.topAnchor.constraint(equalTo:  leadImageContainerView.topAnchor)
         imageTopConstraint.priority = UILayoutPriority(rawValue: 999)
         let imageBottomConstraint = leadImageContainerView.bottomAnchor.constraint(equalTo: leadImageView.bottomAnchor, constant: leadImageBorderHeight)
-        NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, leadImageHeightConstraint, imageTopConstraint, imageBottomConstraint, leadImageLeadingMarginConstraint, leadImageTrailingMarginConstraint])
+
+        constraints.append(contentsOf: [
+            imageTopConstraint,
+            imageBottomConstraint,
+            leadImageHeightConstraint,
+            leadImageLeadingMarginConstraint,
+            leadImageTrailingMarginConstraint
+        ])
+
+        NSLayoutConstraint.activate(constraints)
     }
 
     func setupPageContentServiceJavaScriptInterface(with completion: @escaping () -> Void) {
