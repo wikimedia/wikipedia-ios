@@ -79,6 +79,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     
     private var isWaitingToResumeApp: Bool = false
     private var isMigrationComplete: Bool = false
+
+    /// The task that prunes the WMFData database. Keep it, to let the caller stop it.
+    private var wmfDataHousekeepingTask: Task<Error?, Never>?
     private var isMigrationActive: Bool = false
     private var isResumeComplete: Bool = false
     private var isCheckingRemoteConfig: Bool = false
@@ -763,6 +766,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     /// The time to wait after the app becomes active.
     private static let databaseHousekeepingLaunchDelay: UInt64 = 5 * NSEC_PER_SEC
 
+    /// Stops the WMFData prune. The legacy pass has no stop point, thus it runs to the end.
+    func cancelDatabaseHousekeeping() {
+        wmfDataHousekeepingTask?.cancel()
+    }
+
     func performDatabaseHousekeeping(completion: @escaping (Error?) -> Void) {
         let housekeeper = WMFDatabaseHousekeeper()
 
@@ -784,13 +792,23 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             SharedContainerCacheHousekeeping.deleteStaleCachedItems(in: SharedContainerCacheCommonNames.didYouKnowCache, cleanupLevel: .low)
 
             Task { @MainActor [weak self] in
-                if housekeepingError == nil {
+                guard let self else {
+                    completion(housekeepingError)
+                    return
+                }
+
+                // Wait for the WMFData prune. The caller must not report completion before it ends.
+                let wmfDataTask = Task { await self.performWMFDataHousekeeping() }
+                self.wmfDataHousekeepingTask = wmfDataTask
+                let wmfDataError = await wmfDataTask.value
+                self.wmfDataHousekeepingTask = nil
+
+                let error = housekeepingError ?? wmfDataError
+                if error == nil {
                     UserDefaults.standard.wmf_lastDatabaseHousekeepingDate = Date()
                 }
 
-                self?.performWMFDataHousekeeping()
-
-                completion(housekeepingError)
+                completion(error)
             }
         }
     }
