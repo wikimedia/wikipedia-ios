@@ -44,7 +44,7 @@ final class InsertMediaSelectedImageView: SetupView {
 
     public func configure(with imageURL: URL, searchResult: InsertMediaSearchResult, theme: Theme, completion: @escaping (Error?) -> Void) {
         imageView.image = nil
-        imageView.wmf_setImage(with: imageURL, detectFaces: false, onGPU: true, failure: { error in
+        imageView.wmf_setImage(with: imageURL, detectFaces: false, failure: { error in
             completion(error)
         }) {
             self.searchResult = searchResult

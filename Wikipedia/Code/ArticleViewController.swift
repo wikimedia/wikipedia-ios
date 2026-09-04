@@ -305,7 +305,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     func loadLeadImage(with leadImageURL: URL) {
         leadImageHeightConstraint.constant = leadImageHeight
-        leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
+        leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, failure: { (error) in
             DDLogWarn("Error loading lead image: \(error)")
         }) {
             self.updateLeadImageMargins()

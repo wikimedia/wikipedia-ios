@@ -1,8 +1,8 @@
-#import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
+@import UIKit;
 #import <WMF/WMFBlockDefinitions.h>
 @class MWKImage;
 @class WMFPermanentCacheController;
-@class WMFFaceDetectionCache;
+@class WMFFaceDetectionAdapter;
 @class FLAnimatedImage;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -10,10 +10,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIImageView (WMFImageFetchingInternal)
 
 /**
- *   The cache used to hold any detected faces
+ *   The adapter that finds and holds the detected faces
  *
  */
-+ (WMFFaceDetectionCache *)faceDetectionCache;
++ (WMFFaceDetectionAdapter *)faceDetectionAdapter;
 
 /**
  *  The image URL associated with the receiver.
@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param success Invoked after the image has been successfully set and animated into view.
  *
  */
-- (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
+- (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
 
 /**
  *  Cancels any ongoing fetch for the receiver's current image, using its internal @c WMFPermanentCacheController.
