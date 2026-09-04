@@ -269,6 +269,7 @@
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 tab|$1 tabs}} closed.";
 "collect-prize-title" = "Collect your prize!";
 "community-detail-back-button-title" = "Back to Community feed";
+"community-feed-disclaimer" = "Content and resources selected by and about the Wikimedia community";
 "community-feed-preferences-global-card-footer-text" = "This card is not language specific, turning off this card will remove it from your Community feed.";
 "compass-direction" = "at $1 o'clock";
 "confirm-donation-history-deletion-subtitle" = "This will only apply to donations made from this device.";

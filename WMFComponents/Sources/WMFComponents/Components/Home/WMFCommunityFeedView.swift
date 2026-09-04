@@ -7,6 +7,7 @@ import WMFNativeLocalizations
 struct WMFCommunityFeedView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @ObservedObject var viewModel: WMFCommunityFeedViewModel
 
     var theme: WMFTheme { appEnvironment.theme }
 
@@ -27,6 +28,7 @@ struct WMFCommunityFeedView: View {
 
     var body: some View {
         ScrollViewReader { proxy in
+            disclaimer
             feedList
                 .onChange(of: scrollToTopRequestID) { _, _ in
                     withAnimation {
@@ -34,6 +36,30 @@ struct WMFCommunityFeedView: View {
                     }
                 }
         }
+    }
+    
+    private var disclaimer: some View {
+        HStack(alignment: .center, spacing: 10) {
+            Text(viewModel.disclaimerString)
+                .font(Font(WMFFont.for(.callout)))
+                .foregroundStyle(Color(uiColor: theme.text))
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Image("globe_yir", bundle: .module)
+                .resizable()
+                .scaledToFit()
+                .frame(height: 45)
+                .accessibilityHidden(true)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 16)
+        .background(
+            Capsule()
+                .fill(Color(uiColor: theme.midBackground))
+        )
+        .padding(.horizontal, 16)
+        .padding(.vertical, 24)
+        .accessibilityElement(children: .combine)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private var feedList: some View {
@@ -313,18 +339,6 @@ private struct WMFFeaturedArticleCard: View {
     }
 }
 
-@MainActor
-private final class WMFFeaturedArticleImageViewModel: ObservableObject {
-    @Published var uiImage: UIImage?
-
-    func load(url: URL) {
-        Task {
-            guard let data = try? await WMFImageDataController.shared.fetchImageData(url: url) else { return }
-            self.uiImage = UIImage(data: data)
-        }
-    }
-}
-
 // MARK: - News Story Card
 
 private struct WMFNewsStoryCard: View {
@@ -372,24 +386,6 @@ private struct WMFNewsStoryCard: View {
     }
 }
 
-@MainActor
-private final class WMFNewsStoryImageViewModel: ObservableObject {
-    @Published var uiImage: UIImage?
-    private var loadTask: Task<Void, Never>?
-
-    func load(url: URL) {
-        loadTask?.cancel()
-        loadTask = Task {
-            guard let data = try? await WMFImageDataController.shared.fetchImageData(url: url) else { return }
-            self.uiImage = UIImage(data: data)
-        }
-    }
-
-    deinit {
-        loadTask?.cancel()
-    }
-}
-
 // MARK: - Picture of the Day Card
 
 private struct WMFPictureOfTheDayCard: View {
@@ -418,18 +414,6 @@ private struct WMFPictureOfTheDayCard: View {
             if let urlString = imageSource.source, let url = URL(string: urlString) {
                 imageViewModel.load(url: url)
             }
-        }
-    }
-}
-
-@MainActor
-private final class WMFPictureOfTheDayImageViewModel: ObservableObject {
-    @Published var uiImage: UIImage?
-
-    func load(url: URL) {
-        Task {
-            guard let data = try? await WMFImageDataController.shared.fetchImageData(url: url) else { return }
-            self.uiImage = UIImage(data: data)
         }
     }
 }

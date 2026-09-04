@@ -88,7 +88,7 @@ public struct WMFHomeView: View {
         if #available(iOS 26.0, *) {
             communityTabContent
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .ignoresSafeArea(.container, edges: [.top, .bottom])
+                .ignoresSafeArea(.container, edges: [.bottom])
                 .safeAreaInset(edge: .top, spacing: 0) {
                     headerBar(isForYou: false)
                 }
@@ -233,6 +233,7 @@ public struct WMFHomeView: View {
             }
         } else if !viewModel.communityPages.isEmpty {
             WMFCommunityFeedView(
+                viewModel: viewModel.communityViewModel,
                 pages: viewModel.communityPages,
                 moduleVisibility: viewModel.communityModuleVisibility,
                 hiddenCardKeys: viewModel.hiddenCardKeys,
@@ -241,7 +242,7 @@ public struct WMFHomeView: View {
                 onHideCard: { viewModel.hideCard(key: $0) },
                 onRefresh: { await viewModel.refreshCommunityFeed() },
                 onTapSeePastContent: { viewModel.loadCommunityPreviousPage() },
-                scrollToTopRequestID: viewModel.communityScrollToTopRequestID
+                scrollToTopRequestID: viewModel.communityScrollToTopRequestID,
             )
         } else if viewModel.isLoadingCommunity {
             Spacer()

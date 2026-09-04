@@ -127,6 +127,9 @@ public final class WMFHomeViewModel: ObservableObject {
 
     /// Opens the Community feed settings from that empty state.
     public var didTapCustomizeCommunityFeed: (@MainActor @Sendable () -> Void)?
+    
+    public var communityViewModel = WMFCommunityFeedViewModel()
+        
 
     // MARK: - For You view model configuration
 
