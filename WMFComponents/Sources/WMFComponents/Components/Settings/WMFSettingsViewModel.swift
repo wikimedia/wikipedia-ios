@@ -372,7 +372,7 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.coordinatorDelegate?.handleSettingsAction(.clearCachedData)
         })
 
-        var mainItems: [SettingsItem] = [
+        let mainItems: [SettingsItem] = [
             pushNotifications,
             readingPrefs,
             articleStorage,
