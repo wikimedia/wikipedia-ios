@@ -24,6 +24,7 @@ class DonateCoordinator: Coordinator {
         case articleCampaignModal(ArticleURL, MetricsID, DonateURL)
         case donationReminderCampaignModal(ArticleURL, MetricsID, DonateURL)
         case donationReminderArticle(ArticleURL, pledgeAmount: Decimal, currencyCode: String)
+        case donationReminderWrapUp(ArticleURL, pledgeAmount: Decimal, currencyCode: String)
         case settingsProfile
         case exploreProfile
         case articleProfile(ArticleURL)
@@ -60,7 +61,8 @@ class DonateCoordinator: Coordinator {
         switch source {
         case .articleCampaignModal(let articleURL, _, _),
                 .donationReminderArticle(let articleURL, _, _),
-                .donationReminderCampaignModal(let articleURL, _, _):
+                .donationReminderCampaignModal(let articleURL, _, _),
+                .donationReminderWrapUp(let articleURL, _, _):
             guard let wikimediaProject = WikimediaProject(siteURL: articleURL) else {
                 return nil
             }
@@ -104,8 +106,17 @@ class DonateCoordinator: Coordinator {
         } else {
             url = URL(string:"https://donate.wikimedia.org/?wmf_medium=WikipediaApp&wmf_campaign=$platform;&wmf_source=$formattedId;&uselang=$language;&app_install_id=$appInstallId;&app_version=$appVersion;")?
                 .replacingDonateParameters(language: languageCode, metricsId: metricsID)
+
+            if case .donationReminderWrapUp = source,
+               let donateURL = url,
+               var components = URLComponents(url: donateURL, resolvingAgainstBaseURL: false) {
+                var queryItems = components.queryItems ?? []
+                queryItems.append(URLQueryItem(name: "frequency", value: "monthly"))
+                components.queryItems = queryItems
+                url = components.url
+            }
         }
-        
+
         return url
     }
 
@@ -142,7 +153,7 @@ class DonateCoordinator: Coordinator {
             return metricsID
         case .donationReminderCampaignModal(_, let metricsID, _):
             return donationReminderMetricsID(originalMetricsID: metricsID)
-        case .donationReminderArticle(let articleURL, _, _):
+        case .donationReminderArticle(let articleURL, _, _), .donationReminderWrapUp(let articleURL, _, _):
             
             guard let languageCode = articleURL.wmf_languageCode,
                   let countryCode = Locale.current.region?.identifier else {
@@ -228,13 +239,22 @@ class DonateCoordinator: Coordinator {
             viewControllerToPresentActionSheet = navigationController.presentedViewController
         }
 
-        let title = WMFLocalizedString("donate-payment-method-prompt-title", value: "Donate with Apple Pay?", comment: "Title of prompt to user asking which payment method they want to donate with.")
-        let message = WMFLocalizedString("donate-payment-method-prompt-message", value: "Donate with Apple Pay or choose other payment method.", comment: "Message of prompt to user asking which payment method they want to donate with.")
+        let title: String
+        let message: String?
+        switch source {
+        case .donationReminderWrapUp:
+            title = WMFLocalizedString("donation-reminder-wrap-up-payment-prompt-title", value: "How would you like to give monthly?", comment: "Title of the payment method prompt shown from the wrap-up card at the end of the donation reminder experiment.")
+            message = nil
+        default:
+            title = WMFLocalizedString("donate-payment-method-prompt-title", value: "Donate with Apple Pay?", comment: "Title of prompt to user asking which payment method they want to donate with.")
+            message = WMFLocalizedString("donate-payment-method-prompt-message", value: "Donate with Apple Pay or choose other payment method.", comment: "Message of prompt to user asking which payment method they want to donate with.")
+        }
 
         let showsPledgeOption: Bool
-        if case .donationReminderArticle(_, _, let pledgeCurrencyCode) = source {
+        switch source {
+        case .donationReminderArticle(_, _, let pledgeCurrencyCode), .donationReminderWrapUp(_, _, let pledgeCurrencyCode):
             showsPledgeOption = pledgeCurrencyCode == Locale.current.currency?.identifier
-        } else {
+        default:
             showsPledgeOption = false
         }
 
@@ -287,16 +307,30 @@ class DonateCoordinator: Coordinator {
 
                  DonateFunnel.shared.logArticleDidTapCancel(project: project, metricsID: metricsID)
                 
+            case .donationReminderWrapUp:
                 break
             }
         }))
 
+        let isWrapUpSource = if case .donationReminderWrapUp = source {
+            true
+        } else {
+            false
+        }
+
         var pledgeAction: UIAlertAction?
-        if showsPledgeOption,
-           case .donationReminderArticle(_, let pledgeAmount, let currencyCode) = source {
+        let pledgeSource: (pledgeAmount: Decimal, currencyCode: String)?
+        switch source {
+        case .donationReminderArticle(_, let pledgeAmount, let currencyCode), .donationReminderWrapUp(_, let pledgeAmount, let currencyCode):
+            pledgeSource = (pledgeAmount, currencyCode)
+        default:
+            pledgeSource = nil
+        }
+
+        if showsPledgeOption, let pledgeSource {
             let amountFormatter = NumberFormatter.wmfCurrencyFormatter
-            amountFormatter.currencyCode = currencyCode
-            let formattedPledgeAmount = amountFormatter.string(from: pledgeAmount as NSNumber) ?? "\(pledgeAmount)"
+            amountFormatter.currencyCode = pledgeSource.currencyCode
+            let formattedPledgeAmount = amountFormatter.string(from: pledgeSource.pledgeAmount as NSNumber) ?? "\(pledgeSource.pledgeAmount)"
 
             let pledgeButtonTitleFormat = WMFLocalizedString("donation-reminder-payment-pledge-button-title", value: "Donate %1$@ with Apple Pay", comment: "Title of the payment prompt choice that opens the donate form with the pledged amount preselected, shown from the donation reminder card. %1$@ is the pledged amount. ")
             let pledgeButtonTitle = String.localizedStringWithFormat(pledgeButtonTitleFormat, formattedPledgeAmount)
@@ -304,11 +338,14 @@ class DonateCoordinator: Coordinator {
             let action = UIAlertAction(title: pledgeButtonTitle, style: .default, handler: { [weak self] _ in
                 guard let self else { return }
 
-                if let project = self.wikimediaProject {
+                if !isWrapUpSource, let project = self.wikimediaProject {
                     DonateFunnel.shared.logDonationReminderMilestoneDidTapApplePay(project: project, metricsID: metricsID)
                 }
 
-                donateViewModel.preselectAmount(pledgeAmount)
+                donateViewModel.preselectAmount(pledgeSource.pledgeAmount)
+                if isWrapUpSource {
+                    donateViewModel.preselectRecurringMonthly()
+                }
                 self.navigateToNativeDonateForm(donateViewModel: donateViewModel)
             })
             alert.addAction(action)
@@ -352,6 +389,11 @@ class DonateCoordinator: Coordinator {
                         DonateFunnel.shared.logDonationReminderMilestoneDidTapApplePay(project: project, metricsID: metricsID)
                     }
                 }
+            case .donationReminderWrapUp:
+                break
+            }
+            if isWrapUpSource {
+                donateViewModel.preselectRecurringMonthly()
             }
             self.navigateToNativeDonateForm(donateViewModel: donateViewModel)
         })
@@ -390,6 +432,8 @@ class DonateCoordinator: Coordinator {
                 if let project = self.wikimediaProject {
                     DonateFunnel.shared.logDonationReminderMilestoneDidTapOtherMethod(project: project, metricsID: metricsID)
                 }
+            case .donationReminderWrapUp:
+                break
             }
             navigateToOtherPaymentMethod()
         }))
@@ -494,9 +538,16 @@ class DonateCoordinator: Coordinator {
 
         let localizedStrings = WMFDonateViewModel.LocalizedStrings(title: donate, cancelTitle: cancel, transactionFeeOptInTextFormat: transactionFeeFormat, monthlyRecurringText: monthlyRecurring, emailOptInText: emailOptIn, maximumErrorText: maximum, minimumErrorText: minimum, genericErrorTextFormat: genericErrorFormat, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, appleFinePrint: appleFinePrint, wikimediaFinePrint1: wikimediaFinePrint1, wikimediaFinePrint2: wikimediaFinePrint2, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityMonthlyRecurringHint: accessibilityMonthlyRecurringHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
 
+        let reminderPledgeCurrencyCode: String?
+        switch source {
+        case .donationReminderArticle(_, _, let pledgeCurrencyCode), .donationReminderWrapUp(_, _, let pledgeCurrencyCode):
+            reminderPledgeCurrencyCode = pledgeCurrencyCode
+        default:
+            reminderPledgeCurrencyCode = nil
+        }
+
         var presetAmountsOverride: [Decimal]?
-        if case .donationReminderArticle(_, _, let pledgeCurrencyCode) = source,
-           pledgeCurrencyCode == currencyCode,
+        if reminderPledgeCurrencyCode == currencyCode,
            let configAmounts = donateConfig.currencyAmountPresets[currencyCode] {
             var mergedAmounts = WMFDonationReminderDataController.experimentPresetAmounts
             for amount in configAmounts.dropFirst(mergedAmounts.count) where !mergedAmounts.contains(amount) {
@@ -540,7 +591,7 @@ class DonateCoordinator: Coordinator {
 
         let completeButtonTitle: String
         switch source {
-        case .articleCampaignModal, .donationReminderCampaignModal, .articleProfile, .donationReminderArticle:
+        case .articleCampaignModal, .donationReminderCampaignModal, .articleProfile, .donationReminderArticle, .donationReminderWrapUp:
             completeButtonTitle = CommonStrings.returnToArticle
         case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .searchProfile, .activityTabProfile:
             completeButtonTitle = CommonStrings.returnButtonTitle
@@ -840,6 +891,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             if let wikimediaProject = self.wikimediaProject {
                 DonateFunnel.shared.logArticleCampaignDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
             }
+        case .donationReminderWrapUp:
+            break
         }
     }
 
@@ -919,6 +972,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             }
 
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: wikimediaProject, metricsID: metricsID)
+        case .donationReminderWrapUp:
+            break
         }
     }
 
@@ -967,6 +1022,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
                 }
 
                 DonateFunnel.shared.logArticleCampaignDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
+            case .donationReminderWrapUp:
+                break
             }
         }
     }

@@ -177,6 +177,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     var isShowingDonateFlowFromDonationReminderCard = false
 
+    var isShowingWrapUpCard = false
+
+    var localDonationCountBeforeDonateFlow = 0
+
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
     var topSafeAreaOverlayView: UIView?
 
