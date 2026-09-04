@@ -85,6 +85,10 @@ public struct WMFForYouView: View {
 
     let scrollToTopRequestID: Int
 
+    /// Identifies the copy of the first module that sits after the end of feed card. A swipe up
+    /// from the end lands here, and the feed then hands over to the real first module.
+    private static let loopPageID = UUID()
+
     public init(viewModel: WMFForYouViewModel, scrollToTopRequestID: Int = 0) {
         self.viewModel = viewModel
         self.scrollToTopRequestID = scrollToTopRequestID
@@ -201,41 +205,67 @@ public struct WMFForYouView: View {
         }
     }
 
+    /// One page of the vertical stack.
+    ///
+    /// `isCopy` marks the duplicate of the first module that follows the end of feed card. It is on
+    /// screen only for the length of one swipe, so it remembers nothing and logs nothing: the real
+    /// module it hands over to does both.
+    private func modulePage(_ visiblePage: VisiblePage, index: Int, geometry: GeometryProxy, isCopy: Bool = false) -> some View {
+        WMFForYouPageView(
+            articleViewModels: visiblePage.articles,
+            theme: theme,
+            onHideModule: { viewModel.onHideModule?($0) },
+            onHideCard: { viewModel.onHideCard?($0) },
+            onCustomizeInterests: { viewModel.onCustomizeInterests?(.card($0)) },
+            onTapCard: { viewModel.onTapCard?($0) },
+            onSaveCard: { viewModel.onSaveCard?($0) },
+            onShareCard: { viewModel.onShareCard?($0) },
+            onUnsaveCard: { viewModel.onUnsaveCard?($0) },
+            lastViewedCardKey: isCopy ? nil : viewModel.lastViewedCardKey,
+            isOnScreen: isCopy ? false : visiblePage.id == moduleOnScreen?.id,
+            onViewCard: { if !isCopy { viewModel.rememberViewedCard($0) } },
+            onShowCard: { if !isCopy { viewModel.onShowCard?($0) } },
+            focusedCardKey: $focusedCardKey,
+            canGoToPreviousModule: index > 0,
+            onGoToPreviousModule: { moveModule(by: -1) },
+            onGoToNextModule: { moveModule(by: 1) }
+        )
+        .frame(width: geometry.size.width, height: geometry.size.height)
+    }
+
     @ViewBuilder
     private func scrollView(geometry: GeometryProxy) -> some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(spacing: 0) {
                 ForEach(Array(visiblePages.enumerated()), id: \.element.id) { index, visiblePage in
-                    WMFForYouPageView(
-                        articleViewModels: visiblePage.articles,
-                        theme: theme,
-                        onHideModule: { viewModel.onHideModule?($0) },
-                        onHideCard: { viewModel.onHideCard?($0) },
-                        onCustomizeInterests: { viewModel.onCustomizeInterests?(.card($0)) },
-                        onTapCard: { viewModel.onTapCard?($0) },
-                        onSaveCard: { viewModel.onSaveCard?($0) },
-                        onShareCard: { viewModel.onShareCard?($0) },
-                        onUnsaveCard: { viewModel.onUnsaveCard?($0) },
-                        lastViewedCardKey: viewModel.lastViewedCardKey,
-                        isOnScreen: visiblePage.id == moduleOnScreen?.id,
-                        onViewCard: { viewModel.rememberViewedCard($0) },
-                        onShowCard: { viewModel.onShowCard?($0) },
-                        focusedCardKey: $focusedCardKey,
-                        canGoToPreviousModule: index > 0,
-                        onGoToPreviousModule: { moveModule(by: -1) },
-                        onGoToNextModule: { moveModule(by: 1) }
-                    )
-                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    modulePage(visiblePage, index: index, geometry: geometry)
                 }
                 endOfFeedPage
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .id(viewModel.endOfFeedViewModel.id)
+                if let firstPage = visiblePages.first {
+                    // Swiping up from the end of feed card carries on forwards into this, rather
+                    // than scrolling back up through the whole feed.
+                    modulePage(firstPage, index: 0, geometry: geometry, isCopy: true)
+                        .id(Self.loopPageID)
+                        // VoiceOver reaches the modules through moveModule, which does not know
+                        // about the copy, so it must not find duplicate cards here.
+                        .accessibilityHidden(true)
+                }
             }
             .scrollTargetLayout()
         }
         .scrollPosition(id: $currentModuleID)
         .onAppear { restoreModulePosition() }
         .onChange(of: currentModuleID) { _, moduleID in
+            // The copy and the real first module look the same, so moving between them with no
+            // animation is invisible, and the feed is back at the top ready to scroll down again.
+            if moduleID == Self.loopPageID {
+                if let firstID = visiblePages.first?.id {
+                    currentModuleID = firstID
+                }
+                return
+            }
             viewModel.rememberViewedModule(moduleID)
             if moduleID == viewModel.endOfFeedViewModel.id {
                 viewModel.endOfFeedViewModel.reportShownIfNeeded()
@@ -267,28 +297,14 @@ public struct WMFForYouView: View {
                     hasReportedCurrentDrag = true
                     viewModel.onUserInteraction?()
                 }
-                .onEnded { value in
+                .onEnded { _ in
                     hasReportedCurrentDrag = false
-                    loopToFirstModuleIfNeeded(translation: value.translation)
                 }
         )
     }
 
-    private func loopToFirstModuleIfNeeded(translation: CGSize) {
-        guard isEndOfFeedOnScreen, translation.height < -60 else { return }
-        Task { @MainActor in
-            try? await Task.sleep(for: .milliseconds(450))
-            guard isEndOfFeedOnScreen, let firstID = visiblePages.first?.id else { return }
-            withAnimation { currentModuleID = firstID }
-        }
-    }
-
     private var endOfFeedPage: some View {
         WMFForYouEndOfFeedCardView(viewModel: viewModel.endOfFeedViewModel, theme: .forYou)
-    }
-
-    private var isEndOfFeedOnScreen: Bool {
-        currentModuleID == viewModel.endOfFeedViewModel.id
     }
 
     // MARK: - Empty State
