@@ -473,6 +473,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         savedArticlesFetcher?.start()
         assignMoreDynamicTabsV2ExperimentIfNeeded()
         AppIconUtility.shared.checkAndRevertIfExpired()
+        performDatabaseHousekeepingIfNeeded()
     }
 
     func performTasksThatShouldOccurAfterAnnouncementsUpdated() {
@@ -741,6 +742,26 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     // MARK: - Background Processing
+
+    /// Does a housekeeping pass on a background context if sufficient time went by after the last pass.
+    func performDatabaseHousekeepingIfNeeded() {
+        guard isMigrationComplete else {
+            return
+        }
+
+        guard UserDefaults.standard.wmf_shouldPerformDatabaseHousekeeping else {
+            return
+        }
+
+        // Let the first screen appear first. The pass uses the same SQLite store.
+        Task { @MainActor [weak self] in
+            try? await Task.sleep(nanoseconds: Self.databaseHousekeepingLaunchDelay)
+            self?.performDatabaseHousekeeping { _ in }
+        }
+    }
+
+    /// The time to wait after the app becomes active.
+    private static let databaseHousekeepingLaunchDelay: UInt64 = 5 * NSEC_PER_SEC
 
     func performDatabaseHousekeeping(completion: @escaping (Error?) -> Void) {
         let housekeeper = WMFDatabaseHousekeeper()
