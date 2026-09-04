@@ -5,8 +5,6 @@ public struct WMFBetaBadge: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
-    private let betaLabel = WMFLocalizedString("beta-badge-label", value: "Beta", comment: "Label indicating a feature is in beta.")
-
     public init() {}
 
     public var body: some View {
@@ -14,7 +12,7 @@ public struct WMFBetaBadge: View {
             if let betaImage = WMFSFSymbolIcon.for(symbol: .flask, font: WMFFont.caption1) {
                 Image(uiImage: betaImage)
             }
-            Text(betaLabel)
+            Text(CommonStrings.betaLabel)
                 .font(Font(WMFFont.for(.caption1)))
         }
         .foregroundColor(Color(appEnvironment.theme.text))

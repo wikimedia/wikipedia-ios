@@ -75,7 +75,7 @@ final public class WMFSettingsViewModel: ObservableObject {
         let safetyTitle: String
 
         let donationsHeader = WMFLocalizedString("settings-donations-header", value: "Donations", comment: "Header of the donations section on the settings screen.")
-        let donationRemindersTitle = WMFLocalizedString("settings-donation-reminders-title", value: "Donation reminders", comment: "Title of the donation reminders row on the settings screen.")
+        let donationRemindersTitle = CommonStrings.donationRemindersTitle
         let donationRemindersSubtitleFormat = WMFLocalizedString("settings-donation-reminders-subtitle", value: "Wikipedia will remind you to donate %1$@ every %2$@ articles you read.", comment: "Subtitle of the donation reminders row on the settings screen. %1$@ is the donation amount, %2$@ is the number of articles.")
         let clearDonationHistoryTitle = WMFLocalizedString("settings-clear-donation-history", value: "Clear donation history", comment: "Title of the row on the settings screen that deletes the locally saved donation history.")
 
