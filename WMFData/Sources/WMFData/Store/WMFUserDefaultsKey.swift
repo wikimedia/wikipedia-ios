@@ -43,6 +43,7 @@ public enum WMFUserDefaultsKey: String {
     case openAppOnSearchTab = "open-app-on-search-tab"
     case isSubscribedToEchoNotifications = "is-subscribed-to-echo-notifications"
     case forceHCaptchaChallenge = "force-hcaptcha-challenge"
+    case developerSettingsFundraisingOverriddenCurrentDate = "dev-settings-fundraising-overridden-current-date"
     case developerSettingsForceFundraisingCampaignBanner = "dev-settings-force-fundraising-campaign-banner"
     case developerSettingsUseTestWikiDonateConfigs = "dev-settings-use-test-wiki-donate-configs"
     case developerSettingsUseHardcodedPaymentMethods = "dev-settings-use-hardcoded-payment-methods"
