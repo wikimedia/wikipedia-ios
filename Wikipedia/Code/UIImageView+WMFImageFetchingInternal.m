@@ -50,8 +50,8 @@ static const char *const MWKTokenToCancelAssociationKey = "MWKTokenToCancel";
 
 #pragma mark - Face Detection
 
-+ (WMFFaceDetectionCache *)faceDetectionCache {
-    return [WMFFaceDetectionCache sharedCache];
++ (WMFFaceDetectionAdapter *)faceDetectionAdapter {
+    return [WMFFaceDetectionAdapter shared];
 }
 
 - (NSURL *)imageURLForFaceDetection {
@@ -59,17 +59,17 @@ static const char *const MWKTokenToCancelAssociationKey = "MWKTokenToCancel";
 }
 
 - (BOOL)wmf_imageRequiresFaceDetection {
-    return [[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:[self imageURLForFaceDetection]];
+    return [[UIImageView faceDetectionAdapter] imageAtURLRequiresFaceDetection:[self imageURLForFaceDetection]];
 }
 
 - (NSValue *)wmf_faceBoundsInImage:(UIImage *)image {
-    return [[UIImageView faceDetectionCache] faceBoundsForURL:[self imageURLForFaceDetection]];
+    return [[UIImageView faceDetectionAdapter] faceBoundsForURL:[self imageURLForFaceDetection]];
 }
 
 - (void)wmf_getFaceBoundsInImage:(UIImage *)image failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
     NSURL *faceDetectionURL = [self imageURLForFaceDetection];
     self.wmf_faceDetectionImageURLToCancel = faceDetectionURL;
-    [[UIImageView faceDetectionCache] detectFaceBoundsInImage:image URL:faceDetectionURL failure:failure success:success];
+    [[UIImageView faceDetectionAdapter] detectFaceBoundsInImage:image URL:faceDetectionURL failure:failure success:success];
 }
 
 #pragma mark - Set Image
@@ -220,7 +220,7 @@ static const char *const MWKTokenToCancelAssociationKey = "MWKTokenToCancel";
     }
     NSURL *faceDetectionURLToCancel = [self wmf_faceDetectionImageURLToCancel];
     if (faceDetectionURLToCancel) {
-        [[UIImageView faceDetectionCache] cancelFaceDetectionForURL:faceDetectionURLToCancel];
+        [[UIImageView faceDetectionAdapter] cancelFaceDetectionForURL:faceDetectionURLToCancel];
     }
     self.wmf_imageURL = nil;
     self.wmf_imageURLToCancel = nil;

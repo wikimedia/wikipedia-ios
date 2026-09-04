@@ -2,7 +2,7 @@
 #import <WMF/WMFBlockDefinitions.h>
 @class MWKImage;
 @class WMFPermanentCacheController;
-@class WMFFaceDetectionCache;
+@class WMFFaceDetectionAdapter;
 @class FLAnimatedImage;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -10,10 +10,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIImageView (WMFImageFetchingInternal)
 
 /**
- *   The cache used to hold any detected faces
+ *   The adapter that finds and holds the detected faces
  *
  */
-+ (WMFFaceDetectionCache *)faceDetectionCache;
++ (WMFFaceDetectionAdapter *)faceDetectionAdapter;
 
 /**
  *  The image URL associated with the receiver.
