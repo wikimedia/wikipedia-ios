@@ -141,10 +141,4 @@ public actor WMFSettingsDataController: ObservableObject {
     public nonisolated func setSkipChooseEditorSheet(_ newValue: Bool) {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.skipChooseEditorSheet.rawValue, value: newValue)
     }
-
-    /// Resets both editing preferences, so the sheet shows again and the mode falls back to visual.
-    public nonisolated func clearDefaultEditMode() {
-        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.defaultEditMode.rawValue)
-        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.skipChooseEditorSheet.rawValue)
-    }
 }
