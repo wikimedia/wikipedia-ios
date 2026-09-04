@@ -68,10 +68,18 @@ struct WMFForYouEndOfFeedCardView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .leading, spacing: 32) {
+                // The text keeps its place at the bottom of the card and the illustration sits in
+                // the middle of whatever room is left above it. On a phone there is none, the
+                // spacers collapse, and the layout is the stack it was before. On an iPad the
+                // illustration no longer hangs off the bottom with the screen empty above it.
+                Spacer(minLength: 0)
+
                 illustration
-                    .frame(maxWidth: .infinity)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .frame(height: variant == .endOfFeed ? 175 : 105)
                     .accessibilityHidden(true)
+
+                Spacer(minLength: 0)
 
                 VStack(alignment: .leading, spacing: 16) {
                     VStack(alignment: .leading, spacing: 16) {
@@ -90,7 +98,6 @@ struct WMFForYouEndOfFeedCardView: View {
                             .foregroundStyle(Color(uiColor: theme.text))
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .minimumScaleFactor(0.3)
                     .accessibilityElement(children: .combine)
 
                     linkRow(
@@ -99,16 +106,21 @@ struct WMFForYouEndOfFeedCardView: View {
                         linkText: addInterestsLinkText,
                         action: { viewModel.onTapAddInterests?() }
                     )
-                    .minimumScaleFactor(0.3)
                     linkRow(
                         symbol: .person2Fill,
                         format: viewModel.communityFormat,
                         linkText: viewModel.communityLinkText,
                         action: { viewModel.onTapCommunity?() }
                     )
-                    .minimumScaleFactor(0.3)
                 }
+                // The minimum scale factors above make this text compressible, so the spacers
+                // would otherwise take the room and shrink it. This asks for its natural height
+                // first and leaves the spacers whatever is left.
+                .layoutPriority(1)
             }
+            // Without this the stack keeps its natural height and the spacers have nothing to
+            // expand into.
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
             .padding(.horizontal, 20)
             .padding(.top, WMFForYouCardMetrics.contentTopInset(
                 headerBottom: headerBottom,
@@ -136,6 +148,10 @@ struct WMFForYouEndOfFeedCardView: View {
                 label(format: format, linkText: linkText)
                     .multilineTextAlignment(.leading)
             }
+            // Without this the row is only as wide as its sentence, which on a large screen
+            // leaves a tap target far smaller than the text it sits beside.
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(Rectangle())
             .foregroundStyle(Color(uiColor: theme.text))
         }
     }
