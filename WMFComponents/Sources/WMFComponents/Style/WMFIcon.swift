@@ -34,7 +34,7 @@ public enum WMFIcon {
     public static let settingsExplore = UIImage(named: "settings-explore", in: .module, with: nil)
     public static let settingsPreferences = UIImage(named: "settings-preferences", in: .module, with: nil)
     public static let settingsClearCache = UIImage(named: "settings-clear-cache", in: .module, with: nil)
-    public static let settingsPrivacy = UIImage(named: "settings-privacy.pdf", in: .module, with: nil)
+    public static let settingsPrivacy = UIImage(named: "settings-privacy", in: .module, with: nil)
 
     public static let anonymous = UIImage(named: "user-anonymous", in: .module, with: nil)
     public static let closeTabs = UIImage(named: "close-tabs", in: .module, with: nil)
