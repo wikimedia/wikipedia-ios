@@ -79,8 +79,6 @@
         case WMFContentGroupKindReadingList:
             URL = [WMFContentGroup readingListContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
             break;
-        case WMFContentGroupKindAnnouncement:
-            URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:[(WMFAnnouncement *)self.contentPreview identifier]];
         case WMFContentGroupKindSuggestedEdits:
             URL = [WMFContentGroup suggestedEditsURLForSiteURL:self.siteURL];
             break;
@@ -557,64 +555,6 @@
 
 - (void)markDismissed {
     self.wasDismissed = YES;
-}
-
-- (void)updateVisibilityForUserIsLoggedIn:(BOOL)isLoggedIn {
-    if (self.wasDismissed) {
-        if (self.isVisible) {
-            self.isVisible = NO;
-        }
-        return;
-    }
-
-    if (self.contentType != WMFContentTypeAnnouncement) {
-        return;
-    }
-    
-    dispatch_block_t markInvisible = ^{
-        if (self.isVisible) {
-            self.isVisible = NO;
-        }
-    };
-
-    WMFAnnouncement *announcement = (WMFAnnouncement *)self.contentPreview;
-    if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
-        markInvisible();
-        return;
-    }
-    
-    if (announcement.beta.boolValue) { // ignore beta announcements
-        markInvisible();
-        return;
-    }
-    
-    if (announcement.loggedIn && announcement.loggedIn.boolValue != isLoggedIn) {
-        markInvisible();
-        return;
-    }
-    
-    if (announcement.readingListSyncEnabled) { // ignore reading list announcements, regardless of true or false
-        markInvisible();
-        return;
-    }
-    
-    if (!announcement.startTime || !announcement.endTime) {
-        if (self.isVisible) {
-            self.isVisible = NO;
-        }
-        return;
-    }
-
-    NSDate *now = [NSDate date];
-    if ([now timeIntervalSinceDate:announcement.startTime] > 0 && [announcement.endTime timeIntervalSinceDate:now] > 0) {
-        if (!self.isVisible) {
-            self.isVisible = YES;
-        }
-    } else {
-        if (self.isVisible) {
-            self.isVisible = NO;
-        }
-    }
 }
 @end
 
