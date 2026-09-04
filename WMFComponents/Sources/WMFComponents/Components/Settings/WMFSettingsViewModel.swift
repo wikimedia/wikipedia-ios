@@ -372,11 +372,12 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.coordinatorDelegate?.handleSettingsAction(.clearCachedData)
         })
 
-        var mainItems: [SettingsItem] = [pushNotifications, readingPrefs, articleStorage]
-
-        if WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney {
-            mainItems.append(editingPreferencesItem())
-        }
+        let mainItems: [SettingsItem] = [
+            pushNotifications,
+            readingPrefs,
+            articleStorage,
+            editingPreferencesItem()
+        ]
 
         var section = SettingsSection(header: nil, footer: nil, items: [myLanguages, search] + feedItems + mainItems + [clearCache])
 
@@ -392,8 +393,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         return section
     }
 
-    /// Only shown while the visual editing journey is in development. The value reflects the mode the
-    /// user last picked, either here or in the choose editor sheet.
     private func editingPreferencesItem() -> SettingsItem {
         SettingsItem(image: WMFSFSymbolIcon.for(symbol: .pencil), color: WMFColor.green600, title: WMFEditingPreferencesCopy.title, subtitle: nil, accessory: .chevron(label: WMFSettingsDataController.shared.defaultEditMode().localizedShortTitle), action: {
             self.coordinatorDelegate?.handleSettingsAction(.editingPreferences)

@@ -41,15 +41,6 @@ struct WMFDeveloperSettingsView: View {
                 }
             }
 
-            Section(header: Text("Visual Editor")) {
-                Toggle("Enable Visual Editing journey", isOn: $viewModel.enableVisualEditingJourney)
-                Button {
-                    viewModel.clearDefaultEditMode()
-                } label: {
-                    Text("Clear default edit mode")
-                }
-            }
-
             Section {
                 Toggle("Bypass Reminder Daily Limit", isOn: $viewModel.bypassDonationReminderDailyLimit)
                 Toggle("Force Fundraising Campaign Banner", isOn: $viewModel.forceFundraisingCampaignBanner)

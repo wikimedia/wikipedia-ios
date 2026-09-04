@@ -43,12 +43,6 @@ import WMFData
         }
     }
 
-    @Published public var enableVisualEditingJourney: Bool = WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney {
-        didSet {
-            WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney = enableVisualEditingJourney
-        }
-    }
-
     @Published public var forceFundraisingCampaignBanner: Bool = WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner = forceFundraisingCampaignBanner
@@ -167,13 +161,6 @@ import WMFData
     public func clearGamesPersistence() {
         Task {
             try? await WMFDeveloperSettingsDataController.shared.clearGamesPersistence()
-        }
-    }
-
-    public func clearDefaultEditMode() {
-        WMFSettingsDataController.shared.clearDefaultEditMode()
-        Task { @MainActor in
-            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Editing preferences cleared. The choose editor sheet will show again.")))
         }
     }
 }
