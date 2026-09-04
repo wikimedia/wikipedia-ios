@@ -39,6 +39,10 @@ public let WMFAlwaysDisplayEditNotices = "WMFAlwaysDisplayEditNotices"
 let WMFSessionBackgroundDate =  "WMFSessionBackgroundDate"
 let WMFSessionStartDate =  "WMFSessionStartDate"
 let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
+let WMFLastDatabaseHousekeepingDate = "WMFLastDatabaseHousekeepingDate"
+
+/// The minimum time between two database housekeeping passes.
+public let WMFDatabaseHousekeepingInterval: TimeInterval = 60 * 60 * 12
 
 @objc public enum WMFAppDefaultTabType: Int {
     case explore
@@ -495,6 +499,24 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
         }
     }
     
+    /// The time of the last completed database housekeeping pass.
+    @objc var wmf_lastDatabaseHousekeepingDate: Date? {
+        get {
+            return object(forKey: WMFLastDatabaseHousekeepingDate) as? Date
+        }
+        set {
+            set(newValue, forKey: WMFLastDatabaseHousekeepingDate)
+        }
+    }
+
+    /// True if sufficient time went by after the last completed pass.
+    @objc var wmf_shouldPerformDatabaseHousekeeping: Bool {
+        guard let lastDate = wmf_lastDatabaseHousekeepingDate else {
+            return true
+        }
+        return Date().timeIntervalSince(lastDate) >= WMFDatabaseHousekeepingInterval
+    }
+
     @objc var wmf_sessionStartTimestamp: Date? {
         get {
             return object(forKey: WMFSessionStartDate) as? Date

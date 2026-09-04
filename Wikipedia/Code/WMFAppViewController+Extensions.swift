@@ -885,25 +885,32 @@ extension WMFAppViewController {
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
     }
 
-    @objc func performWMFDataHousekeeping() {
-        let coreDataStore = WMFDataEnvironment.current.coreDataStore
-        Task {
-            do {
-                try await coreDataStore?.performDatabaseHousekeeping()
-            } catch {
-                DDLogError("Error pruning WMFData database: \(error)")
-            }
+    /// Deletes the old WMFData records. Returns the first error, or nil after success.
+    func performWMFDataHousekeeping() async -> Error? {
+        var firstError: Error?
 
-            do {
-                let pageViewsDataController = try WMFPageViewsDataController()
-                let clampedCount = try await pageViewsDataController.clampInflatedPageViewSecondsIfNeeded()
-                if clampedCount > 0 {
-                    DDLogInfo("Clamped inflated reading time on \(clampedCount) page views.")
-                }
-            } catch {
-                DDLogError("Error clamping inflated page view seconds: \(error)")
-            }
+        let coreDataStore = WMFDataEnvironment.current.coreDataStore
+        do {
+            try await coreDataStore?.performDatabaseHousekeeping()
+        } catch {
+            firstError = error
+            DDLogError("Error pruning WMFData database: \(error)")
         }
+
+        do {
+            let pageViewsDataController = try WMFPageViewsDataController()
+            let clampedCount = try await pageViewsDataController.clampInflatedPageViewSecondsIfNeeded()
+            if clampedCount > 0 {
+                DDLogInfo("Clamped inflated reading time on \(clampedCount) page views.")
+            }
+        } catch {
+            if firstError == nil {
+                firstError = error
+            }
+            DDLogError("Error clamping inflated page view seconds: \(error)")
+        }
+
+        return firstError
     }
 
     @objc func deleteYearInReviewPersonalizedNetworkData() {
