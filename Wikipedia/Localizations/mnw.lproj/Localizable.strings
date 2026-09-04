@@ -235,7 +235,6 @@
 "explore-because-you-read-footer" = "လိက်ပရေင် မဆက်စပ်ဂမၠိုင်";
 "explore-continue-reading-heading" = "ဆက် ဗှ်";
 "explore-detail-back-button-title" = "ကလေင်အာ ဒၞာဲမုက် မထ္ၜး";
-"explore-enable-location-title" = "ဂၠာဲသ္ၚေဝ် လိက်ပရေင် ဗဒဲါဒၞာဲမၞး မနွံဒၟံင် လၟုဟ်";
 "explore-featured-article-heading" = "လိက်ပရေင် မုက်ဂတ";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "နူ $1 ဝဳကဳဒဳပဳယာ";
 "explore-featured-article-sub-heading-from-wikipedia" = "နူ ဝဳကဳဒဳပဳယာ";
@@ -358,7 +357,6 @@
 "home-nearby-footer" = " ဂၠိုင်ဂၠိုင် ဒၞာဲ ဗဒဲါ ဒၞာဲမၞးမပဒတဴဒၟံင်";
 "home-nearby-location-footer" = "ဂၠိုင်ဂၠိုင် ဗဒဲါ $1";
 "home-news-footer" = "ဂၠိုင်ဂၠိုင် သဘင် ပြဟ်ဟ်ဏအ်";
-"home-reading-list-prompt" = "လိက်ပရေင် မၞးမဂိုင်သိပ်လဝ်တအ်ဂှ် လၟုဟ် ပံင်ဗစိုပ် အပ္ဍဲ စရင် ဗွဟ်လိက်ရ၊၊ လုပ်လံက်အေန် သွက်ဂွံ ကဵုအခေါင် ဂွံဂိုင်သိပ် အပ္ဍဲ စရင် ဗွဟ်လိက် ပ္ဍဲ ဒၞာဲစရင်မၞိဟ်မဒးဂၞပ်၊၊";
 "home-themes-action-title" = "ဖျေဟ်ဗီု စရင်မၞးမဒးဂၞပ်";
 "home-themes-prompt" = "ပလေဝ် ဒၞာဲစရင်မၞး မဒးဂၞပ် သီုကဵု ဇမၞော်မအက္ခရ် ပရူပရာ နူကြိယာ လိက်ပရေင် ဟွံသေင်မ္ဂး နူဒၞာဲမဖျေဟ်ဒၞာဲ သွက်ဂွံဗှ်စှ်ေဗီု၊၊";
 "home-title" = "စဳစောတ်";
@@ -536,11 +534,7 @@
 "reading-list-list-limit-exceeded-message" = "စရင် လိက်ဗွဟ်ဏအ် ကဵု လိက်ပရေင်မဂိုင်သိပ်တအ် ပချဳဓရာင် ဂွံ ဟွံသေင်ရ၊၊ ပဂုန်တုဲ ဖ္အောန်ဖျေဟ် လၟိဟ်ဂၞန် စရင် $1 သွက်ဂွံ ကလေင်ပချဳဓရာင် စရင်ဏအ်၊၊";
 "reading-list-list-limit-exceeded-title" = "မၞးစိုပ်အာ အပိုင်အခြာ {{PLURAL:$1|$1 စရင်ဗွဟ်|$1 စရင်ဗွဟ်ဂမၠိုင်}} သွက် အကံက်မွဲရ။";
 "reading-list-list-limit-reached" = "မၞး စိုပ်အာ အပိုင်အခြာ $1 စရင် လိက်ဗွဟ် သွက် အကံက်မွဲ၊၊";
-"reading-list-login-button-title" = "လုပ်လံက်အေန် သွက်ဂွံ ပချဳဓရာင် လိက်ပရေင် မဂိုင်သိပ် မၞး";
 "reading-list-login-or-create-account-button-title" = "လုပ်လံက်အေန် ဟွံသေင်မ္ဂး ခၞံကၠောန် အကံက်";
-"reading-list-login-or-create-account-title" = "လုပ်လံက်အေန် သွက်ဂွံ ပချဳဓရာင် လိက်ပရေင် မဂိုင်သိပ်";
-"reading-list-login-subtitle" = "လုပ်လံက်အေန် ဟွံသေင်မ္ဂး ခၞံကၠောန် အကံက် မွဲ သွက်ဂွံ ကဵုအခေါင် လိက်ပရေင်မဂိုင်သိပ်လဝ် မၞး ကေုာံ စရင်လိက်ဗွဟ်မၞး ဂွံပချဳဓရာင် ပ္ဍဲ device ပ္ဍဲ ဒၞာဲ အရာမဒးဂၞပ် မၞိဟ်မသုင်စောဲ မၞး၊၊";
-"reading-list-login-title" = "ပချဳဓရာင် လိက်ပရေင် မဂိုင်သိပ် မၞးဟာ？";
 "reading-list-name-user-created-annotation" = "_[user created]";
 "reading-list-new-list-description-placeholder" = "ချူဗၟံက်ထ္ၜး ဂၠေအ်အ် ဗီုမဒးစိုတ်";
 "reading-list-new-list-name-placeholder" = "က္ဍိုပ်လိက် စရင် လိက်ဗွဟ်";
@@ -567,7 +561,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "ဇိုတ်ထောအ် ဒၞာဲညိည ပ္ဍဲ device မၞး တုဲ ကၠောန် ပၠန်";
 "reading-lists-articles-not-synced-limit-exceeded" = "လိက်ပရေင် လ္ၚဵု ကချဳဓရာင် ဟွံဂွံ၊ ဟိုတ်မစိုပ်အာ လၟိဟ်မပိုင်ခြာ";
 "reading-lists-conflicting-reading-list-name-updated" = "စရင် မၞး '$1' ဒးကဵုထောအ် ယၟုတၟိ နကဵု '$2'";
-"reading-lists-count" = "{{PLURAL:$1|$1 စရင် လိက်ဗွဟ်|$1 စရင် လိက်ဗွဟ်}}";
 "reading-lists-default-list-description" = "စရင် ဂိုင်သိပ် ဟွံဂွံဂမၠိုင်";
 "reading-lists-default-list-title" = "ဂိုင်သိပ်တုဲ";
 "reading-lists-delete-reading-list-alert-message" = "ပရေင်ချဳဓရာင်ဏအ် ပဒေါအ်ထောအ် ဟွံဂွံ၊၊ လိက်ပရေင်တအ်ဂှ်  ဂိုင်သိပ် ပ္ဍဲ {{PLURAL:$1|this list|these lists}} ဟွံဂွံ၊၊";
@@ -597,7 +590,6 @@
 "relative-date-seconds-abbreviated" = "$1ဂမၠိုင်";
 "relative-date-seconds-ago-abbreviated" = "$1s မတုဲကၠုင်";
 "relative-date-years-ago" = "{{PLURAL:$1|0=သၞာံဏအ်|1=သၞာံတုဲကၠုင်|$1 သၞာံ မတုဲကၠုင်}}";
-"reverted-edit-title" = "မၞိဟ်တမ် ပလေဝ်ဒါန်";
 "saved-all-articles-title" = "လိက်ပရေင်ဂမၠိုင်";
 "saved-default-reading-list-tag" = "စရင်ဏအ် ဇိုတ်ပလီု ဟွံဂွံ";
 "saved-pages-image-download-error" = "တံင်လုပ်ကေတ် ဗီုရုပ် သွက် မုက်လိက် မဂိုင်သိပ်ဏအ် ဟွံအံင်ဇၞး";
@@ -668,10 +660,6 @@
 "table-of-contents-hide-button-label" = "ဗဒန် ခံက်အင် မာတိကာဂမၠိုင်";
 "talk-page-discussion-read-accessibility-label" = "ဗှ်";
 "talk-page-discussion-unread-accessibility-label" = "ဟွံဗှ်လဝ်";
-"talk-page-new-banner-subtitle" = "လ္ပဝိုတ်၊ ပိုယ်တအ် သီုဖအိုတ်ဂှ် ကောန်မၞိဟ်ရ";
-"talk-page-new-banner-title" = "ပဂုန်တုဲ စွံစိုတ်ခိုဟ်ဟ်ညိ";
-"talk-page-new-reply-success-text" = "ကလေင်လိက်မၞးဂှ် ဗွဲမအံင်ဇၞး တြးပတိတ်ဏာလဝ်ရ။";
-"talk-page-new-topic-success-text" = "တင်ပတိုန်ထ္ၜးမၞးဂှ် ဗွဲမအံင်ဇၞး တြးပတိတ်ဏာလဝ်ရ။";
 "talk-page-subscribe-to-topic" = "ပၠုပ်စရင်";
 // Fuzzy
 "talk-page-title-article-talk" = "လိက်ပရေင် ဓရီုကျာ";

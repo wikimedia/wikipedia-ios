@@ -37,7 +37,6 @@ public class CommonStrings: NSObject {
     }
 
     @objc public static let articleCountFormat = WMFLocalizedString("places-filter-top-articles-count", value:"{{PLURAL:%1$d|%1$d article|%1$d articles}}", comment: "Describes how many top articles are found in the top articles filter - %1$d is replaced with the number of articles")
-    @objc public static let readingListCountFormat = WMFLocalizedString("reading-lists-count", value:"{{PLURAL:%1$d|%1$d reading list|%1$d reading lists}}", comment: "Describes the number of reading lists - %1$d is replaced with the number of reading lists")
 
     @objc public static let shortSavedTitle = WMFLocalizedString("action-saved", value: "Saved", comment: "Short title for the save button in the 'Saved' state - Indicates the article is saved. Please use the shortest translation possible. {{Identical|Saved}}")
     @objc public static let accessibilitySavedTitle = WMFLocalizedString("action-saved-accessibility", value: "Saved. Activate to unsave.", comment: "Accessibility title for the 'Unsave' action {{Identical|Saved}}")
@@ -86,7 +85,6 @@ public class CommonStrings: NSObject {
     public static let wikipediasHeader = WMFLocalizedString("notifications-center-inbox-wikipedias-section-title", value: "Wikipedias", comment: "Title of the \"Wikipedias\" section on filter adjustment views. This section allows the user to remove certain Wikipedia language projects from displaying in their lists.")
 
     @objc public static let notificationsCenterTitle = WMFLocalizedString("notifications-center-title", value: "Notifications", comment: "Title for Notifications Center interface, as well as the accessibility label for the button that navigates to Notifications Center.")
-    @objc public static let notificationsCenterBadgeTitle = WMFLocalizedString("notifications-center-badge-button-accessibility-label", value: "Notifications with unread badge", comment: "Accessibility label for a button that navigates to Notifications Center. This button has a badge indicating there are unread notifications.")
 
     @objc public static let profileButtonTitle = WMFLocalizedString("profile-button-accessibility-label", value: "Profile", comment: "Accessibility label for the profile navigation bar button. Tapping it navigates to the user profile view.")
     @objc public static let profileButtonAccessibilityHint = WMFLocalizedString("profile-button-accessibility-hint", value: "Navigates to the profile view.", comment: "Accessibility hint for the profile navigation bar button. Explains to the user what will happen upon button tap.")
@@ -194,10 +192,7 @@ public class CommonStrings: NSObject {
     @objc public static let retryActionTitle = WMFLocalizedString("action-retry", value: "Retry", comment: "Title of the retry action.")
 
     // Survey strings
-    public static let surveyTitle = WMFLocalizedString("survey-title", value: "Reason", comment: "Title of the survey view. Displayed in the navigation bar as title of view.")
     public static let surveySubmitActionTitle = WMFLocalizedString("survey-submit", value: "Submit", comment: "Title of the submit button. Displayed in survey views to submit answers.")
-    public static let surveyInstructions = WMFLocalizedString("survey-instructions", value: "Select one or more options", comment: "Instructions displayed on survey views.")
-    public static let surveyOtherPlaceholder = WMFLocalizedString("survey-other-placeholder", value: "Other", comment: "Title of other textfield placeholder option in survey view.")
 
     // TODO: Delete this when we remove web editor code
     @objc public static let discardEditsActionTitle = WMFLocalizedString("action-discard-edits", value: "Discard edits", comment: "Title of the discard edits action.")
@@ -273,7 +268,6 @@ public class CommonStrings: NSObject {
     @objc public static let readingListsDefaultListTitle = WMFLocalizedString("reading-lists-default-list-title", value: "Saved", comment: "The title of the default saved pages list {{Identical|Saved}}")
 
     @objc public static let localizedEnableLocationTitle = WMFLocalizedString("places-enable-location-title", value:"Explore articles near your location by enabling Location Access", comment:"Explains that you can explore articles near you by enabling location access. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".")
-    @objc public static let localizedEnableLocationExploreTitle = WMFLocalizedString("explore-enable-location-title", value:"Explore articles near your current location", comment:"Explains that you can explore articles near your current location. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".")
     @objc public static let localizedEnableLocationDescription = WMFLocalizedString("places-enable-location-description", value:"Access to your location is available only when the app or one of its features is visible on your screen.", comment:"Describes that access to your location is only used when the app or one of its features is on the screen")
     @objc public static let localizedEnableLocationButtonTitle = WMFLocalizedString("places-enable-location-action-button-title", value:"Enable location", comment:"Button title to enable location access")
     @objc public static let nearbyFooterTitle = WMFLocalizedString("home-nearby-footer", value: "More places near your location", comment: "Footer for presenting user option to see longer list of nearby articles.")
@@ -309,8 +303,6 @@ public class CommonStrings: NSObject {
     @objc public static let customizeCommunityFeedTitle = WMFLocalizedString("explore-feed-preferences-customize-community-feed-action-title", value: "Customize Community feed", comment: "Title for action that allows users to go to the Community feed settings screen")
     public static let customize = WMFLocalizedString("customize-action-title", value: "Customize", comment: "Title for action that allows users to customize their preferences.")
 
-    @objc public static let revertedEditTitle = WMFLocalizedString("reverted-edit-title", value: "Reverted edit", comment: "Title for notification informing user that their edit was reverted.")
-
     @objc public static let noInternetConnection = WMFLocalizedString("no-internet-connection", value: "No internet connection", comment: "String used in various places to indicate no internet connection")
 
     public static let unexpectedErrorAlertTitle = WMFLocalizedString("talk-page-error-alert-title", value: "Unexpected error", comment: "Title for unexpected error alert")
@@ -318,7 +310,6 @@ public class CommonStrings: NSObject {
     @objc public static let noEmailClient = WMFLocalizedString("no-email-account-alert", value: "Please setup an email account on your device and try again.", comment: "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device")
 
     @objc public static let vanishAccount = WMFLocalizedString("account-request-vanishing", value: "Vanish account", comment: "This will initiate the process of requesting your account to be vanished ")
-    @objc public static let usernameFieldTitle = WMFLocalizedString("vanish-account-username-field", value: "Username and user page", comment: "Title for the username and userpage form field")
 
     // REMINDER: do not delete the app store strings below. We're not using them anywhere within the app itself but we need them to remain so they get upstreamed into TWN. ("localizations.swift copies the non-EN translations of these strings into respective Fastlane "Localized Metadata" files. See: https://docs.fastlane.tools/actions/deliver/)
     @objc public static let appStoreSubtitle = WMFLocalizedString("app-store-subtitle", value: "The free encyclopedia", comment: "Subtitle describing the app for the app store")
@@ -342,10 +333,6 @@ public class CommonStrings: NSObject {
 
     public static let unreadStatusAccessibilityLabel = WMFLocalizedString("talk-page-discussion-unread-accessibility-label", value: "Unread", comment: "Accessibility text for indicating that some content have not been read.")
 
-    public static let talkPageNewBannerTitle = WMFLocalizedString("talk-page-new-banner-title", value: "Please be kind", comment: "Title text on banner that appears once user posts a new reply or discussion topic on their talk page.")
-
-    public static let talkPageNewBannerSubtitle = WMFLocalizedString("talk-page-new-banner-subtitle", value: "Remember, we are all humans here", comment: "Subtitle text on banner that appears once user posts a new reply or discussion topic on their talk page.")
-
     public static func talkPageTitleUserTalk(languageCode: String?) -> String {
         WMFLocalizedString("talk-page-title-user-talk", languageCode: languageCode, value: "User Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page. Please prioritize for de, ar and zh wikis.")
     }
@@ -368,10 +355,6 @@ public class CommonStrings: NSObject {
     public static let recentlySearchedTitle = WMFLocalizedString("search-recent-title", value: "Recently searched", comment: "Title for list of recent search terms")
 
     public static let recentlySearchedEmpty = WMFLocalizedString("search-recent-empty", value: "No recent searches yet", comment: "String for no recent searches available")
-
-    public static let successfullyPublishedDiscussion = WMFLocalizedString("talk-page-new-topic-success-text", value: "Your discussion was successfully published", comment: "Banner text that appears after a new discussion was successfully published on a talk page.")
-
-    public static let successfullyPublishedReply = WMFLocalizedString("talk-page-new-reply-success-text", value: "Your reply was successfully published", comment: "Banner text that appears after a new reply was successfully published on a talk page discussion.")
 
     public static func talkPageReply(languageCode: String?) -> String {
         WMFLocalizedString("talk-page-reply-button", languageCode: languageCode, value: "Reply", comment: "Text used on button to reply to talk page messages.  Please prioritize for de, ar and zh wikis.")
@@ -669,7 +652,6 @@ public class CommonStrings: NSObject {
 
     // Image recommendations
 
-    public static let tryNowTitle = WMFLocalizedString("try-now-title", value: "Try now", comment: "Title of action button. Tapping takes user to a particular feature.")
     public static let addImageTitle = WMFLocalizedString("image-rec-title", value: "Add image", comment: "Title of the image recommendation view. Displayed in the navigation bar above an article summary.")
     public static let viewArticle = WMFLocalizedString("image-rec-view-article", value: "View article", comment: "Button from an image recommendation article summary. Tapping the button displays the full article.")
     public static let bottomSheetTitle =  WMFLocalizedString("image-rec-add-image-title", value: "Add this image?", comment: "title for the add image suggestion view")
@@ -705,7 +687,6 @@ public class CommonStrings: NSObject {
 
     public static let logoutAlertMessage = WMFLocalizedString("main-menu-account-logout-are-you-sure-message", value: "Logging out will delete your locally stored account data (notifications and messages), but your account data will still be available on the web and will be re-downloaded if you log back in.", comment: "Message explaining what happens to local data when logging out.")
 
-    public static let yearInReviewLoginPromptProfileTitle = WMFLocalizedString("profile-year-in-review-login-title", value: "Log in for access to Year in Review", comment: "Title of alert that asks user to login if they are entering Year in Review.")
     public static let yearInReviewLoginPromptIntroTitle = WMFLocalizedString("year-in-review-intro-login-title", value: "Log in for personalization", comment: "Title of alert that asks user to login if they want to view the personalized feature.")
     public static let yearInReviewLoginPromptSubtitle = WMFLocalizedString("profile-year-in-review-login-subtitle", value: "Log in or create an account to see Year in Review and be eligible for more personalized insights.", comment: "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.")
 
@@ -746,17 +727,10 @@ public class CommonStrings: NSObject {
     @objc public static let yirTitle = WMFLocalizedString("year-in-review-button-title", value: "Year in Review", comment: "Year in review title. Appears on buttons in the profile and settings menu.")
 
     public static let exploreYIRTitlePersonalized = WMFLocalizedString("year-in-review-feature-announcement-title-personalized", value: "Explore your Wikipedia Year in Review", comment: "Title for year in review feature announcement")
-    public static let exploreYIRBodyPersonalized =  WMFLocalizedString("year-in-review-feature-explore-body-personalized-updated", value: "See insights about which articles you read on the Wikipedia app and the edits you made in 2024. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Body for year in review feature announcement")
 
     public static let exploreYIRBodyV3 =  WMFLocalizedString("year-in-review-feature-explore-body-v3", value: "See insights about which articles you read on the Wikipedia app and the edits you made.", comment: "Body for year in review feature announcement - version 3")
 
     public static let exploreYIRFooterV3 =  WMFLocalizedString("year-in-review-feature-explore-footer-v3", value: "Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Footer text in the year in review intro view.")
-
-    public static let exploreYiRTitle = WMFLocalizedString("year-in-review-feature-announcement-title", value: "Explore Wikipedia in Review", comment: "Title for year in review feature announcement")
-    public static let exploreYIRBody =  WMFLocalizedString("year-in-review-feature-explore-body", value: "Wikipedia is the largest knowledge resource ever assembled in the history of the world, and it’s freely available to everyone everywhere. Here’s a review of 2024 through the lens of Wikipedia. ", comment: "Body for year in review feature announcement")
-
-    public static let yirFeatureAnnoucementBody =  WMFLocalizedString("year-in-review-feature-announcement-body", value: "See insights about what articles we read and edited, and share highlights from our year on Wikipedia.", comment: "Body for year in review feature announcement")
-    public static let yirFeatureAnnoucementBodyPersonalized =  WMFLocalizedString("year-in-review-feature-announcement-body-personalized", value: "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.", comment: "Body for year in review feature announcement")
 
     public static let searchButtonAccessibilityLabel = WMFLocalizedString("search-button-accessibility-label", value: "Search Wikipedia", comment: "Accessibility label for a button that opens a search box to search Wikipedia.")
 
@@ -803,7 +777,6 @@ public class CommonStrings: NSObject {
     public static let saveViewTempAccountWarning = WMFLocalizedString("save-view-temp-account-warning", value: "You are not logged in. Once you make an edit, a temporary account will be created for you to protect your privacy.", comment: "Warning that a temporary account will be created")
     public static let tempAccountPublishTitle = WMFLocalizedString("article-view-controller-editing-temp-account-created-title", value: "Temporary account created", comment: "After a user edits an article, creating an IP account, this pop-up title lets them know.")
     // MARK: - Activity tab strings
-    public static let activityTabReadingHistory = WMFLocalizedString("activity-tab-read-title", value: "View reading history", comment: "Title for the reading history activity tab")
 
     public static let historyMovedToSearchTitle = WMFLocalizedString("activity-tab-onboarding-third-item-title-updated", value: "Reading history is now in Search", comment: "Title for activity tabs third item")
 
@@ -811,17 +784,7 @@ public class CommonStrings: NSObject {
     public static let historyMovedToSearchSubtitleLoggedOut = WMFLocalizedString("activity-tab-history-callout-body-loggedout", value: "Find and clear your reading history in the **Search tab**. No account needed.", comment: "Body for callout informing users that reading history has moved to the Search tab, no need to login.")
 
     @objc public static let activityTitle = WMFLocalizedString("activity-tab-title", value: "Activity", comment: "Activity title")
-    public static let activityTabLoggedOutTitle = WMFLocalizedString("activity-tab-log-in-or-create-account", value: "Log in or create an account to see more editing and reading activity.", comment: "Title for activity tab when users are logged out.")
-    public static let actitvityTabLoggedOutSubtitle = WMFLocalizedString("activity-tab-logged-out-track-what-youve-read", value: "Track what you’ve read and view your contributions over time in a new way", comment: "Subtitle for activity tab when users are logged out.")
-    public static let activityTabViewReadingHistoryTitle = WMFLocalizedString("activity-tab-view-reading-history", value: "View reading history", comment: "Button title for users to view their reading history.")
-    public static let activityTabViewSavedArticlesTitle = WMFLocalizedString("activity-tab-view-saved-articles", value: "View saved articles", comment: "Button title for users to view their saved articles.")
-    public static let activityTabViewEditingTitle = WMFLocalizedString("activity-tab-view-editing-history", value: "View editing history", comment: "Button title for users to view their editing history.")
 
-    public static let activityTabNoEditsAddImagesTitle = WMFLocalizedString("activity-tab-no-edits-title", value: "You haven't edited this week. Add images to enhance article understanding.", comment: "Title for users that have not made any edits.")
-
-    public static let activityTabNoEditsGenericTitle = WMFLocalizedString("activity-tab-generic-no-edits", value: "You haven't edited this week. Start now to track your contributions.", comment: "Title for users that have not made any edits.")
-
-    public static let activityTabStartEditing = WMFLocalizedString("activity-tab-start-editing", value: "Start editing", comment: "Button title for users to begin editing.")
     public static func activityTabArticleReadNumber(amount: Int? = 0) -> String {
         let format = WMFLocalizedString("activity-tab-you-read", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}} this week.", comment: "Displays how many articles the user read in the past week, $1 is the amount, returning the pluralized version of article depending.")
         return String.localizedStringWithFormat(format, amount ?? 0)
@@ -835,8 +798,6 @@ public class CommonStrings: NSObject {
         return String.localizedStringWithFormat(format, amount ?? 0)
     }
     
-    public static let activityTabAddImagesTitle = WMFLocalizedString("activity-tab-add-images-title", value: "Add images", comment: "Title for add images feature suggestion.")
-    public static let activityTabAddImagesSubitle = WMFLocalizedString("activity-tab-add-images-subtitle", value: "Add suggested images to Wikipedia articles to enhance understanding.", comment: "Subtitle for add images feature.")
     public static let satisfactionSurveyTitle = WMFLocalizedString("activity-tab-survey-title", value: "Satisfaction survey", comment: "Satisfaction survey view title")
     public static let surveyVerySatisfied = WMFLocalizedString("activity-tab-very-satisfied", value: "Very satisfied", comment: "Satisfaction survey very satisfied")
     public static let surveySatisfied = WMFLocalizedString("activity-tab-satisfied", value: "Satisfied", comment: "Satisfaction survey satisfied")
@@ -855,9 +816,6 @@ public class CommonStrings: NSObject {
 
     public static let articleTabsLimitToastFormat = WMFLocalizedString("article-tabs-max-reached", value: "Tab limit reached (%1$d). The article was opened in the current tab. Please close one or more tabs.", comment: "Warning toast presented to users when they attempt to open a new tab after maximum tab number is reached. %1$d is replaced with the maximum number of tabs allowed.")
 
-    public static let onboardingTooltipsForTabs = WMFLocalizedString("article-tabs-onboarding-tooltip", value: "Onboarding tooltips for tabs", comment: "Tooltip title for tabs onboarding.")
-    public static let tabsNavigation = WMFLocalizedString("article-tabs-navigation", value: "Tabs navigation", comment: "Title for navigation in article tabs")
-
     public static func closeAllTabsConfirmation(count: Int? = 0) -> String {
         let format = WMFLocalizedString("close-all-tabs-confirmation", value: "Do you want to close all %1$@ tabs? This action can’t be undone.", comment: "Confirmation message for closing a variable number of tabs. $1 is the amount of tabs currently open.")
         return String.localizedStringWithFormat(format, count ?? 0)
@@ -868,34 +826,15 @@ public class CommonStrings: NSObject {
         return String.localizedStringWithFormat(format, count ?? 0)
     }
 
-    public static let saveAllTabs = WMFLocalizedString("save-all-tabs", value: "Save all tabs", comment: "Action to save all open tabs.")
     public static let closeAllTabs = WMFLocalizedString("close-all-tabs", value: "Close all tabs", comment: "Action to close all open tabs.")
-    public static let duplicateTab = WMFLocalizedString("duplicate-tab", value: "Duplicate tab", comment: "Action to duplicate the current tab.")
-    public static let closeOtherTabs = WMFLocalizedString("close-other-tabs", value: "Close other tabs", comment: "Action to close all tabs except the current one.")
     public static let newTab = WMFLocalizedString("new-tab", value: "New tab", comment: "Title for creating a new tab.")
-    public static let closeTabConfirmation = WMFLocalizedString("close-tab-confirmation", value: "Close tab?", comment: "Confirmation prompt to close a single tab.")
     public static let closeTabs = WMFLocalizedString("close-tabs", value: "Close tabs", comment: "Action to confirm closing multiple tabs.")
-    public static let savedAllTabs = WMFLocalizedString("saved-all-tabs", value: "Saved all tabs.", comment: "Message indicating all open tabs were saved.")
-    public static let savedAllTabsViewReadingList = WMFLocalizedString("saved-all-tabs-view-reading-list", value: "Saved all tabs. View reading list.", comment: "Message indicating all tabs were saved with option to view reading list.")
     public static let mainPage = WMFLocalizedString("main-page", value: "Main page", comment: "Title for the Wikipedia main page.")
-
-    public static let articleTabsFeatureAnnouncementTitle = WMFLocalizedString("article-tabs-feature-announcement-title", value: "Introducing Tabs", comment: "Title for the article tabs feature announcement")
-    public static let articleTabsFeatureAnnouncementItem1Title = WMFLocalizedString("article-tabs-feature-announcement-item-1-title", value: "Browse with tabs", comment: "Title for the article tabs feature announcement item")
-    public static let articleTabsFeatureAnnouncementItem1Subtitle = WMFLocalizedString("article-tabs-feature-announcement-item-1-subtitle", value: "Open multiple articles and switch between them with ease.", comment: "Subtitle for the article tabs feature announcement item 2")
-    public static let articleTabsFeatureAnnouncementItem2Title = WMFLocalizedString("article-tabs-feature-announcement-item-2-title", value: "Pick up where you left off", comment: "Title for the article tabs feature announcement item 2")
-    public static let articleTabsFeatureAnnouncementItem2Subtitle = WMFLocalizedString("article-tabs-feature-announcement-item-2-subtitle", value: "Tabs remember your scroll position automatically.", comment: "Subtitle for the article tabs feature announcement item 2")
-    public static let articleTabsFeatureAnnouncementItem3Title = WMFLocalizedString("article-tabs-feature-announcement-item-3-title", value: "Save links for later", comment: "Title for the article tabs feature announcement item 3")
-    public static let articleTabsFeatureAnnouncementItem3Subtitle = WMFLocalizedString("article-tabs-feature-announcement-item-3-subtitle", value: "Open links in background tabs without losing your place.", comment: "Subtitle for the article tabs feature announcement item 3")
-    public static let articleTabsFeatureAnnouncementItem4Title = WMFLocalizedString("article-tabs-feature-announcement-item-4-title", value: "Personalize your new tab", comment: "Title for the article tabs feature announcement item 4")
-    public static let articleTabsFeatureAnnouncementItem4Subtitle = WMFLocalizedString("article-tabs-feature-announcement-item-4-subtitle", value: "Choose fun facts or reading suggestions when opening a new tab.", comment: "Subtitle for the article tabs feature announcement item 4")
-    public static let articleTabsFeatureAnnouncementSubCTA = WMFLocalizedString("article-tabs-feature-announcement-sub-cta", value: "Learn more about Tabs", comment: "Call to action text in the article tabs feature announcement, inviting the user to learn more about tabs.")
 
     public static let tabsButtonAccessibilityHint = WMFLocalizedString("article-tabs-button-accessibility-hint", value: "Navigates to tabs overview", comment: "Accessibility hint for the tabs navigation bar button")
     public static let tabsButtonAccessibilityLabel = WMFLocalizedString("article-tabs-button-accessibility-label", value: "Article tabs", comment: "Accessibility label for the tabs navigation bar button")
     public static let mainPageSubtitle = WMFLocalizedString("tabs-main-page-subtitle", value: "Wikipedia’s daily highlights", comment: "Main page subtitle")
     public static let mainPageDescription = WMFLocalizedString("tabs-main-page-description", value: "Discover featured articles, the latest news, interesting facts, and key stats on Wikipedia’s main page.", comment: "Main page description")
-    public static let tabThumbnailSubtitle = WMFLocalizedString("tabs-thumbnail-subtitle", value: "Begin your search here", comment: "New tab thumbanail subtitle")
-    public static let tabThumbanailDescription = WMFLocalizedString("tabs-thumbnail-description", value: "Explore Wikipedia, the free encyclopedia that anyone can edit", comment: "New tab thumbanail description")
 
     // Search Widget Feature Announcement
 
@@ -903,11 +842,7 @@ public class CommonStrings: NSObject {
 
     @objc public static let searchWidgetAnnouncementBody = WMFLocalizedString("search-widget-announcement-body", value: "Add the Wikipedia Search widget to your Home or Lock Screen for faster answers, right at your fingertips.", comment: "Body text for the search widget feature announcement")
 
-    public static let newTabTheme = WMFLocalizedString("settings-new-article-tab-header-text", value: "New Tab Theme", comment: "Header title for the New Article Tabs settings to determine between preferences")
-    
     // Reading Challenge widget
-    
-    public static let collectPrizeTitle = WMFLocalizedString("collect-prize-title", value: "Collect your prize!", comment: "Title for collect prize modal sheet and button")
     
     public static let randomButton = WMFLocalizedString("reading-challenge-random-button", value: "Random", comment: "Title for the Random article button on the reading challenge widget.")
     public static let randomArticleButton = WMFLocalizedString("reading-challenge-random-article-button", value: "Random article", comment: "Button title on the post-challenge randomizer widget for medium size, linking to a random Wikipedia article.")

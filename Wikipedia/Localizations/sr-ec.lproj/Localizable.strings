@@ -91,8 +91,6 @@
 "action-unsave" = "Уклони";
 "action-unsaved-accessibility-notification" = "Чланак је уклоњен из сачуваних";
 "action-update" = "Ажурирај";
-"activity-tab-add-images-subtitle" = "Додајте предложене слике у чланке на Википедији да би сте побољшали њихово разумевање.";
-"activity-tab-add-images-title" = "Додај слике";
 "activity-tab-articles-read-graph-label" = "Чланци";
 "activity-tab-email-fourth-line" = "[Опишите предложено решење]";
 "activity-tab-empty-title" = "Ништа за приказ";
@@ -103,15 +101,11 @@
 "activity-tab-impact-views-day" = "Дан";
 "activity-tab-logged-out-title" = "Видите више уређивачких и читалачких активности";
 "activity-tab-neutral" = "Неутралан";
-"activity-tab-no-edits-title" = "Још нисте направили измене ове недеље. Додајте слике да би сте побољшали разумевање чланка.";
 "activity-tab-satisfied" = "Задовољан";
-"activity-tab-start-editing" = "Започни уређивање";
 "activity-tab-title" = "Активност";
 "activity-tab-unsatisfied" = "Незадовољан";
 "activity-tab-very-satisfied" = "Веома задовољан";
 "activity-tab-very-unsatisfied" = "Веома незадовољан";
-"activity-tab-view-reading-history" = "Погледај историју читања";
-"activity-tab-view-saved-articles" = "Погледај сачуване чланке";
 "activity-tab-you-edited" = "Уредили сте {{PLURAL:$1|$1 пут|$1 пута}} ове недеље.";
 "activity-tab-you-read" = "Прочитали сте {{PLURAL:$1|$1 чланак|$1 чланака}} ове недеље.";
 "activity-tab-you-saved" = "Сачували сте {{PLURAL:$1|$1 чланак|$1 чланака}} ове недеље.";
@@ -176,8 +170,6 @@
 "close-all-tabs-confirmation-subtitle-with-value" = "Желите ли да затворите {{PLURAL:$1|$1 картицу|$1 картице}}? Ово је неповратна радња.";
 "close-all-tabs-confirmation-title-with-value" = "Затвори {{PLURAL:$1|$1 картицу|$1 картица}}?";
 "close-button-accessibility-label" = "Затвори";
-"close-other-tabs" = "Затвори друге картице";
-"close-tab-confirmation" = "Затвори картицу?";
 "close-tabs" = "Затвори картице";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Затворена $1 картица|Затворено $1 картица}}.";
 "compass-direction" = "у $1 ч.";
@@ -401,7 +393,6 @@
 "explore-because-you-read-footer" = "Други сродни чланци";
 "explore-continue-reading-heading" = "Настави читање";
 "explore-detail-back-button-title" = "Назад на фид „Истражи”";
-"explore-enable-location-title" = "Истражите чланке о објектима у близини ваше тренутне локације";
 "explore-featured-article-heading" = "Изабрани чланак";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Језик Википедије: $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Са Википедије";
@@ -556,7 +547,6 @@
 "home-nearby-footer" = "Још места у близини";
 "home-nearby-location-footer" = "Још у близини $1";
 "home-news-footer" = "Још актуелних догађаја";
-"home-reading-list-prompt" = "Сачувани чланци се сада могу организовати у листама за читање и синхронизовати између уређаја. Пријавите се и дозволите чување листа у вашим подешавањима.";
 "home-tab-title" = "Почетна";
 "home-themes-action-title" = "Управљај подешавањима";
 "home-themes-prompt" = "Прилагодите подешавања за читање (укључујући величину текста и тему) у траци за управљање чланцима или у вашим подешавањима.";
@@ -691,7 +681,6 @@
 "notifications-center-alert" = "Обавештења";
 "notifications-center-applied-filters-accessibility-label" = "Филтер обавештења - има примењене филтере";
 "notifications-center-applied-project-filters-accessibility-label" = "Филтер пројеката - има примењене филтере";
-"notifications-center-badge-button-accessibility-label" = "Обавештења са непрочитаним беџом";
 "notifications-center-cell-notification-type-accessibility-label-format" = "Обавештење: $1";
 "notifications-center-change-password" = "Промени лозинку";
 "notifications-center-checking-for-notifications" = "Порверавам обавештења...";
@@ -934,11 +923,7 @@
 "reading-list-list-limit-exceeded-message" = "Ова листа за читање и чланци сачувани на њој неће бити синхронизовани. Смањите број листа на $1 да бисте поново синхронизовали ову листу.";
 "reading-list-list-limit-exceeded-title" = "Прекорачили сте ограничење од {{PLURAL:$1|$1 листе за читање|$1 листа за читање}} по налогу.";
 "reading-list-list-limit-reached" = "Достигли сте ограничење од $1 листа за читање по налогу";
-"reading-list-login-button-title" = "Пријавите се да бисте синхронизовали сачуване чланке";
 "reading-list-login-or-create-account-button-title" = "Пријава/регистрација";
-"reading-list-login-or-create-account-title" = "Пријавите се да бисте синхронизовали сачуване чланке";
-"reading-list-login-subtitle" = "Пријавите се или отворите налог да бисте синхронизовали чланке и листе за читање међу уређајима и сачували своја подешавања.";
-"reading-list-login-title" = "Синхронизовати сачуване чланке?";
 "reading-list-name-user-created-annotation" = "_[направио корисник]";
 "reading-list-new-list-description-placeholder" = "опционалан кратак опис";
 "reading-list-new-list-name-placeholder" = "наслов листе за читање";
@@ -965,7 +950,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Ослободите простор на уређају па покушајте поново";
 "reading-lists-articles-not-synced-limit-exceeded" = "Неки чланци нису синхронизовани. Прекорачено је ограничење.";
 "reading-lists-conflicting-reading-list-name-updated" = "Ваша листа „$1” је преименована у „$2”";
-"reading-lists-count" = "{{PLURAL:$1|$1 листа за читање|$1 листе за читање|$1 листа за читање}}";
 "reading-lists-default-list-description" = "Подразумевана листа за ваше сачуване чланке";
 "reading-lists-default-list-title" = "Сачувано";
 "reading-lists-delete-reading-list-alert-message" = "Ова радња је неповратна. Сви чланци сачувани само на {{PLURAL:$1|овој листи|овим листама}} ће бити уклоњени из сачуваних.";
@@ -1000,7 +984,6 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=ове године|1=прошле године|пре $1 године|пре $1 година}}";
 "return-button-title" = "Назад";
 "return-to-article" = "Назад на чланак";
-"reverted-edit-title" = "Враћена измена";
 "saved-all-articles-title" = "Сви чланци";
 "saved-default-reading-list-tag" = "Ова листа не може да се избрише";
 "saved-pages-image-download-error" = "Преузимање слика за ову сачувану страницу није успело.";
@@ -1075,10 +1058,7 @@
 "sort-by-recently-added-action" = "Недавно додато";
 "sort-by-title-action" = "Наслов";
 "suggested-edits-title" = "Предложене измене";
-"survey-instructions" = "Изаберите једну или више опција";
-"survey-other-placeholder" = "Друго";
 "survey-submit" = "Проследи";
-"survey-title" = "Разлог";
 "table-of-contents-button-label" = "Садржај";
 "table-of-contents-close-accessibility-hint" = "Затвори";
 "table-of-contents-close-accessibility-label" = "Затвори садржај";
@@ -1087,7 +1067,6 @@
 "table-of-contents-subheading-label" = "Поднаслов $1";
 "tabs-close-tab" = "Затвори картицу";
 "tabs-open-tab" = "Отвори картицу";
-"tabs-thumbnail-description" = "Истражите Википедију, слободну енциклопедију коју свако може да уређује";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 активни корисник|$1 активних корисника}}";
 "talk-page-add-topic-button" = "Додај тему";
 "talk-page-archives" = "Архиве";
@@ -1103,10 +1082,6 @@
 "talk-page-expand-thread-button" = "Рашири тему";
 "talk-page-find-in-page-button" = "Пронађи у страници";
 "talk-page-menu-open-all" = "Отвори све теме";
-"talk-page-new-banner-subtitle" = "Не заборавите: Комуницирате са живим људима";
-"talk-page-new-banner-title" = "Будите љубазни";
-"talk-page-new-reply-success-text" = "Ваш одговор је успешно објављен";
-"talk-page-new-topic-success-text" = "Ваша дискусија је успешно објављена";
 "talk-page-onboarding-button-accessibility-label" = "Тапните двапут да би сте се вратили на одговор";
 "talk-page-overflow-menu-accessibility" = "Више опција странице за разговор";
 "talk-page-page-info" = "Информације о страници";
@@ -1185,7 +1160,6 @@
 "top-read-widget-description" = "Сазнајте шта свет чита данас на Википедији";
 "top-read-widget-readers-count" = "Читалаца: $1";
 "top-read-widget-title" = "Најчитаније";
-"try-now-title" = "Пробајте сад";
 "tutorial-title" = "Упутство";
 "two-factor-email-login-continue" = "Настави пријаву";
 "two-factor-email-login-instructions" = "Молимо унесите имејл верификациони код";
@@ -1199,7 +1173,6 @@
 "unwatch" = "Прекини надгледање";
 "user-title" = "Корисник";
 "vanish-account-continue-button-title" = "Настави";
-"vanish-account-username-field" = "Корисничко име и корисничка страница";
 "vanish-account-warning-body" = "Нестајање је **последња опција** и треба је користити **само када желите да заувек престанете са уређивањем**, као и да сакријете што више својих прошлих асоцијација.\n\nБрисање налога на Википедији се врши променом назива налога тако да други не могу да препознају Ваше доприносе у процесу који се зове учтиви нестанак. **Нестајање не гарантује потпуну анонимност и не уклања доприносе на пројектима**.";
 "vanish-account-warning-title" = "Упозорење";
 "variants-alert-dismiss-button" = "Не, хвала";

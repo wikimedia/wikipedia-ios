@@ -86,8 +86,6 @@
 "action-unsave" = "Gem ikke";
 "action-unsaved-accessibility-notification" = "Artikel ikke længere gemt";
 "action-update" = "Opdater";
-"activity-tab-add-images-subtitle" = "Tilføj foreslåede billeder til Wikipedia-artikler for at forbedre forståelsen.";
-"activity-tab-add-images-title" = "Tilføj billeder";
 "activity-tab-additional-thoughts" = "Yderligere tanker?";
 "activity-tab-amount-article-views" = "{{PLURAL:$1| $1 visning| $1 visninger}}";
 "activity-tab-articles-read" = "Artikler læst denne måned";
@@ -109,7 +107,6 @@
 "activity-tab-email-title" = "Problemrapport - Aktivitetsfanen";
 "activity-tab-empty-subtitle" = "Begynd at læse og redigere for at opbygge din historik";
 "activity-tab-empty-title" = "Intet at vise";
-"activity-tab-generic-no-edits" = "Du har ikke redigeret i denne uge. Start nu med at spore dine bidrag.";
 "activity-tab-history-callout-body" = "Gennemse eller ryd din læsehistorik i **fanen Søg**.";
 "activity-tab-history-callout-body-loggedout" = "Find og ryd din læsehistorik i **fanen Søg**. Ingen konto nødvendig.";
 "activity-tab-hitory-callout-close" = "Luk meddelelseskort for historik";
@@ -127,14 +124,11 @@
 "activity-tab-impact-views-day" = "Dag";
 "activity-tab-impact-views-title" = "Visninger af artikler, du har redigeret";
 "activity-tab-impact-views-views" = "Visninger";
-"activity-tab-log-in-or-create-account" = "Log ind eller opret en konto for at se mere redigerings- og læseaktivitet.";
 "activity-tab-logged-out-subtitle" = "Log ind eller opret en konto for at se dine aktiviteter i Wikipedia appen.";
 "activity-tab-logged-out-title" = "Se mere redigerings- og læseaktivitet";
-"activity-tab-logged-out-track-what-youve-read" = "Spor, hvad du har læst, og se dine bidrag over tid på en ny måde";
 "activity-tab-menu-clear-history" = "Ryd læsehistorik";
 "activity-tab-most-viewed" = "Mest sete siden din redigering";
 "activity-tab-neutral" = "Neutral";
-"activity-tab-no-edits-title" = "Du har ikke redigeret i denne uge. Tilføj billeder for at forbedre forståelsen af ​​artiklen.";
 "activity-tab-no-username-reading-title" = "Din læsning";
 "activity-tab-onboarding-first-item-subtitle" = "Se hvor meget tid du har brugt på at læse, og hvilke artikler eller emner du har udforsket over tid.";
 "activity-tab-onboarding-first-item-title" = "Læsemønstre";
@@ -146,10 +140,8 @@
 "activity-tab-onboarding-second-item-title" = "Højdepunkter";
 "activity-tab-onboarding-third-item-subtitle-updated" = "Aktiviteten indeholder en omfattende tidslinje over læste, gemte og redigerede artikler. Din læsehistorik findes nu under fanen Søg.";
 "activity-tab-onboarding-third-item-title-updated" = "Læsehistorik er nu i Søgning";
-"activity-tab-read-title" = "Se læsehistorik";
 "activity-tab-satisfied" = "Tilfreds";
 "activity-tab-saved" = "Artikler gemt denne måned";
-"activity-tab-start-editing" = "Begynd at redigere";
 "activity-tab-survey-subtitle" = "Hjælp med at forbedre Aktivitet. Er du tilfreds med denne funktion?";
 "activity-tab-survey-title" = "Tilfredshedsundersøgelse";
 "activity-tab-time-spent-reading" = "Tid brugt på at læse i denne uge";
@@ -160,9 +152,6 @@
 "activity-tab-usernames-reading-title" = "$1s læsning";
 "activity-tab-very-satisfied" = "Meget tilfreds";
 "activity-tab-very-unsatisfied" = "Meget utilfreds";
-"activity-tab-view-editing-history" = "Se redigeringshistorik";
-"activity-tab-view-reading-history" = "Se læsehistorik";
-"activity-tab-view-saved-articles" = "Se gemte artikler";
 "activity-tab-week-graph-label" = "Uge";
 "activity-tab-you-edited" = "Du redigerede {{PLURAL:$1|$1 gang|$1 gange}} i denne uge.";
 "activity-tab-you-read" = "Du læste {{PLURAL:$1|$1 artikel|$1 artikler}} i denne uge.";
@@ -228,19 +217,7 @@
 "article-share" = "Del";
 "article-tabs-button-accessibility-hint" = "Naviger til faneoversigten";
 "article-tabs-button-accessibility-label" = "Artikelfaner";
-"article-tabs-feature-announcement-item-1-subtitle" = "Åbn flere artikler og skift nemt mellem dem.";
-"article-tabs-feature-announcement-item-1-title" = "Gennemse med faner";
-"article-tabs-feature-announcement-item-2-subtitle" = "Faner husker automatisk din scrollposition.";
-"article-tabs-feature-announcement-item-2-title" = "Fortsæt hvor du slap";
-"article-tabs-feature-announcement-item-3-subtitle" = "Åbn links i baggrundsfaner uden at miste fokus.";
-"article-tabs-feature-announcement-item-3-title" = "Gem links til senere";
-"article-tabs-feature-announcement-item-4-subtitle" = "Vælg sjove fakta eller læseforslag, når du åbner en ny fane.";
-"article-tabs-feature-announcement-item-4-title" = "Tilpas din nye fane";
-"article-tabs-feature-announcement-sub-cta" = "Lær mere om Faner";
-"article-tabs-feature-announcement-title" = "Introduktion til faner";
 "article-tabs-max-reached" = "Fanegrænsen er nået ($1). Artiklen blev åbnet i den aktuelle fane. Luk venligst en eller flere faner.";
-"article-tabs-navigation" = "Fanebladsnavigation";
-"article-tabs-onboarding-tooltip" = "Værktøjstips til onboarding af faner";
 "article-tabs-open" = "Åben";
 "article-tabs-open-background-tab" = "Åbn i baggrundsfanen";
 "article-tabs-open-new-tab" = "Åbn i ny fane";
@@ -281,11 +258,8 @@
 "close-all-tabs-confirmation-subtitle-with-value" = "Vil du lukke {{PLURAL:$1|$1 fane|$1 faner}}? Denne handling kan ikke fortrydes.";
 "close-all-tabs-confirmation-title-with-value" = "Luk {{PLURAL:$1|$1 fane|$1 faner}}?";
 "close-button-accessibility-label" = "Luk";
-"close-other-tabs" = "Luk andre faner";
-"close-tab-confirmation" = "Luk fane?";
 "close-tabs" = "Luk faner";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 fane|$1 faner}} lukket.";
-"collect-prize-title" = "Modtag din præmie!";
 "community-detail-back-button-title" = "Tilbage til Fællesskabsfeedet";
 "community-feed-preferences-global-card-footer-text" = "Dette kort er ikke sprogspecifikt. Hvis du deaktiverer kortet, fjernes det fra dit fællesskabsfeed.";
 "compass-direction" = "mod klokken $1";
@@ -425,7 +399,6 @@
 "donate-transaction-fee-opt-in-text" = "Jeg vil gerne tilføje $1 for at dække transaktionsgebyrerne, så I kan beholde 100 %% af min donation.";
 "donate-wikimedia-fine-print-1" = "Vi sælger eller bytter ikke dine oplysninger til nogen. Ved at donere accepterer du at dele dine personlige oplysninger med Wikimedia Foundation, den nonprofitorganisation, der er vært for Wikipedia og andre Wikimedia-projekter, og dens tjenesteudbydere i henhold til vores [donorpolitik]($1). Wikimedia Foundation og dets tjenesteudbydere er placeret i USA og i andre lande, hvis privatlivslovgivning muligvis ikke svarer til din egen. For mere information, læs venligst vores [donorpolitik]($1).";
 "donate-wikimedia-fine-print-2" = "For tilbagevendende donorer vil faste månedlige betalinger blive debiteret af Wikimedia Foundation på månedsdagen for den første donation, indtil du giver os besked om at afbryde dem. Donationer påbegyndt den 29., 30. eller 31. i måneden vil gentage sig på den sidste dag i måneden i kortere måneder, så tæt på den oprindelige dato som muligt. For spørgsmål, kontakt venligst donate@wikimedia.org.";
-"duplicate-tab" = "Dupliker fane";
 "edit-link-display-text-title" = "Vis tekst";
 "edit-link-link-target-title" = "Linkmål";
 "edit-link-remove-link-title" = "Fjern link";
@@ -554,7 +527,6 @@
 "explore-because-you-read-footer" = "Yderligere relaterede artikler";
 "explore-continue-reading-heading" = "Fortsæt læsning";
 "explore-detail-back-button-title" = "Tilbage til Udforsk-feed";
-"explore-enable-location-title" = "Udforsk artikler i nærheden af din nuværende placering";
 "explore-featured-article-heading" = "Fremhævet artikel";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Fra $1 Wikipedia";
 "explore-featured-article-sub-heading-from-wikipedia" = "Fra Wikipedia";
@@ -771,7 +743,6 @@
 "home-nearby-footer" = "Flere steder i nærheden af din placering";
 "home-nearby-location-footer" = "Mere nær $1";
 "home-news-footer" = "Flere aktuelle hændelser";
-"home-reading-list-prompt" = "Dine gemte artikler kan nu organiseres i læselister og synkroniseret på tværs af enheder. Log ind for at acceptere at dine læselister gemmes i dine brugerpræferencer.";
 "home-tab-title" = "Hjem";
 "home-themes-action-title" = "Håndter præferencer";
 "home-themes-prompt" = "Juster dine læseindstillinger inklusive tekststørrelse og tema fra artiklens værktøjslinje eller i dine brugerindstillinger for en mere komfortabel læseoplevelse.";
@@ -913,7 +884,6 @@
 "notifications-center-alert" = "Advarsel";
 "notifications-center-applied-filters-accessibility-label" = "Meddelelsesfilter - har filtre anvendt";
 "notifications-center-applied-project-filters-accessibility-label" = "Projektfilter - har anvendt filtre";
-"notifications-center-badge-button-accessibility-label" = "Notifikationer med ulæst badge";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 notifikation";
 "notifications-center-change-password" = "Skift adgangskode";
 "notifications-center-checking-for-notifications" = "Søger efter notifikationer...";
@@ -1132,11 +1102,7 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sorter artikler";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Der er en begrænsning på 5.000 usorterede artikler. Sorter venligst dine eksisterende artikler i lister for at fortsætte synkroniseringen af usorterede artikler.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Begrænsningen for usorterede artikler er nået";
-"reading-list-login-button-title" = "Log ind for at synkronisere dine gemte artikler";
 "reading-list-login-or-create-account-button-title" = "Log ind eller opret konto";
-"reading-list-login-or-create-account-title" = "Log ind for at synkronisere gemte artikler";
-"reading-list-login-subtitle" = "Log ind eller opret en konto så dine gemte artikler og læselister synkroniseres på tværs af enheder og gemmes i dine brugerpræferencer.";
-"reading-list-login-title" = "Synkroniser dine gemte artikler?";
 "reading-list-name-user-created-annotation" = "_[bruger oprettet]";
 "reading-list-new-list-description-placeholder" = "valgfri kort beskrivelse";
 "reading-list-new-list-name-placeholder" = "titel på læseliste";
@@ -1158,7 +1124,6 @@
 "reading-lists-article-queued-to-be-downloaded" = "Artiklen er sat i kør for download";
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Frigør plads på dit udstyr og prøv igen";
 "reading-lists-conflicting-reading-list-name-updated" = "Din liste '$1' er blevet omdøbt til '$2'";
-"reading-lists-count" = "{{PLURAL:$1|$1 læseliste|$1 læselister}}";
 "reading-lists-default-list-description" = "Standardliste for dine gemte artikler";
 "reading-lists-default-list-title" = "Gemt";
 "reading-lists-delete-reading-list-alert-message" = "Denne handling kan ikke fortrydes. Enhver artikel gemt kun i {{PLURAL:$1|denne liste|disse lister}} vil ikke blive gemt.";
@@ -1193,11 +1158,7 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dette år|1=Sidste år|$1 år siden}}";
 "return-button-title" = "Tilbage";
 "return-to-article" = "Tilbage til artikel";
-"reverted-edit-title" = "Omgjort redigering";
-"save-all-tabs" = "Gem alle faner";
 "saved-all-articles-title" = "Alle artikler";
-"saved-all-tabs" = "Gemte alle faner.";
-"saved-all-tabs-view-reading-list" = "Gemte alle faner. Se læseliste.";
 "saved-default-reading-list-tag" = "Denne liste kan ikke slettes";
 "saved-pages-image-download-error" = "Hentning af billeder mislykkedes for denne gemte side.";
 "saved-pages-progress-syncing" = "Artikel download i gang...";
@@ -1240,7 +1201,6 @@
 "settings-languages-feed-customization" = "Du kan administrere, hvilke sprog der vises på dit Udforsk-feed ved at tilpasse dine Udforsk-feedindstillinger.";
 "settings-legal-sefaty-title" = "Juridiske og sikkerhedsmæssige kontakter";
 "settings-my-languages" = "Mine sprog";
-"settings-new-article-tab-header-text" = "Nyt Fanetema";
 "settings-notifications" = "Push-notifikationer";
 "settings-notifications-echo-failure-try-again" = "Prøv igen";
 "settings-off" = "Fra";
@@ -1277,10 +1237,7 @@
 "share-social-mention-format" = "“$1” via Wikipedia: $2";
 "sort-by-recently-added-action" = "Tilføjet for nylig";
 "sort-by-title-action" = "Titel";
-"survey-instructions" = "Vælg en eller flere muligheder";
-"survey-other-placeholder" = "Andet";
 "survey-submit" = "Indsend";
-"survey-title" = "Årsag";
 "table-of-contents-button-label" = "Indholdsfortegnelse";
 "table-of-contents-close-accessibility-hint" = "Afslut";
 "table-of-contents-close-accessibility-label" = "Luk indholdsfortegnelse";
@@ -1309,10 +1266,6 @@
 "talk-page-expand-thread-button" = "Udvid tråden";
 "talk-page-find-in-page-button" = "Find på siden";
 "talk-page-menu-open-all" = "Åbn alle tråde";
-"talk-page-new-banner-subtitle" = "Husk, vi er alle mennesker her";
-"talk-page-new-banner-title" = "Vær venlig";
-"talk-page-new-reply-success-text" = "Dit svar blev offentliggjort";
-"talk-page-new-topic-success-text" = "Din diskussion blev offentliggjort";
 "talk-page-page-info" = "Sideinformation";
 "talk-page-permanent-link" = "Permanent link";
 "talk-page-publish-reply-error-subtitle" = "Tjek venligst din internetforbindelse.";
@@ -1364,7 +1317,6 @@
 "top-read-widget-description" = "Se, hvad verden læser i dag på Wikipedia.";
 "top-read-widget-readers-count" = "$1 læsere";
 "top-read-widget-title" = "Mest læst";
-"try-now-title" = "Prøv nu";
 "tutorial-title" = "Guide";
 "two-factor-email-login-continue" = "Fortsæt login";
 "two-factor-email-login-instructions" = "Indtast venligst e-mailbekræftelseskoden";
@@ -1555,9 +1507,6 @@
 "year-in-review-day-wednesday" = "Onsdage";
 "year-in-review-donate" = "Donér";
 "year-in-review-donate-now" = "Donér nu";
-"year-in-review-feature-announcement-body" = "Se indsigt i, hvilke artikler vi læste og redigerede, og del højdepunkter fra vores år på Wikipedia.";
-"year-in-review-feature-announcement-body-personalized" = "Se indsigt i de artikler, du læser i Wikipedia-appen, del din rejse, og opdag højdepunkter fra dit år.";
-"year-in-review-feature-announcement-title" = "Udforsk Wikipedia i årsoversigt";
 "year-in-review-feature-announcement-title-personalized" = "Udforsk din Wikipedia-årsoversigt";
 "year-in-review-feature-explore-footer-v3" = "Din læsehistorik bliver beskyttet. Læseindsigter beregnes alene ud fra lokalt gemte oplysninger på dit device.";
 "year-in-review-finish" = "Afslut";

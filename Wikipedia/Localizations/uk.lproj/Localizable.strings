@@ -95,8 +95,6 @@
 "action-unsave" = "Скасувати збереження";
 "action-unsaved-accessibility-notification" = "Статтю вилучено зі збережених";
 "action-update" = "Оновити";
-"activity-tab-add-images-subtitle" = "Додати пропоновані зображення до статей Вікіпедії, щоб покращити розуміння.";
-"activity-tab-add-images-title" = "Додати зображення";
 "activity-tab-additional-thoughts" = "Є ще якісь думки?";
 "activity-tab-amount-article-views" = "{{PLURAL:$1|$1 перегляд|$1 перегляди|$1 переглядів}}";
 "activity-tab-articles-read" = "Статті, прочитані цього місяця";
@@ -118,7 +116,6 @@
 "activity-tab-email-title" = "Звіт про проблему – вкладка «Активність»";
 "activity-tab-empty-subtitle" = "Почніть читати та редагувати, щоб створити свою історію";
 "activity-tab-empty-title" = "Нічого показати";
-"activity-tab-generic-no-edits" = "Ви ще не редагували цього тижня. Почніть зараз, щоб відстежувати свій внесок.";
 "activity-tab-history-callout-body" = "Перегляньте або очистіть історію читання на вкладці **Пошук**.";
 "activity-tab-history-callout-body-loggedout" = "Знайдіть та очистіть історію читання на вкладці **Пошук**. Обліковий запис не потрібен.";
 "activity-tab-hitory-callout-close" = "Закрити картку з повідомленнями про історію";
@@ -136,14 +133,11 @@
 "activity-tab-impact-views-day" = "День";
 "activity-tab-impact-views-title" = "Перегляди відредагованих вами статей";
 "activity-tab-impact-views-views" = "Перегляди";
-"activity-tab-log-in-or-create-account" = "Увійдіть або створіть обліковий запис для перегляду редагувань та прочитаного.";
 "activity-tab-logged-out-subtitle" = "Увійдіть або створіть обліковий запис, щоб переглядати свою активність у додатку Вікіпедії.";
 "activity-tab-logged-out-title" = "Див. більше статистики читання та редагування";
-"activity-tab-logged-out-track-what-youve-read" = "У новий спосіб відстежувати те, що ви вже читали та переглядати ваш внесок протягом часу";
 "activity-tab-menu-clear-history" = "Очистити історію читання";
 "activity-tab-most-viewed" = "Найбільше переглядів з моменту вашого редагування";
 "activity-tab-neutral" = "Нейтрально";
-"activity-tab-no-edits-title" = "Ви ще не редагували цього тижня. Додайте зображення, щоб покращити розуміння статті.";
 "activity-tab-no-username-reading-title" = "Ваше читання";
 "activity-tab-onboarding-first-item-subtitle" = "Подивіться, скільки часу ви витратили на читання та які статті чи теми ви досліджували протягом певного часу.";
 "activity-tab-onboarding-first-item-title" = "Закономірності читання";
@@ -155,10 +149,8 @@
 "activity-tab-onboarding-second-item-title" = "Основні моменти впливу";
 "activity-tab-onboarding-third-item-subtitle-updated" = "Активність містить повну хронологію прочитаних, збережених та відредагованих статей. Ваша історія читання тепер знаходиться на вкладці «Пошук».";
 "activity-tab-onboarding-third-item-title-updated" = "Історія читання тепер доступна в пошуку";
-"activity-tab-read-title" = "Переглянути історію читання";
 "activity-tab-satisfied" = "Задоволений/а";
 "activity-tab-saved" = "Статті, збережені цього місяця";
-"activity-tab-start-editing" = "Почати редагування";
 "activity-tab-survey-subtitle" = "Допоможіть покращити функцію \"Активність\". Чи ви задоволені цією функцією?";
 "activity-tab-survey-title" = "Опитування задоволеності";
 "activity-tab-time-spent-reading" = "Час, витрачений на читання цього тижня";
@@ -169,9 +161,6 @@
 "activity-tab-usernames-reading-title" = "Читання $1";
 "activity-tab-very-satisfied" = "Дуже задоволений/а";
 "activity-tab-very-unsatisfied" = "Дуже незадоволений/а";
-"activity-tab-view-editing-history" = "Переглянути історію редагування";
-"activity-tab-view-reading-history" = "Переглянути історію читання";
-"activity-tab-view-saved-articles" = "Переглянути збережені статті";
 "activity-tab-week-graph-label" = "Тиждень";
 "activity-tab-you-edited" = "Цього тижня ви редагували {{PLURAL:$1|$1 раз|$1 рази|$1 разів}}.";
 "activity-tab-you-read" = "Цього тижня ви прочитали {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}}.";
@@ -237,19 +226,7 @@
 "article-share" = "Поділитися";
 "article-tabs-button-accessibility-hint" = "Перехід до огляду вкладок";
 "article-tabs-button-accessibility-label" = "Вкладки статей";
-"article-tabs-feature-announcement-item-1-subtitle" = "Відкривайте кілька статей та легко перемикайтеся між ними.";
-"article-tabs-feature-announcement-item-1-title" = "Перегляд за допомогою вкладок";
-"article-tabs-feature-announcement-item-2-subtitle" = "Вкладки автоматично запам'ятовують позицію прокручування.";
-"article-tabs-feature-announcement-item-2-title" = "Продовжуйте з того місця, де зупинилися";
-"article-tabs-feature-announcement-item-3-subtitle" = "Відкривайте посилання у фонових вкладках, не втрачаючи місця, на якому ви є.";
-"article-tabs-feature-announcement-item-3-title" = "Зберігайте посилання на потім";
-"article-tabs-feature-announcement-item-4-subtitle" = "Вибирайте цікаві факти або пропозиції для читання під час відкриття нової вкладки.";
-"article-tabs-feature-announcement-item-4-title" = "Персоналізуйте свою нову вкладку";
-"article-tabs-feature-announcement-sub-cta" = "Дізнайтеся більше про вкладки";
-"article-tabs-feature-announcement-title" = "Знайомство з вкладками";
 "article-tabs-max-reached" = "Досягнуто ліміту вкладок ($1). Статтю було відкрито у поточній вкладці. Будь ласка, закрийте одну або кілька вкладок.";
-"article-tabs-navigation" = "Навігація вкладками";
-"article-tabs-onboarding-tooltip" = "Навчальні підказки для вкладок";
 "article-tabs-open" = "Відкрити";
 "article-tabs-open-background-tab" = "Відкрити у фоновій вкладці";
 "article-tabs-open-new-tab" = "Відкрити у новій вкладці";
@@ -290,11 +267,8 @@
 "close-all-tabs-confirmation-subtitle-with-value" = "Бажаєте закрити {{PLURAL:$1|$1 вкладку|$1 вкладки|$1 вкладок}}? Цю дію не можна скасувати.";
 "close-all-tabs-confirmation-title-with-value" = "Закрити {{PLURAL:$1|$1 вкладку|$1 вкладки|$1 вкладок}}?";
 "close-button-accessibility-label" = "Закрити";
-"close-other-tabs" = "Закрити інші вкладки";
-"close-tab-confirmation" = "Закрити вкладку?";
 "close-tabs" = "Закрити вкладки";
 "closed-all-tabs-confirmation-with-value" = "Закрито {{PLURAL:$1|$1 вкладку|$1 вкладки|$1 вкладок}}.";
-"collect-prize-title" = "Заберіть свій приз!";
 "community-detail-back-button-title" = "Назад до стрічки спільноти";
 "community-feed-preferences-global-card-footer-text" = "Ця картка не залежить від мови, її вимкнення призведе до її видалення з вашої стрічки спільноти.";
 "compass-direction" = "на $1 годину";
@@ -434,7 +408,6 @@
 "donate-transaction-fee-opt-in-text" = "Я щедро додам $1 для покриття комісії за транзакцію, щоб ви могли отримати 100%% моєї пожертви.";
 "donate-wikimedia-fine-print-1" = "Ми нікому не продаємо і ні з ким не обмінюємося вашою інформацією. Роблячи пожертву, ви даєте згоду на повідомлення вашої персональної інформації Фонду Wikimedia Foundation, некомерційній організації, яка підтримує роботу Вікіпедії та інших проєктів Wikimedia, а також його постачальникам послуг відповідно до нашої [політики щодо донорів]($1). Фонд Wikimedia Foundation і його постачальники послуг знаходяться у Сполучених Штатах та інших країнах, де законодавство про недоторканність приватного життя може відрізнятися від відповідного законодавства, яке діє у вашій країні. Щоб отримати докладнішу інформацію, ознайомтеся з нашою [політикою щодо донорів]($1).";
 "donate-wikimedia-fine-print-2" = "Фонд Wikimedia Foundation списуватиме щомісячні платежі встановленого розміру з рахунків регулярних донорів у день здійснення першої пожертви, поки ви не повідомите нас про припинення регулярних пожертв. Пожертви, зроблені 29-го, 30-го або 31-го числа місяця, надалі будуть списуватися в останній день коротшого місяця, якомога ближче до початкової дати. Якщо у вас виникли запитання, звертайтеся за адресою donate@wikimedia.org.";
-"duplicate-tab" = "Дублювати вкладку";
 "edit-link-display-text-title" = "Показати текст";
 "edit-link-link-target-title" = "Адреса посилання";
 "edit-link-remove-link-title" = "Вилучити посилання";
@@ -563,7 +536,6 @@
 "explore-because-you-read-footer" = "Більше пов'язаних статей";
 "explore-continue-reading-heading" = "Продовжити читання";
 "explore-detail-back-button-title" = "Назад до стрічки";
-"explore-enable-location-title" = "Досліджуйте статті Вікіпедії поблизу з вашим місцем розташування";
 "explore-featured-article-heading" = "Вибрана стаття";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Із Вікіпедії мовою «$1»";
 "explore-featured-article-sub-heading-from-wikipedia" = "З Вікіпедії";
@@ -780,7 +752,6 @@
 "home-nearby-footer" = "Більше місць поблизу";
 "home-nearby-location-footer" = "Більше поблизу $1";
 "home-news-footer" = "Більше новин";
-"home-reading-list-prompt" = "Збережені вами статті тепер можуть бути організовані в читальні списки та синхронізовані між приладами. Увійдіть до системи, аби ваші читальні списки збереглися в користувацьких налаштуваннях.";
 "home-tab-title" = "Головна";
 "home-themes-action-title" = "Керування налаштуваннями";
 "home-themes-prompt" = "Для комфортнішого читання налагодьте читальні налаштування (зокрема розмір шрифту та тему оформлення) на панелі управління статтею чи у ваших користувацьких налаштуваннях.";
@@ -940,7 +911,6 @@
 "notifications-center-alert" = "Сповіщення";
 "notifications-center-applied-filters-accessibility-label" = "Фільтр сповіщень – має застосовані фільтри";
 "notifications-center-applied-project-filters-accessibility-label" = "Фільтр Проектів – має застосовані фільтри";
-"notifications-center-badge-button-accessibility-label" = "Сповіщення зі значком непрочитаних";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 повідомлення";
 "notifications-center-change-password" = "Змінити пароль";
 "notifications-center-checking-for-notifications" = "Перевірка сповіщень…";
@@ -1170,7 +1140,6 @@
 "profile-page-join-title" = "Увійти / приєднатися до Вікіпедії";
 "profile-page-logged-out-year-in-review-subtext" = "Увійдіть або створіть обліковий запис, щоб наступного року отримати покращений огляд за рік";
 "profile-year-in-review-login-subtitle" = "Увійдіть або створіть обліковий запис, щоб переглянути «Огляд року» та мати право на отримання більш персоналізованої статистики.";
-"profile-year-in-review-login-title" = "Увійдіть, щоб отримати доступ до огляду року";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Вікіпідручник";
 "project-name-wikidata" = "Вікідані";
@@ -1214,11 +1183,7 @@
 "reading-list-list-limit-exceeded-message" = "Цей читальний список та збережені в ньому статті не будуть синхронізовані. Будь ласка, зменшіть кількість списків до $1, аби відновити синхронізацію цього списку.";
 "reading-list-list-limit-exceeded-title" = "Ви перевищили ліміт у {{PLURAL:$1|$1 читальний список|$1 читальні списки|$1 читальних списків}} для облікового запису.";
 "reading-list-list-limit-reached" = "Ви сягнули ліміту в $1 читальних списків для облікового запису.";
-"reading-list-login-button-title" = "Увійдіть у систему, щоб синхронізувати збережені статті";
 "reading-list-login-or-create-account-button-title" = "Увідіть або створіть обліковий запис";
-"reading-list-login-or-create-account-title" = "Увійдіть у систему, щоб синхронізувати збережені статті";
-"reading-list-login-subtitle" = "Увійдіть до системи або створіть обліковий запис, аби ваші збережені статті та читальні списки були синхронізовані між пристроями та збережені в користувацьких налаштуваннях.";
-"reading-list-login-title" = "Синхронізувати збережені статті?";
 "reading-list-name-user-created-annotation" = "_[користувача створено]";
 "reading-list-new-list-description-placeholder" = "необов'язковий короткий опис";
 "reading-list-new-list-name-placeholder" = "назва читального списку";
@@ -1245,7 +1210,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Звільніть місце на приладі та спробуйте знову";
 "reading-lists-articles-not-synced-limit-exceeded" = "Деякі статті не збережені, ліміт перевищений";
 "reading-lists-conflicting-reading-list-name-updated" = "Ваш список «$1» перейменовано на «$2»";
-"reading-lists-count" = "{{PLURAL:$1|$1 читальний список|$1 читальні списки|$1 читальних списків}}";
 "reading-lists-default-list-description" = "Типовий список для ваших збережених статей";
 "reading-lists-default-list-title" = "Збережене";
 "reading-lists-delete-reading-list-alert-message" = "Ця дія не може була скасована. Жодні статті, збережені тільки для {{PLURAL:$1|цього списку|цих списків}}, не збережуться.";
@@ -1280,13 +1244,9 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Цього року|1=Торік|few=$1 роки назад|many=$1 років назад}}";
 "return-button-title" = "Повернутися";
 "return-to-article" = "Повернутися до статті";
-"reverted-edit-title" = "Відкинуте редагування";
-"save-all-tabs" = "Зберегти всі вкладки";
 "save-view-temp-account-notice" = "Ви використовуєте тимчасовий обліковий запис. Редагування зберігаються під іменем $1…";
 "save-view-temp-account-warning" = "Ви не ввійшли в систему. Коли ви зробите редагування, для вас буде створено тимчасовий обліковий запис для захисту вашої конфіденційності.";
 "saved-all-articles-title" = "Усі статті";
-"saved-all-tabs" = "Збережено всі вкладки.";
-"saved-all-tabs-view-reading-list" = "Збережено всі вкладки. Переглянути список для читання.";
 "saved-default-reading-list-tag" = "Цей список не можна вилучити";
 "saved-pages-image-download-error" = "Не вдалося завантажити малюнки для цієї збереженої сторінки.";
 "saved-pages-progress-syncing" = "Стаття завантажується…";
@@ -1333,7 +1293,6 @@
 "settings-languages-feed-customization" = "Ви можете зазначити в налаштуваннях, які мови показуватимуться у вашій стрічці.";
 "settings-legal-sefaty-title" = "Контакти з юридичних питань та безпеки";
 "settings-my-languages" = "Мої мови";
-"settings-new-article-tab-header-text" = "Тема нової вкладки";
 "settings-notifications" = "Push-сповіщення";
 "settings-notifications-echo-failure-message" = "Сталася помилка під час перевірки підписки на сповіщення, пов'язані з вашим обліковим записом.";
 "settings-notifications-echo-failure-title" = "Неможливо перевірити наявність підписок на сповіщення Echo";
@@ -1379,10 +1338,7 @@
 "sort-by-recently-added-action" = "Нещодавно додані";
 "sort-by-title-action" = "Назва";
 "suggested-edits-title" = "Пропоновані редагування";
-"survey-instructions" = "Виберіть один або кілька варіантів";
-"survey-other-placeholder" = "Інше";
 "survey-submit" = "Надіслати";
-"survey-title" = "Причина";
 "table-of-contents-button-label" = "Вміст";
 "table-of-contents-close-accessibility-hint" = "Закрити";
 "table-of-contents-close-accessibility-label" = "Закрити зміст";
@@ -1400,8 +1356,6 @@
 "tabs-show-suggested-articles" = "Показати пропозиції статей";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Пропозиції тепер приховані";
 "tabs-survey-title" = "Допоможіть покращити вкладки. Ви задоволені цією функцією?";
-"tabs-thumbnail-description" = "Ознайомтеся з Вікіпедією, вільною енциклопедією, яку може редагувати будь-хто";
-"tabs-thumbnail-subtitle" = "Почніть свій пошук тут";
 "tabs-title" = "Вкладки";
 "tachelhit-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти мови ташельхіт як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nⵜⴰⵛⵍⵃⵉⵜ ташельхіт, тифінаг (shi-tfng)\nTaclḥit ташельхіт, латинка (shi-latn)";
 "tachelhit-variants-alert-title" = "Оновлення щодо підтримки варіантів ташельхіту";
@@ -1422,10 +1376,6 @@
 "talk-page-expand-thread-button" = "Розгорнути ланцюжок";
 "talk-page-find-in-page-button" = "Знайти на сторінці";
 "talk-page-menu-open-all" = "Відкрити всі ланцюжки";
-"talk-page-new-banner-subtitle" = "Не забувайте, що всі ми тут — люди";
-"talk-page-new-banner-title" = "Будьте ввічливими";
-"talk-page-new-reply-success-text" = "Ваша відповідь успішно оприлюднена";
-"talk-page-new-topic-success-text" = "Ваше обговорення успішно оприлюднене";
 "talk-page-onboarding-button-accessibility-label" = "Двічі торкніться, щоб повернутися до відповіді";
 "talk-page-overflow-menu-accessibility" = "Більше параметрів сторінки обговорення";
 "talk-page-page-info" = "Інформація про сторінку";
@@ -1506,7 +1456,6 @@
 "top-read-widget-description" = "Дізнайтеся, що світ читає у Вікіпедії сьогодні.";
 "top-read-widget-readers-count" = "$1 читачів";
 "top-read-widget-title" = "Найчитаніше";
-"try-now-title" = "Спробувати зараз";
 "tutorial-title" = "Посібник";
 "two-factor-email-login-continue" = "Продовжити вхід";
 "two-factor-email-login-instructions" = "Будь ласка, введіть код верифікації з електронного листа";
@@ -1522,7 +1471,6 @@
 "uzbek-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти узбецької мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\noʻzbekcha lotin узбецька, латинка (uz-latin)\nўзбекча кирилл узбецька, кирилиця (uz-cyrl)";
 "uzbek-variants-alert-title" = "Оновлення щодо підтримки варіантів узбецької";
 "vanish-account-continue-button-title" = "Продовжити";
-"vanish-account-username-field" = "Ім'я користувача та сторінка користувача";
 "vanish-account-warning-body" = "Зникнення є **останнім заходом**, і його слід використовувати **лише тоді, коли ви хочете назавжди припинити редагування**, а також щоб приховати якомога більше своїх минулих зв'язків.\n\nВилучення облікового запису у Вікіпедії робиться шляхом зміни імені вашого облікового запису, щоб інші не могли розпізнати ваші внески; це називають зникненням облікового запису. **Зникнення не гарантує повної анонімності і не вилучає внесок у проєкти**.";
 "vanish-account-warning-title" = "Попередження";
 "variants-alert-dismiss-button" = "Ні, дякую";
@@ -1747,12 +1695,7 @@
 "year-in-review-day-wednesday" = "середи";
 "year-in-review-donate" = "Пожертвувати";
 "year-in-review-donate-now" = "Пожертвувати зараз";
-"year-in-review-feature-announcement-body" = "Перегляньте статистику того, які статті ми читали та редагували, і діліться найважливішими моментами нашого року у Вікіпедії.";
-"year-in-review-feature-announcement-body-personalized" = "Переглядайте статистику про статті, які ви читали в програмці Вікіпедії, діліться своєю подорожжю та відкривайте найцікавіші моменти свого року.";
-"year-in-review-feature-announcement-title" = "Перегляньте Вікіпедію в огляді";
 "year-in-review-feature-announcement-title-personalized" = "Ознайомтеся зі своїм оглядом року у Вікіпедії";
-"year-in-review-feature-explore-body" = "Вікіпедія є найбільшим ресурсом знань, будь-коли створеним в історії світу, і вона є вільнодоступною для всіх і всюди. Ось огляд 2024 року через призму Вікіпедії.";
-"year-in-review-feature-explore-body-personalized-updated" = "Переглядайте статистику того, які статті ви читали в програмці Вікіпедії, а також редагування, які ви зробили у 2024 році. Ваша історія читання зберігається під захистом. Статистика читання обчислюється на основі локально збережених даних на вашому пристрої.";
 "year-in-review-feature-explore-body-v3" = "Перегляньте аналітику статей, які ви читали у застосунку Вікіпедії, та внесених вами змін.";
 "year-in-review-feature-explore-footer-v3" = "Ваша історія читання захищена. Статистика читання розраховується на основі даних, що зберігаються локально на вашому пристрої.";
 "year-in-review-finish" = "Завершити";

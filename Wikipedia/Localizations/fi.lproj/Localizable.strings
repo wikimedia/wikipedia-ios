@@ -104,8 +104,6 @@
 "action-unsave" = "Kumoa tallennus";
 "action-unsaved-accessibility-notification" = "Artikkeli tallentamatta";
 "action-update" = "Päivitä";
-"activity-tab-add-images-subtitle" = "Paranna Wikipedia-artikkelin ymmärrettävyyttä hyväksymällä niihin ehdotettavia kuvia.";
-"activity-tab-add-images-title" = "Lisää kuvia";
 "activity-tab-additional-thoughts" = "Muuta sanottavaa?";
 "activity-tab-amount-article-views" = "{{PLURAL:$1|$1 katselukerta|$1 katselukertaa}}";
 "activity-tab-articles-read" = "Tässä kuussa lukemasi artikkelit";
@@ -123,7 +121,6 @@
 "activity-tab-email-fourth-line" = "[Kuvaile ehdottamaasi ratkaisua]";
 "activity-tab-email-second-line" = "- [Kuvaile ongelmaa]";
 "activity-tab-empty-title" = "Ei mitään näytettävää";
-"activity-tab-generic-no-edits" = "Et ole tehnyt muokkauksia tällä viikolla. Aloita muokkauksiesi seuraaminen.";
 "activity-tab-history-callout-body" = "Voit selata lukuhistoriaasi tai poistaa sen **Haku-välilehdeltä**.";
 "activity-tab-history-callout-body-loggedout" = "Voit näyttää ja poistaa lukuhistoriasi **Haku-välilehdeltä**. Käyttäjätiliä ei tarvita.";
 "activity-tab-hitory-callout-close" = "Sulje historiailmoituskortti";
@@ -141,15 +138,12 @@
 "activity-tab-menu-clear-history" = "Tyhjennä lukuhistoria";
 "activity-tab-most-viewed" = "Katsotuimmat muokkauksesi jälkeen";
 "activity-tab-neutral" = "Neutraali";
-"activity-tab-no-edits-title" = "Et ole tehnyt muokkauksia tällä viikolla. Voit parantaa artikkeleja lisäämällä kuvia.";
 "activity-tab-onboarding-first-item-title" = "Lukutottumukset";
 "activity-tab-onboarding-fourth-item-subtitle" = "Valitse näytettävät moduulit. Kaikki henkilökohtaiset tiedot pidetään yksityisinä laitteellasi, ja voit poistaa selaushistoriasi milloin tahansa.";
 "activity-tab-onboarding-fourth-item-title" = "Pidä ohjat käsissäsi";
 "activity-tab-onboarding-third-item-title-updated" = "Hakutoiminnossa hyödynnetään nyt lukuhistoriaa";
-"activity-tab-read-title" = "Näytä lukuhistoria";
 "activity-tab-satisfied" = "Tyytyväinen";
 "activity-tab-saved" = "Tässä kuussa tallennetut artikkelit";
-"activity-tab-start-editing" = "Aloita muokkaaminen";
 "activity-tab-survey-title" = "Tyytyväisyyskysely";
 "activity-tab-time-spent-reading" = "Lukemiseen käytetty aika tällä viikolla";
 "activity-tab-title" = "Toiminta";
@@ -158,9 +152,6 @@
 "activity-tab-unsatisfied" = "Tyytymätön";
 "activity-tab-very-satisfied" = "Erittäin tyytyväinen";
 "activity-tab-very-unsatisfied" = "Erittäin tyytymätön";
-"activity-tab-view-editing-history" = "Näytä muokkaushistoria";
-"activity-tab-view-reading-history" = "Näytä lukuhistoria";
-"activity-tab-view-saved-articles" = "Näytä tallennetut artikkelit";
 "activity-tab-week-graph-label" = "Viikko";
 "activity-tab-you-edited" = "Muokkasit {{PLURAL:$1|$1 kerran|$1 kertaa}} tällä viikolla.";
 "activity-tab-you-read" = "Olet lukenut {{PLURAL:$1|$1 artikkelin|$1 artikkelia}} tällä viikolla.";
@@ -202,19 +193,7 @@
 "article-save-error-not-enough-space" = "Sinulla ei ole tarpeeksi tilaa laitteessasi artikkelin tallentamiseen";
 "article-share" = "Jaa";
 "article-tabs-button-accessibility-label" = "Artikkelivälilehdet";
-"article-tabs-feature-announcement-item-1-subtitle" = "Voit avata useita artikkeleja ja siirtyä helposti niiden välillä.";
-"article-tabs-feature-announcement-item-1-title" = "Selaa välilehdillä";
-"article-tabs-feature-announcement-item-2-subtitle" = "Välilehdet muistavat sivun kohdan automaattisesti.";
-"article-tabs-feature-announcement-item-2-title" = "Voit jatkaa siitä, mihin jäit";
-"article-tabs-feature-announcement-item-3-subtitle" = "Voit avata linkkejä taustavälilehdillä menettämättä paikkaasi sivulla.";
-"article-tabs-feature-announcement-item-3-title" = "Tallenna linkkejä myöhempään käyttöön";
-"article-tabs-feature-announcement-item-4-subtitle" = "Valitse, haluatko näyttää hauskoja faktoja tai lukusuosituksia, kun avaat uuden välilehden.";
-"article-tabs-feature-announcement-item-4-title" = "Mukauta uudet välilehdet";
-"article-tabs-feature-announcement-sub-cta" = "Lisätietoja välilehdistä";
-"article-tabs-feature-announcement-title" = "Esittelyssä välilehdet";
 "article-tabs-max-reached" = "Välilehtien enimmäismäärä ($1) saavutettu. Artikkeli avattiin nykyisessä välilehdessä. Sulje yksi tai useampia välilehtiä.";
-"article-tabs-navigation" = "Välilehtiselailu";
-"article-tabs-onboarding-tooltip" = "Välilehtien työkaluvinkit uusille käyttäjille";
 "article-tabs-open" = "Avaa";
 "article-tabs-open-background-tab" = "Avaa välilehti taustalle";
 "article-tabs-open-new-tab" = "Avaa uudessa välilehdessä";
@@ -248,11 +227,8 @@
 "close-all-tabs-confirmation-subtitle-with-value" = "Haluatko sulkea {{PLURAL:$1|$1 välilehden|$1 välilehteä}}? Tätä toimintoa ei voi perua.";
 "close-all-tabs-confirmation-title-with-value" = "Suljetaanko {{PLURAL:$1|$1 välilehti|$1 välilehteä}}?";
 "close-button-accessibility-label" = "Sulje";
-"close-other-tabs" = "Sulje muut välilehdet";
-"close-tab-confirmation" = "Suljetaanko välilehti?";
 "close-tabs" = "Sulje välilehdet";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1| $1 välilehti| $1 välilehtiä}} suljettu.";
-"collect-prize-title" = "Nouda palkintosi!";
 "compass-direction" = "klo $1";
 "confirm-donation-history-deletion-subtitle" = "Tämä koskee vain tältä laitteelta tehtyjä lahjoituksia.";
 "confirm-donation-history-deletion-title" = "Vahvista poisto";
@@ -381,7 +357,6 @@
 "donate-success-title" = "Kiitos!";
 "donate-title" = "Valitse summa";
 "donate-transaction-fee-opt-in-text" = "Lisään avokätisesti $1 kattamaan siirtokulut, jotta voitte pitää 100 %% lahjoituksestani.";
-"duplicate-tab" = "Monista välilehti";
 "edit-link-display-text-title" = "Näytä teksti";
 "edit-link-link-target-title" = "Linkin kohde";
 "edit-link-remove-link-title" = "Poista linkki";
@@ -491,7 +466,6 @@
 "explore-because-you-read-footer" = "Muut liittyvät artikkelit";
 "explore-continue-reading-heading" = "Jatka lukemista";
 "explore-detail-back-button-title" = "Takaisin Tutki-syötteeseen";
-"explore-enable-location-title" = "Tutki artikkeleita lähellä nykyistä sijaintisi";
 "explore-featured-article-heading" = "Suositeltu artikkeli";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Wikipedian kieliversiosta $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Wikipediasta";
@@ -682,7 +656,6 @@
 "home-nearby-footer" = "Lisää lähelläsi olevia paikkoja";
 "home-nearby-location-footer" = "Lähistöllä: $1";
 "home-news-footer" = "Lisää ajankohtaisia tapahtumia";
-"home-reading-list-prompt" = "Tallennetut artikkelisi voidaan nyt järjestää lukulistoihin ja synkronoida laitteiden välillä. Ota lukulistojen tallentumisen käyttöön käyttäjäasetuksissa kirjautumalla sisään.";
 "home-tab-title" = "Etusivu";
 "home-themes-action-title" = "Hallinnoi asetuksia";
 "home-themes-prompt" = "Mukauta lukukokemusta sinulle sopivaksi muuttamalla tekstin kokoa ja teemaa artikkelipalkista tai sovelluksen asetuksista.";
@@ -1021,7 +994,6 @@
 "profile-page-logged-out-year-in-review-subtext" = "Kirjautumalla sisään tai luomalla käyttäjätunnuksen saat paremman vuosikatsauksen vuoden päästä";
 // Fuzzy
 "profile-year-in-review-login-subtitle" = "Kirjautumalla sisään tai luomalla käyttäjätunnuksen pääset tutustumaan vuosikatsaukseen ja muuhun yksilöityyn sisältöön.";
-"profile-year-in-review-login-title" = "Näytä vuosikatsaus kirjautumalla sisään";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikikirjasto";
 "project-name-wikidata" = "Wikidata";
@@ -1063,11 +1035,7 @@
 "reading-list-list-limit-exceeded-message" = "Tätä lukulistaa tai siinä olevia artikkeleita ei synkronoida; siinä olevien listojen määrää tulee vähentää (raja $1), jotta synkronointia voidaan jatkaa.";
 "reading-list-list-limit-exceeded-title" = "Olet ylittänyt tunnuskohtaisen rajoituksen, joka on {{PLURAL:$1|$1 lukulista|$1 lukulistaa}} tunnusta kohden.";
 "reading-list-list-limit-reached" = "Olet ylittänyt $1 listan tunnuskohtaisen rajoituksen";
-"reading-list-login-button-title" = "Kirjaudu sisään synkronoidaksesi tallennetut artikkelisi";
 "reading-list-login-or-create-account-button-title" = "Kirjaudu sisään tai luo tunnus";
-"reading-list-login-or-create-account-title" = "Kirjaudu sisään synkronoidaksesi tallennetut artikkelit";
-"reading-list-login-subtitle" = "Kirjaudu sisään tai luo tunnus salliaksesi tallennettujen artikkelien ja lukulistojen synkronoitua laitteiden välillä ja tallentaa käyttäjäasetuksiisi.";
-"reading-list-login-title" = "Synkronoi tallennetut artikkelisi?";
 "reading-list-name-user-created-annotation" = "_[käyttäjä luotu]";
 "reading-list-new-list-description-placeholder" = "Valinnainen lyhyt kuvaus";
 "reading-list-new-list-name-placeholder" = "Lukulistan nimi";
@@ -1094,7 +1062,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Vapauta laitteen muistitilaa ja yritä uudelleen";
 "reading-lists-articles-not-synced-limit-exceeded" = "Joitain artikkeleita ei synkronoitu, raja saavutettu";
 "reading-lists-conflicting-reading-list-name-updated" = "Listasi '$1' on uudelleennimetty nimelle '$2'";
-"reading-lists-count" = "{{PLURAL:$1|$1 lukulista|$1 lukulistaa}}";
 "reading-lists-default-list-description" = "Oletuslista tallennetuille artikkeleillesi";
 "reading-lists-default-list-title" = "Tallennetut";
 "reading-lists-delete-reading-list-alert-message" = "Tätä toimintoa ei voi kumota. Kaikki artikkelit, jotka on tallennettu vain {{PLURAL:$1|tähän listaan|näihin listoihin}} ei tallenneta.";
@@ -1129,13 +1096,9 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tänä vuonna|1=Viime vuonna|$1 vuotta sitten}}";
 "return-button-title" = "Palaa";
 "return-to-article" = "Palaa artikkeliin";
-"reverted-edit-title" = "Kumottu muokkaus";
-"save-all-tabs" = "Tallenna kaikki välilehdet";
 "save-view-temp-account-notice" = "Käytät tilapäistä tunnusta. Muokkaukset merkitään nimelle $1...";
 "save-view-temp-account-warning" = "Et ole kirjautunut sisään. Kun teet muokkauksen, sinulle luodaan tilapäinen tunnus yksityisyytesi suojelemiseksi.";
 "saved-all-articles-title" = "Kaikki artikkelit";
-"saved-all-tabs" = "Kaikki välilehdet on tallennettu.";
-"saved-all-tabs-view-reading-list" = "Kaikki välilehdet on tallennettu. Näytä lukulista.";
 "saved-default-reading-list-tag" = "Tätä listaa ei voi poistaa";
 "saved-pages-image-download-error" = "Tämän tallennetun sivun kuvien lataaminen epäonnistui.";
 "saved-pages-progress-syncing" = "Artikkelin lataus käynnissä...";
@@ -1171,7 +1134,6 @@
 "settings-language-bar" = "Näytä kielet haussa";
 "settings-languages-feed-customization" = "Valitse Tutki-syötteen sisältöjen näytettävät kielet.";
 "settings-my-languages" = "Omat kielet";
-"settings-new-article-tab-header-text" = "Uuden välilehden teema";
 "settings-notifications" = "Push-ilmoitukset";
 "settings-notifications-echo-failure-try-again" = "Yritä uudelleen";
 "settings-notifications-header" = "Ilmoituksia lähetetään esimerkiksi kanssamuokkaajilta, hälytyksistä ja huomautuksista tietoturvallisesti ja ajankohtaisista tapahtumista.";
@@ -1210,10 +1172,7 @@
 "sort-by-recently-added-action" = "Äskettäin lisätyt";
 "sort-by-title-action" = "Otsikko";
 "suggested-edits-title" = "Ehdotetut muokkaukset";
-"survey-instructions" = "Valitse yksi tai useampi vaihtoehto";
-"survey-other-placeholder" = "Muu";
 "survey-submit" = "Lähetä";
-"survey-title" = "Syy";
 "table-of-contents-button-label" = "Sisällysluettelo";
 "table-of-contents-close-accessibility-hint" = "Sulje";
 "table-of-contents-close-accessibility-label" = "Sulje sisällysluettelo";
@@ -1227,7 +1186,6 @@
 "tabs-show-suggested-articles" = "Näytä artikkeliehdotukset";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Ehdotukset on nyt piilotettu";
 "tabs-survey-title" = "Auta parantamaan välilehtiä. Oletko tyytyväinen tähän toimintoon?";
-"tabs-thumbnail-subtitle" = "Aloita haku täältä";
 "tabs-title" = "Välilehdet";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 aktiivinen käyttäjä|$1 aktiivista käyttäjää}}";
 "talk-page-add-topic-button" = "Lisää aihe";
@@ -1243,10 +1201,6 @@
 "talk-page-expand-thread-button" = "Laajenna ketju";
 "talk-page-find-in-page-button" = "Etsi sivulta";
 "talk-page-menu-open-all" = "Avaa kaikki aiheet";
-"talk-page-new-banner-subtitle" = "Olemme kaikki tavallisia ihmisiä";
-"talk-page-new-banner-title" = "Olethan ystävällinen!";
-"talk-page-new-reply-success-text" = "Vastauksesi julkaistiin onnistuneesti";
-"talk-page-new-topic-success-text" = "Keskustelusi julkaistiin onnistuneesti";
 "talk-page-onboarding-button-accessibility-label" = "Palaa vastaamaan kaksoisnapauttamalla";
 "talk-page-page-info" = "Sivun tiedot";
 "talk-page-permanent-link" = "Ikilinkki";
@@ -1322,7 +1276,6 @@
 "top-read-widget-description" = "Opi mitä maailma lukee tänään Wikipediassa.";
 "top-read-widget-readers-count" = "$ lukijaa";
 "top-read-widget-title" = "Luetuimmat";
-"try-now-title" = "Kokeile nyt";
 "tutorial-title" = "Opas";
 "two-factor-email-login-continue" = "Jatka kirjautumista";
 "two-factor-email-login-instructions" = "Anna sähköpostitse lähetetty vahvistuskoodi";
@@ -1336,7 +1289,6 @@
 "unwatch" = "Lopeta tarkkailu";
 "user-title" = "Käyttäjä";
 "vanish-account-continue-button-title" = "Jatka";
-"vanish-account-username-field" = "Käyttäjänimi ja käyttäjäsivu";
 "vanish-account-warning-title" = "Varoitus";
 "variants-alert-dismiss-button" = "Ei kiitos";
 "variants-alert-preferences-button" = "Tarkista asetuksesi";
@@ -1471,9 +1423,7 @@
 "year-in-review-day-wednesday" = "keskiviikko";
 "year-in-review-donate" = "Lahjoita";
 "year-in-review-donate-now" = "Lahjoita nyt";
-"year-in-review-feature-announcement-body" = "Tutustu kohokohtiin miten artikkeleita luetaan ja muokataan Wikipediassa.";
 "year-in-review-feature-announcement-title-personalized" = "Tutustu Wikipedia-vuoteesi";
-"year-in-review-feature-explore-body-personalized-updated" = "Tutustu kohokohtiin lukemastasi ja muokkaamastasi sisällöstä Wikipedia-sovelluksessa vuonna 2024. Lukuhistoria säilytetään suojattuna. Kohokohdat muodostetaan laitteellesi tallennettujen tietojen perusteella.";
 "year-in-review-highlights-collective-time-spent" = "Lukutunnit";
 "year-in-review-highlights-created-lists" = "Luodut lukulistat";
 "year-in-review-highlights-edit-frequency" = "Kuinka usein Wikipediaa muokattiin";

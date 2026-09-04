@@ -87,29 +87,22 @@
 "action-unsave" = "Mentés eldobása";
 "action-unsaved-accessibility-notification" = "Szócikk eltávolítva";
 "action-update" = "Frissítés";
-"activity-tab-add-images-subtitle" = "Tegyél könnyebben érthetővé Wikipédia-szócikkeket azzal, hogy ajánlott képeket helyezel el bennük.";
-"activity-tab-add-images-title" = "Képek hozzáadása";
 "activity-tab-additional-thoughts" = "További gondolatok?";
 "activity-tab-articles-read" = "Ebben a hónapban olvasott szócikkek";
 "activity-tab-articles-read-graph-label" = "Szócikkek";
 "activity-tab-customize-all-time-impact" = "Összesített hozzájárulás";
 "activity-tab-customize-editing-insights" = "Szerkesztési áttekintések";
 "activity-tab-customize-last-in-app-donation" = "Legutóbbi adomány az alkalmazásban";
-"activity-tab-generic-no-edits" = "Ezen a héten nem szerkesztettél. Ha szerkesztesz, itt nyomon tudod követni a közreműködéseidet.";
 "activity-tab-hours-on-wikipedia-ios" = "A WIKIPÉDIÁN iOS-EN";
 "activity-tab-neutral" = "Semleges";
 "activity-tab-satisfied" = "Elégedett";
 "activity-tab-saved" = "Ebben a hónapban elmentett szócikkek";
-"activity-tab-start-editing" = "Szerkesztés elkezdése";
 "activity-tab-survey-title" = "Elégedettségi felmérés";
 "activity-tab-time-spent-reading" = "Ezen a héten olvasással töltött idő";
 "activity-tab-title" = "Tevékenység";
 "activity-tab-unsatisfied" = "Elégedetlen";
 "activity-tab-very-satisfied" = "Nagyon elégedett";
 "activity-tab-very-unsatisfied" = "Nagyon elégedetlen";
-"activity-tab-view-editing-history" = "Laptörténet megtekintése";
-"activity-tab-view-reading-history" = "Olvasási előzmények megtekintése";
-"activity-tab-view-saved-articles" = "Mentett szócikkek megtekintése";
 "activity-tab-week-graph-label" = "Hét";
 "activity-tab-your-impact" = "Tevékenységed";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 szócikk|$1 szócikk}} hozzáadása az olvasólistához";
@@ -143,11 +136,6 @@
 "article-save-error-not-enough-space" = "Nincs elég hely az eszközön a szócikk mentéséhez";
 "article-share" = "Megosztás";
 "article-tabs-button-accessibility-label" = "Szócikk lapok";
-"article-tabs-feature-announcement-item-1-title" = "Böngéssz lapokkal";
-"article-tabs-feature-announcement-item-2-subtitle" = "A lapok megjegyzik meddig görgettél.";
-"article-tabs-feature-announcement-item-2-title" = "Folytasd ott, ahol abbahagytad";
-"article-tabs-feature-announcement-item-3-subtitle" = "Nyisd meg a linkeket a háttérben, anélkül hogy elnavigálnál";
-"article-tabs-feature-announcement-sub-cta" = "Tudj meg többet a lapokról";
 "article-tabs-open" = "Megnyitás";
 "article-tabs-open-background-tab" = "Megnyitás a háttérben";
 "article-tabs-open-new-tab" = "Megnyitás új lapon";
@@ -176,8 +164,6 @@
 "close-all-tabs-confirmation" = "Be akarod zárni mind a(z) $1 lapot? Ezt a lépést nem lehet visszavonni.";
 "close-all-tabs-confirmation-number" = "Bezárod mind a(z) $1 lapot?";
 "close-button-accessibility-label" = "Bezárás";
-"close-other-tabs" = "Minden más lap bezárása";
-"close-tab-confirmation" = "Bezárod a lapot?";
 "close-tabs" = "Lapok bezárása";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1| $1 lap}} bezárva.";
 "compass-direction" = "$1 óra irányban";
@@ -356,7 +342,6 @@
 "explore-because-you-read" = "Mert ezt olvastad";
 "explore-because-you-read-footer" = "További, kapcsolódó szócikkek";
 "explore-continue-reading-heading" = "Olvasás folytatása";
-"explore-enable-location-title" = "A közeledben lévő dolgok szócikkei";
 "explore-featured-article-heading" = "Kiemelt szócikk";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "A(z) $1 Wikipédiáról";
 "explore-featured-article-sub-heading-from-wikipedia" = "A Wikipédiáról";
@@ -456,7 +441,6 @@
 "home-nearby-footer" = "További helyek a közeledben";
 "home-nearby-location-footer" = "Több $1 közeléből";
 "home-news-footer" = "További aktuális események";
-"home-reading-list-prompt" = "A mentett szócikkeidet mostantól olvasólistákba tudod szervezni, amelyek a különböző eszközeid között szinkronizálásra kerülnek. Jelentkezz be, hogy az olvasólistáidat a felhasználói beállításaid közé tudd menteni.";
 "home-themes-action-title" = "Beállítások kezelése";
 "home-title" = "Felfedezés";
 "home-title-accessibility-label" = "Wikipédia, görgetés a Felfedezés tetejére";
@@ -732,9 +716,7 @@
 "reading-list-list-limit-exceeded-message" = "Az olvasólista és a benne mentett szócikkek nem fognak szinkronizálódni. Csökkentsd a listák számát ennyire: $1, a listák szinkronizálásának folytatásához.";
 "reading-list-list-limit-exceeded-title" = "Az olvasólisták száma legfeljebb $1 lehet fiókonként.";
 "reading-list-list-limit-reached" = "Az olvasólisták száma legfeljebb $1 lehet.";
-"reading-list-login-button-title" = "Jelentkezz be a mentett szócikkek szinkronizálásához";
 "reading-list-login-or-create-account-button-title" = "Bejelentkezés / fiók létrehozása";
-"reading-list-login-or-create-account-title" = "Jelentkezz be a mentett szócikkek szinkronizálásához";
 "reading-list-new-list-description-placeholder" = "opcionális rövid leírás";
 "reading-list-new-list-name-placeholder" = "olvasólista címe";
 "reading-list-sync-disabled-panel-title" = "Szinkronizálás leállítva";
@@ -769,7 +751,6 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Idén|1=Tavaly|$1 évvel ezelőtt}}";
 "return-button-title" = "Visszatérés";
 "return-to-article" = "Vissza a szócikkhez";
-"reverted-edit-title" = "Visszavont szerkesztés";
 "saved-all-articles-title" = "Minden szócikk";
 "saved-default-reading-list-tag" = "Ezt a listát nem lehet törölni";
 "saved-pages-image-download-error" = "A képek letöltése sikertelen ehhez a mentett laphoz.";
@@ -799,7 +780,6 @@
 "settings-help-and-feedback" = "Súgó és visszajelzés";
 "settings-language-bar" = "Nyelvek megjelenítése keresésnél";
 "settings-my-languages" = "Saját nyelvek";
-"settings-new-article-tab-header-text" = "Új lap téma";
 "settings-notifications" = "Értesítések";
 "settings-notifications-echo-failure-try-again" = "Próbáld újra";
 "settings-off" = "Ki";
@@ -830,7 +810,6 @@
 "tajik-variants-alert-title" = "A tadzsik nyelvi változat támogatásának frissítése";
 "talk-page-discussion-read-accessibility-label" = "Olvasott";
 "talk-page-discussion-unread-accessibility-label" = "Olvasatlan";
-"talk-page-new-reply-success-text" = "A válaszod közzétéve";
 "talk-page-page-info" = "Lapinformáció";
 "talk-page-permanent-link" = "Hivatkozás erre a változatra";
 "talk-page-related-links" = "Mi hivatkozik erre?";
@@ -864,7 +843,6 @@
 "user-title" = "Felhasználó";
 "uzbek-variants-alert-title" = "Az üzbég nyelvi változat támogatásának frissítése";
 "vanish-account-continue-button-title" = "Folytatás";
-"vanish-account-username-field" = "Felhasználónév és felhasználói oldal";
 "variants-alert-dismiss-button" = "Nem, köszönöm";
 "variants-alert-preferences-button" = "Beállításaid áttekintése";
 "watch" = "Lap figyelése";
