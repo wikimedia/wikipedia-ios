@@ -65,6 +65,14 @@ public enum WMFForYouCardMetrics {
     }
 }
 
+// MARK: - Swipe Onboarding
+
+/// How long the swipe-up hint stays on screen, and how long its fade out takes.
+private enum WMFForYouSwipeOnboardingMetrics {
+    static let displayDuration: Duration = .seconds(2)
+    static let fadeOutDuration: TimeInterval = 0.3
+}
+
 // MARK: - For You Feed View
 
 public struct WMFForYouView: View {
@@ -79,9 +87,24 @@ public struct WMFForYouView: View {
     /// The module on screen. Mirrored to the view model, which outlives this view.
     @State private var currentModuleID: UUID?
 
+    /// Whether the one-time swipe-up hint is on screen.
+    @State private var isShowingSwipeOnboarding = false
+
+    /// Set to +1 or -1 when the swipe that dismissed the hint was horizontal. The module on screen
+    /// watches it and moves its carousel one card, so a horizontal first swipe browses cards the
+    /// way it would without the hint. It changes at most once: the hint is shown at most once.
+    @State private var swipeOnboardingCardStep = 0
+
     /// The card VoiceOver is reading. Set when a module action moves the feed, so focus follows the
     /// scroll instead of staying on the card the user left behind.
     @AccessibilityFocusState private var focusedCardKey: String?
+
+    @Environment(\.accessibilityVoiceOverEnabled) private var isVoiceOverRunning
+
+    /// Decides which horizontal direction is "next card". The carousels follow the app's layout
+    /// direction (the per-card layout direction is applied inside each card, not to the scroll),
+    /// so in a right-to-left app the next card is revealed by a swipe to the right.
+    @Environment(\.layoutDirection) private var layoutDirection
 
     let scrollToTopRequestID: Int
 
@@ -171,6 +194,82 @@ public struct WMFForYouView: View {
         }
     }
 
+    // MARK: - Swipe Onboarding
+
+    /// Shows the swipe-up hint once, over the first module of a first-time reader.
+    ///
+    /// The seen flag is written the moment the hint appears, so the reader never sees it a second
+    /// time, not even when the app dies while the hint is up.
+    private func presentSwipeOnboardingIfNeeded() {
+        // A VoiceOver reader moves between modules with the accessibility actions and the
+        // three-finger swipe, so a swipe-up hint would point them at the wrong gesture. Skip
+        // without writing the seen flag: a reader who later turns VoiceOver off still gets the hint.
+        guard !isVoiceOverRunning,
+              visiblePages.count > 1,
+              !WMFHomeDataController.shared.hasSeenForYouSwipeOnboarding() else { return }
+
+        WMFHomeDataController.shared.setHasSeenForYouSwipeOnboarding(true)
+        isShowingSwipeOnboarding = true
+
+        Task { @MainActor in
+            try? await Task.sleep(for: WMFForYouSwipeOnboardingMetrics.displayDuration)
+            dismissSwipeOnboarding()
+        }
+    }
+
+    /// A no-op once the hint is gone, so the two-second timer and a swipe cannot both act.
+    private func dismissSwipeOnboarding() {
+        guard isShowingSwipeOnboarding else { return }
+        withAnimation(.easeOut(duration: WMFForYouSwipeOnboardingMetrics.fadeOutDuration)) {
+            isShowingSwipeOnboarding = false
+        }
+    }
+
+    /// Sits over the whole feed and takes the first touch itself. A swipe up fades the hint out and
+    /// moves the feed to the next module, so the reader's first swipe does what the image promised.
+    ///
+    /// Taking the touch instead of letting it through also keeps the scroll view from paging at
+    /// the same time, which would move the feed two modules for one swipe.
+    ///
+    /// The background is a full-screen dimming layer: black at partial opacity over the card, the
+    /// way the system dims content behind an alert. No blur, so the card stays recognisable.
+    private var swipeOnboardingOverlay: some View {
+        ZStack {
+            Rectangle()
+                .fill(Color(uiColor: WMFColor.black).opacity(0.42))
+                .ignoresSafeArea()
+            Image("swipe_gestures", bundle: .module)
+        }
+        .contentShape(Rectangle())
+        .gesture(
+            DragGesture(minimumDistance: 8)
+                .onChanged { value in
+                    // `onChanged` fires for every movement of the finger; the guard makes
+                    // the dismissal and the navigation happen once.
+                    guard isShowingSwipeOnboarding else { return }
+                    let translation = value.translation
+                    dismissSwipeOnboarding()
+
+                    // The dominant axis decides what the swipe meant. Without this, a card
+                    // swipe with a few points of upward drift would move the feed a module.
+                    if abs(translation.height) >= abs(translation.width) {
+                        if translation.height < 0 {
+                            moveModule(by: 1)
+                        }
+                        // A downward swipe only dismisses: above the first module there is nothing.
+                    } else {
+                        let isNextCard = layoutDirection == .rightToLeft
+                            ? translation.width > 0
+                            : translation.width < 0
+                        swipeOnboardingCardStep = isNextCard ? 1 : -1
+                    }
+                }
+        )
+        .onTapGesture { dismissSwipeOnboarding() }
+        .transition(.opacity)
+        .accessibilityHidden(true)
+    }
+
     public var body: some View {
         if visiblePages.isEmpty {
             if viewModel.pages.isEmpty {
@@ -223,7 +322,8 @@ public struct WMFForYouView: View {
                         focusedCardKey: $focusedCardKey,
                         canGoToPreviousModule: index > 0,
                         onGoToPreviousModule: { moveModule(by: -1) },
-                        onGoToNextModule: { moveModule(by: 1) }
+                        onGoToNextModule: { moveModule(by: 1) },
+                        swipeOnboardingCardStep: swipeOnboardingCardStep
                     )
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 }
@@ -234,7 +334,10 @@ public struct WMFForYouView: View {
             .scrollTargetLayout()
         }
         .scrollPosition(id: $currentModuleID)
-        .onAppear { restoreModulePosition() }
+        .onAppear {
+            restoreModulePosition()
+            presentSwipeOnboardingIfNeeded()
+        }
         .onChange(of: currentModuleID) { _, moduleID in
             viewModel.rememberViewedModule(moduleID)
             if moduleID == viewModel.endOfFeedViewModel.id {
@@ -272,6 +375,11 @@ public struct WMFForYouView: View {
                     loopToFirstModuleIfNeeded(translation: value.translation)
                 }
         )
+        .overlay {
+            if isShowingSwipeOnboarding {
+                swipeOnboardingOverlay
+            }
+        }
     }
 
     private func loopToFirstModuleIfNeeded(translation: CGSize) {
@@ -373,6 +481,11 @@ private struct WMFForYouPageView: View {
     let onGoToPreviousModule: () -> Void
     let onGoToNextModule: () -> Void
 
+    /// +1 or -1 when a horizontal swipe dismissed the swipe-up onboarding hint, so the module on
+    /// screen moves its carousel one card. The hint's overlay takes the touch itself, thus the
+    /// carousel never sees that swipe.
+    let swipeOnboardingCardStep: Int
+
     /// Identified by `cardUniqueKey` rather than by position, so that a card keeps its identity when an
     /// earlier card in the carousel is hidden.
     @State private var currentPage: String?
@@ -391,6 +504,19 @@ private struct WMFForYouPageView: View {
               let card = articleViewModels.first(where: { $0.cardUniqueKey == currentPageKey }) else { return }
 
         onShowCard(card)
+    }
+
+    /// Moves the carousel one card forward or back, the way a horizontal swipe does.
+    private func moveCard(by offset: Int) {
+        guard let currentKey = currentPageKey,
+              let index = articleViewModels.firstIndex(where: { $0.cardUniqueKey == currentKey }) else { return }
+
+        let targetIndex = index + offset
+        guard articleViewModels.indices.contains(targetIndex) else { return }
+
+        withAnimation {
+            currentPage = articleViewModels[targetIndex].cardUniqueKey
+        }
     }
 
     /// Read after the card's title, so someone swiping through a module knows where they are.
@@ -492,6 +618,12 @@ private struct WMFForYouPageView: View {
         }
         .onChange(of: isOnScreen) { _, _ in
             reportCardOnScreen()
+        }
+        // The horizontal swipe that dismissed the onboarding hint. Only the module on screen may
+        // act: a lazy stack also builds the neighbouring modules, and each of them sees the change.
+        .onChange(of: swipeOnboardingCardStep) { _, step in
+            guard isOnScreen, step != 0 else { return }
+            moveCard(by: step)
         }
         .onAppear {
             reportCardOnScreen()

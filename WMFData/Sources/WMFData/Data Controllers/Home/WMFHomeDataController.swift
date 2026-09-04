@@ -131,6 +131,17 @@ import WMFTestKitchen
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenOneTimeOnboardingHome.rawValue, value: newValue)
     }
 
+    // MARK: - Settings: For You Swipe Onboarding
+
+    /// Whether the swipe-up hint has been shown over the For You feed. It is shown at most once.
+    public nonisolated func hasSeenForYouSwipeOnboarding() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenForYouSwipeOnboarding.rawValue)) ?? false
+    }
+
+    public nonisolated func setHasSeenForYouSwipeOnboarding(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenForYouSwipeOnboarding.rawValue, value: newValue)
+    }
+
     // MARK: - Settings: Selected Language
 
     public nonisolated func selectedLanguage() -> WMFLanguage? {
