@@ -173,20 +173,25 @@ public struct WMFForYouView: View {
 
     public var body: some View {
         if visiblePages.isEmpty {
-            if viewModel.pages.isEmpty {
+        if viewModel.pages.isEmpty {
+            // TODO: Bring back end of feed page
                 // No personalized content is available at all (no interests, no reading history):
                 // the end of feed card doubles as the empty state until the Random article module
                 // ships. When content exists but every module is off or every card is hidden, the
                 // settings empty state below shows instead.
-                GeometryReader { geometry in
-                    ScrollView {
-                        endOfFeedPage
-                            .frame(width: geometry.size.width, height: geometry.size.height)
+//                GeometryReader { geometry in
+//                    ScrollView {
+//                        endOfFeedPage
+//                            .frame(width: geometry.size.width, height: geometry.size.height)
+//                    }
+//                    .scrollBounceBehavior(.basedOnSize)
+//                    .onAppear { viewModel.endOfFeedViewModel.reportShownIfNeeded() }
+//                }
+//                .ignoresSafeArea()
+                emptyState
+                    .onAppear {
+                        viewModel.onEmptyViewAppearance?()
                     }
-                    .scrollBounceBehavior(.basedOnSize)
-                    .onAppear { viewModel.endOfFeedViewModel.reportShownIfNeeded() }
-                }
-                .ignoresSafeArea()
             } else {
                 emptyState
                     .onAppear {
