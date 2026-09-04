@@ -326,29 +326,6 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return
         }
         switch displayType {
-        case .announcement:
-            guard
-                let contentGroup = contentGroup,
-                let announcement = contentGroup.contentPreview as? WMFAnnouncement
-            else {
-                return
-            }
-            if let imageURL = announcement.imageURL {
-                cell.isImageViewHidden = false
-                if !layoutOnly {
-                    cell.imageView.wmf_setImage(with: imageURL, detectFaces: false, onGPU: false, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
-                }
-            } else {
-                cell.isImageViewHidden = true
-            }
-            cell.isUrgent = announcement.announcementType == .fundraising
-            cell.messageHTML = announcement.text
-            cell.actionButton.setTitle(announcement.actionTitle, for: .normal)
-            cell.captionHTML = announcement.captionHTML
-            cell.dismissButtonTitle = announcement.negativeText
-            if let imageViewHeight = announcement.imageHeight?.doubleValue, imageViewHeight > 0 {
-                cell.imageViewDimension = CGFloat(imageViewHeight)
-            }
         case .notification:
             cell.isImageViewHidden = false
             cell.imageView.image = UIImage(named: "feed-card-notification")
@@ -670,8 +647,7 @@ extension ExploreCardViewController: SideScrollingCollectionViewCellDelegate {
 extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
     func dismissAnnouncementCell(_ cell: AnnouncementCollectionViewCell) {
         contentGroup?.markDismissed()
-        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        contentGroup?.updateVisibilityForUserIsLogged(in: isLoggedIn)
+        contentGroup?.isVisible = false
         do {
             try dataStore.save()
         } catch let error {
@@ -696,11 +672,6 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
             LoginFunnel.shared.logLoginStartInFeed()
             dismissAnnouncementCell(cell)
         default:
-            guard let announcement = contentGroup?.contentPreview as? WMFAnnouncement,
-                let url = announcement.actionURL else {
-                return
-            }
-            navigate(to: url, useSafari: true)
             dismissAnnouncementCell(cell)
         }
     }

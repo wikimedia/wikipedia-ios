@@ -314,7 +314,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
                 NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
-                let resultsArray = results.results ?? []
+                let resultsArray = results.results
                 self.resultsViewController.emptyViewType = resultsArray.isEmpty ? .noSearchResults : .none
                 self.resultsViewController.resultsInfo = results
                 self.resultsViewController.searchSiteURL = siteURL
@@ -328,8 +328,9 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             failure(error, .prefix)
         }, success: { [weak self] results in
 
-            guard let self,
-                  let resultsArray = results.results, resultsArray.count < 12 else {
+            guard let self else { return }
+            let resultsArray = results.results
+            guard resultsArray.count < 12 else {
                 success(results, .prefix)
                 return
             }

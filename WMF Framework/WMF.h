@@ -82,35 +82,22 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFContinueReadingContentSource.h>
 #import <WMF/WMFFeedContentSource.h>
 #import <WMF/WMFRandomContentSource.h>
-#import <WMF/WMFAnnouncementsContentSource.h>
+#import <WMF/WMFFeedPromptsContentSource.h>
 #import <WMF/WMFSuggestedEditsContentSource.h>
 
-#import <WMF/WMFFeedContentFetcher.h>
-#import <WMF/WMFFeedDayResponse.h>
-#import <WMF/WMFFeedTopReadResponse.h>
-#import <WMF/WMFFeedArticlePreview.h>
-#import <WMF/WMFFeedImage.h>
-#import <WMF/WMFFeedNewsStory.h>
-#import <WMF/WMFFeedOnThisDayEvent.h>
-#import <WMF/WMFOnThisDayEventsFetcher.h>
 
 #import <WMF/CLLocation+WMFBearing.h>
 #import <WMF/NSString+WMFDistance.h>
 #import <WMF/CLLocation+WMFComparison.h>
 
-#import <WMF/MWKLocationSearchResult.h>
 #import <WMF/WMFLocationSearchResults.h>
-#import <WMF/WMFLocationSearchFetcher.h>
-#import <WMF/MWKLocationSearchResult.h>
 
-#import <WMF/MWKSearchResult.h>
 
 #import <WMF/WMFArticle+Extensions.h>
 #import <WMF/WMFContentGroup+Extensions.h>
 #import <WMF/WMFContent+CoreDataProperties.h>
 #import <WMF/WMFKeyValue+CoreDataProperties.h>
 #import <WMF/NSManagedObjectContext+WMFKeyValue.h>
-#import <WMF/WMFAnnouncement.h>
 #import <WMF/NSUserActivity+WMFExtensions.h>
 
 //UI
@@ -123,7 +110,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFFeedContentDisplaying.h>
 #import <WMF/WMFContentGroup+WMFFeedContentDisplaying.h>
 #import <WMF/WMFLegacyFetcher.h>
-#import <WMF/WMFLegacySerializer.h>
 #import <WMF/MWKImageInfoFetcher.h>
 
 //Deprecated

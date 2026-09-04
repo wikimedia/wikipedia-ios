@@ -26,10 +26,7 @@ public extension WMFContentGroup {
         case .pictureOfTheDay:
             return .pictureOfTheDay
         case .announcement:
-            guard let announcement = contentPreview as? WMFAnnouncement else {
-                return .announcement
-            }
-            return announcement.placement == "article" ? .articleAnnouncement : .announcement
+            return .announcement
         default:
             return nil
         }

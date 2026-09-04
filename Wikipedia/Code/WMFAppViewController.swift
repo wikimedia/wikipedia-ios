@@ -1091,7 +1091,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             }
 
             resumeAndAnnouncementsCompleteGroup.enter()
-            dataStore.feedContentController.updateContentSource(WMFAnnouncementsContentSource.self, force: true) {
+            dataStore.feedContentController.updateContentSource(WMFFeedPromptsContentSource.self, force: true) {
                 resumeAndAnnouncementsCompleteGroup.leave()
             }
         }
@@ -1214,7 +1214,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     private func timeBeforeRefreshingExploreFeed() -> TimeInterval {
         var timeInterval: TimeInterval = 2 * 60 * 60
-        let key = WMFFeedDayResponse.wmfFeedDayResponseMaxAgeKey()
+        let key = WMFFeedDayResponse.maxAgeKey()
         if let value = dataStore.viewContext.wmf_numberValue(forKey: key) {
             timeInterval = value.doubleValue
         }
@@ -2273,7 +2273,7 @@ extension WMFAppViewController {
             UNUserNotificationCenter.current().setBadgeCount(0, withCompletionHandler: nil)
 
             if self.isResumeComplete {
-                self.dataStore.feedContentController.updateContentSource(WMFAnnouncementsContentSource.self, force: true, completion: nil)
+                self.dataStore.feedContentController.updateContentSource(WMFFeedPromptsContentSource.self, force: true, completion: nil)
             }
 
             self.dataStore.feedContentController.updateContentSource(WMFSuggestedEditsContentSource.self, force: true, completion: nil)
@@ -2290,7 +2290,7 @@ extension WMFAppViewController {
             }
 
             if self.isResumeComplete {
-                self.dataStore.feedContentController.updateContentSource(WMFAnnouncementsContentSource.self, force: true, completion: nil)
+                self.dataStore.feedContentController.updateContentSource(WMFFeedPromptsContentSource.self, force: true, completion: nil)
             }
 
             self.dataStore.feedContentController.updateContentSource(WMFSuggestedEditsContentSource.self, force: true, completion: nil)
