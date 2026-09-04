@@ -470,7 +470,6 @@
 "editing-welcome-set-knowledge-free-subtitle" = "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content";
 "editing-welcome-set-knowledge-free-title" = "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content";
 "editor-edit-published" = "Title for alert informing that the user's new edit was successfully published.";
-"editor-edit-source" = "Title for menu option to edit the source of a page.";
 "editor-exit-confirmation-body" = "Body text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.";
 "editor-exit-confirmation-message" = "Message text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.";
 "editor-exit-confirmation-title" = "Title text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.";
