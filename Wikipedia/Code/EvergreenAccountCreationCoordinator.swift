@@ -48,7 +48,8 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
 
     @discardableResult
     func start() -> Bool {
-        Task { await startIfEligible() }
+        // TODO: uncomment this code to re-enable the feature
+//        Task { await startIfEligible() }
         return true
     }
 
