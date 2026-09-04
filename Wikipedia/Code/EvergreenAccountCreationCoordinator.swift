@@ -95,6 +95,10 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
         let viewController = WMFSlideshowViewController(viewModel: viewModel)
         let promptNavigationController = WMFComponentNavigationController(rootViewController: viewController, modalPresentationStyle: .fullScreen)
 
+        // The slides are laid out for portrait, and this navigation controller is thrown away on
+        // dismissal, so the lock needs no unwinding.
+        promptNavigationController.turnOnForcePortrait()
+
         // Full screen cannot be swiped away, so the close button is the only way out. The delegate
         // stays as a safety net for a dismissal from anywhere else.
         promptNavigationController.presentationController?.delegate = self
@@ -138,7 +142,9 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
             navigationController: navigationController,
             theme: theme,
             loggingCategory: loggingCategory,
-            startsOnAccountCreation: true
+            startsOnAccountCreation: true,
+            // Keeps the orientation the prompt was locked to across the hand-off.
+            forcePortrait: true
         )
 
         loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
