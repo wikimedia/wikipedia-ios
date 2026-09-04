@@ -1,4 +1,4 @@
-#import "WMFAnnouncementsContentSource.h"
+#import "WMFFeedPromptsContentSource.h"
 #import <WMF/WMF-Swift.h>
 
 /*
@@ -8,7 +8,7 @@
  that earlier app versions saved.
  */
 
-@interface WMFAnnouncementsContentSource ()
+@interface WMFFeedPromptsContentSource ()
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
 @property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
@@ -16,7 +16,7 @@
 
 @end
 
-@implementation WMFAnnouncementsContentSource
+@implementation WMFFeedPromptsContentSource
 
 - (instancetype)initWithSiteURL:(NSURL *)siteURL userDataStore:(MWKDataStore *)userDataStore {
     NSParameterAssert(siteURL);

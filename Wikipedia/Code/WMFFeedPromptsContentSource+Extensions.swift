@@ -1,7 +1,7 @@
 import Foundation
 import WMFData
 
-extension WMFAnnouncementsContentSource {
+extension WMFFeedPromptsContentSource {
     @objc func fetchMediaWikiBannerOptInForSiteURL(_ siteURL: URL) {
         let dataController = WMFFundraisingCampaignDataController.shared
         let wikimediaProject = WikimediaProject(siteURL: siteURL)
