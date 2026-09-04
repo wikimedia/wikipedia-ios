@@ -1,10 +1,16 @@
 #import "WMFAnnouncementsContentSource.h"
 #import <WMF/WMF-Swift.h>
 
+/*
+ The app does not show announcement cards any more. This content source keeps two other jobs:
+ it gets the MediaWiki banner opt-in for the donate feature when the user logs in, and it adds
+ or removes the reading list card in the Explore feed. It also deletes the announcement groups
+ that earlier app versions saved.
+ */
+
 @interface WMFAnnouncementsContentSource ()
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
-@property (readwrite, nonatomic, strong) WMFAnnouncementsFetcher *fetcher;
 @property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
 @property (readonly, nonatomic, assign) BOOL isLoggedIn;
 
@@ -18,13 +24,12 @@
     if (self) {
         self.siteURL = siteURL;
         self.userDataStore = userDataStore;
-        self.fetcher = [[WMFAnnouncementsFetcher alloc] init];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userWasLoggedIn:)
                                                      name:[WMFAuthenticationManager didLogInNotification]
                                                    object:nil];
     }
-    
+
     return self;
 }
 
@@ -40,9 +45,10 @@
     [self fetchMediaWikiBannerOptInForSiteURL:self.siteURL];
 }
 
-#pragma mark - Accessors
+#pragma mark - WMFContentSource
 
 - (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc {
+    [moc removeAllContentGroupsOfKind:WMFContentGroupKindAnnouncement];
 }
 
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
@@ -50,74 +56,25 @@
 }
 
 - (void)loadContentForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force addNewContent:(BOOL)shouldAddNewContent completion:(nullable dispatch_block_t)completion {
-
-    if ([[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate] == nil) {
-        [moc performBlock:^{
-            [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
-            if (completion) {
-                completion();
-            }
-        }];
-        return;
-    }
-    
-    [self.fetcher fetchAnnouncementsForURL:self.siteURL
-        force:force
-        failure:^(NSError *_Nonnull error) {
-            [moc performBlock:^{
-                [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
-                if (completion) {
-                    completion();
-                }
-            }];
-        }
-        success:^(NSArray<WMFAnnouncement *> *announcements) {
-            [self saveAnnouncements:announcements
-                inManagedObjectContext:moc
-                            completion:^{
-                                [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
-                                if (completion) {
-                                    completion();
-                                }
-                            }];
-        }];
-}
-
-- (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
-    [moc removeAllContentGroupsOfKind:WMFContentGroupKindAnnouncement];
-}
-
-- (void)saveAnnouncements:(NSArray<WMFAnnouncement *> *)announcements inManagedObjectContext:(NSManagedObjectContext *)moc completion:(nullable dispatch_block_t)completion {
     [moc performBlock:^{
-        [announcements enumerateObjectsUsingBlock:^(WMFAnnouncement *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            NSURL *URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:obj.identifier];
-            WMFContentGroup *group = [moc fetchOrCreateGroupForURL:URL
-                                                            ofKind:WMFContentGroupKindAnnouncement
-                                                           forDate:[NSDate date]
-                                                       withSiteURL:self.siteURL
-                                                 associatedContent:nil
-                                                customizationBlock:^(WMFContentGroup *_Nonnull group) {
-                                                    group.contentPreview = obj;
-                                                    group.placement = obj.placement;
-                                                }];
-            [group updateVisibilityForUserIsLoggedIn:self.isLoggedIn];
-        }];
-
+        [self updateFeedCardsInManagedObjectContext:moc];
         if (completion) {
             completion();
         }
     }];
 }
 
-- (void)updateVisibilityOfNotificationAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    // Only make these visible for previous users of the app
-    // Meaning a new install will only see these after they close the app and reopen
-    if ([userDefaults wmf_appResignActiveDate] == nil) {
+#pragma mark - Feed Cards
+
+- (void)updateFeedCardsInManagedObjectContext:(NSManagedObjectContext *)moc {
+    // Only make these visible for previous users of the app.
+    // A new install only sees them after the user closes the app and opens it again.
+    if ([[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate] == nil) {
         return;
     }
 
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindTheme];
+    [moc removeAllContentGroupsOfKind:WMFContentGroupKindAnnouncement];
 
     if (moc.wmf_isSyncRemotelyEnabled && !NSUserDefaults.standardUserDefaults.wmf_didShowReadingListCardInFeed && !self.isLoggedIn) {
         NSURL *readingListContentGroupURL = [WMFContentGroup readingListContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
@@ -126,32 +83,6 @@
     } else {
         [moc removeAllContentGroupsOfKind:WMFContentGroupKindReadingList];
     }
-
-    // Workaround for the great fundraising mystery of 2019: https://phabricator.wikimedia.org/T247554
-    // TODO: Further investigate the root cause before adding the 2020 fundraising banner: https://phabricator.wikimedia.org/T247976
-    // also deleting IOSSURVEY20 because we want to bypass persistence and only consider in online mode
-    NSArray *announcements = [moc contentGroupsOfKind:WMFContentGroupKindAnnouncement];
-    for (WMFContentGroup *announcement in announcements) {
-        if (![announcement.key containsString:@"FUNDRAISING19"] && ![announcement.key containsString:@"IOSSURVEY20"]) {
-            continue;
-        }
-        [moc deleteObject:announcement];
-    }
-}
-
-- (void)updateVisibilityOfAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
-    [self updateVisibilityOfNotificationAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
-
-    // Only make these visible for previous users of the app
-    // Meaning a new install will only see these after they close the app and reopen
-    if ([[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate] == nil) {
-        return;
-    }
-    
-    [moc enumerateContentGroupsOfKind:WMFContentGroupKindAnnouncement
-                            withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
-                                [group updateVisibilityForUserIsLoggedIn: [self isLoggedIn]];
-                            }];
 }
 
 @end
