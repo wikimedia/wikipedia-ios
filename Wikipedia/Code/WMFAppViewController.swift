@@ -745,18 +745,33 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     func performDatabaseHousekeeping(completion: @escaping (Error?) -> Void) {
         let housekeeper = WMFDatabaseHousekeeper()
 
-        do {
-            try housekeeper.performHousekeepingOnManagedObjectContext(dataStore.viewContext, navigationStateController: navigationStateController, cleanupLevel: .low)
-        } catch {
-            DDLogError("Error on cleanup: \(error)")
+        // Read the view context on the main thread. A background context cannot find these articles.
+        let excludedArticleKeys = housekeeper.articleKeysToPreserve(in: dataStore, navigationStateController: navigationStateController)
+
+        dataStore.performBackgroundCoreDataOperation { moc in
+            var housekeepingError: Error?
+
+            do {
+                try housekeeper.performHousekeeping(on: moc, excludedArticleKeys: excludedArticleKeys, cleanupLevel: .low)
+            } catch {
+                housekeepingError = error
+                DDLogError("Error on cleanup: \(error)")
+            }
+
+            // These functions read and delete files. Keep them off the main thread.
+            SharedContainerCacheHousekeeping.deleteStaleCachedItems(in: SharedContainerCacheCommonNames.talkPageCache, cleanupLevel: .low)
+            SharedContainerCacheHousekeeping.deleteStaleCachedItems(in: SharedContainerCacheCommonNames.didYouKnowCache, cleanupLevel: .low)
+
+            Task { @MainActor [weak self] in
+                if housekeepingError == nil {
+                    UserDefaults.standard.wmf_lastDatabaseHousekeepingDate = Date()
+                }
+
+                self?.performWMFDataHousekeeping()
+
+                completion(housekeepingError)
+            }
         }
-
-        SharedContainerCacheHousekeeping.deleteStaleCachedItems(in: SharedContainerCacheCommonNames.talkPageCache, cleanupLevel: .low)
-        SharedContainerCacheHousekeeping.deleteStaleCachedItems(in: SharedContainerCacheCommonNames.didYouKnowCache, cleanupLevel: .low)
-
-        performWMFDataHousekeeping()
-
-        completion(nil)
     }
 
     // MARK: - Background Tasks

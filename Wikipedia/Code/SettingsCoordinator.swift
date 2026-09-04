@@ -205,12 +205,13 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
         let databaseHousekeeper = WMFDatabaseHousekeeper()
         let navigationStateController = NavigationStateController(dataStore: dataStore)
+        let excludedArticleKeys = databaseHousekeeper.articleKeysToPreserve(in: dataStore, navigationStateController: navigationStateController)
 
         var cleanupError: Error? = nil
 
         self.dataStore.performBackgroundCoreDataOperation { moc in
             do {
-                try databaseHousekeeper.performHousekeepingOnManagedObjectContext(moc, navigationStateController: navigationStateController, cleanupLevel: .high)
+                try databaseHousekeeper.performHousekeeping(on: moc, excludedArticleKeys: excludedArticleKeys, cleanupLevel: .high)
 
             } catch {
                 cleanupError = error
