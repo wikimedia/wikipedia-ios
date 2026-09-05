@@ -76,21 +76,15 @@
 "action-unsave" = "Sihko vurkejumi";
 "action-unsaved-accessibility-notification" = "Artihkal ii leat šat vurkejuvvon";
 "action-update" = "Ođasmahte";
-"activity-tab-add-images-title" = "Lasit govaid";
 "activity-tab-articles-read-graph-label" = "Artihkkalat";
 "activity-tab-email-fifth-line" = "[Šearbmagovat dahje liŋkkat]";
 "activity-tab-impact-total-edits-label" = "rievdadusat oktiibuot";
 "activity-tab-menu-clear-history" = "Gurre lohkanhistorjjá";
 "activity-tab-neutral" = "Neutrála";
-"activity-tab-read-title" = "Čájet lohkanhistorjjá";
 "activity-tab-satisfied" = "Duhtavaš";
-"activity-tab-start-editing" = "Rievdadišgoađe";
 "activity-tab-unsatisfied" = "Duhtameahttun";
 "activity-tab-very-satisfied" = "Hui duhtavaš";
 "activity-tab-very-unsatisfied" = "Hui duhtameahttun";
-"activity-tab-view-editing-history" = "Čájet rievdadanhistorjjá";
-"activity-tab-view-reading-history" = "Čájet lohkanhistorjjá";
-"activity-tab-view-saved-articles" = "Čájet vurkejuvvon artihkkaliid";
 "activity-tab-your-impact" = "Du váikkuhus";
 "add-articles-to-reading-list" = "Lasit {{PLURAL:$1|$1 artihkkala}} lohkanlistui";
 "advanced-settings-title" = "Lasseásahusat";
@@ -124,7 +118,6 @@
 "article-save-error-not-enough-space" = "Dus ii leat doarvái sadji iežat ovttadagas dán artihkkala vurkemii";
 "article-share" = "Juoge";
 "article-tabs-button-accessibility-label" = "Artihkkaliid leavggat";
-"article-tabs-feature-announcement-sub-cta" = "Lassedieđut leavggaid birra";
 "article-tabs-open" = "Raba";
 "article-tabs-open-new-tab" = "Raba ođđa levgii";
 "article-talk-page" = "Artihkkala ságastallansiidu";
@@ -393,7 +386,6 @@
 "explore-because-you-read-footer" = "Eanet guoskevaš artihkkalat";
 "explore-continue-reading-heading" = "Joatkke lohkat";
 "explore-detail-back-button-title" = "Ruovttoluotta guorahallansiidui";
-"explore-enable-location-title" = "Guorahala artihkkaliid du lagasbirrasa áššiid birra";
 "explore-featured-article-heading" = "Válljejuvvon artihkal";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Wikipedias $1:s";
 "explore-featured-article-sub-heading-from-wikipedia" = "Wikipedias";
@@ -532,7 +524,6 @@
 "home-nearby-footer" = "Eanet báikkit du lahkosis";
 "home-nearby-location-footer" = "Eanet $1 lahkosis";
 "home-news-footer" = "Eanet áigeguovdilis dáhpáhusat";
-"home-reading-list-prompt" = "Du vurkejuvvon artihkkalat sáhttet dál organiserejuvvot lohkanlisttuid ovttadagaid rastá. Čálit sisa vai du lohkanlisttut vurkejuvvojit du geavaheaddjidovddaldahkii.";
 "home-themes-action-title" = "Gieđahala ásahusaid";
 "home-themes-prompt" = "Heivet iežat lohkanoidojumiid, oktan teakstasturrodagain ja artihkkalreaidoholgga fárddain, dahje iežat geavaheaddjiheivehusaid mielde, vai lohkanvásáhus šaddá vuohkkaseabbon.";
 "home-title" = "Guorahala";
@@ -669,7 +660,6 @@
 "notifications-center-alert" = "Várrehus";
 "notifications-center-applied-filters-accessibility-label" = "Almmuhussilli - das leat gustovaš sillit";
 "notifications-center-applied-project-filters-accessibility-label" = "Prošeaktasilli – gustovaš sillit";
-"notifications-center-badge-button-accessibility-label" = "Almmuhusat main leat merkejumit logakeahtás almmuhusaide";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 almmuhus";
 "notifications-center-change-password" = "Molsso beassansáni";
 "notifications-center-checking-for-notifications" = "Iskame almmuhusaid ...";
@@ -901,11 +891,7 @@
 "reading-list-list-limit-exceeded-message" = "Dát lohkanlistu, ja artihkkalat mat leat vurkejuvvon dasa, eai synkroniserejuvvo. Jus áiggut joatkit synkroniseret dán listtu, de fertet unnidit listtuid logu $1:ii.";
 "reading-list-list-limit-exceeded-title" = "Don leat rasttildan ráji mii lea {{PLURAL:$1|$1 lohkanlistu|$1 lohkanlisttu}} juohke geavaheaddjidovddaldaga namas.";
 "reading-list-list-limit-reached" = "Don leat olahan ráji mii lea $1 lohkanlistu juohke geavaheaddjidovddaldaga namas";
-"reading-list-login-button-title" = "Čálit sisa vai sáhtát synkroniseret vurkejuvvon artihkkaliid";
 "reading-list-login-or-create-account-button-title" = "Čálit sisa dahje ráhkat geavaheaddjidovddaldaga";
-"reading-list-login-or-create-account-title" = "Čálit sisa vai sáhtát synkroniseret vurkejuvvon artihkkaliid";
-"reading-list-login-subtitle" = "Čálit sisa dahje ásat geavaheaddjidovddaldaga jus háliidat ahte vurkejuvvon artihkkalat ja lohkanlisttut galget vurkejuvvot du geavaheaddjidovddaldahkii ja synkroniserejuvvot ovttadagaid rastá.";
-"reading-list-login-title" = "Synkronisere vurkejuvvon artihkkaliid?";
 "reading-list-name-user-created-annotation" = "_[geavaheaddjis ráhkaduvvon]";
 "reading-list-new-list-description-placeholder" = "eaktodáhtolaš oanehis govvádus";
 "reading-list-new-list-name-placeholder" = "lohkanlisttu bajilčála";
@@ -931,7 +917,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Luvve saji iežat ovttadagas ja geahččal ođđasit";
 "reading-lists-articles-not-synced-limit-exceeded" = "Muhtun artihkkalat eai synkroniserejuvvon, rádji lea rihkkojuvvon";
 "reading-lists-conflicting-reading-list-name-updated" = "«$1» listu lea ođđasit nammaduvvonl «$2»:n";
-"reading-lists-count" = "{{PLURAL:$1|$1 lohkanlistu|$1 lohkanlisttu}}";
 "reading-lists-default-list-description" = "Vurkejuvvon artihkkaliid standárdalistu";
 "reading-lists-default-list-title" = "Vurkejuvvon siiddut";
 "reading-lists-delete-reading-list-alert-message" = "Dán dagu it sáhte gáhtat. Artihkkalat mat leat vurkejuvvon dušše {{PLURAL:$1|dán listui|dáidda listtuide}} sihkkojuvvojit.";
@@ -958,8 +943,6 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dán jagi|1=Diibmá|$1 jagi áige}}";
 "return-button-title" = "Ruovttoluotta";
 "return-to-article" = "Ruovttoluotta artihkkalii";
-"reverted-edit-title" = "Rievdadeapmi rievdaduvvon ruovttoluotta";
-"save-all-tabs" = "Vurke buot leavggaid";
 "saved-all-articles-title" = "Buot artihkkalat";
 "saved-default-reading-list-tag" = "Listu ii sáhte sihkkojuvvot";
 "saved-pages-image-download-error" = "Ii nagodan viežžat govaid dan vurkejuvvon siidui.";
@@ -1023,7 +1006,6 @@
 "sort-by-recently-added-action" = "Aitto lasihuvvon";
 "sort-by-title-action" = "Bajilčála";
 "suggested-edits-title" = "Evttohuvvon rievdadeamit";
-"survey-instructions" = "Vállje ovtta dahje eanet molssaeavttuid";
 "survey-submit" = "Sádde";
 "table-of-contents-button-label" = "Sisdoallologahallan";
 "table-of-contents-close-accessibility-hint" = "Gidde";
@@ -1053,10 +1035,6 @@
 "talk-page-expand-thread-button" = "Viiddit gođđosa";
 "talk-page-find-in-page-button" = "Oza siiddus";
 "talk-page-menu-open-all" = "Raba buot gođđosiid";
-"talk-page-new-banner-subtitle" = "Muitte ahte mii buohkat dáppe leat olbmot";
-"talk-page-new-banner-title" = "Leage siivui";
-"talk-page-new-reply-success-text" = "Du vástádusa almmuheapmi lihkostuvai.";
-"talk-page-new-topic-success-text" = "Du ságastallama almmuheapmi lihkostuvai.";
 "talk-page-onboarding-button-accessibility-label" = "Deaddil guktii, go háliidat máhccat vástádussii";
 "talk-page-overflow-menu-accessibility" = "Eanet ságastallansiidomolssaeavttut";
 "talk-page-page-info" = "Siiddu dieđut";
@@ -1128,7 +1106,6 @@
 "top-read-widget-description" = "Fuomáš man birra olbmot lohket Wikipedias odne.";
 "top-read-widget-readers-count" = "$1 lohkki";
 "top-read-widget-title" = "Eanemusat lohkkojuvvon";
-"try-now-title" = "Geahččal dál";
 "tutorial-title" = "Ofelaš";
 "two-factor-email-login-continue" = "Joatkke sisačálihemiin";
 "two-factor-login-continue" = "Joatkke sisačálihemiin";
@@ -1143,7 +1120,6 @@
 "uzbek-variants-alert-body" = "Wikipedia-áppa doarju dál čuovvovaš usbeskalaš-variánttaid váldo- dahje nubbingiellan áppas, juoga mii dahká álkibun lohkat, ohcat, ja rievdadit iežat oidojuvvon variánttaid:\n\noʻzbekcha lotin latiinna usbekalaš (uz-latiinnagiella)\nўзбекча кирилл kyrillalaš usbekalaš (uz-cyrl)";
 "uzbek-variants-alert-title" = "Ođasmahttimat mat dorjot usbeskalaš-variánttaid";
 "vanish-account-continue-button-title" = "Joatkke";
-"vanish-account-username-field" = "Geavaheaddjinamma ja geavaheaddjisiidu";
 "vanish-account-warning-body" = "Jávkadahttin lea **maŋemus čoavddus**, ja berre **dušše geavahuvvot jus háliidat heaitit rievdadeamis agibeaivái**, ja maid čiehkat nu olu go vejolaš iežat ovdalaš doaimmain.Geavaheaddjidovddaldaga sihkkun Wikipedias dahkkojuvvo dainnalágiin ahte du geavaheaddjidovddaldatnamma rievdaduvvo, vai earát eai sáhte šat dovdat du čállosiid, proseassas mii gohčoduvvo geavaheaddjidovddaldatjávkadahttimin. **Geavaheaddjidovddaldaga jávkadeapmi ii dáhkit ollislaš anonymitehta, ii ge dat sihko du čállosiid prošeavttain.**";
 "vanish-account-warning-title" = "Várrehus";
 "variants-alert-dismiss-button" = "Ii giitu";

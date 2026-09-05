@@ -49,14 +49,12 @@
 "action-undo" = "واپس";
 "action-unsave" = "غیر محفوظ";
 "action-update" = "اپ ݙیٹ";
-"activity-tab-add-images-title" = "تصویراں شامل کرو";
 "activity-tab-neutral" = "غیر جانبدار";
 "activity-tab-satisfied" = "مطمئن";
 "activity-tab-title" = "سرگرمی";
 "activity-tab-unsatisfied" = "غیر مطمئن";
 "activity-tab-very-satisfied" = "ݙاڈھا تسلی بخش";
 "activity-tab-very-unsatisfied" = "ݙاڈھا تسلی بخش";
-"activity-tab-view-editing-history" = " تبدیلی دا تاریخچہ ݙیکھو";
 "activity-tab-week-graph-label" = "ہفتہ";
 // Fuzzy
 "add-articles-to-reading-list" = "مطالعہ دی فہرست وچ $1 شامل کرو";
@@ -97,7 +95,6 @@
 "close-all-tabs" = "سارے ٹیب بند کرو";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 ٹیب|$1 ٹیباں}} بند کروں؟";
 "close-button-accessibility-label" = "بند کرو";
-"close-tab-confirmation" = "ٹیب بند کروں؟";
 "close-tabs" = "ٹیباں بند کرو";
 "compass-direction" = "$1 وڄے تے";
 "data-migration-status" = "اپ ڈیٹ تھیندا پئے۔۔۔";
@@ -430,10 +427,7 @@
 "share-open-in-maps" = "نقشیاں وچ کھولو";
 "sort-by-recently-added-action" = "حالیہ ودھارے";
 "sort-by-title-action" = "عنوان";
-"survey-instructions" = "ہک یا ودھ آٓپشن چݨو";
-"survey-other-placeholder" = "ٻیا";
 "survey-submit" = "جمع کرواؤ";
-"survey-title" = "سبب";
 "table-of-contents-close-accessibility-hint" = "بند کرو";
 "table-of-contents-heading" = "شامل حصے";
 "tabs-close-tab" = "ٹیب بند کرو";

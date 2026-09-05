@@ -316,7 +316,6 @@
 "explore-because-you-read-footer" = "Articles relacionats addicionals";
 "explore-continue-reading-heading" = "Continua llegint";
 "explore-detail-back-button-title" = "Torna al canal «Exploreu»";
-"explore-enable-location-title" = "Explora articles prop de la vostra ubicació actual";
 "explore-featured-article-heading" = "Article destacat";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "De la Viquipèdia en $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "De la Viquipèdia";
@@ -463,7 +462,6 @@
 "home-nearby-footer" = "Més llocs prop de la vostra ubicació";
 "home-nearby-location-footer" = "Més propers a $1";
 "home-news-footer" = "Més esdeveniments actuals";
-"home-reading-list-prompt" = "Els articles desats poden organitzar-se entre llistes de lectura i sincronitzar-se entre dispositius. Inicieu una sessió per permetre que les llistes de lectura puguin desar-se a les preferències d'usuari.";
 "home-themes-action-title" = "Gestiona les preferències";
 "home-themes-prompt" = "Ajusteu les preferències de lectura, incloent-hi la mida del text i el tema, des de la barra d'eines de l'article o des de les vostres preferències d'usuari per a una experiència de lectura més còmode.";
 "home-title" = "Exploreu";
@@ -578,7 +576,6 @@
 "notifications-center-alert" = "Alerta";
 "notifications-center-applied-filters-accessibility-label" = "Filtre de notificacions - té filtres aplicats";
 "notifications-center-applied-project-filters-accessibility-label" = "Filtre de projectes - té filtres aplicats";
-"notifications-center-badge-button-accessibility-label" = "Notificacions amb insígnia no llegida";
 "notifications-center-cell-notification-type-accessibility-label-format" = "notificació $1";
 "notifications-center-change-password" = "Canvia la contrasenya";
 "notifications-center-checking-for-notifications" = "Comprovació de les notificacions...";
@@ -814,11 +811,7 @@
 "reading-list-list-limit-exceeded-message" = "La llista de lectura i els articles que hi ha desats no se sincronitzaran. Reduïu el nombre de llistes a $1 per resumir la sincronització de la llista.";
 "reading-list-list-limit-exceeded-title" = "Heu excedit el límit de {{PLURAL:$1|$1 llista de lectura|$1 llistes de lectura}} per compte.";
 "reading-list-list-limit-reached" = "Heu arribat el límit de $1 llistes de lectura per compte";
-"reading-list-login-button-title" = "Inicieu una sessió per sincronitzar els vostres articles desats";
 "reading-list-login-or-create-account-button-title" = "Inicia una sessió o crea un compte";
-"reading-list-login-or-create-account-title" = "Inicia una sessió per a sincronitzar els articles desats";
-"reading-list-login-subtitle" = "Inicieu una sessió o creeu un compte per permetre que els vostres articles desats i llistes de lectura puguin sincronitzar-se entre dispositius i desar-se a les vostres preferències d'usuari.";
-"reading-list-login-title" = "Voleu sincronitzar els articles desats?";
 "reading-list-name-user-created-annotation" = "_[usuari creat]";
 "reading-list-new-list-description-placeholder" = "descripció curta opcional";
 "reading-list-new-list-name-placeholder" = "títol de la llista de lectura";
@@ -845,7 +838,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Buideu espai del dispositiu i torneu-ho a provar";
 "reading-lists-articles-not-synced-limit-exceeded" = "No s'han sincronitzat alguns articles. S'ha excedit el límit.";
 "reading-lists-conflicting-reading-list-name-updated" = "S'ha reanomenat la llista «$1» a «$2»";
-"reading-lists-count" = "{{PLURAL:$1|$1 llista de lectura|$1 llistes de lectures}}";
 "reading-lists-default-list-description" = "Llista per defecte dels vostres articles desats";
 "reading-lists-default-list-title" = "Desats";
 "reading-lists-delete-reading-list-alert-message" = "No es pot desfer l'acció. Aquells articles desats només en {{PLURAL:$1|aquesta llista|aquestes llistes}} deixaran d'estar-hi desats.";
@@ -880,7 +872,6 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Enguany|1=L'any passat|Fa $1 anys}}";
 "return-button-title" = "Torna";
 "return-to-article" = "Torna a l'article";
-"reverted-edit-title" = "Modificació revertida";
 "saved-all-articles-title" = "Tots els articles";
 "saved-default-reading-list-tag" = "No es pot eliminar la llista";
 "saved-pages-image-download-error" = "Error en descarregar les imatges d'aquesta pàgina desada.";
@@ -973,10 +964,6 @@
 "talk-page-expand-thread-button" = "Desplega el fil";
 "talk-page-find-in-page-button" = "Cerca a la pàgina";
 "talk-page-menu-open-all" = "Obre tots els fils";
-"talk-page-new-banner-subtitle" = "Recordeu, aquí tothom és humà";
-"talk-page-new-banner-title" = "Sigueu respectuós/osa";
-"talk-page-new-reply-success-text" = "La vostra resposta s'ha publicat amb èxit";
-"talk-page-new-topic-success-text" = "La vostra discussió s'ha publicat amb èxit";
 "talk-page-onboarding-button-accessibility-label" = "Feu doble toc per a tornar a la resposta";
 "talk-page-overflow-menu-accessibility" = "Més opcions de la pàgina de discussió";
 "talk-page-page-info" = "Informació de la pàgina";
@@ -1043,7 +1030,6 @@
 "top-read-widget-description" = "Esbrineu que està llegint el món avui a la Viquipèdia.";
 "top-read-widget-readers-count" = "$1 lectors";
 "top-read-widget-title" = "El més llegit";
-"try-now-title" = "Proveu-ho ara";
 "tutorial-title" = "Tutorial";
 "two-factor-login-continue" = "Continua l'inici de sessió";
 "two-factor-login-instructions" = "Introduïu el codi de verificació de dos factors";
@@ -1057,7 +1043,6 @@
 "uzbek-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants uzbekes com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides: \n\noʻzbekcha lotin uzbek, llatí (uz-latin)\nўзбекча кирилл Uzbek, ciríl·lic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Actualitzacions del suport a les variants Uzbek";
 "vanish-account-continue-button-title" = "Continua";
-"vanish-account-username-field" = "Nom d'usuari i pàgina d'usuari";
 "vanish-account-warning-body" = "La desaparició és un **darrer recurs** i s'hauria **d'emprar només quan voleu deixar d'editar per sempre més** i amagar el màxim d'associacions passades que sigui possible.\n\nLa supressió de comptes de la Viquipèdia es fa canviant el nom del compte per tal que altres no puguin reconèixer-ne les contribucions en un procés que s'anomena «desaparició del compte». **La desaparició no garanteix un anonimat complet ni eliminar les contribucions fetes als projectes**.";
 "vanish-account-warning-title" = "Avís";
 "variants-alert-dismiss-button" = "No, gràcies";

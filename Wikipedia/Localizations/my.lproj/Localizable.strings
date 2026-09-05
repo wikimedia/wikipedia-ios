@@ -70,8 +70,6 @@
 "action-unsave" = "မသိမ်းရသေးပါ";
 "action-unsaved-accessibility-notification" = "ဆောင်းပါး မသိမ်းရသေးပါ";
 "action-update" = "မွမ်းမံ";
-"activity-tab-add-images-subtitle" = "နားလည်မှု ပိုမိုကောင်းမွန်စေရန်အတွက် ဝီကီပီးဒီးယားဆောင်းပါးများတွင် အကြံပြုထားသော ရုပ်ပုံများကို ထည့်ပါ။";
-"activity-tab-add-images-title" = "ပုံများထည့်ရန်";
 "activity-tab-additional-thoughts" = "နောက်ထပ် စဉ်းစားစရာတွေ ရှိပါသလား။";
 "activity-tab-amount-article-views" = "{{PLURAL:$1|$1 ကြည့်ရှုနှုန်း|$1 ကြည့်ရှုနှုန်းများ}}";
 "activity-tab-articles-read" = "ယခုလအတွင်း ဖတ်ခဲ့သော ဆောင်းပါးများ";
@@ -85,7 +83,6 @@
 "activity-tab-email-third-line" = "ကျွန်တော်မြင်ချင်တဲ့ အပြုအမူကတော့ -";
 "activity-tab-empty-subtitle" = "သင့်သမိုင်းကိုတည်ဆောက်ရန် ဖတ်ရှုခြင်းနှင့် တည်းဖြတ်ခြင်းစတင်ပါ";
 "activity-tab-empty-title" = "ပြစရာ မရှိပါ";
-"activity-tab-generic-no-edits" = "ဤအပတ်တွင် သင် မတည်းဖြတ်ရသေးပါ။ သင်၏ ပံ့ပိုးကူညီမှုများကို ခြေရာခံရန် အခုပဲ စတင်လိုက်ပါ။";
 "activity-tab-history-callout-body" = "**ရှာဖွေမှု တက်ဘ်** တွင် သင်၏ ဖတ်ရှုမှု မှတ်တမ်းကို ကြည့်ရှု သို့မဟုတ် ရှင်းလင်းပါ။";
 "activity-tab-history-callout-body-loggedout" = "**ရှာဖွေမှု တက်ဘ်** တွင် သင်၏ ဖတ်ရှုမှု မှတ်တမ်းကို ရှာဖွေပြီး ဖျက်ပါ။ အကောင့် မလိုအပ်ပါ။";
 "activity-tab-hours-minutes-read" = "$1 နာရီ $2 မိနစ်";
@@ -101,11 +98,9 @@
 "activity-tab-impact-views-day" = "ရက်";
 "activity-tab-impact-views-title" = "သင်တည်းဖြတ်ထားသော ဆောင်းပါးများအပေါ် ကြည့်ရှုမှုများ";
 "activity-tab-impact-views-views" = "ကြည့်ရှုနှုန်းများ";
-"activity-tab-log-in-or-create-account" = "တည်းဖြတ်ခြင်းနှင့် စာဖတ်ခြင်းလုပ်ဆောင်ချက်များကို ပိုမိုကြည့်ရှုရန် လော့ဂ်အင်ဝင်ပါ သို့မဟုတ် အကောင့်တစ်ခု ဖန်တီးပါ။";
 "activity-tab-logged-out-subtitle" = "ဝီကီပီးဒီးယားအက်ပ်တွင် သင်၏လုပ်ဆောင်ချက်ကိုကြည့်ရှုရန် လော့ဂ်အင်ဝင်ပါ သို့မဟုတ် အကောင့်တစ်ခုဖန်တီးပါ။";
 "activity-tab-most-viewed" = "သင်တည်းဖြတ်ပြီးကတည်းက အများဆုံးကြည့်ရှုခံရသည်";
 "activity-tab-neutral" = "ကြားနေ";
-"activity-tab-no-edits-title" = "ဤအပတ်တွင် သင် မတည်းဖြတ်ထားပါ။ ဆောင်းပါးကို နားလည်မှု ပိုမိုကောင်းမွန်စေရန်အတွက် ပုံများထည့်ပါ။";
 "activity-tab-no-username-reading-title" = "သင်၏ ဖတ်ရှုမှု";
 "activity-tab-onboarding-first-item-subtitle" = "သင်ဖတ်ရှုချိန် မည်မျှကုန်ဆုံးခဲ့ပြီး မည်သည့်ဆောင်းပါးများ သို့မဟုတ် အကြောင်းအရာများကို အချိန်ကြာလာသည်နှင့်အမျှ စူးစမ်းလေ့လာခဲ့သည်ကို ကြည့်ပါ။";
 "activity-tab-onboarding-first-item-title" = "စာဖတ်ခြင်းပုံစံများ";
@@ -117,7 +112,6 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "လုပ်ဆောင်ချက်တွင် ဖတ်ရှုပြီးသော၊ သိမ်းဆည်းထားသော နှင့် တည်းဖြတ်ထားသော ဆောင်းပါးများ၏ ပြည့်စုံသော အချိန်ဇယား ပါဝင်သည်။ သင်၏ ဖတ်ရှုမှတ်တမ်းသည် ယခုအခါ Search tab ထဲတွင် ရှိနေသည်။";
 "activity-tab-satisfied" = "ကျေနပ်မှုရှိ";
 "activity-tab-saved" = "ဒီလထဲမှာ သိမ်းဆည်းထားတဲ့ ဆောင်းပါးတွေ";
-"activity-tab-start-editing" = "စတင်တည်းဖြတ်";
 "activity-tab-survey-subtitle" = "လုပ်ဆောင်ချက်ကို တိုးတက်ကောင်းမွန်အောင် ကူညီပါ။ ဤအင်္ဂါရပ်ကို သင်ကျေနပ်ပါသလား။";
 "activity-tab-survey-title" = "စိတ်ကျေနပ်မှု စစ်တမ်း";
 "activity-tab-time-spent-reading" = "ဒီအပတ်မှာ စာဖတ်ချိန်";
@@ -128,9 +122,6 @@
 "activity-tab-usernames-reading-title" = "$1 ၏ စာဖတ်ခြင်း";
 "activity-tab-very-satisfied" = "အလွန်ကျေနပ်ပါသည်";
 "activity-tab-very-unsatisfied" = "အလွန်မကျေနပ်ပါ";
-"activity-tab-view-editing-history" = "တည်းဖြတ်မှု ရာဇဝင် ကြည့်ရန်";
-"activity-tab-view-reading-history" = "စာဖတ်မှု ရာဇဝင် ကြည့်ရန်";
-"activity-tab-view-saved-articles" = "သိမ်းဆည်းထားသော ဆောင်းပါးများကို ကြည့်ရှုပါ";
 "activity-tab-week-graph-label" = "အပတ်";
 "activity-tab-you-edited" = "သင် ဒီအပတ်မှာ {{PLURAL:$1| $1 ကြိမ်|$1 ကြိမ်}}ကို တည်းဖြတ်ခဲ့သည်။";
 "activity-tab-you-read" = "ဒီအပတ်မှာ {{PLURAL:$1| $1 ဆောင်းပါး| $1 ဆောင်းပါးများ}}ကို သင်ဖတ်ပြီးပါပြီ။";
@@ -182,7 +173,6 @@
 "article-revision-history" = "ဆောင်းပါး ပြန်လည်ပြင်ဆင်ခြင်း သမိုင်း";
 "article-save-error-not-enough-space" = "ဤဆောင်းပါးကို သိမ်းဆည်းရန် သင်၏စက်ပစ္စည်းတွင် သိုလှောင်လက်ကျန် မလုံလောက်ပါ";
 "article-share" = "မျှဝေ";
-"article-tabs-feature-announcement-item-2-title" = "သင်ထားခဲ့သည့်နေရာမှ ဆက်လုပ်ပါ";
 "article-tabs-open" = "ဖွင့်ရန်";
 "article-talk-page" = "ဆောင်းပါးဆွေးနွေးချက်စာမျက်နှာ";
 "article-view-controller-editing-temp-account-created-subtitle" = "သင့်တည်းဖြတ်မှုကို ထုတ်ဝေပြီးနောက် ယာယီအကောင့် $1 ကို ဖန်တီးခဲ့ပါသည်။ ၎င်းသည် ရက်ပေါင်း ၉၀ အကြာတွင် သက်တမ်းကုန်ဆုံးပါမည်။";
@@ -354,7 +344,6 @@
 "explore-because-you-read" = "သင်ဖတ်ရှုခဲ့သောကြောင့်";
 "explore-because-you-read-footer" = "နောက်ထပ် ဆက်နွယ်ဆောင်းပါးများ";
 "explore-continue-reading-heading" = "ဆက်လက် ဖတ်ရှုရန်";
-"explore-enable-location-title" = "သင့်နေရာအနီးရှိ ဆောင်းပါးများကို စူးစမ်းရန်";
 "explore-featured-article-heading" = "အထူးဆောင်းပါး";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 ဝီကီပီးဒီးယားမှ";
 "explore-featured-article-sub-heading-from-wikipedia" = "ဝီကီပီးဒီးယားမှ";
@@ -488,7 +477,6 @@
 "home-nearby-footer" = "သင့်တည်နေရာအနီးရှိ နေရာများပို၍";
 "home-nearby-location-footer" = "အနီးအနား $1 ပို၍";
 "home-news-footer" = "နောက်ထပ် လက်ရှိဖြစ်ရပ်များ";
-"home-reading-list-prompt" = "သင်သိမ်းဆည်းထားသော ဆောင်းပါးများကို ယခုအခါ စာဖတ်စာရင်းများအဖြစ် စီစဉ်နိုင်ပြီး စက်ပစ္စည်းများတွင် ထပ်တူပြုနိုင်ပါပြီ။ သင့်စာဖတ်စာရင်းများကို သင့်အသုံးပြုသူ ဦးစားပေးမှုများတွင် သိမ်းဆည်းနိုင်စေရန် အကောင့်ဝင်ပါ။";
 "home-tab-title" = "ပင်မ";
 "home-themes-action-title" = "ရွေးချယ်စရာများကို စီမံရန်";
 "home-title" = "ရှာဖွေစူးစမ်းပါ";
@@ -787,10 +775,7 @@
 "reading-list-keep-title" = "သိမ်းထားတဲ့ဆောင်းပါးတွေကို စက်ပစ္စည်းထဲ ဆက်ထားမှာလာ?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "ဆောင်းပါးများကို စီလိုက်ပါ";
 "reading-list-limit-hit-for-unsorted-articles-title" = "မစီထားသော ဆောင်းပါးများအတွက် ကန့်သတ်ချက်ရောက်ပါပြီ";
-"reading-list-login-button-title" = "သိမ်းထားသော သင်၏ဆောင်းပါးများကို sync လုပ်ရန် အကောင့်ထဲဝင်ပါ";
 "reading-list-login-or-create-account-button-title" = "အကောင့်ထဲဝင်ရန် (သို့) အကောင့်ဖန်တီးရန်";
-"reading-list-login-or-create-account-title" = "သိမ်းထားသောဆောင်းပါးများကို sync လုပ်ရန် အကောင့်ထဲဝင်ပါ";
-"reading-list-login-title" = "သိမ်းထားသော သင်၏ဆောင်းပါးများကို sync လုပ်မှာလား?";
 "reading-list-name-user-created-annotation" = "_[အသုံးပြုသူ ဖန်တီးခဲ့သော]";
 "reading-list-new-list-description-placeholder" = "အရေးမကြီးသော ဖော်ပြချက်တို";
 "reading-list-new-list-name-placeholder" = "စာရင်းထေါင်းစဉ် ဖတ်နေသည်";
@@ -810,7 +795,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "သင်၏စက်ပစ္စည်းတွင် နေရာအချို့ရှင်းလင်းပြီး ထပ်မံကြိုးစားပါ";
 "reading-lists-articles-not-synced-limit-exceeded" = "ဆောင်းပါးအချို့ sync မဖြစ်ပါ၊ ကန့်သတ်ချက် ကျော်လွန်သွားသည်";
 "reading-lists-conflicting-reading-list-name-updated" = "သင်၏ '$1' စာရင်းကို '$2'အဖြစ် အမည်ပြောင်းလဲလိုက်ပါပြီ";
-"reading-lists-count" = "{{PLURAL:$1|$1 စာဖတ်စာရင်း|$1 စာဖတ်စာရင်းများ}}";
 "reading-lists-default-list-description" = "သင် သိမ်းထားသော ဆောင်းပါးများအတွက် နဂိုစာရင်း";
 "reading-lists-default-list-title" = "သိမ်းဆည်းပြီး";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|စာရင်း|စာရင်းများ}} ကို ဖျက်ပစ်မလား";
@@ -836,7 +820,6 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=ဒီနှစ်|1=ယခင်နှစ်|$1 နှစ်အကြာက}}";
 "return-button-title" = "ပြန်သွား";
 "return-to-article" = "ဆောင်းပါးသို့ ပြန်သွားရန်";
-"reverted-edit-title" = "နောက်ပြန်ပြင်သော တည်းဖြတ်မှု";
 "save-view-temp-account-warning" = "သင် လော့ဂ်အင်မဝင်ထားပါ။ တည်းဖြတ်မှုတစ်ခုပြုလုပ်ပြီးသည်နှင့် သင့်ကိုယ်ရေးကိုယ်တာအချက်အလက်များကို ကာကွယ်ရန်အတွက် ယာယီအကောင့်တစ်ခု ဖန်တီးပေးပါမည်။";
 "saved-all-articles-title" = "ဆောင်းပါးများ အားလုံး";
 "saved-default-reading-list-tag" = "ဤစာရင်းကို မဖျက်ပစ်နိုင်ပါ";
@@ -893,10 +876,7 @@
 "sort-by-recently-added-action" = "မကြာသေးခင်က ထည့်ပေါင်းခဲ့သည်";
 "sort-by-title-action" = "ခေါင်းစဉ်";
 "suggested-edits-title" = "အကြံပြုထားသော ပြင်ဆင်မှုများ";
-"survey-instructions" = "တစ်ခု သို့မဟုတ် တစ်ခုထက်ပိုသော ရွေးချယ်စရာများကို ရွေးချယ်ပါ";
-"survey-other-placeholder" = "အခြား";
 "survey-submit" = "ထည့်သွင်းရန်";
-"survey-title" = "အကြောင်းပြချက်";
 "table-of-contents-button-label" = "မာတိကာ";
 "table-of-contents-close-accessibility-hint" = "ပိတ်ရန်";
 "table-of-contents-close-accessibility-label" = "မာတိကာ ပိတ်ရန်";
@@ -907,15 +887,10 @@
 "tabs-main-page-subtitle" = "ဝီကီပီးဒီးယား၏ နေ့စဉ် အဓိကအချက်များ";
 "tabs-show-suggested-articles" = "ဆောင်းပါးအကြံပြုချက်များပြပါ";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "အကြံပြုချက်များကို ယခု ဝှက်ထားသည်";
-"tabs-thumbnail-subtitle" = "ဤနေရာတွင် သင့်ရှာဖွေမှုကို စတင်ပါ";
 "talk-page-article-about" = "ဆွေးနွေးချက် စာမျက်နှာများအကြောင်း";
 "talk-page-change-language" = "ဘာသာစကား ပြောင်းလဲရန်";
 "talk-page-discussion-read-accessibility-label" = "ဖတ်ရန်";
 "talk-page-discussion-unread-accessibility-label" = "မဖတ်ရသေး";
-"talk-page-new-banner-subtitle" = "မိမိတို့အားလုံးသည် လူသားများဖြစ်ကြသည်ကို သတိရပါ";
-"talk-page-new-banner-title" = "ကျေးဇူးပြု၍ ကြင်နာပါ";
-"talk-page-new-reply-success-text" = "သင်၏အကြောင်းပြန်စာကို အောင်မြင်စွာလွှင့်တင်ခဲ့သည်";
-"talk-page-new-topic-success-text" = "သင်၏ဆွေးနွေးချက်ကို အောင်မြင်စွာလွှင့်တင်ခဲ့သည်";
 "talk-page-subscribe-to-topic" = "စာရင်းသွင်းပါ";
 "talk-page-title-article-talk" = "ဆောင်းပါး ဆွေးနွေးချက်";
 "talk-page-title-user-talk" = "အသုံးပြုသူ ဆွေးနွေးချက်";
@@ -944,7 +919,6 @@
 "top-read-widget-description" = "ဝီကီပီးဒီးယားမှာ ဒီနေ့ ကမ္ဘာကြီး ဘာတွေဖတ်နေလဲဆိုတာ လေ့လာကြည့်ပါ။";
 "top-read-widget-readers-count" = "$1 စာဖတ်သူများ";
 "top-read-widget-title" = "ဖတ်ရှုမှု အများဆုံး";
-"try-now-title" = "အခုပဲ စမ်းကြည့်ပါ";
 "tutorial-title" = "သင်ခန်းစာ";
 "two-factor-email-login-continue" = "ဆက်လက် ဝင်ရောက်ပါ";
 "two-factor-email-login-instructions" = "အီးမေးလ် အတည်ပြုကုဒ်ကို ထည့်သွင်းပါ";
@@ -957,7 +931,6 @@
 "unknown-generic-text" = "အမည်မသိ";
 "user-title" = "အသုံးပြုသူ";
 "vanish-account-continue-button-title" = "ဆက်လက်";
-"vanish-account-username-field" = "အသုံးပြုသူအမည်နှင့် အသုံးပြုသူစာမျက်နှာ";
 "vanish-account-warning-title" = "သတိပေးချက်";
 "variants-alert-dismiss-button" = "မလိုပါ၊ ကျေးဇူးတင်ပါသည်။";
 "view-changes" = "ပြောင်းလဲမှုများကို ကြည့်ရှုပါ";
