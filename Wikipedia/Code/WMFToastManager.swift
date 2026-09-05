@@ -5,7 +5,6 @@ import WMFComponents
 final class WMFToastManager: NSObject {
 
     @objc static let sharedInstance = WMFToastManager()
-    var theme = Theme.standard
 
     // MARK: - Public API
 
@@ -21,11 +20,10 @@ final class WMFToastManager: NSObject {
         let resolvedDuration: TimeInterval? = duration.map { TimeInterval($0.doubleValue) }
         let config = WMFToastConfig(title: message, subtitle: subtitle, icon: image, duration: resolvedDuration, buttonTitle: buttonTitle, tapAction: tapCallBack, buttonAction: buttonCallBack)
         dismissCurrentToast {
-            WMFToastPresenter.shared.show(config)
-        }
-        if let completion, let resolvedDuration, resolvedDuration > 0 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + resolvedDuration) {
-                completion()
+            // The presenter calls the completion when the toast leaves the screen,
+            // for any reason: the timer, a swipe, or a replacement.
+            WMFToastPresenter.shared.show(config) { _ in
+                completion?()
             }
         }
     }
@@ -45,14 +43,5 @@ final class WMFToastManager: NSObject {
 
     private func dismissCurrentToast(completion: @escaping () -> Void) {
         WMFToastPresenter.shared.dismissCurrentToast(completion: completion)
-    }
-}
-
-extension WMFToastManager: Themeable {
-
-    nonisolated public func apply(theme: Theme) {
-        Task { @MainActor in
-            self.theme = theme
-        }
     }
 }
