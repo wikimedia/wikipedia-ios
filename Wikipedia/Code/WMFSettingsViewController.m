@@ -412,10 +412,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
     WMFDatabaseHousekeeper *databaseHousekeeper = [WMFDatabaseHousekeeper new];
     WMFNavigationStateController *navigationStateController = [[WMFNavigationStateController alloc] initWithDataStore:self.dataStore];
+    NSSet<NSString *> *excludedArticleKeys = [databaseHousekeeper articleKeysToPreserveIn:self.dataStore navigationStateController:navigationStateController];
 
     [self.dataStore performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *_Nonnull moc) {
         NSError *housekeepingError = nil;
-        [databaseHousekeeper performHousekeepingOnManagedObjectContext:moc navigationStateController:navigationStateController cleanupLevel:WMFCleanupLevelHigh error:&housekeepingError];
+        [databaseHousekeeper performHousekeepingOn:moc excludedArticleKeys:excludedArticleKeys cleanupLevel:WMFCleanupLevelHigh error:&housekeepingError];
         if (housekeepingError) {
             DDLogError(@"Error on cleanup: %@", housekeepingError);
             housekeepingError = nil;

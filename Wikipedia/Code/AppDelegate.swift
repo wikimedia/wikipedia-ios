@@ -121,28 +121,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func registerBackgroundTasks() {
 
         BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.backgroundAppRefreshTaskIdentifier, using: .main) { [weak self] task in
+            let completion = BackgroundTaskCompletion(task: task)
+
+            // iOS stops the app if the task uses all of its time and reports no completion.
+            task.expirationHandler = {
+                completion.complete(success: false)
+            }
+
             self?.appViewController.performBackgroundFetch { [weak self] result in
-                switch result {
-                case .failed:
-                    task.setTaskCompleted(success: false)
-                default:
-                    task.setTaskCompleted(success: true)
-                }
-                
+                completion.complete(success: result != .failed)
                 self?.scheduleBackgroundAppRefreshTask()
             }
         }
         
         BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.backgroundDatabaseHousekeeperTaskIdentifier, using: .main) { [weak self] task in
+            let completion = BackgroundTaskCompletion(task: task)
+
+            // iOS stops the app if the task uses all of its time and reports no completion.
+            task.expirationHandler = { [weak self] in
+                self?.appViewController.cancelDatabaseHousekeeping()
+                completion.complete(success: false)
+            }
+
             self?.appViewController.performDatabaseHousekeeping { error in
-                
-                if error != nil {
-                    task.setTaskCompleted(success: false)
-                } else {
-                    task.setTaskCompleted(success: true)
-                }
+                completion.complete(success: error == nil)
             }
         }
+    }
+}
+
+/// Reports the completion of a background task one time only.
+///
+/// iOS stops the app if the code reports completion two times. Both the expiration handler
+/// and the work of the task can report completion, thus the code must count the reports.
+/// The task uses the main queue, therefore this class needs no lock.
+private final class BackgroundTaskCompletion {
+    private let task: BGTask
+    private var isComplete = false
+
+    init(task: BGTask) {
+        self.task = task
+    }
+
+    func complete(success: Bool) {
+        guard !isComplete else {
+            return
+        }
+        isComplete = true
+        task.setTaskCompleted(success: success)
     }
 }
 #endif
