@@ -227,6 +227,25 @@ final class WMFDonationReminderDataControllerTests {
     }
 
     @Test
+    func reminderEndDateAndWrapUpEndDateCoverTheirFullLastDay() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironmentWithCoreData) {
+            let lastReminderDay = WMFDonationReminderDataController.reminderEndDate.addingTimeInterval(-43_200)
+            let lastWrapUpDay = WMFDonationReminderDataController.wrapUpEndDate.addingTimeInterval(-43_200)
+
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .groupB
+            #expect(controller.wrapUpCardToShow(currentDate: lastReminderDay) == nil)
+            #expect(controller.wrapUpCardToShow(currentDate: lastWrapUpDay) == .feedbackSurvey)
+
+            let progress = WMFDonationReminder.Progress(currentCycleStartDate: lastReminderDay.addingTimeInterval(-172_800), timesReminderShown: 1)
+            controller.saveReminder(WMFDonationReminder(trigger: .articlesRead(count: 5), amount: 1, currencyCode: "EUR", createdDate: lastReminderDay.addingTimeInterval(-864_000), isEnabled: true, progress: progress))
+            let showsOnLastReminderDay = try await controller.shouldShowFollowUpReminder(currentDate: lastReminderDay)
+            #expect(showsOnLastReminderDay)
+
+            WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = nil
+        }
+    }
+
+    @Test
     func wrapUpCardIsTheRecurringPromptForGroupCWithAnEnabledReminder() async {
         await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = .groupC

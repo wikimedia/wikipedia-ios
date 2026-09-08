@@ -100,12 +100,15 @@ public final class WMFDonationReminderDataController {
     public static let experimentPresetAmounts: [Decimal] = [1, 3, 5]
 
     // The reminders outlive the remote campaign end date. The experiment plan sets these fixed dates.
+    // Reminders run through November 9. Comparisons use an exclusive upper bound, so this is the day after.
     public static let reminderEndDate: Date = {
-        Calendar(identifier: .gregorian).date(from: DateComponents(year: 2026, month: 11, day: 9)) ?? .distantFuture
+        Calendar(identifier: .gregorian).date(from: DateComponents(year: 2026, month: 11, day: 10)) ?? .distantFuture
     }()
 
+    // The wrap-up window runs from November 10 through November 15. Comparisons use an exclusive
+    // upper bound, so this is the day after.
     public static let wrapUpEndDate: Date = {
-        Calendar(identifier: .gregorian).date(from: DateComponents(year: 2026, month: 11, day: 15)) ?? .distantFuture
+        Calendar(identifier: .gregorian).date(from: DateComponents(year: 2026, month: 11, day: 16)) ?? .distantFuture
     }()
 
     #if DEBUG
