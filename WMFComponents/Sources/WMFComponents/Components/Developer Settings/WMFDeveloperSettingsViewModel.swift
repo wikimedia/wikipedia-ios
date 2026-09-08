@@ -79,6 +79,25 @@ import WMFData
         }
     }
 
+    @Published public var overrideFundraisingCurrentDate: Bool = WMFDeveloperSettingsDataController.shared.fundraisingOverriddenCurrentDate != nil {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.fundraisingOverriddenCurrentDate = overrideFundraisingCurrentDate ? fundraisingCurrentDate : nil
+        }
+    }
+
+    @Published public var fundraisingCurrentDate: Date = WMFDeveloperSettingsDataController.shared.fundraisingOverriddenCurrentDate ?? WMFDonationReminderDataController.reminderEndDate {
+        didSet {
+            guard overrideFundraisingCurrentDate else { return }
+            WMFDeveloperSettingsDataController.shared.fundraisingOverriddenCurrentDate = fundraisingCurrentDate
+        }
+    }
+
+    var fundraisingOverrideDateRange: ClosedRange<Date> {
+        let lowerBound = WMFDonationReminderDataController.reminderEndDate.addingTimeInterval(-86_400)
+        let upperBound = WMFDonationReminderDataController.wrapUpEndDate.addingTimeInterval(86_400)
+        return lowerBound...upperBound
+    }
+
 
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
