@@ -59,6 +59,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var _settingsViewController: SettingsTabViewController?
     private var _exploreViewController: ExploreViewController?
     private var homeCoordinator: HomeCoordinator?
+
+    /// Held while the evergreen account creation prompt is on screen, since it owns its outcome reporting.
+    var evergreenAccountCreationCoordinator: EvergreenAccountCreationCoordinator?
     private var _searchTabViewController: SearchViewController?
     private var _savedViewController: SavedViewController?
     private var _placesViewController: PlacesViewController?
@@ -463,6 +466,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     // so these tasks are held until both items complete.
     @objc func performTasksThatShouldOccurAfterBecomeActiveAndResume() {
         SessionsFunnel.shared.appDidBecomeActive()
+        startEvergreenAccountCreationSession()
         checkRemoteAppConfigIfNecessary()
         updatePrimaryWikiHasTempAccountsStatusIfNecessary()
         periodicWorkerController?.start()
@@ -936,7 +940,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         // default can't set this flag directly — write it through the data controller instead.
         // The flag persists across launches, so apply the argument in both directions.
         if UserDefaults.standard.object(forKey: wmfEnableHomeTabForTesting) != nil {
-            WMFDeveloperSettingsDataController.shared.enableHomePhase2 = UserDefaults.standard.bool(forKey: wmfEnableHomeTabForTesting)
+                let enableHomeTab = UserDefaults.standard.bool(forKey: wmfEnableHomeTabForTesting)
+                WMFDeveloperSettingsDataController.shared.enableHomePhase2 = enableHomeTab
+                WMFHomeDataController.forceExperimentAssignment(enableHomeTab ? .groupB : .control)
         }
     }
 
@@ -954,8 +960,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private func resumeApp(_ completion: (() -> Void)?) {
         // Assign and apply the home tab experiment before onboarding decisions are made,
         // so that presentOnboardingIfNeeded and loadMainUI both see the correct flag.
-        _ = WMFHomeDataController.shared.persistedHomeTabAssignment()
-        
+        WMFHomeDataController.shared.assignExperiment()
+        WMFHomeDataController.shared.logExperimentExposure()
+
         presentOnboardingIfNeeded { didShowOnboarding in
             self.loadMainUI()
             let done: () -> Void = {
@@ -1199,7 +1206,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         DispatchQueue.main.async {
               self.present(onboardingVC, animated: true) {
-                  TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "impression", actionSource: "feed_announce")
+                  TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "impression", actionSource: "feed_announce", experimentData: WMFHomeDataController.shared.experimentData)
                   WMFHomeDataController.shared.setHasSeenOneTimeOnboarding(true)
               }
         }
@@ -1786,6 +1793,8 @@ extension WMFAppViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         wmf_hideKeyboard()
         logDidSelectViewController(viewController)
+        recordEvergreenAccountCreationAppOpenIfNeeded()
+        presentEvergreenAccountCreationPromptIfNeeded()
     }
 
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
@@ -2353,7 +2362,7 @@ extension WMFAppViewController: WMFOnboardingViewDelegate {
     func onboardingViewDidClickPrimaryButton() {
         
         let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").startFunnel(name: "feed_customize")
-        instrument.submitInteraction(action: "click", actionSource: "feed_announce", elementId: "customize_feed")
+        instrument.submitInteraction(action: "click", actionSource: "feed_announce", elementId: "customize_feed", experimentData: WMFHomeDataController.shared.experimentData)
         
         oneTimeOnboardingViewController?.dismiss(animated: true) { [weak self] in
             guard let self else { return }
@@ -2378,7 +2387,7 @@ extension WMFAppViewController: WMFOnboardingViewDelegate {
     }
 
     func onboardingViewDidClickSecondaryButton() {
-        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "feed_announce", elementId: "accept_default")
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "feed_announce", elementId: "accept_default", experimentData: WMFHomeDataController.shared.experimentData)
         
         WMFHomeDataController.shared.setSeeFirstContent(.community)
         if let homeViewModel = homeCoordinator?.homeViewController?.viewModel {

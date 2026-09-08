@@ -5,7 +5,7 @@
 	<key>activity-tab-amount-article-views</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -19,7 +19,7 @@
 	<key>activity-tab-impact-best-streak-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -33,7 +33,7 @@
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>이번 주에 %#@v1@ 편집했습니다.</string>
+		<string>이번 주에 %1$#@v1@ 편집했습니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -47,7 +47,7 @@
 	<key>activity-tab-you-read</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>이번 주에 %#@v1@를 읽었습니다.</string>
+		<string>이번 주에 %1$#@v1@를 읽었습니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -61,7 +61,7 @@
 	<key>activity-tab-you-saved</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>이번 주에 %#@v1@를 저장했습니다.</string>
+		<string>이번 주에 %1$#@v1@를 저장했습니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -75,7 +75,7 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@를 읽기 목록에 추가</string>
+		<string>%1$#@v1@를 읽기 목록에 추가</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -89,7 +89,7 @@
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@가 삭제됨</string>
+		<string>%1$#@v1@가 삭제됨</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -103,7 +103,7 @@
 	<key>close-all-tabs-confirmation-subtitle-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@를 모두 닫으시겠습니까? 이 작업은 되돌릴 수 없습니다.</string>
+		<string>%1$#@v1@를 모두 닫으시겠습니까? 이 작업은 되돌릴 수 없습니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -117,7 +117,7 @@
 	<key>close-all-tabs-confirmation-title-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@를 닫으시겠습니까?</string>
+		<string>%1$#@v1@를 닫으시겠습니까?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -131,7 +131,7 @@
 	<key>closed-all-tabs-confirmation-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@가 닫혔습니다.</string>
+		<string>%1$#@v1@가 닫혔습니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -145,7 +145,7 @@
 	<key>diff-change-paragraph-lines-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>문단이 %#@v1@ 아래로 이동되었습니다. 새 위치로 이동합니다.</string>
+		<string>문단이 %1$#@v1@ 아래로 이동되었습니다. 새 위치로 이동합니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -161,7 +161,7 @@
 	<key>diff-change-paragraph-lines-moved-up</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>문단이 %#@v1@ 위로 이동되었습니다. 새 위치로 이동합니다.</string>
+		<string>문단이 %1$#@v1@ 위로 이동되었습니다. 새 위치로 이동합니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -177,7 +177,7 @@
 	<key>diff-change-paragraph-sections-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>문단이 %#@v1@ 아래로 이동되었습니다. 새 위치로 이동합니다.</string>
+		<string>문단이 %1$#@v1@ 아래로 이동되었습니다. 새 위치로 이동합니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -193,7 +193,7 @@
 	<key>diff-change-paragraph-sections-moved-up</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>문단이 %#@v1@ 위로 이동되었습니다. 새 위치로 이동합니다.</string>
+		<string>문단이 %1$#@v1@ 위로 이동되었습니다. 새 위치로 이동합니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -209,7 +209,7 @@
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -223,7 +223,7 @@
 	<key>diff-paragraph-moved-distance-section</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -237,7 +237,7 @@
 	<key>diff-single-header-editor-number-edits-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -253,7 +253,7 @@
 	<key>diff-single-header-subtitle-bytes-added</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -267,7 +267,7 @@
 	<key>diff-single-header-subtitle-bytes-removed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -281,7 +281,7 @@
 	<key>diff-unedited-lines-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -295,7 +295,7 @@
 	<key>home-feed-interests-selected-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -309,7 +309,7 @@
 	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$@년에 자원봉사자들이 영어 위키백과에 %#@v2@를 추가했습니다. 그들의 공동 작업이 합쳐져 꾸준히 개선되고, 사실에 기반하며, 신뢰할 수 있는 지식 자원이 되어 전 세계에 제공됩니다. 우리 모두는 공유할 지식을 가지고 있습니다. [참여 방법에 대해 알아보세요](%3$@).</string>
+		<string>%1$@년에 자원봉사자들이 영어 위키백과에 %2$#@v2@를 추가했습니다. 그들의 공동 작업이 합쳐져 꾸준히 개선되고, 사실에 기반하며, 신뢰할 수 있는 지식 자원이 되어 전 세계에 제공됩니다. 우리 모두는 공유할 지식을 가지고 있습니다. [참여 방법에 대해 알아보세요](%3$@).</string>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -323,7 +323,7 @@
 	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ 추가되었습니다</string>
+		<string>%1$#@v1@ 추가되었습니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -337,7 +337,7 @@
 	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>자원봉사자들이 위키백과의 %#@v2@개 언어판에서 %#@v1@의 편집을 수행했습니다.  영어판 위키백과에서는 %#@v3@의 편집이 이루어졌습니다. 매일 매시간, 자원봉사자들이 위키백과를 더 나은 곳으로 만들기 위해 노력하고 있습니다.</string>
+		<string>자원봉사자들이 위키백과의 %2$#@v2@개 언어판에서 %1$#@v1@의 편집을 수행했습니다.  영어판 위키백과에서는 %3$#@v3@의 편집이 이루어졌습니다. 매일 매시간, 자원봉사자들이 위키백과를 더 나은 곳으로 만들기 위해 노력하고 있습니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -369,7 +369,7 @@
 	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>편집자들은 올해 %#@v1@ 편집을 수행했습니다</string>
+		<string>편집자들은 올해 %1$#@v1@ 편집을 수행했습니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -383,7 +383,7 @@
 	<key>microsite-yir-english-reading-slide-subtitle-short-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>사람들은 약 %#@v1@을—무려 %#@v2@이나!—%3$@년 동안에 영어 위키백과를 읽는 데 보낸 것으로 추산됩니다.</string>
+		<string>사람들은 약 %1$#@v1@을—무려 %2$#@v2@이나!—%3$@년 동안에 영어 위키백과를 읽는 데 보낸 것으로 추산됩니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -406,7 +406,7 @@
 	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>사람들은 약 %#@v1@을—무려 %#@v2@이나!—%3$@년 동안에 영어 위키백과를 읽는 데 보낸 것으로 추산됩니다. 위키백과는 변화하는 세상에 대해 배우고 싶을 때, 친구들과의 내기에서 이기고 싶을 때, 혹은 호기심 많은 아이의 질문에 답해 주고 싶을 때 당신 곁에 있습니다.</string>
+		<string>사람들은 약 %1$#@v1@을—무려 %2$#@v2@이나!—%3$@년 동안에 영어 위키백과를 읽는 데 보낸 것으로 추산됩니다. 위키백과는 변화하는 세상에 대해 배우고 싶을 때, 친구들과의 내기에서 이기고 싶을 때, 혹은 호기심 많은 아이의 질문에 답해 주고 싶을 때 당신 곁에 있습니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -429,7 +429,7 @@
 	<key>microsite-yir-english-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>읽기에 %#@v1@이 할애됐습니다</string>
+		<string>읽기에 %1$#@v1@이 할애됐습니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -443,7 +443,7 @@
 	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>활성 앱 사용자는 올해 %#@v1@를 저장했습니다. 읽기 목록에 기사를 추가하면 오프라인 상태에서도 기사에 접근할 수 있습니다. 또한 로그인하여 여러 기기에서 읽기 목록을 동기화할 수 있습니다.</string>
+		<string>활성 앱 사용자는 올해 %1$#@v1@를 저장했습니다. 읽기 목록에 기사를 추가하면 오프라인 상태에서도 기사에 접근할 수 있습니다. 또한 로그인하여 여러 기기에서 읽기 목록을 동기화할 수 있습니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -457,7 +457,7 @@
 	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>읽기 목록 %#@v1@가 존재합니다</string>
+		<string>읽기 목록 %1$#@v1@가 존재합니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -471,7 +471,7 @@
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@를 읽기 목록으로 이동</string>
+		<string>%1$#@v1@를 읽기 목록으로 이동</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -485,7 +485,7 @@
 	<key>nearby-distance-label-feet</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -499,7 +499,7 @@
 	<key>nearby-distance-label-meters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -513,7 +513,7 @@
 	<key>notifications-center-empty-state-num-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -527,7 +527,7 @@
 	<key>notifications-center-mark-all-as-read-confirmation-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>알림의 모든 %#@v1@를 읽은 것으로 표시하시겠습니까? 알림은 모든 장치에서 읽은 것으로 표시됩니다.</string>
+		<string>알림의 모든 %1$#@v1@를 읽은 것으로 표시하시겠습니까? 알림은 모든 장치에서 읽은 것으로 표시됩니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -541,7 +541,7 @@
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -557,7 +557,7 @@
 	<key>notifications-center-status-in-projects</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -573,7 +573,7 @@
 	<key>notifications-center-status-in-projects-plain</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -589,7 +589,7 @@
 	<key>notifications-center-status-in-types</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -605,7 +605,7 @@
 	<key>notifications-push-talk-body-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%2$@에 %#@v1@가 있습니다</string>
+		<string>%2$@에 %1$#@v1@가 있습니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -619,7 +619,7 @@
 	<key>notifications-push-talk-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -633,7 +633,7 @@
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -647,7 +647,7 @@
 	<key>on-this-day-footer-showing-event-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>오늘의 역사 %#@v1@</string>
+		<string>오늘의 역사 %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -663,7 +663,7 @@
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ 추가됨</string>
+		<string>%1$#@v1@ 추가됨</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -677,7 +677,7 @@
 	<key>page-history-revision-size-diff-subtraction</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ 제거됨</string>
+		<string>%1$#@v1@ 제거됨</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -691,7 +691,7 @@
 	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%2$@ 이후 %#@v1@</string>
+		<string>%2$@ 이후 %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -705,7 +705,7 @@
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -719,7 +719,7 @@
 	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>계정 당 %#@v1@ 제한에 도달했습니다.</string>
+		<string>계정 당 %1$#@v1@ 제한에 도달했습니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -733,7 +733,7 @@
 	<key>reading-list-list-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>계정 당 %#@v1@ 제한에 도달했습니다.</string>
+		<string>계정 당 %1$#@v1@ 제한에 도달했습니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -747,7 +747,7 @@
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -761,7 +761,7 @@
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>이 작업은 취소할 수 없습니다. %#@v1@에 저장된 문서들만 저장이 취소됩니다.</string>
+		<string>이 작업은 취소할 수 없습니다. %1$#@v1@에 저장된 문서들만 저장이 취소됩니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -775,7 +775,7 @@
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@을 삭제하시겠습니까?</string>
+		<string>%1$#@v1@을 삭제하시겠습니까?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -789,7 +789,7 @@
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -807,7 +807,7 @@
 	<key>relative-date-hours-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -825,7 +825,7 @@
 	<key>relative-date-hrs-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -843,7 +843,7 @@
 	<key>relative-date-min-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -861,7 +861,7 @@
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -879,7 +879,7 @@
 	<key>relative-date-months-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -897,7 +897,7 @@
 	<key>relative-date-years-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -915,7 +915,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ 저장을 취소하면 관련된 모든 읽기 목록의 선택 항목을 제거합니다</string>
+		<string>%1$#@v1@ 저장을 취소하면 관련된 모든 읽기 목록의 선택 항목을 제거합니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -929,7 +929,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@의 저장을 취소하시겠습니까?</string>
+		<string>%1$#@v1@의 저장을 취소하시겠습니까?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -943,7 +943,7 @@
 	<key>tabs-navbar-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -957,7 +957,7 @@
 	<key>talk-page-active-users-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -971,7 +971,7 @@
 	<key>talk-page-replies-count-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -985,7 +985,7 @@
 	<key>watchlist-byte-change</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>(%#@v1@)</string>
+		<string>(%1$#@v1@)</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -999,7 +999,7 @@
 	<key>watchlist-number-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>[%#@v1@](wikipedia://watchlist/filter)를 수정하여 더 많은 주시문서 항목 보기</string>
+		<string>[%1$#@v1@](wikipedia://watchlist/filter)를 수정하여 더 많은 주시문서 항목 보기</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1013,7 +1013,7 @@
 	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>iOS 앱의 편집자는 %#@v1@ 편집을 했습니다</string>
+		<string>iOS 앱의 편집자는 %1$#@v1@ 편집을 했습니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1027,7 +1027,7 @@
 	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>위키백과의 분당 편집 수는 %#@v1@입니다</string>
+		<string>위키백과의 분당 편집 수는 %1$#@v1@입니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1041,7 +1041,7 @@
 	<key>year-in-review-base-reading-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>위키백과에는 %#@v1@가 %#@v2@에 걸쳐 있습니다. 당신은 수백만 명의 다른 사용자들과 함께 지식을 넓히고 다양한 주제를 탐구했습니다.</string>
+		<string>위키백과에는 %1$#@v1@가 %2$#@v2@에 걸쳐 있습니다. 당신은 수백만 명의 다른 사용자들과 함께 지식을 넓히고 다양한 주제를 탐구했습니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1064,7 +1064,7 @@
 	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>위키백과는 %#@v1@로 제공되었습니다</string>
+		<string>위키백과는 %1$#@v1@로 제공되었습니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1078,7 +1078,7 @@
 	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>앱 사용자들은 %#@v1@를 저장했습니다</string>
+		<string>앱 사용자들은 %1$#@v1@를 저장했습니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1092,7 +1092,7 @@
 	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>앱 사용자들의 위키백과 문서 조회 수는 %#@v1@입니다</string>
+		<string>앱 사용자들의 위키백과 문서 조회 수는 %1$#@v1@입니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1106,7 +1106,7 @@
 	<key>year-in-review-highlights-edit-frequency-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>분 당 %#@v1@</string>
+		<string>분 당 %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1120,7 +1120,7 @@
 	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>전 세계 독자들이 여러분의 기여에 감사드립니다. 지난 2개월 동안 여러분이 편집한 문서는 총 %#@v1@를 기록했습니다. 여러분과 같은 편집자 덕분에 위키백과는 꾸준히 발전하고, 사실에 기반하며, 신뢰할 수 있는 세계적인 지식 자원으로 자리매김하고 있습니다.</string>
+		<string>전 세계 독자들이 여러분의 기여에 감사드립니다. 지난 2개월 동안 여러분이 편집한 문서는 총 %1$#@v1@를 기록했습니다. 여러분과 같은 편집자 덕분에 위키백과는 꾸준히 발전하고, 사실에 기반하며, 신뢰할 수 있는 세계적인 지식 자원으로 자리매김하고 있습니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1134,7 +1134,7 @@
 	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>최근에 당신의 편집 내용이 %#@v1@ 이상 조회되었습니다</string>
+		<string>최근에 당신의 편집 내용이 %1$#@v1@ 이상 조회되었습니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1148,7 +1148,7 @@
 	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>당신과 같은 자원봉사자들 덕분에 위키백과의 %#@v2@개 언어판에서 %#@v1@의 편집이 이루어졌습니다.</string>
+		<string>당신과 같은 자원봉사자들 덕분에 위키백과의 %2$#@v2@개 언어판에서 %1$#@v1@의 편집이 이루어졌습니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1171,7 +1171,7 @@
 	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>당신은 %#@v1@ 편집했습니다</string>
+		<string>당신은 %1$#@v1@ 편집했습니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1185,7 +1185,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>전 세계 위키백과 독자 중 상위 **PERCENT**에 해당한다고 추정됩니다. 일반적인 사람은 연간 %#@v1@를 읽습니다.</string>
+		<string>전 세계 위키백과 독자 중 상위 **PERCENT**에 해당한다고 추정됩니다. 일반적인 사람은 연간 %1$#@v1@를 읽습니다.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1199,7 +1199,7 @@
 	<key>year-in-review-personalized-reading-title-v3-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@을 들여 %#@v2@를 %3$@년 동안에 읽으셨습니다</string>
+		<string>%1$#@v1@을 들여 %2$#@v2@를 %3$@년 동안에 읽으셨습니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1224,7 +1224,7 @@
 		<key>NSStringLocalizedFormatKey</key>
 		<string>이 문서에는 %1$@, %2$@, 및 %3$@ 문서가 포함됩니다. 저장된 각 문서는 사용자의 관심사를 반영하며 위키백과에 개인화된 지식 기반을 구축하는 데 도움이 됩니다.
 
-활성 앱 사용자는 올해 %#@v4@했습니다.</string>
+활성 앱 사용자는 올해 %4$#@v4@했습니다.</string>
 		<key>v4</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1238,7 +1238,7 @@
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@를 저장했습니다</string>
+		<string>%1$#@v1@를 저장했습니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

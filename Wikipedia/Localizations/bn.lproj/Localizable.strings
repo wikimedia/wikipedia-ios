@@ -437,6 +437,34 @@
 "welcome-languages-search-title" = "৩০০টি অধিক ভাষায় অন্বেষণ করুন";
 "which-came-first-archive-nav-title" = "সংগ্রহশালা";
 "which-came-first-archive-title" = "কোনটি আগে এসেছে?";
+"wikimedia-articletopics-topic-architecture" = "স্থাপত্য";
+"wikimedia-articletopics-topic-art" = "শিল্প";
+"wikimedia-articletopics-topic-asia" = "এশিয়া";
+"wikimedia-articletopics-topic-biography" = "জীবনী (সকল)";
+"wikimedia-articletopics-topic-business-and-economics" = "ব্যবসা ও অর্থনীতি";
+"wikimedia-articletopics-topic-comics-and-anime" = "কমিক্স ও অ্যানিমে";
+"wikimedia-articletopics-topic-education" = "শিক্ষা";
+"wikimedia-articletopics-topic-engineering" = "প্রকৌশল";
+"wikimedia-articletopics-topic-entertainment" = "বিনোদন";
+"wikimedia-articletopics-topic-fashion" = "ফ্যাশন";
+"wikimedia-articletopics-topic-food-and-drink" = "খাদ্য ও পানীয়";
+"wikimedia-articletopics-topic-general-science" = "সাধারণ বিজ্ঞান";
+"wikimedia-articletopics-topic-history" = "ইতিহাস";
+"wikimedia-articletopics-topic-literature" = "সাহিত্য";
+"wikimedia-articletopics-topic-military-and-warfare" = "সামরিক ও যুদ্ধশাস্ত্র";
+"wikimedia-articletopics-topic-music" = "সঙ্গীত";
+"wikimedia-articletopics-topic-north-america" = "উত্তর আমেরিকা";
+"wikimedia-articletopics-topic-oceania" = "ওশেনিয়া";
+"wikimedia-articletopics-topic-performing-arts" = "পরিবেশন শিল্পকলা";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "দর্শন ও ধর্ম";
+"wikimedia-articletopics-topic-physics" = "পদার্থবিজ্ঞান";
+"wikimedia-articletopics-topic-politics-and-government" = "রাজনীতি ও সরকার";
+"wikimedia-articletopics-topic-society" = "সমাজ";
+"wikimedia-articletopics-topic-sports" = "ক্রীড়া";
+"wikimedia-articletopics-topic-technology" = "প্রযুক্তি";
+"wikimedia-articletopics-topic-tv-and-film" = "টিভি ও চলচ্চিত্র";
+"wikimedia-articletopics-topic-video-games" = "ভিডিও গেমস";
+"wikimedia-articletopics-topic-women" = "জীবনী (নারী)";
 "wikitext-preview-changes" = "আপনার পরিবর্তনগুলির প্রাকদর্শন উদ্ধার হচ্ছে...";
 "wikitext-preview-link-preview-title" = "লিঙ্ক প্রাকদর্শন";
 "wikitext-preview-save-changes-title" = "পরিবর্তন সংরক্ষণ";
@@ -462,121 +490,3 @@
 "year-in-review-feature-explore-body-personalized-updated" = "উইকিপিডিয়া অ্যাপে আপনি কোন নিবন্ধগুলি পড়েন এবং যে সম্পাদনাগুলি করেছেন সে সম্পর্কে অন্তর্দৃষ্টি দেখুন। আপনার যাত্রা ভাগ করে নিন এবং আবিষ্কার করুন যে এই বছর আপনার জন্য কী আলাদা ছিল। আপনার পড়ার ইতিহাস গোপন রাখা হয়েছে। আপনার ডিভাইসে স্থানীয়ভাবে সংরক্ষিত ডেটা ব্যবহার করে পঠন অন্তর্দৃষ্টি গণনা করা হয়।";
 "year-in-review-time-evening" = "সন্ধ্যা";
 "year-in-review-time-morning" = "সকাল";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "স্থাপত্য";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "শিল্প";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "কমিক্স ও অ্যানিমে";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "বিনোদন";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "ফ্যাশন";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "সাহিত্য";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "সঙ্গীত";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "পরিবেশন শিল্পকলা";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "ক্রীড়া";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "টিভি ও চলচ্চিত্র";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "ভিডিও গেমস";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "জীবনী (সকল)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "জীবনী (নারী)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "ব্যবসা ও অর্থনীতি";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "শিক্ষা";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "খাদ্য ও পানীয়";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "ইতিহাস";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "সামরিক ও যুদ্ধশাস্ত্র";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "দর্শন ও ধর্ম";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "রাজনীতি ও সরকার";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "সমাজ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "যোগাযোগ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "জীববিজ্ঞান";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "রসায়ন";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "কম্পিউটার ও ইন্টারনেট";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "পৃথিবী ও পরিবেশ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "প্রকৌশল";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "সাধারণ বিজ্ঞান";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "গণিত";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "ওষুধ ও স্বাস্থ্য";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "পদার্থবিজ্ঞান";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "প্রযুক্তি";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "আফ্রিকা";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "এশিয়া";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "মধ্য আমেরিকা";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "ইউরোপ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "উত্তর আমেরিকা";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "ওশেনিয়া";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "দক্ষিণ আমেরিকা";

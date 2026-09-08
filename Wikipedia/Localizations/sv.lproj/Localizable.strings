@@ -262,45 +262,6 @@
 "article-tabs-open-new-tab" = "Öppna i ny flik";
 "article-talk-page" = "Artikelns diskussionssida";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontroller för lästeman";
-"article-topic-africa" = "Afrika";
-"article-topic-architecture" = "Arkitektur";
-"article-topic-art" = "Konst";
-"article-topic-asia" = "Asien";
-"article-topic-biography" = "Biografi (allting)";
-"article-topic-biology" = "Biologi";
-"article-topic-business-and-economics" = "Näringsliv och ekonomi";
-"article-topic-central-america" = "Centralamerika";
-"article-topic-chemistry" = "Kemi";
-"article-topic-comics-and-anime" = "Serier och anime";
-"article-topic-computers-and-internet" = "Datorer och internet";
-"article-topic-earth-and-environment" = "Jorden och miljön";
-"article-topic-education" = "Utbildning";
-"article-topic-engineering" = "Ingenjörskonst";
-"article-topic-entertainment" = "Underhållning";
-"article-topic-europe" = "Europa";
-"article-topic-fashion" = "Mode";
-"article-topic-food-and-drink" = "Mat och dryck";
-"article-topic-general-science" = "Vetenskap";
-"article-topic-history" = "Historia";
-"article-topic-literature" = "Litteratur";
-"article-topic-mathematics" = "Matematik";
-"article-topic-medicine-and-health" = "Medicin och hälsa";
-"article-topic-military-and-warfare" = "Militär och krigföring";
-"article-topic-music" = "Musik";
-"article-topic-north-america" = "Nordamerika";
-"article-topic-oceania" = "Oceanien";
-"article-topic-performing-arts" = "Scenkonst";
-"article-topic-philosophy-and-religion" = "Filosofi och religion";
-"article-topic-physics" = "Fysik";
-"article-topic-politics-and-government" = "Politik och styre";
-"article-topic-society" = "Samhälle";
-"article-topic-south-america" = "Sydamerika";
-"article-topic-sports" = "Sport";
-"article-topic-technology" = "Teknologi";
-"article-topic-transportation" = "Transport";
-"article-topic-tv-and-film" = "TV och film";
-"article-topic-video-games" = "Datorspel";
-"article-topic-women" = "Biografi (kvinnor)";
 "article-view-controller-editing-temp-account-created-subtitle" = "Det tillfälliga kontot $1 skapades efter att din redigering publicerades. Det kommer upphöra om 90 dagar.";
 "article-view-controller-editing-temp-account-created-title" = "Tillfälligt konto skapat";
 "back-button-accessibility-label" = "Tillbaka";
@@ -757,9 +718,6 @@
 "history-title" = "Historik";
 "home-button-explore-accessibility-label" = "Wikipedia, tillbaka till Utforska";
 "home-button-saved-accessibility-label" = "Wikipedia, tillbaka till Sparade";
-"home-community-empty-feed-button-title" = "Anpassa flödet";
-"home-community-empty-feed-message" = "Aktivera kort i flödesinställningarna för att se gemenskapsflödet.";
-"home-community-empty-feed-title" = "Alla kort från gemenskapsflödet är dolda";
 "home-community-tab-title" = "Gemenskap";
 "home-edit-languages-title" = "Lägg till eller redigera språk";
 "home-feed-for-you-based-on-interests-subtitle" = "Artiklar anpassade till de ämnen du har valt.";
@@ -1666,6 +1624,45 @@
 "widget-onthisday-description" = "Utforska vad som hände på denna dag i historien.";
 "widget-onthisday-placeholder-article-snippet" = "Fri encyklopedi på nätet som alla kan redigera";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, en fri encyklopedi med wikiinnehåll, på nätet.";
+"wikimedia-articletopics-topic-africa" = "Afrika";
+"wikimedia-articletopics-topic-architecture" = "Arkitektur";
+"wikimedia-articletopics-topic-art" = "Konst";
+"wikimedia-articletopics-topic-asia" = "Asien";
+"wikimedia-articletopics-topic-biography" = "Biografi (alla)";
+"wikimedia-articletopics-topic-biology" = "Biologi";
+"wikimedia-articletopics-topic-business-and-economics" = "Näringsliv och ekonomi";
+"wikimedia-articletopics-topic-central-america" = "Centralamerika";
+"wikimedia-articletopics-topic-chemistry" = "Kemi";
+"wikimedia-articletopics-topic-comics-and-anime" = "Serier och anime";
+"wikimedia-articletopics-topic-computers-and-internet" = "Datorer och internet";
+"wikimedia-articletopics-topic-earth-and-environment" = "Jorden och miljö";
+"wikimedia-articletopics-topic-education" = "Utbildning";
+"wikimedia-articletopics-topic-engineering" = "Ingenjörskonst";
+"wikimedia-articletopics-topic-entertainment" = "Underhållning";
+"wikimedia-articletopics-topic-europe" = "Europa";
+"wikimedia-articletopics-topic-fashion" = "Mode";
+"wikimedia-articletopics-topic-food-and-drink" = "Mat och dryck";
+"wikimedia-articletopics-topic-general-science" = "Allmän vetenskap";
+"wikimedia-articletopics-topic-history" = "Historia";
+"wikimedia-articletopics-topic-literature" = "Litteratur";
+"wikimedia-articletopics-topic-mathematics" = "Matematik";
+"wikimedia-articletopics-topic-medicine-and-health" = "Medicin och hälsa";
+"wikimedia-articletopics-topic-military-and-warfare" = "Militär och krig";
+"wikimedia-articletopics-topic-music" = "Musik";
+"wikimedia-articletopics-topic-north-america" = "Nordamerika";
+"wikimedia-articletopics-topic-oceania" = "Oceanien";
+"wikimedia-articletopics-topic-performing-arts" = "Utövande konst";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofi och religion";
+"wikimedia-articletopics-topic-physics" = "Fysik";
+"wikimedia-articletopics-topic-politics-and-government" = "Politik";
+"wikimedia-articletopics-topic-society" = "Samhälle";
+"wikimedia-articletopics-topic-south-america" = "Sydamerika";
+"wikimedia-articletopics-topic-sports" = "Sport";
+"wikimedia-articletopics-topic-technology" = "Teknologi";
+"wikimedia-articletopics-topic-transportation" = "Transport";
+"wikimedia-articletopics-topic-tv-and-film" = "TV och film";
+"wikimedia-articletopics-topic-video-games" = "Videospel";
+"wikimedia-articletopics-topic-women" = "Biografi (kvinnor)";
 "wikitext-preview-changes" = "Hämtar förhandsgranskning av dina ändringar...";
 "wikitext-preview-link-external-preview-description" = "Denna länk leder till en extern webbplats: $1";
 "wikitext-preview-link-external-preview-title" = "Extern länk";
@@ -1791,121 +1788,3 @@
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Foundations logotyp";
 "yesterday-title" = "I går";
 "zero-edits-to-articles" = "0 artikelredigeringar på sistone";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Arkitektur";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Konst";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Serier och anime";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Underhållning";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Mode";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Litteratur";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Musik";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Utövande konst";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Sport";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "TV och film";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Videospel";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Biografi (alla)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Biografi (kvinnor)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Näringsliv och ekonomi";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Utbildning";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Mat och dryck";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Historia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Militär och krig";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofi och religion";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Politik";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Samhälle";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Transport";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Biologi";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Kemi";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Datorer och internet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Jorden och miljö";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Ingenjörskonst";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Allmän vetenskap";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Matematik";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Medicin och hälsa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Fysik";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Teknologi";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Afrika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Asien";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Centralamerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Europa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Nordamerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Oceanien";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Sydamerika";

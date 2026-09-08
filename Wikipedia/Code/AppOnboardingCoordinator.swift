@@ -45,26 +45,26 @@ final class AppOnboardingCoordinator: NSObject {
             project: project,
             searchLanguages: preferredWMFLanguages(),
             logDidTapTopic: { [weak self] in
-                self?.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "topic_select")
+                self?.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "topic_select", experimentData: WMFHomeDataController.shared.experimentData)
             },
             logDidTapArticle: { [weak self] in
-                self?.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "article_select")
+                self?.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "article_select", experimentData: WMFHomeDataController.shared.experimentData)
             },
             logDidTapDeselectAll: { [weak self] in
-                self?.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "deselect_all")
+                self?.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "deselect_all", experimentData: WMFHomeDataController.shared.experimentData)
             }
         )
         let feedPreferenceViewModel = WMFAppOnboardingFeedPreferenceViewModel(
             project: project,
             logImpression: { [weak self] noInterests in
                 let actionSubtype: String? = noInterests ? "no_interests" : nil
-                self?.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_order_customize", actionSubtype: actionSubtype)
+                self?.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_order_customize", actionSubtype: actionSubtype, experimentData: WMFHomeDataController.shared.experimentData)
             },
             logDidTapCommunity: { [weak self] in
-                self?.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", elementId: "community_first")
+                self?.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", elementId: "community_first", experimentData: WMFHomeDataController.shared.experimentData)
             },
             logDidTapPersonalized: { [weak self] in
-                self?.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", elementId: "for_you_first")
+                self?.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", elementId: "for_you_first", experimentData: WMFHomeDataController.shared.experimentData)
             }
         )
         
@@ -76,15 +76,15 @@ final class AppOnboardingCoordinator: NSObject {
                 self?.presentWebView(urlString: CommonStrings.aboutWikipediaURLString)
             },
             didTapPrivacyPolicy: { [weak self] in
-                self?.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_privacy", elementId: "privacy_policy")
+                self?.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_privacy", elementId: "privacy_policy", experimentData: WMFHomeDataController.shared.experimentData)
                 self?.presentWebView(urlString: CommonStrings.privacyPolicyURLString)
             },
             didTapTermsOfUse: { [weak self] in
-                self?.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_privacy", elementId: "terms_of_use")
+                self?.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_privacy", elementId: "terms_of_use", experimentData: WMFHomeDataController.shared.experimentData)
                 self?.presentWebView(urlString: CommonStrings.termsOfUseURLString)
             },
             didTapAddLanguages: { [weak self] in
-                self?.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_language", elementId: "add_language_button")
+                self?.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_language", elementId: "add_language_button", experimentData: WMFHomeDataController.shared.experimentData)
                 self?.presentPreferredLanguages()
             },
             onCompletion: { [weak self] in
@@ -96,21 +96,21 @@ final class AppOnboardingCoordinator: NSObject {
                 switch step {
                 case .personalizationIntro:
                     self.homeFeedInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed")
-                    self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_entry")
+                    self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_entry", experimentData: WMFHomeDataController.shared.experimentData)
                 case .interests:
-                    self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_customize")
+                    self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_customize", experimentData: WMFHomeDataController.shared.experimentData)
                 case .feedPreference:
                     // handling it in child view model so that we can capture "no interests" subtype. The "no interests" data is not available from this hook, the child view model has to load the data first.
                     break
                 case .loading:
-                    self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_loading")
+                    self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_loading", experimentData: WMFHomeDataController.shared.experimentData)
                 case .intro:
                     self.onboardingInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-onboarding")
-                    self.onboardingInstrument?.submitInteraction(action: "impression", actionSource: "onboarding_welcome")
+                    self.onboardingInstrument?.submitInteraction(action: "impression", actionSource: "onboarding_welcome", experimentData: WMFHomeDataController.shared.experimentData)
                 case .dataPrivacy:
-                    self.onboardingInstrument?.submitInteraction(action: "impression", actionSource: "onboarding_privacy")
+                    self.onboardingInstrument?.submitInteraction(action: "impression", actionSource: "onboarding_privacy", experimentData: WMFHomeDataController.shared.experimentData)
                 case .languages:
-                    self.onboardingInstrument?.submitInteraction(action: "impression", actionSource: "onboarding_language")
+                    self.onboardingInstrument?.submitInteraction(action: "impression", actionSource: "onboarding_language", experimentData: WMFHomeDataController.shared.experimentData)
                 }
             },
             logSkip: { [weak self] step in
@@ -118,12 +118,12 @@ final class AppOnboardingCoordinator: NSObject {
                 guard let self else { return }
                 switch step {
                 case .personalizationIntro:
-                    self.homeFeedInstrument?.startFunnel(name: "feed_customize").submitInteraction(action: "click", actionSource: "feed_entry", elementId: "skip_button")
+                    self.homeFeedInstrument?.startFunnel(name: "feed_customize").submitInteraction(action: "click", actionSource: "feed_entry", elementId: "skip_button", experimentData: WMFHomeDataController.shared.experimentData)
                 case .interests:
-                    self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "skip_button")
+                    self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "skip_button", experimentData: WMFHomeDataController.shared.experimentData)
                 case .feedPreference:
                     let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
-                    self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "skip_button")
+                    self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "skip_button", experimentData: WMFHomeDataController.shared.experimentData)
                 case .loading:
                     assertionFailure("Loading view does not have a skip button")
                 case .intro:
@@ -141,21 +141,21 @@ final class AppOnboardingCoordinator: NSObject {
                 guard let self else { return }
                 switch step {
                 case .personalizationIntro:
-                    self.homeFeedInstrument?.startFunnel(name: "feed_customize").submitInteraction(action: "click", actionSource: "feed_entry", elementId: "next_button")
+                    self.homeFeedInstrument?.startFunnel(name: "feed_customize").submitInteraction(action: "click", actionSource: "feed_entry", elementId: "next_button", experimentData: WMFHomeDataController.shared.experimentData)
                 case .interests:
-                    self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "next_button")
+                    self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "next_button", experimentData: WMFHomeDataController.shared.experimentData)
                 case .feedPreference:
                     let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
-                    self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "next_button")
+                    self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "next_button", experimentData: WMFHomeDataController.shared.experimentData)
                 case .loading:
                     assertionFailure("Loading view does not have a skip button")
                 case .intro:
                     self.onboardingInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-onboarding")
-                    self.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_welcome", elementId: "next_button")
+                    self.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_welcome", elementId: "next_button", experimentData: WMFHomeDataController.shared.experimentData)
                 case .dataPrivacy:
-                    self.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_privacy", elementId: "next_button")
+                    self.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_privacy", elementId: "next_button", experimentData: WMFHomeDataController.shared.experimentData)
                 case .languages:
-                    self.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_language", elementId: "next_button")
+                    self.onboardingInstrument?.submitInteraction(action: "click", actionSource: "onboarding_language", elementId: "next_button", experimentData: WMFHomeDataController.shared.experimentData)
                 }
             }
         )
@@ -181,26 +181,26 @@ final class AppOnboardingCoordinator: NSObject {
             project: project,
             searchLanguages: preferredWMFLanguages(),
             logDidTapTopic: {
-                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "topic_select")
+                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "topic_select", experimentData: WMFHomeDataController.shared.experimentData)
             },
             logDidTapArticle: {
-                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "article_select")
+                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "article_select", experimentData: WMFHomeDataController.shared.experimentData)
             },
             logDidTapDeselectAll: {
-                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "deselect_all")
+                instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "deselect_all", experimentData: WMFHomeDataController.shared.experimentData)
             }
         )
         let feedPreferenceViewModel = WMFAppOnboardingFeedPreferenceViewModel(
             project: project,
             logImpression: { noInterests in
                 let actionSubtype: String? = noInterests ? "no_interests" : nil
-                instrument.submitInteraction(action: "impression", actionSource: "feed_order_customize", actionSubtype: actionSubtype)
+                instrument.submitInteraction(action: "impression", actionSource: "feed_order_customize", actionSubtype: actionSubtype, experimentData: WMFHomeDataController.shared.experimentData)
             },
             logDidTapCommunity: {
-                instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", elementId: "community_first")
+                instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", elementId: "community_first", experimentData: WMFHomeDataController.shared.experimentData)
             },
             logDidTapPersonalized: {
-                instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", elementId: "for_you_first")
+                instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", elementId: "for_you_first", experimentData: WMFHomeDataController.shared.experimentData)
             }
         )
 
@@ -228,12 +228,12 @@ final class AppOnboardingCoordinator: NSObject {
                 case .personalizationIntro:
                     assertionFailure("Condensed flow should not see personalization intro.")
                 case .interests:
-                    instrument.submitInteraction(action: "impression", actionSource: "feed_customize")
+                    instrument.submitInteraction(action: "impression", actionSource: "feed_customize", experimentData: WMFHomeDataController.shared.experimentData)
                 case .feedPreference:
                     // handling it in child view model so that we can capture "no interests" subtype.  The "no interests" data is not available from this hook, the child view model has to load the data first.
                     break
                 case .loading:
-                    instrument.submitInteraction(action: "impression", actionSource: "feed_loading")
+                    instrument.submitInteraction(action: "impression", actionSource: "feed_loading", experimentData: WMFHomeDataController.shared.experimentData)
                     break
                 case .intro, .languages, .dataPrivacy:
                     assertionFailure("Condensed flow should not see intro, languages, or data privacy.")
@@ -244,10 +244,10 @@ final class AppOnboardingCoordinator: NSObject {
                 case .personalizationIntro:
                     assertionFailure("Condensed flow should not see personalization intro.")
                 case .interests:
-                    instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "skip_button")
+                    instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "skip_button", experimentData: WMFHomeDataController.shared.experimentData)
                 case .feedPreference:
                     let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
-                    instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "skip_button")
+                    instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "skip_button", experimentData: WMFHomeDataController.shared.experimentData)
                 case .loading:
                     assertionFailure("Loading view does not have a skip button")
                 case .intro, .languages, .dataPrivacy:
@@ -260,10 +260,10 @@ final class AppOnboardingCoordinator: NSObject {
                  case .personalizationIntro:
                      assertionFailure("Condensed flow should not see personalization intro.")
                  case .interests:
-                     instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "next_button")
+                     instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "next_button", experimentData: WMFHomeDataController.shared.experimentData)
                  case .feedPreference:
                      let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
-                     instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "next_button")
+                     instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "next_button", experimentData: WMFHomeDataController.shared.experimentData)
                  case .loading:
                      assertionFailure("Loading view does not have a next button")
                  case .intro, .languages, .dataPrivacy:

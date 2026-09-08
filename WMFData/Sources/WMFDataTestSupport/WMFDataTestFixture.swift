@@ -9,9 +9,17 @@ public final class WMFDataTestFixture {
     public init() {}
 
     deinit {
-        resetSynchronousWMFDataTestState()
-        restoreEnvironmentForTesting()
-        resetSynchronousWMFDataTestState()
+        // The safety net for a test that died before its tearDown. It must only run for a
+        // fixture that configured the environment: a reset here runs without the global lease,
+        // and a fixture used only for temporary stores would reset the shared singletons in
+        // the middle of another suite's leased test.
+        if restoreEnvironment != nil {
+            resetSynchronousWMFDataTestState()
+            restoreEnvironmentForTesting()
+            resetSynchronousWMFDataTestState()
+        } else {
+            removeTemporaryDirectories()
+        }
     }
 
     public func setUp() async {
@@ -67,12 +75,20 @@ public final class WMFDataTestFixture {
         }
     }
 
+    /// One lock for every fixture in the process. The singletons' reset functions reassign
+    /// plain stored properties, and two concurrent resets release the same old value twice -
+    /// a crash in swift_release. XCTest suites call the fixture outside the global lease, so
+    /// the lease alone does not serialize the resets.
+    private static let resetLock = NSLock()
+
     private func resetSynchronousWMFDataTestState() {
-        WMFDonateDataController.shared.reset()
-        WMFFundraisingCampaignDataController.shared.reset()
-        WMFArticleTabsDataController.shared.reset()
-        WMFDeveloperSettingsDataController.shared.reset()
-        WMFTempAccountDataController.shared.reset()
+        Self.resetLock.withLock {
+            WMFDonateDataController.shared.reset()
+            WMFFundraisingCampaignDataController.shared.reset()
+            WMFArticleTabsDataController.shared.reset()
+            WMFDeveloperSettingsDataController.shared.reset()
+            WMFTempAccountDataController.shared.reset()
+        }
     }
 
     public func makeTemporaryCoreDataStore() async throws -> WMFCoreDataStore {

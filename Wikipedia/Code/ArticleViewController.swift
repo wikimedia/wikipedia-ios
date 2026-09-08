@@ -172,12 +172,20 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     // Coordinator used to navigate a user to the donate form from campaign modal
     var donateCoordinator: DonateCoordinator?
 
+    // Coordinator used to navigate a user to the donation reminder setup screen from campaign modal
+    var donationReminderSetupCoordinator: DonationReminderSetupCoordinator?
+
+    var isShowingDonateFlowFromDonationReminderCard = false
+
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
     var topSafeAreaOverlayView: UIView?
 
     private var tocStackViewTopConstraint: NSLayoutConstraint?
 
     internal var articleViewSource: ArticleSource
+
+    /// Held while the evergreen account creation prompt is on screen, since it owns its outcome reporting.
+    var evergreenAccountCreationCoordinator: EvergreenAccountCreationCoordinator?
 
     // Properties related to tracking number of seconds this article is viewed.
     var pageViewObjectID: NSManagedObjectID?
@@ -479,6 +487,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     var isFirstAppearance = true
     var needsTabsIconImpressonOnCancel = false
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -487,6 +496,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
         
         presentModalsIfNeeded()
+        removeDonationReminderCardIfNeeded()
         trackArticleDidAppear()
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
@@ -547,7 +557,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         Task { [weak self] in
             guard let self else { return }
-            guard await gamesDataController.shouldShowGamesAnnouncement(date: todayDateString) else { return }
+            guard await gamesDataController.shouldShowGamesAnnouncement(date: todayDateString) else {
+                // Nothing else wanted the screen, so the lowest priority prompt gets its turn.
+                self.presentEvergreenAccountCreationPromptIfNeeded()
+                return
+            }
             // Safety net: bail if something unexpected appeared (e.g. background login/2FA).
             guard self.presentedViewController == nil else { return }
             self.presentGamesAnnouncementAlert(gamesDataController: gamesDataController)
@@ -658,6 +672,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
 
         self.tabBarController?.setTabBarHidden(false, animated: true)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        removeDonationReminderCardAfterNavigationAway()
     }
 
     // MARK: Article load
@@ -1264,6 +1283,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     // MARK: Overrideable functionality
 
     internal func handleLink(with href: String) {
+        guard !handleDonationReminderLinkIfNeeded(href: href) else { return }
 
         guard let resolvedURL = articleURL.resolvingRelativeWikiHref(href) else {
             showGenericError()

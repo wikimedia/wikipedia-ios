@@ -8,6 +8,7 @@ struct WMFPriceTextField: View {
         let doneTitle: String
         let textfieldAccessibilityHint: String
         let doneAccessibilityHint: String
+        var cornerRadius: CGFloat = 8
     }
     
     let configuration: Configuration
@@ -26,9 +27,9 @@ struct WMFPriceTextField: View {
             .foregroundColor(Color(appEnvironment.theme.text))
             .padding(5)
             .background(
-                RoundedRectangle(cornerRadius: 8)
+                RoundedRectangle(cornerRadius: configuration.cornerRadius)
                     .strokeBorder(Color(appEnvironment.theme.baseBackground), lineWidth: 1)
-                    .background(RoundedRectangle(cornerRadius: 8).fill(Color(appEnvironment.theme.midBackground)))
+                    .background(RoundedRectangle(cornerRadius: configuration.cornerRadius).fill(Color(appEnvironment.theme.midBackground)))
                 )
             .lineLimit(1)
             .multilineTextAlignment(.center)

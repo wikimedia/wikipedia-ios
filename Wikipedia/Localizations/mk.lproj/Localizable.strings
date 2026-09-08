@@ -241,49 +241,11 @@
 "article-tabs-open-new-tab" = "Отвори во ново јазиче";
 "article-talk-page" = "Разговрна страница на статијата";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Контроли за изгледите за читање";
-"article-topic-africa" = "Африка";
-"article-topic-architecture" = "Архитектура";
-"article-topic-art" = "Уметност";
-"article-topic-asia" = "Азија";
-"article-topic-biography" = "Биографија (сите)";
-"article-topic-biology" = "Биологија";
-"article-topic-business-and-economics" = "Деловност и економија";
-"article-topic-central-america" = "Средна Америка";
-"article-topic-chemistry" = "Хемија";
-"article-topic-comics-and-anime" = "Стрипови и аниме";
-"article-topic-computers-and-internet" = "Сметачи и семрежје";
-"article-topic-earth-and-environment" = "Земја и животна средина";
-"article-topic-education" = "Образование";
-"article-topic-engineering" = "Инженерство";
-"article-topic-entertainment" = "Разонода";
-"article-topic-europe" = "Европа";
-"article-topic-fashion" = "Мода";
-"article-topic-food-and-drink" = "Храна и пијалаци";
-"article-topic-general-science" = "Општа наука";
-"article-topic-history" = "Историја";
-"article-topic-literature" = "Книжевност";
-"article-topic-mathematics" = "Математика";
-"article-topic-medicine-and-health" = "Медицина и здравје";
-"article-topic-military-and-warfare" = "Војска и војување";
-"article-topic-music" = "Музика";
-"article-topic-north-america" = "Северна Америка";
-"article-topic-oceania" = "Океанија";
-"article-topic-performing-arts" = "Сценски уметности";
-"article-topic-philosophy-and-religion" = "Филозофија и религија";
-"article-topic-physics" = "Физика";
-"article-topic-politics-and-government" = "Политика и управување";
-"article-topic-society" = "Општество";
-"article-topic-south-america" = "Јужна Америка";
-"article-topic-sports" = "Спорт";
-"article-topic-technology" = "Технологија";
-"article-topic-transportation" = "Превоз и сообраќај";
-"article-topic-tv-and-film" = "Телевизија и филмови";
-"article-topic-video-games" = "Видеоигри";
-"article-topic-women" = "Биографија (жени)";
 "article-view-controller-editing-temp-account-created-subtitle" = "Привремената сметка $1 беше создадена откако го објавивте вашето прво уредување. Истекува за 90 дена.";
 "article-view-controller-editing-temp-account-created-title" = "Создадена привремена сметка";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Допрете за да се вратите";
+"beta-badge-label" = "Бета";
 "button-go-back" = "Назад";
 "button-next" = "Следно";
 "button-ok" = "ОК";
@@ -459,6 +421,31 @@
 "donate-transaction-fee-opt-in-text" = "Великодушно ќе додадам $1 за да ја покријам трансакциската провизија за да задржите 100%% од мојот дар.";
 "donate-wikimedia-fine-print-1" = "Ние не ги продаваме или разменуваме вашите информации со никого. Давајќи го овој прилог, вие се согласувате со споделувањето на личните информациии со Фондацијата Викимедија, непрофитната организација која раководи со Википедија и другите Викимедиини проекти, и нејзините услужители согласно [правилата за дарители]($1). Фондацијата Викимедија и нејзините услужители се сместени во САД и други земји, чии закони за лични податоци може да не се истоветни со нашите.  Повеќе за ова ќе прочитате на страницата за [правила за дарители]($1).";
 "donate-wikimedia-fine-print-2" = "Кај дарителите со редовна уплата, Фондацијата Викимедија ќе го одбива истиот износ секој месец, на денот на првата уплата, сè додека не нè известите да престанеме. Уплатите започнати на 29, 30 или 31 во месецот ќе се повторуваат на последниот ден од месецот кај пократките месеци, што поблиску до првичниот датум. Доколку имате некакви прашања, обратете се на donate@wikimedia.org.";
+"donation-reminder-card-body" = "На $1 ни рековте да ве потсетиме да дарувате по {{PLURAL:$2|прочитана $2 статија|прочитани $2 статии}}. Ако Википедија ви овозможи $3 знаење, придружете им се на 2%% од читателите кои даруваат и исполнете го вашето ветување денес.";
+"donation-reminder-card-donate" = "Да, ќе дарувам деенс";
+"donation-reminder-card-heading" = "Прочитавте {{PLURAL:$1|$1 статија|$1 стаии}} откако ветивте $2!";
+"donation-reminder-card-not-now" = "Не сега";
+"donation-reminder-card-not-now-toast-modify" = "Измени";
+"donation-reminder-card-not-now-toast-settings" = "Потсетниците за дарување може да се менуваат во Нагодувањата во било кое време.";
+"donation-reminder-card-subsequent-heading" = "Прочитавте уште {{PLURAL:$1|$1 статија|$1 статии}}!";
+"donation-reminder-email-report-body" = "Наидов на проблем со потсетниците за дарување:";
+"donation-reminder-email-report-subject" = "Пријава на грешка — Потсетници за дарување";
+"donation-reminder-payment-different-amount-button-title" = "Дарувајте друг износ со Apple Pay";
+"donation-reminder-payment-pledge-button-title" = "Дарувајте $1 со Apple Pay";
+"donation-reminder-setup-amount-accessibility-hint" = "Допрете двапати за да изберете износ за дарување";
+"donation-reminder-setup-amount-group-title" = "Потсети ме да дарувам";
+"donation-reminder-setup-confirm-button-title" = "Потврди го потсетникот";
+"donation-reminder-setup-custom-amount-accessibility-hint" = "Внесете износ на прилагоден дар";
+"donation-reminder-setup-info" = "Дарувања за Фондацијата Викимедија и нејзините подружници, горди вдомувачи на Википедија и нејзините братски проекти.";
+"donation-reminder-setup-subtitle-articles" = "Вашата великодушност му помага на напредокот на Википедија. Поставете потсетник за дарување според бројот на статии што ќе ги прочитате.";
+"donation-reminder-setup-title" = "Како да ве потсетиме?";
+"donation-reminder-setup-toast-articles" = "Ќе ве потсетиме да дарувате $1 откако ќе прочитате $2 статии додека е во тек овој експеримент.";
+"donation-reminder-setup-toggle-title" = "Потсетници за дарување";
+"donation-reminder-setup-trigger-detail-accessibility-label" = "Повеќе информации";
+"donation-reminder-setup-trigger-group-detail-articles" = "Бројот на статии се складира месно на вашиот уред.";
+"donation-reminder-setup-trigger-group-title-articles" = "Секогаш кога читам";
+"donation-reminder-setup-trigger-unit-articles" = "Статии";
+"donation-reminder-setup-update-button-title" = "Поднови потсетник";
 "duplicate-tab" = "Дуплирај јазиче";
 "edit-link-display-text-title" = "Прикажи текст";
 "edit-link-link-target-title" = "Цел на врската";
@@ -721,8 +708,7 @@
 "find-replace-header" = "Најди и замени";
 "find-replace-header-close-accessibility" = "Затвори најди и замени";
 "find-textfield-accessibility" = "Најди";
-"for-you-empty-button" = "Изберете ги вашите интереси";
-"for-you-empty-subtitle" = "Додајте интереси за да добивате персонализирани препораки за статии.";
+"for-you-empty-subtitle-interests-or-modules" = "Додајте интереси или вклучете модули за да дибивате лични прилагодени препораки";
 "for-you-empty-title" = "Тука сè уште нема ништо";
 "for-you-error-retry" = "Обиди се пак";
 "for-you-error-subtitle" = "Поврзете се со семрежјето и обидете се пак.";
@@ -756,12 +742,11 @@
 "home-button-home-accessibility-label" = "Википедија, назад на Почетна";
 "home-button-saved-accessibility-label" = "Википедија, назад на Зачувано";
 "home-card-more-options-accessibility-label" = "Повеќе можности";
-"home-community-empty-feed-button-title" = "Прилагоди го тековникот";
-"home-community-empty-feed-message" = "Вклучете картички во нагодувањата на тековници за да го гледате тековникот „Заедница“.";
-"home-community-empty-feed-title" = "Сите картички од тековникот „Заедница“ се криени";
+"home-community-empty-feed-turn-on-modules-message" = "Вклучете модули за да гледате содржина од заедницата";
 "home-community-see-past-content" = "Минати содржини од заедницата";
 "home-community-tab-title" = "Заедница";
 "home-edit-languages-title" = "Додај или измени јазици";
+"home-empty-go-to-settings-button" = "Оди во нагодувањата";
 "home-feed-for-you-based-on-interests-subtitle" = "Статии прилагодени на теми по ваш избор.";
 "home-feed-for-you-based-on-interests-title" = "Според вашите интереси";
 "home-feed-for-you-because-you-read-subtitle" = "Предлози според скорешна статија од вашата историја";
@@ -804,6 +789,9 @@
 "home-feed-whats-driving-settings-title" = "Што го движи вашиот тековник";
 "home-feed-whats-driving-your-interests-subtitle" = "Уредете ваши теми од интерес";
 "home-feed-whats-driving-your-interests-title" = "Ваши интереси";
+"home-for-you-card-position-accessibility-value" = "$1 од $2";
+"home-for-you-next-module-accessibility-action" = "Следен модул";
+"home-for-you-previous-module-accessibility-action" = "Претходен модул";
 "home-for-you-tab-title" = "За вас";
 "home-menu-hide-module" = "Скриј модул";
 "home-more-like-footer" = "Уште статии како $1";
@@ -1351,8 +1339,12 @@
 "settings-clear-cache-are-you-sure-title" = "Да ги исчистам меѓускладираните податоци?";
 "settings-clear-cache-cancel" = "Откажи";
 "settings-clear-cache-ok" = "Исчисти";
+"settings-clear-donation-history" = "Исчисти историја на дарување";
 "settings-community-feed-title" = "Заедница";
 "settings-donate" = "Дарувајте";
+"settings-donation-reminders-subtitle" = "Википедија ќе ве потсети да дарувате $1 на секои $2 статии што ќе ги прочитате.";
+"settings-donation-reminders-title" = "Потсетници за дарување";
+"settings-donations-header" = "Дарувања";
 "settings-editing-preferences-source-short" = "Изворно";
 "settings-editing-preferences-title" = "Нагодувања за уредување";
 "settings-editing-preferences-visual-short" = "Нагледно";
@@ -1690,6 +1682,45 @@
 "widget-onthisday-description" = "Истражете што се случило на денешниот ден во историјата.";
 "widget-onthisday-placeholder-article-snippet" = "Слободна енциклопедија која секој може да ја уредува";
 "widget-onthisday-placeholder-event-snippet" = "Пуштена Википедија — слободна енциклопедија на викисодржини.";
+"wikimedia-articletopics-topic-africa" = "Африка";
+"wikimedia-articletopics-topic-architecture" = "Архитектура";
+"wikimedia-articletopics-topic-art" = "Уметност";
+"wikimedia-articletopics-topic-asia" = "Азија";
+"wikimedia-articletopics-topic-biography" = "Биографија (сите)";
+"wikimedia-articletopics-topic-biology" = "Биологија";
+"wikimedia-articletopics-topic-business-and-economics" = "Деловност и економија";
+"wikimedia-articletopics-topic-central-america" = "Средна Америка";
+"wikimedia-articletopics-topic-chemistry" = "Хемија";
+"wikimedia-articletopics-topic-comics-and-anime" = "Стрипови и аниме";
+"wikimedia-articletopics-topic-computers-and-internet" = "Сметачи и семрежје";
+"wikimedia-articletopics-topic-earth-and-environment" = "Земја и животна средина";
+"wikimedia-articletopics-topic-education" = "Образование";
+"wikimedia-articletopics-topic-engineering" = "Инженерство";
+"wikimedia-articletopics-topic-entertainment" = "Разонода";
+"wikimedia-articletopics-topic-europe" = "Европа";
+"wikimedia-articletopics-topic-fashion" = "Мода";
+"wikimedia-articletopics-topic-food-and-drink" = "Храна и пијалаци";
+"wikimedia-articletopics-topic-general-science" = "Општа наука";
+"wikimedia-articletopics-topic-history" = "Историја";
+"wikimedia-articletopics-topic-literature" = "Книжевност";
+"wikimedia-articletopics-topic-mathematics" = "Математика";
+"wikimedia-articletopics-topic-medicine-and-health" = "Медицина и здравје";
+"wikimedia-articletopics-topic-military-and-warfare" = "Војска и војување";
+"wikimedia-articletopics-topic-music" = "Музика";
+"wikimedia-articletopics-topic-north-america" = "Северна Америка";
+"wikimedia-articletopics-topic-oceania" = "Океанија";
+"wikimedia-articletopics-topic-performing-arts" = "Сценски уметности";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Филозофија и религија";
+"wikimedia-articletopics-topic-physics" = "Физика";
+"wikimedia-articletopics-topic-politics-and-government" = "Политика и управување";
+"wikimedia-articletopics-topic-society" = "Општество";
+"wikimedia-articletopics-topic-south-america" = "Јужна Америка";
+"wikimedia-articletopics-topic-sports" = "Спорт";
+"wikimedia-articletopics-topic-technology" = "Технологија";
+"wikimedia-articletopics-topic-transportation" = "Превоз и сообраќај";
+"wikimedia-articletopics-topic-tv-and-film" = "Телевизија и филмови";
+"wikimedia-articletopics-topic-video-games" = "Видеоигри";
+"wikimedia-articletopics-topic-women" = "Биографија (жени)";
 "wikitext-preview-changes" = "Испишувам преглед на промените што ги направивте...";
 "wikitext-preview-link-external-preview-description" = "Оваа врска води до надворешно мрежно место: $1";
 "wikitext-preview-link-external-preview-title" = "Надворешна врска";
@@ -1815,121 +1846,3 @@
 "year-in-review-wmf-logo-accessibility-label" = "Лого на Фондацијата Викимедија";
 "yesterday-title" = "Вчера";
 "zero-edits-to-articles" = "0 уредувања на статии во последно време";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Архитектура";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Уметност";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Стрипови и аниме";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Разонода";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Мода";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Книжевност";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Музика";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Сценски уметности";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Спорт";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "Телевизија и филмови";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Видеоигри";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Биографија (сите)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Биографија (жени)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Деловност и економија";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Образование";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Храна и пијалаци";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Историја";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Војска и војување";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Филозофија и религија";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Политика и управување";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Општество";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Превоз и сообраќај";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Биологија";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Хемија";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Сметачи и семрежје";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Земја и животна средина";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Инженерство";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Општа наука";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Математика";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Медицина и здравје";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Физика";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Технологија";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Африка";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Азија";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Средна Америка";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Европа";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Северна Америка";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Океанија";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Јужна Америка";

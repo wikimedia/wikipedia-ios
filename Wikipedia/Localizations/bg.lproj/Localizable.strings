@@ -584,6 +584,45 @@
 "widget-onthisday-description" = "Прегледайте какво се е случило на този ден в историята.";
 "widget-onthisday-placeholder-article-snippet" = "Безплатна онлайн енциклопедия, която всеки може да редактира";
 "widget-onthisday-placeholder-event-snippet" = "Уикипедия, безплатната енциклопедия с уики съдържание, става онлайн.";
+"wikimedia-articletopics-topic-africa" = "Африка";
+"wikimedia-articletopics-topic-architecture" = "Архитектура";
+"wikimedia-articletopics-topic-art" = "Изкуство";
+"wikimedia-articletopics-topic-asia" = "Азия";
+"wikimedia-articletopics-topic-biography" = "Биография (всички)";
+"wikimedia-articletopics-topic-biology" = "Биология";
+"wikimedia-articletopics-topic-business-and-economics" = "Бизнес и икономика";
+"wikimedia-articletopics-topic-central-america" = "Централна Америка";
+"wikimedia-articletopics-topic-chemistry" = "Химия";
+"wikimedia-articletopics-topic-comics-and-anime" = "Комикси и анимета";
+"wikimedia-articletopics-topic-computers-and-internet" = "Компютри и интернет";
+"wikimedia-articletopics-topic-earth-and-environment" = "Земя и околна среда";
+"wikimedia-articletopics-topic-education" = "Образование";
+"wikimedia-articletopics-topic-engineering" = "Инженерство";
+"wikimedia-articletopics-topic-entertainment" = "Забавление";
+"wikimedia-articletopics-topic-europe" = "Европа";
+"wikimedia-articletopics-topic-fashion" = "Мода";
+"wikimedia-articletopics-topic-food-and-drink" = "Храна и напитки";
+"wikimedia-articletopics-topic-general-science" = "Обща наука";
+"wikimedia-articletopics-topic-history" = "История";
+"wikimedia-articletopics-topic-literature" = "Литература";
+"wikimedia-articletopics-topic-mathematics" = "Математика";
+"wikimedia-articletopics-topic-medicine-and-health" = "Медицина и здраве";
+"wikimedia-articletopics-topic-military-and-warfare" = "Въоръжени сили и военно дело";
+"wikimedia-articletopics-topic-music" = "Музика";
+"wikimedia-articletopics-topic-north-america" = "Северна Америка";
+"wikimedia-articletopics-topic-oceania" = "Океания";
+"wikimedia-articletopics-topic-performing-arts" = "Сценични изкуства";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Философия и религия";
+"wikimedia-articletopics-topic-physics" = "Физика";
+"wikimedia-articletopics-topic-politics-and-government" = "Политика и правителства";
+"wikimedia-articletopics-topic-society" = "Общество";
+"wikimedia-articletopics-topic-south-america" = "Южна Америка";
+"wikimedia-articletopics-topic-sports" = "Спорт";
+"wikimedia-articletopics-topic-technology" = "Технологии";
+"wikimedia-articletopics-topic-transportation" = "Транспорт";
+"wikimedia-articletopics-topic-tv-and-film" = "Телевизия и филми";
+"wikimedia-articletopics-topic-video-games" = "Видеоигри";
+"wikimedia-articletopics-topic-women" = "Биография (жени)";
 "wikitext-preview-link-external-preview-title" = "Външна препратка";
 "wikitext-preview-link-not-found-preview-title" = "Няма намерена вътрешна препратка";
 "wikitext-preview-link-preview-title" = "Преглед на препратката";
@@ -592,121 +631,3 @@
 "wikitext-upload-save" = "Публикуване...";
 "wikitext-upload-save-terms-name" = "Условия за ползване";
 "wmf-localizations-tests-nonexistent-key" = "резервен вариант";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Архитектура";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Изкуство";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Комикси и анимета";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Забавление";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Мода";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Литература";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Музика";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Сценични изкуства";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Спорт";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "Телевизия и филми";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Видеоигри";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Биография (всички)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Биография (жени)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Бизнес и икономика";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Образование";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Храна и напитки";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "История";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Въоръжени сили и военно дело";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Философия и религия";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Политика и правителства";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Общество";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Транспорт";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Биология";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Химия";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Компютри и интернет";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Земя и околна среда";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Инженерство";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Обща наука";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Математика";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Медицина и здраве";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Физика";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Технологии";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Африка";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Азия";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Централна Америка";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Европа";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Северна Америка";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Океания";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Южна Америка";

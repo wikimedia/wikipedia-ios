@@ -5,7 +5,7 @@
 	<key>activity-tab-amount-article-views</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -21,7 +21,7 @@
 	<key>activity-tab-impact-best-streak-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -37,7 +37,7 @@
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Rinne tú eagarthóireacht %#@v1@ an tseachtain seo.</string>
+		<string>Rinne tú eagarthóireacht %1$#@v1@ an tseachtain seo.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -53,7 +53,7 @@
 	<key>activity-tab-you-read</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Léigh tú %#@v1@ an tseachtain seo.</string>
+		<string>Léigh tú %1$#@v1@ an tseachtain seo.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -69,7 +69,7 @@
 	<key>activity-tab-you-saved</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Shábháil tú %#@v1@ an tseachtain seo.</string>
+		<string>Shábháil tú %1$#@v1@ an tseachtain seo.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -85,7 +85,7 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Cuir %#@v1@ leis an liosta léitheoireachta</string>
+		<string>Cuir %1$#@v1@ leis an liosta léitheoireachta</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -101,7 +101,7 @@
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Scriosadh %1$d %#@v1@</string>
+		<string>Scriosadh %1$d %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -117,7 +117,7 @@
 	<key>close-all-tabs-confirmation-subtitle-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ar mhaith leat %#@v1@ a dhúnadh? Ní féidir an gníomh seo a chealú.</string>
+		<string>Ar mhaith leat %1$#@v1@ a dhúnadh? Ní féidir an gníomh seo a chealú.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -133,7 +133,7 @@
 	<key>close-all-tabs-confirmation-title-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dún %#@v1@?</string>
+		<string>Dún %1$#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -149,7 +149,7 @@
 	<key>closed-all-tabs-confirmation-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dúnadh %#@v1@.</string>
+		<string>Dúnadh %1$#@v1@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -165,7 +165,7 @@
 	<key>diff-change-paragraph-lines-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Bogadh an mhír síos %#@v1@. Téigh go dtí an suíomh nua.</string>
+		<string>Bogadh an mhír síos %1$#@v1@. Téigh go dtí an suíomh nua.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -183,7 +183,7 @@
 	<key>diff-change-paragraph-lines-moved-up</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Bogadh an mhír suas %#@v1@. Téigh go dtí an suíomh nua.</string>
+		<string>Bogadh an mhír suas %1$#@v1@. Téigh go dtí an suíomh nua.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -201,7 +201,7 @@
 	<key>diff-change-paragraph-sections-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Bogadh an mhír síos %#@v1@. Téigh go dtí an suíomh nua.</string>
+		<string>Bogadh an mhír síos %1$#@v1@. Téigh go dtí an suíomh nua.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -219,7 +219,7 @@
 	<key>diff-change-paragraph-sections-moved-up</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Bogadh an mhír suas %#@v1@. Téigh go dtí an suíomh nua.</string>
+		<string>Bogadh an mhír suas %1$#@v1@. Téigh go dtí an suíomh nua.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -237,7 +237,7 @@
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -253,7 +253,7 @@
 	<key>diff-paragraph-moved-distance-section</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -269,7 +269,7 @@
 	<key>diff-single-header-editor-number-edits-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -285,7 +285,7 @@
 	<key>diff-single-header-subtitle-bytes-added</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -301,7 +301,7 @@
 	<key>diff-single-header-subtitle-bytes-removed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -317,7 +317,7 @@
 	<key>diff-unedited-lines-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -333,7 +333,7 @@
 	<key>home-feed-interests-selected-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -347,7 +347,7 @@
 	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>I %1$@, chuir oibrithe deonacha %#@v2@ leis an Vicipéid Bhéarla. Mar thoradh ar a gcuid oibre go léir le chéile, tá acmhainn eolais iontaofa, atá bunaithe ar fhíricí agus atá ag feabhsú i gcónaí agus a thugann siad don domhan. Tá eolas againn go léir le roinnt, [foghlaim conas páirt a ghlacadh](%3$@).</string>
+		<string>I %1$@, chuir oibrithe deonacha %2$#@v2@ leis an Vicipéid Bhéarla. Mar thoradh ar a gcuid oibre go léir le chéile, tá acmhainn eolais iontaofa, atá bunaithe ar fhíricí agus atá ag feabhsú i gcónaí agus a thugann siad don domhan. Tá eolas againn go léir le roinnt, [foghlaim conas páirt a ghlacadh](%3$@).</string>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -363,7 +363,7 @@
 	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ curtha leis</string>
+		<string>%1$#@v1@ curtha leis</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -379,7 +379,7 @@
 	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Rinne oibrithe deonacha %#@v1@ ar níos mó ná %#@v2@ de Vicipéid. Rinneadh %#@v3@ ar Vicipéid an Bhéarla. Gach uair an chloig den lá, bíonn oibrithe deonacha ag obair chun Vicipéid a fheabhsú.</string>
+		<string>Rinne oibrithe deonacha %1$#@v1@ ar níos mó ná %2$#@v2@ de Vicipéid. Rinneadh %3$#@v3@ ar Vicipéid an Bhéarla. Gach uair an chloig den lá, bíonn oibrithe deonacha ag obair chun Vicipéid a fheabhsú.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -417,7 +417,7 @@
 	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Rinne eagarthóirí %#@v1@ i mbliana</string>
+		<string>Rinne eagarthóirí %1$#@v1@ i mbliana</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -433,7 +433,7 @@
 	<key>microsite-yir-english-reading-slide-subtitle-short-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Meastar gur chaith daoine thart ar %#@v1@—thart ar %#@v2@!—ag léamh Vicipéid Bhéarla i %3$@.</string>
+		<string>Meastar gur chaith daoine thart ar %1$#@v1@—thart ar %2$#@v2@!—ag léamh Vicipéid Bhéarla i %3$@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -458,7 +458,7 @@
 	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Meastar gur chaith daoine thart ar %#@v1@—thart ar %#@v2@!—ag léamh Vicipéid Bhéarla i %3$@. Tá Vicipéid ann nuair is mian leat foghlaim faoinár ndomhan atá ag athrú, geall a bhuachan i measc cairde, nó ceist linbh fiosraigh a fhreagairt.</string>
+		<string>Meastar gur chaith daoine thart ar %1$#@v1@—thart ar %2$#@v2@!—ag léamh Vicipéid Bhéarla i %3$@. Tá Vicipéid ann nuair is mian leat foghlaim faoinár ndomhan atá ag athrú, geall a bhuachan i measc cairde, nó ceist linbh fiosraigh a fhreagairt.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -483,7 +483,7 @@
 	<key>microsite-yir-english-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Chaith muid %#@v1@ ag léamh</string>
+		<string>Chaith muid %1$#@v1@ ag léamh</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -497,7 +497,7 @@
 	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Bhí %#@v1@ ag úsáideoirí gníomhacha an aip i mbliana. Trí ailt a chur le liostaí léitheoireachta is féidir leat rochtain a fháil ar ailt fiú agus tú as líne. Is féidir leat logáil isteach freisin chun liostaí léitheoireachta a shioncronú trasna gléasanna.</string>
+		<string>Bhí %1$#@v1@ ag úsáideoirí gníomhacha an aip i mbliana. Trí ailt a chur le liostaí léitheoireachta is féidir leat rochtain a fháil ar ailt fiú agus tú as líne. Is féidir leat logáil isteach freisin chun liostaí léitheoireachta a shioncronú trasna gléasanna.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -513,7 +513,7 @@
 	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Bhí %#@v1@ againn</string>
+		<string>Bhí %1$#@v1@ againn</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -529,7 +529,7 @@
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Bog %#@v1@ go dtí an liosta léitheoireachta</string>
+		<string>Bog %1$#@v1@ go dtí an liosta léitheoireachta</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -545,7 +545,7 @@
 	<key>nearby-distance-label-feet</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -561,7 +561,7 @@
 	<key>nearby-distance-label-meters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -575,7 +575,7 @@
 	<key>notifications-center-empty-state-num-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -591,7 +591,7 @@
 	<key>notifications-center-mark-all-as-read-confirmation-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>An bhfuil tú cinnte gur mian leat gach %#@v1@ de do fhógraí a mharcáil mar léite? Marcálfar do fhógraí mar léite ar do ghléasanna go léir.</string>
+		<string>An bhfuil tú cinnte gur mian leat gach %1$#@v1@ de do fhógraí a mharcáil mar léite? Marcálfar do fhógraí mar léite ar do ghléasanna go léir.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -607,7 +607,7 @@
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -623,7 +623,7 @@
 	<key>notifications-center-status-in-projects</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -639,7 +639,7 @@
 	<key>notifications-center-status-in-projects-plain</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -655,7 +655,7 @@
 	<key>notifications-center-status-in-types</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -671,7 +671,7 @@
 	<key>notifications-push-talk-body-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ ar %2$@</string>
+		<string>%1$#@v1@ ar %2$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -687,7 +687,7 @@
 	<key>notifications-push-talk-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -703,7 +703,7 @@
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -719,7 +719,7 @@
 	<key>on-this-day-footer-showing-event-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ ar an lá seo</string>
+		<string>%1$#@v1@ ar an lá seo</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -735,7 +735,7 @@
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Cuireadh %#@v1@ leis</string>
+		<string>Cuireadh %1$#@v1@ leis</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -751,7 +751,7 @@
 	<key>page-history-revision-size-diff-subtraction</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Baineadh %#@v1@</string>
+		<string>Baineadh %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -767,7 +767,7 @@
 	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ ó %2$@</string>
+		<string>%1$#@v1@ ó %2$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -783,7 +783,7 @@
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -799,7 +799,7 @@
 	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tá an teorainn %#@v1@ in aghaidh an chuntais sáraithe agat.</string>
+		<string>Tá an teorainn %1$#@v1@ in aghaidh an chuntais sáraithe agat.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -815,7 +815,7 @@
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ní féidir %#@v1@ a chur leis an liosta seo. Tá an teorainn de %2$d alt in aghaidh an liosta léitheoireachta sroichte agat le haghaidh %3$@</string>
+		<string>Ní féidir %1$#@v1@ a chur leis an liosta seo. Tá an teorainn de %2$d alt in aghaidh an liosta léitheoireachta sroichte agat le haghaidh %3$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -831,7 +831,7 @@
 	<key>reading-list-list-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tá an teorainn de %#@v1@ in aghaidh an chuntais sáraithe agat.</string>
+		<string>Tá an teorainn de %1$#@v1@ in aghaidh an chuntais sáraithe agat.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -847,7 +847,7 @@
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -863,7 +863,7 @@
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ní féidir an gníomh seo a chealú. Ní shábhálfar aon ailt atá sábháilte chuig %#@v1@ amháin.</string>
+		<string>Ní féidir an gníomh seo a chealú. Ní shábhálfar aon ailt atá sábháilte chuig %1$#@v1@ amháin.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -879,7 +879,7 @@
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Scrios %#@v1@?</string>
+		<string>Scrios %1$#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -895,7 +895,7 @@
 	<key>reading-lists-large-sync-completed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ agus %#@v2@ sioncrónaithe ó do chuntas</string>
+		<string>%1$#@v1@ agus %2$#@v2@ sioncrónaithe ó do chuntas</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -922,7 +922,7 @@
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -940,7 +940,7 @@
 	<key>relative-date-hours-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -958,7 +958,7 @@
 	<key>relative-date-hrs-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -974,7 +974,7 @@
 	<key>relative-date-min-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -992,7 +992,7 @@
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1010,7 +1010,7 @@
 	<key>relative-date-months-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1028,7 +1028,7 @@
 	<key>relative-date-years-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1046,7 +1046,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Bainfear %#@v1@ na liostaí léitheoireachta gaolmhara go léir mura shábhálfar iad.</string>
+		<string>Bainfear %1$#@v1@ na liostaí léitheoireachta gaolmhara go léir mura shábhálfar iad.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1062,7 +1062,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Díshábháil %#@v1@?</string>
+		<string>Díshábháil %1$#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1078,7 +1078,7 @@
 	<key>tabs-navbar-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1094,7 +1094,7 @@
 	<key>talk-page-active-users-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1110,7 +1110,7 @@
 	<key>talk-page-replies-count-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1126,7 +1126,7 @@
 	<key>watchlist-byte-change</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1142,7 +1142,7 @@
 	<key>watchlist-number-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Athraigh [%#@v1@](wikipedia://watchlist/filter) chun níos mó míreanna ar an Liosta Faire a fheiceáil</string>
+		<string>Athraigh [%1$#@v1@](wikipedia://watchlist/filter) chun níos mó míreanna ar an Liosta Faire a fheiceáil</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1158,7 +1158,7 @@
 	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Rinne eagarthóirí ar aipeanna oifigiúla Vicipéid %#@v1@</string>
+		<string>Rinne eagarthóirí ar aipeanna oifigiúla Vicipéid %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1174,7 +1174,7 @@
 	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Rinneadh eagarthóireacht ar Vicipéid %#@v1@ in aghaidh an nóiméid</string>
+		<string>Rinneadh eagarthóireacht ar Vicipéid %1$#@v1@ in aghaidh an nóiméid</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1188,7 +1188,7 @@
 	<key>year-in-review-base-reading-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Bhí %#@v1@ ar Vicipéid i níos mó ná %#@v2@. Chuaigh tú i gcomhar leis na milliúin chun eolas a leathnú agus ábhair éagsúla a iniúchadh.</string>
+		<string>Bhí %1$#@v1@ ar Vicipéid i níos mó ná %2$#@v2@. Chuaigh tú i gcomhar leis na milliúin chun eolas a leathnú agus ábhair éagsúla a iniúchadh.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1215,7 +1215,7 @@
 	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Bhí Vicipéid ar fáil i níos mó ná %#@v1@</string>
+		<string>Bhí Vicipéid ar fáil i níos mó ná %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1231,7 +1231,7 @@
 	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Bhí %#@v1@ ag úsáideoirí aipeanna</string>
+		<string>Bhí %1$#@v1@ ag úsáideoirí aipeanna</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1247,7 +1247,7 @@
 	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>D’fhéach úsáideoirí aipeanna ar ailt Vicipéid %#@v1@</string>
+		<string>D’fhéach úsáideoirí aipeanna ar ailt Vicipéid %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1261,7 +1261,7 @@
 	<key>year-in-review-highlights-edit-frequency-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ in aghaidh an nóiméid</string>
+		<string>%1$#@v1@ in aghaidh an nóiméid</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1275,7 +1275,7 @@
 	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Is mór ag léitheoirí ar fud an domhain do chuid ranníocaíochtaí. Le dhá mhí anuas, fuair ailt a ndearna tú eagarthóireacht orthu %#@v1@. A bhuíochas le heagarthóirí cosúil leatsa, is acmhainn eolais atá ag feabhsú i gcónaí, atá bunaithe ar fhíricí agus iontaofa don domhan í Vicipéid.</string>
+		<string>Is mór ag léitheoirí ar fud an domhain do chuid ranníocaíochtaí. Le dhá mhí anuas, fuair ailt a ndearna tú eagarthóireacht orthu %1$#@v1@. A bhuíochas le heagarthóirí cosúil leatsa, is acmhainn eolais atá ag feabhsú i gcónaí, atá bunaithe ar fhíricí agus iontaofa don domhan í Vicipéid.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1291,7 +1291,7 @@
 	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Breathnaíodh ar do chuid eagarthóireachtaí níos mó ná %#@v1@ le déanaí</string>
+		<string>Breathnaíodh ar do chuid eagarthóireachtaí níos mó ná %1$#@v1@ le déanaí</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1305,7 +1305,7 @@
 	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Rinne oibrithe deonacha cosúil leatsa %#@v1@ ar fud %#@v2@ de Vicipéid.</string>
+		<string>Rinne oibrithe deonacha cosúil leatsa %1$#@v1@ ar fud %2$#@v2@ de Vicipéid.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1332,7 +1332,7 @@
 	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Rinne tú eagarthóireacht ar %#@v1@</string>
+		<string>Rinne tú eagarthóireacht ar %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1346,7 +1346,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Measaimid go gcuireann sé sin tú i measc an **CHÉATÁNTAIGH** is fearr de léitheoirí Vicipéid ar fud an domhain. Léann an gnáthdhuine %#@v1@ in aghaidh na bliana.</string>
+		<string>Measaimid go gcuireann sé sin tú i measc an **CHÉATÁNTAIGH** is fearr de léitheoirí Vicipéid ar fud an domhain. Léann an gnáthdhuine %1$#@v1@ in aghaidh na bliana.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1362,7 +1362,7 @@
 	<key>year-in-review-personalized-reading-title-v3-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Chaith tú %#@v1@ ag léamh %#@v2@ i %3$@</string>
+		<string>Chaith tú %1$#@v1@ ag léamh %2$#@v2@ i %3$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1391,7 +1391,7 @@
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Bhí %1$@, %2$@, agus %3$@ sna hairteagail seo. Léiríonn gach alt sábháilte do leasanna agus cabhraíonn sé le bunachar eolais pearsantaithe a thógáil ar Vicipéid.
 
-Bhí %#@v4@ ag úsáideoirí gníomhacha an aip i mbliana.</string>
+Bhí %4$#@v4@ ag úsáideoirí gníomhacha an aip i mbliana.</string>
 		<key>v4</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1407,7 +1407,7 @@ Bhí %#@v4@ ag úsáideoirí gníomhacha an aip i mbliana.</string>
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Shábháil tú %#@v1@</string>
+		<string>Shábháil tú %1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

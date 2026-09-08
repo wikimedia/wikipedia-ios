@@ -84,6 +84,7 @@ public final class WMFForYouViewModel: ObservableObject {
     public var onUnsaveCard: ((WMFForYouArticleCardViewModel) -> Void)?
     public var onUserInteraction: (() -> Void)?
     public var onEmptyViewAppearance: (() -> Void)?
+    public let endOfFeedViewModel = WMFForYouEndOfFeedCardViewModel()
 
     /// Called with a card that the user really sees on the screen.
     public var onShowCard: ((WMFForYouArticleCardViewModel) -> Void)?
@@ -96,20 +97,37 @@ public final class WMFForYouViewModel: ObservableObject {
 
     func rememberViewedModule(_ moduleID: UUID?) {
         lastViewedModuleID = moduleID
+        preloader.preloadModule(after: moduleID, in: preloadablePages, hiddenCardKeys: hiddenCardKeys)
     }
 
     func rememberViewedCard(_ cardKey: String?) {
         lastViewedCardKey = cardKey
     }
 
+    private let preloader: WMFForYouModulePreloader
+
+    private var preloadablePages: [WMFForYouPageViewModel] {
+        pages.filter { page in
+            guard moduleVisibility.isVisible(page.module) else { return false }
+            return page.articleViewModels.contains { !hiddenCardKeys.contains($0.cardUniqueKey) }
+        }
+    }
+
+    /// The preloader starts network requests when the feed is built, so tests must give a mocked
+    /// `summaryDataController`.
     public init(
         response: WMFForYouResponse,
         moduleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(basedOnInterests: true, becauseYouRead: true, continueReading: true),
-        hiddenCardKeys: Set<String> = []
+        hiddenCardKeys: Set<String> = [],
+        summaryDataController: WMFArticleSummaryDataControlling & Sendable = WMFArticleSummaryDataController.shared
     ) {
         self.moduleVisibility = moduleVisibility
         self.hiddenCardKeys = hiddenCardKeys
+        self.preloader = WMFForYouModulePreloader(summaryDataController: summaryDataController)
         self.pages = Self.makePages(from: response)
+
+        preloader.preloadInitialModules(in: preloadablePages, hiddenCardKeys: hiddenCardKeys)
+        endOfFeedViewModel.variant = pages.isEmpty ? .emptyFeed : .endOfFeed
     }
 
     // MARK: - Building the feed
@@ -348,7 +366,7 @@ public final class WMFForYouArticleCardViewModel: ObservableObject, Identifiable
     /// Thumbnail URLs carry their width as a path component - `.../640px-Example.jpg` - so the size
     /// is changed by swapping that number. Returns nil when the URL has no such component, which
     /// means it is already the original file and cannot be scaled up.
-    private static func upsizedThumbnailURL(from thumbnailURL: URL) -> URL? {
+    static func upsizedThumbnailURL(from thumbnailURL: URL) -> URL? {
         var urlString = thumbnailURL.absoluteString
         guard let range = urlString.range(of: #"/\d+px-"#, options: .regularExpression) else {
             return nil

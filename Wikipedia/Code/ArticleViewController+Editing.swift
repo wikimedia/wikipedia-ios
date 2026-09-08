@@ -103,6 +103,10 @@ extension ArticleViewController {
         if let sectionID {
             queryItems.append(URLQueryItem(name: "section", value: String(sectionID)))
         }
+        if let appInstallId: String = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue), !appInstallId.isEmpty {
+            queryItems.append(URLQueryItem(name: "appinstallid", value: appInstallId))
+        }
+        
         components?.queryItems = queryItems
         navigate(to: components?.url, useSafari: true)
     }

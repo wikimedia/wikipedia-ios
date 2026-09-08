@@ -1068,6 +1068,45 @@
 "widget-onthisday-description" = "تاريخ ۾ اڄوڪي ڏينھن تي ڇا ٿيو اھو کوجيو.";
 "widget-onthisday-placeholder-article-snippet" = "کليل آنلائين انسائيڪلوپيڊيا جنھن کي ھر ڪوئي سنواري سگهي ٿو";
 "widget-onthisday-placeholder-event-snippet" = "وڪيپيڊيا، ھڪ کليل وڪي مواد وارو انسائيڪلوپيڊيا، آنلائين وڃي ٿو.";
+"wikimedia-articletopics-topic-africa" = "آفريڪا";
+"wikimedia-articletopics-topic-architecture" = "اڏاوتون";
+"wikimedia-articletopics-topic-art" = "فن";
+"wikimedia-articletopics-topic-asia" = "ايشيا";
+"wikimedia-articletopics-topic-biography" = "سوانح حيات (سڀ)";
+"wikimedia-articletopics-topic-biology" = "علم جيوت";
+"wikimedia-articletopics-topic-business-and-economics" = "ڪاروبار ۽ معشيت";
+"wikimedia-articletopics-topic-central-america" = "وچ آمريڪا";
+"wikimedia-articletopics-topic-chemistry" = "علم ڪيميا";
+"wikimedia-articletopics-topic-comics-and-anime" = "مزاح ۽ ڪارٽون";
+"wikimedia-articletopics-topic-computers-and-internet" = "ڪمپيوٽر ۽ انٽرنيٽ";
+"wikimedia-articletopics-topic-earth-and-environment" = "زمين ۽ ماحول";
+"wikimedia-articletopics-topic-education" = "تعليم";
+"wikimedia-articletopics-topic-engineering" = "انجنيئرنگ";
+"wikimedia-articletopics-topic-entertainment" = "تفريح";
+"wikimedia-articletopics-topic-europe" = "يُورپ";
+"wikimedia-articletopics-topic-fashion" = "فيشن";
+"wikimedia-articletopics-topic-food-and-drink" = "کاڌو ۽ مشروب";
+"wikimedia-articletopics-topic-general-science" = "عام سائنس";
+"wikimedia-articletopics-topic-history" = "تاريخ";
+"wikimedia-articletopics-topic-literature" = "ادب";
+"wikimedia-articletopics-topic-mathematics" = "علم رياضي";
+"wikimedia-articletopics-topic-medicine-and-health" = "صحت ۽ دوائون";
+"wikimedia-articletopics-topic-military-and-warfare" = "فوج ۽ جنگ";
+"wikimedia-articletopics-topic-music" = "موسيقي";
+"wikimedia-articletopics-topic-north-america" = "اتر آمريڪا";
+"wikimedia-articletopics-topic-oceania" = "اوشيانا";
+"wikimedia-articletopics-topic-performing-arts" = "اداڪاري";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "فلسفو ۽ مذھب";
+"wikimedia-articletopics-topic-physics" = "علم طبعيات";
+"wikimedia-articletopics-topic-politics-and-government" = "سياست ۽ حڪومت";
+"wikimedia-articletopics-topic-society" = "سماج";
+"wikimedia-articletopics-topic-south-america" = "ڏکڻ آمريڪا";
+"wikimedia-articletopics-topic-sports" = "رانديون";
+"wikimedia-articletopics-topic-technology" = "ٽيڪنالاجي";
+"wikimedia-articletopics-topic-transportation" = "آمدرفت";
+"wikimedia-articletopics-topic-tv-and-film" = "ٽي وي ۽ فلم";
+"wikimedia-articletopics-topic-video-games" = "وڊيو گيمز";
+"wikimedia-articletopics-topic-women" = "سوانح حيات (عورتون)";
 "wikitext-preview-changes" = "توهان جي تبديلين جي پيش-نگاھ آڻيندي...";
 "wikitext-preview-link-external-preview-description" = "ھي ڳنڍڻو ڪنھن ٻاھرين ويبسائيٽ ڏانھن وٺي وڃي ٿو: $1";
 "wikitext-preview-link-external-preview-title" = "ٻاھريون ڳنڍڻو";
@@ -1084,121 +1123,3 @@
 "wikitext-upload-save-anonymously-warning" = "سنوارون توھان جي ڊوائيس جي آئپي پتي سان منتسب ڪيون وينديون. جيڪڏھن توھان $1 توھان کي وڌيڪ نويڪلائي آھي.";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "تبديليون ڇاپڻ سان توھان $1استعمال جي شرطن$2، ۽ بغير رد ڪئي پنھنجون ڀاڱيداريون $3CC BY-SA 4.0$4 اجازتنامي ۽ $5GFDL$6 ھيٺ جاري ڪرڻ لاءِ راضي آھيو. توھان راضي آھيو تہ ڪو ھائپرڳنڍڻو يا يوآرايل ڪريئيٽو ڪامنز اجازتنامي ھيٺ ڪافي انتساب آھي.";
 "wikitext-upload-save-terms-name" = "استعمال جا شرط";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "اڏاوتون";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "فن";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "مزاح ۽ ڪارٽون";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "تفريح";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "فيشن";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "ادب";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "موسيقي";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "اداڪاري";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "رانديون";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "ٽي وي ۽ فلم";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "وڊيو گيمز";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "سوانح حيات (سڀ)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "سوانح حيات (عورتون)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "ڪاروبار ۽ معشيت";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "تعليم";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "کاڌو ۽ مشروب";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "تاريخ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "فوج ۽ جنگ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "فلسفو ۽ مذھب";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "سياست ۽ حڪومت";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "سماج";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "آمدرفت";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "علم جيوت";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "علم ڪيميا";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "ڪمپيوٽر ۽ انٽرنيٽ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "زمين ۽ ماحول";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "انجنيئرنگ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "عام سائنس";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "علم رياضي";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "صحت ۽ دوائون";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "علم طبعيات";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "ٽيڪنالاجي";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "آفريڪا";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "ايشيا";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "وچ آمريڪا";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "يُورپ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "اتر آمريڪا";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "اوشيانا";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "ڏکڻ آمريڪا";

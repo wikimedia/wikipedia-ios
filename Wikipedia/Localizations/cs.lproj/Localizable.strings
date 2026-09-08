@@ -110,6 +110,7 @@
 "activity-tab-onboarding-first-item-title" = "Statistiky čtení";
 "activity-tab-onboarding-fourth-item-subtitle" = "Vyberte, které moduly chcete zobrazit. Veškerá osobní data zůstanou soukromá na vašem zařízení a historii prohlížení lze kdykoli vymazat.";
 "activity-tab-onboarding-fourth-item-title" = "Mějte vše pod kontrolou";
+"activity-tab-onboarding-header" = "Představujeme aktivitu";
 "activity-tab-onboarding-second-item-subtitle" = "Objevte informace o svých příspěvcích a o dosahu znalostí, které jste sdíleli.";
 "activity-tab-onboarding-second-item-title" = "Dopady vlivu";
 "activity-tab-saved" = "Články uložené tento měsíc";
@@ -117,6 +118,16 @@
 "advanced-settings-title" = "Pokročilé nastavení";
 "alert-temporary-account-learn-more" = "Další informace.";
 "announcements-dismiss" = "Zrušit";
+"app-onboarding-data-privacy-links-format" = "Zjistěte více o našich $1 a $2";
+"app-onboarding-feed-preference-community-option" = "Obsah související s komunitou";
+"app-onboarding-feed-preference-personalized-option" = "Personalizovaný obsah";
+"app-onboarding-feed-preference-title" = "Co byste chtěli vidět jako první?";
+"app-onboarding-intro-body" = "Wikipedie je bezplatná online encyklopedie s 65 miliony článků, které ve více než 300 jazycích společně napsala a spravuje komunita dobrovolníků.";
+"app-onboarding-intro-learn-more" = "Další informace o Wikipedii";
+"app-onboarding-languages-add-edit" = "Přidat nebo upravit jazyky";
+"app-onboarding-languages-primary-label" = "Hlavní";
+"app-onboarding-languages-title" = "Čtěte ve více než 300 jazycích";
+"app-onboarding-personalization-title" = "Následujte svou zvědavost";
 "app-store-keywords" = "Wikipedie, reference, wiki, encyklopedie, info, znalosti, výzkum, informace, objevování, učení";
 "app-store-release-notes" = "Plně přizpůsobitelné a snadnější čtení zdroje informací. Lokalizace, vylepšení výkonu a opravy chyb.";
 "app-store-short-description" = "Stáhněte si aplikaci Wikipedie pro objevování míst poblíž vás, ke stažení článků do vašeho zařízení a přizpůsobení čtení článků.";
@@ -410,6 +421,7 @@
 "history-title" = "Historie";
 "home-button-explore-accessibility-label" = "Wikipedie, zpět na kanál Objevit";
 "home-button-saved-accessibility-label" = "Wikipedie, zpět na Uložené";
+"home-edit-languages-title" = "Přidat nebo upravit jazyky";
 "home-feed-modules-featured-article-subtitle" = "Doporučené články patří mezi nejkvalitnější články na Wikipedii, které denně vybírají redaktoři";
 "home-feed-modules-on-this-day-subtitle" = "Objevte historické události z tohoto dne";
 "home-feed-modules-picture-of-the-day-subtitle" = "Denní obrázky na Wikimedia Commons, vybrané dobrovolnými přispěvateli";
@@ -808,6 +820,23 @@
 "welcome-languages-add-or-edit-button" = "Přidat nebo upravit preferované jazyky";
 "welcome-languages-description" = "Na vašem zařízení jsme našli následující jazyky:";
 "welcome-languages-search-title" = "Vyhledávejte a čtěte ve více než 300 jazycích";
+"wikimedia-articletopics-topic-art" = "Umění";
+"wikimedia-articletopics-topic-central-america" = "Střední Amerika";
+"wikimedia-articletopics-topic-education" = "Vzdělávání";
+"wikimedia-articletopics-topic-europe" = "Evropa";
+"wikimedia-articletopics-topic-food-and-drink" = "Jídlo a pití";
+"wikimedia-articletopics-topic-general-science" = "Všeobecná věda";
+"wikimedia-articletopics-topic-history" = "Historie";
+"wikimedia-articletopics-topic-literature" = "Literatura";
+"wikimedia-articletopics-topic-music" = "Hudba";
+"wikimedia-articletopics-topic-north-america" = "Severní Amerika";
+"wikimedia-articletopics-topic-oceania" = "Oceánie";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofie a náboženství";
+"wikimedia-articletopics-topic-physics" = "Fyzika";
+"wikimedia-articletopics-topic-society" = "Společnost";
+"wikimedia-articletopics-topic-south-america" = "Jižní Amerika";
+"wikimedia-articletopics-topic-technology" = "Technologie";
+"wikimedia-articletopics-topic-video-games" = "Video hry";
 "wikitext-preview-changes" = "Načítání náhledu vašich změn…";
 "wikitext-preview-link-external-preview-description" = "Tento odkaz vede na externí webovou stránku: $1";
 "wikitext-preview-link-external-preview-title" = "Externí odkaz";
@@ -837,121 +866,3 @@
 "year-in-review-personalized-date-title-v3" = "Máte jasné čtenářské návyky";
 "year-in-review-time-evening" = "večer";
 "year-in-review-time-morning" = "ráno";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Architektura";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Umění";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Komiksy a anime";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Zábava";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Móda";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Literatura";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Hudba";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Scénická umění";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Sport";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "TV a film";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Video hry";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Biografie (vše)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Biografie (ženy)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Obchod a ekonomie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Vzdělávání";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Jídlo a pití";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Historie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Armáda a válka";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofie a náboženství";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Politika a vláda";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Společnost";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Doprava";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Biologie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Chemie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Počítače a internet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Země a životní prostředí";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Inženýrství";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Všeobecná věda";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Matematika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Medicína a zdraví";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Fyzika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Technologie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Afrika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Asie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Střední Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Evropa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Severní Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Oceánie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Jižní Amerika";

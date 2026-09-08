@@ -1,10 +1,10 @@
 name: Run UI Tests
 
 on:
-  repository_dispatch:
-    types:
-      - nightly-ui-tests
   workflow_dispatch:
+  schedule:
+    # Runs at 02:00 UTC every day
+    - cron: '0 2 * * *'
 
 permissions:
   actions: read
@@ -25,27 +25,10 @@ jobs:
     runs-on: macos-26
     name: Test WikipediaUITests
     steps:
-      - name: Verify selected release tag
-        if: github.event_name == 'workflow_dispatch'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          SELECTED_REF: ${{ github.ref }}
-          SELECTED_REF_NAME: ${{ github.ref_name }}
-          SELECTED_REF_TYPE: ${{ github.ref_type }}
-        run: |
-          if [ "$SELECTED_REF_TYPE" != "tag" ]; then
-            echo "Manual UI test runs must use a tag from the 'Use workflow from' selector."
-            echo "Selected ref: $SELECTED_REF"
-            exit 1
-          fi
-
-          gh release view "$SELECTED_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null
-          echo "Verified GitHub release tag: $SELECTED_REF_NAME"
-
       - name: Check out selected ref
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.ref || github.ref }}
+          ref: ${{ github.ref }}
 
       - name: Ensure UI tests use test-plan appearance and language
         run: scripts/lint-ui-tests.sh

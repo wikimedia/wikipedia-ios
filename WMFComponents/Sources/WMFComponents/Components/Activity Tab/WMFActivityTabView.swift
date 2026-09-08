@@ -236,10 +236,12 @@ public struct WMFActivityTabView: View {
         )
 
         let formattedAmount = amountAccessibilityLabel(for: amount)
-        let accessibilityLabel: String = [viewModel.localizedStrings.totalEditsAcrossProjects, formattedAmount].joined(separator: ",")
 
+        // Expose the amount as the accessibility value (separate from the label) so VoiceOver
+        // pauses naturally between the card's title and its numeric value
         return cardView.accessibilityElement(children: .ignore)
-            .accessibilityLabel(accessibilityLabel)
+            .accessibilityLabel(viewModel.localizedStrings.totalEditsAcrossProjects)
+            .accessibilityValue(formattedAmount)
             .accessibilityAddTraits(.isButton)
 
     }
@@ -356,11 +358,16 @@ public struct WMFActivityTabView: View {
         )
 
         let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesReadViewModel.totalArticlesRead)
-        let accessibilityLabel: String = [viewModel.localizedStrings.totalArticlesRead, viewModel.articlesReadViewModel.dateTimeLastRead, formattedAmount].joined(separator: ",")
+        // Combine title + accessibility-friendly date rendering as the accessibility label
+        // (the "context" of the card). Expose the amount as the accessibility value so
+        // VoiceOver naturally pauses between the contextual label and the numeric value,
+        // matching the standard iOS control pattern (e.g. sliders, steppers).
+        let accessibilityLabel: String = [viewModel.localizedStrings.totalArticlesRead, viewModel.articlesReadViewModel.dateTimeLastReadAccessibilityLabel].joined(separator: ". ")
 
         return cardView
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(accessibilityLabel)
+            .accessibilityValue(formattedAmount)
             .accessibilityAddTraits(.isButton)
     }
 
@@ -391,11 +398,12 @@ public struct WMFActivityTabView: View {
         )
 
         let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesSavedViewModel.articlesSavedAmount)
-        let accessibilityLabel: String = [viewModel.localizedStrings.articlesSavedTitle, viewModel.articlesSavedViewModel.dateTimeLastSaved, formattedAmount].joined(separator: ",")
+        let accessibilityLabel: String = [viewModel.localizedStrings.articlesSavedTitle, viewModel.articlesSavedViewModel.dateTimeLastSavedAccessibilityLabel].joined(separator: ". ")
 
         return cardView
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(accessibilityLabel)
+            .accessibilityValue(formattedAmount)
             .accessibilityAddTraits(.isButton)
     }
 

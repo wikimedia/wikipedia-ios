@@ -204,6 +204,29 @@ final class WMFDonateViewModelTests {
         #expect(viewModel.errorViewModel != nil)
     }
 
+    @Test
+    func preselectMatchingPresetSelectsButtonAndLeavesTextfieldEmpty() async throws {
+        let viewModel = try await makeViewModel(countryCode: "US", currencyCode: "USD", languageCode: "EN")
+
+        viewModel.preselectAmount(3)
+
+        #expect(viewModel.buttonViewModels.filter { $0.isSelected }.map { $0.amount } == [3])
+        #expect(viewModel.textfieldViewModel.amount == 0)
+        #expect(viewModel.textfieldViewModel.shouldFocusOnAppearance == false)
+        #expect(viewModel.finalAmount == 3)
+    }
+
+    @Test
+    func preselectCustomAmountFillsTextfieldWithoutSelectingAButton() async throws {
+        let viewModel = try await makeViewModel(countryCode: "US", currencyCode: "USD", languageCode: "EN")
+
+        viewModel.preselectAmount(7)
+
+        #expect(viewModel.buttonViewModels.allSatisfy { $0.isSelected == false })
+        #expect(viewModel.textfieldViewModel.amount == 7)
+        #expect(viewModel.textfieldViewModel.shouldFocusOnAppearance == false)
+    }
+
     private func makeViewModel(countryCode: String, currencyCode: String, languageCode: String, appInstallID: String? = UUID().uuidString) async throws -> WMFDonateViewModel {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let donateData = try await loadDonateData()

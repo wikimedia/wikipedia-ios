@@ -232,6 +232,45 @@
 "welcome-languages-description" = "Ons het die volgende tale op die toestel gekry:";
 // Fuzzy
 "welcome-languages-search-title" = "Deursoek Wikipedia in bykans 300 tale";
+"wikimedia-articletopics-topic-africa" = "Afrika";
+"wikimedia-articletopics-topic-architecture" = "Argitektuur";
+"wikimedia-articletopics-topic-art" = "Kuns";
+"wikimedia-articletopics-topic-asia" = "Asië";
+"wikimedia-articletopics-topic-biography" = "Biografie (ál)";
+"wikimedia-articletopics-topic-biology" = "Biologie";
+"wikimedia-articletopics-topic-business-and-economics" = "Besigheid en ekonomie";
+"wikimedia-articletopics-topic-central-america" = "Sentraal-Amerika";
+"wikimedia-articletopics-topic-chemistry" = "Chemie";
+"wikimedia-articletopics-topic-comics-and-anime" = "Strokiesprente en anime";
+"wikimedia-articletopics-topic-computers-and-internet" = "Rekenaars en internet";
+"wikimedia-articletopics-topic-earth-and-environment" = "Die aarde en die omgewing";
+"wikimedia-articletopics-topic-education" = "Onderwys";
+"wikimedia-articletopics-topic-engineering" = "Ingenieurswese";
+"wikimedia-articletopics-topic-entertainment" = "Vermaak";
+"wikimedia-articletopics-topic-europe" = "Europa";
+"wikimedia-articletopics-topic-fashion" = "Mode";
+"wikimedia-articletopics-topic-food-and-drink" = "Kos en drank";
+"wikimedia-articletopics-topic-general-science" = "Algemene wetenskap";
+"wikimedia-articletopics-topic-history" = "Geskiedenis";
+"wikimedia-articletopics-topic-literature" = "Letterkunde";
+"wikimedia-articletopics-topic-mathematics" = "Wiskunde";
+"wikimedia-articletopics-topic-medicine-and-health" = "Geneeskunde en gesondheid";
+"wikimedia-articletopics-topic-military-and-warfare" = "Militêre en oorlogvoering";
+"wikimedia-articletopics-topic-music" = "Musiek";
+"wikimedia-articletopics-topic-north-america" = "Noord-Amerika";
+"wikimedia-articletopics-topic-oceania" = "Oseanië";
+"wikimedia-articletopics-topic-performing-arts" = "Uitvoerende kunste";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofie en religie";
+"wikimedia-articletopics-topic-physics" = "Fisika";
+"wikimedia-articletopics-topic-politics-and-government" = "Politiek en regering";
+"wikimedia-articletopics-topic-society" = "Samelewing";
+"wikimedia-articletopics-topic-south-america" = "Suid-Amerika";
+"wikimedia-articletopics-topic-sports" = "Sport";
+"wikimedia-articletopics-topic-technology" = "Tegnologie";
+"wikimedia-articletopics-topic-transportation" = "Vervoer";
+"wikimedia-articletopics-topic-tv-and-film" = "Televisie en film";
+"wikimedia-articletopics-topic-video-games" = "Videospeletjies";
+"wikimedia-articletopics-topic-women" = "Biografie (vroue)";
 "wikitext-preview-changes" = "Verkry voorskou van u wysigings...";
 "wikitext-preview-link-preview-description" = "Dié skakel gaan na '$1'";
 "wikitext-preview-link-preview-title" = "Skakelvoorskou";
@@ -241,121 +280,3 @@
 "wikitext-upload-save" = "Publiseer…";
 "wikitext-upload-save-anonymously-warning" = "Wysigings sal toegeskryf word aan die IP-adres van u toestel. Indien u $1 sal u meer privaatheid geniet.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaardes";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Argitektuur";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Kuns";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Strokiesprente en anime";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Vermaak";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Mode";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Letterkunde";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Musiek";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Uitvoerende kunste";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Sport";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "Televisie en film";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Videospeletjies";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Biografie (ál)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Biografie (vroue)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Besigheid en ekonomie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Onderwys";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Kos en drank";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Geskiedenis";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Militêre en oorlogvoering";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofie en religie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Politiek en regering";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Samelewing";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Vervoer";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Biologie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Chemie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Rekenaars en internet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Die aarde en die omgewing";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Ingenieurswese";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Algemene wetenskap";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Wiskunde";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Geneeskunde en gesondheid";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Fisika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Tegnologie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Afrika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Asië";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Sentraal-Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Europa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Noord-Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Oseanië";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Suid-Amerika";

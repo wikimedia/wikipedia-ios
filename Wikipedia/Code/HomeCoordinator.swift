@@ -60,58 +60,71 @@ final class HomeCoordinator: NSObject, Coordinator {
                 actionContext = ["lang_code": languageCode]
             }
             // Note: purposefully not leaning on homeFeedInstrument property here, as the deck doesn't specify that.
-            TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "language_menu", elementId: "language_change", actionContext: actionContext, mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "language_menu", elementId: "language_change", actionContext: actionContext, mediawikiDatabase: self.mediawikiDatabase(for: viewModel), experimentData: WMFHomeDataController.shared.experimentData)
         }
         
         viewModel.logCardImpression = { [weak self, weak viewModel] module, cardIndex in
             guard let self, let viewModel else { return }
-            self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: module, actionContext: ["index": cardIndex], mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: module, actionContext: ["index": cardIndex], mediawikiDatabase: self.mediawikiDatabase(for: viewModel), experimentData: WMFHomeDataController.shared.experimentData)
         }
 
         viewModel.logCardDidTapShare = { [weak self, weak viewModel] module in
             guard let self, let viewModel else { return }
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_share", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, actionSubtype: "feed_overflow", elementId: "article_share", mediawikiDatabase: self.mediawikiDatabase(for: viewModel), experimentData: WMFHomeDataController.shared.experimentData)
         }
 
         viewModel.logCardDidSave = { [weak self, weak viewModel] card in
             guard let self, let viewModel else { return }
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: card.module.loggingId, elementId: "article_save", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: card.module.loggingId, actionSubtype: "feed_overflow", elementId: "article_save", mediawikiDatabase: self.mediawikiDatabase(for: viewModel), experimentData: WMFHomeDataController.shared.experimentData)
             let articleURL = card.project.siteURL?.wmf_URL(withTitle: card.title)
             ReadingListsFunnel.shared.logSave(category: .article, label: nil, articleURL: articleURL)
         }
 
         viewModel.logCardDidUnsave = { [weak self, weak viewModel] card in
             guard let self, let viewModel else { return }
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: card.module.loggingId, elementId: "article_unsave", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: card.module.loggingId, actionSubtype: "feed_overflow", elementId: "article_unsave", mediawikiDatabase: self.mediawikiDatabase(for: viewModel), experimentData: WMFHomeDataController.shared.experimentData)
             let articleURL = card.project.siteURL?.wmf_URL(withTitle: card.title)
             ReadingListsFunnel.shared.logUnsave(category: .article, label: nil, articleURL: articleURL)
         }
 
         viewModel.logCardDidTapHideCard = { [weak self, weak viewModel] module in
             guard let self, let viewModel else { return }
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "card_hide", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, actionSubtype: "feed_overflow", elementId: "card_hide", mediawikiDatabase: self.mediawikiDatabase(for: viewModel), experimentData: WMFHomeDataController.shared.experimentData)
         }
 
         viewModel.logCardDidTapHideModule = { [weak self, weak viewModel] module in
             guard let self, let viewModel else { return }
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "module_hide", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, actionSubtype: "feed_overflow", elementId: "module_hide", mediawikiDatabase: self.mediawikiDatabase(for: viewModel), experimentData: WMFHomeDataController.shared.experimentData)
         }
 
         viewModel.logDidTapCustomizeInterests = { [weak self, weak viewModel] module, elementId in
             guard let self, let viewModel else { return }
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: elementId, mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, actionSubtype: "feed_overflow", elementId: elementId, mediawikiDatabase: self.mediawikiDatabase(for: viewModel), experimentData: WMFHomeDataController.shared.experimentData)
         }
 
         viewModel.logEmptyViewImpression = { [weak self, weak viewModel] in
             guard let self, let viewModel else { return }
-            self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "EmptyForYouCard", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "EmptyForYouCard", mediawikiDatabase: self.mediawikiDatabase(for: viewModel), experimentData: WMFHomeDataController.shared.experimentData)
         }
 
         viewModel.logCardDidTapArticle = { [weak self, weak viewModel] module, articleTitle in
             guard let self, let viewModel else { return }
             let project = self.currentProject(forViewModel: viewModel)
             let pageData = TestKitchenAdapter.getPageData(title: articleTitle, project: project)
-            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_open", mediawikiDatabase: self.mediawikiDatabase(for: viewModel), pageData: pageData)
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: module, elementId: "article_open", mediawikiDatabase: self.mediawikiDatabase(for: viewModel), pageData: pageData, experimentData: WMFHomeDataController.shared.experimentData)
+        }
+        
+        viewModel.logEndOfFeedImpression = { [weak self, weak viewModel] in
+            guard let self, let viewModel else { return }
+            // Per the data team, this impression ends the home_feed funnel: any event after it
+            // must not carry the funnel. Submit first so this event keeps time_spent_ms, then stop.
+            self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: WMFForYouEndOfFeedCardViewModel.loggingId, mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
+            self.homeFeedInstrument?.stopFunnel()
+        }
+
+        viewModel.logEndOfFeedDidTapCommunity = { [weak self, weak viewModel] in
+            guard let self, let viewModel else { return }
+            self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: WMFForYouEndOfFeedCardViewModel.loggingId, elementId: "community_feed", mediawikiDatabase: self.mediawikiDatabase(for: viewModel))
         }
 
         let vc = HomeViewController(dataStore: dataStore, theme: theme, viewModel: viewModel, homeCoordinator: self)

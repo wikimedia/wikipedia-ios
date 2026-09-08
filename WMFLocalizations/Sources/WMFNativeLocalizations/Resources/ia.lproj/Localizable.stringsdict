@@ -5,7 +5,7 @@
 	<key>activity-tab-amount-article-views</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d visita%#@v1@</string>
+		<string>%1$d visita%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -21,7 +21,7 @@
 	<key>activity-tab-impact-best-streak-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -37,7 +37,7 @@
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tu ha modificate %1$d vice%#@v1@ iste septimana.</string>
+		<string>Tu ha modificate %1$d vice%1$#@v1@ iste septimana.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -53,7 +53,7 @@
 	<key>activity-tab-you-read</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tu ha legite %1$d articulo%#@v1@ iste septimana.</string>
+		<string>Tu ha legite %1$d articulo%1$#@v1@ iste septimana.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -69,7 +69,7 @@
 	<key>activity-tab-you-saved</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tu ha salveguardate %1$d articulo%#@v1@ iste septimana.</string>
+		<string>Tu ha salveguardate %1$d articulo%1$#@v1@ iste septimana.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -85,7 +85,7 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Adder %#@v1@ al lista de lectura</string>
+		<string>Adder %1$#@v1@ al lista de lectura</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -101,7 +101,7 @@
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d articulo%#@v1@ delite</string>
+		<string>%1$d articulo%1$#@v1@ delite</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -117,7 +117,7 @@
 	<key>close-all-tabs-confirmation-subtitle-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vole tu clauder %1$d scheda%#@v1@? Isto es irreversibile.</string>
+		<string>Vole tu clauder %1$d scheda%1$#@v1@? Isto es irreversibile.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -133,7 +133,7 @@
 	<key>close-all-tabs-confirmation-title-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Clauder %1$d scheda%#@v1@?</string>
+		<string>Clauder %1$d scheda%1$#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -149,7 +149,7 @@
 	<key>closed-all-tabs-confirmation-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d scheda%#@v1@ claudite.</string>
+		<string>%1$d scheda%1$#@v1@ claudite.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -165,7 +165,7 @@
 	<key>diff-change-paragraph-lines-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Paragrapho displaciate a basso de %#@v1@. Va al nove position.</string>
+		<string>Paragrapho displaciate a basso de %1$#@v1@. Va al nove position.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -183,7 +183,7 @@
 	<key>diff-change-paragraph-lines-moved-up</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Paragrapho displaciate in alto de %#@v1@. Va al nove position.</string>
+		<string>Paragrapho displaciate in alto de %1$#@v1@. Va al nove position.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -201,7 +201,7 @@
 	<key>diff-change-paragraph-sections-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Paragrapho displaciate a basso de %#@v1@. Va al nove position.</string>
+		<string>Paragrapho displaciate a basso de %1$#@v1@. Va al nove position.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -219,7 +219,7 @@
 	<key>diff-change-paragraph-sections-moved-up</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Paragrapho displaciate in alto de %#@v1@. Va al nove position.</string>
+		<string>Paragrapho displaciate in alto de %1$#@v1@. Va al nove position.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -237,7 +237,7 @@
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -253,7 +253,7 @@
 	<key>diff-paragraph-moved-distance-section</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -269,7 +269,7 @@
 	<key>diff-single-header-editor-number-edits-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -285,7 +285,7 @@
 	<key>diff-single-header-subtitle-bytes-added</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ addite</string>
+		<string>%1$#@v1@ addite</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -301,7 +301,7 @@
 	<key>diff-single-header-subtitle-bytes-removed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ removite</string>
+		<string>%1$#@v1@ removite</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -317,7 +317,7 @@
 	<key>diff-unedited-lines-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ non modificate</string>
+		<string>%1$#@v1@ non modificate</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -333,7 +333,7 @@
 	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>In %1$@, le voluntarios ha addite %2$lld byte%#@v2@ al Wikipedia in anglese. Le summa de tote lor travalio commun resulta in un ressource de cognoscimento in constante melioramento, basate sur factos e digne de fide, que illes mitte al disposition del mundo. Tote nos ha cognoscentias a condivider. [Apprende como participar!](%3$@)</string>
+		<string>In %1$@, le voluntarios ha addite %2$lld byte%2$#@v2@ al Wikipedia in anglese. Le summa de tote lor travalio commun resulta in un ressource de cognoscimento in constante melioramento, basate sur factos e digne de fide, que illes mitte al disposition del mundo. Tote nos ha cognoscentias a condivider. [Apprende como participar!](%3$@)</string>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -349,7 +349,7 @@
 	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$lld byte%#@v1@ addite</string>
+		<string>%1$lld byte%1$#@v1@ addite</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -365,7 +365,7 @@
 	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Le voluntarios ha apportate %1$lld modification%#@v1@ in plus de %2$d edition%#@v2@ de Wikipedia in linguas differente. %3$lld modification%#@v3@ ha essite apportate sur Wikipedia in anglese. Cata hora de cata die, voluntarios labora pro meliorar Wikipedia.</string>
+		<string>Le voluntarios ha apportate %1$lld modification%1$#@v1@ in plus de %2$d edition%2$#@v2@ de Wikipedia in linguas differente. %3$lld modification%3$#@v3@ ha essite apportate sur Wikipedia in anglese. Cata hora de cata die, voluntarios labora pro meliorar Wikipedia.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -403,7 +403,7 @@
 	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Redactores ha apportate %1$lld modification%#@v1@ iste anno</string>
+		<string>Redactores ha apportate %1$lld modification%1$#@v1@ iste anno</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -419,7 +419,7 @@
 	<key>microsite-yir-english-reading-slide-subtitle-short-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Le gente ha passate circa %1$lld hora%#@v1@ (circa %2$lld anno%#@v2@!) a leger Wikipedia in anglese in %3$@.</string>
+		<string>Le gente ha passate circa %1$lld hora%1$#@v1@ (circa %2$lld anno%2$#@v2@!) a leger Wikipedia in anglese in %3$@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -446,7 +446,7 @@
 	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Le gente ha passate circa %1$lld hora%#@v1@ (circa %2$lld anno%#@v2@!) a leger Wikipedia in anglese in %3$@. Wikipedia es a tu disposition quando tu vole saper plus sur nostre mundo evolvente, ganiar un sponsion inter amicos, o responder al question de un infante curiose.</string>
+		<string>Le gente ha passate circa %1$lld hora%1$#@v1@ (circa %2$lld anno%2$#@v2@!) a leger Wikipedia in anglese in %3$@. Wikipedia es a tu disposition quando tu vole saper plus sur nostre mundo evolvente, ganiar un sponsion inter amicos, o responder al question de un infante curiose.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -473,7 +473,7 @@
 	<key>microsite-yir-english-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Nos ha passate %1$lld hora%#@v1@ a leger</string>
+		<string>Nos ha passate %1$lld hora%1$#@v1@ a leger</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -489,7 +489,7 @@
 	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Le usatores active del app habeva %1$lld articulo%#@v1@ salveguardate iste anno. Adder articulos a listas de lectura te permitte acceder a articulos mesmo sin connexion. Tu pote tamben, post aperir session, synchronisar le listas de lectura inter apparatos.</string>
+		<string>Le usatores active del app habeva %1$lld articulo%1$#@v1@ salveguardate iste anno. Adder articulos a listas de lectura te permitte acceder a articulos mesmo sin connexion. Tu pote tamben, post aperir session, synchronisar le listas de lectura inter apparatos.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -505,7 +505,7 @@
 	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Nos habeva %1$lld articulo%#@v1@ salveguardate</string>
+		<string>Nos habeva %1$lld articulo%1$#@v1@ salveguardate</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -521,7 +521,7 @@
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Displaciar %1$d articulo%#@v1@ al lista de lectura</string>
+		<string>Displaciar %1$d articulo%1$#@v1@ al lista de lectura</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -537,7 +537,7 @@
 	<key>nearby-distance-label-feet</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d pede%#@v1@</string>
+		<string>%1$d pede%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -553,7 +553,7 @@
 	<key>nearby-distance-label-meters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d metro%#@v1@</string>
+		<string>%1$d metro%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -569,7 +569,7 @@
 	<key>notifications-center-empty-state-num-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d filtro%#@v1@</string>
+		<string>%1$d filtro%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -585,7 +585,7 @@
 	<key>notifications-center-mark-all-as-read-confirmation-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Es tu secur de voler marcar %#@v1@ de tu notificationes como legite? Tu notificationes essera marcate como legite sur tote tu apparatos.</string>
+		<string>Es tu secur de voler marcar %1$#@v1@ de tu notificationes como legite? Tu notificationes essera marcate como legite sur tote tu apparatos.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -601,7 +601,7 @@
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d message%#@v1@</string>
+		<string>%1$d message%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -617,7 +617,7 @@
 	<key>notifications-center-status-in-projects</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>In %1$d projecto%#@v1@</string>
+		<string>In %1$d projecto%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -633,7 +633,7 @@
 	<key>notifications-center-status-in-projects-plain</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d projecto%#@v1@</string>
+		<string>%1$d projecto%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -649,7 +649,7 @@
 	<key>notifications-center-status-in-types</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d typo%#@v1@</string>
+		<string>%1$d typo%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -665,7 +665,7 @@
 	<key>notifications-push-talk-body-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d nove message%#@v1@ sur %2$@</string>
+		<string>%1$d nove message%1$#@v1@ sur %2$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -681,7 +681,7 @@
 	<key>notifications-push-talk-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Nove message%#@v1@</string>
+		<string>Nove message%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -697,7 +697,7 @@
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d evento%#@v1@ historic</string>
+		<string>%1$d evento%1$#@v1@ historic</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -713,7 +713,7 @@
 	<key>on-this-day-footer-showing-event-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d altere evento%#@v1@ historic in iste die</string>
+		<string>%1$d altere evento%1$#@v1@ historic in iste die</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -729,7 +729,7 @@
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ addite</string>
+		<string>%1$#@v1@ addite</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -745,7 +745,7 @@
 	<key>page-history-revision-size-diff-subtraction</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ removite</string>
+		<string>%1$#@v1@ removite</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -761,7 +761,7 @@
 	<key>page-history-stats-text</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d %#@v1@ desde %2$@</string>
+		<string>%1$d %1$#@v1@ desde %2$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -777,7 +777,7 @@
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d articulo%#@v1@</string>
+		<string>%1$d articulo%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -793,7 +793,7 @@
 	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tu ha excedite le limite de %1$d articulo%#@v1@ per conto.</string>
+		<string>Tu ha excedite le limite de %1$d articulo%1$#@v1@ per conto.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -809,7 +809,7 @@
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Non es possibile adder le articulo%#@v1@ a iste lista. Tu ha attingite le limite de %2$d articulos per lista de lectura pro %3$@</string>
+		<string>Non es possibile adder le articulo%1$#@v1@ a iste lista. Tu ha attingite le limite de %2$d articulos per lista de lectura pro %3$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -825,7 +825,7 @@
 	<key>reading-list-list-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tu ha excedite le limite de %1$d lista%#@v1@ de lectura per conto.</string>
+		<string>Tu ha excedite le limite de %1$d lista%1$#@v1@ de lectura per conto.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -841,7 +841,7 @@
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d lista%#@v1@ de lectura</string>
+		<string>%1$d lista%1$#@v1@ de lectura</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -857,7 +857,7 @@
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Iste action non pote esser disfacite. Omne articulos salveguardate solmente in iste lista%#@v1@ essera oblidate.</string>
+		<string>Iste action non pote esser disfacite. Omne articulos salveguardate solmente in iste lista%1$#@v1@ essera oblidate.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -873,7 +873,7 @@
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Deler lista%#@v1@?</string>
+		<string>Deler lista%1$#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -889,7 +889,7 @@
 	<key>reading-lists-large-sync-completed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d articulo%#@v1@ e %2$d lista%#@v2@ de lectura synchronisate desde tu conto</string>
+		<string>%1$d articulo%1$#@v1@ e %2$d lista%2$#@v2@ de lectura synchronisate desde tu conto</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -916,7 +916,7 @@
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -934,7 +934,7 @@
 	<key>relative-date-hours-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -952,7 +952,7 @@
 	<key>relative-date-hrs-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -970,7 +970,7 @@
 	<key>relative-date-min-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -988,7 +988,7 @@
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1006,7 +1006,7 @@
 	<key>relative-date-months-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1024,7 +1024,7 @@
 	<key>relative-date-years-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1042,7 +1042,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Cessar de salveguardar iste %#@v1@ removera de tote le listas de lectura associate</string>
+		<string>Cessar de salveguardar iste %1$#@v1@ removera de tote le listas de lectura associate</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1058,7 +1058,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Remover articulo%#@v1@ salveguardate?</string>
+		<string>Remover articulo%1$#@v1@ salveguardate?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1074,7 +1074,7 @@
 	<key>tabs-navbar-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d scheda%#@v1@</string>
+		<string>%1$d scheda%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1090,7 +1090,7 @@
 	<key>talk-page-active-users-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d usator%#@v1@ active</string>
+		<string>%1$d usator%1$#@v1@ active</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1106,7 +1106,7 @@
 	<key>talk-page-replies-count-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d responsa%#@v1@</string>
+		<string>%1$d responsa%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1122,7 +1122,7 @@
 	<key>watchlist-byte-change</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d byte%#@v1@</string>
+		<string>%1$d byte%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1138,7 +1138,7 @@
 	<key>watchlist-number-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Modifica [%#@v1@](wikipedia://watchlist/filter) pro vider plus articulos del Observatorio</string>
+		<string>Modifica [%1$#@v1@](wikipedia://watchlist/filter) pro vider plus articulos del Observatorio</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1154,7 +1154,7 @@
 	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Le redactores usante le applicationes official de Wikipedia ha facite %1$lld modification%#@v1@</string>
+		<string>Le redactores usante le applicationes official de Wikipedia ha facite %1$lld modification%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1170,7 +1170,7 @@
 	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Wikipedia esseva modificate %1$d vice%#@v1@ per minuta</string>
+		<string>Wikipedia esseva modificate %1$d vice%1$#@v1@ per minuta</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1186,7 +1186,7 @@
 	<key>year-in-review-base-reading-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Wikipedia habeva %1$lld articulo%#@v1@ in plus de %2$d lingua%#@v2@ active. Tu te jungeva a milliones pro expander le cognoscentia e explorar subjectos diverse.</string>
+		<string>Wikipedia habeva %1$lld articulo%1$#@v1@ in plus de %2$d lingua%2$#@v2@ active. Tu te jungeva a milliones pro expander le cognoscentia e explorar subjectos diverse.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1213,7 +1213,7 @@
 	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Wikipedia esseva disponibile in plus de %1$d lingua%#@v1@</string>
+		<string>Wikipedia esseva disponibile in plus de %1$d lingua%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1229,7 +1229,7 @@
 	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Le usatores del app habeva %1$lld articulo%#@v1@ salveguardate</string>
+		<string>Le usatores del app habeva %1$lld articulo%1$#@v1@ salveguardate</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1245,7 +1245,7 @@
 	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Le usatores del app ha consultate articulos de Wikipedia %1$lld vice%#@v1@</string>
+		<string>Le usatores del app ha consultate articulos de Wikipedia %1$lld vice%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1261,7 +1261,7 @@
 	<key>year-in-review-highlights-edit-frequency-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d vice%#@v1@ per minuta</string>
+		<string>%1$d vice%1$#@v1@ per minuta</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1277,7 +1277,7 @@
 	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Lectores in tote le mundo apprecia tu contributiones. In le ultime 2 menses, le articulos que tu ha modificate ha recipite un total de %1$lld visita%#@v1@. Gratias a redactores como tu, Wikipedia es un ressource de cognoscentia mundial, solide, basate in factos e digne de fide, que se meliora constantemente.</string>
+		<string>Lectores in tote le mundo apprecia tu contributiones. In le ultime 2 menses, le articulos que tu ha modificate ha recipite un total de %1$lld visita%1$#@v1@. Gratias a redactores como tu, Wikipedia es un ressource de cognoscentia mundial, solide, basate in factos e digne de fide, que se meliora constantemente.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1293,7 +1293,7 @@
 	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tu modificationes ha essite vidite plus de %1$lld vice%#@v1@ recentemente</string>
+		<string>Tu modificationes ha essite vidite plus de %1$lld vice%1$#@v1@ recentemente</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1309,7 +1309,7 @@
 	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Voluntarios como tu ha apportate %1$lld modification%#@v1@ sur %2$d edition%#@v2@ de Wikipedia in linguas differente.</string>
+		<string>Voluntarios como tu ha apportate %1$lld modification%1$#@v1@ sur %2$d edition%2$#@v2@ de Wikipedia in linguas differente.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1336,7 +1336,7 @@
 	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tu ha modificate %1$d vice%#@v1@</string>
+		<string>Tu ha modificate %1$d vice%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1352,7 +1352,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Secundo nostre estimation, isto te pone in le prime **PERCENT** del lectores de Wikipedia de tote le mundo. In media, un persona lege %1$d articulo%#@v1@ per anno.</string>
+		<string>Secundo nostre estimation, isto te pone in le prime **PERCENT** del lectores de Wikipedia de tote le mundo. In media, un persona lege %1$d articulo%1$#@v1@ per anno.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1368,7 +1368,7 @@
 	<key>year-in-review-personalized-reading-title-v3-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tu ha passate %1$d minuta%#@v1@ a leger %2$d articulo%#@v2@ in %3$@</string>
+		<string>Tu ha passate %1$d minuta%1$#@v1@ a leger %2$d articulo%2$#@v2@ in %3$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1397,7 +1397,7 @@
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Iste articulos ha includite %1$@, %2$@ e %3$@. Cata articulo salveguardate reflecte tu interesses e adjuta a construer un base de cognoscentia personalisate sur Wikipedia.
 
-Le usatores active del app habeva %4$lld articulo%#@v4@ salveguardate iste anno.</string>
+Le usatores active del app habeva %4$lld articulo%4$#@v4@ salveguardate iste anno.</string>
 		<key>v4</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1413,7 +1413,7 @@ Le usatores active del app habeva %4$lld articulo%#@v4@ salveguardate iste anno.
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tu ha salveguardate %1$d articulo%#@v1@</string>
+		<string>Tu ha salveguardate %1$d articulo%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

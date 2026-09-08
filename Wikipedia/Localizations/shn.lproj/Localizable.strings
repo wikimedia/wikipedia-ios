@@ -653,6 +653,45 @@
 "welcome-languages-description" = "ၼႂ်းၶိူင်ႈၸႂ်ႉၸဝ်ႈၵဝ်ႇၼၼ်ႉ ႁဝ်းၶႃႈႁၼ်မႅၼ်ႈၺႃး ၽႃႇသႃႇၵႂၢမ်း ၸိူဝ်းၼင်ႇၽၢႆႇတႂ်ႈၼႆႉ:";
 // Fuzzy
 "welcome-languages-search-title" = "ၶူၼ်ႉႁႃ ဝီႇၶီႇၽီးတီးယႃး ၼႂ်းၽႃႇသႃႇၵႂၢမ်း ၸမ် 300";
+"wikimedia-articletopics-topic-africa" = "Africa";
+"wikimedia-articletopics-topic-architecture" = "Architecture";
+"wikimedia-articletopics-topic-art" = "Art";
+"wikimedia-articletopics-topic-asia" = "Asia";
+"wikimedia-articletopics-topic-biography" = "Biography (all)";
+"wikimedia-articletopics-topic-biology" = "Biology";
+"wikimedia-articletopics-topic-business-and-economics" = "Business and economics";
+"wikimedia-articletopics-topic-central-america" = "Central America";
+"wikimedia-articletopics-topic-chemistry" = "Chemistry";
+"wikimedia-articletopics-topic-comics-and-anime" = "Comics and anime";
+"wikimedia-articletopics-topic-computers-and-internet" = "Computers and internet";
+"wikimedia-articletopics-topic-earth-and-environment" = "Earth and environment";
+"wikimedia-articletopics-topic-education" = "Education";
+"wikimedia-articletopics-topic-engineering" = "Engineering";
+"wikimedia-articletopics-topic-entertainment" = "Entertainment";
+"wikimedia-articletopics-topic-europe" = "Europe";
+"wikimedia-articletopics-topic-fashion" = "Fashion";
+"wikimedia-articletopics-topic-food-and-drink" = "Food and drink";
+"wikimedia-articletopics-topic-general-science" = "General science";
+"wikimedia-articletopics-topic-history" = "History";
+"wikimedia-articletopics-topic-literature" = "Literature";
+"wikimedia-articletopics-topic-mathematics" = "Mathematics";
+"wikimedia-articletopics-topic-medicine-and-health" = "Medicine and health";
+"wikimedia-articletopics-topic-military-and-warfare" = "Military and warfare";
+"wikimedia-articletopics-topic-music" = "Music";
+"wikimedia-articletopics-topic-north-america" = "North America";
+"wikimedia-articletopics-topic-oceania" = "Oceania";
+"wikimedia-articletopics-topic-performing-arts" = "Performing arts";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Philosophy and religion";
+"wikimedia-articletopics-topic-physics" = "Physics";
+"wikimedia-articletopics-topic-politics-and-government" = "Politics and government";
+"wikimedia-articletopics-topic-society" = "Society";
+"wikimedia-articletopics-topic-south-america" = "South America";
+"wikimedia-articletopics-topic-sports" = "Sports";
+"wikimedia-articletopics-topic-technology" = "Technology";
+"wikimedia-articletopics-topic-transportation" = "Transportation";
+"wikimedia-articletopics-topic-tv-and-film" = "TV and film";
+"wikimedia-articletopics-topic-video-games" = "Video games";
+"wikimedia-articletopics-topic-women" = "Biography (women)";
 "wikitext-preview-changes" = "တိုၵ်ႉၸူင်ဢဝ်တူၺ်းလူင်ႈၼႃႈ ၶွင်လွင်ႈလႅၵ်ႈလၢႆႈၸဝ်ႈၵဝ်ႇ...";
 "wikitext-preview-link-external-preview-description" = "ႁဵင်းၵွင်ႉဢၼ်ၼႆႉ ဝိၼ်ႁူဝ်ၸူး ဝႅပ်ႉသၢႆႉၽၢႆႇၼွၵ်ႈ: $1";
 "wikitext-preview-link-external-preview-title" = "ႁဵင်းၵွင်ႉၽၢႆႇၼွၵ်ႈ";
@@ -668,121 +707,3 @@
 "wikitext-upload-save-anonymously-or-login" = "လွင်ႈမႄးထတ်းၼႆႉ တေမၢႆဢဝ် ႁဵင်းၵွင်ႉဢၢႆႇၽီႇၶွင်ၶိူင်ႈၸဝ်ႈၵဝ်ႇ။ သင်ၸိူဝ်ႈၸဝ်ႈၵဝ်ႇ  ၶဝ်ႈ $1လွၵ်ႉဢိၼ်ႇ$2 ၼႆ ၸဝ်ႈၵဝ်ႇတေတိူဝ်းမီးလွင်ႈႁူမ်ႈလူမ်ႈသုၼ်တူဝ်။";
 "wikitext-upload-save-anonymously-warning" = "လွင်ႈမႄးထတ်း တေမၢႆဢဝ် ႁဵင်းလိၵ်ႈဢၢႆႇၽီႇ ၶွင်ၶိူင်ႈၸဝ်ႈၵဝ်ႇ။ သင်ၸိူဝ်ႉဝႃႈ ၸဝ်ႈၵဝ်ႇ $1 ၸဝ်ႈၵဝ်ႇ တေမီးပၢႆးႁူမ်ႇလူမ်ႈသုၼ်ႇတူဝ်လိူဝ်။";
 "wikitext-upload-save-terms-name" = "ၶေႃႈမၵ်းမၼ်ႈလွင်ႈၸႂ်ႉတိုဝ်း";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Architecture";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Art";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Comics and anime";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Entertainment";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Fashion";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Literature";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Music";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Performing arts";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Sports";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "TV and film";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Video games";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Biography (all)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Biography (women)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Business and economics";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Education";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Food and drink";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "History";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Military and warfare";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Philosophy and religion";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Politics and government";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Society";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Transportation";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Biology";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Chemistry";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Computers and internet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Earth and environment";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Engineering";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "General science";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Mathematics";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Medicine and health";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Physics";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Technology";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Africa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Asia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Central America";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Europe";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "North America";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Oceania";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "South America";

@@ -1255,6 +1255,16 @@
 "widget-onthisday-description" = "Finn ut hva som skjedde på denne datoen i historien.";
 "widget-onthisday-placeholder-article-snippet" = "Fritt nettleksikon som alle kan redigere";
 "widget-onthisday-placeholder-event-snippet" = "Det frie nettleksikonet Wikipedia blir lansert.";
+"wikimedia-articletopics-topic-central-america" = "Sentral-Amerika";
+"wikimedia-articletopics-topic-europe" = "Europa";
+"wikimedia-articletopics-topic-fashion" = "Mote";
+"wikimedia-articletopics-topic-food-and-drink" = "Mat og drikke";
+"wikimedia-articletopics-topic-general-science" = "Generell vitenskap";
+"wikimedia-articletopics-topic-history" = "Historie";
+"wikimedia-articletopics-topic-music" = "Musikk";
+"wikimedia-articletopics-topic-north-america" = "Nord-Amerika";
+"wikimedia-articletopics-topic-oceania" = "Oseania";
+"wikimedia-articletopics-topic-physics" = "Fysikk";
 "wikitext-preview-changes" = "Laster forhåndsvisning av endringene dine…";
 "wikitext-preview-link-external-preview-description" = "Denne lenka leder til et eksternt nettsted: $1";
 "wikitext-preview-link-external-preview-title" = "Ekstern lenke";
@@ -1271,121 +1281,3 @@
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil bli tilskrevet IP-adressen til enheten din. Hvis du $1 vil du få bedre personvern.";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Ved å publisere endringene samtykker du i $1bruksvilkårene$2, og samtykker i å ugjenkallelig utgi bidraget ditt under lisensene $3CC BY-SA 4.0$4 og $5GFDL$6. Du samtykker til at en hyperlenke eller URL er tilstrekkelig attribuering under Creative Commons-lisensen.";
 "wikitext-upload-save-terms-name" = "bruksvilkårene";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Arkitektur";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Kunst";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Tegneserier og -filmer";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Underholdning";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Mote";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Litteratur";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Musikk";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Utøvende kunst";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Sport";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "TV og film";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Videospill";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Biografi (alle)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Biografi (kvinner)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Næringsliv og økonomi";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Utdanning";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Mat og drikke";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Historie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Militære og krigføring";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofi og religion";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Politikk og styresett";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Samfunn";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Transport";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Biologi";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Kjemi";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Datamaskiner og internett";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Jord og miljø";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Ingeniørfag";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Generell vitenskap";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Matematikk";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Medisin og helse";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Fysikk";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Teknologi";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Afrika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Asia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Sentral-Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Europa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Nord-Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Oseania";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Sør-Amerika";

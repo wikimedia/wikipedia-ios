@@ -240,49 +240,11 @@
 "article-tabs-open-new-tab" = "Yeni vərəqədə aç";
 "article-talk-page" = "Məqalənin müzakirə səhifəsi";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Oxuma temaları parametrləri";
-"article-topic-africa" = "Afrika";
-"article-topic-architecture" = "Memarlıq";
-"article-topic-art" = "İncəsənət";
-"article-topic-asia" = "Asiya";
-"article-topic-biography" = "Bioqrafiya (hamısı)";
-"article-topic-biology" = "Biologiya";
-"article-topic-business-and-economics" = "Biznes və iqtisadiyyat";
-"article-topic-central-america" = "Mərkəzi Amerika";
-"article-topic-chemistry" = "Kimya";
-"article-topic-comics-and-anime" = "Komiks və anime";
-"article-topic-computers-and-internet" = "Kompüterlər və internet";
-"article-topic-earth-and-environment" = "Dünya və ətraf mühit";
-"article-topic-education" = "Təhsil";
-"article-topic-engineering" = "Mühəndislik";
-"article-topic-entertainment" = "Əyləncə";
-"article-topic-europe" = "Avropa";
-"article-topic-fashion" = "Dəb";
-"article-topic-food-and-drink" = "Qida və içki";
-"article-topic-general-science" = "Elm";
-"article-topic-history" = "Tarix";
-"article-topic-literature" = "Ədəbiyyat";
-"article-topic-mathematics" = "Riyaziyyat";
-"article-topic-medicine-and-health" = "Tibb və sağlamlıq";
-"article-topic-military-and-warfare" = "Hərbi və müharibə";
-"article-topic-music" = "Musiqi";
-"article-topic-north-america" = "Şimali Amerika";
-"article-topic-oceania" = "Okeaniya";
-"article-topic-performing-arts" = "Səhnə sənəti";
-"article-topic-philosophy-and-religion" = "Fəlsəfə və din";
-"article-topic-physics" = "Fizika";
-"article-topic-politics-and-government" = "Siyasət və hökumət";
-"article-topic-society" = "Cəmiyyət";
-"article-topic-south-america" = "Cənubi Amerika";
-"article-topic-sports" = "İdman";
-"article-topic-technology" = "Texnologiya";
-"article-topic-transportation" = "Nəqliyyat";
-"article-topic-tv-and-film" = "Televiziya və film";
-"article-topic-video-games" = "Videooyunlar";
-"article-topic-women" = "Bioqrafiya (qadınlar)";
 "article-view-controller-editing-temp-account-created-subtitle" = "Redaktəniz yayımlandıqdan sonra $1 müvəqqəti hesabı yaradıldı. Onun müddəti 90 gün sonra başa çatacaq.";
 "article-view-controller-editing-temp-account-created-title" = "Müvəqqəti hesab yaradıldı";
 "back-button-accessibility-label" = "Geri";
 "back-button-popover-title" = "Geri qayıtmaq üçün toxun";
+"beta-badge-label" = "Beta";
 "button-go-back" = "Geri qayıt";
 "button-next" = "İrəli";
 "button-ok" = "Oldu";
@@ -456,6 +418,31 @@
 "donate-transaction-fee-opt-in-text" = "İanəmin 100%%-ni ala bilməyiniz üçün əməliyyat xərclərini də ödəmək üçün $1 əlavə edəcəm";
 "donate-wikimedia-fine-print-1" = "Biz məlumatlarınızı heç kimə satmırıq. İanə verməklə siz şəxsi məlumatlarınızı Vikipediya və digər Vikimedia layihələrini özündə birləşdirən qeyri-kommersiya təşkilatı olan Vikimedia Fondu və onun xidmət təminatçıları ilə [ianə siyasətinə]($1) uyğun olaraq paylaşmağa razılaşırsınız. Vikimedia Fondu və onun xidmət təminatçıları ABŞ-də və məxfilik qanunları sizinki ilə uyğun olmaya bilən digər dövlətlərdə yerləşirlər. Əlavə məlumat üçün [ianə siyasətini]($1) oxuyun.";
 "donate-wikimedia-fine-print-2" = "Təkrarlanan ianələr üçün sabit aylıq ödənişlər Vikimedia Fondu tərəfindən ilk ianədən etibarən hər ay eyni gündə, siz onları dayandırmaq barədə bizə bildirdiyiniz vaxta kimi debet ediləcək. Ayın 29, 30 və ya 31-də başlanan ianələr mümkün qədər orijinal tarixə yaxın ayın son günündə daha qısa aylarda təkrarlanacaq. Suallar üçün donate@wikimedia.org ünvanı ilə əlaqə saxlayın.";
+"donation-reminder-card-body" = "$1 tarixində siz bizdən {{PLURAL:$2|$2 məqalə}} oxuduqdan sonra sizə ianə etməyi xatırlatmağımızı istəmisiniz. Əgər Vikipediya sizə $3 dəyərində bilik qazandırıbsa, ianə edən oxucuların 2%%-nə qoşulun və bu gün ianə öhdəliyinizi yerinə yetirin.";
+"donation-reminder-card-donate" = "Bəli, indi ianə et";
+"donation-reminder-card-heading" = "$2 ianə etməyi vəd etdiyinizdən bəri {{PLURAL:$1|$1 məqalə}} oxumusunuz!";
+"donation-reminder-card-not-now" = "İndi yox";
+"donation-reminder-card-not-now-toast-modify" = "Dəyişdir";
+"donation-reminder-card-not-now-toast-settings" = "İanə xatırlatmaları istənilən vaxt Parametrlərdə dəyişdirilə bilər.";
+"donation-reminder-card-subsequent-heading" = "Daha {{PLURAL:$1|$1 məqalə}} oxumusunuz!";
+"donation-reminder-email-report-body" = "Vikipediya ianə xatırlatmaları funksiyası ilə bağlı bir problemlə qarşılaşdım:";
+"donation-reminder-email-report-subject" = "Problem - İanə xatırladıcısı";
+"donation-reminder-payment-different-amount-button-title" = "Apple Pay ilə fərqli bir məbləğ ianə et";
+"donation-reminder-payment-pledge-button-title" = "Apple Pay ilə $1 ianə et";
+"donation-reminder-setup-amount-accessibility-hint" = "İanə məbləğini seçmək üçün iki dəfə kliklə.";
+"donation-reminder-setup-amount-group-title" = "Mənə ianə etməyi xatırlat";
+"donation-reminder-setup-confirm-button-title" = "Xatırlatmanı təsdiqlə";
+"donation-reminder-setup-custom-amount-accessibility-hint" = "Spesifik ianə məbləğini daxil edin";
+"donation-reminder-setup-info" = "İanələr Vikipediyaya və onun qardaş layihələrinə qürurla ev sahibliyi edən Vikimedia Fondu və onun tərəfdaş təşkilatlarına yönəldilir.";
+"donation-reminder-setup-subtitle-articles" = "Səxavətli ianəniz Vikipediyanın inkişafını davam etdirməsinə kömək edir. Oxuduğunuz məqalələrin sayına əsaslanan ianə xatırladıcısı quraşdırın.";
+"donation-reminder-setup-title" = "Sizə necə xatırlatmalıyıq?";
+"donation-reminder-setup-toast-articles" = "Bu təcrübə davam edərkən $2 məqaləni oxuduqdan sonra sizə $1 ianə etməyinizi xatırladacağıq.";
+"donation-reminder-setup-toggle-title" = "İanə xatırlatmaları";
+"donation-reminder-setup-trigger-detail-accessibility-label" = "Daha ətraflı";
+"donation-reminder-setup-trigger-group-detail-articles" = "Məqalələrin sayı cihazınızda lokal olaraq saxlanılır";
+"donation-reminder-setup-trigger-group-title-articles" = "Mən oxuyan zaman";
+"donation-reminder-setup-trigger-unit-articles" = "Məqalələr";
+"donation-reminder-setup-update-button-title" = "Xatırlatmanı yenilə";
 "duplicate-tab" = "Vərəqənin dublikatını yarat";
 "edit-link-display-text-title" = "Mətni göstər";
 "edit-link-link-target-title" = "Link hədəfi";
@@ -718,16 +705,25 @@
 "find-replace-header" = "Tap və əvəzlə";
 "find-replace-header-close-accessibility" = "Tap və dəyişdiri bağla";
 "find-textfield-accessibility" = "Tap";
-"for-you-empty-button" = "Maraqlarınızı seçin";
-"for-you-empty-subtitle" = "Fərdiləşdirilmiş məqalə tövsiyələri almaq üçün maraqlarınızı əlavə edin.";
+"for-you-empty-feed-add-interests-link" = "bəzi maraqlar";
+"for-you-empty-feed-subtitle" = "Oxumağa davam etdikdə \"Sizin üçün\" lentiniz fərdiləşdirilmiş məqalələrlə doldurulacaq.";
+"for-you-empty-feed-title" = "Sizin lentiniz hələlik boşdur";
+"for-you-empty-feed-ways-to-get-started" = "Başlamaq üçün yollar:";
+"for-you-empty-subtitle-interests-or-modules" = "Fərdiləşdirilmiş məqalə tövsiyələri almaq üçün maraqlarınızı əlavə edin və ya modulları aktivləşdirin";
 "for-you-empty-title" = "Hələlik burada heç nə yoxdur";
+"for-you-end-of-feed-add-interests-format" = "$1 əlavə et";
+"for-you-end-of-feed-add-interests-link" = "Yeni maraqlar";
+"for-you-end-of-feed-community-format" = "$1 nələrin baş verdiyinə baxın";
+"for-you-end-of-feed-community-link" = "İcmada";
+"for-you-end-of-feed-subtitle" = "Sabah sizin üçün fərdiləşdirilmiş yeni məqalələr tapmaq üçün yenə gəlin.";
+"for-you-end-of-feed-title" = "Bugünlük bu qədər!";
+"for-you-end-of-feed-ways-to-keep-learning" = "Öyrənməyə davam etmək yolları:";
 "for-you-error-retry" = "Yenidən cəhd et";
 "for-you-error-subtitle" = "İnternetə qoşulun və yenidən cəhd edin.";
 "for-you-error-title" = "İnternet bağlantısı yoxdur";
 "for-you-header-because-you-read" = "$1 oxuduğunuz üçün";
 "for-you-header-interest" = "$1 ilə olan marağınıza görə";
-// Fuzzy
-"for-you-header-saved-article" = "$1 oxuma siyahınızdan";
+"for-you-header-saved-article" = "Oxuma siyahınızdan";
 "for-you-menu-customize-interests" = "Maraqlarınızı fərdiləşdirin";
 "for-you-refreshing-accessibility-label" = "Yeni məzmun yüklənir";
 "forgot-password-button-title" = "Sıfırla";
@@ -751,14 +747,14 @@
 "history-clear-delete-all" = "Bəli, hamısını sil";
 "history-title" = "Tarixçə";
 "home-button-explore-accessibility-label" = "Vikipediya, Kəşf et səhifəsinə qayıt";
+"home-button-home-accessibility-label" = "Vikipediya, Ana səhifəyə qayıt";
 "home-button-saved-accessibility-label" = "Vikipediya, Saxlanmışlara qayıt";
 "home-card-more-options-accessibility-label" = "Daha çox seçim";
-"home-community-empty-feed-button-title" = "Lenti fərdiləşdir";
-"home-community-empty-feed-message" = "İcma lentini görmək üçün lent parametrlərində kartları aktivləşdirin.";
-"home-community-empty-feed-title" = "Bütün İcma lent kartları gizlidir";
+"home-community-empty-feed-turn-on-modules-message" = "İcma məzmununu görmək üçün modulları aktivləşdirin";
 "home-community-see-past-content" = "Keçmiş icma məzmununa bax";
 "home-community-tab-title" = "İcma";
 "home-edit-languages-title" = "Dil əlavə et və ya redaktə et";
+"home-empty-go-to-settings-button" = "Parametrlərə get";
 "home-feed-for-you-based-on-interests-subtitle" = "Seçdiyiniz mövzulara uyğun məqalələr.";
 "home-feed-for-you-based-on-interests-title" = "Maraqlarınıza əsasən";
 "home-feed-for-you-because-you-read-subtitle" = "Tarixçənizdəki son məqaləyə əsaslanan təkliflər";
@@ -801,6 +797,9 @@
 "home-feed-whats-driving-settings-title" = "Lentinizi nə idarə edir";
 "home-feed-whats-driving-your-interests-subtitle" = "Maraqlandığınız mövzuları redaktə edin";
 "home-feed-whats-driving-your-interests-title" = "Maraqlarınız";
+"home-for-you-card-position-accessibility-value" = "$1/$2";
+"home-for-you-next-module-accessibility-action" = "Növbəti modul";
+"home-for-you-previous-module-accessibility-action" = "Əvvəlki modul";
 "home-for-you-tab-title" = "Sizin üçün";
 "home-menu-hide-module" = "Modulu gizlət";
 "home-more-like-footer" = "Daha çox $1 kimi";
@@ -809,6 +808,7 @@
 "home-news-footer" = "Daha çox aktual hadisələr";
 "home-reading-list-prompt" = "Yadda saxladığınız məqalələr indi oxuma siyahılarında təşkil edilə və cihazlar arasında sinxronlaşdırıla bilər. Oxuma siyahılarınızın istifadəçi seçimlərinizdə saxlanmasına icazə vermək üçün daxil olun.";
 "home-tab-title" = "Ana səhifə";
+"home-tab-title-accessibility-label" = "Vikipediya, Əsas səhifənin yuxarısına sürüşdür";
 "home-themes-action-title" = "Nizamlamaları idarə et";
 "home-themes-prompt" = "Daha rahat oxu təcrübəsi üçün məqalə alətlər panelindən və ya istifadəçi parametrlərinizdə mətn ölçüsü və mövzu daxil olmaqla Oxu seçimlərinizi tənzimləyin.";
 "home-title" = "Kəşf et";
@@ -1335,8 +1335,12 @@
 "settings-clear-cache-are-you-sure-title" = "Keşdəki data silinsin?";
 "settings-clear-cache-cancel" = "İmtina";
 "settings-clear-cache-ok" = "Keşi təmizlə";
+"settings-clear-donation-history" = "İanə tarixçəsini təmizlə";
 "settings-community-feed-title" = "İcma";
 "settings-donate" = "İanə et";
+"settings-donation-reminders-subtitle" = "Vikipediya oxuduğunuz hər $2 məqalədən sonra sizə $1 ianə etməyi xatırladacaq.";
+"settings-donation-reminders-title" = "İanə xatırlatmaları";
+"settings-donations-header" = "İanələr";
 "settings-editing-preferences-source-short" = "Mənbə";
 "settings-editing-preferences-title" = "Redaktə seçimi";
 "settings-editing-preferences-visual-short" = "Vizual";
@@ -1674,6 +1678,45 @@
 "widget-onthisday-description" = "Tarixdə bu gündə nə baş verdiyinə baxın.";
 "widget-onthisday-placeholder-article-snippet" = "Hər kəsin redaktə edə biləcəyi azad onlayn ensiklopediya";
 "widget-onthisday-placeholder-event-snippet" = "Pulsuz viki məzmun ensiklopediyası olan Vikipedia elan edilir.";
+"wikimedia-articletopics-topic-africa" = "Afrika";
+"wikimedia-articletopics-topic-architecture" = "Memarlıq";
+"wikimedia-articletopics-topic-art" = "İncəsənət";
+"wikimedia-articletopics-topic-asia" = "Asiya";
+"wikimedia-articletopics-topic-biography" = "Bioqrafiya (hamısı)";
+"wikimedia-articletopics-topic-biology" = "Biologiya";
+"wikimedia-articletopics-topic-business-and-economics" = "Biznes və iqtisadiyyat";
+"wikimedia-articletopics-topic-central-america" = "Mərkəzi Amerika";
+"wikimedia-articletopics-topic-chemistry" = "Kimya";
+"wikimedia-articletopics-topic-comics-and-anime" = "Komiks və anime";
+"wikimedia-articletopics-topic-computers-and-internet" = "Kompüterlər və internet";
+"wikimedia-articletopics-topic-earth-and-environment" = "Dünya və ətraf mühit";
+"wikimedia-articletopics-topic-education" = "Təhsil";
+"wikimedia-articletopics-topic-engineering" = "Mühəndislik";
+"wikimedia-articletopics-topic-entertainment" = "Əyləncə";
+"wikimedia-articletopics-topic-europe" = "Avropa";
+"wikimedia-articletopics-topic-fashion" = "Dəb";
+"wikimedia-articletopics-topic-food-and-drink" = "Qida və içki";
+"wikimedia-articletopics-topic-general-science" = "Elm";
+"wikimedia-articletopics-topic-history" = "Tarix";
+"wikimedia-articletopics-topic-literature" = "Ədəbiyyat";
+"wikimedia-articletopics-topic-mathematics" = "Riyaziyyat";
+"wikimedia-articletopics-topic-medicine-and-health" = "Tibb";
+"wikimedia-articletopics-topic-military-and-warfare" = "Hərbi";
+"wikimedia-articletopics-topic-music" = "Musiqi";
+"wikimedia-articletopics-topic-north-america" = "Şimali Amerika";
+"wikimedia-articletopics-topic-oceania" = "Okeaniya";
+"wikimedia-articletopics-topic-performing-arts" = "Səhnə sənəti";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Fəlsəfə və din";
+"wikimedia-articletopics-topic-physics" = "Fizika";
+"wikimedia-articletopics-topic-politics-and-government" = "Siyasət və hökumət";
+"wikimedia-articletopics-topic-society" = "Cəmiyyət";
+"wikimedia-articletopics-topic-south-america" = "Cənubi Amerika";
+"wikimedia-articletopics-topic-sports" = "İdman";
+"wikimedia-articletopics-topic-technology" = "Texnologiya";
+"wikimedia-articletopics-topic-transportation" = "Nəqliyyat";
+"wikimedia-articletopics-topic-tv-and-film" = "Televiziya və film";
+"wikimedia-articletopics-topic-video-games" = "Video oyunlar";
+"wikimedia-articletopics-topic-women" = "Bioqrafiya (qadın)";
 "wikitext-preview-changes" = "Dəyişikliklərinizin önizləməsi alınır...";
 "wikitext-preview-link-external-preview-description" = "Bu keçid xarici veb-sayta aparır: $1";
 "wikitext-preview-link-external-preview-title" = "Xarici keçid";
@@ -1799,121 +1842,3 @@
 "year-in-review-wmf-logo-accessibility-label" = "Vikimedia Fondunun loqosu";
 "yesterday-title" = "Dünən";
 "zero-edits-to-articles" = "Bu yaxınlarda məqalələrə 0 düzəliş";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Memarlıq";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "İncəsənət";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Komiks və anime";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Əyləncə";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Dəb";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Ədəbiyyat";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Musiqi";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Səhnə sənəti";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "İdman";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "Televiziya və film";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Video oyunlar";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Bioqrafiya (hamısı)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Bioqrafiya (qadın)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Biznes və iqtisadiyyat";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Təhsil";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Qida və içki";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Tarix";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Hərbi";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Fəlsəfə və din";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Siyasət və hökumət";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Cəmiyyət";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Nəqliyyat";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Biologiya";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Kimya";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Kompüterlər və internet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Dünya və ətraf mühit";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Mühəndislik";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Elm";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Riyaziyyat";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Tibb";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Fizika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Texnologiya";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Afrika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Asiya";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Mərkəzi Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Avropa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Şimali Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Okeaniya";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Cənubi Amerika";

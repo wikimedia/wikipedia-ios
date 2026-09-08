@@ -100,7 +100,7 @@
 "action-remove" = "Entfernen";
 "action-retry" = "Erneut versuchen";
 "action-save" = "Speichern";
-"action-saved" = "Gespeichert";
+"action-saved" = "Sammlungen";
 "action-saved-accessibility" = "Gespeichert. Aktivieren zum Löschen.";
 "action-saved-accessibility-notification" = "Artikel für später gespeichert";
 "action-share" = "Teilen";
@@ -271,49 +271,11 @@
 "article-tabs-open-new-tab" = "In neuem Tab öffnen";
 "article-talk-page" = "Diskussion";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Lese-Farbschema-Steuerung";
-"article-topic-africa" = "Afrika";
-"article-topic-architecture" = "Architektur";
-"article-topic-art" = "Kunst";
-"article-topic-asia" = "Asien";
-"article-topic-biography" = "Biografie (alle)";
-"article-topic-biology" = "Biologie";
-"article-topic-business-and-economics" = "Wirtschaft und Ökonomie";
-"article-topic-central-america" = "Mittelamerika";
-"article-topic-chemistry" = "Chemie";
-"article-topic-comics-and-anime" = "Comics und Anime";
-"article-topic-computers-and-internet" = "Computer und Internet";
-"article-topic-earth-and-environment" = "Erde und Umwelt";
-"article-topic-education" = "Bildung";
-"article-topic-engineering" = "Ingenieurwesen";
-"article-topic-entertainment" = "Unterhaltung";
-"article-topic-europe" = "Europa";
-"article-topic-fashion" = "Mode";
-"article-topic-food-and-drink" = "Essen und Trinken";
-"article-topic-general-science" = "Allgemeine Wissenschaft";
-"article-topic-history" = "Geschichte";
-"article-topic-literature" = "Literatur";
-"article-topic-mathematics" = "Mathematik";
-"article-topic-medicine-and-health" = "Medizin und Gesundheit";
-"article-topic-military-and-warfare" = "Militär und Kriegsführung";
-"article-topic-music" = "Musik";
-"article-topic-north-america" = "Nordamerika";
-"article-topic-oceania" = "Ozeanien";
-"article-topic-performing-arts" = "Darstellende Kunst";
-"article-topic-philosophy-and-religion" = "Philosophie und Religion";
-"article-topic-physics" = "Physik";
-"article-topic-politics-and-government" = "Politik und Regierung";
-"article-topic-society" = "Gesellschaft";
-"article-topic-south-america" = "Südamerika";
-"article-topic-sports" = "Sport";
-"article-topic-technology" = "Technologie";
-"article-topic-transportation" = "Verkehr";
-"article-topic-tv-and-film" = "Fernsehen und Film";
-"article-topic-video-games" = "Videospiele";
-"article-topic-women" = "Biografie (Frauen)";
 "article-view-controller-editing-temp-account-created-subtitle" = "Das temporäre Konto $1 wurde nach der Veröffentlichung deiner Bearbeitung erstellt. Es läuft in 90 Tagen ab.";
 "article-view-controller-editing-temp-account-created-title" = "Temporäres Konto erstellt";
 "back-button-accessibility-label" = "Zurück";
 "back-button-popover-title" = "Zum Zurückgehen tippen";
+"beta-badge-label" = "Beta";
 "button-go-back" = "Zurück";
 "button-next" = "Weiter";
 "button-ok" = "Okay";
@@ -489,6 +451,29 @@
 "donate-transaction-fee-opt-in-text" = "Ich füge großzügig $1 hinzu, um die Transaktionsgebühren zu decken, damit 100%% meiner Spende behalten werden kann.";
 "donate-wikimedia-fine-print-1" = "Wir verkaufen oder handeln deine Informationen nicht an Dritte. Durch eine Spende stimmst du zu, Deine persönlichen Daten mit der Wikimedia Foundation, der gemeinnützigen Organisation, die Wikipedia und andere Wikimedia-Projekte hostet und ihren Dienstleistern gemäß unserer [Spenderrichtlinie]($1) zu teilen. Die Wikimedia Foundation und ihre Dienstleister befinden sich in den Vereinigten Staaten und in anderen Ländern, deren Datenschutzgesetze möglicherweise nicht deinen eigenen entsprechen. Für weitere Informationen lies bitte unsere [Spenderrichtlinie]($1).";
 "donate-wikimedia-fine-print-2" = "Für wiederkehrende Spender werden feste monatliche Zahlungen von der Wikimedia Foundation am monatlichen Jahrestag der ersten Spende abgebucht, bis du uns mitteilst, sie einzustellen. Spenden, die am 29., 30. oder 31. des Monats initiiert werden, wiederholen sich am letzten Tag des Monats für kürzere Monate, so nah wie möglich am ursprünglichen Datum. Bei Fragen wende dich bitte an donate@wikimedia.org.";
+"donation-reminder-card-body" = "Am $1 hast du uns gebeten, dich nach dem Lesen von {{PLURAL:$2|$2 Artikel|$2 Artikeln}} ans Spenden zu erinnern. Wenn dir Wikipedia Wissen im Wert von $3 gebracht hat, schließe dich den 2 %% der Leser an, die spenden, und löse dein Versprechen heute ein.";
+"donation-reminder-card-donate" = "Ja, jetzt spenden";
+"donation-reminder-card-heading" = "Du hast {{PLURAL:$1|$1 Artikel}} gelesen, seit du $2 zugesagt hast!";
+"donation-reminder-card-not-now" = "Nicht jetzt";
+"donation-reminder-card-subsequent-heading" = "Du hast {{PLURAL:$1|$1 weiteren Artikel|$1 weitere Artikel}} gelesen!";
+"donation-reminder-email-report-body" = "Ich habe ein Problem mit der Funktion für Spendenerinnerungen festgestellt:";
+"donation-reminder-email-report-subject" = "Fehlerbericht – Spendenerinnerungen";
+"donation-reminder-payment-different-amount-button-title" = "Anderen Betrag mit Apple Pay spenden";
+"donation-reminder-payment-pledge-button-title" = "$1 mit Apple Pay spenden";
+"donation-reminder-setup-amount-accessibility-hint" = "Doppeltippen, um den Spendenbetrag auszuwählen";
+"donation-reminder-setup-amount-group-title" = "Erinnere mich ans Spenden";
+"donation-reminder-setup-confirm-button-title" = "Erinnerung bestätigen";
+"donation-reminder-setup-custom-amount-accessibility-hint" = "Eigenen Spendenbetrag eingeben";
+"donation-reminder-setup-info" = "Spenden gehen an die Wikimedia Foundation und ihre Partnerorganisationen, die stolzen Betreiber von Wikipedia und den Schwesterprojekten.";
+"donation-reminder-setup-subtitle-articles" = "Deine Großzügigkeit hilft Wikipedia, weiter zu wachsen. Richte eine Spendenerinnerung ein, die sich nach der Anzahl deiner gelesenen Artikel richtet.";
+"donation-reminder-setup-title" = "Wie sollen wir dich erinnern?";
+"donation-reminder-setup-toast-articles" = "Wir erinnern dich daran, $1 zu spenden, nachdem du $2 Artikel gelesen hast, solange dieses Experiment läuft.";
+"donation-reminder-setup-toggle-title" = "Spendenerinnerungen";
+"donation-reminder-setup-trigger-detail-accessibility-label" = "Weitere Informationen";
+"donation-reminder-setup-trigger-group-detail-articles" = "Die Artikelanzahl wird lokal auf deinem Gerät gespeichert.";
+"donation-reminder-setup-trigger-group-title-articles" = "Immer wenn ich lese";
+"donation-reminder-setup-trigger-unit-articles" = "Artikel";
+"donation-reminder-setup-update-button-title" = "Erinnerung aktualisieren";
 "duplicate-tab" = "Tab klonen";
 "edit-link-display-text-title" = "Angezeigter Text";
 "edit-link-link-target-title" = "Linkziel";
@@ -751,16 +736,14 @@
 "find-replace-header" = "Suchen und ersetzen";
 "find-replace-header-close-accessibility" = "Suchen und ersetzen schließen";
 "find-textfield-accessibility" = "Suchen";
-"for-you-empty-button" = "Interessen auswählen";
-"for-you-empty-subtitle" = "Füge Interessen hinzu, um personalisierte Artikelempfehlungen zu erhalten.";
+"for-you-empty-subtitle-interests-or-modules" = "Füge Interessen hinzu oder aktiviere Module, um personalisierte Artikelempfehlungen zu erhalten";
 "for-you-empty-title" = "Hier ist noch nichts";
 "for-you-error-retry" = "Erneut versuchen";
 "for-you-error-subtitle" = "Stelle eine Internetverbindung her und versuche es erneut.";
 "for-you-error-title" = "Keine Internetverbindung";
 "for-you-header-because-you-read" = "Weil du gelesen hast: $1";
 "for-you-header-interest" = "Wegen deines Interesses: $1";
-// Fuzzy
-"for-you-header-saved-article" = "Aus deiner Sammlung: $1";
+"for-you-header-saved-article" = "Aus deiner Sammlung";
 "for-you-menu-customize-interests" = "Interessen anpassen";
 "for-you-refreshing-accessibility-label" = "Neue Inhalte werden geladen";
 "forgot-password-button-title" = "Zurücksetzen";
@@ -787,12 +770,11 @@
 "home-button-home-accessibility-label" = "Wikipedia, zurück zu Start";
 "home-button-saved-accessibility-label" = "Wikipedia, zurück zu Gespeichert";
 "home-card-more-options-accessibility-label" = "Weitere Optionen";
-"home-community-empty-feed-button-title" = "Feed anpassen";
-"home-community-empty-feed-message" = "Schalte in den Feed-Einstellungen Karten ein, um den Community-Feed zu sehen.";
-"home-community-empty-feed-title" = "Alle Karten des Community-Feeds sind ausgeblendet";
+"home-community-empty-feed-turn-on-modules-message" = "Aktiviere Module, um Community-Inhalte zu sehen";
 "home-community-see-past-content" = "Frühere Community-Inhalte ansehen";
 "home-community-tab-title" = "Gemeinschaft";
 "home-edit-languages-title" = "Sprachen hinzufügen oder bearbeiten";
+"home-empty-go-to-settings-button" = "Zu den Einstellungen";
 "home-feed-for-you-based-on-interests-subtitle" = "Artikel, zugeschnitten auf die von dir gewählten Themen.";
 "home-feed-for-you-based-on-interests-title" = "Basierend auf deinen Interessen";
 "home-feed-for-you-because-you-read-subtitle" = "Vorschläge basierend auf einem kürzlich gelesenen Artikel aus deinem Verlauf";
@@ -835,6 +817,9 @@
 "home-feed-whats-driving-settings-title" = "Was deinen Feed beeinflusst";
 "home-feed-whats-driving-your-interests-subtitle" = "Interessensthemen bearbeiten";
 "home-feed-whats-driving-your-interests-title" = "Deine Interessen";
+"home-for-you-card-position-accessibility-value" = "$1 von $2";
+"home-for-you-next-module-accessibility-action" = "Nächstes Modul";
+"home-for-you-previous-module-accessibility-action" = "Vorheriges Modul";
 "home-for-you-tab-title" = "Für dich";
 "home-menu-hide-module" = "Modul ausblenden";
 "home-more-like-footer" = "Mehr wie $1";
@@ -1376,8 +1361,12 @@
 "settings-clear-cache-are-you-sure-title" = "Gecachte Daten löschen?";
 "settings-clear-cache-cancel" = "Abbrechen";
 "settings-clear-cache-ok" = "Cache löschen";
+"settings-clear-donation-history" = "Spendenverlauf löschen";
 "settings-community-feed-title" = "Community";
 "settings-donate" = "Spenden";
+"settings-donation-reminders-subtitle" = "Wikipedia erinnert dich nach jeweils $2 gelesenen Artikeln daran, $1 zu spenden.";
+"settings-donation-reminders-title" = "Spendenerinnerungen";
+"settings-donations-header" = "Spenden";
 "settings-editing-preferences-source-short" = "Quelltext";
 "settings-editing-preferences-title" = "Bearbeitungseinstellung";
 "settings-editing-preferences-visual-short" = "Visuell";
@@ -1715,6 +1704,45 @@
 "widget-onthisday-description" = "Erforsche, was an diesem Tag in der Geschichte passiert ist.";
 "widget-onthisday-placeholder-article-snippet" = "Freie Online-Enzyklopädie, die jeder bearbeiten kann";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, eine freie Enzyklopädie mit Wiki-Inhalten, geht online.";
+"wikimedia-articletopics-topic-africa" = "Afrika";
+"wikimedia-articletopics-topic-architecture" = "Architektur";
+"wikimedia-articletopics-topic-art" = "Kunst";
+"wikimedia-articletopics-topic-asia" = "Asien";
+"wikimedia-articletopics-topic-biography" = "Biografie (alle)";
+"wikimedia-articletopics-topic-biology" = "Biologie";
+"wikimedia-articletopics-topic-business-and-economics" = "Wirtschaft und Ökonomie";
+"wikimedia-articletopics-topic-central-america" = "Zentralamerika";
+"wikimedia-articletopics-topic-chemistry" = "Chemie";
+"wikimedia-articletopics-topic-comics-and-anime" = "Comics und Anime";
+"wikimedia-articletopics-topic-computers-and-internet" = "Computer und Internet";
+"wikimedia-articletopics-topic-earth-and-environment" = "Erde und Umwelt";
+"wikimedia-articletopics-topic-education" = "Bildung";
+"wikimedia-articletopics-topic-engineering" = "Ingenieurwesen";
+"wikimedia-articletopics-topic-entertainment" = "Unterhaltung";
+"wikimedia-articletopics-topic-europe" = "Europa";
+"wikimedia-articletopics-topic-fashion" = "Mode";
+"wikimedia-articletopics-topic-food-and-drink" = "Essen und Trinken";
+"wikimedia-articletopics-topic-general-science" = "Allgemeine Wissenschaft";
+"wikimedia-articletopics-topic-history" = "Geschichte";
+"wikimedia-articletopics-topic-literature" = "Literatur";
+"wikimedia-articletopics-topic-mathematics" = "Mathematik";
+"wikimedia-articletopics-topic-medicine-and-health" = "Medizin und Gesundheit";
+"wikimedia-articletopics-topic-military-and-warfare" = "Militär und Kriegsführung";
+"wikimedia-articletopics-topic-music" = "Musik";
+"wikimedia-articletopics-topic-north-america" = "Nordamerika";
+"wikimedia-articletopics-topic-oceania" = "Ozeanien";
+"wikimedia-articletopics-topic-performing-arts" = "Darstellende Kunst";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Philosophie und Religion";
+"wikimedia-articletopics-topic-physics" = "Physik";
+"wikimedia-articletopics-topic-politics-and-government" = "Staat und Politik";
+"wikimedia-articletopics-topic-society" = "Gesellschaft";
+"wikimedia-articletopics-topic-south-america" = "Südamerika";
+"wikimedia-articletopics-topic-sports" = "Sport";
+"wikimedia-articletopics-topic-technology" = "Technologie";
+"wikimedia-articletopics-topic-transportation" = "Verkehr";
+"wikimedia-articletopics-topic-tv-and-film" = "Fernsehen und Film";
+"wikimedia-articletopics-topic-video-games" = "Videospiele";
+"wikimedia-articletopics-topic-women" = "Biografie (Frauen)";
 "wikitext-preview-changes" = "Rufe Vorschau deiner Änderungen ab …";
 "wikitext-preview-link-external-preview-description" = "Dieser Link führt zu einer externen Website: $1";
 "wikitext-preview-link-external-preview-title" = "Externer Link";
@@ -1840,121 +1868,3 @@
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Foundation Logo";
 "yesterday-title" = "Gestern";
 "zero-edits-to-articles" = "0 Artikelbearbeitungen in letzter Zeit";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Architektur";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Kunst";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Comics und Anime";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Unterhaltung";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Mode";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Literatur";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Musik";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Darstellende Kunst";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Sport";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "Film und Fernsehen";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Videospiele";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Biografie (alle)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Biografie (Frauen)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Unternehmen und Wirtschaft";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Bildung";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Essen und Trinken";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Geschichte";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Krieg und Militär";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Philosophie und Religion";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Staat und Politik";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Gesellschaft";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Verkehr";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Biologie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Chemie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Computer und Internet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Erde und Umwelt";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Technik";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Wissenschaft";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Mathematik";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Medizin und Gesundheit";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Physik";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Technologie";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Afrika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Asien";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Zentralamerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Europa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Nordamerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Ozeanien";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Südamerika";

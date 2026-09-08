@@ -358,6 +358,45 @@
 "welcome-languages-add-button" = "دوسری زبان شامل کریں";
 // Fuzzy
 "welcome-languages-search-title" = "تقریباً 300 زبانوں میں تلاش کریں";
+"wikimedia-articletopics-topic-africa" = "افریقا";
+"wikimedia-articletopics-topic-architecture" = "فن تعمیر";
+"wikimedia-articletopics-topic-art" = "فنون";
+"wikimedia-articletopics-topic-asia" = "ایشیا";
+"wikimedia-articletopics-topic-biography" = "سوانح (تمام)";
+"wikimedia-articletopics-topic-biology" = "حیاتیات";
+"wikimedia-articletopics-topic-business-and-economics" = "کاروبار اور معاشیات";
+"wikimedia-articletopics-topic-central-america" = "وسطی امریکا";
+"wikimedia-articletopics-topic-chemistry" = "کیمیا";
+"wikimedia-articletopics-topic-comics-and-anime" = "کامکس اور اینی میشن";
+"wikimedia-articletopics-topic-computers-and-internet" = "کمپیوٹر اور انٹرنیٹ";
+"wikimedia-articletopics-topic-earth-and-environment" = "زمین اور ماحول";
+"wikimedia-articletopics-topic-education" = "تعلیم";
+"wikimedia-articletopics-topic-engineering" = "انجینئری";
+"wikimedia-articletopics-topic-entertainment" = "تفریح";
+"wikimedia-articletopics-topic-europe" = "یورپ";
+"wikimedia-articletopics-topic-fashion" = "فیشن";
+"wikimedia-articletopics-topic-food-and-drink" = "ماکولات و مشروبات";
+"wikimedia-articletopics-topic-general-science" = "جنرل سائنس";
+"wikimedia-articletopics-topic-history" = "تاریخ";
+"wikimedia-articletopics-topic-literature" = "ادب";
+"wikimedia-articletopics-topic-mathematics" = "ریاضیات";
+"wikimedia-articletopics-topic-medicine-and-health" = "دوا اور صحت";
+"wikimedia-articletopics-topic-military-and-warfare" = "فوج اور جنگ";
+"wikimedia-articletopics-topic-music" = "موسیقی";
+"wikimedia-articletopics-topic-north-america" = "شمالی امریکا";
+"wikimedia-articletopics-topic-oceania" = "اوقیانوسیہ";
+"wikimedia-articletopics-topic-performing-arts" = "تمثیلی فنون";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "فلسفہ اور مذہب";
+"wikimedia-articletopics-topic-physics" = "طبیعیات";
+"wikimedia-articletopics-topic-politics-and-government" = "سیاسیات اور حکومت";
+"wikimedia-articletopics-topic-society" = "معاشرہ";
+"wikimedia-articletopics-topic-south-america" = "جنوبی امریکا";
+"wikimedia-articletopics-topic-sports" = "کھیل";
+"wikimedia-articletopics-topic-technology" = "ٹیکنالوجی";
+"wikimedia-articletopics-topic-transportation" = "نقل و حمل";
+"wikimedia-articletopics-topic-tv-and-film" = "ٹی وی اور فلم";
+"wikimedia-articletopics-topic-video-games" = "ویڈیو کھیل";
+"wikimedia-articletopics-topic-women" = "سوانح (خواتین)";
 "wikitext-preview-changes" = "آپ کی تبدیلیوں کی نمائش دوبارہ حاصل کی جارہی ہے...";
 "wikitext-preview-link-preview-title" = "ربط کی نمائش";
 "wikitext-upload-captcha-error" = "کیپچا کی تصدیق میں خطا۔";
@@ -366,121 +405,3 @@
 "wikitext-upload-save" = "شائع ہورہا ہے۔۔۔";
 "wikitext-upload-save-anonymously-warning" = "ترامیم کا انتساب آپ کے آلے کے دستور شبکی پتے کو جائے گا۔ اگر آپ $1 آپ کے پاس زیادہ نجی حیثیت رہے گی۔";
 "wikitext-upload-save-terms-name" = "استعمال کے شرائط";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "فن تعمیر";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "فنون";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "کامکس اور اینی میشن";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "تفریح";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "فیشن";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "ادب";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "موسیقی";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "تمثیلی فنون";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "کھیل";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "ٹی وی اور فلم";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "ویڈیو کھیل";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "سوانح (تمام)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "سوانح (خواتین)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "کاروبار اور معاشیات";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "تعلیم";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "ماکولات و مشروبات";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "تاریخ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "فوج اور جنگ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "فلسفہ اور مذہب";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "سیاسیات اور حکومت";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "معاشرہ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "نقل و حمل";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "حیاتیات";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "کیمیا";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "کمپیوٹر اور انٹرنیٹ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "زمین اور ماحول";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "انجینئری";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "جنرل سائنس";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "ریاضیات";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "دوا اور صحت";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "طبیعیات";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "ٹیکنالوجی";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "افریقا";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "ایشیا";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "وسطی امریکا";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "یورپ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "شمالی امریکا";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "اوقیانوسیہ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "جنوبی امریکا";

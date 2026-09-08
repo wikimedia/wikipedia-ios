@@ -270,45 +270,6 @@
 "article-tabs-open-new-tab" = "새 탭에서 열기";
 "article-talk-page" = "문서 토론 페이지";
 "article-toolbar-reading-themes-controls-toolbar-item" = "읽기 테마 제어";
-"article-topic-africa" = "아프리카";
-"article-topic-architecture" = "건축";
-"article-topic-art" = "미술";
-"article-topic-asia" = "아시아";
-"article-topic-biography" = "전기문 (전부)";
-"article-topic-biology" = "생물학";
-"article-topic-business-and-economics" = "상업과 경제";
-"article-topic-central-america" = "중앙아메리카";
-"article-topic-chemistry" = "화학";
-"article-topic-comics-and-anime" = "문화와 애니메이션";
-"article-topic-computers-and-internet" = "컴퓨터와 인터넷";
-"article-topic-earth-and-environment" = "지구와 환경";
-"article-topic-education" = "교육";
-"article-topic-engineering" = "공학";
-"article-topic-entertainment" = "엔터테인먼트";
-"article-topic-europe" = "유럽";
-"article-topic-fashion" = "패션";
-"article-topic-food-and-drink" = "음식 및 음료";
-"article-topic-general-science" = "일반 과학";
-"article-topic-history" = "역사";
-"article-topic-literature" = "문학";
-"article-topic-mathematics" = "수학";
-"article-topic-medicine-and-health" = "의료와 보건";
-"article-topic-military-and-warfare" = "군사와 전쟁";
-"article-topic-music" = "음악";
-"article-topic-north-america" = "북아메리카";
-"article-topic-oceania" = "오세아니아";
-"article-topic-performing-arts" = "행위예술";
-"article-topic-philosophy-and-religion" = "철학과 종교";
-"article-topic-physics" = "물리학";
-"article-topic-politics-and-government" = "정치와 정부";
-"article-topic-society" = "사회";
-"article-topic-south-america" = "남아메리카";
-"article-topic-sports" = "스포츠";
-"article-topic-technology" = "기술";
-"article-topic-transportation" = "교통";
-"article-topic-tv-and-film" = "TV와 영화";
-"article-topic-video-games" = "비디오 게임";
-"article-topic-women" = "전기문 (여성)";
 "article-view-controller-editing-temp-account-created-subtitle" = "편집이 게시된 후 $1 임시 계정이 생성되었습니다. 90일 후에 만료됩니다.";
 "article-view-controller-editing-temp-account-created-title" = "임시 계정이 생성되었습니다";
 "back-button-accessibility-label" = "뒤로 가기";
@@ -807,6 +768,7 @@
 "home-feed-whats-driving-settings-title" = "무엇이 내 피드를 만드나요?";
 "home-feed-whats-driving-your-interests-subtitle" = "관심 있는 주제를 편집하세요";
 "home-feed-whats-driving-your-interests-title" = "당신의 관심사";
+"home-for-you-next-module-accessibility-action" = "다음 모듈";
 "home-for-you-tab-title" = "추천";
 "home-menu-hide-module" = "모듈 숨기기";
 "home-more-like-footer" = "$1 등도 읽히고 있습니다";
@@ -1669,6 +1631,45 @@
 "widget-onthisday-description" = "역사 속에서 오늘 무슨 일이 있었는지 살펴보세요.";
 "widget-onthisday-placeholder-article-snippet" = "누구나 편집할 수 있는 자유로운 온라인 백과사전";
 "widget-onthisday-placeholder-event-snippet" = "자유로운 위키 콘텐츠 백과사전 위키백과가 온라인에 있습니다.";
+"wikimedia-articletopics-topic-africa" = "아프리카";
+"wikimedia-articletopics-topic-architecture" = "건축";
+"wikimedia-articletopics-topic-art" = "미술";
+"wikimedia-articletopics-topic-asia" = "아시아";
+"wikimedia-articletopics-topic-biography" = "전기문 (전부)";
+"wikimedia-articletopics-topic-biology" = "생물학";
+"wikimedia-articletopics-topic-business-and-economics" = "상업과 경제";
+"wikimedia-articletopics-topic-central-america" = "중앙아메리카";
+"wikimedia-articletopics-topic-chemistry" = "화학";
+"wikimedia-articletopics-topic-comics-and-anime" = "문화와 애니메이션";
+"wikimedia-articletopics-topic-computers-and-internet" = "컴퓨터와 인터넷";
+"wikimedia-articletopics-topic-earth-and-environment" = "지구와 환경";
+"wikimedia-articletopics-topic-education" = "교육";
+"wikimedia-articletopics-topic-engineering" = "공학";
+"wikimedia-articletopics-topic-entertainment" = "엔터테인먼트";
+"wikimedia-articletopics-topic-europe" = "유럽";
+"wikimedia-articletopics-topic-fashion" = "패션";
+"wikimedia-articletopics-topic-food-and-drink" = "음식 및 음료";
+"wikimedia-articletopics-topic-general-science" = "일반 과학";
+"wikimedia-articletopics-topic-history" = "역사";
+"wikimedia-articletopics-topic-literature" = "문학";
+"wikimedia-articletopics-topic-mathematics" = "수학";
+"wikimedia-articletopics-topic-medicine-and-health" = "의료와 보건";
+"wikimedia-articletopics-topic-military-and-warfare" = "군사와 전쟁";
+"wikimedia-articletopics-topic-music" = "음악";
+"wikimedia-articletopics-topic-north-america" = "북아메리카";
+"wikimedia-articletopics-topic-oceania" = "오세아니아";
+"wikimedia-articletopics-topic-performing-arts" = "행위예술";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "철학과 종교";
+"wikimedia-articletopics-topic-physics" = "물리학";
+"wikimedia-articletopics-topic-politics-and-government" = "정치와 정부";
+"wikimedia-articletopics-topic-society" = "사회";
+"wikimedia-articletopics-topic-south-america" = "남아메리카";
+"wikimedia-articletopics-topic-sports" = "스포츠";
+"wikimedia-articletopics-topic-technology" = "기술";
+"wikimedia-articletopics-topic-transportation" = "교통";
+"wikimedia-articletopics-topic-tv-and-film" = "TV와 영화";
+"wikimedia-articletopics-topic-video-games" = "비디오 게임";
+"wikimedia-articletopics-topic-women" = "전기문 (여성)";
 "wikitext-preview-changes" = "바뀐 내용의 미리 보기를 가져오는 중...";
 "wikitext-preview-link-external-preview-description" = "이 링크는 외부 웹사이트로 연결됩니다: $1";
 "wikitext-preview-link-external-preview-title" = "외부 링크";
@@ -1794,121 +1795,3 @@
 "year-in-review-wmf-logo-accessibility-label" = "위키미디어 재단 로고";
 "yesterday-title" = "어제";
 "zero-edits-to-articles" = "최근 문서 편집 수 0회";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "건축";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "미술";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "문화와 애니메이션";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "엔터테인먼트";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "패션";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "문학";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "음악";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "행위예술";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "스포츠";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "TV와 영화";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "비디오 게임";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "전기문 (전부)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "전기문 (여성)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "상업과 경제";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "교육";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "음식 및 음료";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "역사";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "군사와 전쟁";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "철학과 종교";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "정치와 정부";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "사회";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "교통";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "생물학";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "화학";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "컴퓨터와 인터넷";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "지구와 환경";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "공학";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "일반 과학";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "수학";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "의료와 보건";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "물리학";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "기술";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "아프리카";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "아시아";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "중앙아메리카";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "유럽";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "북아메리카";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "오세아니아";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "남아메리카";

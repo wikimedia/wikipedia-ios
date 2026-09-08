@@ -114,6 +114,10 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
         self.logImpression = logImpression
         self.logSkip = logSkip
         self.logNext = logNext
+
+        interestsViewModel.onSelectionChanged = { [weak feedPreferenceViewModel] topics, selectedArticleTitles in
+            feedPreferenceViewModel?.interestsDidChange(topics: topics, selectedArticleTitles: selectedArticleTitles)
+        }
     }
 
     public var currentStep: Step {

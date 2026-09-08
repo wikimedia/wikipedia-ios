@@ -213,6 +213,17 @@
 "welcome-intro-free-encyclopedia-more-about" = "Par Vikipēdiju";
 "welcome-intro-free-encyclopedia-title" = "Brīvā enciklopēdija";
 "welcome-languages-add-button" = "Pievienot citu valodu";
+"wikimedia-articletopics-topic-asia" = "Āzija";
+"wikimedia-articletopics-topic-central-america" = "Centrālamerika";
+"wikimedia-articletopics-topic-entertainment" = "Izklaide";
+"wikimedia-articletopics-topic-general-science" = "Vispārīgā zinātne";
+"wikimedia-articletopics-topic-history" = "Vēsture";
+"wikimedia-articletopics-topic-literature" = "Literatūra";
+"wikimedia-articletopics-topic-music" = "Mūzika";
+"wikimedia-articletopics-topic-north-america" = "Ziemeļamerika";
+"wikimedia-articletopics-topic-oceania" = "Okeānija";
+"wikimedia-articletopics-topic-physics" = "Fizika";
+"wikimedia-articletopics-topic-society" = "Sabiedrība";
 "wikitext-preview-link-preview-title" = "Saites pirmskats";
 // Fuzzy
 "wikitext-preview-save-changes-title" = "Saglabāt veiktās izmaiņas";
@@ -220,121 +231,3 @@
 "wikitext-upload-captcha-needed" = "Nepieciešama CAPTCHA verifikācija.";
 "wikitext-upload-save" = "Publicē...";
 "wikitext-upload-save-terms-name" = "Lietošanas noteikumi";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Arhitektūra";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Māksla";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Komiksi un anime";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Izklaide";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Mode";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Literatūra";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Mūzika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Skatuves māksla";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Sports";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "Televīzija un kino";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Videospēles";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Biogrāfijas (visas)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Biogrāfijas (sievietes)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Uzņēmējdarbība un ekonomika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Izglītība";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Pārtika un dzērieni";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Vēsture";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Militārisms un karadarbība";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Filozofija un reliģija";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Politika un valdība";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Sabiedrība";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Transports";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Bioloģija";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Ķīmija";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Datori un internets";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Zeme un vide";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Inženierzinātnes";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Vispārīgā zinātne";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Matemātika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Medicīna un veselība";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Fizika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Tehnoloģija";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Āfrika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Āzija";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Centrālamerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Eiropa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Ziemeļamerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Okeānija";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Dienvidamerika";

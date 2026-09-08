@@ -830,7 +830,15 @@ extension WMFAppViewController {
         WMFDataEnvironment.current.testKitchenClient = TestKitchenAdapter.shared.client
 
         evaluateAppInstallAndSessionIDs()
-        
+
+        // Warn level on purpose: the default log threshold (WMFLogging.h) is
+        // warning, and this line must reach the log file that ships with the
+        // "Export user data" package so errors in Logstash can be correlated
+        // with an exported log through the same install ID.
+        if let appInstallID: String = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue) {
+            DDLogWarn("App install ID: \(appInstallID)")
+        }
+
         #if TEST || UITEST
             TestNetworkFixtureInterceptor.configureBasicServiceIfNeeded()
         #endif
@@ -850,7 +858,7 @@ extension WMFAppViewController {
         
         let store = WMFDataEnvironment.current.crossProcessUserDefaultsStore
         let appInstallID: String? = try? store?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
-        let sessionID: String? = try? store?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+        let sessionID: String? = try? store?.load(key: WMFUserDefaultsKey.sessionID.rawValue)
         
         if legacyAppInstallID == nil && appInstallID == nil {
             // This is likely a fresh install! Generate a new app install ID
@@ -1353,7 +1361,6 @@ extension WMFAppViewController {
             rateTheAppTitle: CommonStrings.rateTheAppTitle,
             helpTitle: CommonStrings.helpAndfeedbackTitle,
             aboutTitle: CommonStrings.aboutTitle,
-            clearDonationHistoryTitle: CommonStrings.deleteDonationHistory,
             safetyTitle: CommonStrings.legalAndSafety
         )
 
@@ -1378,5 +1385,85 @@ extension WMFAppViewController {
         )
 
         return controller
+    }
+}
+
+// MARK: - Evergreen Account Creation
+
+extension WMFAppViewController {
+
+    /// Starts the prompt's session, then records the app open the session was launched by.
+    ///
+    /// `startSession` only weighs days before today, so it does not matter that the open being
+    /// recorded here belongs to the session it is deciding about.
+    @objc func startEvergreenAccountCreationSession() {
+        Task {
+            let dataController = WMFEvergreenAccountCreationDataController.shared
+            await dataController.startSession()
+
+            // Ordered deliberately: this session's app open has to be recorded before eligibility is
+            // weighed, or a reader crossing the "two more app open days" line is passed over until
+            // their next launch. Prompts presented synchronously by the resume have already taken the
+            // screen by the time these awaits resolve, so this one still yields to them.
+            if isViewingEligibleMainTab {
+                await dataController.recordAppOpen()
+            }
+
+            presentEvergreenAccountCreationPromptIfNeeded()
+        }
+    }
+
+    /// App opens are proxied by an impression of one of the main tabs, or of an article view.
+    @objc func recordEvergreenAccountCreationAppOpenIfNeeded() {
+        guard isViewingEligibleMainTab else { return }
+
+        Task {
+            await WMFEvergreenAccountCreationDataController.shared.recordAppOpen()
+        }
+    }
+
+    /// Attempts the prompt on Home or Saved, from the currently selected tab.
+    ///
+    /// Deliberately last in the app's prompt chain — after the logged out panel and the one time
+    /// Home onboarding — and it bails if any of them took the screen.
+    @objc func presentEvergreenAccountCreationPromptIfNeeded() {
+        guard presentedViewController == nil,
+              let navigationController = currentTabNavigationController,
+              let context = evergreenAccountCreationContextForSelectedTab else {
+            return
+        }
+
+        let coordinator = EvergreenAccountCreationCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, context: context)
+        evergreenAccountCreationCoordinator = coordinator
+        coordinator.start()
+    }
+
+    private var evergreenAccountCreationContextForSelectedTab: WMFEvergreenAccountCreationDataController.PresentationContext? {
+        guard let rootViewController = currentTabNavigationController?.viewControllers.first,
+              currentTabNavigationController?.viewControllers.count == 1 else {
+            return nil
+        }
+
+        if rootViewController is HomeViewController || rootViewController is ExploreViewController {
+            return .home
+        }
+
+        if rootViewController is SavedViewController {
+            return .saved
+        }
+
+        return nil
+    }
+
+    /// Settings can take the first tab's place for some readers, and is not one of the main tabs.
+    private var isViewingEligibleMainTab: Bool {
+        guard let rootViewController = currentTabNavigationController?.viewControllers.first else { return false }
+
+        return rootViewController is HomeViewController
+            || rootViewController is ExploreViewController
+            || rootViewController is PlacesViewController
+            || rootViewController is SavedViewController
+            || rootViewController is WMFActivityTabViewController
+            || rootViewController is SearchViewController
     }
 }

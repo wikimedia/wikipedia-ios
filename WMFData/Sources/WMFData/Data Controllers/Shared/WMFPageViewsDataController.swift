@@ -334,6 +334,36 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         return results
     }
 
+    /// The unit the app calls a "reading day": a calendar day with at least one article in history.
+    public func fetchDistinctPageViewDays(calendar: Calendar = .current) async throws -> [Date] {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform {
+            let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
+            request.resultType = .dictionaryResultType
+            request.propertiesToFetch = ["timestamp"]
+            request.returnsDistinctResults = true
+
+            var days: Set<Date> = []
+            for result in try backgroundContext.fetch(request) {
+                guard let timestamp = result["timestamp"] as? Date else { continue }
+                days.insert(calendar.startOfDay(for: timestamp))
+            }
+
+            return days.sorted()
+        }
+    }
+
+    public func fetchPageViewsCount(startDate: Date, endDate: Date, minimumDurationSeconds: Int = 0) async throws -> Int {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform {
+            let request = NSFetchRequest<CDPageView>(entityName: "CDPageView")
+            request.predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@ && numberOfSeconds >= %lld", startDate as CVarArg, endDate as CVarArg, Int64(minimumDurationSeconds))
+            return try backgroundContext.count(for: request)
+        }
+    }
+
     public func fetchPageViewMinutes(startDate: Date, endDate: Date) async throws -> Int {
         let backgroundContext = try coreDataStore.newBackgroundContext
 

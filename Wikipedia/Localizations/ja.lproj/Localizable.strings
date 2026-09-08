@@ -1157,6 +1157,20 @@
 "widget-onthisday-description" = "今日、歴史上では何が起こったのかを探索します。";
 "widget-onthisday-placeholder-article-snippet" = "誰もが編集できる無料のオンライン百科事典";
 "widget-onthisday-placeholder-event-snippet" = "ウィキペディアは、オンライン上の無料で利用できる百科事典です。";
+"wikimedia-articletopics-topic-asia" = "アジア";
+"wikimedia-articletopics-topic-central-america" = "中央アメリカ";
+"wikimedia-articletopics-topic-entertainment" = "エンターテインメント";
+"wikimedia-articletopics-topic-food-and-drink" = "食べ物と飲み物";
+"wikimedia-articletopics-topic-general-science" = "一般科学";
+"wikimedia-articletopics-topic-history" = "歴史";
+"wikimedia-articletopics-topic-north-america" = "北アメリカ";
+"wikimedia-articletopics-topic-physics" = "物理学";
+"wikimedia-articletopics-topic-politics-and-government" = "政治と政府";
+"wikimedia-articletopics-topic-society" = "社会";
+"wikimedia-articletopics-topic-south-america" = "南アメリカ";
+"wikimedia-articletopics-topic-technology" = "技術";
+"wikimedia-articletopics-topic-tv-and-film" = "テレビと映画";
+"wikimedia-articletopics-topic-video-games" = "テレビゲーム";
 "wikitext-preview-changes" = "編集のプレビューを取得中...";
 "wikitext-preview-link-external-preview-description" = "このリンクは外部のウェブサイトへのものです: $1";
 "wikitext-preview-link-external-preview-title" = "外部リンク";
@@ -1215,121 +1229,3 @@
 "year-in-review-survey-very-unsatisfied" = "非常に不満だ";
 "year-in-review-wmf-logo-accessibility-label" = "ウィキメディア財団のロゴ";
 "zero-edits-to-articles" = "最近の記事への編集は0件です";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "建築";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "芸術";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "漫画とアニメ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "エンターテインメント";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "ファッション";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "文学";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "音楽";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "舞台芸術";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "スポーツ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "テレビと映画";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "テレビゲーム";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "人物伝（すべて）";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "人物伝（女性）";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "ビジネスと経済";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "教育";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "食べ物と飲み物";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "歴史";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "軍事と戦争";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "哲学と宗教";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "政治と政府";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "社会";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "交通";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "生物学";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "化学";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "コンピュータとインターネット";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "地球と環境";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "工学";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "一般科学";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "数学";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "医学と健康";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "物理学";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "技術";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "アフリカ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "アジア";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "中央アメリカ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "ヨーロッパ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "北アメリカ";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "オセアニア";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "南アメリカ";

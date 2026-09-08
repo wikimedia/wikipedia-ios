@@ -928,6 +928,18 @@
 "widget-onthisday-description" = "Mi történt a történelemben ezen a napon?";
 "widget-onthisday-placeholder-article-snippet" = "Ingyenes online enciklopédia, amelyet bárki szerkeszthet";
 "widget-onthisday-placeholder-event-snippet" = "A Wikipédia, egy ingyenes wiki tartalomlexikon, elérhető az interneten.";
+"wikimedia-articletopics-topic-central-america" = "Közép-Amerika";
+"wikimedia-articletopics-topic-engineering" = "Mérnöki tudományok";
+"wikimedia-articletopics-topic-entertainment" = "Szórakozás";
+"wikimedia-articletopics-topic-europe" = "Európa";
+"wikimedia-articletopics-topic-food-and-drink" = "Étel-ital";
+"wikimedia-articletopics-topic-history" = "Történelem";
+"wikimedia-articletopics-topic-literature" = "Irodalom";
+"wikimedia-articletopics-topic-oceania" = "Óceánia";
+"wikimedia-articletopics-topic-performing-arts" = "Előadóművészetek";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filozófia és vallás";
+"wikimedia-articletopics-topic-physics" = "Fizika";
+"wikimedia-articletopics-topic-society" = "Társadalom";
 "wikitext-preview-changes" = "A változtatásaid előnézetének lekérése…";
 "wikitext-preview-link-external-preview-description" = "Ez a link a következő külső weboldalra mutat: $1";
 "wikitext-preview-link-external-preview-title" = "Külső hivatkozás";
@@ -961,121 +973,3 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Wikipédia w logó";
 "year-in-review-wmf-logo-accessibility-label" = "Wikimédia Alapítvány logó";
 "yesterday-title" = "Tegnap";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Építészet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Művészet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Képregény és rajzfilm";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Szórakozás";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Divat";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Irodalom";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Zene";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Előadóművészetek";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Sport";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "Tévé és mozi";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Videojátékok";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Életrajz (mind)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Életrajz (női)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Üzlet és gazdaság";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Oktatás";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Étel-ital";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Történelem";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Hadsereg és hadviselés";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Filozófia és vallás";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Politika és államigazgatás";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Társadalom";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Közlekedés";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Biológia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Kémia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Számítógépek és internet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Föld és környezet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Mérnöki tudományok";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Természettudomány";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Matematika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Gyógyászat és egészség";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Fizika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Technológia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Afrika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Ázsia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Közép-Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Európa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Észak-Amerika";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Óceánia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Dél-Amerika";

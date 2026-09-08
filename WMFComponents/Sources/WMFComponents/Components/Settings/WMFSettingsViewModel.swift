@@ -72,10 +72,39 @@ final public class WMFSettingsViewModel: ObservableObject {
         let rateTheAppTitle: String
         let helpTitle: String
         let aboutTitle: String
-        let clearDonationHistoryTitle: String
         let safetyTitle: String
 
-        public init(settingTitle: String, doneButtonTitle: String, cancelButtonTitle: String, accountTitle: String, logInTitle: String, myLanguagesTitle: String, searchTitle: String, exploreFeedTitle: String, homeFeedTitle: String, onTitle: String, offTitle: String, yirTitle: String, pushNotificationsTitle: String, readingpreferences: String, articleSyncing: String, databasePopulation: String, clearCacheTitle: String, privacyHeader: String, privacyPolicyTitle: String, termsOfUseTitle: String, rateTheAppTitle: String, helpTitle: String, aboutTitle: String, clearDonationHistoryTitle: String, safetyTitle: String) {
+        let donationsHeader = WMFLocalizedString("settings-donations-header", value: "Donations", comment: "Header of the donations section on the settings screen.")
+        let donationRemindersTitle = WMFLocalizedString("settings-donation-reminders-title", value: "Donation reminders", comment: "Title of the donation reminders row on the settings screen.")
+        let donationRemindersSubtitleFormat = WMFLocalizedString("settings-donation-reminders-subtitle", value: "Wikipedia will remind you to donate %1$@ every %2$@ articles you read.", comment: "Subtitle of the donation reminders row on the settings screen. %1$@ is the donation amount, %2$@ is the number of articles.")
+        let clearDonationHistoryTitle = WMFLocalizedString("settings-clear-donation-history", value: "Clear donation history", comment: "Title of the row on the settings screen that deletes the locally saved donation history.")
+
+        public init(
+            settingTitle: String,
+            doneButtonTitle: String,
+            cancelButtonTitle: String,
+            accountTitle: String,
+            logInTitle: String,
+            myLanguagesTitle: String,
+            searchTitle: String,
+            exploreFeedTitle: String,
+            homeFeedTitle: String,
+            onTitle: String,
+            offTitle: String,
+            yirTitle: String,
+            pushNotificationsTitle: String,
+            readingpreferences: String,
+            articleSyncing: String,
+            databasePopulation: String,
+            clearCacheTitle: String,
+            privacyHeader: String,
+            privacyPolicyTitle: String,
+            termsOfUseTitle: String,
+            rateTheAppTitle: String,
+            helpTitle: String,
+            aboutTitle: String,
+            safetyTitle: String
+        ) {
             self.settingTitle = settingTitle
             self.doneButtonTitle = doneButtonTitle
             self.cancelButtonTitle = cancelButtonTitle
@@ -99,7 +128,6 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.rateTheAppTitle = rateTheAppTitle
             self.helpTitle = helpTitle
             self.aboutTitle = aboutTitle
-            self.clearDonationHistoryTitle = clearDonationHistoryTitle
             self.safetyTitle = safetyTitle
         }
     }
@@ -214,7 +242,13 @@ final public class WMFSettingsViewModel: ObservableObject {
     // MARK: - Private methods
 
     private func buildSections() async {
-        sections = await [getAccountSection(), getMainSection(), getTermsSection(), getHelpSection()]
+        var newSections = await [getAccountSection(), getMainSection()]
+        if let donationsSection = await getDonationsSection() {
+            newSections.append(donationsSection)
+        }
+        newSections.append(await getTermsSection())
+        newSections.append(getHelpSection())
+        sections = newSections
     }
 
     public func refreshSections() async {
@@ -366,6 +400,40 @@ final public class WMFSettingsViewModel: ObservableObject {
         })
     }
 
+    private func getDonationsSection() async -> SettingsSection? {
+        var items: [SettingsItem] = []
+
+        if WMFDonationReminderDataController.shared.isReminderSettingsEntryAvailable() {
+            let reminder = WMFDonationReminderDataController.shared.loadReminder()
+            let isReminderOn = reminder?.isEnabled == true
+            let stateLabel = isReminderOn ? localizedStrings.onTitle : localizedStrings.offTitle
+
+            var subtitle: String?
+            if let reminder, reminder.isEnabled, case .articlesRead(let articleCount) = reminder.trigger {
+                let formatter = NumberFormatter.wmfCurrencyFormatter
+                formatter.currencyCode = reminder.currencyCode
+                let formattedAmount = formatter.string(from: reminder.amount as NSNumber) ?? "\(reminder.amount)"
+                subtitle = String.localizedStringWithFormat(localizedStrings.donationRemindersSubtitleFormat, formattedAmount, "\(articleCount)")
+            }
+
+            items.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .heartFilled), color: WMFColor.red600, title: localizedStrings.donationRemindersTitle, subtitle: subtitle, accessory: .chevron(label: stateLabel), action: {
+                self.coordinatorDelegate?.handleSettingsAction(.donationReminders)
+            }))
+        }
+
+        if await dataController.hasLocalDonations() {
+            items.append(SettingsItem(image: WMFSFSymbolIcon.for(symbol: .trash), color: WMFColor.yellow600, title: localizedStrings.clearDonationHistoryTitle, subtitle: nil, accessory: .none, action: {
+                self.coordinatorDelegate?.handleSettingsAction(.deleteDonationHistory)
+            }))
+        }
+
+        guard !items.isEmpty else {
+            return nil
+        }
+
+        return SettingsSection(header: localizedStrings.donationsHeader, footer: nil, items: items)
+    }
+
     private func getTermsSection() async -> SettingsSection {
         let privacy = SettingsItem(image: WMFIcon.settingsPrivacy, color: WMFColor.purple600, title: localizedStrings.privacyPolicyTitle, subtitle: nil, accessory: .icon( WMFIcon.externalLink), action: {
             self.coordinatorDelegate?.handleSettingsAction(.privacyPolicy)
@@ -378,15 +446,7 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.coordinatorDelegate?.handleSettingsAction(.legalAndSafety)
         })
 
-        let deleteLocalDonations = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .heartFilled), color: WMFColor.gray300, title: localizedStrings.clearDonationHistoryTitle, subtitle: nil, accessory: .none, action: {
-            self.coordinatorDelegate?.handleSettingsAction(.deleteDonationHistory)
-        })
-
-        var section = SettingsSection(header: localizedStrings.privacyHeader, footer: nil, items:[privacy, terms, safety])
-        if await dataController.hasLocalDonations() {
-            section.items.append(deleteLocalDonations)
-        }
-        return section
+        return SettingsSection(header: localizedStrings.privacyHeader, footer: nil, items: [privacy, terms, safety])
     }
 
     func getHelpSection() -> SettingsSection {

@@ -619,6 +619,8 @@
 "find-replace-header" = "Etsi ja korvaa";
 "find-replace-header-close-accessibility" = "Sulje etsi ja korvaa";
 "find-textfield-accessibility" = "Etsi";
+"for-you-empty-subtitle-interests-or-modules" = "Saat mukautettuja artikkelisuosituksia lisäämällä itseäsi kiinnostavia aiheita tai ottamalla moduuleja käyttöön";
+"for-you-header-saved-article" = "Lukulistaltasi";
 "forgot-password-button-title" = "Palauta";
 "forgot-password-email-sent" = "Sähköposti salasanan palautusohjeiden kanssa lähetetty.";
 "forgot-password-instructions" = "Saat ohjeet salasanan palauttamiseen sähköpostitse täytettyäsi yhden alla olevista kentistä";
@@ -632,8 +634,10 @@
 "history-title" = "Historia";
 "home-button-explore-accessibility-label" = "Wikipedia, palaa Tutki-sivulle";
 "home-button-saved-accessibility-label" = "Wikipedia, palaa Tallennettu-sivulle";
+"home-community-empty-feed-turn-on-modules-message" = "Näytä yhteisön tuottama sisältö ottamalla moduuleja käyttöön";
 "home-community-tab-title" = "Yhteisö";
 "home-edit-languages-title" = "Lisää tai muokkaa kieliä";
+"home-empty-go-to-settings-button" = "Siirry asetuksiin";
 "home-feed-for-you-based-on-interests-subtitle" = "Valitsemiisi aiheisiin mukautettuja artikkeleita.";
 "home-feed-for-you-based-on-interests-title" = "Kiinnostuksenkohteidesi perusteella";
 "home-feed-for-you-because-you-read-subtitle" = "Hiljattain lukemaasi artikkeliin perustuvia ehdotuksia";
@@ -671,6 +675,8 @@
 "home-feed-whats-driving-settings-title" = "Mihin syötteesi perustuu";
 "home-feed-whats-driving-your-interests-subtitle" = "Muokkaa kiinnostuksenkohteitasi";
 "home-feed-whats-driving-your-interests-title" = "Kiinnostuksenkohteesi";
+"home-for-you-next-module-accessibility-action" = "Seuraava moduuli";
+"home-for-you-previous-module-accessibility-action" = "Edellinen moduuli";
 "home-for-you-tab-title" = "Sinulle";
 "home-more-like-footer" = "Vastaavia artikkeleita kuin $1";
 "home-nearby-footer" = "Lisää lähelläsi olevia paikkoja";
@@ -1416,6 +1422,22 @@
 "widget-onthisday-description" = "Tutki mitä tänä päivänä on tapahtunut historiassa.";
 "widget-onthisday-placeholder-article-snippet" = "Vapaa tietosanakirja, jota kuka tahansa voi muokata";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, ilmainen tietosanakirja, siirtyy verkkoon.";
+"wikimedia-articletopics-topic-art" = "Taide";
+"wikimedia-articletopics-topic-asia" = "Aasia";
+"wikimedia-articletopics-topic-central-america" = "Keski-Amerikka";
+"wikimedia-articletopics-topic-comics-and-anime" = "Sarjakuvat ja anime";
+"wikimedia-articletopics-topic-education" = "Koulutus";
+"wikimedia-articletopics-topic-entertainment" = "Viihde";
+"wikimedia-articletopics-topic-food-and-drink" = "Ruoka ja juoma";
+"wikimedia-articletopics-topic-general-science" = "Tiede";
+"wikimedia-articletopics-topic-literature" = "Kirjallisuus";
+"wikimedia-articletopics-topic-music" = "Musiikki";
+"wikimedia-articletopics-topic-north-america" = "Pohjois-Amerikka";
+"wikimedia-articletopics-topic-oceania" = "Oseania";
+"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofia ja uskonto";
+"wikimedia-articletopics-topic-society" = "Yhteiskunta";
+"wikimedia-articletopics-topic-sports" = "Urheilu";
+"wikimedia-articletopics-topic-tv-and-film" = "TV ja elokuvat";
 "wikitext-preview-changes" = "Ladataan esikatselua tehdyistä muutoksista...";
 "wikitext-preview-link-external-preview-description" = "Tämä linkki ohjaa ulkoiselle sivustolle: $1";
 "wikitext-preview-link-external-preview-title" = "Ulkoinen linkki";
@@ -1496,121 +1518,3 @@
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Foundation -säätiön logo";
 "yesterday-title" = "Eilen";
 "zero-edits-to-articles" = "0 muokkausta artikkeleihin viime aikoina";
-
-
-/* Article topic label */
-"wikimedia-articletopics-topic-architecture" = "Arkkitehtuuri";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-art" = "Taide";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-comics-and-anime" = "Sarjakuvat ja anime";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-entertainment" = "Viihde";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-fashion" = "Muoti";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-literature" = "Kirjallisuus";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-music" = "Musiikki";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-performing-arts" = "Esittävät taiteet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-sports" = "Urheilu";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-tv-and-film" = "TV ja elokuvat";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-video-games" = "Videopelit";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biography" = "Elämäkerta (kaikki)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-women" = "Elämäkerta (naiset)";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-business-and-economics" = "Liike-elämä ja talous";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-education" = "Koulutus";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-food-and-drink" = "Ruoka ja juoma";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-history" = "Historia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-military-and-warfare" = "Asevoimat ja sodankäynti";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-philosophy-and-religion" = "Filosofia ja uskonto";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-politics-and-government" = "Politiikka";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-society" = "Yhteiskunta";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-transportation" = "Liikenne";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-biology" = "Biologia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-chemistry" = "Kemia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-computers-and-internet" = "Tietokoneet ja internet";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-earth-and-environment" = "Maapallo ja ympäristö";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-engineering" = "Tekniikka";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-general-science" = "Tiede";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-mathematics" = "Matematiikka";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-medicine-and-health" = "Lääketiede ja terveys";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-physics" = "Fysiikka";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-technology" = "Teknologia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-africa" = "Afrikka";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-asia" = "Aasia";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-central-america" = "Keski-Amerikka";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-europe" = "Eurooppa";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-north-america" = "Pohjois-Amerikka";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-oceania" = "Oseania";
-
-/* Article topic label */
-"wikimedia-articletopics-topic-south-america" = "Etelä-Amerikka";
