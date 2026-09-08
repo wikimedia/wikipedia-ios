@@ -102,7 +102,7 @@ public struct WMFForYouGamesTeaserCardView: View {
 
     private func loadedContent(screenHeight: CGFloat) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack(alignment: .top, spacing: WMFForYouGamesTeaserMetrics.cardSpacing) {
+            HStack(alignment: .top, spacing: 16) {
                 Text(viewModel.gameTitle)
                     .font(Font(WMFFont.for(.georgiaTitle1)))
                     .foregroundStyle(Color(uiColor: WMFColor.white))
@@ -111,9 +111,7 @@ public struct WMFForYouGamesTeaserCardView: View {
                 overflowMenu
             }
 
-            Spacer().frame(height: WMFForYouGamesTeaserMetrics.titleBottomGap)
-
-            VStack(spacing: WMFForYouGamesTeaserMetrics.cardSpacing) {
+            VStack(spacing: 32) {
                 ForEach(viewModel.eventCardViewModels) { cardViewModel in
                     WMFWhichCameFirstCardView(
                         viewModel: cardViewModel,
@@ -124,8 +122,6 @@ public struct WMFForYouGamesTeaserCardView: View {
                     }
                 }
             }
-
-            Spacer(minLength: WMFForYouGamesTeaserMetrics.titleBottomGap)
 
             playButton
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -139,14 +135,14 @@ public struct WMFForYouGamesTeaserCardView: View {
             viewModel.onTapPlay?()
         } label: {
             Text(viewModel.playButtonTitle)
-                .font(Font(WMFFont.for(.boldSubheadline)))
-                .foregroundStyle(Color(uiColor: theme.text))
-                .padding(.vertical, 12)
-                .padding(.horizontal, 24)
-                .background(Color(uiColor: WMFColor.white), in: Capsule())
+                .font(Font(WMFFont.for(.body)))
+                .foregroundStyle(Color(uiColor: WMFColor.white))
+                .padding(.horizontal, 20)
+                .padding(.vertical, 14)
+                .overlay(
+                    Capsule().strokeBorder(Color(uiColor: WMFColor.white), lineWidth: 1)
+                )
         }
-        // The whole card is one accessibility element with its own actions, so the button does not
-        // need to be reachable on its own.
         .accessibilityHidden(true)
     }
 
