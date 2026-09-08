@@ -725,6 +725,10 @@
 "for-you-error-retry" = "Button on the For You error state that retries loading the feed.";
 "for-you-error-subtitle" = "Subtitle shown on the For You tab when content cannot be loaded due to a network error.";
 "for-you-error-title" = "Title shown on the For You tab when content cannot be loaded due to a network error.";
+"for-you-games-teaser-continue" = "Button on the games card in the For You feed that resumes today's game, shown when the reader left the game part way through.";
+"for-you-games-teaser-play" = "Button on the games card in the For You feed that starts today's game.";
+"for-you-games-teaser-review" = "Button on the games card in the For You feed that opens the results of today's game, shown when the reader has finished it.";
+"for-you-games-teaser-which-came-first-title" = "Title of the \"Which came first?\" game, shown on the games card in the For You feed.";
 "for-you-header-because-you-read" = "Header on a For You feed card shown because the user recently read a related article. $1 is replaced with the article title.";
 "for-you-header-interest" = "Header on a For You feed card explaining it was chosen from one of the user's interests. $1 is replaced with the interest name.";
 "for-you-header-saved-article" = "Header on a For You feed card showing an article from the user's reading list.";

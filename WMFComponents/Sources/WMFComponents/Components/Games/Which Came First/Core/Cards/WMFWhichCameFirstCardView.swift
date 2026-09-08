@@ -4,7 +4,6 @@ import UIKit
 public struct WMFWhichCameFirstCardView: View {
 
     @ObservedObject private var viewModel: WMFWhichCameFirstCardViewModel
-    @ObservedObject private var parentViewModel: WMFWhichCameFirstViewModel
     @ObservedObject private var appEnvironment = WMFAppEnvironment.current
 
     @Environment(\.horizontalSizeClass) private var sizeClass
@@ -12,14 +11,37 @@ public struct WMFWhichCameFirstCardView: View {
     let cardHeight: CGFloat
     let onTap: (() -> Void)?
 
+    /// Read only once the card is revealed. Nil where a card cannot reveal — the For You games
+    /// teaser — which is why this is two strings rather than the game view model: the teaser has no
+    /// game view model, and standing one up would start a second session.
+    private let correctAnswerA11y: String?
+    private let incorrectAnswerA11y: String?
+
     public init(viewModel: WMFWhichCameFirstCardViewModel, parentViewModel: WMFWhichCameFirstViewModel, cardHeight: CGFloat = 192, onTap: (() -> Void)? = nil) {
         self.viewModel = viewModel
         self.cardHeight = cardHeight
         self.onTap = onTap
-        self.parentViewModel = parentViewModel
+        self.themeOverride = nil
+        self.correctAnswerA11y = parentViewModel.localizedStrings.correctAnswerA11y
+        self.incorrectAnswerA11y = parentViewModel.localizedStrings.incorrectAnswerA11y
     }
 
-    private var theme: WMFTheme { appEnvironment.theme }
+    /// For a card shown outside the game, where it never reveals. `theme` fixes the card's
+    /// appearance for a host that does not follow the app one — the For You games teaser is dark
+    /// whatever the app appearance is.
+    public init(viewModel: WMFWhichCameFirstCardViewModel, cardHeight: CGFloat = 192, theme: WMFTheme? = nil, onTap: (() -> Void)? = nil) {
+        self.viewModel = viewModel
+        self.cardHeight = cardHeight
+        self.onTap = onTap
+        self.themeOverride = theme
+        self.correctAnswerA11y = nil
+        self.incorrectAnswerA11y = nil
+    }
+
+    /// Nil inside the game, which follows the app appearance.
+    private let themeOverride: WMFTheme?
+
+    private var theme: WMFTheme { themeOverride ?? appEnvironment.theme }
 
     // MARK: - Color helpers
 
@@ -96,7 +118,9 @@ public struct WMFWhichCameFirstCardView: View {
         var parts: [String] = [viewModel.event.text]
         if viewModel.isRevealed {
             parts.append(viewModel.event.dateString)
-            parts.append(viewModel.isSelectedCardCorrect ? parentViewModel.localizedStrings.correctAnswerA11y : parentViewModel.localizedStrings.incorrectAnswerA11y)
+            if let result = viewModel.isSelectedCardCorrect ? correctAnswerA11y : incorrectAnswerA11y {
+                parts.append(result)
+            }
         }
         return parts.joined(separator: ", ")
     }

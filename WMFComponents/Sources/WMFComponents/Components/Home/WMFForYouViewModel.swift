@@ -15,12 +15,14 @@ public enum WMFForYouModule {
     case basedOnInterests
     case becauseYouRead
     case continueReading
+    case games
     
     public var loggingId: String {
         switch self {
         case .basedOnInterests: return "BasedOnInterestCard"
         case .becauseYouRead: return "BecauseYouReadCard"
         case .continueReading: return "ContinueReadingCard"
+        case .games: return "GamesCard"
         }
     }
 }
@@ -31,11 +33,13 @@ public nonisolated struct WMFForYouModuleVisibility {
     public var basedOnInterests: Bool
     public var becauseYouRead: Bool
     public var continueReading: Bool
+    public var games: Bool
 
-    public init(basedOnInterests: Bool, becauseYouRead: Bool, continueReading: Bool) {
+    public init(basedOnInterests: Bool, becauseYouRead: Bool, continueReading: Bool, games: Bool) {
         self.basedOnInterests = basedOnInterests
         self.becauseYouRead = becauseYouRead
         self.continueReading = continueReading
+        self.games = games
     }
 
     public func isVisible(_ module: WMFForYouModule) -> Bool {
@@ -43,6 +47,7 @@ public nonisolated struct WMFForYouModuleVisibility {
         case .basedOnInterests: return basedOnInterests
         case .becauseYouRead: return becauseYouRead
         case .continueReading: return continueReading
+        case .games: return games
         }
     }
 }
@@ -73,6 +78,7 @@ public final class WMFForYouViewModel: ObservableObject {
     @Published public var pages: [WMFForYouPageViewModel] = []
     @Published public var moduleVisibility: WMFForYouModuleVisibility
     @Published public var hiddenCardKeys: Set<String>
+    @Published public var gamesTeaserViewModel: WMFForYouGamesTeaserCardViewModel?
 
     public var onRefresh: (() async -> Void)?
     public var onHideModule: ((WMFForYouArticleCardViewModel) -> Void)?
@@ -85,6 +91,7 @@ public final class WMFForYouViewModel: ObservableObject {
     public var onUserInteraction: (() -> Void)?
     public var onEmptyViewAppearance: (() -> Void)?
     public let endOfFeedViewModel = WMFForYouEndOfFeedCardViewModel()
+    
 
     /// Called with a card that the user really sees on the screen.
     public var onShowCard: ((WMFForYouArticleCardViewModel) -> Void)?
@@ -117,7 +124,7 @@ public final class WMFForYouViewModel: ObservableObject {
     /// `summaryDataController`.
     public init(
         response: WMFForYouResponse,
-        moduleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(basedOnInterests: true, becauseYouRead: true, continueReading: true),
+        moduleVisibility: WMFForYouModuleVisibility = WMFForYouModuleVisibility(basedOnInterests: true, becauseYouRead: true, continueReading: true, games: true),
         hiddenCardKeys: Set<String> = [],
         summaryDataController: WMFArticleSummaryDataControlling & Sendable = WMFArticleSummaryDataController.shared
     ) {

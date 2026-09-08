@@ -117,6 +117,9 @@ public final class WMFHomeViewModel: ObservableObject {
     /// Opens the "Customize the home feed" screen from the For You empty state.
     public var didTapCustomizeHomeFeed: (@MainActor @Sendable () -> Void)?
 
+    /// Opens today's game from the Games teaser card, either by tapping the card or its button.
+    public var didTapGamesTeaser: (@MainActor @Sendable () -> Void)?
+
     /// Temporary: when set (app-side), the Community tab hosts this legacy view controller instead of
     /// the native SwiftUI community feed, and the community feed fetch is skipped. Remove once the
     /// community feed rework ships.
@@ -198,6 +201,39 @@ public final class WMFHomeViewModel: ObservableObject {
             // The user saw this card, thus the feed does not suggest the article again for some days.
             self?.dataController.recordSeenArticle(title: card.title, project: card.project)
         }
+
+        configureGamesTeaser(forYouViewModel)
+    }
+
+    /// Builds the Games teaser card and hands it to the feed.
+    ///
+    /// `load()` runs here rather than waiting on the view's `onAppear`, because the card is the last
+    /// page of a lazy stack: loading up front means a day with no game removes the page before the
+    /// reader reaches it, instead of showing a spinner that then vanishes underneath them.
+    private func configureGamesTeaser(_ forYouViewModel: WMFForYouViewModel) {
+        guard let language = selectedLanguage else { return }
+
+        let teaser = WMFForYouGamesTeaserCardViewModel(project: WMFProject.wikipedia(language))
+
+        // The card holds these closures, so capture the key rather than the card itself.
+        let key = teaser.cardUniqueKey
+
+        teaser.onUnavailable = { [weak forYouViewModel] in
+            withAnimation { forYouViewModel?.gamesTeaserViewModel = nil }
+        }
+        teaser.onTapCard = { [weak self] in self?.didTapGamesTeaser?() }
+        teaser.onTapPlay = { [weak self] in self?.didTapGamesTeaser?() }
+        teaser.onHideCard = { [weak self] in
+            self?.logCardDidTapHideCard?(WMFForYouModule.games.loggingId)
+            self?.hideCard(key: key)
+        }
+        teaser.onHideModule = { [weak self] in
+            self?.logCardDidTapHideModule?(WMFForYouModule.games.loggingId)
+            self?.hideForYouModule(.games)
+        }
+
+        forYouViewModel.gamesTeaserViewModel = teaser
+        teaser.load()
     }
 
     // MARK: - For You
@@ -206,7 +242,9 @@ public final class WMFHomeViewModel: ObservableObject {
         forYouViewModel?.moduleVisibility = WMFForYouModuleVisibility(
             basedOnInterests: dataController.forYouBasedOnInterestsIsOn(),
             becauseYouRead: dataController.forYouBecauseYouReadIsOn(),
-            continueReading: dataController.forYouContinueReadingIsOn()
+            continueReading: dataController.forYouContinueReadingIsOn(),
+            games: true
+             // todo GREY
         )
     }
 
@@ -232,6 +270,9 @@ public final class WMFHomeViewModel: ObservableObject {
             dataController.setForYouBecauseYouReadIsOn(false)
         case .continueReading:
             dataController.setForYouContinueReadingIsOn(false)
+        case .games:
+            print("games")
+            // todo GREY
         }
         withAnimation {
             refreshForYouModuleVisibility()

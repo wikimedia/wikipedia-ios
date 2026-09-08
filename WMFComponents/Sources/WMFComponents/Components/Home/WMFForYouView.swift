@@ -105,9 +105,18 @@ public struct WMFForYouView: View {
         }
     }
 
+    private var visibleGamesTeaser: WMFForYouGamesTeaserCardViewModel? {
+        guard let teaser = viewModel.gamesTeaserViewModel,
+              viewModel.moduleVisibility.isVisible(.games),
+              !viewModel.hiddenCardKeys.contains(teaser.cardUniqueKey) else { return nil }
+        return teaser
+    }
+    
     /// Every stop of the vertical paging stack, in order: the module pages, then the end of feed card.
     private var scrollableIDs: [UUID] {
-        visiblePages.map(\.id) + [viewModel.endOfFeedViewModel.id]
+        visiblePages.map(\.id)
+            + (visibleGamesTeaser.map { [$0.id] } ?? [])
+            + [viewModel.endOfFeedViewModel.id]
     }
 
     /// The module that fills the screen. A lazy stack also builds the modules near it, thus only the scroll gives the correct answer.
@@ -117,6 +126,7 @@ public struct WMFForYouView: View {
     private var moduleOnScreen: VisiblePage? {
         if let currentModuleID {
             if currentModuleID == viewModel.endOfFeedViewModel.id { return nil }
+            if currentModuleID == visibleGamesTeaser?.id { return nil }
             if let page = visiblePages.first(where: { $0.id == currentModuleID }) { return page }
         }
         return visiblePages.first
@@ -172,7 +182,7 @@ public struct WMFForYouView: View {
     }
 
     public var body: some View {
-        if visiblePages.isEmpty {
+        if visiblePages.isEmpty && visibleGamesTeaser == nil {
         if viewModel.pages.isEmpty {
             // TODO: Bring back end of feed page
                 // No personalized content is available at all (no interests, no reading history):
@@ -231,6 +241,11 @@ public struct WMFForYouView: View {
                         onGoToNextModule: { moveModule(by: 1) }
                     )
                     .frame(width: geometry.size.width, height: geometry.size.height)
+                }
+                if let teaser = visibleGamesTeaser {
+                    WMFForYouGamesTeaserCardView(viewModel: teaser)
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                        .id(teaser.id)
                 }
 //                endOfFeedPage
 //                    .frame(width: geometry.size.width, height: geometry.size.height)

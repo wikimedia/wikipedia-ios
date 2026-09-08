@@ -725,6 +725,10 @@
 "for-you-error-retry" = "Try again";
 "for-you-error-subtitle" = "Connect to the Internet and try again.";
 "for-you-error-title" = "No internet connection";
+"for-you-games-teaser-continue" = "Continue today's game";
+"for-you-games-teaser-play" = "Play today's game";
+"for-you-games-teaser-review" = "Review results";
+"for-you-games-teaser-which-came-first-title" = "Which came first?";
 "for-you-header-because-you-read" = "Because you read: $1";
 "for-you-header-interest" = "Because of your interest: $1";
 "for-you-header-saved-article" = "From your reading list";

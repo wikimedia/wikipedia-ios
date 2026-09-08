@@ -150,6 +150,8 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
             source = .homeFeedForYouBecauseYouReadCard
         case .continueReading:
             source = .homeFeedForYouContinueReadingCard
+        case .games:
+            source = .undefined // todo grey
         }
         let coordinator = ArticleCoordinator(
             navigationController: navigationController ?? UINavigationController(),
