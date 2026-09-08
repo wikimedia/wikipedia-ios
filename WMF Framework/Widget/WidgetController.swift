@@ -361,8 +361,10 @@ public extension WidgetController {
     }
 
     /// Most-read data for a feed day is published a few hours after that day begins in UTC.
+    /// The daily loads usually complete around 02:30 UTC, but there is no guaranteed completion
+    /// time and they can be delayed by days.
     /// Returns the moment the data for the local date's feed should become available
-    /// (randomized within 03:00–03:30 UTC), or nil if that moment has already passed.
+    /// (randomized within 03:30–04:00 UTC), or nil if that moment has already passed.
     static func expectedTopReadPublicationDate(after date: Date, calendar: Calendar = .current) -> Date? {
         guard let utcTimeZone = TimeZone(identifier: "UTC") else {
             return nil
@@ -375,7 +377,7 @@ public extension WidgetController {
 
         var publicationComponents = localGregorianCalendar.dateComponents([.year, .month, .day], from: date)
         publicationComponents.hour = 3
-        publicationComponents.minute = .random(in: 0..<30)
+        publicationComponents.minute = .random(in: 30..<60)
 
         guard let publicationDate = utcCalendar.date(from: publicationComponents), publicationDate > date else {
             return nil

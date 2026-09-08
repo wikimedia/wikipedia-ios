@@ -71,7 +71,7 @@ class WidgetSampleContentTests: XCTestCase {
 
     func testExpectedTopReadPublicationDateEastOfUTC() throws {
         // Midnight in Sydney (UTC+10) on Jul 29 is 14:00 UTC on Jul 28; the local date's
-        // most-read data is only published within 03:00–03:30 UTC on Jul 29.
+        // most-read data is only published within 03:30–04:00 UTC on Jul 29.
         let sydneyMidnight = try utcDate(year: 2026, month: 7, day: 28, hour: 14, minute: 5)
         let publication = try XCTUnwrap(
             WidgetController.expectedTopReadPublicationDate(
@@ -79,12 +79,12 @@ class WidgetSampleContentTests: XCTestCase {
                 calendar: calendar(timeZoneIdentifier: "Australia/Sydney")
             )
         )
-        XCTAssertGreaterThanOrEqual(publication, try utcDate(year: 2026, month: 7, day: 29, hour: 3, minute: 0))
-        XCTAssertLessThan(publication, try utcDate(year: 2026, month: 7, day: 29, hour: 3, minute: 30))
+        XCTAssertGreaterThanOrEqual(publication, try utcDate(year: 2026, month: 7, day: 29, hour: 3, minute: 30))
+        XCTAssertLessThan(publication, try utcDate(year: 2026, month: 7, day: 29, hour: 4, minute: 0))
     }
 
     func testExpectedTopReadPublicationDateWestOfUTCAfterPublication() throws {
-        // Midnight in Calgary (UTC-6) on Jul 28 is 06:10 UTC, past the 03:00–03:30 UTC
+        // Midnight in Calgary (UTC-6) on Jul 28 is 06:10 UTC, past the 03:30–04:00 UTC
         // publication window for the local date — the data should already exist.
         let calgaryMidnight = try utcDate(year: 2026, month: 7, day: 28, hour: 6, minute: 10)
         XCTAssertNil(
