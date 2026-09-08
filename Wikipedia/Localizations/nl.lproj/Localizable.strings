@@ -113,8 +113,6 @@
 "action-unsave" = "Opslaan ongedaan maken";
 "action-unsaved-accessibility-notification" = "Pagina niet meer opgeslagen";
 "action-update" = "Bijwerken";
-"activity-tab-add-images-subtitle" = "Voeg voorgestelde afbeeldingen toe aan Wikipedia-pagina's om het begrip te vergroten.";
-"activity-tab-add-images-title" = "Afbeeldingen toevoegen";
 "activity-tab-additional-thoughts" = "Nog aanvullende gedachten?";
 "activity-tab-amount-article-views" = "{{PLURAL:$1|$1 paginaweergave|$1 paginaweergaven}}";
 "activity-tab-articles-read" = "Pagina's gelezen deze maand";
@@ -136,7 +134,6 @@
 "activity-tab-email-title" = "Probleemmelding - tabblad Activiteit";
 "activity-tab-empty-subtitle" = "Begin met lezen en bewerken om uw geschiedenis op te bouwen";
 "activity-tab-empty-title" = "Niets om te laten zien";
-"activity-tab-generic-no-edits" = "U hebt deze week nog niets bewerkt. Begin nu om uw bijdragen bij te houden.";
 "activity-tab-history-callout-body" = "Uw leesgeschiedenis bekijken of verwijderen in het tabblad **Zoeken**.";
 "activity-tab-history-callout-body-loggedout" = "U kunt uw leesgeschiedenis vinden en wissen via het tabblad **Zoeken**. U hebt geen account nodig.";
 "activity-tab-hitory-callout-close" = "Geschiedenis-meldingkaart sluiten";
@@ -154,14 +151,11 @@
 "activity-tab-impact-views-day" = "Dag";
 "activity-tab-impact-views-title" = "Weergaven van pagina's die u hebt bewerkt";
 "activity-tab-impact-views-views" = "Weergaven";
-"activity-tab-log-in-or-create-account" = "Meld u aan of maak een account aan om meer bewerkings- en leesactiviteiten te bekijken.";
 "activity-tab-logged-out-subtitle" = "Meld u aan of maak een account aan om uw activiteit in de Wikipedia-app te bekijken.";
 "activity-tab-logged-out-title" = "Meer lees- en bewerkinzichten bekijken";
-"activity-tab-logged-out-track-what-youve-read" = "Houd bij wat u hebt gelezen en bekijk uw bijdragen in de loop van de tijd op een nieuwe manier.";
 "activity-tab-menu-clear-history" = "Leesgeschiedenis wissen";
 "activity-tab-most-viewed" = "Meest bekeken sinds uw bewerking";
 "activity-tab-neutral" = "Neutraal";
-"activity-tab-no-edits-title" = "U hebt deze week niets bewerkt. Voeg afbeeldingen toe om de pagina begrijpelijker te maken.";
 "activity-tab-no-username-reading-title" = "Uw leesgedrag";
 "activity-tab-onboarding-first-item-subtitle" = "Kijk hoeveel tijd u hebt doorgebracht met lezen en welke pagina's of onderwerpen u in de loop van de tijd hebt verkend.";
 "activity-tab-onboarding-first-item-title" = "Leespatronen";
@@ -173,10 +167,8 @@
 "activity-tab-onboarding-second-item-title" = "Impacthoogtepunten";
 "activity-tab-onboarding-third-item-subtitle-updated" = "U activiteitenoverzicht bevat een uitgebreide tijdlijn van gelezen, opgeslagen en bewerkte pagina's. Uw leesgeschiedenis vindt u nu in het tabblad 'Zoeken'.";
 "activity-tab-onboarding-third-item-title-updated" = "Leesgeschiedenis is nu beschikbaar in de zoekfunctie.";
-"activity-tab-read-title" = "Leesgeschiedenis bekijken";
 "activity-tab-satisfied" = "Tevreden";
 "activity-tab-saved" = "Pagina's opgeslagen deze maand";
-"activity-tab-start-editing" = "Beginnen met bewerken";
 "activity-tab-survey-subtitle" = "Help Activiteit te verbeteren. Bent u tevreden met deze functie?";
 "activity-tab-survey-title" = "Tevredenheidsvragenlijst";
 "activity-tab-time-spent-reading" = "Tijd besteed aan lezen deze week";
@@ -187,9 +179,6 @@
 "activity-tab-usernames-reading-title" = "Leesgedrag van $1";
 "activity-tab-very-satisfied" = "Zeer tevreden";
 "activity-tab-very-unsatisfied" = "Zeer ontevreden";
-"activity-tab-view-editing-history" = "Bewerkingsgeschiedenis bekijken";
-"activity-tab-view-reading-history" = "Leesgeschiedenis bekijken";
-"activity-tab-view-saved-articles" = "Opgeslagen pagina's bekijken";
 "activity-tab-week-graph-label" = "Week";
 "activity-tab-you-edited" = "U hebt deze week {{PLURAL:$1|één keer|$1 keer}} een pagina bewerkt.";
 "activity-tab-you-read" = "U hebt deze week {{PLURAL:$1|één pagina|$1 pagina's}} gelezen.";
@@ -255,19 +244,7 @@
 "article-share" = "Deel";
 "article-tabs-button-accessibility-hint" = "Gaat naar het overzicht van tabbladen";
 "article-tabs-button-accessibility-label" = "Paginatabbladen";
-"article-tabs-feature-announcement-item-1-subtitle" = "Open meerdere pagina's en wissel er gemakkelijk tussen.";
-"article-tabs-feature-announcement-item-1-title" = "Bladeren met tabbladen";
-"article-tabs-feature-announcement-item-2-subtitle" = "In tabbladen wordt uw scrollpositie automatisch onthouden.";
-"article-tabs-feature-announcement-item-2-title" = "Ga verder waar u gebleven was";
-"article-tabs-feature-announcement-item-3-subtitle" = "Open koppelingen in tabbladen in de achtergrond zonder te vergeten waar u was.";
-"article-tabs-feature-announcement-item-3-title" = "Koppelingen voor later opslaan";
-"article-tabs-feature-announcement-item-4-subtitle" = "Kies leuke feiten of leessuggesties wanneer u een nieuw tabblad opent.";
-"article-tabs-feature-announcement-item-4-title" = "Personaliseer uw nieuwe tabblad";
-"article-tabs-feature-announcement-sub-cta" = "Meer informatie over tabbladen";
-"article-tabs-feature-announcement-title" = "Maak kennis met tabbladen";
 "article-tabs-max-reached" = "Tabbladenlimiet bereikt ($1). De pagina is geopend in het huidige tabblad. Sluit één of meer tabbladen.";
-"article-tabs-navigation" = "Tabbladen-navigatie";
-"article-tabs-onboarding-tooltip" = "Instap-tooltips voor tabbladen";
 "article-tabs-open" = "Openen";
 "article-tabs-open-background-tab" = "In achtergrond-tabblad openen";
 "article-tabs-open-new-tab" = "In nieuw tabblad openen";
@@ -309,11 +286,8 @@
 "close-all-tabs-confirmation-subtitle-with-value" = "Wilt u {{PLURAL:$1|één tabblad|$1 tabbladen}} sluiten? Dit kan niet ongedaan worden gemaakt.";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|Eén tabblad|$1 tabbladen}} sluiten?";
 "close-button-accessibility-label" = "Sluiten";
-"close-other-tabs" = "Andere tabbladen sluiten";
-"close-tab-confirmation" = "Tabblad sluiten?";
 "close-tabs" = "Tabbladen sluiten";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Eén tabblad is|$1 tabbladen zijn}} gesloten.";
-"collect-prize-title" = "Haal uw prijs op!";
 "community-detail-back-button-title" = "Terug naar de gemeenschapsfeed";
 "community-feed-preferences-global-card-footer-text" = "Deze kaart is niet taalspecifiek. Als u de kaart uitschakelt, wordt deze uit uw Gemeenschapsfeed verwijderd.";
 "compass-direction" = "op $1 uur";
@@ -476,7 +450,6 @@
 "donation-reminder-setup-trigger-group-title-articles" = "Na elke";
 "donation-reminder-setup-trigger-unit-articles" = "gelezen artikelen";
 "donation-reminder-setup-update-button-title" = "Herinnering aanpassen";
-"duplicate-tab" = "Tabblad dupliceren";
 "edit-link-display-text-title" = "Weergavetekst";
 "edit-link-link-target-title" = "Koppelingsdoel";
 "edit-link-remove-link-title" = "Koppeling verwijderen";
@@ -605,7 +578,6 @@
 "explore-because-you-read-footer" = "Andere gerelateerde pagina's";
 "explore-continue-reading-heading" = "Verder lezen";
 "explore-detail-back-button-title" = "Terug naar Verkennen";
-"explore-enable-location-title" = "Zoek pagina's in de buurt van uw huidige locatie";
 "explore-featured-article-heading" = "Uitgelichte pagina";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Uit Wikipedia in het $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Uit Wikipedia";
@@ -839,7 +811,6 @@
 "home-nearby-footer" = "Meer in de buurt van uw huidige locatie";
 "home-nearby-location-footer" = "Meer in de buurt van $1";
 "home-news-footer" = "Meer in het nieuws";
-"home-reading-list-prompt" = "Uw opgeslagen pagina's kunnen nu in leeslijsten worden ingedeeld en tussen apparaten worden gesynchroniseerd. Meld u aan om uw leeslijsten in uw gebruikersvoorkeuren te laten opslaan.";
 "home-tab-title" = "Startpagina";
 "home-tab-title-accessibility-label" = "Wikipedia, scrol naar bovenaan de startpagina";
 "home-themes-action-title" = "Voorkeuren beheren";
@@ -1000,7 +971,6 @@
 "notifications-center-alert" = "Melding";
 "notifications-center-applied-filters-accessibility-label" = "Meldingenfilter - heeft filters toegepast";
 "notifications-center-applied-project-filters-accessibility-label" = "Projectenfilter - heeft filters toegepast";
-"notifications-center-badge-button-accessibility-label" = "Meldingen met ongelezen badge";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1-melding";
 "notifications-center-change-password" = "Wachtwoord wijzigen";
 "notifications-center-checking-for-notifications" = "Aan het controleren op meldingen...";
@@ -1230,7 +1200,6 @@
 "profile-page-join-title" = "Aanmelden/registreren bij Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Meld u aan of maak een account aan om volgend jaar een verbeterd jaaroverzicht te krijgen";
 "profile-year-in-review-login-subtitle" = "Meld u aan of maak een account aan om het jaaroverzicht te bekijken en in aanmerking te komen voor meer gepersonaliseerde inzichten.";
-"profile-year-in-review-login-title" = "Aanmelden voor toegang tot het jaaroverzicht";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -1274,11 +1243,7 @@
 "reading-list-list-limit-exceeded-message" = "Deze leeslijst en erin opgeslagen pagina's worden niet gesynchroniseerd. Verminder het aantal lijsten naar $1 om de lijstsynchronisatie te hervatten.";
 "reading-list-list-limit-exceeded-title" = "U hebt de grens van {{PLURAL:$1|$1 leeslijst|$1 leeslijsten}} per profiel overschreden.";
 "reading-list-list-limit-reached" = "Maximum aantal leeslijsten $1 per registratie bereikt";
-"reading-list-login-button-title" = "Meld u aan om uw opgeslagen pagina's te synchroniseren";
 "reading-list-login-or-create-account-button-title" = "Aanmelden of een nieuw account aanmaken";
-"reading-list-login-or-create-account-title" = "Meld u aan om opgeslagen pagina's te synchroniseren";
-"reading-list-login-subtitle" = "Meld u aan of maak een account aan zodat uw opgeslagen pagina's en leeslijsten tussen apparaten kunnen worden gesynchroniseerd en kunnen worden opgeslagen in uw gebruikersvoorkeuren.";
-"reading-list-login-title" = "Uw opgeslagen pagina's synchroniseren?";
 "reading-list-name-user-created-annotation" = "_[aangemaakt door gebruiker]";
 "reading-list-new-list-description-placeholder" = "optionele korte beschrijving";
 "reading-list-new-list-name-placeholder" = "titel van leeslijst";
@@ -1305,7 +1270,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Maak wat ruimte op uw apparaat vrij en probeer het opnieuw";
 "reading-lists-articles-not-synced-limit-exceeded" = "Enkele pagina's niet gesynchroniseerd, maximum overschreden";
 "reading-lists-conflicting-reading-list-name-updated" = "Uw lijst ‘$1’ is hernoemd naar ‘$2’";
-"reading-lists-count" = "{{PLURAL:$1|$1 leeslijst|$1 leeslijsten}}";
 "reading-lists-default-list-description" = "Standaardlijst voor uw opgeslagen pagina's";
 "reading-lists-default-list-title" = "Opgeslagen";
 "reading-lists-delete-reading-list-alert-message" = "Deze handeling kan niet ongedaan gemaakt worden. Alle pagina's die alleen in deze lijst{{PLURAL:$1||en}} zijn opgeslagen, worden verwijderd.";
@@ -1340,13 +1304,9 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dit jaar|1=Vorig jaar|$1 jaar geleden}}";
 "return-button-title" = "Terug";
 "return-to-article" = "Terug naar pagina";
-"reverted-edit-title" = "Teruggedraaide bewerking";
-"save-all-tabs" = "Alle tabbladen opslaan";
 "save-view-temp-account-notice" = "U gebruikt een tijdelijk account. Bewerkingen worden toegeschreven aan $1…";
 "save-view-temp-account-warning" = "U bent niet aangemeld. Zodra u een bewerking aanbrengt, wordt er ter bescherming van uw privacy een tijdelijk account voor u aangemaakt.";
 "saved-all-articles-title" = "Alle pagina's";
-"saved-all-tabs" = "Alle tabbladen opgeslagen.";
-"saved-all-tabs-view-reading-list" = "Alle tabbladen opgeslagen. Bekijk de leeslijst.";
 "saved-default-reading-list-tag" = "Deze lijst kan niet worden verwijderd";
 "saved-pages-image-download-error" = "Er is een fout opgetreden tijdens het ophalen van de afbeeldingen van deze opgeslagen pagina.";
 "saved-pages-progress-syncing" = "Pagina wordt gedownload…";
@@ -1397,7 +1357,6 @@
 "settings-languages-feed-customization" = "U kunt bepalen welke talen worden weergegeven in uw overzicht Verkennen door de bijbehorende instellingen aan te passen.";
 "settings-legal-sefaty-title" = "Contact juridisch & veiligheid";
 "settings-my-languages" = "Mijn talen";
-"settings-new-article-tab-header-text" = "Thema voor nieuwe tabbladen";
 "settings-notifications" = "Pushmeldingen";
 "settings-notifications-echo-failure-message" = "Er is een fout opgetreden bij het controleren op meldingsabonnementen met betrekking tot uw account.";
 "settings-notifications-echo-failure-title" = "Kan niet controleren op Echonotificatie-abonnementen";
@@ -1443,10 +1402,7 @@
 "sort-by-recently-added-action" = "Recent toegevoegd";
 "sort-by-title-action" = "Naam";
 "suggested-edits-title" = "Voorgestelde bewerkingen";
-"survey-instructions" = "Selecteer één of meer opties";
-"survey-other-placeholder" = "Andere";
 "survey-submit" = "Verzenden";
-"survey-title" = "Reden";
 "table-of-contents-button-label" = "Inhoudsopgave";
 "table-of-contents-close-accessibility-hint" = "Sluiten";
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";
@@ -1464,8 +1420,6 @@
 "tabs-show-suggested-articles" = "Paginasuggesties weergeven";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Suggesties zijn nu verborgen";
 "tabs-survey-title" = "Help tabbladen te verbeteren. Bent u tevreden met deze functie?";
-"tabs-thumbnail-description" = "Ontdek Wikipedia, de vrije encyclopedie die iedereen kan bewerken";
-"tabs-thumbnail-subtitle" = "Begin hier met zoeken";
 "tabs-title" = "Tabbladen";
 "tachelhit-variants-alert-body" = "De Wikipedia-app ondersteunt nu de volgende varianten van Tashelhiyt als primaire of secundaire talen in de app, wat het makkelijker maakt pagina's te lezen, zoeken en bewerken in deze varianten:\n\nⵜⴰⵛⵍⵃⵉⵜ Tashelhiyt, Tifinagh (shi-tfng)\nTaclḥit Tashelhiyt, Latijn (shi-latn)";
 "tachelhit-variants-alert-title" = "Updates voor ondersteuning van Tashelhiytse varianten";
@@ -1486,10 +1440,6 @@
 "talk-page-expand-thread-button" = "Gesprekken uitklappen";
 "talk-page-find-in-page-button" = "Op pagina zoeken";
 "talk-page-menu-open-all" = "Alle onderwerpen openen";
-"talk-page-new-banner-subtitle" = "Vergeet niet dat we hier allemaal mensen zijn";
-"talk-page-new-banner-title" = "Wees vriendelijk";
-"talk-page-new-reply-success-text" = "Uw reactie is gepubliceerd";
-"talk-page-new-topic-success-text" = "Uw reactie is gepubliceerd";
 "talk-page-onboarding-button-accessibility-label" = "Dubbel tikken om terug te keren naar het antwoord";
 "talk-page-overflow-menu-accessibility" = "Meer overlegpagina opties";
 "talk-page-page-info" = "Paginagegevens";
@@ -1570,7 +1520,6 @@
 "top-read-widget-description" = "Ontdek wat de wereld tegenwoordig leest op Wikipedia.";
 "top-read-widget-readers-count" = "$1 lezers";
 "top-read-widget-title" = "Meest gelezen";
-"try-now-title" = "Probeer nu";
 "tutorial-title" = "Snelcursus";
 "two-factor-email-login-continue" = "Doorgaan met aanmelden";
 "two-factor-email-login-instructions" = "Voer e-mailverificatiecode in";
@@ -1586,7 +1535,6 @@
 "uzbek-variants-alert-body" = "De Wikipedia-app ondersteunt nu de volgende varianten van Oezbeeks als primaire of secundaire talen in de app, wat het makkelijker maakt pagina's te lezen, zoeken en bewerken in deze varianten:\n\noʻzbekcha lotin Oezbeeks, Latijn (uz-latin)\nўзбекча кирилл Oezbeeks, Cyrillisch (uz-cyrl)";
 "uzbek-variants-alert-title" = "Updates voor ondersteuning van Oezbeekse varianten";
 "vanish-account-continue-button-title" = "Doorgaan";
-"vanish-account-username-field" = "Gebruikersnaam en gebruikerspagina";
 "vanish-account-warning-body" = "Verdwijnen is een **laatste redmiddel** en moet **alleen worden gebruikt als u voor altijd wilt stoppen met bewerken** en ook om zoveel mogelijk van uw vroegere relaties te verbergen.\n\nAccountverwijdering op Wikipedia gebeurt door uw accountnaam te wijzigen zodat anderen uw bijdragen niet kunnen herkennen. Deze procedure wordt accountverdwijning genoemd. **Door het verdwijnen wordt geen volledige anonimiteit gegarandeerd en worden geen bijdragen aan de projecten verwijderd.**";
 "vanish-account-warning-title" = "Waarschuwing";
 "variants-alert-dismiss-button" = "Nee, bedankt";
@@ -1811,12 +1759,7 @@
 "year-in-review-day-wednesday" = "Woensdagen";
 "year-in-review-donate" = "Doneer";
 "year-in-review-donate-now" = "Doneer nu";
-"year-in-review-feature-announcement-body" = "Bekijk welke pagina's we hebben gelezen en bewerkt en deel de hoogtepunten van ons jaar op Wikipedia.";
-"year-in-review-feature-announcement-body-personalized" = "Bekijk inzichten over de pagina's die u leest op de Wikipedia-app, deel uw reis en ontdek hoogtepunten uit uw jaar.";
-"year-in-review-feature-announcement-title" = "Verken Wikipedia in Overzicht";
 "year-in-review-feature-announcement-title-personalized" = "Verken uw jaaroverzicht van Wikipedia";
-"year-in-review-feature-explore-body" = "Wikipedia is de grootste kennisbron die in de geschiedenis van de wereld ooit is samengesteld, en is overal en voor iedereen vrij toegankelijk. Kijk terug op 2024 door de lens van Wikipedia.";
-"year-in-review-feature-explore-body-personalized-updated" = "Bekijk inzichten over welke pagina's u in de Wikipedia-app leest en welke bewerkingen u in 2024 hebt gemaakt. Uw leesgeschiedenis blijft beschermd. Leesinzichten worden berekend met behulp van lokaal op uw apparaat opgeslagen gegevens.";
 "year-in-review-feature-explore-body-v3" = "Bekijk inzichten in welke pagina's u in de Wikipedia-app hebt gelezen en de bewerkingen die u hebt aangebracht.";
 "year-in-review-feature-explore-footer-v3" = "Uw leesgeschiedenis blijft beschermd. De leesinzichten worden berekend op basis van lokaal op uw apparaat opgeslagen gegevens.";
 "year-in-review-finish" = "Voltooien";

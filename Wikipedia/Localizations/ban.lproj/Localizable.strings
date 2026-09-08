@@ -73,18 +73,13 @@
 "action-unsave" = "Durung karaksa";
 "action-unsaved-accessibility-notification" = "Suratan durung kasineb";
 "action-update" = "Anyarin";
-"activity-tab-add-images-subtitle" = "Wewehin gambar sané kausulang ring suratan Wikipédia mangda prasida nincapang pangresepan.";
-"activity-tab-add-images-title" = "Wewehin gambar";
 "activity-tab-additional-thoughts" = "Napi wénten pikayunan wewehan?";
-"activity-tab-generic-no-edits" = "Ragané durung kauahin ring wuku puniki. Kawitin mangkin anggén ngelacak pituut ragané.";
 // Fuzzy
 "activity-tab-logged-out-subtitle" = "Lacak napi sané sampun kawacén lan cingakin pituut ragané langkung galah nganggén cara anyar";
 // Fuzzy
 "activity-tab-logged-out-title" = "Ngranjing utawi karyanin akun anggén nyingakin parilaksana nguahin lan ngawacén.";
 "activity-tab-neutral" = "Nétral";
-"activity-tab-start-editing" = "Ngawit nguahin";
 "activity-tab-title" = "Parilaksana";
-"activity-tab-view-saved-articles" = "Cingak suratan karaksa";
 "activity-tab-you-edited" = "Ragané kauah {{PLURAL:$1|kaping $1}} ring wuku niki.";
 "activity-tab-you-read" = "Ragané ngwacén {{PLURAL:$1|$1 suratan}} ring wuku niki.";
 "activity-tab-you-saved" = "Ragané karaksa {{PLURAL:$1| $1 suratan}} ring wuku niki.";
@@ -133,8 +128,6 @@
 "close-all-tabs-confirmation" = "Napiké ragané jagi nyineb $1 tab makasami? Parilaksana puniki nénten prasida kawaliang.";
 "close-all-tabs-confirmation-number" = "Sineb $1 tab makasami?";
 "close-button-accessibility-label" = "Sineb";
-"close-other-tabs" = "Sineb tab sané lianan";
-"close-tab-confirmation" = "Sineb tab?";
 "close-tabs" = "Sineb tab";
 "compass-direction" = "ring pukul $1 tepet";
 "confirm-donation-history-deletion-subtitle" = "Puniki wantah prasida kalaksanayang antuk punia sané kamargiang saking piranti puniki.";

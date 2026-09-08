@@ -126,8 +126,6 @@
 "action-unsave" = "Annulla salvataggio";
 "action-unsaved-accessibility-notification" = "Voce non salvata";
 "action-update" = "Aggiorna";
-"activity-tab-add-images-subtitle" = "Aggiungi immagini suggerite alle voci di Wikipedia per migliorarne la comprensione.";
-"activity-tab-add-images-title" = "Aggiungi immagini";
 "activity-tab-additional-thoughts" = "Qualcosa da aggiungere?";
 "activity-tab-amount-article-views" = "{{PLURAL:$1|visualizzazione|visualizzazioni}}";
 "activity-tab-articles-read" = "Voci lette questo mese";
@@ -136,7 +134,6 @@
 "activity-tab-customize-timeline-of-behavior" = "Cronologia del comportamento";
 "activity-tab-email-fifth-line" = "[Screenshot o Link]";
 "activity-tab-empty-title" = "Niente da mostrare";
-"activity-tab-generic-no-edits" = "Non hai fatto alcuna modifica questa settimana. Inizia subito a monitorare i tuoi contributi.";
 "activity-tab-history-callout-body" = "Visualizza o cancella la tua cronologia di lettura nella **scheda Cerca**.";
 "activity-tab-history-callout-body-loggedout" = "Trova e cancella la cronologia di lettura nella **scheda Cerca**. Non è necessario avere un'utenza.";
 "activity-tab-hitory-callout-close" = "Chiudere la scheda di avviso sulla cronologia";
@@ -152,19 +149,15 @@
 "activity-tab-impact-total-edits-label" = "modifiche totali";
 "activity-tab-impact-views-day" = "Giorno";
 "activity-tab-impact-views-views" = "Visualizzazioni";
-"activity-tab-log-in-or-create-account" = "Accedi o crea un utenza per vedere altre attività di modifica e lettura.";
 "activity-tab-logged-out-subtitle" = "Accedi o crea un'utenza per vedere la tua attività sull'applicazione di Wikipedia.";
 "activity-tab-logged-out-title" = "Scopri di più su lettura e modifica";
 "activity-tab-most-viewed" = "Più visualizzazioni dalla tua modifica";
 "activity-tab-neutral" = "Neutrale";
-"activity-tab-no-edits-title" = "Non hai fatto alcuna modifica questa settimana. Aggiungi immagini per migliorare la comprensione della voce.";
 "activity-tab-no-username-reading-title" = "La tua lettura";
 "activity-tab-onboarding-first-item-subtitle" = "Scopri quanto tempo hai dedicato alla lettura e quali voci o argomenti hai approfondito nel tempo.";
 "activity-tab-onboarding-fourth-item-subtitle" = "Scegli quali moduli visualizzare. Tutti i dati personali rimangono privati sul tuo dispositivo e la cronologia di navigazione può essere cancellata in qualsiasi momento.";
-"activity-tab-read-title" = "Vedi cronologia delle letture";
 "activity-tab-satisfied" = "Soddisfatto";
 "activity-tab-saved" = "Voci salvate questo mese";
-"activity-tab-start-editing" = "Inizia a modificare";
 "activity-tab-survey-title" = "Sondaggio di soddisfazione";
 "activity-tab-time-spent-reading" = "Tempo trascorso a leggere questa settimana";
 "activity-tab-title" = "Attività";
@@ -173,9 +166,6 @@
 "activity-tab-usernames-reading-title" = "Letture di $1";
 "activity-tab-very-satisfied" = "Molto soddisfatto";
 "activity-tab-very-unsatisfied" = "Molto insoddisfatto";
-"activity-tab-view-editing-history" = "Vedi cronologia delle modifiche";
-"activity-tab-view-reading-history" = "Vedi cronologia delle letture";
-"activity-tab-view-saved-articles" = "Tutte le voci salvate";
 "activity-tab-week-graph-label" = "Settimana";
 "activity-tab-you-edited" = "Hai modificato {{PLURAL:$1|$1 volta|$1 volte}} questa settimana.";
 "activity-tab-you-read" = "Hai letto {{PLURAL:$1|$1 voce|$1 voci}} questa settimana.";
@@ -241,8 +231,6 @@
 "close-all-tabs-confirmation-subtitle-with-value" = "Vuoi chiudere {{PLURAL:$1|$1 scheda|$1 schede}}? Questa azione non può essere annullata.";
 "close-all-tabs-confirmation-title-with-value" = "Chiudi {{PLURAL:$1|$1 scheda|$1 schede}}?";
 "close-button-accessibility-label" = "Chiudi";
-"close-other-tabs" = "Chiudi altre schede";
-"close-tab-confirmation" = "Chiudi scheda";
 "close-tabs" = "Chiudi scheda";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 scheda chiusa|$1 schede chiuse}}.";
 "compass-direction" = "alle ore $1";
@@ -539,7 +527,6 @@
 "home-more-like-footer" = "Altro come $1";
 "home-nearby-footer" = "Altri luoghi vicini alla tua posizione";
 "home-nearby-location-footer" = "Altro nelle vicinanze di $1";
-"home-reading-list-prompt" = "Le tue voci slavate ora possono essere organizzate in elenchi di lettura e sincronizzati tra più dispositivi. Effettua l'accesso per permettere ai tuoi elenchi di lettura di essere salvati tra le tue preferenze.";
 "home-tab-title" = "Pagina principale";
 "home-title" = "Esplora";
 "icon-shortcut-nearby-title" = "Voci nelle vicinanze";
@@ -802,7 +789,6 @@
 "profile-page-join-title" = "Entra / unisciti a Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Accedi o crea un account per ottenere una migliore rassegna annuale il prossimo anno";
 "profile-year-in-review-login-subtitle" = "Accedi o crea un'utenza per consultare nuovamente l'Anno in Rassegna e ricevere approfondimenti personalizzati.";
-"profile-year-in-review-login-title" = "Accedi per visualizzare l'Anno in Rassegna";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -827,9 +813,7 @@
 "reading-list-entry-limit-exceeded-title" = "Hai superato il limite di {{PLURAL:$1|$1 voce|$1 voci}} per utenza.";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordina voci";
 "reading-list-list-limit-exceeded-title" = "Hai superato il limite di {{PLURAL:$1|$1 elenco|$1 elenchi}} di lettura per utenza.";
-"reading-list-login-button-title" = "Accedi per sincronizzare le tue voci salvate";
 "reading-list-login-or-create-account-button-title" = "Accedi o registrati";
-"reading-list-login-or-create-account-title" = "Accedi per sincronizzare le voci salvate";
 "reading-list-name-user-created-annotation" = "_[utenza creata]";
 "reading-list-new-list-description-placeholder" = "breve descrizione facoltativa";
 "reading-list-new-list-name-placeholder" = "titolo dell'elenco di lettura";
@@ -840,7 +824,6 @@
 "reading-lists-article-added-confirmation" = "Voce aggiunta a \"$1\"";
 "reading-lists-article-api-failure" = "Impossibile sincronizzare la voce";
 "reading-lists-article-not-synced" = "Non sincronizzato";
-"reading-lists-count" = "{{PLURAL:$1|$1 elenco|$1 elenchi}} di lettura";
 "reading-lists-default-list-description" = "Elenco predefinito per le tue voci salvate";
 "reading-lists-default-list-title" = "Salvato";
 "reading-lists-delete-reading-list-alert-title" = "Cancellare {{PLURAL:$1|elenco|elenchi}}?";
@@ -868,7 +851,6 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Quest'anno|1=L'anno scorso|$1 anni fa}}";
 "return-button-title" = "Ritorna";
 "return-to-article" = "Ritorna alla voce";
-"reverted-edit-title" = "Modifica annullata";
 "saved-all-articles-title" = "Tutte le voci";
 "saved-default-reading-list-tag" = "Questo elenco non può essere cancellato";
 "saved-pages-image-download-error" = "Impossibile scaricare le immagini per questa pagina salvata.";
@@ -932,10 +914,7 @@
 "sort-by-recently-added-action" = "Aggiunti di recente";
 "sort-by-title-action" = "Titolo";
 "suggested-edits-title" = "Modifiche suggerite";
-"survey-instructions" = "Seleziona una o più opzioni";
-"survey-other-placeholder" = "Altro";
 "survey-submit" = "Invia";
-"survey-title" = "Motivo";
 "table-of-contents-button-label" = "Indice";
 "table-of-contents-close-accessibility-hint" = "Chiudi";
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
@@ -951,10 +930,6 @@
 "talk-page-error-loading-subtitle" = "Qualcosa è andato storto.";
 "talk-page-error-loading-title" = "Impossibile caricare la pagina di discussione";
 "talk-page-find-in-page-button" = "Trova nella pagina";
-"talk-page-new-banner-subtitle" = "Ricorda, siamo tutti umani qui";
-"talk-page-new-banner-title" = "Per favore, sii gentile";
-"talk-page-new-reply-success-text" = "La tua risposta è stata pubblicata con successo";
-"talk-page-new-topic-success-text" = "La tua discussione è stata pubblicata con successo";
 "talk-page-page-info" = "Informazioni sulla pagina";
 "talk-page-permanent-link" = "Link permanente";
 "talk-page-publish-topic-error-title" = "Impossibile pubblicare un nuovo argomento.";
@@ -1008,7 +983,6 @@
 "top-read-widget-description" = "Scopri cosa sta leggendo il mondo oggi su Wikipedia.";
 "top-read-widget-readers-count" = "$1 lettori";
 "top-read-widget-title" = "Più letti";
-"try-now-title" = "Prova ora";
 "tutorial-title" = "Tutorial";
 "two-factor-email-login-continue" = "Continua l'accesso";
 "two-factor-email-login-instructions" = "Inserisci il codice di verifica dell'email";
@@ -1022,7 +996,6 @@
 "unwatch" = "Non seguire";
 "user-title" = "Utente";
 "vanish-account-continue-button-title" = "Continua";
-"vanish-account-username-field" = "Nome utente e pagina utente";
 "vanish-account-warning-title" = "Attenzione";
 "variants-alert-dismiss-button" = "No, grazie";
 "view-changes" = "Vedi modifiche";
@@ -1190,12 +1163,7 @@
 "year-in-review-day-wednesday" = "Mercoledì";
 "year-in-review-donate" = "Dona";
 "year-in-review-donate-now" = "Dona ora";
-"year-in-review-feature-announcement-body" = "Guarda informazioni utili su quale voci abbiamo letto e modificato, e condividi i momenti salienti del nostro anno su Wikipedia.";
-"year-in-review-feature-announcement-body-personalized" = "Guarda informazioni utili sulle voci che hai letto sull'app di Wikipedia, condividi il tuo viaggio e scopri i momenti salienti del tuo anno.";
-"year-in-review-feature-announcement-title" = "Esplora Wikipedia in Rassegna";
 "year-in-review-feature-announcement-title-personalized" = "Esplora il tuo Anno in Rassegna su Wikipedia";
-"year-in-review-feature-explore-body" = "Wikipedia è la più grande risorsa di conoscenza mai raccolta nella storia mondiale, ed è disponibile gratuitamente a tutti ovunque. Guarda il 2024 passato tramite le lenti di Wikipedia.";
-"year-in-review-feature-explore-body-personalized-updated" = "Guarda informazioni utili su quale voci hai letto sull'app di Wikipedia e sulle modifiche che hai effettuato nel 2024. La tua cronologia di lettura viene mantenuta al sicuro. Le informazioni utili sulla lettura sono calcolate usando dati archiviati localmente sul tuo dispositivo.";
 "year-in-review-finish" = "Termina";
 "year-in-review-highlights-articles-read" = "Voci lette";
 "year-in-review-highlights-articles-viewed" = "Numero di pagine visualizzate";

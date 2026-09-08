@@ -66,8 +66,6 @@
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible. {{Identical|Saved}}";
 "action-unsaved-accessibility-notification" = "Notification spoken after user removes an article from Saved articles.";
 "action-update" = "Title of the update action.";
-"activity-tab-add-images-subtitle" = "Subtitle for add images feature.";
-"activity-tab-add-images-title" = "Title for add images feature suggestion.";
 "activity-tab-additional-thoughts" = "Asking user if they have any comments";
 "activity-tab-amount-article-views" = "$1 is the amount of views that an article has had since a user has edited it.";
 "activity-tab-articles-read" = "Title for module about articles read this month, displayed below the time spent reading this week";
@@ -89,7 +87,6 @@
 "activity-tab-email-title" = "Title text for Activity Tab pre-filled issue report email";
 "activity-tab-empty-subtitle" = "Subtitle on activity tab timeline empty state.";
 "activity-tab-empty-title" = "Title on activity tab timeline empty state.";
-"activity-tab-generic-no-edits" = "Title for users that have not made any edits.";
 "activity-tab-history-callout-body" = "Body for callout informing users that reading history has moved to the Search tab.";
 "activity-tab-history-callout-body-loggedout" = "Body for callout informing users that reading history has moved to the Search tab, no need to login.";
 "activity-tab-hitory-callout-close" = "Accesibility label for close button in callout about history moving to search";
@@ -107,14 +104,11 @@
 "activity-tab-impact-views-day" = "Accessibility label for activity tab views line graph, y-axis.";
 "activity-tab-impact-views-title" = "Title for activity tab module about views on articles user edited";
 "activity-tab-impact-views-views" = "Accessibility label for activity tab views line graph, x-axis.";
-"activity-tab-log-in-or-create-account" = "Title for activity tab when users are logged out.";
 "activity-tab-logged-out-subtitle" = "Subtitle for logged out users";
 "activity-tab-logged-out-title" = "Title for logged out users";
-"activity-tab-logged-out-track-what-youve-read" = "Subtitle for activity tab when users are logged out.";
 "activity-tab-menu-clear-history" = "Title for clar reading history option in the overflow menu button on activity tab";
 "activity-tab-most-viewed" = "Title for section for most viewed articles since an edit";
 "activity-tab-neutral" = "Satisfaction survey neutral";
-"activity-tab-no-edits-title" = "Title for users that have not made any edits.";
 "activity-tab-no-username-reading-title" = "Activity tab header, for when there is no username.";
 "activity-tab-onboarding-first-item-subtitle" = "Activity tabs first item subtitle";
 "activity-tab-onboarding-first-item-title" = "Title for activity tabs first item";
@@ -126,11 +120,9 @@
 "activity-tab-onboarding-second-item-title" = "Title for activity tabs second item";
 "activity-tab-onboarding-third-item-subtitle-updated" = "Activity tabs third item subtitle";
 "activity-tab-onboarding-third-item-title-updated" = "Title for activity tabs third item";
-"activity-tab-read-title" = "Title for the reading history activity tab";
 "activity-tab-remaining-articles" = "Activity tab saved articles amount, where $1 is replaced with the amount of excess articles saved above 3.";
 "activity-tab-satisfied" = "Satisfaction survey satisfied";
 "activity-tab-saved" = "Title for module about saved articles";
-"activity-tab-start-editing" = "Button title for users to begin editing.";
 "activity-tab-survey-subtitle" = "Title for activity tab survey.";
 "activity-tab-survey-title" = "Satisfaction survey view title";
 "activity-tab-time-spent-reading" = "Subtitle to describe the amount of time read this week which will be displayed above with hours and minutes";
@@ -141,9 +133,6 @@
 "activity-tab-usernames-reading-title" = "Activity tab header, includes username and their reading, like User's reading where $1 is replaced with the username.";
 "activity-tab-very-satisfied" = "Satisfaction survey very satisfied";
 "activity-tab-very-unsatisfied" = "Satisfaction survey very unsatisfied";
-"activity-tab-view-editing-history" = "Button title for users to view their editing history.";
-"activity-tab-view-reading-history" = "Button title for users to view their reading history.";
-"activity-tab-view-saved-articles" = "Button title for users to view their saved articles.";
 "activity-tab-week-graph-label" = "Activity tab week graph axis label";
 "activity-tab-you-edited" = "Displays how many articles the user edited in the past week, $1 is the amount, returning the pluralized version of article depending.";
 "activity-tab-you-read" = "Displays how many articles the user read in the past week, $1 is the amount, returning the pluralized version of article depending.";
@@ -209,19 +198,7 @@
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
 "article-tabs-button-accessibility-hint" = "Accessibility hint for the tabs navigation bar button";
 "article-tabs-button-accessibility-label" = "Accessibility label for the tabs navigation bar button";
-"article-tabs-feature-announcement-item-1-subtitle" = "Subtitle for the article tabs feature announcement item 2";
-"article-tabs-feature-announcement-item-1-title" = "Title for the article tabs feature announcement item";
-"article-tabs-feature-announcement-item-2-subtitle" = "Subtitle for the article tabs feature announcement item 2";
-"article-tabs-feature-announcement-item-2-title" = "Title for the article tabs feature announcement item 2";
-"article-tabs-feature-announcement-item-3-subtitle" = "Subtitle for the article tabs feature announcement item 3";
-"article-tabs-feature-announcement-item-3-title" = "Title for the article tabs feature announcement item 3";
-"article-tabs-feature-announcement-item-4-subtitle" = "Subtitle for the article tabs feature announcement item 4";
-"article-tabs-feature-announcement-item-4-title" = "Title for the article tabs feature announcement item 4";
-"article-tabs-feature-announcement-sub-cta" = "Call to action text in the article tabs feature announcement, inviting the user to learn more about tabs.";
-"article-tabs-feature-announcement-title" = "Title for the article tabs feature announcement";
 "article-tabs-max-reached" = "Warning toast presented to users when they attempt to open a new tab after maximum tab number is reached. $1 is replaced with the maximum number of tabs allowed.";
-"article-tabs-navigation" = "Title for navigation in article tabs";
-"article-tabs-onboarding-tooltip" = "Tooltip title for tabs onboarding.";
 "article-tabs-open" = "Menu option button for opening an article in the current tab. Displayed upon long press of an article link.";
 "article-tabs-open-background-tab" = "Menu option button for opening an article in a background tab. Displayed upon long press of an article link.";
 "article-tabs-open-new-tab" = "Menu option button for opening an article in a new tab. Displayed upon long press of an article link.";
@@ -263,11 +240,8 @@
 "close-all-tabs-confirmation-subtitle-with-value" = "Subtitle of alert that asks user to confirm all tabs deletion. $1 represents the number of tabs.";
 "close-all-tabs-confirmation-title-with-value" = "Title of alert that asks user if they want to delete all tabs, $1 is representative of the number of tabs they have open.";
 "close-button-accessibility-label" = "Accessibility label for a button that closes a dialog. {{Identical|Close}}";
-"close-other-tabs" = "Action to close all tabs except the current one.";
-"close-tab-confirmation" = "Confirmation prompt to close a single tab.";
 "close-tabs" = "Action to confirm closing multiple tabs.";
 "closed-all-tabs-confirmation-with-value" = "Confirmation title of deleting all tabs. $1 is the number of tabs deleted.";
-"collect-prize-title" = "Title for collect prize modal sheet and button";
 "community-detail-back-button-title" = "Title for button that allows users to exit detail view and return to the Community feed.";
 "community-feed-preferences-global-card-footer-text" = "Text describing the effects of turning off a global card";
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
@@ -432,7 +406,6 @@
 "donation-reminder-setup-trigger-group-title-articles" = "Title of the article count selection group on the reminder setup screen.";
 "donation-reminder-setup-trigger-unit-articles" = "Unit label displayed next to the article count buttons on the reminder setup screen.";
 "donation-reminder-setup-update-button-title" = "Title of the button that saves changes to an existing donation reminder, on the setup screen opened from settings.";
-"duplicate-tab" = "Action to duplicate the current tab.";
 "edit-link-display-text-title" = "Title for the display text label";
 "edit-link-link-target-title" = "Title for the link target label";
 "edit-link-remove-link-title" = "Title for the remove link button";
@@ -576,7 +549,6 @@
 "explore-because-you-read-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article.";
 "explore-continue-reading-heading" = "Text for 'Continue Reading' header";
 "explore-detail-back-button-title" = "Title for button that allows users to exit detail view and return to Explore.";
-"explore-enable-location-title" = "Explains that you can explore articles near your current location. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".";
 "explore-featured-article-heading" = "Text for 'Featured article' header";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Subtext beneath the 'Featured article' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'From English Wikipedia'";
 "explore-featured-article-sub-heading-from-wikipedia" = "Subtext beneath the 'Featured article' header when the specific language wikipedia is unknown.";
@@ -970,7 +942,6 @@
 "notifications-center-alert" = "Description of various \"alert\" notification types, used on the notifications cell and detail views.";
 "notifications-center-applied-filters-accessibility-label" = "Accessibility label for Notifications Center's filters button. This button is in a selected state indicating that filters are applied.";
 "notifications-center-applied-project-filters-accessibility-label" = "Accessibility label for Notifications Center's project filters button. This button is in a selected state indicating that project filters are applied.";
-"notifications-center-badge-button-accessibility-label" = "Accessibility label for a button that navigates to Notifications Center. This button has a badge indicating there are unread notifications.";
 "notifications-center-cell-notification-type-accessibility-label-format" = "Accessibility label for Notifications Center cell's notification text. $1 is replaced with a description of the type of notification, which may be a single noun (e.g. Thanks, Welcome) or a short phrase (e.g. Talk page message, Edit milestone). The first letter should be capitalized.";
 "notifications-center-change-password" = "Button text in Notifications Center that routes user to change password screen.";
 "notifications-center-checking-for-notifications" = "Status text displayed in Notifications Center when checking for notifications.";
@@ -1200,7 +1171,6 @@
 "profile-page-join-title" = "Link to sign up or sign in";
 "profile-page-logged-out-year-in-review-subtext" = "Footer text that appears underneath the Year in Review item in the Profile menu when the user is in a logged out state.";
 "profile-year-in-review-login-subtitle" = "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.";
-"profile-year-in-review-login-title" = "Title of alert that asks user to login if they are entering Year in Review.";
 "project-name-mediawiki" = "Project name for MediaWiki.";
 "project-name-wikibooks" = "Project name for Wikibooks.";
 "project-name-wikidata" = "Project name for Wikidata.";
@@ -1271,7 +1241,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Recovery suggestion to clear space on the user's device to allow articles to download";
 "reading-lists-articles-not-synced-limit-exceeded" = "Text of the alert label informing the user that some articles couldn't be synced.";
 "reading-lists-conflicting-reading-list-name-updated" = "Alert message informing user that their reading list was renamed. $1 will be replaced the previous name of the list. $2 will be replaced with the new name of the list.";
-"reading-lists-count" = "Describes the number of reading lists - $1 is replaced with the number of reading lists";
 "reading-lists-default-list-description" = "The description of the default saved pages list.";
 "reading-lists-default-list-title" = "The title of the default saved pages list {{Identical|Saved}}";
 "reading-lists-delete-reading-list-alert-message" = "Title of the altert shown before deleting selected reading lists. $1 will be replaced with the number of lists being deleted";
@@ -1306,13 +1275,9 @@
 "relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year. $1 will be replaced with the number of years ago.";
 "return-button-title" = "Title for button indicating that is possible return from this point";
 "return-to-article" = "Title for button indicating that is possible to go back to article";
-"reverted-edit-title" = "Title for notification informing user that their edit was reverted.";
-"save-all-tabs" = "Action to save all open tabs.";
 "save-view-temp-account-notice" = "$1 is the temporary username for the temporary account notice.";
 "save-view-temp-account-warning" = "Warning that a temporary account will be created";
 "saved-all-articles-title" = "Title of the all articles button on Saved screen";
-"saved-all-tabs" = "Message indicating all open tabs were saved.";
-"saved-all-tabs-view-reading-list" = "Message indicating all tabs were saved with option to view reading list.";
 "saved-default-reading-list-tag" = "Tag on the default reading list cell explaining that the list cannot be deleted";
 "saved-pages-image-download-error" = "Error message shown when one or more images fails to save for offline use.";
 "saved-pages-progress-syncing" = "Text for article download progress bar label";
@@ -1363,7 +1328,6 @@
 "settings-languages-feed-customization" = "Explanation of how you can manage which languages appear in the feed.";
 "settings-legal-sefaty-title" = "Title for legal and safety contatcs section in settings";
 "settings-my-languages" = "Title for list of user's preferred languages";
-"settings-new-article-tab-header-text" = "Header title for the New Article Tabs settings to determine between preferences";
 "settings-notifications" = "Title for view and button letting users change their push notifications settings.";
 "settings-notifications-echo-failure-message" = "Alert message text informing user of failure when subscribing to Echo Notifications.";
 "settings-notifications-echo-failure-title" = "Alert title text informing user of failure when subscribing to Echo Notifications.";
@@ -1409,10 +1373,7 @@
 "sort-by-recently-added-action" = "Title of the sort action that allows sorting items by date added.";
 "sort-by-title-action" = "Title of the sort action that allows sorting items by title.";
 "suggested-edits-title" = "Title for the 'Suggested Edits' explore feed card";
-"survey-instructions" = "Instructions displayed on survey views.";
-"survey-other-placeholder" = "Title of other textfield placeholder option in survey view.";
 "survey-submit" = "Title of the submit button. Displayed in survey views to submit answers.";
-"survey-title" = "Title of the survey view. Displayed in the navigation bar as title of view.";
 "table-of-contents-button-label" = "Accessibility label for the Table of Contents button {{Identical|Table of contents}}";
 "table-of-contents-close-accessibility-hint" = "Accessibility hint for closing table of contents {{Identical|Close}}";
 "table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
@@ -1430,8 +1391,6 @@
 "tabs-show-suggested-articles" = "Show suggested articles button title";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Confirmation on hiding of the suggested articles in tabs.";
 "tabs-survey-title" = "Title for article tabs survey";
-"tabs-thumbnail-description" = "New tab thumbanail description";
-"tabs-thumbnail-subtitle" = "New tab thumbanail subtitle";
 "tabs-title" = "Title for tabs";
 "tachelhit-variants-alert-body" = "Body text of alert used to inform users about Tachelhit variant support. Please do not translate the newlines (\n) or Tachelhit characters (ⵜⴰⵛⵍⵃⵉⵜ, etc.).";
 "tachelhit-variants-alert-title" = "Title of alert used to inform users about Tachelhit variant support.";
@@ -1452,10 +1411,6 @@
 "talk-page-expand-thread-button" = "Accessibility label for the expand thread button on talk pages when the thread is collapsed";
 "talk-page-find-in-page-button" = "Title for find content in page button";
 "talk-page-menu-open-all" = "Title for menu option open all talk page threads. Please prioritize for de, ar and zh wikis.";
-"talk-page-new-banner-subtitle" = "Subtitle text on banner that appears once user posts a new reply or discussion topic on their talk page.";
-"talk-page-new-banner-title" = "Title text on banner that appears once user posts a new reply or discussion topic on their talk page.";
-"talk-page-new-reply-success-text" = "Banner text that appears after a new reply was successfully published on a talk page discussion.";
-"talk-page-new-topic-success-text" = "Banner text that appears after a new discussion was successfully published on a talk page.";
 "talk-page-onboarding-button-accessibility-label" = "Accessibility text for the ok button on the talk pages onboarding modal";
 "talk-page-overflow-menu-accessibility" = "Accessibility label for the talk page overflow menu button, which displays more navigation options to the user.";
 "talk-page-page-info" = "Title for menu option to go to the talk page information link. Please prioritize for de, ar and zh wikis.";
@@ -1536,7 +1491,6 @@
 "top-read-widget-description" = "Text for description of top read widget displayed when adding to home screen.";
 "top-read-widget-readers-count" = "Text for displaying the number of readers an article has in the top read widget. $1 is replaced with the number of readers.";
 "top-read-widget-title" = "Text for title of Top read widget.";
-"try-now-title" = "Title of action button. Tapping takes user to a particular feature.";
 "tutorial-title" = "Button title text that triggers a tutorial flow. This can be a series of tooltips informing the user on how a feature works.";
 "two-factor-email-login-continue" = "Button text for finishing email two factor login";
 "two-factor-email-login-instructions" = "Instructions for email two factor login interface";
@@ -1552,7 +1506,6 @@
 "uzbek-variants-alert-body" = "Body text of alert used to inform users about Uzbek variant support. Please do not translate the newlines (\n) or Uzbek characters (ўзбекча кирилл, etc.).";
 "uzbek-variants-alert-title" = "Title of alert used to inform users about Uzbek variant support.";
 "vanish-account-continue-button-title" = "Title of button presented in the vanish account warning view.";
-"vanish-account-username-field" = "Title for the username and userpage form field";
 "vanish-account-warning-body" = "Body text of vanish account warning view. Please do not translate or remove the `**` characters as these indicate which region of the text to display in bold.";
 "vanish-account-warning-title" = "Title of vanish account warning view.";
 "variants-alert-dismiss-button" = "Dismiss button on alert used to inform users about variant support.";
@@ -1777,12 +1730,7 @@
 "year-in-review-day-wednesday" = "Localized name for Wednesday in plural form.";
 "year-in-review-donate" = "Year in review donate button";
 "year-in-review-donate-now" = "Year in review donate now button title. Displayed on top of Learn more in-app web view.";
-"year-in-review-feature-announcement-body" = "Body for year in review feature announcement";
-"year-in-review-feature-announcement-body-personalized" = "Body for year in review feature announcement";
-"year-in-review-feature-announcement-title" = "Title for year in review feature announcement";
 "year-in-review-feature-announcement-title-personalized" = "Title for year in review feature announcement";
-"year-in-review-feature-explore-body" = "Body for year in review feature announcement";
-"year-in-review-feature-explore-body-personalized-updated" = "Body for year in review feature announcement";
 "year-in-review-feature-explore-body-v3" = "Body for year in review feature announcement - version 3";
 "year-in-review-feature-explore-footer-v3" = "Footer text in the year in review intro view.";
 "year-in-review-finish" = "Year in review finish button. Displayed on last slide and dismisses feature view.";

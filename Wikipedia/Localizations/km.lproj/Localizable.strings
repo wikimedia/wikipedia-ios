@@ -223,7 +223,6 @@
 "explore-because-you-read-footer" = "អត្ថបទផ្សេងទៀតដែលទាក់ទិន";
 "explore-continue-reading-heading" = "អត្ថបទសម្រាប់អានបន្ត";
 "explore-detail-back-button-title" = "ត្រឡប់ទៅហ្វីដរុករក";
-"explore-enable-location-title" = "រុករកអត្ថបទក្បែរទីតាំងរបស់អ្នក";
 "explore-featured-article-heading" = "អត្ថបទឆ្នើម";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "ពីវិគីភីឌា$1";
 "explore-featured-article-sub-heading-from-wikipedia" = "ពីវិគីភីឌា";
@@ -676,10 +675,6 @@
 "talk-page-discussion-unread-accessibility-label" = "មិនទាន់អាន";
 "talk-page-find-in-page-button" = "ស្វែងរកក្នុងទំព័រ";
 "talk-page-menu-open-all" = "បើកមើលខ្សែសន្ទនាទាំងអស់";
-"talk-page-new-banner-subtitle" = "សូមចាំថា ពួកយើងទាំងអស់គ្នាសុទ្ធតែជាមនុស្សដូចគ្នា";
-"talk-page-new-banner-title" = "សូមចេះអធ្យាស្រ័យគ្នា";
-"talk-page-new-reply-success-text" = "ការឆ្លើយតបរបស់អ្នកត្រូវបានបោះពុម្ពផ្សាយបានសម្រេចហើយ";
-"talk-page-new-topic-success-text" = "ការពិភាក្សារបស់អ្នកត្រូវបានបោះពុម្ពផ្សាយបានសម្រេចហើយ";
 "talk-page-page-info" = "ព័ត៌មានអំពីទំព័រនេះ";
 "talk-page-permanent-link" = "តំណភ្ជាប់អចិន្ត្រៃយ៍";
 "talk-page-related-links" = "អ្វី​ដែលភ្ជាប់មកទីនេះ";
@@ -702,7 +697,6 @@
 "two-factor-login-title" = "កត់ឈ្មោះចូលគណនីរបស់អ្នក";
 "two-factor-login-with-backup-code" = "ប្រើលេខកូដបម្រុងមួយរបស់អ្នក";
 "two-factor-login-with-regular-code" = "ប្រើលេខកូដបញ្ជាក់";
-"vanish-account-username-field" = "អត្តនាមនិងទំព័រអ្នកប្រើប្រាស់";
 "variants-alert-preferences-button" = "ពិនិត្យចំណង់ចំណូលចិត្តរបស់អ្នក";
 "welcome-exploration-explore-feed-description" = "អត្ថបទស្នើអានប្រចាំថ្ងៃពីសហគមយើងខ្ញុំ";
 "welcome-exploration-explore-feed-title" = "ហ្វីដរុករក";

@@ -204,7 +204,6 @@
 "explore-because-you-read-footer" = "Aldonaj rilataj artikoloj";
 "explore-continue-reading-heading" = "Daŭrigi la legadon";
 "explore-detail-back-button-title" = "Reen al la Esplorfluo";
-"explore-enable-location-title" = "Esplori artikolojn proksime al via aktuala loko";
 "explore-featured-article-heading" = "Elstarigita artikolo";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "De $1 Vikipedio";
 "explore-featured-article-sub-heading-from-wikipedia" = "De Vikipedio";
@@ -327,7 +326,6 @@
 "home-nearby-footer" = "Pli da lokoj proksime al via loko";
 "home-nearby-location-footer" = "Pliaj proksime de $1";
 "home-news-footer" = "Pli da nunaj eventoj";
-"home-reading-list-prompt" = "Viaj konservitaj artikoloj nun povas esti organizitaj en legolistoj kaj esti sinkronigitaj trans aparatoj. Ensalutu por ebligi ke viaj ligolistoj estu konservitaj ĉe viaj uzantopreferoj.";
 "home-themes-action-title" = "Administri preferojn";
 "home-themes-prompt" = "Ĝustigu viajn Legopreferojn inkluzive de teksta grando kaj etoso de la artikola ilobreto aŭ en viaj agordoj de uzanto por optimumigi vian legoĝuon.";
 "home-title" = "Esplori";
@@ -493,11 +491,7 @@
 "reading-list-list-limit-exceeded-message" = "Ĉi tiu legolisto kaj la artikoloj konservitaj al ĝi ne estos sinkronigitaj. Bonvolu malpliigi vian nombron de listoj al $1 por daŭrigi la sinkronigadon de ĉi tiu listo.";
 "reading-list-list-limit-exceeded-title" = "Vi preterpasis la limon de po {{PLURAL:$1|$1 legolisto|$1 legolistoj}} por konto.";
 "reading-list-list-limit-reached" = "Vi atingis la limon de po $1 legolistoj por konto";
-"reading-list-login-button-title" = "Ensalutu por sinkronigi viajn konservitajn artikolojn";
 "reading-list-login-or-create-account-button-title" = "Ensaluti aŭ krei novan konton";
-"reading-list-login-or-create-account-title" = "Ensalutu por sinkronigi konservitajn artikolojn";
-"reading-list-login-subtitle" = "Ensalutu aŭ kreu konton por ebligi ke viaj konservitaj artikoloj kaj legolistoj estu sinkronigitaj trans aparatoj kaj konservitaj al viaj uzanto-preferoj.";
-"reading-list-login-title" = "Ĉu sinkronigi viajn konservitajn artikolojn?";
 "reading-list-name-user-created-annotation" = "_[uzanto kreita]";
 "reading-list-new-list-description-placeholder" = "nedeviga mallonga priskribo";
 "reading-list-new-list-name-placeholder" = "titolo de la legolisto";
@@ -524,7 +518,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Liberigu iom da spaco sur via aparato kaj provu denove";
 "reading-lists-articles-not-synced-limit-exceeded" = "Kelkaj artikoloj ne sinkronigitaj, limo preterpasita";
 "reading-lists-conflicting-reading-list-name-updated" = "Via listo '$1' estas alinomita al'$2'";
-"reading-lists-count" = "{{PLURAL:$1|$1 legolisto|$1 legolistoj}}";
 "reading-lists-default-list-description" = "Defaŭlta listo por viaj konservitaj artikoloj";
 "reading-lists-default-list-title" = "Konservitaj";
 "reading-lists-delete-reading-list-alert-message" = "Ĉi tiu ago ne povas esti malfarita. Ajnaj artikoloj konservitaj nur al {{PLURAL:$1|ĉi tiu listo|ĉi tiuj listoj}} estas malkonservotaj.";
@@ -547,7 +540,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Antaŭ nelonge|Antaŭ $1 horo|Antaŭ $1 horoj}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Ĵus|Antaŭ $1 minuto|Antaŭ $1 minutoj}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Ĉi-jare|1=Pasintjare|$Antaŭ $1 jaroj}}";
-"reverted-edit-title" = "Malfarita redakto";
 "saved-all-articles-title" = "Ĉiuj artikoloj";
 "saved-default-reading-list-tag" = "Ĉi tiu listo ne povas esti forigita";
 "saved-pages-image-download-error" = "Malsukcesis elŝuti bildojn por ĉi tiu konservita paĝo.";
@@ -617,10 +609,6 @@
 "table-of-contents-heading" = "Enhavaĵoj";
 "talk-page-discussion-read-accessibility-label" = "Legita";
 "talk-page-discussion-unread-accessibility-label" = "Nelegita";
-"talk-page-new-banner-subtitle" = "Rememoru ke ni ĉiuj estas homoj ĉi tie";
-"talk-page-new-banner-title" = "Bonvolu esti afabla";
-"talk-page-new-reply-success-text" = "Via respondo sukcese publikiĝis";
-"talk-page-new-topic-success-text" = "Via diskuto sukcese publikiĝis";
 // Fuzzy
 "talk-page-title-article-talk" = "Diskutpaĝo de artikolo";
 "talk-page-title-user-talk" = "Diskutpaĝo de Uzanto";

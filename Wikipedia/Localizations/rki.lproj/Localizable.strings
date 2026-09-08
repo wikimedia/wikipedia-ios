@@ -73,8 +73,6 @@
 "action-unsave" = "မသိမ်းရသိပါ";
 "action-unsaved-accessibility-notification" = "ဆောင်းပါး မသိမ်းရသိပါ";
 "action-update" = "ပြန်ပြုပြင်ပါ";
-"activity-tab-add-images-subtitle" = "နားလည်မှုအားကောင်းစီဖို့ Wikipedia ဆောင်းပါးတိတွင် အကြံပြုထား‌ရေပုံတိကို ထည့်ပါ။";
-"activity-tab-add-images-title" = "ပုံတိ ပေါင်းထည့်ပါ";
 "activity-tab-additional-thoughts" = "နောက်ထပ် တွီးစရာတိ ဟိမ့်လား?";
 "activity-tab-amount-article-views" = "{{PLURAL:$1|$1 စစ်ထုတ်|$1 စစ်ထုတ်မှုတိ}}";
 "activity-tab-articles-read" = "ဆောင်းပါးတိကို အဂုလမာ ဖတ်ရရေ။";
@@ -96,7 +94,6 @@
 "activity-tab-email-title" = "ပြဿနာအစီအစာခံစာ - လုပ်ဆောင်ချက် တဘ်";
 "activity-tab-empty-subtitle" = "သင်ဧ့သမိုင်းကိုတည်ဆောက်ရန် စတင်ဖတ်ရှုခြင်းနန့် တီးဖြတ်ပါ";
 "activity-tab-empty-title" = "ပြစရာမဟိ";
-"activity-tab-generic-no-edits" = "သင်စွာ ‌‌ဒေအပတ်မာ မတီးဖြတ်ရသိပါ။  သင်ဧ့ပံ့ပိုးမှုတိကို ခြီရာခံဖို့ အဂုစတင်ပါ။";
 "activity-tab-history-callout-body" = "**Search tab** မာ သင်ဧ့ဖတ်ရှုမှုမှတ်တမ်းကို ရှာဖွီပါ သို့မဟုတ် ရှင်းလင်းပါ။";
 "activity-tab-history-callout-body-loggedout" = "**Search tab** မာ သင်ဧ့ဖတ်ရှုမှုမှတ်တမ်းကို ရှာပြီး ရှင်းလင်းပါ။ အကောင့်မလိုအပ်ပါ။";
 "activity-tab-hitory-callout-close" = "မှတ်တမ်း အသိပီးကတ်ကို ပိတ်ပါ။";
@@ -114,14 +111,11 @@
 "activity-tab-impact-views-day" = "ရက်";
 "activity-tab-impact-views-title" = "သင်တီးဖြတ်ထားရေ ဆောင်းပါးတိအပေါ် ကြည့်ရှုမှုတိ";
 "activity-tab-impact-views-views" = "မြင်ကွင်းပုံစံတိ";
-"activity-tab-log-in-or-create-account" = "နောက်ထပ်တီးဖြတ်ခြင်းနန့် စာဖတ်ခြင်းလုပ်ဆောင်ချက်ကို ကြည့်ရှုရန် အကောင့်ဝင်ပါ သို့မဟုတ် ဖန်တီးပါ။";
 "activity-tab-logged-out-subtitle" = "သင်ဖတ်ပြီးရေအရာကို ခြီရာခံပြီးကေ သင့်ပံ့ပိုးမှုတိကို အချိန်ကြာလာစော်နန့်အမျှ နည်းလမ်းအသစ်နန့် ‌ကြေ့ရှုပါ၊";
 "activity-tab-logged-out-title" = "ပိုပြီးကေဖတ်ရှုခြင်းနန့် တီးဖြတ်ခြင်းဆိုင်ရေ ထိုးထွင်းအမြင်တိကို ကြည့်ပါ။";
-"activity-tab-logged-out-track-what-youve-read" = "သင်ဖတ်ပြီးရေအရာကို ခြီရာခံပြီးကေ သင့်ပံ့ပိုးမှုတိကို အချိန်ကြာလာစော်နန့်အမျှ နည်းလမ်းအသစ်နန့် ‌ကြေ့ရှုပါ";
 "activity-tab-menu-clear-history" = "ဖတ်ရှုမှုရာဇ၀င်ကို ရှင်းလင်းပါ။";
 "activity-tab-most-viewed" = "သင်တီးဖြတ်ပြီးကပင် ကြည့်ရှုမှုအများဆုံး";
 "activity-tab-neutral" = "ကြားနီ";
-"activity-tab-no-edits-title" = "သင်စွာ ‌ဒေအပတ်တွင် မတီးဖြတ်ရသိပါ။  ဆောင်းပါးနားလည်မှုကို မြှင့်တင်ဖို့ ပုံတိထည့်ပါ။";
 "activity-tab-no-username-reading-title" = "သင်ဧ့ ဖတ်ရှုမှု";
 "activity-tab-onboarding-first-item-subtitle" = "သင်ဖတ်ရှုချိန် ဇာလောက်ကုန်ဆုံးခပြီးကေ ဇာဆောင်းပါးတိ သို့မဟုတ် အကြောင်းအရာတိကို အချိန်ကြာလာရေနန့်တတူ စူးစမ်းလီ့လာခစွာကို ကြည့်ပါ။";
 "activity-tab-onboarding-first-item-title" = "စာဖတ်ခြင်းပုံစံတိ";
@@ -133,11 +127,9 @@
 "activity-tab-onboarding-second-item-title" = "သက်ရောက်မှု အဓိကအချက်တိ";
 "activity-tab-onboarding-third-item-subtitle-updated" = "လုပ်ဆောင်ချက်မာ ဖတ်ရှုပြီးရေ၊ သိမ်းဆည်းထားရေ နန့် တီးဖြတ်ထားရေ ဆောင်းပါးတိဧ့ ပြည့်စုံသော အချိန်ဇယား ပါဝင်ရေ။ သင်ဧ့ ဖတ်ရှုမှတ်တမ်းသည် ဂုချိန်ခါ Search tab ထဲမာ ဟိနိန်ရေ။";
 "activity-tab-onboarding-third-item-title-updated" = "ဖတ်ခြင်းကတ်တမ်းကို အဂု Search မာ အသုံးပြုနှိုင်ပါယာ။";
-"activity-tab-read-title" = "ဖတ်ရှုမှုရာဇ၀င်ကို ကြေ့ပါ။";
 "activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "ကျေနပ်ရေ";
 "activity-tab-saved" = "ဒေလထဲမာ သိမ်းဆည်းထားရေ ဆောင်းပါးတိ";
-"activity-tab-start-editing" = "စတင်တီးဖြတ်ပါ";
 "activity-tab-survey-subtitle" = "တက်ဘ်တိ လုပ်ဆောင်ချက်ကို ပိုမိုကောင်းမွန်အောင် ကူညီပီးပါ။  ‌ဒေဝန်ဆောင်မှုကို သင်ကျေနပ်ပါလား?";
 "activity-tab-survey-title" = "ကျေနပ်မှုစစ်တမ်း";
 "activity-tab-time-spent-reading" = "ဒေတပတ် စာဖတ်ခရရေ အချိန်";
@@ -148,9 +140,6 @@
 "activity-tab-usernames-reading-title" = "$1 ဧ့ စာဖတ်ခြင်း";
 "activity-tab-very-satisfied" = "တ၀ ကျေနပ်တေ";
 "activity-tab-very-unsatisfied" = "တ၀ မကျေနပ်";
-"activity-tab-view-editing-history" = "တီးဖြတ်မှု ရာဇဝင်ကို ‌ကြေ့ပါ";
-"activity-tab-view-reading-history" = "ဖတ်ရှုမှုရာဇ၀င်ကို ကြေ့ပါ။";
-"activity-tab-view-saved-articles" = "သိမ်းဆည်းထားရေ ဆောင်းပါးတိကို ကြေ့ရှုပါ";
 "activity-tab-you-edited" = "သင်စွာ ဒေအပတ်မှာ {{PLURAL:$1|$1 ကြိမ်|$1 ကြိမ်တိ}} ကို တီးဖြတ်ခရေ။";
 "activity-tab-you-read" = "သင်စွာ ဒေအပတ်မှာ {{PLURAL:$1|$1 ဆောင်းပါး|$1 ဆောင်းပါးတိ}} ကို ဖတ်ခ‌ရေ။";
 "activity-tab-you-saved" = "သင်စွာ ဒေအပတ်မှာ {{PLURAL:$1|$1 ‌ေဆောင်းပါး|$1 ဆောင်းပါးတိ}} ကို သိမ်းခရေ။";
@@ -200,8 +189,6 @@
 "article-save-error-not-enough-space" = "ဒေဆောင်းပါးကို သိမ်းဆည်းဖို့ သင်ဧ့စက်ပစ္စည်းတွင် သိုလှောင်လက်ကျန် မလုံလောက်ပါ";
 "article-share" = "မျှဝီ";
 "article-tabs-max-reached" = "တဘ်ကန့်သတ်ချက် ($1) ပြည့်လားပါယာ။  တဘ် သို့မဟုတ် တစ်ခုထက်ပိုရေ တဲဘ်တိကို ပိတ်ပါ။";
-"article-tabs-navigation" = "တဘ်တိလမ်းညွှန်";
-"article-tabs-onboarding-tooltip" = "တက်ဘ်တိအတွက် စတင်အသုံးပြုခြင်း ကိရိယာအကြံပြုချက်တိ";
 "article-tabs-open" = "ဖွင့်ပါ";
 "article-tabs-open-background-tab" = "နောက်ခံတဘ်မှာ ဖွင့်ပါ";
 "article-tabs-open-new-tab" = "tab အသစ် ဖွင့်ပါ";
@@ -231,8 +218,6 @@
 "close-all-tabs-confirmation" = "$1 တက်ဘ်တိအားနုန်းကို ပိတ်ချင်ပါလား။  ‌ေဒေလုပ်ဆောင်ချက်ကို ပြန်ပြင်လို့မရပါ။";
 "close-all-tabs-confirmation-number" = "$1 tab အားနုန်းကို ပိတ်ပါ";
 "close-button-accessibility-label" = "ပိတ်ပါ";
-"close-other-tabs" = "အခြားတဘ်တိကို ပိတ်ပါ";
-"close-tab-confirmation" = "tab ကို ပိတ်ဖို့လား။";
 "close-tabs" = "tab တိကို ပိတ်ပါ";
 "compass-direction" = "$1 နာရီမှာ";
 "confirm-donation-history-deletion-subtitle" = "ယင်းစော် ဒေစက်ကပြုလုပ်ရေ အလှူဖေသာနန့်ရာ သက်ဆိုင်ပါဖို့။";
@@ -368,7 +353,6 @@
 "donate-transaction-fee-opt-in-text" = "အကျွန့်လှူဒါန်းမှုဧ့ 100%% ကို သိမ်းဆည်းထားနိုင်စီဖို့ ‌ဖေသာအပီးအယူ အခကြေးဖေသာကို ကာမိစီဖို့ ရက်ရက်ရောရော $1 ကို ထည့်လိုက်ပါဖို့။";
 "donate-wikimedia-fine-print-1" = "အကျွန်ရို့စွာ သင့်အချက်အလက်တိကို ဇာသူတစ်ဦးတစ်ယောက်ကိုမျှ ရောင်းချခြင်း ယင်းသို့မဟုတ် ရောင်းဝယ်ခြင်းမပြုပါ။  လှူဒါန်းခြင်းဖြင့်၊ သင်စွာ သင်ဧ့ကိုယ်ရေးကိုယ်တာအချက်အလက်တိကို Wikimedia Foundation၊ Wikipedia နန့် တခြား Wikimedia ပရောဂျက်တိကို လက်ခံဆောင်ရွက်ပီးရေ အကျိုးအမြတ်မယူရေအဖွဲ့အစည်းနန့် အကျွန်ရို့ဧ့ [အလှူရှင်မူဝါဒ]($1) အရ ယင်းဧ့ဝန်ဆောင်မှုပီးသူရို့ကို မျှဝီဖို့ သဘောတူပါရေ။  ဝီကီးမီဒီယာဖောင်ဒေးရှင်းနန့် ယင်းဧ့ ဝန်ဆောင်မှုပီးသူရို့စွာ အမေရိကန်ပြည်ထောင်စုမှာ တည်ရှိပြီး ကိုယ်ရေးကိုယ်တာဥပဒေတိစွာ သင့်ကိုယ်ပိုင်နန့် မညီမျှနိုင်ပါ။  ပိုသိချင်ပါကေ အကျွန်ရို့ဧ့ [အလှူရှင်မူဝါဒ]($1) ကို ဖတ်ရှုပါ။";
 "donate-wikimedia-fine-print-2" = "ထပ်ကာမပြက် အလှူရှင်တိအတွက်၊ ပထမလှူဒါန်းမှုဧ့ လစဉ်နှစ်ပတ်လည်နိန့်မှာ သတ်မှတ်ထားရေ လစဉ်ဖေသာပီးချေမှုတိကို ဝီကီးမီဒီယာဖောင်ဒေးရှင်းက ဖြတ်တောက်ပီဖို့ဖြစ်ပြီး ယင်းချင့်တိကို ရပ်ဆိုင်းဖို့ အကျွန်ရို့ကို အကြောင်းကြားရေအချိန်အထိ၊  လဧ့ 29၊ 30 ယင်းသို့မဟုတ် 31 မှာ စတင်လှူဒါန်းရေ အလှူဖေသာတိစွာ မူလရက်စွဲနှင့် တတ်နိုင်သမျှ တိုတောင်းရေလတိအတွက် လဧ့နောက်ဆုံးနိန့်မှာ ပြန်ပနာရဟိပါဖို့။  မီးခွန်းတိအတွက် ကျေးဇူးပြုပနာ donate@wikimedia.org ပသို့ ဆက်သွယ်ပါ။";
-"duplicate-tab" = "တဘ်ကို ပွားပါ";
 "edit-link-display-text-title" = "ပြသ စာသား";
 "edit-link-link-target-title" = "လင့်ခ်ပစ်မှတ်";
 "edit-link-remove-link-title" = "လင့်ခ် ဖယ်ယှားဖို့";
@@ -493,7 +477,6 @@
 "explore-because-you-read-footer" = "နောက်ထပ် ဆက်နွယ်ဆောင်းပါးတိ";
 "explore-continue-reading-heading" = "ဆက်လက် ဖတ်ရှုဖို့";
 "explore-detail-back-button-title" = "Explore feed ပသို့ ပြန်လားဖို့";
-"explore-enable-location-title" = "သင့်နီရာအနီးက ဆောင်းပါးတိကို စူးစမ်းရဖို့";
 "explore-featured-article-heading" = "အထူးဆောင်းပါး";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 ဝီကီးပီးဒီးယားက";
 "explore-featured-article-sub-heading-from-wikipedia" = "ဝီကီးပီးဒီးယားက";
@@ -636,7 +619,6 @@
 "home-nearby-footer" = "သင်ဧ့တည်နီရာအနီးက နေရာတိပိုလို့";
 "home-nearby-location-footer" = "အနီးအနား $1 ပိုလို့";
 "home-news-footer" = "လက်ဟိဖြစ်ရပ်တိ ပိုလို့";
-"home-reading-list-prompt" = "အဂု သင်သိမ်းဆည်းထားရေ ဆောင်းပါးတိကို ဖတ်ရှုခြင်းစာရင်းမှာ စုစည်းနိုင်ပြီး စက်တိတစ်လျှောက် စင့်ခ်လုပ်နိုင်ပါရေ။ သင်ဧ့စာဖတ်ခြင်းစာရင်းတိကို သင်ဧ့အသုံးပြုသူစိတ်ကြိုက်ရွေးချယ်မှုတိမှာ သိမ်းဆည်းနိုင်စီဖို့ ဝင်ရောက်ပါ။";
 "home-themes-action-title" = "ရွီးချယ်စရာတိကို စီမံဖို့";
 "home-themes-prompt" = "ဆောင်းပါးတူးလ်ဘားက စာသားအရွယ်အစားနန့် အပြင်အဆင်အပါအဝင် သင်ဧ့ဖတ်ရှုမှုဦးစားပီးမှုတိကို ချိန်ညှိပါ ယင်းသို့မဟုတ် ပိုသက်တောင့်သက်သာဟိရေ စာဖတ်ခြင်းအတွိအကြုံအတွက် သင့်အသုံးပြုသူဆက်တင်တိမှာ ချိန်ညှိပါ။";
 "home-title" = "ယှာဖွီစူးစမ်းပါ";
@@ -798,7 +780,6 @@
 "notifications-center-alert" = "သတိပီးချက်";
 "notifications-center-applied-filters-accessibility-label" = "အကြောင်းကြားချက်တိ စစ်ထုတ်ခြင်း - စစ်ထုတ်မှုတိ ထည့်သွင်းထားရေ";
 "notifications-center-applied-project-filters-accessibility-label" = "ပရောဂျက်တိ စစ်ထုတ်ခြင်း - စစ်ထုတ်မှုတိ ထည့်သွင်းထားရေ";
-"notifications-center-badge-button-accessibility-label" = "မဖတ်ရသိရေ တံဆိပ်ပါရေ အကြောင်းကြားချက်တိ";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 အသိပီးချက်";
 "notifications-center-change-password" = "ပစဝါးကိုပြောင်းပါ။";
 "notifications-center-checking-for-notifications" = "အသိပီးချက်တိကို စစ်ဆေးနီရေ...";
@@ -1008,7 +989,6 @@
 "profile-page-logged-out-year-in-review-subtext" = "လာဖို့နှစ်မာ ပြန်ပနာသုံးသပ်မှု ပိုပြီးကေကောင်းမွန်လာစီဖို့အတွက် အကောင့်ဝင်ပါ ယင်းသို့မဟုတ် အကောင့်တစ်ခုဖန်တီးပါ";
 // Fuzzy
 "profile-year-in-review-login-subtitle" = "တစ်နှစ်တာအတွင်းမာ ပြန်ပနာသုံးသပ်မှီငြမ်းပနာ ထပ်မံကြည့်ရှုဖို့ အကောင့်ဝင်ပါ ယင်းသို့မဟုတ် အကောင့်တစ်ခုဖန်တီးပြီး နောက်ထပ် ပုဂ္ဂိုလ်ရီးဆန်ရေ ထိုးထွင်းသိမြင်မှုတိအတွက် သတ်မှတ်ချက်ပြည့်မီပါစီ။";
-"profile-year-in-review-login-title" = "Year in Review သို့ဝင်ရောက်ဖို့ ဝင်ရောက်ပါ";
 "project-name-mediawiki" = "မီဒီယာဝီကီး";
 "project-name-wikibooks" = "ဝီကီးစာအုပ်တိ";
 "project-name-wikidata" = "ဝီကီးဒေတာ";
@@ -1049,11 +1029,7 @@
 "reading-list-list-limit-exceeded-message" = "ဒေစာဖတ်ခြင်းစရင်းနန့် ၎င်းမာသိမ်းဆည်းထားရေ ဆောင်းပါးတိကို ထပ်တူကျစီဖို့မဟုတ်ရေအတွက်၊ ဒေစရင်းကို ထပ်တူပြုခြင်းကို ပြန်ပနာစတင်ဖို့အတွက် သင့်စာရင်းအရီအတွက်ကို $1 သို့ လျှော့ချပါ။";
 "reading-list-list-limit-exceeded-title" = "သင်ရေ အကောင့်တစ်ခုကေ {{PLURAL:$1|$1 စာဖတ်စာရင်း|$1 စာဖတ်စာရင်းတိ}} ကို ကျော်လွန်လားပါယာ။";
 "reading-list-list-limit-reached" = "သင်ရေ အကောင့်တစ်ခုကေ $1 စာဖတ်ခြင်းစာရင်းဧ့ ကန့်သတ်ချက်သို့ ရောက်ဟိလားပါယာ";
-"reading-list-login-button-title" = "သိမ်းထားရေ သင်၏ဆောင်းပါးတိကို sync လုပ်ဖို့ အကောင့်ထဲဝင်ပါ";
 "reading-list-login-or-create-account-button-title" = "အကောင့်ထဲဝင်ဖို့ ယင်းသို့မဟုတ် အကောင့်ဖန်တီးဖို့";
-"reading-list-login-or-create-account-title" = "သိမ်းထားရေဆောင်းပါးတိကို sync လုပ်ဖို့ အကောင့်ထဲဝင်ပါ";
-"reading-list-login-subtitle" = "သင်သိမ်းဆည်းထားရေ ဆောင်းပါးတိနန့် ဖတ်ရှုခြင်းစရင်းတိကို စက်တိထက်မာ တစ်ပြိုင်တည်း ချိတ်ဆက်ပြီးကေ သင့်အသုံးပြုသူစိတ်ကြိုက်တိသို့ သိမ်းဆည်းနိုင်စီဖို့ အကောင့်ဝင်ပါ ယင်းသို့မဟုတ် ဖန်တီးပါ။";
-"reading-list-login-title" = "သိမ်းထားရေ သင်ဧဆောင်းပါးတိကို sync လုပ်ဖို့လား?";
 "reading-list-name-user-created-annotation" = "_[အသုံးပြုသူ ဖန်တီးခရေ]";
 "reading-list-new-list-description-placeholder" = "အရေးမကြီးရေ ဖော်ပြချက်တို";
 "reading-list-new-list-name-placeholder" = "စာရင်းခေါင်းစိုင် ဖတ်နီရေ";
@@ -1080,7 +1056,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "သင်ဧ့စက်ပစ္စည်းတွင် နီရာတချို့ရှင်းလင်းပြီး ပြန်ပနာကြိုးစားပါ";
 "reading-lists-articles-not-synced-limit-exceeded" = "ဆောင်းပါးအတချို့ sync မဖြစ်ပါ၊ ကန့်သတ်ချက် ကျော်လွန်လခရေ";
 "reading-lists-conflicting-reading-list-name-updated" = "သင်ဧ့ '$1' စာရင်းကို '$2'အနီနန့် နာမည်ပြောင်းလဲလိုက်ပါယာ";
-"reading-lists-count" = "{{PLURAL:$1|$1 စာဖတ်စာရင်း|$1 စာဖတ်စာရင်းတိ}}";
 "reading-lists-default-list-description" = "သင် သိမ်းထားရေ ဆောင်းပါးတိအတွက် နဂိုစာရင်း";
 "reading-lists-default-list-title" = "သိမ်းပါ";
 "reading-lists-delete-reading-list-alert-message" = "ဒေလုပ်ဆောင်ချက်ကို ပြန်ပျင်လို့မရပါ။  {{PLURAL:$1|ဒေစာရင်း|ဒေစာရင်းတိ}} မာရာ သိမ်းဆည်းထားရေ ဆောင်းပါးတိကို သိမ်းဆည်းခြင်း မပြုတော့ပါ။";
@@ -1115,13 +1090,9 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=‌ေဒေနှစ်|1=အယင်နှစ်|$1 နှစ်အကြာက}}";
 "return-button-title" = "ပြန်လာပါ";
 "return-to-article" = "ဆောင်းပါးသို့ ပြန်လားဖို့";
-"reverted-edit-title" = "နောက်ပြန်ပြင်ရေ တီးဖြတ်မှု";
-"save-all-tabs" = "Tab အားနုန်းကို သိမ်းပါ";
 "save-view-temp-account-notice" = "သင်ရေ ယာယီအကောင့်ကို အသုံးပြုနီပါရေ။  တီးဖြတ်မှုတိကို $1 နန့် သတ်မှတ်ခံရရေ...";
 "save-view-temp-account-warning" = "သင်စွာ လော့ဂ်အင်မဝင်ထားပါ။ တီးဖြတ်မှုပြုလုပ်ပြီးစွာနန့် သင့်ကိုယ်ရီးကိုယ်တာအချက်အလက်ကို ကာကွယ်ဖို့အတွက် ယာယီအကောင့်တစ်ခု ဖန်တီးပေးဖို့ဖြိုက်တေ။";
 "saved-all-articles-title" = "ဆောင်းပါးတိ အားနုန်း";
-"saved-all-tabs" = "Tab အားနုန်းကိုသိမ်းခ‌ယာ";
-"saved-all-tabs-view-reading-list" = "တဘ်တိအားနုန်းကို သိမ်းဆည်းထားရေ။  စာဖတ်စရင်းကိုကြေ့ပါ။";
 "saved-default-reading-list-tag" = "ဒေစာရင်းကို မဖျက်ပစ်နိုင်ပါ";
 "saved-pages-image-download-error" = "ဒေသိမ်းထားရေစာမျက်နှာအတွက် ရုပ်ပုံတိ ဒေါင်းလုတ်ဆွဲရာတွင် မအောင်မြင်ပါ။";
 "saved-pages-progress-syncing" = "ဆောင်းပါး ဒေါင်းလုတ်ဆွဲခြင်း လုပ်ဆောင်နီရေ...";
@@ -1192,10 +1163,7 @@
 "sort-by-recently-added-action" = "မကြာသိမ့်ခင်က ထည့်ပေါင်းခရေ";
 "sort-by-title-action" = "ခေါင်းစီး";
 "suggested-edits-title" = "အကြံပြုထားရေ တီးဖြတ်မှုတိ";
-"survey-instructions" = "တစ်ခု ယင်းသို့မဟုတ် တစ်ခုထက်ပိုရေ ရွီးစရာတိကို ရွီးပါ";
-"survey-other-placeholder" = "တခြား";
 "survey-submit" = "တင်သွင်းပါ";
-"survey-title" = "အ​ကြောင်း​ပြ​ချက်";
 "table-of-contents-button-label" = "မာတိကာ";
 "table-of-contents-close-accessibility-hint" = "ပိတ်ပါ";
 "table-of-contents-close-accessibility-label" = "မာတိကာ ပိတ်ဖို့";
@@ -1228,10 +1196,6 @@
 "talk-page-expand-thread-button" = "ကြိုးကိုချဲ့ပါ";
 "talk-page-find-in-page-button" = "စာမျက်နှာတွင် ယှာဖွီပါ";
 "talk-page-menu-open-all" = "စာတွဲအားနုန်းကို ဖွင့်ပါ";
-"talk-page-new-banner-subtitle" = "မိမိရို့အားနုန်းစွာ လူသားတိဖြိုက်ကတ်စော်ကို အောက်မိပါ";
-"talk-page-new-banner-title" = "ကျေးဇူးပြုပနာ ကြင်နာပါ";
-"talk-page-new-reply-success-text" = "သင်ဧ့အကြောင်းပြန်စာကို အောင်မြင်စွာလွှင့်တင်ခရေ";
-"talk-page-new-topic-success-text" = "သင်ဧ့ဆွေးနွီိးချက်ကို အောင်မြင်စွာလွှင့်တင်ခရေ";
 "talk-page-onboarding-button-accessibility-label" = "စာပြန်ဖို့ ပြန်လားဖို့ နှစ်ချက်တို့ပါ";
 "talk-page-overflow-menu-accessibility" = "နောက်ထပ် စကားပြော စာမျက်နှာ ရွီးချယ်စရာတိ";
 "talk-page-page-info" = "စာမျက်နှာ အချက်အလက်";
@@ -1309,7 +1273,6 @@
 "top-read-widget-description" = "Wikipedia တွင် ဂနိန့်ကမ္ဘာကြီးဖတ်ရှုနီရေအရာကို လိ့လာပါ။";
 "top-read-widget-readers-count" = "$1 စာဖတ်သူတိ";
 "top-read-widget-title" = "ဖတ်ရှုမှု အများဆုံး";
-"try-now-title" = "အဂု ကြိုးစားကြေ့ပါ";
 "tutorial-title" = "ကျူတိုရီရယ်";
 "two-factor-email-login-continue" = "ဆက်လို့ဝင်ရောက်ပါ";
 "two-factor-email-login-instructions" = "ကျေးဇူးပြုပနာ အီးမေးလ် အတည်ပြုကုဒ်ကို ထည့်ပါ";
@@ -1325,7 +1288,6 @@
 "uzbek-variants-alert-body" = "Wikipedia အက်ပ်စွာ ‌ဒေဂုခါတွင် အောက်ပါ Uzbek အမျိုးကွဲတိကို အက်ပ်အတွင်းတွင် အဓိက ယင်ူသို့မဟုတ် အလယ်တန်းဘာသာစကားတိအနီနန့် ပံ့ပိုးပီးထားပြီး သင်နှစ်သက်တေမျိုးကွဲတိတွင် ဖတ်ဖို့၊ ရှာဖွေဖို့နန့် တီးဖြတ်ဖို့ ပိုလွယ်ကူစီရေ-\n\n oʻzbekcha lotin ဥဇဘက်၊ လက်တင် (uz-latin)\n ўзбекча кирилл ဥဇဘက်၊ Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Uzbek မူကွဲပံ့ပိုးမှုသို့ အပ်ဒိတ်တိ";
 "vanish-account-continue-button-title" = "ယှိဆက်ပါ";
-"vanish-account-username-field" = "အသုံးပြုသူနာမည်နန့် အသုံးပြုသူစာမျက်နှာ";
 "vanish-account-warning-body" = "စုပ်ကရုတ်လားခြင်းစွာ **နောက်ဆုံးအားကိုးရာ** ဖြိုက်ပြီးကေ သင် တီးဖြတ်ခြင်းကို ထာဝရရပ်တန့်လိုရေအခါမရာ **အသုံးပြုသင့်စွာ** နန့် သင်ဧ့အတိတ်ဆက်စပ်မှုတိကို တတ်နိုင်သမျှ ဖုံးကွယ်ထားဖို့ဖြိုက်ရေ။\n\n Wikipedia ထက်က အကောင့်ဖျက်ခြင်းကို အခြားသူတိက အကောင့်စုပ်ကရုတ်ခြင်းလို့ခေါ်ရေ လုပ်ငန်းချိန်ခါ သင်ဧ့ပံ့ပိုးမှုတိကို မမှတ်မိနိုင်စီဖို့ သင့်အကောင့်နာမည်ကို ပြောင်းလဲခြင်းနန့် လုပ်ဆောင်ပါရေ။  ** ကွယ်ပျောက်လားခြင်းစွာ လုံးဝနာမည်ဝှက်ခြင်း ယင်းသို့မဟုတ် ပရောဂျက်တိအတွက် ပံ့ပိုးမှုတိကို ဖယ်ယှားခြင်းကို အာမခံဖို့မဟုတ်ပါ။";
 "vanish-account-warning-title" = "သတိပီးချက်";
 "variants-alert-dismiss-button" = "ရပါရေကျေးဇူးပါ";
@@ -1468,12 +1430,7 @@
 "year-in-review-day-wednesday" = "ဗဒူးနိတိ";
 "year-in-review-donate" = "ပီးလှူပါ";
 "year-in-review-donate-now" = "အဂု ပီးလှူပါ";
-"year-in-review-feature-announcement-body" = "အကျွန်ရို့ဖတ်ရှုပြီး တည်းဖြတ်တေ ဆောင်းပါးတိအကြောင်း ထိုးထွင်းအမြင်တိကို ကြေ့ရှုပြီး Wikipedia တွင် အကျွန်ရို့ဧ့နှစ်အတွက် ပေါ်လွင်ချက်တိကို မျှဝီပါ။";
-"year-in-review-feature-announcement-body-personalized" = "Wikipedia အက်ပ်တွင် သင်ဖတ်ရေ ဆောင်းပါးတိအကြောင်း ထိုးထွင်းသိမြင်နိုင်ရေ ဆောင်းပါးတိကို ကြေ့ပါ၊ သင့်ခရီးကို မျှဝီပြီး သင့်နှစ်ဧ့ အထူးအသားပီးတိကို ယှာဖွီပါ။";
-"year-in-review-feature-announcement-title" = "ဝီကီးပီးဒီးယားကို ဆန်းစစ်ချက်တွင် စူးစမ်းပါ";
 "year-in-review-feature-announcement-title-personalized" = "သင်ဧ့ Wikipedia Year ကို ပြန်ပနာဆန်းစစ်ခြင်းတွင် စူးစမ်းလိ့လာပါ";
-"year-in-review-feature-explore-body" = "Wikipedia စွာ ကမ္ဘာ့သမိုင်းတွင် စုစည်းထားသမျှ အကြီးမားဆုံး ဗဟုသုတအရင်းအမြစ်ဖြစ်ပြီး နီရာတိုင်းတွင် လူတိုင်း လွတ်လပ်စွာ ရနိုင်ပါရေ။  ‌‌‌‌‌ဒေချင့်က Wikipedia ဧ့မှန်ဘီလူးကတဆင့် 2024 ဧ့သုံးသပ်ချက်ဖြစ်တေ။ ";
-"year-in-review-feature-explore-body-personalized-updated" = "Wikipedia အက်ပ်တွင် သင်ဖတ်ခရေ ဆောင်းပါးတိနန့် 2024 ခုနှစ်တွင် သင်ပြုလုပ်ခရေ တီးဖြတ်မှုတိအကြောင်း ထိုးထွင်းသိမြင်နားလည်မှုတိကို ကြေ့ပါ။ သင်ဧ့ဖတ်ရှုမှုမှတ်တမ်းကို အကာအကွယ်ပီးထားရေ။  ဖတ်ရှုခြင်းဆိုင်ရာ ထိုးထွင်းသိမြင်မှုတိကို သင့်စက်ထက်က စက်တွင်း၌ သိမ်းဆည်းထားရေ ဒေတာကို အသုံးပြုပနာ တွက်ချက်ပါရေ။";
 "year-in-review-finish" = "အပြီးသတ်";
 "year-in-review-personalized-donate-subtitle" = "အခမဲ့အသိပညာဧ့အနာဂတ်အတွက်ရင်းနှီးမြှုပ်နှံမှုအတွက်ကျေးဇုတင်ပါရေ။  အဂုနှစ်မာ Wikimedia Foundation စွာ စာဖတ်သူတိုင်းကို ပိုပြီးကေကောင်းမွန်ရေ စေတနာ့ဝန်ထမ်းဝန်ဆောင်မှုပီးနှိုင်ဖို့ နည်းပညာကို မြှင့်တင်ပီးခပြီးကေ ပူးပေါင်းဆောင်ရွက်မှီငြမ်းပနာ အားကောင်းစီရေ ကိရိယာတိကို တီထွင်ကာ Wikipedia ကို ဘာသာကြက်ချလုပ်စွာနန့် ပံ့ပိုးပီးပါရေ။  [ကျနော်ရို့ဧ့အလုပ်အမိကြောင်းပိုပြီးကေလိ့လာပါ]($1)။";
 "year-in-review-personalized-donate-title" = "သင်ဧ့ ရက်ရောမှုက ဝီကီးပီးဒီးယားကို တိုးတက်အောင် ကူညီပီးခရေ";

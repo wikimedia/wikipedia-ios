@@ -366,8 +366,6 @@
 "reading-list-keep-button-title" = "မွေးသြ၊ ရောမ်ဖြုဲင်ꩻဖိုင်ႏယို သော့ꩻဟဝ်လွေꩻ စက်ကိုသြ";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "ခြပ်စဲဉ်ႏရောမ်ဖြုဲင်ꩻဖိုင်ႏ";
 "reading-list-login-or-create-account-button-title" = "နွို့အကောက်/ ဖန်ဆင်ꩻအကောက်";
-"reading-list-login-or-create-account-title" = "နွို့အကောက် အီႏမာꩻကသဲမ်ခါꩻဒါႏ ရောမ်ဖြုဲင်ꩻsync";
-"reading-list-login-title" = "သဲမ်ခါꩻဒါႏနာꩻရောမ်ဖြုဲင်ꩻနဝ်ꩻ အီႏမာꩻနေsync?";
 "reading-list-name-user-created-annotation" = "_[ကေားသုင်ꩻသား ဖန်ဆင်ꩻခါꩻလဲဉ်း]";
 "reading-list-new-list-description-placeholder" = "အရေꩻတန်တဝ်း အွောန်ႏနယ်ချက်ခရာႏ";
 "reading-list-new-list-name-placeholder" = "ဟော်ꩻထွား စာႏရင်ꩻကတူႏစဲဉ်ႏ";
@@ -391,7 +389,6 @@
 "relative-date-seconds-abbreviated" = "$1စက္ကန့်";
 "relative-date-seconds-ago-abbreviated" = "လꩻလဲဉ်း $1 စက္ကန့်";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ဟန်ႏနေင်ႏ|1=နေင်ႏဟာ|လꩻလဲဉ်း $1 နေင်ႏ}}";
-"reverted-edit-title" = "သဲင်ꩻဖျင်ချာ မွဉ်းဖျင်မုꩻ";
 "saved-all-articles-title" = "ရောမ်ဖြုဲင်ꩻကားကအဝ်ႏ";
 "saved-reading-lists-title" = "အဝ်ႏဟော်ꩻဒျာႏစာႏရင်ꩻဖိုင်ႏ";
 "saved-search-default-text" = "ထိုမ်ႏ ကသဲမ်ခါꩻဒါႏ ရောမ်ဖြုဲင်ꩻဖိုင်ႏ";
@@ -444,10 +441,6 @@
 "table-of-contents-subheading-label" = "ကတူႏရဲန်ႏဖြယ် $1";
 "talk-page-discussion-read-accessibility-label" = "ဟော်ꩻ";
 "talk-page-discussion-unread-accessibility-label" = "ဟော်ꩻဗာႏဒွိုန်း";
-"talk-page-new-banner-subtitle" = "နီသွောန်းသီးကားကအဝ်ႏယို ထွာဒျာႏလိုꩻဖိုင်ႏကရိုꩻနဝ်ꩻ ယူႏလꩻပါသွော့သြ";
-"talk-page-new-banner-title" = "ယေန်ႏကေႏသꩻညင်ꩻ ရက်သွော့ဝင်ꩻသြ";
-"talk-page-new-reply-success-text" = "နာꩻလဝ်းပြန်ႏချာချက်နဝ်ꩻ ဒင်ႏထင်ႏအောင်ႏလဲဉ်းသွူ";
-"talk-page-new-topic-success-text" = "နာꩻအိုင်ကိုမ်ချက်နဝ်ꩻ ဒင်ႏထင်ႏအောင်ႏလဲဉ်းသွူ";
 // Fuzzy
 "talk-page-title-article-talk" = "ရောမ်ဖြုဲင်ꩻ အိုင်ကိုမ်ဒေါ့ꩻရီ";
 "talk-page-title-user-talk" = "ကေားသုင်ꩻသား အိုင်ကိုမ်ချက်";
