@@ -772,8 +772,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             logNativeFormDidTapApplePayButton(transactionFeeIsSelected: transactionFeeIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, emailOptInIsSelected: emailOptInIsSelected)
         case .nativeFormDidAuthorizeApplePayPaymentSheet(let amount, let presetIsSelected, let recurringMonthlyIsSelected, let donorEmail, let metricsID):
             logNativeFormDidAuthorizeApplePayPaymentSheet(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, donorEmail: donorEmail, metricsID: metricsID)
-        case .nativeFormDidTriggerPaymentSuccess:
-            logNativeFormDidTriggerPaymentSuccess()
+        case .nativeFormDidTriggerPaymentSuccess(let recurringMonthlyIsSelected):
+            logNativeFormDidTriggerPaymentSuccess(recurringMonthlyIsSelected: recurringMonthlyIsSelected)
         case .nativeFormDidTapProblemsDonating:
             logNativeFormDidTapProblemsDonating()
         case .nativeFormDidTapOtherWaysToGive:
@@ -869,7 +869,11 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
         DonateFunnel.shared.logDonateFormNativeApplePayDidAuthorizeApplePay(amount: amount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: recurringMonthlyIsSelected, metricsID: metricsID, donorEmail: donorEmail, project: wikimediaProject)
     }
 
-    private func logNativeFormDidTriggerPaymentSuccess() {
+    private func logNativeFormDidTriggerPaymentSuccess(recurringMonthlyIsSelected: Bool) {
+        if recurringMonthlyIsSelected, case .donationReminderWrapUp = source {
+            DonateFunnel.shared.logDonationReminderRecurringDonationConfirmed(project: wikimediaProject)
+        }
+
         guard let metricsID else {
             return
         }

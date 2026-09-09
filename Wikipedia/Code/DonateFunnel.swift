@@ -31,6 +31,7 @@ import WMFData
         case reminderEnd = "reminder_end"
         case reminderRecurringEnd = "reminder_recur_end"
         case reminderFeedback = "reminder_feedback"
+        case reminderRecurringConfirmed = "reminder_recur_confirmed"
     }
     
     private enum Action: String {
@@ -722,6 +723,10 @@ import WMFData
 
     func logDonationReminderRecurringEndDidTapOtherMethod(project: WikimediaProject, metricsID: String) {
         logEvent(activeInterface: .reminderRecurringEnd, action: .otherMethodClick, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logDonationReminderRecurringDonationConfirmed(project: WikimediaProject?) {
+        logEvent(activeInterface: .reminderRecurringConfirmed, action: .impression, project: project)
     }
 }
 
