@@ -233,7 +233,7 @@ extension ArticleViewController {
             self?.presentedViewController?.dismiss(animated: true)
         }, submitAction: { [weak self] selectedOptions, otherText in
             if let project {
-                let score = selectedOptions.first.flatMap(Int.init)
+                let score = selectedOptions.compactMap { Int($0) }.first
                 DonateFunnel.shared.logDonationReminderFeedbackDidSubmit(score: score, text: otherText, project: project)
             }
 
