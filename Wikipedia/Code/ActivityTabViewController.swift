@@ -120,11 +120,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
     
     private func configureYearInReviewEntryPoint() {
-        guard let yirDataController,
-              yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier) else {
-            viewModel.yearInReviewViewModel = nil
-            return
-        }
+        // TODO: Restore the availability guard once the 2026 remote feature config exists.
+        // guard let yirDataController,
+        //       yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier) else {
+        //     viewModel.yearInReviewViewModel = nil
+        //     return
+        // }
 
         if viewModel.yearInReviewViewModel == nil {
             let yirViewModel = WMFActivityTabYearInReviewViewModel()
@@ -134,7 +135,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.yearInReviewViewModel = yirViewModel
         }
 
-        // TODO: Shared Logic task supplies the data-rich / low-data split.
         viewModel.yearInReviewViewModel?.isDataRich = false
     }
 

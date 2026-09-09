@@ -21,16 +21,14 @@ struct WMFActivityTabYearInReviewCardView: View {
             Text(viewModel.subtitle)
                 .font(Font(WMFFont.for(.callout)))
                 .foregroundColor(foreground)
-            Text(viewModel.ctaTitle)
-                .font(Font(WMFFont.for(.semiboldSubheadline)))
-                .foregroundColor(foreground)
-                .padding(.vertical, 8)
-                .padding(.horizontal, 20)
-                .background(
-                    Capsule()
-                        .fill(Color(uiColor: theme.accent))
-                )
-                .padding(.top, 8)
+            WMFMediumButton(
+                configuration: .init(style: .primary),
+                title: viewModel.ctaTitle,
+                action: {
+                    viewModel.onTap?()
+                }
+            )
+            .padding(.top, 8)
         }
         .multilineTextAlignment(.center)
         .fixedSize(horizontal: false, vertical: true)

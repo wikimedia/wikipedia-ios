@@ -17,7 +17,7 @@ public struct WMFActivityTabView: View {
     public init(viewModel: WMFActivityTabViewModel) {
         self.viewModel = viewModel
     }
-
+    
     public var body: some View {
         ScrollViewReader { proxy in
             if viewModel.isLoading {
@@ -37,9 +37,11 @@ public struct WMFActivityTabView: View {
             }
         }
         .safeAreaInset(edge: .bottom) {
-            if let yearInReviewViewModel = viewModel.yearInReviewViewModel {
-                WMFActivityTabYearInReviewCardView(viewModel: yearInReviewViewModel)
-                    .padding(.bottom, 8)
+            // Logged in, the card is the first row of the list instead — see loggedInList
+            // and customizedEmptyState.
+            if viewModel.authenticationState != .loggedIn {
+                yearInReviewCard
+                    .padding(.bottom, 16)
             }
         }
         .onAppear {
@@ -47,8 +49,25 @@ public struct WMFActivityTabView: View {
         }
     }
 
+    @ViewBuilder
+    private var yearInReviewCard: some View {
+        if let yearInReviewViewModel = viewModel.yearInReviewViewModel {
+            WMFActivityTabYearInReviewCardView(viewModel: yearInReviewViewModel)
+        }
+    }
+
     private func loggedInList(proxy: ScrollViewProxy) -> some View {
         List {
+            if viewModel.yearInReviewViewModel != nil {
+                Section {
+                    yearInReviewCard
+                        .padding(.top, 16)
+                        .listRowInsets(EdgeInsets())
+                        .listRowBackground(Color(uiColor: theme.paperBackground))
+                }
+                .listRowSeparator(.hidden)
+            }
+
             if viewModel.customizeViewModel.isTimeSpentReadingOn || viewModel.customizeViewModel.isReadingInsightsOn {
                 Section {
                     VStack(spacing: 16) {
