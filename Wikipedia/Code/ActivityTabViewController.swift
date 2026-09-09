@@ -118,6 +118,25 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             }
         }
     }
+    
+    private func configureYearInReviewEntryPoint() {
+        guard let yirDataController,
+              yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier) else {
+            viewModel.yearInReviewViewModel = nil
+            return
+        }
+
+        if viewModel.yearInReviewViewModel == nil {
+            let yirViewModel = WMFActivityTabYearInReviewViewModel()
+            yirViewModel.onTap = { [weak self] in
+                self?.yirCoordinator?.start()
+            }
+            viewModel.yearInReviewViewModel = yirViewModel
+        }
+
+        // TODO: Shared Logic task supplies the data-rich / low-data split.
+        viewModel.yearInReviewViewModel?.isDataRich = false
+    }
 
     private func embedHostingController() {
         addChild(hostingController)
@@ -318,6 +337,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         viewModel.onTapArticle = onTapArticleURL(articleURL:)
         viewModel.timelineViewModel.onTapEditArticle = onTapEditArticle
         viewModel.onTapGlobalEdits = onTapGlobalEdits
+        
+        configureYearInReviewEntryPoint()
 
         configureNavigationBar()
     }

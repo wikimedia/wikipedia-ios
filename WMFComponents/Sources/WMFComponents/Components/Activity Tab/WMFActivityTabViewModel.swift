@@ -164,6 +164,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
 
     var yourImpactOnWikipediaSubtitle: String?
+    @Published public var yearInReviewViewModel: WMFActivityTabYearInReviewViewModel?
     @Published var mostViewedArticlesViewModel: MostViewedArticlesViewModel?
     @Published var contributionsViewModel: ContributionsViewModel?
     @Published var allTimeImpactViewModel: AllTimeImpactViewModel?

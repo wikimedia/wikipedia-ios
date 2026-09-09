@@ -109,4 +109,7 @@ public enum WMFUserDefaultsKey: String {
 
     // Evergreen account creation prompt
     case evergreenAccountCreationState = "evergreen-account-creation-state"
+    
+    // yir 2026
+    case tappedActivityTabYIR = "tapped-activity-tab-yir-2026"
 }

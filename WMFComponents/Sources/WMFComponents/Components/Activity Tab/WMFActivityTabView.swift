@@ -36,6 +36,12 @@ public struct WMFActivityTabView: View {
                 }
             }
         }
+        .safeAreaInset(edge: .bottom) {
+            if let yearInReviewViewModel = viewModel.yearInReviewViewModel {
+                WMFActivityTabYearInReviewCardView(viewModel: yearInReviewViewModel)
+                    .padding(.bottom, 8)
+            }
+        }
         .onAppear {
             viewModel.fetchData(fromAppearance: true)
         }
