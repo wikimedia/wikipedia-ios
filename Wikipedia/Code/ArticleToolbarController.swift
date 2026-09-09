@@ -126,7 +126,8 @@ class ArticleToolbarController: Themeable {
         var actions: [UIMenuElement] = []
 
         let editElement = UIDeferredMenuElement.uncached { [weak self] completion in
-            let action = UIAction(title: CommonStrings.editContextMenuTitle, image: WMFIcon.pencil, handler: { [weak self] _ in self?.tappedEditArticle() })
+            let title = WMFDeveloperSettingsDataController.shared.isVisualEditorEnabled ? CommonStrings.editContextMenuTitle : CommonStrings.editSource
+            let action = UIAction(title: title, image: WMFIcon.pencil, handler: { [weak self] _ in self?.tappedEditArticle() })
             completion([action])
         }
 

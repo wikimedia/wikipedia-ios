@@ -244,6 +244,14 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         fundraisingOverriddenCurrentDate ?? Date()
     }
 
+    // MARK: - Remote Feature Flags
+
+    /// Comes from `iosv1.visualEditorEnabled` in the remote feature config. A missing key or a
+    /// missing config keeps the legacy source editor flow.
+    public var isVisualEditorEnabled: Bool {
+        loadFeatureConfig()?.ios.visualEditorEnabled ?? false
+    }
+
     // MARK: - Reading Challenge Forced States
 
     private var sharedDefaults: UserDefaults? { UserDefaults(suiteName: "group.org.wikimedia.wikipedia") }

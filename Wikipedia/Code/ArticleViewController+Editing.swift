@@ -31,7 +31,10 @@ extension ArticleViewController {
     }
 
     private func presentEditingFlow(with sectionID: Int?, selectedTextEditInfo: SelectedTextEditInfo?, editTag: WMFEditTag) {
-        guard let navigationController else { return }
+        guard WMFDeveloperSettingsDataController.shared.isVisualEditorEnabled, let navigationController else {
+            presentSourceEditor(sectionID: sectionID, selectedTextEditInfo: selectedTextEditInfo, editTag: editTag)
+            return
+        }
 
         let settingsDataController = WMFSettingsDataController.shared
         let preferredMode = settingsDataController.defaultEditMode()
