@@ -28,6 +28,9 @@ import WMFData
         case reminderOverflow = "reminder_overflow"
         case globalSetting = "global_setting"
         case reminderMilestone = "reminder_milestone"
+        case reminderEnd = "reminder_end"
+        case reminderRecurringEnd = "reminder_recur_end"
+        case reminderFeedback = "reminder_feedback"
     }
     
     private enum Action: String {
@@ -87,6 +90,8 @@ import WMFData
         case notNowClick = "notnow_click"
         case otherApplePayClick = "other_applepay_click"
         case otherMethodClick = "other_method_click"
+        case feedbackStartClick = "feedback_start_click"
+        case recurringStartClick = "recurring_start_click"
     }
     
     private struct Event: EventInterface {
@@ -669,5 +674,64 @@ import WMFData
         case .groupC: group = "ios_remind_c"
         }
         logEvent(activeInterface: .articleBanner, action: .groupAssigned, actionData: ["group": group], project: project)
+    }
+
+    // MARK: - Donation Reminder Wrap-up
+
+    func logDonationReminderWrapUpImpression(card: WMFDonationReminderDataController.WrapUpCard, project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: card.activeInterface, action: .impression, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logDonationReminderWrapUpDidTapNoThanks(card: WMFDonationReminderDataController.WrapUpCard, project: WikimediaProject) {
+        logEvent(activeInterface: card.activeInterface, action: .noThanksClick, project: project)
+    }
+
+    func logDonationReminderWrapUpDidTapShareFeedback(project: WikimediaProject) {
+        logEvent(activeInterface: .reminderEnd, action: .feedbackStartClick, project: project)
+    }
+
+    func logDonationReminderWrapUpDidTapGiveMonthly(project: WikimediaProject) {
+        logEvent(activeInterface: .reminderRecurringEnd, action: .recurringStartClick, project: project)
+    }
+
+    func logDonationReminderFeedbackDidTapCancel(project: WikimediaProject) {
+        logEvent(activeInterface: .reminderFeedback, action: .cancelClick, project: project)
+    }
+
+    func logDonationReminderFeedbackDidSubmit(score: Int?, text: String, project: WikimediaProject) {
+        var actionData: [String: String] = [:]
+
+        if let score {
+            actionData["score"] = "\(score)"
+        }
+
+        if !text.isEmpty {
+            actionData["text"] = text.replacingOccurrences(of: ",", with: "&comma;")
+        }
+
+        logEvent(activeInterface: .reminderFeedback, action: .feedbackSubmitClick, actionData: actionData, project: project)
+    }
+
+    func logDonationReminderRecurringEndDidTapApplePay(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .reminderRecurringEnd, action: .applePayClick, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logDonationReminderRecurringEndDidTapOtherApplePay(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .reminderRecurringEnd, action: .otherApplePayClick, actionData: ["campaign_id": metricsID], project: project)
+    }
+
+    func logDonationReminderRecurringEndDidTapOtherMethod(project: WikimediaProject, metricsID: String) {
+        logEvent(activeInterface: .reminderRecurringEnd, action: .otherMethodClick, actionData: ["campaign_id": metricsID], project: project)
+    }
+}
+
+private extension WMFDonationReminderDataController.WrapUpCard {
+    var activeInterface: DonateFunnel.ActiveInterface {
+        switch self {
+        case .feedbackSurvey:
+            return .reminderEnd
+        case .recurringDonorPrompt:
+            return .reminderRecurringEnd
+        }
     }
 }
