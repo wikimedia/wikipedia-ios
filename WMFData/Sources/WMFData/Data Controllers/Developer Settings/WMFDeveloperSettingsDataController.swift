@@ -192,13 +192,14 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     }
 
     /// Resets everything that can suppress the fundraising campaign banner: the "maybe later" /
-    /// permanently hidden prompt state, the local donation history, the saved donation reminder, and the persisted donation
-    /// reminder experiment bucket.
+    /// permanently hidden prompt state, the local donation history, the saved donation reminder, the persisted donation
+    /// reminder experiment bucket, and the wrap-up card seen state.
     public func clearFundraisingCampaignPersistence() {
         WMFFundraisingCampaignDataController.shared.clearPromptState()
         WMFDonateDataController.shared.deleteLocalDonationHistory()
         WMFDonationReminderDataController.shared.clearReminder()
         WMFDonationReminderDataController.shared.clearExperimentAssignment()
+        WMFDonationReminderDataController.shared.clearWrapUpCardSeen()
     }
 
     /// Debugging convenience: overrides the persisted donation reminder experiment bucket at read
@@ -224,6 +225,23 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     public var bypassDonationReminderDailyLimit: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsBypassDonationReminderDailyLimit.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsBypassDonationReminderDailyLimit.rawValue, value: newValue) }
+    }
+
+    /// Debugging convenience: overrides the date that the fundraising features treat as today, so we
+    /// can test the campaign and reminder date windows.
+    public var fundraisingOverriddenCurrentDate: Date? {
+        get { try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsFundraisingOverriddenCurrentDate.rawValue) }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsFundraisingOverriddenCurrentDate.rawValue, value: newValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsFundraisingOverriddenCurrentDate.rawValue)
+            }
+        }
+    }
+
+    public var fundraisingCurrentDate: Date {
+        fundraisingOverriddenCurrentDate ?? Date()
     }
 
     // MARK: - Reading Challenge Forced States

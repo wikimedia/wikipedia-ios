@@ -280,7 +280,6 @@
 "explore-because-you-read-footer" = "Dodatkowe artykuły powiązane";
 "explore-continue-reading-heading" = "Czytaj dalej";
 "explore-detail-back-button-title" = "Powrót do kanału Eksploruj";
-"explore-enable-location-title" = "Przeglądaj artykuły dotyczące miejsc blisko twojej obecnej lokacji";
 "explore-featured-article-heading" = "Wyróżniony artykuł";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Z $1 Wikipedii";
 "explore-featured-article-sub-heading-from-wikipedia" = "Z Wikipedii";
@@ -421,7 +420,6 @@
 "home-nearby-footer" = "Więcej miejsc w pobliżu Twojej lokalizacji";
 "home-nearby-location-footer" = "Więcej niedaleko";
 "home-news-footer" = "Więcej aktualnych wydarzeń";
-"home-reading-list-prompt" = "Zapisane artykuły można teraz porządkować w listy do czytania i synchronizować na różnych urządzeniach. Zaloguj się, aby umożliwić zapisanie list czytelniczych zgodnie z preferencjami użytkownika.";
 "home-themes-action-title" = "Zarządzaj preferencjami";
 "home-themes-prompt" = "Dostosuj preferencje czytania, w tym rozmiar tekstu i motyw z paska narzędzi artykułu lub w ustawieniach użytkownika, aby zapewnić wygodniejsze czytanie.";
 "home-title" = "Odkryj";
@@ -517,7 +515,6 @@
 "notifications-center-alert" = "Uwaga";
 "notifications-center-applied-filters-accessibility-label" = "Filtr powiadomień - ma zastosowane filtry";
 "notifications-center-applied-project-filters-accessibility-label" = "Filtr projektów - ma zastosowane filtry";
-"notifications-center-badge-button-accessibility-label" = "Powiadomienia z nieprzeczytaną plakietką";
 "notifications-center-change-password" = "Zmień hasło";
 "notifications-center-checking-for-notifications" = "Sprawdzanie powiadomień...";
 "notifications-center-destination-app" = "W aplikacji";
@@ -657,7 +654,6 @@
 "preference-summary-eventlogging-opt-in" = "Pozwól Fundacji Wikimedia zbierać informacje o tym, jak korzystasz z aplikacji, aby ją ulepszać";
 // Fuzzy
 "profile-year-in-review-login-subtitle" = "Zaloguj się lub utwórz konto, aby ponownie zobaczyć Podsumowanie roku i uzyskać dostęp do bardziej spersonalizowanych informacji.";
-"profile-year-in-review-login-title" = "Zaloguj się, aby uzyskać dostęp do Podsumowania roku";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidane";
@@ -697,11 +693,7 @@
 "reading-list-list-limit-exceeded-message" = "Ta lista do czytania i zapisane na niej artykuły nie zostaną zsynchronizowane. Zmniejsz liczbę list do $1, aby wznowić synchronizację tej listy.";
 "reading-list-list-limit-exceeded-title" = "Przekroczono limit {{PLURAL:$1|$1 lista czytelnicza |$1 list czytelniczych}} na konto.";
 "reading-list-list-limit-reached" = "Osiągnięto limit list czytania $1 na konto";
-"reading-list-login-button-title" = "Zaloguj się, aby zsynchronizować Twoje zapisane artykuły";
 "reading-list-login-or-create-account-button-title" = "Zaloguj się lub utwórz konto";
-"reading-list-login-or-create-account-title" = "Zaloguj się, aby zsynchronizować zapisane artykuły";
-"reading-list-login-subtitle" = "Zaloguj się lub utwórz konto, aby umożliwić synchronizację zapisanych artykułów i list do czytania na różnych urządzeniach i zapisać je w preferencjach użytkownika.";
-"reading-list-login-title" = "Zsynchronizować zapisane artykuły?";
 "reading-list-name-user-created-annotation" = "_ [użytkownik utworzył]";
 "reading-list-new-list-description-placeholder" = "opcjonalny krótki opis";
 "reading-list-new-list-name-placeholder" = "tytuł listy do czytania";
@@ -750,7 +742,6 @@
 "relative-date-minutes-ago-abbreviated" = "$1m temu";
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s temu";
-"reverted-edit-title" = "Cofnięto edycję";
 "saved-all-articles-title" = "Wszystkie artykuły";
 "saved-default-reading-list-tag" = "Tej listy nie można usunąć";
 "saved-pages-image-download-error" = "Nie udało się pobrać obrazów dla tej zapisanej strony.";
@@ -829,10 +820,6 @@
 "talk-page-expand-thread-button" = "Rozwiń wątek";
 "talk-page-find-in-page-button" = "Znajdź na stronie";
 "talk-page-menu-open-all" = "Otwórz wszystkie wątki";
-"talk-page-new-banner-subtitle" = "Pamiętaj, wszyscy jesteśmy ludźmi";
-"talk-page-new-banner-title" = "Zachowuj się uprzejmie";
-"talk-page-new-reply-success-text" = "Twoja odpowiedź została pomyślnie opublikowana";
-"talk-page-new-topic-success-text" = "Twoja dyskusja została pomyślnie opublikowana";
 "talk-page-title-article-talk" = "Dyskusja o artykule";
 "talk-page-title-user-talk" = "Dyskusja użytkownika";
 "talk-pages-coffee-roll-read-more" = "Czytaj więcej";
@@ -956,11 +943,7 @@
 "year-in-review-collective-edits" = " Ilustracja dwóch kawałków puzzli Wikipedii, z których każdy przenosi informację.";
 "year-in-review-collective-languages" = "Animowana ilustracja przedstawiająca kamień z wyrytymi inskrypcjami w różnych językach, symbolizującymi sposób, w jaki Wikipedia wspólnie gromadzi wiedzę z różnych kultur i regionów.";
 "year-in-review-collective-saved-articles" = "Kula z puzzli, opowiadająca logo Wikipedii, reprezentująca globalną współpracę.";
-"year-in-review-feature-announcement-body" = "Zobacz, jakie artykuły czytano i edytowano, oraz podziel się najważniejszymi wydarzeniami z naszego roku w Wikipedii.";
-"year-in-review-feature-announcement-body-personalized" = "Zobacz podsumowanie artykułów, które czytasz w aplikacji Wikipedii, podziel się swoją podróżą i odkryj najważniejsze wydarzenia z mijającego roku.";
-"year-in-review-feature-announcement-title" = "Zobacz Podsumowanie roku w Wikipedii";
 "year-in-review-feature-announcement-title-personalized" = "Zobacz swoje Podsumowanie roku w Wikipedii.";
-"year-in-review-feature-explore-body" = "Wikipedia jest największym zasobem wiedzy, jaki kiedykolwiek zgromadzono w historii świata i jest on dostępny swobodnie dla każdego, wszędzie. Oto przegląd 2024 roku przez pryzmat Wikipedii.";
 "year-in-review-finish" = "Zakończ";
 "year-in-review-personalized-donate-subtitle" = "Dziękujemy za inwestowanie w przyszłość wolnej wiedzy. W tym roku Fundacja Wikimedia udoskonaliła technologię, aby lepiej służyła każdemu czytelnikowi i wolontariuszowi, pomagała we współpracy oraz wspierała Wikipedię w kolejnych językach. [Dowiedz się więcej o naszej pracy]($1).";
 "year-in-review-personalized-donate-title" = "Twoja hojność pomogła Wikipedii w dalszym rozwoju";

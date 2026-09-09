@@ -316,7 +316,6 @@
 "explore-because-you-read-footer" = "وڌيڪ لاڳاپيل مضمون";
 "explore-continue-reading-heading" = "پڙهڻ جاري رکو";
 "explore-detail-back-button-title" = "کوجنا رسد ڏانھن واپس";
-"explore-enable-location-title" = "پنھنجي ھاڻوڪي مڪانيت جي ويجھو مضمون کوجيو";
 "explore-featured-article-heading" = "چونڊ مضمون";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 وڪيپيڊيا تان";
 "explore-featured-article-sub-heading-from-wikipedia" = "وڪيپيڊيا تان";
@@ -567,7 +566,6 @@
 "not-now-title" = "ھاڻي نہ";
 "notifications-center-agent-description-from-format" = "$1 کان";
 "notifications-center-alert" = "چتاءُ";
-"notifications-center-badge-button-accessibility-label" = "نہ-پڙھيل بيج وارا اطلاع";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 اطلاع";
 "notifications-center-change-password" = "ڳجهولفظ بدلايو";
 "notifications-center-checking-for-notifications" = "اطلاعن لاءِ چڪاس ڪندي...";
@@ -792,7 +790,6 @@
 "reading-lists-article-queued-to-be-downloaded" = "مضمون کي لاھڻ لاءِ قطاريو ويو";
 "reading-lists-article-save-to-disk-recovery-suggestion" = "پنھنجي ڊوائيس تي ڪجهہ جڳھ خالي ڪريو ۽ پوءِ ٻيھر ڪوشش ڪريو";
 "reading-lists-conflicting-reading-list-name-updated" = "توھان جي فھرست '$1' کي '$2' نالو ڏنو ويو آھي";
-"reading-lists-count" = "{{PLURAL:$1|$1 پڙھڻ جي فھرست|$1 پڙھڻ جون فھرستون}}";
 "reading-lists-default-list-description" = "توھان جي سانڍيل مضمونن جي لاءِ ڏنل فھرست";
 "reading-lists-default-list-title" = "سانڍيل";
 "reading-lists-delete-reading-list-alert-message" = "ھي عمل اڻڪري نٿو سگهجي. رڳو {{PLURAL:$1|ھن فھرست|ھنن فھرستن}} ۾ سانڍيل مضمون اڻسانڍجي ويندا.";
@@ -823,7 +820,6 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=ھن سال|1=گذريل سال|$1 سالَ اڳ}}";
 "return-button-title" = "واپس ورو";
 "return-to-article" = "مضمون ڏانهن واپس ورو";
-"reverted-edit-title" = "موٽايل سنوار";
 "saved-all-articles-title" = "سڀ مضمون";
 "saved-default-reading-list-tag" = "ھي فھرست نٿي ڊاھي سگهجي";
 "saved-pages-image-download-error" = "هن سانڍيل صفحي لاءِ عڪس لاھڻ ۾ ناڪامي ٿي.";
@@ -899,10 +895,6 @@
 "talk-page-expand-thread-button" = "سلسلن کي وڌايو";
 "talk-page-find-in-page-button" = "صفحي ۾ لھو";
 "talk-page-menu-open-all" = "سڀ سلسلا کوليو";
-"talk-page-new-banner-subtitle" = "ياد رھي، ھتي اسان سڀ انسان آھيون";
-"talk-page-new-banner-title" = "مھرباني ڪري رحمدل ٿيو";
-"talk-page-new-reply-success-text" = "توھان جي ورندي ڪاميابيءَ سان ڇپجي وئي";
-"talk-page-new-topic-success-text" = "توھان جي گفتگو ڪاميابيءَ سان ڇپجي وئي";
 "talk-page-onboarding-button-accessibility-label" = "ورندي ڏيڻ ڏانھن واپس وڃڻ لاءِ ٻہ ڀيرا ٽيپ ڪريو";
 "talk-page-overflow-menu-accessibility" = "بحث صفحي جا وڌيڪ اوزار";
 "talk-page-page-info" = "صفحي جي معلومات";
@@ -970,7 +962,6 @@
 "top-read-widget-description" = "ڏسو وڪيپيڊيا تي اڄ دنيا ڇا پڙھي رھي آھي.";
 "top-read-widget-readers-count" = "$1 پڙھندڙ";
 "top-read-widget-title" = "گهڻو پڙھيل";
-"try-now-title" = "هاڻي ئي آزمايو";
 "tutorial-title" = "سکيانامو";
 "two-factor-login-continue" = "داخل ٿيڻ جاري رکو";
 "two-factor-login-instructions" = "ٻہ-فيڪٽر تصديق ڪوڊ داخل ڪندا";
@@ -982,7 +973,6 @@
 "unwatch" = "نظر۾نہ رکو";
 "user-title" = "واپرائيندڙ";
 "vanish-account-continue-button-title" = "جاري رکو";
-"vanish-account-username-field" = "واپرائيندڙنانءُ ۽ واپرائيندڙ جو صفحو";
 "vanish-account-warning-title" = "چتاءُ";
 "variants-alert-dismiss-button" = "نہ مھرباني";
 "variants-alert-preferences-button" = "پنھنجي تجيحن تي نظرثاني ڪريو";

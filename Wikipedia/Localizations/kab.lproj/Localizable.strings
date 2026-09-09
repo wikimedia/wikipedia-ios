@@ -60,7 +60,6 @@
 "action-share-accessibility" = "Bḍu";
 "action-unsave" = "UR yettwasekles ara";
 "action-unsaved-accessibility-notification" = "Amagrad ur yettwasekles ara";
-"activity-tab-add-images-title" = "Rnu tugniwin";
 "activity-tab-articles-read-graph-label" = "Imagraden";
 "alert-temporary-account-learn-more" = "Issin ugar.";
 "announcements-dismiss" = "Zgel";
@@ -114,7 +113,6 @@
 "explore-another-random" = "Amargad-nniḍen agacuran";
 "explore-because-you-read" = "Acku teɣriḍ";
 "explore-continue-reading-heading" = "Kemmel taɣuri";
-"explore-enable-location-title" = "Snirem imagraden iqeṛben ar wadig-ik amiran";
 "explore-featured-article-heading" = "Amagrad ifazen";
 "explore-main-page-description" = "Asebter agejdan n isenfaṛen Wikimedia";
 "explore-main-page-heading" = "Ass-a di Wikipedia";
@@ -348,7 +346,6 @@
 "theme-default-display-name" = "Amezwer";
 "theme-light-display-name" = "Aceɛlal";
 "theme-sepia-display-name" = "Sepia";
-"try-now-title" = "Ɛreḍ tura";
 "two-factor-login-continue" = "Kemmel tuqqna";
 "two-factor-login-instructions" = "Sekcem tangalt n usentem n snat n tarrayin";
 "two-factor-login-title" = "Qqen ar umiḍan-ik";

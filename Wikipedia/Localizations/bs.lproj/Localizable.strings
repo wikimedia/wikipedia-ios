@@ -284,7 +284,6 @@
 "explore-because-you-read-footer" = "Dodatni povezani članci";
 "explore-continue-reading-heading" = "Nastavi s čitanjem";
 "explore-detail-back-button-title" = "Nazad na stranicu Istraži";
-"explore-enable-location-title" = "Istražite članke o stvarima u blizini Vaše trenutne lokacije";
 "explore-featured-article-heading" = "Odabrani članak";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "s Wikipedije ($1)";
 "explore-featured-article-sub-heading-from-wikipedia" = "s Wikipedije";
@@ -419,7 +418,6 @@
 "home-nearby-footer" = "Još mjesta blizu Vaše lokacije";
 "home-nearby-location-footer" = "Još u blizini $1";
 "home-news-footer" = "Još aktuelnih događaja";
-"home-reading-list-prompt" = "Sačuvani članci sada se mogu organizovati u spiskove za čitanje i sinhronizovati na svim uređajima. Prijavite se da biste omogućili da Vaši spiskovi za čitanje budu sačuvani prema Vašim korisničkim podešavanjima.";
 "home-themes-action-title" = "Upravljajte podešavanjima";
 "home-themes-prompt" = "Prilagodite svoja podešavanja za čitanje, uključujući veličinu teksta i temu sa trake s alatima za članke ili u svojim korisničkim postavkama za ugodnije iskustvo čitanja.";
 "home-title" = "Istraži";
@@ -517,7 +515,6 @@
 "notifications-center-alert" = "Upozorenje";
 "notifications-center-applied-filters-accessibility-label" = "Filter obavještenja - ima primijenjene filtere";
 "notifications-center-applied-project-filters-accessibility-label" = "Filter projekata - ima primijenjene filtere";
-"notifications-center-badge-button-accessibility-label" = "Obavještenja s oznakom nepročitano";
 "notifications-center-cell-notification-type-accessibility-label-format" = "Obavještenje: $1";
 "notifications-center-change-password" = "Promijeni lozinku";
 "notifications-center-checking-for-notifications" = "Provjera obavještenja...";
@@ -723,11 +720,7 @@
 "reading-list-list-limit-exceeded-message" = "Ovaj spisak za čitanje i članci sačuvani na njemu neće biti sinhronizovani, smanjite broj spiskova na $1 da biste nastavili sa sinhronizacijom ovog spiska.";
 "reading-list-list-limit-exceeded-title" = "Prekoračili ste ograničenje od {{PLURAL:$1|$1 spiska za čitanje|$1 spiska za čitanje|$1 spiskova za čitanje}} po računu.";
 "reading-list-list-limit-reached" = "Dostigli ste ograničenje od $1 spiskova za čitanje po računu.";
-"reading-list-login-button-title" = "Prijavite se kako bi sinhronizovali svoje sačuvane članke";
 "reading-list-login-or-create-account-button-title" = "Prijavi se ili napravi račun";
-"reading-list-login-or-create-account-title" = "Prijavite se kako bi sinhronizovali sačuvane članke";
-"reading-list-login-subtitle" = "Prijavite se ili napravite račun kako biste omogućili da se sačuvani članci i spiskovi za čitanje sinhronizuju na svim uređajima i sačuvaju prema Vašim korisničkim podešavanjima.";
-"reading-list-login-title" = "Sinhroniziraj sačuvane članke?";
 "reading-list-name-user-created-annotation" = "_[korisnički napravljeno]";
 "reading-list-new-list-description-placeholder" = "neobavezni kratki opis";
 "reading-list-new-list-name-placeholder" = "naslov spiska za čitanje";
@@ -754,7 +747,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Očistite malo prostora na uređaju i pokušajte ponovo";
 "reading-lists-articles-not-synced-limit-exceeded" = "Neki članci nisu sinhronizirani, ograničenje prekoračeno";
 "reading-lists-conflicting-reading-list-name-updated" = "Vaš spisak '$1' preimenovan je u '$2'";
-"reading-lists-count" = "{{PLURAL:$1|$1 spisak za čitanje|$1 spiska za čitanje|$1 spiskova za čitanje}}";
 "reading-lists-default-list-description" = "Predodređeni spisak za Vaše sačuvane članke";
 "reading-lists-default-list-title" = "Sačuvano";
 "reading-lists-delete-reading-list-alert-message" = "Ova radnja se ne može poništiti. Svi članci sačuvani samo na {{PLURAL:$1|ovom spisku|ovim spiskovima}} će bit uklonjeni.";
@@ -787,7 +779,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "prije $1s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Ove godine|1=Prošle godine|Prije $1 godine|Prije $1 godina}}";
-"reverted-edit-title" = "Vraćena izmjena";
 "saved-all-articles-title" = "Svi članci";
 "saved-default-reading-list-tag" = "Ovaj spisak se ne može isbrisati";
 "saved-pages-image-download-error" = "Ne mogu preuzeti slike za ovu sačuvanu stranicu.";
@@ -869,10 +860,6 @@
 "talk-page-error-loading-subtitle" = "Nešto nije u redu.";
 "talk-page-error-loading-title" = "Ne mogu učitati stranicu za razgovor";
 "talk-page-find-in-page-button" = "Pronađi na stranici";
-"talk-page-new-banner-subtitle" = "Zapamtite, ovdje smo svi ljudi";
-"talk-page-new-banner-title" = "Budite ljubazni";
-"talk-page-new-reply-success-text" = "Vaš odgovor je uspješno objavljen";
-"talk-page-new-topic-success-text" = "Vaša rasprava je uspješno objavljena";
 "talk-page-permanent-link" = "Trajni link";
 "talk-page-title-article-talk" = "Stranica za razgovor o članku";
 "talk-page-title-user-talk" = "Razgovor s korisnikom";
