@@ -322,6 +322,11 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     }
 
     @MainActor
+    public func preselectRecurringMonthly() {
+        monthlyRecurringViewModel.isSelected = true
+    }
+
+    @MainActor
     public func preselectAmount(_ amount: Decimal) {
         textfieldViewModel.shouldFocusOnAppearance = false
 

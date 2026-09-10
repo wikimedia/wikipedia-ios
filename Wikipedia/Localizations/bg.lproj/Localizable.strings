@@ -68,8 +68,6 @@
 "action-unsave" = "Отмяна на записа";
 "action-unsaved-accessibility-notification" = "Статията не е запазена";
 "action-update" = "Обновяване";
-"activity-tab-generic-no-edits" = "Не сте редактирали тази седмица. Започнете сега, за да следите приносите си.";
-"activity-tab-view-saved-articles" = "Преглед на съхранените статии";
 "announcements-dismiss" = "Затваряне";
 "app-store-subtitle" = "Свободната енциклопедия";
 "appearance-settings-image-dimming-footer" = "Намалете непрозрачността на изображенията за тъмните и черните облици";
@@ -274,7 +272,6 @@
 "home-nearby-footer" = "Още места близо до вашето местоположение";
 "home-nearby-location-footer" = "Още близо до $1";
 "home-news-footer" = "Още актуални събития";
-"home-reading-list-prompt" = "Вашите запазени статии вече могат да бъдат организирани в списъци за четене и синхронизирани между устройствата. Влезте, за да разрешите Вашите списъци за четене да бъдат запазени в потребителските Ви предпочитания.";
 "home-tab-title" = "Начало";
 "home-themes-action-title" = "Управление на предпочитанията";
 "home-title" = "Разгледайте!";
@@ -467,7 +464,6 @@
 "reference-title" = "Източник $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Днес|1=Вчера|преди $1 дни}}";
 "relative-date-hours-ago-abbreviated" = "преди $1 час";
-"reverted-edit-title" = "Върната редакция";
 "save-view-temp-account-warning" = "Не сте влезли в системата. След като направите редакция, ще Ви бъде създадена временна сметка, за да се защити поверителността Ви.";
 "saved-all-articles-title" = "Всички статии";
 "saved-default-reading-list-tag" = "Този списък не може да бъде изтрит";
@@ -510,7 +506,6 @@
 "share-social-mention-format" = "„1“ чрез Уикипедия: $2";
 "sort-by-recently-added-action" = "Наскоро добавено";
 "sort-by-title-action" = "Заглавие";
-"survey-title" = "Причина";
 "table-of-contents-button-label" = "Съдържание";
 "table-of-contents-close-accessibility-hint" = "Затваряне";
 "table-of-contents-heading" = "Съдържание";

@@ -30,7 +30,7 @@ final class DonationReminderSetupCoordinator: Coordinator {
             guard let languageCode else {
                 return nil
             }
-            return WikimediaProject(wmfProject: WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageCode)))
+            return WikimediaProject(wmfProject: WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: nil)))
         case .settings:
             return nil
         }

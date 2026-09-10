@@ -17,13 +17,17 @@ final class LoginCoordinator: Coordinator {
 
     private let startsOnAccountCreation: Bool
 
+    /// For callers whose own flow is locked to portrait, so the orientation carries across to here.
+    private let forcePortrait: Bool
+
     // MARK: Lifecycle
 
-    init(navigationController: UINavigationController, theme: Theme, loggingCategory: EventCategoryMEP? = nil, startsOnAccountCreation: Bool = false) {
+    init(navigationController: UINavigationController, theme: Theme, loggingCategory: EventCategoryMEP? = nil, startsOnAccountCreation: Bool = false, forcePortrait: Bool = false) {
         self.navigationController = navigationController
         self.theme = theme
         self.loggingCategory = loggingCategory
         self.startsOnAccountCreation = startsOnAccountCreation
+        self.forcePortrait = forcePortrait
     }
 
     @discardableResult
@@ -69,6 +73,10 @@ final class LoginCoordinator: Coordinator {
     }
 
     private func present(_ viewController: UIViewController) {
+        if forcePortrait {
+            (viewController as? WMFComponentNavigationController)?.turnOnForcePortrait()
+        }
+
         if let presentedVC = navigationController.presentedViewController {
             presentedVC.present(viewController, animated: true)
         } else {

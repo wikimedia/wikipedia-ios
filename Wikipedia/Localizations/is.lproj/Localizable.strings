@@ -291,7 +291,6 @@
 "explore-because-you-read-footer" = "Aðrar tengdar greinar";
 "explore-continue-reading-heading" = "Halda lestri áfram";
 "explore-detail-back-button-title" = "Til baka í 'Uppgötva'-streymið";
-"explore-enable-location-title" = "Skoðaðu greinar í nágrenni við núverandi staðsetningu þína";
 "explore-featured-article-heading" = "Forsíðugrein";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Af $1 Wikipedia";
 "explore-featured-article-sub-heading-from-wikipedia" = "Af Wikipedia";
@@ -424,7 +423,6 @@
 "home-nearby-footer" = "Fleiri staðir í nágrenninu";
 "home-nearby-location-footer" = "Fleira frá nágrenni $1";
 "home-news-footer" = "Fleira í fréttum núna";
-"home-reading-list-prompt" = "Vistuðu greinarnar þínar er núna hægt að skipuleggja í leslista og samstilla þá síðan á milli tækja. Skráðu þig inn svo hægt sé að vista leslistana í notandastillingarnar þínar.";
 "home-themes-action-title" = "Sýsla með kjörstillingar";
 "home-themes-prompt" = "Stilltu lestrarstillingarnar þínar, svo sem eins og þema og stærð leturs, úr verkfærastiku greinar eða í notandastillingunum þínum, þannig að þægindin verði sem mest við lestur.";
 "home-title" = "Uppgötva";
@@ -513,7 +511,6 @@
 "notifications-center-alert" = "Aðvörun";
 "notifications-center-applied-filters-accessibility-label" = "Tilkynningasía - er með virkar síur";
 "notifications-center-applied-project-filters-accessibility-label" = "Verkefnasía - er með virkar síur";
-"notifications-center-badge-button-accessibility-label" = "Tilkynningar með ólesið-merki";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 tilkynning";
 "notifications-center-change-password" = "Breyta lykilorði";
 "notifications-center-checking-for-notifications" = "Athuga með tilkynningar...";
@@ -737,11 +734,7 @@
 "reading-list-list-limit-exceeded-message" = "Þessi leslisti og greinarnar vistaðar á hann verða ekki samstilltar, fækkaðu greinunum á þessum lista niður í $1 til að halda áfram samstillingu á listanum.";
 "reading-list-list-limit-exceeded-title" = "Þú hefur farið fram úr hámarkinu með {{PLURAL:$1|$1 leslista|$1 leslista}} á hvern notandaaðgang.";
 "reading-list-list-limit-reached" = "Þú hefur náð hámarkinu með $1 leslista á hvern notandaaðgang";
-"reading-list-login-button-title" = "Skráðu inn til að samstilla vistuðu greinarnar þínar";
 "reading-list-login-or-create-account-button-title" = "Skráðu þig inn til að búa til aðgang";
-"reading-list-login-or-create-account-title" = "Skráðu inn til að samstilla vistaðar greinar";
-"reading-list-login-subtitle" = "Skráðu þig inn eða útbúðu notandaaðgang svo hægt sé að samstilla vistaðar greinar og leslista á notandaaðganginn þinn og samstilla þannig á milli tækja.";
-"reading-list-login-title" = "Samstilla vistuðu greinarnar þínar?";
 "reading-list-name-user-created-annotation" = "_[bjó til notanda]";
 "reading-list-new-list-description-placeholder" = "stutt valkvæð lýsing";
 "reading-list-new-list-name-placeholder" = "titill leslista";
@@ -768,7 +761,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Losaðu eitthvað pláss og prófaðu aftur";
 "reading-lists-articles-not-synced-limit-exceeded" = "Sumar greinar ekki samstilltar, yfir takmörkunum";
 "reading-lists-conflicting-reading-list-name-updated" = "'$1' listinn þinn hefur verið endurnefndur sem '$2'";
-"reading-lists-count" = "{{PLURAL:$1|$1 leslistann|$1 leslistana}}";
 "reading-lists-default-list-description" = "Sjálfgefinn listi fyrir vistuðu greinarnar þínar";
 "reading-lists-default-list-title" = "Vistað";
 "reading-lists-delete-reading-list-alert-message" = "Þessa aðgerð er ekki hægt að afturkalla. Allar greinar sem einungis eru vistaðar í {{PLURAL:$1|þennan lista verða óvistaðar|þessa lista verða óvistaðar}}.";
@@ -803,7 +795,6 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Á þessu ári|1=Á síðasta ári|Fyrir $1 ári síðan}}";
 "return-button-title" = "Til baka";
 "return-to-article" = "Fara aftur í grein";
-"reverted-edit-title" = "Afturkölluð breyting";
 "saved-all-articles-title" = "Allar greinar";
 "saved-default-reading-list-tag" = "Ekki er hægt að eyða þessum lista";
 "saved-pages-image-download-error" = "Tókst ekki að sækja myndir fyrir þessa vistuðu síðu.";
@@ -889,10 +880,6 @@
 "talk-page-expand-thread-button" = "Fella út þráð";
 "talk-page-find-in-page-button" = "Finna á síðu";
 "talk-page-menu-open-all" = "Opna alla þræði";
-"talk-page-new-banner-subtitle" = "Mundu að við erum öll mannleg hérna";
-"talk-page-new-banner-title" = "Vertu vinsamleg/ur";
-"talk-page-new-reply-success-text" = "Það tókst að vista svarið þitt";
-"talk-page-new-topic-success-text" = "Það tókst að vista umræðuna þína";
 "talk-page-onboarding-button-accessibility-label" = "Pikkaðu tvisvar til að fara aftur í svarið";
 "talk-page-overflow-menu-accessibility" = "Fleiri valkostir spjallsíðu";
 "talk-page-page-info" = "Síðuupplýsingar";
@@ -968,7 +955,6 @@
 "user-title" = "Notandi";
 "uzbek-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði úsbekísku";
 "vanish-account-continue-button-title" = "Halda áfram";
-"vanish-account-username-field" = "Notandanafn og notandasíða";
 "vanish-account-warning-body" = "Að hverfa er eða vera þurrkaður út er **lokaúrræði** og ætti **aðeins að nota þegar þú vilt endanlega hætta breytingum** og einnig til að fela fyrri tengsl þín eins og mögulegt er.\n\nEyðing reiknings á Wikipedia gerist með því að breyta nafni reikningsins þíns þannig að aðrir geti ekki þekkt framlög þín, og er það ferli kallað **útþurrkun** á reikningi. **Útþurrkun tryggir ekki algjöra nafnleynd eða fjarlægingu framlaga til verkefna**.";
 "vanish-account-warning-title" = "Aðvörun";
 "variants-alert-dismiss-button" = "Nei, takk";

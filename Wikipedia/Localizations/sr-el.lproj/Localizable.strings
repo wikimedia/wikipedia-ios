@@ -282,7 +282,6 @@
 "explore-because-you-read-footer" = "Drugi srodni članci";
 "explore-continue-reading-heading" = "Nastavi čitanje";
 "explore-detail-back-button-title" = "Nazad na fid „Istraži”";
-"explore-enable-location-title" = "Istražite članke o objektima u blizini vaše trenutne lokacije";
 "explore-featured-article-heading" = "Izabrani članak";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Jezik Vikipedije: $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Sa Vikipedije";
@@ -417,7 +416,6 @@
 "home-nearby-footer" = "Još mesta u blizini";
 "home-nearby-location-footer" = "Još u blizini $1";
 "home-news-footer" = "Još aktuelnih događaja";
-"home-reading-list-prompt" = "Sačuvani članci se sada mogu organizovati u listama za čitanje i sinhronizovati među uređajima. Prijavite se i dozvolite čuvanje lista u vašim podešavanjima.";
 "home-themes-action-title" = "Upravljaj podešavanjima";
 "home-themes-prompt" = "Prilagodite podešavanja za čitanje (uključujući veličinu teksta i temu) u traci za upravljanje člancima ili u vašim podešavanjima.";
 "home-title" = "Istraži";
@@ -504,7 +502,6 @@
 "notifications-center-alert" = "Obaveštenja";
 "notifications-center-applied-filters-accessibility-label" = "Filter obaveštenja - ima primenjene filtere";
 "notifications-center-applied-project-filters-accessibility-label" = "Filter projekata - ima primenjene filtere";
-"notifications-center-badge-button-accessibility-label" = "Obaveštenja sa nepročitanim bedžom";
 "notifications-center-cell-notification-type-accessibility-label-format" = "Obaveštenje: $1";
 "notifications-center-change-password" = "Promeni lozinku";
 "notifications-center-checking-for-notifications" = "Porveravam obaveštenja...";
@@ -737,11 +734,7 @@
 "reading-list-list-limit-exceeded-message" = "Ova lista za čitanje i članci sačuvani na njoj neće biti sinhronizovani. Smanjite broj lista na $1 da biste ponovo sinhronizovali ovu listu.";
 "reading-list-list-limit-exceeded-title" = "Prekoračili ste ograničenje od {{PLURAL:$1|$1 liste za čitanje|$1 lista za čitanje}} po nalogu.";
 "reading-list-list-limit-reached" = "Dostigli ste ograničenje od $1 lista za čitanje po nalogu";
-"reading-list-login-button-title" = "Prijavite se da biste sinhronizovali sačuvane članke";
 "reading-list-login-or-create-account-button-title" = "Prijava/registracija";
-"reading-list-login-or-create-account-title" = "Prijavite se da biste sinhronizovali sačuvane članke";
-"reading-list-login-subtitle" = "Prijavite se ili otvorite nalog da biste sinhronizovali članke i liste za čitanje među uređajima i sačuvali svoja podešavanja.";
-"reading-list-login-title" = "Sinhronizovati sačuvane članke?";
 "reading-list-name-user-created-annotation" = "_[napravio korisnik]";
 "reading-list-new-list-description-placeholder" = "opcionalan kratak opis";
 "reading-list-new-list-name-placeholder" = "naslov liste za čitanje";
@@ -768,7 +761,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Oslobodite prostor na uređaju pa pokušajte ponovo";
 "reading-lists-articles-not-synced-limit-exceeded" = "Neki članci nisu sinhronizovani. Prekoračeno je ograničenje.";
 "reading-lists-conflicting-reading-list-name-updated" = "Vaša lista „$1” je preimenovana u „$2”";
-"reading-lists-count" = "{{PLURAL:$1|$1 lista za čitanje|$1 liste za čitanje|$1 lista za čitanje}}";
 "reading-lists-default-list-description" = "Podrazumevana lista za vaše sačuvane članke";
 "reading-lists-default-list-title" = "Sačuvano";
 "reading-lists-delete-reading-list-alert-message" = "Ova radnja je nepovratna. Svi članci sačuvani samo na {{PLURAL:$1|ovoj listi|ovim listama}} će biti uklonjeni iz sačuvanih.";
@@ -803,7 +795,6 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=ove godine|1=prošle godine|pre $1 godine|pre $1 godina}}";
 "return-button-title" = "Nazad";
 "return-to-article" = "Nazad na članak";
-"reverted-edit-title" = "Vraćena izmena";
 "saved-all-articles-title" = "Svi članci";
 "saved-default-reading-list-tag" = "Ova lista ne može da se izbriše";
 "saved-pages-image-download-error" = "Preuzimanje slika za ovu sačuvanu stranicu nije uspelo.";
@@ -891,10 +882,6 @@
 "talk-page-expand-thread-button" = "Raširi temu";
 "talk-page-find-in-page-button" = "Pronađi u stranici";
 "talk-page-menu-open-all" = "Otvori sve teme";
-"talk-page-new-banner-subtitle" = "Ne zaboravite: Komunicirate sa živim ljudima";
-"talk-page-new-banner-title" = "Budite ljubazni";
-"talk-page-new-reply-success-text" = "Vaš odgovor je uspešno objavljen";
-"talk-page-new-topic-success-text" = "Vaša diskusija je uspešno objavljena";
 "talk-page-onboarding-button-accessibility-label" = "Tapnite dvaput da bi ste se vratili na odgovor";
 "talk-page-overflow-menu-accessibility" = "Više opcija stranice za razgovor";
 "talk-page-page-info" = "Informacije o stranici";
@@ -969,7 +956,6 @@
 "unwatch" = "Prekini nadgledanje";
 "user-title" = "Korisnik";
 "vanish-account-continue-button-title" = "Nastavi";
-"vanish-account-username-field" = "Korisničko ime i korisnička stranica";
 "vanish-account-warning-body" = "Nestajanje je **poslednja opcija** i treba je koristiti **samo kada želite da zauvek prestanete sa uređivanjem**, kao i da sakrijete što više svojih prošlih asocijacija.\n\nBrisanje naloga na Vikipediji se vrši promenom naziva naloga tako da drugi ne mogu da prepoznaju Vaše doprinose u procesu koji se zove učtivi nestanak. **Nestajanje ne garantuje potpunu anonimnost i ne uklanja doprinose na projektima**.";
 "vanish-account-warning-title" = "Upozorenje";
 "variants-alert-dismiss-button" = "Ne, hvala";

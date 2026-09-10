@@ -147,8 +147,6 @@
 "action-unsave" = "No guardar";
 "action-unsaved-accessibility-notification" = "Artículo sin guardar";
 "action-update" = "Actualizar";
-"activity-tab-add-images-subtitle" = "Agrega imágenes sugeridas a los artículos de Wikipedia para mejorar la comprensión.";
-"activity-tab-add-images-title" = "Agregar imágenes";
 "activity-tab-additional-thoughts" = "¿Algún otro comentario?";
 "activity-tab-amount-article-views" = "{{PLURAL:$1|$1 vista|$1 vistas}}";
 "activity-tab-articles-read" = "Artículos leídos este mes";
@@ -168,7 +166,6 @@
 "activity-tab-email-second-line" = "- [Describe un problema específico]";
 "activity-tab-email-third-line" = "El comportamiento que me gustaría ver es:";
 "activity-tab-email-title" = "Informe de probemas - Pestaña de actividad";
-"activity-tab-generic-no-edits" = "No has editado esta semana. Comienza ahora a hacer un seguimiento de tus contribuciones.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-impact-thanks-label" = "agredicimentos";
 "activity-tab-impact-views-day" = "Día";
@@ -176,10 +173,7 @@
 "activity-tab-logged-out-title" = "Ver más información sobre lectura y edición";
 "activity-tab-menu-clear-history" = "Borrar historial de lectura";
 "activity-tab-neutral" = "Neutral";
-"activity-tab-no-edits-title" = "No has editado esta semana. Agrega imágenes para mejorar la comprensión del artículo.";
-"activity-tab-read-title" = "Ver historial de lectura";
 "activity-tab-satisfied" = "Satisfecho";
-"activity-tab-start-editing" = "Empezar a editar";
 "activity-tab-survey-title" = "Encuesta de satisfacción";
 "activity-tab-time-spent-reading" = "Tiempo dedicado a la lectura esta semana";
 "activity-tab-title" = "Actividad";
@@ -188,9 +182,6 @@
 "activity-tab-unsatisfied" = "Insatisfecho";
 "activity-tab-very-satisfied" = "Muy satisfecho";
 "activity-tab-very-unsatisfied" = "Muy insatisfecho";
-"activity-tab-view-editing-history" = "Ver historial de edición";
-"activity-tab-view-reading-history" = "Ver historial de lectura";
-"activity-tab-view-saved-articles" = "Ver artículos guardados";
 "activity-tab-you-edited" = "Editaste {{PLURAL:$1|$1 una vez|$1 veces}} esta semana.";
 "activity-tab-you-read" = "Leíste {{PLURAL:$1|$1 artículo|$1 artículos}} esta semana.";
 "activity-tab-you-saved" = "Guardaste {{PLURAL:$1|$1 artículo|$1 artículos}} esta semana.";
@@ -228,19 +219,7 @@
 "article-share" = "Compartir";
 "article-tabs-button-accessibility-hint" = "Navega a la descripción general de las pestañas";
 "article-tabs-button-accessibility-label" = "Pestañas de artículos";
-"article-tabs-feature-announcement-item-1-subtitle" = "Abra varios artículos y alterne entre ellos con facilidad.";
-"article-tabs-feature-announcement-item-1-title" = "Navegar con pestañas";
-"article-tabs-feature-announcement-item-2-subtitle" = "Las pestañas recuerdan automáticamente tu posición de desplazamiento.";
-"article-tabs-feature-announcement-item-2-title" = "Continúa donde lo dejaste";
-"article-tabs-feature-announcement-item-3-subtitle" = "Abra enlaces en pestañas en segundo plano sin perder tu lugar.";
-"article-tabs-feature-announcement-item-3-title" = "Guardar enlaces para más tarde";
-"article-tabs-feature-announcement-item-4-subtitle" = "Elija datos curiosos o sugerencias de lectura al abrir una nueva pestaña.";
-"article-tabs-feature-announcement-item-4-title" = "Personaliza tu nueva pestaña";
-"article-tabs-feature-announcement-sub-cta" = "Más información sobre Pestañas";
-"article-tabs-feature-announcement-title" = "Presentación de las pestañas";
 "article-tabs-max-reached" = "Se alcanzó el límite de pestañas ( $1 ). El artículo se abrió en la pestaña actual. Cierre una o más pestañas.";
-"article-tabs-navigation" = "Navegación por pestañas";
-"article-tabs-onboarding-tooltip" = "Información sobre herramientas de incorporación para pestañas";
 "article-tabs-open" = "Abrir";
 "article-tabs-open-background-tab" = "Abrir en pestaña de fondo";
 "article-tabs-open-new-tab" = "Abrir en una pestaña nueva";
@@ -271,10 +250,7 @@
 "close-all-tabs-confirmation" = "¿Quieres cerrar todas las $1 pestañas? Esta acción no se puede deshacer.";
 "close-all-tabs-confirmation-number" = "¿Cerrar todas las $1 pestañas?";
 "close-button-accessibility-label" = "Cerrar";
-"close-other-tabs" = "Cerrar otras pestañas";
-"close-tab-confirmation" = "¿Cerrar pestaña?";
 "close-tabs" = "Cerrar pestañas";
-"collect-prize-title" = "¡Reclama tu premio!";
 "compass-direction" = "a las $1 en punto";
 "confirm-donation-history-deletion-subtitle" = "Esto sólo se aplicará a las donaciones realizadas desde este dispositivo.";
 "confirm-donation-history-deletion-title" = "Confirmar la eliminación";
@@ -410,7 +386,6 @@
 "donate-transaction-fee-opt-in-text" = "Generosamente, acepto añadir $1 a la donación para cubrir los gastos bancarios y que Wikimedia reciba el 100 %% de mi donación.";
 "donate-wikimedia-fine-print-1" = "No vendemos ni intercambiamos tu información con nadie. Al donar, aceptas compartir tu información personal con la Fundación Wikimedia, la organización sin fines de lucro que aloja Wikipedia y otros proyectos de Wikimedia, y con sus proveedores de servicios de acuerdo con nuestra [política de donantes]($1). La Fundación Wikimedia y sus proveedores de servicios están ubicados en los Estados Unidos y en otros países cuyas leyes de privacidad pueden no ser equivalentes a las de tu país. Para más información, consulta nuestra [política de donantes]($1).";
 "donate-wikimedia-fine-print-2" = "Para donantes recurrentes, la Fundación Wikimedia debitará pagos mensuales fijos en el aniversario mensual de la primera donación, hasta que nos notifiques que deseas interrumpirlos. Las donaciones iniciadas el 29, 30 o 31 del mes se repetirán el último día del mes en meses más cortos, lo más cerca posible de la fecha original. Para consultas, por favor contacta a donate@wikimedia.org.";
-"duplicate-tab" = "Duplicar pestaña";
 "edit-link-display-text-title" = "Mostrar texto";
 "edit-link-link-target-title" = "Enlace destino";
 "edit-link-remove-link-title" = "Eliminar enlace";
@@ -537,7 +512,6 @@
 "explore-because-you-read-footer" = "\nArtículos relacionados adicionales";
 "explore-continue-reading-heading" = "Continuar leyendo";
 "explore-detail-back-button-title" = "Volver a Explorar";
-"explore-enable-location-title" = "Explora artículos cercanos a tu ubicación actual";
 "explore-featured-article-heading" = "Artículo destacado";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "De Wikipedia en $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "De Wikipedia";
@@ -683,7 +657,6 @@
 "home-nearby-footer" = "Más lugares cerca de tu ubicación";
 "home-nearby-location-footer" = "Más cercanos a $1";
 "home-news-footer" = "Más acontecimientos actuales";
-"home-reading-list-prompt" = "Tus artículos guardados se pueden organizar ahora en listas de lectura y sincronizarlos en diferentes dispositivos. Accede para poder guardar las listas de lectura en tus preferencias de usuario.";
 "home-themes-action-title" = "Gestionar las preferencias";
 "home-themes-prompt" = "Ajusta tus preferencias de lectura (incluyendo tamaño del texto y tema) en la barra de herramientas del artículo o en tus preferencias de usuario para una experiencia de lectura más cómoda.";
 "home-title" = "Explorar";
@@ -841,7 +814,6 @@
 "notifications-center-alert" = "Alerta";
 "notifications-center-applied-filters-accessibility-label" = "Filtro de notificaciones - tiene filtros aplicados";
 "notifications-center-applied-project-filters-accessibility-label" = "Filtro de proyectos - tiene filtros aplicados";
-"notifications-center-badge-button-accessibility-label" = "Notificaciones con insignia de no leído";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 notificación";
 "notifications-center-change-password" = "Cambiar contraseña";
 "notifications-center-checking-for-notifications" = "Buscando notificaciones...";
@@ -1050,7 +1022,6 @@
 "profile-page-join-title" = "Iniciar sesión / Registrarse en Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Conéctate o crea una cuenta para obtener una revisión mejorada el año que viene.";
 "profile-year-in-review-login-subtitle" = "Inicia sesión o crea una cuenta para ver el resumen del año y poder acceder a más información personalizada.";
-"profile-year-in-review-login-title" = "Inicia sesión para consultar el resumen anual";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikilibros";
 "project-name-wikidata" = "Wikidata";
@@ -1092,11 +1063,7 @@
 "reading-list-list-limit-exceeded-message" = "Esta lista de lectura y los artículos guardados en ella no se sincronizarán. Por favor, disminuye el número de listas a $1 para reanudar la sincronización de esta lista.";
 "reading-list-list-limit-exceeded-title" = "Has sobrepasado el límite de {{PLURAL:$1|$1 lista|$1 listas}} de lectura por cuenta.";
 "reading-list-list-limit-reached" = "Has alcanzado el límite de $1 listas de lectura por cuenta";
-"reading-list-login-button-title" = "Accede para sincronizar tus artículos guardados";
 "reading-list-login-or-create-account-button-title" = "Acceder o crear cuenta";
-"reading-list-login-or-create-account-title" = "Accede para sincronizar artículos guardados";
-"reading-list-login-subtitle" = "Accede o crea una cuenta para poder sincronizar tus artículos guardados y listas de lectura entre diferentes dispositivos y grabarlos en tus preferencias de usuario.";
-"reading-list-login-title" = "¿Quieres sincronizar los artículos guardados?";
 "reading-list-name-user-created-annotation" = "_[creado por el usuario]";
 "reading-list-new-list-description-placeholder" = "descripción breve opcional";
 "reading-list-new-list-name-placeholder" = "título de la lista de lectura";
@@ -1123,7 +1090,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Libera espacio en el dispositivo e inténtalo de nuevo";
 "reading-lists-articles-not-synced-limit-exceeded" = "Algunos artículos no se han sincronizado, límite excedido";
 "reading-lists-conflicting-reading-list-name-updated" = "Se cambió el nombre de la lista «$1» a «$2»";
-"reading-lists-count" = "{{PLURAL:$1|$1 lista|$1 listas}} de lectura";
 "reading-lists-default-list-description" = "Lista predeterminada para tus artículos guardados";
 "reading-lists-default-list-title" = "Guardados";
 "reading-lists-delete-reading-list-alert-message" = "Esta acción no se puede deshacer. Cualquier artículo sólo guardado en {{PLURAL:$1|esta lista|estas listas}} no será guardado.";
@@ -1158,13 +1124,9 @@
 "relative-date-years-ago" = "\n{{PLURAL:$1|0=Este año|El año pasado|Hace $1 años}}";
 "return-button-title" = "Volver";
 "return-to-article" = "Volver al artículo";
-"reverted-edit-title" = "Edición rechazada";
-"save-all-tabs" = "Guardar todas las pestañas";
 "save-view-temp-account-notice" = "Estás usando una cuenta temporal. Las ediciones se atribuyen a $1...";
 "save-view-temp-account-warning" = "No has iniciado sesión. Una vez que realices una edición, se creará una cuenta temporal para proteger tu privacidad.";
 "saved-all-articles-title" = "Todos los artículos";
-"saved-all-tabs" = "Se guardaron todas las pestañas.";
-"saved-all-tabs-view-reading-list" = "Se guardaron todas las pestañas. Ver lista de lectura.";
 "saved-default-reading-list-tag" = "No se puede eliminar esta lista";
 "saved-pages-image-download-error" = "Error al descargar las imágenes de esta página guardada.";
 "saved-pages-progress-syncing" = "Descarga de artículos en curso…";
@@ -1238,10 +1200,7 @@
 "sort-by-recently-added-action" = "Añadidos recientemente";
 "sort-by-title-action" = "Título";
 "suggested-edits-title" = "Ediciones sugeridas";
-"survey-instructions" = "Seleccione una o más opciones";
-"survey-other-placeholder" = "Otra";
 "survey-submit" = "Enviar";
-"survey-title" = "Motivo";
 "table-of-contents-button-label" = "Sumario";
 "table-of-contents-close-accessibility-hint" = "Cerrar";
 "table-of-contents-close-accessibility-label" = "Cerrar el sumario";
@@ -1254,8 +1213,6 @@
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 pestaña|$1 pestañas}}";
 "tabs-open-tab" = "Abrir pestaña";
 "tabs-survey-title" = "Ayuda a mejorar las pestañas. ¿Estás satisfecho con esta función?";
-"tabs-thumbnail-description" = "Explora Wikipedia, la enciclopedia libre que cualquiera puede editar";
-"tabs-thumbnail-subtitle" = "Comience su búsqueda aquí";
 "tabs-title" = "Pestañas";
 "tachelhit-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del tashelit siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nⵜⴰⵛⵍⵃⵉⵜ tashelit, tifinagh (shi-tfng)\nTaclḥit tashelit, latino (shi-latn)";
 "tachelhit-variants-alert-title" = "Actualizaciones a soporte de variantes del tashelhit";
@@ -1276,10 +1233,6 @@
 "talk-page-expand-thread-button" = "Expandir hilo";
 "talk-page-find-in-page-button" = "Buscar en la página";
 "talk-page-menu-open-all" = "Abrir todos los hilos";
-"talk-page-new-banner-subtitle" = "Recuerda: aquí todos somos humanos";
-"talk-page-new-banner-title" = "Sé amable";
-"talk-page-new-reply-success-text" = "La respuesta se publicó correctamente";
-"talk-page-new-topic-success-text" = "Tu discusión se publicó correctamente";
 "talk-page-onboarding-button-accessibility-label" = "Toca dos veces para volver a responder";
 "talk-page-overflow-menu-accessibility" = "Más opciones de la página de discusión";
 "talk-page-page-info" = "Información de la página";
@@ -1358,7 +1311,6 @@
 "top-read-widget-description" = "Entérate lo que el mundo está leyendo hoy en Wikipedia.";
 "top-read-widget-readers-count" = "$1 lectores";
 "top-read-widget-title" = "Más leídos";
-"try-now-title" = "Pruébelo ahora";
 "tutorial-title" = "Tutorial";
 "two-factor-email-login-continue" = "Continuar iniciando sesión";
 "two-factor-email-login-instructions" = "Por favor ingrese el código de verificación de correo electrónico";
@@ -1374,7 +1326,6 @@
 "uzbek-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del uzbeko siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\noʻzbekcha lotin uzbeko, latino (uz-latin)\nўзбекча кирилл uzbeko, cirílico (uz-cyrl)";
 "uzbek-variants-alert-title" = "Actualizaciones a soporte de variantes del uzbeko";
 "vanish-account-continue-button-title" = "Continuar";
-"vanish-account-username-field" = "Nombre de usuario y página de usuario";
 "vanish-account-warning-body" = "La eliminación de cuenta es un **último recurso** y solo debe usarse cuando se desea dejar de editar para siempre** y también para ocultar la mayor cantidad posible de asociaciones pasadas.\n\nLa eliminación de una cuenta en Wikipedia se realiza cambiando el nombre de la cuenta para que otros no puedan reconocer sus contribuciones en un proceso llamado eliminación de cuenta. **La eliminación de cuenta no garantiza el anonimato completo ni elimina las contribuciones a los proyectos**.";
 "vanish-account-warning-title" = "Advertencia";
 "variants-alert-dismiss-button" = "No, gracias";
@@ -1522,12 +1473,7 @@
 "year-in-review-day-wednesday" = "Miércoles";
 "year-in-review-donate" = "Donar";
 "year-in-review-donate-now" = "Donar ahora";
-"year-in-review-feature-announcement-body" = "Descubre qué artículos leímos y editamos, y comparte lo más destacado de nuestro año en Wikipedia.";
-"year-in-review-feature-announcement-body-personalized" = "Consulta información sobre los artículos que has leído en la aplicación de Wikipedia, comparte tu trayectoria y descubre lo más destacado de tu año.";
-"year-in-review-feature-announcement-title" = "Wikipedia en resumen";
 "year-in-review-feature-announcement-title-personalized" = "Consulta tu resumen anual de Wikipedia";
-"year-in-review-feature-explore-body" = "Wikipedia es el mayor recurso de información jamás compilado en la historia del mundo y está disponible de forma gratuita para todos en cualquier lugar. Haz una retrospectiva de 2024 desde la perspectiva de Wikipedia.";
-"year-in-review-feature-explore-body-personalized-updated" = "Consulta información sobre los artículos que has leído en la aplicación de Wikipedia y las ediciones que realizaste en 2024. Tu historial de lectura está protegido. Los datos de lectura se calculan utilizando los datos almacenados localmente en tu dispositivo.";
 "year-in-review-feature-explore-footer-v3" = "Tu historial de lectura está protegido. Los datos de lectura se calculan con datos almacenados localmente en tu dispositivo.";
 "year-in-review-finish" = "Terminar";
 "year-in-review-highlights-articles-read" = "Artículos leídos";

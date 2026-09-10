@@ -89,8 +89,6 @@
 "action-unsave" = "Zrušiť uloženie";
 "action-unsaved-accessibility-notification" = "Článok neuložený";
 "action-update" = "Aktualizovať";
-"activity-tab-add-images-subtitle" = "Pridávajte do článkov Wikipédie navrhované obrázky a zlepšite ich zrozumiteľnosť.";
-"activity-tab-add-images-title" = "Pridať obrázky";
 "activity-tab-additional-thoughts" = "Máte ďalšie postrehy?";
 "activity-tab-amount-article-views" = "{{PLURAL:$1|$1 zobrazenie|$1 zobrazenia|$1 zobrazení}}";
 "activity-tab-articles-read" = "Články prečítané tento mesiac";
@@ -112,7 +110,6 @@
 "activity-tab-email-title" = "Hlásenie problému – karta Aktivita";
 "activity-tab-empty-subtitle" = "Začnite čítať a upravovať a vybudujte si svoju históriu";
 "activity-tab-empty-title" = "Niet čo zobraziť";
-"activity-tab-generic-no-edits" = "Tento týždeň ste nič neupravili. Začnite teraz a sledujte svoje príspevky.";
 "activity-tab-history-callout-body" = "Históriu čítania môžete prehliadať alebo vymazať na karte **Hľadať**.";
 "activity-tab-history-callout-body-loggedout" = "Históriu čítania nájdete a vymažete na karte **Hľadať**. Účet nie je potrebný.";
 "activity-tab-hitory-callout-close" = "Zavrieť kartu s oznámením o histórii";
@@ -130,14 +127,11 @@
 "activity-tab-impact-views-day" = "Deň";
 "activity-tab-impact-views-title" = "Zobrazenia článkov, ktoré ste upravili";
 "activity-tab-impact-views-views" = "Zobrazenia";
-"activity-tab-log-in-or-create-account" = "Prihláste sa alebo si vytvorte účet a uvidíte viac o svojich úpravách a čítaní.";
 "activity-tab-logged-out-subtitle" = "Prihláste sa alebo si vytvorte účet a zobrazte si svoju aktivitu v aplikácii Wikipédia.";
 "activity-tab-logged-out-title" = "Pozrite si viac prehľadov o čítaní a úpravách";
-"activity-tab-logged-out-track-what-youve-read" = "Sledujte, čo ste prečítali, a prezerajte si svoje príspevky v čase novým spôsobom";
 "activity-tab-menu-clear-history" = "Vymazať históriu čítania";
 "activity-tab-most-viewed" = "Najzobrazovanejšie od vašej úpravy";
 "activity-tab-neutral" = "Neutrálny";
-"activity-tab-no-edits-title" = "Tento týždeň ste nič neupravili. Pridajte obrázky a zlepšite zrozumiteľnosť článkov.";
 "activity-tab-no-username-reading-title" = "Vaše čítanie";
 "activity-tab-onboarding-first-item-subtitle" = "Pozrite si, koľko času ste strávili čítaním a ktoré články či témy ste postupne preskúmali.";
 "activity-tab-onboarding-first-item-title" = "Zvyklosti pri čítaní";
@@ -149,11 +143,9 @@
 "activity-tab-onboarding-second-item-title" = "Najvýraznejší prínos";
 "activity-tab-onboarding-third-item-subtitle-updated" = "Aktivita obsahuje ucelenú časovú os prečítaných, uložených a upravených článkov. Vaša história čítania sa teraz nachádza na karte Hľadať.";
 "activity-tab-onboarding-third-item-title-updated" = "História čítania je teraz v Hľadaní";
-"activity-tab-read-title" = "Zobraziť históriu čítania";
 "activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Spokojný";
 "activity-tab-saved" = "Články uložené tento mesiac";
-"activity-tab-start-editing" = "Začať upravovať";
 "activity-tab-survey-subtitle" = "Pomôžte vylepšiť Aktivitu. Ste s touto funkciou spokojní?";
 "activity-tab-survey-title" = "Prieskum spokojnosti";
 "activity-tab-time-spent-reading" = "Čas strávený čítaním tento týždeň";
@@ -164,9 +156,6 @@
 "activity-tab-usernames-reading-title" = "Čítanie používateľa $1";
 "activity-tab-very-satisfied" = "Veľmi spokojný";
 "activity-tab-very-unsatisfied" = "Veľmi nespokojný";
-"activity-tab-view-editing-history" = "Zobraziť históriu úprav";
-"activity-tab-view-reading-history" = "Zobraziť históriu čítania";
-"activity-tab-view-saved-articles" = "Zobraziť uložené články";
 "activity-tab-week-graph-label" = "Týždeň";
 "activity-tab-you-edited" = "Tento týždeň ste urobili {{PLURAL:$1|$1 úpravu|$1 úpravy|$1 úprav}}.";
 "activity-tab-you-read" = "Tento týždeň ste prečítali {{PLURAL:$1|$1 článok|$1 články|$1 článkov}}.";
@@ -232,19 +221,7 @@
 "article-share" = "Zdieľať";
 "article-tabs-button-accessibility-hint" = "Prejde na prehľad kariet";
 "article-tabs-button-accessibility-label" = "Karty článkov";
-"article-tabs-feature-announcement-item-1-subtitle" = "Otvorte si viacero článkov a jednoducho medzi nimi prepínajte.";
-"article-tabs-feature-announcement-item-1-title" = "Prehliadanie s kartami";
-"article-tabs-feature-announcement-item-2-subtitle" = "Karty si automaticky zapamätajú, kde ste prestali čítať.";
-"article-tabs-feature-announcement-item-2-title" = "Pokračujte tam, kde ste skončili";
-"article-tabs-feature-announcement-item-3-subtitle" = "Otvárajte odkazy na kartách na pozadí bez toho, aby ste stratili miesto, kde ste.";
-"article-tabs-feature-announcement-item-3-title" = "Uložte si odkazy na neskôr";
-"article-tabs-feature-announcement-item-4-subtitle" = "Pri otvorení novej karty si vyberte zaujímavosti alebo tipy na čítanie.";
-"article-tabs-feature-announcement-item-4-title" = "Prispôsobte si novú kartu";
-"article-tabs-feature-announcement-sub-cta" = "Zistite viac o Kartách";
-"article-tabs-feature-announcement-title" = "Predstavujeme Karty";
 "article-tabs-max-reached" = "Dosiahli ste limit kariet ($1). Článok sa otvoril na aktuálnej karte. Zatvorte jednu alebo viac kariet.";
-"article-tabs-navigation" = "Navigácia po kartách";
-"article-tabs-onboarding-tooltip" = "Úvodné tipy ku kartám";
 "article-tabs-open" = "Otvoriť";
 "article-tabs-open-background-tab" = "Otvoriť na karte na pozadí";
 "article-tabs-open-new-tab" = "Otvoriť na novej karte";
@@ -285,11 +262,8 @@
 "close-all-tabs-confirmation-subtitle-with-value" = "Chcete zatvoriť {{PLURAL:$1|$1 kartu|$1 karty|$1 kariet}}? Túto akciu nie je možné vrátiť späť.";
 "close-all-tabs-confirmation-title-with-value" = "Zatvoriť {{PLURAL:$1|$1 kartu|$1 karty|$1 kariet}}?";
 "close-button-accessibility-label" = "Zavrieť";
-"close-other-tabs" = "Zavrieť ostatné karty";
-"close-tab-confirmation" = "Zatvoriť kartu?";
 "close-tabs" = "Zavrieť karty";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 karta bola zatvorená|$1 karty boli zatvorené|$1 kariet bolo zatvorených}}.";
-"collect-prize-title" = "Vyzdvihnite si svoju odmenu!";
 "community-detail-back-button-title" = "Späť do kanála Komunita";
 "community-feed-preferences-global-card-footer-text" = "Táto karta nie je špecifická pre jazyk; jej vypnutím ju odstránite z vášho kanála Komunita.";
 "compass-direction" = "na $1. hodine";
@@ -429,7 +403,6 @@
 "donate-transaction-fee-opt-in-text" = "Veľkoryso pridám $1 na pokrytie transakčných poplatkov, aby ste si mohli ponechať 100%% môjho daru.";
 "donate-wikimedia-fine-print-1" = "Vaše informácie nikomu nepredávame ani s nimi neobchodujeme. Darovaním súhlasíte so zdieľaním svojich osobných údajov s nadáciou Wikimedia Foundation, neziskovou organizáciou, ktorá prevádzkuje Wikipédiu a ďalšie projekty Wikimedia, a s jej poskytovateľmi služieb v súlade s našimi [zásadami pre darcov]($1). Nadácia Wikimedia Foundation a jej poskytovatelia služieb sídlia v Spojených štátoch a v ďalších krajinách, ktorých zákony na ochranu súkromia nemusia byť rovnocenné s vašimi. Viac informácií nájdete v našich [zásadách pre darcov]($1).";
 "donate-wikimedia-fine-print-2" = "Pri pravidelných darcoch bude nadácia Wikimedia Foundation strhávať pevné mesačné platby vždy v deň mesačného výročia prvého daru, a to dovtedy, kým nám neoznámite, že ich chcete ukončiť. Dary začaté 29., 30. alebo 31. dňa v mesiaci sa v kratších mesiacoch zopakujú v posledný deň mesiaca, čo najbližšie k pôvodnému dátumu. S otázkami sa obráťte na donate@wikimedia.org.";
-"duplicate-tab" = "Duplikovať kartu";
 "edit-link-display-text-title" = "Zobraziť text";
 "edit-link-link-target-title" = "Cieľ odkazu";
 "edit-link-remove-link-title" = "Odstrániť odkaz";
@@ -558,7 +531,6 @@
 "explore-because-you-read-footer" = "Ďalšie súvisiace články";
 "explore-continue-reading-heading" = "Pokračovať v čítaní";
 "explore-detail-back-button-title" = "Späť do kanála Objaviť";
-"explore-enable-location-title" = "Objaviť články v blízkosti vašej aktuálnej polohy";
 "explore-featured-article-heading" = "Odporúčaný článok";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Z $1 Wikipédie";
 "explore-featured-article-sub-heading-from-wikipedia" = "Z Wikipédie";
@@ -776,7 +748,6 @@
 "home-nearby-footer" = "Viac miest z vášho okolia";
 "home-nearby-location-footer" = "Ďalšie miesta v okolí $1";
 "home-news-footer" = "Viac aktuálnych udalostí";
-"home-reading-list-prompt" = "Vaše uložené články môžu byť teraz organizované do zoznamov na prečítanie a synchronizované naprieč zariadeniami. Prihláste sa, aby ste povolili ukladanie zoznamov na prečítanie do vašich používateľských nastavení.";
 "home-tab-title" = "Domov";
 "home-tab-title-accessibility-label" = "Wikipédia, prejsť na začiatok kanála Domov";
 "home-themes-action-title" = "Spravujte nastavenia";
@@ -937,7 +908,6 @@
 "notifications-center-alert" = "Upozornenie";
 "notifications-center-applied-filters-accessibility-label" = "Filter oznámení - má vybraný filter";
 "notifications-center-applied-project-filters-accessibility-label" = "Filter projektov - má vybraný filter";
-"notifications-center-badge-button-accessibility-label" = "Neprečítané oznámenia";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 oznámenie";
 "notifications-center-change-password" = "Zmeniť heslo";
 "notifications-center-checking-for-notifications" = "Overovanie oznámení...";
@@ -1167,7 +1137,6 @@
 "profile-page-join-title" = "Prihlásiť sa / Pridať sa k Wikipédii";
 "profile-page-logged-out-year-in-review-subtext" = "Prihláste sa alebo si vytvorte účet a budúci rok získate vylepšený Rok v skratke";
 "profile-year-in-review-login-subtitle" = "Prihláste sa alebo si vytvorte účet, aby ste videli Rok v skratke a mohli získať osobnejšie prehľady.";
-"profile-year-in-review-login-title" = "Prihláste sa pre prístup k Roku v skratke";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikiknihy";
 "project-name-wikidata" = "Wikiúdaje";
@@ -1211,11 +1180,7 @@
 "reading-list-list-limit-exceeded-message" = "Tento zoznam na prečítanie a články uložené do neho nebudú synchronizované. Znížte, prosím, počet zoznamov na $1, aby ste obnovili synchronizáciu tohto zoznamu.";
 "reading-list-list-limit-exceeded-title" = "Prekročili ste maximálny limit {{PLURAL:$1|$1 zoznamu na prečítanie|$1 zoznamov na prečítanie}} na účet.";
 "reading-list-list-limit-reached" = "Dosiahli ste limit $1 zoznamov na prečítanie na účet";
-"reading-list-login-button-title" = "Prihláste sa pre synchronizáciu vašich uložených článkov";
 "reading-list-login-or-create-account-button-title" = "Prihlásiť sa alebo vytvoriť účet";
-"reading-list-login-or-create-account-title" = "Prihláste sa pre synchronizáciu uložených článkov";
-"reading-list-login-subtitle" = "Prihláste sa alebo si založte účet, aby ste mohli povoliť synchronizáciu článkov a zoznamov na prečítanie naprieč zariadeniami.";
-"reading-list-login-title" = "Synchronizovať vaše uložené články?";
 "reading-list-name-user-created-annotation" = "_[používateľ vytvorený]";
 "reading-list-new-list-description-placeholder" = "voliteľný krátky popis";
 "reading-list-new-list-name-placeholder" = "názov zoznamu na prečítanie";
@@ -1242,7 +1207,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Uvoľnite miesto na vašom zariadení a skúste to znova";
 "reading-lists-articles-not-synced-limit-exceeded" = "Niektoré články neboli synchronizované, limit bol prekročený";
 "reading-lists-conflicting-reading-list-name-updated" = "Váš zoznam „$1“ bol premenovaný na „$2“";
-"reading-lists-count" = "{{PLURAL:$1|$1 zoznam na prečítanie|$1 zoznamy na prečítanie|$1 zoznamov na prečítanie}}";
 "reading-lists-default-list-description" = "Predvolený zoznam pre vaše uložené články";
 "reading-lists-default-list-title" = "Uložené";
 "reading-lists-delete-reading-list-alert-message" = "Táto akcia nemôže byť zrušená. Akékoľvek články uložené len do {{PLURAL:$1|tohto zoznamu|týchto zoznamov}} nebudú uložené.";
@@ -1277,13 +1241,9 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tento rok|1=Minulý rok|2=Predminulý rok|Pred $1 rokmi}}";
 "return-button-title" = "Späť";
 "return-to-article" = "Späť na článok";
-"reverted-edit-title" = "Vrátená úprava";
-"save-all-tabs" = "Uložiť všetky karty";
 "save-view-temp-account-notice" = "Používate dočasný účet. Úpravy sa pripisujú používateľovi $1...";
 "save-view-temp-account-warning" = "Nie ste prihlásený. Po vykonaní úpravy vám bude na ochranu vášho súkromia vytvorený dočasný účet.";
 "saved-all-articles-title" = "Všetky články";
-"saved-all-tabs" = "Všetky karty boli uložené.";
-"saved-all-tabs-view-reading-list" = "Všetky karty boli uložené. Zobraziť zoznam na prečítanie.";
 "saved-default-reading-list-tag" = "Tento zoznam nie je možné odstrániť";
 "saved-pages-image-download-error" = "Nepodarilo sa stiahnuť obrázky pre túto uloženú stránku.";
 "saved-pages-progress-syncing" = "Preberá sa článok...";
@@ -1330,7 +1290,6 @@
 "settings-languages-feed-customization" = "Prispôsobením kanálu Objaviť môžete nastaviť, ktoré jazyky sa v ňom zobrazia.";
 "settings-legal-sefaty-title" = "Právne a bezpečnostné kontakty";
 "settings-my-languages" = "Moje jazyky";
-"settings-new-article-tab-header-text" = "Motív novej karty";
 "settings-notifications" = "Push oznámenia";
 "settings-notifications-echo-failure-message" = "Pri kontrole oznámení týkajúcich sa vášho účtu sa vyskytla chyba.";
 "settings-notifications-echo-failure-title" = "Nepodarilo sa skontrolovať echo oznámenie";
@@ -1376,10 +1335,7 @@
 "sort-by-recently-added-action" = "Nedávno pridané";
 "sort-by-title-action" = "Podľa názvu";
 "suggested-edits-title" = "Navrhované úpravy";
-"survey-instructions" = "Vyberte jednu alebo viacero možností";
-"survey-other-placeholder" = "Iné";
 "survey-submit" = "Odoslať";
-"survey-title" = "Dôvod";
 "table-of-contents-button-label" = "Obsah";
 "table-of-contents-close-accessibility-hint" = "Zavrieť";
 "table-of-contents-close-accessibility-label" = "Zavrieť obsah";
@@ -1397,8 +1353,6 @@
 "tabs-show-suggested-articles" = "Zobraziť návrhy článkov";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Návrhy sú teraz skryté";
 "tabs-survey-title" = "Pomôžte vylepšiť karty. Ste s touto funkciou spokojní?";
-"tabs-thumbnail-description" = "Objavujte Wikipédiu, slobodnú encyklopédiu, ktorú môže upravovať každý";
-"tabs-thumbnail-subtitle" = "Začnite hľadať tu";
 "tabs-title" = "Karty";
 "tachelhit-variants-alert-body" = "Wikipédia teraz podporuje aj varianty jazyka tachelhit ako primárny a sekundárny jazyk aplikácie:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Aktualizácie podpory variánt jazyka tachelhit";
@@ -1419,10 +1373,6 @@
 "talk-page-expand-thread-button" = "Rozbaliť vlákno";
 "talk-page-find-in-page-button" = "Nájsť na stránke";
 "talk-page-menu-open-all" = "Otvoriť všetky vlákna";
-"talk-page-new-banner-subtitle" = "Pamätajte, všetci sme tu ľudia";
-"talk-page-new-banner-title" = "Buďte milí";
-"talk-page-new-reply-success-text" = "Vaša odpoveď bola úspešne zverejnená";
-"talk-page-new-topic-success-text" = "Vaša diskusia bola úspešne zverejnená";
 "talk-page-onboarding-button-accessibility-label" = "Dvojitým ťuknutím sa vrátite k odpovedi";
 "talk-page-overflow-menu-accessibility" = "Ďalšie možnosti diskusnej stránky";
 "talk-page-page-info" = "Informácie o stránke";
@@ -1503,7 +1453,6 @@
 "top-read-widget-description" = "Zistite čo svet dnes číta na Wikipédii.";
 "top-read-widget-readers-count" = "$1 čitateľov";
 "top-read-widget-title" = "Najčítanejšie články";
-"try-now-title" = "Vyskúšať teraz";
 "tutorial-title" = "Návod";
 "two-factor-email-login-continue" = "Pokračovať v prihlásení";
 "two-factor-email-login-instructions" = "Prosím, zadajte overovací kód z emailu";
@@ -1519,7 +1468,6 @@
 "uzbek-variants-alert-body" = "Wikipédia teraz podporuje aj varianty uzbeckého jazyka ako primárny a sekundárny jazyk aplikácie:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Aktualizácie podpory variánt uzbeckého jazyka";
 "vanish-account-continue-button-title" = "Pokračovať";
-"vanish-account-username-field" = "Používateľské meno a používateľská stránka";
 "vanish-account-warning-body" = "Zmiznutie je **poslednou možnosťou** a malo by sa **použiť len vtedy, ak chcete navždy prestať upravovať** a zároveň skryť čo najviac svojich minulých väzieb.\n\nZrušenie účtu na Wikipédii sa vykonáva zmenou názvu vášho účtu tak, aby ostatní nedokázali rozpoznať vaše príspevky; tento proces sa nazýva zmiznutie účtu. **Zmiznutie nezaručuje úplnú anonymitu ani neodstraňuje príspevky v projektoch**.";
 "vanish-account-warning-title" = "Upozornenie";
 "variants-alert-dismiss-button" = "Nie, vďaka";
@@ -1744,12 +1692,7 @@
 "year-in-review-day-wednesday" = "stredy";
 "year-in-review-donate" = "Darovať";
 "year-in-review-donate-now" = "Darovať teraz";
-"year-in-review-feature-announcement-body" = "Pozrite si prehľady o tom, ktoré články sme čítali a upravovali, a zdieľajte to najlepšie z nášho roka na Wikipédii.";
-"year-in-review-feature-announcement-body-personalized" = "Pozrite si prehľady o článkoch, ktoré ste čítali v aplikácii Wikipédia, podeľte sa o svoju cestu a objavte to najlepšie zo svojho roka.";
-"year-in-review-feature-announcement-title" = "Objavte Wikipédiu v skratke";
 "year-in-review-feature-announcement-title-personalized" = "Objavte svoj Rok v skratke na Wikipédii";
-"year-in-review-feature-explore-body" = "Wikipédia je najväčší zdroj vedomostí, aký kedy v dejinách sveta vznikol, a je voľne dostupný pre každého a všade. Tu je pohľad na rok 2024 očami Wikipédie.";
-"year-in-review-feature-explore-body-personalized-updated" = "Pozrite si prehľady o tom, ktoré články ste čítali v aplikácii Wikipédia a aké úpravy ste v roku 2024 urobili. Vaša história čítania zostáva chránená. Prehľady o čítaní sa počítajú z údajov uložených lokálne vo vašom zariadení.";
 "year-in-review-feature-explore-body-v3" = "Pozrite si prehľady o tom, ktoré články ste čítali v aplikácii Wikipédia a aké úpravy ste urobili.";
 "year-in-review-feature-explore-footer-v3" = "Vaša história čítania zostáva chránená. Prehľady o čítaní sa počítajú z údajov uložených lokálne vo vašom zariadení.";
 "year-in-review-finish" = "Dokončiť";

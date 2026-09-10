@@ -107,7 +107,7 @@
 	<key>close-all-tabs-confirmation-subtitle-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您是否要關閉 %1$#@v1@ 個分頁？此操作無法取消。</string>
+		<string>您是否要關閉 %1$#@v1@ 個分頁？此操作無法還原。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -135,7 +135,7 @@
 	<key>closed-all-tabs-confirmation-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>已關閉 %1$#@v1@ 個分頁。</string>
+		<string>%1$#@v1@ 個分頁已關閉。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -296,6 +296,104 @@
 			<string>d</string>
 			<key>other</key>
 			<string>共%1$d行尚未編輯</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-body</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>您曾在%1$@要求我們在您閱讀完%2$#@v2@後，提醒您進行捐款。如果維基百科為您提供了價值 %3$@ 的知識，請加入那 2%% 的捐款讀者行列，並於今日兌現您的承諾。</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d 篇文章</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-heading</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>自從您捐款 %2$@ 以來，您已經閱讀了 %1$#@v1@！</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d 篇文章</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-subsequent-heading</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>您已經閱讀另外的 %1$#@v1@！</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d 篇文章</string>
+		</dict>
+	</dict>
+	<key>evergreen-account-creation-activity-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>透過「活動」功能，重新瀏覽您最近閱讀的 %1$#@v1@內容</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d 篇</string>
+		</dict>
+	</dict>
+	<key>evergreen-account-creation-saved-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>同步您已儲存的%1$#@v1@條目</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d 篇</string>
+		</dict>
+	</dict>
+	<key>evergreen-account-creation-year-in-review-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>在「年度回顧」中，見證您的%1$#@v1@閱讀時光如何交織成篇</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d 天</string>
+		</dict>
+	</dict>
+	<key>home-feed-interests-selected-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@已選擇</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d 個</string>
 		</dict>
 	</dict>
 	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
@@ -758,22 +856,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>other</key>
-			<string>%1$d 個閱讀清單</string>
-		</dict>
-	</dict>
-	<key>reading-lists-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d 個閱讀清單</string>
 			<key>other</key>
 			<string>%1$d 個閱讀清單</string>
 		</dict>

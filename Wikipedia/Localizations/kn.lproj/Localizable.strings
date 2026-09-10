@@ -6,6 +6,7 @@
 // Author: Nemo bis
 // Author: VASANTH S.N.
 // Author: Vikashegde
+// Author: Vishwanatha Badikana
 // Author: ಮಲ್ನಾಡಾಚ್ ಕೊಂಕ್ಣೊ
 
 "about-libraries-complete-list" = "ಪೂರ್ಣ ಪಟ್ಟಿ";
@@ -66,6 +67,20 @@
 "diff-paragraph-moved-direction-down" = "ಕೆಳಗೆ";
 "diff-paragraph-moved-direction-up" = "ಮೇಲೆ";
 "diff-single-header-summary-heading" = "ಸಂಪಾದನೆಯ ಸಾರಾಂಶ";
+"donation-reminder-wrap-up-card-body" = "ನೀವು ಓದಿದ ಲೇಖನಗಳನ್ನು ಆಧರಿಸಿ ದೇಣಿಗೆ ಜ್ಞಾಪನೆಗಳನ್ನು ಪರೀಕ್ಷಿಸಿದ್ದಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು. ಇದು ವಿಕಿಪೀಡಿಯಾದಲ್ಲಿ ಶಾಶ್ವತವಾಗಿ ನೀಡಲು ಒಂದು ಮಾರ್ಗವಾಗುತ್ತದೆಯೇ ಎಂದು ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆ ನಿರ್ಧರಿಸುತ್ತದೆ. ಇದು ಕೇವಲ ಒಂದು ನಿಮಿಷ ತೆಗೆದುಕೊಳ್ಳುತ್ತದೆ ಮತ್ತು ಯಾವುದೇ ದೇಣಿಗೆ ಅಗತ್ಯವಿಲ್ಲ.";
+"donation-reminder-wrap-up-card-heading" = "ದೇಣಿಗೆ ಜ್ಞಾಪನೆಗಳ ಕುರಿತು ಇಲ್ಲಿದೆ ಸಂಪೂರ್ಣ ಮಾಹಿತಿ";
+"donation-reminder-wrap-up-card-share-feedback" = "ಪ್ರತಿಕ್ರಿಯೆ ಹಂಚಿಕೊಳ್ಳಿ";
+"donation-reminder-wrap-up-payment-prompt-title" = "ನೀವು ಪ್ರತಿ ತಿಂಗಳು ಹೇಗೆ ನೀಡಲು ಬಯಸುತ್ತೀರಿ?";
+"donation-reminder-wrap-up-recurring-card-body" = "ನಾವು ಇನ್ನು ಮುಂದೆ ಅಪ್ಲಿಕೇಶನ್‌ನಲ್ಲಿನ ಜ್ಞಾಪನೆಗಳನ್ನು ತೋರಿಸುವುದಿಲ್ಲ ಆದರೆ ನೀವು ಪ್ರತಿ ತಿಂಗಳು $1 ವಾಗ್ದಾನ ಮಾಡುವ ಮೂಲಕ ಇನ್ನೂ ಬೆಂಬಲಿಸಬಹುದು.";
+"donation-reminder-wrap-up-recurring-card-give-monthly" = "ಪ್ರತಿ ತಿಂಗಳು ನೀಡಿ";
+"donation-reminder-wrap-up-recurring-card-heading" = "ಕೊನೆಯ ಪ್ರಯೋಗ.";
+"donation-reminder-wrap-up-survey-character-limit" = "ಮಿತಿಗಿಂತ ಹೆಚ್ಚು ಅಕ್ಷರ";
+"donation-reminder-wrap-up-survey-intro" = "ದೇಣಿಗೆ ಜ್ಞಾಪನೆಗಳ ಕುರಿತು ಒಂದು ಸಣ್ಣ ಪ್ರಶ್ನೆ";
+"donation-reminder-wrap-up-survey-option-keep" = "ಇಟ್ಟುಕೊಳ್ಳಿ";
+"donation-reminder-wrap-up-survey-option-remove" = "ಇದನ್ನು ತೆಗೆದುಹಾಕಿ";
+"donation-reminder-wrap-up-survey-placeholder" = "ಇನ್ನೇನಾದರೂ? (ಐಚ್ಛಿಕ)";
+"donation-reminder-wrap-up-survey-subtitle" = "ನೀವು ಓದಿದ ಲೇಖನಗಳನ್ನು ಆಧರಿಸಿದ ದೇಣಿಗೆ ಜ್ಞಾಪನೆಗಳು ಶಾಶ್ವತ ವೈಶಿಷ್ಟ್ಯವಾಗಬೇಕೇ?";
+"donation-reminder-wrap-up-survey-toast" = "ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆಗೆ ಧನ್ಯವಾದಗಳು. ನಿಮ್ಮ ಉತ್ತರವು ಮುಂದೆ ಏನು ನಿರ್ಮಿಸಬೇಕೆಂದು ನಿರ್ಧರಿಸಲು ನಮಗೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ.";
 "edit-menu-item" = "ಸಂಪಾದಿಸಿ";
 "edit-minor-text" = "ಇದು ಚುಟುಕಾದ ಬದಲಾವಣೆ";
 "edit-summary-add-summary-text" = "ಸಂಪಾದನೆಯ ಸಾರಾಂಶವನ್ನು ಸೇರಿಸಿ";

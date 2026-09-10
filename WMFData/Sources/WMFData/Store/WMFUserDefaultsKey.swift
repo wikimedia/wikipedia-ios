@@ -43,14 +43,15 @@ public enum WMFUserDefaultsKey: String {
     case openAppOnSearchTab = "open-app-on-search-tab"
     case isSubscribedToEchoNotifications = "is-subscribed-to-echo-notifications"
     case forceHCaptchaChallenge = "force-hcaptcha-challenge"
+    case developerSettingsFundraisingOverriddenCurrentDate = "dev-settings-fundraising-overridden-current-date"
     case developerSettingsForceFundraisingCampaignBanner = "dev-settings-force-fundraising-campaign-banner"
     case developerSettingsUseTestWikiDonateConfigs = "dev-settings-use-test-wiki-donate-configs"
     case developerSettingsUseHardcodedPaymentMethods = "dev-settings-use-hardcoded-payment-methods"
-    case developerSettingsEnableDonationReminder = "dev-settings-enable-donation-reminder"
     case developerSettingsForceDonationReminderExperimentAssignment = "dev-settings-force-donation-reminder-experiment-assignment"
     case developerSettingsBypassDonationReminderDailyLimit = "dev-settings-bypass-donation-reminder-daily-limit"
     case donationReminder = "donation-reminder"
     case donationReminderExperimentCurrency = "donation-reminder-experiment-currency"
+    case donationReminderWrapUpCardSeen = "donation-reminder-wrap-up-card-seen"
 
     case allowGestureZoomArticleWebview = "allow-gesture-zoom-article-webview"
     // Reading Challenge 2026 (feature removed, see WMFReadingChallengeCompletionDataController)
@@ -101,8 +102,7 @@ public enum WMFUserDefaultsKey: String {
     case hasSeenOneTimeOnboardingHome = "has-seen-one-time-home-onboarding"
     case hasSeenUpdatedHomeOnboarding = "has-seen-updated-home-onboarding"
 
-    // Article View Controller: Enable visual editor
-    case developerSettingsEnableVisualEditingJourney = "dev-settings-enable-visual-editing-journey"
+    // Visual editor journey
     case defaultEditMode = "default-edit-mode"
     case skipChooseEditorSheet = "skip-choose-editor-sheet"
 

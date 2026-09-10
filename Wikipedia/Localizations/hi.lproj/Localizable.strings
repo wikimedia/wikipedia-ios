@@ -224,7 +224,6 @@
 "explore-another-random" = "दूसरा बेतरतीब लेख";
 "explore-because-you-read" = "क्योंकि आपने पढ़ा";
 "explore-continue-reading-heading" = "पढ़ना जारी रखें";
-"explore-enable-location-title" = "अपने वर्तमान स्थान के पास आलेख खोजें";
 "explore-featured-article-heading" = "निर्वाचित लेख";
 "explore-main-page-description" = "विकिमीडिया परियोजनाओं का मुख्यपृष्ठ";
 "explore-main-page-heading" = "विकिपीडिया पर आज";
@@ -392,7 +391,6 @@
 "reading-list-keep-button-title" = "हाँ, डिवाइस पर आलेख रखें";
 "reading-list-keep-title" = "डिवाइस पर सहेजे गए लेखों को रखें?";
 "reading-list-login-or-create-account-button-title" = "लॉग इन करें या खाता बनाएं";
-"reading-list-login-or-create-account-title" = "सहेजे गए लेख समन्वयित करने के लिए लॉग इन करें";
 "reading-list-sync-enable-button-title" = "समन्वयन सक्षम करें";
 "reading-list-sync-enable-subtitle" = "आपके सहेजे गए लेख और पठन सूचियों को अब आपके विकिपीडिया खाते में सहेजा जा सकता है और विकिपीडिया एप्स में समन्वयित किया जा सकता है।";
 "reading-list-sync-enable-title" = "पठन सूची को सिंक करना चालू करें?";
@@ -453,10 +451,7 @@
 "share-social-mention-format" = "विकिपीडिया के माध्यम से \" $1 \": $2";
 "sort-by-recently-added-action" = "हाल ही में जोड़ा गया";
 "sort-by-title-action" = "शीर्षक";
-"survey-instructions" = "एक या अधिक विकल्प चुनें";
-"survey-other-placeholder" = "अन्य";
 "survey-submit" = "जमा करें";
-"survey-title" = "कारण";
 "table-of-contents-button-label" = "सामग्री सारणी (टेबल)";
 "table-of-contents-close-accessibility-hint" = "बंद करें";
 "table-of-contents-close-accessibility-label" = "सामग्री सारणी को बंद करें";
@@ -470,7 +465,6 @@
 "theme-dark-display-name" = "गहरा";
 "theme-default-display-name" = "डिफ़ॉल्ट";
 "theme-sepia-display-name" = "लाल-भूरा रंग";
-"try-now-title" = "अब कोशिश करें";
 "tutorial-title" = "अनुशिक्षण";
 "two-factor-login-continue" = "लॉग इन जारी रखें";
 "two-factor-login-instructions" = "कृपया टू फैक्टर वेरिफिकेशन कोड डालें";

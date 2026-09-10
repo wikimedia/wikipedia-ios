@@ -499,9 +499,6 @@
 "reading-list-deleted-accessibility-notification" = "Roll lenn lamet";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Rummañ ar pennadoù";
 "reading-list-login-or-create-account-button-title" = "Kevreañ pe krouiñ ur gont";
-"reading-list-login-or-create-account-title" = "Kevreañ evit sinkronelaat ar pennadoù enrollet";
-"reading-list-login-subtitle" = "Kevreañ pe krouiñ ur gont evit gallout sinkronelaat ho pennadoù enrollet hag ho rolloù lenn etre ardivinkoù, hag enrollañ ho penndibaboù implijer.";
-"reading-list-login-title" = "Sinkronelaat ho pennadoù enrollet ?";
 "reading-list-name-user-created-annotation" = "_[implijer krouet]";
 "reading-list-sync-disabled-panel-title" = "Sinkroneladur diweredekaet";
 "reading-list-sync-enable-button-title" = "Gweredekaat ar sinkroneladur";
@@ -528,7 +525,6 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Er bloaz-mañ|$1 bloaz zo}}";
 "return-button-title" = "Distreiñ";
 "return-to-article" = "Distreiñ d'ar pennad";
-"reverted-edit-title" = "Kemm distaolet";
 "saved-all-articles-title" = "An holl bennadoù";
 "saved-default-reading-list-tag" = "Ne c'haller ket dilemel ar roll-mañ";
 "saved-pages-image-download-error" = "C'hwitet eo pellgardadur ar skeudennoù evit ar bajenn enrollet-se.";
@@ -588,8 +584,6 @@
 "talk-page-error-alert-title" = "Fazi dic'hortoz";
 "talk-page-error-loading-subtitle" = "Un dra bennak a-dreuz a zo bet.";
 "talk-page-find-in-page-button" = "Klask er bajenn";
-"talk-page-new-banner-title" = "Bezit jentil mar plij.";
-"talk-page-new-reply-success-text" = "Embannet eo bet ho respont gant berzh";
 "talk-page-page-info" = "Titouroù ar bajenn";
 "talk-page-replies-count-accessibilty-label" = "{{PLURAL:$1|$1 respont}}";
 "talk-page-reply-button" = "Respont";
@@ -631,7 +625,6 @@
 "unwatch" = "Paouez da evezhiañ";
 "user-title" = "Implijer/ez";
 "vanish-account-continue-button-title" = "Kenderc'hel";
-"vanish-account-username-field" = "Anv-implijer ha pajenn an implijer";
 "vanish-account-warning-title" = "Diwallit";
 "variants-alert-dismiss-button" = "Nann, trugarez";
 "watch" = "Evezhiañ";

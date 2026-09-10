@@ -266,7 +266,6 @@
 "explore-because-you-read-footer" = "Тема буйынса башҡа мәҡәләләр";
 "explore-continue-reading-heading" = "Уҡыуҙы дауам итергә";
 "explore-detail-back-button-title" = "Күҙәтеү ҡушымтаһына кире ҡайтырға";
-"explore-enable-location-title" = "Википедияла әле булған урынығыҙға яҡын урынлашҡан объекттар тураһында мәҡәләләр уҡығыҙ";
 "explore-featured-article-heading" = "Һайланған мәҡәлә";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 Википедиянан";
 "explore-featured-article-sub-heading-from-wikipedia" = "Википедиянан";
@@ -402,7 +401,6 @@
 "home-nearby-footer" = "Һеҙҙең урынға яҡыныраҡ урындар тураһында  күберәк";
 "home-nearby-location-footer" = "Тағы $1 - ҙән яҡыныраҡ";
 "home-news-footer" = "Ағымдағы ваҡиғалар тураһында күберәк";
-"home-reading-list-prompt" = "Һаҡланған мәҡәләләрегеҙ хәҙер уҡыуҙар исемлегенә индерелергә һәм ҡоролмалар араһында синхронлаштырылырға мөмкин. Уҡыуҙар исемлегегеҙ ҡулланыусы көйләүҙәрендә һаҡланһын өсөн системаға инегеҙ.";
 "home-themes-action-title" = "Көйләүҙәр менән идара итеү";
 "home-themes-prompt" = "Уҡыу уңайлыраҡ булһын өсөн, уҡыу көйләүҙәрен (шул иҫәптән текстың күләмен һәм темаһын) мәҡәләнең идара итеү панеленә йәки ҡулланыусы көйләүҙәренә ҡуйығыҙ.";
 "home-title" = "Тикшерегеҙ";
@@ -492,7 +490,6 @@
 "notifications-center-alert" = "Хәбәр итеүҙәр";
 "notifications-center-applied-filters-accessibility-label" = "Хәбәрҙәр фильтры - фильтрҙар ҡулланыла";
 "notifications-center-applied-project-filters-accessibility-label" = "Проекттар фильтры - фильтрҙар ҡулланыла";
-"notifications-center-badge-button-accessibility-label" = "Уҡылмау тураһында билдә торған хәбәрҙәр";
 "notifications-center-cell-notification-type-accessibility-label-format" = "«$1» хәбәр";
 "notifications-center-change-password" = "Серһүҙҙе үҙгәртергә";
 "notifications-center-checking-for-notifications" = "Хәбәрҙәрҙең булыу-булмауын тикшереү...";

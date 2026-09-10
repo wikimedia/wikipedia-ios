@@ -378,6 +378,54 @@
 			<string>%1$d статии</string>
 		</dict>
 	</dict>
+	<key>evergreen-account-creation-activity-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Навратете се на %1$#@v1@ со Активност</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>вашето %1$d скорешно читање</string>
+			<key>other</key>
+			<string>вашите %1$d скорешни читања</string>
+		</dict>
+	</dict>
+	<key>evergreen-account-creation-saved-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Усогласете %1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ја вашата %1$d зачувана статија</string>
+			<key>other</key>
+			<string>ги вашите %1$d зачувани статии</string>
+		</dict>
+	</dict>
+	<key>evergreen-account-creation-year-in-review-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Погледнете како %1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>вашиот %1$d ден читање се сосредоточува во Преглед на годината</string>
+			<key>other</key>
+			<string>вашите %1$d дена читање се сосредоточуваат во Преглед на годината</string>
+		</dict>
+	</dict>
 	<key>home-feed-interests-selected-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -873,22 +921,6 @@
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Ја достигнавте границата од %1$#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d список за читање</string>
-			<key>other</key>
-			<string>%1$d списоци за читање</string>
-		</dict>
-	</dict>
-	<key>reading-lists-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
