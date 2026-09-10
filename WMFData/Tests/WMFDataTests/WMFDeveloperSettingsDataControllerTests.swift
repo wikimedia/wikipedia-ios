@@ -40,7 +40,31 @@ final class WMFDeveloperSettingsDataControllerTests {
             #expect(yirConfig.topReadPercentages.count == 8)
             #expect(yirConfig.hideCountryCodes.count == 22)
             #expect(yirConfig.hideDonateCountryCodes.count == 30)
+            #expect(config.ios.visualEditorEnabled == true)
+            #expect(controller.isVisualEditorEnabled)
         }
+    }
+
+    @Test
+    func visualEditorIsDisabledWithoutAFeatureConfig() async {
+        await fixture.withConfiguredEnvironment(configure: configureRequestRecordingEnvironment) {
+            let controller = WMFDeveloperSettingsDataController()
+
+            #expect(controller.loadFeatureConfig() == nil)
+            #expect(controller.isVisualEditorEnabled == false)
+        }
+    }
+
+    @Test
+    func visualEditorIsDisabledWhenTheFeatureConfigOmitsTheKey() throws {
+        let json = Data("""
+        {"commonv1": {"yir": []}, "iosv1": {}}
+        """.utf8)
+
+        let config = try JSONDecoder().decode(WMFFeatureConfigResponse.self, from: json)
+
+        #expect(config.ios.visualEditorEnabled == nil)
+        #expect(config.ios.hCaptcha == nil)
     }
 
     @Test

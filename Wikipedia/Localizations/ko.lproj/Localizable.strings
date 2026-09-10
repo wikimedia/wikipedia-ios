@@ -672,6 +672,7 @@
 "find-replace-header" = "찾아 바꾸기";
 "find-replace-header-close-accessibility" = "찾아 바꾸기 닫기";
 "find-textfield-accessibility" = "찾기";
+"for-you-end-of-feed-title" = "오늘은 여기까지입니다!";
 "for-you-header-because-you-read" = "당신이 다음을 읽었기에: $1";
 "for-you-header-interest" = "당신의 다음 관심사로 인해: $1";
 "forgot-password-button-title" = "재설정";

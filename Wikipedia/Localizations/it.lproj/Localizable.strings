@@ -347,6 +347,12 @@
 "donate-success-title" = "Grazie!";
 "donate-title" = "Seleziona un importo";
 "donate-transaction-fee-opt-in-text" = "Voglio generosamente aggiungere $1 per coprire le spese di transazione così potete tenere il 100%% della mia donazione";
+"donation-reminder-wrap-up-recurring-card-heading" = "Questa è la fine dell'esperimento.";
+"donation-reminder-wrap-up-survey-character-limit" = "Limite di caratteri superato";
+"donation-reminder-wrap-up-survey-intro" = "Una breve domanda sui promemoria per le donazioni.";
+"donation-reminder-wrap-up-survey-option-keep" = "Mantienilo";
+"donation-reminder-wrap-up-survey-option-remove" = "Rimuovilo";
+"donation-reminder-wrap-up-survey-placeholder" = "Altro? (Facoltativo)";
 "edit-link-display-text-title" = "Mostra testo";
 "edit-link-link-target-title" = "Destinazione collegamento";
 "edit-link-remove-link-title" = "Rimuovi collegamento";
@@ -419,6 +425,10 @@
 "end-session" = "Termina sessione";
 "error-generic-recovery-suggestion" = "Per favore, riprova più tardi";
 "error-unknown" = "Si è verificato un errore sconosciuto";
+"evergreen-account-creation-create-account-button" = "Registrati";
+"evergreen-account-creation-edits-title" = "Ottieni crediti per le tue modifiche";
+"evergreen-account-creation-saved-title-count" = "Sincronizza {{PLURAL:$1|la tua voce salvata|le tue $1 voci salvate}}";
+"evergreen-account-creation-title" = "Wikipedia è meglio con un'utenza";
 "explore-another-random" = "Un'altra voce a caso";
 "explore-because-you-read" = "Perché hai letto";
 "explore-because-you-read-footer" = "Altre voci correlate";
