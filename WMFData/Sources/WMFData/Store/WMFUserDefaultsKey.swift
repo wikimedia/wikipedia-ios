@@ -112,4 +112,6 @@ public enum WMFUserDefaultsKey: String {
     
     // yir 2026
     case tappedActivityTabYIR = "tapped-activity-tab-yir-2026"
+    
+    case developerSettingsForceYiREntryPoint = "dev-settings-force-yir-entry-point"
 }

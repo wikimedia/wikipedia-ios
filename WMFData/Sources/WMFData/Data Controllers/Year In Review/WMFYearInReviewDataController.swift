@@ -75,6 +75,22 @@ import CoreData
     private var seenIntroSlideStatus: YiRNotificationAnnouncementStatus {
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewIntroSlide.rawValue)) ?? YiRNotificationAnnouncementStatus.default
     }
+    
+    public var hasTappedActivityTabAfterYiRReady: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.tappedActivityTabYIR.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.tappedActivityTabYIR.rawValue, value: newValue)
+        }
+    }
+
+    /// The badge shows for logged-in and logged-out users alike, so this gates only on availability.
+    public func shouldShowActivityTabBadge(countryCode: String?) -> Bool {
+        guard shouldShowYearInReviewEntryPoint(countryCode: countryCode) else {
+            return false
+        }
+        return !hasTappedActivityTabAfterYiRReady
+    }
 
     public func shouldShowYiRNotification(isLoggedOut: Bool, isTemporaryAccount: Bool) -> Bool {
 
@@ -148,6 +164,9 @@ import CoreData
 
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, currentDate: Date? = Date()) -> Bool {
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
+        if developerSettingsDataController.forceYiREntryPoint {
+            return true
+        }
 
         let currentDate = currentDate ?? Date()
 

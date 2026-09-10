@@ -120,17 +120,18 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
     
     private func configureYearInReviewEntryPoint() {
-        // TODO: Restore the availability guard once the 2026 remote feature config exists.
-        // guard let yirDataController,
-        //       yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier) else {
-        //     viewModel.yearInReviewViewModel = nil
-        //     return
-        // }
+        guard let yirDataController,
+              yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier) else {
+            viewModel.yearInReviewViewModel = nil
+            return
+        }
 
         if viewModel.yearInReviewViewModel == nil {
             let yirViewModel = WMFActivityTabYearInReviewViewModel()
             yirViewModel.onTap = { [weak self] in
-                self?.yirCoordinator?.start()
+                guard let self else { return }
+                self.markYearInReviewAsSeen()
+                self.yirCoordinator?.start()
             }
             viewModel.yearInReviewViewModel = yirViewModel
         }
@@ -184,12 +185,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let yirDataController,
-           yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier),
-           !yirDataController.hasTappedActivityTabAfterYiRReady {
-            yirDataController.hasTappedActivityTabAfterYiRReady = true
-            NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
-        }
         reachabilityNotifier.start()
 
         if !reachabilityNotifier.isReachable {
@@ -235,6 +230,15 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         } else {
             viewModel.updateAuthenticationState(authState: .loggedOut, needsRefetch: needsRefetch)
         }
+    }
+    
+    private func markYearInReviewAsSeen() {
+        guard let yirDataController,
+              !yirDataController.hasTappedActivityTabAfterYiRReady else {
+            return
+        }
+        yirDataController.hasTappedActivityTabAfterYiRReady = true
+        NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
     }
 
     @objc private func updateLoginState() {
