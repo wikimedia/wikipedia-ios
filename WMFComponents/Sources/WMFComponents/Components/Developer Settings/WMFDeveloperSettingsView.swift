@@ -41,15 +41,6 @@ struct WMFDeveloperSettingsView: View {
                 }
             }
 
-            Section(header: Text("Visual Editor")) {
-                Toggle("Enable Visual Editing journey", isOn: $viewModel.enableVisualEditingJourney)
-                Button {
-                    viewModel.clearDefaultEditMode()
-                } label: {
-                    Text("Clear default edit mode")
-                }
-            }
-
             Section {
                 Toggle("Bypass Reminder Daily Limit", isOn: $viewModel.bypassDonationReminderDailyLimit)
                 fundraisingRow(caption: "Changes the date the donation reminder end gate treats as today; reading progress, the daily limit, and networking keep using the real device date.") {

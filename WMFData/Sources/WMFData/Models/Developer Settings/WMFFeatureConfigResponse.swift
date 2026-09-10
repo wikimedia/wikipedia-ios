@@ -105,6 +105,7 @@ public struct WMFFeatureConfigResponse: Codable {
     
     public struct IOS: Codable {
         public let hCaptcha: HCaptcha?
+        public let visualEditorEnabled: Bool?
         
         public struct HCaptcha: Codable {
             public let baseURL: String
@@ -115,6 +116,11 @@ public struct WMFFeatureConfigResponse: Codable {
             public let reportapi: String
             public let sentry: Bool
             public let apiKey: String
+        }
+
+        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil) {
+            self.hCaptcha = hCaptcha
+            self.visualEditorEnabled = visualEditorEnabled
         }
     }
     
