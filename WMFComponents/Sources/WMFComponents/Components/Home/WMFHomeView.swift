@@ -6,8 +6,14 @@ public struct WMFHomeView: View {
     @ObservedObject var viewModel: WMFHomeViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
-    /// Where the header bar ends, so that a For You card can keep its content below it.
+    /// Where the header bar ends, so that a For You card can keep its content below it and Community
+    /// can reserve the same space.
     @State private var headerBottom: CGFloat = 0
+
+    /// The scheme Home is placed in. The persistent header falls back to it in the one case that does
+    /// not override the scheme itself, which is what that header inherited while it still lived
+    /// inside the For You branch.
+    @Environment(\.colorScheme) private var inheritedColorScheme
 
     var theme: WMFTheme { appEnvironment.theme }
 
@@ -30,9 +36,11 @@ public struct WMFHomeView: View {
     private var headerBarTopInset: CGFloat { safeAreaTop + 52 }
     private var refreshIndicatorTopInset: CGFloat { headerBarTopInset + 60 }
 
+    private var isForYou: Bool { viewModel.selectedTab == .forYou }
+
     @ViewBuilder
     private var refreshIndicator: some View {
-        if viewModel.isRefreshingForYou {
+        if isForYou, viewModel.isRefreshingForYou {
             ProgressView()
                 .progressViewStyle(.circular)
                 .tint(Color(uiColor: WMFColor.white))
@@ -53,34 +61,82 @@ public struct WMFHomeView: View {
             }
     }
 
-    @ViewBuilder
+    /// The selected feed sits behind one header that outlives it.
+    ///
+    /// The header, and with it the segmented control, is deliberately outside the `selectedTab`
+    /// conditional. While each branch drew its own copy, SwiftUI tore one segmented control down and
+    /// built another on every tab change, so on iOS 26 a drag across the segments lost the control
+    /// it started on and the header read as if it had been replaced.
     private var mainContent: some View {
-        if viewModel.selectedTab == .forYou {
-            ZStack(alignment: .top) {
-                forYouTabContent
-                    .ignoresSafeArea()
-                    .environment(\.forYouHeaderBottom, headerBottom)
-                    .environment(\.colorScheme, .dark)
-                headerBar(isForYou: true)
-                    .modifier(WMFLegacyDarkHeaderModifier())
-                    .padding(.top, headerBarTopInset)
-                    .background {
-                        GeometryReader { proxy in
-                            Color.clear.preference(
-                                key: WMFForYouHeaderBottomKey.self,
-                                value: proxy.frame(in: .global).maxY
-                            )
-                        }
-                    }
-                refreshIndicator
-                    .padding(.top, refreshIndicatorTopInset)
-            }
-            .ignoresSafeArea()
-            .onPreferenceChange(WMFForYouHeaderBottomKey.self) { headerBottom = $0 }
+        ZStack(alignment: .top) {
+            feedContent
+            homeHeader
+            refreshIndicator
+                .padding(.top, refreshIndicatorTopInset)
+        }
+        // Only the top edge: the header is placed from the top of the screen, while each feed opts
+        // into a full-bleed bottom itself. Community thus keeps the bottom safe area it laid out
+        // against before the header moved out of it.
+        .ignoresSafeArea(.container, edges: .top)
+        .onPreferenceChange(WMFForYouHeaderBottomKey.self) { headerBottom = $0 }
+    }
+
+    @ViewBuilder
+    private var feedContent: some View {
+        if isForYou {
+            forYouTabContent
+                .ignoresSafeArea()
+                .environment(\.forYouHeaderBottom, headerBottom)
+                .environment(\.colorScheme, .dark)
         } else {
             communitySection
                 .environment(\.colorScheme, theme.preferredColorScheme)
         }
+    }
+
+    // MARK: - Persistent header
+
+    /// One header for the lifetime of the view. Everything that differs between the feeds is a value
+    /// this reads, never a branch around the header, so the segmented control keeps its identity.
+    private var homeHeader: some View {
+        headerBar
+            .environment(\.colorScheme, headerColorScheme)
+            .padding(.top, headerBarTopInset)
+            .background(headerBackground)
+            .background {
+                GeometryReader { proxy in
+                    Color.clear.preference(
+                        key: WMFForYouHeaderBottomKey.self,
+                        value: proxy.frame(in: .global).maxY
+                    )
+                }
+            }
+    }
+
+    /// The header takes the scheme of the feed behind it, the way each feed's own copy used to.
+    private var headerColorScheme: ColorScheme {
+        guard isForYou else { return theme.preferredColorScheme }
+        if #available(iOS 26.0, *) {
+            return inheritedColorScheme
+        }
+        return .dark
+    }
+
+    /// iOS 26 lets both feeds show through the header's glass chrome. Older iOS keeps Community
+    /// opaque, so a feed passing under the header reads the way the in-flow header used to.
+    private var headerBackground: Color {
+        if #available(iOS 26.0, *) {
+            return .clear
+        }
+        return isForYou ? .clear : Color(uiColor: theme.paperBackground)
+    }
+
+    /// The space Community reserves for the header floating over it.
+    private var communityHeaderInset: CGFloat {
+        WMFHomeHeaderMetrics.communityTopInset(
+            measuredHeaderBottom: headerBottom,
+            headerTopInset: headerBarTopInset
+        )
     }
 
     @ViewBuilder
@@ -90,20 +146,20 @@ public struct WMFHomeView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea(.container, edges: [.top, .bottom])
                 .safeAreaInset(edge: .top, spacing: 0) {
-                    headerBar(isForYou: false)
+                    Color.clear.frame(height: communityHeaderInset)
                 }
                 .background(Color(uiColor: theme.paperBackground).ignoresSafeArea())
         } else {
             VStack(spacing: 0) {
-                headerBar(isForYou: false)
+                Color.clear.frame(height: communityHeaderInset)
                 communityTabContent
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(uiColor: theme.paperBackground))
         }
     }
-    
-    private func headerBar(isForYou: Bool) -> some View {
+
+    private var headerBar: some View {
         HStack(spacing: 8) {
             Picker("", selection: $viewModel.selectedTab) {
                 Text(viewModel.communityTabTitle).tag(WMFHomeViewModel.Tab.community)
@@ -156,10 +212,10 @@ public struct WMFHomeView: View {
                             .font(Font(WMFFont.for(.semiboldSubheadline)))
                             .dynamicTypeSize(.xSmall ... .large)
                             .minimumScaleFactor(0.25)
-                            .foregroundStyle(languageButtonForeground(isForYou: isForYou))
+                            .foregroundStyle(languageButtonForeground)
                             .lineLimit(1)
                         Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronUpChevronDown, font: .boldCaption1, compatibleWith: .wmfCappedForSFSymbols) ?? UIImage())
-                            .foregroundStyle(languageButtonForeground(isForYou: isForYou))
+                            .foregroundStyle(languageButtonForeground)
                     }
                 }
                 .padding(.horizontal, 16)
@@ -172,7 +228,7 @@ public struct WMFHomeView: View {
         .padding(.vertical, 16)
     }
 
-    private func languageButtonForeground(isForYou: Bool) -> Color {
+    private var languageButtonForeground: Color {
         if #available(iOS 26.0, *) {
             return .primary
         }
@@ -269,17 +325,14 @@ public struct WMFHomeView: View {
     }
 }
 
-private struct WMFLegacyDarkHeaderModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        if #available(iOS 26.0, *) {
-            content
-        } else {
-            content.environment(\.colorScheme, .dark)
-        }
-    }
-}
-
+/// Supplies the material behind the segmented control.
+///
+/// The iOS 26 segmented control does not bring Liquid Glass of its own here: left alone it draws a
+/// flat, nearly transparent track that shows the feed straight through it and all but disappears
+/// over the dark For You background. So the glass is applied explicitly, and `HomeViewController`
+/// clears the control's own track so this stays the single material rather than a second one.
 private struct WMFGlassEffectModifier: ViewModifier {
+    @ViewBuilder
     func body(content: Content) -> some View {
         if #available(iOS 26.0, *) {
             content.glassEffect()
@@ -299,5 +352,19 @@ private struct WMFLanguageButtonContainerModifier: ViewModifier {
             content
                 .background(Capsule().fill(.ultraThinMaterial))
         }
+    }
+}
+
+/// Layout math for the persistent Home header, kept beside the view so it can be exercised directly.
+enum WMFHomeHeaderMetrics {
+
+    /// The space Community reserves at its top for the header floating over it.
+    ///
+    /// `measuredHeaderBottom` is the header's bottom edge in window coordinates, which is where
+    /// Community's resting content belongs. It reads zero until the first measurement lands, so the
+    /// header's own top inset acts as a floor and keeps that first pass from starting content
+    /// underneath the header.
+    static func communityTopInset(measuredHeaderBottom: CGFloat, headerTopInset: CGFloat) -> CGFloat {
+        max(measuredHeaderBottom, headerTopInset)
     }
 }
