@@ -6,7 +6,12 @@ import WMFNativeLocalizations
 extension ArticleViewController {
     func showDonationReminderCardIfNeeded() {
         if let wrapUpCard = WMFDonationReminderDataController.shared.claimWrapUpCardImpression() {
-            isShowingWrapUpCard = true
+            shownWrapUpCard = wrapUpCard
+
+            if let project, let metricsID = DonateCoordinator.donationReminderMetricsID(articleURL: articleURL) {
+                DonateFunnel.shared.logDonationReminderWrapUpImpression(card: wrapUpCard, project: project, metricsID: metricsID)
+            }
+
             switch wrapUpCard {
             case .feedbackSurvey:
                 messagingController.injectDonationReminderCard(cardHTML: Self.wrapUpFeedbackCardHTML(theme: theme)) { _ in }
@@ -42,10 +47,10 @@ extension ArticleViewController {
         let didCompleteDonationDuringFlow = isShowingDonateFlowFromDonationReminderCard && localDonationCount() > localDonationCountBeforeDonateFlow
         isShowingDonateFlowFromDonationReminderCard = false
 
-        guard !isShowingWrapUpCard else {
+        guard shownWrapUpCard == nil else {
             if didCompleteDonationDuringFlow {
                 messagingController.removeDonationReminderCard()
-                isShowingWrapUpCard = false
+                shownWrapUpCard = nil
             }
             return
         }
@@ -88,7 +93,7 @@ extension ArticleViewController {
         }
 
         if href.hasSuffix("#wmf-donation-reminder-wrap-up-no-thanks") {
-            messagingController.removeDonationReminderCard()
+            didTapWrapUpNoThanks()
             return true
         }
 
@@ -113,9 +118,21 @@ extension ArticleViewController {
     }
 
     private func didTapWrapUpGiveMonthly() {
-        guard let reminder = WMFDonationReminderDataController.shared.loadReminder() else { return }
+        guard case .recurringDonorPrompt(let pledgeAmount, let currencyCode) = shownWrapUpCard else { return }
 
-        startDonateFlowFromReminderCard(source: .donationReminderWrapUp(articleURL, pledgeAmount: reminder.amount, currencyCode: reminder.currencyCode))
+        if let project {
+            DonateFunnel.shared.logDonationReminderWrapUpDidTapGiveMonthly(project: project)
+        }
+
+        startDonateFlowFromReminderCard(source: .donationReminderWrapUp(articleURL, pledgeAmount: pledgeAmount, currencyCode: currencyCode))
+    }
+
+    private func didTapWrapUpNoThanks() {
+        if let shownWrapUpCard, let project {
+            DonateFunnel.shared.logDonationReminderWrapUpDidTapNoThanks(card: shownWrapUpCard, project: project)
+        }
+
+        messagingController.removeDonationReminderCard()
     }
 
     private func startDonateFlowFromReminderCard(source: DonateCoordinator.Source) {
@@ -178,6 +195,12 @@ extension ArticleViewController {
     }
 
     private func didTapWrapUpShareFeedback() {
+        let project = self.project
+
+        if let project {
+            DonateFunnel.shared.logDonationReminderWrapUpDidTapShareFeedback(project: project)
+        }
+
         let surveyIntro = WMFLocalizedString("donation-reminder-wrap-up-survey-intro", value: "A quick question about donation reminders", comment: "Introduction line of the feedback survey shown at the end of the donation reminder experiment.")
         let surveyQuestion = WMFLocalizedString("donation-reminder-wrap-up-survey-subtitle", value: "Should donation reminders based on articles you read become a permanent feature?", comment: "Question of the feedback survey shown at the end of the donation reminder experiment.")
         let surveyPlaceholder = WMFLocalizedString("donation-reminder-wrap-up-survey-placeholder", value: "Anything else? (Optional)", comment: "Placeholder of the optional free-form text field of the donation reminder feedback survey.")
@@ -197,14 +220,23 @@ extension ArticleViewController {
         )
 
         let surveyOptions = [
-            WMFSurveyViewModel.OptionViewModel(text: surveyOptionKeep, apiIdentifer: "keep"),
-            WMFSurveyViewModel.OptionViewModel(text: surveyOptionRemove, apiIdentifer: "remove"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.notSureButtonTitle, apiIdentifer: "notsure")
+            WMFSurveyViewModel.OptionViewModel(text: surveyOptionKeep, apiIdentifer: "1"),
+            WMFSurveyViewModel.OptionViewModel(text: surveyOptionRemove, apiIdentifer: "2"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.notSureButtonTitle, apiIdentifer: "3")
         ]
 
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single, shouldShowMultilineText: true, otherTextCharacterLimit: 250), cancelAction: { [weak self] in
+            if let project {
+                DonateFunnel.shared.logDonationReminderFeedbackDidTapCancel(project: project)
+            }
+
             self?.presentedViewController?.dismiss(animated: true)
-        }, submitAction: { [weak self] _, _ in
+        }, submitAction: { [weak self] selectedOptions, otherText in
+            if let project {
+                let score = selectedOptions.compactMap { Int($0) }.first
+                DonateFunnel.shared.logDonationReminderFeedbackDidSubmit(score: score, text: otherText, project: project)
+            }
+
             self?.presentedViewController?.dismiss(animated: true, completion: {
                 self?.messagingController.removeDonationReminderCard()
                 let toastTitle = WMFLocalizedString("donation-reminder-wrap-up-survey-toast", value: "Thanks for your feedback. Your answer helps us decide what to build next.", comment: "Toast shown after the user submits the donation reminder feedback survey.")
