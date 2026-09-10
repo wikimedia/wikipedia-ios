@@ -185,6 +185,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        markYearInReviewAsSeen()
+
         reachabilityNotifier.start()
 
         if !reachabilityNotifier.isReachable {
@@ -231,9 +234,13 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.updateAuthenticationState(authState: .loggedOut, needsRefetch: needsRefetch)
         }
     }
-    
+
+    /// Clears the Activity tab's Year in Review badge. Called on every appearance, and again from
+    /// the entry point card in case it is somehow tapped first. Writes once, so repeat calls are
+    /// cheap.
     private func markYearInReviewAsSeen() {
         guard let yirDataController,
+              yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier),
               !yirDataController.hasTappedActivityTabAfterYiRReady else {
             return
         }
