@@ -19,6 +19,6 @@ public struct WMFBetaBadge: View {
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 4)
-        .background(Capsule().stroke(Color(appEnvironment.theme.baseBackground), lineWidth: 1))
+        .background(Capsule().stroke(Color(appEnvironment.theme.newBorder), lineWidth: 1))
     }
 }
