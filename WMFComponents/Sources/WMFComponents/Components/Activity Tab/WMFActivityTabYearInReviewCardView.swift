@@ -9,9 +9,15 @@ struct WMFActivityTabYearInReviewCardView: View {
         return appEnvironment.theme
     }
 
-    // The gradient artwork is dark in both light and dark mode, so the foreground
-    // is fixed white rather than following theme.text.
-    private let foreground = Color.white
+    // The gradient artwork is dark in every theme, so the foreground is fixed rather than
+    // following theme.text.
+    private var foreground: Color {
+        Color(uiColor: WMFColor.white)
+    }
+
+    private var accessibilityLabel: String {
+        [viewModel.title, viewModel.subtitle, viewModel.ctaTitle].joined(separator: ". ")
+    }
 
     var body: some View {
         VStack(spacing: 8) {
@@ -41,13 +47,15 @@ struct WMFActivityTabYearInReviewCardView: View {
                 .accessibilityHidden(true)
         )
         .clipShape(RoundedRectangle(cornerRadius: 10))
-        .padding(.horizontal, 16)
+        // Tap handling sits above the horizontal padding so the gutter beside the card is not
+        // part of the tap target.
         .contentShape(Rectangle())
         .onTapGesture {
             viewModel.onTap?()
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("\(viewModel.title). \(viewModel.subtitle)")
+        .accessibilityLabel(accessibilityLabel)
         .accessibilityAddTraits(.isButton)
+        .padding(.horizontal, 16)
     }
 }

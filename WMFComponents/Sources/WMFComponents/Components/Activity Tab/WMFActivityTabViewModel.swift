@@ -164,7 +164,16 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
 
     var yourImpactOnWikipediaSubtitle: String?
-    @Published public var yearInReviewViewModel: WMFActivityTabYearInReviewViewModel?
+    private var yearInReviewCancellable: AnyCancellable?
+
+    @Published public var yearInReviewViewModel: WMFActivityTabYearInReviewViewModel? {
+        didSet {
+            yearInReviewCancellable = yearInReviewViewModel?.objectWillChange
+                .sink { [weak self] _ in
+                    self?.objectWillChange.send()
+                }
+        }
+    }
     @Published var mostViewedArticlesViewModel: MostViewedArticlesViewModel?
     @Published var contributionsViewModel: ContributionsViewModel?
     @Published var allTimeImpactViewModel: AllTimeImpactViewModel?

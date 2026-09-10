@@ -37,8 +37,8 @@ public struct WMFActivityTabView: View {
             }
         }
         .safeAreaInset(edge: .bottom) {
-            // Logged in, the card is the first row of the list instead — see loggedInList
-            // and customizedEmptyState.
+            // Logged in, the card sits at the top instead — see loggedInList and
+            // customizedEmptyState.
             if viewModel.authenticationState != .loggedIn {
                 yearInReviewCard
                     .padding(.bottom, 16)
@@ -547,8 +547,17 @@ public struct WMFActivityTabView: View {
         return numberFormatter.string(from: NSNumber(value: amount)) ?? "\(amount)"
     }
 
+    /// Logged in with every module turned off. The Year in Review card still belongs here, so it
+    /// keeps the same top placement it has in `loggedInList` and the empty state fills what is left.
     private func customizedEmptyState() -> some View {
-        WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState)
-            .frame(maxWidth: .infinity)
+        VStack(spacing: 0) {
+            yearInReviewCard
+                .padding(.top, 16)
+
+            WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
     }
 }
