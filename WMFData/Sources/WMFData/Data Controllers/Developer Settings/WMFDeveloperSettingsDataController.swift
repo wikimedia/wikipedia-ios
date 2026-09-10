@@ -180,6 +180,11 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.allowGestureZoomArticleWebview.rawValue, value: newValue) }
     }
 
+    public var alsoZoomLeadImageWithArticleWebview: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.alsoZoomLeadImageWithArticleWebview.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.alsoZoomLeadImageWithArticleWebview.rawValue, value: newValue) }
+    }
+
     public var showGamesV2: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowGamesV2.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowGamesV2.rawValue, value: newValue) }
