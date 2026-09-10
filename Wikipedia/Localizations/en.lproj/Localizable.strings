@@ -419,6 +419,7 @@
 "donation-reminder-wrap-up-survey-option-remove" = "Remove it";
 "donation-reminder-wrap-up-survey-placeholder" = "Anything else? (Optional)";
 "donation-reminder-wrap-up-survey-subtitle" = "Should donation reminders based on articles you read become a permanent feature?";
+"donation-reminder-wrap-up-survey-title" = "Survey";
 "donation-reminder-wrap-up-survey-toast" = "Thanks for your feedback. Your answer helps us decide what to build next.";
 "edit-link-display-text-title" = "Display text";
 "edit-link-link-target-title" = "Link target";

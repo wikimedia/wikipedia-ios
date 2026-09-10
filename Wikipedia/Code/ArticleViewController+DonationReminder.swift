@@ -184,9 +184,10 @@ extension ArticleViewController {
         let surveyCharacterLimitError = WMFLocalizedString("donation-reminder-wrap-up-survey-character-limit", value: "Character limit exceeded", comment: "Error shown when the text in the free-form field of the donation reminder feedback survey passes the character limit.")
         let surveyOptionKeep = WMFLocalizedString("donation-reminder-wrap-up-survey-option-keep", value: "Keep it", comment: "Title of the donation reminder feedback survey option to keep the feature.")
         let surveyOptionRemove = WMFLocalizedString("donation-reminder-wrap-up-survey-option-remove", value: "Remove it", comment: "Title of the donation reminder feedback survey option to remove the feature.")
+        let surveyTitle = WMFLocalizedString("donation-reminder-wrap-up-survey-title", value: "Survey", comment: "Navigation bar title of the feedback survey shown at the end of the donation reminder experiment.")
 
         let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
-            title: CommonStrings.donationRemindersTitle,
+            title: surveyTitle,
             cancel: CommonStrings.cancelActionTitle,
             submit: CommonStrings.surveySubmitActionTitle,
             heading: surveyIntro,
