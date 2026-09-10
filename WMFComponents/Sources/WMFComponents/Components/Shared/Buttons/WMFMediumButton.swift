@@ -30,7 +30,7 @@ public struct WMFMediumButton: View {
     private var backgroundColor: Color {
         switch configuration.style {
         case .primary:
-            return Color(uiColor: theme.accent)
+            return Color(uiColor: theme.link)
         case .secondary:
             return Color(uiColor: theme.paperBackground)
         }
@@ -41,7 +41,7 @@ public struct WMFMediumButton: View {
         case .primary:
             return Color(uiColor: theme.paperBackground)
         case .secondary:
-            return Color(uiColor: theme.accent)
+            return Color(uiColor: theme.link)
         }
     }
 

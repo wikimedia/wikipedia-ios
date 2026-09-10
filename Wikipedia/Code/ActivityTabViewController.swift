@@ -135,7 +135,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.yearInReviewViewModel = yirViewModel
         }
 
-        viewModel.yearInReviewViewModel?.isDataRich = false
+        // TODO: Shared Logic task supplies the real data-rich / low-data split
+        // (2 or more personalized slides). Standing in with login state for now.
+        viewModel.yearInReviewViewModel?.isDataRich = viewModel.authenticationState == .loggedIn
     }
 
     private func embedHostingController() {
