@@ -238,7 +238,6 @@
 "explore-because-you-read-footer" = "Di alter vos correlade pussee";
 "explore-continue-reading-heading" = "Và adree a lensger";
 "explore-detail-back-button-title" = "Torna indree al Canal de esplorazzion";
-"explore-enable-location-title" = "Varda i vos arente al sit indove che te steet adess";
 "explore-featured-article-heading" = "Vos in vedrina";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Da Wikipedia in $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Da Wikipedia";
@@ -327,7 +326,6 @@
 "home-more-like-footer" = "Alter, compagn de $1";
 "home-nearby-footer" = "Pussee de sit arent a la toa posizzion";
 "home-nearby-location-footer" = "Di alter lì adree $1";
-"home-reading-list-prompt" = "Adess i to vos salvade i poden vesser organizade in liste de letura e fà andà in sicronia in su tut i dispositiv. Và dent per permeter ai to liste de letura de vesser salvade in di to preferenze.";
 "home-themes-action-title" = "Manesgia i preferenze";
 "home-title" = "Esplora";
 "icon-shortcut-nearby-title" = "Vos in del scircondari";
@@ -407,7 +405,6 @@
 "no-internet-connection" = "A gh'è minga de conession a l'internet";
 "notifications-center-agent-description-from-format" = "Da $1";
 "notifications-center-alert" = "Allarma";
-"notifications-center-badge-button-accessibility-label" = "Notifeghe con distintiv minga lensgiud";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 notifeghe";
 "notifications-center-change-password" = "Cambia la parolla ciav";
 "notifications-center-checking-for-notifications" = "Adree a controllà i notifeghe...";

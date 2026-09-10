@@ -83,8 +83,6 @@
 "action-unsave" = "ਅਣ-ਸੰਭਾਲੋ";
 "action-unsaved-accessibility-notification" = "ਲੇਖ ਸੰਭਾਲਿਆ ਨਹੀਂ ਗਿਆ";
 "action-update" = "ਨਵਿਆਓ";
-"activity-tab-add-images-subtitle" = "ਵਿਕੀਪੀਡੀਆ ਲੇਖਾਂ ਵਿੱਚ ਸਮਝ ਵਧਾਉਣ ਲਈ ਸੁਝਾਏ ਗਏ ਚਿੱਤਰ ਜੋੜੋ।";
-"activity-tab-add-images-title" = "ਤਸਵੀਰ ਜੋੜੋ";
 "activity-tab-additional-thoughts" = "ਕੋਈ ਹੋਰ ਵਿਚਾਰ?";
 "activity-tab-articles-read" = "ਇਸ ਮਹੀਨੇ ਪੜ੍ਹੇ ਗਏ ਲੇਖ";
 "activity-tab-articles-read-graph-label" = "ਲੇਖ";
@@ -104,19 +102,15 @@
 "activity-tab-email-title" = "ਅੜਿੱਕਾ ਇਤਲਾਹ - ਸਰਗਰਮੀ ਦਾ ਨਵਾਂ-ਵਰਕਾ";
 "activity-tab-empty-subtitle" = "ਆਪਣਾ ਇਤਿਹਾਸ ਬਣਾਉਣ ਲਈ ਪੜ੍ਹਨਾ ਅਤੇ ਸੋਧਨਾ ਸ਼ੁਰੂ ਕਰੋ";
 "activity-tab-empty-title" = "ਦਿਖਾਉਣ ਲਈ ਕੁਝ ਵੀ ਨਹੀਂ";
-"activity-tab-generic-no-edits" = "ਤੁਸੀਂ ਇਸ ਹਫ਼ਤੇ ਕੁਝ ਵੀ ਨਹੀਂ ਸੋਧਿਆ। ਆਪਣੇ ਯੋਗਦਾਨ ਦੀ ਪੈੜ ਨੂੰ ਵੇਖਣ ਲਈ ਹੁਣੇ ਸ਼ੁਰੂ ਕਰੋ।";
 "activity-tab-hours-minutes-read" = "$1 ਘੰਟਾ $2 ਮਿੰਟ";
 "activity-tab-hours-on-wikipedia-ios" = "ਵਿਕੀਪੀਡੀਆ iOS ਤੇ";
 "activity-tab-impact-thanks-label" = "ਧੰਨਵਾਦ";
 "activity-tab-impact-total-edits-label" = "ਕੁੱਲ ਸੋਧਾਂ";
 "activity-tab-impact-views-day" = "ਦਿਨ";
-"activity-tab-log-in-or-create-account" = "ਹੋਰ ਸੋਧ ਅਤੇ ਪੜ੍ਹਨ-ਸਬੰਧੀ ਸਰਗਰਮੀ ਵੇਖਣ ਲਈ ਦਾਖਲ ਹੋਵੋ ਜਾਂ ਨਵਾਂ ਖਾਤਾ ਬਣਾਓ।";
 "activity-tab-logged-out-subtitle" = "ਵਿਕੀਪੀਡੀਆ ਐਪ 'ਤੇ ਆਪਣੀ ਸਰਗਰਮੀ ਵੇਖਣ ਲਈ ਦਾਖਲ ਹੋਵੋ ਜਾਂ ਨਵਾਂ ਖਾਤਾ ਬਣਾਓ।";
 "activity-tab-logged-out-title" = "ਪੜ੍ਹਨ ਅਤੇ ਸੋਧ-ਕਾਰਜ ਦੀਆਂ ਹੋਰ ਅੰਦਰੂਨੀ-ਝਾਤਾਂ ਵੇਖੋ";
-"activity-tab-logged-out-track-what-youve-read" = "ਤੁਸੀਂ ਕੀ ਕੁਝ ਪੜ੍ਹਿਆ ਏ, ਉਸ ਦੀ ਪੈੜ ਰੱਖੋ ਅਤੇ ਸਮੇਂ ਦੇ ਨਾਲ ਆਪਣੇ ਯੋਗਦਾਨ ਨੂੰ ਇੱਕ ਨਵੇਂ ਨਜ਼ਰੀਏ ਤੋਂ ਵੇਖੋ।";
 "activity-tab-menu-clear-history" = "ਪੜ੍ਹਨ ਦਾ ਇਤਿਹਾਸ ਸਾਫ਼ ਕਰੋ";
 "activity-tab-neutral" = "ਨਿਰਪੱਖ";
-"activity-tab-no-edits-title" = "ਤੁਸੀਂ ਹਾਲੇ ਤੱਕ ਕੋਈ ਸੋਧ ਨਹੀਂ ਕੀਤੀ ਹੈ। ਲੇਖ ਦੀ ਸਮਝ ਨੂੰ ਵਧਾਉਣ ਲਈ ਚਿੱਤਰ ਸ਼ਾਮਲ ਕਰੋ।";
 "activity-tab-no-username-reading-title" = "ਤੁਹਾਡਾ ਪੜ੍ਹਨਾ";
 "activity-tab-onboarding-first-item-subtitle" = "ਵੇਖੋ ਕਿ ਤੁਸੀਂ ਪੜ੍ਹਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਬਿਤਾਇਆ ਏ ਅਤੇ ਸਮੇਂ ਦੇ ਨਾਲ ਤੁਸੀਂ ਕਿਹੜੇ ਲੇਖਾਂ ਜਾਂ ਵਿਸ਼ਿਆਂ ਦੀ ਪੜਚੋਲ ਕੀਤੀ ਏ।";
 "activity-tab-onboarding-first-item-title" = "ਪੜ੍ਹਨ ਦੇ ਨਮੂਨੇ";
@@ -126,13 +120,8 @@
 "activity-tab-onboarding-second-button-title" = "ਸਰਗਰਮੀ ਬਾਰੇ ਹੋਰ ਜਾਣੋ";
 "activity-tab-onboarding-second-item-subtitle" = "ਆਪਣੇ ਯੋਗਦਾਨ ਦੀ ਪੜਚੋਲ ਕਰੋ ਅਤੇ ਜਾਣੋ ਕਿ ਤੁਹਾਡੇ ਵੱਲੋਂ ਵੰਡਿਆ ਗਿਆ ਗਿਆਨ ਕਿੱਥੋਂ-ਕਿੱਥੋਂ ਤੱਕ ਪਹੁੰਚਿਆ ਏ।";
 "activity-tab-onboarding-second-item-title" = "ਅਸਰ ਦੀਆਂ ਝਾਤਾਂ";
-"activity-tab-read-title" = "ਪੜ੍ਹਨ ਦਾ ਇਤਿਹਾਸ ਵੇਖੋ";
 "activity-tab-saved" = "ਇਸ ਮਹੀਨੇ ਸੰਭਾਲੇ ਗਏ ਲੇਖ";
-"activity-tab-start-editing" = "ਸੋਧ ਸ਼ੁਰੂ ਕਰੋ";
 "activity-tab-title" = "ਸਰਗਰਮੀ";
-"activity-tab-view-editing-history" = "ਸੋਧ ਇਤਿਹਾਸ ਦਿਖਾਓ";
-"activity-tab-view-reading-history" = "ਪੜ੍ਹਨ ਦਾ ਇਤਿਹਾਸ ਵੇਖੋ";
-"activity-tab-view-saved-articles" = "ਸੰਭਾਲੇ ਲੇਖ ਵੇਖੋ";
 "activity-tab-week-graph-label" = "ਹਫ਼ਤਾ";
 "activity-tab-you-edited" = "ਤੁਸੀਂ ਇਸ ਹਫ਼ਤੇ {{PLURAL:$1|$1 ਵਾਰ}} ਸੰਪਾਦਨ ਕੀਤਾ ਹੈ।";
 "activity-tab-your-impact" = "ਤੁਹਾਡਾ ਅਸਰ";
@@ -701,10 +690,7 @@
 "reading-list-keep-button-title" = "ਹਾਂ, ਲੇਖਾਂ ਨੂੰ ਜੰਤਰ ਉੱਤੇ ਰੱਖੋ";
 "reading-list-keep-title" = "ਕੀ ਸੰਭਾਲੇ ਲੇਖਾਂ ਨੂੰ ਜੰਤਰ ਉੱਤੇ ਰੱਖਣਾ ਹੈ?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "ਲੇਖਾਂ ਨੂੰ ਛਾਂਟੋ";
-"reading-list-login-button-title" = "ਆਪਣੇ ਸੰਭਾਲੇ ਲੇਖਾਂ ਨੂੰ ਸਮਕਾਲੀ ਕਰਨ ਲਈ ਦਾਖ਼ਲ ਹੋਵੋ";
 "reading-list-login-or-create-account-button-title" = "ਦਾਖ਼ਲ ਹੋਵੋ ਜਾਂ ਖ਼ਾਤਾ ਬਣਾਓ";
-"reading-list-login-or-create-account-title" = "ਸੰਭਾਲੇ ਲੇਖਾਂ ਨੂੰ ਸਮਕਾਲੀ ਕਰਨ ਲਈ ਦਾਖ਼ਲ ਹੋਵੋ";
-"reading-list-login-title" = "ਆਪਣੇ ਸੰਭਾਲੇ ਲੇਖਾਂ ਨੂੰ ਸਮਕਾਲੀ ਕਰੋ?";
 "reading-list-name-user-created-annotation" = "_ [ਵਰਤੋਂਕਾਰ ਬਣਾਇਆ ਗਿਆ]";
 "reading-list-new-list-description-placeholder" = "ਚੋਣਵਾਂ ਛੋਟਾ ਵੇਰਵਾ";
 "reading-list-new-list-name-placeholder" = "ਪੜ੍ਹਨ ਦੀ ਸੂਚੀ ਦਾ ਸਿਰਲੇਖ";
@@ -719,7 +705,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "ਆਪਣੀ ਜੰਤਰ ਉੱਤੇ ਕੁਝ ਥਾਂ ਖਾਲੀ ਕਰੋ ਅਤੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ";
 "reading-lists-articles-not-synced-limit-exceeded" = "ਕੁਝ ਲੇਖ ਸਮਕਾਲੀ ਨਹੀਂ ਕੀਤੇ ਗਏ, ਹੱਦ ਪਾਰ ਹੋ ਗਈ ਹੈ";
 "reading-lists-conflicting-reading-list-name-updated" = "ਤੁਹਾਡੀ ਸੂਚੀ '$1' ਦਾ ਨਾਂ ਬਦਲ ਕੇ '$2' ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
-"reading-lists-count" = "{{PLURAL:$1| $1 ਪੜ੍ਹਨ ਦੀ ਸੂਚੀ| $1 ਪੜ੍ਹਨ ਦੀ ਸੂਚੀਆਂ}}";
 "reading-lists-default-list-description" = "ਤੁਹਾਡੇ ਸੰਭਾਲੇ ਲੇਖਾਂ ਲਈ ਮੂਲ ਸੂਚੀ";
 "reading-lists-default-list-title" = "ਸੰਭਾਲਿਆ ਗਿਆ";
 "reading-lists-delete-reading-list-alert-title" = "ਮਿਟਾਓ {{PLURAL:$1| ਸੂਚੀ|ਸੂਚੀਆਂ}}?";
@@ -747,7 +732,6 @@
 "relative-date-years-ago" = "{{PLURAL:$1| 0=ਇਸ ਸਾਲ|1=ਪਿਛਲੇ ਸਾਲ| $1 ਸਾਲ ਪਹਿਲਾਂ}}";
 "return-button-title" = "ਵਾਪਸੀ";
 "return-to-article" = "ਲੇਖ 'ਤੇ ਵਾਪਸ ਜਾਓ";
-"reverted-edit-title" = "ਸੋਧਾਂ ਵਾਪਸ ਕੀਤਿਆਂ";
 "saved-all-articles-title" = "ਸਾਰੇ ਲੇਖ";
 "saved-default-reading-list-tag" = "ਇਸ ਸੂਚੀ ਨੂੰ ਮਿਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ";
 "saved-pages-image-download-error" = "ਇਸ ਸਾਂਭੇ ਹੋਏ ਸਾਫ਼ ਲਈ ਤਸਵੀਰਾਂ ਉਤਾਰੀਆਂ ਨਹੀਂ ਜਾ ਸਕੀਆਂ।";
@@ -796,10 +780,7 @@
 "sort-by-recently-added-action" = "ਹਾਲ ਹੀ ਵਿੱਚ ਜੋੜਿਆ ਗਿਆ";
 "sort-by-title-action" = "ਸਿਰਲੇਖ";
 "suggested-edits-title" = "ਸੁਝਾਏ ਗਏ ਸੋਧ";
-"survey-instructions" = "ਇੱਕ ਜਾਂ ਇੱਕ ਤੋਂ ਵੱਧ ਚੋਣਾਂ ਚੁਣੋ";
-"survey-other-placeholder" = "ਹੋਰ";
 "survey-submit" = "ਹਵਾਲੇ ਕਰੋ";
-"survey-title" = "ਕਾਰਨ";
 "table-of-contents-button-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ";
 "table-of-contents-close-accessibility-hint" = "ਬੰਦ";
 "table-of-contents-close-accessibility-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ ਬੰਦ ਕਰੋ";
@@ -821,8 +802,6 @@
 "talk-page-expand-thread-button" = "ਤੰਦੋਤਾਣੇਆਂ ਨੂੰ ਫੈਲਾਓ";
 "talk-page-find-in-page-button" = "ਸਫ਼ੇ ਵਿੱਚ ਲੱਭੋ";
 "talk-page-menu-open-all" = "ਸਾਰੇ ਤੰਦੋਤਾਣੇਆਂ ਨੂੰ ਖੋਲ੍ਹੋ";
-"talk-page-new-banner-subtitle" = "ਯਾਦ ਰੱਖੋ, ਅਸੀਂ ਸਾਰੇ ਇੱਥੇ ਮਨੁੱਖ ਹਾਂ।";
-"talk-page-new-banner-title" = "ਕ੍ਰਿਪਾ ਕਰ ਕੇ ਦਿਆਲੂ ਬਣੋ।";
 "talk-page-overflow-menu-accessibility" = "ਹੋਰ ਗੱਲਬਾਤ ਸਫ਼ਾ ਚੋਣਾਂ";
 "talk-page-page-info" = "ਸਫ਼ਾ ਜਾਣਕਾਰੀ";
 "talk-page-permanent-link" = "ਪੱਕੀ ਕੜੀਆਂ";
@@ -882,7 +861,6 @@
 "top-read-widget-description" = "ਜਾਣੋ ਕਿ ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਅੱਜ ਦੁਨੀਆਂ ਕੀ ਪੜ੍ਹ ਰਹੀ ਹੈ।";
 "top-read-widget-readers-count" = "$1 ਪਡ਼੍ਹਨ ਵਾਲੇ";
 "top-read-widget-title" = "ਸਭ ਤੋਂ ਵੱਧ ਪਡ਼੍ਹਿਆ";
-"try-now-title" = "ਹੁਣੇ ਕੋਸ਼ਿਸ਼ ਕਰੋ";
 "tutorial-title" = "ਸਿਖਲਾਈ";
 "two-factor-email-login-continue" = "ਦਾਖਲ ਹੋਣਾ ਜਾਰੀ ਰੱਖੋ";
 "two-factor-login-continue" = "ਦਾਖਲ ਹੋਣਾ ਜਾਰੀ ਰੱਖੋ";
@@ -894,7 +872,6 @@
 "unwatch" = "ਨਿਗਰਾਨੀ ਹਟਾਓ";
 "user-title" = "ਵਰਤੋਂਕਾਰ";
 "vanish-account-continue-button-title" = "ਜਾਰੀ ਰੱਖੋ";
-"vanish-account-username-field" = "ਵਰਤੋਂਕਾਰ ਨਾਂ ਅਤੇ ਵਰਤੋਂਕਾਰ ਸਫ਼ਾ";
 "vanish-account-warning-title" = "ਖ਼ਬਰਦਾਰ";
 "variants-alert-dismiss-button" = "ਨਹੀਂ ਧੰਨਵਾਦ";
 "variants-alert-preferences-button" = "ਆਪਣੀਆਂ ਤਰਜੀਹਾਂ ਦੀ ਸਮੀਖਿਆ ਕਰੋ";
@@ -1038,11 +1015,7 @@
 "year-in-review-day-wednesday" = "ਬੁੱਧਵਾਰ";
 "year-in-review-donate" = "ਦਾਨ ਕਰੋ";
 "year-in-review-donate-now" = "ਹੁਣ ਦਾਨ ਕਰੋ";
-"year-in-review-feature-announcement-body" = "ਅਸੀਂ ਕਿਹਡ਼ੇ ਲੇਖ ਪਡ਼੍ਹੇ ਅਤੇ ਸੋਧੇ, ਇਸ ਬਾਰੇ  ਜਾਣਕਾਰੀ ਵੇਖੋ ਅਤੇ ਵਿਕੀਪੀਡੀਆ ਉੱਤੇ ਸਾਡੇ ਸਾਲ ਦੀਆਂ ਮੁੱਖ ਗੱਲਾਂ ਸਾਂਝੀਆਂ ਕਰੋ।";
-"year-in-review-feature-announcement-body-personalized" = "ਵਿਕੀਪੀਡੀਆ ਐਪ ਉੱਤੇ ਤੁਹਾਡੇ ਵੱਲੋਂ ਪਡ਼੍ਹੇ ਗਏ ਲੇਖਾਂ ਬਾਰੇ ਸੂਝ ਵੇਖੋ, ਆਪਣਾ ਸਫ਼ਰ ਸਾਂਝਾਂ ਕਰੋ ਅਤੇ ਆਪਣੇ ਸਾਲ ਦੀਆਂ ਮੁੱਖ ਗੱਲਾਂ ਲੱਭੋ।";
-"year-in-review-feature-announcement-title" = "ਸਮੀਖਿਆ ਵਿੱਚ ਵਿਕੀਪੀਡੀਆ ਦੀ ਪਡ਼ਚੋਲ ਕਰੋ";
 "year-in-review-feature-announcement-title-personalized" = "ਸਮੀਖਿਆ ਵਿੱਚ ਆਪਣੇ ਵਿਕੀਪੀਡੀਆ ਸਾਲ ਦੀ ਪਡ਼ਚੋਲ ਕਰੋ";
-"year-in-review-feature-explore-body-personalized-updated" = "ਵਿਕੀਪੀਡੀਆ ਐਪ 'ਤੇ ਤੁਸੀਂ ਕਿਹੜੇ ਲੇਖ ਪੜ੍ਹਦੇ ਹੋ ਅਤੇ 2024 ਵਿੱਚ ਤੁਹਾਡੇ ਵੱਲੋ ਕੀਤੇ ਗਏ ਸੋਧਾ ਬਾਰੇ ਜਾਣਕਾਰੀ ਵੇਖੋ। ਤੁਹਾਡਾ ਪੜ੍ਹਨ ਦਾ ਇਤਿਹਾਸ ਸੁਰੱਖਿਅਤ ਰੱਖਿਆ ਗਿਆ ਹੈ। ਪੜ੍ਹਨ ਦੀ ਜਾਣਕਾਰੀ ਦੀ ਗਣਨਾ ਤੁਹਾਡੇ ਜੰਤਰ 'ਤੇ ਸਥਾਨਕ ਤੌਰ 'ਤੇ ਭੰਡਾਰ ਕੀਤੇ ਡੇਟਾ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਗਣਨਾ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।";
 "year-in-review-finish" = "ਖ਼ਤਮ";
 "year-in-review-personalized-donate-title" = "ਤੁਹਾਡੀ ਦਰਿਆਦਿਲੀ ਨੇ ਵਿਕੀਪੀਡੀਆ ਨੂੰ ਬਣਾਈ ਰੱਖਣ ਵਿੱਚ ਮਦਦ ਕੀਤੀ ਏ";
 "year-in-review-personalized-edit-views-subtitle-format-updated" = "ਦੁਨੀਆ ਭਰ ਦੇ ਪਾਠਕ ਤੁਹਾਡੇ ਯੋਗਦਾਨ ਦੀ ਸ਼ਲਾਘਾ ਕਰਦੇ ਹਨ। ਪਿਛਲੇ 2 ਮਹੀਨਿਆਂ ਵਿੱਚ, ਤੁਹਾਡੇ ਵੱਲੋਂ ਸੋਧੇ ਲੇਖਾਂ ਨੂੰ {{PLURAL:$1|$1|ਕੁੱਲ $1}} ਵਾਰ ਦੇਖਿਆ ਗਿਆ ਸੀ।। ਤੁਹਾਡੇ ਵਰਗੇ ਸੋਧਕਾਂ ਦਾ ਧੰਨਵਾਦ, ਵਿਕੀਪੀਡੀਆ ਦੁਨੀਆ ਲਈ ਇੱਕ ਨਿਰੰਤਰ ਸੁਧਾਰ, ਤੱਥ-ਅਧਾਰਤ ਅਤੇ ਭਰੋਸੇਯੋਗ ਗਿਆਨ ਸਰੋਤ ਹੈ।";

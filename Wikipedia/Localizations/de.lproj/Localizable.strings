@@ -111,8 +111,6 @@
 "action-unsave" = "Löschen";
 "action-unsaved-accessibility-notification" = "Artikel gelöscht";
 "action-update" = "Aktualisieren";
-"activity-tab-add-images-subtitle" = "Füge Wikipedia-Artikeln vorgeschlagene Bilder hinzu, um das Verständnis zu verbessern.";
-"activity-tab-add-images-title" = "Bilder hinzufügen";
 "activity-tab-additional-thoughts" = "Möchtest du noch etwas sagen?";
 "activity-tab-amount-article-views" = "{{PLURAL:$1|$1 Aufruf|$1 Aufrufe}}";
 "activity-tab-articles-read" = "Diesen Monat gelesene Artikel";
@@ -134,7 +132,6 @@
 "activity-tab-email-title" = "Problembericht - Aktivitäten-Tab";
 "activity-tab-empty-subtitle" = "Beginne mit dem Lesen und Bearbeiten, um deine Historie zu erstellen";
 "activity-tab-empty-title" = "Nichts anzuzeigen";
-"activity-tab-generic-no-edits" = "Du hast diese Woche nichts bearbeitet. Fang jetzt an, um deine Beiträge zu verfolgen.";
 "activity-tab-history-callout-body" = "Sieh dir deinen Leseverlauf im **Tab „Suche“** an oder lösche ihn dort.";
 "activity-tab-history-callout-body-loggedout" = "Deinen Leseverlauf findest und löschst du im **Tab „Suche“**. Kein Konto erforderlich.";
 "activity-tab-hitory-callout-close" = "Hinweiskarte zum Verlauf schließen";
@@ -152,14 +149,11 @@
 "activity-tab-impact-views-day" = "Tag";
 "activity-tab-impact-views-title" = "Aufrufe von Artikeln, die du bearbeitet hast";
 "activity-tab-impact-views-views" = "Aufrufe";
-"activity-tab-log-in-or-create-account" = "Melde dich an oder erstelle ein Konto, um weitere Bearbeitungs- und Leseaktivitäten anzuzeigen.";
 "activity-tab-logged-out-subtitle" = "Melde dich an oder erstelle ein Konto, um deine Aktivitäten in der Wikipedia-App anzusehen";
 "activity-tab-logged-out-title" = "Mehr Lese- und Bearbeitungseinblicke anzeigen";
-"activity-tab-logged-out-track-what-youve-read" = "Verfolge, was du gelesen hast, und sieh dir deine Beiträge im Zeitverlauf auf neue Weise an";
 "activity-tab-menu-clear-history" = "Leseverlauf löschen";
 "activity-tab-most-viewed" = "Meistaufgerufen seit deiner Bearbeitung";
 "activity-tab-neutral" = "Neutral";
-"activity-tab-no-edits-title" = "Du hast diese Woche nichts bearbeitet. Füge Bilder hinzu, um das Artikelverständnis zu verbessern.";
 "activity-tab-no-username-reading-title" = "Deine Leseaktivität";
 "activity-tab-onboarding-first-item-subtitle" = "Sieh, wie viel Zeit du mit Lesen verbracht hast und welche Artikel oder Themen du im Laufe der Zeit erkundet hast.";
 "activity-tab-onboarding-first-item-title" = "Lesemuster";
@@ -171,10 +165,8 @@
 "activity-tab-onboarding-second-item-title" = "Wirkungshöhepunkte";
 "activity-tab-onboarding-third-item-subtitle-updated" = "Die Aktivität umfasst einen umfassenden Verlauf gelesener, gespeicherter und bearbeiteter Artikel. Dein Leseverlauf befindet sich jetzt im Tab „Suche“.";
 "activity-tab-onboarding-third-item-title-updated" = "Leseverlauf jetzt in der Suche";
-"activity-tab-read-title" = "Lesehistorie anzeigen";
 "activity-tab-satisfied" = "Zufrieden";
 "activity-tab-saved" = "Diesen Monat gespeicherte Artikel";
-"activity-tab-start-editing" = "Jetzt bearbeiten";
 "activity-tab-survey-subtitle" = "Hilf uns, die Aktivität zu verbessern. Bist du mit dieser Funktion zufrieden?";
 "activity-tab-survey-title" = "Zufriedenheitsumfrage";
 "activity-tab-time-spent-reading" = "Diese Woche mit Lesen verbrachte Zeit";
@@ -185,9 +177,6 @@
 "activity-tab-usernames-reading-title" = "$1s Leseaktivität";
 "activity-tab-very-satisfied" = "Sehr zufrieden";
 "activity-tab-very-unsatisfied" = "Sehr unzufrieden";
-"activity-tab-view-editing-history" = "Bearbeitungshistorie anzeigen";
-"activity-tab-view-reading-history" = "Lesehistorie anzeigen";
-"activity-tab-view-saved-articles" = "Gespeicherte Artikel anzeigen";
 "activity-tab-week-graph-label" = "Woche";
 "activity-tab-you-edited" = "Du hast {{PLURAL:$1|$1 Mal}} diese Woche bearbeitet.";
 "activity-tab-you-read" = "Du hast {{PLURAL:$1|$1 Artikel}} diese Woche gelesen.";
@@ -253,19 +242,7 @@
 "article-share" = "Teilen";
 "article-tabs-button-accessibility-hint" = "Navigiert zur Übersicht der Registerkarten";
 "article-tabs-button-accessibility-label" = "Artikelregister";
-"article-tabs-feature-announcement-item-1-subtitle" = "Öffne mehrere Artikel und wechsle problemlos zwischen ihnen.";
-"article-tabs-feature-announcement-item-1-title" = "Mit Tabs browsen";
-"article-tabs-feature-announcement-item-2-subtitle" = "Tabs merken sich deine Scrollposition automatisch.";
-"article-tabs-feature-announcement-item-2-title" = "Beginne, wo du aufgehört hast.";
-"article-tabs-feature-announcement-item-3-subtitle" = "Öffne Links in Hintergrund-Tabs, ohne deine Position zu verlieren.";
-"article-tabs-feature-announcement-item-3-title" = "Links für später speichern";
-"article-tabs-feature-announcement-item-4-subtitle" = "Wähle Fun Facts oder lies Vorschläge, wenn du einen neuen Tab öffnest.";
-"article-tabs-feature-announcement-item-4-title" = "Personalisiere deinen neuen Tab";
-"article-tabs-feature-announcement-sub-cta" = "Mehr über Tabs erfahren";
-"article-tabs-feature-announcement-title" = "Einführung von Tabs";
 "article-tabs-max-reached" = "Tab-Limit erreicht ($1). Der Artikel wurde im aktuellen Tab geöffnet. Bitte schließe einen oder mehrere Tabs.";
-"article-tabs-navigation" = "Tabnavigation";
-"article-tabs-onboarding-tooltip" = "Onboarding-Tooltips für Tabs";
 "article-tabs-open" = "Öffnen";
 "article-tabs-open-background-tab" = "Im Hintergrund-Tab öffnen";
 "article-tabs-open-new-tab" = "In neuem Tab öffnen";
@@ -307,11 +284,8 @@
 "close-all-tabs-confirmation-subtitle-with-value" = "Möchtest du {{PLURAL:$1|$1 Tab|$1 Tabs}} schließen? Diese Aktion kann nicht rückgängig gemacht werden.";
 "close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 Tab|$1 Tabs}} schließen?";
 "close-button-accessibility-label" = "Schließen";
-"close-other-tabs" = "Andere Tabs schließen";
-"close-tab-confirmation" = "Tab schließen?";
 "close-tabs" = "Tabs schließen";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 Tab|$1 Tabs}} geschlossen.";
-"collect-prize-title" = "Sammle deinen Preis ein!";
 "community-detail-back-button-title" = "Zurück zum Community-Feed";
 "community-feed-preferences-global-card-footer-text" = "Diese Karte ist nicht sprachspezifisch. Wenn du sie ausschaltest, wird sie aus deinem Community-Feed entfernt.";
 "compass-direction" = "auf $1 Uhr";
@@ -474,7 +448,6 @@
 "donation-reminder-setup-trigger-group-title-articles" = "Immer wenn ich lese";
 "donation-reminder-setup-trigger-unit-articles" = "Artikel";
 "donation-reminder-setup-update-button-title" = "Erinnerung aktualisieren";
-"duplicate-tab" = "Tab klonen";
 "edit-link-display-text-title" = "Angezeigter Text";
 "edit-link-link-target-title" = "Linkziel";
 "edit-link-remove-link-title" = "Link entfernen";
@@ -603,7 +576,6 @@
 "explore-because-you-read-footer" = "Weitere ähnliche Artikel";
 "explore-continue-reading-heading" = "Weiterlesen";
 "explore-detail-back-button-title" = "Zurück zum Entdecken-Feed";
-"explore-enable-location-title" = "Entdecke Artikel nahe deines aktuellen Standortes";
 "explore-featured-article-heading" = "Artikel des Tages";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Von der Wikipedia auf $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Von Wikipedia";
@@ -826,7 +798,6 @@
 "home-nearby-footer" = "Mehr Orte nahe deines Standortes";
 "home-nearby-location-footer" = "Mehr in der Nähe von $1";
 "home-news-footer" = "Mehr aktuelle Ereignisse";
-"home-reading-list-prompt" = "Deine gespeicherten Artikel können jetzt in Sammlungen organisiert und zwischen deinen Geräten synchronisiert werden. Melde dich an, um die Speicherung deiner Sammlungen in deinen Benutzereinstellungen zu erlauben.";
 "home-tab-title" = "Start";
 "home-tab-title-accessibility-label" = "Wikipedia, zum Anfang von Start scrollen";
 "home-themes-action-title" = "Einstellungen verwalten";
@@ -988,7 +959,6 @@
 "notifications-center-alert" = "Warnung";
 "notifications-center-applied-filters-accessibility-label" = "Benachrichtigungsfilter - Filter angewendet";
 "notifications-center-applied-project-filters-accessibility-label" = "Projektfilter - Filter angewendet";
-"notifications-center-badge-button-accessibility-label" = "Benachrichtigungen mit ungelesen-Symbol";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 Benachrichtigung";
 "notifications-center-change-password" = "Passwort ändern";
 "notifications-center-checking-for-notifications" = "Prüfen auf Benachrichtigungen...";
@@ -1211,7 +1181,6 @@
 "profile-page-join-title" = "Anmelden / Wikipedia beitreten";
 "profile-page-logged-out-year-in-review-subtext" = "Melde dich an oder erstelle ein Konto, um nächstes Jahr einen verbesserten Jahresrückblick zu erhalten";
 "profile-year-in-review-login-subtitle" = "Melde dich an oder erstelle ein Konto, um den Jahresrückblick zu sehen und Zugang zu personalisierten Einblicken zu erhalten.";
-"profile-year-in-review-login-title" = "Melde dich an, um auf den Jahresrückblick zuzugreifen";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -1255,11 +1224,7 @@
 "reading-list-list-limit-exceeded-message" = "Diese Sammlung und die in ihr gespeicherten Artikel werden nicht synchronisiert. Bitte reduziere die Anzahl der Sammlungen auf $1, um mit der Synchronisierung dieser Sammlung fortzufahren.";
 "reading-list-list-limit-exceeded-title" = "Du hast die Grenze von {{PLURAL:$1|einer Sammlung|$1 Sammlungen}} pro Benutzerkonto überschritten.";
 "reading-list-list-limit-reached" = "Du hast die Grenze von $1 Sammlungen pro Benutzerkonto erreicht";
-"reading-list-login-button-title" = "Zur Synchronisierung deiner gespeicherten Artikel anmelden";
 "reading-list-login-or-create-account-button-title" = "Anmelden oder Benutzerkonto erstellen";
-"reading-list-login-or-create-account-title" = "Zur Synchronisierung von gespeicherten Artikeln anmelden";
-"reading-list-login-subtitle" = "Melde dich an oder erstelle ein Benutzerkonto, um die Synchronisierung deiner gespeicherten Artikel und Sammlungen zwischen deinen Geräten zu erlauben.";
-"reading-list-login-title" = "Deine gespeicherten Artikel synchronisieren?";
 "reading-list-name-user-created-annotation" = "_[user created]";
 "reading-list-new-list-description-placeholder" = "optionale Kurzbeschreibung";
 "reading-list-new-list-name-placeholder" = "Titel der Sammlung";
@@ -1286,7 +1251,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Schaffe etwas Speicherplatz auf deinem Gerät und versuche es erneut.";
 "reading-lists-articles-not-synced-limit-exceeded" = "Einige Artikel wurden nicht synchronisiert. Grenze überschritten.";
 "reading-lists-conflicting-reading-list-name-updated" = "Deine Liste „$1“ wurde in „$2“ umbenannt";
-"reading-lists-count" = "{{PLURAL:$1|Eine Sammlung|$1 Sammlungen}}";
 "reading-lists-default-list-description" = "Standardliste für deine gespeicherten Artikel";
 "reading-lists-default-list-title" = "Gespeichert";
 "reading-lists-delete-reading-list-alert-message" = "Diese Aktion kann nicht rückgängig gemacht werden. Alle Artikel, die nur in {{PLURAL:$1|dieser Liste|diesen Listen}} gespeichert sind, werden gelöscht.";
@@ -1321,13 +1285,9 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dieses Jahr|1=Letztes Jahr|Vor $1 Jahren}}";
 "return-button-title" = "Zurück";
 "return-to-article" = "Zum Artikel zurückkehren";
-"reverted-edit-title" = "Zurückgesetzte Bearbeitung";
-"save-all-tabs" = "Alle Tabs speichern";
 "save-view-temp-account-notice" = "Du verwendest ein temporäres Konto. Bearbeitungen werden $1... zugeordnet.";
 "save-view-temp-account-warning" = "Du bist nicht angemeldet. Sobald du eine Bearbeitung vornimmst, wird ein temporäres Konto für dich erstellt, um deine Privatsphäre zu schützen.";
 "saved-all-articles-title" = "Alle Artikel";
-"saved-all-tabs" = "Alle Tabs gespeichert.";
-"saved-all-tabs-view-reading-list" = "Alle Tabs gespeichert. Sammlung anzeigen.";
 "saved-default-reading-list-tag" = "Diese Liste kann nicht gelöscht werden";
 "saved-pages-image-download-error" = "Die Bilder für diese gespeicherte Seite konnten nicht heruntergeladen werden.";
 "saved-pages-progress-syncing" = "Herunterladen der Artikel läuft …";
@@ -1378,7 +1338,6 @@
 "settings-languages-feed-customization" = "Du kannst bestimmen, welche Sprachen auf deinem Entdecken-Feed angezeigt werden, indem du die Einstellungen für deinen Entdecken-Feed anpasst.";
 "settings-legal-sefaty-title" = "Kontakte für Rechtliches & Sicherheit";
 "settings-my-languages" = "Meine Sprachen";
-"settings-new-article-tab-header-text" = "Neues Artikel-Tab-Design";
 "settings-notifications" = "Push-Benachrichtigungen";
 "settings-notifications-echo-failure-message" = "Ein Fehler ist beim Prüfen der Benachrichtigungsabonnements für dein Konto aufgetreten.";
 "settings-notifications-echo-failure-title" = "Prüfung der Echo-Benachrichtigungsabonnements nicht möglich";
@@ -1424,10 +1383,7 @@
 "sort-by-recently-added-action" = "Kürzlich hinzugefügt";
 "sort-by-title-action" = "Titel";
 "suggested-edits-title" = "Vorgeschlagene Bearbeitungen";
-"survey-instructions" = "Eine oder mehrere Optionen auswählen";
-"survey-other-placeholder" = "Sonstiges";
 "survey-submit" = "Absenden";
-"survey-title" = "Grund";
 "table-of-contents-button-label" = "Inhaltsverzeichnis";
 "table-of-contents-close-accessibility-hint" = "Schließen";
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeichnis schließen";
@@ -1445,8 +1401,6 @@
 "tabs-show-suggested-articles" = "Artikelvorschläge anzeigen";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Vorschläge sind jetzt ausgeblendet";
 "tabs-survey-title" = "Hilf bei der Verbesserung der Tab-Funktion. Bist du mit dieser Funktion zufrieden?";
-"tabs-thumbnail-description" = "Erkunde Wikipedia, die freie Enzyklopädie, die jeder bearbeiten kann";
-"tabs-thumbnail-subtitle" = "Beginne hier mit deiner Suche";
 "tabs-title" = "Tabs";
 "tachelhit-variants-alert-body" = "Die Wikipedia-App unterstützt nun die folgenden Taschelhit-Varianten als primäre oder sekundäre Sprachen innerhalb der App, was das Lesen, Suchen und Bearbeiten in Ihren bevorzugten Varianten erleichtert:\n\nⵜⴰⵛⵍⵃⵉⵜ Taschelhit, Tifinagh (shi-tfng)\nTaclḥit Taschelhit, Lateinisch (shi-latn)";
 "tachelhit-variants-alert-title" = "Updates zur Taschelhit-Varianten-Unterstützung";
@@ -1467,10 +1421,6 @@
 "talk-page-expand-thread-button" = "Thread erweitern";
 "talk-page-find-in-page-button" = "In Seite finden";
 "talk-page-menu-open-all" = "Alle Threads öffnen";
-"talk-page-new-banner-subtitle" = "Denke daran, dass wir hier alle Menschen sind";
-"talk-page-new-banner-title" = "Bitte sei freundlich";
-"talk-page-new-reply-success-text" = "Deine Antwort wurde erfolgreich veröffentlicht";
-"talk-page-new-topic-success-text" = "Deine Diskussion wurde erfolgreich veröffentlicht";
 "talk-page-onboarding-button-accessibility-label" = "Doppelt tippen, um zur Antwort zurückzukehren";
 "talk-page-overflow-menu-accessibility" = "Weitere Diskussionsseiten-Optionen";
 "talk-page-page-info" = "Seiteninformationen";
@@ -1551,7 +1501,6 @@
 "top-read-widget-description" = "Erfahre auf Wikipedia, was die Welt heute liest.";
 "top-read-widget-readers-count" = "$1 Leser";
 "top-read-widget-title" = "Meistgelesen";
-"try-now-title" = "Jetzt ausprobieren";
 "tutorial-title" = "Tutorial";
 "two-factor-email-login-continue" = "Anmeldung fortsetzen";
 "two-factor-email-login-instructions" = "Bitte gib den E-Mail-Bestätigungscode ein";
@@ -1567,7 +1516,6 @@
 "uzbek-variants-alert-body" = "Die Wikipedia-App unterstützt nun die folgenden Usbekisch-Varianten als primäre oder sekundäre Sprachen innerhalb der App, was das Lesen, Suchen und Bearbeiten in Ihren bevorzugten Varianten erleichtert:\n\noʻzbekcha lotin Usbekisch, Lateinisch (uz-latin)\nўзбекча кирилл Usbekisch, Kyrillisch (uz-cyrl)";
 "uzbek-variants-alert-title" = "Updates zur Usbekisch-Varianten-Unterstützung";
 "vanish-account-continue-button-title" = "Fortfahren";
-"vanish-account-username-field" = "Benutzername und Benutzerseite";
 "vanish-account-warning-body" = "Verschwinden ist ein **letzter Ausweg** und sollte **nur verwendet werden, wenn du für immer mit der Bearbeitung aufhören möchtest** und auch so viele deiner vergangenen Verbindungen wie möglich verbergen möchtest.\n\nDie Kontolöschung bei Wikipedia erfolgt durch Änderung deines Kontonamens, sodass andere deine Beiträge nicht mehr erkennen können, in einem Prozess namens Kontoverschwindung. **Verschwinden garantiert keine vollständige Anonymität oder entfernt Beiträge zu den Projekten**.";
 "vanish-account-warning-title" = "Warnung";
 "variants-alert-dismiss-button" = "Nein danke";
@@ -1792,12 +1740,7 @@
 "year-in-review-day-wednesday" = "Mittwoch";
 "year-in-review-donate" = "Spenden";
 "year-in-review-donate-now" = "Jetzt spenden";
-"year-in-review-feature-announcement-body" = "Erfahre, welche Artikel wir gelesen und bearbeitet haben, und teile die Höhepunkte unseres Jahres auf Wikipedia.";
-"year-in-review-feature-announcement-body-personalized" = "Erfahre mehr über die Artikel, die du in der Wikipedia-App liest, teile deine Reise und entdecke die Highlights deines Jahres.";
-"year-in-review-feature-announcement-title" = "Erkunde Wikipedia im Rückblick";
 "year-in-review-feature-announcement-title-personalized" = "Entdecke dein Wikipedia-Jahr im Rückblick";
-"year-in-review-feature-explore-body" = "Wikipedia ist die größte Wissensressource aller Zeiten – und sie ist für jeden frei zugänglich. Blicke durch die Linse von Wikipedia auf das Jahr 2024 zurück.";
-"year-in-review-feature-explore-body-personalized-updated" = "Erfahre, welche Artikel du in der Wikipedia-App gelesen und welche Änderungen du im Jahr 2024 vorgenommen hast. Dein Leseverlauf wird geschützt aufbewahrt. Die Leseeinblicke werden anhand der lokal gespeicherten Daten auf deinem Gerät erstellt.";
 "year-in-review-feature-explore-body-v3" = "Sieh dir Einblicke darüber an, welche Artikel du in der Wikipedia-App gelesen hast und welche Bearbeitungen du vorgenommen hast.";
 "year-in-review-feature-explore-footer-v3" = "Deine Lesehistorie wird geschützt aufbewahrt. Lese-Einblicke werden mit lokal gespeicherten Daten auf deinem Gerät berechnet.";
 "year-in-review-finish" = "Fertig";

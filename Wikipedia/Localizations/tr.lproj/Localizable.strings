@@ -120,8 +120,6 @@
 "action-unsave" = "Kaydetme";
 "action-unsaved-accessibility-notification" = "Madde kaydedilmedi";
 "action-update" = "Güncelle";
-"activity-tab-add-images-subtitle" = "Wikipedia makalelerine önerilen resimleri ekleyerek daha iyi anlaşılmalarını sağlayın.";
-"activity-tab-add-images-title" = "Resimler ekle";
 "activity-tab-additional-thoughts" = "Eklemek istediğiniz başka düşünceleriniz var mı?";
 "activity-tab-amount-article-views" = "{{PLURAL:$1|$1 görüntüleme}}";
 "activity-tab-articles-read" = "Bu ay okunan maddeler";
@@ -143,7 +141,6 @@
 "activity-tab-email-title" = "Sorun Bildirimi - Etkinlik Sekmesi";
 "activity-tab-empty-subtitle" = "Geçmişinizi oluşturmak için okumaya ve düzenlemeye başlayın";
 "activity-tab-empty-title" = "Gösterilecek bir şey yok";
-"activity-tab-generic-no-edits" = "Bu hafta düzenleme yapmadınız. Katkıları takip etmek için şimdi başlayın.";
 "activity-tab-history-callout-body" = "**Arama sekmesinde** okuma geçmişinize göz atın veya silin.";
 "activity-tab-history-callout-body-loggedout" = "**Arama sekmesinde** okuma geçmişinizi bulun ve silin. Hesap gerekmez.";
 "activity-tab-hitory-callout-close" = "Geçmiş bildirim kartını kapat";
@@ -161,14 +158,11 @@
 "activity-tab-impact-views-day" = "Gün";
 "activity-tab-impact-views-title" = "Düzenlediğiniz maddelerin görüntülenmeleri";
 "activity-tab-impact-views-views" = "Görüntülenme";
-"activity-tab-log-in-or-create-account" = "Daha fazla düzenleme ve okuma etkinliği görmek için giriş yapın ya da hesap oluşturun.";
 "activity-tab-logged-out-subtitle" = "Vikipedi uygulamasındaki etkinliğinizi görüntülemek için oturum açın ya da bir hesap oluşturun.";
 "activity-tab-logged-out-title" = "Daha fazla okuma ve düzenleme içgörüsü görün";
-"activity-tab-logged-out-track-what-youve-read" = "Okuduklarınızı takip edin ve zaman içindeki katkılarınızı yeni bir şekilde görüntüleyin";
 "activity-tab-menu-clear-history" = "Okuma geçmişini temizle";
 "activity-tab-most-viewed" = "Düzenlemenizden bu yana en çok görüntülenen";
 "activity-tab-neutral" = "Kararsızım";
-"activity-tab-no-edits-title" = "Bu hafta düzenleme yapmadınız. Makalenin daha iyi anlaşılmasını sağlamak için resimler ekleyin";
 "activity-tab-no-username-reading-title" = "Okumanız";
 "activity-tab-onboarding-first-item-subtitle" = "Ne kadar zamanınızı okumaya harcadığınızı ve zaman içinde hangi maddeleri ya da konuları incelediğinizi görün.";
 "activity-tab-onboarding-first-item-title" = "Okuma örüntüleri";
@@ -180,11 +174,9 @@
 "activity-tab-onboarding-second-item-title" = "Etki önemli noktaları";
 "activity-tab-onboarding-third-item-subtitle-updated" = "Bu etkinlik, okunan, saklanan ve düzenlenen maddelerin kapsamlı bir zaman çizelgesini içerir. Okuma geçmişiniz artık Arama sekmesinde yer almaktadır.";
 "activity-tab-onboarding-third-item-title-updated" = "Okuma geçmişi artık Aramada";
-"activity-tab-read-title" = "Okuma geçmişini görüntüle";
 "activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Memnunum";
 "activity-tab-saved" = "Bu ay saklanan maddeler";
-"activity-tab-start-editing" = "Düzenlemeye başla";
 "activity-tab-survey-subtitle" = "Etkinliği iyileştirmeye yardımcı olun. Bu özellikten memnun musunuz?";
 "activity-tab-survey-title" = "Memnuniyet anketi";
 "activity-tab-time-spent-reading" = "Bu hafta okumaya harcanan zaman";
@@ -195,9 +187,6 @@
 "activity-tab-usernames-reading-title" = "$1 okuması";
 "activity-tab-very-satisfied" = "Çok memnunum";
 "activity-tab-very-unsatisfied" = "Hiç memnun değilim";
-"activity-tab-view-editing-history" = "Düzenleme geçmişini görüntüle";
-"activity-tab-view-reading-history" = "Okuma geçmişini görüntüle";
-"activity-tab-view-saved-articles" = "Kaydedilmiş makaleleri görüntüle";
 "activity-tab-week-graph-label" = "Hafta";
 "activity-tab-you-edited" = "Bu hafta {{PLURAL:$1|$1 kez}} düzenleme yaptınız.";
 "activity-tab-you-read" = "Bu hafta {{PLURAL:$1|$1 makale}} okudunuz.";
@@ -247,19 +236,7 @@
 "article-share" = "Paylaş";
 "article-tabs-button-accessibility-hint" = "Sekme genel bakışına gider";
 "article-tabs-button-accessibility-label" = "Madde sekmeleri";
-"article-tabs-feature-announcement-item-1-subtitle" = "Birden fazla maddeyi açın ve aralarında kolayca geçiş yapın.";
-"article-tabs-feature-announcement-item-1-title" = "Sekmelerle göz atın";
-"article-tabs-feature-announcement-item-2-subtitle" = "Sekmeler kaydırma konumunuzu otomatik olarak hatırlar.";
-"article-tabs-feature-announcement-item-2-title" = "Kaldığınız yerden devam edin";
-"article-tabs-feature-announcement-item-3-subtitle" = "Bağlantıları, yerinizi kaybetmeden, arka plan sekmesinde aç.";
-"article-tabs-feature-announcement-item-3-title" = "Bağlantıları daha sonrası için sakla";
-"article-tabs-feature-announcement-item-4-subtitle" = "Yeni bir sekme açtığınızda eğlenceli gerçekleri ya da okuma önerilerini seçin.";
-"article-tabs-feature-announcement-item-4-title" = "Yeni sekmenizi kişiselleştirin";
-"article-tabs-feature-announcement-sub-cta" = "Sekmeler hakkında daha fazla bilgi edinin";
-"article-tabs-feature-announcement-title" = "Sekmeler sunuluyor";
 "article-tabs-max-reached" = "Sekme sınırına ulaşıldı ($1). Madde geçerli sekmede açıldı. Lütfen bir ya da daha fazla sekmeyi kapatın.";
-"article-tabs-navigation" = "Sekme dolaşımı";
-"article-tabs-onboarding-tooltip" = "Sekmeler için katılım ipuçları";
 "article-tabs-open" = "Açık";
 "article-tabs-open-background-tab" = "Arkaplan sekmesinde aç";
 "article-tabs-open-new-tab" = "Yeni sekmede aç";
@@ -293,11 +270,8 @@
 "close-all-tabs-confirmation-subtitle-with-value" = "$1 {{PLURAL:$1|sekmeyi}} kapatmak istiyor musunuz? Bu işlem geri alınamaz.";
 "close-all-tabs-confirmation-title-with-value" = "$1 {{PLURAL:$1|sekme}} kapatılsın mı?";
 "close-button-accessibility-label" = "Kapat";
-"close-other-tabs" = "Diğer sekmeleri kapat";
-"close-tab-confirmation" = "Sekme kapatılsın mı?";
 "close-tabs" = "Sekmeleri kapat";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 sekme}} kapatıldı.";
-"collect-prize-title" = "Ödülünüzü alın!";
 "compass-direction" = "saat $1 yönünde";
 "confirm-donation-history-deletion-subtitle" = "Bu yalnızca bu aygıttan yapılan bağışlar için geçerli olacaktır.";
 "confirm-donation-history-deletion-title" = "Silmeyi onayla";
@@ -435,7 +409,6 @@
 "donate-transaction-fee-opt-in-text" = "Bağışımın %%100'ünü alabilmeniz için işlem ücretlerini karşılamak üzere cömertçe $1 ekleyeceğim.";
 "donate-wikimedia-fine-print-1" = "Kişisel bilgilerinizi kimseye satmıyor veya vermiyoruz. Bağış yaparak, [bağım politikamız]($1) kapsamında, kişisel bilgilerinizi Vikipedi ve diğer Wikimedia projelerini barındıran kâr amacı gütmeyen bir kuruluş olan Wikimedia Vakfı ile ve servis sağlayıcıları ile paylaşmayı kabul etmiş sayılırsınız. Wikimedia Vakfı ve servis sağlayıcıları bulunduğunuz ülkenizdeki gizlilik yasalarına eşdeğer olmayabilecek şekilde Amerika Birleşik Devletleri'nde ve diğer devletlerde yer almaktadır. Daha fazla bilgi için lütfen [bağış politikamızı]($1) okuyun.";
 "donate-wikimedia-fine-print-2" = "Sürekli bağışlar için sabit aylık ödemeler Wikimedia Vakfı tarafından, siz ödemeleri durdurmamız yönünde bir bildirimde bulunana dek, ilk bağışın aydönümünde alınacaktır. Ayın 29, 30 ya da 31. gününde yapılan bağışlar, daha kısa aylarda ayın son gününde, mümkün oldukça asıl güne yakın olarak alınacaktır. Sorular için lütfen donate@wikimedia.org adresiyle iletişime geçin.";
-"duplicate-tab" = "Sekmeyi yinele";
 "edit-link-display-text-title" = "Metni görüntüle";
 "edit-link-link-target-title" = "Bağlantı hedefi";
 "edit-link-remove-link-title" = "Bağlantıyı kaldır";
@@ -564,7 +537,6 @@
 "explore-because-you-read-footer" = "Diğer ilgili maddeler";
 "explore-continue-reading-heading" = "Okumaya devam et";
 "explore-detail-back-button-title" = "Keşfet akışına geri dön";
-"explore-enable-location-title" = "Mevcut konumunuzun yakınındaki maddeleri keşfedin";
 "explore-featured-article-heading" = "Seçkin madde";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 Vikipedi'den";
 "explore-featured-article-sub-heading-from-wikipedia" = "Vikipedi'den";
@@ -761,7 +733,6 @@
 "home-nearby-footer" = "Konumunuza yakın daha fazla yer";
 "home-nearby-location-footer" = "$1 yakınından daha fazla";
 "home-news-footer" = "Gündemden daha fazla olay";
-"home-reading-list-prompt" = "Kayıtlı maddeleriniz artık okuma listeleri halinde düzenlenebilir ve cihazlar arasında senkronize edilebilir. Okuma listelerinizin kullanıcı tercihlerinize kaydedilmesine izin vermek için giriş yapın.";
 "home-tab-title" = "Anasayfa";
 "home-themes-action-title" = "Tercihleri yönet";
 "home-themes-prompt" = "Yazı araç çubuğundan veya kullanıcı ayarlarınızdan metin boyutu ve teması da dahil olmak üzere Okuma tercihlerinizi daha rahat bir okuma deneyimi için ayarlayın.";
@@ -919,7 +890,6 @@
 "notifications-center-alert" = "Uyarı";
 "notifications-center-applied-filters-accessibility-label" = "Bildirim Filtresi - uygulanan filtreler var";
 "notifications-center-applied-project-filters-accessibility-label" = "Proje Filtresi - filtre uygulanmış";
-"notifications-center-badge-button-accessibility-label" = "Okunmamış rozeti olan bildirimler";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 bildirimi";
 "notifications-center-change-password" = "Parolayı Değiştir";
 "notifications-center-checking-for-notifications" = "Bildirimler kontrol ediliyor...";
@@ -1138,7 +1108,6 @@
 "profile-page-join-title" = "Giriş yapın / Vikipedi'ye katılın";
 "profile-page-logged-out-year-in-review-subtext" = "Gelecek yıl daha iyi bir yılın değerlendirmesi almak için oturum açın ya da bir hesap oluşturun";
 "profile-year-in-review-login-subtitle" = "Yılın Değerlendirmesini görmek ve daha fazla kişiselleştirilmiş içgörü için oturum açın ya da bir hesap oluşturun.";
-"profile-year-in-review-login-title" = "Yılın Değerlendirmesine erişim için oturum açın";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Vikikitap";
 "project-name-wikidata" = "Vikiveri";
@@ -1181,11 +1150,7 @@
 "reading-list-list-limit-exceeded-message" = "Bu okuma listesi ve bu listeye kaydedilen maddeler senkronize edilmeyecektir, lütfen bu listenin senkronizasyonunu devam ettirmek için listelerinizi şu sayıya düşürün: $1";
 "reading-list-list-limit-exceeded-title" = "Hesap başına {{PLURAL:$1|$1 okuma listesi|$1 okuma listesi}} sınırını aştınız.";
 "reading-list-list-limit-reached" = "Hesap başına $1 okuma listesi sınırına ulaştınız";
-"reading-list-login-button-title" = "Kayıtlı maddelerinizi senkronize etmek için giriş yapın";
 "reading-list-login-or-create-account-button-title" = "Giriş yap veya hesap oluştur";
-"reading-list-login-or-create-account-title" = "Kayıtlı makaleleri senkronize etmek için giriş yapın";
-"reading-list-login-subtitle" = "Kayıtlı maddelerinizin ve okuma listelerinizin cihazlarda senkronize edilmesine ve kullanıcı tercihlerinize kaydedilmesine izin vermek için giriş yapın veya bir hesap oluşturun.";
-"reading-list-login-title" = "Kayıtlı maddeleri senkronize edilsin mi?";
 "reading-list-name-user-created-annotation" = "_[kullanıcı oluşturuldu]";
 "reading-list-new-list-description-placeholder" = "isteğe bağlı kısa açıklama";
 "reading-list-new-list-name-placeholder" = "okuma listesi başlığı";
@@ -1212,7 +1177,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Cihazınızda biraz yer açın ve tekrar deneyin";
 "reading-lists-articles-not-synced-limit-exceeded" = "Bazı maddeler senkronize edilmedi, sınır aşıldı";
 "reading-lists-conflicting-reading-list-name-updated" = "'$1' adlı listeniz '$2' olarak değiştirildi";
-"reading-lists-count" = "{{PLURAL:$1|$1 okuma listesi|$1 okuma listesi}}";
 "reading-lists-default-list-description" = "Kaydedilen maddeleriniz için varsayılan liste";
 "reading-lists-default-list-title" = "Kaydedildi";
 "reading-lists-delete-reading-list-alert-message" = "Bu eylem geri alınamaz. {{PLURAL:$1|bu listeye|bu listelere}} kaydedilen maddeler kaydedilmez.";
@@ -1247,13 +1211,9 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Bu yıl|1=Geçen yıl|$1 yıl önce}}";
 "return-button-title" = "Geri dön";
 "return-to-article" = "Maddeye geri dön";
-"reverted-edit-title" = "Geri alınan düzenleme";
-"save-all-tabs" = "Tüm sekmeleri kaydet";
 "save-view-temp-account-notice" = "Geçici bir hesap kullanıyorsunuz. Düzenlemeler $1 olarak atfediliyor...";
 "save-view-temp-account-warning" = "Giriş yapmadınız. Düzenleme yaptığınızda gizliliğinizi korumak için geçici bir hesap oluşturulacaktır.";
 "saved-all-articles-title" = "Tüm maddeler";
-"saved-all-tabs" = "Tüm sekmeler kaydedildi.";
-"saved-all-tabs-view-reading-list" = "Tüm sekmeler saklandı. Okuma listesini görüntüle.";
 "saved-default-reading-list-tag" = "Bu liste silinemedi";
 "saved-pages-image-download-error" = "Bu kaydedilen sayfa için görseller indirilemedi.";
 "saved-pages-progress-syncing" = "Madde indirme işlemi devam ediyor...";
@@ -1296,7 +1256,6 @@
 "settings-languages-feed-customization" = "Keşfet akış ayarlarınızı özelleştirerek Keşfet özet akışınızda hangi dillerin gösterileceğini yönetebilirsiniz.";
 "settings-legal-sefaty-title" = "Hukuki ve güvenlik iletişim";
 "settings-my-languages" = "Dillerim";
-"settings-new-article-tab-header-text" = "Yeni Sekme Teması";
 "settings-notifications" = "Anlık bildirimler";
 "settings-notifications-echo-failure-message" = "Hesabınızla ilgili bildirim abonelikleri kontrol edilirken bir hata oluştu.";
 "settings-notifications-echo-failure-title" = "Echo Bildirimi abonelikleri kontrol edilemiyor";
@@ -1337,10 +1296,7 @@
 "sort-by-recently-added-action" = "Son eklenenler";
 "sort-by-title-action" = "Başlık";
 "suggested-edits-title" = "Önerilen Düzenlemeler";
-"survey-instructions" = "Bir ya da daha fazla seçeneği seçin";
-"survey-other-placeholder" = "Diğer";
 "survey-submit" = "Gönder";
-"survey-title" = "Gerekçe";
 "table-of-contents-button-label" = "İçindekiler";
 "table-of-contents-close-accessibility-hint" = "Kapat";
 "table-of-contents-close-accessibility-label" = "İçindekileri kapat";
@@ -1358,8 +1314,6 @@
 "tabs-show-suggested-articles" = "Madde önerilerini göster";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Öneriler artık gizli";
 "tabs-survey-title" = "Sekmeleri iyileştirmeye yardımcı olun. Bu özellikten memnun musunuz?";
-"tabs-thumbnail-description" = "Herkesin düzenleyebileceği özgür ansiklopedi Vikipedi'yi keşfedin";
-"tabs-thumbnail-subtitle" = "Aramanıza buradan başlayın";
 "tabs-title" = "Sekmeler";
 "tachelhit-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Tachelhit biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Tachelhit biçim desteği güncellemeleri";
@@ -1380,10 +1334,6 @@
 "talk-page-expand-thread-button" = "İleti dizisini genişlet";
 "talk-page-find-in-page-button" = "Sayfada bul";
 "talk-page-menu-open-all" = "Tüm ileti dizilerini aç";
-"talk-page-new-banner-subtitle" = "Unutma, burada hepimiz insanız.";
-"talk-page-new-banner-title" = "Lütfen nazik ol";
-"talk-page-new-reply-success-text" = "Cevabınız başarıyla yayımlandı";
-"talk-page-new-topic-success-text" = "Tartışmanız başarıyla yayımlandı";
 "talk-page-onboarding-button-accessibility-label" = "Yanıtlamaya geri dönmek için iki kez dokunun";
 "talk-page-overflow-menu-accessibility" = "Daha Fazla Tartışma Sayfası Seçeneği";
 "talk-page-page-info" = "Sayfa bilgisi";
@@ -1464,7 +1414,6 @@
 "top-read-widget-description" = "Dünyanın bugün Vikipedi'de ne okuduğunu öğrenin.";
 "top-read-widget-readers-count" = "$1 okuyucu";
 "top-read-widget-title" = "En çok okunanlar";
-"try-now-title" = "Şimdi dene";
 "tutorial-title" = "Öğretici";
 "two-factor-email-login-continue" = "Oturum açmaya devam et";
 "two-factor-email-login-instructions" = "Lütfen e-posta doğrulama kodunu giriniz";
@@ -1480,7 +1429,6 @@
 "uzbek-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Özbekçe biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\noʻzbekcha lotin Özbekçe, Latin (uz-latin)\nўзбекча кирилл Özbekçe, Kiril (uz-cyrl)";
 "uzbek-variants-alert-title" = "Özbekçe biçim desteği güncellemeleri";
 "vanish-account-continue-button-title" = "Devam et";
-"vanish-account-username-field" = "Kullanıcı adı ve kullanıcı sayfası";
 "vanish-account-warning-body" = "Yok olma, **son çaredir** ve sadece **sonsuz olarak değişiklik yapmayı bırakmak** ve ayrıca olabildiğince geçmiş ilişkilendirmelerinizi gizlemek istiyorsanız kullanılmalıdır.\n\nVikipedi'de hesap silme işlemi, hesabın yok olması adı verilen bir süreçle başkalarının katkılarınızı tanımaması için hesap adınızı değiştirerek yapılır. **Yok olma, tam anonimlik ya da projelere yapılan katkıları kaldırmaya güvence vermez**.";
 "vanish-account-warning-title" = "Uyarı";
 "variants-alert-dismiss-button" = "Hayır teşekkürler";
@@ -1705,12 +1653,7 @@
 "year-in-review-day-wednesday" = "Çarşamba günleri";
 "year-in-review-donate" = "Bağış yap";
 "year-in-review-donate-now" = "Şimdi bağış yapın";
-"year-in-review-feature-announcement-body" = "Hangi maddeleri okuduğumuzu ve düzenlediğimizi görün ve Vikipedi'de yılımızın önemli noktalarını paylaşın.";
-"year-in-review-feature-announcement-body-personalized" = "Vikipedi uygulamasında okuduğunuz maddelerle ilgili içgörülere bakın, yolculuğunuzu paylaşın ve yılınızdan önemli anları keşfedin.";
-"year-in-review-feature-announcement-title" = "Vikipedi Değerlendirmesini Keşfedin";
 "year-in-review-feature-announcement-title-personalized" = "Vikipedi'deki Yılın Değerlendirmenizi keşfedin";
-"year-in-review-feature-explore-body" = "Vikipedi, dünya tarihinde bir araya getirilmiş en büyük bilgi kaynağıdır ve her yerdeki herkes tarafından ücretsiz olarak kullanılabilir. İşte Vikipedi'nin gözünden 2024'ün bir incelemesi.";
-"year-in-review-feature-explore-body-personalized-updated" = "Vikipedi uygulamasında hangi maddeleri okuduğunuza ve 2024'te yaptığınız düzenlemelere ilişkin içgörüler görün. Okuma geçmişiniz korunur. Okuma içgörüleri, cihazınızda yerel olarak depolanan veri kullanılarak hesaplanır.";
 "year-in-review-feature-explore-body-v3" = "Vikipedi uygulamasında okuduğunuz maddelere ve yaptığınız düzenlemelere ilişkin içgörüler görün.";
 "year-in-review-feature-explore-footer-v3" = "Okuma geçmişiniz korunmaktadır. Okuma içgörüleri, aygıtınızda yerel olarak saklanan veriler kullanılarak hesaplanır.";
 "year-in-review-finish" = "Bitir";

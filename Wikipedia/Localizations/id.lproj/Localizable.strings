@@ -111,7 +111,6 @@
 "action-unsave" = "Jangan simpan";
 "action-unsaved-accessibility-notification" = "Artikel batal tersimpan";
 "action-update" = "Perbarui";
-"activity-tab-add-images-subtitle" = "Tambahkan gambar yang disarankan ke artikel Wikipedia untuk meningkatkan pemahaman pembaca.";
 "activity-tab-customize-editing-insights" = "Wawasan suntingan";
 "activity-tab-customize-empty-state" = "Modul aktivitas dimatikan. $1Nyalakan$2 untuk melihat pembaruan di tab ini.";
 "activity-tab-menu-clear-history" = "Hapus riwayat bacaan";
@@ -394,7 +393,6 @@
 "explore-because-you-read-footer" = "Artikel terkait tambahan";
 "explore-continue-reading-heading" = "Lanjutkan membaca";
 "explore-detail-back-button-title" = "Kembali ke umpan Jelajahi";
-"explore-enable-location-title" = "Jelajahi artikel di dekat lokasi Anda saat ini";
 "explore-featured-article-heading" = "Artikel pilihan";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Dari Wikipedia $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Dari Wikipedia";
@@ -532,7 +530,6 @@
 "home-nearby-footer" = "Lebih banyak tempat di dekat lokasi Anda";
 "home-nearby-location-footer" = "Lainnya di sekitar $1";
 "home-news-footer" = "Peristiwa terkini lainnya";
-"home-reading-list-prompt" = "Artikel tersimpan Anda sekarang dapat diatur ke dalam daftar bacaan dan disinkronkan di seluruh perangkat. Masuk log untuk membolehkan daftar bacaan Anda disimpan ke preferensi pengguna Anda.";
 "home-themes-action-title" = "Kelola preferensi";
 "home-themes-prompt" = "Sesuaikan preferensi bacaan Anda termasuk ukuran teks dan tema dari bilah alat artikel atau di pengaturan pengguna Anda untuk pengalaman membaca yang lebih nyaman.";
 "home-title" = "Jelajah";
@@ -630,7 +627,6 @@
 "notifications-center-alert" = "Peringatan";
 "notifications-center-applied-filters-accessibility-label" = "Penyaring Pemberitahuan - sudah menerapkan penyaring";
 "notifications-center-applied-project-filters-accessibility-label" = "Filter Proyek - sudah menerapkan filter";
-"notifications-center-badge-button-accessibility-label" = "Pemberitahuan yang belum dibaca";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 pemberitahuan";
 "notifications-center-change-password" = "Ganti Kata Sandi";
 "notifications-center-checking-for-notifications" = "Memeriksa pemberitahuan...";
@@ -830,7 +826,6 @@
 "profile-button-accessibility-label" = "Profil";
 "profile-page-logged-out-year-in-review-subtext" = "Masuk log atau buat akun untuk mendapatkan tinjauan tahunan yang lebih baik tahun depan.";
 "profile-year-in-review-login-subtitle" = "Masuk log atau buat akun untuk melihat Tinjauan Tahunan dan berhak mendapatkan wawasan yang lebih tepersonalisasi.";
-"profile-year-in-review-login-title" = "Masuk log untuk mengakses Tinjauan Tahunan";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibuku";
 "project-name-wikidata" = "Wikidata";
@@ -870,11 +865,7 @@
 "reading-list-list-limit-exceeded-message" = "Daftar bacaan ini dan artikel yang disimpan di dalamnya tidak akan disinkronkan, harap kurangi jumlah daftar Anda menjadi $1 untuk melanjutkan sinkronisasi daftar ini.";
 "reading-list-list-limit-exceeded-title" = "Anda telah melampaui batas {{PLURAL:$1|$1 daftar bacaan|$1 daftar bacaan}} per akun.";
 "reading-list-list-limit-reached" = "Anda telah mencapai batas $1 daftar bacaan per akun";
-"reading-list-login-button-title" = "Masuk log untuk menyinkronkan artikel tersimpan Anda";
 "reading-list-login-or-create-account-button-title" = "Masuk log atau buat akun";
-"reading-list-login-or-create-account-title" = "Masuk log untuk menyinkronkan artikel tersimpan";
-"reading-list-login-subtitle" = "Masuk log atau buat akun untuk memungkinkan artikel tersimpan dan daftar bacaan disinkronkan ke seluruh perangkat dan disimpan ke preferensi pengguna Anda.";
-"reading-list-login-title" = "Sinkronkan artikel tersimpan Anda?";
 "reading-list-name-user-created-annotation" = "_[dibuat pengguna]";
 "reading-list-new-list-description-placeholder" = "deskripsi singkat opsional";
 "reading-list-new-list-name-placeholder" = "judul daftar bacaan";
@@ -901,7 +892,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Hapus sebagian ruang pada perangkat Anda dan coba lagi";
 "reading-lists-articles-not-synced-limit-exceeded" = "Beberapa artikel tidak disinkronkan, batas terlampaui";
 "reading-lists-conflicting-reading-list-name-updated" = "Daftar Anda '$1' telah diganti namanya menjadi '$2'";
-"reading-lists-count" = "{{PLURAL:$1|$1 daftar bacaan|$1 daftar bacaan}}";
 "reading-lists-default-list-description" = "Daftar baku untuk artikel tersimpan Anda";
 "reading-lists-default-list-title" = "Tersimpan";
 "reading-lists-delete-reading-list-alert-message" = "Tindakan ini tidak bisa dibatalkan. Setiap artikel yang disimpan hanya ke {{PLURAL:$1|daftar ini|daftar ini}} akan disimpan.";
@@ -936,7 +926,6 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tahun ini|1=Tahun lalu|$1 tahun yang lalu}}";
 "return-button-title" = "Kembali";
 "return-to-article" = "Kembali ke artikel";
-"reverted-edit-title" = "Suntingan dikembalikan";
 "saved-all-articles-title" = "Semua artikel";
 "saved-default-reading-list-tag" = "Daftar ini tidak dapat dihapus";
 "saved-pages-image-download-error" = "Gagal mengunduh gambar untuk halaman ini";
@@ -1031,10 +1020,6 @@
 "talk-page-expand-thread-button" = "Perluas utas";
 "talk-page-find-in-page-button" = "Cari di halaman";
 "talk-page-menu-open-all" = "Buka semua utas";
-"talk-page-new-banner-subtitle" = "Ingat, kita semua adalah manusia di sini";
-"talk-page-new-banner-title" = "Mohon untuk berbaik hati";
-"talk-page-new-reply-success-text" = "Balasan anda telah diterbitkan";
-"talk-page-new-topic-success-text" = "Diskusi anda telah diterbitkan";
 "talk-page-onboarding-button-accessibility-label" = "Ketuk dua kali untuk kembali membalas";
 "talk-page-overflow-menu-accessibility" = "Opsi Halaman Pembicaraan Lebih Banyak";
 "talk-page-page-info" = "Informasi halaman";
@@ -1113,7 +1098,6 @@
 "uzbek-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Uzbek berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Sirilik (uz-cyrl)";
 "uzbek-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Uzbek";
 "vanish-account-continue-button-title" = "Lanjutkan";
-"vanish-account-username-field" = "Nama pengguna dan halaman pengguna";
 "vanish-account-warning-body" = "Moksa adalah **pilihan terakhir** dan **hanya boleh digunakan ketika Anda ingin berhenti menyunting selamanya** dan juga untuk menyembunyikan sebanyak mungkin jejak lawas Anda.\n\nPenghapusan akun di Wikipedia dilakukan dengan mengubah nama akun Anda agar orang lain tidak dapat mengenali kontribusi Anda dalam proses yang disebut penghilangan akun (moksa). **Moksa tidak menjamin anonimitas penuh atau menghapus kontribusi ke proyek-proyek Wiki**.";
 "vanish-account-warning-title" = "Peringatan";
 "variants-alert-dismiss-button" = "Tidak, terima kasih";

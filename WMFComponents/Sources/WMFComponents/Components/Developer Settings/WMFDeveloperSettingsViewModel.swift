@@ -43,12 +43,6 @@ import WMFData
         }
     }
 
-    @Published public var enableVisualEditingJourney: Bool = WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney {
-        didSet {
-            WMFDeveloperSettingsDataController.shared.enableVisualEditingJourney = enableVisualEditingJourney
-        }
-    }
-
     @Published public var forceFundraisingCampaignBanner: Bool = WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceFundraisingCampaignBanner = forceFundraisingCampaignBanner
@@ -67,12 +61,6 @@ import WMFData
         }
     }
 
-    @Published public var enableDonationReminder: Bool = WMFDeveloperSettingsDataController.shared.enableDonationReminder {
-        didSet {
-            WMFDeveloperSettingsDataController.shared.enableDonationReminder = enableDonationReminder
-        }
-    }
-
     @Published public var forceDonationReminderExperimentAssignment: WMFDonationReminderDataController.ExperimentAssignment? = WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment {
         didSet {
             WMFDeveloperSettingsDataController.shared.forceDonationReminderExperimentAssignment = forceDonationReminderExperimentAssignment
@@ -83,6 +71,25 @@ import WMFData
         didSet {
             WMFDeveloperSettingsDataController.shared.bypassDonationReminderDailyLimit = bypassDonationReminderDailyLimit
         }
+    }
+
+    @Published public var overrideFundraisingCurrentDate: Bool = WMFDeveloperSettingsDataController.shared.fundraisingOverriddenCurrentDate != nil {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.fundraisingOverriddenCurrentDate = overrideFundraisingCurrentDate ? fundraisingCurrentDate : nil
+        }
+    }
+
+    @Published public var fundraisingCurrentDate: Date = WMFDeveloperSettingsDataController.shared.fundraisingOverriddenCurrentDate ?? WMFDonationReminderDataController.reminderEndDate {
+        didSet {
+            guard overrideFundraisingCurrentDate else { return }
+            WMFDeveloperSettingsDataController.shared.fundraisingOverriddenCurrentDate = fundraisingCurrentDate
+        }
+    }
+
+    var fundraisingOverrideDateRange: ClosedRange<Date> {
+        let lowerBound = WMFDonationReminderDataController.reminderEndDate.addingTimeInterval(-86_400)
+        let upperBound = WMFDonationReminderDataController.wrapUpEndDate.addingTimeInterval(86_400)
+        return lowerBound...upperBound
     }
 
 
@@ -173,13 +180,6 @@ import WMFData
     public func clearGamesPersistence() {
         Task {
             try? await WMFDeveloperSettingsDataController.shared.clearGamesPersistence()
-        }
-    }
-
-    public func clearDefaultEditMode() {
-        WMFSettingsDataController.shared.clearDefaultEditMode()
-        Task { @MainActor in
-            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Editing preferences cleared. The choose editor sheet will show again.")))
         }
     }
 }

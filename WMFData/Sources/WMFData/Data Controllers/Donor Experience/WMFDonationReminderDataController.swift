@@ -95,17 +95,20 @@ public final class WMFDonationReminderDataController {
 
     public static let shared = WMFDonationReminderDataController()
 
-    public static let experimentCampaignID = "NL_2026_08"
+    public static let experimentCampaignID = "NL_2026_09"
 
     public static let experimentPresetAmounts: [Decimal] = [1, 3, 5]
 
     // The reminders outlive the remote campaign end date. The experiment plan sets these fixed dates.
+    // Reminders run through November 9. Comparisons use an exclusive upper bound, so this is the day after.
     public static let reminderEndDate: Date = {
-        Calendar(identifier: .gregorian).date(from: DateComponents(year: 2026, month: 11, day: 9)) ?? .distantFuture
+        Calendar(identifier: .gregorian).date(from: DateComponents(year: 2026, month: 11, day: 10)) ?? .distantFuture
     }()
 
+    // The wrap-up window runs from November 10 through November 15. Comparisons use an exclusive
+    // upper bound, so this is the day after.
     public static let wrapUpEndDate: Date = {
-        Calendar(identifier: .gregorian).date(from: DateComponents(year: 2026, month: 11, day: 15)) ?? .distantFuture
+        Calendar(identifier: .gregorian).date(from: DateComponents(year: 2026, month: 11, day: 16)) ?? .distantFuture
     }()
 
     #if DEBUG
@@ -138,10 +141,6 @@ public final class WMFDonationReminderDataController {
     }
 
     public func isReminderSettingsEntryAvailable(currentDate: Date = Date()) -> Bool {
-        guard WMFDeveloperSettingsDataController.shared.enableDonationReminder else {
-            return false
-        }
-
         switch experimentAssignment {
         case .groupB, .groupC:
             break
@@ -149,7 +148,7 @@ public final class WMFDonationReminderDataController {
             return false
         }
 
-        return currentDate < Self.reminderEndDate
+        return (WMFDeveloperSettingsDataController.shared.fundraisingOverriddenCurrentDate ?? currentDate) < Self.reminderEndDate
     }
 
     // MARK: - Follow-up Reminder Cycle
@@ -164,11 +163,11 @@ public final class WMFDonationReminderDataController {
     }
 
     public func shouldShowFollowUpReminder(currentDate: Date = Date()) async throws -> Bool {
-        guard WMFDeveloperSettingsDataController.shared.enableDonationReminder,
-              let reminder = loadReminder(),
+        guard let reminder = loadReminder(),
               reminder.isEnabled,
-              currentDate < Self.reminderEndDate,
-              case .articlesRead(count: let articlesReadGoal) = reminder.trigger else {
+              (WMFDeveloperSettingsDataController.shared.fundraisingOverriddenCurrentDate ?? currentDate) < Self.reminderEndDate,
+              case .articlesRead(count: let articlesReadGoal) = reminder.trigger
+        else {
             return false
         }
 
@@ -256,6 +255,65 @@ public final class WMFDonationReminderDataController {
         guard let reminder = loadReminder() else { return false }
 
         return reminder.progress?.isWindowClosed ?? false
+    }
+
+    // MARK: - Wrap-up Card
+
+    public enum WrapUpCard: Equatable, Sendable {
+        case feedbackSurvey
+        case recurringDonorPrompt(pledgeAmount: Decimal, currencyCode: String)
+    }
+
+    public private(set) var hasSeenWrapUpCard: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.donationReminderWrapUpCardSeen.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.donationReminderWrapUpCardSeen.rawValue, value: newValue) }
+    }
+
+    public func clearWrapUpCardSeen() {
+        stateLock.lock()
+        defer { stateLock.unlock() }
+
+        try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.donationReminderWrapUpCardSeen.rawValue)
+    }
+
+    public func wrapUpCardToShow(currentDate: Date = WMFDeveloperSettingsDataController.shared.fundraisingCurrentDate) -> WrapUpCard? {
+        stateLock.lock()
+        defer { stateLock.unlock() }
+
+        return availableWrapUpCard(currentDate: currentDate)
+    }
+
+    public func claimWrapUpCardImpression(currentDate: Date = WMFDeveloperSettingsDataController.shared.fundraisingCurrentDate) -> WrapUpCard? {
+        stateLock.lock()
+        defer { stateLock.unlock() }
+
+        guard let wrapUpCard = availableWrapUpCard(currentDate: currentDate) else { return nil }
+
+        hasSeenWrapUpCard = true
+        return wrapUpCard
+    }
+
+    private func availableWrapUpCard(currentDate: Date) -> WrapUpCard? {
+        guard !hasSeenWrapUpCard,
+              isWithinWrapUpPeriod(currentDate: currentDate)
+        else {
+            return nil
+        }
+
+        switch experimentAssignment {
+        case .groupB:
+            return .feedbackSurvey
+        case .groupC:
+            guard let reminder = loadReminder(), reminder.isEnabled else { return nil }
+
+            return .recurringDonorPrompt(pledgeAmount: reminder.amount, currencyCode: reminder.currencyCode)
+        default:
+            return nil
+        }
+    }
+
+    private func isWithinWrapUpPeriod(currentDate: Date) -> Bool {
+        return currentDate >= Self.reminderEndDate && currentDate < Self.wrapUpEndDate
     }
 
     // MARK: - Experiment Assignment

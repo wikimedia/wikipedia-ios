@@ -73,8 +73,6 @@
 "action-unsave" = "Non plus salveguardar";
 "action-unsaved-accessibility-notification" = "Articulo non plus salveguardate";
 "action-update" = "Actualisar";
-"activity-tab-add-images-subtitle" = "Adder imagines suggerite a articulos de Wikipedia pro meliorar le comprension.";
-"activity-tab-add-images-title" = "Adder imagines";
 "activity-tab-additional-thoughts" = "Altere commentos?";
 "activity-tab-amount-article-views" = "$1 visita{{PLURAL:$1||s}}";
 "activity-tab-articles-read" = "Articulos legite iste mense";
@@ -96,7 +94,6 @@
 "activity-tab-email-title" = "Reporto de problema: scheda Activitate";
 "activity-tab-empty-subtitle" = "Comencia a leger e modificar pro accumular tu historia";
 "activity-tab-empty-title" = "Nihil a monstrar";
-"activity-tab-generic-no-edits" = "Tu non ha apportate alcun modification iste septimana. Comencia a modificar ora pro traciar tu contributiones.";
 "activity-tab-history-callout-body" = "Explora o elimina tu historia de lectura in le **scheda Recerca**.";
 "activity-tab-history-callout-body-loggedout" = "Trova e elimina tu historia de lectura in le **scheda Recerca**. Necun conto necessari.";
 "activity-tab-hitory-callout-close" = "Clauder le carta de aviso sur le historia";
@@ -114,14 +111,11 @@
 "activity-tab-impact-views-day" = "Die";
 "activity-tab-impact-views-title" = "Visitas de articulos que tu ha modificate";
 "activity-tab-impact-views-views" = "Visitas";
-"activity-tab-log-in-or-create-account" = "Aperi session o crea un conto pro vider plus activitates de modification e de lectura.";
 "activity-tab-logged-out-subtitle" = "Aperi session o crea un conto pro vider tu activitate sur le app Wikipedia.";
 "activity-tab-logged-out-title" = "Vider plus analyses de lectura e modification";
-"activity-tab-logged-out-track-what-youve-read" = "Tracia lo que tu ha legite e vide tu contributiones in le curso del tempore de un nove maniera";
 "activity-tab-menu-clear-history" = "Rader le historia de lectura";
 "activity-tab-most-viewed" = "Le plus visitate post tu modification";
 "activity-tab-neutral" = "Neutral";
-"activity-tab-no-edits-title" = "Tu non ha apportate alcun modification iste septimana. Adde imagines pro meliorar le comprehensibilitate de articulos.";
 "activity-tab-no-username-reading-title" = "Tu lectura";
 "activity-tab-onboarding-first-item-subtitle" = "Vide quante tempore tu ha passate a leger e qual articulos o topicos tu ha explorate in le curso del tempore.";
 "activity-tab-onboarding-first-item-title" = "Patronos de lectura";
@@ -133,10 +127,8 @@
 "activity-tab-onboarding-second-item-title" = "Impacto principal";
 "activity-tab-onboarding-third-item-subtitle-updated" = "Le scheda Activitate contine un chronologia comprehensive de articulos legite, salveguardate e modificate. Tu historia de lectura se trova ora in le scheda Cercar.";
 "activity-tab-onboarding-third-item-title-updated" = "Le historia de lectura es ora in Cercar";
-"activity-tab-read-title" = "Vider historia de lectura";
 "activity-tab-satisfied" = "Satisfacite";
 "activity-tab-saved" = "Articulos salveguardate iste mense";
-"activity-tab-start-editing" = "Comenciar a modificar";
 "activity-tab-survey-subtitle" = "Adjuta a meliorar Activitate. Es tu satisfacite de iste function?";
 "activity-tab-survey-title" = "Sondage de satisfaction";
 "activity-tab-time-spent-reading" = "Tempore passate a leger iste septimana";
@@ -147,9 +139,6 @@
 "activity-tab-usernames-reading-title" = "Lectura de $1";
 "activity-tab-very-satisfied" = "Multo satisfacite";
 "activity-tab-very-unsatisfied" = "Multo insatisfacite";
-"activity-tab-view-editing-history" = "Vider historia de modificationes";
-"activity-tab-view-reading-history" = "Vider historia de lectura";
-"activity-tab-view-saved-articles" = "Vider articulos salveguardate";
 "activity-tab-week-graph-label" = "Septimana";
 "activity-tab-you-edited" = "Tu ha modificate $1 vice{{PLURAL:$1||s}} iste septimana.";
 "activity-tab-you-read" = "Tu ha legite $1 articulo{{PLURAL:$1||s}} iste septimana.";
@@ -192,19 +181,7 @@
 "article-share" = "Condivider";
 "article-tabs-button-accessibility-hint" = "Naviga al vista general de schedas";
 "article-tabs-button-accessibility-label" = "Schedas de articulo";
-"article-tabs-feature-announcement-item-1-subtitle" = "Aperi plure articulos e cambia inter illos con facilitate.";
-"article-tabs-feature-announcement-item-1-title" = "Navigar con schedas";
-"article-tabs-feature-announcement-item-2-subtitle" = "Le schedas se rememora automaticamente tu position de rolamento.";
-"article-tabs-feature-announcement-item-2-title" = "Continua ubi tu ha cessate";
-"article-tabs-feature-announcement-item-3-subtitle" = "Aperi ligamines in schedas de fundo sin perder tu position.";
-"article-tabs-feature-announcement-item-3-title" = "Salveguardar ligamines pro plus tarde";
-"article-tabs-feature-announcement-item-4-subtitle" = "Elige factos curiose o suggestiones de lectura quando se aperi un nove scheda.";
-"article-tabs-feature-announcement-item-4-title" = "Personalisar tu nove scheda";
-"article-tabs-feature-announcement-sub-cta" = "Discoperi plus sur le schedas";
-"article-tabs-feature-announcement-title" = "Presentation de Schedas";
 "article-tabs-max-reached" = "Le limite de schedas ($1) ha essite attingite. Le articulo se ha aperite in le scheda actual. Per favor claude un o plus schedas.";
-"article-tabs-navigation" = "Navigation inter schedas";
-"article-tabs-onboarding-tooltip" = "Legendas emergente de introduction al schedas";
 "article-tabs-open" = "Aperir";
 "article-tabs-open-background-tab" = "Aperir in scheda de fundo";
 "article-tabs-open-new-tab" = "Aperir in un nove scheda";
@@ -238,11 +215,8 @@
 "close-all-tabs-confirmation-subtitle-with-value" = "Vole tu clauder $1 scheda{{PLURAL:$1||s}}? Isto es irreversibile.";
 "close-all-tabs-confirmation-title-with-value" = "Clauder $1 scheda{{PLURAL:$1||s}}?";
 "close-button-accessibility-label" = "Clauder";
-"close-other-tabs" = "Clauder altere schedas";
-"close-tab-confirmation" = "Clauder scheda?";
 "close-tabs" = "Clauder schedas";
 "closed-all-tabs-confirmation-with-value" = "$1 scheda{{PLURAL:$1||s}} claudite.";
-"collect-prize-title" = "Recipe tu premio!";
 "compass-direction" = "a $1 horas";
 "confirm-donation-history-deletion-subtitle" = "Isto se applicara solmente al donationes facite desde iste apparato.";
 "confirm-donation-history-deletion-title" = "Confirmar deletion";
@@ -380,7 +354,6 @@
 "donate-transaction-fee-opt-in-text" = "Io vole generosemente adder $1 pro coperir le costo del transaction de maniera que vos pote retener 100%% de mi donation.";
 "donate-wikimedia-fine-print-1" = "Nos non vende o commercialisa tu information a alcuno. Faciente un donation, tu consenti al divulgation de tu information personal al Fundation Wikimedia, le organisation sin scopo lucrative que alberga Wikipedia e altere projectos de Wikimedia, e su fornitores de servicio secundo nostre [politica de donation]($1). Le Fundation Wikimedia e su fornitores de servicio es situate in le Statos Unite e in altere paises cuje leges de confidentialitate pote differer del tues. Pro plus information, lege nostre [politica de donation]($1).";
 "donate-wikimedia-fine-print-2" = "Pro donationes recurrente, le pagamentos mensual fixe essera debitate per le Fundation Wikimedia al mesme die de cata mense que illo del prime donation, usque tu nos notifica pro discontinuar los. Le donationes initiate le 29, 30 o 31 del mense recurrera le ultime die del mense pro menses plus curte, tanto proxime al die original como possibile. Pro questiones, per favor contacta donate@wikimedia.org.";
-"duplicate-tab" = "Duplicar scheda";
 "edit-link-display-text-title" = "Texto a monstrar";
 "edit-link-link-target-title" = "Destination del ligamine";
 "edit-link-remove-link-title" = "Remover ligamine";
@@ -509,7 +482,6 @@
 "explore-because-you-read-footer" = "Altere articulos associate";
 "explore-continue-reading-heading" = "Continuar a leger";
 "explore-detail-back-button-title" = "Retornar al canal Explorar";
-"explore-enable-location-title" = "Explorar articulos proxime a tu position actual";
 "explore-featured-article-heading" = "Articulo eminente";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "De Wikipedia in $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "De Wikipedia";
@@ -666,7 +638,6 @@
 "home-nearby-footer" = "Plus locos proxime a te";
 "home-nearby-location-footer" = "Plus a proximitate de $1";
 "home-news-footer" = "Plus actualitates";
-"home-reading-list-prompt" = "Tu articulos salveguardate pote ora esser organisate in listas de lectura e synchronisate inter apparatos. Aperi session pro permitter que tu listas de lectura se salveguarda in tu preferentias de usator.";
 "home-themes-action-title" = "Gerer preferentias";
 "home-themes-prompt" = "Adjusta tu preferentias de lectura, como le grandor de texto e le thema, a partir del barra de utensiles in le articulo o in tu parametros de usator pro un experientia de lectura plus confortabile.";
 "home-title" = "Explorar";
@@ -823,7 +794,6 @@
 "notifications-center-alert" = "Alerta";
 "notifications-center-applied-filters-accessibility-label" = "Filtro de notificationes – ha filtros applicate";
 "notifications-center-applied-project-filters-accessibility-label" = "Filtro de projectos – ha filtros applicate";
-"notifications-center-badge-button-accessibility-label" = "Notificationes con marcator “non legite”";
 "notifications-center-cell-notification-type-accessibility-label-format" = "Notification de $1";
 "notifications-center-change-password" = "Cambiar contrasigno";
 "notifications-center-checking-for-notifications" = "Controlo de notificationes…";
@@ -1042,7 +1012,6 @@
 "profile-page-join-title" = "Aperir session / Adherer a Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Aperi session o crea un conto pro obtener un summario del anno meliorate le proxime anno";
 "profile-year-in-review-login-subtitle" = "Aperi session o crea un conto pro vider le Summario del anno e reciper informationes plus profunde e personalisate.";
-"profile-year-in-review-login-title" = "Aperi session pro acceder al Summario del anno";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikilibros";
 "project-name-wikidata" = "Wikidata";
@@ -1085,11 +1054,7 @@
 "reading-list-list-limit-exceeded-message" = "Iste lista de lectura e le articulos salveguardate in illo non essera synchronisate. Per favor diminue le numero de tu listas a $1 pro reprender le synchronisation de iste lista.";
 "reading-list-list-limit-exceeded-title" = "Tu ha excedite le limite de $1 lista{{PLURAL:$1||s}} de lectura per conto.";
 "reading-list-list-limit-reached" = "Tu ha attingite le limite de $1 listas de lectura per conto";
-"reading-list-login-button-title" = "Aperi session pro synchronisar tu articulos salveguardate";
 "reading-list-login-or-create-account-button-title" = "Aperir session o crear conto";
-"reading-list-login-or-create-account-title" = "Aperi session pro synchronisar articulos salveguardate";
-"reading-list-login-subtitle" = "Aperi session o crea un conto pro permitter que tu articulos salveguardate e tu listas de lectura se synchronisa inter apparatos e se salveguarda in tu preferentias de usator.";
-"reading-list-login-title" = "Synchronisar tu articulos salveguardate?";
 "reading-list-name-user-created-annotation" = "_[create per usator]";
 "reading-list-new-list-description-placeholder" = "curte description optional";
 "reading-list-new-list-name-placeholder" = "titulo del lista de lectura";
@@ -1116,7 +1081,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Libera spatio sur tu apparato e tenta lo de novo";
 "reading-lists-articles-not-synced-limit-exceeded" = "Alcun articulos non synchronisate, limite excedite";
 "reading-lists-conflicting-reading-list-name-updated" = "Tu lista '$1' ha essite renominate a '$2'";
-"reading-lists-count" = "$1 lista{{PLURAL:$1||s}} de lectura";
 "reading-lists-default-list-description" = "Lista predefinite pro tu articulos salveguardate";
 "reading-lists-default-list-title" = "Salveguardate";
 "reading-lists-delete-reading-list-alert-message" = "Iste action non pote esser disfacite. Omne articulos salveguardate solmente in iste lista{{PLURAL:$1||s}} essera oblidate.";
@@ -1151,13 +1115,9 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Iste anno|1=Ultime anno|$1 annos retro}}";
 "return-button-title" = "Retornar";
 "return-to-article" = "Retornar al articulo";
-"reverted-edit-title" = "Modification revertite";
-"save-all-tabs" = "Salveguardar tote le schedas";
 "save-view-temp-account-notice" = "Tu usa un conto temporari. Le modificationes se attribue a $1…";
 "save-view-temp-account-warning" = "Tu non ha aperite session. Un vice que tu apporta un modification, un conto temporari essera create pro te pro proteger tu vita private.";
 "saved-all-articles-title" = "Tote le articulos";
-"saved-all-tabs" = "Tote le schedas ha essite salveguardate.";
-"saved-all-tabs-view-reading-list" = "Tote le schedas ha essite salveguardate. Vide le lista de lectura.";
 "saved-default-reading-list-tag" = "Iste lista non pote esser delite";
 "saved-pages-image-download-error" = "Non poteva discargar imagines pro iste pagina salveguardate.";
 "saved-pages-progress-syncing" = "Discargamento del articulo in curso…";
@@ -1199,7 +1159,6 @@
 "settings-languages-feed-customization" = "Tu pote eliger le linguas que appare in tu canal Explorar personalisante tu parametros de canal Explorar.";
 "settings-legal-sefaty-title" = "Contactos juridic e de securitate";
 "settings-my-languages" = "Mi linguas";
-"settings-new-article-tab-header-text" = "Thema de nove schedas";
 "settings-notifications" = "Notificationes push";
 "settings-notifications-echo-failure-message" = "Un error ha occurrite durante le controlo del abonamentos de notification associate a tu conto.";
 "settings-notifications-echo-failure-title" = "Non pote controlar abonamentos de notification Echo";
@@ -1240,10 +1199,7 @@
 "sort-by-recently-added-action" = "Recentemente addite";
 "sort-by-title-action" = "Titulo";
 "suggested-edits-title" = "Modificationes suggerite";
-"survey-instructions" = "Selige un o plus optiones";
-"survey-other-placeholder" = "Altere";
 "survey-submit" = "Submitter";
-"survey-title" = "Motivo";
 "table-of-contents-button-label" = "Tabula de contento";
 "table-of-contents-close-accessibility-hint" = "Clauder";
 "table-of-contents-close-accessibility-label" = "Clauder tabula de contento";
@@ -1261,8 +1217,6 @@
 "tabs-show-suggested-articles" = "Monstrar suggestiones de articulos";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Le suggestiones es ora celate";
 "tabs-survey-title" = "Adjuta a meliorar le schedas. Es tu satisfacite de iste function?";
-"tabs-thumbnail-description" = "Explora Wikipedia, le encyclopedia libere al qual omnes pote contribuer";
-"tabs-thumbnail-subtitle" = "Comencia tu recerca hic";
 "tabs-title" = "Schedas";
 "tachelhit-variants-alert-body" = "Le application de Wikipedia supporta ora le sequente variantes del tachelhit como linguas primari o secundari in le application, rendente plus facile leger, cercar e modificar in tu variantes preferite:\n\nⵜⴰⵛⵍⵃⵉⵜ: tachelhit tifinagh (shi-tfng)\nTaclḥit: tachelhit latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Actualisationes del supporto de variantes del tachelhit";
@@ -1283,10 +1237,6 @@
 "talk-page-expand-thread-button" = "Expander filo";
 "talk-page-find-in-page-button" = "Cercar in pagina";
 "talk-page-menu-open-all" = "Aperir tote le filos";
-"talk-page-new-banner-subtitle" = "Non oblida que nos es totes humanos hic";
-"talk-page-new-banner-title" = "Per favor sia gentil";
-"talk-page-new-reply-success-text" = "Tu responsa ha essite publicate";
-"talk-page-new-topic-success-text" = "Tu discussion ha essite publicate con successo";
 "talk-page-onboarding-button-accessibility-label" = "Tocca duo vices pro retornar al responsa";
 "talk-page-overflow-menu-accessibility" = "Plus optiones de pagina de discussion";
 "talk-page-page-info" = "Information sur le pagina";
@@ -1367,7 +1317,6 @@
 "top-read-widget-description" = "Discoperi lo que le mundo lege hodie sur Wikipedia.";
 "top-read-widget-readers-count" = "$1 lectores";
 "top-read-widget-title" = "Le plus legite";
-"try-now-title" = "Tentar ora";
 "tutorial-title" = "Tutorial";
 "two-factor-email-login-continue" = "Continuar apertura de session";
 "two-factor-email-login-instructions" = "Per favor insere le codice de verification del e-mail";
@@ -1383,7 +1332,6 @@
 "uzbek-variants-alert-body" = "Le application de Wikipedia ora supporta le variantes sequente del uzbeko como linguas primari o secundari in le application, rendente lo plus facile leger, cercar e modificar in tu variantes preferite:\n\noʻzbekcha lotin: uzbeko latin (uz-latin)\nўзбекча кирилл: uzbeko cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Actualisationes del supporto de variantes del uzbeko";
 "vanish-account-continue-button-title" = "Continuar";
-"vanish-account-username-field" = "Nomine de usator e pagina de usator";
 "vanish-account-warning-body" = "Le disparition es un **ultime recurso** e debe **solmente esser usate quando tu vole cessar de modificar pro sempre** e celar le maximo possibile de tu associationes anterior.\n\nLe deletion del conto sur Wikipedia se effectua cambiante tu nomine de conto de maniera que alteres non pote recognoscer tu contributiones. Iste processo se appella le disparition del conto. **Le disparition non garanti le anonymitate complete ni remove contributiones al projectos.**";
 "vanish-account-warning-title" = "Advertimento";
 "variants-alert-dismiss-button" = "No, gratias";
@@ -1577,12 +1525,7 @@
 "year-in-review-day-wednesday" = "mercuridis";
 "year-in-review-donate" = "Donar";
 "year-in-review-donate-now" = "Donar ora";
-"year-in-review-feature-announcement-body" = "Discoperi qual articulos nos ha legite e modificate, e condivide le momentos saliente de nostre anno sur Wikipedia.";
-"year-in-review-feature-announcement-body-personalized" = "Discoperi qual articulos tu lege sur le app de Wikipedia, condivide tu viage, e discoperi le momentos saliente de tu anno.";
-"year-in-review-feature-announcement-title" = "Explorar tu summario del anno de Wikipedia";
 "year-in-review-feature-announcement-title-personalized" = "Explorar tu summario del anno de Wikipedia";
-"year-in-review-feature-explore-body" = "Wikipedia es le plus grande ressource de cognoscentia jammais assemblate in le historia del mundo, e illo es liberemente disponibile a tote le personas, ubique. Ecce un retroperspectiva de 2024, vidite per le prisma de Wikipedia.";
-"year-in-review-feature-explore-body-personalized-updated" = "Vide perspectivas sur le articulos que tu ha legite in le app de Wikipedia e le modificationes que tu ha facite in 2024. Tu historia de lectura es guardate secur. Le perspectivas de lectura es calculate usante datos immagazinate localmente sur tu apparato.";
 "year-in-review-feature-explore-body-v3" = "Vider analyses sur le articulos que tu ha legite in le application Wikipedia e sur le modificationes que tu ha apportate.";
 "year-in-review-feature-explore-footer-v3" = "Tu historia de lectura se mantene protegite. Le analyses de lectura se calcula a base de datos immagazinate localmente sur tu apparato.";
 "year-in-review-finish" = "Finir";

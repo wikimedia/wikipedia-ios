@@ -122,8 +122,6 @@
 "action-unsave" = "إلغاء الحفظ";
 "action-unsaved-accessibility-notification" = "المقالة غير محفوظة";
 "action-update" = "تحديث";
-"activity-tab-add-images-subtitle" = "أضف الصور المقترحة إلى مقالات ويكيبيديا لتحسين الفهم.";
-"activity-tab-add-images-title" = "إضافة الصور";
 "activity-tab-additional-thoughts" = "أي أفكار إضافية؟";
 "activity-tab-amount-article-views" = "{{PLURAL:$1| $1 مشاهدة}}";
 "activity-tab-articles-read" = "المقالات المقروءة هذا الشهر";
@@ -145,7 +143,6 @@
 "activity-tab-email-title" = "تقرير المشكلة - علامة التبويب النشاط";
 "activity-tab-empty-subtitle" = "ابدأ بالقراءة والتحرير لبناء تاريخك";
 "activity-tab-empty-title" = "لا يوجد شيء لعرضه";
-"activity-tab-generic-no-edits" = "لم تُحرّر هذا الأسبوع. ابدأ الآن بتتبع مساهماتك.";
 "activity-tab-history-callout-body" = "تصفّح أو امسح سجلّ القراءة الخاص بك في علامة تبويب البحث.";
 "activity-tab-history-callout-body-loggedout" = "اعثر على سجلّ القراءة الخاص بك وامسحه في علامة تبويب البحث. بدون الحاجة لحساب.";
 "activity-tab-hitory-callout-close" = "إغلاق بطاقة إشعار السجلّ";
@@ -163,14 +160,11 @@
 "activity-tab-impact-views-day" = "يوم";
 "activity-tab-impact-views-title" = "عدد مشاهدات المقالات التي عدلتها";
 "activity-tab-impact-views-views" = "المشاهدات";
-"activity-tab-log-in-or-create-account" = "قم بتسجيل الدخول أو إنشاء حساب للاطلاع على المزيد من أنشطة التحرير والقراءة.";
 "activity-tab-logged-out-subtitle" = "قم بتسجيل الدخول أو إنشاء حساب لعرض نشاطك على تطبيق ويكيبيديا.";
 "activity-tab-logged-out-title" = "شاهد المزيد من رؤى القراءة والتحرير";
-"activity-tab-logged-out-track-what-youve-read" = "تتبّع ما قرأته واطلع على مساهماتك بمرور الوقت بطريقة جديدة";
 "activity-tab-menu-clear-history" = "مسح تاريخ القراءة";
 "activity-tab-most-viewed" = "الأكثر مشاهدة منذ تعديلك";
 "activity-tab-neutral" = "محايد";
-"activity-tab-no-edits-title" = "لم تُحرّر هذا الأسبوع. أضف صورًا لتحسين فهم المقالة.";
 "activity-tab-no-username-reading-title" = "قراءتك";
 "activity-tab-onboarding-first-item-subtitle" = "انظر إلى مقدار الوقت الذي قضيته في القراءة والمقالات أو المواضيع التي استكشفتها بمرور الوقت.";
 "activity-tab-onboarding-first-item-title" = "أنماط القراءة";
@@ -182,11 +176,9 @@
 "activity-tab-onboarding-second-item-title" = "أبرز النقاط المؤثرة";
 "activity-tab-onboarding-third-item-subtitle-updated" = "يتضمن قسم النشاط مخططًا زمنيًا شاملاً للمقالات التي قرأتها وحفظتها وعدّلتها. أصبح سجلّ قراءتك الآن ضمن علامة تبويب البحث.";
 "activity-tab-onboarding-third-item-title-updated" = "سجل القراءة متاح الآن في البحث";
-"activity-tab-read-title" = "عرض تاريخ القراءة";
 "activity-tab-remaining-articles" = "+ $1";
 "activity-tab-satisfied" = "راضي";
 "activity-tab-saved" = "المقالات المحفوظة هذا الشهر";
-"activity-tab-start-editing" = "ابدأ التحرير";
 "activity-tab-survey-subtitle" = "ساعد في تحسين النشاط. هل أنت راضٍ عن هذه الميزة؟";
 "activity-tab-survey-title" = "استبيان الرضا";
 "activity-tab-time-spent-reading" = "الوقت المستغرق في القراءة هذا الأسبوع";
@@ -197,9 +189,6 @@
 "activity-tab-usernames-reading-title" = "قراءة $1";
 "activity-tab-very-satisfied" = "راضٍ جدًا";
 "activity-tab-very-unsatisfied" = "غير راضٍ للغاية";
-"activity-tab-view-editing-history" = "عرض سجل التحرير";
-"activity-tab-view-reading-history" = "عرض تاريخ القراءة";
-"activity-tab-view-saved-articles" = "عرض المقالات المحفوظة";
 "activity-tab-week-graph-label" = "أسبوع";
 "activity-tab-you-edited" = "لقد قمت بالتعديل {{PLURAL:$1|$1 مرة| $1 مرات}} هذا الأسبوع.";
 "activity-tab-you-read" = "لقد قرأت {{PLURAL:$1|$1 مقال|$1 مقالات}} هذا الأسبوع.";
@@ -245,19 +234,7 @@
 "article-share" = "مشاركة";
 "article-tabs-button-accessibility-hint" = "ينتقل إلى نظرة عامة على علامات التبويب";
 "article-tabs-button-accessibility-label" = "علامات تبويب المقالة";
-"article-tabs-feature-announcement-item-1-subtitle" = "افتح عدة مقالات وقم بالتبديل بينها بسهولة.";
-"article-tabs-feature-announcement-item-1-title" = "التصفح باستخدام علامات التبويب";
-"article-tabs-feature-announcement-item-2-subtitle" = "تتذكر علامات التبويب موضع التمرير الخاص بك تلقائيًا.";
-"article-tabs-feature-announcement-item-2-title" = "إستأنف من حيث توقفت";
-"article-tabs-feature-announcement-item-3-subtitle" = "افتح الروابط في علامات التبويب في الخلفية دون أن تفقد مكانك.";
-"article-tabs-feature-announcement-item-3-title" = "حفظ الروابط لوقت لاحق";
-"article-tabs-feature-announcement-item-4-subtitle" = "اختر حقائق ممتعة أو اقتراحات للقراءة عند فتح علامة تبويب جديدة.";
-"article-tabs-feature-announcement-item-4-title" = "قم بتخصيص علامة التبويب الجديدة الخاصة بك";
-"article-tabs-feature-announcement-sub-cta" = "تعرف على المزيد حول علامات التبويب";
-"article-tabs-feature-announcement-title" = "مقدمة عن علامات التبويب";
 "article-tabs-max-reached" = "تم الوصول إلى الحد الأقصى لعلامات التبويب ($1). تم فتح المقال في علامة التبويب الحالية. يُرجى إغلاق علامة تبويب واحدة أو أكثر.";
-"article-tabs-navigation" = "التنقل بين علامات التبويب";
-"article-tabs-onboarding-tooltip" = "خطوات الإعداد لعلامات التبويب";
 "article-tabs-open" = "مفتوح";
 "article-tabs-open-background-tab" = "فتح في علامة تبويب جديدة";
 "article-tabs-open-new-tab" = "فتح في علامة تبويب جديدة";
@@ -291,11 +268,8 @@
 "close-all-tabs-confirmation-subtitle-with-value" = "هل تريد إغلاق {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟ لا يمكن التراجع عن هذا الإجراء.";
 "close-all-tabs-confirmation-title-with-value" = "إغلاق {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟";
 "close-button-accessibility-label" = "أغلق";
-"close-other-tabs" = "إغلاق علامات التبويب الأخرى";
-"close-tab-confirmation" = "هل تريد إغلاق علامة التبويب؟";
 "close-tabs" = "إغلاق علامات التبويب";
 "closed-all-tabs-confirmation-with-value" = "تم إغلاق {{PLURAL:$1|$1 لسان|$1 ألسنة}}.";
-"collect-prize-title" = "استلم جائزتك!";
 "compass-direction" = "عند الساعة $1";
 "confirm-donation-history-deletion-subtitle" = "سيتم تطبيق هذا فقط على التبرعات المقدمة من هذا الجهاز.";
 "confirm-donation-history-deletion-title" = "تأكيد الحذف";
@@ -433,7 +407,6 @@
 "donate-transaction-fee-opt-in-text" = "سأضيف بسخاء $1 لتغطية رسوم المعاملة حتى تتمكن من الاحتفاظ بنسبة 100٪ من تبرعي.";
 "donate-wikimedia-fine-print-1" = "نحن لا نبيع أو نتبادل معلوماتك لأي شخص، بالتبرع، فإنك توافق على مشاركة معلوماتك الشخصية مع مؤسسة ويكيميديا، وهي منظمة غير ربحية تستضيف ويكيبيديا ومشاريع ويكيميديا الأخرى، ومقدمي خدماتها وفقا [لسياسة المانحين]($1) الخاصة بنا، توجد مؤسسة ويكيميديا ومقدمو خدماتها في الولايات المتحدة وفي بلدان أخرى قد لا تكون قوانين الخصوصية فيها مساوية لقوانينك الخاصة، لمزيد من المعلومات؛ تُرجَى قراءة [سياسة المانحين]($1) الخاصة بنا.";
 "donate-wikimedia-fine-print-2" = "بالنسبة للمتبرعين المتكررين، سيتم خصم المدفوعات الشهرية الثابتة من قبل مؤسسة ويكيميديا في الذكرى السنوية الشهرية للتبرع الأول، حتى يتم إخطارنا بوقفها. سيتم تكرار التبرعات التي بدأت في 29 أو 30 أو 31 من الشهر في اليوم الأخير من الشهر للأشهر الأقصر، أقرب ما يمكن إلى التاريخ الأصلي. للاستفسارات، يرجى الاتصال donate@wikimedia.org.";
-"duplicate-tab" = "علامة تبويب مكررة";
 "edit-link-display-text-title" = "نص العرض";
 "edit-link-link-target-title" = "رابط الهدف";
 "edit-link-remove-link-title" = "إزالة الرابط";
@@ -562,7 +535,6 @@
 "explore-because-you-read-footer" = "مقالات متعلقة إضافية";
 "explore-continue-reading-heading" = "واصل القراءة";
 "explore-detail-back-button-title" = "رجوع إلى خلاصة الاستكشاف";
-"explore-enable-location-title" = "استكشاف المقالات بالقرب من موقعك الحالي";
 "explore-featured-article-heading" = "مقالة مختارة";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "من ويكيبيديا $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "من ويكيبيديا";
@@ -752,7 +724,6 @@
 "home-nearby-footer" = "المزيد من الأماكن بالقرب من موقعك";
 "home-nearby-location-footer" = "المزيد بالقرب من $1";
 "home-news-footer" = "المزيد من الأحداث الجارية";
-"home-reading-list-prompt" = "يمكن الآن تنظيم مقالاتك المحفوظة في قوائم القراءة والمزامنة عبر الأجهزة، قم بتسجيل الدخول للسماح بحفظ قوائم قراءتك في تفضيلات المستخدم الخاصة بك.";
 "home-tab-title" = "بيت";
 "home-tab-title-accessibility-label" = "ويكيبيديا، انتقل إلى أعلى الصفحة الرئيسية";
 "home-themes-action-title" = "إدارة التفضيلات";
@@ -911,7 +882,6 @@
 "notifications-center-alert" = "انذار";
 "notifications-center-applied-filters-accessibility-label" = "تصفية الاشعارات - تم اضافة التصفيات";
 "notifications-center-applied-project-filters-accessibility-label" = "تصفية المشاريع - تمت اضافة التصفية";
-"notifications-center-badge-button-accessibility-label" = "اشعارات بدون اشارة القراءة";
 "notifications-center-cell-notification-type-accessibility-label-format" = "إشعار $1";
 "notifications-center-change-password" = "تغيير كلمة السر";
 "notifications-center-checking-for-notifications" = "التحقق من الاشعارات ...";
@@ -1131,7 +1101,6 @@
 "profile-page-join-title" = "تسجيل الدخول / الانضمام إلى ويكيبيديا";
 "profile-page-logged-out-year-in-review-subtext" = "قم بتسجيل الدخول أو إنشاء حساب للحصول على مراجعة أفضل للعام المقبل";
 "profile-year-in-review-login-subtitle" = "قم بتسجيل الدخول أو إنشاء حساب لمشاهدة مراجعة العام والتأهل للحصول على رؤى أكثر تخصيصًا.";
-"profile-year-in-review-login-title" = "تسجيل الدخول للوصول إلى مراجعة العام";
 "project-name-mediawiki" = "ميدياويكي";
 "project-name-wikibooks" = "ويكي كتب";
 "project-name-wikidata" = "ويكي بيانات";
@@ -1175,11 +1144,7 @@
 "reading-list-list-limit-exceeded-message" = "لن تتم مزامنة قائمة القراءة هذه والمقالات المحفوظة فيها; يُرجَى تقليل عدد قوائمك إلى $1 لاستئناف مزامنة هذه القائمة.";
 "reading-list-list-limit-exceeded-title" = "لقد تجاوزت الحد المسموح به وهو {{PLURAL:$1|$1 قائمة قراءة|$1 قوائم قراءة}} لكل حساب.";
 "reading-list-list-limit-reached" = "لقد تجاوزت الحد الأقصى وهو $1 قوائم قراءة لكل حساب.";
-"reading-list-login-button-title" = "سجل الدخول لمزامنة مقالاتك المحفوظة";
 "reading-list-login-or-create-account-button-title" = "تسجيل الدخول أو إنشاء حساب";
-"reading-list-login-or-create-account-title" = "سجل الدخول لمزامنة المقالات المحفوظة";
-"reading-list-login-subtitle" = "سجل الدخول أو أنشئ حسابا للسماح بمزامنة مقالاتك وقوائمك المحفوظة عبر الأجهزة وحفظها في تفضيلات المستخدم الخاصة بك.";
-"reading-list-login-title" = "مزامنة مقالاتك المحفوظة؟";
 "reading-list-name-user-created-annotation" = "_ [مستخدم تم إنشاؤه]";
 "reading-list-new-list-description-placeholder" = "وصف قصير اختياري";
 "reading-list-new-list-name-placeholder" = "عنوان قائمة القراءة";
@@ -1206,7 +1171,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "امسح بعض المساحة على جهازك وحاول مرة أخرى";
 "reading-lists-articles-not-synced-limit-exceeded" = "بعض المقالات التي لم تتم مزامنتها; تم تجاوز الحد";
 "reading-lists-conflicting-reading-list-name-updated" = "تمت إعادة تسمية قائمتك \"$1\" إلى \"$2\"";
-"reading-lists-count" = "{{PLURAL:$1|$1 قائمة قراءة|$1 قوائم قراءة}}";
 "reading-lists-default-list-description" = "القائمة الافتراضية لمقالاتك المحفوظة";
 "reading-lists-default-list-title" = "محفوظة";
 "reading-lists-delete-reading-list-alert-message" = "لا يمكن التراجع عن هذا الإجراء، أية مقالات يتم حفظها فقط في هذه {{PLURAL:$1|القائمة|القوائم}} ستكون غير محفوظة.";
@@ -1241,13 +1205,9 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=هذا العام|1=العام الماضي|منذ $1 سنوات}}";
 "return-button-title" = "يعود";
 "return-to-article" = "العودة إلى المقال";
-"reverted-edit-title" = "تم إرجاع التعديل";
-"save-all-tabs" = "حفظ جميع علامات التبويب";
 "save-view-temp-account-notice" = "أنت تستخدم حسابًا مؤقتًا. التعديلات تُنسب إلى $1 ...";
 "save-view-temp-account-warning" = "لم تسجل الدخول. بمجرد إجراء تعديل، سينشأ إنشاء حساب مؤقت لك لحماية خصوصيتك.";
 "saved-all-articles-title" = "كل المقالات";
-"saved-all-tabs" = "تم حفظ جميع علامات التبويب.";
-"saved-all-tabs-view-reading-list" = "تم حفظ جميع علامات التبويب. عرض قائمة القراءة.";
 "saved-default-reading-list-tag" = "لا يمكن حذف هذه القائمة";
 "saved-pages-image-download-error" = "فشل تنزيل الصور لهذه الصفحة المحفوظة.";
 "saved-pages-progress-syncing" = "تنزيل المقالة قيد التقدم...";
@@ -1294,7 +1254,6 @@
 "settings-languages-feed-customization" = "أنت يمكنك التحكم في أي اللغات تكون معروضة على تلقيم استكشف الخاص بك عن طريق تعديل إعدادات تلقيم استكشف الخاص بك";
 "settings-legal-sefaty-title" = "جهات الاتصال القانونية والأمنية";
 "settings-my-languages" = "لغاتي";
-"settings-new-article-tab-header-text" = "موضوع علامة التبويب الجديدة";
 "settings-notifications" = "الإشعارات";
 "settings-notifications-echo-failure-message" = "حدث خطأ أثناء التحقق من اشتراكات الإشعارات المتعلقة بحسابك.";
 "settings-notifications-echo-failure-title" = "تعذر التحقق من اشتراكات Echo Notification";
@@ -1337,10 +1296,7 @@
 "sort-by-recently-added-action" = "أُضيف مؤخرا";
 "sort-by-title-action" = "العنوان";
 "suggested-edits-title" = "التعديلات المقترحة";
-"survey-instructions" = "حدد خيارًا واحدًا أو أكثر";
-"survey-other-placeholder" = "أخرى";
 "survey-submit" = "إرسال";
-"survey-title" = "السبب";
 "table-of-contents-button-label" = "قائمة المحتويات";
 "table-of-contents-close-accessibility-hint" = "أغلق";
 "table-of-contents-close-accessibility-label" = "أغلق قائمة المحتويات";
@@ -1358,8 +1314,6 @@
 "tabs-show-suggested-articles" = "عرض اقتراحات المقالة";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "الاقتراحات مخفية الآن";
 "tabs-survey-title" = "ساعد في تحسين علامات التبويب. هل أنت راضٍ عن هذه الميزة؟";
-"tabs-thumbnail-description" = "استكشف ويكيبيديا، الموسوعة الحرة التي يمكن لأي شخص تعديلها";
-"tabs-thumbnail-subtitle" = "ابدأ بحثك هنا";
 "tabs-title" = "علامات التبويب";
 "tachelhit-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات التالية من تشلحيت كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nⵜⴰⵛⵍⵃⵉⵜ تشلحيت، تيفيناغ (shi-tfng)\nTaclḥit تشلحيت، اللاتينية (shi-latn)";
 "tachelhit-variants-alert-title" = "تحديثات لدعم متغير تشلحيت";
@@ -1380,10 +1334,6 @@
 "talk-page-expand-thread-button" = "توسيع المواضيع";
 "talk-page-find-in-page-button" = "البحث في الصفحة";
 "talk-page-menu-open-all" = "افتح كل المواضيع";
-"talk-page-new-banner-subtitle" = "تذكر، كلنا أناسٌ هنا";
-"talk-page-new-banner-title" = "رجاءً كُن لطيفًا";
-"talk-page-new-reply-success-text" = "تم نشر ردك بنجاح";
-"talk-page-new-topic-success-text" = "تم نشر نقاشك بنجاح";
 "talk-page-onboarding-button-accessibility-label" = "انقر نقرًا مزدوجًا للرجوع للرد";
 "talk-page-overflow-menu-accessibility" = "المزيد من خيارات صفحة النقاش";
 "talk-page-page-info" = "معلومات الصفحة";
@@ -1464,7 +1414,6 @@
 "top-read-widget-description" = "تعرَّف على ما أكثر ما قُرأ على ويكيبيديا اليوم";
 "top-read-widget-readers-count" = "$1 قارئ";
 "top-read-widget-title" = "الأكثر قراءة";
-"try-now-title" = "جرب الآن";
 "tutorial-title" = "درس تعليمي";
 "two-factor-email-login-continue" = "متابعة تسجيل الدخول";
 "two-factor-email-login-instructions" = "الرجاء إدخال رمز التحقق من البريد الإلكتروني";
@@ -1480,7 +1429,6 @@
 "uzbek-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات الأوزبكية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\noʻzbekcha lotin الأوزبكية، اللاتينية (uz-latin)\nўзбекча кирилл الأوزبكية، السيريلية (uz-cyrl)";
 "uzbek-variants-alert-title" = "تحديثات لدعم النسخة الأوزبكية";
 "vanish-account-continue-button-title" = "استمرار";
-"vanish-account-username-field" = "اسم المستخدم وصفحة المستخدم";
 "vanish-account-warning-body" = "الاختفاء هو **الملاذ الأخير** ويجب **استخدامه فقط عندما ترغب في التوقف عن التحرير إلى الأبد** وأيضًا لإخفاء أكبر عدد ممكن من ارتباطاتك السابقة.\n\nيتم حذف الحساب على ويكيبيديا عن طريق تغيير اسم حسابك لجعله غير قادر على التعرف على مساهماتك في عملية تسمى اختفاء الحساب. **الاختفاء لا يضمن عدم الكشف عن الهوية تمامًا أو إزالة المساهمات في المشاريع**.";
 "vanish-account-warning-title" = "تحذير";
 "variants-alert-dismiss-button" = "لا شكرًا";
@@ -1702,12 +1650,7 @@
 "year-in-review-day-wednesday" = "الأربعاء";
 "year-in-review-donate" = "تبرع";
 "year-in-review-donate-now" = "تبرع الآن";
-"year-in-review-feature-announcement-body" = "اطلع على رؤى حول المقالات التي قرأناها وقمنا بتحريرها، وشارك أبرز ما حدث في عامنا على ويكيبيديا.";
-"year-in-review-feature-announcement-body-personalized" = "اطلع على رؤى حول المقالات التي تقرأها على تطبيق ويكيبيديا، وشارك رحلتك واكتشف أهم الأحداث في عامك.";
-"year-in-review-feature-announcement-title" = "استكشف ويكيبيديا في المراجعة";
 "year-in-review-feature-announcement-title-personalized" = "استكشف مراجعة العام على ويكيبيديا";
-"year-in-review-feature-explore-body" = "ويكيبيديا هي أكبر مصدر للمعرفة تم تجميعه على الإطلاق في تاريخ العالم، وهي متاحة مجانًا للجميع في كل مكان. إليكم مراجعة لعام 2024 من خلال عدسة ويكيبيديا.";
-"year-in-review-feature-explore-body-personalized-updated" = "اطلع على رؤى حول المقالات التي تقرأها على تطبيق ويكيبيديا والتعديلات التي أجريتها في عام 2024. يتم حماية سجل القراءة الخاص بك. يتم حساب رؤى القراءة باستخدام البيانات المخزنة محليًا على جهازك.";
 "year-in-review-feature-explore-body-v3" = "اطلع على رؤى حول المقالات التي تقرأها على تطبيق ويكيبيديا والتعديلات التي أجريتها.";
 "year-in-review-feature-explore-footer-v3" = "سجل قراءتك محمي. تُحسب إحصاءات القراءة باستخدام البيانات المخزنة محليًا على جهازك.";
 "year-in-review-finish" = "إنهاء";

@@ -233,7 +233,6 @@
 "explore-because-you-read-footer" = "సంబంధిత అదనపు వ్యాసాలు";
 "explore-continue-reading-heading" = "చదవడం కొనసాగించండి";
 "explore-detail-back-button-title" = "తిరిగి శోధన ఫీడుకు";
-"explore-enable-location-title" = "మీ స్థానానికి దగ్గర్లోని వ్యాసాలను శోధించండి";
 "explore-featured-article-heading" = "విశేష వ్యాసం";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 వికీపీడియా నుండి";
 "explore-featured-article-sub-heading-from-wikipedia" = "వికీపీడియా నుండి";
@@ -355,7 +354,6 @@
 "home-nearby-footer" = "మీకు దగ్గర్లోని మరిన్ని స్థలాలు";
 "home-nearby-location-footer" = "$1 కు దగ్గర్లోవి మరిన్ని";
 "home-news-footer" = "మరిన్ని వర్తమాన ఘటనలు";
-"home-reading-list-prompt" = "మీరు భద్రపరచిన వ్యాసాలను చదివే జాబితాలుగా అమర్చుకోవచు, వాటిని అన్ని డివైసుల్లోనూ సింకు చేసుకోవచ్చు. లాగినై, మీ అభిరుచుల్లో చదివే జాబితాలను భద్రపరచే అమరికను పెట్టుకోండి.";
 "home-themes-action-title" = "అభిరుచులను నిర్వహించు";
 "home-title" = "శోధించండి";
 "icon-shortcut-nearby-title" = "చుట్టుపక్కల వ్యాసాలు";
@@ -605,9 +603,7 @@
 "reading-list-list-limit-exceeded-message" = "ఈ చదివే జాబితాను, అందులోని వ్యాసాలనూ సింకు చెయ్యం. ఈ జాబితాను సింకు చెయ్యాలంటే, మీ జాబితాల సంఖ్యను $1 కంటే తగ్గించండి.";
 "reading-list-list-limit-exceeded-title" = "ఒక్కో ఖాతాకు ఉండే {{PLURAL:$1|$1 చదివే జాబితా|$1 చదివే జాబితాల}} పరిమితిని మీరు దాటేసారు.";
 "reading-list-list-limit-reached" = "ఒక్కో ఖాతాకు ఉండే చదివే జాబితాల పరిమితి $1 ని చేరుకున్నారు";
-"reading-list-login-button-title" = "మీరు భద్రపరచిన వ్యాసాలను సింకు చేసేందుకు లాగినవండి";
 "reading-list-login-or-create-account-button-title" = "లాగినవండి / ఖాతాని సృష్టించుకోండి";
-"reading-list-login-or-create-account-title" = "భద్రపరచిన వ్యాసాలను సింకు చేసేందుకు లాగినవండి";
 "reading-list-new-list-name-placeholder" = "చదివే జాబితా లోని వ్యాసం";
 "reading-list-unable-to-add-entry" = "మీ చదివే జాబితా లోకి ఒక అంశాన్ని చేరుస్తూండగా అనుకోని లోపం ఎదురైంది. కాస్సేపాగి మళ్ళీ ప్రయత్నించండి.";
 "reading-list-unable-to-create" = "మీ చదివే జాబితాను సృష్టిస్తూండగా అనుకోని లోపం ఎదురైంది. కాస్సేపాగి మళ్ళీ ప్రయత్నించండి.";
@@ -625,7 +621,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "మీ డివైసులో కొంత స్థలాన్ని ఖాళీ చేసి, మళ్ళీ ప్రయత్నించండి";
 "reading-lists-articles-not-synced-limit-exceeded" = "కొన్ని వ్యాసాలను సింకు చెయ్యలేదు, పరిమితి దాటిపోయింది.";
 "reading-lists-conflicting-reading-list-name-updated" = "మీ జాబితా '$1' పేరును '$2' గా మార్చాం";
-"reading-lists-count" = "{{PLURAL:$1|$1 చదివే జాబితా|$1 చదివే జాబితాలు}}";
 "reading-lists-default-list-description" = "మీరు భద్రపరచిన వ్యాసాల డిఫాల్టు జాబితా";
 "reading-lists-default-list-title" = "భద్రపరచినవి";
 "reading-lists-delete-reading-list-alert-message" = "ఈ చర్యను వెనక్కి తిప్పలేరు. ఈ {{PLURAL:$1|జాబితాలో|జాబితాలలో}} మాత్రమే భద్రపరచిన వ్యాసాలను తీసేస్తాం.";
@@ -655,7 +650,6 @@
 "relative-date-seconds-abbreviated" = "$1సె";
 "relative-date-seconds-ago-abbreviated" = "$1సె క్రితం";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ఈ సంవత్సరం|1=నిరుడు|$1 సంవత్సరాల క్రితం}}";
-"reverted-edit-title" = "తిప్పికొట్టిన దిద్దుబాటు";
 "saved-all-articles-title" = "వ్యాసాలన్నీ";
 "saved-default-reading-list-tag" = "ఈ జాబితాను తొలగించలేరు";
 "saved-pages-image-download-error" = "ఈ భద్రపరచొఇన పేజీ లోని బొమ్మలను దించుడం విఫలమైంది.";
@@ -713,10 +707,6 @@
 "table-of-contents-subheading-label" = "ఉప శీర్షిక $1";
 "talk-page-discussion-read-accessibility-label" = "చదివేసినవి";
 "talk-page-discussion-unread-accessibility-label" = "చదవనివి";
-"talk-page-new-banner-subtitle" = "గుర్తుంచుకోండి, ఇక్కడ ఉన్నవాళ్ళందరం మనుషులమే";
-"talk-page-new-banner-title" = "సహానుభూతితో ఉండండి";
-"talk-page-new-reply-success-text" = "మీ సమాధానాన్ని విజయవంతంగా ప్రచురించాం";
-"talk-page-new-topic-success-text" = "మీ చర్చను విజయవంతంగా ప్రచురించాం";
 "talk-page-subscribed-alert-title" = "మీరు చందా కట్టారు!";
 // Fuzzy
 "talk-page-title-article-talk" = "వ్యాసం చర్చ";

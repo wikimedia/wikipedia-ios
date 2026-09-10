@@ -150,7 +150,6 @@
 "clearing-cache-complete" = "Čiščenje predpomnilnika je končano.";
 "clearing-cache-in-progress" = "Poteka čiščenje predpomnilnika.";
 "close-button-accessibility-label" = "Zapri";
-"collect-prize-title" = "Prevzemite svojo nagrado!";
 "compass-direction" = "ob $1 uri";
 "continue-button-title" = "Nadaljuj";
 "continue-reading-empty-description" = "Raziščite Wikipedijo za več člankov, ki jih lahko preberete";
@@ -393,7 +392,6 @@
 "explore-because-you-read-footer" = "Dodatni povezani članki";
 "explore-continue-reading-heading" = "Nadaljuj branje";
 "explore-detail-back-button-title" = "Nazaj na vir Raziskuj";
-"explore-enable-location-title" = "Raziščite članke blizu vaše trenutne lokacije";
 "explore-featured-article-heading" = "Izbrani članek";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Iz vikipedije v jeziku $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Iz Wikipedije";
@@ -546,7 +544,6 @@
 "home-nearby-footer" = "Več krajev blizu vaše lokacije";
 "home-nearby-location-footer" = "Več v bližini kraja $1";
 "home-news-footer" = "Več aktualnih dogodkov";
-"home-reading-list-prompt" = "Shranjene članke si lahko zdaj urejate v bralne sezname in jih sinhronizirate med napravami. Za shranjevanje bralnih seznamov v uporabniške nastavitve se prijavite.";
 "home-themes-action-title" = "Urejanje nastavitev";
 "home-themes-prompt" = "Za udobnejšo izkušnjo branja v orodni vrstici članka ali v uporabniških nastavitvah prilagodite svoje nastavitve branja, vključno z velikostjo besedila in temo.";
 "home-title" = "Raziskovanje";
@@ -656,7 +653,6 @@
 "notifications-center-alert" = "Opozorilo";
 "notifications-center-applied-filters-accessibility-label" = "Filter obvestil – ima uporabljene filtre";
 "notifications-center-applied-project-filters-accessibility-label" = "Filter projektov – ima uporabljene filtre";
-"notifications-center-badge-button-accessibility-label" = "Obvestila z značko neprebrano";
 "notifications-center-cell-notification-type-accessibility-label-format" = "Obvestilo $1";
 "notifications-center-change-password" = "Spremeni geslo";
 "notifications-center-checking-for-notifications" = "Iskanje obvestil ...";
@@ -896,11 +892,7 @@
 "reading-list-list-limit-exceeded-message" = "Ta bralni seznam in članki, shranjeni na njem, ne bodo sinhronizirani. Zmanjšajte število seznamov na $1, da nadaljujete sinhroniziranje tega seznama.";
 "reading-list-list-limit-exceeded-title" = "Presegli ste omejitev {{PLURAL:$1|$1 članka|$1 člankov}} na račun.";
 "reading-list-list-limit-reached" = "Dosegli ste omejitev $1 bralnih seznamov na račun";
-"reading-list-login-button-title" = "Za sinhroniziranje shranjenih člankov se prijavite";
 "reading-list-login-or-create-account-button-title" = "Prijava ali registracija";
-"reading-list-login-or-create-account-title" = "Za sinhroniziranje shranjenih člankov se prijavite";
-"reading-list-login-subtitle" = "Za sinhronizacijo bralnih seznamov med napravami in shranjevanje v vaših uporabniških nastavitvah se prijavite ali si ustvarite račun.";
-"reading-list-login-title" = "Želite sinhronizirati shranjene članke?";
 "reading-list-name-user-created-annotation" = "_[uporabniško ustvarjeno]";
 "reading-list-new-list-description-placeholder" = "izbirni kratki opis";
 "reading-list-new-list-name-placeholder" = "naslov bralnega seznama";
@@ -927,7 +919,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Sprostite nekaj prostora v napravi in poskusite znova.";
 "reading-lists-articles-not-synced-limit-exceeded" = "Nekateri članki niso sinhronizirani. Omejitev je presežena.";
 "reading-lists-conflicting-reading-list-name-updated" = "Vaš seznam »$1« je bil preimenovan v »$2«";
-"reading-lists-count" = "{{PLURAL:$1|En bralni seznam|Dva bralna seznama|$1 bralni seznami|$1 bralnih seznamov}}";
 "reading-lists-default-list-description" = "Privzeti seznam za vaše shranjene članke";
 "reading-lists-default-list-title" = "Shranjeno";
 "reading-lists-delete-reading-list-alert-message" = "Tega dejanja ni mogoče razveljaviti. Vsi članki, ki so shranjeni samo v {{PLURAL:$1|tem seznamu|teh seznamih}}, bodo odshranjeni.";
@@ -962,7 +953,6 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Letos|1=Lani|Pred $1 letoma|Pred $1 leti}}";
 "return-button-title" = "Vrnitev";
 "return-to-article" = "Nazaj na članek";
-"reverted-edit-title" = "Vrnjeno urejanje";
 "saved-all-articles-title" = "Vsi članki";
 "saved-default-reading-list-tag" = "Tega seznama ni mogoče izbrisati";
 "saved-pages-image-download-error" = "Prenos slik za to shranjeno stran ni uspel.";
@@ -1057,10 +1047,6 @@
 "talk-page-expand-thread-button" = "Razširi nit";
 "talk-page-find-in-page-button" = "Poišči na strani";
 "talk-page-menu-open-all" = "Odpri vse niti";
-"talk-page-new-banner-subtitle" = "Upoštevajte, da smo vsi tukaj ljudje";
-"talk-page-new-banner-title" = "Bodite prijazni";
-"talk-page-new-reply-success-text" = "Vaš pogovor je bil uspešno objavljen";
-"talk-page-new-topic-success-text" = "Vaš pogovor je bil uspešno objavljen";
 "talk-page-onboarding-button-accessibility-label" = "Dvakrat tapnite, da se vrnete na odgovor";
 "talk-page-overflow-menu-accessibility" = "Več možnosti pogovorne strani";
 "talk-page-page-info" = "Podatki o strani";
@@ -1140,7 +1126,6 @@
 "uzbek-variants-alert-body" = "Aplikacija Wikipedija zdaj podpira naslednji različici uzbeščine kot osnovni ali sekundarni jezik v aplikaciji, kar omogoča lažje branje, iskanje in urejanje v vaših želenih različicah:\n\noʻzbekcha lotin – uzbeščina, latinica (uz-latin)\nўзбекча кирилл – uzbeščina, cirilica (uz-cyrl)";
 "uzbek-variants-alert-title" = "Posodobitve podpore za uzbeške različice";
 "vanish-account-continue-button-title" = "Nadaljuj";
-"vanish-account-username-field" = "Uporabniško ime in uporabniška stran";
 "vanish-account-warning-body" = "Izbris je **skrajni ukrep** in ga **uporabite le, če želite za vedno prenehati z urejanjem** in tudi, da skrijete čim več svojih preteklih povezav.\n\nIzbris računa v Wikipediji se opravi tako, da spremenite ime svojega računa, da drugi ne morejo prepoznati vaših prispevkov. **Izbris ne zagotavlja popolne anonimnosti ali odstranitve prispevkov k projektom**.";
 "vanish-account-warning-title" = "Opozorilo";
 "variants-alert-dismiss-button" = "Ne, hvala";

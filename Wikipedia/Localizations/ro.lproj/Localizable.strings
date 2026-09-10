@@ -281,7 +281,6 @@
 "explore-because-you-read-footer" = "Articole conexe suplimentare";
 "explore-continue-reading-heading" = "Reluare lectură";
 "explore-detail-back-button-title" = "Înapoi la fluxul Explore";
-"explore-enable-location-title" = "Explorați articole în apropierea locației dvs. actuale";
 "explore-featured-article-heading" = "Articol de calitate";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "De la $1 Wikipedia";
 "explore-featured-article-sub-heading-from-wikipedia" = "De la Wikipedia";
@@ -417,7 +416,6 @@
 "home-nearby-footer" = "Mai multe articole din aproMai multe locuri lângă locația dvs.pierea dumneavoastră";
 "home-nearby-location-footer" = "Mai multe locuri de lângă $1";
 "home-news-footer" = "Mai multe evenimente actuale";
-"home-reading-list-prompt" = "Articolele dvs. salvate pot fi acum organizate în liste de citire și sincronizate pe dispozitive. Conectați-vă pentru a permite salvarea listelor dvs. de citire în preferințele utilizatorului.";
 "home-themes-action-title" = "Administrează preferințele";
 "home-themes-prompt" = "Ajustați preferințele dvs. de lectură, inclusiv dimensiunea textului și tema din bara de instrumente a articolului sau în setările utilizatorului pentru o experiență de citire mai confortabilă.";
 "home-title" = "Explorare";
@@ -507,7 +505,6 @@
 "notifications-center-alert" = "Alerte";
 "notifications-center-applied-filters-accessibility-label" = "Filtru de notificări - are filtre aplicate";
 "notifications-center-applied-project-filters-accessibility-label" = "Filtrul de proiecte - are filtre aplicate";
-"notifications-center-badge-button-accessibility-label" = "Notificări cu insigna necitită";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 notificare";
 "notifications-center-change-password" = "Schimbare parolă";
 "notifications-center-checking-for-notifications" = "Se verifică notificările...";
@@ -738,11 +735,7 @@
 "reading-list-list-limit-exceeded-message" = "Această listă de citire și articolele salvate în ea nu vor fi sincronizate, vă rugăm să reduceți numărul de liste la $1 pentru a relua sincronizarea acestei liste.";
 "reading-list-list-limit-exceeded-title" = "Ați depășit limita de {{PLURAL:$1|$1 listă de citit|$1 liste de citire}} per cont.";
 "reading-list-list-limit-reached" = "Ați atins limita de $1 liste de citire pe cont";
-"reading-list-login-button-title" = "Conectați-vă pentru a sincroniza articolele salvate";
 "reading-list-login-or-create-account-button-title" = "Autentificare sau creați un cont";
-"reading-list-login-or-create-account-title" = "Conectați-vă pentru a sincroniza articolele salvate";
-"reading-list-login-subtitle" = "Conectați-vă sau creați un cont pentru a permite sincronizarea articolelor și listelor de citire salvate pe dispozitive și salvate la preferințele utilizatorului.";
-"reading-list-login-title" = "Sincronizați articolele salvate?";
 "reading-list-name-user-created-annotation" = "_[utilizator creat]";
 "reading-list-new-list-description-placeholder" = "descriere scurtă opțională";
 "reading-list-new-list-name-placeholder" = "titlu listă de citire";
@@ -769,7 +762,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Ștergeți puțin spațiu pe dispozitiv și încercați din nou";
 "reading-lists-articles-not-synced-limit-exceeded" = "Unele articole nu sunt sincronizate, limita depășită";
 "reading-lists-conflicting-reading-list-name-updated" = "Lista dvs. '$1' a fost redenumită la '$2'";
-"reading-lists-count" = "{{PLURAL:$1|$1 lista de citire|$1 liste de citire}}";
 "reading-lists-default-list-description" = "Lista implicită pentru articolele salvate";
 "reading-lists-default-list-title" = "Salvat";
 "reading-lists-delete-reading-list-alert-message" = "Această acțiune nu poate fi anulată. Orice articole salvate doar în {{PLURAL:$ 1|această listă|aceste liste}} nu vor fi salvate.";
@@ -802,7 +794,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s în urmă";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Anul acesta|1=Anul trecut|$1 ani în urmă}}";
-"reverted-edit-title" = "Modificare anulată";
 "saved-all-articles-title" = "Toate articolele";
 "saved-default-reading-list-tag" = "Această listă nu poate fi ștearsă";
 "saved-pages-image-download-error" = "Nu se pot descărca imaginile pentru această pagină salvată.";
@@ -882,10 +873,6 @@
 "talk-page-discussion-read-accessibility-label" = "Citește";
 "talk-page-discussion-unread-accessibility-label" = "Necitit";
 "talk-page-find-in-page-button" = "Găsește în pagină";
-"talk-page-new-banner-subtitle" = "Amintiți-vă, suntem toți oameni aici";
-"talk-page-new-banner-title" = "Vă rugăm să fiți amabili";
-"talk-page-new-reply-success-text" = "Răspunsul dvs. a fost publicat cu succes";
-"talk-page-new-topic-success-text" = "Discuția dvs. a fost publicată cu succes";
 "talk-page-share-button" = "Distribuie pagină de discuție";
 "talk-page-subscribed-alert-subtitle" = "Veți primi notificări despre noi comentarii din acest subiect.";
 "talk-page-title-article-talk" = "Discuție articol";
@@ -1033,5 +1020,4 @@
 "wikitext-upload-save-anonymously-warning" = "Modificările vor fi atribuite adresei IP a dispozitivului dumneavoastră. Dacă recurgeți la $1 veți beneficia de mai multă confidențialitate.";
 "wikitext-upload-save-terms-name" = "Termeni de utilizare";
 "year-in-review-donate-now" = "Donați acum";
-"year-in-review-feature-explore-body-personalized-updated" = "Vezi informații despre articolele pe care le citești în aplicația Wikipedia și despre modificările pe care le-ai făcut în 2024. Istoricul lecturii tale rămâne protejat. Informațiile despre lectură sunt calculate folosind date stocate local pe dispozitiv.";
 "year-in-review-feature-explore-footer-v3" = "Istoricul lecturii tale rămâne protejat. Informațiile despre lectură sunt calculate folosind datele stocate local pe dispozitivul tău.";

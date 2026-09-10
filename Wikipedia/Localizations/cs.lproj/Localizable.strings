@@ -291,7 +291,6 @@
 "explore-because-you-read-footer" = "Další související články";
 "explore-continue-reading-heading" = "Pokračovat ve čtení";
 "explore-detail-back-button-title" = "Zpět do kanálu Objevit";
-"explore-enable-location-title" = "Objevte články poblíž vaší aktuální polohy";
 "explore-featured-article-heading" = "Doporučený článek";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Z Wikipedie v jazyce $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Z Wikipedie";
@@ -429,7 +428,6 @@
 "home-nearby-footer" = "Více míst z vašeho okolí";
 "home-nearby-location-footer" = "Další místa v okolí $1";
 "home-news-footer" = "Více Aktuálních událostí";
-"home-reading-list-prompt" = "Vámi uložené články mohou být nyní organizovány do seznamů k přečtení a synchronizovány skrze zařízení. Přihlaste se, abyste povolili ukládání seznamů k přečtení do vašich uživatelských nastavení.";
 "home-themes-action-title" = "Spravujte předvolby";
 "home-themes-prompt" = "Upravte si předvolby pro čtení, včetně velikosti a motivu textu, z panelu nástrojů článku nebo z uživatelských nastavení pro pohodlnější čtení.";
 "home-title" = "Objevit";
@@ -646,11 +644,7 @@
 "reading-list-list-limit-exceeded-message" = "Tento seznam k přečtení a články uložené do něj nebudou synchronizovány, prosím, snižte počet seznamů na $1, abyste obnovili synchronizaci tohoto seznamu.";
 "reading-list-list-limit-exceeded-title" = "Překročili jste maximální limit {{PLURAL:$1|$1 seznamu k přečtení|$1 seznamů k přečtení}} na účet.";
 "reading-list-list-limit-reached" = "Dosáhli jste limitu $1 seznamů k přečtení na účet";
-"reading-list-login-button-title" = "Přihlašte se pro synchronizaci vámi uložených článků";
 "reading-list-login-or-create-account-button-title" = "Přihlásit se nebo vytvořit účet";
-"reading-list-login-or-create-account-title" = "Přihlašte se pro synchronizaci uložených článků";
-"reading-list-login-subtitle" = "Přihlašte se nebo si založte účet, abyste mohli povolit synchronizaci článků a seznamů k přečtení skrze zařízení.";
-"reading-list-login-title" = "Synchronizovat vámi uložené články?";
 "reading-list-name-user-created-annotation" = "_[uživatel vytvořen]";
 "reading-list-new-list-description-placeholder" = "volitelný krátký popis";
 "reading-list-new-list-name-placeholder" = "název seznamu k přečtení";
@@ -677,7 +671,6 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Uvolněte místo na vašem zařízení a zkuste to znovu";
 "reading-lists-articles-not-synced-limit-exceeded" = "Některé články nebyly synchronizovány, limit byl překročen";
 "reading-lists-conflicting-reading-list-name-updated" = "Váš seznam „$1“ byl přejmenován na „$2“";
-"reading-lists-count" = "{{PLURAL:$1|$1 seznam k přečtení|$1 seznamy k přečtení|$1 seznamů k přečtení}}";
 "reading-lists-default-list-description" = "Výchozí seznam pro vaše uložené články";
 "reading-lists-default-list-title" = "Uloženo";
 "reading-lists-delete-reading-list-alert-message" = "Tato akce nemůže být zrušena. Jakékoliv články uložené jenom do {{PLURAL:$1|tohoto seznamu|těchto seznamů}} nebudou nadále mezi uloženými.";
@@ -708,7 +701,6 @@
 "relative-date-seconds-abbreviated" = "$1 s";
 "relative-date-seconds-ago-abbreviated" = "před $1 s";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tento rok|1=Loni|2=Předloni|Před $1 lety}}";
-"reverted-edit-title" = "Revertovaná editace";
 "saved-all-articles-title" = "Všechny články";
 "saved-default-reading-list-tag" = "Tento seznam nemůže být odstraněn";
 "saved-pages-image-download-error" = "Nepodařilo se stáhnout obrázky pro tuto uloženou stránku.";
@@ -776,10 +768,6 @@
 "table-of-contents-subheading-label" = "Podnadpis $1";
 "talk-page-discussion-read-accessibility-label" = "Přečteno";
 "talk-page-discussion-unread-accessibility-label" = "Nepřečteno";
-"talk-page-new-banner-subtitle" = "Pamatujte, že všichni jsme lidé";
-"talk-page-new-banner-title" = "Buďte přátelští";
-"talk-page-new-reply-success-text" = "Vaše odpověď byla úspěšně zveřejněna";
-"talk-page-new-topic-success-text" = "Vaše diskuse byla úspěšně zveřejněna";
 "talk-page-title-article-talk" = "Diskuse ke článku";
 "talk-page-title-user-talk" = "Diskuse s wikipedistou";
 "talk-page-user-contributions" = "Příspěvky";

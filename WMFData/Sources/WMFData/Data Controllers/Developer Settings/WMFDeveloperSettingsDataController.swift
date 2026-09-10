@@ -192,19 +192,14 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     }
 
     /// Resets everything that can suppress the fundraising campaign banner: the "maybe later" /
-    /// permanently hidden prompt state, the local donation history, the saved donation reminder, and the persisted donation
-    /// reminder experiment bucket.
+    /// permanently hidden prompt state, the local donation history, the saved donation reminder, the persisted donation
+    /// reminder experiment bucket, and the wrap-up card seen state.
     public func clearFundraisingCampaignPersistence() {
         WMFFundraisingCampaignDataController.shared.clearPromptState()
         WMFDonateDataController.shared.deleteLocalDonationHistory()
         WMFDonationReminderDataController.shared.clearReminder()
         WMFDonationReminderDataController.shared.clearExperimentAssignment()
-    }
-
-    /// Feature flag for the Donation Reminder experiment
-    public var enableDonationReminder: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableDonationReminder.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableDonationReminder.rawValue, value: newValue) }
+        WMFDonationReminderDataController.shared.clearWrapUpCardSeen()
     }
 
     /// Debugging convenience: overrides the persisted donation reminder experiment bucket at read
@@ -232,9 +227,29 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsBypassDonationReminderDailyLimit.rawValue, value: newValue) }
     }
 
-    public var enableVisualEditingJourney: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue, value: newValue) }
+    /// Debugging convenience: overrides the date that the fundraising features treat as today, so we
+    /// can test the campaign and reminder date windows.
+    public var fundraisingOverriddenCurrentDate: Date? {
+        get { try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsFundraisingOverriddenCurrentDate.rawValue) }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsFundraisingOverriddenCurrentDate.rawValue, value: newValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsFundraisingOverriddenCurrentDate.rawValue)
+            }
+        }
+    }
+
+    public var fundraisingCurrentDate: Date {
+        fundraisingOverriddenCurrentDate ?? Date()
+    }
+
+    // MARK: - Remote Feature Flags
+
+    /// Comes from `iosv1.visualEditorEnabled` in the remote feature config. A missing key or a
+    /// missing config keeps the legacy source editor flow.
+    public var isVisualEditorEnabled: Bool {
+        loadFeatureConfig()?.ios.visualEditorEnabled ?? false
     }
 
     // MARK: - Reading Challenge Forced States

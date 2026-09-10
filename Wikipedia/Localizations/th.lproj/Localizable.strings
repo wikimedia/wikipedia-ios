@@ -84,8 +84,6 @@
 "action-unsave" = "เลิกบันทึก";
 "action-unsaved-accessibility-notification" = "เลิกบันทึกบทความแล้ว";
 "action-update" = "ปรับปรุง";
-"activity-tab-add-images-subtitle" = "เพิ่มภาพที่แนะนำในบทความวิกิพีเดียเพื่อเพิ่มความเข้าใจ";
-"activity-tab-add-images-title" = "เพิ่มภาพ";
 "activity-tab-additional-thoughts" = "มีความเห็นเพิ่มเติมหรือไม่?";
 "activity-tab-articles-read" = "จำนวนบทความที่อ่านในเดือนนี้";
 "activity-tab-articles-read-graph-label" = "บทความ";
@@ -96,14 +94,12 @@
 "activity-tab-email-second-line" = "- [รายละเอียดของปัญหา]";
 "activity-tab-email-third-line" = "สิ่งที่ฉันคิดว่าจะเกิดคือ:";
 "activity-tab-email-title" = "รายงานปัญหา - แท็บกิจกรรม";
-"activity-tab-generic-no-edits" = "คุณยังไม่ได้แก้ไขสิ่งใดในสัปดาห์นี้ เริ่มเลยตอนนี้เพื่อติดตามการมีส่วนร่วมของคุณ";
 "activity-tab-hours-minutes-read" = "$1 ชม. $2 น.";
 "activity-tab-hours-on-wikipedia-ios" = "บนวิกิพีเดีย iOS";
 "activity-tab-logged-out-subtitle" = "เข้าสู่ระบบหรือสร้างบัญชีเพื่อดูกิจกรรมของคุณบนแอปวิกิพีเดีย";
 "activity-tab-logged-out-title" = "ดูข้อมูลเชิงลึกเกี่ยวกับการอ่านและการแก้ไข";
 "activity-tab-menu-clear-history" = "ล้างประวัติการอ่าน";
 "activity-tab-neutral" = "เฉย ๆ";
-"activity-tab-no-edits-title" = "สัปดาห์นี้ยังไม่ได้แก้ไขสิ่งใด ลองเพิ่มภาพในบทความเพื่อเพิ่มความเข้าใจ";
 "activity-tab-no-username-reading-title" = "การอ่านของคุณ";
 "activity-tab-onboarding-first-item-subtitle" = "ดูว่าคุณใช้เวลาไปกับการอ่านบทความหรือหัวข้อใดในแต่ละช่วงเวลาที่ผ่านมา";
 "activity-tab-onboarding-first-item-title" = "รูปแบบการอ่าน";
@@ -112,10 +108,8 @@
 "activity-tab-onboarding-second-button-title" = "ดูเพิ่มเติมเกี่ยวกับกิจกรรม";
 "activity-tab-onboarding-second-item-subtitle" = "ดูรายละเอียดเชิงลึกเกี่ยวกับการมีส่วนร่วมและการเข้าถึงความรู้ที่คุณได้แบ่งปันไว้";
 "activity-tab-onboarding-second-item-title" = "ไฮไลต์ผลกระทบ";
-"activity-tab-read-title" = "ดูประวัติการอ่าน";
 "activity-tab-satisfied" = "พึงพอใจ";
 "activity-tab-saved" = "จำนวนบทความที่บันทึกไว้ในเดือนนี้";
-"activity-tab-start-editing" = "เริ่มแก้ไข";
 "activity-tab-survey-title" = "แบบสำรวจความพึงพอใจ";
 "activity-tab-time-spent-reading" = "เวลาที่อ่านในสัปดาห์นี้";
 "activity-tab-title" = "กิจกรรม";
@@ -124,9 +118,6 @@
 "activity-tab-usernames-reading-title" = "การอ่านของ $1";
 "activity-tab-very-satisfied" = "พึงพอใจมาก";
 "activity-tab-very-unsatisfied" = "ไม่พึงพอใจมาก";
-"activity-tab-view-editing-history" = "ดูประวัติการแก้ไข";
-"activity-tab-view-reading-history" = "ดูประวัติการอ่าน";
-"activity-tab-view-saved-articles" = "ดูบทความที่บันทึกไว้";
 "activity-tab-week-graph-label" = "สัปดาห์";
 "activity-tab-you-edited" = "คุณได้แก้ไข {{PLURAL:$1|$1 ครั้ง}}ในสัปดาห์นี้";
 "activity-tab-you-read" = "คุณอ่านไป {{PLURAL:$1|$1 บทความ}}ในสัปดาห์นี้";
@@ -166,19 +157,7 @@
 "article-share" = "แบ่งปัน";
 "article-tabs-button-accessibility-hint" = "ส่วนนำทางไปยังแท็บภาพรวม";
 "article-tabs-button-accessibility-label" = "แท็บบทความ";
-"article-tabs-feature-announcement-item-1-subtitle" = "เปิดบทความพร้อมกันและสลับระหว่างบทความอย่างง่ายดาย";
-"article-tabs-feature-announcement-item-1-title" = "เรียกดูด้วยแท็บ";
-"article-tabs-feature-announcement-item-2-subtitle" = "แท็บจะจำตำแหน่งที่อ่านถึงในหน้าอัตโนมัติ";
-"article-tabs-feature-announcement-item-2-title" = "ไปที่ที่คุณค้างไว้";
-"article-tabs-feature-announcement-item-3-subtitle" = "เปิดลิงก์ในแท็บพื้นหลังโดยไม่ต้องเสียจุดที่อ่านถึง";
-"article-tabs-feature-announcement-item-3-title" = "บันทึกลิงก์ไว้ภายหลัง";
-"article-tabs-feature-announcement-item-4-subtitle" = "เลือกข้อเท็จจริงสนุก ๆ หรืออ่านคำแนะนำเมื่อเปิดแท็บใหม่";
-"article-tabs-feature-announcement-item-4-title" = "ปรับแต่งแท็บใหม่ของคุณ";
-"article-tabs-feature-announcement-sub-cta" = "ดูเพิ่มเติมเกี่ยวกับแท็บ";
-"article-tabs-feature-announcement-title" = "ขอแนะนำแท็บ";
 "article-tabs-max-reached" = "จำนวนแท็บถึงขีดจำกัด ($1) บทความจะเปิดในแท็บปัจจุบันแทน โปรดปิดแท็บบางแท็บแล้วลองใหม่อีกครั้ง";
-"article-tabs-navigation" = "ไปยังแท็บบทความ";
-"article-tabs-onboarding-tooltip" = "ข้อความแนะนำบทนำสำหรับแท็บ";
 "article-tabs-open" = "เปิด";
 "article-tabs-open-background-tab" = "เปิดในแท็บพื้นหลัง";
 "article-tabs-open-new-tab" = "เปิดในแท็บใหม่";
@@ -211,8 +190,6 @@
 "close-all-tabs-confirmation-subtitle-with-value" = "คุณต้องการปิด {{PLURAL:$1|$1 แท็บ}}หรือไม่? การดำเนินการนี้ไม่สามารถย้อนกลับได้";
 "close-all-tabs-confirmation-title-with-value" = "ปิด {{PLURAL:$1|$1 แท็บ}}หรือไม่?";
 "close-button-accessibility-label" = "ปิด";
-"close-other-tabs" = "ปิดแท็บอื่นทั้งหมด";
-"close-tab-confirmation" = "ปิดแท็บหรือไม่";
 "close-tabs" = "ปิดแท็บ";
 "closed-all-tabs-confirmation-with-value" = "ปิด {{PLURAL:$1|$1 แท็บ}}แล้ว";
 "compass-direction" = "ที่ $1 นาฬิกา";
@@ -394,7 +371,6 @@
 "explore-because-you-read-footer" = "บทความอื่น ๆ ที่เกี่ยวข้อง";
 "explore-continue-reading-heading" = "อ่านต่อ";
 "explore-detail-back-button-title" = "ย้อนกลับไปยังฟีดสำรวจ";
-"explore-enable-location-title" = "สำรวจบทความที่อยู่ใกล้ตำแหน่งปัจจุบันของคุณ";
 "explore-featured-article-heading" = "บทความคัดสรร";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "จากวิกิพีเดียภาษา$1";
 "explore-featured-article-sub-heading-from-wikipedia" = "จากวิกิพีเดีย";
@@ -532,7 +508,6 @@
 "home-nearby-footer" = "สถานที่เพิ่มเติมที่อยู่ใกล้ตำแหน่งของคุณ";
 "home-nearby-location-footer" = "บทความเพิ่มเติมที่อยู่ใกล้เคียงกับ $1";
 "home-news-footer" = "เหตุการณ์ปัจจุบันเพิ่มเติม";
-"home-reading-list-prompt" = "คุณสามารถจัดระเบียบบทความที่บันทึกไว้ของคุณลงในรายการอ่านและซิงค์กับอุปกรณ์ทุกๆ เครื่องได้ เข้าสู่ระบบเพื่อบันทึกรายการอ่านของคุณไปยังการตั้งค่าผู้ใช้ของคุณ";
 "home-themes-action-title" = "จัดการการตั้งค่า";
 "home-themes-prompt" = "ปรับการตั้งค่าการอ่านของคุณรวมถึงขนาดข้อความและธีมจากแถบเครื่องมือบทความหรือในการตั้งค่าผู้ใช้ของคุณเพื่อประสบการณ์การอ่านที่สะดวกสบายยิ่งขึ้น";
 "home-title" = "สำรวจ";
@@ -844,11 +819,7 @@
 "reading-list-keep-title" = "เก็บบทความที่บันทึกไว้บนอุปกรณ์หรือไม่";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "เรียงบทความ";
 "reading-list-list-limit-exceeded-title" = "คุณเกินขีดจำกัดของ {{PLURAL:$1|$1 รายการอ่าน}} ต่อบัญชี";
-"reading-list-login-button-title" = "เข้าสู่ระบบเพื่อซิงค์บทความที่บันทึกไว้ของคุณ";
 "reading-list-login-or-create-account-button-title" = "เข้าสู่ระบบหรือสร้างบัญชี";
-"reading-list-login-or-create-account-title" = "เข้าสู่ระบบเพื่อซิงค์บทความที่บันทึกไว้";
-"reading-list-login-subtitle" = "เข้าสู่ระบบหรือสร้างบัญชีเพื่อซิงค์บทความที่บันทึกไว้และรายการอ่านของคุณกับอุปกรณ์ทุกเครื่องและบันทึกในการตั้งค่าผู้ใช้ของคุณ";
-"reading-list-login-title" = "ซิงค์บทความที่บันทึกไว้ของคุณหรือไม่?";
 "reading-list-name-user-created-annotation" = "_[สร้างโดยผู้ใช้]";
 "reading-list-new-list-description-placeholder" = "คำอธิบายอย่างย่อ";
 "reading-list-new-list-name-placeholder" = "ชื่อเรื่องรายการอ่าน";
@@ -866,7 +837,6 @@
 "reading-lists-article-added-confirmation" = "เพิ่มบทความลงใน “$1” แล้ว";
 "reading-lists-article-api-failure" = "ไม่สามารถซิงค์บทความได้";
 "reading-lists-article-not-synced" = "ไม่ได้ซิงค์";
-"reading-lists-count" = "{{PLURAL:$1|$1 รายการอ่าน}}";
 "reading-lists-default-list-description" = "รายการเริ่มต้นสำหรับบทความที่คุณบันทึกไว้";
 "reading-lists-default-list-title" = "ที่บันทึกไว้";
 "reading-lists-delete-reading-list-alert-message" = "การดำเนินการนี้ไม่สามารถยกเลิกได้ บทความใด ๆ ที่บันทึกไว้เฉพาะใน {{PLURAL:$1|รายการนี้|รายการเหล่านี้}} จะไม่ได้รับการบันทึก";
@@ -899,7 +869,6 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=ปีนี้|1=ปีที่ผ่านมา|$1 ปีที่ผ่านมา}}";
 "return-button-title" = "ย้อนกลับ";
 "return-to-article" = "ย้อนกลับไปที่บทความ";
-"reverted-edit-title" = "การแก้ไขที่ถูกย้อน";
 "saved-all-articles-title" = "บทความทั้งหมด";
 "saved-default-reading-list-tag" = "ไม่สามารถลบรายการนี้ได้";
 "saved-pages-image-download-error" = "ไม่สามารถดาวน์โหลดรูปภาพสำหรับหน้าที่บันทึกไว้นี้ได้";
@@ -966,10 +935,7 @@
 "sort-by-recently-added-action" = "ที่เพิ่งเพิ่มล่าสุด";
 "sort-by-title-action" = "ชื่อเรื่อง";
 "suggested-edits-title" = "การแก้ไขที่แนะนำ";
-"survey-instructions" = "เลือกตัวเลือกอย่างน้อย 1 รายการ";
-"survey-other-placeholder" = "อื่น ๆ";
 "survey-submit" = "ส่ง";
-"survey-title" = "เหตุผล";
 "table-of-contents-button-label" = "สารบัญ";
 "table-of-contents-close-accessibility-hint" = "ปิด";
 "table-of-contents-close-accessibility-label" = "ปิดสารบัญ";
@@ -985,8 +951,6 @@
 "tabs-show-suggested-articles" = "แสดงการแนะนำบทความ";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "ซ่อนการแนะนำแล้ว";
 "tabs-survey-title" = "ช่วยเราปรับปรุงแท็บโดยบอกเราหน่อยว่าพอใจกับฟีเจอร์หรือไม่";
-"tabs-thumbnail-description" = "สำรวจวิกิพีเดีย สารานุกรมเสรีที่ใครก็แก้ไขได้";
-"tabs-thumbnail-subtitle" = "เริ่มต้นการค้นหาของคุณที่นี่";
 "tabs-title" = "แท็บ";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|ผู้ใช้ที่ใช้งานอยู่ $1}}";
 "talk-page-add-topic-button" = "เพิ่มหัวข้อ";
@@ -1003,9 +967,6 @@
 "talk-page-expand-thread-button" = "ขยายเธรด";
 "talk-page-find-in-page-button" = "ค้นหาในหน้า";
 "talk-page-menu-open-all" = "เปิดเธรดทั้งหมด";
-"talk-page-new-banner-title" = "โปรดใจกว้าง";
-"talk-page-new-reply-success-text" = "เผยแพร่การตอบกลับของคุณเรียบร้อยแล้ว";
-"talk-page-new-topic-success-text" = "การอภิปรายของคุณได้เผยแพร่เรียบร้อยแล้ว";
 "talk-page-onboarding-button-accessibility-label" = "แตะสองครั้งเพื่อกลับไปตอบกลับ";
 "talk-page-overflow-menu-accessibility" = "ตัวเลือกหน้าพูดคุยเพิ่มเติม";
 "talk-page-page-info" = "สารสนเทศหน้า";
@@ -1070,7 +1031,6 @@
 "top-read-widget-description" = "เรียนรู้สิ่งที่โลกกำลังอ่านในวันนี้บนวิกิพีเดีย";
 "top-read-widget-readers-count" = "ผู้อ่าน $1";
 "top-read-widget-title" = "อ่านมากที่สุด";
-"try-now-title" = "ลองตอนนี้";
 "tutorial-title" = "สอนใช้งาน";
 "two-factor-email-login-continue" = "เข้าสู่ระบบต่อ";
 "two-factor-email-login-instructions" = "โปรดระบุรหัสยืนยันอีเมล";
@@ -1084,7 +1044,6 @@
 "unwatch" = "เลิกเฝ้าดู";
 "user-title" = "ผู้ใช้";
 "vanish-account-continue-button-title" = "ดำเนินการต่อ";
-"vanish-account-username-field" = "ชื่อผู้ใช้และหน้าผู้ใช้";
 "vanish-account-warning-title" = "คำเตือน";
 "variants-alert-dismiss-button" = "ไม่ขอบคุณ";
 "variants-alert-preferences-button" = "ตรวจสอบการตั้งค่าของคุณ";
@@ -1261,12 +1220,7 @@
 "year-in-review-day-wednesday" = "วันพุธ";
 "year-in-review-donate" = "บริจาค";
 "year-in-review-donate-now" = "บริจาคเลยตอนนี้";
-"year-in-review-feature-announcement-body" = "ดูข้อมูลเชิงลึกเกี่ยวกับบทความที่คุณได้อ่านและแก้ไข และแบ่งปันไฮไลต์จากปีของเราบนวิกิพีเดีย";
-"year-in-review-feature-announcement-body-personalized" = "ดูข้อมูลเชิงลึกเกี่ยวกับบทความที่คุณได้อ่านบนแอปวิกิพีเดีย แบ่งปันการเดินทาง และดูไฮไลต์จากปีของคุณ";
-"year-in-review-feature-announcement-title" = "สำรวจรวบยอดประจำปี";
 "year-in-review-feature-announcement-title-personalized" = "สำรวจรวบยอดวิกิพีเดียปีนี้ของคุณ";
-"year-in-review-feature-explore-body" = "วิกิพีเดียเป็นแหล่งความรู้ที่ใหญ๋ที่สุดเท่าที่มีมาในประวัติศาสตร์โลก และยังสามารถเข้าถึงได้ทุกคนจากที่ใดก็ตาม นี่คือปี 2024 จากมุมมองของวิกิพีเดีย";
-"year-in-review-feature-explore-body-personalized-updated" = "ดูข้อมูลเชิงลึกเกี่ยวกับบทความที่คุณอ่านและแก้ไขบนแอปวิกิพีเดียในช่วงปี 2024 ประวัติการอ่านของคุณถูกเก็บรักษาอย่างดีและข้อมูลเชิงลึกต่าง ๆ ถูกคำนวนและเก็บไว้ในอุปกรณ์ของคุณเท่านั้น";
 "year-in-review-feature-explore-body-v3" = "ดูข้อมูลเชิงลึกเกี่ยวกับบทความที่คุณอ่านบนแอปวิกิพีเดียและการแก้ไขที่คุณทำ";
 "year-in-review-feature-explore-footer-v3" = "ประวัติการอ่านของคุณถูกเก็บรักษาอย่างดีและข้อมูลเชิงลึกต่าง ๆ ถูกคำนวนและเก็บไว้ในอุปกรณ์ของคุณเท่านั้น";
 "year-in-review-finish" = "เสร็จสิ้น";
