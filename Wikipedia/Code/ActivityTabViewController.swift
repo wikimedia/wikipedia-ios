@@ -876,7 +876,7 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
             imageType: .plainX,
             target: self,
             action: #selector(closeTapped),
-            alignment: .trailing
+            alignment: .leading
         )
 
         configureNavigationBar(
