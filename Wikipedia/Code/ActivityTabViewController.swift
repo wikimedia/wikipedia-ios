@@ -184,6 +184,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if let yirDataController,
+           yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier),
+           !yirDataController.hasTappedActivityTabAfterYiRReady {
+            yirDataController.hasTappedActivityTabAfterYiRReady = true
+            NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
+        }
         reachabilityNotifier.start()
 
         if !reachabilityNotifier.isReachable {
