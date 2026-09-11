@@ -325,7 +325,7 @@ class ArticlePlaceView: MapAnnotationView {
         isImageLoaded = true
         let article = articlePlace.articles[0]
         if let thumbnailURL = article.thumbnailURL {
-            imageImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, onGPU: true, failure: { (error) in
+            imageImageView.wmf_setImage(with: thumbnailURL, detectFaces: true, failure: { (error) in
                 if self.alwaysRasterize {
                     self.shouldRasterize = true
                 }

@@ -71,11 +71,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFNotificationsController.h>
 
 #import <WMF/MWKLanguageLinkController_Private.h>
-#import <WMF/WMFFaceDetectionCache.h>
-
-#import <WMF/CIContext+WMFImageProcessing.h>
-#import <WMF/CIDetector+WMFFaceDetection.h>
-
 #import <WMF/WMFContentSource.h>
 #import <WMF/WMFRelatedPagesContentSource.h>
 #import <WMF/WMFNearbyContentSource.h>
