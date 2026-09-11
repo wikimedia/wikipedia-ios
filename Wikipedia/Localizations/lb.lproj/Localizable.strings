@@ -407,6 +407,9 @@
 "end-session" = "Sessioun ofschléissen";
 "error-generic-recovery-suggestion" = "Probéiert wgl. méi spéit nach eng Kéier";
 "error-unknown" = "En onbekannte Feeler ass geschitt";
+"evergreen-account-creation-create-account-button" = "Kont uleeën";
+"evergreen-account-creation-slide-position" = "$1 vu(n) $2";
+"evergreen-account-creation-title" = "Wikipedia ass besser mat engem Kont";
 "explore-another-random" = "En aneren zoufällegen Artikel";
 "explore-because-you-read" = "Well Dir dat gelies hutt";
 "explore-continue-reading-heading" = "Virufuere mat Liesen";
@@ -525,6 +528,7 @@
 "find-replace-header-close-accessibility" = "Sichen an Ersetzen zoumaachen";
 "find-textfield-accessibility" = "Sichen";
 "for-you-empty-title" = "Nach näischt hei";
+"for-you-end-of-feed-community-link" = "Communautéit";
 "for-you-error-retry" = "Nach eng Kéier probéieren";
 "for-you-error-subtitle" = "Verbannt Iech mam Internet a probéiert nach eng Kéier.";
 "for-you-error-title" = "Keng Internetverbindung";

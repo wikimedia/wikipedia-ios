@@ -619,8 +619,9 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
 
         // Wait for payment sheet to dismiss
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.75, execute: { [weak self] in
-            self?.coordinatorDelegate?.handleDonateAction(.nativeFormDidTriggerPaymentSuccess)
-            self?.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerPaymentSuccess)
+            guard let self else { return }
+            self.coordinatorDelegate?.handleDonateAction(.nativeFormDidTriggerPaymentSuccess)
+            self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerPaymentSuccess(recurringMonthlyIsSelected: self.monthlyRecurringViewModel.isSelected))
         })
     }
 

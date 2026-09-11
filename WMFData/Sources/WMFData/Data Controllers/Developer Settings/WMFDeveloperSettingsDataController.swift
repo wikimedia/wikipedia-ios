@@ -260,9 +260,12 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         fundraisingOverriddenCurrentDate ?? Date()
     }
 
-    public var enableVisualEditingJourney: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableVisualEditingJourney.rawValue, value: newValue) }
+    // MARK: - Remote Feature Flags
+
+    /// Comes from `iosv1.visualEditorEnabled` in the remote feature config. A missing key or a
+    /// missing config keeps the legacy source editor flow.
+    public var isVisualEditorEnabled: Bool {
+        loadFeatureConfig()?.ios.visualEditorEnabled ?? false
     }
 
     // MARK: - Reading Challenge Forced States

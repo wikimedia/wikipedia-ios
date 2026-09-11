@@ -424,6 +424,7 @@
 "donation-reminder-wrap-up-survey-option-remove" = "Title of the donation reminder feedback survey option to remove the feature.";
 "donation-reminder-wrap-up-survey-placeholder" = "Placeholder of the optional free-form text field of the donation reminder feedback survey.";
 "donation-reminder-wrap-up-survey-subtitle" = "Question of the feedback survey shown at the end of the donation reminder experiment.";
+"donation-reminder-wrap-up-survey-title" = "Navigation bar title of the feedback survey shown at the end of the donation reminder experiment.";
 "donation-reminder-wrap-up-survey-toast" = "Toast shown after the user submits the donation reminder feedback survey.";
 "edit-link-display-text-title" = "Title for the display text label";
 "edit-link-link-target-title" = "Title for the link target label";
