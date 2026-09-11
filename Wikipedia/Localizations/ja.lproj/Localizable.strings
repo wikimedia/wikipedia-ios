@@ -1200,3 +1200,17 @@
 "year-in-review-survey-very-unsatisfied" = "非常に不満だ";
 "year-in-review-wmf-logo-accessibility-label" = "ウィキメディア財団のロゴ";
 "zero-edits-to-articles" = "最近の記事への編集は0件です";
+"evergreen-account-creation-activity-body" = "アクティビティタブで、閲覧時間や探索したトピック、自分の貢献の反響を確認できます。";
+"evergreen-account-creation-activity-title" = "アクティビティで最近読んだ記事を再読";
+"evergreen-account-creation-activity-title-count" = "アクティビティで最近読んだ記事$1件を再読";
+"evergreen-account-creation-create-account-button" = "アカウントを作成";
+"evergreen-account-creation-edits-body" = "ウィキメディアプロジェクトへの貢献が自分のアカウントに記録され、誇れる実績を築けます。";
+"evergreen-account-creation-edits-title" = "編集の功績を獲得";
+"evergreen-account-creation-maybe-later-button" = "後で";
+"evergreen-account-creation-saved-body" = "ウィキペディアアカウントにログインすると、保存済みの記事を複数のデバイスで同期できます。";
+"evergreen-account-creation-saved-title" = "保存記事を同期";
+"evergreen-account-creation-saved-title-count" = "保存記事$1件を同期";
+"evergreen-account-creation-title" = "アカウント作成で、ウィキペディアがもっと便利に";
+"evergreen-account-creation-year-in-review-body" = "年に一度、これまでの閲覧記録を振り返り、一年のまとめとしてお届けします。シェアもできます。";
+"evergreen-account-creation-year-in-review-title" = "閲覧記録を一年のまとめで確認";
+"evergreen-account-creation-year-in-review-title-count" = "$1日分の閲覧記録を一年のまとめで確認";
