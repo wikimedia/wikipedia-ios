@@ -118,7 +118,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         let tempUsername = dataStore.authenticationManager.authStateTemporaryUsername
         let isTempAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled && dataStore.authenticationManager.authStateIsTemporary
 
-        let language = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
+        let language = dataStore.languageLinkController.appLanguage?.contentLanguageCode.uppercased() ?? String()
 
         let viewModel = await WMFSettingsViewModel(localizedStrings: locStrings(), username: username, tempUsername: tempUsername, isTempAccount: isTempAccount, primaryLanguage: language, exploreFeedStatus: isExploreFeedOn, readingPreferenceTheme: themeName, dataController: dataController)
 
@@ -130,7 +130,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     }
 
     func fetchDynamicValues() -> (primaryLanguage: String, exploreFeedStatus: Bool, readingPreferenceTheme: String) {
-        let primaryLanguage = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
+        let primaryLanguage = dataStore.languageLinkController.appLanguage?.contentLanguageCode.uppercased() ?? String()
         let exploreFeedStatus = UserDefaults.standard.defaultTabType == .explore
         let readingPreferenceTheme = UserDefaults.standard.themeDisplayName
         return (primaryLanguage: primaryLanguage, exploreFeedStatus: exploreFeedStatus, readingPreferenceTheme: readingPreferenceTheme)
@@ -517,7 +517,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     }
 
     func handleLanguagesDidUpdate() {
-        if let newLanguage = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() {
+        if let newLanguage = dataStore.languageLinkController.appLanguage?.contentLanguageCode.uppercased() {
             settingsViewModel?.updateDynamicValues(
                 primaryLanguage: newLanguage,
                 exploreFeedStatus: UserDefaults.standard.defaultTabType == .explore,
