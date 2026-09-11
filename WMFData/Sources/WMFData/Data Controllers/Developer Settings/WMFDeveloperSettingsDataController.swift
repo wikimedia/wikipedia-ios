@@ -7,6 +7,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     var showYiR2025: Bool { get }
     var enableYiRLoginExperimentControl: Bool { get }
     var enableYiRLoginExperimentB: Bool { get }
+    var forceYiREntryPoint: Bool { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
@@ -78,6 +79,21 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     public var showYiR2025: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiR2025.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiR2025.rawValue, value: newValue) }
+    }
+    
+    // 2026 YIR
+    /// Debugging convenience: when true, the Year in Review entry point ignores the settings
+    /// toggle, the remote config's active window, and the suppressed-country list, so it presents
+    /// before the year's config exists remotely.
+    public var forceYiREntryPoint: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiREntryPoint.rawValue)) ?? false }
+        set {
+            let oldValue = forceYiREntryPoint
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceYiREntryPoint.rawValue, value: newValue)
+            if oldValue != newValue {
+                NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
+            }
+        }
     }
 
     /// Gates home feed work that ships after the initial Home tab experiment: the reworked community

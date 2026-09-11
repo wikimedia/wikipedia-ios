@@ -118,6 +118,7 @@ import WMFData
         let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
         let allowGestureZoomArticleWebview = WMFFormItemSelectViewModel(title: "Allow pinch to zoom when reading articles", isSelected: WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview)
         let enableHomePhase2 = WMFFormItemSelectViewModel(title: "Enable Home Phase 2", isSelected: WMFDeveloperSettingsDataController.shared.enableHomePhase2)
+        let forceYiREntryPoint = WMFFormItemSelectViewModel(title: "Force Year in Review Entry Point 2026", isSelected: WMFDeveloperSettingsDataController.shared.forceYiREntryPoint)
 
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
@@ -125,6 +126,7 @@ import WMFData
                 doNotPostImageRecommendationsEditItem,
                 sendAnalyticsToWMFLabsItem,
                 bypassDonationItem,
+                forceYiREntryPoint,
                 forceEmailAuth,
                 forceMaxArticleTabsTo5,
                 enableMoreDynamicTabsV2GroupC,
@@ -133,6 +135,10 @@ import WMFData
                 allowGestureZoomArticleWebview
             ], selectType: .multi)
         ])
+        
+        forceYiREntryPoint.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceYiREntryPoint = isSelected }
+            .store(in: &subscribers)
 
         doNotPostImageRecommendationsEditItem.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit = isSelected }

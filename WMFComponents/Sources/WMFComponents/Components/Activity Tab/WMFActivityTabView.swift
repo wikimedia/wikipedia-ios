@@ -10,14 +10,30 @@ public struct WMFActivityTabView: View {
     @State private var animatedGlobalEditCount: Int = 0
     @State private var hasShownGlobalEditsCard: Bool = false
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     var theme: WMFTheme {
         return appEnvironment.theme
+    }
+
+    /// Logged out, the card is normally pinned above the tab bar. At accessibility text sizes it is
+    /// taller than the space an inset can give it, so it moves inline and scrolls with the content
+    /// instead of squeezing everything above it.
+    private var usesPinnedYearInReviewCard: Bool {
+        viewModel.authenticationState != .loggedIn && !dynamicTypeSize.isAccessibilitySize
+    }
+
+    /// Every placement has to check this before applying padding: `yearInReviewCard` resolves to an
+    /// empty view when there is no card, but a padding modifier wrapped around it still reserves
+    /// its insets.
+    private var hasYearInReviewCard: Bool {
+        viewModel.yearInReviewViewModel != nil
     }
 
     public init(viewModel: WMFActivityTabViewModel) {
         self.viewModel = viewModel
     }
-
+    
     public var body: some View {
         ScrollViewReader { proxy in
             if viewModel.isLoading {
@@ -36,13 +52,38 @@ public struct WMFActivityTabView: View {
                 }
             }
         }
+        .safeAreaInset(edge: .bottom) {
+            // Logged in, the card sits at the top instead — see loggedInList and
+            // customizedEmptyState.
+            if usesPinnedYearInReviewCard, hasYearInReviewCard {
+                yearInReviewCard
+                    .padding(.bottom, 16)
+            }
+        }
         .onAppear {
             viewModel.fetchData(fromAppearance: true)
         }
     }
 
+    @ViewBuilder
+    private var yearInReviewCard: some View {
+        if let yearInReviewViewModel = viewModel.yearInReviewViewModel {
+            WMFActivityTabYearInReviewCardView(viewModel: yearInReviewViewModel)
+        }
+    }
+
     private func loggedInList(proxy: ScrollViewProxy) -> some View {
         List {
+            if hasYearInReviewCard {
+                Section {
+                    yearInReviewCard
+                        .padding(.top, 16)
+                        .listRowInsets(EdgeInsets())
+                        .listRowBackground(Color(uiColor: theme.paperBackground))
+                }
+                .listRowSeparator(.hidden)
+            }
+
             if viewModel.customizeViewModel.isTimeSpentReadingOn || viewModel.customizeViewModel.isReadingInsightsOn {
                 Section {
                     VStack(spacing: 16) {
@@ -180,26 +221,36 @@ public struct WMFActivityTabView: View {
     @ViewBuilder
     private func loggedOutList(proxy: ScrollViewProxy) -> some View {
         if viewModel.sections.count == 0 {
-            VStack {
-                Section {
-                    loggedOutView
-                        .accessibilityElement(children: .contain)
-                        .listRowInsets(EdgeInsets())
-                }
-                .listRowSeparator(.hidden)
+            // A ScrollView rather than a fixed-height stack: at accessibility text sizes the
+            // logged-out box, the empty view, and the Year in Review card are together taller than
+            // the screen, and without scrolling the content is clipped.
+            GeometryReader { geometry in
+                ScrollView {
+                    VStack(spacing: 0) {
+                        loggedOutView
+                            .accessibilityElement(children: .contain)
 
-                HStack {
-                    Spacer()
-                    WMFEmptyView(
-                        appEnvironment: appEnvironment,
-                        viewModel: viewModel.emptyViewModel,
-                        type: .noItems,
-                        isScrollable: false)
-                    Spacer()
+                        Spacer(minLength: 16)
+
+                        WMFEmptyView(
+                            appEnvironment: appEnvironment,
+                            viewModel: viewModel.emptyViewModel,
+                            type: .noItems,
+                            isScrollable: false)
+                            .frame(maxWidth: .infinity)
+
+                        Spacer(minLength: 16)
+
+                        if !usesPinnedYearInReviewCard, hasYearInReviewCard {
+                            yearInReviewCard
+                                .padding(.bottom, 16)
+                        }
+                    }
+                    // Keeps the normal-size layout centered the way the fixed-height stack did,
+                    // while still letting the content grow past the screen and scroll.
+                    .frame(maxWidth: .infinity, minHeight: geometry.size.height)
                 }
             }
-            .frame(maxHeight: .infinity)
-            .listRowSeparator(.hidden)
             .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         } else {
             List {
@@ -209,6 +260,16 @@ public struct WMFActivityTabView: View {
                         .listRowInsets(EdgeInsets())
                 }
                 .listRowSeparator(.hidden)
+
+                if !usesPinnedYearInReviewCard, hasYearInReviewCard {
+                    Section {
+                        yearInReviewCard
+                            .padding(.top, 16)
+                            .listRowInsets(EdgeInsets())
+                            .listRowBackground(Color(uiColor: theme.paperBackground))
+                    }
+                    .listRowSeparator(.hidden)
+                }
             }
             .scrollContentBackground(.hidden)
             .listStyle(.grouped)
@@ -522,8 +583,27 @@ public struct WMFActivityTabView: View {
         return numberFormatter.string(from: NSNumber(value: amount)) ?? "\(amount)"
     }
 
+    /// Logged in with every module turned off. The Year in Review card still belongs here, so it
+    /// keeps the same top placement it has in `loggedInList` and the empty state fills what is left.
+    ///
+    /// Scrollable for the same reason as the logged-out state: at accessibility text sizes the card
+    /// and the empty view together exceed the screen.
     private func customizedEmptyState() -> some View {
-        WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState)
-            .frame(maxWidth: .infinity)
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(spacing: 0) {
+                    if hasYearInReviewCard {
+                        yearInReviewCard
+                            .padding(.top, 16)
+                            .padding(.bottom, 16)
+                    }
+
+                    WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState)
+                        .frame(maxWidth: .infinity)
+                }
+                .frame(maxWidth: .infinity, minHeight: geometry.size.height)
+            }
+        }
+        .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
     }
 }

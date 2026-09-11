@@ -118,6 +118,26 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             }
         }
     }
+    
+    private func configureYearInReviewEntryPoint() {
+        guard let yirDataController,
+              yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier) else {
+            viewModel.yearInReviewViewModel = nil
+            return
+        }
+
+        if viewModel.yearInReviewViewModel == nil {
+            let yirViewModel = WMFActivityTabYearInReviewViewModel()
+            yirViewModel.onTap = { [weak self] in
+                self?.yirCoordinator?.start()
+            }
+            viewModel.yearInReviewViewModel = yirViewModel
+        }
+
+        // TODO: Shared Logic task supplies the real data-rich / low-data split
+        // (2 or more personalized slides). Standing in with login state for now.
+        viewModel.yearInReviewViewModel?.isDataRich = viewModel.authenticationState == .loggedIn
+    }
 
     private func embedHostingController() {
         addChild(hostingController)
@@ -163,6 +183,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        markYearInReviewAsSeen()
+
         reachabilityNotifier.start()
 
         if !reachabilityNotifier.isReachable {
@@ -210,8 +233,23 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
     }
 
+    /// Clears the Activity tab's Year in Review badge. Called on every appearance; writes once, so
+    /// repeat calls are cheap.
+    private func markYearInReviewAsSeen() {
+        guard let yirDataController,
+              yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier),
+              !yirDataController.hasTappedActivityTabAfterYiRReady else {
+            return
+        }
+        yirDataController.hasTappedActivityTabAfterYiRReady = true
+        NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
+    }
+
     @objc private func updateLoginState() {
         setupLoginState(needsRefetch: true)
+        // The data-rich / low-data copy currently follows login state, so the card has to be
+        // rebuilt here rather than waiting for the next viewWillAppear.
+        configureYearInReviewEntryPoint()
     }
 
     private func presentFullLoginFlow(fromCustomizeToast: Bool = false, loginSuccessCompletion: (() -> Void)? = nil, fromWidget: Bool = false) {
@@ -318,6 +356,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         viewModel.onTapArticle = onTapArticleURL(articleURL:)
         viewModel.timelineViewModel.onTapEditArticle = onTapEditArticle
         viewModel.onTapGlobalEdits = onTapGlobalEdits
+        
+        configureYearInReviewEntryPoint()
 
         configureNavigationBar()
     }

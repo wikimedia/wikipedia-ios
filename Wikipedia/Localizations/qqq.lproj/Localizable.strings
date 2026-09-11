@@ -134,6 +134,11 @@
 "activity-tab-very-satisfied" = "Satisfaction survey very satisfied";
 "activity-tab-very-unsatisfied" = "Satisfaction survey very unsatisfied";
 "activity-tab-week-graph-label" = "Activity tab week graph axis label";
+"activity-tab-year-in-review-cta" = "Button on the Year in Review entry point on the Activity tab that opens Year in Review.";
+"activity-tab-year-in-review-data-rich-subtitle" = "Subtitle of the Year in Review entry point on the Activity tab, shown to users with enough data for a personalized experience.";
+"activity-tab-year-in-review-data-rich-title" = "Title of the Year in Review entry point on the Activity tab, shown to users with enough data for a personalized experience.";
+"activity-tab-year-in-review-low-data-subtitle" = "Subtitle of the Year in Review entry point on the Activity tab, shown to users without enough data for a personalized experience.";
+"activity-tab-year-in-review-low-data-title" = "Title of the Year in Review entry point on the Activity tab, shown to users without enough data for a personalized experience.";
 "activity-tab-you-edited" = "Displays how many articles the user edited in the past week, $1 is the amount, returning the pluralized version of article depending.";
 "activity-tab-you-read" = "Displays how many articles the user read in the past week, $1 is the amount, returning the pluralized version of article depending.";
 "activity-tab-you-saved" = "Displays how many articles the user saved in the past week, $1 is the amount, returning the pluralized version of article depending.";

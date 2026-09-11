@@ -236,6 +236,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                                                object: nil)
 
         NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleYearInReviewActivityBadgeNeedsUpdate),
+                                               name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate,
+                                               object: nil)
+
+        NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleNotificationsCenterContextDidSave),
                                                name: NSNotification.notificationsCenterContextDidSave,
                                                object: nil)
@@ -355,6 +360,8 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         if let savedTabBarItem = savedViewController.tabBarItem {
             savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(with: savedTabBarItem)
         }
+
+        updateActivityTabYearInReviewBadge()
     }
 
     private func configureTabController() {
@@ -468,6 +475,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         SessionsFunnel.shared.appDidBecomeActive()
         startEvergreenAccountCreationSession()
         checkRemoteAppConfigIfNecessary()
+        updateActivityTabYearInReviewBadge()
         updatePrimaryWikiHasTempAccountsStatusIfNecessary()
         periodicWorkerController?.start()
         savedArticlesFetcher?.start()
@@ -682,6 +690,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                 if let savedTabBarItem = self.savedViewController.tabBarItem {
                     self.savedTabBarItemProgressBadgeManager = SavedTabBarItemProgressBadgeManager(with: savedTabBarItem)
                 }
+                self.updateActivityTabYearInReviewBadge()
                 self.selectedIndex = WMFAppTabType.main.rawValue
                 self.isUpdatingDefaultTab = false
             }
@@ -1538,6 +1547,27 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         }
     }
 
+    // MARK: - Year in Review Activity tab badge
+
+    @objc private func handleYearInReviewActivityBadgeNeedsUpdate() {
+        updateActivityTabYearInReviewBadge()
+    }
+
+    private func updateActivityTabYearInReviewBadge() {
+        guard uiIsLoaded else { return }
+        guard let dataController = try? WMFYearInReviewDataController() else { return }
+
+        let needsBadge = dataController.shouldShowActivityTabBadge(countryCode: Locale.current.region?.identifier)
+
+        if #available(iOS 18.0, *) {
+            let identifier = AccessibilityIdentifiers.RootTab.activityButton
+            tabs.first { $0.identifier == identifier }?.showYearInReviewBadge(needsBadge)
+        }
+        // Read the cached controller rather than the lazy getter — badging must never be the thing
+        // that constructs the Activity tab.
+        _activityTabViewController?.tabBarItem.showYearInReviewBadge(needsBadge)
+    }
+
     @objc func handleNotificationsCenterContextDidSave() {
         DispatchQueue.main.async {
             try? UNUserNotificationCenter.current().setBadgeCount(self.dataStore.remoteNotificationsController.numberOfUnreadNotifications().intValue)
@@ -1771,6 +1801,12 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             }
             self.isCheckingRemoteConfig = false
             self.endRemoteConfigCheckBackgroundTask()
+
+            // Year in Review availability comes from this config, so the badge cannot settle
+            // until the fetch lands. This completion carries no isolation, so hop explicitly.
+            Task { @MainActor in
+                self.updateActivityTabYearInReviewBadge()
+            }
         }
     }
 
@@ -2397,5 +2433,23 @@ extension WMFAppViewController: WMFOnboardingViewDelegate {
         oneTimeOnboardingViewController?.dismiss(animated: true) { [weak self] in
             self?.oneTimeOnboardingViewController = nil
         }
+    }
+}
+
+// MARK: - Year in Review badge glyph
+
+/// Matches `SavedTabBarItemProgressBadgeManager`, which badges its tab with this same glyph.
+private let wmfYearInReviewTabBadgeGlyph = "\u{2605}"
+
+private extension UITabBarItem {
+    func showYearInReviewBadge(_ shouldShow: Bool) {
+        badgeValue = shouldShow ? wmfYearInReviewTabBadgeGlyph : nil
+    }
+}
+
+@available(iOS 18.0, *)
+private extension UITab {
+    func showYearInReviewBadge(_ shouldShow: Bool) {
+        badgeValue = shouldShow ? wmfYearInReviewTabBadgeGlyph : nil
     }
 }
