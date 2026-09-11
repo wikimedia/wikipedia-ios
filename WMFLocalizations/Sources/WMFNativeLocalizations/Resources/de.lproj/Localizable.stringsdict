@@ -403,7 +403,7 @@
 	<key>evergreen-account-creation-year-in-review-title-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Sieh %1$#@v1@ mit Leseaktivität im Jahresrückblick</string>
+		<string>Sehen Sie %1$#@v1@ mit Leseaktivität im Jahresüberblick</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -411,9 +411,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>deinen %1$d Tag</string>
+			<string>Ihr %1$d Tag</string>
 			<key>other</key>
-			<string>deine %1$d Tage</string>
+			<string>Ihre %1$d Tage</string>
 		</dict>
 	</dict>
 	<key>home-feed-interests-selected-count</key>
