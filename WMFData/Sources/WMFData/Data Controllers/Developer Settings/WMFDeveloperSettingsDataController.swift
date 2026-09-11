@@ -260,6 +260,31 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         fundraisingOverriddenCurrentDate ?? Date()
     }
 
+    // MARK: - Semantic Search
+
+    public var enableSemanticSearch: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableSemanticSearch.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableSemanticSearch.rawValue, value: newValue) }
+    }
+
+    /// Debugging convenience: overrides the persisted semantic search experiment bucket at read
+    /// time without re-rolling it, and bypasses the target language gate. Nil means no override.
+    public var forceSemanticSearchExperimentAssignment: WMFSemanticSearchDataController.ExperimentAssignment? {
+        get {
+            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchExperimentAssignment.rawValue) else {
+                return nil
+            }
+            return WMFSemanticSearchDataController.ExperimentAssignment(rawValue: rawValue)
+        }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchExperimentAssignment.rawValue, value: newValue.rawValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchExperimentAssignment.rawValue)
+            }
+        }
+    }
+
     // MARK: - Remote Feature Flags
 
     /// Comes from `iosv1.visualEditorEnabled` in the remote feature config. A missing key or a

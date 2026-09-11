@@ -43,7 +43,7 @@ struct WMFDeveloperSettingsView: View {
 
             Section {
                 Toggle("Bypass Reminder Daily Limit", isOn: $viewModel.bypassDonationReminderDailyLimit)
-                fundraisingRow(caption: "Changes the date the donation reminder end gate treats as today; reading progress, the daily limit, and networking keep using the real device date.") {
+                captionedRow(caption: "Changes the date the donation reminder end gate treats as today; reading progress, the daily limit, and networking keep using the real device date.") {
                     Toggle("Override Current Date", isOn: $viewModel.overrideFundraisingCurrentDate)
                 }
                 if viewModel.overrideFundraisingCurrentDate {
@@ -56,16 +56,16 @@ struct WMFDeveloperSettingsView: View {
                     .datePickerStyle(.graphical)
                     .labelsHidden()
                 }
-                fundraisingRow(caption: "Ignores country and language settings. Only works if there is an active campaign.") {
+                captionedRow(caption: "Ignores country and language settings. Only works if there is an active campaign.") {
                     Toggle("Force Fundraising Campaign Banner", isOn: $viewModel.forceFundraisingCampaignBanner)
                 }
-                fundraisingRow(caption: "Fetches the donate and campaign configs from test.wikipedia.org instead of donate.wikimedia.org; toggling clears the cached configs and refetches immediately.") {
+                captionedRow(caption: "Fetches the donate and campaign configs from test.wikipedia.org instead of donate.wikimedia.org; toggling clears the cached configs and refetches immediately.") {
                     Toggle("Use Test Wiki Donate Configs", isOn: $viewModel.useTestWikiDonateConfigs)
                 }
-                fundraisingRow(caption: "Skips the getPaymentMethods API call and enables Apple Pay with the standard card networks; use it when the payments API rate limits the device.") {
+                captionedRow(caption: "Skips the getPaymentMethods API call and enables Apple Pay with the standard card networks; use it when the payments API rate limits the device.") {
                     Toggle("Use Hardcoded Payment Methods", isOn: $viewModel.useHardcodedPaymentMethods)
                 }
-                fundraisingRow(caption: "Overrides the persisted A/B/C bucket at read time; switching it back to Off restores the persisted bucket.") {
+                captionedRow(caption: "Overrides the persisted A/B/C bucket at read time; switching it back to Off restores the persisted bucket.") {
                     Picker("Force Reminder Experiment Group", selection: $viewModel.forceDonationReminderExperimentAssignment) {
                         Text("Off").tag(WMFDonationReminderDataController.ExperimentAssignment?.none)
                         Text("Control (A)").tag(WMFDonationReminderDataController.ExperimentAssignment?.some(.control))
@@ -73,7 +73,7 @@ struct WMFDeveloperSettingsView: View {
                         Text("Group C").tag(WMFDonationReminderDataController.ExperimentAssignment?.some(.groupC))
                     }
                 }
-                fundraisingRow(caption: "Resets \"maybe later\" / \"already donated\", the local donation history, the saved donation reminder, the experiment bucket, and the wrap-up card, so the banner can show again and the next Maybe Later re-rolls the A/B/C assignment.") {
+                captionedRow(caption: "Resets \"maybe later\" / \"already donated\", the local donation history, the saved donation reminder, the experiment bucket, and the wrap-up card, so the banner can show again and the next Maybe Later re-rolls the A/B/C assignment.") {
                     Button {
                         viewModel.clearFundraisingCampaignPersistence()
                     } label: {
@@ -82,6 +82,28 @@ struct WMFDeveloperSettingsView: View {
                 }
             } header: {
                 Text("Fundraising")
+            }
+
+            Section {
+                captionedRow(caption: "Keeps the semantic search entry point hidden in production. Without this, no gate below is evaluated.") {
+                    Toggle("Enable Semantic Search", isOn: $viewModel.enableSemanticSearch)
+                }
+                captionedRow(caption: "Overrides the persisted A/B bucket at read time and bypasses the target language gate; switching it back to Off restores the persisted bucket.") {
+                    Picker("Force Experiment Group", selection: $viewModel.forceSemanticSearchExperimentAssignment) {
+                        Text("Off").tag(WMFSemanticSearchDataController.ExperimentAssignment?.none)
+                        Text("Control (A)").tag(WMFSemanticSearchDataController.ExperimentAssignment?.some(.control))
+                        Text("Group B").tag(WMFSemanticSearchDataController.ExperimentAssignment?.some(.groupB))
+                    }
+                }
+                captionedRow(caption: "Removes the persisted bucket so the next eligible search re-rolls the A/B assignment.") {
+                    Button {
+                        viewModel.clearSemanticSearchExperimentAssignment()
+                    } label: {
+                        Text("Clear experiment assignment")
+                    }
+                }
+            } header: {
+                Text("Semantic Search")
             }
 
             ForEach(viewModel.formViewModel.sections) { section in
@@ -95,7 +117,7 @@ struct WMFDeveloperSettingsView: View {
         .listBackgroundColor(Color(theme.baseBackground))
     }
 
-    private func fundraisingRow(caption: String, @ViewBuilder control: () -> some View) -> some View {
+    private func captionedRow(caption: String, @ViewBuilder control: () -> some View) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             control()
             Text(caption)
