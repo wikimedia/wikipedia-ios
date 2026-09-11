@@ -108,4 +108,8 @@ public enum WMFUserDefaultsKey: String {
 
     // Evergreen account creation prompt
     case evergreenAccountCreationState = "evergreen-account-creation-state"
+
+    // Semantic search
+    case developerSettingsEnableSemanticSearch = "dev-settings-enable-semantic-search"
+    case developerSettingsForceSemanticSearchExperimentAssignment = "dev-settings-force-semantic-search-experiment-assignment"
 }

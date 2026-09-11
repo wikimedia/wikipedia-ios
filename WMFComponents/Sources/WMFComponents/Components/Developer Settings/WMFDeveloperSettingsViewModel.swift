@@ -86,6 +86,18 @@ import WMFData
         }
     }
 
+    @Published public var enableSemanticSearch: Bool = WMFDeveloperSettingsDataController.shared.enableSemanticSearch {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.enableSemanticSearch = enableSemanticSearch
+        }
+    }
+
+    @Published public var forceSemanticSearchExperimentAssignment: WMFSemanticSearchDataController.ExperimentAssignment? = WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.forceSemanticSearchExperimentAssignment = forceSemanticSearchExperimentAssignment
+        }
+    }
+
     var fundraisingOverrideDateRange: ClosedRange<Date> {
         let lowerBound = WMFDonationReminderDataController.reminderEndDate.addingTimeInterval(-86_400)
         let upperBound = WMFDonationReminderDataController.wrapUpEndDate.addingTimeInterval(86_400)
@@ -174,6 +186,13 @@ import WMFData
         WMFDeveloperSettingsDataController.shared.clearFundraisingCampaignPersistence()
         Task { @MainActor in
             WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Fundraising state cleared. The campaign banner can show again.")))
+        }
+    }
+
+    public func clearSemanticSearchExperimentAssignment() {
+        WMFSemanticSearchDataController.shared.clearExperimentAssignment()
+        Task { @MainActor in
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Semantic search bucket cleared. The next eligible search re-rolls the assignment.")))
         }
     }
 
