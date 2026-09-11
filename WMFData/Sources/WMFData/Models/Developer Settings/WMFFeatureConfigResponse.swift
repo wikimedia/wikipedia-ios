@@ -106,7 +106,7 @@ public struct WMFFeatureConfigResponse: Codable {
     public struct IOS: Codable {
         public let hCaptcha: HCaptcha?
         public let visualEditorEnabled: Bool?
-        public let semanticSearchLanguages: [String]?
+        public let semanticSearchLanguages: [String]
         
         public struct HCaptcha: Codable {
             public let baseURL: String
@@ -119,10 +119,23 @@ public struct WMFFeatureConfigResponse: Codable {
             public let apiKey: String
         }
 
-        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String]? = nil) {
+        public init(hCaptcha: HCaptcha?, visualEditorEnabled: Bool? = nil, semanticSearchLanguages: [String] = []) {
             self.hCaptcha = hCaptcha
             self.visualEditorEnabled = visualEditorEnabled
             self.semanticSearchLanguages = semanticSearchLanguages
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case hCaptcha
+            case visualEditorEnabled
+            case semanticSearchLanguages
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            hCaptcha = try container.decodeIfPresent(HCaptcha.self, forKey: .hCaptcha)
+            visualEditorEnabled = try container.decodeIfPresent(Bool.self, forKey: .visualEditorEnabled)
+            semanticSearchLanguages = try container.decodeIfPresent([String].self, forKey: .semanticSearchLanguages) ?? []
         }
     }
     

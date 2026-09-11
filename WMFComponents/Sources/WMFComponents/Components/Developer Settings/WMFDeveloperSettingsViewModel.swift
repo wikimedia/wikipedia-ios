@@ -190,9 +190,15 @@ import WMFData
     }
 
     public func clearSemanticSearchExperimentAssignment() {
-        WMFSemanticSearchDataController.shared.clearExperimentAssignment()
+        let title: String
+        do {
+            try WMFSemanticSearchDataController.shared.clearExperimentAssignment()
+            title = "Semantic search bucket cleared. The next eligible search re-rolls the assignment."
+        } catch {
+            title = "Could not clear the semantic search bucket: \(error)"
+        }
         Task { @MainActor in
-            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Semantic search bucket cleared. The next eligible search re-rolls the assignment.")))
+            WMFToastPresenter.shared.show(WMFToastConfig(title: .init(title)))
         }
     }
 

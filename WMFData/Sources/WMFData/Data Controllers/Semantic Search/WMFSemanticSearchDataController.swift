@@ -54,8 +54,11 @@ public final class WMFSemanticSearchDataController {
         targetLanguageCodes.contains(languageCode)
     }
 
+    /// The languages from `iosv1.semanticSearchLanguages` in the remote feature config. Until the
+    /// remote config has the key, the default target languages apply.
     public var targetLanguageCodes: [String] {
-        WMFDeveloperSettingsDataController.shared.loadFeatureConfig()?.ios.semanticSearchLanguages ?? Self.defaultTargetLanguageCodes
+        let remoteLanguageCodes = WMFDeveloperSettingsDataController.shared.loadFeatureConfig()?.ios.semanticSearchLanguages ?? []
+        return remoteLanguageCodes.isEmpty ? Self.defaultTargetLanguageCodes : remoteLanguageCodes
     }
 
     // MARK: - Experiment Assignment
@@ -64,15 +67,15 @@ public final class WMFSemanticSearchDataController {
     /// the persisted bucket after that. Returns nil when the search is not eligible.
     @discardableResult
     public func assignExperimentIfNeeded(languageCode: String) throws -> ExperimentAssignment? {
-        guard let experimentStore else {
-            throw ExperimentError.missingExperimentStore
-        }
-
         stateLock.lock()
         defer { stateLock.unlock() }
 
         guard isEligible(languageCode: languageCode) else {
             return nil
+        }
+
+        guard let experimentStore else {
+            throw ExperimentError.missingExperimentStore
         }
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
@@ -102,13 +105,13 @@ public final class WMFSemanticSearchDataController {
         return ExperimentAssignment(bucketValue: bucketValue)
     }
 
-    public func clearExperimentAssignment() {
+    public func clearExperimentAssignment() throws {
         guard let experimentStore else {
-            return
+            throw ExperimentError.missingExperimentStore
         }
 
         let experimentsDataController = WMFExperimentsDataController(store: experimentStore)
-        try? experimentsDataController.resetExperiment(.semanticSearch)
+        try experimentsDataController.resetExperiment(.semanticSearch)
     }
 
     // Overrides assignment at read time only, so the persisted bucket survives
