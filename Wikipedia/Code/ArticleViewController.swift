@@ -177,7 +177,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     var isShowingDonateFlowFromDonationReminderCard = false
 
-    var isShowingWrapUpCard = false
+    var shownWrapUpCard: WMFDonationReminderDataController.WrapUpCard?
 
     var localDonationCountBeforeDonateFlow = 0
 
