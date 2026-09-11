@@ -129,9 +129,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if viewModel.yearInReviewViewModel == nil {
             let yirViewModel = WMFActivityTabYearInReviewViewModel()
             yirViewModel.onTap = { [weak self] in
-                guard let self else { return }
-                self.markYearInReviewAsSeen()
-                self.yirCoordinator?.start()
+                self?.yirCoordinator?.start()
             }
             viewModel.yearInReviewViewModel = yirViewModel
         }
@@ -235,9 +233,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
     }
 
-    /// Clears the Activity tab's Year in Review badge. Called on every appearance, and again from
-    /// the entry point card in case it is somehow tapped first. Writes once, so repeat calls are
-    /// cheap.
+    /// Clears the Activity tab's Year in Review badge. Called on every appearance; writes once, so
+    /// repeat calls are cheap.
     private func markYearInReviewAsSeen() {
         guard let yirDataController,
               yirDataController.shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier),
@@ -250,6 +247,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     @objc private func updateLoginState() {
         setupLoginState(needsRefetch: true)
+        // The data-rich / low-data copy currently follows login state, so the card has to be
+        // rebuilt here rather than waiting for the next viewWillAppear.
+        configureYearInReviewEntryPoint()
     }
 
     private func presentFullLoginFlow(fromCustomizeToast: Bool = false, loginSuccessCompletion: (() -> Void)? = nil, fromWidget: Bool = false) {

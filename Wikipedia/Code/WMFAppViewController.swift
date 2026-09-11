@@ -1553,14 +1553,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         updateActivityTabYearInReviewBadge()
     }
 
-    /// Shows an unread indicator on the Activity tab once Year in Review is available, until the
-    /// user opens Activity. Applies to logged-in and logged-out users alike.
-    ///
-    /// Badged the same way as the Saved tab. On iOS 18+ the visible tab bar is driven by
-    /// `self.tabs`, so badging `activityTabViewController.tabBarItem` alone never reaches the
-    /// screen. The tab is looked up by the identifier `configureTabController` assigns it rather
-    /// than held in a property, both because `UITab` is iOS 18+ and so a tab rebuild cannot leave
-    /// a stale reference behind.
     private func updateActivityTabYearInReviewBadge() {
         guard uiIsLoaded else { return }
         guard let dataController = try? WMFYearInReviewDataController() else { return }
@@ -1571,7 +1563,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             let identifier = AccessibilityIdentifiers.RootTab.activityButton
             tabs.first { $0.identifier == identifier }?.showYearInReviewBadge(needsBadge)
         }
-        activityTabViewController.tabBarItem.showYearInReviewBadge(needsBadge)
+        // Read the cached controller rather than the lazy getter — badging must never be the thing
+        // that constructs the Activity tab.
+        _activityTabViewController?.tabBarItem.showYearInReviewBadge(needsBadge)
     }
 
     @objc func handleNotificationsCenterContextDidSave() {
