@@ -161,28 +161,29 @@ public actor WMFEvergreenAccountCreationDataController {
     ///   - isAnotherPromptVisible: Whether a tooltip or prompt is already on screen. This prompt
     ///     ranks below all of them and never shares the screen with one.
     public func shouldShowPrompt(in context: PresentationContext, hasPermanentAccount: Bool, isAnotherPromptVisible: Bool) -> Bool {
-        guard !hasPermanentAccount,
-              !isAnotherPromptVisible,
-              context.allowsPrompt else {
-            return false
-        }
-
-        let state = loadState()
-
-        guard state.isAccountReady, !state.isFinished else { return false }
-
-        switch state.impressionCount {
-        case 0:
-            return true
-        case 1:
-            // Only a "Maybe later" reader gets here, and only once they have opened the app on two
-            // more days. Without that recorded count there is nothing to measure, so hold the prompt.
-            guard let liveAppOpenDayCountAtMaybeLater = state.liveAppOpenDayCountAtMaybeLater else { return false }
-
-            return state.liveAppOpenDayCount >= liveAppOpenDayCountAtMaybeLater + Self.appOpenDaysAfterMaybeLater
-        default:
-            return false
-        }
+        return true
+//        guard !hasPermanentAccount,
+//              !isAnotherPromptVisible,
+//              context.allowsPrompt else {
+//            return false
+//        }
+//
+//        let state = loadState()
+//
+//        guard state.isAccountReady, !state.isFinished else { return false }
+//
+//        switch state.impressionCount {
+//        case 0:
+//            return true
+//        case 1:
+//            // Only a "Maybe later" reader gets here, and only once they have opened the app on two
+//            // more days. Without that recorded count there is nothing to measure, so hold the prompt.
+//            guard let liveAppOpenDayCountAtMaybeLater = state.liveAppOpenDayCountAtMaybeLater else { return false }
+//
+//            return state.liveAppOpenDayCount >= liveAppOpenDayCountAtMaybeLater + Self.appOpenDaysAfterMaybeLater
+//        default:
+//            return false
+//        }
     }
 
     public func recordImpression() {
