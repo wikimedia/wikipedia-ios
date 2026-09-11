@@ -72,7 +72,7 @@ import WMFTestKitchen
     public nonisolated func assignExperiment() {
         guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
         let controller = WMFExperimentsDataController(store: store)
-        let bucket = try? controller.determineBucketForExperiment(.homeTab, withPercentage: 50)
+        let bucket = try? controller.determineBucketForExperiment(.homeTab, withPercentage: 0)
         homeTabAssignment = bucket == .homeTabGroupB ? .groupB : .control
     }
 
