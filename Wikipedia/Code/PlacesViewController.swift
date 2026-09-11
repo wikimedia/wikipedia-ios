@@ -2087,6 +2087,18 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         currentSearch = nil // will cause the default search to perform after re-centering
         recenterOnUserLocation(self)
     }
+    
+    // Centers the map on an arbitrary coordinate (rather than an existing article or the user's current location) and performs the default "top articles nearby" search there. Used to open Places at a location supplied by an external caller, e.g. via wikipedia://places?lat=..&lon=..
+    @objc public func showCoordinate(latitude: Double, longitude: Double, name: String?) {
+        guard view != nil else { // force view instantiation
+            return
+        }
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let region = [coordinate].wmf_boundingRegion(with: 10000)
+        mapRegion = region
+        let localizedDescription = (name?.isEmpty == false ? name : nil) ?? WMFLocalizedString("places-search-top-articles", value: "All top articles", comment: "A search suggestion for top articles")
+        currentSearch = PlaceSearch(filter: currentSearchFilter, type: .location, origin: .system, sortStyle: .links, string: nil, region: region, localizedDescription: localizedDescription, searchResult: nil)
+    }
 
     @objc public func showArticleURL(_ articleURL: URL) {
         guard let article = dataStore.fetchArticle(with: articleURL), let title = articleURL.wmf_title,
