@@ -23,6 +23,13 @@ public struct WMFActivityTabView: View {
         viewModel.authenticationState != .loggedIn && !dynamicTypeSize.isAccessibilitySize
     }
 
+    /// Every placement has to check this before applying padding: `yearInReviewCard` resolves to an
+    /// empty view when there is no card, but a padding modifier wrapped around it still reserves
+    /// its insets.
+    private var hasYearInReviewCard: Bool {
+        viewModel.yearInReviewViewModel != nil
+    }
+
     public init(viewModel: WMFActivityTabViewModel) {
         self.viewModel = viewModel
     }
@@ -48,7 +55,7 @@ public struct WMFActivityTabView: View {
         .safeAreaInset(edge: .bottom) {
             // Logged in, the card sits at the top instead — see loggedInList and
             // customizedEmptyState.
-            if usesPinnedYearInReviewCard {
+            if usesPinnedYearInReviewCard, hasYearInReviewCard {
                 yearInReviewCard
                     .padding(.bottom, 16)
             }
@@ -67,7 +74,7 @@ public struct WMFActivityTabView: View {
 
     private func loggedInList(proxy: ScrollViewProxy) -> some View {
         List {
-            if viewModel.yearInReviewViewModel != nil {
+            if hasYearInReviewCard {
                 Section {
                     yearInReviewCard
                         .padding(.top, 16)
@@ -234,7 +241,7 @@ public struct WMFActivityTabView: View {
 
                         Spacer(minLength: 16)
 
-                        if !usesPinnedYearInReviewCard {
+                        if !usesPinnedYearInReviewCard, hasYearInReviewCard {
                             yearInReviewCard
                                 .padding(.bottom, 16)
                         }
@@ -254,7 +261,7 @@ public struct WMFActivityTabView: View {
                 }
                 .listRowSeparator(.hidden)
 
-                if !usesPinnedYearInReviewCard, viewModel.yearInReviewViewModel != nil {
+                if !usesPinnedYearInReviewCard, hasYearInReviewCard {
                     Section {
                         yearInReviewCard
                             .padding(.top, 16)
@@ -585,12 +592,14 @@ public struct WMFActivityTabView: View {
         GeometryReader { geometry in
             ScrollView {
                 VStack(spacing: 0) {
-                    yearInReviewCard
-                        .padding(.top, 16)
+                    if hasYearInReviewCard {
+                        yearInReviewCard
+                            .padding(.top, 16)
+                            .padding(.bottom, 16)
+                    }
 
                     WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState)
                         .frame(maxWidth: .infinity)
-                        .padding(.top, 16)
                 }
                 .frame(maxWidth: .infinity, minHeight: geometry.size.height)
             }
