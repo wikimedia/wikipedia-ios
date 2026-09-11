@@ -6,12 +6,17 @@ import WMFNativeLocalizations
 extension ArticleViewController {
     func showDonationReminderCardIfNeeded() {
         if let wrapUpCard = WMFDonationReminderDataController.shared.claimWrapUpCardImpression() {
-            isShowingWrapUpCard = true
+            shownWrapUpCard = wrapUpCard
+
+            if let project, let metricsID = DonateCoordinator.donationReminderMetricsID(articleURL: articleURL) {
+                DonateFunnel.shared.logDonationReminderWrapUpImpression(card: wrapUpCard, project: project, metricsID: metricsID)
+            }
+
             switch wrapUpCard {
             case .feedbackSurvey:
-                messagingController.injectDonationReminderCard(cardHTML: Self.wrapUpFeedbackCardHTML(theme: theme)) { _ in }
+                messagingController.injectDonationReminderCard(cardHTML: Self.wrapUpFeedbackCardHTML()) { _ in }
             case .recurringDonorPrompt(let pledgeAmount, let currencyCode):
-                messagingController.injectDonationReminderCard(cardHTML: Self.wrapUpRecurringCardHTML(pledgeAmount: pledgeAmount, currencyCode: currencyCode, theme: theme)) { _ in }
+                messagingController.injectDonationReminderCard(cardHTML: Self.wrapUpRecurringCardHTML(pledgeAmount: pledgeAmount, currencyCode: currencyCode)) { _ in }
             }
             return
         }
@@ -42,10 +47,10 @@ extension ArticleViewController {
         let didCompleteDonationDuringFlow = isShowingDonateFlowFromDonationReminderCard && localDonationCount() > localDonationCountBeforeDonateFlow
         isShowingDonateFlowFromDonationReminderCard = false
 
-        guard !isShowingWrapUpCard else {
+        guard shownWrapUpCard == nil else {
             if didCompleteDonationDuringFlow {
                 messagingController.removeDonationReminderCard()
-                isShowingWrapUpCard = false
+                shownWrapUpCard = nil
             }
             return
         }
@@ -88,7 +93,7 @@ extension ArticleViewController {
         }
 
         if href.hasSuffix("#wmf-donation-reminder-wrap-up-no-thanks") {
-            messagingController.removeDonationReminderCard()
+            didTapWrapUpNoThanks()
             return true
         }
 
@@ -113,9 +118,21 @@ extension ArticleViewController {
     }
 
     private func didTapWrapUpGiveMonthly() {
-        guard let reminder = WMFDonationReminderDataController.shared.loadReminder() else { return }
+        guard case .recurringDonorPrompt(let pledgeAmount, let currencyCode) = shownWrapUpCard else { return }
 
-        startDonateFlowFromReminderCard(source: .donationReminderWrapUp(articleURL, pledgeAmount: reminder.amount, currencyCode: reminder.currencyCode))
+        if let project {
+            DonateFunnel.shared.logDonationReminderWrapUpDidTapGiveMonthly(project: project)
+        }
+
+        startDonateFlowFromReminderCard(source: .donationReminderWrapUp(articleURL, pledgeAmount: pledgeAmount, currencyCode: currencyCode))
+    }
+
+    private func didTapWrapUpNoThanks() {
+        if let shownWrapUpCard, let project {
+            DonateFunnel.shared.logDonationReminderWrapUpDidTapNoThanks(card: shownWrapUpCard, project: project)
+        }
+
+        messagingController.removeDonationReminderCard()
     }
 
     private func startDonateFlowFromReminderCard(source: DonateCoordinator.Source) {
@@ -178,15 +195,22 @@ extension ArticleViewController {
     }
 
     private func didTapWrapUpShareFeedback() {
+        let project = self.project
+
+        if let project {
+            DonateFunnel.shared.logDonationReminderWrapUpDidTapShareFeedback(project: project)
+        }
+
         let surveyIntro = WMFLocalizedString("donation-reminder-wrap-up-survey-intro", value: "A quick question about donation reminders", comment: "Introduction line of the feedback survey shown at the end of the donation reminder experiment.")
         let surveyQuestion = WMFLocalizedString("donation-reminder-wrap-up-survey-subtitle", value: "Should donation reminders based on articles you read become a permanent feature?", comment: "Question of the feedback survey shown at the end of the donation reminder experiment.")
         let surveyPlaceholder = WMFLocalizedString("donation-reminder-wrap-up-survey-placeholder", value: "Anything else? (Optional)", comment: "Placeholder of the optional free-form text field of the donation reminder feedback survey.")
         let surveyCharacterLimitError = WMFLocalizedString("donation-reminder-wrap-up-survey-character-limit", value: "Character limit exceeded", comment: "Error shown when the text in the free-form field of the donation reminder feedback survey passes the character limit.")
         let surveyOptionKeep = WMFLocalizedString("donation-reminder-wrap-up-survey-option-keep", value: "Keep it", comment: "Title of the donation reminder feedback survey option to keep the feature.")
         let surveyOptionRemove = WMFLocalizedString("donation-reminder-wrap-up-survey-option-remove", value: "Remove it", comment: "Title of the donation reminder feedback survey option to remove the feature.")
+        let surveyTitle = WMFLocalizedString("donation-reminder-wrap-up-survey-title", value: "Survey", comment: "Navigation bar title of the feedback survey shown at the end of the donation reminder experiment.")
 
         let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
-            title: CommonStrings.donationRemindersTitle,
+            title: surveyTitle,
             cancel: CommonStrings.cancelActionTitle,
             submit: CommonStrings.surveySubmitActionTitle,
             heading: surveyIntro,
@@ -197,14 +221,23 @@ extension ArticleViewController {
         )
 
         let surveyOptions = [
-            WMFSurveyViewModel.OptionViewModel(text: surveyOptionKeep, apiIdentifer: "keep"),
-            WMFSurveyViewModel.OptionViewModel(text: surveyOptionRemove, apiIdentifer: "remove"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.notSureButtonTitle, apiIdentifer: "notsure")
+            WMFSurveyViewModel.OptionViewModel(text: surveyOptionKeep, apiIdentifer: "1"),
+            WMFSurveyViewModel.OptionViewModel(text: surveyOptionRemove, apiIdentifer: "2"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.notSureButtonTitle, apiIdentifer: "3")
         ]
 
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single, shouldShowMultilineText: true, otherTextCharacterLimit: 250), cancelAction: { [weak self] in
+            if let project {
+                DonateFunnel.shared.logDonationReminderFeedbackDidTapCancel(project: project)
+            }
+
             self?.presentedViewController?.dismiss(animated: true)
-        }, submitAction: { [weak self] _, _ in
+        }, submitAction: { [weak self] selectedOptions, otherText in
+            if let project {
+                let score = selectedOptions.compactMap { Int($0) }.first
+                DonateFunnel.shared.logDonationReminderFeedbackDidSubmit(score: score, text: otherText, project: project)
+            }
+
             self?.presentedViewController?.dismiss(animated: true, completion: {
                 self?.messagingController.removeDonationReminderCard()
                 let toastTitle = WMFLocalizedString("donation-reminder-wrap-up-survey-toast", value: "Thanks for your feedback. Your answer helps us decide what to build next.", comment: "Toast shown after the user submits the donation reminder feedback survey.")
@@ -229,15 +262,15 @@ extension ArticleViewController {
         present(webNavigationController, animated: true)
     }
 
-    private static func wrapUpFeedbackCardHTML(theme: Theme) -> String {
+    private static func wrapUpFeedbackCardHTML() -> String {
         let heading = WMFLocalizedString("donation-reminder-wrap-up-card-heading", value: "That’s a wrap on donation reminders", comment: "Heading of the in-article card shown at the end of the donation reminder experiment.")
         let body = WMFLocalizedString("donation-reminder-wrap-up-card-body", value: "Thanks for testing donation reminders based on the articles you read. Your feedback decides if this becomes a permanent way to give on Wikipedia. It only takes a minute, and no donation is required.", comment: "Body of the in-article card shown at the end of the donation reminder experiment.")
         let shareFeedbackTitle = WMFLocalizedString("donation-reminder-wrap-up-card-share-feedback", value: "Share feedback", comment: "Title of the button that opens the feedback survey, on the in-article card shown at the end of the donation reminder experiment.")
 
-        return wrapUpCardHTML(heading: heading, body: body, primaryActionAnchor: "wmf-donation-reminder-share-feedback", primaryActionTitle: shareFeedbackTitle, theme: theme)
+        return wrapUpCardHTML(heading: heading, body: body, primaryActionAnchor: "wmf-donation-reminder-share-feedback", primaryActionTitle: shareFeedbackTitle)
     }
 
-    private static func wrapUpRecurringCardHTML(pledgeAmount: Decimal, currencyCode: String, theme: Theme) -> String {
+    private static func wrapUpRecurringCardHTML(pledgeAmount: Decimal, currencyCode: String) -> String {
         let amountFormatter = NumberFormatter.wmfCurrencyFormatter
         amountFormatter.currencyCode = currencyCode
         let formattedPledgeAmount = amountFormatter.string(from: pledgeAmount as NSNumber) ?? "\(pledgeAmount)"
@@ -247,34 +280,35 @@ extension ArticleViewController {
         let body = String.localizedStringWithFormat(bodyFormat, formattedPledgeAmount)
         let giveMonthlyTitle = WMFLocalizedString("donation-reminder-wrap-up-recurring-card-give-monthly", value: "Give monthly", comment: "Title of the button that opens the payment flow with a monthly recurring donation preselected, on the in-article card shown at the end of the donation reminder experiment.")
 
-        return wrapUpCardHTML(heading: heading, body: body, primaryActionAnchor: "wmf-donation-reminder-give-monthly", primaryActionTitle: giveMonthlyTitle, theme: theme)
+        return wrapUpCardHTML(heading: heading, body: body, primaryActionAnchor: "wmf-donation-reminder-give-monthly", primaryActionTitle: giveMonthlyTitle)
     }
 
-    private static func inlineIconHTML(image: UIImage?, tintColor: UIColor) -> String {
+    private static func maskedIconHTML(image: UIImage?, cssClass: String) -> String {
         guard let image else {
             return ""
         }
 
         let renderer = UIGraphicsImageRenderer(size: image.size)
-        let tintedImage = renderer.image { _ in
-            image.withTintColor(tintColor).draw(in: CGRect(origin: .zero, size: image.size))
+        let maskImage = renderer.image { _ in
+            image.withTintColor(.black, renderingMode: .alwaysOriginal).draw(in: CGRect(origin: .zero, size: image.size))
         }
 
-        guard let pngData = tintedImage.pngData() else {
+        guard let pngData = maskImage.pngData() else {
             return ""
         }
 
         let width = Int(image.size.width.rounded())
         let height = Int(image.size.height.rounded())
-        return "<img src='data:image/png;base64,\(pngData.base64EncodedString())' width='\(width)' height='\(height)' aria-hidden='true'/>"
+        let maskURL = "url(data:image/png;base64,\(pngData.base64EncodedString()))"
+        return "<span class='\(cssClass)' style='width: \(width)px; height: \(height)px; -webkit-mask-image: \(maskURL); mask-image: \(maskURL);' aria-hidden='true'></span>"
     }
 
-    private static func wrapUpCardHTML(heading: String, body: String, primaryActionAnchor: String, primaryActionTitle: String, theme: Theme) -> String {
+    private static func wrapUpCardHTML(heading: String, body: String, primaryActionAnchor: String, primaryActionTitle: String) -> String {
         let betaPillText = CommonStrings.betaLabel
         let learnMoreText = CommonStrings.learnMoreTitle()
         let noThanksTitle = CommonStrings.noThanksTitle
 
-        let flaskIconHTML = inlineIconHTML(image: WMFSFSymbolIcon.for(symbol: .flask, font: WMFFont.caption1), tintColor: theme.colors.primaryText)
+        let flaskIconHTML = maskedIconHTML(image: WMFSFSymbolIcon.for(symbol: .flask, font: WMFFont.caption1), cssClass: "wmf-donation-reminder-card-beta-icon")
         let externalLinkIconHTML = "<svg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M15 3h6v6'/><path d='M10 14 21 3'/><path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/></svg>"
 
         return """
