@@ -84,10 +84,7 @@ public struct WMFHomeView: View {
     @ViewBuilder
     private var feedContent: some View {
         if isForYou {
-            forYouTabContent
-                .ignoresSafeArea()
-                .environment(\.forYouHeaderBottom, headerBottom)
-                .environment(\.colorScheme, .dark)
+            forYouSection
         } else {
             communitySection
                 .environment(\.colorScheme, theme.preferredColorScheme)
@@ -131,12 +128,81 @@ public struct WMFHomeView: View {
         return isForYou ? .clear : Color(uiColor: theme.paperBackground)
     }
 
-    /// The space Community reserves for the header floating over it.
-    private var communityHeaderInset: CGFloat {
+    /// The space a feed reserves for the header floating over it. Used by Community and by every
+    /// non-feed state of For You — anything that does not draw its content under the header.
+    private var floatingHeaderInset: CGFloat {
         WMFHomeHeaderMetrics.communityTopInset(
             measuredHeaderBottom: headerBottom,
             headerTopInset: headerBarTopInset
         )
+    }
+
+    // MARK: - For You Tab: containers
+
+    @ViewBuilder
+    private var forYouSection: some View {
+        if let forYouViewModel = viewModel.forYouViewModel {
+            WMFHomeForYouSection(forYouViewModel: forYouViewModel) {
+                forYouFeedContent
+            } emptyState: {
+                forYouEmptyFeedContent(forYouViewModel: forYouViewModel)
+            }
+        } else {
+            // Loading, error, and placeholder: there is no feed view model yet.
+            forYouStateChrome {
+                forYouTabContent
+            }
+        }
+    }
+
+    /// The feed, drawn under every edge, with the header floating over the cards.
+    private var forYouFeedContent: some View {
+        forYouTabContent
+            .ignoresSafeArea()
+            .environment(\.forYouHeaderBottom, headerBottom)
+            .environment(\.colorScheme, .dark)
+    }
+
+    /// The chrome shared by every non-feed state of the For You tab: loading, error, placeholder,
+    /// and the all-modules-hidden empty state.
+    ///
+    /// Like the Community empty state, these respect the safe areas: they end with a button, and
+    /// under an ignored bottom edge the button could never scroll clear of the tab bar. Only the
+    /// background draws under the edges, and the space the floating header occupies is reserved the
+    /// way the Community section reserves it, rather than with the feed's manual inset.
+    private func forYouStateChrome<Content: View>(@ViewBuilder content: () -> Content) -> some View {
+        content()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .safeAreaInset(edge: .top, spacing: 0) {
+                Color.clear.frame(height: floatingHeaderInset)
+            }
+            .background(Color(uiColor: WMFTheme.forYou.paperBackground).ignoresSafeArea())
+            .environment(\.colorScheme, .dark)
+    }
+
+    /// The empty state for a feed whose modules are all off or hidden. It lived inside
+    /// `WMFForYouView` before; it sits here now so every empty state of the tab shares
+    /// `forYouStateChrome` and none of them ends up under the tab bar.
+    private func forYouEmptyFeedContent(forYouViewModel: WMFForYouViewModel) -> some View {
+        forYouStateChrome {
+            WMFHomeEmptyStateView(
+                subtitle: forYouViewModel.emptySubtitle,
+                theme: .forYou,
+                action: { forYouViewModel.onCustomizeInterests?(.emptyFeed) }
+            )
+            .onAppear {
+                forYouViewModel.onEmptyViewAppearance?()
+            }
+        }
+    }
+
+    // MARK: - Community Tab: containers
+
+    /// The edges the Community section draws under. The feed draws under the tab bar for the
+    /// full-bleed reading experience, but the empty state respects every edge: it ends with the
+    /// customize button, and under an ignored edge the button can never scroll clear of the bar.
+    private var communityIgnoredSafeAreaEdges: Edge.Set {
+        viewModel.isEmbeddedCommunityFeedEmpty ? [] : [.top, .bottom]
     }
 
     @ViewBuilder
@@ -144,14 +210,14 @@ public struct WMFHomeView: View {
         if #available(iOS 26.0, *) {
             communityTabContent
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .ignoresSafeArea(.container, edges: [.top, .bottom])
+                .ignoresSafeArea(.container, edges: communityIgnoredSafeAreaEdges)
                 .safeAreaInset(edge: .top, spacing: 0) {
-                    Color.clear.frame(height: communityHeaderInset)
+                    Color.clear.frame(height: floatingHeaderInset)
                 }
                 .background(Color(uiColor: theme.paperBackground).ignoresSafeArea())
         } else {
             VStack(spacing: 0) {
-                Color.clear.frame(height: communityHeaderInset)
+                Color.clear.frame(height: floatingHeaderInset)
                 communityTabContent
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -325,6 +391,26 @@ public struct WMFHomeView: View {
     }
 }
 
+/// Chooses between the For You feed and its empty state.
+///
+/// A view of its own because the choice depends on `WMFForYouViewModel`, which `WMFHomeView` does
+/// not observe: `WMFHomeView` observes only the home view model, so without this wrapper, hiding
+/// the last card would not swap the feed for the empty state until something else redrew the
+/// screen.
+private struct WMFHomeForYouSection<Feed: View, EmptyState: View>: View {
+    @ObservedObject var forYouViewModel: WMFForYouViewModel
+    @ViewBuilder let feed: () -> Feed
+    @ViewBuilder let emptyState: () -> EmptyState
+
+    var body: some View {
+        if forYouViewModel.isFeedEmpty {
+            emptyState()
+        } else {
+            feed()
+        }
+    }
+}
+
 /// Supplies the material behind the segmented control.
 ///
 /// The iOS 26 segmented control does not bring Liquid Glass of its own here: left alone it draws a
@@ -358,10 +444,10 @@ private struct WMFLanguageButtonContainerModifier: ViewModifier {
 /// Layout math for the persistent Home header, kept beside the view so it can be exercised directly.
 enum WMFHomeHeaderMetrics {
 
-    /// The space Community reserves at its top for the header floating over it.
+    /// The space a feed reserves at its top for the header floating over it.
     ///
-    /// `measuredHeaderBottom` is the header's bottom edge in window coordinates, which is where
-    /// Community's resting content belongs. It reads zero until the first measurement lands, so the
+    /// `measuredHeaderBottom` is the header's bottom edge in window coordinates, which is where the
+    /// feed's resting content belongs. It reads zero until the first measurement lands, so the
     /// header's own top inset acts as a floor and keeps that first pass from starting content
     /// underneath the header.
     static func communityTopInset(measuredHeaderBottom: CGFloat, headerTopInset: CGFloat) -> CGFloat {
