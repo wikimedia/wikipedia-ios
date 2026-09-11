@@ -1813,15 +1813,15 @@
 "zero-edits-to-articles" = "0 Artikelbearbeitungen in letzter Zeit";
 "evergreen-account-creation-activity-body" = "Sehen Sie in der Registerkarte „Aktivität“ Ihre Lesezeit, erkundete Themen und die Reichweite Ihrer Beiträge";
 "evergreen-account-creation-activity-title" = "Sehen Sie sich Ihre zuletzt gelesenen Artikel in der Registerkarte „Aktivität“ erneut an";
-"evergreen-account-creation-activity-title-count" = "Sehen Sie sich Ihre $1 zuletzt gelesenen Artikel in der Registerkarte „Aktivität“ erneut an";
 "evergreen-account-creation-edits-body" = "Erarbeiten Sie eine Erfolgsbilanz auf, auf die Sie stolz sein können: Beiträge zu Wikimedia-Projekten werden Ihrem Konto zugeordnet.";
 "evergreen-account-creation-edits-title" = "Erhalten Sie Anerkennung für Ihre Bearbeitungen";
 "evergreen-account-creation-saved-body" = "Melden Sie sich bei Ihrem Wikipedia-Konto an, damit Ihre gespeicherten Artikel auf allen Geräten synchronisiert werden.";
 "evergreen-account-creation-saved-title" = "Synchronisieren Sie Ihre gespeicherten Artikel";
-"evergreen-account-creation-saved-title-count" = "Synchronisieren Sie Ihre $1 gespeicherten Artikel";
 "evergreen-account-creation-title" = "Wikipedia ist noch besser mit einem Konto";
 "evergreen-account-creation-year-in-review-body" = "Einmal im Jahr erhalten Sie einen Rückblick auf Ihre aktiven Lesetage und darauf, wohin das Jahr Sie geführt hat – bereit zum Teilen.";
 "evergreen-account-creation-year-in-review-title" = "Sehen Sie Ihre Tage mit Leseaktivität im Jahresüberblick";
 "evergreen-account-creation-year-in-review-title-count" = "Sieh {{PLURAL:$1|deinen $1 Tag|deine $1 Tage}} mit Leseaktivität im Jahresrückblick";
 "evergreen-account-creation-create-account-button" = "Erstelle Konto";
 "evergreen-account-creation-maybe-later-button" = "Vielleicht später";
+"evergreen-account-creation-activity-title-count" = "Sehen Sie sich {{PLURAL:$1|Ihren $1 zuletzt gelesenen Artikel|Ihre $1 zuletzt gelesenen Artikel}} in der Registerkarte „Aktivität“ erneut an";
+"evergreen-account-creation-saved-title-count" = "Synchronisieren Sie {{PLURAL:$1|Ihren $1 gespeicherten Artikel|Ihre $1 gespeicherten Artikel}}";

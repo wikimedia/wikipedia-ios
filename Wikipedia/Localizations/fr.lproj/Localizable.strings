@@ -1729,15 +1729,15 @@
 "zero-edits-to-articles" = "0 article modifié récemment.";
 "evergreen-account-creation-activity-body" = "Consultez votre temps de lecture, les sujets explorés et la portée de vos contributions dans l'onglet Activité";
 "evergreen-account-creation-activity-title" = "Retrouvez vos dernières lectures dans Activité";
-"evergreen-account-creation-activity-title-count" = "Retrouvez vos {{PLURAL:$1|$1 dernière lecture|$1 dernières lectures}} dans Activité";
 "evergreen-account-creation-create-account-button" = "Créer un compte";
 "evergreen-account-creation-edits-body" = "Construisez une historique dont vous pouvez être fier, avec vos contributions aux projets Wikimedia associées à votre compte.";
 "evergreen-account-creation-edits-title" = "Soyez reconnu pour vos contributions ";
 "evergreen-account-creation-maybe-later-button" = "Peut-être plus tard";
 "evergreen-account-creation-saved-body" = "Connectez-vous à votre compte Wikipedia pour synchroniser vos articles enregistrés sur tous vos appareils.";
 "evergreen-account-creation-saved-title" = "Synchronisez vos articles enregistrés";
-"evergreen-account-creation-saved-title-count" = "Synchronisez vos {{PLURAL:$1|$1 article enregistré|$1 articles enregistrés}}";
 "evergreen-account-creation-title" = "Wikipedia, c’est encore mieux avec un compte";
 "evergreen-account-creation-year-in-review-body" = "Une fois par an, retrouvez tout ce que vous avez lu dans la rétrospective, prête à être partagée.";
 "evergreen-account-creation-year-in-review-title" = "Retrouvez vos jours de lecture dans la rétrospective de l’année";
+"evergreen-account-creation-activity-title-count" = "Retrouvez vos {{PLURAL:$1|$1 dernière lecture|$1 dernières lectures}} dans Activité";
+"evergreen-account-creation-saved-title-count" = "Synchronisez vos {{PLURAL:$1|$1 article enregistré|$1 articles enregistrés}}";
 "evergreen-account-creation-year-in-review-title-count" = "Retrouvez vos {{PLURAL:$1|$1 jour de lecture|$1 jours de lecture}} dans la rétrospective de l’année";
