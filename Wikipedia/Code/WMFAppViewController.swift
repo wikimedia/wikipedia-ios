@@ -1988,7 +1988,6 @@ extension WMFAppViewController: Themeable {
 
         applyTheme(theme, toPresentedViewController: presentedViewController)
 
-        WMFToastManager.sharedInstance.apply(theme: theme)
 
         applyTheme(theme, toNavigationControllers: allNavigationControllers())
 
