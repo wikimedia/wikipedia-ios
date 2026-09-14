@@ -430,6 +430,7 @@
 "donation-reminder-wrap-up-survey-option-remove" = "Yox, sil";
 "donation-reminder-wrap-up-survey-placeholder" = "Başqa bir şey (məcburi deyil)";
 "donation-reminder-wrap-up-survey-subtitle" = "Oxuduğunuz məqalələrə əsaslanan ianə xatırlatmaları daimi bir xüsusiyyətə çevrilməlidir?";
+"donation-reminder-wrap-up-survey-title" = "Sorğu";
 "donation-reminder-wrap-up-survey-toast" = "Rəyiniz üçün təşəkkür edirik. Cavabınız növbəti qərarlarımıza kömək edir.";
 "edit-link-display-text-title" = "Mətni göstər";
 "edit-link-link-target-title" = "Link hədəfi";

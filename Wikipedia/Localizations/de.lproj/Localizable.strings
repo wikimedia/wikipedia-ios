@@ -12,6 +12,7 @@
 // Author: Ferdinand0101
 // Author: Fitoschido
 // Author: Gichi
+// Author: Guardian of Arcadia
 // Author: Hikemaniac
 // Author: Hwboehm
 // Author: Ideophagous
@@ -571,6 +572,21 @@
 "end-session" = "Sitzung beenden";
 "error-generic-recovery-suggestion" = "Bitte später erneut versuchen";
 "error-unknown" = "Es ist ein unbekannter Fehler aufgetreten";
+"evergreen-account-creation-activity-body" = "Sehen Sie in der Registerkarte „Aktivität“ Ihre Lesezeit, erkundete Themen und die Reichweite Ihrer Beiträge";
+"evergreen-account-creation-activity-title" = "Sehen Sie sich Ihre zuletzt gelesenen Artikel in der Registerkarte „Aktivität“ erneut an";
+"evergreen-account-creation-activity-title-count" = "Sehen Sie sich {{PLURAL:$1|Ihren $1 zuletzt gelesenen Artikel|Ihre $1 zuletzt gelesenen Artikel}} in der Registerkarte „Aktivität“ erneut an";
+"evergreen-account-creation-create-account-button" = "Erstelle Konto";
+"evergreen-account-creation-edits-body" = "Bauen Sie sich eine Erfolgsbilanz auf, auf die Sie stolz sein können: Beiträge zu Wikimedia-Projekten werden Ihrem Konto zugeordnet.";
+"evergreen-account-creation-edits-title" = "Erhalten Sie Anerkennung für Ihre Bearbeitungen";
+"evergreen-account-creation-maybe-later-button" = "Vielleicht später";
+"evergreen-account-creation-saved-body" = "Melden Sie sich bei Ihrem Wikipedia-Konto an, damit Ihre gespeicherten Artikel auf allen Geräten synchronisiert werden.";
+"evergreen-account-creation-saved-title" = "Synchronisieren Sie Ihre gespeicherten Artikel";
+"evergreen-account-creation-saved-title-count" = "Synchronisieren Sie {{PLURAL:$1|Ihren $1 gespeicherten Artikel|Ihre $1 gespeicherten Artikel}}";
+"evergreen-account-creation-slide-position" = "$1 von $2";
+"evergreen-account-creation-title" = "Wikipedia ist noch besser mit einem Konto";
+"evergreen-account-creation-year-in-review-body" = "Einmal im Jahr erhalten Sie einen Rückblick auf Ihre aktiven Lesetage und darauf, wohin das Jahr Sie geführt hat – bereit zum Teilen.";
+"evergreen-account-creation-year-in-review-title" = "Sehen Sie Ihre Tage mit Leseaktivität im Jahresüberblick";
+"evergreen-account-creation-year-in-review-title-count" = "Sehen Sie {{PLURAL:$1|Ihr $1 Tag|Ihre $1 Tage}} mit Leseaktivität im Jahresüberblick";
 "explore-another-random" = "Ein anderer zufälliger Artikel";
 "explore-because-you-read" = "Weil du gelesen hast";
 "explore-because-you-read-footer" = "Weitere ähnliche Artikel";
@@ -710,6 +726,7 @@
 "find-textfield-accessibility" = "Suchen";
 "for-you-empty-subtitle-interests-or-modules" = "Füge Interessen hinzu oder aktiviere Module, um personalisierte Artikelempfehlungen zu erhalten";
 "for-you-empty-title" = "Hier ist noch nichts";
+"for-you-end-of-feed-title" = "Das war’s für heute!";
 "for-you-error-retry" = "Erneut versuchen";
 "for-you-error-subtitle" = "Stelle eine Internetverbindung her und versuche es erneut.";
 "for-you-error-title" = "Keine Internetverbindung";
@@ -1811,17 +1828,3 @@
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Foundation Logo";
 "yesterday-title" = "Gestern";
 "zero-edits-to-articles" = "0 Artikelbearbeitungen in letzter Zeit";
-"evergreen-account-creation-activity-body" = "Sehen Sie in der Registerkarte „Aktivität“ Ihre Lesezeit, erkundete Themen und die Reichweite Ihrer Beiträge";
-"evergreen-account-creation-activity-title" = "Sehen Sie sich Ihre zuletzt gelesenen Artikel in der Registerkarte „Aktivität“ erneut an";
-"evergreen-account-creation-edits-body" = "Erarbeiten Sie eine Erfolgsbilanz auf, auf die Sie stolz sein können: Beiträge zu Wikimedia-Projekten werden Ihrem Konto zugeordnet.";
-"evergreen-account-creation-edits-title" = "Erhalten Sie Anerkennung für Ihre Bearbeitungen";
-"evergreen-account-creation-saved-body" = "Melden Sie sich bei Ihrem Wikipedia-Konto an, damit Ihre gespeicherten Artikel auf allen Geräten synchronisiert werden.";
-"evergreen-account-creation-saved-title" = "Synchronisieren Sie Ihre gespeicherten Artikel";
-"evergreen-account-creation-title" = "Wikipedia ist noch besser mit einem Konto";
-"evergreen-account-creation-year-in-review-body" = "Einmal im Jahr erhalten Sie einen Rückblick auf Ihre aktiven Lesetage und darauf, wohin das Jahr Sie geführt hat – bereit zum Teilen.";
-"evergreen-account-creation-year-in-review-title" = "Sehen Sie Ihre Tage mit Leseaktivität im Jahresüberblick";
-"evergreen-account-creation-year-in-review-title-count" = "Sehen Sie {{PLURAL:$1|Ihr $1 Tag|Ihre $1 Tage}} mit Leseaktivität im Jahresüberblick";
-"evergreen-account-creation-create-account-button" = "Erstelle Konto";
-"evergreen-account-creation-maybe-later-button" = "Vielleicht später";
-"evergreen-account-creation-activity-title-count" = "Sehen Sie sich {{PLURAL:$1|Ihren $1 zuletzt gelesenen Artikel|Ihre $1 zuletzt gelesenen Artikel}} in der Registerkarte „Aktivität“ erneut an";
-"evergreen-account-creation-saved-title-count" = "Synchronisieren Sie {{PLURAL:$1|Ihren $1 gespeicherten Artikel|Ihre $1 gespeicherten Artikel}}";
