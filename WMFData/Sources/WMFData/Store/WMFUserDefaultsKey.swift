@@ -101,6 +101,9 @@ public enum WMFUserDefaultsKey: String {
     case didSendNewInstallOnboardingStartEvent = "did-send-new-install-onboarding-start-event"
     case hasSeenOneTimeOnboardingHome = "has-seen-one-time-home-onboarding"
     case hasSeenUpdatedHomeOnboarding = "has-seen-updated-home-onboarding"
+    
+    // Onboarding: For You swipe-up hint
+    case hasSeenForYouSwipeOnboarding = "has-seen-for-you-swipe-onboarding"
 
     // Visual editor journey
     case defaultEditMode = "default-edit-mode"
