@@ -340,8 +340,6 @@
 "developer-force-email-auth" = "E-Mail-Authentifizierung erzwingen";
 "developer-settings" = "Entwicklereinstellungen";
 "developer-settings-bypass-donation" = "Spende umgehen";
-"developer-settings-dynamic-tabs-group-C-v2" = "Tabs V2 mit Gruppe C aktivieren";
-"developer-settings-enable-year-in-review" = "Jahresrückblick aktivieren";
 "developer-settings-send-analytics-to-wmflabs" = "Analytics an wmflabs senden.";
 "developer-settings-suppress-image-rec-post" = "Bildempfehlungsbearbeitung nicht veröffentlichen.";
 "diff-article-revision-history" = "Versionsgeschichte";

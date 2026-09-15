@@ -360,8 +360,6 @@
 "developer-force-email-auth" = "Forcer l'authentification par e-mail";
 "developer-settings" = "Paramètres développeur";
 "developer-settings-bypass-donation" = "Contourner un don";
-"developer-settings-dynamic-tabs-group-C-v2" = "Activer les onglets V2 avec le groupe C";
-"developer-settings-enable-year-in-review" = "Activer le Bilan de l'Année";
 "developer-settings-send-analytics-to-wmflabs" = "Envoyez les analyses à WMFlabs.";
 "developer-settings-suppress-image-rec-post" = "Ne publiez pas de recommandations d'édition d'image.";
 "diff-article-revision-history" = "Historique des révisions de l’article";

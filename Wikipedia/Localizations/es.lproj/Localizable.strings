@@ -316,7 +316,6 @@
 "developer-force-email-auth" = "Forzar la autenticación de correo electrónico.";
 "developer-settings" = "Configuración de desarrollador";
 "developer-settings-bypass-donation" = "Saltar donación";
-"developer-settings-enable-year-in-review" = "Habilitar Resumen del año";
 "developer-settings-send-analytics-to-wmflabs" = "Enviar análisis a wmflabs";
 "developer-settings-suppress-image-rec-post" = "No publicar la edición de imágenes recomendadas.";
 "diff-article-revision-history" = "Historial de revisión del artículo";

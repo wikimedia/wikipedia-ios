@@ -343,8 +343,6 @@
 "developer-force-email-auth" = "E-mailauthenticatie afdwingen";
 "developer-settings" = "Ontwikkelaarsinstellingen";
 "developer-settings-bypass-donation" = "Donatie omzeilen";
-"developer-settings-dynamic-tabs-group-C-v2" = "Tabbladen V2 inschakelen met groep C";
-"developer-settings-enable-year-in-review" = "Jaaroverzicht inschakelen";
 "developer-settings-send-analytics-to-wmflabs" = "Zend de analyse naar wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Geen aanbevelingen voor afbeeldingen plaatsen.";
 "diff-article-revision-history" = "Bewerkingsgeschiedenis van pagina";

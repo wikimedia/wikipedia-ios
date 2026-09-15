@@ -53,6 +53,9 @@ struct WMFDeveloperSettingsView: View {
             .listRowBackground(rowBackground)
 
             Section {
+                captionedRow(caption: "Fakes a successful donation without a real charge. The native form skips the payment submission, and the web form goes straight to the thank you page.") {
+                    Toggle(viewModel.localizedStrings.bypassDonation, isOn: $viewModel.bypassDonation)
+                }
                 Toggle("Bypass Reminder Daily Limit", isOn: $viewModel.bypassDonationReminderDailyLimit)
                 captionedRow(caption: "Changes the date the donation reminder end gate treats as today; reading progress, the daily limit, and networking keep using the real device date.") {
                     Toggle("Override Current Date", isOn: $viewModel.overrideFundraisingCurrentDate)
