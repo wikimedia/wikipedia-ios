@@ -1,6 +1,7 @@
 import Foundation
 import WMF
 import WMFData
+import WMFComponents
 
 // Stateless — no stored properties, and EventPlatformClient.submit handles its
 // own synchronization — so it is safe to use from any thread.
@@ -72,6 +73,11 @@ import WMFData
             return
         }
 
+        // Every HTTP error in the app funnels through here - WMFData's basic service, Session and
+        // SessionDelegate all call this method - so this is the one place that sees a 429 no matter
+        // which layer made the request.
+        RateLimitToastPresenter.shared.handleHTTPError(statusCode: info.statusCode, url: info.url)
+
         let http = Event.Http(method: info.method, statusCode: info.statusCode)
         let event = Event(
             message: "HTTP \(info.statusCode)",
@@ -82,5 +88,77 @@ import WMFData
             http: http
         )
         EventPlatformClient.shared.submit(stream: .clientError, event: event, needsMinimal: true)
+    }
+}
+
+// MARK: - Rate limiting
+
+/// Surfaces a toast when the app starts receiving HTTP 429s from any endpoint, so rate limiting is
+/// visible instead of showing up as content that silently fails to load.
+///
+/// Rate limits arrive in bursts, so toasts are throttled to one per `cooldown`, and each toast
+/// reports how many 429s were seen since the last one.
+@MainActor
+final class RateLimitToastPresenter {
+
+    static let shared = RateLimitToastPresenter()
+
+    /// Minimum time between rate limit toasts.
+    private static let cooldown: TimeInterval = 30
+
+    private static let toastDuration: TimeInterval = 5
+
+    private var lastToastDate: Date?
+    private var countSinceLastToast = 0
+
+    private init() {}
+
+    /// Called for every HTTP error the app observes. Ignores everything but 429.
+    nonisolated func handleHTTPError(statusCode: Int, url: String?) {
+        guard statusCode == 429 else { return }
+
+        Task { @MainActor in
+            self.showToastIfNeeded(url: url)
+        }
+    }
+
+    private func showToastIfNeeded(url: String?) {
+        countSinceLastToast += 1
+
+        if let lastToastDate,
+           Date().timeIntervalSince(lastToastDate) < Self.cooldown {
+            return
+        }
+
+        let count = countSinceLastToast
+        lastToastDate = Date()
+        countSinceLastToast = 0
+
+        let title = count > 1
+            ? "Rate limited: \(count) requests got HTTP 429"
+            : "Rate limited: a request got HTTP 429"
+
+        let config = WMFToastConfig(
+            title: title,
+            subtitle: Self.endpointDescription(for: url),
+            icon: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill),
+            duration: Self.toastDuration
+        )
+
+        WMFToastPresenter.shared.show(config)
+    }
+
+    /// Host plus path, so the toast names the endpoint without dumping a full query string.
+    private static func endpointDescription(for url: String?) -> String? {
+        guard let url,
+              let components = URLComponents(string: url) else {
+            return nil
+        }
+
+        guard let host = components.host else {
+            return components.path.isEmpty ? nil : components.path
+        }
+
+        return host + components.path
     }
 }
