@@ -1,5 +1,4 @@
 #import <WMF/WMFNotificationsController.h>
-#import <WMF/WMFFaceDetectionCache.h>
 #import <WMF/WMF-Swift.h>
 @import ImageIO;
 @import CoreServices;
