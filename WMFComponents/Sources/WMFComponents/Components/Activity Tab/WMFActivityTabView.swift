@@ -16,18 +16,25 @@ public struct WMFActivityTabView: View {
         return appEnvironment.theme
     }
 
-    /// Logged out, the card is normally pinned above the tab bar. At accessibility text sizes it is
-    /// taller than the space an inset can give it, so it moves inline and scrolls with the content
-    /// instead of squeezing everything above it.
-    private var usesPinnedYearInReviewCard: Bool {
-        viewModel.authenticationState != .loggedIn && !dynamicTypeSize.isAccessibilitySize
+    /// Where the Year in Review card belongs, or `.none` when it should not render at all.
+    ///
+    /// Logged in, the card sits at the top of the content. Logged out it is pinned above the tab
+    /// bar — except at accessibility text sizes, where it is taller than the space an inset can
+    /// give it, so it moves inline and scrolls with the content instead of squeezing everything
+    /// above it.
+    private enum YearInReviewCardPlacement {
+        case none, top, inlineBottom, pinnedBottom
     }
 
-    /// Every placement has to check this before applying padding: `yearInReviewCard` resolves to an
-    /// empty view when there is no card, but a padding modifier wrapped around it still reserves
-    /// its insets.
-    private var hasYearInReviewCard: Bool {
-        viewModel.yearInReviewViewModel != nil
+    /// The absence of a card is folded in here rather than checked at each site: `yearInReviewCard`
+    /// resolves to an empty view when there is no view model, but a padding modifier wrapped around
+    /// it still reserves its insets. The loading check is here for the same reason — the pinned
+    /// placement is attached outside the branch that swaps in the progress view.
+    private var yearInReviewCardPlacement: YearInReviewCardPlacement {
+        guard !viewModel.isLoading,
+              viewModel.yearInReviewViewModel != nil else { return .none }
+        if viewModel.authenticationState == .loggedIn { return .top }
+        return dynamicTypeSize.isAccessibilitySize ? .inlineBottom : .pinnedBottom
     }
 
     public init(viewModel: WMFActivityTabViewModel) {
@@ -53,10 +60,7 @@ public struct WMFActivityTabView: View {
             }
         }
         .safeAreaInset(edge: .bottom) {
-            // Logged in, the card sits at the top instead — see loggedInList and
-            // customizedEmptyState. The loading check is explicit here because this inset is
-            // attached outside the branch that swaps in the progress view.
-            if !viewModel.isLoading, usesPinnedYearInReviewCard, hasYearInReviewCard {
+            if yearInReviewCardPlacement == .pinnedBottom {
                 yearInReviewCard
                     .padding(.bottom, 16)
             }
@@ -75,7 +79,7 @@ public struct WMFActivityTabView: View {
 
     private func loggedInList(proxy: ScrollViewProxy) -> some View {
         List {
-            if hasYearInReviewCard {
+            if yearInReviewCardPlacement == .top {
                 Section {
                     yearInReviewCard
                         .padding(.top, 16)
@@ -242,7 +246,7 @@ public struct WMFActivityTabView: View {
 
                         Spacer(minLength: 16)
 
-                        if !usesPinnedYearInReviewCard, hasYearInReviewCard {
+                        if yearInReviewCardPlacement == .inlineBottom {
                             yearInReviewCard
                                 .padding(.bottom, 16)
                         }
@@ -262,7 +266,7 @@ public struct WMFActivityTabView: View {
                 }
                 .listRowSeparator(.hidden)
 
-                if !usesPinnedYearInReviewCard, hasYearInReviewCard {
+                if yearInReviewCardPlacement == .inlineBottom {
                     Section {
                         yearInReviewCard
                             .padding(.top, 16)
@@ -593,7 +597,7 @@ public struct WMFActivityTabView: View {
         GeometryReader { geometry in
             ScrollView {
                 VStack(spacing: 0) {
-                    if hasYearInReviewCard {
+                    if yearInReviewCardPlacement == .top {
                         yearInReviewCard
                             .padding(.top, 16)
                             .padding(.bottom, 16)
