@@ -180,10 +180,6 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
         }
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-
     // MARK: - Navigation Bar Configuration
 
     private func configureNavigationBar() {

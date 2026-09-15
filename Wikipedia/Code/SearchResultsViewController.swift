@@ -405,8 +405,38 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             self?.articleTappedAction?(articleURL, true)
         }
 
+        vc.tappedFindAction = { [weak self] in
+            self?.presentSemanticSearch()
+        }
+
         return vc
     }()
+
+    // MARK: - PROTOTYPE: Semantic search
+    // Presented here rather than from a Coordinator to keep the prototype to existing files.
+
+    private func presentSemanticSearch() {
+        guard let searchTerm,
+              searchTerm.wmf_hasNonWhitespaceText,
+              let siteURL,
+              let languageCode = siteURL.wmf_languageCode else {
+            return
+        }
+
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: siteURL.wmf_languageVariantCode))
+
+        let localizedStrings = WMFSemanticSearchViewModel.LocalizedStrings(
+            title: "Find",
+            readInArticle: "Read in article",
+            emptyResults: "No results found.",
+            errorTitle: "Something went wrong. Please try again."
+        )
+
+        let viewModel = WMFSemanticSearchViewModel(searchTerm: searchTerm, project: project, localizedStrings: localizedStrings)
+        let hostingController = WMFSemanticSearchHostingController(viewModel: viewModel)
+        let navigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .pageSheet)
+        present(navigationController, animated: true)
+    }
 
     private lazy var recentSearchesViewController: UIViewController = {
         let root = WMFRecentlySearchedView(viewModel: recentSearchesViewModel)
@@ -521,7 +551,7 @@ extension SearchResultsViewController: UISearchResultsUpdating {
             searchTask?.cancel()
             searchTask = Task { @MainActor [weak self] in
                 guard let self else { return }
-                try? await Task.sleep(for: .milliseconds(100))
+                try? await Task.sleep(for: .milliseconds(500))
                 guard !Task.isCancelled else { return }
                 search(for: text, suggested: false)
             }

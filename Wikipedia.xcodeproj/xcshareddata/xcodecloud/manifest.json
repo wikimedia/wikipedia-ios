@@ -1,0 +1,17 @@
+{
+  "id" : "4dfc55dc-67bd-4eb9-9d38-9f180bc42cb2",
+  "targets" : [
+    {
+      "id" : "267B4392-44F0-46B4-9446-D2A46A099CE9",
+      "name" : "Experimental"
+    },
+    {
+      "id" : "6A4064B1-FEEA-4E83-92D7-489D17962E96",
+      "name" : "Staging"
+    },
+    {
+      "id" : "6773F82B-53CA-416F-AF91-7FB91B0242A5",
+      "name" : "Wikipedia"
+    }
+  ]
+}
