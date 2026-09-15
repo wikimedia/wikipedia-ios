@@ -36,8 +36,10 @@ import CocoaLumberjackSwift
             do {
                 let faceBounds = try await cache.faceBounds(in: image, for: url)
                 success(faceBounds.map { NSValue(cgRect: $0) })
-            } catch is CancellationError {
-                // The caller cancelled the request. Call no callback.
+            } catch is CancellationError {    
+                // Another image view that shares this URL may have cancelled the task.
+                // Report "no face" so this caller still shows its image.
+                success(nil)
             } catch WMFFaceDetectionError.missingURL {
                 failure(WMFFaceDetectionError.missingURL)
             } catch {
