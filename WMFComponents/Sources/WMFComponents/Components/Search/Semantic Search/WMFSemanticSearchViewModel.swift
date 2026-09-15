@@ -34,9 +34,15 @@ public final class WMFSemanticSearchViewModel: ObservableObject {
     public let searchTerm: String
     public let localizedStrings: LocalizedStrings
 
+    /// Most results the list will page in, however many pages that takes.
+    public static let defaultMaxResults = 30
+
     /// Results requested per page. Defaults to `WMFSemanticSearchDataController.resultsPerPage`,
     /// which is the single lever for page size.
     public let resultsPerPage: Int
+
+    /// Upper bound on total results. Paging stops once the list holds this many rows.
+    public let maxResults: Int
 
     @Published public private(set) var state: State = .loading
     @Published public private(set) var rows: [WMFSemanticSearchRowViewModel] = []
@@ -48,11 +54,12 @@ public final class WMFSemanticSearchViewModel: ObservableObject {
     private let project: WMFProject
     private var fetchTask: Task<Void, Never>?
 
-    public init(searchTerm: String, project: WMFProject, localizedStrings: LocalizedStrings, resultsPerPage: Int = WMFSemanticSearchDataController.resultsPerPage) {
+    public init(searchTerm: String, project: WMFProject, localizedStrings: LocalizedStrings, resultsPerPage: Int = WMFSemanticSearchDataController.resultsPerPage, maxResults: Int = WMFSemanticSearchViewModel.defaultMaxResults) {
         self.searchTerm = searchTerm
         self.project = project
         self.localizedStrings = localizedStrings
         self.resultsPerPage = resultsPerPage
+        self.maxResults = maxResults
     }
 
     deinit {
@@ -60,7 +67,18 @@ public final class WMFSemanticSearchViewModel: ObservableObject {
     }
 
     public var canLoadMore: Bool {
-        return continuation != nil
+        return continuation != nil && remainingResultCount > 0
+    }
+
+    /// How many more results may still be added before the cap is reached.
+    private var remainingResultCount: Int {
+        return max(0, maxResults - rows.count)
+    }
+
+    /// Never asks the API for more than the cap still allows, so the last page of a run is short
+    /// rather than fetched in full and thrown away.
+    private var pageLimit: Int {
+        return max(1, min(resultsPerPage, remainingResultCount))
     }
 
     public func fetch() {
@@ -74,7 +92,7 @@ public final class WMFSemanticSearchViewModel: ObservableObject {
             guard let self else { return }
 
             do {
-                let page = try await WMFSemanticSearchDataController.shared.fetchResults(searchTerm: self.searchTerm, project: self.project, limit: self.resultsPerPage)
+                let page = try await WMFSemanticSearchDataController.shared.fetchResults(searchTerm: self.searchTerm, project: self.project, limit: self.pageLimit)
 
                 guard !Task.isCancelled else { return }
 
@@ -84,7 +102,9 @@ public final class WMFSemanticSearchViewModel: ObservableObject {
                 }
 
                 self.continuation = page.continuation
-                self.rows = page.results.map { WMFSemanticSearchRowViewModel(result: $0, project: self.project) }
+                self.rows = page.results
+                    .prefix(self.remainingResultCount)
+                    .map { WMFSemanticSearchRowViewModel(result: $0, project: self.project) }
                 self.state = .loaded
             } catch {
                 guard !Task.isCancelled else { return }
@@ -102,7 +122,8 @@ public final class WMFSemanticSearchViewModel: ObservableObject {
     private func loadNextPage() {
         guard case .loaded = state,
               let continuation,
-              !isLoadingNextPage else {
+              !isLoadingNextPage,
+              remainingResultCount > 0 else {
             return
         }
 
@@ -114,7 +135,7 @@ public final class WMFSemanticSearchViewModel: ObservableObject {
             defer { self.isLoadingNextPage = false }
 
             do {
-                let page = try await WMFSemanticSearchDataController.shared.fetchResults(searchTerm: self.searchTerm, project: self.project, limit: self.resultsPerPage, continuation: continuation)
+                let page = try await WMFSemanticSearchDataController.shared.fetchResults(searchTerm: self.searchTerm, project: self.project, limit: self.pageLimit, continuation: continuation)
 
                 guard !Task.isCancelled else { return }
 
@@ -122,6 +143,7 @@ public final class WMFSemanticSearchViewModel: ObservableObject {
                 let existingPageIDs = Set(self.rows.map { $0.id })
                 let newRows = page.results
                     .filter { !existingPageIDs.contains($0.pageID) }
+                    .prefix(self.remainingResultCount)
                     .map { WMFSemanticSearchRowViewModel(result: $0, project: self.project) }
 
                 self.continuation = newRows.isEmpty ? nil : page.continuation
