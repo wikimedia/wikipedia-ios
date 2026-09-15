@@ -346,8 +346,6 @@
 "developer-force-email-auth" = "Forçar autenticação por e-mail";
 "developer-settings" = "Configurações do desenvolvedor";
 "developer-settings-bypass-donation" = "Pular doação";
-"developer-settings-dynamic-tabs-group-C-v2" = "Ativar guias V2 com o grupo C";
-"developer-settings-enable-year-in-review" = "Ativar resumo do ano";
 "developer-settings-send-analytics-to-wmflabs" = "Enviar análises para wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Não publicar recomendações de imagens editadas.";
 "diff-article-revision-history" = "Histórico de revisões do artigo";

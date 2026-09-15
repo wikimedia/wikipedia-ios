@@ -323,8 +323,6 @@
 "developer-force-email-auth" = "E-posta kimlik doğrulamasını zorunlu kıl";
 "developer-settings" = "Geliştirici Ayarları";
 "developer-settings-bypass-donation" = "Baypas Bağışı";
-"developer-settings-dynamic-tabs-group-C-v2" = "C kümesindeki V2 sekmelerini etkinleştir";
-"developer-settings-enable-year-in-review" = "Yıl İncelemesini Etkinleştir";
 "developer-settings-send-analytics-to-wmflabs" = "Analizleri wmflabs'a gönder.";
 "developer-settings-suppress-image-rec-post" = "Görsel önerileri düzenlemleri yayınlamayın.";
 "diff-article-revision-history" = "Madde sürüm geçmişi";

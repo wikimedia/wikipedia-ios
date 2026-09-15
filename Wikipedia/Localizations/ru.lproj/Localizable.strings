@@ -370,7 +370,6 @@
 "developer-force-email-auth" = "Принудительная аутентификация по электронной почте";
 "developer-settings" = "Настройки для разработчиков";
 "developer-settings-bypass-donation" = "Отключить предложения о пожертвовании";
-"developer-settings-enable-year-in-review" = "Включить функцию «Обзор года»";
 "developer-settings-send-analytics-to-wmflabs" = "Отправлять аналитику в wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Не показывать рекомендации по правкам для изображений.";
 "diff-article-revision-history" = "История версий статьи";

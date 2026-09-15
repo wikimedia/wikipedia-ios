@@ -249,7 +249,6 @@
 "description-welcome-descriptions-title" = "Artikelbeschreiwungen";
 "description-welcome-start-editing-button" = "Ufänke mat Änneren";
 "developer-settings" = "Entwécklerastellungen";
-"developer-settings-enable-year-in-review" = "Joresréckbléck aktivéieren";
 "diff-article-revision-history" = "Versiounshistorique vum Artikel";
 "diff-change-paragraph-lines-moved-down" = "Abschnitt {{PLURAL:$1|0=0 Zeilen|$1 Zeil|$1 Zeilen}} no ënne geréckelt. Op déi nei Positioun goen.";
 "diff-change-paragraph-lines-moved-up" = "Abschnitt {{PLURAL:$1|0=0 Zeilen|$1 Zeil|$1 Zeilen}} erop geréckelt. Op déi nei Positioun goen.";

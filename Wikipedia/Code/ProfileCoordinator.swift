@@ -203,17 +203,13 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         let developerSettings = "Developer Settings"
         let doNotPostImageRecommendations = "Do not post image recommendations edit."
         let sendAnalyticsToWMFLabs = "Send analytics to wmflabs."
-        let enableYearInReview = "Enable Year in Review"
         let bypassDonation = "Bypass Donation"
         let forceEmailAuth = "Force email auth"
-        let enableMoreDynamicTabsV2GroupC = "Enable tabs V2 with group C"
 
         let localizedStrings = WMFDeveloperSettingsLocalizedStrings(
             developerSettings: developerSettings,
             doNotPostImageRecommendations: doNotPostImageRecommendations,
             sendAnalyticsToWMFLabs: sendAnalyticsToWMFLabs,
-            enableMoreDynamicTabsV2GroupC: enableMoreDynamicTabsV2GroupC,
-            enableYearinReview: enableYearInReview,
             bypassDonation: bypassDonation,
             forceEmailAuth: forceEmailAuth,
             done: CommonStrings.doneTitle
