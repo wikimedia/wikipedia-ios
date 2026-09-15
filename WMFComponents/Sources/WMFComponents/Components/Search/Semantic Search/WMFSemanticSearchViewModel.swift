@@ -78,7 +78,7 @@ public final class WMFSemanticSearchViewModel: ObservableObject {
                 }
 
                 self.continuation = page.continuation
-                self.rows = page.results.map { WMFSemanticSearchRowViewModel(result: $0) }
+                self.rows = page.results.map { WMFSemanticSearchRowViewModel(result: $0, project: self.project) }
                 self.state = .loaded
             } catch {
                 guard !Task.isCancelled else { return }
@@ -116,7 +116,7 @@ public final class WMFSemanticSearchViewModel: ObservableObject {
                 let existingPageIDs = Set(self.rows.map { $0.id })
                 let newRows = page.results
                     .filter { !existingPageIDs.contains($0.pageID) }
-                    .map { WMFSemanticSearchRowViewModel(result: $0) }
+                    .map { WMFSemanticSearchRowViewModel(result: $0, project: self.project) }
 
                 self.continuation = newRows.isEmpty ? nil : page.continuation
                 self.rows.append(contentsOf: newRows)
@@ -154,15 +154,24 @@ public final class WMFSemanticSearchRowViewModel: ObservableObject, Identifiable
 
     @Published public private(set) var thumbnail: UIImage?
 
+    /// Pipe-separated trail beneath the snippet. Starts as the article title alone and gains its
+    /// section levels once the table of contents resolves, e.g. "Cat | Senses | Vision".
+    @Published public private(set) var breadcrumb: String
+
+    private let project: WMFProject
     private let thumbnailURL: URL?
     private var imageTask: Task<Void, Never>?
     private var hasStartedImageLoad = false
+    private var sectionTrailTask: Task<Void, Never>?
+    private var hasStartedSectionTrailLoad = false
 
-    init(result: WMFSemanticSearchResult) {
+    init(result: WMFSemanticSearchResult, project: WMFProject) {
         self.id = result.pageID
         self.title = result.title
         self.sectionTitle = result.sectionTitle
+        self.project = project
         self.thumbnailURL = result.thumbnailURL
+        self.breadcrumb = result.title
 
         let allSegments = Self.snippetSegments(html: result.snippetHTML)
         let truncatedSegments = Self.truncate(segments: allSegments, to: Self.maxSnippetLength)
@@ -173,14 +182,82 @@ public final class WMFSemanticSearchRowViewModel: ObservableObject, Identifiable
 
     deinit {
         imageTask?.cancel()
+        sectionTrailTask?.cancel()
     }
 
-    /// Text shown beneath the snippet: "Title | Section title"
-    public var breadcrumb: String {
-        guard let sectionTitle, !sectionTitle.isEmpty else {
-            return title
+    /// Called when the row's card appears. Resolves the section trail by fetching the article's
+    /// table of contents, so the intermediary section of a nested subsection can be filled in.
+    /// Safe to call repeatedly - the fetch starts at most once.
+    public func loadSectionTrailIfNeeded() {
+        guard !hasStartedSectionTrailLoad,
+              let sectionTitle,
+              !sectionTitle.isEmpty else {
+            return
         }
-        return "\(title) | \(sectionTitle)"
+
+        hasStartedSectionTrailLoad = true
+
+        sectionTrailTask = Task { [weak self] in
+            guard let self else { return }
+
+            guard let sections = try? await WMFPageTOCDataController.shared.fetchSections(title: self.title, project: self.project) else {
+                // Without the table of contents the search API's own section title is still better
+                // than showing the article alone.
+                self.breadcrumb = Self.trail(components: [self.title, sectionTitle])
+                return
+            }
+
+            guard !Task.isCancelled else { return }
+
+            self.breadcrumb = Self.breadcrumb(title: self.title, sectionTitle: sectionTitle, sections: sections)
+        }
+    }
+
+    // MARK: - Section Trail
+
+    /// Builds the pipe-separated trail: the article alone, article and section, or article, section
+    /// and subsection. A nested section contributes its parent as the intermediary level.
+    private static func breadcrumb(title: String, sectionTitle: String, sections: [WMFPageTOCSection]) -> String {
+
+        guard let matchIndex = sections.firstIndex(where: { matches(section: $0, sectionTitle: sectionTitle) }) else {
+            return trail(components: [title, sectionTitle])
+        }
+
+        let matchedSection = sections[matchIndex]
+        let matchedLine = plainText(matchedSection.line)
+
+        // The parent is the nearest preceding entry at a shallower level. For a subsection this is
+        // the intermediary section the search API does not report.
+        let parentLine = sections[..<matchIndex]
+            .last(where: { $0.tocLevel < matchedSection.tocLevel })
+            .map { plainText($0.line) }
+
+        return trail(components: [title, parentLine, matchedLine])
+    }
+
+    private static func trail(components: [String?]) -> String {
+        return components
+            .compactMap { $0 }
+            .filter { !$0.isEmpty }
+            .joined(separator: " | ")
+    }
+
+    private static func matches(section: WMFPageTOCSection, sectionTitle: String) -> Bool {
+        let target = normalized(sectionTitle)
+        return normalized(section.line) == target || normalized(section.anchor) == target
+    }
+
+    /// Anchors use underscores for spaces, and lines can carry HTML, so both are flattened before
+    /// comparing against the search API's section title.
+    private static func normalized(_ string: String) -> String {
+        return plainText(string)
+            .replacingOccurrences(of: "_", with: " ")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .lowercased()
+    }
+
+    private static func plainText(_ string: String) -> String {
+        return (try? HtmlUtils.stringFromHTML(string)) ?? string
     }
 
     /// Called when the row's card appears, so thumbnail data is only fetched for rows the reader

@@ -87,6 +87,7 @@ struct WMFSemanticSearchResultCard: View {
         )
         .onAppear {
             viewModel.loadImageIfNeeded()
+            viewModel.loadSectionTrailIfNeeded()
         }
     }
 
