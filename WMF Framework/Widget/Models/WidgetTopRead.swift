@@ -66,6 +66,10 @@ public struct WidgetTopRead: Codable {
     public var dateString: String?
     public var elements: [Article]
 
+    /// Runtime-only (excluded from `CodingKeys`): true when served from cache as a fallback, so
+    /// the widget timeline can schedule an earlier retry for fresh content.
+    public var isFromCacheFallback: Bool = false
+
     public var topFourElements: [Article] {
         return Array(elements.prefix(4))
     }
