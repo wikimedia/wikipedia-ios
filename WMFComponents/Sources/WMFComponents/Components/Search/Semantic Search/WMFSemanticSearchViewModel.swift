@@ -10,11 +10,17 @@ public final class WMFSemanticSearchViewModel: ObservableObject {
         public let emptyResults: String
         public let errorTitle: String
 
-        public init(title: String, readInArticle: String, emptyResults: String, errorTitle: String) {
+        /// Format strings taking the formatted count, e.g. "%@ contributors".
+        public let contributorCountFormat: String
+        public let referenceCountFormat: String
+
+        public init(title: String, readInArticle: String, emptyResults: String, errorTitle: String, contributorCountFormat: String, referenceCountFormat: String) {
             self.title = title
             self.readInArticle = readInArticle
             self.emptyResults = emptyResults
             self.errorTitle = errorTitle
+            self.contributorCountFormat = contributorCountFormat
+            self.referenceCountFormat = referenceCountFormat
         }
     }
 
@@ -158,12 +164,20 @@ public final class WMFSemanticSearchRowViewModel: ObservableObject, Identifiable
     /// section levels once the table of contents resolves, e.g. "Cat | Senses | Vision".
     @Published public private(set) var breadcrumb: String
 
+    /// Number of editors who have contributed to the article. Nil until it loads, or if it fails.
+    @Published public private(set) var contributorCount: Int?
+
+    /// Number of references the article cites. Nil until it loads, or if it fails.
+    @Published public private(set) var referenceCount: Int?
+
     private let project: WMFProject
     private let thumbnailURL: URL?
     private var imageTask: Task<Void, Never>?
     private var hasStartedImageLoad = false
     private var sectionTrailTask: Task<Void, Never>?
     private var hasStartedSectionTrailLoad = false
+    private var statsTasks: [Task<Void, Never>] = []
+    private var hasStartedStatsLoad = false
 
     init(result: WMFSemanticSearchResult, project: WMFProject) {
         self.id = result.pageID
@@ -183,6 +197,32 @@ public final class WMFSemanticSearchRowViewModel: ObservableObject, Identifiable
     deinit {
         imageTask?.cancel()
         sectionTrailTask?.cancel()
+        statsTasks.forEach { $0.cancel() }
+    }
+
+    /// Called when the row's card appears. Loads the contributor and reference counts. The two
+    /// calls are independent, so each count renders as soon as it arrives.
+    /// Safe to call repeatedly - the fetches start at most once.
+    public func loadStatsIfNeeded() {
+        guard !hasStartedStatsLoad else { return }
+
+        hasStartedStatsLoad = true
+
+        let contributorsTask = Task { [weak self] in
+            guard let self else { return }
+            let count = try? await WMFPageStatsDataController.shared.fetchContributorCount(title: self.title, project: self.project)
+            guard !Task.isCancelled else { return }
+            self.contributorCount = count
+        }
+
+        let referencesTask = Task { [weak self] in
+            guard let self else { return }
+            let count = try? await WMFPageStatsDataController.shared.fetchReferenceCount(title: self.title, project: self.project)
+            guard !Task.isCancelled else { return }
+            self.referenceCount = count
+        }
+
+        statsTasks = [contributorsTask, referencesTask]
     }
 
     /// Called when the row's card appears. Resolves the section trail by fetching the article's

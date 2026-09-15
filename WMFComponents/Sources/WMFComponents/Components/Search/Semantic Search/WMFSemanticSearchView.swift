@@ -28,7 +28,12 @@ public struct WMFSemanticSearchView: View {
                     // last row appear immediately and pages forever.
                     LazyVStack(spacing: 12) {
                         ForEach(viewModel.rows) { row in
-                            WMFSemanticSearchResultCard(viewModel: row, readInArticleText: viewModel.localizedStrings.readInArticle)
+                            WMFSemanticSearchResultCard(
+                                viewModel: row,
+                                readInArticleText: viewModel.localizedStrings.readInArticle,
+                                contributorCountFormat: viewModel.localizedStrings.contributorCountFormat,
+                                referenceCountFormat: viewModel.localizedStrings.referenceCountFormat
+                            )
                                 .onAppear {
                                     viewModel.loadNextPageIfNeeded(afterDisplaying: row)
                                 }
@@ -67,6 +72,8 @@ struct WMFSemanticSearchResultCard: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
     let readInArticleText: String
+    let contributorCountFormat: String
+    let referenceCountFormat: String
 
     private static let thumbnailLength: CGFloat = 26
 
@@ -78,6 +85,12 @@ struct WMFSemanticSearchResultCard: View {
         VStack(alignment: .leading, spacing: 14) {
             snippet
             breadcrumb
+
+            if viewModel.contributorCount != nil || viewModel.referenceCount != nil {
+                Divider()
+                    .overlay(Color(uiColor: theme.newBorder))
+                counts
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(16)
@@ -88,7 +101,41 @@ struct WMFSemanticSearchResultCard: View {
         .onAppear {
             viewModel.loadImageIfNeeded()
             viewModel.loadSectionTrailIfNeeded()
+            viewModel.loadStatsIfNeeded()
         }
+    }
+
+    private var counts: some View {
+        HStack(spacing: 16) {
+            if let contributorCount = viewModel.contributorCount {
+                count(contributorCount, symbol: .person2Fill, format: contributorCountFormat)
+            }
+
+            if let referenceCount = viewModel.referenceCount {
+                count(referenceCount, symbol: .chartBarFill, format: referenceCountFormat)
+            }
+
+            Spacer()
+        }
+    }
+
+    private func count(_ value: Int, symbol: WMFSFSymbolIcon, format: String) -> some View {
+        let formattedValue = NumberFormatter.wmfDecimalFormatter.string(from: NSNumber(value: value)) ?? "\(value)"
+        let text = String.localizedStringWithFormat(format, formattedValue)
+
+        return HStack(spacing: 5) {
+            if let image = WMFSFSymbolIcon.for(symbol: symbol, font: .caption1) {
+                Image(uiImage: image)
+                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+            }
+
+            Text(text)
+                .font(Font(WMFFont.for(.caption1)))
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                .lineLimit(1)
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(text)
     }
 
     private var snippet: some View {

@@ -14,4 +14,12 @@ public extension NumberFormatter {
         formatter.numberStyle = .currency
         return formatter
     }()
+
+    // 2,348
+    static let wmfDecimalFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 0
+        return formatter
+    }()
 }

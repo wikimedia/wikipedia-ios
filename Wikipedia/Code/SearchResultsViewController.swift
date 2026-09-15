@@ -429,7 +429,9 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             title: "Find",
             readInArticle: "Read in article",
             emptyResults: "No results found.",
-            errorTitle: "Something went wrong. Please try again."
+            errorTitle: "Something went wrong. Please try again.",
+            contributorCountFormat: "%@ contributors",
+            referenceCountFormat: "%@ references"
         )
 
         let viewModel = WMFSemanticSearchViewModel(searchTerm: searchTerm, project: project, localizedStrings: localizedStrings)
