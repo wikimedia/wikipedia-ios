@@ -164,7 +164,7 @@ import CoreData
 
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, currentDate: Date? = Date()) -> Bool {
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
-        if developerSettingsDataController.forceYiREntryPoint {
+        if developerSettingsDataController.forceYiREntryPoint2026 {
             return true
         }
 

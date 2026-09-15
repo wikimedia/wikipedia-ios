@@ -112,7 +112,7 @@ public enum WMFUserDefaultsKey: String {
     // yir 2026
     case tappedActivityTabYIR = "tapped-activity-tab-yir-2026"
     
-    case developerSettingsForceYiREntryPoint = "dev-settings-force-yir-entry-point"
+    case developerSettingsForceYiREntryPoint2026 = "dev-settings-force-yir-entry-point-2026"
 
     // Semantic search
     case developerSettingsEnableSemanticSearch = "dev-settings-enable-semantic-search"

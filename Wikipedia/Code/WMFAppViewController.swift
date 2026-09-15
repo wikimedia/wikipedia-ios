@@ -664,6 +664,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             let update: () -> Void = {
                 self.currentTabNavigationController?.popToRootViewController(animated: false)
                 self.configureTabController()
+                self.updateActivityTabYearInReviewBadge()
                 self.selectedIndex = WMFAppTabType.search.rawValue
                 self.isUpdatingDefaultTab = false
             }

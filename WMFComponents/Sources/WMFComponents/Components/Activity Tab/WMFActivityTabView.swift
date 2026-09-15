@@ -54,8 +54,9 @@ public struct WMFActivityTabView: View {
         }
         .safeAreaInset(edge: .bottom) {
             // Logged in, the card sits at the top instead — see loggedInList and
-            // customizedEmptyState.
-            if usesPinnedYearInReviewCard, hasYearInReviewCard {
+            // customizedEmptyState. The loading check is explicit here because this inset is
+            // attached outside the branch that swaps in the progress view.
+            if !viewModel.isLoading, usesPinnedYearInReviewCard, hasYearInReviewCard {
                 yearInReviewCard
                     .padding(.bottom, 16)
             }

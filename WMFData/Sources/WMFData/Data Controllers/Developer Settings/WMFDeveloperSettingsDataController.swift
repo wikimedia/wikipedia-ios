@@ -7,7 +7,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     var showYiR2025: Bool { get }
     var enableYiRLoginExperimentControl: Bool { get }
     var enableYiRLoginExperimentB: Bool { get }
-    var forceYiREntryPoint: Bool { get }
+    var forceYiREntryPoint2026: Bool { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
@@ -85,11 +85,11 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     /// Debugging convenience: when true, the Year in Review entry point ignores the settings
     /// toggle, the remote config's active window, and the suppressed-country list, so it presents
     /// before the year's config exists remotely.
-    public var forceYiREntryPoint: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiREntryPoint.rawValue)) ?? false }
+    public var forceYiREntryPoint2026: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceYiREntryPoint2026.rawValue)) ?? false }
         set {
-            let oldValue = forceYiREntryPoint
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceYiREntryPoint.rawValue, value: newValue)
+            let oldValue = forceYiREntryPoint2026
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceYiREntryPoint2026.rawValue, value: newValue)
             if oldValue != newValue {
                 NotificationCenter.default.post(name: WMFNSNotification.yearInReviewActivityTabBadgeNeedsUpdate, object: nil)
             }
