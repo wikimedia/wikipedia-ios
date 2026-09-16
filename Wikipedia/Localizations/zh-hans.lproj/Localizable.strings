@@ -382,8 +382,6 @@
 "developer-force-email-auth" = "强制电子邮件验证";
 "developer-settings" = "开发者设置";
 "developer-settings-bypass-donation" = "绕过捐赠";
-"developer-settings-dynamic-tabs-group-C-v2" = "启用 C 组的标签页 V2";
-"developer-settings-enable-year-in-review" = "启用年度回顾";
 "developer-settings-send-analytics-to-wmflabs" = "发送分析信息至wmflabs。";
 "developer-settings-suppress-image-rec-post" = "不发布图像推荐产生的编辑。";
 "diff-article-revision-history" = "条目修订历史";

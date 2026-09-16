@@ -40,6 +40,7 @@
 // Author: Siebrand
 // Author: Sjoerddebruin
 // Author: Southparkfan
+// Author: Tejoebāsa
 // Author: TrisbaasBaan
 // Author: Tsevener
 // Author: Wikibelgiaan
@@ -167,6 +168,7 @@
 "activity-tab-onboarding-second-item-title" = "Impacthoogtepunten";
 "activity-tab-onboarding-third-item-subtitle-updated" = "U activiteitenoverzicht bevat een uitgebreide tijdlijn van gelezen, opgeslagen en bewerkte pagina's. Uw leesgeschiedenis vindt u nu in het tabblad 'Zoeken'.";
 "activity-tab-onboarding-third-item-title-updated" = "Leesgeschiedenis is nu beschikbaar in de zoekfunctie.";
+"activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Tevreden";
 "activity-tab-saved" = "Pagina's opgeslagen deze maand";
 "activity-tab-survey-subtitle" = "Help Activiteit te verbeteren. Bent u tevreden met deze functie?";
@@ -341,8 +343,6 @@
 "developer-force-email-auth" = "E-mailauthenticatie afdwingen";
 "developer-settings" = "Ontwikkelaarsinstellingen";
 "developer-settings-bypass-donation" = "Donatie omzeilen";
-"developer-settings-dynamic-tabs-group-C-v2" = "Tabbladen V2 inschakelen met groep C";
-"developer-settings-enable-year-in-review" = "Jaaroverzicht inschakelen";
 "developer-settings-send-analytics-to-wmflabs" = "Zend de analyse naar wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Geen aanbevelingen voor afbeeldingen plaatsen.";
 "diff-article-revision-history" = "Bewerkingsgeschiedenis van pagina";

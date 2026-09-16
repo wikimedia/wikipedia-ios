@@ -322,8 +322,6 @@
 "developer-force-email-auth" = "Tvinga e-postautentisering";
 "developer-settings" = "Utvecklarinställningar";
 "developer-settings-bypass-donation" = "Hoppa över donation";
-"developer-settings-dynamic-tabs-group-C-v2" = "Aktivera flikar V2 med grupp C";
-"developer-settings-enable-year-in-review" = "Aktivera årsöversikt";
 "developer-settings-send-analytics-to-wmflabs" = "Skicka analys till wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Publicera inte redigering med bildrekommendationer.";
 "diff-article-revision-history" = "Artikelns versionshistorik";

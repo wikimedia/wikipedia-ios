@@ -249,7 +249,6 @@
 "description-welcome-descriptions-title" = "Artikelbeschreiwungen";
 "description-welcome-start-editing-button" = "Ufänke mat Änneren";
 "developer-settings" = "Entwécklerastellungen";
-"developer-settings-enable-year-in-review" = "Joresréckbléck aktivéieren";
 "diff-article-revision-history" = "Versiounshistorique vum Artikel";
 "diff-change-paragraph-lines-moved-down" = "Abschnitt {{PLURAL:$1|0=0 Zeilen|$1 Zeil|$1 Zeilen}} no ënne geréckelt. Op déi nei Positioun goen.";
 "diff-change-paragraph-lines-moved-up" = "Abschnitt {{PLURAL:$1|0=0 Zeilen|$1 Zeil|$1 Zeilen}} erop geréckelt. Op déi nei Positioun goen.";
@@ -325,6 +324,8 @@
 "donation-reminder-setup-trigger-group-detail-articles" = "D'Artikelzuel ass lokal op Ärem Apparat gespäichert.";
 "donation-reminder-setup-trigger-unit-articles" = "Artikelen";
 "donation-reminder-setup-update-button-title" = "Erënnerung aktualiséieren";
+"donation-reminder-wrap-up-card-share-feedback" = "Feedback deelen";
+"donation-reminder-wrap-up-survey-placeholder" = "Soss nach eppes? (Fakultativ)";
 "edit-link-display-text-title" = "Text weisen";
 "edit-link-link-target-title" = "Linkzil";
 "edit-link-remove-link-title" = "Link ewechhuelen";

@@ -275,7 +275,6 @@
 "description-welcome-descriptions-title" = "Descrizioni delle voci";
 "description-welcome-promise-title" = "Per iniziare, prometto di non abusare di questa funzione";
 "description-welcome-start-editing-button" = "Inizia a modificare";
-"developer-settings-enable-year-in-review" = "Abilita l'Anno in Rassegno";
 "diff-article-revision-history" = "Cronologia versioni voce";
 "diff-change-paragraph-lines-moved-down" = "Il paragrafo è stato spostato in basso di {{PLURAL:$1|0=0 righe|$1 riga|$1 righe}}. Vai alla nuova posizione.";
 "diff-change-paragraph-lines-moved-up" = "Il paragrafo è stato spostato in alto di {{PLURAL:$1|0=0 righe|$1 riga|$1 righe}}. Vai alla nuova posizione.";
@@ -353,6 +352,7 @@
 "donation-reminder-wrap-up-survey-option-keep" = "Mantienilo";
 "donation-reminder-wrap-up-survey-option-remove" = "Rimuovilo";
 "donation-reminder-wrap-up-survey-placeholder" = "Altro? (Facoltativo)";
+"donation-reminder-wrap-up-survey-title" = "Sondaggio";
 "edit-link-display-text-title" = "Mostra testo";
 "edit-link-link-target-title" = "Destinazione collegamento";
 "edit-link-remove-link-title" = "Rimuovi collegamento";

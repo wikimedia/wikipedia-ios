@@ -300,8 +300,6 @@
 "developer-force-email-auth" = "Force email auth";
 "developer-settings" = "Developer Settings";
 "developer-settings-bypass-donation" = "Bypass Donation";
-"developer-settings-dynamic-tabs-group-C-v2" = "Enable tabs V2 with group C";
-"developer-settings-enable-year-in-review" = "Enable Year in Review";
 "developer-settings-send-analytics-to-wmflabs" = "Send analytics to wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Do not post image recommendations edit.";
 "diff-article-revision-history" = "Article revision history";
