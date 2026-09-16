@@ -191,6 +191,21 @@ enum ProfileState {
                 settingsItems.append(devSettingsItem)
             }
 
+            if WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 {
+                let yearInReview2026TestItem = ProfileListItem(
+                    text: "YIR 2026 Test",
+                    image: WMFSFSymbolIcon.for(symbol: .calendar),
+                    imageColor: UIColor(Color.gray),
+                    hasNotifications: nil,
+                    isDonate: false,
+                    isLoadingDonateConfigs: false,
+                    action: {
+                        coordinatorDelegate?.handleProfileAction(.showYearInReview2026Test)
+                    }
+                )
+                settingsItems.append(yearInReview2026TestItem)
+            }
+
             return [
                 ProfileSection(
                     listItems: [
@@ -304,6 +319,21 @@ enum ProfileState {
                 settingsItems.append(devSettingsItem)
             }
 
+            if WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 {
+                let yearInReview2026TestItem = ProfileListItem(
+                    text: "YIR 2026 Test",
+                    image: WMFSFSymbolIcon.for(symbol: .calendar),
+                    imageColor: UIColor(Color.gray),
+                    hasNotifications: nil,
+                    isDonate: false,
+                    isLoadingDonateConfigs: false,
+                    action: {
+                        coordinatorDelegate?.handleProfileAction(.showYearInReview2026Test)
+                    }
+                )
+                settingsItems.append(yearInReview2026TestItem)
+            }
+
 
             let joinSection = ProfileSection(
                 listItems: [
@@ -378,6 +408,21 @@ enum ProfileState {
                     }
                 )
                 settingsItems.append(devSettingsItem)
+            }
+
+            if WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 {
+                let yearInReview2026TestItem = ProfileListItem(
+                    text: "YIR 2026 Test",
+                    image: WMFSFSymbolIcon.for(symbol: .calendar),
+                    imageColor: UIColor(Color.gray),
+                    hasNotifications: nil,
+                    isDonate: false,
+                    isLoadingDonateConfigs: false,
+                    action: {
+                        coordinatorDelegate?.handleProfileAction(.showYearInReview2026Test)
+                    }
+                )
+                settingsItems.append(yearInReview2026TestItem)
             }
 
             let joinSection = ProfileSection(

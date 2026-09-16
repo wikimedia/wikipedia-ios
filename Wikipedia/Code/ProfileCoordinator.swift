@@ -38,6 +38,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private var donateCoordinator: DonateCoordinator?
     private var settingsCoordinator: SettingsCoordinator?
     private let yirCoordinator: YearInReviewCoordinator
+    private var yearInReview2026TestCoordinator: YearInReview2026TestCoordinator?
 
     let sourcePage: ProfileCoordinatorSource
 
@@ -158,6 +159,10 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             dismissProfile {
                 self.showYearInReview()
             }
+        case .showYearInReview2026Test:
+            dismissProfile {
+                self.showYearInReview2026Test()
+            }
         case .logYearInReviewTap:
             self.logYearInReviewTap()
         case .showUserPageTempAccount:
@@ -188,6 +193,14 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         settingsCoordinator.start()
     }
     
+    private func showYearInReview2026Test() {
+        MainActor.assumeIsolated {
+            let testCoordinator = YearInReview2026TestCoordinator(navigationController: navigationController, theme: theme)
+            self.yearInReview2026TestCoordinator = testCoordinator
+            testCoordinator.start()
+        }
+    }
+
     private func showDevSettings() {
         
         // todo: share localizations
@@ -353,5 +366,78 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
 
     func logYearInReviewTap() {
         DonateFunnel.shared.logProfileDidTapYearInReview()
+    }
+}
+
+/// Presents the 2026 Year in Review scaffolding from the developer-settings entry point.
+/// Temporary: it becomes the real coordinator once the slides carry .riv content.
+@MainActor
+final class YearInReview2026TestCoordinator: NSObject, WMFYearInReviewCoordinating {
+
+    private let navigationController: UINavigationController
+    private let theme: Theme
+
+    init(navigationController: UINavigationController, theme: Theme) {
+        self.navigationController = navigationController
+        self.theme = theme
+        super.init()
+    }
+
+    func start() {
+        let viewModel = WMFYearInReviewViewModel(
+            slides: Self.placeholderSlides(),
+            localizedStrings: Self.localizedStrings(),
+            coordinatorDelegate: self,
+            loggingDelegate: nil
+        )
+
+        let hostingController = WMFYearInReviewHostingController(viewModel: viewModel)
+        let presentedNavigationController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
+        navigationController.present(presentedNavigationController, animated: true)
+    }
+
+    func handleYearInReviewAction(_ action: WMFYearInReviewAction) {
+        switch action {
+        case .close:
+            navigationController.presentedViewController?.dismiss(animated: true)
+        case .showMoreMenu:
+            break
+        case .share:
+            break
+        case .donate:
+            break
+        }
+    }
+
+    private static func localizedStrings() -> WMFYearInReviewViewModel.LocalizedStrings {
+        WMFYearInReviewViewModel.LocalizedStrings(
+            wIconAccessibilityLabel: "Wikipedia",
+            closeButtonAccessibilityLabel: CommonStrings.closeButtonAccessibilityLabel,
+            moreButtonAccessibilityLabel: "More",
+            shareButtonTitle: CommonStrings.shortShareTitle,
+            donateButtonTitle: CommonStrings.donateTitle,
+            slidePositionAccessibilityValue: { current, total in "\(current) of \(total)" }
+        )
+    }
+
+    private static func placeholderSlides() -> [WMFYearInReviewSlideViewModel] {
+        let palettes: [(String, UIColor)] = [
+            ("intro", UIColor(red: 0.98, green: 0.976, blue: 0.961, alpha: 1)),
+            ("readCount", UIColor(red: 0.839, green: 0.937, blue: 0.898, alpha: 1)),
+            ("mostReadDate", UIColor(red: 0.929, green: 0.890, blue: 0.784, alpha: 1)),
+            ("topTopic", UIColor(red: 0.063, green: 0.141, blue: 0.243, alpha: 1)),
+            ("editCount", UIColor(red: 0.165, green: 0.294, blue: 0.553, alpha: 1)),
+            ("topArticles", UIColor(red: 0.710, green: 0.475, blue: 0.290, alpha: 1))
+        ]
+
+        return palettes.map { id, color in
+            WMFYearInReviewSlideViewModel(
+                id: id,
+                loggingID: id,
+                backgroundColor: color,
+                showsShareButton: id != "intro",
+                showsDonateButton: true
+            )
+        }
     }
 }
