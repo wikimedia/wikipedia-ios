@@ -10,8 +10,6 @@ final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataCont
     var enableArticleTabs: Bool { return true }
     var forceMaxArticleTabsTo5: Bool { return false }
     var enableHomeTab: Bool { return false }
-    var enableMoreDynamicTabsV2GroupB: Bool { return true }
-    var enableMoreDynamicTabsV2GroupC: Bool { return false }
     var showYiR2025: Bool { return true }
     var enableYiRLoginExperimentControl: Bool { return false }
     var enableYiRLoginExperimentB: Bool { return false }

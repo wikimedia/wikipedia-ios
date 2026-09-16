@@ -314,8 +314,6 @@
 "developer-force-email-auth" = "Tving e-mailgodkendelse";
 "developer-settings" = "Indstillinger for Udvikler";
 "developer-settings-bypass-donation" = "Bypass Donation";
-"developer-settings-dynamic-tabs-group-C-v2" = "Aktiver faner V2 med gruppe C";
-"developer-settings-enable-year-in-review" = "Aktiver År i gennemgang";
 "developer-settings-send-analytics-to-wmflabs" = "Send analyser til wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Indsend ikke billedanbefalinger redigering.";
 "diff-article-revision-history" = "Artiklens redigeringshistorik";

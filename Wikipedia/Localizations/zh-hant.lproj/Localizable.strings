@@ -343,8 +343,6 @@
 "developer-force-email-auth" = "強制電子郵件驗證";
 "developer-settings" = "開發人員設定";
 "developer-settings-bypass-donation" = "跳過捐贈";
-"developer-settings-dynamic-tabs-group-C-v2" = "啟用群組 C 的分頁 V2";
-"developer-settings-enable-year-in-review" = "啟用年度回顧";
 "developer-settings-send-analytics-to-wmflabs" = "傳送分析給維基媒體基金會實驗室。";
 "developer-settings-suppress-image-rec-post" = "請不要發送圖片推薦編輯。";
 "diff-article-revision-history" = "條目修訂紀錄";

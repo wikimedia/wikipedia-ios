@@ -12,12 +12,13 @@ struct WMFDeveloperSettingsView: View {
 
     var body: some View {
         List {
-            
+
             Section {
                 Toggle("Enable Developer Mode", isOn: $viewModel.enableDeveloperMode)
             }
+            .listRowBackground(rowBackground)
 
-            Section(header: Text("App install ID"), footer: Text("Tap to copy. Use it to find this install's errors in Logstash.")) {
+            Section {
                 Button {
                     viewModel.copyAppInstallID()
                 } label: {
@@ -29,19 +30,32 @@ struct WMFDeveloperSettingsView: View {
                             Image(uiImage: copyIcon)
                         }
                     }
+                    .foregroundStyle(Color(theme.link))
                 }
+            } header: {
+                sectionHeader("App install ID")
+            } footer: {
+                sectionFooter("Tap to copy. Use it to find this install's errors in Logstash.")
             }
+            .listRowBackground(rowBackground)
 
-            Section(header: Text("Games")) {
+            Section {
                 Toggle("Show Games Version 2", isOn: $viewModel.showGamesV2)
                 Button {
                     viewModel.clearGamesPersistence()
                 } label: {
                     Text("Clear games persistence")
+                        .foregroundStyle(Color(theme.link))
                 }
+            } header: {
+                sectionHeader("Games")
             }
+            .listRowBackground(rowBackground)
 
             Section {
+                captionedRow(caption: "Fakes a successful donation without a real charge. The native form skips the payment submission, and the web form goes straight to the thank you page.") {
+                    Toggle(viewModel.localizedStrings.bypassDonation, isOn: $viewModel.bypassDonation)
+                }
                 Toggle("Bypass Reminder Daily Limit", isOn: $viewModel.bypassDonationReminderDailyLimit)
                 captionedRow(caption: "Changes the date the donation reminder end gate treats as today; reading progress, the daily limit, and networking keep using the real device date.") {
                     Toggle("Override Current Date", isOn: $viewModel.overrideFundraisingCurrentDate)
@@ -55,6 +69,7 @@ struct WMFDeveloperSettingsView: View {
                     )
                     .datePickerStyle(.graphical)
                     .labelsHidden()
+                    .tint(Color(theme.link))
                 }
                 captionedRow(caption: "Ignores country and language settings. Only works if there is an active campaign.") {
                     Toggle("Force Fundraising Campaign Banner", isOn: $viewModel.forceFundraisingCampaignBanner)
@@ -72,17 +87,20 @@ struct WMFDeveloperSettingsView: View {
                         Text("Group B").tag(WMFDonationReminderDataController.ExperimentAssignment?.some(.groupB))
                         Text("Group C").tag(WMFDonationReminderDataController.ExperimentAssignment?.some(.groupC))
                     }
+                    .tint(Color(theme.secondaryText))
                 }
                 captionedRow(caption: "Resets \"maybe later\" / \"already donated\", the local donation history, the saved donation reminder, the experiment bucket, and the wrap-up card, so the banner can show again and the next Maybe Later re-rolls the A/B/C assignment.") {
                     Button {
                         viewModel.clearFundraisingCampaignPersistence()
                     } label: {
                         Text("Clear banner prompt state and donation history")
+                            .foregroundStyle(Color(theme.link))
                     }
                 }
             } header: {
-                Text("Fundraising")
+                sectionHeader("Fundraising")
             }
+            .listRowBackground(rowBackground)
 
             Section {
                 captionedRow(caption: "Keeps the semantic search entry point hidden in production. Without this, no gate below is evaluated.") {
@@ -94,27 +112,48 @@ struct WMFDeveloperSettingsView: View {
                         Text("Control (A)").tag(WMFSemanticSearchDataController.ExperimentAssignment?.some(.control))
                         Text("Group B").tag(WMFSemanticSearchDataController.ExperimentAssignment?.some(.groupB))
                     }
+                    .tint(Color(theme.secondaryText))
                 }
                 captionedRow(caption: "Removes the persisted bucket so the next eligible search re-rolls the A/B assignment.") {
                     Button {
                         viewModel.clearSemanticSearchExperimentAssignment()
                     } label: {
                         Text("Clear experiment assignment")
+                            .foregroundStyle(Color(theme.link))
                     }
                 }
             } header: {
-                Text("Semantic Search")
+                sectionHeader("Semantic Search")
             }
+            .listRowBackground(rowBackground)
 
             ForEach(viewModel.formViewModel.sections) { section in
                 if let selectSection = section as? WMFFormSectionSelectViewModel {
                     WMFFormSectionSelectView(viewModel: selectSection)
-                        .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
+                        .listRowBackground(rowBackground)
                 }
             }
         }
         .listStyle(InsetGroupedListStyle())
         .listBackgroundColor(Color(theme.baseBackground))
+        .foregroundStyle(Color(theme.text))
+        .toggleStyle(SwitchToggleStyle(tint: Color(theme.accent)))
+    }
+
+    private var rowBackground: some View {
+        Color(theme.paperBackground).edgesIgnoringSafeArea([.all])
+    }
+
+    private func sectionHeader(_ title: String) -> some View {
+        Text(title)
+            .font(Font(WMFFont.for(.boldFootnote)))
+            .foregroundStyle(Color(theme.secondaryText))
+    }
+
+    private func sectionFooter(_ text: String) -> some View {
+        Text(text)
+            .font(Font(WMFFont.for(.caption1)))
+            .foregroundStyle(Color(theme.secondaryText))
     }
 
     private func captionedRow(caption: String, @ViewBuilder control: () -> some View) -> some View {

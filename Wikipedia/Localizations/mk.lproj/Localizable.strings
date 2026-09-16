@@ -309,8 +309,6 @@
 "developer-force-email-auth" = "Принуди заверка по е-пошта";
 "developer-settings" = "Поставки за разработувачи";
 "developer-settings-bypass-donation" = "Прескокни дарување";
-"developer-settings-dynamic-tabs-group-C-v2" = "Овозможи V2-јазичиња со групата C";
-"developer-settings-enable-year-in-review" = "Овозможи Преглед на годината";
 "developer-settings-send-analytics-to-wmflabs" = "Испраќај аналитика во WMFLabs.";
 "developer-settings-suppress-image-rec-post" = "Не објавувај уредувања на преорачани слики.";
 "diff-article-revision-history" = "Историја на преработки на страницата";

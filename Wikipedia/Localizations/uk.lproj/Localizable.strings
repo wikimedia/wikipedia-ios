@@ -322,8 +322,6 @@
 "developer-force-email-auth" = "Примусова автентифікація через електронну пошту";
 "developer-settings" = "Налаштування для розробників";
 "developer-settings-bypass-donation" = "Обійти пожертвування";
-"developer-settings-dynamic-tabs-group-C-v2" = "Увімкнути вкладки V2 з групою C";
-"developer-settings-enable-year-in-review" = "Увімкнути Огляд року";
 "developer-settings-send-analytics-to-wmflabs" = "Надсилати аналітику на wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Не публікуйте рекомендації щодо редагування зображень.";
 "diff-article-revision-history" = "Історія редагування статті";

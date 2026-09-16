@@ -321,8 +321,6 @@
 "developer-force-email-auth" = "فرض مصادقة البريد الإلكتروني";
 "developer-settings" = "إعدادات المطور";
 "developer-settings-bypass-donation" = "التبرع بالدم";
-"developer-settings-dynamic-tabs-group-C-v2" = "تمكين علامات التبويب V2 مع المجموعة C";
-"developer-settings-enable-year-in-review" = "تمكين مراجعة العام";
 "developer-settings-send-analytics-to-wmflabs" = "إرسال التحليلات إلى wmflabs.";
 "developer-settings-suppress-image-rec-post" = "لا تنشر توصيات الصور.";
 "diff-article-revision-history" = "تاريخ مراجعة المقال";
