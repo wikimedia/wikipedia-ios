@@ -76,10 +76,10 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         case noInternetConnection
     }
 
-    public typealias ResultAction = @MainActor (SearchResult, Int) -> Void
-    public typealias ShareAction = @MainActor (SearchResult, Int, CGRect?) -> Void
-    public typealias IsSavedAction = @MainActor (SearchResult) -> Bool
-    public typealias SummaryProvider = (WMFProject, String) async throws -> WMFArticleSummary
+    public typealias ResultAction = @MainActor @Sendable (SearchResult, Int) -> Void
+    public typealias ShareAction = @MainActor @Sendable (SearchResult, Int, CGRect?) -> Void
+    public typealias IsSavedAction = @MainActor @Sendable (SearchResult) -> Bool
+    public typealias SummaryProvider = @Sendable (WMFProject, String) async throws -> WMFArticleSummary
 
     @Published private(set) var results: [SearchResult] = []
     @Published private(set) var searchTerm: String?
@@ -171,24 +171,52 @@ public final class WMFSearchResultsViewModel: ObservableObject {
 
     // MARK: - Internal
 
+    var languageCode: String? {
+        guard case .wikipedia(let language) = project else { return nil }
+        return language.languageCode
+    }
+
+    func accessibilityText(_ text: String) -> AttributedString {
+        var attributedText = AttributedString(text)
+        attributedText.languageIdentifier = languageCode
+        return attributedText
+    }
+
     func attributedTitle(for result: SearchResult, styles: HtmlUtils.Styles, boldFont: UIFont) -> AttributedString {
         var attributedTitle = (try? HtmlUtils.attributedStringFromHtml(result.titleHTML, styles: styles)) ?? AttributedString(result.titleHTML)
+
         if let searchTerm, !searchTerm.isEmpty,
            let range = attributedTitle.range(of: searchTerm, options: .caseInsensitive) {
             attributedTitle[range].font = boldFont
         }
+        attributedTitle.languageIdentifier = languageCode
         return attributedTitle
     }
 
     func previewViewModel(for result: SearchResult) -> WMFArticlePreviewViewModel {
-        WMFArticlePreviewViewModel(url: result.articleURL, titleHtml: result.titleHTML, description: result.displayedDescription, imageURL: result.thumbnailURL, isSaved: result.isSaved, snippet: nil)
+        WMFArticlePreviewViewModel(
+            url: result.articleURL,
+            titleHtml: result.title,
+            description: result.displayedDescription,
+            imageURL: result.thumbnailURL,
+            isSaved: result.isSaved,
+            snippet: nil
+        )
     }
 
     func loadPreviewViewModel(for result: SearchResult) async -> WMFArticlePreviewViewModel {
         guard let project, let summary = try? await summaryProvider(project, result.title) else {
             return previewViewModel(for: result)
         }
-        return WMFArticlePreviewViewModel(url: result.articleURL, titleHtml: result.titleHTML, description: summary.description ?? result.displayedDescription, imageURL: summary.thumbnailURL ?? result.thumbnailURL, isSaved: result.isSaved, snippet: summary.extract)
+
+        return WMFArticlePreviewViewModel(
+            url: result.articleURL,
+            titleHtml: result.title,
+            description: summary.description ?? result.displayedDescription,
+            imageURL: summary.thumbnailURL ?? result.thumbnailURL,
+            isSaved: result.isSaved,
+            snippet: summary.extract
+        )
     }
 
     func loadImage(url: URL?) async -> UIImage? {
@@ -197,9 +225,11 @@ public final class WMFSearchResultsViewModel: ObservableObject {
               let image = UIImage(data: data) else {
             return nil
         }
+
         guard let faceUnitRect = try? await WMFFaceDetectionCache.shared.faceBounds(in: image, for: url) else {
             return image
         }
+
         return Self.cropped(image, toSquareAround: faceUnitRect)
     }
 
@@ -208,6 +238,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         let faceCenter = CGPoint(x: faceUnitRect.midX * imageSize.width, y: faceUnitRect.midY * imageSize.height)
         let x = min(max(0, faceCenter.x - side / 2), imageSize.width - side)
         let y = min(max(0, faceCenter.y - side / 2), imageSize.height - side)
+
         return CGRect(x: x, y: y, width: side, height: side)
     }
 
@@ -220,36 +251,43 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         guard let croppedCGImage = cgImage.cropping(to: cropRect) else {
             return image
         }
+
         return UIImage(cgImage: croppedCGImage, scale: image.scale, orientation: .up)
     }
 
     func tap(_ result: SearchResult) {
         guard let index = index(of: result) else { return }
+
         tapAction(result, index)
     }
 
     func open(_ result: SearchResult) {
         guard let index = index(of: result) else { return }
+
         openAction(result, index)
     }
 
     func openInNewTab(_ result: SearchResult) {
         guard let index = index(of: result) else { return }
+
         openInNewTabAction(result, index)
     }
 
     func openInBackgroundTab(_ result: SearchResult) {
         guard let index = index(of: result) else { return }
+
         openInBackgroundTabAction(result, index)
     }
 
     func saveOrUnsave(_ result: SearchResult) {
         guard let index = index(of: result) else { return }
+
         saveOrUnsaveAction(result, index)
     }
 
     func share(_ result: SearchResult) {
         guard let index = index(of: result) else { return }
+        
         shareAction(result, index, geometryFrames[result.id])
     }
 

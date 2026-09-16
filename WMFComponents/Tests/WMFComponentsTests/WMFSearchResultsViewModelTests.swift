@@ -206,7 +206,7 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
         let preview = await viewModel.loadPreviewViewModel(for: viewModel.results[0])
 
         XCTAssertEqual(preview.url, catResult.articleURL)
-        XCTAssertEqual(preview.titleHtml, "<i>Cat</i>")
+        XCTAssertEqual(preview.titleHtml, "Cat")
         XCTAssertEqual(preview.description, "Small domesticated carnivorous mammal")
         XCTAssertEqual(preview.imageURL?.absoluteString, "https://upload.wikimedia.org/cat-320.jpg")
         XCTAssertEqual(preview.snippet, "The cat is a small domesticated carnivorous mammal.")
@@ -218,6 +218,7 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
 
         let preview = await viewModel.loadPreviewViewModel(for: viewModel.results[0])
 
+        XCTAssertEqual(preview.titleHtml, "Cat")
         XCTAssertEqual(preview.description, "Redirected from: Felis")
         XCTAssertEqual(preview.imageURL?.absoluteString, "https://upload.wikimedia.org/cat-120.jpg")
         XCTAssertNil(preview.snippet)
@@ -289,5 +290,18 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
 
         XCTAssertEqual(attributedTitle.runs.count, 1)
         XCTAssertEqual(attributedTitle.font, titleStyles.font)
+    }
+
+    func testAccessibilityTextCarriesTheProjectLanguage() {
+        let viewModel = makeViewModel(recorder: Recorder())
+        let result = makeResult("Gato")
+        viewModel.showResults([result], searchTerm: nil, project: WMFProject.wikipedia(WMFLanguage(languageCode: "pt", languageVariantCode: nil)))
+
+        let attributedTitle = viewModel.attributedTitle(for: result, styles: titleStyles, boldFont: WMFFont.for(.boldCallout))
+        let accessibilityDescription = viewModel.accessibilityText("Mamífero carnívoro")
+
+        XCTAssertEqual(attributedTitle.languageIdentifier, "pt")
+        XCTAssertEqual(accessibilityDescription.languageIdentifier, "pt")
+        XCTAssertEqual(String(accessibilityDescription.characters), "Mamífero carnívoro")
     }
 }

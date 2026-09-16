@@ -126,7 +126,7 @@ struct WMFSearchResultRow: View {
                         .font(Font(WMFFont.for(.subheadline)))
                         .foregroundStyle(Color(theme.secondaryText))
                         .lineLimit(1)
-                        .accessibilityLabel(description)
+                        .accessibilityLabel(Text(viewModel.accessibilityText(description)))
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
