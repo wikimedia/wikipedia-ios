@@ -851,6 +851,8 @@ public class CommonStrings: NSObject {
     
     // Games
     public static let playTodaysGameTitle = WMFLocalizedString("games-wcf-button-play-title", value:"Play today's game", comment: "Button text on Which Came First card in the Explore tab and in the game splash screen, shown when game is not started. Tapping navigates to the Which Came First game.")
+    
+    public static let youCanAccessYIRInActivity = WMFLocalizedString("year-in-review-2026-announcement-exit-toast-title", value: "You can access your Year in Review later in Activity.", comment: "Toast displayed after the user dismisses the Year in Review announcement, telling them where to find the feature later.")
 }
 
 // Language variant strings
