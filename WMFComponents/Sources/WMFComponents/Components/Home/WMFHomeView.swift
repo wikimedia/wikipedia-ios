@@ -403,7 +403,11 @@ private struct WMFHomeForYouSection<Feed: View, EmptyState: View>: View {
     @ViewBuilder let emptyState: () -> EmptyState
 
     var body: some View {
-        if forYouViewModel.isFeedEmpty {
+        // Deliberately not `isFeedEmpty`: a reader with no personalized content yet also has no
+        // visible pages, and that case belongs to the feed, which shows the end of feed card's
+        // empty variant for it. Only content turned off or hidden by the reader gets the settings
+        // empty state here.
+        if forYouViewModel.isFeedHiddenBySettings {
             emptyState()
         } else {
             feed()

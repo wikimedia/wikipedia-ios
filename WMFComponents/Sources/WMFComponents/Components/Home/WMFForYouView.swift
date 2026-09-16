@@ -81,8 +81,8 @@ extension WMFForYouViewModel {
     /// cards are all hidden does not appear.
     ///
     /// This is the one definition of what the feed shows. `WMFForYouView` builds its pages from
-    /// it, and `WMFHomeView` reads `isFeedEmpty` to decide between the feed chrome and the empty
-    /// state, so the two can never disagree about whether the feed is empty.
+    /// it, and `WMFHomeView` reads `isFeedHiddenBySettings` to decide between the feed chrome and
+    /// the settings empty state, so the two can never disagree about whether the feed is empty.
     var visibleArticlesByPage: [(page: WMFForYouPageViewModel, articles: [WMFForYouArticleCardViewModel])] {
         pages.compactMap { page in
             guard moduleVisibility.isVisible(page.module) else { return nil }
@@ -96,6 +96,16 @@ extension WMFForYouViewModel {
     /// card by card.
     var isFeedEmpty: Bool {
         visibleArticlesByPage.isEmpty
+    }
+
+    /// True only when content exists but the reader has turned it all off or hidden it. This is the
+    /// case the settings empty state belongs to.
+    ///
+    /// A reader with no personalized content yet also has no visible pages, but wants different
+    /// copy: `WMFForYouView` shows the end of feed card's `.emptyFeed` variant for that. So that
+    /// case must reach the feed rather than be caught by the empty state above it.
+    var isFeedHiddenBySettings: Bool {
+        !pages.isEmpty && isFeedEmpty
     }
 }
 
@@ -300,8 +310,9 @@ public struct WMFForYouView: View {
             if viewModel.pages.isEmpty {
                 // No personalized content is available at all (no interests, no reading history):
                 // the end of feed card doubles as the empty state until the Random article module
-                // ships. When content exists but every module is off or every card is hidden, the
-                // settings empty state below shows instead.
+                // ships. When content exists but every module is off or every card is hidden,
+                // `WMFHomeView` shows the settings empty state instead and this view is not built;
+                // the branch below remains as a fallback for any other caller.
                 GeometryReader { geometry in
                     ScrollView {
                         endOfFeedPage
