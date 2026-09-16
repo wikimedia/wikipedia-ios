@@ -9,10 +9,10 @@ import WMFData
 /// versions still decode. Remove this class when the Explore feed is removed.
 @objc(WMFFeedArticlePreview)
 @objcMembers
-public class WMFFeedArticlePreview: NSObject, NSSecureCoding {
+public class WMFFeedArticlePreview: NSObject, NSSecureCoding, NSCopying {
 
     public let displayTitle: String
-    private let storedDisplayTitleHTML: String?
+    fileprivate let storedDisplayTitleHTML: String?
     public var wikidataDescription: String?
     public var snippet: String?
     public var thumbnailURL: URL?
@@ -108,6 +108,24 @@ public class WMFFeedArticlePreview: NSObject, NSSecureCoding {
         articleURL.wmf_languageVariantCode = languageVariantCode
     }
 
+    // MARK: - NSCopying
+
+    /// Core Data declares `WMFContentGroup.contentPreview` as a copy property. Thus the setter
+    /// calls this method. The copy is shallow, as the Mantle copy was.
+    public func copy(with zone: NSZone? = nil) -> Any {
+        return WMFFeedArticlePreview(
+            articleURL: articleURL,
+            displayTitle: displayTitle,
+            displayTitleHTML: storedDisplayTitleHTML,
+            wikidataDescription: wikidataDescription,
+            snippet: snippet,
+            thumbnailURL: thumbnailURL,
+            imageURLString: imageURLString,
+            imageWidth: imageWidth,
+            imageHeight: imageHeight
+        )
+    }
+
     // MARK: - NSSecureCoding
 
     public class var supportsSecureCoding: Bool { true }
@@ -184,6 +202,28 @@ public final class WMFFeedTopReadArticlePreview: WMFFeedArticlePreview {
 
     public var numberOfViews: NSNumber
     public var rank: NSNumber
+
+    init(articleURL: URL, displayTitle: String, displayTitleHTML: String?, wikidataDescription: String?, snippet: String?, thumbnailURL: URL?, imageURLString: String?, imageWidth: NSNumber?, imageHeight: NSNumber?, numberOfViews: NSNumber, rank: NSNumber) {
+        self.numberOfViews = numberOfViews
+        self.rank = rank
+        super.init(articleURL: articleURL, displayTitle: displayTitle, displayTitleHTML: displayTitleHTML, wikidataDescription: wikidataDescription, snippet: snippet, thumbnailURL: thumbnailURL, imageURLString: imageURLString, imageWidth: imageWidth, imageHeight: imageHeight)
+    }
+
+    public override func copy(with zone: NSZone? = nil) -> Any {
+        return WMFFeedTopReadArticlePreview(
+            articleURL: articleURL,
+            displayTitle: displayTitle,
+            displayTitleHTML: storedDisplayTitleHTML,
+            wikidataDescription: wikidataDescription,
+            snippet: snippet,
+            thumbnailURL: thumbnailURL,
+            imageURLString: imageURLString,
+            imageWidth: imageWidth,
+            imageHeight: imageHeight,
+            numberOfViews: numberOfViews,
+            rank: rank
+        )
+    }
 
     public init?(mostReadArticle: WMFFeedMostReadArticle, languageVariantCode: String?) {
         numberOfViews = NSNumber(value: mostReadArticle.views ?? 0)

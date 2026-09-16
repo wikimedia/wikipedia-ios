@@ -9,7 +9,7 @@ import WMFData
 /// Remove this class when the Explore feed is removed.
 @objc(WMFFeedImage)
 @objcMembers
-public final class WMFFeedImage: NSObject, NSSecureCoding {
+public final class WMFFeedImage: NSObject, NSSecureCoding, NSCopying {
 
     public let canonicalPageTitle: String
     public let imageDescription: String
@@ -109,6 +109,22 @@ public final class WMFFeedImage: NSObject, NSSecureCoding {
     public func propagateLanguageVariantCode(_ languageVariantCode: String?) {
         imageThumbURL.wmf_languageVariantCode = languageVariantCode
         imageURL.wmf_languageVariantCode = languageVariantCode
+    }
+
+    // MARK: - NSCopying
+
+    /// Core Data declares `WMFContentGroup.contentPreview` as a copy property. Thus the setter
+    /// calls this method. The copy is shallow, as the Mantle copy was.
+    public func copy(with zone: NSZone? = nil) -> Any {
+        return WMFFeedImage(
+            canonicalPageTitle: canonicalPageTitle,
+            imageDescription: imageDescription,
+            imageDescriptionIsRTL: imageDescriptionIsRTL,
+            imageThumbURL: imageThumbURL,
+            imageURL: imageURL,
+            imageWidth: imageWidth,
+            imageHeight: imageHeight
+        )
     }
 
     // MARK: - NSSecureCoding

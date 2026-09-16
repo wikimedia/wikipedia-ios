@@ -10,14 +10,14 @@ import WMFData
 /// Remove this class when the legacy search and Explore code is removed.
 @objc(MWKSearchResult)
 @objcMembers
-public class MWKSearchResult: NSObject, NSSecureCoding {
+public class MWKSearchResult: NSObject, NSSecureCoding, NSCopying {
 
     public let articleID: Int
     public let revID: Int
     public let title: String?
     /// The display title without HTML.
     public let displayTitle: String?
-    private let storedDisplayTitleHTML: String?
+    fileprivate let storedDisplayTitleHTML: String?
     public let wikidataDescription: String?
     public let extract: String?
     public private(set) var thumbnailURL: URL?
@@ -121,6 +121,18 @@ public class MWKSearchResult: NSObject, NSSecureCoding {
         return lookup[type]
     }
 
+    // MARK: - NSCopying
+
+    /// The Mantle model conformed to NSCopying. A copy property of this type thus needs this
+    /// method. The copy is shallow, as the Mantle copy was.
+    public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = MWKSearchResult(articleID: articleID, revID: revID, title: title, displayTitle: displayTitle, displayTitleHTML: storedDisplayTitleHTML, wikidataDescription: wikidataDescription, extract: extract, thumbnailURL: thumbnailURL, index: index, titleNamespace: titleNamespace, location: location)
+        copy.viewCounts = viewCounts
+        copy.geoDimension = geoDimension
+        copy.geoType = geoType
+        return copy
+    }
+
     // MARK: - NSSecureCoding
 
     public class var supportsSecureCoding: Bool { true }
@@ -210,6 +222,19 @@ public final class MWKLocationSearchResult: MWKSearchResult {
     public override init(result: WMFArticleSearchResult, languageVariantCode: String?) {
         distanceFromQueryCoordinates = result.coordinate?.distance ?? 0
         super.init(result: result, languageVariantCode: languageVariantCode)
+    }
+
+    init(articleID: Int, revID: Int, title: String?, displayTitle: String?, displayTitleHTML: String?, wikidataDescription: String?, extract: String?, thumbnailURL: URL?, index: NSNumber?, titleNamespace: NSNumber?, location: CLLocation?, distanceFromQueryCoordinates: CLLocationDistance) {
+        self.distanceFromQueryCoordinates = distanceFromQueryCoordinates
+        super.init(articleID: articleID, revID: revID, title: title, displayTitle: displayTitle, displayTitleHTML: displayTitleHTML, wikidataDescription: wikidataDescription, extract: extract, thumbnailURL: thumbnailURL, index: index, titleNamespace: titleNamespace, location: location)
+    }
+
+    public override func copy(with zone: NSZone? = nil) -> Any {
+        let copy = MWKLocationSearchResult(articleID: articleID, revID: revID, title: title, displayTitle: displayTitle, displayTitleHTML: storedDisplayTitleHTML, wikidataDescription: wikidataDescription, extract: extract, thumbnailURL: thumbnailURL, index: index, titleNamespace: titleNamespace, location: location, distanceFromQueryCoordinates: distanceFromQueryCoordinates)
+        copy.viewCounts = viewCounts
+        copy.geoDimension = geoDimension
+        copy.geoType = geoType
+        return copy
     }
 
     private static let distanceKey = "distanceFromQueryCoordinates"

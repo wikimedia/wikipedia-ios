@@ -9,7 +9,7 @@ import WMFData
 /// Remove this class when the Explore feed is removed.
 @objc(WMFFeedOnThisDayEvent)
 @objcMembers
-public final class WMFFeedOnThisDayEvent: NSObject, NSSecureCoding {
+public final class WMFFeedOnThisDayEvent: NSObject, NSSecureCoding, NSCopying {
 
     public let text: String?
     public let year: NSNumber?
@@ -56,6 +56,17 @@ public final class WMFFeedOnThisDayEvent: NSObject, NSSecureCoding {
     /// Set the language variant code on the article previews. The content group calls this method after it decodes the object.
     public func propagateLanguageVariantCode(_ languageVariantCode: String?) {
         articlePreviews?.forEach { $0.propagateLanguageVariantCode(languageVariantCode) }
+    }
+
+    // MARK: - NSCopying
+
+    /// Core Data declares `WMFContentGroup.contentPreview` as a copy property. Thus the setter
+    /// calls this method. The copy is shallow, as the Mantle copy was.
+    public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = WMFFeedOnThisDayEvent(text: text, year: year, articlePreviews: articlePreviews)
+        copy.score = score
+        copy.index = index
+        return copy
     }
 
     // MARK: - NSSecureCoding

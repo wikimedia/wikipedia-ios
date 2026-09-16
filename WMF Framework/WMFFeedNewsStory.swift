@@ -10,7 +10,7 @@ import WMFNativeLocalizations
 /// Remove this class when the Explore feed is removed.
 @objc(WMFFeedNewsStory)
 @objcMembers
-public final class WMFFeedNewsStory: NSObject, NSSecureCoding {
+public final class WMFFeedNewsStory: NSObject, NSSecureCoding, NSCopying {
 
     public let storyHTML: String?
     public var featuredArticlePreview: WMFFeedArticlePreview?
@@ -50,6 +50,19 @@ public final class WMFFeedNewsStory: NSObject, NSSecureCoding {
     public func propagateLanguageVariantCode(_ languageVariantCode: String?) {
         featuredArticlePreview?.propagateLanguageVariantCode(languageVariantCode)
         articlePreviews?.forEach { $0.propagateLanguageVariantCode(languageVariantCode) }
+    }
+
+    // MARK: - NSCopying
+
+    /// Core Data declares `WMFContentGroup.contentPreview` as a copy property. Thus the setter
+    /// calls this method. The copy is shallow, as the Mantle copy was.
+    public func copy(with zone: NSZone? = nil) -> Any {
+        return WMFFeedNewsStory(
+            storyHTML: storyHTML,
+            articlePreviews: articlePreviews,
+            featuredArticlePreview: featuredArticlePreview,
+            midnightUTCMonthAndDay: midnightUTCMonthAndDay
+        )
     }
 
     // MARK: - NSSecureCoding
