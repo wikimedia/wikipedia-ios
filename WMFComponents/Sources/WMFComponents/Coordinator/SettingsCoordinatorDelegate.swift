@@ -16,6 +16,7 @@ public enum SettingsAction {
     case search
     case exploreFeed
     case homeFeed
+    case yearInReview
     case notifications
     case readingPreferences
     case articleSyncing
