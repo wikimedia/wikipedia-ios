@@ -153,8 +153,6 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             showExploreFeedSettings()
         case .homeFeed:
             showHomeFeedSettings()
-        case .yearInReview:
-            self.goToYearInReviewSettings()
         case .notifications:
             showNotifications()
         case .readingPreferences:
@@ -279,33 +277,6 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         let message = WMFLocalizedString("clearing-cache-complete", value: "Clearing cache complete.", comment: "Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.")
         WMFToastManager.sharedInstance.showToast(message, sticky: true, dismissPreviousToasts: true)
     }
-
-    // MARK: - YiR
-
-    private func goToYearInReviewSettings() {
-
-        let strings = WMFYearInReviewSettingsViewModel.LocalizedStrings(title: CommonStrings.yirTitle, description: WMFLocalizedString("settings-year-in-review-header", value: "Turning off Year in Review will clear all stored personalized insights and hide the Year in Review.", comment: "Text informing user of benefits of hiding the year in review feature."), toggleTitle: CommonStrings.yirTitle)
-
-        let viewModel = WMFYearInReviewSettingsViewModel(
-            dataController: dataController,
-            localizedStrings: strings,
-            onToggle: { isOn in
-                DonateFunnel.shared.logYearInReviewSettingsDidToggle(isOn: isOn)
-            }
-        )
-
-        let rootView = WMFYearInReviewSettingsView(viewModel: viewModel)
-        let hostingController = UIHostingController(rootView: rootView)
-
-        guard let settingsNav = settingsNavigationController else {
-            return
-        }
-
-        DonateFunnel.shared.logYearInReviewSettingsDidTapItem()
-        hostingController.title = strings.title
-        settingsNav.pushViewController(hostingController, animated: true)
-    }
-
 
     // MARK: - Database population
 

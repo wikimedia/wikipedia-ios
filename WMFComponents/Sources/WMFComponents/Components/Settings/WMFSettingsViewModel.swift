@@ -346,12 +346,6 @@ final public class WMFSettingsViewModel: ObservableObject {
             }))
         }
 
-        let label = await dataController.yirIsActive() == true ? localizedStrings.onTitle : localizedStrings.offTitle
-
-        let yearInReview = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .calendar), color: WMFColor.blue700, title: localizedStrings.yirTitle, subtitle: nil, accessory: .chevron(label: label), action: {
-            self.coordinatorDelegate?.handleSettingsAction(.yearInReview)
-        })
-
         let pushNotifications = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .appBadge), color: WMFColor.red600, title: localizedStrings.pushNotificationsTitle, subtitle: nil, accessory: .chevron(label: nil)) {
             self.coordinatorDelegate?.handleSettingsAction(.notifications)
         }
@@ -379,10 +373,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         }
 
         var section = SettingsSection(header: nil, footer: nil, items: [myLanguages, search] + feedItems + mainItems + [clearCache])
-
-        if await dataController.shouldShowYiRSettingsItem() {
-            section.items.insert(yearInReview, at: 2 + feedItems.count)
-        }
 
 #if DEBUG
         // Anchored to Clear cached data rather than a fixed offset, since the rows above it are conditional.
