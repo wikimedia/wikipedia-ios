@@ -306,8 +306,6 @@
 "developer-force-email-auth" = "E-poçtun doğrulamasını məcbur et";
 "developer-settings" = "Tərtibatçı Parametrləri";
 "developer-settings-bypass-donation" = "İanəni atla";
-"developer-settings-dynamic-tabs-group-C-v2" = "C qrupunun V2 vərəqələrini aktivləşdir";
-"developer-settings-enable-year-in-review" = "İlə Baxışı aktivləşdir";
 "developer-settings-send-analytics-to-wmflabs" = "Analitik datanı wmflabs-a göndər.";
 "developer-settings-suppress-image-rec-post" = "Şəkil tövsiyələrini redaktə etməyi paylaşma.";
 "diff-article-revision-history" = "Məqalənin redaktə tarixçəsi";
@@ -430,6 +428,7 @@
 "donation-reminder-wrap-up-survey-option-remove" = "Yox, sil";
 "donation-reminder-wrap-up-survey-placeholder" = "Başqa bir şey (məcburi deyil)";
 "donation-reminder-wrap-up-survey-subtitle" = "Oxuduğunuz məqalələrə əsaslanan ianə xatırlatmaları daimi bir xüsusiyyətə çevrilməlidir?";
+"donation-reminder-wrap-up-survey-title" = "Sorğu";
 "donation-reminder-wrap-up-survey-toast" = "Rəyiniz üçün təşəkkür edirik. Cavabınız növbəti qərarlarımıza kömək edir.";
 "edit-link-display-text-title" = "Mətni göstər";
 "edit-link-link-target-title" = "Link hədəfi";

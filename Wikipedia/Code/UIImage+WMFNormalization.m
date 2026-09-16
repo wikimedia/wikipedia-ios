@@ -15,10 +15,4 @@
     return WMFConvertAndNormalizeCGRectUsingSize(rect, self.size);
 }
 
-- (NSArray<NSValue *> *)wmf_normalizeAndConvertBoundsFromCIFeatures:(NSArray<CIFeature *> *)features {
-    return [features wmf_map:^NSValue *(CIFeature *feature) {
-        return [NSValue valueWithCGRect:[self wmf_normalizeAndConvertCGCoordinateRect:feature.bounds]];
-    }];
-}
-
 @end

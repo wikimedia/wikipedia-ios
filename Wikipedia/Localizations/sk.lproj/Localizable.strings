@@ -317,8 +317,6 @@
 "developer-force-email-auth" = "Vynútiť overenie e-mailom";
 "developer-settings" = "Nastavenia vývojára";
 "developer-settings-bypass-donation" = "Obísť dar";
-"developer-settings-dynamic-tabs-group-C-v2" = "Povoliť karty V2 so skupinou C";
-"developer-settings-enable-year-in-review" = "Povoliť Rok v skratke";
 "developer-settings-send-analytics-to-wmflabs" = "Pošlite analytické údaje do wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Neuverejňujte úpravu odporúčaní obrázkov.";
 "diff-article-revision-history" = "Dejiny revízií článku";

@@ -18,6 +18,9 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
     private let dataStore: MWKDataStore
     private let context: WMFEvergreenAccountCreationDataController.PresentationContext
 
+    /// Gives the reader a moment on the surface they opened before the prompt takes the screen.
+    private static let presentationDelay: TimeInterval = 2
+
     private weak var promptNavigationController: WMFComponentNavigationController?
 
     /// The close button and the presentation delegate can both land here, so the first outcome wins.
@@ -54,6 +57,8 @@ final class EvergreenAccountCreationCoordinator: NSObject, Coordinator {
 
     /// Presents the prompt only if the reader is eligible right now.
     func startIfEligible() async {
+        try? await Task.sleep(for: .seconds(Self.presentationDelay))
+
         let presenter = navigationController.presentedViewController ?? navigationController
 
         guard await dataController.shouldShowPrompt(

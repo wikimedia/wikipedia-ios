@@ -2,7 +2,6 @@ import Foundation
 
 public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
-    var enableMoreDynamicTabsV2GroupC: Bool { get }
     var forceMaxArticleTabsTo5: Bool { get }
     var showYiR2025: Bool { get }
     var enableYiRLoginExperimentControl: Bool { get }
@@ -68,11 +67,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     public var forceMaxArticleTabsTo5: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue, value: newValue) }
-    }
-
-    public var enableMoreDynamicTabsV2GroupC: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue, value: newValue) }
     }
 
     public var showYiR2025: Bool {
@@ -242,6 +236,31 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     public var fundraisingCurrentDate: Date {
         fundraisingOverriddenCurrentDate ?? Date()
+    }
+
+    // MARK: - Semantic Search
+
+    public var enableSemanticSearch: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableSemanticSearch.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableSemanticSearch.rawValue, value: newValue) }
+    }
+
+    /// Debugging convenience: overrides the persisted semantic search experiment bucket at read
+    /// time without re-rolling it, and bypasses the target language gate. Nil means no override.
+    public var forceSemanticSearchExperimentAssignment: WMFSemanticSearchDataController.ExperimentAssignment? {
+        get {
+            guard let rawValue: String = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchExperimentAssignment.rawValue) else {
+                return nil
+            }
+            return WMFSemanticSearchDataController.ExperimentAssignment(rawValue: rawValue)
+        }
+        set {
+            if let newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchExperimentAssignment.rawValue, value: newValue.rawValue)
+            } else {
+                try? userDefaultsStore?.remove(key: WMFUserDefaultsKey.developerSettingsForceSemanticSearchExperimentAssignment.rawValue)
+            }
+        }
     }
 
     // MARK: - Remote Feature Flags

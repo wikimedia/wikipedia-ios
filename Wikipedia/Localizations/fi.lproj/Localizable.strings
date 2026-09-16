@@ -278,7 +278,6 @@
 "developer-force-email-auth" = "Pakota sähköpostitodennus";
 "developer-settings" = "Kehittäjien asetukset";
 "developer-settings-bypass-donation" = "Ohita lahjoitus";
-"developer-settings-enable-year-in-review" = "Ota vuosikatsaus käyttöön";
 "developer-settings-send-analytics-to-wmflabs" = "Lähetä analytiikka wmflabsille.";
 "diff-article-revision-history" = "Artikkelin versiohistoria";
 "diff-change-added" = "Lisäys, $1, lisäyksen loppu.";

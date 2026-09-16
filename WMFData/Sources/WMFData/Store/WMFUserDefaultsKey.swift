@@ -21,7 +21,6 @@ public enum WMFUserDefaultsKey: String {
     case articleTabsDidTapOpenInNewTab = "article-tabs-did-tap-open-in-new-tab"
     case articleTabsDidShowSurvey = "article-tabs-did-show-survey"
     case articleTabsDidShowSurveyBandC = "article-tabs-did-show-survey-b-and-c"
-    case developerSettingsMoreDynamicTabsV2GroupC = "more-dynamic-tabs-group-c-v2"
     case developerSettingsShowYiR2025 = "dev-settings-yir-show-v3"
     case developerSettingsYiRV3LoginExperimentControl = "dev-settings-yir-login-experiment-control"
     case developerSettingsYiRV3LoginExperimentB = "dev-settings-yir-login-experiment-b"
@@ -101,6 +100,9 @@ public enum WMFUserDefaultsKey: String {
     case didSendNewInstallOnboardingStartEvent = "did-send-new-install-onboarding-start-event"
     case hasSeenOneTimeOnboardingHome = "has-seen-one-time-home-onboarding"
     case hasSeenUpdatedHomeOnboarding = "has-seen-updated-home-onboarding"
+    
+    // Onboarding: For You swipe-up hint
+    case hasSeenForYouSwipeOnboarding = "has-seen-for-you-swipe-onboarding"
 
     // Visual editor journey
     case defaultEditMode = "default-edit-mode"
@@ -108,4 +110,8 @@ public enum WMFUserDefaultsKey: String {
 
     // Evergreen account creation prompt
     case evergreenAccountCreationState = "evergreen-account-creation-state"
+
+    // Semantic search
+    case developerSettingsEnableSemanticSearch = "dev-settings-enable-semantic-search"
+    case developerSettingsForceSemanticSearchExperimentAssignment = "dev-settings-force-semantic-search-experiment-assignment"
 }

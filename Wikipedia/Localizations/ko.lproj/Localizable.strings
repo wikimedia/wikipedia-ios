@@ -328,8 +328,6 @@
 "developer-force-email-auth" = "이메일 인증 강제";
 "developer-settings" = "개발자 설정";
 "developer-settings-bypass-donation" = "기부 건너뛰기";
-"developer-settings-dynamic-tabs-group-C-v2" = "그룹 C를 사용하여 탭 V2를 활성화";
-"developer-settings-enable-year-in-review" = "연말 결산 활성화";
 "developer-settings-send-analytics-to-wmflabs" = "wmflabs에 분석을 보냅니다.";
 "developer-settings-suppress-image-rec-post" = "이미지 제안 편집을 게시하지 않습니다.";
 "diff-article-revision-history" = "문서 편집 역사";

@@ -27,8 +27,29 @@ final class PictureOfTheDayData {
 
     // MARK: Properties
 
-    static var sampleEntry: PictureOfTheDayEntry {
-        return PictureOfTheDayEntry(date: Date(), kind: .sample, image: UIImage(named: "PictureOfTheYear_2019"), imageDescription:  PictureOfTheDayWidget.LocalizedStrings.sampleEntryDescription)
+    static func sampleEntry(targetSize: CGSize) -> PictureOfTheDayEntry {
+        return PictureOfTheDayEntry(date: Date(), kind: .sample, image: sampleImage(fitting: targetSize), imageDescription:  PictureOfTheDayWidget.LocalizedStrings.sampleEntryDescription)
+    }
+
+    /// The bundled sample is 800×533 (426k px), which exceeds WidgetKit's archival cap on iPad
+    /// (~423k px observed) — the image is silently dropped and gallery previews render gray.
+    /// Scale it down to the family's render size, like real content.
+    private static func sampleImage(fitting targetSize: CGSize) -> UIImage? {
+        guard let image = UIImage(named: "PictureOfTheYear_2019") else {
+            return nil
+        }
+
+        let scale = min(targetSize.width / image.size.width, targetSize.height / image.size.height, 1)
+        guard scale < 1 else {
+            return image
+        }
+
+        let scaledSize = CGSize(width: (image.size.width * scale).rounded(.down), height: (image.size.height * scale).rounded(.down))
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        return UIGraphicsImageRenderer(size: scaledSize, format: format).image { _ in
+            image.draw(in: CGRect(origin: .zero, size: scaledSize))
+        }
     }
     
     static var placeholderEntry: PictureOfTheDayEntry {
@@ -56,7 +77,7 @@ final class PictureOfTheDayData {
                 let entry = PictureOfTheDayEntry(date: Date(), kind: .entry, contentURL: groupURL, image: image, imageDescription: description, licenseCode: license)
                 completion(entry)
             } else {
-                completion(PictureOfTheDayData.sampleEntry)
+                completion(PictureOfTheDayData.sampleEntry(targetSize: targetSize))
             }
         }
     }

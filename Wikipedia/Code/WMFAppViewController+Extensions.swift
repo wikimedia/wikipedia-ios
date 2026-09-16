@@ -886,6 +886,8 @@ extension WMFAppViewController {
     }
 
     @objc func performWMFDataHousekeeping() {
+        WMFExperimentsDataController.pruneRetiredExperiments()
+
         let coreDataStore = WMFDataEnvironment.current.coreDataStore
         Task {
             do {
