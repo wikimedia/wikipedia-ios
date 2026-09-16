@@ -18,12 +18,15 @@ import CoreData
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
     private let experimentsDataController: WMFExperimentsDataController?
 
-    @objc public static let targetYear = 2025
-    public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2025_share&mt=8"
+    @objc public static let targetYear = 2026
+    public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2026_share&mt=8"
 
     private let service = WMFDataEnvironment.current.mediaWikiService
     private var dataPopulationBackgroundTaskID: UIBackgroundTaskIdentifier = .invalid
 
+    /// Shape of the 2025 announcement value still on disk under
+    /// `WMFUserDefaultsKey.seenYearInReviewFeatureAnnouncement`. The 2026 feature does not read it —
+    /// it is kept so the 2025 value can still be decoded if we ever need it.
     struct FeatureAnnouncementStatus: Codable {
         var hasPresentedYiRFeatureAnnouncementModal: Bool
         static var `default`: FeatureAnnouncementStatus {
@@ -31,6 +34,8 @@ import CoreData
         }
     }
 
+    /// Shape of the 2025 intro slide value still on disk under
+    /// `WMFUserDefaultsKey.seenYearInReviewIntroSlide`. See note above.
     struct YiRNotificationAnnouncementStatus: Codable {
         var hasSeenYiRIntroSlide: Bool
         static var `default`: YiRNotificationAnnouncementStatus {
@@ -68,13 +73,9 @@ import CoreData
 
     // MARK: - Feature Announcement
 
-    private var featureAnnouncementStatus: FeatureAnnouncementStatus {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewFeatureAnnouncement.rawValue)) ?? FeatureAnnouncementStatus.default
-    }
-
-    private var seenIntroSlideStatus: YiRNotificationAnnouncementStatus {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewIntroSlide.rawValue)) ?? YiRNotificationAnnouncementStatus.default
-    }
+    /// All "already seen" state below is stored under 2026-specific keys. The 2025 values stay on
+    /// disk untouched, which is what keeps someone who saw Year in Review in 2025 eligible for the
+    /// 2026 announcement.
 
     public func shouldShowYiRNotification(isLoggedOut: Bool, isTemporaryAccount: Bool) -> Bool {
 
@@ -90,32 +91,45 @@ import CoreData
 
     public var hasTappedProfileItem: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.tappedYIR.rawValue)) ?? false
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.tappedYIR2026.rawValue)) ?? false
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.tappedYIR.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.tappedYIR2026.rawValue, value: newValue)
         }
     }
 
+    /// Set by the 2026 flow when the first slide is displayed.
     public var hasSeenYiRIntroSlide: Bool {
         get {
-            return seenIntroSlideStatus.hasSeenYiRIntroSlide
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReview2026IntroSlide.rawValue)) ?? false
         } set {
-            var currentSeenIntroSlideStatus = seenIntroSlideStatus
-            currentSeenIntroSlideStatus.hasSeenYiRIntroSlide = newValue
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.seenYearInReviewIntroSlide.rawValue, value: currentSeenIntroSlideStatus)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.seenYearInReview2026IntroSlide.rawValue, value: newValue)
         }
     }
 
-    public var hasPresentedYiRFeatureAnnouncementModel: Bool {
+    /// Set as soon as the announcement is presented, so a force quit before interacting with it does
+    /// not earn a second showing.
+    public var hasPresentedYiRFeatureAnnouncement: Bool {
         get {
-            (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewFeatureAnnouncement.rawValue)) ?? false
+            (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReview2026FeatureAnnouncement.rawValue)) ?? false
         }
         set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.seenYearInReviewFeatureAnnouncement.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.seenYearInReview2026FeatureAnnouncement.rawValue, value: newValue)
         }
     }
 
     public func shouldShowYearInReviewFeatureAnnouncement() -> Bool {
+
+        // Developer setting: show the announcement regardless of everything below — the remote
+        // config, the active date window, the opt-out toggle, suppressed countries and the
+        // once-per-user gate. Deliberately the first thing checked, so the announcement can be built
+        // and tested before a 2026 block exists in the remote feature config.
+        //
+        // This only gets the announcement on screen. Everything behind it that needs `config` —
+        // report population and every personalized slide — still has nothing to work with until a
+        // 2026 config is published.
+        if developerSettingsDataController.showYiR2026Announcement {
+            return true
+        }
 
         guard let config = self.config else {
             return false
@@ -133,7 +147,7 @@ import CoreData
             return false
         }
 
-        guard !hasPresentedYiRFeatureAnnouncementModel else {
+        guard !hasPresentedYiRFeatureAnnouncement else {
             return false
         }
 
@@ -142,6 +156,15 @@ import CoreData
         }
 
         return true
+    }
+
+    /// Clears the 2026 "already seen" state only. Persisted reports, 2025 state and the user's
+    /// opt-out preference are left alone. Called from developer settings.
+    public func resetAnnouncementState() {
+        hasPresentedYiRFeatureAnnouncement = false
+        hasSeenYiRIntroSlide = false
+        hasTappedProfileItem = false
+        hasPresentedYiRSurvey = false
     }
 
     // MARK: Entry Point
@@ -180,9 +203,9 @@ import CoreData
 
     public var hasPresentedYiRSurvey: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReviewSurveyPresented.rawValue)) ?? false
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReview2026SurveyPresented.rawValue)) ?? false
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewSurveyPresented.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReview2026SurveyPresented.rawValue, value: newValue)
         }
     }
 
@@ -209,6 +232,7 @@ import CoreData
         return true
     }
 
+    /// Deliberately not year scoped: a user who turned Year in Review off in 2025 stays opted out.
     @objc public var yearInReviewSettingsIsEnabled: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.yearInReviewSettingsIsEnabled.rawValue)) ?? true
@@ -679,6 +703,8 @@ import CoreData
         }
     }
 
+    // TODO: 2026 — if there is a 2026 app icon, this needs its own key alongside
+    // `qualifiesForIcon2025` rather than overwriting last year's value.
     public func updateContributorStatus(isContributor: Bool) {
         try? userDefaultsStore?.save(
             key: WMFUserDefaultsKey.qualifiesForIcon2025.rawValue,

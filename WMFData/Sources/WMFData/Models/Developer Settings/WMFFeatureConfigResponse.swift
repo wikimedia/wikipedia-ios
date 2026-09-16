@@ -80,15 +80,26 @@ public struct WMFFeatureConfigResponse: Codable {
             }
             
             func isActive(for date: Date) -> Bool {
-                
-                // Overwrite date check if developer settings flag is on. This allows us to test outside of active date range.
+
+                // Overwrite date check if the developer settings flag for this config's year is on.
+                // This allows us to test outside of active date range. Each year has its own flag so
+                // that leaving the 2025 flag on does not force the 2026 config active.
                 let developerSettingsDataController = WMFDeveloperSettingsDataController.shared
-                if developerSettingsDataController.showYiR2025 {
-                    return true
+                switch year {
+                case 2026:
+                    if developerSettingsDataController.showYiR2026 {
+                        return true
+                    }
+                case 2025:
+                    if developerSettingsDataController.showYiR2025 {
+                        return true
+                    }
+                default:
+                    break
                 }
-                
+
                 guard let activeStartDate = activeStartDate, let activeEndDate = activeEndDate else {
-                    return false 
+                    return false
                 }
                 return date >= activeStartDate && date <= activeEndDate
             }

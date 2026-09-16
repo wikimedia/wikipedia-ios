@@ -4,6 +4,8 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var forceMaxArticleTabsTo5: Bool { get }
     var showYiR2025: Bool { get }
+    var showYiR2026: Bool { get }
+    var showYiR2026Announcement: Bool { get }
     var enableYiRLoginExperimentControl: Bool { get }
     var enableYiRLoginExperimentB: Bool { get }
 }
@@ -69,9 +71,25 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue, value: newValue) }
     }
 
+    /// Debugging convenience: forces the 2025 Year in Review config active outside its date window.
+    /// Kept so last year's feature can still be exercised; it has no effect on the 2026 config.
     public var showYiR2025: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiR2025.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiR2025.rawValue, value: newValue) }
+    }
+
+    /// Debugging convenience: forces the 2026 Year in Review config active outside its date window.
+    public var showYiR2026: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiR2026.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiR2026.rawValue, value: newValue) }
+    }
+
+    /// Debugging convenience: while on, the 2026 Year in Review announcement ignores the once-per-user
+    /// gate (announcement seen, intro slide seen), so it can be retriggered without reinstalling.
+    /// The remote config, opt-out toggle and suppressed country checks still apply.
+    public var showYiR2026Announcement: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiR2026Announcement.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiR2026Announcement.rawValue, value: newValue) }
     }
 
     /// Gates home feed work that ships after the initial Home tab experiment: the reworked community
@@ -185,15 +203,14 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         gamesDataController.resetAnnouncementSeen()
     }
 
-    /// Resets everything that can suppress the fundraising campaign banner: the "maybe later" /
-    /// permanently hidden prompt state, the local donation history, the saved donation reminder, the persisted donation
-    /// reminder experiment bucket, and the wrap-up card seen state.
-    public func clearFundraisingCampaignPersistence() {
-        WMFFundraisingCampaignDataController.shared.clearPromptState()
-        WMFDonateDataController.shared.deleteLocalDonationHistory()
-        WMFDonationReminderDataController.shared.clearReminder()
-        WMFDonationReminderDataController.shared.clearExperimentAssignment()
-        WMFDonationReminderDataController.shared.clearWrapUpCardSeen()
+    /// Resets the 2026 Year in Review "already seen" state (announcement, intro slide, profile badge
+    /// tap, survey) so the announcement can present again from a clean slate. 2025 state and all
+    /// persisted Year in Review reports are left untouched.
+    public func clearYearInReview2026AnnouncementPersistence() {
+        guard let yearInReviewDataController = try? WMFYearInReviewDataController() else {
+            return
+        }
+        yearInReviewDataController.resetAnnouncementState()
     }
 
     /// Debugging convenience: overrides the persisted donation reminder experiment bucket at read

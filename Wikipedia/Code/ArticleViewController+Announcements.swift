@@ -233,6 +233,14 @@ extension ArticleViewController {
             return false
         }
 
+        // The announcement is suppressed on an article reached from a deep link. Same reasoning as
+        // the games announcement: `sceneDelegate.didOpenAppFromExternalLink` is not used here since
+        // it stays true for the whole session, which would also suppress internal links tapped from
+        // the deep linked article.
+        guard articleViewSource != .external_link else {
+            return false
+        }
+
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return false
         }
@@ -250,9 +258,13 @@ extension ArticleViewController {
             return
         }
 
+        // TODO: 2026 — swap `yirCoordinator` for the 2026 coordinator. It needs to know it was
+        // launched from the announcement so that slide 0 is included and the exit toast fires.
         yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "article_prompt")
         self.yirCoordinator?.start()
-        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
+
+        // Marked as soon as it is presented, so a force quit on slide 0 does not earn a second showing.
+        yirDataController.hasPresentedYiRFeatureAnnouncement = true
 
     }
 }
