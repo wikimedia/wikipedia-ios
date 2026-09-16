@@ -134,6 +134,11 @@
 "activity-tab-very-satisfied" = "Very satisfied";
 "activity-tab-very-unsatisfied" = "Very unsatisfied";
 "activity-tab-week-graph-label" = "Week";
+"activity-tab-year-in-review-cta" = "Get started";
+"activity-tab-year-in-review-data-rich-subtitle" = "Rediscover your year on Wikipedia.";
+"activity-tab-year-in-review-data-rich-title" = "Your Year in Review is here";
+"activity-tab-year-in-review-low-data-subtitle" = "Rediscover the year on Wikipedia.";
+"activity-tab-year-in-review-low-data-title" = "Our Year in Review is here";
 "activity-tab-you-edited" = "You edited {{PLURAL:$1|$1 time|$1 times}} this week.";
 "activity-tab-you-read" = "You read {{PLURAL:$1|$1 article|$1 articles}} this week.";
 "activity-tab-you-saved" = "You saved {{PLURAL:$1|$1 article|$1 articles}} this week.";
