@@ -1,20 +1,20 @@
 import Foundation
 
-public class WMFInfoboxViewModel {
+public class OLDWMFInfoboxViewModel {
     let logoCaption: String
-    let tableItems: [TableItem]
+    let tableItems: [OLDTableItem]
 
-    public init(logoCaption: String, tableItems: [TableItem]) {
+    public init(logoCaption: String, tableItems: [OLDTableItem]) {
         self.logoCaption = logoCaption
         self.tableItems = tableItems
     }
 }
 
-public struct TableItem {
+public struct OLDTableItem {
     public let title: String
 
     public let text: String?
-    public let richRows: [InfoboxRichRow]?
+    public let richRows: [OLDInfoboxRichRow]?
 
     public init(title: String, text: String) {
         self.title = title
@@ -22,14 +22,14 @@ public struct TableItem {
         self.richRows = nil
     }
 
-    public init(title: String, richRows: [InfoboxRichRow]) {
+    public init(title: String, richRows: [OLDInfoboxRichRow]) {
         self.title = title
         self.text = nil
         self.richRows = richRows
     }
 }
 
-public struct InfoboxRichRow: Identifiable {
+public struct OLDInfoboxRichRow: Identifiable {
     public let id = UUID()
     public let numberText: AttributedString
     public let titleText: AttributedString

@@ -13,7 +13,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     let dataStore: MWKDataStore
 
     var navigationController: UINavigationController
-    private weak var viewModel: WMFYearInReviewViewModel?
+    private weak var viewModel: OLDWMFYearInReviewViewModel?
     private let targetRects = WMFProfileViewTargetRects()
     let dataController: WMFYearInReviewDataController
     var donateCoordinator: DonateCoordinator?
@@ -81,8 +81,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return WMFLocalizedString("year-in-review-non-contributor-slide-title", value: "Unlock your contributor reward for next year!", comment: "Year in review, non contributor slide title")
     }
 
-    private var localizedStrings: WMFYearInReviewViewModel.LocalizedStrings {
-        return WMFYearInReviewViewModel.LocalizedStrings(
+    private var localizedStrings: OLDWMFYearInReviewViewModel.LocalizedStrings {
+        return OLDWMFYearInReviewViewModel.LocalizedStrings(
             donateButtonTitle: CommonStrings.donateTitle,
             shareButtonTitle: CommonStrings.shortShareTitle,
             nextButtonTitle: CommonStrings.nextTitle,
@@ -780,7 +780,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let appShareLink = WMFYearInReviewDataController.appShareLink
         let hashtag = "#WikipediaYearInReview"
         let plaintextURL = primaryAppLanguage.isEnglishWikipedia ? "wikimediafoundation.org/2025articles" : "wikimediafoundation.org/yir25"
-        let viewModel = WMFYearInReviewViewModel(
+        let viewModel = OLDWMFYearInReviewViewModel(
             localizedStrings: localizedStrings,
             shareLink: appShareLink,
             hashtag: hashtag,
@@ -799,7 +799,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             populateYearInReviewReport: populateYearInReviewReport
         )
 
-        let yirView = WMFYearInReviewView(viewModel: viewModel)
+        let yirView = OLDWMFYearInReviewView(viewModel: viewModel)
 
         self.viewModel = viewModel
         let finalView = yirView.environmentObject(targetRects)

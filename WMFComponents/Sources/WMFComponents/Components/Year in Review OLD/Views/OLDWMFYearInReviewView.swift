@@ -1,15 +1,15 @@
 import SwiftUI
 import WebKit
 
-public struct WMFYearInReviewView: View {
+public struct OLDWMFYearInReviewView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @ObservedObject var viewModel: WMFYearInReviewViewModel
+    @ObservedObject var viewModel: OLDWMFYearInReviewViewModel
 
     private var theme: WMFTheme {
         return appEnvironment.theme
     }
 
-    public init(viewModel: WMFYearInReviewViewModel) {
+    public init(viewModel: OLDWMFYearInReviewViewModel) {
         self.viewModel = viewModel
     }
 
@@ -17,14 +17,14 @@ public struct WMFYearInReviewView: View {
     public var body: some View {
         NavigationView {
             VStack {
-                WMFYearInReviewHeaderView(viewModel: viewModel)
-                WMFYearInReviewBodyView(viewModel: viewModel)
+                OLDWMFYearInReviewHeaderView(viewModel: viewModel)
+                OLDWMFYearInReviewBodyView(viewModel: viewModel)
             }
             .background(Color(uiColor: theme.midBackground))
             .toolbar {
                 if !viewModel.isShowingIntro {
                     ToolbarItem(placement: .bottomBar) {
-                        WMFYearInReviewToolbarView(viewModel: viewModel, needShareButton: !viewModel.isLastSlide)
+                        OLDWMFYearInReviewToolbarView(viewModel: viewModel, needShareButton: !viewModel.isLastSlide)
                     }
                 }
             }

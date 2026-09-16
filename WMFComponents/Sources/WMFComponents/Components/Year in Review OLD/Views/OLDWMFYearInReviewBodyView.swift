@@ -1,22 +1,22 @@
 import SwiftUI
 
-struct WMFYearInReviewBodyView: View {
+struct OLDWMFYearInReviewBodyView: View {
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @ObservedObject var viewModel: WMFYearInReviewViewModel
+    @ObservedObject var viewModel: OLDWMFYearInReviewViewModel
     
     private var theme: WMFTheme {
         return appEnvironment.theme
     }
     
-    init(viewModel: WMFYearInReviewViewModel) {
+    init(viewModel: OLDWMFYearInReviewViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
         if viewModel.isShowingIntro {
             if let introV3ViewModel = viewModel.introV3ViewModel {
-                WMFYearInReviewSlideIntroV3View(viewModel: introV3ViewModel, isPopulatingReport:$viewModel.isPopulatingReport)
+                OLDWMFYearInReviewSlideIntroV3View(viewModel: introV3ViewModel, isPopulatingReport:$viewModel.isPopulatingReport)
             }
         } else {
             VStack {
@@ -25,22 +25,22 @@ struct WMFYearInReviewBodyView: View {
 
                     ForEach(Array(viewModel.slides.enumerated()), id: \.offset) { index, slide in
                         if case .standard(let standardViewModel) = slide {
-                            WMFYearInReviewSlideStandardView(viewModel: standardViewModel)
+                            OLDWMFYearInReviewSlideStandardView(viewModel: standardViewModel)
                         }
 
                         if case .mostReadDateV3(let mostReadDateSlideV3ViewModel) = slide {
-                            WMFYearInReviewSlideMostReadDateV3View(viewModel: mostReadDateSlideV3ViewModel)
+                            OLDWMFYearInReviewSlideMostReadDateV3View(viewModel: mostReadDateSlideV3ViewModel)
                         }
 
                         if case .location(let locationViewModel) = slide {
-                            WMFYearInReviewSlideLocationView(viewModel: locationViewModel)
+                            OLDWMFYearInReviewSlideLocationView(viewModel: locationViewModel)
                         }
 
                         if case .highlights(let highlightsViewModel) = slide {
-                            WMFYearInReviewSlideHighlightsView(viewModel: highlightsViewModel)
+                            OLDWMFYearInReviewSlideHighlightsView(viewModel: highlightsViewModel)
                         }
                         if case .contribution(let contributionsViewModel) = slide {
-                            WMFYearInReviewContributionSlideView(viewModel: contributionsViewModel, parentViewModel: viewModel)
+                            OLDWMFYearInReviewContributionSlideView(viewModel: contributionsViewModel, parentViewModel: viewModel)
                         }
                     }
                 }

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct WMFYearInReviewScrollView: View {
+struct OLDWMFYearInReviewScrollView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 

@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct WMFYearInReviewContributionSlideView: View {
-    @ObservedObject var viewModel: WMFYearInReviewContributorSlideViewModel
-    @ObservedObject var parentViewModel: WMFYearInReviewViewModel
+struct OLDWMFYearInReviewContributionSlideView: View {
+    @ObservedObject var viewModel: OLDWMFYearInReviewContributorSlideViewModel
+    @ObservedObject var parentViewModel: OLDWMFYearInReviewViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
@@ -24,7 +24,7 @@ struct WMFYearInReviewContributionSlideView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            WMFYearInReviewScrollView(scrollViewContents:
+            OLDWMFYearInReviewScrollView(scrollViewContents:
                 VStack(spacing: 16) {
                     VStack(spacing: 16) {
                         ZStack {

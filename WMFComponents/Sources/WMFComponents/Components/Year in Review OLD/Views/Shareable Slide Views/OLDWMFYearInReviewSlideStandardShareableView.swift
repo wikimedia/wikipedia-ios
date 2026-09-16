@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct WMFYearInReviewSlideStandardShareableView: View {
-    let viewModel: WMFYearInReviewSlideViewModelProtocol
+struct OLDWMFYearInReviewSlideStandardShareableView: View {
+    let viewModel: OLDWMFYearInReviewSlideViewModelProtocol
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
@@ -16,7 +16,7 @@ struct WMFYearInReviewSlideStandardShareableView: View {
     private let hashtag: String
     private let needsMarkdownSubtitle: Bool
     
-    init(viewModel: WMFYearInReviewSlideViewModelProtocol, appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, hashtag: String, needsMarkdownSubtitle: Bool = false) {
+    init(viewModel: OLDWMFYearInReviewSlideViewModelProtocol, appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, hashtag: String, needsMarkdownSubtitle: Bool = false) {
         self.viewModel = viewModel
         self.appEnvironment = appEnvironment
         self.hashtag = hashtag
@@ -102,7 +102,7 @@ struct WMFYearInReviewSlideStandardShareableView: View {
 }
 
 
-public protocol WMFYearInReviewSlideViewModelProtocol {
+public protocol OLDWMFYearInReviewSlideViewModelProtocol {
     var gifName: String { get }
     var subtitle: String { get }
     var title: String { get }

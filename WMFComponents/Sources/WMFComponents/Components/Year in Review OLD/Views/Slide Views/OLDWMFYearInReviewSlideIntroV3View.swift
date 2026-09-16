@@ -1,14 +1,14 @@
 import SwiftUI
 import WMFData
 
-struct WMFYearInReviewSlideIntroV3View: View {
+struct OLDWMFYearInReviewSlideIntroV3View: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-    private let viewModel: WMFYearInReviewIntroV3ViewModel
+    private let viewModel: OLDWMFYearInReviewIntroV3ViewModel
     @Binding var isPopulatingReport: Bool
 
-    init(viewModel: WMFYearInReviewIntroV3ViewModel, isPopulatingReport: Binding<Bool>) {
+    init(viewModel: OLDWMFYearInReviewIntroV3ViewModel, isPopulatingReport: Binding<Bool>) {
         self.viewModel = viewModel
         self._isPopulatingReport = isPopulatingReport
     }
@@ -24,7 +24,7 @@ struct WMFYearInReviewSlideIntroV3View: View {
     var body: some View {
 
         ZStack(alignment: .bottom) {
-            WMFYearInReviewScrollView(scrollViewContents: WMFYearInReviewSlideIntroV3ViewContent(viewModel: viewModel))
+            OLDWMFYearInReviewScrollView(scrollViewContents: OLDWMFYearInReviewSlideIntroV3ViewContent(viewModel: viewModel))
 
             VStack(spacing: 16) {
                 Text(viewModel.footer)
@@ -54,9 +54,9 @@ struct WMFYearInReviewSlideIntroV3View: View {
 }
 
 
-fileprivate struct WMFYearInReviewSlideIntroV3ViewContent: View {
+fileprivate struct OLDWMFYearInReviewSlideIntroV3ViewContent: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    let viewModel: WMFYearInReviewIntroV3ViewModel
+    let viewModel: OLDWMFYearInReviewIntroV3ViewModel
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     private var theme: WMFTheme {
@@ -67,7 +67,7 @@ fileprivate struct WMFYearInReviewSlideIntroV3ViewContent: View {
         horizontalSizeClass == .regular ? 64 : 32
     }
 
-    fileprivate init(viewModel: WMFYearInReviewIntroV3ViewModel) {
+    fileprivate init(viewModel: OLDWMFYearInReviewIntroV3ViewModel) {
         self.viewModel = viewModel
     }
 

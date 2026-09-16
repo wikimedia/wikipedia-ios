@@ -1,9 +1,9 @@
 import SwiftUI
 
-struct WMFYearInReviewToolbarView: View {
+struct OLDWMFYearInReviewToolbarView: View {
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @ObservedObject var viewModel: WMFYearInReviewViewModel
+    @ObservedObject var viewModel: OLDWMFYearInReviewViewModel
     
     private var theme: WMFTheme {
         return appEnvironment.theme
@@ -11,7 +11,7 @@ struct WMFYearInReviewToolbarView: View {
 
     var needShareButton: Bool
 
-    init(viewModel: WMFYearInReviewViewModel, needShareButton: Bool = true) {
+    init(viewModel: OLDWMFYearInReviewViewModel, needShareButton: Bool = true) {
         self.viewModel = viewModel
         self.needShareButton = needShareButton
     }

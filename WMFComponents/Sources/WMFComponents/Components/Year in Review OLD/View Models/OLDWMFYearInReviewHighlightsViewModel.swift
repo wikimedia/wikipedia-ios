@@ -2,7 +2,7 @@ import UIKit
 import SwiftUI
 import WMFData
 
-public class WMFYearInReviewSlideHighlightsViewModel {
+public class OLDWMFYearInReviewSlideHighlightsViewModel {
 
     public struct LocalizedStrings {
         let title: String
@@ -18,7 +18,7 @@ public class WMFYearInReviewSlideHighlightsViewModel {
         }
     }
 
-    let infoBoxViewModel: WMFInfoboxViewModel
+    let infoBoxViewModel: OLDWMFInfoboxViewModel
     let loggingID: String
     public let localizedStrings: LocalizedStrings
     private weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
@@ -26,7 +26,7 @@ public class WMFYearInReviewSlideHighlightsViewModel {
     let plaintextURL: String
     let tappedShare: @MainActor () -> Void
 
-    public init(infoBoxViewModel: WMFInfoboxViewModel, loggingID: String, localizedStrings: LocalizedStrings, coordinatorDelegate: YearInReviewCoordinatorDelegate? = nil, hashtag: String, plaintextURL: String, tappedShare: @escaping @MainActor () -> Void) {
+    public init(infoBoxViewModel: OLDWMFInfoboxViewModel, loggingID: String, localizedStrings: LocalizedStrings, coordinatorDelegate: YearInReviewCoordinatorDelegate? = nil, hashtag: String, plaintextURL: String, tappedShare: @escaping @MainActor () -> Void) {
         self.infoBoxViewModel = infoBoxViewModel
         self.loggingID = loggingID
         self.localizedStrings = localizedStrings

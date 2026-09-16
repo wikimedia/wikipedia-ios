@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct WMFYearInReviewSlideMostReadDateV3ShareableView: View {
-    let viewModel: WMFYearInReviewSlideMostReadDateV3ViewModel
+struct OLDWMFYearInReviewSlideMostReadDateV3ShareableView: View {
+    let viewModel: OLDWMFYearInReviewSlideMostReadDateV3ViewModel
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
@@ -11,7 +11,7 @@ struct WMFYearInReviewSlideMostReadDateV3ShareableView: View {
 
     private let hashtag: String
 
-    init(viewModel: WMFYearInReviewSlideMostReadDateV3ViewModel, appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, hashtag: String) {
+    init(viewModel: OLDWMFYearInReviewSlideMostReadDateV3ViewModel, appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, hashtag: String) {
         self.viewModel = viewModel
         self.appEnvironment = appEnvironment
         self.hashtag = hashtag

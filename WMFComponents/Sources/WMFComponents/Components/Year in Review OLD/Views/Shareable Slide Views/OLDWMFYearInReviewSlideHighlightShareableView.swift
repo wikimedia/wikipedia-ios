@@ -1,13 +1,13 @@
 import SwiftUI
 
-public struct WMFYearInReviewSlideHighlightShareableView: View {
+public struct OLDWMFYearInReviewSlideHighlightShareableView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     var theme: WMFTheme { appEnvironment.theme }
 
-    public let viewModel: WMFYearInReviewSlideHighlightsViewModel
+    public let viewModel: OLDWMFYearInReviewSlideHighlightsViewModel
 
-    public init(viewModel: WMFYearInReviewSlideHighlightsViewModel) {
+    public init(viewModel: OLDWMFYearInReviewSlideHighlightsViewModel) {
         self.viewModel = viewModel
     }
     
@@ -57,7 +57,7 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
 
     private var infoboxView: some View {
         VStack(spacing: 24) {
-            WMFYearInReviewInfoboxView(viewModel: viewModel.infoBoxViewModel, isSharing: true)
+            OLDWMFYearInReviewInfoboxView(viewModel: viewModel.infoBoxViewModel, isSharing: true)
                 .frame(maxWidth: 393)
         }
         .background(Color(WMFColor.gray100))

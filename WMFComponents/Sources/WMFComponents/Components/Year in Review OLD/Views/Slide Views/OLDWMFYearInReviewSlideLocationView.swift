@@ -2,8 +2,8 @@ import SwiftUI
 import MapKit
 
 
-struct WMFYearInReviewSlideLocationView: View {
-    @ObservedObject var viewModel: WMFYearInReviewSlideLocationViewModel
+struct OLDWMFYearInReviewSlideLocationView: View {
+    @ObservedObject var viewModel: OLDWMFYearInReviewSlideLocationViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     
     var theme: WMFTheme {
@@ -11,15 +11,15 @@ struct WMFYearInReviewSlideLocationView: View {
     }
     
     var body: some View {
-        WMFYearInReviewScrollView(scrollViewContents: WMFYearInReviewSlideLocationViewContent(viewModel: viewModel))
+        OLDWMFYearInReviewScrollView(scrollViewContents: OLDWMFYearInReviewSlideLocationViewContent(viewModel: viewModel))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(uiColor: theme.midBackground))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
-fileprivate struct WMFYearInReviewSlideLocationViewContent: View {
-    @ObservedObject var viewModel: WMFYearInReviewSlideLocationViewModel
+fileprivate struct OLDWMFYearInReviewSlideLocationViewContent: View {
+    @ObservedObject var viewModel: OLDWMFYearInReviewSlideLocationViewModel
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -39,7 +39,7 @@ fileprivate struct WMFYearInReviewSlideLocationViewContent: View {
     var body: some View {
         VStack(spacing: 16) {
             VStack(spacing: 16) {
-                YearInReviewMapView(viewModel: viewModel)
+                OLDYearInReviewMapView(viewModel: viewModel)
                     .aspectRatio(1.5, contentMode: .fit)
                     .frame(maxWidth: .infinity)
             }
@@ -86,9 +86,9 @@ fileprivate struct WMFYearInReviewSlideLocationViewContent: View {
 }
 
 
-fileprivate struct YearInReviewMapView: UIViewRepresentable {
+fileprivate struct OLDYearInReviewMapView: UIViewRepresentable {
     
-    @ObservedObject var viewModel: WMFYearInReviewSlideLocationViewModel
+    @ObservedObject var viewModel: OLDWMFYearInReviewSlideLocationViewModel
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
@@ -126,10 +126,10 @@ fileprivate struct YearInReviewMapView: UIViewRepresentable {
     }
     
     class Coordinator: NSObject, MKMapViewDelegate {
-        @ObservedObject var viewModel: WMFYearInReviewSlideLocationViewModel
+        @ObservedObject var viewModel: OLDWMFYearInReviewSlideLocationViewModel
         @ObservedObject var appEnvironment = WMFAppEnvironment.current
         
-        init(viewModel: WMFYearInReviewSlideLocationViewModel) {
+        init(viewModel: OLDWMFYearInReviewSlideLocationViewModel) {
             self.viewModel = viewModel
         }
         

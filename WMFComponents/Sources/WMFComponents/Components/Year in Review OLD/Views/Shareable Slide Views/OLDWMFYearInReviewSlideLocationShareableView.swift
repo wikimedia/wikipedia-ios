@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct WMFYearInReviewSlideLocationShareableView: View {
-    let viewModel: WMFYearInReviewSlideLocationViewModel
+struct OLDWMFYearInReviewSlideLocationShareableView: View {
+    let viewModel: OLDWMFYearInReviewSlideLocationViewModel
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
@@ -11,7 +11,7 @@ struct WMFYearInReviewSlideLocationShareableView: View {
 
     private let hashtag: String
     
-    init(viewModel: WMFYearInReviewSlideLocationViewModel, appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, hashtag: String) {
+    init(viewModel: OLDWMFYearInReviewSlideLocationViewModel, appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, hashtag: String) {
         self.viewModel = viewModel
         self.appEnvironment = appEnvironment
         self.hashtag = hashtag

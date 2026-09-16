@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct WMFYearInReviewSlideStandardView: View {
-    let viewModel: WMFYearInReviewSlideStandardViewModel
+struct OLDWMFYearInReviewSlideMostReadDateV3View: View {
+    let viewModel: OLDWMFYearInReviewSlideMostReadDateV3ViewModel
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     
@@ -10,15 +10,15 @@ struct WMFYearInReviewSlideStandardView: View {
     }
     
     var body: some View {
-        WMFYearInReviewScrollView(scrollViewContents: WMFYearInReviewSlideStandardViewContent(viewModel: viewModel))
+        OLDWMFYearInReviewScrollView(scrollViewContents: OLDWMFYearInReviewSlideMostReadDateV3ViewContent(viewModel: viewModel))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(uiColor: theme.midBackground))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
-fileprivate struct WMFYearInReviewSlideStandardViewContent: View {
-    let viewModel: WMFYearInReviewSlideStandardViewModel
+fileprivate struct OLDWMFYearInReviewSlideMostReadDateV3ViewContent: View {
+    let viewModel: OLDWMFYearInReviewSlideMostReadDateV3ViewModel
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -31,19 +31,14 @@ fileprivate struct WMFYearInReviewSlideStandardViewContent: View {
         horizontalSizeClass == .regular ? 64 : 32
     }
     
-    private func subtitleAttributedString(subtitle: String) -> AttributedString {
-        if let attributedString = try? AttributedString(
-            markdown: subtitle,
-            options: .init(interpretedSyntax: .full)
-        ) {
-            return attributedString
+    private func dateItemView(text: String, footer: String) -> some View {
+        VStack(alignment: .leading) {
+            Text(text)
+                .font(Font(WMFFont.for(.georgiaTitle3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large))))
+            Text(footer)
+                .font(Font(WMFFont.for(.subheadline, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large))))
         }
-        
-        return AttributedString(subtitle)
-    }
-    
-    private var subtitleStyles: HtmlUtils.Styles {
-        return HtmlUtils.Styles(font: WMFFont.for(.body), boldFont: WMFFont.for(.boldBody), italicsFont: WMFFont.for(.body), boldItalicsFont: WMFFont.for(.body), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
     }
     
     var body: some View {
@@ -84,23 +79,12 @@ fileprivate struct WMFYearInReviewSlideStandardViewContent: View {
                     }
                 }
                 
-                switch viewModel.subtitleType {
-                case .html:
-                    WMFHtmlText(html: viewModel.subtitle, styles: subtitleStyles)
-                        .frame(maxWidth: .infinity, alignment: .topLeading)
-                case .markdown:
-                    Text(subtitleAttributedString(subtitle: viewModel.subtitle))
-                        .font(Font(WMFFont.for(.body)))
-                        .foregroundStyle(Color(uiColor: theme.text))
-                        .accentColor(Color(uiColor: theme.link))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                case .standard:
-                    Text(viewModel.subtitle)
-                        .font(Font(WMFFont.for(.body)))
-                        .foregroundStyle(Color(uiColor: theme.text))
-                        .accentColor(Color(uiColor: theme.link))
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                VStack(spacing: 16) {
+                    dateItemView(text: viewModel.time, footer: viewModel.timeFooter)
+                    dateItemView(text: viewModel.day, footer: viewModel.dayFooter)
+                    dateItemView(text: viewModel.month, footer: viewModel.monthFooter)
                 }
+                .foregroundStyle(Color(uiColor: theme.text))
                 
                 Spacer()
             }

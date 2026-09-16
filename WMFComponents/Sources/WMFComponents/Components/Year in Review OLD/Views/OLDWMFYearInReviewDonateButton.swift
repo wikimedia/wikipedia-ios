@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct WMFYearInReviewDonateButton: View {
+struct OLDWMFYearInReviewDonateButton: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @ObservedObject var viewModel: WMFYearInReviewViewModel
+    @ObservedObject var viewModel: OLDWMFYearInReviewViewModel
 
     @State private var buttonRect: CGRect = .zero
 

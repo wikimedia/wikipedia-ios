@@ -1,6 +1,6 @@
 import Foundation
 
-struct WMFYearInReviewSlideMostReadDateV3ViewModel {
+struct OLDWMFYearInReviewSlideMostReadDateV3ViewModel {
     let gifName: String
     let altText: String
     let title: String

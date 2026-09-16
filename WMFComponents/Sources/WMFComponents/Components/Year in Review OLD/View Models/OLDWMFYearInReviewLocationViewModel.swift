@@ -3,9 +3,9 @@ import WMFData
 import CoreLocation
 import UIKit
 
-final class WMFYearInReviewSlideLocationViewModel: ObservableObject {
+final class OLDWMFYearInReviewSlideLocationViewModel: ObservableObject {
     
-    let localizedStrings: WMFYearInReviewViewModel.LocalizedStrings
+    let localizedStrings: OLDWMFYearInReviewViewModel.LocalizedStrings
     let legacyPageViews: [WMFLegacyPageView]
     
     var countryOrOceanName: String
@@ -26,7 +26,7 @@ final class WMFYearInReviewSlideLocationViewModel: ObservableObject {
     let clusteringIdentifier = "clusterID"
     let markerReuseIdentifier = "marker"
     
-    init(localizedStrings: WMFYearInReviewViewModel.LocalizedStrings, legacyPageViews: [WMFLegacyPageView], loggingID: String, tappedInfo: @escaping () -> Void) {
+    init(localizedStrings: OLDWMFYearInReviewViewModel.LocalizedStrings, legacyPageViews: [WMFLegacyPageView], loggingID: String, tappedInfo: @escaping () -> Void) {
         self.localizedStrings = localizedStrings
         
         title = ""

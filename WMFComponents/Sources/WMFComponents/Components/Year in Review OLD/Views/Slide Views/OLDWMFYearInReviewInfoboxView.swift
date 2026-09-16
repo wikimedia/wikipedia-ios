@@ -1,10 +1,10 @@
 import SwiftUI
 
 /// Table with hard coded colors - not theme-dependent
-public struct WMFYearInReviewInfoboxView: View {
+public struct OLDWMFYearInReviewInfoboxView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     var theme: WMFTheme { appEnvironment.theme }
-    var viewModel: WMFInfoboxViewModel
+    var viewModel: OLDWMFInfoboxViewModel
     var isSharing: Bool
     private let needsAdaptiveTitleColumnWidth: Bool
     private let defaultTitleColumnWidth = 108.0
@@ -34,7 +34,7 @@ public struct WMFYearInReviewInfoboxView: View {
         return ((containerWidth ?? (defaultTitleColumnWidth * 5)) / 5) * 2
     }
 
-    public init(viewModel: WMFInfoboxViewModel, isSharing: Bool, needsAdaptiveTitleColumnWidth: Bool = false) {
+    public init(viewModel: OLDWMFInfoboxViewModel, isSharing: Bool, needsAdaptiveTitleColumnWidth: Bool = false) {
         self.viewModel = viewModel
         self.isSharing = isSharing
         self.needsAdaptiveTitleColumnWidth = needsAdaptiveTitleColumnWidth
@@ -103,10 +103,10 @@ public struct WMFYearInReviewInfoboxView: View {
                 .background(
                     GeometryReader { geo in
                         Color.clear
-                            .preference(key: WidthKey.self, value: geo.size.width)
+                            .preference(key: OLDWidthKey.self, value: geo.size.width)
                     }
                 )
-                .onPreferenceChange(WidthKey.self) { width in
+                .onPreferenceChange(OLDWidthKey.self) { width in
                     containerWidth = width
                 }
             }
@@ -117,7 +117,7 @@ public struct WMFYearInReviewInfoboxView: View {
     }
 }
 
-struct WidthKey: PreferenceKey {
+struct OLDWidthKey: PreferenceKey {
     static var defaultValue: CGFloat = 0
 
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {

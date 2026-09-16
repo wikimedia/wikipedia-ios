@@ -1,22 +1,22 @@
 import SwiftUI
 
-struct WMFYearInReviewHeaderView: View {
+struct OLDWMFYearInReviewHeaderView: View {
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @ObservedObject var viewModel: WMFYearInReviewViewModel
+    @ObservedObject var viewModel: OLDWMFYearInReviewViewModel
 
     private var theme: WMFTheme {
         return appEnvironment.theme
     }
 
-    init(viewModel: WMFYearInReviewViewModel) {
+    init(viewModel: OLDWMFYearInReviewViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
         HStack(alignment: .center) {
             if viewModel.shouldShowTopNavDonateButton {
-                WMFYearInReviewDonateButton(viewModel: viewModel)
+                OLDWMFYearInReviewDonateButton(viewModel: viewModel)
                     .frame(maxWidth: .infinity, alignment: .leading)
             } else {
                 Spacer()

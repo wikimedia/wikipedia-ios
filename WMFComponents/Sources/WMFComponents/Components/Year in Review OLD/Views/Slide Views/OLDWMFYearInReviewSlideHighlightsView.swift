@@ -1,9 +1,9 @@
 import SwiftUI
 
-public struct WMFYearInReviewSlideHighlightsView: View {
+public struct OLDWMFYearInReviewSlideHighlightsView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     var theme: WMFTheme { appEnvironment.theme }
-    var viewModel: WMFYearInReviewSlideHighlightsViewModel
+    var viewModel: OLDWMFYearInReviewSlideHighlightsViewModel
 
     var titleAttributedString: AttributedString {
         let html = "<b>" + viewModel.localizedStrings.title + "</b>" + " " + viewModel.localizedStrings.subtitle
@@ -32,7 +32,7 @@ public struct WMFYearInReviewSlideHighlightsView: View {
     }
 
     var scrollViewContents: some View {
-        WMFYearInReviewInfoboxView(
+        OLDWMFYearInReviewInfoboxView(
             viewModel: viewModel.infoBoxViewModel,
             isSharing: false
         )
@@ -59,7 +59,7 @@ public struct WMFYearInReviewSlideHighlightsView: View {
         GeometryReader { geometry in
 
             ZStack {
-                GradientBackgroundView()
+                OLDGradientBackgroundView()
 
                 VStack(spacing: 0) {
                     Spacer(minLength: 0)
@@ -71,7 +71,7 @@ public struct WMFYearInReviewSlideHighlightsView: View {
                                 .lineLimit(nil)          // allows unlimited lines
                                 .fixedSize(horizontal: false, vertical: true)
 
-                            WMFYearInReviewScrollView(scrollViewContents: scrollViewContents, forceBackgroundColor: WMFColor.gray100)
+                            OLDWMFYearInReviewScrollView(scrollViewContents: scrollViewContents, forceBackgroundColor: WMFColor.gray100)
                                 .frame(minHeight: 0, maxHeight: dynamicMaxInfoboxHeight(availableHeight: geometry.size.height), alignment: .top)
                             .fixedSize(horizontal: false, vertical: true)
                             .overlay(
@@ -101,7 +101,7 @@ public struct WMFYearInReviewSlideHighlightsView: View {
     }
 }
 
-struct GradientBackgroundView: View {
+struct OLDGradientBackgroundView: View {
     var body: some View {
         ZStack {
             // Base vertical gradient
