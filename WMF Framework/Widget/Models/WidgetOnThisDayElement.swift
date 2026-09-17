@@ -56,6 +56,9 @@ public struct WidgetOnThisDayElement: Codable {
     let year: Int
     let pages: [Page]
 
+    /// Pages dropped while decoding `pages`, for diagnostics. Not persisted.
+    public var droppedPageErrors: [String] = []
+
     // MARK: - Public
 
     public init(from decoder: Decoder) throws {
@@ -63,7 +66,9 @@ public struct WidgetOnThisDayElement: Codable {
         text = try container.decode(String.self, forKey: .text)
         year = try container.decode(Int.self, forKey: .year)
         // A page without a required key is dropped; the event itself is kept.
-        pages = try container.decodeIfPresent(WidgetLossyDecodingArray<Page>.self, forKey: .pages)?.elements ?? []
+        let lossyPages = try container.decodeIfPresent(WidgetLossyDecodingArray<Page>.self, forKey: .pages)
+        pages = lossyPages?.elements ?? []
+        droppedPageErrors = lossyPages?.droppedElementErrors ?? []
     }
 
 }

@@ -57,7 +57,13 @@ for (section, errors) in content.droppedElementErrors.sorted(by: { $0.key.rawVal
     }
 }
 if let pictureOfTheDay = content.pictureOfTheDay {
-    if pictureOfTheDay.description == nil { print("  note: image has no description (widget shows it without a caption)") }
+    if pictureOfTheDay.description == nil {
+        if pictureOfTheDay.caption(preferringLanguageCode: nil) != nil {
+            print("  note: feed has no image description (widget falls back to the structured caption)")
+        } else {
+            print("  note: feed has no image description and no structured caption (widget shows it without a caption)")
+        }
+    }
     if pictureOfTheDay.license == nil { print("  note: image has no license") }
 }
 for problem in problems {

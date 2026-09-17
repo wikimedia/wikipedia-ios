@@ -321,27 +321,31 @@ public extension WidgetController {
         }
 
         let fetcher = WidgetContentFetcher.shared
-        var widgetCache = widgetCache
+        let widgetCache = widgetCache
 
         if useCacheIfAvailable, let cachedContent = cachedContentIfAvailable() {
             performCompletion(result: .success(cachedContent))
             return
         }
 
-        let previousContent = widgetCache.featuredContent.flatMap { cachedContentMatchesSettings($0, settings: widgetCache.settings) ? $0 : nil }
+        let settings = widgetCache.settings
+        let previousContent = widgetCache.featuredContent.flatMap { cachedContentMatchesSettings($0, settings: settings) ? $0 : nil }
 
-        fetcher.fetchFeaturedContent(forDate: Date(), siteURL: widgetCache.settings.siteURL, languageCode: widgetCache.settings.languageCode, languageVariantCode: widgetCache.settings.languageVariantCode) { result, diagnostics in
+        fetcher.fetchFeaturedContent(forDate: Date(), siteURL: settings.siteURL, languageCode: settings.languageCode, languageVariantCode: settings.languageVariantCode) { result, diagnostics in
             var diagnostics = diagnostics
+            // Another widget provider can have written the cache while this request ran, so the
+            // write starts from the cache on disk, not from the snapshot taken before the request.
+            var updatedCache = self.widgetCache
             switch result {
             case .success(let freshContent):
                 // Sections missing today (a feed without `image`, a most-read not published yet)
                 // keep showing the previous cache, flagged stale so the next refresh retries them.
                 var mergedContent = WidgetFeaturedContent.merging(fresh: freshContent, withCached: previousContent)
-                mergedContent.fetchedLanguageCode = widgetCache.settings.languageCode
-                mergedContent.fetchedLanguageVariantCode = widgetCache.settings.languageVariantCode
-                widgetCache.featuredContent = mergedContent
-                widgetCache.lastFetchDiagnostics = diagnostics
-                self.sharedCache.saveCache(widgetCache)
+                mergedContent.fetchedLanguageCode = settings.languageCode
+                mergedContent.fetchedLanguageVariantCode = settings.languageVariantCode
+                updatedCache.featuredContent = mergedContent
+                updatedCache.lastFetchDiagnostics = diagnostics
+                self.sharedCache.saveCache(updatedCache)
                 performCompletion(result: .success(mergedContent))
             case .failure(let error):
                 // Serve the previous cache instead of placeholders. It is not saved again, so it
@@ -349,12 +353,12 @@ public extension WidgetController {
                 if var fallbackContent = previousContent {
                     fallbackContent.isFromCacheFallback = true
                     diagnostics.servedFromCacheFallback = true
-                    widgetCache.lastFetchDiagnostics = diagnostics
-                    self.sharedCache.saveCache(widgetCache)
+                    updatedCache.lastFetchDiagnostics = diagnostics
+                    self.sharedCache.saveCache(updatedCache)
                     performCompletion(result: .success(fallbackContent))
                 } else {
-                    widgetCache.lastFetchDiagnostics = diagnostics
-                    self.sharedCache.saveCache(widgetCache)
+                    updatedCache.lastFetchDiagnostics = diagnostics
+                    self.sharedCache.saveCache(updatedCache)
                     performCompletion(result: .failure(error))
                 }
             }
@@ -383,7 +387,8 @@ public extension WidgetController {
             return
         }
 
-        let cachedTopRead = widgetCache.featuredContent?.topRead
+        // Only a top read fetched for the current language and variant can stand in for a failed fetch.
+        let cachedTopRead = widgetCache.featuredContent.flatMap { cachedContentMatchesSettings($0, settings: widgetCache.settings) ? $0.topRead : nil }
 
         // Judge the cache by the top read's own date, not its fetch date. A same-day cache
         // saved without current most-read data must not short-circuit the network.

@@ -139,8 +139,12 @@ extension WidgetFeaturedContent {
 
         if let onThisDayArray = decodeSection(WidgetLossyDecodingArray<WidgetOnThisDayElement>.self, .onThisDay, key: .onThisDay) {
             onThisDay = onThisDayArray.elements
-            if !onThisDayArray.droppedElementErrors.isEmpty {
-                droppedElementErrors[.onThisDay] = onThisDayArray.droppedElementErrors
+            var onThisDayDroppedElementErrors = onThisDayArray.droppedElementErrors
+            for (index, element) in onThisDayArray.elements.enumerated() {
+                onThisDayDroppedElementErrors += element.droppedPageErrors.map { "[\(index)].pages\($0)" }
+            }
+            if !onThisDayDroppedElementErrors.isEmpty {
+                droppedElementErrors[.onThisDay] = onThisDayDroppedElementErrors
             }
         }
 

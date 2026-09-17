@@ -106,7 +106,7 @@ class WidgetFeedResilienceTests: XCTestCase {
 
         XCTAssertEqual(content.onThisDay?.map { $0.text }, ["Good event", "Bad page is dropped, event kept"])
         XCTAssertEqual(content.onThisDay?.last?.pages.count, 0)
-        XCTAssertEqual(content.droppedElementErrors[.onThisDay]?.count, 1)
+        XCTAssertEqual(content.droppedElementErrors[.onThisDay]?.count, 2, "one dropped event and one dropped page")
     }
 
     // MARK: - Picture of the day caption
