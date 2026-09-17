@@ -302,13 +302,14 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         guard (searchTerm as NSString).character(at: 0) != NSTextAttachment.character else { return }
 
         resetSearchResults()
-        searchTask?.cancel()
         searchTask = Task { [weak self] in
             await self?.performSearch(for: searchTerm, siteURL: siteURL, suggested: suggested)
         }
     }
 
     private func performSearch(for searchTerm: String, siteURL: URL, suggested: Bool) async {
+        guard !Task.isCancelled else { return }
+        
         let start = Date()
         do {
             let (results, type) = try await resultsLoader.fetchResults(for: searchTerm, siteURL: siteURL)
@@ -317,6 +318,8 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             displaySearchResults(results, siteURL: siteURL)
             guard !suggested else { return }
             SearchFunnel.shared.logSearchResults(with: type, resultCount: results.results?.count ?? 0, elapsedTime: Date().timeIntervalSince(start), source: source.stringValue)
+        } catch is CancellationError {
+            return
         } catch let SearchResultsLoader.Failure.fetch(error, type) {
             guard !Task.isCancelled, !(error as NSError).wmf_isCancelledError() else { return }
             displaySearchError(error)
@@ -330,6 +333,8 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     private lazy var resultsLoader = SearchResultsLoader(fetcher: fetcher)
 
     func resetSearchResults() {
+        searchTask?.cancel()
+        searchTask = nil
         fetcher.cancelAllFetches()
         resultsViewModel.reset()
     }
@@ -488,8 +493,6 @@ extension SearchResultsViewController: UISearchResultsUpdating {
                 search(for: text, suggested: false)
             }
         } else {
-            searchTask?.cancel()
-            searchTask = nil
             searchTerm = nil
             resetSearchResults()
             showRecentSearches(animated: true)
