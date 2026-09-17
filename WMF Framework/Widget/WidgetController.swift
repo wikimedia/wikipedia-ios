@@ -225,7 +225,8 @@ public extension WidgetController {
 
     // MARK: - Utility
 
-    /// This is currently unused. It will be useful when we update the main app to also update the widget's cache when it performs any updates to the featured content in the explore feed.
+    /// Reloads the cache from disk before writing, so a save from one widget does not clobber
+    /// what another widget wrote in the meantime.
     func updateCacheWith(featuredContent: WidgetFeaturedContent) {
         var updatedCache = widgetCache
         updatedCache.featuredContent = featuredContent
@@ -241,11 +242,33 @@ public extension WidgetController {
     /// Returns cached content if it's available for the current date in the current app selected language
     private func cachedContentIfAvailable() -> WidgetFeaturedContent? {
         let widgetCache = widgetCache
-        if let cachedContent = widgetCache.featuredContent, let fetchDate = cachedContent.fetchDate, Calendar.current.isDateInToday(fetchDate), let cachedLanguageCode = cachedContent.featuredArticle?.languageCode, cachedLanguageCode == widgetCache.settings.languageCode, widgetCache.settings.languageVariantCode == cachedContent.fetchedLanguageVariantCode {
+        if let cachedContent = widgetCache.featuredContent, let fetchDate = cachedContent.fetchDate, Calendar.current.isDateInToday(fetchDate), cachedContentMatchesSettings(cachedContent, settings: widgetCache.settings) {
             return cachedContent
         }
 
         return nil
+    }
+
+    /// Whether cached content, of any age, was fetched for the app's current language and variant.
+    /// Used to decide if the previous cache can stand in for a failed fetch.
+    private func cachedContentMatchesSettings(_ cachedContent: WidgetFeaturedContent, settings: WidgetSettings) -> Bool {
+        guard settings.languageVariantCode == cachedContent.fetchedLanguageVariantCode else {
+            return false
+        }
+        // Caches written before `fetchedLanguageCode` existed only carry the featured article's language.
+        guard let cachedLanguageCode = cachedContent.fetchedLanguageCode ?? cachedContent.featuredArticle?.languageCode else {
+            return false
+        }
+        return cachedLanguageCode == settings.languageCode
+    }
+
+    /// Whether the cache can answer for a section today without a network fetch. A section that was
+    /// carried over from an older fetch is stale and must not short-circuit the network.
+    private func cachedSectionIsFresh(_ section: WidgetFeaturedContent.Section) -> Bool {
+        guard let cachedContent = widgetCache.featuredContent else {
+            return false
+        }
+        return cachedContent.hasContent(for: section) && !cachedContent.isStale(section)
     }
 
     // MARK: - Fetch Featured Content
@@ -265,19 +288,28 @@ public extension WidgetController {
             return
         }
 
+        let previousContent = widgetCache.featuredContent.flatMap { cachedContentMatchesSettings($0, settings: widgetCache.settings) ? $0 : nil }
+
         fetcher.fetchFeaturedContent(forDate: Date(), siteURL: widgetCache.settings.siteURL, languageCode: widgetCache.settings.languageCode, languageVariantCode: widgetCache.settings.languageVariantCode) { result in
             switch result {
-            case .success(var featuredContent):
-                if featuredContent.topRead == nil {
-                    // Carry the previous top read over so this save doesn't destroy the top read widget's fallback.
-                    featuredContent.topRead = widgetCache.featuredContent?.topRead
-                }
-                widgetCache.featuredContent = featuredContent
+            case .success(let freshContent):
+                // Sections missing today (a feed without `image`, a most-read not published yet)
+                // keep showing the previous cache, flagged stale so the next refresh retries them.
+                var mergedContent = WidgetFeaturedContent.merging(fresh: freshContent, withCached: previousContent)
+                mergedContent.fetchedLanguageCode = widgetCache.settings.languageCode
+                mergedContent.fetchedLanguageVariantCode = widgetCache.settings.languageVariantCode
+                widgetCache.featuredContent = mergedContent
                 self.sharedCache.saveCache(widgetCache)
-                performCompletion(result: .success(featuredContent))
+                performCompletion(result: .success(mergedContent))
             case .failure(let error):
-                self.sharedCache.saveCache(widgetCache)
-                performCompletion(result: .failure(error))
+                // Serve the previous cache instead of placeholders. It is not saved again, so it
+                // keeps its own fetch date and every widget retries the network next time.
+                if var fallbackContent = previousContent {
+                    fallbackContent.isFromCacheFallback = true
+                    performCompletion(result: .success(fallbackContent))
+                } else {
+                    performCompletion(result: .failure(error))
+                }
             }
         }
     }
@@ -292,7 +324,7 @@ public extension WidgetController {
         }
 
         let fetcher = WidgetContentFetcher.shared
-        var widgetCache = widgetCache
+        let widgetCache = widgetCache
 
         guard !isSnapshot else {
             let previewSnapshot = widgetCache.featuredContent ?? WidgetFeaturedContent.previewContent() ?? WidgetFeaturedContent()
@@ -311,7 +343,7 @@ public extension WidgetController {
         fetchFeaturedContent(useCacheIfAvailable: topReadIsCurrent(cachedTopRead)) { result in
             switch result {
             case .success(var featuredContent):
-                if var topRead = featuredContent.topRead, self.topReadIsCurrent(topRead) {
+                if var topRead = featuredContent.topRead, self.topReadIsCurrent(topRead), !featuredContent.isFromCacheFallback {
                     // Fetch images, if available, for the top four elements
                     let group = DispatchGroup()
                     for (index, element) in topRead.topFourElements.enumerated() {
@@ -334,8 +366,7 @@ public extension WidgetController {
 
                     group.notify(queue: .main) {
                         featuredContent.topRead = topRead
-                        widgetCache.featuredContent = featuredContent
-                        self.sharedCache.saveCache(widgetCache)
+                        self.updateCacheWith(featuredContent: featuredContent)
                         if let featuredTopReadContent = featuredContent.topRead {
                             performCompletion(result: .success(featuredTopReadContent))
                         } else {
@@ -411,7 +442,7 @@ public extension WidgetController {
         }
 
         let fetcher = WidgetContentFetcher.shared
-        var widgetCache = widgetCache
+        let widgetCache = widgetCache
 
         guard !isSnapshot else {
             let previewSnapshot = widgetCache.featuredContent ?? WidgetFeaturedContent.previewContent() ?? WidgetFeaturedContent()
@@ -428,15 +459,22 @@ public extension WidgetController {
             return
         }
 
-        // A same-day cache saved without a featured article must not short-circuit the network.
-        fetchFeaturedContent(useCacheIfAvailable: widgetCache.featuredContent?.featuredArticle != nil) { result in
+        // A same-day cache saved without a featured article, or with one carried over from an older
+        // fetch, must not short-circuit the network.
+        fetchFeaturedContent(useCacheIfAvailable: cachedSectionIsFresh(.featuredArticle)) { result in
             switch result {
             case .success(var featuredContent):
+                let featuredArticleIsStale = featuredContent.isStale(.featuredArticle)
+                featuredContent.featuredArticle?.isFromCacheFallback = featuredArticleIsStale
+                if featuredContent.isFromCacheFallback, let featuredArticle = featuredContent.featuredArticle {
+                    // Whole content is the previous cache: serve it as is, without touching the cache.
+                    performCompletion(result: .success(featuredArticle))
+                    return
+                }
                 if let featuredArticleThumbnailImageSource = featuredContent.featuredArticle?.thumbnailImageSource {
                     fetcher.fetchImageDataFrom(imageSource: featuredArticleThumbnailImageSource) { imageResult in
                         featuredContent.featuredArticle?.thumbnailImageSource?.data = try? imageResult.get()
-                        widgetCache.featuredContent = featuredContent
-                        self.sharedCache.saveCache(widgetCache)
+                        self.updateCacheWith(featuredContent: featuredContent)
                         if let featureArticle = featuredContent.featuredArticle {
                             performCompletion(result: .success(featureArticle))
                         } else {
@@ -445,8 +483,7 @@ public extension WidgetController {
                     }
                 } else {
                     if let featureArticle = featuredContent.featuredArticle {
-                        widgetCache.featuredContent = featuredContent
-                        self.sharedCache.saveCache(widgetCache)
+                        self.updateCacheWith(featuredContent: featuredContent)
                         performCompletion(result: .success(featureArticle))
                     } else {
                         // Leave the shared cache intact for the other widgets.
@@ -469,7 +506,7 @@ public extension WidgetController {
         }
 
         let fetcher = WidgetContentFetcher.shared
-        var widgetCache = widgetCache
+        let widgetCache = widgetCache
 
         guard !isSnapshot else {
             let previewSnapshot = widgetCache.featuredContent ?? WidgetFeaturedContent.previewContent() ?? WidgetFeaturedContent()
@@ -481,10 +518,13 @@ public extension WidgetController {
             return
         }
 
-        // A same-day cache saved without a picture of the day must not short-circuit the network.
-        fetchFeaturedContent(useCacheIfAvailable: widgetCache.featuredContent?.pictureOfTheDay != nil) { result in
+        // A same-day cache saved without a picture of the day, or with one carried over from an older
+        // fetch, must not short-circuit the network.
+        fetchFeaturedContent(useCacheIfAvailable: cachedSectionIsFresh(.pictureOfTheDay)) { result in
             switch result {
             case .success(var featuredContent):
+                let pictureOfTheDayIsStale = featuredContent.isStale(.pictureOfTheDay)
+                featuredContent.pictureOfTheDay?.isFromCacheFallback = pictureOfTheDayIsStale
                 // Portrait images deliver far more pixels for the same requested width;
                 // cap the request so the decoded bitmap stays comparable to landscape
                 // (the widget extension has a ~30MB memory limit).
@@ -513,8 +553,9 @@ public extension WidgetController {
                         // but a single day sees many provider invocations (instances x families
                         // x snapshot/timeline), only the first needs the network.
                         featuredContent.pictureOfTheDay?.originalImageSource?.source = imageSource.source
-                        widgetCache.featuredContent = featuredContent
-                        self.sharedCache.saveCache(widgetCache)
+                        if !featuredContent.isFromCacheFallback {
+                            self.updateCacheWith(featuredContent: featuredContent)
+                        }
 
                         if let pictureOftheDay = featuredContent.pictureOfTheDay {
                             performCompletion(result: .success(pictureOftheDay))

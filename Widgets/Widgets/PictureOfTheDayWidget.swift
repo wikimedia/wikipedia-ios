@@ -74,7 +74,8 @@ final class PictureOfTheDayData {
                let image = UIImage.downsampled(from: imageData, targetSize: targetSize) {
                 let description = pictureOfTheDay.caption(preferringLanguageCode: widgetController.featuredContentSiteURL.wmf_languageCode)
                 let license = pictureOfTheDay.license?.code
-                let entry = PictureOfTheDayEntry(date: Date(), kind: .entry, contentURL: groupURL, image: image, imageDescription: description, licenseCode: license)
+                var entry = PictureOfTheDayEntry(date: Date(), kind: .entry, contentURL: groupURL, image: image, imageDescription: description, licenseCode: license)
+                entry.isFromCacheFallback = pictureOfTheDay.isFromCacheFallback
                 completion(entry)
             } else {
                 completion(PictureOfTheDayData.sampleEntry(targetSize: targetSize))
@@ -109,6 +110,7 @@ struct PictureOfTheDayEntry: TimelineEntry {
     var image: UIImage?
     var imageDescription: String? = nil
     var licenseCode: String? = nil // the system encodes this entry, avoiding bringing in the whole MWKLicense object and the Mantle dependency
+    var isFromCacheFallback: Bool = false
 
     // MARK: License Image Parsing
 
@@ -149,7 +151,7 @@ struct PictureOfTheDayProvider: TimelineProvider {
             let currentDate = Date()
             let nextUpdate: Date
 
-            if entry.kind == .entry {
+            if entry.kind == .entry && !entry.isFromCacheFallback {
                 nextUpdate = currentDate.randomDateShortlyAfterMidnight() ?? currentDate
             } else {
                 let components = DateComponents(hour: 2)

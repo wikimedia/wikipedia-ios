@@ -142,6 +142,50 @@ class WidgetFeedResilienceTests: XCTestCase {
         XCTAssertFalse(article.isRTL, "no direction means left to right")
     }
 
+    // MARK: - Cache merge and stale sections
+
+    func testMergingCarriesOverMissingSectionsAndMarksThemStale() throws {
+        let cached = try JSONDecoder().decode(WidgetFeaturedContent.self, from: Data("""
+        {"tfa": \(featuredArticleJSON), "image": \(pictureOfTheDayJSON), "mostread": {"date": "2026-09-15Z", "articles": []}}
+        """.utf8))
+        let fresh = try JSONDecoder().decode(WidgetFeaturedContent.self, from: Data("""
+        {"mostread": {"date": "2026-09-16Z", "articles": []}}
+        """.utf8))
+
+        let merged = WidgetFeaturedContent.merging(fresh: fresh, withCached: cached)
+
+        XCTAssertEqual(merged.topRead?.dateString, "2026-09-16Z", "fresh sections win")
+        XCTAssertNotNil(merged.featuredArticle)
+        XCTAssertNotNil(merged.pictureOfTheDay)
+        XCTAssertEqual(Set(merged.staleSections), [.featuredArticle, .pictureOfTheDay])
+        XCTAssertTrue(merged.isStale(.featuredArticle))
+        XCTAssertFalse(merged.isStale(.topRead))
+    }
+
+    func testMergingWithoutCacheChangesNothing() throws {
+        let fresh = try JSONDecoder().decode(WidgetFeaturedContent.self, from: Data("{\"tfa\": \(featuredArticleJSON)}".utf8))
+
+        let merged = WidgetFeaturedContent.merging(fresh: fresh, withCached: nil)
+
+        XCTAssertTrue(merged.staleSections.isEmpty)
+        XCTAssertNotNil(merged.featuredArticle)
+    }
+
+    func testStaleSectionsSurviveTheCacheRoundTripButRuntimeFlagsDoNot() throws {
+        var content = try JSONDecoder().decode(WidgetFeaturedContent.self, from: Data("{\"tfa\": \(featuredArticleJSON), \"image\": \"broken\"}".utf8))
+        content.staleSections = [.featuredArticle]
+        content.isFromCacheFallback = true
+        content.featuredArticle?.isFromCacheFallback = true
+        XCTAssertFalse(content.sectionDecodingErrors.isEmpty)
+
+        let roundTripped = try JSONDecoder().decode(WidgetFeaturedContent.self, from: JSONEncoder().encode(content))
+
+        XCTAssertEqual(roundTripped.staleSections, [.featuredArticle], "stale sections are part of the cache")
+        XCTAssertFalse(roundTripped.isFromCacheFallback, "fallback flag is runtime-only")
+        XCTAssertEqual(roundTripped.featuredArticle?.isFromCacheFallback, false, "fallback flag is runtime-only")
+        XCTAssertTrue(roundTripped.sectionDecodingErrors.isEmpty, "decoding errors are runtime-only")
+    }
+
     // MARK: - Helpers
 
     private var featuredArticleJSON: String {

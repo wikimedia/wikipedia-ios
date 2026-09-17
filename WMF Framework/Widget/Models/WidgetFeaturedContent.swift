@@ -10,7 +10,9 @@ public struct WidgetFeaturedContent: Codable {
         case onThisDay = "onthisday"
         case pictureOfTheDay = "image"
 		case fetchDate
+        case fetchedLanguageCode
 		case fetchedLanguageVariantCode
+        case staleSections
 	}
 
     /// The independently decoded parts of the feed response. Raw values are the JSON keys.
@@ -31,7 +33,13 @@ public struct WidgetFeaturedContent: Codable {
 	// MARK: - Properties - Network Fetch Metadata
 
 	public var fetchDate: Date?
+    public var fetchedLanguageCode: String?
 	public var fetchedLanguageVariantCode: String?
+
+    /// Sections that did not come from the fetch this content was saved from, but were carried
+    /// over from the previous cache so the widget has something to show. A stale section must
+    /// not short-circuit the next network fetch.
+    public var staleSections: [Section] = []
 
     // MARK: - Properties - Runtime Only (excluded from `CodingKeys`)
 
@@ -41,6 +49,9 @@ public struct WidgetFeaturedContent: Codable {
 
     /// Elements dropped by lossy arrays inside the sections, keyed by section.
     public var droppedElementErrors: [Section: [String]] = [:]
+
+    /// True when this whole content is being served from the cache because the fetch failed.
+    public var isFromCacheFallback: Bool = false
 
     // MARK: - Public
 
@@ -54,6 +65,10 @@ public struct WidgetFeaturedContent: Codable {
 		return nil
 	}
 
+    public func isStale(_ section: Section) -> Bool {
+        return isFromCacheFallback || staleSections.contains(section)
+    }
+
     public func hasContent(for section: Section) -> Bool {
         switch section {
         case .featuredArticle:
@@ -65,6 +80,34 @@ public struct WidgetFeaturedContent: Codable {
         case .pictureOfTheDay:
             return pictureOfTheDay != nil
         }
+    }
+
+    /// Fills the sections missing from `fresh` with the ones from `cached`, marking them stale.
+    /// Sections present in `fresh` always win. `cached` should be for the same language.
+    public static func merging(fresh: WidgetFeaturedContent, withCached cached: WidgetFeaturedContent?) -> WidgetFeaturedContent {
+        guard let cached = cached else {
+            return fresh
+        }
+
+        var merged = fresh
+        var staleSections: [Section] = []
+
+        for section in Section.allCases where !fresh.hasContent(for: section) && cached.hasContent(for: section) {
+            switch section {
+            case .featuredArticle:
+                merged.featuredArticle = cached.featuredArticle
+            case .topRead:
+                merged.topRead = cached.topRead
+            case .onThisDay:
+                merged.onThisDay = cached.onThisDay
+            case .pictureOfTheDay:
+                merged.pictureOfTheDay = cached.pictureOfTheDay
+            }
+            staleSections.append(section)
+        }
+
+        merged.staleSections = staleSections
+        return merged
     }
 
 }
@@ -106,7 +149,9 @@ extension WidgetFeaturedContent {
         }
 
         fetchDate = try container.decodeIfPresent(Date.self, forKey: .fetchDate)
+        fetchedLanguageCode = try container.decodeIfPresent(String.self, forKey: .fetchedLanguageCode)
         fetchedLanguageVariantCode = try container.decodeIfPresent(String.self, forKey: .fetchedLanguageVariantCode)
+        staleSections = try container.decodeIfPresent([Section].self, forKey: .staleSections) ?? []
 
         self.sectionDecodingErrors = sectionDecodingErrors
         self.droppedElementErrors = droppedElementErrors

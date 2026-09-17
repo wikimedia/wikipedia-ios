@@ -30,6 +30,10 @@ public struct WidgetFeaturedArticle: Codable {
     public var thumbnailImageSource: WidgetImageSource?
     public var originalImageSource: WidgetImageSource?
 
+    /// Runtime-only (excluded from `CodingKeys`): true when served from cache as a fallback, so
+    /// the widget timeline can schedule an earlier retry for fresh content.
+    public var isFromCacheFallback: Bool = false
+
     // MARK: - Computed Properties
 
     public var isRTL: Bool {

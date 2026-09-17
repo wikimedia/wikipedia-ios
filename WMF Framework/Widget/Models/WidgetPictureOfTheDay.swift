@@ -45,6 +45,10 @@ public struct WidgetPictureOfTheDay: Codable {
     public var originalImageSource: WidgetImageSource?
     public let structured: Structured?
 
+    /// Runtime-only (excluded from `CodingKeys`): true when served from cache as a fallback, so
+    /// the widget timeline can schedule an earlier retry for fresh content.
+    public var isFromCacheFallback: Bool = false
+
     // MARK: - Public
 
     /// The text to show under the image: the feed description when there is one, otherwise the
