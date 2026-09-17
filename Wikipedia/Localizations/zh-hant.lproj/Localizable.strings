@@ -746,8 +746,6 @@
 "for-you-empty-feed-subtitle" = "當您瀏覽時，「為您推薦」摘要會顯示為您量身打造的條目。";
 "for-you-empty-feed-title" = "您的摘要目前為空";
 "for-you-empty-feed-ways-to-get-started" = "入門方法：";
-"for-you-empty-subtitle-interests-or-modules" = "新增興趣或啟用模組，以獲得個人化的條目推薦";
-"for-you-empty-title" = "這裡還沒有東西";
 "for-you-end-of-feed-add-interests-format" = "新增$1";
 "for-you-end-of-feed-add-interests-link" = "新的興趣";
 "for-you-end-of-feed-community-format" = "看看 $1 當前有何動態";
@@ -787,11 +785,9 @@
 "home-button-home-accessibility-label" = "維基百科，返回到首頁";
 "home-button-saved-accessibility-label" = "維基百科，返回到已儲存條目";
 "home-card-more-options-accessibility-label" = "更多選項";
-"home-community-empty-feed-turn-on-modules-message" = "啟用模組以查看社群的內容";
 "home-community-see-past-content" = "查看以往的社群內容";
 "home-community-tab-title" = "社群";
 "home-edit-languages-title" = "新增或編輯語言設定";
-"home-empty-go-to-settings-button" = "前往設定";
 "home-feed-for-you-based-on-interests-subtitle" = "根據您所選主題量身推薦的條目。";
 "home-feed-for-you-based-on-interests-title" = "根據您的興趣";
 "home-feed-for-you-because-you-read-subtitle" = "基於在您的歷史紀錄裡的近期條目，所提出的建議";

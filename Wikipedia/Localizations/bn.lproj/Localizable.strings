@@ -204,6 +204,7 @@
 "history-title" = "ইতিহাস";
 "home-button-explore-accessibility-label" = "উইকিপিডিয়া, অন্বেষণে ফেরত যান";
 "home-button-saved-accessibility-label" = "উইকিপিডিয়া, সংরক্ষণে ফেরত যান";
+"home-empty-feed-manage-modules-button" = "মডিউল পরিচালনা করুন";
 "home-feed-for-you-continue-reading-subtitle" = "আপনার শেষ না করা নিবন্ধগুলোতে ফিরে যান";
 "home-more-like-footer" = "$1 এর মতো আরও";
 "home-nearby-footer" = "আপনার কাছাকাটি আরও স্থান";
