@@ -10,6 +10,7 @@ extension SearchResultsViewController {
     typealias SearchResult = WMFSearchResultsViewModel.SearchResult
 
     private static let noSearchResultsMessage = WMFLocalizedString("empty-no-search-results-message", value: "No results found", comment: "Shown when there are no search results")
+    private static let viewOnMapActionTitle = WMFLocalizedString("page-location", value: "View on a map", comment: "Label for button used to show an article on the map")
 
     func makeResultsViewModel() -> WMFSearchResultsViewModel {
         let localizedStrings = WMFSearchResultsViewModel.LocalizedStrings(
@@ -19,6 +20,7 @@ extension SearchResultsViewController {
             saveActionTitle: CommonStrings.saveTitle,
             unsaveActionTitle: CommonStrings.unsaveTitle,
             shareActionTitle: CommonStrings.shareMenuTitle,
+            viewOnMapActionTitle: Self.viewOnMapActionTitle,
             noResultsMessage: Self.noSearchResultsMessage,
             noInternetConnectionTitle: CommonStrings.noInternetConnection)
 
@@ -35,18 +37,31 @@ extension SearchResultsViewController {
                 articleTappedAction?(result.articleURL, false)
             },
             openAction: { [weak self] result, _ in
+                ArticleTabsFunnel.shared.logLongPressOpen()
                 self?.articleTappedAction?(result.articleURL, false)
             },
             openInNewTabAction: { [weak self] result, _ in
+                WMFArticleTabsDataController.shared.didTapOpenNewTab()
+                ArticleTabsFunnel.shared.logLongPressOpenInNewTab()
                 self?.articleTappedAction?(result.articleURL, true)
             },
             openInBackgroundTabAction: { [weak self] result, _ in
                 self?.openInBackgroundTab(result)
             },
-            saveOrUnsaveAction: { [weak self] result, index in
+            openOnMapAction: { result, _ in
+                let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: result.articleURL)
+                UIApplication.shared.open(placesURL)
+            },
+            saveOrUnsaveAction: { [weak self] result, index, source in
+                if source == .contextMenu {
+                    ArticleTabsFunnel.shared.logLongPressSave()
+                }
                 self?.saveOrUnsave(result, at: index)
             },
-            shareAction: { [weak self] result, _, frame in
+            shareAction: { [weak self] result, _, frame, source in
+                if source == .contextMenu {
+                    ArticleTabsFunnel.shared.logLongPressShare()
+                }
                 self?.share(result, frame: frame)
             })
     }

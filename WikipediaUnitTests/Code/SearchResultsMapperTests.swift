@@ -1,3 +1,4 @@
+import CoreLocation
 import Foundation
 import Testing
 @testable import Wikipedia
@@ -5,6 +6,7 @@ import Testing
 import WMFData
 
 // Serialized: NSLocale.wmf_locale(for:) mutates an unsynchronized static cache.
+@MainActor
 @Suite(.serialized)
 struct SearchResultsMapperTests {
 
@@ -21,8 +23,20 @@ struct SearchResultsMapperTests {
         #expect(result.title == "Cat")
         #expect(result.titleHTML == "<i>Cat</i>")
         #expect(result.thumbnailURL == thumbnailURL)
+        #expect(result.isArticle)
+        #expect(!result.hasLocation)
         #expect(result.isSavable)
         #expect(!result.isSaved)
+    }
+
+    @Test
+    func resultsWithCoordinatesHaveALocation() throws {
+        let mapper = SearchResultsMapper(siteURL: englishSiteURL, redirectMappings: [])
+        let location = CLLocation(latitude: 48.8584, longitude: 2.2945)
+
+        let result = try #require(mapper.searchResult(from: makeResult(title: "Eiffel Tower", location: location)))
+
+        #expect(result.hasLocation)
     }
 
     @Test
@@ -49,6 +63,7 @@ struct SearchResultsMapperTests {
         let result = try #require(mapper.searchResult(from: makeResult(title: "Talk:Cat", displayTitle: "Talk:Cat")))
 
         #expect(!result.isSavable)
+        #expect(!result.isArticle)
     }
 
     @Test
@@ -93,7 +108,7 @@ struct SearchResultsMapperTests {
         #expect(mapper.project == .wikipedia(WMFLanguage(languageCode: "zh", languageVariantCode: "zh-hans")))
     }
 
-    private func makeResult(title: String?, displayTitle: String? = nil, displayTitleHTML: String? = nil, wikidataDescription: String? = nil, thumbnailURL: URL? = nil) -> MWKSearchResult {
-        MWKSearchResult(articleID: 1, revID: 1, title: title, displayTitle: displayTitle, displayTitleHTML: displayTitleHTML, wikidataDescription: wikidataDescription, extract: nil, thumbnailURL: thumbnailURL, index: nil, titleNamespace: nil, location: nil)!
+    private func makeResult(title: String?, displayTitle: String? = nil, displayTitleHTML: String? = nil, wikidataDescription: String? = nil, thumbnailURL: URL? = nil, location: CLLocation? = nil) -> MWKSearchResult {
+        MWKSearchResult(articleID: 1, revID: 1, title: title, displayTitle: displayTitle, displayTitleHTML: displayTitleHTML, wikidataDescription: wikidataDescription, extract: nil, thumbnailURL: thumbnailURL, index: nil, titleNamespace: nil, location: location)!
     }
 }

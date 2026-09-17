@@ -4,6 +4,7 @@ import WMFComponents
 import WMFData
 import WMFNativeLocalizations
 
+@MainActor
 struct SearchResultsMapper {
 
     typealias SearchResult = WMFSearchResultsViewModel.SearchResult
@@ -38,7 +39,16 @@ struct SearchResultsMapper {
             titleHTML: result.displayTitleHTML ?? title,
             description: description(for: result),
             thumbnailURL: result.thumbnailURL,
+            isArticle: Self.isArticle(articleURL),
+            hasLocation: result.location != nil,
             isSavable: articleURL.namespace == .main)
+    }
+
+    static func isArticle(_ articleURL: URL) -> Bool {
+        if case .article = LinkCoordinator.destination(for: articleURL) {
+            return true
+        }
+        return false
     }
 
     func description(for result: MWKSearchResult) -> String? {
