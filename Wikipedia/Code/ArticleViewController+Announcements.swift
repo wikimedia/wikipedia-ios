@@ -237,7 +237,8 @@ extension ArticleViewController {
         // the games announcement: `sceneDelegate.didOpenAppFromExternalLink` is not used here since
         // it stays true for the whole session, which would also suppress internal links tapped from
         // the deep linked article.
-        guard articleViewSource != .external_link else {
+        guard articleViewSource != .external_link,
+              articleViewSource != .widget else {
             return false
         }
 
