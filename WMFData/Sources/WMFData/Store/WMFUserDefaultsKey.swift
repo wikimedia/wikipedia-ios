@@ -32,8 +32,8 @@ public enum WMFUserDefaultsKey: String {
     case tappedYIR2026 = "tapped-yir-2026"
 
     // Year in Review 2026 dev settings
-    case developerSettingsShowYiR2026 = "dev-settings-yir-show-2026"
-    case developerSettingsShowYiR2026Announcement = "dev-settings-yir-announcement-2026"
+    case developerSettingsForceYiR2026 = "dev-settings-yir-show-2026"
+    case developerSettingsForceYiR2026Announcement = "dev-settings-yir-announcement-2026"
 
     case developerSettingsYiRV3LoginExperimentControl = "dev-settings-yir-login-experiment-control"
     case developerSettingsYiRV3LoginExperimentB = "dev-settings-yir-login-experiment-b"
@@ -133,7 +133,6 @@ public enum WMFUserDefaultsKey: String {
     // yir 2026
     case tappedActivityTabYIR = "tapped-activity-tab-yir-2026"
     
-    case developerSettingsForceYiREntryPoint2026 = "dev-settings-force-yir-entry-point-2026"
 
     // Semantic search
     case developerSettingsEnableSemanticSearch = "dev-settings-enable-semantic-search"

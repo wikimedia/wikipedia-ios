@@ -115,33 +115,27 @@ import WMFData
         let forceEmailAuth = WMFFormItemSelectViewModel(title: localizedStrings.forceEmailAuth, isSelected: WMFDeveloperSettingsDataController.shared.forceEmailAuth)
         let forceMaxArticleTabsTo5 = WMFFormItemSelectViewModel(title: "Force Max Article Tabs to 5", isSelected: WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5)
         let showYiR2025 = WMFFormItemSelectViewModel(title: "Show Year in Review 2025", isSelected: WMFDeveloperSettingsDataController.shared.showYiR2025)
-        let showYiR2026 = WMFFormItemSelectViewModel(title: "Show Year in Review 2026", isSelected: WMFDeveloperSettingsDataController.shared.showYiR2026)
-        let showYiR2026Announcement = WMFFormItemSelectViewModel(title: "Show Year in Review Announcement", isSelected: WMFDeveloperSettingsDataController.shared.showYiR2026Announcement)
+        let forceYiR2026 = WMFFormItemSelectViewModel(title: "Force Year in Review 2026", isSelected: WMFDeveloperSettingsDataController.shared.forceYiR2026)
+        let forceYiR2026Announcement = WMFFormItemSelectViewModel(title: "Force Year in Review 2026 Announcement", isSelected: WMFDeveloperSettingsDataController.shared.forceYiR2026Announcement)
         let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
         let allowGestureZoomArticleWebview = WMFFormItemSelectViewModel(title: "Allow pinch to zoom when reading articles", isSelected: WMFDeveloperSettingsDataController.shared.allowGestureZoomArticleWebview)
         let enableHomePhase2 = WMFFormItemSelectViewModel(title: "Enable Home Phase 2", isSelected: WMFDeveloperSettingsDataController.shared.enableHomePhase2)
-        let forceYiREntryPoint2026 = WMFFormItemSelectViewModel(title: "Show Year in Review 2026", isSelected: WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026)
 
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
                 enableHomePhase2,
                 doNotPostImageRecommendationsEditItem,
                 sendAnalyticsToWMFLabsItem,
-                forceYiREntryPoint2026,
                 forceEmailAuth,
                 forceMaxArticleTabsTo5,
                 showYiR2025,
-                showYiR2026,
-                showYiR2026Announcement,
+                forceYiR2026,
+                forceYiR2026Announcement,
                 forceHcaptchaChallenge,
                 allowGestureZoomArticleWebview
             ], selectType: .multi)
         ])
         
-        forceYiREntryPoint2026.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceYiREntryPoint2026 = isSelected }
-            .store(in: &subscribers)
-
         doNotPostImageRecommendationsEditItem.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit = isSelected }
             .store(in: &subscribers)
@@ -162,16 +156,17 @@ import WMFData
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.showYiR2025 = isSelected }
             .store(in: &subscribers)
 
-        showYiR2026.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.showYiR2026 = isSelected }
+        // While on, 2026 Year in Review overrides every gate: the remote config and its active
+        // window, the Year in Review settings toggle and suppressed countries.
+        forceYiR2026.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceYiR2026 = isSelected }
             .store(in: &subscribers)
 
-        // While on, the announcement ignores the "already seen" state, so it presents on the next
-        // eligible app open instead of only once. The remote config window, the Year in Review
-        // settings toggle and suppressed countries still apply; pair this with "Show Year in Review
-        // 2026" to test outside the active dates.
-        showYiR2026Announcement.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.showYiR2026Announcement = isSelected }
+        // While on, the announcement ignores every gate: the remote config and its active window,
+        // the Year in Review settings toggle, suppressed countries and the "already seen" state. It
+        // therefore presents on every eligible app open until it is turned back off.
+        forceYiR2026Announcement.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceYiR2026Announcement = isSelected }
             .store(in: &subscribers)
 
         forceHcaptchaChallenge.$isSelected
@@ -199,16 +194,9 @@ import WMFData
     }
 
     public func clearFundraisingCampaignPersistence() {
-        // TODO: ? WMFDeveloperSettingsDataController.shared.clearFundraisingCampaignPersistence()
+        WMFDeveloperSettingsDataController.shared.clearFundraisingCampaignPersistence()
         Task { @MainActor in
             WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Fundraising state cleared. The campaign banner can show again.")))
-        }
-    }
-
-    public func clearYearInReview2026AnnouncementPersistence() {
-        WMFDeveloperSettingsDataController.shared.clearYearInReview2026AnnouncementPersistence()
-        Task { @MainActor in
-            WMFToastPresenter.shared.show(WMFToastConfig(title: .init("Year in Review 2026 announcement state cleared. Saved reports were not touched.")))
         }
     }
 

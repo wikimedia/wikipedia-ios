@@ -87,7 +87,7 @@ public struct WMFFeatureConfigResponse: Codable {
                 let developerSettingsDataController = WMFDeveloperSettingsDataController.shared
                 switch year {
                 case 2026:
-                    if developerSettingsDataController.showYiR2026 {
+                    if developerSettingsDataController.forceYiR2026 {
                         return true
                     }
                 case 2025:

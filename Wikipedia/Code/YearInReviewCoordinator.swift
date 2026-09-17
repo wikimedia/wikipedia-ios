@@ -954,7 +954,7 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
 
     public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         if needsExitFromIntroToast, viewModel?.isShowingIntro ?? false {
-            WMFToastManager.sharedInstance.showToast(CommonStrings.youCanAccessYIR, sticky: false, dismissPreviousToasts: true)
+            WMFToastManager.sharedInstance.showToast(CommonStrings.youCanAccessYIRInActivity, sticky: false, dismissPreviousToasts: true)
         }
         resetFromFeatureAnnouncement()
     }

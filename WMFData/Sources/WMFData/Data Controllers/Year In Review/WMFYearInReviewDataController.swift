@@ -73,14 +73,6 @@ import CoreData
 
     // MARK: - Feature Announcement
 
-    private var featureAnnouncementStatus: FeatureAnnouncementStatus {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewFeatureAnnouncement.rawValue)) ?? FeatureAnnouncementStatus.default
-    }
-
-    private var seenIntroSlideStatus: YiRNotificationAnnouncementStatus {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewIntroSlide.rawValue)) ?? YiRNotificationAnnouncementStatus.default
-    }
-    
     public var hasTappedActivityTabAfterYiRReady: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.tappedActivityTabYIR.rawValue)) ?? false
@@ -142,12 +134,13 @@ import CoreData
         // Developer setting: show the announcement regardless of everything below — the remote
         // config, the active date window, the opt-out toggle, suppressed countries and the
         // once-per-user gate. Deliberately the first thing checked, so the announcement can be built
-        // and tested before a 2026 block exists in the remote feature config.
+        // and tested before a 2026 block exists in the remote feature config. This is why the flag
+        // is named `force` rather than `show`: none of the gates below survive it.
         //
         // This only gets the announcement on screen. Everything behind it that needs `config` —
         // report population and every personalized slide — still has nothing to work with until a
         // 2026 config is published.
-        if developerSettingsDataController.showYiR2026Announcement {
+        if developerSettingsDataController.forceYiR2026Announcement {
             return true
         }
 
@@ -178,20 +171,11 @@ import CoreData
         return true
     }
 
-    /// Clears the 2026 "already seen" state only. Persisted reports, 2025 state and the user's
-    /// opt-out preference are left alone. Called from developer settings.
-    public func resetAnnouncementState() {
-        hasPresentedYiRFeatureAnnouncement = false
-        hasSeenYiRIntroSlide = false
-        hasTappedProfileItem = false
-        hasPresentedYiRSurvey = false
-    }
-
     // MARK: Entry Point
 
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, currentDate: Date? = Date()) -> Bool {
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
-        if developerSettingsDataController.forceYiREntryPoint2026 {
+        if developerSettingsDataController.forceYiR2026 {
             return true
         }
 
