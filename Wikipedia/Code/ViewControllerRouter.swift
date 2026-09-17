@@ -96,7 +96,7 @@ class ViewControllerRouter: NSObject {
         let destination = router.destination(for: url, permanentUsername: permanentUsername)
         switch destination {
         case .article:
-            assertionFailure("Use Article Coordinator instead")
+            //assertionFailure("Use Article Coordinator instead")
             return false
         case .externalLink(let linkURL):
             appViewController.navigate(to: linkURL, useSafari: true)

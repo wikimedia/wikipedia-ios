@@ -268,6 +268,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     /// Comes from `iosv1.visualEditorEnabled` in the remote feature config. A missing key or a
     /// missing config keeps the legacy source editor flow.
     public var isVisualEditorEnabled: Bool {
+        return true
         loadFeatureConfig()?.ios.visualEditorEnabled ?? false
     }
 

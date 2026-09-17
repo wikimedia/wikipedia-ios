@@ -91,12 +91,12 @@ extension ArticleViewController {
     }
 
     private func presentVisualEditorInBrowser(sectionID: Int?) {
-        var components = URLComponents(url: articleURL, resolvingAgainstBaseURL: false)
+        var components = URLComponents(url: URL(string: "https://4dc130a92f.catalyst.wmcloud.org/wiki/IOS")!, resolvingAgainstBaseURL: false)
 
         var queryItems = [
             URLQueryItem(name: "useformat", value: "mobile"),
-            URLQueryItem(name: "veaction", value: "edit")
-            // TODO: Restore URLQueryItem(name: "returntoapp", value: "1") once the web's tap-to-return
+            URLQueryItem(name: "veaction", value: "edit"),
+            URLQueryItem(name: "returntoapp", value: "1")
             // banner replaces the automatic redirect it currently triggers
         ]
 
