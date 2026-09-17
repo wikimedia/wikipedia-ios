@@ -12,8 +12,9 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
         var opened: [(SearchResult, Int)] = []
         var openedInNewTab: [(SearchResult, Int)] = []
         var openedInBackgroundTab: [(SearchResult, Int)] = []
-        var savedOrUnsaved: [(SearchResult, Int)] = []
-        var shared: [(SearchResult, Int, CGRect?)] = []
+        var openedOnMap: [(SearchResult, Int)] = []
+        var savedOrUnsaved: [(SearchResult, Int, WMFSearchResultsViewModel.ActionSource)] = []
+        var shared: [(SearchResult, Int, CGRect?, WMFSearchResultsViewModel.ActionSource)] = []
     }
 
     private final class Recorder {
@@ -28,11 +29,12 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
         saveActionTitle: "Save for later",
         unsaveActionTitle: "Remove from saved",
         shareActionTitle: "Share…",
+        viewOnMapActionTitle: "View on a map",
         noResultsMessage: "No results found",
         noInternetConnectionTitle: "No internet connection"
     )
 
-    private func makeResult(_ title: String, titleHTML: String? = nil, isSavable: Bool = true) -> SearchResult {
+    private func makeResult(_ title: String, titleHTML: String? = nil, isArticle: Bool = true, hasLocation: Bool = false, isSavable: Bool = true) -> SearchResult {
         let encodedTitle = title.replacingOccurrences(of: " ", with: "_")
         return SearchResult(
             articleURL: URL(string: "https://en.wikipedia.org/wiki/\(encodedTitle)")!,
@@ -40,6 +42,8 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
             titleHTML: titleHTML ?? title,
             description: nil,
             thumbnailURL: nil,
+            isArticle: isArticle,
+            hasLocation: hasLocation,
             isSavable: isSavable)
     }
 
@@ -54,8 +58,9 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
             openAction: { recorder.actions.opened.append(($0, $1)) },
             openInNewTabAction: { recorder.actions.openedInNewTab.append(($0, $1)) },
             openInBackgroundTabAction: { recorder.actions.openedInBackgroundTab.append(($0, $1)) },
-            saveOrUnsaveAction: { recorder.actions.savedOrUnsaved.append(($0, $1)) },
-            shareAction: { recorder.actions.shared.append(($0, $1, $2)) },
+            openOnMapAction: { recorder.actions.openedOnMap.append(($0, $1)) },
+            saveOrUnsaveAction: { recorder.actions.savedOrUnsaved.append(($0, $1, $2)) },
+            shareAction: { recorder.actions.shared.append(($0, $1, $2, $3)) },
             summaryProvider: summaryProvider)
     }
 
@@ -144,17 +149,21 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
         viewModel.open(dog)
         viewModel.openInNewTab(dog)
         viewModel.openInBackgroundTab(dog)
-        viewModel.saveOrUnsave(dog)
-        viewModel.share(dog)
+        viewModel.openOnMap(dog)
+        viewModel.saveOrUnsave(dog, source: .contextMenu)
+        viewModel.share(dog, source: .swipe)
 
         XCTAssertEqual(recorder.actions.tapped.map(\.1), [1])
         XCTAssertEqual(recorder.actions.tapped.first?.0.title, "Dog")
         XCTAssertEqual(recorder.actions.opened.map(\.1), [1])
         XCTAssertEqual(recorder.actions.openedInNewTab.map(\.1), [1])
         XCTAssertEqual(recorder.actions.openedInBackgroundTab.map(\.1), [1])
+        XCTAssertEqual(recorder.actions.openedOnMap.map(\.1), [1])
         XCTAssertEqual(recorder.actions.savedOrUnsaved.map(\.1), [1])
+        XCTAssertEqual(recorder.actions.savedOrUnsaved.first?.2, .contextMenu)
         XCTAssertEqual(recorder.actions.shared.map(\.1), [1])
         XCTAssertEqual(recorder.actions.shared.first?.2, CGRect(x: 0, y: 60, width: 320, height: 60))
+        XCTAssertEqual(recorder.actions.shared.first?.3, .swipe)
     }
 
     func testActionsIgnoreResultsNoLongerDisplayed() {
@@ -165,7 +174,7 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
         viewModel.reset()
 
         viewModel.tap(cat)
-        viewModel.share(cat)
+        viewModel.share(cat, source: .swipe)
 
         XCTAssertTrue(recorder.actions.tapped.isEmpty)
         XCTAssertTrue(recorder.actions.shared.isEmpty)
