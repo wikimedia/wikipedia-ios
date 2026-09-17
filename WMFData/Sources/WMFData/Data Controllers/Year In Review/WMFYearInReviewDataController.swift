@@ -18,7 +18,8 @@ import CoreData
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
     private let experimentsDataController: WMFExperimentsDataController?
 
-    @objc public static let targetYear = 2026
+    // TODO - flip to 2026 when we have everything set up
+    @objc public static let targetYear = 2025
     public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2026_share&mt=8"
 
     private let service = WMFDataEnvironment.current.mediaWikiService
