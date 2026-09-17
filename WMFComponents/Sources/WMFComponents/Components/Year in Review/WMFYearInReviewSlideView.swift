@@ -7,7 +7,6 @@ struct WMFYearInReviewSlideView: View {
     var body: some View {
         ZStack {
             Color(uiColor: slide.backgroundColor)
-                .ignoresSafeArea()
 
             content
         }

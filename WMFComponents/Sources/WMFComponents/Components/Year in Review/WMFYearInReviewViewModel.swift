@@ -3,6 +3,14 @@ import UIKit
 @MainActor
 public final class WMFYearInReviewViewModel: ObservableObject {
 
+    public static let chromeBackgroundColor = UIColor(0x161616)
+
+    /// Design could not read the value off the Figma frame, so this is a judgement call.
+    /// Change it here and both bottom corners follow.
+    public static let slideCornerRadius: CGFloat = 24
+
+    public static let toolbarMinimumHeight: CGFloat = 64
+
     public struct LocalizedStrings {
         public let wIconAccessibilityLabel: String
         public let closeButtonAccessibilityLabel: String

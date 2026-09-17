@@ -18,8 +18,8 @@ public final class WMFYearInReviewHostingController: WMFComponentHostingControll
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .clear
-        navigationController?.view.backgroundColor = .clear
+        view.backgroundColor = WMFYearInReviewViewModel.chromeBackgroundColor
+        navigationController?.view.backgroundColor = WMFYearInReviewViewModel.chromeBackgroundColor
 
         viewModel.$currentSlideID
             .receive(on: DispatchQueue.main)

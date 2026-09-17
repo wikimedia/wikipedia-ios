@@ -10,33 +10,34 @@ public struct WMFYearInReviewView: View {
         self.viewModel = viewModel
     }
 
-    private var contentColor: Color {
-        Color(uiColor: viewModel.currentSlide?.contentColor ?? WMFColor.gray700)
-    }
-
     public var body: some View {
-        ZStack(alignment: .top) {
-            Color(uiColor: viewModel.currentSlide?.backgroundColor ?? .clear)
-                .ignoresSafeArea()
-
+        VStack(spacing: 0) {
             pager
-
-            VStack(spacing: 0) {
-                Spacer()
-                WMFYearInReviewToolbarView(
-                    viewModel: viewModel,
-                    contentColor: contentColor,
-                    donateSourceRect: { donateButtonFrame }
+                .clipShape(
+                    UnevenRoundedRectangle(
+                        cornerRadii: RectangleCornerRadii(
+                            bottomLeading: WMFYearInReviewViewModel.slideCornerRadius,
+                            bottomTrailing: WMFYearInReviewViewModel.slideCornerRadius
+                        )
+                    )
                 )
-                .background {
-                    GeometryReader { proxy in
-                        Color.clear
-                            .onAppear { donateButtonFrame = proxy.frame(in: .global) }
-                            .onChange(of: proxy.frame(in: .global)) { donateButtonFrame = $1 }
-                    }
+
+            WMFYearInReviewToolbarView(
+                viewModel: viewModel,
+                contentColor: Color(uiColor: WMFColor.white),
+                donateSourceRect: { donateButtonFrame }
+            )
+            .frame(minHeight: WMFYearInReviewViewModel.toolbarMinimumHeight)
+            .background {
+                GeometryReader { proxy in
+                    Color.clear
+                        .onAppear { donateButtonFrame = proxy.frame(in: .global) }
+                        .onChange(of: proxy.frame(in: .global)) { donateButtonFrame = $1 }
                 }
             }
         }
+        .ignoresSafeArea(edges: .top)
+        .background(Color(uiColor: WMFYearInReviewViewModel.chromeBackgroundColor))
         .animation(.easeInOut(duration: 0.2), value: viewModel.currentSlideID)
         .onAppear {
             viewModel.onAppear()
@@ -87,12 +88,18 @@ private struct WMFYearInReviewPagingModifier: ViewModifier {
 
     @Binding var currentSlideID: String?
 
+    @ViewBuilder
     func body(content: Content) -> some View {
-        content
+        let paged = content
             .scrollTargetBehavior(.paging)
             .scrollPosition(id: $currentSlideID)
             .scrollIndicators(.hidden)
-            .ignoresSafeArea()
             .accessibilityElement(children: .contain)
+
+        if #available(iOS 26.0, *) {
+            paged.scrollEdgeEffectHidden(true, for: .all)
+        } else {
+            paged
+        }
     }
 }
