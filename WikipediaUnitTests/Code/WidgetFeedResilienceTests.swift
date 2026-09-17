@@ -186,6 +186,34 @@ class WidgetFeedResilienceTests: XCTestCase {
         XCTAssertTrue(roundTripped.sectionDecodingErrors.isEmpty, "decoding errors are runtime-only")
     }
 
+    // MARK: - Diagnostics
+
+    func testDiagnosticsDescribePartialSuccess() throws {
+        let content = try JSONDecoder().decode(WidgetFeaturedContent.self, from: Data("""
+        {"tfa": \(featuredArticleJSON), "image": "broken", "mostread": {"date": "2026-09-16Z", "articles": [{"views": 1}]}}
+        """.utf8))
+
+        let diagnostics = WidgetFetchDiagnostics(date: Date(), url: "https://en.wikipedia.org/api/rest_v1/feed/featured/2026/09/17", httpStatusCode: 200, content: content)
+
+        XCTAssertEqual(diagnostics.outcome, .partialSuccess)
+        XCTAssertEqual(diagnostics.decodedSections, ["tfa", "mostread"])
+        XCTAssertEqual(diagnostics.sectionErrors.keys.sorted(), ["image"])
+        XCTAssertEqual(diagnostics.droppedElementErrors["mostread"]?.count, 1)
+        XCTAssertTrue(diagnostics.summaryLines.contains { $0.hasPrefix("image: ") })
+
+        let roundTripped = try JSONDecoder().decode(WidgetFetchDiagnostics.self, from: JSONEncoder().encode(diagnostics))
+        XCTAssertEqual(roundTripped.outcome, .partialSuccess)
+    }
+
+    func testDiagnosticsDescribeCleanSuccess() throws {
+        let content = try JSONDecoder().decode(WidgetFeaturedContent.self, from: Data("{\"tfa\": \(featuredArticleJSON)}".utf8))
+
+        let diagnostics = WidgetFetchDiagnostics(date: Date(), url: "https://example.org", httpStatusCode: 200, content: content)
+
+        XCTAssertEqual(diagnostics.outcome, .success)
+        XCTAssertEqual(diagnostics.decodedSections, ["tfa"])
+    }
+
     // MARK: - Helpers
 
     private var featuredArticleJSON: String {

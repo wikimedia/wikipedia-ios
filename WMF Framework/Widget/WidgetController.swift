@@ -226,7 +226,7 @@ public extension WidgetController {
     // MARK: - Utility
 
     /// Reloads the cache from disk before writing, so a save from one widget does not clobber
-    /// what another widget wrote in the meantime.
+    /// what another widget (or the fetch diagnostics) wrote in the meantime.
     func updateCacheWith(featuredContent: WidgetFeaturedContent) {
         var updatedCache = widgetCache
         updatedCache.featuredContent = featuredContent
@@ -271,6 +271,46 @@ public extension WidgetController {
         return cachedContent.hasContent(for: section) && !cachedContent.isStale(section)
     }
 
+    // MARK: - Diagnostics
+
+    /// The last fetch outcome, for the developer settings screen. Nil until a widget has fetched.
+    public var lastFetchDiagnostics: WidgetFetchDiagnostics? {
+        return widgetCache.lastFetchDiagnostics
+    }
+
+    /// Human-readable summary of the widget cache state, for the developer settings screen.
+    public func cacheDiagnosticsSummaryLines() -> [String] {
+        let widgetCache = widgetCache
+        var lines: [String] = []
+        lines.append("Language: \(widgetCache.settings.languageCode)" + (widgetCache.settings.languageVariantCode.map { " (\($0))" } ?? ""))
+        guard let content = widgetCache.featuredContent else {
+            lines.append("No cached content.")
+            return lines
+        }
+        if let fetchDate = content.fetchDate {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .short
+            formatter.timeStyle = .medium
+            lines.append("Fetched: \(formatter.string(from: fetchDate))")
+        }
+        let sections = WidgetFeaturedContent.Section.allCases.filter { content.hasContent(for: $0) }
+        lines.append("Cached sections: " + (sections.isEmpty ? "none" : sections.map { $0.rawValue }.joined(separator: ", ")))
+        if !content.staleSections.isEmpty {
+            lines.append("Stale (carried over from an older fetch): " + content.staleSections.map { $0.rawValue }.joined(separator: ", "))
+        }
+        if let dateString = content.topRead?.dateString {
+            lines.append("Top read date: \(dateString)")
+        }
+        return lines
+    }
+
+    /// Wipes the cached featured content. The next widget refresh fetches from the network.
+    public func clearFeaturedContentCache() {
+        var updatedCache = widgetCache
+        updatedCache.featuredContent = nil
+        sharedCache.saveCache(updatedCache)
+    }
+
     // MARK: - Fetch Featured Content
 
     private func fetchFeaturedContent(useCacheIfAvailable: Bool = true, completion: @escaping (WidgetContentFetcher.FeaturedContentResult) -> Void) {
@@ -290,7 +330,8 @@ public extension WidgetController {
 
         let previousContent = widgetCache.featuredContent.flatMap { cachedContentMatchesSettings($0, settings: widgetCache.settings) ? $0 : nil }
 
-        fetcher.fetchFeaturedContent(forDate: Date(), siteURL: widgetCache.settings.siteURL, languageCode: widgetCache.settings.languageCode, languageVariantCode: widgetCache.settings.languageVariantCode) { result in
+        fetcher.fetchFeaturedContent(forDate: Date(), siteURL: widgetCache.settings.siteURL, languageCode: widgetCache.settings.languageCode, languageVariantCode: widgetCache.settings.languageVariantCode) { result, diagnostics in
+            var diagnostics = diagnostics
             switch result {
             case .success(let freshContent):
                 // Sections missing today (a feed without `image`, a most-read not published yet)
@@ -299,6 +340,7 @@ public extension WidgetController {
                 mergedContent.fetchedLanguageCode = widgetCache.settings.languageCode
                 mergedContent.fetchedLanguageVariantCode = widgetCache.settings.languageVariantCode
                 widgetCache.featuredContent = mergedContent
+                widgetCache.lastFetchDiagnostics = diagnostics
                 self.sharedCache.saveCache(widgetCache)
                 performCompletion(result: .success(mergedContent))
             case .failure(let error):
@@ -306,8 +348,13 @@ public extension WidgetController {
                 // keeps its own fetch date and every widget retries the network next time.
                 if var fallbackContent = previousContent {
                     fallbackContent.isFromCacheFallback = true
+                    diagnostics.servedFromCacheFallback = true
+                    widgetCache.lastFetchDiagnostics = diagnostics
+                    self.sharedCache.saveCache(widgetCache)
                     performCompletion(result: .success(fallbackContent))
                 } else {
+                    widgetCache.lastFetchDiagnostics = diagnostics
+                    self.sharedCache.saveCache(widgetCache)
                     performCompletion(result: .failure(error))
                 }
             }
