@@ -72,8 +72,8 @@ final class PictureOfTheDayData {
             if let pictureOfTheDay = try? result.get(),
                let imageData = pictureOfTheDay.originalImageSource?.data,
                let image = UIImage.downsampled(from: imageData, targetSize: targetSize) {
-                let description = pictureOfTheDay.description.text
-                let license = pictureOfTheDay.license.code
+                let description = pictureOfTheDay.caption(preferringLanguageCode: widgetController.featuredContentSiteURL.wmf_languageCode)
+                let license = pictureOfTheDay.license?.code
                 let entry = PictureOfTheDayEntry(date: Date(), kind: .entry, contentURL: groupURL, image: image, imageDescription: description, licenseCode: license)
                 completion(entry)
             } else {
