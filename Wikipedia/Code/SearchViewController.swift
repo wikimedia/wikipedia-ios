@@ -19,11 +19,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // MARK: - Dependencies
 
-    @objc var dataStore: MWKDataStore? {
-        didSet {
-            searchResultsVC.resultsViewController.dataStore = dataStore
-        }
-    }
+    @objc var dataStore: MWKDataStore?
 
     // MARK: - Private state
 
