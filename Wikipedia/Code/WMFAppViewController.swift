@@ -1407,15 +1407,18 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         default:
             dismissPresentedViewControllers()
+            
+            // Fall back to legacy navigation
+            if activity.webpageURL?.absoluteString.hasPrefix("https://4dc130a92f.catalyst.wmcloud.org/wiki/IOS") ?? false {
+                activity.webpageURL = URL(string: "https://test.wikipedia.org/wiki/IOS")
+            }
+            
             if processLinkUserActivity(activity) {
                 done()
                 return true
             }
-            // Fall back to legacy navigation
+
             var linkURL = activity.wmf_linkURL()
-            if linkURL?.absoluteString.hasPrefix("https://4dc130a92f.catalyst.wmcloud.org/wiki/IOS") ?? false {
-                linkURL = URL(string: "https://test.wikipedia.org/wiki/IOS")
-            }
             if linkURL?.wmf_languageVariantCode == nil {
                 let languageCode = linkURL?.wmf_languageCode
                 linkURL?.wmf_languageVariantCode = dataStore.languageLinkController.preferredLanguageVariantCode(forLanguageCode: languageCode)
