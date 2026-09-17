@@ -17,6 +17,14 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
         var shared: [(SearchResult, Int, CGRect?, WMFSearchResultsViewModel.ActionSource)] = []
     }
 
+    private actor RequestedTitles {
+        private(set) var values: [String] = []
+
+        func append(_ title: String) {
+            values.append(title)
+        }
+    }
+
     private final class Recorder {
         var actions = RecordedActions()
         var savedURLs: Set<URL> = []
@@ -38,6 +46,7 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
         let encodedTitle = title.replacingOccurrences(of: " ", with: "_")
         return SearchResult(
             articleURL: URL(string: "https://en.wikipedia.org/wiki/\(encodedTitle)")!,
+            pageTitle: title,
             title: title,
             titleHTML: titleHTML ?? title,
             description: nil,
@@ -185,6 +194,7 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
     func testDisplayedDescriptionKeepsOnlyTheFirstLine() {
         let redirected = SearchResult(
             articleURL: URL(string: "https://en.wikipedia.org/wiki/The_Subdudes")!,
+            pageTitle: "The Subdudes",
             title: "The Subdudes",
             titleHTML: "The Subdudes",
             description: "Redirected from: Tim Cook (musician)\nAmerican band",
@@ -201,6 +211,7 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
     private var catResult: SearchResult {
         SearchResult(
             articleURL: URL(string: "https://en.wikipedia.org/wiki/Cat")!,
+            pageTitle: "Cat",
             title: "Cat",
             titleHTML: "<i>Cat</i>",
             description: "Redirected from: Felis\nSmall domesticated animal",
@@ -209,13 +220,20 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
 
     func testPreviewUsesTheSummaryWhenItLoads() async {
         let summary = WMFArticleSummary(displayTitle: "Cat", description: "Small domesticated carnivorous mammal", extractHtml: "", thumbnailURL: URL(string: "https://upload.wikimedia.org/cat-320.jpg"), extract: "The cat is a small domesticated carnivorous mammal.")
-        let viewModel = makeViewModel(recorder: Recorder(), summaryProvider: { _, _ in summary })
-        viewModel.showResults([catResult], searchTerm: nil, project: englishProject)
+        let requestedTitles = RequestedTitles()
+        let viewModel = makeViewModel(recorder: Recorder(), summaryProvider: { _, title in
+            await requestedTitles.append(title)
+            return summary
+        })
+        let displayedCat = SearchResult(articleURL: catResult.articleURL, pageTitle: "Cat", title: "cat", titleHTML: "<i>cat</i>", description: catResult.description, thumbnailURL: catResult.thumbnailURL)
+        viewModel.showResults([displayedCat], searchTerm: nil, project: englishProject)
 
         let preview = await viewModel.loadPreviewViewModel(for: viewModel.results[0])
 
+        let titles = await requestedTitles.values
+        XCTAssertEqual(titles, ["Cat"])
         XCTAssertEqual(preview.url, catResult.articleURL)
-        XCTAssertEqual(preview.titleHtml, "Cat")
+        XCTAssertEqual(preview.titleHtml, "cat")
         XCTAssertEqual(preview.description, "Small domesticated carnivorous mammal")
         XCTAssertEqual(preview.imageURL?.absoluteString, "https://upload.wikimedia.org/cat-320.jpg")
         XCTAssertEqual(preview.snippet, "The cat is a small domesticated carnivorous mammal.")

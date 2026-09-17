@@ -40,6 +40,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
 
     public struct SearchResult: Identifiable, Equatable, Sendable {
         public let articleURL: URL
+        public let pageTitle: String
         public let title: String
         public let titleHTML: String
         public let description: String?
@@ -59,6 +60,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
 
         public init(
             articleURL: URL,
+            pageTitle: String,
             title: String,
             titleHTML: String,
             description: String?,
@@ -69,6 +71,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
             isSaved: Bool = false
         ) {
             self.articleURL = articleURL
+            self.pageTitle = pageTitle
             self.title = title
             self.titleHTML = titleHTML
             self.description = description
@@ -223,7 +226,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     }
 
     func loadPreviewViewModel(for result: SearchResult) async -> WMFArticlePreviewViewModel {
-        guard let project, let summary = try? await summaryProvider(project, result.title) else {
+        guard let project, let summary = try? await summaryProvider(project, result.pageTitle) else {
             return previewViewModel(for: result)
         }
 

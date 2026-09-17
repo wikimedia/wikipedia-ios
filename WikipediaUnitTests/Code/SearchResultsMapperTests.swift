@@ -20,6 +20,7 @@ struct SearchResultsMapperTests {
         let result = try #require(mapper.searchResult(from: makeResult(title: "Cat", displayTitle: "Cat", displayTitleHTML: "<i>Cat</i>", thumbnailURL: thumbnailURL)))
 
         #expect(result.articleURL == englishSiteURL.wmf_URL(withTitle: "Cat"))
+        #expect(result.pageTitle == "Cat")
         #expect(result.title == "Cat")
         #expect(result.titleHTML == "<i>Cat</i>")
         #expect(result.thumbnailURL == thumbnailURL)
@@ -47,6 +48,17 @@ struct SearchResultsMapperTests {
 
         #expect(result.title == "Cat")
         #expect(result.titleHTML == "Cat")
+    }
+
+    @Test
+    func keepsTheCanonicalTitleApartFromTheDisplayTitle() throws {
+        let mapper = SearchResultsMapper(siteURL: englishSiteURL, redirectMappings: [])
+
+        let result = try #require(mapper.searchResult(from: makeResult(title: "IPhone", displayTitle: "iPhone")))
+
+        #expect(result.pageTitle == "IPhone")
+        #expect(result.title == "iPhone")
+        #expect(result.articleURL == englishSiteURL.wmf_URL(withTitle: "IPhone"))
     }
 
     @Test

@@ -29,12 +29,14 @@ struct SearchResultsMapper {
     }
 
     func searchResult(from result: MWKSearchResult) -> SearchResult? {
-        guard let articleURL = result.articleURL(forSiteURL: siteURL) else {
+        guard let pageTitle = result.title, let articleURL = result.articleURL(forSiteURL: siteURL) else {
             return nil
         }
-        let title = result.displayTitle ?? result.title ?? ""
+        
+        let title = result.displayTitle ?? pageTitle
         return SearchResult(
             articleURL: articleURL,
+            pageTitle: pageTitle,
             title: title,
             titleHTML: result.displayTitleHTML ?? title,
             description: description(for: result),
