@@ -93,7 +93,7 @@ enum WMFRiveWorkerProvider {
             artboard: artboard,
             stateMachine: stateMachine,
             dataBind: .auto,
-            fit: .cover(alignment: .center),
+            fit: .layout(scaleFactor: .automatic),
             backgroundColor: Color(red: 0, green: 0, blue: 0, alpha: 0)
         )
     }
