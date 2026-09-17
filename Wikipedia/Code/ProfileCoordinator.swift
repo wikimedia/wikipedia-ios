@@ -421,23 +421,59 @@ final class YearInReview2026TestCoordinator: NSObject, WMFYearInReviewCoordinati
     }
 
     private static func placeholderSlides() -> [WMFYearInReviewSlideViewModel] {
-        let palettes: [(String, UIColor)] = [
-            ("intro", UIColor(red: 0.98, green: 0.976, blue: 0.961, alpha: 1)),
-            ("readCount", UIColor(red: 0.839, green: 0.937, blue: 0.898, alpha: 1)),
-            ("mostReadDate", UIColor(red: 0.929, green: 0.890, blue: 0.784, alpha: 1)),
-            ("topTopic", UIColor(red: 0.063, green: 0.141, blue: 0.243, alpha: 1)),
-            ("editCount", UIColor(red: 0.165, green: 0.294, blue: 0.553, alpha: 1)),
-            ("topArticles", UIColor(red: 0.710, green: 0.475, blue: 0.290, alpha: 1))
-        ]
+        // TEMPORARY: three slides driven from the one sample .riv, to prove injection.
+        let frame1 = "frame1"
+        let frame2 = "frame2"
+        let stateMachine = "insightFrame-stateMachine"
 
-        return palettes.map { id, color in
+        let cream = UIColor(red: 0.98, green: 0.976, blue: 0.961, alpha: 1)
+        let mint = UIColor(red: 0.839, green: 0.937, blue: 0.898, alpha: 1)
+        let tan = UIColor(red: 0.929, green: 0.890, blue: 0.784, alpha: 1)
+
+        return [
             WMFYearInReviewSlideViewModel(
-                id: id,
-                loggingID: id,
-                backgroundColor: color,
-                showsShareButton: id != "intro",
-                showsDonateButton: true
+                id: "readCount",
+                loggingID: "readCount",
+                animation: WMFRiveAnimation(resourceName: riveResourceName, artboardName: frame1, stateMachineName: stateMachine),
+                text: [
+                    WMFRiveText(path: "headline1"): "YOU READ",
+                    WMFRiveText(path: "headline2"): "350 ARTICLES",
+                    WMFRiveText(path: "bodyCopy"): "That puts you in the top 5% of readers on English Wikipedia this year.",
+                    WMFRiveText(path: "readDays"): "47"
+                ],
+                backgroundColor: cream,
+                localizedStrings: .init(accessibilityLabel: "You read 350 articles across 47 days."),
+                showsShareButton: false
+            ),
+            WMFYearInReviewSlideViewModel(
+                id: "streak",
+                loggingID: "streak",
+                animation: WMFRiveAnimation(resourceName: riveResourceName, artboardName: frame2, stateMachineName: stateMachine),
+                text: [
+                    WMFRiveText(path: "headline1"): "YOUR LONGEST",
+                    WMFRiveText(path: "headline2"): "STREAK",
+                    WMFRiveText(path: "bodyCopy"): "Thirty-one days in a row, from 4 to 14 March.",
+                    WMFRiveText(path: "streakNumber"): "31"
+                ],
+                backgroundColor: mint,
+                localizedStrings: .init(accessibilityLabel: "Your longest streak was 31 days.")
+            ),
+            WMFYearInReviewSlideViewModel(
+                id: "minutesRead",
+                loggingID: "minutesRead",
+                animation: WMFRiveAnimation(resourceName: riveResourceName, artboardName: frame1, stateMachineName: stateMachine),
+                text: [
+                    WMFRiveText(path: "headline1"): "924 MINUTES",
+                    WMFRiveText(path: "headline2"): "OF READING",
+                    WMFRiveText(path: "bodyCopy"): "Mostly on Wednesday evenings, going by your reading history.",
+                    WMFRiveText(path: "readDays"): "128"
+                ],
+                backgroundColor: tan,
+                localizedStrings: .init(accessibilityLabel: "You read for 924 minutes.")
             )
-        }
+        ]
     }
+
+    // TEMPORARY: the sample export, replaced per slide when design delivers the real files.
+    private static let riveResourceName = "autolayout_multiple_instances_test"
 }
