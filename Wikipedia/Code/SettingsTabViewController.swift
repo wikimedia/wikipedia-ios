@@ -179,6 +179,7 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
             DonateFunnel.shared.logYearInReviewSettingsDidAppear()
         }
     }
+
     // MARK: - Navigation Bar Configuration
 
     private func configureNavigationBar() {
