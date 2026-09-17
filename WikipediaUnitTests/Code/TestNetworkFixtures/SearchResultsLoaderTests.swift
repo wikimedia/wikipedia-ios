@@ -78,6 +78,42 @@ struct SearchResultsLoaderTests {
         URL(string: "https://en.wikipedia.org")!
     }
 
+    @Test
+    func cancelledTaskDoesNotStartAnyRequest() async {
+        let fetcher = GatedSearchFetcher()
+        let loader = SearchResultsLoader(fetcher: fetcher)
+
+        let task = Task {
+            withUnsafeCurrentTask { $0?.cancel() }
+            return try await loader.fetchResults(for: "foo", siteURL: siteURL)
+        }
+
+        await #expect(throws: CancellationError.self) {
+            try await task.value
+        }
+        #expect(fetcher.requestCount == 0)
+    }
+
+    @Test
+    func cancellationDuringThePrefixSearchCancelsTheFetcher() async {
+        let fetcher = GatedSearchFetcher()
+        let loader = SearchResultsLoader(fetcher: fetcher)
+
+        let task = Task {
+            try await loader.fetchResults(for: "foo", siteURL: siteURL)
+        }
+        while fetcher.requestCount == 0 {
+            await Task.yield()
+        }
+        task.cancel()
+
+        await #expect(throws: CancellationError.self) {
+            try await task.value
+        }
+        #expect(fetcher.requestCount == 1)
+        #expect(fetcher.cancelAllFetchesCount == 1)
+    }
+
     private func makeHarness() -> (fetcher: WMFSearchFetcher, httpClient: SearchHTTPClient) {
         let httpClient = SearchHTTPClient()
         let session = Session(configuration: .current, httpClientProvider: SearchHTTPClientProvider(httpClient: httpClient))
@@ -98,3 +134,29 @@ struct SearchResultsLoaderTests {
 }
 
 private final class SearchResultsLoaderTestBundleToken {}
+
+/// Holds every request until `cancelAllFetches()` fails it with a cancellation error.
+private final class GatedSearchFetcher: WMFSearchFetcher {
+    private let lock = NSLock()
+    private var pendingFailures: [(Error) -> Void] = []
+    private(set) var requestCount = 0
+    private(set) var cancelAllFetchesCount = 0
+
+    override func fetchArticles(forSearchTerm searchTerm: String, siteURL: URL, resultLimit: UInt, fullTextSearch: Bool, appendToPreviousResults previousResults: WMFSearchResults?, failure: @escaping WMFErrorHandler, success: @escaping WMFSearchResultsHandler) {
+        lock.lock()
+        requestCount += 1
+        pendingFailures.append(failure)
+        lock.unlock()
+    }
+
+    override func cancelAllFetches() {
+        lock.lock()
+        cancelAllFetchesCount += 1
+        let failures = pendingFailures
+        pendingFailures.removeAll()
+        lock.unlock()
+        for failure in failures {
+            failure(NSError(domain: NSURLErrorDomain, code: NSURLErrorCancelled))
+        }
+    }
+}
