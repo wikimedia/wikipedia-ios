@@ -7,6 +7,7 @@ public struct WMFRiveFailure: Sendable {
         case worker
         case file
         case binding
+        case font
     }
 
     public let animation: WMFRiveAnimation

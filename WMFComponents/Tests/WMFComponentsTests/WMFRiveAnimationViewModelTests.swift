@@ -79,4 +79,10 @@ struct WMFRiveAnimationViewModelTests {
     func aMissingResourceIsReportedBeforeAnyLoad() {
         #expect(WMFRiveWorkerProvider.resourceExists(for: animation) == false)
     }
+
+    @Test
+    func theSampleAnimationIsInTheBundle() {
+        let sample = WMFRiveAnimation(resourceName: "autolayout_multiple_instances_test")
+        #expect(WMFRiveWorkerProvider.resourceExists(for: sample))
+    }
 }

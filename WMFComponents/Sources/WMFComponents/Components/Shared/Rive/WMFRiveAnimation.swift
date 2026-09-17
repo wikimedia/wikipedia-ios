@@ -13,7 +13,7 @@ public struct WMFRiveAnimation: Sendable, Equatable {
     }
 }
 
-public struct WMFRiveText: Sendable, Hashable {
+public nonisolated struct WMFRiveText: Sendable, Hashable {
 
     public let path: String
 
@@ -22,7 +22,7 @@ public struct WMFRiveText: Sendable, Hashable {
     }
 }
 
-public struct WMFRiveNumber: Sendable, Hashable {
+public nonisolated struct WMFRiveNumber: Sendable, Hashable {
 
     public let path: String
 
